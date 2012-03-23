@@ -215,7 +215,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "Flare") == 0 ||
 				strcmp(name, "MetalDetector") == 0 ||
 				strcmp(name, "FingerPrintID") == 0 ||
-				strcmp(name, "AmmoCrate") == 0 ||
 				strcmp(name, "Cannon") == 0 ||
 				strcmp(name, "RocketRifle") == 0 ||
 				strcmp(name, "MedicalKit") == 0 ||
@@ -251,6 +250,12 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "RecoilModifierX") == 0 ||
 				strcmp(name, "RecoilModifierY") == 0 ||
 				strcmp(name, "PercentRecoilModifier") == 0 ||
+				strcmp(name, "barrel") == 0 ||
+				strcmp(name, "usOverheatingCooldownFactor") == 0 ||
+				strcmp(name, "overheatTemperatureModificator") == 0 ||
+				strcmp(name, "overheatCooldownModificator") == 0 ||
+				strcmp(name, "overheatJamThresholdModificator") == 0 ||
+				strcmp(name, "overheatDamageThresholdModificator") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ))
 		{
@@ -563,7 +568,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ItemSize") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.ItemSize = (UINT8) atol(pData->szCharData);
+			pData->curItem.ItemSize = (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "usPrice") == 0)
 		{
@@ -1093,11 +1098,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.fingerprintid    = (BOOLEAN) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "AmmoCrate")	 == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curItem.ammocrate    = (BOOLEAN) atol(pData->szCharData);
-		}
 		else if(strcmp(name, "Rock")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -1244,6 +1244,38 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 				strcmp(name, "PRONE_MODIFIERS") == 0)
 		{
 			pData->curElement = ELEMENT;
+		}
+
+		// Flugente FTW 1.2
+		else if(strcmp(name, "barrel")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.barrel    = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "usOverheatingCooldownFactor") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usOverheatingCooldownFactor  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "overheatTemperatureModificator") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.overheatTemperatureModificator  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "overheatCooldownModificator") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.overheatCooldownModificator  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "overheatJamThresholdModificator") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.overheatJamThresholdModificator  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "overheatDamageThresholdModificator") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.overheatDamageThresholdModificator  = (FLOAT) atof(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -1790,7 +1822,6 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<ContainsLiquid>%d</ContainsLiquid>\r\n",						Item[cnt].containsliquid  );
 			FilePrintf(hFile,"\t\t<MetalDetector>%d</MetalDetector>\r\n",						Item[cnt].metaldetector   );
 			FilePrintf(hFile,"\t\t<FingerPrintID>%d</FingerPrintID>\r\n",						Item[cnt].fingerprintid    );
-			FilePrintf(hFile,"\t\t<AmmoCrate>%d</AmmoCrate>\r\n",						Item[cnt].ammocrate    );
 
 			// HEADROCK HAM 4: Print out new values
 			FilePrintf(hFile,"\t\t<ScopeMagFactor>%d</ScopeMagFactor>\r\n",						Item[cnt].scopemagfactor    );
@@ -1842,6 +1873,15 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[2]    );
 			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[2]    );
 			FilePrintf(hFile,"\t\t</PRONE_MODIFIERS>\r\n");
+
+			// Flugente FTW 1.2
+			FilePrintf(hFile,"\t\t<barrel>%d</barrel>\r\n",						Item[cnt].barrel    );
+			FilePrintf(hFile,"\t\t<usOverheatingCooldownFactor>%4.2f</usOverheatingCooldownFactor>\r\n",						Item[cnt].usOverheatingCooldownFactor    );
+			FilePrintf(hFile,"\t\t<overheatTemperatureModificator>%4.2f</overheatTemperatureModificator>\r\n",					Item[cnt].overheatTemperatureModificator    );
+			FilePrintf(hFile,"\t\t<overheatCooldownModificator>%4.2f</overheatCooldownModificator>\r\n",						Item[cnt].overheatCooldownModificator    );
+			FilePrintf(hFile,"\t\t<overheatJamThresholdModificator>%4.2f</overheatJamThresholdModificator>\r\n",				Item[cnt].overheatJamThresholdModificator    );
+			FilePrintf(hFile,"\t\t<overheatDamageThresholdModificator>%4.2f</overheatDamageThresholdModificator>\r\n",			Item[cnt].overheatDamageThresholdModificator    );
+
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

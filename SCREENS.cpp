@@ -26,6 +26,12 @@ UINT16 SCREEN_HEIGHT;
 INT16 iScreenWidthOffset;
 INT16 iScreenHeightOffset;
 
+UINT16 xResSize;		// 640 / 800 / 1024
+UINT16 yResSize;		// 480 / 600 / 768
+
+UINT16 xResOffset;		// For ARSP: ((SCREEN_WIDTH - xResSize) / 2)
+UINT16 yResOffset;		// For ARSP: ((SCREEN_HEIGHT - yResSize) / 2)
+
 BOOLEAN fDisplayOverheadMap;
 
 Screens GameScreens[MAX_SCREENS] =

@@ -2369,7 +2369,7 @@ void DoneFadeOutForSaveLoadScreen( void )
 		else
 		{
 			//CHRISL: New fail message if we failed because of screen res
-			if(UsingNewInventorySystem() == true && iResolution == 0)
+			if(UsingNewInventorySystem() == true && iResolution >= _640x480 && iResolution < _800x600)
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_INV_RES_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();
@@ -2379,7 +2379,8 @@ void DoneFadeOutForSaveLoadScreen( void )
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_INV_CUSTUM_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();
 			}
-			else if ((gGameOptions.ubSquadSize > 6 && iResolution == 0) || (gGameOptions.ubSquadSize > 8 && iResolution == 1))
+			else if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
+				(gGameOptions.ubSquadSize == 10 && iResolution < _1024x768))
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_SQUAD_SIZE_RES_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();

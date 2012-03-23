@@ -2148,7 +2148,7 @@ void AssignSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel )
 						wcscat( apStr, atStr );
 					}
 				}
-				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameOptions.fImprovedInterruptSystem )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[27], ( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
@@ -2185,7 +2185,7 @@ void AssignSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel )
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[2], ( gSkillTraitValues.ubSLEffectiveLevelAsStandby * (fExpertLevel ? 2 : 1)));
 					wcscat( apStr, atStr );
 				}
-				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameOptions.fImprovedInterruptSystem )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[11], ( gSkillTraitValues.ubSLCollectiveInterruptsBonus * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );

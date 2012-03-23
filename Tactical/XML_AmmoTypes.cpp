@@ -78,7 +78,8 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "lockBustingPower") == 0 ||
 				strcmp(name, "acidic") == 0 ||
 				strcmp(name, "tracerEffect") == 0 ||
-				strcmp(name, "monsterSpit") == 0 ))
+				strcmp(name, "monsterSpit") == 0 ||
+				strcmp(name, "temperatureModificator") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -276,6 +277,11 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.tracerEffect	= (BOOLEAN) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "temperatureModificator") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.temperatureModificator	= (FLOAT) atof(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -397,6 +403,7 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<ignoreArmour>%d</ignoreArmour>\r\n",								AmmoTypes[cnt].ignoreArmour	);
 			FilePrintf(hFile,"\t\t<lockBustingPower>%d</lockBustingPower>\r\n",								AmmoTypes[cnt].lockBustingPower	);
 			FilePrintf(hFile,"\t\t<tracerEffect>%d</tracerEffect>\r\n",								AmmoTypes[cnt].tracerEffect	);
+			FilePrintf(hFile,"\t\t<temperatureModificator>%4.2f</temperatureModificator>\r\n",								AmmoTypes[cnt].temperatureModificator	);
 
 
 			FilePrintf(hFile,"\t</AMMOTYPE>\r\n");

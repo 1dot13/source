@@ -933,6 +933,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_OldAIMArchive.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_ShippingDestinations.cpp"
 				>
 			</File>

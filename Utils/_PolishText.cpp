@@ -2879,6 +2879,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Idź do sektora",
 	L"Otwórz mapę",
 	L"Nie można opuŚcić sektora z tej strony.",
+	L"You can't leave in turn based mode.",		// TODO.Translate
 	L"%s jest zbyt daleko.",
 	L"Usuń korony drzew",
 	L"Pokaż korony drzew",
@@ -4446,7 +4447,8 @@ STR16			BobbyRText[] =
 
 	//Popup that tells the player that they can only order 10 items at a time
 	
-	L"Przepraszamy za to utrudnienie, ale na jednym zamówieniu może się znajdować tylko 10 pozycji! JeŚli potrzebujesz więcej, złóż kolejne zamówienie.",
+	L"Przepraszamy za to utrudnienie, ale na jednym zamówieniu może się znajdować tylko " ,//First part
+	L" pozycji! JeŚli potrzebujesz więcej, złóż kolejne zamówienie.",
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
@@ -5057,10 +5059,13 @@ STR16		zOptionsToggleText[] =
 	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
-	L"Activate New CTH system",				// use NCTH
+	//L"Activate New CTH system",				// use NCTH
+	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
 	L"Show Face gear graphics",				// TODO.Translate
 	L"Show Face gear icons",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
+	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
+	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5162,10 +5167,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Gdy WŁ¥CZONE, pokazuje postęp w doŚwiadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Gdy WŁ¥CZONE, zastępuje starą animację pocisku nową.",
-	L"When ON, New CTH system and cursor is used.",
+	//L"When ON, New CTH system and cursor is used.",
+	L"When ON, ranks will be displayed before merc names in the strategic view.",			// TODO.Translate
 	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
+	L"When ON, AI turns will be much faster.",		// TODO.Translate
+	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"WymuŚ wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5257,11 +5265,18 @@ STR16	gzGIOScreenText[] =
 	L"Nowe / Stare",
 	L"Nowe / Nowe",
 
+	// TODO.Translate
 	// Squad Size
 	L"Max. Squad Size",
 	L"6",
 	L"8",
 	L"10",
+	//L"Faster Bobby Ray Shipments",
+	L"Inventory Manipulation Costs AP",
+
+	L"New Chance to Hit System",
+	L"Improved Interrupt System",
+	L"Weapon Overheating",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5583,6 +5598,9 @@ STR16 pMessageStrings[] =
 	L"AutoSaveGame%02d.sav",	// 101
 	L"Auto%02d.sav",	// 102
 	L"SaveGame%02d.sav", //103
+	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
+	L"Locking mouse cursor to stay within window boundary.",			// 104
+	L"Releasing mouse cursor to move outside window boundary.",			// 105
 };
 
 
@@ -6065,6 +6083,7 @@ STR16 New113Message[] =
 	//////////////////////////////////////////////////////////////////////////////
 	L"Warning: enemy corpse found!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",
+	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
@@ -6834,6 +6853,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|A|r|m|o|r |P|i|e|r|c|i|n|g",
 	L"|B|u|l|l|e|t |T|u|m|b|l|e",
 	L"|P|r|e|-|I|m|p|a|c|t |E|x|p|l|o|s|i|o|n",
+	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|c|a|t|i|o|n",		// TODO.Translate
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -6841,6 +6861,7 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen above 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen below 1.0, the bullet increases the\nprotection value of the armor instead.\n \nHigher is better.",
 	L"\n \nDetermines a proportional increase of damage\npotential once the bullet gets through the\ntarget's armor and hits the bodypart behind it.\n \nWhen above 1.0, the bullet's damage\nincreases after penetrating the armor.\n \nWhen below 1.0, the bullet's damage\npotential decreases after passing through armor.\n \nHigher is better.",
 	L"\n \nA multiplier to the bullet's damage potential\nthat is applied immediately before hitting the\ntarget.\n \nValues above 1.0 indicate an increase in damage,\nvalues below 1.0 indicate a decrease.\n \nHigher is better.",
+	L"\n \nAdditional heat generated by this ammunition.\n \nLower is better.",		// TODO.Translate
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
@@ -6997,6 +7018,14 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|C|o|u|n|t|e|r|-|F|o|r|c|e |F|r|e|q|u|e|n|c|y",
 	L"|T|o|-|H|i|t |B|o|n|u|s",
 	L"|A|i|m |B|o|n|u|s",
+	L"|S|i|n|g|l|e |S|h|o|t |T|e|m|p|e|r|a|t|u|r|e",		// TODO.Translate
+	L"|C|o|o|l|d|o|w|n |F|a|c|t|o|r",
+	L"|J|a|m |T|r|e|s|h|o|l|d",
+	L"|D|a|m|a|g|e |T|r|e|s|h|o|l|d",
+	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|c|a|t|o|r",
+	L"|C|o|o|l|d|o|w|n |M|o|d|i|f|i|c|a|t|o|r",
+	L"|J|a|m |T|r|e|s|h|o|l|d |M|o|d|i|f|i|c|a|t|o|r",
+	L"|D|a|m|a|g|e |T|r|e|s|h|o|l|d |M|o|d|i|f|i|c|a|t|o|r",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7050,6 +7079,14 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil, during Burst\nor Autofire volleys.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
 	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's CTH value.\n \nIncreased CTH allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
 	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's Aim Bonus.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
+	L"\n \nA single shot causes this much heat.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",					// TODO.Translate
+	L"\n \nEvery turn, the temperature is lowered\nby this amount.\n \nHigher is better.",
+	L"\n \nIf an item's temperature is above this,\nit will jam more frequently.\n \nHigher is better.",
+	L"\n \nIf an item's temperature is above this,\nit will be damaged more easily.\n \nHigher is better.",
+	L"\n \nA gun's single shot temperature is\nincreased by this percentage.\n \nLower is better.",
+	L"\n \nA gun's cooldown factor is\nincreased by this percentage.\n \nHigher is better.",
+	L"\n \nA gun's jam threshold is\nincreased by this percentage.\n \nHigher is better.",
+	L"\n \nA gun's damage threshold is\nincreased by this percentage.\n \nHigher is better.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -7102,6 +7139,10 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil.\n \nNaturally, this has no effect if the weapon lacks\nboth Burst and Auto-Fire modes.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
 	L"\n \nThis weapon's to-hit is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased To-Hit allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
 	L"\n \nThis weapon's Aim Bonus is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
+	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",					// TODO.Translate
+	L"\n \nEvery turn, the temperature is lowered\nby this amount.\nWeapon attachments can affect this.\n \nHigher is better.",
+	L"\n \nIf a gun's temperature is above this,\nit will jam more frequently.",
+	L"\n \nIf a gun's temperature is above this,\nit will be damaged more easily.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -7113,6 +7154,37 @@ STR16 gzNCTHlabels[]=
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
+
+// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+STR16 gTemperatureDesc[] =			// TODO.Translate
+{
+	L"Temperature is ",
+	L"very low",
+	L"low",
+	L"medium",
+	L"high",
+	L"very high",
+	L"dangerous",
+	L"CRITICAL",
+	L"DRAMATIC",
+	L"unknown",
+	L"."
+};
+
+// TODO.Translate
+CHAR16* ranks[] = 
+{	L"",			//ExpLevel 0
+	L"Pvt. ",		//ExpLevel 1
+	L"Pfc. ",		//ExpLevel 2
+	L"Cpl. ",		//ExpLevel 3
+	L"Sgt. ",		//ExpLevel 4
+	L"Lt. ",		//ExpLevel 5
+	L"Cpt. ",		//ExpLevel 6
+	L"Maj. ",		//ExpLevel 7
+	L"Lt.Col. ",	//ExpLevel 8
+	L"Col. ",		//ExpLevel 9
+	L"Gen. "		//ExpLevel 10
+};
 
 //Ja25 UB
 

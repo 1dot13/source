@@ -5596,13 +5596,16 @@ void PreProcessEmail( EmailPtr pMail )
 	// WANNE: Get the text and replace name!
 	int iNew113MERCMerc = 0;
 	int iNew113AIMMerc = 0;
+
 	int iEmailMERCMessage = 0;
 	int iEmailAIMMessage = 0;
 	int iEmailOther = 0;
 	int iEmailBobbyRMessage = 0;
 	int iEmailInsurance = 0;
 	int iNew113CustomUserMerc = 0;	
-  if ( pMail->EmailVersion == TYPE_EMAIL_EMAIL_EDT )
+
+
+	if ( pMail->EmailVersion == TYPE_EMAIL_EMAIL_EDT )
 	{	
 		if (pMail->usLength == MERC_UP_LEVEL_GASTON || pMail->usLength == MERC_UP_LEVEL_STOGIE ||
 			pMail->usLength == MERC_UP_LEVEL_TEX || pMail->usLength == MERC_UP_LEVEL_BIGGENS)

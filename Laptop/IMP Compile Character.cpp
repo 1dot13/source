@@ -592,7 +592,9 @@ UINT32 cnt;
 
 			if( fCharacterIsMale )
 			{
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = 200 + ( UINT8 )iPortraitNumber;
+			//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = 200 + ( UINT8 )iPortraitNumber;
+			
+			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = ( UINT8 )iPortraitNumber;
 
 			// eyes
 			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usEyesX = sFacePositions[ gIMPMaleValues[iPortraitNumber].uiEyeXPositions ][ 0 ];
@@ -604,7 +606,9 @@ UINT32 cnt;
 			}
 			else
 			{
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = 200 + ( UINT8 )iPortraitNumber;
+			//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = 200 + ( UINT8 )iPortraitNumber;
+			
+			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = ( UINT8 )iPortraitNumber;
 
 			// eyes
 			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usEyesX = sFacePositions[ gIMPFemaleValues[iPortraitNumber].uiEyeXPositions ][ 0 ];

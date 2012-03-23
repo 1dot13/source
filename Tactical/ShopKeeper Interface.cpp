@@ -1043,8 +1043,18 @@ ATM:
 			gubArrayOfEmployedMercs[ gubNumberMercsInArray ] = pSoldier->ubProfile;
 
 			//Create the string for the face file name
+			//sprintf( zTemp, "FACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
+			
+			
+		if ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
+		{
+			sprintf( zTemp, "IMPFACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );	
+		} 
+		else
+		{			
 			sprintf( zTemp, "FACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
-
+		}
+			
 			//While we are at it, add their small face
 			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 			FilenameForBPP( zTemp, VObjectDesc.ImageFile);
@@ -1728,7 +1738,7 @@ void		GetShopKeeperInterfaceUserInput()
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	while( DequeueEvent( &Event ) )
+	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		// HOOK INTO MOUSE HOOKS
 /* removed warning condition C4060 (jonathanl)

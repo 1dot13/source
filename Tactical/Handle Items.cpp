@@ -2292,6 +2292,11 @@ OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 	// IF SO, DONT'T ADD!
 	bTerrainID = GetTerrainType( *psGridNo );
 
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	if ( TERRAIN_IS_WATER( bTerrainID) && ubLevel > 0 )
+		bTerrainID = FLAT_GROUND;
+
 	if ( TERRAIN_IS_WATER( bTerrainID) )
 	{
 		//		if ( Item[ pObject->usItem ].fFlags & ITEM_SINKS )

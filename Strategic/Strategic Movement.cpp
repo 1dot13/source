@@ -1650,6 +1650,12 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		return;
 	}
 
+	// group arrival already processed?
+	if ( !pGroup->fBetweenSectors && pGroup->ubNextX == 0 && pGroup->ubNextY == 0 )
+	{
+		return;
+	}
+
 	if( pGroup->fPlayer )
 	{
 		//Set the fact we have visited the	sector

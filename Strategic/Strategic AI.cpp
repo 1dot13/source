@@ -1515,7 +1515,7 @@ void InitStrategicAI()
 	//final thing to do is choose 1 cache map out of 5 possible maps.	Simply select the sector randomly,
 	//set up the flags to use the alternate map, then place 8-12 regular troops there (no ai though).
 	//changing MAX_STRATEGIC_TEAM_SIZE may require changes to to the defending force here.
-	if ( !gGameOptions.fEnableAllWeaponCaches ) // SANDRO - weapon caches settings changed
+	if ( !gGameExternalOptions.fEnableAllWeaponCaches ) // SANDRO - weapon caches settings changed
 	{
 		// added a chance to have more than one weapon caches in game
 		INT8 ubPicked[2] = { 0,0 };

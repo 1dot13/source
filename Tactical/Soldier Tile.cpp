@@ -480,6 +480,11 @@ BOOLEAN HandleNextTile( SOLDIERTYPE *pSoldier, INT8 bDirection, INT32 sGridNo, I
 
 			bOverTerrainType = GetTerrainType( sGridNo );
 
+			// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+			// This should fix "problems" for special modified maps
+			if ( TERRAIN_IS_WATER( bOverTerrainType) && pSoldier->pathing.bLevel > 0 )
+				bOverTerrainType = FLAT_GROUND;
+
 			// Check if we are going into water!
 			if ( TERRAIN_IS_WATER( bOverTerrainType) )
 			{

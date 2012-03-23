@@ -45,14 +45,19 @@ void SaveVideoOverlayArea( UINT32 uiSrcBuffer, UINT32 uiCount );
 //UINT32 guiNumTopmostSaves=0;
 
 // do zmiany
-SGPRect		gDirtyClipRect = { 0, 0, 1024, 768 };
-
+//SGPRect		gDirtyClipRect = { 0, 0, 2560, 1600 };
+SGPRect		gDirtyClipRect = { 0, 0, 0, 0 }; 
 
 BOOLEAN		gfViewportDirty=FALSE;
 
 
 BOOLEAN InitializeBaseDirtyRectQueue( )
 {
+	gDirtyClipRect.iLeft = 0;
+	gDirtyClipRect.iTop = 0;
+	gDirtyClipRect.iRight = SCREEN_WIDTH;
+	gDirtyClipRect.iBottom = SCREEN_HEIGHT;
+
 	return( TRUE );
 }
 

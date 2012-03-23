@@ -632,23 +632,6 @@ void DrawIconL(INT32 MAP_GRID_X2, INT32 MAP_GRID_Y2, INT32 i, INT32 Sector_X , I
 		sX = (UINT16) (MAP_VIEW_START_X + MAP_GRID_X +  (MAP_GRID_X2 * MAP_GRID_X) / 10);
 		sY = (UINT16) (MAP_VIEW_START_Y + MAP_GRID_Y + ((MAP_GRID_Y2 * MAP_GRID_Y) / 10) + 1);
 		
-		/*
-		if (iResolution == 0)
-		{
-			sY += MAP_GRID_Y2;
-			sX += MAP_GRID_X2;
-		}
-		else if (iResolution == 1)
-		{
-			sY += + 5 + MAP_GRID_Y2;
-			sX += - MAP_GRID_X2 + 3;
-		}
-		else if (iResolution == 2)
-		{
-			sY += + 10 + MAP_GRID_Y2;
-			sX += - MAP_GRID_X2 + 10;
-		}
-		*/
 		ubVidObjIndex = 1;
 	}
 
@@ -1414,17 +1397,17 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	UINT8 iconOffsetX = 0;
 	UINT8 iconOffsetY = 0;
 	
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		iconOffsetX = 2;
-		iconOffsetY = 1;
+		iconOffsetY = 9;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		iconOffsetX = 8;
 		iconOffsetY = 12;
 	}
-	else if (iResolution == 2)
+	else
 	{
 		iconOffsetX = 12;
 		iconOffsetY = 13;
@@ -2043,21 +2026,23 @@ BOOLEAN ShadeMapElemZoomIn(INT16 sMapX, INT16 sMapY, INT32 iColor )
 
 void InitializeMilitiaPopup(void)
 {
-	// WANNE.MAP.TODO:
-	if (iResolution == 0)
+	UINT16 xVal = 400;
+	UINT16 yVal = 125;
+
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		MAP_MILITIA_BOX_POS_X = 400;
-		MAP_MILITIA_BOX_POS_Y = 125;
+		MAP_MILITIA_BOX_POS_X = xVal;
+		MAP_MILITIA_BOX_POS_Y = yVal;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
-		MAP_MILITIA_BOX_POS_X = 400 + 77;
-		MAP_MILITIA_BOX_POS_Y = 125 + 116;
+		MAP_MILITIA_BOX_POS_X = xVal + 77;
+		MAP_MILITIA_BOX_POS_Y = yVal + 116;
 	}
-	else if (iResolution == 2)
+	else
 	{
-		MAP_MILITIA_BOX_POS_X = 400 + 190;
-		MAP_MILITIA_BOX_POS_Y = 125 + 285;
+		MAP_MILITIA_BOX_POS_X = xVal + 190;
+		MAP_MILITIA_BOX_POS_Y = yVal + 285;
 	}
 }
 
@@ -2072,14 +2057,14 @@ BOOLEAN InitializePalettesForMap( void )
 	// load image
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
  		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
-	else if (iResolution == 2)
+	else
 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1024x768.pcx");
 
-  CHECKF(AddVideoSurface(&vs_desc, &uiTempMap));
+	CHECKF(AddVideoSurface(&vs_desc, &uiTempMap));
 
 	// get video surface
 	CHECKF( GetVideoSurface( &hSrcVSurface, uiTempMap) );
@@ -4485,17 +4470,17 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 	UINT8 iconOffsetX = 0;
 	UINT8 iconOffsetY = 0;
 	
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		iconOffsetX = 2;
 		iconOffsetY = 1;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		iconOffsetX = 3;
 		iconOffsetY = 2;
 	}
-	else if (iResolution == 2)
+	else
 	{
 		iconOffsetX = 4;
 		iconOffsetY = 3;
@@ -4755,9 +4740,17 @@ void DisplayDistancesForHelicopter( void )
 	sOldYPosition = sYPosition;
 
 	// blit in background
+	UINT8 imageIndex = 0;
 	GetVideoObject( &hHandle, guiMapBorderHeliSectors );
-	BltVideoObject( FRAME_BUFFER, hHandle, iResolution, MAP_HELICOPTER_ETA_POPUP_X, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 
+	if (iResolution >= _640x480 && iResolution < _800x600)
+		imageIndex = 0;
+	else if (iResolution < _1024x768)
+		imageIndex = 1;
+	else
+		imageIndex = 2;
+		
+	BltVideoObject( FRAME_BUFFER, hHandle, imageIndex, MAP_HELICOPTER_ETA_POPUP_X, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 
 //	sTotalCanTravel = ( INT16 )GetTotalDistanceHelicopterCanTravel( );
 	sDistanceToGo = ( INT16 )DistanceOfIntendedHelicopterPath( );
@@ -4944,7 +4937,7 @@ void DisplayPositionOfHelicopter( void )
 
 			GetVideoObject( &hHandle, guiHelicopterIcon );
 
-			if (iResolution > 0)
+			if (iResolution >= _800x600)
 			{
 				x = x + (MAP_GRID_X / 2) - 10;
 				y = y + 1 + (MAP_GRID_Y / 2) - 10;
@@ -5014,7 +5007,7 @@ void DisplayDestinationOfHelicopter( void )
 		GetVideoObject( &hHandle, guiHelicopterIcon );
 		BltVideoObject( FRAME_BUFFER, hHandle, HELI_SHADOW_ICON, x, y, VO_BLT_SRCTRANSPARENCY, NULL );
 
-		if (iResolution > 0)
+		if (iResolution >= _800x600)
 		{
 			x = x + (MAP_GRID_X / 2) - 10;
 			y = y + 1 + (MAP_GRID_Y / 2) - 10;
@@ -5456,9 +5449,7 @@ void DisplayLevelString( void )
 		return;
 	}
 
-	// otherwise we will have to display the string with the level number
-
-	SetFontDestBuffer( guiSAVEBUFFER, MAP_VIEW_START_X, MAP_VIEW_START_Y, MAP_VIEW_START_X+MAP_VIEW_WIDTH+MAP_GRID_X, MAP_VIEW_START_Y+MAP_VIEW_HEIGHT+7, FALSE );
+	SetFontDestBuffer( guiSAVEBUFFER, xResOffset + MAP_VIEW_START_X, MAP_VIEW_START_Y, xResOffset + MAP_VIEW_START_X+MAP_VIEW_WIDTH+MAP_GRID_X, MAP_VIEW_START_Y+MAP_VIEW_HEIGHT+7, FALSE );
 
 	SetFont( MAP_FONT );
 	SetFontForeground( MAP_INDEX_COLOR );
@@ -5596,11 +5587,11 @@ BOOLEAN LoadMilitiaPopUpBox( void )
 	// load the militia pop up box
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 		FilenameForBPP("INTERFACE\\Militia_800x600.sti", VObjectDesc.ImageFile);
-	else if (iResolution == 2)
+	else
 		FilenameForBPP("INTERFACE\\Militia_1024x768.sti", VObjectDesc.ImageFile);
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMilitia));
@@ -5994,11 +5985,11 @@ void CreateDestroyMilitiaSectorButtons( void )
 			sY += ( iCounter * ( MILITIA_BTN_HEIGHT ) + 2 );
 
 			// set the button image
-			if (iResolution == 0)
+			if (iResolution >= _640x480 && iResolution < _800x600)
 				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia.sti", -1,3,-1,4,-1 );
-			else if (iResolution == 1)
+			else if (iResolution < _1024x768)
 				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti", -1,3,-1,4,-1 );
-			else if (iResolution == 2)
+			else
 				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti", -1,3,-1,4,-1 );
 
 			// set the button value
@@ -6462,17 +6453,17 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 void CreateMilitiaPanelBottomButton( void )
 {
 	// set the button image
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
 		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
 		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
 	}
-	else if (iResolution == 2)
+	else
 	{
 		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
 		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
@@ -6874,24 +6865,30 @@ void HandleLowerLevelMapBlit( void )
 			return;
 	}
 
-	if (iResolution == 0)
+	UINT8 xVal = 21;
+	UINT8 yVal = 17;
+	UINT8 imageIndex = 0;
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		offsetX = 21;
-		offsetY = 17;
+		offsetX = xVal;
+		offsetY = yVal;
+		imageIndex = 0;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
-		offsetX = 21 + 8;
-		offsetY = 17 + 7;
+		offsetX = xVal + 8;
+		offsetY = yVal + 7;
+		imageIndex = 1;
 	}
-	else if (iResolution == 2)
+	else
 	{
-		offsetX = 21 + 21;
-		offsetY = 17 + 17; 
+		offsetX = xVal + 21;
+		offsetY = yVal + 17;
+		imageIndex = 2;
 	}
 
 	// handle the blt of the sublevel
-	BltVideoObject( guiSAVEBUFFER, hHandle, iResolution, MAP_VIEW_START_X + offsetX, MAP_VIEW_START_Y + offsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( guiSAVEBUFFER, hHandle, imageIndex, MAP_VIEW_START_X + offsetX, MAP_VIEW_START_Y + offsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	// handle shading of sublevels
 	ShadeSubLevelsNotVisited( );
@@ -7480,29 +7477,22 @@ void DrawMapBoxIcon( HVOBJECT hIconHandle, UINT16 usVOIndex, INT16 sMapX, INT16 
 	INT32 iX, iY;
 
 
-	UINT8 iconOffsetX = 0;
-	UINT8 iconOffsetY = 0;
+	UINT8 iconOffsetX = 2;
+	UINT8 iconOffsetY = 1;
 	UINT8 iconSize = 0;
 	
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		iconOffsetX = 2;
-		iconOffsetY = 1;
 		iconSize = 3;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
-		iconOffsetX = 2;
-		iconOffsetY = 1;
 		iconSize = 4;
 	}
-	else if (iResolution == 2)
+	else
 	{
-		iconOffsetX = 2;
-		iconOffsetY = 1;
 		iconSize = 6;
 	}
-
 
 	// don't show any more icons than will fit into one sector, to keep them from spilling into sector(s) beneath
 	if ( ubIconPosition >= ( MERC_ICONS_PER_LINE * ROWS_PER_SECTOR ) )
@@ -7625,7 +7615,7 @@ void DrawBullseye()
 	// draw the bullseye in that sector
 	GetVideoObject( &hHandle, guiBULLSEYE);
 
-	if (iResolution > 0)
+	if (iResolution >= _800x600)
 	{
 		sX = sX + MAP_GRID_X / 2 - 10;
 		sY = sY + 1 + MAP_GRID_Y / 2 - 10;

@@ -757,7 +757,7 @@ UINT32	MPChatScreenHandle( )
 	// carter, need key shortcuts for clearing up message boxes
 	// Check for esc
 	bool bHandled;
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		bHandled = false;
 		if(InputEvent.usEvent == KEY_DOWN )

@@ -1318,6 +1318,8 @@ public:
 	BOOLEAN IsValidSecondHandShot( void );
 	BOOLEAN IsValidSecondHandShotForReloadingPurposes( void );
 	BOOLEAN SoldierCarriesTwoHandedWeapon( void );
+	void	SoldierInventoryCoolDown( void );		// Flugente FTW 1: Cool down all items in inventory
+	BOOLEAN	IsWeaponMounted( void );
 
 }; // SOLDIERTYPE;	
 

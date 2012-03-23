@@ -20,6 +20,7 @@
 	#include "line.h"
 	#include "WCheck.h"
 	#include "Vehicles.h"
+	#include "GameSettings.h"
 #endif
 
 #define			LIFE_BAR_SHADOW							FROMRGB( 108, 12, 12 )
@@ -388,7 +389,7 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 
 	if ( ubStatus >= DRAW_ITEM_STATUS_ATTACHMENT1 )
 	{
-		sValue = 0;
+		sValue = 0;	
 		OBJECTTYPE* pAttachment = (*pObject)[iter]->GetAttachmentAtIndex( ubStatus - DRAW_ITEM_STATUS_ATTACHMENT1 );
 		if (pAttachment->exists()) {
 			sValue = (*pAttachment)[iter]->data.objectStatus;
@@ -427,10 +428,23 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 		sValue =100;
 	}
 
+	// Flugente FTW 1.2
+	if ( ubStatus == DRAW_ITEM_TEMPERATURE )
+	{
+		sValue = (INT16) (100 * GetGunOverheatJamPercentage( pObject) );
+
+		// if temperature is 0 or below, do not display anything
+		if ( sValue < 1)
+			return;
+
+		// cut off temperature at 100%, otherwise the bar will be out of its box
+		sValue = min(sValue, 100);
+	}
+
 	// ATE: Subtract 1 to exagerate bad status
 	if ( sValue < 100 && sValue > 1 )
 	{
-	sValue--;
+		sValue--;
 	}
 
 	// Erase what was there
@@ -441,8 +455,7 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 
 	pDestBuf = LockVideoSurface( uiBuffer, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-
-
+		
 	// FIRST DO BREATH
 	dPercentage = (FLOAT)sValue / (FLOAT)100;
 	dEnd				=	dPercentage * sHeight;

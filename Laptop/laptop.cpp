@@ -502,6 +502,9 @@ BOOLEAN gfWWWaitSubSitesVisitedFlags[LAPTOP_MODE_SIRTECH - LAPTOP_MODE_WWW ];
 
 //INT32 iBookMarkList[MAX_BOOKMARKS];
 
+// flag to see if mouse is captured in the laptop's area or not
+BOOLEAN fMouseCaptured;
+
 // mouse regions
 MOUSE_REGION gEmailRegion;
 MOUSE_REGION gWWWRegion;
@@ -821,6 +824,8 @@ UINT32 LaptopScreenInit()
 
 	gfAtLeastOneMercWasHired = FALSE;
 
+	fMouseCaptured = TRUE;
+
 	//No longer inits the laptop screens, now InitLaptopAndLaptopScreens() does
 #ifdef JA2UB	
 	InitJa25SaveStruct();
@@ -1117,6 +1122,7 @@ void ExitLaptop()
 	//}
 
 	// release cursor
+	fMouseCaptured = false;
 	FreeMouseCursor( );
 
 	// set the fact we are currently not in laptop, for rendering purposes
@@ -2059,16 +2065,16 @@ UINT32 LaptopScreenHandle()
 	//created in LaptopScreenInit()
 
 	// Correct the minor cosmetic bug (laptop zooming start not correct)
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		sXOffset = -2;
 		sYOffset = -2;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		sYOffset = -1;
 	}
-	else if (iResolution == 2)
+	else
 	{
 		sXOffset = 2;
 		sYOffset = 1;
@@ -2122,17 +2128,16 @@ UINT32 LaptopScreenHandle()
 			DstRect.iTop =	iScreenHeightOffset;						//0
 			DstRect.iRight = iScreenWidthOffset + 640;				//640
 			DstRect.iBottom = iScreenHeightOffset + 480;				//480
-			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
+
+			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset - xResOffset;
 			iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
+
 			uiTimeRange = 1000;
 			iPercentage = iRealPercentage = 0;
 			uiStartTime = GetJA2Clock();
 
 			BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset,
 				640, 480 );
-			// Lesh: moved into loop
-			//BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
-			//	SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
 
 			PlayJA2SampleFromFile( "SOUNDS\\Laptop power up (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
@@ -2195,7 +2200,10 @@ UINT32 LaptopScreenHandle()
 	RestoreBackgroundRects();
 
 	// lock cursor to screen
-	RestrictMouseCursor( &LaptopScreenRect );
+	if ( fMouseCaptured == TRUE )
+	{
+		RestrictMouseCursor( &LaptopScreenRect );
+	}
 
 
 
@@ -2393,7 +2401,6 @@ UINT32 LaptopScreenHandle()
 	EndFrameBufferRender( );
 	return (LAPTOP_SCREEN);
 }
-
 
 
 
@@ -2763,16 +2770,16 @@ BOOLEAN LeaveLapTopScreen( void )
 	INT16 sXOffset = 0;
 
 	// Correct the minor cosmetic bug (laptop zooming start not correct)
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		sXOffset = -2;
 		sYOffset = -2;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		sYOffset = -1;
 	}
-	else if (iResolution == 2)
+	else
 	{
 		sXOffset = 2;
 		sYOffset = 1;
@@ -2837,8 +2844,10 @@ BOOLEAN LeaveLapTopScreen( void )
 				DstRect.iTop = iScreenHeightOffset + 0;			// 0
 				DstRect.iRight = iScreenWidthOffset + 640;		// 640
 				DstRect.iBottom = iScreenHeightOffset + 480;		// 480
-				iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
+
+				iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset - xResOffset;
 				iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
+
 				uiTimeRange = 1000;
 				iPercentage = iRealPercentage = 100;
 				uiStartTime = GetJA2Clock();
@@ -2900,7 +2909,6 @@ BOOLEAN LeaveLapTopScreen( void )
 
 	return( TRUE );
 }
-
 
 BOOLEAN HandleExit( void )
 {
@@ -6025,7 +6033,23 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 			MarkButtonsDirty( );
 		}
 	}
+	else if( ( ( usEvent == KEY_DOWN ) || ( usEvent == KEY_REPEAT ) ) && ( ( usParam == 'z' ) || ( usParam == 'Z' ) || ( usParam == 'y' ) || ( usParam == 'Y' ) ) )
+	{
+		if ( usKeyState & CTRL_DOWN )
+		{
+			if ( fMouseCaptured == TRUE )
+			{
+				fMouseCaptured = FALSE;
+				FreeMouseCursor( );
+			}
+			else
+			{
+				fMouseCaptured = TRUE;
+				RestrictMouseCursor( &LaptopScreenRect );
+			}
 
+		}
+	}
 
 #ifdef JA2TESTVERSION
 	else if ((usEvent == KEY_DOWN )&& ( usParam == 'd' ))

@@ -266,26 +266,8 @@ void GetPlayerKeyBoardInputForIMPHomePage( void )
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
-		// HOOK INTO MOUSE HOOKS
-		/*
-		switch(InputEvent.usEvent)
-	{
-			case LEFT_BUTTON_DOWN:
-				MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-				break;
-			case LEFT_BUTTON_UP:
-				MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
-				break;
-			case RIGHT_BUTTON_DOWN:
-				MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-				break;
-			case RIGHT_BUTTON_UP:
-				MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-				break;
-	}
-*/
 		if(	!HandleTextInput( &InputEvent ) && (InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT || InputEvent.usEvent == KEY_UP ) )
 		{
 		switch( InputEvent.usParam )

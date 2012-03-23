@@ -1002,13 +1002,20 @@ void SetUIMouseCursor( )
 
 						if ( fOkForExit )
 						{
-							if ( gfUIConfirmExitArrows )
+							if ( gGameExternalOptions.fGridExitInTurnBased || ( gTacticalStatus.uiFlags & REALTIME ) || !( gTacticalStatus.uiFlags & INCOMBAT ) )
 							{
-								guiNewUICursor = CONFIRM_EXIT_GRID_UICURSOR;
+								if ( gfUIConfirmExitArrows )
+								{
+									guiNewUICursor = CONFIRM_EXIT_GRID_UICURSOR;
+								}
+								else
+								{
+									guiNewUICursor = EXIT_GRID_UICURSOR;
+								}
 							}
 							else
 							{
-								guiNewUICursor = EXIT_GRID_UICURSOR;
+								guiNewUICursor = NOEXIT_GRID_UICURSOR;
 							}
 						}
 						else

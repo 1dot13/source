@@ -1260,7 +1260,7 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	// CHRISL: Restrict system specific items
 	if( (UsingNewInventorySystem() == true) )
 	{
-		if(Item[usItemIndex].ItemSize == 99)
+		if(Item[usItemIndex].ItemSize == gGameExternalOptions.guiOIVSizeNumber)
 			return FALSE;
 	}
 	else
@@ -1430,7 +1430,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 		else if(pSoldier != NULL && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 			return (max(1, LBEPocketType[VEHICLE_POCKET_TYPE].ItemCapacityPerSize[__min(gGameExternalOptions.guiMaxItemSize,Item[pObject->usItem].ItemSize)])); //JMich
 		else
-			return (max(1, min(255,LBEPocketType[VEHICLE_POCKET_TYPE].ItemCapacityPerSize[__min(34,Item[pObject->usItem].ItemSize)]*4)));
+			return (max(1, min(255,LBEPocketType[VEHICLE_POCKET_TYPE].ItemCapacityPerSize[__min(gGameExternalOptions.guiMaxItemSize,Item[pObject->usItem].ItemSize)]*4)));
 	}
 
 	if (UsingNewInventorySystem() == false) {
@@ -1480,7 +1480,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	}
 	else
 		iSize = Item[pObject->usItem].ItemSize;
-	iSize = __min(iSize,34);
+	iSize = __min(iSize,gGameExternalOptions.guiMaxItemSize);
 	ubSlotLimit = LBEPocketType[pIndex].ItemCapacityPerSize[iSize];
 
 	//this could be changed, we know guns are physically able to stack
@@ -2734,23 +2734,24 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 	// Determine default ItemSize based on item and attachments
 	cisIndex = pObject->usItem;
 	iSize = Item[cisIndex].ItemSize;
-	if(iSize>34)
-		iSize = 34;
+	if(iSize>gGameExternalOptions.guiMaxItemSize)
+		iSize = gGameExternalOptions.guiMaxItemSize;
 
 	//for each object in the stack, hopefully there is only 1
 	for (int numStacked = 0; numStacked < pObject->ubNumberOfObjects; ++numStacked) {
 		//some weapon attachments can adjust the ItemSize of a weapon
-		if(iSize<10) {
+		if(iSize<gGameExternalOptions.guiMaxWeaponSize) {
 			for (attachmentList::iterator iter = (*pObject)[numStacked]->attachments.begin(); iter != (*pObject)[numStacked]->attachments.end(); ++iter) {
 				if (iter->exists() == true) {
 					iSize += Item[iter->usItem].itemsizebonus;
 					// CHRISL: This is to catch things if we try and reduce ItemSize when we're already at 0
-					if(iSize > 34 || iSize < 0)
-						iSize = 0;
-					if(iSize > 9)
-						iSize = 9;
 				}
 			}
+				if(iSize > gGameExternalOptions.guiMaxItemSize || iSize < 0) //JMich
+				iSize = 0;
+				if(iSize > gGameExternalOptions.guiMaxWeaponSize) //JMich
+					iSize = gGameExternalOptions.guiMaxWeaponSize; //JMich
+
 		}
 
 		// LBENODE has it's ItemSize adjusted based on what it's storing
@@ -3580,6 +3581,7 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 {
 	OBJECTTYPE *	pObj;
 	INT8					bSlot;
+	UINT16 magSize;
 
 	if (pSoldier == NULL)
 	{
@@ -3594,13 +3596,12 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 
 	if ( Item[pObj->usItem].usItemClass == IC_GUN && !Item[pObj->usItem].cannon )
 	{
-		// look for same ammo as before
-		//bSlot = FindObjExcludingSlot( pSoldier, (*pObj)[0]->data.gun.usGunAmmoItem, bExcludeSlot );
-		//if (bSlot != NO_SLOT)
-		//{
-			// reload using this ammo!
-		//	return( bSlot );
-		//}
+		//MM: make reload use crates/boxes if not in combat...
+	 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+			magSize = GetMagSize(pObj);
+		else
+			magSize = ANY_MAGSIZE;
+
 		// look for any ammo that matches which is of the same calibre and magazine size
 		bSlot = FindAmmo( pSoldier, Weapon[pObj->usItem].ubCalibre, GetMagSize(pObj), GetAmmoType(pObj), bExcludeSlot );
 		if (bSlot != NO_SLOT)
@@ -4839,6 +4840,28 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 				}
 				break;
+
+			case TEMPERATURE:
+				{
+					// check if this can work
+					if ( Item[ this->usItem ].usItemClass == IC_GUN && Item[pAttachment->usItem].barrel == TRUE )
+					{
+						FLOAT guntemperature = (*this)[subObject]->data.bTemperature;
+						FLOAT barreltemperature = (*pAttachment)[0]->data.bTemperature;
+
+						(*pAttachment)[0]->data.bTemperature = guntemperature;
+						(*this)[subObject]->data.bTemperature = barreltemperature;
+					}
+					
+					UINT16 usOldItem = this->usItem;
+					this->usItem = usResult;
+
+					//WarmSteel - Replaced this with one that also checks default attachments, otherwise you could not replace built-in bonuses with default inseperable attachments.
+					//RemoveProhibitedAttachments(pSoldier, this, usResult);
+					ReInitMergedItem(pSoldier, this, usOldItem);
+				}
+				break;
+
 			case ELECTRONIC_MERGE:
 				if ( pSoldier )
 				{
@@ -5841,7 +5864,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 					if (Weapon[pInSlot->usItem].ubCalibre == Magazine[Item[pObj->usItem].ubClassIndex].ubCalibre)
 					{
 						//CHRISL: Work differently with ammo crates but only when not in combat
-						if(Item[pObj->usItem].ammocrate == TRUE)
+						if(Magazine[Item[pObj->usItem].ubClassIndex].ubMagType >= AMMO_BOX)
 						{
 							if(!(gTacticalStatus.uiFlags & INCOMBAT))
 							{
@@ -5958,7 +5981,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 		}
 
 		// CHRISL: When holding ammo and clicking on an appropriate ammo crate, add ammo to crate
-		if(Item[pInSlot->usItem].ammocrate == TRUE && Item[pObj->usItem].usItemClass == IC_AMMO)
+		if(Magazine[Item[pInSlot->usItem].ubClassIndex].ubMagType >= AMMO_BOX && Item[pObj->usItem].usItemClass == IC_AMMO && Magazine[Item[pObj->usItem].ubClassIndex].ubMagType < AMMO_BOX )
 		{
 			if(Magazine[Item[pInSlot->usItem].ubClassIndex].ubCalibre == Magazine[Item[pObj->usItem].ubClassIndex].ubCalibre &&
 				Magazine[Item[pInSlot->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pObj->usItem].ubClassIndex].ubAmmoType)
@@ -7095,6 +7118,9 @@ BOOLEAN CreateGun( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	StackedObjectData* pStackedObject = (*pObj)[0];
 	pStackedObject->data.gun.bGunStatus = bStatus;
 	pStackedObject->data.ubImprintID = NO_PROFILE;
+
+	// Flugente FTW 1: temperature on creation is 0
+	pStackedObject->data.bTemperature = 0.0;
 
 	if (Weapon[ usItem ].ubWeaponClass == MONSTERCLASS)
 	{
@@ -11402,10 +11428,18 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			aimLevels = 4;
 		}
  	}
- 
-	// HEADROCK HAM 4: This modifier from the weapon and its attachments replaces the generic bipod bonus.
-	aimLevels += GetAimLevelsModifier( &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubHeight );
 
+	// HEADROCK HAM 4: This modifier from the weapon and its attachments replaces the generic bipod bonus.
+	UINT8 stance = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
+	INT32 moda = GetAimLevelsModifier( &pSoldier->inv[pSoldier->ubAttackingHand], stance );
+	INT32 modb = GetAimLevelsModifier( &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+	aimLevels += (INT32) ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+ 
 	aimLevels += GetAimLevelsTraitModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand]);
 
 	aimLevels = __max(1, aimLevels);
@@ -11543,11 +11577,17 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 			}
 
 			// Determine whether a bipod is being used (prone)
-			if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+
+			UINT8 stance = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
+
+			// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+			if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
+				stance = ANIM_PRONE;
+
+			if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && stance == ANIM_PRONE )
 			{
 				fUsingBipod = TRUE;
 			}
-
 
 			// don't break compatibility, let the users choose
 			if (gGameExternalOptions.iAimLevelsCompatibilityOption != 0)
@@ -12365,4 +12405,29 @@ static UINT16 OldWayOfCalculatingScopeBonus(SOLDIERTYPE *pSoldier)
 	// Please, do not trash it again.
 	return max(0, GetMinRangeForAimBonus(& pSoldier->inv[pSoldier->ubAttackingHand])
 		* gGameExternalOptions.iAimLevelsCompatibilityOption / gGameExternalOptions.ubStraightSightRange);
+}
+
+
+// Flugente FTW 1.2
+FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
+{
+	FLOAT cooldownfactor = Item[pObj->usItem].usOverheatingCooldownFactor;	// ... get item-specific cooldown factor ...
+
+	FLOAT modificator = 1.0;
+
+	if ( pObj->exists() == true ) 
+	{
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if (iter->exists())
+			{
+				modificator += Item[iter->usItem].overheatCooldownModificator;
+			}
+		}
+	}
+
+	cooldownfactor *= modificator;
+
+	return cooldownfactor;
 }

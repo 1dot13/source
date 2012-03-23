@@ -56,8 +56,9 @@ BOOLEAN ResetVal = FALSE;
 UINT32 IDPageEncyData;
 void InitData ( BOOLEAN bInit );
 
-#define		ENCYCLOPEDIA_LOCATION_PAGE1_X					LAPTOP_SCREEN_UL_X + 100
-#define		ENCYCLOPEDIA_LOCATION_PAGE1_Y					LAPTOP_SCREEN_WEB_UL_Y + 357
+#define		ENCYCLOPEDIA_LOCATION_PAGE1_X					(LAPTOP_SCREEN_UL_X + 100)
+#define		ENCYCLOPEDIA_LOCATION_PAGE1_Y					(LAPTOP_SCREEN_WEB_UL_Y + 357)
+#define		ENCYCLOPEDIA_LOCATION_FILTER_Y					(LAPTOP_SCREEN_WEB_UL_Y + 10)
 #define		ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP				FONT_MCOLOR_DKWHITE
 #define		ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN			138
 #define		ENCYCLOPEDIA_LOCATION_PAGE_FONT					FONT10ARIAL
@@ -708,7 +709,7 @@ void InitSoundButtons()
 	UINT16	usPosY, i;
 	guiSoundButtonsImage =	LoadButtonImage("BriefingRoom\\BUTTONF.sti", -1,0,-1,1,-1 );
 
-	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_X+15;
+	usPosY = ENCYCLOPEDIA_LOCATION_FILTER_Y;
 	for(i=0; i<MAX_MISSION_BUTTONS; i++)
 	{
 		guiSoundButtons[i] = CreateIconAndTextButton( guiSoundButtonsImage, pOtherButtonsText[i], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
@@ -728,17 +729,19 @@ void InitSoundButtons()
 
 void InitLocationFiltrButtons()
 {
-	UINT16	usPosY, i;
+	UINT16	usPosX, usPosY, i;
 	guiFiltrPageButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BUTTONF.sti", -1,0,-1,1,-1 );
 
-	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_X+10;
+	usPosX = ENCYCLOPEDIA_LOCATION_PAGE1_X-92;
+	usPosY = ENCYCLOPEDIA_LOCATION_FILTER_Y;
+
 	for(i=0; i<MAX_FILTR_LOCATION_BUTTONS; i++)
 	{
 		guiFiltrPageButton[i] = CreateIconAndTextButton( guiFiltrPageButtonImage, pEncyclopediaSkrotyText[i], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														ENCYCLOPEDIA_LOCATION_PAGE1_X-92, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelectFiltrButtonsRegionCallBack);
 		SetButtonCursor(guiFiltrPageButton[i], CURSOR_WWW);
 		MSYS_SetBtnUserData( guiFiltrPageButton[i], 0, i);
@@ -751,17 +754,19 @@ void InitLocationFiltrButtons()
 
 void InitCharacterFiltrButtons()
 {
-	UINT16	usPosY, i;
+	UINT16	usPosX, usPosY, i;
 	guiFiltrPageButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BUTTONF.sti", -1,0,-1,1,-1 );
 
-	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_X+15;
+	usPosX = ENCYCLOPEDIA_LOCATION_PAGE1_X-92;
+	usPosY = ENCYCLOPEDIA_LOCATION_FILTER_Y;
+	
 	for(i=0; i<FILTR_BUTTONS_CHARACTER; i++)
 	{
 		guiFiltrPageButton[i] = CreateIconAndTextButton( guiFiltrPageButtonImage, pEncyclopediaShortCharacterText[i], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														ENCYCLOPEDIA_LOCATION_PAGE1_X-92, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelectFiltrButtonsRegionCallBack);
 		SetButtonCursor(guiFiltrPageButton[i], CURSOR_WWW);
 		MSYS_SetBtnUserData( guiFiltrPageButton[i], 0, i);
@@ -776,17 +781,19 @@ void InitCharacterFiltrButtons()
 
 void InitInventoryFiltrButtons()
 {
-	UINT16	usPosY, i;
+	UINT16	usPosX, usPosY, i;
 	guiFiltrInventoryButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BUTTONF.sti", -1,0,-1,1,-1 );
 
-	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_X+15;
+	usPosX = ENCYCLOPEDIA_LOCATION_PAGE1_X-92;
+	usPosY = ENCYCLOPEDIA_LOCATION_FILTER_Y;
+	
 	for(i=0; i<FILTR_INVENTORY_BUTTONS; i++)
 	{
 		guiFiltrInventoryButton[i] = CreateIconAndTextButton( guiFiltrInventoryButtonImage, pEncyclopediaShortInventoryText[i], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														ENCYCLOPEDIA_LOCATION_PAGE1_X-92, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelectFiltrButtonsRegionCallBack);
 		SetButtonCursor(guiFiltrInventoryButton[i], CURSOR_WWW);
 		MSYS_SetBtnUserData( guiFiltrInventoryButton[i], 0, i);
@@ -800,27 +807,28 @@ void InitInventoryFiltrButtons()
 //Add inventory buttons
 void InitAddInventoryFiltrButtons( UINT32 Butons, UINT32 Type, BOOLEAN bDisableButton)
 {
-	UINT16	usPosY,i,iHelp;
+	UINT16	usPosX, usPosY,i,iHelp;
 	guiFiltrAddInventoryButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BUTTONF.sti", -1,0,-1,1,-1 );
 	
 	//ButtonsID = Butons;
 
-	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_X-30;
+	usPosX = ENCYCLOPEDIA_LOCATION_PAGE1_X-40;
+	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_Y+22;
+	
 	for(i=0; i<Butons; i++)
 	{
-	
-	iHelp = i + Type;
+		iHelp = i + Type;
 	
 		guiFiltrAddInventoryButton[i] = CreateIconAndTextButton( guiFiltrAddInventoryButtonImage, BoxFilter[iHelp], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														usPosY, ENCYCLOPEDIA_LOCATION_PAGE1_X+70, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelectInventoryFiltrButtonsRegionCallBack);
 		SetButtonCursor(guiFiltrAddInventoryButton[i], CURSOR_WWW);
 		MSYS_SetBtnUserData( guiFiltrAddInventoryButton[i], 0, i);
 		
-	    usPosY += ENCYCLOPEDIA_FILTR_BUTTON_GAP + 25;	
+	    usPosX += ENCYCLOPEDIA_FILTR_BUTTON_GAP + 25;	
 		SetRegionFastHelpText( &gSelectedEncyclopediaAddInventoryTextRegion[ i ], BobbyRFilter[iHelp] );
 		SetButtonFastHelpText( guiFiltrAddInventoryButton[ i ], BobbyRFilter[iHelp] );	
 	}
@@ -900,7 +908,7 @@ void InitData ( BOOLEAN bInit)
 
 BOOLEAN EnterEncyclopediaLocation()
 {
-  UINT16	usPosX, i;
+  UINT16	usPosX, usPosY, i;
   /*
   IDimage = 1;
   MaxImages = 1;
@@ -958,13 +966,15 @@ BOOLEAN EnterEncyclopediaLocation()
 	guiEncyclopediaLocationPageButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BottomButtons2.sti", -1,0,-1,1,-1 );
 
 	usPosX = ENCYCLOPEDIA_LOCATION_PAGE1_X+15;
+	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_Y;
+
 	for(i=0; i<3; i++)
 	{
 		guiEncyclopediaLocationPageButton[i] = CreateIconAndTextButton( guiEncyclopediaLocationPageButtonImage, pSectorPageText[i], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														usPosX, ENCYCLOPEDIA_LOCATION_PAGE1_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelectEncyclopediaLocationRegionCallBack);
 		SetButtonCursor(guiEncyclopediaLocationPageButton[i], CURSOR_WWW);
 		MSYS_SetBtnUserData( guiEncyclopediaLocationPageButton[i], 0, i);
@@ -976,13 +986,15 @@ BOOLEAN EnterEncyclopediaLocation()
 	guiEncyclopediaiPageButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BottomButtons2.sti", -1,0,-1,1,-1 );
 
 	usPosX = ENCYCLOPEDIA_LOCATION_PAGE1_X-44;
+	usPosY = ENCYCLOPEDIA_LOCATION_PAGE1_Y-130;
+
 	for(i=0; i<3; i++)
 	{
 		guiEncyclopediaPageButton[i] = CreateIconAndTextButton( guiEncyclopediaiPageButtonImage, pLocationPageText[i], ENCYCLOPEDIA_LOCATION_PAGE_FONT,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_UP, DEFAULT_SHADOW,
 														ENCYCLOPEDIA_LOCATION_PAGE_COLOR_DOWN, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														usPosX, ENCYCLOPEDIA_LOCATION_PAGE1_Y-130, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelectEncyclopediaLocationPageRegionCallBack);
 		SetButtonCursor(guiEncyclopediaPageButton[i], CURSOR_WWW);
 		MSYS_SetBtnUserData( guiEncyclopediaPageButton[i], 0, i);

@@ -100,7 +100,7 @@ extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pG
 void ValidateEnemiesHaveWeapons()
 {
 	#ifdef JA2BETAVERSION
-		SGPRect CenteringRect= {0, 0, 639, 479 };
+		SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
 		INT32 i, iErrorDialog;
 		SOLDIERTYPE *pSoldier;
 		INT32 iNumInvalid = 0;

@@ -287,26 +287,26 @@ BOOLEAN InitMainMenu( )
 
 		if (gMainMenulayout[iCounter2].Visible == 1)
 		{
-			if (iResolution == 0)
+			if (iResolution >= _640x480 && iResolution < _800x600)
 			{				
 				strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName);
 
 				if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
 					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName ) );				
 			}
-			else if (iResolution == 1)
+			else if (iResolution < _1024x768)
 			{		
 				strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName800x600);
 
 				if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
 					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName800x600 ) );				
 			}
-			else if (iResolution == 2)
+			else
 			{		
 				strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName1024x768);
 
 				if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
-					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName1024x768 ) );	
+					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName1024x768 ) );				
 			}
 		}
 	}
@@ -479,7 +479,7 @@ void HandleMainMenuInput()
 	InputAtom	InputEvent;
 
 	// Check for esc
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 	if( InputEvent.usEvent == KEY_UP )
 		{
@@ -528,7 +528,7 @@ void HandleHelpScreenInput()
 	InputAtom									InputEvent;
 
 	// Check for key
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		switch( InputEvent.usEvent )
 		{
@@ -613,24 +613,22 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 	SGPFILENAME filenameMP;
 	INT16 sSlot;
 	
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
 		MAINMENU_X =  gMainMenulayout[0].MAINMENU_X;
+		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
 		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
 	}
-	
-	if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y;
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X;
+		MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X + xResOffset;
+		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y + yResOffset;
 		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
 	}
-	
-	if (iResolution == 2)
+	else
 	{
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y;
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X;
+		MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X + xResOffset;
+		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y + yResOffset;
 		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
 	}
 
@@ -716,28 +714,26 @@ void RenderMainMenu()
 	{	
 		if (gMainMenulayout[iCounter2].Visible == 1)
 		{		
-			if (iResolution == 0)
+			if (iResolution >= _640x480 && iResolution < _800x600)
 			{	
 				GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
-				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX, gMainMenulayout[iCounter2].ImagePositionY, VO_BLT_SRCTRANSPARENCY,NULL);
-				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX, gMainMenulayout[iCounter2].ImagePositionY, VO_BLT_SRCTRANSPARENCY,NULL);
+				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX + xResOffset, gMainMenulayout[iCounter2].ImagePositionY + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX + xResOffset, gMainMenulayout[iCounter2].ImagePositionY + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
 			}
-			
-			if (iResolution == 1)
+			else if (iResolution < _1024x768)
 			{	
 				GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
-				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X, gMainMenulayout[iCounter2].ImagePosition800x600Y, VO_BLT_SRCTRANSPARENCY,NULL);
-				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X, gMainMenulayout[iCounter2].ImagePosition800x600Y, VO_BLT_SRCTRANSPARENCY,NULL);
+				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X + xResOffset, gMainMenulayout[iCounter2].ImagePosition800x600Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X + xResOffset, gMainMenulayout[iCounter2].ImagePosition800x600Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
 			}
-			
-			if (iResolution == 2)
+			else
 			{	
 				GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
-				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X, gMainMenulayout[iCounter2].ImagePosition1024x768Y, VO_BLT_SRCTRANSPARENCY,NULL);
-				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X, gMainMenulayout[iCounter2].ImagePosition1024x768Y, VO_BLT_SRCTRANSPARENCY,NULL);
+				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X + xResOffset, gMainMenulayout[iCounter2].ImagePosition1024x768Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X + xResOffset, gMainMenulayout[iCounter2].ImagePosition1024x768Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
 			}
 		}
-	}	
+	}
 
 #ifdef TESTFOREIGNFONTS
 	DrawTextToScreen( L"LARGEFONT1: ÄÀÁÂÇËÈÉÊÏÖÒÓÔÜÙÚÛäàáâçëèéêïöòóôüùúûÌÎìî"/*gzCopyrightText[ 0 ]*/, 0, 105, 640, LARGEFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
@@ -774,21 +770,19 @@ void RestoreButtonBackGrounds()
 
 #ifndef TESTFOREIGNFONTS
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
 		MAINMENU_X =  gMainMenulayout[0].MAINMENU_X;
 		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
 	}
-	
-	if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y;
 		MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X;
 		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
 	}
-	
-	if (iResolution == 2)
+	else
 	{
 		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y;
 		MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X;

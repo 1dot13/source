@@ -185,7 +185,7 @@ UINT32  AniEditScreenHandle(void)
 
 	}
 
-  if (DequeueEvent(&InputEvent) == TRUE)
+  if (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
   {
     if ((InputEvent.usEvent == KEY_DOWN)&&(InputEvent.usParam == ESC))
     {

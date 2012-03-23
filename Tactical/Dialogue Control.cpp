@@ -2222,12 +2222,12 @@ void DisplayTextForExternalNPC(	UINT8 ubCharacterNum, STR16 zQuoteStr )
 
 	if ( guiCurrentScreen == MAP_SCREEN )
 	{
-		sLeft			= ( gsExternPanelXPosition + 97 );
+		sLeft			= ( gsExternPanelXPosition + 97 + xResOffset );
 		gsTopPosition = gsExternPanelYPosition;
 	}
 	else
 	{
-	sLeft			= ( 110 );
+		sLeft			= ( 110 + xResOffset );
 	}
 
 	ExecuteTacticalTextBox( sLeft, gTalkPanel.zQuoteStr );
@@ -2250,8 +2250,16 @@ void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, STR16 zQuote
 #else
 	swprintf( zText, L"\"%s\"", zQuoteStr );
 #endif
-	sLeft	= 110;
 
+	// TODO.RW: Wenn wir in tactical sind, dann normal. In strategy den offset dazurechnen!
+	if ( guiCurrentScreen == GAME_SCREEN )
+	{
+		sLeft = 110;		
+	}
+	else
+	{
+		sLeft = 110 + xResOffset;
+	}	
 
 	//previous version
 	//sLeft = 110;
@@ -2345,7 +2353,7 @@ void HandleExternNPCSpeechFace( INT32 iIndex )
 	if ( guiCurrentScreen != MAP_SCREEN )
 	{
 		// Setup video overlay!
-		VideoOverlayDesc.sLeft			= 10;
+		VideoOverlayDesc.sLeft			= 10 + xResOffset;
 		VideoOverlayDesc.sTop				= 20;
 		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + 99;
 		VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + 98;
@@ -2357,7 +2365,7 @@ void HandleExternNPCSpeechFace( INT32 iIndex )
 	{
 		// Setup video overlay!
 
-		VideoOverlayDesc.sLeft			= gsExternPanelXPosition;
+		VideoOverlayDesc.sLeft			= gsExternPanelXPosition + xResOffset;
 		VideoOverlayDesc.sTop				= gsExternPanelYPosition;
 
 		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + 99;

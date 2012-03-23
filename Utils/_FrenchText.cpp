@@ -2871,6 +2871,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"GO",
 	L"Carte",
 	L"Vous ne pouvez pas quitter ce secteur par ce côté.",
+	L"You can't leave in turn based mode.",		// TODO.Translate
 	L"%s est trop loin.",
 	L"Enlever cime des arbres",
 	L"Afficher cime des arbres",
@@ -4440,7 +4441,8 @@ STR16			BobbyRText[] =
 
 	//Popup that tells the player that they can only order 10 items at a time
 	
-	L"Pas de chance ! Vous ne pouvez commander que 10 objets à la fois. Si vous désirez passer une commande plus importante, il vous faudra remplir un nouveau bon de commande.",
+	L"Pas de chance ! Vous ne pouvez commander que " ,//First part
+	L" objets à la fois. Si vous désirez passer une commande plus importante, il vous faudra remplir un nouveau bon de commande.",
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
@@ -5050,10 +5052,13 @@ STR16		zOptionsToggleText[] =
 	L"Afficher deviation balle",					// Screen messages showing amount and direction of shot deviation.
 	L"Couleur alternative map",		// Change color scheme of Strategic Map
 	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
-	L"Activé NCTH",				// use NCTH
+	//L"Activé NCTH",				// use NCTH
+	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
 	L"Afficher équipments portrait",
 	L"Afficher icones portraits",
-	L"Désactiver échange curseur",		            // Disable Cursor Swap		
+	L"Désactiver échange curseur",		            // Disable Cursor Swap
+	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
+	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5155,10 +5160,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, montre la progression des caractères à travers le gain de niveaux.",
 	L"Si activé, la carte stratégique sera coloré différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
-	L"Si activé, le nouveau systéme NCTH (chance de toucher) \nainsi que le nouveau curseur seront utilisés.",
+	//L"Si activé, le nouveau systéme NCTH (chance de toucher) \nainsi que le nouveau curseur seront utilisés.",
+	L"When ON, ranks will be displayed before merc names in the strategic view.",		// TODO.Translate
 	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",
 	L"Si activé, vous verrez les icones correspondant à l'équipement porté en bas à droite du portrait.",
 	L"Si activé, le curseur ne basculera pas entre changer de position et une autre action. Appuyez sur |x pour initier un échange rapide.",
+	L"When ON, AI turns will be much faster.",		// TODO.Translate
+	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5250,11 +5258,18 @@ STR16	gzGIOScreenText[] =
 	L"Nouveau / Ancien",
 	L"Nouveau / Nouveau",
 
+	// TODO.Translate
 	// Squad Size
 	L"Max. Squad Size",
 	L"6",
 	L"8",
 	L"10",
+	//L"Faster Bobby Ray Shipments",
+	L"Inventory Manipulation Costs AP",
+	
+	L"New Chance to Hit System",
+	L"Improved Interrupt System",
+	L"Weapon Overheating",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5575,6 +5590,9 @@ STR16 pMessageStrings[] =
 	L"AutoSaveGame%02d.sav",	// 101
 	L"Auto%02d.sav",	// 102
 	L"SaveGame%02d.sav", //103
+	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
+	L"Locking mouse cursor to stay within window boundary.",			// 104
+	L"Releasing mouse cursor to move outside window boundary.",			// 105
 };
 
 
@@ -6051,6 +6069,7 @@ STR16 New113Message[] =
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"Attention: Cadavre ennemi trouvé !!!",
 	L"%s [%d rnds]\n%s %1.1f %s",
+	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
@@ -6811,6 +6830,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|T|a|u|x |d|e |p|é|n|é|t|r|a|t|i|o|n",
 	L"|C|u|l|b|u|t|e |d|e |b|a|l|l|e",
 	L"|P|r|e|-|I|m|p|a|c|t |E|x|p|l|o|s|i|o|n",
+	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|c|a|t|i|o|n",		// TODO.Translate
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -6818,6 +6838,7 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \nCeci est la capacité de la balle à pénétrer\nl'armure de la cible.\n \nAvec une valeur supérieure à 1.0, la balle réduiera fortement\nla valeur de protection de l'armure touchée.\n \nValeur élevée recommandée.",
 	L"\n \nDétermine le potentiel de la balle à faire des dégâts\nsur le corps après avoir traversée l'armure.\n \nAvec une valeur supérieure à 1.0, la balle fera de lourds dégâts\naprès pénétration\nAvec une valeur inférieure à 1.0, la balle fera des dégâts moindre\naprès pénétration.\n \nValeur élevée recommandée.",
 	L"\n \nMultiplicateur de potentiel de dégâts juste avant\nl'impact de la balle.\n \nAvec une valeur supérieure à 1.0, la balle fera de lourds dégâts\nUne valeur inférieure à 1.0 fera des dégâts moindre.\n \nValeur élevée recommandée.",
+	L"\n \nAdditional heat generated by this ammunition.\n \nLower is better.",		// TODO.Translate
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
@@ -6974,6 +6995,14 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|F|r|é|q|u|e|n|c|e |C|o|n|t|r|e|-|f|o|r|c|e",
 	L"|B|o|n|u|s |c|h|a|n|c|e |d|e |t|o|u|c|h|e|r",
 	L"|B|o|n|u|s |d|e |v|i|s|é|e",
+	L"|S|i|n|g|l|e |S|h|o|t |T|e|m|p|e|r|a|t|u|r|e",		// TODO.Translate
+	L"|C|o|o|l|d|o|w|n |F|a|c|t|o|r",
+	L"|J|a|m |T|r|e|s|h|o|l|d",
+	L"|D|a|m|a|g|e |T|r|e|s|h|o|l|d",
+	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|c|a|t|o|r",
+	L"|C|o|o|l|d|o|w|n |M|o|d|i|f|i|c|a|t|o|r",
+	L"|J|a|m |T|r|e|s|h|o|l|d |M|o|d|i|f|i|c|a|t|o|r",
+	L"|D|a|m|a|g|e |T|r|e|s|h|o|l|d |M|o|d|i|f|i|c|a|t|o|r",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7027,6 +7056,14 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nFréquence de recalcule du tireur pour ajuster la force\nqu'il doit mettre pour contrer le recul de l'arme, lors d'un tir\nen mode Rafale ou Auto.\n \nUne fréquence faible rend la salve plus précise en supposant que\nle tireur puisse surmonter le recul correctement.\n \nValeur faible recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie sa chance de toucher la cible (CTH).\n \nAugmenter son CTH permet de toucher plus souvent\nune cible,en supposant que le tireur a bien visé.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie ses bonus de visée.\n \nAugmenter les bonus de visées permet de toucher\nune cible à longue distance plus souvent, en supposant\nque le tireur a bien visé.\n \nValeur élevée recommandée.",
+	L"\n \nA single shot causes this much heat.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",					// TODO.Translate
+	L"\n \nEvery turn, the temperature is lowered\nby this amount.\n \nHigher is better.",
+	L"\n \nIf an item's temperature is above this,\nit will jam more frequently.\n \nHigher is better.",
+	L"\n \nIf an item's temperature is above this,\nit will be damaged more easily.\n \nHigher is better.",
+	L"\n \nA gun's single shot temperature is\nincreased by this percentage.\n \nLower is better.",
+	L"\n \nA gun's cooldown factor is\nincreased by this percentage.\n \nHigher is better.",
+	L"\n \nA gun's jam threshold is\nincreased by this percentage.\n \nHigher is better.",
+	L"\n \nA gun's damage threshold is\nincreased by this percentage.\n \nHigher is better.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -7079,6 +7116,10 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nFréquence de recalcule du tireur pour ajuster la force\nqu'il doit mettre pour contrer le recul de l'arme, lors d'un tir\nen mode Rafale ou Auto.\n \nUne fréquence faible rend la salve plus précise en supposant que\nle tireur puisse surmonter le recul correctement.\n \nValeur faible recommandée.",
 	L"\n \nLa chance de toucher la cible avec cette arme\na été modifié par une munition, un accessoire ou\nun attribut inhérent à l'arme.\n \nAugmenter la chance de toucher permet de toucher plus souvent\nune cible,en supposant que le tireur a bien visé.\n \nValeur élevée recommandée.",
 	L"\n \nLes bonus de visée de cette arme ont été modifié\npar une munition, un accessoire ou un attribut inhérent à l'arme.\n \nAugmenter les bonus de visées permet de toucher\nune cible à longue distance plus souvent, en supposant\nque le tireur a bien visé.\n \nValeur élevée recommandée.",
+	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",					// TODO.Translate
+	L"\n \nEvery turn, the temperature is lowered\nby this amount.\nWeapon attachments can affect this.\n \nHigher is better.",
+	L"\n \nIf a gun's temperature is above this,\nit will jam more frequently.",
+	L"\n \nIf a gun's temperature is above this,\nit will be damaged more easily.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -7090,6 +7131,37 @@ STR16 gzNCTHlabels[]=
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
+
+// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+STR16 gTemperatureDesc[] =			// TODO.Translate
+{
+	L"Temperature is ",
+	L"very low",
+	L"low",
+	L"medium",
+	L"high",
+	L"very high",
+	L"dangerous",
+	L"CRITICAL",
+	L"DRAMATIC",
+	L"unknown",
+	L"."
+};
+
+// TODO.Translate
+CHAR16* ranks[] = 
+{	L"",			//ExpLevel 0
+	L"Pvt. ",		//ExpLevel 1
+	L"Pfc. ",		//ExpLevel 2
+	L"Cpl. ",		//ExpLevel 3
+	L"Sgt. ",		//ExpLevel 4
+	L"Lt. ",		//ExpLevel 5
+	L"Cpt. ",		//ExpLevel 6
+	L"Maj. ",		//ExpLevel 7
+	L"Lt.Col. ",	//ExpLevel 8
+	L"Col. ",		//ExpLevel 9
+	L"Gen. "		//ExpLevel 10
+};
 
 STR16	gzNewLaptopMessages[]=
 {

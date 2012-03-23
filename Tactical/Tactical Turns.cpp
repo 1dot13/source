@@ -151,6 +151,8 @@ void HandleTacticalEndTurn( )
 	// OK, Do a number of things here....
 	// Every few turns......
 
+	SetFastForwardMode(FALSE); // Cancel FF at end of battle
+
 	// Get time elasped
 	uiTime = GetWorldTotalSeconds( );
 
@@ -269,6 +271,8 @@ void HandleTacticalEndTurn( )
 	HandleRPCDescription( );
 #endif
 
+	// Flugente FTW 1: Cool down all items not in a soldier's inventory
+	CoolDownWorldItems();	
 }
 
 

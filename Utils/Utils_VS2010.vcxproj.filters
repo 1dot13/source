@@ -156,6 +156,9 @@
     <ClInclude Include="XML_Language.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="KeyMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_ChineseText.cpp">
@@ -330,6 +333,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_Language.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

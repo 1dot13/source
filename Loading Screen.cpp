@@ -343,17 +343,18 @@ static void BuildLoadscreenFilename(std::string& dst, const char* path, int reso
 	if (path)
 		dst.append(path);
 
-	switch (resolution)
-	{
-		case 1:
+		if (iResolution >= _640x480 && iResolution < _800x600)
+		{
+			// Nothing to do here
+		}
+		else if (iResolution < _1024x768)
+		{
 			dst.append("_800x600");
-			break;
-		case 2:
+		}
+		else
+		{
 			dst.append("_1024x768");
-			break;
-		default:
-			break;
-	}
+		}
 
 	if (ext)
 	{
@@ -454,7 +455,20 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 
 		// Actual image, depending on the resolution
 		std::string strBigImage;
-		BuildLoadscreenFilename(strBigImage, imagePath.c_str(), iResolution, imageFormat.c_str());
+
+		if (iResolution >= _640x480 && iResolution < _800x600)
+		{
+			BuildLoadscreenFilename(strBigImage, imagePath.c_str(), 0, imageFormat.c_str());
+		}
+		else if (iResolution < _1024x768)
+		{
+			BuildLoadscreenFilename(strBigImage, imagePath.c_str(), 1, imageFormat.c_str());
+		}
+		else
+		{
+			BuildLoadscreenFilename(strBigImage, imagePath.c_str(), 2, imageFormat.c_str());
+		}
+
 		strBigImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
 		
 		
@@ -467,7 +481,20 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 		strSmallImage.copy(smallImage, sizeof(smallImage)-1);
 
 		// Actual image, depending on the resolution
-		BuildLoadscreenFilename(strBigImage, LoadScreenNames[1], iResolution, imageFormat.c_str());
+
+		if (iResolution >= _640x480 && iResolution < _800x600)
+		{
+			BuildLoadscreenFilename(strBigImage, LoadScreenNames[1], 0, imageFormat.c_str());
+		}
+		else if (iResolution < _1024x768)
+		{
+			BuildLoadscreenFilename(strBigImage, LoadScreenNames[1], 1, imageFormat.c_str());
+		}
+		else
+		{
+			BuildLoadscreenFilename(strBigImage, LoadScreenNames[1], 2, imageFormat.c_str());
+		}
+
 		strBigImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);		
 		
 		}
@@ -480,13 +507,38 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 		if (LOADINGSCREEN_NOTHING <= ubLoadScreenID && ubLoadScreenID <= LOADINGSCREEN_NIGHTBALIME)
 		{
 			BuildLoadscreenFilename(strSmallImage, LoadScreenNames[ubLoadScreenID], 0, "sti");
-			BuildLoadscreenFilename(strBigImage, LoadScreenNames[ubLoadScreenID], iResolution, "sti");
+	
+		if (iResolution >= _640x480 && iResolution < _800x600)
+		{
+			BuildLoadscreenFilename(strBigImage, LoadScreenNames[ubLoadScreenID], 0, "sti");
+		}
+		else if (iResolution < _1024x768)
+		{
+			BuildLoadscreenFilename(strBigImage, LoadScreenNames[ubLoadScreenID], 1, "sti");
+		}
+		else
+		{
+			BuildLoadscreenFilename(strBigImage, LoadScreenNames[ubLoadScreenID], 2, "sti");
+		}
+
 		}
 		else
 		{
 			// for some reason the heli screen is the default
 			BuildLoadscreenFilename(strSmallImage, LoadScreenNames[0], 0, "sti");
-			BuildLoadscreenFilename(strBigImage, LoadScreenNames[0], iResolution, "sti");
+
+			if (iResolution >= _640x480 && iResolution < _800x600)
+			{
+				BuildLoadscreenFilename(strBigImage, LoadScreenNames[0], 0, "sti");
+			}
+			else if (iResolution < _1024x768)
+			{
+				BuildLoadscreenFilename(strBigImage, LoadScreenNames[0], 1, "sti");
+			}
+			else
+			{
+				BuildLoadscreenFilename(strBigImage, LoadScreenNames[0], 2, "sti");
+			}
 		}
 
 		strSmallImage.copy(smallImage, sizeof(smallImage)-1);
@@ -525,11 +577,13 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 			GetVideoSurface(&hVSurface, uiLoadScreen);
 
 			// Special case->show the small image centered
-			if (iResolution > 0 && bShowSmallImage)
+			if (iResolution > _640x480 && bShowSmallImage)
 				BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
 			else
-				BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, 0, 0, 0, NULL );
-
+			{	
+				BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, (SCREEN_WIDTH - xResSize) / 2,(SCREEN_HEIGHT - yResSize) / 2, 0, NULL );
+			}		
+							
 			DeleteVideoSurfaceFromIndex( uiLoadScreen );
 		}
 		else

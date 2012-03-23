@@ -1255,7 +1255,7 @@ void AssignMinorTraitHelpText( UINT8 ubNumber )
 				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, L"%");
 				wcscat( apStr, atStr );
 			}
-			if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+			if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameOptions.fImprovedInterruptSystem )
 			{
 				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[4], gSkillTraitValues.ubSTReducedAPsRegistered, L"%");
 				wcscat( apStr, atStr );

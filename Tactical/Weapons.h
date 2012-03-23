@@ -127,6 +127,14 @@ enum
 
 enum
 {
+	AMMO_MAGAZINE = 0,
+	AMMO_BULLET,
+	AMMO_BOX,
+	AMMO_CRATE
+};
+
+enum
+{
 	AMMO_REGULAR = 0,
 	AMMO_HP,
 	AMMO_AP,
@@ -184,6 +192,7 @@ typedef struct
 	BOOLEAN acidic;
 	INT16	lockBustingPower;
 	BOOLEAN tracerEffect;
+	FLOAT	temperatureModificator;	// Flugente FTW 1.1: modificator for weapon temperature
 
 	//zilpin: pellet spread patterns externalized in XML
 	INT32 spreadPattern;
@@ -308,12 +317,18 @@ typedef struct
 							// chooses automatically based on the type of gun (see AllowedAimingLevels() ).
  UINT8	ubHandling;			// CHRISL HAM 4: This value replaces ubReadyTime for determining a weapons base handling characteristics.
 
+ // Flugente FTW 1
+ FLOAT usOverheatingJamThreshold;				// if a gun's temperature is above this treshold, it is increasingly prone to jamming
+ FLOAT usOverheatingDamageThreshold;			// if a gun is fired while its temperature is above this value, it degrades much faster
+ FLOAT usOverheatingSingleShotTemperature;		// a single shot raises a gun's temperature by this amount
+
 } WEAPONTYPE;
 typedef struct
 {
 	UINT8	ubCalibre;
 	UINT16	ubMagSize;
 	UINT8	ubAmmoType;
+	UINT8   ubMagType;
 
 	UINT32 uiIndex;
 } MAGTYPE;
@@ -425,5 +440,13 @@ extern CHAR16 gBulletCount[10];
 void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTime );
 // HEADROCK HAM 4: This gets the Z of a target regardless of what's there.
 FLOAT GetTargetZPos( SOLDIERTYPE *pShooter, INT32 sTargetGridNo );
+
+// Flugente: Overheating Weapons
+void GunIncreaseHeat( OBJECTTYPE *pObj );
+FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj );
+FLOAT GetGunOverheatDamagePercentage( OBJECTTYPE * pObj );	// Flugente FTW 1: Get percentage: temperature/damagethreshold
+FLOAT GetGunOverheatJamPercentage( OBJECTTYPE * pObj );		// Flugente FTW 1: Get percentage: temperature/jamthreshold
+FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj );
+FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj );
 
 #endif

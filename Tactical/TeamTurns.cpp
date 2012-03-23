@@ -166,6 +166,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartPlayerTeamTurn");
 //	SOLDIERTYPE		*pSoldier;
 //	EV_S_BEGINTURN	SBeginTurn;
+	SetFastForwardMode(FALSE);
 
 	// Start the turn of player charactors
 
@@ -486,6 +487,20 @@ void BeginTeamTurn( UINT8 ubTeam )
 	if( !LightningEndOfTurn( ubTeam ) )return;
 	//end rain
 
+	// disable for our turn and enable for other teams
+	if ( gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] )
+	{
+		if (is_networked)
+		{
+			// Only allow fast forward mode on enemy team!
+			SetFastForwardMode( (ubTeam == ENEMY_TEAM) );
+		}
+		else
+		{
+			// Allow fast forward mode on all teams except our team!
+			SetFastForwardMode( (ubTeam != OUR_TEAM) );
+		}		
+	}
 
 	while( 1 )
 	{
@@ -812,6 +827,9 @@ void StartInterrupt( void )
 		UINT8		ubInterrupters = 0;
 		INT32		iSquad, iCounter;
 
+		// disable ff mode
+		SetFastForwardMode(FALSE);
+
 		// build string for display of who gets interrupt
 		//while( 1 )
 		for( iCounter = 0; iCounter <= MAX_NUM_SOLDIERS; iCounter++ )
@@ -833,83 +851,122 @@ void StartInterrupt( void )
 			}
 		}
 
-		wcscpy( sTemp, Message[ STR_INTERRUPT_FOR ] );
+		// TODO: check here to see if we really can do anything with available mercs on this team
+		//   if not then end interrupt.  Probably should check if actions for for the interrupter but then we
+		//   would lose potential XP for being able to radio rest of team about enemy from the interrupt 
+		// Theoretically ubInterrupter is enemy causing interrupt
 
-		// build string in separate loop here, want to linearly process squads...
-		for ( iSquad = 0; iSquad < NUMBER_OF_SQUADS; iSquad++ )
+
+		BOOL handleInterrupt = TRUE;
+		if (ubInterrupter != NOBODY)
 		{
-			for ( iCounter = 0; iCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounter++ )
-			{
-				pTempSoldier = Squad[ iSquad ][ iCounter ];
-				if ( pTempSoldier && pTempSoldier->bActive && pTempSoldier->bInSector && !pTempSoldier->aiData.bMoved )
-				{
-					// then this guy got an interrupt...
-					ubInterrupters++;
-					if ( ubInterrupters > 6 )
-					{
-						// flush... display string, then clear it (we could have 20 names!)
-						// add comma to end, we know we have another person after this...
-						wcscat( sTemp, L", " );
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,	sTemp );
-						wcscpy( sTemp, L"" );
-						ubInterrupters = 1;
-					}
+			handleInterrupt = FALSE;
 
-					if ( ubInterrupters > 1 )
+			// build string in separate loop here, want to linearly process squads...
+			SOLDIERTYPE *pInterruptedSoldier = MercPtrs[ubInterrupter];
+			for ( iSquad = 0; iSquad < NUMBER_OF_SQUADS; iSquad++ )
+			{
+				for ( iCounter = 0; iCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounter++ )
+				{
+					pTempSoldier = Squad[ iSquad ][ iCounter ];
+					if ( pTempSoldier && pTempSoldier->bActive && pTempSoldier->bInSector && !pTempSoldier->aiData.bMoved )
 					{
-						wcscat( sTemp, L", " );
+						INT16 ubMinAPcost = MinAPsToAttack(pSoldier,pInterruptedSoldier->sGridNo,ADDTURNCOST);
+						// if we don't have enough APs left to shoot even a snap-shot at this guy
+						if (ubMinAPcost < pSoldier->bActionPoints)
+						{
+							handleInterrupt = TRUE;
+						}
 					}
-					wcscat( sTemp, pTempSoldier->name );
 				}
 			}
 		}
-
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,	sTemp );
-
-		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: starting interrupt for %d", ubFirstInterrupter ) );
-		// gusSelectedSoldier should become the topmost guy on the interrupt list
-		//gusSelectedSoldier = ubFirstInterrupter;
-
-		// Remove deadlock message
-		EndDeadlockMsg( );
-
-		// Select guy....
-		SelectSoldier( ubFirstInterrupter, TRUE, TRUE );
-
-		// ATE; Slide to guy who got interrupted!
-		SlideTo( NOWHERE, gubLastInterruptedGuy, NOBODY, SETLOCATOR);
-
-		// Dirty panel interface!
-		fInterfacePanelDirty						= DIRTYLEVEL2;
-		gTacticalStatus.ubCurrentTeam	= pSoldier->bTeam;
-
-		// Signal UI done enemy's turn
-		guiPendingOverrideEvent = LU_ENDUILOCK;
-		
-		if (is_networked)
-			guiPendingOverrideEvent = LA_ENDUIOUTURNLOCK;
-		
-		HandleTacticalUI( );
-
-		InitPlayerUIBar( TRUE );
-		//AddTopMessage( PLAYER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
-
-		PlayJA2Sample( ENDTURN_1, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-
-		// report any close call quotes for us here
-		for ( iCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; iCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; iCounter++ )
+		if (!handleInterrupt)
 		{
-			if ( OK_INSECTOR_MERC( MercPtrs[ iCounter ] ) )
+			// no mercs can take even a snapshot at the guy
+			EndInterrupt(TRUE);
+		}
+		else
+		{
+			wcscpy( sTemp, Message[ STR_INTERRUPT_FOR ] );
+
+			// build string in separate loop here, want to linearly process squads...
+			ubInterrupters = 0;
+			for ( iSquad = 0; iSquad < NUMBER_OF_SQUADS; iSquad++ )
 			{
-				if ( MercPtrs[ iCounter ]->flags.fCloseCall )
+				for ( iCounter = 0; iCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounter++ )
 				{
-					if ( MercPtrs[ iCounter ]->bNumHitsThisTurn == 0 && !(MercPtrs[ iCounter ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
+					pTempSoldier = Squad[ iSquad ][ iCounter ];
+					if ( pTempSoldier && pTempSoldier->bActive && pTempSoldier->bInSector && !pTempSoldier->aiData.bMoved )
 					{
-						// say close call quote!
-						TacticalCharacterDialogue( MercPtrs[ iCounter ], QUOTE_CLOSE_CALL );
-						MercPtrs[ iCounter ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
+						// then this guy got an interrupt...
+						ubInterrupters++;
+						if ( ubInterrupters > 6 )
+						{
+							// flush... display string, then clear it (we could have 20 names!)
+							// add comma to end, we know we have another person after this...
+							wcscat( sTemp, L", " );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,	sTemp );
+							wcscpy( sTemp, L"" );
+							ubInterrupters = 1;
+						}
+
+						if ( ubInterrupters > 1 )
+						{
+							wcscat( sTemp, L", " );
+						}
+						wcscat( sTemp, pTempSoldier->name );
 					}
-					MercPtrs[ iCounter ]->flags.fCloseCall = FALSE;
+				}
+			}
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,	sTemp );
+
+			DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: starting interrupt for %d", ubFirstInterrupter ) );
+			// gusSelectedSoldier should become the topmost guy on the interrupt list
+			//gusSelectedSoldier = ubFirstInterrupter;
+
+			// Remove deadlock message
+			EndDeadlockMsg( );
+
+			// Select guy....
+			SelectSoldier( ubFirstInterrupter, TRUE, TRUE );
+
+			// ATE; Slide to guy who got interrupted!
+			SlideTo( NOWHERE, gubLastInterruptedGuy, NOBODY, SETLOCATOR);
+
+			// Dirty panel interface!
+			fInterfacePanelDirty						= DIRTYLEVEL2;
+			gTacticalStatus.ubCurrentTeam	= pSoldier->bTeam;
+
+			// Signal UI done enemy's turn
+			guiPendingOverrideEvent = LU_ENDUILOCK;
+			
+			if (is_networked)
+				guiPendingOverrideEvent = LA_ENDUIOUTURNLOCK;
+			
+			HandleTacticalUI( );
+
+			InitPlayerUIBar( TRUE );
+			//AddTopMessage( PLAYER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+
+			PlayJA2Sample( ENDTURN_1, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+
+			// report any close call quotes for us here
+			for ( iCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; iCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; iCounter++ )
+			{
+				if ( OK_INSECTOR_MERC( MercPtrs[ iCounter ] ) )
+				{
+					if ( MercPtrs[ iCounter ]->flags.fCloseCall )
+					{
+						if ( MercPtrs[ iCounter ]->bNumHitsThisTurn == 0 && !(MercPtrs[ iCounter ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
+						{
+							// say close call quote!
+							TacticalCharacterDialogue( MercPtrs[ iCounter ], QUOTE_CLOSE_CALL );
+							MercPtrs[ iCounter ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
+						}
+						MercPtrs[ iCounter ]->flags.fCloseCall = FALSE;
+					}
 				}
 			}
 		}
@@ -969,7 +1026,7 @@ void StartInterrupt( void )
 		//if ( gTacticalStatus.ubCurrentTeam == OUR_TEAM )//hayden
 		// if ( pSoldier->bTeam > OUR_TEAM && pSoldier->bTeam < 6) // cheap disable
 		// SANDRO - we don't use the "hidden interrupt" feature with IIS
-		if (!is_networked && gTacticalStatus.ubCurrentTeam == OUR_TEAM && !gGameExternalOptions.fImprovedInterruptSystem
+		if (!is_networked && gTacticalStatus.ubCurrentTeam == OUR_TEAM && !gGameOptions.fImprovedInterruptSystem
 			&& MercPtrs[ LATEST_INTERRUPT_GUY ]->aiData.bOppList[pTempSoldier->ubID] != SEEN_CURRENTLY 
 			&& MercPtrs[ LATEST_INTERRUPT_GUY ]->aiData.bOppList[pTempSoldier->ubID] != SEEN_THIS_TURN ) 
 		{
@@ -1356,6 +1413,20 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 		// Reset our interface!
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
+	}
+
+	if ( gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] )
+	{
+		if (is_networked)
+		{
+			// Only allow fast forward mode on enemy team!
+			SetFastForwardMode( (gTacticalStatus.ubCurrentTeam == ENEMY_TEAM) );
+		}
+		else
+		{
+			// Allow fast forward mode on all teams except our team!
+			SetFastForwardMode( (gTacticalStatus.ubCurrentTeam != OUR_TEAM) );
+		}	
 	}
 }
 
@@ -2365,7 +2436,7 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 					// add this guy to everyone's interrupt queue
 					AddToIntList(ubIntList[ubSmallestSlot],TRUE,TRUE);
 					// SANDRO - for IIS, reset counter if we got here
-					if ( gGameExternalOptions.fImprovedInterruptSystem )
+					if ( gGameOptions.fImprovedInterruptSystem )
 					{
 						// reset the counter
 						MercPtrs[ ubIntList[ubSmallestSlot] ]->aiData.ubInterruptCounter[pSoldier->ubID] = 0;						

@@ -18,5 +18,7 @@ void HandleShortCutExitState( void );
 
 void SetPendingNewScreen( UINT32 uiNewScreen );
 
+struct InputAtom;
+void HandleDefaultEvent(InputAtom *Event);
 
 #endif

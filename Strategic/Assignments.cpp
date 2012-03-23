@@ -9587,7 +9587,7 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
  CHAR16 sString[ 50 ];
  CHAR16 sDollarString[ 50 ];
 
- ContractPosition.iX = OrigContractPosition.iX;
+ ContractPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + OrigContractPosition.iX;
 
  if( giBoxY != 0 )
  {
@@ -9847,7 +9847,7 @@ void CreateAssignmentsBox( void )
 
  // will create attribute pop up menu for mapscreen assignments
 
-	AssignmentPosition.iX = OrigAssignmentPosition.iX;
+	AssignmentPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + OrigAssignmentPosition.iX;
 
 	if( giBoxY != 0 )
 	{
@@ -15536,7 +15536,7 @@ void ResetAllExpensiveFacilityAssignments()
 BOOLEAN IsOutstandingFacilityDebtWithErrorReport()
 {
 	CHAR16 sString[256];
-	SGPRect pCenteringRect= {0, 0, 640, INV_INTERFACE_START_Y };
+	SGPRect pCenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, INV_INTERFACE_START_Y };
 
 	if (giTotalOwedForFacilityOperationsToday && // Owe money
 		gfOutstandingFacilityDebt ) // Owed money tonight as well

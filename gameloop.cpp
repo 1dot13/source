@@ -146,6 +146,12 @@ BOOLEAN InitializeGame(void)
 	InitButtonSystem();
 	InitCursors( );
 
+	SetFastForwardPeriod(gGameExternalOptions.iFastForwardPeriod);
+	SetFastForwardKey(gGameExternalOptions.iFastForwardKey);
+	SetNotifyFrequencyKey(gGameExternalOptions.iNotifyFrequency);
+	SetClockSpeedPercent(gGameExternalOptions.fClockSpeedPercent);
+	
+
 	// Init Fonts
 	if ( !InitializeFonts( ) )
 	{
@@ -510,7 +516,7 @@ void HandleShortCutExitState( void )
 	// look at the state of fGameIsRunning, if set false, then prompt user for confirmation
 
 	// use YES/NO Pop up box, settup for particular screen
-	SGPRect pCenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
+	SGPRect pCenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, INV_INTERFACE_START_Y };
 
 	if( guiCurrentScreen == ERROR_SCREEN )
 	{ //an assert failure, don't bring up the box!
@@ -588,4 +594,22 @@ void EndGameMessageBoxCallBack( UINT8 bExitValue )
 void NextLoopCheckForEnoughFreeHardDriveSpace()
 {
 	gubCheckForFreeSpaceOnHardDriveCount = 0;
+}
+
+
+// Called by any game loop after all known events were handled
+void HandleDefaultEvent(InputAtom *Event)
+{
+	const int MouseButtonEvents = LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|
+		LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|MIDDLE_BUTTON_UP|X1_BUTTON_UP|X2_BUTTON_UP|
+		RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP|MIDDLE_BUTTON_DOWN|X1_BUTTON_DOWN|X2_BUTTON_DOWN|
+		MOUSE_WHEEL_UP|MOUSE_WHEEL_DOWN;
+
+	if (Event != NULL && Event->usEvent & MouseButtonEvents)
+	{
+		POINT		MousePos;
+		GetCursorPos(&MousePos);
+		ScreenToClient(ghWindow, &MousePos); // In window coords!
+		MouseSystemHook(Event->usEvent, (UINT16)MousePos.x ,(UINT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
+	}
 }

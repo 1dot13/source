@@ -56,6 +56,8 @@
 #include "Ja25_Tactical.h"
 #endif
 
+#include "connect.h"
+
 //rain
 //#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
 //end rain
@@ -868,7 +870,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 	if ((gTacticalStatus.uiFlags & TURNBASED) && 
 		(gTacticalStatus.uiFlags & INCOMBAT) && 
 		(ubSightFlags & SIGHT_INTERRUPT) && 
-		(!gGameExternalOptions.fImprovedInterruptSystem || gGameExternalOptions.fAllowInstantInterruptsOnSight )	)
+		(!gGameOptions.fImprovedInterruptSystem || gGameExternalOptions.fAllowInstantInterruptsOnSight )	)
 	{
 		ResolveInterruptsVs( pSoldier, SIGHTINTERRUPT );
 	}
@@ -896,9 +898,13 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 			RadioSightings(pSoldier,EVERYBODY, MILITIA_TEAM);
 #endif*/
 //ddd{
-if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa) 
-RadioSightings(pSoldier,EVERYBODY, MILITIA_TEAM);
-				
+if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
+	RadioSightings(pSoldier,EVERYBODY, MILITIA_TEAM);
+
+//haydent
+if(is_networked &&  pSoldier->bSide == 0 && pSoldier->bTeam != OUR_TEAM)
+	RadioSightings(pSoldier,EVERYBODY, OUR_TEAM);
+
 //ddd}
 			// if it's our local player's merc
 			if (PTR_OURTEAM)
@@ -1403,15 +1409,23 @@ void EndMuzzleFlash( SOLDIERTYPE * pSoldier )
 */	
 
 //ddd{
-if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)	
-{	if ( pSoldier->bTeam != gbPlayerNum && pSoldier->bTeam != MILITIA_TEAM )
-		pSoldier->bVisible = 0; // indeterminate state
+//haydent
+if(is_networked &&  pSoldier->bSide == 0)
+{
+	//stay visible
 }
 else
 {
-	if ( pSoldier->bTeam != gbPlayerNum )
-		pSoldier->bVisible = 0; // indeterminate state
-}
+	if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)	
+	{	if ( pSoldier->bTeam != gbPlayerNum && pSoldier->bTeam != MILITIA_TEAM )
+			pSoldier->bVisible = 0; // indeterminate state
+	}
+	else
+	{
+		if ( pSoldier->bTeam != gbPlayerNum )
+			pSoldier->bVisible = 0; // indeterminate state
+	}
+}//haydent
 //ddd}
 	
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
@@ -1454,6 +1468,9 @@ else
 							pSoldier->bVisible = TRUE; // yes, still seen
 					}
 					//ddd}
+
+					//haydent
+					if(is_networked &&  pOtherSoldier->bSide == 0 && pOtherSoldier->bTeam != OUR_TEAM)pSoldier->bVisible = TRUE; // yes, still seen
 				}
 			}
 		}
@@ -1814,16 +1831,24 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 			}
 */			
 //ddd{
-if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
-{ if ( (pSoldier->bTeam == gbPlayerNum || pSoldier->bTeam == MILITIA_TEAM) && !(pOpponent->bTeam == gbPlayerNum || pOpponent->bTeam == MILITIA_TEAM ) )
-	pOpponent->bVisible = 0;
+//haydent
+if(is_networked &&  pSoldier->bSide == 0)
+{
+	//stay visible
 }
 else
-{ if ( pSoldier->bTeam == gbPlayerNum && pOpponent->bTeam != gbPlayerNum )
-	pOpponent->bVisible = 0;
-}
-//ddd}
-
+{
+	if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
+	{ if ( (pSoldier->bTeam == gbPlayerNum || pSoldier->bTeam == MILITIA_TEAM) && !(pOpponent->bTeam == gbPlayerNum || pOpponent->bTeam == MILITIA_TEAM ) )
+		pOpponent->bVisible = 0;
+	}
+	else
+	{ 
+		if ( pSoldier->bTeam == gbPlayerNum && pOpponent->bTeam != gbPlayerNum )
+			pOpponent->bVisible = 0;
+	}
+	//ddd}
+}//haydent
 		}
 	}
 #ifdef TESTOPPLIST
@@ -2591,6 +2616,10 @@ else
 	if (PTR_OURTEAM && (pOpponent->bVisible <= 0))
 	SEE_MENT = TRUE;
 }
+
+//haydent
+if((is_networked &&  pSoldier->bSide == 0 && pSoldier->bTeam != OUR_TEAM) && (pOpponent->bVisible <= 0))SEE_MENT = TRUE;
+
 //ddd}
 
 /*comm by ddd
@@ -2770,16 +2799,28 @@ void OtherTeamsLookForMan(SOLDIERTYPE *pOpponent)
 	}
 */	
 //ddd{
-if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
-{	
-	if ((pOpponent->bTeam != gbPlayerNum && pOpponent->bTeam != MILITIA_TEAM) && (pOpponent->bVisible >= 0 && pOpponent->bVisible < 2) && pOpponent->stats.bLife)
-		pOpponent->bVisible = 0;
+
+//haydent
+if(is_networked &&  pOpponent->bSide == 0)
+{
+	//stay visible
 }
 else
 {
-if ((pOpponent->bTeam != gbPlayerNum) && (pOpponent->bVisible >= 0 && pOpponent->bVisible < 2) && pOpponent->stats.bLife)
-pOpponent->bVisible = 0;
-}
+
+	if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
+	{	
+		if ((pOpponent->bTeam != gbPlayerNum && pOpponent->bTeam != MILITIA_TEAM) && (pOpponent->bVisible >= 0 && pOpponent->bVisible < 2) && pOpponent->stats.bLife)
+			pOpponent->bVisible = 0;
+	}
+	else
+	{
+	if ((pOpponent->bTeam != gbPlayerNum) && (pOpponent->bVisible >= 0 && pOpponent->bVisible < 2) && pOpponent->stats.bLife)
+		pOpponent->bVisible = 0;
+	}
+
+}//haydent
+
 //ddd}
 #ifdef TESTOPPLIST
 	DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3,
@@ -3269,6 +3310,14 @@ void BetweenTurnsVisibilityAdjustments(void)
 		{
 			//ddd{
 			BOOLEAN SEE_MENT = FALSE;
+
+		if(is_networked &&  pSoldier->bSide == 0)//haydent
+		{
+			//stay visible
+		}
+		else
+		{
+			
 			if (gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
 			{if (!PTR_OURTEAM && pSoldier->bTeam != MILITIA_TEAM)
 			SEE_MENT = TRUE;
@@ -3276,6 +3325,8 @@ void BetweenTurnsVisibilityAdjustments(void)
 			else
 			{ if (!PTR_OURTEAM) SEE_MENT = TRUE;
 			}
+
+		}//haydent
 			//ddd}
 /*comm by ddd
 #ifdef WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
@@ -3284,6 +3335,7 @@ void BetweenTurnsVisibilityAdjustments(void)
 			if (!PTR_OURTEAM)
 #endif
 				*/
+
 			if(SEE_MENT)
 			{
 				// check if anyone on our team currently sees him (exclude NOBODY)

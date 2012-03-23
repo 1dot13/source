@@ -59,7 +59,7 @@ typedef struct
 	BOOLEAN	fActive;							
 	UINT8		ubDeliveryLoc;				// the city the shipment is going to
 	UINT8		ubDeliveryMethod;			// type of delivery: next day, 2 days ...
-	BobbyRayPurchaseStruct BobbyRayPurchase[ MAX_PURCHASE_AMOUNT ];
+	BobbyRayPurchaseStruct BobbyRayPurchase[ 100 ];
 	UINT8		ubNumberPurchases;
 
 	UINT32	uiPackageWeight;

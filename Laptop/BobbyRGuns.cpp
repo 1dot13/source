@@ -138,7 +138,7 @@
 #define		BOBBYR_PERCENT_FUNTCIONAL_Y				BOBBYR_ORDER_SUBTOTAL_Y + 15
 
 
-BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
+BobbyRayPurchaseStruct BobbyRayPurchases[ 100 ];
 
 //BobbyRayOrderStruct *BobbyRayOrdersOnDeliveryArray=NULL;
 //UINT8	usNumberOfBobbyRayOrderItems = 0;
@@ -347,14 +347,14 @@ void GameInitBobbyRGuns()
 	guiCurrentArmourFilterMode = -1;
 	guiCurrentMiscFilterMode = -1;
 
-	memset(&BobbyRayPurchases, 0, MAX_PURCHASE_AMOUNT);
+	memset(&BobbyRayPurchases, 0, gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 }
 
 void EnterInitBobbyRGuns()
 {
 	guiTempCurrentMode=0;
 
-	memset(&BobbyRayPurchases, 0, MAX_PURCHASE_AMOUNT);
+	memset(&BobbyRayPurchases, 0, gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 }
 
 
@@ -1752,7 +1752,7 @@ BOOLEAN DisplayAmmoInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16
 	usHeight = DisplayCaliber(usHeight, usIndex, usFontHeight);
 
 	//Magazine
-//	usHeight = DisplayMagazine(usHeight, usIndex, usFontHeight);
+	usHeight = DisplayMagazine(usHeight, usIndex, usFontHeight);
 
 	//Display the Cost and the qty bought and on hand
 	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
@@ -1991,7 +1991,7 @@ UINT16 DisplayMagazine(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	CHAR16	sTemp[20];
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_MAGAZINE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	swprintf(sTemp, L"%3d %s", Weapon[usIndex].ubMagSize, pMessageStrings[ MSG_ROUNDS_ABBREVIATION ] );
+	swprintf(sTemp, L"%3d %s", Magazine[Item[usIndex].ubClassIndex].ubMagSize, pMessageStrings[ MSG_ROUNDS_ABBREVIATION ] );
 	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
@@ -2919,7 +2919,9 @@ void PurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems )
 				else
 				{
 					//display error popup because the player is trying to purchase more thenn 10 items
-					DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, BobbyRText[ BOBBYR_MORE_THEN_10_PURCHASES ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+					CHAR16 sMaxPurchase[255];
+					swprintf(sMaxPurchase, L"%s%d%s", BobbyRText[ BOBBYR_MORE_THEN_10_PURCHASES_A], gGameExternalOptions.ubBobbyRayMaxPurchaseAmount, BobbyRText[ BOBBYR_MORE_THEN_10_PURCHASES_B]);
+					DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sMaxPurchase, LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 
 				}
 			}
@@ -2965,7 +2967,9 @@ void PurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems )
 				else
 				{
 					//display error popup because the player is trying to purchase more thenn 10 items
-					DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, BobbyRText[ BOBBYR_MORE_THEN_10_PURCHASES ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+					CHAR16 sMaxPurchase[255];
+					swprintf(sMaxPurchase, L"%s%d%s", BobbyRText[ BOBBYR_MORE_THEN_10_PURCHASES_A], gGameExternalOptions.ubBobbyRayMaxPurchaseAmount, BobbyRText[ BOBBYR_MORE_THEN_10_PURCHASES_B]);
+					DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sMaxPurchase, LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 				}
 			}
 			// Else If the item is already purchased increment purchase amount.	Only if ordering less then the max amount!
@@ -2994,7 +2998,7 @@ UINT8 CheckIfItemIsPurchased(UINT16 usItemNumber)
 {
 	UINT8	i;
 
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		if( ( usItemNumber == BobbyRayPurchases[i].usBobbyItemIndex ) && ( BobbyRayPurchases[i].ubNumberPurchased != 0 ) && ( BobbyRayPurchases[i].fUsed == gfOnUsedPage ) )
 			return(i);
@@ -3006,7 +3010,7 @@ UINT8 GetNextPurchaseNumber()
 {
 	UINT8	i;
 
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		if( ( BobbyRayPurchases[i].usBobbyItemIndex == 0) && ( BobbyRayPurchases[i].ubNumberPurchased == 0 ) )
 			return(i);
@@ -3400,7 +3404,7 @@ UINT32 CalculateTotalPurchasePrice()
 	UINT16	i;
 	UINT32	uiTotal = 0;
 
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		//if the item was purchased
 		if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -3643,6 +3647,12 @@ BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType)
 
 	for (i = 0; i < MAXITEMS; i++)
 	{
+		if (Item[i].usItemClass != IC_GUN )
+			continue;
+
+		if (Item[i].usItemClass == 0)
+			break; // out of items
+
 		// We found the Weapon that uses this Ammo
 		if (Magazine[ Item[ usItemIndex ].ubClassIndex ].ubCalibre == Weapon[i].ubCalibre)
 		{
@@ -3650,7 +3660,7 @@ BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType)
 			if (Weapon[i].ubWeaponType == ubWeaponType)
 			{
 				//Weapon has correct magazine size
-				if(Weapon[i].ubMagSize == Magazine[Item[usItemIndex].ubClassIndex].ubMagSize )
+				if(Magazine[ Item[ usItemIndex ].ubClassIndex ].ubMagType >= AMMO_BOX || (Magazine[ Item[ usItemIndex ].ubClassIndex ].ubMagType < AMMO_BOX && Weapon[i].ubMagSize == Magazine[Item[usItemIndex].ubClassIndex].ubMagSize ))
 				{
 					bRetValue = TRUE;
 					break;
@@ -3735,7 +3745,7 @@ void HandleBobbyRGunsKeyBoardInput()
 	fCtrl = _KeyDown( CTRL );
 	fAlt = _KeyDown( ALT );
 
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN |KEY_REPEAT) == TRUE)
 	{
 		if( InputEvent.usEvent == KEY_DOWN )
 		{

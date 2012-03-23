@@ -71,6 +71,7 @@
 #define		GIO_MAIN_TITLE_Y						iScreenHeightOffset + 10
 #define		GIO_MAIN_TITLE_WIDTH					SCREEN_WIDTH
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 //radio box locations
 #define		GIO_GAP_BN_SETTINGS						35
 #define		GIO_OFFSET_TO_TEXT						36
@@ -79,64 +80,178 @@
 
 #define		GIO_TITLE_DISTANCE						30 // higher means closer
 
-#define		GIO_DIF_SETTING_X						iScreenWidthOffset + 48
-#define		GIO_DIF_SETTING_Y						iScreenHeightOffset + 55
-#define		GIO_DIF_SETTING_WIDTH					GIO_OFFSET_TO_TOGGLE_BOX - GIO_OFFSET_TO_TEXT
+// ---------------------------------
+// Y-Offset for Combo-Controls
+#define		COMBO_Y_OFFSET							63
+// Y-Offset for Check-Controls
+#define		CHECK_Y_OFFSET							50
 
-#define		GIO_IMP_SETTING_X						GIO_DIF_SETTING_X
-#define		GIO_IMP_SETTING_Y						GIO_DIF_SETTING_Y + 63
-#define		GIO_IMP_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+#define		CORRECTION_Y_OFFSET						(COMBO_Y_OFFSET - CHECK_Y_OFFSET)
 
-// old/new traits
-#define		GIO_TRAITS_SETTING_X					GIO_DIF_SETTING_X + 36
-#define		GIO_TRAITS_SETTING_Y					GIO_IMP_SETTING_Y + 52
-#define		GIO_TRAITS_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+// X-Offset for Checkbox-Controls
+#define		CHECK_X_OFFSET							36
+#define		COMBO_X_OFFSET							0
 
-// Madd
-#define		GIO_GAME_SETTING_X						GIO_TRAITS_SETTING_X
-#define		GIO_GAME_SETTING_Y						GIO_TRAITS_SETTING_Y + 67
-#define		GIO_GAME_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+#define		CHECK_WIDTH								(GIO_OFFSET_TO_TOGGLE_BOX - GIO_OFFSET_TO_TEXT)
+#define		COMBO_WIDTH								(GIO_OFFSET_TO_TOGGLE_BOX - GIO_OFFSET_TO_TEXT)
 
-#define		GIO_IRON_MAN_SETTING_X					GIO_TRAITS_SETTING_X
-#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + 67
-#define		GIO_IRON_MAN_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
 
-// Tex and Jon
-#define		GIO_TERRORISTS_SETTING_X				GIO_TRAITS_SETTING_X
-#define		GIO_TERRORISTS_SETTING_Y				GIO_IRON_MAN_SETTING_Y + 67
-#define		GIO_TERRORISTS_SETTING_WIDTH			GIO_DIF_SETTING_WIDTH
+/*********************************
+	FIRST COLUMN
+**********************************/
 
-#define		GIO_BR_SETTING_X						iScreenWidthOffset + 370
-#define		GIO_BR_SETTING_Y						GIO_DIF_SETTING_Y
-#define		GIO_BR_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+#define		FIRST_COLUMN_X							iScreenWidthOffset + 10
+#define		FIRST_COLUMN_Y							iScreenHeightOffset + 75
 
-#define		GIO_SQUAD_SIZE_SETTING_X				GIO_BR_SETTING_X
-#define		GIO_SQUAD_SIZE_SETTING_Y				GIO_BR_SETTING_Y + 63
-#define		GIO_SQUAD_SIZE_SETTING_WIDTH			GIO_DIF_SETTING_WIDTH
+#define		GIO_DIF_SETTING_X						FIRST_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_DIF_SETTING_Y						FIRST_COLUMN_Y
+#define		GIO_DIF_SETTING_WIDTH					COMBO_WIDTH
 
-#define		GIO_INV_SETTING_X						GIO_SQUAD_SIZE_SETTING_X
-#define		GIO_INV_SETTING_Y						GIO_SQUAD_SIZE_SETTING_Y + 63
-#define		GIO_INV_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+#define		GIO_IMP_SETTING_X						FIRST_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_IMP_SETTING_Y						GIO_DIF_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_IMP_SETTING_WIDTH					COMBO_WIDTH
 
-#define		GIO_DROPALL_SETTING_X					GIO_INV_SETTING_X + 36
-#define		GIO_DROPALL_SETTING_Y					GIO_INV_SETTING_Y + 56
-#define		GIO_DROPALL_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+#define		GIO_TRAITS_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_TRAITS_SETTING_Y					GIO_IMP_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_TRAITS_SETTING_WIDTH				CHECK_WIDTH
 
-#define		GIO_GUN_SETTING_X						GIO_DROPALL_SETTING_X
-#define		GIO_GUN_SETTING_Y						GIO_DROPALL_SETTING_Y + 67
-#define		GIO_GUN_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+#define		GIO_GAME_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_GAME_SETTING_Y						GIO_TRAITS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_GAME_SETTING_WIDTH					CHECK_WIDTH
 
-#define		GIO_CACHES_SETTING_X					GIO_GUN_SETTING_X
-#define		GIO_CACHES_SETTING_Y					GIO_GUN_SETTING_Y + 67
-#define		GIO_CACHES_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+#define		GIO_IRON_MAN_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_IRON_MAN_SETTING_WIDTH				CHECK_WIDTH
 
-#define		GIO_TIMED_TURN_SETTING_X				GIO_GUN_SETTING_X
-#define		GIO_TIMED_TURN_SETTING_Y				GIO_IRON_MAN_SETTING_Y
-#define		GIO_TIMED_TURN_SETTING_WIDTH			GIO_DIF_SETTING_WIDTH
+#define		GIO_TIMED_TURN_SETTING_X				FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_TIMED_TURN_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_TIMED_TURN_SETTING_WIDTH			CHECK_WIDTH
 
-#define		GIO_PROGRESS_SETTING_X					GIO_SQUAD_SIZE_SETTING_X
-#define		GIO_PROGRESS_SETTING_Y					GIO_TERRORISTS_SETTING_Y + 13
-#define		GIO_PROGRESS_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+#define		GIO_TERRORISTS_SETTING_X				FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_TERRORISTS_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_TERRORISTS_SETTING_WIDTH			CHECK_WIDTH
+
+/*********************************
+	SECOND COLUMN
+**********************************/
+
+#define		SECOND_COLUMN_X							iScreenWidthOffset + 210
+#define		SECOND_COLUMN_Y							FIRST_COLUMN_Y
+
+#define		GIO_INV_SETTING_X						SECOND_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_INV_SETTING_Y						SECOND_COLUMN_Y
+#define		GIO_INV_SETTING_WIDTH					COMBO_WIDTH
+
+#define		GIO_PROGRESS_SETTING_X					SECOND_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_PROGRESS_SETTING_Y					GIO_INV_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_PROGRESS_SETTING_WIDTH				COMBO_WIDTH
+
+#define		GIO_GUN_SETTING_X						SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_GUN_SETTING_Y						GIO_PROGRESS_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_GUN_SETTING_WIDTH					CHECK_WIDTH
+
+#define		GIO_DROPALL_SETTING_X					SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_DROPALL_SETTING_Y					GIO_GUN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_DROPALL_SETTING_WIDTH				CHECK_WIDTH
+
+#define		GIO_OVERHEATING_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_OVERHEATING_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_OVERHEATING_SETTING_WIDTH			CHECK_WIDTH
+
+/*********************************
+	THIRD COLUMN
+**********************************/
+
+#define		THIRD_COLUMN_X							iScreenWidthOffset + 413
+#define		THIRD_COLUMN_Y							FIRST_COLUMN_Y
+
+#define		GIO_SQUAD_SIZE_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_SQUAD_SIZE_SETTING_Y				THIRD_COLUMN_Y
+#define		GIO_SQUAD_SIZE_SETTING_WIDTH			COMBO_WIDTH
+
+#define		GIO_BR_SETTING_X						THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_BR_SETTING_Y						GIO_SQUAD_SIZE_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_BR_SETTING_WIDTH					COMBO_WIDTH
+
+#define		GIO_NCTH_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_NCTH_SETTING_Y						GIO_BR_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
+
+#define		GIO_IIS_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_IIS_SETTING_Y						GIO_NCTH_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_IIS_SETTING_WIDTH					CHECK_WIDTH
+
+#define		GIO_INVENTORY_AP_SETTING_X				THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_INVENTORY_AP_SETTING_Y				GIO_IIS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_INVENTORY_AP_SETTING_WIDTH			CHECK_WIDTH
+
+////radio box locations
+//#define		GIO_GAP_BN_SETTINGS						35
+//#define		GIO_OFFSET_TO_TEXT						36
+//#define		GIO_OFFSET_TO_TOGGLE_BOX				180
+//#define		GIO_OFFSET_TO_TOGGLE_BOX_Y				9
+//
+//#define		GIO_TITLE_DISTANCE						30 // higher means closer
+//
+//#define		GIO_DIF_SETTING_X						iScreenWidthOffset + 48
+//#define		GIO_DIF_SETTING_Y						iScreenHeightOffset + 55
+//#define		GIO_DIF_SETTING_WIDTH					GIO_OFFSET_TO_TOGGLE_BOX - GIO_OFFSET_TO_TEXT
+//
+//#define		GIO_IMP_SETTING_X						GIO_DIF_SETTING_X
+//#define		GIO_IMP_SETTING_Y						GIO_DIF_SETTING_Y + 63
+//#define		GIO_IMP_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+//
+//// old/new traits
+//#define		GIO_TRAITS_SETTING_X					GIO_DIF_SETTING_X + 36
+//#define		GIO_TRAITS_SETTING_Y					GIO_IMP_SETTING_Y + 52
+//#define		GIO_TRAITS_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+//
+//// Madd
+//#define		GIO_GAME_SETTING_X						GIO_TRAITS_SETTING_X
+//#define		GIO_GAME_SETTING_Y						GIO_TRAITS_SETTING_Y + 67
+//#define		GIO_GAME_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_IRON_MAN_SETTING_X					GIO_TRAITS_SETTING_X
+//#define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + 67
+//#define		GIO_IRON_MAN_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+//
+//// Tex and Jon
+//#define		GIO_TERRORISTS_SETTING_X				GIO_TRAITS_SETTING_X
+//#define		GIO_TERRORISTS_SETTING_Y				GIO_IRON_MAN_SETTING_Y + 67
+//#define		GIO_TERRORISTS_SETTING_WIDTH			GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_BR_SETTING_X						iScreenWidthOffset + 370
+//#define		GIO_BR_SETTING_Y						GIO_DIF_SETTING_Y
+//#define		GIO_BR_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_SQUAD_SIZE_SETTING_X				GIO_BR_SETTING_X
+//#define		GIO_SQUAD_SIZE_SETTING_Y				GIO_BR_SETTING_Y + 63
+//#define		GIO_SQUAD_SIZE_SETTING_WIDTH			GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_INV_SETTING_X						GIO_SQUAD_SIZE_SETTING_X
+//#define		GIO_INV_SETTING_Y						GIO_SQUAD_SIZE_SETTING_Y + 63
+//#define		GIO_INV_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_DROPALL_SETTING_X					GIO_INV_SETTING_X + 36
+//#define		GIO_DROPALL_SETTING_Y					GIO_INV_SETTING_Y + 56
+//#define		GIO_DROPALL_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_GUN_SETTING_X						GIO_DROPALL_SETTING_X
+//#define		GIO_GUN_SETTING_Y						GIO_DROPALL_SETTING_Y + 67
+//#define		GIO_GUN_SETTING_WIDTH					GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_CACHES_SETTING_X					GIO_GUN_SETTING_X
+//#define		GIO_CACHES_SETTING_Y					GIO_GUN_SETTING_Y + 67
+//#define		GIO_CACHES_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_TIMED_TURN_SETTING_X				GIO_GUN_SETTING_X
+//#define		GIO_TIMED_TURN_SETTING_Y				GIO_IRON_MAN_SETTING_Y
+//#define		GIO_TIMED_TURN_SETTING_WIDTH			GIO_DIF_SETTING_WIDTH
+//
+//#define		GIO_PROGRESS_SETTING_X					GIO_SQUAD_SIZE_SETTING_X
+//#define		GIO_PROGRESS_SETTING_Y					GIO_TERRORISTS_SETTING_Y + 13
+//#define		GIO_PROGRESS_SETTING_WIDTH				GIO_DIF_SETTING_WIDTH
+
 
 
 // INI File
@@ -262,10 +377,10 @@ enum
 
 enum
 {
-	GIO_DROPALL_OFF,
-	GIO_DROPALL_ON,
+	GIO_BUTTON_OFF,
+	GIO_BUTTON_ON,
 
-	NUM_DROPALL_OPTIONS,
+	GIO_NUM_ONOFF_BUTTONS,
 };
 
 // Gun options
@@ -276,15 +391,6 @@ enum
 
 	NUM_GUN_OPTIONS,
 };
-
-enum
-{
-	GIO_CACHES_RANDOM,
-	GIO_CACHES_ALL,
-
-	NUM_CACHES_OPTIONS,
-};
-
 
 // Timed turns setting (Multiplayer exclusive)
 enum
@@ -387,7 +493,6 @@ UINT32	guiGameTextToggles[ NUM_TEXT_STYLES ];
 
 UINT32	guiGameStyleTogglesImage[ NUM_GAME_STYLES ];
 UINT32	guiGameStyleToggles[ NUM_GAME_STYLES ];
-
 void BtnGIOOffStyleCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOOnStyleCallback(GUI_BUTTON *btn,INT32 reason);
 
@@ -399,12 +504,11 @@ void BtnGIOIronManOnCallback(GUI_BUTTON *btn,INT32 reason);
 
 UINT32	guiRpcOptionTogglesImage[ NUM_RPC_UB_OPTIONS ];
 UINT32	guiRpcOptionToggles[ NUM_RPC_UB_OPTIONS ];
-
 void BtnGIORpcRandomCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIORpcAllCallback(GUI_BUTTON *btn,INT32 reason);
 
-UINT32	guiDropAllOptionTogglesImage[ NUM_DROPALL_OPTIONS ];
-UINT32	guiDropAllOptionToggles[ NUM_DROPALL_OPTIONS ];
+UINT32	guiDropAllOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiDropAllOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
 void BtnGIODropAllOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIODropAllOnCallback(GUI_BUTTON *btn,INT32 reason);
 
@@ -414,11 +518,34 @@ UINT32	guiGunOptionToggles[ NUM_GUN_OPTIONS ];
 void BtnGIOGunSettingReducedCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOGunSettingToGCallback(GUI_BUTTON *btn,INT32 reason);
 
-
 UINT32 giGIOSquadSizeButton[ 2 ];
 INT32 giGIOSquadSizeButtonImage[ 2 ];
 void BtnGIOSquadSizeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+// Inventory AP
+UINT32	guiInventoryAPOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiInventoryAPOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOInventoryAPOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOInventoryAPOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+// NCTH
+UINT32	guiNCTHOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiNCTHOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+// IIS
+UINT32	guiImprovedInterruptOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiImprovedInterruptOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOImprovedInterruptOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+// Overheating
+UINT32	guiOverheatingOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiOverheatingOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason);
 
 
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
@@ -449,6 +576,11 @@ UINT8			GetCurrentTextStyleButtonSetting();
 UINT8	GetCurrentTraitsOptionButtonSetting();
 UINT8	GetCurrentDropAllButtonSetting();
 UINT8	GetCurrentTexAndJohnButtonSetting();
+
+UINT8	GetCurrentInventoryAPButtonSetting();
+UINT8	GetCurrentNCTHButtonSetting();
+UINT8	GetCurrentIISButtonSetting();
+UINT8	GetCurrentOverheatingButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
 void		DoneFadeInForExitGameInitOptionScreen( void );
@@ -567,13 +699,17 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Squad size (Default: 6)
 	UINT8 ubSquadSize = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_SQUAD_SIZE, 6);
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		ubSquadSize = 6;
 
 	gGameOptions.ubSquadSize = ubSquadSize;
-	
-	// Secret Weapon Caches (Default: Random = 0)
-	gGameOptions.fEnableAllWeaponCaches =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_SECRET_WEAPON_CACHES, 0);
+
+	//Inventory AP Costs
+	gGameOptions.fInventoryCostsAP = FALSE;
+
+	gGameOptions.fUseNCTH = FALSE;
+	gGameOptions.fImprovedInterruptSystem = FALSE;
+	gGameOptions.fWeaponOverheating = FALSE;
 
 	gGameOptions.fAirStrikes =  FALSE;
 	gGameOptions.fTurnTimeLimit	= FALSE;
@@ -654,18 +790,12 @@ BOOLEAN		EnterGIOScreen()
 	// load the Main trade screen backgroiund image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
-	{
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 1)
-	{
+	else if (iResolution < _1024x768)
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround_800x600.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 2)
-	{
+	else
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround_1024x768.sti", VObjectDesc.ImageFile);
-	}
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiGIOMainBackGroundImage ));
 
@@ -966,31 +1096,31 @@ BOOLEAN		EnterGIOScreen()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// DROP ALL ON/OFF SETTING
 
-	guiDropAllOptionTogglesImage[ GIO_DROPALL_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiDropAllOptionToggles[ GIO_DROPALL_OFF ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_DROPALL_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiDropAllOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiDropAllOptionToggles[ GIO_BUTTON_OFF ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
 													(GIO_DROPALL_SETTING_X), (GIO_DROPALL_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnGIODropAllOffCallback);
 
-	guiDropAllOptionTogglesImage[ GIO_DROPALL_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiDropAllOptionToggles[ GIO_DROPALL_ON ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_DROPALL_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiDropAllOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiDropAllOptionToggles[ GIO_BUTTON_ON ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
 													(GIO_DROPALL_SETTING_X + 74), (GIO_DROPALL_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnGIODropAllOnCallback );
 
-	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_DROPALL_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_DROPALL_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_DROPALL_OFF ],0, 0 );
-	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_DROPALL_ON ],0, 1 );
+	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_BUTTON_ON ],0, 1 );
 
 	if( gGameOptions.fEnemiesDropAllItems )
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GUN SETTING
@@ -1023,7 +1153,7 @@ BOOLEAN		EnterGIOScreen()
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SQUAD SIZE
-	if (iResolution > 0)
+	if (iResolution > _640x480)
 	{
 		giGIOSquadSizeButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
 		giGIOSquadSizeButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
@@ -1056,6 +1186,127 @@ BOOLEAN		EnterGIOScreen()
 		}
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// INVENTORY AP COST ON/OFF SETTING
+
+	guiInventoryAPOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ] = CreateIconAndTextButton( guiInventoryAPOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_INVENTORY_AP_SETTING_X), (GIO_INVENTORY_AP_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOInventoryAPOffCallback);
+
+	guiInventoryAPOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiInventoryAPOptionToggles[ GIO_BUTTON_ON ] = CreateIconAndTextButton( guiInventoryAPOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_INVENTORY_AP_SETTING_X + 74), (GIO_INVENTORY_AP_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOInventoryAPOnCallback );
+
+	SpecifyButtonSoundScheme( guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiInventoryAPOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiInventoryAPOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fInventoryCostsAP )
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// NCTH ON/OFF SETTING
+
+	guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiNCTHOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOffCallback);
+
+	guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiNCTHOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_NCTH_SETTING_X + 74), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOnCallback );
+
+	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fUseNCTH )
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// IMPROVED INTERRUPT SYSTEM ON/OFF SETTING
+
+	guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_IIS_SETTING_X), (GIO_IIS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOImprovedInterruptOffCallback);
+
+	guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_IIS_SETTING_X + 74), (GIO_IIS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOImprovedInterruptOnCallback );
+
+	SpecifyButtonSoundScheme( guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fImprovedInterruptSystem )
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// OVERHEATING WEAPONS ON/OFF SETTING
+
+	guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOffCallback);
+
+	guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiOverheatingOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_OVERHEATING_SETTING_X + 74), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOnCallback );
+
+	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fWeaponOverheating )
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Reset the exit screen
 	gubGIOExitScreen = GAME_INIT_OPTIONS_SCREEN;
@@ -1660,10 +1911,10 @@ void BtnGIODropAllOffCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		RestoreExternBackgroundRect( (GIO_DROPALL_SETTING_X), (GIO_DROPALL_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiDropAllOptionToggles[ GIO_DROPALL_OFF ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiDropAllOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 void BtnGIODropAllOnCallback(GUI_BUTTON *btn,INT32 reason)
@@ -1675,10 +1926,10 @@ void BtnGIODropAllOnCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		RestoreExternBackgroundRect( (GIO_DROPALL_SETTING_X), (GIO_DROPALL_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiDropAllOptionToggles[ GIO_DROPALL_ON ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiDropAllOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -1765,7 +2016,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution == 1)
+		if (iResolution >= _800x600 && iResolution < _1024x768)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )
@@ -1785,7 +2036,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution == 1)
+		if (iResolution >= _800x600 && iResolution < _1024x768)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )
@@ -1806,6 +2057,131 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		}
+	}
+}
+
+
+void BtnGIOInventoryAPOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_INVENTORY_AP_SETTING_X), (GIO_INVENTORY_AP_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		PlayButtonSound( guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOInventoryAPOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_INVENTORY_AP_SETTING_X), (GIO_INVENTORY_AP_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		PlayButtonSound( guiInventoryAPOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnGIOImprovedInterruptOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_IIS_SETTING_X), (GIO_IIS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_IIS_SETTING_X), (GIO_IIS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -1890,7 +2266,7 @@ BOOLEAN		ExitGIOScreen()
 	}
 
 	// Destroy Drop All setting buttons
-	for( cnt=0; cnt<NUM_DROPALL_OPTIONS; cnt++)
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
 	{
 		RemoveButton( guiDropAllOptionToggles[ cnt ] );
 		UnloadButtonImage( guiDropAllOptionTogglesImage[ cnt ] );
@@ -1904,14 +2280,42 @@ BOOLEAN		ExitGIOScreen()
 	}
 
 	// Destroy Squad size setting buttons
-	if (iResolution > 0)
+	if (iResolution > _640x480)
 	{
 		RemoveButton( giGIOSquadSizeButton[0] );
 		RemoveButton( giGIOSquadSizeButton[1] );
 		UnloadButtonImage( giGIOSquadSizeButtonImage[0] );
 		UnloadButtonImage( giGIOSquadSizeButtonImage[1] );
 	}
+
+	// Destroy Inventory AP Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiInventoryAPOptionToggles[ cnt ] );
+		UnloadButtonImage( guiInventoryAPOptionTogglesImage[ cnt ] );
+	}
+
+	// Destroy NCTH Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiNCTHOptionToggles[ cnt ] );
+		UnloadButtonImage( guiNCTHOptionTogglesImage[ cnt ] );
+	}
 	
+	// Destroy IIS Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiImprovedInterruptOptionToggles[ cnt ] );
+		UnloadButtonImage( guiImprovedInterruptOptionTogglesImage[ cnt ] );
+	}
+	
+	// Destroy Overheating Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiOverheatingOptionToggles[ cnt ] );
+		UnloadButtonImage( guiOverheatingOptionTogglesImage[ cnt ] );
+	}
+
 	gfGIOButtonsAllocated = FALSE;
 
 	//If we are starting the game stop playing the music
@@ -1988,7 +2392,8 @@ BOOLEAN		RenderGIOScreen()
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiGIOMainBackGroundImage );
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,0,0, VO_BLT_SRCTRANSPARENCY,NULL);
+
+	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,xResOffset,yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	//Shade the background
 	ShadowVideoSurfaceRect( FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, iScreenWidthOffset + 640, iScreenHeightOffset + 480 );
@@ -2051,7 +2456,17 @@ BOOLEAN		RenderGIOScreen()
 	RenderGIOSmallSelectionFrame( (GIO_SQUAD_SIZE_SETTING_X + 36), (GIO_SQUAD_SIZE_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_SQUAD_SIZE_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_SQUAD_SIZE_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_SQUAD_SIZE_SETTING_Y+6), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentSquadSize + (GIO_SQUAD_SIZE_TITLE_TEXT + 1) ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-		
+	
+	//Display the Inventory AP Cost Settings Title Text
+	DisplayWrappedString( (GIO_INVENTORY_AP_SETTING_X - 6), (UINT16)(GIO_INVENTORY_AP_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_INVENTORY_AP_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INVENTORY_AP_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	
+	//Display the NCTH Settings Title Text
+	DisplayWrappedString( (GIO_NCTH_SETTING_X - 6), (UINT16)(GIO_NCTH_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_NCTH_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_NCTH_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//Display the Improved Interrupt System Settings Title Text
+	DisplayWrappedString( (GIO_IIS_SETTING_X - 6), (UINT16)(GIO_IIS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IIS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IIS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//Display the Weapon Overheating Settings Title Text
+	DisplayWrappedString( (GIO_OVERHEATING_SETTING_X - 6), (UINT16)(GIO_OVERHEATING_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_OVERHEATING_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_OVERHEATING_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
 	return( TRUE );
 }
 
@@ -2060,7 +2475,7 @@ void GetGIOScreenUserInput()
 {
 	InputAtom Event;
 
-	while( DequeueEvent( &Event ) )
+	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if( Event.usEvent == KEY_DOWN )
 		{
@@ -2245,6 +2660,62 @@ UINT8	GetCurrentTimedTurnsButtonSetting()
 	return( 0 );
 }
 
+UINT8	GetCurrentInventoryAPButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiInventoryAPOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentNCTHButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiNCTHOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentIISButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiImprovedInterruptOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentOverheatingButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiOverheatingOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
 void DoneFadeOutForExitGameInitOptionScreen( void )
 {
 	// loop through and get the status of all the buttons
@@ -2321,9 +2792,13 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameUBOptions.fTexAndJohn = GetCurrentTexAndJohnButtonSetting();
 	
 	gGameOptions.fEnemiesDropAllItems = GetCurrentDropAllButtonSetting();	
-	gGameOptions.fEnableAllWeaponCaches = FALSE;	
 	gGameOptions.ubProgressSpeedOfItemsChoices = min( GIO_PROGRESS_VERY_FAST, iCurrentProgressSetting );
 	
+	gGameOptions.fInventoryCostsAP = GetCurrentInventoryAPButtonSetting();
+	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
+	gGameOptions.fImprovedInterruptSystem = GetCurrentIISButtonSetting();
+	gGameOptions.fWeaponOverheating = GetCurrentOverheatingButtonSetting();
+
 	gubGIOExitScreen = INIT_SCREEN;
 	
 	//set the fact that we should do the intro videos
@@ -2357,7 +2832,7 @@ void DoneFadeInForExitGameInitOptionScreen( void )
 
 BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+	SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
 
 	// do message box and return
 	giGioMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );
@@ -2481,9 +2956,6 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 
 #define		GIO_TITLE_DISTANCE						30 // higher means closer
 
-#define		GIO_OFFSET_TO_TEXT						36
-#define		GIO_OFFSET_TO_TOGGLE_BOX				180
-
 // ---------------------------------
 // Y-Offset for Combo-Controls
 #define		COMBO_Y_OFFSET							63
@@ -2527,10 +2999,6 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_IRON_MAN_SETTING_WIDTH				CHECK_WIDTH
 
-#define		GIO_TERRORISTS_SETTING_X				FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_TERRORISTS_SETTING_Y				GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
-#define		GIO_TERRORISTS_SETTING_WIDTH			CHECK_WIDTH
-
 
 /*********************************
 	SECOND COLUMN
@@ -2539,29 +3007,25 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		SECOND_COLUMN_X							iScreenWidthOffset + 210
 #define		SECOND_COLUMN_Y							FIRST_COLUMN_Y
 
-#define		GIO_BR_SETTING_X						SECOND_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_BR_SETTING_Y						SECOND_COLUMN_Y
-#define		GIO_BR_SETTING_WIDTH					COMBO_WIDTH
-
-#define		GIO_PROGRESS_SETTING_X					SECOND_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_PROGRESS_SETTING_Y					GIO_BR_SETTING_Y + COMBO_Y_OFFSET
-#define		GIO_PROGRESS_SETTING_WIDTH				COMBO_WIDTH
-
 #define		GIO_INV_SETTING_X						SECOND_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_INV_SETTING_Y						GIO_PROGRESS_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_INV_SETTING_Y						SECOND_COLUMN_Y
 #define		GIO_INV_SETTING_WIDTH					COMBO_WIDTH
 
-#define		GIO_DROPALL_SETTING_X					SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_DROPALL_SETTING_Y					GIO_INV_SETTING_Y + CHECK_Y_OFFSET
-#define		GIO_DROPALL_SETTING_WIDTH				CHECK_WIDTH
+#define		GIO_PROGRESS_SETTING_X					SECOND_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_PROGRESS_SETTING_Y					GIO_INV_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_PROGRESS_SETTING_WIDTH				COMBO_WIDTH
 
 #define		GIO_GUN_SETTING_X						SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_GUN_SETTING_Y						GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_GUN_SETTING_Y						GIO_PROGRESS_SETTING_Y + CHECK_Y_OFFSET
 #define		GIO_GUN_SETTING_WIDTH					CHECK_WIDTH
 
-#define		GIO_CACHES_SETTING_X					SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_CACHES_SETTING_Y					GIO_GUN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
-#define		GIO_CACHES_SETTING_WIDTH				CHECK_WIDTH
+#define		GIO_DROPALL_SETTING_X					SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_DROPALL_SETTING_Y					GIO_GUN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_DROPALL_SETTING_WIDTH				CHECK_WIDTH
+
+#define		GIO_OVERHEATING_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_OVERHEATING_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_OVERHEATING_SETTING_WIDTH			CHECK_WIDTH
 
 /*********************************
 	THIRD COLUMN
@@ -2574,7 +3038,21 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_SQUAD_SIZE_SETTING_Y				THIRD_COLUMN_Y
 #define		GIO_SQUAD_SIZE_SETTING_WIDTH			COMBO_WIDTH
 
+#define		GIO_BR_SETTING_X						THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_BR_SETTING_Y						GIO_SQUAD_SIZE_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_BR_SETTING_WIDTH					COMBO_WIDTH
 
+#define		GIO_NCTH_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_NCTH_SETTING_Y						GIO_BR_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
+
+#define		GIO_IIS_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_IIS_SETTING_Y						GIO_NCTH_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_IIS_SETTING_WIDTH					CHECK_WIDTH
+
+#define		GIO_INVENTORY_AP_SETTING_X				THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_INVENTORY_AP_SETTING_Y				GIO_IIS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_INVENTORY_AP_SETTING_WIDTH			CHECK_WIDTH
 
 
 
@@ -2595,9 +3073,14 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_ENEMIES_DROP_ALL_ITEMS			"ENEMIES_DROP_ALL_ITEMS"
 #define		JA2SP_EXTRA_DIFFICULTY					"EXTRA_DIFFICULTY"
 #define		JA2SP_AVAILABLE_ARSENAL					"AVAILABLE_ARSENAL"
-#define		JA2SP_NUMBER_OF_TERRORISTS				"NUMBER_OF_TERRORISTS"
-#define		JA2SP_SECRET_WEAPON_CACHES				"SECRET_WEAPON_CACHES"
+//#define		JA2SP_NUMBER_OF_TERRORISTS				"NUMBER_OF_TERRORISTS"
+//#define		JA2SP_SECRET_WEAPON_CACHES				"SECRET_WEAPON_CACHES"
 #define		JA2SP_SQUAD_SIZE						"SQUAD_SIZE"
+//#define		JA2SP_FAST_BR							"FAST_BOBBY_RAY"
+#define		JA2SP_INVENTORY_AP						"INVENTORY_USE_AP"
+#define		JA2SP_USE_NCTH							"USE_NCTH"
+#define		JA2SP_USE_IIS							"IMPROVED_INTERRUPT_SYSTEM"
+#define		JA2SP_OVERHEATING						"WEAPON_OVERHEATING"
 
 
 //Difficulty settings
@@ -2635,14 +3118,6 @@ enum
 	GIO_IRON_MAN,
 
 	NUM_SAVE_OPTIONS,
-};
-
-enum
-{
-	GIO_TERRORISTS_RANDOM,
-	GIO_TERRORISTS_ALL,
-
-	NUM_TERRORISTS_OPTIONS,
 };
 
 // BR options
@@ -2688,10 +3163,10 @@ enum
 
 enum
 {
-	GIO_DROPALL_OFF,
-	GIO_DROPALL_ON,
+	GIO_BUTTON_OFF,
+	GIO_BUTTON_ON,
 
-	NUM_DROPALL_OPTIONS,
+	GIO_NUM_ONOFF_BUTTONS,
 };
 
 // Gun options
@@ -2702,15 +3177,6 @@ enum
 
 	NUM_GUN_OPTIONS,
 };
-
-enum
-{
-	GIO_CACHES_RANDOM,
-	GIO_CACHES_ALL,
-
-	NUM_CACHES_OPTIONS,
-};
-
 
 // Timed turns setting (Multiplayer exclusive)
 enum
@@ -2819,13 +3285,8 @@ UINT32	guiGameSaveToggles[ NUM_SAVE_OPTIONS ];
 void BtnGIOIronManOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOIronManOnCallback(GUI_BUTTON *btn,INT32 reason);
 
-UINT32	guiTerroristsOptionTogglesImage[ NUM_TERRORISTS_OPTIONS ];
-UINT32	guiTerroristsOptionToggles[ NUM_TERRORISTS_OPTIONS ];
-void BtnGIOTerroristsRandomCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnGIOTerroristsAllCallback(GUI_BUTTON *btn,INT32 reason);
-
-UINT32	guiDropAllOptionTogglesImage[ NUM_DROPALL_OPTIONS ];
-UINT32	guiDropAllOptionToggles[ NUM_DROPALL_OPTIONS ];
+UINT32	guiDropAllOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiDropAllOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
 void BtnGIODropAllOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIODropAllOnCallback(GUI_BUTTON *btn,INT32 reason);
 
@@ -2835,16 +3296,33 @@ UINT32	guiGunOptionToggles[ NUM_GUN_OPTIONS ];
 void BtnGIOGunSettingReducedCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOGunSettingToGCallback(GUI_BUTTON *btn,INT32 reason);
 
-UINT32	guiWeaponCachesOptionTogglesImage[ NUM_CACHES_OPTIONS ];
-UINT32	guiWeaponCachesOptionToggles[ NUM_CACHES_OPTIONS ];
-void BtnGIOWeaponCachesRandomCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnGIOWeaponCachesAllCallback(GUI_BUTTON *btn,INT32 reason);
-
 UINT32 giGIOSquadSizeButton[ 2 ];
 INT32 giGIOSquadSizeButtonImage[ 2 ];
 void BtnGIOSquadSizeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
+UINT32	guiInventoryAPOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiInventoryAPOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOInventoryAPOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOInventoryAPOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+// NCTH
+UINT32	guiNCTHOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiNCTHOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+// IIS
+UINT32	guiImprovedInterruptOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiImprovedInterruptOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOImprovedInterruptOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+// Overheating
+UINT32	guiOverheatingOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiOverheatingOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason);
 
 
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
@@ -2870,11 +3348,12 @@ UINT8			GetCurrentGunButtonSetting();
 UINT8			GetCurrentGameSaveButtonSetting();
 UINT8			GetCurrentGameStyleButtonSetting();
 
-// SANDRO - added following
 UINT8	GetCurrentTraitsOptionButtonSetting();
 UINT8	GetCurrentDropAllButtonSetting();
-UINT8	GetCurrentTerroristsButtonSetting();
-UINT8	GetCurrentWeaponCachesButtonSetting();
+UINT8	GetCurrentInventoryAPButtonSetting();
+UINT8	GetCurrentNCTHButtonSetting();
+UINT8	GetCurrentIISButtonSetting();
+UINT8	GetCurrentOverheatingButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
 void		DoneFadeInForExitGameInitOptionScreen( void );
@@ -2983,20 +3462,21 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Available Arsenal (Default: Tons of Guns = 1)
 	gGameOptions.fGunNut =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_AVAILABLE_ARSENAL, 1);
 
-	// Number of Terrorists (Default: Random = 0)
-	gGameOptions.fEnableAllTerrorists =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_NUMBER_OF_TERRORISTS, 0);
-
-	// Secret Weapon Caches (Default: Random = 0)
-	gGameOptions.fEnableAllWeaponCaches =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_SECRET_WEAPON_CACHES, 0);
+	// Inventory manipulation costs AP (Default: Off = 0)
+	gGameOptions.fInventoryCostsAP = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_INVENTORY_AP, 0);
 
 	// Squad size (Default: 8)
 	UINT8 ubSquadSize = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_SQUAD_SIZE, 8);
 	
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		ubSquadSize = 6;
 
 	gGameOptions.ubSquadSize = ubSquadSize;
-	
+
+	gGameOptions.fUseNCTH = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_NCTH, 0);
+	gGameOptions.fImprovedInterruptSystem = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_IIS, 0);
+	gGameOptions.fWeaponOverheating = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_OVERHEATING, 0);
+
 	// Air strikes
 	gGameOptions.fAirStrikes =  FALSE;
 
@@ -3077,20 +3557,15 @@ BOOLEAN		EnterGIOScreen()
 	SetCurrentCursorFromDatabase( CURSOR_NORMAL );
 
 	// load the Main trade screen backgroiund image
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
-	{
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 1)
-	{
+	else if (iResolution < _1024x768)
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround_800x600.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 2)
-	{
+	else
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround_1024x768.sti", VObjectDesc.ImageFile);
-	}
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiGIOMainBackGroundImage ));
 
@@ -3251,36 +3726,6 @@ BOOLEAN		EnterGIOScreen()
 	else
 		ButtonList[ guiGameSaveToggles[ GIO_CAN_SAVE ] ]->uiFlags |= BUTTON_CLICKED_ON;	
 
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// NUMBER OF TERRORISTS SETTING
-
-	guiTerroristsOptionTogglesImage[ GIO_TERRORISTS_RANDOM ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiTerroristsOptionToggles[ GIO_TERRORISTS_RANDOM ] = CreateIconAndTextButton( guiTerroristsOptionTogglesImage[ GIO_TERRORISTS_RANDOM ], gzGIOScreenText[ GIO_TERRORISTS_RANDOM_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_TERRORISTS_SETTING_X), (GIO_TERRORISTS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOTerroristsRandomCallback);
-
-	guiTerroristsOptionTogglesImage[ GIO_TERRORISTS_ALL ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiTerroristsOptionToggles[ GIO_TERRORISTS_ALL ] = CreateIconAndTextButton( guiTerroristsOptionTogglesImage[ GIO_TERRORISTS_ALL ],  gzGIOScreenText[ GIO_TERRORISTS_ALL_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_TERRORISTS_SETTING_X + 74), (GIO_TERRORISTS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOTerroristsAllCallback );
-
-	SpecifyButtonSoundScheme( guiTerroristsOptionToggles[ GIO_TERRORISTS_RANDOM ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiTerroristsOptionToggles[ GIO_TERRORISTS_ALL ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiTerroristsOptionToggles[ GIO_TERRORISTS_RANDOM ],0, 0 );
-	MSYS_SetBtnUserData(guiTerroristsOptionToggles[ GIO_TERRORISTS_ALL ],0, 1 );
-
-	if( gGameOptions.fEnableAllTerrorists )
-		ButtonList[ guiTerroristsOptionToggles[ GIO_TERRORISTS_ALL ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	else 
-		ButtonList[ guiTerroristsOptionToggles[ GIO_TERRORISTS_RANDOM ] ]->uiFlags |= BUTTON_CLICKED_ON;		
-
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// BOBBY RAY SETTING
 	
@@ -3387,34 +3832,36 @@ BOOLEAN		EnterGIOScreen()
 		}
 	}
 
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// DROP ALL ON/OFF SETTING
 
-	guiDropAllOptionTogglesImage[ GIO_DROPALL_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiDropAllOptionToggles[ GIO_DROPALL_OFF ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_DROPALL_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiDropAllOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiDropAllOptionToggles[ GIO_BUTTON_OFF ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
 													(GIO_DROPALL_SETTING_X), (GIO_DROPALL_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnGIODropAllOffCallback);
 
-	guiDropAllOptionTogglesImage[ GIO_DROPALL_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiDropAllOptionToggles[ GIO_DROPALL_ON ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_DROPALL_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiDropAllOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiDropAllOptionToggles[ GIO_BUTTON_ON ] = CreateIconAndTextButton( guiDropAllOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
 													(GIO_DROPALL_SETTING_X + 74), (GIO_DROPALL_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnGIODropAllOnCallback );
 
-	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_DROPALL_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_DROPALL_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_DROPALL_OFF ],0, 0 );
-	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_DROPALL_ON ],0, 1 );
+	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiDropAllOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiDropAllOptionToggles[ GIO_BUTTON_ON ],0, 1 );
 
 	if( gGameOptions.fEnemiesDropAllItems )
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GUN SETTING
@@ -3447,38 +3894,38 @@ BOOLEAN		EnterGIOScreen()
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// WEAPON CACHES SETTING
+	// INVENTORY AP COST ON/OFF SETTING
 
-	guiWeaponCachesOptionTogglesImage[ GIO_CACHES_RANDOM ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiWeaponCachesOptionToggles[ GIO_CACHES_RANDOM ] = CreateIconAndTextButton( guiWeaponCachesOptionTogglesImage[ GIO_CACHES_RANDOM ], gzGIOScreenText[ GIO_CACHES_RANDOM_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiInventoryAPOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ] = CreateIconAndTextButton( guiInventoryAPOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
-													(GIO_CACHES_SETTING_X), (GIO_CACHES_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOWeaponCachesRandomCallback);
+													(GIO_INVENTORY_AP_SETTING_X), (GIO_INVENTORY_AP_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOInventoryAPOffCallback);
 
-	guiWeaponCachesOptionTogglesImage[ GIO_CACHES_ALL ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiWeaponCachesOptionToggles[ GIO_CACHES_ALL ] = CreateIconAndTextButton( guiWeaponCachesOptionTogglesImage[ GIO_CACHES_ALL ],  gzGIOScreenText[ GIO_CACHES_ALL_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiInventoryAPOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiInventoryAPOptionToggles[ GIO_BUTTON_ON ] = CreateIconAndTextButton( guiInventoryAPOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
-													(GIO_CACHES_SETTING_X + 74), (GIO_CACHES_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOWeaponCachesAllCallback );
+													(GIO_INVENTORY_AP_SETTING_X + 74), (GIO_INVENTORY_AP_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOInventoryAPOnCallback );
 
-	SpecifyButtonSoundScheme( guiWeaponCachesOptionToggles[ GIO_CACHES_RANDOM ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiWeaponCachesOptionToggles[ GIO_CACHES_ALL ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiWeaponCachesOptionToggles[ GIO_CACHES_RANDOM ],0, 0 );
-	MSYS_SetBtnUserData(guiWeaponCachesOptionToggles[ GIO_CACHES_ALL ],0, 1 );
+	SpecifyButtonSoundScheme( guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiInventoryAPOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiInventoryAPOptionToggles[ GIO_BUTTON_ON ],0, 1 );
 
-	if( gGameOptions.fEnableAllWeaponCaches )
-		ButtonList[ guiWeaponCachesOptionToggles[ GIO_CACHES_ALL ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	if( gGameOptions.fInventoryCostsAP )
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiWeaponCachesOptionToggles[ GIO_CACHES_RANDOM ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SQUAD SIZE
-	if (iResolution > 0)
+	if (iResolution > _640x480)
 	{
 		giGIOSquadSizeButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
 		giGIOSquadSizeButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
@@ -3511,6 +3958,98 @@ BOOLEAN		EnterGIOScreen()
 		}
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// NCTH ON/OFF SETTING
+
+	guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiNCTHOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOffCallback);
+
+	guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiNCTHOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_NCTH_SETTING_X + 74), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOnCallback );
+
+	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fUseNCTH )
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// IMPROVED INTERRUPT SYSTEM ON/OFF SETTING
+
+	guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_IIS_SETTING_X), (GIO_IIS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOImprovedInterruptOffCallback);
+
+	guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiImprovedInterruptOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_IIS_SETTING_X + 74), (GIO_IIS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOImprovedInterruptOnCallback );
+
+	SpecifyButtonSoundScheme( guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fImprovedInterruptSystem )
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// OVERHEATING WEAPONS ON/OFF SETTING
+
+	guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOffCallback);
+
+	guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiOverheatingOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_OVERHEATING_SETTING_X + 74), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOnCallback );
+
+	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fWeaponOverheating )
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	//Reset the exit screen
 	gubGIOExitScreen = GAME_INIT_OPTIONS_SCREEN;
 
@@ -4074,37 +4613,6 @@ void BtnGIOIronManOnCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void BtnGIOTerroristsRandomCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_TERRORISTS_SETTING_X), (GIO_TERRORISTS_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiTerroristsOptionToggles[ GIO_TERRORISTS_ALL ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiTerroristsOptionToggles[ GIO_TERRORISTS_RANDOM ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-void BtnGIOTerroristsAllCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_TERRORISTS_SETTING_X), (GIO_TERRORISTS_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiTerroristsOptionToggles[ GIO_TERRORISTS_RANDOM ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiTerroristsOptionToggles[ GIO_TERRORISTS_ALL ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-
 void BtnGIODropAllOffCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -4114,10 +4622,10 @@ void BtnGIODropAllOffCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		RestoreExternBackgroundRect( (GIO_DROPALL_SETTING_X), (GIO_DROPALL_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiDropAllOptionToggles[ GIO_DROPALL_OFF ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiDropAllOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 void BtnGIODropAllOnCallback(GUI_BUTTON *btn,INT32 reason)
@@ -4129,10 +4637,10 @@ void BtnGIODropAllOnCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		RestoreExternBackgroundRect( (GIO_DROPALL_SETTING_X), (GIO_DROPALL_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiDropAllOptionToggles[ GIO_DROPALL_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiDropAllOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiDropAllOptionToggles[ GIO_DROPALL_ON ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiDropAllOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -4164,37 +4672,6 @@ void BtnGIOGunSettingToGCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
 		PlayButtonSound( guiGunOptionToggles[ GIO_GUN_NUT ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-
-void BtnGIOWeaponCachesRandomCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_CACHES_SETTING_X), (GIO_CACHES_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiWeaponCachesOptionToggles[ GIO_CACHES_ALL ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiWeaponCachesOptionToggles[ GIO_CACHES_RANDOM ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-void BtnGIOWeaponCachesAllCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_CACHES_SETTING_X), (GIO_CACHES_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiWeaponCachesOptionToggles[ GIO_CACHES_RANDOM ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiWeaponCachesOptionToggles[ GIO_CACHES_ALL ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -4250,7 +4727,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution == 1)
+		if (iResolution >= _800x600 && iResolution < _1024x768)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )
@@ -4270,7 +4747,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution == 1)
+		if (iResolution >= _800x600 && iResolution < _1024x768)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )
@@ -4291,6 +4768,130 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		}
+	}
+}
+
+void BtnGIOInventoryAPOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_INVENTORY_AP_SETTING_X), (GIO_INVENTORY_AP_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOInventoryAPOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_INVENTORY_AP_SETTING_X), (GIO_INVENTORY_AP_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiInventoryAPOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiInventoryAPOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnGIOImprovedInterruptOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_IIS_SETTING_X), (GIO_IIS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_IIS_SETTING_X), (GIO_IIS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiImprovedInterruptOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiImprovedInterruptOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -4357,13 +4958,6 @@ BOOLEAN		ExitGIOScreen()
 		UnloadButtonImage( guiGameSaveTogglesImage[ cnt ] );
 	}
 
-	// Destroy Terrorists setting buttons
-	for( cnt=0; cnt<NUM_TERRORISTS_OPTIONS; cnt++)
-	{
-		RemoveButton( guiTerroristsOptionToggles[ cnt ] );
-		UnloadButtonImage( guiTerroristsOptionTogglesImage[ cnt ] );
-	}
-
 	// Destroy Inventory setting buttons
 	if(IsNIVModeValid(true) == TRUE)
 	{
@@ -4375,7 +4969,7 @@ BOOLEAN		ExitGIOScreen()
 	}
 
 	// Destroy Drop All setting buttons
-	for( cnt=0; cnt<NUM_DROPALL_OPTIONS; cnt++)
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
 	{
 		RemoveButton( guiDropAllOptionToggles[ cnt ] );
 		UnloadButtonImage( guiDropAllOptionTogglesImage[ cnt ] );
@@ -4388,20 +4982,48 @@ BOOLEAN		ExitGIOScreen()
 		UnloadButtonImage( guiGunOptionTogglesImage[ cnt ] );
 	}
 
-	// Destroy Weapon Caches setting buttons
-	for( cnt=0; cnt<NUM_CACHES_OPTIONS; cnt++)
-	{
-		RemoveButton( guiWeaponCachesOptionToggles[ cnt ] );
-		UnloadButtonImage( guiWeaponCachesOptionTogglesImage[ cnt ] );
-	}
-
 	// Destroy Squad size setting buttons
-	if (iResolution > 0)
+	if (iResolution > _640x480)
 	{
 		RemoveButton( giGIOSquadSizeButton[0] );
 		RemoveButton( giGIOSquadSizeButton[1] );
 		UnloadButtonImage( giGIOSquadSizeButtonImage[0] );
 		UnloadButtonImage( giGIOSquadSizeButtonImage[1] );
+	}
+
+	// Destroy Fast Bobby Ray setting buttons
+	//for( cnt=0; cnt<NUM_FAST_BR_OPTIONS; cnt++)
+	//{
+	//	RemoveButton( guiFastBROptionToggles[ cnt ] );
+	//	UnloadButtonImage( guiFastBROptionTogglesImage[ cnt ] );
+	//}
+	
+	// Destroy Inventory AP Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiInventoryAPOptionToggles[ cnt ] );
+		UnloadButtonImage( guiInventoryAPOptionTogglesImage[ cnt ] );
+	}
+	
+	// Destroy NCTH Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiNCTHOptionToggles[ cnt ] );
+		UnloadButtonImage( guiNCTHOptionTogglesImage[ cnt ] );
+	}
+	
+	// Destroy IIS Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiImprovedInterruptOptionToggles[ cnt ] );
+		UnloadButtonImage( guiImprovedInterruptOptionTogglesImage[ cnt ] );
+	}
+	
+	// Destroy Overheating Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiOverheatingOptionToggles[ cnt ] );
+		UnloadButtonImage( guiOverheatingOptionTogglesImage[ cnt ] );
 	}
 
 	gfGIOButtonsAllocated = FALSE;
@@ -4480,7 +5102,8 @@ BOOLEAN		RenderGIOScreen()
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiGIOMainBackGroundImage );
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,0,0, VO_BLT_SRCTRANSPARENCY,NULL);
+
+	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,xResOffset,yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	//Shade the background
 	ShadowVideoSurfaceRect( FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, iScreenWidthOffset + 640, iScreenHeightOffset + 480 );
@@ -4525,9 +5148,6 @@ BOOLEAN		RenderGIOScreen()
 	// JA2Gold: Display the iron man Settings Title Text
 	DisplayWrappedString( (GIO_IRON_MAN_SETTING_X - 6), (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IRON_MAN_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
-	//Display the Terrorists Settings Title Text
-	DisplayWrappedString( (GIO_TERRORISTS_SETTING_X - 6), (UINT16)(GIO_TERRORISTS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_TERRORISTS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-
 	// Display Inventory Settings text
 	RenderGIOSmallSelectionFrame( (GIO_INV_SETTING_X + 36), (GIO_INV_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_INV_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_INV_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
@@ -4536,16 +5156,27 @@ BOOLEAN		RenderGIOScreen()
 	//Display the Drop All Settings Title Text
 	DisplayWrappedString( (GIO_DROPALL_SETTING_X - 6), (UINT16)(GIO_DROPALL_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_DROPALL_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DROPALL_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
+	//Display the Fast Bobby Ray Settings Title Text
+//	DisplayWrappedString( (GIO_FAST_BR_SETTING_X - 6), (UINT16)(GIO_FAST_BR_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_FAST_BR_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_FAST_BR_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	//Display the Inventory AP Cost Settings Title Text
+	DisplayWrappedString( (GIO_INVENTORY_AP_SETTING_X - 6), (UINT16)(GIO_INVENTORY_AP_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_INVENTORY_AP_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INVENTORY_AP_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
 	//Display the Gun Settings Title Text
 	DisplayWrappedString( (GIO_GUN_SETTING_X - 6), (UINT16)(GIO_GUN_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_GUN_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GUN_OPTIONS_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-
-	//Display the Weapon Caches Settings Title Text
-	DisplayWrappedString( (GIO_CACHES_SETTING_X - 6), (UINT16)(GIO_CACHES_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_CACHES_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	//Display the Squad size Title Text	
 	RenderGIOSmallSelectionFrame( (GIO_SQUAD_SIZE_SETTING_X + 36), (GIO_SQUAD_SIZE_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_SQUAD_SIZE_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_SQUAD_SIZE_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_SQUAD_SIZE_SETTING_Y+6), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentSquadSize + (GIO_SQUAD_SIZE_TITLE_TEXT + 1) ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	//Display the NCTH Settings Title Text
+	DisplayWrappedString( (GIO_NCTH_SETTING_X - 6), (UINT16)(GIO_NCTH_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_NCTH_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_NCTH_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//Display the Improved Interrupt System Settings Title Text
+	DisplayWrappedString( (GIO_IIS_SETTING_X - 6), (UINT16)(GIO_IIS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IIS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IIS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//Display the Weapon Overheating Settings Title Text
+	DisplayWrappedString( (GIO_OVERHEATING_SETTING_X - 6), (UINT16)(GIO_OVERHEATING_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_OVERHEATING_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_OVERHEATING_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
 
 	return( TRUE );
 }
@@ -4555,7 +5186,7 @@ void GetGIOScreenUserInput()
 {
 	InputAtom Event;
 
-	while( DequeueEvent( &Event ) )
+	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if( Event.usEvent == KEY_DOWN )
 		{
@@ -4684,20 +5315,6 @@ UINT8	GetCurrentGameSaveButtonSetting()
 	return( 0 );
 }
 
-UINT8	GetCurrentTerroristsButtonSetting()
-{
-	UINT8	cnt;
-
-	for( cnt=0; cnt<NUM_GAME_STYLES; cnt++)
-	{
-		if( ButtonList[ guiTerroristsOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-		{
-			return( cnt );
-		}
-	}
-	return( 0 );
-}
-
 UINT8	GetCurrentDropAllButtonSetting()
 {
 	UINT8	cnt;
@@ -4705,6 +5322,20 @@ UINT8	GetCurrentDropAllButtonSetting()
 	for( cnt=0; cnt<NUM_GAME_STYLES; cnt++)
 	{
 		if( ButtonList[ guiDropAllOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentInventoryAPButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiInventoryAPOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
 		{
 			return( cnt );
 		}
@@ -4726,20 +5357,6 @@ UINT8	GetCurrentGunButtonSetting()
 	return( 0 );
 }
 
-UINT8	GetCurrentWeaponCachesButtonSetting()
-{
-	UINT8	cnt;
-
-	for( cnt=0; cnt<NUM_GAME_STYLES; cnt++)
-	{
-		if( ButtonList[ guiWeaponCachesOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-		{
-			return( cnt );
-		}
-	}
-	return( 0 );
-}
-
 UINT8	GetCurrentTimedTurnsButtonSetting()
 {
 	UINT8	cnt;
@@ -4747,6 +5364,48 @@ UINT8	GetCurrentTimedTurnsButtonSetting()
 	for( cnt=0; cnt<GIO_NUM_TIMED_TURN_OPTIONS; cnt++)
 	{
 		if( ButtonList[ guiTimedTurnToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentNCTHButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiNCTHOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentIISButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiImprovedInterruptOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+UINT8	GetCurrentOverheatingButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiOverheatingOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
 		{
 			return( cnt );
 		}
@@ -4819,10 +5478,14 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	// SANDRO - added following:
 	gGameOptions.ubMaxIMPCharacters = min( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount), ( max( 1, iCurrentIMPNumberSetting) ));
 	gGameOptions.fNewTraitSystem = GetCurrentTraitsOptionButtonSetting();
-	gGameOptions.fEnableAllTerrorists = GetCurrentTerroristsButtonSetting();
 	gGameOptions.fEnemiesDropAllItems = GetCurrentDropAllButtonSetting();
-	gGameOptions.fEnableAllWeaponCaches = GetCurrentWeaponCachesButtonSetting();
 	gGameOptions.ubProgressSpeedOfItemsChoices = min( GIO_PROGRESS_VERY_FAST, iCurrentProgressSetting );
+	gGameOptions.fInventoryCostsAP = GetCurrentInventoryAPButtonSetting();
+
+	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
+	gGameOptions.fImprovedInterruptSystem = GetCurrentIISButtonSetting();
+	gGameOptions.fWeaponOverheating = GetCurrentOverheatingButtonSetting();
+
 
 	//	gubGIOExitScreen = INIT_SCREEN;
 	gubGIOExitScreen = INTRO_SCREEN;
@@ -4854,7 +5517,7 @@ void DoneFadeInForExitGameInitOptionScreen( void )
 
 BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+	SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
 
 	// do message box and return
 	giGioMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );

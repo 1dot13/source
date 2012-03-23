@@ -55,6 +55,8 @@ extern StrategicMapElement StrategicMap[];
 
 extern INT16 gusCurShipmentDestinationID;
 
+
+
 /////////////////////////////////////////////////////
 // CShipmentManipulator member implementation
 /////////////////////////////////////////////////////
@@ -208,6 +210,7 @@ BOOLEAN CPostalService::AddPackageToShipment(UINT16 usShipmentID, UINT16 usItemI
 
 BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 {
+	static BOOLEAN BR_FAST_SHIP = gGameExternalOptions.fBobbyRayFastShipments;
 	if( usShipmentID > _UsedShipmentIDList.size() ||
 		!_UsedShipmentIDList[usShipmentID])
 	{
@@ -238,9 +241,18 @@ BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 	}
 	else
 	{	
-		AddFutureDayStrategicEvent( EVENT_POSTAL_SERVICE_SHIPMENT, (8 + Random(4) ) * 60, usShipmentID, 
-								SHIPMENT(sli).pDestinationDeliveryInfo->bDaysAhead);
+		//JMich
+		//Jenilee: now faster shipments
+		if (!BR_FAST_SHIP)
+		{
+			AddFutureDayStrategicEvent( EVENT_POSTAL_SERVICE_SHIPMENT, (8 + Random(4) ) * 60, usShipmentID, SHIPMENT(sli).pDestinationDeliveryInfo->bDaysAhead);
+		}
+		else
+		{
+			AddStrategicEvent(EVENT_POSTAL_SERVICE_SHIPMENT, GetWorldTotalMin() + ((SHIPMENT(sli).pDestinationDeliveryInfo->bDaysAhead * (5 + Random(3))) * 60), usShipmentID);
+		}
 	}
+
 	return TRUE;
 }
 

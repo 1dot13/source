@@ -7,6 +7,7 @@
 #define		DRAW_ITEM_STATUS_ATTACHMENT2		201
 #define		DRAW_ITEM_STATUS_ATTACHMENT3		202
 #define		DRAW_ITEM_STATUS_ATTACHMENT4		203
+#define		DRAW_ITEM_TEMPERATURE				204		// Flugente FTW 1.2
 
 void DrawMoraleUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, BOOLEAN fErase, UINT32 uiBuffer );
 void DrawBreathUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, BOOLEAN fErase, UINT32 uiBuffer );

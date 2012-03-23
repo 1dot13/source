@@ -1165,7 +1165,7 @@ UINT32	MessageBoxScreenHandle( )
 
 	// carter, need key shortcuts for clearing up message boxes
 	// Check for esc
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if( !HandleTextInput( &InputEvent ) && InputEvent.usEvent == KEY_DOWN )
 			{

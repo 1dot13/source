@@ -116,8 +116,10 @@
 #include "Strategic AI.h"
 #endif
 
-#include	"Quest Debug System.h"
+#include "Quest Debug System.h"
 #include "connect.h"
+#include "fresh_header.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -190,7 +192,11 @@ BOOLEAN	gfNextFireJam = FALSE;
 INT16 brstmode = 0; //dddd
 extern INT16 ITEMDESC_START_X;
 extern INT16 ITEMDESC_START_Y;
-#include "fresh_header.h"
+
+
+BOOLEAN gfMouseLockedOnBorder = FALSE;
+extern int iWindowedMode;
+
 
 //Little functions called by keyboard input
 void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
@@ -1550,29 +1556,62 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			}
 		}
 #endif
-	
-		// It is not allowed in a network game to go to the load screen, because if you cancel the load screen it is always your turn!
+
+		// BEGIN: by Lejardo for mouse-locking in game screen
+		// WANNE: If the game runs in windowed mode, the user can "lock" / "unlock" the mouse cursor
+		if (iWindowedMode)
+		{
+			SGPRect			LJDRect;
+			if ((InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == 'z' || InputEvent.usParam == 'y'))
+			{			
+				if( (InputEvent.usKeyState & CTRL_DOWN) && !(InputEvent.usKeyState & ALT_DOWN))
+				{
+					// Unlock the mouse cursor
+					if (gfMouseLockedOnBorder)
+					{
+						FreeMouseCursor();
+
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_WINDOWED_MODE_RELEASE_MOUSE] );
+					}
+					// Lock the mouse cursor
+					else
+					{			
+						LJDRect.iLeft 	= 0;
+						LJDRect.iTop 		= 0;
+						LJDRect.iRight 	= SCREEN_WIDTH;
+						LJDRect.iBottom = SCREEN_HEIGHT;
+						RestrictMouseCursor( &LJDRect );
+
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_WINDOWED_MODE_LOCK_MOUSE] );
+					}
+
+					gfMouseLockedOnBorder = !gfMouseLockedOnBorder;					
+				}			
+			}
+		}
+		// END: by Lejardo for mouse-locking in game screen
+
+		// WANNE: Just disabled for now, because we don't need it yet.
+		/*						
+		// WANNE: If the game hangs on enemy turn, just press ALT + CTRL + E and the game will continue with enemy turn!!
+		if ( (InputEvent.usEvent == KEY_DOWN )&& (InputEvent.usKeyState & CTRL_DOWN) && ( InputEvent.usParam == 'e') )
+		{
+			if( InputEvent.usKeyState & ALT_DOWN )
+			{
+				if (gTacticalStatus.ubCurrentTeam != 0)
+				{
+					if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+					{
+						EndTurn( 1 );
+					}
+				}
+			}		
+		}
+		*/
+			
 		if (!is_networked)
 		{
-			// WANNE: Just disabled for now
-			/*
-			// WANNE: If the game hangs on enemy turn, just press ALT + CTRL + E and the game will continue with enemy turn!!
-			if ( (InputEvent.usEvent == KEY_DOWN )&& (InputEvent.usKeyState & CTRL_DOWN) && ( InputEvent.usParam == 'e') )
-			{
-				if( InputEvent.usKeyState & ALT_DOWN )
-				{
-					if (gTacticalStatus.ubCurrentTeam != 0)
-					{
-						if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
-						{
-							EndTurn( 1 );
-						}
-					}
-				}		
-			}
-			*/
-
-			/// Allow to load everywhere
+			// Allow to load everywhere
 			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'l') )
 			{
 				if( InputEvent.usKeyState & ALT_DOWN )
@@ -1593,7 +1632,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else if( InputEvent.usKeyState & CTRL_DOWN )
 				{
 					// WANNE: Do not allow saving via the save screen when it is not our turn,
-					// because there is an explit when you close the save window without saving, you can move your merc even it is not your turn
+					// because there is an exploit when you close the save window without saving, you can move your merc even it is not your turn
 					// IF UI HAS LOCKED, ONLY ALLOW EXIT!
 					if ( gfDisableRegionActive || gfUserTurnRegionActive )
 					{
@@ -1609,7 +1648,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 					}
 				}
-			}
+			}						
 		}
 
 		if (is_networked)
@@ -1668,8 +1707,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						overide_turn();
 					}
-				}
-			
+				}			
 			}
 
 			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'k') )
@@ -1686,8 +1724,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			// OJW - 090209 - ingame chat
 			if (InputEvent.usEvent == KEY_UP && InputEvent.usParam == 'y')
 			{
-				OpenChatMsgBox();
-				continue;
+				if( !(InputEvent.usKeyState & ALT_DOWN) &&  !(InputEvent.usKeyState & CTRL_DOWN))
+				{
+					OpenChatMsgBox();
+					continue;
+				}
 			}
 		} // end is_networked
 
@@ -2541,14 +2582,23 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case 'A':
 				//CHRISL: Ammo Crate
-				if ( fCtrl )
+				//MM: Ammo Box
+				if(!(gTacticalStatus.fEnemyInSector))
 				{
-					if(!(gTacticalStatus.fEnemyInSector))
+					INT32		crateItem;
+					INT32		worldItem;
+					UINT8		magType;
+					bool		mergeSuccessful, ammoPresent;
+					OBJECTTYPE	newCrate;
+					ammoPresent = true;
+
+					if (fCtrl)
+						magType = AMMO_CRATE;
+					else
+						magType = AMMO_BOX;
+
+					while (ammoPresent)
 					{
-						INT32		crateItem;
-						INT32		worldItem;
-						bool		mergeSuccessful;
-						OBJECTTYPE	newCrate;
 						//look through all sector items for ammo.
 						for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
 						{
@@ -2557,20 +2607,25 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
 							{
 								worldItem = gWorldItems[wItem].object.usItem;
-								//we don't want to do anything if the world item is already an ammo crate
-								if(Item[worldItem].ammocrate == TRUE)
+								//we don't want to do anything if the world item is already an ammo crate/box
+								if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
 									continue;
+
 								//we have a valid, ammo item.  Look through Items.xml and see if we have an ammo crate for
 								//	this ammo type
 								for(int iLoop = 0; iLoop < MAXITEMS; iLoop++)
 								{
-									//if ammocrate && calibers match && Ammo Types match
-									if(Item[iLoop].ammocrate == TRUE && Magazine[Item[iLoop].ubClassIndex].ubCalibre == Magazine[Item[worldItem].ubClassIndex].ubCalibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == Magazine[Item[worldItem].ubClassIndex].ubAmmoType)
+									if (Item[iLoop].usItemClass == 0)
+										break; //no more valid items after this point
+
+									//if ammo crate && calibers match && Ammo Types match
+									if(Item[iLoop].usItemClass == IC_AMMO && Magazine[Item[iLoop].ubClassIndex].ubMagType == magType && Magazine[Item[iLoop].ubClassIndex].ubCalibre == Magazine[Item[worldItem].ubClassIndex].ubCalibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == Magazine[Item[worldItem].ubClassIndex].ubAmmoType)
 									{
 										crateItem = iLoop;
 										break;
 									}
 								}
+
 								//if we found a crateItem in the list, we first want to see if we already have an item created
 								if(crateItem != 0)
 								{
@@ -2588,9 +2643,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 												break;
 											}
 										}
+
 									}
 									//no crates in sector inventory.  search merc inventories
-									if(mergeSuccessful == false)
+									if(!mergeSuccessful)
 									{
 										for(int loop=0; loop<(int)gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs; loop++)
 										{
@@ -2616,7 +2672,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 									}
 									//no crates in merc inventory.  create a new sector item
-									if(mergeSuccessful == false)
+									if(!mergeSuccessful)
 									{
 										CreateAmmo(crateItem, &newCrate, 0);
 										DistributeStatus(&gWorldItems[wItem].object, &newCrate, Magazine[Item[crateItem].ubClassIndex].ubMagSize);
@@ -2629,10 +2685,29 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 									}
 								}
+								else // MM: no crate item, so we must be missing a crate item from the xmls.  Set ammoPresent to false to avoid infinitely looping.
+									ammoPresent = false;
 							}
 						}
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
+
+						//MM: loop through ammo multiple times, as boxes and crates may take a few passes to fill
+						ammoPresent = false;
+						for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
+						{
+							if(Item[gWorldItems[wItem].object.usItem].usItemClass == IC_AMMO && gWorldItems[wItem].bVisible == TRUE && gWorldItems[wItem].fExists && (gWorldItems[wItem].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[wItem].usFlags & WORLD_ITEM_ARMED_BOMB))
+							{
+								worldItem = gWorldItems[wItem].object.usItem;
+								if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
+									continue;
+
+								ammoPresent = true;
+								break;
+							}
+						}
+
+						StackAndSort(TRUE);
 					}
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
 				}
 				break;
 			case 'J':
@@ -3043,6 +3118,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				SeperateItems();
 				if( fCtrl )
 					StackAndSort( TRUE );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
 				break;
 
 			case 'D':
@@ -3134,6 +3210,18 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 			case 'H':
+				// swap primary & secondary hand
+				if ( gusSelectedSoldier != NOBODY && !AM_A_ROBOT( MercPtrs[ gusSelectedSoldier ] ))
+				{
+					SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
+					UINT16 usOldHandItem = pSoldier->inv[HANDPOS].usItem;
+					SwapHandItems( pSoldier );
+					pSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, pSoldier->inv[HANDPOS].usItem );
+
+					fCharacterInfoPanelDirty = TRUE;
+					fInterfacePanelDirty = DIRTYLEVEL2;
+				}
+				break;
 			case 'h':
 				if ( fAlt )
 				{
@@ -3276,12 +3364,49 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 					BOOLEAN handFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE) || (pSoldier->inv[HANDPOS].exists() == false && pSoldier->inv[SECONDHANDPOS].exists() == false));
 					BOOLEAN slingFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[GUNSLINGPOCKPOS], HANDPOS, FALSE) || pSoldier->inv[GUNSLINGPOCKPOS].exists() == false);
+					
 					if(Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].twohanded && pSoldier->inv[SECONDHANDPOS].exists() == true)
 						handFit = FALSE;
+
 					if( handFit == TRUE && slingFit == TRUE)
 					{
-						SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
-						HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
+						if (gGameOptions.fInventoryCostsAP)
+						{
+							UINT8 APCost = 0;
+							if (pSoldier->inv[GUNSLINGPOCKPOS].exists())
+							{
+								APCost += ( APBPConstants [ AP_INV_FROM_SLING ] + APBPConstants [ AP_INV_TO_HANDS ] );
+								if (gGameExternalOptions.uWeightDivisor != 0)
+									APCost += DynamicAdjustAPConstants((int)((Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor),(int)((Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor));
+							}
+							if (pSoldier->inv[HANDPOS].exists())
+							{
+								APCost += ( APBPConstants [ AP_INV_TO_SLING ] + APBPConstants [ AP_INV_FROM_HANDS ] );
+								if (gGameExternalOptions.uWeightDivisor != 0)
+									APCost += DynamicAdjustAPConstants((int)((Item[pSoldier->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor),(int)((Item[pSoldier->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor));
+							}
+							APCost = __min(APCost, APBPConstants[AP_INV_MAX_COST]);
+							if (pSoldier->bActionPoints >= APCost)
+							{
+								// SANDRO - I dared to change this to use the apropriate function, as that function is actually important for IIS
+								//pSoldier->bActionPoints -= APCost;
+								DeductPoints( pSoldier, APCost, 0 );
+
+								SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
+								HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
+							}
+							else
+							{
+								CHAR16	zOutputString[512];
+								swprintf( zOutputString, New113Message[MSG113_INVENTORY_APS_INSUFFICIENT], APCost, pSoldier->bActionPoints);
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
+							}
+						}
+						else
+						{
+							SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
+							HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
+						}
 					}
 					fCharacterInfoPanelDirty = TRUE;
 					fInterfacePanelDirty = DIRTYLEVEL2;
@@ -3694,7 +3819,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					SOLDIERTYPE	*pTeamSoldier;
 					INT8		bLoop;
-					OBJECTTYPE *pGun, *pAmmo;
+					UINT16		bullets;		
+					OBJECTTYPE *pGun, *pAmmo, *pAmmoMags;
 
 					// Search for soldier
 					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
@@ -3742,6 +3868,96 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
 									{
 										AutoReload( pTeamSoldier );
+									}
+								}
+							}
+						}
+					}
+
+					//MM: loop thru the soldiers again (lazy copy/paste :p).  could do it all at once, but then there may not be enough ammo from the world items to fill everyone's guns first
+					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+					{
+						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+						{
+							// Search for ammo in soldier inventory
+							for (UINT32 bLoop2 = 0; bLoop2 < pTeamSoldier->inv.size(); bLoop2++)
+							{
+								if ( Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_AMMO )
+								{
+									pAmmoMags = &(pTeamSoldier->inv[bLoop2]);
+
+									for ( UINT16 stackMag = 0; stackMag < (*pAmmoMags).ubNumberOfObjects; stackMag++ )
+									{
+										if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
+										{
+											// Search for ammo in sector
+											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )
+											{
+												if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
+												{
+													if ( ( Item[ gWorldItems[ uiLoop ].object.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
+													{
+														pAmmo = &( gWorldItems[ uiLoop ].object );
+
+														if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubCalibre == Magazine[Item[pAmmo->usItem].ubClassIndex].ubCalibre ) // same calibre
+														{
+															// same ammo type
+															if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+															{
+																bullets = Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize - (*pAmmoMags)[stackMag]->data.ubShotsLeft;
+																
+																if ((*pAmmo)[0]->data.ubShotsLeft < bullets)
+																	bullets = (*pAmmo)[0]->data.ubShotsLeft;
+
+																(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
+																(*pAmmo)[0]->data.ubShotsLeft -= bullets;
+
+																fCharacterInfoPanelDirty = TRUE;
+																fInterfacePanelDirty = DIRTYLEVEL2;
+															}
+
+															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
+															{
+																RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
+															}
+														}
+													}
+												}
+											}
+
+											//MM: if magazines still are partly empty, look through inventory for boxes and crates
+											if ( (*pAmmoMags)[stackMag]->data.ubShotsLeft < Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize )
+											{
+												for (UINT32 uiLoop = 0; uiLoop < pTeamSoldier->inv.size(); uiLoop++)
+												{
+													if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO) && Magazine[Item[pTeamSoldier->inv[uiLoop].usItem].ubClassIndex].ubMagType >= AMMO_BOX )
+													{
+														pAmmo = &(pTeamSoldier->inv[uiLoop]);
+
+														if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubCalibre == Magazine[Item[pAmmo->usItem].ubClassIndex].ubCalibre ) // same calibre
+														{
+															// same ammo type
+															if ( Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+															{
+																bullets = Magazine[Item[pAmmoMags->usItem].ubClassIndex].ubMagSize - (*pAmmoMags)[stackMag]->data.ubShotsLeft;
+																
+																if ((*pAmmo)[0]->data.ubShotsLeft < bullets)
+																	bullets = (*pAmmo)[0]->data.ubShotsLeft;
+
+																(*pAmmoMags)[stackMag]->data.ubShotsLeft += bullets;
+																(*pAmmo)[0]->data.ubShotsLeft -= bullets;
+
+																fCharacterInfoPanelDirty = TRUE;
+																fInterfacePanelDirty = DIRTYLEVEL2;
+															}
+
+															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
+																DeleteObj(pAmmo);
+														}
+													}
+												}
+											}
+										}
 									}
 								}
 							}
@@ -3858,6 +4074,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case 'S':
 				StackAndSort( TRUE );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
 				break;
 
 			case 's':
@@ -4144,7 +4361,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				//else if( gusSelectedSoldier != NOBODY )
 				break;
 			case 'z':
-				if( fCtrl )
+				if( fCtrl && fAlt )
 				{
 					if ( INFORMATION_CHEAT_LEVEL( ) )
 					{
@@ -4451,6 +4668,10 @@ BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustConfirm )
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, str );
 			gubLoneMercAttemptingToAbandonEPCs = FALSE;
 		}
+		else if( !gGameExternalOptions.fGridExitInTurnBased && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.uiFlags & INCOMBAT ) )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_LEAVE_IN_TURN_MODE_STR ] );
+		}			
 		else
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ MERC_IS_TOO_FAR_AWAY_STR ], MercPtrs[ gusSelectedSoldier ]->name );
@@ -6398,7 +6619,6 @@ void StackAndSort( BOOLEAN fRestrictToAmmo )
 		}
 		NotifySoldiersToLookforItems( );
 		//HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pImpButtonText[11] );
 	}
 }
 

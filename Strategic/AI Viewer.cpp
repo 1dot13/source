@@ -932,7 +932,7 @@ void HandleViewerInput()
 {
 	SECTORINFO *pSector;
 	InputAtom Event;
-	while( DequeueEvent( &Event ) )
+	while( DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP) )
 	{
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_DOWN )
 		{

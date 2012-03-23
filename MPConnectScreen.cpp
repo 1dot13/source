@@ -230,20 +230,15 @@ BOOLEAN		EnterMPCScreen()
 
 	SetCurrentCursorFromDatabase( CURSOR_NORMAL );
 
-	// load the Main trade screen backgroiund image
+		// load the Main trade screen backgroiund image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	if (iResolution == 0)
-	{
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		FilenameForBPP("INTERFACE\\MPConnect.sti",VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 1)
-	{
+	else if (iResolution < _1024x768)
 		FilenameForBPP("INTERFACE\\MPConnect_800x600.sti",VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 2)
-	{
-		FilenameForBPP("INTERFACE\\MPConnect_1024x768.sti",VObjectDesc.ImageFile);
-	}
+	else
+		FilenameForBPP("INTERFACE\\MPConnect_1024x768.sti", VObjectDesc.ImageFile);
+
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMPCMainBackGroundImage ));
 
@@ -361,8 +356,8 @@ BOOLEAN		RenderMPCScreen()
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiMPCMainBackGroundImage );
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,0,0, VO_BLT_SRCTRANSPARENCY,NULL);
-	//DisplayLoadScreenWithID( loadscreenID );
+	
+		BltVideoObject(FRAME_BUFFER, hPixHandle, 0,(SCREEN_WIDTH - xResSize)/2,(SCREEN_HEIGHT - yResSize)/2, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	//Shade the background
 	//ShadowVideoSurfaceRect( FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, iScreenWidthOffset + 640, iScreenHeightOffset + 480 );
@@ -423,7 +418,7 @@ void			GetMPCScreenUserInput()
 
 //	GetCursorPos(&MousePos);
 
-	while( DequeueEvent( &Event ) )
+	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		// check if this event is swallowed by text input, otherwise process key
 		if( Event.usEvent == KEY_DOWN )

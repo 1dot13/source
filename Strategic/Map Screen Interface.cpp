@@ -76,8 +76,6 @@ extern UINT8 maxNumberOfMercVisibleInStrategyList = 0;	// WANNE: Max merc displa
 // number of LINKED LISTS for sets of leave items (each slot holds an unlimited # of items)
 #define NUM_LEAVE_LIST_SLOTS CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS
 
-#define SELECTED_CHAR_ARROW_X			1	//8
-
 #define SIZE_OF_UPDATE_BOX 20
 
 // as deep as the map goes
@@ -849,7 +847,7 @@ INT16 GetRefreshHeightForMercList( void )
 	INT16 yHeight = ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 );
 
 	// WANNE: Get maximum refresh height depending on the resolution!
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		if (!is_networked)
 		{
@@ -861,9 +859,8 @@ INT16 GetRefreshHeightForMercList( void )
 			if (yHeight > 131)
 				yHeight = 131;
 		}
-
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		if (!is_networked)
 		{
@@ -876,7 +873,7 @@ INT16 GetRefreshHeightForMercList( void )
 				yHeight = 249;
 		}
 	}
-	else if (iResolution == 2)
+	else
 	{
 		if (!is_networked)
 		{
@@ -927,7 +924,7 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, yHeight );
+		RestoreExternBackgroundRect( 66 + xResOffset, Y_START - 1, 118 + 1 - 67, yHeight );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -957,7 +954,7 @@ void RestoreBackgroundForDestinationGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 182, Y_START - 1, 217 + 1 - 182, yHeight );
+		RestoreExternBackgroundRect( 182 + xResOffset, Y_START - 1, 217 + 1 - 182, yHeight );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -987,7 +984,7 @@ void RestoreBackgroundForContractGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 222, Y_START - 1, 250 + 1 - 222, yHeight ) ;
+		RestoreExternBackgroundRect( 222 + xResOffset, Y_START - 1, 250 + 1 - 222, yHeight ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -1021,7 +1018,7 @@ void RestoreBackgroundForSleepGlowRegionList( void )
 		INT16 yHeight = GetRefreshHeightForMercList();
 
 		// restore background
-		RestoreExternBackgroundRect( 123, Y_START - 1, 142 + 1 - 123, yHeight ) ;
+		RestoreExternBackgroundRect( 123 + xResOffset, Y_START - 1, 142 + 1 - 123, yHeight ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -1279,7 +1276,7 @@ INT32 DoMapMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExit
 
 INT32 DoMapMessageBox( UINT8 ubStyle,	STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
+	SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, INV_INTERFACE_START_Y };
 
 	// reset the highlighted line
 	giHighLine = -1;
@@ -1411,6 +1408,8 @@ void HandleDisplayOfSelectedMercArrows( void )
 	HVOBJECT hHandle;
 	UINT8 ubCount = 0;
 
+	UINT16 selectedCharArrowX = xResOffset + 1;
+
 	// blit an arrow by the name of each merc in a selected list
 	if( bSelectedInfoChar == -1 )
 	{
@@ -1438,7 +1437,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 	sYPosition = Y_START+( ( bSelectedInfoChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) ) - 1;
 
 	GetVideoObject( &hHandle, guiSelectedCharArrow );
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0,SELECTED_CHAR_ARROW_X, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
+	BltVideoObject( guiSAVEBUFFER , hHandle, 0,selectedCharArrowX, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
 
 	// now run through the selected list of guys, an arrow for each
 	
@@ -1454,7 +1453,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 				sYPosition = Y_START+( ubCount * ( Y_SIZE + 2) ) - 1;
 
 				GetVideoObject( &hHandle, guiSelectedCharArrow );
-				BltVideoObject( guiSAVEBUFFER , hHandle, 0,SELECTED_CHAR_ARROW_X, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
+				BltVideoObject( guiSAVEBUFFER , hHandle, 0,selectedCharArrowX, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
 			}
 		}
 	}
@@ -1915,177 +1914,17 @@ void SetUpMercAboutToLeaveEquipment( UINT32 ubProfileId, UINT32 uiSlotIndex )
 
 }
 
-
-/*
-BOOLEAN RemoveItemFromLeaveIndex( MERC_LEAVE_ITEM *pItem, UINT32 uiSlotIndex )
-{
-	MERC_LEAVE_ITEM *pCurrentItem = NULL;
-
-	Assert( uiSlotIndex < NUM_LEAVE_LIST_SLOTS );
-
-	if( pItem == NULL )
-	{
-		return( FALSE );
-	}
-
-	// item is head of list?
-//ARM: THIS DOESN'T MAKE SENSE, pCurrentItem is always NULL at this stage!
-	if( pItem == pCurrentItem )
-	{
-		gpLeaveListHead[ uiSlotIndex ] = pCurrentItem->pNext;
-		MemFree( pItem );
-		pItem = NULL;
-		return( TRUE );
-	}
-
-	// in the body
-	while( ( pCurrentItem->pNext != pItem ) && ( pCurrentItem->pNext != NULL ) )
-	{
-		pCurrentItem = pCurrentItem->pNext;
-	}
-
-	// item not found
-	if( pCurrentItem->pNext == NULL )
-	{
-		return( FALSE );
-	}
-
-	// set to next after next
-	pCurrentItem->pNext = pCurrentItem->pNext->pNext;
-
-	// free space and null ptr
-	MemFree( pItem );
-	pItem = NULL;
-
-	return( TRUE );
-}
-*/
-
-
-
 void HandleGroupAboutToArrive( void )
 {
 	// reblit map to change the color of the "people in motion" marker
 	fMapPanelDirty = TRUE;
 
-	// ARM - commented out - don't see why this is needed
-//	fTeamPanelDirty = TRUE;
-//	fCharacterInfoPanelDirty = TRUE;
-
 	return;
 }
 
-
-/*
-void HandleMapScreenUpArrow( void )
-{
-	INT32 iValue = 0;
-	INT32 iHighLine = 0;
-
-	// check state and update
-	if( fShowAssignmentMenu == TRUE )
-	{
-		if( GetBoxShadeFlag( ghAssignmentBox, iValue ) == FALSE )
-		{
-			if( iHighLine ==	0)
-			{
-				iHighLine = ( INT32 )GetNumberOfLinesOfTextInBox( ghAssignmentBox );
-			}
-			else
-			{
-				iHighLine++;
-			}
-		}
-	}
-	else
-	{
-		if( ( giHighLine == 0 ) || ( giHighLine	== -1 ) )
-		{
-			giHighLine = GetNumberOfCharactersOnPlayersTeam( ) - 1;
-			fTeamPanelDirty = TRUE;
-		}
-		else
-		{
-			giHighLine--;
-			fTeamPanelDirty = TRUE;
-		}
-
-	}
-}
-
-
-void HandleMapScreenDownArrow( void )
-{
-	INT32 iValue = 0;
-	INT32 iHighLine = 0;
-
-	// check state and update
-	if( fShowContractMenu == TRUE )
-	{
-		if( iHighLine == ( INT32 )GetNumberOfLinesOfTextInBox( ghContractBox ) - 1 )
-		{
-			iHighLine = 0;
-		}
-		else
-		{
-			iHighLine++;
-		}
-
-		HighLightBoxLine( ghContractBox, iHighLine );
-	}
-	else if( fShowAssignmentMenu == TRUE )
-	{
-		if( GetBoxShadeFlag( ghAssignmentBox, iValue ) == FALSE )
-		{
-			if( iHighLine == ( INT32 )GetNumberOfLinesOfTextInBox( ghAssignmentBox ) - 1 )
-			{
-				iHighLine = 0;
-			}
-			else
-			{
-				iHighLine--;
-			}
-		}
-	}
-	else
-	{
-		if( ( giHighLine == GetNumberOfCharactersOnPlayersTeam( ) - 1 ) || ( giHighLine	== -1 ) )
-		{
-			giHighLine = 0;
-			fTeamPanelDirty = TRUE;
-		}
-		else
-		{
-			giHighLine++;
-			fTeamPanelDirty = TRUE;
-		}
-
-	}
-}
-
-
-INT32 GetNumberOfCharactersOnPlayersTeam( void )
-{
-	INT32 iNumberOfPeople = 0, iCounter = 0;
-
-	for(iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
-	{
-		if( gCharactersList[ iCounter ].fValid == TRUE )
-		{
-			iNumberOfPeople++;
-		}
-	}
-
-	return( iNumberOfPeople );
-}
-*/
-
-
 void CreateMapStatusBarsRegion( void )
 {
-
-	// create the status region over the bSelectedCharacter info region, to get quick rundown of merc's status
-	MSYS_DefineRegion( &gMapStatusBarsRegion, BAR_INFO_X - 3, BAR_INFO_Y - 42,(INT16)( BAR_INFO_X + 17), (INT16)(BAR_INFO_Y ), MSYS_PRIORITY_HIGH + 5,
+	MSYS_DefineRegion( &gMapStatusBarsRegion, BAR_INFO_X + xResOffset - 3, BAR_INFO_Y - 42,(INT16)( BAR_INFO_X + xResOffset + 17), (INT16)(BAR_INFO_Y ), MSYS_PRIORITY_HIGH + 5,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 	return;
@@ -2094,7 +1933,6 @@ void CreateMapStatusBarsRegion( void )
 
 void RemoveMapStatusBarsRegion( void )
 {
-
 	// remove the bSelectedInfoCharacter helath, breath and morale bars info region
 	MSYS_RemoveRegion( &gMapStatusBarsRegion );
 
@@ -2106,7 +1944,6 @@ void UpdateCharRegionHelpText( void )
 	CHAR16 sString[ 128 ];
 	CHAR16 pMoraleStr[ 128 ];
 	SOLDIERTYPE *pSoldier = NULL;
-
 
 	if( ( bSelectedInfoChar != -1 ) && ( gCharactersList[ bSelectedInfoChar ].fValid == TRUE ) )
 	{
@@ -4965,7 +4802,28 @@ void AddSoldierToUpdateBox( SOLDIERTYPE *pSoldier )
 		{
 			// add to box
 			pUpdateSoldierBox[ iCounter ] = pSoldier;
-
+			
+			
+			
+		if ( ( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex < 100 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
+		} 
+		else if ( ( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex > 99 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		{			
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
+		}
+		else if( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex < 100 )
+		{			
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
+		}
+		else if( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex > 99 )
+		{			
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
+		}
+			
+			
+/*
 			if( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex < 100 )
 			{
 				// grab filename of face
@@ -4976,7 +4834,7 @@ void AddSoldierToUpdateBox( SOLDIERTYPE *pSoldier )
 				// grab filename of face
 				sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
 			}
-
+*/
 			// load the face
 			AddVideoObject( &VObjectDesc, (UINT32 *)&giUpdateSoldierFaces[ iCounter ] );
 
@@ -5672,14 +5530,14 @@ void CreateDestroyInsuranceMouseRegionForMercs( BOOLEAN fCreate )
 
 	if( ( fCreated == FALSE ) && ( fCreate == TRUE ) )
 	{
-		MSYS_DefineRegion( &gContractIconRegion, CHAR_ICON_X, CHAR_ICON_CONTRACT_Y, CHAR_ICON_X + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_HEIGHT,
+		MSYS_DefineRegion( &gContractIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_HEIGHT,
 						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
-		MSYS_DefineRegion( &gInsuranceIconRegion, CHAR_ICON_X, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING, CHAR_ICON_X + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + CHAR_ICON_HEIGHT,
+		MSYS_DefineRegion( &gInsuranceIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING, CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + CHAR_ICON_HEIGHT,
 						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
-		MSYS_DefineRegion( &gDepositIconRegion, CHAR_ICON_X, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ), CHAR_ICON_X + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + CHAR_ICON_HEIGHT,
-						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+		MSYS_DefineRegion( &gDepositIconRegion, CHAR_ICON_X + xResOffset, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ), CHAR_ICON_X + xResOffset + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + CHAR_ICON_HEIGHT,
+						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );  
 
 		fCreated = TRUE;
 	}
@@ -5691,57 +5549,6 @@ void CreateDestroyInsuranceMouseRegionForMercs( BOOLEAN fCreate )
 		fCreated = FALSE;
 	}
 }
-
-
-/*
-void HandlePlayerEnteringMapScreenBeforeGoingToTactical( void )
-{
-	CHAR16 sString[ 256 ];
-
-	if( !( AnyMercsHired( ) ) )
-	{
-		// no mercs hired inform player they must hire mercs
-		swprintf( sString, pMapScreenJustStartedHelpText[ 0 ] );
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, DoneHandlePlayerFirstEntryToMapScreen );
-
-	}
-	else
-	{
-		// player has mercs hired, tell them to time compress to get things underway
-		swprintf( sString, pMapScreenJustStartedHelpText[ 1 ] );
-		fShowMapScreenHelpText = TRUE;
-	}
-
-
-
-	// now inform the player
-
-	if( fShowMapScreenHelpText )
-	{
-		fShowMapScreenHelpText = FALSE;
-		SetUpShutDownMapScreenHelpTextScreenMask( );
-		fShowMapScreenHelpText = TRUE;
-	}
-
-	return;
-}
-
-
-void DoneHandlePlayerFirstEntryToMapScreen(	UINT8 bExitValue )
-{
-	static BOOLEAN fFirstTime = TRUE;
-
-	if( bExitValue == MSG_BOX_RETURN_OK )
-	{
-		if( fFirstTime == TRUE )
-		{
-			fFirstTime = FALSE;
-			fShowMapScreenHelpText = TRUE;
-		}
-	}
-}
-*/
-
 
 BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 {

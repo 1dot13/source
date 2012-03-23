@@ -73,6 +73,14 @@ CIniReader::CIniReader(const STR8	szFileName)
 			rev_order.pop();
 		}
 	}
+	// check for override file
+	{
+		CHAR8 OvrFileName[256], Drive[128], Dir[128], Name[128], Ext[128];
+		_splitpath(szFileName, Drive, Dir, Name, Ext);
+		_makepath(OvrFileName, Drive, Dir, Name, "Override");
+		if(getVFS()->fileExists(OvrFileName))
+			m_oProps.initFromIniFile(vfs::Path(OvrFileName));
+	}
 #endif
 }
 

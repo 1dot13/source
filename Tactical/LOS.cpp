@@ -7048,10 +7048,18 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// beginning to compensate for the target's speed, pointing the gun ahead of the target ("Leading the target").
 	UINT8 uiTilesForMaxPenalty = (100-uiCombinedSkill) / (100 / gGameCTHConstants.MOVEMENT_TRACKING_DIFFICULTY);
 	
+	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
 	// Add a percentage-based modifier from the weapon and its attachments. Movement tracking devices will
 	// provide faster compensation for target movement, allowing the shooter to begin adjusting the muzzle
 	// after the target moves a smaller number of tiles.
-	uiTilesForMaxPenalty += (INT16)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	INT32 moda = (INT32)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, stance )) / 100;
+	INT32 modb = (INT32)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	uiTilesForMaxPenalty += (UINT8)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	if (uiTilesForMaxPenalty == 0)
 	{
@@ -7208,7 +7216,15 @@ void CalcRangeCompensationOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetY, 
 
 	// The weapon and/or its attachments can increase our skill by a certain percentage. Windage sights on long-range
 	// weapons (like sniper rifles and launchers) are sometimes designed specifically for this purpose.
-	iCombinedSkill += (iCombinedSkill * GetDropCompensationModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
+	FLOAT moda = (iCombinedSkill * GetDropCompensationModifier( pWeapon, stance )) / 100;
+	FLOAT modb = (iCombinedSkill * GetDropCompensationModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	iCombinedSkill += ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	// Limit this to a scale of 0-100.
 	UINT32 uiCombinedSkill = (UINT32)__max(__min(iCombinedSkill,100), 0);
@@ -7533,8 +7549,16 @@ UINT32 CalcCounterForceFrequency(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon)
 		iCounterForceFrequency += bDifference;
 	}
 
+	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
 	// Percent Modifier from weapon and its attachments
-	iCounterForceFrequency += (iCounterForceFrequency * GetCounterForceFrequencyModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	FLOAT moda = (iCounterForceFrequency * GetCounterForceFrequencyModifier( pWeapon, stance )) / 100;
+	FLOAT modb = (iCounterForceFrequency * GetCounterForceFrequencyModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	iCounterForceFrequency += ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	// Limit to 1-100.
 	iCounterForceFrequency = __min(100, iCounterForceFrequency);
@@ -7600,7 +7624,17 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 
 	// Add the effects from the weapon and its attachments. A foregrip or bipod are very useful for this.
 	// Attachment bonuses are applied as a percentage to the accuracy of the shooter.
-	INT32 iModifier = GetCounterForceAccuracyModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubHeight );
+
+	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
+	INT32 moda = GetCounterForceAccuracyModifier( pWeapon, stance );
+	INT32 modb = GetCounterForceAccuracyModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight );
+	INT32 iModifier = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+
 	UINT32 uiCounterForceAccuracy = (UINT32)(iCounterForceAccuracy + ((iCounterForceAccuracy * iModifier) / 100));
 
 	// Now add the effect of the AutoWeapons skill. It "bridges" a portion of the gap between shooter's actual accuracy 
@@ -7708,7 +7742,17 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 	INT8 bGunRecoilX;
 	INT8 bGunRecoilY;
 	FLOAT dDistanceRatio = (FLOAT)(uiRange / gGameCTHConstants.NORMAL_RECOIL_DISTANCE);
-	FLOAT iCounterForceMax = CalcCounterForceMax(pShooter, pWeapon);
+
+	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
+	FLOAT moda = CalcCounterForceMax(pShooter, pWeapon, stance);
+	FLOAT modb = CalcCounterForceMax(pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight);
+	FLOAT iCounterForceMax = ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+	
 	UINT32 uiCounterForceAccuracy = CalcCounterForceAccuracy(pShooter, pWeapon, uiRange, FALSE, true);
 	UINT32 uiCounterForceFrequency = CalcCounterForceFrequency(pShooter, pWeapon);
 
@@ -7955,8 +7999,16 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 		// maximum counter-force that can be applied. By default, it is based primarily on the strength of the shooter,
 		// although agility is also helpful.
 
-		FLOAT iCounterForceMax = CalcCounterForceMax(pShooter, pWeapon);
+		UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
 
+		// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+		if ( gGameExternalOptions.fWeaponResting && pShooter->IsWeaponMounted() )
+			stance = ANIM_PRONE;
+
+		FLOAT moda = CalcCounterForceMax(pShooter, pWeapon, stance);
+		FLOAT modb = CalcCounterForceMax(pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight);
+		FLOAT iCounterForceMax = ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+		
 		// iCounterForceMax is now the absolute limit.
 
 		// STEP 2: Now we need to determine how accurate the shooter is when applying counter-force. He won't always apply

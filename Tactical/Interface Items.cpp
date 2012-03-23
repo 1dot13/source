@@ -139,6 +139,8 @@ INT16	ITEMDESC_WIDTH;
 extern int SM_ITEMDESC_START_X;
 extern int SM_ITEMDESC_START_Y;
 
+extern int INV_REGION_Y;
+
 #define		CAMO_REGION_HEIGHT			75
 #define		CAMO_REGION_WIDTH				75
 
@@ -411,6 +413,8 @@ extern void	StartSKIDescriptionBox( void );
 
 void UpdateItemHatches();
 
+void ShadowNIVPanel();
+
 extern void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot );
 
 UINT8		ubRGBItemCyclePlacedItemColors[] =
@@ -523,7 +527,7 @@ INV_DESC_REGIONS gItemDescGenHeaderRegions[3]; // Header text regions for variou
 INV_DESC_REGIONS gItemDescGenIndexRegions[3][4]; // Index text regions for various parts of the General Tab
 INV_DESC_REGIONS gItemDescGenRegions[NUM_UDB_GEN_LINES * 2][4]; // Data regions, 4 sub-columns each
 INV_DESC_REGIONS gItemDescGenSecondaryRegions[26]; // Secondary data regions, 3x5
-INV_DESC_REGIONS gItemDescTextRegions[7]; // Main description regions
+INV_DESC_REGIONS gItemDescTextRegions[8]; // Main description regions
 INV_DESC_REGIONS gItemDescAdvIndexRegions[1][4];
 INV_DESC_REGIONS gItemDescAdvRegions[NUM_UDB_ADV_LINES][4]; // Advanced data regions, 4 sub-columns each
 
@@ -1035,7 +1039,8 @@ void InitInventoryNew()
 
 	ResetInvData();
 
-	if(iResolution == 0){
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
 		InitInvData(gSMInvData[0],	FALSE,	INV_BAR_DX,	INV_BAR_DY,	HEAD_INV_SLOT_WIDTH,	HEAD_INV_SLOT_HEIGHT,	0, 0);	// HELMETPOS
 		InitInvData(gSMInvData[1],	FALSE,	INV_BAR_DX,	INV_BAR_DY,	VEST_INV_SLOT_WIDTH,	VEST_INV_SLOT_HEIGHT,	0, 0);	// VESTPOS
 		InitInvData(gSMInvData[2],	FALSE,	INV_BAR_DX,	INV_BAR_DY,	LEGS_INV_SLOT_WIDTH,	LEGS_INV_SLOT_HEIGHT,	0, 0);	// LEGPOS
@@ -1679,14 +1684,14 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 			// CHRISL: Change coords for STI that covers 2nd hand location when carrying a 2handed weapon
 			if( guiCurrentItemDescriptionScreen != MAP_SCREEN )
 			{
-				newX = ((UsingNewInventorySystem() == false)) ? 217 : 114;
+				newX = ((UsingNewInventorySystem() == false)) ? (xResOffset + 217) : ((SCREEN_WIDTH - xResSize)/2 + 114);
 				newY = ((UsingNewInventorySystem() == false)) ? sY : (sY - 1);
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiSecItemHiddenVO, UsingNewInventorySystem(), newX, newY, VO_BLT_SRCTRANSPARENCY, NULL );
 				RestoreExternBackgroundRect( newX, newY, 72, 28 );
 			}
 			else
-			{
-				newX = ((UsingNewInventorySystem() == false)) ? 14 : 6;
+			{	
+				newX = ((UsingNewInventorySystem() == false)) ? (14 + xResOffset) : (6 + xResOffset);
 				newY = ((UsingNewInventorySystem() == false)) ? 218 : 217;
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiMapInvSecondHandBlockout, UsingNewInventorySystem(), newX, newY, VO_BLT_SRCTRANSPARENCY, NULL );
 				RestoreExternBackgroundRect( newX, newY, 102, 24 );
@@ -2638,6 +2643,33 @@ void INVRenderSilhouette( UINT32 uiBuffer, INT16 PocketIndex, INT16 SilIndex, IN
 	}
 }
 
+// Flugente FTW 1: Function to get the number of the item condition string
+UINT8 GetTemperatureString( FLOAT overheatpercentage, UINT32* apRed, UINT32* apGreen, UINT32* abBlue )
+{
+	*apRed   = (UINT32) ( 100 + 155 * ( (max(1.0, overheatpercentage) - 1.0)/(max(1.0, overheatpercentage)) ) );
+	*apGreen = 0;
+	*abBlue  = 0;
+
+	if (overheatpercentage < 0.17)			// very low
+		return 0;
+	else if (overheatpercentage < 0.33)		// low
+		return 1;
+	else if (overheatpercentage < 0.5)		// medium
+		return 2;
+	else if (overheatpercentage < 0.67)		// high
+		return 3;
+	else if (overheatpercentage < 0.83)		// very high
+		return 4;
+	else if (overheatpercentage < 1.0)		// dangerous
+		return 5;
+	else if (overheatpercentage < 2.0)		// CRITICAL
+		return 6;
+	else									// DRAMATIC
+		return 7;
+			
+	// Default: unknown
+	return 8;
+}
 
 void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObject, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel, UINT8 *pubHighlightCounter, UINT8 ubStatusIndex, BOOLEAN fOutline, INT16 sOutlineColor, UINT8 iter )
 {
@@ -2743,6 +2775,10 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				sNewY = sY + sHeight - 10;
 				sNewX = sX + 1;
 
+				// Flugente: If we display the thermometer for overheating, move the ammo counter a bit to the right
+				if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE )
+					sNewX = sX + 6;
+
 				SetFontForeground ( AmmoTypes[(*pObject)[iter]->data.gun.ubGunAmmoType].fontColour );
 				//switch ((*pObject)[iter]->data.gun.ubGunAmmoType)
 				//{
@@ -2789,6 +2825,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
+
+				sNewX = sX + 1;
 
 				SetFontForeground( FONT_MCOLOR_DKGRAY );
 
@@ -2866,7 +2904,41 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
+			}
 
+			// Flugente FTW 1
+			if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel == TRUE ) )
+			{
+				FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObject);
+												
+				UINT32 red, green, blue;
+				UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );
+
+				UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
+
+				DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER );								
+			}
+
+			// display symbol if we are leaning our weapon on something
+			// display only if eapon resting is allowed, display is allowed, item is a gun/launcher, we are a person, we hold the gun in our hand, and we are resting the gun
+			if ( gGameExternalOptions.fWeaponResting && gGameExternalOptions.fDisplayWeaponRestingIndicator && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  pSoldier->bActive && pSoldier->bInSector && &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
+			{
+				SetRGBFontForeground( 95, 160, 154 );
+												
+				sNewY = sY + sHeight - 24;
+				swprintf( pStr, L"M" );
+
+				// Get length of string
+				uiStringLength=StringPixLength(pStr, ITEM_FONT );
+
+				sNewX = sX + 25;
+
+				if ( uiBuffer == guiSAVEBUFFER )
+				{
+					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+				}
+				mprintf( sNewX, sNewY, pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
 			if((UsingNewInventorySystem() == true))
@@ -3085,7 +3157,7 @@ void InitItemDescriptionBoxStartCoords( BOOLEAN fIsEnhanced, BOOLEAN fUsingNAS )
 	if(fUsingNAS){
 		if( UsingNewInventorySystem() == true )	// NIV
 		{
-			ITEMDESC_START_X	= 115;
+			ITEMDESC_START_X	= INTERFACE_START_X + 115;
 			ITEMDESC_START_Y	= (1 + INV_INTERFACE_START_Y);
 			ITEMDESC_HEIGHT		= 195;
 			ITEMDESC_WIDTH		= 335;
@@ -3094,53 +3166,46 @@ void InitItemDescriptionBoxStartCoords( BOOLEAN fIsEnhanced, BOOLEAN fUsingNAS )
 		{
 			ITEMDESC_HEIGHT		= 193;
 			ITEMDESC_WIDTH		= 430;
-			ITEMDESC_START_X	= 214;
+			ITEMDESC_START_X	= INTERFACE_START_X + 214;
 			ITEMDESC_START_Y	= (1-(ITEMDESC_HEIGHT-INV_INTERFACE_HEIGHT) + INV_INTERFACE_START_Y);
 		}
 
 		if(UsingNewInventorySystem() == true && (guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == SHOPKEEPER_SCREEN))
 		{
-			if(iResolution == 0)
+			if (iResolution >= _640x480 && iResolution < _800x600)
 				ITEMDESC_WIDTH = 526;
-			else if(iResolution == 1)
+			else if (iResolution < _1024x768)
 				ITEMDESC_WIDTH = 686;
-			else if(iResolution == 2)
+			else
 				ITEMDESC_WIDTH = 910;
 		}
 
 		//CHRISL: This allows EDB to work in Strategic OIV mode
 		if(guiCurrentScreen == MAP_SCREEN)
 		{
-			if(iResolution == 0)	// 640x480 res
+			if (iResolution >= _640x480 && iResolution < _800x600)
 				ITEMDESC_HEIGHT = 268;
-			else if(iResolution == 2 || UsingNewInventorySystem() == true)	// 1024x768 or NIV
+			else if(iResolution >= _1024x768 || UsingNewInventorySystem() == true)	// 1024x768 or NIV
 				ITEMDESC_HEIGHT = 490;
-			else if(iResolution == 1)	// 800x600
+			else if (iResolution < _1024x768)
 				ITEMDESC_HEIGHT = (mode > 0) ? 490 : 373;
-			ITEMDESC_WIDTH	= ((UsingNewInventorySystem() == true && iResolution != 0)) ? 272 : 272;
+
+			ITEMDESC_WIDTH	= ((UsingNewInventorySystem() == true && iResolution >= _800x600)) ? 272 : 272;
 		}
-	} else {
+	} 
+	else 
+	{
 		if( UsingNewInventorySystem() == true )	// ODB/NIV
 		{
-			//if (guiCurrentItemDescriptionScreen != SHOPKEEPER_SCREEN)
-			{
-				// HEADROCK HAM 4: 
-				ITEMDESC_START_X	= 115;
-				ITEMDESC_START_Y	= (1 + INV_INTERFACE_START_Y);
-				ITEMDESC_HEIGHT		= 195;
-				ITEMDESC_WIDTH		= 335; // OIV only
-			}
-			//else
-			//{
-			//	ITEMDESC_START_X	= 259;
-			//	ITEMDESC_START_Y	= (1 + INV_INTERFACE_START_Y);
-			//	ITEMDESC_HEIGHT		= guiCurrentItemDescriptionScreen == SHOPKEEPER_SCREEN ? 133 : 195;
-			//	ITEMDESC_WIDTH		= 320; // OIV only
-			//}
+			// HEADROCK HAM 4: 
+			ITEMDESC_START_X	= INTERFACE_START_X + 115;
+			ITEMDESC_START_Y	= (1 + INV_INTERFACE_START_Y);
+			ITEMDESC_HEIGHT		= 195;
+			ITEMDESC_WIDTH		= 335; // OIV only
 		}
 		else	// ODB/OIV
 		{
-			ITEMDESC_START_X	= 214;
+			ITEMDESC_START_X	= INTERFACE_START_X + 214;
 			ITEMDESC_START_Y	= (1 + INV_INTERFACE_START_Y);
 			ITEMDESC_HEIGHT		= 133;
 			ITEMDESC_WIDTH		= 320; // OIV only
@@ -3148,24 +3213,25 @@ void InitItemDescriptionBoxStartCoords( BOOLEAN fIsEnhanced, BOOLEAN fUsingNAS )
 
 		if(UsingNewInventorySystem() == true && guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == SHOPKEEPER_SCREEN)
 		{
-			if(iResolution == 0)
+			if (iResolution >= _640x480 && iResolution < _800x600)
 				ITEMDESC_WIDTH = 526;
-			else if(iResolution == 1)
+			else if (iResolution < _1024x768)
 				ITEMDESC_WIDTH = 686;
-			else if(iResolution == 2)
+			else
 				ITEMDESC_WIDTH = 910;
 		}
 
 		//CHRISL: This allows EDB to work in Strategic OIV mode
 		if(guiCurrentScreen == MAP_SCREEN)
 		{
-			if(iResolution == 0)	// 640x480 res
+			if (iResolution >= _640x480 && iResolution < _800x600)
 				ITEMDESC_HEIGHT = 268;
-			else if(iResolution == 2 || UsingNewInventorySystem() == true)	// 1024x768 or NIV
+			else if(iResolution >= _1024x768 || UsingNewInventorySystem() == true)	// 1024x768 or NIV
 				ITEMDESC_HEIGHT = 490;
-			else if(iResolution == 1)	// 800x600
+			else if (iResolution < _1024x768)
 				ITEMDESC_HEIGHT = 373;
-			ITEMDESC_WIDTH	= ((UsingNewInventorySystem() == true && iResolution != 0)) ? 272 : 272;
+
+			ITEMDESC_WIDTH	= ((UsingNewInventorySystem() == true && iResolution >= _800x600)) ? 272 : 272;
 		}
 	}
 }
@@ -4002,7 +4068,7 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		gfItemAmmoDown = FALSE;
 
 		//CHRISL: We dont' want to be able to reload guns using the ammo crate from this function
-		if(gpItemPointer != NULL && Item[gpItemPointer->usItem].ammocrate)
+		if(gpItemPointer != NULL && Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubMagType >= AMMO_BOX)
 		{
 			fInterfacePanelDirty = DIRTYLEVEL2;
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
@@ -4378,60 +4444,6 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-/*INT8 DetermineShowBox( )
-INT8 DetermineShowBox( )
-{
-	if(gpItemDescObject == NULL)
-		return 0;
-
-	if(iResolution == 0)
-		return 0;
-	else if(UsingNewInventorySystem() == false)	//OIV
-	{
-		if (UsingEDBSystem() == 2)
-		{
-			if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
-				return(UsingNewAttachmentSystem()==true ? 8 : 6);
-			else
-				return(UsingNewAttachmentSystem()==true ? 9 : 7);
-		}
-		else if (guiCurrentItemDescriptionScreen == MAP_SCREEN)
-		{
-			if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
-				return(UsingNewAttachmentSystem()==true ? 7 : 6);
-			else
-				if(UsingEDBSystem() > 0)
-					return(UsingNewAttachmentSystem()==true ? 8 : 1);
-				else
-					return(UsingNewAttachmentSystem()==true ? 6 : 1);
-		}
-		else
-			return(UsingNewAttachmentSystem()==true ? 5 : 0);
-	}
-	else if(UsingNewInventorySystem() == true)	//NIV
-	{
-		if(gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex))
-			return (gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex)->lbeClass + (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 1 : 0));
-		else if(Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
-			return (LoadBearingEquipment[Item[gpItemDescObject->usItem].ubClassIndex].lbeClass + (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 1 : 0));
-		else if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 ){
-			if(UsingNewAttachmentSystem()==true)
-				return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 7 : 8);
-			else
-				return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 6 : 5);
-		}else{
-			if(UsingNewAttachmentSystem()==true && UsingEDBSystem() > 0 && Item[gpItemDescObject->usItem].usItemClass != IC_MONEY)
-				return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 8 : 9);
-			else if(UsingNewAttachmentSystem()==true && Item[gpItemDescObject->usItem].usItemClass != IC_MONEY)
-				return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 6 : 5);
-			else
-				return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 1 : 0);
-		}
-	}
-
-	return 0;
-}*/
-
 INT8 DetermineShowBox( )
 {
 	INT8 bShowBox = 0;
@@ -4441,7 +4453,7 @@ INT8 DetermineShowBox( )
 	if(gpItemDescObject == NULL)
 		return 0;
 
-	if(iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		return 0;
 
 	if(UsingEDBSystem() <= 0)
@@ -4593,7 +4605,7 @@ INT8 DetermineShowLBE( )
 	if(gpItemDescObject == NULL)
 		return -1;
 
-	if(iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		return -1;
 
 	if(!UsingNewInventorySystem())
@@ -4731,7 +4743,18 @@ void RenderItemDescriptionBox( )
 		else
 		{
 			if(guiItemDescBoxBackground != 0)
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, iResolution, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+			{
+				if (iResolution >= _640x480 && iResolution < _800x600)
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, 0, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				else if (iResolution < _1024x768)
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, 1, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				else	
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, 2, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+
+				// WANNE: Yes here we want to overlay image!
+				//ShadowNIVPanel();
+			}
+			
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBox, showBox, gsInvDescX, gsInvDescY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
@@ -4844,6 +4867,18 @@ void RenderItemDescriptionBox( )
 				sCenX = sCenX + gItemDescAttachmentsXY[cnt].sBarDx;
 				sCenY = sCenY + gItemDescAttachmentsXY[cnt].sBarDy;
 				DrawItemUIBarEx( gpItemDescObject, (UINT8)(DRAW_ITEM_STATUS_ATTACHMENT1 + cnt), sCenX, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER, gubItemDescStatusIndex );
+
+				if ( gGameOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[ (iter)->usItem ].barrel == TRUE) )	// Flugente FTW 1.1
+				{
+					FLOAT overheatjampercentage = GetGunOverheatJamPercentage( &(*iter));
+								
+					UINT32 red, green, blue;
+					UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );
+
+					UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
+
+					DrawItemUIBarEx( &(*iter), DRAW_ITEM_TEMPERATURE, sCenX+4, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, colour, colour, TRUE, guiSAVEBUFFER );
+				}
 			}
 		}
 
@@ -4998,6 +5033,43 @@ void RenderItemDescriptionBox( )
 				////////// label
 				if (UsingEDBSystem())
 				{
+					// Flugente FTW 1: display temperature string
+					if ( gGameOptions.fWeaponOverheating && ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN || Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].barrel == TRUE ) )
+					{						
+						// UDB system displays a string with colored condition text.
+						int regionindex = 7;
+						SetFontForeground( ForegroundColor );
+						swprintf( pStr, L"%s", gTemperatureDesc[0] ); // "Temperature is "
+						mprintf( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, pStr );
+						// Record length
+						INT16 indent = StringPixLength( gTemperatureDesc[0], ITEMDESC_FONT );
+						
+						FLOAT overheatjampercentage = GetGunOverheatJamPercentage( gpItemDescObject);
+
+						UINT32 red, green, blue;
+						UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );
+						swprintf( pStr, L"%s", gTemperatureDesc[TemperatureStringNum+1 ] );
+
+						// text is coloured only in case of danger
+						if ( overheatjampercentage >= 1.0 )
+							SetRGBFontForeground( red, green, blue );
+
+						mprintf( gItemDescTextRegions[regionindex].sLeft+indent+2, gItemDescTextRegions[regionindex].sTop, pStr );
+						// Record length
+						indent += StringPixLength( gTemperatureDesc[TemperatureStringNum + 1], ITEMDESC_FONT );
+
+						SetFontForeground( ForegroundColor );
+						swprintf( pStr, L"%s", gTemperatureDesc[10] ); // "."
+						mprintf( gItemDescTextRegions[regionindex].sLeft + indent + 2, gItemDescTextRegions[regionindex].sTop, pStr );
+
+						// to get the text to the left side...
+						swprintf( pStr, L"");
+
+						FindFontRightCoordinates( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, gItemDescTextRegions[regionindex].sRight - gItemDescTextRegions[regionindex].sLeft ,gItemDescTextRegions[regionindex].sBottom - gItemDescTextRegions[regionindex].sTop ,pStr, BLOCKFONT2, &usX, &usY);
+
+						mprintf( usX, usY, pStr );
+					}
+
 					// UDB system displays a string with colored condition text.
 					SetFontForeground( ForegroundColor );
 					swprintf( pStr, L"%s", gConditionDesc[0] ); // "In "
@@ -5508,7 +5580,7 @@ void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject )
 	int			usX, usY;
 
 	// Start by verifying that this item is an LBENODE
-	if(Item[pObj->usItem].usItemClass != IC_LBEGEAR || iResolution == 0)
+	if(Item[pObj->usItem].usItemClass != IC_LBEGEAR || (iResolution >= _640x480 && iResolution < _800x600))
 		return;
 
 	// Set selected merc
@@ -7058,7 +7130,8 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 	INT16			sItemWidth = 0;
 	static CHAR16	pStr[ 512 ];
 
-	
+	//sOffSetX = xResOffset;
+
 	RenderBackpackButtons(DEACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
@@ -7071,7 +7144,7 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 	}
 
 	// Set some globals
-	gsItemPopupInvX					= sInvX;
+	gsItemPopupInvX					= sInvX + xResOffset;
 	gsItemPopupInvY					= sInvY;
 	gsItemPopupInvWidth				= sInvWidth;
 	gsItemPopupInvHeight			= sInvHeight;
@@ -7094,14 +7167,14 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 	strcpy( VObjectDesc.ImageFile, "INTERFACE\\extra_inventory.STI" );
 	CHECKF( AddVideoObject( &VObjectDesc, &guiItemPopupBoxes) );
 
-	if(UsingNewInventorySystem() == true)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		strcpy( VObjectDesc.ImageFile, "INTERFACE\\infobox_background.sti" );
-		CHECKF( AddVideoObject( &VObjectDesc, &guiItemDescBoxBackground) );
-	}
-	else
-		guiItemDescBoxBackground = 0;
+	//if(UsingNewInventorySystem() == true)
+	//{
+	//	/*VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	strcpy( VObjectDesc.ImageFile, "INTERFACE\\infobox_background.sti" );
+	//	CHECKF( AddVideoObject( &VObjectDesc, &guiItemDescBoxBackground) );*/
+	//}
+	//else
+	//	guiItemDescBoxBackground = 0;
 
 	// Get size
 	GetVideoObject( &hVObject, guiItemPopupBoxes );
@@ -7205,7 +7278,7 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 	gfInItemStackPopup = TRUE;
 
 	//Reserict mouse cursor to panel
-	aRect.iLeft = sInvX + sOffSetX;
+	aRect.iLeft = sInvX + xResOffset;
 	aRect.iTop = sInvY + sOffSetY;
 	aRect.iRight = aRect.iLeft + sItemWidth * usPopupWidth;
 	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
@@ -7227,9 +7300,39 @@ void EndItemStackPopupWithItemInHand( )
 	}
 }
 
+void ShadowNIVPanel()
+{
+	// WANNE: Instead of blitting the sti overlap interface, shade the inventory. Looks much better and is the same than in OIV
+	UINT16 startX1, startX2, startX3;
+	UINT16 startY1, startY2, startY3;
+	UINT16 endX1, endX2, endX3;
+	UINT16 endY1, endY2, endY3;
+	
+	// First rectangle
+	startX1 = gsItemPopupInvX;
+	startY1 = gsItemPopupInvY;
+	endX1 = SCREEN_WIDTH - xResOffset;
+	endY1 = startY1 + 109;
+	ShadowVideoSurfaceRect( FRAME_BUFFER, startX1, startY1, endX1 , endY1  );
+
+	// Second rectangle
+	startX2 = startX1;
+	startY2 = endY1;
+	endX2 = SCREEN_WIDTH - xResOffset - 155;
+	endY2 = SCREEN_HEIGHT;
+	ShadowVideoSurfaceRect( FRAME_BUFFER, startX2, startY2, endX2 , endY2  );
+
+	// Third rectangle
+	startX3 = startX1 - 140;
+	startY3 = startY1 + 65;
+	endX3 = startX3 + 140;
+	endY3 = SCREEN_HEIGHT;
+	ShadowVideoSurfaceRect( FRAME_BUFFER, startX3, startY3, endX3 , endY3  );
+}
+
 void RenderItemStackPopup( BOOLEAN fFullRender )
 {
-  ETRLEObject						*pTrav;
+	ETRLEObject						*pTrav;
 	UINT32								usHeight, usWidth;
 	HVOBJECT							hVObject;
 	UINT32								cnt;
@@ -7261,8 +7364,20 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 		{
 			if(UsingNewInventorySystem() == false || guiCurrentScreen == MAP_SCREEN)
 				ShadowVideoSurfaceRect( FRAME_BUFFER, gsItemPopupInvX, gsItemPopupInvY, gsItemPopupInvX + gsItemPopupInvWidth , gsItemPopupInvY + gsItemPopupInvHeight  );
-			else if(UsingNewInventorySystem() == true && iResolution != 0 && guiItemDescBoxBackground != 0 && guiCurrentScreen != MAP_SCREEN)
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, iResolution, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+			else if(UsingNewInventorySystem() == true && iResolution >= _800x600 /* && guiItemDescBoxBackground != 0 */ && guiCurrentScreen != MAP_SCREEN)
+			{
+				ShadowNIVPanel();
+				
+
+				/*
+				if(iResolution >= _640x480 && iResolution < _800x600)
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, 0, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				else if (iResolution < _1024x768)
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, 1, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				else
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, 2, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );				
+				*/
+			}
 		}
 
 	}
@@ -7294,7 +7409,7 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 				sItemWidth -= 1;
 			usWidth = 58;
 			sWidth = 43;
-			image = 1;
+			image = 1;	
 		}
 	}
 
@@ -7305,9 +7420,9 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 		sX = (INT16)(gsItemPopupX + ( cnt % sItemWidth * usWidth ));
 		sY = (INT16)(gsItemPopupY + sOffSetY + ( cnt / sItemWidth * usHeight ));
 		BltVideoObjectFromIndex( FRAME_BUFFER, guiItemPopupBoxes, image, (INT16)sX, ( INT16 )sY, VO_BLT_SRCTRANSPARENCY, NULL );
-
+	
 		if ( cnt < gpItemPopupObject->ubNumberOfObjects )
-		{
+		{	
 			// CHRISL: Coord updates to work with mutliple rows
 			//sX = (INT16)(gsItemPopupX + ( cnt * usWidth ) + 11);
 			//sY = (INT16)( gsItemPopupY + 3 );
@@ -7324,7 +7439,7 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 	}
 
 	//RestoreExternBackgroundRect( gsItemPopupInvX, gsItemPopupInvY, gsItemPopupInvWidth, gsItemPopupInvHeight );
-	InvalidateRegion( gsItemPopupInvX, gsItemPopupInvY, gsItemPopupInvX + gsItemPopupInvWidth, gsItemPopupInvY + gsItemPopupInvHeight );
+	InvalidateRegion( gsItemPopupInvX, INV_REGION_Y, gsItemPopupInvX + gsItemPopupInvWidth, INV_REGION_Y + gsItemPopupInvHeight );
 
 }
 
@@ -7387,16 +7502,16 @@ BOOLEAN InitKeyRingPopup( SOLDIERTYPE *pSoldier, INT16 sInvX, INT16 sInvY, INT16
 	RenderBackpackButtons(DEACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
-		gsKeyRingPopupInvX				= 0;
-		sKeyRingItemWidth						= MAP_KEY_RING_ROW_WIDTH;
+		gsKeyRingPopupInvX	= xResOffset;
+		sKeyRingItemWidth	= MAP_KEY_RING_ROW_WIDTH;
 		sOffSetX = 40;
 		sOffSetY = 15;
 	}
 	else
 	{
-		// Set some globals
-		gsKeyRingPopupInvX					= sInvX + TACTICAL_INVENTORY_KEYRING_GRAPHIC_OFFSET_X;
-		sKeyRingItemWidth						= KEY_RING_ROW_WIDTH;
+		// Set some globals	
+		gsKeyRingPopupInvX				= xResOffset + sInvX + TACTICAL_INVENTORY_KEYRING_GRAPHIC_OFFSET_X;
+		sKeyRingItemWidth				= KEY_RING_ROW_WIDTH;
 		sOffSetY = 8;
 	}
 
@@ -7413,9 +7528,9 @@ BOOLEAN InitKeyRingPopup( SOLDIERTYPE *pSoldier, INT16 sInvX, INT16 sInvY, INT16
 
 	if(UsingNewInventorySystem() == true)
 	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		/*VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		strcpy( VObjectDesc.ImageFile, "INTERFACE\\infobox_background.sti" );
-		CHECKF( AddVideoObject( &VObjectDesc, &guiItemDescBoxBackground) );
+		CHECKF( AddVideoObject( &VObjectDesc, &guiItemDescBoxBackground) );*/
 	}
 	else
 		guiItemDescBoxBackground = 0;
@@ -7513,10 +7628,20 @@ void RenderKeyRingPopup( BOOLEAN fFullRender )
 		{
 			if(UsingNewInventorySystem() == false || guiCurrentScreen == MAP_SCREEN)
 				ShadowVideoSurfaceRect( FRAME_BUFFER, 0, gsKeyRingPopupInvY, gsKeyRingPopupInvX + gsKeyRingPopupInvWidth , gsKeyRingPopupInvY + gsKeyRingPopupInvHeight );
-			else if(UsingNewInventorySystem() == true && iResolution != 0 && guiItemDescBoxBackground != 0 && guiCurrentScreen != MAP_SCREEN)
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, iResolution, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
+			else if(UsingNewInventorySystem() == true && iResolution >= _800x600 /* && guiItemDescBoxBackground != 0 */ && guiCurrentScreen != MAP_SCREEN)
+			{
+				ShadowNIVPanel();
 
+				/*
+				if (iResolution >= _640x480 && iResolution < _800x600)
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, 0, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				else if (iResolution < _1024x768)
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, 1, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );		
+				else	
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiItemDescBoxBackground, 2, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				*/
+			}
+		}
 	}
 
 	gTempObject.usItem = KEY_1;
@@ -7626,10 +7751,41 @@ UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem )
 		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP2ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP2ITEMS,
 			L"Failed to retrieve P2 item image" );
 	}
-	else
+	else if ( pItem->ubGraphicType == 3 )
 	{
 		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP3ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP3ITEMS,
 			L"Failed to retrieve P3 item image" );
+	}
+	//MM: New item tileslots start here
+	else if ( pItem->ubGraphicType == 4 )
+	{
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP4ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP4ITEMS,
+			L"Failed to retrieve P4 item image" );
+	}
+	else if ( pItem->ubGraphicType == 5 )
+	{
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP5ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP5ITEMS,
+			L"Failed to retrieve P5 item image" );
+	}
+	else if ( pItem->ubGraphicType == 6 )
+	{
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP6ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP6ITEMS,
+			L"Failed to retrieve P6 item image" );
+	}
+	else if ( pItem->ubGraphicType == 7 )
+	{
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP7ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP7ITEMS,
+			L"Failed to retrieve P7 item image" );
+	}
+	else if ( pItem->ubGraphicType == 8 )
+	{
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP8ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP8ITEMS,
+			L"Failed to retrieve P8 item image" );
+	}
+	else
+	{
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP9ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP9ITEMS,
+			L"Failed to retrieve P9 item image" );
 	}
 	return id;
 }
@@ -7654,9 +7810,34 @@ UINT16 GetTileGraphicForItem( INVTYPE *pItem )
 	{
 		GetTileIndexFromTypeSubIndex( P2ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
-	else
+	else if ( pItem->ubGraphicType == 3 )
 	{
 		GetTileIndexFromTypeSubIndex( P3ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	}
+	//MM: New item tileslots start here
+	else if ( pItem->ubGraphicType == 4 )
+	{
+		GetTileIndexFromTypeSubIndex( P4ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	}
+	else if ( pItem->ubGraphicType == 5 )
+	{
+		GetTileIndexFromTypeSubIndex( P5ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	}
+	else if ( pItem->ubGraphicType == 6 )
+	{
+		GetTileIndexFromTypeSubIndex( P6ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	}
+	else if ( pItem->ubGraphicType == 7 )
+	{
+		GetTileIndexFromTypeSubIndex( P7ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	}
+	else if ( pItem->ubGraphicType == 8 )
+	{
+		GetTileIndexFromTypeSubIndex( P8ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	}
+	else
+	{
+		GetTileIndexFromTypeSubIndex( P9ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
 
 	if ( pItem->ubClassIndex >= M900  )
@@ -7715,22 +7896,7 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 			sprintf( zName, "p2item%d", ubGraphic );
 		}
 	}
-/*
-#ifdef JA2UB
-	else if ( pItem->ubGraphicType == 9 ) // UB Items
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "GUN_UB0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "GUN_UB%d", ubGraphic );
-		}
-	}
-#endif
-*/
-	else
+	else if ( pItem->ubGraphicType == 3 )
 	{
 		if ( ubGraphic < 10 )
 		{
@@ -7739,6 +7905,73 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 		else
 		{
 			sprintf( zName, "p3item%d", ubGraphic );
+		}
+	}
+	//MM: New item tileslots start here
+	else if ( pItem->ubGraphicType == 4 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p4item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p4item%d", ubGraphic );
+		}
+	}
+	else if ( pItem->ubGraphicType == 5 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p5item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p5item%d", ubGraphic );
+		}
+	}
+	else if ( pItem->ubGraphicType == 6 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p6item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p6item%d", ubGraphic );
+		}
+	}
+	else if ( pItem->ubGraphicType == 7 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p7item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p7item%d", ubGraphic );
+		}
+	}
+	else if ( pItem->ubGraphicType == 8 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p8item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p8item%d", ubGraphic );
+		}
+	}
+	else
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p9item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p9item%d", ubGraphic );
 		}
 	}
 

@@ -529,13 +529,13 @@ void DoTransitionFromPreBattleInterfaceToAutoResolve()
 	iPercentage = 0;
 	uiStartTime = GetJA2Clock();
 
-	sStartLeft = 59;
+	sStartLeft = 59 + xResOffset;
 	sStartTop = 69;
 	sEndLeft = SrcRect.iLeft + gpAR->sWidth / 2;
 	sEndTop = SrcRect.iTop + gpAR->sHeight / 2;
 
 	//save the prebattle/mapscreen interface background
-	BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	//render the autoresolve panel
 	RenderAutoResolve();
@@ -670,7 +670,7 @@ UINT32 AutoResolveScreenHandle()
 		SGPRect ClipRect;
 		gpAR->fEnteringAutoResolve = FALSE;
 		//Take the framebuffer, shade it, and save it to the SAVEBUFFER.
-		ClipRect.iLeft = 0;
+		ClipRect.iLeft = 0 + xResOffset;
 		ClipRect.iTop = 0;
 		/*ClipRect.iRight = 640;
 		ClipRect.iBottom = 480;*/
@@ -681,7 +681,7 @@ UINT32 AutoResolveScreenHandle()
 		Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 		UnLockVideoSurface( FRAME_BUFFER );
 		//BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		KillPreBattleInterface();
 		CalculateAutoResolveInfo();
 		CalculateSoldierCells( FALSE );
@@ -1369,7 +1369,7 @@ void ExpandWindow()
 
 	//The new rect now determines the state of the current rectangle.
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	RectangleDraw( TRUE, gpAR->ExRect.iLeft, gpAR->ExRect.iTop, gpAR->ExRect.iRight, gpAR->ExRect.iBottom, Get16BPPColor( FROMRGB( 200, 200, 100 ) ), pDestBuf );
 	UnLockVideoSurface( FRAME_BUFFER );
 	//left
@@ -2214,7 +2214,7 @@ void CreateAutoResolveInterface()
 	UINT8 cnt;
 
 	//Setup new autoresolve blanket interface.
-	MSYS_DefineRegion( &gpAR->AutoResolveRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-1, 0,
+	MSYS_DefineRegion( &gpAR->AutoResolveRegion, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-1, 0,
 		MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	gpAR->fRenderAutoResolve = TRUE;
 	gpAR->fExitAutoResolve = FALSE;
@@ -2286,7 +2286,28 @@ void CreateAutoResolveInterface()
 		VOBJECT_DESC VObjectDesc;
 		//Load the face
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		
+		/*
 		sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].ubFaceIndex );
+		*/
+		
+		if ( ( gpMercs[ i ].pSoldier->ubProfile >= 0 ) && ( gpMercs[ i ].pSoldier->ubProfile < 100 ) && ( gProfilesIMP[ gpMercs[ i ].pSoldier->ubProfile ].ProfilId == gpMercs[ i ].pSoldier->ubProfile ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].ubFaceIndex );
+		} 
+		else if ( ( gpMercs[ i ].pSoldier->ubProfile > 99 ) && ( gProfilesIMP[ gpMercs[ i ].pSoldier->ubProfile ].ProfilId == gpMercs[ i ].pSoldier->ubProfile ) )
+		{			
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].ubFaceIndex );			
+		}
+		else if ( ( gpMercs[ i ].pSoldier->ubProfile >= 0 ) && ( gpMercs[ i ].pSoldier->ubProfile < 100 ) )
+		{			
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].ubFaceIndex );			
+		}
+		else 
+		{			
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].ubFaceIndex );		
+		}
+		
 		if( !AddVideoObject( &VObjectDesc, &gpMercs[ i ].uiVObjectID ) )
 		{
 			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\speck.sti" );
@@ -2295,6 +2316,8 @@ void CreateAutoResolveInterface()
 				AssertMsg( 0, String("Failed to load %Faces\\65Face\\%02d.sti or it's placeholder, speck.sti", gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].ubFaceIndex) );
 			}
 		}
+		
+		
 		if( GetVideoObject( &hVObject, gpMercs[ i ].uiVObjectID ) )
 		{
 			hVObject->pShades[ 0 ] = Create16BPPPaletteShaded( hVObject->pPaletteEntry, 255, 255, 255, FALSE );
@@ -2433,7 +2456,7 @@ void CreateAutoResolveInterface()
 	//Build the interface buffer, and blit the "shaded" background.	This info won't
 	//change from now on, but will be used to restore text.
 	BuildInterfaceBuffer();
-	BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, 0 + xResOffset, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	//If we are bumping up the interface, then also use that piece of info to
 	//move the buttons up by the same amount.
@@ -3334,7 +3357,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 
 	InputAtom InputEvent;
 	BOOLEAN fResetAutoResolve = FALSE;
-	while( DequeueEvent( &InputEvent ) )
+	while( DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) )
 	{
 		if( InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT )
 		{

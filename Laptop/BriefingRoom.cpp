@@ -426,7 +426,7 @@ void GetPlayerKeyBoardInputForBriefingRoomHomePage( void )
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		// HOOK INTO MOUSE HOOKS
 		/*

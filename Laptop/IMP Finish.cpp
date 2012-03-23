@@ -325,8 +325,8 @@ void BtnIMPFinishDoneCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		iCurrentImpPage = IMP_CONFIRM;
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			iCurrentImpPage = IMP_CONFIRM;
 			//CreateACharacterFromPlayerEnteredStats( );
 			fButtonPendingFlag = TRUE;
 			iCurrentProfileMode = IMP__REGISTRY;
@@ -668,14 +668,16 @@ BOOLEAN LoadCharacterPortrait( void )
 		{
 			if (  gIMPMaleValues[ iPortraitNumber ].Enabled == 1 )
 			{
-				sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
+				//sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
+				sprintf( VObjectDesc.ImageFile, "IMPFaces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
 			}
 		}
 		else
 		{
 			if (  gIMPFemaleValues[ iPortraitNumber ].Enabled == 1 )
 			{
-				sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
+				//sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
+				sprintf( VObjectDesc.ImageFile, "IMPFaces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
 			}
 		}
 		

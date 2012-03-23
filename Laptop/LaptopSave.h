@@ -14,7 +14,7 @@ class SOLDIERTYPE;
 
 
 
-#define		MAX_PURCHASE_AMOUNT								10
+//#define		MAX_PURCHASE_AMOUNT								20
 
 
 
@@ -54,7 +54,7 @@ typedef struct
 typedef struct
 {
 	BOOLEAN	fActive;
-	BobbyRayPurchaseStruct BobbyRayPurchase[ MAX_PURCHASE_AMOUNT ];
+	BobbyRayPurchaseStruct BobbyRayPurchase[ 100 ];
 	UINT8	ubNumberPurchases;
 } BobbyRayOrderStruct;
 
@@ -170,7 +170,7 @@ typedef struct
 
 extern	LaptopSaveInfoStruct LaptopSaveInfo;
 
-extern BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
+extern BobbyRayPurchaseStruct BobbyRayPurchases[ 100 ];
 
 
 

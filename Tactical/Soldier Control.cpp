@@ -4503,6 +4503,13 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 
 			}
 
+			// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+			// This should fix "problems" for special modified maps			
+			if ( (TERRAIN_IS_WATER( this->bOverTerrainType) || TERRAIN_IS_WATER( this->bOldOverTerrainType)) && this->pathing.bLevel > 0 )
+			{
+				this->bOverTerrainType = FLAT_GROUND;
+				this->bOldOverTerrainType = FLAT_GROUND;
+			}
 
 			// OK, If we were not in deep water but we are now, handle deep animations!
 			if ( TERRAIN_IS_DEEP_WATER( this->bOverTerrainType) && !TERRAIN_IS_DEEP_WATER( this->bOldOverTerrainType) )
@@ -4510,20 +4517,17 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 				// Based on our current animation, change!
 				switch( this->usAnimState )
 				{
-				case WALKING:
-				case WALKING_PISTOL_RDY:
-				case WALKING_RIFLE_RDY:
-				case WALKING_DUAL_RDY:
-				case RUNNING:
-
-					// IN deep water, swim!
-
-					// Make transition from low to deep
-					this->EVENT_InitNewSoldierAnim( LOW_TO_DEEP_WATER, 0 , FALSE );
-					this->usPendingAnimation = DEEP_WATER_SWIM;
-					this->usDontUpdateNewGridNoOnMoveAnimChange = 1;
-					PlayJA2Sample( ENTER_DEEP_WATER_1, RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
-
+					case WALKING:
+					case WALKING_PISTOL_RDY:
+					case WALKING_RIFLE_RDY:
+					case WALKING_DUAL_RDY:
+					case RUNNING:
+						// IN deep water, swim!
+						// Make transition from low to deep
+						this->EVENT_InitNewSoldierAnim( LOW_TO_DEEP_WATER, 0 , FALSE );
+						this->usPendingAnimation = DEEP_WATER_SWIM;
+						this->usDontUpdateNewGridNoOnMoveAnimChange = 1;
+						PlayJA2Sample( ENTER_DEEP_WATER_1, RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
 				}
 			}
 
@@ -4532,7 +4536,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 			{
 				WaterDamage( this );
 			}
-
+			
 			// OK, If we were in deep water but we are NOT now, handle mid animations!
 			if ( !TERRAIN_IS_DEEP_WATER( this->bOverTerrainType) && TERRAIN_IS_DEEP_WATER( this->bOldOverTerrainType) )
 			{
@@ -4702,7 +4706,7 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - hack! - an interrupt pending before shot
-	if ( gGameExternalOptions.fImprovedInterruptSystem )
+	if ( gGameOptions.fImprovedInterruptSystem )
 	{
 		if ( ResolvePendingInterrupt( this, BEFORESHOT_INTERRUPT ) )
 		{
@@ -7294,6 +7298,11 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 	this->sOldXPos = sStartPosX;
 	this->sOldYPos = sStartPosY;
 
+	// Flugente FTW 1: Cool down all weapons in inventory
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		this->SoldierInventoryCoolDown();
+	}
 }
 
 // UTILITY FUNCTIONS CALLED BY OVERHEAD.H
@@ -10811,8 +10820,11 @@ void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier )
 
 BOOLEAN SOLDIERTYPE::MercInWater( void )
 {
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+
 	// Our water texture , for now is of a given type
-	if ( TERRAIN_IS_WATER( this->bOverTerrainType))
+	if ( TERRAIN_IS_WATER( this->bOverTerrainType) && this->pathing.bLevel <= 0 )
 	{
 		return( TRUE );
 	}
@@ -10824,8 +10836,11 @@ BOOLEAN SOLDIERTYPE::MercInWater( void )
 
 BOOLEAN SOLDIERTYPE::MercInShallowWater( void )
 {
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+
 	// Our water texture , for now is of a given type
-	if ( TERRAIN_IS_SHALLOW_WATER( this->bOverTerrainType))
+	if ( TERRAIN_IS_SHALLOW_WATER( this->bOverTerrainType)  && this->pathing.bLevel <= 0  )
 	{
 		return( TRUE );
 	}
@@ -10838,8 +10853,11 @@ BOOLEAN SOLDIERTYPE::MercInShallowWater( void )
 
 BOOLEAN SOLDIERTYPE::MercInDeepWater( void )
 {
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+
 	// Our water texture , for now is of a given type
-	if ( TERRAIN_IS_DEEP_WATER( this->bOverTerrainType))
+	if ( TERRAIN_IS_DEEP_WATER( this->bOverTerrainType) && this->pathing.bLevel <= 0  )
 	{
 		return( TRUE );
 	}
@@ -10851,8 +10869,11 @@ BOOLEAN SOLDIERTYPE::MercInDeepWater( void )
 
 BOOLEAN SOLDIERTYPE::MercInHighWater( void )
 {
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+
 	// Our water texture , for now is of a given type
-	if ( TERRAIN_IS_HIGH_WATER( this->bOverTerrainType))
+	if ( TERRAIN_IS_HIGH_WATER( this->bOverTerrainType) && this->pathing.bLevel <= 0 )
 	{
 		return( TRUE );
 	}
@@ -12858,10 +12879,148 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 	}
 
 	return( FALSE );
-
 }
 
+// Flugente FTW 1: Cool down all items in inventory
+void SOLDIERTYPE::SoldierInventoryCoolDown(void)
+{
+  INT8 invsize = (INT8)this->inv.size();									// remember inventorysize, so we don't call size() repeatedly
 
+  for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+  {
+	// ... if Item exists and is a gun, a launcher or a barrel ...
+	if (this->inv[bLoop].exists() == true && ( Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[this->inv[bLoop].usItem].barrel == TRUE ) )
+	{
+		OBJECTTYPE * pObj = &(this->inv[bLoop]);							// ... get pointer for this item ...
+
+		if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+		{
+			for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+			{
+				FLOAT temperature = (*pObj)[i]->data.bTemperature;			// ... get temperature of item ...
+
+				FLOAT cooldownfactor = GetItemCooldownFactor(pObj);			// ... get cooldown factor ...
+
+				FLOAT newtemperature = max(0.0, temperature - cooldownfactor);	// ... calculate new temperature ...
+				(*pObj)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#endif
+				// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+				attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+				for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+				{
+					if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_LAUNCHER|IC_LAUNCHER) )
+					{
+						FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
+
+						FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
+
+						FLOAT newtemperature = max(0.0, temperature - cooldownfactor);	// ... calculate new temperature ...
+						(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#endif
+
+						// we assume that there can exist only 1 UGL per weapon
+						break;
+					}
+				}
+			}
+		}
+	}
+  }
+}
+
+// Flugente: determien if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
+BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
+{
+	BOOLEAN applybipod = FALSE;
+
+	// not possible if already prone
+	if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE )
+		return( FALSE );
+
+	BOOLEAN onroof = FALSE;
+	// not possible to get this bonus on a roof, as there are no objects on the roof on which we could rest our gun
+	if ( this->pathing.bLevel == 1 )
+		onroof = TRUE;
+
+	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
+	INT32 nextGridNoinSight = this->sGridNo;
+	if ( this->ubDirection == NORTH ||  this->ubDirection == SOUTHWEST  ||  this->ubDirection == WEST ||  this->ubDirection == NORTHWEST )
+		nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( this->ubDirection ) );
+
+	INT8 adjacenttileheight = GetTallestStructureHeight( nextGridNoinSight, FALSE );
+
+	// if the tile actually has a bit of height, we can rest our gun on it
+	if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH && (adjacenttileheight == 1 ||  adjacenttileheight == 2 ) )
+	{
+		// now we really want to check the next tile
+		nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+
+		// for some nefarious reason, trees also have height 2, so we have to check for that too...
+		STRUCTURE * pStructure = FindStructure( nextGridNoinSight, STRUCTURE_TREE );
+
+		if (!pStructure)
+		{
+			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
+			if ( !IsLocationSittable( nextGridNoinSight, onroof ) )
+				// resting our gun on people would be rude - only allow if nobody is there
+				if( WhoIsThere2( nextGridNoinSight, onroof ) == NOBODY )
+					applybipod = TRUE;	
+		}
+	}
+	else if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH && adjacenttileheight == 4)
+	{
+		// tile is as high as a building, but there might be a window, we could look through that
+		// note that we also check for STRUCTURE_OPEN - the window has to be open (smashed)
+		STRUCTURE * pStructure = FindStructure( nextGridNoinSight, STRUCTURE_WALLNWINDOW );
+
+		if ( pStructure )
+		{
+			if ( ( this->ubDirection == SOUTH || this->ubDirection == NORTH ) 
+				&& (pStructure->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructure->ubWallOrientation == INSIDE_TOP_LEFT ) 
+				&& pStructure->fFlags & STRUCTURE_WALLNWINDOW && pStructure->fFlags & STRUCTURE_OPEN )
+			{
+        		applybipod = TRUE;
+	      	}	                            	
+			else if ( ( this->ubDirection == EAST || this->ubDirection == WEST ) 
+				&& ( pStructure->ubWallOrientation == OUTSIDE_TOP_RIGHT || pStructure->ubWallOrientation == INSIDE_TOP_RIGHT ) 
+				&& pStructure->fFlags & STRUCTURE_WALLNWINDOW && pStructure->fFlags & STRUCTURE_OPEN )
+	      	{
+				applybipod = TRUE;
+	      	}
+			else if ( ( this->ubDirection == SOUTHWEST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == NORTHEAST) 
+				&& (pStructure->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructure->ubWallOrientation == INSIDE_TOP_LEFT || pStructure->ubWallOrientation == OUTSIDE_TOP_RIGHT || pStructure->ubWallOrientation == INSIDE_TOP_RIGHT) 
+				&& pStructure->fFlags & STRUCTURE_WALLNWINDOW && pStructure->fFlags & STRUCTURE_OPEN )
+			{
+        		applybipod = TRUE;
+	      	}
+		}
+	}
+	else if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && adjacenttileheight == 3 )
+	{
+		// now we really want to check the next tile
+		nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+
+		// for some nefarious reason, trees also have height 2, so we have to check for that too...
+		STRUCTURE * pStructure = FindStructure( nextGridNoinSight, STRUCTURE_TREE );
+
+		if (!pStructure)
+		{
+			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
+			if ( !IsLocationSittable( nextGridNoinSight, onroof ) )
+				// resting our gun on people would be rude - only allow if nobody is there
+				if( WhoIsThere2( nextGridNoinSight, onroof ) == NOBODY )
+					applybipod = TRUE;	
+		}
+	}
+	
+	return( applybipod );
+}
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
@@ -14984,6 +15143,8 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 			if ( pSoldier->bSide == pInterrupter->bSide )
 				continue;			// not enemy
 			if ( CONSIDERED_NEUTRAL( pSoldier, pInterrupter ) )
+				continue;			// neutral
+			if ( CONSIDERED_NEUTRAL( pInterrupter, pSoldier ) )
 				continue;			// neutral
 
 			/////////////////////////////////////////////////////////////

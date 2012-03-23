@@ -334,7 +334,8 @@ bool gbForceWeaponNotReady = false;
 bool gbForceWeaponReady = false;
 
 
-
+// Flugente: define for maximum temperature
+#define OVERHEATING_MAX_TEMPERATURE 60000.0
 
 enum
 {
@@ -423,7 +424,10 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "bRecoilX") == 0 || // HEADROCK HAM 4:
 				strcmp(name, "bRecoilY") == 0 || // HEADROCK HAM 4:
 				strcmp(name, "ubRecoilDelay") == 0 || // HEADROCK HAM 4:
-				strcmp(name, "Handling") == 0)) // CHRISL HAM 4:
+				strcmp(name, "Handling") == 0 || // CHRISL HAM 4
+				strcmp(name, "usOverheatingJamThreshold") == 0 || // Flugente FTW 1
+				strcmp(name, "usOverheatingDamageThreshold") == 0 || // Flugente FTW 1
+				strcmp(name, "usOverheatingSingleShotTemperature") == 0)) // Flugente FTW 1
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -688,6 +692,21 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.ubHandling = (UINT8) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "usOverheatingJamThreshold") == 0)			// Flugente FTW 1
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.usOverheatingJamThreshold = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "usOverheatingDamageThreshold") == 0)			// Flugente FTW 1
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.usOverheatingDamageThreshold = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "usOverheatingSingleShotTemperature") == 0)			// Flugente FTW 1
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.usOverheatingSingleShotTemperature = (FLOAT) atof(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -861,8 +880,10 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels );
 			FilePrintf(hFile,"\t\t<EasyUnjam>%d</EasyUnjam>\r\n",			Weapon[cnt].EasyUnjam);
 			FilePrintf(hFile,"\t\t<Handling>%d</Handling>\r\n",			Weapon[cnt].ubHandling);
-
-
+			FilePrintf(hFile,"\t\t<usOverheatingJamThreshold>%4.2f</usOverheatingJamThreshold>\r\n",			Weapon[cnt].usOverheatingJamThreshold); // Flugente FTW 1
+			FilePrintf(hFile,"\t\t<usOverheatingDamageThreshold>%4.2f</usOverheatingDamageThreshold>\r\n",			Weapon[cnt].usOverheatingDamageThreshold);
+			FilePrintf(hFile,"\t\t<usOverheatingSingleShotTemperature>%4.2f</usOverheatingSingleShotTemperature>\r\n",			Weapon[cnt].usOverheatingSingleShotTemperature);
+			
 
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
@@ -1137,7 +1158,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 	// should jams apply to enemies? 
 	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC) 
 	{ 
-		if ( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN && !EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) ) 
+		if ( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN && !EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) && !(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) ) 
 		{ 
 			pObj = &(pSoldier->inv[pSoldier->ubAttackingHand]); 
 			if ((*pObj)[0]->data.gun.bGunAmmoStatus > 0) 
@@ -1148,6 +1169,19 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				int condition = (*pObj)[0]->data.gun.bGunStatus; 
 				int invertedBaseJamChance = condition + (reliability * 2) - 
 					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
+
+				// Flugente FTW 1: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
+				if ( gGameOptions.fWeaponOverheating )
+				{
+					FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObj );	// how much above the gun's usOverheatingJamThreshold are we? ...
+
+					int overheatjamfactor = (int)(100* overheatjampercentage);			// We need an integer value and rough percentages
+
+					overheatjamfactor = max(0, overheatjamfactor - 100);				// If we haven't reached the OverheatJamThreshold, no increased chance of jamming because of overheating
+
+					invertedBaseJamChance -= overheatjamfactor;							// lower invertedBaseJamChance	(thereby increasing jamChance later on)
+				}
+
 				if (invertedBaseJamChance < 0) 
 					invertedBaseJamChance = 0; 
 				else if (invertedBaseJamChance > 100) 
@@ -2075,6 +2109,20 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		pSoldier->bDoBurst++;
 	}
 
+	INT16 iOverheatReliabilityMalus = 0;
+	// Flugente FTW 1: Increase Weapon Temperature
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
+
+		if ( overheatjampercentage > 1.0 )
+		{
+			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
+		}
+				
+		GunIncreaseHeat( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) );
+	}
+
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	//INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
 
@@ -2084,7 +2132,8 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	//	ammoReliability = Item[(*pGun)[0]->data.gun.usGunAmmoItem].bReliability;
 	//}
 
-	uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ), 0);
+	// Flugente FTW 1: Added a malus to reliability for overheated guns
+	uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ) - iOverheatReliabilityMalus, 0);
 
 	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 	{
@@ -2625,6 +2674,20 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		pSoldier->bDoBurst++;
 	}
 
+	INT16 iOverheatReliabilityMalus = 0;
+	// Flugente FTW 1: Increase Weapon Temperature
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( &(pSoldier->inv[ pSoldier->ubAttackingHand ]));		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
+
+		if ( overheatjampercentage > 1.0 )
+		{
+			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
+		}
+
+		GunIncreaseHeat( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) );
+	}
+
 	/* //WarmSteel - Replaced with GetReliability( pObj )
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
@@ -2637,7 +2700,8 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 	*/
 
-	uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * ( GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) ) ), 0);
+	// Flugente FTW 1: Added a malus to reliability for overheated guns
+	uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * ( GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) ) ) - iOverheatReliabilityMalus, 0);
 
 	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 	{
@@ -3654,9 +3718,28 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	//	RemoveAttachment( pObj, bAttachPos);
 	//}
 
+	// Flugente fix: until now, pobj was always used to determine wether the explosive weapon will fail - but in the case of underbarrel weapons that wasn't the gun fired
+	// we now determine the real weapon being fired
+	OBJECTTYPE* pgunobj = pObj;
+	if ( pSoldier->bWeaponMode & (WM_ATTACHED_GL|WM_ATTACHED_GL_BURST|WM_ATTACHED_GL_AUTO) )
+	{
+		// firing an attached weapon 
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_LAUNCHER|IC_LAUNCHER) )
+			{
+				pgunobj = &(*iter);
+				break;
+			}
+		}
+	}
+	
   // ATE: Check here if the launcher should fail 'cause of bad status.....
-  if ( WillExplosiveWeaponFail( pSoldier, pObj ) )
+  if ( WillExplosiveWeaponFail( pSoldier, pgunobj ) )
   {
+	if ( gGameOptions.fWeaponOverheating )
+		GunIncreaseHeat( pgunobj );
     // Explode dude!
 
     // So we still should have ABC > 0
@@ -3672,6 +3755,9 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
     // So all's well, should be good from here....
     return( FALSE );
   }
+
+  if ( gGameOptions.fWeaponOverheating )
+	GunIncreaseHeat( pgunobj );
 
 	if ( Weapon[ usItemNum ].sSound != NO_WEAPON_SOUND  )
 	{
@@ -4517,6 +4603,12 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	FLOAT iGunBaseDifficulty = iGunDifficulty;
 	FLOAT iGunAimDifficulty = iGunDifficulty;
 
+	UINT8 stance = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 
 	// CALCULATE LINE OF SIGHT
@@ -4618,8 +4710,10 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	iChance = (INT32)iCombinedSkill;
 
 	// Add a flat Base bonus from the item and its attachments.
-	iChance += GetFlatBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
-
+	INT32 moda = GetFlatBaseModifier( pInHand, stance );
+	INT32 modb = GetFlatBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+	iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+	
 	// We now begin adding up factors that may increase or decrease Base CTH. They are pooled together to form a percentage
 	// value.
 
@@ -4856,8 +4950,10 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	}
 
 	// Percent based modifier from the gun and its attachments
-	iGunBaseDifficulty += (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
-
+	FLOAT umoda = (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
+	FLOAT umodb = (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	iGunBaseDifficulty += ((gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100); 
+	
 	// End gun difficulty modifiers
 	/////////////////////////////////////////////
 
@@ -5013,8 +5109,10 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	}
 
 	// Percentage based-modifier from the weapon and its attachments
-	iBaseModifier += GetPercentBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
-
+	umoda = (iGunBaseDifficulty * GetPercentBaseModifier( pInHand, stance )) / 100;
+	umodb = (iGunBaseDifficulty * GetPercentBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+	iBaseModifier += ((gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100); 
+	
 
 	////////////////////////////////////
 	// Finish BASE CTH calculation:
@@ -5158,7 +5256,9 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			iGunAimDifficulty += iTempPenalty;
 		}
 
-		iGunAimDifficulty += (iGunAimDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		FLOAT umoda = (iGunAimDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
+		FLOAT umodb = (iGunAimDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		iGunAimDifficulty += (gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100; 
 
 		// End Gun Handling modifiers
 		//////////////////////////////////////////
@@ -5313,9 +5413,11 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		{
 			iAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
 		}
-
+				
 		// Percent modifier from the weapon and its attachments
-		iAimModifier += GetPercentAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+		INT32 moda = GetPercentAimModifier( pInHand, stance );
+		INT32 modb = GetPercentAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+		iAimModifier += (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100; 
 
 		// Calculate final max aiming
 		
@@ -5331,7 +5433,9 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 		UINT32 uiCap = (UINT32)iCombinedSkill;
 		// Add percent-based modifier from the gun and its attachments
-		uiCap += (INT32)(uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		UINT32 uimoda = (UINT32)(uiCap * GetPercentCapModifier( pInHand, stance )) / 100;
+		UINT32 uimodb = (UINT32)(uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		uiCap += (UINT32)((gGameExternalOptions.ubProneModifierPercentage * uimoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * uimodb)/100); 
 
 		// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
 		INT16 sDifference = 99 - uiCap;
@@ -5412,7 +5516,9 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		{
 			iAimPoints += iAimPointFraction * (ubAllowedAimingLevels-x);
 			// Add Flat Modifier from the weapon and its attachments
-			iAimPoints += GetFlatAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+			INT32 moda = GetFlatAimModifier( pInHand, stance );
+			INT32 modb = GetFlatAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+			iAimPoints += (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100; 
 		}
 
 		// Finally, add the appropriate number of CTH points to our chance-to-hit, and limit it into good values.
@@ -5838,6 +5944,12 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	MAX_TARGET_COWERING_PENALTY = gGameExternalOptions.usMaxTargetCoweringPenalty;
 	/////////////////////////////////////////////////////////////////////////////////////
 
+	UINT8 stance = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
+
+	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
+	if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
+		stance = ANIM_PRONE;
+
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Assign range variables -- all range values are in units (10 units = 1 tile)
 	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );	// calculate actual range
@@ -6027,7 +6139,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				break;
 			case ANIM_STAND:
 				// if we are prone and at close range, then penalize shots to the torso or head!
-				if ( iRange <= MIN_PRONE_RANGE && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+				if ( iRange <= MIN_PRONE_RANGE && stance == ANIM_PRONE )
 				{
 					if ( ubAimPos == AIM_SHOT_RANDOM || ubAimPos == AIM_SHOT_GLAND )
 					{
@@ -6285,7 +6397,34 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		{
 			iBonus = AIM_BONUS_CROUCHING;
 		}
+
+		// if our weapon is rested, factor in the prone position
+		if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != stance )
+		{
+			INT32 pronebonus = iRange / 10;
+			if (pronebonus > AIM_BONUS_PRONE)
+			{
+				pronebonus = AIM_BONUS_PRONE;
+			}
+
+			iBonus = (INT32)((gGameExternalOptions.ubProneModifierPercentage * pronebonus + (100 - gGameExternalOptions.ubProneModifierPercentage) * iBonus)/100); 
+		}
+
 		iChance += iBonus;
+	}
+	else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
+	{
+		// if our weapon is rested, factor in the prone position
+		if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != stance )
+		{
+			iBonus = iRange / 10;
+			if (iBonus > AIM_BONUS_PRONE)
+			{
+				iBonus = AIM_BONUS_PRONE;
+			}
+
+			iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * iBonus )/100); 
+		}
 	}
 	// if shooter is prone, he aims even better, except at really close range
 	else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
@@ -6300,6 +6439,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			iChance += iBonus;
 		}
 	}
+	
 	//Madd: inherent weapon accuracy bonus
 	//iChance += Weapon[usInHand].bAccuracy;
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -6363,14 +6503,20 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			Bipods also grant their flat CTH bonus so we don't need to mess this that here*/
 		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 		{
-			iBonus = GetBurstToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			INT16 moda = GetBurstToHitBonus(pInHand, stance == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			INT16 modb = GetBurstToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			iBonus = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+			
 			iPenalty = Weapon[pInHand->usItem].ubBurstPenalty * (pSoldier->bDoBurst - 1) * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
 			iPenalty = max(0, (iPenalty * (100 - iBonus))/100 );
 		}
 		else
 		{
 			// Snap: bipod may reduce burst penalty
-			iPenalty = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			INT16 moda = GetBurstPenalty(pInHand, stance == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			INT16 modb = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			iPenalty = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+
 			if(gGameExternalOptions.bAimedBurstEnabled)
 				iPenalty += Weapon[usInHand].ubBurstPenalty * (pSoldier->bDoBurst - 1) * gGameExternalOptions.uAimedBurstPenalty;
 		}
@@ -6399,14 +6545,20 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			Bipods also grant their flat CTH bonus so we don't need to mess this that here*/
 		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 		{
-			iBonus = GetAutoToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			INT16 moda = GetAutoToHitBonus(pInHand, stance == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			INT16 modb = GetAutoToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			iBonus = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+
 			iPenalty = Weapon[pInHand->usItem].AutoPenalty * (pSoldier->bDoBurst - 1) * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
 			iPenalty = max(0, (iPenalty * (100 - iBonus))/100 );
 		}
 		else
 		{
 			// Snap: bipod may reduce auto penalty
-			iPenalty = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			INT16 moda = GetAutoPenalty(pInHand, stance == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			INT16 modb = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			iPenalty = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
+
 			if(gGameExternalOptions.bAimedBurstEnabled)
 				iPenalty += Weapon[usInHand].AutoPenalty * (pSoldier->bDoBurst - 1) * gGameExternalOptions.uAimedBurstPenalty;
 		}
@@ -6606,7 +6758,10 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Equipment Modifiers
 	iChance += GetGearToHitBonus ( pSoldier );
-	iChance += GetToHitBonus( pInHand, iRange, bLightLevel,gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && iRange > MIN_PRONE_RANGE );
+
+	INT16 moda = GetToHitBonus( pInHand, iRange, bLightLevel, stance && iRange > MIN_PRONE_RANGE );
+	INT16 modb = GetToHitBonus( pInHand, iRange, bLightLevel, gAnimControl[ pSoldier->usAnimState ].ubEndHeight && iRange > MIN_PRONE_RANGE );
+	iChance += (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 	/////////////////////////////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -10444,7 +10599,19 @@ BOOLEAN WillExplosiveWeaponFail( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {
   if ( pSoldier->bTeam == gbPlayerNum || pSoldier->bVisible == 1 )
   {
-    if ( (INT8)(PreRandom( 40 ) + PreRandom( 40 ) ) > (*pObj)[0]->data.objectStatus )
+	// malus for overheating
+	INT16 iOverheatMalus = 0;	
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObj);
+
+		if ( overheatjampercentage > 1.0 )
+			iOverheatMalus = (INT16)floor(5*overheatjampercentage*overheatjampercentage);
+
+		iOverheatMalus = max(0, iOverheatMalus - 1);
+	}
+
+    if ( (INT8)(PreRandom( 40 ) + PreRandom( 40 ) + iOverheatMalus) > (*pObj)[0]->data.objectStatus )
     {
       // Do second dice roll
       if ( PreRandom( 2 ) == 1 )
@@ -10839,4 +11006,131 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 
 	gCTHDisplay.FinalMagFactor = iHighestMagFactor;
 
+}
+
+// Flugente FTW 1: Increase temperature of gun in ubAttackingHand
+void GunIncreaseHeat( OBJECTTYPE *pObj )
+{
+	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )							// if item is a gun pr launcher...
+	{
+	  FLOAT guntemperature = (*pObj)[0]->data.bTemperature;									// ... get current temperature ...
+
+	  FLOAT singleshottemperature = GetSingleShotTemperature( pObj );						// ... get temperature rise ...
+
+	  FLOAT newguntemperature = min(guntemperature + singleshottemperature, (FLOAT)(OVERHEATING_MAX_TEMPERATURE) );					// ... calculate new temperature ...
+
+	  (*pObj)[0]->data.bTemperature = newguntemperature;									// ... apply new temperature
+
+#ifdef JA2TESTVERSION
+	  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gun temperature increased from %4.2f to %4.2f", guntemperature, newguntemperature );
+#endif
+	}
+}
+
+// Flugente: Overheating Weapons
+FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
+{
+	FLOAT singleshottemperature = 0.0;
+
+	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+	{
+		singleshottemperature = Weapon[ pObj->usItem ].usOverheatingSingleShotTemperature;
+
+		// determine modificator according to attachments
+		FLOAT modificator = 1.0;
+
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if (iter->exists())
+			{
+				modificator += Item[iter->usItem].overheatTemperatureModificator;
+			}
+		}
+
+		// determine modificator according to ammo
+		modificator += AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].temperatureModificator;
+
+		singleshottemperature *= modificator;
+	}
+
+	return singleshottemperature;
+}
+
+// Flugente FTW 1: Get percentage: temperature/damagethreshold
+FLOAT   GetGunOverheatDamagePercentage( OBJECTTYPE * pObj )
+{
+	FLOAT damagethreshold = GetOverheatDamageThreshold(pObj);
+
+	FLOAT temperature = (*pObj)[0]->data.bTemperature;
+
+	// to avert nonsense...
+	damagethreshold = max( (FLOAT)(1.0), damagethreshold);
+
+	return temperature/ damagethreshold ;
+}
+
+// Flugente FTW 1: Get percentage: temperature/jamthreshold
+FLOAT   GetGunOverheatJamPercentage( OBJECTTYPE * pObj )
+{
+	FLOAT jamthreshold = GetOverheatJamThreshold(pObj);
+
+	FLOAT temperature = (*pObj)[0]->data.bTemperature;
+
+	// to avert nonsense...
+	jamthreshold = max( (FLOAT)(1.0), jamthreshold);
+
+	return temperature/ jamthreshold ;
+}
+
+FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj )
+{
+	FLOAT jamthreshold = (FLOAT) (OVERHEATING_MAX_TEMPERATURE / 4.0);
+
+	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+	{
+		jamthreshold = Weapon[ pObj->usItem ].usOverheatingJamThreshold;
+
+		// determine modificator according to attachments
+		FLOAT modificator = 1.0;
+
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if (iter->exists())
+			{
+				modificator += Item[iter->usItem].overheatJamThresholdModificator;
+			}
+		}
+
+		jamthreshold *= modificator;
+	}
+
+	return jamthreshold;
+}
+
+FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj )
+{
+	FLOAT damagethreshold = (FLOAT) (OVERHEATING_MAX_TEMPERATURE / 4.0);
+
+	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+	{
+		damagethreshold = Weapon[ pObj->usItem ].usOverheatingDamageThreshold;
+
+		// determine modificator according to attachments
+		FLOAT modificator = 1.0;
+
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if (iter->exists())
+			{
+				modificator += Item[iter->usItem].overheatDamageThresholdModificator;
+			}
+		}
+
+		damagethreshold *= modificator;
+	}
+
+	return damagethreshold;
 }

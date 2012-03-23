@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalLibraryDirectories>lib\VS2010\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\VS2010\$(JA2Config)\$(Configuration);$(SolutionDir)\lib\VS2010\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Console.lib;Editor.lib;Laptop.lib;lua.lib;SGP.lib;Strategic.lib;Tactical.lib;TacticalAI.lib;TileEngine.lib;Utils.lib;VFS.lib;7z.lib;libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

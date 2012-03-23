@@ -236,6 +236,8 @@ typedef PARSE_STAGE;
 #define ENCYCLOPEDIAQUESTSFILENAME					"Encyclopedia\\EncyclopediaQuests.xml"
 #define BRIEFINGROOMFILENAME						"BriefingRoom\\BriefingRoom.xml"
 
+#define OLDAIMARCHIVEFILENAME						"OldAIMArchive.xml"
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -457,4 +459,5 @@ extern void InitNewVehicles ();
 
 extern BOOLEAN ReadInLanguageLocation(STR fileName, BOOLEAN localizedVersion, LANGUAGE_LOCATION *Lang, UINT32 FileType2 );
 
+extern BOOLEAN ReadInAimOldArchive(STR fileName, BOOLEAN localizedVersion);
 #endif

@@ -955,7 +955,7 @@ void HandleMouseWheelEvents(void)//dnl ch36 150909
 
 void InitErrorCatchDialog()
 {
-	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
+	SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
 
 	// do message box and return
 	giErrorCatchMessageBox = DoMessageBox( MSG_BOX_BASIC_STYLE, gzErrorCatchString, 

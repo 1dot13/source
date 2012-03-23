@@ -1045,7 +1045,8 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	}
 
 	// HEADROCK HAM 3.6: Allow for longer lines.
-	MAP_LINE_WIDTH = (SCREEN_WIDTH - 330);
+	// Lejardo ARSProject
+	MAP_LINE_WIDTH = (INTERFACE_WIDTH - 330);
 
 	pStringWrapperHead=LineWrap(uiFont, MAP_LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
 	pStringWrapper=pStringWrapperHead;
@@ -1142,7 +1143,7 @@ void DisplayStringsInMapScreenMessageList( void )
 	//SetFontDestBuffer( FRAME_BUFFER, (SCREEN_WIDTH - 509), (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - 233), (SCREEN_HEIGHT - 114) + 101, FALSE );
 	// CHRISL: Use this setup if we want message box on the left side
 	// HEADROCK HAM 3.6: Message window now as wide as possible. The money screen has been moved to the right side.
-	SetFontDestBuffer( FRAME_BUFFER, 17, (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - 330), (SCREEN_HEIGHT - 114) + 101, FALSE );
+	SetFontDestBuffer( FRAME_BUFFER, (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 17, (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + (INTERFACE_WIDTH - 330), (SCREEN_HEIGHT - 114) + 101, FALSE );
 
 	SetFont( MAP_SCREEN_MESSAGE_FONT );		// no longer supports variable fonts
 	SetFontBackground( FONT_BLACK );
@@ -1176,7 +1177,7 @@ void DisplayStringsInMapScreenMessageList( void )
 		// CHRISL: Change X parameter to dynamically generate from right edge of screen
 		//mprintf_coded( (SCREEN_WIDTH - 506), sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
 		// CHRISL: Use this line if we want to display from the left edge
-		mprintf_coded( 20, sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
+		mprintf_coded( (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 20, sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
 
 		sY = sY + usSpacing;
 

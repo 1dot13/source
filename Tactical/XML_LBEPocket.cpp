@@ -28,20 +28,48 @@ typedef lbepocketParseData;
 BOOLEAN onlyLocalizedText;
 BOOLEAN lbepocketStartElementHandleLoop(const XML_Char *name, lbepocketParseData * pData) //Tais
 {
-	UINT8 i=0;
-	CHAR8 str1 [40] = "";
-	CHAR8 str2 [40] = "";
-	for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
-	{
-		sprintf(str1,"ItemCapacityPerSize.%d",i);
-		sprintf(str2,"ItemCapacityPerSize%d",i);
-		if(strcmp(name, str1)==0||strcmp(name, str2)==0)
-		{
+	//DBrot: same routine as the actual reading part below, but no data is read here, only the validity check
+	CHAR8 refstr[20] = "ItemCapacityPerSize";
+	UINT8 pos = 19;
+	if(strncmp(refstr, name, 19) == 0){
+		if(name[pos]=='.'){
+			pos++;
+		}
+		CHAR8 index[5] = "\0\0\0\0";
+		UINT8 i = 0;
+		while(name[pos]!='\0' && i < 5){
+			index[i]=name[pos];
+			pos++;
+			i++;
+		}
+		UINT16 size = (UINT16) atol(index);
+		if(size<=gGameExternalOptions.guiMaxItemSize){
 			return true;
 		}
 	}
 	return false;
 }
+/*	DBrot: Replaced with a more efficient way
+	UINT16 i=0;
+	CHAR8 str1 [40] = "";
+	for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
+	{
+		sprintf(str1,"ItemCapacityPerSize%d",i);
+		if(strcmp(name, str1)==0)
+		{
+			return true;
+		}
+	}
+	for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
+	{
+		sprintf(str1,"ItemCapacityPerSize.%d",i);
+		if(strcmp(name, str1)==0)
+		{
+			return true;
+		}
+	}
+	return false;
+}*/
 static void XMLCALL 
 lbepocketStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -138,9 +166,8 @@ lbepocketCharacterDataHandle(void *userData, const XML_Char *str, int len)
 static void XMLCALL
 lbepocketEndElementHandle(void *userData, const XML_Char *name)
 {
-UINT8 i=0;
-CHAR8 str1 [40] = "";
-CHAR8 str2 [40] = "";
+//UINT16 i=0;
+//CHAR8 str1 [40] = "";
 lbepocketParseData * pData = (lbepocketParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
@@ -194,19 +221,52 @@ lbepocketParseData * pData = (lbepocketParseData *)userData;
 			pData->curLBEPocket.pRestriction = (UINT32) atol(pData->szCharData);
 		}	//Tais fixed this.
 		else
-		{
+		{	//DBrot: Enhanced parsing routine to avoid excessive load times for larger (~1000) numbers of item sizes
+			//-test the prefix if we have an "ItemCapacityPerSize###" tag
+			//-get the only significant portion of that tag, the item size in question
+			//-convert it to a useable index, check against max_item_size and get the data
+			CHAR8 refstr[20] = "ItemCapacityPerSize";
+			UINT8 pos = 19;
+			if(strncmp(refstr, name, 19) == 0){
+				if(name[pos]=='.'){
+					pos++;
+				}
+				CHAR8 index[5] = "\0\0\0\0";
+				UINT8 i = 0;
+				while(name[pos]!='\0' && i < 5){
+					index[i]=name[pos];
+					pos++;
+					i++;
+				}
+				UINT16 size = (UINT16) atol(index);
+				if(size<=gGameExternalOptions.guiMaxItemSize){
+					pData->curElement = ELEMENT;
+					pData->curLBEPocket.ItemCapacityPerSize[size] = (UINT8) atol(pData->szCharData);
+				}
+			}
+		}
+		/* DBrot: Replaced with a more efficient way
 			for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
 			{
-				sprintf(str1,"ItemCapacityPerSize.%d",i);
-				sprintf(str2,"ItemCapacityPerSize%d",i);
-				if(strcmp(name, str1)==0||strcmp(name, str2)==0)
+				sprintf(str1,"ItemCapacityPerSize%d",i);
+				if(strcmp(name, str1)==0)
 				{
 					pData->curElement = ELEMENT;
 					pData->curLBEPocket.ItemCapacityPerSize[i] = (UINT8) atol(pData->szCharData);
 					break;
 				}
 			}
-		}
+			for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
+			{
+				sprintf(str1,"ItemCapacityPerSize.%d",i);
+				if(strcmp(name, str1)==0)
+				{
+					pData->curElement = ELEMENT;
+					pData->curLBEPocket.ItemCapacityPerSize[i] = (UINT8) atol(pData->szCharData);
+					break;
+				}
+			}
+		}*/
 		/*	JMich - these are no longer needed
 		else if(strcmp(name, "ItemCapacityPerSize.0") == 0 || strcmp(name, "ItemCapacityPerSize0") == 0)
 		{
@@ -460,7 +520,7 @@ BOOLEAN ReadInLBEPocketStats(STR fileName, BOOLEAN localizedVersion)
 }
 BOOLEAN WriteLBEPocketEquipmentStats()
 {
-	UINT8 i;
+	UINT16 i;
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writelbepocketsstats");
 	HWFILE		hFile;
 

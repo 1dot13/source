@@ -37,6 +37,8 @@
 	#include "displaycover.h"
 #endif
 
+#include "KeyMap.h"
+#include "Timer Control.h"
 #include "Text.h"
 #include "connect.h"
 #include "sgp_logger.h"
@@ -94,7 +96,7 @@ bool UsingNewAttachmentSystem()
 
 bool UsingNewCTHSystem()
 {
-	return (gGameSettings.fOptions[TOPTION_USE_NCTH] == TRUE);
+	return (gGameOptions.fUseNCTH == TRUE);
 }
 
 std::string StringToLower(std::string strToConvert)
@@ -120,7 +122,7 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 		isValid = FALSE;
 
 	// Also check the resolution if needed.
-	if(checkRes == true && iResolution == 0)
+	if(checkRes == true && iResolution >= _640x480 && iResolution < _800x600)
 		isValid = FALSE;
 	
 	return isValid;
@@ -204,11 +206,12 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALT_MAP_COLOR"					   ,  FALSE ); // HEADROCK HAM 4: Strategic Map Colors
 		gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALTERNATE_BULLET_GRAPHICS"        ,  TRUE );
 		
-		if (!is_networked)
-			gGameSettings.fOptions[TOPTION_USE_NCTH]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_NCTH"						   ,  FALSE );
-		else
-			gGameSettings.fOptions[TOPTION_USE_NCTH]					= FALSE;
+		//if (!is_networked)
+		//	gGameSettings.fOptions[TOPTION_USE_NCTH]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_NCTH"						   ,  FALSE );
+		//else
+		//	gGameSettings.fOptions[TOPTION_USE_NCTH]					= FALSE;
 
+		gGameSettings.fOptions[TOPTION_SHOW_MERC_RANKS]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_MERC_RANKS"				   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]		    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_TACTICAL_FACE_GEAR"		   ,  TRUE );
 		gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]	    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_TACTICAL_FACE_ICONS"		   ,  TRUE );
 		gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CHEAT_MODE_OPTIONS_HEADER"        ,  FALSE );
@@ -227,8 +230,19 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_HIDE_BULLETS"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  FALSE );
-		gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
+		
+		if (!is_networked)
+			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_AUTO_FAST_FORWARD_MODE"           ,  FALSE );
+		else
+			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= FALSE;
 
+		// The "HIGHSPEED_TIMER" property from the ja2.ini is not set, disable the option
+		if (!IsHiSpeedClockMode())
+			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= FALSE;
+
+		//gGameOptions.fWeaponOverheating              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_WEAPON_OVERHEATING"               ,  FALSE );	// Flugente FTW 1: Weapon Overheating
+
+		gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
 
 		DeleteShadeTableDir();  // ary-05/05/2009 : Might be bad idea for it to be here. But its gotta happen for some reason every now and then.
 								//		 : The call to DeleteShadeTableDir() used to coincided with reseting an older settings file.
@@ -293,136 +307,139 @@ BOOLEAN	SaveGameSettings()
 {
 	if (!is_networked)
 	{
-	//Record the current settings into the game settins structure
-	gGameSettings.ubSoundEffectsVolume = (UINT8)GetSoundEffectsVolume( );
-	gGameSettings.ubSpeechVolume       = (UINT8)GetSpeechVolume( );
-	gGameSettings.ubMusicVolumeSetting = (UINT8)MusicGetVolume( );
+		//Record the current settings into the game settins structure
+		gGameSettings.ubSoundEffectsVolume = (UINT8)GetSoundEffectsVolume( );
+		gGameSettings.ubSpeechVolume       = (UINT8)GetSpeechVolume( );
+		gGameSettings.ubMusicVolumeSetting = (UINT8)MusicGetVolume( );
 
-	std::stringstream settings;
-	const char endl[] = "\r\n";
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << ";    Jagged Alliance 2 --Settings File--                                                                                       " << endl;
-	settings << ";                                                                                                                              " << endl;
-	settings << ";    Please note that this file is automatically generated by the game.                                                        " << endl;
-	settings << ";                                                                                                                              " << endl;
-	settings << ";    While it is safe to change things from within this file, not all values are acceptable. Some may break the game,          " << endl;
-	settings << ";      some may be ignored, but most likely they will be acceptable or reset to a default value.                               " << endl;
-	settings << ";                                                                                                                              " << endl;
-	settings << ";    Please note, This file and its contents are in a beta phase. Expect changes, however they should be minimal and automated." << endl;
-	settings << ";                                                                                                                              " << endl;
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << endl;
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << endl;
-	settings << ";    The Current Game Setting Struct is defined as : " << endl;
-	settings << ";" << endl;
-	settings << ";    typedef struct" << endl;
-	settings << ";    {" << endl;
-	settings << ";        INT8     bLastSavedGameSlot;                 // The last saved game number goes in here" << endl;
-	settings << ";        UINT8    ubMusicVolumeSetting;               // Volume Setting" << endl;
-	settings << ";        UINT8    ubSoundEffectsVolume;               // Volume Setting" << endl;
-	settings << ";        UINT8    ubSpeechVolume;                     // Volume Setting" << endl;
-	settings << ";        UINT8    fOptions[ NUM_ALL_GAME_OPTIONS ];   // Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )" << endl;
-	settings << ";        UINT32   uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..'" << endl;
-	settings << ";        BOOLEAN  fHideHelpInAllScreens;              // Controls Help \"do not show help again\" checkbox" << endl;
-	//settings << ";        UINT8    ubSizeOfDisplayCover;               // The number of grids the player designates thru [Delete + ( = or - )]" << endl;
-	//settings << ";        UINT8    ubSizeOfLOS;                        // The number of grids the player designates thru [End    + ( = or - )]" << endl;
-	settings << ";    } GAME_SETTINGS" << endl;
-	settings << ";" << endl;
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << endl << endl;
-	settings << "[JA2 Game Settings]" << endl;
+		std::stringstream settings;
+		const char endl[] = "\r\n";
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << ";    Jagged Alliance 2 --Settings File--                                                                                       " << endl;
+		settings << ";                                                                                                                              " << endl;
+		settings << ";    Please note that this file is automatically generated by the game.                                                        " << endl;
+		settings << ";                                                                                                                              " << endl;
+		settings << ";    While it is safe to change things from within this file, not all values are acceptable. Some may break the game,          " << endl;
+		settings << ";      some may be ignored, but most likely they will be acceptable or reset to a default value.                               " << endl;
+		settings << ";                                                                                                                              " << endl;
+		settings << ";    Please note, This file and its contents are in a beta phase. Expect changes, however they should be minimal and automated." << endl;
+		settings << ";                                                                                                                              " << endl;
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << endl;
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << endl;
+		settings << ";    The Current Game Setting Struct is defined as : " << endl;
+		settings << ";" << endl;
+		settings << ";    typedef struct" << endl;
+		settings << ";    {" << endl;
+		settings << ";        INT8     bLastSavedGameSlot;                 // The last saved game number goes in here" << endl;
+		settings << ";        UINT8    ubMusicVolumeSetting;               // Volume Setting" << endl;
+		settings << ";        UINT8    ubSoundEffectsVolume;               // Volume Setting" << endl;
+		settings << ";        UINT8    ubSpeechVolume;                     // Volume Setting" << endl;
+		settings << ";        UINT8    fOptions[ NUM_ALL_GAME_OPTIONS ];   // Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )" << endl;
+		settings << ";        UINT32   uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..'" << endl;
+		settings << ";        BOOLEAN  fHideHelpInAllScreens;              // Controls Help \"do not show help again\" checkbox" << endl;
+		//settings << ";        UINT8    ubSizeOfDisplayCover;               // The number of grids the player designates thru [Delete + ( = or - )]" << endl;
+		//settings << ";        UINT8    ubSizeOfLOS;                        // The number of grids the player designates thru [End    + ( = or - )]" << endl;
+		settings << ";    } GAME_SETTINGS" << endl;
+		settings << ";" << endl;
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << endl << endl;
+		settings << "[JA2 Game Settings]" << endl;
 
-	settings << "bLastSavedGameSlot                       = " << (int)gGameSettings.bLastSavedGameSlot << endl;
-	settings << "ubMusicVolumeSetting                     = " << (int)gGameSettings.ubMusicVolumeSetting << endl;
-	settings << "ubSoundEffectsVolume                     = " << (int)gGameSettings.ubSoundEffectsVolume << endl;
-	settings << "ubSpeechVolume                           = " << (int)gGameSettings.ubSpeechVolume << endl;
-	settings << "uiMeanwhileScenesSeenFlags               = " << gGameSettings.uiMeanwhileScenesSeenFlags << endl;
-	settings << "fHideHelpInAllScreens                    = " << (gGameSettings.fHideHelpInAllScreens								?    "TRUE" : "FALSE" ) << endl;
-	//settings << "ubSizeOfDisplayCover                     = " << (int)gGameSettings.ubSizeOfDisplayCover << endl;
-	//settings << "ubSizeOfLOS                              = " << (int)gGameSettings.ubSizeOfLOS << endl;
-	settings << "TOPTION_SPEECH                           = " << (gGameSettings.fOptions[TOPTION_SPEECH]							?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_MUTE_CONFIRMATIONS               = " << (gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]				?	 "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SUBTITLES                        = " << (gGameSettings.fOptions[TOPTION_SUBTITLES]							?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_KEY_ADVANCE_SPEECH               = " << (gGameSettings.fOptions[TOPTION_KEY_ADVANCE_SPEECH]				?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ANIMATE_SMOKE                    = " << (gGameSettings.fOptions[TOPTION_ANIMATE_SMOKE]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_BLOOD_N_GORE                     = " << (gGameSettings.fOptions[TOPTION_BLOOD_N_GORE]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_DONT_MOVE_MOUSE                  = " << (gGameSettings.fOptions[TOPTION_DONT_MOVE_MOUSE]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_OLD_SELECTION_METHOD             = " << (gGameSettings.fOptions[TOPTION_OLD_SELECTION_METHOD]				?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ALWAYS_SHOW_MOVEMENT_PATH        = " << (gGameSettings.fOptions[TOPTION_ALWAYS_SHOW_MOVEMENT_PATH]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SHOW_MISSES                      = " << (gGameSettings.fOptions[TOPTION_SHOW_MISSES]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_RTCONFIRM                        = " << (gGameSettings.fOptions[TOPTION_RTCONFIRM]							?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SLEEPWAKE_NOTIFICATION           = " << (gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_USE_METRIC_SYSTEM                = " << (gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_MERC_ALWAYS_LIGHT_UP             = " << (gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]				?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SMART_CURSOR                     = " << (gGameSettings.fOptions[TOPTION_SMART_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SNAP_CURSOR_TO_DOOR              = " << (gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]				?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_GLOW_ITEMS                       = " << (gGameSettings.fOptions[TOPTION_GLOW_ITEMS]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_TOGGLE_TREE_TOPS                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_TOGGLE_WIREFRAME                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_3D_CURSOR                        = " << (gGameSettings.fOptions[TOPTION_3D_CURSOR]							?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_CTH_CURSOR                       = " << (gGameSettings.fOptions[TOPTION_CTH_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_GL_BURST_CURSOR                  = " << (gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ALLOW_TAUNTS                     = " << (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS]						?    "TRUE" : "FALSE" ) << endl; // changed from drop all - SANDRO
-	settings << "TOPTION_GL_HIGH_ANGLE                    = " << (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ALLOW_REAL_TIME_SNEAK            = " << (gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK]				?    "TRUE" : "FALSE" ) << endl; // changed from restrict aim levels - SANDRO
-	settings << "TOPTION_SPACE_SELECTS_NEXT_SQUAD         = " << (gGameSettings.fOptions[TOPTION_SPACE_SELECTS_NEXT_SQUAD]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SHOW_ITEM_SHADOW                 = " << (gGameSettings.fOptions[TOPTION_SHOW_ITEM_SHADOW]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SHOW_WEAPON_RANGE_IN_TILES       = " << (gGameSettings.fOptions[TOPTION_SHOW_WEAPON_RANGE_IN_TILES]		?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_TRACERS_FOR_SINGLE_FIRE          = " << (gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_RAIN_SOUND                       = " << (gGameSettings.fOptions[TOPTION_RAIN_SOUND]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ALLOW_CROWS                      = " << (gGameSettings.fOptions[TOPTION_ALLOW_CROWS]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ALLOW_SOLDIER_TOOLTIPS           = " << (gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_USE_AUTO_SAVE                    = " << (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SILENT_SKYRIDER                  = " << (gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]					?    "TRUE" : "FALSE" ) << endl;
-	//settings << "TOPTION_LOW_CPU_USAGE                    = " << (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_ENHANCED_DESC_BOX                = " << (gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_TOGGLE_TURN_MODE                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_STAT_PROGRESS_BARS               = " << (gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS]				?    "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 3.6: Progress Bars
-	settings << "TOPTION_ALT_MAP_COLOR					  = " << (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]						?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Alt Map Colors
-	settings << "TOPTION_ALTERNATE_BULLET_GRAPHICS        = " << (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_USE_NCTH                         = " << (gGameSettings.fOptions[TOPTION_USE_NCTH]							?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SHOW_TACTICAL_FACE_GEAR          = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_SHOW_TACTICAL_FACE_ICONS         = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_DISABLE_CURSOR_SWAP              = " << (gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]               ?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_DEBUG_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_REPORT_MISS_MARGIN				  = " << (gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Shot offset report
-	settings << "TOPTION_SHOW_RESET_ALL_OPTIONS           = " << (gGameSettings.fOptions[TOPTION_SHOW_RESET_ALL_OPTIONS]			?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_RESET_ALL_OPTIONS                = " << (gGameSettings.fOptions[TOPTION_RESET_ALL_OPTIONS]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE  = " << (gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE]	?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP  = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP]	?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_RENDER_MOUSE_REGIONS             = " << (gGameSettings.fOptions[TOPTION_RENDER_MOUSE_REGIONS]				?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_DEBUG_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << ";  Options beyond this point are Code derived options, DO NOT CHANGE THESE UNLESS YOU KNOW WHAT YOUR ARE DOING." << endl;
-	settings << ";  They are only included here for complete transparency for all GameSettings content.							" << endl;
-	settings << ";******************************************************************************************************************************" << endl;
-	settings << "TOPTION_LAST_OPTION                      = " << (gGameSettings.fOptions[TOPTION_LAST_OPTION]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "NUM_GAME_OPTIONS                         = " << (gGameSettings.fOptions[NUM_GAME_OPTIONS]							?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_MERC_CASTS_LIGHT                 = " << (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_HIDE_BULLETS                     = " << (gGameSettings.fOptions[TOPTION_HIDE_BULLETS]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_TRACKING_MODE                    = " << (gGameSettings.fOptions[TOPTION_TRACKING_MODE]						?    "TRUE" : "FALSE" ) << endl;
-	settings << "NUM_ALL_GAME_OPTIONS                     = " << (gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "bLastSavedGameSlot                       = " << (int)gGameSettings.bLastSavedGameSlot << endl;
+		settings << "ubMusicVolumeSetting                     = " << (int)gGameSettings.ubMusicVolumeSetting << endl;
+		settings << "ubSoundEffectsVolume                     = " << (int)gGameSettings.ubSoundEffectsVolume << endl;
+		settings << "ubSpeechVolume                           = " << (int)gGameSettings.ubSpeechVolume << endl;
+		settings << "uiMeanwhileScenesSeenFlags               = " << gGameSettings.uiMeanwhileScenesSeenFlags << endl;
+		settings << "fHideHelpInAllScreens                    = " << (gGameSettings.fHideHelpInAllScreens								?    "TRUE" : "FALSE" ) << endl;
+		//settings << "ubSizeOfDisplayCover                     = " << (int)gGameSettings.ubSizeOfDisplayCover << endl;
+		//settings << "ubSizeOfLOS                              = " << (int)gGameSettings.ubSizeOfLOS << endl;
+		settings << "TOPTION_SPEECH                           = " << (gGameSettings.fOptions[TOPTION_SPEECH]							?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_MUTE_CONFIRMATIONS               = " << (gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]				?	 "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SUBTITLES                        = " << (gGameSettings.fOptions[TOPTION_SUBTITLES]							?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_KEY_ADVANCE_SPEECH               = " << (gGameSettings.fOptions[TOPTION_KEY_ADVANCE_SPEECH]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ANIMATE_SMOKE                    = " << (gGameSettings.fOptions[TOPTION_ANIMATE_SMOKE]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_BLOOD_N_GORE                     = " << (gGameSettings.fOptions[TOPTION_BLOOD_N_GORE]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_DONT_MOVE_MOUSE                  = " << (gGameSettings.fOptions[TOPTION_DONT_MOVE_MOUSE]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_OLD_SELECTION_METHOD             = " << (gGameSettings.fOptions[TOPTION_OLD_SELECTION_METHOD]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ALWAYS_SHOW_MOVEMENT_PATH        = " << (gGameSettings.fOptions[TOPTION_ALWAYS_SHOW_MOVEMENT_PATH]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_MISSES                      = " << (gGameSettings.fOptions[TOPTION_SHOW_MISSES]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_RTCONFIRM                        = " << (gGameSettings.fOptions[TOPTION_RTCONFIRM]							?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SLEEPWAKE_NOTIFICATION           = " << (gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_USE_METRIC_SYSTEM                = " << (gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_MERC_ALWAYS_LIGHT_UP             = " << (gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SMART_CURSOR                     = " << (gGameSettings.fOptions[TOPTION_SMART_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SNAP_CURSOR_TO_DOOR              = " << (gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_GLOW_ITEMS                       = " << (gGameSettings.fOptions[TOPTION_GLOW_ITEMS]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_TOGGLE_TREE_TOPS                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_TOGGLE_WIREFRAME                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_3D_CURSOR                        = " << (gGameSettings.fOptions[TOPTION_3D_CURSOR]							?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_CTH_CURSOR                       = " << (gGameSettings.fOptions[TOPTION_CTH_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_GL_BURST_CURSOR                  = " << (gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ALLOW_TAUNTS                     = " << (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS]						?    "TRUE" : "FALSE" ) << endl; // changed from drop all - SANDRO
+		settings << "TOPTION_GL_HIGH_ANGLE                    = " << (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ALLOW_REAL_TIME_SNEAK            = " << (gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK]				?    "TRUE" : "FALSE" ) << endl; // changed from restrict aim levels - SANDRO
+		settings << "TOPTION_SPACE_SELECTS_NEXT_SQUAD         = " << (gGameSettings.fOptions[TOPTION_SPACE_SELECTS_NEXT_SQUAD]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_ITEM_SHADOW                 = " << (gGameSettings.fOptions[TOPTION_SHOW_ITEM_SHADOW]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_WEAPON_RANGE_IN_TILES       = " << (gGameSettings.fOptions[TOPTION_SHOW_WEAPON_RANGE_IN_TILES]		?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_TRACERS_FOR_SINGLE_FIRE          = " << (gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_RAIN_SOUND                       = " << (gGameSettings.fOptions[TOPTION_RAIN_SOUND]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ALLOW_CROWS                      = " << (gGameSettings.fOptions[TOPTION_ALLOW_CROWS]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ALLOW_SOLDIER_TOOLTIPS           = " << (gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_USE_AUTO_SAVE                    = " << (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SILENT_SKYRIDER                  = " << (gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]					?    "TRUE" : "FALSE" ) << endl;
+		//settings << "TOPTION_LOW_CPU_USAGE                    = " << (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_ENHANCED_DESC_BOX                = " << (gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_TOGGLE_TURN_MODE                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_STAT_PROGRESS_BARS               = " << (gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS]				?    "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 3.6: Progress Bars
+		settings << "TOPTION_ALT_MAP_COLOR					  = " << (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]						?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Alt Map Colors
+		settings << "TOPTION_ALTERNATE_BULLET_GRAPHICS        = " << (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]			?    "TRUE" : "FALSE" ) << endl;
+		//settings << "TOPTION_USE_NCTH                         = " << (gGameSettings.fOptions[TOPTION_USE_NCTH]							?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_MERC_RANKS				  = " << (gGameSettings.fOptions[TOPTION_SHOW_MERC_RANKS]					?	 "TRUE"	: "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_TACTICAL_FACE_GEAR          = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_TACTICAL_FACE_ICONS         = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_DISABLE_CURSOR_SWAP              = " << (gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]               ?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
+		//settings << "TOPTION_WEAPON_OVERHEATING               = " << (gGameOptions.fWeaponOverheating	     		?    "TRUE" : "FALSE" ) << endl; // Flugente FTW 1: Weapon Overheating
+		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_DEBUG_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_REPORT_MISS_MARGIN				  = " << (gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Shot offset report
+		settings << "TOPTION_SHOW_RESET_ALL_OPTIONS           = " << (gGameSettings.fOptions[TOPTION_SHOW_RESET_ALL_OPTIONS]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_RESET_ALL_OPTIONS                = " << (gGameSettings.fOptions[TOPTION_RESET_ALL_OPTIONS]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE  = " << (gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE]	?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP  = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP]	?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_RENDER_MOUSE_REGIONS             = " << (gGameSettings.fOptions[TOPTION_RENDER_MOUSE_REGIONS]				?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_DEBUG_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << ";  Options beyond this point are Code derived options, DO NOT CHANGE THESE UNLESS YOU KNOW WHAT YOUR ARE DOING." << endl;
+		settings << ";  They are only included here for complete transparency for all GameSettings content.							" << endl;
+		settings << ";******************************************************************************************************************************" << endl;
+		settings << "TOPTION_LAST_OPTION                      = " << (gGameSettings.fOptions[TOPTION_LAST_OPTION]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "NUM_GAME_OPTIONS                         = " << (gGameSettings.fOptions[NUM_GAME_OPTIONS]							?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_MERC_CASTS_LIGHT                 = " << (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_HIDE_BULLETS                     = " << (gGameSettings.fOptions[TOPTION_HIDE_BULLETS]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_TRACKING_MODE                    = " << (gGameSettings.fOptions[TOPTION_TRACKING_MODE]						?    "TRUE" : "FALSE" ) << endl;
+		settings << "NUM_ALL_GAME_OPTIONS                     = " << (gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]						?    "TRUE" : "FALSE" ) << endl;
 
-	try
-	{
-		vfs::COpenWriteFile wfile(GAME_SETTINGS_FILE,true,true);
-		wfile->write(settings.str().c_str(), settings.str().length());
-	}
-	catch(vfs::Exception& ex)
-	{
-		SGP_WARNING(ex.what());
-		vfs::CFile file(GAME_SETTINGS_FILE);
-		if(file.openWrite(true,true))
+		try
 		{
-			vfs::COpenWriteFile wfile( vfs::tWritableFile::cast(&file));
-			SGP_TRYCATCH_RETHROW(file.write(settings.str().c_str(), settings.str().length()),L"");
+			vfs::COpenWriteFile wfile(GAME_SETTINGS_FILE,true,true);
+			wfile->write(settings.str().c_str(), settings.str().length());
 		}
-	}
+		catch(vfs::Exception& ex)
+		{
+			SGP_WARNING(ex.what());
+			vfs::CFile file(GAME_SETTINGS_FILE);
+			if(file.openWrite(true,true))
+			{
+				vfs::COpenWriteFile wfile( vfs::tWritableFile::cast(&file));
+				SGP_TRYCATCH_RETHROW(file.write(settings.str().c_str(), settings.str().length()),L"");
+			}
+		}
 	}
 
 	return( TRUE );
@@ -498,8 +515,10 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_ALTERNATE_BULLET_GRAPHICS ]			= TRUE;
 
 	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
-	gGameSettings.fOptions[ TOPTION_USE_NCTH ]							= FALSE;
+	//gGameSettings.fOptions[ TOPTION_USE_NCTH ]							= FALSE;
 
+	gGameSettings.fOptions[ TOPTION_SHOW_MERC_RANKS ]					= TRUE;
+ 
 	// WANNE:
 	gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ]			= TRUE;
 	gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ]			= TRUE;
@@ -507,6 +526,10 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_REPORT_MISS_MARGIN ]				= FALSE;
 
 	gGameSettings.fOptions[ TOPTION_DISABLE_CURSOR_SWAP ]               = FALSE;
+	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
+
+	// Flugente FTW 1: Weapon Overheating
+	//gGameSettings.fOptions[ TOPTION_WEAPON_OVERHEATING ]			    = TRUE;
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	
@@ -555,6 +578,15 @@ void InitGameOptions()
 	gGameOptions.ubGameStyle		= STYLE_SCIFI;
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
 
+	//Fast Bobby Ray Shipments (CHECK)
+	//gGameOptions.fBobbyRayFastShipments = FALSE;
+	//Inventory AP Costs (CHECK)
+	gGameOptions.fInventoryCostsAP = TRUE;
+
+	gGameOptions.fUseNCTH = FALSE;
+	gGameOptions.fImprovedInterruptSystem = TRUE;
+	gGameOptions.fWeaponOverheating = TRUE;
+
 	//CHRISL: override default inventory mode when in low res
 	if(IsNIVModeValid(true) == FALSE)
 	{
@@ -579,9 +611,7 @@ void InitGameOptions()
 		gGameOptions.fNewTraitSystem	= FALSE;
 
 	gGameOptions.ubProgressSpeedOfItemsChoices  = ITEM_PROGRESS_NORMAL;
-	gGameOptions.fEnableAllTerrorists = FALSE;
 	gGameOptions.fEnemiesDropAllItems	= FALSE; 
-	gGameOptions.fEnableAllWeaponCaches = FALSE;
 }
 
 
@@ -621,9 +651,9 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.iMaxEnemyGroupSize							= iniReader.ReadInteger("System Limit Settings","MAX_STRATEGIC_ENEMY_GROUP_SIZE",20, 10, 100);
 	//JMich
-	gGameExternalOptions.guiMaxItemSize								= iniReader.ReadInteger("System Limit Settings","MAX_ITEM_SIZE",34, 0, 250);
-	gGameExternalOptions.guiMaxWeaponSize							= iniReader.ReadInteger("System Limit Settings","MAX_WEAPON_SIZE", 9, 0, 100);
-	gGameExternalOptions.guiOIVSizeNumber							= iniReader.ReadInteger("System Limit Settings","OLD_INVENTORY_ITEM_NUMBER", 99, 0, 255);
+	gGameExternalOptions.guiMaxItemSize								= iniReader.ReadInteger("System Limit Settings","MAX_ITEM_SIZE",34, 0, 65000);
+	gGameExternalOptions.guiMaxWeaponSize							= iniReader.ReadInteger("System Limit Settings","MAX_WEAPON_SIZE", 9, 0, 32000);
+	gGameExternalOptions.guiOIVSizeNumber							= iniReader.ReadInteger("System Limit Settings","OLD_INVENTORY_ITEM_NUMBER", 99, 0, 65535);
 
 	//################# Data File Settings #################
 
@@ -869,6 +899,9 @@ void LoadGameExternalOptions()
 	// WANNE: Don't stop and talk in turn based when spotting an item
 	gGameExternalOptions.fItemSpottedNoTalk					= iniReader.ReadBoolean("Tactical Interface Settings","ITEMS_SPOTTED_NO_TALK", FALSE);	
 
+	// Buggler: Exit sector using grid exit in turn based mode?
+	gGameExternalOptions.fGridExitInTurnBased				= iniReader.ReadBoolean("Tactical Interface Settings","GRID_EXIT_IN_TURNBASED", TRUE);	
+
 	//DBrot: Stand up after battle? 
 	gGameExternalOptions.fStandUpAfterBattle				= iniReader.ReadBoolean("Tactical Interface Settings","STAND_UP_AFTER_BATTLE", TRUE);
 	// Tactical militia command	
@@ -889,17 +922,11 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM 3.6: Maximum number of messages displayed in Tactical view
 	gGameExternalOptions.ubMaxMessagesTactical				= iniReader.ReadInteger("Tactical Interface Settings","MAXIMUM_MESSAGES_IN_TACTICAL", 6, 1, 36);
 	// Apply a resolution-based limit.
-	switch (iResolution)
-	{
-		case 0:
-			// Max 20 lines in 640x480
-			gGameExternalOptions.ubMaxMessagesTactical = __max(20, gGameExternalOptions.ubMaxMessagesTactical);
-			break;
-		case 1:
-			// Max 26 lines in 800x600
-			gGameExternalOptions.ubMaxMessagesTactical = __max(26, gGameExternalOptions.ubMaxMessagesTactical);
-			break;
-	}
+	
+	if (iResolution >= _640x480 && iResolution < _800x600)
+		gGameExternalOptions.ubMaxMessagesTactical = __max(20, gGameExternalOptions.ubMaxMessagesTactical);
+	else if (iResolution < _1024x768)
+		gGameExternalOptions.ubMaxMessagesTactical = __max(26, gGameExternalOptions.ubMaxMessagesTactical);
 
 	gGameExternalOptions.bTacticalFaceIconStyle 			= iniReader.ReadInteger("Tactical Interface Settings","TACTICAL_FACE_ICON_STYLE", 0, 0, 3);
 
@@ -1041,6 +1068,10 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fAllowWalkingWithWeaponRaised		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_WALKING_WITH_WEAPON_RAISED", TRUE);
 
+	gGameExternalOptions.fWeaponResting						= iniReader.ReadBoolean("Tactical Gameplay Settings","WEAPON_RESTING",TRUE);
+	gGameExternalOptions.fDisplayWeaponRestingIndicator		= iniReader.ReadBoolean("Tactical Gameplay Settings","WEAPON_RESTING_DISPLAY",TRUE);
+	gGameExternalOptions.ubProneModifierPercentage			= iniReader.ReadInteger("Tactical Gameplay Settings","WEAPON_RESTING_PRONE_BONI_PERCENTAGE", 50, 0, 100);
+
 	// WANNE: Externalized grid number of new merc when they arrive with the helicopter (by Jazz)
 	gGameExternalOptions.iInitialMercArrivalLocation		= iniReader.ReadInteger("Tactical Gameplay Settings","INITIAL_MERC_ARRIVAL_LOCATION", 4870 );
 
@@ -1164,6 +1195,10 @@ void LoadGameExternalOptions()
 	// Penalty for fire when you don't see enemy (when you see enemy because his see militya or ather merc)
 	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,255);		
 	
+	//Inventory AP Weight Divisor
+	gGameExternalOptions.uWeightDivisor						= iniReader.ReadFloat("Tactical Interface Settings","INV_AP_WEIGHT_DIVISOR",5,0,100);		
+	
+	 
 	// CtH/2 if the target are out of gun range or invisible for this merc
 	gGameExternalOptions.fOutOfGunRangeOrSight				= iniReader.ReadFloat("Tactical Interface Settings","OUT_OF_SIGHT_OR_GUN_RANGE",2,1,100);	
 	// *** ddd - END
@@ -1181,7 +1216,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSoldiersWearAnyArmour				= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIERS_ALWAYS_WEAR_ANY_ARMOR", FALSE);
 
 	// improved Interrupt System (info: multiplayer game ALWAYS use the old interrupt system, because the new one causes crashes, no problem so far)
-	gGameExternalOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
+	//gGameOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
 	gGameExternalOptions.ubBasicPercentRegisterValueIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_PERCENTAGE_APS_REGISTERED", 60, 0, 250);
 	gGameExternalOptions.ubPercentRegisterValuePerLevelIIS	= iniReader.ReadInteger("Tactical Gameplay Settings", "PERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL", 4, 0, 100);
 	gGameExternalOptions.ubBasicReactionTimeLengthIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_REACTION_TIME_LENGTH", 25, 5, 100);
@@ -1281,9 +1316,12 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.guiProlongLightningIfSeenSomeone				= iniReader.ReadInteger("Tactical Weather Settings","DELAY_IN_SECONDS_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED",5, 1, 60);
 	gGameExternalOptions.guiChanceToDoLightningBetweenTurns				= iniReader.ReadInteger("Tactical Weather Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35, 0, 100);
 
+	//################# Tactical Weapon Overheating Settings ##################
+	// Flugente FTW 1: These settings control the behavior of Weapon Overheating, its severity, and its display.
 
-
-
+	gGameExternalOptions.fDisplayOverheatThermometer					= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER",TRUE);
+	gGameExternalOptions.iCooldownModificatorLonelyBarrel			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL", 1.15f, 1.0f, 10.0f);
+	
 	//################# Strategic Gamestart Settings ##################
 
 	//Lalien: Game starting time
@@ -1376,10 +1414,6 @@ void LoadGameExternalOptions()
 	// Allow reinforcements only between City sectors?
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
 
-	// SANDRO - moved into the game start screen
-	//gGameExternalOptions.fEnableAllTerrorists				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_TERRORISTS", FALSE);
-	//gGameExternalOptions.fEnableAllWeaponCaches				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE);
-
 	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
 	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("Strategic Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
@@ -1403,6 +1437,11 @@ void LoadGameExternalOptions()
 	// CHRISL: Determine how Skyrider should handle landing in enemy occupied sectors
 	gGameExternalOptions.ubSkyriderHotLZ					= iniReader.ReadInteger("Strategic Gameplay Settings", "ALLOW_SKYRIDER_HOT_LZ", 0);
 
+	// enable all terrorists 
+	gGameExternalOptions.fEnableAllTerrorists				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_TERRORISTS", TRUE);
+	// enable all weapon caches 
+	gGameExternalOptions.fEnableAllWeaponCaches				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE);
+
 
 	//################# Laptop Settings ##################
 
@@ -1417,6 +1456,9 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
 	gGameExternalOptions.fBobbyRayTooltipsShowAttachments	= iniReader.ReadBoolean("Bobby Ray Settings","BOBBY_RAY_TOOLTIPS_SHOW_POSSIBLE_ATTACHMENTS", FALSE);
+
+	//JMich - Maximum Purchase Amount for Bobby Ray
+	gGameExternalOptions.ubBobbyRayMaxPurchaseAmount		= iniReader.ReadInteger("Bobby Ray Settings", "BOBBY_RAY_MAX_PURCHASE_AMOUNT", 10, 10, 100);
 
 	// WDS - Option to turn off stealing
 	gGameExternalOptions.fStealingDisabled					= iniReader.ReadBoolean("Bobby Ray Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
@@ -1643,6 +1685,9 @@ void LoadGameExternalOptions()
 	// chance that Tony will be in his office - silversurfer/SANDRO
 	gGameExternalOptions.ubChanceTonyAvailable		= iniReader.ReadInteger("Shopkeeper Inventory Settings","CHANCE_TONY_AVAILABLE", 80, 0, 100);
 
+	// Fast Bobby Ray shipments
+	gGameExternalOptions.fBobbyRayFastShipments		= iniReader.ReadBoolean("Shopkeeper Inventory Settings", "FAST_BOBBY_RAY_SHIPMENTS", FALSE);
+
 	//################# Strategic Assignment Settings ##################
 
 	////////// ALL ASSIGNMENTS //////////
@@ -1699,7 +1744,18 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnableInventoryPoolQ				= TRUE;
 #else
 	gGameExternalOptions.fEnableInventoryPoolQ = FALSE;
-#endif		
+#endif	
+	
+	////////// CLOCK SETTINGS //////////
+
+	// Key to artificially alter the clock so turns run faster
+	STRING512 sFFKeyBuffer;
+	iniReader.ReadString("Clock Settings", "FAST_FORWARD_KEY", NULL, sFFKeyBuffer, _countof(sFFKeyBuffer));
+
+	gGameExternalOptions.iFastForwardKey			= ParseKeyString(sFFKeyBuffer);
+	gGameExternalOptions.iFastForwardPeriod			= (FLOAT)iniReader.ReadDouble("Clock Settings","FAST_FORWARD_PERIOD", 500, 1, 10000);
+	gGameExternalOptions.fClockSpeedPercent			= (FLOAT)iniReader.ReadDouble("Clock Settings","CLOCK_SPEED_PERCENT", 150, 100, 300);
+	gGameExternalOptions.iNotifyFrequency			= iniReader.ReadInteger("Clock Settings","UPDATE_FREQUENCY", 16000, 1000, 20000);	
 }
 
 
@@ -2104,6 +2160,33 @@ void LoadGameAPBPConstants()
 	// HEADROCK HAM 3.2: Modifier for legshot AP loss based on damage
 	APBPConstants[AP_LOSS_PER_LEGSHOT_DAMAGE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOSS_PER_LEGSHOT_DAMAGE",4),4);
 
+	//Costs to pick up item from position
+	APBPConstants[AP_INV_FROM_NONE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_NONE",0),0);
+	APBPConstants[AP_INV_FROM_HANDS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_HANDS",0),0);
+	APBPConstants[AP_INV_FROM_EQUIPMENT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_EQUIPMENT",15),15);
+	APBPConstants[AP_INV_FROM_VEST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_VEST",5),5);
+	APBPConstants[AP_INV_FROM_RIG] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_RIG",4),4);
+	APBPConstants[AP_INV_FROM_CPACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_CPACK",6),6);
+	APBPConstants[AP_INV_FROM_BPACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_BPACK",8),8);
+	APBPConstants[AP_INV_FROM_SLING] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_SLING",6),6);
+	APBPConstants[AP_INV_FROM_KNIFE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_KNIFE",5),5);
+	APBPConstants[AP_INV_FROM_FACE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_FACE",2),2);
+	APBPConstants[AP_INV_FROM_BIG_POCKET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_BIG_POCKET",5),5);
+	APBPConstants[AP_INV_FROM_SMALL_POCKET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_FROM_SMALL_POCKET",4),4);
+	APBPConstants[AP_INV_TO_NONE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_NONE",0),0);
+	APBPConstants[AP_INV_TO_HANDS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_HANDS",0),0);
+	APBPConstants[AP_INV_TO_EQUIPMENT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_EQUIPMENT",20),20);
+	APBPConstants[AP_INV_TO_VEST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_VEST",6),6);
+	APBPConstants[AP_INV_TO_RIG] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_RIG",5),5);
+	APBPConstants[AP_INV_TO_CPACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_CPACK",7),7);
+	APBPConstants[AP_INV_TO_BPACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_BPACK",9),9);
+	APBPConstants[AP_INV_TO_SLING] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_SLING",7),7);
+	APBPConstants[AP_INV_TO_KNIFE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_KNIFE",6),6);
+	APBPConstants[AP_INV_TO_FACE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_FACE",2),2);
+	APBPConstants[AP_INV_TO_BIG_POCKET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_BIG_POCKET",4),4);
+	APBPConstants[AP_INV_TO_SMALL_POCKET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_SMALL_POCKET",5),5);
+	APBPConstants[AP_INV_MAX_COST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_MAX_COST",25),25);
+
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);
 
@@ -2301,7 +2384,7 @@ void LoadCTHConstants()
 	gGameCTHConstants.RECOIL_COUNTER_INCREMENT							= iniReader.ReadInteger("Shooting Mechanism","RECOIL_COUNTER_INCREMENT",20, 0, 100);
 	gGameCTHConstants.RECOIL_COUNTER_INCREMENT_TRACER					= iniReader.ReadInteger("Shooting Mechanism","RECOIL_COUNTER_INCREMENT_TRACER",25, 0, 100);
 	gGameCTHConstants.NORMAL_RECOIL_DISTANCE							= iniReader.ReadInteger("Shooting Mechanism","NORMAL_RECOIL_DISTANCE",140, 10, 10000);
-	gGameCTHConstants.MAX_BULLET_DEV					 				= iniReader.ReadFloat("Shooting Mechanism","MAX_BULLET_DEV ",10.0, -1000.0, 1000.0);
+	gGameCTHConstants.MAX_BULLET_DEV					 				= iniReader.ReadFloat("Shooting Mechanism","MAX_BULLET_DEV",10.0, -1000.0, 1000.0);
 	gGameCTHConstants.RANGE_EFFECTS_DEV					 				= iniReader.ReadBoolean("Shooting Mechanism","RANGE_EFFECTS_DEV",  TRUE  );
 	gGameCTHConstants.MAX_EFFECTIVE_RANGE_MULTIPLIER	 				= iniReader.ReadFloat("Shooting Mechanism","MAX_EFFECTIVE_RANGE_MULTIPLIER",1.1f, 0.5f, 10.0f);
 	gGameCTHConstants.MAX_EFFECTIVE_RANGE_REDUCTION	 					= iniReader.ReadFloat("Shooting Mechanism","MAX_EFFECTIVE_RANGE_REDUCTION",0.5f, 0.0f, 1.0f);
@@ -2662,16 +2745,16 @@ void DisplayGameSettings( )
 	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT + gGameOptions.fIronManMode ] );
 
 	// All Terrorists Option
-	if( gGameOptions.fEnableAllTerrorists )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], gzGIOScreenText[ GIO_TERRORISTS_ALL_TEXT ] );
-	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], gzGIOScreenText[ GIO_TERRORISTS_RANDOM_TEXT ] );
+	//if( gGameExternalOptions.fEnableAllTerrorists )
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], gzGIOScreenText[ GIO_TERRORISTS_ALL_TEXT ] );
+	//else
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], gzGIOScreenText[ GIO_TERRORISTS_RANDOM_TEXT ] );
 
-	// All Weapon Caches Option
-	if( gGameOptions.fEnableAllWeaponCaches )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], gzGIOScreenText[ GIO_CACHES_ALL_TEXT ] );
-	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], gzGIOScreenText[ GIO_CACHES_RANDOM_TEXT ] );
+	//// All Weapon Caches Option
+	//if( gGameOptions.fEnableAllWeaponCaches )
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], gzGIOScreenText[ GIO_CACHES_ALL_TEXT ] );
+	//else
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], gzGIOScreenText[ GIO_CACHES_RANDOM_TEXT ] );
 
 	// Tons of Guns Option
 	if( gGameOptions.fGunNut )

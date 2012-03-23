@@ -3285,23 +3285,23 @@ int i;
 
 static int l_ExecuteTacticalTextBox(lua_State *L)
 {
-INT16 sLeftPosition = 110;
-UINT32 idText = 0;
-UINT8  n = lua_gettop(L);
-wchar_t	sText[400];
-UINT32	uiStartLoc=0;  
-CHAR16	zString[512];
-int i;
+	INT16 sLeftPosition = 110;
+	UINT32 idText = 0;
+	UINT8  n = lua_gettop(L);
+	//wchar_t	sText[400];
+	UINT32	uiStartLoc=0;  
+	CHAR16	zString[512];
+	int i;
 
-//#define			LANGMESSAGEFILE		"BinaryData\\TacticalMessages.EDT"
-//#define 		EDT_SIZE 400 * 2
+	//#define			LANGMESSAGEFILE		"BinaryData\\TacticalMessages.EDT"
+	//#define 		EDT_SIZE 400 * 2
 
 	for (i= 1; i<=n; i++ )
-		{
-			if (i == 1 ) sLeftPosition = lua_tointeger(L,i);
-			if (i == 2 ) idText = lua_tointeger(L,i);
-			
-		}	
+	{
+		if (i == 1 ) sLeftPosition = lua_tointeger(L,i);
+		if (i == 2 ) idText = lua_tointeger(L,i);
+		
+	}	
 	/*	
 	if ( FileExists(LANGMESSAGEFILE) )
 	{
@@ -3315,14 +3315,14 @@ int i;
 		swprintf( zString, L"Empty Text" );
 	}
 	*/
-		if ( idText >= 0 && idText <= 1000 )
-		{
-			swprintf( zString, XMLTacticalMessages[idText] );
+	if ( idText >= 0 && idText <= 1000 )
+	{
+		swprintf( zString, XMLTacticalMessages[idText] );
 
-			if ( sLeftPosition <= 0 ) sLeftPosition = 110;
-	
-			ExecuteTacticalTextBox( sLeftPosition, zString );
-		}
+		if ( sLeftPosition <= 0 ) sLeftPosition = 110;
+
+		ExecuteTacticalTextBox( sLeftPosition, zString );
+	}
 		
 	return 0;
 }

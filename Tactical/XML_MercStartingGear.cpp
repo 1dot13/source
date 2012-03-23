@@ -72,6 +72,7 @@ MercStartingGearStartElementHandle(void *userData, const XML_Char *name, const X
 		}
 		else if(pData->curElement == ELEMENT_SUBLIST &&
 				(strcmp(name, "mAbsolutePrice") == 0 ||
+				strcmp(name, "mGearKitName") == 0 ||
 				strcmp(name, "mPriceMod") == 0 ||
 				strcmp(name, "mHelmet") == 0 ||
 				strcmp(name, "mHelmetStatus") == 0 ||
@@ -209,6 +210,7 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 				//CHRISL: after writing the gearkit, we need to clear gear data so it won't inadvertantly be reused
 				pData->curMercStartingGear.PriceModifier = 0;
 				pData->curMercStartingGear.AbsolutePrice = -1;
+				pData->curMercStartingGear.mGearKitName[0] = '\0';
 				for(unsigned int i = 0; i < pData->curMercStartingGear.inv.size(); i++)
 				{
 					pData->curMercStartingGear.inv[i] = 0;
@@ -236,6 +238,12 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_SUBLIST;
 			pData->curMercStartingGear.AbsolutePrice = (int) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "mGearKitName") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curMercStartingGear.mGearKitName, sizeof(pData->curMercStartingGear.mGearKitName)/sizeof(pData->curMercStartingGear.mGearKitName[0]) );
+			pData->curMercStartingGear.mGearKitName[sizeof(pData->curMercStartingGear.mGearKitName)/sizeof(pData->curMercStartingGear.mGearKitName[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "mHelmet") == 0)
 		{

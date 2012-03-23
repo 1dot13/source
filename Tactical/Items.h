@@ -15,6 +15,10 @@ class SOLDIERTYPE;
 #define NIGHTSIGHTGOGGLES_BONUS 2 * STRAIGHT_RATIO
 #define UVGOGGLES_BONUS 4 * STRAIGHT_RATIO
 
+
+
+
+
 extern UINT8 SlotToPocket[7];
 
 extern BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier );
@@ -425,6 +429,9 @@ UINT16 GetModifiedGunRange( UINT16 usWeaponIndex );
 INT16 ReduceCamoFromSoldier( SOLDIERTYPE * pSoldier, INT16 iCamoToRemove, INT16 iCamoToSkip );
 BOOLEAN HasExtendedEarOn( SOLDIERTYPE * pSoldier );
 BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsume );
+
+// Flugente FTW 1.2
+FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj );
 
 #endif
 

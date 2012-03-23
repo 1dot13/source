@@ -599,7 +599,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				}
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
-				else if ( gGameExternalOptions.fImprovedInterruptSystem )
+				else if ( gGameOptions.fImprovedInterruptSystem )
 				{
 					if ( ResolvePendingInterrupt( pSoldier, AFTERACTION_INTERRUPT ) )
 					{
@@ -2052,7 +2052,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for before-attack type of interupt, try to resolve it now
-				if ( gGameExternalOptions.fImprovedInterruptSystem )
+				if ( gGameOptions.fImprovedInterruptSystem )
 				{
 					if ( ResolvePendingInterrupt( pSoldier, BEFORESHOT_INTERRUPT ) )
 					{	
@@ -2667,7 +2667,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
-				if ( gGameExternalOptions.fImprovedInterruptSystem )
+				if ( gGameOptions.fImprovedInterruptSystem )
 				{
 					ResolvePendingInterrupt( pSoldier, AFTERACTION_INTERRUPT );
 				}
@@ -4135,6 +4135,12 @@ BOOLEAN OKFallDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT
 	}
 
 	bOverTerrainType = GetTerrainType( sGridNo);
+
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	if ( TERRAIN_IS_WATER( bOverTerrainType) && bLevel > 0 )
+		bOverTerrainType = FLAT_GROUND;
+
 	//NOT ok if in water....
 	if ( TERRAIN_IS_WATER( bOverTerrainType) )
 	{

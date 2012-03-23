@@ -105,9 +105,6 @@ CIV_NAMES_VALUES zCivGroupName[NUM_CIV_GROUPS];
 BOOLEAN	gfInMovementMenu = FALSE;
 INT32		giMenuAnchorX, giMenuAnchorY;
 
-
-
-#define PROG_BAR_START_X			5
 //*ddd
 //#define PROG_BAR_START_Y			2
 
@@ -285,7 +282,6 @@ UINT32 CalcUIMessageDuration( STR16 wString );
 
 BOOLEAN InitializeFaceGearGraphics()
 {
-	VSURFACE_DESC	vs_desc;
 	VOBJECT_DESC	VObjectDesc;
 
 	char fileName[500];
@@ -382,10 +378,8 @@ BOOLEAN InitializeTacticalInterface(	)
 	VSURFACE_DESC		vs_desc;
 	VOBJECT_DESC	VObjectDesc;
 	
-	UINT32 iCounter2;
+	//UINT32 iCounter2;
 	
-	char fileName[500];
-
 	// CHRISL: Setup default interface coords based on inventory system in use
 	if((UsingNewInventorySystem() == true))
 	{
@@ -4333,36 +4327,35 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	UINT32			uiBarToUseInUpDate=0;
 	BOOLEAN			fDoLimitBar = FALSE;
 	FLOAT			dNumStepsPerEnemy, dLength, dCurSize;
-	INT16			iProgBarLength = SCREEN_WIDTH - 13;	
+	INT16			iProgBarLength; 
 	STR fn;
 	
 	memset( &VObjectDesc, 0, sizeof( VObjectDesc ) );
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	
-	switch (iResolution)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		case 0:	//640
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\rect_Thin.sti";
-			else
-				fn = "INTERFACE\\rect.sti";		
-			break;			
-		case 1:	//800
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\rect_800x600Thin.sti";
-			else
-				fn = "INTERFACE\\rect_800x600.sti";			
-			break;
-		case 2:
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\rect_1024x768Thin.sti";
-			else
-				fn = "INTERFACE\\rect_1024x768.sti";
-			break;
-		default:
-			AssertMsg( 0, "Invalid resolution");
-			return;
-			break;
+		iProgBarLength = 640 - 13;
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\rect_Thin.sti";
+		else
+			fn = "INTERFACE\\rect.sti";		
+	}
+	else if (iResolution < _1024x768)
+	{
+		iProgBarLength = 800 - 13;
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\rect_800x600Thin.sti";
+		else
+			fn = "INTERFACE\\rect_800x600.sti";			
+	}
+	else
+	{
+		iProgBarLength = 1024 - 13;
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\rect_1024x768Thin.sti";
+		else
+			fn = "INTERFACE\\rect_1024x768.sti";
 	}
 
 	FilenameForBPP(fn, VObjectDesc.ImageFile);
@@ -4373,30 +4366,26 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		AssertMsg(0, fn );	
 	}
 	
-	switch (iResolution)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		case 0:	//640
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\timebargreen_Thin.sti";
-			else
-				fn = "INTERFACE\\timebargreen.sti";
-			break;
-		case 1:	//800
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\timebargreen_800x600Thin.sti";
-			else
-				fn = "INTERFACE\\timebargreen_800x600.sti";
-			break;
-		case 2:
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\timebargreen_1024x768Thin.sti";
-			else
-				fn = "INTERFACE\\timebargreen_1024x768.sti";
-			break;
-		default:
-			AssertMsg( 0, "Invalid resolution");
-			return;
-		break;
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\timebargreen_Thin.sti";
+		else
+			fn = "INTERFACE\\timebargreen.sti";
+	}
+	else if (iResolution < _1024x768)
+	{
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\timebargreen_800x600Thin.sti";
+		else
+			fn = "INTERFACE\\timebargreen_800x600.sti";
+	}
+	else
+	{
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\timebargreen_1024x768Thin.sti";
+		else
+			fn = "INTERFACE\\timebargreen_1024x768.sti";
 	}
 
 	FilenameForBPP(fn, VObjectDesc.ImageFile);
@@ -4406,30 +4395,26 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		AssertMsg(0, fn );	
 	}
 	
-	switch (iResolution)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		case 0:	//640
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\timebaryellow_Thin.sti";
-			else
-				fn = "INTERFACE\\timebaryellow.sti";
-			break;
-		case 1:	//800			
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\timebaryellow_800x600Thin.sti";
-			else
-				fn = "INTERFACE\\timebaryellow_800x600.sti";
-			break;
-		case 2:
-			if (gGameExternalOptions.fSmallSizeProgressbar)
-				fn = "INTERFACE\\timebaryellow_1024x768Thin.sti";
-			else
-				fn = "INTERFACE\\timebaryellow_1024x768.sti";
-			break;
-		default:
-			AssertMsg( 0, "Invalid resolution");
-			return;
-			break;
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\timebaryellow_Thin.sti";
+		else
+			fn = "INTERFACE\\timebaryellow.sti";
+	}
+	else if (iResolution < _1024x768)
+	{
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\timebaryellow_800x600Thin.sti";
+		else
+			fn = "INTERFACE\\timebaryellow_800x600.sti";
+	}
+	else
+	{
+		if (gGameExternalOptions.fSmallSizeProgressbar)
+			fn = "INTERFACE\\timebaryellow_1024x768Thin.sti";
+		else
+			fn = "INTERFACE\\timebaryellow_1024x768.sti";
 	}
 
 	FilenameForBPP(fn, VObjectDesc.ImageFile);
@@ -4450,8 +4435,8 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		case MILITIA_INTERRUPT_MESSAGE:
 		case AIR_RAID_TURN_MESSAGE:
 
-			// Render rect into surface
-			BltVideoObjectFromIndex( uiSurface, uiBAR, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL );
+			// Render rect into surface	
+			BltVideoObjectFromIndex( uiSurface, uiBAR, 0, xResOffset, 0, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_MCOLOR_WHITE );
@@ -4461,8 +4446,8 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 
 		case PLAYER_INTERRUPT_MESSAGE:
 
-			// Render rect into surface
-			BltVideoObjectFromIndex( uiSurface, uiINTBAR, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL );
+			// Render rect into surface	
+			BltVideoObjectFromIndex( uiSurface, uiINTBAR, 0, xResOffset, 0, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_MCOLOR_WHITE );
@@ -4472,7 +4457,8 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 
 		case PLAYER_TURN_MESSAGE:
 
-			BltVideoObjectFromIndex( uiSurface, uiPLAYERBAR, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL );
+			// Render rect into surface	
+			BltVideoObjectFromIndex( uiSurface, uiPLAYERBAR, 0, xResOffset, 0, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_MCOLOR_WHITE );
@@ -4494,7 +4480,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		dNumStepsPerEnemy = (FLOAT)( (FLOAT)iProgBarLength / (FLOAT)gTacticalStatus.usTactialTurnLimitMax );
 
 		// Render end peice
-		sBarX = PROG_BAR_START_X;
+		sBarX = (SCREEN_WIDTH - xResSize) / 2 + 5;
 		BltVideoObjectFromIndex( uiSurface, uiBarToUseInUpDate, 1, sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 		// Determine Length

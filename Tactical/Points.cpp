@@ -284,8 +284,15 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 
 	iPoints = iPoints * BreathPointAdjustmentForCarriedWeight( pSoldier ) / 100;
 
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
+
+	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
+		ubTerrainID = FLAT_GROUND;
+
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-	if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) )
+	if ( TERRAIN_IS_WATER( ubTerrainID) )
 	{
 		usMovementMode = WALKING;
 	}
@@ -359,13 +366,22 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 	// Tile cost should not be reduced based on movement mode...
 	if ( sSwitchValue == TRAVELCOST_FENCE )
 	{
-	return( sTileCost );
+		return( sTileCost );
 	}
 
+	
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
+
+	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
+		ubTerrainID = FLAT_GROUND;
+
+
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-	if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) )
+	if ( TERRAIN_IS_WATER( ubTerrainID) )
 	{
-	usMovementMode = WALKING;
+		usMovementMode = WALKING;
 	}
 
 	// so, then we must modify it for other movement styles and accumulate
@@ -503,8 +519,17 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 	{
 		return( sTileCost );
 	}
+
+
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
+
+	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
+		ubTerrainID = FLAT_GROUND;
+
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-	if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) )
+	if ( TERRAIN_IS_WATER( ubTerrainID) )
 	{
 		usMovementMode = WALKING;
 	}
@@ -848,7 +873,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - Interrupt counter
-	if( gGameExternalOptions.fImprovedInterruptSystem && sAPCost > 0 && ubInterruptType != DISABLED_INTERRUPT )
+	if( gGameOptions.fImprovedInterruptSystem && sAPCost > 0 && ubInterruptType != DISABLED_INTERRUPT )
 	{
 		UINT8 ubPointsRegistered = 0;
 		UINT16 uCnt = 0;
@@ -892,8 +917,9 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 				// adjust by range to target
 				//INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo );		// calculate actual range
 				//INT16 iDistVisible = (pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE); // how far do we see
-				ubPointsRegistered -= ( 25 * GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo ) / 
-										(pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE) ); // -1% registered by 4% of the difference of how far we can see and how far is the target	
+				INT16 iDistVisible = pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE; // -1% registered by 4% of the difference of how far we can see and how far is the target	
+				iDistVisible = max(iDistVisible, CELL_X_SIZE);
+				ubPointsRegistered -= ( 25 * GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo ) / iDistVisible );
 				
 				if ( gGameOptions.fNewTraitSystem )
 				{
@@ -2232,12 +2258,17 @@ INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection )
 	// ATE: Check if the new place is watter and we were tying to run....
 	bOverTerrainType = GetTerrainType( sGridNo );
 
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	if ( TERRAIN_IS_WATER( bOverTerrainType) && pSoldier->pathing.bLevel > 0 )
+		bOverTerrainType = FLAT_GROUND;
+
 	if ( TERRAIN_IS_WATER( bOverTerrainType) )
 	{
 		usMoveModeToUse = WALKING;
 	}
 
-  sCost = ActionPointCost( pSoldier, sGridNo, bDirection , usMoveModeToUse );
+	 sCost = ActionPointCost( pSoldier, sGridNo, bDirection , usMoveModeToUse );
 
 	if ( gubWorldMovementCosts[ sGridNo ][ bDirection ][ pSoldier->pathing.bLevel ] != TRAVELCOST_FENCE )
 	{

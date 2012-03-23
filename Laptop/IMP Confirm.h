@@ -1,12 +1,14 @@
 #ifndef __IMP_CONFIRM_H
 #define __IMP_CONFIRM_H
 
+#include "Soldier Profile.h"
+
 void EnterIMPConfirm( void );
 void RenderIMPConfirm( void );
 void ExitIMPConfirm( void );
 void HandleIMPConfirm( void );
 
-#define MAX_NEW_IMP_PORTRAITS 50
+#define MAX_NEW_IMP_PORTRAITS NUM_PROFILES
 
 typedef struct
 {
@@ -27,7 +29,7 @@ typedef struct
 
 } IMP_FACE_VALUES;
 
-extern IMP_FACE_VALUES gIMPFaceValues[200];
+extern IMP_FACE_VALUES gIMPFaceValues[NUM_PROFILES];
 
 
 typedef struct
@@ -73,8 +75,8 @@ typedef struct
 	BOOLEAN bBadAss;
 } IMP_FEMALE_VALUES;
 
-extern IMP_FEMALE_VALUES gIMPFemaleValues[200];
-extern IMP_MALE_VALUES gIMPMaleValues[200];
+extern IMP_FEMALE_VALUES gIMPFemaleValues[NUM_PROFILES];
+extern IMP_MALE_VALUES gIMPMaleValues[NUM_PROFILES];
 
 BOOLEAN AddCharacterToPlayersTeam( void );
 BOOLEAN LoadImpCharacter( STR fileName );

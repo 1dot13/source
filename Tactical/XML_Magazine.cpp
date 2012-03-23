@@ -50,7 +50,8 @@ magazineStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				(strcmp(name, "uiIndex") == 0 ||
 				strcmp(name, "ubCalibre") == 0 ||
 				strcmp(name, "ubMagSize") == 0 ||
-				strcmp(name, "ubAmmoType") == 0 ))
+				strcmp(name, "ubAmmoType") == 0 ||
+				strcmp(name, "ubMagType") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -116,6 +117,11 @@ magazineEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMagazine.ubAmmoType	= (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ubMagType") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curMagazine.ubMagType	= (UINT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -213,6 +219,7 @@ BOOLEAN WriteMagazineStats()
 			FilePrintf(hFile,"\t\t<ubCalibre>%d</ubCalibre>\r\n",								Magazine[cnt].ubCalibre	);
 			FilePrintf(hFile,"\t\t<ubMagSize>%d</ubMagSize>\r\n",								Magazine[cnt].ubMagSize	);
 			FilePrintf(hFile,"\t\t<ubAmmoType>%d</ubAmmoType>\r\n",								Magazine[cnt].ubAmmoType	);
+			FilePrintf(hFile,"\t\t<ubMagType>%d</ubMagType>\r\n",								Magazine[cnt].ubMagType	);
 
 			FilePrintf(hFile,"\t</MAGAZINE>\r\n");
 		}

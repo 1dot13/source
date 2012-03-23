@@ -233,20 +233,16 @@ BOOLEAN		EnterMPSScreen()
 	SetCurrentCursorFromDatabase( CURSOR_NORMAL );
 
 	// load the Main trade screen backgroiund image
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
-	{
+	if (iResolution >= _640x480 && iResolution < _800x600)
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 1)
-	{
+	else if (iResolution < _1024x768)
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround_800x600.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 2)
-	{
+	else
 		FilenameForBPP("INTERFACE\\OptionsScreenBackGround_1024x768.sti", VObjectDesc.ImageFile);
-	}
+
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMPSMainBackGroundImage ));
 
@@ -396,7 +392,8 @@ BOOLEAN		RenderMPSScreen()
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiMPSMainBackGroundImage );
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,0,0, VO_BLT_SRCTRANSPARENCY,NULL);
+
+		BltVideoObject(FRAME_BUFFER, hPixHandle, 0,(SCREEN_WIDTH - xResSize)/2,(SCREEN_HEIGHT - yResSize)/2, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	//Shade the background
 	ShadowVideoSurfaceRect( FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, iScreenWidthOffset + 640, iScreenHeightOffset + 480 );
@@ -539,7 +536,7 @@ void GetMPSScreenUserInput()
 {
 	InputAtom Event;
 
-	while( DequeueEvent( &Event ) )
+	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		// check if this event is swallowed by text input, otherwise process key
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_DOWN )

@@ -76,13 +76,19 @@ enum
 	TOPTION_ALTERNATE_BULLET_GRAPHICS,
 
 	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
-	TOPTION_USE_NCTH,
-
+	//TOPTION_USE_NCTH,
+	//Jenilee's Merc Ranks
+	TOPTION_SHOW_MERC_RANKS,
+	
 	// WANNE:	
 	TOPTION_SHOW_TACTICAL_FACE_GEAR,
 	TOPTION_SHOW_TACTICAL_FACE_ICONS,
 
 	TOPTION_DISABLE_CURSOR_SWAP,				// Disable cursor swapping every second between talk and quick exchange
+	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
+
+	// Flugente FTW 1: Weapon Overheating
+	//TOPTION_WEAPON_OVERHEATING,					// allow Overheating of weapons
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -210,12 +216,17 @@ typedef struct
 	// SANDRO - added variables
 	UINT8	ubMaxIMPCharacters;
 	BOOLEAN	fNewTraitSystem;
-	BOOLEAN fEnableAllTerrorists;
 	BOOLEAN	fEnemiesDropAllItems;
 	UINT8   ubProgressSpeedOfItemsChoices;
-	BOOLEAN fEnableAllWeaponCaches;
+
+	BOOLEAN fInventoryCostsAP;			// ubFiller:	From 500 to 499
+
+	BOOLEAN fUseNCTH;					// ubFiller:	From 499 to 498
+	BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
+	BOOLEAN fWeaponOverheating;			// ubFiller:	From 497 to 496
 	
-	UINT8	ubFiller[500];		// WANNE: Decrease this filler by 1, for each new UINT8 variable!
+	// WANNE: Decrease this filler by 1, for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
+	UINT8	ubFiller[496];		
 
 } GAME_OPTIONS;
 
@@ -318,7 +329,7 @@ typedef struct
 	BOOLEAN fCamoRemoving;
 	BOOLEAN fEnhancedCloseCombatSystem;
 
-	BOOLEAN fImprovedInterruptSystem;
+	//BOOLEAN fImprovedInterruptSystem;
 	UINT8 ubBasicPercentRegisterValueIIS;
 	UINT8 ubPercentRegisterValuePerLevelIIS;
 	UINT8 ubBasicReactionTimeLengthIIS;
@@ -417,9 +428,9 @@ typedef struct
 	UINT32  autoSaveTime;
 
 	//JMich
-	UINT8 guiMaxWeaponSize;
-	UINT8 guiMaxItemSize;
-	UINT8 guiOIVSizeNumber;
+	UINT16 guiMaxWeaponSize;
+	UINT16 guiMaxItemSize;
+	UINT16 guiOIVSizeNumber;
 
 	//Sight range
 	UINT32	ubStraightSightRange;
@@ -570,9 +581,8 @@ typedef struct
 	//Misc settings
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
 	BOOLEAN fEnableCrepitus;
-	// SANDRO was here - removed these two
-	//BOOLEAN fEnableAllWeaponCaches;
-	//BOOLEAN fEnableAllTerrorists;
+	BOOLEAN fEnableAllWeaponCaches;
+	BOOLEAN fEnableAllTerrorists;
 	BOOLEAN gfRevealItems;
 	BOOLEAN fEnableArmorCoverage; // ShadoWarrior for Captain J's armor coverage
 
@@ -659,6 +669,9 @@ typedef struct
 	FLOAT uShotHeadPenalty;
 	FLOAT fShotHeadDivisor;
 	INT16 iPenaltyShootUnSeen;
+
+	//Inventory AP Weight Divisor
+	FLOAT uWeightDivisor;
 
 	FLOAT fOutOfGunRangeOrSight;
 	// WANNE: Always use "prof.dat".
@@ -843,6 +856,9 @@ typedef struct
 
 	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
 	BOOLEAN fBobbyRayTooltipsShowAttachments;
+
+	//JMich Externalized gGameExternalOptions.ubBobbyRayMaxPurchaseAmount for BobbyRay
+	UINT8 ubBobbyRayMaxPurchaseAmount;
 
 	// CHRISL: Converts the AutoFireToHitBonus value to a percentage for CTH calculations
 	UINT8 ubFlatAFTHBtoPrecentMultiplier;
@@ -1034,16 +1050,37 @@ typedef struct
 	FLOAT gMercLevelUpSalaryIncreasePercentage;
 
 	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO
-	
+
+	BOOLEAN fBobbyRayFastShipments;
+
+	BOOLEAN fGridExitInTurnBased;
+
 	BOOLEAN fStandUpAfterBattle;
 	
 	INT32 iInitialMercArrivalLocation;
+
+	// Keyboard shortcut (as VK) for fastforward key.  See Utils/KeyMap
+	INT32 iFastForwardKey;
+	// Turn on fast forward whenever ui is disabled.
+	BOOLEAN fEnableAutoFastForwardMode;
+	// When fast forward is enabled what is the period to update clock in milliseconds.
+	FLOAT iFastForwardPeriod;
+	// Frequency that the screen is updated
+	INT32 iNotifyFrequency;
+	// Frequency that the screen is updated
+	FLOAT fClockSpeedPercent;
+
+	// Flugente FTW 1: Weapon Overheating
+	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?
+	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels alone in the landscape ;-)
+
+	BOOLEAN	fWeaponResting;							// Should it be possible to rest your weapon on structures in crouched position?
+	BOOLEAN fDisplayWeaponRestingIndicator;			// Should a little indicator show if the weapon is currently rested on something?
+	UINT8	ubProneModifierPercentage;				// for boni, use ubProneModifierPercentage*boni[PRONE] + (100 - ubProneModifierPercentage)*boni[CROUCHED]
 	
 	BOOLEAN gBriefingRoom;
 	BOOLEAN gEncyclopedia;
-	
-	
-	
+			
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct

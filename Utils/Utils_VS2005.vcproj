@@ -42,10 +42,11 @@
 				AdditionalOptions="/D _CRT_SECURE_NO_DEPRECATE"
 				Optimization="0"
 				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_WIN32_WINNT=0x0500"
 				MinimalRebuild="true"
+				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -106,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D _CRT_SECURE_NO_DEPRECATE"
 				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_WIN32_WINNT=0x0500"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
@@ -167,7 +168,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D _CRT_SECURE_NO_DEPRECATE"
 				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_WIN32_WINNT=0x0500"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
@@ -229,7 +230,7 @@
 				AdditionalOptions="/D _CRT_SECURE_NO_DEPRECATE"
 				Optimization="0"
 				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_WIN32_WINNT=0x0500"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -294,7 +295,7 @@
 				AdditionalOptions="/D _CRT_SECURE_NO_DEPRECATE"
 				Optimization="0"
 				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_WIN32_WINNT=0x0500"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
@@ -424,6 +425,10 @@
 			</File>
 			<File
 				RelativePath=".\INIReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyMap.h"
 				>
 			</File>
 			<File
@@ -662,6 +667,10 @@
 			</File>
 			<File
 				RelativePath=".\INIReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyMap.cpp"
 				>
 			</File>
 			<File

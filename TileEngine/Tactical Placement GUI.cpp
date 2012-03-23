@@ -262,15 +262,15 @@ void InitTacticalPlacementGUI()
 	//Load the images
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-	sprintf( VObjectDesc.ImageFile, "Interface\\OverheadInterface.sti" );
-	if( !AddVideoObject( &VObjectDesc, (UINT32 *)&giOverheadPanelImage ) )
-	{
-		AssertMsg( 0, "Failed to load Interface\\OverheadInterface.sti" );
+		sprintf( VObjectDesc.ImageFile, "Interface\\OverheadInterface.sti" );
+		if( !AddVideoObject( &VObjectDesc, (UINT32 *)&giOverheadPanelImage ) )
+		{
+			AssertMsg( 0, "Failed to load Interface\\OverheadInterface.sti" );
+		}
 	}
-	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		sprintf( VObjectDesc.ImageFile, "Interface\\OverheadInterface_800x600.sti" );
 		if( !AddVideoObject( &VObjectDesc, (UINT32 *)&giOverheadPanelImage ) )
@@ -278,7 +278,7 @@ void InitTacticalPlacementGUI()
 			AssertMsg( 0, "Failed to load Interface\\OverheadInterface_800x600.sti" );
 		}
 	}
-	else if (iResolution == 2)
+	else
 	{
 		sprintf( VObjectDesc.ImageFile, "Interface\\OverheadInterface_1024x768.sti" );
 		if( !AddVideoObject( &VObjectDesc, (UINT32 *)&giOverheadPanelImage ) )
@@ -304,25 +304,25 @@ void InitTacticalPlacementGUI()
 
 	//Create the buttons which provide automatic placements.
 	iTPButtons[ CLEAR_BUTTON ] =
-		QuickCreateButton( giOverheadButtonImages[ CLEAR_BUTTON ], 11, SCREEN_HEIGHT - 148, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( giOverheadButtonImages[ CLEAR_BUTTON ], 11 + xResOffset, SCREEN_HEIGHT - 148, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, ClearPlacementsCallback );
 	SpecifyGeneralButtonTextAttributes( iTPButtons[ CLEAR_BUTTON ], gpStrategicString[ STR_TP_CLEAR ], BLOCKFONT, FONT_BEIGE, 141 );
 	SetButtonFastHelpText( iTPButtons[ CLEAR_BUTTON ], gpStrategicString[ STR_TP_CLEARHELP ] );
 	SetBtnHelpEndCallback( iTPButtons[ CLEAR_BUTTON ], FastHelpRemoved2Callback );
 	iTPButtons[ SPREAD_BUTTON ] =
-		QuickCreateButton( giOverheadButtonImages[ SPREAD_BUTTON ], 11, SCREEN_HEIGHT - 113, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( giOverheadButtonImages[ SPREAD_BUTTON ], 11 + xResOffset, SCREEN_HEIGHT - 113, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, SpreadPlacementsCallback );
 	SpecifyGeneralButtonTextAttributes( iTPButtons[ SPREAD_BUTTON ], gpStrategicString[ STR_TP_SPREAD ], BLOCKFONT, FONT_BEIGE, 141 );
 	SetButtonFastHelpText( iTPButtons[ SPREAD_BUTTON ], gpStrategicString[ STR_TP_SPREADHELP ] );
 	SetBtnHelpEndCallback( iTPButtons[ SPREAD_BUTTON ], FastHelpRemovedCallback );
 	iTPButtons[ GROUP_BUTTON ] =
-		QuickCreateButton( giOverheadButtonImages[ GROUP_BUTTON ], 11, SCREEN_HEIGHT - 78, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( giOverheadButtonImages[ GROUP_BUTTON ], 11 + xResOffset, SCREEN_HEIGHT - 78, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, GroupPlacementsCallback );
 	SpecifyGeneralButtonTextAttributes( iTPButtons[ GROUP_BUTTON ], gpStrategicString[ STR_TP_GROUP ], BLOCKFONT, FONT_BEIGE, 141 );
 	SetButtonFastHelpText( iTPButtons[ GROUP_BUTTON ], gpStrategicString[ STR_TP_GROUPHELP ] );
 	SetBtnHelpEndCallback( iTPButtons[ GROUP_BUTTON ], FastHelpRemovedCallback );
 	iTPButtons[ DONE_BUTTON ] =
-		QuickCreateButton( giOverheadButtonImages[ DONE_BUTTON ], 11, SCREEN_HEIGHT - 43, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( giOverheadButtonImages[ DONE_BUTTON ], 11 + xResOffset, SCREEN_HEIGHT - 43, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, DoneOverheadPlacementClickCallback );
 	SpecifyGeneralButtonTextAttributes( iTPButtons[ DONE_BUTTON ], gpStrategicString[ STR_TP_DONE ], BLOCKFONT, FONT_BEIGE, 141 );
 	SetButtonFastHelpText( iTPButtons[ DONE_BUTTON ], gpStrategicString[ STR_TP_DONEHELP ] );
@@ -422,11 +422,34 @@ void InitTacticalPlacementGUI()
 
 		//Load the faces
 		{
+	
 			ubFaceIndex = gMercProfiles[ gMercPlacement[ i ].pSoldier->ubProfile ].ubFaceIndex;
+			
+			/*
 			if( ubFaceIndex < 100 )
 				sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", ubFaceIndex );
 			else
 				sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", ubFaceIndex );
+				
+			*/
+			
+		if ( ( ubFaceIndex < 100 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", ubFaceIndex );
+		} 
+		else if ( ( ubFaceIndex > 99 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", ubFaceIndex );
+		}
+		else if( ubFaceIndex < 100 )
+		{	
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", ubFaceIndex );
+		}
+		else if( ubFaceIndex > 99 )
+		{
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", ubFaceIndex );
+		}
+			
 		}
 
 		if( !AddVideoObject( &VObjectDesc, &gMercPlacement[ i ].uiVObjectID ) )
@@ -439,7 +462,7 @@ void InitTacticalPlacementGUI()
 		}
 
 
-		xp = 91 + (i / 2) * 54;
+		xp = (xResOffset) + 91 + (i / 2) * 54;
 
 		if (i % 2)
 		{
@@ -601,7 +624,7 @@ void RenderTacticalPlacementGUI()
 	//of it's region, then we will clear the hilighted ID, and refresh the display.
 	if( !gfTacticalPlacementGUIDirty && gbHilightedMercID != -1 )
 	{
-		xp = 91 + (gbHilightedMercID / 2) * 54;
+		xp = xResOffset + 91 + (gbHilightedMercID / 2) * 54;
 
 		if (gbHilightedMercID % 2)
 		{
@@ -625,8 +648,8 @@ void RenderTacticalPlacementGUI()
 	//If the display is dirty render the entire panel.
 	if( gfTacticalPlacementGUIDirty )
 	{
-		BltVideoObjectFromIndex( FRAME_BUFFER, giOverheadPanelImage, 0, 0, SCREEN_HEIGHT - 160, VO_BLT_SRCTRANSPARENCY, 0 );
-		InvalidateRegion( 0, SCREEN_HEIGHT - 160, 320, SCREEN_HEIGHT );
+		BltVideoObjectFromIndex( FRAME_BUFFER, giOverheadPanelImage, 0, xResOffset, SCREEN_HEIGHT - 160, VO_BLT_SRCTRANSPARENCY, 0 );
+		InvalidateRegion( 0 + xResOffset, SCREEN_HEIGHT - 160, 320 + xResOffset, SCREEN_HEIGHT );
 		gfTacticalPlacementGUIDirty = FALSE;
 		MarkButtonsDirty();
 		//DisableHilightsAndHelpText();
@@ -637,7 +660,7 @@ void RenderTacticalPlacementGUI()
 			pSoldier = gMercPlacement[ i ].pSoldier;
 
 
-			xp = 95 + (i / 2) * 54;
+			xp = xResOffset + 95 + (i / 2) * 54;
 
 			if (i % 2)
 			{
@@ -683,7 +706,7 @@ void RenderTacticalPlacementGUI()
 
 		GetSectorIDString( gubPBSectorX, gubPBSectorY, gubPBSectorZ, str, TRUE );
 
-		mprintf(120, SCREEN_HEIGHT - 145, L"%s %s -- %s...", gpStrategicString[ STR_TP_SECTOR ], str, gpStrategicString[ STR_TP_CHOOSEENTRYPOSITIONS ] );
+		mprintf(120 + xResOffset, SCREEN_HEIGHT - 145, L"%s %s -- %s...", gpStrategicString[ STR_TP_SECTOR ], str, gpStrategicString[ STR_TP_CHOOSEENTRYPOSITIONS ] );
 
 		//Shade out the part of the tactical map that isn't considered placable.
 		BlitBufferToBuffer(FRAME_BUFFER, guiSAVEBUFFER, 0, SCREEN_HEIGHT - 160, SCREEN_WIDTH, 160);
@@ -846,7 +869,7 @@ void RenderTacticalPlacementGUI()
 	{ //Render the merc's names
 		pSoldier = gMercPlacement[ i ].pSoldier;
 
-		xp = 95 + (i / 2) * 54;
+		xp = xResOffset + 95 + (i / 2) * 54;
 
 		if (i % 2)
 		{
@@ -931,7 +954,7 @@ void lockui (bool unlock) //lock onluck ui for lan //hayden
 						DisableButton( iTPButtons[ GROUP_BUTTON ] );
 							DisableButton( iTPButtons[ CLEAR_BUTTON ] );
 
-			SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+			SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 			DoMessageBox( MSG_BOX_BASIC_STYLE, MPServerMessage[8],  guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,  &CenterRect );
 
 			//send loaded
@@ -972,7 +995,7 @@ void TacticalPlacementHandle()
 		gpTacticalPlacementSelectedSoldier = NULL;
 	}
 
-	while( DequeueEvent( &InputEvent ) )
+	while( DequeueSpecificEvent( &InputEvent, KEY_DOWN ) )
 	{
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
@@ -1443,7 +1466,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 							&& gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
 						{
 							//Report error due to invalid placement.
-							SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+							SGPRect CenterRect = { 100 + xResOffset, 100 + 0, SCREEN_WIDTH - 100 - xResOffset, 300 };
 						DoMessageBox( MSG_BOX_BASIC_STYLE, gpStrategicString[ STR_TP_INACCESSIBLE_MESSAGE ],	guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,	&CenterRect );
 					}
 					}
@@ -1462,8 +1485,8 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 				if (gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical
 					&& gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
 				{
-					SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
-				DoMessageBox( MSG_BOX_BASIC_STYLE, gpStrategicString[ STR_TP_INVALID_MESSAGE ],	guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,	&CenterRect );
+					SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
+					DoMessageBox( MSG_BOX_BASIC_STYLE, gpStrategicString[ STR_TP_INVALID_MESSAGE ],	guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,	&CenterRect );
 				}
 			}
 		}

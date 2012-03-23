@@ -69,8 +69,14 @@
 //#define		BOBBYR_SHIPMENT_
 
 
-
-
+extern UINT8 gubPurchaseAtTopOfList;
+extern BOOLEAN gfDrawGridArrowMouseRegions;
+extern BOOLEAN gfDrawGridColumnMouseRegion;
+extern MOUSE_REGION	 gSelectedUpDownArrowOnGridScrollAreaRegion[2];
+extern void SelectUpDownArrowOnGridScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+extern MOUSE_REGION	*gSelectedGridScrollColumnRegion;
+extern void SelectGridScrollColumnRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+extern void SelectGridScrollColumnMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 UINT32		guiBobbyRShipmentGrid;
 
@@ -107,8 +113,8 @@ INT32	CountNumberValidShipmentForTheShipmentsPage();
 //ppp
 extern CPostalService gPostalService;
 extern vector<PShipmentStruct> gShipmentTable;
-
-
+extern UINT32		guiGoldArrowImages;
+extern UINT32		guiBobbyROrderGrid;
 //
 // Function
 //
@@ -130,6 +136,10 @@ BOOLEAN EnterBobbyRShipments()
 	FilenameForBPP("LAPTOP\\BobbyRay_OnOrder.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBobbyRShipmentGrid));
 
+	// Gold Arrow for the scroll area
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP( "LAPTOP\\GoldArrows.sti", VObjectDesc.ImageFile );
+	CHECKF( AddVideoObject( &VObjectDesc, &guiGoldArrowImages ) );
 
 	guiBobbyRShipmentBackImage =	LoadButtonImage("LAPTOP\\CatalogueButton.sti", -1,0,-1,1,-1 );
 	guiBobbyRShipmetBack = CreateIconAndTextButton( guiBobbyRShipmentBackImage, BobbyROrderFormText[BOBBYR_BACK], BOBBYR_GUNS_BUTTON_FONT,
@@ -153,6 +163,7 @@ BOOLEAN EnterBobbyRShipments()
 	CreateBobbyRayOrderTitle();
 
 	giBobbyRShipmentSelectedShipment = -1;
+	gubPurchaseAtTopOfList = 0;
 
 	/*
 	//if there are shipments
@@ -194,7 +205,20 @@ BOOLEAN EnterBobbyRShipments()
 		}
 	}
 	
-
+	if (gfDrawGridArrowMouseRegions == TRUE)
+	{
+		MSYS_DisableRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_DisableRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		MSYS_RemoveRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_RemoveRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		gfDrawGridArrowMouseRegions = FALSE;
+	}
+	if (gfDrawGridColumnMouseRegion == TRUE)
+	{
+		MSYS_DisableRegion( gSelectedGridScrollColumnRegion);
+		MSYS_RemoveRegion( gSelectedGridScrollColumnRegion);
+		gfDrawGridColumnMouseRegion = FALSE;
+	}
 	CreatePreviousShipmentsMouseRegions();
 
 	return( TRUE );
@@ -206,6 +230,7 @@ void ExitBobbyRShipments()
 	DestroyBobbyROrderTitle();
 
 	DeleteVideoObjectFromIndex(guiBobbyRShipmentGrid);
+	DeleteVideoObjectFromIndex(guiGoldArrowImages);
 
 	UnloadButtonImage( guiBobbyRShipmentBackImage );
 	UnloadButtonImage( giBobbyRShipmentHomeImage );
@@ -213,6 +238,20 @@ void ExitBobbyRShipments()
 	RemoveButton( guiBobbyRShipmentHome );
 
 	RemovePreviousShipmentsMouseRegions();
+	if (gfDrawGridArrowMouseRegions == TRUE)
+	{
+		MSYS_DisableRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_DisableRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		MSYS_RemoveRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_RemoveRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		gfDrawGridArrowMouseRegions = FALSE;
+}
+	if (gfDrawGridColumnMouseRegion == TRUE)
+	{
+		MSYS_DisableRegion( gSelectedGridScrollColumnRegion);
+		MSYS_RemoveRegion( gSelectedGridScrollColumnRegion);
+		gfDrawGridColumnMouseRegion = FALSE;
+	}
 }
 
 void HandleBobbyRShipments()
@@ -230,8 +269,8 @@ void RenderBobbyRShipments()
 //	HVOBJECT hPixHandle;
 
 	// Dealtar: this must be static as this is accessed after this function has returned
-	static BobbyRayPurchaseStruct brps[MAX_PURCHASE_AMOUNT];
-	for(int i = 0; i < MAX_PURCHASE_AMOUNT; i++)
+	static BobbyRayPurchaseStruct brps[100];
+	for(int i = 0; i < 100; i++) //JMich
 	{
 		memset(&brps[i], 0, sizeof(BobbyRayPurchaseStruct));
 	}
@@ -363,15 +402,20 @@ void BtnBobbyRShipmentHomeCallback(GUI_BUTTON *btn,INT32 reason)
 
 void DisplayShipmentGrid()
 {
-	HVOBJECT hPixHandle;
-
+	HVOBJECT hPixHandle, hPixGrid;
+	VOBJECT_DESC	VObjectDesc;
 	GetVideoObject(&hPixHandle, guiBobbyRShipmentGrid);
-
 	// Shipment Order Grid
 	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, BOBBYR_SHIPMENT_DELIVERY_GRID_X, BOBBYR_SHIPMENT_DELIVERY_GRID_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("LAPTOP\\BobbyOrderGrid.sti", VObjectDesc.ImageFile);
+	AddVideoObject(&VObjectDesc, &guiBobbyROrderGrid);
+	GetVideoObject(&hPixGrid, guiBobbyROrderGrid);
+	BltVideoObject(FRAME_BUFFER, hPixGrid, 0, BOBBYR_SHIPMENT_ORDER_GRID_X, BOBBYR_SHIPMENT_ORDER_GRID_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+
 	// Order Grid
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 1, BOBBYR_SHIPMENT_ORDER_GRID_X, BOBBYR_SHIPMENT_ORDER_GRID_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	//BltVideoObject(FRAME_BUFFER, hPixGrid, 0, BOBBYR_SHIPMENT_ORDER_GRID_X, BOBBYR_SHIPMENT_ORDER_GRID_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 }
 
 
@@ -497,6 +541,7 @@ void SelectPreviousShipmentsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 	}
 	else if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
+		gubPurchaseAtTopOfList = 0;
 		INT32 iSlotID = MSYS_GetRegionUserData( pRegion, 0 );
 
 

@@ -663,7 +663,7 @@ void HandleInterfaceMessageForCostOfTrainingMilitia( SOLDIERTYPE *pSoldier )
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 
 	CHAR16 sString[ 128 ];
-	SGPRect pCenteringRect= {0, 0, 640, INV_INTERFACE_START_Y };
+	SGPRect pCenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, INV_INTERFACE_START_Y };
 	INT32 iNumberOfSectors = 0;
 
 	pMilitiaTrainerSoldier = pSoldier;

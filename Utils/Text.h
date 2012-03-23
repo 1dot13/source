@@ -437,6 +437,8 @@ enum
 	MSG_SAVE_AUTOSAVE_ENDTURN_SLOT,			// 102
 	MSG_SAVE_NORMAL_SLOT,					// 103
 	
+	MSG_WINDOWED_MODE_LOCK_MOUSE,			// 104
+	MSG_WINDOWED_MODE_RELEASE_MOUSE,		// 105
 
 	TEXT_NUM_MSG,
 };
@@ -606,6 +608,9 @@ extern STR16 gzItemDescGenIndexes[ 4 ];
 // HEADROCK HAM 4: Added list of condition strings
 extern STR16		gConditionDesc[ 9 ];
 
+// Flugente FTW1: Added list of temperature descriptions
+extern STR16		gTemperatureDesc[ 11 ];
+
 extern CHAR16		gMoneyStatsDesc[][ 13 ];
 // HEADROCK: Altered value to 16 //WarmSteel - And I need 17.
 extern CHAR16		gWeaponStatsDesc[][ 17 ];
@@ -623,15 +628,15 @@ extern STR16		szUDBGenWeaponsStatsTooltipText[ 22 ];
 extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 22 ];
 extern STR16		szUDBGenArmorStatsTooltipText[ 3 ];
 extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 3 ];
-extern STR16		szUDBGenAmmoStatsTooltipText[ 3 ];
-extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 3 ];
+extern STR16		szUDBGenAmmoStatsTooltipText[ 4 ];						// Flugente Overheating Weapons: 3->4
+extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 4 ];
 extern STR16		szUDBGenExplosiveStatsTooltipText[ 18 ];
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 18 ];
 extern STR16		szUDBGenSecondaryStatsTooltipText[ 26 ];
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ];
-extern STR16		szUDBAdvStatsTooltipText[ 48 ];
-extern STR16		szUDBAdvStatsExplanationsTooltipText[ 48 ];
-extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 48 ];
+extern STR16		szUDBAdvStatsTooltipText[ 56 ];							// Flugente Overheating Weapons: 48->56
+extern STR16		szUDBAdvStatsExplanationsTooltipText[ 56 ];				// Flugente Overheating Weapons: 48->56
+extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52
 
 // Headrock: End Externs
 extern STR16		sKeyDescriptionStrings[2];
@@ -753,6 +758,7 @@ enum
 	EXIT_GUI_GOTO_SECTOR_STR,
 	EXIT_GUI_GOTO_MAP_STR,
 	CANNOT_LEAVE_SECTOR_FROM_SIDE_STR,
+	CANNOT_LEAVE_IN_TURN_MODE_STR,
 	MERC_IS_TOO_FAR_AWAY_STR,
 	REMOVING_TREETOPS_STR,
 	SHOWING_TREETOPS_STR,
@@ -1131,7 +1137,8 @@ enum
 	BOBBYR_GUNS_SUB_TOTAL,
 	BOBBYR_GUNS_PERCENT_FUNCTIONAL,
 
-	BOBBYR_MORE_THEN_10_PURCHASES,
+	BOBBYR_MORE_THEN_10_PURCHASES_A,
+	BOBBYR_MORE_THEN_10_PURCHASES_B,
 	BOBBYR_MORE_NO_MORE_IN_STOCK,
 	BOBBYR_NO_MORE_STOCK,
 	TEXT_NUM_BOBBYR_GUNS,
@@ -1747,6 +1754,15 @@ enum
 	GIO_SQUAD_SIZE_8_TEXT,
 	GIO_SQUAD_SIZE_10_TEXT,
 
+	//GIO_FAST_BR_TITLE_TEXT,
+
+	//Inventory AP Cost
+	GIO_INVENTORY_AP_TITLE_TEXT,
+	
+	GIO_NCTH_TITLE_TEXT,
+	GIO_IIS_TITLE_TEXT,
+	GIO_OVERHEATING_TITLE_TEXT,
+
 	////////////////////////////////////
 	TEXT_NUM_GIO_TEXT
 };
@@ -2077,6 +2093,8 @@ enum
 	MSG113_ENEMY_FOUND_DEAD_BODY,
 	MSG113_AMMO_SPEC_STRING,
 
+	MSG113_INVENTORY_APS_INSUFFICIENT,
+
 	TEXT_NUM_MSG113,
 };
 
@@ -2118,6 +2136,8 @@ enum
 	ADDTEXT_16BPP_REQUIRED,
 };
 extern STR16 Additional113Text[];
+extern STR16 ranks[];
+extern STR16 ranks[];
 
 #endif
 

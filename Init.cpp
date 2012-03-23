@@ -86,6 +86,7 @@
 #include "LuaInitNPCs.h"
 #include "Encyclopedia_Data.h"
 #include "Encyclopedia.h"
+#include "AimArchives.h"
 
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
 extern INT16 gubMaxActionPoints[28];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
@@ -1061,6 +1062,44 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
+
+		UINT8 p;
+		for(p=0; p<NUM_PROFILES; p++)
+		{
+			gAimOldArchives[p].FaceID = -1;
+		}
+
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, OLDAIMARCHIVEFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInAimOldArchive(fileName,FALSE), OLDAIMARCHIVEFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInAimOldArchive(fileName,TRUE), fileName);
+		}
+#endif
+		UINT8 emptyslotsinarchives = 0;
+		for (p=0;p<NUM_PROFILES;p++)
+		{
+			if (gAimOldArchives[p].FaceID == -1)
+			{
+				emptyslotsinarchives++;
+			}
+			else
+			{
+				gAimOldArchives[p-emptyslotsinarchives]=gAimOldArchives[p];
+			}
+		}
+		for (p=NUM_PROFILES;p>NUM_PROFILES-emptyslotsinarchives;p--)
+		{
+			gAimOldArchives[p-1].FaceID=-1;
+		}
+
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
 	// load Lua for Strategic Mines initialization
@@ -1243,6 +1282,8 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
+			//gGameOptions.fBobbyRayFastShipments = FALSE;
+			gGameOptions.fInventoryCostsAP = FALSE;
 			
 			useOldJA2Inventory = TRUE; 
 			return( GAME_SCREEN );
@@ -1262,6 +1303,8 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
+			//gGameOptions.fBobbyRayFastShipments = FALSE;
+			gGameOptions.fInventoryCostsAP = FALSE;
 			return( GAME_SCREEN );
 		}
 		if ( strcmp( gzCommandLine, "-EDITOR" ) == 0 )
@@ -1276,6 +1319,8 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
+			//gGameOptions.fBobbyRayFastShipments = FALSE;
+			gGameOptions.fInventoryCostsAP = FALSE;
 			return( GAME_SCREEN );
 		}
 
@@ -1293,6 +1338,8 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
+			//gGameOptions.fBobbyRayFastShipments = FALSE;
+			gGameOptions.fInventoryCostsAP = FALSE;
 			return( GAME_SCREEN );
 		#endif
 	#endif

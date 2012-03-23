@@ -996,12 +996,6 @@ void DecideActiveTerrorists( void )
 			break;
 	}
 
-	//////////////////////////////////////////////////////////////////////////
-	// this makes no sense now, we just set the exact number of them below
-	//if ( gGameExternalOptions.fEnableAllTerrorists )
-	//	uiChance = 100;
-	//////////////////////////////////////////////////////////////////////////
-
 	// add at least 2 more
 	ubNumAdditionalTerrorists = 2;
 	for (ubLoop = 0; ubLoop < (MAX_ADDITIONAL_TERRORISTS - 3); ubLoop++) // -3 instead of -2  because we increased MAX_ADDITIONAL_TERRORISTS above by 1
@@ -1013,8 +1007,8 @@ void DecideActiveTerrorists( void )
 	}
 
 	/////////////////////////////////////////////////////
-	// Added so with ENABLE_ALL_TERRORISTS you really get all of them  (5 + Charlie)
-	if ( gGameOptions.fEnableAllTerrorists )
+	// Added, so with ENABLE_ALL_TERRORISTS you really get all of them  (5 + Charlie)
+	if ( gGameExternalOptions.fEnableAllTerrorists )
 		ubNumAdditionalTerrorists = 5;
 	/////////////////////////////////////////////////////
 
@@ -1037,7 +1031,7 @@ void DecideActiveTerrorists( void )
 			ubTerrorist = gubTerrorists[ ubLoop ];
 
 			// random 40% chance of adding this terrorist if not yet placed
-			if ( ( gMercProfiles[ ubTerrorist ].sSectorX == 0 ) && (( Random( 100 ) < 40 ) || gGameOptions.fEnableAllTerrorists ) ) // also added the check because it makes no sense to choose randomly which terrorist will be in game, all of them should
+			if ( ( gMercProfiles[ ubTerrorist ].sSectorX == 0 ) && (( Random( 100 ) < 40 ) || gGameExternalOptions.fEnableAllTerrorists ) ) // also added the check because it makes no sense to choose randomly which terrorist will be in game, all of them should
 			{
 				//fFoundSpot = FALSE;
 				// Since there are 5 spots per terrorist and a maximum of 5 terrorists, we

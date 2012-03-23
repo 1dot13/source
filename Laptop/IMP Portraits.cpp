@@ -131,7 +131,8 @@ BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 	
 		if (  gIMPMaleValues[ iCurrentPortrait ].Enabled == 1 )
 		{		
-			sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
+			///sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
 		}
 	
 	
@@ -157,7 +158,8 @@ BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 	
 		if (  gIMPFemaleValues[ iCurrentPortrait ].Enabled == 1 )
 		{
-			sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPFemaleValues[ iCurrentPortrait ].PortraitId );
+		//	sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPFemaleValues[ iCurrentPortrait ].PortraitId );
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\BigFaces\\%02d.sti", gIMPFemaleValues[ iCurrentPortrait ].PortraitId );
 		}
 			
 			

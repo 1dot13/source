@@ -397,7 +397,7 @@ void PopupMenuHandle()
 		return;
 	}
 	//Use keyboard input as well.
-	while( DequeueEvent( &InputEvent ) )
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		switch(InputEvent.usEvent)
 		{

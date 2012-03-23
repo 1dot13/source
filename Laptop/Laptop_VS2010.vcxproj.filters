@@ -458,5 +458,8 @@
     <ClCompile Include="XML_Email.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XML_OldAIMArchive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

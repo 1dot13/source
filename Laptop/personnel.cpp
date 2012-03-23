@@ -81,6 +81,9 @@
 #define	FACES_DIR "FACES\\BIGFACES\\"
 #define	SMALL_FACES_DIR "FACES\\"
 
+#define	IMP_FACES_DIR "IMPFACES\\BIGFACES\\"
+#define	IMP_SMALL_FACES_DIR "IMPFACES\\"
+
 #define NEXT_MERC_FACE_X	LAPTOP_SCREEN_UL_X + 448
 #define MERC_FACE_SCROLL_Y LAPTOP_SCREEN_UL_Y + 150
 #define PREV_MERC_FACE_X	LAPTOP_SCREEN_UL_X + 285
@@ -834,13 +837,22 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 	// special case?..player generated merc
 	if (fCurrentTeamMode) 
 	{
-		if( ( 50 < 	profileId )&&( 57 > 	profileId ) ) 
+		//if( ( 50 < 	profileId )&&( 57 > 	profileId ) ) 
+		if ( ( profileId >= 0 ) && ( profileId < 100 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
 		{
-			sprintf( sTemp, "%s%03d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
+			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		} 
-		else 
+		else if ( ( profileId > 99 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
+		{			
+			sprintf(sTemp, "%s%03d.sti", IMP_FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		}
+		else if ( ( profileId >= 0 ) && ( profileId < 100 ) )
 		{			
 			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		}
+		else 
+		{			
+			sprintf(sTemp, "%s%03d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
 		}
 
 		// TODO: Check if needed!
@@ -857,7 +869,7 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 		{
 			return;
 		}
-
+/*
 		if( ( 50 < profileId )&&( 57 > profileId ) ) 
 		{
 			sprintf( sTemp, "%s%03d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
@@ -866,6 +878,24 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 		{
 			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex );			
 		}
+*/		
+		if ( ( profileId >= 0 ) && ( profileId < 100 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
+		{
+			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
+		} 
+		else if ( ( profileId > 99 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
+		{			
+			sprintf(sTemp, "%s%03d.sti", IMP_FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		}
+		else if ( ( profileId >= 0 ) && ( profileId < 100 ) )
+		{			
+			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		}
+		else 
+		{			
+			sprintf(sTemp, "%s%03d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		}
+
 	}
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -1778,7 +1808,7 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 
 							for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
 							{
-								if ( ubCnt >= 4 && bNumSkillTraits > 4 )
+								if ( ubCnt >= 4 && bNumSkillTraits > 5 )
 								{
 									fDisplayMoreTraits = TRUE;
 									swprintf( sString, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
@@ -2175,6 +2205,25 @@ void DisplayPicturesOfCurrentTeam( void )
 		} // if
 
 		SOLDIERTYPE *pSoldier = MercPtrs[currentTeamList[currentOnSreenIndex]];
+		
+		if ( ( pSoldier->ubProfile >= 0 ) && ( pSoldier->ubProfile < 100 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		{
+			sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[pSoldier->ubProfile].ubFaceIndex );
+		} 
+		else if ( ( pSoldier->ubProfile > 99 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		{			
+			sprintf(sTemp, "%s%03d.sti", IMP_SMALL_FACES_DIR,	gMercProfiles[pSoldier->ubProfile].ubFaceIndex);			
+		}
+		else if ( ( pSoldier->ubProfile >= 0 ) && ( pSoldier->ubProfile < 100 ))
+		{			
+			sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR,	gMercProfiles[pSoldier->ubProfile].ubFaceIndex);			
+		}
+		else 
+		{			
+			sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[pSoldier->ubProfile].ubFaceIndex);			
+		}
+		
+		/*
 		if ((50 < pSoldier->ubProfile) && (57 > pSoldier->ubProfile)) 
 		{
 			sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex );
@@ -2190,7 +2239,7 @@ void DisplayPicturesOfCurrentTeam( void )
 				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);				
 			} // else
 		} // else
-
+	*/
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP(sTemp, VObjectDesc.ImageFile);
 		CHECKV(AddVideoObject(&VObjectDesc, &guiFACE));
@@ -4730,7 +4779,26 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 	char sTemp[100];
 	HVOBJECT hFaceHandle;
 	VOBJECT_DESC	VObjectDesc;
-
+	
+	
+		if ( ( iId >= 0 ) && ( iId < 100 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )
+		{
+			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[iId].ubFaceIndex );
+		} 
+		else if ( ( iId > 99 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )
+		{			
+			sprintf(sTemp, "%s%03d.sti", IMP_FACES_DIR,	gMercProfiles[iId].ubFaceIndex);			
+		}
+		else if ( ( iId >= 0 ) && ( iId < 100 ))
+		{			
+			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[iId].ubFaceIndex);			
+		}
+		else 
+		{			
+			sprintf(sTemp, "%s%03d.sti", FACES_DIR,	gMercProfiles[iId].ubFaceIndex);			
+		}
+	
+/*
 	if( ( 50 < 	iId	)&&( 57 > 	iId	) ) 
 	{
 		sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ iId ].ubFaceIndex );
@@ -4746,7 +4814,7 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 			sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[ iId ].ubFaceIndex	);			
 		}
 	}
-
+*/
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP(sTemp, VObjectDesc.ImageFile);
 	CHECKV(AddVideoObject(&VObjectDesc, &guiFACE));
@@ -6351,7 +6419,7 @@ void HandlePersonnelKeyboard( void )
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if ( (InputEvent.usEvent == KEY_DOWN ) && (InputEvent.usParam >= '0' ) && ( InputEvent.usParam <= '9') )
 		{
@@ -7323,7 +7391,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 						wcscat( apStr, atStr );
 					}
 				}
-				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameOptions.fImprovedInterruptSystem )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[27], ( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
@@ -7361,7 +7429,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[2], ( gSkillTraitValues.ubSLEffectiveLevelAsStandby * (fExpertLevel ? 2 : 1)));
 					wcscat( apStr, atStr );
 				}
-				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameOptions.fImprovedInterruptSystem )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[11], ( gSkillTraitValues.ubSLCollectiveInterruptsBonus * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
@@ -7722,7 +7790,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, L"%");
 					wcscat( apStr, atStr );
 				}
-				if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameOptions.fImprovedInterruptSystem )
 				{
 					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[4], gSkillTraitValues.ubSTReducedAPsRegistered, L"%");
 					wcscat( apStr, atStr );

@@ -302,8 +302,8 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"MoneyWithdrawMessage",		Loc::gzMoneyWithdrawMessageText,	0, TEXT_NUM_MONEY_WITHDRAW);
 
 	ExportSection(props, L"Copyright",					Loc::gzCopyrightText,				0,	1);
-	ExportSection(props, L"OptionsToggle",				Loc::zOptionsToggleText,			0,	48);
-	ExportSection(props, L"OptionsScreenHelp",			Loc::zOptionsScreenHelpText,		0,	48);
+	ExportSection(props, L"OptionsToggle",				Loc::zOptionsToggleText,			0,	49);
+	ExportSection(props, L"OptionsScreenHelp",			Loc::zOptionsScreenHelpText,		0,	49);
 	ExportSection(props, L"GIOScreen",					Loc::gzGIOScreenText,				0,	TEXT_NUM_GIO_TEXT);
 	ExportSection(props, L"MPJScreen",					Loc::gzMPJScreenText,				0,	TEXT_NUM_MPJ_TEXT);
 	ExportSection(props, L"MPJHelpText",				Loc::gzMPJHelpText,					0,	10);

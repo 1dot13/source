@@ -444,8 +444,15 @@ public:
 	INT8		bTrap;			// 1-10 exp_lvl to detect
 	UINT8		fUsed;			// flags for whether the item is used or not
 	UINT8		ubImprintID;	// ID of merc that item is imprinted on
-};
 
+	// Flugente: due do inconsistencies with WF maps, where data from a map is laoded differently, I had to add this marker. 
+	// New values, like bTemperature, have to come after this. And please, don't destroy ObjectData's POD-ness.
+	char		endOfPOD;
+
+	FLOAT		bTemperature;	// Flugente FTW 1.2: temperature of gun
+};
+// Flugente: needed for reading WF maps
+#define SIZEOF_OBJECTDATA_POD	(offsetof(ObjectData, endOfPOD))
 
 typedef	std::list<OBJECTTYPE>	attachmentList;
 class StackedObjectData  {
@@ -688,7 +695,7 @@ typedef struct
 	UINT16			ubGraphicNum;
 	UINT16			ubWeight; //2 units per kilogram; roughly 1 unit per pound
 	UINT8			ubPerPocket;
-	UINT8			ItemSize;
+	UINT16			ItemSize;
 	UINT16		usPrice;
 	UINT8			ubCoolness;
 	INT8			bReliability;
@@ -731,7 +738,6 @@ typedef struct
 	BOOLEAN gasmask;
 	BOOLEAN lockbomb;
 	BOOLEAN flare;
-	BOOLEAN ammocrate;
 	INT16 percentnoisereduction;
 	INT16 bipod;
 	INT16 tohitbonus;
@@ -842,6 +848,14 @@ typedef struct
 	FLOAT scopemagfactor;
 	FLOAT projectionfactor;
 	BOOLEAN speeddot;
+
+	// Flugente FTW 1.2
+	BOOLEAN	barrel;									// item can be used on some guns as an exchange barrel
+	FLOAT	usOverheatingCooldownFactor;			// every turn/5 seconds, a gun's temperature is lowered by this amount
+	FLOAT	overheatTemperatureModificator;			// percentage modifier of heat a shot generates (read from attachments)
+	FLOAT	overheatCooldownModificator;			// percentage modifier of cooldown amount (read from attachments, applies to guns & barrels)
+	FLOAT	overheatJamThresholdModificator;		// percentage modifier of a gun's jam threshold (read from attachments)
+	FLOAT	overheatDamageThresholdModificator;		// percentage modifier of a gun's damage threshold (read from attachments) 
 
 } INVTYPE;
 
@@ -1307,7 +1321,7 @@ typedef enum
 	DEFAULT_CPACK = 442,
 	DEFAULT_BPACK = 448,
 
-	MAXITEMS = 5001
+	MAXITEMS = 16001
 } ITEMDEFINE;
 
 /* CHRISL: Arrays to track ic group information.  These allow us to determine which LBE slots control which pockets and
@@ -1330,15 +1344,15 @@ const INT8	vehicleInv[NUM_INV_SLOTS]=	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 // Determines the default pocket
 const INT16	icDefault[NUM_INV_SLOTS] =	{
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	DEFAULT_CPACK, DEFAULT_CPACK, DEFAULT_CPACK,
-	DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK,
-	DEFAULT_VEST, DEFAULT_VEST,
-	DEFAULT_THIGH, DEFAULT_THIGH,
-	DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST,
-	DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH,
-	DEFAULT_CPACK, DEFAULT_CPACK, DEFAULT_CPACK, DEFAULT_CPACK,
-	DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK};
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,//0-13
+	DEFAULT_CPACK, DEFAULT_CPACK, DEFAULT_CPACK,//14,15,16
+	DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK,//17,18,19,20
+	DEFAULT_VEST, DEFAULT_VEST,//21,22
+	DEFAULT_THIGH, DEFAULT_THIGH,//23,24
+	DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST, DEFAULT_VEST,//24-34
+	DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH, DEFAULT_THIGH,//35-42
+	DEFAULT_CPACK, DEFAULT_CPACK, DEFAULT_CPACK, DEFAULT_CPACK,//43,44,45,46
+	DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK, DEFAULT_BPACK};//47+
 
 #define FIRST_HELMET STEEL_HELMET
 #define LAST_HELMET SPECTRA_HELMET_Y
@@ -1417,7 +1431,8 @@ typedef enum
 	EASY_MERGE,
 	ELECTRONIC_MERGE,
 	USE_ITEM,
-	USE_ITEM_HARD
+	USE_ITEM_HARD,
+	TEMPERATURE
 } MergeType;
 
 extern UINT16 Merge[MAXITEMS+1][6];

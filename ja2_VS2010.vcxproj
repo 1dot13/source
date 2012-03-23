@@ -97,39 +97,38 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>bin\VS2010\$(Configuration)\</OutDir>
-    <IntDir>build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
-    <TargetName>JA2_EN_Debug.exe</TargetName>
-    <TargetExt />
+    <OutDir>$(SolutionDir)\bin\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>bin\VS2010\$(Configuration)\</OutDir>
-    <IntDir>build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
-    <TargetExt>
-    </TargetExt>
-    <TargetName>MapEditor_EN_Debug.exe</TargetName>
+    <OutDir>$(SolutionDir)\bin\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetExt>.exe</TargetExt>
+    <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>bin\VS2010\$(Configuration)\</OutDir>
-    <IntDir>build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
-    <TargetName>JA2_PO_Release.exe</TargetName>
-    <TargetExt />
+    <OutDir>$(SolutionDir)\bin\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>bin\VS2010\$(Configuration)\</OutDir>
-    <IntDir>build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
-    <TargetName>MapEditor_EN_Release.exe</TargetName>
-    <TargetExt />
+    <OutDir>$(SolutionDir)\bin\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Relese_WithDebugInfo|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>bin\VS2010\$(Configuration)\</OutDir>
-    <IntDir>build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
-    <TargetName>JA2_EN_ReleaseDebugInfo.exe</TargetName>
-    <TargetExt />
+    <OutDir>$(SolutionDir)\bin\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,7 +144,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>Multiplayer\raknet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Winmm.lib;RakNetLibStatic.lib;ws2_32.lib;DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)\JA2_EN_Debug.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
@@ -226,7 +224,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>Multiplayer\raknet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Winmm.lib;RakNetLibStatic.lib;ws2_32.lib;DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)\JA2_EN_ReleaseDebugInfo.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1890,7 +1890,7 @@ BOOLEAN ExecuteOverhead( )
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - hack! - resolve possible pending interrupt
-		if(GetSoldier(&pSoldier, gusSelectedSoldier) && gGameExternalOptions.fImprovedInterruptSystem )
+		if(GetSoldier(&pSoldier, gusSelectedSoldier) && gGameOptions.fImprovedInterruptSystem )
 		{
 			if ( pSoldier->bActive )
 			{
@@ -2831,7 +2831,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - if pending interrupt flag was set for movement type of interupt, resolve it here
-	if ( gGameExternalOptions.fImprovedInterruptSystem )
+	if ( gGameOptions.fImprovedInterruptSystem )
 	{
 		if ( ResolvePendingInterrupt( pSoldier, MOVEMENT_INTERRUPT ) )
 		{
@@ -8662,7 +8662,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - if pending interrupt flag was set for after-shot type of interupt, try to resolve it now
-	if ( gGameExternalOptions.fImprovedInterruptSystem )
+	if ( gGameOptions.fImprovedInterruptSystem )
 	{
 		if ( ResolvePendingInterrupt( pSoldier, AFTERSHOT_INTERRUPT ) )
 		{

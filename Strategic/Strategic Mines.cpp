@@ -1030,26 +1030,32 @@ void IssueHeadMinerQuote( INT8 bMineIndex, UINT8 ubQuoteType )
 	switch ( bMineIndex )
 	{
 		case MINE_GRUMM:
-			sXPos = DEFAULT_EXTERN_PANEL_X_POS, sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
+			sXPos = DEFAULT_EXTERN_PANEL_X_POS;
+			sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
 			break;
 		case MINE_CAMBRIA:
-			sXPos = DEFAULT_EXTERN_PANEL_X_POS, sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
+			sXPos = DEFAULT_EXTERN_PANEL_X_POS;
+			sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
 			break;
 		case MINE_ALMA:
-			sXPos = DEFAULT_EXTERN_PANEL_X_POS, sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
+			sXPos = DEFAULT_EXTERN_PANEL_X_POS;
+			sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
 			break;
 		case MINE_DRASSEN:
-			sXPos = DEFAULT_EXTERN_PANEL_X_POS, sYPos = 135;
+			sXPos = DEFAULT_EXTERN_PANEL_X_POS;
+			sYPos = 135;
 			break;
 		case MINE_CHITZENA:
-			sXPos = DEFAULT_EXTERN_PANEL_X_POS, sYPos = 117;
+			sXPos = DEFAULT_EXTERN_PANEL_X_POS;
+			sYPos = 117;
 			break;
 
 		// there's no head miner in San Mona, this is an error!
 		case MINE_SAN_MONA:
 		default:
 			//Assert( FALSE );
-			sXPos = DEFAULT_EXTERN_PANEL_X_POS, sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
+			sXPos = DEFAULT_EXTERN_PANEL_X_POS;
+			sYPos = DEFAULT_EXTERN_PANEL_Y_POS;
 			break;
 	}
 

@@ -172,7 +172,7 @@ BOOLEAN LoadGraphicForItem( ENCYCLOPEDIA_LOCATION *pEncy, UINT32 i )
 			sprintf( zName, "p2item%d", ubGraphic );
 		}
 	}
-	else
+	else if ( Item[i].ubGraphicType == 3 )
 	{
 		if ( ubGraphic < 10 )
 		{
@@ -181,6 +181,73 @@ BOOLEAN LoadGraphicForItem( ENCYCLOPEDIA_LOCATION *pEncy, UINT32 i )
 		else
 		{
 			sprintf( zName, "p3item%d", ubGraphic );
+		}
+	}
+//MM: New item tileslots start here
+	else if ( Item[i].ubGraphicType == 4 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p4item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p4item%d", ubGraphic );
+		}
+	}
+	else if ( Item[i].ubGraphicType == 5 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p5item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p5item%d", ubGraphic );
+		}
+	}
+	else if ( Item[i].ubGraphicType == 6 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p6item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p6item%d", ubGraphic );
+		}
+	}
+	else if ( Item[i].ubGraphicType == 7 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p7item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p7item%d", ubGraphic );
+		}
+	}
+	else if ( Item[i].ubGraphicType == 8 )
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p8item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p8item%d", ubGraphic );
+		}
+	}
+	else
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "p9item0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "p9item%d", ubGraphic );
 		}
 	}
 

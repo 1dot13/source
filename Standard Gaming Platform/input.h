@@ -43,7 +43,7 @@
 #define BUTTON_REPEAT_TIMEOUT			250
 #define BUTTON_REPEAT_TIME				50
 
-typedef struct
+typedef struct InputAtom
 { 
 	UINT32 uiTimeStamp;
 	UINT16 usKeyState;

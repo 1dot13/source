@@ -34,9 +34,9 @@
 	#include "utilities.h"
 #endif
 
+#include "GameSettings.h"
 #include "input.h"
 #include "zmouse.h"
-#include "GameSettings.h"
 
 #include <vfs/Aspects/vfs_settings.h>
 #include <vfs/Core/vfs.h>
@@ -57,6 +57,7 @@
 
 #include <iostream>
 
+#include <excpt.h>
 #include "ExceptionHandling.h"
 
 #include "dbt.h"
@@ -86,6 +87,8 @@ static bool			s_DebugKeyboardInput = false;
 static vfs::Path	s_CodePage;
 
 static vfs::FileLogger *vfslog = NULL;
+
+int		iWindowedMode;
 
 void SHOWEXCEPTION(sgp::Exception& ex)
 {
@@ -143,11 +146,17 @@ extern	BOOLEAN		CheckIfGameCdromIsInCDromDrive();
 extern	void		QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
 
 // Prototype Declarations
-
+INT32 FAR PASCAL	SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
 INT32 FAR PASCAL	WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
 BOOLEAN				InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow);
 void				ShutdownStandardGamingPlatform(void);
+void				CreateStandardGamingPlatform(HWND hWindow);
 void				GetRuntimeSettings( );
+void				SafeSGPExit(void);
+
+static bool			CallGameLoop(bool wait);
+static CRITICAL_SECTION gcsGameLoop;
+
 
 int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
 
@@ -200,6 +209,15 @@ BOOLEAN				gfIgnoreMessages=FALSE;
 
 // GLOBAL VARIBLE, SET TO DEFAULT BUT CAN BE CHANGED BY THE GAME IF INIT FILE READ
 UINT8				gbPixelDepth = PIXEL_DEPTH;
+
+INT32 FAR PASCAL SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
+{
+	INT32 retval;
+	EnterCriticalSection(&gcsGameLoop);
+	retval = WindowProcedure(hWindow, Message, wParam, lParam);
+	LeaveCriticalSection(&gcsGameLoop);
+	return retval;
+}
 
 bool				s_bExportStrings		= false;
 extern bool			g_bUseXML_Strings;//	= false;
@@ -509,7 +527,8 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		break;
 
 	case WM_CREATE:
-			break;
+		CreateStandardGamingPlatform(hWindow);
+		break;
 
 	case WM_DESTROY: 
 		ShutdownStandardGamingPlatform();
@@ -637,7 +656,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FontTranslationTable *pFontTable;
 
 	// now required by all (even JA2) in order to call ShutdownSGP
-	atexit(SGPExit);
+	atexit(SafeSGPExit);
 
 	// First, initialize the registry keys.
 	InitializeRegistryKeys( "Wizardry8", "Wizardry8key" );
@@ -698,6 +717,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
+	InitializeCriticalSection(&gcsGameLoop);
+
 	FastDebugMsg("Initializing Video Manager");
 	// Initialize DirectDraw (DirectX 2)
 	if (InitializeVideoManager(hInstance, (UINT16) sCommandShow, (void *) WindowProcedure) == FALSE)
@@ -723,7 +744,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
-	InitializeJA2Clock();
 	//InitializeJA2TimerID();
 
 #ifdef USE_VFS
@@ -873,6 +893,24 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	return TRUE;
 }
 
+static void TimerActivatedCallback(INT32 timer, PTR state)
+{
+	if (gfApplicationActive && gfProgramIsRunning)
+	{
+		if (CallGameLoop(false))
+			YieldProcessor();
+	}
+}
+
+void CreateStandardGamingPlatform(HWND hWindow)
+{
+	InitializeJA2Clock();
+
+	if (!IsHiSpeedClockMode())
+		SetTimer( hWindow, 0, 1, NULL);
+	else
+		AddTimerNotifyCallback(TimerActivatedCallback, hWindow);
+}
 
 void ShutdownStandardGamingPlatform(void)
 {
@@ -896,6 +934,7 @@ void ShutdownStandardGamingPlatform(void)
 	//
 	// Shut down the different components of the SGP
 	//
+	ClearTimerNotifyCallbacks();
 
 	// TEST
 	SoundServiceStreams();
@@ -904,7 +943,6 @@ void ShutdownStandardGamingPlatform(void)
 	{
 		ShutdownGame();
 	}
-
 
 	ShutdownButtonSystem();
 	MSYS_Shutdown();
@@ -943,6 +981,8 @@ void ShutdownStandardGamingPlatform(void)
 	// Make sure we unregister the last remaining debug topic before shutting
 	// down the debugging layer
 	UnRegisterDebugTopic(TOPIC_SGP, "Standard Gaming Platform");
+
+	DeleteCriticalSection(&gcsGameLoop);
 
 	ShutdownDebugManager();
 
@@ -1023,11 +1063,24 @@ private:
 
 int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
+#ifdef _DEBUG
+	// Use this one ONLY if you're having memory corruption issues that can be repeated in a short time
+	// Otherwise it will just run out of memory.
+
+	/****************************************************************************************************/
+	/*                                                                                                  */
+	/*               DEBUG MEMORY ALLOCATION ON THE HEAP :  uncomment when required                     */
+	/*          ------------------------------------------------------------------------                */
+	/*                                                                                                  */
+	/*  _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_1024_DF);    */
+	/*  _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_DEBUG );                                            */
+	/*                                                                                                  */
+	/****************************************************************************************************/
+#endif
 
 //If we are to use exception handling
 #ifdef ENABLE_EXCEPTION_HANDLING
 	int Result = -1;
-
 
 	__try
 	{
@@ -1057,6 +1110,8 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	MSG				Message;
 	HWND			hPrevInstanceWindow;
 	UINT32			uiTimer = 0;
+
+
 
 #ifdef USE_VFS
 	vfs::Log::setSharedString( getGameID() );
@@ -1193,9 +1248,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 	FastDebugMsg("Running Game");
 
-	// 0verhaul:	Use the smallest available timer to make sure all animation updates happen at the speed they're supposed to
-	SetTimer( ghWindow, uiTimer, 1, NULL);
-
 	// At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
 	// attend to the gaming mechanics themselves
 	Message.wParam = 0;
@@ -1269,8 +1321,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	}
 #endif
 
-	KillTimer( ghWindow, uiTimer);
-
 	// This is the normal exit point
 	FastDebugMsg("Exiting Game");
 	PostQuitMessage(0);
@@ -1281,7 +1331,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	// return wParam of the last message received
 	return Message.wParam;
 }
-
 
 
 void SGPExit(void)
@@ -1326,7 +1375,12 @@ void SGPExit(void)
 
 void GetRuntimeSettings( )
 {
+	int		iMaximize;
+	
 #ifndef USE_VFS
+	CHAR8	zMaximize[ 50 ];
+	CHAR8	zWindowedMode[ 50 ];
+
 	// Runtime settings - for now use INI file - later use registry
 	STRING512		INIFile;		// Path to the ini file
 	CHAR8			zScreenResolution[ 50 ];
@@ -1340,12 +1394,20 @@ void GetRuntimeSettings( )
 	vfs::PropertyContainer oProps;
 	oProps.initFromIniFile(GAME_INI_FILE);
 #endif
-	iResolution = -1;
+	
 #ifndef USE_VFS
 	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
 	{
 		iResolution = atoi(zScreenResolution);
 	}
+	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_MODE_WINDOWED_MAXIMIZE", "", zMaximize, 50, INIFile ))
+	{
+		iMaximize = atoi(zMaximize);
+	}	
+	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_MODE_WINDOWED", "", zWindowedMode, 50, INIFile ))
+	{
+		iWindowedMode = atoi(zWindowedMode);
+	}	
 #else
 	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
 	if(!loc.empty())
@@ -1354,6 +1416,12 @@ void GetRuntimeSettings( )
 	}
 
 	iResolution = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
+	
+	// WANNE: Always enable
+	//iMaximize = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_MODE_WINDOWED_MAXIMIZE", -1);
+	iMaximize = 1;
+	
+	iWindowedMode = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_MODE_WINDOWED", -1);
 
 	vfs::Settings::setUseUnicode( !oProps.getBoolProperty(L"Ja2 Settings", L"VFS_NO_UNICODE", false) );
 
@@ -1428,23 +1496,120 @@ void GetRuntimeSettings( )
 
 	switch (iResolution)
 	{
-		// 640x480
-		case 0:
+		case _640x480:
 			iResX = 640;
 			iResY = 480;
 			break;
-		// 1024x768
-		case 2:
+		case _800x600:
+			iResX = 800;
+			iResY = 600;
+			break;
+		case _1024x600:
+			iResX = 1024;
+			iResY = 600;
+			break;
+		case _1280x720:
+			iResX = 1280;
+			iResY = 720;
+			break;
+		case _1024x768:
 			iResX = 1024;
 			iResY = 768;
 			break;
-		// 800x600
-		default:
-			iResolution = 1;
+		case _1280x768:
+			iResX = 1280;
+			iResY = 768;
+			break;
+		case _1360x768:
+			iResX = 1360;
+			iResY = 768;
+			break;
+		case _1366x768:
+			iResX = 1366;
+			iResY = 768;
+			break;
+		case _1280x800:
+			iResX = 1280;
+			iResY = 800;
+			break;
+		case _1440x900:
+			iResX = 1440;
+			iResY = 900;
+			break;
+		case _1600x900:
+			iResX = 1600;
+			iResY = 900;
+			break;
+		case _1280x960:
+			iResX = 1280;
+			iResY = 960;
+			break;
+		case _1440x960:
+			iResX = 1440;
+			iResY = 960;
+			break;
+		case _1770x1000:
+			iResX = 1770;
+			iResY = 1000;
+			break;
+		case _1280x1024:
+			iResX = 1280;
+			iResY = 1024;
+			break;
+		case _1360x1024:
+			iResX = 1360;
+			iResY = 1024;
+			break;
+		case _1600x1024:
+			iResX = 1600;
+			iResY = 1024;
+			break;
+		case _1440x1050:
+			iResX = 1440;
+			iResY = 1050;
+			break;
+		case _1680x1050:
+			iResX = 1680;
+			iResY = 1050;
+			break;
+		case _1920x1080:
+			iResX = 1920;
+			iResY = 1080;
+			break;
+		case _1600x1200:
+			iResX = 1600;
+			iResY = 1200;
+			break;
+		case _1920x1200:
+			iResX = 1920;
+			iResY = 1200;
+			break;
+		case _2560x1440:
+			iResX = 2560;
+			iResY = 1440;
+			break;
+		case _2560x1600:
+			iResX = 2560;
+			iResY = 1600;
+			break;
+		default:	// 800x600
+			iResolution = _800x600;
 			iResX = 800;
 			iResY = 600;
 			break;
 	}
+
+	if (iWindowedMode == 1 && iMaximize == 1)
+	{
+		if ((iResX - 16) >= 1024)
+			iResX = iResX - 16;
+
+		if ((iResY - 70) >= 768)
+			iResY = iResY - 70;
+	}
+
+	// Adjust again
+
 #ifndef USE_VFS
 	gbPixelDepth = GetPrivateProfileInt( "SGP", "PIXEL_DEPTH", PIXEL_DEPTH, INIFile );
 
@@ -1462,13 +1627,32 @@ void GetRuntimeSettings( )
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
 #else
-	gbPixelDepth = (UINT8)oProps.getIntProperty(L"SGP", L"PIXEL_DEPTH", PIXEL_DEPTH);
+	gbPixelDepth = PIXEL_DEPTH;
 
-	SCREEN_WIDTH = (UINT16)oProps.getIntProperty(L"SGP", L"WIDTH", iResX);
-	SCREEN_HEIGHT = (UINT16)oProps.getIntProperty(L"SGP", L"HEIGHT", iResY);
+	SCREEN_WIDTH = iResX;
+	SCREEN_HEIGHT = iResY;
 
 	iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
 	iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
+
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
+		xResOffset = ((SCREEN_WIDTH - 640) / 2);
+		yResOffset = ((SCREEN_HEIGHT - 480) / 2);	
+	}
+	else if (iResolution < _1024x768)
+	{
+		xResOffset = ((SCREEN_WIDTH - 800) / 2);
+		yResOffset = ((SCREEN_HEIGHT - 600) / 2);
+	}
+	else
+	{
+		xResOffset = ((SCREEN_WIDTH - 1024) / 2);
+		yResOffset = ((SCREEN_HEIGHT - 768) / 2);
+	}
+
+	xResSize = (SCREEN_WIDTH - 2 * xResOffset);		// one of the following: 1024 or 800 or 640
+	yResSize = (SCREEN_HEIGHT - 2 * yResOffset);	// one of the follownig: 768 or 600 or 480
 
 	/* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
 	/* 1 for Windowed, 0 for Fullscreen */
@@ -1484,8 +1668,27 @@ void GetRuntimeSettings( )
 	s_DebugKeyboardInput = oProps.getBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);
 	s_CodePage = oProps.getStringProperty(L"Ja2 Settings", L"CODE_PAGE");
 #endif // USE_CODE_PAGE
+
+	// get timer/clock initialization state
+	SetHiSpeedClockMode( oProps.getBoolProperty("Ja2 Settings", "HIGHSPEED_TIMER", false) ? TRUE : FALSE );	
 #endif
 }
+
+
+void SafeSGPExit(void)
+{
+	// SGPExit tends to use resources that are already uninitialized so handle 
+	__try
+	{
+		SGPExit();
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		// The application is in exit and best effort to clean up 
+		//  has failed so just ignore and continue silently
+	}
+}
+
 
 void ShutdownWithErrorBox(CHAR8 *pcMessage)
 {
@@ -1617,3 +1820,61 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 
 	MemFree(pCopy);
 }
+
+
+
+static LONG __stdcall SGPExceptionFilter(int exceptionCount, EXCEPTION_POINTERS* pExceptInfo)
+{
+#ifdef ENABLE_EXCEPTION_HANDLING
+
+	if (exceptionCount > 3)
+	{
+		// the exception handler writer can fail with exceptions too
+		__try
+		{
+			RecordExceptionInfo(pExceptInfo);
+		} __except (EXCEPTION_EXECUTE_HANDLER) {}
+		AssertMsg(FALSE, "Unhanded exception processing GameLoop unable to recover.");
+	}
+
+#endif
+
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+
+static bool CallGameLoop(bool wait)
+{
+	static int numUnsuccessfulTries = 0;
+	if (wait)
+	{
+		EnterCriticalSection(&gcsGameLoop);
+	}
+	else
+	{
+		if ( !TryEnterCriticalSection(&gcsGameLoop) )
+			return false;
+	}
+
+	__try
+	{
+		__try
+		{
+			GameLoop();
+			numUnsuccessfulTries = 0;
+		}
+		__except( SGPExceptionFilter(++numUnsuccessfulTries, GetExceptionInformation()) )
+		{
+		}
+	}
+	__finally
+	{
+		LeaveCriticalSection(&gcsGameLoop);
+	}
+
+	// Give it several attempts to recover from random exceptions and to display error screen
+	if (numUnsuccessfulTries > 5)
+		ShutdownWithErrorBox("Unhandled exception. Unable to recover.");
+
+	return true;
+}
+

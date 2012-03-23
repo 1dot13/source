@@ -103,6 +103,7 @@
 #include "vobject.h"
 #include "overhead types.h"
 #include "tactical save.h"
+#include "KeyMap.h"
 //#include <windows.h>
 //#include <windowsx.h>
 //#include <mmsystem.h>

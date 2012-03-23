@@ -2386,7 +2386,11 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 		|| (dMajorMapVersion == gdMajorMapVersion && gubMinorMapVersion == ubMinorMapVersion))
 	{
 		int size;
-		LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
+		// Flugente: changed this, otherwise game would crash when reading WF maps if class ObjectData was different. this is a rough fix and by no means perfect
+		//LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
+		// +1 because we have to account for endOfPOD itself
+		LOADDATA(&(this->data), *hBuffer, SIZEOF_OBJECTDATA_POD+1 );
+		
 		LOADDATA(&size, *hBuffer, sizeof(int) );
 		attachments.resize(size);
 		for (attachmentList::iterator iter = attachments.begin(); iter != attachments.end(); ++iter) {
@@ -2905,6 +2909,14 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	SaveGameHeader.sInitialGameOptions.ubAttachmentSystem = gGameOptions.ubAttachmentSystem;
 
 	SaveGameHeader.sInitialGameOptions.ubSquadSize = gGameOptions.ubSquadSize;
+
+
+	//SaveGameHeader.sInitialGameOptions.fBobbyRayFastShipments = gGameOptions.fBobbyRayFastShipments;
+	SaveGameHeader.sInitialGameOptions.fInventoryCostsAP = gGameOptions.fInventoryCostsAP;
+
+	SaveGameHeader.sInitialGameOptions.fUseNCTH = gGameOptions.fUseNCTH;
+	SaveGameHeader.sInitialGameOptions.fImprovedInterruptSystem = gGameOptions.fImprovedInterruptSystem;
+	SaveGameHeader.sInitialGameOptions.fWeaponOverheating = gGameOptions.fWeaponOverheating;
 
 	//
 	// Save the Save Game header file
@@ -3884,6 +3896,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ShutdownNPCQuotes();
 
+	SetFastForwardMode(FALSE); // FF can sometimes be active if quick-load during AI turn transition
+
 	//very small TODO
 	//Bugfix = Stop the chopter sound
 
@@ -4011,7 +4025,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		InitializeInvPanelCoordsOld();
 	}
 
-	if (gGameOptions.ubSquadSize > 6 && iResolution == 0 || gGameOptions.ubSquadSize > 8 && iResolution == 1)
+	if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
+		(gGameOptions.ubSquadSize == 10 && iResolution < _1024x768))
 	{
 		FileClose( hFile );
 		return(FALSE);
@@ -8737,7 +8752,7 @@ void HandleOldBobbyRMailOrders()
 				//copy over the purchase info
 				memcpy( gpNewBobbyrShipments[ iNewListCnt ].BobbyRayPurchase,
 								LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray[iCnt].BobbyRayPurchase,
-								sizeof( BobbyRayPurchaseStruct ) * MAX_PURCHASE_AMOUNT );
+								sizeof( BobbyRayPurchaseStruct ) * gGameExternalOptions.ubBobbyRayMaxPurchaseAmount );
 
 				gpNewBobbyrShipments[ iNewListCnt ].fActive = TRUE;
 				gpNewBobbyrShipments[ iNewListCnt ].ubDeliveryLoc = BR_DRASSEN;

@@ -1094,6 +1094,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 
 	pSoldier->bSide=0; //default coop only
 	gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=0;
+	pSoldier->bVisible = 1;
 
 	if(MercCreateStruct.ubProfile==64)//slay
 	{
@@ -1104,6 +1105,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	if(cGameType==MP_TYPE_DEATHMATCH)//all vs all only
 	{
 		pSoldier->bSide=1;
+		pSoldier->bVisible = 0;
 		gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=1;
 		
 	}
@@ -1112,6 +1114,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 		if(sHireMerc->team != TEAM)
 		{
 			pSoldier->bSide=1;
+			pSoldier->bVisible = 0;
 			gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=1;
 		}
 	}
@@ -1485,7 +1488,7 @@ void send_donegui ( UINT8 ubResult )
 		info.ready_stage = 3;//done placing mercs
 		info.status=1;
 		
-		SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+		SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 		DoMessageBox( MSG_BOX_BASIC_STYLE, MPClientMessage[12],  guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, send_donegui,  &CenterRect );
 
 		if(numready==cMaxClients && is_server)//all done
@@ -1669,7 +1672,7 @@ void start_battle ( void )
 		// Go to "ready" state!
 		if (numPlayersValid && clientsFinishedDownloading && teamsValid)
 		{
-			SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+			SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 			DoMessageBox( MSG_BOX_BASIC_STYLE, MPClientMessage[35],  guiCurrentScreen, MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT, allowlaptop_callback,  &CenterRect );
 		}
 	}
@@ -2169,7 +2172,7 @@ void requestSETID(RPCParameters *rpcParameters)
 			{
 				serverAddr = rpcParameters->sender;
 				
-				SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+				SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
 				DoMessageBox( MSG_BOX_BASIC_STYLE , MPClientMessage[64] , guiCurrentScreen, MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT, allowDownloadCallback, &CenteringRect );
 			}
 		}
@@ -2415,7 +2418,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= false;
 
 		// WANNE: The new improved interrupt system (IIS) does not work with multiplayer, so disable it
-		gGameExternalOptions.fImprovedInterruptSystem			= false;
+		//gGameOptions.fImprovedInterruptSystem			= false;
 
 		// Disable Real-Time Mode
 		// SANDRO - huh? real-time sneak is in preferences
@@ -2424,7 +2427,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] = false;
 		gGameExternalOptions.fQuietRealTimeSneak = false;
 
-				// WANNE: Take the settings from the ja2_options.ini
+		// WANNE: Take the settings from the ja2_options.ini
 		// WANNE: Enable fast loading
 		/*gGameExternalOptions.fDisableLaptopTransition = true;
 		gGameExternalOptions.fFastWWWSitesLoading = true;
@@ -2471,12 +2474,19 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		}
 
 		gGameOptions.ubSquadSize = 6;
+		
+		//gGameOptions.fBobbyRayFastShipments = FALSE;
+		gGameOptions.fInventoryCostsAP = FALSE;
+
+		gGameOptions.fUseNCTH = FALSE;
+		gGameOptions.fImprovedInterruptSystem = FALSE;
+		gGameOptions.fWeaponOverheating = FALSE;
 
 		// Server forces us to play with new Inventory, but NIV is not allowed on the client,
 		// because of wrong resolution or other stuff
 		if ( UsingNewInventorySystem() == true && !IsNIVModeValid(true) )
 		{
-			SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+			SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH-1 - 2  * xResOffset, SCREEN_HEIGHT-1 };
 			DoMessageBox( MSG_BOX_BASIC_STYLE , MPClientMessage[69] , guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, InvalidClientSettingsOkBoxCallback, &CenteringRect );
 		}
 		else
@@ -2629,7 +2639,7 @@ void reapplySETTINGS()
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= false;
 
 	// WANNE: The new improved interrupt system (IIS) does not work with multiplayer, so disable it
-	gGameExternalOptions.fImprovedInterruptSystem			= false;
+	//gGameOptions.fImprovedInterruptSystem			= false;
 
 	// Disable Real-Time Mode
 	// SANDRO - real-time sneak is in preferences
@@ -2637,7 +2647,7 @@ void reapplySETTINGS()
 	gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] = false;
 	gGameExternalOptions.fQuietRealTimeSneak = false;
 
-		// WANNE: Take the settings from the ja2_options.ini
+	// WANNE: Take the settings from the ja2_options.ini
 	// WANNE: Enable fast loading
 	/*gGameExternalOptions.fDisableLaptopTransition = true;
 	gGameExternalOptions.fFastWWWSitesLoading = true;
@@ -2684,6 +2694,13 @@ void reapplySETTINGS()
 	}
 
 	gGameOptions.ubSquadSize = 6;
+
+	//gGameOptions.fBobbyRayFastShipments = FALSE;
+	gGameOptions.fInventoryCostsAP = FALSE;
+
+	gGameOptions.fUseNCTH = FALSE;
+	gGameOptions.fImprovedInterruptSystem = FALSE;
+	gGameOptions.fWeaponOverheating = FALSE;
 
 	// WANNE - MP: We have to re-initialize the correct interface
 	if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))
@@ -4131,7 +4148,8 @@ void kick_player (void)
 		else 
 			swprintf(Cmsg, MPClientMessage[74], client_names[1],client_names[2],client_names[3]);
 		
-		SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+		SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - xResOffset, 300 };
+
 		DoMessageBox( MSG_BOX_BASIC_STYLE, Cmsg,  guiCurrentScreen, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS | MSG_BOX_FLAG_USE_CENTERING_RECT, kick_callback,  &CenterRect );
 	}
 	else	
@@ -4208,7 +4226,7 @@ void overide_turn (void)
 		else 
 			swprintf(Cmsg, MPClientMessage[30], client_names[1],client_names[2],client_names[3]);
 			
-		SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+		SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 		
 		DoMessageBox( MSG_BOX_BASIC_STYLE, Cmsg,  guiCurrentScreen, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS | MSG_BOX_FLAG_USE_CENTERING_RECT | MSG_BOX_FLAG_OK, turn_callback,  &CenterRect );
 	}
@@ -4448,7 +4466,7 @@ void HandleClientConnectionLost()
 
 		// connection lost, let user know via popup then quit to main menu
 		iDisconnectedScreen = guiCurrentScreen;
-		SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+		SGPRect CenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT };
 
 		if (wcscmp(gszDisconnectReason,L"")==0)
 		{

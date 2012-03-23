@@ -1404,10 +1404,16 @@ UINT16 GetSMPanelCurrentMerc( )
 // CHRISL: New functions to define initial settings for New Inventory system
 void InitNewInventorySystem( )
 {
-	INTERFACE_WIDTH			= 640;
+	if (iResolution >= _640x480 && iResolution < _800x600)
+		INTERFACE_WIDTH			= 640;
+	else if (iResolution < _1024x768)
+		INTERFACE_WIDTH			= 800;
+	else
+		INTERFACE_WIDTH			= 1024;
+
+	INTERFACE_START_X		= (SCREEN_WIDTH - INTERFACE_WIDTH)/2;
 	INTERFACE_HEIGHT		= 120;
 	INV_INTERFACE_HEIGHT	= 200;
-	INTERFACE_START_X		= 0;
 	INTERFACE_START_Y		= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
 	INV_INTERFACE_START_Y	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 }
@@ -1415,10 +1421,16 @@ void InitNewInventorySystem( )
 // CHRISL: New functions to define initial settings for Old Inventory system
 void InitOldInventorySystem( )
 {
-	INTERFACE_WIDTH			= 640;
+	if (iResolution >= _640x480 && iResolution < _800x600)
+		INTERFACE_WIDTH			= 640;
+	else if (iResolution < _1024x768)
+		INTERFACE_WIDTH			= 800;
+	else
+		INTERFACE_WIDTH			= 1024;
+
+	INTERFACE_START_X		= (SCREEN_WIDTH - INTERFACE_WIDTH)/2;
 	INTERFACE_HEIGHT		= 120;
 	INV_INTERFACE_HEIGHT	= 140;
-	INTERFACE_START_X		= 0;
 	INTERFACE_START_Y		= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
 	INV_INTERFACE_START_Y	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 }
@@ -1532,9 +1544,12 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	SM_STEALTHMODE_X		= ( 187 + INTERFACE_START_X );
 	SM_STEALTHMODE_Y		= ( 73 + INV_INTERFACE_START_Y );
 
-	SM_DONE_X				=	(SCREEN_WIDTH - 97);//( 543 + INTERFACE_START_X );
+	SM_DONE_X				=	xResOffset + (xResSize - 97);
+	SM_MAPSCREEN_X			=	xResOffset + (xResSize - 51);
+	INTERFACE_CLOCK_X		=	xResOffset + (xResSize - 86);
+	LOCATION_NAME_X			=	xResOffset + (xResSize - 92);	
+	
 	SM_DONE_Y				= ( 4 + INV_INTERFACE_START_Y );
-	SM_MAPSCREEN_X			=	(SCREEN_WIDTH - 51);//( 589 + INTERFACE_START_X );
 	SM_MAPSCREEN_Y			= ( 4 + INV_INTERFACE_START_Y );
 
 	SM_POSITIONB_X			= ( 106 + INTERFACE_START_X );
@@ -1598,13 +1613,11 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	STATS_TEXT_FONT_COLOR	= 5;
 
 	// ow and te clock and location i will put it here
-	INTERFACE_CLOCK_X	=		(SCREEN_WIDTH - 86);				//( 554	+ INTERFACE_START_X		);
 	INTERFACE_CLOCK_Y	= ( 119	+ INV_INTERFACE_START_Y );
-	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);				//( 548	+ INTERFACE_START_X		);
 	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
 
-	// Keyring
-	KEYRING_X			= 494; //487;
+	// Keyring	
+	KEYRING_X			= xResOffset + 494;
 	KEYRING_Y			= (105 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
@@ -1623,7 +1636,8 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	to allow the new inventory interface to function properly. Also altered many of the interface coords
 	so that the new interface would line up correctly.*/
 	// Inventory slots
-	if(iResolution == 0){
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
 		gSMInvPocketXY[0].sX = INTERFACE_START_X + 239;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 68;		// HELMETPOS
 		gSMInvPocketXY[1].sX = INTERFACE_START_X + 239;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 96;		// VESTPOS
 		gSMInvPocketXY[2].sX = INTERFACE_START_X + 239;		gSMInvPocketXY[2].sY = INV_INTERFACE_START_Y + 157;		// LEGPOS
@@ -1680,7 +1694,8 @@ BOOLEAN InitializeSMPanelCoordsNew()
 		gSMInvPocketXY[53].sX = INTERFACE_START_X + 559;	gSMInvPocketXY[53].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK29
 		gSMInvPocketXY[54].sX = INTERFACE_START_X + 559;	gSMInvPocketXY[54].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK30
 	}
-	else if(iResolution == 1){
+	else if (iResolution < _1024x768)
+	{
 		gSMInvPocketXY[0].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 68;		// HELMETPOS
 		gSMInvPocketXY[1].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 97;		// VESTPOS
 		gSMInvPocketXY[2].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[2].sY = INV_INTERFACE_START_Y + 157;		// LEGPOS
@@ -1737,7 +1752,8 @@ BOOLEAN InitializeSMPanelCoordsNew()
 		gSMInvPocketXY[53].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[53].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK29
 		gSMInvPocketXY[54].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[54].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK30
 	}
-	else if(iResolution == 2){
+	else
+	{
 		//1024x768 resolution
 		gSMInvPocketXY[0].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 68;		// HELMETPOS
 		gSMInvPocketXY[1].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 97;		// VESTPOS
@@ -1841,11 +1857,13 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	SM_SELMERC_PLATE_HEIGHT = 65;
 	SM_SELMERC_PLATE_WIDTH	= 83;
 
-	if(iResolution == 0){
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
 		SM_BODYINV_X			= ( 141 + INTERFACE_START_X );
 		SM_BODYINV_Y			= ( 68 + INV_INTERFACE_START_Y );
 	}
-	else{
+	else
+	{
 		SM_BODYINV_X			= ( 151 + INTERFACE_START_X );
 		SM_BODYINV_Y			= ( 68 + INV_INTERFACE_START_Y );
 	}
@@ -1879,24 +1897,18 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	SM_NEXTMERCB_Y			= ( 130 + INV_INTERFACE_START_Y );
 	SM_OPTIONSB_X			= ( 10 + INTERFACE_START_X );
 	SM_OPTIONSB_Y			= ( 165 + INV_INTERFACE_START_Y );
+	
 	// CHRISL: Backpack buttons
-	if(iResolution == 0){
-		SM_DROPPACK_X			= ( 504 + INTERFACE_START_X );
-		SM_DROPPACK_Y			= ( 39 + INV_INTERFACE_START_Y );
-		SM_ZIPPER_X				= ( 482 + INTERFACE_START_X );
-		SM_ZIPPER_Y				= ( 39 + INV_INTERFACE_START_Y );
-	}
-	else{
-		SM_DROPPACK_X			= ( 612 + INTERFACE_START_X );
-		SM_DROPPACK_Y			= ( 39 + INV_INTERFACE_START_Y );
-		SM_ZIPPER_X				= ( 590 + INTERFACE_START_X );
-		SM_ZIPPER_Y				= ( 39 + INV_INTERFACE_START_Y );
-	}
+	SM_DROPPACK_X			= ( 612 + INTERFACE_START_X );
+	SM_DROPPACK_Y			= ( 39 + INV_INTERFACE_START_Y );
+	SM_ZIPPER_X				= ( 590 + INTERFACE_START_X );
+	SM_ZIPPER_Y				= ( 39 + INV_INTERFACE_START_Y );
+	SM_MAPSCREEN_X			= xResOffset + (xResSize - 146);	// 152
+	SM_DONE_X				= xResOffset + (xResSize - 146);	// 152
+	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
+	LOCATION_NAME_X			= xResOffset + (xResSize - 92);
 
-	// WANNE 2
-	SM_DONE_X				=  (SCREEN_WIDTH - 146);	// 152
 	SM_DONE_Y				= ( 118 + INV_INTERFACE_START_Y );
-	SM_MAPSCREEN_X			=  (SCREEN_WIDTH - 146);	// 152
 	SM_MAPSCREEN_Y			= ( 140 + INV_INTERFACE_START_Y );
 
 	SM_POSITIONB_X			= ( 106 + INTERFACE_START_X );
@@ -1907,7 +1919,8 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	SM_PERCENT_WIDTH		= 20;
 	SM_PERCENT_HEIGHT		= 10;
 
-	if(iResolution == 0){
+	if (iResolution >= _640x480 && iResolution < _800x600)
+	{
 		SM_ARMOR_X				= ( 245 + INTERFACE_START_X );
 		SM_ARMOR_Y				= ( 141 + INV_INTERFACE_START_Y );
 		SM_ARMOR_LABEL_X		= ( 260 + INTERFACE_START_X );
@@ -1915,7 +1928,8 @@ BOOLEAN InitializeSMPanelCoordsNew()
 		SM_ARMOR_PERCENT_X		= ( 265 + INTERFACE_START_X );
 		SM_ARMOR_PERCENT_Y		= ( 141 + INV_INTERFACE_START_Y );
 	}
-	else{
+	else
+	{
 		SM_ARMOR_X				= ( 264 + INTERFACE_START_X );
 		SM_ARMOR_Y				= ( 141 + INV_INTERFACE_START_Y );
 		SM_ARMOR_LABEL_X		= ( 279 + INTERFACE_START_X );
@@ -1971,13 +1985,11 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	STATS_TEXT_FONT_COLOR	= 5;
 
 	// ow and te clock and location i will put it here 
-	INTERFACE_CLOCK_X	=  	(SCREEN_WIDTH - 86);
 	INTERFACE_CLOCK_Y	= ( 117	+ INV_INTERFACE_START_Y );
-	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);
 	LOCATION_NAME_Y		= ( 89	+ INTERFACE_START_Y		);
 
 	//Keyring
-	KEYRING_X			= 217;	// 209
+	KEYRING_X			= xResOffset + 217; //209;
 	KEYRING_Y			= (5 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
@@ -1999,15 +2011,15 @@ BOOLEAN InitializeSMPanel(	)
 	// failing the CHECKF after this will cause you to lose your mouse
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-	strcpy( VObjectDesc.ImageFile, "INTERFACE\\inventory_bottom_panel.STI" );
+		strcpy( VObjectDesc.ImageFile, "INTERFACE\\inventory_bottom_panel.STI" );
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		strcpy( VObjectDesc.ImageFile, "INTERFACE\\inventory_bottom_panel_800x600.STI" );
 	}
-	else if (iResolution == 2)
+	else
 	{
 		strcpy( VObjectDesc.ImageFile, "INTERFACE\\inventory_bottom_panel_1024x768.STI" );
 	}
@@ -3408,15 +3420,156 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 
 }
 
+//Jenilee
+INT32 uiLastHandPos = -1;
+
+#define SLOT_NONE		0
+#define SLOT_HANDS		1
+#define SLOT_EQUIPMENT	2
+#define SLOT_VEST		3
+#define SLOT_RIG		4
+#define SLOT_CPACK		5
+#define SLOT_BPACK		6
+#define SLOT_SLING		7
+#define SLOT_KNIFE		8
+#define SLOT_FACE		9
+
+STR16 uiSlotTypeName[] = 
+{
+	L"",				//0
+	L"Hands",			//1
+	L"Equipment",		//2
+	L"Vest",			//3
+	L"Leg Rig",			//4
+	L"Combat Pack",		//5
+	L"Backpack",		//6
+	L"Sling",			//7
+	L"Knife",			//8
+	L"Face",			//9
+	L"Large Pocket",	//10
+	L"Small Pocket"		//11
+};
+
+INT16 uiNIVSlotType[NUM_INV_SLOTS] = { 
+						2, 2, 2, //0-2
+						9, 9, //3-4
+						1, 1, //5-6
+						2, 2, 2, 2, 2,  //7-11
+						7, //12
+						8, //13
+						5, 5, 5, //14-16
+						6, 6, 6, 6, //17-20
+						3, 3, //21-22
+						4, 4, //23-24
+						3, 3, 3, 3, 3, //25-29
+						3, 3, 3, 3, 3, //30-34
+						4, 4, 4, 4, //35-38
+						4, 4, 4, 4, //39-42
+						5, 5, 5, 5, //43-46
+						6, 6, 6, 6, //47-50
+						6, 6, 6, 6  //51-54
+					};
+
+UINT16 uiOIVSlotType[NUM_INV_SLOTS] = {
+						2, 2, 2, //0-2
+						9, 9, //3-4
+						1, 1, //5-6
+						0, 0, 0, 0, 0, 0, 0, //7-13
+						10, 10, 10, 10,	//14-17
+						0, 0, 0, 0, 0, 0, 0, //18-24
+						11, 11, 11, 11, 11, 11, 11, 11, //25-32
+						0, 0, 0, 0, 0, 0, 0, 0,	//33-40
+						0, 0, 0, 0, 0, 0, 0, 0,	//41-48
+						0, 0, 0, 0, 0, 0	//49-54
+};
+
+UINT32 GetInvMovementCost(UINT16 item, UINT32 old_pos, UINT32 new_pos)
+{
+	if (!(gTacticalStatus.uiFlags & INCOMBAT) || //Not in combat
+		(old_pos == -1 || new_pos == -1)||	//Either position is invalid
+		(old_pos == new_pos))				//Old position same as new position
+		return 0;
+	INT16 src_type;
+	INT16 dst_type;
+	if (UsingNewInventorySystem() == TRUE) 
+	{
+		src_type = uiNIVSlotType[old_pos];
+		dst_type = uiNIVSlotType[new_pos];
+	}
+	else
+	{
+		src_type = uiOIVSlotType[old_pos];
+		dst_type = uiOIVSlotType[new_pos];
+	}
+	if (src_type == dst_type)	//Moving to same lbe type
+		return 0;
+
+	//If these 2 arrays are initiated outside the function, APBPConstants will not have been initialized, and all values will be 0
+	INT16 uiAPCostFromSlot[12] =
+	{
+		APBPConstants[AP_INV_FROM_NONE],
+		APBPConstants[AP_INV_FROM_HANDS],
+		APBPConstants[AP_INV_FROM_EQUIPMENT],
+		APBPConstants[AP_INV_FROM_VEST],
+		APBPConstants[AP_INV_FROM_RIG],
+		APBPConstants[AP_INV_FROM_CPACK],
+		APBPConstants[AP_INV_FROM_BPACK],
+		APBPConstants[AP_INV_FROM_SLING],
+		APBPConstants[AP_INV_FROM_KNIFE],
+		APBPConstants[AP_INV_FROM_FACE],
+		APBPConstants[AP_INV_FROM_BIG_POCKET],
+		APBPConstants[AP_INV_FROM_SMALL_POCKET]
+	};
+	INT16 uiAPCostToSlot[12] =
+	{
+		APBPConstants[AP_INV_TO_NONE],
+		APBPConstants[AP_INV_TO_HANDS],
+		APBPConstants[AP_INV_TO_EQUIPMENT],
+		APBPConstants[AP_INV_TO_VEST],
+		APBPConstants[AP_INV_TO_RIG],
+		APBPConstants[AP_INV_TO_CPACK],
+		APBPConstants[AP_INV_TO_BPACK],
+		APBPConstants[AP_INV_TO_SLING],
+		APBPConstants[AP_INV_TO_KNIFE],
+		APBPConstants[AP_INV_TO_FACE],
+		APBPConstants[AP_INV_TO_BIG_POCKET],
+		APBPConstants[AP_INV_TO_SMALL_POCKET]
+	};
+	FLOAT Weight_Divisor = gGameExternalOptions.uWeightDivisor;
+	UINT16 weight_modifier;
+	if (Weight_Divisor != 0)
+		weight_modifier = DynamicAdjustAPConstants((int)((Item[item].ubWeight) / Weight_Divisor),(int)((Item[item].ubWeight) / Weight_Divisor));
+	else
+		weight_modifier = 0;
+
+	UINT32 cost = 0; 
+
+	cost += uiAPCostFromSlot[src_type];
+	cost += uiAPCostToSlot[dst_type];
+	cost += weight_modifier;
+
+	if (cost > APBPConstants[AP_INV_MAX_COST]) 
+		cost = APBPConstants[AP_INV_MAX_COST];
+
+#ifdef _DEBUG
+	CHAR16 szTemp[255];
+	swprintf(szTemp, L"Moving item from %s to %s (costs: %d/%d/%d/%d)", uiSlotTypeName[src_type], uiSlotTypeName[dst_type], uiAPCostFromSlot[src_type], uiAPCostToSlot[dst_type], weight_modifier, cost);
+	ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_CHAT, szTemp);
+#endif
+	return cost;
+}
+
 void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT32 uiHandPos;
 	// Copyies of values
 	UINT16 usOldItemIndex, usNewItemIndex;
 	UINT16 usItemPrevInItemPointer;
+	UINT16 usCostToMoveItem = 0; //Jenilee
 	BOOLEAN fNewItem = FALSE;
 	static BOOLEAN	fRightDown = FALSE;
 	static BOOLEAN	fLeftDown = FALSE;
+	static bool INV_AP_COST = bool(gGameOptions.fInventoryCostsAP);
 
 	uiHandPos = MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -3510,6 +3663,10 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
 
+			//Jenilee: remember our last selected slot
+			uiLastHandPos = uiHandPos;
+
+
 			// move item into the mouse cursor
 			BeginItemPointer( gpSMCurrentMerc, (UINT8)uiHandPos );
 
@@ -3536,8 +3693,23 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			if ( ubSrcID == ubDestID )
 			{
+				if (INV_AP_COST)
+					//Jenilee: determine the cost of moving this item around in our inventory
+					usCostToMoveItem = GetInvMovementCost(gpItemPointer->usItem, uiLastHandPos, uiHandPos);
+
+				if (gpSMCurrentMerc->bActionPoints >= usCostToMoveItem)
+				{
+					fOKToGo = TRUE;
+					uiLastHandPos = uiHandPos;
+				}
+				else //we dont have enough APs to move it to this slot, show a warning message
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[NOT_ENOUGH_APS_STR]);
+					fOKToGo = FALSE;
+				}
+
 				// We are doing this ourselve, continue
-				fOKToGo = TRUE;
+//				fOKToGo = TRUE;
 			}
 			else
 			{
@@ -3655,6 +3827,10 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// try to place the item in the cursor into this inventory slot
 				if ( UIHandleItemPlacement( (UINT8) uiHandPos, usOldItemIndex, usNewItemIndex, fDeductPoints ) )
 				{
+					//Jenilee: pay the price
+					//just make sure to handle that if we are putting it back in the SAME slot, the cost should be 0!!!
+					gpSMCurrentMerc->bActionPoints -= usCostToMoveItem;
+
 					RenderBackpackButtons(ACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 					// it worked!	if we're in the SKI...
 					if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
@@ -4719,17 +4895,19 @@ void BtnPositionShowCallback(GUI_BUTTON *btn,INT32 reason)
 
 BOOLEAN InitializeTEAMPanelCoords( )
 {
-
 	TM_FACE_WIDTH		= 48;
 	TM_FACE_HEIGHT		= 43;
 	TM_APPANEL_HEIGHT	= 56;
 	TM_APPANEL_WIDTH	= 16;
 
-	TM_ENDTURN_X		=	(SCREEN_WIDTH - 131);		//( 507 + INTERFACE_START_X );
+	TM_ENDTURN_X				=	xResOffset + (xResSize - 131);
+	TM_ROSTERMODE_X				=	xResOffset + (xResSize - 131);
+	TM_DISK_X					=	xResOffset + (xResSize - 131);
+	INTERFACE_CLOCK_TM_X	= xResOffset + (xResSize - 86 );
+	LOCATION_NAME_TM_X		= xResOffset + (xResSize - 92 );	
+		
 	TM_ENDTURN_Y		= ( 9 + INTERFACE_START_Y );
-	TM_ROSTERMODE_X	=		(SCREEN_WIDTH - 131);		//( 507 + INTERFACE_START_X );
 	TM_ROSTERMODE_Y	= ( 45 + INTERFACE_START_Y );
-	TM_DISK_X			=	(SCREEN_WIDTH - 131);		//( 507 + INTERFACE_START_X );
 	TM_DISK_Y			= ( 81 + INTERFACE_START_Y );
 
 	TM_NAME_WIDTH		= 60;
@@ -4846,9 +5024,8 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	// ufff to much copy&paste :D
 */
 	// CHRISL: New definitions for the team panel clock and location coordinates
-	INTERFACE_CLOCK_TM_X	= ( SCREEN_WIDTH - 86 );
+
 	INTERFACE_CLOCK_TM_Y	= ( 99	+ INTERFACE_START_Y );
-	LOCATION_NAME_TM_X		= ( SCREEN_WIDTH - 92 );
 	LOCATION_NAME_TM_Y		= ( 65	+ INTERFACE_START_Y	);
 
 	return ( TRUE );
@@ -4883,37 +5060,34 @@ BOOLEAN InitializeTEAMPanel(	)
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
 	//SQUAD10 FIX:  Use panels with more slots if SquadSize at current resolution is > 6
-	switch (iResolution)
+
+	if (iResolution >= _640x480 && iResolution < _800x600)
+		FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
+	else if (iResolution < _1024x768)
 	{
-		case 0:
-			FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
-			break;
-		case 1:
-			if (gGameOptions.ubSquadSize > 6)
-			{
-				FilenameForBPP("INTERFACE\\bottom_bar_8_800x600.sti", VObjectDesc.ImageFile);
-			}
-			else
-			{
-				FilenameForBPP("INTERFACE\\bottom_bar_800x600.sti", VObjectDesc.ImageFile);
-			}
-			break;
-		case 2:
-			if (gGameOptions.ubSquadSize > 8)
-			{
-				FilenameForBPP("INTERFACE\\bottom_bar_10_1024x768.sti", VObjectDesc.ImageFile);
-			}
-			else if (gGameOptions.ubSquadSize > 6)
-			{
-				FilenameForBPP("INTERFACE\\bottom_bar_8_1024x768.sti", VObjectDesc.ImageFile);
-			}
-			else
-			{
-				FilenameForBPP("INTERFACE\\bottom_bar_1024x768.sti", VObjectDesc.ImageFile);
-			}
-			break;
-		default:
-			FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
+		if (gGameOptions.ubSquadSize > 6)
+		{
+			FilenameForBPP("INTERFACE\\bottom_bar_8_800x600.sti", VObjectDesc.ImageFile);
+		}
+		else
+		{
+			FilenameForBPP("INTERFACE\\bottom_bar_800x600.sti", VObjectDesc.ImageFile);
+		}
+	}
+	else
+	{
+		if (gGameOptions.ubSquadSize > 8)
+		{
+			FilenameForBPP("INTERFACE\\bottom_bar_10_1024x768.sti", VObjectDesc.ImageFile);
+		}
+		else if (gGameOptions.ubSquadSize > 6)
+		{
+			FilenameForBPP("INTERFACE\\bottom_bar_8_1024x768.sti", VObjectDesc.ImageFile);
+		}
+		else
+		{
+			FilenameForBPP("INTERFACE\\bottom_bar_1024x768.sti", VObjectDesc.ImageFile);
+		}
 	}
 
 	CHECKF( AddVideoObject( &VObjectDesc, &guiTEAMPanel ) );

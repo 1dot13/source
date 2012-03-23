@@ -620,7 +620,7 @@ void RenderSectorExitMenu( )
 	gsGlobalCursorYOffset = 0;
 	SetCurrentCursorFromDatabase( CURSOR_NORMAL );
 
-	while( DequeueEvent( &Event ) )
+	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if( Event.usEvent == KEY_DOWN )
 		{

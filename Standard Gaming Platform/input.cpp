@@ -110,6 +110,9 @@ HHOOK ghMouseHook;
 BOOLEAN		gfCurrentStringInputState;
 StringInput *gpCurrentStringDescriptor;
 
+// Thread
+static CRITICAL_SECTION gcsInputQueueLock;
+
 // Local function headers
 
 void	QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
@@ -277,6 +280,8 @@ BOOLEAN InitializeInputManager(void)
 //	ghKeyboardHook = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC) KeyboardHandler, (HINSTANCE) 0, GetCurrentThreadId());
 //	DbgMessage(TOPIC_INPUT, DBG_LEVEL_2, String("Set keyboard hook returned %d", ghKeyboardHook));
 
+	InitializeCriticalSection(&gcsInputQueueLock);
+
 	ghMouseHook = SetWindowsHookEx(WH_MOUSE, (HOOKPROC) MouseHandler, (HINSTANCE) 0, GetCurrentThreadId());
 	DbgMessage(TOPIC_INPUT, DBG_LEVEL_2, String("Set mouse hook returned %d", ghMouseHook));
 	return TRUE;
@@ -289,6 +294,7 @@ void ShutdownInputManager(void)
 	UnRegisterDebugTopic(TOPIC_INPUT, "Input Manager");
 //	UnhookWindowsHookEx(ghKeyboardHook);
 	UnhookWindowsHookEx(ghMouseHook);
+	DeleteCriticalSection(&gcsInputQueueLock);
 }
 
 void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
@@ -329,7 +335,7 @@ void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 	}
 }
 
-void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
+void InternalQueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 {
 	UINT32 uiTimer;
 	UINT16 usKeyState;
@@ -452,24 +458,42 @@ void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 	}
 }
 
-BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
+void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 {
-	// Is there an event to dequeue
-	if (gusQueueCount > 0)
-	{
-		memcpy( Event, &( gEventQueue[gusHeadIndex] ), sizeof( InputAtom ) );
-
-		// Check if it has the masks!
-		if ( ( Event->usEvent & uiMaskFlags ) )
-		{
-			return( DequeueEvent( Event) );
-		}
+	EnterCriticalSection(&gcsInputQueueLock);
+	__try {
+		InternalQueueEvent(ubInputEvent, usParam, uiParam);
+	}__finally {
+		LeaveCriticalSection(&gcsInputQueueLock);
 	}
-
-	return( FALSE );
 }
 
-BOOLEAN DequeueEvent(InputAtom *Event)
+BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
+{
+	EnterCriticalSection(&gcsInputQueueLock);
+	__try
+	{
+		// Is there an event to dequeue
+		if (gusQueueCount > 0)
+		{
+			memcpy( Event, &( gEventQueue[gusHeadIndex] ), sizeof( InputAtom ) );
+
+			// Check if it has the masks!
+			if ( ( Event->usEvent & uiMaskFlags ) )
+			{
+				return( DequeueEvent( Event) );
+			}
+		}
+
+		return( FALSE );
+	}
+	__finally
+	{
+		LeaveCriticalSection(&gcsInputQueueLock);
+	}
+}
+
+BOOLEAN InternalDequeueEvent(InputAtom *Event)
 {
 	HandleSingleClicksAndButtonRepeats( );
 
@@ -498,6 +522,18 @@ BOOLEAN DequeueEvent(InputAtom *Event)
 	{
 		// No events to dequeue, return FALSE
 		return FALSE;
+	}
+}
+BOOLEAN DequeueEvent(InputAtom *Event)
+{
+	__try
+	{
+		EnterCriticalSection(&gcsInputQueueLock);
+		return InternalDequeueEvent(Event);
+	}
+	__finally
+	{
+		LeaveCriticalSection(&gcsInputQueueLock);
 	}
 }
 

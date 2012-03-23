@@ -497,7 +497,8 @@ UINT32		gRenderFlags=0;
  *  any questions? joker
  */
 SGPRect		gClippingRect;//			= { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - INTERFACE_HEIGHT};
-SGPRect		gOldClipRect = { 0, 0, 1024, 768 }; // 0verhaul:  This MUST mirror the gDirtyClipRect init, otherwise funkiness with video overlays will happen
+//SGPRect		gOldClipRect = { 0, 0, 2560, 1600 };
+SGPRect		gOldClipRect = { 0, 0, 0, 0 };
 INT16		gsRenderCenterX;
 INT16		gsRenderCenterY;
 INT16		gsRenderWorldOffsetX	= 0;  //lal was -1 : bugfix for merc screen position in tactical on high resolution
@@ -3832,6 +3833,11 @@ void ScrollWorld( )
 
 void InitializeViewPort()
 {
+	gOldClipRect.iLeft = 0;
+	gOldClipRect.iTop = 0;
+	gOldClipRect.iRight = SCREEN_WIDTH;
+	gOldClipRect.iBottom = SCREEN_HEIGHT;
+
 	gsVIEWPORT_START_X			= 0;
 	gsVIEWPORT_START_Y			= 0;
 	gsVIEWPORT_WINDOW_START_Y	= 0;

@@ -321,7 +321,7 @@ UINT32 ErrorScreenHandle(void)
 	EndFrameBufferRender( );
 
 	// Check for esc
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if( InputEvent.usEvent == KEY_DOWN )
 			{

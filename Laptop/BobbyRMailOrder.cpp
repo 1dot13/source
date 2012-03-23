@@ -80,6 +80,8 @@ enum
 #define		BOBBYR_ORDER_NUM_SHIPPING_CITIES	17
 #define		BOBBYR_NUM_DISPLAYED_CITIES				10
 
+#define		BOBBYR_NUM_DISPLAYED_ITEMS				10
+
 #define		OVERNIGHT_EXPRESS									1
 #define		TWO_BUSINESS_DAYS									2
 #define		STANDARD_SERVICE									3
@@ -126,17 +128,17 @@ enum
 #define		BOBBYR_GRID_ROW_OFFSET						20
 #define		BOBBYR_GRID_TITLE_OFFSET					27
 
-#define		BOBBYR_GRID_FIRST_COLUMN_X				3//BOBBYR_ORDERGRID_X + 3
+#define		BOBBYR_GRID_FIRST_COLUMN_X				23//BOBBYR_ORDERGRID_X + 3
 #define		BOBBYR_GRID_FIRST_COLUMN_Y				37//BOBBYR_ORDERGRID_Y + 37
 #define		BOBBYR_GRID_FIRST_COLUMN_WIDTH		23
 
-#define		BOBBYR_GRID_SECOND_COLUMN_X				28//BOBBYR_ORDERGRID_X + 28
+#define		BOBBYR_GRID_SECOND_COLUMN_X				48//BOBBYR_ORDERGRID_X + 28
 #define		BOBBYR_GRID_SECOND_COLUMN_Y				BOBBYR_GRID_FIRST_COLUMN_Y
 #define		BOBBYR_GRID_SECOND_COLUMN_WIDTH		40
 
-#define		BOBBYR_GRID_THIRD_COLUMN_X				70//BOBBYR_ORDERGRID_X + 70
+#define		BOBBYR_GRID_THIRD_COLUMN_X				90//BOBBYR_ORDERGRID_X + 70
 #define		BOBBYR_GRID_THIRD_COLUMN_Y				BOBBYR_GRID_FIRST_COLUMN_Y
-#define		BOBBYR_GRID_THIRD_COLUMN_WIDTH		111
+#define		BOBBYR_GRID_THIRD_COLUMN_WIDTH		91
 
 #define		BOBBYR_GRID_FOURTH_COLUMN_X				184//BOBBYR_ORDERGRID_X + 184
 #define		BOBBYR_GRID_FOURTH_COLUMN_Y				BOBBYR_GRID_FIRST_COLUMN_Y
@@ -146,8 +148,18 @@ enum
 #define		BOBBYR_GRID_FIFTH_COLUMN_Y					BOBBYR_GRID_FIRST_COLUMN_Y
 #define		BOBBYR_GRID_FIFTH_COLUMN_WIDTH			42
 
+#define		BOBBYR_GRID_SCROLL_COLUMN_X				2
+#define		BOBBYR_GRID_SCROLL_COLUMN_Y				BOBBYR_GRID_FIRST_COLUMN_Y - 2
+#define		BOBBYR_GRID_SCROLL_COLUMN_WIDTH			23
+#define		BOBBYR_GRID_SCROLL_COLUMN_HEIGHT		BOBBYR_GRID_ROW_OFFSET * 10
+#define		BOBBYR_GRID_SCROLL_COLUMN_HEIGHT_MINUS_ARROWS	( BOBBYR_GRID_SCROLL_COLUMN_HEIGHT - (2 * BOBBYR_SCROLL_ARROW_HEIGHT) - 8 )
+#define		BOBBYR_GRID_SCROLL_UP_ARROW_X				BOBBYR_GRID_SCROLL_COLUMN_X + 2
+#define		BOBBYR_GRID_SCROLL_UP_ARROW_Y				BOBBYR_GRID_SCROLL_COLUMN_Y + 4
+#define		BOBBYR_GRID_SCROLL_DOWN_ARROW_X				BOBBYR_GRID_SCROLL_UP_ARROW_X
+#define		BOBBYR_GRID_SCROLL_DOWN_ARROW_Y				BOBBYR_GRID_SCROLL_COLUMN_Y+BOBBYR_GRID_SCROLL_COLUMN_HEIGHT-24
+
 #define	BOBBYR_SUBTOTAL_WIDTH							212
-#define		BOBBYR_SUBTOTAL_X									BOBBYR_GRID_FIRST_COLUMN_X
+#define		BOBBYR_SUBTOTAL_X									BOBBYR_GRID_FIRST_COLUMN_X - 20
 #define		BOBBYR_SUBTOTAL_Y									BOBBYR_GRID_FIRST_COLUMN_Y + BOBBYR_GRID_ROW_OFFSET * 10 + 3
 
 #define		BOBBYR_SHIPPING_N_HANDLE_Y				BOBBYR_SUBTOTAL_Y + 17
@@ -262,6 +274,14 @@ UINT8			gubDropDownAction;
 INT8			gbSelectedCity=-1;				//keeps track of the currently selected city
 UINT8			gubCityAtTopOfList;
 
+UINT8			gubPurchaseAtTopOfList;
+UINT8			guidivisor;
+
+BOOLEAN		gfDrawGridArrowMouseRegions=FALSE;
+BOOLEAN		gfDrawGridColumnMouseRegion=FALSE;
+
+extern BOOLEAN gfBobbyRShipmentsDirty;
+
 BOOLEAN		gfRemoveItemsFromStock=FALSE;
 
 NewBobbyRayOrderStruct	*gpNewBobbyrShipments;
@@ -337,6 +357,14 @@ void SelectTitleLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 MOUSE_REGION	gSelectedUpDownArrowOnScrollAreaRegion[2];
 void SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
+//mouse region to click on the up or down arrow on the grid scroll area
+MOUSE_REGION	 gSelectedUpDownArrowOnGridScrollAreaRegion[2];
+void SelectUpDownArrowOnGridScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+//mouse region for scroll column in the grid area.
+MOUSE_REGION	*gSelectedGridScrollColumnRegion;
+void SelectGridScrollColumnRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+void SelectGridScrollColumnMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+
 //Dealtar's Airport Externalization.
 INT16 gusCurShipmentDestinationID;
 extern CPostalService gPostalService;
@@ -368,6 +396,7 @@ void DisplayPackageWeight( );
 void ShutDownBobbyRNewMailOrders();
 //ppp
 
+void DrawOrderGoldRectangle(UINT16 usGridX, UINT16 usGridY);
 
 void GameInitBobbyRMailOrder()
 {
@@ -390,6 +419,9 @@ BOOLEAN EnterBobbyRMailOrder()
 	gfDestroyConfirmGrphiArea = FALSE;
 	gfCanAcceptOrder = TRUE;
 	gubDropDownAction = BR_DROP_DOWN_NO_ACTION;
+	gfDrawGridArrowMouseRegions = FALSE;
+	gfDrawGridColumnMouseRegion = FALSE;
+	gubPurchaseAtTopOfList = 0;
 
 	gShippingSpeedAreas[0] = iScreenWidthOffset + 585;
 	gShippingSpeedAreas[1] = iScreenHeightOffset + 218 + LAPTOP_SCREEN_WEB_DELTA_Y;
@@ -547,7 +579,6 @@ BOOLEAN EnterBobbyRMailOrder()
 	MSYS_AddRegion(&gSelectedCloseDropDownRegion);
 	MSYS_DisableRegion(&gSelectedCloseDropDownRegion);
 
-
 	CreateBobbyRayOrderTitle();
 
 	guiShippingCost = 0;
@@ -607,7 +638,18 @@ void ExitBobbyRMailOrder()
 	MSYS_RemoveRegion( &gSelectedConfirmOrderRegion);
 	MSYS_RemoveRegion( &gSelectedActivateCityDroDownRegion);
 	MSYS_RemoveRegion( &gSelectedCloseDropDownRegion);
-
+	if (gfDrawGridArrowMouseRegions == TRUE)
+	{
+		MSYS_DisableRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_DisableRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		MSYS_RemoveRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_RemoveRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+	}
+	if (gfDrawGridColumnMouseRegion == TRUE)
+	{
+		MSYS_DisableRegion( gSelectedGridScrollColumnRegion);
+		MSYS_RemoveRegion( gSelectedGridScrollColumnRegion);
+	}
 
 	//if the drop down box is active, destroy it
 	gubDropDownAction = BR_DROP_DOWN_DESTROY;
@@ -774,11 +816,12 @@ void BtnBobbyRClearOrderCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * MAX_PURCHASE_AMOUNT);
+		memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 		gubSelectedLight = 0;
 		gfReDrawBobbyOrder = TRUE;
 		gbSelectedCity = -1;
 		gubCityAtTopOfList = 0;
+		gubPurchaseAtTopOfList = 0;
 
 		//Get rid of the city drop dowm, if it is being displayed
 		gubDropDownAction = BR_DROP_DOWN_DESTROY;
@@ -878,7 +921,7 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 
 
 					ubCount = 0;
-					for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+					for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 					{
 						//if the item was purchased
 						if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -959,7 +1002,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 	CHAR16	sText[400];
 	CHAR16	sBack[400];
 	CHAR16	sTemp[20];
-	UINT16	usPosY;
+	UINT16	usPosY, usPosX, usHeight;
 	UINT32	uiStartLoc=0;
 	UINT32	uiTotal;
 	UINT16	usStringLength;
@@ -967,7 +1010,10 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 	CHAR16	OneChar[2];
 	INT32		iGrandTotal;
 	INT32		iSubTotal;
-
+	UINT32 uiDestPitchBYTES;
+	UINT8	*pDestBuf;
+	HVOBJECT	hArrowHandle;
+	//JMich TODO add a way to check for empty index in the middle of pBobbyRayPurchase
 
 
 	//Output the qty
@@ -1018,7 +1064,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 
 	//loop through the array of purchases to display only the items that are purchased
 	usPosY = usGridY+BOBBYR_GRID_FIRST_COLUMN_Y + 4;
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=gubPurchaseAtTopOfList; i<gubPurchaseAtTopOfList + BOBBYR_NUM_DISPLAYED_ITEMS ; i++)
 	{
 		//if the item was purchased
 //		if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -1088,6 +1134,17 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 
 			DrawTextToScreen(sTemp, (UINT16)(usGridX+BOBBYR_GRID_FIFTH_COLUMN_X-2), usPosY, BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
+			usPosY += BOBBYR_GRID_ROW_OFFSET;
+		}
+	}
+	guidivisor = 0;
+	for (i=0;i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
+	{
+		if( pBobbyRayPurchase[i].ubNumberPurchased )
+		{
+			guidivisor++;
+		}
+		uiTotal = CalcBobbyRayCost( pBobbyRayPurchase[i].usItemIndex, pBobbyRayPurchase[i].usBobbyItemIndex, pBobbyRayPurchase[i].fUsed ) * pBobbyRayPurchase[i].ubNumberPurchased;
 			//add the current item total to the sub total
 			if( fCalledFromOrderPage )
 			{
@@ -1097,11 +1154,85 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 			{
 				iSubTotal += uiTotal;
 			}
-
-			usPosY += BOBBYR_GRID_ROW_OFFSET;
+	}
+	if (guidivisor != 0)
+	{
+		if (guidivisor < 11)
+		{
+			guidivisor = 1;
+		}
+		else
+		{
+			guidivisor -= 9;
 		}
 	}
+	//Add the scroll list mouse regions
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X+BOBBYR_GRID_SCROLL_COLUMN_WIDTH, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y + BOBBYR_GRID_SCROLL_COLUMN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	//top
+	LineDraw(FALSE, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X + BOBBYR_GRID_SCROLL_COLUMN_WIDTH, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y, Get16BPPColor( FROMRGB( 235, 222, 171 ) ), pDestBuf);
+	//bottom
+	LineDraw(FALSE, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y + BOBBYR_GRID_SCROLL_COLUMN_HEIGHT, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X + BOBBYR_GRID_SCROLL_COLUMN_WIDTH, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y+BOBBYR_GRID_SCROLL_COLUMN_HEIGHT, Get16BPPColor( FROMRGB( 235, 222, 171 ) ), pDestBuf);
+	//left
+	LineDraw(FALSE, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y + BOBBYR_GRID_SCROLL_COLUMN_HEIGHT, Get16BPPColor( FROMRGB( 235, 222, 171 ) ), pDestBuf);
+	//right
+	LineDraw(FALSE, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X + BOBBYR_GRID_SCROLL_COLUMN_WIDTH, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y, usGridX + BOBBYR_GRID_SCROLL_COLUMN_X + BOBBYR_GRID_SCROLL_COLUMN_WIDTH, usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y + BOBBYR_GRID_SCROLL_COLUMN_HEIGHT, Get16BPPColor( FROMRGB( 235, 222, 171 ) ), pDestBuf);
+
+
+	// unlock frame buffer
+	UnLockVideoSurface( FRAME_BUFFER );
+
+	//Arrows
+
+	//get and display the up and down arrows
+	GetVideoObject(&hArrowHandle, guiGoldArrowImages);
+	//top arrow
+	BltVideoObject(FRAME_BUFFER, hArrowHandle, 1, usGridX + BOBBYR_GRID_SCROLL_UP_ARROW_X, usGridY + BOBBYR_GRID_SCROLL_UP_ARROW_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+
+	//bottom arrow
+	BltVideoObject(FRAME_BUFFER, hArrowHandle, 0, usGridX + BOBBYR_GRID_SCROLL_DOWN_ARROW_X, usGridY + BOBBYR_GRID_SCROLL_DOWN_ARROW_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	
+	//Up Arrow
+	if (gfDrawGridArrowMouseRegions == FALSE)
+	{
+		MSYS_DefineRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[0], usGridX + BOBBYR_GRID_SCROLL_UP_ARROW_X, usGridY + BOBBYR_GRID_SCROLL_UP_ARROW_Y, (UINT16)(usGridX + BOBBYR_GRID_SCROLL_UP_ARROW_X+BOBBYR_SCROLL_ARROW_WIDTH),
+			(UINT16)(usGridY + BOBBYR_GRID_SCROLL_UP_ARROW_Y+BOBBYR_SCROLL_ARROW_HEIGHT), MSYS_PRIORITY_HIGH, CURSOR_WWW, MSYS_NO_CALLBACK, SelectUpDownArrowOnGridScrollAreaRegionCallBack);
+		MSYS_AddRegion(&gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		MSYS_SetRegionUserData( &gSelectedUpDownArrowOnGridScrollAreaRegion[ 0 ], 0, 0);
+		MSYS_EnableRegion(&gSelectedUpDownArrowOnGridScrollAreaRegion[0]);
+		//Down Arrow
+		MSYS_DefineRegion( &gSelectedUpDownArrowOnGridScrollAreaRegion[1], usGridX + BOBBYR_GRID_SCROLL_DOWN_ARROW_X, usGridY + BOBBYR_GRID_SCROLL_DOWN_ARROW_Y, (UINT16)(usGridX + BOBBYR_GRID_SCROLL_DOWN_ARROW_X+BOBBYR_SCROLL_ARROW_WIDTH),
+			(UINT16)(usGridY + BOBBYR_GRID_SCROLL_DOWN_ARROW_Y+BOBBYR_SCROLL_ARROW_HEIGHT), MSYS_PRIORITY_HIGH, CURSOR_WWW, MSYS_NO_CALLBACK, SelectUpDownArrowOnGridScrollAreaRegionCallBack);
+		MSYS_AddRegion(&gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		MSYS_SetRegionUserData( &gSelectedUpDownArrowOnGridScrollAreaRegion[ 1 ], 0, 1);
+		MSYS_EnableRegion(&gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
+		gfDrawGridArrowMouseRegions = TRUE;
+		}
+	if (guidivisor > 1)
+	{//Scroll Bar
+		usPosX = usGridX + BOBBYR_GRID_SCROLL_COLUMN_X;
+		usPosY = usGridY + BOBBYR_GRID_SCROLL_UP_ARROW_Y + BOBBYR_SCROLL_ARROW_HEIGHT;
+		usHeight = BOBBYR_GRID_SCROLL_COLUMN_HEIGHT_MINUS_ARROWS / guidivisor;
+		gSelectedGridScrollColumnRegion = new MOUSE_REGION[guidivisor];
+		if (gfDrawGridColumnMouseRegion == FALSE)
+		{
+			for(i=0; i<guidivisor; i++)
+			{
+				MSYS_DefineRegion( &gSelectedGridScrollColumnRegion[i], usPosX, usPosY, (UINT16)(usPosX+BOBBYR_SCROLL_ARROW_WIDTH), (UINT16)(usPosY+usHeight), MSYS_PRIORITY_HIGH,
+					CURSOR_WWW, SelectGridScrollColumnMovementCallBack, SelectGridScrollColumnRegionCallBack );
+				MSYS_AddRegion(&gSelectedGridScrollColumnRegion[i]);
+				MSYS_EnableRegion(&gSelectedGridScrollColumnRegion[i]);
+				MSYS_SetRegionUserData( &gSelectedGridScrollColumnRegion[ i ], 0, i);
+				usPosY += usHeight;
+	}
+			gfDrawGridColumnMouseRegion = TRUE;
+		}
+		//Draw the rectangle
+		DrawOrderGoldRectangle( usGridX, usGridY);
+	}
 	DisplayShippingCosts( fCalledFromOrderPage, iSubTotal, usGridX, usGridY, iOrderNum );
 }
 
@@ -1297,7 +1428,7 @@ void SelectConfirmOrderRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		RemovePurchasedItemsFromBobbyRayInventory();
 
 			//delete the order
-		memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * MAX_PURCHASE_AMOUNT);
+		memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 		gubSelectedLight = 0;
 		gfDestroyConfirmGrphiArea = TRUE;
 		gubSelectedLight = 0;
@@ -1312,7 +1443,7 @@ void SelectConfirmOrderRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		RemovePurchasedItemsFromBobbyRayInventory();
 
 		//delete the order
-		memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * MAX_PURCHASE_AMOUNT);
+		memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 		gubSelectedLight = 0;
 		gfDestroyConfirmGrphiArea = TRUE;
 		gubSelectedLight = 0;
@@ -1514,7 +1645,6 @@ BOOLEAN CreateDestroyBobbyRDropDown( UINT8 ubDropDownAction )
 
 
 			DrawSelectedCity( gbSelectedCity );
-
 
 			//display the scroll bars regions
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, BOBBYR_SCROLL_AREA_X, BOBBYR_SCROLL_AREA_Y, BOBBYR_SCROLL_AREA_X+BOBBYR_SCROLL_AREA_WIDTH,	BOBBYR_SCROLL_AREA_Y+BOBBYR_SCROLL_AREA_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
@@ -1753,7 +1883,7 @@ void RemovePurchasedItemsFromBobbyRayInventory()
 {
 	INT16 i;
 
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		//if the item was purchased
 		if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -1788,7 +1918,7 @@ BOOLEAN IsAnythingPurchasedFromBobbyRayPage()
 	UINT16 i;
 	BOOLEAN	fReturnType = FALSE;
 
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		//if the item was purchased
 		if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -1985,6 +2115,146 @@ void DrawGoldRectangle( INT8 bCityNum )
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
+void SelectGridScrollColumnMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
+{
+	if( reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		pRegion->uiFlags &= (~BUTTON_CLICKED_ON );
+		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
+	}
+	else if (reason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if( gfLeftButtonState )
+		{
+			UINT8	ubPurchaseNumber = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+
+			pRegion->uiFlags |= BUTTON_CLICKED_ON ;
+
+			if( ubPurchaseNumber < gubPurchaseAtTopOfList )
+			{
+					gubPurchaseAtTopOfList = ubPurchaseNumber;
+			}
+
+			if( ubPurchaseNumber > gubPurchaseAtTopOfList )
+			{
+				if( ( ubPurchaseNumber - gubPurchaseAtTopOfList ) >= BOBBYR_NUM_DISPLAYED_ITEMS )   
+					gubPurchaseAtTopOfList = ubPurchaseNumber - BOBBYR_NUM_DISPLAYED_ITEMS + 1;     
+			}
+			gfReDrawBobbyOrder = TRUE;
+			gfBobbyRShipmentsDirty = TRUE;
+			InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
+		}
+	}
+}
+
+void SelectGridScrollColumnRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+{
+	if (iReason & MSYS_CALLBACK_REASON_INIT)
+	{
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		UINT8	ubPurchaseNumber = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+
+		if( ubPurchaseNumber < gubPurchaseAtTopOfList )
+		{
+				gubPurchaseAtTopOfList--;
+		}
+
+		if( ubPurchaseNumber > gubPurchaseAtTopOfList )
+		{
+				gubPurchaseAtTopOfList++;
+		}
+
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT)
+	{
+		UINT8	ubPurchaseNumber = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+
+		pRegion->uiFlags |= BUTTON_CLICKED_ON ;
+
+		if( ubPurchaseNumber < gubPurchaseAtTopOfList )
+		{
+				gubPurchaseAtTopOfList--;
+		}
+
+		if( ubPurchaseNumber > gubPurchaseAtTopOfList )
+		{
+				gubPurchaseAtTopOfList++;
+		}
+
+		gfReDrawBobbyOrder = TRUE;
+		gfBobbyRShipmentsDirty = TRUE;
+		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
+	}
+}
+
+void SelectUpDownArrowOnGridScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+{
+	if (iReason & MSYS_CALLBACK_REASON_INIT)
+	{
+	}
+	else if( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP || iReason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		UINT8	ubDownArrow = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+
+		if( ubDownArrow )
+		{
+			if( gubPurchaseAtTopOfList < guidivisor-1 )
+			{
+				gubPurchaseAtTopOfList++;
+			}
+		}
+		else
+		{
+			if( gubPurchaseAtTopOfList > 0 )
+				gubPurchaseAtTopOfList--;
+
+		}
+		gfReDrawBobbyOrder = TRUE;
+		gfBobbyRShipmentsDirty = TRUE;
+		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
+	}
+}
+
+void DrawOrderGoldRectangle (UINT16 usGridX, UINT16 usGridY)
+{
+	if (guidivisor == 1) return;
+	UINT32 uiDestPitchBYTES;
+	UINT8	*pDestBuf;
+	UINT16 usWidth, usTempHeight, usTempPosY, usHeight;
+	UINT16 usPosX, usPosY;
+	UINT16 temp;
+
+	usTempPosY = usGridY + BOBBYR_GRID_SCROLL_UP_ARROW_Y + BOBBYR_SCROLL_ARROW_HEIGHT;
+	usPosX = usGridX + BOBBYR_GRID_SCROLL_COLUMN_X + 2;
+	usWidth = BOBBYR_GRID_SCROLL_COLUMN_WIDTH - 5;
+	usTempHeight = ( BOBBYR_GRID_SCROLL_COLUMN_HEIGHT - 2 * BOBBYR_SCROLL_ARROW_HEIGHT );
+
+	usHeight = usTempHeight / guidivisor;
+
+	usPosY = usTempPosY + (UINT16)( ( ( BOBBYR_GRID_SCROLL_COLUMN_HEIGHT - 2 * BOBBYR_SCROLL_ARROW_HEIGHT ) /	(FLOAT)(guidivisor) ) * gubPurchaseAtTopOfList );
+
+	temp = usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y + BOBBYR_GRID_SCROLL_COLUMN_HEIGHT - BOBBYR_SCROLL_ARROW_HEIGHT - usHeight - 1;
+
+	if( usPosY >= temp )
+		usPosY = usGridY + BOBBYR_GRID_SCROLL_COLUMN_Y + BOBBYR_GRID_SCROLL_COLUMN_HEIGHT - BOBBYR_SCROLL_ARROW_HEIGHT - usHeight - 5;
+
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY, usPosX+usWidth, usPosY+usHeight, Get16BPPColor( FROMRGB( 186, 165, 68 ) ) );
+
+	//display the line
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	
+	// draw the shadow line around the rectangle
+	LineDraw(FALSE, usPosX, usPosY, usPosX+usWidth, usPosY, Get16BPPColor( FROMRGB( 65, 49, 6) ), pDestBuf);
+	LineDraw(FALSE, usPosX, usPosY, usPosX, usPosY+usHeight, Get16BPPColor( FROMRGB( 65, 49, 6 ) ), pDestBuf);
+	LineDraw(FALSE, usPosX, usPosY+usHeight, usPosX+usWidth, usPosY+usHeight, Get16BPPColor( FROMRGB( 65, 49, 6 ) ), pDestBuf);
+	LineDraw(FALSE, usPosX+usWidth, usPosY, usPosX+usWidth, usPosY+usHeight, Get16BPPColor( FROMRGB( 65, 49, 6 ) ), pDestBuf);
+
+	// unlock frame buffer
+	UnLockVideoSurface( FRAME_BUFFER );
+}
 
 UINT32	CalcCostFromWeightOfPackage( UINT8	ubTypeOfService )
 {
@@ -2001,7 +2271,7 @@ UINT32	CalcCostFromWeightOfPackage( UINT8	ubTypeOfService )
 	//Get the package's weight
 	uiTotalWeight = CalcPackageTotalWeight();
 
-/*	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+/*	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		//if the item was purchased
 		if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -2145,7 +2415,7 @@ void PurchaseBobbyOrder()
 
 /*
 		ubCount = 0;
-		for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+		for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 		{
 			//if the item was purchased
 			if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -2192,12 +2462,12 @@ void PurchaseBobbyOrder()
 
 void AddJohnsGunShipment()
 {
-	BobbyRayPurchaseStruct Temp[ MAX_PURCHASE_AMOUNT ];
+	BobbyRayPurchaseStruct Temp[ 100 ];
 //	UINT8	cnt;
 	INT8		bDaysAhead;
 
 	//clear out the memory
-	memset( Temp, 0, sizeof( BobbyRayPurchaseStruct ) * MAX_PURCHASE_AMOUNT );
+	memset( Temp, 0, sizeof( BobbyRayPurchaseStruct ) * gGameExternalOptions.ubBobbyRayMaxPurchaseAmount );
 
 /*
 	//if we need to add more array elements for the Order Array
@@ -2279,7 +2549,7 @@ void ConfirmBobbyRPurchaseMessageBoxCallBack( UINT8 bExitValue )
 
 void EnterInitBobbyRayOrder()
 {
-	memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * MAX_PURCHASE_AMOUNT);
+	memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 	
 	if (is_networked)
 		gubSelectedLight = 2; //hayden
@@ -2295,6 +2565,9 @@ void EnterInitBobbyRayOrder()
 
 	gubCityAtTopOfList = 0;
 
+	gfDrawGridArrowMouseRegions = FALSE;
+	gfDrawGridColumnMouseRegion = FALSE;
+	gubPurchaseAtTopOfList = 0;
 	//Get rid of the city drop dowm, if it is being displayed
 	gubDropDownAction = BR_DROP_DOWN_DESTROY;
 
@@ -2309,7 +2582,7 @@ UINT32	CalcPackageTotalWeight()
 	UINT32	uiTotalWeight=0;
 
 	//loop through all the packages
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		//if the item was purchased
 		if( BobbyRayPurchases[ i ].ubNumberPurchased )
@@ -2454,7 +2727,7 @@ BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT8 ubD
 
 	//count the number of purchases
 	ubItemCount = 0;
-	for(i=0; i<MAX_PURCHASE_AMOUNT; i++)
+	for(i=0; i<gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++)
 	{
 		//if the item was purchased
 		if( pPurchaseStruct[ i ].ubNumberPurchased )
@@ -2503,7 +2776,7 @@ BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT16 us
 	else
 		usID = gPostalService.CreateNewShipment(usDeliveryLoc, 2, JOHN_KULBA_SENDER_ID);
 
-	for(int i=0; i < MAX_PURCHASE_AMOUNT && pPurchaseStruct[i].usItemIndex > 0; i++)
+	for(int i=0; i < gGameExternalOptions.ubBobbyRayMaxPurchaseAmount && pPurchaseStruct[i].usItemIndex > 0; i++)
 	{
 		gPostalService.AddPackageToShipment(usID, pPurchaseStruct[i].usItemIndex, pPurchaseStruct[i].ubNumberPurchased, pPurchaseStruct[i].bItemQuality);
 	}

@@ -4440,8 +4440,16 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 
 			usMovementModeToUseForAPs = usMovementMode;
 
+
+			// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+			// This should fix "problems" for special modified maps
+			UINT8 ubTerrainID = gpWorldLevelData[ sTempGrid ].ubTerrainID;
+
+			if ( TERRAIN_IS_WATER( ubTerrainID) && pSold->pathing.bLevel > 0 )
+				ubTerrainID = FLAT_GROUND;
+
 			// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-			if ( TERRAIN_IS_WATER( gpWorldLevelData[ sTempGrid ].ubTerrainID) )
+			if ( TERRAIN_IS_WATER( ubTerrainID) )
 			{
 				usMovementModeToUseForAPs = WALKING;
 			}

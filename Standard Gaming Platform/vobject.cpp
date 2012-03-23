@@ -272,6 +272,7 @@ BOOLEAN GetVideoObject( HVOBJECT *hVObject, UINT32 uiIndex )
 		}
 		curr = curr->next;
 	}
+	*hVObject = NULL;
 	return FALSE;
 }
 

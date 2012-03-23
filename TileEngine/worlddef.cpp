@@ -2857,6 +2857,9 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 
 		// Uncheck "vanilla map saving", because it is not allowed on maps > 160x160
 		UnclickEditorButton(OPTIONS_VANILLA_MODE);
+
+		// Reset
+		gfResizeMapOnLoading = FALSE;
 	}
 	else
 	{

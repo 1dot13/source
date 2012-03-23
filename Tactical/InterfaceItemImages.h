@@ -26,11 +26,28 @@ extern UINT32				guiGUNSM;
 extern UINT32				guiP1ITEMS;
 extern UINT32				guiP2ITEMS;
 extern UINT32				guiP3ITEMS;
+
+//MM: New item tileslots start here
+extern UINT32				guiP4ITEMS;
+extern UINT32				guiP5ITEMS;
+extern UINT32				guiP6ITEMS;
+extern UINT32				guiP7ITEMS;
+extern UINT32				guiP8ITEMS;
+extern UINT32				guiP9ITEMS;
+
 // new item image handles
 extern MDItemVideoObjects	g_oGUNSM;
 extern MDItemVideoObjects	g_oP1ITEMS;
 extern MDItemVideoObjects	g_oP2ITEMS;
 extern MDItemVideoObjects	g_oP3ITEMS;
+
+//MM: New item tileslots start here
+extern MDItemVideoObjects	g_oP4ITEMS;
+extern MDItemVideoObjects	g_oP5ITEMS;
+extern MDItemVideoObjects	g_oP6ITEMS;
+extern MDItemVideoObjects	g_oP7ITEMS;
+extern MDItemVideoObjects	g_oP8ITEMS;
+extern MDItemVideoObjects	g_oP9ITEMS;
 
 bool RegisterItemImages();
 

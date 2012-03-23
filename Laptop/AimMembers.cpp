@@ -924,13 +924,13 @@ BOOLEAN EnterAIMMembers()
 		SetButtonCursor(giNextButton, CURSOR_WWW );
 	}
 
-	//tais: nsgi create kit selection buttons
-	if(gGameExternalOptions.gfUseNewStartingGearInterface) 
-		CreateKitSelectionButtons();
-
 	gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 	gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 	gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+
+	//tais: nsgi create kit selection buttons
+	if(gGameExternalOptions.gfUseNewStartingGearInterface) 
+		CreateKitSelectionButtons();
 
 	gfStopMercFromTalking = FALSE;
 	gubVideoConferencingMode = (UINT8)giCurrentSubPage;
@@ -1952,20 +1952,21 @@ void BtnContactButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-			//if we are not already in the video conferemce mode, go in to it
-			if( !gubVideoConferencingMode)
-			{
-
-				gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
-//				gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
-				gfFirstTimeInContactScreen = TRUE;
+			//if no popup box
+			if( gubPopUpBoxAction != AIM_POPUP_DISPLAY )
+			{	
+				//if we are not already in the video conferemce mode, go in to it
+				if( !gubVideoConferencingMode )
+				{
+					gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
+//					gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
+					gfFirstTimeInContactScreen = TRUE;
+				}
+				InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 			}
-
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
-			InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
-
-			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+			
+			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);			
 		}
 	}
 	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
@@ -5019,7 +5020,7 @@ void HandleAimMemberKeyBoardInput()
 {
 	InputAtom					InputEvent;
 
-	while (DequeueEvent(&InputEvent) == TRUE)
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{//!HandleTextInput( &InputEvent ) &&
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
@@ -5058,16 +5059,16 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case ENTER:
-					// contact only if merc alive
-					if( !IsMercDead( gbCurrentSoldier ) )
+					// contact only if merc alive & no popup box
+					if( !IsMercDead( gbCurrentSoldier ) && gubPopUpBoxAction != AIM_POPUP_DISPLAY )
 					{
-					if( !gubVideoConferencingMode)
-					{
-						gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
-						//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
-						gfFirstTimeInContactScreen = TRUE;
-					}
-					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+						if( !gubVideoConferencingMode)
+						{
+							gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
+							//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
+							gfFirstTimeInContactScreen = TRUE;
+						}
+						InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 					}
 				break;
 #ifdef JA2TESTVERSION
@@ -5467,6 +5468,31 @@ void RefreshWeaponKitSelectionButtons()
 {
 	//tais: shorthand function to refresh buttons
 	DisableWeaponKitSelectionButtons();
+		STR16 
+		kit1label = CharacterInfo[AIM_MEMBER_GEAR_KIT_ONE],
+		kit2label = CharacterInfo[AIM_MEMBER_GEAR_KIT_TWO],
+		kit3label = CharacterInfo[AIM_MEMBER_GEAR_KIT_THREE],
+		kit4label = CharacterInfo[AIM_MEMBER_GEAR_KIT_FOUR],
+		kit5label = CharacterInfo[AIM_MEMBER_GEAR_KIT_FIVE];
+	
+	if (gbCurrentSoldier != -1)
+	{
+		if (gMercProfileGear[gbCurrentSoldier][0].mGearKitName[0] != '\0')
+			kit1label = gMercProfileGear[gbCurrentSoldier][0].mGearKitName;
+		if (gMercProfileGear[gbCurrentSoldier][1].mGearKitName[0] != '\0')
+			kit2label = gMercProfileGear[gbCurrentSoldier][1].mGearKitName;
+		if (gMercProfileGear[gbCurrentSoldier][2].mGearKitName[0] != '\0')
+			kit3label = gMercProfileGear[gbCurrentSoldier][2].mGearKitName;
+		if (gMercProfileGear[gbCurrentSoldier][3].mGearKitName[0] != '\0')
+			kit4label = gMercProfileGear[gbCurrentSoldier][3].mGearKitName;
+		if (gMercProfileGear[gbCurrentSoldier][4].mGearKitName[0] != '\0')
+			kit5label = gMercProfileGear[gbCurrentSoldier][4].mGearKitName;
+	}
+	SpecifyButtonText( giWeaponboxSelectionButtonOne, kit1label );
+	SpecifyButtonText( giWeaponboxSelectionButtonTwo, kit2label );
+	SpecifyButtonText( giWeaponboxSelectionButtonThree, kit3label );
+	SpecifyButtonText( giWeaponboxSelectionButtonFour, kit4label );
+	SpecifyButtonText( giWeaponboxSelectionButtonFive, kit5label );
 	EnableWeaponKitSelectionButtons();
 }
 

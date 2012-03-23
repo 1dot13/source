@@ -157,15 +157,15 @@ BOOLEAN LoadMapBorderGraphics( void )
 	// will load map border
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-	FilenameForBPP( "INTERFACE\\MBS.sti", VObjectDesc.ImageFile );
+		FilenameForBPP( "INTERFACE\\MBS.sti", VObjectDesc.ImageFile );
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		FilenameForBPP( "INTERFACE\\MBS_800x600.sti", VObjectDesc.ImageFile );
 	}
-	else if (iResolution == 2)
+	else
 	{
 		FilenameForBPP( "INTERFACE\\MBS_1024x768.sti", VObjectDesc.ImageFile );
 	}
@@ -220,20 +220,20 @@ void RenderMapBorder( void )
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder );
 	// HEADROCK HAM 4: Load different map border depending on whether we want to display the mobile militia button or not.
+
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
 	{
-		BltVideoObject( guiSAVEBUFFER , hHandle, 1, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 1, xResOffset + MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 	else
 	{
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0, xResOffset + MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 
-	RestoreExternBackgroundRect( MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X, SCREEN_HEIGHT );
+	RestoreExternBackgroundRect( xResOffset + MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT );
 
 	// show the level marker
 	DisplayCurrentLevelMarker( );
-
 
 	return;
 }
@@ -297,27 +297,35 @@ void RenderMapBorderEtaPopUp( void )
 	UINT16 offsetY = 0;
 	UINT16 offsetBorderY = 0;
 
-	if (iResolution == 0)
+	UINT16 xVal = 215;
+	UINT16 yVal = 291;
+
+	// TODO.RW.ARSP: Check
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		offsetX = 215;
-		offsetY = 291;
-		offsetBorderY = offsetY + 19;
+		offsetX = xVal + xResOffset;
+		offsetY = yVal + yResOffset;
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
-		offsetX = 215 + 80;
-		offsetY = 291 + 120;
-		offsetBorderY = offsetY + 19;
+		offsetX = xVal + 80; // + xResOffset;
+		offsetY = yVal + 120; // + yResOffset;
 	}
-	else if (iResolution == 2)
+	else
 	{
-		offsetX = 215 + 180;
-		offsetY = 291 + 285;
-		offsetBorderY = offsetY + 19;
+		offsetX = xVal + 180;// + xResOffset;
+		offsetY = yVal + 285;// + yResOffset;
 	}
 
-	// TODO.RW: Adjust for 1024x768
-	BltVideoObject( FRAME_BUFFER , hHandle, iResolution, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+	offsetBorderY = offsetY + 19;
+
+	if (iResolution >= _640x480 && iResolution < _800x600)
+		BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+	else if (iResolution < _1024x768)
+		BltVideoObject( FRAME_BUFFER , hHandle, 1, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+	else
+		BltVideoObject( FRAME_BUFFER , hHandle, 2, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+
 	InvalidateRegion( MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX + 100 , MAP_BORDER_Y_OFFSET + offsetBorderY);
 
 	return;
@@ -1940,36 +1948,36 @@ void InitMapBorderButtonCoordinates()
 {
 	UINT32 buttonOffset = 155;	// 160
 
-	MAP_BORDER_TOWN_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 152);
-	MAP_BORDER_TOWN_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
-	MAP_BORDER_MINE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 109);
-	MAP_BORDER_MINE_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
-	MAP_BORDER_TEAMS_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 66);
-	MAP_BORDER_TEAMS_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
-	MAP_BORDER_AIRSPACE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 20);
-	MAP_BORDER_AIRSPACE_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
-	MAP_BORDER_ITEM_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 63);
-	MAP_BORDER_ITEM_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
-	MAP_BORDER_MILITIA_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 23);
-	MAP_BORDER_MILITIA_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
-	MAP_BORDER_MOBILE_BTN_X = 0;
-	MAP_BORDER_MOBILE_BTN_Y = 0;
+	MAP_BORDER_TOWN_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 152;
+	MAP_BORDER_TOWN_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_MINE_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 109;
+	MAP_BORDER_MINE_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_TEAMS_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 66;
+	MAP_BORDER_TEAMS_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_AIRSPACE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 20;
+	MAP_BORDER_AIRSPACE_BTN_Y	= (yResSize - buttonOffset);
+	MAP_BORDER_ITEM_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 63;
+	MAP_BORDER_ITEM_BTN_Y 		= (yResSize - buttonOffset);
+	MAP_BORDER_MILITIA_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 23;
+	MAP_BORDER_MILITIA_BTN_Y 	= (yResSize - buttonOffset);
+	MAP_BORDER_MOBILE_BTN_X 	= xResSize;
+	MAP_BORDER_MOBILE_BTN_Y 	= 0;
 
-	MAP_LEVEL_MARKER_X = (MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114));
-	MAP_LEVEL_MARKER_Y = (SCREEN_HEIGHT - buttonOffset);						//(SCREEN_HEIGHT - 157)		//323
-	MAP_LEVEL_MARKER_DELTA = 8;
-	MAP_LEVEL_MARKER_WIDTH = 55;	//( (SCREEN_WIDTH - 20) - MAP_LEVEL_MARKER_X )
+	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
+	MAP_LEVEL_MARKER_Y 			= (yResSize - buttonOffset);
+	MAP_LEVEL_MARKER_DELTA 		= 8;
+	MAP_LEVEL_MARKER_WIDTH 		= 55;
 
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
 	{
 		// Mobile button appears next to Militia button.
-		MAP_BORDER_MOBILE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 16);
-		MAP_BORDER_MOBILE_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
+		MAP_BORDER_MOBILE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 16;
+		MAP_BORDER_MOBILE_BTN_Y 	= (yResSize - buttonOffset);
 
 		// Airspace, Items, ZLevel buttons all moved to the right (+22px, +22px, +10px).
-		MAP_BORDER_AIRSPACE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 42);
-		MAP_BORDER_ITEM_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 85);
+		MAP_BORDER_AIRSPACE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 42;
+		MAP_BORDER_ITEM_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 85;
 
-		MAP_LEVEL_MARKER_X = (MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 124));
+		MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 124;
 	}
 }

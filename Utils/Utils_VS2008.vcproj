@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="Utils"
 	ProjectGUID="{DB40B90D-13F9-4FEC-8F1D-0506CC496586}"
 	RootNamespace="Utils"
@@ -113,7 +113,6 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -178,7 +177,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -296,7 +295,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
+				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="true"
@@ -305,7 +304,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -428,6 +427,10 @@
 			</File>
 			<File
 				RelativePath="INIReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyMap.h"
 				>
 			</File>
 			<File
@@ -664,6 +667,10 @@
 			</File>
 			<File
 				RelativePath="INIReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyMap.cpp"
 				>
 			</File>
 			<File

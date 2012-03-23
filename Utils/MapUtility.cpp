@@ -101,7 +101,7 @@ UINT32 MapUtilScreenHandle(void)
 	INT32 cnt, iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
 	FLOAT dX, dY, dStartX, dStartY;
 
-	while(DequeueEvent(&InputEvent) == TRUE)
+	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP) == TRUE)
 	{
 		if(InputEvent.usParam == ESC)
 		{

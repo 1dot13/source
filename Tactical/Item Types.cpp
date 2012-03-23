@@ -1023,6 +1023,7 @@ ObjectData::ObjectData(const ObjectData& src)
 		this->bTrap = src.bTrap;
 		this->fUsed = src.fUsed;
 		this->ubImprintID = src.ubImprintID;
+		this->bTemperature = src.bTemperature;
 		//copy over the union
 		this->gun = src.gun;
 
@@ -1041,6 +1042,7 @@ ObjectData& ObjectData::operator =(const ObjectData& src)
 		this->bTrap = src.bTrap;
 		this->fUsed = src.fUsed;
 		this->ubImprintID = src.ubImprintID;
+		this->bTemperature = src.bTemperature;
 		//copy over the union
 		this->gun = src.gun;
 
@@ -1312,6 +1314,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 			(*this)[0]->data.bTrap = src.bTrap;		// 1-10 exp_lvl to detect
 			(*this)[0]->data.ubImprintID = src.ubImprintID;	// ID of merc that item is imprinted on
 			(*this)[0]->data.fUsed = src.fUsed;				// flags for whether the item is used or not
+			(*this)[0]->data.bTemperature = 0.0;
 
 			if(src.usItem == OWNERSHIP)//dnl ch29 120909
 			{
@@ -1342,6 +1345,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[x]->data.bTrap = src.bTrap;		// 1-10 exp_lvl to detect
 				(*this)[x]->data.ubImprintID = src.ubImprintID;	// ID of merc that item is imprinted on
 				(*this)[x]->data.fUsed = src.fUsed;				// flags for whether the item is used or not
+				(*this)[x]->data.bTemperature = 0.0;
 			}
 		}
 

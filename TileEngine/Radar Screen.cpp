@@ -91,14 +91,15 @@ MOUSE_REGION gRadarRegionSquadList[ NUMBER_OF_SQUADS ];
 
 void InitRadarScreenCoords( )
 {
-		RADAR_WINDOW_TM_X = (SCREEN_WIDTH - 97);
-		RADAR_WINDOW_SM_X = (SCREEN_WIDTH - 97);
-		RADAR_WINDOW_TM_Y = (INTERFACE_START_Y + 13);
-		RADAR_WINDOW_SM_Y = ((UsingNewInventorySystem() == false)) ? (INV_INTERFACE_START_Y + 33) : (INV_INTERFACE_START_Y + 116);
-		RADAR_WINDOW_WIDTH = 88;
-		RADAR_WINDOW_HEIGHT = 44;
-		RADAR_WINDOW_STRAT_X = (SCREEN_WIDTH - 97);
-		RADAR_WINDOW_STRAT_Y = (SCREEN_HEIGHT - 107);
+	RADAR_WINDOW_TM_X 		= xResOffset + (xResSize - 97);
+	RADAR_WINDOW_SM_X 		= xResOffset + (xResSize - 97);
+	RADAR_WINDOW_STRAT_X 	= xResOffset + (xResSize - 97);
+	RADAR_WINDOW_STRAT_Y 	= (SCREEN_HEIGHT - 107);
+
+	RADAR_WINDOW_TM_Y = (INTERFACE_START_Y + 13);
+	RADAR_WINDOW_SM_Y = ((UsingNewInventorySystem() == false)) ? (INV_INTERFACE_START_Y + 33) : (INV_INTERFACE_START_Y + 116);
+	RADAR_WINDOW_WIDTH = 88;
+	RADAR_WINDOW_HEIGHT = 44;
 }
 
 // WANNE.RADAR: This method is called in the main menu, so the mouse region is initialized too early. We should initialize the mouse region later, when reaching
@@ -566,14 +567,8 @@ void RenderRadarScreen( )
 				// Don't place guys in radar until visible!
 				if ( pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) && !(pSoldier->ubMiscSoldierFlags & SOLDIER_MISC_XRAYED) )
 				{
-					//hayden
-					if(is_networked && pSoldier->bSide==0)
-					{
-					}
-					else
-					{
 					continue;// ie dont render
-					}
+					
 				}
 
 				// Don't render guys if they are dead!
@@ -753,22 +748,20 @@ BOOLEAN CreateDestroyMouseRegionsForSquadList( void )
 	{
 		// create regions
 		// load graphics
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\squadpanel.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &uiHandle));
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\squadpanel.sti", VObjectDesc.ImageFile);
+		CHECKF(AddVideoObject(&VObjectDesc, &uiHandle));
 
-	GetVideoObject(&hHandle, uiHandle);
+		GetVideoObject(&hHandle, uiHandle);
 
-
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0,(SCREEN_WIDTH - 102 - 1), gsVIEWPORT_END_Y, VO_BLT_SRCTRANSPARENCY,NULL );
-		RestoreExternBackgroundRect ((SCREEN_WIDTH - 102 - 1), gsVIEWPORT_END_Y, 102,( INT16 ) ( SCREEN_HEIGHT - gsVIEWPORT_END_Y ) );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0,(xResOffset + xResSize - 102 - 1), gsVIEWPORT_END_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		RestoreExternBackgroundRect ((xResOffset + xResSize - 102 - 1), gsVIEWPORT_END_Y, 102,( INT16 ) ( SCREEN_HEIGHT - gsVIEWPORT_END_Y ) );
 
 		for( sCounter = 0; sCounter < NUMBER_OF_SQUADS; sCounter++ )
 		{
 			// run through list of squads and place appropriatly
 			if( sCounter < NUMBER_OF_SQUADS / 2 )
 			{
-
 				// left half of list
 				// CHRISL:
 				MSYS_DefineRegion( &gRadarRegionSquadList[ sCounter ], RADAR_WINDOW_TM_X , ( INT16 )( SQUAD_WINDOW_TM_Y + ( sCounter * (  ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / ( NUMBER_OF_SQUADS / 2 ) ) ) ), RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter + 1 ) * ( ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / ( NUMBER_OF_SQUADS / 2 ) ) ) ) ,MSYS_PRIORITY_HIGHEST,

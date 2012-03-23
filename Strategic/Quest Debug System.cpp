@@ -1311,7 +1311,7 @@ void		GetUserInput()
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	while( DequeueEvent( &Event ) )
+	while( DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT) )
 	{
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_DOWN )
 		{

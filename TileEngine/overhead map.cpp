@@ -593,21 +593,21 @@ void GoIntoOverheadMap( )
 
 
 	// LOAD CLOSE ANIM
-	if (iResolution == 0)
+	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\MAP_BORD.sti", VObjectDesc.ImageFile);
-	if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
-		AssertMsg(0, "Missing INTERFACE\\MAP_BORD.sti" );
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\MAP_BORD.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
+			AssertMsg(0, "Missing INTERFACE\\MAP_BORD.sti" );
 	}
-	else if (iResolution == 1)
+	else if (iResolution < _1024x768)
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\MAP_BORD_800x600.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
 			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_800x600.sti" );
 	}
-	else if (iResolution == 2)
+	else
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\MAP_BORD_1024x768.sti", VObjectDesc.ImageFile);
@@ -674,7 +674,7 @@ void HandleOverheadUI(void)
 
 	ScrollOverheadMap();
 
-	while(DequeueEvent(&InputEvent) == TRUE)
+	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_REPEAT) == TRUE)
 	{
 		if(InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT)
 		{
@@ -1221,8 +1221,8 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		}
 
-		if(!fFromMapUtility)
-			BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
+		if(!fFromMapUtility)																									//LJDOldSM
+			BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
 
 		// Update the save buffer
 		UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
@@ -1233,8 +1233,10 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 		pSrcBuf = LockVideoSurface(guiRENDERBUFFER, &uiSrcPitchBYTES);
 		pDestBuf = LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
+		
 		if(gbPixelDepth == 16)// BLIT HERE
 			Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0, 0, 0, 0, usWidth, usHeight );
+		
 		UnLockVideoSurface(guiRENDERBUFFER);
 		UnLockVideoSurface(guiSAVEBUFFER);
 	}
@@ -1288,14 +1290,7 @@ void RenderOverheadOverlays()
 
 		if( !gfTacticalPlacementGUIActive && pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 		{
-					//hayden
-					if(is_networked && pSoldier->bSide==0)
-					{
-					}
-					else
-					{
 					continue;// ie dont render
-					}
 		}
 		
 		if (TileIsOutOfBounds(pSoldier->sGridNo))

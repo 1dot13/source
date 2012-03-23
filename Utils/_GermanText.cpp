@@ -2876,6 +2876,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Gehe zu Karte", 
 	
 	L"Sie können den Sektor von dieser Seite aus nicht verlassen.",
+	L"Sie können den Sektor nicht verlassen im Rundenmodus.",
 	L"%s ist zu weit weg.",
 	L"Baumkronen entfernen",
 	L"Baumkronen zeigen",
@@ -4349,7 +4350,8 @@ STR16 BobbyRText[] =
 	L"* %% funktionstüchtig",	// if the item is damaged, displays the percent function of the item
 
 	//Popup that tells the player that they can only order 10 items at a time
-	L"Mist! Mit diesem Formular können Sie nur 10 Sachen bestellen. Wenn Sie mehr wollen (was wir sehr hoffen), füllen Sie bitte noch ein Formular aus.",
+	L"Mist! Mit diesem Formular können Sie nur " ,//First part
+	L" Sachen bestellen. Wenn Sie mehr wollen (was wir sehr hoffen), füllen Sie bitte noch ein Formular aus.",
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
@@ -4910,10 +4912,13 @@ STR16 zOptionsToggleText[] =
 	L"Status Trainingsfortschritt",			// Show progress towards stat increase
 	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
 	L"Alternative Projektil-Grafik",			// Show alternate bullet graphics (tracers)
-	L"Neues Zielsystem verwenden",			// use NCTH
+	//L"Neues Zielsystem verwenden",			// use NCTH
+	L"Söldnerrang anzeigen.",					// shows mercs ranks
 	L"Gesichtsequipment-Grafiken",			
 	L"Gesichtsequipment-Icons",
 	L"Cursor-Wechsel deaktivieren",		    // Disable Cursor Swap
+	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
+	//L"Waffen können überhitzen",			
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5015,10 +5020,13 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden die Söldnerwerte visuell mit ihrem Trainingsfortschritt unterlegt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Strategische Karte entsprechend Ihres Erkundungsfortschrittes unterschiedlich eingefärbt.",
 	L"Wenn diese Funktion aktiviert ist, werden geschossene Projektile visuell mit Tracer-Effekten dargestellt.",
-	L"Wenn diese Funktion aktiviert ist, wird das neue Zielsystem und der neue Zielcursor verwendet.",
+	//L"Wenn diese Funktion aktiviert ist, wird das neue Zielsystem und der neue Zielcursor verwendet.",
+	L"Wenn diese Funktion aktiviert ist, werden die Ränge der Söldner in der Strategischen Karte vor dem Namen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer Söldner direkt auf dem Portrait.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
 	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFür manuellen Positionswechsel drücken Sie |x.",
+	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
+	//L"Wenn diese Funktion aktiviert ist, können sich Waffen überhiten bei schneller Schussfolge.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5114,6 +5122,11 @@ STR16 gzGIOScreenText[] =
 	L"6",
 	L"8",
 	L"10",
+	//L"Schneller Bobby Ray Lieferungen",
+	L"Inventarzugriff kostet APs",	
+	L"Neues Zielsystem",
+	L"Verbesserte Unterbrechungen",
+	L"Waffen-Überhitzung",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5429,6 +5442,9 @@ STR16 pMessageStrings[] =
 	L"AutoSpielstand%02d.sav",	// 101
 	L"Auto%02d.sav",	// 102
 	L"Spielstand%02d.sav", //103
+	// Lock / release mouse in windowed mode (window boundary)
+	L"Mausberech begrenzen, damit Mauscursor innerhalb des Spielfensters bleibt.",	// 104
+	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
@@ -5794,7 +5810,7 @@ STR16 gzLateLocalizedString[] =
 	L"%s feuert %d Schüsse mehr als beabsichtigt!",
 	L"%s feuert einen Schuss mehr als beabsichtigt!",
 
-	L"Sie müssen zuerst das Gegenstandsbeschreibungsfenster schließen!",	// TODO.Translate
+	L"Sie müssen zuerst das Gegenstandsbeschreibungsfenster schließen!",
 };
 
 STR16 gzCWStrings[] = 
@@ -5899,6 +5915,7 @@ STR16 New113Message[] =
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"Warning: enemy corpse found!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",
+	L"Zu wenig APs! Es werden %d APs benötigt, Sie haben aber nur %d APs.",
 };
 
 STR16 New113HAMMessage[] = 
@@ -6663,6 +6680,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|R|ü|s|t|u|n|g|s|d|u|r|c|h|s|c|h|l|a|g",
 	L"|K|u|g|e|l|s|t|u|r|z",
 	L"|E|x|p|l|o|s|i|o|n |v|o|r |E|i|n|s|c|h|l|a|g",
+	L"|T|e|m|p|e|r|a|t|u|r |M|o|d|i|f|i|k|a|t|o|r",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -6670,6 +6688,7 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \nDas ist die Fähigkeit der Kugel, in die Rüstung\neines Ziels einzudringen.\n \nWenn der Wert grösser als 1.0 ist, reduziert die Kugel \nverhältnismäßig den Schutz jeglicher Rüstung auf die sie eintrifft.\n \nIst der Wert kleiner als 1.0, tritt die Kugel weniger tief in die Rüstung des Ziels ein.\n \nHöher ist besser.",
 	L"\n \nBestimmt eine verhältnismäßige Zunahme des Schadenspotentials,\nsobald die Kugel die Rüstung des Ziels\ndurchbricht und den Körper dahinter trifft.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHöher ist besser.",
 	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren den Schaden.\n \nHöher ist besser.",
+	L"\n \nProzentuale zusätzliche Hitze\ndurch diese Munitionsart.\n \nNiedriger ist besser.",
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
@@ -6826,6 +6845,14 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|G|e|g|e|n|w|i|r|k|e|n|-|H|ä|u|f|i|g|k|e|i|t",
 	L"|T|r|e|f|f|e|r|b|o|n|u|s",
 	L"|Z|i|e|l|b|o|n|u|s",
+	L"|E|r|z|e|u|g|t|e |H|i|t|z|e",
+	L"|A|b|k|ü|h|l|f|a|k|t|o|r",
+	L"|L|a|d|e|h|e|m|m|u|n|g|s|s|c|h|r|a|n|k|e",
+	L"|H|i|t|z|e|s|c|h|a|d|e|n|s|s|c|h|r|a|n|k|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|E|r|z|e|u|g|t|e |H|i|t|z|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|b|k|ü|h|l|f|a|k|t|o|r",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|L|a|d|e|h|e|m|m|u|n|g|s|s|c|h|r|a|n|k|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|H|i|t|z|e|s|c|h|a|d|e|n|s|s|c|h|r|a|n|k|e",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -6879,6 +6906,14 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nDie Fähigkeit des Schützen einzuschätzen\nwieviel Kraft er während Feuerstoß-/Autofeuersalven\nbenötigt um den Rückstoß auszugleichen.\n \nNiedriger ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst die Trefferchance\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst den Zielbonus\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
+	L"\n \nEin Schuss erzeugt soviel Hitze. Munitionstypen und Anbauten können diesen Wert verändern.\n \nNiedriger ist besser.",
+	L"\n \nIn jedem Zug wird die Temperatur um diesen Wert gesenkt.\n \nHöher ist besser.",
+	L"\n \nWenn die Temperatur diesen Wert überschreitet, kommt es leichter zu Ladehemmungen.\n \nHöher ist besser.",
+	L"\n \nWenn die Temperatur diesen Wert überschreitet, wird der Gegenstand leichter beschädigt.\n \nHöher ist besser.",
+	L"\n \nErzeugte Hitze wird um diesen Prozentsatz erhöht.\n \nNiedriger ist besser.",
+	L"\n \nAbkühlung wird um diesen Prozentsatz erhöht.\n \nHöher ist besser.",
+	L"\n \nLadehemmungsschranke wird um diesen Prozentsatz erhöht.\n \nHöher ist besser.",
+	L"\n \nHitzeschadensschranke wird um diesen Prozentsatz erhöht.\n \nHöher is besser.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -6931,6 +6966,10 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nDas ist die Fähigkeit des Schützen Rückstöße\ngenauer auszugleichen.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin hoher Wert hilft dem Schützen die Mündung der Waffe\nbei Salven genauer auf das Ziel zu richten.\n \nNiedriger ist besser.",
 	L"\n \nDer Treffer Modifikator wird verändert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhöhter Treffer Modifikator erlaubt es entfernte Ziele\n öfter zu treffen sofern\nanständig gezielt wird.\n \nHöher ist besser.",
 	L"\n \nDer Zielbonus wird verändert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhöhter Zielbonus erlaubt es entfernte Ziele\n öfter zu treffen sofern\nanständig gezielt wird.\n \nHöher ist besser.",
+	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",					// TODO.Translate
+	L"\n \nEvery turn, the temperature is lowered\nby this amount.\nWeapon attachments can affect this.\n \nHigher is better.",
+	L"\n \nIf a gun's temperature is above this,\nit will jam more frequently.",
+	L"\n \nIf a gun's temperature is above this,\nit will be damaged more easily.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -6943,6 +6982,35 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
+// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+STR16 gTemperatureDesc[] =			// TODO.Translate
+{
+	L"Temperature is ",
+	L"very low",
+	L"low",
+	L"medium",
+	L"high",
+	L"very high",
+	L"dangerous",
+	L"CRITICAL",
+	L"DRAMATIC",
+	L"unknown",
+	L"."
+};
+
+CHAR16* ranks[] = 
+{	L"",			//ExpLevel 0
+	L"Rekr. ",		//ExpLevel 1
+	L"Gfr. ",		//ExpLevel 2
+	L"Kpl. ",		//ExpLevel 3
+	L"Zgf. ",		//ExpLevel 4
+	L"Lt. ",		//ExpLevel 5
+	L"Hptm. ",		//ExpLevel 6
+	L"Mjr. ",		//ExpLevel 7
+	L"Bgdr. ",		//ExpLevel 8
+	L"GenLt. ",		//ExpLevel 9
+	L"Gen. "		//ExpLevel 10
+};
 
 STR16	gzNewLaptopMessages[]=
 {

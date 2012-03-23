@@ -809,3 +809,64 @@ void RefreshWorldItemsIntoItemPools( WORLDITEM * pItemList, INT32 iNumberOfItems
 	}
 
 }
+
+
+// Flugente FTW 1: Cool down all items in the world (no, really)
+void CoolDownWorldItems( void )
+{
+	if ( gGameOptions.fWeaponOverheating )							// if Overheating is used ...
+	{
+		for( UINT32 uiCount = 0; uiCount < guiNumWorldItems; ++uiCount )				// ... for all items in the world ...
+		{
+			if( gWorldItems[ uiCount ].fExists )										// ... if item exists ...
+			{
+				// ... if Item exists and is a gun, a launcher or a barrel ...
+				if (Item[gWorldItems[ uiCount ].object.usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[gWorldItems[ uiCount ].object.usItem].barrel == TRUE )
+				{
+					OBJECTTYPE* pObj = &(gWorldItems[ uiCount ].object);				// ... get pointer for this item ...
+
+					if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+						{
+							FLOAT guntemperature = (*pObj)[i]->data.bTemperature;		// ... get temperature ...
+
+							FLOAT cooldownfactor = GetItemCooldownFactor(pObj);			// ... get item cooldown factor provided of attachments ...
+
+							if ( Item[gWorldItems[ uiCount ].object.usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
+								cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
+
+							FLOAT newguntemperatre = max(0.0, guntemperature - cooldownfactor);	// ... calculate new temperature ...
+							(*pObj)[i]->data.bTemperature = newguntemperatre;			// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperatre );
+#endif
+							// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+							attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+							for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+							{
+								if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_LAUNCHER|IC_LAUNCHER) )
+								{
+									FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
+
+									FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
+
+									FLOAT newtemperature = max(0.0, temperature - cooldownfactor);	// ... calculate new temperature ...
+									(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#endif
+
+									// we assume that there can exist only 1 UGL per weapon
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
