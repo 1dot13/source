@@ -11019,4 +11019,59 @@
 		<szBRName>43мм ОСВ. Г</szBRName>
 		<szBRDesc>С помощью этой осветительной гранаты, разработанной специально для 43-х мм. гранатомёта ГМ-94, вы сможете рассеять ночьную пелену, в которой укрывается противник. Действие гранаты значительно дольше обычного осветителя.</szBRDesc>
 	</ITEM>
+<ITEM>
+		<uiIndex>1377</uiIndex>
+		<szItemName>5.56x45mm Barrel</szItemName>
+		<szLongItemName>5.56x45mm Replacable Barrel</szLongItemName>
+		<szItemDesc>A replacable barrel for the caliber 5.56x45mm. Fits most light NATO machineguns.</szItemDesc>
+		<szBRName>5.56x45mm Replacable Barrel</szBRName>
+		<szBRDesc>A sensible machinegunner always packs a backup barrel for those intense firefights.</szBRDesc>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1378</uiIndex>
+		<szItemName>7.62x51mm Barrel</szItemName>
+		<szLongItemName>7.62x51mm Replacable Barrel</szLongItemName>
+		<szItemDesc>This is a replacable barrel for most of NATO's 7.62x51mm MGs. No sense in letting wear and tear stop you from killing, eh?</szItemDesc>
+		<szBRName>7.62x51mm Replacable Barrel</szBRName>
+		<szBRDesc>Special coating guarantees a life long quality. Note that the guarantee expires after two years.</szBRDesc>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1379</uiIndex>
+		<szItemName>7.62x54R Barrel</szItemName>
+		<szLongItemName>7.62x54R Replacable Barrel</szLongItemName>
+		<szItemDesc>A replacable barrel for heavy russian machineguns.</szItemDesc>
+		<szBRName>7.62x54R Replacable Barrel</szBRName>
+		<szBRDesc>Order now, original russian-made hardware.</szBRDesc>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1380</uiIndex>
+		<szItemName>5.45x39mm Barrel</szItemName>
+		<szLongItemName>5.45x39mm Replacable Barrel</szLongItemName>
+		<szItemDesc>An alternate barrel for the RPK-74.</szItemDesc>
+		<szBRName>5.45x39mm Replacable Barrel</szBRName>
+		<szBRDesc>Pack this, along with your trusted RPK-74, for your travel to the world's most dangerous places.</szBRDesc>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1381</uiIndex>
+		<szItemName>7.62x39mm Barrel</szItemName>
+		<szLongItemName>7.62x39mm Replacable Barrel</szLongItemName>
+		<szItemDesc>This replacable barrel fits most WP machineguns.</szItemDesc>
+		<szBRName>7.62x39mm Replacable Barrel</szBRName>
+		<szBRDesc>AK-based weapons are well-known for their durability, but there is no such a thing as 'too prepared'. Grab yours now, special price this week!</szBRDesc>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
