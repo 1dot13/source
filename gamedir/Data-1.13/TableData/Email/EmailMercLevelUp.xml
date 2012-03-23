@@ -1,4 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<!--
+
+This file contains the email text for each merc (that is available on the M.E.R.C website), 
+when Speck sends us the mail, when the salary of a M.E.R.C merc increases.
+
+uiIndex:		This represents the merc index from MercProfiles.xml (Prof.dat)
+Subject:		The email subject
+Message:		The email message boy
+
+-->
 
 <EMAIL_MERC_LEVEL_UP>
 	<EMAIL>
@@ -302,17 +311,15 @@
 		<Subject>Subject : None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
-	<EMAIL>
-		<!-- Gaston -->
+	<EMAIL>		
 		<uiIndex>58</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
-	<EMAIL>
-		<!-- Stogie -->
+	<EMAIL>		
 		<uiIndex>59</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>60</uiIndex>
@@ -842,24 +849,26 @@
 	<EMAIL>
 		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Tex's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Biggens his fees for services rendered have undergone an increase. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -1118,38 +1127,38 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Postie</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Reuban</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Leon</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Gary</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Sparky</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Beth</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Sam</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>227</uiIndex>
@@ -1163,8 +1172,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : Notice of Fee Increase</Subject>
+		<Message>Message : TODO: Manuel</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>230</uiIndex>

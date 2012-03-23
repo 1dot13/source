@@ -1,20 +1,7 @@
-﻿<!--
-Enabled                 - 0/1 disabled/enabled random stats
-ExpLevel                - 1-9
-RandomLife              - 0/1 disabled/enabled random Life
-RandomAgility           - 0/1 disabled/enabled random Agility
-RandomLeadership        - 0/1 disabled/enabled random Leadership
-RandomDexterity         - 0/1 disabled/enabled random Dexterity
-RandomWisdom            - 0/1 disabled/enabled random Wisdom
-RandomMarksmanship      - 0/1 disabled/enabled random Marksmanship
-RandomMedical           - 0/1 disabled/enabled random Medical
-RandomMechanical        - 0/1 disabled/enabled random Mechanical
-RandomExplosive         - 0/1 disabled/enabled random Explosive
-RandomScientific        - 0/1 disabled/enabled random Scientific
--->
 <RANDOM_STATS>
 	<PROFIL>
 		<uiIndex>0</uiIndex>
+		<Name>Barry</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -32,6 +19,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>1</uiIndex>
+		<Name>Blood</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -49,6 +37,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>2</uiIndex>
+		<Name>Lynx</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -66,6 +55,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>3</uiIndex>
+		<Name>Grizzly</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -83,6 +73,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>4</uiIndex>
+		<Name>Vicki</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -100,6 +91,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>5</uiIndex>
+		<Name>Trevor</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -117,6 +109,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>6</uiIndex>
+		<Name>Grunty</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -134,6 +127,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>7</uiIndex>
+		<Name>Ivan</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -151,6 +145,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>8</uiIndex>
+		<Name>Steroid</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -168,6 +163,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>9</uiIndex>
+		<Name>Igor</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -185,6 +181,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>10</uiIndex>
+		<Name>Shadow</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -202,6 +199,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>11</uiIndex>
+		<Name>Red</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -219,6 +217,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>12</uiIndex>
+		<Name>Reaper</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -236,6 +235,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>13</uiIndex>
+		<Name>Fidel</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -253,6 +253,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>14</uiIndex>
+		<Name>Fox</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -270,6 +271,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>15</uiIndex>
+		<Name>Sidney</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -287,6 +289,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>16</uiIndex>
+		<Name>Gus</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -304,6 +307,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>17</uiIndex>
+		<Name>Buns</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -321,6 +325,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>18</uiIndex>
+		<Name>Ice</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -338,6 +343,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>19</uiIndex>
+		<Name>Spider</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -355,6 +361,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>20</uiIndex>
+		<Name>Cliff</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -372,6 +379,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>21</uiIndex>
+		<Name>Bull</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -389,6 +397,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>22</uiIndex>
+		<Name>Hitman</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -406,6 +415,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>23</uiIndex>
+		<Name>Buzz</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -423,6 +433,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>24</uiIndex>
+		<Name>Raider</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -440,6 +451,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>25</uiIndex>
+		<Name>Raven</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -457,6 +469,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>26</uiIndex>
+		<Name>Static</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -474,6 +487,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>27</uiIndex>
+		<Name>Len</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -491,6 +505,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>28</uiIndex>
+		<Name>Danny</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -508,6 +523,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>29</uiIndex>
+		<Name>Magic</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -525,6 +541,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>30</uiIndex>
+		<Name>Stephen</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -542,6 +559,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>31</uiIndex>
+		<Name>Scully</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -559,6 +577,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>32</uiIndex>
+		<Name>Malice</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -576,6 +595,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>33</uiIndex>
+		<Name>Dr. Q</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -593,6 +613,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>34</uiIndex>
+		<Name>Nails</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -610,6 +631,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>35</uiIndex>
+		<Name>Thor</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -627,6 +649,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>36</uiIndex>
+		<Name>Scope</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -644,6 +667,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>37</uiIndex>
+		<Name>Wolf</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -661,6 +685,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>38</uiIndex>
+		<Name>MD</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -678,6 +703,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>39</uiIndex>
+		<Name>Meltdown</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -695,6 +721,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>40</uiIndex>
+		<Name>Biff</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -712,6 +739,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>41</uiIndex>
+		<Name>Haywire</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -729,6 +757,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>42</uiIndex>
+		<Name>Gasket</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -746,6 +775,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>43</uiIndex>
+		<Name>Razor</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -763,6 +793,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>44</uiIndex>
+		<Name>Flo</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -780,6 +811,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>45</uiIndex>
+		<Name>Gumpy</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -797,6 +829,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>46</uiIndex>
+		<Name>Larry</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -814,6 +847,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>47</uiIndex>
+		<Name>Larry</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -831,6 +865,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>48</uiIndex>
+		<Name>Cougar</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -848,6 +883,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>49</uiIndex>
+		<Name>Numb</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -865,6 +901,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>50</uiIndex>
+		<Name>Bubba</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -882,6 +919,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>51</uiIndex>
+		<Name>PGmale1</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -899,6 +937,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>52</uiIndex>
+		<Name>PGmale2 </Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -916,6 +955,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>53</uiIndex>
+		<Name>PGmale3</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -933,6 +973,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>54</uiIndex>
+		<Name>PGLady1</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -950,6 +991,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>55</uiIndex>
+		<Name>PGLady2</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -967,6 +1009,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>56</uiIndex>
+		<Name>PGLady3</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -984,6 +1027,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>57</uiIndex>
+		<Name>Miguel</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1001,6 +1045,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>58</uiIndex>
+		<Name>Carlos</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1018,6 +1063,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>59</uiIndex>
+		<Name>Ira</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1035,6 +1081,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>60</uiIndex>
+		<Name>Dimitri</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1052,6 +1099,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>61</uiIndex>
+		<Name>Devin</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1069,6 +1117,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>62</uiIndex>
+		<Name>Robot</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1086,6 +1135,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>63</uiIndex>
+		<Name>Hamous</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1103,6 +1153,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>64</uiIndex>
+		<Name>Terry</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1120,6 +1171,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>65</uiIndex>
+		<Name>RPC65</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1137,6 +1189,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>66</uiIndex>
+		<Name>Dynamo</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1154,6 +1207,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>67</uiIndex>
+		<Name>Shank</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1171,6 +1225,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>68</uiIndex>
+		<Name>Iggy</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1188,6 +1243,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>69</uiIndex>
+		<Name>Vince</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1205,6 +1261,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>70</uiIndex>
+		<Name>Conrad</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1222,6 +1279,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>71</uiIndex>
+		<Name>RPC71</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1239,6 +1297,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>72</uiIndex>
+		<Name>Maddog</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1256,6 +1315,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>73</uiIndex>
+		<Name>Darrel</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1273,6 +1333,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>74</uiIndex>
+		<Name>Perko</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1290,6 +1351,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>75</uiIndex>
+		<Name>Deidranna</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1307,6 +1369,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>76</uiIndex>
+		<Name>Auntie</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1324,6 +1387,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>77</uiIndex>
+		<Name>Enrico</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1341,6 +1405,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>78</uiIndex>
+		<Name>Carmen</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1358,6 +1423,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>79</uiIndex>
+		<Name>Joe</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1375,6 +1441,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>80</uiIndex>
+		<Name>Steve</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1392,6 +1459,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>81</uiIndex>
+		<Name>Rat</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1409,6 +1477,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>82</uiIndex>
+		<Name>Annie</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1426,6 +1495,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>83</uiIndex>
+		<Name>Chris</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1443,6 +1513,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>84</uiIndex>
+		<Name>Bob</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1460,6 +1531,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>85</uiIndex>
+		<Name>Brenda</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1477,6 +1549,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>86</uiIndex>
+		<Name>Kingpin</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1494,6 +1567,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>87</uiIndex>
+		<Name>Darren</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1511,6 +1585,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>88</uiIndex>
+		<Name>Maria</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1528,6 +1603,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>89</uiIndex>
+		<Name>Angel</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1545,6 +1621,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>90</uiIndex>
+		<Name>Joey</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1562,6 +1639,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>91</uiIndex>
+		<Name>Tony</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1579,6 +1657,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>92</uiIndex>
+		<Name>Frank</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1596,6 +1675,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>93</uiIndex>
+		<Name>Spike</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1613,6 +1693,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>94</uiIndex>
+		<Name>Damon</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1630,6 +1711,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>95</uiIndex>
+		<Name>Kyle</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1647,6 +1729,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>96</uiIndex>
+		<Name>Micky</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1664,6 +1747,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>97</uiIndex>
+		<Name>Skyrider</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1681,6 +1765,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>98</uiIndex>
+		<Name>Pablo</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1698,6 +1783,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>99</uiIndex>
+		<Name>Sal</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1715,6 +1801,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>100</uiIndex>
+		<Name>Father</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1732,6 +1819,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>101</uiIndex>
+		<Name>Fatima</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1749,6 +1837,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>102</uiIndex>
+		<Name>Warden</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1766,6 +1855,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>103</uiIndex>
+		<Name>Gordon</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1783,6 +1873,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>104</uiIndex>
+		<Name>Gabby</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1800,6 +1891,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>105</uiIndex>
+		<Name>Ernest</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1817,6 +1909,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>106</uiIndex>
+		<Name>Fred</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1834,6 +1927,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>107</uiIndex>
+		<Name>Madame</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1851,6 +1945,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>108</uiIndex>
+		<Name>Yanni</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1868,6 +1963,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>109</uiIndex>
+		<Name>Martha</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1885,6 +1981,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>110</uiIndex>
+		<Name>Joe</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1902,6 +1999,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>111</uiIndex>
+		<Name>Jasmin</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1919,6 +2017,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>112</uiIndex>
+		<Name>Charlie</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1936,6 +2035,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>113</uiIndex>
+		<Name>Jake</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1953,6 +2053,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>114</uiIndex>
+		<Name>Pacos</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1970,6 +2071,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>115</uiIndex>
+		<Name>Dave</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -1987,6 +2089,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>116</uiIndex>
+		<Name>Skipper</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2004,6 +2107,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>117</uiIndex>
+		<Name>Hans</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2021,6 +2125,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>118</uiIndex>
+		<Name>John</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2038,6 +2143,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>119</uiIndex>
+		<Name>Mary</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2055,6 +2161,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>120</uiIndex>
+		<Name>General</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2072,6 +2179,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>121</uiIndex>
+		<Name>Sergeant</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2089,6 +2197,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>122</uiIndex>
+		<Name>Armand</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2106,6 +2215,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>123</uiIndex>
+		<Name>Lora</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2123,6 +2233,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>124</uiIndex>
+		<Name>Franz</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2140,6 +2251,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>125</uiIndex>
+		<Name>Howard</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2157,6 +2269,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>126</uiIndex>
+		<Name>Sam</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2174,6 +2287,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>127</uiIndex>
+		<Name>Eldin</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2191,6 +2305,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>128</uiIndex>
+		<Name>Arnie</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2208,6 +2323,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>129</uiIndex>
+		<Name>Tina</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2225,6 +2341,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>130</uiIndex>
+		<Name>Fredo</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2242,6 +2359,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>131</uiIndex>
+		<Name>Walter</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2259,6 +2377,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>132</uiIndex>
+		<Name>Jenny</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2276,6 +2395,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>133</uiIndex>
+		<Name>Billy</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2293,6 +2413,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>134</uiIndex>
+		<Name>Brewster</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2310,6 +2431,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>135</uiIndex>
+		<Name>Elliot</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2327,6 +2449,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>136</uiIndex>
+		<Name>Derek</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2344,6 +2467,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>137</uiIndex>
+		<Name>Oliver</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2361,6 +2485,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>138</uiIndex>
+		<Name>Waldo</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2378,6 +2503,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>139</uiIndex>
+		<Name>Doreen</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2395,6 +2521,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>140</uiIndex>
+		<Name>Jim</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2412,6 +2539,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>141</uiIndex>
+		<Name>Jack</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2429,6 +2557,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>142</uiIndex>
+		<Name>Olaf</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2446,6 +2575,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>143</uiIndex>
+		<Name>Ray</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2463,6 +2593,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>144</uiIndex>
+		<Name>Olga</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2480,6 +2611,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>145</uiIndex>
+		<Name>Tyrone</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2497,6 +2629,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>146</uiIndex>
+		<Name>MadLab</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2514,6 +2647,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>147</uiIndex>
+		<Name>Keith</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2531,6 +2665,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>148</uiIndex>
+		<Name>Matt</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2548,6 +2683,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>149</uiIndex>
+		<Name>Mike</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2565,6 +2701,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>150</uiIndex>
+		<Name>Daryl</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2582,6 +2719,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>151</uiIndex>
+		<Name>Herve</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2599,6 +2737,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>152</uiIndex>
+		<Name>Peter</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2616,6 +2755,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>153</uiIndex>
+		<Name>Alberto</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2633,6 +2773,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>154</uiIndex>
+		<Name>Carlo</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2650,6 +2791,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>155</uiIndex>
+		<Name>Manny</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2667,6 +2809,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>156</uiIndex>
+		<Name>Oswald</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2684,6 +2827,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>157</uiIndex>
+		<Name>Calvin </Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2701,6 +2845,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>158</uiIndex>
+		<Name>Carl</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2718,6 +2863,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>159</uiIndex>
+		<Name>Speck...</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2735,6 +2881,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>160</uiIndex>
+		<Name>Hummer</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2752,6 +2899,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>161</uiIndex>
+		<Name>El Dorado</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2769,6 +2917,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>162</uiIndex>
+		<Name>Truck</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2786,6 +2935,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>163</uiIndex>
+		<Name></Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2803,6 +2953,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>164</uiIndex>
+		<Name></Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2820,6 +2971,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>165</uiIndex>
+		<Name>Gaston</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2837,6 +2989,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>166</uiIndex>
+		<Name>Stogie</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2854,6 +3007,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>167</uiIndex>
+		<Name>Tex</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2871,6 +3025,7 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>168</uiIndex>
+		<Name>Biggins</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
@@ -2888,9 +3043,1540 @@ RandomScientific        - 0/1 disabled/enabled random Scientific
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>169</uiIndex>
+		<Name>PGmale4</Name>
 		<Enabled>0</Enabled>
 		<BaseAttribute>49</BaseAttribute>
 		<ExpLevel>1</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>170</uiIndex>
+		<Name>Monk</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>171</uiIndex>
+		<Name>Brain</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>172</uiIndex>
+		<Name>Scream</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>173</uiIndex>
+		<Name>Henning</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>174</uiIndex>
+		<Name>Lucky</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>175</uiIndex>
+		<Name>Laura</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>176</uiIndex>
+		<Name>Grace</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>177</uiIndex>
+		<Name>Rudolf</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>178</uiIndex>
+		<Name>Spooky</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>179</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>180</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>181</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>182</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>183</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>184</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>185</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>186</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>187</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>188</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>189</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>190</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>191</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>192</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>193</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>194</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>195</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>196</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>197</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>198</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>199</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>200</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>201</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>202</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>203</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>204</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>205</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>206</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>207</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>208</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>209</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>210</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>211</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>212</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>213</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>214</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>215</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>216</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>217</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>218</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>219</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>220</uiIndex>
+		<Name>Postie</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>221</uiIndex>
+		<Name>Reuban</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>222</uiIndex>
+		<Name>Leon</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>223</uiIndex>
+		<Name>Gary</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>224</uiIndex>
+		<Name>Sparky</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>225</uiIndex>
+		<Name>Beth</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>226</uiIndex>
+		<Name>Sam</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>227</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>228</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>229</uiIndex>
+		<Name>Manuel</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>230</uiIndex>
+		<Name>Boss</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>231</uiIndex>
+		<Name>Snake</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>232</uiIndex>
+		<Name>Spam</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>233</uiIndex>
+		<Name>Spike</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>234</uiIndex>
+		<Name>Jimmy</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>235</uiIndex>
+		<Name>Leech</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>236</uiIndex>
+		<Name>Bob</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>237</uiIndex>
+		<Name>Kelly</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>238</uiIndex>
+		<Name>Vinny</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>239</uiIndex>
+		<Name>Kaboom</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>240</uiIndex>
+		<Name>Bud</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>241</uiIndex>
+		<Name>Rusty</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>242</uiIndex>
+		<Name>Needle</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>243</uiIndex>
+		<Name>Screw</Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>244</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>245</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>246</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>247</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>248</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>249</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>250</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>251</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>252</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>253</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
+		<RandomLife>0</RandomLife>
+		<RandomAgility>0</RandomAgility>
+		<RandomLeadership>0</RandomLeadership>
+		<RandomDexterity>0</RandomDexterity>
+		<RandomWisdom>0</RandomWisdom>
+		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMedical>0</RandomMedical>
+		<RandomMechanical>0</RandomMechanical>
+		<RandomExplosive>0</RandomExplosive>
+		<RandomScientific>0</RandomScientific>
+		<RandomStrength>0</RandomStrength>
+	</PROFIL>
+	<PROFIL>
+		<uiIndex>254</uiIndex>
+		<Name></Name>
+		<Enabled>0</Enabled>
+		<BaseAttribute>0</BaseAttribute>
+		<ExpLevel>0</ExpLevel>
 		<RandomLife>0</RandomLife>
 		<RandomAgility>0</RandomAgility>
 		<RandomLeadership>0</RandomLeadership>

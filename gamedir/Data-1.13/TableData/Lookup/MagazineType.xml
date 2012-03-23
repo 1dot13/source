@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<MagazineType>
+		<id>0</id>
+		<name>Magazine</name>
+	</MagazineType>
+	<MagazineType>
+		<id>1</id>
+		<name>Bullet(s)</name>
+	</MagazineType>
+	<MagazineType>
+		<id>2</id>
+		<name>Box</name>
+	</MagazineType>
+	<MagazineType>
+		<id>3</id>
+		<name>Crate</name>
+	</MagazineType>
+</JA2Data>

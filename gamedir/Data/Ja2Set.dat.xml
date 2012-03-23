@@ -1,0 +1,2888 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<JA2SET>
+	<tilesets numTilesets="70" numFiles="151">
+		<Tileset index="0">
+			<Name>GENERIC 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">earth.sti</file>
+				<file index="1">earth2.sti</file>
+				<file index="2">sgrass1.sti</file>
+				<file index="3">sgrass2.sti</file>
+				<file index="4">grass.sti</file>
+				<file index="5">lgrass2.sti</file>
+				<file index="6">path.sti</file>
+				<file index="7">newbank.sti</file>
+				<file index="8">deeplake.sti</file>
+				<file index="9">cliff_l.sti</file>
+				<file index="10">l_cliff.sti</file>
+				<file index="11">cliff_sh.sti</file>
+				<file index="12">drum_01.sti</file>
+				<file index="13">drum_02.sti</file>
+				<file index="14">dump.sti</file>
+				<file index="15">mdrock.sti</file>
+				<file index="16">montbush.sti</file>
+				<file index="17">weeds_1.sti</file>
+				<file index="18">block_01.sti</file>
+				<file index="19">nogobush.sti</file>
+				<file index="20">tree1_t.sti</file>
+				<file index="21">tree2_t.sti</file>
+				<file index="22">tree2_t.sti</file>
+				<file index="23">tree2_t.sti</file>
+				<file index="24">drum1shd.sti</file>
+				<file index="25">drum2shd.sti</file>
+				<file index="26">dumpshdw.sti</file>
+				<file index="27">mdrocksh.sti</file>
+				<file index="28">montbshs.sti</file>
+				<file index="29">weedssh.sti</file>
+				<file index="30">block_02.sti</file>
+				<file index="31">nogobuss.sti</file>
+				<file index="32">trshdwt1.sti</file>
+				<file index="33">trshdwt2.sti</file>
+				<file index="34">trshdwt2.sti</file>
+				<file index="35">trshdwt2.sti</file>
+				<file index="36">build_01.sti</file>
+				<file index="37">build_05.sti</file>
+				<file index="38">build_10.sti</file>
+				<file index="39">build_06.sti</file>
+				<file index="40">door1.sti</file>
+				<file index="41">door1.sti</file>
+				<file index="42">door1.sti</file>
+				<file index="43">door1.sti</file>
+				<file index="44">door1s.sti</file>
+				<file index="45">door1s.sti</file>
+				<file index="46">door1s.sti</file>
+				<file index="47">door1s.sti</file>
+				<file index="48">roofceil.sti</file>
+				<file index="49">cracks.sti</file>
+				<file index="50">roadtile.sti</file>
+				<file index="51">window1.sti</file>
+				<file index="52">walldec1.sti</file>
+				<file index="53">walldec2.sti</file>
+				<file index="54">walldec3.sti</file>
+				<file index="55">walldec3.sti</file>
+				<file index="56">w_dec01.sti</file>
+				<file index="57">w_dec02.sti</file>
+				<file index="58">w_dec03.sti</file>
+				<file index="59">w_dec04.sti</file>
+				<file index="60">floor_1.sti</file>
+				<file index="61">floor_2.sti</file>
+				<file index="62">floor_3.sti</file>
+				<file index="63">floor_4.sti</file>
+				<file index="64">flat_r1.sti</file>
+				<file index="65">flat_r2.sti</file>
+				<file index="66">flat_r3.sti</file>
+				<file index="67">flat_r4.sti</file>
+				<file index="68">slant_01.sti</file>
+				<file index="69">slant_04.sti</file>
+				<file index="70">roofvent.sti</file>
+				<file index="71">roofvent.sti</file>
+				<file index="72">highl3.sti</file>
+				<file index="73">furn_6.sti</file>
+				<file index="74">furn_7.sti</file>
+				<file index="75">furn_8.sti</file>
+				<file index="76">furn_9.sti</file>
+				<file index="77">furn_6.sti</file>
+				<file index="78">dirtroad.sti</file>
+				<file index="79">debrocks.sti</file>
+				<file index="80">sblast.sti</file>
+				<file index="81">sweeds.sti</file>
+				<file index="82">miniweed.sti</file>
+				<file index="83">cracks.sti</file>
+				<file index="84">twigs.sti</file>
+				<file index="85">lakeobj.sti</file>
+				<file index="86">oldfence.sti</file>
+				<file index="87">oldfencs.sti</file>
+				<file index="88">truck.sti</file>
+				<file index="89">truck.sti</file>
+				<file index="90">truck_s.sti</file>
+				<file index="91">truck_s.sti</file>
+				<file index="92">litter.sti</file>
+				<file index="93">damgdeb.sti</file>
+				<file index="94">deb_02.sti</file>
+				<file index="95">damgdebs.sti</file>
+				<file index="96">deb_02s.sti</file>
+				<file index="97">f_weed.sti</file>
+				<file index="98">montbush.sti</file>
+				<file index="99">f_weeds.sti</file>
+				<file index="100">montbshs.sti</file>
+				<file index="101">rubble1.sti</file>
+				<file index="102">rubble2.sti</file>
+				<file index="103">drum_01.sti</file>
+				<file index="104">drum_01.sti</file>
+				<file index="105">drum1shd.sti</file>
+				<file index="106">drum1shd.sti</file>
+				<file index="107">basefrn1.sti</file>
+				<file index="108">hilfurn1.sti</file>
+				<file index="109">furn_6.sti</file>
+				<file index="110">furn_6.sti</file>
+				<file index="111">flat_r4.sti</file>
+				<file index="112">flat_r4.sti</file>
+				<file index="113">w_dec01.sti</file>
+				<file index="114">w_dec01.sti</file>
+				<file index="115">w_dec01.sti</file>
+				<file index="116">picture.sti</file>
+				<file index="117">bld_prnt.sti</file>
+				<file index="118">m_b_prnt.sti</file>
+				<file index="119">switches.sti</file>
+				<file index="120">slant_01.sti</file>
+				<file index="121">flat_r4.sti</file>
+				<file index="122">flat_r4.sti</file>
+				<file index="123">smguns.sti</file>
+				<file index="124">smp1items.sti</file>
+				<file index="125">smp2items.sti</file>
+				<file index="126">glashatr.sti</file>
+				<file index="127">smp3items.sti</file>
+				<file index="128">bod_blow.sti</file>
+				<file index="129">exittex.sti</file>
+				<file index="130">steps.sti</file>
+				<file index="131">ptrs1.sti</file>
+				<file index="132">ptrs2.sti</file>
+				<file index="133">ptrs3.sti</file>
+				<file index="134">g-run.sti</file>
+				<file index="135">g-walk.sti</file>
+				<file index="136">g-swat.sti</file>
+				<file index="137">g-pron.sti</file>
+				<file index="138">white.sti</file>
+				<file index="139">action1.sti</file>
+				<file index="140">hand-wi.sti</file>
+				<file index="141">x.sti</file>
+				<file index="142">g-ring.sti</file>
+				<file index="143">r_key.sti</file>
+				<file index="144">sel-ring.sti</file>
+				<file index="145">highl3.sti</file>
+				<file index="146">bull.sti</file>
+				<file index="147">miss1.sti</file>
+				<file index="148">w_miss.sti</file>
+				<file index="149">ripple.sti</file>
+				<file index="150">wirefram.sti</file>
+				<file index="151">smp4items.sti</file>
+				<file index="152">smp5items.sti</file>
+				<file index="153">smp6items.sti</file>
+				<file index="154">smp7items.sti</file>
+				<file index="155">smp8items.sti</file>
+				<file index="156">smp9items.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="1">
+			<Name>CAVES 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="7">pit_1.sti</file>
+				<file index="19">eggs.sti</file>
+				<file index="31">eggs_s.sti</file>
+				<file index="36">cvwalls.sti</file>
+				<file index="37">cvwall2.sti</file>
+				<file index="52">tunnel3.sti</file>
+				<file index="73">cvstruct.sti</file>
+				<file index="74">cvwood.sti</file>
+				<file index="75">drum_02.sti</file>
+				<file index="76">mncar1.sti</file>
+				<file index="77">cavhole.sti</file>
+				<file index="78">traxx.sti</file>
+				<file index="80">burnmark.sti</file>
+				<file index="81">bombdeb.sti</file>
+				<file index="83">bones.sti</file>
+				<file index="84">tunnel1.sti</file>
+				<file index="92">bones2.sti</file>
+				<file index="109">workshp2.sti</file>
+				<file index="110">lawles3b.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="2">
+			<Name>DESERT 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">dirt1.sti</file>
+				<file index="1">dirt2.sti</file>
+				<file index="2">dirt3.sti</file>
+				<file index="3">dirt4.sti</file>
+				<file index="4">dirt5.sti</file>
+				<file index="5">grassd.sti</file>
+				<file index="6">grassc.sti</file>
+				<file index="12">cactus.sti</file>
+				<file index="18">desdec1.sti</file>
+				<file index="19">cracks2.sti</file>
+				<file index="24">cactshdw.sti</file>
+				<file index="30">desdec1s.sti</file>
+				<file index="31">crckshdw.sti</file>
+				<file index="68">slant_07.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="3">
+			<Name>LUSH 1 (dirt roads)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">l_gras1.sti</file>
+				<file index="1">l_gras2.sti</file>
+				<file index="2">l_gras3.sti</file>
+				<file index="3">l_gras4.sti</file>
+				<file index="4">l_gras5.sti</file>
+				<file index="5">l_dirt1.sti</file>
+				<file index="6">l_dirt2.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="13">l_weed2.sti</file>
+				<file index="18">l_weed1.sti</file>
+				<file index="19">l_bush.sti</file>
+				<file index="20">l_tree.sti</file>
+				<file index="21">l_tree.sti</file>
+				<file index="25">l_weed2s.sti</file>
+				<file index="30">l_weed1s.sti</file>
+				<file index="31">l_bush_s.sti</file>
+				<file index="32">l_tree_s.sti</file>
+				<file index="33">l_tree_s.sti</file>
+				<file index="37">build_11.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="68">slant_04.sti</file>
+				<file index="69">slant_07.sti</file>
+				<file index="80">l_weed3.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="4">
+			<Name>TROPICAL 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">grass1.sti</file>
+				<file index="16">grass2.sti</file>
+				<file index="17">t_tree2.sti</file>
+				<file index="18">grass3.sti</file>
+				<file index="19">bamboo.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">grass1_s.sti</file>
+				<file index="28">grass2_s.sti</file>
+				<file index="29">t_tree2s.sti</file>
+				<file index="30">grass3_s.sti</file>
+				<file index="31">bamboo_s.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_12.sti</file>
+				<file index="37">build_16.sti</file>
+				<file index="39">build_27.sti</file>
+				<file index="41">door_11.sti</file>
+				<file index="42">celldoor.sti</file>
+				<file index="45">door_11s.sti</file>
+				<file index="46">celldors.sti</file>
+				<file index="50">cosroad.sti</file>
+				<file index="61">tr_floor.sti</file>
+				<file index="68">slant_09.sti</file>
+				<file index="80">grass2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">ruinfenc.sti</file>
+				<file index="87">ruinfncs.sti</file>
+				<file index="98">r_stuff.sti</file>
+				<file index="100">r_stuffs.sti</file>
+				<file index="109">tr_furn1.sti</file>
+				<file index="110">lawles3b.sti</file>
+				<file index="113">a-sign3.sti</file>
+				<file index="114">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="5">
+			<Name>MOUNTAINS 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">montrock.sti</file>
+				<file index="18">montbush.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="24">montrcks.sti</file>
+				<file index="30">montbshs.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="86">grail.sti</file>
+				<file index="87">grail_s.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="6">
+			<Name>COASTAL 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">sand4.sti</file>
+				<file index="1">sand3.sti</file>
+				<file index="2">sand2.sti</file>
+				<file index="3">sand1.sti</file>
+				<file index="4">grland1.sti</file>
+				<file index="5">grland2.sti</file>
+				<file index="6">grland3.sti</file>
+				<file index="7">coswater.sti</file>
+				<file index="8">cosdeep.sti</file>
+				<file index="12">ctrash.sti</file>
+				<file index="13">rocks.sti</file>
+				<file index="15">clogs.sti</file>
+				<file index="16">cbranch.sti</file>
+				<file index="19">grass1.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">ctree2.sti</file>
+				<file index="24">ctrash_s.sti</file>
+				<file index="25">rocks_s.sti</file>
+				<file index="27">clogs_s.sti</file>
+				<file index="28">cbranch_s.sti</file>
+				<file index="31">grass1_s.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">ctree2_s.sti</file>
+				<file index="50">cosroad.sti</file>
+				<file index="80">grass2.sti</file>
+				<file index="83">grass3.sti</file>
+				<file index="86">cfence.sti</file>
+				<file index="87">cfence_s.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="7">
+			<Name>SWAMP 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">swampgr6.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="15">montrock.sti</file>
+				<file index="16">smprock.sti</file>
+				<file index="19">smpbush.sti</file>
+				<file index="20">sw_tre1.sti</file>
+				<file index="21">sw_tre2.sti</file>
+				<file index="27">montrcks.sti</file>
+				<file index="28">smprocks.sti</file>
+				<file index="31">smpbushs.sti</file>
+				<file index="32">sw_tre1s.sti</file>
+				<file index="33">sw_tre2s.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="8">
+			<Name>FARM 1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">f_grass1.sti</file>
+				<file index="1">f_grass2.sti</file>
+				<file index="2">f_grass3.sti</file>
+				<file index="3">f_grass4.sti</file>
+				<file index="4">f_grass5.sti</file>
+				<file index="5">f_grass6.sti</file>
+				<file index="6">f_dirt.sti</file>
+				<file index="13">f_bush.sti</file>
+				<file index="16">f_weed.sti</file>
+				<file index="18">furn_mix.sti</file>
+				<file index="20">f_tree.sti</file>
+				<file index="25">f_bush_s.sti</file>
+				<file index="28">f_weeds.sti</file>
+				<file index="30">furnmixs.sti</file>
+				<file index="32">f_trees.sti</file>
+				<file index="37">build_18.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="49">burnmark.sti</file>
+				<file index="83">l_weed3.sti</file>
+				<file index="86">f_fence2.sti</file>
+				<file index="87">f_fences.sti</file>
+				<file index="89">drum_02.sti</file>
+				<file index="91">drum2shd.sti</file>
+				<file index="97">f_corn.sti</file>
+				<file index="98">f_hay.sti</file>
+				<file index="99">f_corns.sti</file>
+				<file index="100">f_hays.sti</file>
+				<file index="109">m-furn4.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="9">
+			<Name>OMERTA</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">montrock.sti</file>
+				<file index="14">sandbag.sti</file>
+				<file index="15">l_weed2.sti</file>
+				<file index="16">gas.sti</file>
+				<file index="18">l_bush.sti</file>
+				<file index="19">deb_03.sti</file>
+				<file index="24">montrcks.sti</file>
+				<file index="26">sandbags.sti</file>
+				<file index="27">l_weed2s.sti</file>
+				<file index="28">gas_s.sti</file>
+				<file index="30">l_bush_s.sti</file>
+				<file index="31">deb_03s.sti</file>
+				<file index="37">build_17.sti</file>
+				<file index="38">build_13.sti</file>
+				<file index="68">slant_06.sti</file>
+				<file index="69">slant_10.sti</file>
+				<file index="73">old_furn.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="83">l_weed3.sti</file>
+				<file index="84">burnmark.sti</file>
+				<file index="88">damcar.sti</file>
+				<file index="90">damcars.sti</file>
+				<file index="92">trapdoor.sti</file>
+				<file index="97">furn_mix.sti</file>
+				<file index="98">burnt3.sti</file>
+				<file index="99">furnmixs.sti</file>
+				<file index="100">burnt3s.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="10">
+			<Name>GENERIC 2 (Dirtroads)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="20">f_tree.sti</file>
+				<file index="32">f_trees.sti</file>
+				<file index="49">bones2.sti</file>
+				<file index="89">bltruck.sti</file>
+				<file index="91">bltruck_s.sti</file>
+				<file index="98">l_weed2.sti</file>
+				<file index="100">l_weed2s.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="11">
+			<Name>FARM 2 (ruined walls)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">f_grass1.sti</file>
+				<file index="1">f_grass2.sti</file>
+				<file index="2">f_grass3.sti</file>
+				<file index="3">f_grass4.sti</file>
+				<file index="4">f_grass5.sti</file>
+				<file index="5">f_grass6.sti</file>
+				<file index="6">f_dirt.sti</file>
+				<file index="7">f_water.sti</file>
+				<file index="13">f_bush.sti</file>
+				<file index="16">f_weed.sti</file>
+				<file index="18">furn_mix.sti</file>
+				<file index="20">f_tree.sti</file>
+				<file index="25">f_bush_s.sti</file>
+				<file index="28">f_weeds.sti</file>
+				<file index="30">furnmixs.sti</file>
+				<file index="32">f_trees.sti</file>
+				<file index="37">build_18.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="39">build_25.sti</file>
+				<file index="41">door_13.sti</file>
+				<file index="45">door_13s.sti</file>
+				<file index="80">burnmark.sti</file>
+				<file index="83">l_weed3.sti</file>
+				<file index="86">f_fence2.sti</file>
+				<file index="87">f_fences.sti</file>
+				<file index="89">sandbag.sti</file>
+				<file index="91">sandbags.sti</file>
+				<file index="97">f_corn.sti</file>
+				<file index="98">f_hay.sti</file>
+				<file index="99">f_corns.sti</file>
+				<file index="100">f_hays.sti</file>
+				<file index="104">spot_1.sti</file>
+				<file index="106">spot_1s.sti</file>
+				<file index="109">robot.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="12">
+			<Name>PRISON</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">dirt1.sti</file>
+				<file index="1">dirt2.sti</file>
+				<file index="2">dirt3.sti</file>
+				<file index="3">dirt4.sti</file>
+				<file index="4">dirt5.sti</file>
+				<file index="5">grassd.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">cactus.sti</file>
+				<file index="13">f_weed.sti</file>
+				<file index="16">furn_mix.sti</file>
+				<file index="18">desdec1.sti</file>
+				<file index="19">cracks2.sti</file>
+				<file index="24">cactshdw.sti</file>
+				<file index="25">f_weeds.sti</file>
+				<file index="28">furnmixs.sti</file>
+				<file index="30">desdec1s.sti</file>
+				<file index="31">crckshdw.sti</file>
+				<file index="37">build_24.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="39">build_19.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="42">metldoor.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="46">metldors.sti</file>
+				<file index="55">jail_dec.sti</file>
+				<file index="60">jailflor.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="80">bones.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">jaildeb.sti</file>
+				<file index="98">a-out1.sti</file>
+				<file index="100">a-out1s.sti</file>
+				<file index="107">workshop.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">jailstuf.sti</file>
+				<file index="110">jailstf3.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="13">
+			<Name>HOSPITAL (Cambria)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">helcop.sti</file>
+				<file index="18">workshp2.sti</file>
+				<file index="19">h-cafe.sti</file>
+				<file index="20">f_tree.sti</file>
+				<file index="24">helcop_s.sti</file>
+				<file index="30">fillshad.sti</file>
+				<file index="31">fillshad.sti</file>
+				<file index="32">f_trees.sti</file>
+				<file index="36">build_17.sti</file>
+				<file index="37">build22b.sti</file>
+				<file index="39">build19c.sti</file>
+				<file index="40">h-door1.sti</file>
+				<file index="41">h-door2.sti</file>
+				<file index="42">door_05.sti</file>
+				<file index="43">door_02.sti</file>
+				<file index="44">h-door1s.sti</file>
+				<file index="45">h-door2s.sti</file>
+				<file index="46">door_05s.sti</file>
+				<file index="47">door_02s.sti</file>
+				<file index="60">h-floor2.sti</file>
+				<file index="61">jailflor.sti</file>
+				<file index="62">floor_1.sti</file>
+				<file index="63">hosfloor.sti</file>
+				<file index="77">h-furn2.sti</file>
+				<file index="79">h-debri1.sti</file>
+				<file index="80">hos_deb1.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">hos_deb3.sti</file>
+				<file index="92">hos_deb2.sti</file>
+				<file index="98">l_weed2.sti</file>
+				<file index="100">l_weed2s.sti</file>
+				<file index="108">h-furn4cl.sti</file>
+				<file index="109">h-furn4.sti</file>
+				<file index="110">h-furn1.sti</file>
+				<file index="113">h-decal1.sti</file>
+				<file index="114">h-decal2.sti</file>
+				<file index="115">a-sign1.sti</file>
+				<file index="116">m-decal2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="14">
+			<Name>DEMO BASEMENT</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="36">build_29.sti</file>
+				<file index="38">build_30.sti</file>
+				<file index="39">build19b.sti</file>
+				<file index="40">door_07.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="42">metldoor.sti</file>
+				<file index="43">door_14.sti</file>
+				<file index="44">door_07s.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="46">metldors.sti</file>
+				<file index="47">door_14s.sti</file>
+				<file index="52">waldec29.sti</file>
+				<file index="54">waldec30.sti</file>
+				<file index="55">jail_dec.sti</file>
+				<file index="60">i_floor.sti</file>
+				<file index="61">floor_02.sti</file>
+				<file index="62">wp_floor.sti</file>
+				<file index="63">jailflor.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="74">g-furn1.sti</file>
+				<file index="75">jailstf3.sti</file>
+				<file index="76">i_crates.sti</file>
+				<file index="77">cavhole.sti</file>
+				<file index="80">bones.sti</file>
+				<file index="81">wp_deb.sti</file>
+				<file index="82">jaildeb3.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">jaildeb2.sti</file>
+				<file index="92">jaildeb.sti</file>
+				<file index="108">wp_stuf1.sti</file>
+				<file index="109">o_furn.sti</file>
+				<file index="110">o_furn2.sti</file>
+				<file index="113">g-decal1.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="15">
+			<Name>BURNT TREES</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="19">burnt3.sti</file>
+				<file index="20">burnt1.sti</file>
+				<file index="21">burnt2.sti</file>
+				<file index="31">burnt3s.sti</file>
+				<file index="32">burnt1s.sti</file>
+				<file index="33">burnt2s.sti</file>
+				<file index="37">build_11.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="68">slant_04.sti</file>
+				<file index="69">slant_07.sti</file>
+				<file index="80">l_weed3.sti</file>
+				<file index="84">burnmark.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="16">
+			<Name>LAWLESS 1 (San Mona-d5)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="18">l_bush.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="30">l_bush_s.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="37">build_21.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="49">jaildeb.sti</file>
+				<file index="53">waldc21b.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="77">jailstuf.sti</file>
+				<file index="80">burnmark.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="107">lawless.sti</file>
+				<file index="108">lawless2.sti</file>
+				<file index="109">lawless3.sti</file>
+				<file index="110">lawles3b.sti</file>
+				<file index="113">w_dec06.sti</file>
+				<file index="114">w_dec05.sti</file>
+				<file index="115">w_dec08.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="17">
+			<Name>AIRSTRIP (Drassen-b13)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="1">path.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">helcop.sti</file>
+				<file index="15">ces.sti</file>
+				<file index="16">cesna.sti</file>
+				<file index="18">satdish.sti</file>
+				<file index="19">a-out1.sti</file>
+				<file index="20">gtree2.sti</file>
+				<file index="21">ctree2.sti</file>
+				<file index="24">helcop_s.sti</file>
+				<file index="27">ces_s.sti</file>
+				<file index="28">cesna_s.sti</file>
+				<file index="30">satdishs.sti</file>
+				<file index="31">a-out1s.sti</file>
+				<file index="32">gtree2_s.sti</file>
+				<file index="33">ctree2_s.sti</file>
+				<file index="37">build_20.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="50">srunway.sti</file>
+				<file index="53">waldec20.sti</file>
+				<file index="56">a-sign4.sti</file>
+				<file index="68">h-roof.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="78">runway.sti</file>
+				<file index="80">wing.sti</file>
+				<file index="83">a-debri1.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="98">astuff1.sti</file>
+				<file index="100">astuff1s.sti</file>
+				<file index="107">workshop.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">jailstuf.sti</file>
+				<file index="110">o_furn.sti</file>
+				<file index="113">a-sign1.sti</file>
+				<file index="114">a-sign2.sti</file>
+				<file index="115">a-sign3.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="18">
+			<Name>LAWLESS 2 (burnt-c5)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="6">dirtrock.sti</file>
+				<file index="18">l_bush.sti</file>
+				<file index="19">burnt3.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">burnt1.sti</file>
+				<file index="30">l_bush_s.sti</file>
+				<file index="31">burnt3s.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">burnt1s.sti</file>
+				<file index="37">build_21.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="53">waldec21.sti</file>
+				<file index="58">a-sign1.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="77">basefrn1.sti</file>
+				<file index="80">burnmark.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="107">lawless.sti</file>
+				<file index="108">lawless2.sti</file>
+				<file index="109">lawless3.sti</file>
+				<file index="110">lawless4.sti</file>
+				<file index="113">w_dec07.sti</file>
+				<file index="114">w_dec09.sti</file>
+				<file index="115">w_dec10.sti</file>
+				<file index="116">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="19">
+			<Name>&quot;DEAD AIRSTRIP(Drassen-c13)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">helcop.sti</file>
+				<file index="15">ces.sti</file>
+				<file index="16">cargo.sti</file>
+				<file index="19">burnt3.sti</file>
+				<file index="20">gtree2.sti</file>
+				<file index="21">burnt1.sti</file>
+				<file index="24">helcop_s.sti</file>
+				<file index="27">ces_s.sti</file>
+				<file index="28">cargo_s.sti</file>
+				<file index="31">burnt3s.sti</file>
+				<file index="32">gtree2_s.sti</file>
+				<file index="33">burnt1s.sti</file>
+				<file index="36">build_25.sti</file>
+				<file index="37">build_17.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="39">build_20.sti</file>
+				<file index="41">door_02.sti</file>
+				<file index="42">door_05.sti</file>
+				<file index="43">door_06.sti</file>
+				<file index="45">door_02s.sti</file>
+				<file index="46">door_05s.sti</file>
+				<file index="47">door_06s.sti</file>
+				<file index="50">srunway.sti</file>
+				<file index="68">h-roof.sti</file>
+				<file index="69">slant_06.sti</file>
+				<file index="73">old_furn.sti</file>
+				<file index="78">runway.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="83">a-rlight.sti</file>
+				<file index="84">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="88">damcar.sti</file>
+				<file index="90">damcars.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="107">workshop.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">sewfurn1.sti</file>
+				<file index="110">lawless.sti</file>
+				<file index="113">a-sign1.sti</file>
+				<file index="115">w_dec05.sti</file>
+				<file index="116">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="20">
+			<Name>BASEMENT</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="38">build_30.sti</file>
+				<file index="54">waldec30.sti</file>
+				<file index="60">floor_8.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="77">cavhole.sti</file>
+				<file index="80">bones.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">jailstuf.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="21">
+			<Name>LAWLESS 3 (burnt-c6)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="6">dirtrock.sti</file>
+				<file index="18">l_bush.sti</file>
+				<file index="19">burnt3.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">burnt1.sti</file>
+				<file index="30">l_bush_s.sti</file>
+				<file index="31">burnt3s.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">burnt1s.sti</file>
+				<file index="37">build_21.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="53">waldec21.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="77">basefrn1.sti</file>
+				<file index="80">burnmark.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="107">lawless.sti</file>
+				<file index="108">lawless2.sti</file>
+				<file index="109">lawless3.sti</file>
+				<file index="110">lawless4.sti</file>
+				<file index="113">w_dec11b.sti</file>
+				<file index="114">w_dec11.sti</file>
+				<file index="115">w_dec12.sti</file>
+				<file index="116">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="22">
+			<Name>PRISON DUNGEON</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="38">build_30.sti</file>
+				<file index="39">build19b.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="42">metldoor.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="46">metldors.sti</file>
+				<file index="54">waldec30.sti</file>
+				<file index="55">jail_dec.sti</file>
+				<file index="60">floor_8.sti</file>
+				<file index="63">jailflor.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="73">h-furn1.sti</file>
+				<file index="74">h-furn2.sti</file>
+				<file index="75">h-furn4.sti</file>
+				<file index="77">cavhole.sti</file>
+				<file index="80">bones.sti</file>
+				<file index="82">jaildeb3.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">jaildeb2.sti</file>
+				<file index="92">jaildeb.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">jailstuf.sti</file>
+				<file index="110">jailstf3.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="23">
+			<Name>ACTIVE DRASSEN (d13)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="18">chfurn1.sti</file>
+				<file index="20">gtree2.sti</file>
+				<file index="21">ctree2.sti</file>
+				<file index="30">chfurn1s.sti</file>
+				<file index="32">gtree2_s.sti</file>
+				<file index="33">ctree2_s.sti</file>
+				<file index="36">build_24.sti</file>
+				<file index="37">build37c.sti</file>
+				<file index="38">build_11.sti</file>
+				<file index="39">build_17.sti</file>
+				<file index="41">door_02.sti</file>
+				<file index="42">door_03.sti</file>
+				<file index="43">door_10.sti</file>
+				<file index="45">door_02s.sti</file>
+				<file index="46">door_03s.sti</file>
+				<file index="47">door_10s.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_13.sti</file>
+				<file index="77">basefrn1.sti</file>
+				<file index="84">burnmark.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="107">lawless.sti</file>
+				<file index="108">lawless2.sti</file>
+				<file index="109">lawles3b.sti</file>
+				<file index="110">lawless4.sti</file>
+				<file index="114">w_dec05.sti</file>
+				<file index="115">a-sign3.sti</file>
+				<file index="116">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="24">
+			<Name>SAM SITES</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">swampgr6.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="15">montrock.sti</file>
+				<file index="16">smprock.sti</file>
+				<file index="19">smpbush.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="27">montrcks.sti</file>
+				<file index="28">smprocks.sti</file>
+				<file index="31">smpbushs.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="37">build_17.sti</file>
+				<file index="41">metldoor.sti</file>
+				<file index="45">metldors.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="104">spot_1.sti</file>
+				<file index="106">spot_1s.sti</file>
+				<file index="109">m-furn4.sti</file>
+				<file index="110">control.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="25">
+			<Name>LUSH2 (different trees)</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">l_gras1.sti</file>
+				<file index="1">l_gras2.sti</file>
+				<file index="2">l_gras3.sti</file>
+				<file index="3">l_gras4.sti</file>
+				<file index="4">l_gras5.sti</file>
+				<file index="5">l_dirt1.sti</file>
+				<file index="6">l_dirt2.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="13">l_weed2.sti</file>
+				<file index="18">l_weed1.sti</file>
+				<file index="19">l_bush.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">gtree1.sti</file>
+				<file index="25">l_weed2s.sti</file>
+				<file index="30">l_weed1s.sti</file>
+				<file index="31">l_bush_s.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">gtree1_s.sti</file>
+				<file index="37">build_11.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="68">slant_04.sti</file>
+				<file index="69">slant_07.sti</file>
+				<file index="80">l_weed3.sti</file>
+				<file index="89">sandbag.sti</file>
+				<file index="91">sandbags.sti</file>
+				<file index="104">spot_1.sti</file>
+				<file index="106">spot_1s.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="26">
+			<Name>MILITARY BASE</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="16">satdish.sti</file>
+				<file index="19">m-out2.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">gtree2.sti</file>
+				<file index="28">satdishs.sti</file>
+				<file index="31">m-out2s.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">gtree2_s.sti</file>
+				<file index="38">build_36.sti</file>
+				<file index="39">build_35.sti</file>
+				<file index="40">door_05.sti</file>
+				<file index="41">metldoor.sti</file>
+				<file index="42">m-door1.sti</file>
+				<file index="43">h-door2.sti</file>
+				<file index="44">door_05s.sti</file>
+				<file index="45">metldors.sti</file>
+				<file index="46">m-door1s.sti</file>
+				<file index="47">h-door2s.sti</file>
+				<file index="55">waldec35.sti</file>
+				<file index="56">a-sign4.sti</file>
+				<file index="60">jailflor.sti</file>
+				<file index="62">wp_floor.sti</file>
+				<file index="63">i_floor.sti</file>
+				<file index="77">m-furn3.sti</file>
+				<file index="80">jaildeb2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">wp_deb.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">jaildeb3.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="108">m-furn4.sti</file>
+				<file index="109">m-furn1.sti</file>
+				<file index="110">m-furn2.sti</file>
+				<file index="113">m-decal2.sti</file>
+				<file index="114">a-sign1.sti</file>
+				<file index="115">a-sign2.sti</file>
+				<file index="116">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="27">
+			<Name>MILITARY JAIL</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="16">satdish.sti</file>
+				<file index="19">m-out2.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">gtree2.sti</file>
+				<file index="28">satdishs.sti</file>
+				<file index="31">m-out2s.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">gtree2_s.sti</file>
+				<file index="38">build_36.sti</file>
+				<file index="39">build_35.sti</file>
+				<file index="40">m-door1.sti</file>
+				<file index="41">metldoor.sti</file>
+				<file index="42">celldoor.sti</file>
+				<file index="43">h-door2.sti</file>
+				<file index="44">m-door1s.sti</file>
+				<file index="45">metldors.sti</file>
+				<file index="46">celldors.sti</file>
+				<file index="47">h-door2s.sti</file>
+				<file index="49">jaildeb.sti</file>
+				<file index="55">waldec35.sti</file>
+				<file index="60">jailflor.sti</file>
+				<file index="62">wp_floor.sti</file>
+				<file index="63">i_floor.sti</file>
+				<file index="77">m-furn4.sti</file>
+				<file index="80">jaildeb2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">wp_deb.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">jaildeb3.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="107">workshop.sti</file>
+				<file index="108">jailstf3.sti</file>
+				<file index="109">jailstf2.sti</file>
+				<file index="110">wp_stuf1.sti</file>
+				<file index="113">m-decal2.sti</file>
+				<file index="114">a-sign1.sti</file>
+				<file index="116">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="28">
+			<Name>MILITARY WAREHOUSE</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="16">satdish.sti</file>
+				<file index="19">m-out2.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">gtree2.sti</file>
+				<file index="28">satdishs.sti</file>
+				<file index="31">m-out2s.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">gtree2_s.sti</file>
+				<file index="38">build_36.sti</file>
+				<file index="39">build_35.sti</file>
+				<file index="40">door_05.sti</file>
+				<file index="41">metldoor.sti</file>
+				<file index="42">m-door1.sti</file>
+				<file index="43">h-door2.sti</file>
+				<file index="44">door_05s.sti</file>
+				<file index="45">metldors.sti</file>
+				<file index="46">m-door1s.sti</file>
+				<file index="47">h-door2s.sti</file>
+				<file index="55">waldec35.sti</file>
+				<file index="60">jailflor.sti</file>
+				<file index="62">wp_floor.sti</file>
+				<file index="63">i_floor.sti</file>
+				<file index="77">m-furn3.sti</file>
+				<file index="80">jaildeb2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">wp_deb.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">jaildeb3.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="107">sewfurn1.sti</file>
+				<file index="108">wp_stuf1.sti</file>
+				<file index="109">workshop.sti</file>
+				<file index="110">lawless4.sti</file>
+				<file index="113">m-decal2.sti</file>
+				<file index="114">a-sign1.sti</file>
+				<file index="116">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="29">
+			<Name>MILITARY TOWN</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="16">furn_mix.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">gtree2.sti</file>
+				<file index="28">furnmixs.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">gtree2_s.sti</file>
+				<file index="36">build_17.sti</file>
+				<file index="41">door_05.sti</file>
+				<file index="42">door_03.sti</file>
+				<file index="43">door_04.sti</file>
+				<file index="45">door_05s.sti</file>
+				<file index="46">door_03s.sti</file>
+				<file index="47">door_04s.sti</file>
+				<file index="60">jailflor.sti</file>
+				<file index="77">lawles3b.sti</file>
+				<file index="80">jaildeb2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="88">hmmv.sti</file>
+				<file index="92">jaildeb3.sti</file>
+				<file index="109">lawless4.sti</file>
+				<file index="110">workshop.sti</file>
+				<file index="113">w_dec08.sti</file>
+				<file index="114">w_dec06.sti</file>
+				<file index="115">w_dec09.sti</file>
+				<file index="116">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="30">
+			<Name>OLD SCHOOL</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="19">burnt3.sti</file>
+				<file index="20">burnt2.sti</file>
+				<file index="31">burnt3s.sti</file>
+				<file index="32">burnt2s.sti</file>
+				<file index="36">build35d.sti</file>
+				<file index="37">build22d.sti</file>
+				<file index="38">build35e.sti</file>
+				<file index="39">build_27.sti</file>
+				<file index="41">door_08.sti</file>
+				<file index="42">door_10.sti</file>
+				<file index="45">door_08s.sti</file>
+				<file index="46">door_10s.sti</file>
+				<file index="60">h-floor2.sti</file>
+				<file index="61">hosfloor.sti</file>
+				<file index="73">old_furn.sti</file>
+				<file index="74">school3.sti</file>
+				<file index="77">h-furn4.sti</file>
+				<file index="80">hos_deb2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">ruinfenc.sti</file>
+				<file index="87">ruinfncs.sti</file>
+				<file index="92">hos_deb3.sti</file>
+				<file index="109">school.sti</file>
+				<file index="110">school2.sti</file>
+				<file index="113">scooldec.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="31">
+			<Name>CAMBRIA STRIP</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="20">f_tree.sti</file>
+				<file index="32">f_trees.sti</file>
+				<file index="36">build_17.sti</file>
+				<file index="38">build_31.sti</file>
+				<file index="39">build_13.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="42">door_05.sti</file>
+				<file index="43">door_03.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="46">door_05s.sti</file>
+				<file index="47">door_03s.sti</file>
+				<file index="57">w_dec13.sti</file>
+				<file index="68">slant_13.sti</file>
+				<file index="69">slant_10.sti</file>
+				<file index="74">jailstuf.sti</file>
+				<file index="77">lawless.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="108">wp_stuf1.sti</file>
+				<file index="109">lawless4.sti</file>
+				<file index="110">lawless2.sti</file>
+				<file index="113">a-sign3.sti</file>
+				<file index="114">w_dec09.sti</file>
+				<file index="115">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="32">
+			<Name>CAMBRIA HOMES</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="20">f_tree.sti</file>
+				<file index="32">f_trees.sti</file>
+				<file index="41">door_04.sti</file>
+				<file index="42">door_01.sti</file>
+				<file index="43">door_02.sti</file>
+				<file index="45">door_04s.sti</file>
+				<file index="46">door_01s.sti</file>
+				<file index="47">door_02s.sti</file>
+				<file index="60">flortst3.sti</file>
+				<file index="61">flortst4.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_08.sti</file>
+				<file index="77">lawles3b.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="109">workshp2.sti</file>
+				<file index="113">a-sign3.sti</file>
+				<file index="114">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="33">
+			<Name>PALACE!</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">p-out1.sti</file>
+				<file index="13">p-out2.sti</file>
+				<file index="14">tweed.sti</file>
+				<file index="16">p-out3.sti</file>
+				<file index="17">t_tree2.sti</file>
+				<file index="18">t_fern.sti</file>
+				<file index="19">p-monu.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">p-out1s.sti</file>
+				<file index="25">p-out2s.sti</file>
+				<file index="26">tweed_s.sti</file>
+				<file index="28">p-out3s.sti</file>
+				<file index="29">t_tree2s.sti</file>
+				<file index="30">t_fern_s.sti</file>
+				<file index="31">p-monus.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_26.sti</file>
+				<file index="37">build_32.sti</file>
+				<file index="38">build_33.sti</file>
+				<file index="39">build_34.sti</file>
+				<file index="40">p-door1.sti</file>
+				<file index="41">p-door2.sti</file>
+				<file index="42">p-door3.sti</file>
+				<file index="43">p-door4.sti</file>
+				<file index="44">p-door1s.sti</file>
+				<file index="45">p-door2s.sti</file>
+				<file index="46">p-door3s.sti</file>
+				<file index="47">p-door4s.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="60">p-floor1.sti</file>
+				<file index="61">p-floor2.sti</file>
+				<file index="62">p-floor3.sti</file>
+				<file index="63">p-floor4.sti</file>
+				<file index="64">p-roof1.sti</file>
+				<file index="65">p-roof2.sti</file>
+				<file index="68">slant_13.sti</file>
+				<file index="70">p-onroof.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="80">p-debri1.sti</file>
+				<file index="83">p-debri2.sti</file>
+				<file index="84">p-debri3.sti</file>
+				<file index="86">p-fence.sti</file>
+				<file index="87">p-fences.sti</file>
+				<file index="88">sandbag.sti</file>
+				<file index="89">spot_1.sti</file>
+				<file index="90">sandbags.sti</file>
+				<file index="91">spot_1s.sti</file>
+				<file index="92">p-secret.sti</file>
+				<file index="97">bamboo.sti</file>
+				<file index="98">r_stuff.sti</file>
+				<file index="99">bamboo_s.sti</file>
+				<file index="100">r_stuffs.sti</file>
+				<file index="107">p-furn1.sti</file>
+				<file index="108">p-furn2.sti</file>
+				<file index="109">p-furn3.sti</file>
+				<file index="110">p-furn4.sti</file>
+				<file index="113">p-decal1.sti</file>
+				<file index="114">p-decal2.sti</file>
+				<file index="115">p-decal3.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="34">
+			<Name>TROPICAL SAM</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">grass1.sti</file>
+				<file index="16">grass2.sti</file>
+				<file index="17">t_tree2.sti</file>
+				<file index="18">grass3.sti</file>
+				<file index="19">bamboo.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">grass1_s.sti</file>
+				<file index="28">grass2_s.sti</file>
+				<file index="29">t_tree2s.sti</file>
+				<file index="30">grass3_s.sti</file>
+				<file index="31">bamboo_s.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_12.sti</file>
+				<file index="37">build_16.sti</file>
+				<file index="39">build_27.sti</file>
+				<file index="41">door_11.sti</file>
+				<file index="42">celldoor.sti</file>
+				<file index="43">metldoor.sti</file>
+				<file index="45">door_11s.sti</file>
+				<file index="46">celldors.sti</file>
+				<file index="47">metldors.sti</file>
+				<file index="50">cosroad.sti</file>
+				<file index="61">tr_floor.sti</file>
+				<file index="68">slant_09.sti</file>
+				<file index="80">grass2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="97">m-out1.sti</file>
+				<file index="98">satdish.sti</file>
+				<file index="99">m-out1s.sti</file>
+				<file index="100">satdishs.sti</file>
+				<file index="104">spot_1.sti</file>
+				<file index="106">spot_1s.sti</file>
+				<file index="109">m-furn4.sti</file>
+				<file index="110">control.sti</file>
+				<file index="113">a-sign3.sti</file>
+				<file index="114">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="35">
+			<Name>GRUMM g2,h2</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">montrock.sti</file>
+				<file index="19">cargo.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="24">montrcks.sti</file>
+				<file index="31">cargo_s.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="36">build_24.sti</file>
+				<file index="37">build_36.sti</file>
+				<file index="41">door_06.sti</file>
+				<file index="42">door_02.sti</file>
+				<file index="43">metldoor.sti</file>
+				<file index="45">door_06s.sti</file>
+				<file index="46">door_02s.sti</file>
+				<file index="47">metldors.sti</file>
+				<file index="52">waldec24.sti</file>
+				<file index="60">wp_floor.sti</file>
+				<file index="63">i_floor.sti</file>
+				<file index="68">slant_12.sti</file>
+				<file index="73">lawles3b.sti</file>
+				<file index="74">jailstuf.sti</file>
+				<file index="77">workshp2.sti</file>
+				<file index="84">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">bombdeb.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="108">lawless.sti</file>
+				<file index="109">i_crates.sti</file>
+				<file index="110">wp_stuf1.sti</file>
+				<file index="113">acasign.sti</file>
+				<file index="114">w_dec05.sti</file>
+				<file index="115">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="36">
+			<Name>GRUMM g1,h1</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="6">dirtrock.sti</file>
+				<file index="12">montrock.sti</file>
+				<file index="15">o_sign1.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="24">montrcks.sti</file>
+				<file index="27">o_sign1s.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="36">build_24.sti</file>
+				<file index="38">build_13.sti</file>
+				<file index="41">door_04.sti</file>
+				<file index="42">door_02.sti</file>
+				<file index="43">door_03.sti</file>
+				<file index="45">door_04s.sti</file>
+				<file index="46">door_02s.sti</file>
+				<file index="47">door_03s.sti</file>
+				<file index="52">waldec24.sti</file>
+				<file index="60">flortst3.sti</file>
+				<file index="68">slant_06.sti</file>
+				<file index="69">slant_10.sti</file>
+				<file index="77">shop.sti</file>
+				<file index="84">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">bombdeb.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="109">lawless.sti</file>
+				<file index="110">lawless4.sti</file>
+				<file index="113">w_dec14.sti</file>
+				<file index="114">w_dec09.sti</file>
+				<file index="115">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="37">
+			<Name>BALIME</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">grass1.sti</file>
+				<file index="16">grass2.sti</file>
+				<file index="17">t_tree2.sti</file>
+				<file index="18">grass3.sti</file>
+				<file index="19">bamboo.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">grass1_s.sti</file>
+				<file index="28">grass2_s.sti</file>
+				<file index="29">t_tree2s.sti</file>
+				<file index="30">grass3_s.sti</file>
+				<file index="31">bamboo_s.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_31.sti</file>
+				<file index="37">build_35.sti</file>
+				<file index="38">build_40.sti</file>
+				<file index="39">build_12.sti</file>
+				<file index="40">door_03.sti</file>
+				<file index="41">w-door1.sti</file>
+				<file index="42">w-door2.sti</file>
+				<file index="43">m-door1.sti</file>
+				<file index="44">door_03s.sti</file>
+				<file index="45">w-door1s.sti</file>
+				<file index="46">w-door2s.sti</file>
+				<file index="47">m-door1s.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="60">welflor3.sti</file>
+				<file index="61">p-floor3.sti</file>
+				<file index="62">welflor1.sti</file>
+				<file index="63">welflor2.sti</file>
+				<file index="68">slant_11.sti</file>
+				<file index="69">slant_13.sti</file>
+				<file index="71">w-oroof.sti</file>
+				<file index="76">p-furn2.sti</file>
+				<file index="77">w-furn3.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="80">p-debri1.sti</file>
+				<file index="83">p-debri1.sti</file>
+				<file index="84">p-debri3.sti</file>
+				<file index="86">w-fence.sti</file>
+				<file index="87">w-fences.sti</file>
+				<file index="92">p-debri2.sti</file>
+				<file index="97">w-gardn.sti</file>
+				<file index="98">fount1.sti</file>
+				<file index="99">w-gardns.sti</file>
+				<file index="100">fount1_s.sti</file>
+				<file index="108">p-furn1.sti</file>
+				<file index="109">w-furn1.sti</file>
+				<file index="110">w-furn2.sti</file>
+				<file index="113">acasign.sti</file>
+				<file index="114">w-decal2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="38">
+			<Name>BALIME MUSEUM</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">grass1.sti</file>
+				<file index="15">o_sign1.sti</file>
+				<file index="16">grass2.sti</file>
+				<file index="17">t_tree2.sti</file>
+				<file index="18">grass3.sti</file>
+				<file index="19">bamboo.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">grass1_s.sti</file>
+				<file index="27">o_sign1s.sti</file>
+				<file index="28">grass2_s.sti</file>
+				<file index="29">t_tree2s.sti</file>
+				<file index="30">grass3_s.sti</file>
+				<file index="31">bamboo_s.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_39.sti</file>
+				<file index="37">build_31.sti</file>
+				<file index="38">build_40.sti</file>
+				<file index="39">build_35.sti</file>
+				<file index="40">door_03.sti</file>
+				<file index="41">w-door1.sti</file>
+				<file index="42">w-door2.sti</file>
+				<file index="43">m-door1.sti</file>
+				<file index="44">door_03s.sti</file>
+				<file index="45">w-door1s.sti</file>
+				<file index="46">w-door2s.sti</file>
+				<file index="47">m-door1s.sti</file>
+				<file index="49">pool.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="52">g-decor1.sti</file>
+				<file index="58">w_dec13.sti</file>
+				<file index="60">welflor3.sti</file>
+				<file index="61">p-floor3.sti</file>
+				<file index="62">welflor1.sti</file>
+				<file index="63">welflor2.sti</file>
+				<file index="64">w-roof1.sti</file>
+				<file index="68">slant_11.sti</file>
+				<file index="69">slant_13.sti</file>
+				<file index="71">w-oroof.sti</file>
+				<file index="75">g-furn1.sti</file>
+				<file index="76">p-furn2.sti</file>
+				<file index="77">w-furn3.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="79">w-debri1.sti</file>
+				<file index="80">p-debri1.sti</file>
+				<file index="81">w-debri2.sti</file>
+				<file index="82">w-debri3.sti</file>
+				<file index="83">p-debri1.sti</file>
+				<file index="84">p-debri3.sti</file>
+				<file index="86">w-fence.sti</file>
+				<file index="87">w-fences.sti</file>
+				<file index="92">p-debri2.sti</file>
+				<file index="97">w-gardn.sti</file>
+				<file index="98">fount1.sti</file>
+				<file index="99">w-gardns.sti</file>
+				<file index="100">fount1_s.sti</file>
+				<file index="107">hardware.sti</file>
+				<file index="108">p-furn1.sti</file>
+				<file index="109">w-furn1.sti</file>
+				<file index="110">w-furn2.sti</file>
+				<file index="113">acasign.sti</file>
+				<file index="114">w-decal2.sti</file>
+				<file index="115">w-decal1.sti</file>
+				<file index="116">g-decal1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="39">
+			<Name>DESERT SAM</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">dirt1.sti</file>
+				<file index="1">dirt2.sti</file>
+				<file index="2">dirt3.sti</file>
+				<file index="3">dirt4.sti</file>
+				<file index="4">dirt5.sti</file>
+				<file index="5">grassd.sti</file>
+				<file index="6">grassc.sti</file>
+				<file index="12">cactus.sti</file>
+				<file index="14">satdish.sti</file>
+				<file index="18">desdec1.sti</file>
+				<file index="19">cracks2.sti</file>
+				<file index="24">cactshdw.sti</file>
+				<file index="26">satdishs.sti</file>
+				<file index="30">desdec1s.sti</file>
+				<file index="31">crckshdw.sti</file>
+				<file index="36">build_17.sti</file>
+				<file index="41">door_02.sti</file>
+				<file index="42">celldoor.sti</file>
+				<file index="43">metldoor.sti</file>
+				<file index="45">door_02s.sti</file>
+				<file index="46">celldors.sti</file>
+				<file index="47">metldors.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="104">spot_1.sti</file>
+				<file index="106">spot_1s.sti</file>
+				<file index="109">m-furn4.sti</file>
+				<file index="110">control.sti</file>
+				<file index="113">a-sign3.sti</file>
+				<file index="114">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="40">
+			<Name>ORTA</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">swampgr6.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="12">o_stuf.sti</file>
+				<file index="15">montrock.sti</file>
+				<file index="16">smprock.sti</file>
+				<file index="19">smpbush.sti</file>
+				<file index="20">sw_tre1.sti</file>
+				<file index="21">sw_tre2.sti</file>
+				<file index="24">o_stufs.sti</file>
+				<file index="27">montrcks.sti</file>
+				<file index="28">smprocks.sti</file>
+				<file index="31">smpbushs.sti</file>
+				<file index="32">sw_tre1s.sti</file>
+				<file index="33">sw_tre2s.sti</file>
+				<file index="36">build_29.sti</file>
+				<file index="41">door_07.sti</file>
+				<file index="42">door_02.sti</file>
+				<file index="43">metldoor.sti</file>
+				<file index="45">door_07s.sti</file>
+				<file index="46">door_02s.sti</file>
+				<file index="47">metldors.sti</file>
+				<file index="52">waldec29.sti</file>
+				<file index="60">floor_02.sti</file>
+				<file index="80">jaildeb.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+				<file index="109">o_furn.sti</file>
+				<file index="110">o_furn2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="41">
+			<Name>ORTA WEAPONS</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="36">build_29.sti</file>
+				<file index="38">build_30.sti</file>
+				<file index="39">build19b.sti</file>
+				<file index="40">door_07.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="42">metldoor.sti</file>
+				<file index="43">door_02.sti</file>
+				<file index="44">door_07s.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="46">metldors.sti</file>
+				<file index="47">door_02s.sti</file>
+				<file index="49">p-debri1.sti</file>
+				<file index="52">waldec29.sti</file>
+				<file index="54">waldec30.sti</file>
+				<file index="55">jail_dec.sti</file>
+				<file index="60">i_floor.sti</file>
+				<file index="61">floor_02.sti</file>
+				<file index="62">wp_floor.sti</file>
+				<file index="63">jailflor.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="74">g-furn1.sti</file>
+				<file index="75">jailstf3.sti</file>
+				<file index="76">i_crates.sti</file>
+				<file index="77">cavhole.sti</file>
+				<file index="80">bones.sti</file>
+				<file index="81">wp_deb.sti</file>
+				<file index="82">jaildeb3.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">jaildeb2.sti</file>
+				<file index="92">jaildeb.sti</file>
+				<file index="107">p-furn2.sti</file>
+				<file index="108">wp_stuf1.sti</file>
+				<file index="109">o_furn.sti</file>
+				<file index="110">o_furn2.sti</file>
+				<file index="113">g-decal1.sti</file>
+				<file index="114">tunnel2.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="42">
+			<Name>SWAMP BARETREES</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">swampgr7.sti</file>
+				<file index="1">swampgr1.sti</file>
+				<file index="2">swampgr2.sti</file>
+				<file index="3">swampgr3.sti</file>
+				<file index="4">swampgr4.sti</file>
+				<file index="5">swampgr5.sti</file>
+				<file index="6">swampgr6.sti</file>
+				<file index="7">smpwater.sti</file>
+				<file index="14">m-out1.sti</file>
+				<file index="15">montrock.sti</file>
+				<file index="16">smprock.sti</file>
+				<file index="18">sandbag.sti</file>
+				<file index="19">smpbush.sti</file>
+				<file index="20">baretre.sti</file>
+				<file index="21">sw_tre2.sti</file>
+				<file index="26">m-out1s.sti</file>
+				<file index="27">montrcks.sti</file>
+				<file index="28">smprocks.sti</file>
+				<file index="30">sandbags.sti</file>
+				<file index="31">smpbushs.sti</file>
+				<file index="32">baretres.sti</file>
+				<file index="33">sw_tre2s.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="85">swatdeb.sti</file>
+				<file index="89">spot_1.sti</file>
+				<file index="91">spot_1s.sti</file>
+				<file index="98">furn_mix.sti</file>
+				<file index="100">furnmixs.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="43">
+			<Name>ESTONI</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="6">dirtrock.sti</file>
+				<file index="15">helcop.sti</file>
+				<file index="16">gastuf1.sti</file>
+				<file index="18">junk1.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="27">helcop_s.sti</file>
+				<file index="28">gastuf1s.sti</file>
+				<file index="30">junk1s.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="36">build_17.sti</file>
+				<file index="37">build_24.sti</file>
+				<file index="41">door_05.sti</file>
+				<file index="45">door_05s.sti</file>
+				<file index="53">waldec24.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="74">wp_stuf1.sti</file>
+				<file index="75">school2.sti</file>
+				<file index="77">lawless.sti</file>
+				<file index="86">junkfen.sti</file>
+				<file index="87">junkfens.sti</file>
+				<file index="88">damcar.sti</file>
+				<file index="90">damcars.sti</file>
+				<file index="92">burnmark.sti</file>
+				<file index="98">p-out3.sti</file>
+				<file index="100">p-out3s.sti</file>
+				<file index="109">workshp2.sti</file>
+				<file index="110">old_furn.sti</file>
+				<file index="113">w_dec14.sti</file>
+				<file index="114">a-sign1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="44">
+			<Name>QUEEN&apos;S PRISON</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">sand4.sti</file>
+				<file index="1">sand3.sti</file>
+				<file index="2">sand2.sti</file>
+				<file index="3">sand1.sti</file>
+				<file index="4">grland1.sti</file>
+				<file index="5">grland2.sti</file>
+				<file index="6">grland3.sti</file>
+				<file index="7">coswater.sti</file>
+				<file index="8">cosdeep.sti</file>
+				<file index="15">ctrash.sti</file>
+				<file index="16">cbranch.sti</file>
+				<file index="17">furn_mix.sti</file>
+				<file index="19">grass1.sti</file>
+				<file index="20">ctree1.sti</file>
+				<file index="21">ctree2.sti</file>
+				<file index="27">ctrash_s.sti</file>
+				<file index="28">cbranch_s.sti</file>
+				<file index="29">furnmixs.sti</file>
+				<file index="31">grass1_s.sti</file>
+				<file index="32">ctree1_s.sti</file>
+				<file index="33">ctree2_s.sti</file>
+				<file index="37">build_24.sti</file>
+				<file index="38">build_12.sti</file>
+				<file index="39">build_19.sti</file>
+				<file index="41">celldoor.sti</file>
+				<file index="42">metldoor.sti</file>
+				<file index="43">door_05.sti</file>
+				<file index="45">celldors.sti</file>
+				<file index="46">metldors.sti</file>
+				<file index="47">door_05s.sti</file>
+				<file index="49">grass2.sti</file>
+				<file index="50">cosroad.sti</file>
+				<file index="55">jail_dec.sti</file>
+				<file index="60">jailflor.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="77">hardware.sti</file>
+				<file index="79">grass3.sti</file>
+				<file index="80">bones.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">jaildeb.sti</file>
+				<file index="98">a-out1.sti</file>
+				<file index="100">a-out1s.sti</file>
+				<file index="107">workshop.sti</file>
+				<file index="108">h-furn4cl.sti</file>
+				<file index="109">jailstuf.sti</file>
+				<file index="110">wp_stuf1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="45">
+			<Name>QUEEN&apos;S TROPICAL</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">grass1.sti</file>
+				<file index="16">m-out1.sti</file>
+				<file index="17">t_tree2.sti</file>
+				<file index="18">drum_01.sti</file>
+				<file index="19">bamboo.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">grass1_s.sti</file>
+				<file index="28">m-out1s.sti</file>
+				<file index="29">t_tree2s.sti</file>
+				<file index="30">drum1shd.sti</file>
+				<file index="31">bamboo_s.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_19.sti</file>
+				<file index="37">build_41.sti</file>
+				<file index="38">build_26.sti</file>
+				<file index="39">build_32.sti</file>
+				<file index="40">p-door3.sti</file>
+				<file index="41">p-door4.sti</file>
+				<file index="42">pitdoor.sti</file>
+				<file index="43">newdoor.sti</file>
+				<file index="44">p-door3s.sti</file>
+				<file index="45">p-door4s.sti</file>
+				<file index="46">pitdoors.sti</file>
+				<file index="47">newdoors.sti</file>
+				<file index="49">bones2.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="52">jail_dec.sti</file>
+				<file index="60">P-floor1.sti</file>
+				<file index="61">P-floor2.sti</file>
+				<file index="62">jailflor.sti</file>
+				<file index="63">P-floor4.sti</file>
+				<file index="64">p-roof1.sti</file>
+				<file index="65">p-roof2.sti</file>
+				<file index="73">p-furn3.sti</file>
+				<file index="74">p-furn2.sti</file>
+				<file index="75">p-furn1.sti</file>
+				<file index="76">g-furn1.sti</file>
+				<file index="77">pit_post.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="80">grass2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="84">jaildeb2.sti</file>
+				<file index="86">p-fence.sti</file>
+				<file index="87">p-fences.sti</file>
+				<file index="88">p-out1.sti</file>
+				<file index="89">p-out2.sti</file>
+				<file index="90">p-out1s.sti</file>
+				<file index="91">p-out2s.sti</file>
+				<file index="92">burnmark.sti</file>
+				<file index="97">sandbag.sti</file>
+				<file index="98">spot_1.sti</file>
+				<file index="99">sandbags.sti</file>
+				<file index="100">spot_1s.sti</file>
+				<file index="103">p-monu.sti</file>
+				<file index="104">p-out3.sti</file>
+				<file index="105">p-monus.sti</file>
+				<file index="106">p-out3s.sti</file>
+				<file index="114">p-decal1.sti</file>
+				<file index="115">p-decal2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="46">
+			<Name>MEDUNA INNER TOWN</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">p-out3.sti</file>
+				<file index="16">sandbag.sti</file>
+				<file index="18">spot_1.sti</file>
+				<file index="19">p-monu.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">p-out3s.sti</file>
+				<file index="28">sandbags.sti</file>
+				<file index="30">spot_1s.sti</file>
+				<file index="31">p-monus.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_31.sti</file>
+				<file index="37">build_32.sti</file>
+				<file index="38">build_35.sti</file>
+				<file index="39">build_40.sti</file>
+				<file index="40">door_03.sti</file>
+				<file index="41">w-door1.sti</file>
+				<file index="42">w-door2.sti</file>
+				<file index="43">p-door2.sti</file>
+				<file index="44">door_03s.sti</file>
+				<file index="45">w-door1s.sti</file>
+				<file index="46">w-door2s.sti</file>
+				<file index="47">p-door2s.sti</file>
+				<file index="49">pool.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="60">welflor3.sti</file>
+				<file index="61">p-floor2.sti</file>
+				<file index="62">p-floor3.sti</file>
+				<file index="63">welflor1.sti</file>
+				<file index="64">w-roof1.sti</file>
+				<file index="68">slant_11.sti</file>
+				<file index="69">slant_13.sti</file>
+				<file index="71">w-oroof.sti</file>
+				<file index="75">lawless.sti</file>
+				<file index="76">h-furn2.sti</file>
+				<file index="77">w-furn3.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="79">burnmark.sti</file>
+				<file index="80">p-debri1.sti</file>
+				<file index="81">w-debri2.sti</file>
+				<file index="82">w-debri3.sti</file>
+				<file index="84">p-debri3.sti</file>
+				<file index="92">p-debri2.sti</file>
+				<file index="97">fount1.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="99">fount1_s.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="107">hardware.sti</file>
+				<file index="108">h-furn4cl.sti</file>
+				<file index="109">w-furn1.sti</file>
+				<file index="110">w-furn2.sti</file>
+				<file index="113">g-decal1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="47">
+			<Name>QUEEN&apos;S SAM</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">tweed.sti</file>
+				<file index="13">t_fern.sti</file>
+				<file index="14">p-out3.sti</file>
+				<file index="15">bamboo.sti</file>
+				<file index="16">sandbag.sti</file>
+				<file index="17">m-out2.sti</file>
+				<file index="18">spot_1.sti</file>
+				<file index="19">p-monu.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">tweed_s.sti</file>
+				<file index="25">t_fern_s.sti</file>
+				<file index="26">p-out3s.sti</file>
+				<file index="27">bamboo_s.sti</file>
+				<file index="28">sandbags.sti</file>
+				<file index="29">m-out2s.sti</file>
+				<file index="30">spot_1s.sti</file>
+				<file index="31">p-monus.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="36">build_36.sti</file>
+				<file index="37">build_32.sti</file>
+				<file index="38">build_35.sti</file>
+				<file index="39">build_40.sti</file>
+				<file index="41">door_11.sti</file>
+				<file index="42">celldoor.sti</file>
+				<file index="43">metldoor.sti</file>
+				<file index="45">door_11s.sti</file>
+				<file index="46">celldors.sti</file>
+				<file index="47">metldors.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="63">i_floor.sti</file>
+				<file index="68">slant_11.sti</file>
+				<file index="69">slant_13.sti</file>
+				<file index="77">wp_stuf1.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="97">m-out1.sti</file>
+				<file index="98">satdish.sti</file>
+				<file index="99">m-out1s.sti</file>
+				<file index="100">satdishs.sti</file>
+				<file index="108">m-furn2.sti</file>
+				<file index="109">m-furn4.sti</file>
+				<file index="110">control.sti</file>
+				<file index="113">a-sign3.sti</file>
+				<file index="114">w_dec05.sti</file>
+				<file index="115">g-decal1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="48">
+			<Name>QUEEN&apos;S AIRPORT</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">t_sand1.sti</file>
+				<file index="1">t_sand3.sti</file>
+				<file index="2">trpgras4.sti</file>
+				<file index="3">trpgras3.sti</file>
+				<file index="4">trpgras2.sti</file>
+				<file index="5">trpgras.sti</file>
+				<file index="6">t_trail.sti</file>
+				<file index="7">tr_water.sti</file>
+				<file index="8">trwater2.sti</file>
+				<file index="12">m-out2.sti</file>
+				<file index="14">p-out3.sti</file>
+				<file index="15">satdish.sti</file>
+				<file index="16">cesna.sti</file>
+				<file index="17">sandbag.sti</file>
+				<file index="18">spot_1.sti</file>
+				<file index="19">a-out1.sti</file>
+				<file index="20">t_tree1.sti</file>
+				<file index="21">t_tree3.sti</file>
+				<file index="24">m-out2s.sti</file>
+				<file index="26">p-out3s.sti</file>
+				<file index="27">satdishs.sti</file>
+				<file index="28">cesna_s.sti</file>
+				<file index="29">sandbags.sti</file>
+				<file index="30">spot_1s.sti</file>
+				<file index="31">a-out1s.sti</file>
+				<file index="32">t_tree1s.sti</file>
+				<file index="33">t_tree3s.sti</file>
+				<file index="37">build_20.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="41">door_05.sti</file>
+				<file index="43">metldoor.sti</file>
+				<file index="45">door_05s.sti</file>
+				<file index="47">metldors.sti</file>
+				<file index="50">roadtle2.sti</file>
+				<file index="53">waldec20.sti</file>
+				<file index="56">a-sign4.sti</file>
+				<file index="63">i_floor.sti</file>
+				<file index="68">h-roof.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="78">street2.sti</file>
+				<file index="83">a-debri1.sti</file>
+				<file index="84">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="97">m-out1.sti</file>
+				<file index="98">astuff1.sti</file>
+				<file index="99">m-out1s.sti</file>
+				<file index="100">astuff1s.sti</file>
+				<file index="107">workshop.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">jailstuf.sti</file>
+				<file index="110">o_furn.sti</file>
+				<file index="113">a-sign1.sti</file>
+				<file index="114">a-sign2.sti</file>
+				<file index="115">a-sign3.sti</file>
+				<file index="116">a-sign4.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="49">
+			<Name>DEMO TILESET</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="6">dirtrock.sti</file>
+				<file index="15">helcop.sti</file>
+				<file index="16">gastuf1.sti</file>
+				<file index="18">junk1.sti</file>
+				<file index="19">satdish.sti</file>
+				<file index="20">montre1.sti</file>
+				<file index="21">montre2.sti</file>
+				<file index="27">helcop_s.sti</file>
+				<file index="28">gastuf1s.sti</file>
+				<file index="30">junk1s.sti</file>
+				<file index="31">satdishs.sti</file>
+				<file index="32">montre1s.sti</file>
+				<file index="33">montre2s.sti</file>
+				<file index="36">build_36.sti</file>
+				<file index="37">build_24.sti</file>
+				<file index="38">build_21.sti</file>
+				<file index="41">door_05.sti</file>
+				<file index="42">door_06.sti</file>
+				<file index="43">m-door1.sti</file>
+				<file index="45">door_05s.sti</file>
+				<file index="46">door_06s.sti</file>
+				<file index="47">m-door1s.sti</file>
+				<file index="53">waldec24.sti</file>
+				<file index="60">i_floor.sti</file>
+				<file index="68">slant_07.sti</file>
+				<file index="69">slant_12.sti</file>
+				<file index="73">furn_9.sti</file>
+				<file index="74">wp_stuf1.sti</file>
+				<file index="75">school2.sti</file>
+				<file index="76">i_crates.sti</file>
+				<file index="77">lawless.sti</file>
+				<file index="84">jaildeb.sti</file>
+				<file index="86">junkfen.sti</file>
+				<file index="87">junkfens.sti</file>
+				<file index="88">damcar.sti</file>
+				<file index="90">damcars.sti</file>
+				<file index="92">burnmark.sti</file>
+				<file index="98">m-out1.sti</file>
+				<file index="100">m-out1s.sti</file>
+				<file index="107">control.sti</file>
+				<file index="108">shop.sti</file>
+				<file index="109">workshp2.sti</file>
+				<file index="110">old_furn.sti</file>
+				<file index="113">w_dec14.sti</file>
+				<file index="114">a-sign1.sti</file>
+				<file index="115">g-decal1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="50">
+			<Name>HEAVY SNOW</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">snow_1.sti</file>
+				<file index="1">snow_2.sti</file>
+				<file index="2">2_drt1.sti</file>
+				<file index="3">2_drt2.sti</file>
+				<file index="4">sn_grs_1.sti</file>
+				<file index="5">2snowgrs.sti</file>
+				<file index="6">2_drt3.sti</file>
+				<file index="7">s_water.sti</file>
+				<file index="8">s_dwater.sti</file>
+				<file index="9">cliff_l.sti</file>
+				<file index="10">l_cliff.sti</file>
+				<file index="11">cliff_sh.sti</file>
+				<file index="12">2drums.sti</file>
+				<file index="13">drum_02.sti</file>
+				<file index="14">2_heli.sti</file>
+				<file index="15">2crate.sti</file>
+				<file index="16">2bush.sti</file>
+				<file index="17">weeds_1.sti</file>
+				<file index="18">2rock1.sti</file>
+				<file index="19">snow_bag.sti</file>
+				<file index="20">2tree1.sti</file>
+				<file index="21">2tree2.sti</file>
+				<file index="22">tree2_t.sti</file>
+				<file index="23">tree2_t.sti</file>
+				<file index="24">2drums_s.sti</file>
+				<file index="25">drum2shd.sti</file>
+				<file index="26">2_heli_s.sti</file>
+				<file index="27">2crate_s.sti</file>
+				<file index="28">2bush_s.sti</file>
+				<file index="29">weedssh.sti</file>
+				<file index="30">2rock1_s.sti</file>
+				<file index="31">snowbags.sti</file>
+				<file index="32">2tree1_s.sti</file>
+				<file index="33">2tree2_s.sti</file>
+				<file index="34">trshdwt2.sti</file>
+				<file index="35">trshdwt2.sti</file>
+				<file index="36">2cabin2.sti</file>
+				<file index="37">e_wall1.sti</file>
+				<file index="38">e_wall2.sti</file>
+				<file index="39">e_wall3.sti</file>
+				<file index="40">door1.sti</file>
+				<file index="41">door_03.sti</file>
+				<file index="42">door_05.sti</file>
+				<file index="43">door1.sti</file>
+				<file index="44">door1s.sti</file>
+				<file index="45">door_03s.sti</file>
+				<file index="46">door_05s.sti</file>
+				<file index="47">door1s.sti</file>
+				<file index="48">roofceil.sti</file>
+				<file index="49">cracks.sti</file>
+				<file index="50">2roadtle.sti</file>
+				<file index="51">window1.sti</file>
+				<file index="52">walldec1.sti</file>
+				<file index="53">walldec2.sti</file>
+				<file index="54">walldec3.sti</file>
+				<file index="55">walldec3.sti</file>
+				<file index="56">w_dec01.sti</file>
+				<file index="57">w_dec02.sti</file>
+				<file index="58">w_dec03.sti</file>
+				<file index="59">w_dec04.sti</file>
+				<file index="60">floor_1.sti</file>
+				<file index="61">floor_2.sti</file>
+				<file index="62">floor_3.sti</file>
+				<file index="63">floor_4.sti</file>
+				<file index="64">2flat.sti</file>
+				<file index="65">flat_r2.sti</file>
+				<file index="66">flat_r3.sti</file>
+				<file index="67">flat_r4.sti</file>
+				<file index="68">2slant.sti</file>
+				<file index="69">e_slant1.sti</file>
+				<file index="70">roofvent.sti</file>
+				<file index="71">roofvent.sti</file>
+				<file index="72">highl3.sti</file>
+				<file index="73">furn_6.sti</file>
+				<file index="74">furn_7.sti</file>
+				<file index="75">furn_8.sti</file>
+				<file index="76">furn_9.sti</file>
+				<file index="77">furn_6.sti</file>
+				<file index="78">dirtroad.sti</file>
+				<file index="79">2debrock.sti</file>
+				<file index="80">2weeds.sti</file>
+				<file index="81">2_weeds.sti</file>
+				<file index="82">Sn_patch.sti</file>
+				<file index="83">2clumps.sti</file>
+				<file index="84">twigs.sti</file>
+				<file index="85">lakeobj.sti</file>
+				<file index="86">2fence.sti</file>
+				<file index="87">2fence_s.sti</file>
+				<file index="88">truck.sti</file>
+				<file index="89">truck.sti</file>
+				<file index="90">truck_s.sti</file>
+				<file index="91">truck_s.sti</file>
+				<file index="92">litter.sti</file>
+				<file index="93">damgdeb.sti</file>
+				<file index="94">deb_02.sti</file>
+				<file index="95">damgdebs.sti</file>
+				<file index="96">deb_02s.sti</file>
+				<file index="97">f_weed.sti</file>
+				<file index="98">montbush.sti</file>
+				<file index="99">f_weeds.sti</file>
+				<file index="100">montbshs.sti</file>
+				<file index="101">rubble1.sti</file>
+				<file index="102">rubble2.sti</file>
+				<file index="103">drum_01.sti</file>
+				<file index="104">drum_01.sti</file>
+				<file index="105">drum1shd.sti</file>
+				<file index="106">drum1shd.sti</file>
+				<file index="107">basefrn1.sti</file>
+				<file index="108">hilfurn1.sti</file>
+				<file index="109">furn_6.sti</file>
+				<file index="110">furn_6.sti</file>
+				<file index="111">flat_r4.sti</file>
+				<file index="112">flat_r4.sti</file>
+				<file index="113">w_dec01.sti</file>
+				<file index="114">w_dec01.sti</file>
+				<file index="115">w_dec01.sti</file>
+				<file index="116">picture.sti</file>
+				<file index="117">bld_prnt.sti</file>
+				<file index="118">m_b_prnt.sti</file>
+				<file index="119">switches.sti</file>
+				<file index="120">slant_01.sti</file>
+				<file index="121">flat_r4.sti</file>
+				<file index="122">flat_r4.sti</file>
+				<file index="123">smguns.sti</file>
+				<file index="124">smp1items.sti</file>
+				<file index="125">smp2items.sti</file>
+				<file index="126">glashatr.sti</file>
+				<file index="127">smp3items.sti</file>
+				<file index="128">bod_blow.sti</file>
+				<file index="129">exittex.sti</file>
+				<file index="130">steps.sti</file>
+				<file index="131">ptrs1.sti</file>
+				<file index="132">ptrs2.sti</file>
+				<file index="133">ptrs3.sti</file>
+				<file index="134">g-run.sti</file>
+				<file index="135">g-walk.sti</file>
+				<file index="136">g-swat.sti</file>
+				<file index="137">g-pron.sti</file>
+				<file index="138">white.sti</file>
+				<file index="139">action1.sti</file>
+				<file index="140">hand-wi.sti</file>
+				<file index="141">x.sti</file>
+				<file index="142">g-ring.sti</file>
+				<file index="143">r_key.sti</file>
+				<file index="144">sel-ring.sti</file>
+				<file index="145">highl3.sti</file>
+				<file index="146">bull.sti</file>
+				<file index="147">miss1.sti</file>
+				<file index="148">w_miss.sti</file>
+				<file index="149">ripple.sti</file>
+				<file index="150">wirefram.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="51">
+			<Name>MIXED SNOW</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="73">workshop.sti</file>
+				<file index="75">wp_stuf1.sti</file>
+				<file index="77">hardware.sti</file>
+				<file index="98">a-out1.sti</file>
+				<file index="100">a-out1s.sti</file>
+				<file index="109">jailstuf.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="52">
+			<Name>GRASS &amp; SNOW</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">2_grss_1.sti</file>
+				<file index="1">2_grss_2.sti</file>
+				<file index="2">2_drt3.sti</file>
+				<file index="3">2_drt1.sti</file>
+				<file index="4">2_drt2.sti</file>
+				<file index="5">sn_grs_1.sti</file>
+				<file index="6">snow_2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="53">
+			<Name>FALL TOWN</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">F_GRSS1.sti</file>
+				<file index="1">F_GRSS2.sti</file>
+				<file index="2">F_GRSS3.sti</file>
+				<file index="3">F_GRSS4.sti</file>
+				<file index="4">F_GRSS5.sti</file>
+				<file index="5">F_GRSS6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">f_water.sti</file>
+				<file index="8">f_dwater.sti</file>
+				<file index="12">drum_01.sti</file>
+				<file index="14">furn_mix.sti</file>
+				<file index="16">f_bush.sti</file>
+				<file index="17">weeds_2.sti</file>
+				<file index="18">f_rock.sti</file>
+				<file index="20">f_tree4.sti</file>
+				<file index="21">f_tree2.sti</file>
+				<file index="24">drum1shd.sti</file>
+				<file index="26">furnmixs.sti</file>
+				<file index="28">f_bush_s.sti</file>
+				<file index="29">weedssh.sti</file>
+				<file index="30">f_rock_s.sti</file>
+				<file index="32">f_tree4s.sti</file>
+				<file index="33">f_tree2s.sti</file>
+				<file index="36">build_17.sti</file>
+				<file index="43">h-door2.sti</file>
+				<file index="47">h-door2s.sti</file>
+				<file index="49">f_leaves.sti</file>
+				<file index="50">roadtile.sti</file>
+				<file index="68">slant_04.sti</file>
+				<file index="74">lawless4.sti</file>
+				<file index="77">hardware.sti</file>
+				<file index="79">debrocks.sti</file>
+				<file index="81">sweeds.sti</file>
+				<file index="82">miniweed.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">oldfence.sti</file>
+				<file index="87">oldfencs.sti</file>
+				<file index="97">fl_weed.sti</file>
+				<file index="99">f_weeds.sti</file>
+				<file index="108">jailstf2.sti</file>
+				<file index="109">lawless.sti</file>
+				<file index="110">lawless2.sti</file>
+				<file index="113">2signs.sti</file>
+				<file index="114">w_dec09.sti</file>
+				<file index="115">w_dec06.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="54">
+			<Name>MINING TOWN</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">newbank.sti</file>
+				<file index="8">deeplake.sti</file>
+				<file index="12">clifblok.sti</file>
+				<file index="14">furn_mix.sti</file>
+				<file index="15">mine1.sti</file>
+				<file index="16">mine2.sti</file>
+				<file index="17">weeds_1.sti</file>
+				<file index="18">montrock.sti</file>
+				<file index="19">sandbag.sti</file>
+				<file index="20">e_tree1.sti</file>
+				<file index="21">montre1.sti</file>
+				<file index="24">clifblos.sti</file>
+				<file index="26">furnmixs.sti</file>
+				<file index="27">mine1_s.sti</file>
+				<file index="28">mine2_s.sti</file>
+				<file index="29">weedssh.sti</file>
+				<file index="30">montrcks.sti</file>
+				<file index="31">sandbags.sti</file>
+				<file index="32">e_tree1s.sti</file>
+				<file index="33">montre1s.sti</file>
+				<file index="50">roadtile.sti</file>
+				<file index="68">slant_01.sti</file>
+				<file index="77">mncar1.sti</file>
+				<file index="79">debrocks.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="81">sweeds.sti</file>
+				<file index="82">miniweed.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="109">workshp2.sti</file>
+				<file index="110">lawles3b.sti</file>
+				<file index="113">a-sign1.sti</file>
+				<file index="114">w_dec05.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="55">
+			<Name>POWER PLANT</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">newbank.sti</file>
+				<file index="8">deeplake.sti</file>
+				<file index="12">spot_1.sti</file>
+				<file index="14">a-out1.sti</file>
+				<file index="15">satdish.sti</file>
+				<file index="16">turbine.sti</file>
+				<file index="17">weeds_1.sti</file>
+				<file index="18">montrock.sti</file>
+				<file index="19">sandbag.sti</file>
+				<file index="20">e_tree1.sti</file>
+				<file index="21">montre1.sti</file>
+				<file index="24">spot_1s.sti</file>
+				<file index="26">a-out1s.sti</file>
+				<file index="27">satdishs.sti</file>
+				<file index="28">turbines.sti</file>
+				<file index="29">weedssh.sti</file>
+				<file index="30">montrcks.sti</file>
+				<file index="31">sandbags.sti</file>
+				<file index="32">e_tree1s.sti</file>
+				<file index="33">montre1s.sti</file>
+				<file index="36">build_36.sti</file>
+				<file index="38">build_24.sti</file>
+				<file index="40">metldoor.sti</file>
+				<file index="41">door_07.sti</file>
+				<file index="42">door_02.sti</file>
+				<file index="43">door_06.sti</file>
+				<file index="44">metldors.sti</file>
+				<file index="45">door_07s.sti</file>
+				<file index="46">door_02s.sti</file>
+				<file index="47">door_06s.sti</file>
+				<file index="49">wp_deb.sti</file>
+				<file index="50">roadtile.sti</file>
+				<file index="60">I_floor.sti</file>
+				<file index="61">jailflor.sti</file>
+				<file index="63">Wp_floor.sti</file>
+				<file index="68">slant_12.sti</file>
+				<file index="74">I_crates.sti</file>
+				<file index="75">jailstf3.sti</file>
+				<file index="77">wp_stuf1.sti</file>
+				<file index="79">debrocks.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="81">sweeds.sti</file>
+				<file index="82">miniweed.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">wirefenc.sti</file>
+				<file index="87">wirefens.sti</file>
+				<file index="92">jaildeb3.sti</file>
+				<file index="108">o_furn.sti</file>
+				<file index="109">2_gens.sti</file>
+				<file index="110">g-furn1.sti</file>
+				<file index="113">g-decal1.sti</file>
+				<file index="114">2walldeb.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="56">
+			<Name>SEWERS</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="12">tunvent.sti</file>
+				<file index="24">tunvens.sti</file>
+				<file index="36">sewer.sti</file>
+				<file index="37">tunlgate.sti</file>
+				<file index="40">tunldoor.sti</file>
+				<file index="44">tunldors.sti</file>
+				<file index="63">sew_flor.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="86">tunlgate.sti</file>
+				<file index="87">tunlgats.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="57">
+			<Name>UNDERGROUND COMPLEX</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="12">m-out2.sti</file>
+				<file index="14">a-out1.sti</file>
+				<file index="24">m-out2s.sti</file>
+				<file index="26">a-out1s.sti</file>
+				<file index="36">build_29.sti</file>
+				<file index="37">build_30.sti</file>
+				<file index="38">build19b.sti</file>
+				<file index="40">metldoor.sti</file>
+				<file index="41">door_07.sti</file>
+				<file index="42">door_14.sti</file>
+				<file index="43">2_door.sti</file>
+				<file index="44">metldors.sti</file>
+				<file index="45">door_07s.sti</file>
+				<file index="46">door_14s.sti</file>
+				<file index="47">2_door_s.sti</file>
+				<file index="49">jaildeb.sti</file>
+				<file index="52">waldec29.sti</file>
+				<file index="53">waldec30.sti</file>
+				<file index="54">jail_dec.sti</file>
+				<file index="60">I_floor.sti</file>
+				<file index="61">floor_02.sti</file>
+				<file index="62">jailflor.sti</file>
+				<file index="63">Wp_floor.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="73">o_furn3.sti</file>
+				<file index="74">I_crates.sti</file>
+				<file index="75">jailstf3.sti</file>
+				<file index="76">workshop.sti</file>
+				<file index="77">wp_stuf1.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="92">wp_deb.sti</file>
+				<file index="107">m-furn4.sti</file>
+				<file index="108">o_furn.sti</file>
+				<file index="109">2_gens.sti</file>
+				<file index="110">g-furn1.sti</file>
+				<file index="113">g-decal1.sti</file>
+				<file index="114">2walldeb.sti</file>
+				<file index="115">w_dec05.sti</file>
+				<file index="116">a-sign1.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="58">
+			<Name>UPPER COMPLEX</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">3mongra1.sti</file>
+				<file index="1">3mongra2.sti</file>
+				<file index="2">3mongra3.sti</file>
+				<file index="3">3mongra4.sti</file>
+				<file index="4">3mongra5.sti</file>
+				<file index="5">3mongra6.sti</file>
+				<file index="6">dirtrock.sti</file>
+				<file index="7">newbank.sti</file>
+				<file index="8">deeplake.sti</file>
+				<file index="12">m-out2.sti</file>
+				<file index="14">a-out2.sti</file>
+				<file index="15">satdish.sti</file>
+				<file index="17">weeds_1.sti</file>
+				<file index="18">montrock.sti</file>
+				<file index="19">sandbag.sti</file>
+				<file index="20">e_tree1.sti</file>
+				<file index="21">montre1.sti</file>
+				<file index="24">m-out2s.sti</file>
+				<file index="26">a-out2s.sti</file>
+				<file index="27">satdishs.sti</file>
+				<file index="29">weedssh.sti</file>
+				<file index="30">montrcks.sti</file>
+				<file index="31">sandbags.sti</file>
+				<file index="32">e_tree1s.sti</file>
+				<file index="33">montre1s.sti</file>
+				<file index="36">e_wall4.sti</file>
+				<file index="40">metldoor.sti</file>
+				<file index="41">door_07.sti</file>
+				<file index="42">door_02.sti</file>
+				<file index="43">2_door.sti</file>
+				<file index="44">metldors.sti</file>
+				<file index="45">door_07s.sti</file>
+				<file index="46">door_02s.sti</file>
+				<file index="47">2_door_s.sti</file>
+				<file index="49">wp_deb.sti</file>
+				<file index="50">roadtile.sti</file>
+				<file index="60">I_floor.sti</file>
+				<file index="61">jailflor.sti</file>
+				<file index="63">Wp_floor.sti</file>
+				<file index="73">o_furn3.sti</file>
+				<file index="74">I_crates.sti</file>
+				<file index="75">jailstf3.sti</file>
+				<file index="76">workshop.sti</file>
+				<file index="77">wp_stuf1.sti</file>
+				<file index="79">debrocks.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="81">sweeds.sti</file>
+				<file index="82">miniweed.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">junkfen.sti</file>
+				<file index="87">junkfens.sti</file>
+				<file index="92">jaildeb.sti</file>
+				<file index="107">m-furn4.sti</file>
+				<file index="108">o_furn.sti</file>
+				<file index="109">2_gens.sti</file>
+				<file index="110">g-furn1.sti</file>
+				<file index="113">g-decal1.sti</file>
+				<file index="114">2walldeb.sti</file>
+				<file index="115">w_dec05.sti</file>
+				<file index="116">a-sign1.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="59">
+			<Name>LOWEST LEVEL COMPLEX</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+				<file index="0">cvflr4.sti</file>
+				<file index="1">negspace.sti</file>
+				<file index="12">m-out2.sti</file>
+				<file index="14">a-out1.sti</file>
+				<file index="24">m-out2s.sti</file>
+				<file index="26">a-out1s.sti</file>
+				<file index="36">e_wall4.sti</file>
+				<file index="37">build_30.sti</file>
+				<file index="38">build19b.sti</file>
+				<file index="40">metldoor.sti</file>
+				<file index="41">door_07.sti</file>
+				<file index="42">door_14.sti</file>
+				<file index="43">elevator.sti</file>
+				<file index="44">metldors.sti</file>
+				<file index="45">door_07s.sti</file>
+				<file index="46">door_14s.sti</file>
+				<file index="47">elevatos.sti</file>
+				<file index="49">jaildeb.sti</file>
+				<file index="52">waldec29.sti</file>
+				<file index="53">waldec30.sti</file>
+				<file index="54">jail_dec.sti</file>
+				<file index="60">I_floor.sti</file>
+				<file index="61">floor_02.sti</file>
+				<file index="62">jailflor.sti</file>
+				<file index="63">Wp_floor.sti</file>
+				<file index="64">flat_06.sti</file>
+				<file index="73">o_furn3.sti</file>
+				<file index="74">I_crates.sti</file>
+				<file index="75">jailstf3.sti</file>
+				<file index="76">workshop.sti</file>
+				<file index="77">wp_stuf1.sti</file>
+				<file index="80">bombdeb.sti</file>
+				<file index="83">burnmark.sti</file>
+				<file index="86">tunlgate.sti</file>
+				<file index="87">tunlgats.sti</file>
+				<file index="92">wp_deb.sti</file>
+				<file index="107">m-furn4.sti</file>
+				<file index="108">o_furn.sti</file>
+				<file index="109">2_gens.sti</file>
+				<file index="110">g-furnx.sti</file>
+				<file index="113">g-decal1.sti</file>
+				<file index="114">2walldeb.sti</file>
+				<file index="115">w_dec05.sti</file>
+				<file index="116">a-sign1.sti</file>
+				<file index="150">wirefra2.sti</file>
+			</Files>
+		</Tileset>
+		<Tileset index="60">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="61">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="62">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="63">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="64">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="65">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="66">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="67">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="68">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+		<Tileset index="69">
+			<Name>JA25</Name>
+			<AmbientID>0</AmbientID>
+			<Files>
+			</Files>
+		</Tileset>
+	</tilesets>
+</JA2SET>
