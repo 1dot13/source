@@ -1264,6 +1264,8 @@ void MercDepartEquipmentBoxCallBack( UINT8 bExitValue )
 	else if( bExitValue == MSG_BOX_RETURN_CONTRACT )
 	{
 		HandleExtendMercsContract( pLeaveSoldier );
+
+		UnLockPauseState();
 		return;
 	}
 	else if( bExitValue == MSG_BOX_RETURN_YES )
