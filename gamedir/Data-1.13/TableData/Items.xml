@@ -42551,8 +42551,8 @@
 		<szItemName>12g Box</szItemName>
 		<szLongItemName>12 Gauge Box</szLongItemName>
 		<szItemDesc>These 12 gauge slugs can punch through barriers and light armor with ease.</szItemDesc>
-		<szBRName>12 Gauge Box</szBRName>
-		<szBRDesc>This box contains 50 12 gauge slugs that can punch through barriers and light armor with ease.</szBRDesc>
+		<szBRName>12g Box</szBRName>
+		<szBRDesc>This box contains 25 12 gauge slugs that can punch through barriers and light armor with ease.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>164</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
