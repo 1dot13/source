@@ -870,7 +870,7 @@ STR16 pPasteMercPlacementText[] =
 {
 	L"Placement not pasted as no placement is saved in buffer.",
 	L"Placement pasted.",
-	L"Placement not pasted as the maximum number of placements for this team is already used.",
+	L"Placement not pasted as the maximum number of placements for this team is reached.",
 };
 
 //editscreen.cpp
@@ -995,8 +995,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-/*
-CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
+/*CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
 {
 	L"Klaxon Mine",
 	L"Flare Mine",
@@ -1039,7 +1038,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"Toggle hide flag", //0
 	L"No item selected.",
 	L"Slot available for",
-	L"random generation.",
+	L"Random generation.",
 	L"Keys not editable.",
 	L"ProfileID of owner",
 	L"Item class not implemented.",
@@ -2873,7 +2872,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"前往分区",
 	L"前往地图",
 	L"你不能从这边离开这个分区。",
-	L"You can't leave in turn based mode.",	// TODO.Translate
+	L"你不能在回合制模式离开。",	// TODO.Translate
 	L"%s太远了。",
 	L"不显示树冠",
 	L"显示树冠",
@@ -4206,7 +4205,7 @@ STR16			MercHomePageText[] =
 	L"查看文件点击这里",	//"To view files press here",
 	// The version number on the video conferencing system that pops up when Speck is talking
 	L"Speck Com v3.2",
-	L"Transfer failed. No funds available.",	// TODO.Translate
+	L"转账失败，暂无可用资金。",	// TODO.Translate
 };
 
 // For use at MiGillicutty's Web Page.
@@ -5177,6 +5176,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时, 显示佣兵脸部装备图。",
 	L"打开时, 佣兵肖像右下角显示脸部装备图标",
 	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
+	L"打开时，敌军回合将被大幅加速。",
 	//L"打开时，武器连续射击时温度逐渐升高引起过热。",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
@@ -6121,6 +6121,7 @@ STR16 New113HAMMessage[] =
 
 };
 
+// WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16	New113MERCMercMailTexts[] =
@@ -6135,6 +6136,7 @@ STR16	New113MERCMercMailTexts[] =
 	L"鉴于Biggins发挥有所提高， 他的价格也同时上涨。 ± ± Speck T. Kline ± ",
 };
 
+// WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercAvailable.xml" file!
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
 STR16	New113AIMMercMailTexts[] =
 {
@@ -6860,7 +6862,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|侵|彻|力|（|穿|甲|弹|）",
 	L"|翻|搅|力|（|开|花|弹|）",
 	L"|爆|炸|力|（|炸|子|儿|）",
-	L"\n \nA multiplier to the bullet's heat.\n \nLower is better.",		// TODO.Translate
+	L"|过|热|修|正",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -7029,10 +7031,10 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|冷|却|参|数",
 	L"|卡|壳|阈|值",
 	L"|损|坏|阈|值",
-	L"|T|e|m|p|e|r|a|t|u|r|e |M|o|d|i|f|i|c|a|t|o|r",		// TODO.Translate
-	L"|C|o|o|l|d|o|w|n |M|o|d|i|f|i|c|a|t|o|r",
-	L"|J|a|m |T|r|e|s|h|o|l|d |M|o|d|i|f|i|c|a|t|o|r",
-	L"|D|a|m|a|g|e |T|r|e|s|h|o|l|d |M|o|d|i|f|i|c|a|t|o|r",
+	L"|单|发|射|击|温|度",		// TODO.Translate
+	L"|冷|却|参|数",
+	L"|卡|壳|阈|值",
+	L"|损|坏|阈|值",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7086,14 +7088,14 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n这是射手在点射或者连发时，频繁评估\n制退力大小以应对后坐力的能力。\n \n较高的频率使连发的总体精度更高，此外，由于射手能\n正确制退后坐力，其长点射也更\n加准确。\n \n该数值越低越好。",
 	L"\n \n当安装于远程武器上时，该物品修正武器的命\n中率。\n \n命中率的提高使该武器在精瞄时更容易命中\n目标。\n \n该数值越高越好。",
 	L"\n \n当安装于远程武器上时，该物品修正武器的精\n瞄加成。\n \n精瞄加成的提高使该武器在精瞄时更容易命\n中远距离的目标。\n \n该数值越高越好。",
-	L"\n \nA single shot causes this much heat.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",			// TODO.Translate
-	L"\n \nEvery turn, the temperature is lowered\nby this amount.\n \nHigher is better.",
-	L"\n \nIf an item's temperature is above this,\nit will jam more frequently.\n \nHigher is better.",
-	L"\n \nIf an item's temperature is above this,\nit will be damaged more easily.\n \nHigher is better.",
-	L"\n \nA gun's single shot temperature is\nincreased by this percentage.\n \nLower is better.",
-	L"\n \nA gun's cooldown factor is\nincreased by this percentage.\n \nHigher is better.",
-	L"\n \nA gun's jam threshold is\nincreased by this percentage.\n \nHigher is better.",
-	L"\n \nA gun's damage threshold is\nincreased by this percentage.\n \nHigher is better.",
+	L"\n \n单发射击所造成的温度。\n所使用的子弹类型对本值有影响。",		// TODO.Translate
+	L"\n \n每回合自动冷却所降低的温度值。",
+	L"\n \n当武器温度超过卡壳阈值时，\n卡壳将更容易发生。",
+	L"\n \n当武器温度超过损坏阈值时，\n武器将更容易损坏。",
+	L"\n \n武器的单发射击温度增加了(百分比)。\n \n该数值越低越好。",
+	L"\n \n武器的冷却系数数增加了(百分比)。\n \n该数值越高越好。",
+	L"\n \n武器的卡壳阈值增加了(百分比)。\n \n该数值越高越好。",
+	L"\n \n武器的损坏阈值增加了(百分比)。\n \n该数值越高越好。",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -7150,7 +7152,6 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \n每回合自动冷却所降低的温度值。",
 	L"\n \n当武器温度超过卡壳阈值时，\n卡壳将更容易发生。",
 	L"\n \n当武器温度超过损坏阈值时，\n武器将更容易损坏。",
-
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -7178,7 +7179,6 @@ STR16 gTemperatureDesc[] =
 	L"未知",
 	L"."
 };
-
 
 CHAR16* ranks[] = 
 {	L"",			//ExpLevel 0
