@@ -2965,10 +2965,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>92</uiIndex>
-		<szItemName>5.45x39mm Mag 30</szItemName>
-		<szLongItemName>5.45x39mm Magazine, 30</szLongItemName>
+		<szItemName>5.45x39mm Mag 30 AP</szItemName>
+		<szLongItemName>5.45x39mm Magazine, 30 AP</szLongItemName>
 		<szItemDesc>This 30-round magazine holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
-		<szBRName>5.45x39mm Mag 30</szBRName>
+		<szBRName>5.45x39mm Mag 30 AP</szBRName>
 		<szBRDesc>One of our hottest commodities is this 30-round mag of 'acquired' Russian 5.45mm Armor Piercing ammunition. This round is guaranteed to make you the death of any party.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3013,10 +3013,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>94</uiIndex>
-		<szItemName>5.56x45mm Mag 30</szItemName>
-		<szLongItemName>5.56x45mm Mag, 30</szLongItemName>
+		<szItemName>5.56x45mm Mag 30 AP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 30 AP</szLongItemName>
 		<szItemDesc>These 30 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm Mag 30</szBRName>
+		<szBRName>5.56x45mm Mag 30 AP</szBRName>
 		<szBRDesc>This 30-round magazine is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3061,10 +3061,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>96</uiIndex>
-		<szItemName>7.62x39mm Mag 10</szItemName>
-		<szLongItemName>7.62x39mm Mag, 10</szLongItemName>
+		<szItemName>7.62x39mm Mag 10 AP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10 AP</szLongItemName>
 		<szItemDesc>This 10-round magazine of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szItemDesc>
-		<szBRName>7.62x39mm 10</szBRName>
+		<szBRName>7.62x39mm 10 AP</szBRName>
 		<szBRDesc>Packaged especially for the aspiring sharpshooter, these 10 rounds of Chinese 7.62mm Armor Piercing ammo is sure to provide you with the 'One Shot, One Kill' that'll make headlines the world over.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3085,10 +3085,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>97</uiIndex>
-		<szItemName>7.62x39mm Mag 30</szItemName>
-		<szLongItemName>7.62x39mm Mag, 30</szLongItemName>
+		<szItemName>7.62x39mm Mag 30 AP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30 AP</szLongItemName>
 		<szItemDesc>These 30 rounds of Warsaw Pact issued 7.62mm anti-personnel AP ammo tend to maintain their shape on impact. Shape retention may increase its ability to defeat light body armor but it also reduces injury severity.</szItemDesc>
-		<szBRName>7.62x39mm 30</szBRName>
+		<szBRName>7.62x39mm 30 AP</szBRName>
 		<szBRDesc>Looking for the perfect gift for the terrorist who has it all? Try a magazine of our surplus 7.62mm Warsaw Pact AP. It's the gift to end all gift giving.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3157,10 +3157,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>100</uiIndex>
-		<szItemName>7.62x51mm Bullets 5</szItemName>
-		<szLongItemName>7.62x51mm Bullets, 5</szLongItemName>
+		<szItemName>7.62x51mm Bullets 5 AP</szItemName>
+		<szLongItemName>7.62x51mm Bullets, 5 AP</szLongItemName>
 		<szItemDesc>These 5 loose rounds of 7.62x51mm armor piercing ammo have the ability to defeat body armor at long ranges, making it the ideal sniping round.</szItemDesc>
-		<szBRName>7.62x51mm Bullets 5</szBRName>
+		<szBRName>7.62x51mm Bullets 5 AP</szBRName>
 		<szBRDesc>This Armor Piercing 7.62x51mm ammunition offers an ideal combination of range, penetration and damage that professional snipers demand.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3181,10 +3181,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>101</uiIndex>
-		<szItemName>7.62x51mm Mag 20</szItemName>
-		<szLongItemName>7.62x51mm Mag, 20</szLongItemName>
+		<szItemName>7.62x51mm Mag 20 AP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 20 AP</szLongItemName>
 		<szItemDesc>This mag contains 20 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
-		<szBRName>7.62x51mm Mag 20</szBRName>
+		<szBRName>7.62x51mm Mag 20 AP</szBRName>
 		<szBRDesc>This 7.62mm 20-round magazine is simply brimming with death, especially when it's filled with a surplus of Full Metal Jacketed rounds. This magazine makes armor more or less moot.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3253,10 +3253,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>104</uiIndex>
-		<szItemName>4.7mm Mag 45</szItemName>
-		<szLongItemName>4.7x33mm Mag, 45</szLongItemName>
+		<szItemName>4.7mm Mag 45 AP</szItemName>
+		<szLongItemName>4.7x33mm Mag, 45 AP</szLongItemName>
 		<szItemDesc>This 45-round magazine contains 4.7mm caseless ammunition. This round possesses wound and range capabilites that are comparable to the 5.56mm NATO round, but is 40 per cent lighter.</szItemDesc>
-		<szBRName>4.7x33mm Mag 45</szBRName>
+		<szBRName>4.7x33mm Mag 45 AP</szBRName>
 		<szBRDesc>Recovered crates from a classified German warehouse have supplied us with these 45-round magazines. They come complete with a full load of the legandary 4.7mm caseless ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3277,10 +3277,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>105</uiIndex>
-		<szItemName>5.7mm Mag 50</szItemName>
-		<szLongItemName>5.7x28mm Mag, 50</szLongItemName>
+		<szItemName>5.7mm Mag 50 AP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 50 AP</szLongItemName>
 		<szItemDesc>This magazine contains 50 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
-		<szBRName>5.7x28mm Mag 50</szBRName>
+		<szBRName>5.7x28mm Mag 50 AP</szBRName>
 		<szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 50-round magazine of 5.7mm pistol ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3375,10 +3375,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>109</uiIndex>
-		<szItemName>CAWS Mag</szItemName>
-		<szLongItemName>CAWS Magazine</szLongItemName>
+		<szItemName>CAWS Mag AP</szItemName>
+		<szLongItemName>CAWS Magazine AP</szLongItemName>
 		<szItemDesc>This 10-round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and car engine blocks.</szItemDesc>
-		<szBRName>CAWS Mag</szBRName>
+		<szBRName>CAWS Mag AP</szBRName>
 		<szBRDesc>This 10 round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3544,10 +3544,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>116</uiIndex>
-		<szItemName>.50 BMG Mag</szItemName>
-		<szLongItemName>.50 BMG Magazine</szLongItemName>
+		<szItemName>.50 BMG Mag AP</szItemName>
+		<szLongItemName>.50 BMG Magazine, AP</szLongItemName>
 		<szItemDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
-		<szBRName>.50 BMG Mag</szBRName>
+		<szBRName>.50 BMG Mag AP</szBRName>
 		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3569,10 +3569,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>117</uiIndex>
-		<szItemName>9x39mm Mag</szItemName>
-		<szLongItemName>9x39mm Magazine</szLongItemName>
+		<szItemName>9x39mm Mag AP</szItemName>
+		<szLongItemName>9x39mm Magazine, AP</szLongItemName>
 		<szItemDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms.</szItemDesc>
-		<szBRName>9x39mm Mag</szBRName>
+		<szBRName>9x39mm Mag AP</szBRName>
 		<szBRDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms, including the ever popular VAL Silent Sniper rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3667,10 +3667,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>121</uiIndex>
-		<szItemName>5.45x39mm RPK-Mag</szItemName>
-		<szLongItemName>5.45x39mm RPK-Mag</szLongItemName>
+		<szItemName>5.45x39mm RPK-Mag AP</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag, AP</szLongItemName>
 		<szItemDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
-		<szBRName>5.45x39mm RPK-Mag</szBRName>
+		<szBRName>5.45x39mm RPK-Mag AP</szBRName>
 		<szBRDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3715,10 +3715,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>123</uiIndex>
-		<szItemName>5.56x45mm Belt</szItemName>
-		<szLongItemName>5.56x45mm Belt</szLongItemName>
+		<szItemName>5.56x45mm Belt AP</szItemName>
+		<szLongItemName>5.56x45mm Belt, AP</szLongItemName>
 		<szItemDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm Belt</szBRName>
+		<szBRName>5.56x45mm Belt AP</szBRName>
 		<szBRDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3762,10 +3762,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>125</uiIndex>
-		<szItemName>7.62x51mm Belt</szItemName>
-		<szLongItemName>7.62x51mm Belt</szLongItemName>
+		<szItemName>7.62x51mm Belt AP</szItemName>
+		<szLongItemName>7.62x51mm Belt, AP</szLongItemName>
 		<szItemDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
-		<szBRName>7.62x51mm Belt</szBRName>
+		<szBRName>7.62x51mm Belt AP</szBRName>
 		<szBRDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3809,10 +3809,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>127</uiIndex>
-		<szItemName>7.62x54R Mag 10</szItemName>
-		<szLongItemName>7.62x54R Mag, 10</szLongItemName>
+		<szItemName>7.62x54R Mag 10 AP</szItemName>
+		<szLongItemName>7.62x54R Mag, 10 AP</szLongItemName>
 		<szItemDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection.</szItemDesc>
-		<szBRName>7.62x54R Mag 10</szBRName>
+		<szBRName>7.62x54R Mag 10 AP</szBRName>
 		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3861,10 +3861,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>129</uiIndex>
-		<szItemName>7.62x25mm SMG Mag</szItemName>
-		<szLongItemName>7.62x25mm SMG Mag</szLongItemName>
+		<szItemName>7.62x25mm SMG Mag AP</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag, AP</szLongItemName>
 		<szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szItemDesc>
-		<szBRName>7.62x25mm SMG Mag</szBRName>
+		<szBRName>7.62x25mm SMG Mag AP</szBRName>
 		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -7912,10 +7912,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
-		<szItemName>5.7mm Mag 20</szItemName>
-		<szLongItemName>5.7x28mm Mag, 20</szLongItemName>
+		<szItemName>5.7mm Mag 20 AP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 20 AP</szLongItemName>
 		<szItemDesc>This magazine contains 20 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
-		<szBRName>5.7x28mm Mag 20</szBRName>
+		<szBRName>5.7x28mm Mag 20 AP</szBRName>
 		<szBRDesc>5.7mm somersaults through flesh and bone leaving major wound cavities.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -9303,10 +9303,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>328</uiIndex>
-		<szItemName>5.56x45mm Mag 10</szItemName>
-		<szLongItemName>5.56x45mm Mag, 10</szLongItemName>
+		<szItemName>5.56x45mm Mag 10 AP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10 AP</szLongItemName>
 		<szItemDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szItemDesc>
-		<szBRName>5.56x45mm Mag 10</szBRName>
+		<szBRName>5.56x45mm Mag 10 AP</szBRName>
 		<szBRDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -12301,10 +12301,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>436</uiIndex>
-		<szItemName>5.56x45mm C-Mag</szItemName>
-		<szLongItemName>5.56x45mm C-Mag</szLongItemName>
+		<szItemName>5.56x45mm C-Mag AP</szItemName>
+		<szLongItemName>5.56x45mm C-Mag, AP</szLongItemName>
 		<szItemDesc>These 100 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm C-Mag</szBRName>
+		<szBRName>5.56x45mm C-Mag AP</szBRName>
 		<szBRDesc>This 100-round Beta C-Mag is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -12749,10 +12749,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>454</uiIndex>
-		<szItemName>.50 BMG Mag, 5</szItemName>
-		<szLongItemName>.50 BMG Magazine, 5</szLongItemName>
+		<szItemName>.50 BMG Mag, 5 AP</szItemName>
+		<szLongItemName>.50 BMG Magazine, 5 AP</szLongItemName>
 		<szItemDesc>An 5 round magazine of .50 caliber (Browning) bullets.</szItemDesc>
-		<szBRName>.50 BMG Mag. 5</szBRName>
+		<szBRName>.50 BMG Mag. 5 AP</szBRName>
 		<szBRDesc>An 5 round magazine of .50 caliber (Browning) bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -12799,10 +12799,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>456</uiIndex>
-		<szItemName>7.62x51mm Mag 10</szItemName>
-		<szLongItemName>7.62x51mm Mag, 10</szLongItemName>
+		<szItemName>7.62x51mm Mag 10 AP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 10 AP</szLongItemName>
 		<szItemDesc>10 rounds of 7.62x51mm full metal jacket.</szItemDesc>
-		<szBRName>7.62x51mm Mag 10</szBRName>
+		<szBRName>7.62x51mm Mag 10 AP</szBRName>
 		<szBRDesc>Great for the semi-automatic sniper rifle in your armory.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13366,10 +13366,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>478</uiIndex>
-		<szItemName>7.92x57mm Bullets 5</szItemName>
-		<szLongItemName>7.92x57mm Mauser Bullets, 5</szLongItemName>
+		<szItemName>7.92x57mm Bullets 5 AP</szItemName>
+		<szLongItemName>7.92x57mm Mauser Bullets, 5 AP</szLongItemName>
 		<szItemDesc>The German Army's AP rifle ammunition in WW-II.</szItemDesc>
-		<szBRName>7.92x57mm Bullets 5</szBRName>
+		<szBRName>7.92x57mm Bullets 5 AP</szBRName>
 		<szBRDesc>Our AP ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13391,10 +13391,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>479</uiIndex>
-		<szItemName>12.7mm Subsonic</szItemName>
-		<szLongItemName>12.7x97mm Subsonic</szLongItemName>
+		<szItemName>12.7mm Subsonic AP</szItemName>
+		<szLongItemName>12.7x97mm Subsonic, AP</szLongItemName>
 		<szItemDesc>A five-round magazine of 12.7mm subsonic ammunition. This is the version with the highpower penetrator.</szItemDesc>
-		<szBRName>12.7x97mm Subsonic</szBRName>
+		<szBRName>12.7x97mm Subsonic AP</szBRName>
 		<szBRDesc>Want to fire a .50 cal round without making noise? These babies are cutdown 12.7mm rounds to fit the Russian VSSK.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13417,10 +13417,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
-		<szItemName>5.56x45mm SCF Mag</szItemName>
-		<szLongItemName>5.56x45mm SCF Mag</szLongItemName>
+		<szItemName>5.56x45mm SCF Mag AP</szItemName>
+		<szLongItemName>5.56x45mm SCF Mag, AP</szLongItemName>
 		<szItemDesc>A magazine of armor piercing flechette dart ammunition.</szItemDesc>
-		<szBRName>5.56x45mm SCF Mag</szBRName>
+		<szBRName>5.56x45mm SCF Mag AP</szBRName>
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13467,10 +13467,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
-		<szItemName>6.8x43mm SPC Mag</szItemName>
-		<szLongItemName>6.8x43mm SPC Mag</szLongItemName>
+		<szItemName>6.8x43mm SPC Mag AP</szItemName>
+		<szLongItemName>6.8x43mm SPC Mag, AP</szLongItemName>
 		<szItemDesc>A magazine holding 25 rounds of the new 6.8x43mm ammo.</szItemDesc>
-		<szBRName>6.8x43mm SPC Mag</szBRName>
+		<szBRName>6.8x43mm SPC Mag AP</szBRName>
 		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13492,10 +13492,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
-		<szItemName>7.62x39mm Drum</szItemName>
-		<szLongItemName>7.62x39mm Drum</szLongItemName>
+		<szItemName>7.62x39mm Drum AP</szItemName>
+		<szLongItemName>7.62x39mm Drum, AP</szLongItemName>
 		<szItemDesc>When its time to end the fire fight, snap in a drum of hard hitting 7.62x39mm.</szItemDesc>
-		<szBRName>7.62x39mm Drum</szBRName>
+		<szBRName>7.62x39mm Drum AP</szBRName>
 		<szBRDesc>This long-serving heavy cartridge comes in convenient drums.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13545,10 +13545,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>485</uiIndex>
-		<szItemName>4.7mm Mag 20</szItemName>
-		<szLongItemName>4.7x33mm Mag, 20</szLongItemName>
+		<szItemName>4.7mm Mag 20 AP</szItemName>
+		<szLongItemName>4.7x33mm Mag, 20 AP</szLongItemName>
 		<szItemDesc>20 rounds of 4.7mm caseless ammunition.</szItemDesc>
-		<szBRName>4.7x33mm Mag 20</szBRName>
+		<szBRName>4.7x33mm Mag 20 AP</szBRName>
 		<szBRDesc>4.7mm ammo could have been a contender on a large scale. Give it another chance.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13623,10 +13623,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>488</uiIndex>
-		<szItemName>4.6x30mm PDW Mag</szItemName>
-		<szLongItemName>4.6x30mm PDW Magazine</szLongItemName>
+		<szItemName>4.6x30mm PDW Mag AP</szItemName>
+		<szLongItemName>4.6x30mm PDW Magazine, AP</szLongItemName>
 		<szItemDesc>This 40-round magazine contains 4.6mm ammunition for the HK MP-7. This round possesses wound and range capabilites comparable to a rifle round.</szItemDesc>
-		<szBRName>4.6x30mm PDW Mag</szBRName>
+		<szBRName>4.6x30mm PDW Mag AP</szBRName>
 		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13648,10 +13648,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>489</uiIndex>
-		<szItemName>7.62x25mm Mag</szItemName>
-		<szLongItemName>7.62x25mm Pistol Mag</szLongItemName>
+		<szItemName>7.62x25mm Mag AP</szItemName>
+		<szLongItemName>7.62x25mm Pistol Mag, AP</szLongItemName>
 		<szItemDesc>8 rounds of 7.62x25mm for your Soviet made handgun.</szItemDesc>
-		<szBRName>7.62x25mm Mag</szBRName>
+		<szBRName>7.62x25mm Mag AP</szBRName>
 		<szBRDesc>Retired from official military use, 7.62x25mm is still used by many Eastern European police officers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13806,10 +13806,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>495</uiIndex>
-		<szItemName>7.62x25mm Biz. Mag</szItemName>
-		<szLongItemName>7.62x25mm Bizon Mag</szLongItemName>
+		<szItemName>7.62x25mm Biz. Mag AP</szItemName>
+		<szLongItemName>7.62x25mm Bizon Mag, AP</szLongItemName>
 		<szItemDesc>A 45 round box of 7.62 Tk for your Bizon 2-07 SMG.</szItemDesc>
-		<szBRName>7.62x25mm Biz. Mag</szBRName>
+		<szBRName>7.62x25mm Biz. Mag AP</szBRName>
 		<szBRDesc>Originally converted PPSh-41/PPS-43 box magazines, these clips are made to fire 7.62 x 25 from a Bizon SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -13908,10 +13908,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>499</uiIndex>
-		<szItemName>7.62x25mm Drum</szItemName>
-		<szLongItemName>7.62x25mm Drum</szLongItemName>
+		<szItemName>7.62x25mm Drum AP</szItemName>
+		<szLongItemName>7.62x25mm Drum AP</szLongItemName>
 		<szItemDesc>71-round drum of 7.62 x 25 ammunition.</szItemDesc>
-		<szBRName>7.62x25mm Drum</szBRName>
+		<szBRName>7.62x25mm Drum AP</szBRName>
 		<szBRDesc>7.62 Tk drum fits your vintage Russian SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14010,10 +14010,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>503</uiIndex>
-		<szItemName>12.7x108mm Mag</szItemName>
-		<szLongItemName>12.7x108mm Magazine</szLongItemName>
+		<szItemName>12.7x108mm Mag AP</szItemName>
+		<szLongItemName>12.7x108mm Magazine, AP</szLongItemName>
 		<szItemDesc>"Mini-.50" magazine for heavy anti-material rifles.</szItemDesc>
-		<szBRName>12.7x108mm Mag</szBRName>
+		<szBRName>12.7x108mm Mag AP</szBRName>
 		<szBRDesc>Penetrate light armor vehicles from considerable range with a clip full of 12.7mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14388,10 +14388,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>518</uiIndex>
-		<szItemName>7.62x54R Bullets 5</szItemName>
-		<szLongItemName>7.62x54R Bullets, 5</szLongItemName>
+		<szItemName>7.62x54R Bullets 5 AP</szItemName>
+		<szLongItemName>7.62x54R Bullets, 5 AP</szLongItemName>
 		<szItemDesc>5 rounds for a Dragunov or other 7.62x54mm rifle.</szItemDesc>
-		<szBRName>7.62x54R Bullets 5</szBRName>
+		<szBRName>7.62x54R Bullets 5 AP</szBRName>
 		<szBRDesc>7.62x54R is an old fashioned heavy hitter.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14440,10 +14440,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>520</uiIndex>
-		<szItemName>7.62x54R Box</szItemName>
-		<szLongItemName>7.62x54R Box</szLongItemName>
+		<szItemName>7.62x54R Box AP</szItemName>
+		<szLongItemName>7.62x54R Box, AP</szLongItemName>
 		<szItemDesc>200 round box of 7.62x54 full metal jacket ammo.</szItemDesc>
-		<szBRName>7.62x54R Box</szBRName>
+		<szBRName>7.62x54R Box AP</szBRName>
 		<szBRDesc>Crack open a box of 7.62x54R when its time to reload the squad PKM.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14491,10 +14491,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>522</uiIndex>
-		<szItemName>.338 Lapua Mag</szItemName>
-		<szLongItemName>.338 Lapua Magnum Mag</szLongItemName>
+		<szItemName>.338 Lapua Mag AP</szItemName>
+		<szLongItemName>.338 Lapua Magnum Mag, AP</szLongItemName>
 		<szItemDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szItemDesc>
-		<szBRName>.338 Lapua Mag</szBRName>
+		<szBRName>.338 Lapua Mag AP</szBRName>
 		<szBRDesc>If this massive largebore ammo fails to terminate the target, Bobby Ray's offers a fine line of anti-tank weaponry.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14869,10 +14869,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>9x21mm SMG Mag SP-10</szItemName>
-		<szLongItemName>9x21mm SMG Magazine, SP-10</szLongItemName>
+		<szItemName>9x21mm SMG Mag AP</szItemName>
+		<szLongItemName>9x21mm SMG Magazine, AP</szLongItemName>
 		<szItemDesc>A 30rnd magazine for the SR-2 Veresk machinepistol.</szItemDesc>
-		<szBRName>9x21mm SMG Mag SP-10</szBRName>
+		<szBRName>9x21mm SMG Mag AP</szBRName>
 		<szBRDesc>Now available: 30rnd mags vor the Veresk!</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14919,10 +14919,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>539</uiIndex>
-		<szItemName>9x21mm Mag SP-10</szItemName>
-		<szLongItemName>9x21mm Magazine, SP-10</szLongItemName>
+		<szItemName>9x21mm Mag AP</szItemName>
+		<szLongItemName>9x21mm Magazine, AP</szLongItemName>
 		<szItemDesc>9x21mm was specially designed to punch through body armor.</szItemDesc>
-		<szBRName>9x21mm Mag SP-10</szBRName>
+		<szBRName>9x21mm Mag AP</szBRName>
 		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14944,10 +14944,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>540</uiIndex>
-		<szItemName>7.62x37mm Mag</szItemName>
-		<szLongItemName>7.62x37mm Mag</szLongItemName>
+		<szItemName>7.62x37mm Mag AP</szItemName>
+		<szLongItemName>7.62x37mm Mag, AP</szLongItemName>
 		<szItemDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szItemDesc>
-		<szBRName>7.62x37mm Mag</szBRName>
+		<szBRName>7.62x37mm Mag AP</szBRName>
 		<szBRDesc>Designed so snipers punch through helmets, not the sound barrier.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -14997,10 +14997,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>542</uiIndex>
-		<szItemName>5.45x18mm Mag</szItemName>
-		<szLongItemName>5.45x18mm Magazine</szLongItemName>
+		<szItemName>5.45x18mm Mag AP</szItemName>
+		<szLongItemName>5.45x18mm Magazine, AP</szLongItemName>
 		<szItemDesc>This 5.45x18mm clip fits the diminutive PSM pistol.</szItemDesc>
-		<szBRName>5.45x18mm Mag</szBRName>
+		<szBRName>5.45x18mm Mag AP</szBRName>
 		<szBRDesc>8 round magazine of 5.45x18mm ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -15047,10 +15047,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>544</uiIndex>
-		<szItemName>9mm MS Mag</szItemName>
-		<szLongItemName>9mm Metal Storm Mag</szLongItemName>
+		<szItemName>9mm MS Mag AP</szItemName>
+		<szLongItemName>9mm Metal Storm Mag, AP</szLongItemName>
 		<szItemDesc>Dispensing with mechanical loading and firing, Metal Storm's stacked electronically fired ammunition promises reliable mass firepower at low weight. This bundle is configured for 72 rounds across 6 barrels, in 9mm.</szItemDesc>
-		<szBRName>9mm Metal Storm Mag</szBRName>
+		<szBRName>9mm Metal Storm Mag AP</szBRName>
 		<szBRDesc>Dispensing with mechanical loading and firing, Metal Storm's stacked electronically fired ammunition promises reliable mass firepower at low weight. This bundle is configured for 72 rounds across 6 barrels, in 9mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -15126,10 +15126,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>547</uiIndex>
-		<szItemName>.50 AE Mag</szItemName>
-		<szLongItemName>.50 Action Express Mag</szLongItemName>
+		<szItemName>.50 AE Mag AP</szItemName>
+		<szLongItemName>.50 Action Express Mag, AP</szLongItemName>
 		<szItemDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szItemDesc>
-		<szBRName>.50 Action Express Mag</szBRName>
+		<szBRName>.50 Action Express Mag AP</szBRName>
 		<szBRDesc>Magazine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -15339,10 +15339,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>555</uiIndex>
-		<szItemName>.50 Beowulf Mag 7</szItemName>
-		<szLongItemName>.50 Beowulf Magazine, 7</szLongItemName>
+		<szItemName>.50 Beowulf Mag 7 AP</szItemName>
+		<szLongItemName>.50 Beowulf Magazine, 7 AP</szLongItemName>
 		<szItemDesc>A 7-round FMJ clip for the .50 Beowulf Rifle</szItemDesc>
-		<szBRName>.50 Beowulf Mag 7</szBRName>
+		<szBRName>.50 Beowulf Mag 7 AP</szBRName>
 		<szBRDesc>7 rounds of the highpowered .50 Beowulf ammo, just the thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -15395,10 +15395,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>557</uiIndex>
-		<szItemName>.50 Beowulf 4</szItemName>
-		<szLongItemName>.50 Beowulf Rounds, 4</szLongItemName>
+		<szItemName>.50 Beowulf 4 AP</szItemName>
+		<szLongItemName>.50 Beowulf Rounds, 4 AP</szLongItemName>
 		<szItemDesc>4 FMJ rounds in a custom-produced mag.</szItemDesc>
-		<szBRName>.50 Beowulf 4</szBRName>
+		<szBRName>.50 Beowulf 4 AP</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -28285,10 +28285,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
-		<szItemName>4.6x30mm Mag</szItemName>
-		<szLongItemName>4.6x30mm Mag</szLongItemName>
+		<szItemName>4.6x30mm Mag AP</szItemName>
+		<szLongItemName>4.6x30mm Mag, AP</szLongItemName>
 		<szItemDesc>Ammo for the HK UCP pistol.</szItemDesc>
-		<szBRName>4.6x30mm Mag</szBRName>
+		<szBRName>4.6x30mm Mag AP</szBRName>
 		<szBRDesc>20 rounds of armor piercing 4.6mm ammo, usable for both the HK MP7 and the HK UCP.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -32042,10 +32042,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1057</uiIndex>
-		<szItemName>5.56x45mm Mag 42</szItemName>
-		<szLongItemName>5.56x45mm Mag, 42</szLongItemName>
+		<szItemName>5.56x45mm Mag 42 AP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 AP</szLongItemName>
 		<szItemDesc>These 42 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm Mag 42</szBRName>
+		<szBRName>5.56x45mm Mag 42 AP</szBRName>
 		<szBRDesc>This 42-round magazine is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -37138,10 +37138,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1209</uiIndex>
-		<szItemName>5.56x45mm Crate</szItemName>
-		<szLongItemName>5.56x45mm Ammo Crate</szLongItemName>
+		<szItemName>5.56x45mm Crate AP</szItemName>
+		<szLongItemName>5.56x45mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>5.56x45mm Crate</szBRName>
+		<szBRName>5.56x45mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -37317,10 +37317,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1216</uiIndex>
-		<szItemName>7.62x51mm Crate</szItemName>
-		<szLongItemName>7.62x51mm Ammo Crate</szLongItemName>
+		<szItemName>7.62x51mm Crate AP</szItemName>
+		<szLongItemName>7.62x51mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>7.62x51mm Crate</szBRName>
+		<szBRName>7.62x51mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38120,10 +38120,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1248</uiIndex>
-		<szItemName>5.45x39mm Crate</szItemName>
-		<szLongItemName>5.45x39mm Ammo Crate</szLongItemName>
+		<szItemName>5.45x39mm Crate AP</szItemName>
+		<szLongItemName>5.45x39mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>5.45x39mm Crate</szBRName>
+		<szBRName>5.45x39mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38196,10 +38196,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1251</uiIndex>
-		<szItemName>7.62x39mm Crate</szItemName>
-		<szLongItemName>7.62x39mm Ammo Crate</szLongItemName>
+		<szItemName>7.62x39mm Crate AP</szItemName>
+		<szLongItemName>7.62x39mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>7.62x39mm Crate</szBRName>
+		<szBRName>7.62x39mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38298,10 +38298,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1255</uiIndex>
-		<szItemName>4.7x33mm Crate</szItemName>
-		<szLongItemName>4.7x33mm Ammo Crate</szLongItemName>
+		<szItemName>4.7x33mm Crate AP</szItemName>
+		<szLongItemName>4.7x33mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>4.7x33mm Crate</szBRName>
+		<szBRName>4.7x33mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38322,10 +38322,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1256</uiIndex>
-		<szItemName>5.7x28mm Crate</szItemName>
-		<szLongItemName>5.7x28mm Ammo Crate</szLongItemName>
+		<szItemName>5.7x28mm Crate AP</szItemName>
+		<szLongItemName>5.7x28mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>5.7x28mm Crate</szBRName>
+		<szBRName>5.7x28mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38425,10 +38425,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1260</uiIndex>
-		<szItemName>7.62x54R Crate</szItemName>
-		<szLongItemName>7.62x54R Ammo Crate</szLongItemName>
+		<szItemName>7.62x54R Crate AP</szItemName>
+		<szLongItemName>7.62x54R Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>7.62x54R Crate</szBRName>
+		<szBRName>7.62x54R Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38475,10 +38475,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1262</uiIndex>
-		<szItemName>.50 BMG Crate</szItemName>
-		<szLongItemName>.50 BMG Ammo Crate</szLongItemName>
+		<szItemName>.50 BMG Crate AP</szItemName>
+		<szLongItemName>.50 BMG Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>.50 BMG Crate</szBRName>
+		<szBRName>.50 BMG Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38500,10 +38500,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1263</uiIndex>
-		<szItemName>9x39mm Crate</szItemName>
-		<szLongItemName>9x39mm Ammo Crate</szLongItemName>
+		<szItemName>9x39mm Crate AP</szItemName>
+		<szLongItemName>9x39mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>9x39mm Crate</szBRName>
+		<szBRName>9x39mm Crate, AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38626,10 +38626,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1268</uiIndex>
-		<szItemName>9x21mm Crate SP-10</szItemName>
-		<szLongItemName>9x21mm Ammo Crate, SP-10</szLongItemName>
+		<szItemName>9x21mm Crate AP</szItemName>
+		<szLongItemName>9x21mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>9x21mm Crate SP-10</szBRName>
+		<szBRName>9x21mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38701,10 +38701,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1271</uiIndex>
-		<szItemName>6.8x43mm Crate</szItemName>
-		<szLongItemName>6.8x43mm Ammo Crate</szLongItemName>
+		<szItemName>6.8x43mm Crate AP</szItemName>
+		<szLongItemName>6.8x43mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>6.8x43mm Crate</szBRName>
+		<szBRName>6.8x43mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38751,10 +38751,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1273</uiIndex>
-		<szItemName>.338 Lapua Crate</szItemName>
-		<szLongItemName>.338 Lapua Ammo Crate</szLongItemName>
+		<szItemName>.338 Lapua Crate AP</szItemName>
+		<szLongItemName>.338 Lapua Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>.338 Lapua Crate</szBRName>
+		<szBRName>.338 Lapua Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -38776,10 +38776,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1274</uiIndex>
-		<szItemName>7.62x37mm Crate</szItemName>
-		<szLongItemName>7.62x37mm Ammo Crate</szLongItemName>
+		<szItemName>7.62x37mm Crate AP</szItemName>
+		<szLongItemName>7.62x37mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>7.62x37mm Crate</szBRName>
+		<szBRName>7.62x37mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -39233,10 +39233,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1292</uiIndex>
-		<szItemName>12.7x97mm Subs Crate</szItemName>
-		<szLongItemName>12.7x97mm Subsonic Ammo Crate</szLongItemName>
+		<szItemName>12.7x97mm Subs Crate AP</szItemName>
+		<szLongItemName>12.7x97mm Subsonic Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>12.7x97mm Subsonic Crate</szBRName>
+		<szBRName>12.7x97mm Subsonic Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -39259,10 +39259,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1293</uiIndex>
-		<szItemName>5.56x45mm SCF Crate</szItemName>
-		<szLongItemName>5.56x45mm SCF Ammo Crate</szLongItemName>
+		<szItemName>5.56x45mm SCF Crate AP</szItemName>
+		<szLongItemName>5.56x45mm SCF Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>5.56x45mm SCF Crate</szBRName>
+		<szBRName>5.56x45mm SCF Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -39284,10 +39284,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1294</uiIndex>
-		<szItemName>4.6x30mm Crate</szItemName>
-		<szLongItemName>4.6x30mm Ammo Crate</szLongItemName>
+		<szItemName>4.6x30mm Crate AP</szItemName>
+		<szLongItemName>4.6x30mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>4.6x30mm Crate</szBRName>
+		<szBRName>4.6x30mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -39335,10 +39335,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1296</uiIndex>
-		<szItemName>9mm MS Crate</szItemName>
-		<szLongItemName>9mm Metal Storm Ammo Crate</szLongItemName>
+		<szItemName>9mm MS Crate AP</szItemName>
+		<szLongItemName>9mm Metal Storm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>9mm Metal Storm Crate</szBRName>
+		<szBRName>9mm Metal Storm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -39435,10 +39435,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1300</uiIndex>
-		<szItemName>12.7x108mm Crate</szItemName>
-		<szLongItemName>12.7x108mm Ammo Crate</szLongItemName>
+		<szItemName>12.7x108mm Crate AP</szItemName>
+		<szLongItemName>12.7x108mm Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>12.7x108mm Crate</szBRName>
+		<szBRName>12.7x108mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -39460,10 +39460,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1301</uiIndex>
-		<szItemName>7.92x57mm Crate</szItemName>
-		<szLongItemName>7.92x57mm Ammo Crate</szLongItemName>
+		<szItemName>7.92x57mm Crate AP</szItemName>
+		<szLongItemName>7.92x57mm Ammo Crate AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>7.92x57mm Crate</szBRName>
+		<szBRName>7.92x57mm Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -41770,10 +41770,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1390</uiIndex>
-		<szItemName>CAWS Crate</szItemName>
-		<szLongItemName>CAWS Ammo Crate</szLongItemName>
+		<szItemName>CAWS Crate AP</szItemName>
+		<szLongItemName>CAWS Ammo Crate, AP</szLongItemName>
 		<szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
-		<szBRName>CAWS Crate</szBRName>
+		<szBRName>CAWS Crate AP</szBRName>
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -42351,7 +42351,7 @@
 		<szLongItemName>.45 ACP Box, Glaser</szLongItemName>
 		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
 		<szBRName>.45 ACP Box Glaser</szBRName>
-		<szBRDesc>100 rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szBRDesc>50 rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>115</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -42651,11 +42651,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1425</uiIndex>
-		<szItemName>CAWS Box</szItemName>
-		<szLongItemName>CAWS Ammo Box</szLongItemName>
+		<szItemName>CAWS Box AP</szItemName>
+		<szLongItemName>CAWS Ammo Box, AP</szLongItemName>
 		<szItemDesc>These rounds contain a single tungsten steel composite slug capable of tearing through most forms of body armor and car engine blocks.</szItemDesc>
-		<szBRName>CAWS Box</szBRName>
-		<szBRDesc>Each of these 50 rounds in this box contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
+		<szBRName>CAWS Box AP</szBRName>
+		<szBRDesc>Each of these 25 rounds in this box contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>174</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -42680,7 +42680,7 @@
 		<szLongItemName>CAWS Box, Buckshot</szLongItemName>
 		<szItemDesc>This tungsten buckshot ammunition can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szItemDesc>
 		<szBRName>CAWS Box Buckshot</szBRName>
-		<szBRDesc>These 50 rounds of tungsten buckshot can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szBRDesc>
+		<szBRDesc>These 25 rounds of tungsten buckshot can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>175</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -42700,10 +42700,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1427</uiIndex>
-		<szItemName>5.45x39mm Box</szItemName>
-		<szLongItemName>5.45x39mm Box</szLongItemName>
+		<szItemName>5.45x39mm Box AP</szItemName>
+		<szLongItemName>5.45x39mm Box, AP</szLongItemName>
 		<szItemDesc>This box contains 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
-		<szBRName>5.45x39mm Box</szBRName>
+		<szBRName>5.45x39mm Box AP</szBRName>
 		<szBRDesc>This box contains 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>189</ubClassIndex>
@@ -42828,10 +42828,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1432</uiIndex>
-		<szItemName>5.56x45mm Box</szItemName>
-		<szLongItemName>5.56x45mm Box</szLongItemName>
+		<szItemName>5.56x45mm Box AP</szItemName>
+		<szLongItemName>5.56x45mm Box, AP</szLongItemName>
 		<szItemDesc>This NATO standard light armor piercing ammunition has the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm Box</szBRName>
+		<szBRName>5.56x45mm Box AP</szBRName>
 		<szBRDesc>NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>222</ubClassIndex>
@@ -43007,10 +43007,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1439</uiIndex>
-		<szItemName>7.62x51mm Box</szItemName>
-		<szLongItemName>7.62x51mm Box</szLongItemName>
+		<szItemName>7.62x51mm Box AP</szItemName>
+		<szLongItemName>7.62x51mm Box, AP</szLongItemName>
 		<szItemDesc>This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
-		<szBRName>7.62x51mm Box</szBRName>
+		<szBRName>7.62x51mm Box AP</szBRName>
 		<szBRDesc>This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>269</ubClassIndex>
@@ -43186,10 +43186,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1446</uiIndex>
-		<szItemName>7.62x39mm Box</szItemName>
-		<szLongItemName>7.62x39mm Box</szLongItemName>
+		<szItemName>7.62x39mm Box AP</szItemName>
+		<szLongItemName>7.62x39mm Box, AP</szLongItemName>
 		<szItemDesc>This box of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szItemDesc>
-		<szBRName>7.62x39mm Box</szBRName>
+		<szBRName>7.62x39mm Box AP</szBRName>
 		<szBRDesc>This box of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>302</ubClassIndex>
@@ -43288,10 +43288,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1450</uiIndex>
-		<szItemName>4.7x33mm Box</szItemName>
-		<szLongItemName>4.7x33mm Box</szLongItemName>
+		<szItemName>4.7x33mm Box AP</szItemName>
+		<szLongItemName>4.7x33mm Box, AP</szLongItemName>
 		<szItemDesc>There might be a bad pun in having an ammo case for caseless ammo, but this 4.7x33mm ammunition for the G11 is no joke.</szItemDesc>
-		<szBRName>4.7x33mm Box</szBRName>
+		<szBRName>4.7x33mm Box AP</szBRName>
 		<szBRDesc>There might be a bad pun in having an ammo case for caseless ammo, but this 4.7x33mm ammunition for the G11 is no joke.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>321</ubClassIndex>
@@ -43364,10 +43364,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1453</uiIndex>
-		<szItemName>5.7x28mm Box</szItemName>
-		<szLongItemName>5.7x28mm Box</szLongItemName>
+		<szItemName>5.7x28mm Box AP</szItemName>
+		<szLongItemName>5.7x28mm Box, AP</szLongItemName>
 		<szItemDesc>This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
-		<szBRName>5.7x28mm Box</szBRName>
+		<szBRName>5.7x28mm Box AP</szBRName>
 		<szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 100 round box  of 5.7mm pistol ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>330</ubClassIndex>
@@ -43461,10 +43461,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1457</uiIndex>
-		<szItemName>.50 BMG Box</szItemName>
-		<szLongItemName>.50 BMG Box</szLongItemName>
+		<szItemName>.50 BMG Box AP</szItemName>
+		<szLongItemName>.50 BMG Box, AP</szLongItemName>
 		<szItemDesc>This nice little box contains .50 BMG bullets.</szItemDesc>
-		<szBRName>.50 BMG Box</szBRName>
+		<szBRName>.50 BMG Box AP</szBRName>
 		<szBRDesc>This nice little box contains 15 .50 BMG bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>348</ubClassIndex>
@@ -43486,10 +43486,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1458</uiIndex>
-		<szItemName>9x39mm Box</szItemName>
-		<szLongItemName>9x39mm Box</szLongItemName>
+		<szItemName>9x39mm Box AP</szItemName>
+		<szLongItemName>9x39mm Box, AP</szLongItemName>
 		<szItemDesc>Heavier than regular 9mm ammo, this spam can contains ammunition for a unique set of Russian firearms.</szItemDesc>
-		<szBRName>9x39mm Box</szBRName>
+		<szBRName>9x39mm Box AP</szBRName>
 		<szBRDesc>Heavier than regular 9mm ammo, this spam can contains 80 rounds of ammunition for a unique set of Russian firearms.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>351</ubClassIndex>
@@ -43512,10 +43512,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1459</uiIndex>
-		<szItemName>4.6x30mm Box</szItemName>
-		<szLongItemName>4.6x30mm Box</szLongItemName>
+		<szItemName>4.6x30mm Box AP</szItemName>
+		<szLongItemName>4.6x30mm Box, AP</szLongItemName>
 		<szItemDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szItemDesc>
-		<szBRName>4.6x30mm Box</szBRName>
+		<szBRName>4.6x30mm Box AP</szBRName>
 		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>357</ubClassIndex>
@@ -43565,10 +43565,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1461</uiIndex>
-		<szItemName>7.62x25mm Box</szItemName>
-		<szLongItemName>7.62x25mm Box</szLongItemName>
+		<szItemName>7.62x25mm Box AP</szItemName>
+		<szLongItemName>7.62x25mm Box, AP</szLongItemName>
 		<szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szItemDesc>
-		<szBRName>7.62x25mm Box</szBRName>
+		<szBRName>7.62x25mm Box AP</szBRName>
 		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>382</ubClassIndex>
@@ -43693,10 +43693,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1466</uiIndex>
-		<szItemName>12.7x108mm Box</szItemName>
-		<szLongItemName>12.7x108mm Box</szLongItemName>
+		<szItemName>12.7x108mm Box AP</szItemName>
+		<szLongItemName>12.7x108mm Box, AP</szLongItemName>
 		<szItemDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szItemDesc>
-		<szBRName>12.7x108mm Box</szBRName>
+		<szBRName>12.7x108mm Box AP</szBRName>
 		<szBRDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>392</ubClassIndex>
@@ -43970,10 +43970,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1477</uiIndex>
-		<szItemName>7.62x54R Box</szItemName>
-		<szLongItemName>7.62x54R Box</szLongItemName>
+		<szItemName>7.62x54R Box AP</szItemName>
+		<szLongItemName>7.62x54R Box, AP</szLongItemName>
 		<szItemDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection.</szItemDesc>
-		<szBRName>7.62x54R Box</szBRName>
+		<szBRName>7.62x54R Box AP</szBRName>
 		<szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>448</ubClassIndex>
@@ -44049,10 +44049,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1480</uiIndex>
-		<szItemName>.338 Lapua Box</szItemName>
-		<szLongItemName>.338 Lapua Box</szLongItemName>
+		<szItemName>.338 Lapua Box AP</szItemName>
+		<szLongItemName>.338 Lapua Box, AP</szLongItemName>
 		<szItemDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szItemDesc>
-		<szBRName>.338 Lapua Box</szBRName>
+		<szBRName>.338 Lapua Box AP</szBRName>
 		<szBRDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>458</ubClassIndex>
@@ -44402,10 +44402,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1494</uiIndex>
-		<szItemName>9x21mm Box SP-10</szItemName>
-		<szLongItemName>9x21mm Box, SP-10</szLongItemName>
+		<szItemName>9x21mm Box AP</szItemName>
+		<szLongItemName>9x21mm Box, AP</szLongItemName>
 		<szItemDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szItemDesc>
-		<szBRName>9x21mm Box SP-10</szBRName>
+		<szBRName>9x21mm Box AP</szBRName>
 		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away. This box contains 100 rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>512</ubClassIndex>
@@ -44427,10 +44427,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1495</uiIndex>
-		<szItemName>7.62x37mm Box</szItemName>
-		<szLongItemName>7.62x37mm Box</szLongItemName>
+		<szItemName>7.62x37mm Box AP</szItemName>
+		<szLongItemName>7.62x37mm Box, AP</szLongItemName>
 		<szItemDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szItemDesc>
-		<szBRName>7.62x37mm Box</szBRName>
+		<szBRName>7.62x37mm Box AP</szBRName>
 		<szBRDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>515</ubClassIndex>
@@ -44452,10 +44452,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1496</uiIndex>
-		<szItemName>5.45x18mm Box</szItemName>
-		<szLongItemName>5.45x18mm Box</szLongItemName>
+		<szItemName>5.45x18mm Box AP</szItemName>
+		<szLongItemName>5.45x18mm Box, AP</szLongItemName>
 		<szItemDesc>These armor piercing 5.45x18mm rounds are an inexpensive but effective ammunition.</szItemDesc>
-		<szBRName>5.45x18mm Box</szBRName>
+		<szBRName>5.45x18mm Box AP</szBRName>
 		<szBRDesc>These armor piercing 5.45x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>520</ubClassIndex>
@@ -44502,10 +44502,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1498</uiIndex>
-		<szItemName>.50 AE Box</szItemName>
-		<szLongItemName>.50 Action Express Box</szLongItemName>
+		<szItemName>.50 AE Box AP</szItemName>
+		<szLongItemName>.50 Action Express Box, AP</szLongItemName>
 		<szItemDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szItemDesc>
-		<szBRName>.50 Action Express Box</szBRName>
+		<szBRName>.50 Action Express Box AP</szBRName>
 		<szBRDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>528</ubClassIndex>
@@ -44702,10 +44702,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1506</uiIndex>
-		<szItemName>.50 Beowulf Box</szItemName>
-		<szLongItemName>.50 Beowulf Box</szLongItemName>
+		<szItemName>.50 Beowulf Box AP</szItemName>
+		<szLongItemName>.50 Beowulf Box, AP</szLongItemName>
 		<szItemDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szItemDesc>
-		<szBRName>.50 Beowulf Box</szBRName>
+		<szBRName>.50 Beowulf Box AP</szBRName>
 		<szBRDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>557</ubClassIndex>
@@ -44752,10 +44752,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1508</uiIndex>
-		<szItemName>.300 WM Box</szItemName>
-		<szLongItemName>.300 WinMag Box</szLongItemName>
+		<szItemName>.300 WM Box AP</szItemName>
+		<szLongItemName>.300 WinMag Box, AP</szLongItemName>
 		<szItemDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szItemDesc>
-		<szBRName>.300 WinMag Box</szBRName>
+		<szBRName>.300 WinMag Box AP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>563</ubClassIndex>
@@ -44802,10 +44802,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1510</uiIndex>
-		<szItemName>7.92x57mm Box</szItemName>
-		<szLongItemName>7.92x57mm Box</szLongItemName>
+		<szItemName>7.92x57mm Box AP</szItemName>
+		<szLongItemName>7.92x57mm Box, AP</szLongItemName>
 		<szItemDesc>The German Army's AP rifle ammunition in WW-II.</szItemDesc>
-		<szBRName>7.92x57mm Box</szBRName>
+		<szBRName>7.92x57mm Box AP</szBRName>
 		<szBRDesc>50 rounds of armorpiercing ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>569</ubClassIndex>
@@ -44852,10 +44852,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1512</uiIndex>
-		<szItemName>12.7x97mm Box Sub</szItemName>
-		<szLongItemName>12.7x97mm Box, Subsonic</szLongItemName>
+		<szItemName>12.7x97mm Box Sub AP</szItemName>
+		<szLongItemName>12.7x97mm Box, Subsonic AP</szLongItemName>
 		<szItemDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szItemDesc>
-		<szBRName>12.7x97mm Box Subsonic</szBRName>
+		<szBRName>12.7x97mm Box Subsonic AP</szBRName>
 		<szBRDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>573</ubClassIndex>
@@ -44878,10 +44878,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1513</uiIndex>
-		<szItemName>5.56x45mm SCF Box</szItemName>
-		<szLongItemName>5.56x45mm SCF Box</szLongItemName>
+		<szItemName>5.56x45mm SCF Box AP</szItemName>
+		<szLongItemName>5.56x45mm SCF Box, AP</szLongItemName>
 		<szItemDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szItemDesc>
-		<szBRName>5.56x45mm SCF Box</szBRName>
+		<szBRName>5.56x45mm SCF Box AP</szBRName>
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>582</ubClassIndex>
@@ -45051,10 +45051,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1520</uiIndex>
-		<szItemName>6.8x43mm SPC Box</szItemName>
-		<szLongItemName>6.8x43mm SPC Box</szLongItemName>
+		<szItemName>6.8x43mm SPC Box AP</szItemName>
+		<szLongItemName>6.8x43mm SPC Box, AP</szLongItemName>
 		<szItemDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szItemDesc>
-		<szBRName>6.8x43mm SPC Box</szBRName>
+		<szBRName>6.8x43mm SPC Box AP</szBRName>
 		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>578</ubClassIndex>
