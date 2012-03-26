@@ -240,24 +240,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\lib\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>..\lib\VS2010\$(Configuration)\</OutDir>
+    <IntDir>..\build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
-    <OutDir>$(SolutionDir)\lib\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>..\lib\VS2010\$(Configuration)\</OutDir>
+    <IntDir>..\build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\lib\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>..\build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>..\lib\VS2010\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
-    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\lib\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>..\build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>..\lib\VS2010\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Relese_WithDebugInfo|Win32'">
-    <IntDir>$(SolutionDir)\build\VS2010\$(JA2Config)\$(ProjectName)_$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\lib\VS2010\$(JA2Config)\$(Configuration)\</OutDir>
+    <IntDir>..\build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
+    <OutDir>..\lib\VS2010\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
