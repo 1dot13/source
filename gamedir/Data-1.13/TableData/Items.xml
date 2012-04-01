@@ -45099,4 +45099,38 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1522</uiIndex>
+		<szItemName>KAC Masterkey</szItemName>
+		<szLongItemName>KAC Masterkey</szLongItemName>
+		<szItemDesc>The 12-gauge Masterkey shotgun can be mounted under standard rifles as a breaching tool when used with special ammo.</szItemDesc>
+		<szBRName>KAC Masterkey</szBRName>
+		<szBRDesc>Tired of having to pack an Assault Rifle and an additional Shotgun? With this specially adapted shotgun, you can carry 2 in 1!</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1522</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>369</ubGraphicNum>
+		<ubWeight>24</ubWeight>
+		<ItemSize>5</ItemSize>
+		<usPrice>1900</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>24</BR_ROF>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

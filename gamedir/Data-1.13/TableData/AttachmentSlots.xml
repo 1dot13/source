@@ -135,10 +135,10 @@
 		<szSlotName>Underbarrel Attachments</szSlotName>
 		<nasAttachmentClass>512</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>58</usDescPanelPosX>
+		<usDescPanelPosX>18</usDescPanelPosX>
 		<usDescPanelPosY>120</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
-		<fBigSlot>0</fBigSlot>
+		<fBigSlot>1</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>14</uiSlotIndex>
@@ -146,7 +146,7 @@
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<usDescPanelPosX>18</usDescPanelPosX>
-		<usDescPanelPosY>120</usDescPanelPosY>
+		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>

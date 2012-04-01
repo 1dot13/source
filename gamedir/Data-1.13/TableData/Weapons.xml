@@ -13060,4 +13060,38 @@
 		<sSound>87</sSound>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1522</uiIndex>
+		<szWeaponName>KAC Masterkey</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>20</ubReadyTime>
+		<ubShotsPer4Turns>10.41</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>36</ubImpact>
+		<ubDeadliness>26</ubDeadliness>
+		<ubMagSize>4</ubMagSize>
+		<usRange>90</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>435</sSound>
+		<sBurstSound>126</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>16</APsToReload>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<APsToReloadManually>10</APsToReloadManually>
+		<ManualReloadSound>481</ManualReloadSound>
+		<nAccuracy>20</nAccuracy>
+		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
+		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
+	</WEAPON>
 </WEAPONLIST>
