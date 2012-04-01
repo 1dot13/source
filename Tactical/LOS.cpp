@@ -3988,12 +3988,15 @@ INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 		}
 		else
 		{
+			OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &pFirer->inv[pFirer->ubAttackingHand] );
+			UINT16 usItemUsed = pFirer->GetUsedWeaponNumber( &pFirer->inv[pFirer->ubAttackingHand] );
+
 			//afp-start  //always a fast bullet 
 			if ( pBullet->usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME /*| BULLET_FLAG_TRACER*/ ) )
-				pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+				pBullet->usClockTicksPerUpdate = (Weapon[ usItemUsed ].ubBulletSpeed + GetBulletSpeedBonus( pObjAttHand ) ) / 10;
 			else
 				if (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS])				
-					pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+					pBullet->usClockTicksPerUpdate = (Weapon[ usItemUsed ].ubBulletSpeed + GetBulletSpeedBonus( pObjAttHand ) ) / 10;
 				else
 					pBullet->usClockTicksPerUpdate = 1;
 			//afp-end
@@ -4068,6 +4071,8 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	UINT16	usBulletFlags = 0;
 	int n=0;
 
+	OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &(pFirer->inv[pFirer->ubAttackingHand]) );
+
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBulletGivenTarget"));
 
 	CalculateSoldierZPos( pFirer, FIRING_POS, &dStartZ );
@@ -4132,11 +4137,11 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
 	// New Tracer System.
 	else if (gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
-		&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
+		&& AmmoTypes[ (*pObjAttHand)[0]->data.gun.ubGunAmmoType ].tracerEffect )
 	{
 		UINT16 iBulletsLeft, iBulletsPerTracer;
 		iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
-		iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
+		iBulletsLeft = (*pObjAttHand)[0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
 
 		if ((((iBulletsLeft - (pFirer->bDoBurst - 1)) / iBulletsPerTracer) - ((iBulletsLeft - pFirer->bDoBurst) / iBulletsPerTracer)) == 1)
 		{
@@ -4147,7 +4152,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 			fTracer = FALSE;
 		}
 	}
-	else if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect && (pFirer->bDoBurst || gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]) )
+	else if ( AmmoTypes[ (*pObjAttHand)[0]->data.gun.ubGunAmmoType ].tracerEffect && (pFirer->bDoBurst || gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]) )
 	{
 		//usBulletFlags |= BULLET_FLAG_TRACER;
 		fTracer = TRUE;
@@ -4156,9 +4161,9 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
 	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
 	{
-		ObjectData *weapon = &(pFirer->inv[pFirer->ubAttackingHand][0]->data);
+		ObjectData *weapon = &((*pObjAttHand)[0]->data);
 		ubShots = AmmoTypes[ weapon->gun.ubGunAmmoType].numberOfBullets;
-		ubSpreadIndex = GetSpreadPattern(  &pFirer->inv[pFirer->ubAttackingHand]  );
+		ubSpreadIndex = GetSpreadPattern(  pObjAttHand  );
 		if( ubShots>1 && !fFake )
 		{
 			fBuckshot = true;
@@ -4407,7 +4412,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 
 		if ( pBullet->usFlags & BULLET_FLAG_KNIFE )
 		{
-			pBullet->ubItemStatus = pFirer->inv[pFirer->ubAttackingHand][0]->data.objectStatus;
+			pBullet->ubItemStatus = (*pObjAttHand)[0]->data.objectStatus;
 		}
 
 		// apply increments for first move
@@ -4435,7 +4440,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 
 		pBullet->iImpact = ubImpact;
 
-		pBullet->iRange = GunRange( &(pFirer->inv[pFirer->ubAttackingHand]), pFirer ); // SANDRO - added argument
+		pBullet->iRange = GunRange( pObjAttHand, pFirer ); // SANDRO - added argument
 		pBullet->sTargetGridNo = ((INT32)dEndX) / CELL_X_SIZE + ((INT32)dEndY) / CELL_Y_SIZE * WORLD_COLS;
 
 		pBullet->bStartCubesAboveLevelZ = (INT8) CONVERT_HEIGHTUNITS_TO_INDEX( (INT32)dStartZ - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pFirer->sGridNo ].sHeight ) );
@@ -4447,11 +4452,11 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 		// HEADROCK HAM BETA2.5: New method for signifying whether a bullet is a tracer or not, using an individual
 		// bullet structure flag. Hehehehe, I think this is kind of reverting to old code, isn't it?
 		if (gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
-			&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
+			&& AmmoTypes[ (*pObjAttHand)[0]->data.gun.ubGunAmmoType ].tracerEffect )
 		{
 			UINT16 iBulletsLeft, iBulletsPerTracer;
 			iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
-			iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
+			iBulletsLeft = (*pObjAttHand)[0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
 
 			// Is this specific bullet a tracer? - based on how many tracers there are per regular bullets in
 			// a tracer magazine (INI-settable).
@@ -4540,6 +4545,8 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	UINT16	usBulletFlags = 0;
 	int n=0;
 
+	OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &(pFirer->inv[pFirer->ubAttackingHand]) );
+
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBulletGivenTarget"));
 
 	CalculateSoldierZPos( pFirer, FIRING_POS, &dStartZ );
@@ -4574,7 +4581,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 	ubShots = 1;
 	fTracer = FALSE;
-
+		
 	// Check if we have spit as a weapon!
 	if ( Weapon[ usHandItem ].ubWeaponClass == MONSTERCLASS )
 	{
@@ -4604,11 +4611,11 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
 	// New Tracer System.
 	else if (gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
-		&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
+		&& AmmoTypes[ (*pObjAttHand)[0]->data.gun.ubGunAmmoType ].tracerEffect )
 	{
 		UINT16 iBulletsLeft, iBulletsPerTracer;
 		iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
-		iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
+		iBulletsLeft = (*pObjAttHand)[0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
 
 		if ((((iBulletsLeft - (pFirer->bDoBurst - 1)) / iBulletsPerTracer) - ((iBulletsLeft - pFirer->bDoBurst) / iBulletsPerTracer)) == 1)
 		{
@@ -4625,7 +4632,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		fTracer = TRUE;
 	}
 
-	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
+	ubImpact =(UINT8) GetDamage(pObjAttHand);
 	//zilpin: pellet spread patterns externalized in XML
 	/* zilpin: The section below, including line comments, is the original adjustment made to multiple projectile stats.
 	           Left in comments for reference, but the new handling is after it.
@@ -4661,9 +4668,9 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	*/
 	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
 	{
-		ObjectData *weapon = &(pFirer->inv[pFirer->ubAttackingHand][0]->data);
+		ObjectData *weapon = &((*pObjAttHand)[0]->data);
 		ubShots = AmmoTypes[ weapon->gun.ubGunAmmoType].numberOfBullets;
-		ubSpreadIndex = GetSpreadPattern(  &pFirer->inv[pFirer->ubAttackingHand]  );
+		ubSpreadIndex = GetSpreadPattern(  pObjAttHand  );
 		if( ubShots>1 && !fFake )
 		{
 			fBuckshot = true;
@@ -4905,7 +4912,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 		if ( pBullet->usFlags & BULLET_FLAG_KNIFE )
 		{
-			pBullet->ubItemStatus = pFirer->inv[pFirer->ubAttackingHand][0]->data.objectStatus;
+			pBullet->ubItemStatus = (*pObjAttHand)[0]->data.objectStatus;
 		}
 
 		// apply increments for first move
@@ -4933,7 +4940,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 		pBullet->iImpact = ubImpact;
 
-		pBullet->iRange = GunRange( &(pFirer->inv[pFirer->ubAttackingHand]), pFirer ); // SANDRO - added argument
+		pBullet->iRange = GunRange( pObjAttHand, pFirer ); // SANDRO - added argument
 		pBullet->sTargetGridNo = ((INT32)dEndX) / CELL_X_SIZE + ((INT32)dEndY) / CELL_Y_SIZE * WORLD_COLS;
 
 		pBullet->bStartCubesAboveLevelZ = (INT8) CONVERT_HEIGHTUNITS_TO_INDEX( (INT32)dStartZ - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pFirer->sGridNo ].sHeight ) );
@@ -4945,11 +4952,11 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		// HEADROCK HAM BETA2.5: New method for signifying whether a bullet is a tracer or not, using an individual
 		// bullet structure flag. Hehehehe, I think this is kind of reverting to old code, isn't it?
 		if (gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
-			&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
+			&& AmmoTypes[ (*pObjAttHand)[0]->data.gun.ubGunAmmoType ].tracerEffect )
 		{
 			UINT16 iBulletsLeft, iBulletsPerTracer;
 			iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
-			iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
+			iBulletsLeft = (*pObjAttHand)[0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
 
 			// Is this specific bullet a tracer? - based on how many tracers there are per regular bullets in
 			// a tracer magazine (INI-settable).
@@ -5008,10 +5015,12 @@ INT8 ChanceToGetThrough( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT d
 	{
 		BOOLEAN fBuckShot = FALSE;
 
+		OBJECTTYPE* pObjHand = pFirer->GetUsedWeapon( &pFirer->inv[HANDPOS] );
+
 		// if shotgun, shotgun would have to be in main hand
-		if ( pFirer->inv[ HANDPOS ].usItem == pFirer->usAttackingWeapon )
+		if ( pObjHand->usItem == pFirer->usAttackingWeapon )
 		{
-			if ( AmmoTypes[pFirer->inv[ HANDPOS ][0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
+			if ( AmmoTypes[ (*pObjHand)[0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
 			{
 				fBuckShot = TRUE;
 			}
@@ -7332,8 +7341,11 @@ FLOAT CalcBulletDeviation( SOLDIERTYPE *pShooter, FLOAT *dShotOffsetX, FLOAT *dS
 
 	// We start by reading the gun's Accuracy value. We'll use that as the basis for everything else.
 
+	// Flugente: determine used gun
+	OBJECTTYPE* pObjAttHand = pShooter->GetUsedWeapon( &pShooter->inv[ pShooter->ubAttackingHand ] );
+
 	INT16 sAccuracy = GetGunAccuracy( pWeapon );
-	UINT16 sEffRange = Weapon[Item[pShooter->inv[pShooter->ubAttackingHand].usItem].ubClassIndex].usRange + GetRangeBonus(&(pShooter->inv[ pShooter->ubAttackingHand ]));
+	UINT16 sEffRange = Weapon[Item[pObjAttHand->usItem].ubClassIndex].usRange + GetRangeBonus( pObjAttHand );
 
 	// WANNE: I got a CTD in a multiplayer test game, because sEffRange was 0 (division to zero).
     // I don't know why this happend?

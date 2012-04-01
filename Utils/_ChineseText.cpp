@@ -6051,6 +6051,9 @@ STR16 New113Message[] =
 	L"榴弹",
 	L"榴弹点射",
 	L"榴弹自动",
+	L"UB",			// TODO.Translate, INFO: UB = Under Barrel
+	L"UBRST",
+	L"UAUTO",
 	L"狙击手！",
 	L"已经点选物品，此时无法分钱。",
 	L"新兵的会合地被挪至 %s, 因降落地点 %s 目前由敌人占据。",

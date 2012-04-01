@@ -3587,7 +3587,9 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 	{
 		return( NO_SLOT );
 	}
-	pObj = &(pSoldier->inv[bWeaponIn]);
+
+	// Flugente: check for underbarrel weapons and use that object if necessary
+	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[bWeaponIn]) );
 
 //<SB> manual recharge
 	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
@@ -3656,7 +3658,9 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 	BOOLEAN		fRet;
 
 	CHECKF( pSoldier );
-	pObj = &(pSoldier->inv[HANDPOS]);
+
+	// Flugente: check for underbarrel weapons and use that object if necessary
+	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
 //<SB> manual recharge
 	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
@@ -3746,7 +3750,9 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 			// then do a reload of both guns!
 			if ( (fRet == TRUE) && pSoldier->IsValidSecondHandShotForReloadingPurposes( ) )
 			{
-				pObj = &(pSoldier->inv[SECONDHANDPOS]);
+				// Flugente: check for underbarrel weapons and use that object if necessary
+				pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
+
 				bSlot = FindAmmoToReload( pSoldier, SECONDHANDPOS, NO_SLOT );
 				if (bSlot != NO_SLOT)
 				{
@@ -4612,7 +4618,9 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 		{
 			//Make sure it's actually on that gun..
 			//if(FindAttachment_GrenadeLauncher(this)->usItem == attachmentObject.usItem){
-			if(FindAttachment(this, attachmentObject.usItem, subObject)->usItem == attachmentObject.usItem){
+			// Flugente: if we attach a gun to another gun, do not transfer attachments
+			if( Item[attachmentObject.usItem].usItemClass != IC_GUN  && FindAttachment(this, attachmentObject.usItem, subObject)->usItem == attachmentObject.usItem)
+			{
 				// transfer the grenade from the grenade launcher to the gun
 
 				//To know wether this grenade is valid, we need to correct the slots, because they may have changed when attaching the UGL
@@ -5861,7 +5869,10 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 			case IC_GUN:
 				if (Item[pObj->usItem].usItemClass == IC_AMMO)
 				{
-					if (Weapon[pInSlot->usItem].ubCalibre == Magazine[Item[pObj->usItem].ubClassIndex].ubCalibre)
+					// Flugente: if we have an underbarrel weapon, we can reload that
+					OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon(pInSlot);
+
+					if (Weapon[pObjUsed->usItem].ubCalibre == Magazine[Item[pObj->usItem].ubClassIndex].ubCalibre)
 					{
 						//CHRISL: Work differently with ammo crates but only when not in combat
 						if(Magazine[Item[pObj->usItem].ubClassIndex].ubMagType >= AMMO_BOX)
@@ -5881,7 +5892,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 								{
 									if(Item[loop].usItemClass == IC_AMMO)
 									{
-										if(Magazine[Item[loop].ubClassIndex].ubCalibre == Weapon[pInSlot->usItem].ubCalibre && Magazine[Item[loop].ubClassIndex].ubAmmoType == Magazine[Item[pObj->usItem].ubClassIndex].ubAmmoType && Magazine[Item[loop].ubClassIndex].ubMagSize == GetMagSize(pInSlot))
+										if(Magazine[Item[loop].ubClassIndex].ubCalibre == Weapon[pObjUsed->usItem].ubCalibre && Magazine[Item[loop].ubClassIndex].ubAmmoType == Magazine[Item[pObj->usItem].ubClassIndex].ubAmmoType && Magazine[Item[loop].ubClassIndex].ubMagSize == GetMagSize(pObjUsed))
 											newItem = loop;
 									}
 								}
@@ -5891,7 +5902,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 								ubShotsLeft = (*pObj)[0]->data.ubShotsLeft;
 								for(UINT8 clip = 0; clip < 5; clip++)
 								{
-									magSize = GetMagSize(pInSlot);
+									magSize = GetMagSize(pObjUsed);
 									if(ubShotsLeft < magSize)
 										magSize = ubShotsLeft;
 									if(CreateAmmo(newItem, &tempClip, magSize))
@@ -5963,7 +5974,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 							}
 						}
 						else
-							return( ReloadGun( pSoldier, pInSlot, pObj ) );
+							return( ReloadGun( pSoldier, pObjUsed, pObj ) );
 					}
 				}
 				break;
@@ -7467,6 +7478,24 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 			UINT16 usNewAmmoItem;
 			usNewAmmoItem = FindReplacementMagazine(Weapon[this->usItem].ubCalibre ,GetMagSize(this, subObject),Magazine[Item[(*this)[subObject]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType);
 			(*this)[subObject]->data.gun.usGunAmmoItem = usNewAmmoItem;
+		}
+	}
+
+	// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
+	if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) ) ||
+		 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO )&& !IsUnderBarrelAttached( &(pSoldier->inv[ HANDPOS ]    ) ) ) )
+	{
+		if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
+		{
+			pSoldier->bWeaponMode = WM_NORMAL;
+			pSoldier->bDoBurst = FALSE;
+			pSoldier->bDoAutofire = 0;
+		}
+		else
+		{
+			pSoldier->bWeaponMode = WM_AUTOFIRE;
+			pSoldier->bDoBurst = TRUE;
+			pSoldier->bDoAutofire = 1;
 		}
 	}
 
@@ -9477,9 +9506,13 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 {
 	*bRecoilX = 0;
 	*bRecoilY = 0;
+
+	// Flugente: get weapon actually used (might be an underbarrel shotgun)
+	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon(pObj);
+	OBJECTTYPE* pObjUsedInHand = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
  
 	//if (ubNumBullet < 2)
-	if (ubNumBullet < Weapon[pObj->usItem].ubRecoilDelay)
+	if (ubNumBullet < Weapon[pObjUsed->usItem].ubRecoilDelay)
 	{
 		// The first bullet in a volley never has recoil - it hasn't "set in" yet. Only the second+ bullets
 		// will have any recoil.
@@ -9488,13 +9521,15 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 		return;
 	}
 
-	*bRecoilX = Weapon[pObj->usItem].bRecoilX;
-	*bRecoilY = Weapon[pObj->usItem].bRecoilY;
+	*bRecoilX = Weapon[pObjUsed->usItem].bRecoilX;
+	*bRecoilY = Weapon[pObjUsed->usItem].bRecoilY;
 
 	// Apply a percentage-based modifier. This can increase or decrease BOTH axes. At most, it can eliminate
 	// recoil on the gun.
 
-	INT16 sPercentRecoilModifier = GetPercentRecoilModifier( pObj );
+	//INT16 sPercentRecoilModifier = GetPercentRecoilModifier( pObj );
+	INT16 sPercentRecoilModifier = __max(-100, (GetBasePercentRecoilModifier( pObjUsed ) + GetAttachmentPercentRecoilModifier( pObjUsedInHand ) ));
+
 
 	*bRecoilX += (*bRecoilX * sPercentRecoilModifier ) / 100;
 	*bRecoilY += (*bRecoilY * sPercentRecoilModifier ) / 100;
@@ -9505,7 +9540,10 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 	INT8 bRecoilAdjustX = 0;
 	INT8 bRecoilAdjustY = 0;
 
-	GetFlatRecoilModifier( pObj, &bRecoilAdjustX, &bRecoilAdjustY );
+	//GetFlatRecoilModifier( pObj, &bRecoilAdjustX, &bRecoilAdjustY );
+	GetBaseFlatRecoilModifier( pObj, &bRecoilAdjustX, &bRecoilAdjustY );
+	GetAttachmentFlatRecoilModifier( &pSoldier->inv[HANDPOS], &bRecoilAdjustX, &bRecoilAdjustY);
+	//JMich TODO: Currently no check for dual wielding
 
 	*bRecoilX = __max(0, *bRecoilX + bRecoilAdjustX);
 	*bRecoilY = __max(0, *bRecoilY + bRecoilAdjustY);
@@ -9517,6 +9555,44 @@ void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *b
 // HEADROCK HAM 4: This function calculates the flat recoil adjustment for a gun. Flat adjustment increases
 // or decreases recoil by a specific number of points in either the vertical or horizontal axes (or both).
 // It can potentially cause a weapon it reverse its recoil direction.
+void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY )
+{
+	INT8 bRecoilAdjustX = 0;
+	INT8 bRecoilAdjustY = 0;
+	if (pObj->exists() == true && UsingNewCTHSystem() == true)
+	{
+		// Inherent item modifiers
+		bRecoilAdjustX += BonusReduceMore( Item[pObj->usItem].RecoilModifierX, (*pObj)[0]->data.objectStatus );
+		bRecoilAdjustY += BonusReduceMore( Item[pObj->usItem].RecoilModifierY, (*pObj)[0]->data.objectStatus );
+
+		// Ammo item modifiers
+		bRecoilAdjustX += Item[(*pObj)[0]->data.gun.usGunAmmoItem].RecoilModifierX;
+		bRecoilAdjustY += Item[(*pObj)[0]->data.gun.usGunAmmoItem].RecoilModifierY;
+	}
+
+	*bRecoilModifierX = bRecoilAdjustX;
+	*bRecoilModifierY = bRecoilAdjustY;
+}
+void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY )
+{
+	INT8 bRecoilAdjustX = 0;
+	INT8 bRecoilAdjustY = 0;
+	if (pObj->exists() == true && UsingNewCTHSystem() == true)
+	{
+		// Attachment item modifiers
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists())
+			{
+				bRecoilAdjustX += BonusReduceMore( Item[iter->usItem].RecoilModifierX, (*iter)[0]->data.objectStatus );
+				bRecoilAdjustY += BonusReduceMore( Item[iter->usItem].RecoilModifierY, (*iter)[0]->data.objectStatus );
+			}
+		}
+	}
+
+	*bRecoilModifierX += bRecoilAdjustX;
+	*bRecoilModifierY += bRecoilAdjustY;
+}
 void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY )
 {
 
@@ -9553,6 +9629,39 @@ void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRec
 // This adjustment either increases or decreases the gun's vertical and horizontal recoil at the same time. Due to
 // the percentage-based nature of this modifier, it cannot cause a gun to reverse its recoil - only diminish it to
 // zero.
+INT16 GetBasePercentRecoilModifier( OBJECTTYPE *pObj)
+{
+	INT16 sRecoilAdjust = 0;
+
+	if (pObj->exists() == true && UsingNewCTHSystem() == true)
+	{
+		// Inherent item modifiers
+		sRecoilAdjust += BonusReduceMore( Item[pObj->usItem].PercentRecoilModifier, (*pObj)[0]->data.objectStatus );
+
+		// Ammo item modifiers
+		sRecoilAdjust += Item[(*pObj)[0]->data.gun.usGunAmmoItem].PercentRecoilModifier;
+	}
+
+	return (sRecoilAdjust);
+}
+INT16 GetAttachmentPercentRecoilModifier( OBJECTTYPE *pObj)
+{
+	INT16 sRecoilAdjust = 0;
+
+	if (pObj->exists() == true && UsingNewCTHSystem() == true)
+	{
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists())
+			{
+				sRecoilAdjust += BonusReduceMore( Item[iter->usItem].PercentRecoilModifier, (*iter)[0]->data.objectStatus );
+			}
+		}
+	}
+
+	return (sRecoilAdjust);
+
+}
 INT16 GetPercentRecoilModifier( OBJECTTYPE *pObj )
 {
 	INT16 sRecoilAdjust = 0;
@@ -10550,6 +10659,60 @@ UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj )
 	return( NONE );
 }
 
+UINT16 GetAttachedUnderBarrel( OBJECTTYPE * pObj )
+{
+	if (pObj->exists() == true) {
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+			if ((Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) ) && iter->exists())
+			{
+				return( (UINT16) Item[iter->usItem].uiIndex );
+			}
+		}
+	}
+	return( NONE );
+}
+BOOLEAN IsUnderBarrelAttached( OBJECTTYPE * pObj, UINT8 subObject )
+{
+	if (pObj->exists() == true) {
+
+		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
+			if (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) && iter->exists() )
+			{
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
+OBJECTTYPE* FindAttachment_UnderBarrel( OBJECTTYPE * pObj )
+{
+	if (pObj->exists() == true) {
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+			if (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) && iter->exists() )
+			{
+				return( &(*iter) );
+			}
+		}
+	}
+	return( NULL );
+}
+
+INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj )
+{
+	if (pObj->exists() == true) {
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+			if (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) && iter->exists())
+			{
+				return( (*iter)[0]->data.objectStatus );
+			}
+		}
+	}
+	return( ITEM_NOT_FOUND );
+}
 
 INT16 GetAttachedArmourBonus( OBJECTTYPE * pObj )
 {

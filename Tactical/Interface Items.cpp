@@ -2646,7 +2646,7 @@ void INVRenderSilhouette( UINT32 uiBuffer, INT16 PocketIndex, INT16 SilIndex, IN
 // Flugente FTW 1: Function to get the number of the item condition string
 UINT8 GetTemperatureString( FLOAT overheatpercentage, UINT32* apRed, UINT32* apGreen, UINT32* abBlue )
 {
-	*apRed   = (UINT32) ( 100 + 155 * ( (max(1.0, overheatpercentage) - 1.0)/(max(1.0, overheatpercentage)) ) );
+	*apRed   = (UINT32) ( gGameExternalOptions.ubOverheatThermometerRedOffset + (255 - gGameExternalOptions.ubOverheatThermometerRedOffset) * ( (max(1.0, overheatpercentage) - 1.0)/(max(1.0, overheatpercentage)) ) );
 	*apGreen = 0;
 	*abBlue  = 0;
 
@@ -2769,7 +2769,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 			}
 #endif
-			// FIRST DISPLAY FREE ROUNDS REMIANING
+			
 			if ( pItem->usItemClass == IC_GUN && !Item[pObject->usItem].rocketlauncher )
 			{
 				sNewY = sY + sHeight - 10;
@@ -2779,75 +2779,76 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE )
 					sNewX = sX + 6;
 
-				SetFontForeground ( AmmoTypes[(*pObject)[iter]->data.gun.ubGunAmmoType].fontColour );
-				//switch ((*pObject)[iter]->data.gun.ubGunAmmoType)
-				//{
-				//	case AMMO_AP:
-				//	case AMMO_SUPER_AP:
-				//		SetFontForeground( ITEMDESC_FONTAPFORE );
-				//		break;
-				//	case AMMO_HP:
-				//		SetFontForeground( ITEMDESC_FONTHPFORE );
-				//		break;
-				//	case AMMO_BUCKSHOT:
-				//		SetFontForeground( ITEMDESC_FONTBSFORE );
-				//		break;
-				//	case AMMO_HE:
-				//	case AMMO_GRENADE:
-				//		SetFontForeground( ITEMDESC_FONTHEFORE );
-				//		break;
-				//	case AMMO_HEAT:
-				//		SetFontForeground( ITEMDESC_FONTHEAPFORE );
-				//		break;
-				//	default:
-				//		SetFontForeground( FONT_MCOLOR_DKGRAY );
-				//		break;
-				//}
-				
-				// HEADROCK HAM 3.4: Get estimate of bullets left.
-				if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+				// Flugente: check for underbarrel weapons and use that object if necessary
+				OBJECTTYPE*	pObjShown = pObject;
+				INVTYPE		*pItemShown = pItem;
+				if ( pItem->usItemClass == IC_GUN && pSoldier && ( pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO ) )
 				{
-					// Soldier doesn't know.
-					EstimateBulletsLeft( pSoldier, pObject );
-					swprintf( pStr, L"%s", gBulletCount );
-				}
-				else
-				{
-					swprintf( pStr, L"%d", (*pObject)[iter]->data.gun.ubGunShotsLeft );
-				}
+					OBJECTTYPE  *pObjectUnderBarrel = FindAttachment_UnderBarrel( pObject );
 
-				//swprintf( pStr, L"%d", (*pObject)[iter]->data.gun.ubGunShotsLeft );
-				//swprintf( pStr, L"%d", GetEstimateBulletsLeft(pSoldier, pObject) );
-
-				if ( uiBuffer == guiSAVEBUFFER )
-				{
-					RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
-				}
-				mprintf( sNewX, sNewY, pStr );
-				gprintfinvalidate( sNewX, sNewY, pStr );
-
-				sNewX = sX + 1;
-
-				SetFontForeground( FONT_MCOLOR_DKGRAY );
-
-				// Display 'JAMMED' if we are jammed
-				if ( (*pObject)[iter]->data.gun.bGunAmmoStatus < 0 )
-				{
-					SetFontForeground( FONT_MCOLOR_RED );
-
-					if ( sWidth >= ( BIG_INV_SLOT_WIDTH - 10 )  )
+					if ( pObjectUnderBarrel )
 					{
-						swprintf( pStr, TacticalStr[ JAMMED_ITEM_STR ] );
+						INVTYPE		*pItemUnderBarrel;
+						if ( ubStatusIndex < RENDER_ITEM_ATTACHMENT1 )
+						{
+							pItemUnderBarrel = &Item[ pObjectUnderBarrel->usItem ];
+						}
+						else
+						{
+							pItemUnderBarrel = &Item[ (*pObjectUnderBarrel)[iter]->GetAttachmentAtIndex( ubStatusIndex - RENDER_ITEM_ATTACHMENT1 )->usItem ];
+						}
+
+						pObjShown = pObjectUnderBarrel;
+						pItemShown = pItemUnderBarrel;
+					}
+				}
+
+				if ( pItemShown->usItemClass == IC_GUN && !Item[pObjShown->usItem].rocketlauncher )
+				{
+					SetFontForeground ( AmmoTypes[(*pObjShown)[iter]->data.gun.ubGunAmmoType].fontColour );
+									
+					// HEADROCK HAM 3.4: Get estimate of bullets left.
+					if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+					{
+						// Soldier doesn't know.
+						EstimateBulletsLeft( pSoldier, pObjShown );
+						swprintf( pStr, L"%s", gBulletCount );
 					}
 					else
 					{
-						swprintf( pStr, TacticalStr[ SHORT_JAMMED_GUN ] );
+						swprintf( pStr, L"%d", (*pObjShown)[iter]->data.gun.ubGunShotsLeft );
 					}
-
-					VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , ITEM_FONT, &sNewX, &sNewY, pStr );
-
+					
+					if ( uiBuffer == guiSAVEBUFFER )
+					{
+						RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+					}
 					mprintf( sNewX, sNewY, pStr );
 					gprintfinvalidate( sNewX, sNewY, pStr );
+
+					sNewX = sX + 1;
+
+					SetFontForeground( FONT_MCOLOR_DKGRAY );
+
+					// Display 'JAMMED' if we are jammed
+					if ( (*pObjShown)[iter]->data.gun.bGunAmmoStatus < 0 )
+					{
+						SetFontForeground( FONT_MCOLOR_RED );
+
+						if ( sWidth >= ( BIG_INV_SLOT_WIDTH - 10 )  )
+						{
+							swprintf( pStr, TacticalStr[ JAMMED_ITEM_STR ] );
+						}
+						else
+						{
+							swprintf( pStr, TacticalStr[ SHORT_JAMMED_GUN ] );
+						}
+
+						VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , ITEM_FONT, &sNewX, &sNewY, pStr );
+
+						mprintf( sNewX, sNewY, pStr );
+						gprintfinvalidate( sNewX, sNewY, pStr );
+					}
 				}
 			}
 #if 0
@@ -2908,20 +2909,25 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 			// Flugente FTW 1
 			if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel == TRUE ) )
-			{
-				FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObject);
+			{	
+				OBJECTTYPE*	pObjShown = pObject;
+
+				if ( pSoldier )
+					pObjShown = pSoldier->GetUsedWeapon(pObject);
+
+				FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObjShown );
 												
 				UINT32 red, green, blue;
 				UINT8 TemperatureStringNum = GetTemperatureString( overheatjampercentage, &red, &green, &blue );
 
 				UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
 
-				DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER );								
+				DrawItemUIBarEx( pObjShown, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER );								
 			}
 
 			// display symbol if we are leaning our weapon on something
 			// display only if eapon resting is allowed, display is allowed, item is a gun/launcher, we are a person, we hold the gun in our hand, and we are resting the gun
-			if ( gGameExternalOptions.fWeaponResting && gGameExternalOptions.fDisplayWeaponRestingIndicator && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  pSoldier->bActive && pSoldier->bInSector && &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
+			if ( gGameExternalOptions.fWeaponResting && gGameExternalOptions.fDisplayWeaponRestingIndicator && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
 			{
 				SetRGBFontForeground( 95, 160, 154 );
 												
@@ -2993,6 +2999,21 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				{
 					swprintf( pStr, New113Message[MSG113_GL_AUTO] );
 					SetFontForeground( FONT_YELLOW );
+				}
+				else if(pSoldier->bWeaponMode == WM_ATTACHED_UB)
+				{
+					swprintf( pStr, New113Message[MSG113_UB] );
+					SetFontForeground( FONT_ORANGE );
+				}
+				else if(pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST)
+				{
+					swprintf( pStr, New113Message[MSG113_UB_BRST] );
+					SetFontForeground( FONT_ORANGE );
+				}
+				else if(pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO)
+				{
+					swprintf( pStr, New113Message[MSG113_UB_AUTO] );
+					SetFontForeground( FONT_ORANGE );
 				}
 
 				// Get length of string

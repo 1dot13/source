@@ -2574,8 +2574,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 			return ( TRAJECTORYCURS );
 	}
 
-	usInHand = pSoldier->inv[HANDPOS].usItem;
-
+	usInHand = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[HANDPOS] );
 	// Start off with what is in our hand
 	ubCursor = Item[ usInHand ].ubCursor;
 

@@ -1478,8 +1478,12 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 	BOOLEAN	fAddingRaiseGunCost = FALSE;
 
 	// LOOK IN BUDDY'S HAND TO DETERMINE WHAT TO DO HERE
+	// Flugente: check for underbarrel weapons and use that object if necessary
+	OBJECTTYPE* AttackingWeapon = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
+	UINT16 usUBItemNum = pSoldier->GetUsedWeaponNumber( &(pSoldier->inv[HANDPOS]) );
+
 	usItemNum = pSoldier->inv[HANDPOS].usItem;
-	uiItemClass = Item[ usItemNum ].usItemClass;
+	uiItemClass = Item[ usUBItemNum ].usItemClass;
 
 	if ( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
 	{
@@ -1487,10 +1491,10 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 
 		if ( pSoldier->bDoBurst )
 		{
-			if(pSoldier->bDoAutofire && GetAutofireShotsPerFiveAPs(&pSoldier->inv[HANDPOS]) > 0 )
-				sAPCost += CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), pSoldier->bDoAutofire );
+			if(pSoldier->bDoAutofire && GetAutofireShotsPerFiveAPs(AttackingWeapon) > 0 )
+				sAPCost += CalcAPsToAutofire( pSoldier->CalcActionPoints( ), AttackingWeapon, pSoldier->bDoAutofire );
 			else
-				sAPCost += CalcAPsToBurst( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]) );
+				sAPCost += CalcAPsToBurst( pSoldier->CalcActionPoints( ), AttackingWeapon );
 		}
 		//else //ddd comment for aimed burst
 		{
@@ -1513,7 +1517,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 						UINT16 usWeaponReadyTime;
 						UINT8 ubReadyTimeDivisor;
 
-						usWeaponReadyTime = Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100;
+						usWeaponReadyTime = Weapon[ pSoldier->inv[HANDPOS].usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100;
 						ubReadyTimeDivisor = gGameExternalOptions.ubFirstAimReadyCostDivisor;
 						sAPCost += usWeaponReadyTime / ubReadyTimeDivisor;
 					}
@@ -1696,8 +1700,10 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 	}
 	else
 	{
+		UINT16 undbarItem = pSoldier->GetUsedWeaponNumber( &(pSoldier->inv[ HANDPOS ]) );
+
 		// LOOK IN BUDDY'S HAND TO DETERMINE WHAT TO DO HERE
-		uiItemClass = Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass;
+		uiItemClass = Item[ undbarItem ].usItemClass;
 	}
 
 	if ( uiItemClass == IC_BLADE || uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
@@ -1936,16 +1942,21 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 	UINT16 usRaiseGunCost = 0;
 	UINT16 usTurningCost = 0;
 
-
+	UINT16 usUBItem = 0;
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 	{
 		usItem = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS] );//UNDER_GLAUNCHER;
+		usUBItem = usItem;
 	}
 	else
-	{
+	{		
 		usItem = pSoldier->inv[ HANDPOS ].usItem;
+
+		// Flugente: we need a secon temnr in case we are using an underbarrel weapon. Not all checks should apply for that one, as aiming is still done with the main weapon
+		usUBItem = pSoldier->GetUsedWeaponNumber(&pSoldier->inv[HANDPOS]);
 	}
 
+	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
 	GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
 
@@ -2013,51 +2024,53 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		}
 	}
 	else
-	{
+	{		
 		//CHRISL: When prone and using a bipod, bipod should help compensate for recoil.  To reflect this, our shot AP cost should be minimially reduced
-		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier > 0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && GetBipodBonus(&(pSoldier->inv[HANDPOS])) > 0){
-			bAPCost += (BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]) ) * (100 - GetBipodBonus(&(pSoldier->inv[HANDPOS]))) / 100);
-		} else {
-			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]) );
+		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier > 0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && GetBipodBonus(&(pSoldier->inv[HANDPOS])) > 0)
+		{
+			bAPCost += (BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed ) * (100 - GetBipodBonus(&(pSoldier->inv[HANDPOS]))) / 100);
+		} 
+		else 
+		{
+			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed );
 		}
-		
 		/////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - STOMP traits
 		////////////////////////////////////////////////////
 		if ( gGameOptions.fNewTraitSystem )
 		{
 			// Decreased APs needed for LMG - Auto Weapons
-			if (Weapon[usItem].ubWeaponType == GUN_LMG && (pSoldier->bDoBurst || pSoldier->bDoAutofire) && ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) ) )
+			if (Weapon[usUBItem].ubWeaponType == GUN_LMG && (pSoldier->bDoBurst || pSoldier->bDoAutofire) && ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubAWFiringSpeedBonusLMGs ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for melee attacks - Melee
-			if ( Item[ usItem ].usItemClass == IC_BLADE && ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) ) )
+			if ( Item[ usUBItem ].usItemClass == IC_BLADE && ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubMEBladesAPsReduction ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for throwing knives - Throwing
-			else if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE && ( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) ) )
+			else if ( Item[ usUBItem ].usItemClass == IC_THROWING_KNIFE && ( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubTHBladesAPsReduction ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for launchers - Heavy Eeapons
-			else if ( (Item[ usItem ].usItemClass == IC_LAUNCHER || Item[usItem].grenadelauncher ) && !(Item[usItem].rocketlauncher) && !(Item[usItem].mortar) && ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) ))
+			else if ( (Item[ usUBItem ].usItemClass == IC_LAUNCHER || Item[usUBItem].grenadelauncher ) && !(Item[usUBItem].rocketlauncher) && !(Item[usUBItem].mortar) && ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) ))
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for launchers - Heavy Eeapons
-			else if (( Item[usItem].rocketlauncher || Item[usItem].singleshotrocketlauncher ) && !(Item[usItem].mortar) && ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) ))
+			else if (( Item[usUBItem].rocketlauncher || Item[usUBItem].singleshotrocketlauncher ) && !(Item[usUBItem].mortar) && ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) ))
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWRocketLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for mortar - Heavy Eeapons
-			else if ( Item[usItem].mortar && HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) )
+			else if ( Item[usUBItem].mortar && HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWMortarAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for pistols and machine pistols - Gunslinger
-			else if (Weapon[ usItem ].ubWeaponType == GUN_PISTOL && HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) )
+			else if (Weapon[ usUBItem ].ubWeaponType == GUN_PISTOL && HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) ) / 100)+ 0.5);
 			}
@@ -2073,7 +2086,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		fAddingRaiseGunCost = TRUE;
 	}
 
-	if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE )
+	if ( Item[ usUBItem ].usItemClass == IC_THROWING_KNIFE )
 	{
 		// Do we need to stand up?
 		bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
@@ -2120,7 +2133,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 
 	// if attacking a new target (or if the specific target is uncertain)
 	// Added check if the weapon is a throwing knife - otherwise it would add APs for change taregt on cursor but not actually deduct them afterwards - SANDRO
-	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usItem].rocketlauncher && (Item[ usItem ].usItemClass != IC_THROWING_KNIFE) )) 
+	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && (Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE) )) 
 	{
 		bAPCost += APBPConstants[AP_CHANGE_TARGET];
 	}
@@ -2134,7 +2147,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 	if ( bAPCost < 1 )
 		bAPCost = 1;
 
-	if ( Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
+	if ( Item[(*pObjUsed).usItem].rocketlauncher )
 	{
 		bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 	}
@@ -2347,33 +2360,36 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 		}
 		else
 		{
-			if ( Item[pSoldier->inv[ bInvPos ].usItem].singleshotrocketlauncher	)
+			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[bInvPos]) );
+			UINT16 usItemUsed    = pSoldier->GetUsedWeaponNumber( &(pSoldier->inv[bInvPos]) );
+
+			if ( Item[usItemUsed].singleshotrocketlauncher	)
 			{
 				// hack... they turn empty afterwards anyways
 				return( TRUE );
 			}
 
-			if (Item[ pSoldier->inv[ bInvPos ].usItem ].usItemClass == IC_LAUNCHER || Item[pSoldier->inv[ bInvPos ].usItem].cannon )
+			if (Item[ usItemUsed ].usItemClass == IC_LAUNCHER || Item[usItemUsed].cannon )
 			{
-				if ( FindAttachmentByClass( &(pSoldier->inv[ bInvPos ]), IC_GRENADE ) != 0 )
+				if ( FindAttachmentByClass( pObjUsed, IC_GRENADE ) != 0 )
 				{
 					return( TRUE );
 				}
 
 				
-				if (Item[pSoldier->inv[bInvPos].usItem].usItemClass == IC_BOMB)
+				if (Item[usItemUsed].usItemClass == IC_BOMB)
 				{
 					return (TRUE);
 				}
 
 				// ATE: Did an else if here...
-				if ( FindAttachmentByClass( &(pSoldier->inv[ bInvPos ]), IC_BOMB ) != 0 )
+				if ( FindAttachmentByClass( pObjUsed, IC_BOMB ) != 0 )
 				{
 					return( TRUE );
 				}
 
 				// WANNE: If there is a tank, it always have ammo to shoot, no check!
-				if (Item[pSoldier->inv[bInvPos].usItem].cannon)
+				if (Item[usItemUsed].cannon)
 				{
 					return ( TRUE );
 				}
@@ -2385,9 +2401,9 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 
 				return( FALSE );
 			}
-			else if (Item[ pSoldier->inv[ bInvPos ].usItem ].usItemClass == IC_GUN)
+			else if (Item[ usItemUsed ].usItemClass == IC_GUN)
 			{
-				if ( pSoldier->inv[ bInvPos ][0]->data.gun.ubGunShotsLeft == 0 )
+				if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft == 0 )
 				{
 					if ( fDisplay )
 					{
@@ -2399,7 +2415,7 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 				//<SB> manual recharge
 				if( pSoldier->bTeam == OUR_TEAM )
 				{
-					if ( !(	pSoldier->inv[ bInvPos ][0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER ) )
+					if ( !(	(*pObjUsed)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER ) )
 					{
 						return( FALSE );
 					}
@@ -2435,24 +2451,14 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 		}
 		else if ( Item[ pObj->usItem ].usItemClass == IC_GUN && !Item[pObj->usItem].cannon && pSoldier->bWeaponMode != WM_ATTACHED_GL && pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bWeaponMode != WM_ATTACHED_GL_AUTO )
 		{
-			if ( pSoldier->usAttackingWeapon == pObj->usItem)
+			// Flugente: check for underbarrel weapons and use that object if necessary
+			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[bInvPos]) );
+
+			// OK, let's see, don't overrun...
+			if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft != 0 )
 			{
-				// OK, let's see, don't overrun...
-				if ( (*pObj)[0]->data.gun.ubGunShotsLeft != 0 )
-				{
-					(*pObj)[0]->data.gun.ubGunShotsLeft--;
-					//Pulmu: Update weight after firing gun to account for bullets fired
-					if( gGameExternalOptions.fAmmoDynamicWeight == TRUE)
-					{
-						//ADB ubWeight has been removed, see comments in OBJECTTYPE
-						//pSoldier->inv[HANDPOS].ubWeight = CalculateObjectWeight( &(pSoldier->inv[HANDPOS]));
-					}
-				}
-			}
-			else
-			{
-				// firing an attachment?
-			}
+				(*pObjUsed)[0]->data.gun.ubGunShotsLeft--;
+			}			
 		}
 		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || Item[pObj->usItem].cannon || pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 		{
@@ -2645,7 +2651,9 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 	INT16					bAPCost = 0, bAPCost2 = 0;;
 
 	CHECKF( pSoldier );
-	pObj = &(pSoldier->inv[HANDPOS]);
+
+	// Flugente: check for underbarrel weapons and use that object if necessary
+	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
 //<SB> manual recharge
 	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
@@ -2682,7 +2690,9 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 
 		if ( pSoldier->IsValidSecondHandShotForReloadingPurposes( ) )
 		{
-			pObj = &(pSoldier->inv[SECONDHANDPOS]);
+			// Flugente: check for underbarrel weapons and use that object if necessary
+			pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
+
 			bExcludeSlot = NO_SLOT;
 			bSlot2 = NO_SLOT;
 

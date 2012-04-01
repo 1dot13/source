@@ -300,7 +300,11 @@ INT16 GetMagSizeBonus( OBJECTTYPE * pObj, UINT8 subObject = 0 );
 
 // HEADROCK HAM 4: This function now calculates and returns the weapon's recoil as X/Y offsets.
 void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *bRecoilY, UINT8 ubNumBullet );
+void GetBaseFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY);
+void GetAttachmentFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY);
 void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY );
+INT16 GetBasePercentRecoilModifier( OBJECTTYPE *pObj );
+INT16 GetAttachmentPercentRecoilModifier( OBJECTTYPE *pObj);
 INT16 GetPercentRecoilModifier( OBJECTTYPE *pObj );
 // HEADROCK HAM 4: This function returns whether the last bullet in a burst/autofire volley was a tracer.
 BOOLEAN WasPrevBulletATracer( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon );
@@ -337,6 +341,14 @@ INT16 GetGrenadeLauncherStatus( OBJECTTYPE * pObj );
 BOOLEAN IsGrenadeLauncherAttached( OBJECTTYPE * pObj, UINT8 subObject = 0 );
 OBJECTTYPE* FindAttachment_GrenadeLauncher( OBJECTTYPE * pObj );
 UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj );
+
+// JMich & Flugente: functions for underbarrel weapons
+INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj );
+BOOLEAN IsUnderBarrelAttached( OBJECTTYPE * pObj, UINT8 subObject = 0 );
+OBJECTTYPE* FindAttachment_UnderBarrel( OBJECTTYPE * pObj );
+UINT16 GetAttachedUnderBarrel( OBJECTTYPE * pObj );
+OBJECTTYPE* GetUsedWeapon( OBJECTTYPE * pObj );
+
 INT8 FindRocketLauncher( SOLDIERTYPE * pSoldier );
 INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier );
 INT8 FindNonSmokeLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon );

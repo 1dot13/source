@@ -272,7 +272,7 @@ void HandleTacticalEndTurn( )
 #endif
 
 	// Flugente FTW 1: Cool down all items not in a soldier's inventory
-	CoolDownWorldItems();	
+	CoolDownWorldItems( FALSE );	
 }
 
 

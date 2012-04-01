@@ -1319,7 +1319,9 @@ public:
 	BOOLEAN IsValidSecondHandShotForReloadingPurposes( void );
 	BOOLEAN SoldierCarriesTwoHandedWeapon( void );
 	void	SoldierInventoryCoolDown( void );		// Flugente FTW 1: Cool down all items in inventory
-	BOOLEAN	IsWeaponMounted( void );
+	BOOLEAN	IsWeaponMounted( void );				// determine if we receive a bonus for mouning our weapon on something
+	OBJECTTYPE* GetUsedWeapon( OBJECTTYPE * pObj );		// if in an underbarrel fire mode, return underbarrel weapon
+	UINT16 GetUsedWeaponNumber( OBJECTTYPE * pObj );	// if in an underbarrel fire mode, return number of underbarrel weapon
 
 }; // SOLDIERTYPE;	
 

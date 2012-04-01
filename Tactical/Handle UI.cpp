@@ -2531,14 +2531,17 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 	INT32							iHandleReturn;
 	INT32							sTargetGridNo;
 	INT8							bTargetLevel;
-	UINT16						usItem;
-	LEVELNODE					*pIntNode;
-	STRUCTURE					*pStructure;
-	INT32 sGridNo, sNewGridNo;
-	UINT8			 ubItemCursor;
+	UINT16							usItem;
+	LEVELNODE*						pIntNode;
+	STRUCTURE*						pStructure;
+	INT32							sGridNo, sNewGridNo;
+	UINT8							ubItemCursor;
 
 	// get cursor
 	ubItemCursor	=	GetActionModeCursor( pSoldier );
+
+	OBJECTTYPE* pObj = pSoldier->GetUsedWeapon(&pSoldier->inv[HANDPOS]);
+	usItem  = pSoldier->GetUsedWeaponNumber(&pSoldier->inv[HANDPOS]);
 
 	if ( !(gTacticalStatus.uiFlags & INCOMBAT) && pTargetSoldier && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass & IC_WEAPON )
 	{
@@ -2555,8 +2558,6 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 
 	// Set aim time to one in UI
 	pSoldier->aiData.bAimTime			= (pSoldier->aiData.bShownAimTime );
-	usItem									= pSoldier->inv[ HANDPOS ].usItem;
-
 	// ATE: Check if we are targeting an interactive tile, and adjust gridno accordingly...
 	pIntNode = GetCurInteractiveTileGridNoAndStructure( &sGridNo, &pStructure );
 
@@ -2642,11 +2643,11 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 
 	if (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 	{
-		iHandleReturn = HandleItem( pSoldier, sTargetGridNo, bTargetLevel, GetAttachedGrenadeLauncher(&pSoldier->inv[ HANDPOS ]), TRUE );
+		iHandleReturn = HandleItem( pSoldier, sTargetGridNo, bTargetLevel, GetAttachedGrenadeLauncher(pObj), TRUE );
 	}
 	else
 	{
-		iHandleReturn = HandleItem( pSoldier, sTargetGridNo, bTargetLevel, pSoldier->inv[ HANDPOS ].usItem, TRUE );
+		iHandleReturn = HandleItem( pSoldier, sTargetGridNo, bTargetLevel, usItem, TRUE );
 	}
 
 	if ( iHandleReturn < 0 )

@@ -3959,6 +3959,44 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 											}
 										}
 									}
+									if (IsUnderBarrelAttached(pGun))
+									{
+										OBJECTTYPE *pGun2 = FindAttachment_UnderBarrel(pGun);
+										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun2 )	)
+										{
+
+											// Search for ammo in sector
+											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )
+											{
+												if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) )//item exists, is reachable, is visible and is not trapped
+												{
+													if ( ( Item[ gWorldItems[ uiLoop ].object.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
+													{
+														pAmmo = &( gWorldItems[ uiLoop ].object );
+
+														if ( CompatibleAmmoForGun( pAmmo, pGun2 ) ) // can use the ammo with this gun
+														{
+															// same ammo type in gun and magazine
+															if ( Magazine[Item[(*pGun2)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+															{
+																ReloadGun( pTeamSoldier, pGun2, pAmmo );
+															}
+
+															if ((*pAmmo)[0]->data.ubShotsLeft == 0)
+															{
+																RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
+															}
+														}
+													}
+												}
+											}
+										}
+										//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
+										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun2 )	)
+										{
+											AutoReload( pTeamSoldier );
+										}
+									}
 								}
 							}
 						}
@@ -3978,7 +4016,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							{
 								if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 								{
-									pGun	= &(pTeamSoldier->inv[HANDPOS]);
+									// Flugente: check for underbarrel weapons and use that object if necessary
+									pGun = pTeamSoldier->GetUsedWeapon( &(pTeamSoldier->inv[HANDPOS]) );
 
 									//magazine is not full
 									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)

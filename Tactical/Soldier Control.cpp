@@ -12911,7 +12911,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 				attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
 				for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
 				{
-					if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_LAUNCHER|IC_LAUNCHER) )
+					if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 					{
 						FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
 
@@ -12934,10 +12934,18 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
   }
 }
 
-// Flugente: determien if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
+// Flugente: determine if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
 BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 {
 	BOOLEAN applybipod = FALSE;
+
+	// we must be active
+	if ( !bActive)
+		return( FALSE );
+		
+	// we must be in a sector (not travelling)
+	if ( !bInSector )
+		return( FALSE );
 
 	// not possible if already prone
 	if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE )
@@ -13020,6 +13028,33 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	}
 	
 	return( applybipod );
+}
+
+// Flugente: return weapon currently used
+OBJECTTYPE* SOLDIERTYPE::GetUsedWeapon( OBJECTTYPE * pObj )
+{
+	if ( bWeaponMode == WM_ATTACHED_UB || bWeaponMode == WM_ATTACHED_UB_BURST || bWeaponMode == WM_ATTACHED_UB_AUTO )
+	{
+		OBJECTTYPE* pObjUnderBarrel = FindAttachment_UnderBarrel(pObj);
+
+		if ( pObjUnderBarrel )
+			return( pObjUnderBarrel );
+	}
+
+	return( pObj );
+}
+
+UINT16 SOLDIERTYPE::GetUsedWeaponNumber( OBJECTTYPE * pObj )
+{
+	if ( bWeaponMode == WM_ATTACHED_UB || bWeaponMode == WM_ATTACHED_UB_BURST || bWeaponMode == WM_ATTACHED_UB_AUTO )
+	{
+		UINT16 weaponnr = GetAttachedUnderBarrel(pObj);
+
+		if ( weaponnr != NONE )
+			return( weaponnr );
+	}
+
+	return( pObj->usItem );
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

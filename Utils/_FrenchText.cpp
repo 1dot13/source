@@ -6035,6 +6035,9 @@ STR16 New113Message[] =
 	L"LG",
 	L"RAF. LG",
 	L"LG AUTO",
+	L"UB",			// TODO.Translate
+	L"UBRST",
+	L"UAUTO",
 	L"Tireur embusqué !",
 	L"Unable to split money due to having an item on your cursor.",
 	L"Arrivée de nouvelles recrues est déroutée au secteur %s, car le point d'arrivée prévu %s est sous contrôle ennemi.",

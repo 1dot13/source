@@ -1320,8 +1320,10 @@ void LoadGameExternalOptions()
 	// Flugente FTW 1: These settings control the behavior of Weapon Overheating, its severity, and its display.
 
 	gGameExternalOptions.fDisplayOverheatThermometer					= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER",TRUE);
+	gGameExternalOptions.ubOverheatThermometerRedOffset					= iniReader.ReadInteger("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET", 100, 0, 255);
 	gGameExternalOptions.iCooldownModificatorLonelyBarrel			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL", 1.15f, 1.0f, 10.0f);
-	
+	gGameExternalOptions.fSetZeroUponNewSector							= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_SET_ZERO_UPON_NEW_SECTOR",TRUE);
+		
 	//################# Strategic Gamestart Settings ##################
 
 	//Lalien: Game starting time

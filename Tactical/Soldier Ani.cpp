@@ -358,67 +358,77 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				break;
 
 			case 430:
-
-				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: case 430");
-				// SHOOT GUN
-				// MAKE AN EVENT, BUT ONLY DO STUFF IF WE OWN THE GUY!
-				SFireWeapon.usSoldierID			= pSoldier->ubID;
-				SFireWeapon.uiUniqueId			= pSoldier->uiUniqueSoldierIdValue;
-				SFireWeapon.sTargetGridNo		= pSoldier->sTargetGridNo;
-				SFireWeapon.bTargetLevel		= pSoldier->bTargetLevel;
-				SFireWeapon.bTargetCubeLevel= pSoldier->bTargetCubeLevel;
-				if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
 				{
-					//only carry on if own werc
-					AddGameEvent( S_FIREWEAPON, 0, &SFireWeapon );
+					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: case 430");
+					// SHOOT GUN
+					// MAKE AN EVENT, BUT ONLY DO STUFF IF WE OWN THE GUY!
+					SFireWeapon.usSoldierID			= pSoldier->ubID;
+					SFireWeapon.uiUniqueId			= pSoldier->uiUniqueSoldierIdValue;
+					SFireWeapon.sTargetGridNo		= pSoldier->sTargetGridNo;
+					SFireWeapon.bTargetLevel		= pSoldier->bTargetLevel;
+					SFireWeapon.bTargetCubeLevel= pSoldier->bTargetCubeLevel;
+					if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
+					{
+						//only carry on if own werc
+						AddGameEvent( S_FIREWEAPON, 0, &SFireWeapon );
 				
-					//hayden
-					if(is_server || (is_client && pSoldier->ubID <20) ) 
-						send_fireweapon( &SFireWeapon );
-				}
-				//DIGICRAB: Burst UnCap
-				//Loop around in the animation if we still have burst rounds to fire
-				if (pSoldier->bDoBurst && (pSoldier->bDoBurst <= ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst(&pSoldier->inv[HANDPOS]))) || (( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst <= Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst)) ))
-				{
-					if(pSoldier->usAnimState == 44 || pSoldier->usAnimState == 109 || pSoldier->usAnimState == 108 && pSoldier->usAniCode == 33) //we are standing, crounching or prone, firing the fast shot
-						pSoldier->usAniCode = 3;
-					else if(pSoldier->usAnimState == 175 && pSoldier->usAniCode == 37) //we are firing down to something very close, last shot
-						pSoldier->usAniCode = 14;
-				}
-
-				//DIGICRAB: Burst Sound
-				//This code is stolen from Tactical\Weapons.c - UseGun(...)
-				if (pSoldier->bDoBurst && pSoldier->iBurstSoundID == NO_SAMPLE && Weapon[ pSoldier->usAttackingWeapon ].sSound != 0 && Item[ pSoldier->usAttackingWeapon ].usItemClass != IC_THROWING_KNIFE )
-				{
-					// Switch on silencer...
-					INT16 noisefactor = GetPercentNoiseVolume( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
-					if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ pSoldier->usAttackingWeapon ].ubAttackVolume <= 10 )
-					{
-						INT32 uiSound;
-
-						uiSound = Weapon [	pSoldier->usAttackingWeapon ].silencedSound;
-						//if ( Weapon[ pSoldier->usAttackingWeapon ].ubCalibre == AMMO9 || Weapon[ pSoldier->usAttackingWeapon ].ubCalibre == AMMO38 || Weapon[ pSoldier->usAttackingWeapon ].ubCalibre == AMMO57 )
-						//{
-						//	uiSound = S_SILENCER_1;
-						//}
-						//else
-						//{
-						//	uiSound = S_SILENCER_2;
-						//}
-
-						//randomize the rate a bit so that the sound is more believable
-						PlayJA2Sample( uiSound, 44100-Random(5000)-Random(5000)-Random(5000), SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-
+						//hayden
+						if(is_server || (is_client && pSoldier->ubID <20) ) 
+							send_fireweapon( &SFireWeapon );
 					}
-					else
+
+					OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon( &pSoldier->inv[HANDPOS] );
+
+					//DIGICRAB: Burst UnCap
+					//Loop around in the animation if we still have burst rounds to fire
+					if (pSoldier->bDoBurst
+						&& (
+						pSoldier->bDoBurst <= ( (pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst( pObjHand ))	) 
+						|| (( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst <= Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst))
+						   )
+						)
 					{
-						INT8 volume = HIGHVOLUME;
-						if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
-						//randomize the rate a bit so that the sound is more believable
-						PlayJA2Sample( Weapon[ pSoldier->usAttackingWeapon ].sSound, 44100-Random(5000)-Random(5000)-Random(5000), SoundVolume( volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+						if(pSoldier->usAnimState == 44 || pSoldier->usAnimState == 109 || pSoldier->usAnimState == 108 && pSoldier->usAniCode == 33) //we are standing, crounching or prone, firing the fast shot
+							pSoldier->usAniCode = 3;
+						else if(pSoldier->usAnimState == 175 && pSoldier->usAniCode == 37) //we are firing down to something very close, last shot
+							pSoldier->usAniCode = 14;
+					}
+
+					OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+					UINT16 usedGun = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+					//DIGICRAB: Burst Sound
+					//This code is stolen from Tactical\Weapons.c - UseGun(...)
+					if (pSoldier->bDoBurst && pSoldier->iBurstSoundID == NO_SAMPLE && Weapon[ usedGun ].sSound != 0 && Item[ usedGun ].usItemClass != IC_THROWING_KNIFE )
+					{
+						// Switch on silencer...
+						INT16 noisefactor = GetPercentNoiseVolume( pObjUsed );
+						if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usedGun ].ubAttackVolume <= 10 )
+						{
+							INT32 uiSound;
+
+							uiSound = Weapon [	usedGun ].silencedSound;
+							//if ( Weapon[ pSoldier->usAttackingWeapon ].ubCalibre == AMMO9 || Weapon[ pSoldier->usAttackingWeapon ].ubCalibre == AMMO38 || Weapon[ pSoldier->usAttackingWeapon ].ubCalibre == AMMO57 )
+							//{
+							//	uiSound = S_SILENCER_1;
+							//}
+							//else
+							//{
+							//	uiSound = S_SILENCER_2;
+							//}
+
+							//randomize the rate a bit so that the sound is more believable
+							PlayJA2Sample( uiSound, 44100-Random(5000)-Random(5000)-Random(5000), SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+						}
+						else
+						{
+							INT8 volume = HIGHVOLUME;
+							if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
+							//randomize the rate a bit so that the sound is more believable
+							PlayJA2Sample( Weapon[ usedGun ].sSound, 44100-Random(5000)-Random(5000)-Random(5000), SoundVolume( volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+						}
 					}
 				}
-
 				break;
 
 			case 431:
@@ -764,132 +774,136 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 
 			case 448:
-
-				// CODE: HANDLE BURST
-				// FIRST CHECK IF WE'VE REACHED MAX FOR GUN
-				fStop = FALSE;
-
-				if ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst) || (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst(&pSoldier->inv[HANDPOS])))) )
 				{
-					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because burst size too large");
-					fStop = TRUE;
-					fFreeUpAttacker = TRUE;
-				}
+					// CODE: HANDLE BURST
+					// FIRST CHECK IF WE'VE REACHED MAX FOR GUN
+					fStop = FALSE;
 
-				// CHECK IF WE HAVE AMMO LEFT, IF NOT, END ANIMATION!
-				if ( !EnoughAmmo( pSoldier, FALSE, pSoldier->ubAttackingHand ) )
-				{
-					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because not enough ammo");
-					fStop = TRUE;
-					fFreeUpAttacker = TRUE;
-					if ( pSoldier->bTeam == gbPlayerNum	)
+					OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon( &pSoldier->inv[HANDPOS] );
+
+					if ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst) 
+						|| (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst( pObjHand )))) )
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ BURST_FIRE_DEPLETED_CLIP_STR ] );
-					}
-				}
-				// Why only check for a jam on the first bullet?
-				else if (pSoldier->bDoBurst == 1)
-				{
-					// CHECK FOR GUN JAM
-					bWeaponJammed = CheckForGunJam( pSoldier );
-					if ( bWeaponJammed == TRUE )
-					{
-						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because weapon jammed");
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because burst size too large");
 						fStop = TRUE;
 						fFreeUpAttacker = TRUE;
-						// stop shooting!
-						// Yeah, but what does this have to do with that?
-						//							pSoldier->bBulletsLeft = 0;
+					}
 
-						// OK, Stop burst sound...
-						if ( pSoldier->iBurstSoundID != NO_SAMPLE )
-						{
-							SoundStop( pSoldier->iBurstSoundID );
-						}
-
+					// CHECK IF WE HAVE AMMO LEFT, IF NOT, END ANIMATION!
+					if ( !EnoughAmmo( pSoldier, FALSE, pSoldier->ubAttackingHand ) )
+					{
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because not enough ammo");
+						fStop = TRUE;
+						fFreeUpAttacker = TRUE;
 						if ( pSoldier->bTeam == gbPlayerNum	)
 						{
-							PlayJA2Sample( S_DRYFIRE1, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gun jammed!" );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ BURST_FIRE_DEPLETED_CLIP_STR ] );
+						}
+					}
+					// Why only check for a jam on the first bullet?
+					else if (pSoldier->bDoBurst == 1)
+					{
+						// CHECK FOR GUN JAM
+						bWeaponJammed = CheckForGunJam( pSoldier );
+						if ( bWeaponJammed == TRUE )
+						{
+							DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because weapon jammed");
+							fStop = TRUE;
+							fFreeUpAttacker = TRUE;
+							// stop shooting!
+							// Yeah, but what does this have to do with that?
+							//							pSoldier->bBulletsLeft = 0;
+
+							// OK, Stop burst sound...
+							if ( pSoldier->iBurstSoundID != NO_SAMPLE )
+							{
+								SoundStop( pSoldier->iBurstSoundID );
+							}
+
+							if ( pSoldier->bTeam == gbPlayerNum	)
+							{
+								PlayJA2Sample( S_DRYFIRE1, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+								//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gun jammed!" );
+							}
+
+							DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - aborting start of attack due to burst gun jam") );
+							FreeUpAttacker( );
+						}
+						else if ( bWeaponJammed == 255 )
+						{
+							// Play intermediate animation...
+							if ( HandleUnjamAnimation( pSoldier ) )
+							{
+								return( TRUE );
+							}
+						}
+					}
+
+					if ( fStop )
+					{
+						if(pSoldier->bDoAutofire) //reset the autofire cursor after firing
+						{
+							pSoldier->flags.autofireLastStep = FALSE;
+							pSoldier->bDoAutofire = 1;
 						}
 
-						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - aborting start of attack due to burst gun jam") );
-						FreeUpAttacker( );
-					}
-					else if ( bWeaponJammed == 255 )
-					{
-						// Play intermediate animation...
-						if ( HandleUnjamAnimation( pSoldier ) )
+						pSoldier->flags.fDoSpread = FALSE;
+						pSoldier->bDoBurst = 1;
+						// pSoldier->flags.fBurstCompleted = TRUE;
+						if ( fFreeUpAttacker )
+						{
+							// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - aborting start of attack") );
+							// FreeUpAttacker( pSoldier->ubID );
+						}
+
+						// ATE; Reduce it due to animation being stopped...
+						// 0verhaul: No longer necessary or desired
+						// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - Burst animation ended") );
+						// ReduceAttackBusyCount( pSoldier->ubID, FALSE );
+
+
+						if ( CheckForImproperFireGunEnd( pSoldier ) )
 						{
 							return( TRUE );
 						}
-					}
-				}
 
-				if ( fStop )
-				{
-					if(pSoldier->bDoAutofire) //reset the autofire cursor after firing
-					{
-						pSoldier->flags.autofireLastStep = FALSE;
-						pSoldier->bDoAutofire = 1;
-					}
+						// END: GOTO AIM STANCE BASED ON HEIGHT
+						// If we are a robot - we need to do stuff different here
+						// 0verhaul:	Ya know, if the robot simply used the same animation for standing and rifle standing,
+						// we probably wouldn't need this special case code.
+						if ( AM_A_ROBOT( pSoldier ) )
+						{
+							pSoldier->ChangeSoldierState( STANDING, 0 , FALSE );
+						}
+						else
+						{
+							switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+							{
+							case ANIM_STAND:
+								pSoldier->ChangeSoldierState( AIM_RIFLE_STAND, 0 , FALSE );
+								break;
 
-					pSoldier->flags.fDoSpread = FALSE;
-					pSoldier->bDoBurst = 1;
-					// pSoldier->flags.fBurstCompleted = TRUE;
-					if ( fFreeUpAttacker )
-					{
-						// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - aborting start of attack") );
-						// FreeUpAttacker( pSoldier->ubID );
-					}
+							case ANIM_PRONE:
+								pSoldier->ChangeSoldierState( AIM_RIFLE_PRONE, 0 , FALSE );
+								break;
 
-					// ATE; Reduce it due to animation being stopped...
-					// 0verhaul: No longer necessary or desired
-					// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - Burst animation ended") );
-					// ReduceAttackBusyCount( pSoldier->ubID, FALSE );
+							case ANIM_CROUCH:
+								pSoldier->ChangeSoldierState( AIM_RIFLE_CROUCH, 0 , FALSE );
+								break;
 
-
-					if ( CheckForImproperFireGunEnd( pSoldier ) )
-					{
+							}
+						}
 						return( TRUE );
 					}
 
-					// END: GOTO AIM STANCE BASED ON HEIGHT
-					// If we are a robot - we need to do stuff different here
-					// 0verhaul:	Ya know, if the robot simply used the same animation for standing and rifle standing,
-					// we probably wouldn't need this special case code.
-					if ( AM_A_ROBOT( pSoldier ) )
+					// MOVETO CURRENT SPREAD LOCATION
+					if ( pSoldier->flags.fDoSpread )
 					{
-						pSoldier->ChangeSoldierState( STANDING, 0 , FALSE );
-					}
-					else
-					{
-						switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+						if ( pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] != 0 )
 						{
-						case ANIM_STAND:
-							pSoldier->ChangeSoldierState( AIM_RIFLE_STAND, 0 , FALSE );
-							break;
-
-						case ANIM_PRONE:
-							pSoldier->ChangeSoldierState( AIM_RIFLE_PRONE, 0 , FALSE );
-							break;
-
-						case ANIM_CROUCH:
-							pSoldier->ChangeSoldierState( AIM_RIFLE_CROUCH, 0 , FALSE );
-							break;
-
+							pSoldier->EVENT_SetSoldierDirection( (INT8)GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] ) );
+							pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
 						}
-					}
-					return( TRUE );
-				}
-
-				// MOVETO CURRENT SPREAD LOCATION
-				if ( pSoldier->flags.fDoSpread )
-				{
-					if ( pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] != 0 )
-					{
-						pSoldier->EVENT_SetSoldierDirection( (INT8)GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] ) );
-						pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
 					}
 				}
 				break;
@@ -2381,9 +2395,12 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					usItem = pSoldier->inv[ HANDPOS ].usItem;
 
-					if ( pSoldier->inv[ HANDPOS ].exists() == true )
+					OBJECTTYPE* pObjUsed =  pSoldier->GetUsedWeapon( &pSoldier->inv[ HANDPOS ] );
+					UINT16 usItemUsemUsed = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ HANDPOS ] );
+
+					if ( pObjUsed->exists() == true )
 					{
-						usSoundID = Weapon[ usItem ].sLocknLoadSound;
+						usSoundID = Weapon[ usItemUsemUsed ].sLocknLoadSound;
 
 						if ( usSoundID != 0 )
 						{
@@ -3977,8 +3994,10 @@ BOOLEAN CheckForImproperFireGunEnd( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon( &pSoldier->inv[ HANDPOS ] );
+
 	// Check single hand for jammed status, ( or ammo is out.. )
-	if ( pSoldier->inv[ HANDPOS ][0]->data.gun.bGunAmmoStatus < 0 || pSoldier->inv[ HANDPOS ][0]->data.gun.ubGunShotsLeft == 0 )
+	if ( (*pObjHand)[0]->data.gun.bGunAmmoStatus < 0 || (*pObjHand)[0]->data.gun.ubGunShotsLeft == 0 )
 	{
 		// If we have 2 pistols, donot go back!
 		if ( Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass != IC_GUN )

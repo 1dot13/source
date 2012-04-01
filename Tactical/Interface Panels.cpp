@@ -2167,12 +2167,15 @@ BOOLEAN CreateSMPanelButtons( )
 	
 	iSMPanelImages[ OPTIONS_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,24,-1,25,-1 );
 	
-	iBurstButtonImages[ WM_NORMAL ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 7, -1, -1, -1 );
+	iBurstButtonImages[ WM_NORMAL ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1,  7, -1, -1, -1 );
 	iBurstButtonImages[ WM_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 	iBurstButtonImages[ WM_AUTOFIRE ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
-	iBurstButtonImages[ WM_ATTACHED_GL ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 26, -1, -1, -1 );
-	iBurstButtonImages[ WM_ATTACHED_GL_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
-	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_GL ]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 26, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_GL_BURST ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_UB ]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1,  7, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_UB_BURST ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_UB_AUTO ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 
 	FilenameForBPP("INTERFACE\\invadd-ons.sti", ubString);
 	// Load button Graphics
@@ -2396,6 +2399,9 @@ void	RemoveSMPanelButtons( )
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL_BURST ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL_AUTO ] );
+	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB ] );
+	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB_BURST ] );
+	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB_AUTO ] );
 
 }
 
