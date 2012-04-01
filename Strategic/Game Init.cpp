@@ -540,6 +540,11 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		return( TRUE );
 	}
 	
+	if( gubScreenCount == 0 )
+	{	
+		IniLuaGlobal();//Lua
+	}
+	
 	//reset autosave
 	AutoSaveToSlot[0] = FALSE;
 	AutoSaveToSlot[1] = FALSE;
@@ -680,9 +685,6 @@ fFirstTimeInMapScreen = TRUE;
 		gAimAvailability[i].ubAimArrayID = gAimAvailabilityTemp[i].ubAimArrayID;
 		gAimAvailability[i].AimBio = gAimAvailabilityTemp[i].AimBio;
 	}
-	
-	//Lua
-	IniLuaGlobal();
 
 	// IF our first time, go into laptop!
 	if ( gubScreenCount == 0 )
@@ -1196,8 +1198,5 @@ void ReStartingGame()
 		gubCheatLevel = STARTING_CHEAT_LEVEL;
 	else
 		gubCheatLevel = 0;
-		
-	//Lua
-	IniLuaGlobal();
 
 }
