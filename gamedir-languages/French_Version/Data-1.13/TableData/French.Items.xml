@@ -15205,4 +15205,1132 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+  <ITEM>
+    <uiIndex>1382</uiIndex>
+    <szItemName>12g Crate</szItemName>
+    <szLongItemName>12 Gauge Ammo Crate</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>12g Crate</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1383</uiIndex>
+    <szItemName>12g Crate BS</szItemName>
+    <szLongItemName>12 Gauge Ammo Crate, Buckshot</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>12g Crate Buckshot</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1384</uiIndex>
+    <szItemName>12g Crate LB</szItemName>
+    <szLongItemName>12 Gauge Ammo Crate, Lock-Buster</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>12g Crate Lock-Buster</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1385</uiIndex>
+    <szItemName>12g Crate FL</szItemName>
+    <szLongItemName>12 Gauge Ammo Crate, Flechette</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>12g Crate Flechette</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1386</uiIndex>
+    <szItemName>Dart Crate</szItemName>
+    <szLongItemName>Tranquilizer Dart Crate</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>Dart Crate</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1387</uiIndex>
+    <szItemName>Minirockets Crate AP</szItemName>
+    <szLongItemName>Minirockets Ammo Crate, AP</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>Minirockets Crate AP</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1388</uiIndex>
+    <szItemName>Minirockets Crate HE</szItemName>
+    <szLongItemName>Minirockets Ammo Crate, HE</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>Minirockets Crate HE</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1389</uiIndex>
+    <szItemName>Minirockets Crate HEAP</szItemName>
+    <szLongItemName>Minirockets Ammo Crate, HEAP</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>Minirockets Crate HEAP</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1390</uiIndex>
+    <szItemName>CAWS Crate AP</szItemName>
+    <szLongItemName>CAWS Ammo Crate, AP</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>CAWS Crate AP</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1391</uiIndex>
+    <szItemName>CAWS Crate BS</szItemName>
+    <szLongItemName>CAWS Ammo Crate, Buckshot</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>CAWS Crate Buckshot</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1392</uiIndex>
+    <szItemName>12.3x50mm Crate FL</szItemName>
+    <szLongItemName>12.3x50mm Ammo Crate, Flechette</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>12.3x50mm Crate Flechette</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1393</uiIndex>
+    <szItemName>12.3x50mm Crate BS</szItemName>
+    <szLongItemName>12.3x50mm Ammo Crate, Buckshot</szLongItemName>
+    <szItemDesc>A really big box of ammunition.  I don't think this will fit in your backpack...</szItemDesc>
+    <szBRName>12.3x50mm Crate Buckshot</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1394</uiIndex>
+    <szItemName>.38 Box</szItemName>
+    <szLongItemName>.38 Box</szLongItemName>
+    <szItemDesc>These 158 grain Winchester standard .38 Special round tip ammunition has been the tried and true round in law enforcement.</szItemDesc>
+    <szBRName>.38 Box</szBRName>
+    <szBRDesc>These 158 grain Winchester standard .38 Special round tip ammunition has been the tried and true round in law enforcement.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1395</uiIndex>
+    <szItemName>.38 Box HP</szItemName>
+    <szLongItemName>.38 Box, HP</szLongItemName>
+    <szItemDesc>Although this .38 Special hollow point ammo tends to perform poorly against armor, it makes up for it by creating wider wound channels in unarmored opponents.</szItemDesc>
+    <szBRName>.38 Box HP</szBRName>
+    <szBRDesc>Although this .38 Special hollow point ammo tends to perform poorly against armor, it makes up for it by creating wider wound channels in unarmored opponents.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1396</uiIndex>
+    <szItemName>.38 Box AP</szItemName>
+    <szLongItemName>.38 Box, AP</szLongItemName>
+    <szItemDesc>This box contains .38 caliber armor piercing ammunition. While its armor piercing abilities are due to its steel construction, it tends to create smaller wounds than lead ammo.</szItemDesc>
+    <szBRName>.38 Box AP</szBRName>
+    <szBRDesc>Turn your classic .38 into a force to be reckoned with. Our own custom loaded .38 Full Metal Jacket round guarantees to stop any armored attacker dead in his tracks.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1397</uiIndex>
+    <szItemName>.38 Box G</szItemName>
+    <szLongItemName>.38 Box, Glaser</szLongItemName>
+    <szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+    <szBRName>.38 Box Glaser</szBRName>
+    <szBRDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1398</uiIndex>
+    <szItemName>.38 Box M</szItemName>
+    <szLongItemName>.38 Box, Match</szLongItemName>
+    <szItemDesc>150 rounds of wadcutter ammo, designed to be used on the gunrange to shoot at paper targets. Still more precise than standard ball ammo, though.</szItemDesc>
+    <szBRName>.38 Box Match</szBRName>
+    <szBRDesc>Precisely loaded .38 Special match ammo with wadcutter bullets. When precision is more important than anything else!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1399</uiIndex>
+    <szItemName>.38 Box HPS</szItemName>
+    <szLongItemName>.38 Box, HPS</szLongItemName>
+    <szItemDesc>These bullets promise to penetrate better than standard hollow points.</szItemDesc>
+    <szBRName>.38 Box HPS</szBRName>
+    <szBRDesc>New solid copper bullets of hollow point shape! They are better at penetrating than the usual lead-core/brass-jacket hollowpoints.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1400</uiIndex>
+    <szItemName>9x19mm Box</szItemName>
+    <szLongItemName>9x19mm Box</szLongItemName>
+    <szItemDesc>These rounds of fine quality 115 grain Fiocchi round tip ammunition are ideal for anyone looking for an economical means of personal defense.</szItemDesc>
+    <szBRName>9x19mm Box</szBRName>
+    <szBRDesc>These rounds of fine quality 115 grain Fiocchi round tip ammunition are ideal for anyone looking for an economical means of personal defense.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1401</uiIndex>
+    <szItemName>9x19mm Box C</szItemName>
+    <szLongItemName>9x19mm Box, Cold</szLongItemName>
+    <szItemDesc>These bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
+    <szBRName>9x19mm Box Cold</szBRName>
+    <szBRDesc>These bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1402</uiIndex>
+    <szItemName>9x19mm Box HP</szItemName>
+    <szLongItemName>9x19mm Box, HP</szLongItemName>
+    <szItemDesc>This box contains federal jacketed hollow point ammunition. It combines the wound characteristics of hollow point with the penetration abilities of standard ball ammunition.</szItemDesc>
+    <szBRName>9x19mm Box HP</szBRName>
+    <szBRDesc>This box contains federal jacketed hollow point ammunition. It combines the wound characteristics of hollow point with the penetration abilities of standard ball ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1403</uiIndex>
+    <szItemName>9x19mm Box AP</szItemName>
+    <szLongItemName>9x19mm Box, AP</szLongItemName>
+    <szItemDesc>Punch holes in armored targets with impunity with these armor piercing bullets.</szItemDesc>
+    <szBRName>9x19mm Box AP</szBRName>
+    <szBRDesc>Punch holes in armored targets with impunity with these armor piercing bullets.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1404</uiIndex>
+    <szItemName>9x19mm Box HP C</szItemName>
+    <szLongItemName>9x19mm Box, HP Cold</szLongItemName>
+    <szItemDesc>These hollow point bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
+    <szBRName>9x19mm Box HP Cold</szBRName>
+    <szBRDesc>These hollow point bullets have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1405</uiIndex>
+    <szItemName>9x19mm Box AP C</szItemName>
+    <szLongItemName>9x19mm Box, AP Cold</szLongItemName>
+    <szItemDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
+    <szBRName>9x19mm Box AP Cold</szBRName>
+    <szBRDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1406</uiIndex>
+    <szItemName>9x19mm Box G</szItemName>
+    <szLongItemName>9x19mm Box, Glaser</szLongItemName>
+    <szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+    <szBRName>9x19mm Box Glaser</szBRName>
+    <szBRDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1407</uiIndex>
+    <szItemName>9x19mm Box T</szItemName>
+    <szLongItemName>9x19mm Box, Tracer</szLongItemName>
+    <szItemDesc>More spraying, less praying. This ammo will put your burst-fire on target every time.</szItemDesc>
+    <szBRName>9x19mm Box Tracer</szBRName>
+    <szBRDesc>More spraying, less praying. This ammo will put your burst-fire on target every time.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1408</uiIndex>
+    <szItemName>9x19mm Box AET</szItemName>
+    <szLongItemName>9x19mm Box, AET</szLongItemName>
+    <szItemDesc>The punch of a hollow point, with the penetration of an armor piercing round make this the ultimate CQB ammo for your 9mm subgun.</szItemDesc>
+    <szBRName>9x19mm Box AET</szBRName>
+    <szBRDesc>The punch of a hollow point, with the penetration of an armor piercing round make this the ultimate CQB ammo for your 9mm subgun.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1409</uiIndex>
+    <szItemName>9x19mm Box M</szItemName>
+    <szLongItemName>9x19mm Box, Match</szLongItemName>
+    <szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
+    <szBRName>9x19mm Box Match</szBRName>
+    <szBRDesc>High quality ball ammunition to boost weapon range and performance.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1410</uiIndex>
+    <szItemName>.45 ACP Box</szItemName>
+    <szLongItemName>.45 ACP Box</szLongItemName>
+    <szItemDesc>This .45 standard round tip ball ammunition offers a trade-off between the wound characteristics of hollow point and the penetration abilities of armor piercing ammo.</szItemDesc>
+    <szBRName>.45 ACP Box</szBRName>
+    <szBRDesc>This .45 standard round tip ball ammunition offers a trade-off between the wound characteristics of hollow point and the penetration abilities of armor piercing ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1411</uiIndex>
+    <szItemName>.45 ACP Box HP</szItemName>
+    <szLongItemName>.45 ACP Box, HP</szLongItemName>
+    <szItemDesc>This box contains .45 caliber hollow point ammunition that expands in soft tissue on impact, causing a large of amount of bleeding and nerve trauma.</szItemDesc>
+    <szBRName>.45 ACP Box HP</szBRName>
+    <szBRDesc>Turns your sub machine gun into a lean mean killing machine. This box contains .45 caliber hollow point ammunition expand in soft tissue on impact, causing a large of amount of bleeding and nerve trauma.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1412</uiIndex>
+    <szItemName>.45 ACP Box AP</szItemName>
+    <szLongItemName>.45 ACP Box, AP</szLongItemName>
+    <szItemDesc>This box contains .45 caliber armor piercing ammunition. While this ammunition offers better penetration than either ball or hollow point ammo, it tends to do less damage.</szItemDesc>
+    <szBRName>.45 ACP Box AP</szBRName>
+    <szBRDesc>Some of the best pistol ammunition money can buy is this hand-loaded Armor Piercing ammunition. It will quickly send a Kevlar vest to the scrap heap.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1413</uiIndex>
+    <szItemName>.45 ACP Box G</szItemName>
+    <szLongItemName>.45 ACP Box, Glaser</szLongItemName>
+    <szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+    <szBRName>.45 ACP Box Glaser</szBRName>
+    <szBRDesc>50 rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1414</uiIndex>
+    <szItemName>.45 ACP Box AET</szItemName>
+    <szLongItemName>.45 ACP Box, AET</szLongItemName>
+    <szItemDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szItemDesc>
+    <szBRName>.45 ACP Box AET</szBRName>
+    <szBRDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1415</uiIndex>
+    <szItemName>.45 ACP Box M</szItemName>
+    <szLongItemName>.45 ACP Box, Match</szLongItemName>
+    <szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
+    <szBRName>.45 ACP Box Match</szBRName>
+    <szBRDesc>These SMG rounds put a whole new spin on "distance learning."</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1416</uiIndex>
+    <szItemName>.357 Box</szItemName>
+    <szLongItemName>.357 Magnum Box</szLongItemName>
+    <szItemDesc>This box contains .357 Magnum standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szItemDesc>
+    <szBRName>.357 Magnum Box</szBRName>
+    <szBRDesc>This box contains .357 Magnum standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1417</uiIndex>
+    <szItemName>.357 Box HP</szItemName>
+    <szLongItemName>.357 Magnum Box, HP</szLongItemName>
+    <szItemDesc>This box contains .357 hollow point ammunition. The hollow point allows for substantial expansion on impact, thus creating a large but shallow wound.</szItemDesc>
+    <szBRName>.357 Magnum Box HP</szBRName>
+    <szBRDesc>Want that last gunfight to go out with a bang? Then we've got the deal for you. The Federal's own .357 Jacketed Hollow Point Hydra-Shok guarantees to deliver.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1418</uiIndex>
+    <szItemName>.357 Box AP</szItemName>
+    <szLongItemName>.357 Magnum Box, AP</szLongItemName>
+    <szItemDesc>While these rounds of steel .357 armor piercing ammunition can penetrate walls and body armor, they only create small wound channels with minimal blood loss.</szItemDesc>
+    <szBRName>.357 Magnum Box AP</szBRName>
+    <szBRDesc>While these rounds of steel .357 armor piercing ammunition can penetrate walls and body armor, they only create small wound channels with minimal blood loss.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1419</uiIndex>
+    <szItemName>.357 Box G</szItemName>
+    <szLongItemName>.357 Magnum Box, Glaser</szLongItemName>
+    <szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+    <szBRName>.357 Magnum Box Glaser</szBRName>
+    <szBRDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1420</uiIndex>
+    <szItemName>.357 Box AET</szItemName>
+    <szLongItemName>.357 Magnum Box, AET</szLongItemName>
+    <szItemDesc>Even if the enemy's armor stops all else, it won't stop these!</szItemDesc>
+    <szBRName>.357 Magnum Box AET</szBRName>
+    <szBRDesc>Even if the enemy's armor stops all else, it won't stop these!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1421</uiIndex>
+    <szItemName>12g Box</szItemName>
+    <szLongItemName>12 Gauge Box</szLongItemName>
+    <szItemDesc>These 12 gauge slugs can punch through barriers and light armor with ease.</szItemDesc>
+    <szBRName>12g Box</szBRName>
+    <szBRDesc>This box contains 25 12 gauge slugs that can punch through barriers and light armor with ease.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1422</uiIndex>
+    <szItemName>12g Box BS</szItemName>
+    <szLongItemName>12 Gauge Box, Buckshot</szLongItemName>
+    <szItemDesc>Favored by law enforcement personnel, Buckshot is very effective in urban firefights against unarmored opponents.</szItemDesc>
+    <szBRName>12g Box Buckshot</szBRName>
+    <szBRDesc>The ideal short-range man-stopper round. Law enforcement personnel worldwide favor this round for its effectiveness in urban firefights against unarmored opponents.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1423</uiIndex>
+    <szItemName>12g Box FL</szItemName>
+    <szLongItemName>12 Gauge Box, Flechette</szLongItemName>
+    <szItemDesc>There's no better way to tear the opposition to shreds than to tear through their armor with tiny pieces of flying metal.</szItemDesc>
+    <szBRName>12g Box Flechette</szBRName>
+    <szBRDesc>There's no better way to tear the opposition to shreds than to tear through their armor with tiny pieces of flying metal.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1424</uiIndex>
+    <szItemName>12g Box LB</szItemName>
+    <szLongItemName>12 Gauge Box, Lock-Buster</szLongItemName>
+    <szItemDesc>Useful for opening locked doors with a decided lack of finesse, these shells have little lethal application.</szItemDesc>
+    <szBRName>12g Box Lock-Buster</szBRName>
+    <szBRDesc>Skilled lockpick artists are expensive, these shells are a lot cheaper and a lot louder.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1425</uiIndex>
+    <szItemName>CAWS Box AP</szItemName>
+    <szLongItemName>CAWS Ammo Box, AP</szLongItemName>
+    <szItemDesc>These rounds contain a single tungsten steel composite slug capable of tearing through most forms of body armor and car engine blocks.</szItemDesc>
+    <szBRName>CAWS Box AP</szBRName>
+    <szBRDesc>Each of these 25 rounds in this box contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1426</uiIndex>
+    <szItemName>CAWS Box BS</szItemName>
+    <szLongItemName>CAWS Box, Buckshot</szLongItemName>
+    <szItemDesc>This tungsten buckshot ammunition can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szItemDesc>
+    <szBRName>CAWS Box Buckshot</szBRName>
+    <szBRDesc>These 25 rounds of tungsten buckshot can penetrate like armor piercing ammo and produces large wound channels like hollow point without with the limitations of either ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1427</uiIndex>
+    <szItemName>5.45x39mm Box AP</szItemName>
+    <szLongItemName>5.45x39mm Box, AP</szLongItemName>
+    <szItemDesc>This box contains 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
+    <szBRName>5.45x39mm Box AP</szBRName>
+    <szBRDesc>This box contains 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1428</uiIndex>
+    <szItemName>5.45x39mm Box HP</szItemName>
+    <szLongItemName>5.45x39mm Box, HP</szLongItemName>
+    <szItemDesc>This box contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
+    <szBRName>5.45x39mm Box HP</szBRName>
+    <szBRDesc>This box contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1429</uiIndex>
+    <szItemName>5.45x39mm Box T</szItemName>
+    <szLongItemName>5.45x39mm Box, Tracer</szLongItemName>
+    <szItemDesc>Tracer ammunition in 5.45mm caliber. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szItemDesc>
+    <szBRName>5.45x39mm Box Tracer</szBRName>
+    <szBRDesc>Tracer ammunition in 5.45mm caliber. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1430</uiIndex>
+    <szItemName>5.45x39mm Box C</szItemName>
+    <szLongItemName>5.45x39mm Box, Cold</szLongItemName>
+    <szItemDesc>This box holds 5.45 light armor piercing subsonic ammo.</szItemDesc>
+    <szBRName>5.45x39mm Box Cold</szBRName>
+    <szBRDesc>This box contains 5.45 light armor piercing subsonic ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1431</uiIndex>
+    <szItemName>5.45x39mm Box HP C</szItemName>
+    <szLongItemName>5.45x39mm Box, HP Cold</szLongItemName>
+    <szItemDesc>This box holds 5.45 subsonic hollow point ammo.</szItemDesc>
+    <szBRName>5.45x39mm Box HP Cold</szBRName>
+    <szBRDesc>Extra punch minus the noise with this 5.45mm ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1432</uiIndex>
+    <szItemName>5.56x45mm Box AP</szItemName>
+    <szLongItemName>5.56x45mm Box, AP</szLongItemName>
+    <szItemDesc>This NATO standard light armor piercing ammunition has the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
+    <szBRName>5.56x45mm Box AP</szBRName>
+    <szBRDesc>NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1433</uiIndex>
+    <szItemName>5.56x45mm Box HP</szItemName>
+    <szLongItemName>5.56x45mm Box, HP</szLongItemName>
+    <szItemDesc>This 5.56 hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
+    <szBRName>5.56x45mm Box HP</szBRName>
+    <szBRDesc>This 5.56 hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1434</uiIndex>
+    <szItemName>5.56x45mm Box C</szItemName>
+    <szLongItemName>5.56x45mm Box, Cold</szLongItemName>
+    <szItemDesc>Pump em' full of holes without waking up the countryside. Cold loaded ammo is 40% quieter than standard ball rounds.</szItemDesc>
+    <szBRName>5.56x45mm Box Cold</szBRName>
+    <szBRDesc>Pump em' full of holes without waking up the countryside. Cold loaded ammo is 40% quieter than standard ball rounds.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1435</uiIndex>
+    <szItemName>5.56x45mm Box HP C</szItemName>
+    <szLongItemName>5.56x45mm Box, HP Cold</szLongItemName>
+    <szItemDesc>Extra punch minus the noise with this 5.56mm ammo.</szItemDesc>
+    <szBRName>5.56x45mm Box HP Cold</szBRName>
+    <szBRDesc>Extra punch minus the noise with this 5.56mm ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1436</uiIndex>
+    <szItemName>5.56x45mm Box G</szItemName>
+    <szLongItemName>5.56x45mm Box, Glaser</szLongItemName>
+    <szItemDesc>All of the man-stopping power, none of the over-penetration.</szItemDesc>
+    <szBRName>5.56x45mm Box Glaser</szBRName>
+    <szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1437</uiIndex>
+    <szItemName>5.56x45mm Box M</szItemName>
+    <szLongItemName>5.56x45mm Box, Match</szLongItemName>
+    <szItemDesc>This match grade ammo will add extra range to your 5.56mm assault rifle.</szItemDesc>
+    <szBRName>5.56x45mm Box Match</szBRName>
+    <szBRDesc>This match grade ammo will add extra range to your 5.56mm assault rifle.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1438</uiIndex>
+    <szItemName>5.56x45mm Box T</szItemName>
+    <szLongItemName>5.56x45mm Box, Tracer</szLongItemName>
+    <szItemDesc>Tracer ammo ensures putting those shots on target when it counts.</szItemDesc>
+    <szBRName>5.56x45mm Box Tracer</szBRName>
+    <szBRDesc>Tracer ammo ensures putting those shots on target when it counts.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1439</uiIndex>
+    <szItemName>7.62x51mm Box AP</szItemName>
+    <szLongItemName>7.62x51mm Box, AP</szLongItemName>
+    <szItemDesc>This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
+    <szBRName>7.62x51mm Box AP</szBRName>
+    <szBRDesc>This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1440</uiIndex>
+    <szItemName>7.62x51mm Box HP</szItemName>
+    <szLongItemName>7.62x51mm Box, HP</szLongItemName>
+    <szItemDesc>If power is what you demand, more power is what you'll get with these rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round.</szItemDesc>
+    <szBRName>7.62x51mm Box HP</szBRName>
+    <szBRDesc>If power is what you demand, more power is what you'll get with these rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1441</uiIndex>
+    <szItemName>7.62x51mm Box C</szItemName>
+    <szLongItemName>7.62x51mm Box, Cold</szLongItemName>
+    <szItemDesc>Cold loaded ammo for muted marauding.</szItemDesc>
+    <szBRName>7.62x51mm Box Cold</szBRName>
+    <szBRDesc>Cold loaded ammo for muted marauding.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1442</uiIndex>
+    <szItemName>7.62x51mm Box HP C</szItemName>
+    <szLongItemName>7.62x51mm Box, HP Cold</szLongItemName>
+    <szItemDesc>Cold loaded ammo for muted marauding.</szItemDesc>
+    <szBRName>7.62x51mm Box HP Cold</szBRName>
+    <szBRDesc>Cold loaded ammo for muted marauding.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1443</uiIndex>
+    <szItemName>7.62x51mm Box G</szItemName>
+    <szLongItemName>7.62x51mm Box, Glaser</szLongItemName>
+    <szItemDesc>All of the man-stopping power, none of the over-penetration.</szItemDesc>
+    <szBRName>7.62x51mm Box Glaser</szBRName>
+    <szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1444</uiIndex>
+    <szItemName>7.62x51mm Box T</szItemName>
+    <szLongItemName>7.62x51mm Box, Tracer</szLongItemName>
+    <szItemDesc>Light up your targets literally and figuratively with a mag full of tracers.</szItemDesc>
+    <szBRName>7.62x51mm Box Tracer</szBRName>
+    <szBRDesc>Light up your targets literally and figuratively with a mag full of tracers.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1445</uiIndex>
+    <szItemName>7.62x51mm Box M</szItemName>
+    <szLongItemName>7.62x51mm Box, Match</szLongItemName>
+    <szItemDesc>7.62x51mm match ammo for extra long-range dueling.</szItemDesc>
+    <szBRName>7.62x51mm Box Match</szBRName>
+    <szBRDesc>7.62mm match grade extends the reach of your long-arm.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1446</uiIndex>
+    <szItemName>7.62x39mm Box AP</szItemName>
+    <szLongItemName>7.62x39mm Box, AP</szLongItemName>
+    <szItemDesc>This box of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szItemDesc>
+    <szBRName>7.62x39mm Box AP</szBRName>
+    <szBRDesc>This box of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1447</uiIndex>
+    <szItemName>7.62x39mm Box HP</szItemName>
+    <szLongItemName>7.62x39mm Box, HP</szLongItemName>
+    <szItemDesc>This box of 7.62 Warsaw Pact jacketed hollow point ammunition won't penetrate body armor as well as its armor piercing counterpart, but it makes up for it by making larger wound cavities.</szItemDesc>
+    <szBRName>7.62x39mm Box HP</szBRName>
+    <szBRDesc>This box of 7.62 Warsaw Pact jacketed hollow point ammunition won't penetrate body armor as well as its armor piercing counterpart, but it makes up for it by making larger wound cavities.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1448</uiIndex>
+    <szItemName>7.62x39mm Box T</szItemName>
+    <szLongItemName>7.62x39mm Box, Tracer</szLongItemName>
+    <szItemDesc>A box of tracer ammunition in 7.62x39mm. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szItemDesc>
+    <szBRName>7.62x39mm Box Tracer</szBRName>
+    <szBRDesc>Ranging and shot placement (and detection) are even easier with these rounds of 7.62x39mm tracer.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1449</uiIndex>
+    <szItemName>7.62x39mm Box M</szItemName>
+    <szLongItemName>7.62x39mm Box, Match</szLongItemName>
+    <szItemDesc>A box of 7.62x39mm Match ammunition for precision shooting.</szItemDesc>
+    <szBRName>7.62x39mm Box Match</szBRName>
+    <szBRDesc>Scarce and hard to come by, this Match ammo will change your SKS into a Designated Marksman rifle.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1450</uiIndex>
+    <szItemName>4.7x33mm Box AP</szItemName>
+    <szLongItemName>4.7x33mm Box, AP</szLongItemName>
+    <szItemDesc>There might be a bad pun in having an ammo case for caseless ammo, but this 4.7x33mm ammunition for the G11 is no joke.</szItemDesc>
+    <szBRName>4.7x33mm Box AP</szBRName>
+    <szBRDesc>There might be a bad pun in having an ammo case for caseless ammo, but this 4.7x33mm ammunition for the G11 is no joke.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1451</uiIndex>
+    <szItemName>7.62x39mm Box C</szItemName>
+    <szLongItemName>7.62x39mm Box, Cold</szLongItemName>
+    <szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+    <szBRName>7.62x39mm Box Cold</szBRName>
+    <szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1452</uiIndex>
+    <szItemName>7.62x39mm Box HP C</szItemName>
+    <szLongItemName>7.62x39mm Box, HP Cold</szLongItemName>
+    <szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+    <szBRName>7.62x39mm Box HP Cold</szBRName>
+    <szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1453</uiIndex>
+    <szItemName>5.7x28mm Box AP</szItemName>
+    <szLongItemName>5.7x28mm Box, AP</szLongItemName>
+    <szItemDesc>This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
+    <szBRName>5.7x28mm Box AP</szBRName>
+    <szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 100 round box  of 5.7mm pistol ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1454</uiIndex>
+    <szItemName>5.7x28mm Box HP</szItemName>
+    <szLongItemName>5.7x28mm Box, HP</szLongItemName>
+    <szItemDesc>These rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
+    <szBRName>5.7x28mm Box HP</szBRName>
+    <szBRDesc>Get the job done right the first time. You're kill-rate will be the best around if you use this 5.7mm Hollow Point ammunition. Your victim's chance at survival: roughly zero per cent, give or take a few points.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1455</uiIndex>
+    <szItemName>5.7x28mm Box AET</szItemName>
+    <szLongItemName>5.7x28mm Box, AET</szLongItemName>
+    <szItemDesc>Armored or not, reduce your attacker to bloody tatters with a burst of AET ammo.</szItemDesc>
+    <szBRName>5.7x28mm Box AET</szBRName>
+    <szBRDesc>Armored or not, reduce your attacker to bloody tatters with a burst of AET ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1456</uiIndex>
+    <szItemName>Dart Box</szItemName>
+    <szLongItemName>Box of Tranquilizer Darts</szLongItemName>
+    <szItemDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szItemDesc>
+    <szBRName>Tranquilizer Darts</szBRName>
+    <szBRDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.' This practical box contains 10 Darts.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1457</uiIndex>
+    <szItemName>.50 BMG Box AP</szItemName>
+    <szLongItemName>.50 BMG Box, AP</szLongItemName>
+    <szItemDesc>This nice little box contains .50 BMG bullets.</szItemDesc>
+    <szBRName>.50 BMG Box AP</szBRName>
+    <szBRDesc>This nice little box contains 15 .50 BMG bullets.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1458</uiIndex>
+    <szItemName>9x39mm Box AP</szItemName>
+    <szLongItemName>9x39mm Box, AP</szLongItemName>
+    <szItemDesc>Heavier than regular 9mm ammo, this spam can contains ammunition for a unique set of Russian firearms.</szItemDesc>
+    <szBRName>9x39mm Box AP</szBRName>
+    <szBRDesc>Heavier than regular 9mm ammo, this spam can contains 80 rounds of ammunition for a unique set of Russian firearms.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1459</uiIndex>
+    <szItemName>4.6x30mm Box AP</szItemName>
+    <szLongItemName>4.6x30mm Box, AP</szLongItemName>
+    <szItemDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szItemDesc>
+    <szBRName>4.6x30mm Box AP</szBRName>
+    <szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1460</uiIndex>
+    <szItemName>4.6x30mm Box AET</szItemName>
+    <szLongItemName>4.6x30mm Box, AET</szLongItemName>
+    <szItemDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szItemDesc>
+    <szBRName>4.6x30mm Box AET</szBRName>
+    <szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1461</uiIndex>
+    <szItemName>7.62x25mm Box AP</szItemName>
+    <szLongItemName>7.62x25mm Box, AP</szLongItemName>
+    <szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szItemDesc>
+    <szBRName>7.62x25mm Box AP</szBRName>
+    <szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1462</uiIndex>
+    <szItemName>7.62x25mm Box HP</szItemName>
+    <szLongItemName>7.62x25mm Box, HP</szLongItemName>
+    <szItemDesc>Great for use on unarmored foes and common household pests.</szItemDesc>
+    <szBRName>7.62x25mm Box HP</szBRName>
+    <szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1463</uiIndex>
+    <szItemName>7.62x25mm Box C</szItemName>
+    <szLongItemName>7.62x25mm Box, Cold</szLongItemName>
+    <szItemDesc>Cold loaded ammo, when you need a small, but authoritative voice.</szItemDesc>
+    <szBRName>7.62x25mm Box Cold</szBRName>
+    <szBRDesc>Cold loaded ammo, when you need a small, but authoritative voice.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1464</uiIndex>
+    <szItemName>7.62x25mm Box HP C</szItemName>
+    <szLongItemName>7.62x25mm Box, HP Cold</szLongItemName>
+    <szItemDesc>Quiet and heavy hitting as a Russian blizzard.</szItemDesc>
+    <szBRName>7.62x25mm Box HP Cold</szBRName>
+    <szBRDesc>Quiet and heavy hitting as a Russian blizzard.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1465</uiIndex>
+    <szItemName>7.62x25mm Box AET</szItemName>
+    <szLongItemName>7.62x25mm Box, AET</szLongItemName>
+    <szItemDesc>AET rounds for Russian SMGs (and cheap Chinese copies).</szItemDesc>
+    <szBRName>7.62x25mm Box AET</szBRName>
+    <szBRDesc>New for the 7.62x25mm caliber: We now have AET rounds available, so you can take advantage of this technology if you are using Russian made SMGs.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1466</uiIndex>
+    <szItemName>12.7x108mm Box AP</szItemName>
+    <szLongItemName>12.7x108mm Box, AP</szLongItemName>
+    <szItemDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szItemDesc>
+    <szBRName>12.7x108mm Box AP</szBRName>
+    <szBRDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1467</uiIndex>
+    <szItemName>9x18mm Box</szItemName>
+    <szLongItemName>9x18mm Box</szLongItemName>
+    <szItemDesc>9x18mm Makarov is an inexpensive but effective ammunition.</szItemDesc>
+    <szBRName>9x18mm Box</szBRName>
+    <szBRDesc>9x18mm Makarov is an inexpensive but effective ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1468</uiIndex>
+    <szItemName>9x18mm Box HP</szItemName>
+    <szLongItemName>9x18mm Box, HP</szLongItemName>
+    <szItemDesc>These hollowpoint 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szItemDesc>
+    <szBRName>9x18mm Box HP</szBRName>
+    <szBRDesc>These hollowpoint 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1469</uiIndex>
+    <szItemName>9x18mm Box AP</szItemName>
+    <szLongItemName>9x18mm Box, AP</szLongItemName>
+    <szItemDesc>These armor piercing 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szItemDesc>
+    <szBRName>9x18mm Box AP</szBRName>
+    <szBRDesc>These armor piercing 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1470</uiIndex>
+    <szItemName>9x18mm Box G</szItemName>
+    <szLongItemName>9x18mm Box, Glaser</szLongItemName>
+    <szItemDesc>A box filled with 12 Glaser rounds in the 9x18mm pistol caliber.</szItemDesc>
+    <szBRName>9x18mm Box Glaser</szBRName>
+    <szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1471</uiIndex>
+    <szItemName>.40 S&amp;W Box</szItemName>
+    <szLongItemName>.40 S&amp;W Box</szLongItemName>
+    <szItemDesc>.40 S&amp;W emerged in the late 1990s as "middle of the road" round with more stopping power than the 9mm and more penetration than the .45ACP.</szItemDesc>
+    <szBRName>.40 S&amp;W Box</szBRName>
+    <szBRDesc>.40S&amp;W is a popular ammunition among many law enforcement officers.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1472</uiIndex>
+    <szItemName>.40 S&amp;W Box HP</szItemName>
+    <szLongItemName>.40 S&amp;W Box, HP</szLongItemName>
+    <szItemDesc>This hollow point ammo gives increased punch to the the .40 S&amp;W's already significant stopping power.</szItemDesc>
+    <szBRName>.40 S&amp;W Box HP</szBRName>
+    <szBRDesc>The expansion power of HP adds substance to this powerful pistol ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1473</uiIndex>
+    <szItemName>.40 S&amp;W Box AP</szItemName>
+    <szLongItemName>.40 S&amp;W Box, AP</szLongItemName>
+    <szItemDesc>Punch holes in the competition with these handy AP rounds.</szItemDesc>
+    <szBRName>.40 S&amp;W Box AP</szBRName>
+    <szBRDesc>Punch holes in the competition with these handy AP rounds.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1474</uiIndex>
+    <szItemName>.40 S&amp;W Box G</szItemName>
+    <szLongItemName>.40 S&amp;W Box, Glaser</szLongItemName>
+    <szItemDesc>All of the man-stopping power, none of the over-penetration all packed into .40 S&amp;W rounds.</szItemDesc>
+    <szBRName>.40 S&amp;W Box Glaser</szBRName>
+    <szBRDesc>All of the man-stopping power, none of the over-penetration all packed into .40 S&amp;W rounds.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1475</uiIndex>
+    <szItemName>.40 S&amp;W Box M</szItemName>
+    <szLongItemName>.40 S&amp;W Box, Match</szLongItemName>
+    <szItemDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szItemDesc>
+    <szBRName>.40 S&amp;W Box Match</szBRName>
+    <szBRDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1476</uiIndex>
+    <szItemName>.40 S&amp;W Box AET</szItemName>
+    <szLongItemName>.40 S&amp;W Box, AET</szLongItemName>
+    <szItemDesc>A fruitful marriage of penerating power and game-stopping expansion in .40 caliber.</szItemDesc>
+    <szBRName>.40 S&amp;W Box AET</szBRName>
+    <szBRDesc>Armored targets will go down and stay down when you tag them with this potent AET round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1477</uiIndex>
+    <szItemName>7.62x54R Box AP</szItemName>
+    <szLongItemName>7.62x54R Box, AP</szLongItemName>
+    <szItemDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection.</szItemDesc>
+    <szBRName>7.62x54R Box AP</szBRName>
+    <szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1478</uiIndex>
+    <szItemName>7.62x54R Box T</szItemName>
+    <szLongItemName>7.62x54R Box, Tracer</szLongItemName>
+    <szItemDesc>Ranging and shot placement are easy with these rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szItemDesc>
+    <szBRName>7.62x54R Box Tracer</szBRName>
+    <szBRDesc>Ranging and shot placement are easy with these rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1479</uiIndex>
+    <szItemName>7.62x54R Box M</szItemName>
+    <szLongItemName>7.62x54R Box, Match</szLongItemName>
+    <szItemDesc>7.62x54R Match ammunition.</szItemDesc>
+    <szBRName>7.62x54R Box Match</szBRName>
+    <szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds of Match Ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1480</uiIndex>
+    <szItemName>.338 Lapua Box AP</szItemName>
+    <szLongItemName>.338 Lapua Box, AP</szLongItemName>
+    <szItemDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szItemDesc>
+    <szBRName>.338 Lapua Box AP</szBRName>
+    <szBRDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1481</uiIndex>
+    <szItemName>.44 Box</szItemName>
+    <szLongItemName>.44 Magnum Box</szLongItemName>
+    <szItemDesc>This box contains .44 standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szItemDesc>
+    <szBRName>.44 Magnum Box</szBRName>
+    <szBRDesc>This box contains .44 standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1482</uiIndex>
+    <szItemName>.44 Box HP</szItemName>
+    <szLongItemName>.44 Magnum Box, HP</szLongItemName>
+    <szItemDesc>These .44 rounds have had their points drilled out to maximize their effectiveness against targets without armor.</szItemDesc>
+    <szBRName>.44 Magnum Box HP</szBRName>
+    <szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1483</uiIndex>
+    <szItemName>.44 Box AP</szItemName>
+    <szLongItemName>.44 Magnum Box, AP</szLongItemName>
+    <szItemDesc>Made primarily of brass, these rounds are designed to defeat most kinds of body armor and feature a teflon coating to minimize barrel wear.</szItemDesc>
+    <szBRName>.44 Magnum Box AP</szBRName>
+    <szBRDesc>Made primarily of brass, these rounds are designed to defeat most kinds of body armor and feature a teflon coating to minimize barrel wear.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1484</uiIndex>
+    <szItemName>.44 Box G</szItemName>
+    <szLongItemName>.44 Magnum Box, Glaser</szLongItemName>
+    <szItemDesc>If these rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with.</szItemDesc>
+    <szBRName>.44 Magnum Box Glaser</szBRName>
+    <szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1485</uiIndex>
+    <szItemName>.44 Box AET</szItemName>
+    <szLongItemName>.44 Magnum Box, AET</szLongItemName>
+    <szItemDesc>Advanced high speed rounds that make body armor a joke.</szItemDesc>
+    <szBRName>.44 Magnum Box AET</szBRName>
+    <szBRDesc>Advanced high speed rounds that make body armor a joke.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1486</uiIndex>
+    <szItemName>10mm Box</szItemName>
+    <szLongItemName>10mm Box</szLongItemName>
+    <szItemDesc>Introduced in 1979 under the design of Jeff Cooper, 10mm ammo shares the dimensions, but not the popularity, of .40 S&amp;W.</szItemDesc>
+    <szBRName>10mm Box</szBRName>
+    <szBRDesc>Developed for its stopping power, 10mm is not an uncommon ordninance for police and counter-terrorist agents.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1487</uiIndex>
+    <szItemName>10mm Box HP</szItemName>
+    <szLongItemName>10mm Box, HP</szLongItemName>
+    <szItemDesc>Introduced in 1979 under the design of Jeff Cooper, 10mm ammo shares the dimensions, but not the popularity, of .40 S&amp;W.</szItemDesc>
+    <szBRName>10mm Box HP</szBRName>
+    <szBRDesc>10mm HP is perfect for detering persistent foes.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1488</uiIndex>
+    <szItemName>10mm Box AP</szItemName>
+    <szLongItemName>10mm Box, AP</szLongItemName>
+    <szItemDesc>Introduced in 1979 under the design of Jeff Cooper, 10mm ammo shares the dimensions, but not the popularity, of .40 S&amp;W.</szItemDesc>
+    <szBRName>10mm Box AP</szBRName>
+    <szBRDesc>Targets in armor are no match for an AP round in their 10 ring.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1489</uiIndex>
+    <szItemName>10mm Box G</szItemName>
+    <szLongItemName>10mm Box, Glaser</szLongItemName>
+    <szItemDesc>All of the man-stopping power, none of the over-penetration.</szItemDesc>
+    <szBRName>10mm Box Glaser</szBRName>
+    <szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1490</uiIndex>
+    <szItemName>10mm Box AET</szItemName>
+    <szLongItemName>10mm Box, AET</szLongItemName>
+    <szItemDesc>The pinnacle of terminal ballistics combines armor defeating capability with the punch of a hollow point bullet in one small deadly package.</szItemDesc>
+    <szBRName>10mm Box AET</szBRName>
+    <szBRDesc>10mm AET doesn't brake for armor or tough organic matter. Burn down the burliest opponent regardless of ballistic armor.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1491</uiIndex>
+    <szItemName>10mm Box M</szItemName>
+    <szLongItemName>10mm Box, Match</szLongItemName>
+    <szItemDesc>Increased range and performance are features of this hard hitting round.</szItemDesc>
+    <szBRName>10mm Box Match</szBRName>
+    <szBRDesc>Increased range and performance are features of this hard hitting round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1492</uiIndex>
+    <szItemName>12.3x50mm Box BS</szItemName>
+    <szLongItemName>12.3x50mm Box, Buckshot</szLongItemName>
+    <szItemDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szItemDesc>
+    <szBRName>12.3x50mm Box Buckshot</szBRName>
+    <szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1493</uiIndex>
+    <szItemName>12.3x50mm Box FL</szItemName>
+    <szLongItemName>12.3x50mm Box, Flechette</szLongItemName>
+    <szItemDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szItemDesc>
+    <szBRName>12.3x50mm Box Flechette</szBRName>
+    <szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1494</uiIndex>
+    <szItemName>9x21mm Box AP</szItemName>
+    <szLongItemName>9x21mm Box, AP</szLongItemName>
+    <szItemDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szItemDesc>
+    <szBRName>9x21mm Box AP</szBRName>
+    <szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away. This box contains 100 rounds.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1495</uiIndex>
+    <szItemName>7.62x37mm Box AP</szItemName>
+    <szLongItemName>7.62x37mm Box, AP</szLongItemName>
+    <szItemDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szItemDesc>
+    <szBRName>7.62x37mm Box AP</szBRName>
+    <szBRDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1496</uiIndex>
+    <szItemName>5.45x18mm Box AP</szItemName>
+    <szLongItemName>5.45x18mm Box, AP</szLongItemName>
+    <szItemDesc>These armor piercing 5.45x18mm rounds are an inexpensive but effective ammunition.</szItemDesc>
+    <szBRName>5.45x18mm Box AP</szBRName>
+    <szBRDesc>These armor piercing 5.45x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1497</uiIndex>
+    <szItemName>5.45x18mm Box HP</szItemName>
+    <szLongItemName>5.45x18mm Box, HP</szLongItemName>
+    <szItemDesc>These hollowpoint 5.45x18mm rounds are an inexpensive but effective ammunition.</szItemDesc>
+    <szBRName>5.45x18mm Box HP</szBRName>
+    <szBRDesc>These hollowpoint 5.45x18mm rounds are an inexpensive but effective ammunition.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1498</uiIndex>
+    <szItemName>.50 AE Box AP</szItemName>
+    <szLongItemName>.50 Action Express Box, AP</szLongItemName>
+    <szItemDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szItemDesc>
+    <szBRName>.50 Action Express Box AP</szBRName>
+    <szBRDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1499</uiIndex>
+    <szItemName>.50 AE Box HP</szItemName>
+    <szLongItemName>.50 Action Express Box, HP</szLongItemName>
+    <szItemDesc>The already strong .50 AE is even more effective against unarmored targets with these hollowpoint bullets.</szItemDesc>
+    <szBRName>.50 Action Express Box HP</szBRName>
+    <szBRDesc>The already strong .50 AE is even more effective against unarmored targets with these hollowpoint bullets.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1500</uiIndex>
+    <szItemName>.454 C Box</szItemName>
+    <szLongItemName>.454 Casull Box</szLongItemName>
+    <szItemDesc>.454 Casull is a round developed for some truly large revolvers.</szItemDesc>
+    <szBRName>.454 Casull Box</szBRName>
+    <szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1501</uiIndex>
+    <szItemName>.454 C Box HP</szItemName>
+    <szLongItemName>.454 Casull Box, HP</szLongItemName>
+    <szItemDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szItemDesc>
+    <szBRName>.454 Casull Box HP</szBRName>
+    <szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1502</uiIndex>
+    <szItemName>.454 C Box AP</szItemName>
+    <szLongItemName>.454 Casull Box, AP</szLongItemName>
+    <szItemDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szItemDesc>
+    <szBRName>.454 Casull Box AP</szBRName>
+    <szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1503</uiIndex>
+    <szItemName>.45 WM Box</szItemName>
+    <szLongItemName>.45 WM Box</szLongItemName>
+    <szItemDesc>.45WM is a round developed for some truly large hand cannons.</szItemDesc>
+    <szBRName>.45 WM Box</szBRName>
+    <szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1504</uiIndex>
+    <szItemName>.45 WM Box HP</szItemName>
+    <szLongItemName>.45 WM Box, HP</szLongItemName>
+    <szItemDesc>Hollowpoint ammo for the Wildey pistol and other .45 WinMag pistols.</szItemDesc>
+    <szBRName>.45 WM Box HP</szBRName>
+    <szBRDesc>Hollowpoint ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1505</uiIndex>
+    <szItemName>.45 WM Box AP</szItemName>
+    <szLongItemName>.45 WM Box, AP</szLongItemName>
+    <szItemDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szItemDesc>
+    <szBRName>.45 WM Box AP</szBRName>
+    <szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1506</uiIndex>
+    <szItemName>.50 Beowulf Box AP</szItemName>
+    <szLongItemName>.50 Beowulf Box, AP</szLongItemName>
+    <szItemDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szItemDesc>
+    <szBRName>.50 Beowulf Box AP</szBRName>
+    <szBRDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1507</uiIndex>
+    <szItemName>.50 Beowulf Box HP</szItemName>
+    <szLongItemName>.50 Beowulf Box, HP</szLongItemName>
+    <szItemDesc>These highpowered .50 Beowulf hollowpoint rounds pack a big punch for a big gun.</szItemDesc>
+    <szBRName>.50 Beowulf Box HP</szBRName>
+    <szBRDesc>These highpowered .50 Beowulf hollowpoint rounds pack a big punch for a big gun.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1508</uiIndex>
+    <szItemName>.300 WM Box AP</szItemName>
+    <szLongItemName>.300 WinMag Box, AP</szLongItemName>
+    <szItemDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szItemDesc>
+    <szBRName>.300 WinMag Box AP</szBRName>
+    <szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1509</uiIndex>
+    <szItemName>.300 WM Box HP</szItemName>
+    <szLongItemName>.300 WinMag Box, HP</szLongItemName>
+    <szItemDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szItemDesc>
+    <szBRName>.300 WinMag Box HP</szBRName>
+    <szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1510</uiIndex>
+    <szItemName>7.92x57mm Box AP</szItemName>
+    <szLongItemName>7.92x57mm Box, AP</szLongItemName>
+    <szItemDesc>The German Army's AP rifle ammunition in WW-II.</szItemDesc>
+    <szBRName>7.92x57mm Box AP</szBRName>
+    <szBRDesc>50 rounds of armorpiercing ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1511</uiIndex>
+    <szItemName>7.92x57mm Box HP</szItemName>
+    <szLongItemName>7.92x57mm Box, HP</szLongItemName>
+    <szItemDesc>The German Army's HP rifle ammunition in WW-II.</szItemDesc>
+    <szBRName>7.92x57mm Box HP</szBRName>
+    <szBRDesc>50 rounds of Softpoint ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1512</uiIndex>
+    <szItemName>12.7x97mm Box Sub AP</szItemName>
+    <szLongItemName>12.7x97mm Box, Subsonic AP</szLongItemName>
+    <szItemDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szItemDesc>
+    <szBRName>12.7x97mm Box Subsonic AP</szBRName>
+    <szBRDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1513</uiIndex>
+    <szItemName>5.56x45mm SCF Box AP</szItemName>
+    <szLongItemName>5.56x45mm SCF Box, AP</szLongItemName>
+    <szItemDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szItemDesc>
+    <szBRName>5.56x45mm SCF Box AP</szBRName>
+    <szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1514</uiIndex>
+    <szItemName>.30-06 Box AP</szItemName>
+    <szLongItemName>.30-06 Box, AP</szLongItemName>
+    <szItemDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szItemDesc>
+    <szBRName>.30-06 Box AP</szBRName>
+    <szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1515</uiIndex>
+    <szItemName>.30 Car Box</szItemName>
+    <szLongItemName>.30 Car Box</szLongItemName>
+    <szItemDesc>Steel Core ammo for the old M1 Carbine.</szItemDesc>
+    <szBRName>.30 Car Box</szBRName>
+    <szBRDesc>Steel Core ammo for the old M1 Carbine.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1516</uiIndex>
+    <szItemName>.30 Car Box AP</szItemName>
+    <szLongItemName>.30 Car Box, AP</szLongItemName>
+    <szItemDesc>Full Metal Jacket ammo for the old M1 Carbine.</szItemDesc>
+    <szBRName>.30 Car Box AP</szBRName>
+    <szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1517</uiIndex>
+    <szItemName>.30 Car Box HP</szItemName>
+    <szLongItemName>.30 Car Box, HP</szLongItemName>
+    <szItemDesc>Hollowpoint ammo for the old M1 Carbine.</szItemDesc>
+    <szBRName>.30 Car Box HP</szBRName>
+    <szBRDesc>Hollowpoint ammo for the old M1 Carbine.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1518</uiIndex>
+    <szItemName>6x35mm Box AP</szItemName>
+    <szLongItemName>6x35mm Box, AP</szLongItemName>
+    <szItemDesc>Full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szItemDesc>
+    <szBRName>6x35mm Box AP</szBRName>
+    <szBRDesc>Full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1519</uiIndex>
+    <szItemName>6x35mm Box HP</szItemName>
+    <szLongItemName>6x35mm Box, HP</szLongItemName>
+    <szItemDesc>Hollowpoint ammo for 6x35mm PDW-class guns.</szItemDesc>
+    <szBRName>6x35mm Box HP</szBRName>
+    <szBRDesc>Here's what you need for your shiny new 6x35mm PDW: hollowpoint bullets for anti-personnel work.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1520</uiIndex>
+    <szItemName>6.8x43mm SPC Box AP</szItemName>
+    <szLongItemName>6.8x43mm SPC Box, AP</szLongItemName>
+    <szItemDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szItemDesc>
+    <szBRName>6.8x43mm SPC Box AP</szBRName>
+    <szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1521</uiIndex>
+    <szItemName>6.8x43mm SPC Box HP</szItemName>
+    <szLongItemName>6.8x43mm SPC Box, HP</szLongItemName>
+    <szItemDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szItemDesc>
+    <szBRName>6.8x43mm SPC Box HP</szBRName>
+    <szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1522</uiIndex>
+    <szItemName>KAC Masterkey</szItemName>
+    <szLongItemName>KAC Masterkey</szLongItemName>
+    <szItemDesc>The 12-gauge Masterkey shotgun can be mounted under standard rifles as a breaching tool when used with special ammo.</szItemDesc>
+    <szBRName>KAC Masterkey</szBRName>
+    <szBRDesc>Tired of having to pack an Assault Rifle and an additional Shotgun? With this specially adapted shotgun, you can carry 2 in 1!</szBRDesc>
+  </ITEM>
 </ITEMLIST>
