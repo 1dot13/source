@@ -188,6 +188,10 @@ BOOLEAN						gBACKUPfForceFullScreenRefresh;
 BOOLEAN						gfPrintFrameBuffer;
 UINT32						guiPrintFrameBufferIndex;
 
+// DX Loop Error Count Limiter
+const INT32					iMaxDXLoopCount = 10; 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // External Variables
@@ -1075,6 +1079,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 	INT16					sShiftX, sShiftY;
 	INT32					uiCountY;
 	UINT32					uiDestPitchBYTES;
+	INT32 iDXLoopCount = 0; 
 
 
 	GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
@@ -1124,7 +1129,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1169,7 +1174,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1217,7 +1222,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1264,7 +1269,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1312,7 +1317,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1361,7 +1366,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1410,7 +1415,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1460,7 +1465,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1537,7 +1542,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 				}
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					break;
 				}
@@ -1623,7 +1628,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 				{
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 
 					}
@@ -1663,6 +1668,7 @@ void RefreshScreen(void *DummyVariable)
 	static POINT	MousePos;
 	static BOOLEAN fFirstTime = TRUE;
 	UINT32						uiTime;
+	INT32 iDXLoopCount = 0; 
 
 	usScreenWidth = usScreenHeight = 0;
 
@@ -1754,7 +1760,7 @@ void RefreshScreen(void *DummyVariable)
 			{
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount) )
 				{
 					goto ENDOFLOOP;
 				}
@@ -1830,7 +1836,7 @@ void RefreshScreen(void *DummyVariable)
 						}
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-						if (ReturnCode == DDERR_SURFACELOST || ReturnCode == DDERR_SURFACEBUSY)
+						if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 						{
 							goto ENDOFLOOP;
 						}
@@ -1855,7 +1861,7 @@ void RefreshScreen(void *DummyVariable)
 							DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 						}
 
-						if (ReturnCode == DDERR_SURFACELOST)
+						if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 						{
 							goto ENDOFLOOP;
 						}
@@ -1891,7 +1897,7 @@ void RefreshScreen(void *DummyVariable)
 							DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 						}
 
-						if (ReturnCode == DDERR_SURFACELOST)
+						if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 						{
 							goto ENDOFLOOP;
 						}
@@ -2258,7 +2264,7 @@ void RefreshScreen(void *DummyVariable)
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 					}
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2287,7 +2293,7 @@ void RefreshScreen(void *DummyVariable)
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 					}
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2374,7 +2380,7 @@ void RefreshScreen(void *DummyVariable)
 				}
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					goto ENDOFLOOP;
 				}
@@ -2406,7 +2412,7 @@ void RefreshScreen(void *DummyVariable)
 				}
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					goto ENDOFLOOP;
 				}
@@ -2431,7 +2437,7 @@ void RefreshScreen(void *DummyVariable)
 				{
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2466,7 +2472,7 @@ void RefreshScreen(void *DummyVariable)
 				{
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2486,7 +2492,7 @@ void RefreshScreen(void *DummyVariable)
 				{
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2511,7 +2517,7 @@ void RefreshScreen(void *DummyVariable)
 				{
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2540,7 +2546,7 @@ void RefreshScreen(void *DummyVariable)
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 					}
 
-					if (ReturnCode == DDERR_SURFACELOST)
+					if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 					{
 						goto ENDOFLOOP;
 					}
@@ -2573,7 +2579,7 @@ void RefreshScreen(void *DummyVariable)
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 				}
 
-				if (ReturnCode == DDERR_SURFACELOST)
+				if (ReturnCode == DDERR_SURFACELOST || (IS_ERROR(ReturnCode) && ++iDXLoopCount > iMaxDXLoopCount))
 				{
 					goto ENDOFLOOP;
 				}
