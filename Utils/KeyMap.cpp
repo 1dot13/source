@@ -4,19 +4,9 @@
 #include "KeyMap.h"
 #include <windows.h>
 #endif
+#include "text.h"
 
-// Enumeration support
-typedef struct EnumLookupType {
-	int value;
-	const STR name;
-} EnumLookupType;
-
-static const STR EnumToString(int value, const EnumLookupType *table);
-static int StringToEnum(const STR value, const EnumLookupType *table);
-static int EnumToIndex(int value, const EnumLookupType *table);
-static inline STR Trim(STR&p);
-
-static EnumLookupType gKeyTable[] = 
+static Str8EnumLookupType gKeyTable[] = 
 {
 	{VK_LBUTTON, "LBUTTON"},
 	{VK_RBUTTON, "RBUTTON"},
@@ -236,36 +226,6 @@ static EnumLookupType gKeyTable[] =
 	{VK_OEM_CLEAR, "OEM_CLEAR"},
 	{0, NULL}
 };
-
-
-
-// Enumeration Support
-const STR EnumToString(int value, const EnumLookupType *table) {
-	for (const EnumLookupType *itr = table; itr->name != NULL; ++itr) {
-		if (itr->value == value) return itr->name;
-	}
-	return NULL;
-}
-
-int StringToEnum(const STR value, const EnumLookupType *table) {
-	if (NULL == value || 0 == *value) 
-		return 0;
-
-	for (const EnumLookupType *itr = table; itr->name != NULL; ++itr) {
-		if (0 == _stricmp(value, itr->name)) 
-			return itr->value;
-	}
-	STR end = NULL;
-	return (int)strtol(value, &end, 0);
-}
-
-int EnumToIndex(int value, const EnumLookupType *table) {
-	int i = 0;
-	for (const EnumLookupType *itr = table; itr->name != NULL; ++itr, ++i) {
-		if (itr->value == value) return i;
-	}
-	return -1;
-}
 
 static inline STR Trim(STR &p) { 
 	while(isspace(*p)) *p++ = 0; 

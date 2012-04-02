@@ -2591,7 +2591,7 @@ STR16 gConditionDesc[] =
 
 //The headers used for the merc's money.
 
-CHAR16 gMoneyStatsDesc[][ 13 ] =
+CHAR16 gMoneyStatsDesc[][ 14 ] =
 {
 	L"Ammontare",
 	L"Rimanenti:", //this is the overall balance
