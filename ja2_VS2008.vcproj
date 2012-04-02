@@ -21,7 +21,7 @@
 			OutputDirectory="bin\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2.vsprops;.\ja2_Debug.vsprops;.\ja2_Libs.vsprops;.\ja2_LinkerVS2008.vsprops"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -98,7 +98,7 @@
 			OutputDirectory="bin\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2.vsprops;.\ja2_Libs.vsprops;.\ja2_LinkerVS2008.vsprops"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
@@ -127,7 +127,7 @@
 				EnableFunctionLevelLinking="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="0"
+				SuppressStartupBanner="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -178,7 +178,7 @@
 			OutputDirectory="bin\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2.vsprops;.\ja2_Libs.vsprops;.\ja2_Editor.vsprops;.\ja2_LinkerVS2008.vsprops"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops;.\ja2.vsprops;.\ja2_Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
@@ -207,7 +207,7 @@
 				EnableFunctionLevelLinking="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="0"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -224,7 +224,7 @@
 				OutputFile="$(OutDir)\MapEditor_EN_Release.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
-				GenerateDebugInformation="false"
+				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -258,7 +258,7 @@
 			OutputDirectory="bin\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2.vsprops;.\ja2_Libs.vsprops;.\ja2_Editor.vsprops;.\ja2_LinkerVS2008.vsprops"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -335,7 +335,7 @@
 			OutputDirectory="bin\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2.vsprops;.\ja2_Libs.vsprops;.\ja2_LinkerVS2008.vsprops"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -356,7 +356,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
+				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				WholeProgramOptimization="false"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
@@ -365,7 +365,7 @@
 				EnableFunctionLevelLinking="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

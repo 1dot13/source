@@ -236,6 +236,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="png.h"
 				WarningLevel="3"
+				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
 			<Tool
@@ -300,7 +301,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="png.h"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
 			<Tool

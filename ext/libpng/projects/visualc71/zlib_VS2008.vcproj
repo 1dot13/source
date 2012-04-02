@@ -228,6 +228,7 @@
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
+				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
 			<Tool
@@ -289,6 +290,7 @@
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
+				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
 			<Tool
