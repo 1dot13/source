@@ -176,6 +176,10 @@ BOOLEAN				gfCapturingVideo = FALSE;
 
 #endif
 
+#ifdef USE_VFS
+static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::String const& sSection);
+#endif
+
 HINSTANCE			ghInstance;
 
 
@@ -1393,6 +1397,7 @@ void GetRuntimeSettings( )
 #else
 	vfs::PropertyContainer oProps;
 	oProps.initFromIniFile(GAME_INI_FILE);
+	PopulateSectionFromCommandLine(oProps, "Ja2 Settings");
 #endif
 	
 #ifndef USE_VFS
@@ -1821,13 +1826,44 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 	MemFree(pCopy);
 }
 
+#ifdef USE_VFS
+static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::String const& sSection)
+{
+	const wchar_t* lpCommandLine = GetCommandLineW();
+	int argc = 0, nchars = 0;
+	ParseCommandLine( lpCommandLine, NULL, NULL, &argc, &nchars);
+	wchar_t **argv = (wchar_t **)_alloca(argc * sizeof(wchar_t *) + nchars * sizeof(wchar_t));
+	ParseCommandLine( lpCommandLine, argv, ((wchar_t*)argv) + argc * sizeof(wchar_t*), &argc, &nchars);
 
+	for (int i = 1; i < argc; i++)
+	{
+		wchar_t *arg = argv[i];
+		if (arg == NULL)
+			continue;
+		if (arg[0] == L'-' || arg[0] == L'/')
+		{
+			wchar_t *pkey = arg+1;
+			wchar_t *psep = wcspbrk(arg, L":=");
+			wchar_t *param = (psep ? psep+1 : NULL);
+			if (psep) *psep = 0;
+			if ( (param == NULL || param[0] == 0) && ( i+1<argc && ( argv[i+1][0] != L'-' || argv[i+1][0] != L'/' ) ) ) {
+				param = argv[++i];
+				argv[i] = NULL;
+			}
+			if (param != NULL)
+			{
+				oProps.setStringProperty(sSection, pkey, param);
+			}
+		}
+	}
+}
+#endif
 
 static LONG __stdcall SGPExceptionFilter(int exceptionCount, EXCEPTION_POINTERS* pExceptInfo)
 {
 #ifdef ENABLE_EXCEPTION_HANDLING
 
-	if (exceptionCount > 3)
+	if (exceptionCount >= 1)
 	{
 		// the exception handler writer can fail with exceptions too
 		__try

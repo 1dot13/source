@@ -12,18 +12,16 @@
 
 #include "ExceptionHandling.h"
 
+#include <time.h>
+#include <tlhelp32.h>
+#include <imagehlp.h>
 
 #ifdef JA2
 	#include "GameVersion.h"
 #endif
 
-
-
-
 //If we are to use exception handling
 #ifdef ENABLE_EXCEPTION_HANDLING
-
-
 
 
 const int NumCodeBytes = 16;	// Number of code bytes to record.
@@ -35,13 +33,6 @@ const int StackColumns = 8;		// Number of columns in stack dump.
 #define	ONEM			(ONEK*ONEK)
 #define	ONEG			(ONEK*ONEK*ONEK)
 
-
-
-
-
-
-
-
 //ppp
 void		ErrorLog(HWFILE LogFile, STR8	Format, ...);
 STR			GetExceptionString( DWORD uiExceptionCode );
@@ -51,6 +42,19 @@ BOOLEAN DisplayStack( HWFILE hFile, CONTEXT *pContext );
 void		RecordModuleList(HWFILE hFile );
 void		PrintTime(STR8 output, FILETIME TimeToPrint);
 static	void ShowModuleInfo(HWFILE hFile, HINSTANCE ModuleHandle);
+
+static LPTOP_LEVEL_EXCEPTION_FILTER g_pfnOrigFilt = NULL ;
+
+LONG __stdcall ERCrashDumpExceptionFilter(EXCEPTION_POINTERS* pExPtrs);
+LONG __stdcall ERCrashDumpExceptionFilterEx(const char* pAppName, const char* pPath, EXCEPTION_POINTERS* pExPtrs);
+static void ERLogModules(HWFILE fdump);
+
+#if defined(_IMAGEHLP_) && defined(_X86_)
+#define MAX_SYMNAME_SIZE  1024
+static CHAR symBuffer[sizeof(IMAGEHLP_SYMBOL)+MAX_SYMNAME_SIZE];
+static PIMAGEHLP_SYMBOL g_sym = (PIMAGEHLP_SYMBOL) symBuffer;
+static void ERLogStackWalk(HWFILE fdump, EXCEPTION_POINTERS* pExPtrs);
+#endif //defined(_IMAGEHLP_) && defined(_X86_)
 
 
 
@@ -75,7 +79,6 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 	//
 	//	Open a file to output the current state of the game
 	//
-
 
 	// Get the current time
 	GetLocalTime( &SysTime );
@@ -124,8 +127,8 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 	//Insert a new line
 	ErrorLog( hFile, zNewLine );
 
-	//Display the address of where the exception occured
-	sprintf( zString, "Exception occured at address: 0x%08x\r\n", Record.ExceptionAddress );
+	//Display the address of where the exception occurred
+	sprintf( zString, "Exception occurred at address: 0x%08x\r\n", Record.ExceptionAddress );
 	ErrorLog( hFile, zString );
 
 
@@ -134,12 +137,12 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 	{
 		if( Record.ExceptionInformation[0] != 0 )
 		{
-			//Display the address of where the access violation occured
+			//Display the address of where the access violation occurred
 			sprintf( zString, "\tWrite Access Violation at: 0x%08x\r\n", Record.ExceptionInformation[1] );
 		}
 		else
 		{
-			//Display the address of where the access violation occured
+			//Display the address of where the access violation occurred
 			sprintf( zString, "\tWrite Access Violation at: 0x%08x\r\n", Record.ExceptionInformation[1] );
 		}
 
@@ -169,12 +172,16 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 	ErrorLog( hFile, zNewLine );
 	ErrorLog( hFile, zNewLine );
 
-
 	//
 	// Display the current context information
 	//
 	DisplayRegisters( hFile, &Context );
 
+	ErrorLog( hFile, zNewLine );
+	ErrorLog( hFile, zNewLine );
+
+	// Stack walk if symbles are available
+	ERLogStackWalk( hFile, pExceptInfo );
 	ErrorLog( hFile, zNewLine );
 	ErrorLog( hFile, zNewLine );
 
@@ -186,8 +193,9 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 	ErrorLog( hFile, zNewLine );
 
 	//Display all modules currently loaded
-	RecordModuleList(hFile );
+	//RecordModuleList(hFile );
 
+	ERLogModules(hFile); // records version
 
 	//eee
 
@@ -299,7 +307,7 @@ BOOLEAN GetAndDisplayModuleAndSystemInfo( HWFILE hFile, CONTEXT *pContext )
 //	MEMORY_BASIC_INFORMATION	MemBasicInfo;
 	size_t PageSize;
 	size_t pageNum = 0;
-	FILETIME	LastWriteTime;
+	SGP_FILETIME LastWriteTime;
 
 	if( GetModuleFileName(0, zFileName, sizeof(zFileName) ) == 0)
 	{
@@ -314,7 +322,7 @@ BOOLEAN GetAndDisplayModuleAndSystemInfo( HWFILE hFile, CONTEXT *pContext )
 
 
 	//Get the time the file was created
-	if (GetFileTime(GetRealFileHandleFromFileManFileHandle( hFile ), 0, 0, &LastWriteTime))
+	if (GetFileManFileTime(hFile, 0, 0, &LastWriteTime))
 	{
 		PrintTime( zString, LastWriteTime);
 	
@@ -555,5 +563,818 @@ static void ShowModuleInfo(HWFILE hFile, HINSTANCE ModuleHandle)
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+
+/*----------------------------------------------------------------------
+"Debugging Applications" (Microsoft Press)
+Copyright (c) 1997-2000 John Robbins -- All rights reserved.
+----------------------------------------------------------------------*/
+
+
+#define _USE_VERSIONING_
+#define _USE_PSAPI_
+
+#ifdef _USE_VERSIONING_
+#include <winver.h>
+#endif
+#define _USE_PSAPI_
+#ifdef _USE_PSAPI_
+// Copied from psapi.h
+typedef struct _MODULEINFO {
+	LPVOID lpBaseOfDll;
+	DWORD SizeOfImage;
+	LPVOID EntryPoint;
+} MODULEINFO, *LPMODULEINFO;
+#endif
+
+#ifndef _IMAGEHLP64
+// copied from imagehlp.h
+typedef struct _ER_IMAGEHLP_LINE64 {
+	DWORD    SizeOfStruct;           // set to sizeof(IMAGEHLP_LINE64)
+	PVOID    Key;                    // internal
+	DWORD    LineNumber;             // line number in file
+	PCHAR    FileName;               // full filename
+	DWORD64  Address;                // first instruction of line
+} ER_IMAGEHLP_LINE64, *PER_IMAGEHLP_LINE64;
+#endif
+
+/*----------------------------------------------------------------------
+   IsNT - Detect if this is an NT installation
+----------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------
+"Debugging Applications" (Microsoft Press)
+Copyright (c) 1997-2000 John Robbins -- All rights reserved.
+----------------------------------------------------------------------*/
+
+BOOL __stdcall IsNT ( void )
+{
+	static BOOL s_bHasVersion = FALSE ; // Indicates that the version information is valid.
+	static BOOL s_bIsNT = TRUE ; // Indicates NT or 95/98.
+	BOOL bRet;
+    OSVERSIONINFO stOSVI ;
+
+    if ( TRUE == s_bHasVersion )
+        return ( TRUE == s_bIsNT ) ;
+
+    memset ( &stOSVI , 0, sizeof ( OSVERSIONINFO ) ) ;
+    stOSVI.dwOSVersionInfoSize = sizeof ( OSVERSIONINFO ) ;
+
+    bRet = GetVersionEx ( &stOSVI ) ;
+    if ( FALSE == bRet )
+        return ( FALSE ) ;
+
+    // Check the version and call the appropriate thing.
+    if ( VER_PLATFORM_WIN32_NT == stOSVI.dwPlatformId )
+        s_bIsNT = TRUE ;
+    else
+        s_bIsNT = FALSE ;
+    s_bHasVersion = TRUE ;
+    return ( TRUE == s_bIsNT ) ;
+}
+
+/*----------------------------------------------------------------------
+   Version.dll Wrappers
+----------------------------------------------------------------------*/
+#ifdef _USE_VERSIONING_
+
+typedef DWORD (__stdcall *FVN_GetFileVersionInfoSize)(LPCTSTR, LPDWORD );
+static FVN_GetFileVersionInfoSize g_GetFileVersionInfoSize = NULL;
+
+static DWORD __stdcall 
+ERGetFileVersionInfoSize(LPCTSTR lptstrFilename, LPDWORD lpdwHandle)
+{
+	if (g_GetFileVersionInfoSize)
+	{
+		return (*g_GetFileVersionInfoSize)(lptstrFilename, lpdwHandle);
+	}
+	return 0;
+}
+
+
+typedef BOOL (__stdcall *FVN_GetFileVersionInfo)(LPCTSTR, DWORD, DWORD, LPVOID);
+static FVN_GetFileVersionInfo g_GetFileVersionInfo = NULL;
+
+static BOOL __stdcall
+ERGetFileVersionInfo(LPCTSTR lptstrFilename, DWORD dwHandle, 
+						  DWORD dwLen, LPVOID lpData)
+{
+	if (g_GetFileVersionInfo)
+	{
+		return (*g_GetFileVersionInfo)(lptstrFilename, dwHandle, dwLen, lpData);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_VerQueryValue)(const LPVOID, LPTSTR, LPVOID *, PUINT);
+static FVN_VerQueryValue g_VerQueryValue = NULL;
+
+static BOOL __stdcall
+ERVerQueryValue(const LPVOID pBlock, LPTSTR lpSubBlock, 
+			  	            LPVOID *lplpBuffer, PUINT puLen)
+{
+	if (g_VerQueryValue)
+	{
+		return (*g_VerQueryValue)(pBlock, lpSubBlock, lplpBuffer, puLen);
+	}
+	return 0;
+}
+
+static HMODULE g_VerMod = NULL;
+static BOOL ERLoadVersionDLL()
+{
+	if (!g_VerMod)
+	{
+		g_VerMod = LoadLibrary("Version.dll");
+		if (g_VerMod)
+		{
+			g_GetFileVersionInfoSize = (FVN_GetFileVersionInfoSize)GetProcAddress(g_VerMod, "GetFileVersionInfoSizeA");
+			g_GetFileVersionInfo     = (FVN_GetFileVersionInfo)    GetProcAddress(g_VerMod, "GetFileVersionInfoA");
+			g_VerQueryValue          = (FVN_VerQueryValue)         GetProcAddress(g_VerMod, "VerQueryValueA");
+		}
+	}
+	if (g_VerMod && g_GetFileVersionInfoSize && g_GetFileVersionInfo && g_VerQueryValue)
+		return TRUE;
+	return FALSE;
+}
+
+#endif //_USE_VERSIONING_
+
+/*----------------------------------------------------------------------
+   imagehlp.dll Wrappers
+----------------------------------------------------------------------*/
+#if defined(_IMAGEHLP_) && defined(_X86_)
+
+typedef BOOL (__stdcall *FVN_SymInitialize)(HANDLE, PSTR, BOOL);
+static FVN_SymInitialize g_SymInitialize = NULL;
+
+static BOOL __stdcall
+ERSymInitialize(HANDLE hProcess, PSTR UserSearchPath, BOOL fInvadeProcess)
+{
+	if (g_SymInitialize)
+	{
+		return (*g_SymInitialize)(hProcess, UserSearchPath, fInvadeProcess);
+	}
+	return 0;
+}
+
+
+typedef BOOL (__stdcall *FVN_SymCleanup)(HANDLE);
+static FVN_SymCleanup g_SymCleanup = NULL;
+
+static BOOL __stdcall ERSymCleanup(HANDLE hProcess)
+{
+	if (g_SymCleanup)
+	{
+		return (*g_SymCleanup)(hProcess);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_StackWalk)(DWORD, HANDLE, HANDLE, LPSTACKFRAME, PVOID, 
+			  PREAD_PROCESS_MEMORY_ROUTINE,  PFUNCTION_TABLE_ACCESS_ROUTINE ,
+			  PGET_MODULE_BASE_ROUTINE, PTRANSLATE_ADDRESS_ROUTINE);
+static FVN_StackWalk g_StackWalk = NULL;
+
+static BOOL __stdcall ERStackWalk(
+  DWORD MachineType, 
+  HANDLE hProcess, 
+  HANDLE hThread, 
+  LPSTACKFRAME StackFrame, 
+  PVOID ContextRecord, 
+  PREAD_PROCESS_MEMORY_ROUTINE ReadMemoryRoutine,  
+  PFUNCTION_TABLE_ACCESS_ROUTINE FunctionTableAccessRoutine,
+  PGET_MODULE_BASE_ROUTINE GetModuleBaseRoutine, 
+  PTRANSLATE_ADDRESS_ROUTINE TranslateAddress 
+)
+{
+	if (g_StackWalk)
+	{
+		return (*g_StackWalk)(MachineType, hProcess, hThread, StackFrame, 
+				ContextRecord, ReadMemoryRoutine,  FunctionTableAccessRoutine, 
+				GetModuleBaseRoutine, TranslateAddress 
+			);
+	}
+	return 0;
+}
+
+typedef LPVOID (__stdcall *FVN_SymFunctionTableAccess)(HANDLE,  DWORD);
+static FVN_SymFunctionTableAccess g_SymFunctionTableAccess = NULL;
+
+static LPVOID __stdcall 
+ERSymFunctionTableAccess(HANDLE hProcess,  DWORD AddrBase)
+{
+	if (g_SymFunctionTableAccess)
+	{
+		return (*g_SymFunctionTableAccess)(hProcess,  AddrBase);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_SymGetModuleBase)(HANDLE, DWORD);
+static FVN_SymGetModuleBase g_SymGetModuleBase = NULL;
+
+static DWORD __stdcall 
+ERSymGetModuleBase(HANDLE hProcess, DWORD dwAddr)
+{
+	if (g_SymGetModuleBase)
+	{
+		return (*g_SymGetModuleBase)(hProcess, dwAddr);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_SymGetModuleInfo)(HANDLE, DWORD, PIMAGEHLP_MODULE);
+static FVN_SymGetModuleInfo g_SymGetModuleInfo = NULL;
+
+static BOOL __stdcall 
+ERSymGetModuleInfo(HANDLE hProcess, DWORD dwAddr, PIMAGEHLP_MODULE ModuleInfo)
+{
+	if (g_SymGetModuleInfo)
+	{
+		return (*g_SymGetModuleInfo)(hProcess, dwAddr, ModuleInfo);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_SymGetSymFromAddr)(HANDLE, DWORD, PDWORD, PIMAGEHLP_SYMBOL);
+static FVN_SymGetSymFromAddr g_SymGetSymFromAddr = NULL;
+
+static BOOL __stdcall 
+ERSymGetSymFromAddr(HANDLE hProcess, DWORD Address, PDWORD Displacement, PIMAGEHLP_SYMBOL Symbol)
+{
+	if (g_SymGetSymFromAddr)
+	{
+		return (*g_SymGetSymFromAddr)(hProcess, Address, Displacement, Symbol);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_SymGetLineFromAddr)(HANDLE, DWORD64, PDWORD, PER_IMAGEHLP_LINE64);
+static FVN_SymGetLineFromAddr g_SymGetLineFromAddr = NULL;
+static BOOL __stdcall 
+	ERSymGetLineFromAddr(HANDLE hProcess, DWORD64 Address, PDWORD Displacement, PER_IMAGEHLP_LINE64 Line)
+{
+	if (g_SymGetLineFromAddr)
+	{
+		return (*g_SymGetLineFromAddr)(hProcess, Address, Displacement, Line);
+	}
+	return 0;
+}
+
+typedef BOOL (WINAPI *FVN_MiniDumpWriteDump)(	HANDLE hProcess,
+	DWORD dwPid,
+	HANDLE hFile,
+	MINIDUMP_TYPE DumpType,
+	CONST PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
+	CONST PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
+	CONST PMINIDUMP_CALLBACK_INFORMATION CallbackParam);
+static FVN_MiniDumpWriteDump g_MiniDumpWriteDump = NULL;
+
+static CRITICAL_SECTION g_miniCritSec;
+
+static BOOL __stdcall 
+	ERMiniDumpWriteDump(HANDLE hProcess,
+	DWORD dwPid,
+	HANDLE hFile,
+	MINIDUMP_TYPE DumpType,
+	CONST PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
+	CONST PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
+	CONST PMINIDUMP_CALLBACK_INFORMATION CallbackParam)
+{
+	if (g_MiniDumpWriteDump)
+	{
+		// DBGHELP.DLL is not thread safe
+		BOOL result;
+		EnterCriticalSection(&g_miniCritSec);
+		result = (*g_MiniDumpWriteDump)(hProcess, dwPid, hFile, DumpType, ExceptionParam, UserStreamParam, CallbackParam);
+		LeaveCriticalSection(&g_miniCritSec);
+		return result;
+	}
+	return 0;
+}
+
+
+static HMODULE g_ImgHlpMod = NULL;
+static BOOL ERLoadImageHlpDLL()
+{
+	if (!g_ImgHlpMod)
+	{
+		g_ImgHlpMod = LoadLibrary("dbghelp.dll");
+		if (!g_ImgHlpMod)
+			g_ImgHlpMod = LoadLibrary("Imagehlp.dll");
+
+		if (g_ImgHlpMod)
+		{
+			g_SymInitialize = (FVN_SymInitialize)GetProcAddress(g_ImgHlpMod, "SymInitialize");
+			g_SymCleanup = (FVN_SymCleanup)GetProcAddress(g_ImgHlpMod, "SymCleanup");
+			g_StackWalk = (FVN_StackWalk)GetProcAddress(g_ImgHlpMod, "StackWalk");
+			g_SymFunctionTableAccess = (FVN_SymFunctionTableAccess)GetProcAddress(g_ImgHlpMod, "SymFunctionTableAccess");
+			g_SymGetModuleBase = (FVN_SymGetModuleBase)GetProcAddress(g_ImgHlpMod, "SymGetModuleBase");
+			g_SymGetModuleInfo = (FVN_SymGetModuleInfo)GetProcAddress(g_ImgHlpMod, "SymGetModuleInfo");
+			g_SymGetSymFromAddr = (FVN_SymGetSymFromAddr)GetProcAddress(g_ImgHlpMod, "SymGetSymFromAddr");
+			g_SymGetLineFromAddr = (FVN_SymGetLineFromAddr)GetProcAddress(g_ImgHlpMod, "SymGetLineFromAddr64");
+
+			InitializeCriticalSection(&g_miniCritSec);
+			g_MiniDumpWriteDump = (FVN_MiniDumpWriteDump)GetProcAddress(g_ImgHlpMod, "MiniDumpWriteDump");
+		}
+	}
+	if (g_ImgHlpMod && 
+		g_SymInitialize    && g_SymCleanup && 
+		g_StackWalk        && g_SymFunctionTableAccess && 
+		g_SymGetModuleBase && g_SymGetModuleInfo &&
+		g_SymGetSymFromAddr)
+		return TRUE;
+	return FALSE;
+}
+#endif // defined(_IMAGEHLP_) && defined(_X86_)
+
+
+/*----------------------------------------------------------------------
+   Version.dll Wrappers
+----------------------------------------------------------------------*/
+#ifdef _USE_PSAPI_
+
+typedef BOOL (__stdcall *FVN_EnumProcessModules)(HANDLE, HMODULE *, DWORD , LPDWORD );
+static FVN_EnumProcessModules g_EnumProcessModules = NULL;
+
+static BOOL __stdcall 
+EREnumProcessModules(HANDLE hProcess, HMODULE *lphModule, DWORD cb, LPDWORD lpcbNeeded)
+{
+	if (g_EnumProcessModules)
+	{
+		return (*g_EnumProcessModules)(hProcess, lphModule, cb, lpcbNeeded);
+	}
+	return 0;
+}
+
+typedef BOOL (__stdcall *FVN_GetModuleInformation)(HANDLE, HMODULE, LPMODULEINFO, DWORD);
+static FVN_GetModuleInformation g_GetModuleInformation = NULL;
+
+static BOOL __stdcall 
+ERGetModuleInformation(HANDLE hProcess, HMODULE hModule, LPMODULEINFO lpmodinfo, DWORD cb)
+{
+	if (g_GetModuleInformation)
+	{
+		return (*g_GetModuleInformation)(hProcess, hModule, lpmodinfo, cb);
+	}
+	return 0;
+}
+
+static HMODULE g_PSAPIMod = NULL;
+static BOOL ERLoadPSAPIDLL()
+{
+	if (!g_PSAPIMod)
+	{
+		g_PSAPIMod = LoadLibrary("psapi.dll");
+		if (g_PSAPIMod)
+		{
+			g_EnumProcessModules = (FVN_EnumProcessModules)GetProcAddress(g_PSAPIMod, "EnumProcessModules");
+			g_GetModuleInformation = (FVN_GetModuleInformation)GetProcAddress(g_PSAPIMod, "GetModuleInformation");
+		}
+	}
+	if (g_PSAPIMod && g_EnumProcessModules && g_GetModuleInformation)
+		return TRUE;
+	return FALSE;
+}
+
+
+#endif //_USE_PSAPI_
+
+
+#pragma region Crash MiniDump Handler
+
+static BOOL ERGetImpersonationToken(HANDLE* phToken)
+{
+	*phToken = NULL;
+	if(!OpenThreadToken(GetCurrentThread(), TOKEN_QUERY | TOKEN_ADJUST_PRIVILEGES, TRUE, phToken))
+	{
+		if(GetLastError() == ERROR_NO_TOKEN)
+		{
+			// No impersonation token for the current thread available - go for the process token
+			if(!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY | TOKEN_ADJUST_PRIVILEGES, phToken))
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+static BOOL EREnablePriv(LPCTSTR pszPriv, HANDLE hToken, TOKEN_PRIVILEGES* ptpOld)
+{
+	BOOL bOk = FALSE;
+
+	TOKEN_PRIVILEGES tp;
+	tp.PrivilegeCount = 1;
+	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+	bOk = LookupPrivilegeValue( 0, pszPriv, &tp.Privileges[0].Luid);
+	if(bOk)
+	{
+		DWORD cbOld = sizeof(*ptpOld);
+		bOk = AdjustTokenPrivileges(hToken, FALSE, &tp, cbOld, ptpOld, &cbOld);
+	}
+
+	return (bOk && (ERROR_NOT_ALL_ASSIGNED != GetLastError()));
+}
+
+static BOOL ERRestorePriv(HANDLE hToken, TOKEN_PRIVILEGES* ptpOld)
+{
+	BOOL bOk = AdjustTokenPrivileges(hToken, FALSE, ptpOld, 0, 0, 0);	
+	return (bOk && (ERROR_NOT_ALL_ASSIGNED != GetLastError()));
+}
+
+static BOOL ERGenerateMiniDump(CHAR *szFileName, PEXCEPTION_POINTERS pExceptionInfo)
+{
+	BOOL bRet = FALSE;
+	DWORD dwLastError = 0;
+	HANDLE hDumpFile = 0;
+	MINIDUMP_EXCEPTION_INFORMATION stInfo = {0};
+	TOKEN_PRIVILEGES tp;
+	HANDLE hImpersonationToken = NULL;
+	BOOL bPrivilegeEnabled;
+
+	if(!ERGetImpersonationToken(&hImpersonationToken))
+	{
+		return FALSE;
+	}
+
+	// Create the dump file
+	hDumpFile = CreateFileA(szFileName, 
+		GENERIC_READ | GENERIC_WRITE, 
+		FILE_SHARE_WRITE | FILE_SHARE_READ, 
+		0, CREATE_ALWAYS, 0, 0);
+	if(hDumpFile == INVALID_HANDLE_VALUE)
+	{
+		CloseHandle(hImpersonationToken);
+		return FALSE;
+	}
+
+	// Write the dump
+	stInfo.ThreadId = GetCurrentThreadId();
+	stInfo.ExceptionPointers = pExceptionInfo;
+	stInfo.ClientPointers = TRUE;
+
+	// We need the SeDebugPrivilege to be able to run MiniDumpWriteDump
+	bPrivilegeEnabled = EREnablePriv(SE_DEBUG_NAME, hImpersonationToken, &tp);
+
+	bRet = ERMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hDumpFile
+		, (MINIDUMP_TYPE)(MiniDumpWithHandleData|MiniDumpWithThreadInfo|MiniDumpWithDataSegs), &stInfo, NULL, NULL);
+	if(bPrivilegeEnabled)
+	{
+		// Restore the privilege
+		ERRestorePriv(hImpersonationToken, &tp);
+	}
+	
+	CloseHandle(hDumpFile);
+	CloseHandle(hImpersonationToken);
+
+	return bRet;
+}
+
+
+/*----------------------------------------------------------------------
+   Handler
+----------------------------------------------------------------------*/
+
+LONG __stdcall ERCrashDumpExceptionFilterEx(const CHAR *pAppName, const CHAR* pPath, EXCEPTION_POINTERS* pExPtrs)
+{
+	LONG lRet = EXCEPTION_CONTINUE_SEARCH ;
+	FILE *fdump = NULL;
+	HANDLE hProc = GetCurrentProcess();
+	SYSTEMTIME stTime;
+	CHAR pszFilename[MAX_PATH], szPathName[_MAX_PATH], szBuffer[_MAX_PATH];
+	size_t cbFilename = sizeof(pszFilename) / sizeof(pszFilename[0]) - 1;
+	if (!ERLoadImageHlpDLL())
+		return lRet;
+
+	__try
+	{
+		szPathName[0] = 0;
+		if (pPath && *pPath)
+			GetFullPathNameA(pPath, MAX_PATH, szPathName, NULL);
+		if (szPathName[strlen(szPathName)-1] != '\\')
+			lstrcat(szPathName, "\\");
+
+		// Create filename
+		GetLocalTime(&stTime); 
+
+		if (pAppName == NULL)
+		{
+			GetModuleFileName(NULL, szBuffer, MAX_PATH);
+			CHAR *pszFilePart = strrchr(szBuffer, '\\');
+			pszFilePart = (pszFilePart == NULL) ? szBuffer : pszFilePart+1;
+			if (CHAR *pExt = strrchr(pszFilePart, '.') )
+				*pExt = 0;
+			pAppName = pszFilePart;
+		}
+
+		// Filename is composed like this, to avoid collisions;
+		// <DumpPath>\<APP>-Crash-<PID>-<TID>-YYYYMMDD-HHMMSS.dmp
+		_snprintf_s(pszFilename, cbFilename, cbFilename, "%s-Crash-%ld-%ld-%04d%02d%02d-%02d%02d%02d", pAppName, GetCurrentProcessId(), GetCurrentThreadId(), stTime.wYear,stTime.wMonth,stTime.wDay,stTime.wHour, stTime.wMinute, stTime.wSecond);
+		lstrcat(szPathName, pszFilename);
+		lstrcpy(szPathName, ".dmp");
+
+		// Generate proper mini dump
+		ERGenerateMiniDump(szPathName, pExPtrs);
+	}	
+	__except ( EXCEPTION_EXECUTE_HANDLER )
+	{
+		lRet = EXCEPTION_CONTINUE_SEARCH ;
+	}
+	if (hProc != (HANDLE)0xFFFFFFFF) CloseHandle(hProc);
+	if (fdump) fclose(fdump);
+	return ( lRet ) ;
+}
+
+LONG __stdcall ERCrashDumpExceptionFilter (EXCEPTION_POINTERS* pExPtrs)
+{
+	return ERCrashDumpExceptionFilterEx(NULL, NULL, pExPtrs);
+}
+
+
+LONG __stdcall ERGetVersionStringA(LPCSTR szModName, LPSTR szVersion, int maxlen)
+{
+#ifdef _USE_VERSIONING_
+	if (ERLoadVersionDLL())
+	{
+		UINT  dwBytes = 0;     
+		LPVOID lpBuffer = 0; 
+		LPVOID lpData;
+		DWORD dwSize;
+
+		szVersion[0] = 0;
+		dwSize = ERGetFileVersionInfoSize(szModName, 0);
+		lpData = alloca(dwSize);
+		ERGetFileVersionInfo(szModName, 0, dwSize, lpData);
+		if (ERVerQueryValue(lpData, TEXT("\\"), &lpBuffer, &dwBytes))
+		{
+			VS_FIXEDFILEINFO *lpvs = (VS_FIXEDFILEINFO *)lpBuffer;
+			if (lpvs->dwFileVersionLS)
+			{
+				sprintf_s(szVersion, maxlen, "%d.%d.%d.%d",
+					HIWORD(lpvs->dwFileVersionMS),    LOWORD(lpvs->dwFileVersionMS),
+					HIWORD(lpvs->dwFileVersionLS),    LOWORD(lpvs->dwFileVersionLS)
+					);
+			}
+			else if (lpvs->dwFileVersionMS)
+			{
+				sprintf_s(szVersion, maxlen, "%d.%d",
+					HIWORD(lpvs->dwFileVersionMS),    LOWORD(lpvs->dwFileVersionMS)
+					);
+			}
+			return strlen(szVersion);
+		}
+	}
+#endif
+	return 0;
+}
+
+
+
+#if defined(_IMAGEHLP_) && defined(_X86_)
+
+BOOL __stdcall ERReadProcessMemory ( HANDLE   hProc,
+                                      LPCVOID lpBaseAddress,
+                                      LPVOID  lpBuffer,
+                                      DWORD   nSize,
+                                      LPDWORD lpNumberOfBytesRead  )
+{
+    return ( ReadProcessMemory ( GetCurrentProcess ( ) ,
+                                 lpBaseAddress         ,
+                                 lpBuffer              ,
+                                 nSize                 ,
+                                 lpNumberOfBytesRead    ) ) ;
+}
+
+static void ERLogStackWalk(HWFILE fdump, EXCEPTION_POINTERS* pExPtrs)
+{
+    #define SAVE_EBP(f)        f.Reserved[0]
+    #define TRAP_TSS(f)        f.Reserved[1]
+    #define TRAP_EDITED(f)     f.Reserved[1]
+    #define SAVE_TRAP(f)       f.Reserved[2]
+
+    DWORD dwDisplacement = 0;
+    char *szSymName;
+    IMAGEHLP_MODULE mi;
+    STACKFRAME stFrame;
+	DWORD i;
+	HANDLE hProc = (HANDLE)GetCurrentProcess();
+
+	if (!ERLoadImageHlpDLL())
+		return;
+
+	ErrorLog(fdump, "Stack Walk:\r\n");
+
+	ERSymInitialize(hProc, NULL, TRUE);
+
+	memset(g_sym, 0, MAX_SYMNAME_SIZE + sizeof(IMAGEHLP_SYMBOL) ) ;
+    g_sym->SizeOfStruct  = sizeof(IMAGEHLP_SYMBOL);
+    g_sym->MaxNameLength = MAX_SYMNAME_SIZE;
+
+
+    ZeroMemory( &stFrame, sizeof(stFrame) );
+
+    stFrame.AddrPC.Offset       = pExPtrs->ContextRecord->Eip ;
+    stFrame.AddrPC.Mode         = AddrModeFlat                ;
+    stFrame.AddrStack.Offset    = pExPtrs->ContextRecord->Esp ;
+    stFrame.AddrStack.Mode      = AddrModeFlat                ;
+    stFrame.AddrFrame.Offset    = pExPtrs->ContextRecord->Ebp ;
+    stFrame.AddrFrame.Mode      = AddrModeFlat                ;
+
+    ErrorLog(fdump, "FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name\r\n");
+
+    for (i=0; i<100; i++) 
+	{
+        if (!ERStackWalk( IMAGE_FILE_MACHINE_I386,
+						hProc,
+						GetCurrentThread(),
+						&stFrame,
+                        pExPtrs->ContextRecord,
+                        NULL,
+						ERSymFunctionTableAccess,
+						ERSymGetModuleBase,
+                        NULL)) 
+		{
+            break;
+        }
+		
+        if (ERSymGetSymFromAddr(hProc, stFrame.AddrPC.Offset, &dwDisplacement, g_sym)) {
+            szSymName = g_sym->Name;
+        }
+        else {
+            szSymName = "<nosymbols>";
+        }
+        ErrorLog(fdump, "%08x %08x %08x %08x %08x %08x ",
+					  stFrame.AddrFrame.Offset,
+					  stFrame.AddrReturn.Offset,
+					  stFrame.Params[0],
+					  stFrame.Params[1],
+					  stFrame.Params[2],
+					  stFrame.Params[3]
+                );
+
+        if (ERSymGetModuleInfo(hProc, stFrame.AddrPC.Offset, &mi )) {
+            ErrorLog(fdump, "%s!", mi.ModuleName );
+        }
+
+        ErrorLog(fdump, "%s ", szSymName );
+
+        if (g_sym && (g_sym->Flags & SYMF_OMAP_GENERATED || g_sym->Flags & SYMF_OMAP_MODIFIED)) {
+            ErrorLog(fdump, "[omap] " );
+        }
+
+        if (stFrame.FuncTableEntry) 
+		{
+            PFPO_DATA pFpoData = (PFPO_DATA)stFrame.FuncTableEntry;
+            switch (pFpoData->cbFrame) 
+			{
+                case FRAME_FPO:
+                    if (pFpoData->fHasSEH) 
+					{
+                        ErrorLog(fdump, "(FPO: [SEH])" );
+                    } else 
+					{
+                        ErrorLog(fdump, " (FPO:" );
+                        if (pFpoData->fUseBP) 
+						{
+                            ErrorLog(fdump, " [EBP 0x%08x]", SAVE_EBP(stFrame) );
+                        }
+                        ErrorLog(fdump, " [%d,%d,%d])",   pFpoData->cdwParams,
+														 pFpoData->cdwLocals,
+														 pFpoData->cbRegs);
+                    }
+                    break;
+                case FRAME_NONFPO:
+                    ErrorLog(fdump, "(FPO: Non-FPO [%d,%d,%d])",
+                                 pFpoData->cdwParams,
+                                 pFpoData->cdwLocals,
+                                 pFpoData->cbRegs);
+                    break;
+
+                case FRAME_TRAP:
+                case FRAME_TSS:
+                default:
+                    ErrorLog(fdump, "(UNKNOWN FPO TYPE)" );
+                    break;
+            }
+        }
+		ER_IMAGEHLP_LINE64 lineInfo;
+		ZeroMemory( &lineInfo, sizeof(lineInfo) );
+		lineInfo.SizeOfStruct = sizeof(lineInfo);
+		dwDisplacement = 0;
+		if ( ERSymGetLineFromAddr(hProc, stFrame.AddrPC.Offset, &dwDisplacement, &lineInfo) )
+			ErrorLog(fdump, " \t%s:%d ", lineInfo.FileName, lineInfo.LineNumber);
+
+        ErrorLog(fdump, "\r\n" );
+    }
+    ErrorLog(fdump, "\r\n" );
+
+	ERSymCleanup(hProc);
+
+    return;
+}
+#endif //_IMAGEHLP_
+
+void ERLogModules(HWFILE fdump)
+{
+#ifdef _USE_PSAPI_
+	if (!ERLoadImageHlpDLL())
+		return;
+
+	HANDLE hProc = (HANDLE)GetCurrentProcess();
+	ERSymInitialize(hProc, NULL, TRUE);
+
+	if (IsNT())
+	{
+		if (ERLoadPSAPIDLL())
+		{
+			HMODULE hMods[1024];
+			DWORD cbNeeded;
+			unsigned int i;
+
+#ifdef _USE_VERSIONING_
+			BOOL bVerOK = ERLoadVersionDLL();
+#endif
+			if( EREnumProcessModules(hProc, hMods, sizeof(hMods), &cbNeeded))
+			{
+				for ( i = 0; i < (cbNeeded / sizeof(HMODULE)); i++ )
+				{
+					char szModName[MAX_PATH];
+					MODULEINFO mi;
+					memset(&mi, 0, sizeof(MODULEINFO));
+
+					ERGetModuleInformation(hProc, hMods[i], &mi, sizeof(MODULEINFO));
+
+					// Get the full path to the module's file.
+					if ( GetModuleFileName( hMods[i], szModName, sizeof(szModName)))
+					{
+						BOOL bPrintSimple = TRUE;
+
+						// Open the code module file so that we can get its file date
+						// and size.
+						HANDLE ModuleFile = CreateFile(szModName, GENERIC_READ,
+							FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+						char TimeBuffer[100] = "";
+						DWORD FileSize = 0;
+						if (ModuleFile != INVALID_HANDLE_VALUE)
+						{
+							FileSize = GetFileSize(ModuleFile, 0);
+							FILETIME	LastWriteTime;
+							if (GetFileTime(ModuleFile, 0, 0, &LastWriteTime))
+							{
+								wsprintf(TimeBuffer, " - file date is ");
+								PrintTime(TimeBuffer + lstrlen(TimeBuffer), LastWriteTime);
+							}
+							CloseHandle(ModuleFile);
+						}
+
+#ifdef _USE_VERSIONING_
+						if (bVerOK)
+						{
+							UINT  dwBytes = 0;     
+							LPVOID lpBuffer = 0; 
+							LPVOID lpData;
+							DWORD dwSize;
+
+							dwSize = ERGetFileVersionInfoSize(szModName, 0);
+							lpData = alloca(dwSize);
+							ERGetFileVersionInfo(szModName, 0, dwSize, lpData);
+							if (ERVerQueryValue(lpData, TEXT("\\"), &lpBuffer, &dwBytes))
+							{
+								VS_FIXEDFILEINFO *lpvs = (VS_FIXEDFILEINFO *)lpBuffer;
+
+								ErrorLog(fdump, "(%.8X - %.8X) %s \t %d.%d.%d.%d \t %d.%d.%d.%d \t %s\r\n",
+									mi.lpBaseOfDll, ((LPBYTE)(mi.lpBaseOfDll)) + mi.SizeOfImage,
+									szModName,
+									HIWORD(lpvs->dwFileVersionMS),    LOWORD(lpvs->dwFileVersionMS),
+									HIWORD(lpvs->dwFileVersionLS),    LOWORD(lpvs->dwFileVersionLS),
+									HIWORD(lpvs->dwProductVersionMS), LOWORD(lpvs->dwProductVersionMS),
+									HIWORD(lpvs->dwProductVersionLS), LOWORD(lpvs->dwProductVersionLS),
+									TimeBuffer
+									);
+								bPrintSimple = FALSE;
+							}
+						}
+#endif
+						if (bPrintSimple)
+						{
+							ErrorLog(fdump, "(%.8X - %.8X) %s \t %s\r\n",
+								mi.lpBaseOfDll, ((LPBYTE)(mi.lpBaseOfDll)) + mi.SizeOfImage,
+								szModName, TimeBuffer
+								);
+						}
+					}
+				}
+			}
+		}
+	}
+	ERSymCleanup(hProc);
+#endif	
+}
 
 #endif

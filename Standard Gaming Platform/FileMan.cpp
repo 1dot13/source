@@ -2301,6 +2301,7 @@ BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 
 BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILETIME *pLastAccessedTime, SGP_FILETIME *pLastWriteTime )
 {
+#ifndef USE_VFS
 	HANDLE	hRealFile;
 	INT16 sLibraryID;
 	UINT32 uiFileNum;
@@ -2310,9 +2311,9 @@ BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILET
 	FILETIME	sLastWriteUtcFileTime;
 
 	//Initialize the passed in variables
-	memset( pCreationTime, 0, sizeof( SGP_FILETIME ) );
-	memset( pLastAccessedTime, 0, sizeof( SGP_FILETIME ) );
-	memset( pLastWriteTime, 0, sizeof( SGP_FILETIME ) );
+	if (pCreationTime)     memset( pCreationTime, 0, sizeof( SGP_FILETIME ) );
+	if (pLastAccessedTime) memset( pLastAccessedTime, 0, sizeof( SGP_FILETIME ) );
+	if (pLastWriteTime)    memset( pLastWriteTime, 0, sizeof( SGP_FILETIME ) );
 
 
 	GetLibraryAndFileIDFromLibraryFileHandle( hFile, &sLibraryID, &uiFileNum );
@@ -2327,13 +2328,16 @@ BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILET
 		GetFileTime( hRealFile, &sCreationUtcFileTime, &sLastAccessedUtcFileTime, &sLastWriteUtcFileTime );
 
 		//converts the creation UTC file time to the current time used for the file
-		FileTimeToLocalFileTime( &sCreationUtcFileTime, pCreationTime );
+		if(pCreationTime) 
+			FileTimeToLocalFileTime( &sCreationUtcFileTime, pCreationTime );
 		
 		//converts the accessed UTC file time to the current time used for the file
-		FileTimeToLocalFileTime( &sLastAccessedUtcFileTime, pLastAccessedTime );
+		if (pLastAccessedTime) 
+			FileTimeToLocalFileTime( &sLastAccessedUtcFileTime, pLastAccessedTime );
 
 		//converts the write UTC file time to the current time used for the file
-		FileTimeToLocalFileTime( &sLastWriteUtcFileTime, pLastWriteTime );
+		if (pLastWriteTime)
+			FileTimeToLocalFileTime( &sLastWriteUtcFileTime, pLastWriteTime );
 	}
 	else
 	{
@@ -2354,8 +2358,10 @@ BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILET
 			}
 		}
 	}
-
 	return( TRUE );
+#else
+	return( FALSE );
+#endif	
 }
 
 
@@ -2391,6 +2397,7 @@ UINT32 uiSize;
 
 HANDLE	GetRealFileHandleFromFileManFileHandle( HWFILE hFile )
 {
+#ifndef USE_VFS
 	INT16 sLibraryID;
 	UINT32 uiFileNum;
 
@@ -2413,8 +2420,11 @@ HANDLE	GetRealFileHandleFromFileManFileHandle( HWFILE hFile )
 			return( gFileDataBase.pLibraries[ sLibraryID ].hLibraryHandle );
 		}
 	}
+#endif
 	return( 0 );
 }
+
+
 
 //**************************************************************************
 //
