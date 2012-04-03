@@ -7481,21 +7481,24 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 		}
 	}
 
-	// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
-	if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) ) ||
-		 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO )&& !IsUnderBarrelAttached( &(pSoldier->inv[ HANDPOS ]    ) ) ) )
+	if (pSoldier != NULL)
 	{
-		if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
+		// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
+		if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) ) ||
+			 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO )&& !IsUnderBarrelAttached( &(pSoldier->inv[ HANDPOS ]    ) ) ) )
 		{
-			pSoldier->bWeaponMode = WM_NORMAL;
-			pSoldier->bDoBurst = FALSE;
-			pSoldier->bDoAutofire = 0;
-		}
-		else
-		{
-			pSoldier->bWeaponMode = WM_AUTOFIRE;
-			pSoldier->bDoBurst = TRUE;
-			pSoldier->bDoAutofire = 1;
+			if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
+			{
+				pSoldier->bWeaponMode = WM_NORMAL;
+				pSoldier->bDoBurst = FALSE;
+				pSoldier->bDoAutofire = 0;
+			}
+			else
+			{
+				pSoldier->bWeaponMode = WM_AUTOFIRE;
+				pSoldier->bDoBurst = TRUE;
+				pSoldier->bDoAutofire = 1;
+			}
 		}
 	}
 
