@@ -3749,7 +3749,7 @@ void HandleBobbyRGunsKeyBoardInput()
 	fCtrl = _KeyDown( CTRL );
 	fAlt = _KeyDown( ALT );
 
-	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN |KEY_REPEAT) == TRUE)
+	while (DequeueEvent(&InputEvent) == TRUE)
 	{
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
@@ -3930,6 +3930,11 @@ void HandleBobbyRGunsKeyBoardInput()
 					}
 				break;
 			}
+		}
+		else
+		{
+			extern void HandleDefaultEvent(InputAtom *Event);
+			HandleDefaultEvent(&InputEvent);
 		}
 	}
 }
