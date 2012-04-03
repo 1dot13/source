@@ -1064,6 +1064,8 @@ INT32 EnterLaptop()
 void ExitLaptop()
 {
 
+	fMouseCaptured = TRUE;
+
 	// exit is called due to message box, leave
 	if( fExitDueToMessageBox )
 	{
