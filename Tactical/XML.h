@@ -165,6 +165,8 @@ typedef PARSE_STAGE;
 #define MERCPROFILESFILENAME					"MercProfiles.xml"
 // HEADROCK PROFEX: Merc Opinions [2009-07-27]
 #define MERCOPINIONSFILENAME					"MercOpinions.xml"
+// WANNE: The merc quotes
+#define MERCQUOTEFILENAME						"MercQuote.xml"
 // HEADROCK HAM 3.6: Bloodcat Placements [2009-07-31]
 #define BLOODCATPLACEMENTSFILENAME				"Map\\BloodcatPlacements.xml"
 // HEADROCK HAM 3.6: Uniform Colors [2009-09-29]
@@ -435,8 +437,8 @@ extern BOOLEAN WriteMercAvailability(STR fileName);
 extern BOOLEAN ReadInAimAvailability(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteAimAvailability(STR fileName);
 
-extern BOOLEAN WriteQarray(QARRAY_VALUES *pQarray, STR fileName);
-extern BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName);
+extern BOOLEAN WriteMercQuotes(QARRAY_VALUES *pQarray, STR fileName);
+extern BOOLEAN ReadInMercQuotes(QARRAY_VALUES *pQarray, STR fileName);
 
 extern BOOLEAN WriteFaceGear();
 extern BOOLEAN ReadInFaceGear( FACE_GEAR_VALUES *pFaceGear, STR fileName );

@@ -153,7 +153,7 @@ qarrayEndElementHandle(void *userData, const XML_Char *name)
 	pData->currentDepth--;
 }
 
-BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName)
+BOOLEAN ReadInMercQuotes(QARRAY_VALUES *pQarray, STR fileName)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -163,7 +163,7 @@ BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName)
 
 	qarrayParseData pData;
 
-	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Qarray.xml" );
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading MercQuote.xml" );
 
 	
 	// Open file
@@ -219,7 +219,7 @@ BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName)
 
 
 
-BOOLEAN WriteQarray(QARRAY_VALUES *pQarray, STR fileName)
+BOOLEAN WriteMercQuotes(QARRAY_VALUES *pQarray, STR fileName)
 {
 	HWFILE		hFile;
 

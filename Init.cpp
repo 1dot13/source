@@ -706,6 +706,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		strcat(fileName, MERCOPINIONSFILENAME);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInMercOpinions(fileName), MERCOPINIONSFILENAME);
+
+		// WANNE: Read in the MercQuotes.xml file
+		strcpy(fileName, directoryName);
+		strcat(fileName, MERCQUOTEFILENAME);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInMercQuotes(QuoteExp, fileName), MERCQUOTEFILENAME);
+
 #endif
 	}
 		
