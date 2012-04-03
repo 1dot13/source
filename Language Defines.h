@@ -42,6 +42,9 @@
 	Note: If you want to build "Unfinished Business" version, just append the /p:JA2Config=JA2UB in the command line
 	msbuild.exe /p:Configuration=Release /p:JA2Config=JA2UB ja2_VS2010.sln
 	msbuild.exe /p:Configuration=Release /p:JA2LangPrefix=DE /p:JA2Language=GERMAN /p:JA2Config=JA2UB ja2_VS2010.sln
+	
+	Note2: You can also specify the target output name with the parameter /p:TargetName
+	msbuild.exe /p:Configuration=Release /p:JA2LangPrefix=DE /p:JA2Language=GERMAN /p:JA2Config=JA2UB /p:TargetName="JA2UB_113" ja2_VS2010.sln
 
 	// --------------------------------------------------------
 	// 2. Editing the ja2.props file and then build in VS 2010 
