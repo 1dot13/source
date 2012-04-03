@@ -1397,7 +1397,9 @@ void GetRuntimeSettings( )
 #else
 	vfs::PropertyContainer oProps;
 	oProps.initFromIniFile(GAME_INI_FILE);
-	PopulateSectionFromCommandLine(oProps, "Ja2 Settings");
+	
+	// WANNE: @tazpn: Disabled the method, because when I run a debug version directly from any VS (by pressing F5) the game crashes in the method.
+	//PopulateSectionFromCommandLine(oProps, "Ja2 Settings");
 #endif
 	
 #ifndef USE_VFS
