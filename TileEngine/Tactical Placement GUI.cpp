@@ -995,7 +995,7 @@ void TacticalPlacementHandle()
 		gpTacticalPlacementSelectedSoldier = NULL;
 	}
 
-	while( DequeueSpecificEvent( &InputEvent, KEY_DOWN ) )
+	while (DequeueEvent(&InputEvent) == TRUE)
 	{
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
