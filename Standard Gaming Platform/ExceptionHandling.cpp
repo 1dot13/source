@@ -1022,8 +1022,16 @@ static BOOL ERGenerateMiniDump(CHAR *szFileName, PEXCEPTION_POINTERS pExceptionI
 	// We need the SeDebugPrivilege to be able to run MiniDumpWriteDump
 	bPrivilegeEnabled = EREnablePriv(SE_DEBUG_NAME, hImpersonationToken, &tp);
 
+// VS 2008 and VS 2010
+#if _MSC_VER >= 1500
 	bRet = ERMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hDumpFile
 		, (MINIDUMP_TYPE)(MiniDumpWithHandleData|MiniDumpWithThreadInfo|MiniDumpWithDataSegs), &stInfo, NULL, NULL);
+// VS 2005
+#else
+	bRet = ERMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hDumpFile
+		, (MINIDUMP_TYPE)(MiniDumpWithHandleData|MiniDumpWithDataSegs), &stInfo, NULL, NULL);
+#endif
+
 	if(bPrivilegeEnabled)
 	{
 		// Restore the privilege
