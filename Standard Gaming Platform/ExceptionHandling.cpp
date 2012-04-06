@@ -1166,12 +1166,15 @@ static void ERLogStackWalk(HWFILE fdump, EXCEPTION_POINTERS* pExPtrs)
     #define TRAP_EDITED(f)     f.Reserved[1]
     #define SAVE_TRAP(f)       f.Reserved[2]
 
+    CONTEXT	Context;
     DWORD dwDisplacement = 0;
     char *szSymName;
     IMAGEHLP_MODULE mi;
     STACKFRAME stFrame;
 	DWORD i;
 	HANDLE hProc = (HANDLE)GetCurrentProcess();
+
+	memcpy( &Context, pExPtrs->ContextRecord, sizeof( CONTEXT ) );
 
 	if (!ERLoadImageHlpDLL())
 		return;
@@ -1187,22 +1190,22 @@ static void ERLogStackWalk(HWFILE fdump, EXCEPTION_POINTERS* pExPtrs)
 
     ZeroMemory( &stFrame, sizeof(stFrame) );
 
-    stFrame.AddrPC.Offset       = pExPtrs->ContextRecord->Eip ;
+    stFrame.AddrPC.Offset       = Context.Eip ;
     stFrame.AddrPC.Mode         = AddrModeFlat                ;
-    stFrame.AddrStack.Offset    = pExPtrs->ContextRecord->Esp ;
+    stFrame.AddrStack.Offset    = Context.Esp ;
     stFrame.AddrStack.Mode      = AddrModeFlat                ;
-    stFrame.AddrFrame.Offset    = pExPtrs->ContextRecord->Ebp ;
+    stFrame.AddrFrame.Offset    = Context.Ebp ;
     stFrame.AddrFrame.Mode      = AddrModeFlat                ;
 
     ErrorLog(fdump, "FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name\r\n");
 
-    for (i=0; i<100; i++) 
+    for (i=0; i<15; i++) 
 	{
         if (!ERStackWalk( IMAGE_FILE_MACHINE_I386,
 						hProc,
 						GetCurrentThread(),
 						&stFrame,
-                        pExPtrs->ContextRecord,
+                        &Context,
                         NULL,
 						ERSymFunctionTableAccess,
 						ERSymGetModuleBase,
@@ -1226,6 +1229,8 @@ static void ERLogStackWalk(HWFILE fdump, EXCEPTION_POINTERS* pExPtrs)
 					  stFrame.Params[3]
                 );
 
+        memset(&mi, 0, sizeof(mi));
+        mi.SizeOfStruct = sizeof(mi);
         if (ERSymGetModuleInfo(hProc, stFrame.AddrPC.Offset, &mi )) {
             ErrorLog(fdump, "%s!", mi.ModuleName );
         }
@@ -1287,6 +1292,218 @@ static void ERLogStackWalk(HWFILE fdump, EXCEPTION_POINTERS* pExPtrs)
     return;
 }
 #endif //_IMAGEHLP_
+
+//************************************
+// Method:    ERLogStackWalk
+// FullName:  ERLogStackWalk
+// Access:    public static 
+// Returns:   LPCSTR  (Free with LocalFree)
+// Qualifier:
+// Parameter: EXCEPTION_POINTERS * pExPtrs
+//************************************
+LPCSTR ERStackWalk(EXCEPTION_POINTERS* pExPtrs)
+{
+#if defined(_IMAGEHLP_) && defined(_X86_)
+	CONTEXT	Context;
+	DWORD dwDisplacement = 0;
+	char *szSymName;
+	IMAGEHLP_MODULE mi;
+	STACKFRAME stFrame;
+	DWORD i;
+	HANDLE hProc = (HANDLE)GetCurrentProcess();
+
+	if (!ERLoadImageHlpDLL())
+		return NULL;
+
+	std::stringstream ss;
+
+	HMODULE hModule = GetModuleHandle(NULL);
+
+	memcpy( &Context, pExPtrs->ContextRecord, sizeof( CONTEXT ) );
+
+	ERSymInitialize(hProc, NULL, TRUE);
+
+	memset(g_sym, 0, MAX_SYMNAME_SIZE + sizeof(IMAGEHLP_SYMBOL) ) ;
+	g_sym->SizeOfStruct  = sizeof(IMAGEHLP_SYMBOL);
+	g_sym->MaxNameLength = MAX_SYMNAME_SIZE;
+
+	ZeroMemory( &stFrame, sizeof(stFrame) );
+
+	stFrame.AddrPC.Offset       = Context.Eip ;
+	stFrame.AddrPC.Mode         = AddrModeFlat                ;
+	stFrame.AddrStack.Offset    = Context.Esp ;
+	stFrame.AddrStack.Mode      = AddrModeFlat                ;
+	stFrame.AddrFrame.Offset    = Context.Ebp ;
+	stFrame.AddrFrame.Mode      = AddrModeFlat                ;
+
+	for (i=0; i<100; i++) 
+	{
+		if (!ERStackWalk( IMAGE_FILE_MACHINE_I386,
+			hProc,
+			GetCurrentThread(),
+			&stFrame,
+			&Context,
+			NULL,
+			ERSymFunctionTableAccess,
+			ERSymGetModuleBase,
+			NULL)) 
+		{
+			break;
+		}
+
+		if (ERSymGetSymFromAddr(hProc, stFrame.AddrPC.Offset, &dwDisplacement, g_sym)) {
+			szSymName = g_sym->Name;
+		}
+		else {
+			szSymName = "<nosymbols>";
+		}
+		memset(&mi, 0, sizeof(mi));
+		mi.SizeOfStruct = sizeof(mi);
+		if (ERSymGetModuleInfo(hProc, stFrame.AddrPC.Offset, &mi )) {
+			if (mi.BaseOfImage != (DWORD)hModule)
+			{
+				ss << mi.ModuleName << "!";
+			}
+		}
+		ss << szSymName << " ";
+
+		ER_IMAGEHLP_LINE64 lineInfo;
+		ZeroMemory( &lineInfo, sizeof(lineInfo) );
+		lineInfo.SizeOfStruct = sizeof(lineInfo);
+		dwDisplacement = 0;
+		if ( ERSymGetLineFromAddr(hProc, stFrame.AddrPC.Offset, &dwDisplacement, &lineInfo) )
+		{
+			LPSTR pFileName = strrchr(lineInfo.FileName, '\\');
+			if (pFileName) ++pFileName;
+			if (!pFileName) pFileName = lineInfo.FileName;
+
+			ss << " \t" << pFileName << ":" << lineInfo.LineNumber << " ";
+		}
+		ss << std::endl;
+	}
+	ss << std::endl;
+
+	ERSymCleanup(hProc);
+
+	std::string str = ss.str();
+	LPSTR lpResult = (LPSTR)LocalAlloc(LPTR, str.length()+1);
+	strcpy(lpResult, str.c_str());
+	return lpResult;
+#else
+	return NULL;
+#endif //_IMAGEHLP_
+}
+
+
+//************************************
+// Method:    ERGetFirstModuleException
+// FullName:  ERGetFirstModuleException
+// Access:    public 
+// Returns:   BOOL
+// Qualifier:
+// Parameter: EXCEPTION_POINTERS * pExPtrs
+// Parameter: HMODULE hModule
+// Parameter: LPSTR funcName
+// Parameter: INT funcNameLen
+// Parameter: LPSTR sourceName
+// Parameter: INT sourceNameLen
+// Parameter: INT * lpLineNum
+//************************************
+BOOL ERGetFirstModuleException(
+	  EXCEPTION_POINTERS* pExPtrs
+	, HMODULE hModule
+	, LPSTR funcName, INT funcNameLen
+	, LPSTR sourceName, INT sourceNameLen
+	, INT *lpLineNum
+	)
+{
+#if defined(_IMAGEHLP_) && defined(_X86_)
+	CONTEXT	Context;
+	DWORD dwDisplacement = 0;
+	char *szSymName;
+	IMAGEHLP_MODULE mi;
+	STACKFRAME stFrame;
+	DWORD i;
+	HANDLE hProc = (HANDLE)GetCurrentProcess();
+	BOOL bFound = FALSE;
+
+	if (!ERLoadImageHlpDLL())
+		return FALSE;
+
+	memcpy( &Context, pExPtrs->ContextRecord, sizeof( CONTEXT ) );
+
+	if (hModule == NULL)
+		hModule = GetModuleHandle(NULL);
+
+	ERSymInitialize(hProc, NULL, TRUE);
+
+	memset(g_sym, 0, MAX_SYMNAME_SIZE + sizeof(IMAGEHLP_SYMBOL) ) ;
+	g_sym->SizeOfStruct  = sizeof(IMAGEHLP_SYMBOL);
+	g_sym->MaxNameLength = MAX_SYMNAME_SIZE;
+
+	ZeroMemory( &stFrame, sizeof(stFrame) );
+
+	stFrame.AddrPC.Offset       = Context.Eip ;
+	stFrame.AddrPC.Mode         = AddrModeFlat                ;
+	stFrame.AddrStack.Offset    = Context.Esp ;
+	stFrame.AddrStack.Mode      = AddrModeFlat                ;
+	stFrame.AddrFrame.Offset    = Context.Ebp ;
+	stFrame.AddrFrame.Mode      = AddrModeFlat                ;
+
+	for (i=0; i<15; i++) 
+	{
+		if (!ERStackWalk( IMAGE_FILE_MACHINE_I386,
+			hProc,
+			GetCurrentThread(),
+			&stFrame,
+			&Context,
+			NULL,
+			ERSymFunctionTableAccess,
+			ERSymGetModuleBase,
+			NULL)) 
+		{
+			break;
+		}
+
+		if (ERSymGetSymFromAddr(hProc, stFrame.AddrPC.Offset, &dwDisplacement, g_sym)) {
+			szSymName = g_sym->Name;
+		}
+		else {
+			szSymName = "<nosymbols>";
+		}
+		memset(&mi, 0, sizeof(mi));
+		mi.SizeOfStruct = sizeof(mi);
+		if (!ERSymGetModuleInfo(hProc, stFrame.AddrPC.Offset, &mi )) 
+			continue;
+
+		if (mi.BaseOfImage != (DWORD)hModule)
+			continue;
+
+		ER_IMAGEHLP_LINE64 lineInfo;
+		ZeroMemory( &lineInfo, sizeof(lineInfo) );
+		lineInfo.SizeOfStruct = sizeof(lineInfo);
+		dwDisplacement = 0;
+		if ( ERSymGetLineFromAddr(hProc, stFrame.AddrPC.Offset, &dwDisplacement, &lineInfo) )
+		{
+			LPSTR pFileName = strrchr(lineInfo.FileName, '\\');
+			if (pFileName) ++pFileName;
+			if (!pFileName) pFileName = lineInfo.FileName;
+
+			if (funcName) lstrcpyn(funcName,szSymName, funcNameLen);
+			if (sourceName) lstrcpyn(sourceName,pFileName, sourceNameLen);
+			if (lpLineNum) *lpLineNum = lineInfo.LineNumber;
+			bFound = TRUE;
+			break;
+		}
+	}
+
+	ERSymCleanup(hProc);
+	return bFound;
+#else
+	return FALSE;
+#endif //_IMAGEHLP_
+}
+
 
 void ERLogModules(HWFILE fdump)
 {
