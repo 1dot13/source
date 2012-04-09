@@ -674,7 +674,7 @@ void HandleOverheadUI(void)
 
 	ScrollOverheadMap();
 
-	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_REPEAT) == TRUE)
+	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) == TRUE)
 	{
 		if(InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT)
 		{
