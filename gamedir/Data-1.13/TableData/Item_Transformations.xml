@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TRANSFORMATIONS_LIST>
+	<TRANSFORM>
+		<usItem>194</usItem>
+		<usResult1>1022</usResult1>
+		<usResult2>1022</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Tear apart</szMenuRowText>
+		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>195</usItem>
+		<usResult1>1022</usResult1>
+		<usResult2>1022</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Tear apart</szMenuRowText>
+		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>296</usItem>
+		<usResult1>1022</usResult1>
+		<usResult2>1022</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Tear apart</szMenuRowText>
+		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>
+</TRANSFORMATIONS_LIST>

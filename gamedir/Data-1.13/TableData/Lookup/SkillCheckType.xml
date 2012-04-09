@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<SkillCheckType>
+		<id>0</id>
+		<name>None</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>1</id>
+		<name>Lockpick</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>2</id>
+		<name>Elec. Lockpick</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>3</id>
+		<name>Attach Timed Detonator</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>4</id>
+		<name>Attach Remote Detonator</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>5</id>
+		<name>Plant Timed Bomb</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>6</id>
+		<name>Plant Remote Bomb</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>7</id>
+		<name>Open With Crowbar</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>8</id>
+		<name>Smash Door</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>9</id>
+		<name>Disarm Trap</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>10</id>
+		<name>Unjam Gun</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>11</id>
+		<name>Notice Dart</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>12</id>
+		<name>Lie to Queen</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>13</id>
+		<name>Attach Special Item</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>14</id>
+		<name>Attach Special Elec. Item</name>
+	</SkillCheckType>
+	<SkillCheckType>
+		<id>15</id>
+		<name>Disarm Elec. Trap</name>
+	</SkillCheckType>
+</JA2Data>

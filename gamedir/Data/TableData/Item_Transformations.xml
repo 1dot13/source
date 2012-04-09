@@ -1,0 +1,67 @@
+<!-- 
+
+	This list controls item transformations: the ability to turn an item into another item. This action is activated by clicking the item's
+	picture in its Description Box, and selecting one of the possible transformations listed.
+	
+	TEMPLATE:
+	
+	<TRANSFORMATION_LIST> 					 Required at the very top of the list
+		<TRANSFORM>							 Starts an entry
+			<usItem></usItem>				 Index number of the original item (from items.xml)
+			<usResult></usResult>			 Index number of resulting item (from items.xml)
+			<usAPCost></usAPCost>			 AP Cost to perform action during turn-based combat. In 100AP values (so, 0-100).
+			<iBPCost></iBPCost>				 BP Cost to perform action. In BP values (0-1000? Or 0-100? Not sure).
+			<szMenuRowText></szMenuRowText>	 Name of the action, as it will appear on the Transformation menu.
+			<szTooltipText></szTooltipText>  Full tooltip as it will appear when mousing-over the action name in the menu.
+		</TRANSFORM>						 Closes the entry
+	</TRANSFORMATION_LIST>					 Required at the very end of the list.
+		
+	NOTES:
+	
+	1) You may have more than 1 result per item. If more than one <usResult> tag is defined, more than two items will result after the
+		transformation. The second(+) item will be automatically placed in the soldier's inventory, or dropped to the ground if no place
+		is found for it.
+		
+	2) Any item may have more than 1 transformations available to it. In other words, two entries can have the same <usItem>. When this
+		is done, the Transformation menu for this item will show both(+) options. Try not to have more than 10 options per item, or the menu 
+		might overflow...
+		
+	3) After transformation, the item is automatically checked for attachment compatibility. Any previous attachments that are now incompatible
+		are automatically removed from the item. If the item itself is an attachment, it will automatically be removed from its "parent".
+		Existing permanent attachments are removed from an item upon transformation. If the new item has default attachments, they will be
+		added to the new item as normal.
+		
+	4) AP Costs are charged only during battle. BP costs are probably charged anyway, I'm not sure. AP costs are automatically converted
+		from 100 AP to 25AP (or any other AP system) depending on the player's choice - but you need to enter them in 100AP values here.
+		
+-->
+
+<TRANSFORMATIONS_LIST>
+	<TRANSFORM>
+		<usItem>194</usItem>
+		<usResult>1022</usResult>
+		<usResult>1022</usResult>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Tear apart</szMenuRowText>
+		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>195</usItem>
+		<usResult>1022</usResult>
+		<usResult>1022</usResult>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Tear apart</szMenuRowText>
+		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>296</usItem>
+		<usResult>1022</usResult>
+		<usResult>1022</usResult>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Tear apart</szMenuRowText>
+		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>
+</TRANSFORMATIONS_LIST>
