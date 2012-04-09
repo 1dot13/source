@@ -75,6 +75,7 @@ extern BOOLEAN gfDrawGridColumnMouseRegion;
 extern MOUSE_REGION	 gSelectedUpDownArrowOnGridScrollAreaRegion[2];
 extern void SelectUpDownArrowOnGridScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 extern MOUSE_REGION	*gSelectedGridScrollColumnRegion;
+extern INT32 gSelectedGridScrollColumnRegionSize;
 extern void SelectGridScrollColumnRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 extern void SelectGridScrollColumnMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
@@ -215,8 +216,14 @@ BOOLEAN EnterBobbyRShipments()
 	}
 	if (gfDrawGridColumnMouseRegion == TRUE)
 	{
-		MSYS_DisableRegion( gSelectedGridScrollColumnRegion);
-		MSYS_RemoveRegion( gSelectedGridScrollColumnRegion);
+		for(int i=0; i<gSelectedGridScrollColumnRegionSize; i++)
+		{
+			MSYS_DisableRegion( &gSelectedGridScrollColumnRegion[i] );
+			MSYS_RemoveRegion( &gSelectedGridScrollColumnRegion[i] );
+		}
+		delete [] gSelectedGridScrollColumnRegion;
+		gSelectedGridScrollColumnRegion = NULL;
+		gSelectedGridScrollColumnRegionSize = 0;
 		gfDrawGridColumnMouseRegion = FALSE;
 	}
 	CreatePreviousShipmentsMouseRegions();
@@ -248,8 +255,14 @@ void ExitBobbyRShipments()
 }
 	if (gfDrawGridColumnMouseRegion == TRUE)
 	{
-		MSYS_DisableRegion( gSelectedGridScrollColumnRegion);
-		MSYS_RemoveRegion( gSelectedGridScrollColumnRegion);
+		for(int i=0; i<gSelectedGridScrollColumnRegionSize; i++)
+		{
+			MSYS_DisableRegion( &gSelectedGridScrollColumnRegion[i] );
+			MSYS_RemoveRegion( &gSelectedGridScrollColumnRegion[i] );
+		}
+		delete [] gSelectedGridScrollColumnRegion;
+		gSelectedGridScrollColumnRegion = NULL;
+		gSelectedGridScrollColumnRegionSize = 0;
 		gfDrawGridColumnMouseRegion = FALSE;
 	}
 }

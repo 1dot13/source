@@ -362,6 +362,7 @@ MOUSE_REGION	 gSelectedUpDownArrowOnGridScrollAreaRegion[2];
 void SelectUpDownArrowOnGridScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 //mouse region for scroll column in the grid area.
 MOUSE_REGION	*gSelectedGridScrollColumnRegion;
+INT32 gSelectedGridScrollColumnRegionSize;
 void SelectGridScrollColumnRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SelectGridScrollColumnMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
@@ -647,9 +648,17 @@ void ExitBobbyRMailOrder()
 	}
 	if (gfDrawGridColumnMouseRegion == TRUE)
 	{
-		MSYS_DisableRegion( gSelectedGridScrollColumnRegion);
-		MSYS_RemoveRegion( gSelectedGridScrollColumnRegion);
+		for(i=0; i<gSelectedGridScrollColumnRegionSize; i++)
+		{
+			MSYS_DisableRegion( &gSelectedGridScrollColumnRegion[i] );
+			MSYS_RemoveRegion( &gSelectedGridScrollColumnRegion[i] );
+		}
+		gfDrawGridColumnMouseRegion = FALSE;
 	}
+	if (gSelectedGridScrollColumnRegion != NULL)
+		delete [] gSelectedGridScrollColumnRegion;
+	gSelectedGridScrollColumnRegion = NULL;
+	gSelectedGridScrollColumnRegionSize = 0;
 
 	//if the drop down box is active, destroy it
 	gubDropDownAction = BR_DROP_DOWN_DESTROY;
@@ -1210,15 +1219,28 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 		MSYS_SetRegionUserData( &gSelectedUpDownArrowOnGridScrollAreaRegion[ 1 ], 0, 1);
 		MSYS_EnableRegion(&gSelectedUpDownArrowOnGridScrollAreaRegion[1]);
 		gfDrawGridArrowMouseRegions = TRUE;
-		}
+	}
 	if (guidivisor > 1)
 	{//Scroll Bar
 		usPosX = usGridX + BOBBYR_GRID_SCROLL_COLUMN_X;
 		usPosY = usGridY + BOBBYR_GRID_SCROLL_UP_ARROW_Y + BOBBYR_SCROLL_ARROW_HEIGHT;
 		usHeight = BOBBYR_GRID_SCROLL_COLUMN_HEIGHT_MINUS_ARROWS / guidivisor;
-		gSelectedGridScrollColumnRegion = new MOUSE_REGION[guidivisor];
-		if (gfDrawGridColumnMouseRegion == FALSE)
+		if (gfDrawGridColumnMouseRegion == FALSE || gSelectedGridScrollColumnRegionSize != guidivisor)
 		{
+			if (gSelectedGridScrollColumnRegion != NULL)
+			{
+				for(i=0; i<gSelectedGridScrollColumnRegionSize; i++)
+				{
+					MSYS_DisableRegion( &gSelectedGridScrollColumnRegion[i] );
+					MSYS_RemoveRegion( &gSelectedGridScrollColumnRegion[i] );
+				}
+				delete [] gSelectedGridScrollColumnRegion;
+			}
+			if (gSelectedGridScrollColumnRegionSize != guidivisor)
+			{
+				gSelectedGridScrollColumnRegion = new MOUSE_REGION[guidivisor];
+				gSelectedGridScrollColumnRegionSize = guidivisor;
+			}
 			for(i=0; i<guidivisor; i++)
 			{
 				MSYS_DefineRegion( &gSelectedGridScrollColumnRegion[i], usPosX, usPosY, (UINT16)(usPosX+BOBBYR_SCROLL_ARROW_WIDTH), (UINT16)(usPosY+usHeight), MSYS_PRIORITY_HIGH,
@@ -1227,7 +1249,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 				MSYS_EnableRegion(&gSelectedGridScrollColumnRegion[i]);
 				MSYS_SetRegionUserData( &gSelectedGridScrollColumnRegion[ i ], 0, i);
 				usPosY += usHeight;
-	}
+			}
 			gfDrawGridColumnMouseRegion = TRUE;
 		}
 		//Draw the rectangle
