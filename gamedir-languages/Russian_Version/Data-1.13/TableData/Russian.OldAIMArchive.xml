@@ -1,213 +1,212 @@
-﻿<OLD_MERC>
-
+<OLD_MERC>
 	<MERC>
 		<!-- Smoke -->
 		<uiIndex>0</uiIndex>
-		<NickName>Smoke</NickName>
-		<Name>Smoke Peterson</Name>
-		<Bio>Throughout his many years of shaky service with A.I.M., Smoke Peterson was repeatedly cited for short-fusing explosives - a juvenile attempt at cheap laughs. To the delight of a number of members, the final laugh was on him. Distracted by an elusive pebble in his combat boot, Peterson bid this world goodbye with a loud bang, a puff of smoke, and one far-reaching unidentifiable mess.</Bio>
+		<NickName>Смоук</NickName>
+		<Name>Смоук Петерсон</Name>
+		<Bio>За долгие годы пребывания в A.I.M., Смоук Петерсон так и не научился правильно разминировать взрывчатку, хотя первые неудачные опыты на этом поприще датируются еще его детскими годами. К счастью для его товарищей, последними смеялись они. Отвлекшись на камешек в сапоге, Петерсон попрощался с этим миром с оглушительным грохотом, клубами дыма и ошметками плоти, разлетающимися в разные стороны.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Doc -->
 		<uiIndex>1</uiIndex>
-		<NickName>Doc</NickName>
-		<Name>Doc Koolhan</Name>
-		<Bio>Doc Koolhan resigned from A.I.M. to focus his energies on his medical practice. He had been running a free clinic as a sideline in Tripoli for years. However, six months after working there full-time, he closed up his office and joined Doctors Without Frontiers. At present, he is believed to be serving with the organization in Tunisia.</Bio>
+		<NickName>Док</NickName>
+		<Name>Док Кулхан</Name>
+		<Bio>Доктор Кулхан ушел в отставку из A.I.M., чтобы сконцентрировать свои усилия на врачебной практике. Он руководил бесплатной клиникой в Триполи параллельно с работой в A.I.M. Однако, по прошествии шести месяцев пребывания там на основной работе, он присоединился к организации "Врачи Без Границ". В настоящий момент работает в Тунисе.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Wink -->
 		<uiIndex>2</uiIndex>
-		<NickName>Wink</NickName>
-		<Name>Wink Dickerson</Name>
-		<Bio>Known primarily for his strong throwing arm, yet poor accuracy, Wink Dinkerson finally received the call he had been waiting for all of his life. Severe budget cuts left the Montreal Expos searching for pitching talent, or the lack of it, just about anywhere. After accepting a contract for 140 Canadian dollars a week, Wink has earned a position as the fifth pitcher in the starting rotation of their farm club.</Bio>
+		<NickName>Винк</NickName>
+		<Name>Винк Динкерсон</Name>
+		<Bio>Прославленный своим умением бросать гранаты далеко, но неточно, Винк Динкерсон наконец-то получил телефонный звонок, которого ждал всю жизнь. Жестоко урезанный бюджет заставил Монреальских Экспо повсюду искать талантливых или бесталанных отбивающих. После заключения контракта на 140 канадских долларов в неделю, Винк стал пятым отбивающим в стартовом составе клуба.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Larry -->
 		<uiIndex>3</uiIndex>
-		<NickName>Larry</NickName>
-		<Name>Larry Roachburn</Name>
-		<Bio>After eight attempts at rehab without any sustained success, A.I.M. was left with little choice but to terminate Larry Roachburn's membership within the organization. From what we understand, the death of Larry's father persuaded him to make yet another attempt at ridding himself of his demons and cleansing his body from decades of toxicity. The organization wishes him the best of luck in all his future endeavors.</Bio>
+		<NickName>Ларри</NickName>
+		<Name>Ларри Роачберн</Name>
+		<Bio>После 8 попыток помочь Ларри отвыкнуть от наркотической зависимости в центре реабилитации наркоманов, у руководства A.I.M. не осталось другого выбора, кроме как исключить Ларри из своих рядов. Насколько нам известно, смерть отца убедила Ларри совершить еще одну попытку вырваться из лап наркотического дьявола. Наша организация хочет пожелать Ларри успеха на его тернистом пути.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Ears -->
 		<uiIndex>4</uiIndex>
-		<NickName>Ears</NickName>
-		<Name>Edward "Ears" Stockwell</Name>
-		<Bio>Ears Stockwell handed in his resignation almost eighteen months ago. Since that time, we have heard nothing from him and therefore have no news to report. Though, to be honest, we haven't exactly gone out of our way to make contact with him either.</Bio>
+		<NickName>Ухо</NickName>
+		<Name>Эдуард Стоквелл "Ухо"</Name>
+		<Bio>"Ухо" Стоквелл подал в отставку почти 18 месяцев назад. С тех самых пор он не сообщал о себе, и поэтому нам нечего Вам рассказать. Сказать по правде, мы тоже не лезем из кожи вон, чтобы установить с ним контакт.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Moses -->
 		<uiIndex>5</uiIndex>
-		<NickName>Moses</NickName>
-		<Name>Murray "Moses" Ebstern</Name>
-		<Bio>Opting to take part in A.I.M.'s early retirement package offered to all mercenaries over fifty, Moses decided it was time to move on and into a new line of work. Investing his severance, Ebstern opened a restaurant on the main. After just two short years in business, Murray's has established a reputation for serving the best smoked meat in New Delhi.</Bio>
+		<NickName>Моисей</NickName>
+		<Name>Мюррей Эбстерн "Моисей"</Name>
+		<Bio>Воспользовавшись возможностью раннего выхода на пенсию в A.I.M. "для тех, кому за пятьдесят", "Моисей" решил, что настало время перемен и пора менять работу. Умело вложив свое выходное пособие, Эбстерн открыл ресторан в центре своего родного городка. Всего за 2 года работы ресторанчик Мюррея приобрел репутацию лучшего заведения в Нью-Дели.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Bernie -->
 		<uiIndex>6</uiIndex>
-		<NickName>Bernie</NickName>
-		<Name>Doctor Bernie Gloveless</Name>
-		<Bio>Bernie's history with A.I.M. can probably be, at best, described as checkered. After refusing to give up his position as the organization's physician and considering the abundance of complaints from fellow members, A.I.M. felt obliged to give Dr. Bernie Gloveless a dishonorable discharge. He's currently employed with an international insurance company, so you might want to remember his name the next time your company sends you for your annual physical.</Bio>
+		<NickName>Берни</NickName>
+		<Name>Доктор Берни Гловлесс</Name>
+		<Bio>Стиль работы Берни в A.I.M. в лучшем случае может быть описан выражением "не повезло". После того, как он отказался уйти "по собственному желанию" с должности полевого врача, A.I.M. под влиянием жалоб других сотрудников была вынуждена сама уволить Гловлесса. В настоящее время он работает на одну международную страховую компанию, так что Вам стоит помнить его имя, когда Ваша компания посылает Вас на медосмотр.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Pops -->
 		<uiIndex>7</uiIndex>
-		<NickName>Pops</NickName>
-		<Name>Pops McGillicutty</Name>
-		<Bio>After years of trying to convince Pops McGillicutty to retire, A.I.M. was finally forced to institute a mandatory retirement policy for those reaching the age of 85. Wanting to do his part to eliminate river burials, Pops opened a web-based Funeral Salon specializing in the respectful interment of mercenaries.</Bio>
+		<NickName>Папаша</NickName>
+		<Name>Папаша Макгилликатти</Name>
+		<Bio>Потратив на уговоры годы и так ничего не добившись, A.I.M. наконец была вынуждена включить в устав статью об обязательном увольнении людей, достигших 85-летнего возраста. Желая внести свою лепту в любимое дело и боясь быть забытым, Папаша организовал свое похоронное бюро в Интернете, которое занимается достойным погребением наемников.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Tex -->
 		<uiIndex>8</uiIndex>
-		<NickName>Tex</NickName>
-		<Name>Tex R. Colburn</Name>
-		<Bio>One of our more colorful warriors, Tex Colburn, handed in his six-shooters to fulfill his dream of starring on the big screen. As a rising star in Japanese westerns, he played the lead in "Much Dust, Many Bullets," and has received glowing reviews for his roles in the classic films "Attack of the Clydesdales" and "Have Honda, will Travel."</Bio>
+		<NickName>Текс</NickName>
+		<Name>Текс Р. Колберн</Name>
+		<Bio>Яркая индивидуальность, Текс Колберн сложил оружие, чтобы осуществить свою мечту стать киноактером. Восходящая звезда японских вестернов, он сыграл главную роль в картине "Пыль да Пули..." и получил восторженные отзывы прессы и критиков за свои роли в классических фильмах "Клайдесдейлы" и "С Хондой в дорогу!"</Bio>
 	</MERC>
 	<MERC>
 		<!-- Hurl -->
 		<uiIndex>9</uiIndex>
-		<NickName>Hurl</NickName>
-		<Name>Hurl E. Cutter</Name>
-		<Bio>Hurl, a profitable patient for doctors everywhere, has been missing for the past nine months. A careful search of hospital records and unidentified bodies in the Havana area, his last known whereabouts, has failed to provide any insight. Fidel Dahan has been repeatedly questioned concerning his disappearance, yet police are no further ahead in their investigation.</Bio>
+		<NickName>Эрл</NickName>
+		<Name>Эрл И. Каттер</Name>
+		<Bio>Эрл, выгодный пациент для любой из клиник мира, считается без вести пропавшим вот уже 9 месяцев. Тщательный поиск в больницах и моргах в Гаване не дал каких-либо результатов. Фиделю Дэхену несколько раз задавали вопросы касательно исчезновения Эрла, но также безрезультатно. Полиция так и не продвинулась в расследовании.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Biff -->
 		<uiIndex>10</uiIndex>
-		<NickName>Biff</NickName>
-		<Name>Biff Apscott</Name>
-		<Bio>Biff Apscott was a truly unique man among mercenary men. He will be greatly missed for his youthful enthusiasm and the way he reminded everyone of just how brave they were. Although somewhat hard to believe, we have been made aware that he has opened up his own mercenary organization in a somewhat pitiful attempt to compete with A.I.M. It's probably not necessary to elaborate on just how worried we are.</Bio>
+		<NickName>Биф</NickName>
+		<Name>Биф Апскот</Name>
+		<Bio>Биф Апскот был выдающимся, уникальным наемником. Нам всем будет не хватать его юношеского энтузиазма и готовности поддержать и приободрить в трудную минуту. Хотя в это сложно поверить, но до нас дошла информация, что он создал свою собственную организацию, которая должна составить конкуренцию A.I.M., не поставив нас в известность. Естественно, мы очень озабочены этими слухами.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Raffi -->
 		<uiIndex>11</uiIndex>
-		<NickName>Raffi</NickName>
-		<Name>Dr. Raffitto "Raffi" Leevon</Name>
-		<Bio>Doctor Leevon, whose medical degree was always the subject of much debate, left this organization at the beginning of the year without notification. Apparently, he has changed his name and embarked on a new career. Doctor Raffiman, and his Cajun-funk band, Rotis &amp; Haggis, have captured the imagination of the music world with the distinctive sound of their synthesized spoons and their current hit, Bajun Bayous.</Bio>
+		<NickName>Раффи</NickName>
+		<Name>Доктор Раффито Ливон "Раффи"</Name>
+		<Bio>Доктор Ливон, чья ученая степень всегда выглядела сомнительно, покинул нашу организацию в начале этого года без предварительного уведомления. Очевидно, он сменил имя и работу. Теперь Доктор Раффиман и его группа Каджун-Фанка, Ротис и Хаггис, захватили умы, а точнее уши музыкального мира оригинальным звучанием синтезированных ложек и своим последним хитом, "Баджун Беос".</Bio>
 	</MERC>
 	<MERC>
 		<!-- Mike -->
 		<uiIndex>12</uiIndex>
-		<NickName>Mike</NickName>
-		<Name>Mike</Name>
-		<Bio>While undergoing negotiations for yet another pay increase, Mike suddenly withdrew from the discussions when he was informed that many employers had already complained about his exaggerated rates. His current whereabouts are unknown, just like pretty much everything else about him. The last correspondence received by this office, postmarked in a small country whose name escapes us, contained threats we'd rather not recall.</Bio>
+		<NickName>Майк</NickName>
+		<Name>Майк</Name>
+		<Bio>Майк прекратил переговоры о повышении гонорара сразу, как только узнал, что многие работодатели уже жаловались на слишком высокую стоимость его услуг. Его настоящее местоположение неизвестно, как, впрочем и любая другая информация о нем. Последний раз он сообщил о себе, отправив письмо из небольшой страны, название которой не опубликовано в новейших атласах.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Hector -->
 		<uiIndex>13</uiIndex>
-		<NickName>Hector</NickName>
-		<Name>Hector Alvarez</Name>
-		<Bio>Seriously wounded in Zaire, Hector Alvarez was placed on permanent medical disability. Using his insurance money, he opened an oceanside bed and breakfast in his hometown of Margarita, Venezuela. With prices starting at $49.99 U.S. per day, his 'Cool Hand Luke - All the Eggs you can Consume' breakfasts have become a huge hit with the German tourists.</Bio>
+		<NickName>Гектор</NickName>
+		<Name>Гектор Альварез</Name>
+		<Bio>Будучи серьезно раненым в Заире, Гектор Альварез получил постоянную пенсию по инвалидности. Используя деньги, полученные по страховке, он открыл гостиницу на берегу океана, в своем родном городе Маргарита в Венесуэле. Установив начальную цену за номер в $49.99, Гектор прославился своим завтраком 'Самая большая яичница в мире' и приобрел постоянных клиентов в лице немецких туристов.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Speck -->
 		<uiIndex>14</uiIndex>
-		<NickName>Speck</NickName>
-		<Name>Speck T. Kline</Name>
-		<Bio>While Speck never quite fit in with the mercenary lifestyle, his knack for repairing what was widely believed to be unrepairable made him one of our most sought-after members. That is, perhaps, why his decision to open a competing mercenary agency came as such a surprise to this organization. A.I.M. wishes him the best of luck, as we are all well aware, he will need it.</Bio>
+		<NickName>Спек</NickName>
+		<Name>Спек Т. Кляйн</Name>
+		<Bio>Спек никогда не вписывался в наши стройные ряды, но его умение ремонтировать технику считалось незаменимым качеством и делало его ценным сотрудником. Вот почему, вероятно, его решение открыть конкурирующее агентство стало такой неожиданностью для нас. A.I.M. желает ему удачи в его начинаниях, поскольку без удачи его дело определенно прогорит.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Weasel -->
 		<uiIndex>15</uiIndex>
-		<NickName>Weasel</NickName>
-		<Name>Willy "Weasel" Augustin</Name>
-		<Bio>Wee Willy, otherwise known as Weasel and Mouthpiece, was primarily engaged by his employers as an inexpensive set of ears to keep tabs on his teammates. And, in a sick sense of justice, Augustin finally received what many felt he had coming. After blowing the whistle on his wife for welfare fraud, she returned to the family home after making bail and blew him away.</Bio>
+		<NickName>Проныра</NickName>
+		<Name>Вилли Августин "Проныра"</Name>
+		<Bio>Вилли, в среде наемников известный как "Проныра" или "Стукач", обычно нанимался работодателем в качестве недорогого информатора в отряде. Обстоятельства сложились так, что Августин получил то, что, по мнению общественности, уже давно заслужил. После того, как он сдал свою жену за мошенничество с пособием для малоимущих, она отсидела срок и, вернувшись из тюрьмы, без промедления вышибла ему мозги.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Lance -->
 		<uiIndex>16</uiIndex>
-		<NickName>Lance</NickName>
-		<Name>Lance Fisher</Name>
-		<Bio>Due to persistent personality clashes with Victoria Waters, Lance was asked to resign from A.I.M. in exchange for a posting at Westpoint Military Academy. He accepted, and is currently an instructor of ethics and tactical withdrawal, a subject which he recently published a book on. "Beating a Path to Safety without Screaming," is available at most military college bookstores.</Bio>
+		<NickName>Лэнс</NickName>
+		<Name>Лэнс Фишер</Name>
+		<Bio>Из-за постоянных стычек с Викторией Вотерс Лэнса попросили уволиться из A.I.M. с переходом на должность инструктора в Военной Академии Уэстпойнта. Он принял это предложение и в настоящее время преподает этику и тактику отступления, предмет, который вдохновил Лэнса написать книгу. Его книга "Отступление Во Имя Спасения" доступна во всех библиотеках военных академий.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Stella -->
 		<uiIndex>17</uiIndex>
-		<NickName>Stella</NickName>
-		<Name>Dr. Margaret "Stella" Trammel</Name>
-		<Bio>Margaret was the first female to join the ranks of A.I.M., and will be fondly missed. Besides her hard-fought battles on the combat field, Dr. Trammel will also be remembered for her uphill struggle with the A.I.M. Fraternal Benefits Association to gain spousal benefits for same sex partners. She recently opened a small family practice in the Virgin Islands.</Bio>
+		<NickName>Звездочка</NickName>
+		<Name>Доктор Маргарет Траммел "Звездочка"</Name>
+		<Bio>Маргарет была первой женщиной, вступившей в ряды A.I.M., и нам ее будет сильно не хватать. Помимо своих достижений на поле битвы, доктор Траммел запомнится нам своими выступлениями за право гомосексуальных пар на создание семьи. Организация Прав Женщин не смогла ей помешать. Недавно она открыла небольшой семейный бизнес на Виргинских островах.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Eli -->
 		<uiIndex>18</uiIndex>
-		<NickName>Eli</NickName>
-		<Name>Doctor Eli Summers</Name>
-		<Bio>Doctor Summers was by all accounts a gamer who made himself popular with employers by accepting assignments with newcomers and going about his business in a non-intrusive manner. Although A.I.M. regrets his decision to leave the organization, we are rather pleased to report that the good doctor has turned his favorite hobby into a profession. Currently playing on the Seniors Pro Golf Tour, Eli finished a respectable fourth in the Depends Open at Pebble Beach.</Bio>
+		<NickName>Эли</NickName>
+		<Name>Доктор Эли Саммерс</Name>
+		<Bio>Доктор Саммерс, несомненно, очень легко относился к работе наемника, принимая предложения о работе с новичками в одной команде и выполняя задания играючи. Хотя A.I.M. и сожалеет об его уходе, нам, тем не менее, приятно сообщить, что доктор превратил эту черту своего характера в доходное дело. В настоящее время он играет в чемпионате профессионалов по гольфу в старшей подгруппе. Эли совсем недавно занял почетное четвертое место в открытом чемпионате на Пебл Бич.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Elroy -->
 		<uiIndex>19</uiIndex>
-		<NickName>Elroy</NickName>
-		<Name>Elroy B. Tolken</Name>
-		<Bio>He's gone. We didn't ask. We don't care. Does anybody?</Bio>
+		<NickName>Элрой</NickName>
+		<Name>Элрой Б. Толкен</Name>
+		<Bio>Он уволился. Мы даже и не спросили его, с чего вдруг. Нам наплевать. А Вам разве нет?</Bio>
 	</MERC>
 	<MERC>
 		<!-- Skitz -->
 		<uiIndex>20</uiIndex>
-		<NickName>Skitz</NickName>
-		<Name>Bruce "Skitz" Bonner</Name>
-		<Bio>Bruce Bonner is gone - way gone! The addition of qualified explosive experts to our roster made a long-overdue decision much easier to make. After a record setting eight probationary periods, Skitz was finally expelled from the organization. Despite intensive therapy and twenty-one electroshock treatments, Skitz remains confined in Saint Michael's Hospital for the Criminally Insane.</Bio>
+		<NickName>Скитц</NickName>
+		<Name>Брюс Боннер "Скитц"</Name>
+		<Bio>Брюс Боннер уволен! Наш не самый лучший сапер долго думал, и так ничего и не придумал! После рекордного числа испытательных сроков "Скитц" был наконец уволен из A.I.M. Несмотря на курс интенсивной терапии и 21 удар электрошоком, Скитц по-прежнему содержится в Больнице Святого Михаила для опасных душевнобольных.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Wally -->
 		<uiIndex>21</uiIndex>
-		<NickName>Wally</NickName>
-		<Name>Walter "Wally" Yuntz</Name>
-		<Bio>Someone once said that if Wally didn't have bad luck, he wouldn't have any luck at all. After learning that he did indeed have problems with his vision, Wally was scheduled for corrective surgery. The operation should have put his poor marksmanship behind him forever but the laser Yuntz was placed under experienced a programming error. Now totally blind, he and his lead Chippy, serve as Dr. Eli Summers' caddies on the Seniors Pro Golf Tour.</Bio>
+		<NickName>Уолли</NickName>
+		<Name>Уолтер Янтц "Уолли"</Name>
+		<Bio>Кто-то сказал, что если бы Уолли не везло наоборот, то ему вообще бы не везло. Когда выяснилось, что у него проблемы со зрением, Уолли была назначена корректирующая хирургическая операция. Операция должна была улучшить его меткость, однако в программе, управляющей оперирующим лазером, произошел сбой. Теперь абсолютно слепой Янтц и его собака-поводырь помогают доктору Эли Саммерсу перетаскивать клюшки на матчах по гольфу.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Turtle -->
 		<uiIndex>22</uiIndex>
-		<NickName>Turtle</NickName>
-		<Name>Herman "Turtle" Regents</Name>
-		<Bio>Perhaps, Turtle's departure is best explained by an excerpt from his letter of resignation: "The pace of combat has become too much for me. I have been forced to run the beat rather than walk it. I have exhausted all avenues and find myself short of alternatives, other than to cough up my resignation effective immediately." Last we heard, Herman was working in Chicago as a probation officer.</Bio>
+		<NickName>Черепаха</NickName>
+		<Name>Герман Регентс "Черепаха"</Name>
+		<Bio>Вероятно, лучше всего уход Черепахи в отставку объяснит отрывок из его прощального письма: "Я не могу больше выдержать темп боя. Мне приходится напрягаться изо всех сил, чтобы успеть за происходящим. Я перепробовал все и не нашел иного выхода, кроме как подать в отставку. Прошу немедленно считать ее действительной." До нас дошли сведения, что Герман работает в Чикаго инспектором по наблюдению за условно осужденными.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Rev -->
 		<uiIndex>23</uiIndex>
-		<NickName>Rev</NickName>
-		<Name>Reverend Clyde Potter</Name>
-		<Bio>Due to numerous complaints from the organization's atheist members, the combat chaplain position was eliminated from A.I.M., and the preachy Potter, as one of our least utilized members, was eliminated as well. After leaving A.I.M., Reverend Clyde Potter took a position with the Innercity Church of Christ in Baltimore. He currently denies ever having been associated with A.I.M. He returns his pension checks and refuses to take our calls.</Bio>
+		<NickName>Преп. Поттер</NickName>
+		<Name>Преподобный Клайд Поттер</Name>
+		<Bio>Из-за поступивших от наших сотрудников-атеистов жалоб, должность капеллана была упразднена в A.I.M., и Преп. Поттер, как капеллан, был уволен. После увольнения, Преподобный отец занял должность проповедника в Церкви Христа в Балтиморе. Сейчас он отрицает свое прошлое в A.I.M., возвращает свои пенсионные чеки и даже не отвечает на телефонные звонки.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Mitch -->
 		<uiIndex>24</uiIndex>
-		<NickName>Mitch</NickName>
-		<Name>Dr. Mitch Shudlem</Name>
-		<Bio>Never truly comfortable with the blood and gore of combat, Doctor Shudlem, after a great deal of soul searching, returned to the blood and gore of the delivery room. He is currently employed as the chief of the pre-natal care unit of Saint Mary's Hospital for Unwed Mothers. He says returning to his obstetric roots is the best thing that ever happened to him, and he wonders why he ever left in the first place.</Bio>
+		<NickName>Митч</NickName>
+		<Name>Доктор Митч Шудлем</Name>
+		<Bio>Так и не переборов в себе отвращение к кровопролитию на поле боя, доктор Шудлем, после длительных поисков самого себя, вернулся к кровопролитию в операционной. В настоящий момент он заведует родовым отделением больницы Святой Марии для Незамужних Мам. Он утверждает, что возвращение к акушерским истокам - самое позитивное событие в его жизни за последние пятнадцать лет. Он еще удивляется, почему он вообще ушел...</Bio>
 	</MERC>
 	<MERC>
 		<!-- Carp -->
 		<uiIndex>25</uiIndex>
-		<NickName>Carp</NickName>
-		<Name>Howard "Carp" Melfield</Name>
-		<Bio>Unable to excel in any given specialty, yet well-liked within the organization, Carp was offered a desk assignment with A.I.M. Effective immediately, Howard Melfield will be responsible for members' Health and Safety, Retirement, and Dental Plans. He has also graciously agreed to chair the office Christmas Party Committee.</Bio>
+		<NickName>Карп</NickName>
+		<Name>Говард Мелфилд "Карп"</Name>
+		<Bio>Не сумев отличиться ни в одной из специальностей, Карп все же сумел снискать любовь и уважение среди сотрудников и был переведен на работу в офисе A.I.M. Назначение уже вступило в силу. Говард Мелфилд будет отвечать за Здоровье и Безопасность, Пенсионный Фонд и Страховку зубов. Он также любезно согласился стать Председателем Комитета по Проведению Рождественской Елки.</Bio>
 	</MERC>
 	<MERC>
 		<!-- It -->
 		<uiIndex>26</uiIndex>
-		<NickName>It</NickName>
-		<Name>Carl "It" Goodman</Name>
-		<Bio>Hired mainly for his brute force, Carl excelled with a crowbar and pleased employers for years with his simple, non-threatening attitude. After leaving A.I.M., Goodman returned to the world of professional wrestling where he claims every move is for keeps and the risk is real. Friends and fans alike can catch him as the Masked Mercenary most Saturday nights on Pay-Per-View's Wrestling Extravaganza.</Bio>
+		<NickName>Оно</NickName>
+		<Name>Карл Гудман "Оно"</Name>
+		<Bio>Пользующийся у работодателей популярностью из-за своей мощи, он всегда был хорошим другом сослуживцам и злейшим врагом противнику. Добрейшей души человек. После отставки Гудман вернулся на профессиональный ринг, где, как он утверждает, каждый необдуманный шаг стоит жизни. Друзья и поклонники могут всегда видеть Карла в амплуа "Наемника в Маске" по субботним вечерам на канале "Плати за 1 Просмотр" в программе "Экстравагантная борьба".</Bio>
 	</MERC>
 	<MERC>
 		<!-- Hamous -->
 		<uiIndex>27</uiIndex>
-		<NickName>Hamous</NickName>
-		<Name>Hamous</Name>
-		<Bio>Hamous had his first taste of combat in Metavira, and based on a glowing recommendation from a major client, Jack Richards, he was granted an internship with this organization, which recently expired. Regrettably, poor Hamous never did manage to save up enough money to purchase that mini-van he desperately wanted. So he did the next best thing and stole one just outside of Paris. Actually, it was an ice cream truck and he was last seen headed towards Istanbul in it.</Bio>
+		<NickName>Гамос</NickName>
+		<Name>Гамос</Name>
+		<Bio>Гамос впервые понюхал пороху в Метавире, и на основании блестящей рекомендации нашего основного клиента Джека Ричардса ему была обеспечена стипендия. Но деньги недавно закончились. К сожалению, бедный Гамос так и не скопил денег на покупку мини-фургона, о котором так мечтал. Поэтому он, недолго думая, украл его на окраине Парижа. На деле мини-фургон оказался фургоном мороженщика, на котором Гамос и рванул в Cтамбул.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Mouse -->
 		<uiIndex>28</uiIndex>
-		<NickName>Mouse</NickName>
-		<Name>Anita "Mouse" Backman</Name>
-		<Bio>Anita's stint with the organization was short and rather quiet. Known for her uncanny ability to move about unnoticed, and not much else, Mouse handed in her resignation at the same time as Dr. Margaret "Stella" Trammel. It is our understanding that they moved to the Virgin Islands together where Backman serves as nurse/receptionist at Trammel's newly opened medical clinic.</Bio>
+		<NickName>Мышь</NickName>
+		<Name>Анита Бахман "Мышь"</Name>
+		<Bio>Сотрудничество Аниты с A.I.M. было коротким и незнаменательным. Известная за свое редкое умение передвигаться совершенно незаметно, и больше в общем-то, ни за что, "Мышь" подала в отставку примерно в одно время с доктором Маргарет Траммел. Известно, что они переехали на Виргинские острова вместе, где Бахман работает медсестрой в недавно открытой клинике Траммел.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Dyno -->
 		<uiIndex>29</uiIndex>
-		<NickName>Dyno</NickName>
-		<Name>Roger "Dyno" Wittman</Name>
-		<Bio>Roger tried. Boy did he try. But he just seemed to lack the necessary edge. Understandably, some of the guys liked having him along for the laughs while others enjoyed cleaning their rifles with him. But ultimately, he realized he just wasn't cut out for the profession. Last we heard, Dyno was serving as the understudy to the Green Hippo in Animals on Ice.</Bio>
+		<NickName>Дино</NickName>
+		<Name>Роджер Уитман "Дино"</Name>
+		<Bio>Роджер старался изо всех сил. Но ему всегда чего-нибудь не хватало. Вполне объяснимо, что некоторым сотрудникам нравился юмор Роджера, а некоторым импонировало, что тот чистит их автоматы. Но, в конце концов, Роджер понял, что не создан для этой профессии. По последним сведениям, "Дино" стал дублером Зеленого Гиппопотама в "Зверях на Льду".</Bio>
 	</MERC>
 </OLD_MERC>
