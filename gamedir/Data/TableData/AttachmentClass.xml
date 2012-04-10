@@ -3,209 +3,53 @@
 	<AttachmentClass>
 		<id>0</id>
 		<name>None</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>1</id>
 		<name>Default</name>
-		<isDefault>1</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>2</id>
 		<name>Barrel</name>
-		<isDefault>0</isDefault>
-		<isBarrel>1</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>4</id>
 		<name>Laser</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>1</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>8</id>
 		<name>Sight</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>1</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>16</id>
 		<name>Scope</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>1</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>32</id>
 		<name>Stock</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>1</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>64</id>
 		<name>Ammo</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>1</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>128</id>
 		<name>Internal</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>1</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>256</id>
 		<name>External</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>1</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>512</id>
 		<name>Underbarrel</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>1</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>1024</id>
 		<name>Grenade</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>1</isGrenade>
-		<isRocket>0</isRocket>
 	</AttachmentClass>
 	<AttachmentClass>
 		<id>2048</id>
 		<name>Rocket</name>
-		<isDefault>0</isDefault>
-		<isBarrel>0</isBarrel>
-		<isLaser>0</isLaser>
-		<isSight>0</isSight>
-		<isScope>0</isScope>
-		<isStock>0</isStock>
-		<isAmmo>0</isAmmo>
-		<isInternal>0</isInternal>
-		<isExternal>0</isExternal>
-		<isUnderbarrel>0</isUnderbarrel>
-		<isGrenade>0</isGrenade>
-		<isRocket>1</isRocket>
 	</AttachmentClass>
 </JA2Data>
