@@ -48,6 +48,7 @@
     <ClInclude Include="PopUpBox.h" />
     <ClInclude Include="popup_callback.h" />
     <ClInclude Include="popup_class.h" />
+    <ClInclude Include="popup_definition.h" />
     <ClInclude Include="Quantize Wrap.h" />
     <ClInclude Include="Quantize.h" />
     <ClInclude Include="Slider.h" />
@@ -98,6 +99,7 @@
     <ClCompile Include="Music Control.cpp" />
     <ClCompile Include="PopUpBox.cpp" />
     <ClCompile Include="popup_class.cpp" />
+    <ClCompile Include="popup_definition.cpp" />
     <ClCompile Include="Quantize Wrap.cpp" />
     <ClCompile Include="Quantize.cpp" />
     <ClCompile Include="Slider.cpp" />

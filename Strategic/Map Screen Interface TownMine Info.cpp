@@ -59,6 +59,8 @@ UINT16 sTotalButtonWidth = 0;
 extern BOOLEAN fMapScreenBottomDirty;
 //extern UINT8 gubMonsterMineInfestation[];
 
+// HEADROCK HAM 5: Must be externed here for correct sector name display
+extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
 
 // create the town/mine info box
 void CreateTownInfoBox( void );
@@ -294,43 +296,96 @@ void AddTextToTownBox( void )
 
 	usTownSectorIndex = SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
 
-	switch( usTownSectorIndex )
+	AssertGE(usTownSectorIndex, 0);
+	AssertLT(usTownSectorIndex,256);
+
+	////////////////////////////////////
+	// HEADROCK HAM 5:
+	// Read and verify XML sector names
+	BOOLEAN fSectorHasXMLNames = TRUE;
+	CHAR16 zUnexplored[MAX_SECTOR_NAME_LENGTH];
+	CHAR16 zExplored[MAX_SECTOR_NAME_LENGTH];
+	
+	wcscpy( zUnexplored, gzSectorNames[ usTownSectorIndex ][0] );
+	wcscpy( zExplored, gzSectorNames[ usTownSectorIndex ][2] );
+
+	if (zUnexplored[0] == 0 || zExplored[0] == 0)
 	{
-		case SEC_B13:
-			AddMonoString( &hStringHandle, pLandTypeStrings[ DRASSEN_AIRPORT_SITE ] );
-			break;
-		case SEC_F8:
-			AddMonoString( &hStringHandle, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
-			break;
-		case SEC_J9: //Tixa
-			//if( !fFoundTixa )
-			if( gfHiddenTown[ TIXA ] == FALSE )
-				AddMonoString( &hStringHandle, pLandTypeStrings[ SAND ] );
-			else
-				AddMonoString( &hStringHandle, pTownNames[ TIXA ] );
-			break;
-		case SEC_K4: //Orta
-			//if( !fFoundOrta )
-			if( gfHiddenTown[ ORTA ] == FALSE )
-				AddMonoString( &hStringHandle, pLandTypeStrings[ SWAMP ] );
-			else
-				AddMonoString( &hStringHandle, pTownNames[ ORTA ] );
-			break;
-		case SEC_N3:
-			AddMonoString( &hStringHandle, pLandTypeStrings[ MEDUNA_AIRPORT_SITE ] );
-			break;
-		default:
-			if( usTownSectorIndex == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
-			{	//Meduna's SAM site
-				AddMonoString( &hStringHandle, pLandTypeStrings[ MEDUNA_SAM_SITE ] );
-			}
-			else
-			{ // town name
-				swprintf( wString, L"%s", pTownNames[ ubTownId ] );
-				AddMonoString( &hStringHandle, wString );
-			}
-			break;
+		fSectorHasXMLNames = FALSE;
 	}
+
+	if (fSectorHasXMLNames) // ABOVE GROUND XML
+	{
+		// HEADROCK HAM 3.6: The program can now read custom names from XML for all above-ground sectors.
+		// In the event that a specific name or set of names is missing, the program generates a default
+		// name as it always has.
+		// I've also updated the SAM Site sectors to rely on SamSite.XML data.
+		
+		BOOLEAN fVisited = (SectorInfo[ usTownSectorIndex ].uiFlags & SF_ALREADY_VISITED);
+		BOOLEAN fSAMSiteKnown = FALSE;
+
+		// Test for known SAM Site at this location
+		for (UINT16 x=0; x < MAX_NUMBER_OF_SAMS; x++)
+		{
+			if ( pSamList[x] == usTownSectorIndex )
+			{
+				if ( fSamSiteFound[ x ] )
+				{
+					fSAMSiteKnown = TRUE;
+				}
+			}
+		}
+
+		if (fVisited || fSAMSiteKnown)
+		{
+			AddMonoString( &hStringHandle, zExplored );
+		}
+		else
+		{
+			AddMonoString( &hStringHandle, zUnexplored );
+		}
+	}
+	else // ABOVE GROUND HARDCODED
+	{
+		switch( usTownSectorIndex )
+		{
+			case SEC_B13:
+				AddMonoString( &hStringHandle, pLandTypeStrings[ DRASSEN_AIRPORT_SITE ] );
+				break;
+			case SEC_F8:
+				AddMonoString( &hStringHandle, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
+				break;
+			case SEC_J9: //Tixa
+				//if( !fFoundTixa )
+				if( gfHiddenTown[ TIXA ] == FALSE )
+					AddMonoString( &hStringHandle, pLandTypeStrings[ SAND ] );
+				else
+					AddMonoString( &hStringHandle, pTownNames[ TIXA ] );
+				break;
+			case SEC_K4: //Orta
+				//if( !fFoundOrta )
+				if( gfHiddenTown[ ORTA ] == FALSE )
+					AddMonoString( &hStringHandle, pLandTypeStrings[ SWAMP ] );
+				else
+					AddMonoString( &hStringHandle, pTownNames[ ORTA ] );
+				break;
+			case SEC_N3:
+				AddMonoString( &hStringHandle, pLandTypeStrings[ MEDUNA_AIRPORT_SITE ] );
+				break;
+			default:
+				if( usTownSectorIndex == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
+				{	//Meduna's SAM site
+					AddMonoString( &hStringHandle, pLandTypeStrings[ MEDUNA_SAM_SITE ] );
+				}
+				else
+				{ // town name
+					swprintf( wString, L"%s", pTownNames[ ubTownId ] );
+					AddMonoString( &hStringHandle, wString );
+				}
+				break;
+		}
+	}
+
 	// blank line
 	AddMonoString( &hStringHandle, L"" );
 
@@ -523,31 +578,83 @@ void AddTextToBlankSectorBox( void )
 	// get the sector value
 	usSectorValue = SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
 
-	switch( usSectorValue )
-	{
-		case SEC_D2: //Chitzena SAM
-			if( !fSamSiteFound[ SAM_SITE_ONE ] )
-				AddMonoString( &hStringHandle, pLandTypeStrings[ TROPICS ] );
-			else
-				AddMonoString( &hStringHandle, pLandTypeStrings[ TROPICS_SAM_SITE ] );
-			break;
-		case SEC_D15: //Drassen SAM
-			if( !fSamSiteFound[ SAM_SITE_TWO ] )
-				AddMonoString( &hStringHandle, pLandTypeStrings[ SPARSE ] );
-			else
-				AddMonoString( &hStringHandle, pLandTypeStrings[ SPARSE_SAM_SITE ] );
-			break;
-		case SEC_I8: //Cambria SAM
-			if( !fSamSiteFound[ SAM_SITE_THREE ] )
-				AddMonoString( &hStringHandle, pLandTypeStrings[ SAND ] );
-			else
-				AddMonoString( &hStringHandle, pLandTypeStrings[ SAND_SAM_SITE ] );
-			break;
-		// SAM Site 4 in Meduna is within town limits, so it's handled in AddTextToTownBox()
+	AssertGE(usSectorValue, 0);
+	AssertLT(usSectorValue,256);
 
-		default:
-			AddMonoString( &hStringHandle, pLandTypeStrings[ ( SectorInfo[ usSectorValue ].ubTraversability[ 4 ] ) ] );
-			break;
+	////////////////////////////////////
+	// HEADROCK HAM 5:
+	// Read and verify XML sector names
+	BOOLEAN fSectorHasXMLNames = TRUE;
+	CHAR16 zUnexplored[MAX_SECTOR_NAME_LENGTH];
+	CHAR16 zExplored[MAX_SECTOR_NAME_LENGTH];
+	
+	wcscpy( zUnexplored, gzSectorNames[ usSectorValue ][0] );
+	wcscpy( zExplored, gzSectorNames[ usSectorValue ][2] );
+
+	if (zUnexplored[0] == 0 || zExplored[0] == 0)
+	{
+		fSectorHasXMLNames = FALSE;
+	}
+
+	if (fSectorHasXMLNames) // ABOVE GROUND XML
+	{
+		// HEADROCK HAM 3.6: The program can now read custom names from XML for all above-ground sectors.
+		// In the event that a specific name or set of names is missing, the program generates a default
+		// name as it always has.
+		// I've also updated the SAM Site sectors to rely on SamSite.XML data.
+		
+		BOOLEAN fVisited = (SectorInfo[ usSectorValue ].uiFlags & SF_ALREADY_VISITED);
+		BOOLEAN fSAMSiteKnown = FALSE;
+
+		// Test for known SAM Site at this location
+		for (UINT16 x=0; x < MAX_NUMBER_OF_SAMS; x++)
+		{
+			if ( pSamList[x] == usSectorValue )
+			{
+				if ( fSamSiteFound[ x ] )
+				{
+					fSAMSiteKnown = TRUE;
+				}
+			}
+		}
+
+		if (fVisited || fSAMSiteKnown)
+		{
+			AddMonoString( &hStringHandle, zExplored );
+		}
+		else
+		{
+			AddMonoString( &hStringHandle, zUnexplored );
+		}
+	}
+	else // ABOVE GROUND HARDCODED
+	{
+		switch( usSectorValue )
+		{
+			case SEC_D2: //Chitzena SAM
+				if( !fSamSiteFound[ SAM_SITE_ONE ] )
+					AddMonoString( &hStringHandle, pLandTypeStrings[ TROPICS ] );
+				else
+					AddMonoString( &hStringHandle, pLandTypeStrings[ TROPICS_SAM_SITE ] );
+				break;
+			case SEC_D15: //Drassen SAM
+				if( !fSamSiteFound[ SAM_SITE_TWO ] )
+					AddMonoString( &hStringHandle, pLandTypeStrings[ SPARSE ] );
+				else
+					AddMonoString( &hStringHandle, pLandTypeStrings[ SPARSE_SAM_SITE ] );
+				break;
+			case SEC_I8: //Cambria SAM
+				if( !fSamSiteFound[ SAM_SITE_THREE ] )
+					AddMonoString( &hStringHandle, pLandTypeStrings[ SAND ] );
+				else
+					AddMonoString( &hStringHandle, pLandTypeStrings[ SAND_SAM_SITE ] );
+				break;
+			// SAM Site 4 in Meduna is within town limits, so it's handled in AddTextToTownBox()
+
+			default:
+				AddMonoString( &hStringHandle, pLandTypeStrings[ ( SectorInfo[ usSectorValue ].ubTraversability[ 4 ] ) ] );
+				break;
+		}
 	}
 
 	// blank line
@@ -723,7 +830,9 @@ void AddCommonInfoToBox(void)
 			wcscpy(wString, pwMiscSectorStrings[ 3 ] );
 			break;
 
+		// HEADROCK HAM 5: New Case
 		case KNOWS_THEYRE_THERE:
+		case KNOWS_THEYRE_THERE_AND_WHERE_GOING:
 			// if there are any there
 			if ( ubNumEnemies > 0 )
 			{
@@ -737,7 +846,9 @@ void AddCommonInfoToBox(void)
 			}
 			break;
 
+		// HEADROCK HAM 5: New case
 		case KNOWS_HOW_MANY:
+		case KNOWS_HOW_MANY_AND_WHERE_GOING:
 			// show exactly how many
 			if (numEnemiesOnMap != ubNumEnemies)
 				swprintf( wString, L"%d (%d)", numEnemiesOnMap, ubNumEnemies );

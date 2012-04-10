@@ -322,6 +322,10 @@ extern STR16 gzFacilityRiskResultStrings[];
 // HEADROCK HAM 4: Text for the new CTH indicator.
 extern STR16 gzNCTHlabels[];
 
+// HEADROCK HAM 5: Messages for automatic sector inventory sorting.
+extern STR16 gzMapInventorySortingMessage[];
+extern STR16 gzMapInventoryFilterOptions[];
+
 enum
 {
 	ANTIHACKERSTR_EXITGAME,
@@ -624,14 +628,14 @@ extern STR16		gzUDBButtonTooltipText[ 3 ];
 extern STR16		gzUDBHeaderTooltipText[ 4 ];
 extern STR16		gzUDBGenIndexTooltipText[ 4 ];
 extern STR16		gzUDBAdvIndexTooltipText[ 5 ];
-extern STR16		szUDBGenWeaponsStatsTooltipText[ 22 ];
-extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 22 ];
+extern STR16		szUDBGenWeaponsStatsTooltipText[ 23 ];
+extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 23 ];
 extern STR16		szUDBGenArmorStatsTooltipText[ 3 ];
 extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 3 ];
 extern STR16		szUDBGenAmmoStatsTooltipText[ 4 ];						// Flugente Overheating Weapons: 3->4
 extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 4 ];
-extern STR16		szUDBGenExplosiveStatsTooltipText[ 18 ];
-extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 18 ];
+extern STR16		szUDBGenExplosiveStatsTooltipText[ 22 ];
+extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ];
 extern STR16		szUDBGenSecondaryStatsTooltipText[ 26 ];
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ];
 extern STR16		szUDBAdvStatsTooltipText[ 56 ];							// Flugente Overheating Weapons: 48->56
@@ -2100,6 +2104,8 @@ enum
 
 	TEXT_NUM_MSG113,
 };
+
+extern STR16 gzTransformationMessage[];
 
 //CHRISL: NewInv messages
 extern STR16 NewInvMessage[];

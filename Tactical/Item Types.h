@@ -4,6 +4,9 @@
 #include "types.h"
 #include <vector>
 #include <list>
+// THE_BOB : added for pocket popup definitions
+#include <map>
+#include "popup_definition.h"
 
 //if the number of slots are ever changed, the loading / saving checksum should use this value to make conversion easier
 #define NUM_ORIGINAL_INV_SLOTS 19
@@ -263,6 +266,20 @@ extern	std::list<LBENODE>	LBEArray;
 //do not alter or saves will break, create new defines if the size changes
 #define OLD_MAX_ATTACHMENTS_101 4
 #define OLD_MAX_OBJECTS_PER_SLOT_101 8
+
+// HEADROCK HAM 5: Define Self-Transformations
+// Have to define this early on, because this struct is used in OBJECTTYPE
+#define MAX_NUM_TRANSFORMATION_RESULTS 10
+
+typedef struct
+{
+	UINT16 usItem;
+	UINT16 usResult[MAX_NUM_TRANSFORMATION_RESULTS];
+	UINT16 usAPCost;
+	INT32 iBPCost;
+	CHAR16 szMenuRowText[50];
+	CHAR16 szTooltipText[300];
+} TransformInfoStruct;
 
 namespace Version101
 {
@@ -526,6 +543,8 @@ public:
 	BOOLEAN AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound = TRUE, UINT8 subObject = 0);
 	BOOLEAN AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound = TRUE, UINT8 subObject = 0, INT32 iItemPos = -1, BOOLEAN fRemoveProhibited = TRUE, std::vector<UINT16> usAttachmentSlotIndexVector = std::vector<UINT16>());
 	BOOLEAN RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNewObj = NULL, UINT8 subObject = 0, SOLDIERTYPE * pSoldier = NULL, BOOLEAN fForceInseperable = FALSE, BOOLEAN fRemoveProhibited = TRUE);
+	// HEADROCK HAM 5: Object Transformation
+	BOOLEAN TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex, TransformInfoStruct * Transform, OBJECTTYPE *pParent );
 
 	//see comments in .cpp
 	static	void DeleteMe(OBJECTTYPE** ppObject);
@@ -589,6 +608,17 @@ extern OBJECTTYPE gTempObject;
 
 #define IC_BOBBY_GUN			( IC_GUN | IC_LAUNCHER )
 #define IC_BOBBY_MISC			( IC_GRENADE | IC_BOMB | IC_MISC | IC_MEDKIT | IC_KIT | IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH | IC_FACE | IC_LBEGEAR )
+
+// HEADROCK HAM 5: Inventory Filter Types
+#define IC_MAPFILTER_GUN		( IC_GUN | IC_LAUNCHER )
+#define IC_MAPFILTER_AMMO		( IC_AMMO )
+#define IC_MAPFILTER_EXPLOSV	( IC_GRENADE | IC_BOMB )
+#define IC_MAPFILTER_MELEE		( IC_BLADE | IC_PUNCH | IC_THROWN | IC_THROWING_KNIFE )
+#define IC_MAPFILTER_KIT		( IC_KIT | IC_MEDKIT | IC_APPLIABLE )
+#define IC_MAPFILTER_LBE		( IC_LBEGEAR | IC_BELTCLIP )
+#define IC_MAPFILTER_ARMOR		( IC_ARMOUR | IC_FACE )
+#define IC_MAPFILTER_MISC		( IC_TENTACLES | IC_KEY | IC_MISC | IC_MONEY | IC_NONE )
+#define IC_MAPFILTER_ALL		( IC_MAPFILTER_GUN | IC_MAPFILTER_AMMO | IC_MAPFILTER_EXPLOSV | IC_MAPFILTER_MELEE | IC_MAPFILTER_KIT | IC_MAPFILTER_LBE | IC_MAPFILTER_ARMOR | IC_MAPFILTER_MISC )
 
 // Chrisl: Define attachment classes
 #define AC_DEFAULT1		0x00000001	//1
@@ -904,6 +934,10 @@ public:
 };
 #define SIZEOF_POCKETTYPE offsetof( POCKETTYPE, POD )
 extern std::vector<POCKETTYPE> LBEPocketType;
+
+// THE_BOB : added for pocket popup definitions
+extern std::map<UINT8,popupDef> LBEPocketPopup;
+
 typedef enum ePOCKET_TYPE
 {
 	NO_POCKET_TYPE = 0,
@@ -1444,6 +1478,9 @@ typedef struct
 	UINT16	usResult;
 	UINT32  uiIndex;
 } ComboMergeInfoStruct;
+
+// HEADROCK HAM 5: Defining this here because we need MAXITEMS. The struct is defined earlier.
+extern TransformInfoStruct Transform[MAXITEMS+1];
 
 extern ComboMergeInfoStruct AttachmentComboMerge[MAXITEMS+1];
 BOOLEAN EXPLOSIVE_GUN(UINT16 x );

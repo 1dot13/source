@@ -128,6 +128,7 @@ void DestroyLBE(OBJECTTYPE* pObj)
 
 void MoveItemsInSlotsToLBE( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBESlots, LBENODE* pLBE, OBJECTTYPE* pObj)
 {
+
 	for(unsigned int i=0; i<LBESlots.size(); i++)	// Go through default pockets one by one
 	{
 		if(pSoldier->inv[LBESlots[i]].exists() == false)	// No item in this pocket

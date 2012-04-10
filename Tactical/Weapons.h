@@ -358,6 +358,11 @@ typedef struct
 	UINT16		ubDuration;	
 	UINT16		ubStartRadius;	
 	UINT8		ubMagSize;
+	BOOLEAN		fExplodeOnImpact;	// HEADROCK HAM 5: Flag for impact explosives.
+	UINT16		usNumFragments;		// HEADROCK HAM 5.1: Fragmenting Explosive Data
+	UINT8		ubFragType;
+	UINT16		ubFragDamage;
+	UINT16		ubFragRange;
 } EXPLOSIVETYPE;
 
 //GLOBALS
@@ -381,7 +386,7 @@ extern BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 extern void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 usDirection, INT16 sXPos, INT16 sYPos, INT16 sZPos, INT16 sRange , UINT8 ubAttackerID, BOOLEAN fHit, UINT8 ubSpecial, UINT8 ubHitLocation );
 extern void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UINT8 ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped );
 extern void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce );
-extern INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, INT16 sHitBy, UINT8 * pubSpecial );
+// HEADROCK HAM 5.1: Moved to Bullets.h
 extern BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 extern void ShotMiss( UINT8 ubAttackerID, INT32 iBullet );
 extern UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );

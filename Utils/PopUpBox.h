@@ -7,8 +7,8 @@
 #include "WCheck.h"
 #include "Render Dirty.h"
 
-#define MAX_POPUP_BOX_COUNT 20
-#define MAX_POPUP_BOX_STRING_COUNT 50		// worst case = 45: move menu with 20 soldiers, each on different squad + overhead
+#define MAX_POPUP_BOX_COUNT 32
+#define MAX_POPUP_BOX_STRING_COUNT 128		// worst case = 45: move menu with 20 soldiers, each on different squad + overhead
 
 // PopUpBox Flags
 #define POPUP_BOX_FLAG_CLIP_TEXT 1

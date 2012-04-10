@@ -62,7 +62,8 @@ class SOLDIERTYPE;
 
 #define	GET_OBJECT_LEVEL( z )						( (INT8)( ( z + 10 ) / HEIGHT_UNITS ) )
 //#define	OBJECT_DETONATE_ON_IMPACT( object )	( ( object->Obj.usItem == MORTAR_SHELL ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
-#define	OBJECT_DETONATE_ON_IMPACT( object )	( ( Item[object->Obj.usItem].usItemClass == IC_BOMB ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
+// HEADROCK HAM 5: Enabled "Explode on Impact" flag for explosive items
+#define	OBJECT_DETONATE_ON_IMPACT( object )	( ( Item[object->Obj.usItem].usItemClass == IC_BOMB ) || ( Explosive[Item[object->Obj.usItem].ubClassIndex ].fExplodeOnImpact ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
 
 
 #define	MAX_INTEGRATIONS				8

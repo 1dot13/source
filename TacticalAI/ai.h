@@ -98,6 +98,8 @@ typedef enum
 	AI_ACTION_OFFER_SURRENDER,		// offer surrender to the player
 	AI_ACTION_RAISE_GUN,
 	AI_ACTION_STEAL_MOVE, // added by SANDRO
+
+	AI_ACTION_RELOAD_GUN,
 } ActionType;
 
 

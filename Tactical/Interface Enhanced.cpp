@@ -1376,6 +1376,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 	INT32		threshold;
 	INT32		iRegionsCreated = 0;
 	INT32		iFirstDataRegion = 0;
+	UINT8		ubRegionOffset = 0; // HEADROCK HAM 5: To make it easier to edit.
 
 	InitEDBCoords( gpItemDescObject );
 
@@ -1522,103 +1523,193 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			/////////////////// ACCURACY
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 0 ] );
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 0;
+				}
+				else
+				{
+					ubRegionOffset = 2;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// DAMAGE
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_BLADE|IC_PUNCH|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 1 ] );
+				ubRegionOffset = 1;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// RANGE
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );			
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 2;
+				}
+				else
+				{
+					ubRegionOffset = 0;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );			
 			}
-				
+
+			/////////////////// GUN HANDLING
+			if ( UsingNewCTHSystem() == TRUE && Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+			{
+				ubRegionOffset = 3;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );	
+			}
+
 			/////////////////// AIMING LEVELS
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );			
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 4;
+				}
+				else
+				{
+					ubRegionOffset = 3;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );			
+			}
+
+			/////////////////// OCTH AIMING BONUS
+			if ( UsingNewCTHSystem() == false && 
+				(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
+			{
+				ubRegionOffset = 4;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// SCOPE MAGNIFICATION
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
+				ubRegionOffset = 5;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
+			}
+
+			/////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
+			if( UsingNewCTHSystem() == false && 
+				( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( gpItemDescObject ) > 0 ) )
+			{
+				ubRegionOffset = 5;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// PROJECTION FACTOR
-			if ( GetProjectionFactor( gpItemDescObject ) > 1.0f )
+			if (UsingNewCTHSystem() == true && 
+				(Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 5 ] );
+				ubRegionOffset = 6;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
+
+			/////////////////// OCTH TO=HIT BONUS
+			if (UsingNewCTHSystem() == false && 
+				(Item[gpItemDescObject->usItem].tohitbonus != 0 || GetFlatToHitBonus( gpItemDescObject ) != 0) )
+			{
+				ubRegionOffset = 6;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
+			}
+
+			/////////////////// OCTH BEST LASER RANGE
+			if (UsingNewCTHSystem() == false && 
+				(Item[gpItemDescObject->usItem].bestlaserrange > 0 || GetAverageBestLaserRange( gpItemDescObject ) > 0 ) )
+			{
+				ubRegionOffset = 7;
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
+			}
+
 			/////////////////// FLASH SUPPRESSION
 			if (IsFlashSuppressorAlt( gpItemDescObject ) == TRUE)
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 6 ] );
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 7;
+				}
+				else
+				{
+					ubRegionOffset = 8;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// LOUDNESS
 			if (Weapon[ Item[ gpItemDescObject->usItem ].ubClassIndex ].ubAttackVolume > 0 )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 7 ] );
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 8;
+				}
+				else
+				{
+					ubRegionOffset = 9;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// RELIABILITY
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 8 ] );
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 9;
+				}
+				else
+				{
+					ubRegionOffset = 10;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// REPAIR EASE
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 9 ] );
-			}
-
-			/////////////////// MinRangeForAimBonus
-			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 10 ] );
-			}
-
-			/////////////////// ToHitBonus
-			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 11 ] );
+				if (UsingNewCTHSystem() == true)
+				{
+					ubRegionOffset = 10;
+				}
+				else
+				{
+					ubRegionOffset = 11;
+				}
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
 			}
 
 			/////////////////// AP TO DRAW
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_PUNCH) && !Item[ gpItemDescObject->usItem].rocketlauncher )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 12 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 13 ] );
 			}
 			
 			/////////////////// AP TO SINGLE ATTACK
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 13 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 14 ] );
 			}
 
 			/////////////////// AP TO BURST
 			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[gpItemDescObject->usItem].rocketlauncher )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 14 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 15 ] );
 			}
 
 			/////////////////// AP TO AUTOFIRE
 			if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 15 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 16 ] );
 			}
 
 			/////////////////// AP TO RELOAD
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 16 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 17 ] );
 			}
 
 			/////////////////// AP TO RELOAD MANUALLY
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher && Weapon[gpItemDescObject->usItem].APsToReloadManually > 0 )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 17 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
 			}
 
 			/////////////////// RECOIL X/Y
@@ -1626,27 +1717,28 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			{
 				if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher && (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 ) )
 				{
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 19 ] );
+					// HEADROCK HAM 5: One value to rule them all.
+					// MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 20 ] );
 				}
 			}
 			else	/////////////////// BIPOD & BURST PENALTY
 			{
 				if( GetBurstPenalty(gpItemDescObject) > 0 )
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
-				if( GetBipodBonus(gpItemDescObject) > 0 )
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 19 ] );
+				if( GetBipodBonus(gpItemDescObject) > 0 )
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 20 ] );
 			}
 
 			/////////////////// BULLETS PER 5 AP
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher && GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 			{
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 20 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 21 ] );
 			}
 
 			/////////////////// AUTOFIRE PENALTY
 			if( UsingNewCTHSystem() == false && GetAutoPenalty(gpItemDescObject) > 0 )
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 21 ] );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 22 ] );
 		}
 	}
 
@@ -1899,145 +1991,179 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 1 ] );
 			}
 
-			//////////////////// BLAST RADIUS
-			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 
-				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType != 5 
-				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType != 1 )
+			// HEADROCK HAM 5
+			//////////////////// EXPLODE ON IMPACT
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].fExplodeOnImpact )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 2 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 2 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
 			}
 
+			//////////////////// BLAST RADIUS
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 
+				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType != 5 
+				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType != 1 )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 3 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 3 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
+			}
+
 			//////////////////// STUN BLAST RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 1 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 3 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 3 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 4 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 4 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// NOISE BLAST RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 5 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 4 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 4 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 5 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 5 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// TEARGAS START RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 2 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 5 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 5 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 6 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 6 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// MUSTARD GAS START RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 3 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 6 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 6 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 7 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 7 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// LIGHT START RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 4 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 7 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 7 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 8 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 8 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// SMOKE START RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 6 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 8 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 8 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 9 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 9 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// INCENDIARY START RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 8 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 9 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 9 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 2 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 10 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 10 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 
 			//////////////////// TEARGAS END RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 2 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 10 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 10 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 11 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 11 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 4 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
 			}
 
 			//////////////////// MUSTARD GAS END RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 3 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 11 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 11 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 12 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 12 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 4 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
 			}
 
 			//////////////////// LIGHT END RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 4 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 12 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 12 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 13 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 13 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 4 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
 			}
 
 			//////////////////// SMOKE END RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 6 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 13 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 13 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 14 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 14 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 4 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
 			}
 
 			//////////////////// NAPALM END RADIUS
 			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 				&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 8 )
 			{
-				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 14 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 14 ]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 3 ]), pStr );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
-			}
-
-			//////////////////// DURATION
-			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 )
-			{
 				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 15 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 15 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 4 ]), pStr );
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
 			}
 
-			//////////////////// LOUDNESS
+			//////////////////// DURATION
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 16 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 16 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 5 ]), pStr );
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 5 ] );
 			}
 
-			//////////////////// VOLATILITY
-			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubVolatility > 0 )
+			// HEADROCK HAM 5: Fragmentation
+			//////////////////// NUMBER OF FRAGMENTS
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 17 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 17 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 6 ]), pStr );
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 6 ] );
+			}
+
+			//////////////////// FRAGMENT DAMAGE
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 18 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 18 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 7 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 7 ] );
+			}
+
+			//////////////////// FRAGMENT RANGE
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 19 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 19 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 8 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 8 ] );
+			}
+
+			//////////////////// LOUDNESS
+			{
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 20 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 20 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 9 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 9 ] );
+			}
+
+			//////////////////// VOLATILITY
+			if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubVolatility > 0 )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 21 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 21 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 10 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 10 ] );
 			}
 		}
 	}
@@ -2411,6 +2537,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 					{
 						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 1 ], szUDBAdvStatsExplanationsTooltipText[ 1 ]);
 					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
 				}
 				cnt++;
 			}
@@ -2823,6 +2951,31 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
+		// HEADROCK HAM 5: Moved here because it makes more sense.
+		///////////////////// MAX COUNTER FORCE
+		if ((CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
+			|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
+			|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 ) )
+		{
+			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 44 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 44 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 44 ], szUDBAdvStatsExplanationsTooltipText[ 44 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 				}
+				cnt++;
+			}
+		}
+
 		///////////////////// MAX COUNTER FORCE MODIFIER
 		if ((GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND ) != 0 
 			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
@@ -2871,6 +3024,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
+		// HEADROCK HAM 5: This is gone now.
+		/*
 		///////////////////// COUNTER FORCE FREQUENCY MODIFIER
 		if (GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_STAND ) != 0 
 			|| GetCounterForceFrequencyModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
@@ -2893,7 +3048,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
  				}
 				cnt++;
 			}
-		}
+		}*/
 
 		///////////////////// AP MODIFIER
 		if (GetAPBonus( gpItemDescObject ) != 0 )
@@ -3448,30 +3603,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			cnt++;
 		}
 
-		///////////////////// MAX COUNTER FORCE
-		if ((CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
-			|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 ) )
-		{
-			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
-					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 44 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 44 ]);
-					}
-					else
-					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 44 ], szUDBAdvStatsExplanationsTooltipText[ 44 ]);
-					}
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
- 				}
-				cnt++;
-			}
-		}
-
+		// HEADROCK HAM 5: This no longer exists.
+		/*
 		///////////////////// COUNTER FORCE FREQUENCY
 		if ((GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND ) != 0 
 			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
@@ -3494,8 +3627,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
  				}
 				cnt++;
 			}
-		}
-
+		}*/
 				// Flugente FTW 1.1:		
 		if ( gGameOptions.fWeaponOverheating )
 		{
@@ -3742,6 +3874,7 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 	INT32	cnt;
 	INT16 sOffsetX = 2;
 	INT16 sOffsetY = 1;
+	UINT8 ubNumLine;
 
 	if( UsingEDBSystem() == 0 )
 		return;
@@ -3752,137 +3885,232 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		//////////////////// ACCURACY
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 8, gItemDescGenRegions[0][0].sLeft+sOffsetX, gItemDescGenRegions[0][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 0;
+			}
+			else
+			{
+				ubNumLine = 2;
+			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 8, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// DAMAGE
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 5, gItemDescGenRegions[1][0].sLeft+sOffsetX, gItemDescGenRegions[1][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 1;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 5, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// RANGE
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 4, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 2;
+			}
+			else
+			{
+				ubNumLine = 0;
+			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 4, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		//////////////////// GUN HANDLING
+		if ( UsingNewCTHSystem() == TRUE && Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+		{
+			ubNumLine = 3;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 33, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// ALLOWED AIM LEVELS
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 33, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 4;
+			}
+			else
+			{
+				ubNumLine = 3;
+			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 32, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		//////////////////// OCTH AIMING BONUS
+		if ( UsingNewCTHSystem() == false && 
+			(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
+		{
+			ubNumLine = 4;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 15, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// SCOPE MAGNIFICATION
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN )
+		if ( UsingNewCTHSystem() == true && Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 15, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 5;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 15, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		//////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
+		if( UsingNewCTHSystem() == false && 
+			( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( gpItemDescObject ) > 0 ) )
+		{
+			ubNumLine = 5;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 27, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// PROJECTION FACTOR
-		if (GetProjectionFactor( gpItemDescObject ) > 1.0)
+		if (UsingNewCTHSystem() == true && 
+			(Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 14, gItemDescGenRegions[5][0].sLeft+sOffsetX, gItemDescGenRegions[5][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 6;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 14, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		//////////////////// OCTH TO=HIT BONUS
+		if (UsingNewCTHSystem() == false && 
+			(Item[gpItemDescObject->usItem].tohitbonus != 0 || GetFlatToHitBonus( gpItemDescObject ) != 0) )
+		{
+			ubNumLine = 6;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 13, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		//////////////////// OCTH BEST LASER RANGE
+		if (UsingNewCTHSystem() == false && 
+			(Item[gpItemDescObject->usItem].bestlaserrange > 0 || GetAverageBestLaserRange( gpItemDescObject ) > 0 ) )
+		{
+			ubNumLine = 7;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 14, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// FLASH SUPPRESSION
 		if (IsFlashSuppressorAlt( gpItemDescObject ))
 		{
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 7;
+			}
+			else
+			{
+				ubNumLine = 8;
+			}
 			// HIDE FLASH ICON
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 28, gItemDescGenRegions[6][0].sLeft+sOffsetX, gItemDescGenRegions[6][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 28, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// LOUDNESS
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 17, gItemDescGenRegions[7][0].sLeft+sOffsetX, gItemDescGenRegions[7][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 8;
+			}
+			else
+			{
+				ubNumLine = 9;
+			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 17, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// RELIABILITY
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 9, gItemDescGenRegions[8][0].sLeft+sOffsetX, gItemDescGenRegions[8][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 9;
+			}
+			else
+			{
+				ubNumLine = 10;
+			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 9, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// REPAIR EASE
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[9][0].sLeft+sOffsetX, gItemDescGenRegions[9][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
-
-		//////////////////// MinRangeForAimBonus
-		if( UsingNewCTHSystem() == false )
-		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 27, gItemDescGenRegions[10][0].sLeft+sOffsetX, gItemDescGenRegions[10][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
-
-		//////////////////// BestLaserRange
-		if( UsingNewCTHSystem() == false )
-		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 13, gItemDescGenRegions[11][0].sLeft+sOffsetX, gItemDescGenRegions[11][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 10;
+			}
+			else
+			{
+				ubNumLine = 11;
+			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// DRAW COST
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem].rocketlauncher )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 1, gItemDescGenRegions[13][0].sLeft+sOffsetX, gItemDescGenRegions[13][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 13;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 1, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// SINGLE SHOT COST - GUN
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher )
 		{
+			ubNumLine = 14;
 			// "NO SINGLE-SHOT" ICON
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 19, gItemDescGenRegions[14][0].sLeft+sOffsetX, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 19, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
 			{
 				// SINGLE SHOT AP ICON overwrites shadow
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 0, gItemDescGenRegions[14][0].sLeft+sOffsetX+1, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 0, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX+1, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
 
 		/////////////////// SINGLE SHOT COST - ROCKET
 		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) && Item[gpItemDescObject->usItem].rocketlauncher )
 		{
+			ubNumLine = 14;
 			// SINGLE ROCKET-LAUNCH AP ICON
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 21, gItemDescGenRegions[14][0].sLeft+sOffsetX, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 21, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		/////////////////// SINGLE SHOT COST - GRENADE LAUNCHER
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !Item[gpItemDescObject->usItem].rocketlauncher
 			&& !Weapon[gpItemDescObject->usItem].NoSemiAuto )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 24, gItemDescGenRegions[14][0].sLeft+sOffsetX, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 14;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 24, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		/////////////////// SINGLE SHOT COST - THROWING KNIFE
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_THROWING_KNIFE )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 22, gItemDescGenRegions[14][0].sLeft+sOffsetX, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 14;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 22, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		/////////////////// SINGLE SHOT COST - STABBING KNIFE
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_BLADE )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 20, gItemDescGenRegions[14][0].sLeft+sOffsetX, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 14;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 20, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		/////////////////// SINGLE SHOT COST - BLUNT WEAPON
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_PUNCH )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 26, gItemDescGenRegions[14][0].sLeft+sOffsetX, gItemDescGenRegions[14][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 14;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 26, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		/////////////////// BURST COST - GUN
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher )
 		{
+			ubNumLine = 15;
 			// "NO BURST" ICON
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 11, gItemDescGenRegions[15][0].sLeft+sOffsetX, gItemDescGenRegions[15][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 11, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			if (GetShotsPerBurst(gpItemDescObject)> 0)
 			{
 				for ( cnt = 0; cnt < GetShotsPerBurst(gpItemDescObject); cnt++ )
 				{
 					// BURST FIRE ICON overwrites shadow
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 0, gItemDescGenRegions[15][0].sLeft+sOffsetX + cnt * (BULLET_WIDTH/2 + 1) +1, gItemDescGenRegions[15][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 0, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX + cnt * (BULLET_WIDTH/2 + 1) +1, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
 			}
 		}
@@ -3891,21 +4119,23 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER && !Item[gpItemDescObject->usItem].rocketlauncher 
 			&& GetShotsPerBurst(gpItemDescObject)> 0)
 		{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 25, gItemDescGenRegions[15][0].sLeft+sOffsetX, gItemDescGenRegions[15][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 15;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 25, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////// AUTOFIRE COST
 		if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !Item[gpItemDescObject->usItem].rocketlauncher )
 		{
+			ubNumLine = 16;
 			// "NO-AUTO" ICON
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 12, gItemDescGenRegions[16][0].sLeft+sOffsetX, gItemDescGenRegions[16][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 12, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 			{
 				for ( cnt = 0; cnt < 10; cnt++ )
 				{
 					// AUTO FIRE ICON overwrites shadow
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 0, gItemDescGenRegions[16][0].sLeft+sOffsetX + cnt * (BULLET_WIDTH/2 + 1) +1, gItemDescGenRegions[16][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 0, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX + cnt * (BULLET_WIDTH/2 + 1) +1, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
 			}
 		}
@@ -3913,24 +4143,27 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		////////////////// RELOAD COST
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 2, gItemDescGenRegions[17][0].sLeft+sOffsetX, gItemDescGenRegions[17][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 17;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 2, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 			
 		////////////////// MANUAL RELOAD COST
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher 
 			&& Weapon[gpItemDescObject->usItem].APsToReloadManually > 0 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 3, gItemDescGenRegions[18][0].sLeft+sOffsetX, gItemDescGenRegions[18][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 18;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 3, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		///////////////// RECOIL X/Y
 		if( UsingNewCTHSystem() == true )
 		{
+			ubNumLine = 20;
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
 				&& ( GetShotsPerBurst(gpItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 ) )
 			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 31, gItemDescGenRegions[19][0].sLeft+sOffsetX, gItemDescGenRegions[19][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 32, gItemDescGenRegions[20][0].sLeft+sOffsetX, gItemDescGenRegions[20][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+				// HEADROCK HAM 5: One value to rule them all! Line 19 left empty intentionally.
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 31, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 
 		}
@@ -3938,11 +4171,13 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		{
 			if( GetBurstPenalty(gpItemDescObject) > 0 )
 			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 30, gItemDescGenRegions[19][0].sLeft+sOffsetX, gItemDescGenRegions[19][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+				ubNumLine = 19;
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 30, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 			if( GetBipodBonus(gpItemDescObject) > 0)
 			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 16, gItemDescGenRegions[20][0].sLeft+sOffsetX, gItemDescGenRegions[20][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+				ubNumLine = 20;
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 16, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
 
@@ -3950,13 +4185,15 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
 			&& GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 7, gItemDescGenRegions[21][0].sLeft+sOffsetX, gItemDescGenRegions[21][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 21;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 7, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		///////////////// AUTOFIRE PENALTY
 		if( UsingNewCTHSystem() == false && GetAutoPenalty(gpItemDescObject) > 0 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 29, gItemDescGenRegions[22][0].sLeft+sOffsetX, gItemDescGenRegions[22][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			ubNumLine = 22;
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 29, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 	}
 	else if(gubDescBoxPage == 2)
@@ -4028,18 +4265,25 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 1, gItemDescGenRegions[1][0].sLeft+sOffsetX, gItemDescGenRegions[1][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
+		// HEADROCK HAM 5
+		////////////////////// EXPLODE ON IMPACT
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].fExplodeOnImpact )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 19, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
 		////////////////////// SOUND BLAST
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 5 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 6, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 6, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// STUN BLAST
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 1 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 5, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 5, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// OTHER BLASTS
@@ -4047,23 +4291,23 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType != 1 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType != 5 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 4, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 4, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// START+END RADIUS: TEAR GAS
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 2 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 9, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 10, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 9, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 10, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// START+END RADIUS: MUSTARD GAS
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 3 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 13, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 14, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 13, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 14, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// START+END RADIUS: LIGHT
@@ -4071,41 +4315,60 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 4 )
 		{
 			// Note light is reversed (large to small)
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 18, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 17, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 18, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 17, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// START+END RADIUS: SMOKE
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 6 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 11, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 12, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 11, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 12, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// START+END RADIUS: NAPALM
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 
 			&& Explosive[Item[ gpItemDescObject->usItem].ubClassIndex ].ubType == 8 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 15, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 16, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 15, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 16, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// DURATION
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 7, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 7, gItemDescGenRegions[5][0].sLeft+sOffsetX, gItemDescGenRegions[5][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		// HEADROCK HAM 5: Fragmentation
+		////////////////////// NUMBER OF FRAGMENTS
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 20, gItemDescGenRegions[6][0].sLeft+sOffsetX, gItemDescGenRegions[6][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		////////////////////// FRAGMENT DAMAGE
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 21, gItemDescGenRegions[7][0].sLeft+sOffsetX, gItemDescGenRegions[7][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		////////////////////// FRAGMENT RANGE
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 22, gItemDescGenRegions[8][0].sLeft+sOffsetX, gItemDescGenRegions[8][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// LOUDNESS
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 2, gItemDescGenRegions[5][0].sLeft+sOffsetX, gItemDescGenRegions[5][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 2, gItemDescGenRegions[9][0].sLeft+sOffsetX, gItemDescGenRegions[9][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////////// VOLATILITY
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubVolatility > 0 )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 3, gItemDescGenRegions[6][0].sLeft+sOffsetX, gItemDescGenRegions[6][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 3, gItemDescGenRegions[10][0].sLeft+sOffsetX, gItemDescGenRegions[10][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		DrawSecondaryStats( gpItemDescObject );
@@ -4279,7 +4542,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	///////////////////// AIM BONUS MODIFIER
 	if(UsingNewCTHSystem() == false)
 	{
-		if ( GetAimBonus( gpItemDescObject, 100, 1 ) != 0 )
+		if ( GetFlatAimBonus( gpItemDescObject ) != 0 )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -4443,6 +4706,22 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 16, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
+		}
+	}
+
+	///////////////////// MAX COUNTER FORCE
+	// HEADROCK HAM 5: Moved here because it makes more sense.
+	if (CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
+		|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
+		|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
+	{
+		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 19, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 			cnt++;
 		}
@@ -4734,21 +5013,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		cnt++;
 	}
 
-	///////////////////// MAX COUNTER FORCE
-	if (CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
-		|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
-	{
-		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
-		{
-			if (cnt >= sFirstLine && cnt < sLastLine)
-			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 17, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			}
-			cnt++;
-		}
-	}
-
+	// HEADROCK HAM 5: Counter-Force Frequency has been removed from the game in favour of a more realistic system.
+	/*
 	///////////////////// COUNTER FORCE FREQUENCY
 	if (CalcCounterForceFrequency( gpItemDescSoldier, gpItemDescObject ) != 0 )
 	{
@@ -4761,7 +5027,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			cnt++;
 		}
 	}
-
+	*/
 	
 	// Flugente FTW 1.1
 	if ( gGameOptions.fWeaponOverheating )
@@ -5171,7 +5437,14 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
 			// Set line to draw into
-			ubNumLine = 0;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 0;
+			}
+			else
+			{
+				ubNumLine = 2;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5301,7 +5574,14 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 		{
 			// Set line to draw into
-			ubNumLine = 2;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 2;
+			}
+			else
+			{
+				ubNumLine = 0;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5363,11 +5643,85 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			SetFontForeground( 6 );
 		}
 
+		/////////////// GUN HANDLING
+		if ( UsingNewCTHSystem() == TRUE && 
+			Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+		{
+			// Set line to draw into
+			ubNumLine = 3;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Gun Handling value
+			UINT16 iHandlingValue = Weapon[ gpItemDescObject->usItem ].ubHandling;
+
+			// Get modifier
+			INT16 iHandlingModifier = (iHandlingValue * GetPercentHandlingModifier( gpItemDescObject , ANIM_STAND )) / 100;
+
+			// Get Final Gun Handling value
+			UINT16 iFinalHandlingValue =  iHandlingValue + iHandlingModifier;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			swprintf( pStr, L"%d", iHandlingValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print modifier
+			SetFontForeground( 5 );
+			if (iHandlingModifier < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			}
+			else if ( iHandlingModifier > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			}
+			// Add positive/negative sign
+			if ( iHandlingModifier > 0 )
+			{
+				swprintf( pStr, L"+%d", iHandlingModifier );
+			}
+			else if ( iHandlingModifier < 0 )
+			{
+				swprintf( pStr, L"%d", iHandlingModifier );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalHandlingValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Reset font color
+			SetFontForeground( 6 );
+		}
+
 		/////////////// AIM LEVELS
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
 		{
 			// Set line to draw into
-			ubNumLine = 3;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 4;
+			}
+			else
+			{
+				ubNumLine = 3;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5430,8 +5784,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			SetFontForeground( 6 );
 		}
 
-		//////////////// SCOPE MAGNIFICATION FACTOR 
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN )
+		//////////////// OCTH AIMING BONUS
+		if ( UsingNewCTHSystem() == false && 
+			(GetFlatAimBonus( gpItemDescObject ) != 0 || Item[gpItemDescObject->usItem].aimbonus != 0) )
 		{
 			// Set line to draw into
 			ubNumLine = 4;
@@ -5439,19 +5794,74 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
-			FLOAT iScopeMagValue;		// Get base Magnification value
-			FLOAT iScopeMagModifier;	// Get best Magnification value
-			FLOAT iFinalScopeMagValue;	// Get final Magnification value
+			// Get base Aim Bonus value
+			INT16 iAimBonusValue = __max(0, Item[ gpItemDescObject->usItem ].aimbonus);
+			// Get final Aim Bonus value
+			INT16 iFinalAimBonusValue = GetFlatAimBonus( gpItemDescObject );
+			// Get Aim Bonus modifier
+			INT16 iAimBonusModifier = iFinalAimBonusValue - iAimBonusValue;
 
-			if(UsingNewCTHSystem()==true){
-				iScopeMagValue = __max(1.0f, Item[ gpItemDescObject->usItem ].scopemagfactor);
-				iScopeMagModifier = GetHighestScopeMagnificationFactor( gpItemDescObject );
-				iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
-			} else {
-				iScopeMagValue = __max(0.0f, Item[ gpItemDescObject->usItem ].aimbonus);
-				iScopeMagModifier = (FLOAT)GetFlatAimBonus( gpItemDescObject );
-				iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iAimBonusValue != 0)
+			{
+				swprintf( pStr, L"%d", iAimBonusValue );
 			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print Modifier
+			SetFontForeground( 5 );
+			if (iAimBonusModifier > 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", iAimBonusModifier );
+			}
+			else if (iAimBonusValue < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%d", iAimBonusModifier );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print Final Value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalAimBonusValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
+		//////////////// SCOPE MAGNIFICATION FACTOR 
+		if ( UsingNewCTHSystem() == true && Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN )
+		{
+			// Set line to draw into
+			ubNumLine = 5;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Magnification value
+			FLOAT iScopeMagValue = __max(1.0f, Item[ gpItemDescObject->usItem ].scopemagfactor);
+			// Get best Magnification value
+			FLOAT iScopeMagModifier = GetHighestScopeMagnificationFactor( gpItemDescObject );
+			// Get final Magnification value
+			FLOAT iFinalScopeMagValue = __max( iScopeMagValue, iScopeMagModifier );
 
 			// Print base value
 			SetFontForeground( 5 );
@@ -5477,7 +5887,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			}
 			else
 			{
-				swprintf( pStr, L"--", iScopeMagModifier );
+				swprintf( pStr, L"--" );
 			}
 			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
@@ -5493,8 +5903,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			mprintf( usX, usY, pStr );
 		}
 
-		///////////////// (LASER) PROJECTION FACTOR
-		if (GetProjectionFactor( gpItemDescObject ) > 1.0 ) 
+		/////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
+		if( UsingNewCTHSystem() == false && 
+			( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( gpItemDescObject ) > 0 ) )
 		{
 			// Set line to draw into
 			ubNumLine = 5;
@@ -5502,19 +5913,83 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
-			FLOAT iProjectionValue;			// Get base Projection value
-			FLOAT iProjectionModifier;		// Get best Projection value
-			FLOAT iFinalProjectionValue;	// Get final Projection value
+			// Get base Minimum Range For Aim Bonus value
+			INT16 iMinRangeForAimBonusValue = Item[gpItemDescObject->usItem].minrangeforaimbonus / 10;
 
-			if(UsingNewCTHSystem() == true){
-				iProjectionValue = __max(1.0f, Item[ gpItemDescObject->usItem ].projectionfactor);
-				iProjectionModifier = GetProjectionFactor( gpItemDescObject );
-				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
-			} else {
-				iProjectionValue = __max(0.0f, Item[ gpItemDescObject->usItem ].bestlaserrange / 10);
-				iProjectionModifier = (FLOAT)GetAverageBestLaserRange( gpItemDescObject ) / 10;
-				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+			// Get final Minimum Range For Aim Bonus value
+			INT16 iFinalMinRangeForAimBonusValue = GetMinRangeForAimBonus(gpItemDescObject) / 10;
+
+			// Get Minimum Range For Aim Bonus modifier
+			INT16 iMinRangeForAimBonusModifier = iFinalMinRangeForAimBonusValue - iMinRangeForAimBonusValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iMinRangeForAimBonusValue > 0)
+			{
+				swprintf( pStr, L"%d", iMinRangeForAimBonusValue );
 			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print modifier
+			SetFontForeground( 5 );
+			if (iMinRangeForAimBonusModifier < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			}
+			else if ( iMinRangeForAimBonusModifier > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			}
+			// Add positive/negative sign
+			if ( iMinRangeForAimBonusModifier > 0 )
+			{
+				swprintf( pStr, L"+%d", iMinRangeForAimBonusModifier );
+			}
+			else if ( iMinRangeForAimBonusModifier < 0 )
+			{
+				swprintf( pStr, L"%d", iMinRangeForAimBonusModifier );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalMinRangeForAimBonusValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
+		///////////////// (LASER) PROJECTION FACTOR
+		if (UsingNewCTHSystem() == true && 
+			(Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) )
+		{
+			// Set line to draw into
+			ubNumLine = 6;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Projection value
+			FLOAT iProjectionValue = __max(1.0f, Item[ gpItemDescObject->usItem ].projectionfactor);
+			// Get best Projection value
+			FLOAT iProjectionModifier = GetProjectionFactor( gpItemDescObject );
+			// Get final Projection value
+			FLOAT iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
 			
 			// Print base value
 			SetFontForeground( 5 );
@@ -5540,7 +6015,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			}
 			else
 			{
-				swprintf( pStr, L"--", iProjectionModifier );
+				swprintf( pStr, L"--" );
 			}
 			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
@@ -5556,11 +6031,143 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			mprintf( usX, usY, pStr );
 		}
 
+		///////////////// OCTH TO-HIT BONUS
+		if (UsingNewCTHSystem() == false && 
+			(Item[gpItemDescObject->usItem].tohitbonus != 0 || GetFlatToHitBonus( gpItemDescObject ) != 0) )
+		{
+			// Set line to draw into
+			ubNumLine = 6;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base To Hit value
+			INT16 iToHitValue = Item[ gpItemDescObject->usItem ].tohitbonus;
+			// Get final Projection value
+			INT16 iFinalToHitValue = GetFlatToHitBonus( gpItemDescObject );
+			// Get To Hit Modifier value
+			INT16 iToHitModifier = iFinalToHitValue - iToHitValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iToHitValue != 0)
+			{
+				swprintf( pStr, L"%d", iToHitValue );
+			}
+			else
+			{
+				swprintf( pStr, L"--", iToHitValue );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print Modifier
+			SetFontForeground( 5 );
+			if (iToHitModifier > 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", iToHitModifier );
+			}
+			else if (iToHitModifier < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%d", iToHitModifier );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print Final Value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalToHitValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+		}
+
+		///////////////// OCTH BEST LASER RANGE
+		if (UsingNewCTHSystem() == false && 
+			( Item[gpItemDescObject->usItem].bestlaserrange > 0 || GetAverageBestLaserRange( gpItemDescObject ) > 0 ) )
+		{
+			// Set line to draw into
+			ubNumLine = 7;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Best Laser Range value
+			INT16 iBestLaserRangeValue = Item[ gpItemDescObject->usItem ].bestlaserrange / 10;
+			// Get final Best Laser Range value
+			INT16 iFinalBestLaserRangeValue = GetAverageBestLaserRange( gpItemDescObject ) / 10;
+			// Get Best Laser Range Modifier value
+			INT16 iBestLaserRangeModifier = iFinalBestLaserRangeValue - iBestLaserRangeValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iBestLaserRangeValue > 0)
+			{
+				swprintf( pStr, L"%d", iBestLaserRangeValue );
+			}
+			else
+			{
+				swprintf( pStr, L"--", iBestLaserRangeValue );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print Modifier
+			SetFontForeground( 5 );
+			if (iBestLaserRangeModifier > 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", iBestLaserRangeModifier );
+			}
+			else if (iBestLaserRangeModifier < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%d", iBestLaserRangeModifier );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print Final Value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalBestLaserRangeValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
 		///////////////// FLASH SUPPRESSION
 		if (IsFlashSuppressorAlt( gpItemDescObject ) == TRUE)
 		{
 			// Set line to draw into
-			ubNumLine = 6;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 7;
+			}
+			else
+			{
+				ubNumLine = 8;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5611,7 +6218,14 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
 			// Set line to draw into
-			ubNumLine = 7;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 8;
+			}
+			else
+			{
+				ubNumLine = 9;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5676,7 +6290,14 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		/////////////////// RELIABILITY
 		{
 			// Set line to draw into
-			ubNumLine = 8;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 9;
+			}
+			else
+			{
+				ubNumLine = 10;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5752,7 +6373,14 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		/////////////////// REPAIR EASE
 		{
 			// Set line to draw into
-			ubNumLine = 9;
+			if (UsingNewCTHSystem() == true)
+			{
+				ubNumLine = 10;
+			}
+			else
+			{
+				ubNumLine = 11;
+			}
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -5797,160 +6425,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
 			swprintf( pStr, L"%d", iFinalRepairEaseValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-
-		/////////////////// MinRangeForAimBonus
-		if( UsingNewCTHSystem() == false )
-		{
-			// Set line to draw into
-			ubNumLine = 10;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-
-			// Get base Reliability value
-			INT16 iMinRangeForAimBonusValue = Item[gpItemDescObject->usItem].minrangeforaimbonus / 10;
-
-			// Get final Reliability value
-			INT16 iFinalMinRangeForAimBonusValue = GetMinRangeForAimBonus(gpItemDescObject) / 10;
-
-			// Get Reliability modifier
-			INT16 iMinRangeForAimBonusModifier = iFinalMinRangeForAimBonusValue - iMinRangeForAimBonusValue;
-
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			if (iMinRangeForAimBonusValue < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iMinRangeForAimBonusValue );
-			}
-			else if ( iMinRangeForAimBonusValue > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iMinRangeForAimBonusValue );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iMinRangeForAimBonusModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			else if ( iMinRangeForAimBonusModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iMinRangeForAimBonusModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iMinRangeForAimBonusModifier );
-			}
-			else if ( iMinRangeForAimBonusModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iMinRangeForAimBonusModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalMinRangeForAimBonusValue );
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-		}
-
-		/////////////////// ToHitBonus
-		if( UsingNewCTHSystem() == false )
-		{
-			// Set line to draw into
-			ubNumLine = 11;
-			// Set Y coordinates
-			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
-			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
-
-			// Get base Reliability value
-			INT16 iToHitBonusValue = Item[gpItemDescObject->usItem].tohitbonus;
-
-			// Get final Reliability value
-			INT16 iFinalToHitBonusValue = GetFlatToHitBonus(gpItemDescObject);
-
-			// Get Reliability modifier
-			INT16 iToHitBonusModifier = iFinalToHitBonusValue - iToHitBonusValue;
-
-			// Print base value
-			SetFontForeground( 5 );
-			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			if (iToHitBonusValue < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", iToHitBonusValue );
-			}
-			else if ( iToHitBonusValue > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"+%d", iToHitBonusValue );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print modifier
-			SetFontForeground( 5 );
-			if (iToHitBonusModifier < 0)
-			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-			}
-			else if ( iToHitBonusModifier > 0 )
-			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-			}
-			// Add positive/negative sign
-			if ( iToHitBonusModifier > 0 )
-			{
-				swprintf( pStr, L"+%d", iToHitBonusModifier );
-			}
-			else if ( iToHitBonusModifier < 0 )
-			{
-				swprintf( pStr, L"%d", iToHitBonusModifier );
-			}
-			else
-			{
-				swprintf( pStr, L"--" );
-			}
-			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// Print final value
-			SetFontForeground( FONT_MCOLOR_WHITE );
-			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
-			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", iFinalToHitBonusValue );
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 		}
@@ -6334,6 +6808,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher
 				&& GetShotsPerBurst(gpItemDescObject)> 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject))
 			{
+				// HEADROCK HAM 5: One value to rule them all.
+				// Set line to draw into
+				ubNumLine = 20;				
 
 				INT8 iFinalRecoilX = 0;
 				INT8 iFinalRecoilY = 0;
@@ -6348,14 +6825,10 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				if (iRecoilX == -127) { iRecoilX = 0; } // -127 means "invalid". These guns don't actually have any recoil parameters.
 				if (iRecoilY == -127) { iRecoilY = 0; }
 
-				// Get Recoil Modifiers
-				INT16 iRecoilXModifier = iFinalRecoilX - iRecoilX;
-				INT16 iRecoilYModifier = iFinalRecoilY - iRecoilY;
+				FLOAT dBaseRecoil = sqrt((FLOAT)((iRecoilX * iRecoilX)+(iRecoilY * iRecoilY)));
+				FLOAT dFinalRecoil = sqrt((FLOAT)((iFinalRecoilX * iFinalRecoilX) + (iFinalRecoilY * iFinalRecoilY)));
+				FLOAT dRecoilModifier = dFinalRecoil - dBaseRecoil;
 
-				// RECOIL X
-
-				// Set line to draw into
-				ubNumLine = 19;
 				// Set Y coordinates
 				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -6364,28 +6837,28 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
 				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-				swprintf( pStr, L"%d", iRecoilX );
+				swprintf( pStr, L"%3.1f", dBaseRecoil );
 				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				mprintf( usX, usY, pStr );
 
 				// Print modifier
 				SetFontForeground( 5 );
-				if ( (iRecoilXModifier < 0 && iRecoilX > 0) || (iRecoilXModifier > 0 && iRecoilX < 0) )
+				if ( (dRecoilModifier < 0 && dBaseRecoil > 0) || (dRecoilModifier > 0 && dBaseRecoil < 0) )
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
 				}
-				else if ( (iRecoilXModifier > 0 && iRecoilX > 0) || (iRecoilXModifier < 0 && iRecoilX < 0) )
+				else if ( (dRecoilModifier > 0 && dBaseRecoil > 0) || (dRecoilModifier < 0 && dBaseRecoil < 0) )
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
 				}
 				// Add positive/negative sign
-				if ( iRecoilXModifier > 0 )
+				if ( dRecoilModifier > 0 )
 				{
-					swprintf( pStr, L"+%d", iRecoilXModifier );
+					swprintf( pStr, L"+%3.1f", dRecoilModifier );
 				}
-				else if ( iRecoilXModifier < 0 )
+				else if ( dRecoilModifier < 0 )
 				{
-					swprintf( pStr, L"%d", iRecoilXModifier );
+					swprintf( pStr, L"%3.1f", dRecoilModifier );
 				}
 				else
 				{
@@ -6400,13 +6873,14 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				SetFontForeground( FONT_MCOLOR_WHITE );
 				sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
 				sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-				swprintf( pStr, L"%d", iFinalRecoilX );
+				swprintf( pStr, L"%3.1f", dFinalRecoil );
 				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				mprintf( usX, usY, pStr );
 
 				// Reset font color
 				SetFontForeground( 6 );
-
+				
+				/*
 				// RECOIL Y
 
 				// Set line to draw into
@@ -6461,6 +6935,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 				// Reset font color
 				SetFontForeground( 6 );
+				*/
 			}
 		}
 		else	///////////////// BIPOD & BURST PENALTY
@@ -6634,6 +7109,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		{
 			// Set line to draw into
 			ubNumLine = 21;
+
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -7157,11 +7633,13 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			mprintf( usX, usY, pStr );
 		}
 
+		// HEADROCK HAM 5: Pushed everyone one line down to make room for Contact Explosives.
+
 		////////////////////// BLAST RADIUS
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration == 0 )
 		{
 			// Set line to draw into
-			ubNumLine = 2;
+			ubNumLine = 3;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -7202,7 +7680,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 )
 		{
 			// Set line to draw into
-			ubNumLine = 2;
+			ubNumLine = 3;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -7251,7 +7729,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 )
 		{
 			// Set line to draw into
-			ubNumLine = 3;
+			ubNumLine = 4;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -7300,7 +7778,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDuration > 0 )
 		{
 			// Set line to draw into
-			ubNumLine = 4;
+			ubNumLine = 5;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -7337,10 +7815,134 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			mprintf( usX, usY, pStr );
 		}
 
+		// HEADROCK HAM 5: FRAGMENTATIONS
+		//////////////////// NUMBER OF FRAGMENTS
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 6;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get final Num Fragments
+			INT16 iFinalNumFragments = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments;
+
+			// Get base Num Fragments
+			INT16 iNumFragments = iFinalNumFragments;
+
+			// Print base value
+			SetFontForeground( 5 );
+
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			swprintf( pStr, L"%d", iNumFragments );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// no modifier
+			SetFontForeground( 5 );
+			swprintf( pStr, L"--" );
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalNumFragments );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
+		//////////////////// FRAGMENT DAMAGE
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 7;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get final Num Fragments
+			INT16 iFinalFragDamage = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubFragDamage;
+
+			// Get base Num Fragments
+			INT16 iFragDamage = iFinalFragDamage;
+
+			// Print base value
+			SetFontForeground( 5 );
+
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			swprintf( pStr, L"%d", iFragDamage );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// no modifier
+			SetFontForeground( 5 );
+			swprintf( pStr, L"--" );
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalFragDamage );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
+		//////////////////// FRAG RANGE
+		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].usNumFragments > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 8;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get final Num Fragments
+			INT16 iFinalFragRange = Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubFragRange / CELL_X_SIZE;
+
+			// Get base Num Fragments
+			INT16 iFragRange = iFinalFragRange;
+
+			// Print base value
+			SetFontForeground( 5 );
+
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			swprintf( pStr, L"%d", iFragRange );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// no modifier
+			SetFontForeground( 5 );
+			swprintf( pStr, L"--" );
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalFragRange );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
 		//////////////////// LOUDNESS
 		{
 			// Set line to draw into
-			ubNumLine = 5;
+			ubNumLine = 9;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -7381,7 +7983,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 		if ( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubVolatility > 0 )
 		{
 			// Set line to draw into
-			ubNumLine = 6;
+			ubNumLine = 10;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
@@ -8591,6 +9193,48 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
 					swprintf( pStr, L"%d", iModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				mprintf( usX, usY, pStr );
+			}
+		}
+		cnt++;
+	}
+
+	///////////////////// MAX COUNTER FORCE
+	// HEADROCK HAM 5: Moved here because it makes more sense.
+	iFloatModifier[0] = CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
+	iFloatModifier[1] = CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH );
+	iFloatModifier[2] = CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE );
+	if ((iFloatModifier[0] != 0 || iFloatModifier[1] != 0 || iFloatModifier[2] != 0) && UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+	{
+		if (cnt >= sFirstLine && cnt < sLastLine)
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+			// Print Values
+			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+			{
+				SetFontForeground( 5 );
+				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+				if (iFloatModifier[cnt2] > 0)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				else if (iFloatModifier[cnt2] < 0)
+				{
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else
@@ -10046,7 +10690,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		}
 		cnt++;
 	}
-
+	
+	// HEADROCK HAM 5: Counter-Force Frequency has been removed from the game in favour of a more realistic system.
+	/*
 	///////////////////// COUNTER FORCE FREQUENCY
 	iModifier[0] = CalcCounterForceFrequency( gpItemDescSoldier, gpItemDescObject );
 	iModifier[1] = iModifier[0];
@@ -10087,7 +10733,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		}
 		cnt++;
 	}
-
+	*/
+	
 	// Flugente FTW 1.1	
 	if ( gGameOptions.fWeaponOverheating )
 	{	

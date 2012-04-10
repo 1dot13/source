@@ -367,6 +367,11 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, ATTACHMENTCOMBOMERGESFILENAME);
 	SGP_THROW_IFFALSE(ReadInAttachmentComboMergeStats(fileName),ATTACHMENTCOMBOMERGESFILENAME);
 
+	// HEADROCK HAM 5: Read item transformation 
+	strcpy(fileName, directoryName);
+	strcat(fileName, ITEMTRANSFORMATIONSFILENAME);
+	SGP_THROW_IFFALSE(ReadInTransformationStats(fileName),ITEMTRANSFORMATIONSFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIVESFILENAME);
 	SGP_THROW_IFFALSE(ReadInExplosiveStats(fileName),EXPLOSIVESFILENAME);
@@ -385,6 +390,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, LBEPOCKETFILENAME);
 	SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,FALSE),LBEPOCKETFILENAME);
+
+	// THE_BOB : added for pocket popup definitions
+	LBEPocketPopup.clear();
+	strcpy(fileName, directoryName);
+	strcat(fileName, LBEPOCKETPOPUPFILENAME);
+	SGP_THROW_IFFALSE(ReadInLBEPocketPopups(fileName),LBEPOCKETPOPUPFILENAME);
 
 //CHRISL: Simple localization
 // Same setup as what Madd used for items.xml
@@ -643,6 +654,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, SECTORNAMESFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInSectorNames(fileName,FALSE,0), SECTORNAMESFILENAME);
+
+	// HEADROCK HAM 5: Read in Coolness by Sector
+	strcpy(fileName, directoryName);
+	strcat(fileName, COOLNESSBYSECTORFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInCoolnessBySector(fileName), COOLNESSBYSECTORFILENAME);
+
 #ifndef ENGLISH
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )

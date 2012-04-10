@@ -656,7 +656,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 						// adjust the chance for what we know about the sector
 						if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING )
 							iChance += 20;
-						else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE )
+						// HEADROCK HAM 5: Added new possible value...
+						else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE ||
+							WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE_AND_WHERE_GOING )
 							iChance += 5;
 						//if( GetSectorFlagStatus( gubPBSectorX, gubPBSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
 						//	iChance -= 10; // if we already visited this sector
@@ -1246,7 +1248,7 @@ void RenderPreBattleInterface()
 		if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE ||
 			gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
 				gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
-				WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) != KNOWS_HOW_MANY )
+				WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) < KNOWS_HOW_MANY ) // HEADROCK HAM 5: New case above this one...
 		{
 			// don't know how many
 			swprintf( str, L"?" );

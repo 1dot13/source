@@ -60,6 +60,8 @@ typedef PARSE_STAGE;
 #define	COMPATIBLEFACEITEMSFILENAME				"CompatibleFaceItems.xml"
 #define	MERGESFILENAME							"Merges.xml"
 #define	ATTACHMENTCOMBOMERGESFILENAME			"AttachmentComboMerges.xml"
+// HEADROCK HAM 5: Item Transformations Filename
+#define ITEMTRANSFORMATIONSFILENAME				"Item_Transformations.xml"
 #define	MAGAZINESFILENAME						"Magazines.xml"
 #define	ARMOURSFILENAME							"Armours.xml"
 #define	EXPLOSIVESFILENAME						"Explosives.xml"
@@ -74,6 +76,9 @@ typedef PARSE_STAGE;
 // CHRISL:
 #define LOADBEARINGEQUIPMENTFILENAME			"LoadBearingEquipment.xml"
 #define LBEPOCKETFILENAME						"Pockets.xml"
+// THE_BOB : added for pocket popup definitions
+#define LBEPOCKETPOPUPFILENAME					"PocketPopups.xml"
+
 #define MERCSTARTINGGEARFILENAME				"MercStartingGear.xml"
 
 #ifdef JA2UB
@@ -161,6 +166,8 @@ typedef PARSE_STAGE;
 #define FACILITYTYPESFILENAME					"Map\\FacilityTypes.xml"
 // HEADROCK HAM 3.6: Sector Names [2009-07-27]
 #define SECTORNAMESFILENAME						"Map\\SectorNames.xml"
+// HEADROCK HAM 5: Coolness by Sector [2011-11-19]
+#define COOLNESSBYSECTORFILENAME				"Map\\CoolnessBySector.xml"
 // HEADROCK PROFEX: Merc Profiles [2009-07-27]
 #define MERCPROFILESFILENAME					"MercProfiles.xml"
 // HEADROCK PROFEX: Merc Opinions [2009-07-27]
@@ -267,6 +274,9 @@ extern BOOLEAN WriteMergeStats();
 extern BOOLEAN ReadInAttachmentComboMergeStats(STR fileName);
 extern BOOLEAN WriteAttachmentComboMergeStats();
 
+// HEADROCK HAM 5: Item Transformation XML reader
+extern BOOLEAN ReadInTransformationStats(STR fileName);
+
 extern BOOLEAN ReadInArmourStats(STR fileName);
 extern BOOLEAN WriteArmourStats();
 
@@ -276,6 +286,9 @@ extern BOOLEAN WritelbeEquipmentStats();
 
 extern BOOLEAN ReadInLBEPocketStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteLBEPocketEquipmentStats();
+
+// THE_BOB : added for pocket popup definitions
+extern BOOLEAN ReadInLBEPocketPopups(STR fileName);
 
 extern BOOLEAN ReadInMercStartingGearStats(STR fileName);
 extern BOOLEAN WriteMercStartingGearStats();
@@ -390,6 +403,9 @@ extern BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion);
 
 // HEADROCK HAM 3.6: Customized Sector Names
 extern BOOLEAN ReadInSectorNames(STR fileName, BOOLEAN localizedVersion, INT8 Level );
+
+// HEADROCK HAM 5: Coolness by Sectors
+extern BOOLEAN ReadInCoolnessBySector(STR fileName );
 
 // HEADROCK PROFEX: Merc Profiles
 extern BOOLEAN ReadInMercProfiles(STR fileName, BOOLEAN localizedVersion);

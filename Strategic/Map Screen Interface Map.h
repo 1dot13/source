@@ -98,6 +98,7 @@ void RestoreClipRegionToFullScreenForRectangle( UINT32 uiDestPitchBYTES );
 
 // show the icons for people in motion
 void ShowPeopleInMotion( INT16 sX, INT16 sY );
+void ShowEnemyGroupsInMotion( INT16 sX, INT16 sY);
 
 // last sector in helicopter's path
 INT16 GetLastSectorOfHelicoptersPath( void );
@@ -159,7 +160,9 @@ enum {
 enum {
 	KNOWS_NOTHING = 0,
 	KNOWS_THEYRE_THERE,
+	KNOWS_THEYRE_THERE_AND_WHERE_GOING,
 	KNOWS_HOW_MANY,
+	KNOWS_HOW_MANY_AND_WHERE_GOING,
 };
 
 
@@ -273,7 +276,8 @@ extern UINT32 guiBULLSEYE;
 
 // character between sector icons
 extern UINT32 guiCHARBETWEENSECTORICONS;
-extern UINT32 guiCHARBETWEENSECTORICONSCLOSE;
+// HEADROCK HAM 5: Enemies Between Sectors icons
+extern UINT32 guiENEMYBETWEENSECTORICONS;
 
 // the viewable map bound region
 extern SGPRect MapScreenRect;
@@ -295,6 +299,9 @@ extern INT8 bSelectedContractChar;
 
 // map arrows graphical index value
 extern UINT32 guiMAPCURSORS;
+
+// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
+extern UINT32 guiMapPathingArrows;
 
 // has temp path for character path or helicopter been already drawn
 extern BOOLEAN	fTempPathAlreadyDrawn;

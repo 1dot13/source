@@ -169,6 +169,19 @@ public:
 	OBJECTTYPE			ItemPointerInfo;
 };
 
+// HEADROCK HAM 5: Enums for big-item display attachment asterisks.
+enum
+{
+	ATTACHMENT_NONE,
+	ATTACHMENT_GENERAL,
+	ATTACHMENT_GL,
+	ATTACHMENT_RECOILREDUCTION,
+	ATTACHMENT_OPTICAL,
+};
+
+// HEADROCK HAM 5: Asterisks for use with big item images
+extern UINT32 guiAttachmentAsterisks;
+
 // Itempickup stuff
 BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT32 sGridNo, ITEM_POOL *pItemPool, INT16 sScreenX, INT16 sScreenY, INT8 bZLevel );
 void RenderItemPickupMenu( );
@@ -211,6 +224,8 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 
 void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex = 0);
 void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE	*pObject, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel, UINT8 *pubHighlightCounter, UINT8 ubStatusIndex, BOOLEAN fOutline, INT16 sOutlineColor, UINT8 iter = 0 );
+// HEADROCK HAM 5: Drawing a large item pic with extra data.
+void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObject, UINT32 uiItemGraphicNum, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, BOOLEAN fOutline, INT16 sOutlineColor );
 // CHRISL: Add a new function that will be used to render a pocket silhouette
 void INVRenderSilhouette( UINT32 uiBugger, INT16 PocketIndex, INT16 SilIndex, INT16 sX, INT16 sY, INT16 sWideth, INT16 sHeight);
 // CHRISL: New function to handle display of inventory quantities based on item current in cursor
@@ -313,7 +328,36 @@ extern INT32 giActiveAttachmentPopup;	// the attachment popup to display in maps
 extern POPUP* gEquipPopups[NUM_INV_SLOTS];	// popup list for attachment slots
 extern INT32 giActiveEquipPopup;	// the attachment popup to display in mapscreen
 
+// HEADROCK HAM 5: Item Transformation Popup
+extern POPUP* gItemDescTransformPopup;
+extern BOOLEAN gfItemDescTransformPopupInitialized;
+extern BOOLEAN gfItemDescTransformPopupVisible;
+
 // BOB : duh...
 void DoAttachment( UINT8 subObject, INT32 iItemPos );
+
+// THE_BOB (AKA BOB): ammo box/mag popups
+void PocketPopupFull( SOLDIERTYPE *pSoldier, INT16 sPocket );	// displays all suported options
+void PocketPopupDefault( SOLDIERTYPE *pSoldier, INT16 sPocket );	// displays only pocket-specific (predefined) options
+
+POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket );	// creates a popup positioned next to the pocket
+
+// THE_BOB 
+extern UINT16 gsPocketUnderCursor;
+
+
+void addArmorToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addLBEToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addWeaponsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addGrenadesToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addBombsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addFaceGearToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+
+void addRifleGrenadesToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addRocketAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addMiscToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
+void addKitsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup );
 
 #endif

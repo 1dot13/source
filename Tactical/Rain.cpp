@@ -80,10 +80,11 @@ class SOLDIERTYPE;
 #define DROP_LENGTH_CHANGE_RATE 0.1f
 #define DROP_LENGTH_RAND 2.0f
 
-#define BASE_DROP_SPEED 7.0f
-#define DROP_SPEED_RANGE 3.5f
-#define DROP_SPEED_CHANGE_RATE 0.1f
-#define DROP_SPEED_RAND 5.0f
+// HEADROCK HAM 5 X: Externalized for snow.
+FLOAT BASE_DROP_SPEED;
+FLOAT DROP_SPEED_RANGE;
+FLOAT DROP_SPEED_CHANGE_RATE;
+FLOAT DROP_SPEED_RAND;
 
 UINT32 guiMaxRainDrops = 79;
 
@@ -203,11 +204,18 @@ void ResetRain()
 		pRainDrops = NULL;
 	}
 
+	// Rain
+	BASE_DROP_SPEED = 7.0f;
+	DROP_SPEED_RANGE = 3.5f;
+	DROP_SPEED_CHANGE_RATE = 0.1f;
+	DROP_SPEED_RAND = 5.0f;
+
 	guiCurrMaxAmountOfRainDrops = 0;
 }
 
 void GenerateRainDropsList()
 {
+	// HEADROCK HAM 5 XMAS: More snow than rain.
 	guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS) * gbCurrentRainIntensity;
 
 	pRainDrops = (TRainDrop *)MemAlloc( sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );
@@ -415,6 +423,7 @@ void RenderRainOnSurface()
 
 		if( !pCurr->fAlive )continue;
 
+		// Rain
 		LineDraw( TRUE, (int)pCurr->fpX, (int)pCurr->fpY, (int)pCurr->fpX + (int)pCurr->fpEndRelX, (int)(pCurr->fpY + pCurr->fpEndRelY),	sDropsColor, pDestBuf );
 	}
 
@@ -427,14 +436,19 @@ void GenerateRainMaximums()
 	{
 		fpMinDropAngleOfFalling = 45;
 		fpMaxDropAngleOfFalling = 135;
-	}else
-		if( Random( 2 ) )
+	}
+	else
 	{
-		fpMinDropAngleOfFalling = 20;
-		fpMaxDropAngleOfFalling = 70;
-	}else{
-		fpMinDropAngleOfFalling = 110;
-		fpMaxDropAngleOfFalling = 160;
+		if( Random( 2 ) )
+		{	
+			fpMinDropAngleOfFalling = 20;
+			fpMaxDropAngleOfFalling = 70;
+		}
+		else
+		{
+			fpMinDropAngleOfFalling = 110;
+			fpMaxDropAngleOfFalling = 160;
+		}
 	}
 
 	fpCurrDropAngleOfFalling = fpMinDropAngleOfFalling + Random( (UINT32)(fpMaxDropAngleOfFalling - fpMinDropAngleOfFalling) );

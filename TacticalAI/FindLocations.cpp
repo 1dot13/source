@@ -651,7 +651,8 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		// HEADROCK HAM 3.6: This doesn't take into account the 100AP system. Adjusting.
 		// Please note, I used a calculation that may have a better representation in some global variable.
 		//iMaxMoveTilesLeft = __max( 0, pSoldier->bActionPoints - MinAPsToStartMovement( pSoldier, usMovementMode ) );
-		iMaxMoveTilesLeft = __max( 0, (pSoldier->bActionPoints - MinAPsToStartMovement( pSoldier, usMovementMode ) / (APBPConstants[AP_MAXIMUM]/25)) );
+		// WarmSteel - Bugfix:  wrong parentheses
+		iMaxMoveTilesLeft = __max( 0, (pSoldier->bActionPoints - MinAPsToStartMovement( pSoldier, usMovementMode )) / (APBPConstants[AP_MAXIMUM] / 25) );
 
 		//NumMessage("In BLACK, maximum tiles to move left = ",maxMoveTilesLeft);
 
@@ -799,7 +800,17 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		//PopMessage(tempstr);
 	}
 
-	iCurrentCoverValue -= (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
+	// reduce cover for each person adjacent to this gridno who is on our team,
+	// by 10% (so locations next to several people will be very much frowned upon
+	if ( iCurrentCoverValue >= 0 )
+	{
+		iCurrentCoverValue -= (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
+	}
+	else
+	{
+		// when negative, must add a negative to decrease the total
+		iCurrentCoverValue += (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
+	}
 
 #ifdef DEBUGCOVER
 //	AINumMessage("Search Range = ",iSearchRange);

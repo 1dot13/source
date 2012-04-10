@@ -57,6 +57,7 @@ typedef struct
 	UINT8		ubTilesPerUpdate;
 	UINT16	usClockTicksPerUpdate;
 	SOLDIERTYPE		*pFirer;
+	INT32	sOrigGridNo;	// HEADROCK HAM 5.1: Original tile does not necessarily have to be the pFirer's tile
 	INT32	sTargetGridNo;
 	INT16		sHitBy;
 	INT32		iImpact;
@@ -73,6 +74,8 @@ typedef struct
 	// the bullet animation functions to create a lightpath for this bullet. This means now all bullets in a tracer
 	// magazine will cause a lightshow (that's the intended result).
 	BOOLEAN fTracer;
+	// HEADROCK HAM 5: Fragments. They are handled slightly differently by the bullet functions.
+	BOOLEAN fFragment;
 } BULLET;
 
 extern UINT32 guiNumBullets;
@@ -82,6 +85,8 @@ void	RemoveBullet( INT32 iBullet );
 void	StopBullet( INT32 iBullet );
 void	UpdateBullets( );
 BULLET *GetBulletPtr( INT32 iBullet );
+INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, INT16 sHitBy, UINT8 * pubSpecial );
+
 
 void DeleteAllBullets( );
 

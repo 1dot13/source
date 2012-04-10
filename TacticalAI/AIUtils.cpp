@@ -1726,31 +1726,20 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	// smoke
 	if (gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & MAPELEMENT_EXT_SMOKE)
 	{
-		return( TRUE );
+		return TRUE;
 	}
 
-	// tear/mustard gas
-	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
-		return(TRUE);
-	if ( gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & MAPELEMENT_EXT_BURNABLEGAS )
-	{
-		return( TRUE );
-	}
-
-	return(FALSE);
+	return InGas( pSoldier, sGridNo );
 }
 
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-	// smoke/tear/mustard gas
-	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE|MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 230909
-		return(TRUE);
-	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
-	{
-		return( TRUE );
-	}
 
-	return(FALSE);
+	// smoke
+	if (gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & MAPELEMENT_EXT_SMOKE)	
+		return TRUE;
+
+	return InGas(pSoldier,sGridNo);
 }
 
 
@@ -1761,25 +1750,28 @@ INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 		return(TRUE);
 	}
 
-	// tear/mustard gas
-	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
-		return(TRUE);
-	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
-	{
-		return( TRUE );
-	}
-
-	return(FALSE);
+	return (INT16)InGas( pSoldier, sGridNo );
 }
 
 BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo )
-{
-	// tear/mustard gas
-	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
-		return(TRUE);
-	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
-	{
-		return( TRUE );
+{//WarmSteel - One square away from gas is still considered in gas, because it could expand any moment.
+	//Note: this only works for gas that expands with one tile, but hey it's better than nothing!
+	int iNeighbourGridNo;
+	for(int iDir = 0; iDir < NUM_WORLD_DIRECTIONS; ++iDir)
+ 	{
+		iNeighbourGridNo = sGridNo + DirectionInc(iDir);
+		if(!TileIsOutOfBounds(iNeighbourGridNo))
+		{
+			// tear/mustard gas
+			if((gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
+			{
+				return(TRUE);
+			}
+			if ( gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+			{
+				return( TRUE );
+			}
+		}
 	}
 
 	return(FALSE);
@@ -2249,6 +2241,7 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForC
 
 INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 {
+	BOOL OppPosKnown = FALSE;
 	if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 	{
 		if ( pSoldier->aiData.bAlertStatus == STATUS_BLACK )
@@ -2269,6 +2262,19 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 		*pusFromGridNo = pSoldier->aiData.sPatrolGrid[0];
 	}
 
+	//Do we know about any opponent?
+	for(UINT16 oppID = 0; oppID < MAX_NUM_SOLDIERS; oppID++)
+	{
+		if ( pSoldier->aiData.bOppList[oppID]  !=  NOT_HEARD_OR_SEEN &&  gbPublicOpplist[pSoldier->bTeam][oppID] != NOT_HEARD_OR_SEEN)
+		{
+			OppPosKnown = TRUE;
+			break;
+		}
+	}
+
+	//TODO: Externalize if people want?
+	BOOL fLessRestrictiveRoaming = TRUE;
+
 	switch (pSoldier->aiData.bOrders)
 	{
 		// JA2 GOLD: give non-NPCs a 5 tile roam range for cover in combat when being shot at
@@ -2281,16 +2287,68 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 										return( 5 );
 									}		
 		case ONGUARD:				return( 5 );
-		case CLOSEPATROL:			return( 15 );
-		case RNDPTPATROL:
-		case POINTPATROL:			return(10 );	 // from nextPatrolGrid, not whereIWas
-		case FARPATROL:				if (pSoldier->aiData.bAlertStatus < STATUS_RED)
+		case CLOSEPATROL:			if (pSoldier->aiData.bAlertStatus < STATUS_RED)
 													{
-														return( 25 );
+														return( 5 );
 													}
 													else
 													{
-														return( 50 );
+														if(!OppPosKnown || !fLessRestrictiveRoaming)
+														{
+															return( 15 );
+														}
+														else
+														{
+															return( 30 );
+															//return( MAX_ROAMING_RANGE );
+														}
+													}
+		case POINTPATROL:			if (pSoldier->aiData.bAlertStatus < STATUS_RED)
+													{
+														return( 10 );
+													}
+													else
+													{
+														if(!OppPosKnown || !fLessRestrictiveRoaming)
+														{
+															return( 20 );
+														}
+														else
+														{
+															return( 40 );
+															//return( MAX_ROAMING_RANGE );
+														}
+													}	 // from nextPatrolGrid, not whereIWas
+		case RNDPTPATROL:			if (pSoldier->aiData.bAlertStatus < STATUS_RED)
+													{
+														return( 10 );
+													}
+													else
+													{
+														if(!OppPosKnown || !fLessRestrictiveRoaming)
+														{
+															return( 20 );
+														}
+														else
+														{
+															//return( 40 );
+															return( MAX_ROAMING_RANGE );
+														}
+													}// from nextPatrolGrid, not whereIWas
+		case FARPATROL:				if (pSoldier->aiData.bAlertStatus < STATUS_RED)
+													{
+														return( 15 );
+													}
+													else
+													{
+														if(!OppPosKnown || !fLessRestrictiveRoaming)
+														{
+															return( 30 );
+														}
+														else
+														{
+															return( MAX_ROAMING_RANGE );
+														}
 													}
 		case ONCALL:					if (pSoldier->aiData.bAlertStatus < STATUS_RED)
 													{
@@ -2298,7 +2356,15 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 													}
 													else
 													{
-														return( 30 );
+														if(!OppPosKnown || !fLessRestrictiveRoaming)
+														{
+															return( 30 );
+														}
+														else
+														{
+															//return(50);
+															return( MAX_ROAMING_RANGE );
+														}
 													}
 		case SEEKENEMY:				*pusFromGridNo = pSoldier->sGridNo; // from current position!
 													return(MAX_ROAMING_RANGE);

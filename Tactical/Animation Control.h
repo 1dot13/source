@@ -7,7 +7,7 @@
 
 // Defines
 // #######################################################
-#define MAX_ANIMATIONS									350 //!!!!!ddd пока добавил 30 лишних словтов под анимашки. 
+#define MAX_ANIMATIONS									350 //!!!!!ddd added 30 new animations
 #define MAX_FRAMES_PER_ANIM							100
 #define	MAX_RANDOM_ANIMS_PER_BODYTYPE		8
 
@@ -548,9 +548,9 @@ enum AnimationStates
 	SWATTING_WK,
 	SWAT_BACKWARDS_WK,
 	SWAT_BACKWARDS_NOTHING,
-	THROW_GRENADE_STANCE, //ddd для бабы анимации нет - используем стандартную
+	THROW_GRENADE_STANCE, //ddd Currently no animation for women. Using the standard.
 	LOB_GRENADE_STANCE,
-	//перекатты
+	//Prone rolls
 	ROLL_PRONE_R,
 	ROLL_PRONE_L, 
 	

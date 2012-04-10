@@ -349,7 +349,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			continue;			// next opponent
 
 		// calculate chance to REALLY hit: shoot accurately AND get past cover
-		ubChanceToReallyHit = (ubBestChanceToHit * ubChanceToGetThrough) / 100;
+		ubChanceToReallyHit = (UINT8)ceil((ubBestChanceToHit * ubChanceToGetThrough) / 100.0f);
 
 		// if we can't REALLY hit at all
 		if (ubChanceToReallyHit == 0)

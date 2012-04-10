@@ -119,6 +119,18 @@ POPUP_OPTION::POPUP_OPTION(void)
 	this->action = 0;
 	this->avail = 0;
 	this->hover = 0;
+
+	// set highlight color
+	this->color_highlight = FONT_WHITE;
+
+	// unhighlighted color
+	this->color_foreground = FONT_LTGREEN;
+
+	// background color
+	this->color_background = FONT_BLACK;
+
+	// shaded color..for darkened text
+	this->color_shade = FONT_GRAY7 ;
 }
 
 POPUP_OPTION::~POPUP_OPTION(void)
@@ -136,11 +148,23 @@ POPUP_OPTION::POPUP_OPTION(std::wstring *newName, popupCallback * newFunction)
 	this->action = newFunction;
 	this->avail = 0;
 	this->hover = 0;
+
+	// set highlight color
+	this->color_highlight = FONT_WHITE;
+
+	// unhighlighted color
+	this->color_foreground = FONT_LTGREEN;
+
+	// background color
+	this->color_background = FONT_BLACK;
+
+	// shaded color..for darkened text
+	this->color_shade = FONT_GRAY7 ;
 }
 
-BOOLEAN POPUP_OPTION::setName( WCHAR* newName )
+BOOLEAN POPUP_OPTION::setName( std::wstring * newName )
 {
-	this->name = newName;
+	this->name = *newName;
 	return TRUE;
 }
 
@@ -170,6 +194,8 @@ BOOLEAN POPUP_OPTION::checkAvailability()
 {
 	if (this->avail != 0)
 		return ( this->avail->call() == true );
+	else if ( this->action == 0 )	// options with no action are always shaded
+		return false;
 	else
 		return true;
 }
@@ -211,12 +237,19 @@ BOOLEAN POPUP_OPTION::forceRun()
 //////////////////////////////////////////////////////////////////
 
 // constructor
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(void) : POPUP_OPTION()
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(void) : POPUP_OPTION(new wstring(L"Unnamed subPopup"),NULL)	//TODO: possible memmory leak!
 {
+	this->parent = NULL;
 	this->initSubPopup();
 }
 
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(wstring* newName, const POPUP * parent) : POPUP_OPTION(newName, 0)
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(wstring* name) : POPUP_OPTION(name, NULL)
+{
+	this->parent = NULL;
+	this->initSubPopup();
+}
+
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(wstring* newName, const POPUP * parent) : POPUP_OPTION(newName, NULL)
 {
 	this->parent = parent;
 	this->initSubPopup();
@@ -230,10 +263,13 @@ POPUP_SUB_POPUP_OPTION::~POPUP_SUB_POPUP_OPTION(void)
 
 void POPUP_SUB_POPUP_OPTION::showPopup()
 {
-	// check if it's available at this time
-	if ( this->checkAvailability() )
+	// check if it's available at this time, if there is an avail function set
+	if ( !this->AvailabilityFunctionSet() || this->checkAvailability() )
 	{
-		if (!this->customPositionSet) this->positionSubPopup();
+		if (!this->customPositionSet || this->customRule == POPUP_POSITION_RELATIVE) {
+			this->positionSubPopup();
+		}
+
 		this->subPopup->show();
 	}
 }
@@ -247,10 +283,14 @@ void POPUP_SUB_POPUP_OPTION::positionSubPopup()
 {
 	INT16 x,y;
 
-//	x = this->parent->Position.iX + this->parent->Dimensions.iLeft + this->parent->Dimensions.iRight + 10;
-	x = this->parent->X + this->parent->Dimensions.iLeft + this->parent->Dimensions.iRight + 10;
-//	y = this->parent->Position.iY + 10;
-	y = this->parent->Y + 10;
+	if( this->customPositionSet )
+	{
+		x = this->parent->X + this->parent->Dimensions.iLeft + this->parent->Dimensions.iRight + this->customX;
+		y = this->parent->Y + this->customY;
+	} else {
+		x = this->parent->X + this->parent->Dimensions.iLeft + this->parent->Dimensions.iRight + 10;
+		y = this->parent->Y + 10;
+	}
 
 	this->subPopup->setPosition(x,y);
 }
@@ -263,20 +303,62 @@ BOOLEAN POPUP_SUB_POPUP_OPTION::run()
 	return TRUE;
 }
 
-BOOLEAN POPUP_SUB_POPUP_OPTION::setPopupPosition(UINT16 x,	UINT16 y, UINT8 positioningRule){
+BOOLEAN POPUP_SUB_POPUP_OPTION::setPopupPosition(UINT16 x,	UINT16 y, INT8 positioningRule){
 	this->customPositionSet = true;
 
 	if (positioningRule != POPUP_POSITION_RELATIVE){
 		return this->subPopup->setPosition(x,y,positioningRule);
 	} else {
-		return this->subPopup->setPosition(this->parent->X + x, this->parent->Y + y,POPUP_POSITION_TOP_LEFT);
+		this->customX = x;
+		this->customY = y;
+		this->customRule = positioningRule;
+		return this->subPopup->setPosition(this->parent->X + this->parent->Dimensions.iRight + x, this->parent->Y + y,POPUP_POSITION_TOP_LEFT);
 	}
+}
+
+
+
+
+static void shadeOpenSubPopup( POPUP_SUB_POPUP_OPTION * opt ){
+	// make the option yellow while its open
+	SetCurrentBox( opt->parent->getBoxId() );
+	SetStringForeground( opt->stringHandle, FONT_YELLOW);
+}
+
+extern  void RenderTeamRegionBackground();
+static void unShadeOpenSubPopup( POPUP_SUB_POPUP_OPTION * opt ){
+	// restore the option's color
+	SetCurrentBox( opt->parent->getBoxId() );
+	SetStringForeground( opt->stringHandle, FONT_LTGREEN);
+
+	// if in mapscreen, redraw the UI
+	if( guiCurrentScreen == MAP_SCREEN ){
+		fTeamPanelDirty = TRUE;
+		fMapPanelDirty = TRUE;
+		RenderTeamRegionBackground();
+	}
+
 }
 
 void POPUP_SUB_POPUP_OPTION::initSubPopup()
 {
 	this->subPopup = new POPUP( (CHAR*) wstring(this->name).c_str() );
+	this->subPopup->setCallback(POPUP_CALLBACK_SHOW,new popupCallbackFunction<void,POPUP_SUB_POPUP_OPTION*>( &shadeOpenSubPopup, this ));
+	this->subPopup->setCallback(POPUP_CALLBACK_HIDE,new popupCallbackFunction<void,POPUP_SUB_POPUP_OPTION*>( &unShadeOpenSubPopup, this ));
+
 	this->customPositionSet = false;
+
+	// set highlight color
+	this->color_highlight = FONT_WHITE;
+
+	// unhighlighted color
+	this->color_foreground = FONT_LTGREEN;
+
+	// background color
+	this->color_background = FONT_BLACK;
+
+	// shaded color..for darkened text
+	this->color_shade = FONT_GRAY7 ;
 }
 
 void POPUP_SUB_POPUP_OPTION::destroySubPopup()
@@ -508,7 +590,7 @@ BOOLEAN POPUP::addOption(POPUP_OPTION &option)
 	if (this->optionCount < POPUP_MAX_OPTIONS)
 	{	
 		this->options.push_back( &option );
-		optionCount++;
+		this->optionCount++;
 		return TRUE;
 	}
 	else
@@ -536,6 +618,19 @@ POPUP * POPUP::addSubMenuOption(wstring * name)
 		return NULL;
 }
 
+BOOL POPUP::addSubMenuOption( POPUP_SUB_POPUP_OPTION* sub )
+{
+	if (this->subPopupOptionCount < POPUP_MAX_SUB_POPUPS)
+	{
+		sub->parent = this;
+		this->subPopupOptions.push_back( sub );
+		this->subPopupOptionCount++;
+		return TRUE;
+	}
+	else
+		return FALSE;
+}
+
 POPUP_SUB_POPUP_OPTION * POPUP::getSubPopupOption(UINT8 n)
 {
 	if (n < this->subPopupOptions.size() && this->subPopupOptions[n])
@@ -544,6 +639,59 @@ POPUP_SUB_POPUP_OPTION * POPUP::getSubPopupOption(UINT8 n)
 		return NULL;
 }
 
+void POPUP::recalculateWidth(void){
+
+	this->Dimensions.iRight = this->getCurrentWidth();
+
+}
+
+INT16 POPUP::getCurrentWidth(void){
+	INT16 longestString = 0, longestStringTmp;
+
+	CHAR16 sString[ 128 ];
+
+	if (this->subPopupOptionCount > 0)
+
+		for(std::vector<POPUP_SUB_POPUP_OPTION*>::iterator cOption=this->subPopupOptions.begin(); cOption != this->subPopupOptions.end(); ++cOption)
+		{
+			swprintf( sString, (*cOption)->name.c_str() );	  
+			longestStringTmp = StringPixLength(	sString, MAP_SCREEN_FONT);
+			if( longestString < longestStringTmp ) longestString = longestStringTmp;
+		}
+
+	if (this->optionCount > 0)
+		for(std::vector<POPUP_OPTION*>::iterator cOption=this->options.begin(); cOption != this->options.end(); ++cOption)
+		{
+			swprintf( sString, (*cOption)->name.c_str() );	  
+			longestStringTmp = StringPixLength(	sString, MAP_SCREEN_FONT);
+			if( longestString < longestStringTmp ) longestString = longestStringTmp;
+		}
+
+	return longestString + 10; // 10+ marginLeft(6) + marginRight(4)
+}
+
+INT16 POPUP::getCurrentHeight(void){
+
+	// linespace = 2; margin = 6+4
+	return ( this->optionCount + this->subPopupOptionCount ) * ( GetFontHeight(MAP_SCREEN_FONT) + 2 ) +10;
+
+}
+
+SGPRect POPUP::getBoxDimensions(){
+	SGPRect tmp;
+
+	GetBoxSize( this->boxId, &tmp );
+
+	return tmp;
+}
+
+SGPPoint POPUP::getBoxPosition(){
+	SGPPoint tmp;
+
+	GetBoxPosition( this->boxId, &tmp );
+
+	return tmp;
+}
 
 BOOLEAN POPUP::setPosition(UINT16 x, UINT16 y, UINT8 positioningRule )
 {
@@ -616,6 +764,10 @@ BOOLEAN POPUP::show()
 	return TRUE;
 }
 
+void POPUP::hideAfter(){
+	this->hideAfterRun = TRUE;
+}
+
 BOOLEAN POPUP::hide()
 {
 	if (!this->PopupVisible) {
@@ -659,12 +811,22 @@ BOOLEAN POPUP::hide()
 
 BOOLEAN POPUP::callOption(int optIndex)
 {
+	this->hideAfterRun = FALSE;
+
 	if (	this->optionCount > 0 
-	&&		optIndex < 32 
+	&&		optIndex < POPUP_MAX_OPTIONS
 	&&		optIndex < optionCount
 	&&		optIndex >= 0)
 	{	
-	return this->options[optIndex]->run();
+		BOOLEAN callbackStatus = this->options[optIndex]->run();
+		
+		if(!this->hideAfterRun)
+		{
+			return callbackStatus;
+		} else
+		{
+			return this->hide();
+		}
 	}
 	else
 		return FALSE;
@@ -857,6 +1019,8 @@ void POPUP::AddSubPopupStrings()
 	  
 			// make sure it is unhighlighted
 			UnHighLightLine(hStringHandle);
+			// update options string handle for setting colors
+			(*cOption)->stringHandle = hStringHandle;
 		}
 }
 
@@ -874,12 +1038,15 @@ void POPUP::AddOptionStrings()
 	  
 			// make sure it is unhighlighted
 			UnHighLightLine(hStringHandle);
+			// update options string handle for setting colors
+			(*cOption)->stringHandle = hStringHandle;
 		}
 }
 
 
 void POPUP::UpdateTextProperties()
 {
+
 	// set font type
 	SetBoxFont(this->boxId, MAP_SCREEN_FONT);
 
@@ -895,8 +1062,29 @@ void POPUP::UpdateTextProperties()
 	// shaded color..for darkened text
 	SetBoxShade( this->boxId, FONT_GRAY7 );
 
-	// is this for the second row ?
+	// alt shaded color
 	SetBoxSecondaryShade( this->boxId, FONT_YELLOW );
+
+
+	if (this->subPopupOptionCount > 0)
+		for(std::vector<POPUP_SUB_POPUP_OPTION*>::iterator cOption=this->subPopupOptions.begin(); cOption != this->subPopupOptions.end(); ++cOption)
+		{
+			SetStringForeground( (*cOption)->stringHandle, (*cOption)->color_foreground);
+			SetStringBackground( (*cOption)->stringHandle, (*cOption)->color_background);
+			SetStringHighLight( (*cOption)->stringHandle, (*cOption)->color_highlight);
+			SetStringShade( (*cOption)->stringHandle, (*cOption)->color_shade);
+		}
+
+
+	if (this->optionCount > 0)
+		for(std::vector<POPUP_OPTION*>::iterator cOption=this->options.begin(); cOption != this->options.end(); ++cOption)
+		{
+			SetStringForeground( (*cOption)->stringHandle, (*cOption)->color_foreground);
+			SetStringBackground( (*cOption)->stringHandle, (*cOption)->color_background);
+			SetStringHighLight( (*cOption)->stringHandle, (*cOption)->color_highlight);
+			SetStringShade( (*cOption)->stringHandle, (*cOption)->color_shade);
+		}
+
 
 	 // resize box to text
 	ResizeBoxToText( this->boxId );
@@ -1294,6 +1482,7 @@ void POPUP::MenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				&&	iValue >= 0
 				&&	this->subPopupOptions[iValue] != NULL)
 			{
+				this->recalculateWidth();
 				this->subPopupOptions[iValue]->run();
 			}
 		}
@@ -1349,24 +1538,34 @@ void POPUP::MenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 void POPUP::HandleShadingOfLines( void )
 {
-	UINT8 i = 0;
-
 	// check if valid
 	if( ( this->PopupVisible == FALSE ) || ( this->boxId == - 1 ) )
 	{
 		return;
 	}
 	
-	//for (i=0; i < this->optionCount; i++)
+	UINT8 i = 0;
+	// subPopups with no options are shaded
+	for(std::vector<POPUP_SUB_POPUP_OPTION*>::iterator cOption=this->subPopupOptions.begin(); cOption != this->subPopupOptions.end(); ++cOption)
+	{
+		if ( (*cOption)->subPopup->optionCount + (*cOption)->subPopup->subPopupOptionCount > 0 )
+			UnShadeStringInBox( this->boxId, i);	
+		else																
+			ShadeStringInBox( this->boxId, i);
+		i++;
+	}
+
+	i = 0;
+	// shade strings past the this->subPopupOptionCount offset
 	for(std::vector<POPUP_OPTION*>::iterator cOption=this->options.begin(); cOption != this->options.end(); ++cOption)
 	{
 		if ( (*cOption)->checkAvailability() )
-			UnShadeStringInBox( this->boxId, i+this->subPopupOptionCount);	// workaround - sub-popups don't check
-		else																// for availability
+			UnShadeStringInBox( this->boxId, i+this->subPopupOptionCount);	
+		else																
 			ShadeStringInBox( this->boxId, i+this->subPopupOptionCount);
 		i++;
 	}
-	
+		
 	return;
 }
 

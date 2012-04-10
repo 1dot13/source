@@ -546,45 +546,43 @@ void DecaySmokeEffects( UINT32 uiTime )
 
 		if ( pSmoke->fAllocated )
 		{
-		if ( pSmoke->bFlags & SMOKE_EFFECT_ON_ROOF )
-		{
-		bLevel = 1;
-		}
-		else
-		{
-		bLevel = 0;
-		}
-
-
-		// Do things differently for combat /vs realtime
-		// always try to update during combat
-		if (gTacticalStatus.uiFlags & INCOMBAT )
-		{
-		fUpdate = TRUE;
-		}
-		else
-		{
-			// ATE: Do this every so ofte, to acheive the effect we want...
-			if ( ( uiTime - pSmoke->uiTimeOfLastUpdate ) > 10 )
+			if ( pSmoke->bFlags & SMOKE_EFFECT_ON_ROOF )
 			{
-			fUpdate = TRUE;
+				bLevel = 1;
+			}
+			else
+			{
+				bLevel = 0;
+			}
 
-			usNumUpdates = ( UINT16 ) ( ( uiTime - pSmoke->uiTimeOfLastUpdate ) / 10 );
-		}
-		}
+			// Do things differently for combat /vs realtime
+			// always try to update during combat
+			if (gTacticalStatus.uiFlags & INCOMBAT )
+			{
+				fUpdate = TRUE;
+			}
+			else
+			{
+				// ATE: Do this every so ofte, to acheive the effect we want...
+				if ( ( uiTime - pSmoke->uiTimeOfLastUpdate ) > 10 )
+				{
+					fUpdate = TRUE;
+					usNumUpdates = ( UINT16 ) ( ( uiTime - pSmoke->uiTimeOfLastUpdate ) / 10 );
+				}
+			}
 
-		if ( fUpdate )
-		{
+			if ( fUpdate )
+			{
 				pSmoke->uiTimeOfLastUpdate = uiTime;
 
-		for ( cnt2 = 0; cnt2 < usNumUpdates; cnt2++ )
-		{
-				pSmoke->bAge++;
-
+				for ( cnt2 = 0; cnt2 < usNumUpdates; cnt2++ )
+				{
+					pSmoke->bAge++;
+	
 					if ( pSmoke->bAge == 1 )
 					{
-			// ATE: At least mark for update!
-			pSmoke->bFlags |= SMOKE_EFFECT_MARK_FOR_UPDATE;
+						// ATE: At least mark for update!
+						pSmoke->bFlags |= SMOKE_EFFECT_MARK_FOR_UPDATE;
 						fSpreadEffect = FALSE;
 					}
 					else
@@ -592,41 +590,41 @@ void DecaySmokeEffects( UINT32 uiTime )
 						fSpreadEffect = TRUE;
 					}
 
-			if ( fSpreadEffect )
-			{
-				 // if this cloud remains effective (duration not reached)
-				 if ( pSmoke->bAge <= pSmoke->ubDuration)
-				 {
-				// ATE: Only mark now and increse radius - actual drawing is done
-				// in another pass cause it could
-				// just get erased...
-				pSmoke->bFlags |= SMOKE_EFFECT_MARK_FOR_UPDATE;
+					if ( fSpreadEffect )
+					{
+						// if this cloud remains effective (duration not reached)
+						if ( pSmoke->bAge <= pSmoke->ubDuration)
+						{
+							// ATE: Only mark now and increse radius - actual drawing is done
+							// in another pass cause it could
+							// just get erased...
+							pSmoke->bFlags |= SMOKE_EFFECT_MARK_FOR_UPDATE;
 
-					// calculate the new cloud radius
-					// cloud expands by 1 every turn outdoors, and every other turn indoors
+							// calculate the new cloud radius
+							// cloud expands by 1 every turn outdoors, and every other turn indoors
 
-				// ATE: If radius is < maximun, increase radius, otherwise keep at max
-				if ( pSmoke->ubRadius < Explosive[ Item[ pSmoke->usItem ].ubClassIndex ].ubRadius )
-				{
-						pSmoke->ubRadius++;
+							// ATE: If radius is < maximun, increase radius, otherwise keep at max
+							if ( pSmoke->ubRadius < Explosive[ Item[ pSmoke->usItem ].ubClassIndex ].ubRadius )
+							{
+								pSmoke->ubRadius++;
+							}
+						}
+						else
+						{
+							// deactivate tear gas cloud (use last known radius)
+							SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, ERASE_SPREAD_EFFECT, bLevel, cnt );
+							pSmoke->fAllocated = FALSE;
+							break;
+						}
+					}
 				}
-				 }
-				 else
-				 {
-					 // deactivate tear gas cloud (use last known radius)
-					 SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, ERASE_SPREAD_EFFECT, bLevel, cnt );
-					 pSmoke->fAllocated = FALSE;
-				break;
-				 }
-			}
-		}
 			}
 			else
 			{
 				// damage anyone standing in cloud
 				SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, REDO_SPREAD_EFFECT, bLevel, cnt );
 			}
-	}
+		}
 	}
 
 	for ( cnt = 0; cnt < guiNumSmokeEffects; cnt++ )
@@ -635,22 +633,22 @@ void DecaySmokeEffects( UINT32 uiTime )
 
 		if ( pSmoke->fAllocated )
 		{
-		if ( pSmoke->bFlags & SMOKE_EFFECT_ON_ROOF )
-		{
-		bLevel = 1;
-		}
-		else
-		{
-		bLevel = 0;
-		}
+			if ( pSmoke->bFlags & SMOKE_EFFECT_ON_ROOF )
+			{
+				bLevel = 1;
+			}
+			else
+			{
+				bLevel = 0;
+			}
 
-		// if this cloud remains effective (duration not reached)
-		if ( pSmoke->bFlags & SMOKE_EFFECT_MARK_FOR_UPDATE )
+			// if this cloud remains effective (duration not reached)
+			if ( pSmoke->bFlags & SMOKE_EFFECT_MARK_FOR_UPDATE )
 			{
 				SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, TRUE, bLevel, cnt );
-		pSmoke->bFlags &= (~SMOKE_EFFECT_MARK_FOR_UPDATE);
+				pSmoke->bFlags &= (~SMOKE_EFFECT_MARK_FOR_UPDATE);
 			}
-	}
+		}
 	}
 
 	AllTeamsLookForAll( TRUE );

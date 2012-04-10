@@ -44,6 +44,8 @@ extern UINT32					guiNumSmokeEffects;
 INT8 GetSmokeEffectOnTile( INT32 sGridNo, INT8 bLevel );
 
 // Decays all smoke effects...
+// HEADROCK HAM 5: New argument here tells the decay function to only process clouds belonging to one team.
+// -1 = all teams.
 void DecaySmokeEffects( UINT32 uiTime );
 
 // Add smoke to gridno

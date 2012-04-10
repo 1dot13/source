@@ -57,7 +57,12 @@ explosiveStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 				strcmp(name, "ubStartRadius") == 0 ||
 				strcmp(name, "ubMagSize") == 0 ||
 				strcmp(name, "ubDuration") == 0 ||
-				strcmp(name, "ubAnimationID") == 0 ))
+				strcmp(name, "ubAnimationID") == 0 ||
+				strcmp(name, "fExplodeOnImpact") == 0 ||// HEADROCK HAM 5: Explode on impact flag
+				strcmp(name, "usNumFragments") == 0 || // HEADROCK HAM 5.1: Fragmenting explosive data
+				strcmp(name, "ubFragType") == 0 ||
+				strcmp(name, "ubFragDamage") == 0 ||
+				strcmp(name, "ubFragRange") == 0 )) 
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -158,6 +163,37 @@ explosiveEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curExplosive.ubDuration	= (UINT8) atol(pData->szCharData);
+		}
+		// HEADROCK HAM 5: Flag for "Explosion on Impact"
+		else if(strcmp(name, "fExplodeOnImpact") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.fExplodeOnImpact = (BOOLEAN) atol(pData->szCharData);
+		}
+
+		// HEADROCK HAM 5.1: Four tags for Fragmenting Explosives
+		else if(strcmp(name, "usNumFragments") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.usNumFragments = (UINT16) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "ubFragType") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.ubFragType = (UINT8) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "ubFragDamage") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.ubFragDamage = (UINT16) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "ubFragRange") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.ubFragRange = (UINT16) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -262,6 +298,7 @@ BOOLEAN WriteExplosiveStats()
 			FilePrintf(hFile,"\t\t<ubDuration>%d</ubDuration>\r\n",								Explosive[cnt].ubDuration	);
 			FilePrintf(hFile,"\t\t<ubStartRadius>%d</ubStartRadius>\r\n",								Explosive[cnt].ubStartRadius	);
 			FilePrintf(hFile,"\t\t<ubMagSize>%d</ubMagSize>\r\n",								Explosive[cnt].ubMagSize	);
+			FilePrintf(hFile,"\t\t<fExplodeOnImpact>%d</fExplodeOnImpact>\r\n",								(UINT8)Explosive[cnt].fExplodeOnImpact	);
 
 			FilePrintf(hFile,"\t</EXPLOSIVE>\r\n");
 		}

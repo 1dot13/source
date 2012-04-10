@@ -1077,8 +1077,8 @@ BOOLEAN CheckIfRadioIsEquipped( void )
 	
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 	{	
-		bSlot = FindObj( pSoldier, EXTENDEDEAR );
-		//bSlot = FindHearingAid(pSoldier);
+		//bSlot = FindObj( pSoldier, EXTENDEDEAR );
+		bSlot = FindHearingAid(pSoldier);
 		//ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Position: %d", bSlot );
 	}
 

@@ -1345,6 +1345,7 @@ typedef struct
 	FLOAT VERTICAL_BIAS;					// This float can be used to reduce the chance of missing too far upwards or downwards (compared to left/right).
 	FLOAT SCOPE_RANGE_MULTIPLIER;			// Adjusts the minimum effective range of scopes
 	FLOAT SIDE_FACING_DIVISOR;				// Deals with a visual error in NCTH relating to shooting at a target who is facing directly perpendicular to the shooters facing.
+	UINT16 BASIC_RELIABILITY_ODDS;			// Determines the base chance to lose one condition point when firing a gun.
 
 	FLOAT BASE_EXP;				// Importance of Experience for BASE CTH
 	FLOAT BASE_MARKS;				// Importance of Marksmanship for BASE CTH

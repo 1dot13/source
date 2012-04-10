@@ -103,6 +103,9 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 // Flashbang effect on soldier
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding);
 
+// HEADROCK HAM 5.1: Explosion Fragments launcher
+void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem );
+
 extern INT8	gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
 extern	void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
 extern void RecompileLocalMovementCostsForWall( INT32 sGridNo, UINT8 ubOrientation );
@@ -338,9 +341,14 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	ExpParams.bLevel	= bLevel;
 
 	GenerateExplosion( &ExpParams );
+
+	// HEADROCK HAM 5.1: Launch fragments from the explosion.
+	if (Explosive[ Item[ usItem ].ubClassIndex ].usNumFragments > 0 )
+	{
+		// HEADROCK HAM 5: Deactivated until the release of HAM 5.1.
+		FireFragments( MercPtrs[ubOwner], sX, sY, sZ, usItem );
+	}
 }
-
-
 
 
 
@@ -4347,6 +4355,43 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 	}
 
 	return ( FIRE_WEAPON_BLINDED_AND_DEAFENED );
+}
+
+
+// HEADROCK HAM 5.1: This handles launching fragments out of an explosion. The number of fragments is read from
+// the Explosives.XML file, and they each have a set amount of damage and range as well. They are currently
+// fired at completely random trajectories.
+void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem )
+{
+	UINT16 usNumFragments = Explosive[Item[usItem].ubClassIndex].usNumFragments;
+	UINT16 ubFragRange = Explosive[Item[usItem].ubClassIndex].ubFragRange;
+
+	AssertMsg( ubFragRange > 0 , "Fragmentation data lacks range property!" );
+
+	for (UINT16 x = 0; x < usNumFragments; x++)
+	{
+		FLOAT dRandomX = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+		FLOAT dRandomY = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+		FLOAT dRandomZ = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+
+		FLOAT dDeltaX = (dRandomX * ubFragRange);
+		FLOAT dDeltaY = (dRandomY * ubFragRange);
+		FLOAT dDeltaZ = ((dRandomZ * 25.6f) * 50 );
+
+		FLOAT dRangeMultiplier = 10; // Arbitrary, but gives good results.
+
+		FLOAT dEndX = (FLOAT)(sX + (dDeltaX * dRangeMultiplier));
+		FLOAT dEndY = (FLOAT)(sY + (dDeltaY * dRangeMultiplier));
+		FLOAT dEndZ = (FLOAT)(sZ + (dDeltaZ * dRangeMultiplier));
+
+		// Add some randomness to the start coordinates as well, so that not all fragments fly from the same point
+		// in space.
+		FLOAT dStartX = (FLOAT)sX + (dRandomX * ((FLOAT)Random(4)+1.0f));
+		FLOAT dStartY = (FLOAT)sY + (dRandomY * ((FLOAT)Random(4)+1.0f));
+		FLOAT dStartZ = (FLOAT)sZ + (dRandomZ * ((FLOAT)Random(4)+1.0f));
+
+		FireFragmentGivenTarget( pThrower, dStartX, dStartY, dStartZ, dEndX, dEndY, dEndZ, usItem );
+	}
 }
 
 #ifdef JA2UB

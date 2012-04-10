@@ -2692,7 +2692,6 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 		{
 			// Flugente: check for underbarrel weapons and use that object if necessary
 			pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
-
 			bExcludeSlot = NO_SLOT;
 			bSlot2 = NO_SLOT;
 

@@ -345,7 +345,7 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"TooltipStrings",				Loc::gzTooltipStrings,				0,	TEXT_NUM_STR_TT);
 	ExportSection(props, L"New113Message",				Loc::New113Message,					0,	TEXT_NUM_MSG113);
 
-	ExportSection(props, L"New113HAMMessage",			Loc::New113HAMMessage,				0,	22);
+	ExportSection(props, L"New113HAMMessage",			Loc::New113HAMMessage,				0,	25);
 	ExportSection(props, L"New113MERCMercMail",			Loc::New113MERCMercMailTexts,		0,	4);
 	ExportSection(props, L"New113AIMMercMail",			Loc::New113AIMMercMailTexts,		0,	16);
 	ExportSection(props, L"MissingIMPSkills",			Loc::MissingIMPSkillsDescriptions,	0,	2);

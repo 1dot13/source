@@ -50,17 +50,17 @@ static UINT16 CrouchedShootRocketScript[MAX_FRAMES_PER_ANIM] =
 {757,1,2,3,4,5,6,7,8,9,10,11,12,470,430,13,14,15,16,477,17,18,19,20,753,499,999,0,0,0,0};
 static UINT16 SwatWithKnifeScript[MAX_FRAMES_PER_ANIM] = 
 //{1,2,3,4,5,6,7,703,8,9,10,11,704,12,13,14,15,16,17,18,19,501,999,0,0,0,0};
-{5,703,6,7,8,9,10,11,704,12,13,14,15,16,501,999,0,0,0,0};//такая последовательность предлагается в джа2бин
+{5,703,6,7,8,9,10,11,704,12,13,14,15,16,501,999,0,0,0,0};//such a sequence is available in dzha2bin
 static UINT16 SwatBackWithKnifeScript[MAX_FRAMES_PER_ANIM] = 
 {16,15,14,13,12,704,11,10,9,8,7,6,703,5,501,999,0,0,0,0}; 
 
 static UINT16 SwatBackWithNothingScript[MAX_FRAMES_PER_ANIM] = 
 {16,15,14,13,12,704,11,10,9,8,7,6,703,5,501,999,0,0,0,0};
 
-//хз, может понадобится править цифры. скрипт кидания гранат
+//xs, may need to edit the numbers. throwing grenades script
 static UINT16 ThrowGrenadeStanceAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,460,11,12,13,14,15,16,17,18,19,442,601,999,0,0,0,0  };
 static UINT16 LobGrenadeStanceAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,460,11,12,13,14,15,16,17,18,19,442,601,999,0,0,0,0  };
-//перекат
+//Rolls
 static UINT16 ROLL_L_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,501,999,0,0,0,0  };
 static UINT16 ROLL_R_AnimationScript[MAX_FRAMES_PER_ANIM] = { 14,13,12,11,10,9,8,7,6,5,4,3,2,1,501,999,0,0,0,0  };
 
@@ -1781,10 +1781,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ SWATTING_WK ]							= BGMSWKNIFE;
 	gubAnimSurfaceIndex[ BIGMALE ][ SWAT_BACKWARDS_WK ]						= BGMSWKNIFE;
 	gubAnimSurfaceIndex[ BIGMALE ][ SWAT_BACKWARDS_NOTHING ]				= BGMNOTHING_SWAT;
-	//кидание гранаты
+	//Throwing Grenades
 	gubAnimSurfaceIndex[ BIGMALE ][ THROW_GRENADE_STANCE ]				= BGMSTHRG;
 	gubAnimSurfaceIndex[ BIGMALE ][ LOB_GRENADE_STANCE ]				= BGMSLOBG;
-	//перекат
+	//Rolling
 	gubAnimSurfaceIndex[ BIGMALE ][ ROLL_PRONE_L ]					  	= BGMROLL_PR;
 	gubAnimSurfaceIndex[ BIGMALE ][ ROLL_PRONE_R ]					  	= BGMROLL_PR;
 	
@@ -2182,10 +2182,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ SWATTING_WK ]							= RGMSWKNIFE;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ SWAT_BACKWARDS_WK ]						= RGMSWKNIFE;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ SWAT_BACKWARDS_NOTHING ]				= RGMNOTHING_SWAT;
-		//кидание гранаты
+		//Throwing Grenades
 	gubAnimSurfaceIndex[ STOCKYMALE ][ THROW_GRENADE_STANCE ]				= RGMSTHRG;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ LOB_GRENADE_STANCE ]				= RGMSLOBG;
-	//перекат
+	//Rolling
 	gubAnimSurfaceIndex[ STOCKYMALE ][ ROLL_PRONE_L ]					  	= RGMROLL_PR;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ ROLL_PRONE_R ]					  	= RGMROLL_PR;
 	
@@ -2562,10 +2562,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ SWAT_BACKWARDS_NOTHING ]				= RGFNOTHING_SWAT;
 	gubAnimSurfaceIndex[ REGFEMALE ][ SWATTING_WK ]							= RGFSWKNIFE;
 	gubAnimSurfaceIndex[ REGFEMALE ][ SWAT_BACKWARDS_WK ]					= RGFSWKNIFE;
-		//кидание гранаты
+		//Throwing Grenades
 	gubAnimSurfaceIndex[ REGFEMALE ][ THROW_GRENADE_STANCE ]				= RGFSTHRG;
 	gubAnimSurfaceIndex[ REGFEMALE ][ LOB_GRENADE_STANCE ]				= RGFSLOBG;
-	//перекта
+	//Rolling
 	gubAnimSurfaceIndex[ REGFEMALE ][ ROLL_PRONE_L ]					= RGFROLL_PR;
 	gubAnimSurfaceIndex[ REGFEMALE ][ ROLL_PRONE_R ]					= RGFROLL_PR;
 
@@ -3247,8 +3247,7 @@ BOOLEAN LoadAnimationStateInstructions( )
 		return( FALSE );
 	}
 
-	//ddd патамушта вылетает при превышении 320 значения ;( 
-	//придется мастерить вспомогательный массив, потом копировать его содержимое в гусаниминст
+	//ddd Trick for loading more than 320 animation files (?)
 	UINT16 fuckTheBoundz[320][100];
 
 	//Read in block
@@ -3265,7 +3264,7 @@ BOOLEAN LoadAnimationStateInstructions( )
 		memcpy(gusAnimInst[i],fuckTheBoundz[i],sizeof(fuckTheBoundz[i]));
 		//gusAnimInst[i][0] = fuckTheBoundz[i][0];
 
-	//! для перегонки джа2бин в читаемый вид
+	// For conversion into readable format (?)
 //	char gS[22];
 //	UINT32 uiNumBytesWritten = 64000;
 //	int ggg[MAX_ANIMATIONS][MAX_FRAMES_PER_ANIM];
@@ -3837,7 +3836,7 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 
 					if ( usAltAnimSurface != INVALID_ANIMATION )
 					{
-						//ddd{ сюда ставить альтернативную анимашку для выстрела из пистолета
+						//ddd Put alternative pistol-shot animations here
 						/*if ( usAnimSurface == BGMSTANDAIM2 )
 						{
 						

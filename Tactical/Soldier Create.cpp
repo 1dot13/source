@@ -74,6 +74,8 @@
 #define MAX_PALACE_DISTANCE		20
 
 INT8 bNumSquadleadersInArmy = 0; // added by SANDRO
+// HEADROCK HAM 5: Read target coolness by sector
+UINT32 gCoolnessBySector[256];
 
 OLD_SOLDIERCREATE_STRUCT_101::OLD_SOLDIERCREATE_STRUCT_101() {
 	initialize();
@@ -3237,8 +3239,8 @@ UINT8 GetLocationModifier( UINT8 ubSoldierClass )
 	INT16 sSectorX, sSectorY, sSectorZ;
 	#ifdef JA2UB
 	#else
-	INT8 bTownId;
-	UINT8 ubPalaceDistance;
+	//INT8 bTownId;
+	//UINT8 ubPalaceDistance;
 	#endif
 	BOOLEAN fSuccess;
 
@@ -3372,6 +3374,13 @@ UINT8 GetLocationModifier( UINT8 ubSoldierClass )
 		break;
 	}
 #else	
+	// HEADROCK HAM 5:
+	// The calculation has been replaced with an XML table.
+
+	ubLocationModifier = gCoolnessBySector[SECTOR(sSectorX, sSectorY)];
+
+	/*
+
 	// ignore sSectorZ - treat any underground enemies as if they were on the surface!
 	bTownId = GetTownIdForSector( sSectorX, sSectorY );
 
@@ -3401,6 +3410,8 @@ UINT8 GetLocationModifier( UINT8 ubSoldierClass )
 
 	// adjust for distance from Queen's palace (P3) (0 to +30)
 	ubLocationModifier = ( ( MAX_PALACE_DISTANCE - ubPalaceDistance ) * DIFF_FACTOR_PALACE_DISTANCE ) / MAX_PALACE_DISTANCE;
+	*/
+
 #endif
 	return( ubLocationModifier );
 }

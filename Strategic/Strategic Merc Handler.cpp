@@ -587,7 +587,8 @@ void MercDailyUpdate()
 	// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions.
 	if (gGameExternalOptions.fDynamicRestrictRoaming)
 	{
-		AdjustRoamingRestrictions();
+		// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
+		AdjustRoamingRestrictions( FALSE );
 	}
 
 	// HEADROCK HAM 3.6: Pay debt for operating Facilities today. If can't be paid, apply loyalty hit.

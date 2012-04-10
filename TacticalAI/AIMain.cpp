@@ -2095,6 +2095,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	// WANNE.TANK: Choose cannon or rocket
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
 
+	INT8 bSlot;
+
 	if (TANK(pSoldier))
 	{
 		// No cannon selected to fire
@@ -2789,6 +2791,16 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		break;
 	/////////////////////////////////////////////////////////////
+
+	case AI_ACTION_RELOAD_GUN:
+		bSlot = FindAmmoToReload( pSoldier, pSoldier->aiData.usActionData, NO_SLOT );
+		if(bSlot != NO_SLOT)
+		{
+			ReloadGun( pSoldier, &(pSoldier->inv[pSoldier->aiData.usActionData]), &(pSoldier->inv[bSlot]) );
+			ActionDone( pSoldier );
+		}
+		break;
+
 
 	default:
 #ifdef BETAVERSION

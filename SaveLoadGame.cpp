@@ -5714,7 +5714,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// HEADROCK HAM B1: Re-Adjust Dynamic Roaming Militia restrictions
 	if (gGameExternalOptions.fDynamicRestrictRoaming)
 	{
-		AdjustRoamingRestrictions();
+		// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
+		AdjustRoamingRestrictions( TRUE );
 	}
 
 	// HEADROCK HAM 3.5: Tells the rest of the program whether we've got mercs working on detecting enemy units.

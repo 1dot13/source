@@ -1016,7 +1016,7 @@ void MapscreenMarkButtonsDirty();
 extern BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSectorY, INT8 bClickedTownId );
 
 extern INT32 GetNumberOfMercsInUpdateList( void );
-extern INT32 SellItem( OBJECTTYPE& object, BOOLEAN useModifier = TRUE );
+extern INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier = TRUE );
 void DeleteAllItemsInInventoryPool();
 
 #ifdef JA2UB
@@ -1066,18 +1066,21 @@ void BeginSellAllCallBack( UINT8 bExitValue )
 				fMapPanelDirty = TRUE;
 				gpItemPointer = &gItemPointer;
 				// Sell Item
-				iPrice += SellItem( gItemPointer );
+				// HEADROCK HAM 5: Added argument
+				iPrice += SellItem( gItemPointer, TRUE );
 				gpItemPointer = NULL;
 				fMapInventoryItem = FALSE;
-				if (iPrice == 0) {
-					iPrice = 1;
-				}
+				// HEADROCK HAM 5: Sale of $0 now re-enabled.
+				//if (iPrice == 0) {
+				//	iPrice = 1;
+				//}
 				anythingSold = true;
 				HandleButtonStatesWhileMapInventoryActive();
 				}
 			}
 		}
-		if(anythingSold == true)
+		// HEADROCK HAM 5: No transaction if no money.
+		if(anythingSold == true && iPrice > 0)
 			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
 	}
 }
@@ -4761,6 +4764,18 @@ UINT32 MapScreenHandle(void)
 		FilenameForBPP("INTERFACE\\mapcursr.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCURSORS));
 
+		// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+
+		if (iResolution == 0)
+			FilenameForBPP("INTERFACE\\map_pathing_arrows_640.sti", VObjectDesc.ImageFile);
+		else if (iResolution == 1)
+			FilenameForBPP("INTERFACE\\map_pathing_arrows_800.sti", VObjectDesc.ImageFile);
+		else if (iResolution == 2)
+			FilenameForBPP("INTERFACE\\map_pathing_arrows_1024.sti", VObjectDesc.ImageFile);
+
+		CHECKF(AddVideoObject(&VObjectDesc, &guiMapPathingArrows));
+
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\Mine_1.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel1));
@@ -4908,20 +4923,42 @@ UINT32 MapScreenHandle(void)
 		}
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\merc_between_sector_icons.sti", VObjectDesc.ImageFile);
+		// HEADROCK HAM 5.4: Larger icons for merc movement
+		if (iResolution >= _640x480 && iResolution < _800x600)
+			FilenameForBPP("INTERFACE\\merc_between_sector_icons_640.sti", VObjectDesc.ImageFile);
+		else if (iResolution < _1024x768)
+			FilenameForBPP("INTERFACE\\merc_between_sector_icons_800.sti", VObjectDesc.ImageFile);
+		else 
+			FilenameForBPP("INTERFACE\\merc_between_sector_icons_1024.sti", VObjectDesc.ImageFile);
+
 		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARBETWEENSECTORICONS));
 
+		// HEADROCK HAM 5.1: Enemies between sectors
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\merc_mvt_green_arrows.sti", VObjectDesc.ImageFile);
-		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARBETWEENSECTORICONSCLOSE));
 
+		if (iResolution >= _640x480 && iResolution < _800x600)
+			FilenameForBPP("INTERFACE\\enemy_between_sector_icons_640.sti", VObjectDesc.ImageFile);
+		else if (iResolution < _1024x768)
+			FilenameForBPP("INTERFACE\\enemy_between_sector_icons_800.sti", VObjectDesc.ImageFile);
+		else 
+			FilenameForBPP("INTERFACE\\enemy_between_sector_icons_1024.sti", VObjectDesc.ImageFile);
+
+		CHECKF(AddVideoObject(&VObjectDesc, &guiENEMYBETWEENSECTORICONS));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\GreenArr.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiLEVELMARKER));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\Helicop.sti", VObjectDesc.ImageFile);
+
+		// HEADROCK HAM 5: Resolution-dependent icon
+		if (iResolution >= _640x480 && iResolution < _800x600)
+			FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_640.sti", VObjectDesc.ImageFile);
+		else if (iResolution < _1024x768)
+			FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_800.sti", VObjectDesc.ImageFile);
+		else 
+			FilenameForBPP("INTERFACE\\Helicopter_Map_Icon_1024.sti", VObjectDesc.ImageFile);
+
 		CHECKF(AddVideoObject(&VObjectDesc, &guiHelicopterIcon));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -4931,7 +4968,6 @@ UINT32 MapScreenHandle(void)
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
-
 
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -5602,14 +5638,23 @@ UINT32 MapScreenHandle(void)
 	// is there a description to be displayed?
 	// BOB : if we're displaying the attachment popup, don't redraw the IDB
 	if (giActiveAttachmentPopup > -1)
+	{
 		gItemDescAttachmentPopups[giActiveAttachmentPopup]->show();
+	}
+	// HEADROCK HAM 5: So... we need a separate case for each popup that we have? That's not too bright.
+	else if (gfItemDescTransformPopupVisible)
+	{
+		gItemDescTransformPopup->show();
+	}
 	else
-	RenderItemDescriptionBox( );
+	{
+		RenderItemDescriptionBox( );
+	}
 
 	// render clock
 	// WANNE: Renders the clock in the strategy screen
 	RenderClock(CLOCK_X, CLOCK_Y);
-		
+
 	#ifdef JA2TESTVERSION
 	if( !gfWorldLoaded )
 	{
@@ -8195,9 +8240,38 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 			}
 		}
+	}
+
+	// HEADROCK HAM 5: Alt alone shows sale prices on items in the sector inventory.
+	if (fShowMapInventoryPool)
+	{
+		if (fAlt)
+		{
+			if ( _KeyDown( SHIFT ) )
+			{
+				if (gubRenderedMapInventorySalePrices < 2)
+				{
+					gubRenderedMapInventorySalePrices = 2;
+					fMapPanelDirty = TRUE;
+				}
+			}
+			else
+			{
+				if (gubRenderedMapInventorySalePrices == 0 ||
+					gubRenderedMapInventorySalePrices == 2 )
+				{
+					gubRenderedMapInventorySalePrices = 1;
+					fMapPanelDirty = TRUE;
+				}
+			}
+		}
 		else
 		{
-			HandleDefaultEvent(&InputEvent);
+			if (gubRenderedMapInventorySalePrices)
+			{
+				gubRenderedMapInventorySalePrices = 0;
+				fMapPanelDirty = TRUE;
+			}
 		}
 	}
 }
@@ -8360,6 +8434,8 @@ INT32 iCounter2 = 0;
 		DeleteVideoObjectFromIndex(guiSubLevel3);
 		DeleteVideoObjectFromIndex( guiSleepIcon );
 		DeleteVideoObjectFromIndex(guiMAPCURSORS);
+		// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
+		DeleteVideoObjectFromIndex(guiMapPathingArrows);
 		//DeleteVideoObjectFromIndex(guiMAPBORDER);
 		DeleteVideoObjectFromIndex(guiCHARLIST);
 		//DeleteVideoObjectFromIndex(guiCORNERADDONS);
@@ -8377,7 +8453,8 @@ INT32 iCounter2 = 0;
 		DeleteVideoObjectFromIndex(guiORTAICON);
 		DeleteVideoObjectFromIndex(guiTIXAICON);
 		DeleteVideoObjectFromIndex( guiCHARBETWEENSECTORICONS );
-		DeleteVideoObjectFromIndex( guiCHARBETWEENSECTORICONSCLOSE );
+		// HEADROCK HAM 5.1: Enemies between sectors arrows
+		DeleteVideoObjectFromIndex( guiENEMYBETWEENSECTORICONS );
 		DeleteVideoObjectFromIndex( guiLEVELMARKER );
 		DeleteVideoObjectFromIndex( guiMapBorderEtaPopUp );
 
@@ -8866,7 +8943,9 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 						// HEADROCK HAM 4: Toggle Militia Restrictions manually. This occurs when the Mobile Restrictions
 						// view is turned on. Each click advances the sector's classification by 1. If max is reached,
 						// loops back to start.
-						if ( fShowMobileRestrictionsFlag == TRUE )
+						// HEADROCK HAM 5: Whoops, disallow changing restrictions for sectors that are
+						// not accessible to militia to begin with.
+						if ( fShowMobileRestrictionsFlag == TRUE && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE)
  						{
 							// Restrict more.
 							if ( gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] > MANUAL_MOBILE_NO_ENTER )
@@ -9343,9 +9422,15 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		// If we do not have an item in hand, start moving it
 		if ( gpItemPointer == NULL )
 		{
-			// Return if empty
+			
 			if ( pSoldier->inv[ uiHandPos ].exists() == false )
 			{
+				if ( _KeyDown(CTRL) ){
+					PocketPopupFull( pSoldier, uiHandPos );	// if ctrl is pressed, display all options
+				} else {
+					PocketPopupDefault( pSoldier, uiHandPos );	// display pocket-specific options
+				}
+
 				return;
 			}
 
@@ -9446,7 +9531,17 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					// it's an attempt to attach; bring up the inventory panel
 					if ( !InItemDescriptionBox( ) )
 					{
-						MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
+						// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
+						
+						if( gTacticalStatus.uiFlags & INCOMBAT )
+						{
+							DoScreenIndependantMessageBox( New113HAMMessage[ 23 ], MSG_BOX_FLAG_OK, NULL );
+							return;
+						}
+						else
+						{
+							MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
+						}
 					}
 					return;
 				}
@@ -9456,8 +9551,18 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					// TOO PAINFUL TO DO!! --CC
 					if ( !InItemDescriptionBox( ) )
 					{
-						bJustOpenedItemDescPanel = true; // OJW - 20090319 - fix merging on mapscreen - see top of function
-						MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
+						// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
+						
+						if( gTacticalStatus.uiFlags & INCOMBAT )
+						{
+							DoScreenIndependantMessageBox( New113HAMMessage[ 24 ], MSG_BOX_FLAG_OK, NULL );
+							return;
+						}
+						else
+						{
+							bJustOpenedItemDescPanel = true; // OJW - 20090319 - fix merging on mapscreen - see top of function
+							MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
+						}
 					}
 
 					/*
@@ -13046,6 +13151,8 @@ INT32 iCounter2 = 0;
 	{
 		DeleteMapBottomGraphics( );
 		DeleteVideoObjectFromIndex( guiMAPCURSORS );
+		// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
+		DeleteVideoObjectFromIndex(guiMapPathingArrows);
 		DeleteVideoObjectFromIndex( guiSleepIcon );
 
 		//DeleteVideoObjectFromIndex(guiMAPBORDER);
@@ -13069,7 +13176,8 @@ INT32 iCounter2 = 0;
 		DeleteVideoObjectFromIndex(guiORTAICON);
 		DeleteVideoObjectFromIndex(guiTIXAICON);
 		DeleteVideoObjectFromIndex( guiCHARBETWEENSECTORICONS );
-		DeleteVideoObjectFromIndex( guiCHARBETWEENSECTORICONSCLOSE );
+		// HEADROCK HAM 5.1: Enemies between sectors arrows
+		DeleteVideoObjectFromIndex( guiENEMYBETWEENSECTORICONS );
 		DeleteVideoObjectFromIndex( guiLEVELMARKER );
 		DeleteVideoObjectFromIndex( guiMapBorderEtaPopUp );
 		DeleteVideoObjectFromIndex( guiSecItemHiddenVO );

@@ -12,6 +12,9 @@
 
 // whether we are showing the inventory pool graphic
 extern BOOLEAN fShowMapInventoryPool;
+// HEADROCK HAM 5: Flag telling us whether we've already redrawn the screen to show
+// sector inventory sale prices.
+extern UINT8 gubRenderedMapInventorySalePrices;
 
 // load inventory pool graphic
 BOOLEAN LoadInventoryPoolGraphic( void );
@@ -21,6 +24,8 @@ void RemoveInventoryPoolGraphic( void );
 
 // blit the inventory graphic
 void BlitInventoryPoolGraphic( void );
+// HEADROCK HAM 5: Blit map inventory slots
+void BlitInventoryPoolSlotGraphics( void );
 
 // which buttons in map invneotyr panel?
 void HandleButtonStatesWhileMapInventoryActive( void );
@@ -52,6 +57,8 @@ extern INT32 sObjectSourceGridNo;
 extern INT32 iCurrentInventoryPoolPage;
 extern INT32 iLastInventoryPoolPage;
 extern BOOLEAN fMapInventoryItemCompatable[ ];
+// HEADROCK HAM 5: Same idea as above, this flags items as being candidates for appearing in Zoomed mode.
+extern BOOLEAN gfMapInventoryItemToZoom[ ];
 extern INT32 MAP_INVENTORY_POOL_SLOT_COUNT; 
 
 BOOLEAN IsMapScreenWorldItemInvisibleInMapInventory( WORLDITEM *pWorldItem );

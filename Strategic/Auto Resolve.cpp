@@ -68,6 +68,7 @@
 //	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
 	#include "AIInternals.h" // added by SANDRO
+	#include "Bullets.h" // HEADROCK HAM 5, for use with Bullet Impact.
 #endif
 
 #include "Reinforcement.h"
@@ -4414,7 +4415,8 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		else
 			ubLocation = AIM_SHOT_TORSO;
 		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);
-		iImpact = BulletImpact( pAttacker->pSoldier, pTarget->pSoldier, ubLocation, ubImpact, ubAccuracy, NULL );
+		// HEADROCK HAM 5: Added argument
+		iImpact = BulletImpact( pAttacker->pSoldier, NULL, pTarget->pSoldier, ubLocation, ubImpact, ubAccuracy, NULL );
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - increased mercs' offense/deffense rating
 		if (pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0)

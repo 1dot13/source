@@ -55,6 +55,9 @@
 	#include "debug control.h"
 
 	#include "math.h"
+	// THE_BOB : added for pocket popup definitions
+	#include <map>
+	#include "popup_definition.h"
 #endif
 
 #ifdef JA2UB
@@ -72,9 +75,19 @@ class SOLDIERTYPE;
 void SetNewItem( SOLDIERTYPE *pSoldier, UINT8 ubInvPos, BOOLEAN fNewItem );
 
 extern	SOLDIERTYPE *gpItemDescSoldier;
+// HEADROCK HAM 5: We need access to these values for item transformation purposes
+extern BOOLEAN			gfItemDescObjectIsAttachment;
+extern OBJECTTYPE		*gpItemDescObject;
+extern OBJECTTYPE		*gpItemDescPrevObject;
+extern OBJECTTYPE		*gpItemDescOrigAttachmentObject;
+extern OBJECTTYPE		gCloneItemDescObject;
 extern BOOLEAN			fShowMapInventoryPool;
 extern UINT32 guiCurrentItemDescriptionScreen;
 extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
+// HEADROCK HAM 5: Also need these to trigger Map Inventory changes appropriately.
+extern BOOLEAN fMapInventoryZoom;
+// HEADROCK HAM 5: And this, for checking whether an item is in the pool.
+extern std::vector<WORLDITEM> pInventoryPoolList;
 
 UINT16 OldWayOfCalculatingScopeBonus(SOLDIERTYPE *pSoldier);
 // weight units are 100g each
@@ -1154,6 +1167,8 @@ ComboMergeInfoStruct AttachmentComboMerge[MAXITEMS+1];// =
 //	{NOTHING,									{NOTHING,								NOTHING},						NOTHING },
 //};
 
+// HEADROCK HAM 5: Item Transformations table, containing all possible Transformations.
+TransformInfoStruct Transform[MAXITEMS+1];
 
 UINT16 IncompatibleAttachments[MAXATTACHMENTS][2];// =
 //{
@@ -1222,6 +1237,9 @@ std::vector<LBETYPE> LoadBearingEquipment;
 
 std::vector<POCKETTYPE> LBEPocketType;
 //TODO make the indices of this a define, because I do not know what is a large pocket (I guess 3)
+
+// THE_BOB : added for pocket popup definitions
+std::map<UINT8,popupDef> LBEPocketPopup;
 
 //POCKETTYPE LBEPocketType[MAXITEMS+1]; //= 
 //{
@@ -4761,7 +4779,8 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 					//WarmSteel - Replaced this with one that also checks default attachments, otherwise you could not replace built-in bonuses with default inseperable attachments.
 					//RemoveProhibitedAttachments(pSoldier, this, usResult);
-					ReInitMergedItem(pSoldier, this, usOldItem);
+					// HEADROCK HAM 5: Added argument for statusindex.
+					ReInitMergedItem(pSoldier, this, usOldItem, 0);
 
 					//AutoPlaceObject( pAttachment );
 					//ADB ubWeight has been removed, see comments in OBJECTTYPE
@@ -4866,7 +4885,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 					//WarmSteel - Replaced this with one that also checks default attachments, otherwise you could not replace built-in bonuses with default inseperable attachments.
 					//RemoveProhibitedAttachments(pSoldier, this, usResult);
-					ReInitMergedItem(pSoldier, this, usOldItem);
+					ReInitMergedItem(pSoldier, this, usOldItem, 0);
 				}
 				break;
 
@@ -4923,7 +4942,8 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 				//WarmSteel - Replaced this with one that also checks default attachments, otherwise you could not replace built-in bonuses with default inseperable attachments.
 				//RemoveProhibitedAttachments(pSoldier, this, usResult);
-				ReInitMergedItem(pSoldier, this, usOldItem);
+				// HEADROCK HAM 5: Added argument for statusindex.
+				ReInitMergedItem(pSoldier, this, usOldItem, subObject);
 
 				if ( ubType != TREAT_ARMOUR )
 				{
@@ -5296,7 +5316,9 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 //WarmSteel - Needed for merges, because the new items don't get their new default attachments.
 //This does the same as RemoveProhibitedAttachments but is a bit more thorough at it.
 //This is at the risk that items move around if more than one slot is valid, but since this is used for "new" guns after merges, that's acceptable.
-void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem){
+// HEADROCK HAM 5: Added argument for statusindex.
+void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem, UINT8 ubStatusIndex)
+{
 
 	attachmentList		tempAttachList;
 	attachmentList		tempSlotChangingAttachList;
@@ -5304,18 +5326,18 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem)
 	UINT8 slotCount;
 	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObj);
 
-	if( !(*pObj)[0]->attachments.empty() ){
+	if( !(*pObj)[ubStatusIndex]->attachments.empty() ){
 		//Have to take all attachments off, because of possible incompatibilities with the default attachments (can't NOT attach a default attachment because some stupid item already attached is incompatible with it).
 
 		//Delete all default inseperable attachments from the old gun.
 		//This is safe UNLESS the inseparable default attachments is not the only attachment of the same kind on the gun.
 		//I can't think of any reason why this would happen, and if it does the worst that can happen is your attachment disappearing.
-		for(slotCount = 0; slotCount < (*pObj)[0]->attachments.size(); slotCount++){
-			UINT16 usAttach = (*pObj)[0]->GetAttachmentAtIndex(slotCount)->usItem;
+		for(slotCount = 0; slotCount < (*pObj)[ubStatusIndex]->attachments.size(); slotCount++){
+			UINT16 usAttach = (*pObj)[ubStatusIndex]->GetAttachmentAtIndex(slotCount)->usItem;
 			if(Item[usAttach].inseparable){
 				for(UINT16 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS && Item[usOldItem].defaultattachments[cnt] != 0; cnt++){
 					if(Item[usOldItem].defaultattachments[cnt] == usAttach){
-						(*pObj)[0]->RemoveAttachmentAtIndex(slotCount);
+						(*pObj)[ubStatusIndex]->RemoveAttachmentAtIndex(slotCount);
 						break;
 					}
 				}
@@ -5323,36 +5345,38 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem)
 		}
 		slotCount = 0;
 		//Put all other attachments into a temporary storage, so we can try to re-attach later.
-		for(attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); iter++, slotCount++) {
+		for(attachmentList::iterator iter = (*pObj)[ubStatusIndex]->attachments.begin(); iter != (*pObj)[ubStatusIndex]->attachments.end(); iter++, slotCount++) {
 			if(iter->exists()){
 				UINT16 cnt = 0;
 				tempAttachList.push_back((*iter));
 			}
 		}
 	}
+
 	//clear the attachment list, we've saved the attachments somewhere safe now.
-	(*pObj)[0]->attachments.clear();
+	(*pObj)[ubStatusIndex]->attachments.clear();
 
 	//Make sure the attachment slot data is correct.
 	//std::vector<UINT16> tempItemSlots = GetItemSlots(pObj);
-	(*pObj)[0]->attachments.resize(usAttachmentSlotIndexVector.size());
+	(*pObj)[ubStatusIndex]->attachments.resize(usAttachmentSlotIndexVector.size());
 	//pObj->usAttachmentSlotIndexVector = tempItemSlots;
+
 
 	//Now add all default attachments, but add them with the same status as the gun. We don't want to make repairing guns easy :)
 	for(UINT16 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS && Item[pObj->usItem].defaultattachments[cnt] != 0; cnt++){
 		//Only add inseparable default attachments, because they are likely "part" of the gun.
 		if(Item[Item[pObj->usItem].defaultattachments[cnt]].inseparable){
 			static OBJECTTYPE defaultAttachment;
-			CreateItem(Item [ pObj->usItem ].defaultattachments[cnt],(*pObj)[0]->data.objectStatus,&defaultAttachment);
-			AssertMsg(pObj->AttachObject(NULL,&defaultAttachment, FALSE, 0, -1, FALSE), "A default attachment could not be attached after merging, this should not be possible.");
+			CreateItem(Item [ pObj->usItem ].defaultattachments[cnt],(*pObj)[ubStatusIndex]->data.objectStatus,&defaultAttachment);
+			AssertMsg(pObj->AttachObject(NULL,&defaultAttachment, FALSE, ubStatusIndex, -1, FALSE), "A default attachment could not be attached after merging, this should not be possible.");
 		}
 	}
 
 	//First re-attach any slot-changing attachments.
 	for (attachmentList::iterator iter = tempSlotChangingAttachList.begin(); iter != tempSlotChangingAttachList.end();) {
-		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE )){
+		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex )){
 			//This seems to be rather valid. Can't be 100% sure though.
-			if(pObj->AttachObject(NULL, &(*iter), FALSE)){
+			if(pObj->AttachObject(NULL, &(*iter), FALSE, ubStatusIndex)){
 				//Ok now we can be sure, lets remove this object so we don't try to drop it later.
 				iter = tempSlotChangingAttachList.erase(iter);
 			} else {
@@ -5365,9 +5389,9 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem)
 
 	//Time to re-attach the other attachments, if we can. I am the king of copy pasta.
 	for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end();) {
-		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE)){
+		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex)){
 			//This seems to be rather valid. Can't be 100% sure though.
-			if(pObj->AttachObject(NULL, &(*iter), FALSE)){
+			if(pObj->AttachObject(NULL, &(*iter), FALSE, ubStatusIndex)){
 				//Ok now we can be sure, lets remove this object so we don't try to drop it later.
 				iter = tempAttachList.erase(iter);
 			} else {
@@ -5385,7 +5409,9 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem)
 			if (pSoldier) {
 				if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
 				{   // put it on the ground
-					AddItemToPool( pSoldier->sGridNo, &(*iter), 1, pSoldier->pathing.bLevel, 0 , -1 );
+					// HEADROCK HAM 5: A much more suitable function. Works in both tactical and mapscreen!
+					AutoPlaceObjectToWorld( pSoldier, &(*iter), true );
+					//AddItemToPool( pSoldier->sGridNo, &(*iter), 1, pSoldier->pathing.bLevel, 0 , -1 );
 				}
 			}
 		}
@@ -5397,11 +5423,14 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem)
 			if (pSoldier) {
 				if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
 				{   // put it on the ground
-					AddItemToPool( pSoldier->sGridNo, &(*iter), 1, pSoldier->pathing.bLevel, 0 , -1 );
+					// HEADROCK HAM 5: A much more suitable function. Works in both tactical and mapscreen!
+					AutoPlaceObjectToWorld( pSoldier, &(*iter), true );
+					//AddItemToPool( pSoldier->sGridNo, &(*iter), 1, pSoldier->pathing.bLevel, 0 , -1 );
 				}
 			}
 		}
 	}
+
 }
 
 void EjectAmmoAndPlace(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT8 subObject)
@@ -12596,4 +12625,340 @@ FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
 	cooldownfactor *= modificator;
 
 	return cooldownfactor;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// HEADROCK HAM 5: Item Transformation.
+// Item Transformation is a new way to interact with items. Where Merges combine two items into one, a Transformation
+// can turn one item into another item, or into more than one item.
+// To instigate a Transformation, the player uses a menu to choose the desired effect. Then the program comes here to
+// see how it's done. 
+// The instructions for performing a specific transformation are drawn from XML and fed into this function as a pointer. 
+// They tell us what items will result from this transformation, as well as the APBP cost.
+
+BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex, TransformInfoStruct * Transform, OBJECTTYPE *pParent )
+{
+	// The argument "Transform" is a pointer to an entry in the Transformation Data array. By looking at the pointer we
+	// can determine all the data we need. Therefore, this pointer must not be null!
+	AssertMsg( Transform != NULL, String( "OBJECTTYPE::TransformObject attempt with invalid Transformation data." ) );
+
+	// Booleans to track what happened during the transformation.
+	BOOLEAN fSplit = FALSE;
+	BOOLEAN fDropped = FALSE;
+	BOOLEAN fRemoved = FALSE;
+	BOOLEAN fItemInPool = FALSE;
+
+	// This boolean tracks whether we've managed to place an item in a soldier's inventory.
+	BOOLEAN fFoundPlaceInInventory = FALSE;
+
+	// Constants for storing details about the original item.
+	OBJECTTYPE TempItem;
+	UINT16 usOrigItem = this->usItem;
+	UINT32 uiOrigClass = Item[this->usItem].usItemClass;
+	UINT8 ubOrigNumObjects = this->ubNumberOfObjects;
+	
+	UINT16 usAPCost = 0;
+	INT32 iBPCost = 0;
+
+	// An array to store all result items.
+	UINT16 usResult[MAX_NUM_TRANSFORMATION_RESULTS];
+	UINT32 iNumResults = 0;
+
+	// Start reading transformation data with APBP costs.
+	usAPCost = Transform->usAPCost;
+	iBPCost = Transform->iBPCost;
+	
+	// Check whether our soldier can afford this transformation!
+	if (!EnoughPoints( pSoldier, (INT16)usAPCost, iBPCost, true ))
+	{
+		return false;
+	}
+	else
+	{
+		// Soldier can afford the transformation. Deduct APBP as necessary.
+		DeductPoints( pSoldier, (INT16)usAPCost, iBPCost, false );
+	}
+
+	// Read all result items for this transformation. Record them into an array.
+	for (UINT32 curResult = 0; curResult < MAX_NUM_TRANSFORMATION_RESULTS; curResult++)
+	{
+		if (Transform->usResult[curResult] > 0)
+		{
+			usResult[curResult] = Transform->usResult[curResult];
+			// Count the number of valid result items
+			iNumResults++;
+		}
+	}
+
+	// If there are no result items, the Transformation is illegal - we need at least one resulting item!
+	AssertMsg( iNumResults, String( "OBJECTTYPE::TransformObject attempting to transform an object which has no resulting items defined!" ) );
+
+	if (iNumResults > 1)
+	{
+		fSplit = TRUE;
+	}
+
+	// Play a gun-cocking sound, it's the best one we've got ATM.
+	PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );		
+
+	// Before we continue, lets check whether our object is in the sector inventory.
+	// Is the sector inventory open?
+	if (fShowMapInventoryPool)
+	{
+		// Is our object currently in the pool?
+		for (UINT32 x = 0; x < pInventoryPoolList.size(); x++)
+		{
+			if (pInventoryPoolList[x].object.exists())
+			{
+				if (&(pInventoryPoolList[x].object) == this)
+				{
+					// Aha! In that case, all transformations will be done directly at the sector pool,
+					// with multiple results ending on the ground rather than in the inventory.
+					fItemInPool = TRUE;
+					break;
+				}
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// The Transformation itself
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// We're going to do the transformation in steps, going hierarchially down from the item's own attachments,
+	// to itsself, then its parents, and finally resulting items and unrelated inventory. 
+	// Note that we'll need to change the item's usItem property several times during this process, so lets
+	// record its original usItem now.
+	UINT16 usOldItem = this->usItem;
+
+	// STEP 1: Attachments and subsidiary objects.
+
+	// First of all, if the original item is a gun, we'll need to see if it can hold the same magazine after the
+	// transformation. If it can't, the magazine will be ejected immediately into the soldier's inventory.
+
+	// Is this a gun, AND does it have any ammo loaded?
+	if ( Item[this->usItem].usItemClass == IC_GUN && (*this)[ubStatusIndex]->data.gun.usGunAmmoItem != NONE && (*this)[ubStatusIndex]->data.gun.ubGunShotsLeft > 0 )
+	{
+		// Is the resulting item not a gun, OR is the resulting item of a different caliber, OR is the resulting item's
+		// magazine too small?
+		if ( Item[usResult[0]].usItemClass != IC_GUN || Weapon[Item[usResult[0]].ubClassIndex].ubCalibre != Weapon[Item[this->usItem].ubClassIndex].ubCalibre || (*this)[ubStatusIndex]->data.gun.ubGunShotsLeft > Weapon[Item[usResult[0]].ubClassIndex].ubMagSize )
+		{ 
+			// item types/calibers/magazines don't match, spit out old ammo
+			EjectAmmoAndPlace(pSoldier, this);
+		}
+	}
+
+	// STEP 2: Check the item's attachments to see whether they still fit.
+	// We'll have to fool this function into thinking we've already changed the item.
+	// Note that this function automatically drops invalid attachments to the ground.
+	this->usItem = usResult[0];
+	// Repeat for each object in the stack.
+	for ( UINT8 x = 0; x < this->ubNumberOfObjects; x++ )
+	{
+		ReInitMergedItem(pSoldier, this, usOldItem, x);
+	}
+	this->usItem = usOldItem;
+
+	//RemoveProhibitedAttachments(pSoldier, this, usOldItem);
+
+	///////////////////////////////////////////////////////////////
+	// TRANSFORM
+	this->usItem = usResult[0];
+	// Record the new itemclass
+	UINT32 uiNewClass = Item[this->usItem].usItemClass;
+	// Make a clone of this object, so that we can point the DescBox to it later if we run into any problems.
+	gCloneItemDescObject = *(this);
+	///////////////////////////////////////////////////////////////
+
+	////////////////////
+	// Placement checks
+
+	// Is the item an attachment? If so, check its parent to see if it's still compatible.
+	if (pParent != NULL)
+	{
+		// When transforming an attachment, "THIS" is actually a copy of the object, called Object2. So transforming
+		// "this" would only yield, at most, a superficial change (Description Box will change). The attachment item
+		// itself will not change at all.
+
+		// Lets change the attachment item directly, then.
+		gpItemDescOrigAttachmentObject->usItem = usResult[0];
+		// Make a copy of it, so we know what data it contained.
+		OBJECTTYPE pClone = *gpItemDescOrigAttachmentObject;		
+
+		// Test the parent now. See whether all attachments are still valid on it.
+		ReInitMergedItem(pSoldier, pParent, pParent->usItem, ubStatusIndex);
+
+		gpItemDescOrigAttachmentObject = NULL;
+
+		// After reiniting the attachments on the parent, "this" still exists, but the actual object is gone.
+		// Lets look through the parent's attachments list, and see if we can find it again.
+		UINT8 ubNewAttachmentsIndex = 0;
+		for(attachmentList::iterator iter = (*pParent)[ubStatusIndex]->attachments.begin(); iter != (*pParent)[ubStatusIndex]->attachments.end(); iter++, ubNewAttachmentsIndex++) 
+		{
+			if(iter->exists())
+			{
+				// Compare it to the clone we made earlier.
+				if (*(iter) == pClone)
+				{
+					// Yes, here it is!
+					gpItemDescOrigAttachmentObject = (*pParent)[ubStatusIndex]->GetAttachmentAtIndex( ubNewAttachmentsIndex );
+					break;
+				}
+			}
+		}
+				
+		// Have we failed to find our item on the reinited parent?
+		if (gpItemDescOrigAttachmentObject == NULL)
+		{
+			// It has been removed. Lets reset all the Description Box extra variables.
+			// Note that by doing this, we actually trigger closing the description box later down the line.
+			pParent = NULL;
+			gfItemDescObjectIsAttachment = NULL;
+			gpItemDescPrevObject = NULL;
+			fRemoved = TRUE;
+		}
+	}
+
+	// Our object is not an attachment. If it is on a soldier, it may still not fit in the pocket where 
+	// it is currently placed, so lets see if we have to move it.
+	else if (!fItemInPool)
+	{
+		for (INT8 bPocket = HELMETPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+		{
+			if (&(pSoldier->inv[bPocket]) == this)
+			{
+				// Found our item. Does it fit in this slot?
+				if (!CanItemFitInPosition(pSoldier, this, bPocket, FALSE) )
+				{
+					if (!AutoPlaceObject( pSoldier, this, TRUE ))
+					{
+						fDropped = TRUE;
+
+						AutoPlaceObjectToWorld( pSoldier, this, TRUE );
+
+						//Unfortunately the above function will not erase the item in tactical mode, so lets
+						//double-check.
+						if (pSoldier->inv[bPocket].exists() )
+						{
+							DeleteObj( &(pSoldier->inv[bPocket]) );
+						}
+					}
+					// Whatever we've done with it, THIS is no longer a valid item, so lets
+					// fool the desc box by switching it with the clone.
+					gpItemDescObject = &gCloneItemDescObject;
+				}
+				break;
+			}
+		}
+	}
+
+	// If either the new or old items were LBEs, lets check the entire LBE inventory for item-size compatibility!
+	//if (uiOrigClass & IC_LBEGEAR || uiNewClass & IC_LBEGEAR )
+	if (!fItemInPool)
+	{
+		for (INT8 bPocket = HELMETPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+		{
+			if (pSoldier->inv[bPocket].exists())
+			{
+				// Found an item. Does it still fit inside its own slot?
+				if (!CanItemFitInPosition(pSoldier, &(pSoldier->inv[bPocket]), bPocket, FALSE) )
+				{
+					if (!AutoPlaceObject( pSoldier, &(pSoldier->inv[bPocket]), TRUE ))
+					{
+						fDropped = TRUE;
+
+						AutoPlaceObjectToWorld( pSoldier, &(pSoldier->inv[bPocket]), TRUE );
+
+						//Unfortunately the above function will not erase the item in tactical mode, so lets
+						//double-check.
+						if (pSoldier->inv[bPocket].exists() )
+						{
+							DeleteObj( &(pSoldier->inv[bPocket]) );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//////////////////////////////
+	// Multiple Results
+	//
+	// If the item has several transformation results defined, that means we're going to split it into two or
+	// more items. 
+	
+	// We actually start with any results above the first. This occurs if the item is split into two or more other
+	// items. We'll try to place them in the pSoldier's inventory if possible, otherwise they are dumped to the
+	// sector pool.
+	
+	// Iterate through the results array we've constructed earlier.
+	for (UINT32 x = 1; x < iNumResults; x++)
+	{
+		for (UINT32 y = 0; y < ubOrigNumObjects; y++)
+		{
+			// Create the result item. Set its condition to match that of the original.
+			CreateItem( usResult[x], (*this)[ubStatusIndex]->data.objectStatus, &gTempObject );
+
+			if (!fItemInPool)
+			{
+				// Try placing it in the soldier's invnetory.
+				if (!AutoPlaceObject( pSoldier, &gTempObject, TRUE ))
+				{
+					// Failed to find a place in the inventory. Dump to sector pool.
+					AutoPlaceObjectToWorld( pSoldier, &gTempObject, true );
+
+					fDropped = TRUE;
+				}
+			}
+			else
+			{
+				AutoPlaceObjectToWorld( pSoldier, &gTempObject, true );
+			}
+
+			// Cleanup after the autoplace has to occur in tactical mode.
+			if (gTempObject.exists())
+			{
+				DeleteObj( &(gTempObject) );
+			}
+		}
+	}
+
+	// Check the soldier to see how his stats have changed as a result of altering his gear.
+	ApplyEquipmentBonuses(pSoldier);
+
+	if (fItemInPool && fSplit)
+	{
+		CHAR16 pStr[500];
+		// Item was split apart. Since it was in the sector inventory, it's common sense that all results 
+		// are in the sector inventory as well, so no need to report anything extra.
+		swprintf( pStr, gzTransformationMessage[ 1 ], Item[usOrigItem].szItemName, pSoldier->name );
+		ScreenMsg( FONT_ORANGE, MSG_INTERFACE, pStr );
+	}
+	else if (fSplit || fDropped)
+	{
+		CHAR16 pStr[500];
+		if (fSplit && !fDropped)
+		{
+			// Item was split apart, but all subitems remained in the inventory.
+			swprintf( pStr, gzTransformationMessage[ 2 ], Item[usOrigItem].szItemName, pSoldier->name );
+			ScreenMsg( FONT_ORANGE, MSG_INTERFACE, pStr );
+		}
+		else if (fDropped && !fSplit)
+		{
+			// Either the item itself or another item has been dropped to the sector inventory due to lack of
+			// space.
+			swprintf( pStr, gzTransformationMessage[ 3 ], pSoldier->name );
+			DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_OK, NULL );
+		}
+		else if (fDropped && fSplit)
+		{
+			// Item was split apart. Either the item itself or another item has been dropped to the sector 
+			// inventory due to lack of space.
+			swprintf( pStr, gzTransformationMessage[ 4 ], Item[usOrigItem].szItemName, pSoldier->name );
+			DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_OK, NULL );
+		}
+	}
+
+	// Signal a successful transformation.
+	return TRUE;
 }

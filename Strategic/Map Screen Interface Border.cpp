@@ -28,8 +28,12 @@
 	// Also include Town Militia for checks regarding Mobile Militia Restrictions
 	#include "Town Militia.h"
 	// Also include Quests, for checking whether a fact is true.
-	#include "Quests.h"
+	#include "Quests.h"	
+	// HEADROCK HAM 5: Required for inventory filter popup
+	#include "popup_callback.h"
+	#include "popup_class.h"
 #endif
+
 #include "connect.h"
 
 #ifdef JA2UB
@@ -90,6 +94,13 @@ BOOLEAN fZoomFlag = FALSE;
 //BOOLEAN fMapScrollDueToPanelButton = FALSE;
 //BOOLEAN fCursorIsOnMapScrollButtons = FALSE;
 //BOOLEAN fDisabledMapBorder = FALSE;
+
+// HEADROCK HAM 5: Externed here to be able to forgo redrawing the map inventory.
+extern POPUP* gMapInventoryFilterPopup;
+extern BOOLEAN gfMapInventoryFilterPopupVisible;
+extern BOOLEAN gfQueueRecreateMapInventoryFilterMenu;
+extern UINT32 guiMapInvenFilterButton[ 9 ];
+extern void CreateMapInventoryFilterMenu( );
 
 
 // buttons & button images
@@ -210,17 +221,29 @@ void RenderMapBorder( void )
 	}
 */
 
+	// HEADROCK HAM 5: Do not redraw if the filter menu is open.
 	if( fShowMapInventoryPool )
 	{
-		// render background, then leave
-		BlitInventoryPoolGraphic( );
+		if (gfMapInventoryFilterPopupVisible)
+		{
+			if (gfQueueRecreateMapInventoryFilterMenu)
+			{
+				ButtonList[guiMapInvenFilterButton[ 0 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+				CreateMapInventoryFilterMenu();
+			}
+			gMapInventoryFilterPopup->show();
+		}
+		else
+		{
+			// render background, then leave
+			BlitInventoryPoolGraphic( );
+		}
 		return;
 	}
 
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder );
 	// HEADROCK HAM 4: Load different map border depending on whether we want to display the mobile militia button or not.
-
 	if (gGameExternalOptions.gfAllowMilitiaGroups)
 	{
 		BltVideoObject( guiSAVEBUFFER , hHandle, 1, xResOffset + MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );

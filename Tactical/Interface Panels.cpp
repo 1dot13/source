@@ -2531,7 +2531,15 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				}
 			}
 
-			RenderItemDescriptionBox( );
+			// HEADROCK HAM 5: Test for active Transform Popup
+			if (gfItemDescTransformPopupVisible)
+			{
+				gItemDescTransformPopup->show();
+			}
+			else
+			{
+				RenderItemDescriptionBox( );
+			}
 		}
 		else
 		{

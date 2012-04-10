@@ -518,15 +518,15 @@ BGMWITHSTONE,
 	BGMSWKNIFE, 
 	RGFSWKNIFE,
 	RGMSWKNIFE, 
-//кидание гранаты стоя с выд. чеки
+//Launch grenade (?)
 	BGMSTHRG, 
 	RGFSTHRG,
 	RGMSTHRG, 
-//кидание гранаты стоя с выд. чеки близкое расст
+//Lob grenade
 	BGMSLOBG, 
 	RGFSLOBG,
 	RGMSLOBG,
-//внаглую стырил код у терапевта! 
+//Roll while prone
 	RGMROLL_PR,
 	BGMROLL_PR,
 	RGFROLL_PR,	

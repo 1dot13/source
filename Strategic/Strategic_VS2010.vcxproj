@@ -126,6 +126,7 @@
     <ClCompile Include="UndergroundInit.cpp" />
     <ClCompile Include="XML_Army.cpp" />
     <ClCompile Include="XML_Bloodcats.cpp" />
+    <ClCompile Include="XML_CoolnessBySector.cpp" />
     <ClCompile Include="XML_DynamicRestrictions.cpp" />
     <ClCompile Include="XML_ExtraItems.cpp" />
     <ClCompile Include="XML_Facilities.cpp" />

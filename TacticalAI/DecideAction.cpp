@@ -2100,7 +2100,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: soldier orders = %d",pSoldier->aiData.bOrders));
 
 	// if we have absolutely no action points, we can't do a thing under RED!
-	if (!pSoldier->bActionPoints)
+	if ( pSoldier->bActionPoints <= 0 ) //Action points can be negative
 	{
 		pSoldier->aiData.usActionData = NOWHERE;
 		return(AI_ACTION_NONE);
@@ -2163,7 +2163,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if(WearGasMaskIfAvailable(pSoldier))//dnl ch40 200909
+	//Only put mask on in gas
+	if(bInGas && WearGasMaskIfAvailable(pSoldier))//dnl ch40 200909
 		bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo);
 
 	////////////////////////////////////////////////////////////////////////////
@@ -2464,22 +2465,46 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				return(AI_ACTION_NONE);
 			}
 		}
-    }
+    }	
+		//RELOADING
+
+		// WarmSteel - Because of suppression fire, we need enough ammo to even consider suppressing
+		// This means we need to reload. Also reload if we're just plainly low on bullets.
+		if(BestShot.bWeaponIn != NO_SLOT
+			&& ((pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft < gGameExternalOptions.ubAISuppressionMinimumAmmo && GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize)
+			|| pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft < (UINT8)(GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) / 4) ))
+		{
+			// HEADROCK HAM 5: Fixed an issue where no ammo was found, leading to a crash when overloading the
+			// inventory vector (bAmmoSlot = -1...)
+			INT8 bAmmoSlot = FindAmmoToReload( pSoldier, BestShot.bWeaponIn, NO_SLOT );
+			if (bAmmoSlot > -1)
+			{
+				OBJECTTYPE * pAmmo = &(pSoldier->inv[bAmmoSlot]);
+				if((*pAmmo)[0]->data.ubShotsLeft > pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft && GetAPsToReloadGunWithAmmo( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pAmmo ) <= (INT16)pSoldier->bActionPoints)
+				{
+					pSoldier->aiData.usActionData = BestShot.bWeaponIn;
+					return AI_ACTION_RELOAD_GUN;
+				}
+			}
+		}
 
 		//SUPPRESSION FIRE
 
-		CheckIfShotPossible(pSoldier,&BestShot,TRUE);
+		CheckIfShotPossible(pSoldier,&BestShot,TRUE); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
 
 		//must have a small chance to hit and the opponent must be on the ground (can't suppress guys on the roof)
 		// HEADROCK HAM BETA2.4: Adjusted this for a random chance to suppress regardless of chance. This augments
 		// current revamp of suppression fire.
-		BOOLEAN fEnableAIAutofire = FALSE;
 
 		// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
-		if ( BestShot.bWeaponIn != -1 && (GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize && pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo) && ( ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 ) || (BestShot.ubPossible && BestShot.ubChanceToReallyHit < (INT16)PreRandom(100)) && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER ))
-			fEnableAIAutofire = TRUE;
-
-		if (fEnableAIAutofire)
+		// WarmSteel - Don't *always* try to suppress when under 50 CTH
+		if ( BestShot.bWeaponIn != -1  
+				&& BestShot.ubPossible 
+				&& GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize
+				&& pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo 
+				&& BestShot.ubChanceToReallyHit < (INT16)(PreRandom(100) - 50)  
+				&& Menptr[BestShot.ubOpponent].pathing.bLevel == 0 
+				&& pSoldier->aiData.bOrders != SNIPER )
 		{
 			// then do it!
 
@@ -2522,9 +2547,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			// Make sure we decided to fire at least one shot!
 			ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
 
-			// minimum 10 bullets
+			// minimum 5 bullets //WarmSteel: 5 bullets sounds reasonable, no?
 			// Hmmm, automatic suppression?  Howcome we don't get this?
-			if (pSoldier->bDoAutofire >= 10 &&  pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs )
+			if (pSoldier->bDoAutofire >= 5 &&  pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs )
 			{
 				pSoldier->aiData.bAimTime			= 0;
 				pSoldier->bDoBurst			= 1;
@@ -3203,8 +3228,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					guiRedHelpTimeTotal += (uiEndTime - uiStartTime);
 					guiRedHelpCounter++;
 #endif
-					
-					if (!TileIsOutOfBounds(sClosestFriend))
+					//WarmSteel - Dont try if we're already quite close to our friend
+					if (!TileIsOutOfBounds(sClosestFriend) && PythSpacesAway(pSoldier->sGridNo, sClosestFriend) > pSoldier->GetMaxDistanceVisible(sClosestFriend, 0, CALC_FROM_ALL_DIRS ))
 					{
 						//////////////////////////////////////////////////////////////////////
 						// GO DIRECTLY TOWARDS CLOSEST FRIEND UNDER FIRE OR WHO LAST RADIOED
@@ -3900,8 +3925,9 @@ INT16 ubMinAPCost;
 			}
 		}
 
-		if(WearGasMaskIfAvailable(pSoldier))//dnl ch40 200909
-			bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo);
+	//Only put mask on in gas
+	if(bInGas && WearGasMaskIfAvailable(pSoldier))//dnl ch40 200909
+		bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo);
 
 		////////////////////////////////////////////////////////////////////////////
 		// IF GASSED, OR REALLY TIRED (ON THE VERGE OF COLLAPSING), TRY TO RUN AWAY

@@ -69,7 +69,8 @@ class SOLDIERTYPE;
 extern UINT32		guiLastTacticalRealTime;
 
 // the delay for a group about to arrive
-#define ABOUT_TO_ARRIVE_DELAY 5
+// HEADROCK HAM 5: 5 minutes? Make it 30. 5 minutes tend to pass in an instant while unpaused...
+#define ABOUT_TO_ARRIVE_DELAY 30
 
 GROUP *gpGroupList;
 

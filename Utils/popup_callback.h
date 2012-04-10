@@ -1,9 +1,12 @@
 #ifndef POPUP_CALLBACK_CLASS
 	#define POPUP_CALLBACK_CLASS
 
+	#include "sgp.h"	
+
 	class popupCallback;
 
 	template <typename R, typename P1>	class popupCallbackFunction;
+	template <typename R, typename P1, typename P2>	class popupCallbackFunction2;
 
 	class popupCallback{
 	public:
@@ -13,6 +16,172 @@
 		virtual void bind(void* newFun) = 0;
 		virtual bool call(void) = 0;
 	};
+
+// returns something, takes three parameters
+
+	template<typename R,typename P1,typename P2,typename P3>
+	class popupCallbackFunction3: public popupCallback{
+	protected:
+		R (*fun)(P1,P2,P3);
+		P1 param_1;
+		P2 param_2;
+		P3 param_3;
+	public:
+		popupCallbackFunction3(void);
+		popupCallbackFunction3(void * newFun, P1 param, P2 param2, P3 param3);
+		virtual void bind(void * newFun);
+		virtual bool call(void);	
+	};
+
+	template<typename R,typename P1,typename P2,typename P3>
+	popupCallbackFunction3<R,P1,P2,P3>::popupCallbackFunction3(void){
+		this->fun = 0;
+		this->param_1 = P1();
+		this->param_2 = P2();
+		this->param_3 = P3();
+	};
+
+	template<typename R,typename P1,typename P2,typename P3>
+	popupCallbackFunction3<R,P1,P2,P3>::popupCallbackFunction3(void * newFun, P1 param, P2 param2, P3 param3){
+		this->fun = static_cast< R(*)(P1,P2,P3)>(newFun);
+		this->param_1 = param;
+		this->param_2 = param2;
+		this->param_3 = param3;
+	};
+
+	template<typename R,typename P1,typename P2,typename P3>
+	void popupCallbackFunction3<R,P1,P2,P3>::bind(void * newFun){
+			this->fun = static_cast< R(*)(P1,P2,P3)>(newFun);
+	};
+
+	template<typename R,typename P1,typename P2,typename P3>
+	bool popupCallbackFunction3<R,P1,P2,P3>::call(void){
+		return (bool)(this->fun)(this->param_1,this->param_2,this->param_3);
+	};
+
+	// three params, no return val
+
+	template<typename P1,typename P2,typename P3>
+	class popupCallbackFunction3<void,typename P1,typename P2,typename P3>: public popupCallback{
+	protected:
+		void (*fun)(P1,P2,P3);
+		P1 param_1;
+		P2 param_2;
+		P3 param_3;
+	public:
+		popupCallbackFunction3(void);
+		popupCallbackFunction3(void * newFun, P1 param, P2 param2, P3 param3);
+		virtual void bind(void * newFun);
+		virtual bool call(void);	
+	};
+
+	template<typename P1,typename P2,typename P3>
+	popupCallbackFunction3<void,P1,P2,P3>::popupCallbackFunction3(void){
+		this->fun = 0;
+		this->param_1 = P1();
+		this->param_2 = P2();
+		this->param_3 = P3();
+	};
+
+	template<typename P1,typename P2,typename P3>
+	popupCallbackFunction3<void,P1,P2,P3>::popupCallbackFunction3(void * newFun, P1 param, P2 param2, P3 param3){
+		this->fun = static_cast< void(*)(P1,P2,P3)>(newFun);
+		this->param_1 = param;
+		this->param_2 = param2;
+		this->param_3 = param3;
+	};
+
+	template<typename P1,typename P2,typename P3>
+	void popupCallbackFunction3<void,P1,P2,P3>::bind(void * newFun){
+		this->fun = static_cast< void(*)(P1,P2,P3)>(newFun);
+	};
+
+	template<typename P1,typename P2,typename P3>
+	bool popupCallbackFunction3<void,P1,P2,P3>::call(void){
+		(this->fun)(this->param_1,this->param_2,this->param_3);
+		return 1;
+	};
+
+// returns something, takes two parameters
+
+	template<typename R,typename P1,typename P2>
+	class popupCallbackFunction2: public popupCallback{
+	protected:
+		R (*fun)(P1,P2);
+		P1 param_1;
+		P2 param_2;
+	public:
+		popupCallbackFunction2(void);
+		popupCallbackFunction2(void * newFun, P1 param, P2 param2);
+		virtual void bind(void * newFun);
+		virtual bool call(void);	
+	};
+
+	template<typename R,typename P1,typename P2>
+	popupCallbackFunction2<R,P1,P2>::popupCallbackFunction2(void){
+			this->fun = 0;
+			this->param_1 = P1();
+			this->param_2 = P2();
+	};
+
+	template<typename R,typename P1,typename P2>
+	popupCallbackFunction2<R,P1,P2>::popupCallbackFunction2(void * newFun, P1 param, P2 param2){
+			this->fun = static_cast< R(*)(P1,P2)>(newFun);
+			this->param_1 = param;
+			this->param_2 = param2;
+	};
+
+	template<typename R,typename P1,typename P2>
+	void popupCallbackFunction2<R,P1,P2>::bind(void * newFun){
+			this->fun = static_cast< R(*)(P1,P2)>(newFun);
+	};
+
+	template<typename R,typename P1,typename P2>
+	bool popupCallbackFunction2<R,P1,P2>::call(void){
+		return (bool)(this->fun)(this->param_1,this->param_2);
+	};
+
+	// two params, no return val
+
+	template<typename P1,typename P2>
+	class popupCallbackFunction2<void, typename P1,typename P2>: public popupCallback{
+	protected:
+		void (*fun)(P1,P2);
+		P1 param_1;
+		P2 param_2;
+	public:
+		popupCallbackFunction2(void);
+		popupCallbackFunction2(void * newFun, P1 param, P2 param2);
+		virtual void bind(void * newFun);
+		virtual bool call(void);	
+	};
+
+	template<typename P1,typename P2>
+	popupCallbackFunction2<void,P1,P2>::popupCallbackFunction2(void){
+			this->fun = 0;
+			this->param_1 = P1();
+			this->param_2 = P2();
+	};
+
+	template<typename P1,typename P2>
+	popupCallbackFunction2<void,P1,P2>::popupCallbackFunction2(void * newFun, P1 param, P2 param2){
+			this->fun = static_cast< void(*)(P1,P2)>(newFun);
+			this->param_1 = param;
+			this->param_2 = param2;
+	};
+
+	template<typename P1,typename P2>
+	void popupCallbackFunction2<void,P1,P2>::bind(void * newFun){
+			this->fun = static_cast< void(*)(P1,P2)>(newFun);
+	};
+
+	template<typename P1,typename P2>
+	bool popupCallbackFunction2<void,P1,P2>::call(void){
+		(this->fun)(this->param_1,this->param_2);
+		return 1;
+	};
+
+// returns something, takes one parameter
 
 	template <typename R, typename P1>
 	class popupCallbackFunction : public popupCallback{

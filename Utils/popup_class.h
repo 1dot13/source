@@ -1,12 +1,13 @@
 #ifndef POPUP_CLASS
 	#define POPUP_CLASS
 
-	#include <vector>
 	#include "popup_callback.h"
+	#include "types.h"
+	#include "sgp.h"
 
-	#define MAX_POPUPS 8
-	#define POPUP_MAX_SUB_POPUPS  2
-	#define POPUP_MAX_OPTIONS 32
+	#define MAX_POPUPS 32
+	#define POPUP_MAX_SUB_POPUPS  24
+	#define POPUP_MAX_OPTIONS 96
 	#define MAX_REGIONS_IN_INDEX MAX_POPUPS*POPUP_MAX_OPTIONS*POPUP_MAX_SUB_POPUPS
 
 	#define REGION_SUB_POPUP 1
@@ -30,7 +31,7 @@
 	#define POPUP_POSITION_BOTTOM_RIGHT 3	// user defined point (position) is the bottom right corner of the popup
 	#define POPUP_POSITION_BOTTOM_LEFT 4	// user defined point (position) is the bottom left corner of the popup
 
-	#define POPUP_POSITION_RELATIVE 0		// only used for sub-popups, left corner is relative to parent popup's point of origin
+	#define POPUP_POSITION_RELATIVE -1		// only used for sub-popups, left corner is relative to parent popup's point of origin
 
 	class POPUP_OPTION;
 	class POPUP_SUB_POPUP_OPTION;
@@ -69,7 +70,7 @@
 		POPUP_OPTION(std::wstring* name, popupCallback* newFunction); // constructor
 		~POPUP_OPTION();			// destructor
 		// setup
-		BOOLEAN setName(WCHAR* name);
+		BOOLEAN setName(std::wstring * name);
 		BOOLEAN setAction(popupCallback*fun);
 		BOOLEAN setAvail(popupCallback *fun);
 		BOOLEAN setHover(popupCallback *fun);
@@ -89,6 +90,13 @@
 		popupCallback * action;
 		popupCallback * avail;
 		popupCallback * hover;
+
+		UINT8 color_foreground;
+		UINT8 color_background;
+		UINT8 color_highlight;
+		UINT8 color_shade;
+
+		UINT32 stringHandle;
 	};
 
 
@@ -110,12 +118,12 @@
 	void destroySubPopup();
 	void positionSubPopup();
 
-	BOOLEAN setPopupPosition(UINT16 x,	UINT16 y, UINT8 positioningRule = POPUP_POSITION_RELATIVE  );
+	BOOLEAN setPopupPosition(UINT16 x,	UINT16 y, INT8 positioningRule = POPUP_POSITION_RELATIVE  );
 
 	BOOLEAN customPositionSet;
-	INT32 customX;
-	INT32 customY;
-	UINT8 customRule;
+	UINT32 customX;
+	UINT32 customY;
+	INT8 customRule;
 
 	POPUP	*	subPopup;
 	const POPUP	*	parent;
@@ -140,6 +148,7 @@
 		BOOLEAN delOption(UINT8 optIndex);
 
 		POPUP* addSubMenuOption(std::wstring * name);
+		BOOL addSubMenuOption(POPUP_SUB_POPUP_OPTION* sub);
 		/*INT16 findFreeSubMenuOptionIndex();*/
 		POPUP_SUB_POPUP_OPTION * getSubPopupOption(UINT8 n);
 
@@ -148,18 +157,26 @@
 		// usage
 		BOOLEAN show(void);
 		BOOLEAN hide(void);
+		void hideAfter(void); // called by options, closes popup after running callback
 		BOOLEAN toggle(void);
 		BOOLEAN refresh(void);
 		BOOLEAN forceDraw(void);
 		BOOLEAN callOption(int optIndex);
 
-		INT32 getBoxId(){
+		INT32 getBoxId() const {
 			return this->boxId;
 		}
 
+		// gets the final dimensions/position of the box, works only after it has been displayed
+		SGPRect getBoxDimensions();
+		SGPPoint getBoxPosition();
+
 		BOOLEAN setCallback(UINT8 type, popupCallback * callback);
 		BOOLEAN isCallbackSet(UINT8 type);
+		void recalculateWidth(void);
+		INT16 getCurrentWidth(void);	// calculated the width based on the longest option name
 
+		INT16 getCurrentHeight(void);
 		/////////////////////////
 		// public variables
 	public:
@@ -178,6 +195,7 @@
 		void	setInitialValues(void);
 		BOOLEAN addToIndex( void );
 		BOOLEAN removeFromIndex( void );
+		BOOLEAN hideAfterRun;
 
 		// Box init functions
 		BOOLEAN CreateDestroyPopUpBoxes(void);
@@ -202,6 +220,7 @@
 		void AdjustMouseRegions( void );
 
 		void RepositionMouseRegions( void );
+
 	public:
 		// MSYS Callbacks
 		void MenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason );
@@ -258,7 +277,7 @@
 		INT32 boxId;
 
 			// which corner of the popup should be aligned with the supplied coordinates ?
-		UINT8 positioningRule;
+		INT8 positioningRule;
 
 
 			// the x,y position of the pop up in tactical

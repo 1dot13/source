@@ -23,5 +23,8 @@ BOOLEAN LoadCarPortraitValues( void );
 // get rid of the loaded portraits for cars
 void UnLoadCarPortraits( void );
 
+// HEADROCK HAM 5: Helper for zoomed inventory
+void DrawItemOutlineZoomedInventory( INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, INT16 sColor, UINT32 uiBuffer );
+
 
 #endif

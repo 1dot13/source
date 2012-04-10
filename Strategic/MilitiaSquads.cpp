@@ -71,7 +71,8 @@ UINT8 gubManualRestrictMilitia[ 256 ];
 // HEADROCK HAM B1: Alternate array keeps track of dynamically unrestricted sectors
 BOOLEAN gDynamicRestrictMilitia[ 256 ];
 // HEADROCK HAM B1: Function that dynamically unrestricts sectors as we take over towns.
-extern void AdjustRoamingRestrictions();
+// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
+extern void AdjustRoamingRestrictions( BOOLEAN fRecheck );
 
 DYNAMICRESTRICTIONS gDynamicRestrictions[5001];
 
@@ -2167,7 +2168,8 @@ void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY )
 	}
 }*/
 
-void AdjustRoamingRestrictions()
+// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
+void AdjustRoamingRestrictions( BOOLEAN fRecheck )
 {
 	UINT32 uiCapturedTownsFlag = 0;
 	UINT16 cnt = 0;
@@ -2203,7 +2205,19 @@ void AdjustRoamingRestrictions()
 			}
 		}
 	}
-}
+
+	// HEADROCK HAM 5: All restricted sectors are checked to see they aren't manually-permitted.
+	if (fRecheck)
+	{
+		for (cnt = 0; cnt < 256; cnt++)
+		{
+			if (gDynamicRestrictMilitia[cnt] == FALSE)
+			{
+				gubManualRestrictMilitia[cnt] = MANUAL_MOBILE_RESTRICTED;
+			}
+		}
+	}
+}			
 
 
 // HEADROCK HAM B2.7: This is a copy of an existing function that generates possible movement directions for militia.

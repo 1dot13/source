@@ -265,12 +265,22 @@ UINT32			guiAttachmentSlot;
 UINT32			guiItemGraphic;
 UINT32			guiMoneyGraphicsForDescBox;
 UINT32			guiBullet;
+// HEADROCK HAM 5: Icon indicating a transformation is available.
+UINT32			guiTransformIconGraphic;
 BOOLEAN			gfInItemDescBox = FALSE;
 UINT32			guiCurrentItemDescriptionScreen=0;
 OBJECTTYPE	*gpItemDescObject = NULL;
 // HEADROCK HAM 4: Remembers the object that was open before an attachment desc is opened on top of it.
 OBJECTTYPE  *gpItemDescPrevObject = NULL;
+// HEADROCK HAM 5: This is a clone, used to contain an item's details when the item has been destroyed while the box is open.
+OBJECTTYPE	gCloneItemDescObject;
 BOOLEAN			gfItemDescObjectIsAttachment = FALSE;
+OBJECTTYPE	*gpItemDescOrigAttachmentObject = NULL;
+
+// HEADROCK HAM 5: Used by the callback confirming whether we want to transform.
+TransformInfoStruct * gTransformInProgress;
+UINT32 guiTransformInProgressPrevScreen;
+
 CHAR16			gzItemName[ SIZE_ITEM_NAME ];
 CHAR16			gzItemDesc[ SIZE_ITEM_INFO ];
 CHAR16			gzItemPros[ SIZE_ITEM_PROS ];
@@ -300,6 +310,25 @@ INT32		giActiveAttachmentPopup = -1;
 POPUP*		gEquipPopups[NUM_INV_SLOTS];
 INT32		giActiveEquipPopup = -1;
 
+// HEADROCK HAM 5: Item Transformation Popups
+BOOLEAN		gfItemDescTransformPopupInitialized = FALSE;
+POPUP*		gItemDescTransformPopup;
+BOOLEAN		gfItemDescTransformPopupVisible = FALSE;
+BOOLEAN		gfSkipDestroyTransformPopup = FALSE;	// This makes sure the 
+// And forward declarations...
+void TransformationMenuPopup_Hide(void);
+void TransformationMenuPopup_Transform(TransformInfoStruct * Transform);
+BOOLEAN TransformationMenuPopup_TestValid(TransformInfoStruct * Transform);
+void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason );
+void TransformationMenuPopup_Unjam();
+void TransformationMenuPopup_SplitCrate( UINT16 usMagazineItem );
+void TransformationMenuPopup_SplitCrateInInventory( );
+void TransformFromItemDescBox( TransformInfoStruct * Transform);
+void ConfirmTransformationMessageBoxCallBack( UINT8 bExitValue );
+
+// HEADROCK HAM 5: The maximum number of attachment asterisks shown for an item.
+UINT32 guiAttachmentAsterisks;
+#define MAX_NUM_ASTERISKS 10
 
 void				BtnMoneyButtonCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32			guiMoneyButtonBtn[OLD_MAX_ATTACHMENTS_101];
@@ -385,10 +414,14 @@ void ItemDescTabButtonOff( UINT8 ubItemDescTabButtonIndex );
 INT32 giInvDescAdvButtonUpImage;
 INT32 giInvDescAdvButtonDownImage;
 INT32 giInvDescAdvButton[2] = {-1, -1};
+// HEADROCK HAM 5: Item Transformation click region.
+MOUSE_REGION gInvDescTransformRegion;
 void ItemDescAdvButtonCallback( GUI_BUTTON *btn, INT32 reason );
 void ItemDescAdvButtonOn( UINT8 ubItemDescAdvButtonIndex );
 void ItemDescAdvButtonOff( UINT8 ubItemDescAdvButtonIndex );
 void ItemDescAdvButtonCheck( void );
+// HEADROCK HAM 5: Item Adjustment Button(s)
+void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason );
 
 // the done descrition button callback
 void ItemDescDoneButtonCallback( GUI_BUTTON *btn, INT32 reason );
@@ -1544,6 +1577,786 @@ BOOLEAN CheckActivationStatus(SOLDIERTYPE *pSoldier, INT16 cSlot, INT16 bSlot, I
 	return(FALSE);
 }
 
+// THE_BOB: functions for mag-making gizmo (TODO: clean up this code)
+std::vector<OBJECTTYPE *> * getSoldierGuns( SOLDIERTYPE *pTeamSoldier )
+{
+	UINT32 bLoop;
+	std::vector<OBJECTTYPE *> * guns = new std::vector<OBJECTTYPE *>;
+
+	// Search for gun in soldier inventory
+	for (bLoop = 0; bLoop < pTeamSoldier->inv.size(); bLoop++)
+	{
+		if (	(Item[pTeamSoldier->inv[bLoop].usItem].usItemClass & IC_GUN) 
+			||  (Item[pTeamSoldier->inv[bLoop].usItem].usItemClass == IC_LAUNCHER) )
+		{
+			guns->push_back( &(pTeamSoldier->inv[bLoop]) );
+		}
+	}
+
+	// no guns found, get rid of the vector
+	if( guns->size() < 1 ) {
+		delete guns;
+		guns = NULL;
+	}
+
+	return guns;
+}
+
+INT16 pocketTypeInSlot(SOLDIERTYPE *pSoldier, INT16 sPocket){
+
+	INT16		lbePocket = ITEM_NOT_FOUND;
+
+	if((UsingNewInventorySystem() == false) && !oldInv[sPocket])
+		return lbePocket;
+	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true && !vehicleInv[sPocket])
+		return lbePocket;
+
+	switch (icClass[sPocket])
+	{
+		case THIGH_PACK:
+		case VEST_PACK:
+		case COMBAT_PACK:
+		case BACKPACK:
+			lbePocket = 
+				(pSoldier->inv[icLBE[sPocket]].exists() == false) 
+				? LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]] 
+				: LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+
+			break;
+		case LBE_POCKET:
+				if ( sPocket == VESTPOCKPOS )
+					lbePocket = 0;
+				else if ( sPocket == LTHIGHPOCKPOS )
+					lbePocket = 1;
+				else if ( sPocket == RTHIGHPOCKPOS )
+					lbePocket = 2;
+				else if ( sPocket == CPACKPOCKPOS )
+					lbePocket = 3;
+				else if ( sPocket == BPACKPOCKPOS )
+					lbePocket = 4;
+
+		case OTHER_POCKET:
+
+				if ( sPocket == GUNSLINGPOCKPOS ) // Gun Sling
+					lbePocket = 1;
+				else
+					lbePocket = 2;
+			break;
+
+		default:
+			// ?
+			break;
+	}
+
+	return lbePocket;
+}
+
+//THE_BOB: mag-making popups
+static POPUP * sPocketPopup = NULL;
+static BOOL sPocketPopupInitialized = FALSE;
+
+void popupCallbackAmmo(UINT16 item, UINT16 pocket, SOLDIERTYPE* pSoldier ){
+
+	if(!(gTacticalStatus.uiFlags & INCOMBAT))
+	{
+		UINT16		magSize, ubShotsLeft;
+		OBJECTTYPE	*pObj = NULL;
+		OBJECTTYPE	tempClip;
+		OBJECTTYPE	tempStack;
+		bool		clipCreated;
+		UINT32		newItem = 0;
+		INT16		pocketType =  pocketTypeInSlot(pSoldier, pocket);
+		UINT8		capacity = 0;
+			
+		if ( pocketType != -1 ){
+		capacity = LBEPocketType[pocketTypeInSlot(pSoldier, pocket)].ItemCapacityPerSize[ Item[item].ItemSize ];
+		} else {
+		capacity = 1;
+		}
+			
+		UINT8		bLoop;
+
+
+		// find an ammo crate that can be used to make requested mag
+		for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
+		{	
+
+			if(		Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubMagType >= AMMO_BOX	// item is ammo box/crate
+				&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubAmmoType	// same ammo type
+					==	Magazine[ Item[item].ubClassIndex ].ubAmmoType							//	as the mag we found?
+				&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubCalibre	// same calibre
+					==	Magazine[ Item[item].ubClassIndex ].ubCalibre 							//	as the mag we found?
+			) 
+			{
+				pObj = &pInventoryPoolList[i].object; // found ammo crate
+				break;
+			} 
+		} 
+
+		if(!pObj) {
+			sPocketPopup->hide();
+			return;
+		}
+
+		//find the ammo item we want to try and create
+		newItem = item;
+
+		//Create a stack of up to 5 "newItem" clips 
+		tempStack.initialize();
+		clipCreated = false;
+		ubShotsLeft = (*pObj)[0]->data.ubShotsLeft;
+		for(UINT8 clip = 0; clip < capacity; clip++)
+		{
+			magSize = Magazine[ Item[item].ubClassIndex ].ubMagSize;
+			if(ubShotsLeft < magSize)
+				magSize = ubShotsLeft;
+			
+			if(CreateAmmo(newItem, &tempClip, magSize))
+			{
+				tempStack.AddObjectsToStack(tempClip, -1, pSoldier, NUM_INV_SLOTS, MAX_OBJECTS_PER_SLOT);
+				ubShotsLeft -= magSize;
+				clipCreated = true;
+				if(ubShotsLeft < 1)
+					break;
+			}
+
+		}
+		//Try to place the stack somewhere on the active merc
+		if(clipCreated == true)
+		{
+			clipCreated = false;
+			bLoop = tempStack.ubNumberOfObjects;
+			while(tempStack.ubNumberOfObjects > 0)
+			{
+				if(pocket != -1)
+				{
+					pSoldier->inv[pocket].AddObjectsToStack(tempStack, bLoop, pSoldier, pocket);
+				}
+				else
+				{
+					bLoop--;
+				}
+				if(bLoop < 1)
+					break;
+			}
+			if(tempStack.ubNumberOfObjects < 1)
+				clipCreated = true;
+			else
+			{
+				//Try to place stack on ground
+				if( AutoPlaceObjectToWorld(pSoldier, &tempStack) )
+				{
+					clipCreated = true;
+					if(guiCurrentScreen == GAME_SCREEN)
+						NotifySoldiersToLookforItems( );
+				}
+			}
+		}
+		if(clipCreated == true)
+		{
+			(*pObj)[0]->data.ubShotsLeft = ubShotsLeft;
+		}
+		if((*pObj)[0]->data.ubShotsLeft < 1)
+			pObj->RemoveObjectsFromStack(1);
+
+		sPocketPopup->hide();
+		return;
+	}
+	else
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMapInventoryErrorString[6] );
+
+		sPocketPopup->hide();
+		return;
+	}
+
+}
+
+void popupCallbackPlaceLeastDamagedFromStack(OBJECTTYPE * pObj, UINT16 pocket, SOLDIERTYPE* pSoldier ){
+
+	// can't be sure enough that it will fit
+	if ( CanItemFitInPosition(pSoldier, pObj, pocket, false) && !pSoldier->inv[pocket].exists() ) {
+
+		// if this is a stack, try to find the least damaged object
+		
+		if( pObj->ubNumberOfObjects > 1 ){
+
+			UINT8 numObjectsToPlace;	// try to fit as many objects as possible
+
+			{
+				INT16 pocketType = pocketTypeInSlot( pSoldier, pocket );
+
+				if( pocketType != -1 ){
+					numObjectsToPlace =  min( pObj->objectStack.size(), LBEPocketType[ pocketType ].ItemCapacityPerSize[ Item[pObj->usItem].ItemSize ] ); 
+				} else {
+					numObjectsToPlace = 1;
+				}
+			}
+
+			for (UINT8 j = 1; j <= numObjectsToPlace; j++){
+
+				UINT16 i = 0, leastDamagedIndex = 0;
+				INT16 leastDamagedStatus = 0;
+
+				StackedObjects::iterator p = pObj->objectStack.begin();
+				while(p != pObj->objectStack.end()) {
+				
+					if( p->data.objectStatus > leastDamagedStatus ){
+						leastDamagedIndex = i;
+						leastDamagedStatus = p->data.objectStatus;
+					}
+					i++;p++;
+				}
+
+				OBJECTTYPE pObjTmp;
+				pObjTmp.initialize();
+
+				if( pObj->RemoveObjectAtIndex(leastDamagedIndex, &pObjTmp) )
+					PlaceObject( pSoldier, pocket, &pObjTmp );
+			}
+
+		} else {
+			PlaceObject( pSoldier, pocket, pObj );
+		}
+				
+	}
+
+	sPocketPopup->hide();
+}
+
+// THE_BOB: quick equip popups
+extern	BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
+
+extern  void RenderTeamRegionBackground();
+void createMagPopupAfter(SOLDIERTYPE *pSoldier){	// after showing the menu, this callback marks the interface as dirty and redraws it
+	
+	fTeamPanelDirty = TRUE;
+	fMapPanelDirty = TRUE;
+	RenderTeamRegionBackground();
+
+}
+
+INT16 getStatusOfLeastDamagedItemInStack( OBJECTTYPE * stack ){
+
+	INT16 leastDamagedStatus = 0;
+
+	// find the status of the least damaged item on the stack
+	if( stack->ubNumberOfObjects > 1 ){ // (unless there's only one item on the stack)		
+
+		StackedObjects::iterator p = stack->objectStack.begin();
+		while(p != stack->objectStack.end()) {
+				
+			if( p->data.objectStatus > leastDamagedStatus ){
+				leastDamagedStatus = p->data.objectStatus;
+			}
+
+			p++;
+		}
+
+	} else {
+		leastDamagedStatus = stack->objectStack.begin()->data.objectStatus;
+	}
+
+	return leastDamagedStatus;
+}
+
+// ugly hack to pretend that weapon class/type defines are bitfields
+static const int pow2[] = {1,2,4,8,16,32,64,128,256}; // I'm a funny man.
+
+std::map<UINT32,OBJECTTYPE*> findLeastDamagedStackForPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, int itemClass = -1, int weaponClass = -1, int weaponType = -1, int attachType = -1 ){
+
+	std::map<UINT32,OBJECTTYPE*> bestItems;
+	std::map<UINT32,INT16> bestItemsStatus;
+
+	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
+	{	
+
+		OBJECTTYPE * currentStack = &pInventoryPoolList[i].object;
+		UINT16 currentItem = currentStack->usItem;
+
+		if(		( ( itemClass == -1 ) || Item[currentItem].usItemClass & itemClass )
+			&&	( ( attachType == -1 ) || Item[currentItem].nasAttachmentClass == attachType )
+			// weapon checks
+			&&	( ( ( weaponClass == -1 ) || ( weaponClass == 0 && Weapon[currentItem].ubWeaponClass == weaponClass ) || pow2[Weapon[currentItem].ubWeaponClass] & weaponClass ) )
+			&&	( ( ( weaponType == -1 ) || ( weaponType == 0 && Weapon[currentItem].ubWeaponType == weaponType ) || pow2[Weapon[currentItem].ubWeaponType] & weaponType ) )
+			// if type/class conditions are met, do more expensive check on whether it will fit
+			&&	CanItemFitInPosition(pSoldier, currentStack, sPocket, FALSE) 
+			)
+		{				
+
+			INT16 leastDamagedStatus = getStatusOfLeastDamagedItemInStack( currentStack );
+
+			if( bestItemsStatus[ currentItem ] < leastDamagedStatus ){	// either not indexed yet or worse then current
+
+				bestItemsStatus[ currentItem ] = leastDamagedStatus;
+				bestItems[ currentItem ] = currentStack;
+
+			}
+
+		} // found item
+
+	} // inv loop
+
+	return bestItems;
+
+}
+
+// add generic items of some class to the popup, picking the best stacks in sector
+
+void addItemsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup, int itemClass = -1, int weaponClass = -1, int weaponType = -1, int attachType = -1 ){
+
+	std::map<UINT32,OBJECTTYPE*> bestItems = findLeastDamagedStackForPopup( pSoldier, sPocket, itemClass, weaponClass, weaponType, attachType );
+	
+	UINT8 optsTotal = 0, numObjectsToPlace = 1;
+	INT16 pocketType = pocketTypeInSlot( pSoldier, sPocket );
+	POPUP * currPopup = popup;
+	
+	for(std::map<UINT32,OBJECTTYPE*>::iterator itr = bestItems.begin(); itr != bestItems.end(); ++itr){
+
+		if( optsTotal > 0 && optsTotal%15 == 0 ){ // divide to subBoxes every 10 items
+
+			POPUP * currPopupTmp = currPopup->addSubMenuOption( new std::wstring(L"more...") );	// the new popup
+			POPUP_SUB_POPUP_OPTION * currSubPopupTmp = currPopup->getSubPopupOption( currPopup->subPopupOptionCount-1 );	// the sub-popup option in prev popup
+
+			
+			// where to put the new box?
+			if( currPopup->Position.iX + 200 > SCREEN_WIDTH){
+
+				// near screen edge, put it below the original box					
+				currSubPopupTmp->setPopupPosition(	popup->Position.iX,
+													popup->Position.iY + popup->getCurrentHeight(),
+													POPUP_POSITION_TOP_LEFT);
+			
+			} else {
+				// we still got room, position the next box to the right of the previous one
+				currSubPopupTmp->setPopupPosition(	10,
+													0,
+													POPUP_POSITION_RELATIVE);
+
+			}
+
+
+			currPopup = currPopupTmp;	// swap popups, now adding options to the new sub-popup
+		}
+
+		if( pocketType != -1 ){
+			numObjectsToPlace =   min( itr->second->objectStack.size(), LBEPocketType[ pocketType ].ItemCapacityPerSize[ Item[itr->second->usItem].ItemSize ] ); 
+		} else {
+			numObjectsToPlace = 1;
+		}
+
+		if( numObjectsToPlace > 1 ){	// add number of items that will be placed
+
+			static CHAR16 pStr[ 100 ];
+			swprintf( pStr, L"%s (%d)", Item[ itr->first ].szItemName, numObjectsToPlace );
+
+			currPopup->addOption( 
+								&std::wstring( pStr ), 
+								new popupCallbackFunction3<void,OBJECTTYPE*,UINT16,SOLDIERTYPE*>(&popupCallbackPlaceLeastDamagedFromStack,itr->second,sPocket,pSoldier) 
+								);
+
+		} else {
+			currPopup->addOption( 
+								&std::wstring( Item[ itr->first ].szItemName ), 
+								new popupCallbackFunction3<void,OBJECTTYPE*,UINT16,SOLDIERTYPE*>(&popupCallbackPlaceLeastDamagedFromStack,itr->second,sPocket,pSoldier) 
+								);		
+		}
+
+		optsTotal++;
+
+	}
+
+}
+
+void addArmorToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_ARMOUR );
+
+}
+
+void addLBEToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_LBEGEAR );
+
+}
+
+void addWeaponsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_WEAPON );
+
+}
+
+void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	POPUP * subPopup = NULL;
+
+	subPopup = popup->addSubMenuOption( new std::wstring(L"Guns") );
+	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
+																				10,
+																				POPUP_POSITION_RELATIVE );
+
+
+	std::map<UINT32,OBJECTTYPE*> bestItems = findLeastDamagedStackForPopup( pSoldier, sPocket, IC_GUN, 
+							pow2[HANDGUNCLASS] + pow2[SMGCLASS] + pow2[RIFLECLASS] + pow2[MGCLASS] + pow2[SHOTGUNCLASS], 
+							pow2[GUN_PISTOL] + pow2[GUN_M_PISTOL] + pow2[GUN_SMG] + pow2[GUN_RIFLE] + pow2[GUN_SN_RIFLE] + pow2[GUN_AS_RIFLE] + pow2[GUN_LMG] + pow2[GUN_SHOTGUN],
+							0);
+
+	POPUP* weaponTypePopup;
+	UINT8 weaponTypeCtr;
+	for( weaponTypeCtr = 1; weaponTypeCtr <= 8; weaponTypeCtr++ ){
+		
+		weaponTypePopup = subPopup->addSubMenuOption( new std::wstring( WeaponType[weaponTypeCtr] ) );
+
+		for(std::map<UINT32,OBJECTTYPE*>::iterator itr = bestItems.begin(); itr != bestItems.end(); ++itr){
+
+			if ( Weapon[ itr->first ].ubWeaponType == weaponTypeCtr )
+			weaponTypePopup->addOption( 
+								&std::wstring( Item[ itr->first ].szItemName ), 
+								new popupCallbackFunction3<void,OBJECTTYPE*,UINT16,SOLDIERTYPE*>(&popupCallbackPlaceLeastDamagedFromStack,itr->second,sPocket,pSoldier) 
+								);
+		}
+
+	}
+	
+
+	subPopup = popup->addSubMenuOption( new std::wstring(L"Grenade launchers") );
+	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
+																				10,
+																				POPUP_POSITION_RELATIVE );
+	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_LAUNCHER, -1, -1, 0 );
+
+	subPopup = popup->addSubMenuOption( new std::wstring(L"Rocket launchers") );
+	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
+																				10,
+																				POPUP_POSITION_RELATIVE );
+	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_GUN, -1, 0, 0);
+
+
+	subPopup = popup->addSubMenuOption( new std::wstring(L"Melee & thrown weapons") );
+	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
+																				10,
+																				POPUP_POSITION_RELATIVE );
+	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_BLADE+IC_THROWING_KNIFE, pow2[KNIFECLASS] );
+
+}
+
+void addGrenadesToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, 0 );
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, AC_DEFAULT1 );
+
+}
+
+void addRifleGrenadesToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, AC_GRENADE );
+
+}
+
+void addRocketAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, AC_ROCKET );
+
+}
+
+void addKitsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_MEDKIT + IC_KIT );
+
+}
+
+void addBombsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_BOMB );
+
+}
+
+void addMiscToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_MISC, -1, -1, 1 );
+
+}
+
+void addFaceGearToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_FACE );
+
+}
+
+
+void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
+
+	// get the guns on current soldier
+	std::vector<OBJECTTYPE *> * guns = getSoldierGuns(pSoldier);
+
+	if( guns != NULL && guns->size() > 0)
+	{
+		INT16 lbePocket = pocketTypeInSlot(pSoldier, sPocket);
+		
+		for(std::vector<OBJECTTYPE*>::iterator gun=guns->begin(); gun != guns->end(); ++gun)
+		{
+			UINT8 ammoFound = 0;
+
+			POPUP_OPTION * o = popup->addOption( &std::wstring( Item[ (*gun)->usItem ].szItemName ), NULL );
+			o->color_shade = COLOR_LTGREY;
+			//o->color_background = COLOR_LTGREY;
+					
+			//find the ammo item we want to try and create
+			for(UINT32 loop = 0; loop < MAXITEMS; loop++)
+			{
+				if(Item[loop].usItemClass == IC_AMMO)
+				{
+					if(		Magazine[Item[loop].ubClassIndex].ubCalibre == Weapon[ (*gun)->usItem ].ubCalibre 
+						&&	Magazine[Item[loop].ubClassIndex].ubMagSize == GetMagSize((*gun)) 
+						&&	( lbePocket == -1 || LBEPocketType[lbePocket].ItemCapacityPerSize[ Item[loop].ItemSize ] > 0 )  )
+					{ // found ammo for gun, look for its ammo crate in sector.
+												
+						for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
+						{	// TODO: index ammo crates in sector, don't loop over entire inventory for each mag/gun
+
+							if(		Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubMagType >= AMMO_BOX // item is ammo box/crate
+								&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubAmmoType	// same ammo type
+									==	Magazine[ Item[loop].ubClassIndex ].ubAmmoType							//	as the mag we found?
+								&&	Magazine[ Item[pInventoryPoolList[i].object.usItem].ubClassIndex ].ubCalibre	// same calibre
+									==	Magazine[ Item[loop].ubClassIndex ].ubCalibre 							//	as the mag we found?
+							) 
+							{	
+								ammoFound++;
+								UINT8 capacity = 0;
+
+								if( lbePocket != -1 ){
+									UINT16 ammoLeft = pInventoryPoolList[i].object.objectStack.begin()->data.ubShotsLeft;
+									UINT16 magSize = Magazine[ Item[loop].ubClassIndex ].ubMagSize;
+
+									UINT8 maxPerPocket = LBEPocketType[pocketTypeInSlot(pSoldier, sPocket)].ItemCapacityPerSize[ Item[loop].ItemSize ];
+										
+									capacity = min( maxPerPocket, UINT8(ammoLeft/magSize) );
+								}
+								else if( CanItemFitInPosition(pSoldier, &pInventoryPoolList[i].object, sPocket, FALSE) ){
+									capacity = 1;
+								} else {
+									continue;
+								}
+										
+								static CHAR16 pStr[ 100 ];
+								swprintf( pStr, L"%s (%d)", Item[loop].szItemName,capacity );
+
+								popup->addOption( &std::wstring( pStr ), new popupCallbackFunction3<void,UINT16,UINT16,SOLDIERTYPE*>(&popupCallbackAmmo,loop,sPocket,pSoldier) );
+
+							} // found ammo crate, crate matches mag
+						} // inv loop
+					} // mag matches
+				} // mag found
+			} // mag loop
+
+			if (!ammoFound){
+				POPUP_OPTION * o = popup->addOption( &std::wstring( L"- no matching ammo -" ), NULL );
+				o->color_shade = COLOR_RED;
+			}
+
+		}// gun loop
+
+		delete guns;
+	} // found guns
+	else 
+	{
+		POPUP_OPTION * o = popup->addOption( &std::wstring( L"- no guns in inventory -" ), NULL );
+		o->color_shade = COLOR_RED;
+	}
+
+}
+
+POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
+
+	if(	!(	
+		guiCurrentItemDescriptionScreen == MAP_SCREEN 
+	&&	fShowMapInventoryPool 
+	&&	(	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
+		&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
+		&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
+		)
+	&&	CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )	
+	) )
+	{
+		return NULL;
+	}
+
+	INT16 sX, sY;
+	// get pocket type under cursor
+	INT16 lbePocket = pocketTypeInSlot(pSoldier, sPocket);
+	/*				
+	if ( lbePocket != -1 ) {
+	*/
+		if (!sPocketPopupInitialized) {
+			sPocketPopup = new POPUP("Pocket popup");
+			sPocketPopup->setCallback(POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,SOLDIERTYPE*>( createMagPopupAfter,pSoldier ) );
+			sPocketPopupInitialized = true;
+		} else {
+			sPocketPopup->~POPUP();
+			sPocketPopup = new POPUP("Pocket popup");
+			sPocketPopup->setCallback(POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,SOLDIERTYPE*>( createMagPopupAfter,pSoldier ) );
+		}
+
+		sX = gSMInvData[ sPocket ].sX;
+		sY = gSMInvData[ sPocket ].sY;
+
+		UINT8 thisPopupsPositionType;
+		if ( sX < 170 && sY < 180 ){
+			thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
+		} else if ( sX > 170 && sY < 180 ){
+			thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
+		} else if ( sX > 170 && sY > 180 ){
+			thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
+		} else if ( sX < 170 && sY > 180 ){
+			thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
+		} else {
+			thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
+		}
+
+		sPocketPopup->setPosition(			sX + 12,
+		/* Put it near the current slot	 */	sY + 32,
+											thisPopupsPositionType);
+		return sPocketPopup;
+/*
+	} // identified pocket
+	else 	{
+		return NULL;
+	}
+*/
+}
+
+void PocketPopupFull( SOLDIERTYPE *pSoldier, INT16 sPocket ){
+
+	POPUP * popup = createPopupForPocket( pSoldier, sPocket );
+
+	if( popup != NULL ){
+
+		POPUP * subPopup = NULL;
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"Weapons") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addWeaponGroupsToPocketPopup( pSoldier, sPocket, subPopup );
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"Ammo") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addAmmoToPocketPopup( pSoldier, sPocket, subPopup );
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"Armor") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addArmorToPocketPopup( pSoldier, sPocket, subPopup );
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"LBE") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addLBEToPocketPopup( pSoldier, sPocket, subPopup );
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"Grenades") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"Bombs") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addBombsToPocketPopup( pSoldier, sPocket, subPopup );
+
+		subPopup = popup->addSubMenuOption( new std::wstring(L"Face Gear") );
+		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+		addFaceGearToPocketPopup( pSoldier, sPocket, subPopup );
+
+		popup->show();
+	}
+
+}
+
+/*
+	typedef enum eLBE_CLASS	// Designation of lbeClass
+{
+	THIGH_PACK=1,
+	VEST_PACK,
+	COMBAT_PACK,
+	BACKPACK,
+	LBE_POCKET,
+	OTHER_POCKET
+};
+
+typedef enum ePOCKET_TYPE
+{
+	NO_POCKET_TYPE = 0,
+	GUNSLING_POCKET_TYPE = 1,
+	KNIFE_POCKET_TYPE = 2,
+	VEHICLE_POCKET_TYPE = 3,
+};
+*/
+
+UINT16 gsPocketUnderCursor;
+
+void PocketPopupDefault( SOLDIERTYPE *pSoldier, INT16 sPocket ){
+
+	POPUP * popup = createPopupForPocket( pSoldier, sPocket );
+
+	if( popup ){
+
+		switch (sPocket){
+			case 	HELMETPOS:
+			case	VESTPOS:
+			case	LEGPOS:
+				addArmorToPocketPopup( pSoldier, sPocket, popup );
+				break;
+
+			case	HEAD1POS:
+			case	HEAD2POS:
+				addFaceGearToPocketPopup( pSoldier, sPocket, popup );
+				break;
+
+			case	HANDPOS:
+				addWeaponGroupsToPocketPopup( pSoldier, sPocket, popup );
+				break;
+			case	SECONDHANDPOS:
+				addWeaponGroupsToPocketPopup( pSoldier, sPocket, popup );
+				break;
+
+			case	VESTPOCKPOS:
+			case	BPACKPOCKPOS:
+			case	CPACKPOCKPOS:
+			case	LTHIGHPOCKPOS:
+			case	RTHIGHPOCKPOS:
+				addLBEToPocketPopup( pSoldier, sPocket, popup );
+				break;
+			
+			case	GUNSLINGPOCKPOS:
+				addWeaponsToPocketPopup( pSoldier, sPocket, popup );
+				break;
+
+			case	KNIFEPOCKPOS:
+				addWeaponsToPocketPopup( pSoldier, sPocket, popup );
+				break;
+
+			default:				
+				UINT8 pocketType = pocketTypeInSlot(pSoldier,sPocket);
+
+				if( LBEPocketPopup.find(pocketType) == LBEPocketPopup.end() ){
+					// default for LBE slots - grenades + ammo for merc's guns
+				addAmmoToPocketPopup( pSoldier, sPocket, popup );
+
+				POPUP * subPopup = popup->addSubMenuOption( new std::wstring(L"Grenades") );
+				popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+				addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
+				} else {
+					// popup definition for this slot exists - apply it to the popup
+					gsPocketUnderCursor = sPocket;
+					LBEPocketPopup[pocketType].applyToBox( popup );
+				}
+
+
+		}
+
+		popup->show();
+	
+	}
+
+}
+
+// THE_BOB: end of inventory popups
+
+
 void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLevel )
 {
 	// CHRISL: Only run if we're looking at a legitimate pocket
@@ -1580,7 +2393,10 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 				case VEST_PACK:
 				case COMBAT_PACK:
 				case BACKPACK:
-					lbePocket = (pSoldier->inv[icLBE[sPocket]].exists() == false) ? LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]] : LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+					lbePocket = 
+						(pSoldier->inv[icLBE[sPocket]].exists() == false) 
+						? LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]] 
+						: LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
 					iClass = Item[pSoldier->inv[sPocket].usItem].usItemClass;
 					if(icLBE[sPocket] == BPACKPOCKPOS && !(pSoldier->flags.ZipperFlag) && (gTacticalStatus.uiFlags & INCOMBAT))
 						lbePocket = 0;
@@ -3090,6 +3906,463 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 	}
 }
 
+// HEADROCK HAM 5.1: Render item in a BigItem sector inventory slot.
+// This function works largely like the one above it, with several exceptions. For one, the BigItemPic is used,
+// which allows us to add lots of data. Since this is only used in the sector inventory, we can forgo things
+// like dirtylevels and just draw everything here.
+void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObject, UINT32 uiItemGraphicNum, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, BOOLEAN fOutline, INT16 sOutlineColor )
+{
+	UINT16 uiStringLength;
+	INVTYPE	*pItem;
+	ETRLEObject	*pTrav;
+	UINT32 usHeight, usWidth;
+	INT16 sCenX, sCenY, sNewY, sNewX;
+	HVOBJECT hVObject;
+	BOOLEAN	fLineSplit = FALSE;
+	INT16 sFontX2 = 0, sFontY2 = 0;
+	INT16 sFontX = 0, sFontY = 0;
+
+	static CHAR16					pStr[ 100 ], pStr2[ 100 ];
+
+	if ( pObject->exists() == false )
+	{
+		return;
+	}
+
+	pItem = &Item[ pObject->usItem ];
+
+	// Get the video object for this BigItem image. We get this fed from the previous function (inventory render)
+	// which already selected the proper image.
+	GetVideoObject( &hVObject, uiItemGraphicNum );
+
+	// Check height and width...
+	pTrav = &(hVObject->pETRLEObject[ 0 ] );
+	usHeight				= (UINT32)pTrav->usHeight;
+	usWidth					= (UINT32)pTrav->usWidth;
+
+	// Center in the slot. Dimensions are also supplied to us by the calling function.
+	sCenX =  sX + (INT16)( abs( sWidth - (double)usWidth ) / 2 ) - pTrav->sOffsetX;
+	sCenY =  sY + (INT16)( abs( sHeight - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
+
+	// If option, draw item shadow.
+	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ])
+	{
+		BltVideoObjectOutlineShadow( guiSAVEBUFFER, hVObject, 0, sCenX - 2, sCenY + 2  );
+	}
+	// Draw the item on-screen.
+	BltVideoObject( uiBuffer , hVObject, 0, sCenX, sCenY , VO_BLT_SRCTRANSPARENCY,NULL );
+
+	// OUTLINE
+	if (fOutline)
+	{
+		DrawItemOutlineZoomedInventory( sX, sY, sX+sWidth, sY+sHeight, sOutlineColor, uiBuffer );
+	}
+
+	//////////////////////////////////
+	// Data display
+	//
+	// Given the larger size of the slots used in zoom view, it is possible to add significant amounts of information.
+	// This function draws more info than a small-item render. Note the changes below.
+
+	SetFontBackground( FONT_MCOLOR_BLACK );
+
+	///////////////// # OF ITEMS ///////////////
+	if ( pObject->ubNumberOfObjects > 1 )
+	{
+		// Set font properties.
+		SetFont( FONT14ARIAL );
+		SetFontForeground( FONT_GRAY4 );
+
+		// Get number of objects in this slot
+		swprintf( pStr, L"x%d", pObject->ubNumberOfObjects );
+
+		// Get length of string
+		uiStringLength=StringPixLength(pStr, ITEM_FONT );
+		// We draw close to the bottom-left corner of the slot.
+		// Locate starting X.
+		sNewX = (sX + sWidth - uiStringLength) - 10;
+		// Locate starting Y
+		sNewY = (sY + sHeight) - 13;
+
+		// Restore background
+		if ( uiBuffer == guiSAVEBUFFER )
+		{
+			RestoreExternBackgroundRect( sNewX, sNewY, sWidth, sHeight );
+		}
+
+		// Print
+		mprintf( sNewX, sNewY, pStr );
+		gprintfinvalidate( sNewX, sNewY, pStr );
+	}
+
+	//////////////////// GUN DATA //////////////////
+	if ( pItem->usItemClass == IC_GUN && !Item[pObject->usItem].rocketlauncher )
+	{
+		//////////////// AMMO REMAINING
+
+		// Set font properties
+		SetFont( LARGEFONT1 );
+		// Get color from ammo details
+		UINT8 ubAmmoColor =	AmmoTypes[(*pObject)[0]->data.gun.ubGunAmmoType].fontColour;
+		SetFontForeground ( ubAmmoColor );
+
+		sNewX = sX + 5;
+		sNewY = ((sY + sHeight) - GetFontHeight( LARGEFONT1 )) - 2;
+		
+		// HEADROCK HAM 3.4: Get estimate of bullets left.
+		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+		{
+			// Soldier doesn't know.
+			swprintf( pStr, L"%s", "??" );
+		}
+		else
+		{
+			swprintf( pStr, L"%d", (*pObject)[0]->data.gun.ubGunShotsLeft );
+		}
+
+		// Restore background
+		if ( uiBuffer == guiSAVEBUFFER )
+		{
+			RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+		}
+
+		// Print
+		mprintf( sNewX, sNewY, pStr );
+		gprintfinvalidate( sNewX, sNewY, pStr );
+
+		// Record how long this text was in pixels.
+		UINT16 usAmmoWidth = StringPixLength( pStr, LARGEFONT1 );
+
+		// Set font properties
+		SetFontForeground( FONT_GRAY4 );
+		swprintf( pStr, L"/" );
+		sNewX += usAmmoWidth;
+		mprintf( sNewX, sNewY, pStr );
+		usAmmoWidth = StringPixLength( pStr, LARGEFONT1 );
+
+		//////////////// AMMO MAX CAPACITY
+
+		// Set font properties
+		SetFontForeground( FONT_GRAY4 );
+		SetFont( TINYFONT1 );
+
+		// Find difference in width and height.
+		INT16 sFontHeightDifference = 1;
+		//INT16 sFontHeightDifference = GetFontHeight( LARGEFONT1 ) - GetFontHeight( FONT14ARIAL );
+		sNewX += usAmmoWidth;
+		sNewY += sFontHeightDifference;
+
+		// Print total magazine size
+		swprintf( pStr, L"%d", GetMagSize(pObject) );
+		
+		mprintf( sNewX, sNewY, pStr );
+		gprintfinvalidate( sNewX, sNewY, pStr );
+
+		///////////////// Display 'JAMMED' if we are jammed
+		if ( (*pObject)[0]->data.gun.bGunAmmoStatus < 0 )
+		{
+			SetFont( FONT12ARIAL );
+			SetFontBackground( FONT_MCOLOR_BLACK );
+			SetFontForeground( FONT_MCOLOR_RED );
+
+			swprintf( pStr, TacticalStr[ JAMMED_ITEM_STR ] );
+
+			VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , FONT12ARIAL, &sNewX, &sNewY, pStr );
+
+			mprintf( sNewX, sNewY, pStr );
+			gprintfinvalidate( sNewX, sNewY, pStr );
+		}
+
+		// Reset font color
+		SetFontForeground( FONT_MCOLOR_DKGRAY );
+	}
+
+	//////////////////// AMMO DATA //////////////////
+	if ( pItem->usItemClass & IC_AMMO )
+	{
+		//////////////// AMMO REMAINING
+
+		// Set font properties
+		SetFont( LARGEFONT1 );
+		// Get color from ammo details
+		UINT8 ubAmmoColor =	AmmoTypes[Magazine[Item[ pObject->usItem ].ubClassIndex].ubAmmoType].fontColour;
+		SetFontForeground ( ubAmmoColor );
+
+		sNewX = sX + 5;
+		sNewY = ((sY + sHeight) - GetFontHeight( LARGEFONT1 )) - 2;
+		
+		// HEADROCK HAM 3.4: Get estimate of bullets left.
+		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+		{
+			// Soldier doesn't know.
+			swprintf( pStr, L"%s", "??" );
+		}
+		else
+		{
+			swprintf( pStr, L"%d", (*pObject)[0]->data.ubShotsLeft );
+		}
+
+		// Restore background
+		if ( uiBuffer == guiSAVEBUFFER )
+		{
+			RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+		}
+
+		// Print
+		mprintf( sNewX, sNewY, pStr );
+		gprintfinvalidate( sNewX, sNewY, pStr );
+
+		// Record how long this text was in pixels.
+		UINT16 usAmmoWidth = StringPixLength( pStr, LARGEFONT1 );
+
+		// Set font properties
+		SetFontForeground( FONT_GRAY4 );
+		swprintf( pStr, L"/" );
+		sNewX += usAmmoWidth;
+		mprintf( sNewX, sNewY, pStr );
+		usAmmoWidth = StringPixLength( pStr, LARGEFONT1 );
+
+		//////////////// AMMO MAX CAPACITY
+
+		// Set font properties
+		SetFontForeground( FONT_GRAY4 );
+		SetFont( TINYFONT1 );
+
+		// Find difference in width and height.
+		INT16 sFontHeightDifference = 1;
+		//INT16 sFontHeightDifference = GetFontHeight( LARGEFONT1 ) - GetFontHeight( FONT14ARIAL );
+		sNewX += usAmmoWidth;
+		sNewY += sFontHeightDifference;
+
+		// Print total magazine size
+		swprintf( pStr, L"%d", Magazine[Item[ pObject->usItem ].ubClassIndex].ubMagSize );
+		
+		mprintf( sNewX, sNewY, pStr );
+		gprintfinvalidate( sNewX, sNewY, pStr );
+
+		// Reset font color
+		SetFontForeground( FONT_MCOLOR_DKGRAY );
+	}
+
+	////////// LBE /////////////
+	if((UsingNewInventorySystem() == true) && pObject->HasAnyActiveLBEs(pSoldier, 0) )
+	{
+		INT16 sOffsetX = 0;
+		INT16 sOffsetY = 0;
+
+		LBENODE* pLBE = NULL;
+		UINT16 usCountLBEItems = 0;
+
+		pLBE = pObject->GetLBEPointer(0);
+		UINT32 lClass = pLBE->lbeClass;
+
+		std::vector<INT8> pocketKey;
+
+		switch (lClass)
+		{
+			case THIGH_PACK:
+				GetLBESlots(LTHIGHPOCKPOS, pocketKey);
+				break;
+			case VEST_PACK:
+				GetLBESlots(VESTPOCKPOS, pocketKey);
+				break;
+			case COMBAT_PACK:
+				GetLBESlots(CPACKPOCKPOS, pocketKey);
+				break;
+			case BACKPACK:
+				GetLBESlots(BPACKPOCKPOS, pocketKey);
+				break;
+		}
+
+		for(unsigned int cnt=0; cnt<pocketKey.size(); cnt++)
+		{
+			if(pLBE->inv[cnt].exists() == true)
+				usCountLBEItems++;
+		}
+
+		GetVideoObject( &hVObject, guiAttachmentAsterisks );
+
+		// Draw large yellow asterisk.
+		pTrav = &(hVObject->pETRLEObject[ 3 ] );
+		sOffsetX += (UINT32)pTrav->usWidth;
+
+		sNewX = ((sX + sWidth) - 6) - sOffsetX;
+		sNewY = sY + 4;
+		BltVideoObject( uiBuffer , hVObject, 3, sNewX, sNewY , VO_BLT_SRCTRANSPARENCY,NULL );
+
+		usCountLBEItems--;
+		for (INT16 x = 0; x < usCountLBEItems; x++)
+		{
+			// Draw small blue asterisk
+			pTrav = &(hVObject->pETRLEObject[ 4 ] );
+			sOffsetX += ((x+1) % 2) * (UINT32)pTrav->usWidth;
+			sOffsetY = (x % 2) * ((UINT32)pTrav->usHeight + 1);
+
+			sNewX = ((sX + sWidth) - 6) - sOffsetX;
+			sNewY = sY + 4 + sOffsetY;
+			BltVideoObject( uiBuffer , hVObject, 4, sNewX, sNewY , VO_BLT_SRCTRANSPARENCY,NULL );
+		}
+	}
+	////////// ATTACHMENTS /////////////
+	// Attachments are displayed as a series of asterisks rather than the original one asterisk.
+	// There's the option here to use differently colored (or shaped) asterisks by editing the STI.
+	else if ( ItemHasAttachments( pObject, pSoldier, 0 ) && !(Item[pObject->usItem].usItemClass & IC_AMMO) )
+	{
+		// This offset is used to draw the asterisks one after the other.
+		INT16 sOffsetX = 0;
+		INT16 sOffsetY = 0;
+		
+		// Record the number of asterisks we'll need from each type.
+		INT8 iCurAsterisk = 0;
+		UINT16 uiNumAttachments = 0;
+		UINT16 uiNumAttachmentsGeneral = 0;
+		UINT16 uiNumAttachmentsGL = 0;
+		UINT16 uiNumAttachmentsOptical = 0;
+		UINT16 uiNumAttachmentsRecoil = 0;
+
+		// Iterate through the attachments.
+		if (pObject->exists() == true) 
+		{
+			for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end(); ++iter)
+			{
+				if (iter->exists() == false)
+				{
+					continue;
+				}
+
+				iCurAsterisk = ATTACHMENT_GENERAL;
+				if (Item[iter->usItem].grenadelauncher )
+				{
+					//iCurAsterisk = ATTACHMENT_GL;
+					uiNumAttachmentsGL++;
+				}
+				else if (Item[iter->usItem].visionrangebonus > 0 || Item[iter->usItem].dayvisionrangebonus > 0 ||
+							Item[iter->usItem].nightvisionrangebonus> 0 || Item[iter->usItem].brightlightvisionrangebonus > 0 ||
+							Item[iter->usItem].cavevisionrangebonus > 0 )
+				{
+					iCurAsterisk = ATTACHMENT_OPTICAL;
+				}
+				else
+				{
+					if (UsingNewCTHSystem() == true)
+					{
+						if (Item[iter->usItem].scopemagfactor > 1.0f || Item[iter->usItem].projectionfactor > 1.0f )
+							
+						{
+							iCurAsterisk = ATTACHMENT_OPTICAL;
+						}
+						else
+						{
+							for (INT8 x = 0; x < 3; x++)
+							{
+								if (Item[iter->usItem].counterforceaccuracymodifier[x] > 0 ||
+									Item[iter->usItem].maxcounterforcemodifier[x] > 0 ||
+									Item[iter->usItem].PercentRecoilModifier < 0 ||
+									Item[iter->usItem].RecoilModifierX < 0 ||
+									Item[iter->usItem].RecoilModifierY < 0 )
+								{
+									iCurAsterisk = ATTACHMENT_RECOILREDUCTION;
+								}
+							}
+						}
+					}
+					else
+					{
+						if ( (Item[iter->usItem].minrangeforaimbonus > 0 && Item[iter->usItem].aimbonus > 0 ) ||
+							(Item[iter->usItem].bestlaserrange > 0 && Item[iter->usItem].tohitbonus > 0 ) )
+						{
+							iCurAsterisk = ATTACHMENT_OPTICAL;
+						}
+						else if ( Item[iter->usItem].autofiretohitbonus > 0 || Item[iter->usItem].bursttohitbonus > 0 ||
+							Item[iter->usItem].bipod > 0 )
+						{
+							iCurAsterisk = ATTACHMENT_RECOILREDUCTION;
+						}
+					}
+				}
+				uiNumAttachments++;
+			}
+
+			uiNumAttachmentsGeneral = uiNumAttachments - uiNumAttachmentsGL;
+
+			if (uiNumAttachments > 0)
+			{
+				// More than one attachment. Draw a large attachment asterisk.
+				GetVideoObject( &hVObject, guiAttachmentAsterisks );
+
+				if (uiNumAttachmentsGL > 0)
+				{
+					// Draw large yellow asterisk.
+					pTrav = &(hVObject->pETRLEObject[ 1 ] );
+					sOffsetX += (UINT32)pTrav->usWidth;
+
+					sNewX = ((sX + sWidth) - 6) - sOffsetX;
+					sNewY = sY + 4;
+					BltVideoObject( uiBuffer , hVObject, 1, sNewX, sNewY , VO_BLT_SRCTRANSPARENCY,NULL );
+					
+					// reduce the number of GL attachments
+					uiNumAttachmentsGL--;
+					// Pool the remaining GLs into the general attachments
+					uiNumAttachmentsGeneral += uiNumAttachmentsGL;
+				}
+				else
+				{
+					// Draw large green asterisk.
+					pTrav = &(hVObject->pETRLEObject[ 0 ] );
+					sOffsetX += (UINT32)pTrav->usWidth;
+
+					sNewX = ((sX + sWidth) - 6) - sOffsetX;
+					sNewY = sY + 4;
+					BltVideoObject( uiBuffer , hVObject, 0, sNewX, sNewY , VO_BLT_SRCTRANSPARENCY,NULL );
+				}
+				
+				uiNumAttachments--;
+
+				// Any attachments remaining?
+				if (uiNumAttachments > 0)
+				{
+					for (INT16 x = 0; x < uiNumAttachments; x++)
+					{
+						// Draw small green asterisk
+						pTrav = &(hVObject->pETRLEObject[ 2 ] );
+						sOffsetX += ((x+1) % 2) * (UINT32)pTrav->usWidth;
+						sOffsetY = (x % 2) * ((UINT32)pTrav->usHeight + 1);
+	
+						sNewX = ((sX + sWidth) - 6) - sOffsetX;
+						sNewY = sY + 4 + sOffsetY;
+						BltVideoObject( uiBuffer , hVObject, 2, sNewX, sNewY , VO_BLT_SRCTRANSPARENCY,NULL );
+					}
+				}
+			}
+		}
+	}
+	/*
+	else if( pItem->usItemClass & IC_AMMO && pObject->ubNumberOfObjects > 1)
+	{
+		SetFontForeground( FONT_GRAY1 );
+		SetFont( FONT10ARIAL );
+		
+		UINT16 uiTotalAmmo = 0;
+		for (INT16 x = 0; x < pObject->ubNumberOfObjects; x++)
+		{
+			uiTotalAmmo += (*pObject)[x]->data.ubShotsLeft;
+		}
+
+		swprintf( pStr, L"(%d)", uiTotalAmmo );
+
+		sNewX = ((sX + sWidth) - 4) - StringPixLength( pStr, FONT10ARIAL );
+		sNewY = sY + 3;
+
+		mprintf( sNewX, sNewY, pStr );
+		gprintfinvalidate( sNewX, sNewY, pStr );
+
+		// Reset font color
+		SetFontForeground( FONT_MCOLOR_DKGRAY );
+	}
+	*/
+}
+
+
 
 BOOLEAN InItemDescriptionBox( )
 {
@@ -3359,6 +4632,15 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		MSYS_AddRegion( &gInvDesc);
 	}
 
+	// HEADROCK HAM 5: Adjust Item Region
+	// Before creating the ammo button, we set a region that spans the entire Big Item image.  Clicking on the image
+	// will trigger a Transformation menu.
+	{
+		MSYS_DefineRegion( &gInvDescTransformRegion, (UINT16)ITEMDESC_ITEM_X, (UINT16)ITEMDESC_ITEM_Y ,(UINT16)(ITEMDESC_ITEM_X + ITEMDESC_ITEM_WIDTH), (UINT16)(ITEMDESC_ITEM_Y + ITEMDESC_ITEM_HEIGHT), MSYS_PRIORITY_HIGHEST,
+			MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescTransformRegionCallback );
+		MSYS_AddRegion( &gInvDescTransformRegion);
+	}
+
 	// Add ammo eject button for GUN type objects.
 	if ( (Item[ pObject->usItem ].usItemClass & IC_GUN) && !Item[pObject->usItem].rocketlauncher )
 	{
@@ -3438,6 +4720,11 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		gfItemAmmoDown = FALSE;
 
 	}
+	else
+	{
+		// Reset!!
+		giItemDescAmmoButton = -1;
+	}
 
 	// HEADROCK: Tooltip Regions for stats. Only happens with Enhanced Description Box turned on.
 	if(UsingEDBSystem() > 0)
@@ -3508,6 +4795,11 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	strcpy( VObjectDesc.ImageFile, "INTERFACE\\ATTACHMENT_SLOT.STI" );
 	CHECKF( AddVideoObject( &VObjectDesc, &guiAttachmentSlot) );
+
+	// HEADROCK HAM 5: Transformation Indicator
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	strcpy( VObjectDesc.ImageFile, "INTERFACE\\INFOBOX_Transform_Icon.STI" );
+	CHECKF( AddVideoObject( &VObjectDesc, &guiTransformIconGraphic) );
 
 	// HEADROCK: Added new STIs
 	CHECKF( InternalInitEnhancedDescBox() );
@@ -3757,7 +5049,6 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 }
 
 //CHRISL: This function is designed to recreate the attachment tooltips
-extern	BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
 void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 {
 	UINT32	slotCount = 0;
@@ -4452,6 +5743,8 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			DeleteItemDescriptionBox( );
 			gpItemDescPrevObject = pTemp;
 
+			gpItemDescOrigAttachmentObject = pAttachment;
+
 			Object2 = *pAttachment;
 			gfItemDescObjectIsAttachment = TRUE;
 			InternalInitItemDescriptionBox( &Object2, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
@@ -4815,6 +6108,27 @@ void RenderItemDescriptionBox( )
 			BltVideoObjectOutlineShadowFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX - 2, sCenY + 2  );
 		}
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+		// HEADROCK HAM 5: Superimpose with Transform Icon graphic
+		/* This bit will later be used for manual unjam via transformations. Hopefully. If not, erase it.
+		if (Item[gpItemDescObject->usItem].usItemClass == IC_GUN && (*gpItemDescObject)[0]->data.gun.bGunAmmoStatus < 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-10, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-5, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		else*/
+		{
+			for (UINT16 x = 0; x < MAXITEMS; x++)
+			{
+				if (Transform[x].usItem == -1)
+				{
+					break;
+				}
+				if (Transform[x].usItem == gpItemDescObject->usItem)
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
+				}
+			}
+		}
 
 		// Display status
 		DrawItemUIBarEx( gpItemDescObject, gubItemDescStatusIndex, (INT16)ITEMDESC_ITEM_STATUS_X, (INT16)ITEMDESC_ITEM_STATUS_Y, ITEMDESC_ITEM_STATUS_WIDTH, ITEMDESC_ITEM_STATUS_HEIGHT, 	Get16BPPColor( DESC_STATUS_BAR ), Get16BPPColor( DESC_STATUS_BAR_SHADOW ), TRUE, guiSAVEBUFFER );
@@ -5852,7 +7166,9 @@ void DeleteItemDescriptionBox( )
 		DeleteVideoObjectFromIndex( guiItemInfoLBEBackground );
 	DeleteVideoObjectFromIndex( guiMapItemDescBox );
 	DeleteVideoObjectFromIndex( guiAttachmentSlot );
-	RenderBackpackButtons(ACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
+	// HEADROCK HAM 5: Transform Icon
+	DeleteVideoObjectFromIndex( guiTransformIconGraphic );
+	RenderBackpackButtons(ACTIVATE_BUTTON);	// CHRISL: Needed for new inventory backpack buttons 
 	if(guiCurrentItemDescriptionScreen == SHOPKEEPER_SCREEN && gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX])
 		EnableDisableShopkeeperButtons(guiCurrentItemDescriptionScreen, ACTIVATE_BUTTON);
 	DeleteVideoObjectFromIndex( guiBullet );
@@ -5897,6 +7213,19 @@ void DeleteItemDescriptionBox( )
 			{
 				RemoveButton( giInvDescAdvButton[cnt] );
 			}
+		}
+	}
+
+	// HEADROCK HAM 5: Remove Transform Item Region
+	if (&gInvDescTransformRegion)
+	{
+		MSYS_RemoveRegion( &gInvDescTransformRegion );
+		if (gfItemDescTransformPopupInitialized && !gfSkipDestroyTransformPopup ) // Gotta make sure we don't destroy it when it's running!
+		{
+			delete(gItemDescTransformPopup);
+			gItemDescTransformPopup = NULL;
+			gfItemDescTransformPopupInitialized = FALSE;
+			gfItemDescTransformPopupVisible = FALSE;
 		}
 	}
 
@@ -5951,13 +7280,21 @@ void DeleteItemDescriptionBox( )
 		}
 	}
 
-	if ( ITEM_PROS_AND_CONS( gpItemDescObject->usItem ) )
+	// HEADROCK HAM 5: Instead of checking the item, check for the regions!!
+	//if ( ITEM_PROS_AND_CONS( gpItemDescObject->usItem ) )
+	if (&(gProsAndConsRegions[0]))
 	{
 		MSYS_RemoveRegion( &gProsAndConsRegions[0] );
+	}
+	if (&(gProsAndConsRegions[1]))
+	{
 		MSYS_RemoveRegion( &gProsAndConsRegions[1] );
 	}
 
-	if(( ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN ) && !Item[gpItemDescObject->usItem].rocketlauncher ) )
+	// HEADROCK HAM 5: Instead of checking the item, check for the button!!
+
+	//if(( ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN ) && !Item[gpItemDescObject->usItem].rocketlauncher ) )
+	if (giItemDescAmmoButton > -1)
 	{
 		// Remove button
 		UnloadButtonImage( giItemDescAmmoButtonImages );
@@ -6001,6 +7338,8 @@ void DeleteItemDescriptionBox( )
 	gfItemDescObjectIsAttachment = FALSE;
 	gpItemDescObject = NULL;
 	gpItemDescPrevObject = NULL;
+	// HEADROCK HAM 5: This stores an attachment object while we're looking at its copy.
+	gpItemDescOrigAttachmentObject = NULL;
 
 }
 
@@ -8269,7 +9608,17 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			RestoreExternBackgroundRect( gsItemPopupInvX, gsItemPopupInvY, gsItemPopupInvWidth, gsItemPopupInvHeight );
 			if ( guiCurrentItemDescriptionScreen == MAP_SCREEN )
 			{
-				MAPInternalInitItemDescriptionBox( gpItemPopupObject, (UINT8)uiItemPos, gpItemPopupSoldier );
+				// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
+				
+				if( gTacticalStatus.uiFlags & INCOMBAT )
+				{
+					DoScreenIndependantMessageBox( New113HAMMessage[ 22 ], MSG_BOX_FLAG_OK, NULL );
+					return;
+				}
+				else
+				{
+					MAPInternalInitItemDescriptionBox( gpItemPopupObject, (UINT8)uiItemPos, gpItemPopupSoldier );
+				}
 			}
 			else
 			{
@@ -10627,5 +11976,634 @@ void ItemDescAdvButtonCheck( void )
 	else
 	{
 		DisableButton( giInvDescAdvButton[1] );
+	}
+}
+
+// HEADROCK HAM 5: Item Transformations callback. The user has clicked on the Big Item
+// picture, possibly indicating that he wishes to transform this item into something else.
+void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
+{
+	if (reason == MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		// A left-click triggers the Transformation Menu. The game scans memory for any Transformations
+		// that can be performed on this item, and creates a menu with all the options listed.
+
+		// HEADROCK HAM 5: Disable shopkeeper item transformations entirely. 
+		if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
+		{
+			return;
+		}
+
+		///////////////////////////
+		// CONSTRUCT POPUP MENU
+		///////////////////////////
+		// If we already have a popup, destroy it first. This ensures we get a fresh menu each time.
+		if ( gfItemDescTransformPopupInitialized )
+		{
+			delete(gItemDescTransformPopup);
+			gItemDescTransformPopup = NULL;
+			gfItemDescTransformPopupInitialized = FALSE;
+			gfItemDescTransformPopupVisible = FALSE;
+			gfSkipDestroyTransformPopup = FALSE;
+		}
+		// create a popup
+		gItemDescTransformPopup = new POPUP("TRANSFORMATION MENU POPUP");	// at this point the name is used mainly for debug output
+		
+		// add a callback that lets the keyboard handler know we're done (and ready to pop up again)
+		gItemDescTransformPopup->setCallback(POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,void>( &TransformationMenuPopup_Hide ) );
+		
+		BOOLEAN fFoundTransformations = false;
+
+		/*
+		// Test the item for Gun Jams. If it's a gun and is jammed, add a Transformation Menu option to unjam it.
+		if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && !EXPLOSIVE_GUN( gpItemDescObject->usItem ) ) 
+		{ 
+			// Check ammo status
+			if ((*gpItemDescObject)[0]->data.gun.bGunAmmoStatus < 0) 
+			{
+				// Add option
+				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( L"Unjam" ), new popupCallbackFunction<void,void>( &TransformationMenuPopup_Unjam ));
+				gItemDescTransformPopup->addOption( *pOption );
+				fFoundTransformations = true;
+			}
+		}
+		*/
+
+		// Ammocrates may be split into magazines of any size available in the game. But not in combat.
+		if ( Item[gpItemDescObject->usItem].usItemClass == IC_AMMO && Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagType >= AMMO_BOX && !(gTacticalStatus.uiFlags & INCOMBAT) )
+		{
+			BOOLEAN fCrateInPool = FALSE;
+
+			// Before we continue, lets check whether our object is in the sector inventory.
+			// Is the sector inventory open?
+			if (fShowMapInventoryPool)
+			{
+				// Is our object currently in the pool?
+				for (UINT32 x = 0; x < pInventoryPoolList.size(); x++)
+				{
+					if (pInventoryPoolList[x].object.exists())
+					{
+						if (&(pInventoryPoolList[x].object) == gpItemDescObject)
+						{
+							// Aha! In that case, all transformations will be done directly at the sector pool,
+							// with multiple results ending on the ground rather than in the inventory.
+							fCrateInPool = TRUE;
+							break;
+						}
+					}
+				}
+			}
+
+			if (fCrateInPool)
+			{
+				for (UINT16 x = 0; x < MAXITEMS; x++)
+				{
+					if ( Item[x].usItemClass & IC_AMMO )
+					{
+						// If this magazine has the same caliber and ammotype as the crate, has a smaller size, and is
+						// not an ammo crate itself...
+						if ( Magazine[Item[x].ubClassIndex].ubCalibre == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre &&
+							Magazine[Item[x].ubClassIndex].ubAmmoType == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType &&
+							Magazine[Item[x].ubClassIndex].ubMagSize < Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagSize &&
+							Magazine[Item[x].ubClassIndex].ubMagType < AMMO_BOX )
+						{
+							UINT16 usMagSize = Magazine[Item[x].ubClassIndex].ubMagSize;
+
+							CHAR16 MenuRowText[300];
+							swprintf( MenuRowText, gzTransformationMessage[ 7 ], usMagSize );
+							// Generate a new option for the menu
+							POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,UINT16>( TransformationMenuPopup_SplitCrate, x ) );
+							// Add the option to the menu.
+							gItemDescTransformPopup->addOption( *pOption );
+							// Set this flag so we know we have at least one Transformation available.
+							fFoundTransformations = true;
+						}
+					}
+				}
+			}
+			else
+			{
+				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( gzTransformationMessage[ 6 ] ), new popupCallbackFunction<void,void>( TransformationMenuPopup_SplitCrateInInventory ) );
+				gItemDescTransformPopup->addOption( *pOption );
+				fFoundTransformations = true;
+			}
+		}
+
+		// Scan the Transformation list for the current item. Create pop-up options as required.
+		INT32 iTransformIndex = -1;
+		for (INT32 x = 0; x < MAXITEMS; x++)
+		{
+			if (Transform[x].usItem == -1)
+			{
+				break;
+			}
+			if (Transform[x].usItem == gpItemDescObject->usItem)
+			{
+				iTransformIndex++;
+
+				CHAR16 MenuRowText[300];
+				if ( Transform[x].usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+				{
+					swprintf (MenuRowText, L"%s (%d AP)", Transform[x].szMenuRowText, Transform[x].usAPCost );
+				}
+				else
+				{
+					swprintf (MenuRowText, Transform[x].szMenuRowText);
+				}
+
+				// Generate a new option for the menu
+				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, &Transform[x] ) );
+				// Set the function that tests whether it's valid at the moment.
+				pOption->setAvail(new popupCallbackFunction<bool,TransformInfoStruct*>( &TransformationMenuPopup_TestValid, &Transform[x] ));
+				// Add the option to the menu.
+				gItemDescTransformPopup->addOption( *pOption );
+				// Set this flag so we know we have at least one Transformation available.
+				fFoundTransformations = true;
+			}
+		}
+		if (!fFoundTransformations)
+		{
+			POPUP_OPTION * pOption = new POPUP_OPTION( &std::wstring( gzTransformationMessage[ 0 ] ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, NULL ) );
+			pOption->setAvail(new popupCallbackFunction<bool,TransformInfoStruct*>( &TransformationMenuPopup_TestValid, NULL ));
+			gItemDescTransformPopup->addOption( *pOption );
+		}
+
+		UINT16 usPosX = (UINT16)((ITEMDESC_ITEM_X + (ITEMDESC_ITEM_X + ITEMDESC_ITEM_WIDTH)) / 2);
+		UINT16 usPosY = (UINT16)((ITEMDESC_ITEM_Y + (ITEMDESC_ITEM_Y + ITEMDESC_ITEM_HEIGHT)) / 2);
+		if (pRegion->MouseXPos > ITEMDESC_ITEM_X && pRegion->MouseXPos < (ITEMDESC_ITEM_X + ITEMDESC_ITEM_WIDTH))
+		{
+			usPosX = pRegion->MouseXPos;
+		}
+		if (pRegion->MouseYPos > ITEMDESC_ITEM_Y && pRegion->MouseYPos < (ITEMDESC_ITEM_Y + ITEMDESC_ITEM_HEIGHT))
+		{
+			usPosY = pRegion->MouseYPos;
+		}
+		gItemDescTransformPopup->setPosition( usPosX, usPosY );
+
+		gfItemDescTransformPopupInitialized = TRUE;
+		gfItemDescTransformPopupVisible = TRUE;
+
+		// In compliance with current bugs, if there's a bullet icon, hide it to prevent overlaps.
+		if (giItemDescAmmoButton > -1)	
+		{
+			HideButton(giItemDescAmmoButton);
+		}
+
+		gItemDescTransformPopup->show();
+
+		// Now that the popup is initialized, lets set the help text for each line. Note that we have to do it here
+		// (rather than before) because only now are the MOUSE_REGIONs ready to receive help text at all!!
+		INT32 iNumOptions = 0;
+		for (INT32 x = 0; x < MAXITEMS; x++)
+		{
+			if (Transform[x].usItem == -1)
+			{
+				break;
+			}
+			if (Transform[x].usItem == gpItemDescObject->usItem)
+			{
+				SetRegionFastHelpText( &(gItemDescTransformPopup->MenuRegion[iNumOptions]), Transform[x].szTooltipText );
+				iNumOptions++;
+			}
+		}
+
+	}
+	else if (reason == MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+		// Behave like the background region, closing the box.
+		OBJECTTYPE *pTemp = gpItemDescPrevObject;
+		DeleteItemDescriptionBox( );
+		if (pTemp != NULL)
+		{
+			InternalInitItemDescriptionBox( pTemp, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
+		}	
+	}
+}
+
+//////////////////////////////////////////////////////////////////////
+// HEADROCK HAM 5: Callback Functions for the Transformation Menu
+//////////////////////////////////////////////////////////////////////
+
+// This function handles hiding the menu.
+void TransformationMenuPopup_Hide(void)
+{
+	// If an Eject Ammo button exists for the current DB item, then restore it to view.
+	if (giItemDescAmmoButton > -1)	
+	{
+		ShowButton(giItemDescAmmoButton);
+	}
+
+	// Signal the renderer to stop drawing this menu.
+	gfItemDescTransformPopupVisible = FALSE;
+	fMapPanelDirty = TRUE;
+}
+
+// This function handles callback when one of the options on the Transformation menu is clicked.
+// This function takes care of all activity that is not directly related to the transformation data, the transformed
+// object, or the soldier performing the transformation.
+void TransformationMenuPopup_Transform( TransformInfoStruct * Transform)
+{
+	// If the item is in a stack, ask for confirmation.
+	if (gpItemDescObject->ubNumberOfObjects > 1)
+	{
+		//Ask for confirmation
+		gTransformInProgress = Transform;
+		guiTransformInProgressPrevScreen = guiCurrentScreen;
+		CHAR16 pStr[500];
+		swprintf( pStr, gzTransformationMessage[ 5 ], gpItemDescObject->ubNumberOfObjects );
+		DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_YESNO, ConfirmTransformationMessageBoxCallBack );
+	}
+	else
+	{
+		TransformFromItemDescBox( Transform );
+	}
+}
+
+BOOLEAN TransformationMenuPopup_TestValid(TransformInfoStruct * Transform)
+{
+	if (Transform == NULL)
+	{
+		return false;
+	}
+	else
+	{
+		UINT16 usAPCost = Transform->usAPCost;
+		INT32 iBPCost = Transform->iBPCost;
+
+		if (EnoughPoints( gpItemDescSoldier, usAPCost, iBPCost, false ))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+// HEADROCK HAM 5: This Transformation Menu Callback will attempt to unjam a jammed gun. If the
+// soldier lacks APs to do so, it will fail with a screen message. Otherwise the gun is unjammed,
+// causing the normal effects.
+void TransformationMenuPopup_Unjam()
+{
+	/*
+	if ( Item[gpItemDescObject->usItem].usItemClass != IC_GUN || EXPLOSIVE_GUN( gpItemDescObject->usItem ) || (*gpItemDescObject)[0]->data.gun.bGunAmmoStatus > 0) 
+	{ 
+		AssertMsg( 0, "Transformation Menu allowed us to attempt to unjam an unjammed gun. This is illegal!" );
+		return;
+	}
+
+	if(EnoughPoints(gpItemDescSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
+	{
+		DeductPoints(gpItemDescSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
+		INT8 bChanceMod;
+		
+		if ( Weapon[gpItemDescObject->usItem].EasyUnjam )
+			bChanceMod = 100;
+		else
+			bChanceMod = (INT8) (GetReliability( gpItemDescObject )* 4);
+		
+		int iResult = SkillCheck( gpItemDescSoldier, UNJAM_GUN_CHECK, bChanceMod); 
+		
+		if (iResult > 0) 
+		{ 
+			// yay! unjammed the gun 
+			(*gpItemDescObject)[0]->data.gun.bGunAmmoStatus *= -1; 
+		 
+			// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+			
+			if (bChanceMod < 100) // don't give exp for unjamming an easily unjammable gun
+			{
+				StatChange( gpItemDescSoldier, MECHANAMT, 5, FALSE ); 
+				StatChange( gpItemDescSoldier, DEXTAMT, 5, FALSE ); 
+			}
+		 
+			RenderItemDescriptionBox();
+		 
+			return;
+		} 
+	}
+	else
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam this weapon.", gpItemDescSoldier->name);
+	}
+	*/
+}
+
+// HEADROCK HAM 5: This is a handler for transforming an ammo crate into magazines. We get the itemnumber of the
+// magazine to create, and proceed to create one magazine after the other. They are placed either into the
+// carrying soldier's inventory, or into the sector inventory if it is there.
+void TransformationMenuPopup_SplitCrate( UINT16 usMagazineItem )
+{
+	if (gItemDescTransformPopup != NULL && gfItemDescTransformPopupInitialized == TRUE)
+	{
+		gItemDescTransformPopup->hide();
+	}
+
+	OBJECTTYPE MagazineObject;
+	UINT16 usShotsLeft = (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubShotsLeft;
+	UINT16 usMagazineSize = Magazine[Item[usMagazineItem].ubClassIndex].ubMagSize;
+
+	UINT8 ubAmmoType = Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType;
+	UINT8 ubCaliber = Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre;
+
+	// Simple. Just create as many clips as you can, drop them all to the sector inventory.
+	UINT32 uiNumMagazinesToCreate = (usShotsLeft / usMagazineSize) + ((usShotsLeft % usMagazineSize) > 0);
+
+	for (UINT32 x = 0; x < uiNumMagazinesToCreate; x++)
+	{
+		UINT16 usBulletsInMag = __min( usShotsLeft, usMagazineSize );
+		
+		MagazineObject.initialize();
+		CreateAmmo(usMagazineItem, &MagazineObject, usBulletsInMag);
+		AutoPlaceObjectToWorld( gpItemDescSoldier, &MagazineObject, true );
+
+		if (&MagazineObject != NULL)
+		{
+			DeleteObj( &MagazineObject );
+		}
+
+		usShotsLeft -= usBulletsInMag;
+	}		
+
+	CHAR16 pStr[500];
+	swprintf( pStr, gzTransformationMessage[ 8 ], Item[gpItemDescObject->usItem].szItemName, uiNumMagazinesToCreate, usMagazineSize );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pStr );
+
+	OBJECTTYPE *gTempCrate = gpItemDescObject;
+
+	gfSkipDestroyTransformPopup = TRUE;
+	DeleteItemDescriptionBox();
+	gfSkipDestroyTransformPopup = FALSE;
+
+	gTempCrate->RemoveObjectAtIndex(gubItemDescStatusIndex);
+}
+
+void TransformationMenuPopup_SplitCrateInInventory( )
+{
+	if (gItemDescTransformPopup != NULL && gfItemDescTransformPopupInitialized == TRUE)
+	{
+		gItemDescTransformPopup->hide();
+	}
+
+	OBJECTTYPE MagazineObject;
+	UINT16 usShotsLeft = (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubShotsLeft;
+	UINT16 usOrigShotsLeft = usShotsLeft;
+
+	UINT8 ubAmmoType = Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType;
+	UINT8 ubCaliber = Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre;
+
+	// Drop into the soldier's inventory.
+	if (gpItemDescSoldier == NULL)
+	{
+		return;
+	}
+	for (INT16 sPocket = BIGPOCK1POS; sPocket < NUM_INV_SLOTS && usShotsLeft > 0; sPocket++)
+	{
+		// To cut down on processing time, skip any pockets containing an item that will not appear on the
+		// possible splits list.
+		BOOLEAN fEmptyPocketOk = FALSE;
+		BOOLEAN fMagazineInPocketOk = FALSE;
+		BOOLEAN fHalfEmptyMagazineInPocketOk = FALSE; //MM: changed this so that half empty magazines will be topped off.  TODO: eventually apply similar logic to when a crate is clicked on a gun as well.
+
+		UINT16 usMagazineToCreate = 0;
+
+		OBJECTTYPE *pObjInPocket = &(gpItemDescSoldier->inv[sPocket]);
+		if ( pObjInPocket->exists() == true )
+		{
+			if (Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubAmmoType == ubAmmoType &&
+				Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubCalibre == ubCaliber &&
+				Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubMagType < AMMO_BOX)
+			{
+				fMagazineInPocketOk = TRUE;
+				usMagazineToCreate = pObjInPocket->usItem;
+				for (INT8 cnt = 0; cnt < pObjInPocket->ubNumberOfObjects; ++cnt)
+				{
+					if ((*pObjInPocket)[cnt]->data.ubShotsLeft < Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubMagSize)
+					{
+						fHalfEmptyMagazineInPocketOk = TRUE;
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			fEmptyPocketOk = TRUE;
+		}
+
+		if (fMagazineInPocketOk)
+		{
+			UINT8 ubCapacity = ItemSlotLimit(pObjInPocket, sPocket, gpItemDescSoldier);
+			ubCapacity -= pObjInPocket->ubNumberOfObjects;
+
+			for ( UINT16 x = 0; x < ubCapacity && usShotsLeft > 0; x++)
+			{
+				UINT16 usBulletsInMag = __min( usShotsLeft, Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubMagSize );
+		
+				MagazineObject.initialize();
+				CreateAmmo(usMagazineToCreate, &MagazineObject, usBulletsInMag);
+				PlaceObject( gpItemDescSoldier, (INT8)sPocket, &MagazineObject );
+
+				if (&MagazineObject != NULL)
+				{
+					DeleteObj( &MagazineObject );
+				}
+
+				usShotsLeft -= usBulletsInMag;
+			}
+
+			if (fHalfEmptyMagazineInPocketOk && usShotsLeft > 0)
+			{
+				for (INT8 cnt = 0; cnt < pObjInPocket->ubNumberOfObjects ;++cnt)
+				{
+				 	if ((*pObjInPocket)[cnt]->data.ubShotsLeft < Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubMagSize)
+					{
+						UINT16 bulletsToAdd = Magazine[Item[pObjInPocket->usItem].ubClassIndex].ubMagSize - (*pObjInPocket)[cnt]->data.ubShotsLeft;
+						
+						if ( usShotsLeft < bulletsToAdd )
+							bulletsToAdd = usShotsLeft;
+
+						(*pObjInPocket)[cnt]->data.ubShotsLeft += bulletsToAdd;
+						usShotsLeft -= bulletsToAdd;
+					}
+				}
+			}
+		}
+		else if (fEmptyPocketOk)
+		{
+			// Check whether any magazine of any size can fit into this slot. Find the type that can fit the
+			// most rounds in per slot.
+
+			UINT8 ubBestStackCapacity = 0;
+			UINT32 uiBestRoundCapacity = 0;
+			UINT16 usBestItem = 0;
+
+			for (UINT16 x = 0; x < MAXITEMS; x++)
+			{
+				if (Item[x].usItemClass & IC_AMMO)
+				{
+					if (Magazine[Item[x].ubClassIndex].ubAmmoType == ubAmmoType &&
+						Magazine[Item[x].ubClassIndex].ubCalibre == ubCaliber &&
+						Magazine[Item[x].ubClassIndex].ubMagType < AMMO_BOX )
+					{
+						UINT16 usTempMagazineSize = Magazine[Item[x].ubClassIndex].ubMagSize;
+						OBJECTTYPE TempMagObject;
+						TempMagObject.initialize();
+						CreateAmmo(x, &TempMagObject, usTempMagazineSize);
+
+						UINT8 ubCapacity = ItemSlotLimit(&TempMagObject, sPocket, gpItemDescSoldier);
+						
+						if ((UINT32)(ubCapacity * usTempMagazineSize) > uiBestRoundCapacity)
+						{
+							uiBestRoundCapacity = ubCapacity * usTempMagazineSize;
+							ubBestStackCapacity = ubCapacity;
+							usBestItem = x;
+						}
+
+						DeleteObj( &TempMagObject );
+					}
+				}
+			}
+
+			if (usBestItem > 0)
+			{
+				UINT16 usMagazineSize = Magazine[Item[usBestItem].ubClassIndex].ubMagSize;
+				for (UINT16 y = 0; y < ubBestStackCapacity && usShotsLeft > 0; y++)
+				{
+					UINT16 usBulletsInMag = __min( usShotsLeft, usMagazineSize );
+
+					MagazineObject.initialize();
+					CreateAmmo( usBestItem, &MagazineObject, usBulletsInMag );
+					PlaceObject( gpItemDescSoldier, (INT8)sPocket, &MagazineObject );
+
+					if (&MagazineObject != NULL)
+					{
+						DeleteObj( &MagazineObject );
+					}
+
+					usShotsLeft -= usBulletsInMag;
+				}
+			}
+		}
+	}
+	
+	if (usOrigShotsLeft > usShotsLeft)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzTransformationMessage[ 9 ], Item[gpItemDescObject->usItem].szItemName, gpItemDescSoldier->name );
+	}
+	else
+	{
+		// Until we determine whether a box would be better...
+		ScreenMsg( FONT_ORANGE, MSG_INTERFACE, gzTransformationMessage[ 10 ], gpItemDescSoldier->name );
+		//CHAR16 pStr[300];
+		//swprintf( pStr, gzTransformationMessage[ 10 ], gpItemDescSoldier->name );
+		//DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_OK, NULL );
+	}
+
+	if (usShotsLeft > 0)
+	{
+		(*gpItemDescObject)[gubItemDescStatusIndex]->data.ubShotsLeft = usShotsLeft;
+		RenderItemDescriptionBox();
+	}
+	else
+	{
+		OBJECTTYPE *gTempCrate = gpItemDescObject;
+
+		gfSkipDestroyTransformPopup = TRUE;
+		DeleteItemDescriptionBox();
+		gfSkipDestroyTransformPopup = FALSE;
+
+		gTempCrate->RemoveObjectAtIndex(gubItemDescStatusIndex);
+		//DeleteObj( gTempCrate );
+	}
+}
+
+
+void TransformFromItemDescBox( TransformInfoStruct * Transform)
+{
+
+	// Hide the Transform Popup menu, we don't need it anymore. It will be destroyed and rebuilt next time we click the
+	// Transformation region anyway.
+	if (gItemDescTransformPopup != NULL && gfItemDescTransformPopupInitialized == TRUE)
+	{
+		gItemDescTransformPopup->hide();
+	}
+
+	// Record the item's original class. If it's a gun item, we may need to manually delete the 
+	// eject ammo button!
+	UINT32 uiOrigClass = Item[gpItemDescObject->usItem].usItemClass;
+	BOOLEAN fWasAttachment = gfItemDescObjectIsAttachment;
+
+	// Carry out the transformation on this item, using the data we've received.
+	gpItemDescObject->TransformObject( gpItemDescSoldier, gubItemDescStatusIndex, Transform, gpItemDescPrevObject );
+
+	// Check to see if we need to manually erase the ammo button.
+	UINT32 uiNewClass = Item[gpItemDescObject->usItem].usItemClass;
+	BOOLEAN fEraseAmmoButton = FALSE;
+	if (uiOrigClass & IC_GUN && !(uiNewClass & IC_GUN))
+	{
+		fEraseAmmoButton = TRUE;
+	}
+
+	// We're going to shut down and reinitialize the DescBox now, to ensure that we get the DescBox for the resulting
+	// item instead of the old one.
+
+	// Save previous ItemDesc-related parameters, before deleting the box (they get erased...)
+	OBJECTTYPE *pTemp = gpItemDescObject;
+	OBJECTTYPE *pTempParent = NULL;
+	BOOLEAN fTempIsAttachment = FALSE;
+	OBJECTTYPE *pTempAttachment = NULL;
+	// If the object was attached and still is, we'll need to save the attachment details now before we destroy the
+	// description box. That way we can reopen it with all the data intact.
+	if (fWasAttachment && gfItemDescObjectIsAttachment)
+	{
+		pTempParent = gpItemDescPrevObject;
+		fTempIsAttachment = gfItemDescObjectIsAttachment;
+		pTempAttachment = gpItemDescOrigAttachmentObject;
+	}
+
+	// This flag tells the deletion function not to destroy the Transform Popup Menu - we need it to stay alive through
+	// this.
+	gfSkipDestroyTransformPopup = TRUE;
+
+	// DELETE THE BOX!
+	DeleteItemDescriptionBox( );
+
+	/*if (fEraseAmmoButton)
+	{
+		// Transformation from gun to non-gun. Erase ammo button manually.
+		UnloadButtonImage( giItemDescAmmoButtonImages );
+		RemoveButton( giItemDescAmmoButton );
+	}*/
+
+	// Unflag. Next closure of the DescBox will destroy the menu as normal.
+	gfSkipDestroyTransformPopup = FALSE;
+
+	if (pTemp->usItem > 0 && // Open only if the item is still valid.
+		!(fWasAttachment && !fTempIsAttachment)) // Do not reopen the box if the item was an attachment and has been removed from its gun.
+	{
+		// Restore previous settings
+		gpItemDescObject = pTemp;
+		gpItemDescPrevObject = pTempParent;
+		gfItemDescObjectIsAttachment = fTempIsAttachment;
+		gpItemDescOrigAttachmentObject = pTempAttachment;
+
+		// RESTART THE BOX!
+		InternalInitItemDescriptionBox( gpItemDescObject, gsInvDescX, gsInvDescY, 0, gpItemDescSoldier );
+	}
+}
+
+// This is a callback function for the box that asks you whether or not you want to transform all items
+// in a stack.
+void ConfirmTransformationMessageBoxCallBack( UINT8 bExitValue )
+{
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		UINT32 iTempScreen = guiCurrentScreen;
+		guiCurrentScreen = guiTransformInProgressPrevScreen;
+		TransformFromItemDescBox( gTransformInProgress );
+		guiCurrentScreen = iTempScreen;
+		guiTransformInProgressPrevScreen = 0;
 	}
 }

@@ -335,5 +335,8 @@
     <ClCompile Include="MapScreen Quotes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XML_CoolnessBySector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
