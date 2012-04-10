@@ -3703,7 +3703,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					//Jenilee: determine the cost of moving this item around in our inventory
 					usCostToMoveItem = GetInvMovementCost(gpItemPointer->usItem, uiLastHandPos, uiHandPos);
 
-				if (gpSMCurrentMerc->bActionPoints >= usCostToMoveItem)
+				if ( ( usCostToMoveItem == 0 ) || ( gpSMCurrentMerc->bActionPoints >= usCostToMoveItem ) )
 				{
 					fOKToGo = TRUE;
 					uiLastHandPos = uiHandPos;
