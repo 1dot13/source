@@ -2589,6 +2589,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					INT32		worldItem;
 					UINT8		magType;
 					bool		mergeSuccessful, ammoPresent;
+					int loopCount = 0;
 					OBJECTTYPE	newCrate;
 					ammoPresent = true;
 
@@ -2597,7 +2598,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					else
 						magType = AMMO_BOX;
 
-					while (ammoPresent)
+					while (ammoPresent && loopCount <= 10)
 					{
 						//look through all sector items for ammo.
 						for(unsigned int wItem = 0; wItem < guiNumWorldItems; wItem++)
@@ -2685,10 +2686,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 									}
 								}
-								else // MM: no crate item, so we must be missing a crate item from the xmls.  Set ammoPresent to false to avoid infinitely looping.
-									ammoPresent = false;
 							}
 						}
+
+						// if we added to / created a box/crate, then we're fine to reset this
+						if ( mergeSuccessful )
+							loopCount = 0;
 
 						//MM: loop through ammo multiple times, as boxes and crates may take a few passes to fill
 						ammoPresent = false;
@@ -2700,6 +2703,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								if(Magazine[Item[worldItem].ubClassIndex].ubMagType == magType)
 									continue;
 
+								loopCount++;
 								ammoPresent = true;
 								break;
 							}

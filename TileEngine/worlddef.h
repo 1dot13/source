@@ -279,10 +279,10 @@ extern MAP_ELEMENT			*gpWorldLevelData;
 
 // World Movement Costs
 //UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
-//ddd для убыстрения поиска освещенных участков в патхаи.
+//ddd Tables to track tactical value of grid tiles
 extern BOOLEAN						gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
-extern BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ]; //надо бы учитывать крыша\земля ;)
-extern INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ]; //положение драника не учитываем, крыша\земля тож?
+extern BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ]; //Tracks position of corpses for AI avoidance
+extern INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ]; //Tracks visibility my mercs
 //ddd
 
 extern UINT8 (*gubWorldMovementCosts)[MAXDIR][2];//dnl ch43 260909

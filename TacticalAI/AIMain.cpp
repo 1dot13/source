@@ -2084,6 +2084,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	INT32 iRetCode;
 	//NumMessage("ExecuteAction - Guy#",pSoldier->ubID);
 
+
 	// in most cases, merc will change location, or may cause damage to opponents,
 	// so a new cover check will be necessary.  Exceptions handled individually.
 	SkipCoverCheck = FALSE;

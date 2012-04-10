@@ -1835,64 +1835,35 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
 		uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
 	
+		//MM: fixing the hardcoded craziness here...
 		// check first face slot
 		if ( uiFaceItemOne != NONE )
 		{
-			switch( uiFaceItemOne )
-			{
-				// gas mask
-				case GASMASK:
-					uiFaceItemOne = 1;
-					break;
-				// NV goggles
-				case 211:
-				case 246:
-				case 1024:
-				case 1025:
-					uiFaceItemOne = 2;
-					break;
-				// sun goggles
-				case 212:
-					uiFaceItemOne = 3;
-					break;
-				// extended ear
-				case 210:
-					uiFaceItemOne = 4;
-					break;
-				default:
-					uiFaceItemOne = 0;
-					break;
-			}
+			if ( Item[uiFaceItemOne].gasmask )
+				uiFaceItemOne = 1;
+			else if ( Item[uiFaceItemOne].nightvisionrangebonus > 0 )
+				uiFaceItemOne = 2;
+			else if ( Item[uiFaceItemOne].dayvisionrangebonus > 0 || Item[uiFaceItemOne].brightlightvisionrangebonus > 0 )
+				uiFaceItemOne = 3;
+			else if ( Item[uiFaceItemOne].hearingrangebonus > 0 )
+				uiFaceItemOne = 4;
+			else
+				uiFaceItemOne = 0;
 		}
 		
 		// check second face slot
 		if ( uiFaceItemTwo != NONE )
 		{
-			switch( uiFaceItemTwo )
-			{
-				// gas mask
-				case GASMASK:
-					uiFaceItemTwo = 21;
-					break;
-				// NV goggles
-				case 211:
-				case 246:
-				case 1024:
-				case 1025:
-					uiFaceItemTwo = 42;
-					break;
-				// sun goggles
-				case 212:
-					uiFaceItemTwo = 63;
-					break;
-				// extended ear
-				case 210:
-					uiFaceItemTwo = 84;
-					break;
-				default:
-					uiFaceItemTwo = 0;
-					break;
-			}
+			if ( Item[uiFaceItemTwo].gasmask )
+				uiFaceItemTwo = 21;
+			else if ( Item[uiFaceItemTwo].nightvisionrangebonus > 0 )
+				uiFaceItemTwo = 42;
+			else if ( Item[uiFaceItemTwo].dayvisionrangebonus > 0 || Item[uiFaceItemTwo].brightlightvisionrangebonus > 0 )
+				uiFaceItemTwo = 63;
+			else if ( Item[uiFaceItemTwo].hearingrangebonus > 0 )
+				uiFaceItemTwo = 84;
+			else
+				uiFaceItemTwo = 0;
 		}
 
 		// Now select the correct icon. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)

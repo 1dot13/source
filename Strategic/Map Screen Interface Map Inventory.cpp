@@ -1498,18 +1498,83 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 		fMapPanelDirty = TRUE;
 		gpItemPointer = &gItemPointer;
 
-		if ( _KeyDown ( CTRL ))//Delete Item
+		if ( _KeyDown ( CTRL ))//MM: Pass item to selected merc.  Delete if none selected.
 		{
-			gpItemPointer = NULL;
-			fMapInventoryItem = FALSE;
+			SOLDIERTYPE *pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+			bool placedObject = false;
 
-			if ( _KeyDown ( 89 )) //Lalien: delete all items of this type on Ctrl+Y
+			if(pSoldier->exists() == true)
 			{
-				DeleteItemsOfType( gItemPointer.usItem );
-				ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETE_ALL] );
+				if(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
+				{
+					for(int x = 0; x<NUM_INV_SLOTS-1; x++)
+					{
+						if(vehicleInv[x] == FALSE)
+							continue;
+
+						if(pSoldier->inv[x].exists() == true)
+						{
+							if(pSoldier->inv[x].usItem == gpItemPointer->usItem)
+							{
+								pSoldier->inv[x].AddObjectsToStack(*gpItemPointer, gpItemPointer->ubNumberOfObjects, pSoldier, x);
+								placedObject = true;
+								break;
+							}
+						}
+						else
+						{
+							gpItemPointer->MoveThisObjectTo(pSoldier->inv[x], gpItemPointer->ubNumberOfObjects, pSoldier, x);
+							placedObject = true;
+							break;
+						}
+					}
+				}
+				else
+				{
+					if (AutoPlaceObject(pSoldier,gpItemPointer,FALSE)) //doesn't work for vehicles :p
+						placedObject = true;
+				}
+
+				if (placedObject)
+				{
+					fShowInventoryFlag = true;
+					fTeamPanelDirty = TRUE;
+					fInterfacePanelDirty = DIRTYLEVEL2;
+					fMapInventoryItem = FALSE;
+					gpItemPointer = NULL;
+				}
+				else // can't seem to get the code to just leave the item alone after it's been clicked on, so just pick it up...
+				{
+					gpItemPointerSoldier = NULL;
+
+					// now set the cursor
+					guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
+					gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
+
+					fMapInventoryItem = TRUE;
+					MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
+					SetCurrentCursorFromDatabase( EXTERN_CURSOR );
+
+					if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
+					{
+						ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
+						fTeamPanelDirty = TRUE;
+					}
+				}
 			}
-			else {
-				ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETED] );
+			else
+			{
+				gpItemPointer = NULL;
+				fMapInventoryItem = FALSE;
+
+				if ( _KeyDown ( 89 )) //Lalien: delete all items of this type on Ctrl+Y
+				{
+					DeleteItemsOfType( gItemPointer.usItem );
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETE_ALL] );
+				}
+				else {
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETED] );
+				}
 			}
 			if ( fShowMapInventoryPool )
 				HandleButtonStatesWhileMapInventoryActive();
