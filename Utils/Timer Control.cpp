@@ -363,6 +363,8 @@ BOOLEAN InitializeJA2Clock()
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get performance frequency");
 	}
 
+	timeBeginPeriod(gtc.wPeriodMin);
+
 	InitializeCriticalSection(&gcsNotifyLock);
 
 	if (IsHiSpeedClockMode())
@@ -420,6 +422,8 @@ void	ShutdownJA2Clock(void)
 		timeKillEvent( gTimerID );
 #endif
 	}
+
+	timeEndPeriod(gtc.wPeriodMin);
 }
 
 
