@@ -6821,8 +6821,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 	fCtrl = _KeyDown( CTRL );
 	fAlt = _KeyDown( ALT );
 
-	while( DequeueEvent( &InputEvent ) )
-//		while( DequeueSpecificEvent( &InputEvent, KEY_DOWN ) )		// doesn't work for some reason
+//	while( DequeueEvent( &InputEvent ) )
+	while( DequeueSpecificEvent( &InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT ) )		// doesn't work for some reason -- MM: fixed?  it works better for me like this
 	{
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
