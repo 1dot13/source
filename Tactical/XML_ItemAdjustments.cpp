@@ -65,7 +65,7 @@ transformStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 		}
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "usItem") == 0 ||
-				strcmp(name, "usResult") == 0 ||
+				strstr(name, "usResult") > 0 ||
 				strcmp(name, "usAPCost") == 0 ||
 				strcmp(name, "iBPCost") == 0 ||
 				strcmp(name, "szMenuRowText") == 0 ||
@@ -135,7 +135,7 @@ transformEndElementHandle(void *userData, const XML_Char *name)
 			}
 			pData->curTransform.usItem = usItem;
 		}
-		else if(strcmp(name, "usResult") == 0)
+		else if(strstr(name, "usResult") > 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curTransform.usResult[pData->curResultIndex] = (UINT16) atol(pData->szCharData);
