@@ -171,7 +171,7 @@
     <szLongItemName>FN-P90</szLongItemName>
     <szItemDesc>Die FN-P90 wurde Ende der 80er Jahre entwickelt. Sie kann als Vorläufer des PDW-Konzepts angesehen werden.</szItemDesc>
     <szBRName>FN-P90</szBRName>
-    <szBRDesc>Die FN-P90 wurde Ende der 80er Jahre entwickelt. Sie ist eine Selbstverteidigungswaffe für Fahrzeug- oder Panzerbesatzungen. Sie kann als Vorläufer des PDW (Personal Defence Weapon) Konzepts angesehen werden.</szBRDesc>
+    <szBRDesc>Die FN-P90 wurde Ende der 80er Jahre entwickelt. Sie ist eine Selbstverteidigungswaffe für Fahrzeug- oder Panzerbesatzungen. Sie kann als Vorläufer des PDW (Personal Defense Weapon) Konzepts angesehen werden.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -1564,9 +1564,9 @@
     <uiIndex>142</uiIndex>
     <szItemName>C-4</szItemName>
     <szLongItemName>C-4</szLongItemName>
-    <szItemDesc>C-4 ist ein weißer, handhabungssicherer, sehr effektiver plastischer Sprengstoff und wirkungsvoller als TNT. C-4 besteht aus 91% Hexogen, 2,1% Polyisobuten, 5,3% DOS und 1,6% Mineralöl. Im Vergleich zu C-1 ist C-4 geruchlos.</szItemDesc>
+    <szItemDesc>C-4 ist ein weißer, handhabungssicherer, sehr effektiver plastischer Sprengstoff und wirkungsvoller als TNT. C-4 besteht aus 91%% Hexogen, 2,1%% Polyisobuten, 5,3%% DOS und 1,6%% Mineralöl. Im Vergleich zu C-1 ist C-4 geruchlos.</szItemDesc>
     <szBRName>C-4</szBRName>
-    <szBRDesc>C-4 ist ein weißer, handhabungssicherer, sehr effektiver plastischer Sprengstoff und wirkungsvoller als TNT. C-4 besteht aus 91% Hexogen, 2,1% Polyisobuten, 5,3% DOS und 1,6% Mineralöl. Im Vergleich zu C-1 ist C-4 geruchlos.</szBRDesc>
+    <szBRDesc>C-4 ist ein weißer, handhabungssicherer, sehr effektiver plastischer Sprengstoff und wirkungsvoller als TNT. C-4 besteht aus 91%% Hexogen, 2,1%% Polyisobuten, 5,3%% DOS und 1,6%% Mineralöl. Im Vergleich zu C-1 ist C-4 geruchlos.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -2191,7 +2191,7 @@
     <szLongItemName>10x30 Fernglas</szLongItemName>
     <szItemDesc>Ein kompaktes 10x30 Fernglas made in China. Trägt die Aufschrift 'TCM'. Enthält nur Kunsstoffteile.</szItemDesc>
     <szBRName>10x30 Fernglas</szBRName>
-    <szBRDesc>Ein kompaktes 10x30 Fernglas. Diese preiswerte Glas wird in Europa von einem Kafferöster vertrieben, der uns seine Restbestände überlies.</szBRDesc>
+    <szBRDesc>Ein kompaktes 10x30 Fernglas. Dieses preiswerte Glas wird in Europa von einem Kafferöster vertrieben, der uns seine Restbestände überlies.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -2809,7 +2809,7 @@
     <uiIndex>256</uiIndex>
     <szItemName>Bier</szItemName>
     <szLongItemName>Bier</szLongItemName>
-    <szItemDesc>Wen kümmert es bei 6.9% alc. wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
+    <szItemDesc>Wen kümmert es bei 6.9&% alc. wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
     <szBRName>Bier</szBRName>
     <szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
     <STAND_MODIFIERS />
@@ -5938,7 +5938,7 @@
     <uiIndex>541</uiIndex>
     <szItemName>7.62x37 DU</szItemName>
     <szLongItemName>7.62x37mm Magazin, DU</szLongItemName>
-    <szItemDesc>Durch das verwendete Uran-238 entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Uran-238 hat eine 20% höhere kinetische Energie als Wolframkarbid und 66% höhere als Blei.</szItemDesc>
+    <szItemDesc>Durch das verwendete Uran-238 entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Uran-238 hat eine 20% höhere kinetische Energie als Wolframkarbid und 66%% höhere als Blei.</szItemDesc>
     <szBRName>7.62x37 Mag DU #10</szBRName>
     <szBRDesc>Aufgrund des 'selbstschärfenden' Projektils aus abgereichertem Uran entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Die Radioaktivität ist unbedeutend, doch der Staub ist sehr giftig.</szBRDesc>
     <STAND_MODIFIERS />
@@ -5960,9 +5960,9 @@
     <uiIndex>543</uiIndex>
     <szItemName>5.45x18 HS</szItemName>
     <szLongItemName>5.45x18mm Magazin, HS</szLongItemName>
-    <szItemDesc>Dieses 8-schüssige Magazin enthält HS-Patronen für die PSM Pistole. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szItemDesc>
+    <szItemDesc>Dieses 8-schüssige Magazin enthält HS-Patronen für die PSM Pistole. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung bei ungeschützten Gegnern.</szItemDesc>
     <szBRName>5.45x18 Mag HS #8</szBRName>
-    <szBRDesc>Dieses 8-schüssige Magazin enthält HS-Patronen für die PSM Pistole. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szBRDesc>
+    <szBRDesc>Dieses 8-schüssige Magazin enthält HS-Patronen für die PSM Pistole. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung bei ungeschützten Gegnern.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -6235,9 +6235,9 @@
     <uiIndex>568</uiIndex>
     <szItemName>.45WM Mag HS</szItemName>
     <szLongItemName>.45WM Magazin, HS</szLongItemName>
-    <szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szItemDesc>
+    <szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützten Gegnern.</szItemDesc>
     <szBRName>.45 WM Mag HS #6</szBRName>
-    <szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szBRDesc>
+    <szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützten Gegnern.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -6609,7 +6609,7 @@
     <uiIndex>602</uiIndex>
     <szItemName>AEK-971</szItemName>
     <szLongItemName>AEK-971</szLongItemName>
-    <szItemDesc>Man sagt, dass einige Schützen mit diesem Gewehr bis zu 20% zielsicherer sind als mit dem AK-74. Dieses Modell ist für die Patrone M74 ausgelegt.</szItemDesc>
+    <szItemDesc>Man sagt, dass einige Schützen mit diesem Gewehr bis zu 20%% zielsicherer sind als mit dem AK-74. Dieses Modell ist für die Patrone M74 ausgelegt.</szItemDesc>
     <szBRName>AEK-971</szBRName>
     <szBRDesc>Der dem AN-94N vergleichbare Rückstoß- ausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74. Die Vorteile gegenüber dem AN-94 sind geringeres Gewicht, höhere Zuverlässigkeit und bessere Kontrollierbarkeit im Feuerstoß.</szBRDesc>
     <STAND_MODIFIERS />
@@ -7150,7 +7150,7 @@
     <szLongItemName>FN SCAR-H</szLongItemName>
     <szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
     <szBRName>FN SCAR-H</szBRName>
-    <szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90% baugleich sind. Hier das Modell SCAR-Heavy als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
+    <szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90%% baugleich sind. Hier das Modell SCAR-Heavy als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -7161,7 +7161,7 @@
     <szLongItemName>FN SCAR-L</szLongItemName>
     <szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
     <szBRName>FN SCAR-L</szBRName>
-    <szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90% baugleich sind. Hier das Modell SCAR-Light als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
+    <szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90%% baugleich sind. Hier das Modell SCAR-Light als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -8877,7 +8877,7 @@
     <szLongItemName>Ghillie Suit, Hose</szLongItemName>
     <szItemDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung.</szItemDesc>
     <szBRName>Ghillie Suit, Hose</szBRName>
-    <szBRDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung. Tarnbonus: 30%</szBRDesc>
+    <szBRDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung. Tarnbonus: 30%%</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -8888,7 +8888,7 @@
     <szLongItemName>Ghillie Suit, Weste</szLongItemName>
     <szItemDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung.</szItemDesc>
     <szBRName>Ghillie Suit, Weste</szBRName>
-    <szBRDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung. Tarnbonus: 50%</szBRDesc>
+    <szBRDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung. Tarnbonus: 50%%</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -12660,9 +12660,9 @@
     <uiIndex>1184</uiIndex>
     <szItemName>Tarnhemd</szItemName>
     <szLongItemName>Tarnhemd</szLongItemName>
-    <szItemDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%</szItemDesc>
+    <szItemDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%%</szItemDesc>
     <szBRName>Tarnhemd</szBRName>
-    <szBRDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%</szBRDesc>
+    <szBRDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%%</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -12737,9 +12737,9 @@
     <uiIndex>1191</uiIndex>
     <szItemName>MagPul PDR</szItemName>
     <szLongItemName>MagPul PDR</szLongItemName>
-    <szItemDesc>Das von MagPul (USA) vorgestellte 'Personal Defence Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szItemDesc>
+    <szItemDesc>Das von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szItemDesc>
     <szBRName>MagPul PDR</szBRName>
-    <szBRDesc>Das von MagPul (USA) vorgestellte 'Personal Defence Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szBRDesc>
+    <szBRDesc>Das von MagPul (USA) vorgestellte 'Personal Defense Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -14323,7 +14323,7 @@
     <szLongItemName>AR57 16" Gehäuse</szLongItemName>
     <szItemDesc>Bauen Sie Ihr M4A1 oder Commando durch die Montage des neuen oberen Verschlussgehäuses auf Kaliber 5.7x28mm und Standard P90-Magazine um. Der 16" Lauf rmöglicht eine größere Reichweite.</szItemDesc>
     <szBRName>AR57 16" Gehäuse</szBRName>
-    <szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bausen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Große Reichweite dank 16" Lauf.</szBRDesc>
+    <szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bauen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Große Reichweite dank 16" Lauf.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -14334,7 +14334,7 @@
     <szLongItemName>AR57 11" Gehäuse</szLongItemName>
     <szItemDesc>Bauen Sie Ihr M4A1 oder Commando durch die Montage des neuen oberen Verschlussgehäuses auf Kaliber 5.7x28mm und Standard P90-Magazine um. Recht kompakt dank 16" Lauf.</szItemDesc>
     <szBRName>AR57 11" Gehäuse</szBRName>
-    <szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bausen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Recht kompakt dank 16" Lauf.</szBRDesc>
+    <szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bauen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Recht kompakt dank 16" Lauf.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />
@@ -14345,7 +14345,7 @@
     <szLongItemName>AR57 6"-SD Gehäuse</szLongItemName>
     <szItemDesc>Bauen Sie Ihr M4A1 oder Commando durch die Montage des neuen oberen Verschlussgehäuses auf Kaliber 5.7x28mm und Standard P90-Magazine um. Integrierter Gemtech Schalldämpfer im 6" Lauf.</szItemDesc>
     <szBRName>AR57 6"-SD Gehäuse</szBRName>
-    <szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bausen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Integrierter Gemtech Schalldämpfer im 6" Lauf.</szBRDesc>
+    <szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bauen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Integrierter Gemtech Schalldämpfer im 6" Lauf.</szBRDesc>
     <STAND_MODIFIERS />
     <CROUCH_MODIFIERS />
     <PRONE_MODIFIERS />

@@ -62,7 +62,7 @@
 		<szFacilityShortName>HQ</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
-			<szTooltipText>Es gibt hier alle Sorten von High-Tech Ausrüstung, konzipiert für einen guten Überblick über die strategische Situation im ganzen Land. Dies hilft Ihnen Ihre Abwehrkräfte zu koordinieren, und sammeln Informationen über feindliche Bewegungen.</szTooltipText>
+			<szTooltipText>Es gibt hier alle Sorten von High-Tech Ausrüstung, konzipiert für einen guten Überblick über die strategische Situation im ganzen Land. Dies hilft Ihnen Ihre Abwehr zu organisieren und Informationen über feindliche Bewegungen zu sammeln.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
