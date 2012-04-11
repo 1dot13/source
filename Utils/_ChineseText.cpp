@@ -3193,21 +3193,21 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// TODO.Translate
 	L"Zoom Inventory", // HEAROCK HAM 5: Inventory Zoom Button
 	L"Stack and merge items", // HEADROCK HAM 5: Stack and Merge
-	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates; |R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
+	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates\n|R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
 	L"Remove all item attachments", // HEADROCK HAM 5: Separate Attachments
 	L"Eject ammo from all weapons", //HEADROCK HAM 5: Eject Ammo
-	L"|L|e|f|t |C|l|i|c|k: Show all items; |R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Guns; |R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Ammunition; |R|i|g|h|t |C|l|i|c|k: Show only Ammunition", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Show all items\n|R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Guns\n|R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Ammunition\n|R|i|g|h|t |C|l|i|c|k: Show only Ammunition", // HEADROCK HAM 5: Filter Button
 	// 11 - 15
-	L"|L|e|f|t |C|l|i|c|k: Toggle Explosives; |R|i|g|h|t |C|l|i|c|k: Show only Explosives", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Melee Weapons; |R|i|g|h|t |C|l|i|c|k: Show only Melee Weapons", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Armor; |R|i|g|h|t |C|l|i|c|k: Show only Armor", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle LBEs; |R|i|g|h|t |C|l|i|c|k: Show only LBEs", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Kits; |R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Explosives\n|R|i|g|h|t |C|l|i|c|k: Show only Explosives", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Melee Weapons\n|R|i|g|h|t |C|l|i|c|k: Show only Melee Weapons", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Armor\n|R|i|g|h|t |C|l|i|c|k: Show only Armor", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle LBEs\n|R|i|g|h|t |C|l|i|c|k: Show only LBEs", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items; |R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
 };
 
 STR16 pMapScreenBottomFastHelp[] =

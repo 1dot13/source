@@ -343,7 +343,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 	{
 		MAP_INV_SLOT_COLS = 8;
 		MAP_INVENTORY_POOL_SLOT_COUNT = 40;
-		MAP_INVENTORY_POOL_SLOT_START_X = 269;
+		MAP_INVENTORY_POOL_SLOT_START_X = 269 + xResOffset;
 		MAP_INVENTORY_POOL_SLOT_START_Y = 51;
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory.sti" );
 	}
@@ -351,7 +351,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 	{
 		MAP_INV_SLOT_COLS = 11;
 		MAP_INVENTORY_POOL_SLOT_COUNT = 77;
-		MAP_INVENTORY_POOL_SLOT_START_X = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 278;
+		MAP_INVENTORY_POOL_SLOT_START_X = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 278 + xResOffset;
 		MAP_INVENTORY_POOL_SLOT_START_Y = 62;
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_800x600.sti" );
 	}
@@ -359,7 +359,7 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 	{
 		MAP_INV_SLOT_COLS = 17;
 		MAP_INVENTORY_POOL_SLOT_COUNT = MAP_INVENTORY_POOL_MAX_SLOTS;
-		MAP_INVENTORY_POOL_SLOT_START_X = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 282;
+		MAP_INVENTORY_POOL_SLOT_START_X = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 282 + xResOffset;
 		MAP_INVENTORY_POOL_SLOT_START_Y = 50;
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_1024x768.sti" );
 	}
@@ -2826,7 +2826,11 @@ void DrawTextOnMapInventoryBackground( void )
 	usStringHeight = DisplayWrappedString( MAP_INV_X_OFFSET + 369, (SCREEN_HEIGHT - 138 - 2 * yResOffset), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
 	DisplayWrappedString(MAP_INV_X_OFFSET + 369, (UINT16)((SCREEN_HEIGHT - 138 - 2 * yResOffset) - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
-	DrawTextOnSectorInventory( );
+	// Only display the text in 640x480
+	if (iResolution < _800x600)
+	{
+		DrawTextOnSectorInventory( );
+	}
 
 	SetFontDestBuffer( FRAME_BUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
@@ -2907,10 +2911,10 @@ void DrawTextOnSectorInventory( void )
 	if(gGameExternalOptions.fEnableInventoryPoolQ && gInventoryPoolIndex != '0')//dnl ch51 081009
 		swprintf(sString, L"Inventory Pool %c", gInventoryPoolIndex);
 
+	
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-	// HEADROCK HAM 5: Align right to make room for buttons.
-	FindFontRightCoordinates( (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 271, 18, xResSize - 271, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
-
+	FindFontCenterCoordinates( (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + 271, 18, xResSize - 271, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
+	
 	SetFont( FONT14ARIAL );
 	SetFontForeground( FONT_WHITE );
 	SetFontBackground( FONT_BLACK );
@@ -3689,19 +3693,19 @@ void ResetMapInventoryOffsets( void )
 		if (iResolution >= _640x480 && iResolution < _800x600)
 		{
 			MAP_INV_SLOT_COLS = 8;
-			MAP_INVENTORY_POOL_SLOT_START_X = 269;
+			MAP_INVENTORY_POOL_SLOT_START_X = 269 + xResOffset;
 			MAP_INVENTORY_POOL_SLOT_START_Y = 51;
 		}
 		else if (iResolution >= _800x600 && iResolution < _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 11;
-			MAP_INVENTORY_POOL_SLOT_START_X = 278;
+			MAP_INVENTORY_POOL_SLOT_START_X = 278 + xResOffset;
 			MAP_INVENTORY_POOL_SLOT_START_Y = 62;
 		}
 		else if (iResolution >= _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 17;
-			MAP_INVENTORY_POOL_SLOT_START_X = 282;
+			MAP_INVENTORY_POOL_SLOT_START_X = 282 + xResOffset;
 			MAP_INVENTORY_POOL_SLOT_START_Y = 50;
 		}
 		MAP_INVENTORY_POOL_SLOT_COUNT = GetInventorySlotCount( FALSE );
@@ -3729,19 +3733,19 @@ void ResetMapInventoryOffsets( void )
 		if (iResolution >= _640x480 && iResolution < _800x600)
 		{
 			MAP_INV_SLOT_COLS = 3;
-			MAP_INVENTORY_POOL_SLOT_START_X = 269;
+			MAP_INVENTORY_POOL_SLOT_START_X = 269 + xResOffset;
 			MAP_INVENTORY_POOL_SLOT_START_Y = 51;
 		}
 		else if (iResolution >= _800x600 && iResolution < _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 5;
-			MAP_INVENTORY_POOL_SLOT_START_X = 278;
+			MAP_INVENTORY_POOL_SLOT_START_X = 278 + xResOffset;
 			MAP_INVENTORY_POOL_SLOT_START_Y = 62;
 		}
 		else if (iResolution >= _1024x768)
 		{
 			MAP_INV_SLOT_COLS = 8;
-			MAP_INVENTORY_POOL_SLOT_START_X = 282;
+			MAP_INVENTORY_POOL_SLOT_START_X = 282 + xResOffset;
 			MAP_INVENTORY_POOL_SLOT_START_Y = 50;
 		}
 
