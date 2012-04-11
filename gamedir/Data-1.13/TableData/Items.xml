@@ -1829,7 +1829,7 @@
 		<uiIndex>50</uiIndex>
 		<szItemName>Talon</szItemName>
 		<szLongItemName>Talon Grenade Launcher</szLongItemName>
-		<szItemDesc>The "Talon" US military grenade launcher is known to propel enemies into the waiting claws of death.</szItemDesc>
+		<szItemDesc>The "Talon" US military grenade launcher is known to propel enemies into the waiting claws of death.  This GL is basically a carbon copy of the well known Colt M203PI.</szItemDesc>
 		<szBRName>Talon Grenade Launcher</szBRName>
 		<szBRDesc>Developed by the US military, this launcher can be attached to a wide range of assault rifles and machine guns. It comes equipped with a light folding stock and a special pistol grip stock, allowing it to be fired like a pistol. It is considered to be a good entry weapon.</szBRDesc>
 		<usItemClass>16</usItemClass>
@@ -1838,8 +1838,9 @@
 		<ubCursor>20</ubCursor>
 		<ubGraphicNum>39</ubGraphicNum>
 		<ubWeight>14</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>4</ItemSize>
-		<usPrice>600</usPrice>
+		<usPrice>700</usPrice>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>

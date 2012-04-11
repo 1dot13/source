@@ -4468,4 +4468,8 @@
 		<uiIndex>1021</uiIndex>
 		<sItemIndex>1521</sItemIndex>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1022</uiIndex>
+		<sItemIndex>50</sItemIndex>
+	</INVENTORY>
 </INVENTORYLIST>
