@@ -3643,8 +3643,8 @@ BOOLEAN TraceCharAnimatedRoute( PathStPtr pPath, BOOLEAN fCheckFlag, BOOLEAN fFo
 	usArrowWidth = hMapHandle->pETRLEObject[ uiArrowNumToDraw ].usWidth;
 	usArrowHeight = hMapHandle->pETRLEObject[ uiArrowNumToDraw ].usHeight;
 
-	BltVideoObject(FRAME_BUFFER, hMapHandle, uiArrowNumToDraw, iArrowX, iArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-	InvalidateRegion( iArrowX, iArrowY, iArrowX + usArrowWidth, iArrowY + usArrowHeight );
+	BltVideoObject(FRAME_BUFFER, hMapHandle, uiArrowNumToDraw, iArrowX + xResOffset, iArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+	InvalidateRegion( iArrowX + xResOffset, iArrowY, iArrowX + usArrowWidth + xResOffset, iArrowY + usArrowHeight );
 
 	//ARM who knows what it should return here?
 	return FALSE;

@@ -4767,13 +4767,13 @@ UINT32 MapScreenHandle(void)
 		// HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-		if (iResolution == 0)
+		if (iResolution >= _640x480 && iResolution < _800x600)
 			FilenameForBPP("INTERFACE\\map_pathing_arrows_640.sti", VObjectDesc.ImageFile);
-		else if (iResolution == 1)
+		else if (iResolution < _1024x768)
 			FilenameForBPP("INTERFACE\\map_pathing_arrows_800.sti", VObjectDesc.ImageFile);
-		else if (iResolution == 2)
+		else
 			FilenameForBPP("INTERFACE\\map_pathing_arrows_1024.sti", VObjectDesc.ImageFile);
-
+		
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMapPathingArrows));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
