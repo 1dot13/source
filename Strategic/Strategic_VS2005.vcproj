@@ -749,6 +749,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_CoolnessBySector.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_DynamicRestrictions.cpp"
 				>
 			</File>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Utils"
 	ProjectGUID="{DB40B90D-13F9-4FEC-8F1D-0506CC496586}"
 	RootNamespace="Utils"
@@ -470,6 +470,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\popup_definition.h"
+				>
+			</File>
+			<File
 				RelativePath="PopUpBox.h"
 				>
 			</File>
@@ -703,6 +707,10 @@
 			</File>
 			<File
 				RelativePath=".\popup_class.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\popup_definition.cpp"
 				>
 			</File>
 			<File

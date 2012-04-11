@@ -1073,11 +1073,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_ItemAdjustments.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Launchable.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\XML_LBEPocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_LBEPocketPopup.cpp"
 				>
 			</File>
 			<File

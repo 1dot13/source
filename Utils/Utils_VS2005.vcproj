@@ -468,6 +468,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\popup_definition.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PopUpBox.h"
 				>
 			</File>
@@ -703,6 +707,10 @@
 			</File>
 			<File
 				RelativePath=".\popup_class.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\popup_definition.cpp"
 				>
 			</File>
 			<File
