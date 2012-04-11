@@ -2476,6 +2476,7 @@ STR16		gzWeaponStatsFasthelp[ 32 ] =
 	L"精度",
 	L"杀伤",
 	L"射程",
+	L"",	//3
 	L"精瞄等级",
 	L"精瞄修正",
 	L"平均最佳激光瞄准距离",
@@ -2484,8 +2485,7 @@ STR16		gzWeaponStatsFasthelp[ 32 ] =
 	L"可靠性",
 	L"修理难度",
 	L"精瞄加成所需最小距离",
-	L"命中修正",
-	L"",	//12
+	L"命中修正",	
 	L"举枪AP",
 	L"单发AP",
 	L"点射AP",
@@ -2509,18 +2509,19 @@ STR16		gzWeaponStatsFasthelp[ 32 ] =
 
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
-	L"精度",
-	L"杀伤",
-	L"射程",
-	L"精瞄等级",
-	L"精瞄修正",
-	L"平均最佳激光瞄准距离",
-	L"消焰",
-	L"噪音（越低越好）",
-	L"可靠性",
-	L"修理难度",
-	L"精瞄加成所需最小距离",
-	L"命中修正",
+	// TODO.Translate
+	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
+	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
+	L"|A|c|c|u|r|a|c|y\n \nThis is an innate Chance-to-Hit Bonus (or\npenalty!) given by this gun due to its\nparticular good (or bad) design.\n \nHigher is better.",
+	L"|A|i|m|i|n|g |L|e|v|e|l|s\n \nThis is the maximum number of aiming clicks allowed\nwhen using this gun.\n \nEach aiming-click will make an attack more\naccurate.\n \nHigher is better.",
+	L"|A|i|m|i|n|g |M|o|d|i|f|i|e|r\n \nA flat modifier, which alters the effectiveness\nof each aiming click you make while using this\nweapon.\n \nHigher is better.",
+	L"|M|i|n|. |R|a|n|g|e |f|o|r |A|i|m|i|n|g |B|o|n|u|s\n \nThe minimum range-to-target required before this\nweapon can make use of its Aiming Modifier.\n \nIf the target is closer than this many tiles,\naiming clicks will stay at their default\neffectiveness.\n \nLower is better.",
+	L"|T|o|-|H|i|t |M|o|d|i|f|i|e|r\n \nA flat modifier to Chance-to-Hit with any\nattack made using this weapon.\n \nHigher is better.",
+	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e\n \nThe range (in tiles) at which the laser installed\non this weapon will be at its full effectiveness.\n \nWhen attacking a target beyond this range, the\nlaser will provide a smaller bonus or none at all.\n \nHigher is better.",
+	L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
+	L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
+	L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
+	L"|R|e|p|a|i|r |E|a|s|e\n \nThis value indicates how quickly this weapon can\nbe repaired (by a mercenary set to Repair duty).\n \nHigher is better.",
 	L"",	//12
 	L"举枪AP",
 	L"单发AP",
@@ -3188,6 +3189,25 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"下一页 (|.)",		// next page
 	L"上一页 (|,)",		// previous page
 	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory
+
+	// TODO.Translate
+	L"Zoom Inventory", // HEAROCK HAM 5: Inventory Zoom Button
+	L"Stack and merge items", // HEADROCK HAM 5: Stack and Merge
+	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates; |R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
+	// 6 - 10
+	L"Remove all item attachments", // HEADROCK HAM 5: Separate Attachments
+	L"Eject ammo from all weapons", //HEADROCK HAM 5: Eject Ammo
+	L"|L|e|f|t |C|l|i|c|k: Show all items; |R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Guns; |R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Ammunition; |R|i|g|h|t |C|l|i|c|k: Show only Ammunition", // HEADROCK HAM 5: Filter Button
+	// 11 - 15
+	L"|L|e|f|t |C|l|i|c|k: Toggle Explosives; |R|i|g|h|t |C|l|i|c|k: Show only Explosives", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Melee Weapons; |R|i|g|h|t |C|l|i|c|k: Show only Melee Weapons", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Armor; |R|i|g|h|t |C|l|i|c|k: Show only Armor", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle LBEs; |R|i|g|h|t |C|l|i|c|k: Show only LBEs", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Kits; |R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
+	// 16 - 20
+	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items; |R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -6122,6 +6142,28 @@ STR16 New113HAMMessage[] =
 	// 21 - 25
 	L"维持民兵的资金不足！%d 名民兵回老家结婚去了。",// L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
 
+	// TODO.Translate
+	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5
+	L"To attach an item to another item during combat, you must pick them both up first.", // HAM 5
+	L"To merge two items during combat, you must pick them both up first.", // HAM 5
+};
+
+// TODO.Translate
+// HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
+STR16 gzTransformationMessage[] = 
+{
+	L"No available adjustments",
+	L"%s was split into several parts.",
+	L"%s was split into several parts. Check %s's inventory for the resulting items.",
+	L"Due to lack of inventory space after transformation, some of %s's items have been dropped to the ground.",
+	L"%s was split into several parts. Due to a lack of inventory space, %s has had to drop a few items to the ground.",
+	L"Do you wish to adjust all %d items in this stack? (To transform only one item, remove it from the stack first)",
+	// 6 - 10
+	L"Split Crate into Inventory",
+	L"Split into %d-rd Mags",
+	L"%s was split into %d Magazines containing %d rounds each.",
+	L"%s was split into %s's inventory.",
+	L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
 };
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
@@ -6799,6 +6841,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|精|度",
 	L"|杀|伤|力",
 	L"|射|程",
+	L"|H|a|n|d|l|i|n|g |D|i|f|f|i|c|u|l|t|y",	// TODO.Translate
 	L"|精|瞄|等|级",
 	L"|瞄|准|镜|倍|率",
 	L"|红|点|效|果",
@@ -6807,16 +6850,15 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|可|靠|性",
 	L"|修|理|难|度",
 	L"|精|瞄|最|低|有|效|距|离",
-	L"|命|中|率|修|正",
-	L"", // (12)
+	L"|命|中|率|修|正",	
 	L"|举|枪|A|P",
 	L"|单|发|A|P",
 	L"|点|射|A|P",
 	L"|连|发|A|P",
 	L"|上|弹|A|P",
 	L"|换|弹|夹|A|P",
-	L"|水|平|后|坐|力",
-	L"|垂|直|后|坐|力",
+	L"|水|平|后|坐|力",		// No longer used!
+	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
 	L"|连|发|子|弹|数/5|A|P",
 };
 
@@ -6825,6 +6867,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n决定该武器发射的子弹偏离瞄准点的远近。\n \n数值范围：0~100。越高越好。",
 	L"\n \n决定该武器发射的子弹的平均伤害，不包括\n护甲或穿甲修正。\n \n该数值越高越好。",
 	L"\n \n从该枪射出的子弹在落地前的\n最大飞行距离（格数）。\n \n该数值越高越好。",
+	L"\n \nDetermines the difficulty of holding and firing\nthis gun.\n \nHigher Handling Difficulty results in lower\nchance-to-hit - when aimed and especially when\nunaimed.\n \nLower is better.",	// TODO.Translate
 	L"\n \n这个数值显示了该武器的精瞄等级。\n \n精瞄等级越低，每次瞄准获得的命中率加成越\n高。因此，精瞄等级要求较低的武器可以在不损\n失精度的情况下更快地瞄准。\n \n该数值越低越好。",
 	L"\n \n该值大于1.0时，远距离瞄准中的误差会按比例减小。\n \n \n请注意，高倍率瞄准镜不利于射击距离过近的目标。\n \n \n该值为1.0则说明该武器未安装瞄准镜。\n",
 	L"\n \n在一定距离上按比例减少瞄准误差。\n \n红点效果只在一定距离内有效，因为超过该距离\n光点就会开始暗淡，最终在足够远处消失。\n \n该数值越高越好。",
@@ -6833,16 +6876,15 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n决定了该武器使用时损耗的快慢。\n \n该数值越高越好。",
 	L"\n \n决定了修理该武器的难易。\n \n该数值越高越好。",
 	L"\n \n瞄准镜提供瞄准命中率加成的最短距离。\n（再近就无效了）",
-	L"\n \n激光瞄准器提供的命中率修正。",
-	L"", // (12)
+	L"\n \n激光瞄准器提供的命中率修正。",	
 	L"\n \n端枪准备开火所需的AP。\n \n举起该武器后，连续发射不会再消耗\n举枪AP。\n \n但是，除转向和开火之外的其他动作均会放\n下武器。\n \n该数值越低越好。",
 	L"\n \n该武器射出单发弹药所需的AP，\n对于枪械而言，\n该数值显示了在不精瞄的情况下发射\n一发子弹的AP消耗。\n \n如果该图标为灰色，则该武器不可单发射击。\n \n该数值越低越好。",
 	L"\n \n一次点射所需的AP。\n \n每次点射的子弹数由枪支本身决定，\n并显示在该图标上。\n \n如果该图标发灰，则该武器不可点射。\n \n该数值越低越好。",
 	L"\n \n连发模式下，该武器一次\n齐射三发子弹所需的AP。\n \n超过3发子弹，\n则需要额外的AP。\n \n如果该图标发灰，则该武器不可连发。\n \n该数值越低越好。",
 	L"\n \n重新装填子弹所需的AP。\n \n该数值越低越好。",
 	L"\n \n在射击间歇为该武器手动更换弹匣的AP消耗。\n \n该数值越低越好。",
-	L"\n \n该参数显示了枪口在点射或连发模式下发射子弹\n时的水平位移。\n \n当该参数为正时，枪口右偏。反之，则向左偏。\n \n越接近0越好。",
-	L"\n \n该参数显示了枪口在点射或连发模式下发射子弹\n时的垂直位移。\n \n当该参数为正时，枪口上偏。反之，则向下偏。\n \n越接近0越好。",
+	L"\n \n该参数显示了枪口在点射或连发模式下发射子弹\n时的水平位移。\n \n当该参数为正时，枪口右偏。反之，则向左偏。\n \n越接近0越好。",		// No longer used!
+	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
 };
 
@@ -6880,6 +6922,7 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|杀|伤|力",
 	L"|眩|晕|杀|伤|力",
+	L"|E|x|p|l|o|d|e|s |o|n| |I|m|p|a|c|t",		// HEADROCK HAM 5	// TODO.Translate
 	L"|爆|炸|范|围",
 	L"|眩|晕|爆|炸|范|围",
 	L"|噪|音|扩|散|范|围",
@@ -6894,6 +6937,11 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|烟|雾|最|终|范|围",
 	L"|燃|烧|最|终|范|围",
 	L"|效|果|持|续|时|间",
+	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
+	L"|N|u|m|b|e|r |o|f |F|r|a|g|m|e|n|t|s",
+	L"|D|a|m|a|g|e |p|e|r |F|r|a|g|m|e|n|t",
+	L"|F|r|a|g|m|e|n|t |R|a|n|g|e",
+	// HEADROCK HAM 5: End Fragmentations
 	L"|噪|音",
 	L"|挥|发|性",
 };
@@ -6902,6 +6950,7 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
 	L"\n \n本次爆炸造成的伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，\n而具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
 	L"\n \n爆破造成的非致命性眩晕伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，\n而具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
+	L"\n \nThis explosive will not bounce around -\nit will explode as soon as it hits any obstacle.",	// HEADROCK HAM 5	// TODO.Translate
 	L"\n \n这是该爆破品的有效杀伤半径。\n \n目标距爆炸中心越远，受到的伤害越少。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品的眩晕伤害半径。\n \n目标距爆炸中心越远，受到的伤害越少。\n \n该数值越高越好。",
 	L"\n \n这是该陷阱所发出噪音的传播距离。\n \n在该距离之内的士兵可能听到这个噪音\n并有所警觉。\n \n该数值越高越好。",
@@ -6916,6 +6965,11 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \n这是该爆破品释放的烟雾消散前的最大半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n（如果有的话）。更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品释放的火焰熄灭前的最大半径。\n \n在该半径之内的敌人每回合都会受到所列出的\n物理伤害与眩晕伤害\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是爆炸效果的持续时间。\n \n爆炸效果的范围每回合都会向所有的方向增加一\n格，直到其半径达到所列出的最大值。\n \n一旦持续时间过去，爆炸效果就会完全消失。\n \n注意照明类的爆炸与众不同，会随着时间\n流逝越来越小。\n \n该数值越高越好。",
+	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
+	L"\n \nThis is the number of fragments that will\nbe ejected from the explosion.\n \nFragments are similar to bullets, and may hit\nanyone who's close enough to the explosion.\n \nHigher is better.",
+	L"\n \nThe potential amount of damage caused by each\nfragment ejected from the explosion.\n \nHigher is better.",
+	L"\n \nThis is the average range to which fragments\nfrom this explosion will fly.\n \nSome fragments may end up further away, or fail\nto cover the distance altogether.\n \nHigher is better.",
+	// HEADROCK HAM 5: End Fragmentations
 	L"\n \n这是爆破品爆炸时发出的声音能够被佣兵和敌\n军听到的距离（格数）。\n \n听到爆炸声的敌人会察觉到你。\n \n该数值越低越好。",
 	L"\n \n这个数值代表该爆破品受到伤害时（如其他爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，\n应当极力避免。\n \n数值范围：0~100，越低越好。",
 };
@@ -7166,6 +7220,30 @@ STR16 gzNCTHlabels[]=
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
+
+// TODO.Translate
+// HEADROCK HAM 5: Screen messages for sector inventory sorting reports.
+STR16 gzMapInventorySortingMessage[] =
+{
+	L"Finished sorting ammo into crates in sector %c%d.",
+	L"Finished removing attachments from items in sector %c%d.",
+	L"Finished ejecting ammo from weapons in sector %c%d.",
+	L"Finished stacking and merging all items in sector %c%d.",
+};
+
+STR16 gzMapInventoryFilterOptions[] =
+{
+	L"Show all",
+	L"Guns",
+	L"Ammo",
+	L"Explosives",
+	L"Melee Weapons",
+	L"Armor",
+	L"LBE",
+	L"Kits",
+	L"Misc. Items",
+	L"Hide all",
+};
 
 // Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =
