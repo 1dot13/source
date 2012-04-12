@@ -256,6 +256,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "overheatCooldownModificator") == 0 ||
 				strcmp(name, "overheatJamThresholdModificator") == 0 ||
 				strcmp(name, "overheatDamageThresholdModificator") == 0 ||
+				strcmp(name, "attachmentclass") == 0 ||
+				strcmp(name, "tripwireactivation") == 0 ||
+				strcmp(name, "tripwire") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ))
 		{
@@ -1077,7 +1080,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.mine   = (BOOLEAN) atol(pData->szCharData);
-		}
+		}		
 		else if(strcmp(name, "GasCan")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -1276,6 +1279,21 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.overheatDamageThresholdModificator  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "attachmentclass")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.attachmentclass   = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "tripwireactivation")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.tripwireactivation   = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "tripwire")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.tripwire   = (BOOLEAN) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -1754,7 +1772,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<GrenadeLauncher>%d</GrenadeLauncher>\r\n",						Item[cnt].grenadelauncher  );
 			FilePrintf(hFile,"\t\t<Duckbill>%d</Duckbill>\r\n",						Item[cnt].duckbill  );
 			FilePrintf(hFile,"\t\t<GLGrenade>%d</GLGrenade>\r\n",						Item[cnt].glgrenade  );
-			FilePrintf(hFile,"\t\t<Mine>%d</Mine>\r\n",						Item[cnt].mine  );
+			FilePrintf(hFile,"\t\t<Mine>%d</Mine>\r\n",						Item[cnt].mine  );			
 			FilePrintf(hFile,"\t\t<Mortar>%d</Mortar>\r\n",						Item[cnt].mortar  );
 			FilePrintf(hFile,"\t\t<RocketLauncher>%d</RocketLauncher>\r\n",						Item[cnt].rocketlauncher  );
 			FilePrintf(hFile,"\t\t<SingleShotRocketLauncher>%d</SingleShotRocketLauncher>\r\n",						Item[cnt].singleshotrocketlauncher  );
@@ -1882,6 +1900,10 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<overheatJamThresholdModificator>%4.2f</overheatJamThresholdModificator>\r\n",				Item[cnt].overheatJamThresholdModificator    );
 			FilePrintf(hFile,"\t\t<overheatDamageThresholdModificator>%4.2f</overheatDamageThresholdModificator>\r\n",			Item[cnt].overheatDamageThresholdModificator    );
 
+			FilePrintf(hFile,"\t\t<attachmentclass>%4.2f</attachmentclass>\r\n",												Item[cnt].attachmentclass    );
+
+			FilePrintf(hFile,"\t\t<tripwireactivation>%d</tripwireactivation>\r\n",						Item[cnt].tripwireactivation  );
+			FilePrintf(hFile,"\t\t<tripwire>%d</tripwire>\r\n",											Item[cnt].tripwire  );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

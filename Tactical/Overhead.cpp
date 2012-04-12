@@ -8650,6 +8650,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 			pSoldier->bDoAutofire = 1;
 			pSoldier->bDoBurst = TRUE;
 		}
+		pSoldier->bScopeMode = USE_BEST_SCOPE;
 		DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2 );
 	}
 

@@ -347,7 +347,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, ATTACHMENTINFOFILENAME);
 	SGP_THROW_IFFALSE(ReadInAttachmentInfoStats(fileName),ATTACHMENTINFOFILENAME);
-
+	
 	strcpy(fileName, directoryName);
 	strcat(fileName, LAUNCHABLESFILENAME);
 	SGP_THROW_IFFALSE(ReadInLaunchableStats(fileName),LAUNCHABLESFILENAME);

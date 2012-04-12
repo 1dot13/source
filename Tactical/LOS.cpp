@@ -7145,7 +7145,18 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 
 	if (ubAimTime > 0)
 	{
-		iProjectionFactor = GetProjectionFactor( pWeapon );
+		// Flugente: if scope modes are allowed, player team uses them
+		if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
+		{
+			// Flugente: check for scope mode
+			std::map<INT8, OBJECTTYPE*> ObjList;
+			GetScopeLists(pWeapon, ObjList);
+		
+			iProjectionFactor = Item[ObjList[pShooter->bScopeMode]->usItem].projectionfactor;
+		}
+		else
+			iProjectionFactor = GetProjectionFactor( pWeapon );
+
 		if (floor(iTargetMagFactor*10) > floor(iProjectionFactor*10.001))
 		{
 			iProjectionFactor -= (iTargetMagFactor - iProjectionFactor);
@@ -7158,22 +7169,29 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 
 FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistance, UINT8 ubAimTime )
 {
-	FLOAT iFinalMagFactor = 0;
+	FLOAT iFinalMagFactor = 1.0;
 	FLOAT iScopeFactor = 0;
 	FLOAT iProjectionFactor = 0;
-	FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
-	FLOAT rangeModifier = GetScopeRangeMultiplier(pShooter, pWeapon, d2DDistance);
 
-	if (ubAimTime > 0)
+	// Flugente: if scope modes are allowed, player team uses them. We either use a scope or we don't, so the magnification factor isn't fitted to range (this is actually bad)
+	if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
 	{
 		iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
-		iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
 		iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
 		iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
 	}
 	else
 	{
-		iFinalMagFactor = 1.0;
+		FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+		FLOAT rangeModifier = GetScopeRangeMultiplier(pShooter, pWeapon, d2DDistance);
+
+		if (ubAimTime > 0)
+		{
+			iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
+			iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
+			iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
+			iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
+		}
 	}
 
 	return iFinalMagFactor;

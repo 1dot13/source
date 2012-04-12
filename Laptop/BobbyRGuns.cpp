@@ -2490,7 +2490,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				UINT16		usAttachment;
 
 				CreateItem(pItemNumbers[ i ], 100, &pObject);
-				UINT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject );
+				UINT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
 
 				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
 					swprintf( apStr, L"-" );
@@ -2499,7 +2499,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 				if (GetShotsPerBurst(&pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -2507,7 +2507,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 				if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3 ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
 					wcscat( apStr, apStr2 );
 				}
 				else

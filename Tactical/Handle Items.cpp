@@ -1496,8 +1496,12 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 			if ( iResult >= 0 )
 			{
-				// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
-				StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
+				// Less explosives gain for placing tripwire
+				if ( Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire == 1 )
+					StatChange( pSoldier, EXPLODEAMT, 5, FALSE );
+				else
+					// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
+					StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
 
 				// SANDRO - STOMP traits - Demolitions bonus to trap level
 				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
@@ -4380,8 +4384,12 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 
 			if ( iResult >= 0 )
 			{
-				// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
-				StatChange( gpTempSoldier, EXPLODEAMT, 25, FALSE );
+				// Less explosives gain for placing tripwire
+				if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].tripwire == 1 )
+					StatChange( gpTempSoldier, EXPLODEAMT, 5, FALSE );
+				else
+					// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
+					StatChange( gpTempSoldier, EXPLODEAMT, 25, FALSE );
 			}
 			else
 			{

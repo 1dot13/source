@@ -262,6 +262,10 @@ UINT32			guiItemDescBoxBackground;
 UINT32		guiItemInfoLBEBackground;
 UINT32      guiMapItemDescBox;
 UINT32			guiAttachmentSlot;
+
+// HEADROCK HAM 4: This replaces "Misc" icons.
+extern UINT32			guiItemInfoAdvancedIcon;	// added here by Flugente
+
 UINT32			guiItemGraphic;
 UINT32			guiMoneyGraphicsForDescBox;
 UINT32			guiBullet;
@@ -667,8 +671,17 @@ void GenerateProsString( STR16 zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimi
 		ubWeight = ubWeight + Item[ (*pObject)[0]->data.gun.usGunAmmoItem ].ubWeight;
 	}
 
+	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+	FLOAT accuracyheatmultiplicator = 1.0;
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
+		FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
+		accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
+	}
+
 	//CHRISL: TODO - This needs to be updated for NCTH
-	if (Weapon[usItem].bAccuracy >= EXCEPTIONAL_ACCURACY )
+	if (accuracyheatmultiplicator * Weapon[usItem].bAccuracy >= EXCEPTIONAL_ACCURACY )
 	{
 		zTemp = Message[STR_ACCURATE];
 		if ( ! AttemptToAddSubstring( zItemPros, zTemp, &uiStringLength, uiPixLimit ) )
@@ -730,7 +743,7 @@ void GenerateProsString( STR16 zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimi
 		}
 	}
 
-	if (BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject ) <= EXCEPTIONAL_AP_COST)
+	if (BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, NULL ) <= EXCEPTIONAL_AP_COST)
 	{
 		zTemp = Message[STR_QUICK_FIRING];
 		if ( ! AttemptToAddSubstring( zItemPros, zTemp, &uiStringLength, uiPixLimit ) )
@@ -803,8 +816,17 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 
 	zItemCons[0] = 0;
 
+	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+	FLOAT accuracyheatmultiplicator = 1.0;
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
+		FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
+		accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
+	}
+
 	//CHRISL: TODO - This needs to be updated for NCTH
-	if (Weapon[usItem].bAccuracy <= BAD_ACCURACY)
+	if (accuracyheatmultiplicator * Weapon[usItem].bAccuracy <= BAD_ACCURACY)
 	{
 		zTemp = Message[STR_INACCURATE];
 		if ( ! AttemptToAddSubstring( zItemCons, zTemp, &uiStringLength, uiPixLimit ) )
@@ -858,7 +880,7 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 		}
 	}
 
-	if (BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject ) >= APBPConstants[BAD_AP_COST])
+	if (BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, NULL ) >= APBPConstants[BAD_AP_COST])
 	{
 		zTemp = Message[STR_SLOW_FIRING];
 		if ( ! AttemptToAddSubstring( zItemCons, zTemp, &uiStringLength, uiPixLimit ) )
@@ -2043,7 +2065,7 @@ void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* 
 void addGrenadesToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 
 	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, 0 );
-	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, AC_DEFAULT1 );
+	addItemsToPocketPopup( pSoldier, sPocket, popup, IC_GRENADE, -1, -1, AC_GRENADE );
 
 }
 
@@ -3747,20 +3769,75 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			{
 				SetRGBFontForeground( 95, 160, 154 );
 												
-				sNewY = sY + sHeight - 24;
+				sNewY = sY;
 				swprintf( pStr, L"M" );
 
 				// Get length of string
 				uiStringLength=StringPixLength(pStr, ITEM_FONT );
 
-				sNewX = sX + 25;
+				sNewX = sX + sWidth - uiStringLength - 13;
 
 				if ( uiBuffer == guiSAVEBUFFER )
 				{
-					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+					RestoreExternBackgroundRect( sNewX, sNewY, uiStringLength, 15 );
 				}
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
+			}
+
+			if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes && pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+			{
+				sNewX = sX + 5; // rather arbitrary
+				sNewY = sY;
+
+				// added by Flugente
+				// HEADROCK HAM 4: Advanced Icons
+				VOBJECT_DESC    VObjectDesc;
+				VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+				strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+				AddStandardVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon );
+
+				std::map<INT8, OBJECTTYPE*> ObjList;
+				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+								
+				if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SCOPE ) )
+				{					
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 54, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+
+					SetFontForeground( FONT_ORANGE );
+					FLOAT scopemagfactor = Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor;
+
+					INT16 sMagX = sNewX + 9;
+
+					if ( scopemagfactor > (INT8)scopemagfactor )
+						swprintf( pStr, L"%2.1f", scopemagfactor );
+					else
+					{
+						swprintf( pStr, L"%2.0f", scopemagfactor );
+					}
+
+					// Get length of string
+					uiStringLength=StringPixLength(pStr, ITEM_FONT );
+										
+					if ( uiBuffer == guiSAVEBUFFER )
+					{
+						RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+					}
+					mprintf( sMagX, sNewY, pStr );
+					gprintfinvalidate( sMagX, sNewY, pStr );
+				}
+				else if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 53, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+
+					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+				}
+				else
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 52, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+
+					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+				}								
 			}
 
 			if((UsingNewInventorySystem() == true))
@@ -6654,7 +6731,7 @@ void RenderItemDescriptionBox( )
 					mprintf( gODBItemDescRegions[3][6].sLeft, gODBItemDescRegions[3][6].sTop, L"%s", gWeaponStatsDesc[ 8 ] );
 				}
 
-				ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
+				ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, NULL );
 
 				// WANNE: Fixed CTD when trowing an item with open description box
 				if (ubAttackAPs != -1 )
@@ -6686,14 +6763,14 @@ void RenderItemDescriptionBox( )
 						{
 							SetFontForeground( 5 );
 						}
-						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
+						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject, NULL ) );
 						FindFontRightCoordinates( gODBItemDescRegions[3][7].sLeft, gODBItemDescRegions[3][7].sTop, gODBItemDescRegions[3][7].sRight - gODBItemDescRegions[3][7].sLeft, gODBItemDescRegions[3][7].sBottom - gODBItemDescRegions[3][7].sTop ,pStr, BLOCKFONT2, &usX, &usY);
 						mprintf( usX, usY, pStr );
 					}
 					else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0)
 					{
 						SetFontForeground( 5 );
-						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
+						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3, NULL ) );
 						FindFontRightCoordinates( gODBItemDescRegions[3][7].sLeft, gODBItemDescRegions[3][7].sTop, gODBItemDescRegions[3][7].sRight - gODBItemDescRegions[3][7].sLeft, gODBItemDescRegions[3][7].sBottom - gODBItemDescRegions[3][7].sTop ,pStr, BLOCKFONT2, &usX, &usY);
 						mprintf( usX, usY, pStr );
 					}
@@ -11115,7 +11192,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				//Calculate AP's
 				CHAR16 apStr[20];
 				CHAR16 apStr2[20];
-				INT16 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
+				INT16 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier );
 
 				if ( Weapon[ usItem ].NoSemiAuto )
 				{
@@ -11128,7 +11205,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if (GetShotsPerBurst(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject, NULL ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -11138,7 +11215,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3, NULL ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -11146,10 +11223,20 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					wcscat( apStr, L" / -" );
 				}
 
+				// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+				FLOAT accuracyheatmultiplicator = 1.0;
+				if ( gGameOptions.fWeaponOverheating )
+				{
+					FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
+					FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
+					accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
+				}
+
 				//Info for weapons
 				//swprintf( pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
 
 					INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
+					accuracy *= accuracyheatmultiplicator;
 					#ifdef CHINESE
 						swprintf( pStr, ChineseSpecString4,
 					#else
@@ -11182,13 +11269,13 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				//Calculate AP's
 				CHAR16 apStr[20];
 				CHAR16 apStr2[20];
-				INT16 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
+				INT16 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier );
 
 				swprintf( apStr, L"%d", ubAttackAPs );
 
 				if (GetShotsPerBurst(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject, NULL ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -11198,7 +11285,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3, NULL ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -11206,8 +11293,18 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					wcscat( apStr, L" / -" );
 				}
 
+				// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+				FLOAT accuracyheatmultiplicator = 1.0;
+				if ( gGameOptions.fWeaponOverheating )
+				{
+					FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
+					FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
+					accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
+				}
+
 				//Info for weapons
 					INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
+					accuracy *= accuracyheatmultiplicator;
 
 					#ifdef CHINESE
 						swprintf( pStr, L"%s [%d%ге]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
@@ -11248,7 +11345,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					GetDamage(pObject), 					//Melee damage
 					gWeaponStatsDesc[ 6 ],					//AP String
-					BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject ), //AP's
+					BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier ), //AP's
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
 					GetWeightUnitString()					//Weight units

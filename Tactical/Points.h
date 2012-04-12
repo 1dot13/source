@@ -275,7 +275,7 @@
 //Just so the compiler will be able to use it in init.cpp, I'm a careful person.  Gotthard 1/18/07
 extern INT16 APBPConstants[TOTAL_APBP_VALUES];
 
-INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj );
+INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj, SOLDIERTYPE *pSoldier );
 // HEADROCK HAM 4: Same function as above, except no modifier.
 INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj );
 // HEADROCK HAM 4: Same function as above, except no modifier.
@@ -306,12 +306,12 @@ UINT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );
 INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost );
 INT16 ApsToPunch( SOLDIERTYPE *pSoldier ); // SANDRO added this
 INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime );
-INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj );
+INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj, SOLDIERTYPE* pSoldier );
 // HEADROCK HAM 4: Same as above, without percent modifiers.
 INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj );
 // HEADROCK HAM 4: Same as above, without percent modifiers.
 INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj );
-INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire );
+INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire, SOLDIERTYPE* pSoldier );
 // HEADROCK HAM 4: Same as above, without modifiers
 INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire );
 // HEADROCK HAM 4: Same as above, without modifiers

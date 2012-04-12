@@ -620,26 +620,27 @@ extern OBJECTTYPE gTempObject;
 #define IC_MAPFILTER_MISC		( IC_TENTACLES | IC_KEY | IC_MISC | IC_MONEY | IC_NONE )
 #define IC_MAPFILTER_ALL		( IC_MAPFILTER_GUN | IC_MAPFILTER_AMMO | IC_MAPFILTER_EXPLOSV | IC_MAPFILTER_MELEE | IC_MAPFILTER_KIT | IC_MAPFILTER_LBE | IC_MAPFILTER_ARMOR | IC_MAPFILTER_MISC )
 
+// redesigned by Flugente on 12-04-10
 // Chrisl: Define attachment classes
-#define AC_DEFAULT1		0x00000001	//1
-#define AC_BARREL		0x00000002	//2
+#define AC_BIPOD		0x00000001	//1
+#define AC_SUPPRESSOR   0x00000002	//2
 #define AC_LASER		0x00000004	//4
 #define AC_SIGHT		0x00000008	//8
 #define AC_SCOPE		0x00000010	//16
 #define AC_STOCK		0x00000020	//32
-#define AC_AMMO			0x00000040	//64
+#define AC_MAGWELL   	0x00000040	//64
 #define AC_INTERNAL		0x00000080	//128
 #define AC_EXTERNAL		0x00000100	//256
 #define AC_UNDERBARREL	0x00000200	//512
 #define AC_GRENADE		0x00000400	//1024
 #define AC_ROCKET		0x00000800	//2048
-#define AC_MISC1		0x00001000	//4096
-#define AC_MISC2		0x00002000	//8192
-#define AC_MISC3		0x00004000	//16384
-#define AC_MISC4		0x00008000	//32768
-#define AC_MISC5		0x00010000	//65536
-#define AC_MISC6		0x00020000	//131072
-#define AC_MISC7		0x00040000	//262144
+#define AC_FOREGRIP		0x00001000	//4096
+#define AC_HELMET       0x00002000	//8192
+#define AC_VEST 		0x00004000	//16384
+#define AC_PANTS		0x00008000	//32768
+#define AC_DETONATOR    0x00010000	//65536
+#define AC_BATTERY      0x00020000	//131072
+#define AC_EXTENDER		0x00040000	//262144
 #define AC_MISC8		0x00080000	//524288
 #define AC_MISC9		0x00100000	//1048576
 #define AC_MISC10		0x00200000	//2097152
@@ -653,6 +654,7 @@ extern OBJECTTYPE gTempObject;
 #define AC_MISC18		0x20000000	//536870912
 #define AC_MISC19		0x40000000	//1073741824
 #define AC_MISC20		0x80000000	//2147483648
+
 
 // replaces candamage
 //#define ITEM_DAMAGEABLE			0x0001
@@ -816,7 +818,7 @@ typedef struct
 	BOOLEAN robotremotecontrol;
 	BOOLEAN camouflagekit;
 	BOOLEAN locksmithkit;
-	BOOLEAN mine;
+	BOOLEAN mine;	
 	BOOLEAN alcohol;
 	BOOLEAN hardware;
 	BOOLEAN medical;
@@ -885,7 +887,12 @@ typedef struct
 	FLOAT	overheatTemperatureModificator;			// percentage modifier of heat a shot generates (read from attachments)
 	FLOAT	overheatCooldownModificator;			// percentage modifier of cooldown amount (read from attachments, applies to guns & barrels)
 	FLOAT	overheatJamThresholdModificator;		// percentage modifier of a gun's jam threshold (read from attachments)
-	FLOAT	overheatDamageThresholdModificator;		// percentage modifier of a gun's damage threshold (read from attachments) 
+	FLOAT	overheatDamageThresholdModificator;		// percentage modifier of a gun's damage threshold (read from attachments)
+
+	UINT32	attachmentclass;						// attachmentclass used
+
+	BOOLEAN tripwireactivation;						// item (mine) can be activated by nearby tripwire
+	BOOLEAN tripwire;								// item is tripwire
 
 } INVTYPE;
 
@@ -1450,7 +1457,7 @@ typedef struct
 	UINT32	uiIndex;
 } AttachmentInfoStruct;
 
-extern AttachmentInfoStruct AttachmentInfo[MAXITEMS+1]; 
+extern AttachmentInfoStruct AttachmentInfo[MAXITEMS+1];
 
 extern UINT16 Launchable[MAXITEMS+1][2];
 extern UINT16 CompatibleFaceItems[MAXITEMS+1][2];

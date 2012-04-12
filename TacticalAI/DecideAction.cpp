@@ -2527,7 +2527,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					INT8 bRecoilY = 0;
 					pSoldier->bDoAutofire++;
 					dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
+					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 				}
 				while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs && pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire 
 					&& dTotalRecoil <= 10.0f );
@@ -2535,7 +2535,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				do
 				{
 					pSoldier->bDoAutofire++;
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
+					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 				}
 				while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs &&
 					pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
@@ -2545,7 +2545,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			pSoldier->bDoAutofire--;
 
 			// Make sure we decided to fire at least one shot!
-			ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
+			ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 
 			// minimum 5 bullets //WarmSteel: 5 bullets sounds reasonable, no?
 			// Hmmm, automatic suppression?  Howcome we don't get this?
@@ -4859,7 +4859,7 @@ INT16 ubMinAPCost;
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: ENOUGH APs TO BURST, RANDOM CHANCE OF DOING SO");
 
-				ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]) );
+				ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier );
 
 				// HEADROCK HAM 3.6: Use Actual Aiming Time.
 				if (pSoldier->bActionPoints >= BestAttack.ubAPCost + sActualAimTime + ubBurstAPs )
@@ -4937,7 +4937,7 @@ INT16 ubMinAPCost;
 						INT8 bRecoilY = 0;
 						pSoldier->bDoAutofire++;
 						dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
-						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
+						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 					}
 					while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs + sActualAimTime && pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire 
 						&& dTotalRecoil <= 10.0f );
@@ -4945,7 +4945,7 @@ INT16 ubMinAPCost;
 					do
 					{
 						pSoldier->bDoAutofire++;
-						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire );
+						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 					}
 					while(	pSoldier->bActionPoints >= BestAttack.ubAPCost + ubBurstAPs &&
 						pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
@@ -4955,7 +4955,7 @@ INT16 ubMinAPCost;
 				pSoldier->bDoAutofire--;
 				if (pSoldier->bDoAutofire > 0)
 				{
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire );
+					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 
 					if (pSoldier->bActionPoints >= BestAttack.ubAPCost + ubBurstAPs )
 					{
@@ -5009,7 +5009,7 @@ INT16 ubMinAPCost;
 						{
 							pSoldier->aiData.bAimTime = BestAttack.ubAimTime ;
 							pSoldier->bDoBurst = 1;
-							BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire ) + sActualAimTime;
+							BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire, pSoldier ) + sActualAimTime;
 						}
 						else
 						{
@@ -5184,7 +5184,7 @@ INT16 ubMinAPCost;
 			{
 
 				DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing burst calc");
-				ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]) );
+				ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier );
 
 				if ( (pSoldier->bActionPoints - BestAttack.ubAPCost) >= ubBurstAPs )
 				{
@@ -5215,7 +5215,7 @@ INT16 ubMinAPCost;
 					{
 						DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing GL burst");
 						BestAttack.ubAimTime = BURSTING;
-						BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[HANDPOS]) );
+						BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[HANDPOS]), pSoldier );
 						// check for spread burst possibilities
 						if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
 						{

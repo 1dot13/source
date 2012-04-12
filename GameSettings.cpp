@@ -1072,6 +1072,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fDisplayWeaponRestingIndicator		= iniReader.ReadBoolean("Tactical Gameplay Settings","WEAPON_RESTING_DISPLAY",TRUE);
 	gGameExternalOptions.ubProneModifierPercentage			= iniReader.ReadInteger("Tactical Gameplay Settings","WEAPON_RESTING_PRONE_BONI_PERCENTAGE", 50, 0, 100);
 
+	gGameExternalOptions.fScopeModes						= iniReader.ReadBoolean("Tactical Gameplay Settings","USE_SCOPE_MODES", FALSE);
+	gGameExternalOptions.fDisplayScopeModes					= iniReader.ReadBoolean("Tactical Gameplay Settings","DISPLAY_SCOPE_MODES", FALSE);
+	
 	// WANNE: Externalized grid number of new merc when they arrive with the helicopter (by Jazz)
 	gGameExternalOptions.iInitialMercArrivalLocation		= iniReader.ReadInteger("Tactical Gameplay Settings","INITIAL_MERC_ARRIVAL_LOCATION", 4870 );
 

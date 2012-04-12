@@ -220,6 +220,7 @@ void ToggleTreeTops();
 void ToggleZBuffer();
 void TogglePlanningMode();
 void SetBurstMode();
+void SetScopeMode();
 void ObliterateSector();
 void RandomizeMercProfile();
 void CreateNextCivType();
@@ -4403,6 +4404,24 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				//else if( gusSelectedSoldier != NOBODY )
 				break;
+
+			// added by Flugente
+			case  '.':
+				if ( fCtrl )
+				{
+
+				}
+				else if ( fAlt )
+				{
+
+				}
+				else
+				{
+					SetScopeMode();
+				}
+
+				break;
+
 			case 'z':
 				if( fCtrl && fAlt )
 				{
@@ -5172,6 +5191,17 @@ void SetBurstMode()
 	if ( gusSelectedSoldier != NOBODY )
 	{
 		ChangeWeaponMode( MercPtrs[ gusSelectedSoldier ] );
+	}
+}
+
+void SetScopeMode()
+{
+	if ( gusSelectedSoldier != NOBODY )
+	{
+		ChangeScopeMode( MercPtrs[ gusSelectedSoldier ] );
+
+		// reevaluate sight
+		ManLooksForOtherTeams( MercPtrs[ gusSelectedSoldier ] );
 	}
 }
 

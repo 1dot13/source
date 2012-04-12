@@ -983,6 +983,8 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->snowCamo = src.snowCamo;
 		this->wornSnowCamo = src.wornSnowCamo;
+
+		this->bScopeMode = USE_BEST_SCOPE;
     }
     return *this;
 }
@@ -12340,6 +12342,7 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 		this->bWeaponMode = WM_AUTOFIRE;
 		this->bDoAutofire = 1;
 	}
+	this->bScopeMode = USE_BEST_SCOPE;
 
 	if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY )
 	{

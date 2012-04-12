@@ -1076,9 +1076,14 @@ typedef struct
 	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels alone in the landscape ;-)
 	BOOLEAN	fSetZeroUponNewSector;					// Should loading a new sector set the temperatures of all items in the old sector to zero? (this doesn't apply to inventories)
 	
+	// Flugente: Weapon Mounting
 	BOOLEAN	fWeaponResting;							// Should it be possible to rest your weapon on structures in crouched position?
 	BOOLEAN fDisplayWeaponRestingIndicator;			// Should a little indicator show if the weapon is currently rested on something?
 	UINT8	ubProneModifierPercentage;				// for boni, use ubProneModifierPercentage*boni[PRONE] + (100 - ubProneModifierPercentage)*boni[CROUCHED]
+
+	// Flugente: Scope Modes
+	BOOLEAN fScopeModes;							// allow the player to toggle between existing scopes/sights
+	BOOLEAN fDisplayScopeModes;						// allow display of scope modes
 	
 	BOOLEAN gBriefingRoom;
 	BOOLEAN gEncyclopedia;

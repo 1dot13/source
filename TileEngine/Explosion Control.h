@@ -133,6 +133,9 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectNum , BOOL fFromRemoteClient = FALSE , BOOL fNewSmokeEffect = FALSE );
 void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemoteClient = FALSE );
 
+// Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel
+BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
+
 extern void ToggleActionItemsByFrequency( INT8 bFrequency );
 extern void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj );
 extern BOOLEAN		 gfExplosionQueueMayHaveChangedSight;

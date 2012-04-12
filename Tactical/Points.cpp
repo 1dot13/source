@@ -1338,7 +1338,7 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 }
 
 //UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, UINT16 usItem )
-INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
+INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj, SOLDIERTYPE* pSoldier )
 {
 	INT32 aps;
 
@@ -1351,15 +1351,15 @@ INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
 		aps = (aps * 100) / (100 + GetBurstFireAPReductionStatus(pObj) / (100/GetPercentBurstFireAPReduction(pObj)));
 	}
 
-	if ( GetPercentAPReduction(pObj)>0 )
+	if ( GetPercentAPReduction(pSoldier, pObj)>0 )
 	{
-		aps = (aps * 100) / (100 + GetAPReductionStatus(pObj) / (100/GetPercentAPReduction(pObj)));
+		aps = (aps * 100) / (100 + GetAPReductionStatus(pObj) / (100/GetPercentAPReduction(pSoldier, pObj)));
 	}*/
 
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToBurst: before bonus aps = %d, std bonus = %d, burst bonus = %d", aps,GetPercentAPReduction(pObj),GetPercentBurstFireAPReduction(pObj)));
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToBurst: before bonus aps = %d, std bonus = %d, burst bonus = %d", aps,GetPercentAPReduction(pSoldier, pObj),GetPercentBurstFireAPReduction(pObj)));
 	// Snap: do this a little differently: % reduction means
 	// aps <- aps * ( 100 - red ) / 100
-	aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) ) / 100;
+	aps = ( aps	* ( 100 - GetPercentAPReduction(pSoldier, pObj) ) ) / 100;
 
 	// Snap: moved this up to allow burst AP reduction up to 100%
 	aps = __max( aps, ( Weapon[ pObj->usItem ].bBurstAP + 1 ) / 2 );
@@ -1388,7 +1388,7 @@ INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
 	return (UINT8) aps;
 }
 
-INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire )
+INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire, SOLDIERTYPE* pSoldier )
 {
 	//CHRISL: We send the actual number of rounds being fired in the bDoAutofire paramter.  But that implies that it would take longer to fire the first round
 	//	in an autofire sequence then it would take to fire a single round during a single fire sequence.  That doesn't make any sense.  It should only cost
@@ -1428,8 +1428,8 @@ INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAu
 		//	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutofire: found reflex sight, aps = %d, # shots = %d",aps,pSoldier->bDoAutofire ));
 		//}
 
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: before bonus aps = %d, std bonus = %d, auto bonus = %d", aps,GetPercentAPReduction(pObj),GetPercentAutofireAPReduction(pObj)));
-		aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) ) / 100;
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: before bonus aps = %d, std bonus = %d, auto bonus = %d", aps,GetPercentAPReduction(pSoldier, pObj),GetPercentAutofireAPReduction(pObj)));
+		aps = ( aps	* ( 100 - GetPercentAPReduction(pSoldier, pObj) ) ) / 100;
 
 		aps = __max( aps, ( autofireaps + 1 ) / 2 );
 
@@ -1492,9 +1492,9 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 		if ( pSoldier->bDoBurst )
 		{
 			if(pSoldier->bDoAutofire && GetAutofireShotsPerFiveAPs(AttackingWeapon) > 0 )
-				sAPCost += CalcAPsToAutofire( pSoldier->CalcActionPoints( ), AttackingWeapon, pSoldier->bDoAutofire );
+				sAPCost += CalcAPsToAutofire( pSoldier->CalcActionPoints( ), AttackingWeapon, pSoldier->bDoAutofire, pSoldier );
 			else
-				sAPCost += CalcAPsToBurst( pSoldier->CalcActionPoints( ), AttackingWeapon );
+				sAPCost += CalcAPsToBurst( pSoldier->CalcActionPoints( ), AttackingWeapon, pSoldier );
 		}
 		//else //ddd comment for aimed burst
 		{
@@ -1524,7 +1524,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 					
 					// If the weapon has a scope, and the target is within eligible range for scope use
 					
-					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]))
+					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus( pSoldier, &pSoldier->inv[HANDPOS]))
 						|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) > 1.0 )) )
 					{
 						// Add an individual cost for EACH click, as necessary.
@@ -1742,7 +1742,7 @@ INT8 CalcAimSkill( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 	return( bAimSkill );
 }
 
-INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
+INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj, SOLDIERTYPE* pSoldier )
 {
 	INT32	Top, Bottom;
 	FLOAT	rof;
@@ -1785,7 +1785,7 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
 	//CHRISL: Resolves a problem with stackable weapons not using attachments like Reflex sight.  Found by Mugsy
 	//if (ItemSlotLimit(pObj, STACK_SIZE_LIMIT) == 1)
 	{
-		Top *= ( 100 - GetPercentAPReduction(pObj) );
+		Top *= ( 100 - GetPercentAPReduction(pSoldier, pObj) );
 	}
 	//else
 	//{
@@ -1990,9 +1990,9 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 
 		//CHRISL: When prone and using a bipod, bipod should help compensate for recoil.  To reflect this, our shot AP cost should be minimially reduced
 		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier > 0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && GetBipodBonus(&GrenadeLauncher) > 0){
-			bAPCost += (BaseAPsToShootOrStab( bFullAPs, bAimSkill, &GrenadeLauncher ) * (100 - GetBipodBonus(&GrenadeLauncher)) / 100);
+			bAPCost += (BaseAPsToShootOrStab( bFullAPs, bAimSkill, &GrenadeLauncher, pSoldier ) * (100 - GetBipodBonus(&GrenadeLauncher)) / 100);
 		} else {
-			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, &GrenadeLauncher );
+			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, &GrenadeLauncher, pSoldier );
 		}
 
 		// SANDRO - STOMP traits - reduced APs needed to fire underbarrel grenade launchers for Heavy Weapons trait
@@ -2006,8 +2006,8 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		// SANDRO - gunslinger check for firing speed
 		if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && gGameOptions.fNewTraitSystem )
 		{
-			INT16 bcst1 = BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]) );
-			INT16 bcst2 = BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]) );
+			INT16 bcst1 = BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]), pSoldier );
+			INT16 bcst2 = BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]), pSoldier );
 			if ( Weapon[ usItem ].ubWeaponType == GUN_PISTOL )
 				bcst1 = (INT16)((bcst1 * ( 100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols) / 100)+ 0.5);
 			if ( Weapon[ pSoldier->inv[SECONDHANDPOS].usItem ].ubWeaponType == GUN_PISTOL ) 
@@ -2019,8 +2019,8 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		{		
 			// charge the maximum of the two	
 			bAPCost += __max(
-				BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]) ),
-				BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]) ) );
+				BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[HANDPOS]), pSoldier ),
+				BaseAPsToShootOrStab( bFullAPs, bAimSkill, &(pSoldier->inv[SECONDHANDPOS]), pSoldier ) );
 		}
 	}
 	else
@@ -2028,11 +2028,11 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		//CHRISL: When prone and using a bipod, bipod should help compensate for recoil.  To reflect this, our shot AP cost should be minimially reduced
 		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier > 0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && GetBipodBonus(&(pSoldier->inv[HANDPOS])) > 0)
 		{
-			bAPCost += (BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed ) * (100 - GetBipodBonus(&(pSoldier->inv[HANDPOS]))) / 100);
+			bAPCost += (BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed, pSoldier ) * (100 - GetBipodBonus(&(pSoldier->inv[HANDPOS]))) / 100);
 		} 
 		else 
 		{
-			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed );
+			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed, pSoldier );
 		}
 		/////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - STOMP traits
@@ -3512,7 +3512,7 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 			
 			// If the weapon has a scope, and the target is within eligible range for scope use
 			
-			if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]))
+			if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) >= GetMinRangeForAimBonus(pSoldier, &pSoldier->inv[HANDPOS]))
 				|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) > 1.0 )))
 			{
 				// Add an individual cost for EACH click, as necessary.

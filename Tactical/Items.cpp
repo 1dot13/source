@@ -2220,7 +2220,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	//Search for incompatible attachments
 	for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
 	{
-		if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !(Item[usAttachment].nasAttachmentClass & AC_GRENADE) && !(Item[usAttachment].nasAttachmentClass & AC_ROCKET))
+		if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, AC_GRENADE|AC_ROCKET ) )
 		{//Search for identical attachments unless we're dealing with rifle grenades
 			fSameItem = TRUE;
 			break;
@@ -5860,6 +5860,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 			pSoldier->bDoBurst = TRUE;
 			pSoldier->bDoAutofire = TRUE;
 		}
+		pSoldier->bScopeMode = USE_BEST_SCOPE;
     }
     // Lesh: end
 
@@ -7528,6 +7529,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 				pSoldier->bDoBurst = TRUE;
 				pSoldier->bDoAutofire = 1;
 			}
+			pSoldier->bScopeMode = USE_BEST_SCOPE;
 		}
 	}
 
@@ -9036,16 +9038,30 @@ INT16 GetItemAimBonus( const INVTYPE* pItem, INT32 iRange, INT16 ubAimTime )
 	return(bonus);
 }
 
-INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime )
+INT16 GetAimBonus( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime )
 {
 	INT16 bonus = 0;
 
-	if (pObj->exists() == true) {
-		bonus = BonusReduceMore( GetItemAimBonus( &Item[pObj->usItem], iRange, ubAimTime ), (*pObj)[0]->data.objectStatus );
+	if (pObj->exists() == true) 
+	{
+		// Flugente: check for scope mode
+		if ( gGameExternalOptions.fScopeModes && pSoldier && Item[pObj->usItem].usItemClass == IC_GUN )
+		{
+			std::map<INT8, OBJECTTYPE*> ObjList;
+			GetScopeLists(pObj, ObjList);
+		
+			bonus = BonusReduceMore( GetItemAimBonus( &Item[ObjList[pSoldier->bScopeMode]->usItem], iRange, ubAimTime ), (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+		}
+		else
+			bonus = BonusReduceMore( GetItemAimBonus( &Item[pObj->usItem], iRange, ubAimTime ), (*pObj)[0]->data.objectStatus );
+
 		bonus += GetItemAimBonus( &Item[(*pObj)[0]->data.gun.usGunAmmoItem], iRange, ubAimTime );
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if(iter->exists()){
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+			{
 				bonus += BonusReduceMore( GetItemAimBonus( &Item[iter->usItem], iRange, ubAimTime ), (*iter)[0]->data.objectStatus );
 			}
 		}
@@ -9772,17 +9788,42 @@ INT16 GetMeleeDamageBonus( OBJECTTYPE * pObj )
 }
 
 
-INT16 GetPercentAPReduction( OBJECTTYPE * pObj )
+INT16 GetPercentAPReduction( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj )
 {
 	INT16 bonus = 0;
-	if (pObj->exists() == true) {
-		bonus = BonusReduceMore( Item[pObj->usItem].percentapreduction, (*pObj)[0]->data.objectStatus );
-		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentapreduction;
+	if (pObj->exists() == true) 
+	{
+		if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+		{
+			bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentapreduction;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if(iter->exists()){
-				bonus += BonusReduceMore( Item[iter->usItem].percentapreduction,
-					(*iter)[0]->data.objectStatus );
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+				if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+				{
+					bonus += BonusReduceMore( Item[iter->usItem].percentapreduction,
+						(*iter)[0]->data.objectStatus );
+				}
+			}
+
+			// Flugente: check for scope mode
+			if ( Item[pObj->usItem].usItemClass == IC_GUN )
+			{
+				std::map<INT8, OBJECTTYPE*> ObjList;
+				GetScopeLists(pObj, ObjList);
+
+				bonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].percentapreduction, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+			}
+		}
+		else
+		{
+			bonus = BonusReduceMore( Item[pObj->usItem].percentapreduction, (*pObj)[0]->data.objectStatus );
+			bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentapreduction;
+
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+				if(iter->exists()){
+					bonus += BonusReduceMore( Item[iter->usItem].percentapreduction,
+						(*iter)[0]->data.objectStatus );
+				}
 			}
 		}
 	}
@@ -9976,7 +10017,8 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 				continue;
 			}
 
-			if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true) )
+			// Flugente: weapons are checked later on...
+			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true) )
 			{
 				bonus += BonusReduceMore( pItem->visionrangebonus,	(*pObj)[0]->data.objectStatus );
 			}
@@ -9991,10 +10033,38 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 		// SANDRO - added scouting check
 		INT16 sScopebonus = 0;
 		pObj = &( pSoldier->inv[HANDPOS]);
-		if (pObj->exists() == true) {
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists()){
-					sScopebonus += BonusReduceMore( Item[iter->usItem].visionrangebonus, (*iter)[0]->data.objectStatus );
+		if (pObj->exists() == true) 
+		{
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					{
+						sScopebonus += BonusReduceMore( Item[iter->usItem].visionrangebonus, (*iter)[0]->data.objectStatus );
+					}
+				}
+
+				// Flugente: check for scope mode
+				if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				{
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pObj, ObjList);
+		
+					// now apply the bonus from the scope we use
+					sScopebonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].visionrangebonus, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+				}
+			}
+			else
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if( iter->exists() )
+					{
+						sScopebonus += BonusReduceMore( Item[iter->usItem].visionrangebonus, (*iter)[0]->data.objectStatus );
+					}
 				}
 			}
 		}
@@ -10052,7 +10122,8 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 				continue;
 			}
 
-			if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+			// Flugente: weapons are checked later on...
+			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
 			{
 				bonus += BonusReduceMore(
 					NightBonusScale( pItem->nightvisionrangebonus, bLightLevel ),
@@ -10067,12 +10138,44 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 		// SANDRO - added scouting check
 		INT16 sScopebonus = 0;
 		pObj = &( pSoldier->inv[HANDPOS]);
-		if (pObj->exists() == true) {
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists()){
+		if (pObj->exists() == true) 
+		{
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					{
+						sScopebonus += BonusReduceMore(
+							NightBonusScale( Item[iter->usItem].nightvisionrangebonus, bLightLevel ),
+							(*iter)[0]->data.objectStatus );
+					}
+				}
+
+				// Flugente: check for scope mode
+				if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				{
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pObj, ObjList);
+		
+					// now apply the bonus from the scope we use
 					sScopebonus += BonusReduceMore(
-						NightBonusScale( Item[iter->usItem].nightvisionrangebonus, bLightLevel ),
-						(*iter)[0]->data.objectStatus );
+							NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
+							(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+				}
+			}
+			else
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() )
+					{
+						sScopebonus += BonusReduceMore(
+							NightBonusScale( Item[iter->usItem].nightvisionrangebonus, bLightLevel ),
+							(*iter)[0]->data.objectStatus );
+					}
 				}
 			}
 		}
@@ -10117,7 +10220,8 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 				continue;
 			}
 
-			if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+			// Flugente: weapons are checked later on...
+			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
 			{
 				bonus += BonusReduceMore(
 					NightBonusScale( pItem->cavevisionrangebonus, bLightLevel ),
@@ -10132,12 +10236,44 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 		// SANDRO - added scouting check
 		INT16 sScopebonus = 0;
 		pObj = &( pSoldier->inv[HANDPOS]);
-		if (pObj->exists() == true) {
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists()){
+		if (pObj->exists() == true) 
+		{
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					{
+						sScopebonus += BonusReduceMore(
+							NightBonusScale( Item[iter->usItem].cavevisionrangebonus, bLightLevel ),
+							(*iter)[0]->data.objectStatus );
+					}
+				}
+
+				// Flugente: check for scope mode
+				if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				{
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pObj, ObjList);
+		
+					// now apply the bonus from the scope we use
 					sScopebonus += BonusReduceMore(
-						NightBonusScale( Item[iter->usItem].cavevisionrangebonus, bLightLevel ),
-						(*iter)[0]->data.objectStatus );
+							NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
+							(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+				}
+			}
+			else
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() )
+					{
+						sScopebonus += BonusReduceMore(
+							NightBonusScale( Item[iter->usItem].cavevisionrangebonus, bLightLevel ),
+							(*iter)[0]->data.objectStatus );
+					}
 				}
 			}
 		}
@@ -10157,7 +10293,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	OBJECTTYPE *pObj;
 	UINT16 usItem;
 	INVTYPE *pItem;
-
+		
 	// Snap: Scale the bonus with the light level
 
 	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
@@ -10184,7 +10320,8 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 				continue;
 			}
 
-			if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+			// Flugente: weapons are checked later on...
+			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
 			{
 				bonus += BonusReduceMore( idiv( pItem->dayvisionrangebonus
 					* (NORMAL_LIGHTLEVEL_NIGHT - bLightLevel), NORMAL_LIGHTLEVEL_NIGHT ),
@@ -10202,12 +10339,45 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 		// SANDRO - added scouting check
 		INT16 sScopebonus = 0;
 		pObj = &( pSoldier->inv[HANDPOS]);
-		if (pObj->exists() == true) {
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists()){
-					sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
+		
+		if (pObj->exists() == true) 
+		{
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					{
+						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
 						* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
 						(*iter)[0]->data.objectStatus );
+					}
+				}
+
+				// Flugente: check for scope mode
+				if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				{
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pObj, ObjList);
+		
+					// now apply the bonus from the scope we use
+					sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].dayvisionrangebonus
+							* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
+							(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+				}
+			}
+			else
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() )
+					{
+						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
+						* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
+						(*iter)[0]->data.objectStatus );
+					}
 				}
 			}
 		}
@@ -10254,7 +10424,8 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 				continue;
 			}
 
-			if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+			// Flugente: weapons are checked later on...
+			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
 			{
 				bonus += BonusReduceMore( idiv( pItem->brightlightvisionrangebonus
 					* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
@@ -10269,12 +10440,44 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 		// SANDRO - added scouting check
 		INT16 sScopebonus = 0;
 		pObj = &( pSoldier->inv[HANDPOS]);
-		if (pObj->exists() == true) {
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists()){
-					sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].brightlightvisionrangebonus
-						* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
-						(*iter)[0]->data.objectStatus );
+		if (pObj->exists() == true) 
+		{
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					{
+						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].brightlightvisionrangebonus
+							* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
+							(*iter)[0]->data.objectStatus );
+					}
+				}
+
+				// Flugente: check for scope mode
+				if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				{
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pObj, ObjList);
+		
+					// now apply the bonus from the scope we use
+					sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].brightlightvisionrangebonus
+								* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
+								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+				}
+			}
+			else
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() )
+					{
+						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].brightlightvisionrangebonus
+							* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
+							(*iter)[0]->data.objectStatus );
+					}
 				}
 			}
 		}
@@ -10370,16 +10573,45 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 	if ( usingGunScope == true )
 	{
 		OBJECTTYPE *pObj = &(pSoldier->inv[HANDPOS]);
-		if (pObj->exists() == true) {
+		if (pObj->exists() == true) 
+		{
 			usItem = pObj->usItem;
 			pItem = &(Item[usItem]);
 
 			if ( IsWeapon(usItem) ) //if not a weapon, then it was added already above
 				bonus += Item[usItem].percenttunnelvision;
 
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists())
-					bonus += Item[iter->usItem].percenttunnelvision;
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum )
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					{
+						bonus += Item[iter->usItem].percenttunnelvision;
+					}
+				}
+
+				// Flugente: check for scope mode
+				if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				{
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pObj, ObjList);
+		
+					// now apply the bonus from the scope we use
+					bonus += Item[ObjList[pSoldier->bScopeMode]->usItem].percenttunnelvision;
+				}
+			}
+			else
+			{
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+				{
+					// add boni only from non-scope items
+					if(iter->exists() )
+					{
+						bonus += Item[iter->usItem].percenttunnelvision;
+					}
+				}
 			}
 		}
 	}
@@ -11385,44 +11617,73 @@ FLOAT GetHighestScopeMagnificationFactor( OBJECTTYPE * pObj )
 	return( BestFactor );
 }
 
-INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj )
+INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj )
 {
 	INT16 bonus = 0;
 
-	if ( pObj->exists() == true ) {
-		bonus = Item[pObj->usItem].minrangeforaimbonus;
-		//bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].minrangeforaimbonus;
+	if ( pObj->exists() == true ) 
+	{
+		// Flugente: check for scope mode
+		if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && Item[pObj->usItem].usItemClass == IC_GUN )
+		{
+			std::map<INT8, OBJECTTYPE*> ObjList;
+			GetScopeLists(pObj, ObjList);
+		
+			bonus = Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus;
+		}
+		else
+			bonus = Item[pObj->usItem].minrangeforaimbonus;
+			//bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].minrangeforaimbonus;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			bonus += Item[iter->usItem].minrangeforaimbonus;
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if ( !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+				bonus += Item[iter->usItem].minrangeforaimbonus;
 		}
 	}
 
 	return( bonus );
 }
 
-FLOAT GetScopeMagnificationFactor( OBJECTTYPE * pObj, FLOAT uiRange )
+// altered by Flugente: uiRange is no more considered
+FLOAT GetScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj, FLOAT uiRange )
 {
 	FLOAT BestFactor = 1.0;
+
+	// Flugente: if scope modes are allowed, player team uses them
+	if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pObj->exists() == true && Item[pObj->usItem].usItemClass == IC_GUN)
+	{
+		// Flugente: check for scope mode
+		std::map<INT8, OBJECTTYPE*> ObjList;
+		GetScopeLists(pObj, ObjList);
+		
+		// now apply the bonus from the scope we use
+		BestFactor = Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor;
+
+		return __max(1.0f, BestFactor);
+	}		
+
 	FLOAT CurrentFactor = 0.0;
 	FLOAT TargetMagFactor = __max(1.0f,(FLOAT)uiRange / (FLOAT)gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
 	FLOAT rangeModifier = gGameCTHConstants.SCOPE_RANGE_MULTIPLIER;
 
 	TargetMagFactor = TargetMagFactor / rangeModifier;
-
+	
 	if(pObj->exists() == true && UsingNewCTHSystem() == true)
 	{
 		BestFactor = __max(1.0f, Item[pObj->usItem].scopemagfactor);
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 		{
-			if(iter->exists() == true)
+			if(iter->exists() == true )
 			{
 				if(BestFactor == 1.0f)
 					BestFactor = __max(BestFactor, Item[iter->usItem].scopemagfactor);
 				else if(Item[iter->usItem].scopemagfactor >= TargetMagFactor)
 					BestFactor = Item[iter->usItem].scopemagfactor;
-			}
+			}						
 		}
 	}
 
@@ -11431,6 +11692,17 @@ FLOAT GetScopeMagnificationFactor( OBJECTTYPE * pObj, FLOAT uiRange )
 
 FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj, FLOAT uiRange )
 {
+	// Flugente: if scope modes are allowed, player team uses them
+	if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pObj->exists() == true && Item[pObj->usItem].usItemClass == IC_GUN )
+	{
+		// Flugente: check for scope mode
+		std::map<INT8, OBJECTTYPE*> ObjList;
+		GetScopeLists(pObj, ObjList);
+		
+		// now apply the bonus from the scope we use
+		return max(1.0f, Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor);
+	}
+
 	FLOAT BestFactor = 1.0;
 	FLOAT TargetMagFactor = __max(1.0f,uiRange / (FLOAT)gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
 	FLOAT CurrentFactor = 0.0;
@@ -11527,7 +11799,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 FLOAT GetProjectionFactor( OBJECTTYPE * pObj )
 {
 	FLOAT BestFactor = 1.0;
-
+		
 	if ( pObj->exists() == true && UsingNewCTHSystem() == true ) {
 		BestFactor = __max((FLOAT)Item[pObj->usItem].projectionfactor, 1.0f);
 
@@ -11548,7 +11820,7 @@ FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2
 	FLOAT	iScopeFactor = 0;
 	FLOAT	rangeModifier = gGameCTHConstants.SCOPE_RANGE_MULTIPLIER;
 
-	iScopeFactor = GetScopeMagnificationFactor( pObj, d2DDistance );
+	iScopeFactor = GetScopeMagnificationFactor( pSoldier, pObj, d2DDistance );
 	if( gGameOptions.fNewTraitSystem )
 	{
 		if(iScopeFactor > 5.0f)
@@ -11786,35 +12058,50 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 
 			// don't break compatibility, let the users choose
 			if (gGameExternalOptions.iAimLevelsCompatibilityOption != 0)
+			{
 				sScopeBonus = OldWayOfCalculatingScopeBonus(pSoldier);
+			}
+			//WarmSteel - Using scope aimbonus instead, as it is used elsewhere like this too.
+			//Also, you won't get extra aimclicks anymore if you're too close to use your scope.
+			//I've externalized the scope types.
+			else if ( gGameExternalOptions.fAimLevelsDependOnDistance )
+			{
+				if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && (&pSoldier->inv[pSoldier->ubAttackingHand])->exists() == true && Item[(&pSoldier->inv[pSoldier->ubAttackingHand])->usItem].usItemClass == IC_GUN)
+				{
+					// Flugente: check for scope mode
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(&pSoldier->inv[pSoldier->ubAttackingHand], ObjList);
+		
+					sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
+				}
+				else
+					sScopeBonus = GetBaseScopeAimBonus( &pSoldier->inv[pSoldier->ubAttackingHand], uiRange );
+			}
 			else
-				sScopeBonus = gGameExternalOptions.fAimLevelsDependOnDistance ?
-					//WarmSteel - Using scope aimbonus instead, as it is used elsewhere like this too.
-					//Also, you won't get extra aimclicks anymore if you're too close to use your scope.
-					//I've externalized the scope types.
-					GetBaseScopeAimBonus( &pSoldier->inv[pSoldier->ubAttackingHand], uiRange )
-					: GetMinRangeForAimBonus( &pSoldier->inv[pSoldier->ubAttackingHand]);
+			{
+				sScopeBonus = GetMinRangeForAimBonus( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand]);
+			}
+			
+			if ( sScopeBonus >= gGameExternalOptions.sVeryHighPowerScope ) 
+			{
+				aimLevels *= 2;
+			}
 
-				if ( sScopeBonus >= gGameExternalOptions.sVeryHighPowerScope ) 
-				{
-					aimLevels *= 2;
-				}
+			else if ( sScopeBonus >= gGameExternalOptions.sHighPowerScope ) 
+			{
+				aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.5);
+			}
 
-				else if ( sScopeBonus >= gGameExternalOptions.sHighPowerScope ) 
-				{
-					aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.5);
-				}
+			else if ( sScopeBonus >= gGameExternalOptions.sMediumPowerScope ) 
+			{
+				aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.3);
+			}
 
-				else if ( sScopeBonus >= gGameExternalOptions.sMediumPowerScope ) 
-				{
-					aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.3);
-				}
-
-				// Smaller scopes increase by one.
-				else if ( sScopeBonus > 0 )
-				{
-					aimLevels++;
-				}
+			// Smaller scopes increase by one.
+			else if ( sScopeBonus > 0 )
+			{
+				aimLevels++;
+			}
 
 			// Make sure not over maximum allowed for weapon type.
 			if (aimLevels > maxAimForType)
@@ -11846,7 +12133,18 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 			if (gGameExternalOptions.iAimLevelsCompatibilityOption != 0)
 				sScopeBonus = OldWayOfCalculatingScopeBonus(pSoldier);
 			else
-				sScopeBonus = gGameExternalOptions.fAimLevelsDependOnDistance ? GetBaseScopeAimBonus( pAttackingWeapon, uiRange ) : GetBaseScopeAimBonus( pAttackingWeapon, 25000 );
+			{
+				if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pAttackingWeapon->exists() == true && Item[pAttackingWeapon->usItem].usItemClass == IC_GUN)
+				{
+					// Flugente: check for scope mode
+					std::map<INT8, OBJECTTYPE*> ObjList;
+					GetScopeLists(pAttackingWeapon, ObjList);
+		
+					sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
+				}
+				else
+					sScopeBonus = gGameExternalOptions.fAimLevelsDependOnDistance ? GetBaseScopeAimBonus( pAttackingWeapon, uiRange ) : GetBaseScopeAimBonus( pAttackingWeapon, 25000 );
+			}
 
 			if ( sScopeBonus >= gGameExternalOptions.sVeryHighPowerScope )
 			{
@@ -12150,7 +12448,7 @@ INT16 GetBipodBonus( OBJECTTYPE * pObj )
 INT16 GetItemVisionRangeBonus( OBJECTTYPE * pObj, INT16 VisionType )
 {
 	INT16 bonus = 0;
-
+		
 	if (VisionType == 0)
 	{
 		bonus += Item[ pObj->usItem ].visionrangebonus;
@@ -12274,13 +12572,22 @@ INT16 GetBasicStealthBonus( OBJECTTYPE * pObj )
 // HEADROCK HAM 4: Calculate a gun's accuracy, including bonuses from ammo and attachments.
 INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 {
+	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+	FLOAT accuracyheatmultiplicator = 1.0;
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObj );
+		FLOAT accuracymalus = (max(1.0, overheatdamagepercentage) - 1.0) * 0.1;
+		accuracyheatmultiplicator = max(0.0, 1.0 - accuracymalus);
+	}
+
 	if(UsingNewCTHSystem() == false)
-		return(Weapon[pObj->usItem].bAccuracy);
+		return(accuracyheatmultiplicator * Weapon[pObj->usItem].bAccuracy);
 
 	INT32 bonus = 0;
 	if ( pObj->exists() == true )
 	{
-		bonus = Weapon[Item[pObj->usItem].uiIndex].nAccuracy;
+		bonus = accuracyheatmultiplicator * Weapon[Item[pObj->usItem].uiIndex].nAccuracy;
 		bonus = (bonus * (*pObj)[0]->data.gun.bGunStatus) / 100;
 
 		INT32 iModifier = GetAccuracyModifier( pObj );
@@ -12598,7 +12905,7 @@ static UINT16 OldWayOfCalculatingScopeBonus(SOLDIERTYPE *pSoldier)
 	// Yes, this may look stupid, maybe it IS stupid, but this is purely an option
 	// to use code that was checked in before.
 	// Please, do not trash it again.
-	return max(0, GetMinRangeForAimBonus(& pSoldier->inv[pSoldier->ubAttackingHand])
+	return max(0, GetMinRangeForAimBonus( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand])
 		* gGameExternalOptions.iAimLevelsCompatibilityOption / gGameExternalOptions.ubStraightSightRange);
 }
 
@@ -12625,6 +12932,64 @@ FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
 	cooldownfactor *= modificator;
 
 	return cooldownfactor;
+}
+
+void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap )
+{
+	// build a list of all available scopes and sights ( we always have at least one: our weapon's iron sights)
+	arScopeMap[USE_BEST_SCOPE] = pObj;
+	
+	for (INT8 i = USE_SCOPE_2; i < NUM_SCOPE_MODES; ++i)
+	{
+		arScopeMap[i] = NULL;
+	}
+	
+	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+		{
+			FLOAT magfactor = Item[iter->usItem].scopemagfactor;
+			BOOLEAN isplaced = false;
+
+			for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)
+			{
+				if ( arScopeMap[i] && magfactor > Item[arScopeMap[i]->usItem].scopemagfactor )
+			    {
+					// fit scope into existing list: move other entries down
+					for (INT8 j = NUM_SCOPE_MODES; j > i; --j)
+					{
+						arScopeMap[j] = arScopeMap[j-1];
+					}
+
+					arScopeMap[i]   = &(*iter);
+					isplaced		= true;
+
+					break;
+				}
+			}
+
+			// we have a scope that wasn't placed anywhere, as its magfactor is worse than everything else we have. Still, we put this thing to the end of our list
+			if ( !isplaced )
+			{
+				// determine which scope this would be and insert it
+				for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)
+				{
+					if ( !arScopeMap[i] )
+					{
+						arScopeMap[i] = &(*iter);
+
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag )
+{
+	return( Item[usItem].attachmentclass & aFlag );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

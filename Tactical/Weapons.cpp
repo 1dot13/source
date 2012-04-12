@@ -6077,7 +6077,17 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		iMaxRange = CELL_X_SIZE; // one tile
 	iCoverRange = __max(0,iSightRange - iRange);
 	iMinRange = iMaxRange / 10;
-	iAccRangeMod = iRange * Weapon[usItemUsed].bAccuracy / 100;
+
+	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+	FLOAT accuracyheatmultiplicator = 1.0;
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pInHand );
+		FLOAT accuracymalus = (FLOAT)((max(1.0, overheatjampercentage) - 1.0) * 0.1);
+		accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
+	}
+
+	iAccRangeMod = iRange * accuracyheatmultiplicator * Weapon[usItemUsed].bAccuracy / 100;
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -6097,9 +6107,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		else if ( HAS_SKILL_TRAIT( pSoldier, PROF_SNIPER_OT ) ) {
 			iSightRange -= ((gbSkillTraitBonus[ PROF_SNIPER_OT ] * NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )) * iSightRange) /100;
 		}
-		if (iRange < GetMinRangeForAimBonus(&(pSoldier->inv[pSoldier->ubAttackingHand])) && iScopeVisionRangeBonus > 50){	// iSightRange penalty for using a high power scope within min range due to poor focus
+		if (iRange < GetMinRangeForAimBonus(pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand])) && iScopeVisionRangeBonus > 50){	// iSightRange penalty for using a high power scope within min range due to poor focus
 			iPenalty = 0;
-			for(UINT8 loop = 0; loop < ((GetMinRangeForAimBonus(&(pSoldier->inv[pSoldier->ubAttackingHand])) - iRange)/CELL_X_SIZE); loop++){
+			for(UINT8 loop = 0; loop < ((GetMinRangeForAimBonus(pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand])) - iRange)/CELL_X_SIZE); loop++){
 				iPenalty += iSightRange * iScopeVisionRangeBonus / 100;
 			}
 			iSightRange += iPenalty;
@@ -6311,14 +6321,27 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// 25% penalty per tile closer than min range
 		iChance -= 25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
 	}
-	for(attachmentList::iterator iter = (*&(pSoldier->inv[pSoldier->ubAttackingHand]))[0]->attachments.begin(); iter != (*&(pSoldier->inv[pSoldier->ubAttackingHand]))[0]->attachments.end(); iter++)
+
+	attachmentList::iterator iter_end = (*&(pSoldier->inv[pSoldier->ubAttackingHand]))[0]->attachments.end();
+	for(attachmentList::iterator iter = (*&(pSoldier->inv[pSoldier->ubAttackingHand]))[0]->attachments.begin(); iter != iter_end; ++iter)
 	{
-		if(iter->exists() && Item[iter->usItem].aimbonus >= gGameExternalOptions.sHighPowerScope && iRange > Item[iter->usItem].minrangeforaimbonus)
+		if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) && Item[iter->usItem].aimbonus >= gGameExternalOptions.sHighPowerScope && iRange > Item[iter->usItem].minrangeforaimbonus)
 		{
 			iPenalty = (Item[iter->usItem].aimbonus * (iRange - Item[iter->usItem].minrangeforaimbonus)) / 1000;
 			iPenalty = min(AIM_BONUS_PRONE, iPenalty);
 			iChance -= iPenalty;
 		}
+	}
+
+	// Flugente: check for scope mode
+	if ( Item[(&(pSoldier->inv[pSoldier->ubAttackingHand]))->usItem].usItemClass == IC_GUN )
+	{
+		std::map<INT8, OBJECTTYPE*> ObjList;
+		GetScopeLists((&(pSoldier->inv[pSoldier->ubAttackingHand])), ObjList);
+		
+		iPenalty = (Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus * (iRange - Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus)) / 1000;
+		iPenalty = min(AIM_BONUS_PRONE, iPenalty);
+		iChance -= iPenalty;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	
@@ -6328,7 +6351,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	{
 		// Bonus for heavy weapons moved here from above to get instant CtH bonus and not marksmanship bonus, 
 		// which is supressed by weapon condition
-		if (Item[usItemUsed].rocketlauncher || Item[usItemUsed].singleshotrocketlauncher)
+		if (Item[usInHand].rocketlauncher || Item[usInHand].singleshotrocketlauncher)
 		{
 			iChance += gSkillTraitValues.bCtHModifierRocketLaunchers; // -25% for untrained mercs !!!
 
@@ -6336,7 +6359,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				iChance += gSkillTraitValues.ubHWBonusCtHRocketLaunchers * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ); // +25% per trait
 		}
 		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_PISTOL )
+		else if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL )
 		{
 			iChance += gSkillTraitValues.bCtHModifierPistols; // -5% for untrained mercs.
 
@@ -6344,7 +6367,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
 				iChance += gSkillTraitValues.ubGSBonusCtHPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +10% per trait
 		}
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_M_PISTOL )
+		else if ( Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
 		{
 			iChance += gSkillTraitValues.bCtHModifierMachinePistols; // -5% for untrained mercs.
 
@@ -6353,21 +6376,21 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				iChance += gSkillTraitValues.ubGSBonusCtHMachinePistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +5% per trait
 		}
 		// Added CtH bonus for Machinegunner skill on assault rifles, SMGs and LMGs
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_AS_RIFLE )
+		else if ( Weapon[usInHand].ubWeaponType == GUN_AS_RIFLE )
 		{
 			iChance += gSkillTraitValues.bCtHModifierAssaultRifles; // -5% for untrained mercs.
 
 			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
 				iChance += gSkillTraitValues.ubAWBonusCtHAssaultRifles * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
 		}
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_SMG ) 
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SMG ) 
 		{
 			iChance += gSkillTraitValues.bCtHModifierSMGs; // -5% for untrained mercs.
 
 			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
 				iChance += gSkillTraitValues.ubAWBonusCtHSMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
 		}
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_LMG )
+		else if ( Weapon[usInHand].ubWeaponType == GUN_LMG )
 		{
 			iChance += gSkillTraitValues.bCtHModifierLMGs; // -10% for untrained mercs.
 
@@ -6375,7 +6398,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				iChance += gSkillTraitValues.ubAWBonusCtHLMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
 		}
 		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_SN_RIFLE )
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
 		{
 			iChance += gSkillTraitValues.bCtHModifierSniperRifles; // -5% for untrained mercs.
 
@@ -6384,7 +6407,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				iChance += gSkillTraitValues.ubSNBonusCtHSniperRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
 		}
 		// Added CtH bonus for Ranger skill on rifles and shotguns
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_RIFLE ) 
+		else if ( Weapon[usInHand].ubWeaponType == GUN_RIFLE ) 
 		{
 			iChance += gSkillTraitValues.bCtHModifierRifles; // -5% for untrained mercs.
 
@@ -6396,7 +6419,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
 				iChance += gSkillTraitValues.ubSNBonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
 		}
-		else if ( Weapon[usItemUsed].ubWeaponType == GUN_SHOTGUN )
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SHOTGUN )
 		{
 			iChance += gSkillTraitValues.bCtHModifierShotguns; // -5% for untrained mercs.
 
@@ -6716,19 +6739,32 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		//	progressivly less the more we aim.  Everything is based on the maxBonus that a merc can possibly get which
 		//	uses the equation: 20+(MRK/20*LVL)+Accuracy+(Sniper trait * 10).  This value is then split between the 8
 		//	possible AimTime's using a max aimTime bonus of 10.
-		if ( gGameOptions.fNewTraitSystem ) {
+
+		// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
+		FLOAT accuracyheatmultiplicator = 1.0;
+		if ( gGameOptions.fWeaponOverheating )
+		{
+			FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pInHand );
+			FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
+			accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
+		}
+
+		if ( gGameOptions.fNewTraitSystem ) 
+		{
 			// bonus to snipers and gunslingers
 			if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
-				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT )*gSkillTraitValues.ubGSAimingBonusPerClick);
+				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT )*gSkillTraitValues.ubGSAimingBonusPerClick);
 			else
-				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )*gSkillTraitValues.ubSNAimingBonusPerClick);
-		} else {			
+				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )*gSkillTraitValues.ubSNAimingBonusPerClick);
+		} 
+		else 
+		{			
 			if(gGameExternalOptions.bAltAimEnabled) 
-				maxBonus = (20*(iMarksmanship/100))+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+				maxBonus = (20*(iMarksmanship/100))+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
 			else 
-				maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+				maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
 		}
-		iAimBonus = (float)GetAimBonus( pInHand, 100, 1 );
+		iAimBonus = (float)GetAimBonus( pSoldier, pInHand, 100, 1 );
 		for(int i = 0; i < ubAimTime; i++) {
 			aimTimeBonus = __min((maxBonus*bonusProgression[i]/1000),maxClickBonus);
 			maxBonus -= aimTimeBonus;
@@ -10223,7 +10259,7 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 		{
 			pSoldier->bWeaponMode = WM_NORMAL;
 			pSoldier->bDoBurst = FALSE;
-			pSoldier->bDoAutofire = 0;
+			pSoldier->bDoAutofire = 0;			
 		}
 		else
 		{
@@ -10231,6 +10267,7 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 			pSoldier->bDoBurst = TRUE;
 			pSoldier->bDoAutofire = 1;
 		}
+		pSoldier->bScopeMode = USE_BEST_SCOPE;
 	}
 
 	// if he is loaded tactically
@@ -10260,7 +10297,7 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 			{
 				pSoldier->bWeaponMode = WM_NORMAL;
 				pSoldier->bDoBurst = FALSE;
-				pSoldier->bDoAutofire = 0;
+				pSoldier->bDoAutofire = 0;				
 			}
 			else
 			{
@@ -10268,6 +10305,7 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 				pSoldier->bDoAutofire = 1;
 				pSoldier->bDoBurst = TRUE;
 			}
+			pSoldier->bScopeMode = USE_BEST_SCOPE;
 		}
 	}
 }
@@ -10705,6 +10743,37 @@ void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 
 	// Changed by ADB, rev 1513
 	//pSoldier->flags.fDoSpread = 0;
+	
+	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+	gfUIForceReExamineCursorData = TRUE;
+}
+
+// Flugente: use a different scope
+void ChangeScopeMode( SOLDIERTYPE * pSoldier )
+{
+	// just to be safe...
+	if ( !pSoldier )
+		return;
+
+	// ATE: Don't do this if in a fire animation.....
+	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE )
+		return;
+
+	if ( (&pSoldier->inv[HANDPOS])->exists() != true )
+		return;
+	
+	std::map<INT8, OBJECTTYPE*> ObjList;
+	GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+
+	do
+	{
+		pSoldier->bScopeMode++;
+		if(pSoldier->bScopeMode == NUM_SCOPE_MODES)
+		{
+			pSoldier->bScopeMode = USE_BEST_SCOPE;
+		}
+	}
+	while( ObjList[pSoldier->bScopeMode] == NULL && pSoldier->bScopeMode != USE_BEST_SCOPE);
 	
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 	gfUIForceReExamineCursorData = TRUE;
@@ -11155,21 +11224,19 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTime )
 {
 	OBJECTTYPE *pWeapon = &(pSoldier->inv[pSoldier->ubAttackingHand]);
-
+		
 	FLOAT iActualMagFactor = 0;
 	FLOAT iHighestMagFactor = 0;
 	FLOAT iScopeFactor = 0;
 	FLOAT iProjectionFactor = 0;
-	FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
-	FLOAT	rangeModifier = GetScopeRangeMultiplier(pSoldier, pWeapon, d2DDistance);
 
-	if (bAimTime > 0)
+	// Flugente: if scope modes are allowed, player team uses them. We either use a scope or we don't, so the magnification factor isn't fitted to range (this is actually bad)
+	if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
 	{
 		iScopeFactor = GetBestScopeMagnificationFactor( pSoldier, pWeapon, d2DDistance );
 		// Set a display variable
 		gCTHDisplay.ScopeMagFactor = iScopeFactor;
 
-		iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
 		iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
 		// Set a display variable
 		gCTHDisplay.ProjectionFactor = iProjectionFactor;
@@ -11179,9 +11246,29 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 	}
 	else
 	{
-		gCTHDisplay.ScopeMagFactor = 1.0;
-		gCTHDisplay.ProjectionFactor = 1.0;
-		iHighestMagFactor = 1.0;
+		FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+		FLOAT	rangeModifier = GetScopeRangeMultiplier(pSoldier, pWeapon, d2DDistance);
+
+		if (bAimTime > 0)
+		{
+			iScopeFactor = GetBestScopeMagnificationFactor( pSoldier, pWeapon, d2DDistance );
+			// Set a display variable
+			gCTHDisplay.ScopeMagFactor = iScopeFactor;
+
+			iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
+			iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
+			// Set a display variable
+			gCTHDisplay.ProjectionFactor = iProjectionFactor;
+
+			// The final factor is the largest of the two.
+			iHighestMagFactor = __max( iScopeFactor, iProjectionFactor );
+		}
+		else
+		{
+			gCTHDisplay.ScopeMagFactor = 1.0;
+			gCTHDisplay.ProjectionFactor = 1.0;
+			iHighestMagFactor = 1.0;
+		}
 	}
 
 	gCTHDisplay.FinalMagFactor = iHighestMagFactor;

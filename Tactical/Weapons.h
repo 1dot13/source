@@ -18,6 +18,21 @@ enum WeaponMode
 	NUM_WEAPON_MODES
 } ;
 
+enum ScopeMode
+{
+	USE_BEST_SCOPE = 0,
+	USE_SCOPE_2,
+	USE_SCOPE_3,
+	USE_SCOPE_4,
+	USE_SCOPE_5,
+	USE_SCOPE_6,
+	USE_SCOPE_7,
+	USE_SCOPE_8,
+	USE_SCOPE_9,
+	USE_SCOPE_10,
+	NUM_SCOPE_MODES
+};
+
 //ADB moved from Interface Panels.h
 void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem );
 
@@ -416,6 +431,7 @@ extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fA
 extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
 
 extern void ChangeWeaponMode( SOLDIERTYPE * pSoldier );
+extern void ChangeScopeMode( SOLDIERTYPE * pSoldier );		// Flugente: use different scope
 
 extern BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo, BOOLEAN fStealing );
 

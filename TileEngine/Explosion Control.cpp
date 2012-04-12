@@ -3609,6 +3609,87 @@ void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemo
 	gfExplosionQueueActive = TRUE;
 }
 
+// Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel
+BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
+{
+	UINT32	uiTimeStamp= GetJA2Clock();
+	BOOLEAN	fFoundMine = FALSE;
+		
+	// for every orientation
+	for (UINT8  ort = NORTH; ort < NUM_WORLD_DIRECTIONS; ++ort)
+	{
+		// get adjacent grid
+		UINT32 adjgrid = NewGridNo( sGridNo, DirectionInc( ort ) );
+		
+		// if there is a bomb at that grid and level, and it isn't disabled
+		for (UINT32 uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; uiWorldBombIndex++)
+		{
+			if (gWorldBombs[uiWorldBombIndex].fExists && gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].sGridNo == adjgrid && gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].ubLevel == bLevel )
+			{
+				OBJECTTYPE* pObj = &( gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].object );
+				if (!((*pObj).fFlags & OBJECT_DISABLED_BOMB))
+				{
+					// if item can be activated by tripwire, detonate it
+					if ( Item[pObj->usItem].tripwireactivation == 1 )
+					{
+						// tripwire just gets activated
+						if ( Item[pObj->usItem].tripwire == 1 )
+						{
+							OBJECTTYPE newtripwireObject;
+							CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+
+							// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+							RemoveItemFromPool( adjgrid, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
+
+							// make sure no one thinks there is a bomb here any more!
+							if ( gpWorldLevelData[adjgrid].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+							{
+								RemoveBlueFlag( adjgrid, bLevel );
+							}
+							gpWorldLevelData[adjgrid].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+							
+							// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
+							AddItemToPool( adjgrid, &newtripwireObject, 1, bLevel, 0, -1 );
+
+							// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
+							if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
+								fFoundMine = ActivateSurroundingTripwire(ubID, adjgrid, bLevel);
+						}
+						// bombs go off
+						else
+						{
+							gubPersonToSetOffExplosions = ubID;
+
+							// SANDRO - merc records
+							// only if we blew up somebody not in our team(no achievement for blowing our guys :)), only if owner exists and have profile
+							if ( (MercPtrs[ubID]->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
+							{
+								if ( MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile != NO_PROFILE && MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->bTeam == gbPlayerNum ) 
+									gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;
+							}
+
+							// put this bomb on the queue
+							AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
+							if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+							{
+								uiTimeStamp += BOMB_QUEUE_DELAY;
+							}
+							
+							if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
+							{
+								fFoundMine = TRUE;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	return( fFoundMine );
+}
+
 void HandleExplosionQueue( void )
 {
 	UINT32	uiIndex;
@@ -3914,10 +3995,33 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 					}*/
 
 					if (pObj->usItem == SWITCH)
-					{
+					{						
 						// send out a signal to detonate other bombs, rather than this which
 						// isn't a bomb but a trigger
 						SetOffBombsByFrequency( ubID, (*pObj)[0]->data.misc.bFrequency );
+					}
+					// Flugente: a tripwire activates all other tripwires in connection, and detonates all bombs in connection that are tripwire-activated
+					else if ( Item[pObj->usItem].tripwire == 1 )
+					{
+						OBJECTTYPE newtripwireObject;
+						CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+
+						// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+						RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
+
+						// make sure no one thinks there is a bomb here any more!
+						if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+						{
+							RemoveBlueFlag( sGridNo, bLevel );
+						}
+						gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+
+						// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
+						AddItemToPool( sGridNo, &newtripwireObject, 1, bLevel, 0, -1 );
+
+						// activate surrounding tripwires and tripwire-activated mines, unless tripwire is too much damaged and we are unlucky.. 
+						if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
+							fFoundMine = ActivateSurroundingTripwire(ubID, sGridNo, bLevel);
 					}
 					else
 					{

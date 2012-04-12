@@ -1151,6 +1151,9 @@ public:
 	UINT8												ubPercentDamageInflictedByTeam[NUM_ASSIST_SLOTS];			//The percent of damage inflicted by the player team.  Each element corresponds to the Soldier ID.  Each element contains the percent damage inflicted by that merc
 #endif
 
+	// Flugente: Is this the correct position?
+	INT8												bScopeMode;
+
 	char endOfPOD;	// marker for end of POD (plain old data)
 
 	// Note: Place all non-POD items at the end (after endOfPOD)
@@ -1319,7 +1322,7 @@ public:
 	BOOLEAN IsValidSecondHandShotForReloadingPurposes( void );
 	BOOLEAN SoldierCarriesTwoHandedWeapon( void );
 	void	SoldierInventoryCoolDown( void );		// Flugente FTW 1: Cool down all items in inventory
-	BOOLEAN	IsWeaponMounted( void );				// determine if we receive a bonus for mouning our weapon on something
+	BOOLEAN	IsWeaponMounted( void );				// determine if we receive a bonus for mounting our weapon on something
 	OBJECTTYPE* GetUsedWeapon( OBJECTTYPE * pObj );		// if in an underbarrel fire mode, return underbarrel weapon
 	UINT16 GetUsedWeaponNumber( OBJECTTYPE * pObj );	// if in an underbarrel fire mode, return number of underbarrel weapon
 

@@ -1593,7 +1593,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 
 			/////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
 			if( UsingNewCTHSystem() == false && 
-				( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( gpItemDescObject ) > 0 ) )
+				( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( NULL, gpItemDescObject ) > 0 ) )
 			{
 				ubRegionOffset = 5;
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
@@ -2644,7 +2644,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		///////////////////// AIM BONUS MODIFIER
 		if(UsingNewCTHSystem() == false)
 		{
-			if ( GetAimBonus( gpItemDescObject, 100, 1 ) != 0 )
+			if ( GetAimBonus( NULL, gpItemDescObject, 100, 1 ) != 0 )
 			{
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -3097,7 +3097,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// SINGLE-ATTACK AP MODIFIER
-		if (GetPercentAPReduction( gpItemDescObject ) != 0 )
+		if (GetPercentAPReduction( NULL, gpItemDescObject ) != 0 )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -3955,7 +3955,7 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 
 		//////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
 		if( UsingNewCTHSystem() == false && 
-			( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( gpItemDescObject ) > 0 ) )
+			( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( NULL, gpItemDescObject ) > 0 ) )
 		{
 			ubNumLine = 5;
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 27, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -4793,7 +4793,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// SINGLE-ATTACK AP MODIFIER
-	if (GetPercentAPReduction( gpItemDescObject ) != 0 )
+	if (GetPercentAPReduction( NULL, gpItemDescObject ) != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -5372,7 +5372,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		return;
 
 	// ShotsPer4Turns -> ubAttackAPs, used later for all shot AP values
-	ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
+	ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, NULL );
 	INT16 ubBasicAttackAPs = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -5905,7 +5905,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 		/////////////////// OCTH MINIMUM RANGE FOR AIMING BONUS
 		if( UsingNewCTHSystem() == false && 
-			( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( gpItemDescObject ) > 0 ) )
+			( Item[gpItemDescObject->usItem].minrangeforaimbonus > 0 || GetMinRangeForAimBonus( NULL, gpItemDescObject ) > 0 ) )
 		{
 			// Set line to draw into
 			ubNumLine = 5;
@@ -5917,7 +5917,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			INT16 iMinRangeForAimBonusValue = Item[gpItemDescObject->usItem].minrangeforaimbonus / 10;
 
 			// Get final Minimum Range For Aim Bonus value
-			INT16 iFinalMinRangeForAimBonusValue = GetMinRangeForAimBonus(gpItemDescObject) / 10;
+			INT16 iFinalMinRangeForAimBonusValue = GetMinRangeForAimBonus( NULL, gpItemDescObject ) / 10;
 
 			// Get Minimum Range For Aim Bonus modifier
 			INT16 iMinRangeForAimBonusModifier = iFinalMinRangeForAimBonusValue - iMinRangeForAimBonusValue;
@@ -6571,7 +6571,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Burst Cost
-			INT16 iFinalBurstAPCost = ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject );
+			INT16 iFinalBurstAPCost = ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject, NULL );
 
 			// Get base Burst Cost
 			INT16 iBurstAPCost = ubBasicAttackAPs + CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpItemDescObject );
@@ -6637,7 +6637,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Autofire Cost
-			INT16 iFinalAutoAPCost = ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 );
+			INT16 iFinalAutoAPCost = ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3, NULL );
 
 			// Get base Autofire Cost
 			INT16 iAutoAPCost = ubBasicAttackAPs + CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 );
@@ -8578,7 +8578,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	///////////////////// AIM BONUS MODIFIER
 	if(UsingNewCTHSystem() == false)
 	{
-		iModifier[0] = GetAimBonus( gpItemDescObject, 100, 1 );
+		iModifier[0] = GetAimBonus( NULL, gpItemDescObject, 100, 1 );
 		iModifier[1] = 0;
 		iModifier[2] = 0;
 		if (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0)
@@ -9506,7 +9506,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// SINGLE-ATTACK AP MODIFIER
-	iModifier[0] = GetPercentAPReduction( gpItemDescObject );
+	iModifier[0] = GetPercentAPReduction( NULL, gpItemDescObject );
 	iModifier[1] = iModifier[0];
 	iModifier[2] = iModifier[0];
 	if (iModifier[0] != 0 )

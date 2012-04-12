@@ -4,6 +4,7 @@
 #include "Overhead Types.h"
 #include "Weapons.h"
 
+#include <map>		// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -237,7 +238,7 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex);
 BOOLEAN IsScoped( OBJECTTYPE * pObj );
 BOOLEAN NCTHIsScoped( OBJECTTYPE * pObj );
 INT16 GetReliability( OBJECTTYPE * pObj );
-INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime );
+INT16 GetAimBonus( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime );
 //WarmSteel - Used to determine the base aim bonus of the most powerful scope.
 INT16 GetBaseScopeAimBonus( OBJECTTYPE * pObj, INT32 iRange );
 // HEADROCK: Function to get the natural aimbonus of the weapon and its attachments
@@ -256,7 +257,7 @@ INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE );
 INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE	);
 INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime);
 INT16 GetGearToHitBonus( SOLDIERTYPE * pSoldier );
-INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj );
+INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj );
 
 // HEADROCK: Function to get the final loudness value of a weapon, after reduction from its own characteristics, ammo and attachments
 INT16 GetFinalLoudness( OBJECTTYPE * pObj );
@@ -289,7 +290,7 @@ INT8 GetStanceModifierRef( INT8 ubStance );
 INT16 GetDamageBonus( OBJECTTYPE * pObj );
 INT16 GetMeleeDamageBonus( OBJECTTYPE * pObj );
 
-INT16 GetPercentAPReduction( OBJECTTYPE * pObj );
+INT16 GetPercentAPReduction( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj );
 INT16 GetPercentAutofireAPReduction( OBJECTTYPE * pObj );
 INT16 GetPercentBurstFireAPReduction( OBJECTTYPE * pObj );
 INT16 GetPercentReadyTimeAPReduction( OBJECTTYPE * pObj );
@@ -410,7 +411,7 @@ OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier, INT8 * bSlot, BOOLEAN
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo);
 // HEADROCK HAM 4: New functions to determine Scope and Laser factors on a weapon.
 FLOAT GetHighestScopeMagnificationFactor( OBJECTTYPE *pObj );
-FLOAT GetScopeMagnificationFactor( OBJECTTYPE *pObj, FLOAT uiRange );
+FLOAT GetScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT uiRange );
 FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT uiRange );
 FLOAT GetProjectionFactor( OBJECTTYPE *pObj );
 FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2DDistance );
@@ -445,6 +446,10 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 
 // Flugente FTW 1.2
 FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj );
+void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap );
+
+// check if item belongs to a specific attachemnt class
+BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag );
 
 #endif
 
