@@ -15962,4 +15962,20 @@
     <szBRName>KAC Masterkey</szBRName>
     <szBRDesc>Tired of having to pack an Assault Rifle and an additional Shotgun? With this specially adapted shotgun, you can carry 2 in 1!</szBRDesc>
   </ITEM>
+    <ITEM>
+	<uiIndex>1523</uiIndex>
+	<szItemName>M18 Claymore</szItemName>
+	<szLongItemName>M18 Claymore</szLongItemName>
+	<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. Pro-Tip: Front towards enemy.</szItemDesc>
+	<szBRName>M18 Claymore</szBRName>
+	<szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>		
+  </ITEM>
+  <ITEM>
+	<uiIndex>1524</uiIndex>
+	<szItemName>Tripwire</szItemName>
+	<szLongItemName>Tripwire</szLongItemName>
+	<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+	<szBRName>Tripwire</szBRName>
+	<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>		
+  </ITEM>
 </ITEMLIST>

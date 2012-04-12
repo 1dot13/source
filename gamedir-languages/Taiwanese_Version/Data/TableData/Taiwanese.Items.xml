@@ -1,0 +1,2691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ITEMLIST>
+	<ITEM>
+		<uiIndex>0</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>JA 2 programmers are the best there are... oh.. well maybe not since this message should never come up...</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>JA 2 programmers are the best there are... oh.. well maybe not since this message should never come up...</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1</uiIndex>
+		<szItemName>Glock 17</szItemName>
+		<szLongItemName>Glock 17</szLongItemName>
+		<szItemDesc>Favored by most military officers, this Austrian semi-automatic pistol is considered the defacto standard side-arm worldwide.</szItemDesc>
+		<szBRName>Glock 17</szBRName>
+		<szBRDesc>Even though most of this Austrian pistol's parts are plastic, it will get detected by airport x-ray machines. The simple design of this recoil operated self-loader contains only 32 components, and is a common army issue worldwide.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>2</uiIndex>
+		<szItemName>Glock 18</szItemName>
+		<szLongItemName>Glock 18</szLongItemName>
+		<szItemDesc>As the fully automatic version of the Glock 17, this Austrian pistol was specifically designed for military use.</szItemDesc>
+		<szBRName>Glock 18</szBRName>
+		<szBRDesc>Of Austrian origin, the Glock 18 is deserving of the classification of machine pistol. As the Glock 17's successor, it was built to offer the option for automatic fire. Sorry, but parts from the Glock 17 and 18 are not interchangeable.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>3</uiIndex>
+		<szItemName>Beretta 92F</szItemName>
+		<szLongItemName>Beretta 92F</szLongItemName>
+		<szItemDesc>This Italian double action pistol can quickly turn any shooter into a Lethal Weapon.</szItemDesc>
+		<szBRName>Beretta 92F</szBRName>
+		<szBRDesc>U.S. Army issued, the Beretta 92F is a standard 9mm Parabellum pistol, with a modified trigger-guard to allow a two-handed grip. This is a very functional weapon.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>4</uiIndex>
+		<szItemName>Beretta 93R</szItemName>
+		<szLongItemName>Beretta 93R</szLongItemName>
+		<szItemDesc>The 92F's leaner and meaner cousin. This fully automatic machine pistol could be your best friend in a close range fire fight.</szItemDesc>
+		<szBRName>Beretta 93R</szBRName>
+		<szBRDesc>The most pistol you'll ever need. Classified as a machine pistol, it features a fold-down front grip and an extendible steel shoulder stock, that attaches at the rear of the butt, to facilitate three-round mode shooting.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>5</uiIndex>
+		<szItemName>.38 Special</szItemName>
+		<szLongItemName>.38 Special</szLongItemName>
+		<szItemDesc>Tried and true by the boys in blue. This American pistol is the most common police service revolver in the world.</szItemDesc>
+		<szBRName>.38 Special</szBRName>
+		<szBRDesc>The standard Smith and Wesson military and police double-action revolver is ideal for both self-defense and offensive purposes. When the mainspring ages however, the gun is prone to light hammer blows.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>6</uiIndex>
+		<szItemName>Barracuda</szItemName>
+		<szLongItemName>Barracuda</szLongItemName>
+		<szItemDesc>The preferred weapon of Dirty Harry's little brother, this Belgian revolver has found its way into many American police holsters.</szItemDesc>
+		<szBRName>Barracuda</szBRName>
+		<szBRDesc>The Belgian .357 magnum Barracuda revolver is a powerful choice for both offense and defense. Numerous test trials have shown that both men and women find it easier to handle than most handguns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>7</uiIndex>
+		<szItemName>Desert Eagle .357</szItemName>
+		<szLongItemName>Desert Eagle .357</szLongItemName>
+		<szItemDesc>This former Israeli pistol that is about as subtle as a hand-held nuke, is now being produced in the good ol' USA.</szItemDesc>
+		<szBRName>Desert Eagle .357</szBRName>
+		<szBRDesc>This single-action, power-packed, gas-operated pistol is one hundred per cent U.S. made. Originally produced in Israel, it features a rotating bolt for positive lock-up, an ambidextrous safety, a steel frame, and a nickel or chrome finish.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>8</uiIndex>
+		<szItemName>M1911A1</szItemName>
+		<szLongItemName>Colt M1911A1</szLongItemName>
+		<szItemDesc>The Almighty may have created man, but over the last century, this pistol has more than helped to keep them in line.</szItemDesc>
+		<szBRName>Colt M1911A1</szBRName>
+		<szBRDesc>This American made automatic pistol of classic design, is one of the most successful combat pistols ever invented. A proven man-stopper, it creates a wide wound channel that can cause severe nerve trauma.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>9</uiIndex>
+		<szItemName>MP5KA4</szItemName>
+		<szLongItemName>HK MP5KA4</szLongItemName>
+		<szItemDesc>This German sub-machine gun is the must-have weapon for Die Hard terrorists and two-bit South American drug lords.</szItemDesc>
+		<szBRName>HK MP5KA4</szBRName>
+		<szBRDesc>Heckler and Koch's MP5K is one of the most compact and deadly German sub-machine guns around. Anti-terrorist groups and drug cartels love this weapon because it's so small and easy to use. This tiny weapon is easily hidden under clothing.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>10</uiIndex>
+		<szItemName>MAC-10</szItemName>
+		<szLongItemName>Ingram M10</szLongItemName>
+		<szItemDesc>The American Uzi. Born in the days of disco, this weapon has been very popular in the land of pink flamingos and snow.</szItemDesc>
+		<szBRName>Ingram M10</szBRName>
+		<szBRDesc>The U.S. Military Armament Corp. Model-10: a real man's sub-machine gun. Its steadiness allows for single-handed firing and its threaded barrel can fit a 'sound suppressor,' which is similar to a silencer but won't reduce bullet velocity.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>11</uiIndex>
+		<szItemName>Thompson M1A1</szItemName>
+		<szLongItemName>Thompson M1A1</szLongItemName>
+		<szItemDesc>As the successor to the Tommy Gun, this weapon became very popular on the streets of prohibition-Chicago and the beaches of Normandy.</szItemDesc>
+		<szBRName>Thompson M1A1</szBRName>
+		<szBRDesc>Although heavier than most submachine guns, the 'Tommy Gun' is still favored by Commando and Ranger forces. None have been built since the 1960's, but they are still very common, and have definitely weathered the test of time.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>12</uiIndex>
+		<szItemName>Commando</szItemName>
+		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szItemDesc>This mini version of the M16 is a prized tool for knocking off noisy neighbors and petty dictators.</szItemDesc>
+		<szBRName>Colt M4 Commando</szBRName>
+		<szBRDesc>Very small, and yet, very deadly. The Colt 733 Commando is an attractively short and concealable assault rifle that was based on the M16 design. It is extremely popular among several US armed forces.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>13</uiIndex>
+		<szItemName>HK 53A3</szItemName>
+		<szLongItemName>HK 53A3</szLongItemName>
+		<szItemDesc>Only two inches longer than the MP5 submachine gun, the HK53 provides all the hard-hitting firepower of the 5.56mm caliber in a compact package.</szItemDesc>
+		<szBRName>HK 53A3</szBRName>
+		<szBRDesc>Only two inches longer than the MP5 submachine gun, the HK53 provides all the hard-hitting firepower of the 5.56mm caliber in a compact package.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>14</uiIndex>
+		<szItemName>AKS-74U</szItemName>
+		<szLongItemName>AKS-74U</szLongItemName>
+		<szItemDesc>Commonly used by the Russian Spetsnaz, the muzzle flash from this SMG's short barrel has singed many an eyebrow.</szItemDesc>
+		<szBRName>AKS-74U</szBRName>
+		<szBRDesc>Russian in origin, this sub-machine gun is a shorter version of the AK-74. It's a combat intensive weapon with a bulbous muzzle attachment to compensate for firing 5.45mm Soviet rifle cartridges in a much shorter barrel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>15</uiIndex>
+		<szItemName>P90</szItemName>
+		<szLongItemName>FN P90</szLongItemName>
+		<szItemDesc>This Belgian weapon is one of the most advanced submachine guns in the world and is highly coveted by several special forces.</szItemDesc>
+		<szBRName>FN P90</szBRName>
+		<szBRDesc>Chews through Kevlar like it was butter. The FN-P90 is a blowback machine pistol with truly powerful ballistic capabilities. All controls are fully ambidextrous, with a cocking handle fitted on both sides and two open sights.  Comes complete with reflex sight.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>16</uiIndex>
+		<szItemName>Type 85</szItemName>
+		<szLongItemName>Type 85</szLongItemName>
+		<szItemDesc>Cheap, simple, and rugged. This motto for Chinese military designs is truly reflected in this mass-produced weapon.</szItemDesc>
+		<szBRName>Type 85</szBRName>
+		<szBRDesc>Of Chinese design, the Type-85 submachine gun is a plain blowback weapon that is remarkably lightweight due to its rotating bolt system. The weapon's manufacturers claim that it also fires the subsonic type-64 cartridge.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>17</uiIndex>
+		<szItemName>SKS</szItemName>
+		<szLongItemName>SKS</szLongItemName>
+		<szItemDesc>This extremely common semi-automatic carbine weapon has seen action in  almost every Communist country in the world.</szItemDesc>
+		<szBRName>SKS</szBRName>
+		<szBRDesc>The Simonov self-loading SKS automatic rifle has a simple design and is easy to operate. Developed during WWII, it was later distributed to most Warsaw Pact members. Its only weak spot: it's a little heavy for its cartridge.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>18</uiIndex>
+		<szItemName>SVD</szItemName>
+		<szLongItemName>Dragunov SVD</szLongItemName>
+		<szItemDesc>Reach out and touch someone the Russian Army way. This rifle has struck more than fear into the hearts of officers worldwide.</szItemDesc>
+		<szBRName>Dragunov SVD</szBRName>
+		<szBRDesc>This Russian sniping rifle is known for its accuracy. Standard issues with the rifle are the PSO-1 telescope sight and the image-intensifying NSPU-3 night sight.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>19</uiIndex>
+		<szItemName>M24</szItemName>
+		<szLongItemName>M24</szLongItemName>
+		<szItemDesc>Call on the M24 to deliver your 7.62mm package up to a mile away in two seconds flat. It guarantees delivery every time.</szItemDesc>
+		<szBRName>M24</szBRName>
+		<szBRDesc>The Remington M24 is the standard sniping rifle of the US Army. This bolt-action rifle's stock is made of synthetic material with an aluminum bedding lock and comes with an adjustable buttplate.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>20</uiIndex>
+		<szItemName>AUG-A2</szItemName>
+		<szLongItemName>Steyr AUG-A2</szLongItemName>
+		<szItemDesc>The 'Evil Assault Rifle' poster-child for US gun control lobbyists is the futuristic looking Austrian army standard rifle.</szItemDesc>
+		<szBRName>Steyr AUG-A2</szBRName>
+		<szBRDesc>This Austrian automatic rifle has a unique modular design with many interchangeable parts. It was one of the first rifles to use a plastic firing mechanism as well as plastic furniture.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>21</uiIndex>
+		<szItemName>G41A2</szItemName>
+		<szLongItemName>HK G41A2</szLongItemName>
+		<szItemDesc>Harder hitting than a hangover from a night of downing German lager, this G41 will quickly become your enemy's headache.</szItemDesc>
+		<szBRName>HK G41A2</szBRName>
+		<szBRDesc>Built to NATO weapons standards, this assault rifle is a great piece of German engineering. It features an ejection port dust cover and a hold-open device to keep the bolt open when emptying the mag.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>22</uiIndex>
+		<szItemName>Mini-14</szItemName>
+		<szLongItemName>Ruger Mini-14</szLongItemName>
+		<szItemDesc>This Sturm Ruger rifle is a 70's era mechanical copy of the W.W.II Garand. It makes an ideal gift for the Survivalist in the family.</szItemDesc>
+		<szBRName>Ruger Mini-14</szBRName>
+		<szBRDesc>Considered to be the great American hunting rifle, it's perfect for paramilitary use. It naturally enhances your ability to hit on target because of its low recoil forces.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>23</uiIndex>
+		<szItemName>C7A2</szItemName>
+		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szItemDesc>This rifle shouts the Canuck motto, 'Anything the Yanks can do, we can do better.' This version of the M-16 is every merc's dream come true.</szItemDesc>
+		<szBRName>Diemaco C7A2</szBRName>
+		<szBRDesc>It's the Canadian version of the American M16A2. Trust those crazy Canucks to incorporate such safety devices as a case deflector to prevent empty cases from being flung into the faces of left-handed firers.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>24</uiIndex>
+		<szItemName>FAMAS</szItemName>
+		<szLongItemName>FAMAS G2</szLongItemName>
+		<szItemDesc>Nicknamed 'The Bugle' by French Army Troops, this bullpup rifle packs the utility of the M-16 in under two-and-a-half feet.</szItemDesc>
+		<szBRName>FAMAS G2</szBRName>
+		<szBRDesc>The French Army's FA-MAS rifle was the first 'bullpup' design to enter military service. It handles well, and shoots quite accurately. A bipod is attached for steadier shooting.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>25</uiIndex>
+		<szItemName>AK-74</szItemName>
+		<szLongItemName>AK-74</szLongItemName>
+		<szItemDesc>This rifle is destined to become one of Russia's greatest exports, second only to tactical nuclear warheads.</szItemDesc>
+		<szBRName>AK-74</szBRName>
+		<szBRDesc>Used as the Soviet infantry's standard automatic rifle, the AK-74 is a smaller caliber version of the AKM. While highly efficient and steady, with minimal recoil, it can be nasty to bystanders, as muzzle gases are diverted sideways.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>26</uiIndex>
+		<szItemName>AKM</szItemName>
+		<szLongItemName>AKM</szLongItemName>
+		<szItemDesc>The AKM is the newest version of the infamous AK-47. This line of rifles has been used in Vietnam, Afghanistan, and many passenger jets.</szItemDesc>
+		<szBRName>AKM</szBRName>
+		<szBRDesc>As the modernized version of the AK-47 automatic rifle, it was one of the best and most widely distributed Soviet weapons. Designed for mass production, you'll find one of these automatic rifles slung over every frugal mercenary's shoulder.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>27</uiIndex>
+		<szItemName>M14</szItemName>
+		<szLongItemName>M14</szLongItemName>
+		<szItemDesc>The M14 is about as All-American as apple pie and the 4th of July. Any A-Team equipped with this rifle is gunning for victory.</szItemDesc>
+		<szBRName>M14</szBRName>
+		<szBRDesc>Truly American through and through. This lighter automatic rifle offers multiple firing options, but is best kept locked at semi-automatic. Unfortunately, without the ability to change its barrel, it can overheat with sustained firing.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>28</uiIndex>
+		<szItemName>FN FAL</szItemName>
+		<szLongItemName>FN FAL</szLongItemName>
+		<szItemDesc>The phrase, 'Help, I've FAL-len and I can't get up,' takes on a whole new meaning when this rifle is involved.</szItemDesc>
+		<szBRName>FN FAL</szBRName>
+		<szBRDesc>This Belgian automatic rifle set a new standard in weaponry in the early 1950's. Its robust and reliable design made it simple to use and maintain, despite its tendency for excessive climbing in automatic mode.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>29</uiIndex>
+		<szItemName>G3A3</szItemName>
+		<szLongItemName>HK G3A3</szLongItemName>
+		<szItemDesc>Made from sheet metal stampings and plastic furniture, this ugly looking rifle delivers wounds that are equally foul.</szItemDesc>
+		<szBRName>HK G3A3</szBRName>
+		<szBRDesc>Made from sheet metal stampings and plastic furniture, this Heckler and Koch automatic rifle sure ain't pretty, but it is definitely robust, reliable and highly effective.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>30</uiIndex>
+		<szItemName>G11</szItemName>
+		<szLongItemName>HK G11</szLongItemName>
+		<szItemDesc>The Porsche of assault rifles. This rifle goes from 0 to 3 rounds in under a second, and tears through Kevlar like butter.</szItemDesc>
+		<szBRName>HK G11</szBRName>
+		<szBRDesc>Germany's Heckler and Koch designed this weapon as the fastest automatic rifle around. Its high velocity shots tear right through Kevlar. Despite its unusual appearance, it is very comfortable to use and shoots extremely accurately.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>31</uiIndex>
+		<szItemName>M870</szItemName>
+		<szLongItemName>Remington M870</szLongItemName>
+		<szItemDesc>This pump-action shotgun is one of the most versatile weapons money can buy. It can be used for hunting, home defense, and lock picking.</szItemDesc>
+		<szBRName>Remington M870</szBRName>
+		<szBRDesc>A cherished 12-gauge shotgun for its smooth pump-action, it's a favorite of many police forces around the world. Commonly used as a hunting rifle, it can be found for sale in most local hardware stores.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>32</uiIndex>
+		<szItemName>SPAS-15</szItemName>
+		<szLongItemName>SPAS-15</szLongItemName>
+		<szItemDesc>This fearsome looking Italian semi-automatic assault shotgun has been banned in several countries.</szItemDesc>
+		<szBRName>SPAS-15</szBRName>
+		<szBRDesc>The 12-gauge Franchi SPAS-15 shotgun's design is true Italian brilliance. It provides the options for gas, semi-automatic or manual pump action.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>33</uiIndex>
+		<szItemName>CAWS</szItemName>
+		<szLongItemName>HK CAWS</szLongItemName>
+		<szItemDesc>The experimental Close Assault Weapons System from HK. It fires special 12 gauge belted brass-case ammunition developed by Olin/Winchester that delivers superior range to conventional shotguns. It is capable of semi and fully-automatic operation.</szItemDesc>
+		<szBRName>HK CAWS</szBRName>
+		<szBRDesc>Though canceled by the US Military, we're sure you'll love the CAWS! We've just received a limited shipment of these experimental fully automatic shotguns, and their special ammo. Turn your enemies into a gory mess at 240RPM. Comes with built-in scope.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>34</uiIndex>
+		<szItemName>Minimi</szItemName>
+		<szLongItemName>FN Minimi</szLongItemName>
+		<szItemDesc>This light machine gun, also known as the C-9 and M-249, has been known to moonlight as a beefed-up assault rifle.</szItemDesc>
+		<szBRName>FN Minimi</szBRName>
+		<szBRDesc>Reputed for its reliability, this Belgian machine gun is gas operated, with a simple rotating bolt system. Its design was adopted by the US Army as the M249 machine gun.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>35</uiIndex>
+		<szItemName>RPK-74</szItemName>
+		<szLongItemName>RPK-74</szLongItemName>
+		<szItemDesc>The latest Russian squad support weapon is this light machine gun. It brings new meaning to the concept of 'spray and pray.'</szItemDesc>
+		<szBRName>RPK-74</szBRName>
+		<szBRDesc>This Russian squad light automatic machine gun is simply a heavy-barreled version of the AK74 rifle. Its only drawback is that it tends to shoot the rifling out of its barrel within 5,000 rounds.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>36</uiIndex>
+		<szItemName>HK 21E</szItemName>
+		<szLongItemName>HK 21E</szLongItemName>
+		<szItemDesc>This German infantry support weapon is a (not so) light machine gun that helps you pump up while mowing down your opposition.</szItemDesc>
+		<szBRName>HK 21E</szBRName>
+		<szBRDesc>The German Heckler and Koch 21 is a fantastic all-purpose machine gun, featuring a heavy yet easily changeable barrel. Its bipod offers 3 height settings on which the gun can pivot 30 degrees in either direction.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>37</uiIndex>
+		<szItemName>Knife</szItemName>
+		<szLongItemName>Combat Knife</szLongItemName>
+		<szItemDesc>This full-tang bowie-styled combat knife will convert you into a whirling, twirling machine of silent, subtle death.</szItemDesc>
+		<szBRName>Combat Knife</szBRName>
+		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9" blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>38</uiIndex>
+		<szItemName>Throw. Knife</szItemName>
+		<szLongItemName>Throwing Knife</szLongItemName>
+		<szItemDesc>This finely balanced steel throwing knife brings new meaning to the expression killing them softly. Or, in this case, silently.</szItemDesc>
+		<szBRName>Throwing Knife</szBRName>
+		<szBRDesc>Polish up on your throwing skills with this double-edged chrome-plated high carbon steel blade. This slim little knife is a perfect choice for both novice and experienced throwers.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>39</uiIndex>
+		<szItemName>Rock</szItemName>
+		<szLongItemName>A Rock</szLongItemName>
+		<szItemDesc>A rock is what you've got in your head if you don't know what one is.</szItemDesc>
+		<szBRName>A Rock</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>40</uiIndex>
+		<szItemName>M79</szItemName>
+		<szLongItemName>M79 Grenade Launcher</szLongItemName>
+		<szItemDesc>If quick passage through a brick wall or a cluster of bad guys is what you need, the M79, a 40mm US grenade launcher from the Vietnam era, will terminate your troubles every time.</szItemDesc>
+		<szBRName>M79 Grenade Launcher</szBRName>
+		<szBRDesc>Known for its accuracy at longer ranges, the 40mm M79 Grenade Launcher is not your average rifle grenade. This breech loaded, single shot, break-open weapon is usually fired from the shoulder. It features a blade foresight and a folding-leaf adjustable rear sight.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>41</uiIndex>
+		<szItemName>Mortar</szItemName>
+		<szLongItemName>M224 Mortar</szLongItemName>
+		<szItemDesc>The M224 is a 60mm caliber lightweight mortar with a finned barrel, sight, M7 base plate, and a bipod. It was built to handle HE bombs.</szItemDesc>
+		<szBRName>M224 Mortar</szBRName>
+		<szBRDesc>Commonly referred to as the battalion commander's artillery, the M224 mortar is a must-have for the serious mercenary commandant. It is a 60mm caliber lightweight mortar with a finned barrel, sight, M7 base plate and bipod, that was built to specifically accommodate HE shells.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>42</uiIndex>
+		<szItemName>Rock</szItemName>
+		<szLongItemName>Another Rock</szLongItemName>
+		<szItemDesc>A rock usually associated with a roll is a form of modern music that tends to be loud and a preferred choice of adolescents.</szItemDesc>
+		<szBRName>Another Rock</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>43</uiIndex>
+		<szItemName>YM Claws</szItemName>
+		<szLongItemName>Young Male Claws</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Young Male Claws</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>44</uiIndex>
+		<szItemName>AM Claws</szItemName>
+		<szLongItemName>Adult Male Claws</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Adult Male Claws</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>45</uiIndex>
+		<szItemName>YF Claws</szItemName>
+		<szLongItemName>Young Female Claws</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Young Female Claws</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>46</uiIndex>
+		<szItemName>AF Claws</szItemName>
+		<szLongItemName>Adult Female Creature Claws</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Adult Female Creature Claws</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>47</uiIndex>
+		<szItemName>Queen Tentacle</szItemName>
+		<szLongItemName>Queen Tentacle</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Queen Tentacle</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>48</uiIndex>
+		<szItemName>Queen Spit</szItemName>
+		<szLongItemName>Queen Creature Spit</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Queen Creature Spit</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>49</uiIndex>
+		<szItemName>Dusters</szItemName>
+		<szLongItemName>Knuckle Dusters</szLongItemName>
+		<szItemDesc>This sturdy set of brass knuckles fits most hands. They will add some power to your punch.</szItemDesc>
+		<szBRName>Knuckle Dusters</szBRName>
+		<szBRDesc>You'll be packing a real punch with this set of handy brass knuckles. Although sturdy, they're small enough to fit into most back pockets. One size fits all.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>50</uiIndex>
+		<szItemName>Talon</szItemName>
+		<szLongItemName>Talon Grenade Launcher</szLongItemName>
+		<szItemDesc>The "Talon" US military grenade launcher is known to propel enemies into the waiting claws of death.</szItemDesc>
+		<szBRName>Talon Grenade Launcher</szBRName>
+		<szBRDesc>Developed by the US military, this launcher can be attached to a wide range of assault rifles and machine guns. It comes equipped with a light folding stock and a special pistol grip stock, allowing it to be fired like a pistol. It is considered to be a good entry weapon.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>51</uiIndex>
+		<szItemName>LAW</szItemName>
+		<szLongItemName>M72A4 LAW</szLongItemName>
+		<szItemDesc>One hit from this Light Anti-Tank Weapon is better than a one way ticket to Judgement Day. No judge, no jury, and all executioner.</szItemDesc>
+		<szBRName>M72A4 LAW</szBRName>
+		<szBRDesc>The M72A2 Light Anti-Tank Weapon is a light-weight shoulder-fired rocket launcher which can penetrate a foot of tank armour or destroy small battlefield fortifications.  A one-shot weapon of awesome destructive power.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>52</uiIndex>
+		<szItemName>Bloodcat Claws</szItemName>
+		<szLongItemName>Bloodcat Claws</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Bloodcat Claws</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>53</uiIndex>
+		<szItemName>Bloodcat Bite</szItemName>
+		<szLongItemName>Bloodcat Bite</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Bloodcat Bite</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>54</uiIndex>
+		<szItemName>Machete</szItemName>
+		<szLongItemName>Machete</szLongItemName>
+		<szItemDesc>Slice 'em, dice 'em, cook 'em 'n' clean 'em. Whether it be man, plant, or beast, this all purpose machete will chop any main course into the finest of cuts.</szItemDesc>
+		<szBRName>Machete</szBRName>
+		<szBRDesc>Slice 'em, dice 'em, cook 'em 'n' clean 'em. Whether it be man, plant, or beast, this all purpose machete will chop any main course into the finest of cuts.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>55</uiIndex>
+		<szItemName>Rocket Rifle</szItemName>
+		<szLongItemName>Rocket Rifle</szLongItemName>
+		<szItemDesc>Annihilate your opponents with the cutting edge in weapons technology.  This rocket rifle comes with its own laser scope and computer security system.</szItemDesc>
+		<szBRName>Rocket Rifle</szBRName>
+		<szBRDesc>Annihilate your opponents with the cutting edge in weapons technology.  This rocket rifle comes with its own laser scope and computer security system.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>56</uiIndex>
+		<szItemName>Automag III</szItemName>
+		<szLongItemName>Automag III Custom</szLongItemName>
+		<szItemDesc>This Automag has been modified into a monster of a pistol which fires .50 Beowulf rifle rounds. The name "Big Bertha" has been engraved on its sides.</szItemDesc>
+		<szBRName>Automag III Custom</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>57</uiIndex>
+		<szItemName>Infant Spit</szItemName>
+		<szLongItemName>Infant Spit</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Infant Spit</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>58</uiIndex>
+		<szItemName>Young Male Spit</szItemName>
+		<szLongItemName>Young Male Spit</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Young Male Spit</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>59</uiIndex>
+		<szItemName>Old Male Spit</szItemName>
+		<szLongItemName>Old Male Spit</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Old Male Spit</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>60</uiIndex>
+		<szItemName>Cannon</szItemName>
+		<szLongItemName>Tank Cannon</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Tank Cannon</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>61</uiIndex>
+		<szItemName>Dart Gun</szItemName>
+		<szLongItemName>Dart Gun</szLongItemName>
+		<szItemDesc>A virtual mute in a riotous crowd of gunpowder-driven killing machines. Use this dart gun to get the job done without even waking up old man Death himself.</szItemDesc>
+		<szBRName>Dart Gun</szBRName>
+		<szBRDesc>A virtual mute in a riotous crowd of gunpowder-driven killing machines. Use this dart gun to get the job done without even waking up old man Death himself.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>62</uiIndex>
+		<szItemName>Bloody Knife</szItemName>
+		<szLongItemName>Bloody Throwing Knife</szLongItemName>
+		<szItemDesc>A small lightweight throwing knife with a double-edged, chrome-plated, high carbon steel blade that is covered in blood.</szItemDesc>
+		<szBRName>Bloody Throwing Knife</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>63</uiIndex>
+		<szItemName>Flamethrower</szItemName>
+		<szLongItemName>Flamethrower</szLongItemName>
+		<szItemDesc>Sorry, guys, but this item didn't make it into the game!</szItemDesc>
+		<szBRName>Flamethrower</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>64</uiIndex>
+		<szItemName>Crowbar</szItemName>
+		<szLongItemName>Crowbar</szLongItemName>
+		<szItemDesc>This durable lever tool is a one-piece bar of titanium. While harder and stronger than steel, it weighs less, and won't rust.</szItemDesc>
+		<szBRName>Crowbar</szBRName>
+		<szBRDesc>This titanium crowbar will come in handy when stuck in a jam. It's a one piece bar of titanium that's harder and stronger than steel, and corrosion resistant. Since it weighs almost nothing, you can take it anywhere.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>65</uiIndex>
+		<szItemName>A. R. Rifle</szItemName>
+		<szLongItemName>Auto Rocket Rifle</szLongItemName>
+		<szItemDesc>The bleeding edge in weapons technology, this experimental version of the rocket rifle is capable of emptying its entire clip in a single devastating burst!</szItemDesc>
+		<szBRName>Auto Rocket Rifle</szBRName>
+		<szBRDesc>The bleeding edge in weapons technology, this experimental version of the rocket rifle is capable of emptying its entire clip in a single devastating burst!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>66</uiIndex>
+		<szItemName>Hartford 6</szItemName>
+		<szLongItemName>Modified EMF Hartford 6 Shooter</szLongItemName>
+		<szItemDesc>This is a .357 caliber, six shooter modified for Tex Colburn. It has a ten inch barrel and a sculptured ivory handle with TEX engraved in 14kt gold flake.</szItemDesc>
+		<szBRName>Modified EMF Hartford 6 Shooter</szBRName>
+		<szBRDesc>This is a .357 caliber, six shooter modified for Tex Colburn. It has a ten inch barrel and a sculptured ivory handle with TEX engraved in 14kt gold flake.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>67</uiIndex>
+		<szItemName>M-950</szItemName>
+		<szLongItemName>Calico M-950</szLongItemName>
+		<szItemDesc>An American made, pistol version of the M960. Using the same 50 round clip, it could probably only be classified a pistol in the U.S.A.</szItemDesc>
+		<szBRName>Calico M-950</szBRName>
+		<szBRDesc>An American made, pistol version of the M960. Using only semi-automatic and limited burst fire &amp; the same 50 round clip, it could probably only be classified a pistol in the U.S.A.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>68</uiIndex>
+		<szItemName>M-900</szItemName>
+		<szLongItemName>Calico M-900</szLongItemName>
+		<szItemDesc>Another reincarnation of the M960, this version has a unusually longer barrel for a 9mm weapon and semi auto-fires with the same 50 round clip.</szItemDesc>
+		<szBRName>Calico M-900</szBRName>
+		<szBRDesc>Another reincarnation of the M960, this version has a unusually longer barrel for a 9mm weapon and semi auto-fires with the same 50 round clip.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>69</uiIndex>
+		<szItemName>M-960A</szItemName>
+		<szLongItemName>Calico M-960A</szLongItemName>
+		<szItemDesc>Known as the "Mini Sub Machine Gun" this American model uses a helical-feed 50 round magazine of 9mm bullets, and has been making things right since 1990.</szItemDesc>
+		<szBRName>Calico M-960A</szBRName>
+		<szBRDesc>Known as the "Mini Sub Machine Gun" this American model uses a helical-feed 50 round magazine of 9mm bullets, and has been making things right since 1990.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>70</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Using this slot will cause the game to crash.</szLongItemName>
+		<szItemDesc>Using this slot will cause the game to crash.</szItemDesc>
+		<szBRName>Using this slot will cause the game to crash.</szBRName>
+		<szBRDesc>Using this slot will cause the game to crash.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>71</uiIndex>
+		<szItemName>9x19mm Mag 15</szItemName>
+		<szLongItemName>9x19mm Pistol Mag, 15</szLongItemName>
+		<szItemDesc>This magazine holds 15 rounds of 9mm ball ammunition. Although small, this ammo travels at rather high velocities, making it the preferred sidearm round to many military and law enforcement personnel.</szItemDesc>
+		<szBRName>9x19mm Mag 15</szBRName>
+		<szBRDesc>These 15 rounds of fine quality 115 grain Fiocchi round tip ammunition are ideal for anyone looking for an economical means of personal defense.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>72</uiIndex>
+		<szItemName>9x19mm SMG Mag</szItemName>
+		<szLongItemName>9x19mm SMG Mag</szLongItemName>
+		<szItemDesc>This sub-machine gun magazine contains 30 rounds of 9mm ammunition. As a jacketed round, it has a lesser tendency for barrel leading than its non-jacketed counterpart.</szItemDesc>
+		<szBRName>9x19mm SMG Mag</szBRName>
+		<szBRDesc>This SMG magazine contains 30 rounds of Fiocchi round tip ammunition. This round is a popular purchase among seasoned mercenaries and up-and-coming soldiers of fortune.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>73</uiIndex>
+		<szItemName>9x19mm Mag 15 AP</szItemName>
+		<szLongItemName>9x19mm Pistol Mag, 15 AP</szLongItemName>
+		<szItemDesc>This magazine contains 15 hardened steel rounds of 9mm ammunition. Even though this round easily cuts through light body armor, it doesn't cause as much damage as jacketed and regular hollow point versions.</szItemDesc>
+		<szBRName>9x19mm Mag 15 AP</szBRName>
+		<szBRDesc>They've got Kevlar? Have no fear with this magazine; it's brimming with 15 rounds of hardened steel. This low power pistol round is your best bet against Kevlar.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>74</uiIndex>
+		<szItemName>9x19mm SMG Mag AP</szItemName>
+		<szLongItemName>9x19mm SMG Mag, AP</szLongItemName>
+		<szItemDesc>These 30 hardened steel rounds are the best sub-machine gun armor-defeating ammunition.</szItemDesc>
+		<szBRName>9x19mm SMG Mag AP</szBRName>
+		<szBRDesc>We searched far and wide for this round; the Armor Piercing ability of the 30-round magazine makes it the bane of all unwelcome law enforcement personnel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>75</uiIndex>
+		<szItemName>9x19mm Mag 15 HP</szItemName>
+		<szLongItemName>9x19mm Pistol Mag, 15 HP</szLongItemName>
+		<szItemDesc>This magazine contains 15 rounds of 9mm federal-135-grain hollow point ammo. While its armor piercing capabilities are questionable, its tendency to expand in tissue more than makes up for its weaknesses.</szItemDesc>
+		<szBRName>9x19mm Mag 15 HP</szBRName>
+		<szBRDesc>This 15-round magazine of COR-BON 9mm Jacketed Hollow Point ammunition is truly the top of the line. It's a definite deterrent against any unarmored assailant.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>76</uiIndex>
+		<szItemName>9x19mm SMG Mag HP</szItemName>
+		<szLongItemName>9x19mm SMG Mag, HP</szLongItemName>
+		<szItemDesc>This magazine holds 30 rounds of federal jacketed hollow point ammunition. It combines the wound characteristics of hollow point with the penetration abilities of standard ball ammunition.</szItemDesc>
+		<szBRName>9x19mm SMG Mag HP</szBRName>
+		<szBRDesc>This 30-round mag of 115 grain Jacketed Hollow Point ammunition is a special buy straight from COR-BON. We guarantee it will make your MP-5 the envy of any SWAT team.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>77</uiIndex>
+		<szItemName>.38 S-Load</szItemName>
+		<szLongItemName>.38 Speed Loader</szLongItemName>
+		<szItemDesc>This 6-round speed loader of .38 Special ball ammunition offers average damage and penetration abilities by combining the features of both hollow point and armor piercing ammo.</szItemDesc>
+		<szBRName>.38 S-Load</szBRName>
+		<szBRDesc>This 6-round speed loader comes filled with 158 grain Winchester standard .38 Special round tip ammunition. For countless years, it has been the tried and true round in law enforcement.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>78</uiIndex>
+		<szItemName>.38 S-Load AP</szItemName>
+		<szLongItemName>.38 Speed Loader, AP</szLongItemName>
+		<szItemDesc>This speed loader contains 6 rounds of .38 caliber armor piercing ammunition. While its armor piercing abilities are due to its steel construction, it tends to create smaller wounds than lead ammo.</szItemDesc>
+		<szBRName>.38 S-Load AP</szBRName>
+		<szBRDesc>Turn your classic .38 into a force to be reckoned with. Our own custom loaded .38 Full Metal Jacket round guarantees to stop any armored attacker dead in his tracks.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>79</uiIndex>
+		<szItemName>.38 S-Load HP</szItemName>
+		<szLongItemName>.38 Speed Loader, HP</szLongItemName>
+		<szItemDesc>Although these 6 rounds of .38 Special hollow point ammo tend to perform poorly against armor, it makes up for it by creating wider wound channels in unarmored opponents.</szItemDesc>
+		<szBRName>.38 S-Load HP</szBRName>
+		<szBRDesc>The latest deal from Cor-Bon brought us this 6-round package of .38 Special +P 158 grain ammunition. It packs a punch few will live to forget. Warning: its continuous use in alloy frame revolvers is highly inadvisable.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>80</uiIndex>
+		<szItemName>.45 Mag</szItemName>
+		<szLongItemName>.45 Pistol Magazine</szLongItemName>
+		<szItemDesc>This 7-round magazine contains .45 Automatic Colt pistol ammunition. The  standard .45ACP round creates wound channels that are comparable to those generated by 9mm and .38 hollow point rounds.</szItemDesc>
+		<szBRName>.45 Mag</szBRName>
+		<szBRDesc>No collection would be complete without this classic man-stopper: a 7-round magazine of 230 grain UMC .45 ACP.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>81</uiIndex>
+		<szItemName>.45 SMG Mag</szItemName>
+		<szLongItemName>.45 SMG Magazine</szLongItemName>
+		<szItemDesc>The .45 standard round tip ball ammunition in this 30-round magazine offers a trade-off between the wound characteristics of hollow point and the penetration abilities of armor piercing ammo.</szItemDesc>
+		<szBRName>.45 SMG Mag</szBRName>
+		<szBRDesc>Our Pre-Ban 30-round magazines come complete with a full load of UMC .45 ACP.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>82</uiIndex>
+		<szItemName>.45 Mag AP</szItemName>
+		<szLongItemName>.45 Pistol Magazine, AP</szLongItemName>
+		<szItemDesc>These 7 rounds hold .45 automatic armor piercing ammunition. Although this high velocity steel ammo may defeat most light body armor, it causes less tissue damage than lead-based rounds.</szItemDesc>
+		<szBRName>.45 Mag AP</szBRName>
+		<szBRDesc>These hardened steel Armor Piercing rounds tear through Kevlar like it was butter. This 7-round magazine is known for leaving wide wound cavities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>83</uiIndex>
+		<szItemName>.45 SMG Mag AP</szItemName>
+		<szLongItemName>.45 SMG Magazine, AP</szLongItemName>
+		<szItemDesc>This 30-round magazine holds .45 caliber armor piercing ammunition. While this ammunition offers better penetration than either ball or hollow point ammo, it tends to do less damage.</szItemDesc>
+		<szBRName>.45 SMG Mag AP</szBRName>
+		<szBRDesc>Some of the best pistol ammunition money can buy is our 30 rounds of hand-loaded Armor Piercing ammunition. It will quickly send a Kevlar vest to the scrap heap.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>84</uiIndex>
+		<szItemName>.45 Mag HP</szItemName>
+		<szLongItemName>.45 Pistol Magazine, HP</szLongItemName>
+		<szItemDesc>A 7-round mag of .45 ACP hollow point ammo. Its hollow point forces the round to mushroom on impact, creating a large wound channel that is wider than wounds from both standard and armor piercing variants.</szItemDesc>
+		<szBRName>.45 Mag HP</szBRName>
+		<szBRDesc>If you are serious about your .45 ammo, this 7-round magazine of Golden Sabre Jacketed Hollow Point ammunition is a sure-fire way to prove it.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>85</uiIndex>
+		<szItemName>.45 SMG Mag HP</szItemName>
+		<szLongItemName>.45 SMG Magazine, HP</szLongItemName>
+		<szItemDesc>These 30 rounds of .45 hollow point ammunition expand in soft tissue on impact, causing a large of amount of bleeding and nerve trauma.</szItemDesc>
+		<szBRName>.45 SMG Mag HP</szBRName>
+		<szBRDesc>Turns your sub machine gun into a lean mean killing machine. This magazine is jam packed with 30 rounds of our high quality Remington .45 Gold Sabre ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>86</uiIndex>
+		<szItemName>.357 S-Load</szItemName>
+		<szLongItemName>.357 Speed Loader</szLongItemName>
+		<szItemDesc>This speed loader holds 6 rounds of .357 Magnum ammunition. As one of the most powerful handgun rounds around, it packs more of a punch than  .38, .45 or 9mm ammo.</szItemDesc>
+		<szBRName>.357 S-Load</szBRName>
+		<szBRDesc>Splatter your troubles against a wall with a little help from our 6-round speed loaders of Federal Hydra-Shok .357 Magnum ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>87</uiIndex>
+		<szItemName>.357 Mag</szItemName>
+		<szLongItemName>.357 Magazine</szLongItemName>
+		<szItemDesc>This magazine holds 9 rounds of .357 Magnum standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szItemDesc>
+		<szBRName>.357 Mag</szBRName>
+		<szBRDesc>We offer the finest quality rust resistant 9-round magazines, filled with Federal 158 grain .357 ammunition. These babies are a great way to finish off a problem that just won't kick it.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>88</uiIndex>
+		<szItemName>.357 S-Load AP</szItemName>
+		<szLongItemName>.357 Speed Loader, AP</szLongItemName>
+		<szItemDesc>Although these 6 rounds of .357 Magnum hardened steel ammo can punch through armor as though it were tissue paper, they don't tend to fragment on impact, resulting in inferior wounding capabilities.</szItemDesc>
+		<szBRName>.357 S-Load AP</szBRName>
+		<szBRDesc>They said the White Hippos were a hoax but Bobby Ray's has the real thing that are just itchin' to be fired off by you. This 6-round speed loader is packed with the lastest in Armor Piercing technology.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>89</uiIndex>
+		<szItemName>.357 Mag AP</szItemName>
+		<szLongItemName>.357 Magazine, AP</szLongItemName>
+		<szItemDesc>While these 9 rounds of steel .357 armor piercing ammunition can penetrate walls and body armor, they only create small wound channels with minimal blood loss.</szItemDesc>
+		<szBRName>.357 Mag AP</szBRName>
+		<szBRDesc>Satisfy your insatiable desire to punch holes through a bullet proof vest with these 9 rounds of White Hippo Armor Piercing ammo. It's exactly what the doctor ordered.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>90</uiIndex>
+		<szItemName>.357 S-Load HP</szItemName>
+		<szLongItemName>.357 Speed Loader, HP</szLongItemName>
+		<szItemDesc>This speed loader contains 6 rounds of .357 hollow point ammunition. Although it lacks armor piercing abilities, it more than makes up for it with its damage potential.</szItemDesc>
+		<szBRName>.357 S-Load HP</szBRName>
+		<szBRDesc>These 6 rounds of Federal's own Hydra-Shok Jacketed Hollow Point comes complete with a complimentary speed loader when purchasing through this site.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>91</uiIndex>
+		<szItemName>.357 Mag HP</szItemName>
+		<szLongItemName>.357 Magazine, HP</szLongItemName>
+		<szItemDesc>This magazine contains 9 rounds of .357 hollow point ammunition. The hollow point allows for substantial expansion on impact, thus creating a large but shallow wound.</szItemDesc>
+		<szBRName>.357 Mag HP</szBRName>
+		<szBRDesc>Want that last gunfight to go out with a bang? Then we've got the deal for you. The Federal's own .357 Jacketed Hollow Point Hydra-Shok guarantees to deliver.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>92</uiIndex>
+		<szItemName>5.45x39mm Mag</szItemName>
+		<szLongItemName>5.45x39mm Magazine</szLongItemName>
+		<szItemDesc>This 30-round magazine holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
+		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRDesc>One of our hottest commodities is this 30-round mag of 'acquired' Russian 5.45mm Armor Piercing ammunition. This round is guaranteed to make you the death of any party.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>93</uiIndex>
+		<szItemName>5.45x39mm Mag HP</szItemName>
+		<szLongItemName>5.45x39mm Mag, HP</szLongItemName>
+		<szItemDesc>This 30-round magazine contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
+		<szBRName>5.45x39mm Mag, HP</szBRName>
+		<szBRDesc>Need a quick sure-shot way to collect on a life insurance policy? These 30 rounds of 5.45mm Hollow Point ammunition will show you the money in no time at all.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>94</uiIndex>
+		<szItemName>5.56mm Mag 30</szItemName>
+		<szLongItemName>5.56x45mm Mag, 30</szLongItemName>
+		<szItemDesc>These 30 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
+		<szBRName>5.56x45mm Mag 30</szBRName>
+		<szBRDesc>This 30-round magazine is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>95</uiIndex>
+		<szItemName>5.56mm Mag 30 HP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 30 HP</szLongItemName>
+		<szItemDesc>This 30-round magazine of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
+		<szBRName>5.56x45mm Mag 30 HP</szBRName>
+		<szBRDesc>This is the economical choice for target shooting, hunting, or stopping potential long-range muggings. These 30 rounds of 50 grain .223 JHP can save your life and your pocket book.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>96</uiIndex>
+		<szItemName>7.62x39mm 10</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10</szLongItemName>
+		<szItemDesc>This 10-round magazine of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szItemDesc>
+		<szBRName>7.62x39mm 10</szBRName>
+		<szBRDesc>Packaged especially for the aspiring sharpshooter, these 10 rounds of Chinese 7.62mm Armor Piercing ammo is sure to provide you with the 'One Shot, One Kill' that'll make headlines the world over.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>97</uiIndex>
+		<szItemName>7.62x39mm 30</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30</szLongItemName>
+		<szItemDesc>These 30 rounds of Warsaw Pact issued 7.62mm anti-personnel AP ammo tend to maintain their shape on impact. Shape retention may increase its ability to defeat light body armor but it also reduces injury severity.</szItemDesc>
+		<szBRName>7.62x39mm 30</szBRName>
+		<szBRDesc>Looking for the perfect gift for the terrorist who has it all? Try a magazine of our surplus 7.62mm Warsaw Pact AP. It's the gift to end all gift giving.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>98</uiIndex>
+		<szItemName>7.62x39mm Mag 10 HP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10 HP</szLongItemName>
+		<szItemDesc>These 10 rounds of 7.62 Warsaw Pact jacketed hollow point ammunition won't penetrate body armor as well as its armor piercing counterpart, but it makes up for it by making larger wound cavities.</szItemDesc>
+		<szBRName>7.62x39mm Mag 10 HP</szBRName>
+		<szBRDesc>When killing them is simply not enough. A small 10-round box of 7.62mm Hollow Point is a great way to send the point home in true brain splattering style.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>99</uiIndex>
+		<szItemName>7.62x39mm Mag 30 HP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30 HP</szLongItemName>
+		<szItemDesc>This magazine contains 30 rounds of 7.62 Warsaw Pact hollow point ammo. Although use of this round against light armored opponents can sway a battle in your favor, it's less effective against heavy armor.</szItemDesc>
+		<szBRName>7.62x39mm Mag 30 HP</szBRName>
+		<szBRDesc>Ever get the urge to turn a person into a bloody sausage with legs? We recommend reaching for 30 rounds of our 7.62mm Hollow Point ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>100</uiIndex>
+		<szItemName>7.62x51mm 5</szItemName>
+		<szLongItemName>7.62x51mm Mag, 5</szLongItemName>
+		<szItemDesc>These 5 loose rounds of 7.62x51mm armor piercing ammo have the ability to defeat body armor at long ranges, making it the ideal sniping round.</szItemDesc>
+		<szBRName>7.62x51mm 5</szBRName>
+		<szBRDesc>This Armor Piercing 7.62x51mm ammunition offers an ideal combination of range, penetration and damage that professional snipers demand.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>101</uiIndex>
+		<szItemName>7.62x51mm 20</szItemName>
+		<szLongItemName>7.62x51mm Mag, 20</szLongItemName>
+		<szItemDesc>This mag contains 20 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
+		<szBRName>7.62x51mm 20</szBRName>
+		<szBRDesc>This 7.62mm 20-round magazine is simply brimming with death, especially when it's filled with a surplus of Full Metal Jacketed rounds. This magazine makes armor more or less moot.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>102</uiIndex>
+		<szItemName>7.62x51mm 5 HP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 5 HP</szLongItemName>
+		<szItemDesc>What these 5 rounds of civilian .308 Winchester hunting ammunition lack in armor piercing abilities, is compensated for with their ability to cause severe injuries in unarmored opponents.</szItemDesc>
+		<szBRName>7.62x51mm 5 HP</szBRName>
+		<szBRDesc>Take advantage of our limited time offer on a price-reduced 5-round sampler box of .308 Winchester Hollow Point ammunition. Whether you're out hunting or sniping, this round will be your one-shot stopper.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>103</uiIndex>
+		<szItemName>7.62x51mm 20 HP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 20 HP</szLongItemName>
+		<szItemDesc>This high capacity magazine holds 20 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szItemDesc>
+		<szBRName>7.62x51mm 20 HP</szBRName>
+		<szBRDesc>If power is what you demand, more power is what you'll get with these 20 rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round. It's more than enough power to put any problem 6-feet under.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>104</uiIndex>
+		<szItemName>4.7mm Mag 45</szItemName>
+		<szLongItemName>4.7x33mm Mag, 45</szLongItemName>
+		<szItemDesc>This 45-round magazine contains 4.7mm caseless ammunition. This round possesses wound and range capabilites that are comparable to the 5.56mm NATO round, but is 40 per cent lighter.</szItemDesc>
+		<szBRName>4.7x33mm Mag 45</szBRName>
+		<szBRDesc>Recovered crates from a classified German warehouse have supplied us with these 45-round magazines. They come complete with a full load of the legandary 4.7mm caseless ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>105</uiIndex>
+		<szItemName>5.7mm Mag 50</szItemName>
+		<szLongItemName>5.7x28mm Mag, 50</szLongItemName>
+		<szItemDesc>This magazine contains 50 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
+		<szBRName>5.7x28mm Mag 50</szBRName>
+		<szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 50-round magazine of 5.7mm pistol ammo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>106</uiIndex>
+		<szItemName>5.7mm Mag 50 HP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 50 HP</szLongItemName>
+		<szItemDesc>These 50 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
+		<szBRName>5.7x28mm Mag 50 HP</szBRName>
+		<szBRDesc>Get the job done right the first time. You're kill-rate will be the best around if you use this 50-round magazine of 5.7mm Hollow Point ammunition. Your victim's chance at survival: roughly zero per cent, give or take a few points.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>107</uiIndex>
+		<szItemName>12g Shells 7</szItemName>
+		<szLongItemName>12 Gauge Shells, 7</szLongItemName>
+		<szItemDesc>This magazine contains 7 rounds of 12 gauge PolyCore slugs. Each round tears through body armor as though it were tissue paper.</szItemDesc>
+		<szBRName>12g Shells 7</szBRName>
+		<szBRDesc>This is definitely the ammunition for real men only. This magazine contains 7 rounds of 12 gauge PolyCore slugs. Each round tears through body armor as though it were tissue paper.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>108</uiIndex>
+		<szItemName>12g Shells 7 BS</szItemName>
+		<szLongItemName>12 Gauge Buckshot Shells, 7</szLongItemName>
+		<szItemDesc>This 12 gauge magazine holds 7 rounds of "00" SSG ammunition. Favored by law enforcement personnel, it is very effective in urban firefights against unarmored opponents.</szItemDesc>
+		<szBRName>12g Shells 7 Buckshot</szBRName>
+		<szBRDesc>The ideal short-range man-stopper round. This 12 gauge magazine holds 7 rounds of '00' SSG ammunition. Law enforcement personnel worldwide favor this round for its effectiveness in urban firefights against unarmored opponents.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>109</uiIndex>
+		<szItemName>CAWS Mag</szItemName>
+		<szLongItemName>CAWS Magazine</szLongItemName>
+		<szItemDesc>This 10-round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and car engine blocks.</szItemDesc>
+		<szBRName>CAWS Mag</szBRName>
+		<szBRDesc>This 10 round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>110</uiIndex>
+		<szItemName>CAWS Mag BS</szItemName>
+		<szLongItemName>CAWS Magazine, Buckshot</szLongItemName>
+		<szItemDesc>The 10 rounds of "00" sized tungsten buckshot ammunition in this mag can penetrate like armor piercing ammo and produce large wound channels like hollow point without with the limitations of either ammo.</szItemDesc>
+		<szBRName>CAWS Mag Buckshot</szBRName>
+		<szBRDesc>Have you ever wanted to kill an unwanted intruder and expand your study by knocking down a wall at the same time? Our 10 round magazine of tungsten buckshot ammo allows you to do just that, and much, much more.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>111</uiIndex>
+		<szItemName>Minirockets AP</szItemName>
+		<szLongItemName>Minirockets, AP</szLongItemName>
+		<szItemDesc>Cutting edge technology means cutting edge killing. These armor piercing rockets inflict such spectacular wounds, they would be the envy of any Hollywood special effects artist.</szItemDesc>
+		<szBRName>Minirockets AP</szBRName>
+		<szBRDesc>Cutting edge technology means cutting edge killing. These armor piercing rockets inflict such spectacular wounds, they would be the envy of any Hollywood special effects artist.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>112</uiIndex>
+		<szItemName>Minirockets HE</szItemName>
+		<szLongItemName>Minirockets, HE</szLongItemName>
+		<szItemDesc>If the Four Horsemen carried pieces, this would be their ammo of choice. These 5 highly explosive minirockets could deliver Armageddon faster than any rock from space.</szItemDesc>
+		<szBRName>Minirockets HE</szBRName>
+		<szBRDesc>If the Four Horsemen carried pieces, this would be their ammo of choice. These 5 highly explosive minirockets could deliver Armageddon faster than any rock from space.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>113</uiIndex>
+		<szItemName>Minirockets HEAP</szItemName>
+		<szLongItemName>Minirockets, HEAP</szLongItemName>
+		<szItemDesc>Blow open your opposition with high explosive armor piercing minirockets, and watch them fry.</szItemDesc>
+		<szBRName>Minirockets HEAP</szBRName>
+		<szBRDesc>Blow open your opposition with high explosive armor piercing minirockets, and watch them fry.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>114</uiIndex>
+		<szItemName>Dart</szItemName>
+		<szLongItemName>Tranquilizer Dart</szLongItemName>
+		<szItemDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szItemDesc>
+		<szBRName>Dart</szBRName>
+		<szBRDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>115</uiIndex>
+		<szItemName>Flamethrower Clip</szItemName>
+		<szLongItemName>Flamethrower Clip</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Flamethrower Clip</szBRName>
+		<szBRDesc>NO DESCRIPTION NECESSARY!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>116</uiIndex>
+		<szItemName>.50 Mag</szItemName>
+		<szLongItemName>.50 Magazine</szLongItemName>
+		<szItemDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
+		<szBRName>.50 Mag</szBRName>
+		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>117</uiIndex>
+		<szItemName>9x39mm Mag</szItemName>
+		<szLongItemName>9x39mm Magazine</szLongItemName>
+		<szItemDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms.</szItemDesc>
+		<szBRName>9x39mm Mag</szBRName>
+		<szBRDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms, including the ever popular VAL Silent Sniper rifle.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>118</uiIndex>
+		<szItemName>9x19mm Lrg Mag</szItemName>
+		<szLongItemName>9x19mm Large Mag</szLongItemName>
+		<szItemDesc>9mm bullets for a Calico model. A 50-pack for when you know it's gonna be a long night.</szItemDesc>
+		<szBRName>9x19mm Lrg Mag</szBRName>
+		<szBRDesc>9mm bullets for a Calico model. A 50-pack for when you know it's gonna be a long night.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>119</uiIndex>
+		<szItemName>9x19mm Lrg Mag AP</szItemName>
+		<szLongItemName>9x19mm Large Mag, AP</szLongItemName>
+		<szItemDesc>A 50 round magazine of 9mm AP. ammo for the Calico model.</szItemDesc>
+		<szBRName>9x19mm Lrg Mag AP</szBRName>
+		<szBRDesc>A 50 round magazine of 9mm AP. ammo for the Calico model.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>120</uiIndex>
+		<szItemName>9x19mm Lrg Mag HP</szItemName>
+		<szLongItemName>9x19mm Large Mag, HP</szLongItemName>
+		<szItemDesc>A 50 round magazine of 9mm HP. ammo for the Calico model.</szItemDesc>
+		<szBRName>9x19mm Lrg Mag HP</szBRName>
+		<szBRDesc>A 50 round magazine of 9mm HP. ammo for the Calico model.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>121</uiIndex>
+		<szItemName>5.45x39mm Mag</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag</szLongItemName>
+		<szItemDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
+		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>122</uiIndex>
+		<szItemName>5.45x39mm Mag HP</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag, HP</szLongItemName>
+		<szItemDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
+		<szBRName>5.45x39mm Mag, HP</szBRName>
+		<szBRDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>123</uiIndex>
+		<szItemName>5.56mm Belt</szItemName>
+		<szLongItemName>5.56x45mm Belt</szLongItemName>
+		<szItemDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
+		<szBRName>5.56x45mm Belt</szBRName>
+		<szBRDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>124</uiIndex>
+		<szItemName>5.56mm Belt HP</szItemName>
+		<szLongItemName>5.56x45mm Belt, HP</szLongItemName>
+		<szItemDesc>This 200-round belt of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
+		<szBRName>5.56x45mm Belt HP</szBRName>
+		<szBRDesc>This 200-round belt of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>125</uiIndex>
+		<szItemName>7.62x51mm Belt</szItemName>
+		<szLongItemName>7.62x51mm Belt</szLongItemName>
+		<szItemDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
+		<szBRName>7.62x51mm Belt</szBRName>
+		<szBRDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>126</uiIndex>
+		<szItemName>7.62x51mm Belt HP</szItemName>
+		<szLongItemName>7.62x51mm Belt, HP</szLongItemName>
+		<szItemDesc>This heavy machine gun belt holds 100 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szItemDesc>
+		<szBRName>7.62x51mm Belt HP</szBRName>
+		<szBRDesc>This heavy machine gun belt holds 100 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>127</uiIndex>
+		<szItemName>7.62x54R Mag 10</szItemName>
+		<szLongItemName>7.62x54R Mag, 10</szLongItemName>
+		<szItemDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection. </szItemDesc>
+		<szBRName>7.62x54R Mag 10</szBRName>
+		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection. </szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>128</uiIndex>
+		<szItemName>A.L.I.C.E.</szItemName>
+		<szLongItemName>A.L.I.C.E. Pack</szLongItemName>
+		<szItemDesc>A buttpack for storing up to 4 different items.</szItemDesc>
+		<szBRName>A.L.I.C.E. Buttpack</szBRName>
+		<szBRDesc>Need more room to store things? This buttpack has enough pockets to carry several items</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>129</uiIndex>
+		<szItemName>7.62x25mm SMG Mag</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag</szLongItemName>
+		<szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag</szBRName>
+		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>130</uiIndex>
+		<szItemName>7.62x25mm SMG Mag HP</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag, HP</szLongItemName>
+		<szItemDesc>Great for use on unarmored foes and common household pests.</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag HP</szBRName>
+		<szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>131</uiIndex>
+		<szItemName>Stun Grenade</szItemName>
+		<szLongItemName>Stun Grenade</szLongItemName>
+		<szItemDesc>This grenade creates a massive vacuum which deprives the surrounding impact area of oxygen as waves of air rush back into its core.</szItemDesc>
+		<szBRName>Stun Grenade</szBRName>
+		<szBRDesc>This grenade creates a massive vacuum which deprives the surrounding impact area of oxygen as waves of air rush back into its core. Anyone standing within the detonated area won't know what hit them as they frantically gasp for air.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>132</uiIndex>
+		<szItemName>Tear Gas</szItemName>
+		<szLongItemName>Tear Gas Grenade</szLongItemName>
+		<szItemDesc>This grenade releases tactical dispersion gas that reeks havoc on exposed eyes and skin.</szItemDesc>
+		<szBRName>Tear Gas Grenade</szBRName>
+		<szBRDesc>Guaranteed to make its victims cry like the babies they are. This grenade releases tactical dispersion gas that reeks havoc on exposed eyes and skin. It'll send everyone in its radius running for clearer pastures.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>133</uiIndex>
+		<szItemName>Mustard Gas</szItemName>
+		<szLongItemName>Mustard Gas Grenade</szLongItemName>
+		<szItemDesc>This grenade releases a colorless, odorless, and tasteless gas that causes intense burning and blistering of the lungs. Sufferers can die without prompt medical attention.</szItemDesc>
+		<szBRName>Mustard Gas Grenade</szBRName>
+		<szBRDesc>This ain't no hot dog garnish. This grenade releases a colorless, odorless, and tasteless gas that causes intense burning and blistering of the lungs. Sufferers can die without prompt medical attention.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>134</uiIndex>
+		<szItemName>Mini Grenade</szItemName>
+		<szLongItemName>Mini Grenade</szLongItemName>
+		<szItemDesc>This small TNT loaded grenade was designed to ensure a significant throwing range and effective fragmentation. It has been proven to provide good lethal coverage.</szItemDesc>
+		<szBRName>Mini Grenade</szBRName>
+		<szBRDesc>This small grenade was developed for maximum throwing range combined with effective fragmentation. The body is loaded with TNT and provides good lethal coverage. Because of its size, even women find this grenade an easy toss.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>135</uiIndex>
+		<szItemName>Mk2 Grenade</szItemName>
+		<szLongItemName>Mk2 Defensive Grenade</szLongItemName>
+		<szItemDesc>An old, but still extremely effective US hand grenade. The MK2 is a defensive grenade packed with TNT, and delivers a wide fragmentation radius. Uses a pull-ring, pressure-released firing trigger.</szItemDesc>
+		<szBRName>Mk2 Defensive Grenade</szBRName>
+		<szBRDesc>This "pineapple" may be older than you are, but it's no less effective on the modern battlefield. Jam packed with TNT, this pressure-released firing device with pull-ring provides great lethal coverage. Stop 'em dead in their tracks, every time.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>136</uiIndex>
+		<szItemName>RDX</szItemName>
+		<szLongItemName>A Jar of RDX Crystals</szLongItemName>
+		<szItemDesc>A jar filled with RDX crystals is more powerful than TNT and easier to detonate. The only drawback of RDX is its instability; it can be set off by a moderate shock.</szItemDesc>
+		<szBRName>A Jar of RDX Crystals</szBRName>
+		<szBRDesc>A jar of RDX crystals are more powerful than TNT and easier to detonate. Better be forewarned, this stuff isn't too stable and can be set off by a moderate shock.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>137</uiIndex>
+		<szItemName>TNT</szItemName>
+		<szLongItemName>TNT</szLongItemName>
+		<szItemDesc>Trinitrotoluene is the second oldest and most commonly used explosive known to man - the first is dynamite. These sticks of explosives are highly stable, strawboard rolled, and contain a quarter-pound charge.</szItemDesc>
+		<szBRName>TNT</szBRName>
+		<szBRDesc>Good old reliable trinitrotoluene is the second oldest and most commonly used explosive known to man-the first is dynamite. These sticks of explosives are highly stable, strawboard rolled and contain a quarter- pound charge.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>138</uiIndex>
+		<szItemName>HMX</szItemName>
+		<szLongItemName>HMX</szLongItemName>
+		<szItemDesc>HMX is a mixture of TNT and RDX at a ratio of 50/50, by weight. Although it is not as powerful as straight RDX, it is certainly more stable.</szItemDesc>
+		<szBRName>HMX</szBRName>
+		<szBRDesc>This explosive packs a real punch. HMX is a mixture of TNT and RDX at a ratio of 50/50, by weight. Although it is not as powerful as straight RDX, it is certainly more stable.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>139</uiIndex>
+		<szItemName>C1</szItemName>
+		<szLongItemName>C1</szLongItemName>
+		<szItemDesc>Composition C1 is a solution of RDX and a small amount of mineral oil. This combination retains the explosive power of RDX while increasing its stability.</szItemDesc>
+		<szBRName>C1</szBRName>
+		<szBRDesc>Composition C1 is a highly explosive solution of RDX, mixed with a small amount of mineral oil. This composition is just as effective as straight RDX, but it won't accidentally blow up in your face.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>140</uiIndex>
+		<szItemName>Mortar Shell</szItemName>
+		<szLongItemName>60mm Mortar Shell</szLongItemName>
+		<szItemDesc>This HE bomb features waterproof "horseshoe" snap-off propellant increments and the M734 multi-option fuse. This fuse can be set by hand for a delayed, impact, near-surface, or proximity burst detonation.</szItemDesc>
+		<szBRName>60mm Mortar Shell</szBRName>
+		<szBRDesc>A real man's mortar. This HE bomb features waterproof "horseshoe" snap-off propellant increments and the M734 multi-option fuse. This fuse can be set by hand for delayed, impact, near-surface or proximity burst detonations.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>141</uiIndex>
+		<szItemName>Mine</szItemName>
+		<szLongItemName>Land Mine</szLongItemName>
+		<szItemDesc>This anti-personnel mine is a fragmentation weapon that becomes activated when stepped on. It includes an anti-disturbance device to inhibit clearance, and a sensor that neutralizes the mine after a specified time.</szItemDesc>
+		<szBRName>Land Mine</szBRName>
+		<szBRDesc>Designed to stop enemies dead in their tracks, or at least slow them up a while. This anti-personnel mine is a fragmentation weapon that blows up when stepped on. It includes a built-in anti-disturbance device to inhibit clearance, and a sensor that neutralizes the minefield after a while.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>142</uiIndex>
+		<szItemName>C4</szItemName>
+		<szLongItemName>C4</szLongItemName>
+		<szItemDesc>Composition C4 is a white plastic explosive that is more powerful than TNT. This plastic-covered block has a threaded-cap-well at each end. Unlike C1, its sister composition, this one's odorless.</szItemDesc>
+		<szBRName>C4</szBRName>
+		<szBRDesc>This white plastic explosive packs a bigger punch than TNT. Composition C4 comes in a plastic-covered block with a threaded-cap-well at each end. Unlike C1, its sister composition, this one's odorless.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>143</uiIndex>
+		<szItemName>Trip Flare</szItemName>
+		<szLongItemName>Trip Flare</szLongItemName>
+		<szItemDesc>It's an illuminating mine with a tripwire attached to it. Pull pressure or cutting the tripwire will ignite the flare, letting mercenaries know of enemy whereabouts.</szItemDesc>
+		<szBRName>Trip Flare</szBRName>
+		<szBRDesc>This illuminating mine with an attached tripwire will shine light on the situation every time. Pull pressure or cutting the tripwire will ignite the flare, visually announcing that enemies are about.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>144</uiIndex>
+		<szItemName>Trip Klaxon</szItemName>
+		<szLongItemName>Trip Klaxon</szLongItemName>
+		<szItemDesc>This illuminating mine with an attached tripwire will alert mercs of nearby enemies. Pull pressure or cutting the tripwire will ignite the flare, which is followed by a loud wailing siren.</szItemDesc>
+		<szBRName>Trip Klaxon</szBRName>
+		<szBRDesc>This illuminating mine with an attached tripwire will brighten up the place with a resounding roar. Pull pressure or cutting the tripwire will ignite the flare, which is followed by a wailing siren, letting nearby mercenaries know that enemies are skulking about the area.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>145</uiIndex>
+		<szItemName>Shaped Charge</szItemName>
+		<szLongItemName>Shaped Charge</szLongItemName>
+		<szItemDesc>Place this small tungsten-backed plastique explosive against any door to blow the lock right off.</szItemDesc>
+		<szBRName>Shaped Charge</szBRName>
+		<szBRDesc>Don't get left out in the cold just because you forgot your key. This trusty shaped-charge will solve all your problems. Place this small tungsten-backed plastique explosive against any door to blow the lock right off.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>146</uiIndex>
+		<szItemName>Break Light</szItemName>
+		<szLongItemName>Chemical Break Light</szLongItemName>
+		<szItemDesc>One time use chemical break lights are an extremely convenient and portable light source. Simply break 'n' throw to brighten your way.</szItemDesc>
+		<szBRName>Chemical Break Light</szBRName>
+		<szBRDesc>These one time use chemical break lights will certainly help to lighten up those dreary night missions. Stock up on these handy little babies 'cause you'll never know when you'll need them. Simply break 'n' shake to brighten your way.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>147</uiIndex>
+		<szItemName>40mm HE</szItemName>
+		<szLongItemName>40mm HE Grenade</szLongItemName>
+		<szItemDesc>This fragmentation grenade when fired from the 40mm grenade launcher will ignite its encased TNT after a short delay.</szItemDesc>
+		<szBRName>40mm HE Grenade</szBRName>
+		<szBRDesc>This standard fragmentation grenade features a time-delayed firing device to ignite its encased TNT. Fired from the Talon grenade launcher, this round can provide great lethal coverage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>148</uiIndex>
+		<szItemName>40mm Tear Gas</szItemName>
+		<szLongItemName>40mm Tear Gas Grenade</szLongItemName>
+		<szItemDesc>This rubber-like round will disperse tear gas after a short delay. These projectiles are meant to be fired from the 40mm grenade launcher.</szItemDesc>
+		<szBRName>40mm Tear Gas Grenade</szBRName>
+		<szBRDesc>This projectile's body is made of rubbery plastic to prevent impact injuries and keep it from being picked up and thrown back. The rubber melts quickly from the heat of burning. This time-delayed round for the Talon grenade launcher releases an irritant gas when ignited.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>149</uiIndex>
+		<szItemName>40mm Stun</szItemName>
+		<szLongItemName>40mm Stun Grenade</szLongItemName>
+		<szItemDesc>When fired from the 40mm grenade launcher, these projectiles create a massive vacuum that will leave your enemies gasping for air.</szItemDesc>
+		<szBRName>40mm Stun Grenade</szBRName>
+		<szBRDesc>These grenade launcher projectile rounds create a massive vacuum, depriving the surrounding impact area of oxygen. Anyone standing within the detonated area will be left gasping, as waves of air rush back into its core.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>150</uiIndex>
+		<szItemName>40mm Smoke</szItemName>
+		<szLongItemName>40mm Smoke Grenade</szLongItemName>
+		<szItemDesc>Now they see you, now they don't. When properly employed, this 40mm smoke grenade will leave your opposition thinking they're dealing with Houdini himself.</szItemDesc>
+		<szBRName>40mm Smoke Grenade</szBRName>
+		<szBRDesc>When fired from a 40mm grenade launcher, this grenade will quickly release a cloud of smoke that will aid in battlefield entry or withdrawal.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>151</uiIndex>
+		<szItemName>Smoke Grenade</szItemName>
+		<szLongItemName>Smoke Grenade</szLongItemName>
+		<szItemDesc>When it comes to generating cover, this hand-held phosphorus-based smoke grenade is proven to be far more effective than any magazine stuffed with bullets.</szItemDesc>
+		<szBRName>Smoke Grenade</szBRName>
+		<szBRDesc>This hand grenade will help to fulfill a myriad a roles including: unseen advancement on enemy positions, marking possible landing sites, and wreaking havoc with fire-rangers.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>152</uiIndex>
+		<szItemName>Tank Shell</szItemName>
+		<szLongItemName>Tank Shell</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szBRName>Tank Shell</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>153</uiIndex>
+		<szItemName>Struct Ignite</szItemName>
+		<szLongItemName>Struct Ignite</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Struct Ignite</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>154</uiIndex>
+		<szItemName>Cocktail</szItemName>
+		<szLongItemName>Creature cocktail</szLongItemName>
+		<szItemDesc>AXED</szItemDesc>
+		<szBRName>Creature cocktail</szBRName>
+		<szBRDesc>AXED</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>155</uiIndex>
+		<szItemName>Structure Explosion</szItemName>
+		<szLongItemName>Structure Explosion</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Structure Explosion</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>156</uiIndex>
+		<szItemName>Great big explosion</szItemName>
+		<szLongItemName>Great big explosion</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Great big explosion</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>157</uiIndex>
+		<szItemName>Big Tear Gas</szItemName>
+		<szLongItemName>Big Tear Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Big Tear Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>158</uiIndex>
+		<szItemName>Small Creature Gas</szItemName>
+		<szLongItemName>Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>159</uiIndex>
+		<szItemName>Large Creature Gas</szItemName>
+		<szLongItemName>Large Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Large Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>160</uiIndex>
+		<szItemName>Grenade Panel</szItemName>
+		<szLongItemName>Grenade Panel</szLongItemName>
+		<szItemDesc>Four pouches, each for a single grenade, mounted onto a modular panel that can be attached to your load bearing equipment.</szItemDesc>
+		<szBRName>Grenade Panel</szBRName>
+		<szBRDesc>No more grenades dangling from D-rings and ripping off while crawling through the underbrush. Our grenade carrier panel has four individual pouches to carry your grenades safely.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>161</uiIndex>
+		<szItemName>Flak Jacket</szItemName>
+		<szLongItemName>Flak Jacket</szLongItemName>
+		<szItemDesc>The Armorshield ultra-light flak jacket is a highly protective sleeveless vest with a neck protector and pelvic plate. Its Velcro fasteners are concealed on the sides.</szItemDesc>
+		<szBRName>Flak Jacket</szBRName>
+		<szBRDesc>The Armorshield ultra-light flak jacket was designed to be as light and thin as possible without compromising maximum protection. It's a sleeveless vest with a neck protector, pelvic plate, and no front openings as its Velcro fasteners are concealed on the sides.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>162</uiIndex>
+		<szItemName>Flak-18 Jacket</szItemName>
+		<szLongItemName>Treated Flak Jacket</szLongItemName>
+		<szItemDesc>This Armorshield ultra-light flak jacket was dipped in Compound 18 for anti-ballistic type protection. This sleeveless vest comes equipped with neck and pelvic plate protectors.</szItemDesc>
+		<szBRName>Treated Flak Jacket</szBRName>
+		<szBRDesc>Better than average protection-the Armorshield ultra-light flak jacket dipped in Compound 18 offer true anti-ballistic type protection. This sleeveless vest comes equipped with neck and pelvic plate protectors.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>163</uiIndex>
+		<szItemName>C.Flak Jacket</szItemName>
+		<szLongItemName>Coated Flak Jacket</szLongItemName>
+		<szItemDesc>The Armorshield ultra-light flak jacket with neck protector and pelvic plate was coated with jelly from the queen Crepitus to improve its protectiveness.</szItemDesc>
+		<szBRName>Coated Flak Jacket</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>164</uiIndex>
+		<szItemName>Kevlar Vest</szItemName>
+		<szLongItemName>Kevlar Vest</szLongItemName>
+		<szItemDesc>The ballistic panels on this vest are made from 28 piles of Kevlar. It wraps around your shoulders, neck and sides, and includes a stowable groin protector. The waist and chest straps are fully adjustable.</szItemDesc>
+		<szBRName>Kevlar Vest</szBRName>
+		<szBRDesc>This vest offers 28 piles of Kevlar for better than average anti-ballistic type protection. It provides full protective coverage as it wraps around the shoulders, neck and sides, and includes a stowable groin protector. The waist and chest straps are fully adjustable.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>165</uiIndex>
+		<szItemName>Kevlar-18 Vest</szItemName>
+		<szLongItemName>Treated Kevlar Vest</szLongItemName>
+		<szItemDesc>This vest's ballistic panels, made from 28 piles of Kevlar, offer even more anti-ballistic protection as they have been treated with Compound 18.</szItemDesc>
+		<szBRName>Treated Kevlar Vest</szBRName>
+		<szBRDesc>If you thought Kevlar was good, it's even better when it has been treated with Compound 18. This vest's ballistic panels, made from 28 piles of Kevlar, offer even more protection as they have been treated with the liquid anti-ballistic solution.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>166</uiIndex>
+		<szItemName>C.Kevlar Vest</szItemName>
+		<szLongItemName>Coated Kevlar Vest</szLongItemName>
+		<szItemDesc>This vest's ballistic panels, made from 28 piles of Kevlar, offer even better protection since they have been treated with Crepitus royal jelly.</szItemDesc>
+		<szBRName>Coated Kevlar Vest</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>167</uiIndex>
+		<szItemName>Spectra Vest</szItemName>
+		<szLongItemName>Spectra Vest</szLongItemName>
+		<szItemDesc>This vest is made of Spectra Shield, an ultra high-performance ballistic sheet that dramatically reduces blunt trauma from multiple hits and angled shots. Its carrier pocket can hold an additional trauma plate.</szItemDesc>
+		<szBRName>Spectra Vest</szBRName>
+		<szBRDesc>The most advanced technology in body armor. This vest is made of Spectra Shield, an ultra high-performance ballistic sheet that dramatically reduces blunt trauma from multiple hits and angled shots. Its carrier pocket can hold an additional trauma plate.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>168</uiIndex>
+		<szItemName>Spec-18 Vest</szItemName>
+		<szLongItemName>Treated Spectra Vest</szLongItemName>
+		<szItemDesc>This Spectra Shield vest, made from an ultra high-performance ballistic sheet to reduce blunt trauma from multiple hits and angled shots, has been treated with Compound 18 to further improve its impenetrability.</szItemDesc>
+		<szBRName>Treated Spectra Vest</szBRName>
+		<szBRDesc>Advanced body armor technology combined with chemistry produced this Spectra Shield vest. Made from high-performance ballistic sheets, it dramatically reduces blunt trauma from multiple hits and angled shots. Add on Compound-18 and you're virtually invincible.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>169</uiIndex>
+		<szItemName>C.Spec Vest</szItemName>
+		<szLongItemName>Coated Spectra Vest</szLongItemName>
+		<szItemDesc>Made from an ultra high-performance ballistic sheet that reduces blunt trauma from multiple hits and angled shots, this Spectra Shield vest offers even more protection with its coating of queen Crepitus jelly.</szItemDesc>
+		<szBRName>Coated Spectra Vest</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>170</uiIndex>
+		<szItemName>Kevlar Pants</szItemName>
+		<szLongItemName>Kevlar Leggings</szLongItemName>
+		<szItemDesc>The ballistic panels on these leggings are made from 28 piles of protective Kevlar. Fully adjustable waist and ankle straps were designed to maintain a snug fit.</szItemDesc>
+		<szBRName>Kevlar Leggings</szBRName>
+		<szBRDesc>The ballistic panels on these leggings are made from 28 piles of protective Kevlar. Fully adjustable waist and ankle straps were designed to maintain a snug fit without reducing mobility. These should be standard fare in every mercenary's wardrobe.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>171</uiIndex>
+		<szItemName>Kevlar-18 Pants</szItemName>
+		<szLongItemName>Treated Kevlar Leggings</szLongItemName>
+		<szItemDesc>The ballistic panels on these leggings, made from 28 piles of Kevlar, have been treated with Compound 18 for extra anti-ballistic protection.</szItemDesc>
+		<szBRName>Treated Kevlar Leggings</szBRName>
+		<szBRDesc>Above standard body armor protection--the ballistic panels on these leggings are made from 28 piles of Kevlar, and have been treated with Compound 18 for extra anti-ballistic protection.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>172</uiIndex>
+		<szItemName>C.Kevlar Pants</szItemName>
+		<szLongItemName>Coated Kevlar Leggings</szLongItemName>
+		<szItemDesc>Made from 28 piles of Kevlar, these leggings have been smeared with jelly from the queen Crepitus for extra protection.</szItemDesc>
+		<szBRName>Coated Kevlar Leggings</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>173</uiIndex>
+		<szItemName>Spectra Pants</szItemName>
+		<szLongItemName>Spectra Leggings</szLongItemName>
+		<szItemDesc>These Spectra Shield leggings reduces blunt trauma from multiple hits and angled shots. Fully adjustable waist and ankle straps won't restrain mobility.</szItemDesc>
+		<szBRName>Spectra Leggings</szBRName>
+		<szBRDesc>These Spectra Shield leggings are the most body armor protection available on the market. They reduce blunt trauma from multiple hits and angled shots. Fully adjustable waist and ankle straps make for a snug fit without reduced mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>174</uiIndex>
+		<szItemName>Spec-18 Pants</szItemName>
+		<szLongItemName>Treated Spectra Leggings</szLongItemName>
+		<szItemDesc>These Spectra Shield, Compound 18 treated, leggings offer even more protection against blunt trauma from multiple hits and angled shots, than standard Spectra leggings.</szItemDesc>
+		<szBRName>Treated Spectra Leggings</szBRName>
+		<szBRDesc>Take the most advanced body armor protection available and make it better--these Spectra Shield Compound 18 treated leggings offer even more protection against blunt trauma, from multiple hits and angled shots, than standard Spectra leggings.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>175</uiIndex>
+		<szItemName>C.Spec Pants</szItemName>
+		<szLongItemName>Coated Spectra Leggings</szLongItemName>
+		<szItemDesc>These Spectra Shield leggings, made from an ultra high-performance ballistic material for reduced trauma from multiple hits and angled shots, have been coated in queen Crepitus jelly for superior protection.</szItemDesc>
+		<szBRName>Coated Spectra Leggings</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>176</uiIndex>
+		<szItemName>Steel Helmet</szItemName>
+		<szLongItemName>Steel Helmet</szLongItemName>
+		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.</szItemDesc>
+		<szBRName>Steel Helmet</szBRName>
+		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>177</uiIndex>
+		<szItemName>Kevlar Helmet</szItemName>
+		<szLongItemName>Kevlar Helmet</szLongItemName>
+		<szItemDesc>The Personal Armor System Ground Troops Helmet is made from Kevlar, with a comfortable suspension system, sweatband and chin strap. It also extends further over the ear and neck than standard helmets.</szItemDesc>
+		<szBRName>Kevlar Helmet</szBRName>
+		<szBRDesc>For above average protection, the wise merc always wears the Personal Armor System Ground Troops Helmet. It's made from Kevlar, and has a comfortable suspension system, sweatband and chin strap. It also extends further over the ear and neck than average helmets.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>178</uiIndex>
+		<szItemName>Kvlr-18 Helmet</szItemName>
+		<szLongItemName>Treated Kevlar Helmet</szLongItemName>
+		<szItemDesc>Made from Kevlar, this Personal Armor System Ground Troops Helmet has been treated with Compound 18 to further enhance its defensive capabilities.</szItemDesc>
+		<szBRName>Treated Kevlar Helmet</szBRName>
+		<szBRDesc>Made from Kevlar, for above average protection, This Personal Armor System Ground Troops Helmet has been treated with Compound 18 to further enhance its defensive purposes.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>179</uiIndex>
+		<szItemName>C.Kvlr Helmet</szItemName>
+		<szLongItemName>Coated Kevlar Helmet</szLongItemName>
+		<szItemDesc>This Personal Armor System Ground Troops Kevlar Helmet has been covered with queen creature jelly to further protect your noggin.</szItemDesc>
+		<szBRName>Coated Kevlar Helmet</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>180</uiIndex>
+		<szItemName>Spectra Helmet</szItemName>
+		<szLongItemName>Spectra Helmet</szLongItemName>
+		<szItemDesc>This light Spectra composite helmet, known for its anti-ballistic qualities,has an IR-absorbing black finish, cushioning foam, and an adjustable harness system with a leather head band and rubber chin strap.</szItemDesc>
+		<szBRName>Spectra Helmet</szBRName>
+		<szBRDesc>This helmet is made from a light Spectra composite that is famous for its superior anti-ballistic qualities. It features an IR-absorbing black finish, cushioning foam and an adjustable harness system with a leather headband and rubber chin strap.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>181</uiIndex>
+		<szItemName>Spec-18 Helmet</szItemName>
+		<szLongItemName>Treated Spectra Helmet</szLongItemName>
+		<szItemDesc>Dipped in Compound 18, this light Spectra composite helmet offers the maximum available amount of anti-ballistic protection.</szItemDesc>
+		<szBRName>Treated Spectra Helmet</szBRName>
+		<szBRDesc>Dipped in Compound 18, this light Spectra composite helmet offers the maximum amount of anti-ballistic protection possible. Rumor has it that this type of helmet has made a world of difference for some mercs who actually make it back from the front line.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>182</uiIndex>
+		<szItemName>C.Spec Helmet</szItemName>
+		<szLongItemName>Coated Spectra Helmet</szLongItemName>
+		<szItemDesc>This light Spectra composite helmet that's covered in queen Crepitus jelly offers even more advanced anti-ballistic protection.</szItemDesc>
+		<szBRName>Coated Spectra Helmet</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>183</uiIndex>
+		<szItemName>Ceramic Plates</szItemName>
+		<szLongItemName>Ceramic Plates</szLongItemName>
+		<szItemDesc>These hard ceramic plates can be inserted into the front and back of most vests to provide extra protection by dispersing the impact from most standard ammunition loads.</szItemDesc>
+		<szBRName>Ceramic Plates</szBRName>
+		<szBRDesc>Any mercenary that wants to come out alive, never leaves home without a few of these plates. Made from a hard ceramic composite, they can be inserted into the breast plate of most vests to improve their impenetrability.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>184</uiIndex>
+		<szItemName>Infant Hide</szItemName>
+		<szLongItemName>Infant Creature Hide</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Infant Creature Hide</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>185</uiIndex>
+		<szItemName>Kiddy Hide</szItemName>
+		<szLongItemName>Young Adult Creature Hide</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Young Adult Creature Hide</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>186</uiIndex>
+		<szItemName>Adult Hide</szItemName>
+		<szLongItemName>Adult Creature Hide</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Adult Creature Hide</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>187</uiIndex>
+		<szItemName>Queen Hide</szItemName>
+		<szLongItemName>Queen Creature Hide</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Queen Creature Hide</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>188</uiIndex>
+		<szItemName>Leather Jacket</szItemName>
+		<szLongItemName>Leather Jacket</szLongItemName>
+		<szItemDesc>A bomber-style leather aviation jacket.</szItemDesc>
+		<szBRName>Leather Jacket</szBRName>
+		<szBRDesc>A bomber-style leather aviation jacket.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>189</uiIndex>
+		<szItemName>Kvlr Leather</szItemName>
+		<szLongItemName>Leather &amp; Kevlar Jacket</szLongItemName>
+		<szItemDesc>This bomber-style leather aviation jacket has been lined with Kevlar to provide a minimal amount of protection.</szItemDesc>
+		<szBRName>Leather &amp; Kevlar Jacket</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>190</uiIndex>
+		<szItemName>Kvlr-18 Leather</szItemName>
+		<szLongItemName>Treated Leather &amp; Kevlar Jacket</szLongItemName>
+		<szItemDesc>This bomber-style leather aviation jacket has been lined with Kevlar and treated with compound 18 for added protection.</szItemDesc>
+		<szBRName>Treated Leather &amp; Kevlar Jacket</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>191</uiIndex>
+		<szItemName>C.Kvlr Leather</szItemName>
+		<szLongItemName>Coated Leather &amp; Kevlar Jacket</szLongItemName>
+		<szItemDesc>This bomber-style leather aviation jacket has been lined with Kevlar and coated with queen Crepitus jelly to enhance its protectiveness.</szItemDesc>
+		<szBRName>Coated Leather &amp; Kevlar Jacket</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>192</uiIndex>
+		<szItemName>YF Hide</szItemName>
+		<szLongItemName>Young Female Hide</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Young Female Hide</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>193</uiIndex>
+		<szItemName>OF Hide</szItemName>
+		<szLongItemName>Old Female Hide</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Old Female Hide</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>194</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>Arulco T-Shirt</szLongItemName>
+		<szItemDesc>No tourist could ever resist one of these trendy 'I love Arulco' t-shirts. Made from 100 per cent pre-shrunk cotton, it was a popular buy before the days of Deidranna.</szItemDesc>
+		<szBRName>Arulco T-Shirt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>195</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>Deidranna T-Shirt</szLongItemName>
+		<szItemDesc>Show your allegiance to the queen with style. Ever since she acquired power, sporting one of these 'Deidranna rules' t-shirts at government-sponsored events has become a common practice among Arulcans.</szItemDesc>
+		<szBRName>Deidranna T-Shirt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>196</uiIndex>
+		<szItemName>Guardian Vest</szItemName>
+		<szLongItemName>Guardian Vest</szLongItemName>
+		<szItemDesc>This high quality ballistic vest is manufactured from 36 piles of Kevlar by Guardian Armories, Inc.  It is fully adjustable and has a pocket for a ceramic armour insert.</szItemDesc>
+		<szBRName>Guardian Vest</szBRName>
+		<szBRDesc>This high quality ballistic vest is manufactured from 36 piles of Kevlar by Guardian Armories, Inc.  Also available in tuxedo style for those especially dangerous formal occasions.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>197</uiIndex>
+		<szItemName>T. Guard Vest</szItemName>
+		<szLongItemName>Treated Guardian Vest</szLongItemName>
+		<szItemDesc>This high quality ballistic vest, brought to you by Guardian Armories, has been improved through treatment with Compound 18.</szItemDesc>
+		<szBRName>Treated Guardian Vest</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>198</uiIndex>
+		<szItemName>C. Guard Vest</szItemName>
+		<szLongItemName>Coated Guardian Vest</szLongItemName>
+		<szItemDesc>This high quality Guardian Armories ballistic vest has been coated with jelly from the queen Crepitus and now provides amazing protection!</szItemDesc>
+		<szBRName>Coated Guardian Vest</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>199</uiIndex>
+		<szItemName>Comp. Binoc.</szItemName>
+		<szLongItemName>Compact Binoculars</szLongItemName>
+		<szItemDesc>Compact 10x30 Binoculars of simple construction.</szItemDesc>
+		<szBRName>10x30 Binoculars</szBRName>
+		<szBRDesc>Compact, light-weight, and inexpensive binoculars. For outdoors use during the day.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>200</uiIndex>
+		<szItemName>Binoculars</szItemName>
+		<szLongItemName>Quality Binoculars</szLongItemName>
+		<szItemDesc>7x50 High-Quality Binoculars.</szItemDesc>
+		<szBRName>7x50 Binoculars</szBRName>
+		<szBRDesc>Rugged binoculars for the serious hunter or soldier. Multi-coated lenses, nitrogen-filled, and rubber-armored. Usable under bad light conditions.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>201</uiIndex>
+		<szItemName>1st Aid Kit</szItemName>
+		<szLongItemName>First Aid Kit</szLongItemName>
+		<szItemDesc>This kit contains: antiseptic, cotton rolls, a thermometer, iodine and merthiolate vials, arm slings, safety pins, scissors, forceps, various bandages and a mini first aid manual.</szItemDesc>
+		<szBRName>First Aid Kit</szBRName>
+		<szBRDesc>From fractures to abrasions, this all-canvas kit-to-go includes everything you'll need to attend to most minor injuries. It includes: bandages, antiseptic, cotton balls, thermometers, iodine, arm slings, safety pins, scissors, and a mini first aid manual.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>202</uiIndex>
+		<szItemName>Med Kit</szItemName>
+		<szLongItemName>Medical Kit</szLongItemName>
+		<szItemDesc>Aside from standard first aid supplies, this kit includes: a suture set and scissors, prep pads, a scalpel, Kelly forceps, tweezers, pain killers, anesthetic, antibiotics, a pen light, and a surgical manual.</szItemDesc>
+		<szBRName>Medical Kit</szBRName>
+		<szBRDesc>It's a first aid kit and then some. Aside from standard first aid supplies, this kit includes: a suture set, prep pads, suture scissors, a scalpel, Kelly forceps, tweezers, anesthetic, pain killers, antibiotics, a pen light, and the "Emergency War Surgery" manual.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>203</uiIndex>
+		<szItemName>Tool Kit</szItemName>
+		<szLongItemName>Tool Kit</szLongItemName>
+		<szItemDesc>This kit includes: a wide range of screwdrivers, ratchets, pliers, clamps, clasps, a hammer and a sewing kit.</szItemDesc>
+		<szBRName>Tool Kit</szBRName>
+		<szBRDesc>This kit offers every tool you'll need to repair most combat items. A wide range of screwdrivers, ratchets, pliers, clamps, and clasps are included, as well as a hammer and sewing kit.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>204</uiIndex>
+		<szItemName>Locksmith Kit</szItemName>
+		<szLongItemName>Locksmith Kit</szLongItemName>
+		<szItemDesc>This top-grain cowhide leather zipped case offers expert lockpicking tools including: picks, shims, tension wrenches, warded master keys, a broken key extractor, and a palm-key press.</szItemDesc>
+		<szBRName>Locksmith Kit</szBRName>
+		<szBRDesc>The perfect solution for getting behind locked doors and into security safes. This kit offers expert lockpicking tools, including: picks, shims, tension wrenches, warded master keys, a broken key extractor, and a palm-key press, all in a top-grain cowhide leather zipped case.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>205</uiIndex>
+		<szItemName>Wood Camo Kit</szItemName>
+		<szLongItemName>Wood Camouflage Kit</szLongItemName>
+		<szItemDesc>The Military Wood Camo Compact includes several green and brown nuanced facial paints, a mirror, and a manual on the proper use and care of your camo compact.</szItemDesc>
+		<szBRName>Camouflage Kit - Wood</szBRName>
+		<szBRDesc>The Military Wood Camo Compact includes several green and brown nuanced facial paints, and a mirror. This long-lasting, non-running, facial paint can be easily removed with soap and water. The kit also includes a manual that outlines the proper use and care of your compact.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>206</uiIndex>
+		<szItemName>Traps Kit</szItemName>
+		<szLongItemName>Boobytrap Kit</szLongItemName>
+		<szItemDesc>This kit contains everything required to build traps including: trip-wire, explosives, and triggers.</szItemDesc>
+		<szBRName>Boobytrap Kit</szBRName>
+		<szBRDesc>Everything you need to build the most lethal trap for unsuspecting passers-by, is contained in this kit. From trip-wire to batteries, you'll be entertained for hours.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>207</uiIndex>
+		<szItemName>Pistol Supp.</szItemName>
+		<szLongItemName>Pistol Suppressor</szLongItemName>
+		<szItemDesc>The light, compact design of this silencer can be fitted easily to most handguns and sub-machine guns.</szItemDesc>
+		<szBRName>Pistol Suppressor</szBRName>
+		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>208</uiIndex>
+		<szItemName>Scope 10x</szItemName>
+		<szLongItemName>Sniper Scope, 10x</szLongItemName>
+		<szItemDesc>A large scope, too big to fit on most assault rifles and carbines.  Hmmm, maybe it would fit on a sniper rifle?</szItemDesc>
+		<szBRName>Sniper Scope, Mag.10x</szBRName>
+		<szBRDesc>Dramatically improve your targeting accuracy with this extremely versatile sniper scope. You'll quickly appreciate this scope's accurate windage adjustment, range-finder precision scale, and coated optics.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>209</uiIndex>
+		<szItemName>Bipod</szItemName>
+		<szLongItemName>Bipod</szLongItemName>
+		<szItemDesc>The universal bipod fits most sniper and assault rifles, as well as light machine guns. Made from a die-cast aluminum, it has a coated matte finish. Its legs fold up when not in use for easy storage.</szItemDesc>
+		<szBRName>Bipod</szBRName>
+		<szBRDesc>Every sensible mercenary packs one of these universal bipods. It fits most sniper and assault rifles, as well as light machine guns. Made from a die-cast aluminum, it has a coated matte finish. Its legs fold up when not in use, for easy storage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>210</uiIndex>
+		<szItemName>Extended Ear</szItemName>
+		<szLongItemName>Extended Ear</szLongItemName>
+		<szItemDesc>The Bionic Ear Scout is a high fidelity stereo amplifier headset with dual wind-resistant microphones that amplify small sounds and filter out the very loud. Its fully adjustable head strap ensures a snug fit.</szItemDesc>
+		<szBRName>Extended Ear</szBRName>
+		<szBRDesc>The Bionic Ear Scout offers advanced warning of approaching intruders. This high fidelity stereo amplifier head set features dual wind-resistant micro-phones that amplify small sounds and filter out the very loud. Its fully adjustable head strap ensures a snug fit even when on the run.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>211</uiIndex>
+		<szItemName>NVG I</szItemName>
+		<szLongItemName>Night Vision Goggles, Gen. I</szLongItemName>
+		<szItemDesc>The first generation of light amplification goggles. Picture is somewhat grainy and light amplification has just begun to be researched.</szItemDesc>
+		<szBRName>Night Vision Goggles I</szBRName>
+		<szBRDesc>The first generation of nightvision gear, still available for those who cannot afford the luxury stuff.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>212</uiIndex>
+		<szItemName>Sun Goggles</szItemName>
+		<szLongItemName>Sun Goggles</szLongItemName>
+		<szItemDesc>These paramilitary eye protectors have triple-lenses: an anti-fog interior acetate lens, a tinted middle lens for reduced glare, and a scratch and shatter resistant exterior lens.</szItemDesc>
+		<szBRName>Sun Goggles</szBRName>
+		<szBRDesc>These paramilitary eye goggles feature triple-protection lenses: an interior anti-fog acetate lens, a tinted middle lens for reduced glare, and a scratch and shatter resistant exterior lens. And as an added bonus, they can be worn comfortably over prescription glasses.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>213</uiIndex>
+		<szItemName>Gas Mask</szItemName>
+		<szLongItemName>Gas Mask</szLongItemName>
+		<szItemDesc>Replicated from the Russian M-17A1, this rubber mask has cheek filters, scratch-proof lenses, adjustable head straps, and a drinking attachment.  A vinyl shoulder bag and plastic poncho are also included.</szItemDesc>
+		<szBRName>Gas Mask</szBRName>
+		<szBRDesc>This Russian rubber mask is a copy of the American M-17A1. It has cheek filters, scratch-proof lenses, adjustable head straps, and a unique drinking attachment. It also comes with a vinyl shoulder bag, and plastic poncho to help protect you from blistering agents.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>214</uiIndex>
+		<szItemName>Canteen</szItemName>
+		<szLongItemName>Canteen</szLongItemName>
+		<szItemDesc>This polyethylene canteen is extremely practical. Whenever you encounter a fresh mountain spring, you can refill it again.</szItemDesc>
+		<szBRName>Canteen</szBRName>
+		<szBRDesc>Any sensible mercenary would carry such a useful item with him. This water-filled polyetherene canteen is refillable and reusable so be sure to have one nearby.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>215</uiIndex>
+		<szItemName>Metal Detector</szItemName>
+		<szLongItemName>Metal Detector</szLongItemName>
+		<szItemDesc>This is an extremely light and powerful transistorized metal detector with aural signalization. All the user has to do is have it on his person and an alarm sounds when metal is detected.</szItemDesc>
+		<szBRName>Metal Detector</szBRName>
+		<szBRDesc>This hand-held metal detector is extremely powerful-it'll find more than just coins on the beach. It is a lightweight transistorized metal detector with aural signalization that is used most effectively by explosive detection operatives.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>216</uiIndex>
+		<szItemName>Compound 18</szItemName>
+		<szLongItemName>Compound 18</szLongItemName>
+		<szItemDesc>This quick-hardening liquid when administered to most body armor, claims to further advance the protective properties of standard anti-ballistic materials.</szItemDesc>
+		<szBRName>Compound 18</szBRName>
+		<szBRDesc>Slop on some of this stuff to feel truly invincible. This quick-hardening liquid claims to enhance the protective qualities of your standard Kevlar or Spectra Shield body armor.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>217</uiIndex>
+		<szItemName>Jelly</szItemName>
+		<szLongItemName>Royal Jelly</szLongItemName>
+		<szItemDesc>This is a blob of royal jelly from the queen Crepitus.</szItemDesc>
+		<szBRName>Royal Jelly</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>218</uiIndex>
+		<szItemName>Elixir</szItemName>
+		<szLongItemName>Jar of Elixir</szLongItemName>
+		<szItemDesc>A glass jar containing an elixir made from creature blood and Gabby's secret blend of eleven herbs and spices.</szItemDesc>
+		<szBRName>Jar of Elixir</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>219</uiIndex>
+		<szItemName>Money</szItemName>
+		<szLongItemName>Money</szLongItemName>
+		<szItemDesc>Cash, coin, moolah, dough. Whatever you call it, it'll buy you stuff.</szItemDesc>
+		<szBRName>Money</szBRName>
+		<szBRDesc>Cash, coin, moolah, dough. Whatever you call it, it'll buy you stuff.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>220</uiIndex>
+		<szItemName>Jar</szItemName>
+		<szLongItemName>Glass Jar</szLongItemName>
+		<szItemDesc>An empty glass jar is great for storing preserves, grandma's teeth, or anything else for that matter.</szItemDesc>
+		<szBRName>Glass Jar</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>221</uiIndex>
+		<szItemName>Full Jar</szItemName>
+		<szLongItemName>Jar of Blood</szLongItemName>
+		<szItemDesc>A glass jar containing what appears to be creature blood.</szItemDesc>
+		<szBRName>Jar of Blood</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>222</uiIndex>
+		<szItemName>Energy Boost</szItemName>
+		<szLongItemName>Energy Booster</szLongItemName>
+		<szItemDesc>This hypodermic syringe is filled with a chemical stimulant that will temporarily boost your energy level. Caution: repeated use has been known to cause cardiac arrest.</szItemDesc>
+		<szBRName>Energy Booster</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>223</uiIndex>
+		<szItemName>Detonator</szItemName>
+		<szLongItemName>Detonator</szLongItemName>
+		<szItemDesc>This firing device features a timer that can be set anywhere between five seconds and ten minutes to allow you to move to a position of safety before its attached explosive goes off.</szItemDesc>
+		<szBRName>Detonator</szBRName>
+		<szBRDesc>Attach this baby to an explosive for real power and control. This time-delayed detonator allows you anywhere from five seconds to ten minutes to move to a location of safety before its attached explosive goes off.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>224</uiIndex>
+		<szItemName>Remote Det.</szItemName>
+		<szLongItemName>Remote Detonator</szLongItemName>
+		<szItemDesc>Place this time-delayed firing device onto any explosive to allow you to blow up a target from a position of safety. The detonator won't ignite until you use a separate remote trigger device.</szItemDesc>
+		<szBRName>Remote Detonator</szBRName>
+		<szBRDesc>A must have for any serious explosives agent. Place this time-delayed firing device to any explosive to blow up a target when you want, from where you want. The detonator won't ignite until you hit the remote trigger.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>225</uiIndex>
+		<szItemName>Videotape</szItemName>
+		<szLongItemName>Videotape</szLongItemName>
+		<szItemDesc>This VHS tape entitled, 'Pant Suit Loretta 6: The Men Are Away,' is an adult XXX film. Parental and viewer discretion is advised.</szItemDesc>
+		<szBRName>Videotape</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>226</uiIndex>
+		<szItemName>Deed</szItemName>
+		<szLongItemName>Deed</szLongItemName>
+		<szItemDesc>This is the deed to Angel's leather shop.</szItemDesc>
+		<szBRName>Deed</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>227</uiIndex>
+		<szItemName>Letter</szItemName>
+		<szLongItemName>Letter from Enrico</szLongItemName>
+		<szItemDesc>This is the letter Enrico gave you. Deliver it to Miguel, leader of the rebels.</szItemDesc>
+		<szBRName>Letter from Enrico</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>228</uiIndex>
+		<szItemName>Diskette</szItemName>
+		<szLongItemName>Computer Diskette</szLongItemName>
+		<szItemDesc>This diskette is labelled, 'Intercept's Most Wanted.' It contains confidential information on known international terrorists. It has been copied onto the laptop computer for easy reference.</szItemDesc>
+		<szBRName>Computer Diskette</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>229</uiIndex>
+		<szItemName>Chalice</szItemName>
+		<szLongItemName>Chalice of Chance</szLongItemName>
+		<szItemDesc>Goblet of goodness, tumbler of treasures, glass of gambles. This drinking cup is a national treasure around Arulco, so don't mock it.</szItemDesc>
+		<szBRName>Chalice of Chance</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>230</uiIndex>
+		<szItemName>Claws</szItemName>
+		<szLongItemName>Bloodcat Claws</szLongItemName>
+		<szItemDesc>Taken right out from under them, these razor-sharp bloodcat claws could bring you a pretty penny in the right market.</szItemDesc>
+		<szBRName>Bloodcat Claws</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>231</uiIndex>
+		<szItemName>Teeth</szItemName>
+		<szLongItemName>Bloodcat Teeth</szLongItemName>
+		<szItemDesc>It takes a real man to rip these babies off. Bloodcat teeth are a rare and treasured commodity in some parts of the world.</szItemDesc>
+		<szBRName>Bloodcat Teeth</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>232</uiIndex>
+		<szItemName>Pelt</szItemName>
+		<szLongItemName>Bloodcat Pelt</szLongItemName>
+		<szItemDesc>Skinning a cat is no small feat. The price on this exotic fur won't be cheap.</szItemDesc>
+		<szBRName>Bloodcat Pelt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>233</uiIndex>
+		<szItemName>Switch</szItemName>
+		<szLongItemName>Switch</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Switch</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>234</uiIndex>
+		<szItemName>Action Item</szItemName>
+		<szLongItemName>Action Item</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Action Item</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>235</uiIndex>
+		<szItemName>Regen Boost</szItemName>
+		<szLongItemName>Regeneration Booster</szLongItemName>
+		<szItemDesc>This hypodermic syringe is filled with 10cc's of a fast-acting healing drug. The warning label reads: "Do not exceed more than 4 doses per day."</szItemDesc>
+		<szBRName>Regeneration Booster</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>236</uiIndex>
+		<szItemName>Syringe</szItemName>
+		<szLongItemName>Syringe</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Syringe</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>237</uiIndex>
+		<szItemName>Syringe</szItemName>
+		<szLongItemName>Syringe</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Syringe</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>238</uiIndex>
+		<szItemName>Syringe</szItemName>
+		<szLongItemName>Syringe</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Syringe</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>239</uiIndex>
+		<szItemName>Full Jar</szItemName>
+		<szLongItemName>Jar of Human Blood</szLongItemName>
+		<szItemDesc>A glass jar containing what appears to be human blood. What kind of sicko stores human blood anyway???</szItemDesc>
+		<szBRName>Jar of Human Blood</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>240</uiIndex>
+		<szItemName>Ownership</szItemName>
+		<szLongItemName>Ownership</szLongItemName>
+		<szItemDesc>If you can read this, JA2 programmers messed up! NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szBRName>Ownership</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>241</uiIndex>
+		<szItemName>Laser Sight</szItemName>
+		<szLongItemName>Laser Sight</szLongItemName>
+		<szItemDesc>The Universal Daylight Laser projects a highly visible red spot at a rather significant range. In a stainless steel housing, it fits onto the trigger guard of most sub-machine guns and pistols.</szItemDesc>
+		<szBRName>Laser Sight</szBRName>
+		<szBRDesc>You won't lose sight of your target when using one of these. The Universal Daylight Laser projects a highly visible red spot upt to 100ft during the day and over 1,000ft at night. In a stainless steel housing, it fits onto the trigger guard of most weapons.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>242</uiIndex>
+		<szItemName>Remote Trigger</szItemName>
+		<szLongItemName>Remote Bomb Trigger</szLongItemName>
+		<szItemDesc>Once the remote detonator has been placed onto an explosive, it won't ignite until you use this remote trigger device.</szItemDesc>
+		<szBRName>Remote Bomb Trigger</szBRName>
+		<szBRDesc>This small radio-control device has four preselect channels and is to be used to trigger Remote Detonators. Battery will last a lifetime.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>243</uiIndex>
+		<szItemName>Wire Cutters</szItemName>
+		<szLongItemName>Wire Cutters</szLongItemName>
+		<szItemDesc>Your average everyday handyman's wire cutters.</szItemDesc>
+		<szBRName>Wire Cutters</szBRName>
+		<szBRDesc>Your average everyday handyman's wire cutters. Extremely useful and versatile-don't leave home without them!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>244</uiIndex>
+		<szItemName>Duckbill</szItemName>
+		<szLongItemName>Duckbill</szLongItemName>
+		<szItemDesc>This metal object, when attached to the end of a shotgun barrel, causes buckshot fired from the shotgun to spread out along a horizontal line instead of its standard circular pattern.</szItemDesc>
+		<szBRName>Duckbill</szBRName>
+		<szBRDesc>Attach this metal object to the end of a shotgun barrel for a real deadly effect. It causes buckshot fired from the shotgun to spread out along a horizontal line instead of its standard circular pattern. Say good-bye to  anyone who gets into its path.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>245</uiIndex>
+		<szItemName>Alcohol</szItemName>
+		<szLongItemName>Bottle of Alcohol</szLongItemName>
+		<szItemDesc>Booze, spirits, swamp root, hooch. At 80 proof, drinking this stuff will definitely lead to intoxication.</szItemDesc>
+		<szBRName>Bottle of Alcohol</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>246</uiIndex>
+		<szItemName>NVG II</szItemName>
+		<szLongItemName>Night Vision Goggles, Gen. II</szLongItemName>
+		<szItemDesc>Second generation nightvision gear has a better intensifier than earlier models. Picture is still somewhat grainy. This type is mostly available to the public.</szItemDesc>
+		<szBRName>Night Vision Goggles II</szBRName>
+		<szBRDesc>Whether you are a hunter, outdoorsman, or LEO, with this one no prey can hide from you in darkness.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>247</uiIndex>
+		<szItemName>Discarded LAW</szItemName>
+		<szLongItemName>Discarded LAW</szLongItemName>
+		<szItemDesc>Having already delivered the hammer of justice upon its target, this empty LAW rocket launcher will live out the rest of its Dredd-ful existence as a glorified paper weight.</szItemDesc>
+		<szBRName>Discarded LAW</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>248</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Head</szLongItemName>
+		<szItemDesc>One unidentified, slightly decaying, human head.</szItemDesc>
+		<szBRName>Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>249</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Impostor's Head</szLongItemName>
+		<szItemDesc>The Imposter won't be imposing on anyone anymore. You're the proud owner of his slightly decaying head.</szItemDesc>
+		<szBRName>Impostor's Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>250</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>T-Rex's Head</szLongItemName>
+		<szItemDesc>T-Rex may be gone like the dinosaurs, but be sure to hold on to his head for posterity.</szItemDesc>
+		<szBRName>T-Rex's Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>251</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Slay's Head</szLongItemName>
+		<szItemDesc>Slay's been slain and all that remains is his decomposing head.</szItemDesc>
+		<szBRName>Slay's Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>252</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Druggist's Head</szLongItemName>
+		<szItemDesc>This Druggist won't be renewing any prescriptions. His head is on your chopping block now.</szItemDesc>
+		<szBRName>Druggist's Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>253</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Matron's Head</szLongItemName>
+		<szItemDesc>No one's gonna miss MOM, or her head. It's yours for the taking.</szItemDesc>
+		<szBRName>Matron's Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>254</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Tiffany's Head</szLongItemName>
+		<szItemDesc>Tiffany Eddie may not have profited from using his head but you will, now that he's dead.</szItemDesc>
+		<szBRName>Tiffany's Head</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>255</uiIndex>
+		<szItemName>Wine</szItemName>
+		<szLongItemName>Wine</szLongItemName>
+		<szItemDesc>This bottle of Saw Mill Spring's finest red vino combines fermented grape juice with the flavor of wood pulp for a truly unique taste.</szItemDesc>
+		<szBRName>Wine</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>256</uiIndex>
+		<szItemName>Beer</szItemName>
+		<szLongItemName>Beer</szLongItemName>
+		<szItemDesc>At 6.9 per cent alcohol, who the hell cares where this stuff came from? This ice beer will even put a Russian under the table.</szItemDesc>
+		<szBRName>Beer</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>257</uiIndex>
+		<szItemName>Porn</szItemName>
+		<szLongItemName>Porno Magazine</szLongItemName>
+		<szItemDesc>Bustler magazine, July issue. Features an interesting pictorial by Demi Moon and various articles no one will ever read.</szItemDesc>
+		<szBRName>Porno Magazine</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>258</uiIndex>
+		<szItemName>Video Camera</szItemName>
+		<szLongItemName>Video Camera</szLongItemName>
+		<szItemDesc>This VHS camera will record and play back all your favorite memories, including embarrassing wedding moments or local magistrates in compromising positions.</szItemDesc>
+		<szBRName>Video Camera</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>259</uiIndex>
+		<szItemName>Robot Remote</szItemName>
+		<szLongItemName>Robot Remote Control</szLongItemName>
+		<szItemDesc>Send your robot out to do your dirty work with this trusty remote control. Let him do your bidding as you sit pretty from a point of safety.</szItemDesc>
+		<szBRName>Robot Remote Control</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>260</uiIndex>
+		<szItemName>Claw</szItemName>
+		<szLongItemName>Creature Claw</szLongItemName>
+		<szItemDesc>A razor-sharp claw from one of those repugnant creatures that is thankfully dead.</szItemDesc>
+		<szBRName>Creature Claw</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>261</uiIndex>
+		<szItemName>Flesh</szItemName>
+		<szLongItemName>Creature Flesh</szLongItemName>
+		<szItemDesc>A rotting chunk of putrified creature flesh. At least this one's dead now.</szItemDesc>
+		<szBRName>Creature Flesh</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>262</uiIndex>
+		<szItemName>Organ</szItemName>
+		<szLongItemName>Unidentifiable Creature Organ</szLongItemName>
+		<szItemDesc>Dead creature innards, just in time for lunch!</szItemDesc>
+		<szBRName>Unidentifiable Creature Organ</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>263</uiIndex>
+		<szItemName>Remote</szItemName>
+		<szLongItemName>Remote Control</szLongItemName>
+		<szItemDesc>This is device to control something from a distance. It only has one button on it, though.</szItemDesc>
+		<szBRName>Remote Control</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>264</uiIndex>
+		<szItemName>Platinum Watch</szItemName>
+		<szLongItemName>Platinum Watch</szLongItemName>
+		<szItemDesc>Tell time in style with this designer watch featuring a quartz crystal, swiss movement and 4 microns of beautiful platinum plating.</szItemDesc>
+		<szBRName>Platinum Watch</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>265</uiIndex>
+		<szItemName>Golf Clubs</szItemName>
+		<szLongItemName>Golf Clubs</szLongItemName>
+		<szItemDesc>This bag of woods and irons is a vintage set that has seen better days on the green. Although slightly beat up, you could still score under par with them.</szItemDesc>
+		<szBRName>Golf Clubs</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>266</uiIndex>
+		<szItemName>Walkman</szItemName>
+		<szLongItemName>Walkman</szLongItemName>
+		<szItemDesc>Listen to your favorite tunes wherever you go with this portable cassette player and mini-headphones. They will make any long trek a little more merry.</szItemDesc>
+		<szBRName>Walkman</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>267</uiIndex>
+		<szItemName>Portable TV</szItemName>
+		<szLongItemName>Portable TV</szLongItemName>
+		<szItemDesc>You won't miss your favorite cartoon or lose track of the football scores with this portable television. Don't leave home without it!</szItemDesc>
+		<szBRName>Portable TV</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>268</uiIndex>
+		<szItemName>CurBal</szItemName>
+		<szLongItemName>Current Balance:</szLongItemName>
+		<szItemDesc>This is how you access your main 'bank account' where you can get your hands on cash by clicking on the different amounts followed by 'Done'. Having cash in hand is sometimes very useful.</szItemDesc>
+		<szBRName>Current Balance:</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>269</uiIndex>
+		<szItemName>Cigars</szItemName>
+		<szLongItemName>Cigars</szLongItemName>
+		<szItemDesc>A solid box of robustos. Suitable to be clenched between your teeth in the heat of battle or for hanging around a cigar lounge with a fine glass of port.</szItemDesc>
+		<szBRName>Cigars</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>270</uiIndex>
+		<szItemName>Very Small Creature Gas</szItemName>
+		<szLongItemName>Very Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Very Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>271</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Small key</szLongItemName>
+		<szItemDesc>A small gold-coloured key which might fit a cabinet lock.</szItemDesc>
+		<szBRName>Small key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>272</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Prison key</szLongItemName>
+		<szItemDesc>A prison key made of stainless steel.</szItemDesc>
+		<szBRName>Prison key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>273</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Cheap key</szLongItemName>
+		<szItemDesc>A simple key.  Looks like it would fit a pretty crummy lock.</szItemDesc>
+		<szBRName>Cheap key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>274</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Dull key</szLongItemName>
+		<szItemDesc>A dull-coloured key.</szItemDesc>
+		<szBRName>Dull key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>275</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Shiny key</szLongItemName>
+		<szItemDesc>A shiny key which probably fits a more than ordinary lock.</szItemDesc>
+		<szBRName>Shiny key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>276</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Padlock key</szLongItemName>
+		<szItemDesc>A padlock key.</szItemDesc>
+		<szBRName>Padlock key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>277</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>Electronic Key</szLongItemName>
+		<szItemDesc>An electronic key with a magnetic strip in place of metal teeth.</szItemDesc>
+		<szBRName>Electronic Key</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>278</uiIndex>
+		<szItemName>Key card</szItemName>
+		<szLongItemName>Key card</szLongItemName>
+		<szItemDesc>An electronic key card.</szItemDesc>
+		<szBRName>Key card</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>279</uiIndex>
+		<szItemName>5.7mm Mag 20</szItemName>
+		<szLongItemName>5.7x28mm Mag, 20</szLongItemName>
+		<szItemDesc>This magazine contains 20 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
+		<szBRName>5.7x28mm Mag 20</szBRName>
+		<szBRDesc>5.7mm somersaults through flesh and bone leaving major wound cavities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>280</uiIndex>
+		<szItemName>5.7mm Mag 20 HP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 20 HP</szLongItemName>
+		<szItemDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
+		<szBRName>5.7x28mm Mag 20 HP</szBRName>
+		<szBRDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>281</uiIndex>
+		<szItemName>Black Cap</szItemName>
+		<szLongItemName>Black Cap</szLongItemName>
+		<szItemDesc>A black commando-type tuque.</szItemDesc>
+		<szBRName>Black Cap</szBRName>
+		<szBRDesc>On Sale: 1/2 Price!  For a limited time only, you can purchase this fine Commando Tuque, made from the finest cotton, for 50 percent off!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>282</uiIndex>
+		<szItemName>Zylon Combat Pants</szItemName>
+		<szLongItemName>Zylon Combat Pants</szLongItemName>
+		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szBRName>Zylon Combat Pants</szBRName>
+		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>283</uiIndex>
+		<szItemName>Zylon Combat Vest</szItemName>
+		<szLongItemName>Zylon Combat Vest</szLongItemName>
+		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szBRName>Zylon Combat Vest</szBRName>
+		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>284</uiIndex>
+		<szItemName>Uniform</szItemName>
+		<szLongItemName>Field Uniform</szLongItemName>
+		<szItemDesc>Officer's fatigues. This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szBRName>Field Uniform</szBRName>
+		<szBRDesc>Officer's fatigues.  Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>285</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Hat</szLongItemName>
+		<szItemDesc>A nice hat to wear when your helmet gets too hot.  Provides limited camouflage.</szItemDesc>
+		<szBRName>Hat</szBRName>
+		<szBRDesc>As seen on TV!  This is the same hat that "Wild Bill" wore on the GI Joe Saturday morning cartoon.  Ok, so it's not the same hat.  But's its still a nice hat.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>286</uiIndex>
+		<szItemName>Uniform</szItemName>
+		<szLongItemName>Dress Uniform</szLongItemName>
+		<szItemDesc>If you ever need to go to a formal dinner party while you're here in Arulco, you could wear this.  Or not.</szItemDesc>
+		<szBRName>Dress Uniform</szBRName>
+		<szBRDesc>Formal attire of the US Marine Corps.  Warning!  This is not a viable combat vestement.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>287</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Officer's Hat</szLongItemName>
+		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the US.</szItemDesc>
+		<szBRName>Officer's Hat</szBRName>
+		<szBRDesc>A marine officer's hat.  Comes with free beer-hat.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>288</uiIndex>
+		<szItemName>Beret</szItemName>
+		<szLongItemName>Red Beret</szLongItemName>
+		<szItemDesc>Parlay voo francais?  This beret may not be French, but it sure looks gay.</szItemDesc>
+		<szBRName>Red Beret</szBRName>
+		<szBRDesc>Start your own special forces team!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>289</uiIndex>
+		<szItemName>Cap</szItemName>
+		<szLongItemName>Russian Cap</szLongItemName>
+		<szItemDesc>Wow, nice hat!</szItemDesc>
+		<szBRName>Russian Cap</szBRName>
+		<szBRDesc>A Soviet guard's hat.  Available in brown and red.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>290</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Fur Hat</szLongItemName>
+		<szItemDesc>For those cold Russian winters, you need the best in head warming fur hats.  So why would you need it in Arulco?</szItemDesc>
+		<szBRName>Fur Hat</szBRName>
+		<szBRDesc>For those cold Russian winters, you need the best in head warming fur hats.  Comes with free ear muffs.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>291</uiIndex>
+		<szItemName>Coat</szItemName>
+		<szLongItemName>Officer's Coat</szLongItemName>
+		<szItemDesc>While this coat looks like it'll hold up fine against the rain, it doesn't look like it'll do much against bullets.</szItemDesc>
+		<szBRName>Officer's Coat</szBRName>
+		<szBRDesc>A Soviet officer's coat.  Available with and without pocket lint.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>292</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Officer's Hat</szLongItemName>
+		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the former Soviet Union.</szItemDesc>
+		<szBRName>Officer's Hat</szBRName>
+		<szBRDesc>A Soviet officer's hat.  Available with and without lice.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>293</uiIndex>
+		<szItemName>SWAT Helmet</szItemName>
+		<szLongItemName>SWAT Helmet</szLongItemName>
+		<szItemDesc>This helmet comes with eye protection, and feels very sturdy.</szItemDesc>
+		<szBRName>SWAT Helmet</szBRName>
+		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>294</uiIndex>
+		<szItemName>SWAT Pants</szItemName>
+		<szLongItemName>SWAT Leggings</szLongItemName>
+		<szItemDesc>Standard issue SWAT armoured leggings.  Sturdier than standard kevlar due to extra integrated plating, but still provide excellent mobility.</szItemDesc>
+		<szBRName>SWAT Leggings</szBRName>
+		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>295</uiIndex>
+		<szItemName>SWAT Vest</szItemName>
+		<szLongItemName>SWAT Vest</szLongItemName>
+		<szItemDesc>Standard issue SWAT armoured vest.  Sturdier than standard kevlar due to extra integrated plating, but still provides excellent mobility.</szItemDesc>
+		<szBRName>SWAT Vest</szBRName>
+		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>296</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>T-Shirt</szLongItemName>
+		<szItemDesc>Oh Yeah?  Well, same to you buddy!</szItemDesc>
+		<szBRName>T-Shirt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>297</uiIndex>
+		<szItemName>Retractable Baton</szItemName>
+		<szLongItemName>Retractable Baton</szLongItemName>
+		<szItemDesc>Standard issue for security guards in many countries, this retractable baton is greating for whipping out and beating.</szItemDesc>
+		<szBRName>Retractable Baton</szBRName>
+		<szBRDesc>Standard retractable baton.  Popular with security guards.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>298</uiIndex>
+		<szItemName>Nightstick</szItemName>
+		<szLongItemName>Nightstick</szLongItemName>
+		<szItemDesc>Long, hard and good for a serious beating.</szItemDesc>
+		<szBRName>Nightstick</szBRName>
+		<szBRDesc>Go Rodney-King on someone's ass with this police nightstick.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>299</uiIndex>
+		<szItemName>Utility Knife</szItemName>
+		<szLongItemName>Utility Knife</szLongItemName>
+		<szItemDesc>Pry open locks and stab your enemies with this all purpose utility knife.</szItemDesc>
+		<szBRName>Utility Knife</szBRName>
+		<szBRDesc>Pry open locks and stab your enemies with this all purpose utility knife.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>300</uiIndex>
+		<szItemName>Light Knife</szItemName>
+		<szLongItemName>Light Knife</szLongItemName>
+		<szItemDesc>A small, well-balanced knife.</szItemDesc>
+		<szBRName>Light Knife</szBRName>
+		<szBRDesc>A small, well-balanced blade that does a little less damage that our standard combat knife, but can be swung a bit faster.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>301</uiIndex>
+		<szItemName>Exacto Knife</szItemName>
+		<szLongItemName>Exacto Knife</szLongItemName>
+		<szItemDesc>Exactly what you'd need if you were going to cut through some cardboard.  Pretty much useless in combat though.</szItemDesc>
+		<szBRName>Exacto Knife</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>302</uiIndex>
+		<szItemName>Camo St. Helm</szItemName>
+		<szLongItemName>Camo Steel Helmet</szLongItemName>
+		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
+		<szBRName>Camo Steel Helmet</szBRName>
+		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>303</uiIndex>
+		<szItemName>Platter</szItemName>
+		<szLongItemName>Silver Platter</szLongItemName>
+		<szItemDesc>This rather tarnished silver platter bears no inscription. It looks as though it may have been a thoughtful gift at one time.</szItemDesc>
+		<szBRName>Silver Platter</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>304</uiIndex>
+		<szItemName>Duct Tape</szItemName>
+		<szLongItemName>Duct Tape</szLongItemName>
+		<szItemDesc>This roll of gray, 2-inch wide heavy-duty tape is great for patching holes and keeping things together.</szItemDesc>
+		<szBRName>Duct Tape</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>305</uiIndex>
+		<szItemName>Rod</szItemName>
+		<szLongItemName>Aluminum Rod</szLongItemName>
+		<szItemDesc>This aluminum curtain rod is broken at both ends. Wonder what happened to the curtains.</szItemDesc>
+		<szBRName>Aluminum Rod</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>306</uiIndex>
+		<szItemName>Spring</szItemName>
+		<szLongItemName>Spring</szLongItemName>
+		<szItemDesc>This small, heavy-duty, metal coil spring is common to many household appliances.</szItemDesc>
+		<szBRName>Spring</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>307</uiIndex>
+		<szItemName>Rod &amp; Spring</szItemName>
+		<szLongItemName>Rod &amp; Spring</szLongItemName>
+		<szItemDesc>Install this smart, well-crafted spring and bolt replacement in a firearm to boost its rate of fire!</szItemDesc>
+		<szBRName>Rod &amp; Spring</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>308</uiIndex>
+		<szItemName>Steel Tube</szItemName>
+		<szLongItemName>Steel Tube</szLongItemName>
+		<szItemDesc>A basic raw piece of steel, looking for a home.</szItemDesc>
+		<szBRName>Steel Tube</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>309</uiIndex>
+		<szItemName>Quick Glue</szItemName>
+		<szLongItemName>Quick Glue</szLongItemName>
+		<szItemDesc>Once this glue gets a grip, it doesn't let go. It will permanently stick to most substances in less than 3 minutes.</szItemDesc>
+		<szBRName>Quick Glue</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>310</uiIndex>
+		<szItemName>Extender</szItemName>
+		<szLongItemName>Gun Barrel Extender</szLongItemName>
+		<szItemDesc>attach this nifty chunk of hardware to any gun barrel and watch your range soar.</szItemDesc>
+		<szBRName>Gun Barrel Extender</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>311</uiIndex>
+		<szItemName>String</szItemName>
+		<szLongItemName>String</szLongItemName>
+		<szItemDesc>A 19-foot piece of typical white string.</szItemDesc>
+		<szBRName>String</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>312</uiIndex>
+		<szItemName>Can</szItemName>
+		<szLongItemName>Soda Can</szLongItemName>
+		<szItemDesc>This old soda can looks as though it's been kicking around for quite some time.</szItemDesc>
+		<szBRName>Soda Can</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>313</uiIndex>
+		<szItemName>Can w/ String</szItemName>
+		<szLongItemName>Soda Can with String</szLongItemName>
+		<szItemDesc>A piece of string attached to a soda can makes a great noise-maker when tied to a car bumper at a wedding party procession.</szItemDesc>
+		<szBRName>Soda Can with String</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>314</uiIndex>
+		<szItemName>Marbles</szItemName>
+		<szLongItemName>Marbles</szLongItemName>
+		<szItemDesc>These round, shiny, colorful, and surprisingly heavy balls of glass are usually found in young boys' pockets. They are used mostly for amusement.</szItemDesc>
+		<szBRName>Marbles</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>315</uiIndex>
+		<szItemName>LameBoy</szItemName>
+		<szLongItemName>LameBoy Display</szLongItemName>
+		<szItemDesc>A Liquid Crystal Display ripped out of a small, portable, grayscale game machine.</szItemDesc>
+		<szBRName>LameBoy Display</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>316</uiIndex>
+		<szItemName>Copper Wire</szItemName>
+		<szLongItemName>Copper Wire</szLongItemName>
+		<szItemDesc>Your everyday copper wire, great for electronics.</szItemDesc>
+		<szBRName>Copper Wire</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>317</uiIndex>
+		<szItemName>Display Unit</szItemName>
+		<szLongItemName>Display Unit</szLongItemName>
+		<szItemDesc>This contraption is essentially a LameBoy LCD rigged with copper wiring.</szItemDesc>
+		<szBRName>Display Unit</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>318</uiIndex>
+		<szItemName>FumblePak</szItemName>
+		<szLongItemName>FumblePak</szLongItemName>
+		<szItemDesc>This Kid-tendo Fumble Pak device vibrates a video game joystick during gameplay. Warning: it may cause the player to lose his grip.</szItemDesc>
+		<szBRName>FumblePak</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>319</uiIndex>
+		<szItemName>X-ray Tube</szItemName>
+		<szLongItemName>X-ray Tube</szLongItemName>
+		<szItemDesc>This is a piece of a hospital x-ray machine.</szItemDesc>
+		<szBRName>X-ray Tube</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>320</uiIndex>
+		<szItemName>Gum</szItemName>
+		<szLongItemName>Pack of Gum</szLongItemName>
+		<szItemDesc>A pack of sugurless, spearmint flavored chewing gum. Dentists recommend chewing after every meal and between brushings.</szItemDesc>
+		<szBRName>Pack of Gum</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>321</uiIndex>
+		<szItemName>X-ray Device</szItemName>
+		<szLongItemName>X-ray Device</szLongItemName>
+		<szItemDesc>This is a nifty looking, but sticky device made from various parts. It looks like it could light up and vibrate.</szItemDesc>
+		<szBRName>X-ray Device</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>322</uiIndex>
+		<szItemName>Batteries</szItemName>
+		<szLongItemName>Batteries</szLongItemName>
+		<szItemDesc>NeverReady double 'A' batteries. This may sound like a description of some woman you know, and just like a woman, these batteries will likely conk out on you, just when you need them the most.</szItemDesc>
+		<szBRName>Batteries</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>323</uiIndex>
+		<szItemName>Rubber Band</szItemName>
+		<szLongItemName>Rubber Band</szLongItemName>
+		<szItemDesc>Elasticity at its best. This rather old invention is still great for keeping a few things together.</szItemDesc>
+		<szBRName>Rubber Band</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>324</uiIndex>
+		<szItemName>X-ray Detector</szItemName>
+		<szLongItemName>X-ray Detector</szLongItemName>
+		<szItemDesc>This homemade x-ray device looks like it will actually function, flashing a vibrating x-ray pulse and crudely displaying the results on its LCD. Batteries required.</szItemDesc>
+		<szBRName>X-ray Detector</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>325</uiIndex>
+		<szItemName>Silver</szItemName>
+		<szLongItemName>Silver Nugget</szLongItemName>
+		<szItemDesc>A nugget of pure silver, probably right out of Arulco's silver mines.</szItemDesc>
+		<szBRName>Silver Nugget</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>326</uiIndex>
+		<szItemName>Gold</szItemName>
+		<szLongItemName>Gold Nugget</szLongItemName>
+		<szItemDesc>Just like cash, only heavier. This is a shiny, impressive nugget of pure gold, compliments of Arulco's rather meager mineral mines.</szItemDesc>
+		<szBRName>Gold Nugget</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>327</uiIndex>
+		<szItemName>Gas</szItemName>
+		<szLongItemName>Tank of Gas</szLongItemName>
+		<szItemDesc>Use this tank of gas wisely. They are extremely hard to come by, here in Arulco.</szItemDesc>
+		<szBRName>Tank of Gas</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>328</uiIndex>
+		<szItemName>5.56mm Mag 10</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10</szLongItemName>
+		<szItemDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szItemDesc>
+		<szBRName>5.56x45mm Mag 10</szBRName>
+		<szBRDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>329</uiIndex>
+		<szItemName>5.56mm Mag 10 HP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10 HP</szLongItemName>
+		<szItemDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szItemDesc>
+		<szBRName>5.56x45mm Mag 10 HP</szBRName>
+		<szBRDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>330</uiIndex>
+		<szItemName>Micro-Uzi</szItemName>
+		<szLongItemName>Micro-Uzi</szLongItemName>
+		<szItemDesc>The name says it all, it's an Uzi. First there was the Mini-Uzi, now the Micro-Uzi. One can only wonder when the Pocket-Uzi will roll-off the Israeli assembly line.</szItemDesc>
+		<szBRName>Micro-Uzi</szBRName>
+		<szBRDesc>The name says it all, it's an Uzi. First there was the Mini-Uzi, now the Micro-Uzi. One can only wonder when the Pocket-Uzi will roll-off the Israeli assembly line.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>331</uiIndex>
+		<szItemName>L85A2</szItemName>
+		<szLongItemName>Enfield L85A2</szLongItemName>
+		<szItemDesc>This British weapon was actually made in Nottingham, not Enfield, where computer controlled tools were finally able to eliminate all of its serious defects.</szItemDesc>
+		<szBRName>Enfield L85A2</szBRName>
+		<szBRDesc>This British weapon was actually made in Nottingham, not Enfield, where computer controlled tools were finally able to eliminate all of its serious defects.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>332</uiIndex>
+		<szItemName>TAR 21</szItemName>
+		<szLongItemName>Tavor TAR 21</szLongItemName>
+		<szItemDesc>This new Israeli high-tech machine gun will bullpup your socks off. Weighing only 5.5 pounds empty, this weapon of death can fire off 900 5.56mm bullets a minute.</szItemDesc>
+		<szBRName>Tavor TAR 21</szBRName>
+		<szBRDesc>This new Israeli high-tech machine gun will bullpup your socks off. Weighing only 5.5 pounds empty, this weapon of death can fire off 900 5.56mm bullets a minute.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>333</uiIndex>
+		<szItemName>VSS</szItemName>
+		<szLongItemName>VSS Vintorez</szLongItemName>
+		<szItemDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szItemDesc>
+		<szBRName>VSS Vintorez</szBRName>
+		<szBRDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>334</uiIndex>
+		<szItemName>PSG1</szItemName>
+		<szLongItemName>HK PSG1</szLongItemName>
+		<szItemDesc>This German made weapon exemplifies the country's reputation for precision and is a sniper's weapon of choice.</szItemDesc>
+		<szBRName>HK PSG1</szBRName>
+		<szBRDesc>This German made weapon exemplifies the country's reputation for precision and is a sniper's weapon of choice.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>335</uiIndex>
+		<szItemName>M82A2</szItemName>
+		<szLongItemName>Barrett M82A2</szLongItemName>
+		<szItemDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szItemDesc>
+		<szBRName>Barrett M82A2</szBRName>
+		<szBRDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szBRDesc>
+	</ITEM>
+</ITEMLIST>
