@@ -4472,4 +4472,17 @@
 		<uiIndex>1022</uiIndex>
 		<sItemIndex>50</sItemIndex>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1023</uiIndex>
+		<sItemIndex>1522</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1024</uiIndex>
+		<sItemIndex>1523</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1025</uiIndex>
+		<sItemIndex>1524</sItemIndex>
+		<ubOptimalNumber>6</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>

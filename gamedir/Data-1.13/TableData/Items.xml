@@ -159,6 +159,9 @@
 		<overheatCooldownModificator>0.0</overheatCooldownModificator>
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
+		<tripwireactivation>0</tripwireactivation>
+		<tripwire>0</tripwire>
+		<attachmentclass>0</attachmentclass>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -4198,6 +4201,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4400,6 +4404,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4432,6 +4437,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4464,6 +4470,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4496,6 +4503,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6219,6 +6227,7 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
+		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -6262,6 +6271,7 @@
 		<PercentTunnelVision>90</PercentTunnelVision>
 		<ScopeMagFactor>10.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6291,6 +6301,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Bipod>10</Bipod>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>20</PercentHandling>
 		</STAND_MODIFIERS>
@@ -7074,6 +7085,7 @@
 		<BestLaserRange>100</BestLaserRange>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8886,6 +8898,7 @@
 		<PercentRecoilModifier>-10</PercentRecoilModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.15</overheatCooldownModificator>
+		<attachmentclass>262144</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -16336,6 +16349,7 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
+		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -22135,7 +22149,7 @@
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<DefaultAttachment>946</DefaultAttachment>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -28563,6 +28577,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28595,6 +28610,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28705,8 +28721,10 @@
 		<StealthBonus>-10</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
+		<ScopeMagFactor>1.0</ScopeMagFactor>
 		<ProjectionFactor>1.7</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>12</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -28741,6 +28759,7 @@
 		<BurstToHitBonus>4</BurstToHitBonus>
 		<AutoFireToHitBonus>4</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4097</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-5</PercentHandling>
 			<PercentMaxCounterForce>50</PercentMaxCounterForce>
@@ -28787,8 +28806,10 @@
 		<StealthBonus>-20</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
+		<ScopeMagFactor>1.0</ScopeMagFactor>
 		<ProjectionFactor>3.5</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>12</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28827,6 +28848,7 @@
 		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28866,6 +28888,7 @@
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28898,6 +28921,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28927,6 +28951,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28956,6 +28981,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28985,6 +29011,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29014,6 +29041,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29043,6 +29071,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29071,6 +29100,7 @@
 		<SciFi>1</SciFi>
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
+		<attachmentclass>1024</attachmentclass>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -29101,6 +29131,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29130,6 +29161,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29159,6 +29191,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29188,6 +29221,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29217,6 +29251,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29246,6 +29281,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29276,6 +29312,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29306,6 +29343,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29339,6 +29377,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29369,6 +29408,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29399,6 +29439,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29429,6 +29470,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29463,6 +29505,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29491,6 +29534,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29519,6 +29563,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29547,6 +29592,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29575,6 +29621,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29603,6 +29650,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29635,6 +29683,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>2048</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29667,6 +29716,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>2048</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29699,6 +29749,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>2048</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29756,6 +29807,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29789,6 +29841,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29820,6 +29873,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29850,6 +29904,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29880,6 +29935,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29910,6 +29966,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29940,6 +29997,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29970,6 +30028,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30000,6 +30059,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30027,6 +30087,7 @@
 		<SciFi>1</SciFi>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30054,6 +30115,7 @@
 		<SciFi>1</SciFi>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30084,6 +30146,7 @@
 		<SciFi>1</SciFi>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30112,6 +30175,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30140,6 +30204,7 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30206,6 +30271,7 @@
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30255,6 +30321,7 @@
 		<MagSizeBonus>45</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>64</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-2</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -30291,6 +30358,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentAPReduction>20</PercentAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>8</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30333,6 +30401,7 @@
 		<PercentTunnelVision>30</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30374,6 +30443,7 @@
 		<PercentTunnelVision>80</PercentTunnelVision>
 		<ScopeMagFactor>9.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30408,6 +30478,7 @@
 		<MagSizeBonus>70</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>64</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-2</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -30446,6 +30517,7 @@
 		<MagSizeBonus>70</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>64</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-2</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -30480,6 +30552,7 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.03</overheatCooldownModificator>
+		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30521,6 +30594,7 @@
 		<AttachmentSystem>1</AttachmentSystem>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>24</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30564,6 +30638,7 @@
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<ProjectionFactor>1.6</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30595,6 +30670,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentAPReduction>20</PercentAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>8</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30636,6 +30712,7 @@
 		<PercentTunnelVision>70</PercentTunnelVision>
 		<ScopeMagFactor>7.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30669,6 +30746,7 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<PercentReadyTimeAPReduction>33</PercentReadyTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>32</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-40</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -30706,6 +30784,7 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<PercentReadyTimeAPReduction>33</PercentReadyTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>32</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-40</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -30738,6 +30817,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4096</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30769,6 +30849,7 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>4096</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>70</PercentMaxCounterForce>
@@ -30813,6 +30894,7 @@
 		<DamageBonus>-1</DamageBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
+		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -31184,6 +31266,7 @@
 		<ToHitBonus>-3</ToHitBonus>
 		<BurstSizeBonus>3</BurstSizeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>256</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31279,6 +31362,7 @@
 		<PercentTunnelVision>10</PercentTunnelVision>
 		<ScopeMagFactor>2.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31318,6 +31402,7 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36248,6 +36333,7 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>5.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36285,6 +36371,7 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36322,6 +36409,7 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36349,7 +36437,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<RangeBonus>20</RangeBonus>
 		<ToHitBonus>7</ToHitBonus>
+		<ScopeMagFactor>1.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>8</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -36408,6 +36498,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<AttachmentSystem>2</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>256</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36436,6 +36527,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<AttachmentSystem>2</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>256</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36810,6 +36902,7 @@
 		<CamoBonus>20</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>8192</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentCap>-2</PercentCap>
 			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
@@ -36843,6 +36936,7 @@
 		<CamoBonus>30</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>32768</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36874,6 +36968,7 @@
 		<CamoBonus>40</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>16384</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -41240,6 +41335,7 @@
 		<Flare>1</Flare>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41268,6 +41364,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41296,6 +41393,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41326,6 +41424,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41356,6 +41455,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41384,6 +41484,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41415,6 +41516,7 @@
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45125,12 +45227,73 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
-		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1523</uiIndex>
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. Pro-Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>10</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>46</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1050</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<tripwireactivation>1</tripwireactivation>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1524</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>29</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>35</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>0</Repairable>
+		<Metal>1</Metal>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<tripwireactivation>1</tripwireactivation>
+		<tripwire>1</tripwire>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
