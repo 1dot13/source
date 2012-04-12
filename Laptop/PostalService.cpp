@@ -210,7 +210,7 @@ BOOLEAN CPostalService::AddPackageToShipment(UINT16 usShipmentID, UINT16 usItemI
 
 BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 {
-	static BOOLEAN BR_FAST_SHIP = gGameExternalOptions.fBobbyRayFastShipments;
+	BOOLEAN BR_FAST_SHIP = gGameExternalOptions.fBobbyRayFastShipments;
 	if( usShipmentID > _UsedShipmentIDList.size() ||
 		!_UsedShipmentIDList[usShipmentID])
 	{

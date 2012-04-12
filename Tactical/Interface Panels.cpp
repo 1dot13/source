@@ -3583,7 +3583,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	BOOLEAN fNewItem = FALSE;
 	static BOOLEAN	fRightDown = FALSE;
 	static BOOLEAN	fLeftDown = FALSE;
-	static bool INV_AP_COST = bool(gGameOptions.fInventoryCostsAP);
+	BOOLEAN INV_AP_COST = gGameOptions.fInventoryCostsAP;
 
 	uiHandPos = MSYS_GetRegionUserData( pRegion, 0 );
 
