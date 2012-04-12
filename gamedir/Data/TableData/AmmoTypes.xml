@@ -32,6 +32,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -65,6 +66,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -98,6 +100,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
@@ -131,6 +134,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -164,6 +168,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -197,6 +202,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -230,6 +236,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -263,6 +270,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -296,6 +304,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -329,6 +338,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -362,6 +372,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -395,6 +406,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -428,6 +440,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
@@ -461,6 +474,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -494,6 +508,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -527,6 +542,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -560,6 +576,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>1</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -593,6 +610,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -626,6 +644,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
@@ -659,6 +678,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
@@ -692,6 +712,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
@@ -725,6 +746,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
@@ -758,6 +780,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
@@ -791,6 +814,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
@@ -824,6 +848,7 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -857,6 +882,7 @@
 		<lockBustingPower>100</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
@@ -890,5 +916,6 @@
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
+		<temperatureModificator>1</temperatureModificator>
 	</AMMOTYPE>
 </AMMOTYPELIST>

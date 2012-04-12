@@ -1624,7 +1624,7 @@
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
-		<IMPITEMCHOICES>
+	<IMPITEMCHOICES>
 		<uiIndex>29</uiIndex>
 		<name />
 		<ubChoices>0</ubChoices>
@@ -1680,7 +1680,7 @@
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
-		<IMPITEMCHOICES>
+	<IMPITEMCHOICES>
 		<uiIndex>30</uiIndex>
 		<name />
 		<ubChoices>0</ubChoices>

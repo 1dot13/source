@@ -33,6 +33,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
+		<EasyUnjam>0</EasyUnjam>
 		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>0</ManualReloadSound>
 		<nAccuracy>0</nAccuracy>
@@ -40,6 +41,10 @@
 		<bRecoilY>0</bRecoilY>
 		<ubAimLevels>0</ubAimLevels>
 		<ubRecoilDelay>0</ubRecoilDelay>
+		<Handling>0</Handling>
+		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1</uiIndex>
@@ -1613,7 +1618,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>56</uiIndex>
-		<szWeaponName>Automag III</szWeaponName>
+		<szWeaponName>Automag III Custom</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>9</ubCalibre>

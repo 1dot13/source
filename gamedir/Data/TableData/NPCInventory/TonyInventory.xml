@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <INVENTORYLIST>
 	<INVENTORY>
 		<uiIndex>0</uiIndex>
@@ -73,7 +73,6 @@
 	<INVENTORY>
 		<uiIndex>14</uiIndex>
 		<sItemIndex>15</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>15</uiIndex>
@@ -148,7 +147,6 @@
 	<INVENTORY>
 		<uiIndex>29</uiIndex>
 		<sItemIndex>30</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>30</uiIndex>
@@ -163,7 +161,6 @@
 	<INVENTORY>
 		<uiIndex>32</uiIndex>
 		<sItemIndex>33</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>33</uiIndex>
@@ -223,12 +220,10 @@
 	<INVENTORY>
 		<uiIndex>44</uiIndex>
 		<sItemIndex>55</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>45</uiIndex>
 		<sItemIndex>56</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>46</uiIndex>
@@ -238,7 +233,6 @@
 	<INVENTORY>
 		<uiIndex>47</uiIndex>
 		<sItemIndex>65</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>48</uiIndex>
@@ -513,31 +507,25 @@
 	<INVENTORY>
 		<uiIndex>102</uiIndex>
 		<sItemIndex>330</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>103</uiIndex>
 		<sItemIndex>331</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>104</uiIndex>
 		<sItemIndex>332</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>105</uiIndex>
 		<sItemIndex>333</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>106</uiIndex>
 		<sItemIndex>334</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>107</uiIndex>
 		<sItemIndex>335</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 </INVENTORYLIST>

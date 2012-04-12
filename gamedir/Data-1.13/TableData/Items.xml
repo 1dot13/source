@@ -10,6 +10,7 @@
 		<usItemClass>128</usItemClass>
 		<nasAttachmentClass>0</nasAttachmentClass>
 		<nasLayoutClass>0</nasLayoutClass>
+		<AttachmentClass>0</AttachmentClass>
 		<ubClassIndex>0</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
@@ -144,6 +145,8 @@
 		<ContainsLiquid>0</ContainsLiquid>
 		<MetalDetector>0</MetalDetector>
 		<FingerPrintID>0</FingerPrintID>
+		<TripWireActivation>0</TripWireActivation>
+		<TripWire>0</TripWire>
 		<NewInv>0</NewInv>
 		<AttachmentSystem>0</AttachmentSystem>
 		<ScopeMagFactor>0</ScopeMagFactor>
@@ -159,9 +162,6 @@
 		<overheatCooldownModificator>0.0</overheatCooldownModificator>
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
-		<tripwireactivation>0</tripwireactivation>
-		<tripwire>0</tripwire>
-		<attachmentclass>0</attachmentclass>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -4184,6 +4184,7 @@
 		<usItemClass>512</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>9</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>40</ubGraphicNum>
@@ -4201,7 +4202,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4386,6 +4386,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>16</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -4404,7 +4405,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4419,6 +4419,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>17</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>111</ubGraphicNum>
@@ -4437,7 +4438,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4452,6 +4452,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>18</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>113</ubGraphicNum>
@@ -4470,7 +4471,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4485,6 +4485,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>19</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>112</ubGraphicNum>
@@ -4503,7 +4504,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6208,6 +6208,7 @@
 		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
+		<AttachmentClass>2</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>52</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -6227,7 +6228,6 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
-		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -6245,6 +6245,7 @@
 		<szBRDesc>Dramatically improve your targeting accuracy with this extremely versatile sniper scope. You'll quickly appreciate this scope's accurate windage adjustment, range-finder precision scale, and coated optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>171</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -6271,7 +6272,6 @@
 		<PercentTunnelVision>90</PercentTunnelVision>
 		<ScopeMagFactor>10.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6285,6 +6285,7 @@
 		<szBRDesc>Every sensible mercenary packs one of these universal bipods. It fits most sniper and assault rifles, as well as light machine guns. Made from a die-cast aluminum, it has a coated matte finish. Its legs fold up when not in use, for easy storage.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>512</nasAttachmentClass>
+		<AttachmentClass>1</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>69</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -6301,7 +6302,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Bipod>10</Bipod>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>20</PercentHandling>
 		</STAND_MODIFIERS>
@@ -7066,6 +7066,7 @@
 		<szBRDesc>You won't lose sight of your target when using one of these. The Universal Daylight Laser projects a highly visible red spot upt to 100ft during the day and over 1,000ft at night. In a stainless steel housing, it fits onto the trigger guard of most weapons.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
+		<AttachmentClass>4</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>51</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -7085,7 +7086,6 @@
 		<BestLaserRange>100</BestLaserRange>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8878,6 +8878,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
+		<AttachmentClass>262144</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>134</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -8898,7 +8899,6 @@
 		<PercentRecoilModifier>-10</PercentRecoilModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.15</overheatCooldownModificator>
-		<attachmentclass>262144</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -16327,6 +16327,7 @@
 		<szBRDesc>A very large sound suppressor that can be fitted to some sniper rifles. Suppression of highpowered rounds comes at the price of high weight, though.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
+		<AttachmentClass>2</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>710</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -16349,7 +16350,6 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
-		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -22149,7 +22149,7 @@
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<DefaultAttachment>946</DefaultAttachment>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -28558,6 +28558,7 @@
 		<usItemClass>512</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>30</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>749</ubGraphicNum>
@@ -28577,7 +28578,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28592,6 +28592,7 @@
 		<usItemClass>512</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>31</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>748</ubGraphicNum>
@@ -28610,7 +28611,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28692,6 +28692,7 @@
 		<szBRDesc>If you do not want your gun overcrowded with attachments, here is a combination of a red-dot sight with an IR-laser sight. Precludes mounting of scopes, though.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>8</nasAttachmentClass>
+		<AttachmentClass>12</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>694</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -28724,7 +28725,6 @@
 		<ScopeMagFactor>1.0</ScopeMagFactor>
 		<ProjectionFactor>1.7</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>12</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -28740,6 +28740,7 @@
 		<szBRDesc>Your bipod is getting in the way so you can't mount a foregrip? Here's the solution! The Grippod drops two legs out of its bottom at the push of a button.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>512</nasAttachmentClass>
+		<AttachmentClass>4097</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>693</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -28759,7 +28760,6 @@
 		<BurstToHitBonus>4</BurstToHitBonus>
 		<AutoFireToHitBonus>4</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4097</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-5</PercentHandling>
 			<PercentMaxCounterForce>50</PercentMaxCounterForce>
@@ -28781,6 +28781,7 @@
 		<szBRDesc>Hard to find these days, the eye safety warning on this Aim Point Projector is indicative of its useful range. Fits older HK rifles.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>8</nasAttachmentClass>
+		<AttachmentClass>12</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>564</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -28809,7 +28810,6 @@
 		<ScopeMagFactor>1.0</ScopeMagFactor>
 		<ProjectionFactor>3.5</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>12</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28823,6 +28823,7 @@
 		<szBRDesc>This Laser Aiming Module is meant to fit on modern rifle rail interface systems. Though larger and heavier, it has a longer useful range than (Pistol) Trigger Guard mounted types.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
+		<AttachmentClass>4</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>565</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -28848,7 +28849,6 @@
 		<StealthBonus>-5</StealthBonus>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28862,6 +28862,7 @@
 		<szBRDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
+		<AttachmentClass>4</AttachmentClass>
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
@@ -28888,7 +28889,6 @@
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28903,6 +28903,7 @@
 		<usItemClass>512</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>32</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>160</ubGraphicNum>
@@ -28921,7 +28922,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28936,6 +28936,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>33</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>301</ubGraphicNum>
@@ -28951,7 +28952,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28966,6 +28966,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>34</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>302</ubGraphicNum>
@@ -28981,7 +28982,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28996,6 +28996,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>35</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>303</ubGraphicNum>
@@ -29011,7 +29012,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29026,6 +29026,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>36</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>304</ubGraphicNum>
@@ -29041,7 +29042,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29056,6 +29056,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>305</ubGraphicNum>
@@ -29071,7 +29072,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29086,6 +29086,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>306</ubGraphicNum>
@@ -29100,7 +29101,6 @@
 		<SciFi>1</SciFi>
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
-		<attachmentclass>1024</attachmentclass>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -29116,6 +29116,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>295</ubGraphicNum>
@@ -29131,7 +29132,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29146,6 +29146,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>40</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>296</ubGraphicNum>
@@ -29161,7 +29162,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29176,6 +29176,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>297</ubGraphicNum>
@@ -29191,7 +29192,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29206,6 +29206,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>42</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>298</ubGraphicNum>
@@ -29221,7 +29222,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29236,6 +29236,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>43</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>299</ubGraphicNum>
@@ -29251,7 +29252,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29266,6 +29266,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>44</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>300</ubGraphicNum>
@@ -29281,7 +29282,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29296,6 +29296,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>45</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>315</ubGraphicNum>
@@ -29312,7 +29313,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29327,6 +29327,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>46</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>316</ubGraphicNum>
@@ -29343,7 +29344,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29358,6 +29358,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>47</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>313</ubGraphicNum>
@@ -29377,7 +29378,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29392,6 +29392,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>48</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>317</ubGraphicNum>
@@ -29408,7 +29409,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29423,6 +29423,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>49</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>318</ubGraphicNum>
@@ -29439,7 +29440,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29454,6 +29454,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>50</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>319</ubGraphicNum>
@@ -29470,7 +29471,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29485,6 +29485,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>51</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>314</ubGraphicNum>
@@ -29505,7 +29506,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29520,6 +29520,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>52</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>358</ubGraphicNum>
@@ -29534,7 +29535,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29549,6 +29549,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>53</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>355</ubGraphicNum>
@@ -29563,7 +29564,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29578,6 +29578,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>54</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>359</ubGraphicNum>
@@ -29592,7 +29593,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29607,6 +29607,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>55</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>360</ubGraphicNum>
@@ -29621,7 +29622,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29636,6 +29636,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>56</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>356</ubGraphicNum>
@@ -29650,7 +29651,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29665,6 +29665,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>2048</AttachmentClass>
 		<ubClassIndex>57</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>150</ubGraphicNum>
@@ -29683,7 +29684,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>2048</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29698,6 +29698,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>2048</AttachmentClass>
 		<ubClassIndex>58</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>224</ubGraphicNum>
@@ -29716,7 +29717,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>2048</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29731,6 +29731,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>2048</AttachmentClass>
 		<ubClassIndex>59</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>225</ubGraphicNum>
@@ -29749,7 +29750,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>2048</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29788,6 +29788,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>61</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>291</ubGraphicNum>
@@ -29807,7 +29808,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29822,6 +29822,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>62</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>292</ubGraphicNum>
@@ -29841,7 +29842,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29856,6 +29856,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>63</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>320</ubGraphicNum>
@@ -29873,7 +29874,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29888,6 +29888,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>64</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>307</ubGraphicNum>
@@ -29904,7 +29905,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29919,6 +29919,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>311</ubGraphicNum>
@@ -29935,7 +29936,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29950,6 +29950,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>66</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>309</ubGraphicNum>
@@ -29966,7 +29967,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29981,6 +29981,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>67</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>308</ubGraphicNum>
@@ -29997,7 +29998,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30012,6 +30012,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>68</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>312</ubGraphicNum>
@@ -30028,7 +30029,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30043,6 +30043,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>69</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>310</ubGraphicNum>
@@ -30059,7 +30060,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30074,6 +30074,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>70</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>306</ubGraphicNum>
@@ -30087,7 +30088,6 @@
 		<SciFi>1</SciFi>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30102,6 +30102,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>71</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>300</ubGraphicNum>
@@ -30115,7 +30116,6 @@
 		<SciFi>1</SciFi>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30130,6 +30130,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>72</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>314</ubGraphicNum>
@@ -30146,7 +30147,6 @@
 		<SciFi>1</SciFi>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30161,6 +30161,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>73</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>320</ubGraphicNum>
@@ -30175,7 +30176,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30190,6 +30190,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>74</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>312</ubGraphicNum>
@@ -30204,7 +30205,6 @@
 		<GLGrenade>1</GLGrenade>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30251,6 +30251,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>76</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>747</ubGraphicNum>
@@ -30271,7 +30272,6 @@
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30302,6 +30302,7 @@
 		<szBRDesc>This piece of metal lets you fit a 75rnd drum onto several AK-rifles. Permanent installing required.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>64</nasAttachmentClass>
+		<AttachmentClass>64</AttachmentClass>
 		<ubGraphicNum>300</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
@@ -30321,7 +30322,6 @@
 		<MagSizeBonus>45</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>64</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-2</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -30339,6 +30339,7 @@
 		<szBRDesc>Kobra is the answer to the needs of Russian special forces operatives who need a gunsight for fast target acquisition. Fits most AK rifles instead of a scope.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>65536</nasAttachmentClass>
+		<AttachmentClass>8</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>556</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -30358,7 +30359,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentAPReduction>20</PercentAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>8</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30374,6 +30374,7 @@
 		<szBRDesc>The Russian PSO-1 fits only on rifles with an AK-style receiver, due to the unique side-mount. It has a 4x magnification.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>554</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -30401,7 +30402,6 @@
 		<PercentTunnelVision>30</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30415,6 +30415,7 @@
 		<szBRDesc>If you have an older style Russian rifle and need a highpower scope, than this is your best choice. Magnification is 8x.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>555</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -30443,7 +30444,6 @@
 		<PercentTunnelVision>80</PercentTunnelVision>
 		<ScopeMagFactor>9.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30457,6 +30457,7 @@
 		<szBRDesc>This special adapter can be attached to certain 5.56mm weapons to allow for the use of the 100-rd Beta C-Mags.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>64</nasAttachmentClass>
+		<AttachmentClass>64</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>161</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -30478,7 +30479,6 @@
 		<MagSizeBonus>70</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>64</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-2</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -30496,6 +30496,7 @@
 		<szBRDesc>This special adapter can be attached to certain 9mm weapons to allow for the use of the 100-rd Beta C-Mags.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>64</nasAttachmentClass>
+		<AttachmentClass>64</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>162</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -30517,7 +30518,6 @@
 		<MagSizeBonus>70</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>64</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-2</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -30535,6 +30535,7 @@
 		<szBRDesc>Standard equipment for keeping those  pesky muzzle flashes from giving away your position.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
+		<AttachmentClass>2</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>149</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30552,7 +30553,6 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.03</overheatCooldownModificator>
-		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30566,6 +30566,7 @@
 		<szBRDesc>Trijicon Advanced Combat Gunscope with 4x magnification, adapter-mounted rear holosight for close-combat sighting.  Includes flat top adapter, backup iron sights and dust cover.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>24</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>155</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -30594,7 +30595,6 @@
 		<AttachmentSystem>1</AttachmentSystem>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>24</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30610,6 +30610,7 @@
 		<szBRDesc>The LAM-200 is a combination of Laser, IR-Laser, visible Combat-Light and IR-Combat-Light. Essential for night operations specialists.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
+		<AttachmentClass>4</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>179</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30638,7 +30639,6 @@
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<ProjectionFactor>1.6</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30652,6 +30652,7 @@
 		<szBRDesc>This reflex dual-illuminated advanced combat gun sight is the new standard for instant any-light shooting accuracy.  It gives you maximum accuracy and true-to-life targeting, instantly.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>8</nasAttachmentClass>
+		<AttachmentClass>8</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>156</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
@@ -30670,7 +30671,6 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentAPReduction>20</PercentAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>8</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30686,6 +30686,7 @@
 		<szBRDesc>Dramatically improve your targeting accuracy with this extremely versatile battle scope. Attachable to most rifles, you'll quickly appreciate this scope's accurate windage adjustment, a range-finder precision scale, and coated optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>76</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -30712,7 +30713,6 @@
 		<PercentTunnelVision>70</PercentTunnelVision>
 		<ScopeMagFactor>7.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30726,6 +30726,7 @@
 		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.  Usable with most fixed-stock firearms.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
+		<AttachmentClass>32</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>234</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -30746,7 +30747,6 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<PercentReadyTimeAPReduction>33</PercentReadyTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>32</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-40</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -30764,6 +30764,7 @@
 		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.  Usable with most fixed-stock firearms.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>32</nasAttachmentClass>
+		<AttachmentClass>32</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>235</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30784,7 +30785,6 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<PercentReadyTimeAPReduction>33</PercentReadyTimeAPReduction>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>32</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-40</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -30802,6 +30802,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>512</nasAttachmentClass>
+		<AttachmentClass>4096</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>229</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30817,7 +30818,6 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4096</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -30831,6 +30831,7 @@
 		<szBRDesc>A special hand grip that can be attached to most SMGs and rifles to enhance burst and selective fire accuracy.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>512</nasAttachmentClass>
+		<AttachmentClass>4096</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>228</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -30849,7 +30850,6 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>4096</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>70</PercentMaxCounterForce>
@@ -30871,6 +30871,7 @@
 		<szBRDesc>A large sound suppressor that can be fitted to most carbines and assault rifles. Caution: This item is not 100 percent effective on its own. Use it in conjunction with cold-loaded or subsonic ammunition to achieve a greatly reduced muzzle volume.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
+		<AttachmentClass>2</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>180</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -30894,7 +30895,6 @@
 		<DamageBonus>-1</DamageBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
-		<attachmentclass>2</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 			<PercentMaxCounterForce>20</PercentMaxCounterForce>
@@ -31246,6 +31246,7 @@
 		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>256</nasAttachmentClass>
+		<AttachmentClass>256</AttachmentClass>
 		<ubGraphicNum>160</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>21</ItemSize>
@@ -31266,7 +31267,6 @@
 		<ToHitBonus>-3</ToHitBonus>
 		<BurstSizeBonus>3</BurstSizeBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>256</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31338,6 +31338,7 @@
 		<szBRDesc>A small scope for mounting onto shortranged guns like revolvers or shotguns. Optional mounts for a few autoloaders available. Usable as a replacement for damaged assault rifle optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>525</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -31362,7 +31363,6 @@
 		<PercentTunnelVision>10</PercentTunnelVision>
 		<ScopeMagFactor>2.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31376,6 +31376,7 @@
 		<szBRDesc>A combat gun scope with 4x magnification, including two-piece adapter-mount for eyepiece-mounted accessories.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>545</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -31402,7 +31403,6 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36309,6 +36309,7 @@
 		<szBRDesc>This vintage scope will fit the German Mauser WW-II rifles.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>721</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -36333,7 +36334,6 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>5.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36347,6 +36347,7 @@
 		<szBRDesc>A WW-II era scope of British manufacture, this was also used by other allied forces during that war.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>722</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -36371,7 +36372,6 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36385,6 +36385,7 @@
 		<szBRDesc>Simply THE scope to mount onto the Mosin-Nagant rifle.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
+		<AttachmentClass>16</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>723</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -36409,7 +36410,6 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36423,6 +36423,7 @@
 		<szBRDesc>Fully adjustable iron sights to go with a Colt 1911, Glock, HK USP, or SIG pistol.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>8</nasAttachmentClass>
+		<AttachmentClass>8</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>724</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
@@ -36439,7 +36440,6 @@
 		<ToHitBonus>7</ToHitBonus>
 		<ScopeMagFactor>1.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>8</attachmentclass>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -36483,6 +36483,7 @@
 		<szBRDesc>Change your G36/G36K/MG36 to a more versatile gun with this set of Picatinny Rails.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>256</nasAttachmentClass>
+		<AttachmentClass>256</AttachmentClass>
 		<ubGraphicNum>335</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ItemSize>24</ItemSize>
@@ -36498,7 +36499,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<AttachmentSystem>2</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>256</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36512,6 +36512,7 @@
 		<szBRDesc>The G36 standard equipment: Handguard and Carry Grip with mounted dual optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>256</nasAttachmentClass>
+		<AttachmentClass>256</AttachmentClass>
 		<ubGraphicNum>336</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ItemSize>24</ItemSize>
@@ -36527,7 +36528,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<AttachmentSystem>2</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>256</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36884,6 +36884,7 @@
 		<szBRDesc>The finishing touch for your ghillie suit. Also usefull to keep the sun out of your eyes and as mosquito net.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>8192</AttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>72</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -36902,7 +36903,6 @@
 		<CamoBonus>20</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>8192</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentCap>-2</PercentCap>
 			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
@@ -36919,6 +36919,7 @@
 		<szBRDesc>Unless you plan to wear jeans under your Ghillie suit, these pants are a must have if you are going for a covert approach.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>32768</AttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>74</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -36936,7 +36937,6 @@
 		<CamoBonus>30</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>32768</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -36950,6 +36950,7 @@
 		<szBRDesc>Whether you are spying on that cute looking girl next door, or sneaking up to that perfect spot overlooking an enemy base, this vest will make sure nobody sees you.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>16384</AttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>73</ubGraphicNum>
 		<ubWeight>27</ubWeight>
@@ -36968,7 +36969,6 @@
 		<CamoBonus>40</CamoBonus>
 		<NewInv>1</NewInv>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>16384</attachmentclass>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
@@ -41318,6 +41318,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>78</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>357</ubGraphicNum>
@@ -41335,7 +41336,6 @@
 		<Flare>1</Flare>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41350,6 +41350,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>79</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>776</ubGraphicNum>
@@ -41364,7 +41365,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41379,6 +41379,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>80</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>773</ubGraphicNum>
@@ -41393,7 +41394,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41408,6 +41408,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>81</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>777</ubGraphicNum>
@@ -41424,7 +41425,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41439,6 +41439,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>82</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>778</ubGraphicNum>
@@ -41455,7 +41456,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41470,6 +41470,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>83</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>774</ubGraphicNum>
@@ -41484,7 +41485,6 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -41499,6 +41499,7 @@
 		<usItemClass>256</usItemClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>84</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>775</ubGraphicNum>
@@ -41516,7 +41517,6 @@
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<attachmentclass>1024</attachmentclass>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45245,7 +45245,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>10</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>46</ubGraphicNum>
@@ -45258,11 +45258,12 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<tripwireactivation>1</tripwireactivation>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45276,7 +45277,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>29</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>35</ubGraphicNum>
@@ -45286,14 +45287,14 @@
 		<usPrice>10</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
-		<Repairable>0</Repairable>
 		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>40</BR_NewInventory>
 		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<tripwireactivation>1</tripwireactivation>
-		<tripwire>1</tripwire>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

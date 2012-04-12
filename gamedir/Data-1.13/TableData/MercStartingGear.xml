@@ -138,8 +138,8 @@
 			<lCPackStatus>98</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
-		  <mGearKitName>Sapper</mGearKitName>
 			<mPriceMod>50</mPriceMod>
+			<mGearKitName>Sapper</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
 			<mHelmetStatus>97</mHelmetStatus>

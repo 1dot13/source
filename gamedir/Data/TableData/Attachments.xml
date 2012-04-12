@@ -4,6 +4,7 @@
 		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>12</itemIndex>
 		<APCost>5</APCost>
+		<NASOnly>0</NASOnly>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>50</attachmentIndex>
