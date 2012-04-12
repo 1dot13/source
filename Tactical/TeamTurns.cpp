@@ -1055,8 +1055,11 @@ void StartInterrupt( void )
 	if ( !gfHiddenInterrupt )
 	{
 		// Stop this guy....
-		MercPtrs[ LATEST_INTERRUPT_GUY ]->AdjustNoAPToFinishMove( TRUE );
-		MercPtrs[ LATEST_INTERRUPT_GUY ]->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
+		if (MercPtrs[LATEST_INTERRUPT_GUY]->exists() )//MM: this was crashing if the LATEST_INTERRUPT_GUY wasn't set
+		{
+			MercPtrs[ LATEST_INTERRUPT_GUY ]->AdjustNoAPToFinishMove( TRUE );
+			MercPtrs[ LATEST_INTERRUPT_GUY ]->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
+		}
 	}
 		DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartInterrupt done");
 

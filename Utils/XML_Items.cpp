@@ -256,9 +256,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "overheatCooldownModificator") == 0 ||
 				strcmp(name, "overheatJamThresholdModificator") == 0 ||
 				strcmp(name, "overheatDamageThresholdModificator") == 0 ||
-				strcmp(name, "attachmentclass") == 0 ||
-				strcmp(name, "tripwireactivation") == 0 ||
-				strcmp(name, "tripwire") == 0 ||
+				strcmp(name, "AttachmentClass") == 0 ||
+				strcmp(name, "TripWireActivation") == 0 ||
+				strcmp(name, "TripWire") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ))
 		{
@@ -1280,17 +1280,17 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.overheatDamageThresholdModificator  = (FLOAT) atof(pData->szCharData);
 		}
-		else if(strcmp(name, "attachmentclass")	 == 0)
+		else if(strcmp(name, "AttachmentClass")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.attachmentclass   = (UINT32) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "tripwireactivation")	 == 0)
+		else if(strcmp(name, "TripWireActivation")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.tripwireactivation   = (BOOLEAN) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "tripwire")	 == 0)
+		else if(strcmp(name, "TripWire")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.tripwire   = (BOOLEAN) atol(pData->szCharData);
