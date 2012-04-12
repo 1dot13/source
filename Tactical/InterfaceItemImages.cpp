@@ -173,82 +173,82 @@ bool RegisterItemImages()
 
 	//MM: New item tileslots start here
 	// LOAD INTERFACE ITEM PICTURES
-	if(!g_bUsePngItemImages)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mdp4items.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiP4ITEMS ) )
-			AssertMsg(0, "Missing INTERFACE\\mdp4items.sti" );
-	}
-	else if(!g_oP4ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP4ITEMS/*.png"))
-	{
-		return false;
-	}
+	//if(!g_bUsePngItemImages)
+	//{
+	//	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	FilenameForBPP("INTERFACE\\mdp4items.sti", VObjectDesc.ImageFile);
+	//	if( !AddVideoObject( &VObjectDesc, &guiP4ITEMS ) )
+	//		AssertMsg(0, "Missing INTERFACE\\mdp4items.sti" );
+	//}
+	//else if(!g_oP4ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP4ITEMS/*.png"))
+	//{
+	//	return false;
+	//}
 
-		// LOAD INTERFACE ITEM PICTURES
-	if(!g_bUsePngItemImages)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mdp5items.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiP5ITEMS ) )
-			AssertMsg(0, "Missing INTERFACE\\mdp5items.sti" );
-	}
-	else if(!g_oP5ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP5ITEMS/*.png"))
-	{
-		return false;
-	}
+	//	// LOAD INTERFACE ITEM PICTURES
+	//if(!g_bUsePngItemImages)
+	//{
+	//	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	FilenameForBPP("INTERFACE\\mdp5items.sti", VObjectDesc.ImageFile);
+	//	if( !AddVideoObject( &VObjectDesc, &guiP5ITEMS ) )
+	//		AssertMsg(0, "Missing INTERFACE\\mdp5items.sti" );
+	//}
+	//else if(!g_oP5ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP5ITEMS/*.png"))
+	//{
+	//	return false;
+	//}
 
-		// LOAD INTERFACE ITEM PICTURES
-	if(!g_bUsePngItemImages)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mdp6items.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiP6ITEMS ) )
-			AssertMsg(0, "Missing INTERFACE\\mdp6items.sti" );
-	}
-	else if(!g_oP6ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP6ITEMS/*.png"))
-	{
-		return false;
-	}
+	//	// LOAD INTERFACE ITEM PICTURES
+	//if(!g_bUsePngItemImages)
+	//{
+	//	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	FilenameForBPP("INTERFACE\\mdp6items.sti", VObjectDesc.ImageFile);
+	//	if( !AddVideoObject( &VObjectDesc, &guiP6ITEMS ) )
+	//		AssertMsg(0, "Missing INTERFACE\\mdp6items.sti" );
+	//}
+	//else if(!g_oP6ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP6ITEMS/*.png"))
+	//{
+	//	return false;
+	//}
 
-		// LOAD INTERFACE ITEM PICTURES
-	if(!g_bUsePngItemImages)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mdp7items.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiP7ITEMS ) )
-			AssertMsg(0, "Missing INTERFACE\\mdp7items.sti" );
-	}
-	else if(!g_oP7ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP7ITEMS/*.png"))
-	{
-		return false;
-	}
+	//	// LOAD INTERFACE ITEM PICTURES
+	//if(!g_bUsePngItemImages)
+	//{
+	//	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	FilenameForBPP("INTERFACE\\mdp7items.sti", VObjectDesc.ImageFile);
+	//	if( !AddVideoObject( &VObjectDesc, &guiP7ITEMS ) )
+	//		AssertMsg(0, "Missing INTERFACE\\mdp7items.sti" );
+	//}
+	//else if(!g_oP7ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP7ITEMS/*.png"))
+	//{
+	//	return false;
+	//}
 
-		// LOAD INTERFACE ITEM PICTURES
-	if(!g_bUsePngItemImages)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mdp8items.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiP8ITEMS ) )
-			AssertMsg(0, "Missing INTERFACE\\mdp8items.sti" );
-	}
-	else if(!g_oP8ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP8ITEMS/*.png"))
-	{
-		return false;
-	}
+	//	// LOAD INTERFACE ITEM PICTURES
+	//if(!g_bUsePngItemImages)
+	//{
+	//	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	FilenameForBPP("INTERFACE\\mdp8items.sti", VObjectDesc.ImageFile);
+	//	if( !AddVideoObject( &VObjectDesc, &guiP8ITEMS ) )
+	//		AssertMsg(0, "Missing INTERFACE\\mdp8items.sti" );
+	//}
+	//else if(!g_oP8ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP8ITEMS/*.png"))
+	//{
+	//	return false;
+	//}
 
-		// LOAD INTERFACE ITEM PICTURES
-	if(!g_bUsePngItemImages)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\mdp9items.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiP9ITEMS ) )
-			AssertMsg(0, "Missing INTERFACE\\mdp9items.sti" );
-	}
-	else if(!g_oP9ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP9ITEMS/*.png"))
-	{
-		return false;
-	}
+	//	// LOAD INTERFACE ITEM PICTURES
+	//if(!g_bUsePngItemImages)
+	//{
+	//	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//	FilenameForBPP("INTERFACE\\mdp9items.sti", VObjectDesc.ImageFile);
+	//	if( !AddVideoObject( &VObjectDesc, &guiP9ITEMS ) )
+	//		AssertMsg(0, "Missing INTERFACE\\mdp9items.sti" );
+	//}
+	//else if(!g_oP9ITEMS.registerItemsFromFilePattern(L"INTERFACE/MDP9ITEMS/*.png"))
+	//{
+	//	return false;
+	//}
 
 	return true;
 }

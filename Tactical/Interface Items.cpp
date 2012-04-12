@@ -9193,37 +9193,38 @@ UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem )
 		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP3ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP3ITEMS,
 			L"Failed to retrieve P3 item image" );
 	}
-	//MM: New item tileslots start here
-	else if ( pItem->ubGraphicType == 4 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP4ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP4ITEMS,
-			L"Failed to retrieve P4 item image" );
-	}
-	else if ( pItem->ubGraphicType == 5 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP5ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP5ITEMS,
-			L"Failed to retrieve P5 item image" );
-	}
-	else if ( pItem->ubGraphicType == 6 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP6ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP6ITEMS,
-			L"Failed to retrieve P6 item image" );
-	}
-	else if ( pItem->ubGraphicType == 7 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP7ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP7ITEMS,
-			L"Failed to retrieve P7 item image" );
-	}
-	else if ( pItem->ubGraphicType == 8 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP8ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP8ITEMS,
-			L"Failed to retrieve P8 item image" );
-	}
-	else
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP9ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP9ITEMS,
-			L"Failed to retrieve P9 item image" );
-	}
+	////MM: New item tileslots start here
+	//else if ( pItem->ubGraphicType == 4 )
+	//{
+	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP4ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP4ITEMS,
+	//		L"Failed to retrieve P4 item image" );
+	//}
+	//else if ( pItem->ubGraphicType == 5 )
+	//{
+	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP5ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP5ITEMS,
+	//		L"Failed to retrieve P5 item image" );
+	//}
+	//else if ( pItem->ubGraphicType == 6 )
+	//{
+	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP6ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP6ITEMS,
+	//		L"Failed to retrieve P6 item image" );
+	//}
+	//else if ( pItem->ubGraphicType == 7 )
+	//{
+	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP7ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP7ITEMS,
+	//		L"Failed to retrieve P7 item image" );
+	//}
+	//else if ( pItem->ubGraphicType == 8 )
+	//{
+	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP8ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP8ITEMS,
+	//		L"Failed to retrieve P8 item image" );
+	//}
+	//else
+	//{
+	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP9ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP9ITEMS,
+	//		L"Failed to retrieve P9 item image" );
+	//}
+
 	return id;
 }
 
@@ -9251,31 +9252,31 @@ UINT16 GetTileGraphicForItem( INVTYPE *pItem )
 	{
 		GetTileIndexFromTypeSubIndex( P3ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
-	//MM: New item tileslots start here
-	else if ( pItem->ubGraphicType == 4 )
-	{
-		GetTileIndexFromTypeSubIndex( P4ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	}
-	else if ( pItem->ubGraphicType == 5 )
-	{
-		GetTileIndexFromTypeSubIndex( P5ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	}
-	else if ( pItem->ubGraphicType == 6 )
-	{
-		GetTileIndexFromTypeSubIndex( P6ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	}
-	else if ( pItem->ubGraphicType == 7 )
-	{
-		GetTileIndexFromTypeSubIndex( P7ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	}
-	else if ( pItem->ubGraphicType == 8 )
-	{
-		GetTileIndexFromTypeSubIndex( P8ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	}
-	else
-	{
-		GetTileIndexFromTypeSubIndex( P9ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	}
+	////MM: New item tileslots start here
+	//else if ( pItem->ubGraphicType == 4 )
+	//{
+	//	GetTileIndexFromTypeSubIndex( P4ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	//}
+	//else if ( pItem->ubGraphicType == 5 )
+	//{
+	//	GetTileIndexFromTypeSubIndex( P5ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	//}
+	//else if ( pItem->ubGraphicType == 6 )
+	//{
+	//	GetTileIndexFromTypeSubIndex( P6ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	//}
+	//else if ( pItem->ubGraphicType == 7 )
+	//{
+	//	GetTileIndexFromTypeSubIndex( P7ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	//}
+	//else if ( pItem->ubGraphicType == 8 )
+	//{
+	//	GetTileIndexFromTypeSubIndex( P8ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	//}
+	//else
+	//{
+	//	GetTileIndexFromTypeSubIndex( P9ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
+	//}
 
 	if ( pItem->ubClassIndex >= M900  )
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GetTileGraphicForItem: db index %d",usIndex));
@@ -9344,73 +9345,73 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 			sprintf( zName, "p3item%d", ubGraphic );
 		}
 	}
-	//MM: New item tileslots start here
-	else if ( pItem->ubGraphicType == 4 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p4item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p4item%d", ubGraphic );
-		}
-	}
-	else if ( pItem->ubGraphicType == 5 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p5item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p5item%d", ubGraphic );
-		}
-	}
-	else if ( pItem->ubGraphicType == 6 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p6item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p6item%d", ubGraphic );
-		}
-	}
-	else if ( pItem->ubGraphicType == 7 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p7item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p7item%d", ubGraphic );
-		}
-	}
-	else if ( pItem->ubGraphicType == 8 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p8item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p8item%d", ubGraphic );
-		}
-	}
-	else
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p9item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p9item%d", ubGraphic );
-		}
-	}
+	////MM: New item tileslots start here
+	//else if ( pItem->ubGraphicType == 4 )
+	//{
+	//	if ( ubGraphic < 10 )
+	//	{
+	//		sprintf( zName, "p4item0%d", ubGraphic );
+	//	}
+	//	else
+	//	{
+	//		sprintf( zName, "p4item%d", ubGraphic );
+	//	}
+	//}
+	//else if ( pItem->ubGraphicType == 5 )
+	//{
+	//	if ( ubGraphic < 10 )
+	//	{
+	//		sprintf( zName, "p5item0%d", ubGraphic );
+	//	}
+	//	else
+	//	{
+	//		sprintf( zName, "p5item%d", ubGraphic );
+	//	}
+	//}
+	//else if ( pItem->ubGraphicType == 6 )
+	//{
+	//	if ( ubGraphic < 10 )
+	//	{
+	//		sprintf( zName, "p6item0%d", ubGraphic );
+	//	}
+	//	else
+	//	{
+	//		sprintf( zName, "p6item%d", ubGraphic );
+	//	}
+	//}
+	//else if ( pItem->ubGraphicType == 7 )
+	//{
+	//	if ( ubGraphic < 10 )
+	//	{
+	//		sprintf( zName, "p7item0%d", ubGraphic );
+	//	}
+	//	else
+	//	{
+	//		sprintf( zName, "p7item%d", ubGraphic );
+	//	}
+	//}
+	//else if ( pItem->ubGraphicType == 8 )
+	//{
+	//	if ( ubGraphic < 10 )
+	//	{
+	//		sprintf( zName, "p8item0%d", ubGraphic );
+	//	}
+	//	else
+	//	{
+	//		sprintf( zName, "p8item%d", ubGraphic );
+	//	}
+	//}
+	//else
+	//{
+	//	if ( ubGraphic < 10 )
+	//	{
+	//		sprintf( zName, "p9item0%d", ubGraphic );
+	//	}
+	//	else
+	//	{
+	//		sprintf( zName, "p9item%d", ubGraphic );
+	//	}
+	//}
 
 	//Load item
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;

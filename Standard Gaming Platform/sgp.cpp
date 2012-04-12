@@ -1484,8 +1484,10 @@ void GetRuntimeSettings( )
 	// Yes, you have to start a game with an older executable where p4-p9 is not integrated (see: TileDat.h -> enum TileTypeDefines)
 	// Once the game reaches the main menu, the ja2Set.dat.xml file will be 
 	// available in the "Profiles" folder of the MOD
-	//g_bUseXML_Tilesets		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_TILESETS", false);
-	g_bUseXML_Tilesets = true;
+	//g_bUseXML_Tilesets = true;
+
+	// WANNE: Yes, make it optional again
+	g_bUseXML_Tilesets		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_TILESETS", false);
 	
 	g_bUseXML_Strings		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_STRINGS", false);
 	s_bExportStrings		= oProps.getBoolProperty(L"Ja2 Settings", L"EXPORT_STRINGS", false);
