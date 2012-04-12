@@ -43,6 +43,7 @@ ActionID:
 	ACTION_ITEM_SEE_POWER_GEN_FAN		- 29
 
 BombItem:
+	Name					uiIndex (items.xml)
 	STUN_GRENADE 			- 241	
 	TEARGAS_GRENADE			- 242
 	MUSTARD_GRENADE			- 243
@@ -55,8 +56,8 @@ BombItem:
 	MORTAR_SHELL			- 250
 	MINE					- 251
 	C4						- 252
-	TRIP_FLARE				- 253
-	TRIP_KLAXON				- 254
+	TRIP_FLARE				- 143
+	TRIP_KLAXON				- 144
 	SHAPED_CHARGE			- 255
 	BREAK_LIGHT				- 256
 	GL_HE_GRENADE			- 257
@@ -89,14 +90,14 @@ BombItem:
 		<Name>Klaxon Mine</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>241</BombItem>
+		<BombItem>144</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>1</uiIndex>
 		<Name>Flare Mine</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>253</BombItem>
+		<BombItem>143</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>2</uiIndex>
