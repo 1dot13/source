@@ -45280,7 +45280,7 @@
 		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>35</ubGraphicNum>
+		<ubGraphicNum>66</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>10</ItemSize>
@@ -45298,5 +45298,35 @@
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1525</uiIndex>
+		<szItemName>Rifle Sling</szItemName>
+		<szLongItemName>Rifle Sling</szLongItemName>
+		<szItemDesc>This simple sling prevents you from losing your gun in the heat of combat.</szItemDesc>
+		<szBRName>Rifle Sling</szBRName>
+		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<nasAttachmentClass>128</nasAttachmentClass>
+		<AttachmentClass>524288</AttachmentClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>35</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>80</usPrice>
+		<ubCoolness>3</ubCoolness>				
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
+		<HiddenAttachment>1</HiddenAttachment>		
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>2</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
+		<STAND_MODIFIERS>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS>
+		</PRONE_MODIFIERS>
 	</ITEM>
 </ITEMLIST>
