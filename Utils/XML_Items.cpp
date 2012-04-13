@@ -1900,10 +1900,10 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<overheatJamThresholdModificator>%4.2f</overheatJamThresholdModificator>\r\n",				Item[cnt].overheatJamThresholdModificator    );
 			FilePrintf(hFile,"\t\t<overheatDamageThresholdModificator>%4.2f</overheatDamageThresholdModificator>\r\n",			Item[cnt].overheatDamageThresholdModificator    );
 
-			FilePrintf(hFile,"\t\t<attachmentclass>%4.2f</attachmentclass>\r\n",												Item[cnt].attachmentclass    );
+			FilePrintf(hFile,"\t\t<AttachmentClass>%4.2f</AttachmentClass>\r\n",												Item[cnt].attachmentclass    );
 
-			FilePrintf(hFile,"\t\t<tripwireactivation>%d</tripwireactivation>\r\n",						Item[cnt].tripwireactivation  );
-			FilePrintf(hFile,"\t\t<tripwire>%d</tripwire>\r\n",											Item[cnt].tripwire  );
+			FilePrintf(hFile,"\t\t<TripwireActivation>%d</TripwireActivation>\r\n",						Item[cnt].tripwireactivation  );
+			FilePrintf(hFile,"\t\t<TripWire>%d</TripWire>\r\n",											Item[cnt].tripwire  );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

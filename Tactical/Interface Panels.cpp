@@ -3497,7 +3497,7 @@ UINT16 uiOIVSlotType[NUM_INV_SLOTS] = {
 						0, 0, 0, 0, 0, 0	//49-54
 };
 
-UINT32 GetInvMovementCost(UINT16 item, UINT32 old_pos, UINT32 new_pos)
+UINT32 GetInvMovementCost(OBJECTTYPE* pObj, UINT32 old_pos, UINT32 new_pos)
 {
 	if (!(gTacticalStatus.uiFlags & INCOMBAT) || //Not in combat
 		(old_pos == -1 || new_pos == -1)||	//Either position is invalid
@@ -3552,7 +3552,7 @@ UINT32 GetInvMovementCost(UINT16 item, UINT32 old_pos, UINT32 new_pos)
 	FLOAT Weight_Divisor = gGameExternalOptions.uWeightDivisor;
 	UINT16 weight_modifier;
 	if (Weight_Divisor != 0)
-		weight_modifier = DynamicAdjustAPConstants((int)((Item[item].ubWeight) / Weight_Divisor),(int)((Item[item].ubWeight) / Weight_Divisor));
+		weight_modifier = DynamicAdjustAPConstants((int)((Item[pObj->usItem].ubWeight) / Weight_Divisor),(int)((Item[pObj->usItem].ubWeight) / Weight_Divisor));
 	else
 		weight_modifier = 0;
 
@@ -3561,6 +3561,15 @@ UINT32 GetInvMovementCost(UINT16 item, UINT32 old_pos, UINT32 new_pos)
 	cost += uiAPCostFromSlot[src_type];
 	cost += uiAPCostToSlot[dst_type];
 	cost += weight_modifier;
+
+	// Flugente if we move an item from our hands to the sling, and item has a weapon sling, don't charge any APs
+	if ( 1 == src_type && 7 == dst_type )
+	{
+		// if item has a weapon sling attached
+		if ( HasAttachmentOfClass(pObj, AC_SLING) )
+			// we simply let go of the item, we can do that because the sling will catch it
+			cost = 0;
+	}
 
 	if (cost > APBPConstants[AP_INV_MAX_COST]) 
 		cost = APBPConstants[AP_INV_MAX_COST];
@@ -3709,7 +3718,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				if (INV_AP_COST)
 					//Jenilee: determine the cost of moving this item around in our inventory
-					usCostToMoveItem = GetInvMovementCost(gpItemPointer->usItem, uiLastHandPos, uiHandPos);
+					usCostToMoveItem = GetInvMovementCost(gpItemPointer, uiLastHandPos, uiHandPos);
 
 				if ( ( usCostToMoveItem == 0 ) || ( gpSMCurrentMerc->bActionPoints >= usCostToMoveItem ) )
 				{

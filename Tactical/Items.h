@@ -450,6 +450,7 @@ void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap 
 
 // check if item belongs to a specific attachemnt class
 BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag );
+BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag );
 
 #endif
 

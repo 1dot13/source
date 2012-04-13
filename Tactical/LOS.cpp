@@ -7152,7 +7152,9 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 			std::map<INT8, OBJECTTYPE*> ObjList;
 			GetScopeLists(pWeapon, ObjList);
 		
-			iProjectionFactor = Item[ObjList[pShooter->bScopeMode]->usItem].projectionfactor;
+			// only use scope mode if gun is in hand, otherwise an error might occur!
+			if ( (&pShooter->inv[HANDPOS]) == pWeapon )
+				iProjectionFactor = Item[ObjList[pShooter->bScopeMode]->usItem].projectionfactor;
 		}
 		else
 			iProjectionFactor = GetProjectionFactor( pWeapon );

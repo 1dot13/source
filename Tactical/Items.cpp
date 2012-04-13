@@ -9050,7 +9050,9 @@ INT16 GetAimBonus( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT32 iRange, INT1
 			std::map<INT8, OBJECTTYPE*> ObjList;
 			GetScopeLists(pObj, ObjList);
 		
-			bonus = BonusReduceMore( GetItemAimBonus( &Item[ObjList[pSoldier->bScopeMode]->usItem], iRange, ubAimTime ), (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+			// only use scope mode if gun is in hand, otherwise an error might occur!
+			if ( (&pSoldier->inv[HANDPOS]) == pObj )
+				bonus = BonusReduceMore( GetItemAimBonus( &Item[ObjList[pSoldier->bScopeMode]->usItem], iRange, ubAimTime ), (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 		}
 		else
 			bonus = BonusReduceMore( GetItemAimBonus( &Item[pObj->usItem], iRange, ubAimTime ), (*pObj)[0]->data.objectStatus );
@@ -9811,7 +9813,9 @@ INT16 GetPercentAPReduction( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj )
 				std::map<INT8, OBJECTTYPE*> ObjList;
 				GetScopeLists(pObj, ObjList);
 
-				bonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].percentapreduction, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+				// only use scope mode if gun is in hand, otherwise an error might occur!
+				if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					bonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].percentapreduction, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 			}
 		}
 		else
@@ -10052,8 +10056,10 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pObj, ObjList);
 		
-					// now apply the bonus from the scope we use
-					sScopebonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].visionrangebonus, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+						// now apply the bonus from the scope we use
+						sScopebonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].visionrangebonus, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
 			else
@@ -10159,10 +10165,12 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pObj, ObjList);
 		
-					// now apply the bonus from the scope we use
-					sScopebonus += BonusReduceMore(
-							NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
-							(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+						// now apply the bonus from the scope we use
+						sScopebonus += BonusReduceMore(
+								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
+								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
 			else
@@ -10257,10 +10265,12 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pObj, ObjList);
 		
-					// now apply the bonus from the scope we use
-					sScopebonus += BonusReduceMore(
-							NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
-							(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+						// now apply the bonus from the scope we use
+						sScopebonus += BonusReduceMore(
+								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
+								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
 			else
@@ -10361,10 +10371,12 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pObj, ObjList);
 		
-					// now apply the bonus from the scope we use
-					sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].dayvisionrangebonus
-							* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
-							(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+						// now apply the bonus from the scope we use
+						sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].dayvisionrangebonus
+								* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
+								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
 			else
@@ -10461,10 +10473,12 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pObj, ObjList);
 		
-					// now apply the bonus from the scope we use
-					sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].brightlightvisionrangebonus
-								* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
-								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+						// now apply the bonus from the scope we use
+						sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].brightlightvisionrangebonus
+									* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
+									(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
 			else
@@ -10598,8 +10612,10 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pObj, ObjList);
 		
-					// now apply the bonus from the scope we use
-					bonus += Item[ObjList[pSoldier->bScopeMode]->usItem].percenttunnelvision;
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+						// now apply the bonus from the scope we use
+						bonus += Item[ObjList[pSoldier->bScopeMode]->usItem].percenttunnelvision;
 				}
 			}
 			else
@@ -11629,7 +11645,9 @@ INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj )
 			std::map<INT8, OBJECTTYPE*> ObjList;
 			GetScopeLists(pObj, ObjList);
 		
-			bonus = Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus;
+			// only use scope mode if gun is in hand, otherwise an error might occur!
+			if ( (&pSoldier->inv[HANDPOS]) == pObj )
+				bonus = Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus;
 		}
 		else
 			bonus = Item[pObj->usItem].minrangeforaimbonus;
@@ -11658,8 +11676,10 @@ FLOAT GetScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj, FLO
 		std::map<INT8, OBJECTTYPE*> ObjList;
 		GetScopeLists(pObj, ObjList);
 		
-		// now apply the bonus from the scope we use
-		BestFactor = Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor;
+		// only use scope mode if gun is in hand, otherwise an error might occur!
+		if ( (&pSoldier->inv[HANDPOS]) == pObj )
+			// now apply the bonus from the scope we use
+			BestFactor = Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor;
 
 		return __max(1.0f, BestFactor);
 	}		
@@ -11699,8 +11719,12 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 		std::map<INT8, OBJECTTYPE*> ObjList;
 		GetScopeLists(pObj, ObjList);
 		
-		// now apply the bonus from the scope we use
-		return max(1.0f, Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor);
+		// only use scope mode if gun is in hand, otherwise an error might occur!
+		if ( (&pSoldier->inv[HANDPOS]) == pObj )
+			// now apply the bonus from the scope we use
+			return max(1.0f, Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor);
+		else
+			return( 1.0f );
 	}
 
 	FLOAT BestFactor = 1.0;
@@ -12072,7 +12096,9 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(&pSoldier->inv[pSoldier->ubAttackingHand], ObjList);
 		
-					sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == &pSoldier->inv[pSoldier->ubAttackingHand] )
+						sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
 				}
 				else
 					sScopeBonus = GetBaseScopeAimBonus( &pSoldier->inv[pSoldier->ubAttackingHand], uiRange );
@@ -12140,7 +12166,9 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 					std::map<INT8, OBJECTTYPE*> ObjList;
 					GetScopeLists(pAttackingWeapon, ObjList);
 		
-					sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
+					// only use scope mode if gun is in hand, otherwise an error might occur!
+					if ( (&pSoldier->inv[HANDPOS]) == pAttackingWeapon )
+						sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
 				}
 				else
 					sScopeBonus = gGameExternalOptions.fAimLevelsDependOnDistance ? GetBaseScopeAimBonus( pAttackingWeapon, uiRange ) : GetBaseScopeAimBonus( pAttackingWeapon, 25000 );
@@ -12989,7 +13017,20 @@ void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap 
 
 BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag )
 {
-	return( Item[usItem].attachmentclass & aFlag );
+	return( (Item[usItem].attachmentclass & aFlag) != 0 );
+}
+
+BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag )
+{
+	// check all attachments
+	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && IsAttachmentClass( iter->usItem, aFlag ) )
+			return( TRUE );
+	}
+
+	return( FALSE );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

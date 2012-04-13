@@ -3615,11 +3615,20 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 	UINT32	uiTimeStamp= GetJA2Clock();
 	BOOLEAN	fFoundMine = FALSE;
 		
-	// for every orientation
-	for (UINT8  ort = NORTH; ort < NUM_WORLD_DIRECTIONS; ++ort)
+	UINT8 feasibletripwiredirections[4] =
 	{
+		NORTH,
+		EAST,
+		SOUTH,
+		WEST
+	};
+
+	// for every orientation
+	for (UINT8 i = 0; i < 4; ++i)
+	{
+		UINT8 direction = feasibletripwiredirections[i];
 		// get adjacent grid
-		UINT32 adjgrid = NewGridNo( sGridNo, DirectionInc( ort ) );
+		UINT32 adjgrid = NewGridNo( sGridNo, DirectionInc( direction ) );
 		
 		// if there is a bomb at that grid and level, and it isn't disabled
 		for (UINT32 uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; uiWorldBombIndex++)
@@ -3640,13 +3649,17 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 
 							// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 							RemoveItemFromPool( adjgrid, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
-
-							// make sure no one thinks there is a bomb here any more!
-							if ( gpWorldLevelData[adjgrid].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+							
+							// if no other bomb exists here
+							if ( FindWorldItemForBombInGridNo(adjgrid, bLevel) == -1 )
 							{
-								RemoveBlueFlag( adjgrid, bLevel );
+								// make sure no one thinks there is a bomb here any more!
+								if ( gpWorldLevelData[adjgrid].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+								{
+									RemoveBlueFlag( adjgrid, bLevel );
+								}
+								gpWorldLevelData[adjgrid].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
 							}
-							gpWorldLevelData[adjgrid].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
 							
 							// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
 							AddItemToPool( adjgrid, &newtripwireObject, 1, bLevel, 0, -1 );
@@ -4008,13 +4021,17 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 
 						// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 						RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
-
-						// make sure no one thinks there is a bomb here any more!
-						if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+						
+						// if no other bomb exists here
+						if ( FindWorldItemForBombInGridNo(sGridNo, bLevel) == -1 )
 						{
-							RemoveBlueFlag( sGridNo, bLevel );
+							// make sure no one thinks there is a bomb here any more!
+							if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+							{
+								RemoveBlueFlag( sGridNo, bLevel );
+							}
+							gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
 						}
-						gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
 
 						// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
 						AddItemToPool( sGridNo, &newtripwireObject, 1, bLevel, 0, -1 );
