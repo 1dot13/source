@@ -1903,6 +1903,9 @@
 			<mBig1>1012</mBig1>
 			<mBig1Status>94</mBig1Status>
 			<mBig1Quantity>1</mBig1Quantity>
+			<mSmall0>1525</mSmall0>
+			<mSmall0Status>100</mSmall0Status>
+			<mSmall0Quantity>1</mSmall0Quantity>
 			<lVest>1079</lVest>
 			<lVestStatus>93</lVestStatus>
 		</GEARKIT>
