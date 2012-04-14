@@ -35,4 +35,18 @@ void ChangeSizeOfLOS( INT32 iNewSize );
 //ddd for optimize oppponent turn
 INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, INT8 bStance );
 //ddd for optimize oppponent turn
+
+// ----------------------------- Mines display after this ----------------------------------------
+// added by Flugente: display of mine, bombs and tripwire
+void DisplayMines(const BOOLEAN& forceUpdate = FALSE);
+
+void SwitchToTrapNetworkView();
+void SwitchToHostileTrapsView();
+void SwitchMineViewOff();
+
+void ToggleTrapNetworkView();
+void ToggleHostileTrapsView();
+
+void SwitchMinesDrawMode();
+
 #endif

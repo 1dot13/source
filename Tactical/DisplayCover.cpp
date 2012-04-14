@@ -49,13 +49,28 @@ enum COVER_VALUES
 	MAX_COVER=3
 };
 
+// Flugente: mines display - stuff needs to be here
+enum MINES_VALUES
+{
+	MINES_ALL = MAX_COVER + 1,
+	MINE_BOMB,
+	MINE_WIRE,
+	MINE_BOMB_AND_WIRE,
+	MINES_NET_1,
+	MINES_NET_2,
+	MINES_NET_3,
+	MINES_NET_4,
+	MAX_MINES
+};
+
 struct CoverCell
 {
 	INT32	sGridNo;
 	INT8	bCover;
 	BOOLEAN fInverseColor;
+	INT8	bMines;
 
-	CoverCell() : sGridNo(NOWHERE), bCover(INVALID_COVER), fInverseColor(FALSE) {}
+	CoverCell() : sGridNo(NOWHERE), bCover(INVALID_COVER), fInverseColor(FALSE), bMines(MINES_ALL) {}
 };
 
 enum COVER_DRAW_MODE {
@@ -75,6 +90,13 @@ const UINT8 animArr[3] = {
 #define COVER_Y_CELLS WORLD_ROWS_MAX
 #define COVER_Z_CELLS 2 // roof or no roof
 
+// Flugente: mines display - stuff needs to be here
+enum MINES_DRAW_MODE {
+	MINES_DRAW_OFF,
+	MINES_DRAW_PLAYERTEAM_NETWORKS,
+	MINES_DRAW_DETECT_ENEMY
+};
+
 //******	Local Variables	*********************************************
 
 INT16 gsMinCellX, gsMinCellY, gsMaxCellX, gsMaxCellY = -1;
@@ -84,6 +106,7 @@ CoverCell gCoverViewArea[ COVER_X_CELLS ][ COVER_Y_CELLS ][ COVER_Z_CELLS ];
 DWORD guiCoverNextUpdateTime = 0;
 
 COVER_DRAW_MODE gubDrawMode = COVER_DRAW_OFF;
+MINES_DRAW_MODE gubDrawModeMine = MINES_DRAW_OFF;	// Flugente: mines display
 
 //*******	Local Function Prototypes ***********************************
 
@@ -96,6 +119,7 @@ void	RemoveCoverObjectFromWorld( const INT32 sGridNo, const UINT16& usGraphic, c
 
 void	AddCoverObjectsToViewArea();
 void	RemoveCoverObjectsFromViewArea();
+void	RemoveMinesObjectsFromViewArea();	// added by Flugente, has to be declared here
 
 void	CalculateCover();
 void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
@@ -411,6 +435,10 @@ void CalculateCover()
 		return;
 	}
 
+	// at we're here, we want to display cover, so remove the mines display
+	if ( gubDrawModeMine != MINES_DRAW_OFF )
+		RemoveMinesObjectsFromViewArea();
+
 	GetSoldier( &pSoldier, gusSelectedSoldier );
 
 	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
@@ -632,4 +660,383 @@ BOOLEAN IsTheRoofVisible( const INT32& sGridNo )
 	}
 
 	return( FALSE );
+}
+
+// ----------------------------- Mines display after this ----------------------------------------
+// added by Flugente
+
+//******	Local Variables	*********************************************
+
+INT16 gsMineMinCellX, gsMineMinCellY, gsMineMaxCellX, gsMineMaxCellY = -1;
+
+DWORD guiMinesNextUpdateTime = 0;
+
+//*******	Local Function Prototypes ***********************************
+
+TileDefines GetTileMinesIndex( const INT8& bMines );
+
+void	AddMinesObjectsToViewArea();
+
+void	CalculateMines();
+void	DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLEAN fWithMineDetector = FALSE );
+
+BOOLEAN MineTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ );
+
+//*******	Functions **************************************************
+
+///BEGIN key binding functions
+void SwitchToTrapNetworkView()
+{
+	if (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS)
+		return;
+
+	gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network");
+	DisplayMines(TRUE);
+}
+
+void SwitchToHostileTrapsView()
+{
+	if (gubDrawModeMine == MINES_DRAW_DETECT_ENEMY)
+		return;
+
+	gubDrawModeMine = MINES_DRAW_DETECT_ENEMY;
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display hostile traps");
+	DisplayMines(TRUE);
+}
+
+void SwitchMineViewOff()
+{
+	if (gubDrawModeMine == MINES_DRAW_OFF)
+		return;
+
+	gubDrawModeMine = MINES_DRAW_OFF;
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off Mines display");
+	DisplayMines(TRUE);
+}
+
+void ToggleHostileTrapsView()
+{
+	if (gubDrawModeMine == MINES_DRAW_DETECT_ENEMY) {
+		SwitchMineViewOff();
+	} else {
+		SwitchToHostileTrapsView();
+	}
+}
+
+void ToggleTrapNetworkView()
+{
+	if (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS) {
+		SwitchMineViewOff();
+	} else {
+		SwitchToTrapNetworkView();
+	}
+}
+
+void SwitchMinesDrawMode()
+{
+	switch(gubDrawModeMine)
+	{
+	case MINES_DRAW_OFF:
+		SwitchToTrapNetworkView();
+		break;
+	case MINES_DRAW_PLAYERTEAM_NETWORKS:
+		SwitchToHostileTrapsView();
+		break;
+	default:
+		SwitchMineViewOff();
+		break;
+	}
+}
+///END key binding functions
+
+TileDefines GetTileMinesIndex( const INT8& bMines )
+{
+	switch(bMines) 
+	{
+		case MINES_ALL:
+		case MINE_BOMB:
+		case MINES_NET_1:
+			return SPECIALTILE_COVER_1; // red
+		case MINES_NET_2:
+		case MINE_BOMB_AND_WIRE:
+			return SPECIALTILE_COVER_2; // orange
+		case MINES_NET_3:
+		case MINE_WIRE:
+			return SPECIALTILE_COVER_3; // yellow
+		case MINES_NET_4:
+			return SPECIALTILE_COVER_4; // green
+		case MAX_MINES:
+		default:
+			return SPECIALTILE_COVER_5; // light green, can be used to denote that you just don't know.	looks just like normal green, though...
+	}
+}
+
+BOOLEAN MineTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+{
+	INT32 ubTX, ubTY;
+
+	for ( ubTX = ubX-1; ubTX <= ubX+1; ++ubTX )
+	{
+		if ( ubTX < 0 || ubTX > WORLD_COLS )
+		{
+			continue;
+		}
+
+		for ( ubTY = ubY-1; ubTY <= ubY+1; ++ubTY )
+		{
+			if ( ubTY < 0 || ubTY > WORLD_ROWS )
+			{
+				continue;
+			}
+
+			INT8& bMines = gCoverViewArea[ ubTX ][ ubTY ][ ubZ ].bMines;
+
+			if ( bMines > MINES_ALL && bMines < MAX_MINES )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+void AddMinesObjectsToViewArea()
+{
+	if (gsMineMaxCellY == -1)
+	{
+		return;
+	}
+	INT32 ubX, ubY, ubZ;
+	BOOLEAN fChanged = FALSE;
+
+	for ( ubX=gsMineMinCellX; ubX<=gsMineMaxCellX; ++ubX )
+	{
+		for ( ubY=gsMineMinCellY; ubY<=gsMineMaxCellY; ++ubY )
+		{
+			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
+
+				if ( bMines != MINES_ALL && ( bMines != MAX_MINES || MineTileHasAdjTile( ubX, ubY, ubZ ) ) )
+				{
+					TileDefines tile = GetTileMinesIndex( bMines );
+					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN) ubZ );
+					fChanged = TRUE;
+				}
+			}
+		}
+	}
+
+	// Re-render the scene!
+	if ( fChanged )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
+}
+
+void RemoveMinesObjectsFromViewArea()
+{
+	if (gsMineMaxCellY == -1)
+	{
+		return;
+	}
+	INT32 ubX, ubY, ubZ;
+	BOOLEAN fChanged = FALSE;
+
+	for ( ubX=gsMineMinCellX; ubX<=gsMineMaxCellX; ++ubX )
+	{
+		for ( ubY=gsMineMinCellY; ubY<=gsMineMaxCellY; ++ubY )
+		{
+			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
+
+				if ( bMines != MINES_ALL )
+				{
+					TileDefines tile = GetTileMinesIndex( bMines );
+					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );
+					bMines = MINES_ALL;
+					fChanged = TRUE;
+				}
+			}
+		}
+	}
+
+	// Re-render the scene!
+	if ( fChanged )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
+}
+
+void DisplayMines( const BOOLEAN& forceUpdate )
+{
+	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == -1 )
+	{
+		return;
+	}
+
+	if ( forceUpdate || ( !gfScrollPending && !gfScrollInertia && GetTickCount() > guiMinesNextUpdateTime ) )
+	{
+		CalculateMines();
+		guiMinesNextUpdateTime = GetTickCount() + gGameExternalOptions.ubCoverDisplayUpdateWait;
+	}
+}
+
+void CalculateMines()
+{
+	INT32 ubX, ubY, ubZ;
+	SOLDIERTYPE* pSoldier;
+			
+	RemoveMinesObjectsFromViewArea();
+
+	if( gubDrawModeMine == MINES_DRAW_OFF )
+	{
+		return;
+	}
+
+	if( gusSelectedSoldier == NOBODY )
+	{
+		return;
+	}
+
+	// at we're here, we want to display mines, so remove the cover display
+	if ( gubDrawMode != COVER_DRAW_OFF )
+		RemoveCoverObjectsFromViewArea();
+
+	GetSoldier( &pSoldier, gusSelectedSoldier );
+
+	// this stuff will be needed once a ranged mine detector is implemented, for the moment comment this out
+	// if we want to detect hostile mines and we have an metal detector in our hands, allow seeking
+	BOOLEAN fWithMineDetector = FALSE;
+	if ( pSoldier && gubDrawModeMine == MINES_DRAW_DETECT_ENEMY )
+	{
+		if ( (&(pSoldier->inv[HANDPOS] ))->exists() && Item[pSoldier->inv[HANDPOS].usItem].metaldetector== 1 )
+		{
+			fWithMineDetector = TRUE;
+		}
+		else if ( (&(pSoldier->inv[SECONDHANDPOS] ))->exists() && Item[pSoldier->inv[SECONDHANDPOS].usItem].metaldetector== 1 )
+		{
+			fWithMineDetector = TRUE;
+		}
+
+		// TODO: perhaps even consume batteries one day...
+	}
+
+	// if we are looking for mines via mine detector, but don't have one equipped, return, we won't detect anything
+	if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && !fWithMineDetector )
+	{
+		return;
+	}
+	
+	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	
+	INT16 usTmp;
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMineMinCellX, &usTmp );
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMineMaxCellX, &usTmp );
+
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMineMinCellY );
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMineMaxCellY );
+	for ( ubX=gsMineMinCellX; ubX<=gsMineMaxCellX; ++ubX )
+	{
+		for ( ubY=gsMineMinCellY; ubY<=gsMineMaxCellY; ++ubY )
+		{
+			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
+
+				GetGridNoForViewPort( ubX, ubY, sGridNo );
+
+				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
+				{
+					continue;
+				}
+
+				if ( !NewOKDestination( pSoldier, sGridNo, false, (INT8) ubZ ) )
+				{
+					continue;
+				}
+
+				// do not show stuff on roofs if ground is shown
+				if ( ubZ == I_ROOF_LEVEL && !IsTheRoofVisible( sGridNo ) )
+				{
+					continue;
+				}
+
+				// do not show stuff on ground if roof is shown
+				if ( ubZ == I_GROUND_LEVEL && IsTheRoofVisible( sGridNo ) )
+				{
+					continue;
+				}
+				
+				bMines = MAX_MINES;
+
+				// if we are looking for hostile mines, but the tile is out of our' detectors range, skip looking for mines
+				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
+				{
+					if ( PythSpacesAway(sSelectedSoldierGridNo, sGridNo) > 4 )
+						continue;
+				}
+
+				DetermineMineDisplayInTile( sGridNo, ubZ, bMines, fWithMineDetector );
+			}
+		}
+	}
+
+	AddMinesObjectsToViewArea();
+}
+
+
+void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLEAN fWithMineDetector )
+{
+	// if there is a bomb at that grid and level, and it isn't disabled
+	for (UINT32 uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; ++uiWorldBombIndex)
+	{
+		if (gWorldBombs[uiWorldBombIndex].fExists && gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].sGridNo == sGridNo && gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].ubLevel == bLevel )
+		{
+			OBJECTTYPE* pObj = &( gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].object );
+			if (!((*pObj).fFlags & OBJECT_DISABLED_BOMB))
+			{
+				// we are looking for hostile mines and have got an detector equipped
+				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
+				{
+					// look for hostile mines
+					//if ( ((*pObj)[0]->data.misc.ubBombOwner < 2) )
+					{
+						bMines = MINE_BOMB;
+					}
+				}
+				else
+				{
+					// look for mines from our own team
+					if ( (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
+					{
+						if ( Item[pObj->usItem].tripwire == 1 )
+						{
+							// if we're already marked as MINE_BOMB, switch to MINE_BOMB_AND_WIRE
+							if ( bMines == MINE_BOMB )
+								bMines = MINE_BOMB_AND_WIRE;
+							else
+								bMines = MINE_WIRE;
+						}
+						else
+						{
+							// if we're already marked as MINE_WIRE, switch to MINE_BOMB_AND_WIRE
+							if ( bMines == MINE_WIRE )
+								bMines = MINE_BOMB_AND_WIRE;
+							else
+								bMines = MINE_BOMB;
+						}
+					}
+				}
+
+				// TODO: determine correct trap network
+			}
+		}
+	}
 }

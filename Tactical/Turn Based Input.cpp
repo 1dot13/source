@@ -1402,28 +1402,41 @@ void GetPolledKeyboardInput( UINT32 *puiNewEvent )
 
 	if( _KeyDown( DEL ) && !fDeleteDown)
 	{
-		SwitchToEnemyView();
+		if ( _KeyDown( ALT )	)
+			SwitchToHostileTrapsView();	// added by Flugente
+		else
+			SwitchToEnemyView();
 
 		fDeleteDown = TRUE;
 	}
 
 	if( !_KeyDown( DEL ) && fDeleteDown )
 	{
-		SwitchViewOff();
-
+		if ( _KeyDown( ALT )	)
+			SwitchMineViewOff();	// added by Flugente
+		else
+			SwitchViewOff();
+		
 		fDeleteDown = FALSE;
 	}
 
 	if( _KeyDown( END ) && !fEndDown)
 	{
-		SwitchToMercView();
+		if ( _KeyDown( ALT )	)
+			SwitchToTrapNetworkView();	// added by Flugente
+		else
+			SwitchToMercView();
 
 		fEndDown = TRUE;
 	}
 
 	if( !_KeyDown( END ) && fEndDown )
 	{
-		SwitchViewOff();
+		if ( _KeyDown( ALT )	)
+			SwitchMineViewOff();	// added by Flugente
+		else
+			SwitchViewOff();
+		
 
 		fEndDown = FALSE;
 	}
@@ -2948,7 +2961,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'C':
-				ToggleEnemyView();
+				if ( fAlt )
+					ToggleHostileTrapsView();	// added by Flugente
+				else
+					ToggleEnemyView();
 				break;
 			case 'd':
 				if( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT )
@@ -4338,7 +4354,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'V':
-				ToggleMercView();
+				if( fAlt )
+					ToggleTrapNetworkView();	// added by Flugente
+				else
+					ToggleMercView();
 				break;
 
 			case 'w':
