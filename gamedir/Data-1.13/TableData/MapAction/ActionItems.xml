@@ -44,36 +44,17 @@ ActionID:
 
 BombItem:
 	Name					uiIndex (items.xml)
-	STUN_GRENADE 			- 241	
-	TEARGAS_GRENADE			- 242
-	MUSTARD_GRENADE			- 243
-	MINI_GRENADE			- 244
-	HAND_GRENADE   			- 245
-	RDX						- 246
-	TNT						- 247
-	HMX						- 248
-	C1						- 249
-	MORTAR_SHELL			- 250
-	MINE					- 251
-	C4						- 252
+	STUN_GRENADE 			- 131	
+	TEARGAS_GRENADE			- 132
+	MUSTARD_GRENADE			- 133
+	MINI_GRENADE			- 134
+	HAND_GRENADE   			- 135
+	TNT						- 137
+	MINE					- 141
+	C4						- 142
 	TRIP_FLARE				- 143
 	TRIP_KLAXON				- 144
-	SHAPED_CHARGE			- 255
-	BREAK_LIGHT				- 256
-	GL_HE_GRENADE			- 257
-	GL_TEARGAS_GRENADE		- 258
-	GL_STUN_GRENADE			- 259
-	GL_SMOKE_GRENADE		- 260
-	SMOKE_GRENADE 			- 261
-	TANK_SHELL				- 262
-	STRUCTURE_IGNITE		- 263
-	CREATURE_COCKTAIL		- 264
-	STRUCTURE_EXPLOSION		- 265
-	GREAT_BIG_EXPLOSION		- 266
-	BIG_TEAR_GAS			- 267
-	SMALL_CREATURE_GAS		- 268
-	LARGE_CREATURE_GAS		- 269
-	VERY_SMALL_CREATURE_GAS - 270
+	SMOKE_GRENADE 			- 151
 	
 Blow_up:
 	Set to 1 if it should trigger an explosion, otherwise 0
@@ -104,35 +85,35 @@ BombItem:
 		<Name>Teargas Explosion</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>242</BombItem>
+		<BombItem>132</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>3</uiIndex>
 		<Name>Stun Explosion</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>241</BombItem>
+		<BombItem>131</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>4</uiIndex>
 		<Name>Smoke Explosion</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>261</BombItem>
+		<BombItem>151</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>5</uiIndex>
 		<Name>Mustard Gas</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>243</BombItem>
+		<BombItem>133</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>6</uiIndex>
 		<Name>Land Mine</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
-		<BombItem>251</BombItem>
+		<BombItem>141</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>7</uiIndex>
@@ -163,18 +144,21 @@ BombItem:
 		<Name>Small Explosion</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
+		<BombItem>135</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>12</uiIndex>
 		<Name>Medium Explosion</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
+		<BombItem>137</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>13</uiIndex>
 		<Name>Large Explosion</Name>
 		<ActionID>3</ActionID>
 		<Blow_up>1</Blow_up>
+		<BombItem>142</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>14</uiIndex>
@@ -297,38 +281,36 @@ BombItem:
 		<Blow_up>1</Blow_up>
 		<BombItem>267</BombItem>
 	</ACTION_ITEM>
-	<!-- UB -->
 	<ACTION_ITEM>
 		<uiIndex>34</uiIndex>
-		<Name>BIGGENS BOMBS</Name>
-		<ActionID>25</ActionID>
-		<Blow_up>0</Blow_up>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>35</uiIndex>
-		<Name>BIGGENS WARNING</Name>
-		<ActionID>26</ActionID>
-		<Blow_up>0</Blow_up>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>36</uiIndex>
-		<Name>SEE FORTIFIED DOOR</Name>
-		<ActionID>27</ActionID>
-		<Blow_up>0</Blow_up>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>37</uiIndex>
-		<Name>OPEN FORTIFED DOOR</Name>
-		<ActionID>28</ActionID>
-		<Blow_up>0</Blow_up>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>38</uiIndex>
-		<Name>SEE POWER GEN FAN</Name>
-		<ActionID>29</ActionID>
-		<Blow_up>0</Blow_up>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
 	</ACTION_ITEM>
-	<!-- End UB -->
 	<ACTION_ITEM>
 		<uiIndex>38</uiIndex>
 		<Name>Empty action</Name>
