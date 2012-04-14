@@ -10325,7 +10325,23 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 
 	// if item's fired mechanically
 	// ATE: If we are sent in a LAUNCHABLE, get the LAUCNHER, and sub ONLY if we are armed...
-	usSubItem = GetLauncherFromLaunchable( usItem );
+	//MM: this only works if every launcher for a given launchable has the same range!!
+	//usSubItem = GetLauncherFromLaunchable( usItem );
+	//MM: So instead, let's look at the soldier's hand, and check his gun for an underbarrel GL
+	if ( fArmed )
+	{
+		OBJECTTYPE *pObj = NULL;
+		pObj = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+		if ( pObj != NULL )
+		{
+			if (Item[pObj->usItem].usItemClass == IC_LAUNCHER)
+				usSubItem = pObj->usItem;
+			else if (Item[pObj->usItem].usItemClass == IC_GUN)
+			{
+				usSubItem = GetAttachedGrenadeLauncher(pObj);
+			}
+		}
+	}
 
 	if ( fArmed && usSubItem != NOTHING )
 	{

@@ -566,7 +566,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	if ( pCorpse->pAniTile == NULL )
 	{
 		pCorpse->fActivated = FALSE;
-	return( -1 );
+		return( -1 );
 	}
 
 	// Set flag and index values
