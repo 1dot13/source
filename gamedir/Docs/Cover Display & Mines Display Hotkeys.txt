@@ -1,0 +1,18 @@
+** COVER DISPLAY **
+- Show Merc View
+o END:			only display as long as the hotkey is pressed
+o SHIFT + V:		toggle permanent display on/off
+
+- Show Enemy View
+o DELETE:		only display as long as the hotkey is pressed
+o SHIFT + C:		toggle permanent display on/off
+
+** BOMBS / MINES / TRIPWIRES **
+- Display bombs/mines/tripwires planted by your team
+  Red is for bomb/mine, yellow is for tripwire and orange is for both at the same tile.
+o ALT + END:		only display as long as the hotkey is pressed
+o ALT + SHIFT + V:	toggle permanent display on/off
+
+- Display ALL (also enemy) planted BOMBS / MINES / TRIPWIRE when the selected merc has a metal detector in his hand
+o ALT + DEL 		only display as long as the hotkey is pressed
+o ALT + Shift + C 	toggle permanent display on/off
