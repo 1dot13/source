@@ -133,6 +133,8 @@ void GameInitEncyclopediaLocation()
 
 void ResetTemp()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
+
 UINT32 i,NUM_TEMP;
 
   if ( bEncyclopediaLocation == TRUE )
@@ -239,10 +241,12 @@ UINT32 i,NUM_TEMP;
 	
 			
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void CopyToTemp ( ENCYCLOPEDIA_LOCATION *Ency, BOOLEAN bFiltr, INT32 sort, INT32 TypFiltr, BOOLEAN ShowBox )
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT32 i, NUM_TEMP;
 	INT32 IDClass;
 	BOOLEAN bBoxShow;
@@ -661,6 +665,7 @@ void CopyToTemp ( ENCYCLOPEDIA_LOCATION *Ency, BOOLEAN bFiltr, INT32 sort, INT32
 		ResetVal = TRUE;
 		//DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, pSectorPageText[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 /*
 void InitLocationFiltrButtons()
@@ -856,6 +861,7 @@ BOOLEAN  RenderFiltrBox()
 
 void InitData ( BOOLEAN bInit)
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 
   IDimage = 1;
   MaxImages = 1;
@@ -903,11 +909,12 @@ void InitData ( BOOLEAN bInit)
 		InitSoundButtons();
 		
 	ResetVal = bInit;
-
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 BOOLEAN EnterEncyclopediaLocation()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   UINT16	usPosX, usPosY, i;
   /*
   IDimage = 1;
@@ -1020,7 +1027,9 @@ BOOLEAN EnterEncyclopediaLocation()
 		DisableButton( guiEncyclopediaLocationPageButton[2] );	
 		
 	RenderMap();
- 
+
+#endif // ENABLE_ENCYCLOPEDIA 
+
 	return(TRUE);
 }
 
@@ -1214,6 +1223,7 @@ void HandleEncyclopediaLocation()
 
 void RenderButtonDisabled()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	if ( gEncyclopediaDataTemp[LocationID].sDesc2 == '\0' && gEncyclopediaDataTemp[LocationID].sDesc3 == '\0' ) 
 	{
 		DisableButton( guiEncyclopediaPageButton[0] );
@@ -1223,32 +1233,40 @@ void RenderButtonDisabled()
 	{
 		EnableButton( guiEncyclopediaPageButton[2] );
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void RenderButtonDisabled2()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	DisableButton( guiEncyclopediaPageButton[0] );
 	EnableButton( guiEncyclopediaPageButton[2] );
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void RenderButtonDisabled3()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	DisableButton( guiEncyclopediaLocationPageButton[0] );
 	
 	if ( MaxLocation == -1 || MaxLocation == 0 || MaxLocation == 1 ) 
 		DisableButton( guiEncyclopediaLocationPageButton[2] );
 	else
 		EnableButton( guiEncyclopediaLocationPageButton[2] );
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void RenderButtonDisabled4()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	DisableButton( guiEncyclopediaPageButton[0] );
 	DisableButton( guiEncyclopediaPageButton[2] );
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void RenderBoxDisabledButton()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	MaxImages = 1;
 	MaxLocation = 0;
 	IDimage = 1;
@@ -1260,10 +1278,12 @@ void RenderBoxDisabledButton()
 	DisableButton( guiEncyclopediaPageButton[0] );	
 	DisableButton( guiEncyclopediaPageButton[1] );
 	DisableButton( guiEncyclopediaPageButton[2] );
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 BOOLEAN  RenderMap()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   VOBJECT_DESC	VObjectDesc;
   char fileName[500];
 
@@ -1327,11 +1347,13 @@ BOOLEAN  RenderMap()
 	//	BltVideoObjectFromIndex( FRAME_BUFFER, gEncyclopediaDataTemp[LocationID].uiIndex, 0 , ENCYCLOPEDIA_LOCATION_BOX_X + 150 ,  ENCYCLOPEDIA_LOCATION_BOX_Y - 190, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 	*/
+#endif // ENABLE_ENCYCLOPEDIA
 	return(TRUE);
 }
 
 void RenderEncyclopediaLocation( BOOLEAN bHidden )
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   UINT16	i;
   UINT8		ubNumLines=11; 
   UINT16	usPosY;
@@ -1603,11 +1625,12 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 	//DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, pSectorPageText[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 
   InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
-  
+#endif // ENABLE_ENCYCLOPEDIA  
 }
 
 void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 { 
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1654,10 +1677,12 @@ void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1758,10 +1783,12 @@ void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectFiltrButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -2183,10 +2210,12 @@ void SelectFiltrButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectInventoryFiltrButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -2605,11 +2634,13 @@ void SelectInventoryFiltrButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 
 void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	CHAR8 str[MAX_ENCYCLOPEDIA_CHARS];
 	
@@ -2710,6 +2741,7 @@ void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 	}
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 //--------------------------------------------------------------
@@ -2717,6 +2749,7 @@ void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 
 BOOLEAN SaveEncyclopediaToSaveGameFile( HWFILE hFile )
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT32	uiNumBytesWritten;
 	UINT32 i;
 
@@ -2807,12 +2840,13 @@ BOOLEAN SaveEncyclopediaToSaveGameFile( HWFILE hFile )
 	{
 		return( FALSE );
 	}
-
+#endif // ENABLE_ENCYCLOPEDIA
 	return( TRUE );
 }
 
 BOOLEAN LoadEncyclopediaFromLoadGameFile( HWFILE hFile )
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT32	uiNumBytesRead;
 	UINT32 i;
 
@@ -2902,7 +2936,7 @@ BOOLEAN LoadEncyclopediaFromLoadGameFile( HWFILE hFile )
 	{
 		gEncyclopediaOldProfilesData[ i ].Hidden = saveEncyclopediaOldProfilesData[i];
 	}
-
+#endif // ENABLE_ENCYCLOPEDIA
 	return( TRUE );
 }
 

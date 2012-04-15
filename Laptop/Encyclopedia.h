@@ -185,17 +185,6 @@ typedef struct
 #define MISSIONSTART 1
 #define MISSIONEND  2
 
-extern ENCYCLOPEDIA_LOCATION gEncyclopediaLocationData[ NUM_SECTOR ];
-extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ NUM_PROFILES ];
-extern ENCYCLOPEDIA_LOCATION gEncyclopediaDataTemp[ NUM_MAX_TEMP ];
-extern ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryData[ MAXITEMS ];
-extern ENCYCLOPEDIA_LOCATION gEncyclopediaOldProfilesData[ NUM_PROFILES ];
-extern ENCYCLOPEDIA_LOCATION gEncyclopediaQuestsData[ MAX_QUESTS ];
-
-extern ENCYCLOPEDIA_LOCATION gBriefingRoomData[ NUM_SECTOR ];
-extern ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionData[ NUM_SECTOR ];
-
-
 typedef struct
 {
 	UINT32   	uiIndex;
@@ -210,16 +199,11 @@ typedef struct
 	INT32   	CheckMission;
 }	MISSION_SAVE;
 
-//extern MISSION_SAVE saveMissionData[ NUM_SECTOR ];
-
-extern BOOLEAN saveEncyclopediaLocationData[ NUM_SECTOR ];
-extern ENCYCLOPEDIA_PROF_SAVE saveEncyclopediaProfilesData[ NUM_PROFILES ];
-extern BOOLEAN saveEncyclopediaInventoryData[ MAXITEMS ];
-extern BOOLEAN saveEncyclopediaOldProfilesData[ NUM_PROFILES ];
-extern BOOLEAN saveEncyclopediaQuestsData[ MAX_QUESTS ];
-extern MISSION_SAVE saveBriefingRoomData[ NUM_SECTOR ];
-extern MISSION_SAVE saveBriefingRoomSpecialMissionData[ NUM_SECTOR ];
-
 extern void InitEncyklopediaBool();
+
+extern void ShowNPCEncyclopediaEntry(UINT8 ubNPC, BOOLEAN hidden);
+
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[];
+extern ENCYCLOPEDIA_LOCATION gBriefingRoomData[];
 
 #endif

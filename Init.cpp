@@ -1016,6 +1016,7 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
+#ifdef ENABLE_ENCYCLOPEDIA
 	//encyklopedia
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENCYCLOPEDIALOCATIONFILENAME);
@@ -1086,7 +1087,7 @@ if ( ReadXMLEmail == TRUE )
 			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gBriefingRoomData, 4), fileName);
 		}
 #endif
-
+#endif //ENABLE_ENCYCLOPEDIA
 
 		UINT8 p;
 		for(p=0; p<NUM_PROFILES; p++)

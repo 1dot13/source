@@ -1861,7 +1861,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	if (zHiddenNames[ubNPC].Hidden == TRUE) 
 	{
 		zHiddenNames[ubNPC].Hidden = FALSE;
-		gEncyclopediaProfilesData[ubNPC].Hidden = TRUE; //encyclopedia
+		ShowNPCEncyclopediaEntry(ubNPC, TRUE);
 	}
 
 

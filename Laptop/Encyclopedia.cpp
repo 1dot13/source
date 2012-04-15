@@ -19,6 +19,7 @@
 #include "Encyclopedia_Data.h"
 #include "Encyclopedia.h"
 
+
 // Link Images
 #define	ENCYCLOPEDIA_BUTTON_SIZE_X						205
 #define	ENCYCLOPEDIA_BUTTON_SIZE_Y						19
@@ -70,6 +71,8 @@ BOOLEAN		fFirstTimeInEncyclopedia = TRUE;
 
 BOOLEAN DrawEncyclopediaLogoAim();
 
+#ifdef ENABLE_ENCYCLOPEDIA
+
 ENCYCLOPEDIA_LOCATION gEncyclopediaLocationData[ NUM_SECTOR ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaDataTemp[ NUM_MAX_TEMP ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ NUM_PROFILES ];
@@ -89,6 +92,13 @@ MISSION_SAVE saveBriefingRoomSpecialMissionData[ NUM_SECTOR ];
 
 MISSION_SAVE saveMissionData[ NUM_SECTOR ];
 
+#else // ENABLE_ENCYCLOPEDIA
+
+ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ 1 ];
+ENCYCLOPEDIA_LOCATION gBriefingRoomData[ 1 ];
+
+#endif // ENABLE_ENCYCLOPEDIA
+
 void GameInitEncyclopedia()
 {
 	LaptopInitEncyclopedia();
@@ -96,6 +106,7 @@ void GameInitEncyclopedia()
 
 BOOLEAN EnterEncyclopedia()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   VOBJECT_DESC    VObjectDesc;
   UINT16		i, usPosY;
 
@@ -140,7 +151,7 @@ BOOLEAN EnterEncyclopedia()
 	fFirstTimeInEncyclopedia = FALSE;
 	
 	RenderEncyclopedia();
-
+#endif // ENABLE_ENCYCLOPEDIA
 	return( TRUE );
 }
 
@@ -161,6 +172,7 @@ void InitEncyklopediaBool()
 
 void ExitEncyclopedia()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	UINT16 i;
 	
 	//InitEncyklopediaBool();
@@ -175,6 +187,7 @@ void ExitEncyclopedia()
 		MSYS_RemoveRegion( &gSelectedEncyclopediaTocMenuRegion[i]);
 		
 	//guiCurrentLaptopMode = LAPTOP_MODE_NONE;
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void HandleEncyclopedia()
@@ -184,6 +197,7 @@ void HandleEncyclopedia()
 
 void RenderEncyclopedia()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
     UINT16		i, usPosY;
 	UINT16		usHeight;
 	HVOBJECT	hContentButtonHandle;  
@@ -216,10 +230,12 @@ void RenderEncyclopedia()
 	//InitEncyklopediaBool();
 
   InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectEncyclopediaLocationButton(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 
@@ -242,10 +258,12 @@ void SelectEncyclopediaLocationButton(MOUSE_REGION * pRegion, INT32 iReason )
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 	} 
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectEncyclopediaCharacterButton(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 
@@ -268,10 +286,12 @@ void SelectEncyclopediaCharacterButton(MOUSE_REGION * pRegion, INT32 iReason )
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 	} 
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectEncyclopediaQuestsButton(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -293,10 +313,12 @@ void SelectEncyclopediaQuestsButton(MOUSE_REGION * pRegion, INT32 iReason )
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 	} 
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 void SelectEncyclopediaInentoryButton(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
+#ifdef ENABLE_ENCYCLOPEDIA
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -318,10 +340,12 @@ void SelectEncyclopediaInentoryButton(MOUSE_REGION * pRegion, INT32 iReason )
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 	} 
+#endif // ENABLE_ENCYCLOPEDIA
 }
 
 BOOLEAN InitEncyclopediaDefaults()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   VOBJECT_DESC    VObjectDesc;
 
 	// load the Rust bacground graphic and add it
@@ -330,30 +354,35 @@ BOOLEAN InitEncyclopediaDefaults()
 	FilenameForBPP("ENCYCLOPEDIA\\encyclopediabackground.sti", VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiRustEncyclopediaBackGround));
 
+#endif // ENABLE_ENCYCLOPEDIA
 	return(TRUE);
 }
 
 BOOLEAN RemoveEncyclopediaDefaults()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
 	DeleteVideoObjectFromIndex(guiRustEncyclopediaBackGround);
-
+#endif // ENABLE_ENCYCLOPEDIA
 	return(TRUE);
 }
 
 
 BOOLEAN DrawEncyclopediaLogoAim()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   HVOBJECT hLogoEncyklopedia;
 //	UINT16	x,y, uiPosX, uiPosY;
 
 	GetVideoObject(&hLogoEncyklopedia, guiRustEncyclopediaLogoAim);
 	BltVideoObject(FRAME_BUFFER, hLogoEncyklopedia, 0,ENCYCLOPEDIA_TOC_X, RUSTBACKGROUND_1_Y + 40, VO_BLT_SRCTRANSPARENCY,NULL);
 
+#endif // ENABLE_ENCYCLOPEDIA
 	return(TRUE);
 }
 
 BOOLEAN DrawEncyclopediaDefaults()
 {
+#ifdef ENABLE_ENCYCLOPEDIA
   HVOBJECT hRustBackGroundHandle;
 // UINT16	x,y, uiPosX, uiPosY;
 
@@ -373,6 +402,7 @@ BOOLEAN DrawEncyclopediaDefaults()
 		uiPosY += RUSTBACKGROUND_SIZE_Y;
 	}
 	*/
+#endif // ENABLE_ENCYCLOPEDIA
 	return(TRUE);
 }
 
@@ -387,4 +417,11 @@ BOOLEAN DisplayEncyclopediaCopyright()
 
 
 	return(TRUE);
+}
+
+void ShowNPCEncyclopediaEntry(UINT8 ubNPC, BOOLEAN hidden)
+{
+#ifdef ENABLE_ENCYCLOPEDIA
+	gEncyclopediaProfilesData[ubNPC].Hidden = TRUE; //encyclopedia
+#endif
 }

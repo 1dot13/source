@@ -1451,7 +1451,11 @@ void LoadGameExternalOptions()
 	//################# Laptop Settings ##################
 
 	gGameExternalOptions.gBriefingRoom						= iniReader.ReadBoolean("Laptop Settings", "BRIEFING_ROOM", FALSE);
+#ifdef ENABLE_ENCYCLOPEDIA
 	gGameExternalOptions.gEncyclopedia						= iniReader.ReadBoolean("Laptop Settings", "ENCYCLOPEDIA", FALSE);
+#else
+	gGameExternalOptions.gEncyclopedia						= FALSE;
+#endif
 	gGameExternalOptions.fDisableLaptopTransition			= iniReader.ReadBoolean("Laptop Settings", "DISABLE_LAPTOP_TRANSITION", FALSE);
 	gGameExternalOptions.fFastWWWSitesLoading				= iniReader.ReadBoolean("Laptop Settings", "FAST_WWW_SITES_LOADING", FALSE);
 
