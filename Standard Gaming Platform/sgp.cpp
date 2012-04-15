@@ -1898,6 +1898,36 @@ static LONG __stdcall SGPExceptionFilter(int exceptionCount, EXCEPTION_POINTERS*
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
+static void SGPGameLoop()
+{
+	try
+	{
+		GameLoop();
+	}
+	catch(sgp::Exception &ex)
+	{
+		SGP_ERROR(ex.what());
+		SHOWEXCEPTION(ex);
+	}
+	catch(vfs::Exception &ex)
+	{
+		SGP_ERROR(ex.what());
+		SHOWEXCEPTION(ex);
+	}
+	catch(std::exception &ex)
+	{
+		sgp::Exception nex(ex.what());
+		SGP_ERROR(nex.what());
+		SHOWEXCEPTION(nex);
+	}
+	catch(const char* msg)
+	{
+		sgp::Exception ex(msg);
+		SGP_ERROR(ex.what());
+		SHOWEXCEPTION(ex);
+	}
+}
+
 static bool CallGameLoop(bool wait)
 {
 	static int numUnsuccessfulTries = 0;
@@ -1915,7 +1945,7 @@ static bool CallGameLoop(bool wait)
 	{
 		__try
 		{
-			GameLoop();
+			SGPGameLoop();
 			numUnsuccessfulTries = 0;
 		}
 		__except( SGPExceptionFilter(++numUnsuccessfulTries, GetExceptionInformation()) )
