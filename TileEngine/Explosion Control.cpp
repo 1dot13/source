@@ -104,7 +104,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding);
 
 // HEADROCK HAM 5.1: Explosion Fragments launcher
-void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem );
+void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection = DIRECTION_IRRELEVANT );
 
 extern INT8	gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
 extern	void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
@@ -271,12 +271,12 @@ void RecountExplosions( void )
 
 
 // GENERATE EXPLOSION
-void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel )
+void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"InternalIgniteExplosion ( ubOwner : %i , sX : %i , sY : %i , sZ : %i , sGridNo : %i , usItem : %i , fLocate : %i , bLevel : %i  )\n",ubOwner, sX , sY , sZ , sGridNo , usItem , (int)fLocate , bLevel );
+	sprintf(tmpMPDbgString,"InternalIgniteExplosion ( ubOwner : %i , sX : %i , sY : %i , sZ : %i , sGridNo : %i , usItem : %i , fLocate : %i , bLevel : %i , ubDirection : %i )\n",ubOwner, sX , sY , sZ , sGridNo , usItem , (int)fLocate , bLevel, ubDirection );
 	MPDebugMsg(tmpMPDbgString);
 	}
 #endif
@@ -346,15 +346,15 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	if (Explosive[ Item[ usItem ].ubClassIndex ].usNumFragments > 0 )
 	{
 		// HEADROCK HAM 5: Deactivated until the release of HAM 5.1.
-		FireFragments( MercPtrs[ubOwner], sX, sY, sZ, usItem );
+		FireFragments( MercPtrs[ubOwner], sX, sY, sZ, usItem, ubDirection );
 	}
 }
 
 
 
-void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel )
+void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection )
 {
-	InternalIgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, usItem, TRUE, bLevel );
+	InternalIgniteExplosion( ubOwner, sX, sY, sZ, sGridNo, usItem, TRUE, bLevel, ubDirection );
 }
 
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams )
@@ -3609,8 +3609,8 @@ void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemo
 	gfExplosionQueueActive = TRUE;
 }
 
-// Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel
-BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
+// Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel with regard to the tripwire netwrok and hierarchy determined by ubFlag
+BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag )
 {
 	UINT32	uiTimeStamp= GetJA2Clock();
 	BOOLEAN	fFoundMine = FALSE;
@@ -3644,29 +3644,63 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 						// tripwire just gets activated
 						if ( Item[pObj->usItem].tripwire == 1 )
 						{
-							OBJECTTYPE newtripwireObject;
-							CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+							// determine this tripwire's flag
+							UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
-							// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
-							RemoveItemFromPool( adjgrid, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
+							// check if a) tripwire belongs to the same tripwire network and b) its of the same or lower hierarchy level
+							BOOLEAN samenetwork = FALSE;
+							BOOLEAN sameorlowerhierarchy = FALSE;
+
+							if ( ubWireNetworkFlag <= ubFlag )		// hierarchy of a group is sorted, so this suffices
+								sameorlowerhierarchy = TRUE;
 							
-							// if no other bomb exists here
-							if ( FindWorldItemForBombInGridNo(adjgrid, bLevel) == -1 )
+							if ( !sameorlowerhierarchy )
+								continue;
+
+							for (INT8 i = 0; i < 2; ++i)	// 2 runs: first for enemy networks, second for player networks
 							{
-								// make sure no one thinks there is a bomb here any more!
-								if ( gpWorldLevelData[adjgrid].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+								for (INT8 j = 0; j < 4; ++j)
 								{
-									RemoveBlueFlag( adjgrid, bLevel );
-								}
-								gpWorldLevelData[adjgrid].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
-							}
-							
-							// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
-							AddItemToPool( adjgrid, &newtripwireObject, 1, bLevel, 0, -1 );
+									UINT32 samenetworkflag = ( ENEMY_NET_1_LVL_1 | ENEMY_NET_1_LVL_2 | ENEMY_NET_1_LVL_3 | ENEMY_NET_1_LVL_4 ) << (16*i + j);			// comparing with this flag will determine the network
 
-							// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
-							if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
-								fFoundMine = ActivateSurroundingTripwire(ubID, adjgrid, bLevel);
+									if ( ( (ubFlag & samenetworkflag) != 0 ) && ( (ubWireNetworkFlag & samenetworkflag) != 0 ) )
+										samenetwork = TRUE;
+
+									if ( samenetwork )
+										break;
+								}
+							}
+
+							if ( samenetwork && sameorlowerhierarchy )
+							{
+								// if we have passed the check, our tripwire belongs to the same tripwirenetwork as the one that caused this call
+								// it is also of the sme or a lower hierarchy
+								// so, this wire calls other wires in the surrounding area. But the new flag is ubWireNetworkFlag instead of ubFlag, so the hierarchy level might be lower
+
+								OBJECTTYPE newtripwireObject;
+								CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+
+								// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+								RemoveItemFromPool( adjgrid, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
+							
+								// if no other bomb exists here
+								if ( FindWorldItemForBombInGridNo(adjgrid, bLevel) == -1 )
+								{
+									// make sure no one thinks there is a bomb here any more!
+									if ( gpWorldLevelData[adjgrid].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+									{
+										RemoveBlueFlag( adjgrid, bLevel );
+									}
+									gpWorldLevelData[adjgrid].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+								}
+							
+								// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
+								AddItemToPool( adjgrid, &newtripwireObject, 1, bLevel, 0, -1 );
+
+								// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
+								if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
+									fFoundMine = ActivateSurroundingTripwire(ubID, adjgrid, bLevel, ubWireNetworkFlag);
+							}
 						}
 						// bombs go off
 						else
@@ -3767,12 +3801,12 @@ void HandleExplosionQueue( void )
 				// bomb objects only store the SIDE who placed the bomb! :-(
 				if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 				{
-					IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel );
+					IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
 				}
 				else
 				{
 					// pre-placed
-					IgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel );
+					IgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
 				}
 			}
 
@@ -3895,6 +3929,18 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 
 	uiTimeStamp = GetJA2Clock();
 
+	// Flugente: The remote detonator can now detonate _or_ defuse bombs. 
+	// In order for a bomb do be detonated, it must have a remote detonator attached. If a 'detonate' command was clicked, bFrequency will be out of 1 - 4.
+	// In order for a bomb do be detonated, it must have a remote defuse attached. If a 'defuse' command was clicked, bFrequency will be out of 5 - 8.
+	BOOLEAN fDetonate = TRUE;
+
+	// if bFrequency is in 5-8, it must have been a 'defuse' command. Change for correct frequency;
+	if ( bFrequency > 4  && bFrequency < 9)
+	{
+		fDetonate = FALSE;
+		bFrequency -= 4;
+	}
+
 	// Go through all the bombs in the world, and look for remote ones
 	for (uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; uiWorldBombIndex++)
 	{
@@ -3904,27 +3950,74 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 			if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_REMOTE && !((*pObj).fFlags & OBJECT_DISABLED_BOMB) )
 			{
 				// Found a remote bomb, so check to see if it has the same frequency
-				if ((*pObj)[0]->data.misc.bFrequency == bFrequency)
+				if ( fDetonate )	// detonate bombs
 				{
-					// SANDRO - added merc records and some exp
-					if ( ((*pObj)[0]->data.misc.ubBombOwner) > 1 )
-					{
-						if ( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile != NO_PROFILE &&
-							MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->bTeam == gbPlayerNum )
+					// Found a remote bomb, so check to see if it has the same frequency
+					if ((*pObj)[0]->data.misc.bFrequency == bFrequency)
+					{					
+						// SANDRO - added merc records and some exp
+						if ( ((*pObj)[0]->data.misc.ubBombOwner) > 1 )
 						{
-							gMercProfiles[MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile].records.usExpDetonated++;
+							if ( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile != NO_PROFILE &&
+								MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->bTeam == gbPlayerNum )
+							{
+								gMercProfiles[MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile].records.usExpDetonated++;
 
-							StatChange( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)], EXPLODEAMT, ( 5 ), FALSE );					
+								StatChange( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)], EXPLODEAMT, ( 5 ), FALSE );					
+							}
+						}
+
+						gubPersonToSetOffExplosions = ubID;
+
+						// put this bomb on the queue
+						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
+						if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+						{
+							uiTimeStamp += BOMB_QUEUE_DELAY;
 						}
 					}
-
-					gubPersonToSetOffExplosions = ubID;
-
-					// put this bomb on the queue
-					AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
-					if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+				}
+				else	// defuse bombs
+				{
+					// check for frequency
+					if ((*pObj)[0]->data.bDefuseFrequency == bFrequency)
 					{
-						uiTimeStamp += BOMB_QUEUE_DELAY;
+						// check for a defuse
+						if ( HasAttachmentOfClass(pObj, AC_DEFUSE) )
+						{
+							(*pObj)[0]->data.bTrap = 0;
+
+							if ( (*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
+								pObj->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );
+
+							if ( (*pObj).fFlags & OBJECT_ARMED_BOMB )
+								pObj->fFlags &= ~( OBJECT_ARMED_BOMB );
+
+							if ( !((*pObj).fFlags & OBJECT_DISABLED_BOMB) )
+								pObj->fFlags |= OBJECT_DISABLED_BOMB ;
+
+							INT32 sGridNo = gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].sGridNo;
+							UINT8 ubLevel = gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].ubLevel;
+
+							// OJW - 20091029 - disarm explosives
+							if (is_networked && is_client)
+								send_disarm_explosive( sGridNo , gWorldBombs[uiWorldBombIndex].iItemIndex, ubID );
+
+							// set back ubWireNetworkFlag and bDefuseFrequency, but not the direction... bomb is still aimed, it is just turned off
+							(*pObj)[0]->data.ubWireNetworkFlag = 0;
+							(*pObj)[0]->data.bDefuseFrequency = 0;
+						
+							//create a new item: copy the old item
+							OBJECTTYPE newbombitem( *pObj );
+
+							// place item on the floor
+							AddItemToPool( sGridNo, &newbombitem, 1, ubLevel, 0, -1 );
+
+							// remove old item
+							RemoveItemFromPool( sGridNo, gWorldBombs[uiWorldBombIndex].iItemIndex, ubLevel );
+
+							// TODO remove bomb from queue...
+						}
 					}
 				}
 			}
@@ -4019,6 +4112,9 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 						OBJECTTYPE newtripwireObject;
 						CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
 
+						// determine this tripwire's flag
+						UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
 						// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 						RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
 						
@@ -4038,7 +4134,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 
 						// activate surrounding tripwires and tripwire-activated mines, unless tripwire is too much damaged and we are unlucky.. 
 						if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
-							fFoundMine = ActivateSurroundingTripwire(ubID, sGridNo, bLevel);
+							fFoundMine = ActivateSurroundingTripwire(ubID, sGridNo, bLevel, ubWireNetworkFlag);
 					}
 					else
 					{
@@ -4482,18 +4578,71 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 // HEADROCK HAM 5.1: This handles launching fragments out of an explosion. The number of fragments is read from
 // the Explosives.XML file, and they each have a set amount of damage and range as well. They are currently
 // fired at completely random trajectories.
-void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem )
+void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection )
 {
 	UINT16 usNumFragments = Explosive[Item[usItem].ubClassIndex].usNumFragments;
 	UINT16 ubFragRange = Explosive[Item[usItem].ubClassIndex].ubFragRange;
 
 	AssertMsg( ubFragRange > 0 , "Fragmentation data lacks range property!" );
 
-	for (UINT16 x = 0; x < usNumFragments; x++)
+	for (UINT16 x = 0; x < usNumFragments; ++x)
 	{
-		FLOAT dRandomX = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
-		FLOAT dRandomY = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
-		FLOAT dRandomZ = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+		FLOAT dRandomX = 0;
+		FLOAT dRandomY = 0;
+		FLOAT dRandomZ = 0;
+
+		// if explosive is directional, calculation of frags is different
+		if ( Item[usItem].directional == TRUE )
+		{
+			// Flugente: if item is a directional explosive, determine in what direction the frags should fly
+			INT16 degree = (45 + ubDirection * 45) % 360;											// modulo 360 to prevent nonsense from nonsensical input
+			INT16 horizontalarc = Explosive[Item[usItem].ubClassIndex].ubHorizontalDegree % 360;	// modulo 360 to prevent nonsense from nonsensical input
+			INT16 halfhorizontalarc = (INT16)(horizontalarc / 2);
+			INT16 sLowHorizontalD = (360 + degree - halfhorizontalarc) % 360;	
+			INT16 dRandomDegreeH = (sLowHorizontalD + Random(horizontalarc) ) % 360;
+		
+			// transform the degree into our coordinates
+			if ( dRandomDegreeH < 90 )
+			{
+				dRandomX = (FLOAT)dRandomDegreeH / 45.0f;
+				dRandomY = 0.0;
+			}
+			else if ( dRandomDegreeH < 180 )
+			{
+				dRandomX = (FLOAT)2.0;
+				dRandomY = (FLOAT)(dRandomDegreeH - 90 ) / 45.0f;
+			}
+			else if ( dRandomDegreeH < 270 )
+			{
+				dRandomX = (FLOAT)(270 - dRandomDegreeH) / 45.0f;
+				dRandomY = (FLOAT)2.0;
+			}
+			else 
+			{
+				dRandomX = 0.0;
+				dRandomY = (FLOAT)(360 - dRandomDegreeH) / 45.0f;
+			}
+
+			// X and Y now need to be distributed, at the moment they are on a circle
+			// project into [-1.0, 1.0]
+			dRandomX -= 1.0f;
+			dRandomY -= 1.0f;
+
+			// vertical stuff
+			INT16 verticalarc = Explosive[Item[usItem].ubClassIndex].ubVerticalDegree % 180;	// modulo 180 to prevent nonsense from nonsensical input
+			INT16 halfverticalarc = (INT16)(verticalarc / 2);
+			INT16 sLowVerticalD = (90 - halfverticalarc) % 180;
+	
+			INT16 dRandomDegreeV = sLowVerticalD + Random(verticalarc);
+
+			dRandomZ = ((FLOAT)(dRandomDegreeV) / 90.0f) - 1.0f;
+		}
+		else
+		{
+			dRandomX = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+			dRandomY = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+			dRandomZ = ((FLOAT)Random(2000) / 1000.0f) - 1.0f;
+		}
 
 		FLOAT dDeltaX = (dRandomX * ubFragRange);
 		FLOAT dDeltaY = (dRandomY * ubFragRange);

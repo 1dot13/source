@@ -1024,7 +1024,12 @@ ObjectData::ObjectData(const ObjectData& src)
 		this->bTrap = src.bTrap;
 		this->fUsed = src.fUsed;
 		this->ubImprintID = src.ubImprintID;
+
 		this->bTemperature = src.bTemperature;
+		this->ubDirection = src.ubDirection;
+		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
+		this->bDefuseFrequency = src.bDefuseFrequency;
+
 		//copy over the union
 		this->gun = src.gun;
 
@@ -1043,7 +1048,12 @@ ObjectData& ObjectData::operator =(const ObjectData& src)
 		this->bTrap = src.bTrap;
 		this->fUsed = src.fUsed;
 		this->ubImprintID = src.ubImprintID;
+
 		this->bTemperature = src.bTemperature;
+		this->ubDirection = src.ubDirection;
+		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
+		this->bDefuseFrequency = src.bDefuseFrequency;
+
 		//copy over the union
 		this->gun = src.gun;
 
@@ -1300,6 +1310,9 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[0]->data.misc.ubBombOwner = src.ugYucky.ubBombOwner;
 				(*this)[0]->data.misc.bActionValue = src.ugYucky.bActionValue;
 				(*this)[0]->data.misc.ubTolerance = src.ugYucky.ubTolerance;	// includes ubLocationID
+				(*this)[0]->data.ubDirection = DIRECTION_IRRELEVANT;
+				(*this)[0]->data.ubWireNetworkFlag = ENEMY_NET_1_LVL_1;
+				(*this)[0]->data.bDefuseFrequency = 0;
 				break;
 			default:
 				//This should cover all other possibilities since only Money, Key and "Bomb/Misc" have layouts that don't

@@ -378,6 +378,8 @@ typedef struct
 	UINT8		ubFragType;
 	UINT16		ubFragDamage;
 	UINT16		ubFragRange;
+	UINT16		ubHorizontalDegree;	// Flugente: size of the horizontal arc into which fragments will be shot
+	UINT16		ubVerticalDegree;	// Flugente: size of the vertical arc into which fragments will be shot
 } EXPLOSIVETYPE;
 
 //GLOBALS

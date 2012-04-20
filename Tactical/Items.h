@@ -374,12 +374,12 @@ INT16 GetAttachedArmourBonus( OBJECTTYPE * pObj );
 INT16 GetBulletSpeedBonus( OBJECTTYPE * pObj );
 INT8 FindGasMask( SOLDIERTYPE * pSoldier );
 INT8 FindLockBomb( SOLDIERTYPE * pSoldier );
-INT8 FindMetalDetector( SOLDIERTYPE * pSoldier );
+INT8 FindMetalDetectorInHand( SOLDIERTYPE * pSoldier );		// Flugente: changed, now only works if detector is in hands
 INT8 FindCannon( SOLDIERTYPE * pSoldier );
 INT8 FindUsableCrowbar( SOLDIERTYPE * pSoldier );
 INT8 FindToolkit( SOLDIERTYPE * pSoldier );
-BOOLEAN IsDetonatorAttached( OBJECTTYPE * pObj );
-BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj );
+BOOLEAN IsDetonatorAttached( OBJECTTYPE * pObj );			// Flugente: no more needed, use HasAttachmentOfClass( pObj, AC_DETONATOR ) instead
+BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj );		// Flugente: no more needed, use HasAttachmentOfClass( pObj, AC_REMOTEDET ) instead
 OBJECTTYPE* FindAttachedBatteries( OBJECTTYPE * pObj );
 INT8 FindMedKit( SOLDIERTYPE * pSoldier );
 INT8 FindFirstAidKit( SOLDIERTYPE * pSoldier );

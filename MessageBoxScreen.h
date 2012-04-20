@@ -18,6 +18,9 @@
 #define		MSG_BOX_FLAG_GENERIC								0x0800			// 2 user-defined text buttons
 // OJW - Adding text chatbox 
 #define		MSG_BOX_FLAG_INPUTBOX					0x1000 // has a text input field
+// Flugente - added boxes for simultaneous defuse/detonate mechanism
+#define		MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS		0x2000			// Displays eight numbered buttons, 1-4, 10, 20, 30, 40. Numbers 1-4 respond to the normal detonate mechanism, rest to defusing
+#define		MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS	0x4000			// Displays sixteen numbered buttons, 1-16, for setting up a tripwire network and choosing both a detonation and defusing frequency
 
 // message box return codes
 #define		MSG_BOX_RETURN_OK									1					// ENTER or on OK button
@@ -66,7 +69,7 @@ typedef struct
 		};
 		struct
 		{
-			UINT32						uiButton[4];
+			UINT32						uiButton[16];
 		};
 	};
 	BOOLEAN						fRenderBox;

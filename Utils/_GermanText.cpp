@@ -2917,6 +2917,13 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s kann %s nicht sehen.",		// Cannot see person trying to talk to
 	L"Anbringung entfernt",
 	L"Sie können kein weiteres Fahrzeug mehr verwenden, da Sie bereits 2 haben",
+
+	// added by Flugente for defusing/setting up trap networks	// TODO.Translate
+	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
+	L"Set defusing frequency:",
+	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
+	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
+	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

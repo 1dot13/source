@@ -2582,11 +2582,15 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	// Detonators can only be on invalidcurs things...
 	if ( ubCursor == INVALIDCURS )
 	{
-		if ( IsDetonatorAttached( &(pSoldier->inv[HANDPOS]) ) )
+		if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_DETONATOR ) )
 		{
 			ubCursor = BOMBCURS;
 		}
-		else if ( IsRemoteDetonatorAttached( &(pSoldier->inv[HANDPOS]) ) )
+		else if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_REMOTEDET ) )
+		{
+			ubCursor = BOMBCURS;
+		}
+		else if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_DEFUSE) )
 		{
 			ubCursor = BOMBCURS;
 		}

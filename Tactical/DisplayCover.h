@@ -47,6 +47,6 @@ void SwitchMineViewOff();
 void ToggleTrapNetworkView();
 void ToggleHostileTrapsView();
 
-void SwitchMinesDrawMode();
+void SwitchMinesDrawModeForNetworks();
 
 #endif

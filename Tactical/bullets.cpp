@@ -32,7 +32,7 @@
 
 // Defines
 // HEADROCK HAM 5: Increasing... with the hope of making spectacular fragmenting explosives.
-#define		NUM_BULLET_SLOTS					200
+#define		NUM_BULLET_SLOTS					1000		// Flugente: 200 -> 100
 
 
 // GLOBAL FOR FACES LISTING

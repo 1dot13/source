@@ -2897,7 +2897,6 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Il veicolo può viaggiare solo tra i settori",
 	L"Non è in grado di fasciarsi da solo ora",
 	L"Sentiero bloccato per %s",
-//	L"I tuoi mercenari, che erano stati catturati dall'esercito di Deidranna, sono stati imprigionati qui!",
 	L"I mercenari catturati dall'esercito di Deidranna, sono stati imprigionati qui!",
 	L"Serratura manomessa",
 	L"Serratura distrutta",
@@ -2906,6 +2905,13 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s non riesce a vedere %s.",  // Cannot see person trying to talk to
 	L"Attachment removed",
 	L"Non può guadagnare un altro veicolo poichè già avete 2",
+
+	// added by Flugente for defusing/setting up trap networks	// TODO.Translate
+	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
+	L"Set defusing frequency:",
+	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
+	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
+	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

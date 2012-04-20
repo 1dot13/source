@@ -1228,7 +1228,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( Item[ usHandItem ].ubCursor == INVALIDCURS )
 	{
 		// Found detonator...
-		if ( IsDetonatorAttached( &(pSoldier->inv[ pSoldier->ubAttackingHand ] ) )	|| IsRemoteDetonatorAttached( &(pSoldier->inv[ pSoldier->ubAttackingHand ] ) ) )
+		if ( HasAttachmentOfClass( &(pSoldier->inv[ pSoldier->ubAttackingHand ] ), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) )
 		{
 			fDropBomb = TRUE;
 		}
@@ -1462,7 +1462,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( Item[ usHandItem ].ubCursor == INVALIDCURS )
 	{
 		// Found detonator...
-		if ( IsDetonatorAttached ( &(pSoldier->inv[ usHandItem ] ) )	|| IsRemoteDetonatorAttached( &(pSoldier->inv[ usHandItem ] ) ) )
+		if ( HasAttachmentOfClass( &(pSoldier->inv[ usHandItem ] ), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || Item[ (&(pSoldier->inv[ usHandItem ] ))->usItem ].tripwire == 1 )
 		{
 			StartBombMessageBox( pSoldier, sGridNo );
 
@@ -1482,7 +1482,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	// Does this have detonator that needs info?
-	if ( IsDetonatorAttached ( &(pSoldier->inv[ HANDPOS ] ) ) || IsRemoteDetonatorAttached( &(pSoldier->inv[ HANDPOS ] ) ) )
+	if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || Item[ (&(pSoldier->inv[ HANDPOS ] ))->usItem ].tripwire == 1)
 	{
 		StartBombMessageBox( pSoldier, sGridNo );
 	}
@@ -1515,6 +1515,13 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				}
 				pSoldier->inv[ HANDPOS ][0]->data.misc.ubBombOwner = pSoldier->ubID + 2;
 
+				// Flugente: determine the direction we are looking at and apply that direction to our explosive
+				pSoldier->inv[ HANDPOS ][0]->data.ubDirection = pSoldier->ubDirection;
+
+				// no frequency known... give a default value, so we don't defuse it by accident
+				gTempObject[0]->data.ubWireNetworkFlag = ENEMY_NET_1_LVL_1;
+				gTempObject[0]->data.bDefuseFrequency = 0;
+
 				// we now know there is something nasty here
 				gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
 
@@ -1531,7 +1538,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				if ( iResult < -20 && Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
 				{
 					// OOPS! ... BOOM!
-					IgniteExplosion( NOBODY, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pSoldier->inv[ HANDPOS ].usItem, pSoldier->pathing.bLevel );
+					IgniteExplosion( NOBODY, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pSoldier->inv[ HANDPOS ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
 					pSoldier->inv[ HANDPOS ].MoveThisObjectTo(gTempObject, 1);
 				}
 			}
@@ -1939,8 +1946,19 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 		// REMOVE ITEM FROM POOL
 		if ( ItemExistsAtLocation( sGridNo, iItemIndex, pSoldier->pathing.bLevel ) )
 		{
+			// Flugente: if item is tripwireactivated and is a planted bomb, call the defuse dialogue. We obviously know about the items' existence already...
+			if ( gWorldItems[ iItemIndex ].object.exists() && gWorldItems[ iItemIndex ].object.fFlags & OBJECT_ARMED_BOMB && Item[gWorldItems[ iItemIndex ].object.usItem].tripwireactivation == 1 )
+			{
+				gpBoobyTrapItemPool = GetItemPoolForIndex( sGridNo, iItemIndex, pSoldier->pathing.bLevel );
+				gpBoobyTrapSoldier = pSoldier;
+				gsBoobyTrapGridNo = sGridNo;
+				gbBoobyTrapLevel	= pSoldier->pathing.bLevel;
+				gfDisarmingBuriedBomb = FALSE;
+				gbTrapDifficulty = (gWorldItems[ iItemIndex ].object)[0]->data.bTrap;
 
-			if ( ContinuePastBoobyTrap( pSoldier, sGridNo, bZLevel, iItemIndex, FALSE, &fSaidBoobyTrapQuote ) )
+				DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ DISARM_BOOBYTRAP_PROMPT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
+			}
+			else if ( ContinuePastBoobyTrap( pSoldier, sGridNo, bZLevel, iItemIndex, FALSE, &fSaidBoobyTrapQuote ) )
 			{
 				if ( ItemIsCool( &gWorldItems[ iItemIndex ].object ) )
 				{
@@ -4313,7 +4331,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	gsTempGridNo = sGridNo;
 	if (Item[ pSoldier->inv[HANDPOS].usItem].remotetrigger )
 	{
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_BOMB_FREQUENCY_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_BOMB_OR_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
 	}
 	else if (pSoldier->inv[HANDPOS].usItem == REMOTETRIGGER)
 	{
@@ -4351,13 +4369,32 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 			pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 		}
 	}
-	else if ( IsDetonatorAttached ( &(pSoldier->inv[HANDPOS]) )	)
+	else if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_DEFUSE ) )
 	{
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TIMER_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR ) ) )
+		{
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		}
+		else if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_REMOTEDET) ) )
+		{
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS,  TacticalStr[ CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		}
+		else
+		{
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		}
 	}
-	else if ( IsRemoteDetonatorAttached( &(pSoldier->inv[HANDPOS]) ) )
+	else if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR ) )	)
 	{
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_FREQUENCY_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TIMER_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+	}
+	else if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_REMOTEDET) ) )
+	{
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+	}
+	else if ( Item[ (&(pSoldier->inv[HANDPOS]))->usItem ].tripwire == 1 )
+	{
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
 	}
 }
 
@@ -4372,8 +4409,8 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 		else
 		{
 			INT32 iResult;
-
-			if (IsRemoteDetonatorAttached( &(gpTempSoldier->inv[HANDPOS]) ) )
+			
+			if ( HasAttachmentOfClass( &(gpTempSoldier->inv[HANDPOS]), AC_REMOTEDET ) )
 			{
 				iResult = SkillCheck( gpTempSoldier, PLANTING_REMOTE_BOMB_CHECK, 0 );
 			}
@@ -4413,10 +4450,11 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				}
 				else
 				{
+					// we can't blow up tripwire, no matter how bad we fail
 					if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].tripwire != 1 )
 					{
 						// OOPS! ... BOOM!
-						IgniteExplosion( NOBODY, gpTempSoldier->sX, gpTempSoldier->sY, (INT16) (gpWorldLevelData[gpTempSoldier->sGridNo].sHeight), gpTempSoldier->sGridNo, gpTempSoldier->inv[ HANDPOS ].usItem, gpTempSoldier->pathing.bLevel );
+						IgniteExplosion( NOBODY, gpTempSoldier->sX, gpTempSoldier->sY, (INT16) (gpWorldLevelData[gpTempSoldier->sGridNo].sHeight), gpTempSoldier->sGridNo, gpTempSoldier->inv[ HANDPOS ].usItem, gpTempSoldier->pathing.bLevel, gpTempSoldier->ubDirection );
 					}
 
 					return;
@@ -4439,9 +4477,16 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				// HACK IMMINENT!
 				// value of 1 is stored in maps for SIDE of bomb owner... when we want to use IDs!
 				// so we add 2 to all owner IDs passed through here and subtract 2 later
-				if (gpTempSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) {
+				if (gpTempSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) 
+				{
 					gTempObject[0]->data.misc.ubBombOwner = gpTempSoldier->ubID + 2;
-					AddItemToPool( gsTempGridNo, &gTempObject, 1, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
+					gTempObject[0]->data.ubDirection = gpTempSoldier->ubDirection;		// Flugente: direction of bomb is direction of soldier
+
+					// Flugente: tripwire was called through a messagebox, but has to be buried nevertheless
+					if ( Item[ (&gTempObject)->usItem ].tripwire == 1 )
+						AddItemToPool( gsTempGridNo, &gTempObject, BURIED, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
+					else
+						AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpTempSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 				}
 			}
 		}
@@ -4681,15 +4726,28 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 		// owner - 2 gives the ID of the character who planted it
 		if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
 		{
+			// Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
+			INT8 wirecutterbonus = 0;
+			if ( ( (&gpBoobyTrapSoldier->inv[HANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpBoobyTrapSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpBoobyTrapSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
+			{
+				// + 10 if item gets activated by tripwire
+				if ( Item[gTempObject.usItem].tripwireactivation == 1 )
+					wirecutterbonus += 10;
+				
+				// + 10 if item is tripwire
+				if ( Item[gTempObject.usItem].tripwire == 1 )
+					wirecutterbonus += 10;
+			}
+
 			if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
 			{
 				// my own boobytrap!
-				iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 );
+				iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
 			}
 			else
 			{
 				// our team's boobytrap!
-				iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 );
+				iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
 			}
 		}
 		else
@@ -4977,7 +5035,12 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 
 	ubDetectLevel = 0;
 
-	if (	FindMetalDetector( pSoldier ) != NO_SLOT )
+	// Flugente: changed the way the metal detector works: now it detects mines only when it is used in hands, not if it is anywhere in the inventory.
+	// Reason: with the new tripwire functionality and th new ability of a detector to spot mines several tiles away the detector s more useful.
+	// However, the most likely persons to use it (explosive experts) are also those that plant those networks. They will often have a detector in their inventory.
+	// If the detector just works if its in inventory, they autoflag the mines they are laying, which is bad. 
+	// With this change, a detector must be in order to work.
+	if ( FindMetalDetectorInHand( pSoldier ) != NO_SLOT )
 	{
 		fMining = TRUE;
 	}

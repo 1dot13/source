@@ -60,6 +60,10 @@ enum MINES_VALUES
 	MINES_NET_2,
 	MINES_NET_3,
 	MINES_NET_4,
+	MINES_LVL_1,
+	MINES_LVL_2,
+	MINES_LVL_3,
+	MINES_LVL_4,
 	MAX_MINES
 };
 
@@ -93,8 +97,14 @@ const UINT8 animArr[3] = {
 // Flugente: mines display - stuff needs to be here
 enum MINES_DRAW_MODE {
 	MINES_DRAW_OFF,
+	MINES_DRAW_DETECT_ENEMY,
 	MINES_DRAW_PLAYERTEAM_NETWORKS,
-	MINES_DRAW_DETECT_ENEMY
+	MINES_DRAW_NETWORKCOLOURING,
+	MINES_DRAW_NET_A,
+	MINES_DRAW_NET_B,
+	MINES_DRAW_NET_C,
+	MINES_DRAW_NET_D,
+	MINES_DRAW_MAX
 };
 
 //******	Local Variables	*********************************************
@@ -701,7 +711,7 @@ void SwitchToHostileTrapsView()
 		return;
 
 	gubDrawModeMine = MINES_DRAW_DETECT_ENEMY;
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display hostile traps");
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display nearby traps");
 	DisplayMines(TRUE);
 }
 
@@ -711,7 +721,7 @@ void SwitchMineViewOff()
 		return;
 
 	gubDrawModeMine = MINES_DRAW_OFF;
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off Mines display");
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off trap display");
 	DisplayMines(TRUE);
 }
 
@@ -726,16 +736,60 @@ void ToggleHostileTrapsView()
 
 void ToggleTrapNetworkView()
 {
-	if (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS) {
+	SwitchMinesDrawModeForNetworks();
+	/*if (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS) {
 		SwitchMineViewOff();
 	} else {
 		SwitchToTrapNetworkView();
-	}
+	}*/
 }
 
-void SwitchMinesDrawMode()
+void SwitchMinesDrawModeForNetworks()
 {
-	switch(gubDrawModeMine)
+	switch ( gubDrawModeMine )
+	{
+		case MINES_DRAW_OFF:
+		case MINES_DRAW_DETECT_ENEMY:
+			gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network");
+			DisplayMines(TRUE);
+			break;
+
+		case MINES_DRAW_PLAYERTEAM_NETWORKS:
+			gubDrawModeMine = MINES_DRAW_NETWORKCOLOURING;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network colouring");
+			DisplayMines(TRUE);
+			break;
+		case MINES_DRAW_NETWORKCOLOURING:
+			gubDrawModeMine = MINES_DRAW_NET_A;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network A");
+			DisplayMines(TRUE);
+			break;
+		case MINES_DRAW_NET_A:
+			gubDrawModeMine = MINES_DRAW_NET_B;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network B");
+			DisplayMines(TRUE);
+			break;
+		case MINES_DRAW_NET_B:
+			gubDrawModeMine = MINES_DRAW_NET_C;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network C");
+			DisplayMines(TRUE);
+			break;
+		case MINES_DRAW_NET_C:
+			gubDrawModeMine = MINES_DRAW_NET_D;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network D");
+			DisplayMines(TRUE);
+			break;
+		case MINES_DRAW_NET_D:
+		case MINES_DRAW_MAX:
+		default:
+			gubDrawModeMine = MINES_DRAW_OFF;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off trap display");
+			DisplayMines(TRUE);
+			break;
+	}
+
+	/*switch(gubDrawModeMine)
 	{
 	case MINES_DRAW_OFF:
 		SwitchToTrapNetworkView();
@@ -746,7 +800,7 @@ void SwitchMinesDrawMode()
 	default:
 		SwitchMineViewOff();
 		break;
-	}
+	}*/
 }
 ///END key binding functions
 
@@ -757,14 +811,18 @@ TileDefines GetTileMinesIndex( const INT8& bMines )
 		case MINES_ALL:
 		case MINE_BOMB:
 		case MINES_NET_1:
+		case MINES_LVL_4:
 			return SPECIALTILE_COVER_1; // red
+			case MINE_BOMB_AND_WIRE:
 		case MINES_NET_2:
-		case MINE_BOMB_AND_WIRE:
+		case MINES_LVL_3:		
 			return SPECIALTILE_COVER_2; // orange
-		case MINES_NET_3:
 		case MINE_WIRE:
+		case MINES_NET_3:
+		case MINES_LVL_2:	
 			return SPECIALTILE_COVER_3; // yellow
 		case MINES_NET_4:
+		case MINES_LVL_1:
 			return SPECIALTILE_COVER_4; // green
 		case MAX_MINES:
 		default:
@@ -774,6 +832,10 @@ TileDefines GetTileMinesIndex( const INT8& bMines )
 
 BOOLEAN MineTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 {
+	// no search for adjacent tiles wehn looking at a specific network (we have only 4 colours, need them all :-)
+	if ( gubDrawModeMine == MINES_DRAW_NETWORKCOLOURING || gubDrawModeMine == MINES_DRAW_NET_A || gubDrawModeMine == MINES_DRAW_NET_B || gubDrawModeMine == MINES_DRAW_NET_C || gubDrawModeMine == MINES_DRAW_NET_D )
+		return FALSE;
+
 	INT32 ubTX, ubTY;
 
 	for ( ubTX = ubX-1; ubTX <= ubX+1; ++ubTX )
@@ -910,19 +972,12 @@ void CalculateMines()
 
 	GetSoldier( &pSoldier, gusSelectedSoldier );
 
-	// this stuff will be needed once a ranged mine detector is implemented, for the moment comment this out
 	// if we want to detect hostile mines and we have an metal detector in our hands, allow seeking
 	BOOLEAN fWithMineDetector = FALSE;
 	if ( pSoldier && gubDrawModeMine == MINES_DRAW_DETECT_ENEMY )
 	{
-		if ( (&(pSoldier->inv[HANDPOS] ))->exists() && Item[pSoldier->inv[HANDPOS].usItem].metaldetector== 1 )
-		{
+		if ( FindMetalDetectorInHand(pSoldier) )
 			fWithMineDetector = TRUE;
-		}
-		else if ( (&(pSoldier->inv[SECONDHANDPOS] ))->exists() && Item[pSoldier->inv[SECONDHANDPOS].usItem].metaldetector== 1 )
-		{
-			fWithMineDetector = TRUE;
-		}
 
 		// TODO: perhaps even consume batteries one day...
 	}
@@ -1005,37 +1060,161 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 				// we are looking for hostile mines and have got an detector equipped
 				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
 				{
-					// look for hostile mines
-					//if ( ((*pObj)[0]->data.misc.ubBombOwner < 2) )
-					{
-						bMines = MINE_BOMB;
-					}
+					// display all mines
+					bMines = MINE_BOMB;
 				}
 				else
 				{
 					// look for mines from our own team
-					if ( (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
+					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 					{
-						if ( Item[pObj->usItem].tripwire == 1 )
+						switch ( gubDrawModeMine )
 						{
-							// if we're already marked as MINE_BOMB, switch to MINE_BOMB_AND_WIRE
-							if ( bMines == MINE_BOMB )
-								bMines = MINE_BOMB_AND_WIRE;
-							else
-								bMines = MINE_WIRE;
-						}
-						else
-						{
-							// if we're already marked as MINE_WIRE, switch to MINE_BOMB_AND_WIRE
-							if ( bMines == MINE_WIRE )
-								bMines = MINE_BOMB_AND_WIRE;
-							else
-								bMines = MINE_BOMB;
+							case MINES_DRAW_PLAYERTEAM_NETWORKS:
+								{
+									if ( Item[pObj->usItem].tripwire == 1 )
+									{
+										// if we're already marked as MINE_BOMB, switch to MINE_BOMB_AND_WIRE
+										if ( bMines == MINE_BOMB )
+											bMines = MINE_BOMB_AND_WIRE;
+										else
+											bMines = MINE_WIRE;
+									}
+									else
+									{
+										// if we're already marked as MINE_WIRE, switch to MINE_BOMB_AND_WIRE
+										if ( bMines == MINE_WIRE )
+											bMines = MINE_BOMB_AND_WIRE;
+										else
+											bMines = MINE_BOMB;
+									}
+								}
+								break;
+
+							case MINES_DRAW_NETWORKCOLOURING:
+								{
+									if ( Item[pObj->usItem].tripwire == 1 )
+									{
+										// determine if wire is of the network we're searching for
+										// determine this tripwire's flag
+										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
+										// correct network?
+										if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_1 | PLAYER_NET_1_LVL_2 | PLAYER_NET_1_LVL_3 | PLAYER_NET_1_LVL_4 ) ) != 0 )
+											bMines = MINES_NET_1;
+										else if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_1 | PLAYER_NET_2_LVL_2 | PLAYER_NET_2_LVL_3 | PLAYER_NET_2_LVL_4 ) ) != 0 )
+											bMines = MINES_NET_2;
+										else if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_1 | PLAYER_NET_3_LVL_2 | PLAYER_NET_3_LVL_3 | PLAYER_NET_3_LVL_4 ) ) != 0 )
+											bMines = MINES_NET_3;
+										else if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_1 | PLAYER_NET_4_LVL_2 | PLAYER_NET_4_LVL_3 | PLAYER_NET_4_LVL_4 ) ) != 0 )
+											bMines = MINES_NET_4;
+									}
+								}
+								break;
+
+							case MINES_DRAW_NET_A:
+								{
+									if ( Item[pObj->usItem].tripwire == 1 )
+									{
+										// determine if wire is of the network we're searching for
+										// determine this tripwire's flag
+										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
+										// correct network?
+										if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_1 | PLAYER_NET_1_LVL_2 | PLAYER_NET_1_LVL_3 | PLAYER_NET_1_LVL_4 ) ) != 0 )
+										{
+											bMines = MINES_LVL_1;
+
+											if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_2 ) ) != 0 )
+												bMines = MINES_LVL_2;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_3 ) ) != 0 )
+												bMines = MINES_LVL_3;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_4 ) ) != 0 )
+												bMines = MINES_LVL_4;
+										}
+									}
+								}
+								break;
+
+							case MINES_DRAW_NET_B:
+								{
+									if ( Item[pObj->usItem].tripwire == 1 )
+									{
+										// determine if wire is of the network we're searching for
+										// determine this tripwire's flag
+										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
+										// correct network?
+										if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_1 | PLAYER_NET_2_LVL_2 | PLAYER_NET_2_LVL_3 | PLAYER_NET_2_LVL_4 ) ) != 0 )
+										{
+											bMines = MINES_LVL_1;
+
+											if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_2 ) ) != 0 )
+												bMines = MINES_LVL_2;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_3 ) ) != 0 )
+												bMines = MINES_LVL_3;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_4 ) ) != 0 )
+												bMines = MINES_LVL_4;
+										}
+									}
+								}
+								break;
+
+							case MINES_DRAW_NET_C:
+								{
+									if ( Item[pObj->usItem].tripwire == 1 )
+									{
+										// determine if wire is of the network we're searching for
+										// determine this tripwire's flag
+										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
+										// correct network?
+										if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_1 | PLAYER_NET_3_LVL_2 | PLAYER_NET_3_LVL_3 | PLAYER_NET_3_LVL_4 ) ) != 0 )
+										{
+											bMines = MINES_LVL_1;
+
+											if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_2 ) ) != 0 )
+												bMines = MINES_LVL_2;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_3 ) ) != 0 )
+												bMines = MINES_LVL_3;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_4 ) ) != 0 )
+												bMines = MINES_LVL_4;
+										}
+									}
+								}
+								break;
+
+							case MINES_DRAW_NET_D:
+								{
+									if ( Item[pObj->usItem].tripwire == 1 )
+									{
+										// determine if wire is of the network we're searching for
+										// determine this tripwire's flag
+										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
+										// correct network?
+										if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_1 | PLAYER_NET_4_LVL_2 | PLAYER_NET_4_LVL_3 | PLAYER_NET_4_LVL_4 ) ) != 0 )
+										{
+											bMines = MINES_LVL_1;
+
+											if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_2 ) ) != 0 )
+												bMines = MINES_LVL_2;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_3 ) ) != 0 )
+												bMines = MINES_LVL_3;
+											else if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_4 ) ) != 0 )
+												bMines = MINES_LVL_4;
+										}
+									}
+								}
+								break;
+
+							case MINES_DRAW_DETECT_ENEMY:
+							case MINES_DRAW_MAX:
+							default:
+								break;
 						}
 					}
 				}
-
-				// TODO: determine correct trap network
 			}
 		}
 	}

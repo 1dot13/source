@@ -1590,17 +1590,18 @@ INT8 FindBestWeaponIfCurrentIsOutOfRange(SOLDIERTYPE * pSoldier, INT8 bCurrentWe
 	return( bCurrentWeaponIndex );
 }
 
-INT8 FindMetalDetector( SOLDIERTYPE * pSoldier )
+INT8 FindMetalDetectorInHand( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
-
-	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	if ( (&(pSoldier->inv[HANDPOS] ))->exists() && Item[pSoldier->inv[HANDPOS].usItem].metaldetector )
 	{
-		if (Item[pSoldier->inv[bLoop].usItem].metaldetector && pSoldier->inv[bLoop].exists() == true)
-		{
-			return( bLoop );
-		}
+		return( HANDPOS );
 	}
+	
+	if ( (&(pSoldier->inv[SECONDHANDPOS] ))->exists() && Item[pSoldier->inv[SECONDHANDPOS].usItem].metaldetector )
+	{
+		return( SECONDHANDPOS );
+	}
+
 	return( NO_SLOT );
 }
 
@@ -7345,6 +7346,12 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 	BOOLEAN fPressure = FALSE;
 	BOOLEAN fTimed = FALSE;
 	BOOLEAN	fSwitch = FALSE;
+	BOOLEAN fDefuse = FALSE;		// bomb can be defused remotely
+		
+	if ( HasAttachmentOfClass( pObj, AC_DEFUSE) )
+	{
+		fDefuse = TRUE;
+	}
 
 	if (pObj->usItem == ACTION_ITEM)
 	{
@@ -7360,11 +7367,11 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 
 		}
 	}
-	else if ( IsDetonatorAttached( pObj ) )
+	else if ( HasAttachmentOfClass( pObj, AC_DETONATOR ) )
 	{
 		fTimed = TRUE;
 	}
-	else if ( (IsRemoteDetonatorAttached( pObj ) ) || (pObj->usItem == ACTION_ITEM) )
+	else if ( HasAttachmentOfClass( pObj, (AC_REMOTEDET | AC_DEFUSE) ) || (pObj->usItem == ACTION_ITEM) )
 	{
 		fRemote = TRUE;
 	}
@@ -7392,22 +7399,74 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 		return( FALSE );
 	}
 
+	// Flugente TODO determine correct frequency and detonate/defuse stuff
+	// Flugente: decide how to interpret the bSetting we just got.
+	// Due to limitations in the message system, we only receive a single value to interpret, as we currently can't have a message box return 2 values
+	// It might be possible to have proper checkboxes, but I'll rather not research this right now.
+	// The remote defuse complicates things, as you'll see:
+	//
+	// If we are placing a bomb or mine (so no tripwire), consider the following: 
+	// a) if we have a timed detonator: time in turns until she blows': 1-4
+	// b) if we have a remote detonator: frequency on which the bomb will blow: 1-4
+	// c) if we have a timed detonator plus a remote defuse: time in turns until she blows plus frequency to defuse: 1-16
+	// d) if we have a remote detonator plus a remote defuse: frequency on which the bomb will blow plus frequency to defuse: 1-16
+	//
+	// I we are placing tripwire, consider this:
+	// e) if we palce tripwire: the tripwire network plus the hierachy in that network: 1-16
+	//
+	// It is clear that we only have to reinterpret the values if a defuse is equiped, or we are placing tripwire
+	INT8 detonatesetting = bSetting;
+	INT8 defusesetting	 = bSetting;
+
+	if ( fDefuse && bSetting > 0 && bSetting < 17 )	// checks for safety
+	{
+		// the bSetting consists of the 4 * (detonation frequency - 1) + defuse frequency
+		detonatesetting = 1;
+		defusesetting = bSetting % 4;
+		if ( defusesetting == 0 )
+			defusesetting = 4;
+
+		INT8 tmp = bSetting - defusesetting;		// now 0, 4, 8 or 12
+		if ( tmp > 0 )	++detonatesetting;
+		if ( tmp > 4 )	++detonatesetting;
+		if ( tmp > 8 )	++detonatesetting;			// defusesetting is now in 1-4
+	}
+
+	// tripwires
+	UINT32 ubWireNetworkFlag = 0;
+	if ( Item[pObj->usItem].tripwire == 1 && bSetting > 0 && bSetting < 17 ) // checks for safety
+	{
+		// the bSetting consists of the network number + 4 * (network hierarchy - 1)
+
+		// account for placement by the enemy
+		INT8 editoradj = 16;
+		//if ( editor ) editoradj = 0;	or something like that
+		ubWireNetworkFlag = 1 << (editoradj - 1 + bSetting);
+	}
+
+	if (fDefuse)	// TODO: doesn't work this way if both a detonator and a remote defuse is attached...
+	{
+		(*pObj)[0]->data.misc.bDetonatorType = BOMB_REMOTE;
+		(*pObj)[0]->data.bDefuseFrequency = defusesetting;
+	}
+
 	if (fRemote)
 	{
 		(*pObj)[0]->data.misc.bDetonatorType = BOMB_REMOTE;
-		(*pObj)[0]->data.misc.bFrequency = bSetting;
+		(*pObj)[0]->data.misc.bFrequency = detonatesetting;
 	}
 	else if (fPressure)
 	{
 		(*pObj)[0]->data.misc.bDetonatorType = BOMB_PRESSURE;
 		(*pObj)[0]->data.misc.bFrequency = 0;
+		(*pObj)[0]->data.ubWireNetworkFlag = ubWireNetworkFlag;
 	}
 	else if (fTimed)
 	{
 		(*pObj)[0]->data.misc.bDetonatorType = BOMB_TIMED;
 		// In realtime the player could choose to put down a bomb right before a turn expires, SO
 		// add 1 to the setting in RT
-		(*pObj)[0]->data.misc.bDelay = bSetting;
+		(*pObj)[0]->data.misc.bDelay = detonatesetting;
 		if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
 		{
 			(*pObj)[0]->data.misc.bDelay++;
@@ -7417,12 +7476,16 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 	else if (fSwitch)
 	{
 		(*pObj)[0]->data.misc.bDetonatorType = BOMB_SWITCH;
-		(*pObj)[0]->data.misc.bFrequency = bSetting;
+		(*pObj)[0]->data.misc.bFrequency = detonatesetting;
 	}
 	else
 	{
 		return( FALSE );
 	}
+
+	// for safety, weird things happen
+	if ( (*pObj).fFlags & OBJECT_DISABLED_BOMB )
+		(*pObj).fFlags &= ~(OBJECT_DISABLED_BOMB);
 
 	(*pObj).fFlags |= OBJECT_ARMED_BOMB;
 	(*pObj)[0]->data.misc.usBombItem = pObj->usItem;
@@ -7997,11 +8060,11 @@ void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 			// blow it up!
 			if ( gTacticalStatus.ubAttackBusyCount )
 			{
-				IgniteExplosion( pSoldier->ubAttackerID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel );
+				IgniteExplosion( pSoldier->ubAttackerID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
 			}
 			else
 			{
-				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel );
+				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[ bSlot ].usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
 			}
 
 			//ADB when something in a stack blows up the whole stack goes, so no need to worry about number of items
@@ -8066,7 +8129,7 @@ BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, IN
 	if ( fBlowsUp )
 	{
 		// OK, Ignite this explosion!
-		IgniteExplosion( ubOwner, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pObject->usItem, bLevel );
+		IgniteExplosion( ubOwner, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pObject->usItem, bLevel, DIRECTION_IRRELEVANT );
 
 		// SANDRO - merc records
 		if ( (pObject->fFlags & OBJECT_ARMED_BOMB) && ((*pObject)[0]->data.misc.ubBombOwner > 1) )
@@ -12605,8 +12668,8 @@ INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 	if ( gGameOptions.fWeaponOverheating )
 	{
 		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObj );
-		FLOAT accuracymalus = (max(1.0, overheatdamagepercentage) - 1.0) * 0.1;
-		accuracyheatmultiplicator = max(0.0, 1.0 - accuracymalus);
+		FLOAT accuracymalus = (max((FLOAT)1.0, overheatdamagepercentage) - (FLOAT)1.0) * 0.1;
+		accuracyheatmultiplicator = max((FLOAT)0.0, (FLOAT)1.0 - accuracymalus);
 	}
 
 	if(UsingNewCTHSystem() == false)
@@ -13022,12 +13085,15 @@ BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag )
 
 BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag )
 {
-	// check all attachments
-	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	if ( pObj->exists() )
 	{
-		if ( iter->exists() && IsAttachmentClass( iter->usItem, aFlag ) )
-			return( TRUE );
+		// check all attachments
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if ( iter->exists() && IsAttachmentClass( iter->usItem, aFlag ) )
+				return( TRUE );
+		}
 	}
 
 	return( FALSE );

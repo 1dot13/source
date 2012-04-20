@@ -2913,6 +2913,13 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s看不见%s。", // Cannot see person trying to talk to
 	L"附件被移除",
 	L"你已经有了两辆车，无法拥有更多的车辆。",
+
+	// added by Flugente for defusing/setting up trap networks	// TODO.Translate
+	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
+	L"Set defusing frequency:",
+	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
+	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
+	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

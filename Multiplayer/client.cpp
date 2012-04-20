@@ -3067,6 +3067,10 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 			else
 				(*pObj)[0]->data.misc.bDelay = exp->bDelayFreq;
 
+			(*pObj)[0]->data.ubDirection = DIRECTION_IRRELEVANT;
+			(*pObj)[0]->data.ubWireNetworkFlag = ENEMY_NET_1_LVL_1;
+			(*pObj)[0]->data.bDefuseFrequency = 0;
+			
 			// save old clients WorldID if we can
 			// loop through world bombs and find the one linked to the item we just created
 			UINT32 uiCount;

@@ -98,8 +98,8 @@ extern	EXPLOSIONTYPE								gExplosionData[ NUM_EXPLOSION_SLOTS ];
 extern UINT8 gubElementsOnExplosionQueue;
 extern BOOLEAN gfExplosionQueueActive;
 
-void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel );
-void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel );
+void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT );
+void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection = DIRECTION_IRRELEVANT );
 
 
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams );
@@ -133,8 +133,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectNum , BOOL fFromRemoteClient = FALSE , BOOL fNewSmokeEffect = FALSE );
 void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemoteClient = FALSE );
 
-// Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel
-BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
+// Flugente: activate everything connected to a tripwire in the surrounding if sGridNo on level bLevel with regard to the tripwire netwrok and hierarchy determined by ubFlag
+BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT32 ubFlag );
 
 extern void ToggleActionItemsByFrequency( INT8 bFrequency );
 extern void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj );
