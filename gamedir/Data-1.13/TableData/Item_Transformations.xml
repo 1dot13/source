@@ -50,5 +50,124 @@
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Tear apart</szMenuRowText>
 		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
+	</TRANSFORM>	
+	<TRANSFORM>
+		<usItem>1528</usItem>
+		<usResult1>131</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from stun grenade.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1529</usItem>
+		<usResult1>132</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from tear gas grenade.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1530</usItem>
+		<usResult1>133</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from mustard gas grenade.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1531</usItem>
+		<usResult1>134</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from mini grenade.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1532</usItem>
+		<usResult1>135</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from MK2 grenade.</szTooltipText>
+	</TRANSFORM>
+  <TRANSFORM>
+		<usItem>1533</usItem>
+		<usResult1>1189</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from emergency flare.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1534</usItem>
+		<usResult1>151</usResult1>
+		<usResult2>1524</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>40</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Remove tripwire</szMenuRowText>
+		<szTooltipText>Remove tripwire from smoke grenade.</szTooltipText>
 	</TRANSFORM>
 </TRANSFORMATIONS_LIST>

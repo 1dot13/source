@@ -472,6 +472,16 @@
 	<INVENTORY>
 		<uiIndex>94</uiIndex>
 		<sItemIndex>1524</sItemIndex>
-		<ubOptimalNumber>14</ubOptimalNumber>
+		<ubOptimalNumber>16</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>95</uiIndex>
+		<sItemIndex>1526</sItemIndex>
+		<ubOptimalNumber>8</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>96</uiIndex>
+		<sItemIndex>1527</sItemIndex>
+		<ubOptimalNumber>4</ubOptimalNumber>
 	</INVENTORY>
 </INVENTORYLIST>

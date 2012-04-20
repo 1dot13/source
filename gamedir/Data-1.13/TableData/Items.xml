@@ -147,6 +147,7 @@
 		<FingerPrintID>0</FingerPrintID>
 		<TripWireActivation>0</TripWireActivation>
 		<TripWire>0</TripWire>
+		<Directional>0</Directional>
 		<NewInv>0</NewInv>
 		<AttachmentSystem>0</AttachmentSystem>
 		<ScopeMagFactor>0</ScopeMagFactor>
@@ -6670,6 +6671,7 @@
 		<szBRDesc>Attach this baby to an explosive for real power and control. This time-delayed detonator allows you anywhere from five seconds to ten minutes to move to a location of safety before its attached explosive goes off.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>65536</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -6699,6 +6701,7 @@
 		<szBRDesc>A must have for any serious explosives agent. Place this time-delayed firing device to any explosive to blow up a target when you want, from where you want. The detonator won't ignite until you hit the remote trigger.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>1048576</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -45240,19 +45243,19 @@
 		<uiIndex>1523</uiIndex>
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. Pro-Tip: Front towards enemy.</szItemDesc>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
 		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>46</ubGraphicNum>
-		<ubWeight>8</ubWeight>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>17</ItemSize>
-		<usPrice>1050</usPrice>
+		<usPrice>1250</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-4</bRepairEase>
 		<Damageable>1</Damageable>
@@ -45263,6 +45266,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
+		<Directional>1</Directional>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -45307,8 +45311,8 @@
 		<szBRName>Rifle Sling</szBRName>
 		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
 		<nasAttachmentClass>128</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
 		<AttachmentClass>524288</AttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>35</ubGraphicNum>
@@ -45316,17 +45320,282 @@
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>80</usPrice>
-		<ubCoolness>3</ubCoolness>				
+		<ubCoolness>3</ubCoolness>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<HiddenAttachment>1</HiddenAttachment>		
+		<HiddenAttachment>1</HiddenAttachment>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>2</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
-		<STAND_MODIFIERS>
-		</STAND_MODIFIERS>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1526</uiIndex>
+		<szItemName>Remote Defuse</szItemName>
+		<szLongItemName>Remote Defuse</szLongItemName>
+		<szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency. </szItemDesc>
+		<szBRName>Remote Defuse</szBRName>
+		<szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>2097152</AttachmentClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>47</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>150</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<Electronic>1</Electronic>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1527</uiIndex>
+		<szItemName>Remote Combo</szItemName>
+		<szLongItemName>Remote Combo</szLongItemName>
+		<szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these... </szItemDesc>
+		<szBRName>Remote Combo</szBRName>
+		<szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<AttachmentClass>3145728</AttachmentClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>47</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>375</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<Electronic>1</Electronic>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1528</uiIndex>
+		<szItemName>Tripwire Stun Grenade</szItemName>
+		<szLongItemName>Tripwire Stun Grenade</szLongItemName>
+		<szItemDesc>This standard stun grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Stun Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>38</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>14</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1529</uiIndex>
+		<szItemName>Tripwire Tear Gas</szItemName>
+		<szLongItemName>Tripwire Tear Gas Grenade</szLongItemName>
+		<szItemDesc>This standard tear gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Tear Gas Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>48</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>120</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1530</uiIndex>
+		<szItemName>Tripwire Mustard Gas</szItemName>
+		<szLongItemName>Tripwire Mustard Gas Grenade</szLongItemName>
+		<szItemDesc>This standard mustard gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Mustard Gas Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>2</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>41</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>600</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1531</uiIndex>
+		<szItemName>Tripwire Mini Grenade</szItemName>
+		<szLongItemName>Tripwire Mini Grenade</szLongItemName>
+		<szItemDesc>This standard mini grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Mini Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>3</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>50</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<ItemSize>14</ItemSize>
+		<usPrice>150</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1532</uiIndex>
+		<szItemName>Tripwire Grenade</szItemName>
+		<szLongItemName>Tripwire Grenade Mine</szLongItemName>
+		<szItemDesc>This standard MK2 grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>4</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>49</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>14</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1533</uiIndex>
+		<szItemName>Tripwire Flare</szItemName>
+		<szLongItemName>Tripwire Emergency Flare</szLongItemName>
+		<szItemDesc>This emergency flare has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Emergency Flare</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>77</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>71</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>20</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Flare>1</Flare>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1534</uiIndex>
+		<szItemName>Tripwire Smoke Grenade</szItemName>
+		<szLongItemName>Tripwire Smoke Grenade</szLongItemName>
+		<szItemDesc>This smoke grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Smoke Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>20</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>98</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
 	</ITEM>
 </ITEMLIST>
