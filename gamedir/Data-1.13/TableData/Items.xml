@@ -111,6 +111,7 @@
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
 		<RemoteDetonator>0</RemoteDetonator>
+		<Directional>0</Directional>
 		<RemoteTrigger>0</RemoteTrigger>
 		<LockBomb>0</LockBomb>
 		<Flare>0</Flare>
@@ -147,7 +148,6 @@
 		<FingerPrintID>0</FingerPrintID>
 		<TripWireActivation>0</TripWireActivation>
 		<TripWire>0</TripWire>
-		<Directional>0</Directional>
 		<NewInv>0</NewInv>
 		<AttachmentSystem>0</AttachmentSystem>
 		<ScopeMagFactor>0</ScopeMagFactor>
@@ -45265,8 +45265,8 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
 		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -45335,7 +45335,7 @@
 		<uiIndex>1526</uiIndex>
 		<szItemName>Remote Defuse</szItemName>
 		<szLongItemName>Remote Defuse</szLongItemName>
-		<szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency. </szItemDesc>
+		<szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szItemDesc>
 		<szBRName>Remote Defuse</szBRName>
 		<szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -45365,7 +45365,7 @@
 		<uiIndex>1527</uiIndex>
 		<szItemName>Remote Combo</szItemName>
 		<szLongItemName>Remote Combo</szLongItemName>
-		<szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these... </szItemDesc>
+		<szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these...</szItemDesc>
 		<szBRName>Remote Combo</szBRName>
 		<szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -45390,7 +45390,7 @@
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
-	</ITEM>	
+	</ITEM>
 	<ITEM>
 		<uiIndex>1528</uiIndex>
 		<szItemName>Tripwire Stun Grenade</szItemName>
@@ -45400,6 +45400,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>87</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>38</ubGraphicNum>
@@ -45429,7 +45430,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1</ubClassIndex>
+		<ubClassIndex>88</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>48</ubGraphicNum>
@@ -45459,7 +45460,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>2</ubClassIndex>
+		<ubClassIndex>89</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>41</ubGraphicNum>
@@ -45489,7 +45490,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>3</ubClassIndex>
+		<ubClassIndex>90</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>50</ubGraphicNum>
@@ -45519,7 +45520,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>4</ubClassIndex>
+		<ubClassIndex>91</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>49</ubGraphicNum>
@@ -45549,7 +45550,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>77</ubClassIndex>
+		<ubClassIndex>92</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>71</ubGraphicNum>
@@ -45560,8 +45561,8 @@
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
-		<Flare>1</Flare>
 		<Mine>1</Mine>
+		<Flare>1</Flare>
 		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
@@ -45577,7 +45578,7 @@
 		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>20</ubClassIndex>
+		<ubClassIndex>93</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>98</ubGraphicNum>

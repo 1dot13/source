@@ -50,7 +50,7 @@
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Tear apart</szMenuRowText>
 		<szTooltipText>Tear this T-Shirt into two pieces of cloth.</szTooltipText>
-	</TRANSFORM>	
+	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1528</usItem>
 		<usResult1>131</usResult1>
@@ -136,7 +136,7 @@
 		<szMenuRowText>Remove tripwire</szMenuRowText>
 		<szTooltipText>Remove tripwire from MK2 grenade.</szTooltipText>
 	</TRANSFORM>
-  <TRANSFORM>
+	<TRANSFORM>
 		<usItem>1533</usItem>
 		<usResult1>1189</usResult1>
 		<usResult2>1524</usResult2>

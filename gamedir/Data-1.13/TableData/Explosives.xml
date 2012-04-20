@@ -37,6 +37,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>2</uiIndex>
@@ -55,6 +57,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>3</uiIndex>
@@ -73,6 +77,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>4</uiIndex>
@@ -91,6 +97,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>5</uiIndex>
@@ -109,6 +117,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>6</uiIndex>
@@ -127,6 +137,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>7</uiIndex>
@@ -145,6 +157,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>8</uiIndex>
@@ -163,6 +177,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>9</uiIndex>
@@ -181,6 +197,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>10</uiIndex>
@@ -199,6 +217,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>11</uiIndex>
@@ -217,6 +237,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>12</uiIndex>
@@ -235,6 +257,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>13</uiIndex>
@@ -253,6 +277,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>14</uiIndex>
@@ -271,6 +297,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>15</uiIndex>
@@ -289,6 +317,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>16</uiIndex>
@@ -307,6 +337,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>17</uiIndex>
@@ -325,6 +357,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>18</uiIndex>
@@ -343,6 +377,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>19</uiIndex>
@@ -361,6 +397,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>20</uiIndex>
@@ -379,6 +417,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>21</uiIndex>
@@ -397,6 +437,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>22</uiIndex>
@@ -415,6 +457,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>23</uiIndex>
@@ -433,6 +477,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>24</uiIndex>
@@ -451,6 +497,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>25</uiIndex>
@@ -469,6 +517,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>26</uiIndex>
@@ -487,6 +537,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>27</uiIndex>
@@ -505,6 +557,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>28</uiIndex>
@@ -523,6 +577,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>29</uiIndex>
@@ -541,6 +597,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>30</uiIndex>
@@ -559,6 +617,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>31</uiIndex>
@@ -577,6 +637,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>32</uiIndex>
@@ -595,6 +657,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>33</uiIndex>
@@ -613,6 +677,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>34</uiIndex>
@@ -631,6 +697,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>35</uiIndex>
@@ -649,6 +717,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>36</uiIndex>
@@ -667,6 +737,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>37</uiIndex>
@@ -685,6 +757,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>38</uiIndex>
@@ -703,6 +777,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>39</uiIndex>
@@ -721,6 +797,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>40</uiIndex>
@@ -739,6 +817,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>41</uiIndex>
@@ -757,6 +837,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>42</uiIndex>
@@ -775,6 +857,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>43</uiIndex>
@@ -793,6 +877,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>44</uiIndex>
@@ -811,6 +897,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>45</uiIndex>
@@ -829,6 +917,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>46</uiIndex>
@@ -847,6 +937,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>47</uiIndex>
@@ -865,6 +957,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>48</uiIndex>
@@ -883,6 +977,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>49</uiIndex>
@@ -901,6 +997,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>50</uiIndex>
@@ -919,6 +1017,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>51</uiIndex>
@@ -937,6 +1037,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>52</uiIndex>
@@ -955,6 +1057,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>53</uiIndex>
@@ -973,6 +1077,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>54</uiIndex>
@@ -991,6 +1097,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>55</uiIndex>
@@ -1009,6 +1117,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>56</uiIndex>
@@ -1027,6 +1137,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>57</uiIndex>
@@ -1045,6 +1157,8 @@
 		<ubFragType>13</ubFragType>
 		<ubFragDamage>6</ubFragDamage>
 		<ubFragRange>200</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>58</uiIndex>
@@ -1063,6 +1177,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>59</uiIndex>
@@ -1081,6 +1197,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>60</uiIndex>
@@ -1099,6 +1217,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>61</uiIndex>
@@ -1117,6 +1237,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>62</uiIndex>
@@ -1135,6 +1257,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>6</ubFragDamage>
 		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>63</uiIndex>
@@ -1153,6 +1277,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>64</uiIndex>
@@ -1171,6 +1297,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>65</uiIndex>
@@ -1189,6 +1317,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>66</uiIndex>
@@ -1207,6 +1337,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>67</uiIndex>
@@ -1225,6 +1357,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>68</uiIndex>
@@ -1243,6 +1377,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>69</uiIndex>
@@ -1261,6 +1397,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>70</uiIndex>
@@ -1279,6 +1417,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>71</uiIndex>
@@ -1297,6 +1437,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>72</uiIndex>
@@ -1315,6 +1457,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>73</uiIndex>
@@ -1333,6 +1477,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>74</uiIndex>
@@ -1351,6 +1497,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>75</uiIndex>
@@ -1369,6 +1517,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>76</uiIndex>
@@ -1387,6 +1537,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>77</uiIndex>
@@ -1405,6 +1557,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>78</uiIndex>
@@ -1423,6 +1577,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>79</uiIndex>
@@ -1441,6 +1597,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>80</uiIndex>
@@ -1459,6 +1617,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>81</uiIndex>
@@ -1477,6 +1637,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>82</uiIndex>
@@ -1495,6 +1657,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>83</uiIndex>
@@ -1513,6 +1677,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>84</uiIndex>
@@ -1531,6 +1697,8 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>85</uiIndex>
@@ -1569,5 +1737,147 @@
 		<ubFragType>0</ubFragType>
 		<ubFragDamage>0</ubFragDamage>
 		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>87</uiIndex>
+		<ubType>1</ubType>
+		<ubDamage>1</ubDamage>
+		<ubStunDamage>140</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>10</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>4</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>360</ubHorizontalDegree>
+		<ubVerticalDegree>180</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>88</uiIndex>
+		<ubType>2</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>40</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>5</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>6</ubAnimationID>
+		<ubDuration>5</ubDuration>
+		<ubStartRadius>1</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>89</uiIndex>
+		<ubType>3</ubType>
+		<ubDamage>15</ubDamage>
+		<ubStunDamage>40</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>5</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>8</ubAnimationID>
+		<ubDuration>5</ubDuration>
+		<ubStartRadius>1</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>90</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>15</ubDamage>
+		<ubStunDamage>7</ubStunDamage>
+		<ubRadius>3</ubRadius>
+		<ubVolume>15</ubVolume>
+		<ubVolatility>1</ubVolatility>
+		<ubAnimationID>1</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>91</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>25</ubDamage>
+		<ubStunDamage>10</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>25</ubVolume>
+		<ubVolatility>1</ubVolatility>
+		<ubAnimationID>1</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>92</uiIndex>
+		<ubType>4</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>0</ubStunDamage>
+		<ubRadius>10</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>1</ubAnimationID>
+		<ubDuration>2</ubDuration>
+		<ubStartRadius>6</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>93</uiIndex>
+		<ubType>6</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>0</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>7</ubAnimationID>
+		<ubDuration>5</ubDuration>
+		<ubStartRadius>1</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
 </EXPLOSIVELIST>
