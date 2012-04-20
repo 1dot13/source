@@ -12215,4 +12215,92 @@
 	<szBRName>Tripwire</szBRName>
 	<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>		
   </ITEM>
+<ITEM>
+		<uiIndex>1524</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1525</uiIndex>
+		<szItemName>Rifle Sling</szItemName>
+		<szLongItemName>Rifle Sling</szLongItemName>
+		<szItemDesc>This simple sling prevents you from losing your gun in the heat of combat.</szItemDesc>
+		<szBRName>Rifle Sling</szBRName>
+		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1526</uiIndex>
+		<szItemName>Remote Defuse</szItemName>
+		<szLongItemName>Remote Defuse</szLongItemName>
+		<szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency. </szItemDesc>
+		<szBRName>Remote Defuse</szBRName>
+		<szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1527</uiIndex>
+		<szItemName>Remote Combo</szItemName>
+		<szLongItemName>Remote Combo</szLongItemName>
+		<szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these... </szItemDesc>
+		<szBRName>Remote Combo</szBRName>
+		<szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>		
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1528</uiIndex>
+		<szItemName>Tripwire Stun Grenade</szItemName>
+		<szLongItemName>Tripwire Stun Grenade</szLongItemName>
+		<szItemDesc>This standard stun grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Stun Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1529</uiIndex>
+		<szItemName>Tripwire Tear Gas</szItemName>
+		<szLongItemName>Tripwire Tear Gas Grenade</szLongItemName>
+		<szItemDesc>This standard tear gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Tear Gas Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1530</uiIndex>
+		<szItemName>Tripwire Mustard Gas</szItemName>
+		<szLongItemName>Tripwire Mustard Gas Grenade</szLongItemName>
+		<szItemDesc>This standard mustard gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Mustard Gas Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1531</uiIndex>
+		<szItemName>Tripwire Mini Grenade</szItemName>
+		<szLongItemName>Tripwire Mini Grenade</szLongItemName>
+		<szItemDesc>This standard mini grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Mini Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1532</uiIndex>
+		<szItemName>Tripwire Grenade</szItemName>
+		<szLongItemName>Tripwire Grenade Mine</szLongItemName>
+		<szItemDesc>This standard MK2 grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1533</uiIndex>
+		<szItemName>Tripwire Flare</szItemName>
+		<szLongItemName>Tripwire Emergency Flare</szLongItemName>
+		<szItemDesc>This emergency flare has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Emergency Flare</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1534</uiIndex>
+		<szItemName>Tripwire Smoke Grenade</szItemName>
+		<szLongItemName>Tripwire Smoke Grenade</szLongItemName>
+		<szItemDesc>This smoke grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+		<szBRName>Tripwire Smoke Grenade</szBRName>
+		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
+	</ITEM>
 </ITEMLIST>
