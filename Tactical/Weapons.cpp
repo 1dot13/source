@@ -4045,7 +4045,7 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 	// CALLAHAN START BUGFIX
 	// Provisions for Fragments, which are resulting from a different weapon than the one we are holding in our hand.
 	UINT8 ubAmmoType = 0;
-	if ( pObj->usItem == usWeaponIndex )
+	if ( pObj->usItem == usWeaponIndex || EXPLOSIVE_GUN( usWeaponIndex ))	// WANNE: This fixes the bug, that ONE shot LAWs do not explode on a direct target hit!
 	{
 		ubAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
 	}
