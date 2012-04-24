@@ -10314,8 +10314,8 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcmaxtossrange");
-	INT32 iRange;
-	UINT16	usSubItem;
+	INT32 iRange = 0;
+	UINT16	usSubItem = NOTHING;
 
 	if ( EXPLOSIVE_GUN( usItem ) )
 	{
