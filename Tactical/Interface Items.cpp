@@ -607,15 +607,21 @@ bool popupCallbackItemInSector(INT16 itemId){
 void hideAttachmentPopup(){
 	giActiveAttachmentPopup = -1;
 
-	if (giInvDescTabButton[0] != giItemDescAmmoButton)	
-		ShowButton(giItemDescAmmoButton);
+	if (giItemDescAmmoButton > -1)
+	{
+		if (giInvDescTabButton[0] != giItemDescAmmoButton)	
+			ShowButton(giItemDescAmmoButton);
+	}
 }
 
 void hideOtherAttachmentPopups(UINT32 cnt){
 
 	// if there's a bullet icon, hide it. It tends to overlap my popup boxes
-	if (giInvDescTabButton[0] != giItemDescAmmoButton)	
-		HideButton(giItemDescAmmoButton);
+	if (giItemDescAmmoButton != -1)
+	{
+		if (giInvDescTabButton[0] != giItemDescAmmoButton)	
+			HideButton(giItemDescAmmoButton);
+	}
 
 	RenderItemDescriptionBox();	// also, redraw the IDB to clean up helptext
 	
@@ -11915,7 +11921,7 @@ void ItemDescTabButtonCallback( GUI_BUTTON *btn, INT32 reason )
 			InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
 			RenderItemDescriptionBox();
 
-			if (giItemDescAmmoButton != -1)
+			if (giItemDescAmmoButton > -1)
 				MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
 			
 			ItemDescTabButtonOn( 0 );
@@ -11927,7 +11933,7 @@ void ItemDescTabButtonCallback( GUI_BUTTON *btn, INT32 reason )
 			InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
 			RenderItemDescriptionBox();
 
-			if (giItemDescAmmoButton != -1)
+			if (giItemDescAmmoButton > -1)
 				MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
 
 			ItemDescTabButtonOff( 0 );
@@ -11939,7 +11945,7 @@ void ItemDescTabButtonCallback( GUI_BUTTON *btn, INT32 reason )
 			InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
 			RenderItemDescriptionBox();
 
-			if (giItemDescAmmoButton != -1)
+			if (giItemDescAmmoButton > -1)
 				MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
 
 			ItemDescTabButtonOff( 0 );
@@ -11994,7 +12000,10 @@ void ItemDescAdvButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
 				RenderItemDescriptionBox();
 				// Required for tactical screen
-				MarkAButtonDirty( giItemDescAmmoButton ); 
+
+				if (giItemDescAmmoButton > -1)
+					MarkAButtonDirty( giItemDescAmmoButton ); 
+
 				for (INT8 x = 0; x < 3; x++)
 				{
 					if (giInvDescTabButton[x] != -1)
@@ -12012,7 +12021,9 @@ void ItemDescAdvButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
 				RenderItemDescriptionBox();
 				 // Required for tactical screen
-				MarkAButtonDirty( giItemDescAmmoButton );
+				if (giItemDescAmmoButton > -1)
+					MarkAButtonDirty( giItemDescAmmoButton );
+
 				for (INT8 x = 0; x < 3; x++)
 				{
 					if (giInvDescTabButton[x] != -1)
