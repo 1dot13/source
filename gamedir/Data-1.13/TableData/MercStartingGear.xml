@@ -2666,6 +2666,7 @@
 			<lRightThigh>1092</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
+			<mGearKitName>Druggist</mGearKitName>
 			<mPriceMod>50</mPriceMod>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -2682,6 +2683,24 @@
 			<mBig3Status>98</mBig3Status>
 			<mBig3Quantity>1</mBig3Quantity>
 			<mSmall0>214</mSmall0>
+			<mSmall1>222</mSmall1>
+			<mSmall1Status>100</mSmall1Status>
+			<mSmall1Quantity>3</mSmall1Quantity>
+			<mSmall2>235</mSmall2>
+			<mSmall2Status>100</mSmall2Status>
+			<mSmall2Quantity>3</mSmall2Quantity>
+			<mSmall3>1535</mSmall3>
+			<mSmall3Status>100</mSmall3Status>
+			<mSmall3Quantity>3</mSmall3Quantity>
+			<mSmall4>1536</mSmall4>
+			<mSmall4Status>100</mSmall4Status>
+			<mSmall4Quantity>3</mSmall4Quantity>
+			<mSmall5>1537</mSmall5>
+			<mSmall5Status>100</mSmall5Status>
+			<mSmall5Quantity>3</mSmall5Quantity>
+			<mSmall6>1538</mSmall6>
+			<mSmall6Status>100</mSmall6Status>
+			<mSmall6Quantity>3</mSmall6Quantity>
 			<lVest>1090</lVest>
 			<lCPack>1098</lCPack>
 	</GEARKIT>

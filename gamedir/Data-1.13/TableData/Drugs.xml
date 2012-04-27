@@ -1,0 +1,241 @@
+﻿<!--
+
+You can now select several drug components and build your own drugs from them.
+
+<ubType> 
+	is the number of the component, the specific effects are hardcoded (couldn't externalise those, or I'd need A LOT more tags).
+<ubDrugTravelRate>
+	determines how fast the drug comes to its full effect.
+<ubDrugWearoffRate>
+	determines how fast the drug effect will wear out.
+<ubDrugEffect>
+	measures the effect a drug has. As long as this value is > 0 the drug will have its main effect. 
+<ubDrugSideEffect>
+	measures the drugs sideeffect. This starts once <ubDrugEffect> hits 0. This starts the second effect, which is mostly negative.
+<ubDrugSideEffectRate>
+	determines how fast the sideeffect will wear out.
+<ubMoralBacklash>
+	determines if there will be a morale drop once the <ubDrugEffect> hits 0.
+	
+How do you make a drug?
+- Simply create a new Item in the Items.xml with the following values set:
+
+	<usItemClass>268435456</usItemClass>     // always set this to 268435456
+	<Medical>1</Medical>                     // always set this to 1
+	<DrugType>30824</DrugType>				 // Set the drug type effect here. List below:
+
+<DrugType> effect Flag in Items.xml:
+
+	1        DRUG_ADRENALINE		vanilla adrenaline
+	2        DRUG_ALCOHOL			vanilla alcohol
+	4        DRUG_REGENERATION		vanilla health regeneration
+	8        DRUG_DAMAGERESISTANCE	damage resistance of up to 25%/-20%
+	16       DRUG_STRENGTH			increases strength up to 25 points, lowers it by up to 10 as a side effect
+	32       DRUG_AGILITY			increases agility up to 25 points, lowers it by up to 10 as a side effect
+	64       DRUG_DEXTERITY   		increases dexterity up to 25 points, lowers it by up to 10 as a side effect
+	128      DRUG_WISDOM   			increases wisdom up to 25 points, lowers it by up to 10 as a side effect
+	256      DRUG_PERCEPTION		+/- 1 level during interrupts
+	512      DRUG_PSYCHO			merc gets the 'psycho' disability while drug/side effect lasts
+	1024     DRUG_NERVOUS			merc gets the 'nervous' disability while drug/side effect lasts
+	2048     DRUG_CLAUSTROPHOBIC	merc gets the 'claustrophobic' disability while drug/side effect lasts
+	4096     DRUG_HEATINTOLERANT	merc gets the 'heat intolerant' disability while drug/side effect lasts
+	8192     DRUG_FEAROFINSECTS		merc gets the 'fear of insects' disability while drug/side effect lasts
+	16384    DRUG_FORGETFUL			merc gets the 'forgetful' disability while drug/side effect lasts
+	32768    DRUG_BLIND 			merc goes blind for 2 turns once side effect hits 1
+	65536    DRUG_KNOCKOUT 			heart attack once side effect hits 1 (lose all breath and fall down)
+	131072   DRUG_VISION 			increases sight range 10% on drug effect, decreases it 10% as a side effect
+	262144   DRUG_TUNNELVISION 		increases tunnelvison, side effect only
+
+You can combine "mix" different drug effects.
+For example, the new drug 'Occulin' has a <DrugType>425984</DrugType>. This gives it the effects of DRUG_BLIND, DRUG_VISION and DRUG_TUNNELVISION. I've set the effects so that
+	- once you take the drug, your sight range increases 10%
+	- once the side effect starts, your sight range is lowered 10% nad you get up to 25% tunnelvison
+	- once that is over, you are blinded for 2 turns
+
+You can test the drug effect in game by showing the vision range of your merc. You will also notice icons on the merc portraits for different drug effects.
+
+More Infos: http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&Number=303972#Post303972
+	
+-->
+<DRUGSLIST>
+  <DRUG>
+    <ubType>0</ubType>
+    <ubDrugTravelRate>0</ubDrugTravelRate>
+    <ubDrugWearoffRate>0</ubDrugWearoffRate>
+    <ubDrugEffect>0</ubDrugEffect>
+    <ubDrugSideEffect>0</ubDrugSideEffect>
+    <ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>1</ubType>
+    <ubDrugTravelRate>4</ubDrugTravelRate>
+    <ubDrugWearoffRate>2</ubDrugWearoffRate>
+    <ubDrugEffect>15</ubDrugEffect>
+    <ubDrugSideEffect>20</ubDrugSideEffect>
+    <ubDrugSideEffectRate>2</ubDrugSideEffectRate>
+    <ubMoralBacklash>1</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>2</ubType>
+    <ubDrugTravelRate>2</ubDrugTravelRate>
+    <ubDrugWearoffRate>2</ubDrugWearoffRate>
+    <ubDrugEffect>8</ubDrugEffect>
+    <ubDrugSideEffect>10</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>1</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>3</ubType>
+    <ubDrugTravelRate>0</ubDrugTravelRate>
+    <ubDrugWearoffRate>0</ubDrugWearoffRate>
+    <ubDrugEffect>0</ubDrugEffect>
+    <ubDrugSideEffect>0</ubDrugSideEffect>
+    <ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>4</ubType>
+    <ubDrugTravelRate>13</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>25</ubDrugEffect>
+    <ubDrugSideEffect>20</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>5</ubType>
+    <ubDrugTravelRate>25</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>50</ubDrugEffect>
+    <ubDrugSideEffect>10</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>1</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>6</ubType>
+    <ubDrugTravelRate>25</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>50</ubDrugEffect>
+    <ubDrugSideEffect>10</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>1</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>7</ubType>
+    <ubDrugTravelRate>25</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>50</ubDrugEffect>
+    <ubDrugSideEffect>10</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>1</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>8</ubType>
+    <ubDrugTravelRate>25</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>50</ubDrugEffect>
+    <ubDrugSideEffect>10</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>1</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>9</ubType>
+    <ubDrugTravelRate>25</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>100</ubDrugEffect>
+    <ubDrugSideEffect>0</ubDrugSideEffect>
+    <ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>10</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>120</ubDrugEffect>
+    <ubDrugSideEffect>120</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>11</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>120</ubDrugEffect>
+    <ubDrugSideEffect>120</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>12</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>120</ubDrugEffect>
+    <ubDrugSideEffect>120</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>13</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>120</ubDrugEffect>
+    <ubDrugSideEffect>120</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>14</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>120</ubDrugEffect>
+    <ubDrugSideEffect>120</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+  <DRUG>
+    <ubType>15</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>120</ubDrugEffect>
+    <ubDrugSideEffect>120</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>16</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>5</ubDrugEffect>
+    <ubDrugSideEffect>8</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>17</ubType>
+    <ubDrugTravelRate>25</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>50</ubDrugEffect>
+    <ubDrugSideEffect>11</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>18</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>5</ubDrugEffect>
+    <ubDrugSideEffect>7</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+    <ubType>18</ubType>
+    <ubDrugTravelRate>1</ubDrugTravelRate>
+    <ubDrugWearoffRate>1</ubDrugWearoffRate>
+    <ubDrugEffect>5</ubDrugEffect>
+    <ubDrugSideEffect>7</ubDrugSideEffect>
+    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+    <ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+</DRUGSLIST>

@@ -148,6 +148,7 @@
 		<FingerPrintID>0</FingerPrintID>
 		<TripWireActivation>0</TripWireActivation>
 		<TripWire>0</TripWire>
+		<DrugType>0</DrugType>
 		<NewInv>0</NewInv>
 		<AttachmentSystem>0</AttachmentSystem>
 		<ScopeMagFactor>0</ScopeMagFactor>
@@ -6658,6 +6659,7 @@
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>1</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6951,6 +6953,7 @@
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>4</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7205,7 +7208,8 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<Alcohol>1</Alcohol>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>2</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7419,6 +7423,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<Alcohol>1</Alcohol>
+		<DrugType>2</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -7442,6 +7447,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<Alcohol>1</Alcohol>
+		<DrugType>2</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -45397,7 +45403,7 @@
 		<szLongItemName>Tripwire Stun Grenade</szLongItemName>
 		<szItemDesc>This standard stun grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Stun Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>87</ubClassIndex>
@@ -45427,7 +45433,7 @@
 		<szLongItemName>Tripwire Tear Gas Grenade</szLongItemName>
 		<szItemDesc>This standard tear gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Tear Gas Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>88</ubClassIndex>
@@ -45457,7 +45463,7 @@
 		<szLongItemName>Tripwire Mustard Gas Grenade</szLongItemName>
 		<szItemDesc>This standard mustard gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Mustard Gas Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>89</ubClassIndex>
@@ -45487,7 +45493,7 @@
 		<szLongItemName>Tripwire Mini Grenade</szLongItemName>
 		<szItemDesc>This standard mini grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Mini Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>90</ubClassIndex>
@@ -45517,7 +45523,7 @@
 		<szLongItemName>Tripwire Grenade Mine</szLongItemName>
 		<szItemDesc>This standard MK2 grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>91</ubClassIndex>
@@ -45547,7 +45553,7 @@
 		<szLongItemName>Tripwire Emergency Flare</szLongItemName>
 		<szItemDesc>This emergency flare has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Emergency Flare</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>92</ubClassIndex>
@@ -45575,7 +45581,7 @@
 		<szLongItemName>Tripwire Smoke Grenade</szLongItemName>
 		<szItemDesc>This smoke grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
 		<szBRName>Tripwire Smoke Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>93</ubClassIndex>
@@ -45595,6 +45601,110 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1535</uiIndex>
+		<szItemName>Barrage</szItemName>
+		<szLongItemName>Barrage Drug</szLongItemName>
+		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Sideeffects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
+		<szBRName>Barrage Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>160</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Attachment>1</Attachment>
+		<Unaerodynamic>1</Unaerodynamic>
+		<Medical>1</Medical>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>66064</DrugType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1536</uiIndex>
+		<szItemName>Reflex</szItemName>
+		<szLongItemName>Reflex Drug</szLongItemName>
+		<szItemDesc>This combat drug increases reflexes and reaction times... while it lasts. Afterwards the effects reverse. May cause paranoia.</szItemDesc>
+		<szBRName>Reflex Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>130</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Attachment>1</Attachment>
+		<Unaerodynamic>1</Unaerodynamic>
+		<Medical>1</Medical>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>1280</DrugType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1537</uiIndex>
+		<szItemName>Occulin</szItemName>
+		<szLongItemName>Occulin Drug</szLongItemName>
+		<szItemDesc>Temporarily enhances vision, but puts a heavy strain on the eyes.</szItemDesc>
+		<szBRName>Occulin Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>110</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Attachment>1</Attachment>
+		<Unaerodynamic>1</Unaerodynamic>
+		<Medical>1</Medical>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>425984</DrugType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1538</uiIndex>
+		<szItemName>Stim</szItemName>
+		<szLongItemName>Stim Drug</szLongItemName>
+		<szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
+		<szBRName>Stim  Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>220</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Attachment>1</Attachment>
+		<Unaerodynamic>1</Unaerodynamic>
+		<Medical>1</Medical>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DrugType>30824</DrugType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
