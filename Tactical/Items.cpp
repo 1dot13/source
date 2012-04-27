@@ -6374,7 +6374,8 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
 		// the_bob : added the check for whether pSoldier actually points to something to handle calling this function with pSoldier = NULL
-		if (pSoldier){
+		if (pSoldier)
+		{
 			if(fShowMapInventoryPool && !IsMercInActiveSector(pSoldier) )
 			{
 				fShowMapInventoryPool = FALSE;
@@ -6384,7 +6385,11 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 			 ChangeSelectedMapSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
 		}
 
-		if(!fShowMapInventoryPool)
+		// WANNE: This should fix the bug, that items get lost in the sector when switching between tactical sectors
+		// This bug was introduced in revision 4571 (2011-07-14)
+		
+		//if(!fShowMapInventoryPool)
+		if(fShowMapInventoryPool)
 		{
 			fShowMapInventoryPool = TRUE;
 			CreateDestroyMapInventoryPoolButtons(FALSE);
