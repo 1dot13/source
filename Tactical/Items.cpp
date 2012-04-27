@@ -58,6 +58,8 @@
 	// THE_BOB : added for pocket popup definitions
 	#include <map>
 	#include "popup_definition.h"
+
+	#include "drugs and alcohol.h"
 #endif
 
 #ifdef JA2UB
@@ -1250,6 +1252,8 @@ std::map<UINT8,popupDef> LBEPocketPopup;
 //	{	/* Gun Sling */				4,	0,	1,	{0,	0,	0,	0,	0,	1,	1,	1,	1,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0} },
 //	{	/* Knife Pocket */			5,	0,	1,	{0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0} }
 //};
+
+DRUGTYPE Drug[DRUG_TYPE_MAX];
 
 BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 {
@@ -10594,6 +10598,16 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 		bonus += GetBrightLightVisionRangeBonus(pSoldier, bLightLevel);
 	}
 
+	// Flugente: drugs can alter our sight
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_VISION ] )
+	{
+		bonus += 10;
+	}
+	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_VISION ] )
+	{
+		bonus -= 10;
+	}
+
 	// SANDRO - STOMP traits - Scouting bonus for sight range with binoculars and similar
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->pathing.bLevel == 0 )
 	{
@@ -10730,6 +10744,12 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 			bonus = __min(100,usActualCoweringTunnelVision);
 		}
 	}
+
+	// Flugente: drugs can alter our vision
+	if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_TUNNELVISION ] )
+	{
+		bonus = __min(100, bonus + 25);
+	} 
 
 	if ( !PTR_OURTEAM ) // Madd: adjust tunnel vision by difficulty level
 		bonus /= gGameOptions.ubDifficultyLevel;

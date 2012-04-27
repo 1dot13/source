@@ -943,6 +943,8 @@ typedef struct
 	BOOLEAN tripwireactivation;						// item (mine) can be activated by nearby tripwire
 	BOOLEAN tripwire;								// item is tripwire
 	BOOLEAN	directional;							// item is a directional mine/bomb (actual direction is set upon planting)
+	
+	UINT32	drugtype;								// this flagmask determines what different components are used in a drug, which results in different effects
 
 } INVTYPE;
 

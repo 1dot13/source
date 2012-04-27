@@ -65,6 +65,7 @@ typedef PARSE_STAGE;
 #define	MAGAZINESFILENAME						"Magazines.xml"
 #define	ARMOURSFILENAME							"Armours.xml"
 #define	EXPLOSIVESFILENAME						"Explosives.xml"
+#define DRUGSFILENAME							"Drugs.xml"
 #define	AMMOFILENAME							"AmmoStrings.xml"
 #define	AMMOTYPESFILENAME						"AmmoTypes.xml"
 #define	INCOMPATIBLEATTACHMENTSFILENAME			"IncompatibleAttachments.xml"
@@ -295,6 +296,10 @@ extern BOOLEAN WriteMercStartingGearStats();
 
 extern BOOLEAN ReadInExplosiveStats(STR fileName);
 extern BOOLEAN WriteExplosiveStats();
+
+// Flugente: externalisation of drugs
+extern BOOLEAN ReadInDrugsStats(STR fileName);
+extern BOOLEAN WriteDrugsStats();
 
 extern BOOLEAN ReadInAmmoStats(STR fileName);
 extern BOOLEAN WriteAmmoStats();

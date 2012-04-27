@@ -380,7 +380,8 @@ void STRUCT_TimeCounters::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 
 void STRUCT_Drugs::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 {
-	for (int x = 0; x < 2; ++x)
+	int x = 0;
+	for (; x < 2; ++x)
 	{
 		this->bFutureDrugEffect[x] = src.bFutureDrugEffect[x];						// value to represent effect of a needle
 		this->bDrugEffectRate[x] = src.bDrugEffectRate[x];							// represents rate of increase and decrease of effect
@@ -388,6 +389,16 @@ void STRUCT_Drugs::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 		this->bDrugSideEffectRate[x] = src.bDrugSideEffectRate[x];					// duration of negative AP and morale effect
 		this->bDrugSideEffect[x] = src.bDrugSideEffect[x];							// duration of negative AP and morale effect
 		this->bTimesDrugUsedSinceSleep[x] = src.bTimesDrugUsedSinceSleep[x];
+	}
+
+	for (; x < DRUG_TYPE_MAX; ++x)
+	{
+		this->bFutureDrugEffect[x] = 0;							// value to represent effect of a needle
+		this->bDrugEffectRate[x] = 0;							// represents rate of increase and decrease of effect
+		this->bDrugEffect[x] = 0;								// value that affects AP & morale calc ( -ve is poorly )
+		this->bDrugSideEffectRate[x] = 0;						// duration of negative AP and morale effect
+		this->bDrugSideEffect[x] = 0;							// duration of negative AP and morale effect
+		this->bTimesDrugUsedSinceSleep[x] = 0;
 	}
 }
 
@@ -1979,15 +1990,16 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	// adjust APs for phobia situations
 	if ( this->ubProfile != NO_PROFILE )
 	{
-		if ( (gMercProfiles[ this->ubProfile ].bDisability == CLAUSTROPHOBIC) && (gbWorldSectorZ > 0) )
+		// Flugente: drugs can temporarily cause a merc to be claustrophobic
+		if ( ( (gMercProfiles[ this->ubProfile ].bDisability == CLAUSTROPHOBIC) || MercUnderTheInfluence(this, DRUG_TYPE_CLAUSTROPHOBIC) ) && (gbWorldSectorZ > 0) )
 		{
 			ubPoints = (ubPoints * APBPConstants[AP_CLAUSTROPHOBE]) / 10;
 		}
-		else if ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) && (MercSeesCreature( this ) ) )
+		else if ( ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(this, DRUG_TYPE_FEAROFINSECTS) ) && (MercSeesCreature( this ) ) )
 		{
 			ubPoints = (ubPoints * APBPConstants[AP_AFRAID_OF_INSECTS]) / 10;
 		}
-		else if ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) && (MercIsInTropicalSector( this ) ) )
+		else if ( ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(this, DRUG_TYPE_FEAROFINSECTS) )&& (MercIsInTropicalSector( this ) ) )
 		{
 			ubPoints = (ubPoints * 9) / 10;
 		}
@@ -2119,7 +2131,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 		this->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 
 	// Don't max out if we are drugged....
-	if ( !GetDrugEffect( this, DRUG_TYPE_ADRENALINE ) )
+	if ( !GetDrugEffect( this, (DRUG_TYPE_ADRENALINE|DRUG_TYPE_AGILITY) ) )
 	{
 		///////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - following code messed a bit
@@ -5606,54 +5618,9 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 #endif
 
-	////////////////////////////////////////////////////////////////////////////////////
-	// SANDRO - Increased breath damage resistance of Militia (bonus counted twice)
-	if (this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
-		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.bGreenMilitiaDamageResistance) /75);
-	else if (this->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
-		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.bRegularMilitiaDamageResistance) /75);
-	else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
-		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.bVeteranMilitiaDamageResistance) /75);
-	// bonus for enemy too
-	else if (this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
-		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
-	else if (this->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
-		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
-	else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
-		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
-	//////////////////////////////////////////////////////////////////////////////////////
-
-	////////////////////////////////////////////////////////////////////////////////////
-	// SANDRO - option to make special NPCs stronger - breath damage resistance
-	if (gGameExternalOptions.usSpecialNPCStronger > 0)
-	{
-		switch( this->ubProfile )
-		{
-			case CARMEN:
-			case QUEEN:
-			case JOE:
-			case ANNIE:
-			case CHRIS:
-			case KINGPIN:
-			case TIFFANY:
-			case T_REX:
-			case DRUGGIST:
-			case GENERAL:
-			case JACK:
-			case OLAF:
-			case RAY:
-			case OLGA:
-			case TYRONE:
-			case MIKE:
-				sBreathLoss -= (sBreathLoss * gGameExternalOptions.usSpecialNPCStronger / 100);
-				break;
-		}
-	}
-
-	if ( sBreathLoss < 0 )
-		sBreathLoss = 0;
-	////////////////////////////////////////////////////////////////////////////////////
-
+	// Flugente: moved the damage calculation into a separate function
+	sBreathLoss = max( 1, (INT16)(sBreathLoss * (100 - this->GetDamageResistance(FALSE, TRUE)) / 100 ) );
+	
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
@@ -7205,10 +7172,27 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 
 			if ( (this->bTeam == gbPlayerNum) && (this->ubProfile != NO_PROFILE) )
 			{
-				switch( gMercProfiles[ this->ubProfile ].bDisability )
+				// Flugente: drugs can temporarily cause a merc get a new disability
+				// therefore we change this routine
+				BOOLEAN isHeatIntolerant	= gMercProfiles[ this->ubProfile ].bDisability == HEAT_INTOLERANT ? TRUE : FALSE;
+				BOOLEAN isFearOfInsects		= gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS ? TRUE : FALSE;
+				BOOLEAN isClaustrophobic	= gMercProfiles[ this->ubProfile ].bDisability == CLAUSTROPHOBIC ? TRUE : FALSE;
+				BOOLEAN isNervous			= gMercProfiles[ this->ubProfile ].bDisability == NERVOUS ? TRUE : FALSE;
+
+				if ( MercUnderTheInfluence(this, DRUG_TYPE_HEATINTOLERANT) )
+					isHeatIntolerant = TRUE;
+
+				if ( MercUnderTheInfluence(this, DRUG_TYPE_FEAROFINSECTS) )
+					isFearOfInsects = TRUE;
+
+				if ( MercUnderTheInfluence(this, DRUG_TYPE_CLAUSTROPHOBIC) )
+					isClaustrophobic = TRUE;
+
+				if ( MercUnderTheInfluence(this, DRUG_TYPE_NERVOUS) )
+					isNervous = TRUE;
+
+				if ( isHeatIntolerant )
 				{
-				// SANDRO - added heat intolerant
-				case HEAT_INTOLERANT:
 					if ( MercIsHot( this ) )
 					{
 						HandleMoraleEvent( this, MORALE_HEAT_INTOLERANT_IN_DESERT, this->sSectorX, this->sSectorY, this->bSectorZ );
@@ -7218,8 +7202,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 						}
 					}
-					break;
-				case FEAR_OF_INSECTS:
+				}
+
+				if ( isFearOfInsects )
+				{
 					if ( MercSeesCreature( this ) )
 					{
 						HandleMoraleEvent( this, MORALE_INSECT_PHOBIC_SEES_CREATURE, this->sSectorX, this->sSectorY, this->bSectorZ );
@@ -7229,8 +7215,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 						}
 					}
-					break;
-				case CLAUSTROPHOBIC:
+				}
+
+				if ( isClaustrophobic )
+				{
 					if ( gbWorldSectorZ > 0 && Random( 6 - gbWorldSectorZ ) == 0 )
 					{
 						// underground!
@@ -7242,8 +7230,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 						}
 
 					}
-					break;
-				case NERVOUS:
+				}
+
+				if ( isNervous )
+				{
 					if ( DistanceToClosestFriend( this ) > NERVOUS_RADIUS )
 					{
 						// augh!!
@@ -7265,7 +7255,6 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							this->usQuoteSaidFlags &= ~SOLDIER_QUOTE_SAID_PERSONALITY;
 						}
 					}
-					break;
 				}
 			}
 		}
@@ -13064,6 +13053,81 @@ UINT16 SOLDIERTYPE::GetUsedWeaponNumber( OBJECTTYPE * pObj )
 	}
 
 	return( pObj->usItem );
+}
+
+INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreathLoss)
+{
+	INT32 resistance = 0;
+	FLOAT breathmodifiermilitia = 1.0;
+	FLOAT breathmodifierspecialNPC = 2.0;
+
+	if ( fCalcBreathLoss )
+	{
+		breathmodifiermilitia = 0.75;
+		breathmodifierspecialNPC = 1.0;
+	}
+
+	// SANDRO - Damage resistance for Militia
+	if (!fAutoResolve)
+	{
+		if (this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
+			resistance += (INT32)(gGameExternalOptions.bGreenMilitiaDamageResistance / breathmodifiermilitia);
+		else if (this->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
+			resistance += (INT32)(gGameExternalOptions.bRegularMilitiaDamageResistance / breathmodifiermilitia);
+		else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
+			resistance += (INT32)(gGameExternalOptions.bVeteranMilitiaDamageResistance / breathmodifiermilitia);
+		// bonus for enemy too
+		else if (this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
+			resistance += gGameExternalOptions.sEnemyAdminDamageResistance;
+		else if (this->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
+			resistance += gGameExternalOptions.sEnemyRegularDamageResistance;
+		else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
+			resistance += gGameExternalOptions.sEnemyEliteDamageResistance;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - option to make special NPCs stronger - damage resistance
+	if (gGameExternalOptions.usSpecialNPCStronger > 0)
+	{
+		switch( this->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				resistance += (INT32)(gGameExternalOptions.usSpecialNPCStronger / breathmodifierspecialNPC);
+				break;
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// STOMP traits - Bodybuilding damage resistance
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( this, BODYBUILDING_NT ) )
+		resistance += gSkillTraitValues.ubBBDamageResistance;
+	////////////////////////////////////////////////////////////////////////////////////
+
+	// Flugente: drugs can now have an effect on damage resistance
+	HandleDamageResistanceEffectDueToDrugs(this, &resistance);
+
+	// resistance is between -100% and 100%
+	resistance = max(  0, resistance);
+	resistance = min(100, resistance);
+
+	return( resistance );
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

@@ -2,11 +2,10 @@
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
-	//#include "soldier control.h"
+	#include "soldier control.h"
 	#include "soldier profile.h"
 	#include "drugs and alcohol.h"
 	#include "items.h"
-	#include "drugs and alcohol.h"
 	#include "morale.h"
 	#include "points.h"
 	#include "message.h"
@@ -21,11 +20,11 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 
-UINT8 ubDrugTravelRate[]			= { 4,	2 };
+/*UINT8 ubDrugTravelRate[]			= { 4,	2 };
 UINT8 ubDrugWearoffRate[]			= { 2,	2 };
-UINT8 ubDrugEffect[]					= { 15, 8 };
+UINT8 ubDrugEffect[]				= { 15, 8 };
 UINT8 ubDrugSideEffect[]			= { 20, 10 };
-UINT8 ubDrugSideEffectRate[]	= { 2,	1 };
+UINT8 ubDrugSideEffectRate[]		= { 2,	1 };*/
 
 INT32	giDrunkModifier[] =
 {
@@ -40,43 +39,19 @@ INT32	giDrunkModifier[] =
 #define HANGOVER_BP_REDUCE			200
 
 
-UINT8 GetDrugType( UINT16 usItem )
-{
-	if ( usItem == ADRENALINE_BOOSTER )
-	{
-		return( DRUG_TYPE_ADRENALINE );
-	}
-
-	if ( usItem == REGEN_BOOSTER )
-	{
-		return( DRUG_TYPE_REGENERATION );
-	}
-
-	if ( usItem == ALCOHOL || usItem == WINE || usItem == BEER )
-	{
-		return( DRUG_TYPE_ALCOHOL );
-	}
-
-
-	return( NO_DRUG );
-}
-
-
 BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 {
-	UINT8 ubDrugType;
-	UINT8	ubKitPoints;
+	UINT32  ubDrugType;
 	INT8	bRegenPointsGained;
 	UINT16	usItem;
 
 	usItem = pObject->usItem;
 
-	// If not a syringe, return
-
-	ubDrugType = GetDrugType( usItem );
-
 	// Determine what type of drug....
-	if ( ubDrugType == NO_DRUG )
+	ubDrugType = Item[usItem].drugtype;
+
+	// If not a drug, return
+	if ( ubDrugType == 0 )
 	{
 		return( FALSE );
 	}
@@ -91,63 +66,37 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		gMercProfiles[ LARRY_DRUNK ].bNPCData = 0;
 	}
 
-	if ( ubDrugType < NUM_COMPLEX_DRUGS )
+	// Flugente: we have to check for every single type of drug ( a drug applied may consist of several 'pure' drug types)	
+	for (UINT8 i = DRUG_TYPE_ADRENALINE; i < DRUG_TYPE_MAX; ++i)
 	{
+		UINT32 drugtestflag = (1 << i);			// comparing with this flag will determine the drug
 
-		// Add effects
-		if ( ( pSoldier->drugs.bFutureDrugEffect[ ubDrugType ] + ubDrugEffect[ ubDrugType ] ) < 127 )
+		// we do not actually test for DRUG_REGENERATION, because that is checked afterwards separately
+		if ( (drugtestflag & DRUG_REGENERATION ) != 0 )
+			continue;
+		
+		if ( (ubDrugType & drugtestflag) != 0 )
 		{
-			pSoldier->drugs.bFutureDrugEffect[ ubDrugType ]							+= ubDrugEffect[ ubDrugType ];
-		}
-		pSoldier->drugs.bDrugEffectRate[ ubDrugType ]								= ubDrugTravelRate[ ubDrugType ];
-
-		// Increment times used during lifetime...
-		// CAP!
-		if ( ubDrugType == DRUG_TYPE_ADRENALINE )
-		{
-			if ( gMercProfiles[ pSoldier->ubProfile ].ubNumTimesDrugUseInLifetime != 255 )
+			// Add effects
+			if ( ( pSoldier->drugs.bFutureDrugEffect[ i ] + Drug[i].ubDrugEffect ) < 127 )
 			{
-				gMercProfiles[ pSoldier->ubProfile ].ubNumTimesDrugUseInLifetime++;
+				pSoldier->drugs.bFutureDrugEffect[ i ]	+= Drug[i].ubDrugEffect;
 			}
-		}
+			pSoldier->drugs.bDrugEffectRate[ i ]		= Drug[i].ubDrugTravelRate;
 
-		// Reset once we sleep...
-		pSoldier->drugs.bTimesDrugUsedSinceSleep[ ubDrugType ]++;
+			// Reset once we sleep...
+			pSoldier->drugs.bTimesDrugUsedSinceSleep[ i ]++;
 
-		// Increment side effects..
-		if ( ( pSoldier->drugs.bDrugSideEffect[ ubDrugType ] + ubDrugSideEffect[ ubDrugType ] ) < 127 )
-		{
-			pSoldier->drugs.bDrugSideEffect[ ubDrugType ]								+= ( ubDrugSideEffect[ ubDrugType ] );
-		}
-		// Stop side effects until were done....
-		pSoldier->drugs.bDrugSideEffectRate[ ubDrugType ]						= 0;
-
-
-		if ( ubDrugType == DRUG_TYPE_ALCOHOL )
-		{
-			// ATE: use kit points...
-			if ( usItem == ALCOHOL )
+			// Increment side effects..
+			if ( ( pSoldier->drugs.bDrugSideEffect[ i ] + Drug[i].ubDrugSideEffect ) < 127 )
 			{
-				ubKitPoints = 10;
+				pSoldier->drugs.bDrugSideEffect[ i ]	+= ( Drug[i].ubDrugSideEffect );
 			}
-			else if ( usItem == WINE )
-			{
-				ubKitPoints = 20;
-			}
-			else
-			{
-				ubKitPoints = 100;
-			}
-
-			UseKitPoints( pObject, ubKitPoints, pSoldier );
-		}
-		else
-		{
-			// Remove the object....
-			pObject->RemoveObjectsFromStack(1);
+			// Stop side effects until were done....
+			pSoldier->drugs.bDrugSideEffectRate[ i ]	= 0;
 
 			// ATE: Make guy collapse from heart attack if too much stuff taken....
-			if ( pSoldier->drugs.bDrugSideEffectRate[ ubDrugType ] > ( ubDrugSideEffect[ ubDrugType ] * 3 ) )
+			if ( pSoldier->drugs.bDrugSideEffectRate[ i ] > ( Drug[i].ubDrugSideEffect * 3 ) )
 			{
 				// Keel over...
 				DeductPoints( pSoldier, 0, 10000 );
@@ -208,7 +157,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 					pSoldier->stats.bDexterity	= __max(1, pSoldier->stats.bDexterity-5);
 					pSoldier->stats.bStrength	= __max(1, pSoldier->stats.bStrength-5);
 					pSoldier->stats.bAgility	= __max(1, pSoldier->stats.bAgility-5);
-
+					
 					// make those stats RED for a while...
 					// SANDRO - we don't need to do this with new system, as we simply show all damaged stats in red until healed
 					pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
@@ -233,36 +182,49 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 			}
 		}
 	}
-	else
-	{
-		if ( ubDrugType == DRUG_TYPE_REGENERATION )
-		{
-			// each use of a regen booster over 1, each day, reduces the effect
-			bRegenPointsGained = REGEN_POINTS_PER_BOOSTER * (*pObject)[0]->data.objectStatus / 100;
-			// are there fractional %s left over?
-			if ( ( (*pObject)[0]->data.objectStatus % (100 / REGEN_POINTS_PER_BOOSTER ) ) != 0 )
-			{
-				// chance of an extra point
-				if ( PreRandom( 100 / REGEN_POINTS_PER_BOOSTER ) < (UINT32) ( (*pObject)[0]->data.objectStatus % (100 / REGEN_POINTS_PER_BOOSTER ) ) )
-				{
-					bRegenPointsGained++;
-				}
-			}
 
-			bRegenPointsGained -= pSoldier->bRegenBoostersUsedToday;
-			if (bRegenPointsGained > 0)
+	if ( (ubDrugType & DRUG_REGENERATION) != 0 )
+	{
+		// each use of a regen booster over 1, each day, reduces the effect
+		bRegenPointsGained = REGEN_POINTS_PER_BOOSTER * (*pObject)[0]->data.objectStatus / 100;
+		// are there fractional %s left over?
+		if ( ( (*pObject)[0]->data.objectStatus % (100 / REGEN_POINTS_PER_BOOSTER ) ) != 0 )
+		{
+			// chance of an extra point
+			if ( PreRandom( 100 / REGEN_POINTS_PER_BOOSTER ) < (UINT32) ( (*pObject)[0]->data.objectStatus % (100 / REGEN_POINTS_PER_BOOSTER ) ) )
 			{
-				// can't go above the points you get for a full boost
-				pSoldier->bRegenerationCounter = __min( pSoldier->bRegenerationCounter + bRegenPointsGained, REGEN_POINTS_PER_BOOSTER );
+				bRegenPointsGained++;
 			}
-			pSoldier->bRegenBoostersUsedToday++;
 		}
 
-		// remove object
-		pObject->RemoveObjectsFromStack(1);
+		bRegenPointsGained -= pSoldier->bRegenBoostersUsedToday;
+		if (bRegenPointsGained > 0)
+		{
+			// can't go above the points you get for a full boost
+			pSoldier->bRegenerationCounter = __min( pSoldier->bRegenerationCounter + bRegenPointsGained, REGEN_POINTS_PER_BOOSTER );
+		}
+		pSoldier->bRegenBoostersUsedToday++;
 	}
 
-	if ( ubDrugType == DRUG_TYPE_ALCOHOL )
+	// ATE: use kit points...
+	if ( usItem == ALCOHOL )
+		UseKitPoints( pObject, 10, pSoldier );
+	else if ( usItem == WINE )
+		UseKitPoints( pObject, 20, pSoldier );
+	else if ( usItem == BEER )
+		UseKitPoints( pObject, 100, pSoldier );
+	else
+	{
+		// remove object
+		pObject->RemoveObjectsFromStack(1);
+
+		if ( gMercProfiles[ pSoldier->ubProfile ].ubNumTimesDrugUseInLifetime != 255 )
+		{
+			gMercProfiles[ pSoldier->ubProfile ].ubNumTimesDrugUseInLifetime++;
+		}
+	}
+		
+	if ( (ubDrugType & DRUG_TYPE_ALCOHOL) != 0 )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DRANK_SOME ], pSoldier->name, ShortItemNames[ usItem ] );
 	}
@@ -281,10 +243,16 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 {
 	INT32 cnt, cnt2;
 	INT32	iNumLoops;
-//	INT8 bBandaged;
 
-	for ( cnt = 0; cnt < NUM_COMPLEX_DRUGS; cnt++ )
+	// We test for every 'pure' drug separately
+	for (cnt = DRUG_TYPE_ADRENALINE; cnt < DRUG_TYPE_MAX; ++cnt)
 	{
+		UINT32 drugtestflag = (1 << cnt);			// comparing with this flag will determine the drug
+
+		// we do not actually test for DRUG_REGENERATION, because that is checked afterwards separately
+		if ( (drugtestflag & DRUG_REGENERATION ) != 0 )
+			continue;
+		
 		// If side effect aret is non-zero....
 		if ( pSoldier->drugs.bDrugSideEffectRate[ cnt ] > 0 )
 		{
@@ -295,6 +263,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 			if ( pSoldier->drugs.bDrugSideEffect[ cnt ] <= 0 )
 			{
 				pSoldier->drugs.bDrugSideEffect[ cnt ] = 0;
+				pSoldier->drugs.bDrugSideEffectRate[ cnt ] = 0;
 				fInterfacePanelDirty	= DIRTYLEVEL1;
 			}
 		}
@@ -309,28 +278,32 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 			{
 				pSoldier->drugs.bDrugEffect[ cnt ] = 0;
 
-		// Dirty panel
-		fInterfacePanelDirty = DIRTYLEVEL2;
+				// Dirty panel
+				fInterfacePanelDirty = DIRTYLEVEL2;
 
 				// Start the bad news!
-				pSoldier->drugs.bDrugSideEffectRate[ cnt ] = ubDrugSideEffectRate[ cnt ];
+				pSoldier->drugs.bDrugSideEffectRate[ cnt ] = Drug[cnt].ubDrugSideEffectRate;
 
 				// The drug rate is 0 now too
 				pSoldier->drugs.bDrugEffectRate[ cnt ]		= 0;
 
-				// Once for each 'level' of crash....
-				iNumLoops = ( pSoldier->drugs.bDrugSideEffect[ cnt ] / ubDrugSideEffect[ cnt ] ) + 1;
-
-				for ( cnt2 = 0; cnt2 < iNumLoops; cnt2++ )
+				// morla downer only if side effect exists and this effect is allowed for a drug
+				if ( Drug[cnt].ubDrugSideEffect > 0 && Drug[cnt].ubMoralBacklash > 0 )
 				{
-					// OK, give a much BIGGER morale downer
-					if ( cnt == DRUG_TYPE_ALCOHOL )
+					// Once for each 'level' of crash....
+					iNumLoops = ( pSoldier->drugs.bDrugSideEffect[ cnt ] / Drug[cnt].ubDrugSideEffect ) + 1;
+
+					for ( cnt2 = 0; cnt2 < iNumLoops; ++cnt2 )
 					{
-						HandleMoraleEvent( pSoldier, MORALE_ALCOHOL_CRASH, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-					}
-					else
-					{
-						HandleMoraleEvent( pSoldier, MORALE_DRUGS_CRASH, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ	);
+						// OK, give a much BIGGER morale downer
+						if ( cnt == DRUG_TYPE_ALCOHOL )
+						{
+							HandleMoraleEvent( pSoldier, MORALE_ALCOHOL_CRASH, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+						}
+						else
+						{
+							HandleMoraleEvent( pSoldier, MORALE_DRUGS_CRASH, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ	);
+						}
 					}
 				}
 			}
@@ -341,7 +314,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		{
 			// Seap some in....
 			pSoldier->drugs.bFutureDrugEffect[ cnt ] -= pSoldier->drugs.bDrugEffectRate[ cnt ];
-			pSoldier->drugs.bDrugEffect[ cnt ]				+= pSoldier->drugs.bDrugEffectRate[ cnt ];
+			pSoldier->drugs.bDrugEffect[ cnt ]		 += pSoldier->drugs.bDrugEffectRate[ cnt ];
 
 			// Refresh morale w/ new drug value...
 			RefreshSoldierMorale( pSoldier );
@@ -351,7 +324,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 			{
 				pSoldier->drugs.bFutureDrugEffect[ cnt ] = 0;
 				// Change rate to -ve..
-				pSoldier->drugs.bDrugEffectRate[ cnt ]		= -ubDrugWearoffRate[ cnt ];
+				pSoldier->drugs.bDrugEffectRate[ cnt ]		= -Drug[cnt].ubDrugWearoffRate;
 			}
 		}
 	}
@@ -382,6 +355,121 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 
 		// decrement counter
 		pSoldier->bRegenerationCounter--;
+	}
+
+	// Flugente: always do the following checks. Thereby, if the effect runs out, our stats will be back to normal
+
+	//////////////// STRENGTH ////////////////
+	// strength we would normally have right now
+	INT8 strength = gMercProfiles[ pSoldier->ubProfile ].bStrength - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ];
+
+	INT8 strengthmodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_STRENGTH ];
+
+	// cap modifier at 25, as currently stats cant go above 127 (INT8)
+	strengthmodifier = min(25, strengthmodifier);
+
+	UINT32 newstrength =  max(1, strength + strengthmodifier);
+	newstrength =  min(126, newstrength);
+	
+	pSoldier->stats.bStrength = (INT8)newstrength;
+
+	if ( strengthmodifier > 0 )
+	{
+		pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+		pSoldier->usValueGoneUp |= ( STRENGTH_INCREASE );
+	}
+	else if ( strengthmodifier < 0 )
+	{
+		pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+		pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+	}
+
+	//////////////// DEXTERITY ////////////////
+	// dexterity we would normally have right now
+	INT8 dexterity = gMercProfiles[ pSoldier->ubProfile ].bDexterity - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ];
+
+	INT8 dexteritymodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_DEXTERITY ];
+
+	// cap modifier at 25, as currently stats cant go above 127 (INT8)
+	dexteritymodifier = min(25, dexteritymodifier);
+
+	UINT32 newdexterity =  max(1, dexterity + dexteritymodifier);
+	newdexterity =  min(126, newdexterity);
+
+	pSoldier->stats.bDexterity = newdexterity;
+
+	if ( dexteritymodifier > 0 )
+	{
+		pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+		pSoldier->usValueGoneUp |= ( DEX_INCREASE );
+	}
+	else if ( dexteritymodifier < 0 )
+	{
+		pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+		pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
+	}
+
+	//////////////// AGILITY ////////////////
+	// agility we would normally have right now
+	INT8 agility = gMercProfiles[ pSoldier->ubProfile ].bAgility - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ];
+
+	INT8 agilitymodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_AGILITY ];
+
+	// cap modifier at 25, as currently stats cant go above 127 (INT8)
+	agilitymodifier = min(25, agilitymodifier);
+
+	UINT32 newagility =  max(1, agility + agilitymodifier);
+	newagility =  min(126, newagility);
+
+	pSoldier->stats.bAgility = newagility;
+
+	if ( agilitymodifier > 0 )
+	{
+		pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+		pSoldier->usValueGoneUp |= ( AGIL_INCREASE );
+	}
+	else if ( agilitymodifier < 0 )
+	{
+		pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+		pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
+	}
+
+	//////////////// WISDOM ////////////////
+	// wisdom we would normally have right now
+	INT8 wisdom = gMercProfiles[ pSoldier->ubProfile ].bWisdom - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ];
+
+	INT8 wisdommodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_WISDOM ];
+
+	// cap modifier at 25, as currently stats cant go above 127 (INT8)
+	wisdommodifier = min(25, wisdommodifier);
+
+	UINT32 newwisdom =  max(1, wisdom + wisdommodifier);
+	newwisdom =  min(126, newwisdom);
+
+	pSoldier->stats.bWisdom = newwisdom;
+
+	if ( wisdommodifier > 0 )
+	{
+		pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+		pSoldier->usValueGoneUp |= ( WIS_INCREASE );
+	}
+	else if ( wisdommodifier < 0 )
+	{
+		pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+		pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
+	}
+
+	// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we suddenly become blind for a few turns...
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_BLIND ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_BLIND ] == 1 )
+	{
+		pSoldier->bBlindedCounter = 3;
+	}
+
+	// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we get a heart-attack and get knocked out...
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_KNOCKOUT ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_KNOCKOUT ] == 1 )
+	{
+		// Keel over...
+		DeductPoints( pSoldier, 0, 20000 );
 	}
 }
 
@@ -425,7 +513,7 @@ void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 			sPoints = APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]];
 		}
 	}
-
+	
 	bDrunkLevel = GetDrunkLevel( pSoldier );
 
 	if ( bDrunkLevel == HUNGOVER )
@@ -468,6 +556,21 @@ void HandleBPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *psPointReduction )
 	}
 }
 
+void HandleDamageResistanceEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT32 *psPointReduction )
+{
+	// Are we in a side effect or good effect?
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_RESISTANCE ] )
+	{
+		// Adjust!
+		(*psPointReduction) += pSoldier->drugs.bDrugEffect[ DRUG_TYPE_RESISTANCE ];
+	}
+	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_RESISTANCE ] )
+	{
+		// Adjust!
+		(*psPointReduction) -= pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_RESISTANCE ];
+	}
+}
+
 
 INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier )
 {
@@ -485,7 +588,7 @@ INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier )
 	}
 
 	// Calculate how many dinks we have had....
-	bNumDrinks = ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ALCOHOL ] / ubDrugEffect[ DRUG_TYPE_ALCOHOL ] );
+	bNumDrinks = ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ALCOHOL ] / Drug[DRUG_TYPE_ALCOHOL].ubDrugEffect );
 
 	if ( bNumDrinks <= 3 )
 	{
@@ -510,17 +613,34 @@ INT32 EffectStatForBeingDrunk( SOLDIERTYPE *pSoldier, INT32 iStat )
 
 BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier )
 {
-	// Are we in a side effect or good effect?
-	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] )
+	for (UINT8 cnt = DRUG_TYPE_ADRENALINE; cnt < DRUG_TYPE_MAX; ++cnt)
 	{
-		return( TRUE );
-	}
-	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ADRENALINE ] )
-	{
-		return( TRUE );
+		// Are we in a side effect or good effect?
+		if ( pSoldier->drugs.bDrugEffect[ cnt ] )
+		{
+			return( TRUE );
+		}
+		else if ( pSoldier->drugs.bDrugSideEffect[ cnt ] )
+		{
+			return( TRUE );
+		}
 	}
 
-	if ( GetDrunkLevel( pSoldier ) != SOBER )
+	return( FALSE );
+}
+
+BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier, UINT8 aDrugType )
+{
+	// in case of wrong inout, stay safe
+	if ( aDrugType >= DRUG_TYPE_MAX )
+		return( FALSE );
+
+	// Are we in a side effect or good effect?
+	if ( pSoldier->drugs.bDrugEffect[ aDrugType ] )
+	{
+		return( TRUE );
+	}
+	else if ( pSoldier->drugs.bDrugSideEffect[ aDrugType ] )
 	{
 		return( TRUE );
 	}

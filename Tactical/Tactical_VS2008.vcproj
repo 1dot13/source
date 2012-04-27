@@ -1023,6 +1023,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Drugs.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_EnemyAmmoDrops.cpp"
 				>
 			</File>

@@ -152,12 +152,13 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 
 	if (pSoldier->ubProfile != NO_PROFILE)
 	{
-		if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == CLAUSTROPHOBIC) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0)
+		// Flugente: drugs can temporarily cause a merc to be claustrophobic
+		if ( ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == CLAUSTROPHOBIC) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_CLAUSTROPHOBIC) ) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0)
 		{
 			// claustrophobic!
 			iEffExpLevel -= 2;
 		}
-		else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ) )
+		else if ( ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_FEAROFINSECTS) )&& MercIsInTropicalSector( pSoldier ) )
 		{
 			// SANDRO - fear of insects, and we are in tropical sector
 			iEffExpLevel -= 1;
@@ -564,7 +565,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		iChance -= 15;
 	}
 	// also added a small penalty for fear of insects in tropical sectors
-	else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ))
+	else if ( ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_FEAROFINSECTS) ) && MercIsInTropicalSector( pSoldier ))
 	{
 		// fear of insects, and we are in tropical sector
 		iChance -= 5;

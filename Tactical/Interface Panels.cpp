@@ -2958,7 +2958,10 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 					if ( MercUnderTheInfluence( gpSMCurrentMerc ) )
 					{
 						SetFontBackground( FONT_MCOLOR_BLACK );
-						SetFontForeground( FONT_MCOLOR_LTBLUE );
+						//SetFontForeground( FONT_MCOLOR_LTBLUE );
+
+						// Flugente: new colour for being drugged, as blue on black was hard to see
+						SetRGBFontForeground( 250, 5, 250 );
 					}
 					else if ( gpSMCurrentMerc->bStealthMode )
 					{
@@ -5469,7 +5472,10 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 							if ( MercUnderTheInfluence( pSoldier ) )
 							{
 								SetFontBackground( FONT_MCOLOR_BLACK );
-								SetFontForeground( FONT_MCOLOR_LTBLUE );
+								//SetFontForeground( FONT_MCOLOR_LTBLUE );
+
+								// Flugente: new colour for being drugged, as blue on black was hard to see
+								SetRGBFontForeground( 250, 5, 250 );
 							}
 							else if ( pSoldier->bStealthMode )
 							{

@@ -20,6 +20,7 @@
 #define PTR_STANDING	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND)
 #define PTR_PRONE	 (gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE)
 
+#define DRUG_TYPE_MAX	20
 
 // TEMP VALUES FOR NAMES
 #define MAXCIVLASTNAMES		30
@@ -611,12 +612,12 @@ class STRUCT_Drugs//last edited at version 102
 {
 public:
 	void				ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src);
-	INT8			bFutureDrugEffect[2];						// value to represent effect of a needle
-	INT8			bDrugEffectRate[2];							// represents rate of increase and decrease of effect	
-	INT8			bDrugEffect[2];								// value that affects AP & morale calc ( -ve is poorly )
-	INT8			bDrugSideEffectRate[2];					// duration of negative AP and morale effect
-	INT8			bDrugSideEffect[2];							// duration of negative AP and morale effect
-	INT8			bTimesDrugUsedSinceSleep[2];			
+	INT8			bFutureDrugEffect[DRUG_TYPE_MAX];						// value to represent effect of a needle
+	INT8			bDrugEffectRate[DRUG_TYPE_MAX];							// represents rate of increase and decrease of effect	
+	INT8			bDrugEffect[DRUG_TYPE_MAX];								// value that affects AP & morale calc ( -ve is poorly )
+	INT8			bDrugSideEffectRate[DRUG_TYPE_MAX];					// duration of negative AP and morale effect
+	INT8			bDrugSideEffect[DRUG_TYPE_MAX];							// duration of negative AP and morale effect
+	INT8			bTimesDrugUsedSinceSleep[DRUG_TYPE_MAX];			
 };
 
 class STRUCT_TimeCounters//last edited at version 102
@@ -1324,7 +1325,10 @@ public:
 	void	SoldierInventoryCoolDown( void );		// Flugente FTW 1: Cool down all items in inventory
 	BOOLEAN	IsWeaponMounted( void );				// determine if we receive a bonus for mounting our weapon on something
 	OBJECTTYPE* GetUsedWeapon( OBJECTTYPE * pObj );		// if in an underbarrel fire mode, return underbarrel weapon
-	UINT16 GetUsedWeaponNumber( OBJECTTYPE * pObj );	// if in an underbarrel fire mode, return number of underbarrel weapon
+	UINT16  GetUsedWeaponNumber( OBJECTTYPE * pObj );	// if in an underbarrel fire mode, return number of underbarrel weapon
+
+	// returns damage resistance in percent
+	INT32	GetDamageResistance( BOOLEAN fAutoResolve = FALSE, BOOLEAN fCalcBreathLoss = FALSE);
 
 }; // SOLDIERTYPE;	
 
@@ -2018,12 +2022,12 @@ public:
 	INT8												bSleepDrugCounter;
 	UINT8												ubMilitiaKills;
 	
-	INT8												bFutureDrugEffect[2];						// value to represent effect of a needle
-	INT8												bDrugEffectRate[2];							// represents rate of increase and decrease of effect	
-	INT8												bDrugEffect[2];									// value that affects AP & morale calc ( -ve is poorly )
-	INT8												bDrugSideEffectRate[2];					// duration of negative AP and morale effect
-	INT8												bDrugSideEffect[2];							// duration of negative AP and morale effect
-	INT8												bTimesDrugUsedSinceSleep[2];			
+	INT8												bFutureDrugEffect[DRUG_TYPE_MAX];						// value to represent effect of a needle
+	INT8												bDrugEffectRate[DRUG_TYPE_MAX];							// represents rate of increase and decrease of effect	
+	INT8												bDrugEffect[DRUG_TYPE_MAX];									// value that affects AP & morale calc ( -ve is poorly )
+	INT8												bDrugSideEffectRate[DRUG_TYPE_MAX];					// duration of negative AP and morale effect
+	INT8												bDrugSideEffect[DRUG_TYPE_MAX];							// duration of negative AP and morale effect
+	INT8												bTimesDrugUsedSinceSleep[DRUG_TYPE_MAX];			
 
 	INT8												bBlindedCounter;
 	BOOLEAN											fMercCollapsedFlag;

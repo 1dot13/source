@@ -1793,25 +1793,25 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						}
 
 						// Add effects
-						if ( ( pSoldier->drugs.bFutureDrugEffect[ DRUG_TYPE_ALCOHOL ] + ubDrugEffect[ DRUG_TYPE_ALCOHOL ] ) < 127 )
+						if ( ( pSoldier->drugs.bFutureDrugEffect[ DRUG_TYPE_ALCOHOL ] + Drug[DRUG_TYPE_ALCOHOL].ubDrugEffect ) < 127 )
 						{
-							pSoldier->drugs.bFutureDrugEffect[ DRUG_TYPE_ALCOHOL ] += ubDrugEffect[ DRUG_TYPE_ALCOHOL ];
+							pSoldier->drugs.bFutureDrugEffect[ DRUG_TYPE_ALCOHOL ] +=  Drug[DRUG_TYPE_ALCOHOL].ubDrugEffect;
 						}
-						pSoldier->drugs.bDrugEffectRate[ DRUG_TYPE_ALCOHOL ] = ubDrugTravelRate[ DRUG_TYPE_ALCOHOL ];
+						pSoldier->drugs.bDrugEffectRate[ DRUG_TYPE_ALCOHOL ] =  Drug[DRUG_TYPE_ALCOHOL].ubDrugTravelRate;
 
 						// Reset once we sleep...
 						pSoldier->drugs.bTimesDrugUsedSinceSleep[ DRUG_TYPE_ALCOHOL ]++;
 
 						// Increment side effects..
-						if ( ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ALCOHOL ] + ubDrugSideEffect[ DRUG_TYPE_ALCOHOL ] ) < 127 )
+						if ( ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ALCOHOL ] +  Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect ) < 127 )
 						{
-							pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ALCOHOL ] += ( ubDrugSideEffect[ DRUG_TYPE_ALCOHOL ] );
+							pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ALCOHOL ] += (  Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect );
 						}
 						// Stop side effects until were done....
 						pSoldier->drugs.bDrugSideEffectRate[ DRUG_TYPE_ALCOHOL ] = 0;
 
 						// ATE: Make guy collapse from heart attack if too much stuff taken....
-						if ( pSoldier->drugs.bDrugSideEffectRate[ DRUG_TYPE_ALCOHOL ] > ( ubDrugSideEffect[ DRUG_TYPE_ALCOHOL ] * 3 ) )
+						if ( pSoldier->drugs.bDrugSideEffectRate[ DRUG_TYPE_ALCOHOL ] > (  Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect * 3 ) )
 						{
 							if ( pSoldier->ubProfile == LARRY_NORMAL )
 							{

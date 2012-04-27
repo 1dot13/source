@@ -72,7 +72,7 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ STRATEGIC_MORALE_EVENT,			-5},	//	MORALE_HIGH_DEATHRATE,
 	{ STRATEGIC_MORALE_EVENT,			+2},	//	MORALE_GREAT_MORALE,
 	{ STRATEGIC_MORALE_EVENT,			-2},	//	MORALE_POOR_MORALE,
-	{ TACTICAL_MORALE_EVENT,		-10},	//	MORALE_DRUGS_CRASH
+	{ TACTICAL_MORALE_EVENT,			-5},	//	MORALE_DRUGS_CRASH				// Flugente: lowered as drugs can have several components that have a backlash, causing the the morale to plummet drastical
 	{ TACTICAL_MORALE_EVENT,		-10},	//	MORALE_ALCOHOL_CRASH
 	{ STRATEGIC_MORALE_EVENT,		+15},	//	MORALE_MONSTER_QUEEN_KILLED
 	{ STRATEGIC_MORALE_EVENT,		+25},	//	MORALE_DEIDRANNA_KILLED
@@ -185,67 +185,79 @@ void DecayTacticalMoraleModifiers( void )
 				continue;
 			}
 
-			switch( gMercProfiles[ pSoldier->ubProfile ].bDisability )
+			// Flugente: drugs can temporarily cause a merc get a new disability
+			// therefore we change this routine
+			BOOLEAN isClaustrophobic	= gMercProfiles[ pSoldier->ubProfile ].bDisability == CLAUSTROPHOBIC ? TRUE : FALSE;
+			BOOLEAN isNervous			= gMercProfiles[ pSoldier->ubProfile ].bDisability == NERVOUS ? TRUE : FALSE;
+			
+			if ( MercUnderTheInfluence(pSoldier, DRUG_TYPE_CLAUSTROPHOBIC) )
+				isClaustrophobic = TRUE;
+
+			if ( MercUnderTheInfluence(pSoldier, DRUG_TYPE_NERVOUS) )
+				isNervous = TRUE;
+
+			if ( isClaustrophobic )
 			{
-				case CLAUSTROPHOBIC:
-					if ( pSoldier->bSectorZ > 0 )
+				if ( pSoldier->bSectorZ > 0 )
+				{
+					// underground, no recovery... in fact, if tact morale is high, decay
+					if ( pSoldier->aiData.bTacticalMoraleMod > PHOBIC_LIMIT )
 					{
-						// underground, no recovery... in fact, if tact morale is high, decay
-						if ( pSoldier->aiData.bTacticalMoraleMod > PHOBIC_LIMIT )
-						{
-							HandleMoraleEvent( pSoldier, MORALE_CLAUSTROPHOBE_UNDERGROUND, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-						}
-						continue;
+						HandleMoraleEvent( pSoldier, MORALE_CLAUSTROPHOBE_UNDERGROUND, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 					}
-					break;
-				case NERVOUS:
-					if ( pSoldier->aiData.bMorale < 50 )
-					{
-						if (pSoldier->ubGroupID != 0 && PlayerIDGroupInMotion( pSoldier->ubGroupID ))
- 						{
-							if ( NumberOfPeopleInSquad( pSoldier->bAssignment ) == 1 )
-							{
-								fHandleNervous = TRUE;
-							}
-							else
-							{
-								fHandleNervous = FALSE;
-							}
-						}
-						else if ( pSoldier->bActive && pSoldier->bInSector )
+				}
+			}
+
+			if ( isNervous )
+			{
+				if ( pSoldier->aiData.bMorale < 50 )
+				{
+					if (pSoldier->ubGroupID != 0 && PlayerIDGroupInMotion( pSoldier->ubGroupID ))
+ 					{
+						if ( NumberOfPeopleInSquad( pSoldier->bAssignment ) == 1 )
 						{
-							if ( DistanceToClosestFriend( pSoldier ) > NERVOUS_RADIUS )
-							{
-								fHandleNervous = TRUE;
-							}
-							else
-							{
-								fHandleNervous = FALSE;
-							}
+							fHandleNervous = TRUE;
 						}
 						else
 						{
-							// look for anyone else in same sector
+							fHandleNervous = FALSE;
+						}
+					}
+					else if ( pSoldier->bActive && pSoldier->bInSector )
+					{
+						if ( DistanceToClosestFriend( pSoldier ) > NERVOUS_RADIUS )
+						{
 							fHandleNervous = TRUE;
-							for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop2++ )
+						}
+						else
+						{
+							fHandleNervous = FALSE;
+						}
+					}
+					else
+					{
+						// look for anyone else in same sector
+						fHandleNervous = TRUE;
+						for ( ubLoop2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop2++ )
+						{
+							if ( MercPtrs[ ubLoop2 ] != pSoldier && MercPtrs[ ubLoop2 ]->bActive && MercPtrs[ ubLoop2 ]->sSectorX == pSoldier->sSectorX && MercPtrs[ ubLoop2 ]->sSectorY == pSoldier->sSectorY && MercPtrs[ ubLoop2 ]->bSectorZ == pSoldier->bSectorZ )
 							{
-								if ( MercPtrs[ ubLoop2 ] != pSoldier && MercPtrs[ ubLoop2 ]->bActive && MercPtrs[ ubLoop2 ]->sSectorX == pSoldier->sSectorX && MercPtrs[ ubLoop2 ]->sSectorY == pSoldier->sSectorY && MercPtrs[ ubLoop2 ]->bSectorZ == pSoldier->bSectorZ )
-								{
-									// found someone!
-									fHandleNervous = FALSE;
-									break;
-								}
+								// found someone!
+								fHandleNervous = FALSE;
+								break;
 							}
 						}
+					}
 
-						if ( fHandleNervous )
+					if ( fHandleNervous )
+					{
+						if ( pSoldier->aiData.bTacticalMoraleMod == PHOBIC_LIMIT )
 						{
-							if ( pSoldier->aiData.bTacticalMoraleMod == PHOBIC_LIMIT )
-							{
-								// don't change morale
-								continue;
-							}
-
+							// don't change morale
+							//continue;
+						}
+						else
+						{
 							// alone, no recovery... in fact, if tact morale is high, decay
 							if ( !(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) )
 							{
@@ -253,9 +265,9 @@ void DecayTacticalMoraleModifiers( void )
 								pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 							}
 							HandleMoraleEvent( pSoldier, MORALE_NERVOUS_ALONE, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-							continue;
 						}
 					}
+				}
 			}
 
 			DecayTacticalMorale( pSoldier );

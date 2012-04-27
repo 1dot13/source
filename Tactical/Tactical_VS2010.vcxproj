@@ -194,6 +194,7 @@
     <ClCompile Include="XML_CivGroupNames.cpp" />
     <ClCompile Include="XML_ComboMergeInfo.cpp" />
     <ClCompile Include="XML_CompatibleFaceItems.cpp" />
+    <ClCompile Include="XML_Drugs.cpp" />
     <ClCompile Include="XML_EnemyAmmoDrops.cpp" />
     <ClCompile Include="XML_EnemyArmourDrops.cpp" />
     <ClCompile Include="XML_EnemyExplosiveDrops.cpp" />

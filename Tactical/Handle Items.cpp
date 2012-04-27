@@ -64,6 +64,8 @@
 	// added by SANDRO
 	#include "Game Clock.h" 
 	#include "Morale.h"
+	// added by Flugente
+	#include "drugs and alcohol.h"
 #endif
 
 #ifdef JA2UB
@@ -445,7 +447,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// If this is a player guy, show message about no APS
 		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 		{
-			if ( (pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) )
+			// Flugente: drugs can temporarily cause a merc to go psycho
+			if ( (pSoldier->ubProfile != NO_PROFILE) && ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) )
 			{
 				// psychos might possibly switch to burst if they can
 				// Changed by ADB, rev 1513
@@ -519,7 +522,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				UINT32 roll;
 
 				// SANDRO - changed Random to PreRandom to avoid save-load mania
-				if((pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) && PreRandom(100) < 20)
+				// Flugente: drugs can temporarily cause a merc to go psycho
+				if((pSoldier->ubProfile != NO_PROFILE) && ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) && PreRandom(100) < 20)
 				{
 					chanceToMisfire = diceSides;
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 26 ], pSoldier->name );

@@ -3235,6 +3235,15 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 			}
 			break;
 		default:
+			// Flugente: drugs can temporarily cause a merc to go psycho
+			if ( MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) )
+			{
+				if ( Random( 50 ) == 0 )
+				{
+					TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
+					pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+				}
+			}
 			break;
 		}
 	}

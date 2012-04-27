@@ -55,6 +55,7 @@
 	#include "Player Command.h"
 	#include "strategic.h"
 	#include "strategicmap.h" // added by SANDRO
+	#include "drugs and alcohol.h" // added by Flugente
 #endif
 
 #include "aim.h"
@@ -2041,7 +2042,8 @@ BOOLEAN DoesMercHaveABuddyOnTheTeam( UINT8 ubMercID )
 BOOLEAN MercIsHot( SOLDIERTYPE * pSoldier )
 {
 	// SANDRO - added argument
-	if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bDisability == HEAT_INTOLERANT && !pSoldier->MercInWater())
+	// Flugente: drugs can temporarily cause a merc to be heat intolerant
+	if ( pSoldier->ubProfile != NO_PROFILE && (gMercProfiles[ pSoldier->ubProfile ].bDisability == HEAT_INTOLERANT || MercUnderTheInfluence(pSoldier, DRUG_TYPE_HEATINTOLERANT) ) && !pSoldier->MercInWater())
 	{
 		if ((pSoldier->bSectorZ > 0) || (guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS )))
 		{

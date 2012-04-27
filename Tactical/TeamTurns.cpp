@@ -46,6 +46,7 @@
 	#include "Soldier macros.h"
 	#include "Soldier Profile.h"
 	#include "NPC.h"
+	#include "drugs and alcohol.h"	// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -1878,6 +1879,16 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 			}
 		}
 	}
+
+	// Flugente: drugs can alter our perception
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_PERCEPTION ] )
+	{
+		iPoints += 1;
+	}
+	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_PERCEPTION ] )
+	{
+		iPoints -= 1;
+	} 
 
 	// if he's a computer soldier
 

@@ -2273,7 +2273,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		bNumRightIcons++;
 	}
 
-	if ( MercPtrs[ pFace->ubSoldierID ]->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] )
+	// Flugente: add the drug symbol for more drugs
+	if ( MercPtrs[ pFace->ubSoldierID ]->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] || MercPtrs[ pFace->ubSoldierID ]->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] || MercPtrs[ pFace->ubSoldierID ]->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] || MercPtrs[ pFace->ubSoldierID ]->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] || MercPtrs[ pFace->ubSoldierID ]->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] )
 	{
 		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
 		bNumRightIcons++;

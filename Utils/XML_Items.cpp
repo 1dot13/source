@@ -260,6 +260,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "TripWireActivation") == 0 ||
 				strcmp(name, "TripWire") == 0 ||
 				strcmp(name, "Directional") == 0 ||
+				strcmp(name, "DrugType") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ))
 		{
@@ -1301,6 +1302,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.directional   = (BOOLEAN) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "DrugType")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.drugtype   = (UINT32) atol(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -1911,6 +1917,8 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<TripwireActivation>%d</TripwireActivation>\r\n",						Item[cnt].tripwireactivation  );
 			FilePrintf(hFile,"\t\t<TripWire>%d</TripWire>\r\n",											Item[cnt].tripwire  );
 			FilePrintf(hFile,"\t\t<Directional>%d</Directional>\r\n",									Item[cnt].directional  );
+
+			FilePrintf(hFile,"\t\t<DrugType>%d</DrugType>\r\n",											Item[cnt].drugtype  );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
