@@ -12303,4 +12303,36 @@
     <szBRName>Tripwire Smoke Grenade</szBRName>
     <szBRDesc>NO TEXT NEEDED.</szBRDesc>
   </ITEM>
+<ITEM>
+		<uiIndex>1535</uiIndex>
+		<szItemName>Barrage</szItemName>
+		<szLongItemName>Barrage Drug</szLongItemName>
+		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Sideeffects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
+		<szBRName>Barrage Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1536</uiIndex>
+		<szItemName>Reflex</szItemName>
+		<szLongItemName>Reflex Drug</szLongItemName>
+		<szItemDesc>This combat drug increases reflexes and reaction times... while it lasts. Afterwards the effects reverse. May cause paranoia.</szItemDesc>
+		<szBRName>Reflex Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1537</uiIndex>
+		<szItemName>Occulin</szItemName>
+		<szLongItemName>Occulin Drug</szLongItemName>
+		<szItemDesc>Temporarily enhances vision, but puts a heavy strain on the eyes.</szItemDesc>
+		<szBRName>Occulin Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1538</uiIndex>
+		<szItemName>Stim</szItemName>
+		<szLongItemName>Stim Drug</szLongItemName>
+		<szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
+		<szBRName>Stim  Drug</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>		
+	</ITEM>
 </ITEMLIST>
