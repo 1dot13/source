@@ -5147,6 +5147,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	UINT16		usAttachment;
 	std::vector<UINT16>	attachList, parseList;
 	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObject);
+	UINT64		point = GetAvailableAttachmentPoint(pObject, 0); //Madd: Common Attachment Framework
 
 	//start by deleting the currently defined regions if they exist
 	//BOB : also, clean up the popup boxes (in case they're still around)
@@ -5205,10 +5206,32 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 			UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
 			attachList.clear();
-								
+			
 			//Print all attachments that fit on this item.
 			for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
 			{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
+				usAttachment = 0;
+				
+				//Madd: Common Attachment Framework
+				if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE)) 
+				{
+					usAttachment = usLoop;
+					if( !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					{
+						bool exists = false;
+						for (UINT32 i = 0; i < attachList.size(); i++)
+						{
+							if ( attachList[i] == usAttachment )
+							{
+								exists = true;
+								break;
+							}
+						}
+						if (!exists)
+							attachList.push_back(usAttachment);
+					}
+				}
+
 				usAttachment = 0;
 				if(Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
 				{	//search primary item attachments.xml
@@ -5232,11 +5255,24 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						}
 					}
 				}
-				if(Attachment[usLoop][0] == 0 && Launchable[usLoop][0] == 0)
+				if(Attachment[usLoop][0] == 0 && Launchable[usLoop][0] == 0 && Item[usLoop].usItemClass == 0)
 					break;
 
-				if( usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
-					attachList.push_back(usAttachment);
+				if( usAttachment > 0  && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+				{
+					bool exists = false;
+					for (UINT32 i = 0; i < attachList.size(); i++)
+					{
+						if ( attachList[i] == usAttachment )
+						{
+							exists = true;
+							break;
+						}
+					}
+	
+					if (!exists)
+						attachList.push_back(usAttachment);
+				}
 			}
 
 			if(attachList.size()>0){

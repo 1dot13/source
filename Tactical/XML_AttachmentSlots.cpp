@@ -122,12 +122,12 @@ attachmentslotEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "nasAttachmentClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentSlot.nasAttachmentClass	= (UINT32) atol(pData->szCharData);
+			pData->curAttachmentSlot.nasAttachmentClass	= (UINT64) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "nasLayoutClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentSlot.nasLayoutClass	= (UINT128) atol(pData->szCharData);
+			pData->curAttachmentSlot.nasLayoutClass	= (UINT64) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "usDescPanelPosX") == 0)
 		{

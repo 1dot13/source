@@ -1903,7 +1903,25 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 
 	// Are we armed, and are we throwing a LAUNCHABLE?
 
-	usLauncher = GetLauncherFromLaunchable( pItem->usItem );
+	//MM: Again, this only works if the launchers are all the same
+	//usLauncher = GetLauncherFromLaunchable( pItem->usItem );
+	//MM: Replacement:
+	OBJECTTYPE *pObj = NULL;
+	usLauncher = 0;
+	pObj = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+	if ( pObj != NULL )
+	{
+		if (Item[pObj->usItem].usItemClass == IC_LAUNCHER)
+			usLauncher = pObj->usItem;
+		else if (Item[pObj->usItem].usItemClass == IC_GUN)
+		{
+			usLauncher = GetAttachedGrenadeLauncher(pObj);
+		}
+	}
+	if ( usLauncher == 0) // fail back to the original
+		usLauncher = GetLauncherFromLaunchable( pItem->usItem );
+
+
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1741"));
 	if ( fArmed && ( Item[usLauncher].mortar || Item[pItem->usItem].mortar ) )
 	{
@@ -2304,7 +2322,26 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 
 
 	sStartZ = GET_SOLDIER_THROW_HEIGHT( pSoldier->pathing.bLevel );
-	usLauncher = GetLauncherFromLaunchable( pItem->usItem );
+
+	//MM: Again, this only works if the launchers are all the same
+	//usLauncher = GetLauncherFromLaunchable( pItem->usItem );
+	//MM: Replacement:
+	OBJECTTYPE *pObj = NULL;
+	usLauncher = 0;
+	pObj = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+	if ( pObj != NULL )
+	{
+		if (Item[pObj->usItem].usItemClass == IC_LAUNCHER)
+			usLauncher = pObj->usItem;
+		else if (Item[pObj->usItem].usItemClass == IC_GUN)
+		{
+			usLauncher = GetAttachedGrenadeLauncher(pObj);
+		}
+	}
+	if ( usLauncher == 0) // fail back to the original
+		usLauncher = GetLauncherFromLaunchable( pItem->usItem );
+
+
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2103"));
 
 	if ( fArmed && Item[usLauncher].mortar )

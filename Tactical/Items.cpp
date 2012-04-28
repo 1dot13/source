@@ -2086,6 +2086,13 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 		*pubAPCost = (UINT8)APBPConstants[AP_RELOAD_GUN]; //default value
 	}
 
+	//Madd: Common Attachment Framework
+	if ( IsAttachmentPointAvailable(usItem, usAttachment))
+	{
+		if (pubAPCost)
+			*pubAPCost = Item[usAttachment].ubAttachToPointAPCost;
+		return TRUE;
+	}
 	// look for the section of the array pertaining to this attachment...
 	while( 1 )
 	{
@@ -2122,7 +2129,7 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 	return( TRUE );
 }
 
-BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCost, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector )
+BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCost, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector)
 {
 	if (pObj->exists() == false) {
 		return FALSE;
@@ -2142,16 +2149,22 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 		if(usAttachmentSlotIndexVector.empty())
 			return FALSE;
 
-		//Check if the attachment is valid with the main item
-		foundValidAttachment = (ValidAttachment(usAttachment, pObj->usItem, pubAPCost) || ValidLaunchable(usAttachment, pObj->usItem));
-
-		//Loop through all attachment points on the main item
-		for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end() && !foundValidAttachment; ++iter)
+		//Madd: Common Attachment Framework
+		foundValidAttachment = IsAttachmentPointAvailable(pObj, subObject, usAttachment);
+		if (foundValidAttachment && pubAPCost )
+			*pubAPCost = Item[usAttachment].ubAttachToPointAPCost;
+		else
 		{
-			if(iter->exists())
-				foundValidAttachment = (ValidAttachment(usAttachment, iter->usItem, pubAPCost) || ValidLaunchable(usAttachment, iter->usItem));
-		}
+			//Check if the attachment is valid with the main item
+			foundValidAttachment = (ValidAttachment(usAttachment, pObj->usItem, pubAPCost) || ValidLaunchable(usAttachment, pObj->usItem));
 
+			//Loop through all attachment points on the main item
+			for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end() && !foundValidAttachment; ++iter)
+			{
+				if(iter->exists())
+					foundValidAttachment = (ValidAttachment(usAttachment, iter->usItem, pubAPCost) || ValidLaunchable(usAttachment, iter->usItem));
+			}
+		}
 		return ( foundValidAttachment );
 	}
 	else
@@ -2327,7 +2340,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 //Determine if this item can receive this attachment.  This is different, in that it may
 //be possible to have this attachment on this item, but may already have an attachment on
 //it which doesn't work simultaneously with the new attachment (like a silencer and duckbill).
-BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment, BOOLEAN fDisplayMessage, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector )
+BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment, BOOLEAN fDisplayMessage, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector)
 {
 	BOOLEAN		fSameItem = FALSE, fSimilarItems = FALSE;
 	UINT16		usSimilarItem = NOTHING;
@@ -2571,6 +2584,10 @@ BOOLEAN TwoHandedItem( UINT16 usItem )
 BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 {
 	INT32 iLoop = 0;
+	//Madd: Common Attachment Framework
+	if ( IsAttachmentPointAvailable(usItem, usLaunchable) )
+		return TRUE;
+
 	//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("ValidLaunchable: launchable=%d, item=%d",usLaunchable,usItem));
 	// look for the section of the array pertaining to this launchable item...
 	while( 1 )
@@ -2611,7 +2628,8 @@ BOOLEAN ValidItemLaunchable( OBJECTTYPE * pObj, UINT16 usAttachment )
 	if (pObj->exists() == false) {
 		return FALSE;
 	}
-	if ( !ValidLaunchable( usAttachment, pObj->usItem ) )
+	//Madd: Common Attachment Framework
+	if ( !ValidLaunchable( usAttachment, pObj->usItem ) && !IsAttachmentPointAvailable(pObj, 0, usAttachment) )
 	{
 		return( FALSE );
 	}
@@ -4709,7 +4727,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 		if ( pSoldier != NULL )
 			ApplyEquipmentBonuses(pSoldier);
-
+			
 		return( TRUE );
 	}
 	// check for merges
@@ -4993,33 +5011,51 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			}
 			if ( pSoldier != NULL )
 				ApplyEquipmentBonuses(pSoldier);
+
 			return( TRUE );
 	}
 	return( FALSE );
 }
 
 //CHRISL: Use this function to sort through Attachments.xml and Launchables.xml
-UINT32 SetAttachmentSlotsFlag(OBJECTTYPE* pObj){
-	UINT32		uiSlotFlag = 0;
+UINT64 SetAttachmentSlotsFlag(OBJECTTYPE* pObj){
+	UINT64		uiSlotFlag = 0;
 	UINT32		uiLoop = 0;
 	UINT32		fItem;
 
 	if(pObj->exists()==false)
 		return 0;
+
+	//Madd: Common Attachment Framework
+	UINT64 point = GetAvailableAttachmentPoint(pObj, 0);
+
 	while(1)
 	{
 		fItem = 0;
+		//Madd: Common Attachment Framework
+		if (IsAttachmentPointAvailable(point, uiLoop, TRUE))
+		{
+			fItem = uiLoop;
+			if(fItem && ItemIsLegal(fItem, TRUE))	// We've found a valid attachment.  Set the nasAttachmentSlots flag appropriately
+				uiSlotFlag |= Item[fItem].nasAttachmentClass;
+		}
+
 		if (Attachment[uiLoop][1] == pObj->usItem){
 			fItem = Attachment[uiLoop][0];
+
+			if(fItem && ItemIsLegal(fItem, TRUE))	
+				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
+
 		if (Launchable[uiLoop][1] == pObj->usItem ){
 			fItem = Launchable[uiLoop][0];
+
+			if(fItem && ItemIsLegal(fItem, TRUE))	
+				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
-		if(fItem && ItemIsLegal(fItem, TRUE)){	// We've found a valid attachment.  Set the nasAttachmentSlots flag appropriately
-			uiSlotFlag |= Item[fItem].nasAttachmentClass;
-		}
+
 		uiLoop++;
-		if (Attachment[uiLoop][0] == 0 && Launchable[uiLoop][0] == 0){
+		if (Attachment[uiLoop][0] == 0 && Launchable[uiLoop][0] == 0 && Item[uiLoop].usItemClass == 0 ){
 			// No more attachments to search
 			break;
 		}
@@ -5035,8 +5071,8 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 	std::vector<UINT16>	tempSlots;
 	UINT8				numSlots = 0;
 	UINT16				magSize = 0;
-	UINT32				fItemSlots = 0;
-	UINT128				fItemLayout = 0;
+	UINT64				fItemSlots = 0; //MM: Bumped the NAS UINT32s to UINT64s
+	UINT64				fItemLayout = 0;
 
 	if(UsingNewAttachmentSystem()==false || !pObj->exists())
 		return tempItemSlots;
@@ -5050,8 +5086,8 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 
 	//Next, let's figure out which slots the item gives us access to
 	if(fItemSlots){	//We don't need to do anything if the item gets no slots
-		for(UINT8 sClass = 0; sClass < 32; sClass++){	//go through each attachment class and find the slots the item should have
-			UINT32 uiClass = (UINT32)pow((double)2, (int)sClass);
+		for(UINT8 sClass = 0; sClass < 64; sClass++){	//go through each attachment class and find the slots the item should have
+			UINT64 uiClass = (UINT64)pow((double)2, (int)sClass);
 			UINT32 slotSize = tempItemSlots.size();
 			if(fItemSlots & uiClass){	//don't bother with this slot if it's not a valid class
 				for(UINT32 sCount = 1; sCount < MAXITEMS+1; sCount++){
@@ -13459,3 +13495,48 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	// Signal a successful transformation.
 	return TRUE;
 }
+
+//Madd: Common Attachment Framework - check if a given point is acceptable
+bool IsAttachmentPointAvailable( OBJECTTYPE * pObject, UINT8 subObject, UINT32 attachmentID )
+{
+	if (Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment  || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB)&& Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint(pObject, subObject))
+		return true;
+	else
+		return false;
+}
+
+//Madd: Common Attachment Framework - if we already know the point 
+bool IsAttachmentPointAvailable( UINT64 point, UINT32 attachmentID, BOOLEAN onlyCheckAttachments )
+{
+	if (point > 0 && (!onlyCheckAttachments || (Item[attachmentID].attachment || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB)) && Item[attachmentID].ulAttachmentPoint & point)
+		return true;
+	else
+		return false;
+}
+
+//Madd: Common Attachment Framework, doesn't look at attachments
+bool IsAttachmentPointAvailable( UINT32 itemID, UINT32 attachmentID )
+{
+	if (Item[itemID].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB) && Item[attachmentID].ulAttachmentPoint & Item[itemID].ulAvailableAttachmentPoint) 
+		return true;
+	else
+		return false;
+}
+
+//Madd: Common Attachment Framework, get point value from object + attachments
+UINT64 GetAvailableAttachmentPoint (OBJECTTYPE * pObject, UINT8 subObject)
+{
+	UINT64 point = 0;
+	if (pObject) 
+	{
+		point = Item[pObject->usItem].ulAvailableAttachmentPoint;
+		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter) 
+		{
+			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint > 0 )
+				point |= Item[iter->usItem].ulAvailableAttachmentPoint;
+		}
+	}
+
+	return point;
+}
+

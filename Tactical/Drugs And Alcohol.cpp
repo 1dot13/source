@@ -287,7 +287,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 				// The drug rate is 0 now too
 				pSoldier->drugs.bDrugEffectRate[ cnt ]		= 0;
 
-				// morla downer only if side effect exists and this effect is allowed for a drug
+				// morale downer only if side effect exists and this effect is allowed for a drug
 				if ( Drug[cnt].ubDrugSideEffect > 0 && Drug[cnt].ubMoralBacklash > 0 )
 				{
 					// Once for each 'level' of crash....

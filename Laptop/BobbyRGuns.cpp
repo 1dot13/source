@@ -2521,16 +2521,19 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				// HEADROCK HAM 3: Generate list of possible attachments to a gun (Guns only!)
 				if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
 				{
-					// Check entire attachment list
 					UINT16 iLoop = 0;
+					// Check entire attachment list
 					while( 1 )
 					{
-						// Is the weapon we're checking the same as the one we're tooltipping?
-						if (Attachment[iLoop][1] == Item[pItemNumbers[ i ]].uiIndex)
-						{
-							usAttachment = Attachment[iLoop][0];
+						//Madd: Common Attachment Framework
+						//TODO: Note that the items in this list will be duplicated if they are present in both the CAF and the old attachment method
+						//need to refactor this to work more like the NAS attachment slots method
+						usAttachment = 0;
+						if ( IsAttachmentPointAvailable(Item[pItemNumbers[ i ]].uiIndex, iLoop) )
+						{	
+							usAttachment = iLoop;
 							// If the attachment is not hidden
-							if (!Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
+							if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
 							{
 								if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
 								{
@@ -2546,8 +2549,34 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 								}
 							}
 						}
+
+						// Is the weapon we're checking the same as the one we're tooltipping?
+						usAttachment = 0;
+						if (Attachment[iLoop][1] == Item[pItemNumbers[ i ]].uiIndex)
+						{
+							usAttachment = Attachment[iLoop][0];
+						}
+
+						// If the attachment is not hidden
+						if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
+						{
+							if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
+							{
+								// End list early to avoid stack overflow
+								wcscat( attachStr3, L"\n..." );
+								break;
+							}
+							else
+							{// Add the attachment's name to the list.
+								fAttachmentsFound = TRUE;
+								swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
+								wcscat( attachStr3, attachStr2);
+							}
+						}
+
+
 						iLoop++;
-						if (Attachment[iLoop][0] == 0)
+						if (Attachment[iLoop][0] == 0 && Item[iLoop].usItemClass == 0)
 						{
 							// Reached end of list
 							break;

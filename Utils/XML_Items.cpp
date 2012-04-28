@@ -124,6 +124,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "usItemClass") == 0 ||
 				strcmp(name, "nasAttachmentClass") == 0 ||
 				strcmp(name, "nasLayoutClass") == 0 ||
+				strcmp(name, "AvailableAttachmentPoint") == 0 ||
+				strcmp(name, "AttachmentPoint") == 0 ||
+				strcmp(name, "AttachToPointAPCost") == 0 ||
 				strcmp(name, "ubClassIndex") == 0 ||
 				strcmp(name, "ubCursor") == 0 ||
 				strcmp(name, "bSoundType") == 0 ||
@@ -528,12 +531,27 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "nasAttachmentClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.nasAttachmentClass = (UINT32) atol(pData->szCharData);
+			pData->curItem.nasAttachmentClass = (UINT64) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "nasLayoutClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.nasLayoutClass = (UINT32) atol(pData->szCharData);
+			pData->curItem.nasLayoutClass = (UINT64) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "AvailableAttachmentPoint") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.ulAvailableAttachmentPoint = (UINT64) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "AttachmentPoint") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.ulAttachmentPoint = (UINT64) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "AttachToPointAPCost") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.ubAttachToPointAPCost = (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ubClassIndex") == 0)
 		{

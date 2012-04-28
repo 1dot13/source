@@ -767,8 +767,12 @@ extern OBJECTTYPE gTempObject;
 typedef struct
 {
 	UINT32		usItemClass;
-	UINT32		nasAttachmentClass;	//CHRISL: Identify the class of attachment
-	UINT32		nasLayoutClass;
+	UINT64		nasAttachmentClass;	//CHRISL: Identify the class of attachment 
+	UINT64		nasLayoutClass;
+//Madd: Common Attachment Framework:  attach items based on matching connection points rather than using the old long attachmentinfo method
+	UINT64		ulAvailableAttachmentPoint; 
+	UINT64		ulAttachmentPoint; 
+	UINT8		ubAttachToPointAPCost; // cost to attach to any matching point
 	UINT16			ubClassIndex;
 	UINT8			ubCursor;
 	INT8			bSoundType;
@@ -1469,8 +1473,8 @@ typedef struct
 {
 	UINT16	uiSlotIndex;
 	CHAR16	szSlotName[200];
-	UINT32	nasAttachmentClass;
-	UINT128	nasLayoutClass;
+	UINT64	nasAttachmentClass;
+	UINT64	nasLayoutClass;
 	UINT16	usDescPanelPosX;
 	UINT16	usDescPanelPosY;
 	BOOLEAN	fMultiShot;

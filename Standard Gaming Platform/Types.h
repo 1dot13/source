@@ -36,7 +36,7 @@ typedef unsigned int	UINT32;
 typedef signed __int64		 INT64;		// WANNE - BMP: Used for Big Maps
 typedef signed int	 INT32;
 typedef unsigned __int64	UINT64;
-typedef unsigned long long	UINT128;
+//typedef unsigned long long	UINT128;  //Madd:  Doing away with this redundant type
 #else
 typedef unsigned int	UINT32;
 typedef int					INT32;
