@@ -8,9 +8,12 @@
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>JA 2 programmers are the best there are... oh.. well maybe not since this message should never come up...</szBRDesc>
 		<usItemClass>128</usItemClass>
+		<AttachmentClass>0</AttachmentClass>
 		<nasAttachmentClass>0</nasAttachmentClass>
 		<nasLayoutClass>0</nasLayoutClass>
-		<AttachmentClass>0</AttachmentClass>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AttachmentPoint>0</AttachmentPoint>
+		<AttachToPointAPCost>0</AttachToPointAPCost>
 		<ubClassIndex>0</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
@@ -109,8 +112,6 @@
 		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
-		<Detonator>0</Detonator>
-		<RemoteDetonator>0</RemoteDetonator>
 		<Directional>0</Directional>
 		<RemoteTrigger>0</RemoteTrigger>
 		<LockBomb>0</LockBomb>
@@ -129,6 +130,7 @@
 		<Alcohol>0</Alcohol>
 		<Hardware>0</Hardware>
 		<Medical>0</Medical>
+		<DrugType>0</DrugType>
 		<CamouflageKit>0</CamouflageKit>
 		<LocksmithKit>0</LocksmithKit>
 		<Toolkit>0</Toolkit>
@@ -148,7 +150,6 @@
 		<FingerPrintID>0</FingerPrintID>
 		<TripWireActivation>0</TripWireActivation>
 		<TripWire>0</TripWire>
-		<DrugType>0</DrugType>
 		<NewInv>0</NewInv>
 		<AttachmentSystem>0</AttachmentSystem>
 		<ScopeMagFactor>0</ScopeMagFactor>
@@ -4184,9 +4185,9 @@
 		<szBRName>60mm Mortar Shell</szBRName>
 		<szBRDesc>A real man's mortar. This HE bomb features waterproof "horseshoe" snap-off propellant increments and the M734 multi-option fuse. This fuse can be set by hand for delayed, impact, near-surface or proximity burst detonations.</szBRDesc>
 		<usItemClass>512</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>9</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>40</ubGraphicNum>
@@ -4386,9 +4387,9 @@
 		<szBRName>40mm HE Grenade</szBRName>
 		<szBRDesc>This standard fragmentation grenade features a time-delayed firing device to ignite its encased TNT. Fired from the Talon grenade launcher, this round can provide great lethal coverage.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>16</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -4419,9 +4420,9 @@
 		<szBRName>40mm Tear Gas Grenade</szBRName>
 		<szBRDesc>This projectile's body is made of rubbery plastic to prevent impact injuries and keep it from being picked up and thrown back. The rubber melts quickly from the heat of burning. This time-delayed round for the Talon grenade launcher releases an irritant gas when ignited.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>17</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>111</ubGraphicNum>
@@ -4452,9 +4453,9 @@
 		<szBRName>40mm Stun Grenade</szBRName>
 		<szBRDesc>These grenade launcher projectile rounds create a massive vacuum, depriving the surrounding impact area of oxygen. Anyone standing within the detonated area will be left gasping, as waves of air rush back into its core.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>18</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>113</ubGraphicNum>
@@ -4485,9 +4486,9 @@
 		<szBRName>40mm Smoke Grenade</szBRName>
 		<szBRDesc>When fired from a 40mm grenade launcher, this grenade will quickly release a cloud of smoke that will aid in battlefield entry or withdrawal.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>19</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>112</ubGraphicNum>
@@ -6209,8 +6210,8 @@
 		<szBRName>Pistol Suppressor</szBRName>
 		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>2</nasAttachmentClass>
 		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>52</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -6246,8 +6247,8 @@
 		<szBRName>Sniper Scope, Mag.10x</szBRName>
 		<szBRDesc>Dramatically improve your targeting accuracy with this extremely versatile sniper scope. You'll quickly appreciate this scope's accurate windage adjustment, range-finder precision scale, and coated optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>171</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -6286,8 +6287,8 @@
 		<szBRName>Bipod</szBRName>
 		<szBRDesc>Every sensible mercenary packs one of these universal bipods. It fits most sniper and assault rifles, as well as light machine guns. Made from a die-cast aluminum, it has a coated matte finish. Its legs fold up when not in use, for easy storage.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>512</nasAttachmentClass>
 		<AttachmentClass>1</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>69</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -6658,8 +6659,8 @@
 		<Attachment>1</Attachment>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>1</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6672,8 +6673,8 @@
 		<szBRName>Detonator</szBRName>
 		<szBRDesc>Attach this baby to an explosive for real power and control. This time-delayed detonator allows you anywhere from five seconds to ten minutes to move to a location of safety before its attached explosive goes off.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>65536</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -6688,7 +6689,6 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<Detonator>1</Detonator>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -6702,8 +6702,8 @@
 		<szBRName>Remote Detonator</szBRName>
 		<szBRDesc>A must have for any serious explosives agent. Place this time-delayed firing device to any explosive to blow up a target when you want, from where you want. The detonator won't ignite until you hit the remote trigger.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>1048576</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -6719,7 +6719,6 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<RemoteDetonator>1</RemoteDetonator>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -6952,8 +6951,8 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>4</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7071,8 +7070,8 @@
 		<szBRName>Laser Sight</szBRName>
 		<szBRDesc>You won't lose sight of your target when using one of these. The Universal Daylight Laser projects a highly visible red spot upt to 100ft during the day and over 1,000ft at night. In a stainless steel housing, it fits onto the trigger guard of most weapons.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>4</nasAttachmentClass>
 		<AttachmentClass>4</AttachmentClass>
+		<nasAttachmentClass>4</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>51</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -7209,7 +7208,7 @@
 		<Damageable>1</Damageable>
 		<Alcohol>1</Alcohol>
 		<DrugType>2</DrugType>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>		
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8886,8 +8885,8 @@
 		<szBRName>Gun Barrel Extender</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>2</nasAttachmentClass>
 		<AttachmentClass>262144</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>134</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -16335,8 +16334,8 @@
 		<szBRName>Sniper Suppressor</szBRName>
 		<szBRDesc>A very large sound suppressor that can be fitted to some sniper rifles. Suppression of highpowered rounds comes at the price of high weight, though.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>2</nasAttachmentClass>
 		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>710</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -28565,9 +28564,9 @@
 		<szBRName>60mm Illumination Shell</szBRName>
 		<szBRDesc>The M721 60mm mortar shell provides illumination on a scale not possible by other means at the achieved range.</szBRDesc>
 		<usItemClass>512</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>30</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>749</ubGraphicNum>
@@ -28599,9 +28598,9 @@
 		<szBRName>60mm Smoke Shell</szBRName>
 		<szBRDesc>The M722 smoke round for 60mm mortars produces a dense smokescreen wherever you need it on a battlefield. Great for covering your advance! Be careful of the smoke, though, it is based on WP, and thus may be harmful to unprotected personnel.</szBRDesc>
 		<usItemClass>512</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>31</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>748</ubGraphicNum>
@@ -28700,8 +28699,8 @@
 		<szBRName>ISM-V-IR</szBRName>
 		<szBRDesc>If you do not want your gun overcrowded with attachments, here is a combination of a red-dot sight with an IR-laser sight. Precludes mounting of scopes, though.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>8</nasAttachmentClass>
 		<AttachmentClass>12</AttachmentClass>
+		<nasAttachmentClass>8</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>694</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -28748,8 +28747,8 @@
 		<szBRName>Grippod</szBRName>
 		<szBRDesc>Your bipod is getting in the way so you can't mount a foregrip? Here's the solution! The Grippod drops two legs out of its bottom at the push of a button.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>512</nasAttachmentClass>
 		<AttachmentClass>4097</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>693</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -28789,8 +28788,8 @@
 		<szBRName>Aimpoint Projector</szBRName>
 		<szBRDesc>Hard to find these days, the eye safety warning on this Aim Point Projector is indicative of its useful range. Fits older HK rifles.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>8</nasAttachmentClass>
 		<AttachmentClass>12</AttachmentClass>
+		<nasAttachmentClass>8</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>564</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -28831,8 +28830,8 @@
 		<szBRName>Rifle LAM</szBRName>
 		<szBRDesc>This Laser Aiming Module is meant to fit on modern rifle rail interface systems. Though larger and heavier, it has a longer useful range than (Pistol) Trigger Guard mounted types.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>4</nasAttachmentClass>
 		<AttachmentClass>4</AttachmentClass>
+		<nasAttachmentClass>4</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>565</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -28870,8 +28869,8 @@
 		<szBRName>Rifle LAM-Flashlight</szBRName>
 		<szBRDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>4</nasAttachmentClass>
 		<AttachmentClass>4</AttachmentClass>
+		<nasAttachmentClass>4</nasAttachmentClass>
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
@@ -28910,9 +28909,9 @@
 		<szBRName>60mm Mustard Gas Shell</szBRName>
 		<szBRDesc>This Mustard Gas mortar shell features waterproof "horseshoe" snap-off propellant increments and the M734 multi-option fuse. WARNING: this item may release a noxious odour upon detonation.</szBRDesc>
 		<usItemClass>512</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>32</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>160</ubGraphicNum>
@@ -28943,9 +28942,9 @@
 		<szBRName>20mm HE Clip</szBRName>
 		<szBRDesc>A six-shot magazine of 20mm high explosive fragmentation grenades.  Fun for the whole family!</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>33</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>301</ubGraphicNum>
@@ -28973,9 +28972,9 @@
 		<szBRName>20mm Mustard Gas Clip</szBRName>
 		<szBRDesc>Take a lesson from the Central Powers in WWI and don't fire these shells into prevailing tradewinds.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>34</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>302</ubGraphicNum>
@@ -29003,9 +29002,9 @@
 		<szBRName>20mm Smoke Clip</szBRName>
 		<szBRDesc>Mask your advance or cover your withdrawal with these smoke grenades.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>35</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>303</ubGraphicNum>
@@ -29033,9 +29032,9 @@
 		<szBRName>20mm Stun Clip</szBRName>
 		<szBRDesc>These grenades siphon the air out of their blast radius, leaving enemies helpless on the ground.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>36</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>304</ubGraphicNum>
@@ -29063,9 +29062,9 @@
 		<szBRName>20mm Tear Gas Clip</szBRName>
 		<szBRDesc>Before deploying these grenades indoors or in a confined space, remember: gas takes the shape of its container.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>305</ubGraphicNum>
@@ -29093,9 +29092,9 @@
 		<szBRName>20mm Thermobaric Clip</szBRName>
 		<szBRDesc>These shells will destroy enemy personnel and material with super-heated blast wave.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>306</ubGraphicNum>
@@ -29123,9 +29122,9 @@
 		<szBRName>25mm HE Clip</szBRName>
 		<szBRDesc>These 25mm HE grenades arm in mid-air to prevent harm to the user.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>295</ubGraphicNum>
@@ -29153,9 +29152,9 @@
 		<szBRName>25mm Mustard Gas Clip</szBRName>
 		<szBRDesc>These grenades are filled with an invariably fatal blistering agent.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>40</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>296</ubGraphicNum>
@@ -29183,9 +29182,9 @@
 		<szBRName>25mm Smoke Clip</szBRName>
 		<szBRDesc>Screen your troop movement or indicate potential LZ's for the medivac with these smoke grenades.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>297</ubGraphicNum>
@@ -29213,9 +29212,9 @@
 		<szBRName>25mm Stun Clip</szBRName>
 		<szBRDesc>Leave them breathless, literally, with a 25mm stun grenade.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>42</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>298</ubGraphicNum>
@@ -29243,9 +29242,9 @@
 		<szBRName>25mm Tear Gas Clip</szBRName>
 		<szBRDesc>Nothing stops a riot or stifles enemy fire like a chemical irritant.  Buy it by the clip-full in 25mm.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>43</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>299</ubGraphicNum>
@@ -29273,9 +29272,9 @@
 		<szBRName>25mm Thermobaric Clip</szBRName>
 		<szBRDesc>Turn the air in the surrounding atmospheric air into a lethal firestorm with themobaric ordinance.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>44</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>300</ubGraphicNum>
@@ -29303,9 +29302,9 @@
 		<szBRName>40mm HE Cylinder</szBRName>
 		<szBRDesc>This is a six-shot grenade cylinder filled with fragmentation grenades.  Each grenade features a time-delayed firing device to ignite its encased TNT. Fired from the MGL Mk.1 grenade launcher, this round can provide great lethal coverage.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>45</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>315</ubGraphicNum>
@@ -29334,9 +29333,9 @@
 		<szBRName>40mm Mustard Gas Cylinder</szBRName>
 		<szBRDesc>Disclaimer: This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>46</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>316</ubGraphicNum>
@@ -29365,9 +29364,9 @@
 		<szBRName>40mm Mustard Gas Grenade</szBRName>
 		<szBRDesc>Disclaimer: This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>47</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>313</ubGraphicNum>
@@ -29399,9 +29398,9 @@
 		<szBRName>40mm Smoke Grenade Cylinder</szBRName>
 		<szBRDesc>When fired from a MGL Mk.1, the grenades in this six-shot cylinder will quickly release a cloud of smoke that will aid in battlefield entry or withdrawal.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>48</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>317</ubGraphicNum>
@@ -29430,9 +29429,9 @@
 		<szBRName>40mm Stun Grenade Cylinder</szBRName>
 		<szBRDesc>This six-shot MGL Mk.1 grenade cylinder contains projectile rounds that will create a massive vacuum, depriving the surrounding impact area of oxygen. Anyone standing within the detonated area will be left gasping, as waves of air rush back into its core.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>49</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>318</ubGraphicNum>
@@ -29461,9 +29460,9 @@
 		<szBRName>40mm Tear Gas Cylinder</szBRName>
 		<szBRDesc>This Tear Gas cylinder contains nasty substance that certainly is not odorless. In fact, after walking through a cloud of this stuff you will smell like you just chopped a million raw onions. No, forget that, it's worse.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>50</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>319</ubGraphicNum>
@@ -29492,9 +29491,9 @@
 		<szBRName>40mm Thermobaric Grenade</szBRName>
 		<szBRDesc>Thermobaric grenades provide a better kill probability than standard HE grenades. An overpressure blast uses atmospheric oxygen once the volatile liquid inside the grenade spreads and ignites.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>51</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>314</ubGraphicNum>
@@ -29527,9 +29526,9 @@
 		<szBRName>43mm HE Grenades, 4</szBRName>
 		<szBRDesc>High Explosive grenades for the GM-94. Sold only in packs of four since we here at Bobby Ray's want to make sure that you won't go into battle with a half-empty weapon.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>52</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>358</ubGraphicNum>
@@ -29556,9 +29555,9 @@
 		<szBRName>43mm Mustard Gas Grenades, 4</szBRName>
 		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>53</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>355</ubGraphicNum>
@@ -29585,9 +29584,9 @@
 		<szBRName>43mm Smoke Grenades, 4</szBRName>
 		<szBRDesc>Smoke rounds for the GM-94. Sold only in packs of four since we here at Bobby Ray's want to make sure that you won't go into battle with a half-empty weapon.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>54</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>359</ubGraphicNum>
@@ -29614,9 +29613,9 @@
 		<szBRName>43mm Stun Grenades, 4</szBRName>
 		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade will take the wind and the fight right out of them.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>55</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>360</ubGraphicNum>
@@ -29643,9 +29642,9 @@
 		<szBRName>43mm Tear Gas Grenades, 4</szBRName>
 		<szBRDesc>Drop 4 CS gas grenades on your target and reduce them to blubbering wrecks.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>56</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>356</ubGraphicNum>
@@ -29672,9 +29671,9 @@
 		<szBRName>OG-7V Fragmentation Rocket</szBRName>
 		<szBRDesc>A rocket propelled grenade is perfect for those times when you need to make a big entrance.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>2048</AttachmentClass>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>2048</AttachmentClass>
 		<ubClassIndex>57</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>150</ubGraphicNum>
@@ -29705,9 +29704,9 @@
 		<szBRName>PG-7VM HEAT Rocket</szBRName>
 		<szBRDesc>Works exactly like a can opener, but on tanks.  Oh, and it's a bit louder.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>2048</AttachmentClass>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>2048</AttachmentClass>
 		<ubClassIndex>58</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>224</ubGraphicNum>
@@ -29738,9 +29737,9 @@
 		<szBRName>TBG-7V Thermobaric Rocket</szBRName>
 		<szBRDesc>Guaranteed to blow your enemies away.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>2048</AttachmentClass>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>2048</AttachmentClass>
 		<ubClassIndex>59</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>225</ubGraphicNum>
@@ -29795,9 +29794,9 @@
 		<szBRName>VOG-25 40mm Grenade</szBRName>
 		<szBRDesc>40mm HE shell for Russian grenade launchers.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>61</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>291</ubGraphicNum>
@@ -29829,9 +29828,9 @@
 		<szBRName>VOG-25P 40mm Jumping Grenade</szBRName>
 		<szBRDesc>40mm jumping grenade - a few hundred bucks. Grenade launcher - a few thousand. Seeing your enemies' expression once they see this little bugger merrily hopping towards them - priceless.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>62</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>292</ubGraphicNum>
@@ -29863,9 +29862,9 @@
 		<szBRName>40mm Thermobaric Cylinder</szBRName>
 		<szBRDesc>This cylinder of 40mm fuel-air grenades transforms the user into a walking, talking WMD.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>63</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>320</ubGraphicNum>
@@ -29895,9 +29894,9 @@
 		<szBRName>40mm Metal Storm HE</szBRName>
 		<szBRDesc>Take the load off the team grenadier with Metal Storm's 40mm multi shot grenade system. Three rounds of High Explosive (HE) death configured for the AICW's hi-tech integrated launcher.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>64</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>307</ubGraphicNum>
@@ -29926,9 +29925,9 @@
 		<szBRName>40mm Metal Storm Tear Gas</szBRName>
 		<szBRDesc>Take the load off the team grenadier with Metal Storm's 40mm multi shot grenade system. Three rounds of tear gas should be enough to quickly pacify any threat</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>311</ubGraphicNum>
@@ -29957,9 +29956,9 @@
 		<szBRName>40mm Metal Storm Smoke</szBRName>
 		<szBRDesc>Quickly lay down a long wall of blinding smoke with a three round stack of 40mm Metal Storm enabled 40mm smoke grenades.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>66</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>309</ubGraphicNum>
@@ -29988,9 +29987,9 @@
 		<szBRName>40mm Metal Storm Mustard Gas</szBRName>
 		<szBRDesc>These things shouldn't exist, but here we have a three round stack of 40mm grenades containing what appears to be Mustard Gas. Where in the world did these things come from, we won't tell.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>67</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>308</ubGraphicNum>
@@ -30019,9 +30018,9 @@
 		<szBRName>40mm Metal Storm Thermobaric</szBRName>
 		<szBRDesc>Overpressure and heat, instead of shrapnel, is the prime killing effect of Thermobaric explosives. This new way to clear a large space, is packaged in the new Metal Storm 40mm multi-shot grenade stack for the AICW.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>68</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>312</ubGraphicNum>
@@ -30050,9 +30049,9 @@
 		<szBRName>40mm Metal Storm Stun</szBRName>
 		<szBRDesc>Knock the wind out of any line of infantry with this compact 3 round stack of stun grenades made possible by Metal Storm's patented electronic firing system. Caution: these are only stun weapons, they only buy time.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>69</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>310</ubGraphicNum>
@@ -30081,9 +30080,9 @@
 		<szBRName>20mm Napalm Clip</szBRName>
 		<szBRDesc>These shells will destroy enemy personnel and material with super-heated napalm.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>70</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>306</ubGraphicNum>
@@ -30109,9 +30108,9 @@
 		<szBRName>25mm Napalm Clip</szBRName>
 		<szBRDesc>Turn the surrounding area into a lethal firestorm with napalm ordinance.  Six rounds of superheated fun.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>71</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>300</ubGraphicNum>
@@ -30137,9 +30136,9 @@
 		<szBRName>40mm Napalm Grenade</szBRName>
 		<szBRDesc>Nothing's beats super-heated napalm for burning off some calories.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>72</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>314</ubGraphicNum>
@@ -30168,9 +30167,9 @@
 		<szBRName>40mm Napalm Cylinder</szBRName>
 		<szBRDesc>This cylinder of 40mm napalm grenades transforms the user into a walking, talking WMD.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>73</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>320</ubGraphicNum>
@@ -30197,9 +30196,9 @@
 		<szBRName>40mm Metal Storm Napalm</szBRName>
 		<szBRDesc>This super hot way to clear a large space is packaged in the new Metal Storm 40mm multi-shot grenade stack for the AICW.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>74</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>312</ubGraphicNum>
@@ -30258,9 +30257,9 @@
 		<szBRName>40mm Illumination  Grenade</szBRName>
 		<szBRDesc>The M583A1 illumination grenade.provides battlefield illumination from most 40mm grenade launchers. Longer range and more candlepower than a breaklight!</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>76</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>747</ubGraphicNum>
@@ -30310,8 +30309,8 @@
 		<szBRName>7.62x39mm Drum Adapter</szBRName>
 		<szBRDesc>This piece of metal lets you fit a 75rnd drum onto several AK-rifles. Permanent installing required.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>64</nasAttachmentClass>
 		<AttachmentClass>64</AttachmentClass>
+		<nasAttachmentClass>64</nasAttachmentClass>
 		<ubGraphicNum>300</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
@@ -30347,8 +30346,8 @@
 		<szBRName>Kobra</szBRName>
 		<szBRDesc>Kobra is the answer to the needs of Russian special forces operatives who need a gunsight for fast target acquisition. Fits most AK rifles instead of a scope.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>65536</nasAttachmentClass>
 		<AttachmentClass>8</AttachmentClass>
+		<nasAttachmentClass>65536</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>556</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -30382,8 +30381,8 @@
 		<szBRName>PSO-1 Scope</szBRName>
 		<szBRDesc>The Russian PSO-1 fits only on rifles with an AK-style receiver, due to the unique side-mount. It has a 4x magnification.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>554</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -30423,8 +30422,8 @@
 		<szBRName>PSO-3 Scope</szBRName>
 		<szBRDesc>If you have an older style Russian rifle and need a highpower scope, than this is your best choice. Magnification is 8x.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>555</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -30465,8 +30464,8 @@
 		<szBRName>5.56mm C-Mag Adapter</szBRName>
 		<szBRDesc>This special adapter can be attached to certain 5.56mm weapons to allow for the use of the 100-rd Beta C-Mags.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>64</nasAttachmentClass>
 		<AttachmentClass>64</AttachmentClass>
+		<nasAttachmentClass>64</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>161</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -30504,8 +30503,8 @@
 		<szBRName>9mm C-Mag Adapter</szBRName>
 		<szBRDesc>This special adapter can be attached to certain 9mm weapons to allow for the use of the 100-rd Beta C-Mags.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>64</nasAttachmentClass>
 		<AttachmentClass>64</AttachmentClass>
+		<nasAttachmentClass>64</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>162</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -30543,8 +30542,8 @@
 		<szBRName>Flash Suppressor</szBRName>
 		<szBRDesc>Standard equipment for keeping those  pesky muzzle flashes from giving away your position.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>2</nasAttachmentClass>
 		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>149</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30574,8 +30573,8 @@
 		<szBRName>ACOG-Combo, Mag.4x</szBRName>
 		<szBRDesc>Trijicon Advanced Combat Gunscope with 4x magnification, adapter-mounted rear holosight for close-combat sighting.  Includes flat top adapter, backup iron sights and dust cover.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>24</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>155</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -30618,8 +30617,8 @@
 		<szBRName>Insight LAM-200</szBRName>
 		<szBRDesc>The LAM-200 is a combination of Laser, IR-Laser, visible Combat-Light and IR-Combat-Light. Essential for night operations specialists.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>4</nasAttachmentClass>
 		<AttachmentClass>4</AttachmentClass>
+		<nasAttachmentClass>4</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>179</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30660,8 +30659,8 @@
 		<szBRName>Reflex Sight</szBRName>
 		<szBRDesc>This reflex dual-illuminated advanced combat gun sight is the new standard for instant any-light shooting accuracy.  It gives you maximum accuracy and true-to-life targeting, instantly.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>8</nasAttachmentClass>
 		<AttachmentClass>8</AttachmentClass>
+		<nasAttachmentClass>8</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>156</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
@@ -30694,8 +30693,8 @@
 		<szBRName>Battle Scope, Mag.7x</szBRName>
 		<szBRDesc>Dramatically improve your targeting accuracy with this extremely versatile battle scope. Attachable to most rifles, you'll quickly appreciate this scope's accurate windage adjustment, a range-finder precision scale, and coated optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>76</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -30734,8 +30733,8 @@
 		<szBRName>Folding Stock</szBRName>
 		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.  Usable with most fixed-stock firearms.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>32</nasAttachmentClass>
 		<AttachmentClass>32</AttachmentClass>
+		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>234</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -30772,8 +30771,8 @@
 		<szBRName>Retractable Stock</szBRName>
 		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.  Usable with most fixed-stock firearms.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>32</nasAttachmentClass>
 		<AttachmentClass>32</AttachmentClass>
+		<nasAttachmentClass>32</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>235</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30810,8 +30809,8 @@
 		<szBRName>Universal Foregrip</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>512</nasAttachmentClass>
 		<AttachmentClass>4096</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>229</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30839,8 +30838,8 @@
 		<szBRName>Foregrip</szBRName>
 		<szBRDesc>A special hand grip that can be attached to most SMGs and rifles to enhance burst and selective fire accuracy.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>512</nasAttachmentClass>
 		<AttachmentClass>4096</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>228</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -30879,8 +30878,8 @@
 		<szBRName>AR Suppressor</szBRName>
 		<szBRDesc>A large sound suppressor that can be fitted to most carbines and assault rifles. Caution: This item is not 100 percent effective on its own. Use it in conjunction with cold-loaded or subsonic ammunition to achieve a greatly reduced muzzle volume.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>2</nasAttachmentClass>
 		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>180</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -31254,8 +31253,8 @@
 		<szBRName>Trigger Group</szBRName>
 		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>256</nasAttachmentClass>
 		<AttachmentClass>256</AttachmentClass>
+		<nasAttachmentClass>256</nasAttachmentClass>
 		<ubGraphicNum>160</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>21</ItemSize>
@@ -31346,8 +31345,8 @@
 		<szBRName>Small Scope, Mag.2x</szBRName>
 		<szBRDesc>A small scope for mounting onto shortranged guns like revolvers or shotguns. Optional mounts for a few autoloaders available. Usable as a replacement for damaged assault rifle optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>525</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -31384,8 +31383,8 @@
 		<szBRName>ACOG, Mag.4x</szBRName>
 		<szBRDesc>A combat gun scope with 4x magnification, including two-piece adapter-mount for eyepiece-mounted accessories.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>545</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -36317,8 +36316,8 @@
 		<szBRName>ZF-42 Scope</szBRName>
 		<szBRDesc>This vintage scope will fit the German Mauser WW-II rifles.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>721</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -36355,8 +36354,8 @@
 		<szBRName>No.32 Scope</szBRName>
 		<szBRDesc>A WW-II era scope of British manufacture, this was also used by other allied forces during that war.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>722</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -36393,8 +36392,8 @@
 		<szBRName>PEM Scope</szBRName>
 		<szBRDesc>Simply THE scope to mount onto the Mosin-Nagant rifle.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>16</nasAttachmentClass>
 		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>723</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -36431,8 +36430,8 @@
 		<szBRName>Match Sights</szBRName>
 		<szBRDesc>Fully adjustable iron sights to go with a Colt 1911, Glock, HK USP, or SIG pistol.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>8</nasAttachmentClass>
 		<AttachmentClass>8</AttachmentClass>
+		<nasAttachmentClass>8</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>724</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
@@ -36491,8 +36490,8 @@
 		<szBRName>G36 Rail-Kit</szBRName>
 		<szBRDesc>Change your G36/G36K/MG36 to a more versatile gun with this set of Picatinny Rails.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>256</nasAttachmentClass>
 		<AttachmentClass>256</AttachmentClass>
+		<nasAttachmentClass>256</nasAttachmentClass>
 		<ubGraphicNum>335</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ItemSize>24</ItemSize>
@@ -36520,8 +36519,8 @@
 		<szBRName>G36 Grip/Optics</szBRName>
 		<szBRDesc>The G36 standard equipment: Handguard and Carry Grip with mounted dual optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>256</nasAttachmentClass>
 		<AttachmentClass>256</AttachmentClass>
+		<nasAttachmentClass>256</nasAttachmentClass>
 		<ubGraphicNum>336</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ItemSize>24</ItemSize>
@@ -36892,8 +36891,8 @@
 		<szBRName>Ghillie Hood</szBRName>
 		<szBRDesc>The finishing touch for your ghillie suit. Also usefull to keep the sun out of your eyes and as mosquito net.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>8192</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>72</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -36927,8 +36926,8 @@
 		<szBRName>Ghillie Leggings</szBRName>
 		<szBRDesc>Unless you plan to wear jeans under your Ghillie suit, these pants are a must have if you are going for a covert approach.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>32768</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>74</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -36958,8 +36957,8 @@
 		<szBRName>Ghillie Jacket</szBRName>
 		<szBRDesc>Whether you are spying on that cute looking girl next door, or sneaking up to that perfect spot overlooking an enemy base, this vest will make sure nobody sees you.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>16384</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>73</ubGraphicNum>
 		<ubWeight>27</ubWeight>
@@ -41325,9 +41324,9 @@
 		<szBRName>43mm Illumination Grenades, 4</szBRName>
 		<szBRDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>78</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>357</ubGraphicNum>
@@ -41357,9 +41356,9 @@
 		<szBRName>43mm HE Grenade</szBRName>
 		<szBRDesc>High Explosive grenade for the GM-94.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>79</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>776</ubGraphicNum>
@@ -41386,9 +41385,9 @@
 		<szBRName>43mm Mustard Gas Grenades</szBRName>
 		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>80</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>773</ubGraphicNum>
@@ -41415,9 +41414,9 @@
 		<szBRName>43mm Smoke Grenade</szBRName>
 		<szBRDesc>Smoke round for the GM-94.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>81</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>777</ubGraphicNum>
@@ -41446,9 +41445,9 @@
 		<szBRName>43mm Stun Grenade</szBRName>
 		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade will take the wind and the fight right out of them.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>82</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>778</ubGraphicNum>
@@ -41477,9 +41476,9 @@
 		<szBRName>43mm Tear Gas Grenade</szBRName>
 		<szBRDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>83</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>774</ubGraphicNum>
@@ -41506,9 +41505,9 @@
 		<szBRName>43mm Illumination Grenade</szBRName>
 		<szBRDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>1024</AttachmentClass>
 		<ubClassIndex>84</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>775</ubGraphicNum>
@@ -45317,9 +45316,9 @@
 		<szBRName>Rifle Sling</szBRName>
 		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>524288</AttachmentClass>
 		<nasAttachmentClass>128</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<AttachmentClass>524288</AttachmentClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>35</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -45345,8 +45344,8 @@
 		<szBRName>Remote Defuse</szBRName>
 		<szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>2097152</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -45359,6 +45358,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -45375,8 +45375,8 @@
 		<szBRName>Remote Combo</szBRName>
 		<szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasAttachmentClass>1</nasAttachmentClass>
 		<AttachmentClass>3145728</AttachmentClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -45389,6 +45389,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -45609,7 +45610,7 @@
 		<uiIndex>1535</uiIndex>
 		<szItemName>Barrage</szItemName>
 		<szLongItemName>Barrage Drug</szLongItemName>
-		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Sideeffects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
+		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Side effects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
 		<szBRName>Barrage Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -45620,13 +45621,15 @@
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>160</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>66064</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45646,13 +45649,15 @@
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>130</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>1280</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45672,13 +45677,15 @@
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>110</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>6</ubCoolness>
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>425984</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45698,13 +45705,15 @@
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>220</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>30824</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

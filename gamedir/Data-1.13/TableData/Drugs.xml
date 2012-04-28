@@ -58,184 +58,194 @@ More Infos: http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&Num
 	
 -->
 <DRUGSLIST>
-  <DRUG>
-    <ubType>0</ubType>
-    <ubDrugTravelRate>0</ubDrugTravelRate>
-    <ubDrugWearoffRate>0</ubDrugWearoffRate>
-    <ubDrugEffect>0</ubDrugEffect>
-    <ubDrugSideEffect>0</ubDrugSideEffect>
-    <ubDrugSideEffectRate>0</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+	<DRUG>
+		<ubType>0</ubType>
+		<name />
+		<ubDrugTravelRate>0</ubDrugTravelRate>
+		<ubDrugWearoffRate>0</ubDrugWearoffRate>
+		<ubDrugEffect>0</ubDrugEffect>
+		<ubDrugSideEffect>0</ubDrugSideEffect>
+		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>1</ubType>
-    <ubDrugTravelRate>4</ubDrugTravelRate>
-    <ubDrugWearoffRate>2</ubDrugWearoffRate>
-    <ubDrugEffect>15</ubDrugEffect>
-    <ubDrugSideEffect>20</ubDrugSideEffect>
-    <ubDrugSideEffectRate>2</ubDrugSideEffectRate>
-    <ubMoralBacklash>1</ubMoralBacklash>
+		<ubType>1</ubType>
+		<name />
+		<ubDrugTravelRate>4</ubDrugTravelRate>
+		<ubDrugWearoffRate>2</ubDrugWearoffRate>
+		<ubDrugEffect>15</ubDrugEffect>
+		<ubDrugSideEffect>20</ubDrugSideEffect>
+		<ubDrugSideEffectRate>2</ubDrugSideEffectRate>
+		<ubMoralBacklash>1</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>2</ubType>
-    <ubDrugTravelRate>2</ubDrugTravelRate>
-    <ubDrugWearoffRate>2</ubDrugWearoffRate>
-    <ubDrugEffect>8</ubDrugEffect>
-    <ubDrugSideEffect>10</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>1</ubMoralBacklash>
+		<ubType>2</ubType>
+		<name />
+		<ubDrugTravelRate>2</ubDrugTravelRate>
+		<ubDrugWearoffRate>2</ubDrugWearoffRate>
+		<ubDrugEffect>8</ubDrugEffect>
+		<ubDrugSideEffect>10</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>1</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>3</ubType>
-    <ubDrugTravelRate>0</ubDrugTravelRate>
-    <ubDrugWearoffRate>0</ubDrugWearoffRate>
-    <ubDrugEffect>0</ubDrugEffect>
-    <ubDrugSideEffect>0</ubDrugSideEffect>
-    <ubDrugSideEffectRate>0</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>3</ubType>
+		<name />
+		<ubDrugTravelRate>0</ubDrugTravelRate>
+		<ubDrugWearoffRate>0</ubDrugWearoffRate>
+		<ubDrugEffect>0</ubDrugEffect>
+		<ubDrugSideEffect>0</ubDrugSideEffect>
+		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>4</ubType>
-    <ubDrugTravelRate>13</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>25</ubDrugEffect>
-    <ubDrugSideEffect>20</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>4</ubType>
+		<name />
+		<ubDrugTravelRate>13</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>25</ubDrugEffect>
+		<ubDrugSideEffect>20</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>5</ubType>
-    <ubDrugTravelRate>25</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>50</ubDrugEffect>
-    <ubDrugSideEffect>10</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>1</ubMoralBacklash>
+		<ubType>5</ubType>
+		<name />
+		<ubDrugTravelRate>25</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>50</ubDrugEffect>
+		<ubDrugSideEffect>10</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>1</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>6</ubType>
-    <ubDrugTravelRate>25</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>50</ubDrugEffect>
-    <ubDrugSideEffect>10</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>1</ubMoralBacklash>
+		<ubType>6</ubType>
+		<name />
+		<ubDrugTravelRate>25</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>50</ubDrugEffect>
+		<ubDrugSideEffect>10</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>1</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>7</ubType>
-    <ubDrugTravelRate>25</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>50</ubDrugEffect>
-    <ubDrugSideEffect>10</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>1</ubMoralBacklash>
+		<ubType>7</ubType>
+		<name />
+		<ubDrugTravelRate>25</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>50</ubDrugEffect>
+		<ubDrugSideEffect>10</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>1</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>8</ubType>
-    <ubDrugTravelRate>25</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>50</ubDrugEffect>
-    <ubDrugSideEffect>10</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>1</ubMoralBacklash>
+		<ubType>8</ubType>
+		<name />
+		<ubDrugTravelRate>25</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>50</ubDrugEffect>
+		<ubDrugSideEffect>10</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>1</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>9</ubType>
-    <ubDrugTravelRate>25</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>100</ubDrugEffect>
-    <ubDrugSideEffect>0</ubDrugSideEffect>
-    <ubDrugSideEffectRate>0</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>9</ubType>
+		<name />
+		<ubDrugTravelRate>25</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>100</ubDrugEffect>
+		<ubDrugSideEffect>0</ubDrugSideEffect>
+		<ubDrugSideEffectRate>0</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>10</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>120</ubDrugEffect>
-    <ubDrugSideEffect>120</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>10</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>120</ubDrugEffect>
+		<ubDrugSideEffect>120</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>11</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>120</ubDrugEffect>
-    <ubDrugSideEffect>120</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>11</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>120</ubDrugEffect>
+		<ubDrugSideEffect>120</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>12</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>120</ubDrugEffect>
-    <ubDrugSideEffect>120</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>12</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>120</ubDrugEffect>
+		<ubDrugSideEffect>120</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>13</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>120</ubDrugEffect>
-    <ubDrugSideEffect>120</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>13</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>120</ubDrugEffect>
+		<ubDrugSideEffect>120</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>14</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>120</ubDrugEffect>
-    <ubDrugSideEffect>120</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
-	</DRUG>
-  <DRUG>
-    <ubType>15</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>120</ubDrugEffect>
-    <ubDrugSideEffect>120</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>14</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>120</ubDrugEffect>
+		<ubDrugSideEffect>120</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>16</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>5</ubDrugEffect>
-    <ubDrugSideEffect>8</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>15</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>120</ubDrugEffect>
+		<ubDrugSideEffect>120</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>17</ubType>
-    <ubDrugTravelRate>25</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>50</ubDrugEffect>
-    <ubDrugSideEffect>11</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>16</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>5</ubDrugEffect>
+		<ubDrugSideEffect>8</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>18</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>5</ubDrugEffect>
-    <ubDrugSideEffect>7</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>17</ubType>
+		<name />
+		<ubDrugTravelRate>25</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>50</ubDrugEffect>
+		<ubDrugSideEffect>11</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 	<DRUG>
-    <ubType>18</ubType>
-    <ubDrugTravelRate>1</ubDrugTravelRate>
-    <ubDrugWearoffRate>1</ubDrugWearoffRate>
-    <ubDrugEffect>5</ubDrugEffect>
-    <ubDrugSideEffect>7</ubDrugSideEffect>
-    <ubDrugSideEffectRate>1</ubDrugSideEffectRate>
-    <ubMoralBacklash>0</ubMoralBacklash>
+		<ubType>18</ubType>
+		<name />
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>5</ubDrugEffect>
+		<ubDrugSideEffect>7</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
 </DRUGSLIST>

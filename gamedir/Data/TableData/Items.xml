@@ -8,9 +8,12 @@
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>JA 2 programmers are the best there are... oh.. well maybe not since this message should never come up...</szBRDesc>
 		<usItemClass>128</usItemClass>
+		<AttachmentClass>0</AttachmentClass>
 		<nasAttachmentClass>0</nasAttachmentClass>
 		<nasLayoutClass>0</nasLayoutClass>
-		<AttachmentClass>0</AttachmentClass>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AttachmentPoint>0</AttachmentPoint>
+		<AttachToPointAPCost>0</AttachToPointAPCost>
 		<ubClassIndex>0</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
@@ -109,8 +112,7 @@
 		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
-		<Detonator>0</Detonator>
-		<RemoteDetonator>0</RemoteDetonator>
+		<Directional>0</Directional>
 		<RemoteTrigger>0</RemoteTrigger>
 		<LockBomb>0</LockBomb>
 		<Flare>0</Flare>
@@ -128,6 +130,7 @@
 		<Alcohol>0</Alcohol>
 		<Hardware>0</Hardware>
 		<Medical>0</Medical>
+		<DrugType>0</DrugType>
 		<CamouflageKit>0</CamouflageKit>
 		<LocksmithKit>0</LocksmithKit>
 		<Toolkit>0</Toolkit>
@@ -6627,6 +6630,7 @@
 		<Attachment>1</Attachment>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
+		<DrugType>1</DrugType>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
@@ -6656,7 +6660,6 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<Detonator>1</Detonator>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -6686,7 +6689,6 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<RemoteDetonator>1</RemoteDetonator>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -6919,6 +6921,7 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
+		<DrugType>4</DrugType>
 		<AttachmentSystem>1</AttachmentSystem>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />

@@ -2666,8 +2666,8 @@
 			<lRightThigh>1092</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
-			<mGearKitName>Druggist</mGearKitName>
 			<mPriceMod>50</mPriceMod>
+			<mGearKitName>Pharmacist</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
 			<mHelmetStatus>97</mHelmetStatus>
