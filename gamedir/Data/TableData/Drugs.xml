@@ -2,7 +2,7 @@
 <DRUGSLIST>
 	<DRUG>
 		<ubType>0</ubType>
-		<name />
+		<name>None</name>
 		<ubDrugTravelRate>0</ubDrugTravelRate>
 		<ubDrugWearoffRate>0</ubDrugWearoffRate>
 		<ubDrugEffect>0</ubDrugEffect>
@@ -12,7 +12,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>1</ubType>
-		<name />
+		<name>Adrenaline</name>
 		<ubDrugTravelRate>4</ubDrugTravelRate>
 		<ubDrugWearoffRate>2</ubDrugWearoffRate>
 		<ubDrugEffect>15</ubDrugEffect>
@@ -22,7 +22,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>2</ubType>
-		<name />
+		<name>Alcohol</name>
 		<ubDrugTravelRate>2</ubDrugTravelRate>
 		<ubDrugWearoffRate>2</ubDrugWearoffRate>
 		<ubDrugEffect>8</ubDrugEffect>
@@ -32,7 +32,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>3</ubType>
-		<name />
+		<name>Regeneration</name>
 		<ubDrugTravelRate>0</ubDrugTravelRate>
 		<ubDrugWearoffRate>0</ubDrugWearoffRate>
 		<ubDrugEffect>0</ubDrugEffect>
@@ -42,7 +42,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>4</ubType>
-		<name />
+		<name>Resistance</name>
 		<ubDrugTravelRate>13</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>25</ubDrugEffect>
@@ -52,7 +52,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>5</ubType>
-		<name />
+		<name>Strength</name>
 		<ubDrugTravelRate>25</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>50</ubDrugEffect>
@@ -62,7 +62,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>6</ubType>
-		<name />
+		<name>Agility</name>
 		<ubDrugTravelRate>25</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>50</ubDrugEffect>
@@ -72,7 +72,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>7</ubType>
-		<name />
+		<name>Dexterity</name>
 		<ubDrugTravelRate>25</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>50</ubDrugEffect>
@@ -82,7 +82,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>8</ubType>
-		<name />
+		<name>Wisdom</name>
 		<ubDrugTravelRate>25</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>50</ubDrugEffect>
@@ -92,7 +92,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>9</ubType>
-		<name />
+		<name>Perception</name>
 		<ubDrugTravelRate>25</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>100</ubDrugEffect>
@@ -102,7 +102,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>10</ubType>
-		<name />
+		<name>Psychosis</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>120</ubDrugEffect>
@@ -112,7 +112,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>11</ubType>
-		<name />
+		<name>Nervousness</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>120</ubDrugEffect>
@@ -122,7 +122,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>12</ubType>
-		<name />
+		<name>Claustrophobia</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>120</ubDrugEffect>
@@ -132,7 +132,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>13</ubType>
-		<name />
+		<name>Heat Intolerant</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>120</ubDrugEffect>
@@ -142,7 +142,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>14</ubType>
-		<name />
+		<name>Fear of Insects</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>120</ubDrugEffect>
@@ -152,7 +152,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>15</ubType>
-		<name />
+		<name>Forgetfulness</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>120</ubDrugEffect>
@@ -162,7 +162,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>16</ubType>
-		<name />
+		<name>Blindness</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>5</ubDrugEffect>
@@ -172,7 +172,7 @@
 	</DRUG>
 	<DRUG>
 		<ubType>17</ubType>
-		<name />
+		<name>Unconsciousness</name>
 		<ubDrugTravelRate>25</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>50</ubDrugEffect>
@@ -182,7 +182,17 @@
 	</DRUG>
 	<DRUG>
 		<ubType>18</ubType>
-		<name />
+		<name>Vision</name>
+		<ubDrugTravelRate>1</ubDrugTravelRate>
+		<ubDrugWearoffRate>1</ubDrugWearoffRate>
+		<ubDrugEffect>5</ubDrugEffect>
+		<ubDrugSideEffect>7</ubDrugSideEffect>
+		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
+		<ubMoralBacklash>0</ubMoralBacklash>
+	</DRUG>
+	<DRUG>
+		<ubType>19</ubType>
+		<name>Tunnel Vision</name>
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>5</ubDrugEffect>
