@@ -541,7 +541,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "AvailableAttachmentPoint") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.ulAvailableAttachmentPoint = (UINT64) atof(pData->szCharData);
+			pData->curItem.ulAvailableAttachmentPoint |= (UINT64) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "AttachmentPoint") == 0)
 		{

@@ -12,6 +12,8 @@
 #define REGEN_POINTS_PER_BOOSTER					4
 #define LIFE_GAIN_PER_REGEN_POINT					10
 
+extern	UINT8	gbPlayerNum;
+
 enum {
 	DRUG_TYPE_ADRENALINE = 0,
 	DRUG_TYPE_ALCOHOL,
