@@ -325,7 +325,6 @@ INT32 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT32 sSwee
 	INT32 sLowestGridNo=0;
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
-	SOLDIERTYPE soldier;
 	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	EXITGRID	ExitGrid;
@@ -337,12 +336,6 @@ INT32 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT32 sSwee
 	ubSaveNPCDistLimit = gubNPCDistLimit;
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
-
-	//create dummy soldier, and use the pathing to determine which nearby slots are
-	//reachable.
-	soldier.pathing.bLevel = 0;
-	soldier.bTeam = 1;
-	soldier.sGridNo = pSoldier->sGridNo;
 
 	// OK, Get an exit grid ( if possible )
 	if ( !GetExitGrid( sSweetGridNo, &ExitGrid ) )
@@ -379,7 +372,7 @@ INT32 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT32 sSwee
 
 	//Now, find out which of these gridnos are reachable
 	//(use the fake soldier and the pathing settings)
-	FindBestPath( &soldier, GRIDSIZE, 0, WALKING, COPYREACHABLE, PATH_THROUGH_PEOPLE );//dnl ch50 071009
+	FindBestPath( pSoldier, GRIDSIZE, 0, WALKING, COPYREACHABLE, PATH_THROUGH_PEOPLE );//dnl ch50 071009
 
 	uiLowestRange = 999999;
 

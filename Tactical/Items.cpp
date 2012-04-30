@@ -13499,10 +13499,13 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 //Madd: Common Attachment Framework - check if a given point is acceptable
 bool IsAttachmentPointAvailable( OBJECTTYPE * pObject, UINT8 subObject, UINT32 attachmentID )
 {
-	if (Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment  || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB)&& Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint(pObject, subObject))
-		return true;
-	else
-		return false;
+	if (pObject)
+	{
+		if (Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment  || Item[attachmentID].usItemClass & IC_GRENADE || Item[attachmentID].usItemClass & IC_BOMB)&& Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint(pObject, subObject))
+			return true;
+	}
+
+	return false;
 }
 
 //Madd: Common Attachment Framework - if we already know the point 

@@ -2475,6 +2475,7 @@ BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSector
 	//init function
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
 	IniFunction(L);
 	IniGlobalGameSetting(L);
 	
