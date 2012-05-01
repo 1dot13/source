@@ -2009,21 +2009,42 @@ OBJECTTYPE* FindNonSmokeLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon
 	return( FindLaunchableAttachment(pObj,usWeapon) );
 }
 
-
 //Simple check to see if the item has any attachments
+//Madd: if there are only hidden attachments this will now return false, so the asterisk won't be display if the hiddenAttachment tag is true
 BOOLEAN ItemHasAttachments( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier, UINT8 iter )
 {
+	BOOLEAN attachmentHidden = TRUE;
 	if (pObj->exists() == true) {
 		if(pSoldier != NULL){
-			for (iter = 0; iter != pObj->objectStack.size(); ++iter) {
-				if((*pObj)[iter]->AttachmentListSize() > 0){
-					return TRUE;
+			for (iter = 0; iter != pObj->objectStack.size(); ++iter) 
+			{
+				if((*pObj)[iter]->AttachmentListSize() > 0)
+				{
+					for(attachmentList::iterator att = (*pObj)[iter]->attachments.begin(); att != (*pObj)[iter]->attachments.end(); ++att)
+					{
+						if ( att->usItem != 0 && !Item[att->usItem].hiddenattachment )
+						{
+							attachmentHidden = FALSE;
+							break;
+						}
+					}
+					return !attachmentHidden;
 				}
 			}
 		}
-		else{
-			if((*pObj)[iter]->AttachmentListSize() > 0){
-				return TRUE;
+		else
+		{
+			if((*pObj)[iter]->AttachmentListSize() > 0)
+			{
+				for(attachmentList::iterator att = (*pObj)[iter]->attachments.begin(); att != (*pObj)[iter]->attachments.end(); ++att)
+				{
+					if ( att->usItem != 0 && !Item[att->usItem].hiddenattachment )
+					{
+						attachmentHidden = FALSE;
+						break;
+					}
+				}
+				return !attachmentHidden;
 			}
 		}
 	}
