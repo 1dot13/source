@@ -5733,7 +5733,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			if ( !gpItemPointerSoldier || EnoughPoints( gpItemPointerSoldier, AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject, gpItemPointerSoldier ), 0, TRUE ) )
 			{
 //				if ( (Item[ gpItemPointer->usItem ].fFlags & ITEM_INSEPARABLE) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject->usItem ) )
-				if ( (Item[ gpItemPointer->usItem ].inseparable ) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject ) )
+				if ( (Item[ gpItemPointer->usItem ].inseparable == 1) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject ) )
 				{
 					iItemPosition = uiItemPos;
 					gbMessageBoxSubObject = (UINT8)ubStatusIndex;

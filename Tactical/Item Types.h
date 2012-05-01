@@ -806,7 +806,11 @@ typedef struct
 	BOOLEAN defaultundroppable;
 	BOOLEAN unaerodynamic;
 	BOOLEAN electronic;
-	BOOLEAN inseparable;
+	UINT8 inseparable; //Madd:Normally, an inseparable attachment can never be removed.  
+						//But now we will make it so that these items can be replaced, but still not removed directly.
+						//0 = removeable (as before)
+						//1 = inseparable (as before)
+						//2 = inseparable, but replaceable
 
 	CHAR16 szLongItemName[80];
 	CHAR16 szItemDesc[400];

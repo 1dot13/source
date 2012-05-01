@@ -2308,7 +2308,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 		ubSlotIndex = usAttachmentSlotIndexVector[slotCount];
 
 		//WarmSteel - does this particular slot already hold an item? :( If we have a pAttachInSlot we're trying to switch, so then it doesn't matter.
-		if(!fIgnoreAttachmentInSlot && pAttachment->exists() && fAttemptingAttachment && (!ppAttachInSlot || Item[pAttachment->usItem].inseparable)){
+		if(!fIgnoreAttachmentInSlot && pAttachment->exists() && fAttemptingAttachment && (!ppAttachInSlot || Item[pAttachment->usItem].inseparable == 1)){
 			//If we have a parameter to return pAttachment to, store it, else the item does not attach to this slot.
 			fSimilarItems = TRUE;
 			usSimilarItem = pAttachment->usItem;

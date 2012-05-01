@@ -701,7 +701,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "Inseparable")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.inseparable = (BOOLEAN) atol(pData->szCharData);
+			pData->curItem.inseparable = (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "BR_NewInventory")	 == 0)
 		{
