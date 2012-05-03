@@ -674,6 +674,20 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 			{ //all armed bombs are buried
 				dummyItem.bVisible = BURIED;
 			}
+
+			//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
+			//this should fix that...
+			for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++)
+			{
+				if(Item [ dummyItem.object.usItem ].defaultattachments[cnt] == 0)
+					break;
+
+				//cannot use gTempObject
+				static OBJECTTYPE defaultAttachment;
+				CreateItem(Item [ dummyItem.object.usItem ].defaultattachments[cnt],100,&defaultAttachment);
+				dummyItem.object.AttachObject(NULL,&defaultAttachment, FALSE);
+			}
+
 			AddItemToPoolAndGetIndex( dummyItem.sGridNo, &dummyItem.object, dummyItem.bVisible, dummyItem.ubLevel, dummyItem.usFlags, dummyItem.bRenderZHeightAboveLevel, dummyItem.soldierID, &iItemIndex );
 			gWorldItems[ iItemIndex ].ubNonExistChance = dummyItem.ubNonExistChance;
 		}
