@@ -9214,58 +9214,19 @@ void DeleteKeyRingPopup( )
 UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem )
 {
 	UINT32 id;
+	UINT8 ubGraphicType = pItem->ubGraphicType;
+
 	// CHECK SUBCLASS
-	if ( pItem->ubGraphicType == 0 )
+	if ( ubGraphicType == 0 )
 	{
 		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oGUNSM.getVObjectForItem(pItem->ubGraphicNum) : guiGUNSM,
 			L"Failed to retrieve gun image" );
 	}
-	else if ( pItem->ubGraphicType == 1 )
+	else 
 	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP1ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP1ITEMS,
-			L"Failed to retrieve P1 item image" );
+		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oPITEMS[ubGraphicType-1].getVObjectForItem(pItem->ubGraphicNum) : guiPITEMS[ubGraphicType-1],
+			String("Failed to retrieve interface image, graphic type = %d",ubGraphicType) );
 	}
-	else if ( pItem->ubGraphicType == 2 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP2ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP2ITEMS,
-			L"Failed to retrieve P2 item image" );
-	}
-	else if ( pItem->ubGraphicType == 3 )
-	{
-		SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP3ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP3ITEMS,
-			L"Failed to retrieve P3 item image" );
-	}
-	////MM: New item tileslots start here
-	//else if ( pItem->ubGraphicType == 4 )
-	//{
-	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP4ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP4ITEMS,
-	//		L"Failed to retrieve P4 item image" );
-	//}
-	//else if ( pItem->ubGraphicType == 5 )
-	//{
-	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP5ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP5ITEMS,
-	//		L"Failed to retrieve P5 item image" );
-	//}
-	//else if ( pItem->ubGraphicType == 6 )
-	//{
-	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP6ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP6ITEMS,
-	//		L"Failed to retrieve P6 item image" );
-	//}
-	//else if ( pItem->ubGraphicType == 7 )
-	//{
-	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP7ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP7ITEMS,
-	//		L"Failed to retrieve P7 item image" );
-	//}
-	//else if ( pItem->ubGraphicType == 8 )
-	//{
-	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP8ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP8ITEMS,
-	//		L"Failed to retrieve P8 item image" );
-	//}
-	//else
-	//{
-	//	SGP_TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP9ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP9ITEMS,
-	//		L"Failed to retrieve P9 item image" );
-	//}
 
 	return id;
 }
@@ -9320,8 +9281,10 @@ UINT16 GetTileGraphicForItem( INVTYPE *pItem )
 	//	GetTileIndexFromTypeSubIndex( P9ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	//}
 
+
 	if ( pItem->ubClassIndex >= M900  )
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GetTileGraphicForItem: db index %d",usIndex));
+
 	return( usIndex );
 }
 
@@ -9332,6 +9295,7 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 	UINT32	uiVo;
 	VOBJECT_DESC    VObjectDesc;
 	UINT16		ubGraphic;
+	UINT8 ubGraphicType;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("LoadTileGraphicForItem"));
 
@@ -9339,6 +9303,7 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 
 	// CHECK SUBCLASS
 	ubGraphic = pItem->ubGraphicNum;
+	ubGraphicType = pItem->ubGraphicType;
 
 	if ( pItem->ubGraphicType == 0 )
 	{
@@ -9354,106 +9319,18 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 			sprintf( zName, "gun%d", ubGraphic );
 		}
 	}
-	else if ( pItem->ubGraphicType == 1 )
+	else 
 	{
 		if ( ubGraphic < 10 )
 		{
-			sprintf( zName, "p1item0%d", ubGraphic );
+			sprintf( zName, "p%ditem0%d", ubGraphicType, ubGraphic );
 		}
 		else
 		{
-			sprintf( zName, "p1item%d", ubGraphic );
+			sprintf( zName, "p%ditem%d", ubGraphicType, ubGraphic );
 		}
 	}
-	else if ( pItem->ubGraphicType == 2 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p2item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p2item%d", ubGraphic );
-		}
-	}
-	else if ( pItem->ubGraphicType == 3 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p3item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p3item%d", ubGraphic );
-		}
-	}
-	////MM: New item tileslots start here
-	//else if ( pItem->ubGraphicType == 4 )
-	//{
-	//	if ( ubGraphic < 10 )
-	//	{
-	//		sprintf( zName, "p4item0%d", ubGraphic );
-	//	}
-	//	else
-	//	{
-	//		sprintf( zName, "p4item%d", ubGraphic );
-	//	}
-	//}
-	//else if ( pItem->ubGraphicType == 5 )
-	//{
-	//	if ( ubGraphic < 10 )
-	//	{
-	//		sprintf( zName, "p5item0%d", ubGraphic );
-	//	}
-	//	else
-	//	{
-	//		sprintf( zName, "p5item%d", ubGraphic );
-	//	}
-	//}
-	//else if ( pItem->ubGraphicType == 6 )
-	//{
-	//	if ( ubGraphic < 10 )
-	//	{
-	//		sprintf( zName, "p6item0%d", ubGraphic );
-	//	}
-	//	else
-	//	{
-	//		sprintf( zName, "p6item%d", ubGraphic );
-	//	}
-	//}
-	//else if ( pItem->ubGraphicType == 7 )
-	//{
-	//	if ( ubGraphic < 10 )
-	//	{
-	//		sprintf( zName, "p7item0%d", ubGraphic );
-	//	}
-	//	else
-	//	{
-	//		sprintf( zName, "p7item%d", ubGraphic );
-	//	}
-	//}
-	//else if ( pItem->ubGraphicType == 8 )
-	//{
-	//	if ( ubGraphic < 10 )
-	//	{
-	//		sprintf( zName, "p8item0%d", ubGraphic );
-	//	}
-	//	else
-	//	{
-	//		sprintf( zName, "p8item%d", ubGraphic );
-	//	}
-	//}
-	//else
-	//{
-	//	if ( ubGraphic < 10 )
-	//	{
-	//		sprintf( zName, "p9item0%d", ubGraphic );
-	//	}
-	//	else
-	//	{
-	//		sprintf( zName, "p9item%d", ubGraphic );
-	//	}
-	//}
+
 
 	//Load item
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;

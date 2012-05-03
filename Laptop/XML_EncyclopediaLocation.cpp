@@ -125,7 +125,7 @@ BOOLEAN LoadGraphicForItem( ENCYCLOPEDIA_LOCATION *pEncy, UINT32 i )
 {
 	CHAR8	 zName[ 100 ];
 //	UINT32	uiVo;
-	UINT16		ubGraphic;
+	UINT16		ubGraphic, ubGraphicType;
 	CHAR8	zString[512]; 
 //	CHAR8	zString2[512];
 
@@ -135,6 +135,7 @@ BOOLEAN LoadGraphicForItem( ENCYCLOPEDIA_LOCATION *pEncy, UINT32 i )
 
 	// CHECK SUBCLASS
 	ubGraphic = Item[i].ubGraphicNum;
+	ubGraphicType = Item[i].ubGraphicType;
 
 	if ( Item[i].ubGraphicType == 0 )
 	{
@@ -150,104 +151,15 @@ BOOLEAN LoadGraphicForItem( ENCYCLOPEDIA_LOCATION *pEncy, UINT32 i )
 			sprintf( zName, "gun%d", ubGraphic );
 		}
 	}
-	else if ( Item[i].ubGraphicType == 1 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p1item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p1item%d", ubGraphic );
-		}
-	}
-	else if ( Item[i].ubGraphicType == 2 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p2item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p2item%d", ubGraphic );
-		}
-	}
-	else if ( Item[i].ubGraphicType == 3 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p3item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p3item%d", ubGraphic );
-		}
-	}
-//MM: New item tileslots start here
-	else if ( Item[i].ubGraphicType == 4 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p4item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p4item%d", ubGraphic );
-		}
-	}
-	else if ( Item[i].ubGraphicType == 5 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p5item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p5item%d", ubGraphic );
-		}
-	}
-	else if ( Item[i].ubGraphicType == 6 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p6item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p6item%d", ubGraphic );
-		}
-	}
-	else if ( Item[i].ubGraphicType == 7 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p7item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p7item%d", ubGraphic );
-		}
-	}
-	else if ( Item[i].ubGraphicType == 8 )
-	{
-		if ( ubGraphic < 10 )
-		{
-			sprintf( zName, "p8item0%d", ubGraphic );
-		}
-		else
-		{
-			sprintf( zName, "p8item%d", ubGraphic );
-		}
-	}
 	else
 	{
 		if ( ubGraphic < 10 )
 		{
-			sprintf( zName, "p9item0%d", ubGraphic );
+			sprintf( zName, "p%ditem0%d", ubGraphicType, ubGraphic );
 		}
 		else
 		{
-			sprintf( zName, "p9item%d", ubGraphic );
+			sprintf( zName, "p%ditem%d", ubGraphicType, ubGraphic );
 		}
 	}
 

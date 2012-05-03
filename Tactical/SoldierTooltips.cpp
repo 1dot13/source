@@ -514,19 +514,17 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, U
 		// display weapon attachments
 		for (attachmentList::iterator iter = pSoldier->inv[ubSlot][0]->attachments.begin(); iter != pSoldier->inv[ubSlot][0]->attachments.end(); ++iter) {
 			if(iter->exists()){
-				if ( ubTooltipDetailLevel == DL_Basic )
+				fDisplayAttachment = FALSE; //Madd: changed this, it was incorrectly showing attachments when it shouldn't be
+
+				if ( ubTooltipDetailLevel == DL_Basic || ubTooltipDetailLevel == DL_Full ) // Madd: also hidden attachments should be hidden at the full level as well... unless the mercs have x-ray vision to see that rod&spring inside the gun!! :p
 				{
 					// display only externally-visible weapon attachments
-					if ( !Item[iter->usItem].hiddenattachment )
-					{
-							fDisplayAttachment = TRUE;
-					}
+					if ( Item[iter->usItem].hiddenattachment )
+						fDisplayAttachment = FALSE;
+					else
+						fDisplayAttachment = TRUE;
 				}
-				else
-				{
-					// display all weapon attachments
-					fDisplayAttachment = TRUE;
-				}
+
 				if ( fDisplayAttachment )
 				{
 					iNumAttachments++;
@@ -535,7 +533,6 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, U
 					else
 						wcscat( pStrInfo, L", " );
 					wcscat( pStrInfo, ItemNames[ iter->usItem ] );
-					fDisplayAttachment = FALSE; // clear flag for next loop iteration
 				}
 			}
 		} // for
