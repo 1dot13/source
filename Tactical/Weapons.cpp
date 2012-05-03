@@ -2122,7 +2122,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)BASIC_DEPRECIATE_CHANCE); // Compare original odds to new odds.
-		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) - iOverheatReliabilityMalus) );
+		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ) - iOverheatReliabilityMalus);
 		uiDepreciateTest = max(0, uiDepreciateTest);
 	}
 	else
