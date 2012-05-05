@@ -7363,7 +7363,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 				break;
 
 			//cannot use gTempObject
-			static OBJECTTYPE defaultAttachment;
+			OBJECTTYPE defaultAttachment;
 			CreateItem(Item [ usItem ].defaultattachments[cnt],100,&defaultAttachment);
 			pObj->AttachObject(NULL,&defaultAttachment, FALSE);
 		}

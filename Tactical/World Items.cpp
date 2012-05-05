@@ -683,7 +683,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 					break;
 
 				//cannot use gTempObject
-				static OBJECTTYPE defaultAttachment;
+				OBJECTTYPE defaultAttachment;
 				CreateItem(Item [ dummyItem.object.usItem ].defaultattachments[cnt],100,&defaultAttachment);
 				dummyItem.object.AttachObject(NULL,&defaultAttachment, FALSE);
 			}
