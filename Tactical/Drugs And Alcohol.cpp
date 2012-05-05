@@ -473,6 +473,23 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 			// Keel over...
 			DeductPoints( pSoldier, 0, 20000 );
 		}
+
+		// if we have a life damaging effect, deduct life points
+		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_LIFEDAMAGE ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ] > 0 )
+		{
+			if ( pSoldier->stats.bLife > OKLIFE )
+			{
+				INT8 lifepointdamage = pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ];
+				
+				INT8 applieddamage = pSoldier->stats.bLife;
+
+				pSoldier->stats.bLife = max(OKLIFE - 1, pSoldier->stats.bLife - lifepointdamage);
+
+				applieddamage -= pSoldier->stats.bLife;
+
+				pSoldier->iHealableInjury += (applieddamage * 100);
+			}
+		}
 	}
 }
 

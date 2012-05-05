@@ -48,6 +48,7 @@ drugsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		}
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "ubType") == 0 ||
+				strcmp(name, "name") == 0 ||
 				strcmp(name, "ubDrugTravelRate") == 0 ||
 				strcmp(name, "ubDrugWearoffRate") == 0 ||
 				strcmp(name, "ubDrugEffect") == 0 ||
@@ -95,7 +96,8 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			if(pData->curDrugs.ubType < pData->maxArraySize && pData->curDrugs.ubType > 0)	// do not write the first item into our array
+			// we do NOT want to read the first entry -> move stuff by 1
+			if(pData->curDrugs.ubType < pData->maxArraySize + 1 && pData->curDrugs.ubType > 0)	// do not write the first item into our array
 			{
 				pData->curArray[pData->curDrugs.ubType - 1] = pData->curDrugs; //write the drugs into the table
 			}
@@ -104,6 +106,11 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curDrugs.ubType	= (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "name") == 0)
+		{
+			pData->curElement = ELEMENT;
+			// not needed, but its there :-(
 		}
 		else if(strcmp(name, "ubDrugTravelRate") == 0)
 		{
