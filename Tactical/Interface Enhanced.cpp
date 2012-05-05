@@ -708,6 +708,17 @@ void InitEDBCoords(OBJECTTYPE * pObject)
 
 void SetupItemDescAttachmentsXY(UINT8 ID, INT16 sX, INT16 sY, INT16 sHeight, INT16 sWidth, INT16 sBarDx, INT16 sBarDy)
 {
+	//Madd: enable hiding the inventory slots by placing them outside of the viewable area
+	if ( sX >= 300 || sY >= 300 )
+	{
+		sX = 0;
+		sY = 0;
+		sHeight = 0;
+		sWidth = 0;
+		sBarDx = 0;
+		sBarDy = 0;
+	}
+
 	gItemDescAttachmentsXY[ID].sX		= sX;
 	gItemDescAttachmentsXY[ID].sY		= sY;
 	gItemDescAttachmentsXY[ID].sHeight	= sHeight;

@@ -5183,40 +5183,85 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 		fAttachmentsFound = FALSE;
 
-		// Build a mouse region here that is over any others.....
-		//if (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
-		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
-			 MSYS_DefineRegion( &gItemDescAttachmentRegions[slotCount], (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY), (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX + gItemDescAttachmentsXY[slotCount].sWidth), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY + gItemDescAttachmentsXY[slotCount].sHeight), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescAttachmentsCallback );
-		else
-			 MSYS_DefineRegion( &gItemDescAttachmentRegions[slotCount], (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY), (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX + gItemDescAttachmentsXY[slotCount].sBarDx + gItemDescAttachmentsXY[slotCount].sWidth), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY + gItemDescAttachmentsXY[slotCount].sHeight), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescAttachmentsCallback );
-		// Add region
-		MSYS_AddRegion( &gItemDescAttachmentRegions[slotCount]);
-		MSYS_SetRegionUserData( &gItemDescAttachmentRegions[slotCount], 0, slotCount );
+		//Madd: if the slot is hidden, don't bother doing any of this
+		if ( gItemDescAttachmentsXY[slotCount].sHeight > 0 && gItemDescAttachmentsXY[slotCount].sWidth > 0 )
+		{
+			// Build a mouse region here that is over any others.....
+			//if (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
+			if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
+				 MSYS_DefineRegion( &gItemDescAttachmentRegions[slotCount], (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY), (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX + gItemDescAttachmentsXY[slotCount].sWidth), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY + gItemDescAttachmentsXY[slotCount].sHeight), MSYS_PRIORITY_HIGHEST,
+								 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescAttachmentsCallback );
+			else
+				 MSYS_DefineRegion( &gItemDescAttachmentRegions[slotCount], (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY), (INT16)(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX + gItemDescAttachmentsXY[slotCount].sBarDx + gItemDescAttachmentsXY[slotCount].sWidth), (INT16)(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY + gItemDescAttachmentsXY[slotCount].sHeight), MSYS_PRIORITY_HIGHEST,
+								 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescAttachmentsCallback );
+			// Add region
+			MSYS_AddRegion( &gItemDescAttachmentRegions[slotCount]);
+			MSYS_SetRegionUserData( &gItemDescAttachmentRegions[slotCount], 0, slotCount );
 
-		//CHRISL: Include the ubStatusIndex in the region information so we know which object in a stack we're looking at
-		MSYS_SetRegionUserData( &gItemDescAttachmentRegions[slotCount], 1, ubStatusIndex );
+			//CHRISL: Include the ubStatusIndex in the region information so we know which object in a stack we're looking at
+			MSYS_SetRegionUserData( &gItemDescAttachmentRegions[slotCount], 1, ubStatusIndex );
 
-		// CHRISL: Instead of looking at object 0, let's look at the object we actually right clicked on using ubStatusIndex
-		OBJECTTYPE* pAttachment = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(slotCount);
-		if (pAttachment->exists()) {
-			SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), ItemNames[ pAttachment->usItem ] );
-		} else if (UsingNewAttachmentSystem()==true && !usAttachmentSlotIndexVector.empty()) {	
+			// CHRISL: Instead of looking at object 0, let's look at the object we actually right clicked on using ubStatusIndex
+			OBJECTTYPE* pAttachment = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(slotCount);
+			if (pAttachment->exists()) {
+				SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), ItemNames[ pAttachment->usItem ] );
+			} else if (UsingNewAttachmentSystem()==true && !usAttachmentSlotIndexVector.empty()) {	
 
-			UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
-			attachList.clear();
+				UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
+				attachList.clear();
 			
-			//Print all attachments that fit on this item.
-			for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
-			{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
-				usAttachment = 0;
+				//Print all attachments that fit on this item.
+				for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
+				{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
+					usAttachment = 0;
 				
-				//Madd: Common Attachment Framework
-				if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE)) 
-				{
-					usAttachment = usLoop;
-					if( !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					//Madd: Common Attachment Framework
+					if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE)) 
+					{
+						usAttachment = usLoop;
+						if( !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+						{
+							bool exists = false;
+							for (UINT32 i = 0; i < attachList.size(); i++)
+							{
+								if ( attachList[i] == usAttachment )
+								{
+									exists = true;
+									break;
+								}
+							}
+							if (!exists)
+								attachList.push_back(usAttachment);
+						}
+					}
+
+					usAttachment = 0;
+					if(Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+					{	//search primary item attachments.xml
+						usAttachment = Attachment[usLoop][0];
+					}
+					else if(Launchable[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
+					{	//search primary item launchables.xml
+						usAttachment = Launchable[usLoop][0];
+					}
+					else
+					{	//search for attachments/launchables made valid by other attachments
+						for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)
+						{
+							OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
+							if(pAttachment2->exists())
+							{
+								if(Attachment[usLoop][1] == pAttachment2->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+									usAttachment = Attachment[usLoop][0];
+								else if(Launchable[usLoop][1] == pAttachment2->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
+									usAttachment = Launchable[usLoop][0];
+							}
+						}
+					}
+					if(Attachment[usLoop][0] == 0 && Launchable[usLoop][0] == 0 && Item[usLoop].usItemClass == 0)
+						break;
+
+					if( usAttachment > 0  && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
 					{
 						bool exists = false;
 						for (UINT32 i = 0; i < attachList.size(); i++)
@@ -5227,182 +5272,141 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 								break;
 							}
 						}
+	
 						if (!exists)
 							attachList.push_back(usAttachment);
 					}
 				}
 
-				usAttachment = 0;
-				if(Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-				{	//search primary item attachments.xml
-					usAttachment = Attachment[usLoop][0];
-				}
-				else if(Launchable[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
-				{	//search primary item launchables.xml
-					usAttachment = Launchable[usLoop][0];
-				}
-				else
-				{	//search for attachments/launchables made valid by other attachments
-					for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)
-					{
-						OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
-						if(pAttachment2->exists())
-						{
-							if(Attachment[usLoop][1] == pAttachment2->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-								usAttachment = Attachment[usLoop][0];
-							else if(Launchable[usLoop][1] == pAttachment2->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
-								usAttachment = Launchable[usLoop][0];
+				if(attachList.size()>0){
+					parseList = attachList;
+					for(std::vector<UINT16>::iterator pIter=parseList.begin(); pIter != parseList.end(); ++pIter){
+						BOOLEAN fDuplicate = FALSE;
+						for(std::vector<UINT16>::iterator aIter=attachList.begin(); aIter != attachList.end();){
+							UINT16 pi = *pIter;
+							UINT16 ai = *aIter;
+							if(pi == ai && !fDuplicate){
+								fDuplicate = TRUE;
+								++aIter;
+								continue;
+							} else if(pi == ai && fDuplicate){
+								aIter = attachList.erase(aIter);
+								continue;
+							} else {
+								++aIter;
+							}
 						}
 					}
 				}
-				if(Attachment[usLoop][0] == 0 && Launchable[usLoop][0] == 0 && Item[usLoop].usItemClass == 0)
-					break;
+				BOOLEAN showAttachmentPopups = FALSE;
 
-				if( usAttachment > 0  && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+				if(		guiCurrentItemDescriptionScreen == MAP_SCREEN 
+				&&		fShowMapInventoryPool 
+				&&		(	(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
+						&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
+						&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
+						)
+				&&		CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
+				)
 				{
-					bool exists = false;
-					for (UINT32 i = 0; i < attachList.size(); i++)
+					showAttachmentPopups = TRUE;
+				}
+
+				// create quick attachment popup boxes here
+				if (showAttachmentPopups)
+				{
+					gItemDescAttachmentPopups[slotCount] = new POPUP("Attachment list");	// init attachment popup for this slot
+				
+					UINT8 thisPopupsPositionType;
+					if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
+						thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
+					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
+						thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
+					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
+						thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
+					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
+						thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
+					} else {
+						thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
+					}
+
+					gItemDescAttachmentPopups[slotCount]->setPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX) + 12 ,
+					/* Put it near the current slot	 */					(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
+																		 thisPopupsPositionType );
+
+					// the show callback should redraw the description box (in case we had any helptext and close other attachment popups)
+					gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_SHOW, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
+					// the hide callback tells the program we're no longer displaying an attachment callback
+					gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,void>( &hideAttachmentPopup ) );
+				}
+				for(UINT16 loop = 0; loop < attachList.size(); loop++){
+					usAttachment = attachList[loop];
+					// If the attachment is not hidden
+					if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
 					{
-						if ( attachList[i] == usAttachment )
+						if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3600)
 						{
-							exists = true;
+							// End list early to avoid overflow
+							wcscat( attachStr3, L"\n..." );
 							break;
 						}
-					}
-	
-					if (!exists)
-						attachList.push_back(usAttachment);
-				}
-			}
-
-			if(attachList.size()>0){
-				parseList = attachList;
-				for(std::vector<UINT16>::iterator pIter=parseList.begin(); pIter != parseList.end(); ++pIter){
-					BOOLEAN fDuplicate = FALSE;
-					for(std::vector<UINT16>::iterator aIter=attachList.begin(); aIter != attachList.end();){
-						UINT16 pi = *pIter;
-						UINT16 ai = *aIter;
-						if(pi == ai && !fDuplicate){
-							fDuplicate = TRUE;
-							++aIter;
-							continue;
-						} else if(pi == ai && fDuplicate){
-							aIter = attachList.erase(aIter);
-							continue;
-						} else {
-							++aIter;
+						else
+						{// Add the attachment's name to the list.
+							fAttachmentsFound = TRUE;
+							swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
+							wcscat( attachStr3, attachStr2);
 						}
-					}
-				}
-			}
-			BOOLEAN showAttachmentPopups = FALSE;
 
-			if(		guiCurrentItemDescriptionScreen == MAP_SCREEN 
-			&&		fShowMapInventoryPool 
-			&&		(	(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
-					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
-					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
-					)
-			&&		CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
-			)
-			{
-				showAttachmentPopups = TRUE;
-			}
-
-			// create quick attachment popup boxes here
-			if (showAttachmentPopups)
-			{
-				gItemDescAttachmentPopups[slotCount] = new POPUP("Attachment list");	// init attachment popup for this slot
-				
-				UINT8 thisPopupsPositionType;
-				if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
-					thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-				} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
-					thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
-				} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
-					thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
-				} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
-					thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
-				} else {
-					thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-				}
-
-				gItemDescAttachmentPopups[slotCount]->setPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX) + 12 ,
-				/* Put it near the current slot	 */					(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
-																	 thisPopupsPositionType );
-
-				// the show callback should redraw the description box (in case we had any helptext and close other attachment popups)
-				gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_SHOW, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
-				// the hide callback tells the program we're no longer displaying an attachment callback
-				gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,void>( &hideAttachmentPopup ) );
-			}
-			for(UINT16 loop = 0; loop < attachList.size(); loop++){
-				usAttachment = attachList[loop];
-				// If the attachment is not hidden
-				if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
-				{
-					if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3600)
-					{
-						// End list early to avoid overflow
-						wcscat( attachStr3, L"\n..." );
-						break;
-					}
-					else
-					{// Add the attachment's name to the list.
-						fAttachmentsFound = TRUE;
-						swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
-						wcscat( attachStr3, attachStr2);
-					}
-
-					if (showAttachmentPopups)
-					{	// add the current attachment to the popup assigned to this attachment slot
-						POPUP_OPTION * o = new POPUP_OPTION(	&std::wstring( Item[ usAttachment ].szItemName ), 
-																new popupCallbackFunction<void,UINT16>(&popupCallbackItem,usAttachment));
-						// set an availiability callback to gray out any compatible attachments not found in this sector
-						o->setAvail( new popupCallbackFunction<bool,UINT16>(&popupCallbackItemInSector,usAttachment) );
+						if (showAttachmentPopups)
+						{	// add the current attachment to the popup assigned to this attachment slot
+							POPUP_OPTION * o = new POPUP_OPTION(	&std::wstring( Item[ usAttachment ].szItemName ), 
+																	new popupCallbackFunction<void,UINT16>(&popupCallbackItem,usAttachment));
+							// set an availiability callback to gray out any compatible attachments not found in this sector
+							o->setAvail( new popupCallbackFunction<bool,UINT16>(&popupCallbackItemInSector,usAttachment) );
 						
-						if (loop == 11 && attachList.size() > 11){ // if there's too much stuff to list, we create a subpopup for the rest
-							gItemDescAttachmentPopups[slotCount]->addSubMenuOption( &std::wstring(L"More...") );
-							POPUP_SUB_POPUP_OPTION * tmp = gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0);
+							if (loop == 11 && attachList.size() > 11){ // if there's too much stuff to list, we create a subpopup for the rest
+								gItemDescAttachmentPopups[slotCount]->addSubMenuOption( &std::wstring(L"More...") );
+								POPUP_SUB_POPUP_OPTION * tmp = gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0);
 
-							// positioning sub popups is handled through the option that holds them
-							tmp->setPopupPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX),
-												(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
-												POPUP_POSITION_TOP_RIGHT);	// put it to the right of the main box
+								// positioning sub popups is handled through the option that holds them
+								tmp->setPopupPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX),
+													(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
+													POPUP_POSITION_TOP_RIGHT);	// put it to the right of the main box
 
-							// hide the other box too
-							// note that we're working with the sub popup options's sub-popup here, not the option itself
-							tmp->subPopup->setCallback( POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
+								// hide the other box too
+								// note that we're working with the sub popup options's sub-popup here, not the option itself
+								tmp->subPopup->setCallback( POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
 
-							// finally add the option
-							tmp->subPopup->addOption(*o);
+								// finally add the option
+								tmp->subPopup->addOption(*o);
 
-						} else if (loop > 11){	// add surplus options to the subpopup
-							gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0)->subPopup->addOption(*o);
-						} else {	// options 0-11 go into the main popup
-							gItemDescAttachmentPopups[slotCount]->addOption(*o);
+							} else if (loop > 11){	// add surplus options to the subpopup
+								gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0)->subPopup->addOption(*o);
+							} else {	// options 0-11 go into the main popup
+								gItemDescAttachmentPopups[slotCount]->addOption(*o);
+							}
 						}
 					}
 				}
-			}
 			
-			if (fAttachmentsFound)
-			{
-				// Add extra empty line and attachment list title
-				swprintf( attachStr, L"%s:\n ", Message[ STR_ATTACHMENTS ] );
-				// Print the attachments
-				wcscat( attachStr, attachStr3 );
-			} else if(usLoopSlotID != 0) {
-				swprintf( attachStr2, L"\n%s", AttachmentSlots[usLoopSlotID].szSlotName );
-				wcscat( attachStr, attachStr2);
+				if (fAttachmentsFound)
+				{
+					// Add extra empty line and attachment list title
+					swprintf( attachStr, L"%s:\n ", Message[ STR_ATTACHMENTS ] );
+					// Print the attachments
+					wcscat( attachStr, attachStr3 );
+				} else if(usLoopSlotID != 0) {
+					swprintf( attachStr2, L"\n%s", AttachmentSlots[usLoopSlotID].szSlotName );
+					wcscat( attachStr, attachStr2);
+				} else {
+					wcscat( attachStr, Message[ STR_ATTACHMENTS ] );
+				}
+				SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), attachStr );
 			} else {
-				wcscat( attachStr, Message[ STR_ATTACHMENTS ] );
+				SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), Message[ STR_ATTACHMENTS ] );
 			}
-			SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), attachStr );
-		} else {
-			SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), Message[ STR_ATTACHMENTS ] );
+			SetRegionHelpEndCallback( &(gItemDescAttachmentRegions[ slotCount ]), HelpTextDoneCallback );
 		}
-		SetRegionHelpEndCallback( &(gItemDescAttachmentRegions[ slotCount ]), HelpTextDoneCallback );
 	}
 }
 
@@ -6195,22 +6199,26 @@ void RenderItemDescriptionBox( )
 		if(UsingNewAttachmentSystem()==true && UseNASDesc(gpItemDescObject) && !usAttachmentSlotIndexVector.empty()){
 
 			for(UINT16 slotCount = 0; slotCount < usAttachmentSlotIndexVector.size(); slotCount++){
-				INT16 sX = gsInvDescX + AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].usDescPanelPosX - 6; //Warmsteel - Retracting a number to account for the status bar.
-				INT16 sY = gsInvDescY + AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].usDescPanelPosY - 1;
+				//Madd: hide slots if their x or y position is >= 300
+				if ( AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].usDescPanelPosX <= 300 && AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].usDescPanelPosY <= 300 )
+				{
+					INT16 sX = gsInvDescX + AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].usDescPanelPosX - 6; //Warmsteel - Retracting a number to account for the status bar.
+					INT16 sY = gsInvDescY + AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].usDescPanelPosY - 1;
 
-				//WarmSteel - Clear the background rectangle so we can paint it.
-				if ( guiSAVEBUFFER == FRAME_BUFFER )
-				{
-					InvalidateRegion( sX, sY, (INT16)(sX + 8), (INT16)(sY + 8 ) );
-				}
-				else
-				{
-					RestoreExternBackgroundRect( sX, sY, 8, 8 );
-				}
-				if(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].fBigSlot){
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiAttachmentSlot, 1, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
-				} else {
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiAttachmentSlot, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+					//WarmSteel - Clear the background rectangle so we can paint it.
+					if ( guiSAVEBUFFER == FRAME_BUFFER )
+					{
+						InvalidateRegion( sX, sY, (INT16)(sX + 8), (INT16)(sY + 8 ) );
+					}
+					else
+					{
+						RestoreExternBackgroundRect( sX, sY, 8, 8 );
+					}
+					if(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].fBigSlot){
+						BltVideoObjectFromIndex( guiSAVEBUFFER, guiAttachmentSlot, 1, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+					} else {
+						BltVideoObjectFromIndex( guiSAVEBUFFER, guiAttachmentSlot, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 			}
 		}
@@ -6289,8 +6297,12 @@ void RenderItemDescriptionBox( )
 					 ( !ValidItemAttachmentSlot( gpItemDescObject, gpItemPointer->usItem, FALSE, FALSE, gubItemDescStatusIndex, cnt, FALSE, NULL, usAttachmentSlotIndexVector) &&
 						 !ValidMerge( gpItemPointer->usItem, gpItemDescObject->usItem ) ) )
 					{
-						// hatch out this attachment panel
-						DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gItemDescAttachmentsXY[ cnt ].sWidth + gItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gItemDescAttachmentsXY[ cnt ].sHeight + 2) );
+						//Madd: only if the slot isn't hidden
+						if (  gItemDescAttachmentsXY[ cnt ].sHeight > 0 &&  gItemDescAttachmentsXY[ cnt ].sWidth > 0 )
+						{
+							// hatch out this attachment panel
+							DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gItemDescAttachmentsXY[ cnt ].sWidth + gItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gItemDescAttachmentsXY[ cnt ].sHeight + 2) );
+						}
 					}
 				}
 			} else {
@@ -6302,8 +6314,12 @@ void RenderItemDescriptionBox( )
 					 ( !ValidItemAttachment( gpItemDescObject, gpItemPointer->usItem, FALSE, FALSE, gubItemDescStatusIndex, usAttachmentSlotIndexVector) &&
 						 !ValidMerge( gpItemPointer->usItem, gpItemDescObject->usItem ) && !ValidLaunchable( gpItemPointer->usItem, gpItemDescObject->usItem ) ) )
 					{
-						// hatch out the attachment panels
-						DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gItemDescAttachmentsXY[ cnt ].sWidth + gItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gItemDescAttachmentsXY[ cnt ].sHeight + 2) );
+						//Madd: only if the slot isn't hidden
+						if (  gItemDescAttachmentsXY[ cnt ].sHeight > 0 &&  gItemDescAttachmentsXY[ cnt ].sWidth > 0 )
+						{
+							// hatch out the attachment panels
+							DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gItemDescAttachmentsXY[ cnt ].sWidth + gItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gItemDescAttachmentsXY[ cnt ].sHeight + 2) );
+						}
 					}
 				}
 			}
@@ -6314,7 +6330,8 @@ void RenderItemDescriptionBox( )
 		for (attachmentList::iterator iter = (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.begin();
 			iter != (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.end(); ++iter, ++cnt) {
 
-			if(iter->exists()){
+			//Madd: again, only do this if the slot isn't hidden
+			if( iter->exists() && gItemDescAttachmentsXY[cnt].sHeight > 0 && gItemDescAttachmentsXY[cnt].sWidth > 0 ){
 				sCenX = gsInvDescX + gItemDescAttachmentsXY[cnt].sX;
 				sCenY = gsInvDescY + gItemDescAttachmentsXY[cnt].sY;
 				INVRenderItem( guiSAVEBUFFER, NULL, gpItemDescObject, sCenX, sCenY, gItemDescAttachmentsXY[cnt].sWidth, gItemDescAttachmentsXY[cnt].sHeight, DIRTYLEVEL2, NULL, (UINT8)(RENDER_ITEM_ATTACHMENT1 + cnt), FALSE, 0, gubItemDescStatusIndex );
