@@ -2993,6 +2993,18 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			}
 		}
 
+		if ( usNewState == ADJACENT_GET_ITEM_CROUCHED )
+		{
+			if ( this->ubPendingDirection != NO_PENDING_DIRECTION )
+			{
+				EVENT_InternalSetSoldierDesiredDirection( this, this->ubPendingDirection, FALSE, this->usAnimState );
+				this->ubPendingDirection = NO_PENDING_DIRECTION;
+				this->usPendingAnimation = ADJACENT_GET_ITEM_CROUCHED;
+				this->flags.fTurningUntilDone	 = TRUE;
+				this->SoldierGotoStationaryStance( );
+				return( TRUE );
+			}
+		}
 
 		if ( usNewState == CLIMBUPROOF )
 		{
@@ -13636,7 +13648,8 @@ void PickPickupAnimation( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo
 	INT8				bDirection;
 	STRUCTURE		*pStructure;
 	BOOLEAN			fDoNormalPickup = TRUE;
-
+	//SOLDIERTYPE *pTarget;
+	//UINT16 usSoldierIndex;
 
 	// OK, Given the gridno, determine if it's the same one or different....
 	if ( sGridNo != pSoldier->sGridNo )
@@ -13646,7 +13659,25 @@ void PickPickupAnimation( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo
 		pSoldier->ubPendingDirection = bDirection;
 
 		// Change to pickup animation
-		pSoldier->EVENT_InitNewSoldierAnim( ADJACENT_GET_ITEM, 0 , FALSE );
+		// SANDRO - determine which animation to choose, if we pickup item from struct, we can either stand or be crouched
+		// when picking items from lying soldier (collapsed maybe), we need to be crouched always
+		//usSoldierIndex = WhoIsThere2( sGridNo, this->pathing.bLevel );
+		//if ( usSoldierIndex != NOBODY )
+		/*{
+			pTarget = MercPtrs[ usSoldierIndex ];
+
+			if ( gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH || gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+				pSoldier->EVENT_InitNewSoldierAnim( ADJACENT_GET_ITEM_CROUCHED, 0 , FALSE );
+			else 
+				pSoldier->EVENT_InitNewSoldierAnim( ADJACENT_GET_ITEM, 0 , FALSE );
+		}*/
+		//else 
+		{
+			if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH || gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+				pSoldier->EVENT_InitNewSoldierAnim( ADJACENT_GET_ITEM_CROUCHED, 0 , FALSE );	
+			else
+				pSoldier->EVENT_InitNewSoldierAnim( ADJACENT_GET_ITEM, 0 , FALSE );
+		}
 
 		if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
 		{
@@ -14137,7 +14168,11 @@ void MercStealFromMerc( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTarget )
 		else
 		{
 			pSoldier->EVENT_SetSoldierDesiredDirection( ubDirection );
-			pSoldier->EVENT_InitNewSoldierAnim( STEAL_ITEM, 0 , FALSE );
+
+			if ( gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH )
+				pSoldier->EVENT_InitNewSoldierAnim( STEAL_ITEM_CROUCHED, 0 , FALSE );
+			else
+				pSoldier->EVENT_InitNewSoldierAnim( STEAL_ITEM, 0 , FALSE );
 		}
 
 		// OK, set UI

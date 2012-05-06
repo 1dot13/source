@@ -6417,6 +6417,7 @@ BOOLEAN SelectedGuyInBusyAnimation( )
 			pSoldier->usAnimState == END_OPEN_DOOR ||
 			pSoldier->usAnimState == END_OPEN_LOCKED_DOOR ||
 			pSoldier->usAnimState == ADJACENT_GET_ITEM ||
+			pSoldier->usAnimState == ADJACENT_GET_ITEM_CROUCHED ||
 			pSoldier->usAnimState == DROP_ADJACENT_OBJECT ||
 
 			pSoldier->usAnimState == OPEN_DOOR_CROUCHED ||
