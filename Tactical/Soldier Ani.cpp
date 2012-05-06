@@ -3008,6 +3008,10 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				PlaySoldierJA2Sample( pSoldier->ubID, FENCE_OPEN, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 				break;
 
+			case 792:
+
+				
+				break;
 			}
 			// Adjust frame control pos, and try again
 			pSoldier->usAniCode++;
@@ -3018,6 +3022,12 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			// Go to start, by default
 			pSoldier->usAniCode = 0;
 
+		}
+		else if ( sNewAniFrame > 999 )
+		{
+			// Jump, to animation script ( in the 300+ range )
+			pSoldier->EVENT_InitNewSoldierAnim( (UINT16)(sNewAniFrame - 700 ), 0 , FALSE );
+			return( TRUE );
 		}
 
 		// Loop here until we break on a real item!

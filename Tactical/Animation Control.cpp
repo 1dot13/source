@@ -71,7 +71,8 @@ static UINT16 REMOTE_DET_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,484,4,
 
 static UINT16 THROW_KNIFE_SP_BM_AnimationScript[MAX_FRAMES_PER_ANIM] = { 757,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,12,13,709,14,15,16,430,16,17,17,18,19,20,21,753,442,499,999,0,0,0,0  };
 
-
+static UINT16 PRONE_START_FIRST_AID_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,442,1033,0,0,0,0  };
+static UINT16 PRONE_GIVE_FIRST_AID_AnimationScript[MAX_FRAMES_PER_ANIM] = { 4,5,6,7,6,5,4,3,4,5,6,6,5,7,6,5,4,3,4,5,5,6,7,6,7,6,5,7,6,5,4,3,2,3,2,4,501,0,0,0,0  };
 
 
 
@@ -1007,6 +1008,11 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	{"WALKING WITH RIFLE RDY"							, 20,			0, (FLOAT)1.6, ANIM_MOVING | ANIM_TURNING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1},
 	{"WALKING WITH DUAL RDY"							, 20,			0, (FLOAT)1.6, ANIM_MOVING | ANIM_TURNING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1},
 
+	//GIVING AID WHILE PRONE
+	{"PRN START AID"							, 0,			90,			(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_NONINTERRUPT | ANIM_LOWER_WEAPON | ANIM_LIGHT_EFFORT	,		ANIM_PRONE,	ANIM_PRONE, -1},
+	{"PRN GIVING AID"							, 0,			120,			(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_LIGHT_EFFORT	,		ANIM_PRONE,	ANIM_PRONE, -1},
+	{"PRN END AID"							, 0,			90,			(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_NO_EFFORT	| ANIM_NOCHANGE_PENDINGCOUNT,		ANIM_PRONE,	ANIM_PRONE, -1},
+
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1416,6 +1422,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ WALKING_RIFLE_RDY ]					= RGMWALK_R_RDY;
 	gubAnimSurfaceIndex[ REGMALE ][ WALKING_DUAL_RDY ]					= RGMWALK_D_RDY;
 
+	gubAnimSurfaceIndex[ REGMALE ][ START_AID_PRN ]											= RGMMEDICPRN;
+	gubAnimSurfaceIndex[ REGMALE ][ GIVING_AID_PRN ]										= RGMMEDICPRN;
+	gubAnimSurfaceIndex[ REGMALE ][ END_AID_PRN ]											= RGMMEDICPRN;
+
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ STANDING][0]									= RGMWATER_R_STD;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ WALKING ][0]									= RGMWATER_R_WALK;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ RUNNING ][0]									= RGMWATER_R_WALK;
@@ -1800,6 +1810,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ WALKING_PISTOL_RDY ]				= BGMWALK_P_RDY;
 	gubAnimSurfaceIndex[ BIGMALE ][ WALKING_RIFLE_RDY ]					= BGMWALK_R_RDY;
 	gubAnimSurfaceIndex[ BIGMALE ][ WALKING_DUAL_RDY ]					= BGMWALK_D_RDY;
+
+	gubAnimSurfaceIndex[ BIGMALE ][ START_AID_PRN ]											= BGMMEDICPRN;
+	gubAnimSurfaceIndex[ BIGMALE ][ GIVING_AID_PRN ]										= BGMMEDICPRN;
+	gubAnimSurfaceIndex[ BIGMALE ][ END_AID_PRN ]											= BGMMEDICPRN;
 
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ STANDING ]						= BGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ WALKING ]							= BGMNOTHING_WALK;
@@ -2202,6 +2216,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ WALKING_RIFLE_RDY ]					= RGMWALK_R_RDY;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ WALKING_DUAL_RDY ]					= RGMWALK_D_RDY;
 
+	gubAnimSurfaceIndex[ STOCKYMALE ][ START_AID_PRN ]						= RGMMEDICPRN;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ GIVING_AID_PRN ]						= RGMMEDICPRN;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ END_AID_PRN ]						= RGMMEDICPRN;
+
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ STANDING ]						= RGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALKING ]						= RGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ RUNNING]							= RGMNOTHING_RUN;
@@ -2582,6 +2600,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ WALKING_RIFLE_RDY ]					= RGFWALK_R_RDY;
 	gubAnimSurfaceIndex[ REGFEMALE ][ WALKING_DUAL_RDY ]					= RGFWALK_D_RDY;
 
+	gubAnimSurfaceIndex[ REGFEMALE ][ START_AID_PRN ]							= RGFMEDICPRN;
+	gubAnimSurfaceIndex[ REGFEMALE ][ GIVING_AID_PRN ]							= RGFMEDICPRN;
+	gubAnimSurfaceIndex[ REGFEMALE ][ END_AID_PRN ]								= RGFMEDICPRN;
 
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ STANDING ]						= RGFPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALKING ]							= RGFNOTHING_WALK;
@@ -3323,6 +3344,10 @@ BOOLEAN LoadAnimationStateInstructions( )
 		memcpy(gusAnimInst[WALKING_PISTOL_RDY],fuckTheBoundz[WALKING],sizeof(fuckTheBoundz[WALKING]));
 		memcpy(gusAnimInst[WALKING_RIFLE_RDY],fuckTheBoundz[WALKING],sizeof(fuckTheBoundz[WALKING]));
 		memcpy(gusAnimInst[WALKING_DUAL_RDY],fuckTheBoundz[WALKING],sizeof(fuckTheBoundz[WALKING]));
+
+		memcpy(gusAnimInst[START_AID_PRN],PRONE_START_FIRST_AID_AnimationScript,sizeof(PRONE_START_FIRST_AID_AnimationScript));
+		memcpy(gusAnimInst[GIVING_AID_PRN],PRONE_GIVE_FIRST_AID_AnimationScript,sizeof(PRONE_GIVE_FIRST_AID_AnimationScript));
+		memcpy(gusAnimInst[END_AID_PRN],fuckTheBoundz[END_AID],sizeof(fuckTheBoundz[END_AID]));
 
 	return( TRUE );
 }

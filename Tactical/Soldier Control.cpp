@@ -3048,6 +3048,21 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			}
 		}
 
+		if ( usNewState == START_AID_PRN )
+		{
+			if ( this->ubPendingDirection != NO_PENDING_DIRECTION )
+			{
+				this->EVENT_SetSoldierDesiredDirection( this->ubPendingDirection );
+				this->ubPendingDirection = NO_PENDING_DIRECTION;
+				this->usPendingAnimation = START_AID_PRN;
+				this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_ON;
+				this->flags.fTurningUntilDone	 = TRUE;
+				this->ubPendingStanceChange = ANIM_PRONE;
+				this->SoldierGotoStationaryStance( );
+				return( TRUE );
+			}
+		}
+
 		// ATE: Don't raise/lower automatically if we are low on health,
 		// as our gun looks lowered anyway....
 		//if ( this->stats.bLife > INJURED_CHANGE_THREASHOLD )
@@ -3162,7 +3177,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		}*/
 
 		// Alrighty, check if we should free buddy up!
-		if ( usNewState == GIVING_AID )
+		if ( usNewState == GIVING_AID || usNewState == GIVING_AID_PRN )
 		{
 			UnSetUIBusy( this->ubID );
 		}
@@ -3748,6 +3763,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			//break;
 
 		case START_AID:
+		case START_AID_PRN:
 
 			DeductPoints( this, APBPConstants[AP_START_FIRST_AID], APBPConstants[BP_START_FIRST_AID] );
 			break;
@@ -6606,8 +6622,20 @@ void SOLDIERTYPE::SoldierGotoStationaryStance( void )
 	}
 	else if ( this->ubServicePartner != NOBODY && this->stats.bLife >= OKLIFE && this->bBreath > 0  )
 	{
-		if(!is_networked)this->EVENT_InitNewSoldierAnim( GIVING_AID, 0 , FALSE );
-		else this->ChangeSoldierState( GIVING_AID, 0, 0 );			
+		if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE )
+		{
+			if(!is_networked)
+				this->EVENT_InitNewSoldierAnim( GIVING_AID_PRN, 0 , FALSE );
+			else 
+				this->ChangeSoldierState( GIVING_AID_PRN, 0, 0 );
+		}
+		else
+		{
+			if(!is_networked)
+				this->EVENT_InitNewSoldierAnim( GIVING_AID, 0 , FALSE );
+			else 
+				this->ChangeSoldierState( GIVING_AID, 0, 0 );
+		}		
 		
 	}
 	else
@@ -11568,25 +11596,38 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 		// any now...
 		this->InternalGivingSoldierCancelServices( FALSE );
 
+		BOOLEAN fInProne = FALSE;
+		if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE && gAnimControl[ pTSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && this->fDoingSurgery == FALSE )
+		{
+			fInProne = TRUE;
+		}
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
 		this->EVENT_SetSoldierDesiredDirection( ubDirection );
 		this->EVENT_SetSoldierDirection( ubDirection );
 
-		// CHECK OUR STANCE AND GOTO CROUCH IF NEEDED
-		//if ( gAnimControl[ this->usAnimState ].ubEndHeight != ANIM_CROUCH )
-		//{
-		// SET DESIRED STANCE AND SET PENDING ANIMATION
-		//	SendChangeSoldierStanceEvent( this, ANIM_CROUCH );
-		//	this->usPendingAnimation = START_AID;
-		//}
-		//else
+		// CHANGE TO ANIMATION
+		if ( fInProne )
 		{
-			// CHANGE TO ANIMATION
+			// HACK! If we are not prone after the above stance change and we should be, send us down before start
+			if ( gAnimControl[ this->usAnimState ].ubEndHeight != ANIM_PRONE )
+			{
+				this->usPendingAnimation = START_AID_PRN;
+				SendChangeSoldierStanceEvent( this, ANIM_PRONE );
+			}
+			else
+			{
+				if(!is_networked)
+					this->EVENT_InitNewSoldierAnim( START_AID_PRN, 0 , FALSE );
+				else 
+					this->ChangeSoldierState( START_AID_PRN, 0, 0 );
+			}
+		}
+		else
+		{
 			if(!is_networked)
 				this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
 			else 
 				this->ChangeSoldierState( START_AID, 0, 0 );
-
 		}
 
 		// SET TARGET GRIDNO
@@ -11697,6 +11738,17 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	{
 		uiPossible += ( uiPossible / 2);			// add extra 50 %
 	}
+
+	// when prone, bandaging is harder
+	if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE )
+	{
+		// if we bandage ourselves, make it rather had when prone
+		if ( this->ubID == pVictim->ubID )
+			uiPossible = uiPossible / 2; // -50% speed
+		else
+			uiPossible = uiPossible * 4 / 5; // -20% speed
+	}
+
 	// Doctor trait improves basic bandaging ability
 	if (!(fOnSurgery) && gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( this, DOCTOR_NT ))
 	{
@@ -12051,8 +12103,20 @@ void SOLDIERTYPE::InternalReceivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 						// don't use end aid animation in autobandage
 						if ( pTSoldier->stats.bLife >= OKLIFE && pTSoldier->bBreath > 0 && fPlayEndAnim )
 						{
-							if(!is_networked)pTSoldier->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
-							else pTSoldier->ChangeSoldierState( END_AID, 0, 0 );
+							if ( gAnimControl[ pTSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+							{
+								if(!is_networked)
+									pTSoldier->EVENT_InitNewSoldierAnim( END_AID_PRN, 0 , FALSE );
+								else 
+									pTSoldier->ChangeSoldierState( END_AID_PRN, 0, 0 );
+							}
+							else
+							{
+								if(!is_networked)
+									pTSoldier->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
+								else 
+									pTSoldier->ChangeSoldierState( END_AID, 0, 0 );
+							}
 						}
 					}
 
@@ -12101,8 +12165,20 @@ void SOLDIERTYPE::InternalGivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 			if ( this->stats.bLife >= OKLIFE && this->bBreath > 0 && fPlayEndAnim )
 			{
 				// don't use end aid animation in autobandage
-					if(!is_networked)this->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
-					else this->ChangeSoldierState( END_AID, 0, 0 );	
+				if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE )
+				{
+					if(!is_networked)
+						this->EVENT_InitNewSoldierAnim( END_AID_PRN, 0 , FALSE );
+					else 
+						this->ChangeSoldierState( END_AID_PRN, 0, 0 );
+				}
+				else
+				{
+					if(!is_networked)
+						this->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
+					else 
+						this->ChangeSoldierState( END_AID, 0, 0 );
+				}
 			}
 		}
 	}

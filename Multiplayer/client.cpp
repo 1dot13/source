@@ -3681,9 +3681,23 @@ void recieveSTATE(RPCParameters *rpcParameters)
 		if(new_state->usNewState==START_AID)
 		{
 			pSoldier->EVENT_InternalSetSoldierPosition( new_state->sXPos, new_state->sYPos ,FALSE, FALSE, FALSE );
-			pSoldier->ChangeSoldierStance( ANIM_CROUCH );
 			pSoldier->EVENT_SetSoldierDirection(	new_state->usNewDirection );
+			// SANDRO - we can now bandage mercs when prone, so change stance only if standing
+			if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
+			{
+				pSoldier->ChangeSoldierStance( ANIM_CROUCH );
+			}
 
+		}
+		// SANDRO - if ordered to bandage in prone position...
+		else if (new_state->usNewState==START_AID_PRN)
+		{
+			pSoldier->EVENT_InternalSetSoldierPosition( new_state->sXPos, new_state->sYPos ,FALSE, FALSE, FALSE );
+			pSoldier->EVENT_SetSoldierDirection(	new_state->usNewDirection );
+			if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE )
+			{
+				pSoldier->ChangeSoldierStance( ANIM_PRONE );
+			}
 		}
 		// Start cutting fence
 		else if (new_state->usNewState==CUTTING_FENCE)

@@ -5723,7 +5723,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
 			fDone = FALSE;
 			// Check for different events!
 			// FOR DOING AID
-			if ( pTeamSoldier->usAnimState == GIVING_AID )
+			if ( pTeamSoldier->usAnimState == GIVING_AID || pTeamSoldier->usAnimState == GIVING_AID_PRN )
 			{
 				// Get medkit info
 				usInHand = pTeamSoldier->inv[ HANDPOS ].usItem;
@@ -5811,7 +5811,7 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 	{
 		// Check for different events!
 		// FOR DOING AID
-		if ( pTeamSoldier->usAnimState == GIVING_AID )
+		if ( pTeamSoldier->usAnimState == GIVING_AID || pTeamSoldier->usAnimState == GIVING_AID_PRN )
 		{
 			// Get medkit info
 			usInHand = pTeamSoldier->inv[ HANDPOS ].usItem;

@@ -489,7 +489,7 @@ void AutoBandage( BOOLEAN fStart )
 			ActionDone( MercPtrs[ ubLoop ] );
 
 			// If anyone is still doing aid animation, stop!
-			if ( MercPtrs[ ubLoop ]->usAnimState == GIVING_AID )
+			if ( MercPtrs[ ubLoop ]->usAnimState == GIVING_AID || MercPtrs[ ubLoop ]->usAnimState == GIVING_AID_PRN )
 			{
 				MercPtrs[ ubLoop ]->SoldierGotoStationaryStance(	);
 			}
