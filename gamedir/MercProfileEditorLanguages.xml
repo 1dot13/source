@@ -3351,7 +3351,7 @@
 	<Items>
 		<Item0>没有技能</Item0>
 		<Item1>开锁</Item1>
-		<Item2>徒手格斗</Item2>
+		<Item2>格斗</Item2>
 		<Item3>电子</Item3>
 		<Item4>夜战</Item4>
 		<Item5>投掷</Item5>
@@ -3359,7 +3359,7 @@
 		<Item7>重武器</Item7>
 		<Item8>自动武器</Item8>
 		<Item9>潜行</Item9>
-		<Item10>双手武器</Item10>
+		<Item10>双持</Item10>
 		<Item11>偷窃</Item11>
 		<Item12>武术</Item12>
 		<Item13>刀技</Item13>
@@ -3540,7 +3540,7 @@
 	<Items>
 		<Item0>没有技能</Item0>
 		<Item1>开锁</Item1>
-		<Item2>徒手格斗</Item2>
+		<Item2>格斗</Item2>
 		<Item3>电子</Item3>
 		<Item4>夜战</Item4>
 		<Item5>投掷</Item5>
@@ -3548,7 +3548,7 @@
 		<Item7>重武器</Item7>
 		<Item8>自动武器</Item8>
 		<Item9>潜行</Item9>
-		<Item10>双手武器</Item10>
+		<Item10>双持</Item10>
 		<Item11>偷窃</Item11>
 		<Item12>武术</Item12>
 		<Item13>刀技</Item13>
@@ -3734,20 +3734,20 @@
 		<Item0>没有技能</Item0>
 		<Item1>自动武器/机枪手</Item1>
 		<Item2>重武器/投弹手</Item2>
-		<Item3>射手/狙击手</Item3>
-		<Item4>猎手/游侠</Item4>
-		<Item5>枪手/大镖客</Item5>
+		<Item3>神枪手/狙击手</Item3>
+		<Item4>猎兵/游骑兵</Item4>
+		<Item5>快枪手/枪斗术</Item5>
 		<Item6>格斗家/武术家</Item6>
-		<Item7>谈判专家/小队长</Item7>
-		<Item8>技师/工程师</Item8>
-		<Item9>救护兵/医生</Item9>
-		<Item10>搏击术</Item10>
+		<Item7>班副/班长</Item7>
+		<Item8>技师/工兵</Item8>
+		<Item9>救护兵/军医</Item9>
+		<Item10>双持</Item10>
 		<Item11>近战</Item11>
 		<Item12>投掷</Item12>
 		<Item13>夜战</Item13>
-		<Item14>尾行</Item14>
-		<Item15>体能训练</Item15>
-		<Item16>肌肉男</Item16>
+		<Item14>潜行</Item14>
+		<Item15>运动员</Item15>
+		<Item16>健身</Item16>
 		<Item17>爆破</Item17>
 		<Item18>教学</Item18>
 		<Item19>侦察</Item19>
@@ -3959,20 +3959,20 @@
 		<Item0>没有技能</Item0>
 		<Item1>自动武器/机枪手</Item1>
 		<Item2>重武器/投弹手</Item2>
-		<Item3>射手/狙击手</Item3>
-		<Item4>猎手/游侠</Item4>
-		<Item5>枪手/大镖客</Item5>
+		<Item3>神枪手/狙击手</Item3>
+		<Item4>猎兵/游骑兵</Item4>
+		<Item5>快枪手/枪斗术</Item5>
 		<Item6>格斗家/武术家</Item6>
-		<Item7>谈判专家/小队长</Item7>
-		<Item8>技师/工程师</Item8>
-		<Item9>救护兵/医生</Item9>
-		<Item10>搏击术</Item10>
+		<Item7>班副/班长</Item7>
+		<Item8>技师/工兵</Item8>
+		<Item9>救护兵/军医</Item9>
+		<Item10>双持</Item10>
 		<Item11>近战</Item11>
 		<Item12>投掷</Item12>
 		<Item13>夜战</Item13>
-		<Item14>尾行</Item14>
-		<Item15>体能训练</Item15>
-		<Item16>肌肉男</Item16>
+		<Item14>潜行</Item14>
+		<Item15>运动员</Item15>
+		<Item16>健身</Item16>
 		<Item17>爆破</Item17>
 		<Item18>教学</Item18>
 		<Item19>侦察</Item19>
@@ -4184,20 +4184,20 @@
 		<Item0>没有技能</Item0>
 		<Item1>自动武器/机枪手</Item1>
 		<Item2>重武器/投弹手</Item2>
-		<Item3>射手/狙击手</Item3>
-		<Item4>猎手/游侠</Item4>
-		<Item5>枪手/大镖客</Item5>
+		<Item3>神枪手/狙击手</Item3>
+		<Item4>猎兵/游骑兵</Item4>
+		<Item5>快枪手/枪斗术</Item5>
 		<Item6>格斗家/武术家</Item6>
-		<Item7>谈判专家/小队长</Item7>
-		<Item8>技师/工程师</Item8>
-		<Item9>救护兵/医生</Item9>
-		<Item10>搏击术</Item10>
+		<Item7>班副/班长</Item7>
+		<Item8>技师/工兵</Item8>
+		<Item9>救护兵/军医</Item9>
+		<Item10>双持</Item10>
 		<Item11>近战</Item11>
 		<Item12>投掷</Item12>
 		<Item13>夜战</Item13>
-		<Item14>尾行</Item14>
-		<Item15>体能训练</Item15>
-		<Item16>肌肉男</Item16>
+		<Item14>潜行</Item14>
+		<Item15>运动员</Item15>
+		<Item16>健身</Item16>
 		<Item17>爆破</Item17>
 		<Item18>教学</Item18>
 		<Item19>侦察</Item19>
