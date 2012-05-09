@@ -34,7 +34,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"重武器",	//"Heavy Weapons",
 	L"自动武器",	//"Auto Weapons",
 	L"潜行",	//"Stealth",
-	L"双手武器",	//"Ambidextrous",
+	L"双持",	//"Ambidextrous",
 	L"刀技",	//"Knifing",
 	L"狙击",	//"Sniper",
 	L"伪装",	//"Camouflage",
@@ -55,7 +55,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"猎兵",// L"Hunter",
 	L"快枪手",// L"Gunslinger",
 	L"格斗家",// L"Hand to Hand",
-	L"小组长",// L"Deputy",
+	L"班副",// L"Deputy",
 	L"技师",// L"Technician",
 	L"救护员",// L"Paramedic",
 
@@ -66,7 +66,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"掷弹兵",// L"Bombardier",
 	L"狙击手",// L"Sniper",
 	L"游骑兵",// L"Ranger",
-	L"枪斗家",// L"Gunfighter",
+	L"枪斗术",// L"Gunfighter",
 	L"武术家",// L"Martial Arts",
 	L"班长",// L"Squadleader",
 	L"工兵",// L"Engineer",
@@ -76,7 +76,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 //added another set of skill texts for new minor traits
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
-	L"双手武器",// L"Ambidextrous",
+	L"双持",// L"Ambidextrous",
 	L"格斗",// L"Melee",
 	L"投掷",// L"Throwing",
 	L"夜战",// L"Night Ops",
@@ -297,7 +297,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"潜行保持无声的几率 +%d%s\n",// L"+%d%s chance to move quietly\n",
 	L"隐蔽性 +%d%s (未发现时判定为“隐形”)\n",// L"+%d%s stealth (being 'invisible' if unnoticed)\n",
 	L"移动对隐蔽程度的惩罚 -%d%s\n",// L"Reduced cover penalty for movement by %d%s\n",
-	L"被敌人中断几率 -%d%s\n", // TODO.Translate
+	L"被敌人中断几率 -%d%s\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=

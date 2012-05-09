@@ -2079,7 +2079,7 @@ STR16 gzMercSkillText[] =
 	// SANDRO - tweaked this
 	L"没有技能",
 	L"开锁",
-	L"徒手格斗",		//JA25: modified
+	L"格斗",		//JA25: modified
 	L"电子",
 	L"夜战",			//JA25: modified
 	L"投掷",
@@ -2087,7 +2087,7 @@ STR16 gzMercSkillText[] =
 	L"重武器",
 	L"自动武器",
 	L"潜行",
-	L"双手武器",
+	L"双持",
 	L"偷窃",
 	L"武术",
 	L"刀技",
@@ -2109,15 +2109,15 @@ STR16 gzMercSkillTextNew[] =
 	L"格斗家",
 	L"班副",
 	L"技师",
-	L"卫生员",
+	L"救护兵",
 	// Minor traits
-	L"双手互搏",
-	L"肉搏",
-	L"飞刀",
+	L"双持",
+	L"近战",
+	L"投掷",
 	L"夜战",
 	L"潜行",
 	L"运动员",
-	L"肌肉男",
+	L"健身",
 	L"爆破",
 	L"教学",
 	L"侦察",
@@ -2873,7 +2873,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"前往分区",
 	L"前往地图",
 	L"你不能从这边离开这个分区。",
-	L"你不能在回合制模式离开。",	// TODO.Translate
+	L"你不能在回合制模式离开。",
 	L"%s太远了。",
 	L"不显示树冠",
 	L"显示树冠",
@@ -2914,7 +2914,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"附件被移除",
 	L"你已经有了两辆车，无法拥有更多的车辆。",
 
-	// added by Flugente for defusing/setting up trap networks	// TODO.Translate
+	// added by Flugente for defusing/setting up trap networks
 	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
 	L"Set defusing frequency:",
 	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
@@ -4232,7 +4232,7 @@ STR16			MercHomePageText[] =
 	L"查看文件点击这里",	//"To view files press here",
 	// The version number on the video conferencing system that pops up when Speck is talking
 	L"Speck Com v3.2",
-	L"转账失败，暂无可用资金。",	// TODO.Translate
+	L"转账失败，暂无可用资金。",
 };
 
 // For use at MiGillicutty's Web Page.
@@ -5304,7 +5304,6 @@ STR16	gzGIOScreenText[] =
 	L"10",
 	//L"Bobby Ray 快速出货", //L"Faster Bobby Ray Shipments",
 	L"战斗时取放物品消耗AP", //L"Inventory Manipulation Costs AP",
-	// TODO: Translate
 	L"新命中率系统（NCTH）", //L"New Chance to Hit System",
 	L"改进的中断系统（IIS）", //L"Improved Interrupt System",
 	L"武器过热", //L"Weapon Overheating",
@@ -6078,7 +6077,7 @@ STR16 New113Message[] =
 	L"榴弹",
 	L"榴弹点射",
 	L"榴弹自动",
-	L"UB",			// TODO.Translate, INFO: UB = Under Barrel
+	L"UB",			// INFO: UB = Under Barrel
 	L"UBRST",
 	L"UAUTO",
 	L"狙击手！",
@@ -6380,7 +6379,7 @@ STR16 MPClientMessage[] =
 	L"无法启动游戏，因为所有小队都一样。",	//L"Cannot start the game, because all teams are the same.",
 	L"The server has choosen New Inventory (NIV), but your screen resolution does not support NIV.",
 	// 70	
-	L"Could not save received file '%S'",		// TODO.Translate
+	L"Could not save received file '%S'",
 	L"%s's bomb was disarmed by %s",
 	L"You loose, what a shame",	// All over red rover
 	L"Spectator mode disabled",
@@ -7095,7 +7094,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|冷|却|参|数",
 	L"|卡|壳|阈|值",
 	L"|损|坏|阈|值",
-	L"|单|发|射|击|温|度",		// TODO.Translate
+	L"|单|发|射|击|温|度",
 	L"|冷|却|参|数",
 	L"|卡|壳|阈|值",
 	L"|损|坏|阈|值",
@@ -7152,7 +7151,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n这是射手在点射或者连发时，频繁评估\n制退力大小以应对后坐力的能力。\n \n较高的频率使连发的总体精度更高，此外，由于射手能\n正确制退后坐力，其长点射也更\n加准确。\n \n该数值越低越好。",
 	L"\n \n当安装于远程武器上时，该物品修正武器的命\n中率。\n \n命中率的提高使该武器在精瞄时更容易命中\n目标。\n \n该数值越高越好。",
 	L"\n \n当安装于远程武器上时，该物品修正武器的精\n瞄加成。\n \n精瞄加成的提高使该武器在精瞄时更容易命\n中远距离的目标。\n \n该数值越高越好。",
-	L"\n \n单发射击所造成的温度。\n所使用的子弹类型对本值有影响。",		// TODO.Translate
+	L"\n \n单发射击所造成的温度。\n所使用的子弹类型对本值有影响。",
 	L"\n \n每回合自动冷却所降低的温度值。",
 	L"\n \n当武器温度超过卡壳阈值时，\n卡壳将更容易发生。",
 	L"\n \n当武器温度超过损坏阈值时，\n武器将更容易损坏。",
