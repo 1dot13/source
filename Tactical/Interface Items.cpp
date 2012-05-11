@@ -3067,16 +3067,21 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 		pObject = &(pSoldier->inv[ cnt ]);
 
 //		if ( Item[ pObject->usItem ].fFlags & ITEM_HIDDEN_ADDON )
-		if ( Item[ pObject->usItem ].hiddenaddon  )
+//		if ( Item[ pObject->usItem ].hiddenaddon  )
+		if ( Item[ pObject->usItem ].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment) )
 		{
 			// don't consider for UI purposes
 			continue;
 		}
 
-		if ( (UsingNewAttachmentSystem()==false && ValidAttachment( pObject->usItem, pTestObject )) ||
+		/*if ( (UsingNewAttachmentSystem()==false && ValidAttachment( pObject->usItem, pTestObject )) ||
 				 (UsingNewAttachmentSystem()==false && ValidAttachment( pTestObject->usItem, pObject )) ||
 				 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE, 0, cnt)) ||
 				 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE, 0, cnt)) ||
+				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
+				 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )*/		
+		if ( (ValidAttachment( pObject->usItem, pTestObject )) ||
+				 (ValidAttachment( pTestObject->usItem, pObject )) ||
 				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
 				 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
 		{
