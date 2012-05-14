@@ -110,7 +110,7 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "name") == 0)
 		{
 			pData->curElement = ELEMENT;
-			// not needed, but its there :-(
+			// not needed, but its there for informational purposes
 		}
 		else if(strcmp(name, "ubDrugTravelRate") == 0)
 		{

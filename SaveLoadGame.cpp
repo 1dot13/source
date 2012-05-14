@@ -2585,7 +2585,21 @@ BOOLEAN OBJECTTYPE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorM
 		LOADDATA( &OldSavedObject101, *hBuffer, sizeof(OLD_OBJECTTYPE_101) );
 		(*this) = OldSavedObject101;
 	}
+
 	RemoveProhibitedAttachments(NULL, this, (*this).usItem);
+
+	//Madd: ok, so this drives me nuts -- why bother with default attachments if the map isn't going to load them for you?  
+	//this should fix that...
+	for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++)
+	{
+		if(Item [ (*this).usItem ].defaultattachments[cnt] == 0)
+			break;
+
+		OBJECTTYPE defaultAttachment;
+		CreateItem(Item [ (*this).usItem ].defaultattachments[cnt],100,&defaultAttachment);
+		this->AttachObject(NULL,&defaultAttachment, FALSE);
+	}
+
 	return TRUE;
 }
 
