@@ -2388,10 +2388,18 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 	{
 		int size;
 		
-		// Flugente: changed this, otherwise game would crash when reading WF maps if class ObjectData was different. this is a rough fix and by no means perfect
-		// LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
-		// +1 because we have to account for endOfPOD itself
-		LOADDATA(&(this->data), *hBuffer, SIZEOF_OBJECTDATA_POD+1 );
+		// When saving maps with the new map editor that has weapon overheated feature included!
+		if (dMajorMapVersion >= 7 && ubMinorMapVersion >= 28)
+		{
+			// Flugente: changed this, otherwise game would crash when reading WF maps if class ObjectData was different. this is a rough fix and by no means perfect
+			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
+		}
+		else
+		{
+			// WF Maps have old format
+			// +1 because we have to account for endOfPOD itself
+			LOADDATA(&(this->data), *hBuffer, SIZEOF_OBJECTDATA_POD+1 );
+		}
 		
 		LOADDATA(&size, *hBuffer, sizeof(int) );
 		attachments.resize(size);
@@ -2407,6 +2415,7 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 	}
 	return TRUE;
 }
+
 
 BOOLEAN StackedObjectData::Load( HWFILE hFile )
 {
