@@ -7352,7 +7352,7 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// Again, if the shooter is skilled, this will occur after fewer tiles have been moved. 
 	// If the target moves *more* tiles than this, the movement penalty will begin to diminish. That's our shooter
 	// beginning to compensate for the target's speed, pointing the gun ahead of the target ("Leading the target").
-	UINT8 uiTilesForMaxPenalty = (100-uiCombinedSkill) / (100 / gGameCTHConstants.MOVEMENT_TRACKING_DIFFICULTY);
+	INT16 uiTilesForMaxPenalty = (INT16)((100-uiCombinedSkill) / (100 / gGameCTHConstants.MOVEMENT_TRACKING_DIFFICULTY));
 	
 	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
 
@@ -7365,7 +7365,7 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// after the target moves a smaller number of tiles.
 	INT32 moda = (INT32)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, stance )) / 100;
 	INT32 modb = (INT32)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
-	uiTilesForMaxPenalty += (UINT8)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+	uiTilesForMaxPenalty += (INT16)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	if (uiTilesForMaxPenalty == 0)
 	{

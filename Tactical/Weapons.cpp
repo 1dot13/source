@@ -5529,11 +5529,11 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		
 		iCombinedSkill /= (gGameCTHConstants.AIM_EXP + gGameCTHConstants.AIM_MARKS + gGameCTHConstants.AIM_WIS + gGameCTHConstants.AIM_DEX);
 
-		UINT32 uiCap = (UINT32)iCombinedSkill;
+		INT32 uiCap = (INT32)iCombinedSkill;
 		// Add percent-based modifier from the gun and its attachments
-		UINT32 uimoda = (UINT32)(uiCap * GetPercentCapModifier( pInHand, stance )) / 100;
-		UINT32 uimodb = (UINT32)(uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
-		uiCap += (UINT32)((gGameExternalOptions.ubProneModifierPercentage * uimoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * uimodb)/100); 
+		INT32 uimoda = (INT32)(uiCap * GetPercentCapModifier( pInHand, stance )) / 100;
+		INT32 uimodb = (INT32)(uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		uiCap += (INT32)((gGameExternalOptions.ubProneModifierPercentage * uimoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * uimodb)/100); 
 
 		// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
 		INT16 sDifference = 99 - uiCap;
@@ -5578,7 +5578,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		// cover when applying the maximum number of aiming clicks for this gun.
 		INT32 iMaxAimBonus = uiCap - iChance;
 
-		iMaxAimBonus = (UINT32)((iMaxAimBonus * (100+iAimModifier)) / 100);
+		iMaxAimBonus = (INT32)((iMaxAimBonus * (100+iAimModifier)) / 100);
 		iMaxAimBonus = __max(0, iMaxAimBonus); // can't get less than 0 points for aiming...
 		
 		// factor in scopes under their range
