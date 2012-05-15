@@ -5396,7 +5396,7 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 		//I can't think of any reason why this would happen, and if it does the worst that can happen is your attachment disappearing.
 		for(slotCount = 0; slotCount < (*pObj)[ubStatusIndex]->attachments.size(); slotCount++){
 			UINT16 usAttach = (*pObj)[ubStatusIndex]->GetAttachmentAtIndex(slotCount)->usItem;
-			if(Item[usAttach].inseparable){
+			if(Item[usAttach].inseparable == 1){
 				for(UINT16 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS && Item[usOldItem].defaultattachments[cnt] != 0; cnt++){
 					if(Item[usOldItem].defaultattachments[cnt] == usAttach){
 						(*pObj)[ubStatusIndex]->RemoveAttachmentAtIndex(slotCount);
@@ -5427,7 +5427,7 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 	//Now add all default attachments, but add them with the same status as the gun. We don't want to make repairing guns easy :)
 	for(UINT16 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS && Item[pObj->usItem].defaultattachments[cnt] != 0; cnt++){
 		//Only add inseparable default attachments, because they are likely "part" of the gun.
-		if(Item[Item[pObj->usItem].defaultattachments[cnt]].inseparable){
+		if(Item[Item[pObj->usItem].defaultattachments[cnt]].inseparable == 1){
 			static OBJECTTYPE defaultAttachment;
 			CreateItem(Item [ pObj->usItem ].defaultattachments[cnt],(*pObj)[ubStatusIndex]->data.objectStatus,&defaultAttachment);
 			AssertMsg(pObj->AttachObject(NULL,&defaultAttachment, FALSE, ubStatusIndex, -1, FALSE), "A default attachment could not be attached after merging, this should not be possible.");
@@ -5466,7 +5466,7 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 
 	//drop all items we couldn't re-attach.
 	for (attachmentList::iterator iter = tempSlotChangingAttachList.begin(); iter != tempSlotChangingAttachList.end(); ++iter) {
-		if ( !Item[iter->usItem].inseparable )
+		if ( Item[iter->usItem].inseparable != 1)
 		{//WarmSteel - Couldn't re-attach this item, try to drop it.
 			if (pSoldier) {
 				if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
@@ -5480,7 +5480,7 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 	}
 	//and the rest too
 	for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end(); ++iter) {
-		if ( !Item[iter->usItem].inseparable )
+		if ( Item[iter->usItem].inseparable != 1)
 		{//WarmSteel - Couldn't re-attach this item, try to drop it.
 			if (pSoldier) {
 				if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
