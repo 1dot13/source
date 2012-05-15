@@ -1072,7 +1072,7 @@
 		<uiIndex>178</uiIndex>
 		<description>Spooky</description>
 		<ProfilId>-1</ProfilId>
-		<AimBioID>62</AimBioID>
+		<AimBioID>63</AimBioID>
 	</AIM>
 	<AIM>
 		<uiIndex>179</uiIndex>
@@ -1341,8 +1341,8 @@
 	<AIM>
 		<uiIndex>223</uiIndex>
 		<description>Gary</description>
-		<ProfilId>-1</ProfilId>
-		<AimBioID>-1</AimBioID>
+		<ProfilId>223</ProfilId>
+		<AimBioID>62</AimBioID>
 	</AIM>
 	<AIM>
 		<uiIndex>224</uiIndex>
