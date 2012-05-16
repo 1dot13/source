@@ -6861,7 +6861,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|A|P|s |t|o |A|u|t|o|f|i|r|e",
 	L"|A|P|s |t|o |R|e|l|o|a|d",
 	L"|A|P|s |t|o |R|e|c|h|a|m|b|e|r",
-	L"|L|a|t|e|r|a|l |R|e|c|o|i|l",			// No longer used!
+	L"",	// No longer used!
 	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
 	L"|A|u|t|o|f|i|r|e |B|u|l|l|e|t|s |p|e|r |5 |A|P|s",
 };
@@ -6887,7 +6887,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nThe number of APs required to fire\nan Autofire Volley of three bullets.\n \nIf you wish to fire more than 3 bullets,\nyou will need to pay extra APs.\n \nIf this icon is greyed-out, autofire\nis not possible with this weapon.\n \nLower is better.",
 	L"\n \nThe number of APs required to reload\nthis weapon.\n \nLower is better.",
 	L"\n \nThe number of APs required to rechamber this weapon\nbetween each and every shot fired.\n \nLower is better.",
-	L"\n \nThe distance this weapon's muzzle will shift\nhorizontally between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting to the right.\nNegative numbers indicate shifting to the left.\n \nCloser to 0 is better.",		// No longer used!
+	L"",	// No longer used!
 	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
 	L"\n \nIndicates the number of bullets that will be added\nto an autofire volley for every extra 5 APs\nyou spend.\n \nHigher is better.",
 };

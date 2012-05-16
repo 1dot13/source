@@ -6863,7 +6863,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|连|发|A|P",
 	L"|上|弹|A|P",
 	L"|换|弹|夹|A|P",
-	L"|水|平|后|坐|力",		// No longer used!
+	L"",
 	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
 	L"|连|发|子|弹|数/5|A|P",
 };
@@ -6889,7 +6889,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n连发模式下，该武器一次\n齐射三发子弹所需的AP。\n \n超过3发子弹，\n则需要额外的AP。\n \n如果该图标发灰，则该武器不可连发。\n \n该数值越低越好。",
 	L"\n \n重新装填子弹所需的AP。\n \n该数值越低越好。",
 	L"\n \n在射击间歇为该武器手动更换弹匣的AP消耗。\n \n该数值越低越好。",
-	L"\n \n该参数显示了枪口在点射或连发模式下发射子弹\n时的水平位移。\n \n当该参数为正时，枪口右偏。反之，则向左偏。\n \n越接近0越好。",		// No longer used!
+	L"",	// No longer used!
 	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
 };

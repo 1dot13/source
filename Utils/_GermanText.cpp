@@ -2515,20 +2515,19 @@ STR16		gzWeaponStatsFasthelp[ 32 ] =
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
-{
-	// TODO.Translate
-	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
-	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
-	L"|A|c|c|u|r|a|c|y\n \nThis is an innate Chance-to-Hit Bonus (or\npenalty!) given by this gun due to its\nparticular good (or bad) design.\n \nHigher is better.",
-	L"|A|i|m|i|n|g |L|e|v|e|l|s\n \nThis is the maximum number of aiming clicks allowed\nwhen using this gun.\n \nEach aiming-click will make an attack more\naccurate.\n \nHigher is better.",
-	L"|A|i|m|i|n|g |M|o|d|i|f|i|e|r\n \nA flat modifier, which alters the effectiveness\nof each aiming click you make while using this\nweapon.\n \nHigher is better.",
-	L"|M|i|n|. |R|a|n|g|e |f|o|r |A|i|m|i|n|g |B|o|n|u|s\n \nThe minimum range-to-target required before this\nweapon can make use of its Aiming Modifier.\n \nIf the target is closer than this many tiles,\naiming clicks will stay at their default\neffectiveness.\n \nLower is better.",
-	L"|T|o|-|H|i|t |M|o|d|i|f|i|e|r\n \nA flat modifier to Chance-to-Hit with any\nattack made using this weapon.\n \nHigher is better.",
-	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e\n \nThe range (in tiles) at which the laser installed\non this weapon will be at its full effectiveness.\n \nWhen attacking a target beyond this range, the\nlaser will provide a smaller bonus or none at all.\n \nHigher is better.",
-	L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
-	L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
-	L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
-	L"|R|e|p|a|i|r |E|a|s|e\n \nThis value indicates how quickly this weapon can\nbe repaired (by a mercenary set to Repair duty).\n \nHigher is better.",
+{	
+	L"|R|e|i|c|h|w|e|i|t|e\n \nDie effektive Reichweite dieser Waffe\nAngriffe jenseits dieser Reichweite führt zu drastischen Genauigkeitseinbußen.\n \nHöher ist besser.",
+	L"|S|c|h|a|d|e|n\n \nDas Schadenspotential der Waffe.\nDie Waffe wird in der Regel diesen \n(oder ähnlichen) Schaden an ungeschützten Zielen verursachen.\n \nHöher ist besser.",
+	L"|G|e|n|a|u|i|g|k|e|i|t\n \nDieser Wert gibt die Exaktheit der Waffe\n(Trefferwahrscheinlichkeit) an, je nachdem,\nwie gut oder schlecht das Design der Waffe ist.\n \nHöher ist besser.",
+	L"|Z|i|e|l|g|e|n|a|u|i|g|k|e|i|t\n \nThis is the maximum number of aiming clicks allowed\nwhen using this gun.\n \nEach aiming-click will make an attack more\naccurate.\n \nHöher ist besser.",
+	L"|Z|i|e|l|e|n|-|M|o|d|i|f|i|k|a|t|o|r\n \nEin Modifikator, welcher die Wirksamkeit\nder Waffe bei jedem Zielgenauigkeits-Klick verändert\n \nHöher ist besser.",
+	L"|M|i|n|. |R|e|i|c|h|w|e|i|t|e |f|ü|r |Z|i|e|l|e|n|-|B|o|n|u|s\n \nDer minimale Bereich zum Ziel welcher erforderlich ist,\num den Zielen-Modifikator verwenden zu können.\n \nNiedriger ist besser.",
+	L"|T|r|e|f|f|e|r|-|M|o|d|i|f|i|k|a|t|o|r\n \nEin Modifikator zur Trefferwahrscheinlichkeit\nbei jedem Schuss der mit dieser Waffe abgefeuert wird.\n \nHöher ist besser.",
+	L"|O|p|t|i|m|a|l|e |L|a|s|e|r |R|e|i|c|h|w|e|i|t|e\n \nDie Entfernung (in Felder) bei der die angebrachte Lasermarkierung\nauf der Waffe die beste Effektivität erreicht.\n \nHöher ist besser.",
+	L"|M|ü|n|d|u|n|g|s|f|e|u|e|r |U|n|t|e|r|d|r|ü|c|k|u|n|g\n \nWenn dieses Symbol erscheint, bedeutet dies, dass die Waffe\nkein Mündungsfeuer verursacht, wenn geschossen wird.",
+	L"|L|a|u|t|s|t|ä|r|k|e\n \nAngriffe mit dieser Waffe können bis zu der\nangezeigten Distanz (in Felder) gehört werden.\n \nNiedriger ist besser.",
+	L"|Z|u|v|e|r|l|ä|s|s|i|g|k|e|i|t\n \nDieser Wert zeigt an, wie schnell die Waffe\nim Kampf bei Benützung schadhaft werden kann.\n \nHöher ist besser.",
+	L"|R|e|p|a|r|a|t|u|r|l|e|i|c|h|t|i|g|k|e|i|t\n \nDieser Wert gibt an, wie schnell die Waffe repariert werden kann.\n \nHöher ist besser.",
 	L"",	//12
 	L"APs zum Anlegen",
 	L"APs für Einzelschuss",
@@ -2918,12 +2917,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Anbringung entfernt",
 	L"Sie können kein weiteres Fahrzeug mehr verwenden, da Sie bereits 2 haben",
 
-	// added by Flugente for defusing/setting up trap networks	// TODO.Translate
-	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
-	L"Set defusing frequency:",
-	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
-	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
-	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
+	// added by Flugente for defusing/setting up trap networks
+	L"Detonations-Frequenz (1 - 4) oder Entschärfungs-Frequenz (A - D):",
+	L"Entschärfungs-Frequenz:",
+	L"Detonations-Frequenz (1 - 4) und die Entschärfungs-Frequenz (A - D):",
+	L"Detonations-Zeit (in Züge) (1 - 4) und die Entschärfungs-Frequenz (A - D):",
+	L"Stolperdraht-Hierarchie (1 - 4) und das Netzwerk (A - D):",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3184,25 +3183,24 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"Nächste (|.)",		// next page
 	L"Vorherige (|,)",		// previous page
 	L"Sektor Inventar schließen (|E|s|c)",	// exit sector inventory
-
-	// TODO.Translate
-	L"Zoom Inventory", // HEAROCK HAM 5: Inventory Zoom Button
-	L"Stack and merge items", // HEADROCK HAM 5: Stack and Merge
-	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates\n|R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
+	
+	L"Inventar zoomen", // HEAROCK HAM 5: Inventory Zoom Button
+	L"Gegenstände stapeln und verbinden", // HEADROCK HAM 5: Stack and Merge
+	L"|L|i|n|k|e|r |K|l|i|c|k: Munition in Kisten sortieren\n|R|e|c|h|t|e|r |K|l|i|c|k: Munition in Boxen sortieren", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"Remove all item attachments", // HEADROCK HAM 5: Separate Attachments
-	L"Eject ammo from all weapons", //HEADROCK HAM 5: Eject Ammo
-	L"|L|e|f|t |C|l|i|c|k: Show all items\n|R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Guns\n|R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Ammunition\n|R|i|g|h|t |C|l|i|c|k: Show only Ammunition", // HEADROCK HAM 5: Filter Button
+	L"Alle Gegenstandsanbauten entfernen", // HEADROCK HAM 5: Separate Attachments
+	L"Munition aus allen Waffen entfernen", //HEADROCK HAM 5: Eject Ammo
+	L"|L|i|n|k|e|r |K|l|i|c|k: Alle Gegenstände anzeigen\n|R|e|c|h|t|e|r |K|l|i|c|k: Alle Gegenstände ausblenden", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Waffen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Waffen anzeigen", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Munition\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Munition anzeigen", // HEADROCK HAM 5: Filter Button
 	// 11 - 15
-	L"|L|e|f|t |C|l|i|c|k: Toggle Explosives\n|R|i|g|h|t |C|l|i|c|k: Show only Explosives", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Melee Weapons\n|R|i|g|h|t |C|l|i|c|k: Show only Melee Weapons", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Armor\n|R|i|g|h|t |C|l|i|c|k: Show only Armor", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle LBEs\n|R|i|g|h|t |C|l|i|c|k: Show only LBEs", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Sprengstoffe\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Sprengstoffe anzeigen", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Nahkampfwaffen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Nahkampfwaffen anzeigen", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Körperpanzerungen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Körperpanzerungen anzeigen", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von LBEs\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur LBEs anzeigen", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Ausrüstung\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Ausrüstung anzeigen", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
+	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von anderen Gegenständen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur andere Gegenstände anzeigen", // HEADROCK HAM 5: Filter Button
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -5977,29 +5975,27 @@ STR16 New113HAMMessage[] =
 	L"Tagesausgaben",
 	// 21 - 25
 	L"Nicht genug Geld für alle angeworbenen Milzen! %d Milzen wurden entlassen und sind heimgekehrt.",
-
-	// TODO.Translate
-	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5
-	L"To attach an item to another item during combat, you must pick them both up first.", // HAM 5
-	L"To merge two items during combat, you must pick them both up first.", // HAM 5
+	
+	L"Um sich den Status eines Gegenstandes während des Kampfes anzuschauen, müssen Sie den Gegenstand vorher aufheben.", // HAM 5
+	L"Um einen Gegenstand an einen anderen anbringen zu können, müssen Sie beide Gegenstände vorher aufheben.", // HAM 5
+	L"Um zwei Gegenstände miteinander zu verbinden, müssen Sie beide Gegenstände vorher aufheben.", // HAM 5
 };
 
-// TODO.Translate
 // HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
 STR16 gzTransformationMessage[] = 
 {
-	L"No available adjustments",
-	L"%s was split into several parts.",
-	L"%s was split into several parts. Check %s's inventory for the resulting items.",
-	L"Due to lack of inventory space after transformation, some of %s's items have been dropped to the ground.",
-	L"%s was split into several parts. Due to a lack of inventory space, %s has had to drop a few items to the ground.",
-	L"Do you wish to adjust all %d items in this stack? (To transform only one item, remove it from the stack first)",
+	L"Keine Umwandlung verfügbar",
+	L"%s wurde in mehrere Teile umgewandelt.",
+	L"%s wurde in mehrere Teile umgewandelt. Prüfen Sie %s's Inventar für die daraus entstandenen Teile.",
+	L"Aufgrund des fehlendes Platzes im Inventar nach der Umwandlung wurden einige von %s's Gegenstände auf den Boden abgelegt.",
+	L"%s wurde in mehrere Teile umgewandelt. Durch den Platzmangel im Inventar hat %s ein paar Gegenstände auf den Boden abgelegt.",
+	L"Möchsten Sie alle %d Gegenstände im Stapel umwandeln? (Um nur einen Gegenstand umzuwandeln, entferenen Sie diesen zuerst vom Stapel)",
 	// 6 - 10
-	L"Split Crate into Inventory",
-	L"Split into %d-rd Mags",
-	L"%s was split into %d Magazines containing %d rounds each.",
-	L"%s was split into %s's inventory.",
-	L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
+	L"Aufteilen des Kisteninhaltes ins Inventar",
+	L"Aufteilen in %d-Schuss Magazine",
+	L"%s wurde aufgeteilt in %d Magazine, wobei jedes davon %d Schuss enthält.",
+	L"%s wurde aufgeteilt in %s's Inventar.",
+	L"Es ist nicht genügend Platz in %s's Inventar um die Magazine dieses Kalibers abzulegen!",
 };
 
 // WANNE: These are the email texts Speck sends when one of the 4 new 1.13 MERC mercs have levelled up
@@ -6666,7 +6662,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|G|e|n|a|u|i|g|k|e|i|t",
 	L"|S|c|h|a|d|e|n",
 	L"|R|e|i|c|h|w|e|i|t|e",
-	L"|H|a|n|d|l|i|n|g |D|i|f|f|i|c|u|l|t|y",	// TODO.Translate
+	L"|H|a|n|d|h|a|b|u|n|g|s|p|r|o|b|l|e|m|a|t|i|k",
 	L"|E|r|l|a|u|b|t|e |Z|i|e|l|s|t|u|f|e|n",
 	L"|V|e|r|g|r|ö|ß|e|r|u|n|g|s|f|a|k|t|o|r",
 	L"|P|r|o|j|e|k|t|i|o|n|s|f|a|k|t|o|r",
@@ -6682,8 +6678,8 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|A|P|s |f|ü|r |A|u|t|o|f|e|u|e|r",
 	L"|A|P|s |f|ü|r |N|a|c|h|l|a|d|e|n",
 	L"|A|P|s |f|ü|r |R|e|p|e|t|i|e|r|e|n",
-	L"|H|o|r|i|z|o|n|t|a|l|e|r |R|ü|c|k|s|t|o|ß",		// No longer used!
-	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
+	L"",	// No longer used!
+	L"|G|e|s|a|m|t|e|r| |R|ü|c|k|s|t|o|ß",
 	L"|A|u|t|o|f|e|u|e|r |p|r|o |5 |A|P|s",
 };
 
@@ -6692,7 +6688,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nBestimmt ob Kugeln, welche von dieser Waffe gefeuert werden, vom\nZiel abweichen.\n \nMaßstab: 0-100.\nHöher ist besser.",
 	L"\n \nBestimmt den durchschnittlichen Schaden den von dieser Waffe gefeuerte Kugeln machen,\nbevor Berücksichtigung von Rüstung oder Rüstungsdurchdringen.\n \nHöher ist besser.",
 	L"\n \nDie gößte Entfernung (in Felder) die von dieser Waffe gefeuerte Kugel\nzurücklegen, bevor sie zu Boden fallen.\n \nHöher ist besser.",
-	L"\n \nDetermines the difficulty of holding and firing\nthis gun.\n \nHigher Handling Difficulty results in lower\nchance-to-hit - when aimed and especially when\nunaimed.\n \nLower is better.",	// TODO.Translate
+	L"\n \nBestimmt die Schwierigkeit für das Halten und Feuern der Waffe.\nEin höhere Wert resultiert in einer niedrigeren Trefferwahrscheinlichkeit.\n \nNiedriger ist besser.",
 	L"\n \nDas ist die Anzahl von extra Ziellevel welche Sie erhalten,\nwenn Sie mit der Waffe zielen.\n \nJe weniger Ziellevel erlaubt sind desto mehr\nLevel erhalten Sie. Deshalb, weniger Level zu haben,\nmacht die Waffe schneller ohne an Genauigkeit\nzu verlieren.\n \nNiedriger ist besser.",
 	L"\n \nWenn größer als 1.0, werden Zielfehler\nproportional zur Entfernung reduziert.\n \nZur Erinnernung hohe Zielfernrohrvergrößerungen sind schädlich wenn das Ziel zu nahe ist!\n \n Der Wert von 1.0 bedeutet kein Zielfernrohr wird benutzt.",
 	L"\n \nReduziert Zielfehler proportional zur Entfernung.\n \nDieser Effekt wirkt bis zu einer gegebenen Entfernung,\ndann löst er sich langsam auf und verschwindet evtl. bei ausreichender Entfernung.\n \nHöher ist besser.",
@@ -6708,8 +6704,8 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nDie Anzahl von APs die für eine Autofeuer Salve von genau 3 Kugeln benötigt werden.\nWenn das Symbol 'grau' erscheint ist Autofeuer nicht möglich.\n \nNiedriger ist besser.",
 	L"\n \nDie Anzahl von APs die für das Nachladen benötigt werden.\n \nNiedriger ist besser.",
 	L"\n \nDie Anzahl von APs die für das repetieren der Waffe benötigt werden.\n \nNiedriger ist besser.",
-	L"\n \nDie Entfernung in der die Mündung horizontal nach jeder Salve in Feurstoss- oder Autofeurmodus abweicht.\n \nPositive Zahlen zeigen Abweichungen nach rechts an.\nNegative Zahlen zeigen Abweichungen nach links an.\n \nNäher an 0 ist besser.",		// No longer used!
-	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
+	L"",	// No longer used!
+	L"\n \nDie absolute Reichweite mit der sich das Mündungsfeuer\nausbreitet für jede Kugel die geschossen wird,\nwenn keine Gegenmaßnahme angewendet wird.\n \nNiedriger ist besser.", // HEADROCK HAM 5: Altered to reflect unified number.
 	L"\n \nZeigt die Anzahl der Kugeln an, welche zu einer Autofeuer Salve für jeweils 5 investierte AP addiert werden.\n \nHöher ist besser.",
 };
 
@@ -6747,7 +6743,7 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|S|c|h|a|d|e|n",
 	L"|B|e|t|ä|u|b|u|n|g|s|s|c|h|a|d|e|n",
-	L"|E|x|p|l|o|d|e|s |o|n| |I|m|p|a|c|t",		// HEADROCK HAM 5	// TODO.Translate
+	L"|E|x|p|l|o|d|i|e|r|t |b|e|i|m |A|u|f|p|r|a|l|l",		// HEADROCK HAM 5
 	L"|R|a|d|i|u|s|-|D|r|u|c|k|w|e|l|l|e",
 	L"|R|a|d|i|u|s|-|B|e|t|ä|u|b|u|n|g|s|s|c|h|a|d|e|n",
 	L"|R|a|d|i|u|s|-|G|e|r|ä|u|s|c|h",
@@ -6762,10 +6758,10 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|E|n|d|r|a|d|i|u|s|-|R|a|u|c|h",
 	L"|E|n|d|r|a|d|i|u|s|-|F|e|u|e|r ",
 	L"|Z|e|i|t|d|a|u|e|r",
-	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
-	L"|N|u|m|b|e|r |o|f |F|r|a|g|m|e|n|t|s",
-	L"|D|a|m|a|g|e |p|e|r |F|r|a|g|m|e|n|t",
-	L"|F|r|a|g|m|e|n|t |R|a|n|g|e",
+	// HEADROCK HAM 5: Fragmentation
+	L"|A|n|z|a|h|l |a|n |F|r|a|g|m|e|n|t|e|n",
+	L"|S|c|h|a|d|e|n |p|r|o |F|r|a|g|m|e|n|t",
+	L"|F|r|a|g|m|e|n|t |R|e|i|c|h|w|e|i|t|e",
 	// HEADROCK HAM 5: End Fragmentations
 	L"|L|a|u|t|s|t|ä|r|k|e",
 	L"|U|n|b|e|s|t|ä|n|d|i|g|k|e|i|t",
@@ -6775,7 +6771,7 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
 	L"\n \nDer Schaden der durch diesen Sprengstoff\nverursacht wird.\n \nAnmerkung: Sprengstoffe die in einer Druckwelle explodieren liefern\nnur einmal Schaden (dann wenn Sie explodieren), während anhaltend wirkende\nSprengstoffe rundenübergreifend Schaden bis die Wirkung nachlässt.\n \nHöher ist besser.",
 	L"\n \nDer Betäubungschaden (nicht tödlich) der durch diesen\nSprengstoff verursacht wird.\n \nAnmerkung: Sprengstoffe die in einer Druckwelle explodieren liefern\nnur einmal Schaden (dann wenn Sie explodieren), während anhaltend wirkende\nSprengstoffe rundenübergreifend Schaden bis die Wirkung nachlässt.\n \nHöher ist besser.",
-	L"\n \nThis explosive will not bounce around -\nit will explode as soon as it hits any obstacle.",	// HEADROCK HAM 5	// TODO.Translate
+	L"\n \nDieser Sprengstoff wird sobald er ein Hindernis\ntrifft explodieren (und nicht vorher noch abprallen).",	// HEADROCK HAM 5
 	L"\n \nDas ist der Radius der Explosionswelle den dieser\nSprengstoff hervorruft.\n \nZiele werden weniger Schaden erleiden desto weiter entfernt\nsie von der Mitte der Explosion sind.\n \nHöher ist besser.",
 	L"\n \nDas ist der Radius des Betäubungsschlags den dieser\nSprengstoff hervorruft.\n \nZiele werden weniger Schaden erleiden desto weiter entfernt\nsie von der Mitte der Explosion sind.\n \nHöher ist besser.",
 	L"\n \nDie Entfernung die das Geräusch der Explosion\nzurücklegen wird. Soldaten innerhalb der Entfernung \nsind fähig das Geräusch zu hören und werden gewarnt.\n \nHöher ist besser.",
@@ -6790,10 +6786,10 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \nDas ist der Endradius den das Rauchs durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nJeder innerhalb der Rauchwolke ist sehr schwer zu erkennen,\nund verliert ein ganzes Stück Sichtweite.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
 	L"\n \nDas ist der Endradius den die Flammen dieses\nSprengstoffs einnehmen, bevor sie verschwinden.\n \nFeinde, die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jede Runde.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
 	L"\n \nDas ist die Wirkungsdauer des Sprengstoffs.\n \nJeden Zug wird der Wirkungsradius wachsen, \nein Feld in jede Richtung, bis\nder angegebene Endradius erreicht ist.\n \nWird die maximale Dauer erreicht, verschwindet\ndie Wirkung vollständig.\n \nLicht freigesetzt durch Sprengstoffe\nnimmt ab, im Unterschied zu anderen Wirkungen.\n \nHöher ist besser.",
-	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
-	L"\n \nThis is the number of fragments that will\nbe ejected from the explosion.\n \nFragments are similar to bullets, and may hit\nanyone who's close enough to the explosion.\n \nHigher is better.",
-	L"\n \nThe potential amount of damage caused by each\nfragment ejected from the explosion.\n \nHigher is better.",
-	L"\n \nThis is the average range to which fragments\nfrom this explosion will fly.\n \nSome fragments may end up further away, or fail\nto cover the distance altogether.\n \nHigher is better.",
+	// HEADROCK HAM 5: Fragmentation
+	L"\n \nDies ist die Anzahl an Fragementen die von der\nExplosion ausgestoßen werden.\n \nDie Fragmente verhalten sich ähnlich wie Kugeln und können jeden treffen\nder sich nahe genug an der Explosion aufhält.\n \nHöher ist besser.",
+	L"\n \nDer potenzielle Schaden welcher durch die\nExplosion der ausgestoßenen Fragemente verursacht wird.\n \nHöher ist besser.",
+	L"\n \nDas ist die durchschnittliche Reichweite welche\ndie Fragmente einer Explosion fliegen können.\n \nEinige dieser Fragmente können jedoch weiter oder weniger weit fliegen.\n \nHöher ist besser.",
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nDie Reichweite in Feldern\nin der Feinde und Söldner die Explosion wahrnehmen.\n \nFeinde die die Explosion hören werden alarmiert.\n \nNiedriger ist besser.",
 	L"\n \nDieser Wert (außerhalb von 100) stellt eine Möglichkeit für den\nSprengstoff dar, spontan zu explodieren wenn er Schaden nimmt\n(z.B. durch Explosionen in der Nähe).\n \nDas Mitführen empfindlicher Sprengstoffe innerhalb des Kampfs\nist deshalb extrem riskant und sollte vermieden werden.\n \nSkala: 0-100.\nNiedriger ist besser.",
@@ -7030,10 +7026,10 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nDas ist die Fähigkeit des Schützen Rückstöße\ngenauer auszugleichen.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin hoher Wert hilft dem Schützen die Mündung der Waffe\nbei Salven genauer auf das Ziel zu richten.\n \nNiedriger ist besser.",
 	L"\n \nDer Treffer Modifikator wird verändert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhöhter Treffer Modifikator erlaubt es entfernte Ziele\n öfter zu treffen sofern\nanständig gezielt wird.\n \nHöher ist besser.",
 	L"\n \nDer Zielbonus wird verändert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhöhter Zielbonus erlaubt es entfernte Ziele\n öfter zu treffen sofern\nanständig gezielt wird.\n \nHöher ist besser.",
-	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",					// TODO.Translate
-	L"\n \nEvery turn, the temperature is lowered\nby this amount.\nWeapon attachments can affect this.\n \nHigher is better.",
-	L"\n \nIf a gun's temperature is above this,\nit will jam more frequently.",
-	L"\n \nIf a gun's temperature is above this,\nit will be damaged more easily.",
+	L"\n \nEin einziger Schuss dieser Waffe\nkann diese Hitze erzeugen.\nUnterschiedliche Munition kann diesen Wert beeinflussen.\n \nNiedriger ist besser.",
+	L"\n \nIn jeder Runde kühlt die Temperatur um diesen Wert ab.\nAnbauten an der Waffe können diesen Wert beinflussen.\n \nHöher ist besser.",
+	L"\n \nWenn die Temperatur der Waffe über diese Wert steigt,\nkann die Waffe leicht blockieren.",
+	L"\n \nWenn die Temperatur der Waffe über diesen Wert steigt,\nkann die Waffe Schaden davon tragen.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
@@ -7046,43 +7042,42 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
-// TODO.Translate
 // HEADROCK HAM 5: Screen messages for sector inventory sorting reports.
 STR16 gzMapInventorySortingMessage[] =
 {
-	L"Finished sorting ammo into crates in sector %c%d.",
-	L"Finished removing attachments from items in sector %c%d.",
-	L"Finished ejecting ammo from weapons in sector %c%d.",
-	L"Finished stacking and merging all items in sector %c%d.",
+	L"Das Sortieren der Munition in Kisten im Sektor %c%d wurde fertiggestellt.",
+	L"Das Entfernen von Gegenstandsanbauten im Sektor %c%d wurde fertiggestellt.",
+	L"Das Entfernen von Munition der Waffen im Sektor %c%d wurde fertiggestellt.",
+	L"Das Stapeln und Zusammenführen von Gegenständen im Sektor %c%d wurde fertiggestellt.",
 };
 
 STR16 gzMapInventoryFilterOptions[] =
 {
-	L"Show all",
-	L"Guns",
-	L"Ammo",
-	L"Explosives",
-	L"Melee Weapons",
-	L"Armor",
+	L"Alle anzeigen",
+	L"Waffen",
+	L"Munition",
+	L"Sprengstoffe",
+	L"Nahkampfwaffen",
+	L"Rüstung",
 	L"LBE",
-	L"Kits",
-	L"Misc. Items",
-	L"Hide all",
+	L"Ausrüstung",
+	L"Andere Gegenstände",
+	L"Alle ausblenden",
 };
 
 // Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
-STR16 gTemperatureDesc[] =			// TODO.Translate
+STR16 gTemperatureDesc[] =
 {
-	L"Temperature is ",
-	L"very low",
-	L"low",
-	L"medium",
-	L"high",
-	L"very high",
-	L"dangerous",
-	L"CRITICAL",
-	L"DRAMATIC",
-	L"unknown",
+	L"Temperatur ist ",
+	L"sehr niedrig",
+	L"niedrig",
+	L"mittel",
+	L"hoch",
+	L"sehr hoch",
+	L"gefährlich",
+	L"KRITISCH",
+	L"DRAMATISCH",
+	L"unbekannt",
 	L"."
 };
 

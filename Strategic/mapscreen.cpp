@@ -6808,8 +6808,7 @@ void InitializeWorldSize(INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ)
 
 void GetMapKeyboardInput( UINT32 *puiNewEvent )
 {
-	InputAtom					InputEvent;
-	POINT	MousePos;
+	InputAtom InputEvent;
 	INT8 bSquadNumber;
 	UINT8 ubGroupId = 0;
 	BOOLEAN fCtrl, fAlt;

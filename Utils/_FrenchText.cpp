@@ -6833,7 +6833,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|N|o|m|b|r|e |d|e |P|A| |t|i|r |e|n |A|u|t|o|m|a|t|i|q|u|e",
 	L"|N|o|m|b|r|e |d|e |P|A| |p|o|u|r |r|e|c|h|a|r|g|e|r",
 	L"|N|o|m|b|r|e |d|e |P|A| |p|o|u|r |r|e|c|h|a|r|g|e|r |m|a|n|u|e|l|l|e|m|e|n|t",
-	L"|R|e|c|u|l |l|a|t|é|r|a|l",		// No longer used!
+	L"",	// No longer used!
 	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
 	L"|T|i|r |a|u|t|o|m|a|t|i|q|u|e |p|o|u|r |5 |P|A",
 };
@@ -6859,7 +6859,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nLe nombre de PA requis pour tirer en Automatique.\n \nSi vous voulez tirez plus de balles,\ncela coûtera plus de PA.\n \nSi cette icone est grisé, le mode Auto\nn'est pas possible avec cette arme.\n \nValeur faible recommandée.",
 	L"\n \nLe nombre de PA requis pour recharger cette arme.\n \nValeur faible recommandée.",
 	L"\n \nLe nombre de PA requis pour recharger cette arme\nentre chaque tir.\n \nValeur faible recommandée.",
-	L"\n \nDistance à laquelle le canon va se déplacer horizontalement\naprès chaque tir en mode Auto ou rafale.\n \nUn nombre positif indique qu'il se déplacera vers la droite.\nEt un nombre négatif pour la gauche.\n \nValeur proche de 0 recommandée.",		// No longer used!
+	L"",	// No longer used!
 	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
 	L"\n \nIndique le nombre de balles qui seront ajoutés\nau mode Auto tous les 5 PA que vous dépensez.\n \nValeur élevée recommandée.",
 };
