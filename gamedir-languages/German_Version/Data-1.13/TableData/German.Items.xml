@@ -2809,7 +2809,7 @@
     <uiIndex>256</uiIndex>
     <szItemName>Bier</szItemName>
     <szLongItemName>Bier</szLongItemName>
-    <szItemDesc>Wen kümmert es bei 6.9&% alc. wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
+    <szItemDesc>Wen kümmert es bei 6.9%% alc. wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
     <szBRName>Bier</szBRName>
     <szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
     <STAND_MODIFIERS />
