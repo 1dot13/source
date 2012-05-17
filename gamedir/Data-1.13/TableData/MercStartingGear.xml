@@ -8406,11 +8406,11 @@
 			<mWeaponDrop>0</mWeaponDrop>
 			<mWeaponStatus>0</mWeaponStatus>
 			<mBig0>202</mBig0>
-			<mBig0Status>1</mBig0Status>
+			<mBig0Status>100</mBig0Status>
 			<mBig0Quantity>1</mBig0Quantity>
 			<mBig0Drop>1</mBig0Drop>
 			<mBig1>201</mBig1>
-			<mBig1Status>1</mBig1Status>
+			<mBig1Status>100</mBig1Status>
 			<mBig1Quantity>2</mBig1Quantity>
 			<mBig1Drop>1</mBig1Drop>
 			<mBig2>0</mBig2>
