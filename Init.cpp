@@ -659,12 +659,6 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInSectorNames(fileName,FALSE,0), SECTORNAMESFILENAME);
 
-	// HEADROCK HAM 5: Read in Coolness by Sector
-	strcpy(fileName, directoryName);
-	strcat(fileName, COOLNESSBYSECTORFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInCoolnessBySector(fileName), COOLNESSBYSECTORFILENAME);
-
 #ifndef ENGLISH
 	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
@@ -673,6 +667,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		SGP_THROW_IFFALSE(ReadInSectorNames(fileName,TRUE, 0), fileName);
 	}
 #endif	
+
+	// HEADROCK HAM 5: Read in Coolness by Sector
+	strcpy(fileName, directoryName);
+	strcat(fileName, COOLNESSBYSECTORFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInCoolnessBySector(fileName), COOLNESSBYSECTORFILENAME);
 
 	// WANNE: Why do we need it. It should also run without that file!!
 	// SANDRO - always initialize those files, we need it on game start
