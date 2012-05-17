@@ -5428,7 +5428,7 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 	for(UINT16 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS && Item[pObj->usItem].defaultattachments[cnt] != 0; cnt++){
 		//Only add inseparable default attachments, because they are likely "part" of the gun.
 		if(Item[Item[pObj->usItem].defaultattachments[cnt]].inseparable == 1){
-			static OBJECTTYPE defaultAttachment;
+			OBJECTTYPE defaultAttachment;
 			CreateItem(Item [ pObj->usItem ].defaultattachments[cnt],(*pObj)[ubStatusIndex]->data.objectStatus,&defaultAttachment);
 			AssertMsg(pObj->AttachObject(NULL,&defaultAttachment, FALSE, ubStatusIndex, -1, FALSE), "A default attachment could not be attached after merging, this should not be possible.");
 		}
@@ -5438,7 +5438,9 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 	for (attachmentList::iterator iter = tempSlotChangingAttachList.begin(); iter != tempSlotChangingAttachList.end();) {
 		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex )){
 			//This seems to be rather valid. Can't be 100% sure though.
-			if(pObj->AttachObject(NULL, &(*iter), FALSE, ubStatusIndex)){
+			OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
+			CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
+			if(pObj->AttachObject(NULL, &tempAttachment, FALSE, ubStatusIndex)){
 				//Ok now we can be sure, lets remove this object so we don't try to drop it later.
 				iter = tempSlotChangingAttachList.erase(iter);
 			} else {
@@ -5453,7 +5455,9 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 	for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end();) {
 		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex)){
 			//This seems to be rather valid. Can't be 100% sure though.
-			if(pObj->AttachObject(NULL, &(*iter), FALSE, ubStatusIndex)){
+			OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
+			CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
+			if(pObj->AttachObject(NULL, &tempAttachment, FALSE, ubStatusIndex)){
 				//Ok now we can be sure, lets remove this object so we don't try to drop it later.
 				iter = tempAttachList.erase(iter);
 			} else {
@@ -5469,10 +5473,12 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 		if ( Item[iter->usItem].inseparable != 1)
 		{//WarmSteel - Couldn't re-attach this item, try to drop it.
 			if (pSoldier) {
-				if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
+				OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
+				CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
+				if ( !AutoPlaceObject( pSoldier, &tempAttachment, FALSE ) )
 				{   // put it on the ground
 					// HEADROCK HAM 5: A much more suitable function. Works in both tactical and mapscreen!
-					AutoPlaceObjectToWorld( pSoldier, &(*iter), true );
+					AutoPlaceObjectToWorld( pSoldier, &tempAttachment, true );
 					//AddItemToPool( pSoldier->sGridNo, &(*iter), 1, pSoldier->pathing.bLevel, 0 , -1 );
 				}
 			}
@@ -5483,10 +5489,12 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 		if ( Item[iter->usItem].inseparable != 1)
 		{//WarmSteel - Couldn't re-attach this item, try to drop it.
 			if (pSoldier) {
-				if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
+				OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
+				CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
+				if ( !AutoPlaceObject( pSoldier, &tempAttachment, FALSE ) )
 				{   // put it on the ground
 					// HEADROCK HAM 5: A much more suitable function. Works in both tactical and mapscreen!
-					AutoPlaceObjectToWorld( pSoldier, &(*iter), true );
+					AutoPlaceObjectToWorld( pSoldier, &tempAttachment, true );
 					//AddItemToPool( pSoldier->sGridNo, &(*iter), 1, pSoldier->pathing.bLevel, 0 , -1 );
 				}
 			}
