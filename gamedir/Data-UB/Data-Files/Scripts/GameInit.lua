@@ -84,6 +84,9 @@ http://www.legion.zone.zg.pl/doku.php/modowanie/ja/art_ja_m_22_lua
 		ubSender - uiIndex from SenderNameList.xml
 		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
 		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
+	
+	- HireMerc (MercID)
+		hires the merc with the specified MercID
 
 
 **************        
@@ -143,6 +146,9 @@ http://www.legion.zone.zg.pl/doku.php/modowanie/ja/art_ja_m_22_lua
 	
 	-- Add alternative sector C1-3
 	AddAltUGSectorNew(3,1,3)
+	
+	-- Hire Ivan
+	HireMerc(7)
 ]]
 
 -- Initialize the pseudo random number generator
