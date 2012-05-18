@@ -4420,7 +4420,7 @@ STR16			BobbyRFilter[] =
 	L"Mat. Face",
 	L"Mat. LBE",
 	L"Optics", // Madd: new BR filters		// TODO.Translate
-	L"Side/Bot.",
+	L"Grip/LAM",
 	L"Muzzle",
 	L"Stock",
 	L"Mag/Trig.",

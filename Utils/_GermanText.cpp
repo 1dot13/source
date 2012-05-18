@@ -4331,7 +4331,7 @@ STR16			BobbyRFilter[] =
 	L"Kopfausr.",
 	L"Trageausr.",
 	L"Optik", // Madd: new BR filters		// TODO.Translate
-	L"Seit/Unt.",
+	L"Grip/LAM",
 	L"Mündung",
 	L"Schaft",
 	L"Mag/Abz.",
