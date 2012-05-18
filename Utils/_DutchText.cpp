@@ -4429,7 +4429,7 @@ STR16			BobbyRFilter[] =
 	L"Kits",
 	L"Face Items",
 	L"LBE Gear",
-	L"Optics", // Madd: new BR filters
+	L"Optics", // Madd: new BR filters		// TODO.Translate
 	L"Side/Bot.",
 	L"Muzzle",
 	L"Stock",

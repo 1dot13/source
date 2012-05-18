@@ -4330,12 +4330,12 @@ STR16			BobbyRFilter[] =
 	L"Taschen",
 	L"Kopfausr.",
 	L"Trageausr.",
-	L"Optics", // Madd: new BR filters
-	L"Side/Bot.",
-	L"Muzzle",
-	L"Stock",
-	L"Mag/Trig.",
-	L"Other Att.",
+	L"Optik", // Madd: new BR filters		// TODO.Translate
+	L"Seit/Unt.",
+	L"Mündung",
+	L"Schaft",
+	L"Mag/Abz.",
+	L"Andere An.",
 	L"Sonstiges",
 };
 

@@ -4416,7 +4416,7 @@ STR16			BobbyRFilter[] =
 	L"Наборы",
 	L"Головные",
 	L"Разгр.с-мы",
-	L"Optics", // Madd: new BR filters
+	L"Optics", // Madd: new BR filters		// TODO.Translate
 	L"Side/Bot.",
 	L"Muzzle",
 	L"Stock",
