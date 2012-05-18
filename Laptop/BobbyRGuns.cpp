@@ -149,13 +149,14 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ 100 ];
 #define		FILTER_BUTTONS_USED_START_X				FILTER_BUTTONS_GUN_START_X	//FILTER_BUTTONS_GUN_START_X + 122
 #define		FILTER_BUTTONS_ARMOUR_START_X			FILTER_BUTTONS_GUN_START_X
 #define		FILTER_BUTTONS_MISC_START_X				FILTER_BUTTONS_GUN_START_X
-#define		FILTER_BUTTONS_Y						BOBBYR_PREVIOUS_BUTTON_Y + 25
+#define		FILTER_BUTTONS_Y_OFFSET					22 //Madd: added to standardize this value, and decreased slightly from 25 to make more room
+#define		FILTER_BUTTONS_Y						BOBBYR_PREVIOUS_BUTTON_Y + FILTER_BUTTONS_Y_OFFSET 
 
 // The number of filter buttons which category uses
 #define		NUMBER_GUNS_FILTER_BUTTONS			9
 #define		NUMBER_AMMO_FILTER_BUTTONS			8
 #define		NUMBER_ARMOUR_FILTER_BUTTONS		4
-#define		NUMBER_MISC_FILTER_BUTTONS			10
+#define		NUMBER_MISC_FILTER_BUTTONS			16 // Madd: Increased to 16 for new categories
 #define		NUMBER_USED_FILTER_BUTTONS			4
 
 #define		BOBBYR_GUNS_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
@@ -163,6 +164,17 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ 100 ];
 #define		BOBBYR_USED_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 #define		BOBBYR_ARMOUR_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 #define		BOBBYR_MISC_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
+
+//Madd: new BR filters
+#define		BR_MISC_FILTER_OPTICS				(AC_SCOPE | AC_SIGHT)
+#define		BR_MISC_FILTER_SIDE_BOTTOM			(AC_LASER | AC_FOREGRIP | AC_BIPOD)
+#define		BR_MISC_FILTER_MUZZLE				(AC_SUPPRESSOR | AC_EXTENDER)
+#define		BR_MISC_FILTER_STOCK				AC_STOCK
+#define		BR_MISC_FILTER_INTERNAL				(AC_MAGWELL | AC_INTERNAL | AC_EXTERNAL)
+#define		BR_MISC_FILTER_STD_ATTACHMENTS		(BR_MISC_FILTER_OPTICS | BR_MISC_FILTER_SIDE_BOTTOM | BR_MISC_FILTER_MUZZLE | BR_MISC_FILTER_STOCK | BR_MISC_FILTER_INTERNAL)
+#define		BR_MISC_FILTER_OTHER_ATTACHMENTS	AC_SLING
+#define		BR_MISC_FILTER_NO_ATTACHMENTS		0
+
 
 UINT32	guiBobbyRFilterGuns[ NUMBER_GUNS_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterAmmo[ NUMBER_AMMO_FILTER_BUTTONS ];
@@ -223,9 +235,13 @@ INT8			ubFilterMiscButtonValues[] = {
 							BOBBYR_FILTER_MISC_KIT,
 							BOBBYR_FILTER_MISC_FACE,
 							BOBBYR_FILTER_MISC_LBEGEAR,
+							BOBBYR_FILTER_MISC_OPTICS_ATTACHMENTS, // Madd: new BR filters
+							BOBBYR_FILTER_MISC_SIDE_AND_BOTTOM_ATTACHMENTS,
+							BOBBYR_FILTER_MISC_MUZZLE_ATTACHMENTS,
+							BOBBYR_FILTER_MISC_STOCK_ATTACHMENTS,
+							BOBBYR_FILTER_MISC_INTERNAL_ATTACHMENTS,
+							BOBBYR_FILTER_MISC_OTHER_ATTACHMENTS,
 							BOBBYR_FILTER_MISC_MISC};
-
-
 
 extern	BOOLEAN fExitingLaptopFlag;
 
@@ -346,6 +362,7 @@ void GameInitBobbyRGuns()
 	guiCurrentUsedFilterMode = -1;
 	guiCurrentArmourFilterMode = -1;
 	guiCurrentMiscFilterMode = -1;
+	guiCurrentMiscSubFilterMode = -1;
 
 	memset(&BobbyRayPurchases, 0, gGameExternalOptions.ubBobbyRayMaxPurchaseAmount);
 }
@@ -525,7 +542,7 @@ BOOLEAN InitBobbyRGunsFilterBar()
 		if (i > 7)
 		{
 			usPosX = FILTER_BUTTONS_GUN_START_X;
-			usYOffset = 25;
+			usYOffset = FILTER_BUTTONS_Y_OFFSET;
 		}
 
 		// Filter buttons
@@ -568,7 +585,7 @@ BOOLEAN InitBobbyRAmmoFilterBar()
 		if (i > 7)
 		{
 			usPosX = FILTER_BUTTONS_AMMO_START_X;
-			usYOffset = 25;
+			usYOffset = FILTER_BUTTONS_Y_OFFSET;
 		}
 
 		// Filter buttons
@@ -610,7 +627,7 @@ BOOLEAN InitBobbyRArmourFilterBar()
 		if (i > 7)
 		{
 			usPosX = FILTER_BUTTONS_ARMOUR_START_X;
-			usYOffset = 25;
+			usYOffset = FILTER_BUTTONS_Y_OFFSET;
 		}
 
 		// Filter buttons
@@ -676,7 +693,7 @@ BOOLEAN InitBobbyRMiscFilterBar()
 	UINT8	i;
 	UINT16	usPosX = 0, usPosY = 0;
 	UINT8	bCurMode;
-	UINT16	usYOffset = 25, sItemWidth = 8;
+	UINT16	usYOffset = FILTER_BUTTONS_Y_OFFSET - 2, sItemWidth = 8; //Madd: reduced Y offset to 20 to make more room
 	UINT16	usXOffset = BOBBYR_MISC_FILTER_BUTTON_GAP;
 
 	bCurMode = 0;
@@ -692,6 +709,7 @@ BOOLEAN InitBobbyRMiscFilterBar()
 		{
 			continue;
 		}
+
 
 		usPosX = FILTER_BUTTONS_MISC_START_X + ( (bCurMode % sItemWidth) * usXOffset);
 		usPosY = FILTER_BUTTONS_Y + ( (bCurMode / sItemWidth) * usYOffset);
@@ -945,9 +963,11 @@ void BtnBobbyRPageMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				break;
 			case LAPTOP_MODE_BOBBY_R_MISC:
 				guiPrevMiscFilterMode = guiCurrentMiscFilterMode;
+				guiPrevMiscSubFilterMode = guiCurrentMiscSubFilterMode;
 				guiCurrentMiscFilterMode = -1;
+				guiCurrentMiscSubFilterMode = -1;
 				UpdateMiscFilterButtons();
-				SetFirstLastPagesForNew(IC_BOBBY_MISC, guiCurrentMiscFilterMode);
+				SetFirstLastPagesForNew(IC_BOBBY_MISC, guiCurrentMiscFilterMode, guiCurrentMiscSubFilterMode);
 				break;
 			case LAPTOP_MODE_BOBBY_R_USED:
 				guiPrevUsedFilterMode = guiCurrentUsedFilterMode;
@@ -1221,7 +1241,9 @@ void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		guiPrevMiscFilterMode = guiCurrentMiscFilterMode;
+		guiPrevMiscSubFilterMode = guiCurrentMiscSubFilterMode;
 
+		guiCurrentMiscSubFilterMode = -1;
 		switch (bNewValue)
 		{
 			case BOBBYR_FILTER_MISC_BLADE:
@@ -1251,12 +1273,37 @@ void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason)
 			case BOBBYR_FILTER_MISC_LBEGEAR:
 				guiCurrentMiscFilterMode = IC_LBEGEAR;
 				break;
+			case BOBBYR_FILTER_MISC_OPTICS_ATTACHMENTS: // Madd:  New BR filters
+				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_OPTICS;
+				break;
+			case BOBBYR_FILTER_MISC_SIDE_AND_BOTTOM_ATTACHMENTS:
+				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_SIDE_BOTTOM;
+				break;
+			case BOBBYR_FILTER_MISC_MUZZLE_ATTACHMENTS:
+				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_MUZZLE;
+				break;
+			case BOBBYR_FILTER_MISC_STOCK_ATTACHMENTS:
+				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_STOCK;
+				break;
+			case BOBBYR_FILTER_MISC_INTERNAL_ATTACHMENTS:
+				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_INTERNAL;
+				break;
+			case BOBBYR_FILTER_MISC_OTHER_ATTACHMENTS:
+				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_OTHER_ATTACHMENTS;
+				break;
 			case BOBBYR_FILTER_MISC_MISC:
 				guiCurrentMiscFilterMode = IC_MISC;
+				guiCurrentMiscSubFilterMode = BR_MISC_FILTER_NO_ATTACHMENTS;
 				break;
 		}
 
-		SetFirstLastPagesForNew(IC_BOBBY_MISC, guiCurrentMiscFilterMode);
+		SetFirstLastPagesForNew(IC_BOBBY_MISC, guiCurrentMiscFilterMode,guiCurrentMiscSubFilterMode);
 
 		UpdateMiscFilterButtons();
 
@@ -1338,7 +1385,7 @@ void BtnBobbyRNextPreviousPageCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter)
+BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 {
 	UINT16	i;
 	UINT8		ubCount=0;
@@ -1635,12 +1682,19 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter)
 				// MISC
 				else
 				{
-					if (iFilter > -1)
+					if (iFilter > -1 && Item[usItemIndex].usItemClass == iFilter)
 					{
-						if (Item[usItemIndex].usItemClass == iFilter)
+						if ( iSubFilter > -1 ) // Madd: new BR filters
 						{
-							bAddItem = TRUE;
+							if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter )
+								bAddItem = TRUE;
+							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+								bAddItem = TRUE;
+							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+								bAddItem = TRUE;
 						}
+						else
+							bAddItem = TRUE;
 					}
 				}
 
@@ -2203,7 +2257,7 @@ void CalculateFirstAndLastIndexs()
 */
 
 //Loops through Bobby Rays Inventory to find the first and last index 
-void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter )
+void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter, INT32 iSubFilter )
 {
 	UINT16	i;
 	INT16	sFirst = -1;
@@ -2260,10 +2314,20 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter )
 							}
 							break;
 						// Misc
-						case IC_BOBBY_MISC:
-							if (Item[usItemIndex].usItemClass == iFilter)
+						case IC_BOBBY_MISC: 
+							if (Item[usItemIndex].usItemClass == iFilter) // Madd: new BR filter options
 							{
-								bCntNumItems = TRUE;
+								if (iSubFilter > -1 )
+								{
+									if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter)
+										bCntNumItems = TRUE;
+									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+										bCntNumItems = TRUE;
+									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment )
+										bCntNumItems = TRUE;
+								}
+								else
+									bCntNumItems = TRUE;
 							}
 							break;
 					}
@@ -3368,6 +3432,12 @@ void UpdateMiscFilterButtons()
 	if(guiBobbyRFilterMisc[8])
 		EnableButton(guiBobbyRFilterMisc[8]);
 	EnableButton(guiBobbyRFilterMisc[9]);
+	EnableButton(guiBobbyRFilterMisc[10]); // Madd: New BR filter options
+	EnableButton(guiBobbyRFilterMisc[11]);
+	EnableButton(guiBobbyRFilterMisc[12]);
+	EnableButton(guiBobbyRFilterMisc[13]);
+	EnableButton(guiBobbyRFilterMisc[14]);
+	EnableButton(guiBobbyRFilterMisc[15]);
 
 	switch (guiCurrentMiscFilterMode)
 	{
@@ -3399,7 +3469,21 @@ void UpdateMiscFilterButtons()
 			DisableButton(guiBobbyRFilterMisc[8]);
 			break;
 		case IC_MISC:
-			DisableButton(guiBobbyRFilterMisc[9]);
+			// Madd: new BR filters
+			if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OPTICS)
+				DisableButton(guiBobbyRFilterMisc[9]);
+			else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_SIDE_BOTTOM)
+				DisableButton(guiBobbyRFilterMisc[10]);
+			else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_MUZZLE)
+				DisableButton(guiBobbyRFilterMisc[11]);
+			else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_STOCK)
+				DisableButton(guiBobbyRFilterMisc[12]);
+			else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_INTERNAL)
+				DisableButton(guiBobbyRFilterMisc[13]);
+			else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS)
+				DisableButton(guiBobbyRFilterMisc[14]);
+			else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS)
+				DisableButton(guiBobbyRFilterMisc[15]);
 			break;
 	}
 
@@ -3639,11 +3723,20 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 					}
 					else
 					{
-						usItemIndex = LaptopSaveInfo.BobbyRayInventory[ i ].usItemIndex;
-
+						usItemIndex = LaptopSaveInfo.BobbyRayInventory[ i ].usItemIndex; 
 						if (Item[usItemIndex].usItemClass == guiCurrentMiscFilterMode)
 						{
-							bCntItem = TRUE;
+							if (guiCurrentMiscSubFilterMode > -1) // Madd: new BR filter options
+							{
+								if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
+									bCntItem = TRUE;
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+									bCntItem = TRUE;
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+									bCntItem = TRUE;
+							}
+							else 
+								bCntItem = TRUE;
 						}
 					}
 				}

@@ -41,8 +41,10 @@ BOOLEAN EnterBobbyRMisc()
 
 	guiPrevMiscFilterMode = -1;
 	guiCurrentMiscFilterMode = -1;
+	guiCurrentMiscSubFilterMode = -1;
+	guiPrevMiscSubFilterMode = -1;
 
-	SetFirstLastPagesForNew( IC_BOBBY_MISC, guiCurrentMiscFilterMode );
+	SetFirstLastPagesForNew( IC_BOBBY_MISC, guiCurrentMiscFilterMode, guiCurrentMiscSubFilterMode );
 
 	//Draw menu bar
 	InitBobbyMenuBar( );
@@ -89,7 +91,7 @@ void RenderBobbyRMisc()
 	GetVideoObject(&hPixHandle, guiMiscGrid);
 	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, BOBBYR_GRIDLOC_X, BOBBYR_GRIDLOC_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
-	DisplayItemInfo(IC_BOBBY_MISC, guiCurrentMiscFilterMode);
+	DisplayItemInfo(IC_BOBBY_MISC, guiCurrentMiscFilterMode, guiCurrentMiscSubFilterMode);
 	UpdateButtonText(guiCurrentLaptopMode);
 	UpdateMiscFilterButtons();
 

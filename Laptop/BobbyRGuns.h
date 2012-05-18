@@ -53,7 +53,7 @@ BOOLEAN DeleteBobbyMenuBar();
 
 
 //BOOLEAN DisplayWeaponInfo();
-BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter);
+BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter = -1);  // Madd: added iSubFilter for new BR filter options
 void DeleteMouseRegionForBigImage();
 void UpdateButtonText(UINT32	uiCurPage);
 
@@ -68,7 +68,7 @@ void DailyUpdateOfBobbyRaysUsedInventory();
 UINT16 CalcBobbyRayCost( UINT16 usIndex, UINT16 usBobbyIndex, BOOLEAN fUsed);
 //void CalculateFirstAndLastIndexs();
 void SetFirstLastPagesForUsed(INT32 iFilter);
-void SetFirstLastPagesForNew( UINT32 uiClass, INT32 iFilter );
+void SetFirstLastPagesForNew( UINT32 uiClass, INT32 iFilter , INT32 iSubFilter = -1); // Madd: added iSubFilter for new BR filter options
 
 #endif
 

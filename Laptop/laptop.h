@@ -61,6 +61,8 @@ extern INT32 guiPrevArmourFilterMode;
 
 extern INT32 guiCurrentMiscFilterMode;
 extern INT32 guiPrevMiscFilterMode;
+extern INT32 guiCurrentMiscSubFilterMode;
+extern INT32 guiPrevMiscSubFilterMode;
 
 extern BOOLEAN gbMessageDisplayed;
 

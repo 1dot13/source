@@ -4425,6 +4425,12 @@ STR16			BobbyRFilter[] =
 	L"Ekwipunek",
 	L"Na twarz",
 	L"Oporządzenie",	//LBE Gear
+	L"Optics", // Madd: new BR filters
+	L"Side/Bot.",
+	L"Muzzle",
+	L"Stock",
+	L"Mag/Trig.",
+	L"Other Att.",
 	L"Inne",
 };
 

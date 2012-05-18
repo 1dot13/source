@@ -4429,6 +4429,12 @@ STR16			BobbyRFilter[] =
 	L"工具套装", //"Kits",
 	L"头部装备", //"Face Items",
 	L"携行具", //"LBE Gear",
+	L"Optics", // Madd: new BR filters
+	L"Side/Bot.",
+	L"Muzzle",
+	L"Stock",
+	L"Mag/Trig.",
+	L"Other Att.",
 	L"杂项", //"Misc.",
 };
 

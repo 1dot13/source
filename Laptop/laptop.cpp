@@ -303,6 +303,8 @@ INT32 guiPrevArmourFilterMode;
 
 INT32 guiCurrentMiscFilterMode;
 INT32 guiPrevMiscFilterMode;
+INT32 guiCurrentMiscSubFilterMode; // Madd: new BR filter options
+INT32 guiPrevMiscSubFilterMode;
 
 BOOLEAN	gbMessageDisplayed;
 

@@ -4419,6 +4419,12 @@ STR16			BobbyRFilter[] =
 	L"Kits",
 	L"Mat. Face",
 	L"Mat. LBE",
+	L"Optics", // Madd: new BR filters
+	L"Side/Bot.",
+	L"Muzzle",
+	L"Stock",
+	L"Mag/Trig.",
+	L"Other Att.",
 	L"Divers",
 };
 
