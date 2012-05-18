@@ -3507,7 +3507,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				}
 			}
 			// WDS 07/19/2008 - Random number use fix
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 no meanwhiles
 	        if ( iDiceRoll < iHitChance )
 #else

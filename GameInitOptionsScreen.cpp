@@ -3957,6 +3957,27 @@ BOOLEAN		EnterGIOScreen()
 				break;
 		}
 	}
+
+	#ifdef JA113DEMO
+		DisableButton (giGIOSquadSizeButton[ 0 ]);
+		DisableButton (giGIOSquadSizeButton[ 1 ]);
+		
+		DisableButton (giGIOIMPNumberButton[ 0 ]);
+		DisableButton (giGIOIMPNumberButton[ 1 ]);
+		
+		DisableButton (giGIOBRSettingButton[ 0 ]);
+		DisableButton (giGIOBRSettingButton[ 1 ]);
+		
+		//DisableButton (guiFastBROptionToggles[ 0 ]);
+		//DisableButton (guiFastBROptionToggles[ 1 ]);
+		
+		//DisableButton (guiWeaponCachesOptionToggles[ 0 ]);
+		//DisableButton (guiWeaponCachesOptionToggles[ 1 ]);
+		
+		//DisableButton (guiTerroristsOptionToggles[ 0 ]);
+		//DisableButton (guiTerroristsOptionToggles[ 1 ]);
+	
+	#endif
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// NCTH ON/OFF SETTING

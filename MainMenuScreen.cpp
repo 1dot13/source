@@ -314,6 +314,11 @@ BOOLEAN InitMainMenu( )
 	//if there are no saved games, disable the button
 	if( !IsThereAnySavedGameFiles() )
 		DisableButton( iMenuButtons[ LOAD_GAME ] );
+		
+		
+	#ifdef JA113DEMO
+		DisableButton( iMenuButtons[ NEW_MP_GAME ] );
+	#endif
 
 	gbHandledMainMenu = 0;
 	fInitialRender		= TRUE;
@@ -644,8 +649,13 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 		GetMLGFilename( filename, MLG_TITLETEXT );
 		GetMLGFilename( filenameMP, MLG_TITLETEXT_MP );
 
+#ifdef JA113DEMO
+		// Load the "Start Demo" image
+		iMenuImages[ NEW_GAME ] = LoadButtonImage( filename ,17,17,18,19,-1 );
+#else
 		iMenuImages[ NEW_GAME ]	= LoadButtonImage( filename, 0,0, 1, 2 ,-1 );
-		
+#endif
+			
 		iMenuImages[ NEW_MP_GAME ] = LoadButtonImage( filenameMP, 0, 0, 1, 2, -1 );
 
 		sSlot = 0;

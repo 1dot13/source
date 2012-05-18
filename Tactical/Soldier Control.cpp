@@ -5538,7 +5538,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		}
 		////////////////////////////////////////////////////////////////////////////
 		sDamage = sDamage / PUNCH_REAL_DAMAGE_PORTION;
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25: No meanwhiles
 #else
 		if ( AreInMeanwhile() && gCurrentMeanwhileDef.ubMeanwhileID == INTERROGATION )
@@ -8845,7 +8845,7 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 	{
 		return;
 	}
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25: No meanwhiles
 #else
 	// ATE: Don't getup if we are in a meanwhile
@@ -9092,7 +9092,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		// Turn off
 		this->flags.uiStatusFlags &= ( ~SOLDIER_NPC_SHOOTING );
 	}
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25: No meanwhiles
 #else
 	// CJC: make sure Elliot doesn't bleed to death!
@@ -11373,7 +11373,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	}
 
 //Ja25 No meanwhiles
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE)
 #else
 	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE ) // SANDRO - added check for body type

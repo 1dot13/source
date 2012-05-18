@@ -380,6 +380,11 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	EnableDisableBottomButtonsAndRegions( );
 
 	fMapBottomDirtied = FALSE;
+	
+	#ifdef JA113DEMO
+	DisableButton (guiMapBottomExitButtons[MAP_EXIT_TO_LAPTOP]);
+	#endif
+	
 	return;
 }
 
@@ -1321,7 +1326,7 @@ BOOLEAN AllowedToTimeCompress( void )
 		return( FALSE );
 	}
 
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 no meanwhiles
 #else
 	// meanwhile coming up
@@ -1800,7 +1805,7 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 		return( FALSE );
 	}
 
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 No meanwhiles
 #else
 	// meanwhile coming up

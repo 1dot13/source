@@ -75,6 +75,8 @@ extern	BOOLEAN	gfDoneWithSplashScreen;
 extern UINT32 iStringToUseLua;
 extern INT8 Test;
 
+static int l_HireMerc (lua_State *L);
+
 //Briefing room
 static int l_SetEndMission(lua_State *L);
 static int l_SetStartMission(lua_State *L);
@@ -803,6 +805,8 @@ void IniGlobal_1(lua_State *L)
 }		
 void IniFunction(lua_State *L)
 {
+
+	lua_register(L, "HireMerc", l_HireMerc);
 
 	//Briefing room
 	lua_register(L, "SetEndMission", l_SetEndMission);
@@ -11784,6 +11788,73 @@ static int l_VisibleTown (lua_State *L)
 }
 
 //---------------
+
+static int l_HireMerc (lua_State *L)
+{
+	MERC_HIRE_STRUCT HireMercStruct;
+	
+	INT16	sSoldierID=0;
+	INT16	iTotalContract = 7;
+	UINT32  iTimeTillMercArrives = 0;
+	
+	UINT8 n = lua_gettop(L);
+	
+	int i = 0;
+	UINT8 ubCurrentSoldier = 0;
+	
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubCurrentSoldier = lua_tointeger(L,i);
+		if (i == 2 ) iTotalContract = lua_tointeger(L,i);
+		if (i == 3 ) iTimeTillMercArrives = lua_tointeger(L,i);	
+	}
+		
+	if ( ubCurrentSoldier <= NUM_PROFILES && ubCurrentSoldier != -1 )
+	{		
+		memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
+		
+		//HireMercStruct.bMercStatus  = MERC_OK;
+
+		HireMercStruct.ubProfileID = ubCurrentSoldier;
+
+		HireMercStruct.sSectorX = gsMercArriveSectorX;
+		HireMercStruct.sSectorY = gsMercArriveSectorY;
+		HireMercStruct.fUseLandingZoneForArrival = TRUE;
+
+		HireMercStruct.fCopyProfileItemsOver =	TRUE;
+		HireMercStruct.ubInsertionCode		= INSERTION_CODE_CHOPPER;
+
+		HireMercStruct.iTotalContractLength = iTotalContract;
+
+		//specify when the merc should arrive
+		HireMercStruct.uiTimeTillMercArrives = iTimeTillMercArrives;
+
+		//if we succesfully hired the merc
+		if( !HireMerc( &HireMercStruct ) )
+		{
+			sSoldierID = GetSoldierIDFromMercID( ubCurrentSoldier );
+			if( sSoldierID > -1 )
+				Menptr[ sSoldierID ].bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
+
+			gMercProfiles[ubCurrentSoldier].bMercStatus  = MERC_OK;
+		
+			//add an entry in the finacial page for the hiring of the merc
+			AddTransactionToPlayersBook(HIRED_MERC, ubCurrentSoldier, GetWorldTotalMin(), -(INT32) gMercProfiles[ubCurrentSoldier].uiWeeklySalary );
+
+			if( gMercProfiles[ ubCurrentSoldier ].bMedicalDeposit )
+			{
+				//add an entry in the finacial page for the medical deposit
+				AddTransactionToPlayersBook(MEDICAL_DEPOSIT, ubCurrentSoldier, GetWorldTotalMin(), -(gMercProfiles[ubCurrentSoldier].sMedicalDepositAmount) );
+			}
+
+			//add an entry in the history page for the hiring of the merc
+			AddHistoryToPlayersLog( HISTORY_HIRED_MERC_FROM_AIM, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
+		}
+	}
+
+	return 0;
+}
 
 static int lh_getBooleanFromTable(lua_State *L, const char * fieldname)
 {

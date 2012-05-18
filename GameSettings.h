@@ -5,6 +5,8 @@
 
 #ifdef JA2UB
 	#define				GAME_INI_FILE					"Ja2_UB.ini"
+#elif defined (JA113DEMO)
+	#define				GAME_INI_FILE					"Ja2_Demo.ini"
 #else
 	#define				GAME_INI_FILE					"Ja2.ini"
 #endif

@@ -85,6 +85,12 @@
 #include "Luaglobal.h"
 #include "SaveLoadScreen.h"
 
+#ifdef JA113DEMO
+#include "Merc Contract.h"
+#include "Soldier Add.h"
+#include "Map Screen Interface Bottom.h"
+#endif
+
 #include "PostalService.h"
 extern CPostalService gPostalService;
 
@@ -553,7 +559,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	AutoSaveToSlot[4] = FALSE;
 	
 
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 no meanwhiles
 #else
 	// reset meanwhile flags
@@ -709,7 +715,7 @@ fFirstTimeInMapScreen = TRUE;
 		InitCustomStrategicLayer ( );
 		#endif
 #else
-		#ifdef JA2UB
+		#if (defined JA2UB || defined JA113NODEMO) 
 
 		#else
 		INT32		iStartingCash;
@@ -779,8 +785,30 @@ fFirstTimeInMapScreen = TRUE;
 		}
 		else
 		{
+			#ifdef JA113DEMO
+			
+			//QuickSetupOfMercProfileItems( 0,4 ); //Vicki
+			//QuickGameMemberHireMerc( 4 );
+			
+			//QuickSetupOfMercProfileItems( 0,7 ); // Ivan
+			//QuickGameMemberHireMerc( 7 );
+			
+			//QuickSetupOfMercProfileItems( 0,10 ); // Shadow
+			//QuickGameMemberHireMerc( 10 );
+			
+			//QuickSetupOfMercProfileItems( 0,33 ); // 
+			//QuickGameMemberHireMerc( 33 );
+			
+			//QuickSetupOfMercProfileItems( 0,42 ); // 
+			//QuickGameMemberHireMerc( 42 );
+			
+			SetLaptopExitScreen( MAP_SCREEN );
+			SetPendingNewScreen( MAP_SCREEN );
+			
+			#else
 			SetLaptopExitScreen( INIT_SCREEN );
 			SetPendingNewScreen(LAPTOP_SCREEN);
+			#endif
 		}
 		
 		gubScreenCount = 1;
@@ -803,6 +831,10 @@ fFirstTimeInMapScreen = TRUE;
 
 		//Set the fact the game is in progress
 		gTacticalStatus.fHasAGameBeenStarted = TRUE;
+			
+	#ifdef JA113DEMO
+	RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
+	#endif	
 
 		return( TRUE );
 	}
@@ -1012,6 +1044,10 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 BOOLEAN QuickGameMemberHireMerc( UINT8 ubCurrentSoldier )
 {
 	MERC_HIRE_STRUCT HireMercStruct;
+	
+	#ifdef JA113DEMO
+	INT16		sSoldierID=0;
+	#endif
 
 	memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
 
@@ -1024,7 +1060,11 @@ BOOLEAN QuickGameMemberHireMerc( UINT8 ubCurrentSoldier )
 	HireMercStruct.fCopyProfileItemsOver =	TRUE;
 	HireMercStruct.ubInsertionCode				= INSERTION_CODE_CHOPPER;
 
+	#ifdef JA113DEMO
+	HireMercStruct.iTotalContractLength = 61;
+	#else
 	HireMercStruct.iTotalContractLength = 7;
+	#endif
 
 	//specify when the merc should arrive
 	HireMercStruct.uiTimeTillMercArrives = 0;
@@ -1034,6 +1074,14 @@ BOOLEAN QuickGameMemberHireMerc( UINT8 ubCurrentSoldier )
 	{
 		return(FALSE);
 	}
+	
+	#ifdef JA113DEMO
+	sSoldierID = GetSoldierIDFromMercID( ubCurrentSoldier );
+	if( sSoldierID == -1 )
+		return( FALSE );
+	Menptr[ sSoldierID ].bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
+	#endif
+	
 
 	//add an entry in the finacial page for the hiring of the merc
 	AddTransactionToPlayersBook(HIRED_MERC, ubCurrentSoldier, GetWorldTotalMin(), -(INT32) gMercProfiles[ubCurrentSoldier].uiWeeklySalary );

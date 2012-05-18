@@ -1558,7 +1558,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			HandleShortCutExitState( );
 			//*puiNewEvent = I_EXIT;
 		}
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 No meanwhiles
 #else
 		if ((InputEvent.usEvent == KEY_UP )&& ( InputEvent.usParam == ESC) )

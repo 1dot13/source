@@ -5614,12 +5614,11 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	FadeInGameScreen( );
 
 	SetUpShutDownMapScreenHelpTextScreenMask( );
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //no ja25 UB
 #else
 	// Add e-mail message
 	AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
-
 #endif
 
 	return( TRUE );

@@ -476,7 +476,63 @@ void HandleHeliDrop( )
 		{
 			guiPendingOverrideEvent = LU_BEGINUILOCK;
 		}
+#ifdef JA113DEMO
+		//if ( _KeyDown( ESC ) )
+		//{
+			// Loop through all mercs not yet placed
+			for ( cnt = gbCurDrop; cnt < gbNumHeliSeatsOccupied; cnt++ )
+			{
+				// Add merc to sector
+				#ifdef JA2UB
+				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
+				#else
+				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+				#endif
+				// HEADROCK HAM 3.5: Externalized!
+				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
+				// Check for merc arrives quotes...
+				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
+
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->name );
+
+			}
+
+			// Remove heli
+			DeleteAniTile( gpHeli );
+
+		RebuildCurrentSquad( );
+
+			// Remove sound
+			if( uiSoundSample!=NO_SAMPLE )
+			{
+				SoundStop( uiSoundSample );
+			}
+
+			gfHandleHeli = FALSE;
+			gfIgnoreScrolling = FALSE;
+			gbNumHeliSeatsOccupied = 0;
+			UnLockPauseState();
+			UnPauseGame();
+
+
+			// Select our first guy
+			SelectSoldier( gusHeliSeats[ 0 ], FALSE, TRUE );
+
+			//guiCurrentEvent = LU_ENDUILOCK;
+			//gCurrentUIMode	= LOCKUI_MODE;
+			guiPendingOverrideEvent = LU_ENDUILOCK;
+			//UIHandleLUIEndLock( NULL );
+
+			HandleFirstHeliDropOfGame( );
+			return;
+
+		//}
+#else
 		if ( _KeyDown( ESC ) )
 		{
 			// Loop through all mercs not yet placed
@@ -532,7 +588,7 @@ void HandleHeliDrop( )
 			return;
 
 		}
-
+#endif
 		gfIgnoreScrolling = TRUE;
 
 		uiClock = GetJA2Clock( );

@@ -545,6 +545,18 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	   }  
 #endif
 
+#ifdef JA113DEMO
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_MINE_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]); 
+	   
+	   fShowTownFlag = FALSE;
+#endif
+
 	InitializeMapBorderButtonStates( );
 
 	return( TRUE );

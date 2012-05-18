@@ -948,6 +948,10 @@ void RenderEditorInfo( )
 			break;
 		case TASK_MERCS:
 			UpdateMercsInfo();
+				#ifdef JA113DEMO
+				DisableButton (iEditorButton[ MERCS_CIVILIANTOGGLE ]);
+				DisableButton (iEditorButton[ MERCS_CIVILIAN ]);
+				#endif
 			break;
 		case TASK_MAPINFO:
 			UpdateMapInfo();

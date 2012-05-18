@@ -1991,7 +1991,7 @@ void RenderAutoResolve()
 					SetFactTrue( FACT_FIRST_BATTLE_WON );
 				}
 				SetTheFirstBattleSector( ( INT16 ) (gpAR->ubSectorX + gpAR->ubSectorY * MAP_WORLD_X ) );
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25:	no loyalty
 #else
 				HandleFirstBattleEndingWhileInTown( gpAR->ubSectorX, gpAR->ubSectorY, 0, TRUE );

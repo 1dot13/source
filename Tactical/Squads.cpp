@@ -252,6 +252,7 @@ BOOLEAN AddCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue )
 				{
 					return ( FALSE );
 				}
+
 				// remove them
 				RemoveCharacterFromSquads( pCharacter );
 

@@ -1100,7 +1100,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 
 	if ( pSoldier->bActive	)
 	{
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 No meanwhiles in exp
 #else
 		// ATE: Make sure life of elliot is OK if from a meanwhile

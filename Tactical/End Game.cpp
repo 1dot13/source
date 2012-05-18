@@ -407,7 +407,7 @@ void DoneFadeOutEndCinematic( void )
 // OK, end death UI - fade to smaker....
 void HandleDoneLastEndGameQuote( )
 {
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 No queen	
 #else
 EndQueenDeathEndgame( );
@@ -421,7 +421,7 @@ EndQueenDeathEndgame( );
 
 void QueenBitchTimerCallback( void )
 {
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //no Ub
 #else
 	HandleQueenBitchDeath( gpKillerSoldier, gsGridNo, gbLevel );
@@ -501,7 +501,9 @@ void HandleAddingTheEndGameEmails()
 	// Determine the EMAIL to be sent out to the player
 	//
 
-
+	#ifdef JA113DEMO
+	//no demo
+	#else
 	// email # 12a - Miguel dead, Manuel never recruited
 	if( !fMiguelAlive && !fManuelHired )
 	{
@@ -542,6 +544,7 @@ void HandleAddingTheEndGameEmails()
 	{
 		Assert( 0 );
 	}
+	#endif
 }
 
 

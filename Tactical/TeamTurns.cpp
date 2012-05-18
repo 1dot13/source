@@ -713,7 +713,7 @@ void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier )
 	// This code should put the game in turn-based and give control to the AI-controlled soldier
 	// whose pointer has been passed in as an argument (we were in non-combat and the AI is doing
 	// something visible, i.e. making an attack)
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25 No meanwhiles
 #else
 	if ( AreInMeanwhile( ) )

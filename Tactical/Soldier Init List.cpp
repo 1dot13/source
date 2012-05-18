@@ -707,7 +707,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					}
 				}
 			}
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 //Ja25: no queen
 #else
 			else if ( !gfInMeanwhile && gWorldSectorX == 3 && gWorldSectorY == 16 && !gbWorldSectorZ )

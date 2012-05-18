@@ -642,7 +642,7 @@ void InitNewCampaign()
 	//InitKnowFacilitiesFlags( );
 
 	BuildUndergroundSectorInfoList();
-#ifdef JA2UB
+#if (defined JA2UB || defined JA113NODEMO) 
 // no UB
 #else
 	if (!is_networked)
