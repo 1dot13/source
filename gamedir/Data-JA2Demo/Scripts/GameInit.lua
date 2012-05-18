@@ -85,8 +85,10 @@ http://www.legion.zone.zg.pl/doku.php/modowanie/ja/art_ja_m_22_lua
 		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
 		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
 	
-	- HireMerc (MercID)
-		hires the merc with the specified MercID
+	HireMerc( Profile , Contract, TimeArrive )
+		Profile - The profile ID of the merc
+		Contract - The contract time for the merc
+		TimeArrive - The arrival time of the merc
 
 
 **************        
@@ -406,13 +408,12 @@ function InitNewGame()
 	end
 	
 	AddTransactionToPlayersBook( Fincances.ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash )
-	
-	-- HireMerc( MercID ) function applied only in 1.13 demo
-	HireMerc( 4 )  -- Vicki
-	HireMerc( 7 )  -- Ivan
-	HireMerc( 10 ) -- Shadow
-	HireMerc( 33 ) -- Dr.Q
-	HireMerc( 42 ) -- Gastek
-	HireMerc( 67 )
+		
+	HireMerc( 4 ,61, 0 )  -- Vicki
+	HireMerc( 7 ,61, 0 )  -- Ivan
+	HireMerc( 10 ,61, 0 ) -- Shadow
+	HireMerc( 33 ,61, 0 ) -- Dr.Q
+	HireMerc( 42 ,61, 0 ) -- Gastek		
+	--HireMerc( 67, 61, 0 )
 		
 end
