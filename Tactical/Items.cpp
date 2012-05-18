@@ -7572,6 +7572,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	std::vector<UINT16> usAttachmentSlotIndexVector;
 	std::vector<UINT16> usRemAttachmentSlotIndexVector;
 	UINT16		oldMagSize = 0;
+	OBJECTTYPE removedAttachment; // Madd: added to fix global attachment removal breaking attachments with their own attachments
 
 	if ( pAttachment->exists() == false || this->exists() == false)
 	{
@@ -7600,11 +7601,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 			//Compare the adress
 			if(&(*iter) == pAttachment)
 			{
-				if(pNewObj != NULL)
-				{
-					*pNewObj = *pAttachment;
-				}
-
+				removedAttachment = *pAttachment;
 				iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
 
 				objDeleted = TRUE;
@@ -7618,11 +7615,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 				//This compares the internal data of the objects.
 				if(*iter == *pAttachment)
 				{
-					if(pNewObj != NULL)
-					{
-						*pNewObj = *pAttachment;
-					}
-
+					removedAttachment = *pAttachment;
 					iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
 
 					objDeleted = TRUE;
@@ -7678,8 +7671,10 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	//CHRISL: We need to know if the removed attachment could have altered the base items potential attachments
 	BOOLEAN	removeAttachments = TRUE, cleanAttachments = FALSE;
 	INT8	loopCount = 0;
+	removedAttachment[0]->attachments.clear();
+
 	while(removeAttachments){
-		usRemAttachmentSlotIndexVector = GetItemSlots(pNewObj);
+		usRemAttachmentSlotIndexVector = GetItemSlots(&removedAttachment);
 		if(usRemAttachmentSlotIndexVector.empty()){
 			removeAttachments = FALSE;
 		} else {
@@ -7692,8 +7687,8 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 						removeAttachments = TRUE;
 						OBJECTTYPE	remObj;
 						remObj = *iter;
-						if(ValidItemAttachment(pNewObj, iter->usItem, FALSE, FALSE, 0, usRemAttachmentSlotIndexVector)){
-							(*pNewObj)[0]->attachments.push_back((*iter));
+						if(ValidItemAttachment(&removedAttachment, iter->usItem, FALSE, FALSE, 0, usRemAttachmentSlotIndexVector)){
+							removedAttachment[0]->attachments.push_back((*iter));
 							iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
 							continue;
 						}
@@ -7723,9 +7718,15 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 		loopCount++;
 	}
 	if(cleanAttachments){
-		RemoveProhibitedAttachments(pSoldier, pNewObj, pNewObj->usItem);
+		RemoveProhibitedAttachments(pSoldier, &removedAttachment, removedAttachment.usItem);
 		RemoveProhibitedAttachments(pSoldier, this, this->usItem);
 	}
+	if(pNewObj != NULL)
+		*pNewObj = removedAttachment;
+
+	if(pAttachment->exists() )
+		*pAttachment = removedAttachment;
+
 	if (pNewObj->exists() && Item[pNewObj->usItem].grenadelauncher )//UNDER_GLAUNCHER)
 	{
 		// look for any grenade; if it exists, we must make it an
