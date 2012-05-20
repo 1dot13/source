@@ -648,10 +648,10 @@ extern OBJECTTYPE gTempObject;
 #define AC_DETONATOR    0x00010000	//65536
 #define AC_BATTERY      0x00020000	//131072
 #define AC_EXTENDER		0x00040000	//262144
-#define AC_SLING		0x00080000	//524288
-#define AC_REMOTEDET    0x00100000	//1048576
-#define AC_DEFUSE		0x00200000	//2097152
-#define AC_MISC11		0x00400000	//4194304
+#define AC_SLING		0x00080000	//524288			// rifle sling
+#define AC_REMOTEDET    0x00100000	//1048576			// remote detonator for bombs
+#define AC_DEFUSE		0x00200000	//2097152			// defuse item for bombs
+#define AC_IRONSIGHT	0x00400000	//4194304			// for attachable Iron Sights
 #define AC_MISC12		0x00800000	//8388608
 #define AC_MISC13		0x01000000	//16777216
 #define AC_MISC14		0x02000000	//33554432
@@ -953,6 +953,8 @@ typedef struct
 	BOOLEAN	directional;							// item is a directional mine/bomb (actual direction is set upon planting)
 	
 	UINT32	drugtype;								// this flagmask determines what different components are used in a drug, which results in different effects
+
+	BOOLEAN blockironsight;							// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
 
 } INVTYPE;
 

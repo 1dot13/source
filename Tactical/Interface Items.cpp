@@ -3837,6 +3837,27 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					mprintf( sMagX, sNewY, pStr );
 					gprintfinvalidate( sMagX, sNewY, pStr );
 				}
+				// improved iron sights are attachable iron sights (the 'normal' iron sight is the gun itself)
+				else if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_IRONSIGHT ) )
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 52, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+
+					SetFontForeground( FONT_ORANGE );
+
+					INT16 sMagX = sNewX + 13;
+
+					swprintf( pStr, L"*" );
+
+					// Get length of string
+					uiStringLength=StringPixLength(pStr, ITEM_FONT );
+										
+					if ( uiBuffer == guiSAVEBUFFER )
+					{
+						RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+					}
+					mprintf( sMagX, sNewY, pStr );
+					gprintfinvalidate( sMagX, sNewY, pStr );
+				}
 				else if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 53, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );

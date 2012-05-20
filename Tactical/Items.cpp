@@ -9200,7 +9200,7 @@ INT16 GetAimBonus( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT32 iRange, INT1
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 		{
-			if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+			if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 			{
 				bonus += BonusReduceMore( GetItemAimBonus( &Item[iter->usItem], iRange, ubAimTime ), (*iter)[0]->data.objectStatus );
 			}
@@ -9938,7 +9938,7 @@ INT16 GetPercentAPReduction( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj )
 			bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentapreduction;
 
 			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+				if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 				{
 					bonus += BonusReduceMore( Item[iter->usItem].percentapreduction,
 						(*iter)[0]->data.objectStatus );
@@ -10182,7 +10182,7 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 				{
 					// add boni only from non-scope items
-					if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						sScopebonus += BonusReduceMore( Item[iter->usItem].visionrangebonus, (*iter)[0]->data.objectStatus );
 					}
@@ -10289,7 +10289,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 				{
 					// add boni only from non-scope items
-					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						sScopebonus += BonusReduceMore(
 							NightBonusScale( Item[iter->usItem].nightvisionrangebonus, bLightLevel ),
@@ -10389,7 +10389,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 				{
 					// add boni only from non-scope items
-					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						sScopebonus += BonusReduceMore(
 							NightBonusScale( Item[iter->usItem].cavevisionrangebonus, bLightLevel ),
@@ -10495,7 +10495,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 				{
 					// add boni only from non-scope items
-					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
 						* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
@@ -10597,7 +10597,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 				{
 					// add boni only from non-scope items
-					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].brightlightvisionrangebonus
 							* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
@@ -10748,7 +10748,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
 				{
 					// add boni only from non-scope items
-					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						bonus += Item[iter->usItem].percenttunnelvision;
 					}
@@ -11810,7 +11810,7 @@ INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj )
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 		{
-			if ( !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+			if ( !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 				bonus += Item[iter->usItem].minrangeforaimbonus;
 		}
 	}
@@ -13141,44 +13141,78 @@ void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap 
 	{
 		arScopeMap[i] = NULL;
 	}
-	
+
+	// certain attachments prohibit the use of an iron sight once they are installed (flip-up built-in sights)
+	BOOLEAN noironsight = ( Item[pObj->usItem].blockironsight == TRUE );
+		
 	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 	{
-		if ( iter->exists() && IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT ) )
+		if ( iter->exists() )
 		{
-			FLOAT magfactor = Item[iter->usItem].scopemagfactor;
-			BOOLEAN isplaced = false;
+			if ( Item[iter->usItem].blockironsight == TRUE )
+				noironsight = TRUE;
 
+			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
+			{
+				FLOAT magfactor = Item[iter->usItem].scopemagfactor;
+				BOOLEAN isplaced = false;
+
+				for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)
+				{
+					if ( arScopeMap[i] && magfactor > Item[arScopeMap[i]->usItem].scopemagfactor )
+					{
+						// fit scope into existing list: move other entries down
+						for (INT8 j = NUM_SCOPE_MODES; j > i; --j)
+						{
+							arScopeMap[j] = arScopeMap[j-1];
+						}
+
+						arScopeMap[i]   = &(*iter);
+						isplaced		= true;
+
+						break;
+					}
+				}
+
+				// we have a scope that wasn't placed anywhere, as its magfactor is worse than everything else we have. Still, we put this thing to the end of our list
+				if ( !isplaced )
+				{
+					// determine which scope this would be and insert it
+					for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)
+					{
+						if ( !arScopeMap[i] )
+						{
+							arScopeMap[i] = &(*iter);
+
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// attachments might block the iron sights, we might not be able to use them...
+	if ( noironsight )
+	{
+		// if we have at least one other scope to use
+		if ( arScopeMap[USE_BEST_SCOPE] != NULL && arScopeMap[USE_SCOPE_2] != NULL )
+		{
+			// determine position of iron sight, delete it, move up all following scopes
 			for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)
 			{
-				if ( arScopeMap[i] && magfactor > Item[arScopeMap[i]->usItem].scopemagfactor )
-			    {
-					// fit scope into existing list: move other entries down
+				if ( arScopeMap[i] == pObj )
+				{
+					arScopeMap.erase(i);
+
+					// move other entries down
 					for (INT8 j = NUM_SCOPE_MODES; j > i; --j)
 					{
 						arScopeMap[j] = arScopeMap[j-1];
 					}
 
-					arScopeMap[i]   = &(*iter);
-					isplaced		= true;
-
 					break;
-				}
-			}
-
-			// we have a scope that wasn't placed anywhere, as its magfactor is worse than everything else we have. Still, we put this thing to the end of our list
-			if ( !isplaced )
-			{
-				// determine which scope this would be and insert it
-				for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)
-				{
-					if ( !arScopeMap[i] )
-					{
-						arScopeMap[i] = &(*iter);
-
-						break;
-					}
 				}
 			}
 		}

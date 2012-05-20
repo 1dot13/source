@@ -264,6 +264,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "TripWire") == 0 ||
 				strcmp(name, "Directional") == 0 ||
 				strcmp(name, "DrugType") == 0 ||
+				strcmp(name, "BlockIronSight") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ))
 		{
@@ -1325,7 +1326,13 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.drugtype   = (UINT32) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "BlockIronSight")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.blockironsight   = (BOOLEAN) atol(pData->szCharData);
+		}
 
+		
 		pData->maxReadDepth--;
 	}
 
@@ -1938,6 +1945,8 @@ BOOLEAN WriteItemStats()
 
 			FilePrintf(hFile,"\t\t<DrugType>%d</DrugType>\r\n",											Item[cnt].drugtype  );
 
+			FilePrintf(hFile,"\t\t<BlockIronSight>%d</BlockIronSight>\r\n",								Item[cnt].blockironsight  );
+			
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");
