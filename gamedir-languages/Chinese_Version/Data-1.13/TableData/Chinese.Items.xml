@@ -12216,14 +12216,6 @@
     <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
   </ITEM>
   <ITEM>
-    <uiIndex>1524</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-  </ITEM>
-  <ITEM>
     <uiIndex>1525</uiIndex>
     <szItemName>Rifle Sling</szItemName>
     <szLongItemName>Rifle Sling</szLongItemName>
