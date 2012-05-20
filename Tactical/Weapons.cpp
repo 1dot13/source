@@ -4903,6 +4903,15 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
 				iTraitModifier += gSkillTraitValues.ubRABonusCtHShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +10% per trait
 		}
+		// SANDRO - added Throwing trait support on knives
+		if ( Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierThrowingKnives; // -15% for untrained mercs
+
+			if ( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
+				iTraitModifier += gSkillTraitValues.ubTHBladesCtHBonus * 2;
+			//+ (gSkillTraitValues.ubTHBladesCtHBonusPerClick * pSoldier->aiData.bAimTime) );
+		}
 
 		// Added small CtH penalty for robot if controller hasn't the Technician trait
 		if( AM_A_ROBOT( pSoldier ) )
@@ -5050,7 +5059,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	FLOAT umoda = (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, stance )) / 100;
 	FLOAT umodb = (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
 	iGunBaseDifficulty += ((gGameExternalOptions.ubProneModifierPercentage * umoda + (100 - gGameExternalOptions.ubProneModifierPercentage) * umodb)/100); 
-	
+
 	// End gun difficulty modifiers
 	/////////////////////////////////////////////
 
@@ -5287,14 +5296,14 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			//Give 60% the normal stomp modifier as the aim mod
 			iAimModifier += (FLOAT)iTraitModifier * 0.6f;
 		}
-		else
-		{
+		//else
+		//{
 			// Flugente: drugs can temporarily cause a merc to go psycho
 			if ( pSoldier->ubProfile != NO_PROFILE && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO || MercUnderTheInfluence(pSoldier, DRUG_TYPE_PSYCHO) ) )
 			{
 				iAimModifier += gGameCTHConstants.AIM_PSYCHO;
 			}
-		}
+		//}
 
 		//////////////////////////////////////////
 		// Gun Handling modifiers
@@ -5538,38 +5547,51 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
 		INT16 sDifference = 99 - uiCap;
 		INT16 sSniperSkillBonus = 0;
-		if (uiCap < gGameExternalOptions.ubMaximumCTH && iScopeMagFactor > 1.0 && iRange >= (INT32)uiBestScopeRange )
+		// SANDRO - added support to Throwing trait
+		if ( uiCap < gGameExternalOptions.ubMaximumCTH && Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
 		{
-			INT8	loop;
-			if(gGameOptions.fNewTraitSystem)
+			if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
 			{
-				if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
-					loop = NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
-				else
-					loop = NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
+				uiCap += (INT16)((sDifference * gSkillTraitValues.ubTHBladesCtHBonusPerClick*3) / gGameExternalOptions.ubMaximumCTH);
+				//uiCap += gSkillTraitValues.ubTHBladesCtHBonusPerClick*2;
 			}
-			else
-				loop = NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT );
-
-			for (INT8 cnt = 0; cnt < loop; cnt++)
+		}
+		else
+		{
+			if (uiCap < gGameExternalOptions.ubMaximumCTH && iScopeMagFactor > 1.0 && iRange >= (INT32)uiBestScopeRange )
 			{
-				// For each level of the sniper skill, cover a defined distance between the current CTH Cap and 99 (the
-				// maximum...
+				INT8	loop;
 				if(gGameOptions.fNewTraitSystem)
 				{
 					if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
-						sSniperSkillBonus += (INT16)((sDifference * gSkillTraitValues.ubGSAimingBonusPerClick) / gGameExternalOptions.ubMaximumCTH);
+						loop = NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
 					else
-						sSniperSkillBonus += (INT16)((sDifference * gSkillTraitValues.ubSNAimingBonusPerClick) / gGameExternalOptions.ubMaximumCTH);
+						loop = NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
 				}
 				else
-					sSniperSkillBonus += (INT16)((sDifference * gGameCTHConstants.AIM_SNIPER_SKILL) / gGameExternalOptions.ubMaximumCTH);
-				sDifference -= sSniperSkillBonus;
+					loop = NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT );
+
+				for (INT8 cnt = 0; cnt < loop; cnt++)
+				{
+					// For each level of the sniper skill, cover a defined distance between the current CTH Cap and 99 (the
+					// maximum...
+					// SANDRO - this results in giving us total bonus on uiCap of lame 3-8%... compared to 10-20% bonus *PER AIM CLICK* in OCTH
+					// ..as an artificial solution multiply the bonus by at least 2 to achieve some meaningful results
+					if(gGameOptions.fNewTraitSystem)
+					{
+						if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+							sSniperSkillBonus += (INT16)((sDifference * gSkillTraitValues.ubGSAimingBonusPerClick * 2) / gGameExternalOptions.ubMaximumCTH);
+						else
+							sSniperSkillBonus += (INT16)((sDifference * gSkillTraitValues.ubSNAimingBonusPerClick * 2) / gGameExternalOptions.ubMaximumCTH);
+					}
+					else
+						sSniperSkillBonus += (INT16)((sDifference * gGameCTHConstants.AIM_SNIPER_SKILL * 2) / gGameExternalOptions.ubMaximumCTH);
+					sDifference -= sSniperSkillBonus;
+				}
+
+				uiCap += sSniperSkillBonus;
 			}
-
-			uiCap += sSniperSkillBonus;
 		}
-
 		// Make sure cap is within limits
 		uiCap = __max(uiCap, __max(0,(UINT32)iChance));
 		uiCap = __min(uiCap, gGameExternalOptions.ubMaximumCTH);

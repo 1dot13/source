@@ -919,7 +919,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 				//INT16 iDistVisible = (pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE); // how far do we see
 				INT16 iDistVisible = pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE; // -1% registered by 4% of the difference of how far we can see and how far is the target	
 				iDistVisible = max(iDistVisible, CELL_X_SIZE);
-				ubPointsRegistered -= ( 25 * GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo ) / iDistVisible );
+				ubPointsRegistered -= min( 25, ( 25 * GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo ) / iDistVisible ));
 				
 				if ( gGameOptions.fNewTraitSystem )
 				{
@@ -936,8 +936,12 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 				}
 
 				// ALRIGHT! Get final value
-				ubPointsRegistered = max( 5, min( 100, ubPointsRegistered ) ); // 5% is minimum, 100% maximum
-				ubPointsRegistered = (UINT8)((sAPCost * ubPointsRegistered / 100) + 0.5); // now calc how many APs we will award and store it in ubPointsRegistered
+				if (pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
+					ubPointsRegistered = max( 20, min( 100, ubPointsRegistered ) ); // 20% is minimum on seeing
+				else
+					ubPointsRegistered = max( 10, min( 100, ubPointsRegistered ) ); // 10% is minimum on hearing
+				ubPointsRegistered = min( 100, ubPointsRegistered ); // 100% is maximum ofc
+				ubPointsRegistered = (UINT8)((sAPCost * ubPointsRegistered / 100) + 0.5); // now calc how many APs we will award
 
 				// increase the counter
 				if ( ubPointsRegistered )

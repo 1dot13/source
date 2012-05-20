@@ -231,6 +231,8 @@ extern UINT16 gusExternVoSubIndex;
 
 extern	MOUSE_REGION    gMPanelRegion;
 
+extern void InternalMAPBeginItemPointer( SOLDIERTYPE *pSoldier );
+
 // HEADROCK HAM 5: Because BigItem graphics are not loaded into memory by default, we need to load them to
 // display the large map inventory. We save their indexes in this array:
 typedef struct
@@ -1206,7 +1208,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						}
 						else
 						{
-							MAPInternalInitItemDescriptionBox( &twItem->object, 0, MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
+							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && !(Item[twItem->object.usItem].singleshotrocketlauncher))
+							{
+								EmptyWeaponMagazine( &twItem->object, &gItemPointer );
+								InternalMAPBeginItemPointer( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
+							}
+							else
+								MAPInternalInitItemDescriptionBox( &twItem->object, 0, MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
 						}
 					}
 					else if(fValidPointer)

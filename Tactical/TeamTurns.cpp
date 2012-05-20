@@ -1048,6 +1048,11 @@ void StartInterrupt( void )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Interrupt ( could be hidden )" );
 			#endif
 		}
+		// SANDRO - show correct top message
+		if (pTempSoldier->bTeam == MILITIA_TEAM )
+			AddTopMessage( MILITIA_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+		else
+			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 
 		if (pTempSoldier != NULL)
 			StartNPCAI( pTempSoldier );
@@ -1357,14 +1362,14 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				}
 
 				// Signal UI done enemy's turn
-					if(is_client)
-	{
-		guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
-	}
-	else 
-	{
-		guiPendingOverrideEvent = LU_BEGINUILOCK;
-	}
+				if(is_client)
+				{
+					guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
+				}
+				else 
+				{
+					guiPendingOverrideEvent = LU_BEGINUILOCK;
+				}
 
 				ClearIntList();
 			}

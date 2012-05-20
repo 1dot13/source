@@ -12014,7 +12014,7 @@ FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2
 
 UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-	UINT8 aimLevels = 4;
+	INT8 aimLevels = 4;
 	FLOAT iScopeMagFactor = 0.0, rangeMultiplier = 0.0;
 	BOOLEAN allowed = TRUE;
 	UINT16 weaponRange;
@@ -12037,6 +12037,22 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
 	weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
 	fUsingBipod = FALSE;
+
+	// SANDRO - throwing knives are a special case, allow 2 aiming clicks for them
+	if( weaponType == NOT_GUN ) 
+	{
+		aimLevels = 2;
+
+		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass == IC_THROWING_KNIFE )
+		{
+			// minus the bonus for Throwing trait
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
+			{
+				aimLevels -= gSkillTraitValues.ubTHBladesAimClicksAdded;
+			}
+		}
+		return ( __max(1, aimLevels) );
+	}
 
 	// If outside limits...
 	if (aimLevels < 1 ||
@@ -12090,7 +12106,7 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	aimLevels = __max(1, aimLevels);
 	aimLevels = __min(8, aimLevels);
 
- 	return aimLevels;
+ 	return ((UINT8)aimLevels);
  }
 
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)

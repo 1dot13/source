@@ -9636,12 +9636,25 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				else
 				{
-					MAPInternalInitItemDescriptionBox( gpItemPopupObject, (UINT8)uiItemPos, gpItemPopupSoldier );
+					if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN )
+					{
+						EmptyWeaponMagazine( gpItemPopupObject, &gItemPointer, uiItemPos );
+						InternalMAPBeginItemPointer( gpItemPopupSoldier );
+					}
+					else
+						MAPInternalInitItemDescriptionBox( gpItemPopupObject, (UINT8)uiItemPos, gpItemPopupSoldier );
 				}
 			}
 			else
 			{
-				InternalInitItemDescriptionBox( gpItemPopupObject, (INT16) ITEMDESC_START_X, (INT16) ITEMDESC_START_Y, (UINT8)uiItemPos, gpItemPopupSoldier );
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && !(Item[gpItemPopupObject->usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+				{
+					EmptyWeaponMagazine( gpItemPopupObject, &gItemPointer, uiItemPos );
+					gpItemPointer = &gItemPointer;
+					gpItemPointerSoldier = gpItemPopupSoldier;
+				}
+				else
+					InternalInitItemDescriptionBox( gpItemPopupObject, (INT16) ITEMDESC_START_X, (INT16) ITEMDESC_START_Y, (UINT8)uiItemPos, gpItemPopupSoldier );
 			}
 		}
 	}

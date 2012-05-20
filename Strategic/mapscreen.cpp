@@ -582,6 +582,8 @@ extern void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
 // HEADROCK HAM B2.8: Function to switch team's goggles uniformly
 extern void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision);
 
+extern void InternalMAPBeginItemPointer( SOLDIERTYPE *pSoldier );
+
 UINT32	guiCHARLIST;
 UINT32	guiCHARINFO;
 UINT32	guiSleepIcon;
@@ -9683,12 +9685,20 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
-				//CHRISL: This could return a false in which case we don't want to activate the infobox.
-				if(InitItemDescriptionBox( pSoldier, (UINT8)uiHandPos, MAP_ITEMDESC_START_X, MAP_ITEMDESC_START_Y, 0 ))
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[pSoldier->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && !(Item[pSoldier->inv[ uiHandPos ].usItem].singleshotrocketlauncher) )
 				{
-					fShowDescriptionFlag=TRUE;
-					fTeamPanelDirty=TRUE;
-					fInterfacePanelDirty = DIRTYLEVEL2;
+					EmptyWeaponMagazine( &(pSoldier->inv[ uiHandPos ]), &gItemPointer );
+					InternalMAPBeginItemPointer( pSoldier );
+				}
+				else
+				{
+					//CHRISL: This could return a false in which case we don't want to activate the infobox.
+					if(InitItemDescriptionBox( pSoldier, (UINT8)uiHandPos, MAP_ITEMDESC_START_X, MAP_ITEMDESC_START_Y, 0 ))
+					{
+						fShowDescriptionFlag=TRUE;
+						fTeamPanelDirty=TRUE;
+						fInterfacePanelDirty = DIRTYLEVEL2;
+					}
 				}
 			}
 		}

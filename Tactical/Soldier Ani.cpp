@@ -618,7 +618,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						// "artificially" set lock ui flag in this case
 						if (pSoldier->bTeam == gbPlayerNum)
 						{
-							AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+							//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 							guiPendingOverrideEvent = LU_BEGINUILOCK;								
 							HandleTacticalUI( );
 						}
@@ -2078,7 +2078,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						// "artificially" set lock ui flag in this case
 						if (pSoldier->bTeam == gbPlayerNum)
 						{
-							AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+							//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 							guiPendingOverrideEvent = LU_BEGINUILOCK;								
 							HandleTacticalUI( );
 						}

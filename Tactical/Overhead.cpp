@@ -1928,7 +1928,7 @@ BOOLEAN ExecuteOverhead( )
 					// "artificially" set lock ui flag in this case
 					if (pSoldier->bTeam == gbPlayerNum)
 					{
-						AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+						//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 						guiPendingOverrideEvent = LU_BEGINUILOCK;	
 						HandleTacticalUI( );
 					}
@@ -2859,7 +2859,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 	{
 		if ( ResolvePendingInterrupt( pSoldier, MOVEMENT_INTERRUPT ) )
 		{
-			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );		
+			//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );		
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -8705,7 +8705,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 			// "artificially" set lock ui flag
 			if (pSoldier->bTeam == gbPlayerNum)
 			{
-				AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+				//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 				guiPendingOverrideEvent = LU_BEGINUILOCK;			
 				HandleTacticalUI( );
 			}

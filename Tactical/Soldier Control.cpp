@@ -4757,7 +4757,7 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 			// "artificially" set lock ui flag
 			if (this->bTeam == gbPlayerNum)
 			{
-				AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+				//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 				guiPendingOverrideEvent = LU_BEGINUILOCK;			
 				HandleTacticalUI( );
 			}
@@ -15371,13 +15371,15 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 			/////////////////////////////////////////////////////////////
 
 			// set base value ( interrupt per every X APs an enemy uses )
-			if ( pInterrupter->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY ) // if we see him
+			// if not seen but just heard... we interrupt only if they attack us (or if they are very close) in that case
+			if (( pInterrupter->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY ) || ( pInterrupter->aiData.bOppList[pSoldier->ubID] == HEARD_THIS_TURN && (ubInterruptType == AFTERSHOT_INTERRUPT || ubInterruptType == AFTERACTION_INTERRUPT || PythSpacesAway( pInterrupter->sGridNo, pSoldier->sGridNo) < 3) ))
 			{
 				uiReactionTime = gGameExternalOptions.ubBasicReactionTimeLengthIIS;
 			}
-			else // if not seen the length is higher (we don't want to interrupt in most cases here)
+			else
 			{
-				uiReactionTime = (gGameExternalOptions.ubBasicReactionTimeLengthIIS * 2);
+				// not seen or not heard anything worth interrupting
+				continue;
 			}
 			uiReactionTime = uiReactionTime * 10; // x10 ... we will divide by 10 after all adjustments done
 			// adjust based on Agility
