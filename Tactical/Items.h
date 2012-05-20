@@ -113,7 +113,7 @@ void InitItemAttachments(OBJECTTYPE* pObj);
 std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject = 0, BOOLEAN fAttachment = FALSE);
 void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usItem, BOOLEAN fOnlyRemoveWhenSlotsChange = 1);
 // HEADROCK HAM 5: Added argument for statusindex.
-void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem, UINT8 ubStatusIndex);
+attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem, UINT8 ubStatusIndex); //Madd: return a list of attachments we couldn't reattach or drop, so the calling function can decide what to do with them
 void EjectAmmoAndPlace(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT8 subObject = 0);
 
 BOOLEAN CanItemFitInVehicle( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos, BOOLEAN fDoingPlacement );

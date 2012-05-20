@@ -3811,7 +3811,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				std::map<INT8, OBJECTTYPE*> ObjList;
 				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
 								
-				if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SCOPE ) )
+				if (ObjList[pSoldier->bScopeMode] != NULL && IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SCOPE ) )
 				{					
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 54, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
 
@@ -3838,7 +3838,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					gprintfinvalidate( sMagX, sNewY, pStr );
 				}
 				// improved iron sights are attachable iron sights (the 'normal' iron sight is the gun itself)
-				else if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_IRONSIGHT ) )
+				else if (ObjList[pSoldier->bScopeMode] != NULL &&  IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_IRONSIGHT ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 52, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
 
@@ -3858,7 +3858,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					mprintf( sMagX, sNewY, pStr );
 					gprintfinvalidate( sMagX, sNewY, pStr );
 				}
-				else if ( IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
+				else if (ObjList[pSoldier->bScopeMode] != NULL &&  IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 53, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
 

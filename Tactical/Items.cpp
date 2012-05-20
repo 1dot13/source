@@ -4989,6 +4989,23 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 				// HEADROCK HAM 5: Added argument for statusindex.
 				ReInitMergedItem(pSoldier, this, usOldItem, subObject);
 
+				//Madd: if the attaching/merging item had any attachments on it, then try to move them to the first result
+				for (attachmentList::iterator iter = (*pAttachment)[0]->attachments.begin(); iter != (*pAttachment)[0]->attachments.end();) {
+					if( ValidItemAttachmentSlot(this, iter->usItem, TRUE, FALSE, subObject )){
+						//This seems to be rather valid. Can't be 100% sure though.
+						OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
+						CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
+						if(this->AttachObject(NULL, &tempAttachment, FALSE, subObject)){
+							//remove this object so it won't appear twice
+							iter = (*pAttachment)[0]->attachments.erase(iter);
+						} else {
+							++iter;
+						}
+					} else {
+						++iter;
+					}
+				}
+
 				if ( ubType != TREAT_ARMOUR )
 				{
 					(*this)[subObject]->data.objectStatus = ((*this)[subObject]->data.objectStatus + (*pAttachment)[0]->data.objectStatus) / 2;
@@ -5379,9 +5396,9 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 //This does the same as RemoveProhibitedAttachments but is a bit more thorough at it.
 //This is at the risk that items move around if more than one slot is valid, but since this is used for "new" guns after merges, that's acceptable.
 // HEADROCK HAM 5: Added argument for statusindex.
-void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem, UINT8 ubStatusIndex)
+attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem, UINT8 ubStatusIndex)
 {
-
+	attachmentList		unattachableList; //Madd: list of attachments that couldn't be attached or dropped (ie: inseparable attachments that got separated)
 	attachmentList		tempAttachList;
 	attachmentList		tempSlotChangingAttachList;
 	BOOLEAN fFoundDefaultAttachment = FALSE;
@@ -5483,6 +5500,8 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 				}
 			}
 		}
+		else
+			unattachableList.push_back((*iter));
 	}
 	//and the rest too
 	for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end(); ++iter) {
@@ -5499,8 +5518,11 @@ void ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 usOldItem,
 				}
 			}
 		}
+		else
+			unattachableList.push_back((*iter));
 	}
 
+	return unattachableList;
 }
 
 void EjectAmmoAndPlace(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT8 subObject)
@@ -9189,7 +9211,7 @@ INT16 GetAimBonus( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT32 iRange, INT1
 			GetScopeLists(pObj, ObjList);
 		
 			// only use scope mode if gun is in hand, otherwise an error might occur!
-			if ( (&pSoldier->inv[HANDPOS]) == pObj )
+			if ( (&pSoldier->inv[HANDPOS]) == pObj && ObjList[pSoldier->bScopeMode] != NULL )
 				bonus = BonusReduceMore( GetItemAimBonus( &Item[ObjList[pSoldier->bScopeMode]->usItem], iRange, ubAimTime ), (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 		}
 		else
@@ -9952,7 +9974,7 @@ INT16 GetPercentAPReduction( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj )
 				GetScopeLists(pObj, ObjList);
 
 				// only use scope mode if gun is in hand, otherwise an error might occur!
-				if ( (&pSoldier->inv[HANDPOS]) == pObj )
+				if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 					bonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].percentapreduction, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 			}
 		}
@@ -10195,7 +10217,7 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 					GetScopeLists(pObj, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore( Item[ObjList[pSoldier->bScopeMode]->usItem].visionrangebonus, (*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
@@ -10304,7 +10326,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					GetScopeLists(pObj, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore(
 								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
@@ -10404,7 +10426,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					GetScopeLists(pObj, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore(
 								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
@@ -10510,7 +10532,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					GetScopeLists(pObj, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].dayvisionrangebonus
 								* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
@@ -10612,7 +10634,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 					GetScopeLists(pObj, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].brightlightvisionrangebonus
 									* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
@@ -10761,7 +10783,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 					GetScopeLists(pObj, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pObj )
+					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						bonus += Item[ObjList[pSoldier->bScopeMode]->usItem].percenttunnelvision;
 				}
@@ -11800,7 +11822,7 @@ INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj )
 			GetScopeLists(pObj, ObjList);
 		
 			// only use scope mode if gun is in hand, otherwise an error might occur!
-			if ( (&pSoldier->inv[HANDPOS]) == pObj )
+			if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 				bonus = Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus;
 		}
 		else
@@ -11831,7 +11853,7 @@ FLOAT GetScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj, FLO
 		GetScopeLists(pObj, ObjList);
 		
 		// only use scope mode if gun is in hand, otherwise an error might occur!
-		if ( (&pSoldier->inv[HANDPOS]) == pObj )
+		if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 			// now apply the bonus from the scope we use
 			BestFactor = Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor;
 
@@ -11874,7 +11896,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 		GetScopeLists(pObj, ObjList);
 		
 		// only use scope mode if gun is in hand, otherwise an error might occur!
-		if ( (&pSoldier->inv[HANDPOS]) == pObj )
+		if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 			// now apply the bonus from the scope we use
 			return max(1.0f, Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor);
 		else
@@ -12267,7 +12289,7 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 					GetScopeLists(&pSoldier->inv[pSoldier->ubAttackingHand], ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == &pSoldier->inv[pSoldier->ubAttackingHand] )
+					if ( (&pSoldier->inv[HANDPOS]) == &pSoldier->inv[pSoldier->ubAttackingHand]  && ObjList[pSoldier->bScopeMode] != NULL )
 						sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
 				}
 				else
@@ -12337,7 +12359,7 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 					GetScopeLists(pAttackingWeapon, ObjList);
 		
 					// only use scope mode if gun is in hand, otherwise an error might occur!
-					if ( (&pSoldier->inv[HANDPOS]) == pAttackingWeapon )
+					if ( (&pSoldier->inv[HANDPOS]) == pAttackingWeapon  && ObjList[pSoldier->bScopeMode] != NULL )
 						sScopeBonus = Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus;
 				}
 				else
@@ -13269,6 +13291,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	UINT16 usOrigItem = this->usItem;
 	UINT32 uiOrigClass = Item[this->usItem].usItemClass;
 	UINT8 ubOrigNumObjects = this->ubNumberOfObjects;
+	UINT8 ubOrigStatus = (*this)[ubStatusIndex]->data.objectStatus; //Madd: moved this up here, since it was getting corrupted when applied to multiple results -- all statuses were coming back as 0
 	
 	UINT16 usAPCost = 0;
 	INT32 iBPCost = 0;
@@ -13364,11 +13387,12 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	// STEP 2: Check the item's attachments to see whether they still fit.
 	// We'll have to fool this function into thinking we've already changed the item.
 	// Note that this function automatically drops invalid attachments to the ground.
+	attachmentList unattachableList;
 	this->usItem = usResult[0];
 	// Repeat for each object in the stack.
 	for ( UINT8 x = 0; x < this->ubNumberOfObjects; x++ )
 	{
-		ReInitMergedItem(pSoldier, this, usOldItem, x);
+		unattachableList = ReInitMergedItem(pSoldier, this, usOldItem, x);
 	}
 	this->usItem = usOldItem;
 
@@ -13510,7 +13534,25 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 		for (UINT32 y = 0; y < ubOrigNumObjects; y++)
 		{
 			// Create the result item. Set its condition to match that of the original.
-			CreateItem( usResult[x], (*this)[ubStatusIndex]->data.objectStatus, &gTempObject );
+			CreateItem( usResult[x], ubOrigStatus, &gTempObject );
+
+			//Madd:  sometimes we have leftover attachments that couldn't fit on first result, so we try reattaching them here
+			// I am the prince of copy pasta ;)
+			for (attachmentList::iterator iter = unattachableList.begin(); iter != unattachableList.end();) {
+				if( ValidItemAttachmentSlot(&gTempObject, iter->usItem, TRUE, FALSE, ubStatusIndex )){
+					//This seems to be rather valid. Can't be 100% sure though.
+					OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
+					CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
+					if(gTempObject.AttachObject(NULL, &tempAttachment, FALSE, ubStatusIndex)){
+						//remove this object from the list, so we don't try to attach it to the next result
+						iter = unattachableList.erase(iter);
+					} else {
+						++iter;
+					}
+				} else {
+					++iter;
+				}
+			}
 
 			if (!fItemInPool)
 			{
