@@ -5099,6 +5099,7 @@ STR16		zOptionsToggleText[] =
 	L"Show Face Gear Graphics",				
 	L"Show Face Gear Icons",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap
+	L"Quiet Training",						// Madd: mercs don't say quotes while training
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
 	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -5207,6 +5208,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, you will see the equipped face gear on the merc portraits.",
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
+	L"When ON, mercs will not report progress during training.",
 	L"When ON, AI turns will be much faster.",
 	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",

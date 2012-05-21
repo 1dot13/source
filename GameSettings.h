@@ -87,6 +87,7 @@ enum
 	TOPTION_SHOW_TACTICAL_FACE_ICONS,
 
 	TOPTION_DISABLE_CURSOR_SWAP,				// Disable cursor swapping every second between talk and quick exchange
+	TOPTION_QUIET_TRAINING,						//Madd: mercs don't say gained experience quote while training
 	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
 
 	// Flugente FTW 1: Weapon Overheating

@@ -5080,6 +5080,7 @@ STR16		zOptionsToggleText[] =
 	L"Показать снаряжение на голове",				//Show Face gear graphics
 	L"Показать иконки снаряжения",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
+	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 	//L"Weapons Overheating",					// TODO.Translate
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -5188,6 +5189,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, на портрете наёмника будет отображено одетое головное снаряжение.",
 	L"Если включено, в правом нижнем углу \nна портрете наёмника будут отображены иконки \nодетого головного снаряжения.",
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
+	L"When ON, mercs will not report progress during training.",
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",

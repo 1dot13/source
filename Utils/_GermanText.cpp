@@ -4948,6 +4948,7 @@ STR16 zOptionsToggleText[] =
 	L"Gesichtsequipment-Grafiken",			
 	L"Gesichtsequipment-Icons",
 	L"Cursor-Wechsel deaktivieren",		    // Disable Cursor Swap
+	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
 	//L"Waffen können überhitzen",			
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -5056,6 +5057,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer Söldner direkt auf dem Portrait.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
 	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFür manuellen Positionswechsel drücken Sie |x.",
+	L"When ON, mercs will not report progress during training.", //TODO.Translate
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
 	//L"Wenn diese Funktion aktiviert ist, können sich Waffen überhiten bei schneller Schussfolge.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",

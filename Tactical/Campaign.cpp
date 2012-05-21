@@ -134,7 +134,7 @@ void StatChange(SOLDIERTYPE *pSoldier, UINT8 ubStat, UINT16 usNumChances, UINT8 
 	ProcessStatChange( &( gMercProfiles[ pSoldier->ubProfile ] ), ubStat, usNumChances, ubReason );
 
 	// Update stats....right away... ATE
-	UpdateStats( pSoldier );
+	UpdateStats( pSoldier, ubReason );
 }
 
 
@@ -152,7 +152,7 @@ void ProfileStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	ProcessStatChange( pProfile, ubStat, usNumChances, ubReason );
 
 	// Update stats....right away... ATE
-	ProfileUpdateStats( pProfile );
+	ProfileUpdateStats( pProfile, ubReason );
 }
 
 
@@ -449,20 +449,20 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 
 
 // convert hired mercs' stats subpoint changes into actual point changes where warranted
-void UpdateStats( SOLDIERTYPE *pSoldier )
+void UpdateStats( SOLDIERTYPE *pSoldier, UINT8 ubReason )
 {
-	ProcessUpdateStats( &( gMercProfiles[ pSoldier->ubProfile ] ), pSoldier );
+	ProcessUpdateStats( &( gMercProfiles[ pSoldier->ubProfile ] ), pSoldier, ubReason );
 }
 
 
 // UpdateStats version for mercs not currently on player's team
-void ProfileUpdateStats( MERCPROFILESTRUCT *pProfile )
+void ProfileUpdateStats( MERCPROFILESTRUCT *pProfile, UINT8 ubReason )
 {
-	ProcessUpdateStats( pProfile, NULL );
+	ProcessUpdateStats( pProfile, NULL, ubReason );
 }
 
 
-void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubStat, INT16 sPtsChanged )
+void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubStat, INT16 sPtsChanged, UINT8 ubReason = 0 )
 {
 	// this function changes the stat a given amount...
 	INT16 *psStatGainPtr = NULL;
@@ -686,7 +686,9 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 			{
 				// Pipe up with "I'm getting better at this!"
 				TacticalCharacterDialogueWithSpecialEventEx( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_DISPLAY_STAT_CHANGE, fChangeTypeIncrease, sPtsChanged, ubStat );
-				TacticalCharacterDialogue( pSoldier, QUOTE_EXPERIENCE_GAIN );
+	
+				if ( (ubReason != FROM_TRAINING && pSoldier->bAssignment != TRAIN_TEAMMATE ) || !gGameSettings.fOptions[TOPTION_QUIET_TRAINING] ) //Madd: option to make mercs quiet during training
+					TacticalCharacterDialogue( pSoldier, QUOTE_EXPERIENCE_GAIN );
 			}
 			else
 			{
@@ -822,7 +824,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 
 
 // pSoldier may be NULL!
-void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier )
+void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubReason )
 {
 	// this function will run through the soldier's profile and update their stats based on any accumulated gain pts.
 	UINT8 ubStat = 0;
@@ -1036,7 +1038,7 @@ void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier )
 		if ( sPtsChanged != 0 )
 		{
 			// Otherwise, use normal stat increase stuff...
-			ChangeStat( pProfile, pSoldier, ubStat, sPtsChanged );
+			ChangeStat( pProfile, pSoldier, ubStat, sPtsChanged, ubReason );
 		}
 	}
 

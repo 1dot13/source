@@ -5101,6 +5101,7 @@ STR16		zOptionsToggleText[] =
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
 	L"禁止光标切换",		            // Disable Cursor Swap
+	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
 	//L"武器过热",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -5209,6 +5210,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时, 显示佣兵脸部装备图。",
 	L"打开时, 佣兵肖像右下角显示脸部装备图标",
 	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
+	L"When ON, mercs will not report progress during training.", //TODO.Translate
 	L"打开时，敌军回合将被大幅加速。",
 	//L"打开时，武器连续射击时温度逐渐升高引起过热。",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",

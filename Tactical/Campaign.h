@@ -66,9 +66,9 @@ void StatChange(SOLDIERTYPE *pSoldier, UINT8 ubStat, UINT16 usNumChances, UINT8 
 void ProfileStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumChances, UINT8 ubReason);
 void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumChances, UINT8 ubReason);
 
-void UpdateStats( SOLDIERTYPE *pSoldier );
-void ProfileUpdateStats( MERCPROFILESTRUCT *pProfile );
-void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier );
+void UpdateStats( SOLDIERTYPE *pSoldier, UINT8 ubReason = 0 );
+void ProfileUpdateStats( MERCPROFILESTRUCT *pProfile, UINT8 ubReason = 0 );
+void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubReason = 0 );
 
 UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit);
 UINT32 RoundOffSalary(UINT32 uiSalary);

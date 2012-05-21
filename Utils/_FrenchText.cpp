@@ -5090,6 +5090,7 @@ STR16		zOptionsToggleText[] =
 	L"Afficher équipments portrait",
 	L"Afficher icones portraits",
 	L"Désactiver échange curseur",		            // Disable Cursor Swap
+	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -5198,6 +5199,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",
 	L"Si activé, vous verrez les icones correspondant à l'équipement porté en bas à droite du portrait.",
 	L"Si activé, le curseur ne basculera pas entre changer de position et une autre action. Appuyez sur |x pour initier un échange rapide.",
+	L"When ON, mercs will not report progress during training.",
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
