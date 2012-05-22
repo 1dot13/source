@@ -6364,9 +6364,12 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		std::map<INT8, OBJECTTYPE*> ObjList;
 		GetScopeLists((&(pSoldier->inv[pSoldier->ubAttackingHand])), ObjList);
 		
-		iPenalty = (Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus * (iRange - Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus)) / 1000;
-		iPenalty = min(AIM_BONUS_PRONE, iPenalty);
-		iChance -= iPenalty;
+		if ( ObjList[pSoldier->bScopeMode] != NULL )
+		{
+			iPenalty = (Item[ObjList[pSoldier->bScopeMode]->usItem].aimbonus * (iRange - Item[ObjList[pSoldier->bScopeMode]->usItem].minrangeforaimbonus)) / 1000;
+			iPenalty = min(AIM_BONUS_PRONE, iPenalty);
+			iChance -= iPenalty;
+		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	

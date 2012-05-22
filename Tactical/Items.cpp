@@ -7693,7 +7693,6 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	//CHRISL: We need to know if the removed attachment could have altered the base items potential attachments
 	BOOLEAN	removeAttachments = TRUE, cleanAttachments = FALSE;
 	INT8	loopCount = 0;
-	removedAttachment[0]->attachments.clear();
 
 	while(removeAttachments){
 		usRemAttachmentSlotIndexVector = GetItemSlots(&removedAttachment);
@@ -7705,7 +7704,8 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 			for(attachmentList::iterator iter = (*this)[subObject]->attachments.begin(); iter != (*this)[subObject]->attachments.end(); ++iter){
 				removeAttachments = FALSE;
 				if(iter->exists()){
-					if(!ValidItemAttachment(this, iter->usItem, FALSE, FALSE, subObject, usAttachmentSlotIndexVector)){	//attachment is no longer valid
+					if(!ValidItemAttachment(this, iter->usItem, FALSE, FALSE, subObject, usAttachmentSlotIndexVector))
+					{	//attachment is no longer valid
 						removeAttachments = TRUE;
 						OBJECTTYPE	remObj;
 						remObj = *iter;
@@ -7723,14 +7723,6 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 								INT32 sGridNo = (pSoldier?pSoldier->sGridNo:0);
 								if( AutoPlaceObjectToWorld(pSoldier, &remObj) )
 									iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
-								/*if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool){
-									if(AutoPlaceObjectInInventoryStash(&remObj, sGridNo)){
-										iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
-									}
-								} else {
-									AddItemToPool( sGridNo, &remObj, 1, pathing, WORLD_ITEM_REACHABLE, 0 );
-									iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
-								}*/
 							}
 						}
 					}
@@ -7746,7 +7738,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	if(pNewObj != NULL)
 		*pNewObj = removedAttachment;
 
-	if(pAttachment->exists() )
+	if(pAttachment->exists() && pAttachment->usItem == 0)
 		*pAttachment = removedAttachment;
 
 	if (pNewObj->exists() && Item[pNewObj->usItem].grenadelauncher )//UNDER_GLAUNCHER)
