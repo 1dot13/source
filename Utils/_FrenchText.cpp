@@ -4953,16 +4953,17 @@ STR16			zSaveLoadText[] =
 	L"Difficulté",
 	L"Platinum Mode", //Placeholder English
 
-	L"Bobby Ray",
-	L"Bonne Selection",
-	L"Meilleure Selection",
-	L"Excellente Selection",
-	L"Superbe Selection",
+	L"Bobby Ray Qualité",
+	L"Bonne",
+	L"Meilleure",
+	L"Excellente",
+	L"Superbe",
 
 	L"Le nouvel inventaire (NIV) ne peut se lancer en 640x480. Changez de résolution.",
 	L"Le nouvel inventaire (NIV) ne fonctionne pas depuis le dossier \"data\" original.",
 
 	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",	// TODO.Translate
+	L"Bobby Ray Quantité",
 };
 
 
@@ -5247,7 +5248,7 @@ STR16	gzGIOScreenText[] =
 	L"Sauv. à volonté",
 	L"Iron Man",
 	L"Désactivé pour la démo",
-	L"Selection de Bobby Ray",
+	L"Qualité de Bobby Ray",
 	L"Bonne",
 	L"Meilleure",
 	L"Excellente",
@@ -5305,6 +5306,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Weapon Overheating",
+	L"Quantité de Bobby Ray",//TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =

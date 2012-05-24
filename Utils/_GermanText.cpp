@@ -4810,7 +4810,7 @@ STR16 zSaveLoadText[] =
 	L"SciFi-Stil",
 	L"Schwierigkeit",
 	L"Platinum Mode",	//Placeholder English
-	L"Bobby Ray's",
+	L"Bobby Ray Quality", //TODO.Translate
 	L"Normale Auswahl",
 	L"Große Auswahl",
 	L"Ausgezeichnete Auswahl",
@@ -4820,6 +4820,7 @@ STR16 zSaveLoadText[] =
 	L"Neues Inventar funktioniert nicht mit dem ausgewählten 'Data' Ordner.",	
 
 	L"Die gespeicherte Truppengröße im Spielstand wird nicht unterstützt bei der aktullen Bildschirmauflösung. Wählen Sie eine höhere Bildschirmauflösung und versuchen Sie es erneut.",
+	L"Bobby Ray Quantity",//TODO.Translate
 };
 
 //MapScreen
@@ -5104,7 +5105,7 @@ STR16 gzGIOScreenText[] =
 	L"Jederzeit",
 	L"Nicht im Kampf",
 	L"Option nicht verfügbar", 
-	L"Bobby Ray's Auswahl",
+	L"Bobby Ray Quality", //TODO.Translate
 	L"Normal",
 	L"Groß",
 	L"Ausgezeichnet",
@@ -5160,6 +5161,7 @@ STR16 gzGIOScreenText[] =
 	L"Neues Zielsystem",
 	L"Verbesserte Unterbrechungen",
 	L"Waffen-Überhitzung",
+	L"Bobby Ray Quantity",//TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =

@@ -212,7 +212,8 @@ typedef struct
 	UINT8	ubDifficultyLevel;
 	BOOLEAN	fTurnTimeLimit;
 	BOOLEAN	fIronManMode;
-	UINT8	ubBobbyRay;
+	UINT8	ubBobbyRayQuality;
+	UINT8	ubBobbyRayQuantity;
 	UINT8	ubInventorySystem;
 	UINT8	ubAttachmentSystem;
 	UINT8	ubSquadSize;

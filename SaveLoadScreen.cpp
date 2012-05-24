@@ -1449,11 +1449,11 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 			swprintf( zDifString, L"%s %s", gzGIOScreenText[ GIO_EASY_TEXT + SaveGameHeader.sInitialGameOptions.ubDifficultyLevel - 1 ], zSaveLoadText[ SLG_DIFF ] );
 
 			//make a string containing the extended options
-			swprintf( zMouseHelpTextString, L"%20ls     %22ls     %22ls     %22ls", zDifString,
-
-			SaveGameHeader.sInitialGameOptions.ubBobbyRay == BR_GOOD ? zSaveLoadText[ SLG_BR_GOOD_TEXT ] : (SaveGameHeader.sInitialGameOptions.ubBobbyRay == BR_GREAT ? zSaveLoadText[ SLG_BR_GREAT_TEXT ]: (SaveGameHeader.sInitialGameOptions.ubBobbyRay == BR_EXCELLENT ? zSaveLoadText[ SLG_BR_EXCELLENT_TEXT ]: zSaveLoadText[ SLG_BR_AWESOME_TEXT ])),
-			SaveGameHeader.sInitialGameOptions.fGunNut ? zSaveLoadText[ SLG_ADDITIONAL_GUNS ] : zSaveLoadText[ SLG_NORMAL_GUNS ],
-			SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_SCIFI ? zSaveLoadText[ SLG_SCIFI ] : (SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_PLATINUM ? zSaveLoadText[ SLG_PLATINUM ]: zSaveLoadText[ SLG_REALISTIC ]) );
+			swprintf( zMouseHelpTextString, L"%20ls     %d     %d     %22ls     %22ls", zDifString,
+				SaveGameHeader.sInitialGameOptions.ubBobbyRayQuality, 
+				SaveGameHeader.sInitialGameOptions.ubBobbyRayQuantity, 
+				SaveGameHeader.sInitialGameOptions.fGunNut ? zSaveLoadText[ SLG_ADDITIONAL_GUNS ] : zSaveLoadText[ SLG_NORMAL_GUNS ],
+				SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_SCIFI ? zSaveLoadText[ SLG_SCIFI ] : (SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_PLATINUM ? zSaveLoadText[ SLG_PLATINUM ]: zSaveLoadText[ SLG_REALISTIC ]) );
 
 			//The date
 			DrawTextToScreen( zMouseHelpTextString, (UINT16)(usPosX+SLG_DATE_OFFSET_X), (UINT16)(usPosY+SLG_DATE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);

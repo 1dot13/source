@@ -4962,16 +4962,17 @@ STR16			zSaveLoadText[] =
 	L"Difficulty",
 	L"Platinum Mode", //Placeholder English
 
-	L"Bobby Ray's",
-	L"Normal Selection",
-	L"Great Selection",
-	L"Excellent Selection",
-	L"Awesome Selection",
+	L"Bobby Ray Quality",
+	L"Normal",
+	L"Great",
+	L"Excellent",
+	L"Awesome",
 
 	L"New Inventory does not work in 640x480 screen resolution. Please increase the screen resolution and try again.",
 	L"New Inventory does not work from the default 'Data' folder.",
 
 	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
+	L"Bobby Ray Quantity",
 };
 
 
@@ -5256,7 +5257,7 @@ STR16	gzGIOScreenText[] =
 	L"Save Anytime",
 	L"Iron Man",
 	L"Disabled for Demo",
-	L"Bobby Ray's Selection",
+	L"Bobby Ray Quality",
 	L"Normal",
 	L"Great",
 	L"Excellent",
@@ -5314,6 +5315,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Weapon Overheating",
+	L"Bobby Ray Quantity",
 };
 
 STR16	gzMPJScreenText[] =

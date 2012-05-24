@@ -72,7 +72,8 @@ typedef struct
 	UINT8	soubSkillTraits;
 	BOOLEAN	sofTurnTimeLimit;
 	BOOLEAN	sofIronManMode;
-	UINT8	soubBobbyRay;	
+	UINT8	soubBobbyRayQuality;	
+	UINT8	soubBobbyRayQuantity;	
 	UINT8	maxMercs;
 	UINT8	client_num;
 	char	client_name[30];

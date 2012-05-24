@@ -2380,7 +2380,8 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		gGameOptions.ubDifficultyLevel=cl_lan->soubDifficultyLevel;
 		gGameOptions.fNewTraitSystem = cl_lan->soubSkillTraits;
 		gGameOptions.fIronManMode=cl_lan->sofIronManMode;
-		gGameOptions.ubBobbyRay=cl_lan->soubBobbyRay;
+		gGameOptions.ubBobbyRayQuality=cl_lan->soubBobbyRayQuality;
+		gGameOptions.ubBobbyRayQuantity=cl_lan->soubBobbyRayQuantity;
 
 		// Set Bobby Ray "Under Construction"?
 		if(!cl_lan->disableBobbyRay)
@@ -2605,7 +2606,8 @@ void reapplySETTINGS()
 	gGameOptions.ubDifficultyLevel=gMPServerSettings.soubDifficultyLevel;
 	gGameOptions.fNewTraitSystem = gMPServerSettings.soubSkillTraits;
 	gGameOptions.fIronManMode=gMPServerSettings.sofIronManMode;
-	gGameOptions.ubBobbyRay=gMPServerSettings.soubBobbyRay;
+	gGameOptions.ubBobbyRayQuality=gMPServerSettings.soubBobbyRayQuality;
+	gGameOptions.ubBobbyRayQuantity=gMPServerSettings.soubBobbyRayQuantity;
 
 	// Set Bobby Ray "Under Construction"?
 	if(!gMPServerSettings.disableBobbyRay)

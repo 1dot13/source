@@ -169,12 +169,16 @@
 #define		GIO_SQUAD_SIZE_SETTING_Y				THIRD_COLUMN_Y
 #define		GIO_SQUAD_SIZE_SETTING_WIDTH			COMBO_WIDTH
 
-#define		GIO_BR_SETTING_X						THIRD_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_BR_SETTING_Y						GIO_SQUAD_SIZE_SETTING_Y + COMBO_Y_OFFSET
-#define		GIO_BR_SETTING_WIDTH					COMBO_WIDTH
+#define		GIO_BR_QUALITY_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_BR_QUALITY_SETTING_Y				GIO_SQUAD_SIZE_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_BR_QUALITY_SETTING_WIDTH			COMBO_WIDTH
+
+#define		GIO_BR_QUANTITY_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_BR_QUANTITY_SETTING_Y				GIO_BR_QUALITY_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_BR_QUANTITY_SETTING_WIDTH			COMBO_WIDTH
 
 #define		GIO_NCTH_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_NCTH_SETTING_Y						GIO_BR_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_NCTH_SETTING_Y						GIO_BR_QUANTITY_SETTING_Y + CHECK_Y_OFFSET
 #define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
 
 #define		GIO_IIS_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
@@ -262,7 +266,8 @@
 
 // INI Properties
 #define		JA2SP_DIFFICULTY_LEVEL					"DIFFICULTY_LEVEL"
-#define		JA2SP_BOBBY_RAY_SELECTION				"BOBBY_RAY_SELECTION"
+#define		JA2SP_BOBBY_RAY_QUALITY					"BOBBY_RAY_QUALITY"
+#define		JA2SP_BOBBY_RAY_QUANTITY				"BOBBY_RAY_QUANTITY"
 #define		JA2SP_MAX_IMP_CHARACTERS				"MAX_IMP_CHARACTERS"
 #define		JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES	"PROGRESS_SPEED_OF_ITEM_CHOICES"
 #define		JA2SP_SKILL_TRAITS						"SKILL_TRAITS"
@@ -332,17 +337,6 @@ enum
 	GIO_TEX_AND_JOHN,
 
 	NUM_RPC_UB_OPTIONS,
-};
-
-// BR options
-enum
-{
-	GIO_BR_GOOD,
-	GIO_BR_GREAT,
-	GIO_BR_EXCELLENT,
-	GIO_BR_AWESOME,
-
-	NUM_BR_OPTIONS,
 };
 
 enum
@@ -432,7 +426,8 @@ UINT32		guiGIOMainBackGroundImage;
 INT32		giGioMessageBox = -1;
 
 INT8 iCurrentDifficulty;
-INT8 iCurrentBRSetting;
+INT8 iCurrentBRQualitySetting;
+INT8 iCurrentBRQuantitySetting;
 INT8 iCurrentIMPNumberSetting;
 INT8 iCurrentProgressSetting;
 INT8 iCurrentInventorySetting;
@@ -466,10 +461,15 @@ INT32 giGIOIMPNumberButtonImage[ 2 ];
 void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
-UINT32 giGIOBRSettingButton[ 2 ];
-INT32 giGIOBRSettingButtonImage[ 2 ];
-void BtnGIOBRSettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
-void BtnGIOBRSettingRightCallback( GUI_BUTTON *btn,INT32 reason );
+UINT32 giGIOBRQualitySettingButton[ 2 ];
+INT32 giGIOBRQualitySettingButtonImage[ 2 ];
+void BtnGIOBRQualitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnGIOBRQualitySettingRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+UINT32 giGIOBRQuantitySettingButton[ 2 ];
+INT32 giGIOBRQuantitySettingButtonImage[ 2 ];
+void BtnGIOBRQuantitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnGIOBRQuantitySettingRightCallback( GUI_BUTTON *btn,INT32 reason );
 
 UINT32 giGIOProgressSettingButton[ 2 ];
 INT32 giGIOProgressSettingButtonImage[ 2 ];
@@ -615,27 +615,12 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Difficulty Level (Default: Experienced = 1)
 	gGameOptions.ubDifficultyLevel =  ((UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_DIFFICULTY_LEVEL, 1)) + 1;
 
-	// Bobby Ray's Selection (Default: Great = 1)
-	UINT8 ubBobbyRay = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_SELECTION, 1);
-	switch (ubBobbyRay)
-	{
-		// Normal
-		case 0:
-			gGameOptions.ubBobbyRay =  BR_GOOD;
-			break;
-		// Great
-		case 1:
-			gGameOptions.ubBobbyRay =  BR_GREAT;
-			break;
-		// Excellent
-		case 2:
-			gGameOptions.ubBobbyRay =  BR_EXCELLENT;
-			break;
-		// Awesome
-		case 3:
-			gGameOptions.ubBobbyRay =  BR_AWESOME;
-			break;
-	}
+	// Bobby Ray's Selection (Default: Good = 1)
+	UINT8 ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 1);
+	gGameOptions.ubBobbyRayQuality = max(min(1, ubBobbyRayQuality),10);
+
+	UINT8 ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 1);
+	gGameOptions.ubBobbyRayQuantity = max(min(1, ubBobbyRayQuantity),10);
 
 	// Max. IMP Characters
 	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
@@ -990,43 +975,42 @@ BOOLEAN		EnterGIOScreen()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// BOBBY RAY SETTING
 	
-	giGIOBRSettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
-	giGIOBRSettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
+	giGIOBRQualitySettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
+	giGIOBRQualitySettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
 
 	// left button - decrement BR level
-	giGIOBRSettingButton[ 0 ] = QuickCreateButton( giGIOBRSettingButtonImage[ 0 ], GIO_BR_SETTING_X + 39, GIO_BR_SETTING_Y ,
+	giGIOBRQualitySettingButton[ 0 ] = QuickCreateButton( giGIOBRQualitySettingButtonImage[ 0 ], GIO_BR_QUALITY_SETTING_X + 39, GIO_BR_QUALITY_SETTING_Y ,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRSettingLeftCallback );
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQualitySettingLeftCallback );
 
 	// right button - increment BR level
-	giGIOBRSettingButton[ 1 ] = QuickCreateButton( giGIOBRSettingButtonImage[ 1 ], GIO_BR_SETTING_X + 158, GIO_BR_SETTING_Y ,
+	giGIOBRQualitySettingButton[ 1 ] = QuickCreateButton( giGIOBRQualitySettingButtonImage[ 1 ], GIO_BR_QUALITY_SETTING_X + 158, GIO_BR_QUALITY_SETTING_Y ,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRSettingRightCallback );
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQualitySettingRightCallback );
+
+	giGIOBRQuantitySettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
+	giGIOBRQuantitySettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
+
+	// left button - decrement BR level
+	giGIOBRQuantitySettingButton[ 0 ] = QuickCreateButton( giGIOBRQuantitySettingButtonImage[ 0 ], GIO_BR_QUANTITY_SETTING_X + 39, GIO_BR_QUANTITY_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQuantitySettingLeftCallback );
+
+	// right button - increment BR level
+	giGIOBRQuantitySettingButton[ 1 ] = QuickCreateButton( giGIOBRQuantitySettingButtonImage[ 1 ], GIO_BR_QUANTITY_SETTING_X + 158, GIO_BR_QUANTITY_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQuantitySettingRightCallback );
 
 	// set user data
-	MSYS_SetBtnUserData(giGIOBRSettingButton[0],0, 0 );
-	MSYS_SetBtnUserData(giGIOBRSettingButton[1],0, 1 );
+	MSYS_SetBtnUserData(giGIOBRQualitySettingButton[0],0, 0 );
+	MSYS_SetBtnUserData(giGIOBRQualitySettingButton[1],0, 1 );
+	MSYS_SetBtnUserData(giGIOBRQuantitySettingButton[0],0, 0 );
+	MSYS_SetBtnUserData(giGIOBRQuantitySettingButton[1],0, 1 );
 
 	// set initial value
-	switch ( gGameOptions.ubBobbyRay )
-	{
-		case BR_GOOD:
-			iCurrentBRSetting = GIO_BR_GOOD;
-			break;
-		case BR_GREAT:
-			iCurrentBRSetting = GIO_BR_GREAT;
-			break;
-		case BR_EXCELLENT:
-			iCurrentBRSetting = GIO_BR_EXCELLENT;
-			break;
-		case BR_AWESOME:
-			iCurrentBRSetting = GIO_BR_AWESOME;
-			break;
-		default:
-			iCurrentBRSetting = GIO_BR_GOOD; // optimistically assume, we have selected the normal one
-			break;
-	}
-	
+	iCurrentBRQualitySetting = gGameOptions.ubBobbyRayQuality;
+	iCurrentBRQuantitySetting = gGameOptions.ubBobbyRayQuantity;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ITEM PROGRESS SETTING
 	
@@ -1409,39 +1393,39 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIOBRSettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
+void BtnGIOBRQualitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		if ( iCurrentBRSetting > 0 )
+		if ( iCurrentBRQualitySetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting--;
+			iCurrentBRQualitySetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentBRSetting > 0 )
+		if ( iCurrentBRQualitySetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting--;
+			iCurrentBRQualitySetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -1453,39 +1437,128 @@ void BtnGIOBRSettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIOBRSettingRightCallback( GUI_BUTTON *btn,INT32 reason )
+void BtnGIOBRQualitySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		if ( iCurrentBRSetting < 3 )
+		if ( iCurrentBRQualitySetting < 10 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting++;
+			iCurrentBRQualitySetting++;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentBRSetting < 3 )
+		if ( iCurrentBRQualitySetting < 10 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting++;
+			iCurrentBRQualitySetting++;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+
+void BtnGIOBRQuantitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentBRQuantitySetting > 1 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentBRQuantitySetting > 1 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOBRQuantitySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentBRQuantitySetting < 10 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentBRQuantitySetting < 10 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -1506,14 +1579,14 @@ void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		if ( iCurrentIMPNumberSetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
 
 			iCurrentIMPNumberSetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1522,14 +1595,14 @@ void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
 
 		if ( iCurrentIMPNumberSetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
 
 			iCurrentIMPNumberSetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -2216,10 +2289,15 @@ BOOLEAN		ExitGIOScreen()
 	UnloadButtonImage( giGIOIMPNumberButtonImage[1] );
 
 	// Destroy BR setting buttons
-	RemoveButton( giGIOBRSettingButton[0] );
-	RemoveButton( giGIOBRSettingButton[1] );
-	UnloadButtonImage( giGIOBRSettingButtonImage[0] );
-	UnloadButtonImage( giGIOBRSettingButtonImage[1] );
+	RemoveButton( giGIOBRQualitySettingButton[0] );
+	RemoveButton( giGIOBRQualitySettingButton[1] );
+	UnloadButtonImage( giGIOBRQualitySettingButtonImage[0] );
+	UnloadButtonImage( giGIOBRQualitySettingButtonImage[1] );
+
+	RemoveButton( giGIOBRQuantitySettingButton[0] );
+	RemoveButton( giGIOBRQuantitySettingButton[1] );
+	UnloadButtonImage( giGIOBRQuantitySettingButtonImage[0] );
+	UnloadButtonImage( giGIOBRQuantitySettingButtonImage[1] );
 
 	// Destroy Progress setting buttons
 	RemoveButton( giGIOProgressSettingButton[0] );
@@ -2378,6 +2456,21 @@ void HandleGIOScreen()
 	}
 }
 
+STR16	BRSettingText(INT8 currentSetting, BOOLEAN quantity)
+{
+	CHAR16 text[256];
+
+	if (currentSetting < BR_GREAT)
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_GOOD_TEXT], currentSetting, quantity ? "x" : "");
+	else if (currentSetting >= BR_GREAT && currentSetting < BR_EXCELLENT )
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_GREAT_TEXT], currentSetting, quantity ? "x" : "");
+	else if (currentSetting >= BR_EXCELLENT && currentSetting < BR_AWESOME )
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_EXCELLENT_TEXT], currentSetting, quantity ? "x" : "");
+	else
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_AWESOME_TEXT], currentSetting, quantity ? "x" : "");
+
+	return text;
+}
 
 BOOLEAN		RenderGIOScreen()
 {
@@ -2385,7 +2478,8 @@ BOOLEAN		RenderGIOScreen()
 
 	RestoreExternBackgroundRect( GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_DIF_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_IMP_SETTING_Y-3, 120, 20 );
-	RestoreExternBackgroundRect( GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_SETTING_Y-3, 120, 20 );
+	RestoreExternBackgroundRect( GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUALITY_SETTING_Y-3, 120, 20 );
+	RestoreExternBackgroundRect( GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUANTITY_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_PROGRESS_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_PROGRESS_SETTING_Y-3, 120, 20 );	
 	RestoreExternBackgroundRect( GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_INV_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_SQUAD_SIZE_SETTING_Y-3, 120, 20 );
@@ -2419,10 +2513,15 @@ BOOLEAN		RenderGIOScreen()
 		swprintf(sStartLevelString, L"%i", iCurrentIMPNumberSetting );
 		DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IMP_SETTING_Y+6), GIO_IMP_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, sStartLevelString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
+
 	// Display BR Setting texts
-	RenderGIOSmallSelectionFrame( (GIO_BR_SETTING_X + 36), (GIO_BR_SETTING_Y - 3) );
-	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_BR_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_BR_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_BR_SETTING_Y+6), GIO_BR_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentBRSetting + 20 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	RenderGIOSmallSelectionFrame( (GIO_BR_QUALITY_SETTING_X + 36), (GIO_BR_QUALITY_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_BR_QUALITY_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_BR_QUALITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_BR_QUALITY_SETTING_Y+6), GIO_BR_QUALITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, BRSettingText(iCurrentBRQualitySetting, FALSE), FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	RenderGIOSmallSelectionFrame( (GIO_BR_QUANTITY_SETTING_X + 36), (GIO_BR_QUANTITY_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_BR_QUANTITY_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_BR_QUANTITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_BR_QUANTITY_SETTING_Y+6), GIO_BR_QUANTITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, BRSettingText(iCurrentBRQuantitySetting, TRUE), FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// Display Progress Setting texts
 	RenderGIOSmallSelectionFrame( (GIO_PROGRESS_SETTING_X + 36), (GIO_PROGRESS_SETTING_Y - 3) );
@@ -2731,21 +2830,8 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	// iron man
 	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
 
-	switch ( iCurrentBRSetting )
-	{
-		case GIO_BR_GOOD:
-			gGameOptions.ubBobbyRay = BR_GOOD;
-			break;
-		case GIO_BR_GREAT:
-			gGameOptions.ubBobbyRay = BR_GREAT;
-			break;
-		case GIO_BR_EXCELLENT:
-			gGameOptions.ubBobbyRay = BR_EXCELLENT;
-			break;
-		case GIO_BR_AWESOME:
-			gGameOptions.ubBobbyRay = BR_AWESOME;
-			break;
-	}
+	gGameOptions.ubBobbyRayQuality = iCurrentBRQualitySetting;
+	gGameOptions.ubBobbyRayQuantity = iCurrentBRQuantitySetting;
 
 	// CHRISL:
 	if(IsNIVModeValid(true) == TRUE)
@@ -2958,9 +3044,9 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 
 // ---------------------------------
 // Y-Offset for Combo-Controls
-#define		COMBO_Y_OFFSET							63
+#define		COMBO_Y_OFFSET							58
 // Y-Offset for Check-Controls
-#define		CHECK_Y_OFFSET							50
+#define		CHECK_Y_OFFSET							45
 
 #define		CORRECTION_Y_OFFSET						(COMBO_Y_OFFSET - CHECK_Y_OFFSET)
 
@@ -2999,6 +3085,9 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_IRON_MAN_SETTING_WIDTH				CHECK_WIDTH
 
+#define		GIO_NCTH_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_NCTH_SETTING_Y						GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
 
 /*********************************
 	SECOND COLUMN
@@ -3038,23 +3127,21 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_SQUAD_SIZE_SETTING_Y				THIRD_COLUMN_Y
 #define		GIO_SQUAD_SIZE_SETTING_WIDTH			COMBO_WIDTH
 
-#define		GIO_BR_SETTING_X						THIRD_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_BR_SETTING_Y						GIO_SQUAD_SIZE_SETTING_Y + COMBO_Y_OFFSET
-#define		GIO_BR_SETTING_WIDTH					COMBO_WIDTH
+#define		GIO_BR_QUALITY_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_BR_QUALITY_SETTING_Y				GIO_SQUAD_SIZE_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_BR_QUALITY_SETTING_WIDTH			COMBO_WIDTH
 
-#define		GIO_NCTH_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_NCTH_SETTING_Y						GIO_BR_SETTING_Y + CHECK_Y_OFFSET
-#define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
+#define		GIO_BR_QUANTITY_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		GIO_BR_QUANTITY_SETTING_Y				GIO_BR_QUALITY_SETTING_Y + COMBO_Y_OFFSET
+#define		GIO_BR_QUANTITY_SETTING_WIDTH			COMBO_WIDTH
 
 #define		GIO_IIS_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_IIS_SETTING_Y						GIO_NCTH_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_IIS_SETTING_Y						GIO_BR_QUANTITY_SETTING_Y + CHECK_Y_OFFSET 
 #define		GIO_IIS_SETTING_WIDTH					CHECK_WIDTH
 
 #define		GIO_INVENTORY_AP_SETTING_X				THIRD_COLUMN_X + CHECK_X_OFFSET
 #define		GIO_INVENTORY_AP_SETTING_Y				GIO_IIS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_INVENTORY_AP_SETTING_WIDTH			CHECK_WIDTH
-
-
 
 // INI File
 #define		JA2SP_INI_FILENAME						"ja2_sp.ini"
@@ -3064,7 +3151,8 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 
 // INI Properties
 #define		JA2SP_DIFFICULTY_LEVEL					"DIFFICULTY_LEVEL"
-#define		JA2SP_BOBBY_RAY_SELECTION				"BOBBY_RAY_SELECTION"
+#define		JA2SP_BOBBY_RAY_QUALITY					"BOBBY_RAY_QUALITY"
+#define		JA2SP_BOBBY_RAY_QUANTITY				"BOBBY_RAY_QUANTITY"
 #define		JA2SP_MAX_IMP_CHARACTERS				"MAX_IMP_CHARACTERS"
 #define		JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES	"PROGRESS_SPEED_OF_ITEM_CHOICES"
 #define		JA2SP_SKILL_TRAITS						"SKILL_TRAITS"
@@ -3118,17 +3206,6 @@ enum
 	GIO_IRON_MAN,
 
 	NUM_SAVE_OPTIONS,
-};
-
-// BR options
-enum
-{
-	GIO_BR_GOOD,
-	GIO_BR_GREAT,
-	GIO_BR_EXCELLENT,
-	GIO_BR_AWESOME,
-
-	NUM_BR_OPTIONS,
 };
 
 enum
@@ -3218,7 +3295,8 @@ UINT32		guiGIOMainBackGroundImage;
 INT32		giGioMessageBox = -1;
 
 INT8 iCurrentDifficulty;
-INT8 iCurrentBRSetting;
+INT8 iCurrentBRQualitySetting;
+INT8 iCurrentBRQuantitySetting;
 INT8 iCurrentIMPNumberSetting;
 INT8 iCurrentProgressSetting;
 INT8 iCurrentInventorySetting;
@@ -3252,10 +3330,15 @@ INT32 giGIOIMPNumberButtonImage[ 2 ];
 void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
-UINT32 giGIOBRSettingButton[ 2 ];
-INT32 giGIOBRSettingButtonImage[ 2 ];
-void BtnGIOBRSettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
-void BtnGIOBRSettingRightCallback( GUI_BUTTON *btn,INT32 reason );
+UINT32 giGIOBRQualitySettingButton[ 2 ];
+INT32 giGIOBRQualitySettingButtonImage[ 2 ];
+void BtnGIOBRQualitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnGIOBRQualitySettingRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+UINT32 giGIOBRQuantitySettingButton[ 2 ];
+INT32 giGIOBRQuantitySettingButtonImage[ 2 ];
+void BtnGIOBRQuantitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnGIOBRQuantitySettingRightCallback( GUI_BUTTON *btn,INT32 reason );
 
 UINT32 giGIOProgressSettingButton[ 2 ];
 INT32 giGIOProgressSettingButtonImage[ 2 ];
@@ -3388,27 +3471,12 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Difficulty Level (Default: Experienced = 1)
 	gGameOptions.ubDifficultyLevel =  ((UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_DIFFICULTY_LEVEL, 1)) + 1;
 
-	// Bobby Ray's Selection (Default: Great = 1)
-	UINT8 ubBobbyRay = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_SELECTION, 1);
-	switch (ubBobbyRay)
-	{
-		// Normal
-		case 0:
-			gGameOptions.ubBobbyRay =  BR_GOOD;
-			break;
-		// Great
-		case 1:
-			gGameOptions.ubBobbyRay =  BR_GREAT;
-			break;
-		// Excellent
-		case 2:
-			gGameOptions.ubBobbyRay =  BR_EXCELLENT;
-			break;
-		// Awesome
-		case 3:
-			gGameOptions.ubBobbyRay =  BR_AWESOME;
-			break;
-	}
+	// Bobby Ray's Selection (Default: Good = 1)
+	UINT8 ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 1);
+	gGameOptions.ubBobbyRayQuality = max(min(1, ubBobbyRayQuality),10);
+
+	UINT8 ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 1);
+	gGameOptions.ubBobbyRayQuantity = max(min(1, ubBobbyRayQuantity),10);
 
 	// Max. IMP Characters
 	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
@@ -3729,43 +3797,41 @@ BOOLEAN		EnterGIOScreen()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// BOBBY RAY SETTING
 	
-	giGIOBRSettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
-	giGIOBRSettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
+	giGIOBRQualitySettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
+	giGIOBRQualitySettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
 
 	// left button - decrement BR level
-	giGIOBRSettingButton[ 0 ] = QuickCreateButton( giGIOBRSettingButtonImage[ 0 ], GIO_BR_SETTING_X + 39, GIO_BR_SETTING_Y ,
+	giGIOBRQualitySettingButton[ 0 ] = QuickCreateButton( giGIOBRQualitySettingButtonImage[ 0 ], GIO_BR_QUALITY_SETTING_X + 39, GIO_BR_QUALITY_SETTING_Y ,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRSettingLeftCallback );
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQualitySettingLeftCallback );
 
 	// right button - increment BR level
-	giGIOBRSettingButton[ 1 ] = QuickCreateButton( giGIOBRSettingButtonImage[ 1 ], GIO_BR_SETTING_X + 158, GIO_BR_SETTING_Y ,
+	giGIOBRQualitySettingButton[ 1 ] = QuickCreateButton( giGIOBRQualitySettingButtonImage[ 1 ], GIO_BR_QUALITY_SETTING_X + 158, GIO_BR_QUALITY_SETTING_Y ,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRSettingRightCallback );
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQualitySettingRightCallback );
+
+	giGIOBRQuantitySettingButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ], -1,0,-1,1,-1 );
+	giGIOBRQuantitySettingButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ], -1,2,-1,3,-1 );
+
+	// left button - decrement BR level
+	giGIOBRQuantitySettingButton[ 0 ] = QuickCreateButton( giGIOBRQuantitySettingButtonImage[ 0 ], GIO_BR_QUANTITY_SETTING_X + 39, GIO_BR_QUANTITY_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQuantitySettingLeftCallback );
+
+	// right button - increment BR level
+	giGIOBRQuantitySettingButton[ 1 ] = QuickCreateButton( giGIOBRQuantitySettingButtonImage[ 1 ], GIO_BR_QUANTITY_SETTING_X + 158, GIO_BR_QUANTITY_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOBRQuantitySettingRightCallback );
 
 	// set user data
-	MSYS_SetBtnUserData(giGIOBRSettingButton[0],0, 0 );
-	MSYS_SetBtnUserData(giGIOBRSettingButton[1],0, 1 );
+	MSYS_SetBtnUserData(giGIOBRQualitySettingButton[0],0, 0 );
+	MSYS_SetBtnUserData(giGIOBRQualitySettingButton[1],0, 1 );
+	MSYS_SetBtnUserData(giGIOBRQuantitySettingButton[0],0, 0 );
+	MSYS_SetBtnUserData(giGIOBRQuantitySettingButton[1],0, 1 );
 
-	// set initial value
-	switch ( gGameOptions.ubBobbyRay )
-	{
-		case BR_GOOD:
-			iCurrentBRSetting = GIO_BR_GOOD;
-			break;
-		case BR_GREAT:
-			iCurrentBRSetting = GIO_BR_GREAT;
-			break;
-		case BR_EXCELLENT:
-			iCurrentBRSetting = GIO_BR_EXCELLENT;
-			break;
-		case BR_AWESOME:
-			iCurrentBRSetting = GIO_BR_AWESOME;
-			break;
-		default:
-			iCurrentBRSetting = GIO_BR_GOOD; // optimistically assume, we have selected the normal one
-			break;
-	}
-	
+	iCurrentBRQualitySetting = gGameOptions.ubBobbyRayQuality;
+	iCurrentBRQuantitySetting = gGameOptions.ubBobbyRayQuantity;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ITEM PROGRESS SETTING
 	
@@ -3965,9 +4031,12 @@ BOOLEAN		EnterGIOScreen()
 		DisableButton (giGIOIMPNumberButton[ 0 ]);
 		DisableButton (giGIOIMPNumberButton[ 1 ]);
 		
-		DisableButton (giGIOBRSettingButton[ 0 ]);
-		DisableButton (giGIOBRSettingButton[ 1 ]);
+		DisableButton (giGIOBRQualitySettingButton[ 0 ]);
+		DisableButton (giGIOBRQualitySettingButton[ 1 ]);
 		
+		DisableButton (giGIOBRQuantitySettingButton[ 0 ]);
+		DisableButton (giGIOBRQuantitySettingButton[ 1 ]);
+
 		//DisableButton (guiFastBROptionToggles[ 0 ]);
 		//DisableButton (guiFastBROptionToggles[ 1 ]);
 		
@@ -4172,39 +4241,39 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIOBRSettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
+void BtnGIOBRQualitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		if ( iCurrentBRSetting > 0 )
+		if ( iCurrentBRQualitySetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting--;
+			iCurrentBRQualitySetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentBRSetting > 0 )
+		if ( iCurrentBRQualitySetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting--;
+			iCurrentBRQualitySetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -4216,39 +4285,127 @@ void BtnGIOBRSettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIOBRSettingRightCallback( GUI_BUTTON *btn,INT32 reason )
+void BtnGIOBRQualitySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		if ( iCurrentBRSetting < 3 )
+		if ( iCurrentBRQualitySetting < 10 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting++;
+			iCurrentBRQualitySetting++;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentBRSetting < 3 )
+		if ( iCurrentBRQualitySetting < 10 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
 
-			iCurrentBRSetting++;
+			iCurrentBRQualitySetting++;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOBRQualitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOBRQuantitySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentBRQuantitySetting > 1 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentBRQuantitySetting > 1 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting--;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnGIOBRQuantitySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( iCurrentBRQuantitySetting < 10 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( iCurrentBRQuantitySetting < 10 )
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBRQuantitySetting++;
+			gfReRenderGIOScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giGIOBRQuantitySettingButton[1], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -4269,14 +4426,14 @@ void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		if ( iCurrentIMPNumberSetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
 
 			iCurrentIMPNumberSetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -4285,14 +4442,14 @@ void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
 
 		if ( iCurrentIMPNumberSetting > 1 )
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
 
 			iCurrentIMPNumberSetting--;
 			gfReRenderGIOScreen =TRUE;
 		}
 		else
 		{
-			PlayButtonSound( giGIOBRSettingButton[0], BUTTON_SOUND_DISABLED_CLICK );
+			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -4947,10 +5104,15 @@ BOOLEAN		ExitGIOScreen()
 	UnloadButtonImage( giGIOIMPNumberButtonImage[1] );
 
 	// Destroy BR setting buttons
-	RemoveButton( giGIOBRSettingButton[0] );
-	RemoveButton( giGIOBRSettingButton[1] );
-	UnloadButtonImage( giGIOBRSettingButtonImage[0] );
-	UnloadButtonImage( giGIOBRSettingButtonImage[1] );
+	RemoveButton( giGIOBRQualitySettingButton[0] );
+	RemoveButton( giGIOBRQualitySettingButton[1] );
+	UnloadButtonImage( giGIOBRQualitySettingButtonImage[0] );
+	UnloadButtonImage( giGIOBRQualitySettingButtonImage[1] );
+
+	RemoveButton( giGIOBRQuantitySettingButton[0] );
+	RemoveButton( giGIOBRQuantitySettingButton[1] );
+	UnloadButtonImage( giGIOBRQuantitySettingButtonImage[0] );
+	UnloadButtonImage( giGIOBRQuantitySettingButtonImage[1] );
 
 	// Destroy Progress setting buttons
 	RemoveButton( giGIOProgressSettingButton[0] );
@@ -5109,6 +5271,21 @@ void HandleGIOScreen()
 	}
 }
 
+STR16	BRSettingText(INT8 currentSetting, BOOLEAN quantity)
+{
+	CHAR16 text[256];
+
+	if (currentSetting < BR_GREAT)
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_GOOD_TEXT], currentSetting, quantity ? "x" : "");
+	else if (currentSetting >= BR_GREAT && currentSetting < BR_EXCELLENT )
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_GREAT_TEXT], currentSetting, quantity ? "x" : "");
+	else if (currentSetting >= BR_EXCELLENT && currentSetting < BR_AWESOME )
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_EXCELLENT_TEXT], currentSetting, quantity ? "x" : "");
+	else
+		swprintf(text, L"%s (%d%s)", gzGIOScreenText[GIO_BR_AWESOME_TEXT], currentSetting, quantity ? "x" : "");
+
+	return text;
+}
 
 BOOLEAN		RenderGIOScreen()
 {
@@ -5116,7 +5293,8 @@ BOOLEAN		RenderGIOScreen()
 
 	RestoreExternBackgroundRect( GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_DIF_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_IMP_SETTING_Y-3, 120, 20 );
-	RestoreExternBackgroundRect( GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_SETTING_Y-3, 120, 20 );
+	RestoreExternBackgroundRect( GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUALITY_SETTING_Y-3, 120, 20 );
+	RestoreExternBackgroundRect( GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUANTITY_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_PROGRESS_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_PROGRESS_SETTING_Y-3, 120, 20 );	
 	RestoreExternBackgroundRect( GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_INV_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_SQUAD_SIZE_SETTING_Y-3, 120, 20 );
@@ -5150,10 +5328,15 @@ BOOLEAN		RenderGIOScreen()
 		swprintf(sStartLevelString, L"%i", iCurrentIMPNumberSetting );
 		DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IMP_SETTING_Y+6), GIO_IMP_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, sStartLevelString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
+
 	// Display BR Setting texts
-	RenderGIOSmallSelectionFrame( (GIO_BR_SETTING_X + 36), (GIO_BR_SETTING_Y - 3) );
-	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_BR_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_BR_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_BR_SETTING_Y+6), GIO_BR_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentBRSetting + 20 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	RenderGIOSmallSelectionFrame( (GIO_BR_QUALITY_SETTING_X + 36), (GIO_BR_QUALITY_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_BR_QUALITY_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_BR_QUALITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_BR_QUALITY_SETTING_Y+6), GIO_BR_QUALITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, BRSettingText(iCurrentBRQualitySetting, FALSE), FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	RenderGIOSmallSelectionFrame( (GIO_BR_QUANTITY_SETTING_X + 36), (GIO_BR_QUANTITY_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_BR_QUANTITY_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_BR_QUANTITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_BR_QUANTITY_SETTING_Y+6), GIO_BR_QUANTITY_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, BRSettingText(iCurrentBRQuantitySetting, TRUE), FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	// Display Progress Setting texts
 	RenderGIOSmallSelectionFrame( (GIO_PROGRESS_SETTING_X + 36), (GIO_PROGRESS_SETTING_Y - 3) );
@@ -5446,21 +5629,8 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	// iron man
 	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
 
-	switch ( iCurrentBRSetting )
-	{
-		case GIO_BR_GOOD:
-			gGameOptions.ubBobbyRay = BR_GOOD;
-			break;
-		case GIO_BR_GREAT:
-			gGameOptions.ubBobbyRay = BR_GREAT;
-			break;
-		case GIO_BR_EXCELLENT:
-			gGameOptions.ubBobbyRay = BR_EXCELLENT;
-			break;
-		case GIO_BR_AWESOME:
-			gGameOptions.ubBobbyRay = BR_AWESOME;
-			break;
-	}
+	gGameOptions.ubBobbyRayQuality = iCurrentBRQualitySetting;
+	gGameOptions.ubBobbyRayQuantity = iCurrentBRQuantitySetting;
 
 	// CHRISL:
 	if(IsNIVModeValid(true) == TRUE)

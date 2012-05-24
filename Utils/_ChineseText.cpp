@@ -4964,7 +4964,7 @@ STR16			zSaveLoadText[] =
 	L"难度",		//"Difficulty",
 	L"Platinum Mode", //Placeholder English
 
-	L"Bobby Ray 库存",
+	L"Bobby Ray Quality", //TODO.Translate
 	L"一般",
 	L"较多",
 	L"很多",
@@ -4974,6 +4974,7 @@ STR16			zSaveLoadText[] =
 	L"新携行系统无法使用默认的 Data 文件夹，请仔细读说明。",
 
 	L"当前分辨率不支持存档文件的小队人数，请增加分辨率再试。",	//L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
+	L"Bobby Ray Quantity",//TODO.Translate
 };
 
 
@@ -5258,7 +5259,7 @@ STR16	gzGIOScreenText[] =
 	L"随时存盘",
 	L"铁人模式",
 	L"在Demo中禁用",
-	L"Bobby Ray商店库存",
+	L"Bobby Ray Quality", //TODO.Translate
 	L"极少",
 	L"较少",
 	L"一般",
@@ -5315,6 +5316,7 @@ STR16	gzGIOScreenText[] =
 	L"新命中率系统（NCTH）", //L"New Chance to Hit System",
 	L"改进的中断系统（IIS）", //L"Improved Interrupt System",
 	L"武器过热", //L"Weapon Overheating",
+	L"Bobby Ray Quantity",//TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =

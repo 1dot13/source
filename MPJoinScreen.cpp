@@ -786,7 +786,8 @@ void DoneFadeOutForExitMPJScreen( void )
 		gGameOptions.fTurnTimeLimit = FALSE;
 	
 	// Bobby Rays - why would we want anything less than the best
-	gGameOptions.ubBobbyRay = BR_AWESOME;
+	gGameOptions.ubBobbyRayQuality = BR_AWESOME;
+	gGameOptions.ubBobbyRayQuantity = BR_AWESOME;
 
 	gubMPJExitScreen = MP_CONNECT_SCREEN;
 

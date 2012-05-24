@@ -989,9 +989,9 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	//Madd:  Bobby Ray's will sell higher coolness stuff if it's used, and may also have a better selection at the start of the game, depending on selection
-	if ( (bArmsDealer == bobbyRaysID || armsDealerInfo[bArmsDealer].useBRSetting) && gGameOptions.ubBobbyRay > BR_GOOD )
+	if ( (bArmsDealer == bobbyRaysID || armsDealerInfo[bArmsDealer].useBRSetting) && gGameOptions.ubBobbyRayQuality > BR_GOOD )
 	{
-		ubMaxCoolness += gGameOptions.ubBobbyRay - 1;
+		ubMaxCoolness += gGameOptions.ubBobbyRayQuality - 1;
 		if (fUsed )
 		{
 			ubMaxCoolness += 1;
@@ -1013,8 +1013,8 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 		ubMaxCoolness += 1;
 
 		if (gGameExternalOptions.tonyUsesBRSetting) {
-			ubMinCoolness += gGameOptions.ubBobbyRay / 3;
-			ubMaxCoolness += gGameOptions.ubBobbyRay;
+			ubMinCoolness += gGameOptions.ubBobbyRayQuality / 3;
+			ubMaxCoolness += gGameOptions.ubBobbyRayQuality;
 		}
 	}
 	else if (bArmsDealer == ARMS_DEALER_DEVIN)
@@ -1027,8 +1027,8 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 		}
 
 		if (gGameExternalOptions.devinUsesBRSetting) {
-			ubMinCoolness += gGameOptions.ubBobbyRay / 3;
-			ubMaxCoolness += gGameOptions.ubBobbyRay;
+			ubMinCoolness += gGameOptions.ubBobbyRayQuality / 3;
+			ubMaxCoolness += gGameOptions.ubBobbyRayQuality;
 		}
 	}
     */
@@ -1136,7 +1136,7 @@ UINT8 ChanceOfItemTransaction( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDe
 
 	// Madd
 	if ( !fDealerIsSelling && fBobbyRay )
-	    ubChance = min(100,gGameOptions.ubBobbyRay * ubChance);
+	    ubChance = min(100,gGameOptions.ubBobbyRayQuality * ubChance);
 
 	// if there's any uncertainty
 	if ((ubChance > 0) && (ubChance < 100))
@@ -1150,7 +1150,7 @@ UINT8 ChanceOfItemTransaction( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDe
 			ubChance /= 2;
 
 			if ( fBobbyRay )
-			    ubChance /= gGameOptions.ubBobbyRay;
+			    ubChance /= gGameOptions.ubBobbyRayQuality;
 		}
 
 		// used items are traded more rarely

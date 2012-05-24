@@ -716,11 +716,11 @@ void DailyUpdateOfBobbyRaysNewInventory()
 		}
 
 		//if the item isn't already on order
-		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder == 0 || gGameOptions.ubBobbyRay == BR_AWESOME )
+		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder == 0 || gGameOptions.ubBobbyRayQuality == BR_AWESOME )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: item = %d, qty on hand = %d, half desired amount = %d",usItemIndex,LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand,(StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRay )/2));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: item = %d, qty on hand = %d, half desired amount = %d",usItemIndex,LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand,(StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRayQuantity )/2));
 			//if the qty on hand is half the desired amount or fewer
-			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRay )/2 )
+			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRayQuantity )/2 )
 			{
 				// remember value of the "previously eligible" flag
 				fPrevElig = LaptopSaveInfo.BobbyRayInventory[ i ].fPreviouslyEligible;
@@ -732,7 +732,7 @@ void DailyUpdateOfBobbyRaysNewInventory()
 				if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder > 0 )
 				{
 					// if this is the first day the player is eligible to have access to this thing
-					if ( !fPrevElig || gGameOptions.ubBobbyRay == BR_AWESOME )
+					if ( !fPrevElig || gGameOptions.ubBobbyRayQuality == BR_AWESOME )
 					{
 						DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: item = %d, add fresh inventory",usItemIndex));
 						// eliminate the ordering delay and stock the items instantly!
@@ -767,7 +767,7 @@ void DailyUpdateOfBobbyRaysUsedInventory()
 	for(i = 0; i < LaptopSaveInfo.usInventoryListLength[BOBBY_RAY_USED]; i++)
 	{
 		//if the used item isn't already on order
-		if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder == 0 || gGameOptions.ubBobbyRay == BR_AWESOME )
+		if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder == 0 || gGameOptions.ubBobbyRayQuality == BR_AWESOME )
 		{
 			//if we don't have ANY
 			if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnHand == 0 )
@@ -792,7 +792,7 @@ void DailyUpdateOfBobbyRaysUsedInventory()
 				if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder > 0 )
 				{
 					// if this is the first day the player is eligible to have access to this thing
-					if ( !fPrevElig || gGameOptions.ubBobbyRay == BR_AWESOME )
+					if ( !fPrevElig || gGameOptions.ubBobbyRayQuality == BR_AWESOME )
 					{
 						// eliminate the ordering delay and stock the items instantly!
 						// This is just a way to reward the player right away for making progress without the reordering lag...
@@ -818,7 +818,7 @@ UINT8 HowManyBRItemsToOrder(UINT16 usItemIndex, UINT8 ubCurrentlyOnHand, UINT8 u
 
 	Assert(usItemIndex < MAXITEMS);
 	// formulas below will fail if there are more items already in stock than optimal
-	//Assert(ubCurrentlyOnHand <= StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRay) ;
+	//Assert(ubCurrentlyOnHand <= StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRayQuantity) ;
 	Assert(ubBobbyRayNewUsed < BOBBY_RAY_LISTS);
 
 
@@ -827,7 +827,7 @@ UINT8 HowManyBRItemsToOrder(UINT16 usItemIndex, UINT8 ubCurrentlyOnHand, UINT8 u
 	{
 		if (ubBobbyRayNewUsed == BOBBY_RAY_NEW)
 		{
-			ubItemsOrdered = HowManyItemsToReorder(StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRay, ubCurrentlyOnHand);
+			ubItemsOrdered = HowManyItemsToReorder(StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRayQuantity, ubCurrentlyOnHand);
 		}
 		else
 		{

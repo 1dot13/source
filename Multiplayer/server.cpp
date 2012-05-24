@@ -691,7 +691,8 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 		lan.secondsPerTick = gSecondsPerTick;
 
 		// WANNE.MP: Check
-		lan.soubBobbyRay = BR_AWESOME;
+		lan.soubBobbyRayQuality = BR_AWESOME;
+		lan.soubBobbyRayQuantity = BR_AWESOME;
 		lan.sofGunNut = TRUE;	
 		lan.soubGameStyle = STYLE_REALISTIC;
 		lan.soubDifficultyLevel = gDifficultyLevel;

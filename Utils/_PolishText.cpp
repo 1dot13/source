@@ -4960,7 +4960,7 @@ STR16			zSaveLoadText[] =
 	L"Stopień trudnoŚci",
 	L"Platynowy tryb", //Placeholder English
 
-	L"Wyposażenie Bobby Ray's",
+	L"Bobby Ray Quality",//TODO.Translate
 	L"Normalne",
 	L"Świetne",
 	L"WyŚmienite",
@@ -4970,6 +4970,7 @@ STR16			zSaveLoadText[] =
 	L"Nowy inwentarz nie korzysta z domyŚlnego folderu 'Data'.",
 
 	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.", // TODO.Translate
+	L"Bobby Ray Quantity", //TODO.Translate
 };
 
 
@@ -5253,7 +5254,7 @@ STR16	gzGIOScreenText[] =
 	L"Zawsze",
 	L"W czasie pokoju",
 	L"Nie działa w wersji demo",
-	L"Wyposażenie Bobby Ray's",
+	L"Bobby Ray Quality", //TODO.Translate
 	L"Normalne",
 	L"Świetne",
 	L"WyŚmienite",
@@ -5312,6 +5313,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Weapon Overheating",
+	L"Bobby Ray Quantity", //TODO.Translate
 };
 
 STR16	gzMPJScreenText[] =

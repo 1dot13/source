@@ -1641,6 +1641,8 @@ enum
 
 	SLG_SQUAD_SIZE_RES_ERROR,
 
+	SLG_BR_QUANTITY_TEXT,
+
 	TEXT_NUM_SLG_TEXT,
 };
 extern	STR16			zSaveLoadText[];
@@ -1780,6 +1782,7 @@ enum
 	GIO_NCTH_TITLE_TEXT,
 	GIO_IIS_TITLE_TEXT,
 	GIO_OVERHEATING_TITLE_TEXT,
+	GIO_BR_QUANTITY_TEXT,
 
 	////////////////////////////////////
 	TEXT_NUM_GIO_TEXT

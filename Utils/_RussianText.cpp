@@ -4944,7 +4944,7 @@ STR16			zSaveLoadText[] =
 
 	L"Элементы фантастики",
 	L"Платиновая серия",
-	L"Ассортимент Бобби Рэя",
+	L"Бобби Рэя Quality", //TODO.Translate
 	L"Нормальный",
 	L"Большой",
 	L"Огромный",
@@ -4954,6 +4954,7 @@ STR16			zSaveLoadText[] =
 	L"Загрузка игры, начатой в режиме \"Нового Инвентаря\", невозможна. Установите в Ja2.ini игровую папку 'Data-1.13' и повторите попытку.",
 
 	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.", // TODO.Translate
+	L"Bobby Ray Quantity", //TODO.Translate
 };
 
 
@@ -5237,7 +5238,7 @@ STR16	gzGIOScreenText[] =
 	L"в любое время",
 	L"лишь в мирное",
 	L"Отключено в демо-версии", 
-	L"Ассортимент Бобби Рэя",
+	L"Бобби Рэя Quality", //TODO.Translate
 	L"хороший",
 	L"большой",
 	L"огромный",
@@ -5296,6 +5297,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Weapon Overheating",
+	L"Bobby Ray Quantity",
 };
 
 STR16	gzMPJScreenText[] =

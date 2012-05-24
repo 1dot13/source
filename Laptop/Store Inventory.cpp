@@ -814,7 +814,7 @@ void SetupStoreInventory( STORE_INVENTORY *pInventoryArray, BOOLEAN fUsed )
 			else	// new
 			{
 				// Madd
-				pInventoryArray[i].ubQtyOnHand = ubNumBought * gGameOptions.ubBobbyRay;
+				pInventoryArray[i].ubQtyOnHand = ubNumBought * gGameOptions.ubBobbyRayQuantity;
 				pInventoryArray[i].ubItemQuality = 100;
 			}
 		}
