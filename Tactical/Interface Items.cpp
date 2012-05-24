@@ -2838,12 +2838,16 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 				continue;
 			}
 
-			if ( (UsingNewAttachmentSystem()==false && ValidAttachment( pObject->usItem, pTestObject )) ||
-					 (UsingNewAttachmentSystem()==false && ValidAttachment( pTestObject->usItem, pObject )) ||
-					 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE, 0, cnt)) ||
-					 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE, 0, cnt)) ||
+			if ( ValidAttachment( pObject->usItem, pTestObject ) ||
+					 ValidAttachment( pTestObject->usItem, pObject ) ||
 					 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
 					 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
+			//if ( (UsingNewAttachmentSystem()==false && ValidAttachment( pObject->usItem, pTestObject )) ||
+			//		 (UsingNewAttachmentSystem()==false && ValidAttachment( pTestObject->usItem, pObject )) ||
+			//		 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE, 0, cnt)) ||
+			//		 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE, 0, cnt)) ||
+			//		 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
+			//		 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
 			{
 				fFoundAttachment = TRUE;
 
@@ -12151,7 +12155,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 						// not an ammo crate itself...
 						if ( Magazine[Item[x].ubClassIndex].ubCalibre == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre &&
 							Magazine[Item[x].ubClassIndex].ubAmmoType == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType &&
-							Magazine[Item[x].ubClassIndex].ubMagSize < Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagSize &&
+							Magazine[Item[x].ubClassIndex].ubMagSize <= Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagSize &&
 							Magazine[Item[x].ubClassIndex].ubMagType < AMMO_BOX )
 						{
 							UINT16 usMagSize = Magazine[Item[x].ubClassIndex].ubMagSize;
