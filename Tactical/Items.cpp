@@ -3857,7 +3857,7 @@ INT8 GetAttachmentComboMerge( OBJECTTYPE * pObj, UINT8 subObject )
 		{
 			// search for all the appropriate attachments
 		  /* every ComboMerge must have at least one attachments Field */
-			for ( bAttachLoop = 0; bAttachLoop < 2; bAttachLoop++ )
+			for ( bAttachLoop = 0; bAttachLoop < MAX_DEFAULT_ATTACHMENTS; bAttachLoop++ )
 			{
 				/* if the none of both Fields contains anything, do not merge */
 				if ( AttachmentComboMerge[ bIndex ].usAttachment[ bAttachLoop ] == NOTHING )
@@ -3908,7 +3908,7 @@ void PerformAttachmentComboMerge( OBJECTTYPE * pObj, INT8 bAttachmentComboMerge 
 	// - status of new object should be average of items including attachments
 	// - change object
 
-	for ( bAttachLoop = 0; bAttachLoop < 2; bAttachLoop++ )
+	for ( bAttachLoop = 0; bAttachLoop < MAX_DEFAULT_ATTACHMENTS; bAttachLoop++ )
 	{
 		if ( AttachmentComboMerge[ bAttachmentComboMerge ].usAttachment[ bAttachLoop ] == NOTHING )
 		{
@@ -4327,7 +4327,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						return( FALSE );
 					}
 					// grant experience! ... SANDRO - so what?! Grant them already!
-					StatChange( pSoldier, MECHANAMT, 30, FALSE );
+					StatChange( pSoldier, MECHANAMT, 40, FALSE ); //Madd: upped this to 40, since standard is now 25
 					StatChange( pSoldier, WISDOMAMT, 10, FALSE );
 					
 					// SANDRO - merc records - merging items
@@ -4335,8 +4335,8 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
 				}
 				// fall through
-			case EXPLOSIVE:
-				if ( ubType == EXPLOSIVE ) /// coulda fallen through
+			case EXPLOSIVE_MERGE_HARD: //Madd: new merge types
+				if ( ubType == EXPLOSIVE_MERGE_HARD ) /// coulda fallen through
 				{
 					if (pSoldier)
 					{
@@ -4353,6 +4353,81 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						}
 						StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
 						StatChange( pSoldier, WISDOMAMT, 5, FALSE );
+
+						// SANDRO - merc records - merging items
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
+					}
+				}
+				// fall through
+			case EXPLOSIVE_MERGE_EASY:
+				if ( ubType == EXPLOSIVE_MERGE_EASY ) /// coulda fallen through
+				{
+					if (pSoldier)
+					{
+						// requires a skill check, and gives experience
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_DETONATOR_CHECK, 0 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( this, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+						StatChange( pSoldier, EXPLODEAMT, 10, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 2, FALSE );
+
+						// SANDRO - merc records - merging items
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
+					}
+				}
+				// fall through
+			case MECHANICAL_MERGE_HARD:
+				if ( ubType == MECHANICAL_MERGE_HARD ) /// coulda fallen through
+				{
+					if (pSoldier)
+					{
+						// requires a skill check, and gives experience
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_SPECIAL_ITEM_CHECK, -30 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( this, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+						StatChange( pSoldier, MECHANAMT, 25, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 10, FALSE );
+
+						// SANDRO - merc records - merging items
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
+					}
+				}
+				// fall through
+			case MECHANICAL_MERGE_EASY:
+				if ( ubType == MECHANICAL_MERGE_EASY ) /// coulda fallen through
+				{
+					if (pSoldier)
+					{
+						// requires a skill check, and gives experience
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_SPECIAL_ITEM_CHECK, 0 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( this, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+						StatChange( pSoldier, MECHANAMT, 10, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 2, FALSE );
 
 						// SANDRO - merc records - merging items
 						if ( pSoldier->ubProfile != NO_PROFILE )
@@ -4944,11 +5019,17 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 						return( FALSE );
 					}
-					// grant experience!
+					// grant experience! ... SANDRO - so what?! Grant them already! -- Madd: this was missing from AttachObjectNAS for some reason
+					StatChange( pSoldier, MECHANAMT, 40, FALSE );
+					StatChange( pSoldier, WISDOMAMT, 10, FALSE );
+					
+					// SANDRO - merc records - merging items -- Madd: this was missing from AttachObjectNAS for some reason
+					if ( pSoldier->ubProfile != NO_PROFILE )
+						gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
 				}
 				// fall through
-			case EXPLOSIVE:
-				if ( ubType == EXPLOSIVE ) /// coulda fallen through
+			case EXPLOSIVE_MERGE_HARD:
+				if ( ubType == EXPLOSIVE_MERGE_HARD ) /// coulda fallen through
 				{
 					if (pSoldier)
 					{
@@ -4965,6 +5046,85 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						}
 						StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
 						StatChange( pSoldier, WISDOMAMT, 5, FALSE );
+
+						// SANDRO - merc records - merging items -- Madd: this was missing from AttachObjectNAS for some reason
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
+					}
+				}
+				// fall through
+			case EXPLOSIVE_MERGE_EASY://Madd: new merge types
+				if ( ubType == EXPLOSIVE_MERGE_EASY ) /// coulda fallen through
+				{
+					if (pSoldier)
+					{
+						// requires a skill check, and gives experience
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_DETONATOR_CHECK, 0 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( this, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+						StatChange( pSoldier, EXPLODEAMT, 10, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 2, FALSE );
+
+						// SANDRO - merc records - merging items
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
+					}
+				}
+				// fall through
+			case MECHANICAL_MERGE_HARD:
+				if ( ubType == MECHANICAL_MERGE_HARD ) /// coulda fallen through
+				{
+					if (pSoldier)
+					{
+						// requires a skill check, and gives experience
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_SPECIAL_ITEM_CHECK, -30 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( this, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+						StatChange( pSoldier, MECHANAMT, 25, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 10, FALSE );
+
+						// SANDRO - merc records - merging items
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
+					}
+				}
+				// fall through
+			case MECHANICAL_MERGE_EASY:
+				if ( ubType == MECHANICAL_MERGE_EASY ) /// coulda fallen through
+				{
+					if (pSoldier)
+					{
+						// requires a skill check, and gives experience
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_SPECIAL_ITEM_CHECK, 0 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( this, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+						StatChange( pSoldier, MECHANAMT, 10, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 2, FALSE );
+
+						// SANDRO - merc records - merging items
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsCombined++;
 					}
 				}
 				// fall through

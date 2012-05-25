@@ -594,7 +594,8 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 		{
 			dummyItem.ubNonExistChance = 0;
 		}
-		if( gfEditMode || dummyItem.ubNonExistChance <= PreRandom( 100 ) )
+		if( gfEditMode || dummyItem.ubNonExistChance <= PreRandom( 100 ) || 
+			(gGameExternalOptions.ubMapItemChanceOverride > 0 && (gGameExternalOptions.ubMapItemChanceOverride >= PreRandom(100)) ) ) //Madd: map item chance override, note this calc is done in reverse
 		{
 			if( !gfEditMode )
 			{

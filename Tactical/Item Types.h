@@ -1530,12 +1530,15 @@ typedef enum
 	DESTRUCTION,
 	COMBINE_POINTS,
 	TREAT_ARMOUR,
-	EXPLOSIVE,
+	EXPLOSIVE_MERGE_HARD, //Madd: renamed to hard
 	EASY_MERGE,
 	ELECTRONIC_MERGE,
 	USE_ITEM,
 	USE_ITEM_HARD,
-	TEMPERATURE
+	TEMPERATURE,
+	EXPLOSIVE_MERGE_EASY, //Madd: new merge types
+	MECHANICAL_MERGE_EASY,
+	MECHANICAL_MERGE_HARD
 } MergeType;
 
 extern UINT16 Merge[MAXITEMS+1][6];
@@ -1543,7 +1546,7 @@ extern UINT16 Merge[MAXITEMS+1][6];
 typedef struct
 {
 	UINT16	usItem;
-	UINT16	usAttachment[2];
+	UINT16	usAttachment[MAX_DEFAULT_ATTACHMENTS]; //Madd: extended from 2 to 20, being lazy with constant reuse :p
 	UINT16	usResult;
 	UINT32  uiIndex;
 } ComboMergeInfoStruct;

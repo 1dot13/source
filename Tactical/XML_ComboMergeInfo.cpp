@@ -18,6 +18,7 @@ struct
 	ComboMergeInfoStruct *	curArray;
 	UINT32			maxArraySize;
 
+	UINT32			curAttIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
@@ -43,14 +44,13 @@ attachmentcombomergeStartElementHandle(void *userData, const XML_Char *name, con
 			pData->curElement = ELEMENT;
 
 			memset(&pData->curAttachmentComboMerge,0,sizeof(ComboMergeInfoStruct));
-
+			pData->curAttIndex = 0;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "uiIndex") == 0 ||
 				strcmp(name, "usItem") == 0 ||
-				strcmp(name, "usAttachment1") == 0 ||
-				strcmp(name, "usAttachment2") == 0 ||
+				strstr(name, "usAttachment") > 0 ||
 				strcmp(name, "usResult") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -108,15 +108,11 @@ attachmentcombomergeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAttachmentComboMerge.usItem	= (UINT16) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "usAttachment1") == 0)
+		else if(strstr(name, "usAttachment") > 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentComboMerge.usAttachment[0] = (UINT16) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "usAttachment2") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curAttachmentComboMerge.usAttachment[1] = (UINT16) atol(pData->szCharData);
+			pData->curAttachmentComboMerge.usAttachment[pData->curAttIndex] = (UINT16) atol(pData->szCharData);
+			pData->curAttIndex++;
 		}
 		else if(strcmp(name, "usResult") == 0)
 		{

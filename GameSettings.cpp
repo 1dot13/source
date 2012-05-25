@@ -1451,6 +1451,8 @@ void LoadGameExternalOptions()
 	// enable all weapon caches 
 	gGameExternalOptions.fEnableAllWeaponCaches				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE);
 
+	//Madd: override map item appearance chance
+	gGameExternalOptions.ubMapItemChanceOverride			= iniReader.ReadInteger("Strategic Gameplay Settings","MAP_ITEM_CHANCE_OVERRIDE", 0, 0, 100);
 
 	//################# Laptop Settings ##################
 

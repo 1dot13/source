@@ -1092,6 +1092,7 @@ typedef struct
 	BOOLEAN gBriefingRoom;
 	BOOLEAN gEncyclopedia;
 			
+	UINT8	ubMapItemChanceOverride;				//Madd: special map override, mostly for debugging
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct
