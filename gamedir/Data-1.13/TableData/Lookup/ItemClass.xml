@@ -45,6 +45,10 @@
 		<name>Ammo</name>
 	</ItemClass>
 	<ItemClass>
+		<id>1280</id>
+		<name>Ammo / Grenade</name>
+	</ItemClass>
+	<ItemClass>
 		<id>2048</id>
 		<name>Armour</name>
 	</ItemClass>
@@ -71,6 +75,10 @@
 	<ItemClass>
 		<id>268435456</id>
 		<name>Misc</name>
+	</ItemClass>
+	<ItemClass>
+		<id>268435712</id>
+		<name>Grenade / Misc</name>
 	</ItemClass>
 	<ItemClass>
 		<id>536870912</id>

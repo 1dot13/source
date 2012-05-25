@@ -14,7 +14,7 @@
 	</MergeType>
 	<MergeType>
 		<id>3</id>
-		<name>Explosive</name>
+		<name>Explosive (Hard)</name>
 	</MergeType>
 	<MergeType>
 		<id>4</id>
@@ -35,5 +35,17 @@
 	<MergeType>
 		<id>8</id>
 		<name>Swap Barrel</name>
+	</MergeType>
+	<MergeType>
+		<id>9</id>
+		<name>Explosive (Easy)</name>
+	</MergeType>
+	<MergeType>
+		<id>10</id>
+		<name>Mechanical (Easy)</name>
+	</MergeType>
+	<MergeType>
+		<id>11</id>
+		<name>Mechanical (Hard)</name>
 	</MergeType>
 </JA2Data>
