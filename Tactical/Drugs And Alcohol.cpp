@@ -361,6 +361,8 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	// only do the checks for the player team, as soldiers do not have a gMercProfiles
 	if  ( pSoldier->bTeam == gbPlayerNum)
 	{
+		// Flugente 2012-05-25: the status drugs cause weird behaviour with the stat repairing behaviour of doctoring, so this is commented out till a working solution has been found
+		/*
 		//////////////// STRENGTH ////////////////
 		// strength we would normally have right now
 		INT8 strength = gMercProfiles[ pSoldier->ubProfile ].bStrength - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ];
@@ -459,7 +461,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		{
 			pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
 			pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
-		}
+		}*/
 
 		// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we suddenly become blind for a few turns...
 		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_BLIND ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_BLIND ] == 1 )
