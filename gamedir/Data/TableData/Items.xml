@@ -633,7 +633,7 @@
 		<ubClassIndex>13</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>13</ubGraphicNum>
-		<ubWeight>31</ubWeight>
+		<ubWeight>30</ubWeight>
 		<ItemSize>5</ItemSize>
 		<usPrice>1602</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -728,7 +728,6 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentAPReduction>20</PercentAPReduction>
-		<ProjectionFactor>1.4</ProjectionFactor>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
@@ -827,7 +826,7 @@
 		<ubClassIndex>18</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>18</ubGraphicNum>
-		<ubWeight>43</ubWeight>
+		<ubWeight>37</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>8449</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -969,7 +968,7 @@
 		<ubClassIndex>22</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>22</ubGraphicNum>
-		<ubWeight>31</ubWeight>
+		<ubWeight>30</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>718</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -1080,7 +1079,7 @@
 		<ubClassIndex>25</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>25</ubGraphicNum>
-		<ubWeight>33</ubWeight>
+		<ubWeight>31</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>1739</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -1146,7 +1145,7 @@
 		<ubClassIndex>27</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>27</ubGraphicNum>
-		<ubWeight>42</ubWeight>
+		<ubWeight>44</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>3406</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -1279,7 +1278,7 @@
 		<ubClassIndex>31</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>31</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>822</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -1418,7 +1417,7 @@
 		<ubClassIndex>35</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>35</ubGraphicNum>
-		<ubWeight>50</ubWeight>
+		<ubWeight>46</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>5647</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -1484,7 +1483,7 @@
 		<szLongItemName>Combat Knife</szLongItemName>
 		<szItemDesc>This full-tang bowie-styled combat knife will convert you into a whirling, twirling machine of silent, subtle death.</szItemDesc>
 		<szBRName>Combat Knife</szBRName>
-		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9"" blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
+		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9" blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
 		<usItemClass>4</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>37</ubClassIndex>
@@ -4217,6 +4216,7 @@
 		<szBRName>60mm Mortar Shell</szBRName>
 		<szBRDesc>A real man's mortar. This HE bomb features waterproof "horseshoe" snap-off propellant increments and the M734 multi-option fuse. This fuse can be set by hand for delayed, impact, near-surface or proximity burst detonations.</szBRDesc>
 		<usItemClass>512</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>9</ubClassIndex>
@@ -4421,6 +4421,7 @@
 		<szBRName>40mm HE Grenade</szBRName>
 		<szBRDesc>This standard fragmentation grenade features a time-delayed firing device to ignite its encased TNT. Fired from the Talon grenade launcher, this round can provide great lethal coverage.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>16</ubClassIndex>
@@ -4453,6 +4454,7 @@
 		<szBRName>40mm Tear Gas Grenade</szBRName>
 		<szBRDesc>This projectile's body is made of rubbery plastic to prevent impact injuries and keep it from being picked up and thrown back. The rubber melts quickly from the heat of burning. This time-delayed round for the Talon grenade launcher releases an irritant gas when ignited.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>17</ubClassIndex>
@@ -4485,6 +4487,7 @@
 		<szBRName>40mm Stun Grenade</szBRName>
 		<szBRDesc>These grenade launcher projectile rounds create a massive vacuum, depriving the surrounding impact area of oxygen. Anyone standing within the detonated area will be left gasping, as waves of air rush back into its core.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>18</ubClassIndex>
@@ -4517,6 +4520,7 @@
 		<szBRName>40mm Smoke Grenade</szBRName>
 		<szBRDesc>When fired from a 40mm grenade launcher, this grenade will quickly release a cloud of smoke that will aid in battlefield entry or withdrawal.</szBRDesc>
 		<usItemClass>256</usItemClass>
+		<AttachmentClass>1024</AttachmentClass>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>19</ubClassIndex>
@@ -6187,6 +6191,7 @@
 		<szBRName>Small Caliber Silencer</szBRName>
 		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>52</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -6217,6 +6222,7 @@
 		<szBRName>Sniper Scope, Mag.10x</szBRName>
 		<szBRDesc>Dramatically improve your targeting accuracy with this extremely versatile sniper scope. You'll quickly appreciate this scope's accurate windage adjustment, range-finder precision scale, and coated optics.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>16</AttachmentClass>
 		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>171</ubGraphicNum>
@@ -6256,6 +6262,7 @@
 		<szBRName>Bipod</szBRName>
 		<szBRDesc>Every sensible mercenary packs one of these universal bipods. It fits most sniper and assault rifles, as well as light machine guns. Made from a die-cast aluminum, it has a coated matte finish. Its legs fold up when not in use, for easy storage.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>1</AttachmentClass>
 		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>69</ubGraphicNum>
@@ -6645,6 +6652,7 @@
 		<szBRName>Detonator</szBRName>
 		<szBRDesc>Attach this baby to an explosive for real power and control. This time-delayed detonator allows you anywhere from five seconds to ten minutes to move to a location of safety before its attached explosive goes off.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>65536</AttachmentClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
@@ -6673,6 +6681,7 @@
 		<szBRName>Remote Detonator</szBRName>
 		<szBRDesc>A must have for any serious explosives agent. Place this time-delayed firing device to any explosive to blow up a target when you want, from where you want. The detonator won't ignite until you hit the remote trigger.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>1048576</AttachmentClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
@@ -7041,6 +7050,7 @@
 		<szBRName>Laser Sight</szBRName>
 		<szBRDesc>You won't lose sight of your target when using one of these. The Universal Daylight Laser projects a highly visible red spot upt to 100ft during the day and over 1,000ft at night. In a stainless steel housing, it fits onto the trigger guard of most weapons.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>4</AttachmentClass>
 		<nasAttachmentClass>4</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>51</ubGraphicNum>
@@ -8564,6 +8574,7 @@
 		<szBRName>Gun Barrel Extender</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>262144</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>134</ubGraphicNum>
