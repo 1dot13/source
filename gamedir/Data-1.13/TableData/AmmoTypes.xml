@@ -33,6 +33,7 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern />
 		<temperatureModificator>0.0</temperatureModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
