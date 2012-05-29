@@ -251,4 +251,16 @@
 	<usMoneyPaid>26000</usMoneyPaid>
 	<usDay>31</usDay>
   </MERC>
+  <MERC>
+	<uiIndex>21</uiIndex>
+	<Name>Spooky</Name>
+	<Drunk>0</Drunk>
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<MercBioID>18</MercBioID>
+	<ProfilId>178</ProfilId>
+	<usMoneyPaid>20000</usMoneyPaid>
+	<usDay>30</usDay>
+  </MERC>
 </MERC_AVAILABLES>
