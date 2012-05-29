@@ -334,9 +334,6 @@ bool gbForceWeaponNotReady = false;
 bool gbForceWeaponReady = false;
 
 
-// Flugente: define for maximum temperature
-#define OVERHEATING_MAX_TEMPERATURE 60000.0
-
 enum
 {
 	WEAPON_ELEMENT_NONE = 0,
@@ -1327,6 +1324,22 @@ BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
+
+// Flugente FTW 1: Get percentage: temperature/damagethreshold
+FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx )
+{
+	FLOAT damagethreshold = Weapon[Item[ usIndx ].ubClassIndex].usOverheatingDamageThreshold;
+
+	return usTemperature/ damagethreshold ;
+}
+
+// Flugente FTW 1: Get percentage: temperature/jamthreshold
+FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx )
+{
+	FLOAT jamthreshold = Weapon[Item[ usIndx ].ubClassIndex].usOverheatingJamThreshold;
+
+	return usTemperature/ jamthreshold ;
+}
 
 BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 {
@@ -5187,6 +5200,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 		// AGILITY OR EXPERIENCE
 		FLOAT iTempPenalty = (FLOAT)__max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
+
 		iBaseModifier += (iTempPenalty * gGameCTHConstants.BASE_AGILE_TARGET) / 100;
 	}
 
@@ -6235,19 +6249,19 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
 				{
 					// 13% penalty per tile closer than min range
-					iChance -= 13 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+					iChance -= (INT32)(13 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE ));
 				}
 				else
 				{
 					// at anything other than point-blank range
 					if (iRange > POINT_BLANK_RANGE + 10 * (AIM_PENALTY_TARGET_CROUCHED / 3) )
 					{
-						iChance -= AIM_PENALTY_TARGET_CROUCHED;
+						iChance -= (INT32)(AIM_PENALTY_TARGET_CROUCHED);
 					}
 					else if (iRange > POINT_BLANK_RANGE)
 					{
 						// at close range give same bonus as prone, up to maximum of AIM_PENALTY_TARGET_CROUCHED
-						iChance -= 3 * ((iRange - POINT_BLANK_RANGE) / CELL_X_SIZE); // penalty -3%/tile
+						iChance -= (INT32)(3 * ((iRange - POINT_BLANK_RANGE) / CELL_X_SIZE));	 // penalty -3%/tile
 					}
 				}
 				break;
@@ -6255,7 +6269,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
 				{
 					// 25% penalty per tile closer than min range
-					iChance -= 25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+					iChance -= (INT32)(25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE ) * iPenalty);
 				}
 				else
 				{
@@ -6286,7 +6300,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 					// e.g. 30% to aim at head at range 1, only 10% at range 3
 					// or 20% to aim at torso at range 1, no penalty at range 3
 					// NB torso aim position is 2, so (5-aimpos) is 3, for legs it's 2, for head 4
-					iChance -= (5 - ubAdjAimPos - iRange / CELL_X_SIZE) * 10;
+					iChance -= (INT32)((5 - ubAdjAimPos - iRange / CELL_X_SIZE) * 10 * iPenalty);
 				}
 				break;
 			default:
@@ -8421,7 +8435,7 @@ INT32 CalcBodyImpactReduction( UINT8 ubAmmoType, UINT8 ubHitLocation )
 	return( iReduction );
 }
 
-INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbStatus, INT32 iImpact, UINT8 ubAmmoType, BOOLEAN *plateHit )
+INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbStatus, INT32 iImpact, UINT8 ubAmmoType, BOOLEAN *plateHit)
 {
 	INT32		iProtection, iAppliedProtection, iFailure, iCoverage;
 
@@ -8498,7 +8512,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbSt
 	else if ( AmmoTypes[ubAmmoType].ignoreArmour )
 	{
 		// knives and darts damage armour but are not stopped by kevlar
-		if (Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_VEST || Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_LEGGINGS)
+		if ( Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_VEST || Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_LEGGINGS )
 		{
 			iProtection = 0;
 		}
@@ -8623,6 +8637,13 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	INT32					iImpact, iFluke, iBonus, iImpactForCrits = 0;
 	INT8					bStatLoss = 0;
 	UINT8					ubAmmoType;
+
+	if ( pTarget->IsZombie() && gGameExternalOptions.fZombieOnlyHeadshotsWork )
+	{
+		// if bullet does not hits anything other than the head, it doesn't do any damage
+		if ( ubHitLocation != AIM_SHOT_HEAD )
+			return 0;
+	}
 
 	// NOTE: reduction of bullet impact due to range and obstacles is handled
 	// in MoveBullet.
@@ -8769,7 +8790,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 
 
 		AdjustImpactByHitLocation( iImpact, ubHitLocation, &iImpact, &iImpactForCrits );
-
+		
 		switch( ubHitLocation )
 		{
 			case AIM_SHOT_HEAD:
@@ -9346,7 +9367,22 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 			if (pTarget->aiData.bOppList[ pSoldier->ubID ] == NOT_HEARD_OR_SEEN && !CREATURE_OR_BLOODCAT( pTarget ) )
 			{
 				iImpact = (INT32)((iImpact * 140 / 100) + 0.5);  // 30% incresed damage on suprising attacks
-			}
+			}						
+		}
+
+		// Flugente: power armour reduces damage taken
+		INT8 iSlot = VESTPOS;
+		switch( pSoldier->bAimShotLocation )
+		{
+			case AIM_SHOT_HEAD:
+				iSlot = HELMETPOS;
+				break;
+			case AIM_SHOT_LEGS:
+				iSlot = LEGPOS;
+				break;
+			default:
+				iSlot = VESTPOS;
+				break;
 		}
 	}
 	// DAMAGE BONUS TO KNIFE ATTACK WITH MELEE SKILL
@@ -9368,6 +9404,21 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 			{
 				iImpact = (INT32)(iImpact * 125 / 100);  // 40% incresed damage to lying characters
 			}
+		}
+
+		// Flugente: power armour reduces damage taken
+		INT8 iSlot = VESTPOS;
+		switch( pSoldier->bAimShotLocation )
+		{
+			case AIM_SHOT_HEAD:
+				iSlot = HELMETPOS;
+				break;
+			case AIM_SHOT_LEGS:
+				iSlot = LEGPOS;
+				break;
+			default:
+				iSlot = VESTPOS;
+				break;
 		}
 	}
 
@@ -9501,7 +9552,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 			// We need to be agile and dexterous
 			iAttRating = ( 2 * EffectiveDexterity( pAttacker ) + // coordination, accuracy  *
 					 2 * EffectiveAgility( pAttacker ) +    // speed & reflexes
-				     pAttacker->stats.bStrength +    // physical strength 
+				     pAttacker->stats.bStrength +    // physical strength
 					 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
 		}
 		else

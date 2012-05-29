@@ -844,7 +844,7 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 					{
 						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
 						{
-							FLOAT newguntemperature = 0.0;
+							FLOAT newguntemperature = 0.0f;
 
 							if ( !fSetZero && gGameExternalOptions.fSetZeroUponNewSector )
 							{
@@ -855,7 +855,7 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 								if ( Item[gWorldItems[ uiCount ].object.usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
 									cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
 
-								newguntemperature = max(0.0, guntemperature - cooldownfactor);	// ... calculate new temperature ...
+								newguntemperature = max(0.0f, guntemperature - cooldownfactor);	// ... calculate new temperature ...
 							}
 
 							(*pObj)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
@@ -869,7 +869,7 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 							{
 								if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 								{
-									FLOAT newtemperature = 0.0;
+									FLOAT newtemperature = 0.0f;
 
 									if ( !fSetZero && gGameExternalOptions.fSetZeroUponNewSector )
 									{
@@ -877,7 +877,7 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 
 										FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
 
-										newtemperature = max(0.0, temperature - cooldownfactor);	// ... calculate new temperature ...
+										newtemperature = max(0.0f, temperature - cooldownfactor);	// ... calculate new temperature ...
 									}
 
 									(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature

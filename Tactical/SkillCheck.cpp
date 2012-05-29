@@ -18,7 +18,7 @@
 	#include "Soldier Control.h"
 #endif
 
-INT8 EffectiveStrength( SOLDIERTYPE * pSoldier )
+INT8 EffectiveStrength( SOLDIERTYPE *pSoldier)
 {
 	INT8	bBandaged;
 	INT32	iEffStrength;
@@ -29,9 +29,9 @@ INT8 EffectiveStrength( SOLDIERTYPE * pSoldier )
 	bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
 	if (pSoldier->stats.bStrength > 0)
-	{
-		iEffStrength = pSoldier->stats.bStrength / 2;
-		iEffStrength += (pSoldier->stats.bStrength / 2) * (pSoldier->stats.bLife + bBandaged / 2) / (pSoldier->stats.bLifeMax);
+	{		
+		iEffStrength = ( pSoldier->stats.bStrength )/ 2;
+		iEffStrength += ( (pSoldier->stats.bStrength ) / 2) * (pSoldier->stats.bLife + bBandaged / 2) / (pSoldier->stats.bLifeMax);
 	}
 	else
 	{
@@ -164,7 +164,7 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 			iEffExpLevel -= 1;
 		}
 	}
-	
+		
 	if (iEffExpLevel > 10)
 	{
 		// can't go over 10 - SANDRO
@@ -476,7 +476,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		case OPEN_WITH_CROWBAR:
 			// Add for crowbar...
 			iSkill = EffectiveStrength( pSoldier ) + 20;
-		fForceDamnSound = TRUE;
+			fForceDamnSound = TRUE;
 			break;
 
 		case SMASH_DOOR_CHECK:
@@ -546,6 +546,14 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 					iSkill /= 2;
 				}
 			}
+			break;
+		case ATTACH_POWER_PACK:			// added by Flugente
+			// technicians can attach it, other people can'
+			if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+				iSkill = 100;
+			else
+				iSkill = 0;
+
 			break;
 		default:
 			iSkill = 0;

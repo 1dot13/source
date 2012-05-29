@@ -110,6 +110,8 @@
 
 #include "Dialogue Control.h"
 
+#include "IMP Skill Trait.h"	// added by Flugente
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -134,6 +136,10 @@ extern INT16 DirIncrementer[8];
 
 #define		MIN_SUBSEQUENT_SNDS_DELAY									2000
 #include "connect.h"
+
+extern void TeleportSelectedSoldier( void );
+extern BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode );
+
 
 // Enumerate extended directions
 enum
@@ -996,6 +1002,12 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->wornSnowCamo = src.wornSnowCamo;
 
 		this->bScopeMode = USE_BEST_SCOPE;
+
+		this->bPoisonBleeding = 0;
+		this->bPoisonLife = 0;
+		this->bPoisonSum = 0;
+		this->bPoisonResistance = 0;
+		this->bPoisonAbsorption = 0;
     }
     return *this;
 }
@@ -1337,6 +1349,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 		this->records.usKillsAdmins = (src.usKills/4);
 		this->records.usKillsHostiles = 0;
 		this->records.usKillsCreatures = 0;
+		this->records.usKillsZombies = 0;
 		this->records.usKillsTanks = 0;
 		this->records.usKillsOthers = 0;
 		this->records.usAssistsMercs = (src.usAssists*3/4);
@@ -1476,7 +1489,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 
 		this->iMercMercContractLength = src.iMercMercContractLength;//Used for MERC mercs, specifies how many days the merc has gone since last page
 
-		this->uiTotalCostToDate = src.uiTotalCostToDate;// The total amount of money that has been paid to the merc for their salary
+		this->uiTotalCostToDate = src.uiTotalCostToDate;// The total amount of money that has been paid to the merc for their salary				
 	}
 	return *this;
 }
@@ -1669,7 +1682,7 @@ void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC );
 UINT16 *CreateEnemyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscale, UINT32 gscale, BOOLEAN fAdjustGreen );
 UINT16 *CreateEnemyGreyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscale, UINT32 gscale, BOOLEAN fAdjustGreen );
 
-void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed );
+void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed, BOOLEAN fAllowPoisoning );
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier );
 
 void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState );
@@ -5409,7 +5422,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			HandleMoraleEvent( this, MORALE_TOOK_LOTS_OF_DAMAGE, this->sSectorX, this->sSectorY, this->bSectorZ );
 		}
 	}
-
+		
 	// SWITCH IN TYPE OF WEAPON
 	if ( ubSpecial == FIRE_WEAPON_TOSSED_OBJECT_SPECIAL )
 	{
@@ -5652,12 +5665,14 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		this->SoldierTakeDamage( ANIM_CROUCH, sDamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
+		this->SoldierTakeDamage( ANIM_CROUCH, sDamage, 0, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
 		return;
 	}
 
+	INT16 poisondamage = (INT16) ( sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage() / 100 );
+
 	// DEDUCT LIFE
-	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
+	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, poisondamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
 
 	// ATE: OK, Let's check our ASSIGNMENT state,
 	// If anything other than on a squad or guard, make them guard....
@@ -7050,10 +7065,6 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 
 	// ATE: Add decay effect sfor drugs...
 	if ( fFromRealTime  ) //&& iRealTimeCounter % 300 )
-	{
-		HandleEndTurnDrugAdjustments( this );
-	}
-	else
 	{
 		HandleEndTurnDrugAdjustments( this );
 	}
@@ -8657,7 +8668,16 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 
 			 this->ubPendingDirection = bNewDirection;
 			 //this->usPendingAnimation = CLIMBUPROOF;
-			 this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0 , FALSE );
+
+			 // Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
+			 if ( IsAnimationValidForBodyType( this, CLIMBUPROOF ) == FALSE )
+			 {
+				 SetSoldierHeight( 50.0 );
+				 TeleportSoldier( this, this->sTempNewGridNo, TRUE );
+				 EndAIGuysTurn( this);
+			 }
+			 else
+				this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0 , FALSE );
 
 			 this->InternalReceivingSoldierCancelServices( FALSE );
 			 this->InternalGivingSoldierCancelServices( FALSE );
@@ -8810,7 +8830,7 @@ void SOLDIERTYPE::BeginSoldierClimbWallUp( void )
 UINT32 SleepDartSuccumbChance( SOLDIERTYPE * pSoldier )
 {
 	UINT32		uiChance;
-	INT8			bEffectiveStrength;
+	INT16		bEffectiveStrength;
 
 	// figure out base chance of succumbing,
 	bEffectiveStrength = EffectiveStrength( pSoldier );
@@ -9006,12 +9026,12 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 }
 
 
-UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
+UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPoisonAdd, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight , sLifeDeduct , sBreathLoss , ubReason , ubAttacker , sSourceGrid , sSubsequent , fShowDamage );
+	sprintf(tmpMPDbgString,"SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sPoisonAdd : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight , sLifeDeduct , sPoisonAdd, sBreathLoss , ubReason , ubAttacker , sSourceGrid , sSubsequent , fShowDamage );
 	MPDebugMsg(tmpMPDbgString);
 	}
 #endif
@@ -9025,6 +9045,11 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 	this->ubLastDamageReason = ubReason;
 
+	// check: poison damage cannot be higher than damage
+	sPoisonAdd = min(sPoisonAdd, sLifeDeduct);
+
+	// reduce poison damage by poison resistance
+	sPoisonAdd = (INT16)(sPoisonAdd * (100 - this->GetPoisonResistance())/100);
 
 	// CJC Jan 21 99: add check to see if we are hurting an enemy in an enemy-controlled
 	// sector; if so, this is a sign of player activity
@@ -9058,6 +9083,11 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 	// Deduct life!, Show damage if we want!
 	bOldLife = this->stats.bLife;
+
+	// we need this to relation to decide how to redistribute poison points
+	FLOAT dpoisonliferelation = 1.0;
+	if ( bOldLife > 0 )
+		dpoisonliferelation = (FLOAT)(this->bPoisonLife / bOldLife);
 
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -9182,11 +9212,41 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	if (sLifeDeduct > this->stats.bLife)
 	{
 		this->stats.bLife = 0;
+
+		this->bPoisonSum = 0;
+		this->bPoisonLife = 0;
+		this->bPoisonBleeding = 0;
 	}
 	else
 	{
+		// we might have poison absorption
+		INT16 sLifeGainAbsorption = (INT16) ((sPoisonAdd * this->GetPoisonAbsorption())/100);
+
+		// life reduction gets reduced itself by life gained through absorption
+		sLifeDeduct -= sLifeGainAbsorption;
+
+		// poison points however get increased by absorped life points (poison was absorbed, not resisted)
+		INT16 poisongained = sPoisonAdd + sLifeGainAbsorption;
+		
 		// Decrease Health
 		this->stats.bLife -= sLifeDeduct;
+
+		// life may increase by poison absorption, so make sure it doesn't rise too much
+		this->stats.bLife = min(this->stats.bLife, this->stats.bLifeMax);
+				
+		// increase poisoning
+		this->bPoisonSum = min(this->stats.bLifeMax, this->bPoisonSum + poisongained);
+
+		// increase poison life if we gained life through absorption
+		if ( sLifeGainAbsorption > 0 )
+			this->bPoisonLife = min(this->bPoisonSum, this->bPoisonLife + sLifeGainAbsorption);
+
+		// if no life was lost, also add sPoisonAdd to bPoisonLife
+		if ( sLifeDeduct <= 0 )
+			this->bPoisonLife = min(this->bPoisonSum, this->bPoisonLife + sPoisonAdd);
+		else
+			// we reduce bPoisonLife according to old percentage of poison life to life
+			this->bPoisonLife -= (INT8) (dpoisonliferelation * sLifeDeduct);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9211,7 +9271,8 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 	// ATE: Put some logic in here to allow enemies to die quicker.....
 	// Are we an enemy?
-	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE )
+	// zombies don't die suddenly, as they regenerate health by bloodloss and poison. You have to make sure they die!
+	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE && !this->IsZombie() )
 	{
 		// ATE: Give them a chance to fall down...
 		if ( this->stats.bLife > 0 && this->stats.bLife < ( OKLIFE - 1 ) )
@@ -9219,11 +9280,15 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			// Are we taking damage from bleeding?
 			if ( ubReason == TAKE_DAMAGE_BLOODLOSS )
 			{
-				// Fifty-fifty chance to die now!
+				// Fifty-fifty chance to die now!				
 				if ( Random( 3 ) == 0 || gTacticalStatus.Team[ this->bTeam ].bMenInSector == 1 )
 				{
 					// Kill!
 					this->stats.bLife = 0;
+
+					this->bPoisonSum = 0;
+					this->bPoisonLife = 0;
+					this->bPoisonBleeding = 0;
 				}
 			}
 			else
@@ -9233,9 +9298,19 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 				{
 					// Kill!
 					this->stats.bLife = 0;
+
+					this->bPoisonSum = 0;
+					this->bPoisonLife = 0;
+					this->bPoisonBleeding = 0;
 				}
 			}
 		}
+	}
+	else if ( this->IsZombie() && this->stats.bLife > 0 && this->stats.bLife < OKLIFE )
+	{
+		// a zombie doesn't automatically die, so he would normally stand up again after being hit. 
+		// We don't want that, because he is dying, so we manually skip that animation
+		this->usPendingAnimation = NO_PENDING_ANIMATION;
 	}
 
 	if ( fShowDamage )
@@ -9247,6 +9322,10 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	if ( this->stats.bLife < 0 )
 	{
 		this->stats.bLife = 0;
+
+		this->bPoisonSum = 0;
+		this->bPoisonLife = 0;
+		this->bPoisonBleeding = 0;
 	}
 
 
@@ -9267,11 +9346,29 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			{
 				// HTH does 1 pt bleeding per hit
 				this->bBleeding = this->bBleeding + 1;
+
+				// add poison point according to poison/life relation
+				this->bPoisonBleeding += (INT8) (dpoisonliferelation );
 			}
 		}
 		else
 		{
-			this->bBleeding = this->stats.bLifeMax - ( this->stats.bLife + bBandage );
+			// if we would actually bleed _less_ after applying the damage received (poison absorption), we reduce bleeding only if the new bBandage would be zero
+			// by this, we can continue bleeding, and eventually bleeding
+			// the normal behaviour is unchanged, as this case can't happen without poison absorption
+			if ( sLifeDeduct < 0 )
+			{
+				INT8 oldBleeding = this->bBleeding;
+				this->bBleeding = min(this->bBleeding, this->stats.bLifeMax - this->stats.bLife );
+				this->bPoisonBleeding = max(0, this->bPoisonBleeding - (oldBleeding - this->bBleeding));
+			}
+			else
+			{
+				this->bBleeding = this->stats.bLifeMax - ( this->stats.bLife + bBandage );
+
+				// we increase bPoisonLife according to old percentage of poison life to life
+				this->bPoisonBleeding += (INT8) (dpoisonliferelation * sLifeDeduct);
+			}					
 		}
 
 	}
@@ -10089,7 +10186,7 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 				//this->EVENT_InitNewSoldierAnim( FALLFORWARD_ROOF, 0 , FALSE );
 
 				// Deduct hitpoints/breath for falling!
-				this->SoldierTakeDamage( ANIM_CROUCH, 100, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+				this->SoldierTakeDamage( ANIM_CROUCH, 100, 0, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 
 				fReturnVal = TRUE;
 
@@ -10104,7 +10201,7 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 				this->usPendingAnimation = FALLOFF;
 
 				// Deduct hitpoints/breath for falling!
-				this->SoldierTakeDamage( ANIM_CROUCH, 100, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
+				this->SoldierTakeDamage( ANIM_CROUCH, 100, 0, 5000, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 
 				fReturnVal = TRUE;
 			}
@@ -10139,15 +10236,21 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 				 SetUIBusy( this->ubID );
 			 }
 
-
-
-
 			 this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
 
 			 bNewDirection = gTwoCDirection[ bNewDirection ];
 
 			 this->ubPendingDirection = bNewDirection;
-			 this->EVENT_InitNewSoldierAnim( JUMPDOWNWALL, 0 , FALSE );
+
+			 // Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
+			 if ( IsAnimationValidForBodyType( this, JUMPDOWNWALL ) == FALSE )
+			 {
+				 SetSoldierHeight( 0.0 );
+				 TeleportSoldier( this, this->sTempNewGridNo, TRUE );
+				 EndAIGuysTurn( this);
+			 }
+			 else
+				this->EVENT_InitNewSoldierAnim( JUMPDOWNWALL, 0 , FALSE );
 
 			 this->InternalReceivingSoldierCancelServices( FALSE );
 			 this->InternalGivingSoldierCancelServices( FALSE );
@@ -10952,6 +11055,9 @@ void SOLDIERTYPE::ReviveSoldier( void )
 
 		this->stats.bLife = this->stats.bLifeMax;
 		this->bBleeding = 0;
+		this->bPoisonBleeding = 0;
+		this->bPoisonLife     = 0;
+		this->bPoisonSum	  = 0;
 		this->iHealableInjury = 0; // added by SANDRO
 		this->ubDesiredHeight = ANIM_STAND;
 
@@ -11376,7 +11482,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 #if (defined JA2UB || defined JA113NODEMO) 
 	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE)
 #else
-	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE ) // SANDRO - added check for body type
+	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE && !IsZombie() ) // SANDRO - added check for body type
 #endif
 	{
 		// Are we in attack mode yet?
@@ -11391,66 +11497,136 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	}
 	else
 	{
-		// Look at stance of target
-		switch( gAnimControl[ pTSoldier->usAnimState ].ubEndHeight	)
+		// Flugente: civilians can be zombies too, but they do not have a 'punch' animation. Simple fix: They 'attack' without animation...
+		// CHECK IF WE CAN DO THIS ANIMATION!
+		if ( this->IsZombie() && IsAnimationValidForBodyType( this, PUNCH ) == FALSE )
 		{
-		case ANIM_STAND:
-		case ANIM_CROUCH:
-
-			if ( !Item[usItem].crowbar )
+			if ( gGameExternalOptions.fZombieExplodingCivs )
 			{
-				this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+				// Solution 1: zombie explodes, killing himself and eventually also killing his target
+				// Lower hitpoints, to ensure we will die in explosion (otherwise there might be multiple explosions or zombies not dying correctly...)
+				if ( stats.bLife > 2 )
+					stats.bLife = 2;
+				// Explosion of a Jar of RDX Crystals
+				IgniteExplosion( this->ubID, this->sX, this->sY, (INT16) (gpWorldLevelData[this->sGridNo].sHeight), this->sGridNo, 136, this->pathing.bLevel );
 			}
 			else
 			{
-				this->EVENT_InitNewSoldierAnim( CROWBAR_ATTACK, 0 , FALSE );
-			}
-
-			// CHECK IF HE CAN SEE US, IF SO CHANGE DIR
-			if ( pTSoldier->aiData.bOppList[ this->ubID ] == 0 && pTSoldier->bTeam != this->bTeam )
-			{
-				// Get direction to target
-				// IF WE ARE AN ANIMAL, CAR, MONSTER, DONT'T TURN
-				if ( !( pTSoldier->flags.uiStatusFlags & ( SOLDIER_MONSTER | SOLDIER_ANIMAL | SOLDIER_VEHICLE ) ) )
+				// Solution 2: Crude simulation of a 'melee' attack (this is a rig-up, a better solution needs to be found).
+				// do we 'hit'?
+				if ( Random(100) > 30 )
 				{
-					// OK, stop merc....
-					pTSoldier->EVENT_StopMerc( pTSoldier->sGridNo, pTSoldier->ubDirection );
+					// Play sound
+					PlayJA2SampleFromFile( "Sounds\\zombie_swish1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
-					if ( pTSoldier->bTeam != gbPlayerNum )
+					INT8 oldlife = pTSoldier->stats.bLife;
+
+					INT16 damage = (INT16)(5 + Random(20));
+					if ( pTSoldier->stats.bLife - damage < 0 )
+						damage = oldlife;
+
+					// We've got a problem if we kill someone outright ithout him collapsing properly...
+					// FIX: We'll adjust our damage, so if we'd kill someone without collapsing first, we lower our damage, to let him collapse
+					// After all, this whole thing's a rig up, so there shouldn't be a problem with that
+					if ( oldlife >= OKLIFE && oldlife <= damage )
+						damage -= (INT16)((5 + Random(5)));
+
+					INT16 breathdamage = (INT16)(500 + Random(1500));
+					if ( pTSoldier->bBreath - breathdamage < 0 )
+						breathdamage = pTSoldier->bBreath;
+
+					INT16 poisondamage = (INT16) ( sDamage * this->GetPoisonDamagePercentage() / 100 );
+					
+					// zombies do ~50% poison damage
+					pTSoldier->SoldierTakeDamage( 0, damage, poisondamage, breathdamage, TAKE_DAMAGE_HANDTOHAND, this->ubID, pTSoldier->sGridNo, 0, TRUE );
+
+					if ( pTSoldier->stats.bLife == 0 )
 					{
-						CancelAIAction( pTSoldier, TRUE );
+						// FINISH HIM!
+						HandleTakeDamageDeath( pTSoldier, oldlife, TAKE_DAMAGE_BLOODLOSS );
 					}
-
-					ubTDirection = (UINT8)GetDirectionFromGridNo( this->sGridNo, pTSoldier );
-					SendSoldierSetDesiredDirectionEvent( pTSoldier, ubTDirection );
-				}
-			}
-			break;
-
-		case ANIM_PRONE:
-
-			// CHECK OUR STANCE
-			// ATE: Added this for CIV body types 'cause of elliot
-			if ( !IS_MERC_BODY_TYPE( this ) )
-			{
-				this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
-			}
-			else
-			{
-				if ( gAnimControl[ this->usAnimState ].ubEndHeight != ANIM_CROUCH )
-				{
-					// SET DESIRED STANCE AND SET PENDING ANIMATION
-					SendChangeSoldierStanceEvent( this, ANIM_CROUCH );
-					this->usPendingAnimation = PUNCH_LOW;
+					else if ( pTSoldier->stats.bLife < OKLIFE && !pTSoldier->bCollapsed )
+					{
+						// let the target collapse...
+						SoldierCollapse(pTSoldier);
+					}
 				}
 				else
 				{
-					// USE crouched one
-					// NEED TO CHANGE STANCE IF NOT CROUCHD!
-					this->EVENT_InitNewSoldierAnim( PUNCH_LOW, 0 , FALSE );
+					// Play sound
+					PlayJA2SampleFromFile( "Sounds\\zombie_swish2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 				}
+								
+				// zombie is done doing harm...
+				EndAIGuysTurn( this);
 			}
-			break;
+
+			// ensure that we are running on our way to the next enemy
+			this->EVENT_InitNewSoldierAnim( RUNNING, 0 , FALSE );
+		}
+		else
+		{
+			// Look at stance of target
+			switch( gAnimControl[ pTSoldier->usAnimState ].ubEndHeight	)
+			{
+			case ANIM_STAND:
+			case ANIM_CROUCH:
+
+				if ( !Item[usItem].crowbar )
+				{
+					this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+				}
+				else
+				{
+					this->EVENT_InitNewSoldierAnim( CROWBAR_ATTACK, 0 , FALSE );
+				}
+
+				// CHECK IF HE CAN SEE US, IF SO CHANGE DIR
+				if ( pTSoldier->aiData.bOppList[ this->ubID ] == 0 && pTSoldier->bTeam != this->bTeam )
+				{
+					// Get direction to target
+					// IF WE ARE AN ANIMAL, CAR, MONSTER, DONT'T TURN
+					if ( !( pTSoldier->flags.uiStatusFlags & ( SOLDIER_MONSTER | SOLDIER_ANIMAL | SOLDIER_VEHICLE ) ) )
+					{
+						// OK, stop merc....
+						pTSoldier->EVENT_StopMerc( pTSoldier->sGridNo, pTSoldier->ubDirection );
+
+						if ( pTSoldier->bTeam != gbPlayerNum )
+						{
+							CancelAIAction( pTSoldier, TRUE );
+						}
+
+						ubTDirection = (UINT8)GetDirectionFromGridNo( this->sGridNo, pTSoldier );
+						SendSoldierSetDesiredDirectionEvent( pTSoldier, ubTDirection );
+					}
+				}
+				break;
+
+			case ANIM_PRONE:
+
+				// CHECK OUR STANCE
+				// ATE: Added this for CIV body types 'cause of elliot
+				if ( !IS_MERC_BODY_TYPE( this ) )
+				{
+					this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+				}
+				else
+				{
+					if ( gAnimControl[ this->usAnimState ].ubEndHeight != ANIM_CROUCH )
+					{
+						// SET DESIRED STANCE AND SET PENDING ANIMATION
+						SendChangeSoldierStanceEvent( this, ANIM_CROUCH );
+						this->usPendingAnimation = PUNCH_LOW;
+					}
+					else
+					{
+						// USE crouched one
+						// NEED TO CHANGE STANCE IF NOT CROUCHD!
+						this->EVENT_InitNewSoldierAnim( PUNCH_LOW, 0 , FALSE );
+					}
+				}
+				break;
+			}
 		}
 	}
 
@@ -11682,7 +11858,7 @@ void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection )
 UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT16 sStatus )
 {
 	UINT32 uiDressSkill, uiPossible, uiActual, uiMedcost, uiDeficiency, uiAvailAPs, uiUsedAPs;
-	UINT8 ubBelowOKlife, ubPtsLeft = 0;
+	UINT8 ubBelowOKlife = 0, ubPtsLeft = 0;
 	BOOLEAN	fRanOut = FALSE;
 	BOOLEAN	fOnSurgery = FALSE;
 	INT8 bInitialBleeding;
@@ -11860,6 +12036,10 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 
 			// use up appropriate # of actual healing points
 			ubPtsLeft -= (2 * ubBelowOKlife);
+
+			// raise bPoisonLife, reduce bPoisonBleeding
+			pVictim->bPoisonLife = min(pVictim->bPoisonLife + ubBelowOKlife, pVictim->bPoisonSum);
+			pVictim->bPoisonBleeding = max(0, pVictim->bPoisonBleeding - ubBelowOKlife);
 		}
 		else
 		{
@@ -11875,12 +12055,17 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			pVictim->bBleeding -= ( ubPtsLeft / 2);
 
 			ubPtsLeft = ubPtsLeft % 2;	// if ptsLeft was odd, ptsLeft = 1
+
+			// raise bPoisonLife, reduce bPoisonBleeding
+			pVictim->bPoisonLife = min(pVictim->bPoisonLife + ( ubPtsLeft / 2), pVictim->bPoisonSum);
+			pVictim->bPoisonBleeding = max(0, pVictim->bPoisonBleeding - ( ubPtsLeft / 2));
 		}
 
 		// this should never happen any more, but make sure bleeding not negative
 		if (pVictim->bBleeding < 0)
 		{
 			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
 		}
 
 		// if this healing brought the patient out of the worst of it, cancel dying
@@ -11970,11 +12155,13 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			if (pVictim->bBleeding >= (usLifeReturned/100))
 			{
 				pVictim->bBleeding -= (usLifeReturned/100);
+				pVictim->bPoisonBleeding = max(0, pVictim->bPoisonBleeding - (usLifeReturned/100) );
 				uiMedcost += (usLifeReturned / 200); // add medkit points cost for unbandaged part
 			}
 			else
 			{
 				pVictim->bBleeding = 0;
+				pVictim->bPoisonBleeding = 0;
 				uiMedcost += max( 0, (((usLifeReturned/100) - pVictim->bBleeding) / 2)); // add medkit points cost for unbandaged part 
 			}
 		}
@@ -11983,6 +12170,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			pVictim->stats.bLife = pVictim->stats.bLifeMax;
 			pVictim->iHealableInjury = 0;
 			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
 		}
 		// Reduce max breath based on life returned
 		if ( (pVictim->bBreathMax - (((usLifeReturned/100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss )/ 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
@@ -12010,10 +12198,12 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		{
 			ubPtsLeft -= pVictim->bBleeding;
 			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
 		}
 		else		// bandage what we can
 		{
 			pVictim->bBleeding -= ubPtsLeft;
+			pVictim->bPoisonBleeding = max(0, pVictim->bPoisonBleeding - ubPtsLeft);
 			ubPtsLeft = 0;
 		}
 
@@ -13189,6 +13379,8 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 			resistance += gGameExternalOptions.sEnemyRegularDamageResistance;
 		else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
 			resistance += gGameExternalOptions.sEnemyEliteDamageResistance;
+		else if (IsZombie())
+			resistance += gGameExternalOptions.sEnemyZombieDamageResistance;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -13236,6 +13428,74 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 	return( resistance );
 }
 
+INT16 SOLDIERTYPE::GetSoldierCriticalDamageBonus( void )
+{
+	INT16 val = 0;
+
+	return val;
+}
+
+BOOLEAN SOLDIERTYPE::IsZombie( void )
+{
+	return( ubSoldierClass == SOLDIER_CLASS_ZOMBIE );
+}
+
+INT16	SOLDIERTYPE::GetPoisonResistance( void )
+{
+	// Flugente: resistance can per definition only be between -100 and 100 (at least that's my definition)
+	INT16 val = bPoisonResistance;
+	
+	// without WH40K, there are no modifiers
+
+	val = max(-100, val);
+	val = min(100, val);
+
+	return( val );
+}
+
+INT16	SOLDIERTYPE::GetPoisonAbsorption( void )
+{
+	// Flugente: absorption can per definition only be >= 0 (at least that's my definition)
+	INT16 val = bPoisonAbsorption;
+		
+	val = max(0, val);
+
+	return( val );
+}
+
+
+INT16	SOLDIERTYPE::GetPoisonDamagePercentage( void )
+{
+	// Flugente: this percentage has to be between 0% and 100%
+	INT16 val = 0;
+
+	// zombies poison damage percentage is externalised
+	if ( IsZombie() )
+		val += gGameExternalOptions.sZombiePoisonDamagePercentage;
+	
+	if ( this->usAttackingWeapon )
+	{
+		val += Item[this->usAttackingWeapon].bPoisonPercentage;
+
+		if ( Item[this->usAttackingWeapon].usItemClass == IC_GUN )
+		{
+			// check for modificators (attachments, poisoned ammunition)
+			// check for poisoned ammunition
+			UINT8 ammotype = this->inv[ this->ubAttackingHand ][0]->data.gun.ubGunAmmoType;
+			val += AmmoTypes[ammotype].poisonPercentage;
+
+			// check for attachments with a bonus to poison (currently, none exist)
+		}
+	}
+
+	val = max(0, val);
+	val = min(100, val);
+
+	return( val );
+}
+
+
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -13244,94 +13504,116 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 	if ( pSoldier->stats.bLife != 0 )
 	{
 		// if merc is hurt beyond the minimum required to bleed, or he's dying
-		if ( ( pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD) || pSoldier->stats.bLife < OKLIFE )
+		// Flugente: also allow bleeding if we would regenerate health through it, which happens when we have enough absorption and are poisoned enough (only guaranteed if fully poisoned)
+		if ( ( ( pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD) || pSoldier->stats.bLife < OKLIFE ) || ( pSoldier->bPoisonSum == pSoldier->stats.bLifeMax && pSoldier->GetPoisonAbsorption() >= 200 ) )
 		{
 			// if he's NOT in the process of being bandaged or DOCTORed
 			if ( ( pSoldier->ubServiceCount == 0 ) && ( AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER ) == NULL ) )
 			{
 				// may drop blood whether or not any bleeding takes place this turn
 				if ( pSoldier->bTilesMoved < 1 )
-			 {
-				 iBlood = ( ( pSoldier->bBleeding - MIN_BLEEDING_THRESHOLD ) / BLOODDIVISOR ); // + pSoldier->dying;
-				 if ( iBlood > MAXBLOODQUANTITY )
-				 {
-					 iBlood = MAXBLOODQUANTITY;
-				 }
-			 }
+				{
+					 iBlood = ( ( pSoldier->bBleeding - MIN_BLEEDING_THRESHOLD ) / BLOODDIVISOR ); // + pSoldier->dying;
+					 if ( iBlood > MAXBLOODQUANTITY )
+					 {
+						 iBlood = MAXBLOODQUANTITY;
+					 }
+				}
 				else
-			 {
-				 iBlood = NOBLOOD;
-			 }
+				{
+					iBlood = NOBLOOD;
+				}
 
 				// Are we in a different mode?
 				if ( !(gTacticalStatus.uiFlags & TURNBASED ) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
-			 {
-				 pSoldier->dNextBleed -= (FLOAT)RT_NEXT_BLEED_MODIFIER;
-			 }
+				{
+					pSoldier->dNextBleed -= (FLOAT)RT_NEXT_BLEED_MODIFIER;
+				}
 				else
-			 {
-				 // Do a single step descrease
-				 pSoldier->dNextBleed--;
-			 }
+				{
+					// Do a single step descrease
+					pSoldier->dNextBleed--;
+				}
 
 				// if it's time to lose some blood
 				if ( pSoldier->dNextBleed <= 0)
-			 {
-				 // first, calculate if soldier is bandaged
-				 bBandaged = pSoldier->stats.bLifeMax - pSoldier->bBleeding - pSoldier->stats.bLife;
+				{
+					 // first, calculate if soldier is bandaged
+					 bBandaged = pSoldier->stats.bLifeMax - pSoldier->bBleeding - pSoldier->stats.bLife;
 
-				 // as long as he's bandaged and not "dying"
-				 if ( bBandaged && pSoldier->stats.bLife >= OKLIFE )
-				 {
-					 // just bleeding through existing bandages
-					 pSoldier->bBleeding++;
-
-					 SoldierBleed( pSoldier, TRUE );
-				 }
-				 else	// soldier is either not bandaged at all or is dying
-				 {
-					 if ( pSoldier->stats.bLife < OKLIFE )		// if he's dying
+					 // as long as he's bandaged and not "dying"
+					 if ( bBandaged && pSoldier->stats.bLife >= OKLIFE )
 					 {
-						 // if he's conscious, and he hasn't already, say his "dying quote"
-						 if ( ( pSoldier->stats.bLife >= CONSCIOUSNESS ) && !pSoldier->flags.fDyingComment )
+						 // just bleeding through existing bandages
+						 pSoldier->bBleeding++;
+
+						 SoldierBleed( pSoldier, TRUE, TRUE );
+					 }
+					 else	// soldier is either not bandaged at all or is dying
+					 {
+						 if ( pSoldier->stats.bLife < OKLIFE )		// if he's dying
 						 {
-							 TacticalCharacterDialogue( pSoldier, QUOTE_SERIOUSLY_WOUNDED );
+							 // if he's conscious, and he hasn't already, say his "dying quote"
+							 if ( ( pSoldier->stats.bLife >= CONSCIOUSNESS ) && !pSoldier->flags.fDyingComment )
+							 {
+								 TacticalCharacterDialogue( pSoldier, QUOTE_SERIOUSLY_WOUNDED );
 
-							 pSoldier->flags.fDyingComment = TRUE;
-						 }
+								 pSoldier->flags.fDyingComment = TRUE;
+							 }
 
-						 // can't permit lifemax to ever bleed beneath OKLIFE, or that
-						 // soldier might as well be dead!
-						 if (pSoldier->stats.bLifeMax >= OKLIFE)
-							{
-								// bleeding while "dying" costs a PERMANENT point of life each time!
-								pSoldier->stats.bLifeMax--;
-								pSoldier->bBleeding--;
-								if ( pSoldier->iHealableInjury >= 100) // added check for insta-healable injury - SANDRO
-									pSoldier->iHealableInjury -= 100;
-							}
-						}
-					}
+							 // can't permit lifemax to ever bleed beneath OKLIFE, or that
+							 // soldier might as well be dead!
+							 if (pSoldier->stats.bLifeMax >= OKLIFE)
+							 {
+									// Flugente: reduce PERMANENT points of life only if through 'normal' bleeding, not by poisoning
+									// problem is that this function applies every bleeding cycle, while loosing points through natural restoration (too much poison in body) only happens every hour.
+									// so one might lose 1pt of life through poisoning at 8:00, and then lose 30 points of life PERMANTENLY in the following hour without dying
+									// We bypass this by only allowing PERMANTENT lifeloss if really bleeding
+									if ( pSoldier->bBleeding )
+									{
+										// bleeding while "dying" costs a PERMANENT point of life each time!
+										pSoldier->stats.bLifeMax--;
+										pSoldier->bBleeding = max(0, pSoldier->bBleeding - 1);
 
-				 // either way, a point of life (health) is lost because of bleeding
-				 // This will also update the life bar
+										// the lost point might be poisoned
+										pSoldier->bPoisonSum	  = max(0, pSoldier->bPoisonSum - 1);
 
-				 SoldierBleed( pSoldier, FALSE );
+										// also adjust poisoned bleeding
+										pSoldier->bPoisonBleeding = max(0, pSoldier->bPoisonBleeding - 1);
+
+										if ( pSoldier->iHealableInjury >= 100) // added check for insta-healable injury - SANDRO
+											pSoldier->iHealableInjury -= 100;
+									}
+							 }
+						  }
+					 }
+
+					 // either way, a point of life (health) is lost because of bleeding
+					 // Flugente: not true anymore! We might be fully bandaged, not bleeding, but still receive poison damage that will lower our life. So check if we're bleeding!
+					 if ( pSoldier->bBleeding )
+					 {
+						 // This will also update the life bar
+						 SoldierBleed( pSoldier, FALSE, TRUE );
+					 }
+					 else
+					 {
+						 // just to update everything, like going unconscious or dying
+						 pSoldier->SoldierTakeDamage( ANIM_CROUCH, 0, 0, 0, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+					 }
 
 
-				 // if he's not dying (which includes him saying the dying quote just
-				 // now), and he hasn't warned us that he's bleeding yet, he does so
-				 // Also, not if they are being bandaged....
-				 if ( ( pSoldier->stats.bLife >= OKLIFE ) && !pSoldier->flags.fDyingComment && !pSoldier->flags.fWarnedAboutBleeding && !gTacticalStatus.fAutoBandageMode && pSoldier->ubServiceCount == 0 )
-					{
+					 // if he's not dying (which includes him saying the dying quote just
+					 // now), and he hasn't warned us that he's bleeding yet, he does so
+					 // Also, not if they are being bandaged....
+					 if ( ( pSoldier->stats.bLife >= OKLIFE ) && !pSoldier->flags.fDyingComment && !pSoldier->flags.fWarnedAboutBleeding && !gTacticalStatus.fAutoBandageMode && pSoldier->ubServiceCount == 0 )
+					 {
 						TacticalCharacterDialogue( pSoldier, QUOTE_STARTING_TO_BLEED );
 
 						// "starting to bleed" quote
 						pSoldier->flags.fWarnedAboutBleeding = TRUE;
-					}
+					 }
 
-				 pSoldier->dNextBleed = CalcSoldierNextBleed( pSoldier );
-
+					 pSoldier->dNextBleed = CalcSoldierNextBleed( pSoldier );
 				}
 			}
 		}
@@ -13340,10 +13622,8 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 }
 
 
-void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed )
+void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed, BOOLEAN fAllowPoisoning )
 {
-	INT8 bOldLife;
-
 	// OK, here make some stuff happen for bleeding
 	// A banaged bleed does not show damage taken , just through existing bandages
 
@@ -13360,21 +13640,30 @@ void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed )
 			SetInfoChar( pSoldier->ubID );
 		}
 	}
+	
+	// if poisoning is allowed, if we are poisoned and we can be sure that we are really bleeding (safety reasons), there is a chance that the poisoning spreads
+	// this simply means that the new Bleeding point will also be a poisoned bleeding point
+	INT16 poisondamage = 0;
+	if ( fAllowPoisoning && pSoldier->bPoisonSum > 0 && pSoldier->bBleeding )
+	{
+		INT8 bleedingpercentagepoison = (INT8) (100 * pSoldier->bPoisonSum / pSoldier->stats.bLifeMax);
 
-	bOldLife = pSoldier->stats.bLife;
+		if ( (INT8) Random(100) < bleedingpercentagepoison )
+			poisondamage = 1;
+	}
 
 	// If we are already dead, don't show damage!
 	if ( !fBandagedBleed )
 	{
 		// SANDRO - if the soldier is bleeding out, consider this damage as done by the last attacker
 		if ( pSoldier->ubAttackerID != NOBODY )
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubAttackerID, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubAttackerID, NOWHERE, 0, TRUE );
 		else if ( pSoldier->ubPreviousAttackerID != NOBODY )
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
 		else if ( pSoldier->ubNextToPreviousAttackerID != NOBODY )
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
 		else 
-			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, poisondamage, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 	}
 
 }

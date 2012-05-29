@@ -309,6 +309,7 @@ enum
 	SOLDIER_CLASS_ELITE_MILITIA,
 	SOLDIER_CLASS_CREATURE,
 	SOLDIER_CLASS_MINER,
+	SOLDIER_CLASS_ZOMBIE,
 };
 
 #define SOLDIER_CLASS_ENEMY( bSoldierClass )		( ( bSoldierClass >= SOLDIER_CLASS_ADMINISTRATOR ) && ( bSoldierClass <= SOLDIER_CLASS_ARMY ) )
@@ -1143,6 +1144,21 @@ public:
 	// I don't know if this is a good idea at all...
 	//INT16	filler;
 
+	// Flugente: Is this the correct position?
+	INT8												bScopeMode;
+
+	///////////////////////////////////////////////////////
+	// Flugente Zombies: Added variables for the poison system
+	INT8	bPoisonBleeding;		// The number of bleeding points that are also poison points
+	//INT8	bPoisonBandaged;		// The number of bandaged lifepoints that are also poison points
+	INT8	bPoisonLife;			// The number of Lifepoints that are also poison points
+	INT8	bPoisonSum;				// The sum of poison points;
+
+	INT16	bPoisonResistance;		// poison resistance reduces the amount of poison damage received. It is applied before poison absorption
+	INT16	bPoisonAbsorption;		// for x points of poison damage received, you gain x * (bPoisonAbsorption / 100) poison life points
+	///////////////////////////////////////////////////////
+
+	
 #ifdef JA2UB
 	//ja25
 	BOOLEAN											fIgnoreGetupFromCollapseCheck;
@@ -1151,10 +1167,7 @@ public:
 
 	UINT8												ubPercentDamageInflictedByTeam[NUM_ASSIST_SLOTS];			//The percent of damage inflicted by the player team.  Each element corresponds to the Soldier ID.  Each element contains the percent damage inflicted by that merc
 #endif
-
-	// Flugente: Is this the correct position?
-	INT8												bScopeMode;
-
+	
 	char endOfPOD;	// marker for end of POD (plain old data)
 
 	// Note: Place all non-POD items at the end (after endOfPOD)
@@ -1229,7 +1242,8 @@ public:
 	void ChangeSoldierStance( UINT8 ubDesiredStance );
 	void StopSoldier( void );
 	void ReviveSoldier( void );
-	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
+	// Flugente: added poison damage, which should be smaller or equal than sLifeDeduct
+	UINT8 SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPoisonAdd, INT16 sBreathDeduct, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage );
 
 
 	// Palette functions for soldiers
@@ -1329,6 +1343,19 @@ public:
 
 	// returns damage resistance in percent
 	INT32	GetDamageResistance( BOOLEAN fAutoResolve = FALSE, BOOLEAN fCalcBreathLoss = FALSE);
+
+	INT16	GetSoldierCriticalDamageBonus( void );	// Flugente: determines critical damage bonus depending on class, skill, etc.
+
+	// Flugente: Zombies
+	BOOLEAN IsZombie( void );
+	
+	// Flugente: poison system
+	// These functions might one day be modified by traits etc. We'll keep that in these functions and not clutter the rest of the code
+	INT16	GetPoisonResistance( void );
+	INT16	GetPoisonAbsorption( void );
+	// returns the poison percentage of the damage we will be doing with the weapon currently in our hand
+	INT16	GetPoisonDamagePercentage( void );
+	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	
 

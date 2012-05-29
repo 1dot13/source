@@ -27,6 +27,10 @@ INT8 RTPlayerDecideAction( SOLDIERTYPE * pSoldier )
 	{
 		bAction = DecideAutoBandage( pSoldier );
 	}
+	else if ( pSoldier->IsZombie() )
+	{
+		bAction = ZombieDecideAction( pSoldier );
+	}
 	else
 	{
 		bAction = DecideAction( pSoldier );
@@ -46,6 +50,10 @@ INT8 RTDecideAction(SOLDIERTYPE *pSoldier)
 	if (CREATURE_OR_BLOODCAT( pSoldier ) )
 	{
 		return( CreatureDecideAction( pSoldier ) );
+	}
+	else if ( pSoldier->IsZombie() )
+	{
+		return( ZombieDecideAction( pSoldier ) );
 	}
 	else if (pSoldier->ubBodyType == CROW)
 	{

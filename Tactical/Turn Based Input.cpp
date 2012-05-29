@@ -120,6 +120,9 @@
 #include "connect.h"
 #include "fresh_header.h"
 
+
+#include "IMP Skill Trait.h"	// added by Flugente
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -4316,6 +4319,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								// Get life back
 								pSoldier->stats.bLife									= pSoldier->stats.bLifeMax;
 								pSoldier->bBleeding							= 0;
+								pSoldier->bPoisonBleeding					= 0;
 								// SANDRO - erase insta-healable injury 
 								pSoldier->iHealableInjury = 0; 
 

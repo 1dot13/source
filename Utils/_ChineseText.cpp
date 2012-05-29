@@ -2070,6 +2070,8 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"弱点:",
 
 	L"态度:",	// WANNE: For old traits display instead of "Character:"!
+
+	L"Zombies: %d\n", // TODO.Translate
 };
 
 
@@ -2865,6 +2867,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"异形",
 	L"民兵",
 	L"平民",
+	L"ZOMBIE",		// TODO.Translate
 	L"离开分区",
 	L"确定",
 	L"取消",
@@ -2920,6 +2923,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
 	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
 	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
+
+	// added by Flugente to display health and poisoning			// TODO.Translate
+	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3473,6 +3479,7 @@ STR16 pMapScreenStatusStrings[] =
 	L"士气",
 	L"状态",	// the condition of the current vehicle (its "health")
 	L"油量",	// the fuel level of the current vehicle (its "energy")
+	L"Posion",	// TODO.Translate
 };
 
 
@@ -5102,8 +5109,9 @@ STR16		zOptionsToggleText[] =
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
 	L"禁止光标切换",		            // Disable Cursor Swap
-	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
+	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate	
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
+	L"Allow Zombies",				// TODO.Translate
 	//L"武器过热",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
@@ -5213,6 +5221,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
 	L"When ON, mercs will not report progress during training.", //TODO.Translate
 	L"打开时，敌军回合将被大幅加速。",
+	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 	//L"打开时，武器连续射击时温度逐渐升高引起过热。",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
@@ -6924,6 +6933,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|翻|搅|力|（|开|花|弹|）",
 	L"|爆|炸|力|（|炸|子|儿|）",
 	L"|过|热|修|正",
+	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -6932,6 +6942,7 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \n该值决定子弹打穿护甲击中身体时的伤害力\n加成。\n \n该值大于1时，子弹在穿过护甲后会增加伤害。\n \n当该值小于1时，子弹穿过护甲后会减少伤害。\n \n该数值越高越好。",
 	L"\n \n该值是子弹在击中目标前已经造成的潜在伤害的倍率。\n \n大于1的数值可以增加伤害，\n反之则减少伤害。\n \n该数值越高越好。",
 	L"\n \n子弹温度系数。\n \n该数值越低越好。",
+	L"\n \nDetermines what percentage of a\nbullet's damage will be poisonous.",	// TODO.Translate
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
@@ -7108,6 +7119,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|冷|却|参|数",
 	L"|卡|壳|阈|值",
 	L"|损|坏|阈|值",
+	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7169,6 +7181,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n武器的冷却系数数增加了(百分比)。\n \n该数值越高越好。",
 	L"\n \n武器的卡壳阈值增加了(百分比)。\n \n该数值越高越好。",
 	L"\n \n武器的损坏阈值增加了(百分比)。\n \n该数值越高越好。",
+	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

@@ -1722,7 +1722,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						if (Result < 0)
 						{
 							// Soldier is suffering direct unbandaged injury.
-							pSoldier->SoldierTakeDamage( 0, abs(Result), abs(Result), TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, FALSE );
+							pSoldier->SoldierTakeDamage( 0, abs(Result), 0, abs(Result), TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, FALSE );
 							fBadResult = TRUE;
 
 							// SANDRO - add to merc records - facility accidents counter

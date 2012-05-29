@@ -2210,6 +2210,21 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				}
 			}
 		}
+
+		if ( pSoldier->IsZombie() )
+		{
+			swprintf(NameStr, pSoldier->name);
+							
+			// Display name
+			SetFont( TINYFONT1 );
+			SetFontBackground( FONT_MCOLOR_BLACK );
+			SetFontForeground( FONT_MCOLOR_WHITE );
+								
+			//legion2
+			FindFontCenterCoordinates( sXPos, (INT16)( sYPos -10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
+		}
 	//------------
 	}
 }
@@ -3162,6 +3177,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	UINT8											*pDestBuf;
 	UINT16										usLineColor;
 	INT8											bBandage;
+	INT8											bPoisonBandage;
 
 	// Draw breath points
 
@@ -3174,6 +3190,8 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	// get amt bandaged
 	bBandage = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
+	// get amount of poisoned bandage
+	bPoisonBandage = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
 
 
 	// NOW DO BLEEDING
@@ -3194,6 +3212,23 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		}
 	}
 
+	// poisoned bleeding
+	if ( pSoldier->bPoisonBleeding )
+	{
+		dPercentage = (FLOAT)( pSoldier->stats.bLifeMax - pSoldier->bBleeding +	pSoldier->bPoisonBleeding )/ (FLOAT)100;
+		dWidth			=	dPercentage * sWidth;
+		if(gbPixelDepth==16)
+		{
+			usLineColor = Get16BPPColor( FROMRGB( 240, 20, 240	) );
+			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
+		}
+		else if(gbPixelDepth==8)
+		{
+		// DB Need to change this to a color from the 8-bit standard palette
+			usLineColor = COLOR_GREEN;
+			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
+		}
+	}
 
 	if( bBandage )
 	{
@@ -3212,6 +3247,23 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		}
 	}
 
+	// poisoned bandage
+	if ( bPoisonBandage )
+	{
+		dPercentage = (FLOAT)( pSoldier->stats.bLife + bPoisonBandage )/ (FLOAT)100;
+		dWidth			=	dPercentage * sWidth;
+		if(gbPixelDepth==16)
+		{
+			usLineColor = Get16BPPColor( FROMRGB( 132, 222, 132 ) );
+			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
+		}
+		else if(gbPixelDepth==8)
+		{
+		// DB Need to change this to a color from the 8-bit standard palette
+			usLineColor = COLOR_GREEN;
+			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
+		}
+	}
 
 	dPercentage = (FLOAT)pSoldier->stats.bLife / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
@@ -3227,6 +3279,23 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 	}
 
+	// poisoned life
+	if ( pSoldier->bPoisonLife )
+	{
+		dPercentage = (FLOAT)( pSoldier->bPoisonLife )/ (FLOAT)100;
+		dWidth			=	dPercentage * sWidth;
+		if(gbPixelDepth==16)
+		{
+			usLineColor = Get16BPPColor( FROMRGB( 0, 200, 0	) );
+			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
+		}
+		else if(gbPixelDepth==8)
+		{
+		// DB Need to change this to a color from the 8-bit standard palette
+			usLineColor = COLOR_GREEN;
+			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
+		}
+	}
 
 
 	dPercentage = (FLOAT)( pSoldier->bBreathMax ) / (FLOAT)100;

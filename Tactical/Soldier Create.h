@@ -305,6 +305,9 @@ public:
 	INT8						bUseGivenVehicleID;				
 	BOOLEAN						fHasKeys;
 
+	// Flugente: do not generate new palette for soldier (for soldiers that are created from existing soldiers/corpses, like doppelgangers and zombies)
+	BOOLEAN						fNoGenNewPalette;
+
 	//
 	// New and OO stuff goes after here.	Above this point any changes will goof up reading from files.
 	//
@@ -420,6 +423,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 SOLDIERTYPE* TacticalCreateAdministrator();
 SOLDIERTYPE* TacticalCreateEliteEnemy();
 SOLDIERTYPE* TacticalCreateArmyTroop();
+SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass );
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 

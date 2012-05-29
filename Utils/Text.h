@@ -632,14 +632,14 @@ extern STR16		szUDBGenWeaponsStatsTooltipText[ 23 ];
 extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 23 ];
 extern STR16		szUDBGenArmorStatsTooltipText[ 3 ];
 extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 3 ];
-extern STR16		szUDBGenAmmoStatsTooltipText[ 4 ];						// Flugente Overheating Weapons: 3->4
-extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 4 ];
+extern STR16		szUDBGenAmmoStatsTooltipText[ 5 ];						// Flugente Overheating: 3->4	poison: 4->5
+extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 5 ];			// Flugente Overheating: 3->4	poison: 4->5
 extern STR16		szUDBGenExplosiveStatsTooltipText[ 22 ];
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ];
 extern STR16		szUDBGenSecondaryStatsTooltipText[ 26 ];
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ];
-extern STR16		szUDBAdvStatsTooltipText[ 56 ];							// Flugente Overheating Weapons: 48->56
-extern STR16		szUDBAdvStatsExplanationsTooltipText[ 56 ];				// Flugente Overheating Weapons: 48->56
+extern STR16		szUDBAdvStatsTooltipText[ 57 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57
+extern STR16		szUDBAdvStatsExplanationsTooltipText[ 57 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57
 extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52
 
 // Headrock: End Externs
@@ -752,6 +752,7 @@ enum
 	CREATURE_TEAM_MERC_NAME,
 	MILITIA_TEAM_MERC_NAME,
 	CIV_TEAM_MERC_NAME,
+	ZOMBIE_TEAM_MERC_NAME,
 	
 	//The text for the 'exiting sector' gui
 	EXIT_GUI_TITLE_STR,
@@ -808,6 +809,8 @@ enum
 	CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR,
 	CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR,
 	CHOOSE_TRIPWIRE_NETWORK,
+
+	MERC_VITAL_STATS_WITH_POISON_POPUPTEXT,
 	
 	TEXT_NUM_TACTICAL_STR
 };

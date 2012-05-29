@@ -211,6 +211,7 @@ typedef struct
 	INT16	lockBustingPower;
 	BOOLEAN tracerEffect;
 	FLOAT	temperatureModificator;	// Flugente FTW 1.1: modificator for weapon temperature
+	INT16	poisonPercentage;	// Flugente FTW 1.1: modificator for weapon temperature
 
 	//zilpin: pellet spread patterns externalized in XML
 	INT32 spreadPattern;
@@ -428,6 +429,8 @@ extern void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo,
 
 extern BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier );
 extern BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier );
+extern FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx );	// Flugente FTW 1: Get percentage: temperature/damagethreshold
+extern FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx );		// Flugente FTW 1: Get percentage: temperature/jamthreshold
 
 extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed );
 extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );

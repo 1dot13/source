@@ -760,13 +760,23 @@ void RenderTopmostTacticalInterface( )
 					SetFontForeground( FONT_MCOLOR_WHITE );
 					
 					bool showDamage = true;
-					if (gGameExternalOptions.ubEnemyHitCount > 0 && pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == CREATURE_TEAM)						
+					if (gGameExternalOptions.ubEnemyHitCount > 0 && ( pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == CREATURE_TEAM) )
 							showDamage = false;
 					
 					if (showDamage)
-					{						
-						gprintfdirty( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
-						mprintf( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
+					{
+						if ( pSoldier->sDamage >= 0 )
+						{
+							gprintfdirty( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
+							mprintf( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
+						}
+						else	// Flugente: it is possible that someone might regain negative damage as zombies can regenerate health through bleeding
+						{
+							SetFontForeground( FONT_MCOLOR_LTGREEN );
+							gprintfdirty( sDamageX, sDamageY, L"+%d", -pSoldier->sDamage );
+							mprintf( sDamageX, sDamageY, L"+%d", -pSoldier->sDamage );
+							SetFontForeground( FONT_MCOLOR_WHITE );
+						}
 					}
 					else
 					{

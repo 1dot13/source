@@ -109,20 +109,6 @@ extern SOLDIERTYPE *pTMilitiaSoldier;
 extern BOOLEAN SoldierCanAffordNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void ResetMilitia()
 {
 	UINT8 ubNumGreen = 0;
@@ -2369,6 +2355,4 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 //
 //	return;
 //}
-
-
 

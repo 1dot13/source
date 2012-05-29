@@ -2174,6 +2174,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 
 	//Bandaging him would prevent him from dying (due to low HP)
 	pSoldier->bBleeding = 0;
+	pSoldier->bPoisonBleeding = 0;
 
 	// wake him up
 	if ( pSoldier->flags.fMercAsleep )
@@ -2183,6 +2184,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	}
 
 	//Set his life to 50% + or - 10 HP.
+	INT8 oldlife = pSoldier->stats.bLife;
 	pSoldier->stats.bLife = pSoldier->stats.bLifeMax / 2;
 	if ( pSoldier->stats.bLife <= 35 )
 	{
@@ -2192,6 +2194,14 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	{
 		pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
 	}
+
+	// adjust poison points
+	INT8 lifechanged = oldlife - pSoldier->stats.bLife;
+	if ( lifechanged < 0 )
+		pSoldier->bPoisonLife -= lifechanged;
+	else if ( lifechanged > 0)
+		pSoldier->bPoisonLife = max(pSoldier->bPoisonSum, pSoldier->bPoisonLife + lifechanged);
+
 	// SANDRO - make the lost life insta-healable
 	pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
 

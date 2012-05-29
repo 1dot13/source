@@ -6975,10 +6975,12 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 						if (pTeamSoldier->iHealableInjury < 0)
 							pTeamSoldier->iHealableInjury = 0;
 
+						pTeamSoldier->bPoisonLife = min(pTeamSoldier->bPoisonSum, pTeamSoldier->bPoisonLife + OKLIFE - pTeamSoldier->stats.bLife);
 						pTeamSoldier->stats.bLife = OKLIFE;
 					}
 
 					pTeamSoldier->bBleeding = 0; // let's think, the autobandage was done for the militia too
+					pTeamSoldier->bPoisonBleeding = 0;
 				}
 			}
 			gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition = FALSE;
@@ -7253,6 +7255,26 @@ UINT8 NumEnemyInSector( )
 
 	return( ubNumEnemies );
 
+}
+
+UINT8 NumZombiesInSector( )
+{
+	SOLDIERTYPE *pTeamSoldier;
+	INT32				cnt = 0;
+	UINT8				ubNumZombies = 0;
+
+	for ( pTeamSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; ++pTeamSoldier, ++cnt )
+	{
+		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
+		{
+			if ( pTeamSoldier->IsZombie() )
+			{
+				++ubNumZombies;
+			}
+		}
+	}
+
+	return( ubNumZombies );
 }
 
 UINT8 NumEnemyInSectorExceptCreatures()
@@ -7582,13 +7604,13 @@ BOOLEAN KillIncompacitatedEnemyInSector( )
 				// KIll......
 				// SANDRO - if the soldier is bleeding out, consider this damage as done by the last attacker
 				if ( pTeamSoldier->ubAttackerID != NOBODY )
-					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubAttackerID, NOWHERE, 0, TRUE );
+					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubAttackerID, NOWHERE, 0, TRUE );
 				else if ( pTeamSoldier->ubPreviousAttackerID != NOBODY )
-					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
+					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
 				else if ( pTeamSoldier->ubNextToPreviousAttackerID != NOBODY )
-					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
+					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, pTeamSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
 				else 
-					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 
 				fReturnVal = TRUE;
 			}
@@ -7766,6 +7788,10 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: loop = %d, numslots = %d ",uiLoop, guiNumMercSlots));
 		pSoldier = MercSlots[uiLoop];
+
+		// Flugente: zombies do not receive any suppression at all!
+		if ( pSoldier != NULL && pSoldier->IsZombie() )
+			continue;
 
 		// Has this character received any Suppression Points since the last attack?
 		// HEADROCK: Suppression Points accumulate by bullets flying near the character. It includes

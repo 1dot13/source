@@ -341,6 +341,7 @@ SOLDIERCREATE_STRUCT::SOLDIERCREATE_STRUCT() {
 SOLDIERCREATE_STRUCT::SOLDIERCREATE_STRUCT(const SOLDIERCREATE_STRUCT& src) {
 	memcpy(this, &src, SIZEOF_SOLDIERCREATE_STRUCT_POD);
 	this->Inv = src.Inv;
+	this->fNoGenNewPalette = src.fNoGenNewPalette;
 }
 
 // Assignment operator
@@ -349,6 +350,7 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const SOLDIERCREATE_STRUCT
 	if (this != &src) {
 		memcpy(this, &src, SIZEOF_SOLDIERCREATE_STRUCT_POD);
 		this->Inv = src.Inv;
+		this->fNoGenNewPalette = src.fNoGenNewPalette;
 	}
 	return *this;
 }
@@ -1727,6 +1729,10 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			{
 				swprintf( pSoldier->name, gzLateLocalizedString[ 36 ] );
 			}
+			else if ( pSoldier->IsZombie() )
+			{
+				swprintf( pSoldier->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
+			}
 			else
 			{
 				swprintf( pSoldier->name, TacticalStr[ CREATURE_TEAM_MERC_NAME ] );	break;
@@ -1735,7 +1741,8 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	}
 
 	//Generate colors for soldier based on the body type.
-	GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass );
+	if ( !pCreateStruct->fNoGenNewPalette )
+		GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass );
 
 	// Copy item info over
 	pSoldier->inv = pCreateStruct->Inv;
@@ -2170,6 +2177,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	switch( ubSoldierClass )
 	{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_ZOMBIE:
 			pp->bExpLevel = (INT8) 2 + bExpLevelModifier;
 			break;
 		case SOLDIER_CLASS_ARMY:
@@ -2287,7 +2295,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	//If it is a detailed placement, don't do this yet, as detailed placements may have their
 	//own equipment.
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: generate random equipment"));
-	if( !bp->fDetailedPlacement && ubSoldierClass != SOLDIER_CLASS_NONE && ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_MINER )
+	if( !bp->fDetailedPlacement && ubSoldierClass != SOLDIER_CLASS_NONE && ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_MINER && ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
 		GenerateRandomEquipment( pp, ubSoldierClass, bp->bRelativeEquipmentLevel);
 
 	DecideToAssignSniperOrders(pp);
@@ -2455,7 +2463,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 	//{
 	//	ReplaceExtendedGuns( pp, bp->ubSoldierClass );
 	//}
-	if( bp->ubSoldierClass != SOLDIER_CLASS_NONE && bp->ubSoldierClass != SOLDIER_CLASS_CREATURE && bp->ubSoldierClass != SOLDIER_CLASS_MINER )
+	if( bp->ubSoldierClass != SOLDIER_CLASS_NONE && bp->ubSoldierClass != SOLDIER_CLASS_CREATURE && bp->ubSoldierClass != SOLDIER_CLASS_MINER && bp->ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
 	{
 		GenerateRandomEquipment( pp, bp->ubSoldierClass, bp->bRelativeEquipmentLevel);
 		DecideToAssignSniperOrders(pp);
@@ -2650,7 +2658,7 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 	//returns the pointer to that soldier.	This is used when copying the exact status of
 	//all remaining enemy troops (or creatures) to finish the battle in autoresolve.	To
 	//signify that the troop has already been reserved, we simply set their gridno to NOWHERE.
-	if( ubSoldierClass != SOLDIER_CLASS_CREATURE )
+	if( ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
 	{ //use the enemy team
 		iStart = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 		iEnd = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
@@ -2660,7 +2668,7 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 		iStart = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID;
 		iEnd = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID;
 	}
-	for( i = iStart; i <= iEnd; i++ )
+	for( i = iStart; i <= iEnd; ++i )
 	{		
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
 		{
@@ -2781,6 +2789,40 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 	//NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
 	OkayToUpgradeEliteToSpecialProfiledEnemy( &pp );
 
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+	}
+
+	return( pSoldier );
+}
+
+//USED BY STRATEGIC AI and AUTORESOLVE
+SOLDIERTYPE* TacticalCreateZombie()
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ZOMBIE );
+		if( pSoldier ) return pSoldier;
+	}
+
+	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
+	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ZOMBIE );
+	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ZOMBIE );
+	bp.bTeam = CREATURE_TEAM;//ZOMBIE_TEAM;
+	bp.bOrders	= SEEKENEMY;
+	bp.bAttitude = AGGRESSIVE;
+	bp.bBodyType = -1;
+	bp.ubSoldierClass = SOLDIER_CLASS_ZOMBIE;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
 	if ( pSoldier )
 	{
@@ -4195,6 +4237,8 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 10 + ubProgress/4; // 10-35% chance
 			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
 				iChance = ubProgress/4; // 0-25% chance
+			else if (ubSolClass == SOLDIER_CLASS_ZOMBIE )  
+				iChance = 100; // 100% chance
 
 			if( foundHtH ) // if found brass knuckless, increase the chance (doesn't happen often)
 				iChance += 35;
@@ -4238,6 +4282,8 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 25 + ubProgress*2/5; // 25-65% chance
 			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
 				iChance = 10 + ubProgress*2/5; // 10-50% chance
+			else if (ubSolClass == SOLDIER_CLASS_ZOMBIE )  
+				iChance = 100; // 100% chance
 
 			// modify the chance by preset ini setting
 			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )

@@ -496,6 +496,10 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 	if( pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 		return( FALSE );
 
+	// Flugente: an unconscious merc can't say 'yes' to a contract renewal
+	if ( pSoldier->stats.bLife < CONSCIOUSNESS )
+		return( FALSE );
+
 	// does the merc have another contract already lined up?
 	if( pSoldier->flags.fSignedAnotherContract )
 	{

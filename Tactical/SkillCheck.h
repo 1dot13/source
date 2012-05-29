@@ -41,6 +41,7 @@ enum SkillChecks
 	ATTACHING_SPECIAL_ITEM_CHECK,
 	ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK,
 	DISARM_ELECTRONIC_TRAP_CHECK,
+	ATTACH_POWER_PACK,					// Flugente: attach a power pack to power armor
 } ;
 
 

@@ -219,6 +219,9 @@ typedef enum
 #define GS_CARTRIDGE_IN_CHAMBER				0x01
 #define GS_WEAPON_BEING_RELOADED			0x02
 
+// Flugente: define for maximum temperature
+#define OVERHEATING_MAX_TEMPERATURE			60000.0
+
 //forward declaration
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -955,6 +958,9 @@ typedef struct
 	UINT32	drugtype;								// this flagmask determines what different components are used in a drug, which results in different effects
 
 	BOOLEAN blockironsight;							// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
+
+	// Flugente poison system
+	INT16	bPoisonPercentage;
 
 } INVTYPE;
 

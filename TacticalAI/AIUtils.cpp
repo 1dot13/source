@@ -1295,6 +1295,100 @@ INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLeve
 }
 
 
+// special variant with a minor twist for the zombie AI
+INT32 ClosestSeenOpponentforZombie(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel)
+{
+	INT32 sGridNo, sClosestOpponent = NOWHERE;
+	UINT32 uiLoop;
+	INT32 iRange, iClosestRange = 1500;
+	INT8	*pbPersOL;
+	INT8	bLevel, bClosestLevel;
+	SOLDIERTYPE * pOpp;
+
+	bClosestLevel = -1;
+
+	// look through this man's personal & public opplists for opponents known
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pOpp = MercSlots[ uiLoop ];
+
+		// if this merc is inactive, at base, on assignment, or dead
+		if (!pOpp)
+		{
+			continue;			// next merc
+		}
+
+		// if this merc is neutral/on same side, he's not an opponent
+		if ( CONSIDERED_NEUTRAL( pSoldier, pOpp ) || (pSoldier->bSide == pOpp->bSide))
+		{
+			continue;			// next merc
+		}
+
+		// Special stuff for Carmen the bounty hunter
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
+		{
+			continue;	// next opponent
+		}
+
+		pbPersOL = pSoldier->aiData.bOppList + pOpp->ubID;
+
+		// if this opponent is not seen personally
+		if (*pbPersOL != SEEN_CURRENTLY)
+		{
+			continue;			// next merc
+		}
+
+		// since we're dealing with seen people, use exact gridnos
+		sGridNo = pOpp->sGridNo;
+		bLevel = pOpp->pathing.bLevel;
+
+		// if we are standing at that gridno(!, obviously our info is old...)
+		if (sGridNo == pSoldier->sGridNo)
+		{
+			continue;			// next merc
+		}
+
+		// special: allow zombies to also find opponents on a roof
+		// otherwise they have will never decide to climb a roof while they are seeing an enemy
+		// this function is used only for turning towards closest opponent or changing stance
+		// as such, if they AI is in a building,
+		// we should ignore people who are on the roof of the same building as the AI
+		if ( !pSoldier->IsZombie() && (bLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, sGridNo ) )
+		{
+			continue;
+		}
+
+		// I hope this will be good enough; otherwise we need a fractional/world-units-based 2D distance function
+		//sRange = PythSpacesAway( pSoldier->sGridNo, sGridNo);
+		iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
+
+		if (iRange < iClosestRange)
+		{
+			iClosestRange = iRange;
+			sClosestOpponent = sGridNo;
+			bClosestLevel = bLevel;
+		}
+	}
+
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sClosestOpponent))
+	{
+		AINumMessage("CLOSEST OPPONENT is at gridno ",sClosestOpponent);
+	}
+#endif
+
+	if (psGridNo)
+	{
+		*psGridNo = sClosestOpponent;
+	}
+	if (pbLevel)
+	{
+		*pbLevel = bClosestLevel;
+	}
+	return( sClosestOpponent );
+}
+
+
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 {
 	// used by NPCs... find the closest PC
@@ -2485,6 +2579,10 @@ UINT8 SoldierDifficultyLevel( SOLDIERTYPE * pSoldier )
 
 		case SOLDIER_CLASS_ELITE_MILITIA:
 			bDifficulty = 4;
+			break;
+
+		case SOLDIER_CLASS_ZOMBIE:
+			bDifficulty = bDifficultyBase;
 			break;
 
 		default:

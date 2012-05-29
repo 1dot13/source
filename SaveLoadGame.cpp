@@ -1972,6 +1972,12 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->wornSnowCamo, sizeof(wornSnowCamo), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sFacilityTypeOperated, sizeof(sFacilityTypeOperated), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bPoisonBleeding, sizeof(bPoisonBleeding), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bPoisonLife, sizeof(bPoisonLife), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bPoisonSum, sizeof(bPoisonSum), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bPoisonResistance, sizeof(bPoisonResistance), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bPoisonAbsorption, sizeof(bPoisonAbsorption), sizeof(INT16), numBytesRead);
+
 #ifdef JA2UB
 		numBytesRead = ReadFieldByField(hFile, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->GetupFromJA25StartCounter, sizeof(GetupFromJA25StartCounter), sizeof(TIMECOUNTER), numBytesRead);
@@ -2181,6 +2187,9 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			buffer = 28;
 		}
 		numBytesRead += buffer;
+
+		INT32 sizestruct = sizeof(STRUCT_Statistics);
+
 		if(numBytesRead != sizeof(STRUCT_Statistics))
 			return(FALSE);
 //		if ( !FileRead( hFile, &this->stats, sizeof(STRUCT_Statistics), &uiNumBytesRead ) )

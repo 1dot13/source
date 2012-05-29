@@ -171,6 +171,14 @@ INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLeve
 void CreatureCall( SOLDIERTYPE * pCaller );
 INT8 CreatureDecideAction( SOLDIERTYPE * pCreature );
 void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
+
+// Flugente: Zombie AI
+INT8 ZombieDecideAction( SOLDIERTYPE * pZombie );	
+void ZombieDecideAlertStatus( SOLDIERTYPE *pZombie );
+
+// a variant of ClosestSeenOpponent(...), that allows zombies 
+INT32 ClosestSeenOpponentforZombie(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
+
 INT8 CrowDecideAction( SOLDIERTYPE * pSoldier );
 void DecideAlertStatus( SOLDIERTYPE *pSoldier );
 INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier );

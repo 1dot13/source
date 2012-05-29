@@ -273,6 +273,11 @@ void HandleTacticalEndTurn( )
 
 	// Flugente FTW 1: Cool down all items not in a soldier's inventory
 	CoolDownWorldItems( FALSE );	
+	// Flugente: raise zombies if in gamescreen and option set
+	if ( guiCurrentScreen == GAME_SCREEN )
+	{
+		RaiseZombies();
+	}
 }
 
 

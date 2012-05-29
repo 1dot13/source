@@ -241,7 +241,7 @@ BOOLEAN LoadGameSettings()
 		if (!IsHiSpeedClockMode())
 			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= FALSE;
 
-		//gGameOptions.fWeaponOverheating              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_WEAPON_OVERHEATING"               ,  FALSE );	// Flugente FTW 1: Weapon Overheating
+		gGameSettings.fOptions[TOPTION_ZOMBIES]							= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ZOMBIES"						   ,  FALSE  );
 
 		gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
 
@@ -341,8 +341,6 @@ BOOLEAN	SaveGameSettings()
 		settings << ";        UINT8    fOptions[ NUM_ALL_GAME_OPTIONS ];   // Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )" << endl;
 		settings << ";        UINT32   uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..'" << endl;
 		settings << ";        BOOLEAN  fHideHelpInAllScreens;              // Controls Help \"do not show help again\" checkbox" << endl;
-		//settings << ";        UINT8    ubSizeOfDisplayCover;               // The number of grids the player designates thru [Delete + ( = or - )]" << endl;
-		//settings << ";        UINT8    ubSizeOfLOS;                        // The number of grids the player designates thru [End    + ( = or - )]" << endl;
 		settings << ";    } GAME_SETTINGS" << endl;
 		settings << ";" << endl;
 		settings << ";******************************************************************************************************************************" << endl;
@@ -355,8 +353,6 @@ BOOLEAN	SaveGameSettings()
 		settings << "ubSpeechVolume                           = " << (int)gGameSettings.ubSpeechVolume << endl;
 		settings << "uiMeanwhileScenesSeenFlags               = " << gGameSettings.uiMeanwhileScenesSeenFlags << endl;
 		settings << "fHideHelpInAllScreens                    = " << (gGameSettings.fHideHelpInAllScreens								?    "TRUE" : "FALSE" ) << endl;
-		//settings << "ubSizeOfDisplayCover                     = " << (int)gGameSettings.ubSizeOfDisplayCover << endl;
-		//settings << "ubSizeOfLOS                              = " << (int)gGameSettings.ubSizeOfLOS << endl;
 		settings << "TOPTION_SPEECH                           = " << (gGameSettings.fOptions[TOPTION_SPEECH]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_MUTE_CONFIRMATIONS               = " << (gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]				?	 "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SUBTITLES                        = " << (gGameSettings.fOptions[TOPTION_SUBTITLES]							?    "TRUE" : "FALSE" ) << endl;
@@ -391,20 +387,18 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_ALLOW_SOLDIER_TOOLTIPS           = " << (gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_USE_AUTO_SAVE                    = " << (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SILENT_SKYRIDER                  = " << (gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]					?    "TRUE" : "FALSE" ) << endl;
-		//settings << "TOPTION_LOW_CPU_USAGE                    = " << (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_ENHANCED_DESC_BOX                = " << (gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]					?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_TOGGLE_TURN_MODE                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]					?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_STAT_PROGRESS_BARS               = " << (gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS]				?    "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 3.6: Progress Bars
 		settings << "TOPTION_ALT_MAP_COLOR					  = " << (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]						?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Alt Map Colors
 		settings << "TOPTION_ALTERNATE_BULLET_GRAPHICS        = " << (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]			?    "TRUE" : "FALSE" ) << endl;
-		//settings << "TOPTION_USE_NCTH                         = " << (gGameSettings.fOptions[TOPTION_USE_NCTH]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_MERC_RANKS				  = " << (gGameSettings.fOptions[TOPTION_SHOW_MERC_RANKS]					?	 "TRUE"	: "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_TACTICAL_FACE_GEAR          = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_TACTICAL_FACE_ICONS         = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_DISABLE_CURSOR_SWAP              = " << (gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]               ?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_QUIET_TRAINING					  = " << (gGameSettings.fOptions[TOPTION_QUIET_TRAINING]				    ?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
-		//settings << "TOPTION_WEAPON_OVERHEATING               = " << (gGameOptions.fWeaponOverheating	     		?    "TRUE" : "FALSE" ) << endl; // Flugente FTW 1: Weapon Overheating
+		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
@@ -530,9 +524,8 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_DISABLE_CURSOR_SWAP ]               = FALSE;
 	gGameSettings.fOptions[ TOPTION_QUIET_TRAINING ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies 1.0	
 
-	// Flugente FTW 1: Weapon Overheating
-	//gGameSettings.fOptions[ TOPTION_WEAPON_OVERHEATING ]			    = TRUE;
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	
@@ -546,6 +539,8 @@ void InitGameSettings()
 	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP ]	= FALSE;	// an example option that will show/hide other options
 	gGameSettings.fOptions[	TOPTION_RENDER_MOUSE_REGIONS ]				= FALSE;	// an example of a DEBUG build option
 	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_OPTIONS_END ]			= FALSE;	// an example options screen options divider (pure text)
+
+	
 
 	// enum control options (not real options but included here for the sake of complete control of values)
 
@@ -1331,6 +1326,21 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iCooldownModificatorLonelyBarrel			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL", 1.15f, 1.0f, 10.0f);
 	gGameExternalOptions.fSetZeroUponNewSector							= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_SET_ZERO_UPON_NEW_SECTOR",TRUE);
 		
+	//################# Tactical Zombie Settings ##################
+	gGameExternalOptions.sZombieRiseBehaviour							= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_RISE_BEHAVIOUR", 0, 0, 3);
+	gGameExternalOptions.fZombieSpawnWaves								= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_SPAWN_WAVES", FALSE);
+	gGameExternalOptions.sZombieRiseWaveFrequency						= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_RISE_WAVE_FREQUENCY", 30, 0, 100);	
+	gGameExternalOptions.fZombieCanClimb								= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_CAN_CLIMB", TRUE);
+	gGameExternalOptions.fZombieExplodingCivs							= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_EXPLODING_CIVS", FALSE);
+	gGameExternalOptions.sEnemyZombieDamageResistance					= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_DAMAGE_RESISTANCE", 0, -50, 95);
+	gGameExternalOptions.fZombieOnlyHeadshotsWork						= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_ONLY_HEADSHOTS_WORK", FALSE);
+	gGameExternalOptions.sZombieDifficultyLevel 						= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_DIFFICULTY_LEVEL", 2, 1, 4);
+
+	//################# Tactical Poison Settings ##################
+	gGameExternalOptions.ubPoisonBaseMedicalSkillToCure					= iniReader.ReadInteger("Tactical Poison Settings", "POISON_BASE_MEDICAL_SKILL_TO_CURE", 50, 1, 100);
+	gGameExternalOptions.sZombiePoisonDamagePercentage					= iniReader.ReadInteger("Tactical Poison Settings", "ZOMBIE_POISON_DAMAGE_PERCENTAGE", 50, 0, 100);	
+	gGameExternalOptions.sPoisonInfectionDamageMultiplier				= iniReader.ReadFloat("Tactical Poison Settings", "POISON_INFECTION_DAMAGE_MULTIPLIER", 4.0, 1.0, 10.0);	
+
 	//################# Strategic Gamestart Settings ##################
 
 	//Lalien: Game starting time

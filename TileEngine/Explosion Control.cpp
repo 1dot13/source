@@ -1577,21 +1577,10 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 		// Bodybuilding damage resistance
 		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, BODYBUILDING_NT ) )
 			sNewWoundAmt = max( 1, (INT16)(sNewWoundAmt * (100 - gSkillTraitValues.ubBBDamageResistance) / 100)); 
-
-		// Damage resistance for Militia
-		if (pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bGreenMilitiaDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bRegularMilitiaDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bVeteranMilitiaDamageResistance) /100);
-		// bonus for enemy too
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
+				
+		// Flugente: moved the damage calculation into a separate function
+		if ( pSoldier->GetDamageResistance(FALSE, FALSE) > 0 )
+			sNewWoundAmt -= ((sNewWoundAmt * pSoldier->GetDamageResistance(FALSE, FALSE)) /100);
 
 		// we can loose stats due to being hit by the blast
 		else if ( gGameOptions.fNewTraitSystem && Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
@@ -1790,41 +1779,12 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 		sNewWoundAmt = max(1, sNewWoundAmt);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
-
-	////////////////////////////////////////////////////////////////////////////////////
-	// SANDRO - option to make special NPCs stronger - damage resistance
-	if (gGameExternalOptions.usSpecialNPCStronger > 0)
-	{
-		switch( pSoldier->ubProfile )
-		{
-			case CARMEN:
-			case QUEEN:
-			case JOE:
-			case ANNIE:
-			case CHRIS:
-			case KINGPIN:
-			case TIFFANY:
-			case T_REX:
-			case DRUGGIST:
-			case GENERAL:
-			case JACK:
-			case OLAF:
-			case RAY:
-			case OLGA:
-			case TYRONE:
-			case MIKE:
-				sNewWoundAmt -= (sNewWoundAmt * gGameExternalOptions.usSpecialNPCStronger / 200);
-				sNewWoundAmt = max( 1, sNewWoundAmt);
-				break;
-		}
-	}
-
+		
 	// SANDRO - new merc records - times wounded (blasted by explosion)
 	if ( ( sNewWoundAmt > 1 || sBreathAmt > 1000 ) && pSoldier->ubProfile != NO_PROFILE )
 		gMercProfiles[ pSoldier->ubProfile ].records.usTimesWoundedBlasted++;
 	////////////////////////////////////////////////////////////////////////////////////
-
-
+	
 	// Lesh: flashbang does affect on soldier or not - check it
 	if ( (Item[usItem].usItemClass & IC_EXPLOSV) && fFlashbang )
 	{
@@ -1918,7 +1878,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 	{
 		if ( pExplosive->ubType == EXPLOSV_TEARGAS )
 		{
-			if ( AM_A_ROBOT( pSoldier ) )
+			// zombies and robots are unaffected by tear gas
+			if ( AM_A_ROBOT( pSoldier ) || pSoldier->IsZombie() )
 			{
 				return( fRecompileMovementCosts );
 			}
@@ -1932,7 +1893,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 		else if ( pExplosive->ubType == EXPLOSV_MUSTGAS )
 		{
-			if ( AM_A_ROBOT( pSoldier ) )
+			// zombies and robots are unaffected by mustard gas
+			if ( AM_A_ROBOT( pSoldier ) || pSoldier->IsZombie() )
 			{
 				return( fRecompileMovementCosts );
 			}
@@ -2030,9 +1992,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		case EXPLOSV_TEARGAS:
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_TEARGAS;
 			break;
-		case EXPLOSV_MUSTGAS:
+		case EXPLOSV_MUSTGAS:		
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_MUSTARDGAS;
-			break;
 		case EXPLOSV_BURNABLEGAS:
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_BURNABLEGAS;
 			break;
@@ -2046,7 +2007,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ExpControl pSoldier->flags.fHitByGasFlags: %d", pSoldier->flags.fHitByGasFlags );
 
 		// a gas effect, take damage directly...
-		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, 0, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
 
 		if (is_networked && is_client)
 		{
@@ -2480,7 +2441,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			break;
 			}
 			// a gas effect, take damage directly...
-			pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+			pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, 0, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
 			if ( pSoldier->stats.bLife >= CONSCIOUSNESS )
 			{
 			pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + Random( 2 ) ) );

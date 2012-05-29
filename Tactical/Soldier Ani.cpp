@@ -3485,6 +3485,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 							case SOLDIER_CLASS_CREATURE :
 								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
 								break;
+							case SOLDIER_CLASS_ZOMBIE :
+								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsZombies++;
+								break;
 							default :
 								if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;

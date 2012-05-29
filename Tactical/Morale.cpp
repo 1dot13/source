@@ -88,6 +88,8 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ TACTICAL_MORALE_EVENT,			-1},	//	MORALE_PSYCHO_UNABLE_TO_PSYCHO,
 	{ STRATEGIC_MORALE_EVENT,			+1},	//	MORALE_PACIFIST_GAIN_NONCOMBAT,
 	{ TACTICAL_MORALE_EVENT,			+1},	//	MORALE_MALICIOUS_HIT,
+	// added by SANDRO
+	{ TACTICAL_MORALE_EVENT,			-1},	//MORALE_KHORNATE_RANGED_COMBAT,
 };
 
 BOOLEAN gfSomeoneSaidMoraleQuote = FALSE;
@@ -523,7 +525,7 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 				}
 			}
 		}
-		else if ( bMoraleMod != MORALE_PSYCHO_UNABLE_TO_PSYCHO)
+		else if ( bMoraleMod != MORALE_PSYCHO_UNABLE_TO_PSYCHO && bMoraleMod != MORALE_KHORNATE_RANGED_COMBAT)
 		{
 			switch( pProfile->bAttitude )
 			{
@@ -905,6 +907,12 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_PSYCHO_UNABLE_TO_PSYCHO:
 		case MORALE_PACIFIST_GAIN_NONCOMBAT: // added by SANDRO
 		case MORALE_MALICIOUS_HIT: // added by SANDRO
+			Assert( pSoldier );
+			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
+			break;
+
+			// added by Flugente
+		case MORALE_KHORNATE_RANGED_COMBAT:
 			Assert( pSoldier );
 			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			break;

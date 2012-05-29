@@ -1757,3 +1757,4 @@ INT8 CrowDecideAction( SOLDIERTYPE * pSoldier )
 			return( AI_ACTION_NONE );
 	}
 }
+

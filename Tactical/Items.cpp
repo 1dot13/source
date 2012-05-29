@@ -3042,7 +3042,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	UINT32	uiTotalWeight = 0;
 	UINT32	uiPercent;
 	UINT8		ubLoop;
-	UINT8		ubStrengthForCarrying;
+	UINT16		ubStrengthForCarrying;
 
 	//Pulmu: Changes for dynamic ammo weight
 	for( ubLoop = 0; ubLoop < pSoldier->inv.size(); ubLoop++)
@@ -7418,7 +7418,7 @@ BOOLEAN CreateGun( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	pStackedObject->data.ubImprintID = NO_PROFILE;
 
 	// Flugente FTW 1: temperature on creation is 0
-	pStackedObject->data.bTemperature = 0.0;
+	pStackedObject->data.bTemperature = 0.0f;
 
 	if (Weapon[ usItem ].ubWeaponClass == MONSTERCLASS)
 	{
@@ -7533,6 +7533,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		{
 			(*pObj)[0]->data.objectStatus = bStatus;
 		}
+
 		//ADB ubWeight has been removed, see comments in OBJECTTYPE
 		//pObj->ubWeight = CalculateObjectWeight( pObj );
 		fRet = TRUE;
@@ -9189,6 +9190,41 @@ void ActivateXRayDevice( SOLDIERTYPE * pSoldier )
 	pSoldier->uiXRayActivatedTime = GetWorldTotalSeconds();
 }
 
+void TurnOnXRayEffects( SOLDIERTYPE * pSoldier )
+{
+	SOLDIERTYPE *	pSoldier2;
+	UINT32				uiSlot;
+
+	// first, scan through all mercs and turn off xrayed flag for anyone
+	// previously xrayed by this guy
+	for ( uiSlot = 0; uiSlot < guiNumMercSlots; ++uiSlot )
+	{
+		pSoldier2 = MercSlots[ uiSlot ];
+		if ( pSoldier2 )
+		{
+			if ( (pSoldier2->ubMiscSoldierFlags & SOLDIER_MISC_XRAYED) && (pSoldier2->aiData.ubXRayedBy == pSoldier->ubID) )
+			{
+				pSoldier2->ubMiscSoldierFlags &= (~SOLDIER_MISC_XRAYED);
+				pSoldier2->aiData.ubXRayedBy = NOBODY;
+			}
+		}
+	}
+	// now turn on xray for anyone within range
+	for ( uiSlot = 0; uiSlot < guiNumMercSlots; ++uiSlot )
+	{
+		pSoldier2 = MercSlots[ uiSlot ];
+		if ( pSoldier2 )
+		{
+			if ( pSoldier2->bTeam != pSoldier->bTeam && PythSpacesAway( pSoldier->sGridNo, pSoldier2->sGridNo ) < XRAY_RANGE )
+			{
+				pSoldier2->ubMiscSoldierFlags |= SOLDIER_MISC_XRAYED;
+				pSoldier2->aiData.ubXRayedBy = pSoldier->ubID;
+			}
+		}
+	}
+	pSoldier->uiXRayActivatedTime = GetWorldTotalSeconds();
+}
+
 void TurnOffXRayEffects( SOLDIERTYPE * pSoldier )
 {
 	SOLDIERTYPE *	pSoldier2;
@@ -9453,13 +9489,17 @@ INT16 GetGearAPBonus( SOLDIERTYPE * pSoldier )
 {
 	INT16 bonus=0;
 
-	for (int j = HELMETPOS; j <= HEAD2POS; j++)
+	for (int j = HELMETPOS; j <= HEAD2POS; ++j)
 	{
-		if (pSoldier->inv[j].exists() == true) {
-			bonus += Item[pSoldier->inv[j].usItem].APBonus;
+		if (pSoldier->inv[j].exists() == true) 
+		{
 			OBJECTTYPE* pObj = &pSoldier->inv[j];
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if(iter->exists()){
+
+			attachmentList::iterator iterend = (*pObj)[0]->attachments.begin();
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+			{
+				if(iter->exists())
+				{
 					bonus += Item[iter->usItem].APBonus;
 				}
 			}
@@ -11020,7 +11060,9 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 			if (!IsWeapon(pSoldier->inv[i].usItem) || (IsWeapon(pSoldier->inv[i].usItem) && usingGunScope == true) )
 			{
 				if (Item[pSoldier->inv[i].usItem].thermaloptics)
+				{
 					return TRUE;
+				}
 			}
 		}
 	}
@@ -13414,6 +13456,8 @@ BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag )
 	return( FALSE );
 }
 
+
+extern void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // HEADROCK HAM 5: Item Transformation.
 // Item Transformation is a new way to interact with items. Where Merges combine two items into one, a Transformation
@@ -13816,4 +13860,3 @@ UINT64 GetAvailableAttachmentPoint (OBJECTTYPE * pObject, UINT8 subObject)
 
 	return point;
 }
-

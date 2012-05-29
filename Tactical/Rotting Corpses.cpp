@@ -43,6 +43,9 @@
 	#include "strategic.h"
 	#include "qarray.h"
 	#include "Interface.h"
+
+	#include "Campaign Types.h"
+	//#include "Queen Command.h"
 #endif
 
 #include "Animation Control.h"
@@ -580,6 +583,10 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	pCorpse->pAniTile->uiUserData								= iIndex;
 	pCorpse->iID																= iIndex;
 
+	// copy name of corpse definition...
+	memcpy( &(pCorpse->name), &(pCorpseDef->name), sizeof(CHAR16) * 10 );
+	pCorpse->name[9] = '\0';
+
 	pCorpse->fActivated = TRUE;
 
 	if ( Random( 100 ) > 50 )
@@ -853,6 +860,36 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 			Corpse.usFlags |= ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE;
 	}
 
+	// Flugente Zombies: Determine if a zombie can rise from this corpse
+	switch ( gGameExternalOptions.sZombieRiseBehaviour )
+	{	
+		case 3:
+			// a zombie might rise again
+			if ( pSoldier->IsZombie() && Random( 2 ) > 0 )
+				Corpse.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
+			break;
+
+		case 2:	
+			// death tosses a coin...
+			if ( Random( 2 ) > 0 )
+				Corpse.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
+			break;
+			
+		case 1:
+			// no flag, the dead shall rise for eternity!
+			break;
+
+		case 0:
+		default:
+			// a killed zombie won't rise again
+			if ( pSoldier->IsZombie() )
+				Corpse.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
+			break;
+	}
+
+	// Flugente: copy name of soldier...
+	memcpy( &(Corpse.name), &(pSoldier->name), sizeof(CHAR16) * 10 );
+	Corpse.name[9] = '\0';
 
 	// Determine corpse type!
 	ubType = (UINT8)gubAnimSurfaceCorpseID[ pSoldier->ubBodyType][ pSoldier->usAnimState ];
@@ -2045,4 +2082,365 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 	}
 
 	return( ubHighestWarning );
+}
+
+// Flugente Zombies: resurrect zombies
+void RaiseZombies( void )
+{
+	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
+	{
+		// if gGameExternalOptions.fZombieSpawnWaves is true, zombies will spawn from all corpses (while there is still room for more), creating a wave of zombies. with lots of bodies	lying around, this can be a lot.
+		// if GameExternalOptions.fZombieSpawnWaves is false, each zombie can spawn randomly, you will get zombies on msot turns, but they won't spawn a whole horde at once
+		if ( ( gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) || !gGameExternalOptions.fZombieSpawnWaves  )
+		{
+			ROTTING_CORPSE *	pCorpse;
+			BOOLEAN				zombieshaverisen = FALSE;
+
+			SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+
+			for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
+			{
+				if ( pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )					// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
+				{
+					pCorpse = &(gRottingCorpse[ cnt ] );
+
+					// if zombies should spawn individually, roll for every corpse individually
+					if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
+					{
+						if ( pCorpse->fActivated && pCorpse->def.fHeadTaken == FALSE )										// ... if corpse is active, and still has a head ...
+						{
+							if ( !(pCorpse->def.usFlags & ROTTING_CORPSE_NEVER_RISE_AGAIN) )								// ... if corpse is already that of a zombie, don't create zombie again ...
+							{
+								if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
+								{					
+									if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
+									{
+										UINT16 recanimstate = STANDING;
+
+										if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
+										{								
+											zombieshaverisen = TRUE;
+											CreateZombiefromCorpse( pCorpse, recanimstate );
+
+											//++pSector->ubNumZombies;
+											//++pSector->ubZombiesInBattle;
+
+											RemoveCorpse( cnt );
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					// if there is no more room, we can skip this
+					break;
+				}
+			}
+
+			if ( zombieshaverisen )
+			{
+#ifdef JA2TESTVERSION
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"A wave of zombies is created");
+#endif
+				// Play sound
+				PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+			}
+		}
+	}
+}
+
+// Flugente Zombies 1.0: create a zombie from a corpse
+void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
+{
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
+
+	MercCreateStruct.ubProfile			= NO_PROFILE;
+	MercCreateStruct.bTeam				= CREATURE_TEAM;	// should be ZOMBIE_TEAM, once that is properly implemented
+	MercCreateStruct.sInsertionGridNo	= pCorpse->def.sGridNo;
+	MercCreateStruct.sSectorX			= gWorldSectorX;
+	MercCreateStruct.sSectorY			= gWorldSectorY;
+	MercCreateStruct.bSectorZ			= gbWorldSectorZ;
+	MercCreateStruct.bBodyType			= pCorpse->def.ubBodyType;
+	MercCreateStruct.ubDirection		= pCorpse->def.ubDirection;
+	MercCreateStruct.fOnRoof			= pCorpse->def.bLevel > 0 ? TRUE : FALSE;
+		
+	// add important stats according to difficulty level
+	// bLife is actually lower than bLifeMax. Because zombies have poison absorption, they can and will heal themselves over time, thereby gaining more life if they are not put down fast
+	switch( gGameExternalOptions.sZombieDifficultyLevel )
+	{
+		case 4:
+			MercCreateStruct.bLifeMax		= (INT8)( 70 + Random( 30 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(10 + Random(15));
+			MercCreateStruct.bAgility		= (INT8)( 50 + Random( 10 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 60 + Random( 15 ) );
+			MercCreateStruct.bStrength		= (INT8)( 80 + Random( 20 ) );
+			break;
+			
+		case 3:
+			MercCreateStruct.bLifeMax		= (INT8)( 60 + Random( 20 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(10 + Random(10));
+			MercCreateStruct.bAgility		= (INT8)( 40 + Random( 10 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 45 + Random( 10 ) );
+			MercCreateStruct.bStrength		= (INT8)( 60 + Random( 20 ) );
+			break;
+
+		case 2:
+			MercCreateStruct.bLifeMax		= (INT8)( 45 + Random( 15 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(5 + Random(10));
+			MercCreateStruct.bAgility		= (INT8)( 30 + Random(  5 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 30 + Random( 10 ) );
+			MercCreateStruct.bStrength		= (INT8)( 45 + Random( 20 ) );
+			break;
+
+		case 1:
+		default:
+			MercCreateStruct.bLifeMax		= (INT8)( 35 + Random( 10 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax - (INT8)(5 + Random(5));
+			MercCreateStruct.bAgility		= (INT8)( 15 + Random(  5 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 15 + Random(  5 ) );
+			MercCreateStruct.bStrength		= (INT8)( 30 + Random( 20 ) );
+			break;
+	}
+
+	// FIX: something's wrong with the FATCIV-bodytype when dying... this is to ensure they die absolutely fast
+	//if ( MercCreateStruct.bBodyType == FATCIV )
+		//MercCreateStruct.bLifeMax		= OKLIFE;
+		
+	MercCreateStruct.bExpLevel		= 1;
+	MercCreateStruct.bMarksmanship	= 1;
+	MercCreateStruct.bMedical		= 1;
+	MercCreateStruct.bMechanical	= 1;
+	MercCreateStruct.bExplosive		= 1;
+	MercCreateStruct.bLeadership	= 1;
+	MercCreateStruct.bWisdom		= 1;
+	MercCreateStruct.bMorale		= 90;
+	MercCreateStruct.bAIMorale		= MORALE_FEARLESS;
+		
+	SET_PALETTEREP_ID ( MercCreateStruct.HeadPal,		pCorpse->def.HeadPal );
+	SET_PALETTEREP_ID ( MercCreateStruct.PantsPal,		pCorpse->def.PantsPal );
+	SET_PALETTEREP_ID ( MercCreateStruct.VestPal,		pCorpse->def.VestPal );
+	SET_PALETTEREP_ID ( MercCreateStruct.SkinPal,		pCorpse->def.SkinPal );
+																							
+	MercCreateStruct.fVisible			= TRUE;
+
+	// do not generate a new palette, thereby using the old palette of the corpse
+	MercCreateStruct.fNoGenNewPalette	= TRUE;
+
+	INT8							iNewIndex;
+	if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+	{
+		/*	certain values have to be set afterwards - the alternative to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
+		*	make an exception for zombies every time...
+		*/
+		SOLDIERTYPE* pNewSoldier = MercPtrs[ (UINT8)iNewIndex ];
+		
+		pNewSoldier->bActionPoints			= 60;
+		pNewSoldier->bInitialActionPoints	= 60;
+		pNewSoldier->sBreathRed				= 0;
+
+		pNewSoldier->ubInsertionDirection	= pCorpse->def.ubDirection;
+
+		//pNewSoldier->sHeightAdjustment		= pCorpse->def.sHeightAdjustment;
+		pNewSoldier->sDesiredHeight			= 3;
+
+		pNewSoldier->ubDesiredHeight		= 3;		// this forces pNewSoldier to rise up to crouching position
+
+		pNewSoldier->ubSoldierClass			= SOLDIER_CLASS_ZOMBIE;
+		pNewSoldier->aiData.bOrders			= SEEKENEMY;
+		pNewSoldier->aiData.bAttitude		= AGGRESSIVE;
+
+		////////////// stuff for poisoning ///////////////////////////////////
+		// this is important - by declaring the gap between bLife and bLifeMax as bBleeding, the zombies will bleed (even more if they are damaged)
+		// all their lifepoints are also poisoned. Thereby all bleeding damage will be poisoned bleeding damage
+		// as they have bPoisonAbsorption of at least 200%, they will absorp this poison damage
+		// This leads to them GAINING life through bleeding
+		// They can thereby regain their health in battle (although not very fast)
+		pNewSoldier->bBleeding				= pNewSoldier->stats.bLifeMax - pNewSoldier->stats.bLife;
+
+		pNewSoldier->bPoisonSum				= pNewSoldier->stats.bLifeMax;
+		pNewSoldier->bPoisonLife			= pNewSoldier->stats.bLife;
+		pNewSoldier->bPoisonBleeding		= pNewSoldier->bPoisonSum - pNewSoldier->bPoisonLife;
+		// zombies get 200% poison absorption, but no resistance to it, as it would reduce their healing
+		pNewSoldier->bPoisonResistance		= 0;
+		pNewSoldier->bPoisonAbsorption		= 200 + Random(100);
+		//////////////////////////////////////////////////////////////////////
+
+		memcpy( &(pNewSoldier->name), &(pCorpse->name), sizeof(CHAR16) * 10 );
+		pNewSoldier->name[9] = '\0';
+		
+		// add skills according to difficulty level
+		switch( gGameExternalOptions.sZombieDifficultyLevel )
+		{
+			case 4:
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = ATHLETICS_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = MARTIALARTS_OT;
+				}
+				break;
+			
+			case 3:
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = ATHLETICS_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
+				}
+				break;
+
+			case 2:
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
+				}
+				break;
+
+			case 1:
+			default:
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
+				}
+				break;
+		}
+				
+		AddSoldierToSectorNoCalculateDirectionUseAnimation( iNewIndex, usAnimState, 0 );
+
+		// If this corpse has camo, use palette from hvobject
+		if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+		{
+			memcpy( pNewSoldier->p8BPPPalette, gpTileCache[ pCorpse->iCachedTileID ].pImagery->vo->pPaletteEntry, sizeof( pCorpse->p8BPPPalette ) * 256 );
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_CAMO_PALETTE )
+		{
+			pNewSoldier->bCamo = 60;
+			pNewSoldier->wornCamo = 60;
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE )
+		{
+			pNewSoldier->urbanCamo = 60;
+			pNewSoldier->wornUrbanCamo = 60;
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE )
+		{
+			pNewSoldier->desertCamo = 60;
+			pNewSoldier->wornDesertCamo = 60;
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE )
+		{
+			pNewSoldier->snowCamo = 60;
+			pNewSoldier->wornSnowCamo = 60;
+		}
+
+		// Reload palettes....
+		if ( pNewSoldier->bInSector )
+		{
+			pNewSoldier->CreateSoldierPalettes( );
+		}
+
+		// Set a pending animation to change stance first...
+		//SendChangeSoldierStanceEvent( pNewSoldier, ANIM_CROUCH );
+
+
+		// Change to standing,unless we can getup with an animation
+		pNewSoldier->EVENT_InitNewSoldierAnim( STANDING, 0, TRUE );
+		pNewSoldier->BeginSoldierGetup( );
+		
+		// So we can see them!
+		AllTeamsLookForAll(ALLOW_INTERRUPTS);
+	}
+}
+
+// Flugente Zombies: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
+BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState )
+{
+	BOOLEAN canbezombie = FALSE;
+	*pAnimState = FALLBACKHIT_STOP;
+
+	switch ( pCorpse->def.ubType )
+	{
+		case SMERC_BCK:	
+		case SMERC_DHD:
+		case SMERC_FALL:
+		case MMERC_BCK:	
+		case MMERC_DHD:
+		case MMERC_FALL:
+		case FMERC_BCK:
+		case FMERC_DHD:
+		case FMERC_FALL:
+		case ROTTING_STAGE2:
+			canbezombie = TRUE;
+			*pAnimState = FALLBACKHIT_STOP;
+			break;
+
+		case SMERC_FWD:
+		case SMERC_PRN:
+		case SMERC_FALLF:
+		case MMERC_FWD:
+		case MMERC_PRN:
+		case MMERC_FALLF:
+		case FMERC_FWD:
+		case FMERC_PRN:
+		case FMERC_FALLF:
+			canbezombie = TRUE;
+			*pAnimState = FALLFORWARD_HITDEATH_STOP;
+			break;
+
+		case M_DEAD1:				
+			canbezombie = TRUE;
+			*pAnimState = GENERIC_HIT_DEATH;
+			break;
+
+		case M_DEAD2:		
+			canbezombie = TRUE;
+			*pAnimState = CIV_DIE2;
+
+		case H_DEAD1:
+		case K_DEAD1:
+		case FT_DEAD1:
+		case S_DEAD1:
+		case W_DEAD1:
+		case C_DEAD1:
+		case H_DEAD2:
+		case K_DEAD2:
+		case FT_DEAD2:
+		case S_DEAD2:
+		case W_DEAD2:
+		case C_DEAD2:
+			canbezombie = TRUE;
+			*pAnimState = STANDING;
+
+		default:
+			;
+	}
+
+	return( canbezombie );
 }

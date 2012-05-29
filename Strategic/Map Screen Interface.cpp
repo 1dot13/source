@@ -1972,10 +1972,23 @@ void UpdateCharRegionHelpText( void )
 				{
 					// person (health/energy/morale)
 					GetMoraleString( pSoldier, pMoraleStr );
-					swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
-													pMapScreenStatusStrings[ 0 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
-													pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,
-													pMapScreenStatusStrings[ 2 ], pMoraleStr );
+
+					if ( pSoldier->bPoisonSum )
+					{
+						INT8 bPoisonBandaged = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
+						swprintf( sString, L"%s: %d/%d, %s: %d/%d/%d - %d, %s: %d/%d, %s: %s",
+														pMapScreenStatusStrings[ 0 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+														pMapScreenStatusStrings[ 5 ], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
+														pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,
+														pMapScreenStatusStrings[ 2 ], pMoraleStr );
+					}
+					else
+					{
+						swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
+														pMapScreenStatusStrings[ 0 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
+														pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,
+														pMapScreenStatusStrings[ 2 ], pMoraleStr );
+					}
 				}
 			}
 			else
@@ -5358,15 +5371,41 @@ void RenderSoldierSmallFaceForUpdatePanel( INT32 iIndex, INT32 iX, INT32 iY )
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 107, 107, 57 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 222, 181, 115 ) ) );
 
+	if ( pSoldier->bPoisonBleeding )
+	{
+		// poisoned bleeding in purple
+		iStartY = iY + 29 - 27*(pSoldier->stats.bLifeMax - pSoldier->bBleeding + pSoldier->bPoisonBleeding)/100;
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 107, 57, 107 ) ) );
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 222, 115, 181 ) ) );
+	}
+
 	//pink one for bandaged.
-	iStartY += 27*pSoldier->bBleeding/100;
+	iStartY = iY + 29 - 27*(pSoldier->stats.bLifeMax - pSoldier->bBleeding)/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 156, 57, 57 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 222, 132, 132 ) ) );
+
+	// get amount of poisoned bandage
+	INT8 bPoisonBandage = pSoldier->bPoisonSum - pSoldier->bPoisonBleeding - pSoldier->bPoisonLife;
+	if ( bPoisonBandage )
+	{
+		// poisoned bandage in bright green
+		iStartY = iY + 29 - 27*(pSoldier->stats.bLife +  bPoisonBandage)/100;
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 57, 156, 57 ) ) );
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 132, 222, 132 ) ) );
+	}
 
 	//red one for actual health
 	iStartY = iY + 29 - 27*pSoldier->stats.bLife/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 107, 8, 8 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 206, 0, 0 ) ) );
+
+	// poisoned life
+	if ( pSoldier->bPoisonLife )
+	{
+		iStartY = iY + 29 - 27*pSoldier->bPoisonLife/100;
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 8, 107, 8 ) ) );
+		ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 0, 206, 0 ) ) );
+	}
 
 	//BREATH BAR
 	iStartY = iY + 29 - 27*pSoldier->bBreathMax/100;

@@ -89,9 +89,7 @@ enum
 	TOPTION_DISABLE_CURSOR_SWAP,				// Disable cursor swapping every second between talk and quick exchange
 	TOPTION_QUIET_TRAINING,						//Madd: mercs don't say gained experience quote while training
 	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
-
-	// Flugente FTW 1: Weapon Overheating
-	//TOPTION_WEAPON_OVERHEATING,					// allow Overheating of weapons
+	TOPTION_ZOMBIES,							// Flugente Zombies 1.0: allow zombies	
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -107,7 +105,7 @@ enum
 	TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE,	// allow debug options that were set in debug.exe to continue in a rel.exe (debugging release can be beneficial)
 	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP,	// an example option that will show/hide other options                                                          
 	TOPTION_RENDER_MOUSE_REGIONS,				// an example of a DEBUG build option                                                                           
-	TOPTION_DEBUG_MODE_OPTIONS_END,				// an example options screen options divider (pure text)   
+	TOPTION_DEBUG_MODE_OPTIONS_END,				// an example options screen options divider (pure text)
 
 	// this is THE LAST option that exists (intended for debugging the options screen, doesnt do anything, except exist)
 	TOPTION_LAST_OPTION, 
@@ -364,6 +362,21 @@ typedef struct
 
 	//Video settings	
 	BOOLEAN gfVSync;
+
+	// Flugente: zombie settings
+	INT8	sZombieRiseBehaviour;
+	BOOLEAN fZombieSpawnWaves;
+	INT8	sZombieRiseWaveFrequency;	
+	BOOLEAN fZombieCanClimb;
+	BOOLEAN fZombieExplodingCivs;
+	INT8	sEnemyZombieDamageResistance;
+	BOOLEAN fZombieOnlyHeadshotsWork;
+	INT8	sZombieDifficultyLevel;
+	
+	// Flugente: poison settings
+	INT32	ubPoisonBaseMedicalSkillToCure;
+	INT16	sZombiePoisonDamagePercentage;
+	FLOAT	sPoisonInfectionDamageMultiplier;
 
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;

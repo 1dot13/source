@@ -393,4 +393,7 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );
 
 // HEADROCK HAM 3.5: Externalized for First Arrival enemy check
 extern UINT8 NumEnemyInSector();
+
+// Flugente
+extern UINT8 NumZombiesInSector();
 #endif

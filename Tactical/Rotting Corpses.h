@@ -26,14 +26,14 @@ enum RottingCorpseDefines
 	MMERC_FALL,
 	MMERC_FALLF,
 
-	FMERC_JFK,
-	FMERC_BCK,
-	FMERC_FWD,
+	FMERC_JFK,		// head has exploded
+	FMERC_BCK,		// body lying backward
+	FMERC_FWD,		// body lying forward
 	FMERC_DHD,
-	FMERC_PRN,
-	FMERC_WTR,
-	FMERC_FALL,
-	FMERC_FALLF,
+	FMERC_PRN,		// body lying on the belly while looking forward, one leg to the side 
+	FMERC_WTR,		// body lying in water
+	FMERC_FALL,		// body lying backward, fallen from roof
+	FMERC_FALLF,	// body lying forward, fallen from roof
 
 	// CIVS
 	M_DEAD1,
@@ -73,17 +73,19 @@ enum RottingCorpseDefines
 
 
 
-#define		ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO			0x001		//Find the closest spot to the given gridno
+#define		ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO				0x001		//Find the closest spot to the given gridno
 #define		ROTTING_CORPSE_USE_NORTH_ENTRY_POINT					0x002		//Find the spot closest to the north entry grid
 #define		ROTTING_CORPSE_USE_SOUTH_ENTRY_POINT					0x004		//Find the spot closest to the south entry grid
 #define		ROTTING_CORPSE_USE_EAST_ENTRY_POINT						0x008		//Find the spot closest to the east entry grid
 #define		ROTTING_CORPSE_USE_WEST_ENTRY_POINT						0x010		//Find the spot closest to the west entry grid
 #define		ROTTING_CORPSE_USE_CAMO_PALETTE							0x020		//We use cammo palette here....
-#define		ROTTING_CORPSE_VEHICLE												0x040		//Vehicle Corpse
-#define		ROTTING_CORPSE_USE_STEALTH_PALETTE							0x080		//We use stealth palette here....
-#define		ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE							0x100		//We use urban palette here....
-#define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE							0x200		//We use desert palette here....
-#define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE							0x400		//We use snow palette here....
+#define		ROTTING_CORPSE_VEHICLE									0x040		//Vehicle Corpse
+#define		ROTTING_CORPSE_USE_STEALTH_PALETTE						0x080		//We use stealth palette here....
+#define		ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE					0x100		//We use urban palette here....
+#define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE					0x200		//We use desert palette here....
+#define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE					0x400		//We use snow palette here....
+#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
+
 
 typedef struct
 {
@@ -94,25 +96,28 @@ typedef struct
 	FLOAT												dYPos;
 	INT16												sHeightAdjustment;
 
-	PaletteRepID								HeadPal;			// Palette reps
-	PaletteRepID								PantsPal;	
-	PaletteRepID								VestPal;	
-	PaletteRepID								SkinPal;	
+	PaletteRepID										HeadPal;			// Palette reps
+	PaletteRepID										PantsPal;	
+	PaletteRepID										VestPal;	
+	PaletteRepID										SkinPal;	
 
 	UINT8												ubDirection;
-	UINT32											uiTimeOfDeath;
+	UINT32												uiTimeOfDeath;
 
-	UINT16											usFlags;
+	UINT16												usFlags;
 
 	INT8												bLevel;
 
 	INT8												bVisible;
 	INT8												bNumServicingCrows;
 	UINT8												ubProfile;
-	BOOLEAN					 fHeadTaken;
-		UINT8												ubAIWarningValue;
+	BOOLEAN												fHeadTaken;
+	UINT8												ubAIWarningValue;
 
 	UINT8												ubFiller[ 12 ];
+
+	// Flugente: added name so we can display individual name if corpse gets resurrected...
+	CHAR16												name[ 10 ];
 
 } ROTTING_CORPSE_DEFINITION;
 
@@ -135,6 +140,9 @@ typedef struct
 	BOOLEAN											fAttractCrowsOnlyWhenOnScreen;
 	INT32												iID;
 
+	// Flugente: added name so we can display individual name if corpse gets resurrected...
+	CHAR16												name[ 10 ];
+		
 } ROTTING_CORPSE;
 
 
@@ -191,5 +199,14 @@ INT32 GetGridNoOfCorpseGivenProfileID( UINT8 ubProfileID );
 
 void DecayRottingCorpseAIWarnings( void );
 UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
+
+// Flugente: Raise zombies
+void RaiseZombies( void );
+
+// Flugente: create a zombie from a corpse
+void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState );
+
+// Flugente: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
+BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState  );
 
 #endif

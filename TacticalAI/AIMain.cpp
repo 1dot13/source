@@ -1616,7 +1616,32 @@ fprintf(NetDebugFile,"\tNPC %d, dtctLvl %d, marking mine at gridno %d, gridCost 
 
 void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 {
+	// added by Flugente: static pointers, used to break out of an endless circles (currently only used for zombie AI)
+	static SOLDIERTYPE* pLastDecisionSoldier = NULL;
+	static INT16	lastdecisioncount = 0;
 
+	// simple solution to prevent an endless clock: remember the last soldier that decided an action. If its the same one, increase the counter.
+	// if counter is high enough, end this guy's turn
+	if ( pSoldier == pLastDecisionSoldier )
+	{
+		// we will only end our turn this way if this function was called over 100 times with same soldier without ending a turn.
+		// so many actions in a single turn smell of an endless clock. 
+		// If we end a turn normally, the counter will be set back to 0, so this wont be a problem if you have a single soldier left for multiple turns
+		if ( lastdecisioncount >= 100 )
+		{
+			// zombie is done doing harm...
+			EndAIGuysTurn( pSoldier);
+			lastdecisioncount = 0;
+			return ;
+		}
+		else
+		++lastdecisioncount;
+	}
+	else
+	{
+		pLastDecisionSoldier = pSoldier;
+		lastdecisioncount = 0;
+	}
 
 	/*
 	if (Status.gamePaused)
@@ -1905,7 +1930,11 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		{
 			if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV))
 			{
-				if (CREATURE_OR_BLOODCAT( pSoldier ))
+				if ( pSoldier->IsZombie() )
+				{	
+					pSoldier->aiData.bAction = ZombieDecideAction(pSoldier);
+				}
+				else if (CREATURE_OR_BLOODCAT( pSoldier ))
 				{
 					pSoldier->aiData.bAction = CreatureDecideAction( pSoldier );
 				}
@@ -1971,6 +2000,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 			{
 				// turn based... abort this guy's turn
 				EndAIGuysTurn( pSoldier );
+				lastdecisioncount = 0;
 			}
 		}
 		else

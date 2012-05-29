@@ -225,6 +225,7 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage );
 #define XRAY_TIME 5
 
 extern void ActivateXRayDevice( SOLDIERTYPE * pSoldier );
+extern void TurnOnXRayEffects( SOLDIERTYPE * pSoldier );
 extern void TurnOffXRayEffects( SOLDIERTYPE * pSoldier );
 OBJECTTYPE* FindLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon );
 UINT16 FindLegalGrenade(UINT16 usItem);
@@ -448,7 +449,7 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj );
 void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap );
 
-// check if item belongs to a specific attachemnt class
+// check if item belongs to a specific attachment class
 BOOLEAN IsAttachmentClass( UINT16 usItem, UINT32 aFlag );
 BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag );
 
@@ -459,6 +460,3 @@ bool IsAttachmentPointAvailable( UINT64 point, UINT32 attachmentID, BOOLEAN only
 UINT64 GetAvailableAttachmentPoint ( OBJECTTYPE * pObject, UINT8 subObject );
 
 #endif
-
-
-

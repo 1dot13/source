@@ -2080,6 +2080,8 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Schwächen:",
 
 	L"Persönlichkeit:",	// WANNE: For old traits display instead of "Character:"!
+
+	L"Zombies: %d\n", // TODO.Translate
 };
 
 
@@ -2866,6 +2868,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"MONSTER", 
 	L"MILIZ",
 	L"ZIVILIST",
+	L"ZOMBIE",		// TODO.Translate
 	L"Sektor verlassen",
 	L"OK",
 	L"Abbruch",
@@ -2923,6 +2926,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Detonations-Frequenz (1 - 4) und die Entschärfungs-Frequenz (A - D):",
 	L"Detonations-Zeit (in Züge) (1 - 4) und die Entschärfungs-Frequenz (A - D):",
 	L"Stolperdraht-Hierarchie (1 - 4) und das Netzwerk (A - D):",
+
+	// added by Flugente to display health and poisoning			// TODO.Translate
+	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3440,6 +3446,7 @@ STR16 pMapScreenStatusStrings[] =
 	L"Moral",
 	L"Zustand",	// the condition of the current vehicle (its "health")
 	L"Tank",	// the fuel level of the current vehicle (its "energy")
+	L"Posion",	// TODO.Translate
 };
 
 STR16 pMapScreenPrevNextCharButtonHelpText[] =
@@ -4951,6 +4958,7 @@ STR16 zOptionsToggleText[] =
 	L"Cursor-Wechsel deaktivieren",		    // Disable Cursor Swap
 	L"Stummes Trainieren",					// Madd: mercs don't say quotes while training
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
+	L"Allow Zombies",						// Flugente Zombies 1.0
 	//L"Waffen können überhitzen",			
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
@@ -6739,6 +6747,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|K|u|g|e|l|s|t|u|r|z",
 	L"|E|x|p|l|o|s|i|o|n |v|o|r |E|i|n|s|c|h|l|a|g",
 	L"|T|e|m|p|e|r|a|t|u|r |M|o|d|i|f|i|k|a|t|o|r",
+	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -6747,6 +6756,7 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \nBestimmt eine verhältnismäßige Zunahme des Schadenspotentials,\nsobald die Kugel die Rüstung des Ziels\ndurchbricht und den Körper dahinter trifft.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHöher ist besser.",
 	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren den Schaden.\n \nHöher ist besser.",
 	L"\n \nProzentuale zusätzliche Hitze\ndurch diese Munitionsart.\n \nNiedriger ist besser.",
+	L"\n \nDetermines what percentage of a\nbullet's damage will be poisonous.",	// TODO.Translate
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
@@ -6923,6 +6933,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|b|k|ü|h|l|f|a|k|t|o|r",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|L|a|d|e|h|e|m|m|u|n|g|s|s|c|h|r|a|n|k|e",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|H|i|t|z|e|s|c|h|a|d|e|n|s|s|c|h|r|a|n|k|e",
+	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -6984,6 +6995,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nAbkühlung wird um diesen Prozentsatz erhöht.\n \nHöher ist besser.",
 	L"\n \nLadehemmungsschranke wird um diesen Prozentsatz erhöht.\n \nHöher ist besser.",
 	L"\n \nHitzeschadensschranke wird um diesen Prozentsatz erhöht.\n \nHöher is besser.",
+	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

@@ -3570,7 +3570,7 @@ void recieveEXPLOSIONDAMAGE (RPCParameters *rpcParameters)
 
 				// can use DishOutGasDamage() as it is dependant on the local state of the gas cloud which is not always in sync
 				// but we have the definite results of damage on a merc, so :
-				pSoldier->SoldierTakeDamage( ANIM_STAND, exp->sWoundAmt, exp->sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+				pSoldier->SoldierTakeDamage( ANIM_STAND, exp->sWoundAmt, 0, exp->sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
 			}
 			else if (exp->ubDamageFunc == 2)
 			{
@@ -4405,7 +4405,7 @@ void recieveDISCONNECT(RPCParameters* rpcParameters)
 				if ( !pTeamSoldier->aiData.bNeutral && (pTeamSoldier->bTeam == iNetbTeam ) )
 				{
 					// KIll......
-					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 0, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 				}
 			}
 		}

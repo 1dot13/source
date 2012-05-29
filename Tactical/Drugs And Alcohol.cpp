@@ -334,8 +334,9 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 //		bBandaged = BANDAGED( pSoldier );
 
 		// increase life
+		pSoldier->bPoisonLife = max(pSoldier->bPoisonSum, pSoldier->bPoisonLife + pSoldier->stats.bLife - __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax ) );
 		pSoldier->stats.bLife = __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax );
-
+		
 		//SANDRO - Insta-healable injury reduction
 		if( pSoldier->iHealableInjury > 0 )
 		{
@@ -345,12 +346,14 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
 		{
 			pSoldier->bBleeding = 0;
+			pSoldier->bPoisonBleeding = 0;
 			pSoldier->iHealableInjury = 0;
 		}
 		else if ( pSoldier->bBleeding + pSoldier->stats.bLife > pSoldier->stats.bLifeMax )
 		{
 			// got to reduce amount of bleeding
 			pSoldier->bBleeding = (pSoldier->stats.bLifeMax - pSoldier->stats.bLife);
+			pSoldier->bPoisonBleeding = min(pSoldier->bPoisonBleeding, (pSoldier->stats.bLifeMax - pSoldier->stats.bLife));
 		}
 
 		// decrement counter

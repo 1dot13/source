@@ -2268,6 +2268,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					DeleteTalkingMenu();
 					SetSoldierNeutral( pSoldier );
 					pSoldier->bBleeding = 0; // make sure he doesn't bleed now...
+					pSoldier->bPoisonBleeding = 0;
 					RecalculateOppCntsDueToBecomingNeutral( pSoldier );
 					if ( gTacticalStatus.uiFlags & INCOMBAT )
 					{
@@ -4444,6 +4445,9 @@ UINT32 CalcPatientMedicalCost( SOLDIERTYPE * pSoldier )
 		// charge additional $25 for every point below OKLIFE he is
 		uiCost += ( 25 * ( OKLIFE - pSoldier->stats.bLife ) );
 	}
+
+	// charge additional $13 for every poison point that has to be cured
+	uiCost += 13 * pSoldier->bPoisonSum;
 
 	// also charge $2 for each point of bleeding that must be stopped
 	if ( pSoldier->bBleeding > 0 )

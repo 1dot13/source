@@ -729,6 +729,9 @@ void RefreshMerc( SOLDIERTYPE *pSoldier )
 {
 	pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 	pSoldier->bBleeding = 0;
+	pSoldier->bPoisonSum = 0;
+	pSoldier->bPoisonLife = 0;
+	pSoldier->bPoisonBleeding = 0;
 	pSoldier->iHealableInjury = 0; // added by SANDRO
 	pSoldier->bBreath = pSoldier->bBreathMax = 100;
 	pSoldier->sBreathRed = 0;
@@ -1189,14 +1192,43 @@ void RenderSoldierCellBars( SOLDIERCELL *pCell )
 	iStartY = pCell->yp + 29 - 25*pCell->pSoldier->stats.bLifeMax/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+37, iStartY, pCell->xp+38, pCell->yp+29, Get16BPPColor( FROMRGB( 107, 107, 57 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+38, iStartY, pCell->xp+39, pCell->yp+29, Get16BPPColor( FROMRGB( 222, 181, 115 ) ) );
+
+	// poisoned bleeding in purple
+	if ( pCell->pSoldier->bPoisonBleeding )
+	{
+		iStartY = pCell->yp + 29 - 25*(pCell->pSoldier->stats.bLifeMax - pCell->pSoldier->bBleeding + pCell->pSoldier->bPoisonBleeding)/100;
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+37, iStartY, pCell->xp+38, pCell->yp+29, Get16BPPColor( FROMRGB( 107, 57, 107 ) ) );
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+38, iStartY, pCell->xp+39, pCell->yp+29, Get16BPPColor( FROMRGB( 222, 115, 181 ) ) );
+	}
+
 	//pink one for bandaged.
-	iStartY += 25*pCell->pSoldier->bBleeding/100;
+	iStartY = pCell->yp + 29 - 25*(pCell->pSoldier->stats.bLifeMax - pCell->pSoldier->bBleeding)/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+37, iStartY, pCell->xp+38, pCell->yp+29, Get16BPPColor( FROMRGB( 156, 57, 57 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+38, iStartY, pCell->xp+39, pCell->yp+29, Get16BPPColor( FROMRGB( 222, 132, 132 ) ) );
+
+	// get amount of poisoned bandage
+	INT8 bPoisonBandage = pCell->pSoldier->bPoisonSum - pCell->pSoldier->bPoisonBleeding - pCell->pSoldier->bPoisonLife;
+	if ( bPoisonBandage )
+	{
+		// poisoned bandage in bright green
+		iStartY = pCell->yp + 29 - 25*(pCell->pSoldier->stats.bLife +  bPoisonBandage)/100;
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+37, iStartY, pCell->xp+38, pCell->yp+29, Get16BPPColor( FROMRGB( 57, 156, 57 ) ) );
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+38, iStartY, pCell->xp+39, pCell->yp+29, Get16BPPColor( FROMRGB( 132, 222, 132 ) ) );
+	}
+
 	//red one for actual health
 	iStartY = pCell->yp + 29 - 25*pCell->pSoldier->stats.bLife/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+37, iStartY, pCell->xp+38, pCell->yp+29, Get16BPPColor( FROMRGB( 107, 8, 8 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+38, iStartY, pCell->xp+39, pCell->yp+29, Get16BPPColor( FROMRGB( 206, 0, 0 ) ) );
+
+	// poisoned life
+	if ( pCell->pSoldier->bPoisonLife )
+	{
+		iStartY = pCell->yp + 29 - 25*pCell->pSoldier->bPoisonLife/100;
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+37, iStartY, pCell->xp+38, pCell->yp+29, Get16BPPColor( FROMRGB( 8, 107, 8 ) ) );
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+38, iStartY, pCell->xp+39, pCell->yp+29, Get16BPPColor( FROMRGB( 0, 206, 0 ) ) );
+	}
+
 	//BREATH BAR
 	iStartY = pCell->yp + 29 - 25*pCell->pSoldier->bBreathMax/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+41, iStartY, pCell->xp+42, pCell->yp+29, Get16BPPColor( FROMRGB( 8, 8, 132 ) ) );
@@ -1519,6 +1551,11 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 			pVictim->stats.bLife = OKLIFE;
 			// reduce bleeding by the same number of life points healed up
 			pVictim->bBleeding -= bBelowOKlife;
+
+			// Flugente: increase bPoisonLife, decrease bPoisonBleeding
+			pVictim->bPoisonLife		= min(pVictim->bPoisonSum, pVictim->bPoisonLife + bBelowOKlife);
+			pVictim->bPoisonBleeding	= max(0, pVictim->bPoisonBleeding - bBelowOKlife);
+
 			// use up appropriate # of actual healing points
 			bPtsLeft -= (2 * bBelowOKlife);
 		}
@@ -1533,12 +1570,20 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 			}
 			pVictim->stats.bLife += ( bPtsLeft / 2);
 			pVictim->bBleeding -= ( bPtsLeft / 2);
+
+			// Flugente: increase bPoisonLife, decrease bPoisonBleeding
+			pVictim->bPoisonLife		= min(pVictim->bPoisonSum, pVictim->bPoisonLife	+ ( bPtsLeft / 2));
+			pVictim->bPoisonBleeding	= max(0, pVictim->bPoisonBleeding - ( bPtsLeft / 2));
+
 			bPtsLeft = bPtsLeft % 2;	// if ptsLeft was odd, ptsLeft = 1
 		}
 
 		// this should never happen any more, but make sure bleeding not negative
 		if (pVictim->bBleeding < 0)
+		{
 			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
+		}
 
 		// if this healing brought the patient out of the worst of it, cancel dying
 		if (pVictim->stats.bLife >= OKLIFE )
@@ -1612,22 +1657,27 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		if ((pVictim->stats.bLife + (iLifeReturned / 100)) <= pVictim->stats.bLifeMax)
 		{
 			pVictim->stats.bLife += (iLifeReturned/100);
+			pVictim->bPoisonLife = min(pVictim->bPoisonSum, pVictim->bPoisonLife + (iLifeReturned/100));
 			if (pVictim->bBleeding >= (iLifeReturned/100))
 			{
 				pVictim->bBleeding -= (iLifeReturned/100);
+				pVictim->bPoisonBleeding	= max(0, pVictim->bPoisonBleeding - (iLifeReturned/100));
 				uiMedcost += (iLifeReturned / 200); // add medkit points cost for unbandaged part
 			}
 			else
 			{
 				pVictim->bBleeding = 0;
+				pVictim->bPoisonBleeding = 0;
 				uiMedcost += max( 0, (((iLifeReturned/100) - pVictim->bBleeding) / 2)); // add medkit points cost for unbandaged part
 			}
 		}
 		else // this shouldn't even happen, but we still want to have it here for sure
 		{
 			pVictim->stats.bLife = pVictim->stats.bLifeMax;
+			pVictim->bPoisonLife = pVictim->bPoisonSum;
 			pVictim->iHealableInjury = 0;
 			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
 		}
 		// Reduce max breath based on life returned
 		if ( (pVictim->bBreathMax - (((iLifeReturned/100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss )/ 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
@@ -1654,10 +1704,12 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		{
 			bPtsLeft -= pVictim->bBleeding;
 			pVictim->bBleeding = 0;
+			pVictim->bPoisonBleeding = 0;
 		}
 		else		// bandage what we can
 		{
 			pVictim->bBleeding -= bPtsLeft;
+			pVictim->bPoisonBleeding = max(0, pVictim->bPoisonBleeding - bPtsLeft);
 			bPtsLeft = 0;
 		}
 	}
@@ -4541,13 +4593,16 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 					case SOLDIER_CLASS_CREATURE :
 						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsCreatures++;
 						break;
+					case SOLDIER_CLASS_ZOMBIE :
+						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsZombies++;
+						break;
 					default :
 						if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsCreatures++;
-							else if ( TANK( pTarget->pSoldier ) ) // we hardly can kill a tank in autoresolve, but well.. who knows..
-								gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsTanks++;
-							else if ( pTarget->pSoldier->bTeam == CIV_TEAM && !pTarget->pSoldier->aiData.bNeutral && pTarget->pSoldier->bSide != gbPlayerNum )
-								gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsHostiles++;
+						else if ( TANK( pTarget->pSoldier ) ) // we hardly can kill a tank in autoresolve, but well.. who knows..
+							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsTanks++;
+						else if ( pTarget->pSoldier->bTeam == CIV_TEAM && !pTarget->pSoldier->aiData.bNeutral && pTarget->pSoldier->bSide != gbPlayerNum )
+							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsHostiles++;
 						else
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
 						break;
@@ -4728,6 +4783,9 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 							break;
 						case SOLDIER_CLASS_CREATURE :
 							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsCreatures++;
+							break;
+						case SOLDIER_CLASS_ZOMBIE :
+							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsZombies++;
 							break;
 						default :
 							if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )

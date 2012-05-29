@@ -48,6 +48,7 @@
 #include "WorldDat.h"
 // HEADROCK HAM 3.6: This must be included, for testing whether Bloodcats and Enemies can see one another.
 #include "Campaign Types.h"
+#include "soldier tile.h"		// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

@@ -2928,8 +2928,17 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		else
 		{
 			GetMoraleString( gpSMCurrentMerc, pMoraleStr );
-			swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+			// Flugente: added a display for poison, only show text if actualy poisoned
+			if ( gpSMCurrentMerc->bPoisonSum > 0 )
+			{
+				swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bPoisonSum, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+			}
+			else
+			{
+				swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+			}
 			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
+
 		}
 		}
 		else
@@ -5442,16 +5451,25 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			}
 			else
 			{
-					 GetMoraleString( pSoldier, pMoraleStr );
-					 swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
-					 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+					GetMoraleString( pSoldier, pMoraleStr );
+
+					// Flugente: added a display for poison, only show text if actually poisoned
+					if ( pSoldier->bPoisonSum > 0 )
+					{
+						swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+					}
+					else
+					{
+						swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+					}
+					SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
 			}
-				}
-				else
-				{
-					SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
-				}
 		}
+		else
+		{
+			SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
+		}
+	}
 
 				if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 				{

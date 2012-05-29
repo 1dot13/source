@@ -262,6 +262,7 @@ public:
 	UINT16	usKillsAdmins;
 	UINT16  usKillsHostiles;
 	UINT16	usKillsCreatures;
+	UINT16  usKillsZombies;
 	UINT16	usKillsTanks;
 	UINT16	usKillsOthers;
 
