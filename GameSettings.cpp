@@ -231,6 +231,8 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  FALSE );
 		gGameSettings.fOptions[TOPTION_QUIET_TRAINING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_TRAINING"				   ,  FALSE );
+		gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_REPAIRING"				   ,  FALSE );
+		gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_DOCTORING"				   ,  FALSE );
 		
 		if (!is_networked)
 			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_AUTO_FAST_FORWARD_MODE"           ,  FALSE );
@@ -397,6 +399,8 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_SHOW_TACTICAL_FACE_ICONS         = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_DISABLE_CURSOR_SWAP              = " << (gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]               ?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_QUIET_TRAINING					  = " << (gGameSettings.fOptions[TOPTION_QUIET_TRAINING]				    ?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_QUIET_REPAIRING				  = " << (gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]				    ?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_QUIET_DOCTORING				  = " << (gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]				    ?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
@@ -523,6 +527,8 @@ void InitGameSettings()
 
 	gGameSettings.fOptions[ TOPTION_DISABLE_CURSOR_SWAP ]               = FALSE;
 	gGameSettings.fOptions[ TOPTION_QUIET_TRAINING ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_QUIET_REPAIRING ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_QUIET_DOCTORING ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
 	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies 1.0	
 
@@ -667,6 +673,12 @@ void LoadGameExternalOptions()
 
 	// Use "EnemyWeaponDrop.XML" etc. for determining which items are dropped?
 	gGameExternalOptions.ubEnemiesItemDrop				= iniReader.ReadInteger("Data File Settings","USE_EXTERNALIZED_ENEMY_ITEM_DROPS", 0, 0, 1);
+
+	//Madd: use xml file for tilesets
+	gGameExternalOptions.fUseXmlTileSets				= iniReader.ReadBoolean("Data File Settings","USE_XML_TILESETS", FALSE);
+
+	//Madd: set number of pItem files to be used
+	gGameExternalOptions.ubNumPItems					= iniReader.ReadInteger("Data File Settings","NUM_P_ITEMS", 3, 3, 10);
 
 	//################# Merc Recruitment Settings #################
 

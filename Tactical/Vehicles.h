@@ -398,7 +398,7 @@ void SetUpArmorForVehicle( UINT8 ubID );
 BOOLEAN DoesVehicleNeedAnyRepairs( INT32 iVehicleId );
 
 // repair the vehicle
-INT8 RepairVehicle( INT32 iVehicleId, INT8 bTotalPts, BOOLEAN *pfNothingToRepair );
+INT8 RepairVehicle( INT32 iVehicleId, UINT8 ubTotalPts, BOOLEAN *pfNothingToRepair );
 
 
 //Save all the vehicle information to the saved game file

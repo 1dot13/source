@@ -7899,7 +7899,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	if(pNewObj != NULL)
 		*pNewObj = removedAttachment;
 
-	if(pAttachment->exists() && pAttachment->usItem == 0)
+	if(pAttachment->exists() && (pAttachment->usItem == 0 || pAttachment->usItem == removedAttachment.usItem ))
 		*pAttachment = removedAttachment;
 
 	if (pNewObj->exists() && Item[pNewObj->usItem].grenadelauncher )//UNDER_GLAUNCHER)

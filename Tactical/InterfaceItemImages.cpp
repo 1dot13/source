@@ -3,7 +3,7 @@
 #include "DEBUG.H"
 #include "vobject.h"
 #include "utilities.h"
-
+#include "GameSettings.h"
 #include <vfs/Core/vfs.h>
 
 extern void WriteMessageToFile( const STR16 pString );
@@ -112,7 +112,7 @@ bool RegisterItemImages()
 		return false;
 	}
 
-	for (UINT8 ubLoop = 0; ubLoop < MAX_PITEMS; ubLoop++)
+	for (UINT8 ubLoop = 0; ubLoop < gGameExternalOptions.ubNumPItems; ubLoop++)
 	{
 		// LOAD INTERFACE ITEM PICTURES
 		if(!g_bUsePngItemImages)

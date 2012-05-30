@@ -1339,7 +1339,7 @@ L02:	//remove any FIRSTCLIFFHANG if on same tile already exist FIRSTCLIFF
 		while(pStruct)
 		{
 			// Skip cached tiles
-			if(pStruct->usIndex >= NUMBEROFTILES)
+			if(pStruct->usIndex >= giNumberOfTiles)
 			{
 				pStruct = pStruct->pNext;
 				continue;
@@ -1552,7 +1552,7 @@ void RaiseWorldLandOld(void)//dnl ch3 230909
 		while( pStruct )
 		{
 			// Skip cached tiles
-			if (pStruct->usIndex >= NUMBEROFTILES)
+			if (pStruct->usIndex >= giNumberOfTiles)
 			{
 				pStruct = pStruct->pNext;
 				continue;

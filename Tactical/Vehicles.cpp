@@ -1839,7 +1839,7 @@ BOOLEAN DoesVehicleNeedAnyRepairs( INT32 iVehicleId )
 }
 
 
-INT8 RepairVehicle( INT32 iVehicleId, INT8 bRepairPtsLeft, BOOLEAN *pfNothingToRepair )
+INT8 RepairVehicle( INT32 iVehicleId, UINT8 ubRepairPtsLeft, BOOLEAN *pfNothingToRepair )
 {
 	SOLDIERTYPE		*pVehicleSoldier = NULL;
 	INT8					bRepairPtsUsed = 0;
@@ -1869,7 +1869,7 @@ INT8 RepairVehicle( INT32 iVehicleId, INT8 bRepairPtsLeft, BOOLEAN *pfNothingToR
 	bOldLife = pVehicleSoldier->stats.bLife;
 
 	// Repair
-	pVehicleSoldier->stats.bLife += ( bRepairPtsLeft / VEHICLE_REPAIR_POINTS_DIVISOR );
+	pVehicleSoldier->stats.bLife += ( ubRepairPtsLeft / VEHICLE_REPAIR_POINTS_DIVISOR );
 
 	// Check
 	if ( pVehicleSoldier->stats.bLife > pVehicleSoldier->stats.bLifeMax )

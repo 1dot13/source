@@ -5108,6 +5108,8 @@ STR16		zOptionsToggleText[] =
 	L"Show Face Gear Icons",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap
 	L"Quiet Training",						// Madd: mercs don't say quotes while training
+	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing
+	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
 	L"Allow Zombies",						// Flugente Zombies 1.0
 	//L"Weapons Overheating",					// TODO.Translate
@@ -5219,7 +5221,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
 	L"When ON, mercs will not report progress during training.",
 	L"When ON, AI turns will be much faster.",
-	L"When ON, zombies will span. Be aware!",							// allow zombies
+	L"When ON, zombies will spawn. Be aware!",							// allow zombies
 	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",

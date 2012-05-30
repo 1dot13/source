@@ -1880,11 +1880,11 @@ BOOLEAN WearGasMaskIfAvailable( SOLDIERTYPE * pSoldier )
 	{
 		return( FALSE );
 	}
-	if ( bSlot == HEAD1POS || bSlot == HEAD2POS )
+	if ( bSlot == HEAD1POS || bSlot == HEAD2POS || bSlot == HELMETPOS )
 	{
 		return( FALSE );
 	}
-	if ( pSoldier->inv[ HEAD1POS ].exists() == false)
+	if ( pSoldier->inv[ HEAD1POS ].exists() == false )
 	{
 		bNewSlot = HEAD1POS;
 	}

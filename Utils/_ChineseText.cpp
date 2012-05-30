@@ -5109,7 +5109,9 @@ STR16		zOptionsToggleText[] =
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
 	L"禁止光标切换",		            // Disable Cursor Swap
-	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate	
+	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
+	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
+	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
 	L"Allow Zombies",				// TODO.Translate
 	//L"武器过热",

@@ -21,7 +21,7 @@ private:
 
 
 extern bool					g_bUsePngItemImages;
-const UINT8					MAX_PITEMS = 3;
+const UINT8					MAX_PITEMS = 20;
 // old item image handles
 extern UINT32				guiGUNSM;
 extern UINT32				guiPITEMS[MAX_PITEMS];

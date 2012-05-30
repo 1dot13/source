@@ -5089,6 +5089,8 @@ STR16		zOptionsToggleText[] =
 	L"Показать иконки снаряжения",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
 	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
+	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
+	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 	L"Allow Zombies",						// Flugente Zombies 1.0
 	//L"Weapons Overheating",					// TODO.Translate

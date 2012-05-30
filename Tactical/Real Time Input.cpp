@@ -1615,7 +1615,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 //		return;
 //	}
 //
-//	for(uiType = 0; uiType < NUMBEROFTILETYPES; uiType++)
+//	for(uiType = 0; uiType < giNumberOfTileTypes; uiType++)
 //	{
 //		if( !gTilesets[ giCurrentTilesetID].TileSurfaceFilenames[ uiType ][0] )
 //		{
@@ -1629,7 +1629,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 //		}
 //	}
 //
-//	if(uiType >= NUMBEROFTILETYPES)
+//	if(uiType >= giNumberOfTileTypes)
 //		return;*/
 //
 //	if( GetMouseMapPos( &sGridNo ) )

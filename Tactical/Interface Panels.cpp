@@ -3385,7 +3385,23 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 {
 	if ( _KeyDown(CTRL) )
 	{
-		CleanUpStack( &( gpSMCurrentMerc->inv[ ubHandPos ] ), gpItemPointer );
+		if ( gpItemPointer->exists() && gpSMCurrentMerc->inv[ ubHandPos ].exists() )
+		{
+			if ( gpItemPointer->usItem == gpSMCurrentMerc->inv[ ubHandPos ].usItem )
+				CleanUpStack( &( gpSMCurrentMerc->inv[ ubHandPos ] ), gpItemPointer );
+			else // Madd: attach / merge object, merge only works on single objects for now
+			{
+				UINT8 cnt = gpSMCurrentMerc->inv[ ubHandPos ].ubNumberOfObjects;
+				if ( gpItemPointer->ubNumberOfObjects < cnt ) 
+					cnt = gpItemPointer->ubNumberOfObjects;
+
+				for (UINT8 i = 0; i<cnt;i++)
+				{
+					gpSMCurrentMerc->inv[ ubHandPos ].AttachObject(gpSMCurrentMerc,gpItemPointer,TRUE,i);
+				}
+			}
+		}
+
 		if ( gpItemPointer->exists() == false )
 		{
 			EndItemPointer( );

@@ -1654,7 +1654,7 @@ void EndLoadScreen( )
 		uiHundreths = (uiBuildShadeTableTime / 10) % 100;
 		fprintf( fp, "  1)  BuildShadeTables: %d.%02d\n", uiSeconds, uiHundreths );
 
-		uiPercentage = uiNumImagesReloaded * 100 / NUMBEROFTILETYPES;
+		uiPercentage = uiNumImagesReloaded * 100 / giNumberOfTileTypes;
 		fprintf( fp, "  2)  %d%% of the tileset images were actually reloaded.\n", uiPercentage );
 		if ( ( uiNumTablesSaved+uiNumTablesLoaded ) != 0 )
 		{
@@ -1717,7 +1717,7 @@ void EndLoadScreen( )
 	uiHundreths = (uiBuildShadeTableTime / 10) % 100;
 	timeResults << "  1)  BuildShadeTables: " << uiSeconds << "." << uiHundreths << sgp::endl;
 
-	uiPercentage = uiNumImagesReloaded * 100 / NUMBEROFTILETYPES;
+	uiPercentage = uiNumImagesReloaded * 100 / giNumberOfTileTypes;
 	timeResults << "  2)  " << uiPercentage << "% of the tileset images were actually reloaded." << sgp::endl;
 	if ( ( uiNumTablesSaved+uiNumTablesLoaded ) != 0 )
 	{

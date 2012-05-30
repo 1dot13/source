@@ -226,7 +226,7 @@ INT32 FAR PASCAL SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam
 bool				s_bExportStrings		= false;
 extern bool			g_bUseXML_Strings;//	= false;
 bool				g_bUseXML_Structures	= false;
-bool				g_bUseXML_Tilesets		= false;
+//bool				g_bUseXML_Tilesets		= false;
 
 #ifdef USE_VFS
 static vfs::Path	sp_force_load_jsd_xml_file;
@@ -1487,8 +1487,9 @@ void GetRuntimeSettings( )
 	//g_bUseXML_Tilesets = true;
 
 	// WANNE: Yes, make it optional again
-	g_bUseXML_Tilesets		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_TILESETS", false);
-	
+	//Madd: moved to ja2_options.ini instead
+	//g_bUseXML_Tilesets		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_TILESETS", false);
+
 	g_bUseXML_Strings		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_STRINGS", false);
 	s_bExportStrings		= oProps.getBoolProperty(L"Ja2 Settings", L"EXPORT_STRINGS", false);
 

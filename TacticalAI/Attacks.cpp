@@ -1754,7 +1754,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	INT8	bSlot;
 
 
-	if( pSoldier == NULL || pOpponent == NULL || ubItemPos > pSoldier->inv.size() || sGridNo > NUMBEROFTILES )
+	if( pSoldier == NULL || pOpponent == NULL || ubItemPos > pSoldier->inv.size() || sGridNo > giNumberOfTiles )
 		return 0;
 
 	if( pSoldier->inv[ubItemPos].exists() == false )
@@ -1807,8 +1807,8 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 		if (gpWorldLevelData[sGridNo].ubTerrainID != FLAT_FLOOR)
 			iBreathDamage /= 2;		// reduce effective breath damage by 1/2
 
-		bSlot = FindObj( pOpponent, GASMASK );
-		if (bSlot == HEAD1POS || bSlot == HEAD2POS)
+		bSlot = FindGasMask(pOpponent); //FindObj( pOpponent, GASMASK );
+		if ((bSlot == HEAD1POS || bSlot == HEAD2POS || bSlot == HELMETPOS) && pSoldier->inv[bSlot][0]->data.objectStatus >= 70)
 		{
 			// take condition of the gas mask into account - it could be leaking
 			iBreathDamage = (iBreathDamage * (100 - pOpponent->inv[bSlot][0]->data.objectStatus)) / 100;

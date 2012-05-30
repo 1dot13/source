@@ -95,7 +95,7 @@ public:
 	TRANSITION_ENTER{
 		long lindex;
 		if(atts.getLong("index", lindex)){
-			SGP_THROW_IFFALSE(lindex < NUMBEROFTILETYPES,
+			SGP_THROW_IFFALSE(lindex < giNumberOfTileTypes,
 				_BS(L"tileset file index is too large : ") << lindex << _BS::wget );
 			T_DATA.index = lindex;
 		}

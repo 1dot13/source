@@ -4957,6 +4957,8 @@ STR16 zOptionsToggleText[] =
 	L"Gesichtsequipment-Icons",
 	L"Cursor-Wechsel deaktivieren",		    // Disable Cursor Swap
 	L"Stummes Trainieren",					// Madd: mercs don't say quotes while training
+	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing TODO.Translate
+	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring TODO.Translate
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
 	L"Allow Zombies",						// Flugente Zombies 1.0
 	//L"Waffen können überhitzen",			

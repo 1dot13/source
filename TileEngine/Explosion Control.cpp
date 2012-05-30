@@ -1994,6 +1994,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			break;
 		case EXPLOSV_MUSTGAS:		
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_MUSTARDGAS;
+			break;
 		case EXPLOSV_BURNABLEGAS:
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_BURNABLEGAS;
 			break;

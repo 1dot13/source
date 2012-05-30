@@ -368,7 +368,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		/*
 		//////////////// STRENGTH ////////////////
 		// strength we would normally have right now
-		INT8 strength = gMercProfiles[ pSoldier->ubProfile ].bStrength - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ];
+		INT8 strength = gMercProfiles[ pSoldier->ubProfile ].bStrength;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ];
 
 		INT8 strengthmodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_STRENGTH ];
 
@@ -393,7 +393,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 
 		//////////////// DEXTERITY ////////////////
 		// dexterity we would normally have right now
-		INT8 dexterity = gMercProfiles[ pSoldier->ubProfile ].bDexterity - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ];
+		INT8 dexterity = gMercProfiles[ pSoldier->ubProfile ].bDexterity;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ];
 
 		INT8 dexteritymodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_DEXTERITY ];
 
@@ -418,7 +418,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 
 		//////////////// AGILITY ////////////////
 		// agility we would normally have right now
-		INT8 agility = gMercProfiles[ pSoldier->ubProfile ].bAgility - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ];
+		INT8 agility = gMercProfiles[ pSoldier->ubProfile ].bAgility;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ];
 
 		INT8 agilitymodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_AGILITY ];
 
@@ -443,7 +443,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 
 		//////////////// WISDOM ////////////////
 		// wisdom we would normally have right now
-		INT8 wisdom = gMercProfiles[ pSoldier->ubProfile ].bWisdom - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ];
+		INT8 wisdom = gMercProfiles[ pSoldier->ubProfile ].bWisdom;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ];
 
 		INT8 wisdommodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_WISDOM ];
 

@@ -5,6 +5,11 @@
 	#include "worlddef.h"
 #endif
 
+#include "GameSettings.h"
+
+INT32 giNumberOfTiles; //Madd: new global variables to allow for a variable number of Pitems
+INT32 giNumberOfTileTypes; 
+
 INT16 gOpenDoorList[20] =
 {
 	FIRSTDOOR1,
@@ -588,13 +593,14 @@ UINT16	gNumTilesPerType[ NUMBEROFTILETYPES ] =
 	THIRDMISS14				- THIRDMISS1 + 1,
 	WIREFRAMES15			- WIREFRAMES1 + 1,
 
-////MM: New item tileslots start here
-//	P4ITEM5000				- P4ITEM1 + 1,
-//	P5ITEM5000				- P5ITEM1 + 1,
-//	P6ITEM5000				- P6ITEM1 + 1,
-//	P7ITEM5000				- P7ITEM1 + 1,
-//	P8ITEM5000				- P8ITEM1 + 1,
-//	P9ITEM5000				- P9ITEM1 + 1
+//MM: New item tileslots start here
+	P4ITEM5000				- P4ITEM1 + 1,
+	P5ITEM5000				- P5ITEM1 + 1,
+	P6ITEM5000				- P6ITEM1 + 1,
+	P7ITEM5000				- P7ITEM1 + 1,
+	P8ITEM5000				- P8ITEM1 + 1,
+	P9ITEM5000				- P9ITEM1 + 1,
+	P10ITEM5000				- P10ITEM1 + 1
 
 };
 
@@ -943,6 +949,14 @@ void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEME
 	{
 		TileElement->uiFlags |= ROOF_TILE;
 	}
+}
+
+
+// Madd: sets the giNumberOfTiles variable
+void SetNumberOfTiles()
+{
+	giNumberOfTiles = P4ITEM1 + ((gGameExternalOptions.ubNumPItems - 3) * 5000);
+	giNumberOfTileTypes = P4ITEMS + (gGameExternalOptions.ubNumPItems - 3);
 }
 
 

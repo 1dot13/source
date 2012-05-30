@@ -648,7 +648,7 @@ void CreateTileDatabase( )
 	TILE_ELEMENT		TileElement;
 
 	// Loop through all surfaces and tiles and build database
-	for( cnt1 = 0; cnt1 < NUMBEROFTILETYPES; cnt1++ )
+	for( cnt1 = 0; cnt1 < giNumberOfTileTypes; cnt1++ )
 	{
 		// Get number of regions
 		TileSurf = gTileSurfaceArray[ cnt1 ];
@@ -657,7 +657,7 @@ void CreateTileDatabase( )
 		{
 
 			// Build start index list
-	 gTileTypeStartIndex[ cnt1 ] = (UINT16)gTileDatabaseSize;
+			gTileTypeStartIndex[ cnt1 ] = (UINT16)gTileDatabaseSize;
 
 			NumRegions = TileSurf->vo->usNumberOfObjects;
 
@@ -809,7 +809,7 @@ void DeallocateTileDatabase( )
 {
 	INT32 cnt;
 
-	for( cnt = 0; cnt < NUMBEROFTILES; cnt++ )
+	for( cnt = 0; cnt < giNumberOfTiles; cnt++ )
 	{
 		// Check if an existing set of animated tiles are in place, remove if found
 		if ( gTileDatabase[ cnt ].pAnimData != NULL )
@@ -1013,7 +1013,7 @@ BOOLEAN GetTypeSubIndexFromTileIndex( UINT32 uiCheckType, UINT16 usIndex, UINT16
 
 	*pusSubIndex = 0xffff;
 
-	CHECKF ( uiCheckType < NUMBEROFTILETYPES );
+	CHECKF ( uiCheckType < giNumberOfTileTypes );
 
 	*pusSubIndex = usIndex - gTileTypeStartIndex[ uiCheckType ] + 1;
 
@@ -1026,7 +1026,7 @@ BOOLEAN GetTypeSubIndexFromTileIndexChar( UINT32 uiCheckType, UINT16 usIndex, UI
 
 	// Tile database is zero-based, Type indecies are 1-based!
 
-	CHECKF ( uiCheckType < NUMBEROFTILETYPES );
+	CHECKF ( uiCheckType < giNumberOfTileTypes );
 
 	*pubSubIndex = (UINT8)(usIndex - gTileTypeStartIndex[ uiCheckType ] + 1);
 
@@ -1039,7 +1039,7 @@ BOOLEAN	GetTileIndexFromTypeSubIndex( UINT32 uiCheckType, UINT16 usSubIndex, UIN
 
 	*pusTileIndex = 0xffff;
 
-	CHECKF ( uiCheckType < NUMBEROFTILETYPES );
+	CHECKF ( uiCheckType < giNumberOfTileTypes );
 
 	*pusTileIndex = usSubIndex + gTileTypeStartIndex[ uiCheckType ] - 1;
 
@@ -1069,7 +1069,7 @@ BOOLEAN	GetTileType( UINT16 usIndex, UINT32 *puiType )
 	*puiType = 0xffffffff;
 
 	CHECKF( usIndex != NO_TILE );
-	CHECKF( usIndex < NUMBEROFTILES ); //lal bugfix
+	CHECKF( usIndex < giNumberOfTiles ); //lal bugfix
 
 	// Get tile element
 	TileElem = gTileDatabase[ usIndex ];
@@ -1086,7 +1086,7 @@ BOOLEAN	GetTileFlags( UINT16 usIndex, UINT32 *puiFlags )
   *puiFlags = 0;
 
 	CHECKF( usIndex != NO_TILE );
-	CHECKF( usIndex < NUMBEROFTILES );
+	CHECKF( usIndex < giNumberOfTiles );
 
 	// Get tile element
 	TileElem = gTileDatabase[ usIndex ];
@@ -1225,7 +1225,7 @@ BOOLEAN GetWallOrientation( UINT16 usIndex, UINT16 *pusWallOrientation )
   	*pusWallOrientation = 0xffff;
 
   CHECKF( usIndex != NO_TILE );
-	CHECKF( usIndex < NUMBEROFTILES ); //lal bugfix
+	CHECKF( usIndex < giNumberOfTiles ); //lal bugfix
 
 	// Get tile element
 	TileElem = gTileDatabase[ usIndex ];

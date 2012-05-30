@@ -123,7 +123,7 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 	UINT32					dbSize = 0;
 
 
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 	{
 
 		// Create video object
@@ -181,7 +181,7 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 	}
 
 	// NOW LOOP THROUGH AND CREATE DATABASE
-	for( cnt1 = 0; cnt1 < NUMBEROFTILETYPES; cnt1++ )
+	for( cnt1 = 0; cnt1 < giNumberOfTileTypes; cnt1++ )
 	{
 		// Get number of regions
 		s = gSmTileSurf[ cnt1 ];
@@ -241,7 +241,7 @@ void DeleteOverheadDB( )
 {
 	INT32 cnt;
 
-	for( cnt = 0; cnt < NUMBEROFTILETYPES; cnt++ )
+	for( cnt = 0; cnt < giNumberOfTileTypes; cnt++ )
 	{
 		DeleteVideoObject( gSmTileSurf[ cnt ].vo );
 	}
@@ -991,7 +991,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					while( pNode != NULL )
 					{
 
-						if ( pNode->usIndex < NUMBEROFTILES )
+						if ( pNode->usIndex < giNumberOfTiles )
 						{
 							// Don't render itempools!
 							if ( !( pNode->uiFlags & LEVELNODE_ITEM ) )
@@ -1026,7 +1026,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					pNode = gpWorldLevelData[ usTileIndex ].pShadowHead;
 					while( pNode != NULL )
 					{
-						if ( pNode->usIndex < NUMBEROFTILES )
+						if ( pNode->usIndex < giNumberOfTiles )
 						{
 							pTile = &( gSmTileDB[ pNode->usIndex ] );
 							sX = sTempPosX_S;
@@ -1047,7 +1047,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 
 					while( pNode != NULL )
 					{
-						if ( pNode->usIndex < NUMBEROFTILES )
+						if ( pNode->usIndex < giNumberOfTiles )
 						{
 							// Don't render itempools!
 							if ( !( pNode->uiFlags & LEVELNODE_ITEM ) )
@@ -1147,7 +1147,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					pNode = gpWorldLevelData[ usTileIndex ].pRoofHead;
 					while( pNode != NULL )
 					{
-						if ( pNode->usIndex < NUMBEROFTILES )
+						if ( pNode->usIndex < giNumberOfTiles )
 						{
 							if ( !( pNode->uiFlags & LEVELNODE_HIDDEN ) )
 							{
@@ -1951,7 +1951,7 @@ void CopyOverheadDBShadetablesFromTileset( )
 
 
 	// Loop through tileset
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 	{
 		pTileSurf = ( gTileSurfaceArray[ uiLoop ] );
 

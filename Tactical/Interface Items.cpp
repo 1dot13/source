@@ -9282,51 +9282,31 @@ UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem )
 UINT16 GetTileGraphicForItem( INVTYPE *pItem )
 {
 	UINT16 usIndex;
+	UINT8 ubGraphicType = pItem->ubGraphicType;
 
 	if ( pItem->ubClassIndex >= M900 )
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GetTileGraphicForItem: item %d graphic %d",pItem->ubClassIndex, pItem->ubGraphicNum));
 	// CHECK SUBCLASS
-	if ( pItem->ubGraphicType == 0 )
+
+	if ( ubGraphicType == 0 )
 	{
 		GetTileIndexFromTypeSubIndex( GUNS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
-	else if ( pItem->ubGraphicType == 1 )
+	else if ( ubGraphicType == 1 )
 	{
 		GetTileIndexFromTypeSubIndex( P1ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
-	else if ( pItem->ubGraphicType == 2 )
+	else if ( ubGraphicType == 2 )
 	{
 		GetTileIndexFromTypeSubIndex( P2ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
-	else if ( pItem->ubGraphicType == 3 )
+	else if ( ubGraphicType == 3 )
 	{
 		GetTileIndexFromTypeSubIndex( P3ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 	}
-	////MM: New item tileslots start here
-	//else if ( pItem->ubGraphicType == 4 )
-	//{
-	//	GetTileIndexFromTypeSubIndex( P4ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	//}
-	//else if ( pItem->ubGraphicType == 5 )
-	//{
-	//	GetTileIndexFromTypeSubIndex( P5ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	//}
-	//else if ( pItem->ubGraphicType == 6 )
-	//{
-	//	GetTileIndexFromTypeSubIndex( P6ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	//}
-	//else if ( pItem->ubGraphicType == 7 )
-	//{
-	//	GetTileIndexFromTypeSubIndex( P7ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	//}
-	//else if ( pItem->ubGraphicType == 8 )
-	//{
-	//	GetTileIndexFromTypeSubIndex( P8ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	//}
-	//else
-	//{
-	//	GetTileIndexFromTypeSubIndex( P9ITEMS, (INT16)(pItem->ubGraphicNum+1), &usIndex );
-	//}
+	//MM: New item tileslots start here
+	else 
+		GetTileIndexFromTypeSubIndex( P4ITEMS + ubGraphicType - 4, (INT16)(pItem->ubGraphicNum+1), &usIndex );
 
 
 	if ( pItem->ubClassIndex >= M900  )

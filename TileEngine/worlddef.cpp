@@ -292,6 +292,8 @@ BOOLEAN InitializeWorld( )
 	giOldTilesetUsed = -1;
 	#endif
 
+	SetNumberOfTiles();
+
 	// DB Adds the _8 to the names if we're in 8 bit mode.
 	//ProcessTilesetNamesForBPP();
 
@@ -399,7 +401,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	}
 	else
 	{
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 			strcpy( TileSurfaceFilenames[uiLoop], ppTileSurfaceFilenames[uiLoop] );//(ppTileSurfaceFilenames + (65 * uiLoop)) );
 	}
 
@@ -413,7 +415,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	//uiFillColor = Get16BPPColor(FROMRGB( 100, 0, 0 ));
 	// load the tile surfaces
 	SetRelativeStartAndEndPercentage( 0, 1, 35, L"Tile Surfaces" );
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 	{
 	
 	
@@ -431,7 +433,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 			gbDefaultSurfaceUsed[ uiLoop ] = FALSE;
 		}
 	#endif
-		uiPercentage = (uiLoop * 100) / (NUMBEROFTILETYPES-1);
+		uiPercentage = (uiLoop * 100) / (giNumberOfTileTypes-1);
 		RenderProgressBar( 0, uiPercentage );
 
 		//uiFillColor = Get16BPPColor(FROMRGB( 100 + uiPercentage , 0, 0 ));
@@ -672,7 +674,7 @@ void BuildTileShadeTables(  )
 		memset( gbNewTileSurfaceLoaded, 1, sizeof( gbNewTileSurfaceLoaded ) );
 	}
 
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 	{
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
@@ -695,7 +697,7 @@ void BuildTileShadeTables(  )
 					#ifdef JA2TESTVERSION
 						uiNumImagesReloaded++;
 					#endif
-					RenderProgressBar( 0, uiLoop * 100 / NUMBEROFTILETYPES );
+					RenderProgressBar( 0, uiLoop * 100 / giNumberOfTileTypes );
 					CreateTilePaletteTables( gTileSurfaceArray[ uiLoop ]->vo, uiLoop, fForceRebuildForSlot );
 				}
 		}
@@ -718,7 +720,7 @@ void DestroyTileShadeTables( )
 {
 	UINT32					uiLoop;
 
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 	{
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
@@ -742,7 +744,7 @@ void DestroyTileSurfaces( )
 {
 	UINT32					uiLoop;
 
-	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
+	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
 	{
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
@@ -786,7 +788,7 @@ void CompileWorldTerrainIDs( void )
 				}
 			}
 
-			if (pNode == NULL || pNode->usIndex >= NUMBEROFTILES || gTileDatabase[ pNode->usIndex ].ubTerrainID == NO_TERRAIN)
+			if (pNode == NULL || pNode->usIndex >= giNumberOfTiles || gTileDatabase[ pNode->usIndex ].ubTerrainID == NO_TERRAIN)
 			{	// Try terrain instead!
 				pNode = gpWorldLevelData[ sGridNo ].pLandHead;
 			}
@@ -3618,7 +3620,7 @@ BOOLEAN SaveMapTileset( INT32 iTilesetID )
 	}
 
 	// Save current tile set in map file.
-	for ( cnt = 0; cnt < NUMBEROFTILETYPES; cnt++ )
+	for ( cnt = 0; cnt < giNumberOfTileTypes; cnt++ )
 		FileWrite( hTSet, TileSurfaceFilenames[cnt], 65, &uiBytesWritten );
 	FileClose( hTSet );
 
@@ -3953,7 +3955,7 @@ void RemoveWireFrameTiles( INT32 sGridNo )
 	{
 		pNewTopmost = pTopmost->pNext;
 
-		if ( pTopmost->usIndex < NUMBEROFTILES )
+		if ( pTopmost->usIndex < giNumberOfTiles )
 		{
 			pTileElement = &(gTileDatabase[ pTopmost->usIndex ]);
 

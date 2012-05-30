@@ -88,6 +88,8 @@ enum
 
 	TOPTION_DISABLE_CURSOR_SWAP,				// Disable cursor swapping every second between talk and quick exchange
 	TOPTION_QUIET_TRAINING,						//Madd: mercs don't say gained experience quote while training
+	TOPTION_QUIET_REPAIRING,					//Madd: mercs don't say gained experience quote while repairing items
+	TOPTION_QUIET_DOCTORING,					//Madd: mercs don't say gained experience quote while doctoring
 	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
 	TOPTION_ZOMBIES,							// Flugente Zombies 1.0: allow zombies	
 
@@ -1106,6 +1108,8 @@ typedef struct
 	BOOLEAN gEncyclopedia;
 			
 	UINT8	ubMapItemChanceOverride;				//Madd: special map override, mostly for debugging
+	UINT8	ubNumPItems;							//Madd: set number of PItem files to be used - default 3
+	BOOLEAN	fUseXmlTileSets;						//Madd: move this variable here, it should be mod dependent
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct

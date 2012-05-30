@@ -130,7 +130,7 @@ BOOLEAN TypeExistsInLevel( LEVELNODE *pStartNode, UINT32 fType, UINT16 *pusIndex
 	while( pStartNode != NULL )
 	{
 
-		if ( pStartNode->usIndex != NO_TILE && pStartNode->usIndex < NUMBEROFTILES )
+		if ( pStartNode->usIndex != NO_TILE && pStartNode->usIndex < giNumberOfTiles )
 		{
 			GetTileType( pStartNode->usIndex, &fTileType );
 
@@ -369,7 +369,7 @@ BOOLEAN TypeRangeExistsInObjectLayer( INT32 iMapIndex, UINT32 fStartType, UINT32
 		pOldObject = pObject;
 		pObject = pObject->pNext;
 
-		if ( pOldObject->usIndex != NO_TILE && pOldObject->usIndex < NUMBEROFTILES )
+		if ( pOldObject->usIndex != NO_TILE && pOldObject->usIndex < giNumberOfTiles )
 		{
 			GetTileType( pOldObject->usIndex, &fTileType );
 
@@ -442,7 +442,7 @@ BOOLEAN RemoveAllObjectsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 		pOldObject = pObject;
 		pObject = pObject->pNext;
 
-		if ( pOldObject->usIndex != NO_TILE && pOldObject->usIndex < NUMBEROFTILES )
+		if ( pOldObject->usIndex != NO_TILE && pOldObject->usIndex < giNumberOfTiles )
 		{
 
 			GetTileType( pOldObject->usIndex, &fTileType );
@@ -525,7 +525,7 @@ BOOLEAN AddLandToHead( INT32 iMapIndex, UINT16 usIndex )
 	pNextLand->usIndex			= usIndex;
 	pNextLand->ubShadeLevel		= LightGetAmbient();
 
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		// Get tile element
 		TileElem = gTileDatabase[ usIndex ];
@@ -629,7 +629,7 @@ BOOLEAN AdjustForFullTile( INT32 iMapIndex )
 
 	while( pLand != NULL )
 	{
-		if ( pLand->usIndex < NUMBEROFTILES )
+		if ( pLand->usIndex < giNumberOfTiles )
 		{
 			// If this is a full tile, set new full tile
 			TileElem = gTileDatabase[ pLand->usIndex ];
@@ -1101,7 +1101,7 @@ LEVELNODE *AddStructToTailCommon( INT32 iMapIndex, UINT16 usIndex, BOOLEAN fAddS
 
 		if ( fAddStructDBInfo )
 		{
-			if ( usIndex < NUMBEROFTILES )
+			if ( usIndex < giNumberOfTiles )
 			{
 				if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 				{
@@ -1138,7 +1138,7 @@ LEVELNODE *AddStructToTailCommon( INT32 iMapIndex, UINT16 usIndex, BOOLEAN fAddS
 
 		if ( fAddStructDBInfo )
 		{
-			if ( usIndex < NUMBEROFTILES )
+			if ( usIndex < giNumberOfTiles )
 			{
 
 				if (gTileDatabase[usIndex].pDBStructureRef != NULL)
@@ -1163,7 +1163,7 @@ LEVELNODE *AddStructToTailCommon( INT32 iMapIndex, UINT16 usIndex, BOOLEAN fAddS
 	}
 
 	// Check flags for tiledat and set a shadow if we have a buddy
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		if ( !GridNoIndoors( iMapIndex ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
 		{
@@ -1210,7 +1210,7 @@ BOOLEAN AddStructToHead( INT32 iMapIndex, UINT16 usIndex )
 
 	CHECKF( CreateLevelNode( &pNextStruct ) != FALSE );
 
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 		{
@@ -1231,7 +1231,7 @@ BOOLEAN AddStructToHead( INT32 iMapIndex, UINT16 usIndex )
 
 	SetWorldFlagsFromNewNode( iMapIndex, pNextStruct->usIndex );
 
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		// Check flags for tiledat and set a shadow if we have a buddy
 		if ( !GridNoIndoors( iMapIndex ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
@@ -1311,7 +1311,7 @@ BOOLEAN InsertStructIndex( INT32 iMapIndex, UINT16 usIndex, UINT8 ubLevel )
 		return( FALSE );
 	}
 
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 		{
@@ -1391,7 +1391,7 @@ BOOLEAN RemoveStructFromTailCommon( INT32 iMapIndex, BOOLEAN fRemoveStructDBInfo
 			MemFree( pStruct );
 			guiLevelNodes--;
 
-			if ( usIndex < NUMBEROFTILES )
+			if ( usIndex < giNumberOfTiles )
 			{
 				// Check flags for tiledat and set a shadow if we have a buddy
 				if ( !GridNoIndoors( iMapIndex ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
@@ -1454,7 +1454,7 @@ BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex )
 			//If we have to, make sure to remove this node when we reload the map from a saved game
 			RemoveStructFromMapTempFile( iMapIndex, usIndex );
 
-			if ( usIndex < NUMBEROFTILES )
+			if ( usIndex < giNumberOfTiles )
 			{
 				// Check flags for tiledat and set a shadow if we have a buddy
 				if ( !GridNoIndoors( iMapIndex ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
@@ -1515,7 +1515,7 @@ BOOLEAN RemoveStructFromLevelNode( INT32 iMapIndex, LEVELNODE *pNode )
 			//If we have to, make sure to remove this node when we reload the map from a saved game
 			RemoveStructFromMapTempFile( iMapIndex, usIndex );
 
-			if ( pNode->usIndex < NUMBEROFTILES )
+			if ( pNode->usIndex < giNumberOfTiles )
 			{
 				// Check flags for tiledat and set a shadow if we have a buddy
 				if ( !GridNoIndoors( iMapIndex ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
@@ -1571,7 +1571,7 @@ BOOLEAN RemoveAllStructsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 				usIndex = pOldStruct->usIndex;
 
 				// Remove Item
-				if ( usIndex < NUMBEROFTILES )
+				if ( usIndex < giNumberOfTiles )
 				{
 					RemoveStruct( iMapIndex, pOldStruct->usIndex );
 					fRetVal = TRUE;
@@ -2411,7 +2411,7 @@ LEVELNODE *AddRoofToTail( INT32 iMapIndex, UINT16 usIndex )
 	{
 		CHECKF( CreateLevelNode( &pRoof ) != FALSE );
 
-		if ( usIndex < NUMBEROFTILES )
+		if ( usIndex < giNumberOfTiles )
 		{
 			if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 			{
@@ -2438,7 +2438,7 @@ LEVELNODE *AddRoofToTail( INT32 iMapIndex, UINT16 usIndex )
 			{
 				CHECKF( CreateLevelNode( &pNextRoof ) != FALSE );
 
-				if ( usIndex < NUMBEROFTILES )
+				if ( usIndex < giNumberOfTiles )
 				{
 					if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 					{
@@ -2481,7 +2481,7 @@ BOOLEAN AddRoofToHead( INT32 iMapIndex, UINT16 usIndex )
 
 	CHECKF( CreateLevelNode( &pNextRoof ) != FALSE );
 
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 		{
@@ -2769,7 +2769,7 @@ LEVELNODE *AddOnRoofToTail( INT32 iMapIndex, UINT16 usIndex )
 	{
 		CHECKF( CreateLevelNode( &pOnRoof ) != FALSE );
 
-		if ( usIndex < NUMBEROFTILES )
+		if ( usIndex < giNumberOfTiles )
 		{
 			if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 			{
@@ -2798,7 +2798,7 @@ LEVELNODE *AddOnRoofToTail( INT32 iMapIndex, UINT16 usIndex )
 			{
 				CHECKF( CreateLevelNode( &pNextOnRoof ) != FALSE );
 
-				if ( usIndex < NUMBEROFTILES )
+				if ( usIndex < giNumberOfTiles )
 				{
 					if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 					{
@@ -2838,7 +2838,7 @@ BOOLEAN AddOnRoofToHead( INT32 iMapIndex, UINT16 usIndex )
 	pOnRoof = gpWorldLevelData[ iMapIndex ].pOnRoofHead;
 
 	CHECKF( CreateLevelNode( &pNextOnRoof ) != FALSE );
-	if ( usIndex < NUMBEROFTILES )
+	if ( usIndex < giNumberOfTiles )
 	{
 		if (gTileDatabase[usIndex].pDBStructureRef != NULL)
 		{
@@ -3226,7 +3226,7 @@ BOOLEAN RemoveAllTopmostsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32
 		pOldTopmost = pTopmost;
 		pTopmost = pTopmost->pNext;
 
-		if ( pOldTopmost->usIndex != NO_TILE && pOldTopmost->usIndex < NUMBEROFTILES )
+		if ( pOldTopmost->usIndex != NO_TILE && pOldTopmost->usIndex < giNumberOfTiles )
 		{
 			GetTileType( pOldTopmost->usIndex, &fTileType );
 

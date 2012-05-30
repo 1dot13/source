@@ -9512,7 +9512,24 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 			if ( _KeyDown(CTRL) )
 			{
-				CleanUpStack( &( pSoldier->inv[ uiHandPos ] ), gpItemPointer );
+				if ( pSoldier->inv[ uiHandPos ].exists() && gpItemPointer->exists() )
+				{
+					if (pSoldier->inv[ uiHandPos ].usItem == gpItemPointer->usItem)
+						CleanUpStack( &( pSoldier->inv[ uiHandPos ] ), gpItemPointer );
+					else //Madd: attach / merge object, merge only works on single objects for now
+					{
+						UINT8 cnt = pSoldier->inv[ uiHandPos ].ubNumberOfObjects;
+						if ( gpItemPointer->ubNumberOfObjects < cnt ) 
+							cnt = gpItemPointer->ubNumberOfObjects;
+						
+						for (UINT8 i = 0; i<cnt;i++)
+						{
+							pSoldier->inv[ uiHandPos ].AttachObject(pSoldier,gpItemPointer,TRUE,i);
+						}
+
+					}
+				}
+
 				if ( gpItemPointer->exists() == false )
 				{
 					MAPEndItemPointer( );

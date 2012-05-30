@@ -19,6 +19,7 @@
 #include <vfs/Core/vfs_file_raii.h>
 #include "XML_TileSet.hpp"
 #include "XMLWriter.h"
+#include "GameSettings.h"
 
 void ExportTilesets(vfs::Path const& filename);
 
@@ -34,10 +35,10 @@ UINT8 gubNumSets = MAX_TILESETS;
 
 TILESET	gTilesets[ MAX_TILESETS ];
 
-extern bool g_bUseXML_Tilesets;
+//extern bool g_bUseXML_Tilesets;
 void InitEngineTilesets( )
 {
-	if(g_bUseXML_Tilesets)
+	if(gGameExternalOptions.fUseXmlTileSets)
 	{
 		const vfs::Path tileset_filename(L"Ja2Set.dat.xml");
 		if(!getVFS()->fileExists(tileset_filename))
@@ -84,7 +85,7 @@ void InitEngineTilesets( )
 		FileRead( hfile, &uiNumFiles, sizeof( uiNumFiles ), &uiNumBytesRead );
 
 		// COMPARE
-		if ( uiNumFiles != NUMBEROFTILETYPES )
+		if ( uiNumFiles != giNumberOfTileTypes )
 		{
 			// Report error
 			SET_ERROR( "Number of tilesets slots in code does not match data file" );
@@ -174,7 +175,7 @@ void ExportTilesets(vfs::Path const& filename)
 	FileRead( hfile, &numFiles, sizeof( numFiles ), &uiNumBytesRead );
 
 	// COMPARE
-	SGP_THROW_IFFALSE( numFiles == NUMBEROFTILETYPES,
+	SGP_THROW_IFFALSE( numFiles == giNumberOfTileTypes,
 		L"Number of tilesets slots in code does not match data file" );
 
 	xmlw.addAttributeToNextValue("numFiles",(int)numFiles);
