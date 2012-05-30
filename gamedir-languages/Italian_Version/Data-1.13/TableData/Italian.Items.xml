@@ -12309,7 +12309,15 @@
 		<szItemName>Stim</szItemName>
 		<szLongItemName>Stim Drug</szLongItemName>
 		<szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
-		<szBRName>Stim  Drug</szBRName>
+		<szBRName>Stim Drug</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>		
 	</ITEM>
+  <ITEM>
+    <uiIndex>1539</uiIndex>
+    <szItemName>Antidote</szItemName>
+    <szLongItemName>Antidote</szLongItemName>
+    <szItemDesc>This antidote can cure poison over time. WARNING: May cause temporary blindness and a severe migraine.</szItemDesc>
+    <szBRName>Antidote</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>    
+  </ITEM>
 </ITEMLIST>
