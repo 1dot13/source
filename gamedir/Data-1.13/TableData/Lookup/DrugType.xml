@@ -96,4 +96,12 @@
 		<id>425984</id>
 		<name>Occulin</name>
 	</DrugType>
+	<DrugType>
+		<id>1048576</id>
+		<name>Cure</name>
+	</DrugType>
+	<DrugType>
+		<id>1081324</id>
+		<name>Cure+Regen+Dmg Resist+Agl+Dex+Wis+Per+Psycho+Nerv+Claus+Heat Int+Fear Ins+Forget</name>
+	</DrugType>
 </JA2Data>
