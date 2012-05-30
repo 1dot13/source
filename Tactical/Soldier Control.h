@@ -20,7 +20,7 @@
 #define PTR_STANDING	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND)
 #define PTR_PRONE	 (gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE)
 
-#define DRUG_TYPE_MAX	20
+#define DRUG_TYPE_MAX	32
 
 // TEMP VALUES FOR NAMES
 #define MAXCIVLASTNAMES		30

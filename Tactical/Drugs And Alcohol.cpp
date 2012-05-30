@@ -495,6 +495,24 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 				pSoldier->iHealableInjury += (applieddamage * 100);
 			}
 		}
+
+		// if we took an antidote, reduce poisoning
+		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_CUREPOISON ] > 0 )
+		{
+			if (  pSoldier->bPoisonSum > 0 )
+			{
+				if ( pSoldier->bPoisonBleeding > 0 )
+				{
+					pSoldier->bPoisonBleeding--;
+				}
+				else if ( pSoldier->bPoisonLife > 0 )
+				{
+					pSoldier->bPoisonLife--;
+				}
+
+				pSoldier->bPoisonSum--;
+			}
+		}
 	}
 }
 
