@@ -12,6 +12,15 @@
 		<nasAttachmentClass>0</nasAttachmentClass>
 		<nasLayoutClass>0</nasLayoutClass>
 		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
 		<AttachmentPoint>0</AttachmentPoint>
 		<AttachToPointAPCost>0</AttachToPointAPCost>
 		<ubClassIndex>0</ubClassIndex>
@@ -38,6 +47,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
 		<HiddenAttachment>0</HiddenAttachment>
+		<BlockIronSight>0</BlockIronSight>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -81,16 +91,6 @@
 		<DiscardedLauncherItem>0</DiscardedLauncherItem>
 		<RocketRifle>0</RocketRifle>
 		<Cannon>0</Cannon>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
 		<DefaultAttachment>0</DefaultAttachment>
 		<DefaultAttachment>0</DefaultAttachment>
 		<DefaultAttachment>0</DefaultAttachment>

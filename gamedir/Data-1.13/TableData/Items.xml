@@ -12,6 +12,15 @@
 		<nasAttachmentClass>0</nasAttachmentClass>
 		<nasLayoutClass>0</nasLayoutClass>
 		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
+		<AvailableAttachmentPoint>0</AvailableAttachmentPoint>
 		<AttachmentPoint>0</AttachmentPoint>
 		<AttachToPointAPCost>0</AttachToPointAPCost>
 		<ubClassIndex>0</ubClassIndex>
@@ -38,6 +47,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
 		<HiddenAttachment>0</HiddenAttachment>
+		<BlockIronSight>0</BlockIronSight>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -81,16 +91,6 @@
 		<DiscardedLauncherItem>0</DiscardedLauncherItem>
 		<RocketRifle>0</RocketRifle>
 		<Cannon>0</Cannon>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
-		<DefaultAttachment>0</DefaultAttachment>
 		<DefaultAttachment>0</DefaultAttachment>
 		<DefaultAttachment>0</DefaultAttachment>
 		<DefaultAttachment>0</DefaultAttachment>
@@ -165,7 +165,6 @@
 		<overheatCooldownModificator>0.0</overheatCooldownModificator>
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
-		<BlockIronSight>0</BlockIronSight>
 		<PoisonPercentage>0</PoisonPercentage>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
@@ -8884,7 +8883,7 @@
 		<uiIndex>310</uiIndex>
 		<szItemName>Extender</szItemName>
 		<szLongItemName>Gun Barrel Extender</szLongItemName>
-		<szItemDesc>attach this nifty chunk of hardware to any gun barrel and watch your range soar.</szItemDesc>
+		<szItemDesc>Attach this nifty chunk of hardware to any gun barrel and watch your range soar.</szItemDesc>
 		<szBRName>Gun Barrel Extender</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -43135,7 +43134,7 @@
 		<ubGraphicNum>811</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>375</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
@@ -43159,7 +43158,7 @@
 		<ubGraphicNum>812</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>250</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
@@ -43183,7 +43182,7 @@
 		<ubGraphicNum>811</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>336</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
@@ -43209,7 +43208,7 @@
 		<ubGraphicNum>812</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>225</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
@@ -43235,7 +43234,7 @@
 		<ubGraphicNum>813</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>875</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
@@ -43260,7 +43259,7 @@
 		<ubGraphicNum>814</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
@@ -43288,7 +43287,7 @@
 		<ubGraphicNum>815</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>20</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>750</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
