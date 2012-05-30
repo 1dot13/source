@@ -45723,5 +45723,33 @@
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
-	</ITEM>
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1539</uiIndex>
+		<szItemName>Antidote</szItemName>
+		<szLongItemName>Antidote</szLongItemName>
+		<szItemDesc>This antidote can cure poison over time.                               WARNING: May cause temporary blindness and a severe migraine.</szItemDesc>
+		<szBRName>Antidote</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>150</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<Unaerodynamic>1</Unaerodynamic>
+		<Medical>1</Medical>
+		<DrugType>1081324</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>	
 </ITEMLIST>
