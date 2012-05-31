@@ -820,6 +820,7 @@ void EndMeanwhile( )
 	{
 		// We leave this sector open for our POWs to escape!
 		// Set music mode to enemy present!
+		UseCreatureMusic(HostileZombiesPresent());
 		SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 	// ATE: Restore people to saved positions...

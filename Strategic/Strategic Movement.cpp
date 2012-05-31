@@ -959,6 +959,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	}
 
 	//Set music
+	UseCreatureMusic(HostileZombiesPresent());
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 	if( gfTacticalTraversal && pInitiatingBattleGroup == gpTacticalTraversalGroup ||

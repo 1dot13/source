@@ -301,10 +301,10 @@ BOOLEAN InitializeWorld( )
 	memset( TileSurfaceFilenames, '\0', sizeof( TileSurfaceFilenames ) );
 
 	// ATE: MEMSET LOG HEIGHT VALUES
-	memset( gTileTypeLogicalHeight, 1, sizeof( gTileTypeLogicalHeight ) );
+	memset( gTileTypeLogicalHeight, 1, sizeof( gTileTypeLogicalHeight) );
 
 	// Memset tile database
-	memset( gTileDatabase, 0, sizeof( gTileDatabase ) );
+	memset( gTileDatabase, 0, sizeof(gTileDatabase) ); 
 
 	// Init surface list
 	memset( gTileSurfaceArray, 0, sizeof( gTileSurfaceArray ) );

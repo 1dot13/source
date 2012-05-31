@@ -579,8 +579,6 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	*pubID = NOBODY;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("TacticalCreateSoldier"));
 
-
-
 	INT8 tbTeam;
 	BOOLEAN tfPP;
 	tbTeam=pCreateStruct->bTeam;

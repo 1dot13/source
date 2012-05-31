@@ -362,6 +362,8 @@ void DoPOWPathChecks( void );
 BOOLEAN HostileCiviliansWithGunsPresent( void );
 BOOLEAN HostileCiviliansPresent( void );
 BOOLEAN HostileBloodcatsPresent( void );
+BOOLEAN HostileZombiesPresent( void );
+
 UINT8 NumPCsInSector( void );
 
 void SetSoldierNonNeutral( SOLDIERTYPE * pSoldier );

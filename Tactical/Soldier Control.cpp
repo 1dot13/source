@@ -10687,7 +10687,7 @@ BOOLEAN CheckForFullStruct( INT32 sGridNo, UINT16 *pusIndex  )
 	while( pStruct != NULL )
 	{
 
-		if ( pStruct->usIndex != NO_TILE && pStruct->usIndex < NUMBEROFTILES )
+		if ( pStruct->usIndex != NO_TILE && pStruct->usIndex < giNumberOfTiles )
 		{
 
 			GetTileFlags( pStruct->usIndex, &fTileFlags );

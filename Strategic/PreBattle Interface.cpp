@@ -867,6 +867,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//Disable the options button when the auto resolve	screen comes up
 	EnableDisAbleMapScreenOptionsButton( FALSE );
 
+	UseCreatureMusic(HostileZombiesPresent());
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 #ifdef JA2UB	

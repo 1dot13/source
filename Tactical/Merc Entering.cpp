@@ -908,6 +908,7 @@ void HandleFirstHeliDropOfGame( )
 			// Say quote.....
 			SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
 			// Start music
+			UseCreatureMusic(HostileZombiesPresent());
 			SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 		}
 		else

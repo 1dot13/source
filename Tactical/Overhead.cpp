@@ -6181,6 +6181,7 @@ void ExitCombatMode( )
 	// unused
 	//gfForceMusicToTense = TRUE;
 
+	UseCreatureMusic(HostileZombiesPresent());
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 	BetweenTurnsVisibilityAdjustments();
@@ -6239,6 +6240,7 @@ void SetEnemyPresence( )
 
 #endif
 		{
+			UseCreatureMusic(HostileZombiesPresent());
 			SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
 			sniperwarning = FALSE;
@@ -6576,6 +6578,7 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 		// Begin tense music....
 		// unused
 		//gfForceMusicToTense = TRUE;
+		UseCreatureMusic(HostileZombiesPresent());
 		SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 		return( TRUE );
@@ -9276,6 +9279,28 @@ BOOLEAN HostileBloodcatsPresent( void )
 	return( FALSE );
 }
 
+BOOLEAN HostileZombiesPresent( void )
+{
+	INT32						iLoop;
+	SOLDIERTYPE *		pSoldier;
+	
+	if ( gTacticalStatus.Team[ CREATURE_TEAM ].bTeamActive == FALSE )
+	{
+		return( FALSE );
+	}
+
+	for ( iLoop = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; iLoop++ )
+	{
+		pSoldier = MercPtrs[ iLoop ];
+
+		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->IsZombie() )
+		{
+			return( TRUE );
+		}
+	}
+
+	return( FALSE );
+}
 
 void HandleCreatureTenseQuote( )
 {
