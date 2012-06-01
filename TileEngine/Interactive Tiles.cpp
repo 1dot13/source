@@ -203,7 +203,6 @@ BOOLEAN SoldierHandleInteractiveObject( SOLDIERTYPE *pSoldier )
 	UINT16				usStructureID;
 	INT32 sGridNo;
 
-
 	sGridNo					= pSoldier->aiData.sPendingActionData2;
 	usStructureID		= (UINT16)pSoldier->aiData.uiPendingActionData1;
 

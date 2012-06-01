@@ -35,6 +35,7 @@
 	#include "Game Clock.h"
 	#include "Init.h"
 	#include "displaycover.h"
+	#include "InterfaceItemImages.h"
 #endif
 
 #include "KeyMap.h"
@@ -678,7 +679,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fUseXmlTileSets				= iniReader.ReadBoolean("Data File Settings","USE_XML_TILESETS", FALSE);
 
 	//Madd: set number of pItem files to be used
-	gGameExternalOptions.ubNumPItems					= iniReader.ReadInteger("Data File Settings","NUM_P_ITEMS", 3, 3, 10);
+	gGameExternalOptions.ubNumPItems					= iniReader.ReadInteger("Data File Settings","NUM_P_ITEMS", 3, 3, MAX_PITEMS);
 
 	//################# Merc Recruitment Settings #################
 
