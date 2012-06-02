@@ -45745,7 +45745,7 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>1081324</DrugType>
+		<DrugType>1081344</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
