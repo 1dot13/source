@@ -755,7 +755,7 @@ INT32 CalcThreateningEffectiveness( UINT8 ubMerc )
 		return( 0 );
 	}
 
-	iStrength = EffectiveStrength( pSoldier );
+	iStrength = EffectiveStrength( pSoldier, TRUE );
 
 	if ( Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass & IC_WEAPON )
 	{

@@ -5098,13 +5098,11 @@ STR16		zOptionsToggleText[] =
 	L"允许显示敌军装备",	// Show Soldier Tooltips
 	L"自动存盘",	//"Auto save",
 	L"沉默的Skyrider",	//"Silent Skyrider",
-	//L"降低CPU的使用率",	//"Low CPU usage",
 	L"增强属性框(EDB)", //L"Enhanced Description Box",
 	L"强制回合制模式",						// add forced turn mode
 	L"属性进度条",	//L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
-	//L"开启新的瞄准系统(NCTH)",				// use NCTH
 	L"显示佣兵军衔",	// shows mercs ranks
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
@@ -5114,7 +5112,6 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
 	L"Allow Zombies",				// TODO.Translate
-	//L"武器过热",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5210,21 +5207,20 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，把光标定位在敌人身上并且按下 |A|l|t 键会显示敌兵装备信息窗口。",
 	L"打开时，游戏将在玩家回合后自动存盘",
 	L"打开时，Skyrider保持沉默。",
-	//L"打开时，游戏将使用更少的CPU资源。",
 	L"打开时，使用物品及武器的“增强描述框”（EDB）。",
 	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键 |C|T|R|L+|S|H|I|F|T+|A|L|T+|T 来控制打开或关闭强制回合制模式）",
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时, 战略地图将会根据探索状态显示不同的着色。",
 	L"打开时, 当你射击时会显示间隔子弹图像。",
-	//L"打开时, 使用新命中率系统（NCTH）和光标。",
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时, 显示佣兵脸部装备图。",
 	L"打开时, 佣兵肖像右下角显示脸部装备图标",
 	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
 	L"When ON, mercs will not report progress during training.", //TODO.Translate
+	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
+	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"打开时，敌军回合将被大幅加速。",
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
-	//L"打开时，武器连续射击时温度逐渐升高引起过热。",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

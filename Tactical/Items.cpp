@@ -3042,7 +3042,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	UINT32	uiTotalWeight = 0;
 	UINT32	uiPercent;
 	UINT8		ubLoop;
-	UINT16		ubStrengthForCarrying;
+	UINT32		ubStrengthForCarrying;
 
 	//Pulmu: Changes for dynamic ammo weight
 	for( ubLoop = 0; ubLoop < pSoldier->inv.size(); ubLoop++)
@@ -3053,7 +3053,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
 	// instead of multiplying by 100 for percent, and then dividing by 10 to account
 	// for weight units being in 10ths of kilos, not kilos... we just start with 10 instead of 100!
-	ubStrengthForCarrying = EffectiveStrength( pSoldier );
+	ubStrengthForCarrying = EffectiveStrength( pSoldier, FALSE );
 	if ( ubStrengthForCarrying > 80 )
 	{
 		ubStrengthForCarrying += (ubStrengthForCarrying - 80);
@@ -12991,17 +12991,17 @@ INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 	if ( gGameOptions.fWeaponOverheating )
 	{
 		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObj );
-		FLOAT accuracymalus = (max((FLOAT)1.0, overheatdamagepercentage) - (FLOAT)1.0) * 0.1;
-		accuracyheatmultiplicator = max((FLOAT)0.0, (FLOAT)1.0 - accuracymalus);
+		FLOAT accuracymalus = (max(1.0f, overheatdamagepercentage) - 1.0f) * 0.1;
+		accuracyheatmultiplicator = max(0.0f, 1.0f - accuracymalus);
 	}
 
 	if(UsingNewCTHSystem() == false)
-		return(accuracyheatmultiplicator * Weapon[pObj->usItem].bAccuracy);
+		return( (INT32)(accuracyheatmultiplicator * Weapon[pObj->usItem].bAccuracy) );
 
 	INT32 bonus = 0;
 	if ( pObj->exists() == true )
 	{
-		bonus = accuracyheatmultiplicator * Weapon[Item[pObj->usItem].uiIndex].nAccuracy;
+		bonus = (INT32)(accuracyheatmultiplicator * Weapon[Item[pObj->usItem].uiIndex].nAccuracy);
 		bonus = (bonus * (*pObj)[0]->data.gun.bGunStatus) / 100;
 
 		INT32 iModifier = GetAccuracyModifier( pObj );
@@ -13487,7 +13487,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	UINT16 usOrigItem = this->usItem;
 	UINT32 uiOrigClass = Item[this->usItem].usItemClass;
 	UINT8 ubOrigNumObjects = this->ubNumberOfObjects;
-	UINT8 ubOrigStatus = (*this)[ubStatusIndex]->data.objectStatus; //Madd: moved this up here, since it was getting corrupted when applied to multiple results -- all statuses were coming back as 0
+	INT16 ubOrigStatus = (*this)[ubStatusIndex]->data.objectStatus; //Madd: moved this up here, since it was getting corrupted when applied to multiple results -- all statuses were coming back as 0
 	
 	UINT16 usAPCost = 0;
 	INT32 iBPCost = 0;

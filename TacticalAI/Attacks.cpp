@@ -1873,14 +1873,14 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	if (fBladeAttack)
 	{
 		iImpact = GetDamage(&pSoldier->inv[HANDPOS]);
-		iImpact += EffectiveStrength( pSoldier ) / 20; // 0 to 5 for strength, adjusted by damage taken
+		iImpact += EffectiveStrength( pSoldier, FALSE ) / 20; // 0 to 5 for strength, adjusted by damage taken
 	}
 	else
 	{
 		// this all was a little changed for enhanced close combat system - SANDRO
 		if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
 		{
-			iImpact = EffectiveStrength( pSoldier ) / 5; // 0 to 20 for strength, adjusted by damage taken
+			iImpact = EffectiveStrength( pSoldier, FALSE ) / 5; // 0 to 20 for strength, adjusted by damage taken
 
 			if ( pSoldier->usAttackingWeapon )
 			{
@@ -1909,7 +1909,7 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 				// base HTH damage
 				iImpact = 5;
 			}
-			iImpact += EffectiveStrength( pSoldier ) / 5; // 0 to 20 for strength, adjusted by damage taken
+			iImpact += EffectiveStrength( pSoldier, FALSE ) / 5; // 0 to 20 for strength, adjusted by damage taken
 		}
 	}
 

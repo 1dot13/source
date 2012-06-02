@@ -1914,9 +1914,9 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	//	2 * this->stats.bLifeMax   +
 	//	2 * EffectiveDexterity( this ) ) + 20) / 40);
 	ubPoints = 20 + (((10 * EffectiveExpLevel( this ) +
-		3 * EffectiveAgility( this )   +
+		3 * EffectiveAgility( this, FALSE )   +
 		2 * this->stats.bLifeMax   +
-		2 * EffectiveDexterity( this ) ) + 5) / 10);
+		2 * EffectiveDexterity( this, FALSE ) ) + 5) / 10);
 
 	//if (GameOption[INCREASEDAP] % 2 == 1)
 	//points += APBPConstants[AP_INCREASE];
@@ -7063,6 +7063,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		this->aiData.bUnderFire--;
 	}
 
+	// Flugente: reset extra stats. Currently they only depend on drug effects, and those are reset every turn
+	this->ResetExtraStats();
+
 	// ATE: Add decay effect sfor drugs...
 	if ( fFromRealTime  ) //&& iRealTimeCounter % 300 )
 	{
@@ -8085,7 +8088,8 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	UINT32 uiTerrainDelay;
 	UINT32 uiSpeed = 0;
 
-	INT8 bBreathDef, bLifeDef, bAgilDef;
+	INT8 bBreathDef, bLifeDef;
+	INT16 bAgilDef;
 	INT8 bAdditional = 0;
 
 	// for those animations which have a speed of zero, we have to calculate it
@@ -8208,7 +8212,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	if ( bBreathDef > 30 )
 		bBreathDef = 30;
 
-	bAgilDef = 50 - ( EffectiveAgility( pStatsSoldier ) / 4 );
+	bAgilDef = 50 - ( EffectiveAgility( pStatsSoldier, FALSE ) / 4 );
 	bLifeDef = 50 - ( pStatsSoldier->stats.bLife / 2 );
 
 	uiTerrainDelay += ( bLifeDef + bBreathDef + bAgilDef + bAdditional );
@@ -8833,7 +8837,7 @@ UINT32 SleepDartSuccumbChance( SOLDIERTYPE * pSoldier )
 	INT16		bEffectiveStrength;
 
 	// figure out base chance of succumbing,
-	bEffectiveStrength = EffectiveStrength( pSoldier );
+	bEffectiveStrength = EffectiveStrength( pSoldier, TRUE );
 
 	if (bEffectiveStrength > 90)
 	{
@@ -9428,7 +9432,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 		INT16 sTestOne, sTestTwo, sChanceToDrop;
 		INT8	bVisible = -1;
 
-		sTestOne = EffectiveStrength( this );
+		sTestOne = EffectiveStrength( this, FALSE );
 		sTestTwo = ( 2 * ( __max( sLifeDeduct, ( sBreathLoss / 100 ) ) ) );
 
 
@@ -11894,14 +11898,14 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		uiDressSkill = ( ( 7 * EffectiveMedical( this ) ) +					// medical knowledge
 			( sStatus) + 																// state of medical kit
 			(10 * EffectiveExpLevel( this ) ) +					// battle injury experience
-			EffectiveDexterity( this ) )	/ 10;		// general "handiness"
+			EffectiveDexterity( this, FALSE ) )	/ 10;		// general "handiness"
 	}
 	else
 	{
 		uiDressSkill = ( ( 3 * EffectiveMedical( this ) ) +					// medical knowledge
 			( 2 * sStatus) + 																// state of medical kit
 			(10 * EffectiveExpLevel( this ) ) +					// battle injury experience
-			EffectiveDexterity( this ) )	/ 7;		// general "handiness"
+			EffectiveDexterity( this, FALSE ) )	/ 7;		// general "handiness"
 	}
 
 	// try to use every AP that the merc has left
@@ -13494,6 +13498,15 @@ INT16	SOLDIERTYPE::GetPoisonDamagePercentage( void )
 	return( val );
 }
 
+// reset the extra stat variables
+void	SOLDIERTYPE::ResetExtraStats()
+{
+	bExtraStrength		= 0;
+	bExtraDexterity		= 0;
+	bExtraAgility		= 0;
+	bExtraWisdom		= 0;
+	bExtraExpLevel		= 0;	
+}
 
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

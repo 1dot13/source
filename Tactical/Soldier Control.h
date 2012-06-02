@@ -1158,6 +1158,15 @@ public:
 	INT16	bPoisonAbsorption;		// for x points of poison damage received, you gain x * (bPoisonAbsorption / 100) poison life points
 	///////////////////////////////////////////////////////
 
+	// Flugente: new variables for extra stats	
+	INT16	bExtraStrength;			// additional strength gained via power armor
+	INT16	bExtraDexterity;		// additional dexterity gained via drugs
+	INT16	bExtraAgility;			// additional agility gained via drugs
+	INT16	bExtraWisdom;			// additional wisdom gained via drugs
+	INT8	bExtraExpLevel;			// corruption can temporarily alter our ExpLevel without messing up our stats this way
+
+	INT32	bSoldierFlagMask;		// for various soldier-related flags (Illusion, Kill streak, etc.). Easier than adding 32 bool variables
+
 	
 #ifdef JA2UB
 	//ja25
@@ -1355,6 +1364,9 @@ public:
 	INT16	GetPoisonAbsorption( void );
 	// returns the poison percentage of the damage we will be doing with the weapon currently in our hand
 	INT16	GetPoisonDamagePercentage( void );
+
+	// reset the extra stat variables
+	void	ResetExtraStats();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

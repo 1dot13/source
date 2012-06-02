@@ -912,8 +912,8 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	INT16 Result = 0;
 	
 	INT32 iChance;
-	INT8 bBaseEffect;
-	UINT8 ubRange;
+	INT16 bBaseEffect;
+	UINT16 ubRange;
 
 	// Read risk data directly from facility array.
 	iChance = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[ubRiskType].usChance;
@@ -922,11 +922,11 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 
 	// For now, only these variables can effect risk outcome. In the future there may be more effects, like traits
 	// and personality, or even sex.
-	UINT8 ubStrength = EffectiveStrength( pSoldier );
-	UINT8 ubAgility = EffectiveAgility( pSoldier );
-	UINT8 ubDexterity = EffectiveDexterity( pSoldier );
+	INT16 ubStrength = EffectiveStrength( pSoldier, FALSE );
+	INT16 ubAgility = EffectiveAgility( pSoldier, FALSE );
+	INT16 ubDexterity = EffectiveDexterity( pSoldier, FALSE );
 	UINT8 ubHealth = __min(pSoldier->stats.bLife, pSoldier->stats.bLifeMax);
-	UINT8 ubWisdom = EffectiveWisdom( pSoldier );
+	INT16 ubWisdom = EffectiveWisdom( pSoldier );
 	UINT8 ubLeadership = EffectiveLeadership( pSoldier );
 	UINT8 ubExplosives = EffectiveExplosive( pSoldier );
 	UINT8 ubExpLevel = EffectiveExpLevel( pSoldier );
@@ -961,7 +961,7 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 		sAbsoluteMinResult = bBaseEffect - ubRange;
 	}
 
-	INT8 bCombinedStats;
+	INT16 bCombinedStats;
 
 	// Begin calculating the effect of skills on increasing/reducing final result. Use a mix of stats to reach a range
 	// of 0 to 100.
@@ -969,52 +969,52 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	switch (ubRiskType)
 	{
 		case RISK_STRENGTH:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubAgility * 0.3) + (ubExpLevel * 5));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubAgility * 0.3) + (ubExpLevel * 5));
 			break;
 		case RISK_DEXTERITY:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.4) + (ubExpLevel * 6));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.4) + (ubExpLevel * 6));
 			break;
 		case RISK_AGILITY:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubExpLevel * 8));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubExpLevel * 8));
 			break;
 		case RISK_HEALTH:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.5) + (ubExpLevel * 5));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.5) + (ubExpLevel * 5));
 			break;
 		case RISK_WISDOM:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.6) + (ubExpLevel * 4));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.6) + (ubExpLevel * 4));
 			break;
 		case RISK_MARKSMANSHIP:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubAgility * 0.4) + (ubExpLevel * 4));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubAgility * 0.4) + (ubExpLevel * 4));
 			break;
 		case RISK_MEDICAL:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.3) + (ubDexterity * 0.4) + (ubExpLevel * 3));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.3) + (ubDexterity * 0.4) + (ubExpLevel * 3));
 			break;
 		case RISK_MECHANICAL:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.3) + (ubDexterity * 0.5) + (ubExpLevel * 2));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.3) + (ubDexterity * 0.5) + (ubExpLevel * 2));
 			break;
 		case RISK_LEADERSHIP:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.4) + (ubLeadership * 0.3) + (ubExpLevel * 3));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.4) + (ubLeadership * 0.3) + (ubExpLevel * 3));
 			break;
 		case RISK_EXPLOSIVES:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubAgility * 0.3) + (ubDexterity * 0.3) + (ubExpLevel * 2));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubAgility * 0.3) + (ubDexterity * 0.3) + (ubExpLevel * 2));
 			break;
 		case RISK_INJURY:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubDexterity * 0.2) + (ubAgility * 0.4) + (ubExpLevel * 2));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubDexterity * 0.2) + (ubAgility * 0.4) + (ubExpLevel * 2));
 			break;
 		case RISK_MORALE:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubLeadership * 0.4) + (ubExpLevel * 4));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubLeadership * 0.4) + (ubExpLevel * 4));
 			break;
 		case RISK_FATIGUE:
-			bCombinedStats = (INT8)__min(100, (ubAgility * 0.1) + (ubStrength * 0.3) + (ubHealth * 0.2) + (ubExpLevel * 4));
+			bCombinedStats = (INT16)__min(100, (ubAgility * 0.1) + (ubStrength * 0.3) + (ubHealth * 0.2) + (ubExpLevel * 4));
 			break;
 		case RISK_DRUNK:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.5) + (ubHealth * 0.3) + (ubExpLevel * 2));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.5) + (ubHealth * 0.3) + (ubExpLevel * 2));
 			break;
 		case RISK_LOYALTY_LOCAL:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubLeadership * 0.3) + (ubStrength * 0.1) + (ubExpLevel * 2) + (ubLocalLoyalty * 0.2) );
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.2) + (ubLeadership * 0.3) + (ubStrength * 0.1) + (ubExpLevel * 2) + (ubLocalLoyalty * 0.2) );
 			break;
 		case RISK_LOYALTY_GLOBAL:
-			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.3) + (ubLeadership * 0.3) + (ubExpLevel * 2) + (ubLocalLoyalty * 0.2));
+			bCombinedStats = (INT16)__min(100, (ubWisdom * 0.3) + (ubLeadership * 0.3) + (ubExpLevel * 2) + (ubLocalLoyalty * 0.2));
 			break;
 	}
 

@@ -5082,13 +5082,11 @@ STR16		zOptionsToggleText[] =
 	L"Show Soldier Tooltips",
 	L"Auto save",
 	L"Silent Skyrider",
-	//L"Low CPU usage",
 	L"Enhanced Description Box",
 	L"Forced Turn Mode",					// add forced turn mode
 	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
-	//L"Activate New CTH system",				// use NCTH
 	L"Show Merc Ranks",						// shows mercs ranks	// TODO.Translate
 	L"Show Face gear graphics",				// TODO.Translate
 	L"Show Face gear icons",
@@ -5098,7 +5096,6 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns	// TODO.Translate
 	L"Allow Zombies",						// Flugente Zombies 1.0
-	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5154,7 +5151,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Se attivata, sarà richiesto un altro clic su \"salva\" per il movimento in tempo reale.",
 
 	//Sleep/Wake notification
-  L"Se attivata, verrete avvisati quando i mercenari in \"servizio\" vanno a riposare e quando rientrano in servizio.",
+	L"Se attivata, verrete avvisati quando i mercenari in \"servizio\" vanno a riposare e quando rientrano in servizio.",
 
 	//Use the metric system
 	L"Se attivata, utilizza il sistema metrico di misurazione; altrimenti ricorre al sistema britannico.",
@@ -5194,21 +5191,20 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.", 
 	L"When ON, game will be saved in 2 alternate save slots after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
-	//L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
 	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
 	L"When ON, shows character progress towards gaining levels.",	// TODO.Translate
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.", // TODO.Translate
-	//L"When ON, New CTH system and cursor is used.",
 	L"When ON, ranks will be displayed before merc names in the strategic view.",		// TODO.Translate
 	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"Se attivato, il cursore non si alternerà tra la posizione di scambio e altre azioni. Premere |x per avviare lo scambio rapido.",
 	L"When ON, mercs will not report progress during training.",
+	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
+	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
-	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

@@ -1759,13 +1759,13 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 		//iPoints = EffectiveExpLevel( MercPtrs[ pSoldier->ubRobotRemoteHolderID ] ) - 2;
 		// Snap: (do some proper rounding here)
 		iPoints = ( 20*EffectiveExpLevel( MercPtrs[ pSoldier->ubRobotRemoteHolderID ] )
-			+ EffectiveAgility( MercPtrs[ pSoldier->ubRobotRemoteHolderID ] ) + 15 ) / 30 - 2;
+			+ EffectiveAgility( MercPtrs[ pSoldier->ubRobotRemoteHolderID ], FALSE ) + 15 ) / 30 - 2;
 	}
 	else
 	{
 		//iPoints = EffectiveExpLevel( pSoldier );
 		// Snap:
-		iPoints = ( 20*EffectiveExpLevel( pSoldier ) + EffectiveAgility( pSoldier ) + 15 ) / 30;
+		iPoints = ( 20*EffectiveExpLevel( pSoldier ) + EffectiveAgility( pSoldier, FALSE ) + 15 ) / 30;
 
 		/*
 		if ( pSoldier->bTeam == ENEMY_TEAM )

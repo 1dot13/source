@@ -306,7 +306,8 @@ BOOLEAN AttemptToLockDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
 	INT32		iResult;
-	INT8		bStress, bSlot;
+	INT16		bStress;
+	INT8		bSlot;
 
 	bSlot = FindUsableCrowbar( pSoldier );
 	if ( bSlot == ITEM_NOT_FOUND )
@@ -339,7 +340,7 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 
 	// possibly damage crowbar
-	bStress = __min( EffectiveStrength( pSoldier ), LockTable[pDoor->ubLockID].ubSmashDifficulty + 30 );
+	bStress = __min( EffectiveStrength( pSoldier, FALSE ), LockTable[pDoor->ubLockID].ubSmashDifficulty + 30 );
 	// reduce crowbar status by random % between 0 and 5%
 	DamageObj( &(pSoldier->inv[ bSlot ]), (INT8) PreRandom( bStress / 20 ) );
 
@@ -597,7 +598,7 @@ BOOLEAN AttemptToUntrapDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 BOOLEAN ExamineDoorForTraps( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
 	// Check to see if there is a trap or not on this door
-	INT8 bDetectLevel;
+	INT16 bDetectLevel;
 
 	if (pDoor->ubTrapID == NO_TRAP)
 	{
@@ -632,7 +633,7 @@ BOOLEAN ExamineDoorForTraps( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 BOOLEAN HasDoorTrapGoneOff( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
 	// Check to see if the soldier causes the trap to go off
-	INT8 bDetectLevel;
+	INT16 bDetectLevel;
 
 	if (pDoor->ubTrapID != NO_TRAP)
 	{

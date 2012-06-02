@@ -1442,14 +1442,14 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		uiDressSkill = ( ( 7 * EffectiveMedical( pSoldier ) ) +					// medical knowledge
 			( sStatus) + 																// state of medical kit
 			(10 * EffectiveExpLevel( pSoldier ) ) +					// battle injury experience
-			EffectiveDexterity( pSoldier ) )	/ 10;		// general "handiness"
+			EffectiveDexterity( pSoldier, FALSE ) )	/ 10;		// general "handiness"
 	}
 	else
 	{
 		uiDressSkill = ( ( 3 * EffectiveMedical( pSoldier ) ) +					// medical knowledge
 			( 2 * sStatus) + 																// state of medical kit
 			(10 * EffectiveExpLevel( pSoldier ) ) +					// battle injury experience
-			EffectiveDexterity( pSoldier ) )	/ 7;		// general "handiness"
+			EffectiveDexterity( pSoldier, FALSE ) )	/ 7;		// general "handiness"
 	}
 
 	// try to use every AP that the merc has left

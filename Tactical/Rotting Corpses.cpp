@@ -46,6 +46,7 @@
 
 	#include "Campaign Types.h"
 	//#include "Queen Command.h"
+	#include "text.h"		// added by Flugente
 #endif
 
 #include "Animation Control.h"
@@ -2268,8 +2269,20 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 		pNewSoldier->bPoisonAbsorption		= 200 + Random(100);
 		//////////////////////////////////////////////////////////////////////
 
-		memcpy( &(pNewSoldier->name), &(pCorpse->name), sizeof(CHAR16) * 10 );
-		pNewSoldier->name[9] = '\0';
+		if (   !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MINER_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ MILITIA_TEAM_MERC_NAME ], sizeof(pCorpse->name) )
+			|| !memcmp( pCorpse->name, TacticalStr[ CREATURE_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ ENEMY_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) )
+		{
+			swprintf( pNewSoldier->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
+		}
+		else
+		{
+			memcpy( &(pNewSoldier->name), &(pCorpse->name), sizeof(CHAR16) * 10 );
+			pNewSoldier->name[9] = '\0';
+		}
 		
 		// add skills according to difficulty level
 		switch( gGameExternalOptions.sZombieDifficultyLevel )
@@ -2369,6 +2382,65 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 		// Set a pending animation to change stance first...
 		//SendChangeSoldierStanceEvent( pNewSoldier, ANIM_CROUCH );
 
+		// search for armour and equip if found
+		if ( gGameExternalOptions.fZombieRiseWithArmour )
+		{
+			BOOLEAN fHelmetFound = FALSE;
+			BOOLEAN fVestFound = FALSE;
+			BOOLEAN fPantsFound = FALSE;
+
+			ITEM_POOL * pItemPool, * pItemPoolNext;
+
+			GetItemPool( pCorpse->def.sGridNo, &pItemPool, pCorpse->def.bLevel );
+
+			while( pItemPool && ( !fHelmetFound || !fVestFound ||!fPantsFound ) )
+			{
+				pItemPoolNext = pItemPool->pNext;
+
+				OBJECTTYPE* pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
+
+				if ( Item[ pObj->usItem ].usItemClass  == IC_ARMOUR )
+				{
+						switch (Armour[Item[pObj->usItem].ubClassIndex].ubArmourClass)
+						{
+							case ARMOURCLASS_HELMET:
+								{
+									if( !fHelmetFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
+									{
+										// remove item from the ground
+										RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
+										fHelmetFound = TRUE;
+									}
+									break;
+								}
+							case ARMOURCLASS_VEST:
+								{
+									if( !fVestFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
+									{
+										// remove item from the ground
+										RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
+										fVestFound = TRUE;
+									}
+									break;
+								}
+							case ARMOURCLASS_LEGGINGS:
+								{
+									if( !fPantsFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
+									{
+										// remove item from the ground
+										RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
+										fPantsFound = TRUE;
+									}
+									break;
+								}
+							default:
+								break;
+						}
+				}
+
+				pItemPool = pItemPoolNext;
+			}
+		}
 
 		// Change to standing,unless we can getup with an animation
 		pNewSoldier->EVENT_InitNewSoldierAnim( STANDING, 0, TRUE );

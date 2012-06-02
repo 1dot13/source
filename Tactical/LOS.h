@@ -236,10 +236,10 @@ FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccur
 
 // HEADROCK HAM 4: Required for shooting mechanic
 extern INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier ); 
-extern INT8 EffectiveWisdom( SOLDIERTYPE * pSoldier ); 
+extern INT16 EffectiveWisdom( SOLDIERTYPE * pSoldier ); 
 extern INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier ); 
-extern INT8 EffectiveDexterity( SOLDIERTYPE * pSoldier ); 
-extern INT8 EffectiveStrength( SOLDIERTYPE * pSoldier ); 
-extern INT8 EffectiveAgility( SOLDIERTYPE * pSoldier ); 
+extern INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer ); 
+extern INT16 EffectiveStrength( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer );
+extern INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer ); 
 
 #endif

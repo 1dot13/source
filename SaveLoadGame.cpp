@@ -1977,6 +1977,13 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bPoisonSum, sizeof(bPoisonSum), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bPoisonResistance, sizeof(bPoisonResistance), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bPoisonAbsorption, sizeof(bPoisonAbsorption), sizeof(INT16), numBytesRead);
+				
+		numBytesRead = ReadFieldByField(hFile, &this->bExtraStrength, sizeof(bExtraStrength), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bExtraDexterity, sizeof(bExtraDexterity), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bExtraAgility, sizeof(bExtraAgility), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bExtraWisdom, sizeof(bExtraWisdom), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bExtraExpLevel, sizeof(bExtraExpLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->bSoldierFlagMask, sizeof(bSoldierFlagMask), sizeof(INT32), numBytesRead);
 
 #ifdef JA2UB
 		numBytesRead = ReadFieldByField(hFile, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);

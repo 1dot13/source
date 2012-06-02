@@ -364,107 +364,17 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	// only do the checks for the player team, as soldiers do not have a gMercProfiles
 	if  ( pSoldier->bTeam == gbPlayerNum)
 	{
-		// Flugente 2012-05-25: the status drugs cause weird behaviour with the stat repairing behaviour of doctoring, so this is commented out till a working solution has been found
-		/*
 		//////////////// STRENGTH ////////////////
-		// strength we would normally have right now
-		INT8 strength = gMercProfiles[ pSoldier->ubProfile ].bStrength;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ];
-
-		INT8 strengthmodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_STRENGTH ];
-
-		// cap modifier at 25, as currently stats cant go above 127 (INT8)
-		strengthmodifier = min(25, strengthmodifier);
-
-		UINT32 newstrength =  max(1, strength + strengthmodifier);
-		newstrength =  min(126, newstrength);
-	
-		pSoldier->stats.bStrength = (INT8)newstrength;
-
-		if ( strengthmodifier > 0 )
-		{
-			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
-			pSoldier->usValueGoneUp |= ( STRENGTH_INCREASE );
-		}
-		else if ( strengthmodifier < 0 )
-		{
-			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
-			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
-		}
+		pSoldier->bExtraStrength	= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_STRENGTH ];
 
 		//////////////// DEXTERITY ////////////////
-		// dexterity we would normally have right now
-		INT8 dexterity = gMercProfiles[ pSoldier->ubProfile ].bDexterity;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ];
-
-		INT8 dexteritymodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_DEXTERITY ];
-
-		// cap modifier at 25, as currently stats cant go above 127 (INT8)
-		dexteritymodifier = min(25, dexteritymodifier);
-
-		UINT32 newdexterity =  max(1, dexterity + dexteritymodifier);
-		newdexterity =  min(126, newdexterity);
-
-		pSoldier->stats.bDexterity = newdexterity;
-
-		if ( dexteritymodifier > 0 )
-		{
-			pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
-			pSoldier->usValueGoneUp |= ( DEX_INCREASE );
-		}
-		else if ( dexteritymodifier < 0 )
-		{
-			pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
-			pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
-		}
+		pSoldier->bExtraDexterity	= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_DEXTERITY ];
 
 		//////////////// AGILITY ////////////////
-		// agility we would normally have right now
-		INT8 agility = gMercProfiles[ pSoldier->ubProfile ].bAgility;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ];
-
-		INT8 agilitymodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_AGILITY ];
-
-		// cap modifier at 25, as currently stats cant go above 127 (INT8)
-		agilitymodifier = min(25, agilitymodifier);
-
-		UINT32 newagility =  max(1, agility + agilitymodifier);
-		newagility =  min(126, newagility);
-
-		pSoldier->stats.bAgility = newagility;
-
-		if ( agilitymodifier > 0 )
-		{
-			pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
-			pSoldier->usValueGoneUp |= ( AGIL_INCREASE );
-		}
-		else if ( agilitymodifier < 0 )
-		{
-			pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
-			pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
-		}
+		pSoldier->bExtraAgility		= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_AGILITY ];
 
 		//////////////// WISDOM ////////////////
-		// wisdom we would normally have right now
-		INT8 wisdom = gMercProfiles[ pSoldier->ubProfile ].bWisdom;// Madd: commenting out this part b/c it breaks doctoring! - pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ];
-
-		INT8 wisdommodifier = pSoldier->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_WISDOM ];
-
-		// cap modifier at 25, as currently stats cant go above 127 (INT8)
-		wisdommodifier = min(25, wisdommodifier);
-
-		UINT32 newwisdom =  max(1, wisdom + wisdommodifier);
-		newwisdom =  min(126, newwisdom);
-
-		pSoldier->stats.bWisdom = newwisdom;
-
-		if ( wisdommodifier > 0 )
-		{
-			pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
-			pSoldier->usValueGoneUp |= ( WIS_INCREASE );
-		}
-		else if ( wisdommodifier < 0 )
-		{
-			pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
-			pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
-		}*/
+		pSoldier->bExtraWisdom		= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_WISDOM ];
 
 		// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we suddenly become blind for a few turns...
 		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_BLIND ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_BLIND ] == 1 )

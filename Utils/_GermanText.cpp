@@ -4945,23 +4945,20 @@ STR16 zOptionsToggleText[] =
 	L"Tooltips über Gegner",
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
-	//L"Niedrige CPU Belastung",
 	L"Erw. Gegenstandsinfo",
 	L"Erzwungener Runden-Modus",			// add forced turn mode
 	L"Status Trainingsfortschritt",			// Show progress towards stat increase
 	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
 	L"Alternative Projektil-Grafik",			// Show alternate bullet graphics (tracers)
-	//L"Neues Zielsystem verwenden",			// use NCTH
 	L"Söldnerrang anzeigen.",					// shows mercs ranks
 	L"Gesichtsequipment-Grafiken",			
 	L"Gesichtsequipment-Icons",
 	L"Cursor-Wechsel deaktivieren",		    // Disable Cursor Swap
 	L"Stummes Trainieren",					// Madd: mercs don't say quotes while training
-	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing TODO.Translate
-	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring TODO.Translate
+	L"Stummes Reparieren",					// Madd: mercs don't say quotes while repairing
+	L"Stumme Behandlung",					// Madd: mercs don't say quotes while doctoring
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
 	L"Allow Zombies",						// Flugente Zombies 1.0
-	//L"Waffen können überhitzen",			
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5057,20 +5054,20 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden mit Druck auf |A|l|t Informationen über den Gegner eingeblendet, auf dem sich der Maus-Cursor befindet.",
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch abwechselnd in zwei speziellen Autosave-Spielständen gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sagen. Verwenden Sie diese Option, wenn er Ihnen auf die Nüsse geht.",
-	//L"Aktivieren Sie diese Funktion, wenn Ihr Rechner steinalt ist und anderenfalls Probleme auftreten würden.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen und Werte zu den Waffen und Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Modus, bis alle Feinde tot sind (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",
 	L"Wenn diese Funktion aktiviert ist, werden die Söldnerwerte visuell mit ihrem Trainingsfortschritt unterlegt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Strategische Karte entsprechend Ihres Erkundungsfortschrittes unterschiedlich eingefärbt.",
 	L"Wenn diese Funktion aktiviert ist, werden geschossene Projektile visuell mit Tracer-Effekten dargestellt.",
-	//L"Wenn diese Funktion aktiviert ist, wird das neue Zielsystem und der neue Zielcursor verwendet.",
 	L"Wenn diese Funktion aktiviert ist, werden die Ränge der Söldner in der Strategischen Karte vor dem Namen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer Söldner direkt auf dem Portrait.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
 	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFür manuellen Positionswechsel drücken Sie |x.",
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über ihren Fortschritt während des Trainings nicht mehr berichten.",
+	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
+	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
-	//L"Wenn diese Funktion aktiviert ist, können sich Waffen überhiten bei schneller Schussfolge.",
+	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

@@ -2480,7 +2480,7 @@ BOOLEAN AttemptToCatchObject( REAL_OBJECT *pObject )
 
 	// OK, get chance to catch
 	// base it on...? CC? Dexterity?
-	ubChanceToCatch = 50 + EffectiveDexterity( pSoldier ) / 2;
+	ubChanceToCatch = 50 + EffectiveDexterity( pSoldier, FALSE ) / 2;
 
 #ifdef JA2TESTVERSION
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Chance To Catch: %d", ubChanceToCatch );

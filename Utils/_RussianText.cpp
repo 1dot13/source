@@ -5077,13 +5077,11 @@ STR16		zOptionsToggleText[] =
 	L"Подсказки над солдатами",	//Show Soldier Tooltips
 	L"Автосохранение каждый ход",
 	L"Молчаливый пилот вертолёта",
-	//L"Низкая загрузка процессора",
 	L"Подробное описание предметов",		//Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
 	L"Подсветить навык к повышению",		//Stat Progress Bars	// Show progress towards stat increase
 	L"Новая расцветка стратег. карты",	//Alternate Strategy-Map Colors //Change color scheme of Strategic Map
 	L"Заметная летящая пуля",				// Show alternate bullet graphics (tracers)
-	//L"Новая система прицеливания",				// use NCTH
 	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
 	L"Показать снаряжение на голове",				//Show Face gear graphics
 	L"Показать иконки снаряжения",
@@ -5093,7 +5091,6 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 	L"Allow Zombies",						// Flugente Zombies 1.0
-	//L"Weapons Overheating",					// TODO.Translate
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5189,21 +5186,20 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, при нажатии кнопки |A|l|t \nи наведении курсора мыши на вражеского солдата \nбудет показана дополнительная информация.",
 	L"Если включено, игра будет автоматически \nсохраняться после каждого хода игрока.",
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
-	//L"Если включено, игра будет использовать\nменьше процессорного времени.",
 	L"Если включено, будет задействовано\nподробное описание предметов.",
 	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
 	L"Если включено, навык, \nкоторый вскоре повысится будет подсвечен.",
 	L"Если включено, необследованные сектрора \nна стратегической карте будут чёрно-белыми.",
 	L"Если включено, летящая пуля будет более заметной.",
-	//L"Если включено, будет задействована новая система прицеливания \nи новый курсор прицеливания.",
 	L"When ON, ranks will be displayed before merc names in the strategic view.",					// TODO.Translate
 	L"Если включено, на портрете наёмника будет отображено одетое головное снаряжение.",
 	L"Если включено, в правом нижнем углу \nна портрете наёмника будут отображены иконки \nодетого головного снаряжения.",
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
 	L"When ON, mercs will not report progress during training.",
+	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
+	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
-	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

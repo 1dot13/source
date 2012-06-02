@@ -374,6 +374,7 @@ typedef struct
 	INT8	sEnemyZombieDamageResistance;
 	BOOLEAN fZombieOnlyHeadshotsWork;
 	INT8	sZombieDifficultyLevel;
+	BOOLEAN fZombieRiseWithArmour;
 	
 	// Flugente: poison settings
 	INT32	ubPoisonBaseMedicalSkillToCure;

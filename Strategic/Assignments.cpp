@@ -2386,8 +2386,8 @@ SOLDIERTYPE *AnyDoctorWhoCanHealThisPatient( SOLDIERTYPE *pPatient, BOOLEAN fThi
 
 UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, BOOLEAN fMakeSureKitIsInHand )
 {
-	UINT16 usHealPts = 0;
-	UINT16 usKitPts = 0;
+	UINT32 usHealPts = 0;
+	UINT32 usKitPts = 0;
 	INT8 bMedFactor;
 
 	INT16 sSectorModifier = 100;
@@ -2413,7 +2413,7 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	}
 
 	// calculate effective doctoring rate (adjusted for drugs, alcohol, etc.)
-	usHealPts = (UINT16) (( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
+	usHealPts = (UINT32) (( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor, FALSE ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
 	usHealPts = __max(0, (usHealPts * sSectorModifier)/100);
 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
@@ -2483,7 +2483,7 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 
 UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts, BOOLEAN fMakeSureKitIsInHand )
 {
-	UINT16 usRepairPts;
+	UINT32 usRepairPts;
 	UINT16 usKitPts;
 	UINT8	ubKitEffectiveness;
 	// HEADROCK HAM 3.5: Modifier from local facilities
@@ -2503,7 +2503,7 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	}
 
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
-	usRepairPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
+	usRepairPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier, FALSE ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
@@ -4673,11 +4673,11 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 {
 	// return the bonus training pts of this instructor with this student,...if student null, simply assignment student skill of 0 and student wisdom of 100
 	INT16 sTrainingPts = 0;
-	INT8 bTraineeEffWisdom = 0;
-	INT8 bTraineeNatWisdom = 0;
-	INT8 bTraineeSkill = 0;
-	INT8 bTrainerEffSkill = 0;
-	INT8 bTrainerNatSkill = 0;
+	INT16 bTraineeEffWisdom = 0;
+	INT16 bTraineeNatWisdom = 0;
+	INT16 bTraineeSkill = 0;
+	INT16 bTrainerEffSkill = 0;
+	INT16 bTrainerNatSkill = 0;
 	INT16 bTrainingBonus = 0;
 	INT8 bOpinionFactor;
 
@@ -4694,15 +4694,15 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	switch( bTrainStat )
 	{
 		case( STRENGTH ):
-			bTrainerEffSkill = (INT8)EffectiveStrength ( pInstructor );
+			bTrainerEffSkill = EffectiveStrength ( pInstructor, TRUE );
 			bTrainerNatSkill = pInstructor->stats.bStrength;
 		break;
 		case( DEXTERITY ):
-			bTrainerEffSkill = EffectiveDexterity ( pInstructor );
+			bTrainerEffSkill = EffectiveDexterity ( pInstructor, TRUE );
 			bTrainerNatSkill = pInstructor->stats.bDexterity;
 		break;
 		case( AGILITY ):
-			bTrainerEffSkill = EffectiveAgility( pInstructor );
+			bTrainerEffSkill = EffectiveAgility( pInstructor, TRUE );
 			bTrainerNatSkill = pInstructor->stats.bAgility;
 		break;
 		case( HEALTH ):
@@ -4743,9 +4743,9 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	if( pStudent == NULL )
 	{
 		// assume these default values
-	bTraineeEffWisdom = 100;
-	bTraineeNatWisdom = 100;
-	bTraineeSkill = 0;
+		bTraineeEffWisdom = 100;
+		bTraineeNatWisdom = 100;
+		bTraineeSkill = 0;
 		bOpinionFactor = 0;
 	}
 	else
@@ -4815,7 +4815,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	// SANDRO - Teaching Skill now increases the effective skill to determine if we can instruct other mercs
 	if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pInstructor, TEACHING_NT ))
 	{
-		if( bTraineeSkill >= (bTrainerEffSkill + gSkillTraitValues.ubTGEffectiveSkillValueForTeaching) )
+		if( bTraineeSkill >= (bTrainerEffSkill + (INT16)(gSkillTraitValues.ubTGEffectiveSkillValueForTeaching)) )
 			return ( 0 );
 	}
 	else if( bTraineeSkill >= bTrainerEffSkill )
@@ -4882,7 +4882,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	sTrainingPts += ( ( ( bTrainingBonus + (bFacilityModifier-100) + bOpinionFactor ) * sTrainingPts ) / 100 );
 
 	// adjust for instructor fatigue
-	ReducePointsForFatigue( pInstructor, (UINT16 *)&sTrainingPts );
+	ReducePointsForFatigue( pInstructor, (UINT32 *)&sTrainingPts );
 
 	return( sTrainingPts );
 }
@@ -4994,7 +4994,7 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 	sTrainingPts += ( ( bTrainingBonus * sTrainingPts ) / 100 );
 
 	// adjust for fatigue
-	ReducePointsForFatigue( pSoldier, (UINT16 *)&sTrainingPts );
+	ReducePointsForFatigue( pSoldier, (UINT32 *)&sTrainingPts );
 
 	return( sTrainingPts );
 }
@@ -5110,7 +5110,7 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 	sTrainingPts += ( ( bTrainingBonus * sTrainingPts ) / 100 );
 
 	// adjust for fatigue
-	ReducePointsForFatigue( pSoldier, (UINT16 *)&sTrainingPts );
+	ReducePointsForFatigue( pSoldier, (UINT32 *)&sTrainingPts );
 
 
 	// now add in stuff for trainer
@@ -5378,7 +5378,7 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 
 
 	// adjust for fatigue of trainer
-	ReducePointsForFatigue( pTrainer, (UINT16 *)&sTotalTrainingPts );
+	ReducePointsForFatigue( pTrainer, (UINT32 *)&sTotalTrainingPts );
 
 
 /* ARM: Decided this didn't make much sense - the guys I'm training damn well BETTER be loyal - and screw the rest!

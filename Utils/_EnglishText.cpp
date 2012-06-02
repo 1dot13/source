@@ -5096,13 +5096,11 @@ STR16		zOptionsToggleText[] =
 	L"Show Soldier Tooltips",
 	L"Tactical End-Turn Save",
 	L"Silent Skyrider",
-	//L"Low CPU usage",
 	L"Enhanced Description Box",
 	L"Forced Turn Mode",					// add forced turn mode
 	L"Stat Progress Bars",					// Show progress towards stat increase
 	L"Alternate Strategy Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate Bullet Graphics",			// Show alternate bullet graphics (tracers)
-//	L"Use new Chance to Hit System",		// use NCTH
 	L"Show Merc Ranks",						// shows mercs ranks
 	L"Show Face Gear Graphics",				
 	L"Show Face Gear Icons",
@@ -5112,7 +5110,6 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
 	L"Allow Zombies",						// Flugente Zombies 1.0
-	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5208,21 +5205,20 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.",
 	L"When ON, game will be saved in 2 alternate save slots after each player's turn.",
 	L"When ON, Skyrider will not talk anymore.",
-	//L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
 	L"When ON and enemy present, turn base mode persists untill sector is free (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",	// add forced turn mode
 	L"When ON, shows character progress towards gaining levels.",
 	L"When ON, the strategic map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.",
-//	L"When ON, the new chance to hit system and cursor is used.",
-	L"When ON, ranks will be displayed before merc names in the strategic view.",		// TODO.Translate
+	L"When ON, ranks will be displayed before merc names in the strategic view.",
 	L"When ON, you will see the equipped face gear on the merc portraits.",
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
 	L"When ON, mercs will not report progress during training.",
+	L"When ON, mercs will not report progress during repairing.",
+	L"When ON, mercs will not report progress during doctoring.",
 	L"When ON, AI turns will be much faster.",
 	L"When ON, zombies will spawn. Be aware!",							// allow zombies
-	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7223,7 +7219,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil.\n \nNaturally, this has no effect if the weapon lacks\nboth Burst and Auto-Fire modes.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
 	L"\n \nThis weapon's to-hit is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased To-Hit allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
 	L"\n \nThis weapon's Aim Bonus is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
-	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",					// TODO.Translate
+	L"\n \nA single shot causes this much heat.\nThe type of ammunition can affect this value.\n \nLower is better.",
 	L"\n \nEvery turn, the temperature is lowered\nby this amount.\nWeapon attachments can affect this.\n \nHigher is better.",
 	L"\n \nIf a gun's temperature is above this,\nit will jam more frequently.",
 	L"\n \nIf a gun's temperature is above this,\nit will be damaged more easily.",

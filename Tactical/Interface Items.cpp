@@ -11196,7 +11196,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				//swprintf( pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
 
 					INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
-					accuracy *= accuracyheatmultiplicator;
+					accuracy = (INT8)(accuracy * accuracyheatmultiplicator);
 					#ifdef CHINESE
 						swprintf( pStr, ChineseSpecString4,
 					#else
@@ -11264,7 +11264,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				//Info for weapons
 					INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
-					accuracy *= accuracyheatmultiplicator;
+					accuracy = (INT8)(accuracy * accuracyheatmultiplicator);
 
 					#ifdef CHINESE
 						swprintf( pStr, L"%s [%d%ге]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",

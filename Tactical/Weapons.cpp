@@ -4790,8 +4790,8 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 	INT8 bExperience = EffectiveExpLevel( pSoldier );
 	INT8 bMarksmanship = EffectiveMarksmanship( pSoldier );
-	INT8 bDexterity = EffectiveDexterity( pSoldier );;
-	INT8 bWisdom = EffectiveWisdom( pSoldier );
+	INT16 bDexterity = EffectiveDexterity( pSoldier, FALSE );
+	INT16 bWisdom = EffectiveWisdom( pSoldier );
 	
 	if ( bMarksmanship == 0 || bDexterity == 0 )
 	{
@@ -6165,7 +6165,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	// Determine iMarksmanship and Base CTH
 	if (Item[usItemUsed].rocketlauncher ){
 		// use the same calculation as for mechanical thrown weapons
-		iMarksmanship = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (10 * EffectiveExpLevel( pSoldier ) )) / 4;
+		iMarksmanship = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (10 * EffectiveExpLevel( pSoldier ) )) / 4;
 		// heavy weapons trait helps out
 		if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS_OT ) && !( gGameOptions.fNewTraitSystem )) // SANDRO - old/new traits
 			iMarksmanship += gbSkillTraitBonus[HEAVY_WEAPS_OT] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT );
@@ -6326,7 +6326,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// but ability to dodge is reduced if crouched or prone!
 		if (pTarget->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY && !TANK( pTarget ) && !(pSoldier->ubBodyType != QUEENMONSTER) )
 		{
-			iPenalty = ( EffectiveAgility( pTarget ) / 5 + EffectiveExpLevel( pTarget ) * 2);
+			iPenalty = ( EffectiveAgility( pTarget, FALSE ) / 5 + EffectiveExpLevel( pTarget ) * 2);
 			switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
 			{
 				case ANIM_CROUCH:
@@ -6338,7 +6338,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			}
 
 			// reduce dodge ability by the attacker's stats
-			iBonus = ( EffectiveDexterity( pSoldier ) / 5 + EffectiveExpLevel( pSoldier ) * 2);
+			iBonus = ( EffectiveDexterity( pSoldier, FALSE ) / 5 + EffectiveExpLevel( pSoldier ) * 2);
 			if ( TANK( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
 			{
 				// reduce ability to track shots
@@ -6929,7 +6929,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// breath penalty is based on % breath missing (max 1/2 chance)
 		iPenalty = (iChance * (100 - pSoldier->bBreath)) / 200;
 		// reduce breath penalty due to merc's dexterity (he can compensate!)
-		iChance -= (iPenalty * (100 - ( EffectiveDexterity( pSoldier ) - 10))) / 100;
+		iChance -= (iPenalty * (100 - ( EffectiveDexterity( pSoldier, FALSE ) - 10))) / 100;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	
@@ -9227,7 +9227,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 		iImpact += GetDamage(pObj);
 		
-		iImpact += EffectiveStrength( pSoldier ) / 20; // 0 to 5 for strength, adjusted by damage taken
+		iImpact += EffectiveStrength( pSoldier, FALSE ) / 20; // 0 to 5 for strength, adjusted by damage taken
 
 		if ( AM_A_ROBOT( pTarget ) )
 		{
@@ -9237,7 +9237,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 	else
 	{
 		iImpact = ( EffectiveExpLevel( pSoldier ) / 2); // 0 to 4 for level
-		iImpact += EffectiveStrength( pSoldier ) / 5; // 0 to 20 for strength, adjusted by damage taken
+		iImpact += EffectiveStrength( pSoldier, FALSE ) / 5; // 0 to 20 for strength, adjusted by damage taken
 
 		// NB martial artists don't get a bonus for using brass knuckles! - oh, they do in STOMP - SANDRO
 		if (pSoldier->usAttackingWeapon )
@@ -9550,26 +9550,29 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{
 			// We need to be agile and dexterous
-			iAttRating = ( 2 * EffectiveDexterity( pAttacker ) + // coordination, accuracy  *
-					 2 * EffectiveAgility( pAttacker ) +    // speed & reflexes
-				     pAttacker->stats.bStrength +    // physical strength
+			iAttRating = ( 2 * EffectiveDexterity( pAttacker, FALSE ) + // coordination, accuracy  *
+					 2 * EffectiveAgility( pAttacker, FALSE ) +    // speed & reflexes
+				     pAttacker->stats.bStrength +    // physical strength 
+					 pDefender->bExtraStrength +    // additional strength from power armour
 					 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
 		}
 		else
 		{
 					// this is more of a brute force strength-vs-strength check
-			iAttRating = ( EffectiveDexterity( pAttacker ) + // coordination, accuracy
-					 EffectiveAgility( pAttacker ) +    // speed & reflexes
+			iAttRating = ( EffectiveDexterity( pAttacker, FALSE ) + // coordination, accuracy
+					 EffectiveAgility( pAttacker, FALSE ) +    // speed & reflexes
 					 3 * pAttacker->stats.bStrength +    // physical strength (TRIPLED!)
+					 3 * pDefender->bExtraStrength +    // additional strength from power armour
 					 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
 		}
 		///////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
-		iAttRating = (3 * EffectiveDexterity( pAttacker ) + // coordination, accuracy (TRIPLED!)
-				 EffectiveAgility( pAttacker ) +    // speed & reflexes
+		iAttRating = (3 * EffectiveDexterity( pAttacker, FALSE ) + // coordination, accuracy (TRIPLED!)
+				 EffectiveAgility( pAttacker, FALSE ) +    // speed & reflexes
 				 pAttacker->stats.bStrength +    // physical strength
+				 pDefender->bExtraStrength +    // additional strength from power armour
 				 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
 	}
 
@@ -9732,24 +9735,27 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		// SANDRO - Enhanced Close Combat System - stealing defence based on dexterity and strength
 		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{
-			iDefRating = ( EffectiveAgility( pDefender )) +   // speed & reflexes
-			   2 * EffectiveDexterity( pDefender ) +  // coordination, accuracy
+			iDefRating = ( EffectiveAgility( pDefender, FALSE )) +   // speed & reflexes
+			   2 * EffectiveDexterity( pDefender, FALSE ) +  // coordination, accuracy
 			   2 * pDefender->stats.bStrength +    // physical strength 
+			   2 * pDefender->bExtraStrength +    // additional strength from power armour
 			   (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 		}
 		else
 		{
-			iDefRating = (EffectiveAgility( pDefender )) +   // speed & reflexes
-			   EffectiveDexterity( pDefender ) +  // coordination, accuracy
+			iDefRating = (EffectiveAgility( pDefender, FALSE )) +   // speed & reflexes
+			   EffectiveDexterity( pDefender, FALSE ) +  // coordination, accuracy
 			   3 * pDefender->stats.bStrength +    // physical strength (TRIPLED!)
+			   3 * pDefender->bExtraStrength +    // additional strength from power armour
 			   (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 		}
 	}
 	else
 	{
-		iDefRating = (3 * EffectiveAgility( pDefender ) ) +   // speed & reflexes (TRIPLED!)
-		   EffectiveDexterity( pDefender ) +  // coordination, accuracy
+		iDefRating = (3 * EffectiveAgility( pDefender, FALSE ) ) +   // speed & reflexes (TRIPLED!)
+		   EffectiveDexterity( pDefender, FALSE ) +  // coordination, accuracy
 		   pDefender->stats.bStrength +    // physical strength
+		   pDefender->bExtraStrength +    // additional strength from power armour
 	     (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 	}
 
@@ -10346,13 +10352,13 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 			// start with the range based on the soldier's strength and the item's weight
 			// Altered by Digicrab on 14 March, 2004
 			// Reversed a Ja2Gold change that made grenades of weight 3 or more have the same throw distance as those of weight 3.
-			INT32 iThrowingStrength = ( EffectiveStrength( pSoldier ) * 2 + 100 ) / 3;
+			INT32 iThrowingStrength = ( EffectiveStrength( pSoldier, FALSE ) * 2 + 100 ) / 3;
 			iRange = 2 + ( iThrowingStrength / (3 + (Item[usItem].ubWeight) / 3 ));
 		}
 		else
 		{	// not as aerodynamic!
 			// start with the range based on the soldier's strength and the item's weight
-			iRange = 2 + ( ( EffectiveStrength( pSoldier ) / ( 5 + Item[usItem].ubWeight) ) );
+			iRange = 2 + ( ( EffectiveStrength( pSoldier, FALSE ) / ( 5 + Item[usItem].ubWeight) ) );
 		}
 
 		// adjust for thrower's remaining breath (lose up to 1/2 of range)
@@ -10432,7 +10438,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	{
 		// PHYSICALLY THROWN arced projectile (ie. grenade)
 		// for lack of anything better, base throwing accuracy on dex & marskmanship
-		iChance = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) ) / 2;
+		iChance = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveMarksmanship( pSoldier ) ) / 2;
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - old/new traits
 		if ( gGameOptions.fNewTraitSystem )
@@ -10464,7 +10470,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	{
 
 		// MECHANICALLY FIRED arced projectile (ie. mortar), need brains & know-how
-		iChance = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + pSoldier->stats.bExpLevel ) / 4;
+		iChance = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + pSoldier->stats.bExpLevel ) / 4;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - old/new traits
@@ -10646,7 +10652,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			bPenalty /= 2;
 
 		// reduce breath penalty due to merc's dexterity (he can compensate!)
-		iChance -= (bPenalty * (100 - ( EffectiveDexterity( pSoldier ) - 10))) / 100;
+		iChance -= (bPenalty * (100 - ( EffectiveDexterity( pSoldier, FALSE ) - 10))) / 100;
 	}
 
 	// if iChance exists, but it's a mechanical item being used
@@ -11085,8 +11091,8 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {
 
 	UINT16 usExpLevel;
-	UINT16 usDexterity;
-	UINT16 usWisdom;
+	UINT32 usDexterity;
+	UINT32 usWisdom;
 	UINT16 ubMagSize = Weapon[pObj->usItem].ubMagSize;
 	UINT16 usRealBulletCount = (*pObj)[0]->data.gun.ubGunShotsLeft;
 	UINT16 i = 0;
@@ -11103,7 +11109,7 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	}
 
 	usExpLevel = EffectiveExpLevel(pSoldier);
-	usDexterity = EffectiveDexterity(pSoldier);
+	usDexterity = EffectiveDexterity(pSoldier, FALSE);
 	usWisdom = EffectiveWisdom(pSoldier);
 
 	if ( gGameExternalOptions.usBulletHideIntensity <= 0 )

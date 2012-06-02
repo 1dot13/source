@@ -18,7 +18,7 @@
 	#include "Soldier Control.h"
 #endif
 
-INT8 EffectiveStrength( SOLDIERTYPE *pSoldier)
+INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 {
 	INT8	bBandaged;
 	INT32	iEffStrength;
@@ -29,9 +29,17 @@ INT8 EffectiveStrength( SOLDIERTYPE *pSoldier)
 	bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
 	if (pSoldier->stats.bStrength > 0)
-	{		
-		iEffStrength = ( pSoldier->stats.bStrength )/ 2;
-		iEffStrength += ( (pSoldier->stats.bStrength ) / 2) * (pSoldier->stats.bLife + bBandaged / 2) / (pSoldier->stats.bLifeMax);
+	{
+		if ( fTrainer )
+		{
+			iEffStrength = pSoldier->stats.bStrength / 2;
+			iEffStrength += ( pSoldier->stats.bStrength / 2) * (pSoldier->stats.bLife + bBandaged / 2) / (pSoldier->stats.bLifeMax);
+		}
+		else
+		{
+			iEffStrength = ( pSoldier->stats.bStrength + pSoldier->bExtraStrength )/ 2;
+			iEffStrength += ( (pSoldier->stats.bStrength + pSoldier->bExtraStrength) / 2) * (pSoldier->stats.bLife + bBandaged / 2) / (pSoldier->stats.bLifeMax);
+		}
 	}
 	else
 	{
@@ -41,26 +49,31 @@ INT8 EffectiveStrength( SOLDIERTYPE *pSoldier)
 	// ATE: Make sure at least 2...
 	iEffStrength = __max( iEffStrength, 2 );
 
-	return( (INT8) iEffStrength );
+	return( (INT16) iEffStrength );
 }
 
 
-INT8 EffectiveWisdom( SOLDIERTYPE * pSoldier )
+INT16 EffectiveWisdom( SOLDIERTYPE * pSoldier)
 {
 	INT32	iEffWisdom;
 
 	iEffWisdom = pSoldier->stats.bWisdom;
 
+	iEffWisdom += pSoldier->bExtraWisdom;
+
 	iEffWisdom = EffectStatForBeingDrunk( pSoldier, iEffWisdom );
 
-	return( (INT8) iEffWisdom );
+	return( (INT16) iEffWisdom );
 }
 
-INT8 EffectiveAgility( SOLDIERTYPE * pSoldier )
+INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 {
 	INT32	iEffAgility;
 
 	iEffAgility = pSoldier->stats.bAgility;
+
+	if ( !fTrainer )
+		iEffAgility += pSoldier->bExtraAgility;
 
 	iEffAgility = EffectStatForBeingDrunk( pSoldier, iEffAgility );
 
@@ -69,7 +82,7 @@ INT8 EffectiveAgility( SOLDIERTYPE * pSoldier )
 		iEffAgility = (iEffAgility * 100) / pSoldier->sWeightCarriedAtTurnStart;
 	}
 
-	return( (INT8) iEffAgility );
+	return( (INT16) iEffAgility );
 }
 
 
@@ -164,6 +177,8 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 			iEffExpLevel -= 1;
 		}
 	}
+
+	iEffExpLevel += pSoldier->bExtraExpLevel;
 		
 	if (iEffExpLevel > 10)
 	{
@@ -192,15 +207,18 @@ INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier )
 	return( (INT8) iEffMarksmanship );
 }
 
-INT8 EffectiveDexterity( SOLDIERTYPE * pSoldier )
+INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 {
 	INT32	iEffDexterity;
 
 	iEffDexterity = pSoldier->stats.bDexterity;
 
+	if ( !fTrainer )
+		iEffDexterity += pSoldier->bExtraDexterity;
+
 	iEffDexterity = EffectStatForBeingDrunk( pSoldier, iEffDexterity );
 
-	return( (INT8) iEffDexterity );
+	return( (INT16) iEffDexterity );
 }
 
 
@@ -220,7 +238,7 @@ UINT8 GetPenaltyForFatigue( SOLDIERTYPE *pSoldier )
 	return( ubPercentPenalty );
 }
 
-void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, UINT16 *pusPoints )
+void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, UINT32 *pusPoints )
 {
 	*pusPoints -= (*pusPoints * GetPenaltyForFatigue( pSoldier )) / 100;
 }
@@ -259,7 +277,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			// adjust skill based on wisdom (knowledge)
 			iSkill = iSkill * (EffectiveWisdom( pSoldier ) + 100) / 200;
 			// and dexterity (clumsy?)
-			iSkill = iSkill * (EffectiveDexterity( pSoldier ) + 100) / 200;
+			iSkill = iSkill * (EffectiveDexterity( pSoldier, FALSE ) + 100) / 200;
 			// factor in experience
 			iSkill = iSkill + EffectiveExpLevel( pSoldier ) * 3;
 
@@ -310,7 +328,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			{
 				break;
 			}
-			iSkill = (iSkill * 3 + EffectiveDexterity( pSoldier ) ) / 4;
+			iSkill = (iSkill * 3 + EffectiveDexterity( pSoldier, FALSE ) ) / 4;
 
 			// SANDRO - STOMP traits - Demolitions trait detonator attaching bonus
 			if ( gGameOptions.fNewTraitSystem )
@@ -401,7 +419,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 				}
 			}
 
-			iSkill += EffectiveDexterity( pSoldier ) * 2;
+			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 			iSkill = iSkill / 10; // bring the value down to a percentage
 
@@ -445,7 +463,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 					break;
 				}
 			}
-			iSkill += EffectiveDexterity( pSoldier ) * 2;
+			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 			iSkill = iSkill / 10; // bring the value down to a percentage
 			// penalty based on poor wisdom
@@ -475,12 +493,12 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 		case OPEN_WITH_CROWBAR:
 			// Add for crowbar...
-			iSkill = EffectiveStrength( pSoldier ) + 20;
+			iSkill = EffectiveStrength( pSoldier, FALSE ) + 20;
 			fForceDamnSound = TRUE;
 			break;
 
 		case SMASH_DOOR_CHECK:
-			iSkill = EffectiveStrength( pSoldier );
+			iSkill = EffectiveStrength( pSoldier, FALSE );
 			// SANDRO - STOMP traits - Martial Arts trait kick doors bonus
 			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ))
 			{
@@ -519,7 +537,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			// adjust skill based on wisdom (knowledge)
 			iSkill = iSkill * (EffectiveWisdom( pSoldier ) + 100) / 200;
 			// and dexterity (clumsy?)
-			iSkill = iSkill * (EffectiveDexterity( pSoldier ) + 100) / 200;
+			iSkill = iSkill * (EffectiveDexterity( pSoldier, FALSE ) + 100) / 200;
 			// factor in experience
 			iSkill = iSkill + EffectiveExpLevel( pSoldier ) * 3;
 
@@ -777,11 +795,11 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 }
 
 
-INT8 CalcTrapDetectLevel( SOLDIERTYPE * pSoldier, BOOLEAN fExamining )
+INT16 CalcTrapDetectLevel( SOLDIERTYPE * pSoldier, BOOLEAN fExamining )
 {
 	// return the level of trap which the guy is able to detect
 
-	INT8 bDetectLevel;
+	INT16 bDetectLevel;
 
 	// formula: 1 pt for every exp_level
 	//	 plus 1 pt for every 40 explosives

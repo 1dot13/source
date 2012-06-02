@@ -2854,7 +2854,7 @@ void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuo
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && PythSpacesAway( sGridNo, pTeamSoldier->sGridNo ) < bDistance && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep &&
 			SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo, 0, 0, TRUE ) )
 		{
-			if ( usQuoteNum == 66 && (INT8) Random( 100 ) > EffectiveWisdom( pTeamSoldier ) )
+			if ( usQuoteNum == 66 && (INT16) Random( 100 ) > EffectiveWisdom( pTeamSoldier ) )
 			{
 				continue;
 			}

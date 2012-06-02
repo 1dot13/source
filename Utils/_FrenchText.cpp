@@ -5087,13 +5087,11 @@ STR16		zOptionsToggleText[] =
 	L"Afficher infobulle soldat",
 	L"Sauvegarde auto",
 	L"Silence Skyrider !",
-	//L"Faible consommation processeur",
 	L"EDB (mod rajoutant info utiles)",
 	L"Mode tour par tour forcé",			// add forced turn mode
 	L"Afficher deviation balle",					// Screen messages showing amount and direction of shot deviation.
 	L"Couleur alternative map",		// Change color scheme of Strategic Map
 	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
-	//L"Activé NCTH",				// use NCTH
 	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
 	L"Afficher équipments portrait",
 	L"Afficher icones portraits",
@@ -5103,7 +5101,6 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 	L"Allow Zombies",						// Flugente Zombies 1.0
-	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5199,21 +5196,20 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, une fenêtre info-bulle apparaît lorsque vous appuyez sur |A|l|t et que le curseur est au dessus d'un ennemi.",
 	L"Si activé, le jeu est sauvegardé à chaque nouveau tour du joueur.",
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
-	//L"Si activé, le jeu restreint l'utilisation du processeur.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
 	L"Si cette option est activée et que des ennemis sont présents, \nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
 	L"Si activé, montre la progression des caractères à travers le gain de niveaux.",
 	L"Si activé, la carte stratégique sera coloré différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
-	//L"Si activé, le nouveau systéme NCTH (chance de toucher) \nainsi que le nouveau curseur seront utilisés.",
 	L"When ON, ranks will be displayed before merc names in the strategic view.",		// TODO.Translate
 	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",
 	L"Si activé, vous verrez les icones correspondant à l'équipement porté en bas à droite du portrait.",
 	L"Si activé, le curseur ne basculera pas entre changer de position et une autre action. Appuyez sur |x pour initier un échange rapide.",
 	L"When ON, mercs will not report progress during training.",
+	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
+	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
-	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

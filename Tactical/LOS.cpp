@@ -7339,7 +7339,7 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// Now let's figure out how competent our shooter is.
 	FLOAT iCombinedSkill = gGameCTHConstants.MOVEMENT_MRK * EffectiveMarksmanship( pShooter );
 	iCombinedSkill += gGameCTHConstants.MOVEMENT_WIS * EffectiveWisdom( pShooter );
-	iCombinedSkill += gGameCTHConstants.MOVEMENT_DEX * EffectiveDexterity( pShooter );
+	iCombinedSkill += gGameCTHConstants.MOVEMENT_DEX * EffectiveDexterity( pShooter, FALSE );
 	iCombinedSkill += gGameCTHConstants.MOVEMENT_EXP_LEVEL * (EffectiveExpLevel( pShooter ) * 10);
 
 	// Average
@@ -7514,7 +7514,7 @@ void CalcRangeCompensationOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetY, 
 	// matter, and a skilled shooter will have a far greater chance of guessing the extra muzzle angle required.
 	FLOAT iCombinedSkill = gGameCTHConstants.MOVEMENT_MRK * EffectiveMarksmanship( pShooter );
 	iCombinedSkill += gGameCTHConstants.MOVEMENT_WIS * EffectiveWisdom( pShooter );
-	iCombinedSkill += gGameCTHConstants.MOVEMENT_DEX * EffectiveDexterity( pShooter );
+	iCombinedSkill += gGameCTHConstants.MOVEMENT_DEX * EffectiveDexterity( pShooter, FALSE );
 	iCombinedSkill += gGameCTHConstants.MOVEMENT_EXP_LEVEL * (EffectiveExpLevel( pShooter ) * 10);
 
 	// Average
@@ -7839,7 +7839,7 @@ UINT32 CalcCounterForceFrequency(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon)
 {
 	INT8	traitLoop;
 
-	FLOAT iCounterForceFrequency = gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_AGI * EffectiveAgility(pShooter);
+	FLOAT iCounterForceFrequency = gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_AGI * EffectiveAgility(pShooter, FALSE);
 	iCounterForceFrequency += gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_EXP_LEVEL * EffectiveExpLevel(pShooter) * 10;
 
 	// Average
@@ -7895,8 +7895,8 @@ FLOAT CalcCounterForceMax(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT8 uiSt
 	if(uiStance == 0)
 		uiStance = gAnimControl[ pShooter->usAnimState ].ubHeight;
 
-	FLOAT iCounterForceMax = gGameCTHConstants.RECOIL_MAX_COUNTER_STR * EffectiveStrength(pShooter);
-	iCounterForceMax += gGameCTHConstants.RECOIL_MAX_COUNTER_AGI * EffectiveAgility(pShooter);
+	FLOAT iCounterForceMax = gGameCTHConstants.RECOIL_MAX_COUNTER_STR * EffectiveStrength(pShooter, FALSE);
+	iCounterForceMax += gGameCTHConstants.RECOIL_MAX_COUNTER_AGI * EffectiveAgility(pShooter, FALSE);
 	iCounterForceMax += gGameCTHConstants.RECOIL_MAX_COUNTER_EXP_LEVEL * EffectiveExpLevel(pShooter) * 10;
 
 	FLOAT iDivisor = gGameCTHConstants.RECOIL_MAX_COUNTER_STR + 
@@ -7921,9 +7921,9 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 {
 	INT8	traitLoop;
 
-	FLOAT iCounterForceAccuracy = gGameCTHConstants.RECOIL_COUNTER_ACCURACY_DEX * EffectiveDexterity(pShooter);
+	FLOAT iCounterForceAccuracy = gGameCTHConstants.RECOIL_COUNTER_ACCURACY_DEX * EffectiveDexterity(pShooter, FALSE);
 	iCounterForceAccuracy += gGameCTHConstants.RECOIL_COUNTER_ACCURACY_WIS * EffectiveWisdom(pShooter);
-	iCounterForceAccuracy += gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AGI * EffectiveAgility(pShooter);
+	iCounterForceAccuracy += gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AGI * EffectiveAgility(pShooter, FALSE);
 	iCounterForceAccuracy += gGameCTHConstants.RECOIL_COUNTER_ACCURACY_EXP_LEVEL * EffectiveExpLevel(pShooter) * 10;
 
 	FLOAT iDivisor = gGameCTHConstants.RECOIL_COUNTER_ACCURACY_DEX + 

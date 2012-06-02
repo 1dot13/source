@@ -4599,7 +4599,8 @@ void SetOffBoobyTrap( ITEM_POOL * pItemPool )
 BOOLEAN ContinuePastBoobyTrap( SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bLevel, INT32 iItemIndex, BOOLEAN fInStrategic, BOOLEAN *pfSaidQuote )
 {
 	BOOLEAN					fBoobyTrapKnowledge;
-	INT8						bTrapDifficulty, bTrapDetectLevel;
+	INT8					bTrapDifficulty;
+	INT16					bTrapDetectLevel;
 	OBJECTTYPE *		pObj;
 
 	pObj = &(gWorldItems[ iItemIndex ].object);
@@ -5028,7 +5029,8 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 {
 	INT32						sNextGridNo;
 	// BOOLEAN fWorthChecking = FALSE, fProblemExists = FALSE, fDetectedProblem = FALSE;
-	UINT8						ubDetectLevel, ubDirection;
+	UINT16						ubDetectLevel;
+	UINT8						ubDirection;
 	MAP_ELEMENT *		pMapElement;
 	UINT32					fCheckFlag;
 	UINT32					uiWorldBombIndex;
@@ -5451,7 +5453,8 @@ void ToggleItemGlow( BOOLEAN fOn )
 BOOLEAN ContinuePastBoobyTrapInMapScreen( OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier )
 {
 	BOOLEAN					fBoobyTrapKnowledge;
-	INT8						bTrapDifficulty, bTrapDetectLevel;
+	INT8					bTrapDifficulty;
+	INT16					bTrapDetectLevel;
 
 	if ((*pObject)[0]->data.bTrap > 0)
 	{

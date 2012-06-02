@@ -1726,9 +1726,9 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 	return sAPCost;
 }
 
-INT8 CalcAimSkill( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
+INT16 CalcAimSkill( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 {
-	INT8 bAimSkill;
+	INT16 bAimSkill;
 
 	if ( Item[ usWeapon ].usItemClass == IC_GUN || Item[ usWeapon ].usItemClass == IC_LAUNCHER )
 	{
@@ -1740,7 +1740,7 @@ INT8 CalcAimSkill( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 	//if ( Item[ usInHand ].usItemClass == IC_BLADE )
 	{
 		// KNIVES: modify aiming cost by avg of attacker's DEXTERITY & AGILITY
-		bAimSkill = ( EffectiveDexterity( pSoldier ) + EffectiveAgility( pSoldier ) ) / 2;
+		bAimSkill = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveAgility( pSoldier, FALSE ) ) / 2;
 		//return( 4 );
 	}
 	return( bAimSkill );
@@ -1938,7 +1938,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 	UINT32	uiMercFlags;
 	UINT16	usTargID;
 	INT16	bFullAPs;
-	INT8 bAimSkill;
+	INT16 bAimSkill;
 	INT16	bAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
 	BOOLEAN	fAddingTurningCost = FALSE;
 	BOOLEAN	fAddingRaiseGunCost = FALSE;

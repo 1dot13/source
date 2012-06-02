@@ -5094,13 +5094,11 @@ STR16		zOptionsToggleText[] =
 	L"Show Soldier Tooltips",
 	L"Automatyczny zapis",
 	L"Cichy Skyrider",
-	//L"Niskie obciążenie procesora",
 	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
 	L"WymuŚ tryb turowy",					// add forced turn mode
 	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
-	//L"Activate New CTH system",				// use NCTH
 	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
 	L"Show Face gear graphics",				// TODO.Translate
 	L"Show Face gear icons",
@@ -5110,7 +5108,6 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 	L"Allow Zombies",						// Flugente Zombies 1.0
-	//L"Weapons Overheating",					// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5207,20 +5204,19 @@ STR16	zOptionsScreenHelpText[] =
 	L"JeŚli WŁ¥CZONE, gra będzie zapisywana każdorazowo po zakończeniu tury gracza.",
 	L"JeŚli WŁ¥CZONE, Skyrider nie będzie nic mówił.",
 	L"JeŚli WŁ¥CZONE, gra będzie obciążała procesor w mniejszym stopniu.",
-	//L"JeŚli WŁ¥CZONE, rozszerzone opisy będą pokazane dla przedmiotów i broni.",
 	L"JeŚli WŁ¥CZONE i wróg jest obecny, \ntryb turowy jest włączony, \ndopóki sektor nie zostanie oczyszczony (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
 	L"Gdy WŁ¥CZONE, pokazuje postęp w doŚwiadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Gdy WŁ¥CZONE, zastępuje starą animację pocisku nową.",
-	//L"When ON, New CTH system and cursor is used.",
 	L"When ON, ranks will be displayed before merc names in the strategic view.",			// TODO.Translate
 	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
 	L"When ON, mercs will not report progress during training.",
+	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
+	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
-	//L"When ON, weapons can be overheated when firing.",				// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"WymuŚ wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
