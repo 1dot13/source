@@ -472,7 +472,7 @@ public:
 	// these variables should belong to a different position. However, I am forced to put them here, otherwise loading of WF maps and other old data would not work properly
 	FLOAT		bTemperature;	// Flugente FTW 1.2: temperature of gun
 
-	// shoul belong to misc, but was moved here because of the odl maps issue
+	// should belong to misc, but was moved here because of the old maps issue
 	// added by Flugente 12-04-15
 	UINT8		ubDirection;		// direction the bomb faces (for directional explosives)
 	UINT32		ubWireNetworkFlag;	// flags for the tripwire network

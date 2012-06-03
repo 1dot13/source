@@ -3841,7 +3841,7 @@ void DecayBombTimers( void )
 	OBJECTTYPE * pObj;
 
 	uiTimeStamp = GetJA2Clock();
-
+		
 	// Go through all the bombs in the world, and look for timed ones
 	for (uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; uiWorldBombIndex++)
 	{
@@ -3881,6 +3881,59 @@ void DecayBombTimers( void )
 			}
 		}
 	}
+
+	// Flugente: we have to check every inventory for armed bombs and do the countdown for them, too
+	// Flugente: new stuff: we can now also arm bombs in our inventory, and detonate/defuse those bombs remotely
+	// So we have to look at every item in every inventory in this sector
+	for (UINT32 cnt = 0; cnt < guiNumMercSlots; cnt++ )
+	{
+		SOLDIERTYPE* pSoldier = MercSlots[ cnt ];
+
+		if ( pSoldier != NULL )
+		{
+			if ( pSoldier->bInSector && pSoldier->bActive )
+			{
+				INT8 invsize = (INT8)pSoldier->inv.size();								// remember inventorysize, so we don't call size() repeatedly
+							  
+				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+			    {
+					// ... if Item is a bomb ...
+					if (pSoldier->inv[bLoop].exists() == true && ( Item[pSoldier->inv[bLoop].usItem].usItemClass & (IC_BOMB) ) )
+					{
+						OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);					// ... get pointer for this item ...
+
+						if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_TIMED )
+						{
+							// Found a timed bomb, so decay its delay value and see if it goes off
+							(*pObj)[0]->data.misc.bDelay--;
+							if ((*pObj)[0]->data.misc.bDelay == 0)
+							{
+								// ATE: CC black magic....
+								if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
+								{
+									gubPersonToSetOffExplosions = (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2);
+									// SANDRO - merc records - detonating explosives
+									if ( MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile != NO_PROFILE && MercPtrs[ gubPersonToSetOffExplosions ]->bTeam == gbPlayerNum )
+									{
+										gMercProfiles[ MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile ].records.usExpDetonated++;
+									}
+								}
+								else
+								{
+									gubPersonToSetOffExplosions = NOBODY;
+								}
+
+								// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
+								IgniteExplosion( gubPersonToSetOffExplosions, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pObj->usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+
+								DeleteObj( pObj );
+							}
+						}
+					}
+				}
+			}
+		}
+	}		
 }
 
 void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
@@ -3979,6 +4032,86 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 							RemoveItemFromPool( sGridNo, gWorldBombs[uiWorldBombIndex].iItemIndex, ubLevel );
 
 							// TODO remove bomb from queue...
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Flugente: new stuff: we can now also arm bombs in our inventory, and detonate/defuse those bombs remotely
+	// So we have to look at every item in every inventory in this sector
+	for (UINT32 cnt = 0; cnt < guiNumMercSlots; cnt++ )
+	{
+		SOLDIERTYPE* pSoldier = MercSlots[ cnt ];
+
+		if ( pSoldier != NULL )
+		{
+			if ( pSoldier->bInSector && pSoldier->bActive )
+			{
+				INT8 invsize = (INT8)pSoldier->inv.size();								// remember inventorysize, so we don't call size() repeatedly
+							  
+				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+			    {
+					// ... if Item is a bomb ...
+					if (pSoldier->inv[bLoop].exists() == true && ( Item[pSoldier->inv[bLoop].usItem].usItemClass & (IC_BOMB) ) )
+					{
+						OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);					// ... get pointer for this item ...
+
+						if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_REMOTE )
+						{
+							// Found a remote bomb, so check to see if it has the same frequency
+							if ( fDetonate )	// detonate bombs
+							{
+								// Found a remote bomb, so check to see if it has the same frequency
+								if ((*pObj)[0]->data.misc.bFrequency == bFrequency)
+								{					
+									// SANDRO - added merc records and some exp
+									if ( ((*pObj)[0]->data.misc.ubBombOwner) > 1 )
+									{
+										if ( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile != NO_PROFILE &&
+											MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->bTeam == gbPlayerNum )
+										{
+											gMercProfiles[MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile].records.usExpDetonated++;
+
+											StatChange( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)], EXPLODEAMT, ( 5 ), FALSE );					
+										}
+									}
+
+									gubPersonToSetOffExplosions = ubID;
+
+									// ignite explosions manually - this item is not in the WorldBobms-structure, so we can't add it to the queue
+									IgniteExplosion( ubID, pSoldier->sX, pSoldier->sY, (INT16) (gpWorldLevelData[pSoldier->sGridNo].sHeight), pSoldier->sGridNo, pObj->usItem, pSoldier->pathing.bLevel, pSoldier->ubDirection );
+
+									DeleteObj( pObj );
+								}
+							}
+							else	// defuse bombs
+							{
+								// check for frequency
+								if ((*pObj)[0]->data.bDefuseFrequency == bFrequency)
+								{
+									// check for a defuse
+									if ( HasAttachmentOfClass(pObj, AC_DEFUSE) )
+									{
+										(*pObj)[0]->data.bTrap = 0;
+
+										if ( (*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
+											pObj->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );
+
+										if ( (*pObj).fFlags & OBJECT_ARMED_BOMB )
+											pObj->fFlags &= ~( OBJECT_ARMED_BOMB );
+																				
+										// set back ubWireNetworkFlag and bDefuseFrequency, but not the direction... bomb is still aimed, it is just turned off
+										(*pObj)[0]->data.ubWireNetworkFlag = 0;
+										(*pObj)[0]->data.bDefuseFrequency = 0;
+										(*pObj)[0]->data.misc.bDetonatorType = 0;
+										(*pObj)[0]->data.misc.bDelay = 0;
+										(*pObj)[0]->data.misc.bFrequency = 0;
+										(*pObj)[0]->data.bTrap = 0;
+									}
+								}
+							}
 						}
 					}
 				}

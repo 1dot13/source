@@ -7656,7 +7656,6 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 		return( FALSE );
 	}
 
-	// Flugente TODO determine correct frequency and detonate/defuse stuff
 	// Flugente: decide how to interpret the bSetting we just got.
 	// Due to limitations in the message system, we only receive a single value to interpret, as we currently can't have a message box return 2 values
 	// It might be possible to have proper checkboxes, but I'll rather not research this right now.
@@ -7669,7 +7668,7 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 	// d) if we have a remote detonator plus a remote defuse: frequency on which the bomb will blow plus frequency to defuse: 1-16
 	//
 	// I we are placing tripwire, consider this:
-	// e) if we palce tripwire: the tripwire network plus the hierachy in that network: 1-16
+	// e) if we place tripwire: the tripwire network plus the hierachy in that network: 1-16
 	//
 	// It is clear that we only have to reinterpret the values if a defuse is equiped, or we are placing tripwire
 	INT8 detonatesetting = bSetting;
@@ -13859,4 +13858,20 @@ UINT64 GetAvailableAttachmentPoint (OBJECTTYPE * pObject, UINT8 subObject)
 	}
 
 	return point;
+}
+
+// Flugente: check if and how a bomb has been set up
+void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, INT8* defusefrequency )
+{
+	if ( pObj && pObj->exists() )
+	{
+		*detonatortype = (*pObj)[0]->data.misc.bDetonatorType;
+
+		if ( *detonatortype == BOMB_TIMED )
+			*setting = (*pObj)[0]->data.misc.bDelay;
+		else
+			*setting = (*pObj)[0]->data.misc.bFrequency;
+
+		*defusefrequency = (*pObj)[0]->data.bDefuseFrequency;
+	}
 }

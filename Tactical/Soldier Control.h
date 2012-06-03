@@ -1367,6 +1367,9 @@ public:
 
 	// reset the extra stat variables
 	void	ResetExtraStats();
+
+	// Flugente: inventory bombs can ignite while in mapscreen. Workaround: Damage items and health
+	void	InventoryExplosion( void );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

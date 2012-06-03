@@ -11529,7 +11529,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 					if ( pTSoldier->stats.bLife - damage < 0 )
 						damage = oldlife;
 
-					// We've got a problem if we kill someone outright ithout him collapsing properly...
+					// We've got a problem if we kill someone outright without him collapsing properly...
 					// FIX: We'll adjust our damage, so if we'd kill someone without collapsing first, we lower our damage, to let him collapse
 					// After all, this whole thing's a rig up, so there shouldn't be a problem with that
 					if ( oldlife >= OKLIFE && oldlife <= damage )
@@ -13506,6 +13506,70 @@ void	SOLDIERTYPE::ResetExtraStats()
 	bExtraAgility		= 0;
 	bExtraWisdom		= 0;
 	bExtraExpLevel		= 0;	
+}
+
+// Flugente: inventory bombs can ignite while in mapscreen. Workaround: Damage items and health
+void	SOLDIERTYPE::InventoryExplosion( void )
+{
+	INT8 invsize = (INT8)this->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+	{
+		if (this->inv[bLoop].exists() == true )
+		{
+			OBJECTTYPE * pObj = &(this->inv[bLoop]);							// ... get pointer for this item ...
+
+			if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+			{
+				for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+				{
+					INT16 status = (*pObj)[0]->data.objectStatus;
+					(*pObj)[0]->data.objectStatus = max(1, (INT16)(status/2));
+
+					// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+					attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+					for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+					{
+						if ( iter->exists()  )
+						{
+							INT16 status = (*iter)[0]->data.objectStatus;
+							(*iter)[0]->data.objectStatus = max(1, (INT16)(status/2));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// now damage our health
+	INT8 oldlife = stats.bLife;
+	
+	INT16 damage = (INT16)(30 + Random(20));
+	if ( stats.bLife - damage < 0 )
+		damage = oldlife;
+
+	// We've got a problem if we kill someone outright without him collapsing properly...
+	// FIX: We'll adjust our damage, so if we'd kill someone without collapsing first, we lower our damage, to let him collapse
+	// After all, this whole thing's a rig up, so there shouldn't be a problem with that
+	if ( oldlife >= OKLIFE && oldlife <= damage )
+		damage -= (INT16)((5 + Random(5)));
+
+	INT16 breathdamage = (INT16)(500 + Random(1500));
+	if ( bBreath - breathdamage < 0 )
+		breathdamage = bBreath;
+						
+	SoldierTakeDamage( 0, damage, 0, breathdamage, TAKE_DAMAGE_EXPLOSION, this->ubID, sGridNo, 0, TRUE );
+	
+	if ( stats.bLife <= 0 )
+	{
+		// FINISH HIM!
+		HandleTakeDamageDeath( this, oldlife, TAKE_DAMAGE_BLOODLOSS );
+	}
+	else if ( stats.bLife < OKLIFE && !bCollapsed )
+	{
+		// let the target collapse...
+		SoldierCollapse(this);
+	}
 }
 
 

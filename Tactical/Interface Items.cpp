@@ -80,6 +80,10 @@
 	#include "popup_callback.h"
 	// BOB : quick attachment popup
 	#include "popup_class.h"
+	#include "Campaign.h"				// added by Flugente
+	#include "SkillCheck.h"				// added by Flugente
+	#include "random.h"					// added by Flugente
+	#include "Explosion Control.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -329,6 +333,12 @@ void TransformationMenuPopup_SplitCrate( UINT16 usMagazineItem );
 void TransformationMenuPopup_SplitCrateInInventory( );
 void TransformFromItemDescBox( TransformInfoStruct * Transform);
 void ConfirmTransformationMessageBoxCallBack( UINT8 bExitValue );
+
+// Flugente:
+void TransformationMenuPopup_Arm( OBJECTTYPE* pObj );
+BOOLEAN TransformationMenuPopup_Arm_TestValid(OBJECTTYPE * pObj);
+void BombInventoryMessageBoxCallBack( UINT8 ubExitValue );
+void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue );
 
 // HEADROCK HAM 5: The maximum number of attachment asterisks shown for an item.
 UINT32 guiAttachmentAsterisks;
@@ -6280,7 +6290,8 @@ void RenderItemDescriptionBox( )
 				{
 					break;
 				}
-				if (Transform[x].usItem == gpItemDescObject->usItem)
+
+				if ( (Transform[x].usItem == gpItemDescObject->usItem) || ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) ) && Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
@@ -12162,36 +12173,96 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 
 		// Scan the Transformation list for the current item. Create pop-up options as required.
 		INT32 iTransformIndex = -1;
-		for (INT32 x = 0; x < MAXITEMS; x++)
-		{
-			if (Transform[x].usItem == -1)
-			{
-				break;
-			}
-			if (Transform[x].usItem == gpItemDescObject->usItem)
-			{
-				iTransformIndex++;
 
-				CHAR16 MenuRowText[300];
-				if ( Transform[x].usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+		// Flugente: we can also arm/disarm bombs in our inventory via this menu
+		BOOLEAN fHaveToDisarm = FALSE;		// important check: if item is an armed bomb, we have to disarm it prior to any transformation
+		if ( ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) ) && Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
+		{
+			iTransformIndex++;
+
+			UINT16 apcost = 20;
+
+			if ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) )
+				apcost = 15;
+
+			// test wether item is already armed
+			INT8 detonatortype;
+			INT8 setting;
+			INT8 defusefrequency;
+			CheckBombSpecifics( gpItemDescObject, &detonatortype, &setting, &defusefrequency );
+
+			CHAR16 MenuRowText[300];
+
+			if ( detonatortype == BOMB_TIMED || detonatortype == BOMB_REMOTE )
+			{
+				fHaveToDisarm = TRUE;
+
+				if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
 				{
-					swprintf (MenuRowText, L"%s (%d AP)", Transform[x].szMenuRowText, Transform[x].usAPCost );
+					swprintf (MenuRowText, L"Disarm (%d AP)", apcost );
 				}
 				else
 				{
-					swprintf (MenuRowText, Transform[x].szMenuRowText);
+					swprintf (MenuRowText, L"Disarm");
 				}
+			}
+			else
+			{
+				if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+				{
+					swprintf (MenuRowText, L"Arm (%d AP)", apcost );
+				}
+				else
+				{
+					swprintf (MenuRowText, L"Arm");
+				}
+			}
 
-				// Generate a new option for the menu
-				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, &Transform[x] ) );
-				// Set the function that tests whether it's valid at the moment.
-				pOption->setAvail(new popupCallbackFunction<bool,TransformInfoStruct*>( &TransformationMenuPopup_TestValid, &Transform[x] ));
-				// Add the option to the menu.
-				gItemDescTransformPopup->addOption( *pOption );
-				// Set this flag so we know we have at least one Transformation available.
-				fFoundTransformations = true;
+			// Generate a new option for the menu
+			POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void, OBJECTTYPE*>( &TransformationMenuPopup_Arm, gpItemDescObject ) );
+			// Set the function that tests whether it's valid at the moment.
+			pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_Arm_TestValid, gpItemDescObject ));
+			// Add the option to the menu.
+			gItemDescTransformPopup->addOption( *pOption );
+			// Set this flag so we know we have at least one Transformation available.
+			fFoundTransformations = true;
+		}
+				
+		// onyl allow transformations if the item is not an armed bomb
+		if ( !fHaveToDisarm )
+		{
+			for (INT32 x = 0; x < MAXITEMS; x++)
+			{
+				if (Transform[x].usItem == -1)
+				{
+					break;
+				}
+				if (Transform[x].usItem == gpItemDescObject->usItem)
+				{
+					iTransformIndex++;
+
+					CHAR16 MenuRowText[300];
+					if ( Transform[x].usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+					{
+						swprintf (MenuRowText, L"%s (%d AP)", Transform[x].szMenuRowText, Transform[x].usAPCost );
+					}
+					else
+					{
+						swprintf (MenuRowText, Transform[x].szMenuRowText);
+					}
+
+					// Generate a new option for the menu
+					POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, &Transform[x] ) );
+					// Set the function that tests whether it's valid at the moment.
+					pOption->setAvail(new popupCallbackFunction<bool,TransformInfoStruct*>( &TransformationMenuPopup_TestValid, &Transform[x] ));
+					// Add the option to the menu.
+					gItemDescTransformPopup->addOption( *pOption );
+					// Set this flag so we know we have at least one Transformation available.
+					fFoundTransformations = true;
+				}
 			}
 		}
+				
 		if (!fFoundTransformations)
 		{
 			POPUP_OPTION * pOption = new POPUP_OPTION( &std::wstring( gzTransformationMessage[ 0 ] ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, NULL ) );
@@ -12303,11 +12374,330 @@ BOOLEAN TransformationMenuPopup_TestValid(TransformInfoStruct * Transform)
 
 		if (EnoughPoints( gpItemDescSoldier, usAPCost, iBPCost, false ))
 		{
+			// Flugente: If item is an armed bomb, do not allow any transformation!
+			if ( Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
+			{
+				if ( (*gpItemDescObject)[0]->data.misc.bDetonatorType == BOMB_TIMED || (*gpItemDescObject)[0]->data.misc.bDetonatorType == BOMB_REMOTE )
+				{
+					return false;
+				}
+			}
+
 			return true;
 		}
 		else
 		{
 			return false;
+		}
+	}
+}
+
+// Flugente: This function handles callback when the 'ARM' option in the item transformation menu is clicked
+void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
+{
+	// cant handle item stacks here
+	if (gpItemDescObject->ubNumberOfObjects > 1)
+	{
+		return;
+	}
+	else
+	{
+		INT8 screen = guiCurrentScreen;
+		if ( screen != GAME_SCREEN && screen != MAP_SCREEN )
+			return;
+
+		// test wether item is already armed
+		INT8 detonatortype;
+		INT8 setting;
+		INT8 defusefrequency;
+		CheckBombSpecifics( gpItemDescObject, &detonatortype, &setting, &defusefrequency );
+		
+		if ( detonatortype == BOMB_TIMED || detonatortype == BOMB_REMOTE )
+		{
+			// TODO
+			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ DISARM_BOOBYTRAP_PROMPT ], screen, ( UINT8 )MSG_BOX_FLAG_YESNO, BombInventoryDisArmMessageBoxCallBack, NULL );
+		}
+		else if ( HasAttachmentOfClass( gpItemDescObject, (AC_DEFUSE ) ) )
+		{
+			if ( HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR ) ) )
+			{
+				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
+			}
+			else if ( HasAttachmentOfClass( gpItemDescObject, (AC_REMOTEDET ) ) )
+			{
+				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS,  TacticalStr[ CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
+			}
+		}
+		else if ( HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR ) ) )
+		{
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TIMER_STR ], screen, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
+		}
+		else if ( HasAttachmentOfClass( gpItemDescObject, (AC_REMOTEDET ) ) )
+		{
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
+		}
+	}
+}
+
+BOOLEAN TransformationMenuPopup_Arm_TestValid(OBJECTTYPE * pObj)
+{
+	if (pObj == NULL)
+	{
+		return false;
+	}
+	else
+	{
+		UINT16 usAPCost = 20;
+		INT32 iBPCost = 1;
+
+		if (EnoughPoints( gpItemDescSoldier, usAPCost, iBPCost, false ))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if (gpItemDescSoldier)
+	{
+		// no planting tripwire in our inventory...
+		if ( Item[ gpItemDescObject->usItem ].tripwire == 1 )
+			return;
+
+		INT32 iResult;
+			
+		if ( HasAttachmentOfClass( gpItemDescObject, AC_REMOTEDET ) )
+		{
+			iResult = SkillCheck( gpItemDescSoldier, PLANTING_REMOTE_BOMB_CHECK, 0 );
+		}
+		else
+		{
+			iResult = SkillCheck( gpItemDescSoldier, PLANTING_BOMB_CHECK, 0 );
+		}
+
+		if ( iResult >= 0 )
+		{
+			// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
+			StatChange( gpItemDescSoldier, EXPLODEAMT, 25, FALSE );
+		}
+		else
+		{
+			// EXPLOSIVES GAIN (10):	Failed to place a bomb, or bury and arm a mine
+			StatChange( gpItemDescSoldier, EXPLODEAMT, 10, FROM_FAILURE );
+
+			// oops!	How badly did we screw up?
+			if ( iResult >= -20 )
+			{
+				// messed up the setting
+				if ( ubExitValue == 0 )
+				{
+					ubExitValue = 1;
+				}
+				else
+				{
+					// change up/down by 1
+					ubExitValue = (UINT8) (ubExitValue + Random( 3 ) - 1);
+				}
+				// and continue
+			}
+			else
+			{
+				gpItemDescSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arming of bomb failed. Resulting explosion damages %s's inventory and health", gpItemDescSoldier->name );
+
+				INT8 screen = guiCurrentScreen;
+				if ( screen == GAME_SCREEN )
+				{
+					// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
+					IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
+
+					DeleteObj( gpItemDescObject );
+				}
+				else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
+				{
+					// no explosions in map screen - instead we simply damage the inventory and harm our health
+					gpItemDescSoldier->InventoryExplosion();
+
+					DeleteObj( gpItemDescObject );
+				}
+
+				return;
+			}
+		}
+		
+		if ( ArmBomb( gpItemDescObject, ubExitValue ) )
+		{
+			// SANDRO - STOMP traits - Demolitions bonus to trap level
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( gpItemDescSoldier, DEMOLITIONS_NT ))
+			{
+				// increase trap level for Demolitions trait
+				gpItemDescSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
+			}
+			else
+			{
+				gpItemDescSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) );
+			}
+				
+			// Flugente: We armed a bomb in our inventory. We will NOT add it to the item pool and the world bombs.
+			// Instead, we will count down the delay time every turn and eventually ignite the bomb from our inventory.
+			// Same for remote detonators, when sending a signal we will have to also check everyone's inventory and eventually ignite bombs in inventories
+
+			// HACK IMMINENT!
+			// value of 1 is stored in maps for SIDE of bomb owner... when we want to use IDs!
+			// so we add 2 to all owner IDs passed through here and subtract 2 later
+			//if (gpItemDescSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) 
+			{
+				gTempObject[0]->data.misc.ubBombOwner = gpItemDescSoldier->ubID + 2;
+				gTempObject[0]->data.ubDirection = gpItemDescSoldier->ubDirection;		// Flugente: direction of bomb is direction of soldier
+
+				//AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpItemDescSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
+			}
+		}
+	}
+}
+
+void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if ( !gpItemDescSoldier )
+		return;
+
+	if ( !gpItemDescObject )
+		return;
+
+	if (ubExitValue == MSG_BOX_RETURN_YES)
+	{
+		INT32						iCheckResult;
+		
+		INT8 trapdifficulty = (*gpItemDescObject)[0]->data.bTrap;
+
+		// Snap: make it easier to disarm our own traps.
+		// If we succede - we get exp, but if we fail - we pay fair and square!
+
+		//CHRISL: first things first.  If we're in combat, we need to spend some APs to disarm the device
+		if((gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.fEnemyInSector))
+		{
+			// SANDRO was here, AP_DISARM_MINE changed to GetAPsToDisarmMine
+			if(EnoughPoints(gpItemDescSoldier, GetAPsToDisarmMine( gpItemDescSoldier ), APBPConstants[BP_DISARM_MINE], TRUE))
+				DeductPoints(gpItemDescSoldier, GetAPsToDisarmMine( gpItemDescSoldier ), APBPConstants[BP_DISARM_MINE], AFTERACTION_INTERRUPT);
+			else
+				return;
+		}
+
+		// NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
+		// the map. So if we want to detect a bomb placed by the player, owner is > 1, and
+		// owner - 2 gives the ID of the character who planted it
+		if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner > 1 && ( (INT32)(*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
+		{
+			// Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
+			INT8 wirecutterbonus = 0;
+			if ( ( (&gpItemDescSoldier->inv[HANDPOS])->exists() && Item[ gpItemDescSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpItemDescSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpItemDescSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
+			{
+				// + 10 if item gets activated by tripwire
+				if ( Item[gpItemDescObject->usItem].tripwireactivation == 1 )
+					wirecutterbonus += 10;
+				
+				// + 10 if item is tripwire
+				if ( Item[gpItemDescObject->usItem].tripwire == 1 )
+					wirecutterbonus += 10;
+			}
+
+			if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 == gpItemDescSoldier->ubID )
+			{
+				// my own boobytrap!
+				iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
+			}
+			else
+			{
+				// our team's boobytrap!
+				iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
+			}
+		}
+		else
+		{
+			iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, 0 );
+		}
+
+		if (iCheckResult >= 0)
+		{
+
+			if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner > 1 && ( (INT32)(*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
+			{
+				if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 == gpItemDescSoldier->ubID )
+				{
+					// disarmed my own boobytrap!
+					StatChange( gpItemDescSoldier, EXPLODEAMT, (UINT16) (2 * trapdifficulty), FALSE );
+				}
+				else
+				{
+					// disarmed our team's boobytrap!
+					StatChange( gpItemDescSoldier, EXPLODEAMT, (UINT16) (4 * trapdifficulty), FALSE );
+					
+					// SANDRO - merc records - trap removal count (don't count our own traps)
+					gMercProfiles[ gpItemDescSoldier->ubProfile ].records.usTrapsRemoved++;
+				}
+			}
+			else
+			{
+				// disarmed a boobytrap!
+				StatChange( gpItemDescSoldier, EXPLODEAMT, (UINT16) (6 * trapdifficulty), FALSE );
+
+				// SANDRO - merc records - trap removal count
+				gMercProfiles[ gpItemDescSoldier->ubProfile ].records.usTrapsRemoved++;
+			}
+
+			// have merc say this is good
+			gpItemDescSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+
+			(*gpItemDescObject)[0]->data.ubWireNetworkFlag = 0;
+			(*gpItemDescObject)[0]->data.bDefuseFrequency = 0;
+			(*gpItemDescObject)[0]->data.misc.bDetonatorType = 0;
+			(*gpItemDescObject)[0]->data.misc.bDelay = 0;
+			(*gpItemDescObject)[0]->data.misc.bFrequency = 0;
+			(*gpItemDescObject)[0]->data.bTrap = 0;
+
+			if ( (*gpItemDescObject).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
+				gpItemDescObject->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );
+
+			if ( (*gpItemDescObject).fFlags & OBJECT_ARMED_BOMB )
+				gpItemDescObject->fFlags &= ~( OBJECT_ARMED_BOMB );
+
+			if ( (*gpItemDescObject).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
+				gpItemDescObject->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );
+		}
+		else
+		{
+			// oops! trap goes off
+			StatChange( gpItemDescSoldier, EXPLODEAMT, (INT8) (3 * trapdifficulty ), FROM_FAILURE );
+
+			gpItemDescSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Disarming of bomb failed. Resulting explosion damages %s's inventory and health", gpItemDescSoldier->name );
+
+			INT8 screen = guiCurrentScreen;
+			if ( screen == GAME_SCREEN )
+			{
+				// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
+				IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
+
+				DeleteObj( gpItemDescObject );
+			}
+			else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
+			{
+				// no explosions in map screen - instead we simply damage the inventory and harm our health
+				gpItemDescSoldier->InventoryExplosion();
+
+				DeleteObj( gpItemDescObject );
+			}
+
+#ifdef JA2TESTVERSION
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arming failed, explosion here" );
+#endif
 		}
 	}
 }
