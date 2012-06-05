@@ -450,7 +450,7 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 
 	// Add a bomb reference if needed
 	// Flugente: we can arm bombs in our inventory and then throw them out, which will cause them to be added to the world. Only way to identify those items is via a check for their bDetonatorType
-	if (usFlags & WORLD_ITEM_ARMED_BOMB || ( Item[pObject->usItem].usItemClass & (IC_BOMB) && ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_REMOTE ) ) )
+	if (usFlags & WORLD_ITEM_ARMED_BOMB || ( (Item[pObject->usItem].usItemClass & (IC_BOMB)) && ( ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_REMOTE ) ) ) )
 	{
 		iReturn = AddBombToWorld( iItemIndex );
 		if (iReturn == -1)
