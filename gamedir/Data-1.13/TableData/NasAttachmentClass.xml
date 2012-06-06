@@ -52,4 +52,8 @@
 		<id>2048</id>
 		<name>Rocket</name>
 	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>4096</id>
+		<name>Any Gun</name>
+	</NasAttachmentClass>
 </JA2Data>

@@ -4,4 +4,8 @@
 		<id>0</id>
 		<name>None</name>
 	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>1</id>
+		<name>Any Gun</name>
+	</AttachmentPoint>
 </JA2Data>

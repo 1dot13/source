@@ -260,4 +260,14 @@
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>1</fBigSlot>
 	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>26</uiSlotIndex>
+		<szSlotName>any Gun</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>18</usDescPanelPosX>
+		<usDescPanelPosY>120</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>
