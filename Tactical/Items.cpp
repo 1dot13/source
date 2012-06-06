@@ -2107,6 +2107,10 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 		*pubAPCost = (UINT8)APBPConstants[AP_RELOAD_GUN]; //default value
 	}
 
+	//Madd: all guns can be attached to tripwires
+	if ( Item[usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN )
+		return TRUE;
+
 	//Madd: Common Attachment Framework
 	if ( IsAttachmentPointAvailable(usItem, usAttachment))
 	{
@@ -2257,20 +2261,30 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 		return FALSE;
 
 	//Search for incompatible attachments
-	for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
+	//Madd: check for gun on tripwire first
+	if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass(pObj,IC_GUN,subObject) != 0 )
 	{
-		if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, AC_GRENADE|AC_ROCKET ) )
-		{//Search for identical attachments unless we're dealing with rifle grenades
-			fSameItem = TRUE;
-			break;
-		}
-		if ( IncompatibleAttachments[i][0] == NONE )
-			break;
-		if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 )
+		fSimilarItems = TRUE;
+		OBJECTTYPE * tmpObj = FindAttachmentByClass(pObj,IC_GUN,subObject);
+		usSimilarItem = tmpObj->usItem;
+	}
+	if ( !fSameItem )
+	{
+		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
 		{
-			fSimilarItems = TRUE;
-			usSimilarItem = IncompatibleAttachments[i][1];
-			break;
+			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, AC_GRENADE|AC_ROCKET ) )
+			{//Search for identical attachments unless we're dealing with rifle grenades
+				fSameItem = TRUE;
+				break;
+			}
+			if ( IncompatibleAttachments[i][0] == NONE )
+				break;
+			if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 )
+			{
+				fSimilarItems = TRUE;
+				usSimilarItem = IncompatibleAttachments[i][1];
+				break;
+			}
 		}
 	}
 
@@ -2291,7 +2305,8 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 
 			//Search for any valid attachments in this slot
 			//CHRISL: Valid attachments are determined by the old "ValidItemAttachment" function and comparing the attachment class of the item and slot
-			if(AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass &&
+			//Madd: gun on tripwire always allowed
+			if((AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass || (Item[usAttachment].usItemClass & IC_GUN && Item[pObj->usItem].tripwire)) &&
 				(ValidItemAttachment(pObj,usAttachment,fAttemptingAttachment,fDisplayMessage,subObject,usAttachmentSlotIndexVector) ||
 				ValidLaunchable(usAttachment, GetAttachedGrenadeLauncher(pObj)) ||
 				ValidLaunchable(usAttachment, pObj->usItem)))
@@ -2323,7 +2338,8 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 
 			//Search for any valid attachments in this slot
 			//CHRISL: Valid attachments are determined by the old "ValidItemAttachment" function and comparing the attachment class of the item and slot
-			if(AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass &&
+			//Madd: gun on tripwire always allowed
+			if((AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass || (Item[usAttachment].usItemClass & IC_GUN && Item[pObj->usItem].tripwire)) &&
 				(ValidItemAttachment(pObj,usAttachment,FALSE,FALSE,subObject,usAttachmentSlotIndexVector) ||
 				ValidLaunchable(usAttachment, GetAttachedGrenadeLauncher(pObj)) ||
 				ValidLaunchable(usAttachment, pObj->usItem)))
@@ -2414,23 +2430,33 @@ BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAt
 		fSameItem = TRUE;
 	}
 	*/
-
-	for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
+	//Madd: check for gun on tripwire first
+	if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass(pObj,IC_GUN,subObject) != 0 )
 	{
-		if ( FindAttachment(pObj, usAttachment, subObject) != 0 )
-		{
-			fSameItem = TRUE;
-			break;
-		}
+		fSimilarItems = TRUE;
+		OBJECTTYPE * tmpObj = FindAttachmentByClass(pObj,IC_GUN,subObject);
+		usSimilarItem = tmpObj->usItem;
+	}
 
-		if ( IncompatibleAttachments[i][0] == NONE )
-			break;
-
-		if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 )
+	if ( !fSameItem )
+	{
+		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
 		{
-			fSimilarItems = TRUE;
-			usSimilarItem = IncompatibleAttachments[i][1];
-			break;
+			if ( FindAttachment(pObj, usAttachment, subObject) != 0 )
+			{
+				fSameItem = TRUE;
+				break;
+			}
+
+			if ( IncompatibleAttachments[i][0] == NONE )
+				break;
+
+			if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 )
+			{
+				fSimilarItems = TRUE;
+				usSimilarItem = IncompatibleAttachments[i][1];
+				break;
+			}
 		}
 	}
 
@@ -4012,11 +4038,29 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					return( FALSE );
 				}
 			}
+			else if ( Item[this->usItem].tripwire && Item[pAttachment->usItem].usItemClass & IC_GUN ) // Madd: gun on tripwire
+			{
+				iCheckResult = SkillCheck( pSoldier, ATTACHING_DETONATOR_CHECK, 0 );
+				if (iCheckResult < 0)
+				{
+					// the attach failure damages both items
+					DamageObj( this, (INT8) -iCheckResult, subObject );
+					DamageObj( pAttachment, (INT8) -iCheckResult, subObject );
+
+					// there should be a quote here!
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+					if ( gfInItemDescBox )
+					{
+						DeleteItemDescriptionBox();
+					}
+					return( FALSE );
+				}
+			}
 
 			if ( ValidItemAttachment( this, pAttachment->usItem, TRUE, TRUE, subObject  ) && playSound ) // not launchable
 			{
 				// attachment sounds
-				if ( Item[ this->usItem ].usItemClass & IC_WEAPON )
+				if ( Item[ this->usItem ].usItemClass & IC_WEAPON || Item[this->usItem].tripwire )  //Madd: attaching items to tripwire makes gun attach sound
 				{
 					PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 				}
@@ -4591,11 +4635,29 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					return( FALSE );
 				}
 			}
+			else if ( Item[this->usItem].tripwire && Item[pAttachment->usItem].usItemClass & IC_GUN ) // Madd: gun on tripwire
+			{
+				iCheckResult = SkillCheck( pSoldier, ATTACHING_DETONATOR_CHECK, 0 );
+				if (iCheckResult < 0)
+				{
+					// the attach failure damages both items
+					DamageObj( this, (INT8) -iCheckResult, subObject );
+					DamageObj( pAttachment, (INT8) -iCheckResult, subObject );
+
+					// there should be a quote here!
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+					if ( gfInItemDescBox )
+					{
+						//DeleteItemDescriptionBox();
+					}
+					return( FALSE );
+				}
+			}
 
 			if (fValidItemAttachment && playSound ) // not launchable
 			{
 				// attachment sounds
-				if ( Item[ this->usItem ].usItemClass & IC_WEAPON )
+				if ( Item[ this->usItem ].usItemClass & IC_WEAPON || Item[this->usItem].tripwire ) //Madd: attaching items to tripwire makes gun attach sound
 				{
 					PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 				}
@@ -5313,8 +5375,9 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 	}
 
 	//Now that we've setup tempItemSlots for the main item, let's look at the individual attachments
+	//Madd: Only record these extra slots if the item has its attachment flag set!
 	for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter){
-		if(iter->exists() && (*iter)[0]->attachments.size() > 0){
+		if(iter->exists() && Item[iter->usItem].attachment && (*iter)[0]->attachments.size() > 0){
 			OBJECTTYPE* pAttachment = &(*iter);
 			tempSlots = GetItemSlots(pAttachment,0,TRUE);
 			for(UINT8 x = 0; x < tempSlots.size(); x++)
@@ -13852,7 +13915,7 @@ UINT64 GetAvailableAttachmentPoint (OBJECTTYPE * pObject, UINT8 subObject)
 		point = Item[pObject->usItem].ulAvailableAttachmentPoint;
 		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter) 
 		{
-			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint > 0 )
+			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint > 0 && Item[iter->usItem].attachment )
 				point |= Item[iter->usItem].ulAvailableAttachmentPoint;
 		}
 	}

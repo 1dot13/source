@@ -12111,158 +12111,162 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 		}
 		*/
 
-		// Ammocrates may be split into magazines of any size available in the game. But not in combat.
-		if ( Item[gpItemDescObject->usItem].usItemClass == IC_AMMO && Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagType >= AMMO_BOX && !(gTacticalStatus.uiFlags & INCOMBAT) )
+		//Madd: override - if this item is a gun attached to something then forget about it -- attachments of attachments and any loaded ammo get lost otherwise
+		if ((gpItemDescPrevObject == NULL && Item[gpItemDescObject->usItem].usItemClass & IC_GUN) || !(Item[gpItemDescObject->usItem].usItemClass & IC_GUN) )
 		{
-			BOOLEAN fCrateInPool = FALSE;
-
-			// Before we continue, lets check whether our object is in the sector inventory.
-			// Is the sector inventory open?
-			if (fShowMapInventoryPool)
+			// Ammocrates may be split into magazines of any size available in the game. But not in combat.
+			if ( Item[gpItemDescObject->usItem].usItemClass == IC_AMMO && Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagType >= AMMO_BOX && !(gTacticalStatus.uiFlags & INCOMBAT) )
 			{
-				// Is our object currently in the pool?
-				for (UINT32 x = 0; x < pInventoryPoolList.size(); x++)
+				BOOLEAN fCrateInPool = FALSE;
+
+				// Before we continue, lets check whether our object is in the sector inventory.
+				// Is the sector inventory open?
+				if (fShowMapInventoryPool)
 				{
-					if (pInventoryPoolList[x].object.exists())
+					// Is our object currently in the pool?
+					for (UINT32 x = 0; x < pInventoryPoolList.size(); x++)
 					{
-						if (&(pInventoryPoolList[x].object) == gpItemDescObject)
+						if (pInventoryPoolList[x].object.exists())
 						{
-							// Aha! In that case, all transformations will be done directly at the sector pool,
-							// with multiple results ending on the ground rather than in the inventory.
-							fCrateInPool = TRUE;
-							break;
+							if (&(pInventoryPoolList[x].object) == gpItemDescObject)
+							{
+								// Aha! In that case, all transformations will be done directly at the sector pool,
+								// with multiple results ending on the ground rather than in the inventory.
+								fCrateInPool = TRUE;
+								break;
+							}
 						}
 					}
 				}
-			}
 
-			if (fCrateInPool)
-			{
-				for (UINT16 x = 0; x < MAXITEMS; x++)
+				if (fCrateInPool)
 				{
-					if ( Item[x].usItemClass & IC_AMMO )
+					for (UINT16 x = 0; x < MAXITEMS; x++)
 					{
-						// If this magazine has the same caliber and ammotype as the crate, has a smaller size, and is
-						// not an ammo crate itself...
-						if ( Magazine[Item[x].ubClassIndex].ubCalibre == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre &&
-							Magazine[Item[x].ubClassIndex].ubAmmoType == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType &&
-							Magazine[Item[x].ubClassIndex].ubMagSize <= Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagSize &&
-							Magazine[Item[x].ubClassIndex].ubMagType < AMMO_BOX )
+						if ( Item[x].usItemClass & IC_AMMO )
 						{
-							UINT16 usMagSize = Magazine[Item[x].ubClassIndex].ubMagSize;
+							// If this magazine has the same caliber and ammotype as the crate, has a smaller size, and is
+							// not an ammo crate itself...
+							if ( Magazine[Item[x].ubClassIndex].ubCalibre == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre &&
+								Magazine[Item[x].ubClassIndex].ubAmmoType == Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType &&
+								Magazine[Item[x].ubClassIndex].ubMagSize <= Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubMagSize &&
+								Magazine[Item[x].ubClassIndex].ubMagType < AMMO_BOX )
+							{
+								UINT16 usMagSize = Magazine[Item[x].ubClassIndex].ubMagSize;
 
-							CHAR16 MenuRowText[300];
-							swprintf( MenuRowText, gzTransformationMessage[ 7 ], usMagSize );
-							// Generate a new option for the menu
-							POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,UINT16>( TransformationMenuPopup_SplitCrate, x ) );
-							// Add the option to the menu.
-							gItemDescTransformPopup->addOption( *pOption );
-							// Set this flag so we know we have at least one Transformation available.
-							fFoundTransformations = true;
+								CHAR16 MenuRowText[300];
+								swprintf( MenuRowText, gzTransformationMessage[ 7 ], usMagSize );
+								// Generate a new option for the menu
+								POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,UINT16>( TransformationMenuPopup_SplitCrate, x ) );
+								// Add the option to the menu.
+								gItemDescTransformPopup->addOption( *pOption );
+								// Set this flag so we know we have at least one Transformation available.
+								fFoundTransformations = true;
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( gzTransformationMessage[ 6 ] ), new popupCallbackFunction<void,void>( TransformationMenuPopup_SplitCrateInInventory ) );
-				gItemDescTransformPopup->addOption( *pOption );
-				fFoundTransformations = true;
-			}
-		}
-
-		// Scan the Transformation list for the current item. Create pop-up options as required.
-		INT32 iTransformIndex = -1;
-
-		// Flugente: we can also arm/disarm bombs in our inventory via this menu
-		BOOLEAN fHaveToDisarm = FALSE;		// important check: if item is an armed bomb, we have to disarm it prior to any transformation
-		if ( ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) ) && Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
-		{
-			iTransformIndex++;
-
-			UINT16 apcost = 20;
-
-			if ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) )
-				apcost = 15;
-
-			// test wether item is already armed
-			INT8 detonatortype;
-			INT8 setting;
-			INT8 defusefrequency;
-			CheckBombSpecifics( gpItemDescObject, &detonatortype, &setting, &defusefrequency );
-
-			CHAR16 MenuRowText[300];
-
-			if ( detonatortype == BOMB_TIMED || detonatortype == BOMB_REMOTE )
-			{
-				fHaveToDisarm = TRUE;
-
-				if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
-				{
-					swprintf (MenuRowText, L"Disarm (%d AP)", apcost );
-				}
 				else
 				{
-					swprintf (MenuRowText, L"Disarm");
-				}
-			}
-			else
-			{
-				if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
-				{
-					swprintf (MenuRowText, L"Arm (%d AP)", apcost );
-				}
-				else
-				{
-					swprintf (MenuRowText, L"Arm");
-				}
-			}
-
-			// Generate a new option for the menu
-			POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void, OBJECTTYPE*>( &TransformationMenuPopup_Arm, gpItemDescObject ) );
-			// Set the function that tests whether it's valid at the moment.
-			pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_Arm_TestValid, gpItemDescObject ));
-			// Add the option to the menu.
-			gItemDescTransformPopup->addOption( *pOption );
-			// Set this flag so we know we have at least one Transformation available.
-			fFoundTransformations = true;
-		}
-				
-		// onyl allow transformations if the item is not an armed bomb
-		if ( !fHaveToDisarm )
-		{
-			for (INT32 x = 0; x < MAXITEMS; x++)
-			{
-				if (Transform[x].usItem == -1)
-				{
-					break;
-				}
-				if (Transform[x].usItem == gpItemDescObject->usItem)
-				{
-					iTransformIndex++;
-
-					CHAR16 MenuRowText[300];
-					if ( Transform[x].usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
-					{
-						swprintf (MenuRowText, L"%s (%d AP)", Transform[x].szMenuRowText, Transform[x].usAPCost );
-					}
-					else
-					{
-						swprintf (MenuRowText, Transform[x].szMenuRowText);
-					}
-
-					// Generate a new option for the menu
-					POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, &Transform[x] ) );
-					// Set the function that tests whether it's valid at the moment.
-					pOption->setAvail(new popupCallbackFunction<bool,TransformInfoStruct*>( &TransformationMenuPopup_TestValid, &Transform[x] ));
-					// Add the option to the menu.
+					POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( gzTransformationMessage[ 6 ] ), new popupCallbackFunction<void,void>( TransformationMenuPopup_SplitCrateInInventory ) );
 					gItemDescTransformPopup->addOption( *pOption );
-					// Set this flag so we know we have at least one Transformation available.
 					fFoundTransformations = true;
 				}
 			}
-		}
+
+			// Scan the Transformation list for the current item. Create pop-up options as required.
+			INT32 iTransformIndex = -1;
+
+			// Flugente: we can also arm/disarm bombs in our inventory via this menu
+			BOOLEAN fHaveToDisarm = FALSE;		// important check: if item is an armed bomb, we have to disarm it prior to any transformation
+			if ( ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) ) && Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
+			{
+				iTransformIndex++;
+
+				UINT16 apcost = 20;
+
+				if ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) )
+					apcost = 15;
+
+				// test wether item is already armed
+				INT8 detonatortype;
+				INT8 setting;
+				INT8 defusefrequency;
+				CheckBombSpecifics( gpItemDescObject, &detonatortype, &setting, &defusefrequency );
+
+				CHAR16 MenuRowText[300];
+
+				if ( detonatortype == BOMB_TIMED || detonatortype == BOMB_REMOTE )
+				{
+					fHaveToDisarm = TRUE;
+
+					if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+					{
+						swprintf (MenuRowText, L"Disarm (%d AP)", apcost );
+					}
+					else
+					{
+						swprintf (MenuRowText, L"Disarm");
+					}
+				}
+				else
+				{
+					if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+					{
+						swprintf (MenuRowText, L"Arm (%d AP)", apcost );
+					}
+					else
+					{
+						swprintf (MenuRowText, L"Arm");
+					}
+				}
+
+				// Generate a new option for the menu
+				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void, OBJECTTYPE*>( &TransformationMenuPopup_Arm, gpItemDescObject ) );
+				// Set the function that tests whether it's valid at the moment.
+				pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_Arm_TestValid, gpItemDescObject ));
+				// Add the option to the menu.
+				gItemDescTransformPopup->addOption( *pOption );
+				// Set this flag so we know we have at least one Transformation available.
+				fFoundTransformations = true;
+			}
 				
+			// onyl allow transformations if the item is not an armed bomb
+			if ( !fHaveToDisarm )
+			{
+				for (INT32 x = 0; x < MAXITEMS; x++)
+				{
+					if (Transform[x].usItem == -1)
+					{
+						break;
+					}
+					if (Transform[x].usItem == gpItemDescObject->usItem)
+					{
+						iTransformIndex++;
+
+						CHAR16 MenuRowText[300];
+						if ( Transform[x].usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+						{
+							swprintf (MenuRowText, L"%s (%d AP)", Transform[x].szMenuRowText, Transform[x].usAPCost );
+						}
+						else
+						{
+							swprintf (MenuRowText, Transform[x].szMenuRowText);
+						}
+
+						// Generate a new option for the menu
+						POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, &Transform[x] ) );
+						// Set the function that tests whether it's valid at the moment.
+						pOption->setAvail(new popupCallbackFunction<bool,TransformInfoStruct*>( &TransformationMenuPopup_TestValid, &Transform[x] ));
+						// Add the option to the menu.
+						gItemDescTransformPopup->addOption( *pOption );
+						// Set this flag so we know we have at least one Transformation available.
+						fFoundTransformations = true;
+					}
+				}
+			}
+		}
+		
 		if (!fFoundTransformations)
 		{
 			POPUP_OPTION * pOption = new POPUP_OPTION( &std::wstring( gzTransformationMessage[ 0 ] ), new popupCallbackFunction<void,TransformInfoStruct*>( &TransformationMenuPopup_Transform, NULL ) );
