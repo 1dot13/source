@@ -106,6 +106,9 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 // HEADROCK HAM 5.1: Explosion Fragments launcher
 void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection = DIRECTION_IRRELEVANT );
 
+// Flugente: shoot a gun without anyone operating it (used for makeshift traps wih guns)
+void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECTTYPE* pObj, UINT8 ubDirection = NORTH );
+
 extern INT8	gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
 extern	void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
 extern void RecompileLocalMovementCostsForWall( INT32 sGridNo, UINT8 ubOrientation );
@@ -3604,7 +3607,9 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 					if ( Item[pObj->usItem].tripwireactivation == 1 )
 					{
 						// tripwire just gets activated
-						if ( Item[pObj->usItem].tripwire == 1 )
+						// this is important - we have to check for the tripwire's temperature. 
+						// The temperature serves as a temporary flag replacement, marking that a tripwire has already been activated, adn shouldn't be activated again
+						if ( Item[pObj->usItem].tripwire == 1 && (*pObj)[0]->data.bTemperature < 1 )
 						{
 							// determine this tripwire's flag
 							UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
@@ -3635,32 +3640,28 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 
 							if ( samenetwork && sameorlowerhierarchy )
 							{
-								// if we have passed the check, our tripwire belongs to the same tripwirenetwork as the one that caused this call
-								// it is also of the sme or a lower hierarchy
-								// so, this wire calls other wires in the surrounding area. But the new flag is ubWireNetworkFlag instead of ubFlag, so the hierarchy level might be lower
+								gubPersonToSetOffExplosions = ubID;
 
-								OBJECTTYPE newtripwireObject;
-								CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
-
-								// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
-								RemoveItemFromPool( adjgrid, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
-							
-								// if no other bomb exists here
-								if ( FindWorldItemForBombInGridNo(adjgrid, bLevel) == -1 )
+								// put this bomb on the queue
+								AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
+								if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
 								{
-									// make sure no one thinks there is a bomb here any more!
-									if ( gpWorldLevelData[adjgrid].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
-									{
-										RemoveBlueFlag( adjgrid, bLevel );
-									}
-									gpWorldLevelData[adjgrid].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+									uiTimeStamp += BOMB_QUEUE_DELAY;
 								}
 							
-								// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
-								AddItemToPool( adjgrid, &newtripwireObject, 1, bLevel, 0, -1 );
+								if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
+								{
+									fFoundMine = TRUE;
+								}
+																
+								// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
+								// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
+								// As i do not want to create an itm flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
+								// (temperature for tripwire isn't needed anywhere else, so its ok)
+								(*pObj)[0]->data.bTemperature = 1000.0;
 
 								// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
-								if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
+								if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )
 									fFoundMine = ActivateSurroundingTripwire(ubID, adjgrid, bLevel, ubWireNetworkFlag);
 							}
 						}
@@ -3697,6 +3698,53 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 
 
 	return( fFoundMine );
+}
+
+// Flugente: A special function for tripwire gun traps. Search if pObj has a gun attached. If so, fire a shot from that gun in a specific direction. Afterwards place the gun on the ground
+void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, UINT8 ubId, UINT8 ubDirection )
+{
+	if ( !pObj )
+		return;
+
+	// search for attached guns
+	BOOLEAN fgunfound = FALSE;
+	OBJECTTYPE* pAttGun = NULL;
+	// check all attachments
+	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_GUN )
+		{
+			fgunfound = TRUE;
+			pAttGun = &(*iter);
+			break;
+		}
+	}
+
+	if ( fgunfound && pAttGun )
+	{
+		// we actually found a gun.
+		// if the gun has ammo and is not jammed, fire it
+		if ( (*pAttGun)[0]->data.gun.ubGunShotsLeft > 0 && (*pAttGun)[0]->data.gun.bGunAmmoStatus > 0 )
+		{
+			// Increment attack counter...
+			if (gubElementsOnExplosionQueue == 0)
+			{
+				// single explosion, disable sight until the end, and set flag
+				// to check sight at end of attack
+
+				gTacticalStatus.uiFlags |= (DISALLOW_SIGHT | CHECK_SIGHT_AT_END_OF_ATTACK);
+			}
+
+			FireFragmentsTrapGun( MercPtrs[ubId], sGridNo, 0, pAttGun, ubDirection );
+
+			// this is important... if not set, the game will remain in a loop
+			gTacticalStatus.ubAttackBusyCount = 0;
+		}
+
+		// add this gun to the floor
+		AddItemToPool( sGridNo, pAttGun, 1, bLevel, 0, -1 );
+	}
 }
 
 void HandleExplosionQueue( void )
@@ -3742,6 +3790,39 @@ void HandleExplosionQueue( void )
 			{
 				NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+			}
+			// Flugente: handle tripwire gun traps here...
+			// tripwire gets called and activated in ActivateSurroundingTripwire
+			else if ( Item[pObj->usItem].tripwire == 1 )
+			{
+				// check if there is a gun attached to this piece of wire, and eventually fire it
+				CheckAndFireTripwireGun( pObj, gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
+				
+				OBJECTTYPE newtripwireObject;
+				CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+
+				// determine this tripwire's flag
+				UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
+
+				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+						
+				// if no other bomb exists here
+				if ( FindWorldItemForBombInGridNo(sGridNo, ubLevel) == -1 )
+				{
+					// make sure no one thinks there is a bomb here any more!
+					if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+					{
+						RemoveBlueFlag( sGridNo, ubLevel );
+					}
+					gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+				}
+
+				// we have to set the wire's temperature back to 0, otherwise tripwire will only work once
+				(newtripwireObject)[0]->data.bTemperature = 0;
+
+				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
 			}
 			else
 			{
@@ -4204,32 +4285,30 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 					// Flugente: a tripwire activates all other tripwires in connection, and detonates all bombs in connection that are tripwire-activated
 					else if ( Item[pObj->usItem].tripwire == 1 )
 					{
-						OBJECTTYPE newtripwireObject;
-						CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+						gubPersonToSetOffExplosions = ubID;
 
-						// determine this tripwire's flag
-						UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
-
-						// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
-						RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, bLevel );
-						
-						// if no other bomb exists here
-						if ( FindWorldItemForBombInGridNo(sGridNo, bLevel) == -1 )
+						// put this bomb on the queue
+						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
+						if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
 						{
-							// make sure no one thinks there is a bomb here any more!
-							if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
-							{
-								RemoveBlueFlag( sGridNo, bLevel );
-							}
-							gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+							uiTimeStamp += BOMB_QUEUE_DELAY;
+							//uiTimeStamp += BOMB_QUEUE_DELAY;
 						}
 
-						// no add a tripwire item to the floor, simulating that activating tripwire deactivates it
-						AddItemToPool( sGridNo, &newtripwireObject, 1, bLevel, 0, -1 );
+						if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
+						{
+							fFoundMine = TRUE;
+						}
+												
+						// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
+						// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
+						// As i do not want to create an itm flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
+						// (temperature for tripwire isn't needed anywhere else, so its ok)
+						(*pObj)[0]->data.bTemperature = 1000.0;
 
 						// activate surrounding tripwires and tripwire-activated mines, unless tripwire is too much damaged and we are unlucky.. 
-						if ( newtripwireObject[0]->data.objectStatus > (INT16)Random(50) )
-							fFoundMine = ActivateSurroundingTripwire(ubID, sGridNo, bLevel, ubWireNetworkFlag);
+						if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )
+							fFoundMine = ActivateSurroundingTripwire(ubID, sGridNo, bLevel, (*pObj)[0]->data.ubWireNetworkFlag);
 					}
 					else
 					{
@@ -4756,6 +4835,91 @@ void FireFragments( SOLDIERTYPE * pThrower, INT16 sX, INT16 sY, INT16 sZ, UINT16
 		FLOAT dStartZ = (FLOAT)sZ + (dRandomZ * ((FLOAT)Random(4)+1.0f));
 
 		FireFragmentGivenTarget( pThrower, dStartX, dStartY, dStartZ, dEndX, dEndY, dEndZ, usItem );
+	}
+}
+
+// Flugente: shoot a gun without anyone operating it (used for makeshift traps wih guns)
+void FireFragmentsTrapGun( SOLDIERTYPE* pThrower, INT32 gridno, INT16 sZ, OBJECTTYPE* pObj, UINT8 ubDirection )
+{
+	if ( !pObj )
+		return;
+
+	if ( !pThrower )
+		return;
+
+	// at the moment always only 1 bullet
+	UINT16 usNumFragments = 1;
+	UINT16 ubFragRange = GunRange( pObj, NULL );
+
+	// deviation arcs. A gun fired by tripping a wire isn't exactly precise
+	INT16 horizontalarc = 2;
+	INT16 verticalarc	= 2;
+
+	INT16 sX = CenterX(gridno);
+	INT16 sY = CenterY(gridno);
+
+	AssertMsg( ubFragRange > 0 , "Fragmentation data lacks range property!" );
+
+	for (UINT16 x = 0; x < usNumFragments; ++x)
+	{
+		FLOAT dRandomX = 0;
+		FLOAT dRandomY = 0;
+		FLOAT dRandomZ = 0;
+				
+		// Flugente: if item is a directional explosive, determine in what direction the frags should fly
+		INT16 degree = (45 + ubDirection * 45) % 360;											// modulo 360 to prevent nonsense from nonsensical input
+		//INT16 horizontalarc = horizontalarc % 360;	// modulo 360 to prevent nonsense from nonsensical input
+		INT16 halfhorizontalarc = (INT16)(horizontalarc / 2);
+		INT16 sLowHorizontalD = (360 + degree - halfhorizontalarc) % 360;	
+		INT16 dRandomDegreeH = (sLowHorizontalD + Random(horizontalarc) ) % 360;
+		
+		// transform the degree into our coordinates
+		if ( dRandomDegreeH < 90 )
+		{
+			dRandomX = (FLOAT)dRandomDegreeH / 45.0f;
+			dRandomY = 0.0;
+		}
+		else if ( dRandomDegreeH < 180 )
+		{
+			dRandomX = (FLOAT)2.0;
+			dRandomY = (FLOAT)(dRandomDegreeH - 90 ) / 45.0f;
+		}
+		else if ( dRandomDegreeH < 270 )
+		{
+			dRandomX = (FLOAT)(270 - dRandomDegreeH) / 45.0f;
+			dRandomY = (FLOAT)2.0;
+		}
+		else 
+		{
+			dRandomX = 0.0;
+			dRandomY = (FLOAT)(360 - dRandomDegreeH) / 45.0f;
+		}
+
+		// X and Y now need to be distributed, at the moment they are on a circle
+		// project into [-1.0, 1.0]
+		dRandomX -= 1.0f;
+		dRandomY -= 1.0f;
+
+		// vertical stuff
+		//INT16 verticalarc = verticalarc % 180;	// modulo 180 to prevent nonsense from nonsensical input
+		INT16 halfverticalarc = (INT16)(verticalarc / 2);
+		INT16 sLowVerticalD = (90 - halfverticalarc) % 180;
+	
+		INT16 dRandomDegreeV = sLowVerticalD + Random(verticalarc);
+		
+		dRandomZ = ((FLOAT)(dRandomDegreeV) / 90.0f) - 1.0f;
+
+		FLOAT dDeltaX = (dRandomX * ubFragRange);
+		FLOAT dDeltaY = (dRandomY * ubFragRange);
+		FLOAT dDeltaZ = ((dRandomZ * 25.6f) * 50 );
+
+		FLOAT dRangeMultiplier = 10; // Arbitrary, but gives good results.
+
+		FLOAT dEndX = (FLOAT)(sX + (dDeltaX * dRangeMultiplier));
+		FLOAT dEndY = (FLOAT)(sY + (dDeltaY * dRangeMultiplier));
+		FLOAT dEndZ = (FLOAT)(sZ + (dDeltaZ * dRangeMultiplier));
+
+		FireBulletGivenTargetTrapOnly( pThrower, pObj, gridno, 150, dEndX, dEndY, dEndZ, 100 );
 	}
 }
 

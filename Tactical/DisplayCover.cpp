@@ -813,7 +813,7 @@ TileDefines GetTileMinesIndex( const INT8& bMines )
 		case MINES_NET_1:
 		case MINES_LVL_4:
 			return SPECIALTILE_COVER_1; // red
-			case MINE_BOMB_AND_WIRE:
+		case MINE_BOMB_AND_WIRE:
 		case MINES_NET_2:
 		case MINES_LVL_3:		
 			return SPECIALTILE_COVER_2; // orange
@@ -1077,8 +1077,27 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 										// if we're already marked as MINE_BOMB, switch to MINE_BOMB_AND_WIRE
 										if ( bMines == MINE_BOMB )
 											bMines = MINE_BOMB_AND_WIRE;
+										else if ( bMines == MINE_BOMB_AND_WIRE )
+											;
 										else
-											bMines = MINE_WIRE;
+										{
+											// check if the tripwire has a gun attached
+											BOOLEAN fgunfound = FALSE;
+											attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+											for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+											{
+												if ( iter->exists() && Item[iter->usItem].usItemClass == IC_GUN )
+												{
+													fgunfound = TRUE;
+													break;
+												}
+											}
+
+											if ( fgunfound )
+												bMines = MINE_BOMB_AND_WIRE;
+											else
+												bMines = MINE_WIRE;
+										}
 									}
 									else
 									{

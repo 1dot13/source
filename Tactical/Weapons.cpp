@@ -66,9 +66,6 @@ extern INT8 gbCurrentRainIntensity;
 //#define MINCHANCETOHIT          1
 //#define MAXCHANCETOHIT          99
 
-// NB this is arbitrary, chances in DG ranged from 1 in 6 to 1 in 20
-#define BASIC_DEPRECIATE_CHANCE	15
-
 #define NORMAL_RANGE            90      // # world units considered an 'avg' shot
 #define MIN_SCOPE_RANGE         60     // # world units after which scope's useful
 

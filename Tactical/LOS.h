@@ -70,6 +70,9 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 // HEADROCK HAM 5: Function for fragments ejected from an explosion.
 INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem );
 
+// Flugente: fire a shot from a gun that has no user (used for traps with attached guns)
+INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT32 gridno, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, INT16 sHitBy);
+
 #define CALC_FROM_ALL_DIRS -1
 #define CALC_FROM_WANTED_DIR -2
 #define NO_DISTANCE_LIMIT -3
