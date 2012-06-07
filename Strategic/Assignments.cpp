@@ -4882,7 +4882,9 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	sTrainingPts += ( ( ( bTrainingBonus + (bFacilityModifier-100) + bOpinionFactor ) * sTrainingPts ) / 100 );
 
 	// adjust for instructor fatigue
-	ReducePointsForFatigue( pInstructor, (UINT32 *)&sTrainingPts );
+	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
+	ReducePointsForFatigue( pInstructor, &uiTrainingPts );
+	sTrainingPts = (INT16)uiTrainingPts;
 
 	return( sTrainingPts );
 }
@@ -4994,7 +4996,9 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 	sTrainingPts += ( ( bTrainingBonus * sTrainingPts ) / 100 );
 
 	// adjust for fatigue
-	ReducePointsForFatigue( pSoldier, (UINT32 *)&sTrainingPts );
+	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
+	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
+	sTrainingPts = (INT16)uiTrainingPts;
 
 	return( sTrainingPts );
 }
@@ -5110,7 +5114,9 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 	sTrainingPts += ( ( bTrainingBonus * sTrainingPts ) / 100 );
 
 	// adjust for fatigue
-	ReducePointsForFatigue( pSoldier, (UINT32 *)&sTrainingPts );
+	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
+	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
+	sTrainingPts = (INT16)uiTrainingPts;
 
 
 	// now add in stuff for trainer
@@ -5378,7 +5384,9 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 
 
 	// adjust for fatigue of trainer
-	ReducePointsForFatigue( pTrainer, (UINT32 *)&sTotalTrainingPts );
+	UINT32 uiTrainingPts = (UINT32) sTotalTrainingPts;
+	ReducePointsForFatigue( pTrainer, &uiTrainingPts );
+	sTotalTrainingPts = (INT16)uiTrainingPts;
 
 
 /* ARM: Decided this didn't make much sense - the guys I'm training damn well BETTER be loyal - and screw the rest!
