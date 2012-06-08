@@ -2281,6 +2281,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 					StartEnemyTaunt( pSoldier, TAUNT_SEEK_NOISE );
 				else if (pSoldier->aiData.bAction == AI_ACTION_RUN_AWAY )
 					StartEnemyTaunt( pSoldier, TAUNT_RUN_AWAY );
+				else if ( pSoldier->IsZombie() ) // Madd:  Zombies randomly moan...
+					pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_LAUGH1 ) );
 			}
 		}
 	case AI_ACTION_APPROACH_MERC:				 // walk up to someone to talk

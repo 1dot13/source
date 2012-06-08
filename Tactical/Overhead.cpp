@@ -6677,7 +6677,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		return( FALSE );
 	}
 
-
+	if ( HostileZombiesPresent() ) //Madd: got tired of the victory music playing right after the zombies arose
+		return FALSE;
+	
 	// OK, this is to releave infinate looping...becasue we can kill guys in this function
 	if ( gfKillingGuysForLosingBattle )
 	{
