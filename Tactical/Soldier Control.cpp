@@ -9988,6 +9988,25 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				}
 			}
 		}
+		else if ( pSoldier->IsZombie() ) // Madd: add zombie sounds
+		{
+			if ( ubSoundID == BATTLE_SOUND_DIE1 )
+			{
+				sprintf( zFilename, "BATTLESNDS\\zombie_die.ogg" );
+				if ( !FileExists( zFilename ) )
+				{
+					sprintf( zFilename, "BATTLESNDS\\zombie_die.wav" );
+				}
+			}
+			else
+			{
+				sprintf( zFilename, "BATTLESNDS\\zombie_%s.ogg", gBattleSndsData[ ubSoundID ].zName );
+				if ( !FileExists( zFilename ) )
+				{
+					sprintf( zFilename, "BATTLESNDS\\zombie_%s.wav", gBattleSndsData[ ubSoundID ].zName );
+				}
+			}
+		}
 		else
 		{
 			if ( ubSoundID == BATTLE_SOUND_DIE1 )

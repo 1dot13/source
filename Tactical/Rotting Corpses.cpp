@@ -43,7 +43,7 @@
 	#include "strategic.h"
 	#include "qarray.h"
 	#include "Interface.h"
-
+	#include "Music Control.h"
 	#include "Campaign Types.h"
 	//#include "Queen Command.h"
 	#include "text.h"		// added by Flugente
@@ -2148,6 +2148,9 @@ void RaiseZombies( void )
 #endif
 				// Play sound
 				PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+
+				UseCreatureMusic(TRUE); // Madd: music when zombies rise
+				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 			}
 		}
 	}
