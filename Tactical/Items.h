@@ -462,4 +462,7 @@ UINT64 GetAvailableAttachmentPoint ( OBJECTTYPE * pObject, UINT8 subObject );
 // Flugente: check if and how a bomb has been set up
 void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, INT8* defusefrequency );
 
+// Flugente: check for specific flags
+BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag );
+
 #endif

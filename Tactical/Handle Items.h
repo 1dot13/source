@@ -175,6 +175,9 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 
 BOOLEAN MarblesExistAtLocation( INT32 sGridNo, UINT8 ubLevel, INT32 * piItemIndex );
 
+BOOLEAN BuildFortification( UINT32 flag = FULL_SANDBAG );	// Flugente: build a structure, return true if sucessful
+BOOLEAN RemoveFortification( INT32 sGridNo );
+
 extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 
 #endif

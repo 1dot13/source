@@ -4117,6 +4117,24 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
 	}
+	else if ( uiFlags == MOVEUI_TARGET_FORTIFICATION )
+	{
+		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		if ( sActionGridNo == -1 )
+		{
+			sActionGridNo = usMapPos;
+		}
+
+		sAPCost = GetAPsToBuildFortification( pSoldier, sActionGridNo );
+
+		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+
+		if ( sActionGridNo != pSoldier->sGridNo )
+		{
+			gfUIHandleShowMoveGrid = TRUE;
+			gsUIHandleShowMoveGridLocation = sActionGridNo;
+		}
+	}
 	else if ( uiFlags == MOVEUI_TARGET_MERCS )
 	{
 		   INT32		sGotLocation = NOWHERE;
@@ -4421,6 +4439,45 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		{
 			return( FALSE );
 		}
+	}
+
+	if ( ubItemCursor == FORTICURS )
+	{
+		if ( gfUIFullTargetFound )
+		{
+			usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		}
+
+		if ( pSoldier->pathing.bLevel == 0 )
+		{
+			if ( IsFortificationPossibleAtGridNo( usMapPos, NULL ) )
+			{
+				return( TRUE );
+			}
+
+			if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (EMPTY_SANDBAG)) )
+			{
+				// check if we have a shovel in our second hand
+				OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
+
+				if ( !pShovelObj || !(pShovelObj->exists()) || !HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+				{
+					return( TRUE );
+				}
+			}
+
+			if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (SHOVEL)) )
+			{
+				STRUCTURE* pStruct = FindStructure(usMapPos, STRUCTURE_GENERIC);
+
+				if ( pStruct )
+				{
+					return( TRUE );
+				}
+			}
+		}
+
+		return( FALSE );
 	}
 
 	if ( ubItemCursor == BOMBCURS )

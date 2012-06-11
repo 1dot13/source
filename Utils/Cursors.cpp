@@ -118,6 +118,10 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\cur_swit.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\bullseye.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\deadleap.sti"											, FALSE, 0, 0, 0, NULL },
+
+	{ "CURSORS\\hammer.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: fortification stuff
+	{ "CURSORS\\hammer_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
+
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\cur_tagr_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
@@ -1177,6 +1181,27 @@ CursorData CursorDatabase[] =
 		0,							0, 0, 0, 0,
 		0,							0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR , 0, 0					, 0, 0 },
+
+	/*{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_FORTIFICATION				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },*/
+
+	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_FORTIFICATION				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
+
+	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_FORTIFICATION_RED		,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
 
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FUEL				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,

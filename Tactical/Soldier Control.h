@@ -220,6 +220,7 @@ enum
 	MERC_TAKEBLOOD,
 	MERC_ATTACH_CAN,
 	MERC_FUEL_VEHICLE,
+	MERC_BUILD_FORTIFICATION,
 };
 
 // ENUMERATIONS FOR THROW ACTIONS
@@ -1239,6 +1240,8 @@ public:
 	void EVENT_SoldierBeginTakeBlood( INT32 sGridNo, UINT8 ubDirection );
 	void EVENT_SoldierBeginAttachCan( INT32 sGridNo, UINT8 ubDirection );
 	void EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCounter );
+
+	void EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 
 	BOOLEAN EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestart );
 	void EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState );

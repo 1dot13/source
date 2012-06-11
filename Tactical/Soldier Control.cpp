@@ -13403,7 +13403,12 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 		else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
 			resistance += gGameExternalOptions.sEnemyEliteDamageResistance;
 		else if (IsZombie())
-			resistance += gGameExternalOptions.sEnemyZombieDamageResistance;
+		{
+			if ( fCalcBreathLoss )
+				resistance += gGameExternalOptions.sEnemyZombieBreathDamageResistance;
+			else
+				resistance += gGameExternalOptions.sEnemyZombieDamageResistance;
+		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -14367,6 +14372,103 @@ void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT32 sGridNo, UINT8 ubDirection 
 	this->inv[ HANDPOS ].RemoveObjectsFromStack(1);
 	fInterfacePanelDirty = DIRTYLEVEL2;
 
+}
+
+
+void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection )
+{
+	BOOLEAN fSuccess = FALSE;
+	// do checks here...
+	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
+
+	if ( pObj && pObj->exists() && HasItemFlag(this->inv[ HANDPOS ].usItem, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
+	{
+		// CHANGE DIRECTION AND GOTO ANIMATION NOW
+		this->EVENT_SetSoldierDesiredDirection( ubDirection );
+		this->EVENT_SetSoldierDirection( ubDirection );
+
+		if (!is_networked)
+			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+		else
+			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+
+		if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (FULL_SANDBAG|CONCERTINA)) )
+		{
+			// Build the thing
+			if ( BuildFortification( Item[ pObj->usItem ].usItemFlag ) )
+			{
+				// Erase 'material' item from our hand - we 'used' it to build the structure
+				DeleteObj( &(this->inv[HANDPOS]) );
+
+				// we gain a bit of experience...
+				StatChange( this, STRAMT, 4, TRUE );
+				StatChange( this, HEALTHAMT, 2, TRUE );
+
+				fSuccess = TRUE;
+			}
+		}
+		else if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (EMPTY_SANDBAG)) )
+		{
+			INT8 bOverTerrainType = GetTerrainType( sGridNo );
+			if( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS )
+			{
+				// check if we have a shovel in our second hand
+				OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
+
+				if ( pShovelObj && pShovelObj->exists() && HasItemFlag(this->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+				{
+					// test: does there an item that is a filled sandbag exist? (xmls might have changed)
+					UINT16 fullsandbagnr = 1541;
+					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
+					{
+						// Erase 'material' item from our hand - we 'used' it to build the structure
+						INT8 bObjSlot = HANDPOS;
+
+						CreateItem( fullsandbagnr, 100, &gTempObject );
+
+						SwapObjs( this, bObjSlot, &gTempObject, TRUE );
+
+						// we gain a bit of experience...
+						StatChange( this, STRAMT, 1, TRUE );
+						StatChange( this, HEALTHAMT, 1, TRUE );
+
+						fSuccess = TRUE;
+					}
+				}
+			}
+		}
+		else if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (SHOVEL)) )
+		{
+			// Build the thing
+			if ( RemoveFortification( sGridNo ) )
+			{
+				// test: does there an item that is a filled sandbag exist? (xmls might have changed)
+				UINT16 fullsandbagnr = 1541;
+				if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
+				{
+					// Erase 'material' item from our hand - we 'used' it to build the structure
+					INT8 bObjSlot = HANDPOS;
+
+					CreateItem( fullsandbagnr, 100, &gTempObject );
+
+					// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+					AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
+
+					// we gain a bit of experience...
+					StatChange( this, STRAMT, 3, TRUE );
+					StatChange( this, HEALTHAMT, 2, TRUE );
+
+					fSuccess = TRUE;
+				}
+			}
+		}
+	}
+
+	if ( !fSuccess )
+	{
+		// Say NOTHING quote...
+		this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+	}
 }
 
 

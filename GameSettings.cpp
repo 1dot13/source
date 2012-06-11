@@ -1346,6 +1346,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fZombieCanClimb								= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_CAN_CLIMB", TRUE);
 	gGameExternalOptions.fZombieExplodingCivs							= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_EXPLODING_CIVS", FALSE);
 	gGameExternalOptions.sEnemyZombieDamageResistance					= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_DAMAGE_RESISTANCE", 0, -50, 95);
+	gGameExternalOptions.sEnemyZombieBreathDamageResistance				= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_BREATH_DAMAGE_RESISTANCE", 0, -50, 95);
 	gGameExternalOptions.fZombieOnlyHeadshotsWork						= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_ONLY_HEADSHOTS_WORK", FALSE);
 	gGameExternalOptions.sZombieDifficultyLevel 						= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_DIFFICULTY_LEVEL", 2, 1, 4);
 	gGameExternalOptions.fZombieRiseWithArmour							= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_RISE_WITH_ARMOUR", TRUE);
@@ -2282,6 +2283,8 @@ void LoadGameAPBPConstants()
 	
 	APBPConstants[AP_JUMPWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPOFFWALL",40),40);
 	APBPConstants[AP_JUMPOFFWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWALL",24),24);
+
+	APBPConstants[AP_FORTIFICATION] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FORTIFICATION",80),80);
 
 	SetupMaxActionPointsAnimation();
 #undef ReadInteger

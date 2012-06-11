@@ -1120,6 +1120,80 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
+	// Flugente: sandbag stuff
+	if ( HasItemFlag(usHandItem, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
+	{
+		// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
+		if ( HasItemFlag(usHandItem, (EMPTY_SANDBAG)) )
+		{
+			// check if we have a shovel in our second hand
+			OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
+
+			if ( !pShovelObj || !(pShovelObj->exists()) || !HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+			{
+				return( ITEM_HANDLE_REFUSAL );
+			}
+		}
+
+		// if we have a shovel in our hands, the targetted gridno must be a fortification (debris will do for this check)
+		if ( HasItemFlag(usHandItem, (SHOVEL)) )
+		{
+			STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
+
+			if ( !pStruct )
+			{
+				return( ITEM_HANDLE_REFUSAL );
+			}
+		}
+
+		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+
+		if ( sActionGridNo != -1 )
+		{			
+			// Calculate AP costs...
+			sAPCost = GetAPsToBuildFortification( pSoldier, sActionGridNo );
+			sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+
+			if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+			{
+				// CHECK IF WE ARE AT THIS GRIDNO NOW
+				if ( pSoldier->sGridNo != sActionGridNo )
+				{
+					// SEND PENDING ACTION
+					pSoldier->aiData.ubPendingAction = MERC_BUILD_FORTIFICATION;
+					pSoldier->aiData.sPendingActionData2	= sAdjustedGridNo;
+					pSoldier->aiData.bPendingActionData3	= ubDirection;
+					pSoldier->aiData.ubPendingActionAnimCount = 0;
+
+					// WALK UP TO DEST FIRST
+					pSoldier->EVENT_InternalGetNewSoldierPath( sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
+				}
+				else
+				{
+					pSoldier->EVENT_SoldierBuildStructure( sAdjustedGridNo, ubDirection );
+				}
+
+				// OK, set UI
+				SetUIBusy( pSoldier->ubID );
+
+				if ( fFromUI )
+				{
+					guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+				}
+
+				return( ITEM_HANDLE_OK );
+			}
+			else
+			{
+				return( ITEM_HANDLE_NOAPS );
+			}
+		}
+		else
+		{
+			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
+		}
+	}
+
 	if ( Item[usHandItem].canandstring )
 	{
 		STRUCTURE					*pStructure;
@@ -5906,4 +5980,215 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 	SetCustomizableTimerCallbackAndDelay( 1000, CheckForPickedOwnership, TRUE );
+}
+
+extern UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+
+BOOLEAN BuildFortification( UINT32 flag )
+{
+	INT32				sGridNo;		
+	UINT32				fHeadType;
+	UINT16				usUseIndex;
+	UINT16				usUseObjIndex = 0;
+	INT32				iRandSelIndex = 1;
+	BOOLEAN				fOkayToAdd;
+	UINT8				ubDirection;
+
+	if ( gusSelectedSoldier == NOBODY )
+		return FALSE;
+
+	if( (gTacticalStatus.uiFlags & INCOMBAT) && (gTacticalStatus.uiFlags & TURNBASED) )
+	{
+		return FALSE;
+	}
+
+	/* // comment this in to forbid building while enemies are around
+	if( gWorldSectorX != -1 && gWorldSectorY != -1 && gWorldSectorX != 0 && gWorldSectorY != 0 && 
+		NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot build while enemies are in this sector" );
+		return FALSE;
+	}*/
+
+	if( gbWorldSectorZ > 0 || gsInterfaceLevel > 0)
+	{
+		return FALSE;
+	}
+
+	GetMouseMapPos( &sGridNo );
+
+	if( InARoom( sGridNo, NULL ) )
+		return FALSE;
+
+	INT8 bOverTerrainType = GetTerrainType( sGridNo );
+	if( bOverTerrainType == MED_WATER || bOverTerrainType == DEEP_WATER || bOverTerrainType == LOW_WATER )
+		return FALSE;
+
+	UINT16				CurrentStruct = NO_TILE;
+			
+	if ( sGridNo < 0x80000000 )
+	{
+		ubDirection = MercPtrs[ gusSelectedSoldier ]->ubDirection;
+
+		if ( (flag & CONCERTINA) != 0 )
+		{
+			// concertina wire
+			switch ( ubDirection )
+			{
+			case NORTH:
+			case SOUTH:
+				usUseIndex = 2 + 2*Random(2);
+				break;
+			case WEST:
+			case EAST:
+				usUseIndex = 3 + 2*Random(2);
+				break;
+			case NORTHEAST:
+				usUseIndex = 9;
+				break;
+			case SOUTHWEST:
+				usUseIndex = 8;
+				break;
+			case NORTHWEST:
+				usUseIndex = 7;
+				break;
+			case SOUTHEAST:
+			default:
+				usUseIndex = 6;
+				break;
+			}
+		}
+		else
+		{
+			// sandbags
+			switch ( ubDirection )
+			{
+			case NORTH:
+			case SOUTH:
+				usUseIndex = 3 + Random(2);
+				break;
+			case WEST:
+			case EAST:
+				usUseIndex = 8 + Random(2);
+				break;
+			case NORTHEAST:
+			case SOUTHWEST:
+			case NORTHWEST:
+			case SOUTHEAST:
+			default:
+				usUseIndex = 5;
+				break;
+			}
+
+			//usUseObjIndex = (UINT16)THIRDOSTRUCT;//SelOStructs2[ iRandSelIndex ].uiObject;
+		}
+
+		// search wether structure exists in the current tilesets. If not, well, too bad
+		UINT32 uiType = 0;
+
+		for(uiType = 0; uiType < giNumberOfTileTypes; ++uiType)
+		{
+			if( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ][0] )
+			{
+				if( (flag & CONCERTINA) != 0 )
+				{
+					if ( (_strnicmp(gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ], "spot_1.sti", 10) == 0) )
+					{
+						usUseObjIndex = uiType;
+						break;
+					}
+				}
+				else if( (_strnicmp(gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ], "sandbag.sti", 11) == 0) )
+				{
+					usUseObjIndex = uiType;
+					break;
+				}
+			}
+		}
+
+		if ( !usUseObjIndex )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"The selected barricade cannot be built in this sector" );
+			return FALSE;
+		}
+
+		// Check with Structure Database (aka ODB) if we can put the object here!
+		fOkayToAdd = OkayToAddStructureToWorld( sGridNo, 0, gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef, INVALID_STRUCTURE_ID );
+		if ( fOkayToAdd || (gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef == NULL) )
+		{
+			// Remove old graphic
+			ApplyMapChangesToMapTempFile( TRUE );
+
+			//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
+			RemoveStruct( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );//dnl
+			// Actual structure info is added by the functions below
+			AddStructToHead( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );
+			// For now, adjust to shadows by a hard-coded amount,
+
+			// Add mask if in long grass
+			GetLandHeadType( sGridNo, &fHeadType	);
+
+			RecompileLocalMovementCosts(sGridNo);
+
+			// Turn off permanent changes....
+			ApplyMapChangesToMapTempFile( FALSE );
+			SetRenderFlags( RENDER_FLAG_FULL );
+
+			return TRUE;
+		}
+	}
+	else if ( CurrentStruct == ERASE_TILE && sGridNo < 0x80000000 )
+	{
+		RemoveAllStructsOfTypeRange( sGridNo, FIRSTOSTRUCT, LASTOSTRUCT );
+		RemoveAllShadowsOfTypeRange( sGridNo, FIRSTSHADOW, LASTSHADOW );
+	}
+
+	return FALSE;
+}
+
+BOOLEAN RemoveFortification( INT32 sGridNo )
+{
+	STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
+
+	if ( pStruct != NULL )
+	{
+		// Get LEVELNODE for struct and remove!
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+		if ( pNode )
+		{
+			UINT32 uiTileType = 0;
+			if ( GetTileType( pNode->usIndex, &uiTileType ) )
+			{
+				UINT16 usIndex = pNode->usIndex;
+
+				// Check if we are a sandbag
+				if ( _strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "sandbag.sti", 11) == 0 )
+				{
+					// Remove old graphic
+					ApplyMapChangesToMapTempFile( TRUE );
+
+					RemoveStruct( sGridNo, pNode->usIndex );
+					if ( !GridNoIndoors( sGridNo ) && gTileDatabase[ usIndex ].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[ usIndex ].sBuddyNum != -1 )
+					{
+						RemoveShadow( sGridNo, gTileDatabase[ usIndex ].sBuddyNum );
+					}
+
+					// Add mask if in long grass
+					UINT32 fHeadType = 0;
+					GetLandHeadType( sGridNo, &fHeadType );
+
+					RecompileLocalMovementCosts(sGridNo);
+
+					// Turn off permanent changes....
+					ApplyMapChangesToMapTempFile( FALSE );
+					SetRenderFlags( RENDER_FLAG_FULL );
+
+					return TRUE;
+				}
+			}
+		}
+	}
+
+	return FALSE;
 }

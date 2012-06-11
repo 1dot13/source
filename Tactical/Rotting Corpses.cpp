@@ -2143,6 +2143,8 @@ void RaiseZombies( void )
 
 			if ( zombieshaverisen )
 			{
+				SetRenderFlags( RENDER_FLAG_FULL );
+
 #ifdef JA2TESTVERSION
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"A wave of zombies is created");
 #endif

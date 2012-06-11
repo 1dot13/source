@@ -372,6 +372,7 @@ typedef struct
 	BOOLEAN fZombieCanClimb;
 	BOOLEAN fZombieExplodingCivs;
 	INT8	sEnemyZombieDamageResistance;
+	INT8	sEnemyZombieBreathDamageResistance;
 	BOOLEAN fZombieOnlyHeadshotsWork;
 	INT8	sZombieDifficultyLevel;
 	BOOLEAN fZombieRiseWithArmour;

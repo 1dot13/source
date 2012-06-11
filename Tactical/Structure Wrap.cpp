@@ -564,6 +564,22 @@ BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
 }
 
 
+// Flugente: determine wether a fortification can be built on this position
+BOOLEAN IsFortificationPossibleAtGridNo( INT32 sGridNo, UINT8 *pubID )
+{
+	GetMouseMapPos( &sGridNo );
+		
+	INT8 bOverTerrainType = GetTerrainType( sGridNo );
+	if( bOverTerrainType == MED_WATER || bOverTerrainType == DEEP_WATER || bOverTerrainType == LOW_WATER )
+		return FALSE;
+
+	STRUCTURE * pStructure = NULL;
+
+	pStructure = FindStructure( sGridNo, (STRUCTURE_OBSTACLE) );
+
+	return( pStructure == NULL );
+}
+
 
 BOOLEAN IsCutWireFenceAtGridNo( INT32 sGridNo )
 {

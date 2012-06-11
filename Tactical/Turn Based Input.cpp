@@ -4440,7 +4440,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					SetScopeMode();
+					INT32 sGridNo = 0;
+					GetMouseMapPos( &sGridNo );
+					RemoveFortification( sGridNo );
+					//SetScopeMode();
 				}
 
 				break;

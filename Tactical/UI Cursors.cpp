@@ -53,6 +53,7 @@ UINT8 HandleRemoteCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivat
 UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleJarCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
+UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );	//added by Flugente
 
 extern BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel );
 
@@ -296,6 +297,11 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 		case REFUELCURS:
 
 			ubCursorID = HandleRefuelCursor( pSoldier, sTargetGridNo, uiCursorFlags );
+			break;
+
+		case FORTICURS:
+
+			ubCursorID = HandleFortificationCursor( pSoldier, sTargetGridNo, uiCursorFlags );
 			break;
 
 		case INVALIDCURS:
@@ -2138,6 +2144,45 @@ UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated
 	}
 }
 
+UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
+{
+	// DRAW PATH TO GUY
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_FORTIFICATION );
+
+	if ( pSoldier->pathing.bLevel != 0 )
+		return( FORTIFICATION_RED_UICURSOR );
+
+	// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
+	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (EMPTY_SANDBAG)) )
+	{
+		// check if we have a shovel in our second hand
+		OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
+
+		if ( !pShovelObj || !(pShovelObj->exists()) || !HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+		{
+			return( FORTIFICATION_RED_UICURSOR );
+		}
+	}
+
+	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (SHOVEL)) )
+	{
+		STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
+
+		if ( pStruct )
+		{
+			return( FORTIFICATION_GREY_UICURSOR );
+		}
+	}
+
+	// can we build something here?
+	if ( IsFortificationPossibleAtGridNo( sGridNo, NULL ) && pSoldier->pathing.bLevel == 0 )
+	{		
+		return( FORTIFICATION_GREY_UICURSOR );
+	}
+
+	return( FORTIFICATION_RED_UICURSOR );
+}
+
 
 
 void HandleEndConfirmCursor( SOLDIERTYPE *pSoldier )
@@ -2595,6 +2640,10 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 			ubCursor = BOMBCURS;
 		}
 	}
+
+	// Flugente: cursor for building fortifications
+	if ( HasItemFlag(usInHand, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
+		ubCursor = FORTICURS;
 
 	// Now check our terrain to see if we cannot do the action now...
 	if ( WaterTooDeepForAttacks( pSoldier->sGridNo) )

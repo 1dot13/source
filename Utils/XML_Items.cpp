@@ -265,8 +265,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "Directional") == 0 ||
 				strcmp(name, "DrugType") == 0 ||
 				strcmp(name, "BlockIronSight") == 0 ||
-				// Flugente: poison system
 				strcmp(name, "PoisonPercentage") == 0 ||
+				strcmp(name, "ItemFlag") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ))
 		{
@@ -1333,11 +1333,15 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.blockironsight   = (BOOLEAN) atol(pData->szCharData);
 		}
-		// Flugente poison system
 		else if(strcmp(name, "PoisonPercentage") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.bPoisonPercentage = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ItemFlag") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usItemFlag = (UINT32) atol(pData->szCharData);
 		}
 
 		
@@ -1954,6 +1958,8 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<DrugType>%d</DrugType>\r\n",											Item[cnt].drugtype  );
 
 			FilePrintf(hFile,"\t\t<BlockIronSight>%d</BlockIronSight>\r\n",								Item[cnt].blockironsight  );
+
+			FilePrintf(hFile,"\t\t<ItemFlag>%d</ItemFlag>\r\n",											Item[cnt].usItemFlag  );
 			
 			// Flugente poison system
 			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",		Item[cnt].bPoisonPercentage    );

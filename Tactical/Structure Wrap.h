@@ -38,6 +38,7 @@ BOOLEAN IsCutWireFenceAtGridNo( INT32 sGridNo );
 
 BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID );
 BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT8 *pubID );
+BOOLEAN IsFortificationPossibleAtGridNo( INT32 sGridNo, UINT8 *pubID );	// added by Flugente
 
 
 BOOLEAN	IsRoofPresentAtGridNo( INT32 sGridNo );

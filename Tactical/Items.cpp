@@ -13938,3 +13938,9 @@ void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, 
 		*defusefrequency = (*pObj)[0]->data.bDefuseFrequency;
 	}
 }
+
+// Flugente: check for specific flags
+BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag )
+{
+	return( (Item[usItem].usItemFlag & aFlag) != 0 );
+}
