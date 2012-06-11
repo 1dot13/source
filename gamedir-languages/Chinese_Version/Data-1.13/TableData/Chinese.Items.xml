@@ -12335,4 +12335,28 @@
     <szBRName>Antidote</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>    
   </ITEM>
+  <ITEM>
+    <uiIndex>1540</uiIndex>
+    <szItemName>Sandbags</szItemName>
+    <szLongItemName>Sandbags, empty</szLongItemName>
+    <szItemDesc>A bunch of rugged, empty bags. What could you possibly store in there?</szItemDesc>
+    <szBRName>Sandbags, empty</szBRName>
+    <szBRDesc>Only a fool would not fortify his position, especially at these prices!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1541</uiIndex>
+    <szItemName>Sandbags</szItemName>
+    <szLongItemName>Sandbags, filled</szLongItemName>
+    <szItemDesc>Whenever you need fortification, flood control, or cheap weigzt lifting equipment, these come in handy.</szItemDesc>
+    <szBRName>Sandbags</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1542</uiIndex>
+    <szItemName>Concertina</szItemName>
+    <szLongItemName>Concertina Stack</szLongItemName>
+    <szItemDesc>A cheap way of denying access to areas. Be careful, don't hurt yourself while planting this.</szItemDesc>
+    <szBRName>Concertina Stack</szBRName>
+    <szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
