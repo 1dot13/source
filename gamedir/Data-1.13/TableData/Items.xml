@@ -166,6 +166,7 @@
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
 		<PoisonPercentage>0</PoisonPercentage>
+		<ItemFlag>4</ItemFlag>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -30975,7 +30976,7 @@
 		<ubGraphicNum>197</ubGraphicNum>
 		<ubWeight>20</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>30</ItemSize>
+		<ItemSize>32</ItemSize>
 		<usPrice>10</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
@@ -30988,6 +30989,7 @@
 		<BigGunList>1</BigGunList>
 		<Hardware>1</Hardware>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>4</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -45747,6 +45749,78 @@
 		<Medical>1</Medical>
 		<DrugType>1081344</DrugType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1540</uiIndex>
+		<szItemName>Sandbags</szItemName>
+		<szLongItemName>Sandbags, empty</szLongItemName>
+		<szItemDesc>A bunch of rugged, empty bags. What could you possibly store in there?</szItemDesc>
+		<szBRName>Sandbags, empty</szBRName>
+		<szBRDesc>Only a fool would not fortify his position, especially at these prices!</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>891</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>2</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<BR_NewInventory>15</BR_NewInventory>
+		<BR_UsedInventory>10</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>1</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1541</uiIndex>
+		<szItemName>Sandbags</szItemName>
+		<szLongItemName>Sandbags, filled</szLongItemName>
+		<szItemDesc>Whenever you need fortification, flood control, or cheap weigzt lifting equipment, these come in handy.</szItemDesc>
+		<szBRName>Sandbags</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>892</ubGraphicNum>
+		<ubWeight>200</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>22</ItemSize>
+		<usPrice>2</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<WaterDamages>1</WaterDamages>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1542</uiIndex>
+		<szItemName>Concertina</szItemName>
+		<szLongItemName>Concertina Stack</szLongItemName>
+		<szItemDesc>A cheap way of denying access to areas. Be careful, don't hurt yourself while planting this.</szItemDesc>
+		<szBRName>Concertina Stack</szBRName>
+		<szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>893</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<BR_NewInventory>10</BR_NewInventory>
+		<BR_UsedInventory>6</BR_UsedInventory>
+		<WaterDamages>1</WaterDamages>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>8</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
