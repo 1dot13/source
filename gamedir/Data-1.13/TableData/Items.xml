@@ -166,7 +166,7 @@
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
 		<PoisonPercentage>0</PoisonPercentage>
-		<ItemFlag>4</ItemFlag>
+		<ItemFlag>0</ItemFlag>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -45781,7 +45781,7 @@
 		<uiIndex>1541</uiIndex>
 		<szItemName>Sandbags</szItemName>
 		<szLongItemName>Sandbags, filled</szLongItemName>
-		<szItemDesc>Whenever you need fortification, flood control, or cheap weigzt lifting equipment, these come in handy.</szItemDesc>
+		<szItemDesc>Whenever you need fortification, flood control, or cheap weight lifting equipment, these come in handy.</szItemDesc>
 		<szBRName>Sandbags</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
