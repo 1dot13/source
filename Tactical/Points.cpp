@@ -3481,13 +3481,8 @@ INT16 GetAPsToBuildFortification( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	INT16						sAPCost = 0;
 
 	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-
-	// If point cost is zero, return 0
-	if ( sAPCost != 0 )
-	{
-		// ADD APS TO PICKUP
-		sAPCost += APBPConstants[AP_FORTIFICATION];
-	}
+		
+	sAPCost += APBPConstants[AP_FORTIFICATION];
 
 	return sAPCost;
 

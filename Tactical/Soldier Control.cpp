@@ -14392,6 +14392,11 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 		else
 			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 
+		// ugly, ugly hack: as e do not have a special animation for this action, we use the 'cut a fence' animations
+		// however, APs are directly deducted because of this. So we can't use the AP_FORTIFICATION costs
+		// for this reason, we deduct the APS still missing here
+		INT16 restAPs = max(0, APBPConstants[AP_FORTIFICATION] - APBPConstants[AP_USEWIRECUTTERS]);
+		
 		if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (FULL_SANDBAG|CONCERTINA)) )
 		{
 			// Build the thing
@@ -14403,6 +14408,8 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 				// we gain a bit of experience...
 				StatChange( this, STRAMT, 4, TRUE );
 				StatChange( this, HEALTHAMT, 2, TRUE );
+
+				DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
 
 				fSuccess = TRUE;
 			}
@@ -14432,7 +14439,30 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 						StatChange( this, STRAMT, 1, TRUE );
 						StatChange( this, HEALTHAMT, 1, TRUE );
 
+						DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
+
 						fSuccess = TRUE;
+					}
+					else
+					{
+						fullsandbagnr = 2824;
+						if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
+						{
+							// Erase 'material' item from our hand - we 'used' it to build the structure
+							INT8 bObjSlot = HANDPOS;
+
+							CreateItem( fullsandbagnr, 100, &gTempObject );
+
+							SwapObjs( this, bObjSlot, &gTempObject, TRUE );
+
+							// we gain a bit of experience...
+							StatChange( this, STRAMT, 1, TRUE );
+							StatChange( this, HEALTHAMT, 1, TRUE );
+
+							DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
+
+							fSuccess = TRUE;
+						}
 					}
 				}
 			}
@@ -14458,7 +14488,31 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 					StatChange( this, STRAMT, 3, TRUE );
 					StatChange( this, HEALTHAMT, 2, TRUE );
 
+					DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
+
 					fSuccess = TRUE;
+				}
+				else
+				{
+					fullsandbagnr = 2824;
+					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
+					{
+						// Erase 'material' item from our hand - we 'used' it to build the structure
+						INT8 bObjSlot = HANDPOS;
+
+						CreateItem( fullsandbagnr, 100, &gTempObject );
+
+						// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+						AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
+
+						// we gain a bit of experience...
+						StatChange( this, STRAMT, 3, TRUE );
+						StatChange( this, HEALTHAMT, 2, TRUE );
+
+						DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
+
+						fSuccess = TRUE;
+					}
 				}
 			}
 		}

@@ -5997,12 +5997,12 @@ BOOLEAN BuildFortification( UINT32 flag )
 	if ( gusSelectedSoldier == NOBODY )
 		return FALSE;
 
-	if( (gTacticalStatus.uiFlags & INCOMBAT) && (gTacticalStatus.uiFlags & TURNBASED) )
+	// comment this in to forbid building while enemies are around
+	/*if( (gTacticalStatus.uiFlags & INCOMBAT) && (gTacticalStatus.uiFlags & TURNBASED) )
 	{
 		return FALSE;
 	}
-
-	/* // comment this in to forbid building while enemies are around
+		
 	if( gWorldSectorX != -1 && gWorldSectorY != -1 && gWorldSectorX != 0 && gWorldSectorY != 0 && 
 		NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )
 	{

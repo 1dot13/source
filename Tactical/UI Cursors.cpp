@@ -2162,6 +2162,8 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 		{
 			return( FORTIFICATION_RED_UICURSOR );
 		}
+		else
+			return( FORTIFICATION_RED_UICURSOR );
 	}
 
 	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (SHOVEL)) )
@@ -2172,6 +2174,8 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 		{
 			return( FORTIFICATION_GREY_UICURSOR );
 		}
+		else
+			return( FORTIFICATION_RED_UICURSOR );
 	}
 
 	// can we build something here?
