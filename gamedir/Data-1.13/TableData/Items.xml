@@ -30968,10 +30968,8 @@
 		<szItemDesc>Perfect for digging your own grave, or hitting people over the head (and then dig their grave).</szItemDesc>
 		<szBRName>Shovel</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>128</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1015</ubClassIndex>
-		<ubCursor>2</ubCursor>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>		
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>197</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -30985,9 +30983,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<TwoHanded>1</TwoHanded>
-		<BigGunList>1</BigGunList>
-		<Hardware>1</Hardware>
+		<Hardware>1</Hardware>		
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<ItemFlag>4</ItemFlag>
 		<STAND_MODIFIERS />
