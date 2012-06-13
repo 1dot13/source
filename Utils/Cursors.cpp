@@ -1182,13 +1182,6 @@ CursorData CursorDatabase[] =
 		0,							0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR , 0, 0					, 0, 0 },
 
-	/*{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
-		C_FORTIFICATION				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
-		0,							0, 0, 0, 0,
-		0,							0, 0, 0, 0,
-		0,							0, 0, 0, 0,
-		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },*/
-
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FORTIFICATION				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0,							0, 0, 0, 0,
@@ -1715,42 +1708,46 @@ void UpdateAnimatedCursorFrames( UINT32 uiCursorIndex )
 		{
 
 			pCurImage = &( pCurData->Composites[ cnt ] );
+			// Flugente: now using enums instead of hardcoded values
 			//CHRISL: NCTH uses a completely different cursor so if we're in NCTH mode, we want to use different graphics
-			if(UsingNewCTHSystem() == true){
+			if(UsingNewCTHSystem() == true)
+			{
 				switch(pCurImage->uiFileIndex)
 				{
-					case 2:
-						pCurImage->uiFileIndex = 68; break;
-					case 3:
-						pCurImage->uiFileIndex = 69; break;
-					case 5:
-						pCurImage->uiFileIndex = 70; break;
-					case 6:
-						pCurImage->uiFileIndex = 71; break;
-					case 7:
-						pCurImage->uiFileIndex = 72; break;
-					case 8:
-						pCurImage->uiFileIndex = 73; break;
-					case 35:
-						pCurImage->uiFileIndex = 74; break;
+					case C_ACTIONMODERED:
+						pCurImage->uiFileIndex = C_ACTIONMODERED_NCTH; break;
+					case C_ACTIONMODEBLACK:
+						pCurImage->uiFileIndex = C_ACTIONMODEBLACK_NCTH; break;
+					case C_TARGMODEBURSTRED:
+						pCurImage->uiFileIndex = C_TARGMODEBURSTRED_NCTH; break;
+					case C_TARGMODEBURSTBLACK:
+						pCurImage->uiFileIndex = C_TARGMODEBURSTBLACK_NCTH; break;
+					case C_TRINGS:
+						pCurImage->uiFileIndex = C_TRINGS_NCTH; break;
+					case C_TWRINGS:
+						pCurImage->uiFileIndex = C_TWRINGS_NCTH; break;
+					case C_YELLOWRINGS:
+						pCurImage->uiFileIndex = C_YELLOWRINGS_NCTH; break;
 				}
-			} else {
+			} 
+			else
+			{
 				switch(pCurImage->uiFileIndex)
 				{
-					case 68:
-						pCurImage->uiFileIndex = 2; break;
-					case 69:
-						pCurImage->uiFileIndex = 3; break;
-					case 70:
-						pCurImage->uiFileIndex = 5; break;
-					case 71:
-						pCurImage->uiFileIndex = 6; break;
-					case 72:
-						pCurImage->uiFileIndex = 7; break;
-					case 73:
-						pCurImage->uiFileIndex = 8; break;
-					case 74:
-						pCurImage->uiFileIndex = 35; break;
+					case C_ACTIONMODERED_NCTH:
+						pCurImage->uiFileIndex = C_ACTIONMODERED; break;
+					case C_ACTIONMODEBLACK_NCTH:
+						pCurImage->uiFileIndex = C_ACTIONMODEBLACK; break;
+					case C_TARGMODEBURSTRED_NCTH:
+						pCurImage->uiFileIndex = C_TARGMODEBURSTRED; break;
+					case C_TARGMODEBURSTBLACK_NCTH:
+						pCurImage->uiFileIndex = C_TARGMODEBURSTBLACK; break;
+					case C_TRINGS_NCTH:
+						pCurImage->uiFileIndex = C_TRINGS; break;
+					case C_TWRINGS_NCTH:
+						pCurImage->uiFileIndex = C_TWRINGS; break;
+					case C_YELLOWRINGS_NCTH:
+						pCurImage->uiFileIndex = C_YELLOWRINGS; break;
 				}
 			}
 

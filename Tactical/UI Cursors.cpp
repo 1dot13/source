@@ -2158,12 +2158,16 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 		// check if we have a shovel in our second hand
 		OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
 
-		if ( !pShovelObj || !(pShovelObj->exists()) || !HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
+		if ( pShovelObj && (pShovelObj->exists()) && HasItemFlag(pSoldier->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
 		{
-			return( FORTIFICATION_RED_UICURSOR );
+			INT8 bOverTerrainType = GetTerrainType( sGridNo );
+			if( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS )
+			{
+				return( FORTIFICATION_GREY_UICURSOR );
+			}
 		}
-		else
-			return( FORTIFICATION_RED_UICURSOR );
+
+		return( FORTIFICATION_RED_UICURSOR );
 	}
 
 	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, (SHOVEL)) )
@@ -2179,7 +2183,7 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 	}
 
 	// can we build something here?
-	if ( IsFortificationPossibleAtGridNo( sGridNo, NULL ) && pSoldier->pathing.bLevel == 0 )
+	if ( IsFortificationPossibleAtGridNo( sGridNo ) )
 	{		
 		return( FORTIFICATION_GREY_UICURSOR );
 	}
