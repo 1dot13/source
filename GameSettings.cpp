@@ -1356,6 +1356,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sZombiePoisonDamagePercentage					= iniReader.ReadInteger("Tactical Poison Settings", "ZOMBIE_POISON_DAMAGE_PERCENTAGE", 50, 0, 100);	
 	gGameExternalOptions.sPoisonInfectionDamageMultiplier				= iniReader.ReadFloat("Tactical Poison Settings", "POISON_INFECTION_DAMAGE_MULTIPLIER", 4.0, 1.0, 10.0);	
 
+	//################# Tactical Fortification Settings ##################
+	gGameExternalOptions.fFortificationAllowInHostileSector				= iniReader.ReadBoolean("Tactical Fortification Settings", "FORTIFICATION_ALLOW_IN_HOSTILE_SECTOR", FALSE);
+
 	//################# Strategic Gamestart Settings ##################
 
 	//Lalien: Game starting time

@@ -14374,10 +14374,23 @@ void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT32 sGridNo, UINT8 ubDirection 
 
 }
 
+extern UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection )
 {
 	BOOLEAN fSuccess = FALSE;
+
+	// if specified by the ini, building/disassembling stuff is disabled while enemies are around
+	if ( !gGameExternalOptions.fFortificationAllowInHostileSector )
+	{				
+		if( gWorldSectorX != -1 && gWorldSectorY != -1 && gWorldSectorX != 0 && gWorldSectorY != 0 && 
+			NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot build while enemies are in this sector" );
+			return;
+		}
+	}
+
 	// do checks here...
 	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
 

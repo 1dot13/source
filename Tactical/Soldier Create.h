@@ -305,9 +305,6 @@ public:
 	INT8						bUseGivenVehicleID;				
 	BOOLEAN						fHasKeys;
 
-	// Flugente: do not generate new palette for soldier (for soldiers that are created from existing soldiers/corpses, like doppelgangers and zombies)
-	BOOLEAN						fNoGenNewPalette;
-
 	//
 	// New and OO stuff goes after here.	Above this point any changes will goof up reading from files.
 	//

@@ -2232,13 +2232,10 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 																							
 	MercCreateStruct.fVisible			= TRUE;
 
-	// do not generate a new palette, thereby using the old palette of the corpse
-	MercCreateStruct.fNoGenNewPalette	= TRUE;
-
 	INT8							iNewIndex;
 	if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
 	{
-		/*	certain values have to be set afterwards - the alternative to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
+		/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
 		*	make an exception for zombies every time...
 		*/
 		SOLDIERTYPE* pNewSoldier = MercPtrs[ (UINT8)iNewIndex ];

@@ -1133,6 +1133,13 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			{
 				return( ITEM_HANDLE_REFUSAL );
 			}
+
+			// we can only do this on certain terraintypes
+			INT8 bOverTerrainType = GetTerrainType( sGridNo );
+			if( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
+			{
+				return( ITEM_HANDLE_REFUSAL );
+			}
 		}
 
 		// if we have a shovel in our hands, the targetted gridno must be a fortification (debris will do for this check)
@@ -5982,8 +5989,6 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	SetCustomizableTimerCallbackAndDelay( 1000, CheckForPickedOwnership, TRUE );
 }
 
-extern UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
-
 BOOLEAN BuildFortification( UINT32 flag )
 {
 	INT32				sGridNo;		
@@ -5996,19 +6001,6 @@ BOOLEAN BuildFortification( UINT32 flag )
 
 	if ( gusSelectedSoldier == NOBODY )
 		return FALSE;
-
-	// comment this in to forbid building while enemies are around
-	/*if( (gTacticalStatus.uiFlags & INCOMBAT) && (gTacticalStatus.uiFlags & TURNBASED) )
-	{
-		return FALSE;
-	}
-		
-	if( gWorldSectorX != -1 && gWorldSectorY != -1 && gWorldSectorX != 0 && gWorldSectorY != 0 && 
-		NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot build while enemies are in this sector" );
-		return FALSE;
-	}*/
 
 	if( gbWorldSectorZ > 0 || gsInterfaceLevel > 0)
 	{

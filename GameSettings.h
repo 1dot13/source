@@ -382,6 +382,9 @@ typedef struct
 	INT16	sZombiePoisonDamagePercentage;
 	FLOAT	sPoisonInfectionDamageMultiplier;
 
+	// Flugente: fortification settings
+	BOOLEAN fFortificationAllowInHostileSector;
+
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;
 	FLOAT giEnemyTurnSpeedUpFactor;

@@ -5693,132 +5693,131 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 				pBullet->fTracer = FALSE;
 			}
 		}*/
-		
-		///////////////////////// SOUND ////////////////////////////
-		//PLAY SOUND
-		// ( For throwing knife.. it's earlier in the animation
-		if ( Weapon[ pObj->usItem ].sSound != 0 && Item[ pObj->usItem ].usItemClass != IC_THROWING_KNIFE )
-		{
-			// Switch on silencer...
-			UINT16 noisefactor = GetPercentNoiseVolume( pObj );
-			if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ pObj->usItem ].ubAttackVolume <= 10 )
-			{
-				INT32 uiSound;
-
-				uiSound = Weapon [ pObj->usItem ].silencedSound;
-
-				PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, gridno ), 1, SoundDir( gridno ) );
-			}
-			else
-			{
-				INT8 volume = HIGHVOLUME;
-				if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
-				PlayJA2Sample( Weapon[ pObj->usItem ].sSound, RATE_11025, SoundVolume( volume, gridno ), 1, SoundDir( gridno ) );
-			}
-		}
-		///////////////////////// SOUND ////////////////////////////
-
-		// deduct ammo
-		(*pObj)[0]->data.gun.ubGunShotsLeft = max(0, (*pObj)[0]->data.gun.ubGunShotsLeft - 1);
-						
-		//gTacticalStatus.ubAttackBusyCount++;
-
+				
 		if(is_client)send_bullet( pBullet, pObj->usItem );
 		FireBullet( pThrower, pBullet, FALSE );
-
-		///////////////////////// SOUND ////////////////////////////
-		UINT8 ubVolume = Weapon[ pObj->usItem ].ubAttackVolume;
-
-		// Snap: get cumulative noise reduction from the weapon and its attachments
-		UINT16 noisefactor = GetPercentNoiseVolume( pObj );
-		if ( ubVolume * noisefactor > 25000 )
-		{ // Snap: hack this to prevent overflow (damn miserly programmers!)
-			ubVolume = 250;
-		}
-		else
-		{
-			ubVolume = __max( 1, ( ubVolume * GetPercentNoiseVolume( pObj ) ) / 100 );
-		}
-
-		MakeNoise( NOBODY, gridno, 0, pThrower->bOverTerrainType, ubVolume, NOISE_GUNFIRE );
-		///////////////////////// SOUND ////////////////////////////
-
-		///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
-		INT16 iOverheatReliabilityMalus = 0;
-		// Flugente: Increase Weapon Temperature
-		if ( gGameOptions.fWeaponOverheating )
-		{
-			FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObj );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
-
-			if ( overheatjampercentage > 1.0 )
-				iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
-				
-			GunIncreaseHeat( pObj );
-		}
-
-		// Flugente : Added a malus to reliability for overheated guns
-		// HEADROCK HAM 5: Variable NCTH base change
-		UINT32 uiDepreciateTest = 0;
-		if ( UsingNewCTHSystem() == true)
-		{
-			UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
-			FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)BASIC_DEPRECIATE_CHANCE); // Compare original odds to new odds.
-			uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( pObj ) - iOverheatReliabilityMalus);
-			uiDepreciateTest = max(0, uiDepreciateTest);
-		}
-		else
-		{
-			uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( pObj ) - iOverheatReliabilityMalus, 0);
-		}
-		if ( !PreRandom( uiDepreciateTest ) && ( (*pObj)[0]->data.objectStatus > 1) )
-		{
-			(*pObj)[0]->data.objectStatus--;
-		}
-		///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
-
-		///////////////////////// JAMMING ////////////////////////////
-		// Algorithm for jamming 
-		int maxJamChance = 50; // Externalize this? 
-		int reliability =  GetReliability( pObj ); 
-		int condition = (*pObj)[0]->data.gun.bGunStatus; 
-		int invertedBaseJamChance = condition + (reliability * 2) - gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * 1; 
-
-		// Flugente FTW 1: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
-		if ( gGameOptions.fWeaponOverheating )
-		{
-			FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObj );	// how much above the gun's usOverheatingJamThreshold are we? ...
-
-			int overheatjamfactor = (int)(100* overheatjampercentage);			// We need an integer value and rough percentages
-
-			overheatjamfactor = max(0, overheatjamfactor - 100);				// If we haven't reached the OverheatJamThreshold, no increased chance of jamming because of overheating
-
-			invertedBaseJamChance -= overheatjamfactor;							// lower invertedBaseJamChance	(thereby increasing jamChance later on)
-		}
-
-		if (invertedBaseJamChance < 0) 
-			invertedBaseJamChance = 0; 
-		else if (invertedBaseJamChance > 100) 
-			invertedBaseJamChance = 100; 
-		int jamChance = 100 - (int)sqrt((double)invertedBaseJamChance * (75.0 + (double)invertedBaseJamChance / 2.0)); 
-		if (jamChance < 0) 
-			jamChance = 0; 
-		else if (jamChance > maxJamChance - reliability) 
-			jamChance = maxJamChance - reliability; 
-			 
-				
-		if ((INT32) PreRandom( 100 ) < jamChance  ) 
-		{ 				 
-			// jam! negate the gun ammo status. 
-			(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 				 
-		}
-		///////////////////////// JAMMING ////////////////////////////
-
-		//<SB> manual recharge
-		if (Weapon[Item[pObj->usItem].ubClassIndex].APsToReloadManually > 0)
-			(*pObj)[0]->data.gun.ubGunState &= ~GS_CARTRIDGE_IN_CHAMBER;
-		//<SB>
 	}
 
+	///////////////////////// SOUND ////////////////////////////
+	//PLAY SOUND
+	// ( For throwing knife.. it's earlier in the animation
+	if ( Weapon[ pObj->usItem ].sSound != 0 && Item[ pObj->usItem ].usItemClass != IC_THROWING_KNIFE )
+	{
+		// Switch on silencer...
+		UINT16 noisefactor = GetPercentNoiseVolume( pObj );
+		if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ pObj->usItem ].ubAttackVolume <= 10 )
+		{
+			INT32 uiSound;
+
+			uiSound = Weapon [ pObj->usItem ].silencedSound;
+
+			PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, gridno ), 1, SoundDir( gridno ) );
+		}
+		else
+		{
+			INT8 volume = HIGHVOLUME;
+			if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
+			PlayJA2Sample( Weapon[ pObj->usItem ].sSound, RATE_11025, SoundVolume( volume, gridno ), 1, SoundDir( gridno ) );
+		}
+	}
+	///////////////////////// SOUND ////////////////////////////
+
+	// deduct ammo
+	(*pObj)[0]->data.gun.ubGunShotsLeft = max(0, (*pObj)[0]->data.gun.ubGunShotsLeft - 1);
+						
+	//gTacticalStatus.ubAttackBusyCount++;
+
+	///////////////////////// SOUND ////////////////////////////
+	UINT8 ubVolume = Weapon[ pObj->usItem ].ubAttackVolume;
+
+	// Snap: get cumulative noise reduction from the weapon and its attachments
+	UINT16 noisefactor = GetPercentNoiseVolume( pObj );
+	if ( ubVolume * noisefactor > 25000 )
+	{ // Snap: hack this to prevent overflow (damn miserly programmers!)
+		ubVolume = 250;
+	}
+	else
+	{
+		ubVolume = __max( 1, ( ubVolume * GetPercentNoiseVolume( pObj ) ) / 100 );
+	}
+
+	MakeNoise( NOBODY, gridno, 0, pThrower->bOverTerrainType, ubVolume, NOISE_GUNFIRE );
+	///////////////////////// SOUND ////////////////////////////
+
+	///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
+	INT16 iOverheatReliabilityMalus = 0;
+	// Flugente: Increase Weapon Temperature
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObj );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
+
+		if ( overheatjampercentage > 1.0 )
+			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
+				
+		GunIncreaseHeat( pObj );
+	}
+
+	// Flugente : Added a malus to reliability for overheated guns
+	// HEADROCK HAM 5: Variable NCTH base change
+	UINT32 uiDepreciateTest = 0;
+	if ( UsingNewCTHSystem() == true)
+	{
+		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
+		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)BASIC_DEPRECIATE_CHANCE); // Compare original odds to new odds.
+		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( pObj ) - iOverheatReliabilityMalus);
+		uiDepreciateTest = max(0, uiDepreciateTest);
+	}
+	else
+	{
+		uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( pObj ) - iOverheatReliabilityMalus, 0);
+	}
+	if ( !PreRandom( uiDepreciateTest ) && ( (*pObj)[0]->data.objectStatus > 1) )
+	{
+		(*pObj)[0]->data.objectStatus--;
+	}
+	///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
+
+	///////////////////////// JAMMING ////////////////////////////
+	// Algorithm for jamming 
+	int maxJamChance = 50; // Externalize this? 
+	int reliability =  GetReliability( pObj ); 
+	int condition = (*pObj)[0]->data.gun.bGunStatus; 
+	int invertedBaseJamChance = condition + (reliability * 2) - gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * 1; 
+
+	// Flugente FTW 1: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
+	if ( gGameOptions.fWeaponOverheating )
+	{
+		FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObj );	// how much above the gun's usOverheatingJamThreshold are we? ...
+
+		int overheatjamfactor = (int)(100* overheatjampercentage);			// We need an integer value and rough percentages
+
+		overheatjamfactor = max(0, overheatjamfactor - 100);				// If we haven't reached the OverheatJamThreshold, no increased chance of jamming because of overheating
+
+		invertedBaseJamChance -= overheatjamfactor;							// lower invertedBaseJamChance	(thereby increasing jamChance later on)
+	}
+
+	if (invertedBaseJamChance < 0) 
+		invertedBaseJamChance = 0; 
+	else if (invertedBaseJamChance > 100) 
+		invertedBaseJamChance = 100; 
+	int jamChance = 100 - (int)sqrt((double)invertedBaseJamChance * (75.0 + (double)invertedBaseJamChance / 2.0)); 
+	if (jamChance < 0) 
+		jamChance = 0; 
+	else if (jamChance > maxJamChance - reliability) 
+		jamChance = maxJamChance - reliability; 
+			 
+				
+	if ((INT32) PreRandom( 100 ) < jamChance  ) 
+	{ 				 
+		// jam! negate the gun ammo status. 
+		(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 				 
+	}
+	///////////////////////// JAMMING ////////////////////////////
+
+	//<SB> manual recharge
+	if (Weapon[Item[pObj->usItem].ubClassIndex].APsToReloadManually > 0)
+		(*pObj)[0]->data.gun.ubGunState &= ~GS_CARTRIDGE_IN_CHAMBER;
+	//<SB>
 
 	return( TRUE );
 }

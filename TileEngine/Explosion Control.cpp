@@ -3607,62 +3607,66 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 					if ( Item[pObj->usItem].tripwireactivation == 1 )
 					{
 						// tripwire just gets activated
-						// this is important - we have to check for the tripwire's temperature. 
-						// The temperature serves as a temporary flag replacement, marking that a tripwire has already been activated, adn shouldn't be activated again
-						if ( Item[pObj->usItem].tripwire == 1 && (*pObj)[0]->data.bTemperature < 1 )
+						if ( Item[pObj->usItem].tripwire == 1 )
 						{
-							// determine this tripwire's flag
-							UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
-
-							// check if a) tripwire belongs to the same tripwire network and b) its of the same or lower hierarchy level
-							BOOLEAN samenetwork = FALSE;
-							BOOLEAN sameorlowerhierarchy = FALSE;
-
-							if ( ubWireNetworkFlag <= ubFlag )		// hierarchy of a group is sorted, so this suffices
-								sameorlowerhierarchy = TRUE;
-							
-							if ( !sameorlowerhierarchy )
-								continue;
-
-							for (INT8 i = 0; i < 2; ++i)	// 2 runs: first for enemy networks, second for player networks
+							// this is important - we have to check for the tripwire's temperature. 
+							// The temperature serves as a temporary flag replacement, marking that a tripwire has already been activated, and shouldn't be activated again
+							if ( (*pObj)[0]->data.bTemperature < 1 )
 							{
-								for (INT8 j = 0; j < 4; ++j)
-								{
-									UINT32 samenetworkflag = ( ENEMY_NET_1_LVL_1 | ENEMY_NET_1_LVL_2 | ENEMY_NET_1_LVL_3 | ENEMY_NET_1_LVL_4 ) << (16*i + j);			// comparing with this flag will determine the network
+								// determine this tripwire's flag
+								UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
-									if ( ( (ubFlag & samenetworkflag) != 0 ) && ( (ubWireNetworkFlag & samenetworkflag) != 0 ) )
-										samenetwork = TRUE;
+								// check if a) tripwire belongs to the same tripwire network and b) its of the same or lower hierarchy level
+								BOOLEAN samenetwork = FALSE;
+								BOOLEAN sameorlowerhierarchy = FALSE;
 
-									if ( samenetwork )
-										break;
-								}
-							}
-
-							if ( samenetwork && sameorlowerhierarchy )
-							{
-								gubPersonToSetOffExplosions = ubID;
-
-								// put this bomb on the queue
-								AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
-								if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
-								{
-									uiTimeStamp += BOMB_QUEUE_DELAY;
-								}
+								if ( ubWireNetworkFlag <= ubFlag )		// hierarchy of a group is sorted, so this suffices
+									sameorlowerhierarchy = TRUE;
 							
-								if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
+								if ( !sameorlowerhierarchy )
+									continue;
+
+								for (INT8 i = 0; i < 2; ++i)	// 2 runs: first for enemy networks, second for player networks
 								{
-									fFoundMine = TRUE;
+									for (INT8 j = 0; j < 4; ++j)
+									{
+										UINT32 samenetworkflag = ( ENEMY_NET_1_LVL_1 | ENEMY_NET_1_LVL_2 | ENEMY_NET_1_LVL_3 | ENEMY_NET_1_LVL_4 ) << (16*i + j);			// comparing with this flag will determine the network
+
+										if ( ( (ubFlag & samenetworkflag) != 0 ) && ( (ubWireNetworkFlag & samenetworkflag) != 0 ) )
+											samenetwork = TRUE;
+
+										if ( samenetwork )
+											break;
+									}
 								}
+
+								if ( samenetwork && sameorlowerhierarchy )
+								{
+									gubPersonToSetOffExplosions = ubID;
+
+									/*if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+									{
+										uiTimeStamp += BOMB_QUEUE_DELAY;
+									}*/
+
+									// put this bomb on the queue
+									AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
+															
+									if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
+									{
+										fFoundMine = TRUE;
+									}
 																
-								// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
-								// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
-								// As i do not want to create an itm flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
-								// (temperature for tripwire isn't needed anywhere else, so its ok)
-								(*pObj)[0]->data.bTemperature = 1000.0;
+									// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
+									// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
+									// As i do not want to create an itm flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
+									// (temperature for tripwire isn't needed anywhere else, so its ok)
+									(*pObj)[0]->data.bTemperature = 1000.0;
 
-								// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
-								if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )
-									fFoundMine = ActivateSurroundingTripwire(ubID, adjgrid, bLevel, ubWireNetworkFlag);
+									// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
+									if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )
+										fFoundMine = ActivateSurroundingTripwire(ubID, adjgrid, bLevel, ubWireNetworkFlag);
+								}
 							}
 						}
 						// bombs go off
@@ -3678,12 +3682,13 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 									gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;
 							}
 
-							// put this bomb on the queue
-							AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
-							if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+							/*if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
 							{
 								uiTimeStamp += BOMB_QUEUE_DELAY;
-							}
+							}*/
+
+							// put this bomb on the queue
+							AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
 							
 							if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
 							{
@@ -3706,45 +3711,27 @@ void CheckAndFireTripwireGun( OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel, UINT
 	if ( !pObj )
 		return;
 
-	// search for attached guns
-	BOOLEAN fgunfound = FALSE;
-	OBJECTTYPE* pAttGun = NULL;
-	// check all attachments
-	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	// we actually found a gun.
+	// if the gun has ammo and is not jammed, fire it
+	if ( (*pObj)[0]->data.gun.ubGunShotsLeft > 0 && (*pObj)[0]->data.gun.bGunAmmoStatus > 0 )
 	{
-		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_GUN )
+		// Increment attack counter...
+		if (gubElementsOnExplosionQueue == 0)
 		{
-			fgunfound = TRUE;
-			pAttGun = &(*iter);
-			break;
-		}
-	}
+			// single explosion, disable sight until the end, and set flag
+			// to check sight at end of attack
 
-	if ( fgunfound && pAttGun )
-	{
-		// we actually found a gun.
-		// if the gun has ammo and is not jammed, fire it
-		if ( (*pAttGun)[0]->data.gun.ubGunShotsLeft > 0 && (*pAttGun)[0]->data.gun.bGunAmmoStatus > 0 )
-		{
-			// Increment attack counter...
-			if (gubElementsOnExplosionQueue == 0)
-			{
-				// single explosion, disable sight until the end, and set flag
-				// to check sight at end of attack
-
-				gTacticalStatus.uiFlags |= (DISALLOW_SIGHT | CHECK_SIGHT_AT_END_OF_ATTACK);
-			}
-
-			FireFragmentsTrapGun( MercPtrs[ubId], sGridNo, 0, pAttGun, ubDirection );
-
-			// this is important... if not set, the game will remain in a loop
-			gTacticalStatus.ubAttackBusyCount = 0;
+			gTacticalStatus.uiFlags |= (DISALLOW_SIGHT | CHECK_SIGHT_AT_END_OF_ATTACK);
 		}
 
-		// add this gun to the floor
-		AddItemToPool( sGridNo, pAttGun, 1, bLevel, 0, -1 );
+		FireFragmentsTrapGun( MercPtrs[ubId], sGridNo, 0, pObj, ubDirection );
+
+		// this is important... if not set, the game will remain in a loop
+		gTacticalStatus.ubAttackBusyCount = 0;
 	}
+				
+	// add this gun to the floor
+	AddItemToPool( sGridNo, pObj, 1, bLevel, 0, -1 );
 }
 
 void HandleExplosionQueue( void )
@@ -3795,15 +3782,40 @@ void HandleExplosionQueue( void )
 			// tripwire gets called and activated in ActivateSurroundingTripwire
 			else if ( Item[pObj->usItem].tripwire == 1 )
 			{
-				// check if there is a gun attached to this piece of wire, and eventually fire it
-				CheckAndFireTripwireGun( pObj, gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
-				
 				OBJECTTYPE newtripwireObject;
 				CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
 
 				// determine this tripwire's flag
 				UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
+				// search for attached guns
+				BOOLEAN fgunfound = FALSE;
+				OBJECTTYPE* pAttGun = NULL;
+				// check all attachments
+				attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+				{
+					if ( iter->exists() && Item[iter->usItem].usItemClass == IC_GUN )
+					{
+						fgunfound = TRUE;
+						pAttGun = &(*iter);
+						break;
+					}
+				}
+
+				if ( fgunfound && pAttGun && pAttGun->exists() )
+				{
+					// Flugente 2012-06-16: I ran into a weird bug. If activating multiple guntraps, an errro would occur when placing a gun on the floor. 
+					// The problem is the function GetFreeWorldItemIndex( ) in AddItemToWorld() in World Items.cpp.
+					// It gets a free index for the item that should be placed. If there is no free index, it creates a bigger array, copies the current array into it, and then deletes the old index.
+					// For some reason still unknown to me, this corrupts the pObj-pointer. It also corrupts the pAttGun-pointer, this is the reason I create a new object.
+					// I had to move some functions here to take care of that. It would be good if spmeone with more knowledge could take a look at this.
+
+					// fire with this gun, if possible. Afterwards palce it on the floor
+					OBJECTTYPE object(*pAttGun);
+					CheckAndFireTripwireGun( &object, sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
+				}
+				
 				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 						
@@ -4287,14 +4299,14 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 					{
 						gubPersonToSetOffExplosions = ubID;
 
-						// put this bomb on the queue
-						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
-						if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+						/*if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
 						{
 							uiTimeStamp += BOMB_QUEUE_DELAY;
-							//uiTimeStamp += BOMB_QUEUE_DELAY;
-						}
+						}*/
 
+						// put this bomb on the queue
+						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
+						
 						if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
 						{
 							fFoundMine = TRUE;
@@ -4302,7 +4314,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 												
 						// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
 						// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
-						// As i do not want to create an itm flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
+						// As i do not want to create an item flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
 						// (temperature for tripwire isn't needed anywhere else, so its ok)
 						(*pObj)[0]->data.bTemperature = 1000.0;
 
@@ -4322,12 +4334,13 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 								gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;
 						}
 
-						// put this bomb on the queue
-						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
-						if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
+						/*if (pObj->usItem != ACTION_ITEM || (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP)
 						{
 							uiTimeStamp += BOMB_QUEUE_DELAY;
-						}
+						}*/
+
+						// put this bomb on the queue
+						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
 
 						if ( (*pObj)[0]->data.misc.usBombItem != NOTHING && Item[ (*pObj)[0]->data.misc.usBombItem ].usItemClass & IC_EXPLOSV )
 						{

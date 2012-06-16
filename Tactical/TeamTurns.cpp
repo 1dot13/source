@@ -459,6 +459,14 @@ void EndTurnEvents( void )
 	DecaySmokeEffects( GetWorldTotalSeconds( ) );
 	DecayLightEffects( GetWorldTotalSeconds( ) );
 
+	// Flugente: Cool down all items not in a soldier's inventory
+	CoolDownWorldItems( FALSE );	
+	// Flugente: raise zombies if in gamescreen and option set
+	if ( guiCurrentScreen == GAME_SCREEN )
+	{
+		RaiseZombies();
+	}
+
 	// decay AI warning values from corpses
 	DecayRottingCorpseAIWarnings();
 

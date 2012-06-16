@@ -341,7 +341,6 @@ SOLDIERCREATE_STRUCT::SOLDIERCREATE_STRUCT() {
 SOLDIERCREATE_STRUCT::SOLDIERCREATE_STRUCT(const SOLDIERCREATE_STRUCT& src) {
 	memcpy(this, &src, SIZEOF_SOLDIERCREATE_STRUCT_POD);
 	this->Inv = src.Inv;
-	this->fNoGenNewPalette = src.fNoGenNewPalette;
 }
 
 // Assignment operator
@@ -350,7 +349,6 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const SOLDIERCREATE_STRUCT
 	if (this != &src) {
 		memcpy(this, &src, SIZEOF_SOLDIERCREATE_STRUCT_POD);
 		this->Inv = src.Inv;
-		this->fNoGenNewPalette = src.fNoGenNewPalette;
 	}
 	return *this;
 }
@@ -1360,6 +1358,10 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass )
 	BOOLEAN fMercClothingScheme;
 	hair = -1;
 
+	// Flugente: if all palettes are already set, no need to rebuild them. This allows zombies to use a corpses palettes
+	if( pSoldier->PantsPal[0] && pSoldier->VestPal[0] && pSoldier->SkinPal[0] && pSoldier->HeadPal[0] )
+		return;
+
 	//choose random skin tone which will limit the choice of hair colors.
 	skin = (INT8)Random( NUMSKINS );
 	switch( skin )
@@ -1739,8 +1741,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	}
 
 	//Generate colors for soldier based on the body type.
-	if ( !pCreateStruct->fNoGenNewPalette )
-		GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass );
+	GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass );
 
 	// Copy item info over
 	pSoldier->inv = pCreateStruct->Inv;
