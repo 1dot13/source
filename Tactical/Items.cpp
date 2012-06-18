@@ -13053,7 +13053,7 @@ INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 	if ( gGameOptions.fWeaponOverheating )
 	{
 		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObj );
-		FLOAT accuracymalus = (max(1.0f, overheatdamagepercentage) - 1.0f) * 0.1;
+		FLOAT accuracymalus = (max(1.0f, overheatdamagepercentage) - 1.0f) * 0.1f;
 		accuracyheatmultiplicator = max(0.0f, 1.0f - accuracymalus);
 	}
 

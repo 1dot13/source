@@ -3968,6 +3968,53 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sNewX, sNewY, pStr );
 
 			}
+
+			// Flugente: display the time left/frequencies on armed bombs (as we can now arm them in our inventory)
+			if( ( (Item[pObject->usItem].usItemClass & (IC_BOMB)) && ( ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_REMOTE ) ) )  )
+			{
+				sNewY = sY + sHeight - 10;
+
+				INT8 timeleft = (*pObject)[0]->data.misc.bDelay;
+				INT8 detfrequency = (*pObject)[0]->data.misc.bFrequency;
+				INT8 defusefrequency = (*pObject)[0]->data.bDefuseFrequency;
+				
+				if ( ( (*pObject)[0]->data.misc.bDetonatorType == BOMB_TIMED ) && timeleft > 0 )
+				{
+					SetRGBFontForeground( 250, 0, 0 );
+
+					if ( defusefrequency > 0 )
+						swprintf( pStr, L"%d/%d", timeleft, defusefrequency );
+					else
+						swprintf( pStr, L"%d", timeleft );
+				}
+				else if ( detfrequency > 0 )
+				{
+					SetRGBFontForeground( 207, 211, 39 );
+
+					if ( defusefrequency > 0 )
+						swprintf( pStr, L"%d/%d", detfrequency, defusefrequency );
+					else
+						swprintf( pStr, L"%d", detfrequency );
+				}
+				else
+				{
+					SetRGBFontForeground( 7, 243, 143 );
+
+					swprintf( pStr, L"-/%d", defusefrequency );
+				}
+				
+				// Get length of string
+				uiStringLength=StringPixLength(pStr, ITEM_FONT );
+
+				sNewX = sX + sWidth - uiStringLength - 4;
+
+				if ( uiBuffer == guiSAVEBUFFER )
+				{
+					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+				}
+				mprintf( sNewX, sNewY, pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
+			}
 		}
 	}
 
@@ -5823,6 +5870,27 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			// ATE: Make sure we have enough AP's to drop it if we pick it up!
 			if ( pAttachment->exists() && EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier ) + APBPConstants[AP_PICKUP_ITEM] ), 0, TRUE ) )
 			{
+				// Flugente: if we are trying to remove the detonators of an armed bomb, auto-fail: it explodes
+				if ( gpItemPointerSoldier && ( (Item[gpItemDescObject->usItem].usItemClass & (IC_BOMB)) && ( ( (*gpItemDescObject)[ubStatusIndex]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*gpItemDescObject)[ubStatusIndex]->data.misc.bDetonatorType == BOMB_REMOTE ) ) )  )
+				{
+					if ( guiCurrentScreen == GAME_SCREEN )
+					{
+						// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
+						IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemPointerSoldier->sX, gpItemPointerSoldier->sY, (INT16) (gpWorldLevelData[gpItemPointerSoldier->sGridNo].sHeight), gpItemPointerSoldier->sGridNo, gpItemDescObject->usItem, gpItemPointerSoldier->pathing.bLevel, gpItemPointerSoldier->ubDirection );
+
+						DeleteObj( gpItemDescObject );
+					}
+					else if ( (guiCurrentScreen == MAP_SCREEN) || (guiCurrentScreen == MSG_BOX_SCREEN) )
+					{
+						// no explosions in map screen - instead we simply damage the inventory and harm our health
+						gpItemPointerSoldier->InventoryExplosion();
+
+						DeleteObj( gpItemDescObject );
+					}
+
+					return;
+				}
+
 				// Get attachment if there is one
 				// The follwing function will handle if no attachment is here
 				if ( gpItemDescObject->RemoveAttachment( pAttachment, &gItemPointer, ubStatusIndex, gpItemDescSoldier ) )

@@ -857,13 +857,14 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 									cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
 
 								newguntemperature = max(0.0f, guntemperature - cooldownfactor);	// ... calculate new temperature ...
+
+#if 0//def JA2TESTVERSION
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature );
+#endif
 							}
 
 							(*pObj)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
 
-#if 0//def JA2TESTVERSION
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperatre );
-#endif
 							// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
 							attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
 							for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
