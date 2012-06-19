@@ -2857,7 +2857,7 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 		// We enlarge the map
 		SetWorldSize(iNewMapWorldRows, iNewMapWorldCols);
 
-		// Uncheck "vanilla map saving", because it is not allowed on maps > 160x160
+		// Uncheck "vanilla map saving", because it is not allowed on maps > 160x160		
 		UnclickEditorButton(OPTIONS_VANILLA_MODE);
 
 		// Reset
@@ -2868,13 +2868,15 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 		// Mapsize has not changed
 		SetWorldSize(iRowSize, iColSize);
 
-		// We still have the "normal" map size -> Check "vanilla map saving"
-		if (iRowSize <= OLD_WORLD_ROWS && iRowSize <= OLD_WORLD_COLS)
+		// We still have the "normal" map size AND the map is saved in vanilla format
+		if ((iRowSize <= OLD_WORLD_ROWS && iRowSize <= OLD_WORLD_COLS) && (dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION))
 		{
+			 // Check "vanilla map saving"
 			ClickEditorButton(OPTIONS_VANILLA_MODE);
 		}
 		else
 		{
+			// Uncheck "vanilla map saving"
 			UnclickEditorButton(OPTIONS_VANILLA_MODE);
 		}
 	}
