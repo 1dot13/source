@@ -61,6 +61,9 @@
 // HEADROCK HAM 4: This file contains all the settings required to tweak the new Shooting Mechanism. There's lots of them.
 #define				CTH_COEFFICIENTS_FILE			"CTHConstants.ini"
 
+//DBrot: Settings for a mod that don't really fit in the Options file. This means GridNos for now.
+#define				MOD_SETTINGS_FILE						"Mod_Settings.ini" 
+
 #define				CD_ROOT_DIR						"DATA\\"
 
 GAME_SETTINGS		gGameSettings;
@@ -69,6 +72,8 @@ GAME_OPTIONS		gGameOptions;
 GAME_EXTERNAL_OPTIONS gGameExternalOptions;
 SKILL_TRAIT_VALUES gSkillTraitValues;  // SANDRO - added this one
 CTH_CONSTANTS gGameCTHConstants;	// HEADROCK HAM 4: CTH constants
+
+MOD_SETTINGS gModSettings;	//DBrot: mod specific settings
 
 extern	SGPFILENAME	gCheckFilenames[];
 extern	CHAR8		gzErrorMsg[256];
@@ -2058,8 +2063,48 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.fSCThrowMessageIfAmbushPrevented = iniReader.ReadBoolean("Scouting","SHOW_MESSAGE_IF_AMBUSH_PREVENTED", TRUE);
 
 }
+//DBrot: Grids
+void LoadModSettings(){
+	CIniReader iniReader(MOD_SETTINGS_FILE);
+	gModSettings.ubHideoutSectorX = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SECTOR_X", 10, 1, 16);
+	gModSettings.ubHideoutSectorY = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SECTOR_Y", 1, 1, 16);
+	gModSettings.ubHideoutSectorZ = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SECTOR_Z", 1, 0, 3);
+	gModSettings.iHideoutExitGrid = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_EXIT", 12722);
 
+	gModSettings.ubHideoutSurfaceX = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SURFACE_X", 10, 1, 16);
+	gModSettings.ubHideoutSurfaceY = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SURFACE_Y", 1, 1, 16);
+	gModSettings.ubHideoutSurfaceZ = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_SURFACE_Z", 0, 0, 3);
+	gModSettings.iHideoutEntryGrid = iniReader.ReadInteger("Rebel Hideout", "HIDEOUT_ENTRY", 7887);
 
+	gModSettings.iBasementEntry[0] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_1", 13362);
+	gModSettings.iBasementEntry[1] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_2", 13363);
+	gModSettings.iBasementEntry[2] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_3", 13364);
+	gModSettings.iBasementEntry[3] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_4", 13365);
+	gModSettings.iBasementEntry[4] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_5", 13325);
+	gModSettings.iBasementEntry[5] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_6", 13324);
+	gModSettings.iBasementEntry[6] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_7", 0);
+	gModSettings.iBasementEntry[7] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_8", 0);
+	gModSettings.iBasementEntry[8] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_9", 0);
+	gModSettings.iBasementEntry[9] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_10", 0);
+
+	gModSettings.iBasementExit[0] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_1", 8047);
+	gModSettings.iBasementExit[1] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_2", 8207);
+	gModSettings.iBasementExit[2] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_3", 8208);
+	gModSettings.iBasementExit[3] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_4", 8048);
+	gModSettings.iBasementExit[4] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_5", 7888);
+	gModSettings.iBasementExit[5] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_6", 7728);
+	gModSettings.iBasementExit[6] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_7", 7727);
+	gModSettings.iBasementExit[7] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_8", 7567);
+	gModSettings.iBasementExit[8] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_9", 0);
+	gModSettings.iBasementExit[9] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_10", 0);
+	gModSettings.iBasementExit[10] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_11", 0);
+	gModSettings.iBasementExit[11] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_EXIT_12", 0);
+
+	gModSettings.iFinalCrateGrid = iniReader.ReadInteger("Rebel Hideout", "FINAL_CRATE_GRID", 8207);
+	gModSettings.usCrateTileDef = iniReader.ReadInteger("Rebel Hideout", "CRATE_TILE_DEF", 411);
+	gModSettings.usTrapdoorTileDef = iniReader.ReadInteger("Rebel Hideout", "TRAPDOOR_TILE_DEF", 2041);
+
+}
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
 {
 	//CHRISL: This function will dynamically adjust all the APBPConstant values based on the AP_MAXIMUM value.  This way

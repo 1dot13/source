@@ -102,9 +102,9 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-
-INT32	sBasementEnterGridNos[ ] = { 13362, 13363, 13364, 13365, 13525, 13524 };
-INT32	sBasementExitGridNos[ ] = { 8047, 8207, 8208, 8048, 7888, 7728, 7727, 7567 };
+//DBrot: not needed anymore, got an option for those
+//INT32	sBasementEnterGridNos[ ] = { 13362, 13363, 13364, 13365, 13525, 13524 };
+//INT32	sBasementExitGridNos[ ] = { 8047, 8207, 8208, 8048, 7888, 7728, 7727, 7567 };
 
 extern	UINT8		gubWaitingForAllMercsToExitCode;
 extern BOOLEAN fFoundTixa;
@@ -1850,14 +1850,14 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// OK, we want to goto the basement level!
 
 				//DEF: First thing, Add the exit grid to the map temps file
-
-				ExitGrid.ubGotoSectorX = 10;
-				ExitGrid.ubGotoSectorY = 1;
-				ExitGrid.ubGotoSectorZ = 1;
-				ExitGrid.usGridNo = 12722; //dnl!!!
+				//DBrot: Grids
+				ExitGrid.ubGotoSectorX = gModSettings.ubHideoutSectorX;
+				ExitGrid.ubGotoSectorY = gModSettings.ubHideoutSectorY;
+				ExitGrid.ubGotoSectorZ = gModSettings.ubHideoutSectorZ;
+				ExitGrid.usGridNo = gModSettings.iHideoutExitGrid; //dnl!!!
 
 				ApplyMapChangesToMapTempFile( TRUE );
-				AddExitGridToWorld( 7887, &ExitGrid );
+				AddExitGridToWorld( gModSettings.iHideoutEntryGrid, &ExitGrid );
 				ApplyMapChangesToMapTempFile( FALSE );
 
 				// For one, loop through our current squad and move them over
@@ -1873,19 +1873,21 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 					{
 						gfTacticalTraversal = TRUE;
-						SetGroupSectorValue( 10, 1, 1, pSoldier->ubGroupID );
+						SetGroupSectorValue( gModSettings.ubHideoutSectorX, gModSettings.ubHideoutSectorY, gModSettings.ubHideoutSectorZ, pSoldier->ubGroupID );
 
 						// Set insertion gridno
 						if ( bNumDone < 6 )
 						{
 							// Set next sectore
-							pSoldier->sSectorX = 10;
-							pSoldier->sSectorY = 1;
-							pSoldier->bSectorZ = 1;
+							//DBrot: Grids
+							pSoldier->sSectorX = gModSettings.ubHideoutSectorX;
+							pSoldier->sSectorY = gModSettings.ubHideoutSectorY;
+							pSoldier->bSectorZ = gModSettings.ubHideoutSectorZ;
 
 							// Set gridno
 							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-							pSoldier->usStrategicInsertionData = sBasementEnterGridNos[ bNumDone ];
+							//pSoldier->usStrategicInsertionData = sBasementEnterGridNos[ bNumDone ];
+							pSoldier->usStrategicInsertionData = gModSettings.iBasementEntry[ bNumDone ];
 						}
 						bNumDone++;
 					}
@@ -1897,14 +1899,14 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				gMercProfiles[ 101 ].sSectorY = 1;
 				gMercProfiles[ 101 ].bSectorZ = 1;
 */
-				ChangeNpcToDifferentSector( FATIMA, 10, 1, 1 );
+				ChangeNpcToDifferentSector( FATIMA, gModSettings.ubHideoutSectorX, gModSettings.ubHideoutSectorY, gModSettings.ubHideoutSectorZ);
 
 				// Dimitri
 /*				gMercProfiles[ 60 ].sSectorX = 10;
 				gMercProfiles[ 60 ].sSectorY = 1;
 				gMercProfiles[ 60 ].bSectorZ = 1;
 */
-				ChangeNpcToDifferentSector( DIMITRI, 10, 1, 1 );
+				ChangeNpcToDifferentSector( DIMITRI, gModSettings.ubHideoutSectorX, gModSettings.ubHideoutSectorY, gModSettings.ubHideoutSectorZ);
 
 				gFadeOutDoneCallback = DoneFadeOutActionBasement;
 
@@ -2161,19 +2163,21 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector )
 					{
 						gfTacticalTraversal = TRUE;
-						SetGroupSectorValue( 10, 1, 0, pSoldier->ubGroupID );
+						//DBrot: Grids
+						SetGroupSectorValue( gModSettings.ubHideoutSurfaceX, gModSettings.ubHideoutSurfaceY, gModSettings.ubHideoutSurfaceZ, pSoldier->ubGroupID );
 
 						// Set insertion gridno
 						if ( bNumDone < 8 )
 						{
 							// Set next sectore
-							pSoldier->sSectorX = 10;
-							pSoldier->sSectorY = 1;
-							pSoldier->bSectorZ = 0;
+							pSoldier->sSectorX = gModSettings.ubHideoutSurfaceX;
+							pSoldier->sSectorY = gModSettings.ubHideoutSurfaceY;
+							pSoldier->bSectorZ = gModSettings.ubHideoutSurfaceZ;
 
 							// Set gridno
 							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-							pSoldier->usStrategicInsertionData = sBasementExitGridNos[ bNumDone ];
+							//pSoldier->usStrategicInsertionData = sBasementExitGridNos[ bNumDone ];
+							pSoldier->usStrategicInsertionData = gModSettings.iBasementExit[ bNumDone ];
 						}
 						bNumDone++;
 					}
@@ -4918,7 +4922,8 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 void	DoneFadeOutActionBasement( )
 {
 	// OK, insertion data found, enter sector!
-	SetCurrentWorldSector( 10, 1, 1 );
+	//DBrot: Grids
+	SetCurrentWorldSector( gModSettings.ubHideoutSectorX, gModSettings.ubHideoutSectorY, gModSettings.ubHideoutSectorZ );
 
 	// OK, once down here, adjust the above map with crate info....
 	gfTacticalTraversal = FALSE;
@@ -4926,12 +4931,12 @@ void	DoneFadeOutActionBasement( )
 	gpTacticalTraversalChosenSoldier = NULL;
 
 	// Remove crate
-	RemoveStructFromUnLoadedMapTempFile( 7887, SECONDOSTRUCT1, 10, 1, 0 );
+	RemoveStructFromUnLoadedMapTempFile( gModSettings.iHideoutEntryGrid, gModSettings.usCrateTileDef, gModSettings.ubHideoutSurfaceX, gModSettings.ubHideoutSurfaceY, gModSettings.ubHideoutSurfaceZ );
 	// Add crate
-	AddStructToUnLoadedMapTempFile( 8207, SECONDOSTRUCT1, 10, 1, 0 );
+	AddStructToUnLoadedMapTempFile( gModSettings.iFinalCrateGrid, gModSettings.usCrateTileDef, gModSettings.ubHideoutSurfaceX, gModSettings.ubHideoutSurfaceY, gModSettings.ubHideoutSurfaceZ );
 
 	// Add trapdoor
-	AddStructToUnLoadedMapTempFile( 7887, DEBRIS2MISC1, 10, 1, 0 );
+	AddStructToUnLoadedMapTempFile( gModSettings.iHideoutEntryGrid, gModSettings.usTrapdoorTileDef, gModSettings.ubHideoutSurfaceX, gModSettings.ubHideoutSurfaceY, gModSettings.ubHideoutSurfaceZ );
 
 
 	gFadeInDoneCallback = DoneFadeInActionBasement;

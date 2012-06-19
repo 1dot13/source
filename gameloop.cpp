@@ -134,6 +134,8 @@ BOOLEAN InitializeGame(void)
 
 	// HEADROCK HAM 4: Read CTH values
 	LoadCTHConstants();
+	//DBrot: load mod settings
+	LoadModSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB

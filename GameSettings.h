@@ -1475,6 +1475,34 @@ typedef struct
 	BOOLEAN MAX_EFFECTIVE_USE_GRADIENT;
 
 } CTH_CONSTANTS;
+//DBrot: Grids
+typedef struct
+{
+	//defines the basement and the bottom of the stairs
+	UINT8 ubHideoutSectorX;
+	UINT8 ubHideoutSectorY;
+	UINT8 ubHideoutSectorZ;
+	INT32 iHideoutExitGrid;
+	//defines the surface and the top of the stairs
+	UINT8 ubHideoutSurfaceX;
+	UINT8 ubHideoutSurfaceY;
+	UINT8 ubHideoutSurfaceZ;
+	INT32 iHideoutEntryGrid;
+	//where your mercs land when entering the basement, added some for 10 man squads
+	INT32 iBasementEntry[10];
+	
+	//where your mercs land when leaving the basement, again added some
+	INT32 iBasementExit[12];
+	
+	//this moves the crate to reveal the entrance
+	INT32 iFinalCrateGrid;
+	UINT16 usCrateTileDef;
+	UINT16 usTrapdoorTileDef;
+
+
+}MOD_SETTINGS;
+
+extern MOD_SETTINGS gModSettings;
 
 //This structure will contain general Ja2 settings	NOT individual game settings.
 extern GAME_SETTINGS		gGameSettings;
@@ -1498,6 +1526,7 @@ BOOLEAN LoadGameSettings();
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions();
 void LoadSkillTraitsExternalSettings(); // SANDRO - added this one
+void LoadModSettings();
 void LoadGameAPBPConstants();
 // HEADROCK HAM 4: Read CTH/Shooting coefficients from file
 void LoadCTHConstants();
