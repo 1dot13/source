@@ -484,7 +484,11 @@ void HandleMainMenuInput()
 	InputAtom	InputEvent;
 
 	// Check for esc
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while (DequeueEvent(&InputEvent) == TRUE)
+#endif
 	{
 	if( InputEvent.usEvent == KEY_UP )
 		{
@@ -533,7 +537,11 @@ void HandleHelpScreenInput()
 	InputAtom									InputEvent;
 
 	// Check for key
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while (DequeueEvent(&InputEvent) == TRUE)
+#endif
 	{
 		switch( InputEvent.usEvent )
 		{

@@ -38,8 +38,11 @@
 	#include "InterfaceItemImages.h"
 #endif
 
-#include "KeyMap.h"
-#include "Timer Control.h"
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	#include "KeyMap.h"
+	#include "Timer Control.h"
+#endif
+
 #include "Text.h"
 #include "connect.h"
 #include "sgp_logger.h"
@@ -240,6 +243,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_REPAIRING"				   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_QUIET_DOCTORING"				   ,  FALSE );
 		
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 		if (!is_networked)
 			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_AUTO_FAST_FORWARD_MODE"           ,  FALSE );
 		else
@@ -248,6 +252,7 @@ BOOLEAN LoadGameSettings()
 		// The "HIGHSPEED_TIMER" property from the ja2.ini is not set, disable the option
 		if (!IsHiSpeedClockMode())
 			gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]		= FALSE;
+#endif
 
 		gGameSettings.fOptions[TOPTION_ZOMBIES]							= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ZOMBIES"						   ,  FALSE  );
 
@@ -407,7 +412,11 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_QUIET_TRAINING					  = " << (gGameSettings.fOptions[TOPTION_QUIET_TRAINING]				    ?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_QUIET_REPAIRING				  = " << (gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]				    ?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_QUIET_DOCTORING				  = " << (gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]				    ?    "TRUE" : "FALSE" ) << endl;
+		
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
+#endif
+
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
@@ -535,7 +544,11 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_QUIET_TRAINING ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_QUIET_REPAIRING ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_QUIET_DOCTORING ]					= FALSE;
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
+#endif
+
 	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies 1.0	
 
 
@@ -1794,6 +1807,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnableInventoryPoolQ = FALSE;
 #endif	
 	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	////////// CLOCK SETTINGS //////////
 
 	// Key to artificially alter the clock so turns run faster
@@ -1804,6 +1818,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iFastForwardPeriod			= (FLOAT)iniReader.ReadDouble("Clock Settings","FAST_FORWARD_PERIOD", 500, 1, 10000);
 	gGameExternalOptions.fClockSpeedPercent			= (FLOAT)iniReader.ReadDouble("Clock Settings","CLOCK_SPEED_PERCENT", 150, 100, 300);
 	gGameExternalOptions.iNotifyFrequency			= iniReader.ReadInteger("Clock Settings","UPDATE_FREQUENCY", 16000, 1000, 20000);	
+#endif
 }
 
 

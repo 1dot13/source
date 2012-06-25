@@ -5089,7 +5089,11 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
 	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
+#endif
+
 	L"Allow Zombies",						// Flugente Zombies 1.0
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
@@ -5198,7 +5202,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, mercs will not report progress during training.",
 	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
 	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
+#endif
+
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",

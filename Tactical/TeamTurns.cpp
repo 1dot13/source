@@ -167,7 +167,10 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartPlayerTeamTurn");
 //	SOLDIERTYPE		*pSoldier;
 //	EV_S_BEGINTURN	SBeginTurn;
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	SetFastForwardMode(FALSE);
+#endif
 
 	// Start the turn of player charactors
 
@@ -496,6 +499,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 	if( !LightningEndOfTurn( ubTeam ) )return;
 	//end rain
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	// disable for our turn and enable for other teams
 	if ( gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] )
 	{
@@ -510,6 +514,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 			SetFastForwardMode( (ubTeam != OUR_TEAM) );
 		}		
 	}
+#endif
 
 	while( 1 )
 	{
@@ -837,7 +842,9 @@ void StartInterrupt( void )
 		INT32		iSquad, iCounter;
 
 		// disable ff mode
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 		SetFastForwardMode(FALSE);
+#endif
 
 		// build string for display of who gets interrupt
 		//while( 1 )
@@ -1432,6 +1439,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 
 	}
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	if ( gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] )
 	{
 		if (is_networked)
@@ -1445,6 +1453,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			SetFastForwardMode( (gTacticalStatus.ubCurrentTeam != OUR_TEAM) );
 		}	
 	}
+#endif
 }
 
 

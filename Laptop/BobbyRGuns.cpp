@@ -4053,10 +4053,12 @@ void HandleBobbyRGunsKeyBoardInput()
 				break;
 			}
 		}
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 		else
 		{
 			extern void HandleDefaultEvent(InputAtom *Event);
 			HandleDefaultEvent(&InputEvent);
 		}
+#endif
 	}
 }

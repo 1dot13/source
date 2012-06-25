@@ -2740,7 +2740,11 @@ void			GetMPHScreenUserInput()
 
 //	GetCursorPos(&MousePos);
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while( DequeueEvent( &Event ) )
+#endif
 	{
 		// check if this event is swallowed by text input, otherwise process key
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_DOWN )

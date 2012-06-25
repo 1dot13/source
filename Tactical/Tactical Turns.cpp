@@ -151,7 +151,9 @@ void HandleTacticalEndTurn( )
 	// OK, Do a number of things here....
 	// Every few turns......
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	SetFastForwardMode(FALSE); // Cancel FF at end of battle
+#endif
 
 	// Get time elasped
 	uiTime = GetWorldTotalSeconds( );

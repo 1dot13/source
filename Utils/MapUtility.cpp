@@ -101,7 +101,11 @@ UINT32 MapUtilScreenHandle(void)
 	INT32 cnt, iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
 	FLOAT dX, dY, dStartX, dStartY;
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP) == TRUE)
+#else
+	while(DequeueEvent(&InputEvent) == TRUE)
+#endif
 	{
 		if(InputEvent.usParam == ESC)
 		{

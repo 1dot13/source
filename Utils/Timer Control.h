@@ -54,6 +54,13 @@ enum
 	NUMTIMERS
 };
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+#else
+	// Base resultion of callback timer
+	#define		BASETIMESLICE												10				
+#endif
+
+
 // TIMER INTERVALS
 extern INT32	giTimerIntervals[ NUMTIMERS ];
 // TIMER COUNTERS
@@ -70,7 +77,10 @@ BOOLEAN InitializeJA2Clock( void );
 void	ShutdownJA2Clock( void );
 
 #define GetJA2Clock()						guiBaseJA2Clock
-#define GetJA2NoPauseClock()           guiBaseJA2NoPauseClock
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	#define GetJA2NoPauseClock()           guiBaseJA2NoPauseClock
+#endif
 
 UINT32	GetPauseJA2Clock( );
 
@@ -82,49 +92,89 @@ void PauseTime( BOOLEAN fPaused );
 void SetCustomizableTimerCallbackAndDelay( INT32 iDelay, CUSTOMIZABLE_TIMER_CALLBACK pCallback, BOOLEAN fReplace );
 void CheckCustomizableTimer( void );
 
-void SetFastForwardPeriod(DOUBLE value);
-void SetFastForwardKey(INT32 key);
-BOOLEAN IsFastForwardKeyPressed();
-void SetFastForwardMode(BOOLEAN enable);
-BOOLEAN IsFastForwardMode();
-INT32 GetFastForwardLoopCount();
-void SetFastForwardLoopCount(INT32 value);
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	void SetFastForwardPeriod(DOUBLE value);
+	void SetFastForwardKey(INT32 key);
+	BOOLEAN IsFastForwardKeyPressed();
+	void SetFastForwardMode(BOOLEAN enable);
+	BOOLEAN IsFastForwardMode();
+	INT32 GetFastForwardLoopCount();
+	void SetFastForwardLoopCount(INT32 value);
 
-void SetNotifyFrequencyKey(INT32 value);
-void SetClockSpeedPercent(FLOAT value);
+	void SetNotifyFrequencyKey(INT32 value);
+	void SetClockSpeedPercent(FLOAT value);
 
-BOOLEAN IsTimerActive();
-BOOLEAN IsJA2TimerThread();
+	BOOLEAN IsTimerActive();
+	BOOLEAN IsJA2TimerThread();
 
-BOOLEAN IsHiSpeedClockMode();
-void SetHiSpeedClockMode(BOOLEAN enable);
+	BOOLEAN IsHiSpeedClockMode();
+	void SetHiSpeedClockMode(BOOLEAN enable);
+#endif
 
 //Don't modify this value
 extern UINT32	guiBaseJA2Clock;
 extern UINT32	guiBaseJA2NoPauseClock;
 extern CUSTOMIZABLE_TIMER_CALLBACK gpCustomizableTimerCallback;
 
-typedef void (*TIMER_NOTIFY_CALLBACK) ( INT32 timer, PTR state );
-void AddTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state );
-void RemoveTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state );
-void ClearTimerNotifyCallbacks();
+	#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	typedef void (*TIMER_NOTIFY_CALLBACK) ( INT32 timer, PTR state );
+	void AddTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state );
+	void RemoveTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state );
+	void ClearTimerNotifyCallbacks();
 
-BOOLEAN UpdateCounter(INT32 iTimer);
-void ResetCounter(INT32 iTimer);
-BOOLEAN CounterDone(INT32 iTimer);
-void ResetTimerCounter(INT32 &timer, INT32 value);
-BOOLEAN TimeCounterDone(INT32 timer);
-void ZeroTimeCounter(INT32& timer);
+	BOOLEAN UpdateCounter(INT32 iTimer);
+	void ResetCounter(INT32 iTimer);
+	BOOLEAN CounterDone(INT32 iTimer);
+	void ResetTimerCounter(INT32 &timer, INT32 value);
+	BOOLEAN TimeCounterDone(INT32 timer);
+	void ZeroTimeCounter(INT32& timer);
 
 
-#define	UPDATECOUNTER( c )  UpdateCounter(c)
-#define	RESETCOUNTER( c )	ResetCounter(c)
-#define	COUNTERDONE( c )	CounterDone(c)
-#define	UPDATETIMECOUNTER( c )	UpdateTimeCounter(c)
-#define RESETTIMECOUNTER( c, d ) ResetTimerCounter(c, d)
-#define TIMECOUNTERDONE(c, d)	TimeCounterDone(c)
-#define	SYNCTIMECOUNTER( )
-#define ZEROTIMECOUNTER(c)	ZeroTimeCounter(c)
+	#define	UPDATECOUNTER( c )  UpdateCounter(c)
+	#define	RESETCOUNTER( c )	ResetCounter(c)
+	#define	COUNTERDONE( c )	CounterDone(c)
+	#define	UPDATETIMECOUNTER( c )	UpdateTimeCounter(c)
+	#define RESETTIMECOUNTER( c, d ) ResetTimerCounter(c, d)
+	#define TIMECOUNTERDONE(c, d)	TimeCounterDone(c)
+	#define	SYNCTIMECOUNTER( )
+	#define ZEROTIMECOUNTER(c)	ZeroTimeCounter(c)
+#else
+
+	// MACROS
+	//																CHeck if new counter < 0														| set to 0 |										Decrement
+
+	#ifdef CALLBACKTIMER
+
+	#define	UPDATECOUNTER( c )						( ( giTimerCounters[ c ] - BASETIMESLICE ) < 0 ) ?	( giTimerCounters[ c ] = 0 ) : ( giTimerCounters[ c ] -= BASETIMESLICE )	
+	#define	RESETCOUNTER( c )							( giTimerCounters[ c ] = giTimerIntervals[ c ] )
+	#define	COUNTERDONE( c )							( giTimerCounters[ c ] == 0 ) ? TRUE : FALSE
+
+	#define	UPDATETIMECOUNTER( c )				( ( c - BASETIMESLICE ) < 0 ) ?	( c = 0 ) : ( c -= BASETIMESLICE )	
+	#define		RESETTIMECOUNTER( c, d )			( c = d )
+
+	#ifdef BOUNDS_CHECKER
+		#define	TIMECOUNTERDONE( c, d )				( TRUE )
+	#else
+		#define	TIMECOUNTERDONE( c, d )				( c == 0 ) ? TRUE : FALSE
+	#endif
+
+	#define		SYNCTIMECOUNTER( )
+	#define		ZEROTIMECOUNTER( c )			( c = 0 )
+
+	#else
+
+	#define	UPDATECOUNTER( c )				
+	#define	RESETCOUNTER( c )							( giTimerCounters[ c ] = giClockTimer )
+	#define	COUNTERDONE( c )							( ( ( giClockTimer = GetJA2Clock() ) - giTimerCounters[ c ] ) >	giTimerIntervals[ c ] ) ? TRUE : FALSE
+
+	#define	UPDATETIMECOUNTER( c )		
+	#define	RESETTIMECOUNTER( c, d )			( c = giClockTimer )
+	#define	TIMECOUNTERDONE( c, d )				( giClockTimer - c >	d ) ? TRUE : FALSE
+	#define		SYNCTIMECOUNTER( )						( giClockTimer = GetJA2Clock() )
+
+	#endif
+
+#endif
 
 void SetTileAnimCounter( INT32 iTime );
 #endif

@@ -5110,7 +5110,11 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
 	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
+#endif
+
 	L"Allow Zombies",				// TODO.Translate
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
@@ -5219,7 +5223,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, mercs will not report progress during training.", //TODO.Translate
 	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
 	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"打开时，敌军回合将被大幅加速。",
+#endif
+
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",

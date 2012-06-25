@@ -1257,7 +1257,11 @@ void HandleFloristOrderKeyBoardInput()
 {
 	InputAtom					InputEvent;
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while (DequeueEvent(&InputEvent) == TRUE)
+#endif
 	{
 		if( !HandleTextInput( &InputEvent ) && InputEvent.usEvent == KEY_DOWN )
 		{

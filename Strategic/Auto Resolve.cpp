@@ -3410,7 +3410,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 
 	InputAtom InputEvent;
 	BOOLEAN fResetAutoResolve = FALSE;
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while( DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) )
+#else
+	while( DequeueEvent( &InputEvent ) )
+#endif
 	{
 		if( InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT )
 		{

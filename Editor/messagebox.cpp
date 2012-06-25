@@ -76,7 +76,12 @@ BOOLEAN MessageBoxHandled()
 {
 	InputAtom DummyEvent;
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&DummyEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while( DequeueEvent( &DummyEvent ) )
+#endif
+
 	{
 		if ( DummyEvent.usEvent == KEY_DOWN )
 		{

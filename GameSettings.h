@@ -90,7 +90,11 @@ enum
 	TOPTION_QUIET_TRAINING,						//Madd: mercs don't say gained experience quote while training
 	TOPTION_QUIET_REPAIRING,					//Madd: mercs don't say gained experience quote while repairing items
 	TOPTION_QUIET_DOCTORING,					//Madd: mercs don't say gained experience quote while doctoring
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
+#endif
+
 	TOPTION_ZOMBIES,							// Flugente Zombies 1.0: allow zombies	
 
 	// arynn: Debug/Cheat
@@ -1083,6 +1087,7 @@ typedef struct
 	
 	INT32 iInitialMercArrivalLocation;
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	// Keyboard shortcut (as VK) for fastforward key.  See Utils/KeyMap
 	INT32 iFastForwardKey;
 	// Turn on fast forward whenever ui is disabled.
@@ -1093,6 +1098,7 @@ typedef struct
 	INT32 iNotifyFrequency;
 	// Frequency that the screen is updated
 	FLOAT fClockSpeedPercent;
+#endif
 
 	// Flugente FTW 1: Weapon Overheating
 	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?

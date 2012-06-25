@@ -1738,7 +1738,11 @@ void		GetShopKeeperInterfaceUserInput()
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while( DequeueEvent( &Event ) )
+#endif
 	{
 		// HOOK INTO MOUSE HOOKS
 /* removed warning condition C4060 (jonathanl)

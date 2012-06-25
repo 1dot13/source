@@ -4957,7 +4957,11 @@ STR16 zOptionsToggleText[] =
 	L"Stummes Trainieren",					// Madd: mercs don't say quotes while training
 	L"Stummes Reparieren",					// Madd: mercs don't say quotes while repairing
 	L"Stumme Behandlung",					// Madd: mercs don't say quotes while doctoring
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
+#endif
+
 	L"Allow Zombies",						// Flugente Zombies 1.0
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
@@ -5066,7 +5070,11 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über ihren Fortschritt während des Trainings nicht mehr berichten.",
 	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
 	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
+#endif
+
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",

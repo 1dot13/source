@@ -397,7 +397,13 @@ void PopupMenuHandle()
 		return;
 	}
 	//Use keyboard input as well.
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while( DequeueEvent( &InputEvent ) )
+#endif
+
 	{
 		switch(InputEvent.usEvent)
 		{

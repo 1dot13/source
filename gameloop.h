@@ -18,7 +18,9 @@ void HandleShortCutExitState( void );
 
 void SetPendingNewScreen( UINT32 uiNewScreen );
 
-struct InputAtom;
-void HandleDefaultEvent(InputAtom *Event);
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	struct InputAtom;
+	void HandleDefaultEvent(InputAtom *Event);
+#endif
 
 #endif

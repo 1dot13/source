@@ -674,7 +674,11 @@ void HandleOverheadUI(void)
 
 	ScrollOverheadMap();
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while(DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT) == TRUE)
+#else
+	while(DequeueEvent(&InputEvent) == TRUE)
+#endif
 	{
 		if(InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT)
 		{

@@ -757,7 +757,12 @@ UINT32	MPChatScreenHandle( )
 	// carter, need key shortcuts for clearing up message boxes
 	// Check for esc
 	bool bHandled;
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while (DequeueEvent(&InputEvent) == TRUE)
+#endif
 	{
 		bHandled = false;
 		if(InputEvent.usEvent == KEY_DOWN )

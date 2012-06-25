@@ -3,6 +3,11 @@
 
 #include "Language Defines.h"
 
+// WANNE: Enable this define, to build the gameloop with the highspeed timer. To use the highspeed timer, you also have to set the HIGHSPEED_TIMER = TRUE in ja2.ini
+// CAUTION: A lot of games reported, when the exe is compiled with the highspeed timer on, the game runs very slowly in strategy map screen when doing repair, ..
+// This is the reason, why I made a compilation define, where we can turn on/off the highspeed timer.
+//#define USE_HIGHSPEED_GAMELOOP_TIMER
+
 // -----------------------------
 // *****************************
 // WANNE: Enable those 2 defines, if you want to build UB-Version!!

@@ -56,8 +56,8 @@
 #define USE_CONSOLE 0
 
 #include <iostream>
-
 #include <excpt.h>
+
 #include "ExceptionHandling.h"
 
 #include "dbt.h"
@@ -146,16 +146,18 @@ extern	BOOLEAN		CheckIfGameCdromIsInCDromDrive();
 extern	void		QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
 
 // Prototype Declarations
-INT32 FAR PASCAL	SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
 INT32 FAR PASCAL	WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
 BOOLEAN				InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow);
 void				ShutdownStandardGamingPlatform(void);
-void				CreateStandardGamingPlatform(HWND hWindow);
 void				GetRuntimeSettings( );
-void				SafeSGPExit(void);
 
-static bool			CallGameLoop(bool wait);
-static CRITICAL_SECTION gcsGameLoop;
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	INT32 FAR PASCAL	SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
+	void				CreateStandardGamingPlatform(HWND hWindow);
+	void				SafeSGPExit(void);
+	static bool			CallGameLoop(bool wait);
+	static CRITICAL_SECTION gcsGameLoop;
+#endif
 
 
 int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
@@ -214,14 +216,16 @@ BOOLEAN				gfIgnoreMessages=FALSE;
 // GLOBAL VARIBLE, SET TO DEFAULT BUT CAN BE CHANGED BY THE GAME IF INIT FILE READ
 UINT8				gbPixelDepth = PIXEL_DEPTH;
 
-INT32 FAR PASCAL SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
-{
-	INT32 retval;
-	EnterCriticalSection(&gcsGameLoop);
-	retval = WindowProcedure(hWindow, Message, wParam, lParam);
-	LeaveCriticalSection(&gcsGameLoop);
-	return retval;
-}
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	INT32 FAR PASCAL SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
+	{
+		INT32 retval;
+		EnterCriticalSection(&gcsGameLoop);
+		retval = WindowProcedure(hWindow, Message, wParam, lParam);
+		LeaveCriticalSection(&gcsGameLoop);
+		return retval;
+	}
+#endif
 
 bool				s_bExportStrings		= false;
 extern bool			g_bUseXML_Strings;//	= false;
@@ -531,7 +535,10 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		break;
 
 	case WM_CREATE:
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 		CreateStandardGamingPlatform(hWindow);
+#endif
 		break;
 
 	case WM_DESTROY: 
@@ -660,7 +667,11 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FontTranslationTable *pFontTable;
 
 	// now required by all (even JA2) in order to call ShutdownSGP
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	atexit(SafeSGPExit);
+#else
+	atexit(SGPExit);
+#endif
 
 	// First, initialize the registry keys.
 	InitializeRegistryKeys( "Wizardry8", "Wizardry8key" );
@@ -721,7 +732,9 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	InitializeCriticalSection(&gcsGameLoop);
+#endif
 
 	FastDebugMsg("Initializing Video Manager");
 	// Initialize DirectDraw (DirectX 2)
@@ -747,6 +760,11 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		FastDebugMsg("FAILED : Initializing Video Surface Manager");
 		return FALSE;
 	}
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+#else
+		InitializeJA2Clock();
+#endif
 
 	//InitializeJA2TimerID();
 
@@ -897,24 +915,26 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	return TRUE;
 }
 
-static void TimerActivatedCallback(INT32 timer, PTR state)
-{
-	if (gfApplicationActive && gfProgramIsRunning)
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	static void TimerActivatedCallback(INT32 timer, PTR state)
 	{
-		if (CallGameLoop(false))
-			YieldProcessor();
+		if (gfApplicationActive && gfProgramIsRunning)
+		{
+			if (CallGameLoop(false))
+				YieldProcessor();
+		}
 	}
-}
 
-void CreateStandardGamingPlatform(HWND hWindow)
-{
-	InitializeJA2Clock();
+	void CreateStandardGamingPlatform(HWND hWindow)
+	{
+		InitializeJA2Clock();
 
-	if (!IsHiSpeedClockMode())
-		SetTimer( hWindow, 0, 1, NULL);
-	else
-		AddTimerNotifyCallback(TimerActivatedCallback, hWindow);
-}
+		if (!IsHiSpeedClockMode())
+			SetTimer( hWindow, 0, 1, NULL);
+		else
+			AddTimerNotifyCallback(TimerActivatedCallback, hWindow);
+	}
+#endif
 
 void ShutdownStandardGamingPlatform(void)
 {
@@ -938,7 +958,10 @@ void ShutdownStandardGamingPlatform(void)
 	//
 	// Shut down the different components of the SGP
 	//
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	ClearTimerNotifyCallbacks();
+#endif
 
 	// TEST
 	SoundServiceStreams();
@@ -986,7 +1009,9 @@ void ShutdownStandardGamingPlatform(void)
 	// down the debugging layer
 	UnRegisterDebugTopic(TOPIC_SGP, "Standard Gaming Platform");
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	DeleteCriticalSection(&gcsGameLoop);
+#endif
 
 	ShutdownDebugManager();
 
@@ -1252,6 +1277,12 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 	FastDebugMsg("Running Game");
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+#else
+	// 0verhaul:	Use the smallest available timer to make sure all animation updates happen at the speed they're supposed to
+	SetTimer( ghWindow, uiTimer, 1, NULL);
+#endif
+
 	// At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
 	// attend to the gaming mechanics themselves
 	Message.wParam = 0;
@@ -1323,6 +1354,11 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 		}
 	}
 	}
+#endif
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+#else
+	KillTimer( ghWindow, uiTimer);
 #endif
 
 	// This is the normal exit point
@@ -1685,26 +1721,29 @@ void GetRuntimeSettings( )
 	s_CodePage = oProps.getStringProperty(L"Ja2 Settings", L"CODE_PAGE");
 #endif // USE_CODE_PAGE
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	// get timer/clock initialization state
 	SetHiSpeedClockMode( oProps.getBoolProperty("Ja2 Settings", "HIGHSPEED_TIMER", false) ? TRUE : FALSE );	
 #endif
+
+#endif
 }
 
-
-void SafeSGPExit(void)
-{
-	// SGPExit tends to use resources that are already uninitialized so handle 
-	__try
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	void SafeSGPExit(void)
 	{
-		SGPExit();
+		// SGPExit tends to use resources that are already uninitialized so handle 
+		__try
+		{
+			SGPExit();
+		}
+		__except( EXCEPTION_EXECUTE_HANDLER )
+		{
+			// The application is in exit and best effort to clean up 
+			//  has failed so just ignore and continue silently
+		}
 	}
-	__except( EXCEPTION_EXECUTE_HANDLER )
-	{
-		// The application is in exit and best effort to clean up 
-		//  has failed so just ignore and continue silently
-	}
-}
-
+#endif
 
 void ShutdownWithErrorBox(CHAR8 *pcMessage)
 {
@@ -1899,69 +1938,70 @@ static LONG __stdcall SGPExceptionFilter(int exceptionCount, EXCEPTION_POINTERS*
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-static void SGPGameLoop()
-{
-	try
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	static void SGPGameLoop()
 	{
-		GameLoop();
-	}
-	catch(sgp::Exception &ex)
-	{
-		SGP_ERROR(ex.what());
-		SHOWEXCEPTION(ex);
-	}
-	catch(vfs::Exception &ex)
-	{
-		SGP_ERROR(ex.what());
-		SHOWEXCEPTION(ex);
-	}
-	catch(std::exception &ex)
-	{
-		sgp::Exception nex(ex.what());
-		SGP_ERROR(nex.what());
-		SHOWEXCEPTION(nex);
-	}
-	catch(const char* msg)
-	{
-		sgp::Exception ex(msg);
-		SGP_ERROR(ex.what());
-		SHOWEXCEPTION(ex);
-	}
-}
-
-static bool CallGameLoop(bool wait)
-{
-	static int numUnsuccessfulTries = 0;
-	if (wait)
-	{
-		EnterCriticalSection(&gcsGameLoop);
-	}
-	else
-	{
-		if ( !TryEnterCriticalSection(&gcsGameLoop) )
-			return false;
+		try
+		{
+			GameLoop();
+		}
+		catch(sgp::Exception &ex)
+		{
+			SGP_ERROR(ex.what());
+			SHOWEXCEPTION(ex);
+		}
+		catch(vfs::Exception &ex)
+		{
+			SGP_ERROR(ex.what());
+			SHOWEXCEPTION(ex);
+		}
+		catch(std::exception &ex)
+		{
+			sgp::Exception nex(ex.what());
+			SGP_ERROR(nex.what());
+			SHOWEXCEPTION(nex);
+		}
+		catch(const char* msg)
+		{
+			sgp::Exception ex(msg);
+			SGP_ERROR(ex.what());
+			SHOWEXCEPTION(ex);
+		}
 	}
 
-	__try
+	static bool CallGameLoop(bool wait)
 	{
+		static int numUnsuccessfulTries = 0;
+		if (wait)
+		{
+			EnterCriticalSection(&gcsGameLoop);
+		}
+		else
+		{
+			if ( !TryEnterCriticalSection(&gcsGameLoop) )
+				return false;
+		}
+
 		__try
 		{
-			SGPGameLoop();
-			numUnsuccessfulTries = 0;
+			__try
+			{
+				SGPGameLoop();
+				numUnsuccessfulTries = 0;
+			}
+			__except( SGPExceptionFilter(++numUnsuccessfulTries, GetExceptionInformation()) )
+			{
+			}
 		}
-		__except( SGPExceptionFilter(++numUnsuccessfulTries, GetExceptionInformation()) )
+		__finally
 		{
+			LeaveCriticalSection(&gcsGameLoop);
 		}
+
+		// Give it several attempts to recover from random exceptions and to display error screen
+		if (numUnsuccessfulTries > 5)
+			ShutdownWithErrorBox("Unhandled exception. Unable to recover.");
+
+		return true;
 	}
-	__finally
-	{
-		LeaveCriticalSection(&gcsGameLoop);
-	}
-
-	// Give it several attempts to recover from random exceptions and to display error screen
-	if (numUnsuccessfulTries > 5)
-		ShutdownWithErrorBox("Unhandled exception. Unable to recover.");
-
-	return true;
-}
-
+#endif

@@ -5108,7 +5108,11 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Training",						// Madd: mercs don't say quotes while training
 	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
+#endif
+
 	L"Allow Zombies",						// Flugente Zombies 1.0
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
@@ -5217,7 +5221,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, mercs will not report progress during training.",
 	L"When ON, mercs will not report progress during repairing.",
 	L"When ON, mercs will not report progress during doctoring.",
+	
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER 
 	L"When ON, AI turns will be much faster.",
+#endif
+
 	L"When ON, zombies will spawn. Be aware!",							// allow zombies
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",

@@ -6811,6 +6811,7 @@ void InitializeWorldSize(INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ)
 void GetMapKeyboardInput( UINT32 *puiNewEvent )
 {
 	InputAtom InputEvent;
+	POINT MousePos;
 	INT8 bSquadNumber;
 	UINT8 ubGroupId = 0;
 	BOOLEAN fCtrl, fAlt;
@@ -6822,9 +6823,37 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 	fCtrl = _KeyDown( CTRL );
 	fAlt = _KeyDown( ALT );
 
-//	while( DequeueEvent( &InputEvent ) )
-	while( DequeueSpecificEvent( &InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT ) )		// doesn't work for some reason -- MM: fixed?  it works better for me like this
+	while( DequeueEvent( &InputEvent ) )
 	{
+		#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+		#else
+			GetCursorPos(&MousePos);
+			ScreenToClient(ghWindow, &MousePos); // In window coords!
+
+			// HOOK INTO MOUSE HOOKS
+			switch(InputEvent.usEvent)
+			{
+					case LEFT_BUTTON_DOWN:
+						MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
+						break;
+					case LEFT_BUTTON_UP:
+						MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
+						break;
+					case RIGHT_BUTTON_DOWN:
+						MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
+						break;
+					case RIGHT_BUTTON_UP:
+						MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
+						break;
+					case RIGHT_BUTTON_REPEAT:
+						MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
+						break;
+					case LEFT_BUTTON_REPEAT:
+						MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
+						break;
+			}
+		#endif
+
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
 			// if game is paused because of player, unpause with any key

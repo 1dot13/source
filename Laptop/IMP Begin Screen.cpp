@@ -455,7 +455,11 @@ void GetPlayerKeyBoardInputForIMPBeginScreen( void )
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	// handle input events
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while( DequeueEvent(&InputEvent) )
+#endif
 	{
 		if(	!HandleTextInput( &InputEvent ) && (InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT) )
 		{

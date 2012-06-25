@@ -932,7 +932,12 @@ void HandleViewerInput()
 {
 	SECTORINFO *pSector;
 	InputAtom Event;
+
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while( DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP) )
+#else
+	while( DequeueEvent( &Event ) )
+#endif 
 	{
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_DOWN )
 		{
