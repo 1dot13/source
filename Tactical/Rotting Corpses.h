@@ -84,7 +84,10 @@ enum RottingCorpseDefines
 #define		ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE					0x100		//We use urban palette here....
 #define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE					0x200		//We use desert palette here....
 #define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE					0x400		//We use snow palette here....
-#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
+
+#ifdef ENABLE_ZOMBIES
+	#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
+#endif
 
 
 typedef struct
@@ -116,8 +119,10 @@ typedef struct
 
 	UINT8												ubFiller[ 12 ];
 
+#ifdef ENABLE_ZOMBIES
 	// Flugente: added name so we can display individual name if corpse gets resurrected...
 	CHAR16												name[ 10 ];
+#endif
 
 } ROTTING_CORPSE_DEFINITION;
 
@@ -140,8 +145,10 @@ typedef struct
 	BOOLEAN											fAttractCrowsOnlyWhenOnScreen;
 	INT32												iID;
 
+#ifdef ENABLE_ZOMBIES
 	// Flugente: added name so we can display individual name if corpse gets resurrected...
 	CHAR16												name[ 10 ];
+#endif
 		
 } ROTTING_CORPSE;
 
@@ -200,13 +207,15 @@ INT32 GetGridNoOfCorpseGivenProfileID( UINT8 ubProfileID );
 void DecayRottingCorpseAIWarnings( void );
 UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
 
-// Flugente: Raise zombies
-void RaiseZombies( void );
+#ifdef ENABLE_ZOMBIES
+	// Flugente: Raise zombies
+	void RaiseZombies( void );
 
-// Flugente: create a zombie from a corpse
-void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState );
+	// Flugente: create a zombie from a corpse
+	void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState );
 
-// Flugente: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
-BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState  );
+	// Flugente: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
+	BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState  );
+#endif
 
 #endif

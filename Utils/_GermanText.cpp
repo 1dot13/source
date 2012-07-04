@@ -4962,7 +4962,10 @@ STR16 zOptionsToggleText[] =
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",						// Flugente Zombies 1.0
+#endif
+
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5075,7 +5078,10 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+#endif
+
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

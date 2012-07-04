@@ -420,7 +420,9 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 SOLDIERTYPE* TacticalCreateAdministrator();
 SOLDIERTYPE* TacticalCreateEliteEnemy();
 SOLDIERTYPE* TacticalCreateArmyTroop();
-SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
+#ifdef ENABLE_ZOMBIES
+	SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
+#endif
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass );
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 

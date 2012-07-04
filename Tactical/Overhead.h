@@ -362,7 +362,10 @@ void DoPOWPathChecks( void );
 BOOLEAN HostileCiviliansWithGunsPresent( void );
 BOOLEAN HostileCiviliansPresent( void );
 BOOLEAN HostileBloodcatsPresent( void );
-BOOLEAN HostileZombiesPresent( void );
+
+#ifdef ENABLE_ZOMBIES
+	BOOLEAN HostileZombiesPresent( void );
+#endif
 
 UINT8 NumPCsInSector( void );
 
@@ -396,6 +399,9 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );
 // HEADROCK HAM 3.5: Externalized for First Arrival enemy check
 extern UINT8 NumEnemyInSector();
 
-// Flugente
-extern UINT8 NumZombiesInSector();
+#ifdef ENABLE_ZOMBIES
+	// Flugente
+	extern UINT8 NumZombiesInSector();
+#endif
+
 #endif

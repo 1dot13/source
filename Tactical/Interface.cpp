@@ -2211,6 +2211,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			}
 		}
 
+#ifdef ENABLE_ZOMBIES
 		if ( pSoldier->IsZombie() )
 		{
 			swprintf(NameStr, pSoldier->name);
@@ -2225,6 +2226,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
 		}
+#endif
 	//------------
 	}
 }

@@ -4598,9 +4598,11 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 					case SOLDIER_CLASS_CREATURE :
 						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsCreatures++;
 						break;
+#ifdef ENABLE_ZOMBIES
 					case SOLDIER_CLASS_ZOMBIE :
 						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsZombies++;
 						break;
+#endif
 					default :
 						if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
 							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsCreatures++;
@@ -4789,9 +4791,11 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 						case SOLDIER_CLASS_CREATURE :
 							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsCreatures++;
 							break;
+#ifdef ENABLE_ZOMBIES
 						case SOLDIER_CLASS_ZOMBIE :
 							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsZombies++;
 							break;
+#endif
 						default :
 							if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
 								gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsCreatures++;

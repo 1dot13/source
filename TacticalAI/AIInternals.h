@@ -172,12 +172,14 @@ void CreatureCall( SOLDIERTYPE * pCaller );
 INT8 CreatureDecideAction( SOLDIERTYPE * pCreature );
 void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
 
-// Flugente: Zombie AI
-INT8 ZombieDecideAction( SOLDIERTYPE * pZombie );	
-void ZombieDecideAlertStatus( SOLDIERTYPE *pZombie );
+#ifdef ENABLE_ZOMBIES
+	// Flugente: Zombie AI
+	INT8 ZombieDecideAction( SOLDIERTYPE * pZombie );	
+	void ZombieDecideAlertStatus( SOLDIERTYPE *pZombie );
 
-// a variant of ClosestSeenOpponent(...), that allows zombies 
-INT32 ClosestSeenOpponentforZombie(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
+	// a variant of ClosestSeenOpponent(...), that allows zombies 
+	INT32 ClosestSeenOpponentforZombie(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
+#endif
 
 INT8 CrowDecideAction( SOLDIERTYPE * pSoldier );
 void DecideAlertStatus( SOLDIERTYPE *pSoldier );
@@ -241,9 +243,11 @@ INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel
 
 // HEADROCK HAM B2.7: Functions to assist group AI
 // WANNE: Headrock informed me that I should disable these 3 functions in code, because they need a lot of CPU during AI calculation.
+/*
 INT16 AssessTacticalSituation( INT8 bSide );
 BOOLEAN TeamSeesOpponent( INT8 bSide, SOLDIERTYPE * pOpponent );
 INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy );
+*/
 
 // SANDRO - added following functions
 BOOLEAN DoctorIsPresent( SOLDIERTYPE * pPatient, BOOLEAN fOnDoctorAssignmentCheck );

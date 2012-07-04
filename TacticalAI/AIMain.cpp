@@ -1616,6 +1616,8 @@ fprintf(NetDebugFile,"\tNPC %d, dtctLvl %d, marking mine at gridno %d, gridCost 
 
 void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 {
+#ifdef ENABLE_ZOMBIES
+
 	// added by Flugente: static pointers, used to break out of an endless circles (currently only used for zombie AI)
 	static SOLDIERTYPE* pLastDecisionSoldier = NULL;
 	static INT16	lastdecisioncount = 0;
@@ -1642,6 +1644,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		pLastDecisionSoldier = pSoldier;
 		lastdecisioncount = 0;
 	}
+#endif
 
 	/*
 	if (Status.gamePaused)
@@ -1930,11 +1933,15 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		{
 			if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV))
 			{
+#ifdef ENABLE_ZOMBIES
 				if ( pSoldier->IsZombie() )
 				{	
 					pSoldier->aiData.bAction = ZombieDecideAction(pSoldier);
 				}
 				else if (CREATURE_OR_BLOODCAT( pSoldier ))
+#else
+				if (CREATURE_OR_BLOODCAT( pSoldier ))
+#endif
 				{
 					pSoldier->aiData.bAction = CreatureDecideAction( pSoldier );
 				}
@@ -2000,7 +2007,9 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 			{
 				// turn based... abort this guy's turn
 				EndAIGuysTurn( pSoldier );
+#ifdef ENABLE_ZOMBIES
 				lastdecisioncount = 0;
+#endif
 			}
 		}
 		else
@@ -2281,8 +2290,10 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 					StartEnemyTaunt( pSoldier, TAUNT_SEEK_NOISE );
 				else if (pSoldier->aiData.bAction == AI_ACTION_RUN_AWAY )
 					StartEnemyTaunt( pSoldier, TAUNT_RUN_AWAY );
+#ifdef ENABLE_ZOMBIES
 				else if ( pSoldier->IsZombie() ) // Madd:  Zombies randomly moan...
 					pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_LAUGH1 ) );
+#endif
 			}
 		}
 	case AI_ACTION_APPROACH_MERC:				 // walk up to someone to talk

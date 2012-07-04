@@ -5115,7 +5115,10 @@ STR16		zOptionsToggleText[] =
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",				// TODO.Translate
+#endif
+
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5228,7 +5231,10 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，敌军回合将被大幅加速。",
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+#endif
+
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

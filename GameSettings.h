@@ -95,7 +95,9 @@ enum
 	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	TOPTION_ZOMBIES,							// Flugente Zombies 1.0: allow zombies	
+#endif
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -369,6 +371,7 @@ typedef struct
 	//Video settings	
 	BOOLEAN gfVSync;
 
+#ifdef ENABLE_ZOMBIES
 	// Flugente: zombie settings
 	INT8	sZombieRiseBehaviour;
 	BOOLEAN fZombieSpawnWaves;
@@ -380,6 +383,7 @@ typedef struct
 	BOOLEAN fZombieOnlyHeadshotsWork;
 	INT8	sZombieDifficultyLevel;
 	BOOLEAN fZombieRiseWithArmour;
+#endif
 	
 	// Flugente: poison settings
 	INT32	ubPoisonBaseMedicalSkillToCure;

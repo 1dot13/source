@@ -1926,13 +1926,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 			}
 
-			if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
-			{	
-				//////////////////// POISON PERCENTAGE
-				{
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
-				}
-			}
+			//////////////////// POISON PERCENTAGE			
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );			
 		}
 	}
 
@@ -3864,10 +3859,11 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 			}
 		}
-				
+
+//#ifdef ENABLE_ZOMBIES
 		// Flugente Zombies		
-		if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
-		{
+		//if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
+		//{
 			if(!cnt) cnt += 2;
 
 			if (cnt >= sFirstLine && cnt < sLastLine)
@@ -3908,7 +3904,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
  				}
 				cnt++;
 			}
-		}
+		//}
+//#endif
 
 		gubDescBoxTotalAdvLines = (UINT8)cnt;
 	}
@@ -4304,13 +4301,15 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 16, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
-		if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
-		{
+//#ifdef ENABLE_ZOMBIES
+		//if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
+		//{
 			//////////////// POISON PERCENTAGE
-			{
+			//{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			}
-		}
+			//}
+		//}
+//#endif
 
 		DrawSecondaryStats( gpItemDescObject );
 	}
@@ -5198,9 +5197,10 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 		
+//#ifdef ENABLE_ZOMBIES
 	// Flugente Zombies
-	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
-	{
+//	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
+//	{
 		if(!cnt) cnt += 2;
 
 		++cnt;		// for the new index-line
@@ -5215,7 +5215,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			}
 			cnt++;
 		}
-	}
+	//}
+//#endif
 }
 
 void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
@@ -7597,8 +7598,9 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			mprintf( usX, usY, pStr );
 		}
 
-		if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
-		{
+//#ifdef ENABLE_ZOMBIES
+//		if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
+//		{
 			///////////////////// POISON PERCENTAGE
 			// Set line to draw into
 			ubNumLine = 4;
@@ -7648,7 +7650,8 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			swprintf( pStr, L"%d", finalvalue );
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
-		}
+//		}
+//#endif
 	}
 	else if (gubDescBoxPage == 2)
 	{
@@ -11170,8 +11173,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	// Flugente Zombies
-	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
-	{
+//#ifdef USE_ZOMBIES
+//	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
+	//{
 		///////////////////////////////////////////////////// INDEXES
 		if(!cnt) cnt += 2;
 
@@ -11252,7 +11256,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				}
 				cnt++;
 			}
-	}
+	//}
+//#endif
 }
 
 void DrawMiscValues( OBJECTTYPE * gpItemDescObject )

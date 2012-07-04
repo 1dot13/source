@@ -5113,7 +5113,10 @@ STR16		zOptionsToggleText[] =
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",						// Flugente Zombies 1.0
+#endif
+
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5226,7 +5229,10 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, AI turns will be much faster.",
 #endif
 
+#ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will spawn. Be aware!",							// allow zombies
+#endif
+
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

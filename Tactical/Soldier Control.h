@@ -310,7 +310,9 @@ enum
 	SOLDIER_CLASS_ELITE_MILITIA,
 	SOLDIER_CLASS_CREATURE,
 	SOLDIER_CLASS_MINER,
+#ifdef ENABLE_ZOMBIES
 	SOLDIER_CLASS_ZOMBIE,
+#endif
 };
 
 #define SOLDIER_CLASS_ENEMY( bSoldierClass )		( ( bSoldierClass >= SOLDIER_CLASS_ADMINISTRATOR ) && ( bSoldierClass <= SOLDIER_CLASS_ARMY ) )
@@ -1358,8 +1360,10 @@ public:
 
 	INT16	GetSoldierCriticalDamageBonus( void );	// Flugente: determines critical damage bonus depending on class, skill, etc.
 
+#ifdef ENABLE_ZOMBIES
 	// Flugente: Zombies
 	BOOLEAN IsZombie( void );
+#endif
 	
 	// Flugente: poison system
 	// These functions might one day be modified by traits etc. We'll keep that in these functions and not clutter the rest of the code

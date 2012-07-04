@@ -8635,12 +8635,14 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	INT8					bStatLoss = 0;
 	UINT8					ubAmmoType;
 
+#ifdef ENABLE_ZOMBIES
 	if ( pTarget->IsZombie() && gGameExternalOptions.fZombieOnlyHeadshotsWork )
 	{
 		// if bullet does not hits anything other than the head, it doesn't do any damage
 		if ( ubHitLocation != AIM_SHOT_HEAD )
 			return 0;
 	}
+#endif
 
 	// NOTE: reduction of bullet impact due to range and obstacles is handled
 	// in MoveBullet.
