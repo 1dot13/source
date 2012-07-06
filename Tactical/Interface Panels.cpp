@@ -3594,6 +3594,7 @@ UINT32 GetInvMovementCost(OBJECTTYPE* pObj, UINT32 old_pos, UINT32 new_pos)
 	cost += uiAPCostToSlot[dst_type];
 	cost += weight_modifier;
 
+#ifdef ENABLE_RIFLE_SLING
 	// Flugente if we move an item from our hands to the sling, and item has a weapon sling, don't charge any APs
 	if ( 1 == src_type && 7 == dst_type )
 	{
@@ -3602,6 +3603,7 @@ UINT32 GetInvMovementCost(OBJECTTYPE* pObj, UINT32 old_pos, UINT32 new_pos)
 			// we simply let go of the item, we can do that because the sling will catch it
 			cost = 0;
 	}
+#endif
 
 	if (cost > APBPConstants[AP_INV_MAX_COST]) 
 		cost = APBPConstants[AP_INV_MAX_COST];

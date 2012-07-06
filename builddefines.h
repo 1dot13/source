@@ -5,6 +5,13 @@
 
 // -----------------------------
 // *****************************
+// WANNE: Enable this define to use the rifle sling feature (Feature was added in Revision: 5207)
+#define ENABLE_RIFLE_SLING
+// -----------------------------
+// *****************************
+
+// -----------------------------
+// *****************************
 // WANNE: Enable this define to show explosives display (Feature was added in Revision: 5210)
 #define ENABLE_DISPLAY_EXPLOSIVES
 // -----------------------------

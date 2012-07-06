@@ -5768,6 +5768,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 				{
 					case HANDPOS:
 					case GUNSLINGPOCKPOS:
+#ifdef ENABLE_RIFLE_SLING
 					{
 						// Flugente: if item has a weapon sling attached, it can't be stolen
 						if ( HasAttachmentOfClass(pObject, AC_SLING) )
@@ -5777,6 +5778,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 
 						break;
 					}
+#endif
 					case SECONDHANDPOS:					
 					case KNIFEPOCKPOS:
 					case BIGPOCK1POS:

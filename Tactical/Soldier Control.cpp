@@ -9477,6 +9477,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 			// OK, drop item in main hand...
 			if ( this->inv[ HANDPOS ].exists() == true )
 			{
+#ifdef ENABLE_RIFLE_SLING
 				// Flugente: If item has an attached rifle sling, place it the sling position instead
 				int bSlot = GUNSLINGPOCKPOS;
 				if ( HasAttachmentOfClass(&(this->inv[ HANDPOS ]), AC_SLING) && TryToPlaceInSlot(this, &(this->inv[ HANDPOS ]), FALSE, bSlot, GUNSLINGPOCKPOS) )
@@ -9484,6 +9485,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 					;
 				}
 				else if ( !( this->inv[ HANDPOS ].fFlags & OBJECT_UNDROPPABLE ) )
+#else
+				if ( !( this->inv[ HANDPOS ].fFlags & OBJECT_UNDROPPABLE ) )
+#endif
 				{
 					// ATE: if our guy, make visible....
 					if ( this->bTeam == gbPlayerNum )
