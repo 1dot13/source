@@ -655,7 +655,10 @@ UINT32	HandleTacticalUI( void )
 	}
 
 	DisplayCover();
+
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 	DisplayMines();		// added by Flugente
+#endif
 
 	if ( HandleItemPickupMenu( ) )
 	{

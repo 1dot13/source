@@ -1405,40 +1405,56 @@ void GetPolledKeyboardInput( UINT32 *puiNewEvent )
 
 	if( _KeyDown( DEL ) && !fDeleteDown)
 	{
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 		if ( _KeyDown( ALT )	)
 			SwitchToHostileTrapsView();	// added by Flugente
 		else
 			SwitchToEnemyView();
+#else
+		SwitchToEnemyView();
+#endif
 
 		fDeleteDown = TRUE;
 	}
 
 	if( !_KeyDown( DEL ) && fDeleteDown )
 	{
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 		if ( _KeyDown( ALT )	)
 			SwitchMineViewOff();	// added by Flugente
 		else
 			SwitchViewOff();
+#else
+			SwitchViewOff();
+#endif
 		
 		fDeleteDown = FALSE;
 	}
 
 	if( _KeyDown( END ) && !fEndDown)
 	{
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 		if ( _KeyDown( ALT )	)
 			SwitchToTrapNetworkView();	// added by Flugente
 		else
 			SwitchToMercView();
+#else
+		SwitchToMercView();
+#endif
 
 		fEndDown = TRUE;
 	}
 
 	if( !_KeyDown( END ) && fEndDown )
 	{
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 		if ( _KeyDown( ALT )	)
 			SwitchMineViewOff();	// added by Flugente
 		else
 			SwitchViewOff();
+#else
+		SwitchViewOff();
+#endif
 		
 
 		fEndDown = FALSE;
@@ -2964,10 +2980,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'C':
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 				if ( fAlt )
 					ToggleHostileTrapsView();	// added by Flugente
 				else
 					ToggleEnemyView();
+#else
+				ToggleEnemyView();
+#endif
 				break;
 			case 'd':
 				if( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT )
@@ -4358,10 +4378,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'V':
+#ifdef ENABLE_DISPLAY_EXPLOSIVES
 				if( fAlt )
 					ToggleTrapNetworkView();	// added by Flugente
 				else
 					ToggleMercView();
+#else
+					ToggleMercView();
+#endif
 				break;
 
 			case 'w':

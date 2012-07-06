@@ -5,8 +5,15 @@
 
 // -----------------------------
 // *****************************
+// WANNE: Enable this define to show explosives display (Feature was added in Revision: 5210)
+#define ENABLE_DISPLAY_EXPLOSIVES
+// -----------------------------
+// *****************************
+
+// -----------------------------
+// *****************************
 // WANNE: Enable this define, to build an executable where you can enable/disable zombies in tactical (ingame option screen).
-// It seems, that executables compiled with this zombie option turned on, causes slowdown in tactical.
+// It seems (and is confirmed), that executables compiled with this zombie option turned on, causes slowdown in tactical.
 //#define ENABLE_ZOMBIES
 // -----------------------------
 // *****************************
@@ -14,8 +21,6 @@
 // -----------------------------
 // *****************************
 // WANNE: Enable this define, to build the gameloop with the highspeed timer. To use the highspeed timer, you also have to set the HIGHSPEED_TIMER = TRUE in ja2.ini
-// CAUTION: A lot of games reported, when the exe is compiled with the highspeed timer on, the game runs very slowly in strategy map screen when doing repair, ..
-// This is the reason, why I made a compilation define, where we can turn on/off the highspeed timer.
 #define USE_HIGHSPEED_GAMELOOP_TIMER
 // -----------------------------
 // *****************************
