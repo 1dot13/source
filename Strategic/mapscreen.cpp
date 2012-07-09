@@ -8270,6 +8270,10 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 			}
 		}
+		else
+		{
+			HandleDefaultEvent(&InputEvent);
+		}
 	}
 
 	// HEADROCK HAM 5: Alt alone shows sale prices on items in the sector inventory.
