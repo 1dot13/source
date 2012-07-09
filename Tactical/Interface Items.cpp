@@ -3835,6 +3835,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				// HEADROCK HAM 4: Advanced Icons
 				if (guiItemInfoAdvancedIcon == 0)
 				{
+					// added by Flugente
+					// HEADROCK HAM 4: Advanced Icons
 					VOBJECT_DESC    VObjectDesc;
 					VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 					strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
@@ -5896,16 +5898,14 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
 						IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemPointerSoldier->sX, gpItemPointerSoldier->sY, (INT16) (gpWorldLevelData[gpItemPointerSoldier->sGridNo].sHeight), gpItemPointerSoldier->sGridNo, gpItemDescObject->usItem, gpItemPointerSoldier->pathing.bLevel, gpItemPointerSoldier->ubDirection );
-
-						DeleteObj( gpItemDescObject );
 					}
 					else if ( (guiCurrentScreen == MAP_SCREEN) || (guiCurrentScreen == MSG_BOX_SCREEN) )
 					{
 						// no explosions in map screen - instead we simply damage the inventory and harm our health
 						gpItemPointerSoldier->InventoryExplosion();
-
-						DeleteObj( gpItemDescObject );
 					}
+
+					DeleteObj( gpItemDescObject );
 
 					return;
 				}
@@ -5928,12 +5928,21 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fMapInventoryItem=TRUE;
 						fTeamPanelDirty=TRUE;
 					}
-
+										
 					//if we are currently in the shopkeeper interface
 					else if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 					{
 						// pick up attachment from item into cursor (don't try to sell)
 						BeginSkiItemPointer( PLAYERS_INVENTORY, -1, FALSE );
+					}
+
+					// Flugente: if we altered a gun's attachments, re-evaluate the scope mode and sight
+					if ( gGameExternalOptions.fScopeModes && gpItemPointerSoldier && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+					{
+						ChangeScopeMode( gpItemPointerSoldier );
+
+						// reevaluate sight
+						ManLooksForOtherTeams( gpItemPointerSoldier );
 					}
 
 					//Dirty interface
@@ -12607,16 +12616,14 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 				{
 					// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
 					IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
-
-					DeleteObj( gpItemDescObject );
 				}
 				else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
 				{
 					// no explosions in map screen - instead we simply damage the inventory and harm our health
 					gpItemDescSoldier->InventoryExplosion();
-
-					DeleteObj( gpItemDescObject );
 				}
+
+				DeleteObj( gpItemDescObject );
 
 				return;
 			}
@@ -12775,16 +12782,14 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
 				IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
-
-				DeleteObj( gpItemDescObject );
 			}
 			else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
 			{
 				// no explosions in map screen - instead we simply damage the inventory and harm our health
 				gpItemDescSoldier->InventoryExplosion();
-
-				DeleteObj( gpItemDescObject );
 			}
+
+			DeleteObj( gpItemDescObject );
 
 #ifdef JA2TESTVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arming failed, explosion here" );

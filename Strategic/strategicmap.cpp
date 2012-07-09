@@ -6113,7 +6113,7 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 		//if we arent loading a saved game
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
-			// Flugente: Set temperares of all items in the old sector to zero before entering a new sector
+			// Flugente: Set temperatures of all items in the old sector to zero before entering a new sector
 			CoolDownWorldItems( TRUE );
 
 			// Save the current sectors Item list to a temporary file, if its not the first time in

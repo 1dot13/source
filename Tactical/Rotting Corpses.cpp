@@ -2096,7 +2096,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 		{
 			// if gGameExternalOptions.fZombieSpawnWaves is true, zombies will spawn from all corpses (while there is still room for more), creating a wave of zombies. with lots of bodies	lying around, this can be a lot.
 			// if GameExternalOptions.fZombieSpawnWaves is false, each zombie can spawn randomly, you will get zombies on msot turns, but they won't spawn a whole horde at once
-			if ( ( gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) || !gGameExternalOptions.fZombieSpawnWaves  )
+			if ( !gGameExternalOptions.fZombieSpawnWaves || ( gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
 			{
 				ROTTING_CORPSE *	pCorpse;
 				BOOLEAN				zombieshaverisen = FALSE;

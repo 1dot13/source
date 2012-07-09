@@ -330,6 +330,49 @@ enum
 	NUM_UNIFORMS,
 };
 
+// -------- added by Flugente: various flags for soldiers --------
+// easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+#define SOLDIER_DRUGGED				0x00000001	//1			// Soldier is on drugs
+/*#define unused					0x00000002	//2			// Soldier is on a kill streak
+#define WH40K_BOLTER			0x00000004	//4
+#define WH40K_FLAMER			0x00000008	//8
+
+#define WH40K_POWER_ARMOR		0x00000010	//16
+#define WH40K_POWER_PACK		0x00000020	//32
+#define WH40K_JUMPPACK   		0x00000040	//64
+#define WH40K_DISPLACER			0x00000080	//128
+
+#define WH40K_ROSARIUS			0x00000100	//256
+#define WH40K_SEAL				0x00000200	//512
+#define WH40K_POWER_WEAPON		0x00000400	//1024
+#define ENEMY_NET_4_LVL_3		0x00000800	//2048
+
+#define ENEMY_NET_1_LVL_4		0x00001000	//4096
+#define ENEMY_NET_2_LVL_4       0x00002000	//8192
+#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
+#define ENEMY_NET_4_LVL_4		0x00008000	//32768
+
+#define PLAYER_NET_1_LVL_1		0x00010000	//65536
+#define PLAYER_NET_2_LVL_1      0x00020000	//131072
+#define PLAYER_NET_3_LVL_1		0x00040000	//262144
+#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+
+#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
+#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
+#define PLAYER_NET_3_LVL_2		0x00400000	//4194304
+#define PLAYER_NET_4_LVL_2		0x00800000	//8388608
+
+#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
+#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
+#define PLAYER_NET_3_LVL_3		0x04000000	//67108864
+#define PLAYER_NET_4_LVL_3		0x08000000	//134217728
+
+#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
+#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
+#define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
+#define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
+// ----------------------------------------------------------------
+
 // enum of uniform pieces
 typedef struct
 {

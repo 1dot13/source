@@ -13434,6 +13434,11 @@ void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap 
 			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 			{
 				FLOAT magfactor = Item[iter->usItem].scopemagfactor;
+
+				// fix: if there is no scopemagfactor (or suspiciously small one), assume it to be 1.0f
+				if ( magfactor < 0.1f )
+					magfactor = 1.0f;
+
 				BOOLEAN isplaced = false;
 
 				for (INT8 i = USE_BEST_SCOPE; i < NUM_SCOPE_MODES; ++i)

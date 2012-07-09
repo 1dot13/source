@@ -847,7 +847,7 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 						{
 							FLOAT newguntemperature = 0.0f;
 
-							if ( !fSetZero && gGameExternalOptions.fSetZeroUponNewSector )
+							if ( !fSetZero || !gGameExternalOptions.fSetZeroUponNewSector )
 							{
 								FLOAT guntemperature = (*pObj)[i]->data.bTemperature;	// ... get temperature ...
 
@@ -873,7 +873,7 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 								{
 									FLOAT newtemperature = 0.0f;
 
-									if ( !fSetZero && gGameExternalOptions.fSetZeroUponNewSector )
+									if ( !fSetZero || !gGameExternalOptions.fSetZeroUponNewSector )
 									{
 										FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
 

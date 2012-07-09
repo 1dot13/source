@@ -66,6 +66,9 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		gMercProfiles[ LARRY_DRUNK ].bNPCData = 0;
 	}
 
+	// set flag: we are on drugs
+	pSoldier->bSoldierFlagMask |= SOLDIER_DRUGGED;
+
 	// Flugente: we have to check for every single type of drug ( a drug applied may consist of several 'pure' drug types)	
 	for (UINT8 i = DRUG_TYPE_ADRENALINE; i < DRUG_TYPE_MAX; ++i)
 	{
@@ -243,6 +246,10 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 {
 	INT32 cnt, cnt2;
 	INT32	iNumLoops;
+
+	// if were not on drugs, nothing to do here
+	if ( ( pSoldier->bSoldierFlagMask & SOLDIER_DRUGGED ) == 0 )
+		return;
 
 	// We test for every 'pure' drug separately
 	for (cnt = DRUG_TYPE_ADRENALINE; cnt < DRUG_TYPE_MAX; ++cnt)
@@ -424,6 +431,10 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
+
+	// if all drug effects have ended, delete flag
+	if ( !MercUnderTheInfluence(pSoldier) )
+		pSoldier->bSoldierFlagMask &= ~SOLDIER_DRUGGED;
 }
 
 INT8 GetDrugEffect( SOLDIERTYPE *pSoldier, UINT8 ubDrugType	)
