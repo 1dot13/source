@@ -500,8 +500,10 @@ BOOLEAN FreeBackgroundRect(INT32 iIndex)
 
 BOOLEAN FreeBackgroundRectPending(INT32 iIndex)
 {
-	gBackSaves[iIndex].fPendingDelete = TRUE;
-
+	if (iIndex != -1)
+	{
+		gBackSaves[iIndex].fPendingDelete = TRUE;
+	}
 	return(TRUE);
 }
 
