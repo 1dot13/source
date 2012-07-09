@@ -1375,6 +1375,15 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	FilenameForBPP("INTERFACE\\gold_key_button.sti", VObjectDesc.ImageFile);
 	CHECKF( AddVideoObject( &VObjectDesc, &guiGoldKeyVO ) );
 
+	// added by Flugente
+	// HEADROCK HAM 4: Advanced Icons
+	if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes )
+	{
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+		CHECKF( AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon) );
+	}
+	
 	// Add cammo region
 	MSYS_DefineRegion( &gSMInvCamoRegion, pCamoRegion->sX, pCamoRegion->sY, (INT16)(pCamoRegion->sX + CAMO_REGION_WIDTH ), (INT16)(pCamoRegion->sY + CAMO_REGION_HEIGHT ), MSYS_PRIORITY_HIGH,
 						 MSYS_NO_CURSOR, INVMoveCammoCallback, INVClickCammoCallback );
@@ -1500,6 +1509,12 @@ void ShutdownInvSlotInterface( )
 	//DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 1 ] );
 
 	DeleteVideoObjectFromIndex( guiGoldKeyVO );
+
+	if ( guiItemInfoAdvancedIcon != 0 )
+	{
+		DeleteVideoObjectFromIndex( guiItemInfoAdvancedIcon );
+		guiItemInfoAdvancedIcon = 0;
+	}
 
 	// Remove regions
 	// Add regions for inventory slots
@@ -3810,17 +3825,21 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
-			if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes && pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+			if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes
+				&& pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
 			{
 				sNewX = sX + 5; // rather arbitrary
 				sNewY = sY;
 
 				// added by Flugente
 				// HEADROCK HAM 4: Advanced Icons
-				VOBJECT_DESC    VObjectDesc;
-				VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-				strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
-				AddStandardVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon );
+				if (guiItemInfoAdvancedIcon == 0)
+				{
+					VOBJECT_DESC    VObjectDesc;
+					VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+					strcpy( VObjectDesc.ImageFile, "INTERFACE\\ItemInfoAdvancedIcons.STI" );
+					AddVideoObject( &VObjectDesc, &guiItemInfoAdvancedIcon);
+				}
 
 				std::map<INT8, OBJECTTYPE*> ObjList;
 				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
