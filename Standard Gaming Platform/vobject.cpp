@@ -78,7 +78,7 @@ typedef struct VOBJECT_NODE
 #endif
 } VOBJECT_NODE, *VOBJECT_NODE_PTR;
 
-typedef std::hash_map<UINT32, VOBJECT_NODE_PTR> VOBJECT_MAP;
+typedef stdext::hash_map<UINT32, VOBJECT_NODE_PTR> VOBJECT_MAP;
 static VOBJECT_MAP gpVObjectMap;
 
 #else
