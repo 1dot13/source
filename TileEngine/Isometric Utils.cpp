@@ -874,20 +874,6 @@ INT32 OutOfBounds(INT32 sGridNo, INT32 sProposedGridNo)
 		return(FALSE);
 }
 
-//Lalien: This function should be used to check if the tile is not inside map array,
-//        it will return FALSE if the tile index is NOWHERE (-1) too.
-//        If the tile index has some special meaning ("-1" = does not exist) the check for NOWHERE should be used
-BOOLEAN TileIsOutOfBounds(INT32 sGridNo)
-{
-	if( (sGridNo < 0) || (sGridNo >= MAX_MAP_POS) )
-	{
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-
 INT32 NewGridNo(INT32 sGridNo, INT16 sDirInc)
 {
  INT32 sProposedGridNo = sGridNo + sDirInc;

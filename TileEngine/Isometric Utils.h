@@ -49,8 +49,13 @@ void ConvertGridNoToCenterCellXY( INT32 sGridNo, INT16 *sXPos, INT16 *sYPos );
 INT32 NewGridNo(INT32 sGridNo, INT16 sDirInc);
 INT16 DirectionInc(UINT8 ubDirection);
 INT32 OutOfBounds(INT32 sGridNo, INT32 sProposedGridNo);
-BOOLEAN TileIsOutOfBounds(INT32 sGridNo);
 
+//Lalien: This function should be used to check if the tile is not inside map array,
+//        it will return FALSE if the tile index is NOWHERE (-1) too.
+//        If the tile index has some special meaning ("-1" = does not exist) the check for NOWHERE should be used
+//
+// tazpn: inline this routine due to high call count
+#define TileIsOutOfBounds(sGridNo) (( (sGridNo < 0) || (sGridNo >= MAX_MAP_POS) ) ? TRUE : FALSE)
  
 // Functions
 BOOLEAN GetMouseCell( INT32 *piMouseMapPos );
