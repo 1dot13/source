@@ -615,12 +615,11 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Difficulty Level (Default: Experienced = 1)
 	gGameOptions.ubDifficultyLevel =  ((UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_DIFFICULTY_LEVEL, 1)) + 1;
 
-	// Bobby Ray's Selection (Default: Good = 1)
-	UINT8 ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 1);
-	gGameOptions.ubBobbyRayQuality = max(min(1, ubBobbyRayQuality),10);
+	// Bobby Ray Quantity (Default: Great = 2)
+	gGameOptions.ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 2);		 
 
-	UINT8 ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 1);
-	gGameOptions.ubBobbyRayQuantity = max(min(1, ubBobbyRayQuantity),10);
+	// Bobby Ray Quantity (Default: Great = 2)
+	gGameOptions.ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 2);	 
 
 	// Max. IMP Characters
 	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
@@ -3479,12 +3478,11 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Difficulty Level (Default: Experienced = 1)
 	gGameOptions.ubDifficultyLevel =  ((UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_DIFFICULTY_LEVEL, 1)) + 1;
 
-	// Bobby Ray's Selection (Default: Good = 1)
-	UINT8 ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 1);
-	gGameOptions.ubBobbyRayQuality = max(min(1, ubBobbyRayQuality),10);
+	// Bobby Ray Quantity (Default: Great = 2)
+	gGameOptions.ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 2);		 
 
-	UINT8 ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 1);
-	gGameOptions.ubBobbyRayQuantity = max(min(1, ubBobbyRayQuantity),10);
+	// Bobby Ray Quantity (Default: Great = 2)
+	gGameOptions.ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 2);	 
 
 	// Max. IMP Characters
 	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
