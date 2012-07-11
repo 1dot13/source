@@ -2081,7 +2081,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Persönlichkeit:",	// WANNE: For old traits display instead of "Character:"!
 
-	L"Zombies: %d\n", // TODO.Translate
+	L"Zombies: %d\n",
 };
 
 
@@ -2868,7 +2868,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"MONSTER", 
 	L"MILIZ",
 	L"ZIVILIST",
-	L"ZOMBIE",		// TODO.Translate
+	L"ZOMBIE",
 	L"Sektor verlassen",
 	L"OK",
 	L"Abbruch",
@@ -2927,8 +2927,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Detonations-Zeit (in Züge) (1 - 4) und die Entschärfungs-Frequenz (A - D):",
 	L"Stolperdraht-Hierarchie (1 - 4) und das Netzwerk (A - D):",
 
-	// added by Flugente to display health and poisoning			// TODO.Translate
-	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+	// added by Flugente to display health and poisoning
+	L"Gesundheit: %d/%d\n  Gift: %d/%d\Ausdauer: %d/%d\Moral: %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3446,7 +3446,7 @@ STR16 pMapScreenStatusStrings[] =
 	L"Moral",
 	L"Zustand",	// the condition of the current vehicle (its "health")
 	L"Tank",	// the fuel level of the current vehicle (its "energy")
-	L"Posion",	// TODO.Translate
+	L"Gift",
 };
 
 STR16 pMapScreenPrevNextCharButtonHelpText[] =
@@ -4817,7 +4817,7 @@ STR16 zSaveLoadText[] =
 	L"SciFi-Stil",
 	L"Schwierigkeit",
 	L"Platinum Mode",	//Placeholder English
-	L"Bobby Ray Quality", //TODO.Translate
+	L"Bobby Ray Qualität",
 	L"Normale Auswahl",
 	L"Große Auswahl",
 	L"Ausgezeichnete Auswahl",
@@ -4827,7 +4827,7 @@ STR16 zSaveLoadText[] =
 	L"Neues Inventar funktioniert nicht mit dem ausgewählten 'Data' Ordner.",	
 
 	L"Die gespeicherte Truppengröße im Spielstand wird nicht unterstützt bei der aktullen Bildschirmauflösung. Wählen Sie eine höhere Bildschirmauflösung und versuchen Sie es erneut.",
-	L"Bobby Ray Quantity",//TODO.Translate
+	L"Bobby Ray Auswahl",
 };
 
 //MapScreen
@@ -5071,15 +5071,15 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
 	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFür manuellen Positionswechsel drücken Sie |x.",
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über ihren Fortschritt während des Trainings nicht mehr berichten.",
-	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
-	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
+	L"Wenn diese Funktion aktiviert ist, werden die Söldner über ihren Reperaturfortschritt nicht mehr berichten.",
+	L"Wenn diese Funktion aktiviert ist, werden die Söldner über den ärztlichen Fortschritt nicht mehr berichten.",
 
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
 #endif
 
 #ifdef ENABLE_ZOMBIES
-	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+	L"Wenn diese Funktion aktiviert ist, können Tote als Zombies wieder auferstehen. Seien Sie auf der Hut!",
 #endif
 
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
@@ -5126,7 +5126,7 @@ STR16 gzGIOScreenText[] =
 	L"Jederzeit",
 	L"Nicht im Kampf",
 	L"Option nicht verfügbar", 
-	L"Bobby Ray Quality", //TODO.Translate
+	L"Bobby Ray Qualität",
 	L"Normal",
 	L"Groß",
 	L"Ausgezeichnet",
@@ -5182,7 +5182,7 @@ STR16 gzGIOScreenText[] =
 	L"Neues Zielsystem",
 	L"Verbesserte Unterbrechungen",
 	L"Waffen-Überhitzung",
-	L"Bobby Ray Quantity",//TODO.Translate
+	L"Bobby Ray Auswahl",
 };
 
 STR16	gzMPJScreenText[] =
@@ -6760,7 +6760,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|K|u|g|e|l|s|t|u|r|z",
 	L"|E|x|p|l|o|s|i|o|n |v|o|r |E|i|n|s|c|h|l|a|g",
 	L"|T|e|m|p|e|r|a|t|u|r |M|o|d|i|f|i|k|a|t|o|r",
-	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
+	L"|G|i|f|t|-|I|n|d|i|k|a|t|o|r",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
@@ -6769,7 +6769,7 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \nBestimmt eine verhältnismäßige Zunahme des Schadenspotentials,\nsobald die Kugel die Rüstung des Ziels\ndurchbricht und den Körper dahinter trifft.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHöher ist besser.",
 	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren den Schaden.\n \nHöher ist besser.",
 	L"\n \nProzentuale zusätzliche Hitze\ndurch diese Munitionsart.\n \nNiedriger ist besser.",
-	L"\n \nDetermines what percentage of a\nbullet's damage will be poisonous.",	// TODO.Translate
+	L"\n \Gibt die Anzahl in Prozent an,\nob der eingetretene Schaden einer Kugel auch eine Vergiftung verursacht.",
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
@@ -6946,7 +6946,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|b|k|ü|h|l|f|a|k|t|o|r",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|L|a|d|e|h|e|m|m|u|n|g|s|s|c|h|r|a|n|k|e",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|H|i|t|z|e|s|c|h|a|d|e|n|s|s|c|h|r|a|n|k|e",
-	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
+	L"|G|i|f|t|-|I|n|d|i|k|a|t|o|r",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -6959,27 +6959,27 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nDieser Gegenstand verändert die Genauigkeit,\ndie die Waffe mit jedem zusätzlichen Punkt durch genaueres Zielen erhält um den genannten Prozentsatz der ursprünglichen Genauigkeit.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Anzahl der möglichen zusätzlichen Zielpunkte dieser Waffe. \n \nEine niedrigere Anzahl von möglichen zusätzlichen Zielpunkten bedeutet,\n daß jeder Zielpunkt proportional mehr Genauigkeit zum Schuss beiträgt.\n\nDies bedeutet, das weniger mögliche zusätzliche Zielpunkte ein schnelleres Zielen mit dieser Waffen erlauben, ohne die Genauigkeit zu reduzieren!\n \nNiedriger ist besser.",
 	L"\n \nDieser Gengenstand verändert den Höchstwert für Genauigkeit des Schützen mit Fernwaffen\num den angegebenen Prozentsatz seiner ursprünglichen maximalen Genauigkeit.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verändert die Schwierigkeit der Handhabung der Waffe.\nEine bessere Handhabung macht die Waffe genauer zu feuern; mit oder ohne zusätzliches Zielen.\n Der Wert bezieht sich dabei auf den ursprüngliche Handhabungs-Wert der Waffe,\nwelcher höher ist für Gewehre und schwere Waffen,\nund niedriger bei Pistolen und leichten Waffen.\n \nNiedriger ist besser",
+	L"\n \nWenn befestigt an einer Fernwaffe verändert dieser Gegenstand die Schwierigkeit der Handhabung der Waffe.\nEine bessere Handhabung macht die Waffe genauer zu feuern; mit oder ohne zusätzliches Zielen.\n Der Wert bezieht sich dabei auf den ursprüngliche Handhabungs-Wert der Waffe,\nwelcher höher ist für Gewehre und schwere Waffen,\nund niedriger bei Pistolen und leichten Waffen.\n \nNiedriger ist besser",
 	L"\n \nDieser Gegenstand verändert die Schwierigkeit,\nmit einer Waffe auch jenseits ihrer effektiven Reichweite zu treffen.\n \nEin hoher Wert kann durchaus\ndie tatsächliche effektive Reichweite dieser Waffe\num einige Felder verlängern.\nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Schwierigkeit,\nein sich bewegendes Ziel zu treffen.\nEin hoher Wert kann es einfacher machen,\nsich bewegende Ziele auch in großer Entfernung zu treffen.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert den Schaden,\nwelchen diese Waffe anrichtet.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert den Schaden,\nden eine Handwaffe anrichtet, um den angegebenen Wert.\n \n Dies bezieht sich sowohl auf Klingen als auch auf Schlagwaffen.\n \nHöher ist besser",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verändert die größte effektive Reichweite.\n \nDie größte effektive Reichweite bestimmt,\nwie weit eine Kugel fliegt, bevor sie schnell in Richtung Boden fällt.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand bietet eine zusätzlich Zielvergrößerung an,\nwas Schüsse auf große Entfernung vergleichsweise einfacher macht.\n \nEin hoher Vergrößerungsfaktor wirkt sich allerdings nachteilig aus\nbei Zielen, die näher als die optimale Entfernung sind.\n\nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand blendet einen Punkt über das Ziel ein,\nwas das Treffen deutlich vereinfacht.\n\nDieser Effekt ist nur bis zu einer bestimmten Entfernung nützlich, darüber hinaus vermindert und schließlich verschwindet der Effekt.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert den horizontalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert den vertikalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe verändert\ndieser Gegenstand die größte effektive Reichweite.\n \nDie größte effektive Reichweite bestimmt,\nwie weit eine Kugel fliegt, bevor sie schnell in Richtung Boden fällt.\n \nHöher ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe bietet\ndieser Gegenstand eine zusätzlich Zielvergrößerung an,\nwas Schüsse auf große Entfernung vergleichsweise einfacher macht.\n \nEin hoher Vergrößerungsfaktor wirkt sich allerdings nachteilig aus\nbei Zielen, die näher als die optimale Entfernung sind.\n\nHöher ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe blendet\ndieser Gegenstand einen Punkt über das Ziel ein,\nwas das Treffen deutlich vereinfacht.\n\nDieser Effekt ist nur bis zu einer bestimmten Entfernung nützlich, darüber hinaus vermindert und schließlich verschwindet der Effekt.\n \nHöher ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den horizontalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den vertikalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
 	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\nseine Waffe im Feuerstoß oder Dauerfeuer unter Kontrolle zu behalten.\n\n Ein hoher Wert kann auch körperlich schwachen Schützen helfen, Waffen mit starkem Rückstoß zu kontrollieren. \n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\ndem Rückstoß der Waffe im Feuerstoß oder Dauerfeuer wirksam entgegenzuwirken.\n\n Ein hoher Wert erlaubt dem Schützen,\n die Waffe besser auf das Ziel auszurichten,\n was im Ergebnis die Genauigkeit von Feuerstößen erhöht. \n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\ndie Kraft, welche er benötigt, um dem Rückstoß im Feuerstoß oder Dauerfeuer entgegenzuwirken, öfter anzupassen.\n\n Ein höherer Wert macht Feuerstöße generell genauer,\n insbesondere lange Feuerstöße,\nvorausgesetzt, der Schütze kann dem Rückstoß wirksam entgegenwirken. \n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Anzahl der Aktionspunkte,\nwelche der Charakter zu Beginn jeder Runde bekommt. \n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Genestand verändert die Anzahl der Aktionspunkte,\ndie benötigt werden,\num die Waffe in Anschlag zu bringen.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an irgendeiner Waffe dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie für einen Angriff mit der Waffe benötigt werden.\n\n Dies bezieht sich auch auf Feuerstoß oder Dauerfeuer fähige Waffen.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie für die Abgabe eines Feuerstoßes benötigt werden.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie für das Schießen im Dauerfeuer Modus benötigt werden.\n\n Dies bezieht sich allerdings nicht auf die AP, die benötigt werden,\num zusätzliche Schüsse im Feuerstoß abzugeben. .\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie benötigt werden, um die Waffe zu laden.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verändert die Magazinkapazität von Magazinen welche in die Waffe geladen werden können. \n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verändert die Anzahl der Kugeln,\ndie pro Feuerstoß abgegeben werden.\n\n Wenn die Waffe ursprünglich nicht für Feuerstöße angelegt war,\nkann ein positiver Faktor die Abgabe von Feuerstößen ermöglichen.\n\nIm Gegensatz kann eine Waffe mit einer solchen Funktion diese bei einem entsprechend negativem Faktor verlieren. \n \nHöher ist - gewöhnlich – besser. Allerdings ist Munitionssparen ein Grund für kontrollierte Feuerstöße.",
+	L"\n \nWenn befestigt an einer Fernwaffe verändert dieser Gegenstand die Anzahl der Aktionspunkte,\ndie benötigt werden,\num die Waffe in Anschlag zu bringen.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an irgendeiner Waffe verändert dieser Gegenstand die Anzahl der Aktionspunkte,\ndie für einen Angriff mit der Waffe benötigt werden.\n\n Dies bezieht sich auch auf Feuerstoß oder Dauerfeuer fähige Waffen.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand die Anzahl der Aktionspunkte,\ndie für die Abgabe eines Feuerstoßes benötigt werden.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand die Anzahl der Aktionspunkte,\ndie für das Schießen im Dauerfeuer Modus benötigt werden.\n\n Dies bezieht sich allerdings nicht auf die AP, die benötigt werden,\num zusätzliche Schüsse im Feuerstoß abzugeben. .\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe verändert dieser Gegenstand die Anzahl der Aktionspunkte,\ndie benötigt werden, um die Waffe zu laden.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe verändert dieser Gegenstand\ndie Magazinkapazität von Magazinen welche in die Waffe geladen werden können. \n \nHöher ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe verändert dieser Gegenstand die Anzahl der Kugeln,\ndie pro Feuerstoß abgegeben werden.\n\n Wenn die Waffe ursprünglich nicht für Feuerstöße angelegt war,\nkann ein positiver Faktor die Abgabe von Feuerstößen ermöglichen.\n\nIm Gegensatz kann eine Waffe mit einer solchen Funktion diese bei einem entsprechend negativem Faktor verlieren. \n \nHöher ist - gewöhnlich – besser. Allerdings ist Munitionssparen ein Grund für kontrollierte Feuerstöße.",
 	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\nein Verbergen des Mündungsfeuers.\n \nDadruch wird es schwieriger den Schützen zu entdecken.",
 	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\ndie Lautstärke der Waffe.\n \nNiedriger ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst die Größe des Gegenstands\nan den er angebracht ist.\n \nDie Größe des Gegenstands bestimmt wie oft und worin er\nbefördert werden kann.\n \nNiedriger ist besser.",
@@ -7008,7 +7008,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nAbkühlung wird um diesen Prozentsatz erhöht.\n \nHöher ist besser.",
 	L"\n \nLadehemmungsschranke wird um diesen Prozentsatz erhöht.\n \nHöher ist besser.",
 	L"\n \nHitzeschadensschranke wird um diesen Prozentsatz erhöht.\n \nHöher is besser.",
-	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",	// TODO.Translate
+	L"\n \nDies ist der prozentuelle Schaden der durch\nden vergifteten Gegenstand verursacht wird.\n\nDieser Schaden hängt natürlich davon ab,\noder der Feind eine Gift-Resistenz hat oder nicht.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
