@@ -13949,3 +13949,19 @@ BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag )
 {
 	return( (Item[usItem].usItemFlag & aFlag) != 0 );
 }
+
+// Flugente: get first item number that has this flag. Use with caution, as we search in all items
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag )
+{
+	register UINT16 i;
+	for (i = 1; i < MAXITEMS; ++i)
+	{
+		if ( HasItemFlag(i, aFlag) )
+		{
+			(*pusItem) = i;
+			return( TRUE );
+		}
+	}
+
+	return( FALSE );
+}

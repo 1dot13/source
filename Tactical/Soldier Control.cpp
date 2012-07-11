@@ -14424,6 +14424,8 @@ extern UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 
 void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection )
 {
+	// a static variable that is the item number of sandbags. Hardcoding item numbers is bad, that's why we will search for it.
+	static UINT16 fullsandbagnr = 1541;
 	BOOLEAN fSuccess = FALSE;
 
 	// if specified by the ini, building/disassembling stuff is disabled while enemies are around
@@ -14483,9 +14485,8 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 
 				if ( pShovelObj && pShovelObj->exists() && HasItemFlag(this->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
 				{
-					// test: does there an item that is a filled sandbag exist? (xmls might have changed)
-					UINT16 fullsandbagnr = 1541;
-					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
+					// eventually search for the number of a sandbag item
+					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
 					{
 						// Erase 'material' item from our hand - we 'used' it to build the structure
 						INT8 bObjSlot = HANDPOS;
@@ -14502,27 +14503,6 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 
 						fSuccess = TRUE;
 					}
-					else
-					{
-						fullsandbagnr = 2824;
-						if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
-						{
-							// Erase 'material' item from our hand - we 'used' it to build the structure
-							INT8 bObjSlot = HANDPOS;
-
-							CreateItem( fullsandbagnr, 100, &gTempObject );
-
-							SwapObjs( this, bObjSlot, &gTempObject, TRUE );
-
-							// we gain a bit of experience...
-							StatChange( this, STRAMT, 1, TRUE );
-							StatChange( this, HEALTHAMT, 1, TRUE );
-
-							DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
-
-							fSuccess = TRUE;
-						}
-					}
 				}
 			}
 		}
@@ -14531,9 +14511,8 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 			// Build the thing
 			if ( RemoveFortification( sGridNo ) )
 			{
-				// test: does there an item that is a filled sandbag exist? (xmls might have changed)
-				UINT16 fullsandbagnr = 1541;
-				if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
+				// eventually search for the number of a sandbag item
+				if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
 				{
 					// Erase 'material' item from our hand - we 'used' it to build the structure
 					INT8 bObjSlot = HANDPOS;
@@ -14550,28 +14529,6 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 					DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
 
 					fSuccess = TRUE;
-				}
-				else
-				{
-					fullsandbagnr = 2824;
-					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) )
-					{
-						// Erase 'material' item from our hand - we 'used' it to build the structure
-						INT8 bObjSlot = HANDPOS;
-
-						CreateItem( fullsandbagnr, 100, &gTempObject );
-
-						// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
-						AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
-
-						// we gain a bit of experience...
-						StatChange( this, STRAMT, 3, TRUE );
-						StatChange( this, HEALTHAMT, 2, TRUE );
-
-						DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
-
-						fSuccess = TRUE;
-					}
 				}
 			}
 		}

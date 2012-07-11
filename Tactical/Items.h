@@ -465,4 +465,7 @@ void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, 
 // Flugente: check for specific flags
 BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag );
 
+// Flugente: get first item number that has this flag. Use with caution, as we search in all items
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag );
+
 #endif
