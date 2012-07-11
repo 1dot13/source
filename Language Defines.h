@@ -79,7 +79,7 @@
 */
 
 // Only enable this "undef", if you use the 3. way of building the executable!
-//#undef ENGLISH
+#undef ENGLISH
 
 #if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
