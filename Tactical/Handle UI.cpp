@@ -1238,7 +1238,7 @@ UINT32 UIHandleEnterPalEditMode( UI_EVENT *pUIEvent )
 
 UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 {
-CHAR16	zString[128]; 
+	CHAR16	zString[128]; 
 
 	// CANCEL FROM PLANNING MODE!
 	if ( InUIPlanMode( ) )
@@ -1248,9 +1248,7 @@ CHAR16	zString[128];
 
 	// ATE: If we have an item pointer end it!
 	CancelItemPointer( );
-
-	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ ENDING_TURN ] );
-
+	
 	if ( CheckForEndOfCombatMode( FALSE ) )
 	{
 		// do nothing...
@@ -1274,76 +1272,82 @@ CHAR16	zString[128];
 			SaveGame(SAVE__END_TURN_NUM, zString ); 
 		}
 
-	////ddd оптимизация для хода драников
-	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT ) )	
-	{
-//UINT32		uiStartTime, uiEndTime;
-//uiStartTime = GetJA2Clock();
-
-
-	 memset( gubWorldTileInLight, FALSE, sizeof( gubWorldTileInLight ) );
- 	 memset( gubIsCorpseThere, FALSE, sizeof( gubIsCorpseThere ) );
- 	 memset( gubMerkCanSeeThisTile, FALSE, sizeof( gubMerkCanSeeThisTile ) );
- 	 //развертка цикла. при изменении WORLD_MAX на др.знач. необходимо будет подчищать хвосты! ибо опасный код!!! ;)
-	 for(INT32 i=0; i<WORLD_MAX ;i+=4) 
-	 {
-	  gubWorldTileInLight[i] = InLightAtNight(i, gpWorldLevelData[ i ].sHeight);
-	  gubIsCorpseThere[i] = IsCorpseAtGridNo( i, gpWorldLevelData[ i ].sHeight );
-	  gubWorldTileInLight[i+1] = InLightAtNight(i+1, gpWorldLevelData[ i+1 ].sHeight);
-	  gubIsCorpseThere[i+1] = IsCorpseAtGridNo( i+1, gpWorldLevelData[ i+1 ].sHeight );
-	  gubWorldTileInLight[i+2] = InLightAtNight(i+2, gpWorldLevelData[ i+2 ].sHeight);
-	  gubIsCorpseThere[i+2] = IsCorpseAtGridNo( i+2, gpWorldLevelData[ i+2 ].sHeight );
-	  gubWorldTileInLight[i+3] = InLightAtNight(i+3, gpWorldLevelData[ i+3 ].sHeight);
-	  gubIsCorpseThere[i+3] = IsCorpseAtGridNo( i+3, gpWorldLevelData[ i+3 ].sHeight );
-	 }
-
-	INT32 tcnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	SOLDIERTYPE *tS;
-
-	INT16	sXOffset, sYOffset;
-	INT32	sGridNo;UINT16	usSightLimit=0;
-
-	for ( tS = MercPtrs[ tcnt ]; tcnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; tcnt++,tS++ )
-		if ( tS->stats.bLife >= OKLIFE && tS->sGridNo != NOWHERE && tS->bInSector )
+		////ddd оптимизация для хода драников
+		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT ) )	
 		{
-			//loop through all the gridnos that we are interested in
-			for (sYOffset = -30; sYOffset <= 30; sYOffset++)
-				for (sXOffset = -30; sXOffset <= 30; sXOffset++)
-				{
-					sGridNo = tS->sGridNo + sXOffset + (MAXCOL * sYOffset);
-					if ( sGridNo <= 0 || sGridNo >= WORLD_MAX ) continue;
-					//usSightLimit = tS->GetMaxDistanceVisible(sGridNo, FALSE, CALC_FROM_WANTED_DIR);
-					if(gubMerkCanSeeThisTile[sGridNo]==0)
-						gubMerkCanSeeThisTile[sGridNo]=//SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, FALSE, ANIM_STAND, TRUE, usSightLimit );
-								SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, tS->pathing.bLevel, 
-																		ANIM_STAND, TRUE, CALC_FROM_WANTED_DIR);
+		 memset( gubWorldTileInLight, FALSE, sizeof( gubWorldTileInLight ) );
+ 		 memset( gubIsCorpseThere, FALSE, sizeof( gubIsCorpseThere ) );
+ 		 memset( gubMerkCanSeeThisTile, FALSE, sizeof( gubMerkCanSeeThisTile ) );
+	 	 
+		 //развертка цикла. при изменении WORLD_MAX на др.знач. необходимо будет подчищать хвосты! ибо опасный код!!! ;)
 
-				}//fo
-		}//if
-/////////////////////////////////////////////////////////////////////////////
-//uiEndTime = GetJA2Clock();
-//ScreenMsg( 144,0, L"t=%d",uiEndTime - uiStartTime );
-//
-	}
-	//ddd оптимизация для хода драников**
-		
+		 // WANNE: We had a custom user map (Tixa, J9), where the following loop caused an unhandled exception.
+		 // The crash occurd at ~index 16000 when calling the method IsCorpseAtGridNo() ...
+		 // I don't know what causes it ...
+		 // Just try/catch (ugly, but works).	 
+		 __try
+		 {		 
+			 for(UINT32 i=0; i<WORLD_MAX ;i+=4) 
+			 {			
+				gubWorldTileInLight[i] = InLightAtNight(i, gpWorldLevelData[ i ].sHeight);
+				gubIsCorpseThere[i] = IsCorpseAtGridNo( i, gpWorldLevelData[ i ].sHeight );
+				gubWorldTileInLight[i+1] = InLightAtNight(i+1, gpWorldLevelData[ i+1 ].sHeight);
+				gubIsCorpseThere[i+1] = IsCorpseAtGridNo( i+1, gpWorldLevelData[ i+1 ].sHeight );
+				gubWorldTileInLight[i+2] = InLightAtNight(i+2, gpWorldLevelData[ i+2 ].sHeight);
+				gubIsCorpseThere[i+2] = IsCorpseAtGridNo( i+2, gpWorldLevelData[ i+2 ].sHeight );
+				gubWorldTileInLight[i+3] = InLightAtNight(i+3, gpWorldLevelData[ i+3 ].sHeight);
+				gubIsCorpseThere[i+3] = IsCorpseAtGridNo( i+3, gpWorldLevelData[ i+3 ].sHeight );
+			 }	
+		 }
+		__except( EXCEPTION_EXECUTE_HANDLER  )
+		{
+			// WANNE: Ignore, so the game can continue ...
+		}
+
+		INT32 tcnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SOLDIERTYPE *tS;
+
+		INT16	sXOffset, sYOffset;
+		INT32	sGridNo;UINT16	usSightLimit=0;
+
+		for ( tS = MercPtrs[ tcnt ]; tcnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; tcnt++,tS++ )
+			if ( tS->stats.bLife >= OKLIFE && tS->sGridNo != NOWHERE && tS->bInSector )
+			{
+				//loop through all the gridnos that we are interested in
+				for (sYOffset = -30; sYOffset <= 30; sYOffset++)
+					for (sXOffset = -30; sXOffset <= 30; sXOffset++)
+					{
+						sGridNo = tS->sGridNo + sXOffset + (MAXCOL * sYOffset);
+						if ( sGridNo <= 0 || sGridNo >= WORLD_MAX ) 
+							continue;
+						//usSightLimit = tS->GetMaxDistanceVisible(sGridNo, FALSE, CALC_FROM_WANTED_DIR);
+						if(gubMerkCanSeeThisTile[sGridNo]==0)
+							gubMerkCanSeeThisTile[sGridNo]=//SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, FALSE, ANIM_STAND, TRUE, usSightLimit );
+									SoldierToVirtualSoldierLineOfSightTest( tS, sGridNo, tS->pathing.bLevel, 
+																			ANIM_STAND, TRUE, CALC_FROM_WANTED_DIR);
+
+					}//fo
+			}//if
+		}
+		//ddd оптимизация для хода драников**
+			
 		// End our turn!
 		if (is_server || !is_client)
 		{
 			EndTurn( gbPlayerNum + 1 );
 		}
-			if(!is_server && is_client)
+		if(!is_server && is_client)
+		{
+			
+			if (INTERRUPT_QUEUED)
 			{
-				
-					if (INTERRUPT_QUEUED)
-					{
-						EndTurn( gbPlayerNum + 1 );//is ending interrupt instead
-					}
-					else
-					{
-						send_EndTurn( netbTeam+1 );//for sending next netbteam rather than next local team
-					}
+				EndTurn( gbPlayerNum + 1 );//is ending interrupt instead
 			}
+			else
+			{
+				send_EndTurn( netbTeam+1 );//for sending next netbteam rather than next local team
+			}
+		}
 	}
 
 	return( GAME_SCREEN );
