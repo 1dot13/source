@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\JA2_EN_Release_5387.exe"
+				OutputFile="$(OutDir)\JA2_EN_Release_5393.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -229,7 +229,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\MapEditor_EN_Release_5353_VS2005.exe"
+				OutputFile="$(OutDir)\MapEditor_EN_Release_5393.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
