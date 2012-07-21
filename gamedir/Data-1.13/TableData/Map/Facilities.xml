@@ -8,7 +8,7 @@
 											2 = No, never.
 -->
 
-<SECTORFACILITIES>
+<SECTORFACILITIES>  
 	<!-- DRASSEN -->
 	<FACILITY>
 		<SectorGrid>B13</SectorGrid>
@@ -76,6 +76,11 @@
 		<SectorGrid>H13</SectorGrid>
 		<FacilityType>18</FacilityType>
 		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H13</SectorGrid>
+		<FacilityType>20</FacilityType>
+		<ubHidden>1</ubHidden>
 	</FACILITY>
 	<FACILITY>
 		<SectorGrid>H14</SectorGrid>
