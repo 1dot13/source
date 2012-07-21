@@ -31,6 +31,7 @@
 #include "Text.h"
 // HEADROCK HAM 3.5: Add facility code for hourly update of detection levels
 #include "Facilities.h"
+#include "Food.h"	// added by Flugente
 
 void HourlyQuestUpdate( void );
 void HourlyLarryUpdate( void );
@@ -64,6 +65,10 @@ CHAR16	zString[128];
 
 	// hourly update of town loyalty
 	HandleTownLoyalty();
+
+	// Flugente: food update
+	if ( gGameOptions.fFoodSystem )
+		HourlyFoodUpdate();
 
 	// hourly update of team assignments
 	UpdateAssignments();

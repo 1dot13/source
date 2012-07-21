@@ -2361,7 +2361,7 @@ void DrawCharStats( INT16 sCharNum )
 	swprintf( sString, L"%d", pSoldier->stats.bStrength);
 
 	// SANDRO - if damaged stat we could regain, show in red until repaired
-	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 ))
+	if ( ( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) || (gGameOptions.fFoodSystem && pSoldier->usStarveDamageStrength > 0) )
 	{
 		SetFontForeground( FONT_RED );
 	}

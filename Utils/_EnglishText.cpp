@@ -1638,12 +1638,13 @@ STR16 pAssignmentStrings[] =
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
 	L"Staff", // operating a strategic facility
+	L"Eat",		// eating at a facility (cantina etc.)
 	L"Rest", // Resting at a facility
 	L"Dead", // dead
 	L"Incap.", // abbreviation for incapacitated
 	L"POW", // Prisoner of war - captured
-	L"Hospital", // patient in a hospital 
-	L"Empty",	// Vehicle is empty
+	L"Hospital", // patient in a hospital	
+	L"Empty",	// Vehicle is empty	
 };
 
 
@@ -1722,6 +1723,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Trainer",
 	L"Student",
 	L"Facility Staff",	// Missing
+	L"Eat",		// eating at a facility (cantina etc.)
 	L"Resting at Facility",		// Missing
 	L"Dead",
 	L"Incap.",
@@ -2926,6 +2928,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente to display health and poisoning
 	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+
+	// added by Flugente to display food status
+	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",	
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3478,6 +3484,8 @@ STR16 pMapScreenStatusStrings[] =
 	L"Condition",	// the condition of the current vehicle (its "health")
 	L"Fuel",	// the fuel level of the current vehicle (its "energy")
 	L"Poison",		// for display of poisoning
+	L"Water",		// drink level
+	L"Food",		// food level	
 };
 
 
@@ -5335,6 +5343,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Weapon Overheating",
+	L"Food System",
 	L"Bobby Ray Quantity",
 };
 
@@ -6649,6 +6658,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"AMBIENT",
 	L"Staff",
+	L"Eat",
 	L"Rest",
 	L"Repair Items",
 	L"Repair %s", // Vehicle name inserted here
@@ -7028,6 +7038,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|F|i|r|s|t |A|i|d |K|i|t",
 	L"|M|e|d|i|c|a|l |K|i|t",
 	L"|L|o|c|k |B|o|m|b",
+	L"|D|r|i|n|k",
+	L"|M|e|a|l",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7058,6 +7070,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis is a basic field medical kit, containing\nitems required to provide basic medical aid.\n \nIt can be used to bandage wounded characters\nand prevent bleeding.\n \nFor actual healing, use a proper Medical Kit\nand/or plenty of rest.",
 	L"\n \nThis is a proper medical kit, which can\nbe used in surgery and other serious medicinal\npurposes.\n \nMedical Kits are always required when setting\na character to Doctoring duty.",
 	L"\n \nThis item can be used to blast open locked\ndoors and containers.\n \nExplosives skill is required to avoid\npremature detonation.\n \nBlowing locks is a relatively easy way of quickly\ngetting through locked doors. However,\nit is very loud, and dangerous to most characters.",
+	L"\n \nThis item will still your thirst\nif you drink it.",
+	L"\n \nThis item will still your hunger\nif you eat it.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -7272,7 +7286,7 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Hide all",
 };
 
-// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+// Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =
 {
 	L"Temperature is ",
@@ -7285,6 +7299,19 @@ STR16 gTemperatureDesc[] =
 	L"CRITICAL",
 	L"DRAMATIC",
 	L"unknown",
+	L"."
+};
+
+// Flugente: food condition texts
+STR16 gFoodDesc[] =
+{
+	L"Food is ",
+	L"fresh",
+	L"good",
+	L"ok",
+	L"stale",
+	L"shabby",
+	L"rotting",
 	L"."
 };
 

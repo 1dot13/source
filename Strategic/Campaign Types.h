@@ -148,6 +148,7 @@ enum
 	// Enumerate the different assignments that a facility can emulate.
 	FAC_AMBIENT = 0,
 	FAC_STAFF,
+	FAC_FOOD,
 	FAC_REST,
 	FAC_REPAIR_ITEMS,
 	FAC_REPAIR_VEHICLE,
@@ -180,7 +181,7 @@ enum
 	FAC_TRAINER_MEDICAL,
 	FAC_TRAINER_MECHANICAL,
 	FAC_TRAINER_LEADERSHIP,
-	FAC_TRAINER_EXPLOSIVES,
+	FAC_TRAINER_EXPLOSIVES,	
 	NUM_FACILITY_ASSIGNMENTS,
 };
 
@@ -247,6 +248,7 @@ typedef struct FACILITYASSIGNMENTTYPE
 	INT16 sSkyriderCostModifier;	// Flat modifier for Skyrider's Cost Per Tile
 	UINT16 usMineIncomeModifier;	// Percentage income adjustment
 	BOOLEAN fOnlyLocalMineAffected;		// Determines whether income modifier applies to local mine only, or all mines.
+	INT16 sCantinaFoodModifier;		// how many food points do we get when spending time in a cantina?
 	
 	UINT8 ubMinimumStrength;		// Minimum STR Requirement to begin this assignment
 	UINT8 ubMinimumHealth;			// Minimum HLT Requirement to begin this assignment

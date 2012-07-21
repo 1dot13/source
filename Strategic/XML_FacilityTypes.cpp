@@ -98,6 +98,8 @@ void InitAssignmentDataArray( facilitytypeParseData *pData )
 	pData->curAssignmentData.usMineIncomeModifier = 100;
 	pData->curAssignmentData.fOnlyLocalMineAffected = 0;
 
+	pData->curAssignmentData.sCantinaFoodModifier = 100;
+
 	pData->curAssignmentData.ubMaximumBreath = 100;
 	pData->curAssignmentData.ubMaximumMorale = 100;
 
@@ -217,7 +219,8 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 				strcmp(name, "fCountEnemiesInCities") == 0 ||
 				strcmp(name, "sSkyriderCostModifier") == 0 ||
 				strcmp(name, "usMineIncomeModifier") == 0 ||
-				strcmp(name, "fOnlyLocalMineAffected") == 0 ))
+				strcmp(name, "fOnlyLocalMineAffected") == 0 ||
+				strcmp(name, "sCantinaFoodModifier") == 0 ))
 		{
 			pData->curElement = FACILITYTYPE_ASSIGNMENT_ELEMENT;
 
@@ -449,6 +452,8 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usMineIncomeModifier = pData->curFacilityTypeData.AssignmentData[cnt].usMineIncomeModifier;
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fOnlyLocalMineAffected = pData->curFacilityTypeData.AssignmentData[cnt].fOnlyLocalMineAffected;
 
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].sCantinaFoodModifier = pData->curFacilityTypeData.AssignmentData[cnt].sCantinaFoodModifier;
+							
 							// Conditions
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumStrength = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumStrength;
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumAgility = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumAgility;
@@ -587,6 +592,8 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usMineIncomeModifier = pData->curAssignmentData.usMineIncomeModifier;
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fOnlyLocalMineAffected = pData->curAssignmentData.fOnlyLocalMineAffected;
 
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].sCantinaFoodModifier = pData->curAssignmentData.sCantinaFoodModifier;
+
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumBreath = pData->curAssignmentData.ubMaximumBreath;
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumMorale = pData->curAssignmentData.ubMaximumMorale;
 
@@ -647,6 +654,11 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
 				pData->curAssignmentType = FAC_STAFF;
+			}
+			else if (strcmp(pData->szCharData, "FACILITY_EAT") == 0)
+			{
+				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
+				pData->curAssignmentType = FAC_FOOD;
 			}
 			else if (strcmp(pData->szCharData, "REST") == 0)
 			{
@@ -811,7 +823,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
 				pData->curAssignmentType = FAC_STUDENT_EXPLOSIVES;
-			}
+			}			
 			else
 			{
 				CHAR16 sErrorString[256];
@@ -928,6 +940,12 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = FACILITYTYPE_ASSIGNMENT;
 			pData->curAssignmentData.fOnlyLocalMineAffected = (BOOLEAN) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "sCantinaFoodModifier") == 0 )
+		{
+			pData->curElement = FACILITYTYPE_ASSIGNMENT;
+			pData->curAssignmentData.sCantinaFoodModifier = (UINT16) atol(pData->szCharData);
 		}
 
 		//////////////////////////////////////////////

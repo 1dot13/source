@@ -2482,6 +2482,8 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		gGameOptions.fUseNCTH = FALSE;
 		gGameOptions.fImprovedInterruptSystem = FALSE;
 		gGameOptions.fWeaponOverheating = FALSE;
+		gGameOptions.fFoodSystem = FALSE;
+
 
 		// Server forces us to play with new Inventory, but NIV is not allowed on the client,
 		// because of wrong resolution or other stuff
@@ -2703,6 +2705,7 @@ void reapplySETTINGS()
 	gGameOptions.fUseNCTH = FALSE;
 	gGameOptions.fImprovedInterruptSystem = FALSE;
 	gGameOptions.fWeaponOverheating = FALSE;
+	gGameOptions.fFoodSystem = FALSE;
 
 	// WANNE - MP: We have to re-initialize the correct interface
 	if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))

@@ -141,6 +141,12 @@ INT16 GetFacilityModifier( UINT8 ubModifierType, UINT8 ubFacilityType, UINT8 ubA
 				sAssignmentModifier = 100 + ((sAssignmentModifier-100) + (sAmbientModifier-100));
 				return (sAssignmentModifier);
 
+			case FACILITY_CANTINA_MOD:
+				sAssignmentModifier = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCantinaFoodModifier;
+				sAmbientModifier = gFacilityTypes[ubFacilityType].AssignmentData[0].sCantinaFoodModifier;
+				sAssignmentModifier = 100 + ((sAssignmentModifier-100) + (sAmbientModifier-100));
+				return (sAssignmentModifier);
+
 			default:
 				return (0);
 		}
@@ -893,6 +899,9 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 			break;
 		case FACILITY_STAFF:
 			bAssignmentIndex = FAC_STAFF;
+			break;
+		case FACILITY_EAT:
+			bAssignmentIndex = FAC_FOOD;
 			break;
 		case FACILITY_REST:
 			bAssignmentIndex = FAC_REST;

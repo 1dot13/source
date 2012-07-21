@@ -11285,7 +11285,7 @@ void GunIncreaseHeat( OBJECTTYPE *pObj )
 
 	  FLOAT singleshottemperature = GetSingleShotTemperature( pObj );						// ... get temperature rise ...
 
-	  FLOAT newguntemperature = min(guntemperature + singleshottemperature, (FLOAT)(OVERHEATING_MAX_TEMPERATURE) );					// ... calculate new temperature ...
+	  FLOAT newguntemperature = min(guntemperature + singleshottemperature, OVERHEATING_MAX_TEMPERATURE );					// ... calculate new temperature ...
 
 	  (*pObj)[0]->data.bTemperature = newguntemperature;									// ... apply new temperature
 
@@ -11353,7 +11353,7 @@ FLOAT   GetGunOverheatJamPercentage( OBJECTTYPE * pObj )
 
 FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj )
 {
-	FLOAT jamthreshold = (FLOAT) (OVERHEATING_MAX_TEMPERATURE / 4.0);
+	FLOAT jamthreshold = OVERHEATING_MAX_TEMPERATURE / 4.0f;
 
 	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 	{
@@ -11379,7 +11379,7 @@ FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj )
 
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj )
 {
-	FLOAT damagethreshold = (FLOAT) (OVERHEATING_MAX_TEMPERATURE / 4.0);
+	FLOAT damagethreshold = OVERHEATING_MAX_TEMPERATURE / 4.0f;
 
 	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 	{

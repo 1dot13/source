@@ -62,12 +62,13 @@ enum
 	TRAIN_TEAMMATE,
 	TRAIN_BY_OTHER,
 	FACILITY_STAFF,		// HEADROCK HAM 3.6: Operating a facility for strategic gain.
+	FACILITY_EAT,		// added by Flugente
 	FACILITY_REST,			// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
 	ASSIGNMENT_DEAD,
 	ASSIGNMENT_UNCONCIOUS,			// unused
 	ASSIGNMENT_POW,
 	ASSIGNMENT_HOSPITAL,
-	ASSIGNMENT_EMPTY,
+	ASSIGNMENT_EMPTY,	
 	NUM_ASSIGNMENTS,
 };
 

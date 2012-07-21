@@ -36,6 +36,7 @@
 	#include "Soldier Control.h"	// added by SANDRO 
 	#include "opplist.h"	// added by SANDRO 
 	#include "lighting.h"	// added by SANDRO 
+	#include "Food.h"		// added by Flugente
 #endif
 #include "connect.h"
 //rain
@@ -795,6 +796,11 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 	// NB: iBPCost > 0 - breath loss, iBPCost < 0 - breath gain
 	if (iBPCost)
 	{
+		// Flugente: if we GAIN breath points, adjust them - if we are hungry, we get fewer points back
+		// Flugente: ubMaxMorale can now be influenced by our food situation
+		if ( iBPCost < 0 && gGameOptions.fFoodSystem )
+			ReduceBPRegenForHunger(pSoldier, &iBPCost);
+
 		if (is_networked)
 		{
 			// Adjust breath changes due to spending or regaining of energy

@@ -221,7 +221,7 @@ typedef enum
 #define GS_WEAPON_BEING_RELOADED			0x02
 
 // Flugente: define for maximum temperature
-#define OVERHEATING_MAX_TEMPERATURE			60000.0
+#define OVERHEATING_MAX_TEMPERATURE			60000.0f
 
 //forward declaration
 class OBJECTTYPE;
@@ -717,10 +717,10 @@ extern OBJECTTYPE gTempObject;
 #define SHOVEL					0x00000004	//4
 #define CONCERTINA				0x00000008	//8
 
-/*#define WH40K_POWER_ARMOR		0x00000010	//16
-#define WH40K_POWER_PACK		0x00000020	//32
-#define WH40K_JUMPPACK   		0x00000040	//64
-#define WH40K_DISPLACER			0x00000080	//128
+#define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
+#define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
+#define COW_MEAT   				0x00000040	//64		// retrieve this by gutting a cow
+/*#define WH40K_DISPLACER			0x00000080	//128
 
 #define WH40K_ROSARIUS			0x00000100	//256
 #define WH40K_SEAL				0x00000200	//512
@@ -1008,6 +1008,9 @@ typedef struct
 	INT16	bPoisonPercentage;
 
 	UINT32	usItemFlag;								// bitflags to store various item properties (better than introducing 32 BOOLEAN values). If I only had thought of this earlier....
+
+	// Flugente: food type
+	UINT32	foodtype;
 
 } INVTYPE;
 

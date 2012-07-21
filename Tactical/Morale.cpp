@@ -26,6 +26,7 @@
 	// addedd by SANDRO
 	#include "GameSettings.h"
 	#include "Isometric Utils.h"
+	#include "Food.h"
 #endif
 
 #include "connect.h"
@@ -88,8 +89,11 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ TACTICAL_MORALE_EVENT,			-1},	//	MORALE_PSYCHO_UNABLE_TO_PSYCHO,
 	{ STRATEGIC_MORALE_EVENT,			+1},	//	MORALE_PACIFIST_GAIN_NONCOMBAT,
 	{ TACTICAL_MORALE_EVENT,			+1},	//	MORALE_MALICIOUS_HIT,
-	// added by SANDRO
-	{ TACTICAL_MORALE_EVENT,			-1},	//MORALE_KHORNATE_RANGED_COMBAT,
+	// added by Flugente
+	{ TACTICAL_MORALE_EVENT,			1},		//MORALE_FOOD,
+	{ TACTICAL_MORALE_EVENT,			5},		//MORALE_GOOD_FOOD,
+	{ TACTICAL_MORALE_EVENT,			-1},	//MORALE_BAD_FOOD,
+	{ TACTICAL_MORALE_EVENT,			-5},	//MORALE_LOATHSOME_FOOD,
 };
 
 BOOLEAN gfSomeoneSaidMoraleQuote = FALSE;
@@ -349,6 +353,10 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 		}
 	}
 
+	// Flugente: ubMaxMorale can now be influenced by our food situation
+	if ( gGameOptions.fFoodSystem )
+		FoodMaxMoraleModifiy(pSoldier, &ubMaxMorale);
+
 	if (ubMaxMorale > 0 && iActualMorale > ubMaxMorale)
 	{
 		// Normalize to Max Morale
@@ -525,7 +533,7 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 				}
 			}
 		}
-		else if ( bMoraleMod != MORALE_PSYCHO_UNABLE_TO_PSYCHO && bMoraleMod != MORALE_KHORNATE_RANGED_COMBAT)
+		else if ( bMoraleMod != MORALE_PSYCHO_UNABLE_TO_PSYCHO )
 		{
 			switch( pProfile->bAttitude )
 			{
@@ -912,7 +920,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			break;
 
 			// added by Flugente
-		case MORALE_KHORNATE_RANGED_COMBAT:
+		case MORALE_FOOD:
+		case MORALE_GOOD_FOOD:
+		case MORALE_BAD_FOOD:
+		case MORALE_LOATHSOME_FOOD:
 			Assert( pSoldier );
 			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			break;

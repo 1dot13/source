@@ -66,6 +66,14 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		gMercProfiles[ LARRY_DRUNK ].bNPCData = 0;
 	}
 
+	BOOLEAN consumeitem = TRUE;
+	// if item is also a food iem, don't use it up here, it will be consumed in ApplyFood, which will be called afterwards
+	UINT32 foodtype = Item[pObject->usItem].foodtype;
+
+	// if not a food item, nothing to see here
+	if ( foodtype > 0  )
+		consumeitem = FALSE;
+
 	// set flag: we are on drugs
 	pSoldier->bSoldierFlagMask |= SOLDIER_DRUGGED;
 
@@ -209,21 +217,28 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		pSoldier->bRegenBoostersUsedToday++;
 	}
 
-	// ATE: use kit points...
-	if ( usItem == ALCOHOL )
-		UseKitPoints( pObject, 10, pSoldier );
-	else if ( usItem == WINE )
-		UseKitPoints( pObject, 20, pSoldier );
-	else if ( usItem == BEER )
-		UseKitPoints( pObject, 100, pSoldier );
-	else
+	// increase drug counter if not alcoholic drug
+	if ( usItem != ALCOHOL && usItem != WINE && usItem != BEER )
 	{
-		// remove object
-		pObject->RemoveObjectsFromStack(1);
-
 		if ( gMercProfiles[ pSoldier->ubProfile ].ubNumTimesDrugUseInLifetime != 255 )
 		{
 			gMercProfiles[ pSoldier->ubProfile ].ubNumTimesDrugUseInLifetime++;
+		}
+	}
+
+	// ATE: use kit points...
+	if ( consumeitem )
+	{
+		if ( usItem == ALCOHOL )
+			UseKitPoints( pObject, 10, pSoldier );
+		else if ( usItem == WINE )
+			UseKitPoints( pObject, 20, pSoldier );
+		else if ( usItem == BEER )
+			UseKitPoints( pObject, 100, pSoldier );
+		else
+		{
+			// remove object
+			pObject->RemoveObjectsFromStack(1);
 		}
 	}
 		

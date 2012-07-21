@@ -18,6 +18,8 @@
 	#include "Soldier Control.h"
 #endif
 
+extern void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
+
 INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 {
 	INT8	bBandaged;

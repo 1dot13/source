@@ -673,8 +673,20 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 			// SANDRO - reduce damaged stat if this stat was increased normally
 			if ( fChangeTypeIncrease && (bDamagedStatToRaise != -1) )
 			{
+				INT16 ptstolower = sPtsChanged;
+				UINT8 oldctrpts = pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ];
+
 				if (pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] > 0)
-					pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] = max( 0, (pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] - sPtsChanged)); 
+				{
+					pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] = max( 0, (pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] - ptstolower));
+
+					ptstolower -= oldctrpts - pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ];
+				}
+								
+				if ( bDamagedStatToRaise == DAMAGED_STAT_STRENGTH && pSoldier->usStarveDamageStrength > 0 )
+					pSoldier->usStarveDamageStrength = max(0, pSoldier->usStarveDamageStrength - ptstolower);
+				else if ( bDamagedStatToRaise == DAMAGED_STAT_HEALTH && pSoldier->usStarveDamageHealth > 0 )
+					pSoldier->usStarveDamageHealth = max(0, pSoldier->usStarveDamageHealth - ptstolower);
 			}
 
 			// if it's a level gain, or sometimes for other stats

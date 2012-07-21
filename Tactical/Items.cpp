@@ -60,6 +60,7 @@
 	#include "popup_definition.h"
 
 	#include "drugs and alcohol.h"
+	#include "Food.h"
 #endif
 
 #ifdef JA2UB
@@ -1254,6 +1255,8 @@ std::map<UINT8,popupDef> LBEPocketPopup;
 //};
 
 DRUGTYPE Drug[DRUG_TYPE_MAX];
+
+FOODTYPE Food[FOOD_TYPE_MAX];
 
 BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 {
@@ -7117,6 +7120,13 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 			(*pObj)[bLoop]->data.objectStatus -= (INT8)(usPoints * (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction) ) )/100);
 			return( usOriginalPoints );
 		}
+		// Flugente: we no longer destroy canteens upon emtptying them - as we can now refill them
+		else if ( Item[pObj->usItem].canteen == TRUE )
+		{
+			// consume this kit totally
+			usPoints -= (((*pObj)[bLoop]->data.objectStatus - 1) / (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction))) /100);
+			(*pObj)[bLoop]->data.objectStatus = 1;
+		}
 		else
 		{
 			// consume this kit totally
@@ -7595,6 +7605,12 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		else
 		{
 			(*pObj)[0]->data.objectStatus = bStatus;
+		}
+
+		// Flugente: the temperature variable determines the quality of the food, begin with being fresh
+		if ( Item[usItem].foodtype > 0 )
+		{
+			(*pObj)[0]->data.bTemperature = OVERHEATING_MAX_TEMPERATURE;
 		}
 
 		//ADB ubWeight has been removed, see comments in OBJECTTYPE

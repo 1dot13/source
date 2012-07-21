@@ -234,9 +234,10 @@ typedef struct
 	BOOLEAN fUseNCTH;					// ubFiller:	From 499 to 498
 	BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
 	BOOLEAN fWeaponOverheating;			// ubFiller:	From 497 to 496
+	BOOLEAN fFoodSystem;				// ubFiler:		From 496 to 495
 	
 	// WANNE: Decrease this filler by 1, for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
-	UINT8	ubFiller[496];		
+	UINT8	ubFiller[495];		
 
 } GAME_OPTIONS;
 
@@ -387,12 +388,26 @@ typedef struct
 	
 	// Flugente: poison settings
 	INT32	ubPoisonBaseMedicalSkillToCure;
+	FLOAT	sPoisonMedicalPtsToCureMultiplicator;
 	INT16	sZombiePoisonDamagePercentage;
 	FLOAT	sPoisonInfectionDamageMultiplier;
 
 	// Flugente: fortification settings
 	BOOLEAN fFortificationAllowInHostileSector;
 
+	// Flugente: food settings
+	UINT16	usFoodDigestionHourlyBaseFood;
+	UINT16	usFoodDigestionHourlyBaseDrink;
+	FLOAT	sFoodDigestionSleep;
+	FLOAT	sFoodDigestionTravelVehicle;
+	FLOAT	sFoodDigestionTravel;
+	FLOAT	sFoodDigestionAssignment;
+	FLOAT	sFoodDigestionOnDuty;
+	FLOAT	sFoodDigestionCombat;
+		
+	BOOLEAN fFoodDecayInSectors;
+	FLOAT	sFoodDecayModificator;
+	
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;
 	FLOAT giEnemyTurnSpeedUpFactor;

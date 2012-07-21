@@ -41,6 +41,7 @@
 #include "SaveLoadGame.h"//dnl ch51 081009
 #include "Map Information.h"//dnl ch51 091009
 #include "Interface Items.h"
+#include "Food.h"	// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -289,6 +290,8 @@ void CheckGridNoOfItemsInMapScreenMapInventory();
 INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2);
 void SortSectorInventory( std::vector<WORLDITEM>& pInventory, UINT32 uiSizeOfArray );
 BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
+
+void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sMapZ );	// Flugente: for food decay
 
 extern void MAPEndItemPointer( );
 extern	BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ );
@@ -5019,4 +5022,53 @@ void HandleSetFilterButtons()
 	{
 		ButtonList[guiMapInvenFilterButton[ 8 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
 	}
+}
+
+void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+{
+	UINT32 uiTotalNumberOfRealItems = 0;
+	WORLDITEM * pTotalSectorList = NULL;
+
+//	#ifdef _DEBUG
+		BOOLEAN fReturn = TRUE;
+//	#endif
+			
+	// now load these items into memory, based on fact if sector is in fact loaded
+	if( ( sMapX == gWorldSectorX )&&( gWorldSectorY == sMapY ) &&(gbWorldSectorZ == sMapZ ) )
+	{
+		fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, ( INT8 )( sMapZ ), &( uiTotalNumberOfRealItems ), FALSE );
+		Assert( fReturn );
+
+		if ( !uiTotalNumberOfRealItems )
+			return;
+
+		pTotalSectorList = gWorldItems;
+	}
+	else
+	{
+		// not loaded, load
+		// get total number, visable and invisible
+		fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, ( INT8 )( sMapZ ), &( uiTotalNumberOfRealItems ), FALSE );
+		Assert( fReturn );
+
+		if( uiTotalNumberOfRealItems > 0 )
+		{
+			// allocate space for the list
+			pTotalSectorList = new WORLDITEM[ uiTotalNumberOfRealItems ];
+
+			if ( !uiTotalNumberOfRealItems )
+				return;
+
+			// now load into mem
+			LoadWorldItemsFromTempItemFile(  sMapX,  sMapY, ( INT8 ) ( sMapZ ), pTotalSectorList );
+		}
+	}
+
+	//Check to see if any of the items in the list have a gridno of NOWHERE and the entry point flag NOT set
+	//CheckGridNoOfItemsInMapScreenMapInventory();
+	
+	SectorFoodDecay( pTotalSectorList, uiTotalNumberOfRealItems );
+
+	//Save the Items to the the file
+	SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
 }

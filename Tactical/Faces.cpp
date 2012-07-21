@@ -40,6 +40,7 @@
 	// HEADROCK HAM 3.2: Added two includes so that a function can read values of the Gun Range/hospital location
 	#include "Campaign Types.h"
 	#include "Strategic Event Handler.h"
+	#include "Food.h"	// added by Flugente
 #endif
 
 // Defines
@@ -2286,6 +2287,21 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		bNumRightIcons++;
 	}
 
+	// Flugente: food system - symbols used if hungry or thirsty
+	if ( gGameOptions.fFoodSystem )
+	{
+		if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
+			bNumRightIcons++;	
+		}
+		
+		if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
+			bNumRightIcons++;
+		}
+	}
 
 		switch( pSoldier->bAssignment )
 		{

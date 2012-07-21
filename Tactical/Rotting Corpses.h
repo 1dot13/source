@@ -73,22 +73,25 @@ enum RottingCorpseDefines
 
 
 
-#define		ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO				0x001		//Find the closest spot to the given gridno
-#define		ROTTING_CORPSE_USE_NORTH_ENTRY_POINT					0x002		//Find the spot closest to the north entry grid
-#define		ROTTING_CORPSE_USE_SOUTH_ENTRY_POINT					0x004		//Find the spot closest to the south entry grid
-#define		ROTTING_CORPSE_USE_EAST_ENTRY_POINT						0x008		//Find the spot closest to the east entry grid
-#define		ROTTING_CORPSE_USE_WEST_ENTRY_POINT						0x010		//Find the spot closest to the west entry grid
-#define		ROTTING_CORPSE_USE_CAMO_PALETTE							0x020		//We use cammo palette here....
-#define		ROTTING_CORPSE_VEHICLE									0x040		//Vehicle Corpse
-#define		ROTTING_CORPSE_USE_STEALTH_PALETTE						0x080		//We use stealth palette here....
-#define		ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE					0x100		//We use urban palette here....
-#define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE					0x200		//We use desert palette here....
-#define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE					0x400		//We use snow palette here....
+#define		ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO				0x00000001		//Find the closest spot to the given gridno
+#define		ROTTING_CORPSE_USE_NORTH_ENTRY_POINT					0x00000002		//Find the spot closest to the north entry grid
+#define		ROTTING_CORPSE_USE_SOUTH_ENTRY_POINT					0x00000004		//Find the spot closest to the south entry grid
+#define		ROTTING_CORPSE_USE_EAST_ENTRY_POINT						0x00000008		//Find the spot closest to the east entry grid
+#define		ROTTING_CORPSE_USE_WEST_ENTRY_POINT						0x00000010		//Find the spot closest to the west entry grid
+#define		ROTTING_CORPSE_USE_CAMO_PALETTE							0x00000020		//We use cammo palette here....
+#define		ROTTING_CORPSE_VEHICLE									0x00000040		//Vehicle Corpse
+#define		ROTTING_CORPSE_USE_STEALTH_PALETTE						0x00000080		//We use stealth palette here....
+#define		ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE					0x00000100		//We use urban palette here....
+#define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE					0x00000200		//We use desert palette here....
+#define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE					0x00000400		//We use snow palette here....
 
 #ifdef ENABLE_ZOMBIES
-	#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
+	#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x00000800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
 #endif
 
+// Flugente: corpses can now be gutted after they have been decapitated. Atm there is no corpse that can be both gutted and decapitated (to be done later)
+#define		ROTTING_CORPSE_HEAD_TAKEN								0x00001000		// head has been taken off
+#define		ROTTING_CORPSE_GUTTED									0x00001000		// corpse has been gutted
 
 typedef struct
 {
@@ -107,7 +110,7 @@ typedef struct
 	UINT8												ubDirection;
 	UINT32												uiTimeOfDeath;
 
-	UINT16												usFlags;
+	UINT32												usFlags;
 
 	INT8												bLevel;
 
@@ -117,7 +120,7 @@ typedef struct
 	BOOLEAN												fHeadTaken;
 	UINT8												ubAIWarningValue;
 
-	UINT8												ubFiller[ 12 ];
+	UINT8												ubFiller[ 10 ];		// Flugente: 12 -> 10, because usFlags was cahnged from UINT16 to UINT32
 
 #ifdef ENABLE_ZOMBIES
 	// Flugente: added name so we can display individual name if corpse gets resurrected...

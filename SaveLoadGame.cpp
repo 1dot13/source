@@ -1984,6 +1984,47 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraWisdom, sizeof(bExtraWisdom), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraExpLevel, sizeof(bExtraExpLevel), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bSoldierFlagMask, sizeof(bSoldierFlagMask), sizeof(INT32), numBytesRead);
+				
+		if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
+		{
+			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bDrinkLevel, sizeof(bDrinkLevel), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageHealth), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageStrength, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
+
+			numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+		}
+		else
+		{
+			//CHRISL: We have to make sure we add a buffer to account for the lack of ubInterruptCounter and that buffer needs to be a full DWORD in size
+			buffer = 0;
+			for(int i = 0; i < sizeof(bFoodLevel); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(bDrinkLevel); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usStarveDamageHealth); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usStarveDamageStrength); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(ubFiller); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			numBytesRead += buffer;
+		}
 
 #ifdef JA2UB
 		numBytesRead = ReadFieldByField(hFile, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);

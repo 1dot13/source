@@ -1637,6 +1637,7 @@ STR16 pAssignmentStrings[] =
 	L"Entraîneur", // training a teammate
 	L"Elève", // being trained by someone else 
 	L"Exploitation", // operating a strategic facility
+	L"Eat",		// eating at a facility (cantina etc.)		// TODO. Translate
 	L"Repos", // Resting at a facility
 	L"Mort(e)", // dead
 	L"Incap.", // abbreviation for incapacitated
@@ -1721,6 +1722,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Entraîneur",
 	L"Elève",
 	L"Exploitation infras.",	
+	L"Eat",		// eating at a facility (cantina etc.) // TODO. Translate
 	L"Repos infras.",
 	L"Mort(e)",
 	L"Incap.",
@@ -2925,6 +2927,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente to display health and poisoning			// TODO.Translate
 	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+
+	// added by Flugente to display food status
+	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3479,7 +3485,9 @@ STR16 pMapScreenStatusStrings[] =
 	L"Moral",
 	L"Etat",	// the condition of the current vehicle (its "Santé")
 	L"Carburant",	// the fuel level of the current vehicle (its "energy")
-	L"Posion",	// TODO.Translate
+	L"Poison",	// TODO.Translate
+	L"Water",		// drink level
+	L"Food",		// food level
 };
 
 
@@ -5327,6 +5335,7 @@ STR16	gzGIOScreenText[] =
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
 	L"Weapon Overheating",
+	L"Food System",//TODO.Translate
 	L"Quantité de Bobby Ray",//TODO.Translate
 };
 
@@ -6635,6 +6644,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"AMBIENT",
 	L"Equipe",
+	L"Eat",// TODO. Translate
 	L"Reste",
 	L"Réparer les objets",
 	L"Réparer %s", // Vehicle name inserted here
@@ -7011,6 +7021,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|T|r|o|u|s|s|e |d|e |1|e|r |s|o|i|n|s",
 	L"|T|r|o|u|s|s|e |d|e |s|o|i|n|s",
 	L"|B|o|m|b|e |p|o|u|r |s|e|r|r|u|r|e |d|e |p|o|r|t|e",
+	L"|D|r|i|n|k",// TODO. Translate
+	L"|M|e|a|l",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7041,6 +7053,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nIl s'agit d'un kit médical basic, contenant les ustensibles\nrequis pour faire une intervention médicale basic.\n \nIl peut être utilisé pour soigner un mercenaire blessé et\nempêcher le saignement.\n \nPour une guérison optimale, utlisez une véritable trousse\nde soins et/ou beaucoup de repos.",
 	L"\n \nIl s'agit d'un kit médicale complet, qui peut être utilisé\npour une opération chirurgicale ou autre cas sérieux.\n \nUne trousse de soins est toujours nécessaire lorsque vous\nêtes en mission de Docteur.",
 	L"\n \nCet objet peut être utilisé pour faire sauter les portes\nou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour éviter\nune explosion prématurée.\n \nExploser les serrures est relativement facile et rapide\nà faire. Cependant, c'est très bruyant et dangereux pour\nla plupart des mercernaires.",
+	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
+	L"\n \nThis item will still your hunger\nif you eat it.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -7256,7 +7270,7 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Hide all",
 };
 
-// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+// Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =			// TODO.Translate
 {
 	L"Temperature is ",
@@ -7269,6 +7283,20 @@ STR16 gTemperatureDesc[] =			// TODO.Translate
 	L"CRITICAL",
 	L"DRAMATIC",
 	L"unknown",
+	L"."
+};
+
+// TODO.Translate
+// Flugente: food condition texts
+STR16 gFoodDesc[] =
+{
+	L"Food is ",
+	L"fresh",
+	L"good",
+	L"ok",
+	L"stale",
+	L"shabby",
+	L"rotting",
 	L"."
 };
 

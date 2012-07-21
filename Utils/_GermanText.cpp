@@ -1647,6 +1647,7 @@ STR16 pAssignmentStrings[] =
 	L"Trainer", // training a teammate
 	L"Rekrut", // being trained by someone else 
 	L"Betrieb", // operating a strategic facility
+	L"Essen",		// eating at a facility (cantina etc.)
 	L"Pause", // Resting at a facility
 	L"Tot", // dead
 	L"Koma", // abbreviation for incapacitated	//LOOTF - "Unfähig" klingt schlimm. Geändert auf Koma. Vorschläge?
@@ -1727,6 +1728,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Trainer",
 	L"Rekrut",
 	L"Betriebspersonal",
+	L"Essen",		// eating at a facility (cantina etc.)
 	L"Betriebspause",
 	L"Tot",
 	L"Koma",			//LOOTF - s.o.
@@ -2929,6 +2931,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente to display health and poisoning
 	L"Gesundheit: %d/%d\n  Gift: %d/%d\Ausdauer: %d/%d\Moral: %s",
+
+	// added by Flugente to display food status
+	L"Gesundheit: %d/%d\Ausdauer: %d/%d\Moral: %s\nWasser: %d%s\nEssen: %d%s",
+	L"Gesundheit: %d/%d\n  Gift: %d/%d\Ausdauer: %d/%d\Moral: %s\nWasser: %d%s\nEssen: %d%s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3447,6 +3453,8 @@ STR16 pMapScreenStatusStrings[] =
 	L"Zustand",	// the condition of the current vehicle (its "health")
 	L"Tank",	// the fuel level of the current vehicle (its "energy")
 	L"Gift",
+	L"Wasser",		// drink level
+	L"Essen",		// food level
 };
 
 STR16 pMapScreenPrevNextCharButtonHelpText[] =
@@ -5182,6 +5190,7 @@ STR16 gzGIOScreenText[] =
 	L"Neues Zielsystem",
 	L"Verbesserte Unterbrechungen",
 	L"Waffen-Überhitzung",
+	L"Nahrungssystem",
 	L"Bobby Ray Auswahl",
 };
 
@@ -6478,6 +6487,7 @@ STR16 gzFacilityAssignmentStrings[]=
 
 	L"UMGEBUNG",
 	L"Betrieb",
+	L"Essen",
 	L"Pause",
 	L"Repariere Gegenstände",
 	L"Repariere %s",
@@ -6856,6 +6866,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|E|r|s|t|e|-|H|i|l|f|e|-|K|a|s|t|e|n",
 	L"|A|r|z|t|t|a|s|c|h|e",
 	L"|T|ü|r|s|p|r|e|n|g|s|a|t|z",
+	L"|W|a|s|s|e|r",
+	L"|N|a|h|r|u|n|g",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -6886,6 +6898,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nDas ist ein Erste-Hilfe-Kasten der\nGegenstände enthält die einfache medizinische Hilfe bieten.\n \nEr kann dazu benutzt werden verwundetet Personen zu bandagieren\nund Blutungen zu stoppen.\n \nFür richtige Heilung, benutze eine Arzttasche\nund/oder reichlich Ruhe.",
 	L"\n \nDas ist eine Arzttasche, die für\nOperationen und andere gravierende medizinische\nZwecke genutzt werden kann.\n \nEine Arzttasche wird dazu benötigt\neinem Söldner die Aufgabe Doktor zu geben.",
 	L"\n \nDieser Gegenstand kann dazu benutzt werden verschlossene\nTüren/Behälter zu sprengen.\n \nExplosionsfertigkeit ist erforderlich um\nvorzeitige Detonationen zu vermeiden.\n \nSchlösser zu sprengen ist der einfache Weg um schnell\ndurch verschlossene Türen/Behälter zu kommen. Wie auch immer,\nes ist Laut und für die meisten Personen gefährlich.",
+	L"\n \nMan kann das trinken.",
+	L"\n \nMan kann das essen.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -7100,7 +7114,7 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Alle ausblenden",
 };
 
-// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+// Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =
 {
 	L"Temperatur ist ",
@@ -7113,6 +7127,19 @@ STR16 gTemperatureDesc[] =
 	L"KRITISCH",
 	L"DRAMATISCH",
 	L"unbekannt",
+	L"."
+};
+
+// Flugente: food condition texts
+STR16 gFoodDesc[] =
+{
+	L"Nahrung ist ",
+	L"frisch",
+	L"gut",
+	L"in Ordnung",
+	L"alt",
+	L"ranzig",
+	L"verdorben",
 	L"."
 };
 

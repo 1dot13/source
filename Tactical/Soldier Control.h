@@ -21,6 +21,7 @@
 #define PTR_PRONE	 (gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE)
 
 #define DRUG_TYPE_MAX	32
+#define FOOD_TYPE_MAX	128
 
 // TEMP VALUES FOR NAMES
 #define MAXCIVLASTNAMES		30
@@ -1213,6 +1214,15 @@ public:
 
 	INT32	bSoldierFlagMask;		// for various soldier-related flags (Illusion, Kill streak, etc.). Easier than adding 32 bool variables
 
+	// Flugente: food system
+	INT32	bFoodLevel;				// current level of food saturation
+	INT32	bDrinkLevel;			// current level of drink saturation
+
+	UINT8	usStarveDamageHealth;	// damage to health due to starvation. Can be cured by surgery, but only if nutrition level is high enough again
+	UINT8	usStarveDamageStrength;	// damage to strength due to starvation. Can be cured by surgery, but only if nutrition level is high enough again
+
+	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
+	UINT8	ubFiller[20];	
 	
 #ifdef JA2UB
 	//ja25
@@ -1415,11 +1425,17 @@ public:
 	// returns the poison percentage of the damage we will be doing with the weapon currently in our hand
 	INT16	GetPoisonDamagePercentage( void );
 
+	// add poison
+	void	AddPoison( INT8 sPoisonAmount );
+
 	// reset the extra stat variables
 	void	ResetExtraStats();
 
 	// Flugente: inventory bombs can ignite while in mapscreen. Workaround: Damage items and health
 	void	InventoryExplosion( void );
+
+	// Flugente: Food decay in inventory
+	void	SoldierInventoryFoodDecay( void );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

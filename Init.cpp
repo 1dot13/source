@@ -381,6 +381,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	SGP_THROW_IFFALSE(ReadInDrugsStats(fileName),DRUGSFILENAME);
 
 	strcpy(fileName, directoryName);
+	strcat(fileName, FOODFILENAME);
+	SGP_THROW_IFFALSE(ReadInFoodStats(fileName),FOODFILENAME);
+
+	strcpy(fileName, directoryName);
 	strcat(fileName, ARMOURSFILENAME);
 	SGP_THROW_IFFALSE(ReadInArmourStats(fileName),ARMOURSFILENAME);
 

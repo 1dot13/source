@@ -1638,6 +1638,7 @@ STR16 pAssignmentStrings[] =
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
 	L"工作", // L"Staff", // operating a strategic facility //ham3.6
+	L"Eat",		// eating at a facility (cantina etc.)		// TODO. Translate
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
 	L"死亡", // dead
 	L"无力中", // abbreviation for incapacitated
@@ -1722,6 +1723,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"教练",
 	L"学员",
 	L"设施职员",
+	L"Eat",		// eating at a facility (cantina etc.) // TODO. Translate
 	L"在设施里休养",
 	L"休息",
 	L"无力中",
@@ -2926,6 +2928,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente to display health and poisoning			// TODO.Translate
 	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+
+	// added by Flugente to display food status
+	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3480,6 +3486,8 @@ STR16 pMapScreenStatusStrings[] =
 	L"状态",	// the condition of the current vehicle (its "health")
 	L"油量",	// the fuel level of the current vehicle (its "energy")
 	L"Posion",	// TODO.Translate
+	L"Water",		// drink level
+	L"Food",		// food level
 };
 
 
@@ -5337,6 +5345,7 @@ STR16	gzGIOScreenText[] =
 	L"新命中率系统（NCTH）", //L"New Chance to Hit System",
 	L"改进的中断系统（IIS）", //L"Improved Interrupt System",
 	L"武器过热", //L"Weapon Overheating",
+	L"Food System",//TODO.Translate
 	L"Bobby Ray Quantity",//TODO.Translate
 };
 
@@ -6663,6 +6672,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"环境",
 	L"工作人员",
+	L"Eat",// TODO. Translate
 	L"休息",
 	L"修理物品",
 	L"修理%s", // Vehicle name inserted here
@@ -7041,6 +7051,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|急|救|包",
 	L"|医|药|箱",
 	L"|破|锁|炸|弹",
+	L"|D|r|i|n|k",// TODO. Translate
+	L"|M|e|a|l",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7071,6 +7083,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这一战场的基础急救包提供了基本的医疗用品。\n \n可以被用来包扎受伤的角色以止血。\n \n如需要回复生命，使用名副其实的医药箱，并辅以大量的休息。",
 	L"\n \n这是名副其实的医药箱，可以用于外科手术或其他复杂的治疗。\n \n安排佣兵进行医疗工作时，该佣兵必须持有医\n药箱。",
 	L"\n \n该物品能够用于爆破锁具。\n \n使用它需要爆破技能以避免过早引爆。\n \n使用炸药是一个相对简单的破锁手段，但是会\n发出很大噪音，并且对于大部分佣兵来说过于\n危险。",
+	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
+	L"\n \nThis item will still your hunger\nif you eat it.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -7286,7 +7300,7 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Hide all",
 };
 
-// Flugente FTW 1: Temperature-based text similar to HAM 4's condition-based text.
+// Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =
 {
 	L"当前温度为: ",
@@ -7299,6 +7313,20 @@ STR16 gTemperatureDesc[] =
 	L"很危险",
 	L"致命",
 	L"未知",
+	L"."
+};
+
+// TODO.Translate
+// Flugente: food condition texts
+STR16 gFoodDesc[] =
+{
+	L"Food is ",
+	L"fresh",
+	L"good",
+	L"ok",
+	L"stale",
+	L"shabby",
+	L"rotting",
 	L"."
 };
 

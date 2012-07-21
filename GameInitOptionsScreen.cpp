@@ -158,6 +158,10 @@
 #define		GIO_OVERHEATING_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_OVERHEATING_SETTING_WIDTH			CHECK_WIDTH
 
+#define		GIO_FOODSYSTEM_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_FOODSYSTEM_SETTING_Y				GIO_OVERHEATING_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_FOODSYSTEM_SETTING_WIDTH			CHECK_WIDTH
+
 /*********************************
 	THIRD COLUMN
 **********************************/
@@ -581,6 +585,7 @@ UINT8	GetCurrentInventoryAPButtonSetting();
 UINT8	GetCurrentNCTHButtonSetting();
 UINT8	GetCurrentIISButtonSetting();
 UINT8	GetCurrentOverheatingButtonSetting();
+UINT8	GetCurrentFoodSystemButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
 void		DoneFadeInForExitGameInitOptionScreen( void );
@@ -694,6 +699,7 @@ UINT32	GameInitOptionsScreenInit( void )
 	gGameOptions.fUseNCTH = FALSE;
 	gGameOptions.fImprovedInterruptSystem = FALSE;
 	gGameOptions.fWeaponOverheating = FALSE;
+	gGameOptions.fFoodSystem = FALSE;
 
 	gGameOptions.fAirStrikes =  FALSE;
 	gGameOptions.fTurnTimeLimit	= FALSE;
@@ -1285,7 +1291,36 @@ BOOLEAN		EnterGIOScreen()
 	if( gGameOptions.fWeaponOverheating )
 		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// FOOD SYSTEM ON/OFF SETTING
+
+	guiFoodSystemOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiFoodSystemOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_FOODSYSTEM_SETTING_X), (GIO_FOODSYSTEM_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOFoodSystemOffCallback);
+
+	guiFoodSystemOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiFoodSystemOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiFoodSystemOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_FOODSYSTEM_SETTING_X + 74), (GIO_FOODSYSTEM_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOFoodSystemOnCallback );
+
+	SpecifyButtonSoundScheme( guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiFoodSystemOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiFoodSystemOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fFoodSystem )
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2257,6 +2292,37 @@ void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
+void BtnGIOFoodSystemOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_FOODSYSTEM_SETTING_X), (GIO_FOODSYSTEM_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOFoodSystemOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_FOODSYSTEM_SETTING_X), (GIO_FOODSYSTEM_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiFoodSystemOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
 BOOLEAN		ExitGIOScreen()
 {
 	UINT16	cnt;
@@ -2391,6 +2457,13 @@ BOOLEAN		ExitGIOScreen()
 	{
 		RemoveButton( guiOverheatingOptionToggles[ cnt ] );
 		UnloadButtonImage( guiOverheatingOptionTogglesImage[ cnt ] );
+	}
+
+	// Destroy Food System Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiFoodSystemOptionToggles[ cnt ] );
+		UnloadButtonImage( guiFoodSystemptionTogglesImage[ cnt ] );
 	}
 
 	gfGIOButtonsAllocated = FALSE;
@@ -2568,6 +2641,8 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (GIO_IIS_SETTING_X - 6), (UINT16)(GIO_IIS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IIS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IIS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	//Display the Weapon Overheating Settings Title Text
 	DisplayWrappedString( (GIO_OVERHEATING_SETTING_X - 6), (UINT16)(GIO_OVERHEATING_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_OVERHEATING_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_OVERHEATING_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//Display the Food System Settings Title Text
+	DisplayWrappedString( (GIO_FOODSYSTEM_SETTING_X - 6), (UINT16)(GIO_FOODSYSTEM_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_FOODSYSTEM_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_FOODSYSTEM_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	return( TRUE );
 }
@@ -2822,6 +2897,20 @@ UINT8	GetCurrentOverheatingButtonSetting()
 	return( 0 );
 }
 
+UINT8	GetCurrentFoodSystemButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiFoodSystemOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
 void DoneFadeOutForExitGameInitOptionScreen( void )
 {
 	// loop through and get the status of all the buttons
@@ -2891,6 +2980,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
 	gGameOptions.fImprovedInterruptSystem = GetCurrentIISButtonSetting();
 	gGameOptions.fWeaponOverheating = GetCurrentOverheatingButtonSetting();
+	gGameOptions.fFoodSystem = GetCurrentFoodSystemButtonSetting();
 
 	gubGIOExitScreen = INIT_SCREEN;
 	
@@ -3123,6 +3213,10 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_OVERHEATING_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_OVERHEATING_SETTING_WIDTH			CHECK_WIDTH
 
+#define		GIO_FOODSYSTEM_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_FOODSYSTEM_SETTING_Y				GIO_OVERHEATING_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_FOODSYSTEM_SETTING_WIDTH			CHECK_WIDTH
+
 /*********************************
 	THIRD COLUMN
 **********************************/
@@ -3176,6 +3270,7 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_USE_NCTH							"USE_NCTH"
 #define		JA2SP_USE_IIS							"IMPROVED_INTERRUPT_SYSTEM"
 #define		JA2SP_OVERHEATING						"WEAPON_OVERHEATING"
+#define		JA2SP_FOODSYSTEM						"FOOD_SYSTEM"
 
 
 //Difficulty settings
@@ -3414,6 +3509,13 @@ UINT32	guiOverheatingOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
 void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason);
 
+// Food System
+UINT32	guiFoodSystemOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiFoodSystemOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOFoodSystemOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOFoodSystemOnCallback(GUI_BUTTON *btn,INT32 reason);
+
+
 
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
 void BtnTimedTurnsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
@@ -3444,6 +3546,7 @@ UINT8	GetCurrentInventoryAPButtonSetting();
 UINT8	GetCurrentNCTHButtonSetting();
 UINT8	GetCurrentIISButtonSetting();
 UINT8	GetCurrentOverheatingButtonSetting();
+UINT8	GetCurrentFoodSystemButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
 void		DoneFadeInForExitGameInitOptionScreen( void );
@@ -3550,6 +3653,7 @@ UINT32	GameInitOptionsScreenInit( void )
 	gGameOptions.fUseNCTH = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_NCTH, 0);
 	gGameOptions.fImprovedInterruptSystem = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_IIS, 0);
 	gGameOptions.fWeaponOverheating = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_OVERHEATING, 0);
+	gGameOptions.fFoodSystem = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_FOODSYSTEM, 0);
 
 	// Air strikes
 	gGameOptions.fAirStrikes =  FALSE;
@@ -4140,7 +4244,36 @@ BOOLEAN		EnterGIOScreen()
 	if( gGameOptions.fWeaponOverheating )
 		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
+		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// FOOD SYSTEM ON/OFF SETTING
+
+	guiFoodSystemOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiFoodSystemOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_FOODSYSTEM_SETTING_X), (GIO_FOODSYSTEM_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOFoodSystemOffCallback);
+
+	guiFoodSystemOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiFoodSystemOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiFoodSystemOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(GIO_FOODSYSTEM_SETTING_X + 74), (GIO_FOODSYSTEM_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOFoodSystemOnCallback );
+
+	SpecifyButtonSoundScheme( guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiFoodSystemOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiFoodSystemOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+
+	if( gGameOptions.fFoodSystem )
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5079,6 +5212,37 @@ void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
+void BtnGIOFoodSystemOffCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_FOODSYSTEM_SETTING_X), (GIO_FOODSYSTEM_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnGIOFoodSystemOnCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (GIO_FOODSYSTEM_SETTING_X), (GIO_FOODSYSTEM_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiFoodSystemOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiFoodSystemOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
 BOOLEAN		ExitGIOScreen()
 {
 	UINT16	cnt;
@@ -5213,6 +5377,13 @@ BOOLEAN		ExitGIOScreen()
 	{
 		RemoveButton( guiOverheatingOptionToggles[ cnt ] );
 		UnloadButtonImage( guiOverheatingOptionTogglesImage[ cnt ] );
+	}
+
+	// Destroy Food System Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		RemoveButton( guiFoodSystemOptionToggles[ cnt ] );
+		UnloadButtonImage( guiFoodSystemOptionTogglesImage[ cnt ] );
 	}
 
 	gfGIOButtonsAllocated = FALSE;
@@ -5390,6 +5561,8 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (GIO_IIS_SETTING_X - 6), (UINT16)(GIO_IIS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IIS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IIS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	//Display the Weapon Overheating Settings Title Text
 	DisplayWrappedString( (GIO_OVERHEATING_SETTING_X - 6), (UINT16)(GIO_OVERHEATING_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_OVERHEATING_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_OVERHEATING_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	//Display the Food System Settings Title Text
+	DisplayWrappedString( (GIO_FOODSYSTEM_SETTING_X - 6), (UINT16)(GIO_FOODSYSTEM_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_FOODSYSTEM_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_FOODSYSTEM_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 
 	return( TRUE );
@@ -5631,6 +5804,20 @@ UINT8	GetCurrentOverheatingButtonSetting()
 	return( 0 );
 }
 
+UINT8	GetCurrentFoodSystemButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	{
+		if( ButtonList[ guiFoodSystemOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
 void DoneFadeOutForExitGameInitOptionScreen( void )
 {
 	// loop through and get the status of all the buttons
@@ -5690,6 +5877,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
 	gGameOptions.fImprovedInterruptSystem = GetCurrentIISButtonSetting();
 	gGameOptions.fWeaponOverheating = GetCurrentOverheatingButtonSetting();
+	gGameOptions.fFoodSystem = GetCurrentFoodSystemButtonSetting();
 
 
 	//	gubGIOExitScreen = INIT_SCREEN;

@@ -616,6 +616,7 @@ void InitGameOptions()
 	gGameOptions.fUseNCTH = FALSE;
 	gGameOptions.fImprovedInterruptSystem = TRUE;
 	gGameOptions.fWeaponOverheating = TRUE;
+	gGameOptions.fFoodSystem = FALSE;
 
 	//CHRISL: override default inventory mode when in low res
 	if(IsNIVModeValid(true) == FALSE)
@@ -1379,11 +1380,25 @@ void LoadGameExternalOptions()
 
 	//################# Tactical Poison Settings ##################
 	gGameExternalOptions.ubPoisonBaseMedicalSkillToCure					= iniReader.ReadInteger("Tactical Poison Settings", "POISON_BASE_MEDICAL_SKILL_TO_CURE", 50, 1, 100);
+	gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator			= iniReader.ReadFloat("Tactical Poison Settings", "POISON_MEDICAL_POINTS_TO_CURE_MULTIPLICATOR", 0.5, 0.1, 10.0);
 	gGameExternalOptions.sZombiePoisonDamagePercentage					= iniReader.ReadInteger("Tactical Poison Settings", "ZOMBIE_POISON_DAMAGE_PERCENTAGE", 50, 0, 100);	
 	gGameExternalOptions.sPoisonInfectionDamageMultiplier				= iniReader.ReadFloat("Tactical Poison Settings", "POISON_INFECTION_DAMAGE_MULTIPLIER", 4.0, 1.0, 10.0);	
 
 	//################# Tactical Fortification Settings ##################
 	gGameExternalOptions.fFortificationAllowInHostileSector				= iniReader.ReadBoolean("Tactical Fortification Settings", "FORTIFICATION_ALLOW_IN_HOSTILE_SECTOR", FALSE);
+
+	//################# Tactical Food Settings ##################
+	gGameExternalOptions.usFoodDigestionHourlyBaseFood					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_FOOD",  20, 0, 250);
+	gGameExternalOptions.usFoodDigestionHourlyBaseDrink					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_DRINK",	130, 0, 250);
+	gGameExternalOptions.sFoodDigestionSleep							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_SLEEP",				0.6, 0.0, 10.0);
+	gGameExternalOptions.sFoodDigestionTravelVehicle					= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_TRAVEL_VEHICLE",	0.8, 0.0, 10.0);
+	gGameExternalOptions.sFoodDigestionTravel							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_TRAVEL",			1.5, 0.0, 10.0);
+	gGameExternalOptions.sFoodDigestionAssignment						= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_ASSIGNMENT",		0.9, 0.0, 10.0);
+	gGameExternalOptions.sFoodDigestionOnDuty							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_ONDUTY",			1.0, 0.0, 10.0);
+	gGameExternalOptions.sFoodDigestionCombat							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_COMBAT",			2.0, 0.0, 10.0);
+	
+	gGameExternalOptions.fFoodDecayInSectors							= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_DECAY_IN_SECTORS", TRUE);
+	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0, 0.1, 10.0);
 
 	//################# Strategic Gamestart Settings ##################
 
@@ -2356,6 +2371,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_JUMPOFFWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWALL",24),24);
 
 	APBPConstants[AP_FORTIFICATION] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FORTIFICATION",80),80);
+	APBPConstants[AP_EAT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EAT",80),80);
 
 	SetupMaxActionPointsAnimation();
 #undef ReadInteger

@@ -74,6 +74,7 @@
 	#include "Boxing.h"
 	// HEADROCK HAM 3.6: This is required for Stat Progress Bars
 	#include "Campaign.h"
+	#include "Food.h"	// added by Flugente
 #endif
 
 //legion by Jazz
@@ -2767,7 +2768,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			FindFontRightCoordinates(SM_DEX_X, SM_DEX_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) ? TRUE : FALSE), MercUnderTheInfluence(gpSMCurrentMerc, DRUG_TYPE_STRENGTH)); // SANDRO
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ), ( BOOLEAN ) ( (( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) || (gGameOptions.fFoodSystem && gpSMCurrentMerc->usStarveDamageStrength > 0) ) ? TRUE : FALSE), MercUnderTheInfluence(gpSMCurrentMerc, DRUG_TYPE_STRENGTH)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bStrength + gpSMCurrentMerc->bExtraStrength );
 			FindFontRightCoordinates(SM_STR_X, SM_STR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
@@ -2928,14 +2929,30 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		else
 		{
 			GetMoraleString( gpSMCurrentMerc, pMoraleStr );
-			// Flugente: added a display for poison, only show text if actualy poisoned
-			if ( gpSMCurrentMerc->bPoisonSum > 0 )
+			// Flugente: food info if food system is active
+			if ( gGameOptions.fFoodSystem )
 			{
-				swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bPoisonSum, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+				// Flugente: added a display for poison, only show text if actually poisoned
+				if ( gpSMCurrentMerc->bPoisonSum > 0 )
+				{
+					swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_AND_FOOD_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bPoisonSum, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr, (INT32)(100*gpSMCurrentMerc->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*gpSMCurrentMerc->bFoodLevel/FOOD_MAX), L"%" );
+				}
+				else
+				{
+					swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr, (INT32)(100*gpSMCurrentMerc->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*gpSMCurrentMerc->bFoodLevel/FOOD_MAX), L"%" );
+				}
 			}
 			else
 			{
-				swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+				// Flugente: added a display for poison, only show text if actually poisoned
+				if ( gpSMCurrentMerc->bPoisonSum > 0 )
+				{
+					swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bPoisonSum, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+				}
+				else
+				{
+					swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+				}
 			}
 			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
 
@@ -3264,8 +3281,8 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							// Say OK acknowledge....
 							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 						}
-					}
-					else if ( ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+					}					
+					else if ( !gGameOptions.fFoodSystem && ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
 					{
 						// Dirty
 						if ( fGoodAPs )
@@ -3298,7 +3315,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 						}
 					}
-					else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
+					else if ( gGameOptions.fFoodSystem && ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
 					{
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
@@ -3324,6 +3341,21 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// Say OK acknowledge....
 						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 
+					}
+					else if ( ApplyFood( gpSMCurrentMerc, gpItemPointer ) )
+					{
+						// Dirty
+						fInterfacePanelDirty = DIRTYLEVEL2;
+
+						// Check if it's the same now!
+						if ( gpItemPointer->exists() == false )
+						{
+							gbCompatibleApplyItem = FALSE;
+							EndItemPointer( );
+						}
+
+						// Say OK acknowledge....
+						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 					}
 					else
 					{
@@ -5475,14 +5507,29 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			{
 					GetMoraleString( pSoldier, pMoraleStr );
 
-					// Flugente: added a display for poison, only show text if actually poisoned
-					if ( pSoldier->bPoisonSum > 0 )
+					if ( gGameOptions.fFoodSystem )
 					{
-						swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+						// Flugente: added a display for poison, only show text if actually poisoned
+						if ( pSoldier->bPoisonSum > 0 )
+						{
+							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_AND_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+						}
+						else
+						{
+							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+						}
 					}
 					else
 					{
-						swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+						// Flugente: added a display for poison, only show text if actually poisoned
+						if ( pSoldier->bPoisonSum > 0 )
+						{
+							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+						}
+						else
+						{
+							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+						}
 					}
 					SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
 			}

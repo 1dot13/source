@@ -63,6 +63,7 @@
 	// added by SANDRO
 	#include "AIInternals.h"
 	#include "Morale.h"
+	#include "Food.h"
 #endif
 #include <vector>
 #include <queue>
@@ -354,7 +355,7 @@ void UpdatePatientsWhoAreDoneHealing( void );
 UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient );
 
 // heal patient, given doctor and total healing pts available to doctor at this time
-UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundredthsHealed );
+UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealAmount );
 
 // can item be repaired?
 BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus );
@@ -1118,10 +1119,17 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 	}
 
 	// SANDRO - added check if having damaged stat
-	for ( UINT8 i = 0; i < NUM_DAMAGABLE_STATS; i++)
+	for ( UINT8 i = 0; i < NUM_DAMAGABLE_STATS; ++i)
 	{
 		if ( pSoldier->ubCriticalStatDamage[i] > 0 )
 			return ( TRUE );
+
+		// Flugente: stats can also be damaged
+		if ( !gGameOptions.fFoodSystem || ( gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
+		{
+			if ( pSoldier->usStarveDamageHealth > 0 || pSoldier->usStarveDamageStrength > 0 )
+				return ( TRUE );
+		}
 	}
 
 	// Flugente: check if poisoned
@@ -2451,6 +2459,10 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	// adjust for fatigue
 	ReducePointsForFatigue( pDoctor, &usHealPts );
 
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pDoctor, &usHealPts );
+
 	// count how much medical supplies we have
 	usKitPts = 100 * TotalMedicalKitPoints( pDoctor );
 
@@ -2537,6 +2549,9 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usRepairPts );
 
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pSoldier, &usRepairPts );
 
 	// figure out what shape his "equipment" is in ("coming" in JA3: Viagra - improves the "shape" your "equipment" is in)
 	usKitPts = ToolKitPoints( pSoldier );
@@ -2680,10 +2695,17 @@ void UpdatePatientsWhoAreDoneHealing( void )
 			if( ( pTeamSoldier->bAssignment == PATIENT ) &&( pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax ) && ( pTeamSoldier->bPoisonSum == 0 ) )
 			{
 				// SANDRO - added check if we can help to heal lost stats to this one
-				for (UINT8 cnt = 0; cnt < NUM_DAMAGABLE_STATS; cnt++)
+				for (UINT8 cnt = 0; cnt < NUM_DAMAGABLE_STATS; ++cnt)
 				{
 					if (pTeamSoldier->ubCriticalStatDamage[cnt] > 0 )
 						fHasDamagedStat = TRUE;
+
+					// Flugente: stats can also be damaged
+					if ( !gGameOptions.fFoodSystem || ( gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
+					{
+						if ( pSoldier->usStarveDamageHealth > 0 || pSoldier->usStarveDamageStrength > 0 )
+							fHasDamagedStat = TRUE;
+					}
 				}
 				if (!fHasDamagedStat )// || !DoctorIsPresent( pTeamSoldier, TRUE ))
 					AssignmentDone( pTeamSoldier, TRUE, TRUE );
@@ -2988,13 +3010,14 @@ UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient )
 }
 
 
-UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundredthsHealed )
+UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealAmount )
 {
 	//////////////////////////////////////////////////////////////////////////////
 	// SANDRO - this whole procedure was heavily changed
 	////////////////////////////////////////////////////
 	UINT16 usHealingPtsLeft = 0;
 	UINT16 usTotalHundredthsUsed = 0;
+	UINT16 usHundredthsHealed = 0;
 	INT16 sPointsToUse = 0;
 	INT8 bPointsHealed = 0;
 	INT8 bMedFactor = 1;	// basic medical factor
@@ -3004,7 +3027,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 	UINT16 ubReturnDamagedStatRate = 0;
 
 	// usPointsLeftToCurePoison will measure how much Hundreths will be left to cure poison
-	INT16 usPointsLeftToCurePoison = usHundredthsHealed;
+	INT16 usPointsLeftToCurePoison = usHealAmount;
 
 	// Look how much life do we need to heal
 	sPointsToUse = ( pPatient->stats.bLifeMax - pPatient->stats.bLife );
@@ -3029,7 +3052,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 	if ( sPointsToUse > 0 && ( fWillHealLife || fWillRepiarStats ))
 	{
 		// here is our maximum, we can heal this time
-		usHealingPtsLeft = max( 1, ((pPatient->sFractLife + usHundredthsHealed) / 100));
+		usHealingPtsLeft = max( 1, ((pPatient->sFractLife + usHealAmount) / 100));
 
 		// if guy is hurt more than points we have...heal only what we have
 		if( sPointsToUse > usHealingPtsLeft )
@@ -3075,12 +3098,19 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 			{
 				pPatient->sFractLife += usTotalHundredthsUsed;
 				fWillHealLife = FALSE;
+				usHundredthsHealed = usTotalHundredthsUsed;
 			}
 			// if we would heal more than we need
 			else if ( !fWillRepiarStats && (pPatient->stats.bLifeMax < pPatient->stats.bLife + bPointsHealed) )
 			{
-				usHundredthsHealed = max( 1, (usHundredthsHealed - usTotalHundredthsUsed));
+				usHundredthsHealed = max( 1, (usHealAmount - usTotalHundredthsUsed));
 			}
+			else
+			{
+				usHundredthsHealed = usHealAmount;
+			}
+
+			usHealAmount = max(0, usHealAmount - usHundredthsHealed);
 		}
 
 		// repair our stats here!!
@@ -3098,11 +3128,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 				usTotalHundredthsUsed -= ((usTotalHundredthsUsed * gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair ) / 100);
 			}
 		}
-
-		// we have to remember what will be left over to cure poison
-		//usPointsLeftToCurePoison = min(usHundredthsHealed, usPointsLeftToCurePoison - usTotalHundredthsUsed);
-		//usPointsLeftToCurePoison = max(usPointsLeftToCurePoison, 0);	// do not go below zero
-
+		
 		// if we are actually here to heal life
 		if ( fWillHealLife )
 		{
@@ -3170,7 +3196,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 	if ( pPatient->bPoisonSum > 0 || pPatient->sFractLife < 0 )
 	{
 		if ( fWillHealLife || fWillRepiarStats )
-			usPointsLeftToCurePoison = max(0, usPointsLeftToCurePoison - usHundredthsHealed);
+			usPointsLeftToCurePoison = max(0, usPointsLeftToCurePoison - usHealAmount);
 
 		if ( usPointsLeftToCurePoison > 0 )
 		{
@@ -3186,10 +3212,11 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 			{
 				UINT16 usTotalHundredthsUsedToCurePoison = 0;
 				// if having enough, no problem
-				if (usTotalMedPointsLeft >= (usPoisontoCure * bMedFactor))
+				// gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator alters the amount needed for curing poison
+				if (usTotalMedPointsLeft >= ( (UINT16)(gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator * usPoisontoCure * bMedFactor)))
 				{
 					usTotalHundredthsUsedToCurePoison = usPoisontoCure * 100;
-					usTotalMedPointsLeft = (usPoisontoCure * bMedFactor);
+					usTotalMedPointsLeft = ( (UINT16)(gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator * usPoisontoCure * bMedFactor));
 				}
 				else
 				{
@@ -3198,9 +3225,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 				}
 
 				pPatient->sFractLife += usTotalHundredthsUsedToCurePoison;
-
-				// modify usHundredthsHealed?
-				//usHundredthsHealed += usTotalHundredthsUsedToCurePoison;
+				usHundredthsHealed += (UINT16)(usTotalHundredthsUsedToCurePoison * gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator);
 
 				if (pPatient->sFractLife >= 100)  
 				{
@@ -4884,6 +4909,11 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	// adjust for instructor fatigue
 	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
 	ReducePointsForFatigue( pInstructor, &uiTrainingPts );
+
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pInstructor, &uiTrainingPts );
+
 	sTrainingPts = (INT16)uiTrainingPts;
 
 	return( sTrainingPts );
@@ -4998,6 +5028,11 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 	// adjust for fatigue
 	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
 	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
+
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pSoldier, &uiTrainingPts );
+
 	sTrainingPts = (INT16)uiTrainingPts;
 
 	return( sTrainingPts );
@@ -5116,6 +5151,11 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 	// adjust for fatigue
 	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
 	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
+
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pSoldier, &uiTrainingPts );
+
 	sTrainingPts = (INT16)uiTrainingPts;
 
 
@@ -5386,6 +5426,11 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	// adjust for fatigue of trainer
 	UINT32 uiTrainingPts = (UINT32) sTotalTrainingPts;
 	ReducePointsForFatigue( pTrainer, &uiTrainingPts );
+
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pTrainer, &uiTrainingPts );
+
 	sTotalTrainingPts = (INT16)uiTrainingPts;
 
 
@@ -13160,6 +13205,10 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 		ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT );
 	}
 
+	// Flugente: ubNeedForSleep can now be influenced by our food situation
+	if ( gGameOptions.fFoodSystem )
+		FoodNeedForSleepModifiy(pSoldier, &ubNeedForSleep);
+
 	return( ubNeedForSleep );
 }
 
@@ -16088,6 +16137,9 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 				case FAC_STAFF:
 					ChangeSoldiersAssignment( pSoldier, FACILITY_STAFF );
 					break;
+				case FAC_FOOD:
+					ChangeSoldiersAssignment( pSoldier, FACILITY_EAT );
+					break;
 				case FAC_REST:
 					ChangeSoldiersAssignment( pSoldier, FACILITY_REST );
 					break;
@@ -16227,6 +16279,8 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 
 			}
 			
+			// Flugente: I guess this piece of code is here to get a group Id for the soldier, which must not be there for movement specifically. Just my understanding, in case anybody else coming here wonders
+			// why we get movement related stuff when we were jsut ordered to stay in a facility
 			AssignMercToAMovementGroup( pSoldier );			
 			MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
 

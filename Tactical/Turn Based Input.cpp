@@ -122,6 +122,7 @@
 
 
 #include "IMP Skill Trait.h"	// added by Flugente
+#include "Food.h"	// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -4456,11 +4457,25 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case  '.':
 				if ( fCtrl )
 				{
-
+					SectorFillCanteens();
 				}
 				else if ( fAlt )
 				{
+					/*
+					// Flugente: spawn items while debugging
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						static UINT16 usitem = 1560;
+						static INT16 status = 100;
+						static FLOAT temperature = 50000.0;
 
+						OBJECTTYPE newobj;
+						CreateItem( usitem, status, &newobj );
+
+						(newobj)[0]->data.bTemperature = temperature;
+
+						AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
+					}*/
 				}
 				else
 				{

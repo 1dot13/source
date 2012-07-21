@@ -275,8 +275,8 @@ BOOLEAN	gbCorpseValidForDecapitation[ NUM_CORPSES ] =
 	1,
 	1,
 	1,
-	0,
-	0,
+	1,			// Bloodcat - changed to 1 to allow gutting
+	1,			// Cow - changed to 1 to allow gutting
 	0,
 	0,
 	0,
@@ -1760,9 +1760,9 @@ INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 
 BOOLEAN IsValidDecapitationCorpse( ROTTING_CORPSE *pCorpse )
 {
-	if ( pCorpse->def.fHeadTaken )
+	if ( (pCorpse->def.usFlags & ROTTING_CORPSE_GUTTED) )
 	{
-	return( FALSE );
+		return( FALSE );
 	}
 
 	return( gbCorpseValidForDecapitation[ pCorpse->def.ubType ] );
@@ -1799,6 +1799,8 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
 	ROTTING_CORPSE *pCorpse;
 	ROTTING_CORPSE_DEFINITION CorpseDef;
 	UINT16 usHeadIndex = HEAD_1;
+	static UINT16 usBloodCatMeatIndex = 1566;
+	static UINT16 usCowMeatIndex = 1565;
 
 
 	pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
@@ -1814,10 +1816,27 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
 		// Copy corpse definition...
 		memcpy( &CorpseDef, &(pCorpse->def), sizeof( ROTTING_CORPSE_DEFINITION ) );
 
+		// Flugente: if the corpse is of a cow or a bloodcat, we don't take its head, we simply gut it and give meat instead of a head
+		if ( CorpseDef.ubType == BLOODCAT_DEAD || CorpseDef.ubType == COW_DEAD )
+		{
+			pCorpse->def.usFlags |= (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_GUTTED);
+
+			if ( CorpseDef.ubType == BLOODCAT_DEAD )
+			{
+				if ( HasItemFlag(usBloodCatMeatIndex, MEAT_BLOODCAT) || GetFirstItemWithFlag(&usBloodCatMeatIndex, MEAT_BLOODCAT) )
+					usHeadIndex = usBloodCatMeatIndex;
+			}
+			else
+			{
+				if ( HasItemFlag(usCowMeatIndex, COW_MEAT) || GetFirstItemWithFlag(&usCowMeatIndex, COW_MEAT) )
+					usHeadIndex = usCowMeatIndex;
+			}
+		}
+
 		// Add new one...
 		CorpseDef.ubType = gDecapitatedCorpse[ CorpseDef.ubType ];
 
-	pCorpse->def.fHeadTaken = TRUE;
+		pCorpse->def.usFlags |= (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_GUTTED);
 
 		if ( CorpseDef.ubType != 0 )
 		{
@@ -1858,11 +1877,14 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
 
 		}
 
-		CreateItem( usHeadIndex, 100, &gTempObject );
-		AddItemToPool( sGridNo, &gTempObject, INVISIBLE, 0, 0, 0 );
+		if ( usHeadIndex > 0 )
+		{
+			CreateItem( usHeadIndex, 100, &gTempObject );
+			AddItemToPool( sGridNo, &gTempObject, INVISIBLE, 0, 0, 0 );
 
-		// All teams lok for this...
-		NotifySoldiersToLookforItems( );
+			// All teams lok for this...
+			NotifySoldiersToLookforItems( );
+		}
 	}
 
 }
@@ -2112,26 +2134,23 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 						// if zombies should spawn individually, roll for every corpse individually
 						if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
 						{
-							if ( pCorpse->fActivated && pCorpse->def.fHeadTaken == FALSE )										// ... if corpse is active, and still has a head ...
+							if ( pCorpse->fActivated && !(pCorpse->def.usFlags & (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_NEVER_RISE_AGAIN) ) )	// ... if corpse is active, and still has a head and can rise again...
 							{
-								if ( !(pCorpse->def.usFlags & ROTTING_CORPSE_NEVER_RISE_AGAIN) )								// ... if corpse is already that of a zombie, don't create zombie again ...
-								{
-									if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
-									{					
-										if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
-										{
-											UINT16 recanimstate = STANDING;
+								if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
+								{					
+									if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
+									{
+										UINT16 recanimstate = STANDING;
 
-											if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
-											{								
-												zombieshaverisen = TRUE;
-												CreateZombiefromCorpse( pCorpse, recanimstate );
+										if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
+										{								
+											zombieshaverisen = TRUE;
+											CreateZombiefromCorpse( pCorpse, recanimstate );
 
-												//++pSector->ubNumZombies;
-												//++pSector->ubZombiesInBattle;
+											//++pSector->ubNumZombies;
+											//++pSector->ubZombiesInBattle;
 
-												RemoveCorpse( cnt );
-											}
+											RemoveCorpse( cnt );
 										}
 									}
 								}

@@ -496,14 +496,22 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	// Flugente FTW 1.2
 	if ( ubStatus == DRAW_ITEM_TEMPERATURE )
 	{
-		sValue = (INT16) (100 * GetGunOverheatJamPercentage( pObject) );
+		// the food item bar always has full size
+		if ( gGameOptions.fFoodSystem == TRUE && Item[pObject->usItem].foodtype > 0 )
+		{
+			sValue = 100;
+		}
+		else
+		{
+			sValue = (INT16) (100 * GetGunOverheatJamPercentage( pObject) );
 
-		// if temperature is 0 or below, do not display anything
-		if ( sValue < 1)
-			return;
+			// if temperature is 0 or below, do not display anything
+			if ( sValue < 1)
+				return;
 
-		// cut off temperature at 100%, otherwise the bar will be out of its box
-		sValue = min(sValue, 100);
+			// cut off temperature at 100%, otherwise the bar will be out of its box
+			sValue = min(sValue, 100);
+		}
 	}
 
 	// ATE: Subtract 1 to exagerate bad status

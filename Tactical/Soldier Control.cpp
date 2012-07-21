@@ -111,6 +111,7 @@
 #include "Dialogue Control.h"
 
 #include "IMP Skill Trait.h"	// added by Flugente
+#include "Food.h"				// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -1010,6 +1011,11 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bPoisonSum = 0;
 		this->bPoisonResistance = 0;
 		this->bPoisonAbsorption = 0;
+
+		this->bFoodLevel = 0;
+		this->bDrinkLevel = 0;
+		this->usStarveDamageHealth = 0;
+		this->usStarveDamageStrength = 0;
     }
     return *this;
 }
@@ -13256,7 +13262,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 
 				FLOAT cooldownfactor = GetItemCooldownFactor(pObj);			// ... get cooldown factor ...
 
-				FLOAT newtemperature = max((FLOAT)0.0, temperature - cooldownfactor);	// ... calculate new temperature ...
+				FLOAT newtemperature = max(0.0f, temperature - cooldownfactor);	// ... calculate new temperature ...
 				(*pObj)[i]->data.bTemperature = newtemperature;				// ... set new temperature
 
 #if 0//def JA2TESTVERSION
@@ -13272,7 +13278,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 
 						FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
 
-						FLOAT newtemperature = max((FLOAT)0.0, temperature - cooldownfactor);	// ... calculate new temperature ...
+						FLOAT newtemperature = max(0.0f, temperature - cooldownfactor);	// ... calculate new temperature ...
 						(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
 
 #if 0//def JA2TESTVERSION
@@ -13289,7 +13295,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
   }
 }
 
-// Flugente: determine if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
+// Flugente: determine if we can rest our weapon on something. This ca6n only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
 BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 {
 	BOOLEAN applybipod = FALSE;
@@ -13568,6 +13574,27 @@ INT16	SOLDIERTYPE::GetPoisonDamagePercentage( void )
 	return( val );
 }
 
+// add poison
+void	SOLDIERTYPE::AddPoison( INT8 sPoisonAmount )
+{
+	if ( sPoisonAmount < 1 )
+		return;
+
+	INT8 oldpoisonsum = this->bPoisonSum;
+	this->bPoisonSum = min(this->bPoisonSum + sPoisonAmount,  this->stats.bLifeMax);
+
+	// recalc really added poison
+	sPoisonAmount = max(0, this->bPoisonSum - oldpoisonsum);
+
+	INT8 oldpoisonlife = this->bPoisonLife;
+	this->bPoisonLife = min(this->bPoisonLife + sPoisonAmount,  this->bPoisonSum);
+
+	INT8 poisontolife = max(0, this->bPoisonLife - oldpoisonlife);
+
+	INT8 oldpoisonbleed = this->bPoisonBleeding;
+	this->bPoisonBleeding = min(this->bPoisonBleeding + (sPoisonAmount - poisontolife),  this->bPoisonSum);
+}
+
 // reset the extra stat variables
 void	SOLDIERTYPE::ResetExtraStats()
 {
@@ -13639,6 +13666,33 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 	{
 		// let the target collapse...
 		SoldierCollapse(this);
+	}
+}
+
+// Flugente: Food decay in inventory (once an hour)
+void SOLDIERTYPE::SoldierInventoryFoodDecay(void)
+{
+	if ( !gGameOptions.fFoodSystem )
+		return;
+
+	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
+	FLOAT decaymod = 12*60*gGameExternalOptions.sFoodDecayModificator;
+
+	INT8 invsize = (INT8)this->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+	{
+		if ( Item[this->inv[bLoop].usItem].foodtype > 0 )					// food decays
+		{
+			OBJECTTYPE * pObj = &(this->inv[bLoop]);						// ... get pointer for this item ...
+
+			if ( pObj != NULL )												// ... if pointer is not obviously useless ...
+			{
+				for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
+				{
+					(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - decaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
+				}
+			}
+		}
 	}
 }
 
@@ -15742,6 +15796,11 @@ UINT16 NumberOfDamagedStats( SOLDIERTYPE * pSoldier )
 		if (pSoldier->ubCriticalStatDamage[cnt] > 0 )
 			ubTotalStatsDamaged += pSoldier->ubCriticalStatDamage[cnt];
 	}
+
+	// Flugente: stats can also be damaged
+	ubTotalStatsDamaged += pSoldier->usStarveDamageHealth;
+	ubTotalStatsDamaged += pSoldier->usStarveDamageStrength;
+
 	return( ubTotalStatsDamaged );
 }
 
@@ -15871,6 +15930,102 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 			//if( pSoldier->ubCriticalStatDamage[cnt] > 0 )
 			//	fAnyStatToBeRepaired = TRUE;
 			
+		}
+	}
+
+	// Flugente: Third, heal damage from starvation if possible
+	if ( !gGameOptions.fFoodSystem || ( gGameOptions.fFoodSystem && ubAmountRegained > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
+	{
+		// if we have a damaged stat here
+		if (pSoldier->usStarveDamageHealth > 0 )
+		{
+			if (ubAmountRegained >= pSoldier->usStarveDamageHealth)
+			{
+				// if the amount we can return is bigger than what we need, keep the rest, for other stats
+				usStatIncreasement = pSoldier->usStarveDamageHealth;
+				ubAmountRegained = max(0,(ubAmountRegained - usStatIncreasement));
+				pSoldier->usStarveDamageHealth = 0;
+			}
+			else
+			{
+				// if not having full amount, heal what we can
+				usStatIncreasement = ubAmountRegained;
+				ubAmountRegained = 0;
+				pSoldier->usStarveDamageHealth = max( 0, (pSoldier->usStarveDamageHealth - usStatIncreasement));
+			}
+
+			// so we can start regaining the stats
+			if ( usStatIncreasement > 0 )
+			{
+				bStatsReturned += usStatIncreasement; // keep value for feedback
+				
+				sStat = sStatGainStrings[0]; // set string
+				pSoldier->stats.bLifeMax += usStatIncreasement;
+				pSoldier->stats.bLife += usStatIncreasement;
+				pSoldier->iHealableInjury -= (usStatIncreasement * 100); // don't forget the healable injury
+				if (pSoldier->iHealableInjury < 0)
+					pSoldier->iHealableInjury = 0;
+				if (pSoldier->stats.bLifeMax >= 100 || pSoldier->stats.bLife >= 100 ) // repair if going too far
+				{
+					pSoldier->stats.bLifeMax = 100;
+					pSoldier->stats.bLife = 100;
+					pSoldier->iHealableInjury = 0;
+					pSoldier->usStarveDamageHealth = 0;
+				}
+				gMercProfiles[ pSoldier->ubProfile ].bLifeMax = pSoldier->stats.bLifeMax; // update profile
+
+				// Throw a message if healed anything
+				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
+				{
+					if ( usStatIncreasement == 1 )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->name, sStat  );
+					else
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->name, usStatIncreasement, sStat  );
+				}
+			}
+		}
+
+		// if we have a damaged stat here
+		if (pSoldier->usStarveDamageStrength > 0 )
+		{
+			if (ubAmountRegained >= pSoldier->usStarveDamageStrength)
+			{
+				// if the amount we can return is bigger than what we need, keep the rest, for other stats
+				usStatIncreasement = pSoldier->usStarveDamageStrength;
+				ubAmountRegained = max(0,(ubAmountRegained - usStatIncreasement));
+				pSoldier->usStarveDamageStrength = 0;
+			}
+			else
+			{
+				// if not having full amount, heal what we can
+				usStatIncreasement = ubAmountRegained;
+				ubAmountRegained = 0;
+				pSoldier->usStarveDamageStrength = max( 0, (pSoldier->usStarveDamageStrength - usStatIncreasement));
+			}
+
+			// so we can start regaining the stats
+			if ( usStatIncreasement > 0 )
+			{
+				bStatsReturned += usStatIncreasement; // keep value for feedback
+				
+				sStat = sStatGainStrings[9]; // set string
+				pSoldier->stats.bStrength += usStatIncreasement;
+				if (pSoldier->stats.bStrength >= 100 ) // repair if going too far
+				{
+					pSoldier->stats.bStrength = 100;
+					pSoldier->usStarveDamageStrength = 0;
+				}
+				gMercProfiles[ pSoldier->ubProfile ].bStrength = pSoldier->stats.bStrength; // update profile
+
+				// Throw a message if healed anything
+				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
+				{
+					if ( usStatIncreasement == 1 )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->name, sStat  );
+					else
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->name, usStatIncreasement, sStat  );
+				}
+			}
 		}
 	}
 

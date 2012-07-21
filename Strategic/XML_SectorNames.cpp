@@ -19,6 +19,9 @@
 // Four different sector names, used at different times.
 extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
 
+// Flugente: To determine wether a sector has water in it. 
+extern UINT8	gSectorWaterType[256][4];
+
 // moved to lua
 //extern CHAR16 gzSectorUndergroundNames1[256][4][MAX_SECTOR_NAME_LENGTH]; 
 //extern CHAR16 gzSectorUndergroundNames2[256][4][MAX_SECTOR_NAME_LENGTH]; 
@@ -42,6 +45,7 @@ typedef struct
 	CHAR16			szCurDetailedUnexploredName[MAX_SECTOR_NAME_LENGTH];
 	CHAR16			szCurExploredName[MAX_SECTOR_NAME_LENGTH];
 	CHAR16			szCurDetailedExploredName[MAX_SECTOR_NAME_LENGTH];
+	UINT8			sWaterType;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 } SectorNameParseData;
@@ -66,6 +70,10 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 			// Initiate Array by setting first character to 0.
 			for (UINT16 x = 0; x < 256; x++)
 			{
+				gSectorWaterType[x][0] = 0;
+				gSectorWaterType[x][1] = 0;
+				gSectorWaterType[x][2] = 0;
+				gSectorWaterType[x][3] = 0;
 			
 				if (Sector_Level == 0 )
 				{
@@ -112,7 +120,8 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "szUnexploredName") == 0 ||
 				strcmp(name, "szDetailedUnexploredName") == 0 ||
 				strcmp(name, "szExploredName") == 0 ||
-				strcmp(name, "szDetailedExploredName") == 0 ))
+				strcmp(name, "szDetailedExploredName") == 0 ||
+				strcmp(name, "sWaterType") == 0 ))
 		{
 			pData->curElement = SECTORNAME_ELEMENT;
 
@@ -164,6 +173,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
 						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
 						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
+
+						gSectorWaterType[ubSectorId][0]	= pData->sWaterType;
+						gSectorWaterType[ubSectorId][1]	= pData->sWaterType;
+						gSectorWaterType[ubSectorId][2]	= pData->sWaterType;
+						gSectorWaterType[ubSectorId][3]	= pData->sWaterType;
 					}
 					// moved to lua
 					//else if (Sector_Level == 1 )
@@ -196,6 +210,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
 						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
 						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
+
+						gSectorWaterType[ubSectorId][0]	= pData->sWaterType;
+						gSectorWaterType[ubSectorId][1]	= pData->sWaterType;
+						gSectorWaterType[ubSectorId][2]	= pData->sWaterType;
+						gSectorWaterType[ubSectorId][3]	= pData->sWaterType;
 					}
 					// moved to lua
 					//else if (Sector_Level == 1 )
@@ -266,6 +285,12 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->szCurDetailedExploredName, sizeof(pData->szCurDetailedExploredName)/sizeof(pData->szCurDetailedExploredName[0]) );
 			pData->szCurDetailedExploredName[sizeof(pData->szCurDetailedExploredName)/sizeof(pData->szCurDetailedExploredName[0]) - 1] = '\0';
+		}
+
+		else if(strcmp(name, "sWaterType") == 0)
+		{
+			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
+			pData->sWaterType = (UINT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;

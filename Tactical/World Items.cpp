@@ -28,6 +28,7 @@
 	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "message.h"
+	#include "Food.h"	// added by Flugente
 #include "connect.h"
 #endif
 
@@ -892,6 +893,18 @@ void CoolDownWorldItems( BOOLEAN fSetZero )
 									break;
 								}
 							}
+						}
+					}
+				}
+				else if ( Item[gWorldItems[ uiCount ].object.usItem].foodtype > 0 )		// food decays
+				{
+					OBJECTTYPE* pObj = &(gWorldItems[ uiCount ].object);				// ... get pointer for this item ...
+
+					if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+						{							
+							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
 						}
 					}
 				}

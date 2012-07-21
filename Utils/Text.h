@@ -612,8 +612,11 @@ extern STR16 gzItemDescGenIndexes[ 4 ];
 // HEADROCK HAM 4: Added list of condition strings
 extern STR16		gConditionDesc[ 9 ];
 
-// Flugente FTW1: Added list of temperature descriptions
+// Flugente: Added list of temperature descriptions
 extern STR16		gTemperatureDesc[ 11 ];
+
+// Flugente: Added list of food condition descriptions
+extern STR16		gFoodDesc[ 8 ];
 
 extern CHAR16		gMoneyStatsDesc[][ 14 ];
 // HEADROCK: Altered value to 16 //WarmSteel - And I need 17.
@@ -636,8 +639,8 @@ extern STR16		szUDBGenAmmoStatsTooltipText[ 5 ];						// Flugente Overheating: 3
 extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 5 ];			// Flugente Overheating: 3->4	poison: 4->5
 extern STR16		szUDBGenExplosiveStatsTooltipText[ 22 ];
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ];
-extern STR16		szUDBGenSecondaryStatsTooltipText[ 26 ];
-extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ];
+extern STR16		szUDBGenSecondaryStatsTooltipText[ 28 ];				// Flugente Food System: 26 -> 28
+extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 28 ];	// Flugente Food System: 26 -> 28
 extern STR16		szUDBAdvStatsTooltipText[ 57 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57
 extern STR16		szUDBAdvStatsExplanationsTooltipText[ 57 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57
 extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52
@@ -811,6 +814,8 @@ enum
 	CHOOSE_TRIPWIRE_NETWORK,
 
 	MERC_VITAL_STATS_WITH_POISON_POPUPTEXT,
+	MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT,
+	MERC_VITAL_STATS_WITH_POISON_AND_FOOD_POPUPTEXT,
 	
 	TEXT_NUM_TACTICAL_STR
 };
@@ -1785,6 +1790,7 @@ enum
 	GIO_NCTH_TITLE_TEXT,
 	GIO_IIS_TITLE_TEXT,
 	GIO_OVERHEATING_TITLE_TEXT,
+	GIO_FOODSYSTEM_TITLE_TEXT,
 	GIO_BR_QUANTITY_TEXT,
 
 	////////////////////////////////////

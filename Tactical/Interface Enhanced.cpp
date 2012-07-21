@@ -73,6 +73,7 @@
 	#include "opplist.h"
 	#include "los.h"
 	#include "Map Screen Interface Map.h"
+	#include "Food.h"	// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -2461,6 +2462,27 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
 			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
 			cnt++;
+		}
+
+		//////////////////// drinkable WATER
+		UINT32 foodtype = Item[gpItemDescObject->usItem].foodtype;
+		if ( foodtype > 0 )
+		{
+			if ( Food[foodtype].bDrinkPoints > 0 )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 26 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+				cnt++;
+			}
+
+			if ( Food[foodtype].bFoodPoints > 0 )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 27 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 27 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+				cnt++;
+			}
 		}
 	}
 
@@ -5452,6 +5474,23 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 24, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
+	}
+
+	//////////////////// drinkable WATER
+	UINT32 foodtype = Item[gpItemDescObject->usItem].foodtype;
+	if ( foodtype > 0 )
+	{
+		if ( Food[foodtype].bDrinkPoints > 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 26, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
+
+		if ( Food[foodtype].bFoodPoints > 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 27, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
 	}
 }
 

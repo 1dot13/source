@@ -84,6 +84,7 @@
 	#include "SkillCheck.h"				// added by Flugente
 	#include "random.h"					// added by Flugente
 	#include "Explosion Control.h"		// added by Flugente
+	#include "Food.h"					// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -3803,6 +3804,23 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				DrawItemUIBarEx( pObjShown, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER );								
 			}
 
+			// Flugente: display condition of food if it can decay
+			if ( gGameOptions.fFoodSystem == TRUE && Item[pObject->usItem].foodtype > 0 )
+			{
+				if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+				{
+					FLOAT condition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
+
+					UINT32 red   = (UINT32) ( 127 );
+					UINT32 green = (UINT32) ( 54 + 201 * ( min(1.0f, condition ) ) );
+					UINT32 blue  = 0;
+										
+					UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
+
+					DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER);
+				}
+			}
+
 			// display symbol if we are leaning our weapon on something
 			// display only if eapon resting is allowed, display is allowed, item is a gun/launcher, we are a person, we hold the gun in our hand, and we are resting the gun
 			if ( gGameExternalOptions.fWeaponResting && gGameExternalOptions.fDisplayWeaponRestingIndicator && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
@@ -6676,6 +6694,57 @@ void RenderItemDescriptionBox( )
 						FindFontRightCoordinates( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, gItemDescTextRegions[regionindex].sRight - gItemDescTextRegions[regionindex].sLeft ,gItemDescTextRegions[regionindex].sBottom - gItemDescTextRegions[regionindex].sTop ,pStr, BLOCKFONT2, &usX, &usY);
 
 						mprintf( usX, usY, pStr );
+					}
+					// Flugente: display condition of food if it can decay
+					else if ( gGameOptions.fFoodSystem == TRUE && Item[gpItemDescObject->usItem].foodtype > 0 )
+					{
+						if ( OVERHEATING_MAX_TEMPERATURE > 0 )
+						{
+							FLOAT condition = (*gpItemDescObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
+
+							UINT32 red   = (UINT32) ( 127 );
+							UINT32 green = (UINT32) ( 54 + 201 * ( min(1.0f, condition ) ) );
+							UINT32 blue  = 0;
+
+							UINT8 FoodStringNum = 6;
+							if ( condition > 0.84f )
+								FoodStringNum = 1;
+							else if ( condition > 0.66f )
+								FoodStringNum = 2;
+							else if ( condition > 0.5f )
+								FoodStringNum = 3;
+							else if ( condition > 0.33f )
+								FoodStringNum = 4;
+							else if ( condition > 0.16f )
+								FoodStringNum = 5;
+
+							// UDB system displays a string with colored condition text.
+							int regionindex = 7;
+							SetFontForeground( ForegroundColor );
+							swprintf( pStr, L"%s", gFoodDesc[0] ); // "Temperature is "
+							mprintf( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, pStr );
+							// Record length
+							INT16 indent = StringPixLength( gFoodDesc[0], ITEMDESC_FONT );
+						
+							swprintf( pStr, L"%s", gFoodDesc[FoodStringNum] );
+
+							SetRGBFontForeground( red, green, blue );
+
+							mprintf( gItemDescTextRegions[regionindex].sLeft+indent+2, gItemDescTextRegions[regionindex].sTop, pStr );
+							// Record length
+							indent += StringPixLength( gFoodDesc[FoodStringNum], ITEMDESC_FONT );
+
+							SetFontForeground( ForegroundColor );
+							swprintf( pStr, L"%s", gFoodDesc[7] ); // "."
+							mprintf( gItemDescTextRegions[regionindex].sLeft + indent + 2, gItemDescTextRegions[regionindex].sTop, pStr );
+
+							// to get the text to the left side...
+							swprintf( pStr, L"");
+
+							FindFontRightCoordinates( gItemDescTextRegions[regionindex].sLeft, gItemDescTextRegions[regionindex].sTop, gItemDescTextRegions[regionindex].sRight - gItemDescTextRegions[regionindex].sLeft ,gItemDescTextRegions[regionindex].sBottom - gItemDescTextRegions[regionindex].sTop ,pStr, BLOCKFONT2, &usX, &usY);
+
+							mprintf( usX, usY, pStr );
+						}
 					}
 
 					// UDB system displays a string with colored condition text.
