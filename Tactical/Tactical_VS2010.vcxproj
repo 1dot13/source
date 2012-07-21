@@ -43,6 +43,7 @@
     <ClInclude Include="Enemy Soldier Save.h" />
     <ClInclude Include="EnemyItemDrops.h" />
     <ClInclude Include="faces.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="fov.h" />
     <ClInclude Include="GAP.H" />
     <ClInclude Include="Handle Doors.h" />
@@ -127,6 +128,7 @@
     <ClCompile Include="Enemy Soldier Save.cpp" />
     <ClCompile Include="EnemyItemDrops.cpp" />
     <ClCompile Include="Faces.cpp" />
+    <ClCompile Include="Food.cpp" />
     <ClCompile Include="fov.cpp" />
     <ClCompile Include="GAP.cpp" />
     <ClCompile Include="Handle Doors.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="XML_EnemyWeaponChoice.cpp" />
     <ClCompile Include="XML_EnemyWeaponDrops.cpp" />
     <ClCompile Include="XML_Explosive.cpp" />
+    <ClCompile Include="XML_Food.cpp" />
     <ClCompile Include="XML_HiddenNames.cpp" />
     <ClCompile Include="XML_IMPItemChoices.cpp" />
     <ClCompile Include="XML_IncompatibleAttachments.cpp" />
