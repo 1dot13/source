@@ -1135,6 +1135,9 @@ typedef struct
 	// Flugente: Scope Modes
 	BOOLEAN fScopeModes;							// allow the player to toggle between existing scopes/sights
 	BOOLEAN fDisplayScopeModes;						// allow display of scope modes
+
+	// Flugente: External Feeding
+	UINT8	ubExternalFeeding;						// allow external feeding of guns (0 = no, 1 = only for others, 2 = we can also fed ourselves)
 	
 	BOOLEAN gBriefingRoom;
 	BOOLEAN gEncyclopedia;

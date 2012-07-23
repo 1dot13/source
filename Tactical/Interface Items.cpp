@@ -4128,6 +4128,38 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
+
+			// Flugente: if ammo is used to feed a gun externally, show ammo count left on this ammo
+			if ( gGameExternalOptions.ubExternalFeeding > 0 && (Item[pObject->usItem].usItemClass & (IC_AMMO)) && ObjectIsExternalFeeder(pSoldier, pObject)  )
+			{
+				sNewY = sY + sHeight - 10;
+
+				UINT16 usAmmoItem	  = pObject->usItem;
+				UINT16 usMagIndex	  = Item[usAmmoItem].ubClassIndex;
+				UINT16 usAmmoMagSize  = Magazine[usMagIndex].ubMagSize;
+				UINT8  usAmmoAmmoType = Magazine[usMagIndex].ubAmmoType;
+
+				SetFontForeground ( AmmoTypes[usAmmoAmmoType].fontColour );
+
+				swprintf( pStr, L"%d", (*pObject)[iter]->data.ubShotsLeft );
+
+				// Get length of string
+				uiStringLength=StringPixLength(pStr, ITEM_FONT );
+
+				sNewX = sX + 1;
+				//sNewX = sX + sWidth - uiStringLength - 4;
+									
+				if ( uiBuffer == guiSAVEBUFFER )
+				{
+					RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
+				}
+				mprintf( sNewX, sNewY, pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
+
+				//sNewX = sX + 1;
+
+				//SetFontForeground( FONT_MCOLOR_DKGRAY );
+			}
 		}
 	}
 

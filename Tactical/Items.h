@@ -468,4 +468,14 @@ BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag );
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
 BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag );
 
+// Flugente: check if this object is currently fed from an external source (belts in inventory, other mercs)
+BOOLEAN ObjectIsBeingFedExternal(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
+
+// is this object currently used to feed an externally fed object? This can be in our or someone else's inventory
+BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
+
+OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
+
+BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
+
 #endif

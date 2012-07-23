@@ -2302,6 +2302,21 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			bNumRightIcons++;
 		}
 	}
+	// Flugente: are we supplying ammo to someone else?
+	if ( gGameExternalOptions.ubExternalFeeding > 0 )
+	{
+		UINT8 ubID1 = 0;
+		UINT16 ubGunSlot1 = 0;
+		UINT16 ubFaceSlot1 = 0;
+		UINT8 ubID2 = 0;
+		UINT16 ubGunSlot2 = 0;
+		UINT16 ubFaceSlot2 = 0;
+		if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 21 );
+			bNumRightIcons++;
+		}
+	}
 
 		switch( pSoldier->bAssignment )
 		{

@@ -1436,6 +1436,9 @@ public:
 
 	// Flugente: Food decay in inventory
 	void	SoldierInventoryFoodDecay( void );
+
+	// Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
+	BOOLEAN		IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

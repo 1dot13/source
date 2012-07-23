@@ -1117,6 +1117,8 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fScopeModes						= iniReader.ReadBoolean("Tactical Gameplay Settings","USE_SCOPE_MODES", FALSE);
 	gGameExternalOptions.fDisplayScopeModes					= iniReader.ReadBoolean("Tactical Gameplay Settings","DISPLAY_SCOPE_MODES", FALSE);
+
+	gGameExternalOptions.ubExternalFeeding					= iniReader.ReadInteger("Tactical Gameplay Settings","EXTERNAL_FEEDING", 2, 0, 2);
 	
 	// WANNE: Externalized grid number of new merc when they arrive with the helicopter (by Jazz)
 	gGameExternalOptions.iInitialMercArrivalLocation		= iniReader.ReadInteger("Tactical Gameplay Settings","INITIAL_MERC_ARRIVAL_LOCATION", 4870 );
@@ -1396,15 +1398,15 @@ void LoadGameExternalOptions()
 	//################# Tactical Food Settings ##################
 	gGameExternalOptions.usFoodDigestionHourlyBaseFood					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_FOOD",  20, 0, 250);
 	gGameExternalOptions.usFoodDigestionHourlyBaseDrink					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_DRINK",	130, 0, 250);
-	gGameExternalOptions.sFoodDigestionSleep							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_SLEEP",				0.6, 0.0, 10.0);
-	gGameExternalOptions.sFoodDigestionTravelVehicle					= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_TRAVEL_VEHICLE",	0.8, 0.0, 10.0);
-	gGameExternalOptions.sFoodDigestionTravel							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_TRAVEL",			1.5, 0.0, 10.0);
-	gGameExternalOptions.sFoodDigestionAssignment						= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_ASSIGNMENT",		0.9, 0.0, 10.0);
-	gGameExternalOptions.sFoodDigestionOnDuty							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_ONDUTY",			1.0, 0.0, 10.0);
-	gGameExternalOptions.sFoodDigestionCombat							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_COMBAT",			2.0, 0.0, 10.0);
+	gGameExternalOptions.sFoodDigestionSleep							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_SLEEP",				0.6f, 0.0f, 10.0f);
+	gGameExternalOptions.sFoodDigestionTravelVehicle					= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_TRAVEL_VEHICLE",	0.8f, 0.0f, 10.0f);
+	gGameExternalOptions.sFoodDigestionTravel							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_TRAVEL",			1.5f, 0.0f, 10.0f);
+	gGameExternalOptions.sFoodDigestionAssignment						= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_ASSIGNMENT",		0.9f, 0.0f, 10.0f);
+	gGameExternalOptions.sFoodDigestionOnDuty							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_ONDUTY",			1.0f, 0.0f, 10.0f);
+	gGameExternalOptions.sFoodDigestionCombat							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_COMBAT",			2.0f, 0.0f, 10.0f);
 	
 	gGameExternalOptions.fFoodDecayInSectors							= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_DECAY_IN_SECTORS", TRUE);
-	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0, 0.1, 10.0);
+	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0f, 0.1f, 10.0f);
 
 	//################# Strategic Gamestart Settings ##################
 

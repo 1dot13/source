@@ -13696,6 +13696,276 @@ void SOLDIERTYPE::SoldierInventoryFoodDecay(void)
 	}
 }
 
+// Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
+BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2)
+{
+	// make sure we have to check this...
+	if ( gGameExternalOptions.ubExternalFeeding == 0 )
+		return( FALSE );
+
+	//  basic check if are up to this task
+	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE )
+		return( FALSE );
+
+	BOOLEAN	isFeeding = FALSE;
+
+	UINT16 usGunItem      = 0;
+	UINT8  usGunCalibre   = 0;
+	//UINT16 usGunMagSize   = 0;
+	UINT8  usGunAmmoType  = 0;
+	
+	UINT16 usAmmoItem     = 0;
+	UINT8  usAmmoCalibre  = 0;
+	//UINT16 usAmmoMagSize  = 0;
+	UINT8  usAmmoAmmoType = 0;
+	
+	UINT16 usMagIndex	  = 0;
+
+	BOOLEAN firstgunfound = FALSE;
+		
+	// do this check for both hands
+	UINT16 firstslot = HANDPOS;
+	UINT16 lastslot  = SECONDHANDPOS;
+	for (UINT16 invpos = firstslot; invpos <= lastslot; ++invpos)
+	{
+		// do we have ammo in our hands?
+		OBJECTTYPE* pAmmoObj = &(this->inv[invpos]);
+
+		if ( !pAmmoObj || !(pAmmoObj->exists()) || Item [ pAmmoObj->usItem ].usItemClass != IC_AMMO || (*pAmmoObj)[0]->data.ubShotsLeft <= 0 )
+			// can't use this, end
+			continue;
+
+		usAmmoItem = pAmmoObj->usItem;
+		
+		if ( !HasItemFlag( usAmmoItem, AMMO_BELT ) )
+			continue;
+
+		usMagIndex = Item[usAmmoItem].ubClassIndex;
+
+		usAmmoCalibre  = Magazine[usMagIndex].ubCalibre;
+		//usAmmoMagSize  = Magazine[usMagIndex].ubMagSize;
+		usAmmoAmmoType = Magazine[usMagIndex].ubAmmoType;
+
+		// our current stance is important
+		UINT8 usOurStance = gAnimControl[ this->usAnimState ].ubEndHeight;
+
+		// we will check wether one of our teammates is on the gridno we face
+		INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+
+		SOLDIERTYPE* pTeamSoldier = NULL;
+		INT32 cnt = gTacticalStatus.Team[ this->bTeam ].bFirstID;
+		INT32 lastid = gTacticalStatus.Team[ this->bTeam ].bLastID;
+		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+		{
+			// we ourselves don't count, we can't face ourselves
+			//if ( cnt == this->ubID )
+				//continue;
+
+			// check if teamsoldier exists in this sector
+			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->sSectorX != this->sSectorX || pTeamSoldier->sSectorY != this->sSectorY || pTeamSoldier->bSectorZ != this->bSectorZ )
+				continue;
+
+			// check if both soldiers are on the same level
+			if ( this->pathing.bLevel != pTeamSoldier->pathing.bLevel )
+				continue;
+		
+			// determine wether we can physically provide ammo to our teammate.
+			// check the stance, prone on standing (both ways) doesn't work			
+			if ( usOurStance == ANIM_STAND )
+			{
+				if ( gAnimControl[ pTeamSoldier->usAnimState ].ubEndHeight != ANIM_STAND && gAnimControl[ pTeamSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH )
+					continue;
+			}
+			else if ( usOurStance == ANIM_PRONE )
+			{
+				if ( gAnimControl[ pTeamSoldier->usAnimState ].ubEndHeight != ANIM_PRONE && gAnimControl[ pTeamSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH )
+					continue;
+			}
+			
+			// check if we look at our teammate, or look the same way he does, or in the direction between
+			BOOLEAN fPositioningOkay = FALSE;
+			// the other person must be near
+			if ( SpacesAway(this->sGridNo, pTeamSoldier->sGridNo) == 0 )
+			{
+				// same tile -> its ourself -> ok
+				fPositioningOkay = TRUE;
+			}
+			else if ( SpacesAway(this->sGridNo, pTeamSoldier->sGridNo) == 1 )
+			{
+				// we look at him -> ok
+				if ( nextGridNoinSight == pTeamSoldier->sGridNo )
+					fPositioningOkay = TRUE;
+				else
+				{
+					// if we look at the same tile, then that's okay too
+					INT32 teamsoldiernextGridNoinSight = NewGridNo( pTeamSoldier->sGridNo, DirectionInc( pTeamSoldier->ubDirection ) );
+
+					if ( nextGridNoinSight == teamsoldiernextGridNoinSight )
+						fPositioningOkay = TRUE;
+					else
+					{
+						// if we both look in the same direction...
+						INT8 teammatedirection = pTeamSoldier->ubDirection;
+						INT8 ourdirection = this->ubDirection;
+
+						if ( teammatedirection == ourdirection )
+						{
+							// if the angle between our teammates sightline and the direct line from us to him is 90 degrees, then we are also able to supply 
+							INT8 ourrightdirection = (ourdirection + 2) % NUM_WORLD_DIRECTIONS;
+							INT8 ourleftdirection  = (ourdirection - 2) % NUM_WORLD_DIRECTIONS;
+
+							if ( NewGridNo( this->sGridNo, DirectionInc( ourrightdirection ) ) == pTeamSoldier->sGridNo || NewGridNo( this->sGridNo, DirectionInc( ourleftdirection ) ) == pTeamSoldier->sGridNo )
+								fPositioningOkay = TRUE;
+						}
+					}
+				}
+			}
+			
+			if ( !fPositioningOkay )
+				continue;
+		
+			// ok, we are facing a teammate. Check if he has a gun in any hand that still has ammo left
+			UINT16 pTeamSoldierfirstslot = HANDPOS;
+			UINT16 pTeamSoldierlastslot  = SECONDHANDPOS;
+			for (UINT16 teamsoldierinvpos = pTeamSoldierfirstslot; teamsoldierinvpos <= pTeamSoldierlastslot; ++teamsoldierinvpos)
+			{
+				OBJECTTYPE* pObjInHands = &(pTeamSoldier->inv[teamsoldierinvpos]);
+				if ( pObjInHands && pObjInHands->exists() && Item [ pObjInHands->usItem ].usItemClass == IC_GUN && (HasItemFlag( pObjInHands->usItem, BELT_FED ) || HasAttachmentOfClass(pObjInHands, AC_FEEDER) ) && (*pObjInHands)[0]->data.gun.ubGunShotsLeft > 0 )
+				{
+					// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+					usGunItem = pObjInHands->usItem;
+
+					usGunCalibre  = Weapon[usGunItem].ubCalibre;
+					//usGunMagSize  = Weapon[usGunItem].ubMagSize;
+					usGunAmmoType = (*pObjInHands)[0]->data.gun.ubGunAmmoType;
+
+					if ( usGunCalibre == usAmmoCalibre && /*usGunMagSize == usAmmoMagSize &&*/ usGunAmmoType == usAmmoAmmoType )
+					{
+						// same calibre, same magsize, same ammotype. We can serve this guy
+						if ( !firstgunfound )
+						{
+							firstgunfound = TRUE;
+							(*pubId1) = cnt;
+							(*pGunSlot1) = teamsoldierinvpos;
+							(*pAmmoSlot1) = invpos;
+							isFeeding	 = TRUE;
+							break;
+						}
+						else
+						{
+							(*pubId2) = cnt;
+							(*pGunSlot2) = teamsoldierinvpos;
+							(*pAmmoSlot2) = invpos;
+							isFeeding	 = TRUE;
+
+							// we really found a second gun. we can only serve 2 guns maximum. lets end this
+							return( isFeeding );
+						}
+					}
+				}
+			}
+
+			// if we reach this point, the only soldier that we could reach doesn't fit -> stop this search
+			//break;
+		}				
+	}
+
+	// if set to 1, we do not wether we feed ourself from our inventory
+	if ( gGameExternalOptions.ubExternalFeeding < 2 )
+		return( isFeeding );
+
+	// if we reach this point, we have checked all our teammates, and we do not provide external feeding for any of them
+	// it is possible that we provide external feeding for OURSELF (think of ammo belts in a dedicated LBE slot, or of a gun that requires a separate energy source)
+	// first, determine wether we need external feeding for our gun. We do this for both hands, as it is thinkable that someone has 2 one-handed guns with external feeding
+
+	// this determines which slots we'll search for ammo
+	UINT16 firstslotforammo = MEDPOCK1POS;
+	UINT16 lastslotforammo  = MEDPOCK2POS;
+
+	// for robots and AI-controlled soldiers (who don't have any LBE gear), we put a change in here so that ALL their slots are checked for ammo
+	if ( this->bTeam != gbPlayerNum || MercPtrs[ this->ubID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+	{
+		firstslotforammo = HANDPOS;
+		lastslotforammo  = NUM_INV_SLOTS;
+	}
+	else
+	{
+		// as a merc, the only slots that are valid for external feeding are the 2 medium-sized slots on a vest (because I say so). And that only if the vest is allowed to do that, which we will now check:
+		if ( !(this->inv[VESTPOCKPOS].exists()) || !HasItemFlag( this->inv[VESTPOCKPOS].usItem, AMMO_BELT_VEST ) )
+			return( isFeeding );
+	}
+
+	UINT16 searchgunfirstslot = HANDPOS;
+	UINT16 searchgunlastslot  = SECONDHANDPOS;
+	for (UINT16 invpos = searchgunfirstslot; invpos <= searchgunlastslot; ++invpos)
+	{
+		// check our hands for guns
+		OBJECTTYPE* pObj = &(this->inv[invpos]);
+
+		UINT16 usGunItem = pObj->usItem;
+
+		if ( !pObj || !(pObj->exists()) || Item [usGunItem ].usItemClass != IC_GUN || !(HasItemFlag( usGunItem, BELT_FED ) || HasAttachmentOfClass(pObj, AC_FEEDER) ) || (*pObj)[0]->data.gun.ubGunShotsLeft <= 0 )
+			// can't use this, end
+			continue;
+				
+		// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+		usGunCalibre  = Weapon[usGunItem].ubCalibre;
+		//usGunMagSize  = Weapon[usGunItem].ubMagSize;
+		usGunAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
+		
+		// now check the inventory for an ammo belt. If we are not from the player team or a robot, we will search the entire inventory
+		for ( UINT16 bLoop = firstslotforammo; bLoop <= lastslotforammo; ++bLoop)
+		{
+			if (this->inv[bLoop].exists() == true )
+			{
+				OBJECTTYPE * pAmmoObj = &(this->inv[bLoop]);							// ... get pointer for this item ...
+
+				if ( pAmmoObj != NULL )													// ... if pointer is not obviously useless ...
+				{
+					if ( pAmmoObj->ubNumberOfObjects == 1 )
+					{
+						usAmmoItem = pAmmoObj->usItem;
+
+						if ( Item [ usAmmoItem ].usItemClass == IC_AMMO && HasItemFlag( usAmmoItem, AMMO_BELT ) )
+						{
+							// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+							usMagIndex     = Item[usAmmoItem].ubClassIndex;
+							usAmmoCalibre  = Magazine[usMagIndex].ubCalibre;
+							//usAmmoMagSize  = Magazine[usMagIndex].ubMagSize;
+							usAmmoAmmoType = Magazine[usMagIndex].ubAmmoType;
+
+							if ( usGunCalibre == usAmmoCalibre && /*usGunMagSize == usAmmoMagSize &&*/ usGunAmmoType == usAmmoAmmoType )
+							{
+								// same calibre, same magsize, same ammotype. We can serve this guy
+								if ( !firstgunfound )
+								{
+									firstgunfound = TRUE;
+									(*pubId1)     = this->ubID;
+									(*pGunSlot1)  = invpos;
+									(*pAmmoSlot1) = bLoop;
+									isFeeding	  = TRUE;
+									break;
+								}
+								else
+								{
+									(*pubId2)     = this->ubID;
+									(*pGunSlot2)  = invpos;
+									(*pAmmoSlot2) = bLoop;
+									isFeeding	  = TRUE;
+
+									// we really found a second gun. we can only serve 2 guns maximum. lets end this
+									return( isFeeding );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	return( isFeeding );
+}
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {

@@ -656,7 +656,7 @@ extern OBJECTTYPE gTempObject;
 #define AC_REMOTEDET    0x00100000	//1048576			// remote detonator for bombs
 #define AC_DEFUSE		0x00200000	//2097152			// defuse item for bombs
 #define AC_IRONSIGHT	0x00400000	//4194304			// for attachable Iron Sights
-#define AC_MISC12		0x00800000	//8388608
+#define AC_FEEDER		0x00800000	//8388608			// allow external feeding
 #define AC_MISC13		0x01000000	//16777216
 #define AC_MISC14		0x02000000	//33554432
 #define AC_MISC15		0x04000000	//67108864
@@ -720,11 +720,11 @@ extern OBJECTTYPE gTempObject;
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
 #define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
 #define COW_MEAT   				0x00000040	//64		// retrieve this by gutting a cow
-/*#define WH40K_DISPLACER			0x00000080	//128
+#define BELT_FED				0x00000080	//128		// item can be fed externally
 
-#define WH40K_ROSARIUS			0x00000100	//256
-#define WH40K_SEAL				0x00000200	//512
-#define WH40K_POWER_WEAPON		0x00000400	//1024
+#define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
+#define AMMO_BELT_VEST			0x00000200	//512		// this is a vest that can contain AMMO_BELT items in its medium slots
+/*#define unused				0x00000400	//1024
 #define ENEMY_NET_4_LVL_3		0x00000800	//2048
 
 #define ENEMY_NET_1_LVL_4		0x00001000	//4096

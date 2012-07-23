@@ -13981,3 +13981,128 @@ BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag )
 
 	return( FALSE );
 }
+
+// Flugente: check if object is currently fed from an external source (belts in inventory, other mercs)
+BOOLEAN ObjectIsBeingFedExternal(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
+{	
+	return( GetExternalFeedingObject(pSoldier, pObject) != NULL );
+}
+
+// is this object currently used to feed an externally fed object? This can be in our or someone else's inventory
+BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
+{
+	if ( !pSoldier || !pObject)
+		return( FALSE );
+		
+	UINT8  usSoldierFeedingTarget1 = 0;
+	UINT16 usGunSlot1 = 0;
+	UINT16 usAmmoSlot1 = 0;
+	UINT8  usSoldierFeedingTarget2 = 0;
+	UINT16 usGunSlot2 = 0;
+	UINT16 usAmmoSlot2 = 0;
+	if ( pSoldier->IsFeedingExternal(&usSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2) )
+	{
+		SOLDIERTYPE* pTargetSoldier = MercPtrs[usSoldierFeedingTarget1];
+
+		if ( pTargetSoldier && &(pSoldier->inv[usAmmoSlot1]) == pObject )
+			return( TRUE );
+
+		pTargetSoldier = MercPtrs[usSoldierFeedingTarget2];
+
+		if ( pTargetSoldier && &(pSoldier->inv[usAmmoSlot2]) == pObject )
+			return( TRUE );
+	}
+		
+	return( FALSE );
+}
+
+OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
+{
+	OBJECTTYPE* pObjExtMag = NULL;
+
+	if ( !pObject || !(pObject->exists()) || !pSoldier || !pSoldier->bActive || !pSoldier->bInSector || pSoldier->stats.bLife < OKLIFE )
+		// how did we even get here?
+		return false;
+
+	UINT16 usItem = pObject->usItem;
+
+	// if item is a gun that can be belt fed and still has shots left
+	if ( Item[ usItem ].usItemClass == IC_GUN && ( HasItemFlag( usItem, BELT_FED ) || HasAttachmentOfClass(pObject, AC_FEEDER) ) && (*pObject)[0]->data.gun.ubGunShotsLeft > 0 )
+	{
+		// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+		UINT8 ubCalibre = Weapon[usItem].ubCalibre;
+		UINT16 ubMagSize = Weapon[usItem].ubMagSize;
+		UINT8 ubAmmoType = ubAmmoType = (*pObject)[0]->data.gun.ubGunAmmoType;
+
+		// now we now that this gun CAN be belt fed in the current situation. We now have to check if it IS
+		// we will first check for other mercs who might feed us. Afterwards we look into our own inventory
+
+		// loop over other members of our team in this sector. This includes ourself, as our gun can be fed from a belt in our inventory
+		SOLDIERTYPE* pTeamSoldier = NULL;
+		INT32 cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+		INT32 lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
+		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+		{
+			// check if teamsoldier exists in this sector
+			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->stats.bLife < OKLIFE || pTeamSoldier->sSectorX != pSoldier->sSectorX || pTeamSoldier->sSectorY != pSoldier->sSectorY || pTeamSoldier->bSectorZ != pSoldier->bSectorZ )
+				continue;
+
+			// check if both soldiers are on the same level
+			if ( pSoldier->pathing.bLevel != pTeamSoldier->pathing.bLevel )
+				continue;
+
+			// we check if that guy is feeding someone, and that someone is really us
+			UINT8  usTeamSoldierFeedingTarget1 = 0;
+			UINT16 usGunSlot1 = 0;
+			UINT16 usAmmoSlot1 = 0;
+			UINT8  usTeamSoldierFeedingTarget2 = 0;
+			UINT16 usGunSlot2 = 0;
+			UINT16 usAmmoSlot2 = 0;
+			if ( pTeamSoldier->IsFeedingExternal(&usTeamSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usTeamSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2)  )
+			{
+				if ( usTeamSoldierFeedingTarget1 == pSoldier->ubID && pSoldier->inv[usGunSlot1] == (*pObject) )
+				{
+					if ( pTeamSoldier->inv[usAmmoSlot1].exists() && Item [ pTeamSoldier->inv[usAmmoSlot1].usItem ].usItemClass != IC_AMMO || pTeamSoldier->inv[usAmmoSlot1][0]->data.ubShotsLeft > 0 )
+					{
+						pObjExtMag = &(pTeamSoldier->inv[usAmmoSlot1]);
+						return( pObjExtMag );
+					}
+				}
+
+				if ( usTeamSoldierFeedingTarget2 == pSoldier->ubID && pSoldier->inv[usGunSlot2] == (*pObject) )
+				{
+					if ( pTeamSoldier->inv[usAmmoSlot2].exists() && Item [ pTeamSoldier->inv[usAmmoSlot2].usItem ].usItemClass != IC_AMMO || pTeamSoldier->inv[usAmmoSlot2][0]->data.ubShotsLeft > 0 )
+					{
+						pObjExtMag = &(pTeamSoldier->inv[usAmmoSlot2]);
+						return( pObjExtMag );
+					}
+				}
+			}
+		}
+	}
+
+	return( pObjExtMag );
+}
+
+BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
+{
+	if ( !pObject || !(pObject->exists()) || !pSoldier || !pSoldier->bActive || !pSoldier->bInSector )
+		// how did we even get here?
+		return false;
+
+	OBJECTTYPE* pObjExtMag = GetExternalFeedingObject(pSoldier, pObject);
+
+	if ( pObjExtMag && (*pObjExtMag)[0]->data.ubShotsLeft != 0 )
+	{
+		(*pObjExtMag)[0]->data.ubShotsLeft--;
+
+		if ( (*pObjExtMag)[0]->data.ubShotsLeft == 0 )
+		{
+			DeleteObj( pObjExtMag );
+		}
+
+		return( TRUE );
+	}
+
+	return( FALSE );
+}

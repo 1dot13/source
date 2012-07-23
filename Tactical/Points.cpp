@@ -2464,11 +2464,27 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 			// Flugente: check for underbarrel weapons and use that object if necessary
 			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[bInvPos]) );
 
-			// OK, let's see, don't overrun...
-			if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft != 0 )
+			// Flugente: external feeding allows us to take ammo from somewhere other than our magazine, like a belt in our inventory our even another mercs
+			if ( gGameExternalOptions.ubExternalFeeding > 0 )
 			{
-				(*pObjUsed)[0]->data.gun.ubGunShotsLeft--;
-			}			
+				if ( !DeductBulletViaExternalFeeding(pSoldier, pObj) )
+				{
+					// bullet couldn't be fed externally -> remove bullet from the weapon's magazine
+					// OK, let's see, don't overrun...
+					if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft != 0 )
+					{
+						(*pObjUsed)[0]->data.gun.ubGunShotsLeft--;
+					}	
+				}
+			}
+			else
+			{
+				// OK, let's see, don't overrun...
+				if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft != 0 )
+				{
+					(*pObjUsed)[0]->data.gun.ubGunShotsLeft--;
+				}	
+			}
 		}
 		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || Item[pObj->usItem].cannon || pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 		{
