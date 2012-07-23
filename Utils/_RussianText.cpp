@@ -5105,7 +5105,7 @@ STR16		zOptionsToggleText[] =
 #ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",						// Flugente Zombies 1.0
 #endif
-
+	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5221,7 +5221,7 @@ STR16	zOptionsScreenHelpText[] =
 #ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 #endif
-
+	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7338,6 +7338,17 @@ STR16	zNewTacticalMessages[]=
 	L"Кампания: %S",
 	L"Вы выбрали кампанию %S. Эта кампания является модификацией оригинальной кампании Unfinished Business. Вы уверены, что хотите играть кампанию %S?",
 	L"Чтобы воспользоваться редактором, смените кампанию по умолчанию на другую.",
+};
+
+// The_bob : pocket popup text defs	// TODO.Translate
+STR16	gszPocketPopupText[]=
+{
+	L"Grenade launchers",	// POCKET_POPUP_GRENADE_LAUNCHERS,
+	L"Rocket launchers",	// POCKET_POPUP_ROCKET_LAUNCHERS
+	L"Melee & thrown weapons",	// POCKET_POPUP_MEELE_AND_THROWN
+	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
+	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
+	L"more...",		//POCKET_POPUP_MOAR
 };
 
 #endif //RUSSIAN

@@ -5126,7 +5126,7 @@ STR16		zOptionsToggleText[] =
 #ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",				// TODO.Translate
 #endif
-
+	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5242,7 +5242,7 @@ STR16	zOptionsScreenHelpText[] =
 #ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 #endif
-
+	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7378,4 +7378,16 @@ STR16	zNewTacticalMessages[]=
 	L"你选择了%S战役。 该战役是原版UB战役的玩家自定义游戏版本。你确认你要在 %S 战役下进行游戏吗?",			
 	L"如果你要使用编辑器的话，请选择一个战役，不要用默认战役。",			
 };
+
+// The_bob : pocket popup text defs	// TODO.Translate
+STR16	gszPocketPopupText[]=
+{
+	L"Grenade launchers",	// POCKET_POPUP_GRENADE_LAUNCHERS,
+	L"Rocket launchers",	// POCKET_POPUP_ROCKET_LAUNCHERS
+	L"Melee & thrown weapons",	// POCKET_POPUP_MEELE_AND_THROWN
+	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
+	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
+	L"more...",		//POCKET_POPUP_MOAR
+};
+
 #endif //CHINESE

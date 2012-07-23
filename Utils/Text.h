@@ -2172,7 +2172,19 @@ enum
 };
 extern STR16 Additional113Text[];
 extern STR16 ranks[];
-extern STR16 ranks[];
+//extern STR16 ranks[];
+
+enum
+{
+	POCKET_POPUP_GRENADE_LAUNCHERS,
+	POCKET_POPUP_ROCKET_LAUNCHERS,
+	POCKET_POPUP_MEELE_AND_THROWN,
+	POCKET_POPUP_NO_AMMO,
+	POCKET_POPUP_NO_GUNS,
+	POCKET_POPUP_MOAR
+};
+extern STR16	gszPocketPopupText[];
+
 
 // Enumeration support
 typedef struct Str8EnumLookupType {

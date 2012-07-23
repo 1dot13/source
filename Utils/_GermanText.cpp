@@ -4971,9 +4971,9 @@ STR16 zOptionsToggleText[] =
 #endif
 
 #ifdef ENABLE_ZOMBIES
-	L"Allow Zombies",						// Flugente Zombies 1.0
+	L"Zombies erlauben",						// Flugente Zombies 1.0
 #endif
-
+	L"Inventar Popup-Menüs",				// the_bob : enable popups for picking items from sector inv
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5089,7 +5089,7 @@ STR16 zOptionsScreenHelpText[] =
 #ifdef ENABLE_ZOMBIES
 	L"Wenn diese Funktion aktiviert ist, können Tote als Zombies wieder auferstehen. Seien Sie auf der Hut!",
 #endif
-
+	L"Wenn diese Funktion aktiviert ist, und Sie mit der linken Maustaste auf einen freien Söldner-Inventarplatz klicken (während das Sektor-Inventar angezeigt wird), wird ein hilfreiches Popup-Menü eingeblendet.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -7190,4 +7190,16 @@ STR16	zNewTacticalMessages[]=
 	L"Sie haben die Kampagne %S gewählt. Diese ist eine vom Spieler modifizierte Version der Originalkampagne von JA2UB. Möchten Sie die Kampagne %S spielen?",			
 	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
 };
+
+// The_bob : pocket popup text defs
+STR16	gszPocketPopupText[]=
+{
+	L"Granatwerfer",	// POCKET_POPUP_GRENADE_LAUNCHERS,
+	L"Raketenwerfer",	// POCKET_POPUP_ROCKET_LAUNCHERS
+	L"Hand- & Wurfwaffen",	// POCKET_POPUP_MEELE_AND_THROWN
+	L"- keine passende Munition -",	//POCKET_POPUP_NO_AMMO
+	L"- keine Waffen im Inventar -",	//POCKET_POPUP_NO_GUNS
+	L"weitere...",		//POCKET_POPUP_MOAR
+};
+
 #endif //GERMAN

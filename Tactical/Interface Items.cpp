@@ -583,12 +583,88 @@ INV_DESC_REGIONS gODBItemDescRegions[4][8]; // Four regions of eight sub-regions
 
 // ------------------- Attachment popup callbacks
 
+INT16 getStatusOfLeastDamagedItemInStack( OBJECTTYPE * stack );
+
 // BOB : globals for telling attachment popups _where_ should the attachment go
 UINT8	gubPopupStatusIndex;
 UINT32	guiPopupItemPos;
 void popupCallbackItem(INT16 itemId){
 
+	OBJECTTYPE* bestStack;
+	std::map<UINT32,INT16> bestItemsStatus;
 
+	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
+	{	
+
+		OBJECTTYPE * currentStack = &pInventoryPoolList[i].object;
+		UINT16 currentItem = currentStack->usItem;
+
+		if(	currentItem == itemId )
+		{				
+			INT16 leastDamagedStatus = getStatusOfLeastDamagedItemInStack( currentStack );
+
+			if( bestItemsStatus[ currentItem ] < leastDamagedStatus ){	// either not indexed yet or worse then current
+
+				bestItemsStatus[ currentItem ] = leastDamagedStatus;
+				bestStack = currentStack;
+			}
+
+		} // found item
+
+	} // inv loop
+
+
+	// if this is a stack, try to find the least damaged object
+		
+	if( bestStack->ubNumberOfObjects > 1 ){
+
+		UINT8 numObjectsToPlace = 1;
+
+		for (UINT8 j = 1; j <= numObjectsToPlace; j++){
+
+			UINT16 i = 0, leastDamagedIndex = 0;
+			INT16 leastDamagedStatus = 0;
+
+			StackedObjects::iterator p = bestStack->objectStack.begin();
+			while(p != bestStack->objectStack.end()) {
+				
+				if( p->data.objectStatus > leastDamagedStatus ){
+					leastDamagedIndex = i;
+					leastDamagedStatus = p->data.objectStatus;
+				}
+				i++;p++;
+			}
+
+			OBJECTTYPE pObjTmp;
+			pObjTmp.initialize();
+
+			if( bestStack->RemoveObjectAtIndex(leastDamagedIndex, &pObjTmp) ){
+				gpItemPointer = &pObjTmp;									// pick up the object (or stack)
+				DoAttachment((UINT8)gubPopupStatusIndex, guiPopupItemPos);	// try to attach it
+				//gpItemPointer = NULL;										// dont drop it!
+
+				gItemDescAttachmentPopups[giActiveAttachmentPopup]->hide();
+				RenderItemDescriptionBox();
+				giActiveAttachmentPopup = -1;
+
+				//UpdateAttachmentTooltips(gpItemDescObject, gubItemDescStatusIndex);
+				return;
+			}
+		}
+
+	} else {
+		gpItemPointer = bestStack;									// pick up the object (or stack)
+		DoAttachment((UINT8)gubPopupStatusIndex, guiPopupItemPos);	// try to attach it
+		gpItemPointer = NULL;										// and drop it
+
+		gItemDescAttachmentPopups[giActiveAttachmentPopup]->hide();
+		RenderItemDescriptionBox();
+		giActiveAttachmentPopup = -1;
+
+		//UpdateAttachmentTooltips(gpItemDescObject, gubItemDescStatusIndex);
+		return;
+	}
+/*
 	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++){
 		if( pInventoryPoolList[i].object.usItem == itemId ) {
 			
@@ -605,7 +681,7 @@ void popupCallbackItem(INT16 itemId){
 			
 		}
 	}
-
+*/
 }
 
 bool popupCallbackItemInSector(INT16 itemId){
@@ -1969,7 +2045,7 @@ void addItemsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup, 
 
 		if( optsTotal > 0 && optsTotal%15 == 0 ){ // divide to subBoxes every 10 items
 
-			POPUP * currPopupTmp = currPopup->addSubMenuOption( new std::wstring(L"more...") );	// the new popup
+			POPUP * currPopupTmp = currPopup->addSubMenuOption( new std::wstring( gszPocketPopupText[POCKET_POPUP_MOAR] ) );	// the new popup
 			POPUP_SUB_POPUP_OPTION * currSubPopupTmp = currPopup->getSubPopupOption( currPopup->subPopupOptionCount-1 );	// the sub-popup option in prev popup
 
 			
@@ -2044,7 +2120,7 @@ void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* 
 
 	POPUP * subPopup = NULL;
 
-	subPopup = popup->addSubMenuOption( new std::wstring(L"Guns") );
+	subPopup = popup->addSubMenuOption( new std::wstring(BobbyRFilter[17]/*Guns*/) );
 	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
 																				10,
 																				POPUP_POSITION_RELATIVE );
@@ -2072,21 +2148,20 @@ void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* 
 
 	}
 	
-
-	subPopup = popup->addSubMenuOption( new std::wstring(L"Grenade launchers") );
+	subPopup = popup->addSubMenuOption( new std::wstring( gszPocketPopupText[POCKET_POPUP_GRENADE_LAUNCHERS] ) );
 	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
 																				10,
 																				POPUP_POSITION_RELATIVE );
 	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_LAUNCHER, -1, -1, 0 );
 
-	subPopup = popup->addSubMenuOption( new std::wstring(L"Rocket launchers") );
+	subPopup = popup->addSubMenuOption( new std::wstring( gszPocketPopupText[POCKET_POPUP_ROCKET_LAUNCHERS] ) );
 	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
 																				10,
 																				POPUP_POSITION_RELATIVE );
 	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_GUN, -1, 0, 0);
 
 
-	subPopup = popup->addSubMenuOption( new std::wstring(L"Melee & thrown weapons") );
+	subPopup = popup->addSubMenuOption( new std::wstring( gszPocketPopupText[POCKET_POPUP_MEELE_AND_THROWN] ) );
 	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
 																				10,
 																				POPUP_POSITION_RELATIVE );
@@ -2204,7 +2279,7 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 			} // mag loop
 
 			if (!ammoFound){
-				POPUP_OPTION * o = popup->addOption( &std::wstring( L"- no matching ammo -" ), NULL );
+				POPUP_OPTION * o = popup->addOption( &std::wstring( gszPocketPopupText[POCKET_POPUP_NO_AMMO] ), NULL );
 				o->color_shade = COLOR_RED;
 			}
 
@@ -2214,7 +2289,7 @@ void addAmmoToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup ){
 	} // found guns
 	else 
 	{
-		POPUP_OPTION * o = popup->addOption( &std::wstring( L"- no guns in inventory -" ), NULL );
+		POPUP_OPTION * o = popup->addOption( &std::wstring( gszPocketPopupText[POCKET_POPUP_NO_GUNS] ), NULL );
 		o->color_shade = COLOR_RED;
 	}
 
@@ -2287,37 +2362,36 @@ void PocketPopupFull( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 
 		POPUP * subPopup = NULL;
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"Weapons") );
+		subPopup = popup->addSubMenuOption( new std::wstring( iEditorItemsToolbarText[0]/*Weapons*/ ) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addWeaponGroupsToPocketPopup( pSoldier, sPocket, subPopup );
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"Ammo") );
+		subPopup = popup->addSubMenuOption( new std::wstring( BobbyRText[BOBBYR_GUNS_AMMO]/*Ammo*/ ) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addAmmoToPocketPopup( pSoldier, sPocket, subPopup );
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"Armor") );
+		subPopup = popup->addSubMenuOption( new std::wstring( BobbyRText[BOBBYR_GUNS_ARMOR]/*Amour*/ ) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addArmorToPocketPopup( pSoldier, sPocket, subPopup );
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"LBE") );
+		subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[BOBBYR_FILTER_USED_LBEGEAR] /*"LBE"*/) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addLBEToPocketPopup( pSoldier, sPocket, subPopup );
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"Grenades") );
+		subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[BOBBYR_FILTER_MISC_GRENADE]/*Grenades*/ ) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"Bombs") );
+		subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[BOBBYR_FILTER_MISC_BOMB] ) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addBombsToPocketPopup( pSoldier, sPocket, subPopup );
 
-		subPopup = popup->addSubMenuOption( new std::wstring(L"Face Gear") );
+		subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[BOBBYR_FILTER_MISC_FACE] ) );
 		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addFaceGearToPocketPopup( pSoldier, sPocket, subPopup );
 
 		popup->show();
 	}
-
 }
 
 /*
@@ -2390,7 +2464,7 @@ void PocketPopupDefault( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 					// default for LBE slots - grenades + ammo for merc's guns
 				addAmmoToPocketPopup( pSoldier, sPocket, popup );
 
-				POPUP * subPopup = popup->addSubMenuOption( new std::wstring(L"Grenades") );
+				POPUP * subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[28]/*Grenades*/ ) );
 				popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 				addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
 				} else {

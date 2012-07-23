@@ -9459,10 +9459,16 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			
 			if ( pSoldier->inv[ uiHandPos ].exists() == false )
 			{
-				if ( _KeyDown(CTRL) ){
-					PocketPopupFull( pSoldier, uiHandPos );	// if ctrl is pressed, display all options
-				} else {
-					PocketPopupDefault( pSoldier, uiHandPos );	// display pocket-specific options
+				if (gGameSettings.fOptions[ TOPTION_ENABLE_INVENTORY_POPUPS ] == TRUE) // the_bob : enable popups for picking items from sector inv
+				{
+					if ( _KeyDown(CTRL) )
+					{
+						PocketPopupFull( pSoldier, uiHandPos );	// if ctrl is pressed, display all options
+					} 
+					else 
+					{
+						PocketPopupDefault( pSoldier, uiHandPos );	// display pocket-specific options
+					}
 				}
 
 				return;

@@ -99,6 +99,8 @@ enum
 	TOPTION_ZOMBIES,							// Flugente Zombies 1.0: allow zombies	
 #endif
 
+	TOPTION_ENABLE_INVENTORY_POPUPS,			// the_bob : enable popups for picking items from sector inv
+
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments
