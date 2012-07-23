@@ -419,6 +419,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Food.h"
+				>
+			</File>
+			<File
 				RelativePath=".\fov.h"
 				>
 			</File>
@@ -753,6 +757,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Food.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\fov.cpp"
 				>
 			</File>
@@ -1062,6 +1070,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_Explosive.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Food.cpp"
 				>
 			</File>
 			<File

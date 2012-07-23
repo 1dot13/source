@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include <math.h>
 	#include "sgp.h"
 	#include "soldier profile.h"
 	#include "Food.h"
@@ -9,21 +10,21 @@
 	#include "points.h"
 	#include "message.h"
 	#include "GameSettings.h" // SANDRO - had to add this, dammit!
-#include "Random.h"
-#include "Text.h"
-#include "Interface.h"
-#include "Dialogue Control.h"
-#include "Sound Control.h"
-#include "Assignments.h"
-#include "Overhead.h"
-#include "worldman.h"
-#include "Isometric Utils.h"
-#include "Campaign Types.h"
-#include "Drugs And Alcohol.h"
-#include "environment.h"
-//#include "Game Clock.h"
-#include "WorldDat.h"
-#include "Facilities.h"
+	#include "Random.h"
+	#include "Text.h"
+	#include "Interface.h"
+	#include "Dialogue Control.h"
+	#include "Sound Control.h"
+	#include "Assignments.h"
+	#include "Overhead.h"
+	#include "worldman.h"
+	#include "Isometric Utils.h"
+	#include "Campaign Types.h"
+	#include "Drugs And Alcohol.h"
+	#include "environment.h"
+	//#include "Game Clock.h"
+	#include "WorldDat.h"
+	#include "Facilities.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
