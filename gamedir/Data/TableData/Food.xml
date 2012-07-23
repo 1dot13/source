@@ -1,0 +1,11 @@
+﻿<FOODSLIST>
+	<FOOD>
+		<uiIndex>0</uiIndex>
+		<szName>None</szName>
+		<bFoodPoints>0</bFoodPoints>
+		<bDrinkPoints>0</bDrinkPoints>
+		<ubPortionSize>0</ubPortionSize>
+		<bMoraleMod>0</bMoraleMod>
+		<usDecayRate>0</usDecayRate>
+	</FOOD>
+</FOODSLIST>
