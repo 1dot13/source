@@ -13,6 +13,7 @@
 #include "Random.h"
 #include "Text.h"
 #include "Interface.h"
+#include "Food.h"	// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -71,7 +72,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 	UINT32 foodtype = Item[pObject->usItem].foodtype;
 
 	// if not a food item, nothing to see here
-	if ( foodtype > 0  )
+	if ( gGameOptions.fFoodSystem && foodtype > 0  )
 		consumeitem = FALSE;
 
 	// set flag: we are on drugs
@@ -253,6 +254,9 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 
 	// Dirty panel
 	fInterfacePanelDirty = DIRTYLEVEL2;
+
+	if ( !consumeitem )
+		ApplyFood( pSoldier, pObject );
 
 	return( TRUE );
 }

@@ -502,7 +502,11 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 					{
 						while ( (*pObj)[0]->data.objectStatus > 1 )
 						{
-							ApplyFood( pSoldier, pObj );
+							// if food is also a drug, ApplyDrugs will also call ApplyFood
+							if ( Item[pObj->usItem].drugtype > 0 )
+								ApplyDrugs( pSoldier, pObj );
+							else
+								ApplyFood( pSoldier, pObj );
 
 							// if we're full, finish
 							if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
@@ -530,7 +534,11 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 					{
 						while ( (*pObj)[0]->data.objectStatus > 1 )
 						{
-							ApplyFood( pSoldier, pObj );
+							// if food is also a drug, ApplyDrugs will also call ApplyFood
+							if ( Item[pObj->usItem].drugtype > 0 )
+								ApplyDrugs( pSoldier, pObj );
+							else
+								ApplyFood( pSoldier, pObj );
 
 							// if we're full, finish
 							if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )

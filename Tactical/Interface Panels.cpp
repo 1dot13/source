@@ -3315,7 +3315,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 						}
 					}
-					else if ( gGameOptions.fFoodSystem && ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
+					else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
 					{
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
@@ -3342,7 +3342,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 
 					}
-					else if ( ApplyFood( gpSMCurrentMerc, gpItemPointer ) )
+					else if ( gGameOptions.fFoodSystem && ApplyFood( gpSMCurrentMerc, gpItemPointer ) )
 					{
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
