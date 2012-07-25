@@ -7046,6 +7046,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|L|o|c|k |B|o|m|b",
 	L"|D|r|i|n|k",// TODO. Translate
 	L"|M|e|a|l",
+	L"|A|m|m|o |B|e|l|t",
+	L"|A|m|m|o |V|e|s|t",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7078,6 +7080,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis item can be used to blast open locked\ndoors and containers.\n \nExplosives skill is required to avoid\npremature detonation.\n \nBlowing locks is a relatively easy way of quickly\ngetting through locked doors. However,\nit is very loud, and dangerous to most characters.",
 	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
 	L"\n \nThis item will still your hunger\nif you eat it.",
+	L"\n \With this ammo belt you can\nfeed someone else's MG.",
+	L"\n \You can feed an MG with ammo\nbelts stored in this vest.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

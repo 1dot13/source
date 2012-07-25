@@ -58,8 +58,12 @@ FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 };
 
 
-BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
+BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
 {
+	// static variables to remember the last food someone was forced to eat
+	static UINT8 lasteater = 0;
+	static UINT16 lastitem = 0;
+
 	// how did this even happen?
 	if ( !pSoldier || !pObject || !(pObject->exists() ) || (*pObject)[0]->data.objectStatus < 1 )
 		return( FALSE);
@@ -96,16 +100,28 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 
 	// we have to determine wether the food is rotten, that might influence its condition and poison us
 	FLOAT foodcondition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
-	FLOAT conditionmodifier = 0.5f * (1.0f + sqrt(foodcondition));
-
-	FLOAT percentualsize = min(Food[foodtype].ubPortionSize, (*pObject)[0]->data.objectStatus) / 100.0f;
-
-	INT32 foodpts  = (INT32) (Food[foodtype].bFoodPoints  * percentualsize * conditionmodifier );
-	INT32 drinkpts = (INT32) (Food[foodtype].bDrinkPoints * percentualsize * conditionmodifier );
-
+	
 	// food in bad condition is harmful!
 	if ( foodcondition < FOOD_BAD_THRESHOLD )
 	{
+		// if we can choose to reject a food and haven't yet done so with this type of bad food, do so. Works only once
+		if ( !fForce && ( lasteater != pSoldier->ubID || lastitem != pObject->usItem) )
+		{
+			lasteater = pSoldier->ubID;
+			lastitem = pObject->usItem;
+
+			// notification
+			if ( type == AP_EAT )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not want to eat %s", pSoldier->name, Item[pObject->usItem].szItemName );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not want to drink %s", pSoldier->name, Item[pObject->usItem].szItemName );
+
+			// Say quote!
+			TacticalCharacterDialogue( pSoldier, 61 );
+
+			return( FALSE);
+		}
+
 		// determine the max nutritional value
 		INT32 maxpts = max(Food[foodtype].bFoodPoints, Food[foodtype].bDrinkPoints);
 
@@ -115,6 +131,13 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 
 		pSoldier->AddPoison(poisonadd);
 	}
+
+	FLOAT conditionmodifier = 0.5f * (1.0f + sqrt(foodcondition));
+
+	FLOAT percentualsize = min(Food[foodtype].ubPortionSize, (*pObject)[0]->data.objectStatus) / 100.0f;
+
+	INT32 foodpts  = (INT32) (Food[foodtype].bFoodPoints  * percentualsize * conditionmodifier );
+	INT32 drinkpts = (INT32) (Food[foodtype].bDrinkPoints * percentualsize * conditionmodifier );
 
 	// eat it!
 	pSoldier->bFoodLevel = min(pSoldier->bFoodLevel + foodpts, FOOD_MAX);
@@ -506,7 +529,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 							if ( Item[pObj->usItem].drugtype > 0 )
 								ApplyDrugs( pSoldier, pObj );
 							else
-								ApplyFood( pSoldier, pObj );
+								ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
 
 							// if we're full, finish
 							if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
@@ -538,7 +561,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 							if ( Item[pObj->usItem].drugtype > 0 )
 								ApplyDrugs( pSoldier, pObj );
 							else
-								ApplyFood( pSoldier, pObj );
+								ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
 
 							// if we're full, finish
 							if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )

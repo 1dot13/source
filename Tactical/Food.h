@@ -72,7 +72,8 @@ typedef enum
 	WATER_POISONOUS			// there is water, but it is poisoned (swamps and polluted sectors)
 } FoodSectorWaterSupply;
 
-BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject );
+// eat a food object. if fForce = FALSE, the soldier can reject to eat this once
+BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce );
 
 UINT8 GetFoodSituation( SOLDIERTYPE *pSoldier );
 void FoodMaxMoraleModifiy( SOLDIERTYPE *pSoldier, UINT8* pubMaxMorale );

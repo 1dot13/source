@@ -2484,6 +2484,25 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 		}
+
+		//////////////////// EXTERNAL FEEDING
+		if ( gGameExternalOptions.ubExternalFeeding )
+		{
+			if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 28 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 28 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+				cnt++;
+			}
+			else if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT_VEST) )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 29 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 29 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+				cnt++;
+			}
+		}
 	}
 
 	//////////////////////////////////////////////////////
@@ -5476,7 +5495,7 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		cnt++;
 	}
 
-	//////////////////// drinkable WATER
+	//////////////////// FOOD
 	UINT32 foodtype = Item[gpItemDescObject->usItem].foodtype;
 	if ( foodtype > 0 )
 	{
@@ -5489,6 +5508,21 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		if ( Food[foodtype].bFoodPoints > 0 )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 27, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
+	}
+
+	//////////////////// EXTERNAL FEEDING
+	if ( gGameExternalOptions.ubExternalFeeding )
+	{
+		if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 28, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
+		else if ( HasItemFlag(gpItemDescObject->usItem, AMMO_BELT_VEST) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 29, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;
 		}
 	}

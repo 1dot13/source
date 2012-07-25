@@ -7023,6 +7023,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|B|o|m|b|e |p|o|u|r |s|e|r|r|u|r|e |d|e |p|o|r|t|e",
 	L"|D|r|i|n|k",// TODO. Translate
 	L"|M|e|a|l",
+	L"|A|m|m|o |B|e|l|t",
+	L"|A|m|m|o |V|e|s|t",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7055,6 +7057,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nCet objet peut être utilisé pour faire sauter les portes\nou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour éviter\nune explosion prématurée.\n \nExploser les serrures est relativement facile et rapide\nà faire. Cependant, c'est très bruyant et dangereux pour\nla plupart des mercernaires.",
 	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
 	L"\n \nThis item will still your hunger\nif you eat it.",
+	L"\n \With this ammo belt you can\nfeed someone else's MG.",
+	L"\n \You can feed an MG with ammo\nbelts stored in this vest.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

@@ -256,7 +256,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 	fInterfacePanelDirty = DIRTYLEVEL2;
 
 	if ( !consumeitem )
-		ApplyFood( pSoldier, pObject );
+		ApplyFood( pSoldier, pObject, TRUE );
 
 	return( TRUE );
 }

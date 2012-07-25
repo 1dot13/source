@@ -6868,6 +6868,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|T|ü|r|s|p|r|e|n|g|s|a|t|z",
 	L"|W|a|s|s|e|r",
 	L"|N|a|h|r|u|n|g",
+	L"|M|u|n|i|t|i|o|n|s|g|u|r|t",
+	L"|M|u|n|i|t|i|o|n|s|w|e|s|t|e",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -6900,6 +6902,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nDieser Gegenstand kann dazu benutzt werden verschlossene\nTüren/Behälter zu sprengen.\n \nExplosionsfertigkeit ist erforderlich um\nvorzeitige Detonationen zu vermeiden.\n \nSchlösser zu sprengen ist der einfache Weg um schnell\ndurch verschlossene Türen/Behälter zu kommen. Wie auch immer,\nes ist Laut und für die meisten Personen gefährlich.",
 	L"\n \nMan kann das trinken.",
 	L"\n \nMan kann das essen.",
+	L"\n \Ein externer Munitionsgurt für MGs.",
+	L"\n \In diese Weste passen auch Munitionsgurte.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

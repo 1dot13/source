@@ -639,8 +639,8 @@ extern STR16		szUDBGenAmmoStatsTooltipText[ 5 ];						// Flugente Overheating: 3
 extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 5 ];			// Flugente Overheating: 3->4	poison: 4->5
 extern STR16		szUDBGenExplosiveStatsTooltipText[ 22 ];
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ];
-extern STR16		szUDBGenSecondaryStatsTooltipText[ 28 ];				// Flugente Food System: 26 -> 28
-extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 28 ];	// Flugente Food System: 26 -> 28
+extern STR16		szUDBGenSecondaryStatsTooltipText[ 30 ];				// Flugente Food System: 26 -> 28 external feeding: 28->30
+extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 30 ];	// Flugente Food System: 26 -> 28 external feeding: 28->30
 extern STR16		szUDBAdvStatsTooltipText[ 57 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57
 extern STR16		szUDBAdvStatsExplanationsTooltipText[ 57 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57
 extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52
