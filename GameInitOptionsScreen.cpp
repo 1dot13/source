@@ -551,6 +551,12 @@ UINT32	guiOverheatingOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
 void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason);
 
+// Food System
+UINT32	guiFoodSystemOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiFoodSystemOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOFoodSystemOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOFoodSystemOnCallback(GUI_BUTTON *btn,INT32 reason);
+
 
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
 void BtnTimedTurnsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
@@ -2463,7 +2469,7 @@ BOOLEAN		ExitGIOScreen()
 	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
 	{
 		RemoveButton( guiFoodSystemOptionToggles[ cnt ] );
-		UnloadButtonImage( guiFoodSystemptionTogglesImage[ cnt ] );
+		UnloadButtonImage( guiFoodSystemOptionTogglesImage[ cnt ] );
 	}
 
 	gfGIOButtonsAllocated = FALSE;
