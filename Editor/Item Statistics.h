@@ -1,49 +1,7 @@
 #include "BuildDefines.h"
 
-#ifdef JA2EDITOR
 #ifndef __ITEM_STATISTICS_H
 #define __ITEM_STATISTICS_H
-
-//#include "Item Types.h"
-
-//forward declarations of common classes to eliminate includes
-class OBJECTTYPE;
-class SOLDIERTYPE;
-
-
-//Handles the dynamic changing of text input fields and button modes depending on the currently edited
-//item.	Both the merc's inventory panel, and the items tab use the same code to accomplish this.
-
-//Set if we are editing items from the items tab.	Otherwise, it is assumed that we are 
-//editing items from the merc's inventory panel.
-extern BOOLEAN gfItemEditingMode;
-
-//Set if we need to update the panel.
-extern BOOLEAN gfRenderItemStatsPanel;
-
-void SpecifyItemToEdit( OBJECTTYPE *pItem, INT32 iMapIndex );
-
-void ShowItemStatsPanel();
-void HideItemStatsPanel();
-void EnableItemStatsPanel();
-void DisableItemStatsPanel();
-
-//called from the taskbar renderer.
-void UpdateItemStatsPanel();
-
-enum
-{
-	ITEMSTATS_APPLY,
-	ITEMSTATS_CANCEL,
-	ITEMSTATS_DEFAULT,
-	ITEMSTATS_DELETE,
-	ITEMSTATS_HIDE,
-	ITEMSTATS_SHOW,
-};
-void ExecuteItemStatsCmd( UINT8 ubAction );
-
-extern OBJECTTYPE *gpItem;
-extern INT32			gsItemGridNo;
 
 //enumerations for all of the different action items.	Used by the popup menu for
 //changing the type of action item.	When modified, an equivalent text array must be 
@@ -98,14 +56,58 @@ enum
 
 	NUM_ACTIONITEMS
 };
+
+#ifdef JA2EDITOR
+
+//#include "Item Types.h"
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
+//Handles the dynamic changing of text input fields and button modes depending on the currently edited
+//item.	Both the merc's inventory panel, and the items tab use the same code to accomplish this.
+
+//Set if we are editing items from the items tab.	Otherwise, it is assumed that we are 
+//editing items from the merc's inventory panel.
+extern BOOLEAN gfItemEditingMode;
+
+//Set if we need to update the panel.
+extern BOOLEAN gfRenderItemStatsPanel;
+
+void SpecifyItemToEdit( OBJECTTYPE *pItem, INT32 iMapIndex );
+
+void ShowItemStatsPanel();
+void HideItemStatsPanel();
+void EnableItemStatsPanel();
+void DisableItemStatsPanel();
+
+//called from the taskbar renderer.
+void UpdateItemStatsPanel();
+
+enum
+{
+	ITEMSTATS_APPLY,
+	ITEMSTATS_CANCEL,
+	ITEMSTATS_DEFAULT,
+	ITEMSTATS_DELETE,
+	ITEMSTATS_HIDE,
+	ITEMSTATS_SHOW,
+};
+void ExecuteItemStatsCmd( /*UINT8*/ UINT16  ubAction );
+
+extern OBJECTTYPE *gpItem;
+extern INT32			gsItemGridNo;
+
 extern CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ];
 //Returns a pointer to one of the above string array.
 extern const STR16 GetActionItemName( OBJECTTYPE *pItem );
 //Called by the popup menu, when a selection is made.
-extern void UpdateActionItem( INT8 bActionItemIndex );
+extern void UpdateActionItem( /*INT8*/ INT16 bActionItemIndex );
 //Changes an action item into the type specified by the ACTIONITEM enumeration.
-extern void ChangeActionItem( OBJECTTYPE *pItem, INT8 bActionItemIndex );
-extern INT8 gbActionItemIndex;
+extern void ChangeActionItem( OBJECTTYPE *pItem, /*INT8*/ INT16 bActionItemIndex );
+extern /*INT8*/ INT16 gbActionItemIndex;
 extern INT8 gbDefaultBombTrapLevel;
 
 extern void SetOwnershipGroup( UINT8 ubNewGroup );

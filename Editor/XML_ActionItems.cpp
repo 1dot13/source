@@ -52,10 +52,10 @@ actionItemsStartElementHandle(void *userData, const XML_Char *name, const XML_Ch
 		}
 		else if(pData->curElement == ELEMENT &&
 			   (strcmp(name, "uiIndex") == 0 ||
+			    strcmp(name, "Name") == 0 ||
 			    strcmp(name, "ActionID") == 0 ||
-				strcmp(name, "Name") == 0 ||
-				strcmp(name, "BombItem") == 0 ||
-				strcmp(name, "Blow_up") == 0 ))
+				strcmp(name, "Blow_up") == 0 ||
+				strcmp(name, "BombItem") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -149,7 +149,7 @@ actionItemsEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "BombItem") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curActionItems.BombItem	= (UINT32) atol(pData->szCharData);
+			pData->curActionItems.BombItem	= (UINT16) atol(pData->szCharData);
 		}	
 		pData->maxReadDepth--;
 	}
@@ -221,7 +221,7 @@ BOOLEAN ReadInActionItems(STR fileName, BOOLEAN localizedVersion)
 	return( TRUE );
 }
 
-BOOLEAN WriteInActionItems( STR fileName)
+BOOLEAN WriteInActionItems(STR fileName)
 {
 	HWFILE		hFile;
 
@@ -235,13 +235,14 @@ BOOLEAN WriteInActionItems( STR fileName)
 		UINT32 cnt;
 
 		FilePrintf(hFile,"<ACTION_ITEM_LIST>\r\n");
-		for(cnt = 0;cnt < 501;cnt++)
+		for(cnt = 0;cnt < /*501*/NUM_ACTIONITEMS;cnt++)
 		{
 			FilePrintf(hFile,"\t<ACTION_ITEM>\r\n");
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n", cnt);
 			FilePrintf(hFile,"\t\t<Name>Empty action</Name>\r\n");	
 			FilePrintf(hFile,"\t\t<ActionID>%d</ActionID>\r\n", ActionItemsValues[cnt].ActionID);
-			FilePrintf(hFile,"\t\t<Blow_Up>%d</Blow_Up>\r\n", ActionItemsValues[cnt].BlowUp);		
+			FilePrintf(hFile,"\t\t<Blow_up>%d</Blow_up>\r\n", ActionItemsValues[cnt].BlowUp);	
+			FilePrintf(hFile,"\t\t<BombItem>%d</BombItem>\r\n", ActionItemsValues[cnt].BombItem);				
 			FilePrintf(hFile,"\t</ACTION_ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ACTION_ITEM_LIST>\r\n");

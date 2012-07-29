@@ -100,7 +100,7 @@ CHAR16	temp[30];
 		
 if( (*pItem)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP )
 	{
-			for (i= ACTIONITEM_TRIP_KLAXON; i<=ACTIONITEM_NEW; i++ )
+			for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ i++ )
 				{
 					if ( ActionItemsValues[ i ].BlowUp == 0 )
 					{
@@ -115,14 +115,17 @@ if( (*pItem)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP )
 	}
 	else
 	{
-				for (i= ACTIONITEM_TRIP_KLAXON; i<=ACTIONITEM_NEW; i++ )
+				for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ i++ )
 				{
 					if ( ActionItemsValues[ i ].BlowUp == 1 )
 					{
 						if ( (*pItem)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP )
 						{
 							if ( (*pItem)[0]->data.misc.usBombItem == ActionItemsValues[ i ].BombItem )
+							{
+								wcscpy(temp, gszActionItemDesc[i]);
 								o = i;
+							}
 						}
 					}
 				}
@@ -245,7 +248,7 @@ void ToggleDetonator( GUI_BUTTON *btn, INT32 reason );
 
 UINT32 guiActionItemButton;
 void ActionItemCallback( GUI_BUTTON *btn, INT32 reason );
-INT8 gbActionItemIndex = ACTIONITEM_MEDIUM;
+/*INT8*/ INT16 gbActionItemIndex = ACTIONITEM_MEDIUM;
 INT8 gbDefaultBombTrapLevel = 9;
 
 void RemoveBombFromWorldByItemIndex( INT32 iItemIndex );
@@ -353,7 +356,7 @@ void DisableItemStatsPanel()
 
 }
 
-void ExecuteItemStatsCmd( UINT8 ubAction )
+void ExecuteItemStatsCmd( /*UINT8*/ UINT16  ubAction )
 {
 	switch( ubAction )
 	{
@@ -1501,22 +1504,23 @@ void ActionItemCallback( GUI_BUTTON *btn, INT32 reason )
 	}
 }
 
-void ChangeActionItem( OBJECTTYPE *pItem, INT8 bActionItemIndex )
+void ChangeActionItem( OBJECTTYPE *pItem, /*INT8*/ INT16 bActionItemIndex )
 {
-UINT32 i;
-pItem->usItem = ACTION_ITEM;
+/*UINT32*/ INT16 i;
 //(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
 
-			for (i= ACTIONITEM_TRIP_KLAXON; i<=ACTIONITEM_NEW; i++ )
+			for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ i++ )
 				{
-						if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 1  )
+					pItem->usItem = ACTION_ITEM;
+					
+						if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 1 )
 						{
-							(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;
 							(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
+							(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;	
 						}
 						else if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 0 )
 						{
-							(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;
+							(*pItem)[0]->data.misc.usBombItem = NOTHING; //ActionItemsValues[ i ].BombItem;
 							(*pItem)[0]->data.misc.bActionValue = ActionItemsValues[ i ].ActionID;
 						}
 				}
@@ -1679,7 +1683,7 @@ pItem->usItem = ACTION_ITEM;
 	*/
 }
 
-void UpdateActionItem( INT8 bActionItemIndex )
+void UpdateActionItem( /*INT8*/ INT16 bActionItemIndex )
 {
 	gbActionItemIndex = bActionItemIndex; //used for future new actionitems as the default.
 

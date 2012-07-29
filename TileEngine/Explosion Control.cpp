@@ -77,6 +77,7 @@
 
 #include "LuaInitNPCs.h"
 #include "Luaglobal.h"
+#include "Item Statistics.h"
 
 
 #ifdef JA2UB
@@ -3117,7 +3118,7 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 
 #ifdef LUA_EXPLOSION_CONTROL
 
-	for (UINT32 i = ACTION_ITEM_OPEN_DOOR; i <= ACTION_ITEM_NEW; i++ )
+	for (UINT32 i = ACTION_ITEM_OPEN_DOOR; i < NUM_ACTIONITEMS; /*= ACTION_ITEM_NEW;*/ i++ )
 	{
 		if ( (*pObj)[0]->data.misc.bActionValue == i ) 
 			LetLuaPerformItemAction( i, sGridNo, 0 );
