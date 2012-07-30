@@ -84,6 +84,9 @@ void ReduceBPRegenForHunger( SOLDIERTYPE *pSoldier, INT32 *psPoints );
 void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier );
 void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier );
 
+// eat stuff from the inventory. if fcanteensonly = TRUE, only drink from canteen items
+void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly = FALSE );
+
 void HourlyFoodUpdate( void );
 
 UINT8 GetWaterQuality(INT16 asMapX, INT16 asMapY, INT8 asMapZ);

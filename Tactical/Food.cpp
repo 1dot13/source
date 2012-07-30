@@ -42,7 +42,7 @@ extern void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, I
 
 FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 {
-	{ 100000,	-10,	-3,	-	-75,	-75,	2},		//	FOOD_STUFFED
+	{ 100000,	-10,	-3,		-75,	-75,	2},		//	FOOD_STUFFED
 	{ 5000,		-5,		-2,		-5,		-5,		0},		//	FOOD_EXTREMELY_FULL
 	{ 2500,		2,		-1,		-1,		0,		0},		//	FOOD_FULL
 	{ 1000,		5,		0,		0,		0,		0},		//	FOOD_SLIGHTLY_FULL
@@ -436,7 +436,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 	if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
 		return;
 
-	// if were a prisoner, we can't feed ourself, and the player can't do that either. Instead the army provides food (not much and of bad quality)
+	// if we're a prisoner, we can't feed ourself, and the player can't do that either. Instead the army provides food (not much and of bad quality)
 	if (pSoldier->bAssignment == ASSIGNMENT_POW)
 	{
 		INT16 powwater   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * FOOD_POW_MULTIPLICATOR;
@@ -462,6 +462,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 			return;
 
 		// In certain facilities, we can also eat
+		BOOLEAN eatinginfacility = FALSE;
 		for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 		{
 			// Is this facility here?
@@ -473,6 +474,7 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 					if (cnt == (UINT16)pSoldier->sFacilityTypeOperated && // Soldier is operating this facility
 						GetSoldierFacilityAssignmentIndex( pSoldier ) != -1) 
 					{
+						eatinginfacility = TRUE;
 						INT16 cantinafoodadd = gFacilityTypes[cnt].AssignmentData[FAC_FOOD].sCantinaFoodModifier;
 						INT16 cantinawater   = cantinafoodadd * FOOD_FACILITY_WATER_FACTOR;
 
@@ -493,21 +495,45 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		// search for food in our inventory
-		INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+		// search inventory for food, and eat it
+		if ( !eatinginfacility )
+			EatFromInventory( pSoldier, FALSE );
+	}	
+}
 
-		// on the first loop, we omit food in bad condition, and refillable canteens and canned food
-		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+// eat stuff from the inventory. if fcanteensonly = TRUE, only drink from canteen items
+void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
+{
+	if ( !pSoldier )
+		return;
+
+	// don't eat if not necessary ( note that if the play decides to eat manually, he can achieve better results. This is intended to award micro-management)
+	if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
+		return;
+
+	// search for food in our inventory
+	INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+	// on the first loop, we omit food in bad condition, and refillable canteens and canned food
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+	{
+		// ... if Item exists and is food ...
+		if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
 		{
-			// ... if Item exists and is food ...
-			if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
+			OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);						// ... get pointer for this item ...
+
+			if ( pObj != NULL )													// ... if pointer is not obviously useless ...
 			{
-				OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);						// ... get pointer for this item ...
+				UINT32 foodtype = Item[pObj->usItem].foodtype;
 
-				if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+				// if fcanteensonly is TRUE, omit everything that is not a canteen
+				if ( fcanteensonly )
 				{
-					UINT32 foodtype = Item[pObj->usItem].foodtype;
-
+					if ( Item[pObj->usItem].canteen == FALSE )
+						continue;
+				}
+				else
+				{
 					// omit non-degrading food (save it for later!)
 					if ( Food[foodtype].usDecayRate <= 0.0f )
 						continue;
@@ -519,59 +545,66 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 
 					if ( Item[pObj->usItem].canteen == TRUE )
 						continue;
-
-					// if we're thirsty or hungry, and this is nutritious, consume it
-					if ( ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bDrinkPoints > 0 ) || ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bFoodPoints > 0 ) )
-					{
-						while ( (*pObj)[0]->data.objectStatus > 1 )
-						{
-							// if food is also a drug, ApplyDrugs will also call ApplyFood
-							if ( Item[pObj->usItem].drugtype > 0 )
-								ApplyDrugs( pSoldier, pObj );
-							else
-								ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
-
-							// if we're full, finish
-							if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
-								return;
-						}
-					}					
 				}
+
+				// if we're thirsty or hungry, and this is nutritious, consume it
+				if ( ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bDrinkPoints > 0 ) || ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bFoodPoints > 0 ) )
+				{
+					while ( (*pObj)[0]->data.objectStatus > 1 )
+					{
+						// if food is also a drug, ApplyDrugs will also call ApplyFood
+						if ( Item[pObj->usItem].drugtype > 0 )
+							ApplyDrugs( pSoldier, pObj );
+						else
+							ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
+
+						// if we're full, finish
+						if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
+							return;
+					}
+				}					
 			}
 		}
+	}
 
-		// second loop: consume anything to feed
-		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+	// second loop: consume anything to feed
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
+	{
+		// ... if Item exists and is food ...
+		if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
 		{
-			// ... if Item exists and is food ...
-			if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].foodtype > 0 )
+			OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);						// ... get pointer for this item ...
+
+			if ( pObj != NULL )													// ... if pointer is not obviously useless ...
 			{
-				OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);						// ... get pointer for this item ...
-
-				if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+				UINT32 foodtype = Item[pObj->usItem].foodtype;
+				
+				// if fcanteensonly is TRUE, omit everything that is not a canteen
+				if ( fcanteensonly )
 				{
-					UINT32 foodtype = Item[pObj->usItem].foodtype;
+					if ( Item[pObj->usItem].canteen == FALSE )
+						continue;
+				}
 
-					// if we're thirsty or hungry, and this is nutritious, consume it
-					if ( ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bDrinkPoints > 0 ) || ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bFoodPoints > 0 ) )
+				// if we're thirsty or hungry, and this is nutritious, consume it
+				if ( ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bDrinkPoints > 0 ) || ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && Food[foodtype].bFoodPoints > 0 ) )
+				{
+					while ( (*pObj)[0]->data.objectStatus > 1 )
 					{
-						while ( (*pObj)[0]->data.objectStatus > 1 )
-						{
-							// if food is also a drug, ApplyDrugs will also call ApplyFood
-							if ( Item[pObj->usItem].drugtype > 0 )
-								ApplyDrugs( pSoldier, pObj );
-							else
-								ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
+						// if food is also a drug, ApplyDrugs will also call ApplyFood
+						if ( Item[pObj->usItem].drugtype > 0 )
+							ApplyDrugs( pSoldier, pObj );
+						else
+							ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
 
-							// if we're full, finish
-							if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
-								return;
-						}
+						// if we're full, finish
+						if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
+							return;
 					}
 				}
 			}
 		}
-	}	
+	}
 }
 
 void HourlyFoodUpdate( void )
@@ -672,6 +705,10 @@ void SectorFillCanteens( void )
 						}
 					}
 				}
+
+				// it would be pretty pointless to fill our canteens and then not to drink from them even though we are hungry. If there is an unlimited water source in this sector, drink from our 
+				// freshly filled canteens. Thus calling this function repeatedly will cause us to drink till we're full, and restore our canteens to full level
+				EatFromInventory( pSoldier, TRUE );
 			}
 		}
 
