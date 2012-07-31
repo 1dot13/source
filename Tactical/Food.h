@@ -75,7 +75,7 @@ typedef enum
 // eat a food object. if fForce = FALSE, the soldier can reject to eat this once
 BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce );
 
-UINT8 GetFoodSituation( SOLDIERTYPE *pSoldier );
+void GetFoodSituation( SOLDIERTYPE *pSoldier, UINT8* pFoodSituation, UINT8* pWaterSituation );
 void FoodMaxMoraleModifiy( SOLDIERTYPE *pSoldier, UINT8* pubMaxMorale );
 void FoodNeedForSleepModifiy( SOLDIERTYPE *pSoldier, UINT8* pubNeedForSleep );
 void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );

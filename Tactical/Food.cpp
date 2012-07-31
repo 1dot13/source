@@ -40,9 +40,11 @@ UINT8	gSectorWaterType[256][4];
 extern BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet );
 extern void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 
+// these midifiers are applied separately for both food and water
+// apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
 FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 {
-	{ 100000,	-10,	-3,		-75,	-75,	2},		//	FOOD_STUFFED
+	{ 100000,	-8,		-2,		-20,	-35,	2},		//	FOOD_STUFFED
 	{ 5000,		-5,		-2,		-5,		-5,		0},		//	FOOD_EXTREMELY_FULL
 	{ 2500,		2,		-1,		-1,		0,		0},		//	FOOD_FULL
 	{ 1000,		5,		0,		0,		0,		0},		//	FOOD_SLIGHTLY_FULL
@@ -51,10 +53,10 @@ FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 
 	{ -1000,	0,		0,		0,		0,		0},		//	FOOD_LOW
 	{ -2500,	-2,		0,		0,		0,		0},		//	FOOD_EVEN_LOWER
-	{ -5000,	-10,	-1,		-10,	-10,	5},		//	FOOD_VERY_LOW
-	{ -7500,	-20,	-2,		-25,	-25,	25},	//	FOOD_DANGER
-	{ -8750,	-30,	-2,		-50,	-50,	75},	//	FOOD_DESPERATE
-	{ -10000,	-50,	-3,		-80,	-75,	100},	//	FOOD_STARVING
+	{ -5000,	-8,		-1,		-10,	-18,	5},		//	FOOD_VERY_LOW
+	{ -7500,	-15,	-2,		-20,	-15,	25},	//	FOOD_DANGER
+	{ -8750,	-25,	-2,		-35,	-30,	75},	//	FOOD_DESPERATE
+	{ -10000,	-40,	-3,		-45,	-45,	100},	//	FOOD_STARVING
 };
 
 
@@ -234,33 +236,22 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
 	return( TRUE );
 }
 
-UINT8 GetFoodSituation( SOLDIERTYPE *pSoldier )
+void GetFoodSituation( SOLDIERTYPE *pSoldier, UINT8* pFoodSituation, UINT8* pWaterSituation )
 {
-	UINT8 foodsituation = FOOD_NORMAL;
+	*pFoodSituation = FOOD_NORMAL;
+	*pWaterSituation = FOOD_NORMAL;
 
 	if ( !pSoldier )
-		return( foodsituation );
-
-	// The lowest value determines how bad we feel
-	INT32 missamount = min( pSoldier->bFoodLevel, pSoldier->bDrinkLevel);
-
-	// old code
-	/*INT32 missamount = 0;
-	if ( pSoldier->bFoodLevel < 0 )
-		missamount += pSoldier->bFoodLevel;
-
-	if ( pSoldier->bDrinkLevel < 0 )
-		missamount += (INT32)(FOOD_MORALE_DRINK_TO_FOOD_RATIO * pSoldier->bDrinkLevel);*/
+		return;
 
 	for ( UINT8 i = FOOD_STUFFED; i < NUM_FOOD_MORALE_TYPES; ++i )
 	{
-		if ( missamount < FoodMoraleMods[i].bThreshold )
-			foodsituation = i;
-		else
-			break;
-	}
+		if ( pSoldier->bFoodLevel < FoodMoraleMods[i].bThreshold )
+			*pFoodSituation = i;
 
-	return( foodsituation );
+		if ( pSoldier->bDrinkLevel < FoodMoraleMods[i].bThreshold )
+			*pWaterSituation = i;
+	}
 }
 
 void FoodMaxMoraleModifiy( SOLDIERTYPE *pSoldier, UINT8* pubMaxMorale )
@@ -268,14 +259,14 @@ void FoodMaxMoraleModifiy( SOLDIERTYPE *pSoldier, UINT8* pubMaxMorale )
 	if ( !pSoldier )
 		return;
 
-	UINT8 foodsituation = GetFoodSituation( pSoldier );
+	UINT8 foodsituation;
+	UINT8 watersituation;
+	GetFoodSituation( pSoldier, &foodsituation, &watersituation );
 
-	INT8 mod = FoodMoraleMods[foodsituation].bMoraleModifier;
+	INT8 foodmod  = FoodMoraleMods[foodsituation].bMoraleModifier;
+	INT8 watermod = FoodMoraleMods[watersituation].bMoraleModifier;
 
-	if ( (*pubMaxMorale) + mod > 0 )
-		(*pubMaxMorale) += mod;
-	else
-		(*pubMaxMorale) = 0;
+	(*pubMaxMorale) = max(1, (*pubMaxMorale) + foodmod + watermod);
 }
 
 void FoodNeedForSleepModifiy( SOLDIERTYPE *pSoldier, UINT8* pubNeedForSleep )
@@ -283,27 +274,35 @@ void FoodNeedForSleepModifiy( SOLDIERTYPE *pSoldier, UINT8* pubNeedForSleep )
 	if ( !pSoldier )
 		return;
 
-	UINT8 foodsituation = GetFoodSituation( pSoldier );
+	UINT8 foodsituation;
+	UINT8 watersituation;
+	GetFoodSituation( pSoldier, &foodsituation, &watersituation );
 	
-	(*pubNeedForSleep) += max(1, (INT16)((*pubNeedForSleep) - FoodMoraleMods[foodsituation].bSleepModifier));
+	(*pubNeedForSleep) += max(1, (INT16)((*pubNeedForSleep) + FoodMoraleMods[foodsituation].bSleepModifier + FoodMoraleMods[watersituation].bSleepModifier ));
 }
 
 void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints )
 {
-	UINT8 foodsituation = GetFoodSituation( pSoldier );
+	UINT8 foodsituation;
+	UINT8 watersituation;
+	GetFoodSituation( pSoldier, &foodsituation, &watersituation );
 
-	INT8 mod = FoodMoraleMods[foodsituation].bAssignmentEfficiencyModifier;
+	INT8 foodmod  = FoodMoraleMods[foodsituation].bAssignmentEfficiencyModifier;
+	INT8 watermod = FoodMoraleMods[watersituation].bAssignmentEfficiencyModifier;
 
-	*pusPoints = (UINT32)((*pusPoints) * (100 - mod)/100);
+	*pusPoints = (UINT32)((*pusPoints) * (100 + foodmod + watermod)/100);
 }
 
 void ReduceBPRegenForHunger( SOLDIERTYPE *pSoldier, INT32 *psPoints )
 {
-	UINT8 foodsituation = GetFoodSituation( pSoldier );
+	UINT8 foodsituation;
+	UINT8 watersituation;
+	GetFoodSituation( pSoldier, &foodsituation, &watersituation );
 
-	INT8 mod = FoodMoraleMods[foodsituation].bBreathRegenModifier;
+	INT8 foodmod  = FoodMoraleMods[foodsituation].bBreathRegenModifier;
+	INT8 watermod = FoodMoraleMods[watersituation].bBreathRegenModifier;
 
-	*psPoints = (INT32)((*psPoints) * (100 - mod)/100);
+	*psPoints = (INT32)((*psPoints) * (100 + foodmod + watermod)/100);
 }
 
 void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
@@ -341,8 +340,11 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 	pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel - (INT32) (activitymodifier * temperaturemodifier * gGameExternalOptions.usFoodDigestionHourlyBaseDrink), DRINK_MIN);
 
 	// there is a chance that we take damage to our health and strength stats if we are starving (or insanely obese :-) )
-	UINT8 foodsituation = GetFoodSituation( pSoldier );
+	UINT8 foodsituation;
+	UINT8 watersituation;
+	GetFoodSituation( pSoldier, &foodsituation, &watersituation );
 
+	// we do this separately. first for food
 	UINT8 statdamagechance = FoodMoraleMods[foodsituation].ubStatDamageChance;
 	
 	if ( statdamagechance > 0 )
@@ -377,7 +379,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			UINT8 numberofreduces = 1;
 			// if starving, we lose stats a LOT faster
 			if ( foodsituation == FOOD_STARVING )
-				numberofreduces += 1 + 2 * Random(4);
+				numberofreduces += 1 + 2 * Random(2);
 
 			INT8 oldlife = pSoldier->stats.bLife;
 
@@ -402,13 +404,82 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			// Reason for this is that 
 			if ( pSoldier->stats.bLife < OKLIFE )
 			{
-				// handling a soldiers death doesn't work somehow - let them bleed to death instead
-				/*BOOLEAN fMadeCorpse;
-				HandleSoldierDeath( pSoldier, &fMadeCorpse );
+				pSoldier->bBleeding = max(1, pSoldier->stats.bLife - 1);
+				pSoldier->stats.bLife = 1;
 
-				//remove the merc from the tactical
-				TacticalRemoveSoldier( pSoldier->ubID );*/
+				// Update Profile
+				gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
+				pSoldier->usStarveDamageHealth += oldlife - pSoldier->stats.bLifeMax;
 
+				return;
+			}
+
+			// make stat RED for a while...
+			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+			pSoldier->usValueGoneUp &= ~( HEALTH_INCREASE );						
+		}
+	}
+
+	// now for water
+	statdamagechance = FoodMoraleMods[watersituation].ubStatDamageChance;
+	
+	if ( statdamagechance > 0 )
+	{
+		// these reductions can be healed, but only if we are in a sufficient food situation again
+		// damage strength
+		if ( Random(100) < statdamagechance )
+		{
+			UINT8 numberofreduces = 1;
+			// if starving, we lose stats a LOT faster
+			if ( foodsituation == FOOD_STARVING )
+				numberofreduces += Random(2);
+						
+			INT8 oldval = pSoldier->stats.bStrength;
+			pSoldier->stats.bStrength = max(1, pSoldier->stats.bStrength - numberofreduces);
+			pSoldier->usStarveDamageStrength += oldval - pSoldier->stats.bStrength;
+
+			// Update Profile
+			gMercProfiles[ pSoldier->ubProfile ].bStrength	= pSoldier->stats.bStrength;
+			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+
+			// make stat RED for a while...
+			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of nutrition!", pSoldier->name );
+		}
+
+		// damage health
+		if ( Random(100) < statdamagechance )
+		{
+			UINT8 numberofreduces = 1;
+			// if starving, we lose stats a LOT faster
+			if ( foodsituation == FOOD_STARVING )
+				numberofreduces += 1 + 2 * Random(2);
+
+			INT8 oldlife = pSoldier->stats.bLife;
+
+			pSoldier->stats.bLifeMax = max(2, pSoldier->stats.bLifeMax - numberofreduces);
+			pSoldier->stats.bLife = min(pSoldier->stats.bLife, pSoldier->stats.bLifeMax);
+			pSoldier->bBleeding = min(pSoldier->bBleeding, pSoldier->stats.bLifeMax);
+
+			// adjust poison values
+			pSoldier->bPoisonSum = min(pSoldier->bPoisonSum, pSoldier->stats.bLifeMax);
+			pSoldier->bPoisonLife = min(pSoldier->bPoisonLife, pSoldier->bPoisonSum);
+			pSoldier->bPoisonBleeding = min(pSoldier->bPoisonBleeding, pSoldier->bBleeding);
+
+			pSoldier->usStarveDamageHealth += oldlife - pSoldier->stats.bLifeMax;
+
+			// Update Profile
+			gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
+			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+			
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of nutrition!", pSoldier->name );
+
+			// if we fall below OKLIFE, we start bleeding...
+			// Reason for this is that 
+			if ( pSoldier->stats.bLife < OKLIFE )
+			{
 				pSoldier->bBleeding = max(1, pSoldier->stats.bLife - 1);
 				pSoldier->stats.bLife = 1;
 
