@@ -45904,7 +45904,7 @@
 		<ubGraphicNum>115</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>16</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
@@ -45927,7 +45927,7 @@
 		<ubGraphicNum>118</ubGraphicNum>
 		<ubWeight>7</ubWeight>
 		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>12</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
@@ -45950,7 +45950,7 @@
 		<ubGraphicNum>111</ubGraphicNum>
 		<ubWeight>16</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>28</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
@@ -45973,7 +45973,7 @@
 		<ubGraphicNum>101</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>15</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -45995,7 +45995,7 @@
 		<ubGraphicNum>122</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>12</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46017,7 +46017,7 @@
 		<ubGraphicNum>114</ubGraphicNum>
 		<ubWeight>6</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46039,7 +46039,7 @@
 		<ubGraphicNum>113</ubGraphicNum>
 		<ubWeight>5</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46061,7 +46061,7 @@
 		<ubGraphicNum>112</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46083,7 +46083,7 @@
 		<ubGraphicNum>124</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>5</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46105,7 +46105,7 @@
 		<ubGraphicNum>126</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46128,7 +46128,7 @@
 		<ubGraphicNum>125</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46151,7 +46151,7 @@
 		<ubGraphicNum>106</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46174,7 +46174,7 @@
 		<ubGraphicNum>105</ubGraphicNum>
 		<ubWeight>7</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>12</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46198,7 +46198,7 @@
 		<ubGraphicNum>103</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46220,7 +46220,7 @@
 		<ubGraphicNum>102</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46242,7 +46242,7 @@
 		<ubGraphicNum>128</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>24</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46264,7 +46264,7 @@
 		<ubGraphicNum>116</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>22</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46286,7 +46286,7 @@
 		<ubGraphicNum>129</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>7</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46308,7 +46308,7 @@
 		<ubGraphicNum>127</ubGraphicNum>
 		<ubWeight>5</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46330,7 +46330,7 @@
 		<ubGraphicNum>121</ubGraphicNum>
 		<ubWeight>12</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>23</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46352,7 +46352,7 @@
 		<ubGraphicNum>119</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>21</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46420,7 +46420,7 @@
 		<ubGraphicNum>100</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46442,7 +46442,7 @@
 		<ubGraphicNum>98</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>14</ItemSize>
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -46464,7 +46464,7 @@
 		<ubGraphicNum>131</ubGraphicNum>
 		<ubWeight>10000</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
+		<ItemSize>30</ItemSize>
 		<usPrice>65</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
