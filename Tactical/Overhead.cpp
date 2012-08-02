@@ -172,8 +172,9 @@ extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 extern void HandleExplosionQueue( void );
 extern void UpdateForContOverPortrait( SOLDIERTYPE *pSoldier, BOOLEAN fOn );
 extern void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC );
-
-extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID );
+//DBrot: More Rooms
+//extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID );
+extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT16 usRoomID );
 
 extern	INT8		gbInvalidPlacementSlot[ NUM_INV_SLOTS ];
 

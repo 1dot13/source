@@ -986,7 +986,9 @@ void SetUIMouseCursor( )
 		if ( gfUIShowExitExitGrid )
 		{
 			INT32 usMapPos;
-			UINT8	ubRoomNum;
+			//DBrot: More Rooms
+			//UINT8	ubRoomNum;
+			UINT16 usRoomNum;
 
 			gfUIDisplayActionPoints = FALSE;
 			ErasePath( TRUE );
@@ -996,7 +998,7 @@ void SetUIMouseCursor( )
 				if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->pathing.bLevel == 0 )
 				{
 					// ATE: Is this place revealed?
-					if ( !InARoom( usMapPos, &ubRoomNum ) || ( InARoom( usMapPos, &ubRoomNum ) && gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_REVEALED ) )
+					if ( !InARoom( usMapPos, &usRoomNum ) || ( InARoom( usMapPos, &usRoomNum ) && gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_REVEALED ) )
 					{
 						if ( sOldExitGridNo != usMapPos )
 						{

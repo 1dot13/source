@@ -4958,6 +4958,8 @@ STR16			zSaveLoadText[] =
 #else
 	L"Attempting to load an older version save. Automatically update and load the save?",
 #endif
+	L"Mark Remaining Hostiles",
+	L"Show LBE Content",
 
 	L"Are you sure you want to overwrite the saved game in slot #%d?",
 	L"Do you want to load the game from slot #",
@@ -5125,6 +5127,8 @@ STR16		zOptionsToggleText[] =
 	L"Allow Zombies",						// Flugente Zombies 1.0
 #endif
 	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv
+	L"Mark Remaining Hostiles",
+	L"Show LBE Content",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5241,6 +5245,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, zombies will spawn. Be aware!",							// allow zombies
 #endif
 	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",
+	L"When ON, approximate locations of the last enemies in the sector are highlighted.",
+	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

@@ -6016,10 +6016,12 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	if ( ( pSoldier->sSectorX == 12 ) && ( pSoldier->sSectorY == MAP_ROW_L ) && ( pSoldier->bSectorZ == 0 ) &&
 			( !pSoldier->flags.fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
 	{
-		UINT8	ubRoom, cnt;
+		//DBrot: More Rooms
+		UINT8	/*ubRoom,*/ cnt;
+		UINT16 usRoom;
 		SOLDIERTYPE * pSoldier2;
 
-		if ( InARoom( pSoldier->sGridNo, &ubRoom ) && ubRoom >= 22 && ubRoom <= 41 )
+		if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom >= 22 && usRoom <= 41 )
 		{
 
 			cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;

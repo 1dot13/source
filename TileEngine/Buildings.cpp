@@ -164,7 +164,7 @@ void GenerateBuildings( void )
 	// for each location in a room try to find building info
 	for ( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
 	{
-		if ( (gubWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
+		if ( (gusWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
 		{
 			GenerateBuilding( uiLoop );
 		}
@@ -646,7 +646,7 @@ void GenerateBuildings( void )
 	// for each location in a room try to find building info
 	for ( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
 	{
-		if ( (gubWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
+		if ( (gusWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
 		{
 			GenerateBuilding( uiLoop );
 		}

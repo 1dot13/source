@@ -39,7 +39,9 @@ extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
 
 void ExitBoxing( void )
 {
-	UINT8						ubRoom;
+	//DBrot: More Rooms
+	//UINT8						ubRoom;
+	UINT16				usRoom;
 	SOLDIERTYPE *		pSoldier;
 	UINT32					uiLoop;
 	UINT8						ubPass;
@@ -57,7 +59,7 @@ void ExitBoxing( void )
 
 			if ( pSoldier != NULL )
 			{
-				if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) && InARoom( pSoldier->sGridNo, &ubRoom ) && ubRoom == BOXING_RING )
+				if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) && InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING )
 				{
 					if ( pSoldier->flags.uiStatusFlags & SOLDIER_PC )
 					{
@@ -182,7 +184,9 @@ UINT8 CountPeopleInBoxingRing( void )
 {
 	SOLDIERTYPE * pSoldier;
 	UINT32 uiLoop;
-	UINT8 ubRoom;
+	//DBrot: More Rooms
+	//UINT8 ubRoom;
+	UINT16	usRoom;
 	UINT8 ubTotalInRing = 0;
 
 	for ( uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++ )
@@ -191,7 +195,7 @@ UINT8 CountPeopleInBoxingRing( void )
 
 		if ( pSoldier != NULL )
 		{
-			if ( InARoom( pSoldier->sGridNo, &ubRoom ) && ubRoom == BOXING_RING)
+			if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING)
 			{
 				ubTotalInRing++;
 			}
@@ -205,7 +209,9 @@ void CountPeopleInBoxingRingAndDoActions( void )
 {
 	UINT32					uiLoop;
 	UINT8						ubTotalInRing = 0;
-	UINT8						ubRoom;
+	//DBrot: More Rooms
+	//UINT8						ubRoom;
+	UINT16						usRoom;
 	UINT8						ubPlayersInRing = 0;
 	SOLDIERTYPE *		pSoldier;
 	SOLDIERTYPE *		pInRing[2] = { NULL, NULL };
@@ -217,7 +223,7 @@ void CountPeopleInBoxingRingAndDoActions( void )
 
 		if ( pSoldier != NULL )
 		{
-			if ( InARoom( pSoldier->sGridNo, &ubRoom ) && ubRoom == BOXING_RING)
+			if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING)
 			{
 				if ( ubTotalInRing < 2 )
 				{
@@ -488,9 +494,11 @@ BOOLEAN AnotherFightPossible( void )
 
 void BoxingMovementCheck( SOLDIERTYPE * pSoldier )
 {
-	UINT8 ubRoom;
+	//DBrot: More Rooms
+	//UINT8 ubRoom;
+	UINT16	usRoom;
 
-	if ( InARoom( pSoldier->sGridNo, &ubRoom ) && ubRoom == BOXING_RING)
+	if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING)
 	{
 		// someone moving in/into the ring
 		CountPeopleInBoxingRingAndDoActions();

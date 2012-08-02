@@ -2295,7 +2295,9 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 
 	INT32 sGridNo, sClosestSpot = NOWHERE;
 	INT32 iDistance, iClosestDistance = 9999;
-	UINT8	ubRoom;
+	//DBrot: More Rooms
+	//UINT8	ubRoom;
+	UINT16 usRoom;
 
 	// set the distance limit of the square region
 	iSearchRange = 7;
@@ -2323,9 +2325,9 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 		{
 			// calculate the next potential gridno
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-			if ( InARoom( sGridNo, &ubRoom ))
+			if ( InARoom( sGridNo, &usRoom ))
 			{
-				if ( (fInRing && ubRoom == BOXING_RING) || (!fInRing && ubRoom != BOXING_RING ) && LegalNPCDestination(pSoldier,sGridNo,IGNORE_PATH,NOWATER,0) )
+				if ( (fInRing && usRoom == BOXING_RING) || (!fInRing && usRoom != BOXING_RING ) && LegalNPCDestination(pSoldier,sGridNo,IGNORE_PATH,NOWATER,0) )
 				{
 					iDistance = abs( sXOffset ) + abs( sYOffset );
 					if ( iDistance < iClosestDistance && WhoIsThere2( sGridNo, 0 ) == NOBODY )

@@ -566,14 +566,14 @@ enum Facts
 #define		LOST_SHIPMENT_GRIDNO								2
 
 // omerta positions
-#define OMERTA_LEAVE_EQUIP_SECTOR_X		9
-#define OMERTA_LEAVE_EQUIP_SECTOR_Y		1
-#define OMERTA_LEAVE_EQUIP_SECTOR_Z		0
-#define OMERTA_LEAVE_EQUIP_GRIDNO			4868
+#define OMERTA_LEAVE_EQUIP_SECTOR_X		gModSettings.ubOmertaDropOffX	//9
+#define OMERTA_LEAVE_EQUIP_SECTOR_Y		gModSettings.ubOmertaDropOffY	//1
+#define OMERTA_LEAVE_EQUIP_SECTOR_Z		gModSettings.ubOmertaDropOffZ	//0
+#define OMERTA_LEAVE_EQUIP_GRIDNO		gModSettings.iOmertaDropOff	//4868
 
 // NB brothel rooms 88-90 removed because they are the antechamber
-#define IN_BROTHEL( room ) (gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C && (room) >= 91 && (room) <= 119)
-#define IN_BROTHEL_GUARD_ROOM( room ) ( room == 110 )
+#define IN_BROTHEL( room ) (gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C && (room) >= gModSettings.usBrothelRoomRangeStart && (room) <= gModSettings.usBrothelRoomRangeEnd) //91,119
+#define IN_BROTHEL_GUARD_ROOM( room ) ( room == gModSettings.usBrothelGuardRoom ) //110
 
 #define IN_KINGPIN_HOUSE( room ) ( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_D && (room) >= 30 && (room) <= 39 )
 
@@ -616,8 +616,11 @@ extern BOOLEAN CheckIfMercIsNearNPC( SOLDIERTYPE *pMerc, UINT8 ubProfileId );
 extern INT8 NumWoundedMercsNearby( UINT8 ubProfileID );
 extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
 extern BOOLEAN CheckNPCIsEPC( UINT8 ubProfileID );
-extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID );
-extern BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT8 ubRoomID1, UINT8 ubRoomID2 );
+//DBrot: More Rooms
+//extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID );
+//extern BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT8 ubRoomID1, UINT8 ubRoomID2 );
+extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT16 usRoomID );
+extern BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT16 usRoomID1, UINT16 usRoomID2 );
 extern BOOLEAN PCInSameRoom( UINT8 ubProfileID );
 extern INT8 NumMalesPresent( UINT8 ubProfileID );
 extern BOOLEAN FemalePresent( UINT8 ubProfileID );

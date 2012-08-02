@@ -1152,12 +1152,14 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								{
 									// find Kingpin, if he's in his house, invoke the script to move him to the bar
 									SOLDIERTYPE *		pKingpin;
-									UINT8						ubKingpinRoom;
+									//DBrot: More Rooms
+									//UINT8						ubKingpinRoom;
+									UINT16 usKingpinRoom;
 
 									pKingpin = FindSoldierByProfileID( KINGPIN, FALSE );
-									if ( pKingpin && InARoom( pKingpin->sGridNo, &ubKingpinRoom ) )
+									if ( pKingpin && InARoom( pKingpin->sGridNo, &usKingpinRoom ) )
 									{
-										if ( IN_KINGPIN_HOUSE( ubKingpinRoom ) )
+										if ( IN_KINGPIN_HOUSE( usKingpinRoom ) )
 										{
 											// first boxer, bring kingpin over
 											(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[17];

@@ -435,7 +435,7 @@ void BuildingDrawRoomNumCallback(GUI_BUTTON *btn, INT32 reason)
 	{
 		SetEditorBuildingTaskbarMode( BUILDING_DRAW_ROOMNUM );
 	iDrawMode = DRAW_MODE_ROOMNUM;
-		gubCurrRoomNumber = gubMaxRoomNumber;
+		gusCurrRoomNumber = gusMaxRoomNumber;
 	}
 }
 

@@ -1599,7 +1599,7 @@ void HandleKeyboardShortcuts( )
 							usRoofType = FIRSTROOF;
 						for( i = 0; i < WORLD_MAX; i++ )
 						{
-							if( gubWorldRoomInfo[ i ] )
+							if( gusWorldRoomInfo[ i ] )
 							{
 								AddToUndoList( i );
 								RemoveAllRoofsOfTypeRange( i, FIRSTTEXTURE, LASTITEM );
@@ -4221,14 +4221,14 @@ void ProcessAreaSelection( BOOLEAN fWithLeftButton )
 			break;
 		case DRAW_MODE_ROOMNUM:
 			DrawObjectsBasedOnSelectionRegion();
-			if( gubCurrRoomNumber > 0 )
+			if( gusCurrRoomNumber > 0 )
 			{
-				gubCurrRoomNumber++;
-				gubMaxRoomNumber++;
+				gusCurrRoomNumber++;
+				gusMaxRoomNumber++;
 				if( iCurrentTaskbar == TASK_BUILDINGS && TextInputMode() )
 				{
 					CHAR16 str[4];
-					swprintf( str, L"%d", gubCurrRoomNumber );
+					swprintf( str, L"%d", gusCurrRoomNumber );
 					SetInputFieldStringWith16BitString( 1, str );
 					SetActiveField( 0 );
 				}
@@ -4295,7 +4295,7 @@ void DrawObjectsBasedOnSelectionRegion()
 					case DRAW_MODE_OSTRUCTS:	PasteStructure( iMapIndex );											break;
 					case DRAW_MODE_OSTRUCTS1: PasteStructure1( iMapIndex );											break;
 					case DRAW_MODE_OSTRUCTS2: PasteStructure2( iMapIndex );											break;
-					case DRAW_MODE_ROOMNUM:	PasteRoomNumber( iMapIndex, gubCurrRoomNumber );	break;
+					case DRAW_MODE_ROOMNUM:	PasteRoomNumber( iMapIndex, gusCurrRoomNumber );	break;
 					default: return; //no point in continuing...
 				}
 			}

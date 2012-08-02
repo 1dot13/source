@@ -145,8 +145,9 @@ extern BOOLEAN		 gfExplosionQueueMayHaveChangedSight;
 extern void TogglePressureActionItemsInGridNo( INT32 sGridNo );
 
 extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
-
-extern BOOLEAN HookerInRoom( UINT8 ubRoom );
+//DBrot: More Rooms
+//extern BOOLEAN HookerInRoom( UINT8 ubRoom );
+extern BOOLEAN HookerInRoom( UINT16 usRoom );
 
 #ifdef JA2UB
 extern void HavePersonAtGridnoStop( UINT32 sGridNo );

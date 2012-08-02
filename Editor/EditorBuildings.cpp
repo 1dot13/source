@@ -32,8 +32,11 @@
 
 BOOLEAN fBuildingShowRoofs, fBuildingShowWalls, fBuildingShowRoomInfo;
 UINT16 usCurrentMode;
-UINT8 gubCurrRoomNumber;
-UINT8 gubMaxRoomNumber;
+//DBrot: More Rooms
+//UINT8 gubCurrRoomNumber;
+//UINT8 gubMaxRoomNumber;
+UINT16 gusCurrRoomNumber;
+UINT16 gusMaxRoomNumber;
 BOOLEAN	gfEditingDoor;
 
 //BEGINNNING OF BUILDING INITIALIZATION FUNCTIONS
@@ -43,7 +46,7 @@ void GameInitEditorBuildingInfo()
 	fBuildingShowWalls = TRUE;
 	fBuildingShowRoomInfo = FALSE;
 	usCurrentMode = BUILDING_PLACE_WALLS;
-	gubCurrRoomNumber = gubMaxRoomNumber = 1;
+	gusCurrRoomNumber = gusMaxRoomNumber = 1;
 }
 
 //BEGINNING OF BUILDING UTILITY FUNCTIONS
@@ -92,7 +95,7 @@ void UpdateBuildingsInfo()
 	SetFontForeground( FONT_LTBLUE );
 	mprintfEditor( iScreenWidthOffset + 390, 2 * iScreenHeightOffset + 362, iUpdateBuildingsInfoText[4]);
 	SetFontForeground( FONT_GRAY2 );
-	mprintfEditor( iScreenWidthOffset + 437, 2 * iScreenHeightOffset + 404, iUpdateBuildingsInfoText[5] );
+	mprintfEditor( iScreenWidthOffset + 452, 2 * iScreenHeightOffset + 404, iUpdateBuildingsInfoText[5] );
 }
 
 //Uses a recursive method to elimate adjacent tiles of structure information.
@@ -112,7 +115,7 @@ void KillBuilding( INT32 iMapIndex )
 	fFound |= RemoveAllLandsOfTypeRange( iMapIndex, FIRSTFLOOR, LASTFLOOR );
 
 	EraseBuilding( iMapIndex );
-	gubWorldRoomInfo[ iMapIndex ] = 0;
+	gusWorldRoomInfo[ iMapIndex ] = 0;
 
 	if( !fFound )
 	{
@@ -736,25 +739,25 @@ void SetupTextInputForBuildings()
 	CHAR16 str[4];
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	AddUserInputField( NULL );	//just so we can use short cut keys while not typing.
-	swprintf( str, L"%d", gubMaxRoomNumber );
-	AddTextInputField( iScreenWidthOffset + 410, 2 * iScreenHeightOffset + 400, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	swprintf( str, L"%d", gusMaxRoomNumber );
+	AddTextInputField( iScreenWidthOffset + 410, 2 * iScreenHeightOffset + 400, 40, 15, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
 }
 
 void ExtractAndUpdateBuildingInfo()
 {
-	CHAR16 str[4];
+	CHAR16 str[5];
 	INT32 temp;
 	//extract light1 colors
-	temp = min( GetNumericStrictValueFromField( 1 ), 255 );
+	temp = min( GetNumericStrictValueFromField( 1 ), 65535 );
 	if( temp != -1 )
 	{
-		gubCurrRoomNumber = (UINT8)temp;
+		gusCurrRoomNumber = (UINT16)temp;
 	}
 	else
 	{
-		gubCurrRoomNumber = 0;
+		gusCurrRoomNumber = 0;
 	}
-	swprintf( str, L"%d", gubCurrRoomNumber );
+	swprintf( str, L"%d", gusCurrRoomNumber );
 	SetInputFieldStringWith16BitString( 1, str );
 	SetActiveField( 0 );
 }

@@ -39,6 +39,7 @@
 	#include "gameloop.h"
 	#include "sysutil.h"
 	#include "tile surface.h"
+	#include "GameSettings.h"
 	#include <vector>
 #endif
 
@@ -83,7 +84,15 @@ INT32							gsOveritemPoolGridNo;
 
 UINT16 iOffsetHorizontal;	// Horizontal start postion of the overview map
 UINT16 iOffsetVertical;	// Vertical start position of the overview map	
-
+//DBrot: keep track if we should use a bigger version of the overview map for big maps
+//for now, this is a custom solution applicable in 1920x1080
+BOOLEAN		gfUseBiggerOverview = FALSE;
+UINT8		ubResolutionTable[6] = {2, 3, 4, 6, 8, 12};
+UINT8		gubGridDivisor;
+#define		HORGRIDFRAME 1440
+#define		VERGRIDFRAME 720
+#define		SHARPBORDER 1
+#define		HATCHED 2
 //dnl ch45 021009 Current position of map displayed in overhead map, (A=TopLeft, B=BottomLeft, C=TopRight)
 #define MAXSCROLL 4
 INT32 giXA = 0, giYA = WORLD_ROWS/2;
@@ -431,8 +440,12 @@ void HandleOverheadMap( )
 	RestoreBackgroundRects( );
 
 	// Render the overhead map
+	//DBrot: use a bigger overhead map if we have the space
+	if(gfUseBiggerOverview){
+		RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 1438+iOffsetHorizontal, 718+iOffsetVertical, FALSE);//dnl ch45 011009
+	}else{
 	RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FALSE);//dnl ch45 011009
-
+	}
 	HandleTalkingAutoFaces( );
 
 	if( !gfEditMode )
@@ -570,15 +583,27 @@ void GoIntoOverheadMap( )
 	HVOBJECT				hVObject;
 
 	gfInOverheadMap = TRUE;
-
 	//dnl??? ch45 021009 Add here moving overhead map cords to your current position on big map
 
 	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
 	// Overview map should be centered in the middle of the tactical screen.
+	//DBrot: Allow bigger overview if possible
+	if((iResolution >= _1680x1050) && WORLD_MAX == 129600){
+		iOffsetHorizontal = (SCREEN_WIDTH / 2) - (1440 / 2);		// Horizontal start postion of the overview map
+		iOffsetVertical = 98;//(SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
+		gfUseBiggerOverview = TRUE;
+	}else{
 	iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map
 	iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
-
+	}
+	if(NightTime()){
+		gubGridDivisor = ubResolutionTable[gGameExternalOptions.ubGridResolutionNight];
+	}else{
+		gubGridDivisor = ubResolutionTable[gGameExternalOptions.ubGridResolutionDay];
+	}
+	
+	
 	MSYS_DefineRegion( &OverheadBackgroundRegion, 0, 0 , SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH,
 						CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
@@ -606,8 +631,12 @@ void GoIntoOverheadMap( )
 		FilenameForBPP("INTERFACE\\MAP_BORD_800x600.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
 			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_800x600.sti" );
-	}
-	else
+	}else if(iResolution >= _1680x1050){
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\MAP_BORD_1920x1080.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
+			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_1920x1080.sti" );
+	}else
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\MAP_BORD_1024x768.sti", VObjectDesc.ImageFile);
@@ -700,7 +729,7 @@ void HandleOverheadUI(void)
 
 void ScrollOverheadMap(void)
 {
-	if(WORLD_MAX == OLD_WORLD_MAX)
+	if(WORLD_MAX == OLD_WORLD_MAX || gfUseBiggerOverview)
 		return;
 	UINT32 uiFlags = 0;
 	INT32 i;
@@ -1224,10 +1253,14 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			CalculateRestrictedMapCoords( WEST, &sX1, &sY1, &sX2, &sY2, sEndXS, sEndYS );
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		}
-
-		if(!fFromMapUtility)																									//LJDOldSM
+		//DBrot: bigger overview code
+		if(!fFromMapUtility){//LJDOldSM
+			if(gfUseBiggerOverview && iResolution >= _1680x1050){
+				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
+			}else{	
 			BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
-
+			}
+		}
 		// Update the save buffer
 		UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
 		UINT8	*pDestBuf, *pSrcBuf;
@@ -1261,8 +1294,6 @@ void RenderOverheadOverlays()
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	GetVideoObject( &hVObject, uiPERSONS );
-
-
 	//SOLDIER OVERLAY
 	if( gfTacticalPlacementGUIActive )
 	{ //loop through only the player soldiers
@@ -1274,6 +1305,10 @@ void RenderOverheadOverlays()
 	}
 	if(is_networked)end = MAX_NUM_SOLDIERS;
 
+	
+	SGPRect HostileArea = {0,0,0,0};
+	
+	
 	for( i = 0; i < end; i++ )
 	{
 		//First, check to see if the soldier exists and is in the sector.
@@ -1284,13 +1319,38 @@ void RenderOverheadOverlays()
 
 		if(!GetOverheadScreenXYFromGridNo(pSoldier->sGridNo, &sX, &sY))//dnl ch45 041009
 			continue;
-
+		
+		//DBrot: mark his general area as hostile
+		if(!gfEditMode && gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] && gfUseBiggerOverview && gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft){
+			if(pSoldier->bTeam == ENEMY_TEAM){
+				UINT8 ubGridSquareX, ubGridSquareY;
+				
+				ubGridSquareX = sX / (HORGRIDFRAME / gubGridDivisor); 	//( pSoldier->sGridNo / WORLD_COLS ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
+				ubGridSquareY = sY / (VERGRIDFRAME / gubGridDivisor);	//( pSoldier->sGridNo - ( ( pSoldier->sGridNo / WORLD_COLS ) * WORLD_COLS ) ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
+				
+				
+				HostileArea.iLeft = iOffsetHorizontal + (((HORGRIDFRAME / gubGridDivisor) * ubGridSquareX));
+				HostileArea.iTop = iOffsetVertical + (((VERGRIDFRAME / gubGridDivisor) * ubGridSquareY));
+				HostileArea.iRight = iOffsetHorizontal + (((HORGRIDFRAME / gubGridDivisor) * (ubGridSquareX + 1)));
+				HostileArea.iBottom = iOffsetVertical + (((VERGRIDFRAME / gubGridDivisor) * (ubGridSquareY + 1)));
+				if(gGameExternalOptions.ubMarkerMode == SHARPBORDER)
+					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, 255, pDestBuf);
+					
+				if(gGameExternalOptions.ubMarkerMode == HATCHED){
+					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, 0xF000, pDestBuf);
+					Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &HostileArea, 0xF000 );
+				}
+			}
+		}
 		//Now, draw his "doll"
 
 		//adjust for position.
 		sX += 2;
 		sY -= 5;
 		//sScreenY -= 7;	//height of doll
+
+				
+
 
 		if( !gfTacticalPlacementGUIActive && pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 		{
@@ -1438,7 +1498,6 @@ void RenderOverheadOverlays()
 			mprintf_buffer( pDestBuf, uiDestPitchBYTES, SMALLCOMPFONT, sX - 3,	sY , L"%d", ubPassengers );
 		}
 	}
-
 
 	//ITEMS OVERLAY
 	if( !gfTacticalPlacementGUIActive )
@@ -1782,8 +1841,16 @@ BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* ps
 	sX -= ((giXA - 0) * CELL_X_SIZE);
 	sY -= ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
+	//DBrot: big maps
+	if(gfUseBiggerOverview){
+		//there must be proper values to check for a 360² map, but I have no idea what they are
+		//for now, we just pray that it works and only catch negatives 
+		if(sWorldScreenX < 0 || /*sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH ||*/ sWorldScreenY < 0 /*|| sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT*/)
+		return(FALSE);
+	}else{
 	if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
 		return(FALSE);
+	}
 
 	*psScreenX = sWorldScreenX;
 	*psScreenY = sWorldScreenY;

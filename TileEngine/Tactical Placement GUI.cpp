@@ -751,15 +751,26 @@ void RenderTacticalPlacementGUI()
 			usHatchColor = Get16BPPColor( FROMRGB( 63, 31, 31 ) );
 		}
 		gfValidLocationsChanged--;
+
+		//DBrot bigger map code
+		if(gfUseBiggerOverview){
+			BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, iOffsetHorizontal, iOffsetVertical, 1434, 716 );
+			InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 1434, iOffsetVertical + 716 );
+			gTPClipRect.iLeft = iOffsetHorizontal + 1;
+			gTPClipRect.iTop = iOffsetVertical + 1;
+			gTPClipRect.iBottom = iOffsetVertical + 716;// 318;
+			gTPClipRect.iRight = iOffsetHorizontal + 1434; //634;
+	
+		}else{
 		BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, iOffsetHorizontal, iOffsetVertical, 640, 320 );
 		InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-
 		//dnl ch45 051009
 		gTPClipRect.iLeft = iOffsetHorizontal + 1;
 		gTPClipRect.iTop = iOffsetVertical + 1;
 		gTPClipRect.iBottom = iOffsetVertical + 318;
 		gTPClipRect.iRight = iOffsetHorizontal + 634;
-
+	
+		}
 		if( gbCursorMercID == -1 )
 		{
 			// WANNE - MP: Center
@@ -805,36 +816,65 @@ void RenderTacticalPlacementGUI()
 			GetWorldXYAbsoluteScreenXY(sX, sY, &sWorldScreenX, &sWorldScreenY);
 			sWorldScreenX += 20;// Correction from invisible area X
 			sWorldScreenY += 35;// Correction from invisible area Y
-			switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode)
-			{
+			//DBrot: adjust offsets for big maps
+			if(gfUseBiggerOverview){
+				switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode){
 			case INSERTION_CODE_NORTH:
-				if(sWorldScreenY <= PLACEMENT_OFFSET)
-				{
+					//if(sWorldScreenY <= PLACEMENT_OFFSET){
+						//sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
+						//gTPClipRect.iTop += sY;
+						gTPClipRect.iTop += PLACEMENT_OFFSET/5;
+					//}
+					break;
+				case INSERTION_CODE_EAST:
+					//if((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) >= (MAPWIDTH - PLACEMENT_OFFSET)){
+						//sX = ((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
+						//gTPClipRect.iRight -= sX;
+						gTPClipRect.iRight -= PLACEMENT_OFFSET/5;
+					//}
+					break;
+				case INSERTION_CODE_SOUTH:
+					//if((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) >= (MAPHEIGHT - PLACEMENT_OFFSET)){
+						//sY = ((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
+						//gTPClipRect.iBottom -= sY;
+						gTPClipRect.iBottom -= PLACEMENT_OFFSET/5;
+					//}
+					break;
+				case INSERTION_CODE_WEST:
+					//if(sWorldScreenX <= PLACEMENT_OFFSET){
+						//sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
+						//gTPClipRect.iLeft += sX;
+						gTPClipRect.iLeft += PLACEMENT_OFFSET/5;
+					//}
+					break;
+				}
+			}else{
+				switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode){
+					case INSERTION_CODE_NORTH:
+						if(sWorldScreenY <= PLACEMENT_OFFSET){
 					sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
 					gTPClipRect.iTop += sY;
 				}
 				break;
 			case INSERTION_CODE_EAST:
-				if((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) >= (MAPWIDTH - PLACEMENT_OFFSET))
-				{
+						if((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) >= (MAPWIDTH - PLACEMENT_OFFSET)){
 					sX = ((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
 					gTPClipRect.iRight -= sX;
 				}
 				break;
 			case INSERTION_CODE_SOUTH:
-				if((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) >= (MAPHEIGHT - PLACEMENT_OFFSET))
-				{
+					if((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) >= (MAPHEIGHT - PLACEMENT_OFFSET)){
 					sY = ((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
 					gTPClipRect.iBottom -= sY;
 				}
 				break;
 			case INSERTION_CODE_WEST:
-				if(sWorldScreenX <= PLACEMENT_OFFSET)
-				{
+						if(sWorldScreenX <= PLACEMENT_OFFSET){
 					sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
 					gTPClipRect.iLeft += sX;
 				}
 				break;
+			}
 			}
 
 			// WANNE - MP: Center
@@ -1063,7 +1103,7 @@ void TacticalPlacementHandle()
 	}
 	gfValidCursor = FALSE;
 
-	if(gbSelectedMercID != -1 && gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical && gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
+	if(gbSelectedMercID != -1 && ((gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical && gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))||(gfUseBiggerOverview && (gusMouseYPos < (iOffsetVertical + 716) && gusMouseYPos > iOffsetVertical && gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 1432) ))))
 	{
 		//dnl ch45 051009
 		INT16 sWorldScreenX = (gusMouseXPos - iOffsetHorizontal) * 5;

@@ -356,25 +356,25 @@ BOOLEAN CheckNPCIsRPC( UINT8 ubProfileID )
 	}
 	return( (pNPC->ubWhatKindOfMercAmI == MERC_TYPE__NPC ) );
 }
-
-BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID )
+//DBrot: More Rooms
+BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT16 usRoomID )
 {
 	SOLDIERTYPE *		pNPC;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
-	if ( !pNPC || (gubWorldRoomInfo[ pNPC->sGridNo ] != ubRoomID) )
+	if ( !pNPC || (gusWorldRoomInfo[ pNPC->sGridNo ] != usRoomID) )
 	{
 		return( FALSE );
 	}
 	return( TRUE );
 }
-
-BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT8 ubRoomID1, UINT8 ubRoomID2 )
+//DBrot: More Rooms
+BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT16 usRoomID1, UINT16 usRoomID2 )
 {
 	SOLDIERTYPE *		pNPC;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
-	if ( !pNPC || (gubWorldRoomInfo[ pNPC->sGridNo ] < ubRoomID1) || (gubWorldRoomInfo[ pNPC->sGridNo ] > ubRoomID2) )
+	if ( !pNPC || (gusWorldRoomInfo[ pNPC->sGridNo ] < usRoomID1) || (gusWorldRoomInfo[ pNPC->sGridNo ] > usRoomID2) )
 	{
 		return( FALSE );
 	}
@@ -384,7 +384,9 @@ BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT8 ubRoomID1, UINT8 ubRoomID2 )
 BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 {
 	SOLDIERTYPE *		pNPC;
-	UINT8						ubRoom;
+	//DBrot: More Rooms
+	//UINT8						ubRoom;
+	UINT16 usRoom;
 	INT8		bLoop;
 	SOLDIERTYPE * pSoldier;
 
@@ -393,14 +395,14 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 	{
 		return( FALSE );
 	}
-	ubRoom = gubWorldRoomInfo[ pNPC->sGridNo ];
+	usRoom = gusWorldRoomInfo[ pNPC->sGridNo ];
 
 	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
 	{
 		pSoldier = MercPtrs[ bLoop ];
 		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 		{
-			if ( gubWorldRoomInfo[ pSoldier->sGridNo ] == ubRoom )
+			if ( gusWorldRoomInfo[ pSoldier->sGridNo ] == usRoom )
 			{
 				return( TRUE );
 			}
@@ -790,7 +792,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = FALSE;
 			}
 			// ensure in a building and nearby
-			else if ( !(NPCInRoom( 85, 47 ) )	)
+			else if ( !(NPCInRoom( 85, gModSettings.usPornShopRoomBrenda ) )	)
 			{
 				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = FALSE;
 			}
@@ -823,7 +825,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = (NumWoundedMercsNearby( ubProfileID ) > 1);
 			break;
 		case FACT_HANS_AT_SPOT:
-			gubFact[usFact] = CheckNPCAt( 117, 13523 );
+			gubFact[usFact] = CheckNPCAt( 117, gModSettings.iHansGridNo );
 			break;
 		case FACT_MULTIPLE_MERCS_CLOSE:
 			gubFact[usFact] = ( NumMercsNear( ubProfileID, 3 ) > 1 );
@@ -841,7 +843,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = CheckNPCIsEPC( SKYRIDER );
 			break;
 		case FACT_MARIA_ESCORTED_AT_LEATHER_SHOP:
-			gubFact[usFact] = ( CheckNPCIsEPC( MARIA ) && (NPCInRoom( MARIA, 2 )) );
+			gubFact[usFact] = ( CheckNPCIsEPC( MARIA ) && (NPCInRoom( MARIA, gModSettings.usLeatherShop )) );
 			break;
 		case FACT_PC_STRONG_AND_LESS_THAN_3_MALES_PRESENT:
 			gubFact[usFact] = ( CheckTalkerStrong() && (NumMalesPresent( ubProfileID ) < 3) );
@@ -1150,7 +1152,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_TONY_IN_BUILDING:
-			gubFact[usFact] = CheckNPCSector( TONY, 5, MAP_ROW_C, 0 ) && NPCInRoom( TONY, 50 );
+			gubFact[usFact] = CheckNPCSector( TONY, 5, MAP_ROW_C, 0 ) && NPCInRoom( TONY, gModSettings.usPornShopRoomTony );
 			break;
 
 		case FACT_SHANK_SPEAKING:

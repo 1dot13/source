@@ -733,7 +733,7 @@ void EraseBuilding( INT32 iMapIndex )
 	EraseRoof( iMapIndex );
 	EraseFloor( iMapIndex );
 	EraseWalls( iMapIndex );
-	gubWorldRoomInfo[ iMapIndex ] = 0;
+	gusWorldRoomInfo[ iMapIndex ] = 0;
 }
 
 //Specialized function that will delete only the TOP_RIGHT oriented wall in the gridno to the left

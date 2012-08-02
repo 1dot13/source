@@ -742,11 +742,13 @@ void InitDescStatCoords(OBJECTTYPE *pObject)
 			//Loop throught the attachments and get their slot id's
 			for (UINT8 x = 0; x < usAttachmentSlotIndexVector.size(); x++){
 				//WarmSteel - Tell this slot where it's supposed to be.
+				
 				if(AttachmentSlots[usAttachmentSlotIndexVector[x]].fBigSlot){
 					SetupItemDescAttachmentsXY(x, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosX, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosY, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_BIG_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
 				} else {
 					SetupItemDescAttachmentsXY(x, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosX, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosY, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
 				}
+				
 			}
 		}
 		//Not a valid item for NAS, use default
@@ -766,11 +768,13 @@ void InitDescStatCoords(OBJECTTYPE *pObject)
 		{
 			for (UINT8 x = 0; x < usAttachmentSlotIndexVector.size(); x++){
 				//WarmSteel - Tell this slot where it's supposed to be.
+				
 				if(AttachmentSlots[usAttachmentSlotIndexVector[x]].fBigSlot){
 					SetupItemDescAttachmentsXY(x, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosX, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosY, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_BIG_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
 				} else {
 					SetupItemDescAttachmentsXY(x, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosX, AttachmentSlots[usAttachmentSlotIndexVector[x]].usDescPanelPosY, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
 				}
+				
 			}
 		}
 		//Not a valid item for NAS, use default

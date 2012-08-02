@@ -1272,7 +1272,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 
 		memcpy( &(this->bBuddy), &(src.bBuddy), 5 * sizeof (UINT8));
 		memcpy( &(this->bHated), &(src.bHated), 5 * sizeof (UINT8));
-		memcpy( &(this->ubRoomRangeStart), &(src.ubRoomRangeStart), 2 * sizeof (UINT8));
+		memcpy( &(this->usRoomRangeStart), &(src.ubRoomRangeStart), 2 * sizeof (UINT8));
 		memcpy( &(this->bMercTownReputation), &(src.bMercTownReputation),  20  * sizeof (INT8));
 		memcpy( &(this->usApproachFactor), &(src.usApproachFactor), 4 * sizeof (UINT16));
 
@@ -1282,7 +1282,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 
 		memcpy( &(this->usStatChangeChances), &(src.usStatChangeChances),  12  * sizeof (UINT16));// used strictly for balancing, never shown!
 		memcpy( &(this->usStatChangeSuccesses), &(src.usStatChangeSuccesses),  12  * sizeof (UINT16));// used strictly for balancing, never shown!
-		memcpy( &(this->ubRoomRangeEnd), &(src.ubRoomRangeEnd), 2 * sizeof (UINT8));
+		memcpy( &(this->usRoomRangeEnd), &(src.ubRoomRangeEnd), 2 * sizeof (UINT8));
 		memcpy( &(this->bHatedTime), &(src.bHatedTime), 5 * sizeof (INT8));
 		memcpy( &(this->bHatedCount), &(src.bHatedCount), 5 * sizeof (INT8));
 

@@ -547,16 +547,18 @@ INT8 DecideActionSchedule( SOLDIERTYPE * pSoldier )
 
 INT8 DecideActionBoxerEnteringRing(SOLDIERTYPE *pSoldier)
 {
-	UINT8 ubRoom;
+	//DBrot: More Rooms
+	//UINT8 ubRoom;
+	UINT16 usRoom;
 	INT32	sDesiredMercLoc;
 	UINT8 ubDesiredMercDir;
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif
 	// boxer, should move into ring!
-	if ( InARoom( pSoldier->sGridNo, &ubRoom ))
+	if ( InARoom( pSoldier->sGridNo, &usRoom ))
 	{
-		if (ubRoom == BOXING_RING)
+		if (usRoom == BOXING_RING)
 		{
 			// look towards nearest player
 			sDesiredMercLoc = ClosestPC( pSoldier, NULL );
@@ -728,13 +730,15 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			}
 			else
 			{
-				UINT8	ubRoom;
+				//DBrot: More Rooms
+				//UINT8	ubRoom;
+				UINT16 usRoom;
 				UINT8 ubLoop;
 
 				// boxer... but since in status green, it's time to leave the ring!
-				if ( InARoom( pSoldier->sGridNo, &ubRoom ))
+				if ( InARoom( pSoldier->sGridNo, &usRoom ))
 				{
-					if (ubRoom == BOXING_RING)
+					if (usRoom == BOXING_RING)
 					{
 						for ( ubLoop = 0; ubLoop < NUM_BOXERS; ubLoop++ )
 						{

@@ -948,7 +948,9 @@ INT32 FindRandomGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT32 sSweetGridNo, 
 	INT32		sTop, sBottom;
 	INT32		sLeft, sRight;
 	INT32		cnt1, cnt2;
-	UINT8	ubRoomNum;
+	//DBrot: More Rooms
+	//UINT8	ubRoomNum;
+	UINT16 usRoomNum;
 
 	//Save AI pathing vars.	changing the distlimit restricts how
 	//far away the pathing will consider.
@@ -1006,7 +1008,7 @@ INT32 FindRandomGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT32 sSweetGridNo, 
 				// If we are a crow, we need this additional check
 				if ( pSoldier->ubBodyType == CROW )
 				{
-					if ( !InARoom( sGridNo, &ubRoomNum ) )
+					if ( !InARoom( sGridNo, &usRoomNum ) )
 					{
 						fFound = TRUE;
 					}

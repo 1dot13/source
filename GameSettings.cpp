@@ -260,6 +260,10 @@ BOOLEAN LoadGameSettings()
 #endif
 
 		gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS]         = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ENABLE_INVENTORY_POPUPS"          ,  TRUE ); // the_bob : enable popups for picking items from sector inv
+		
+		gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_LAST_ENEMY"					,  FALSE );
+		 
+		gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_LBE_CONTENT"					,  TRUE );
 
 		gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
 
@@ -421,6 +425,8 @@ BOOLEAN	SaveGameSettings()
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
 #endif
+		settings << "TOPTION_SHOW_LAST_ENEMY				  = " << (gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]					?	 "TRUE"	: "FALSE" ) << endl;
+		settings << "TOPTION_SHOW_LBE_CONTENT				  = " << (gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					?	 "TRUE"	: "FALSE" ) << endl;
 
 #ifdef ENABLE_ZOMBIES
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
@@ -557,6 +563,8 @@ void InitGameSettings()
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
 #endif
+	gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]						= FALSE;
+	gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					= TRUE;
 
 #ifdef ENABLE_ZOMBIES
 	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies 1.0	
@@ -1828,6 +1836,13 @@ void LoadGameExternalOptions()
 	//gGameExternalOptions.fSaveGameSlot					= iniReader.ReadBoolean("Extension","SAVE_GAMES_SLOT",FALSE);
 	gGameExternalOptions.fSaveGameSlot						= TRUE;				
 
+	//DBrot: settings for the new show remaining hostiles feature
+	gGameExternalOptions.ubMarkerMode						= iniReader.ReadInteger("Overhead Map Settings", "MARKER_MODE", 0, 0, 2);
+	gGameExternalOptions.ubGridResolutionDay				= iniReader.ReadInteger("Overhead Map Settings", "DAYTIME_PRECISION", 0, 0, 5);
+	gGameExternalOptions.ubGridResolutionNight				= iniReader.ReadInteger("Overhead Map Settings", "NIGHTTIME_PRECISION", 0, 0, 5);
+	gGameExternalOptions.ubSoldiersLeft						= iniReader.ReadInteger("Overhead Map Settings", "MAX_SOLDIERS_LEFT", 1, 1, 64);
+
+	gGameExternalOptions.fRobotNoReadytime					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_NO_READYTIME", FALSE); 
 	
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE
@@ -2149,6 +2164,31 @@ void LoadModSettings(){
 	gModSettings.iFinalCrateGrid = iniReader.ReadInteger("Rebel Hideout", "FINAL_CRATE_GRID", 8207);
 	gModSettings.usCrateTileDef = iniReader.ReadInteger("Rebel Hideout", "CRATE_TILE_DEF", 411);
 	gModSettings.usTrapdoorTileDef = iniReader.ReadInteger("Rebel Hideout", "TRAPDOOR_TILE_DEF", 2041);
+	
+	gModSettings.usPornShopRoomHans = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_HANS", 49);
+	gModSettings.iHansGridNo = iniReader.ReadInteger("San Mona", "HANS_POSTION", 13523);
+	gModSettings.usPornShopRoomBrenda = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_BRENDA", 47);
+	gModSettings.usPornShopRoomTony = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_TONY", 50);
+
+	gModSettings.usLeatherShop = iniReader.ReadInteger("San Mona", "ANGELS_LEATHERSHOP", 2);
+	gModSettings.iBambiDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_BAMBIS_ROOM", 12290);
+	gModSettings.iCarlaDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_CARLAS_ROOM", 13413);
+	gModSettings.iCindyDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_CINDYS_ROOM", 11173);
+	gModSettings.iMariaDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_MARIAS_ROOM", 10852);
+
+	gModSettings.usBrothelRoomRangeStart = iniReader.ReadInteger("San Mona", "FIRST_ROOM_IN_BROTHEL", 91);
+	gModSettings.usBrothelRoomRangeEnd = iniReader.ReadInteger("San Mona", "LAST_ROOM_IN_BROTHEL", 119);
+	gModSettings.usBrothelGuardRoom = iniReader.ReadInteger("San Mona", "BROTHEL_GUARD_ROOM", 110);
+
+	gModSettings.iBrothelDoor1 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_1", 11010);
+	gModSettings.iBrothelDoor2 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_2", 11176);
+	gModSettings.iBrothelDoor3 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_3", 11177);
+
+	gModSettings.ubOmertaDropOffX = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_X", 9);
+	gModSettings.ubOmertaDropOffY = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Y", 1);
+	gModSettings.ubOmertaDropOffZ = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Z", 0);
+	gModSettings.iOmertaDropOff = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_GRIDNO", 4868);
+
 
 }
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

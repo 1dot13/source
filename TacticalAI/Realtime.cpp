@@ -17,6 +17,7 @@
 	#include "NPC.h"
 	#include "Render Fun.h"
 	#include "Quests.h"
+	#include "GameSettings.h"
 #endif
 
 INT8 RTPlayerDecideAction( SOLDIERTYPE * pSoldier )
@@ -99,9 +100,11 @@ UINT16 RealtimeDelay( SOLDIERTYPE * pSoldier )
 
 		if ( pSoldier->ubCivilianGroup == KINGPIN_CIV_GROUP )
 		{
-			UINT8		ubRoom;
+			//DBrot: More Rooms
+			//UINT8		ubRoom;
+			UINT16 usRoom;
 
-			if ( InARoom( pSoldier->sGridNo, &ubRoom ) && IN_BROTHEL( ubRoom ) )
+			if ( InARoom( pSoldier->sGridNo, &usRoom ) && IN_BROTHEL( usRoom ) )
 			{
 				return( (UINT16) (REALTIME_AI_DELAY / 3) );
 			}
@@ -256,9 +259,11 @@ void RTHandleAI( SOLDIERTYPE * pSoldier )
 				pSoldier->aiData.usActionData = (UINT16) REALTIME_AI_DELAY;
 				if ( pSoldier->ubCivilianGroup == KINGPIN_CIV_GROUP )
 				{
-					UINT8		ubRoom;
+					//DBrot: More Rooms
+					//UINT8		ubRoom;
+					UINT16 usRoom;
 
-					if ( InARoom( pSoldier->sGridNo, &ubRoom ) && IN_BROTHEL( ubRoom ) )
+					if ( InARoom( pSoldier->sGridNo, &usRoom ) && IN_BROTHEL( usRoom ) )
 					{
 						pSoldier->aiData.usActionData /= 3;
 					}

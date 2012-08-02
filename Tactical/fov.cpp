@@ -301,7 +301,9 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	INT8		nextDir=0;
 	UINT8		who; //,itemIndex; // for each square checked
 	UINT8		dir,range,Path2;
-	UINT8		ubRoomNo;
+	//DBrot: More Rooms
+	//UINT8		ubRoomNo;
+	UINT16		usRoomNo;
 	BOOLEAN		fCheckForRooms = FALSE;
 	ITEM_POOL	*pItemPool;
 	BOOLEAN		fHiddenStructVisible;
@@ -841,7 +843,7 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 							// OK, if we are underground, we don't want to reveal stuff if
 							// 1 ) there is a roof over us and
 							// 2 ) we are not in a room
-							if ( gubWorldRoomInfo[ marker ] == NO_ROOM && TypeRangeExistsInRoofLayer( marker, FIRSTROOF, FOURTHROOF, &usIndex ) )
+							if ( gusWorldRoomInfo[ marker ] == NO_ROOM && TypeRangeExistsInRoofLayer( marker, FIRSTROOF, FOURTHROOF, &usIndex ) )
 							{
 								int i = 0;
 							}
@@ -862,10 +864,10 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 						// CHECK FOR ROOMS
 						//if ( fCheckForRooms )
 						{
-							if ( InAHiddenRoom( marker, &ubRoomNo ) )
+							if ( InAHiddenRoom( marker, &usRoomNo ) )
 							{
-								RemoveRoomRoof( marker, ubRoomNo, pSoldier );
-								if ( ubRoomNo == ROOM_SURROUNDING_BOXING_RING && gWorldSectorX == BOXING_SECTOR_X && gWorldSectorY == BOXING_SECTOR_Y && gbWorldSectorZ == BOXING_SECTOR_Z )
+								RemoveRoomRoof( marker, usRoomNo, pSoldier );
+								if ( usRoomNo == ROOM_SURROUNDING_BOXING_RING && gWorldSectorX == BOXING_SECTOR_X && gWorldSectorY == BOXING_SECTOR_Y && gbWorldSectorZ == BOXING_SECTOR_Z )
 								{
 									// reveal boxing ring at same time
 									RemoveRoomRoof( marker, BOXING_RING, pSoldier );

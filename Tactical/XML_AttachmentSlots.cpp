@@ -50,6 +50,7 @@ attachmentslotStartElementHandle(void *userData, const XML_Char *name, const XML
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
+		//DBrot: MOLLE new tag
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "uiSlotIndex") == 0 ||
 				strcmp(name, "szSlotName") == 0 ||
@@ -58,6 +59,7 @@ attachmentslotStartElementHandle(void *userData, const XML_Char *name, const XML
 				strcmp(name, "usDescPanelPosX") == 0 ||
 				strcmp(name, "usDescPanelPosY") == 0 ||
 				strcmp(name, "fMultiShot") == 0 ||
+				strcmp(name, "ubPocketMapping") == 0 ||
 				strcmp(name, "fBigSlot") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -138,6 +140,12 @@ attachmentslotEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curAttachmentSlot.usDescPanelPosY	= (UINT16) atol(pData->szCharData);
+		}
+		//DBrot: MOLLE
+		else if(strcmp(name, "ubPocketMapping") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curAttachmentSlot.ubPocketMapping	= (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "fMultiShot") == 0)
 		{
@@ -252,8 +260,10 @@ BOOLEAN WriteAttachmentSlotsStats()
 			FilePrintf(hFile,"\t\t<usDescPanelPosX>%d</usDescPanelPosX>\r\n",							AttachmentSlots[cnt].usDescPanelPosX				);
 			FilePrintf(hFile,"\t\t<usDescPanelPosY>%d</usDescPanelPosY>\r\n",							AttachmentSlots[cnt].usDescPanelPosY				);
 			FilePrintf(hFile,"\t\t<fMultiShot>%d</fMultiShot>\r\n",									AttachmentSlots[cnt].fMultiShot				);
+			//DBrot: MOLLE
+			FilePrintf(hFile,"\t\t<ubPocketMapping>%d</ubPocketMapping>\r\n",											AttachmentSlots[cnt].ubPocketMapping						);
 			FilePrintf(hFile,"\t\t<fBigSlot>%d</fBigSlot>\r\n",											AttachmentSlots[cnt].fBigSlot						);
-
+			
 			FilePrintf(hFile,"\t</ATTACHMENTSLOT>\r\n");
 		}
 		FilePrintf(hFile,"</ATTACHMENTSLOTLIST>\r\n");

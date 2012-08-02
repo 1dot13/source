@@ -101,6 +101,9 @@ enum
 
 	TOPTION_ENABLE_INVENTORY_POPUPS,			// the_bob : enable popups for picking items from sector inv
 
+	TOPTION_SHOW_LAST_ENEMY,					//DBrot: show approximate locations for the last enemies
+	TOPTION_SHOW_LBE_CONTENT,					//DBrot: toggle between the content of an lbe and its attachments
+
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments
@@ -1145,6 +1148,14 @@ typedef struct
 	UINT8	ubMapItemChanceOverride;				//Madd: special map override, mostly for debugging
 	UINT8	ubNumPItems;							//Madd: set number of PItem files to be used - default 3
 	BOOLEAN	fUseXmlTileSets;						//Madd: move this variable here, it should be mod dependent
+
+	UINT8	ubMarkerMode;							//DBrot: how should we mark the last hostile area?
+	UINT8	ubSoldiersLeft;							//DBrot: how many soldiers may still be standing for this to become active
+	UINT8	ubGridResolutionDay;					//DBrot: how precise we want to show their location
+	UINT8	ubGridResolutionNight;					//DBrot: how precise we want to show their location - adjust for shorter night time ranges ... or don't
+
+	BOOLEAN fRobotNoReadytime;						//DBrot: should the robot need to ready his gun?
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct
@@ -1529,6 +1540,33 @@ typedef struct
 	UINT16 usCrateTileDef;
 	UINT16 usTrapdoorTileDef;
 
+	//San Mona C5
+	//Porn Quest
+	UINT16 usPornShopRoomHans;
+	INT32  iHansGridNo;
+	UINT16 usPornShopRoomBrenda;
+	UINT16 usPornShopRoomTony;
+
+	//Brothel Quests
+	UINT16 usLeatherShop;
+	INT32  iCarlaDoorGridNo;
+	INT32  iCindyDoorGridNo;
+	INT32  iBambiDoorGridNo;
+	INT32  iMariaDoorGridNo;
+
+	UINT16 usBrothelRoomRangeStart;
+	UINT16 usBrothelRoomRangeEnd;
+	UINT16 usBrothelGuardRoom;
+
+	INT32 iBrothelDoor1;
+	INT32 iBrothelDoor2;
+	INT32 iBrothelDoor3;
+
+	//Leave Stuff
+	UINT8 ubOmertaDropOffX;
+	UINT8 ubOmertaDropOffY;
+	UINT8 ubOmertaDropOffZ;
+	INT32 iOmertaDropOff;
 
 }MOD_SETTINGS;
 

@@ -40,12 +40,13 @@ lbeStartElementHandle(void *userData, const XML_Char *name, const XML_Char **att
 			pData->curLBE = LBETYPE();
 
 			pData->maxReadDepth++; //we are not skipping this element
-		}
+		}//DBrot: MOLLE added tag
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "lbeIndex") == 0 ||
 				strcmp(name, "lbeClass") == 0 ||
 				strcmp(name, "lbeCombo") == 0 ||
 				strcmp(name, "lbeFilledSize") == 0 ||
+				strcmp(name, "lbeAvailableVolume") == 0 ||
 				strcmp(name, "lbePocketIndex.1") == 0 || strcmp(name, "lbePocketIndex1") == 0 ||
 				strcmp(name, "lbePocketIndex.2") == 0 || strcmp(name, "lbePocketIndex2") == 0 ||
 				strcmp(name, "lbePocketIndex.3") == 0 || strcmp(name, "lbePocketIndex3") == 0 ||
@@ -57,7 +58,9 @@ lbeStartElementHandle(void *userData, const XML_Char *name, const XML_Char **att
 				strcmp(name, "lbePocketIndex.9") == 0 || strcmp(name, "lbePocketIndex9") == 0 ||
 				strcmp(name, "lbePocketIndex.10") == 0 || strcmp(name, "lbePocketIndex10") == 0 ||
 				strcmp(name, "lbePocketIndex.11") == 0 || strcmp(name, "lbePocketIndex11") == 0 ||
-				strcmp(name, "lbePocketIndex.12") == 0 || strcmp(name, "lbePocketIndex12") == 0 ))
+				strcmp(name, "lbePocketIndex.12") == 0 || strcmp(name, "lbePocketIndex12") == 0 ||
+
+				strcmp(name, "lbePocketsAvailable") == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -120,6 +123,12 @@ lbeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curLBE.lbeFilledSize  = (UINT8) atol(pData->szCharData);
 		}
+		//DBrot: MOLLE
+		else if(strcmp(name, "lbeAvailableVolume") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curLBE.lbeAvailableVolume  = (UINT8) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "lbePocketIndex.1") == 0 || strcmp(name, "lbePocketIndex1") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -180,7 +189,14 @@ lbeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curLBE.lbePocketIndex[11] = (UINT8) atol(pData->szCharData);
 		}
-
+		
+		
+		else if(strcmp(name, "lbePocketsAvailable") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curLBE.lbePocketsAvailable = (UINT16) atol(pData->szCharData);
+		}
+		
 		pData->maxReadDepth--;
 	}
 
@@ -269,13 +285,14 @@ BOOLEAN WritelbeEquipmentStats()
 		FilePrintf(hFile,"<LOADBEARINGEQUIPMENTLIST>\r\n");
 		for(cnt = 0;cnt < MAXITEMS;cnt++)
 		{
-
+			//DBrot: MOLLE
 			FilePrintf(hFile,"\t<LOADBEARINGEQUIPMENT>\r\n");
 
 			FilePrintf(hFile,"\t\t<lbeIndex>%d</lbeIndex>\r\n",								cnt );
 			FilePrintf(hFile,"\t\t<lbeClass>%d</lbeClass>\r\n",								LoadBearingEquipment[cnt].lbeClass  );
 			FilePrintf(hFile,"\t\t<lbeCombo>%d</lbeCombo>\r\n",								LoadBearingEquipment[cnt].lbeCombo  );
 			FilePrintf(hFile,"\t\t<lbeFilledSize>%d</lbeFilledSize>\r\n",								LoadBearingEquipment[cnt].lbeFilledSize  );
+			FilePrintf(hFile,"\t\t<lbeAvailableVolume>%d</lbeAvailableVolume>\r\n",								LoadBearingEquipment[cnt].lbeAvailableVolume  );
 			FilePrintf(hFile,"\t\t<lbePocketIndex1>%d</lbePocketIndex1>\r\n",								LoadBearingEquipment[cnt].lbePocketIndex[0]   );
 			FilePrintf(hFile,"\t\t<lbePocketIndex2>%d</lbePocketIndex2>\r\n",								LoadBearingEquipment[cnt].lbePocketIndex[1]   );
 			FilePrintf(hFile,"\t\t<lbePocketIndex3>%d</lbePocketIndex3>\r\n",								LoadBearingEquipment[cnt].lbePocketIndex[2]   );
@@ -288,6 +305,8 @@ BOOLEAN WritelbeEquipmentStats()
 			FilePrintf(hFile,"\t\t<lbePocketIndex10>%d</lbePocketIndex10>\r\n",								LoadBearingEquipment[cnt].lbePocketIndex[9]   );
 			FilePrintf(hFile,"\t\t<lbePocketIndex11>%d</lbePocketIndex11>\r\n",								LoadBearingEquipment[cnt].lbePocketIndex[10]   );
 			FilePrintf(hFile,"\t\t<lbePocketIndex12>%d</lbePocketIndex12>\r\n",								LoadBearingEquipment[cnt].lbePocketIndex[11]   );
+
+			FilePrintf(hFile,"\t\t<lbePocketsAvailable>%d</lbePocketsAvailable>\r\n",								LoadBearingEquipment[cnt].lbePocketsAvailable);
 
 			FilePrintf(hFile,"\t</LOADBEARINGEQUIPMENT>\r\n");
 		}

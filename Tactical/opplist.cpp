@@ -1784,9 +1784,11 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 
 	if ( (pSoldier->ubCivilianGroup == KINGPIN_CIV_GROUP) && (pOpponent->bTeam == gbPlayerNum ) )
 	{
-		UINT8 ubRoom;
+		//DBrot: More Rooms
+		//UINT8 ubRoom;
+		UINT16 usRoom;
 
-		if ( InARoom( pOpponent->sGridNo, &ubRoom ) && IN_BROTHEL( ubRoom ) && ( IN_BROTHEL_GUARD_ROOM( ubRoom ) ) )
+		if ( InARoom( pOpponent->sGridNo, &usRoom ) && IN_BROTHEL( usRoom ) && ( IN_BROTHEL_GUARD_ROOM( usRoom ) ) )
 		{
 			// unauthorized!
 			// make guard run to block guard room
@@ -2256,12 +2258,14 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						case ELDIN:
 							if ( pSoldier->aiData.bNeutral )
 							{
-								UINT8 ubRoom = 0;
+								//DBrot: More Rooms
+								//UINT8 ubRoom = 0;
+								UINT16 usRoom = 0;
 								// if player is in behind the ropes of the museum display
 								// or if alarm has gone off (status red)
-								InARoom( pOpponent->sGridNo, &ubRoom );
+								InARoom( pOpponent->sGridNo, &usRoom );
 
-								if ( ( CheckFact( FACT_MUSEUM_OPEN, 0 ) == FALSE && ubRoom >= 22 && ubRoom <= 41 ) || CheckFact( FACT_MUSEUM_ALARM_WENT_OFF, 0 ) || ( ubRoom == 39 || ubRoom == 40 ) || ( FindObj( pOpponent, CHALICE ) != NO_SLOT ) )
+								if ( ( CheckFact( FACT_MUSEUM_OPEN, 0 ) == FALSE && usRoom >= 22 && usRoom <= 41 ) || CheckFact( FACT_MUSEUM_ALARM_WENT_OFF, 0 ) || ( usRoom == 39 || usRoom == 40 ) || ( FindObj( pOpponent, CHALICE ) != NO_SLOT ) )
 								{
 									SetFactTrue( FACT_MUSEUM_ALARM_WENT_OFF );
 									AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );	
@@ -2375,11 +2379,13 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						}
 						else
 						{
-							UINT8 ubRoom;
+							//DBrot: More Rooms
+							//UINT8 ubRoom;
+							UINT16 usRoom;
 
 							// JA2 Gold: only go hostile if see player IN guard room
 							//if ( InARoom( pOpponent->sGridNo, &ubRoom ) && IN_BROTHEL( ubRoom ) && ( gMercProfiles[ MADAME ].bNPCData == 0 || IN_BROTHEL_GUARD_ROOM( ubRoom ) ) )
-							if ( InARoom( pOpponent->sGridNo, &ubRoom ) && IN_BROTHEL_GUARD_ROOM( ubRoom ) )
+							if ( InARoom( pOpponent->sGridNo, &usRoom ) && IN_BROTHEL_GUARD_ROOM( usRoom ) )
 							{
 								// unauthorized!
 								MakeCivHostile( pSoldier, 2 );
@@ -4318,12 +4324,12 @@ void DebugSoldierPage2( )
 			ubLine++;
 		}
 
-		if (gubWorldRoomInfo[ usMapPos ] != NO_ROOM )
+		if (gusWorldRoomInfo[ usMapPos ] != NO_ROOM )
 		{
 			SetFontColors(COLOR2);
 			mprintf( 0, LINE_HEIGHT * ubLine, L"Room Number" );
 			SetFontColors(COLOR2);
-			mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gubWorldRoomInfo[ usMapPos ] );
+			mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gusWorldRoomInfo[ usMapPos ] );
 			ubLine++;
 		}
 

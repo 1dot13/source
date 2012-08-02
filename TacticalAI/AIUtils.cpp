@@ -746,8 +746,9 @@ INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXRange, sYRange, sXOffset, sYOffset;
 	INT16 sOrigX, sOrigY;
 	INT16 sX, sY;
-	UINT8	ubRoom = 0, ubTempRoom;
-
+	//DBrot: More Rooms
+	//UINT8	ubRoom = 0, ubTempRoom;
+	UINT16 usRoom = 0, usTempRoom;
 	sOrigX = sOrigY = -1;
 	sMaxLeft = sMaxRight = sMaxUp = sMaxDown = sXRange = sYRange = -1;
 
@@ -768,9 +769,9 @@ INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 	if ( pSoldier->aiData.bOrders <= CLOSEPATROL && (pSoldier->bTeam == CIV_TEAM || pSoldier->ubProfile != NO_PROFILE ) )
 	{
 		// any other combo uses the default of ubRoom == 0, set above
-		if ( !InARoom( pSoldier->aiData.sPatrolGrid[0], &ubRoom ) )
+		if ( !InARoom( pSoldier->aiData.sPatrolGrid[0], &usRoom ) )
 		{
-			ubRoom = 0;
+			usRoom = 0;
 		}
 	}
 
@@ -861,7 +862,7 @@ INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 				}while(!GridNoOnVisibleWorldTile(sRandDest));
 			}
 
-			if ( ubRoom && InARoom( sRandDest, &ubTempRoom ) && ubTempRoom != ubRoom )
+			if ( usRoom && InARoom( sRandDest, &usTempRoom ) && usTempRoom != usRoom )
 			{
 				// outside of room available for patrol!
 				sRandDest = NOWHERE;

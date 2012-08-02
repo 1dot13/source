@@ -35,6 +35,7 @@
 	#include "ai.h"
 	#include "Soldier macros.h"
 	#include "Event Pump.h"
+	#include "GameSettings.h"
 #endif
 #include "fresh_header.h"
 #include "connect.h"
@@ -433,10 +434,12 @@ void InteractWithOpenableStruct( SOLDIERTYPE *pSoldier, STRUCTURE *pStructure, U
 
 void ProcessImplicationsOfPCMessingWithDoor( SOLDIERTYPE * pSoldier )
 {
-	UINT8						ubRoom;
+	//DBrot: More Rooms
+	//UINT8						ubRoom;
+	UINT16	usRoom;
 	SOLDIERTYPE *		pGoon;
 	// if player is hacking at a door in the brothel and a kingpin guy can see him
-	if ( (InARoom( pSoldier->sGridNo, &ubRoom ) && IN_BROTHEL( ubRoom )) || (gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_D && gbWorldSectorZ == 0 && (pSoldier->sGridNo == 11010 || pSoldier->sGridNo == 11177 || pSoldier->sGridNo == 11176 ) ) )
+	if ( (InARoom( pSoldier->sGridNo, &usRoom ) && IN_BROTHEL( usRoom )) || (gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_D && gbWorldSectorZ == 0 && (pSoldier->sGridNo == gModSettings.iBrothelDoor1 || pSoldier->sGridNo == gModSettings.iBrothelDoor2 || pSoldier->sGridNo == gModSettings.iBrothelDoor3 ) ) )//11010,11177,11176
 	{
 		UINT8		ubLoop;
 

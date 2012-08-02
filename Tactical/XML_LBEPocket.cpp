@@ -93,13 +93,14 @@ lbepocketStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 			pData->curLBEPocket = POCKETTYPE();
 
 			pData->maxReadDepth++; //we are not skipping this element
-		}
+		}//DBrot: MOLLE added tag
 		else if(pData->curElement == ELEMENT &&	
 				(strcmp(name, "pIndex") == 0 ||
 				strcmp(name, "pName") == 0 ||
 				strcmp(name, "pSilhouette") == 0 ||
 				strcmp(name, "pType") == 0 ||
 				strcmp(name, "pRestriction") == 0 ||
+				strcmp(name, "pVolume") == 0 ||
 				lbepocketStartElementHandleLoop(name, pData)))
 				/*	JMich - These are no longer needed
 				strcmp(name, "ItemCapacityPerSize.0") == 0 || strcmp(name, "ItemCapacityPerSize0") == 0 ||
@@ -219,7 +220,13 @@ lbepocketParseData * pData = (lbepocketParseData *)userData;
 		{
 			pData->curElement = ELEMENT;
 			pData->curLBEPocket.pRestriction = (UINT32) atol(pData->szCharData);
-		}	//Tais fixed this.
+		}	//DBrot: MOLLE added tag
+		else if(strcmp(name, "pVolume") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curLBEPocket.pVolume  = (UINT8) atol(pData->szCharData);
+		}
+		//Tais fixed this.
 		else
 		{	//DBrot: Enhanced parsing routine to avoid excessive load times for larger (~1000) numbers of item sizes
 			//-test the prefix if we have an "ItemCapacityPerSize###" tag
@@ -543,6 +550,8 @@ BOOLEAN WriteLBEPocketEquipmentStats()
 			FilePrintf(hFile,"\t\t<pSilhouette>%d</pSilhouette>\r\n",								LBEPocketType[cnt].pSilhouette  );
 			FilePrintf(hFile,"\t\t<pType>%d</pType>\r\n",								LBEPocketType[cnt].pType   );
 			FilePrintf(hFile,"\t\t<pRestriction>%d</pRestriction>\r\n",						LBEPocketType[cnt].pRestriction	);
+			//DBrot: MOLLE
+			FilePrintf(hFile,"\t\t<pVolume>%d</pVolume>\r\n",								LBEPocketType[cnt].pVolume  );
 			for(i=0;i<=gGameExternalOptions.guiMaxItemSize;i++)		//JMich
 			{
 				FilePrintf(hFile,"\t\t<ItemCapacityPerSize%d>%d</ItemCapacityPerSize%d>\r\n",								i,LBEPocketType[cnt].ItemCapacityPerSize[i],i   );

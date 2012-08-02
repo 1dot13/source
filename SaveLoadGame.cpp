@@ -1362,12 +1362,16 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->ubQuoteActionID, sizeof(this->ubQuoteActionID), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bMechanical, sizeof(this->bMechanical), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubInvUndroppable, sizeof(this->ubInvUndroppable), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, this->ubRoomRangeStart, sizeof(this->ubRoomRangeStart), sizeof(UINT8), numBytesRead);
+		//DBrot: More rooms
+		numBytesRead = ReadFieldByField( hFile, this->usRoomRangeStart, sizeof(this->usRoomRangeStart), sizeof(UINT16), numBytesRead);
+		
+		
 		numBytesRead = ReadFieldByField( hFile, this->bMercTownReputation, sizeof(this->bMercTownReputation), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, this->usStatChangeChances, sizeof(this->usStatChangeChances), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, this->usStatChangeSuccesses, sizeof(this->usStatChangeSuccesses), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubStrategicInsertionCode, sizeof(this->ubStrategicInsertionCode), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, this->ubRoomRangeEnd, sizeof(this->ubRoomRangeEnd), sizeof(UINT8), numBytesRead);
+		//DBrot: More rooms
+		numBytesRead = ReadFieldByField( hFile, this->usRoomRangeEnd, sizeof(this->usRoomRangeEnd), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubLastQuoteSaid, sizeof(this->ubLastQuoteSaid), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bRace, sizeof(this->bRace), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bNationality, sizeof(this->bNationality), sizeof(INT8), numBytesRead);
@@ -1434,16 +1438,19 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		//numBytesRead = ReadFieldByField( hFile, &this->endOfPOD, sizeof(this->endOfPOD), sizeof(char), numBytesRead);
 		while( (numBytesRead % 2) != 0 )
 			numBytesRead = ReadFieldByField(hFile, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
+		
+		//DBrot: More rooms
+		int size;
 		if ( numBytesRead != SIZEOF_MERCPROFILESTRUCT_POD )
 		{
 			return(FALSE);
 		}
 
-		int size;
 		if ( !FileRead( hFile, &size, sizeof(int), &uiNumBytesRead ) )
 		{
 			return(FALSE);
 		}
+		
 		inv.resize(size);
 		bInvStatus.resize(size);
 		bInvNumber.resize(size);

@@ -1876,7 +1876,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						SetGroupSectorValue( gModSettings.ubHideoutSectorX, gModSettings.ubHideoutSectorY, gModSettings.ubHideoutSectorZ, pSoldier->ubGroupID );
 
 						// Set insertion gridno
-						if ( bNumDone < 6 )
+						if ( bNumDone < 10 )
 						{
 							// Set next sectore
 							//DBrot: Grids
@@ -2167,7 +2167,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						SetGroupSectorValue( gModSettings.ubHideoutSurfaceX, gModSettings.ubHideoutSurfaceY, gModSettings.ubHideoutSurfaceZ, pSoldier->ubGroupID );
 
 						// Set insertion gridno
-						if ( bNumDone < 8 )
+						if ( bNumDone < 12 )
 						{
 							// Set next sectore
 							pSoldier->sSectorX = gModSettings.ubHideoutSurfaceX;
@@ -2511,25 +2511,25 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_OPEN_CARLAS_DOOR:
 				if (usActionCode == NPC_ACTION_OPEN_CARLAS_DOOR )
 				{
-					sGridNo = 12290; //dnl!!!
+					sGridNo = gModSettings.iCarlaDoorGridNo; //12290; //dnl!!!
 				}
 				// fall through
 			case NPC_ACTION_OPEN_CINDYS_DOOR:
 				if (usActionCode == NPC_ACTION_OPEN_CINDYS_DOOR )
 				{
-					sGridNo = 13413; //dnl!!!
+					sGridNo = gModSettings.iCindyDoorGridNo; //13413; //dnl!!!
 				}
 				// fall through
 			case NPC_ACTION_OPEN_BAMBIS_DOOR:
 				if (usActionCode == NPC_ACTION_OPEN_BAMBIS_DOOR )
 				{
-					sGridNo = 11173; //dnl!!!
+					sGridNo = gModSettings.iBambiDoorGridNo; //11173; //dnl!!!
 				}
 				// fall through
 			case NPC_ACTION_OPEN_MARIAS_DOOR:
 				if (usActionCode == NPC_ACTION_OPEN_MARIAS_DOOR )
 				{
-					sGridNo = 10852; //dnl!!!
+					sGridNo = gModSettings.iMariaDoorGridNo; //10852; //dnl!!!
 				}
 				// JA3Gold: unlock the doors instead of opening them
 				{
@@ -3235,9 +3235,11 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( KINGPIN, FALSE );
 				if (pSoldier)
 				{
-					UINT8 ubRoom;
+					//DBrot: More Rooms
+					//UINT8 ubRoom;
+					UINT16 usRoom;
 
-					if ( InARoom( pSoldier->sGridNo, &ubRoom ) && (ubRoom == 1 || ubRoom == 2 || ubRoom == 3 ) )
+					if ( InARoom( pSoldier->sGridNo, &usRoom ) && (usRoom == 1 || usRoom == 2 || usRoom == 3 ) )
 					{	// Kingpin is in the club
 						TriggerNPCRecord( DARREN, 31 );
 						break;
@@ -4286,9 +4288,11 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					if ( gpSrcSoldier )
 					{
-						UINT8 ubRoom;
+						//DBrot: More Rooms
+						//UINT8 ubRoom;
+						UINT16 usRoom;
 
-						if ( InARoom( gpSrcSoldier->sGridNo, &ubRoom ) && (ubRoom == 49) )
+						if ( InARoom( gpSrcSoldier->sGridNo, &usRoom ) && (usRoom == gModSettings.usPornShopRoomHans) )
 						{
 							TriggerNPCRecord( HANS, 18 );
 						}

@@ -4410,7 +4410,9 @@ INT32 AdjustGridNoForItemPlacement( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 {
-	UINT8 ubRoom;
+	//DBrot: More Rooms
+	//UINT8 ubRoom;
+	UINT16 usRoom;
 
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
@@ -4436,7 +4438,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		// Check what sector we are in....
 		if ( gWorldSectorX == 3 && gWorldSectorY == MAP_ROW_O && gbWorldSectorZ == 0 )
 		{
-			if ( InARoom( pSoldier->sGridNo, &ubRoom ) && ubRoom == 4 )
+			if ( InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == 4 )
 			{
 				pSoldier->DoMercBattleSound( BATTLE_SOUND_OK1 );
 

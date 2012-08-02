@@ -583,10 +583,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 			for(x, y; x<WORLD_COLS/2+i; x++, y--)
 			{
 				sGridNo = x + y * WORLD_COLS;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stNorthEdgepointArraySize++] = sGridNo;
 				++sGridNo;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stNorthEdgepointArraySize++] = sGridNo;
 			}
 		}
@@ -607,10 +607,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 			for(x, y; x<WORLD_COLS-i; x++, y++)
 			{
 				sGridNo = x + y * WORLD_COLS;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stEastEdgepointArraySize++] = sGridNo;
 				sGridNo += WORLD_COLS;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stEastEdgepointArraySize++] = sGridNo;
 			}
 		}
@@ -631,10 +631,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 			for(x, y; x>=WORLD_COLS/2-i; x--, y++)
 			{
 				sGridNo = x + y * WORLD_COLS;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stSouthEdgepointArraySize++] = sGridNo;
 				--sGridNo;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stSouthEdgepointArraySize++] = sGridNo;
 			}
 		}
@@ -655,10 +655,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 			for(x, y; x>=0+i; x--, y--)
 			{
 				sGridNo = x + y * WORLD_COLS;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stWestEdgepointArraySize++] = sGridNo;
 				sGridNo -= WORLD_COLS;
-				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+				if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 					sVGridNo[gus1stWestEdgepointArraySize++] = sGridNo;
 			}
 		}
@@ -684,10 +684,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 				for(x, y; x<WORLD_COLS/2+i; x++, y--)
 				{
 					sGridNo = x + y * WORLD_COLS;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndNorthEdgepointArraySize++] = sGridNo;
 					++sGridNo;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndNorthEdgepointArraySize++] = sGridNo;
 				}
 			}
@@ -708,10 +708,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 				for(x, y; x<WORLD_COLS-i; x++, y++)
 				{
 					sGridNo = x + y * WORLD_COLS;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndEastEdgepointArraySize++] = sGridNo;
 					sGridNo += WORLD_COLS;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndEastEdgepointArraySize++] = sGridNo;
 				}
 			}
@@ -732,10 +732,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 				for(x, y; x>=WORLD_COLS/2-i; x--, y++)
 				{
 					sGridNo = x + y * WORLD_COLS;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndSouthEdgepointArraySize++] = sGridNo;
 					--sGridNo;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndSouthEdgepointArraySize++] = sGridNo;
 				}
 			}
@@ -756,10 +756,10 @@ void GenerateMapEdgepoints(BOOLEAN fValidate)
 				for(x, y; x>=0+i; x--, y--)
 				{
 					sGridNo = x + y * WORLD_COLS;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndWestEdgepointArraySize++] = sGridNo;
 					sGridNo -= WORLD_COLS;
-					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gubWorldRoomInfo[sGridNo] || gfBasement))
+					if(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE && (!gusWorldRoomInfo[sGridNo] || gfBasement))
 						sVGridNo[gus2ndWestEdgepointArraySize++] = sGridNo;
 				}
 			}

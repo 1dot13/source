@@ -93,8 +93,9 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
-BOOLEAN HookerInRoom( UINT8 ubRoom );
+//DBrot: More Rooms
+//BOOLEAN HookerInRoom( UINT8 ubRoom );
+BOOLEAN HookerInRoom( UINT16 usRoom );
 
 // MODULE FOR EXPLOSIONS
 
@@ -1175,22 +1176,24 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 					// CJC, Sept 16: if we destroy any wall of the brothel, make Kingpin's men hostile!
 					if ( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C && gbWorldSectorZ == 0 )
 					{
-						UINT8	ubRoom;
+						//DBrot: More Rooms
+						//UINT8	ubRoom;
+						UINT16 usRoom;
 						BOOLEAN	fInRoom;
 
-						fInRoom = InARoom( sGridNo, &ubRoom );
+						fInRoom = InARoom( sGridNo, &usRoom );
 						if ( !fInRoom )
 						{
 							// try to south
-							fInRoom = InARoom( sGridNo + DirectionInc( SOUTH ) , &ubRoom );
+							fInRoom = InARoom( sGridNo + DirectionInc( SOUTH ) , &usRoom );
 							if ( !fInRoom )
 							{
 								// try to east
-								fInRoom = InARoom( sGridNo + DirectionInc( EAST ) , &ubRoom );
+								fInRoom = InARoom( sGridNo + DirectionInc( EAST ) , &usRoom );
 							}
 						}
 
-						if ( fInRoom && IN_BROTHEL( ubRoom ) )
+						if ( fInRoom && IN_BROTHEL( usRoom ) )
 						{
 							CivilianGroupChangesSides( KINGPIN_CIV_GROUP );
 						}
@@ -3092,9 +3095,11 @@ void BillyBlocksDoorCallback( void )
 	TriggerNPCRecord( BILLY, 6 );
 }
 
-BOOLEAN HookerInRoom( UINT8 ubRoom )
+BOOLEAN HookerInRoom( UINT16 usRoom )
 {
-	UINT8		ubLoop, ubTempRoom;
+	//DBrot: More Rooms
+	UINT8		ubLoop;//, ubTempRoom;
+	UINT16		usTempRoom;
 	SOLDIERTYPE *	pSoldier;
 
 	for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
@@ -3103,7 +3108,7 @@ BOOLEAN HookerInRoom( UINT8 ubRoom )
 
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->aiData.bNeutral && pSoldier->ubBodyType == MINICIV )
 		{
-			if ( InARoom( pSoldier->sGridNo, &ubTempRoom ) && ubTempRoom == ubRoom )
+			if ( InARoom( pSoldier->sGridNo, &usTempRoom ) && usTempRoom == usRoom )
 			{
 				return( TRUE );
 			}
@@ -3418,15 +3423,17 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 			INT16	sTeleportSpot;
 			INT16	sDoorSpot;
 			UINT8	ubDirection;
-			UINT8	ubRoom, ubOldRoom;
+			//DBrot: More Rooms
+			//UINT8	ubRoom, ubOldRoom;
+			UINT16 usRoom, usOldRoom;
 
 			ubID = WhoIsThere2( sGridNo, 0 );
 			if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
 			{
-				if ( InARoom( sGridNo, &ubRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &ubOldRoom ) && ubOldRoom != ubRoom )
+				if ( InARoom( sGridNo, &usRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
 				{
 					// also require there to be a miniskirt civ in the room
-					if ( HookerInRoom( ubRoom ) )
+					if ( HookerInRoom( usRoom ) )
 					{
 
 						// stop the merc...
@@ -3487,10 +3494,12 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 		break;
 	case ACTION_ITEM_REVEAL_ROOM:
 		{
-			UINT8 ubRoom;
-			if ( InAHiddenRoom( sGridNo, &ubRoom ) )
+			//DBrot: More Rooms
+			//UINT8 ubRoom;
+			UINT16 usRoom;
+			if ( InAHiddenRoom( sGridNo, &usRoom ) )
 			{
-				RemoveRoomRoof( sGridNo, ubRoom, NULL );
+				RemoveRoomRoof( sGridNo, usRoom, NULL );
 			}
 		}
 		break;

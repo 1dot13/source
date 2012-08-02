@@ -1489,7 +1489,10 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 		}
 		else {
 			pIndex = LoadBearingEquipment[Item[pSoldier->inv[icLBE[bSlot]].usItem].ubClassIndex].lbePocketIndex[icPocket[bSlot]];
+			if( pIndex == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[bSlot]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[bSlot])){
+				pIndex = GetPocketFromAttachment(&pSoldier->inv[icLBE[bSlot]], icPocket[bSlot]);
 		}
+	}
 	}
 
 	//We need to actually check the size of the largest stored item as well as the size of the current item
@@ -2243,7 +2246,7 @@ UINT8 AttachmentAPCost( UINT16 usAttachment, OBJECTTYPE * pObj, SOLDIERTYPE * pS
 //in the slot we're trying to attach to.
 BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment, BOOLEAN fDisplayMessage, UINT8 subObject, INT16 slotCount, BOOLEAN fIgnoreAttachmentInSlot, OBJECTTYPE ** ppAttachInSlot, std::vector<UINT16> usAttachmentSlotIndexVector)
 {
-	BOOLEAN		fSimilarItems = FALSE, fSameItem = FALSE;
+	BOOLEAN		fSimilarItems = FALSE, fSameItem = FALSE, fNoSpace = FALSE;
 	UINT16		usSimilarItem = NOTHING;
 	INT16		ubSlotIndex = 0;
 	INT32		iLoop2 = 0;
@@ -2275,10 +2278,17 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	{
 		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
 		{
-			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, AC_GRENADE|AC_ROCKET ) )
+			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, AC_GRENADE|AC_ROCKET|AC_MODPOUCH ) )
 			{//Search for identical attachments unless we're dealing with rifle grenades
+			//DBrot: or pouches
 				fSameItem = TRUE;
 				break;
+			}
+			if (Item[pObj->usItem].usItemClass == IC_LBEGEAR && Item[usAttachment].usItemClass == IC_LBEGEAR){
+				if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbeAvailableVolume	< (GetVolumeAlreadyTaken(pObj) +  LBEPocketType[LoadBearingEquipment[Item[usAttachment].ubClassIndex].lbePocketIndex[0]].pVolume)){
+					fNoSpace = TRUE;
+					break;
+				}
 			}
 			if ( IncompatibleAttachments[i][0] == NONE )
 				break;
@@ -2360,6 +2370,11 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 		} 
 		else if (fSameItem)
 		{
+			if (fDisplayMessage) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_ATTACHMENT_ALREADY ] );
+			return( FALSE );
+		}
+		else if (fNoSpace)
+		{	//DBrot: TODO - temporary string
 			if (fDisplayMessage) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_ATTACHMENT_ALREADY ] );
 			return( FALSE );
 		}
@@ -5361,7 +5376,15 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 							magSize--;
 						else if(AttachmentSlots[sCount].fMultiShot)
 							continue;
+
+						if(Item[pObj->usItem].usItemClass == IC_LBEGEAR && AttachmentSlots[sCount].ubPocketMapping > 0){
+							if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, AttachmentSlots[sCount].ubPocketMapping - 1)){
 						tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
+					}
+						}else{
+							tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
+				}
+
 					}
 				}
 				if(slotSize == tempItemSlots.size()){	//we didn't find a layout specific slot so try to find a default layout slot
@@ -5991,6 +6014,10 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 				if(icLBE[bPos] == BPACKPOCKPOS && (!(pSoldier->flags.ZipperFlag) || (pSoldier->flags.ZipperFlag && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)) && (gTacticalStatus.uiFlags & INCOMBAT))
 					return( FALSE );
 				lbePocket = (pSoldier->inv[icLBE[bPos]].exists() == false) ? LoadBearingEquipment[Item[icDefault[bPos]].ubClassIndex].lbePocketIndex[icPocket[bPos]] : LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketIndex[icPocket[bPos]];
+				if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[bPos])){
+					lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[bPos]], icPocket[bPos]);
+				}
+				
 				pRestrict = LBEPocketType[lbePocket].pRestriction;
 				if(pRestrict != 0)
 					if(!(pRestrict & Item[pObj->usItem].usItemClass))
@@ -13569,6 +13596,37 @@ BOOLEAN HasAttachmentOfClass( OBJECTTYPE * pObj, UINT32 aFlag )
 	}
 
 	return( FALSE );
+}
+//DBrot: calculate the volume already taken up by other pouches attached to this carrier
+UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj){
+	UINT8 sum=0;
+	if ( pObj->exists() )
+	{
+		// check all attachments
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if ( iter->exists() && Item[iter->usItem].usItemClass == IC_LBEGEAR){
+				sum += LBEPocketType[LoadBearingEquipment[Item[iter->usItem].ubClassIndex].lbePocketIndex[0]].pVolume;
+			}
+		}
+	}
+	return sum;
+}
+//DBrot: search the attachments for a pocket
+INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap){
+	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObj);
+	OBJECTTYPE* pAttachment; // = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(slotCount);
+	UINT16 slotCount;
+	for (slotCount = 0; slotCount < usAttachmentSlotIndexVector.size(); slotCount++ ){
+		if(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1 == pMap){
+			pAttachment = (*pObj)[0]->GetAttachmentAtIndex(slotCount);
+			if(pAttachment->exists() && Item[pAttachment->usItem].usItemClass == IC_LBEGEAR){
+				return(LoadBearingEquipment[Item[pAttachment->usItem].ubClassIndex].lbePocketIndex[0]);
+			}
+		}
+	}
+	return 0;
 }
 
 

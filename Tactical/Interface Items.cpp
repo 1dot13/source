@@ -1041,7 +1041,7 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 BOOLEAN UseNASDesc(OBJECTTYPE *pObject){
 	if(pObject->exists() == FALSE)
 		return FALSE;
-	if(guiCurrentScreen == MAP_SCREEN && Item[pObject->usItem].usItemClass == IC_LBEGEAR && UsingNewAttachmentSystem()==true)
+	if(guiCurrentScreen == MAP_SCREEN && Item[pObject->usItem].usItemClass == IC_LBEGEAR && UsingNewAttachmentSystem()==true && gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT])
 		return FALSE;	// the map screen can't support NAS and LBEGEAR.
 	return (/*Item[pObject->usItem].usItemClass != IC_LBEGEAR && Item[pObject->usItem].usItemClass != IC_MONEY && */UsingNewAttachmentSystem()==true);
 }
@@ -2521,10 +2521,15 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 				case VEST_PACK:
 				case COMBAT_PACK:
 				case BACKPACK:
-					lbePocket = 
-						(pSoldier->inv[icLBE[sPocket]].exists() == false) 
-						? LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]] 
-						: LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+					 
+						if(pSoldier->inv[icLBE[sPocket]].exists() == false){
+							lbePocket =	LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+						}else{
+							lbePocket = LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+							if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[sPocket])){
+								lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[sPocket]], icPocket[sPocket]);
+							}
+						}
 					iClass = Item[pSoldier->inv[sPocket].usItem].usItemClass;
 					if(icLBE[sPocket] == BPACKPOCKPOS && !(pSoldier->flags.ZipperFlag) && (gTacticalStatus.uiFlags & INCOMBAT))
 						lbePocket = 0;
@@ -6305,6 +6310,9 @@ INT8 DetermineShowLBE( )
 	if (iResolution >= _640x480 && iResolution < _800x600)
 		return -1;
 
+	if(!gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT] && guiCurrentItemDescriptionScreen == MAP_SCREEN)
+		return -1;
+
 	if(!UsingNewInventorySystem())
 	{
 		return -1;
@@ -6684,8 +6692,9 @@ void RenderItemDescriptionBox( )
 
 		// CHRISL: This block will display misc information for items stored in LBE Pockets
 		// Display LBENODE attached items
-		if(UsingNewInventorySystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
+		if(UsingNewInventorySystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR && (gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT] || guiCurrentItemDescriptionScreen != MAP_SCREEN))
 		{
+			
 			RenderLBENODEItems( gpItemDescObject, gubItemDescStatusIndex );
 		}
 

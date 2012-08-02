@@ -657,7 +657,7 @@ extern OBJECTTYPE gTempObject;
 #define AC_DEFUSE		0x00200000	//2097152			// defuse item for bombs
 #define AC_IRONSIGHT	0x00400000	//4194304			// for attachable Iron Sights
 #define AC_FEEDER		0x00800000	//8388608			// allow external feeding
-#define AC_MISC13		0x01000000	//16777216
+#define AC_MODPOUCH		0x01000000	//16777216			// for new modular pouches
 #define AC_MISC14		0x02000000	//33554432
 #define AC_MISC15		0x04000000	//67108864
 #define AC_MISC16		0x08000000	//134217728
@@ -1027,8 +1027,12 @@ public:
 	UINT32			lbeClass;
 	UINT32			lbeCombo;
 	UINT8			lbeFilledSize;
+	//DBrot: MOLLE
+	UINT8			lbeAvailableVolume;
+	UINT16			lbePocketsAvailable;
 	char			POD;
 	std::vector<UINT8>	lbePocketIndex;
+
 };
 #define SIZEOF_LBETYPE offsetof( LBETYPE, POD )
 extern std::vector<LBETYPE> LoadBearingEquipment;
@@ -1039,7 +1043,8 @@ typedef enum eLBE_CLASS	// Designation of lbeClass
 	COMBAT_PACK,
 	BACKPACK,
 	LBE_POCKET,
-	OTHER_POCKET
+	OTHER_POCKET,
+	MOD_POCKET //DBrot: added mod_pocket to identify modular pouches
 };
 
 
@@ -1054,6 +1059,8 @@ public:
 	UINT8			pSilhouette;
 	UINT16			pType;
 	UINT32			pRestriction;
+	//DBrot: MOLLE
+	UINT8			pVolume;
 	char			POD;
 	std::vector<UINT8>	ItemCapacityPerSize;
 };
@@ -1541,6 +1548,8 @@ typedef struct
 	UINT16	usDescPanelPosY;
 	BOOLEAN	fMultiShot;
 	BOOLEAN	fBigSlot;
+	//DBrot: MOLLE
+	UINT8	ubPocketMapping;
 } AttachmentSlotStruct;
 
 extern AttachmentSlotStruct AttachmentSlots[MAXITEMS+1]; 

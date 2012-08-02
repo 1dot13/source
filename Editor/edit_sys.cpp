@@ -287,12 +287,12 @@ void PasteSingleRoof( INT32 iMapIndex )
 	PasteSingleWallCommon( iMapIndex );
 }
 
-void PasteRoomNumber( INT32 iMapIndex, UINT8 ubRoomNumber )
+void PasteRoomNumber( INT32 iMapIndex, UINT16 usRoomNumber )
 {
-	if( gubWorldRoomInfo[ iMapIndex ] != ubRoomNumber )
+	if( gusWorldRoomInfo[ iMapIndex ] != usRoomNumber )
 	{
 		AddToUndoList( iMapIndex );
-		gubWorldRoomInfo[ iMapIndex ] = ubRoomNumber;
+		gusWorldRoomInfo[ iMapIndex ] = usRoomNumber;
 	}
 }
 

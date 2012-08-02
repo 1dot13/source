@@ -1103,7 +1103,7 @@ UINT32 ProcessFileIO()
 				AnalyseCaveMapForStructureInfo();
 
 			AddLockedDoorCursors();
-			gubCurrRoomNumber = gubMaxRoomNumber;
+			gusCurrRoomNumber = gusMaxRoomNumber;
 			UpdateRoofsView();
 			UpdateWallsView();
 			ShowLightPositionHandles();

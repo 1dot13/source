@@ -6485,11 +6485,11 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 				sY -= gpWorldLevelData[ usTileIndex ].sHeight;
 				//sY += gsRenderHeight;
 
-				if ( gubWorldRoomInfo[ usTileIndex ] != NO_ROOM )
+				if ( gusWorldRoomInfo[ usTileIndex ] != NO_ROOM )
 				{
 					SetFont( SMALLCOMPFONT );
 					SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, gsVIEWPORT_END_Y, FALSE );
-					switch( gubWorldRoomInfo[ usTileIndex ] % 5 )
+					switch( gusWorldRoomInfo[ usTileIndex ] % 5 )
 					{
 						case 0:		SetFontForeground( FONT_GRAY3 );	break;
 						case 1:		SetFontForeground( FONT_YELLOW );	break;
@@ -6497,7 +6497,7 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 						case 3:		SetFontForeground( FONT_LTBLUE );	break;
 						case 4:   SetFontForeground( FONT_LTGREEN );break;
 					}
-					mprintf_buffer( pDestBuf, uiDestPitchBYTES, TINYFONT1, sX,  sY , L"%d", gubWorldRoomInfo[ usTileIndex ] );
+					mprintf_buffer( pDestBuf, uiDestPitchBYTES, TINYFONT1, sX,  sY , L"%d", gusWorldRoomInfo[ usTileIndex ] );
 					SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 				}
 			}

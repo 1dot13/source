@@ -1122,10 +1122,11 @@ void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 	INT32 sGridNo;
 	UINT8										ubDirection;
 	SOLDIERTYPE							*pSoldier;
-	UINT8										ubRoomNum;
-
+	//DBrot: More Rooms
+	//UINT8										ubRoomNum;
+	UINT16	usRoomNum;
 	// No crows inside :(
-	if ( InARoom( pCorpse->def.sGridNo, &ubRoomNum ) )
+	if ( InARoom( pCorpse->def.sGridNo, &usRoomNum ) )
 	{
 		return;
 	}

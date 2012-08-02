@@ -2235,12 +2235,14 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 
 BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-	UINT8 ubRoomInfo;
+	//DBrot: More Rooms
+	//UINT8 ubRoomInfo;
+	UINT16 usRoomInfo;
 
 	// Get room info
-	ubRoomInfo = gubWorldRoomInfo[ sGridNo ];
+	usRoomInfo = gusWorldRoomInfo[ sGridNo ];
 
-	if ( ubRoomInfo == NO_ROOM )
+	if ( usRoomInfo == NO_ROOM )
 	{
 	return( FALSE );
 	}
@@ -2252,14 +2254,14 @@ BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	}
 
 	// OK, check both ranges
-	if ( ubRoomInfo >= gMercProfiles[ pSoldier->ubProfile ].ubRoomRangeStart[ 0 ] &&
-		ubRoomInfo <= gMercProfiles[ pSoldier->ubProfile ].ubRoomRangeEnd[ 0 ] )
+	if ( usRoomInfo >= gMercProfiles[ pSoldier->ubProfile ].usRoomRangeStart[ 0 ] &&
+		usRoomInfo <= gMercProfiles[ pSoldier->ubProfile ].usRoomRangeEnd[ 0 ] )
 	{
 	 return( TRUE );
 	}
 
-	if ( ubRoomInfo >= gMercProfiles[ pSoldier->ubProfile ].ubRoomRangeStart[ 1 ] &&
-		ubRoomInfo <= gMercProfiles[ pSoldier->ubProfile ].ubRoomRangeEnd[ 1 ] )
+	if ( usRoomInfo >= gMercProfiles[ pSoldier->ubProfile ].usRoomRangeStart[ 1 ] &&
+		usRoomInfo <= gMercProfiles[ pSoldier->ubProfile ].usRoomRangeEnd[ 1 ] )
 	{
 	 return( TRUE );
 	}

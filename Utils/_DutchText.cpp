@@ -4959,6 +4959,8 @@ STR16			zSaveLoadText[] =
 #else
 	L"Attempting to load an older version save. Automatically update and load the save?",
 #endif
+	L"Mark Remaining Hostiles",				//TODO.Translate
+	L"Show LBE Content",					//TODO.Translate
 
 	L"Weet je zeker dat je het spel in slot #%d wil overschrijven?",
 	L"Wil je het spel laden van slot #",
@@ -5121,6 +5123,8 @@ STR16		zOptionsToggleText[] =
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
 #endif
+	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
+	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
 
 #ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",				// TODO.Translate

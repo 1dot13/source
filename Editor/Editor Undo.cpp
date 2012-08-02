@@ -78,7 +78,9 @@ typedef struct
 	BOOLEAN				fLightSaved;	//determines that a light has been saved
 	UINT8					ubLightRadius; //the radius of the light to build if undo is called
 	UINT8					ubLightID;		//only applies if a light was saved.
-	UINT8					ubRoomNum;
+	//DBrot: More Rooms
+	//UINT8					ubRoomNum;
+	UINT16					usRoomNum;
 } undo_struct;
 
 // Undo stack node
@@ -481,7 +483,7 @@ BOOLEAN AddToUndoListCmd( INT32 iMapIndex, INT32 iCmdCount )
 	}
 
 	// copy the room number information (it's not in the mapelement structure)
-	pUndoInfo->ubRoomNum = gubWorldRoomInfo[ iMapIndex ];
+	pUndoInfo->usRoomNum = gusWorldRoomInfo[ iMapIndex ];
 
 	pUndoInfo->fLightSaved = FALSE;
 	pUndoInfo->ubLightRadius = 0;
@@ -613,7 +615,7 @@ BOOLEAN ExecuteUndoList( void )
 			SwapMapElementWithWorld( iUndoMapIndex, gpTileUndoStack->pData->pMapTile );
 
 			// copy the room number information back
-			gubWorldRoomInfo[ iUndoMapIndex ] = gpTileUndoStack->pData->ubRoomNum;
+			gusWorldRoomInfo[ iUndoMapIndex ] = gpTileUndoStack->pData->usRoomNum;
 
 			// Now we smooth out the changes...
 			//SmoothUndoMapTileTerrain( iUndoMapIndex, gpTileUndoStack->pData->pMapTile );

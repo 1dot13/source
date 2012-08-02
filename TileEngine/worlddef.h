@@ -41,8 +41,8 @@ class SOLDIERTYPE;
 // SB: new map version, with map dimensions added
 #define MAJOR_MAP_VERSION		7.0		
 //Current minor map version updater.
-#define MINOR_MAP_VERSION		28		// 27 -> 28: increased to 28 because of included weapon overheated and tripwire feature. See ObjectClass for the new Tags!
-
+//#define MINOR_MAP_VERSION		28		// 27 -> 28: increased to 28 because of included weapon overheated and tripwire feature. See ObjectClass for the new Tags!
+#define MINOR_MAP_VERSION		29		// 28 -> 29: increased range of roomnumbers to full UINT16 by DBrot
 //dnl ch33 230909
 #define VANILLA_MAJOR_MAP_VERSION 5.00
 #define VANILLA_MINOR_MAP_VERSION 25

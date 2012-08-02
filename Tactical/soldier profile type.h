@@ -724,7 +724,9 @@ public:
 	INT8		bMechanical;
 
 	UINT8	ubInvUndroppable;
-	UINT8	ubRoomRangeStart[2];
+	//DBrot: More Rooms
+	//UINT8	ubRoomRangeStart[2];
+	UINT16 usRoomRangeStart[2];
 	INT8 bMercTownReputation[ 20 ];
 
 	UINT16 usStatChangeChances[ 12 ];		// used strictly for balancing, never shown!
@@ -732,7 +734,8 @@ public:
 
 	UINT8	ubStrategicInsertionCode;
 
-	UINT8	ubRoomRangeEnd[2];
+	//UINT8	ubRoomRangeEnd[2];
+	UINT16 usRoomRangeEnd[2];
 
 	UINT8 ubLastQuoteSaid;
 	

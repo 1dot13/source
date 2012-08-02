@@ -4806,6 +4806,8 @@ STR16 zSaveLoadText[] =
 #else
 	L"Versuche, älteren Spielstand zu laden. Laden und automatisch aktualisieren?",
 #endif
+	L"Mark Remaining Hostiles",				//TODO.Translate
+	L"Show LBE Content",					//TODO.Translate
 
 	
 	L"Gespeichertes Spiel in Position #%d wirklich überschreiben?",
@@ -4969,6 +4971,8 @@ STR16 zOptionsToggleText[] =
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
 #endif
+	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
+	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
 
 #ifdef ENABLE_ZOMBIES
 	L"Zombies erlauben",						// Flugente Zombies 1.0

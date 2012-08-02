@@ -6993,15 +6993,17 @@ UINT32 sGridNo;
 			INT16	sTeleportSpot;
 			INT16	sDoorSpot;
 			UINT8	ubDirection;
-			UINT8	ubRoom, ubOldRoom;
+			//DBrot: More Rooms
+			//UINT8	ubRoom, ubOldRoom;
+			UINT16 usRoom, usOldRoom;
 
 			ubID = WhoIsThere2( sGridNo, 0 );
 			if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
 			{
-				if ( InARoom( sGridNo, &ubRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &ubOldRoom ) && ubOldRoom != ubRoom )
+				if ( InARoom( sGridNo, &usRoom ) && InARoom( MercPtrs[ ubID ]->sOldGridNo, &usOldRoom ) && usOldRoom != usRoom )
 				{
 					// also require there to be a miniskirt civ in the room
-					if ( HookerInRoom( ubRoom ) )
+					if ( HookerInRoom( usRoom ) )
 					{
 
 						// stop the merc...
@@ -7073,11 +7075,12 @@ UINT32 sGridNo;
 	{
 		if (i == 1 ) sGridNo = lua_tointeger(L,i);
 	}
-
-			UINT8 ubRoom;
-			if ( InAHiddenRoom( sGridNo, &ubRoom ) )
+			//DBrot: More Rooms
+			//UINT8 ubRoom;
+			UINT16 usRoom;
+			if ( InAHiddenRoom( sGridNo, &usRoom ) )
 			{
-				RemoveRoomRoof( sGridNo, ubRoom, NULL );
+				RemoveRoomRoof( sGridNo, usRoom, NULL );
 			}
 			
 return 0;
@@ -7656,16 +7659,18 @@ static int l_PlayerInARoom (lua_State *L)
 {
 UINT8  n = lua_gettop(L);
 int i;
-UINT8 ubRoom,ubRoom2;
+//DBrot: More Rooms
+//UINT8 ubRoom,ubRoom2;
+UINT16 usRoom, usRoom2;
 UINT32 sGridNo;
 BOOLEAN Bool;
 	for (i= 1; i<=n; i++ )
 	{
 		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-		if (i == 2 ) ubRoom2 = lua_tointeger(L,i);
+		if (i == 2 ) usRoom2 = lua_tointeger(L,i);
 	}
 	
-	if ( InARoom( sGridNo, &ubRoom ) && ubRoom == ubRoom2 )
+	if ( InARoom( sGridNo, &usRoom ) && usRoom == usRoom2 )
 	{
 		Bool = TRUE;
 	}
@@ -9882,17 +9887,21 @@ static int l_NPCInRoomRange (lua_State *L)
 
 	BOOLEAN Bool = FALSE;
 	UINT8 ubProfileID = 0;
-	UINT8 ubRoomID1 = 0;
-	UINT8 ubRoomID2 = 0;
+	//DBrot: More Rooms
+	//UINT8 ubRoomID1 = 0;
+	//UINT8 ubRoomID2 = 0;
+	UINT16 usRoomID1 = 0;
+	UINT16 usRoomID2 = 0;
+
 
 	for (i= 1; i<=n; i++ )
 	{
 		if (i == 1 ) ubProfileID = lua_tointeger(L,i);
-		if (i == 2 ) ubRoomID1 = lua_tointeger(L,i);
-		if (i == 3 ) ubRoomID2 = lua_tointeger(L,i);
+		if (i == 2 ) usRoomID1 = lua_tointeger(L,i);
+		if (i == 3 ) usRoomID2 = lua_tointeger(L,i);
 	}
 
-	Bool = NPCInRoomRange( ubProfileID, ubRoomID1,ubRoomID2 );
+	Bool = NPCInRoomRange( ubProfileID, usRoomID1,usRoomID2 );
 		
 	lua_pushboolean(L, Bool);
 		
@@ -9907,15 +9916,17 @@ static int l_NPCInRoom (lua_State *L)
 
 	BOOLEAN Bool = FALSE;
 	UINT8 ubProfileID = 0;
-	UINT8 ubRoomID = 0;
+	//DBrot: More Rooms
+	//UINT8 ubRoomID = 0;
+	UINT16 usRoomID = 0;
 
 	for (i= 1; i<=n; i++ )
 	{
 		if (i == 1 ) ubProfileID = lua_tointeger(L,i);
-		if (i == 2 ) ubRoomID = lua_tointeger(L,i);
+		if (i == 2 ) usRoomID = lua_tointeger(L,i);
 	}
 
-	Bool = NPCInRoom( ubProfileID, ubRoomID );
+	Bool = NPCInRoom( ubProfileID, usRoomID );
 		
 	lua_pushboolean(L, Bool);
 		

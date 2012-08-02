@@ -346,8 +346,8 @@ void DeinitializeWorld()
 		MemFree(gsCoverValue);
 	if(gubBuildingInfo)
 		MemFree(gubBuildingInfo);
-	if(gubWorldRoomInfo)
-		MemFree(gubWorldRoomInfo);
+	if(gusWorldRoomInfo)
+		MemFree(gusWorldRoomInfo);
 	if(gubWorldMovementCosts)
 		MemFree(gubWorldMovementCosts);
 	if(gpWorldLevelData)
@@ -2217,7 +2217,7 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
 	{
 		// Write out room information
-		FileWrite( hfile, &gubWorldRoomInfo[ cnt ], sizeof( INT8 ), &uiBytesWritten );
+		FileWrite( hfile, &gusWorldRoomInfo[ cnt ], sizeof( UINT16 ), &uiBytesWritten );
 
 	}
 
@@ -2494,12 +2494,23 @@ BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 		pBuffer += bCounts[cnt][1];
 	}
 	// Extract highest room number
+	//DBrot: More Rooms
 	UINT8 ubRoomNum;
+	UINT16	usRoomNum;
+	if(ubMinorMapVersion < 29){
 	for(cnt=0; cnt<WORLD_MAX; cnt++)
 	{
 		LOADDATA(&ubRoomNum, pBuffer, sizeof(ubRoomNum));
 		if(ubRoomNum > pSummary->ubNumRooms)
 			pSummary->ubNumRooms = ubRoomNum;
+	}
+	}else{
+		for(cnt=0; cnt<WORLD_MAX; cnt++)
+		{
+			LOADDATA(&usRoomNum, pBuffer, sizeof(usRoomNum));
+			if(usRoomNum > pSummary->ubNumRooms)
+				pSummary->ubNumRooms = usRoomNum;
+		}
 	}
 
 	if(uiFlags & MAP_WORLDITEMS_SAVED)
@@ -3078,20 +3089,35 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	SetRelativeStartAndEndPercentage(0, 58, 59, L"Loading room information...");
 	RenderProgressBar(0, 100);
 #ifdef JA2EDITOR
-	gubMaxRoomNumber = 0;
+	gusMaxRoomNumber = 0;
+	//DBrot: More Rooms
 	for(i=0; i<iWorldSize; i++)
 	{
 		gMapTrn.GetTrnCnt(cnt=i);
-		// Read room information
-		LOADDATA(&gubWorldRoomInfo[cnt], pBuffer, sizeof(INT8));
+		// Read room information, 2 byte for new files
+		if(ubMinorMapVersion < 29){
+			LOADDATA(&gusWorldRoomInfo[cnt], pBuffer, sizeof(INT8));
+		}else{
+			LOADDATA(&gusWorldRoomInfo[cnt], pBuffer, sizeof(UINT16));
+		}
+		
 		// Got to set the max room number
-		if(gubWorldRoomInfo[cnt] > gubMaxRoomNumber)
-			gubMaxRoomNumber = gubWorldRoomInfo[cnt];
+		if(gusWorldRoomInfo[cnt] > gusMaxRoomNumber)
+			gusMaxRoomNumber = gusWorldRoomInfo[cnt];
 	}
-	if(gubMaxRoomNumber < 255)
-		gubMaxRoomNumber++;
+	if(gusMaxRoomNumber < 65535)
+		gusMaxRoomNumber++;
 #else
-	LOADDATA(gubWorldRoomInfo, pBuffer, sizeof(INT8)*WORLD_MAX);
+	for(i=0; i<iWorldSize; i++){
+		gMapTrn.GetTrnCnt(cnt=i);
+		// Read room information, 2 byte for new files
+		if(ubMinorMapVersion < 29){
+			LOADDATA(&gusWorldRoomInfo[cnt], pBuffer, sizeof(INT8));
+		}else{
+			LOADDATA(&gusWorldRoomInfo[cnt], pBuffer, sizeof(UINT16));
+		}
+	}
+	//LOADDATA(gubWorldRoomInfo, pBuffer, sizeof(INT8)*WORLD_MAX);
 #endif
 	memset(gubWorldRoomHidden, TRUE, sizeof(gubWorldRoomHidden));
 
@@ -4247,10 +4273,11 @@ void SetWorldSize(INT32 nWorldRows, INT32 nWorldCols)
 	memset(gubBuildingInfo, 0, sizeof(UINT8)*WORLD_MAX);
 
 	// Init room numbers
-	if(gubWorldRoomInfo)
-		MemFree(gubWorldRoomInfo);
-	gubWorldRoomInfo = (UINT8*)MemAlloc(WORLD_MAX);
-	memset(gubWorldRoomInfo, 0, sizeof(UINT8)*WORLD_MAX);
+	//DBrot: More Rooms
+	if(gusWorldRoomInfo)
+		MemFree(gusWorldRoomInfo);
+	gusWorldRoomInfo = (UINT16*)MemAlloc(sizeof(UINT16)*WORLD_MAX);
+	memset(gusWorldRoomInfo, 0, sizeof(UINT16)*WORLD_MAX);
 
 	if(gubWorldMovementCosts)
 		MemFree(gubWorldMovementCosts);
