@@ -1,0 +1,46 @@
+Design Document MOLLE
+
+###Principles###
+
+For each LBE item, there's a definition which pockets may be changed and how much space the new pockets may take up in total.
+For each Pocket, there's a definition how much space it takes up on a carrier.
+
+If there's a free pocket slot and enough space -> attach item and enable pocket.
+
+E.G.:
+A Carrier leg rig may have an available Volume of 25 and 5 available pockets (=5 attachmentslots)
+An AR-Mag pocket has a volume of 8
+A Small Utility pocket has a volume of 5
+
+You may add 3 AR-Mag pockets to the Carrier
+OR
+5 SU pockets
+OR
+1 AR and 3 SU
+OR
+2 AR and 2 SU
+BUT
+not 4 AR, as their total volume would be 32
+
+###Tags###
+
+===Pockets.xml===
+<pVolume></pVolume>
+	How large is this pocket? This is used internally to check if a carrier can't fit anymore pockets, even if there are empty slots.
+	
+===LoadBearingEquipment.xml===
+<lbeAvailableVolume></lbeAvailableVolume>
+	How much space is there to add pockets?
+
+<lbePocketsAvailable></lbePocketsAvailable>
+	A bitfield that determines if a free spot can be used at all (limits the number of slots on smaller carriers)
+
+===AttachmentSlots.xml===
+<ubPocketMapping></ubPocketMapping>
+	The pocket that this slot changes
+	Range 1-12
+	Corresponds to PocketIndex1...12
+	
+===Items.xml===
+<AttachmentClass>16777216</AttachmentClass>
+	Not a new tag, but this AC denotes pouch attachments and accepts duplicates like Grenade and Rocket do
