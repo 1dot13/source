@@ -11819,6 +11819,14 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 				ttl -= Item[pSoldier->inv[VESTPOS].usItem].camobonus;
 			}
 		}
+
+		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetCamoBonus(&pSoldier->inv[HANDPOS]);
+		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 
 	return __min( ttl, 100 );
@@ -11842,6 +11850,14 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 			if ( pSoldier->inv[bLoop].exists() == true )
 				ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
 		}
+
+		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetUrbanCamoBonus(&pSoldier->inv[HANDPOS]);
+		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetUrbanCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetUrbanCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 
 	return __min( ttl, 100 );
@@ -11865,6 +11881,14 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 			if ( pSoldier->inv[bLoop].exists() == true )
 				ttl += GetDesertCamoBonus(&pSoldier->inv[bLoop]);
 		}
+
+		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetDesertCamoBonus(&pSoldier->inv[HANDPOS]);
+		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetDesertCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetDesertCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 	return __min( ttl, 100 );
 }
@@ -11887,6 +11911,14 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 			if ( pSoldier->inv[bLoop].exists() == true )
 				ttl += GetSnowCamoBonus(&pSoldier->inv[bLoop]);
 		}
+
+		//tais: guns can be camouflaged, this will make gun camo have effect when in main/second hand or on gunsling, did a check for guns and nothing else, hope that's enough.
+		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetSnowCamoBonus(&pSoldier->inv[HANDPOS]);
+		if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetSnowCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
+		if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
+			ttl += GetSnowCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
 	}
 	return __min( ttl, 100 );
 }
