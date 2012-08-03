@@ -1819,6 +1819,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						// Stop side effects until were done....
 						pSoldier->drugs.bDrugSideEffectRate[ DRUG_TYPE_ALCOHOL ] = 0;
 
+						// Flugente: set flag: we are on drugs - otherwise the game wont decay the effects
+						pSoldier->bSoldierFlagMask |= SOLDIER_DRUGGED;
+
 						// ATE: Make guy collapse from heart attack if too much stuff taken....
 						if ( pSoldier->drugs.bDrugSideEffectRate[ DRUG_TYPE_ALCOHOL ] > (  Drug[DRUG_TYPE_ALCOHOL].ubDrugSideEffect * 3 ) )
 						{
