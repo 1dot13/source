@@ -96,15 +96,4 @@ void SectorFillCanteens( void );
 
 OBJECTTYPE* GetUsableWaterDrumInSector( void );
 
-void HourlyFoodDecay( void ); 
-
-// Decay the food in a sector, performed every hour
-void SectorFoodDecay( WORLDITEM* pWorldItem, UINT32 size );
-
-// checks wether there is any drinkable water source in this sector. Atm every water found is taken as 'drinkable'
-//BOOLEAN DrinkableWaterInSector(INT16 asMapX, INT16 asMapY, INT8 asMapZ);
-
-// determine wether there is a kitechen furniture here (we assume its a sink, so it'll have water)
-//BOOLEAN IsKitchenFurnitureWaterSource( INT32 sGridNo );
-
 #endif

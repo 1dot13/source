@@ -273,8 +273,8 @@ void HandleTacticalEndTurn( )
 	HandleRPCDescription( );
 #endif
 
-	// Flugente: Cool down all items not in a soldier's inventory
-	CoolDownWorldItems( FALSE );	
+	// Flugente: Cool down/decay all items not in a soldier's inventory
+	CoolDownWorldItems();
 
 #ifdef ENABLE_ZOMBIES
 	// Flugente: raise zombies if in gamescreen and option set

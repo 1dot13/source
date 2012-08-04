@@ -42,6 +42,7 @@
 #include "Map Information.h"//dnl ch51 091009
 #include "Interface Items.h"
 #include "Food.h"	// added by Flugente
+#include "Campaign Types.h"	// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -234,6 +235,8 @@ extern	MOUSE_REGION    gMPanelRegion;
 
 extern void InternalMAPBeginItemPointer( SOLDIERTYPE *pSoldier );
 
+extern UINT32 GetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ);	// Flugente: get time for another sector
+
 // HEADROCK HAM 5: Because BigItem graphics are not loaded into memory by default, we need to load them to
 // display the large map inventory. We save their indexes in this array:
 typedef struct
@@ -290,8 +293,6 @@ void CheckGridNoOfItemsInMapScreenMapInventory();
 INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2);
 void SortSectorInventory( std::vector<WORLDITEM>& pInventory, UINT32 uiSizeOfArray );
 BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
-
-void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sMapZ );	// Flugente: for food decay
 
 extern void MAPEndItemPointer( );
 extern	BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ );
@@ -748,6 +749,11 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 
 		// create buttons
 		CreateMapInventoryButtons( );
+
+		// Flugente: certain features need to alter an item's temperature value depending on the time passed
+		// if we do these functions here and adjust for the time passed since this sector was loaded last, it will seem to the player
+		// as if these checks are always performed in any sector
+		SectorInventoryCooldownFunctions(sSelMapX, sSelMapY, ( INT16 )( iCurrentMapSectorZ ));
 
 		// build stash
 		BuildStashForSelectedSector( sSelMapX, sSelMapY, ( INT16 )( iCurrentMapSectorZ ) );
@@ -5024,13 +5030,14 @@ void HandleSetFilterButtons()
 	}
 }
 
-void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+// Flugente: handle various cooldown functions in a sector
+void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 {
 	UINT32 uiTotalNumberOfRealItems = 0;
 	WORLDITEM * pTotalSectorList = NULL;
 
 //	#ifdef _DEBUG
-		BOOLEAN fReturn = TRUE;
+	BOOLEAN fReturn = TRUE;
 //	#endif
 			
 	// now load these items into memory, based on fact if sector is in fact loaded
@@ -5063,12 +5070,105 @@ void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sM
 			LoadWorldItemsFromTempItemFile(  sMapX,  sMapY, ( INT8 ) ( sMapZ ), pTotalSectorList );
 		}
 	}
-
-	//Check to see if any of the items in the list have a gridno of NOWHERE and the entry point flag NOT set
-	//CheckGridNoOfItemsInMapScreenMapInventory();
-	
-	SectorFoodDecay( pTotalSectorList, uiTotalNumberOfRealItems );
+		
+	HandleSectorCooldownFunctions( sMapX, sMapY, (INT8)sMapZ, pTotalSectorList, uiTotalNumberOfRealItems, TRUE );
 
 	//Save the Items to the the file
 	SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
+}
+
+// Flugente: handle various cooldwon functions over an array of items in a specific sector. 
+// if fWithMinutes = true, adjust cooldown for time since sector was last entered
+// otherwise its used for a turn-precise cooldown
+void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes )
+{
+	// if not using overheating or food system, no point in all this
+	if ( !gGameOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
+		return;
+
+	UINT32 tickspassed = 1;
+
+	if ( fWithMinutes )
+	{
+		INT32 sMinutesPassed = __max(0, GetWorldTotalMin() - GetLastTimePlayerWasInSector(sMapX, sMapY, sMapZ) );
+
+		if ( sMinutesPassed == 0 )
+			return;
+
+		// it is assumed that one turn equals to 5 seconds
+		tickspassed = 12*sMinutesPassed;
+	}
+
+	FLOAT foofdecaymod = tickspassed * gGameExternalOptions.sFoodDecayModificator;
+
+	// food decays slower if underground
+	if ( sMapZ > 0 )
+		foofdecaymod *= 0.8f;
+
+	for( UINT32 uiCount = 0; uiCount < size; ++uiCount )				// ... for all items in the world ...
+	{
+		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
+		{
+			OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
+
+			if ( pObj != NULL )												// ... if pointer is not obviously useless ...
+			{
+				// ... if we use overheating and item is a gun, a launcher or a barrel ...
+				if ( gGameOptions.fWeaponOverheating && ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE ) )
+				{
+					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
+					{
+						FLOAT guntemperature = (*pObj)[i]->data.bTemperature;	// ... get temperature ...
+
+						FLOAT cooldownfactor = GetItemCooldownFactor(pObj);		// ... get item cooldown factor provided of attachments ...
+
+						if ( Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
+							cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
+
+						FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor);	// ... calculate new temperature ...
+
+#if 0//def JA2TESTVERSION
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature );
+#endif
+
+						(*pObj)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
+
+						// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel weapons), and cool them down too
+						attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+						for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+						{
+							if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+							{
+								FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
+
+								FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
+
+								FLOAT newtemperature = max(0.0f, temperature - tickspassed * cooldownfactor);	// ... calculate new temperature ...
+
+								(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#endif
+
+								// we assume that there can exist only 1 underbarrel weapon per gun
+								break;
+							}
+						}
+					}
+				}
+
+				if ( gGameOptions.fFoodSystem && Item[pWorldItem[ uiCount ].object.usItem].foodtype > 0 )				// ... if it is food and the food system is active ...
+				{
+					if ( Food[Item[pObj->usItem].foodtype].usDecayRate > 0.0f )		// ... if the food can decay...
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
+						{							
+							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - foofdecaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
+						}
+					}
+				}
+			}
+		}
+	}
 }

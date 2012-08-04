@@ -7355,11 +7355,8 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 	this->sOldXPos = sStartPosX;
 	this->sOldYPos = sStartPosY;
 
-	// Flugente FTW 1: Cool down all weapons in inventory
-	if ( gGameOptions.fWeaponOverheating )
-	{
-		this->SoldierInventoryCoolDown();
-	}
+	// Flugente: Cool down all weapons and decay food in inventory
+	this->SoldierInventoryCoolDown();
 }
 
 // UTILITY FUNCTIONS CALLED BY OVERHEAD.H
@@ -13242,57 +13239,81 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 	return( FALSE );
 }
 
-// Flugente FTW 1: Cool down all items in inventory
+// Flugente: Cool down/decay all items in inventory
 void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 {
-  INT8 invsize = (INT8)this->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+	if ( !gGameOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
+		return;
 
-  for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
-  {
-	// ... if Item exists and is a gun, a launcher or a barrel ...
-	if (this->inv[bLoop].exists() == true && ( Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[this->inv[bLoop].usItem].barrel == TRUE ) )
+	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
+	FLOAT fooddecaymod = gGameExternalOptions.sFoodDecayModificator;
+
+	// food decays slower if underground
+	if ( gbWorldSectorZ > 0 )
+		fooddecaymod *= 0.8f;
+
+	INT8 invsize = (INT8)this->inv.size();											// remember inventorysize, so we don't call size() repeatedly
+
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
 	{
-		OBJECTTYPE * pObj = &(this->inv[bLoop]);							// ... get pointer for this item ...
-
-		if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+		if ( this->inv[bLoop].exists() )
 		{
-			for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+			OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
+
+			if ( pObj != NULL )														// ... if pointer is not obviously useless ...
 			{
-				FLOAT temperature = (*pObj)[i]->data.bTemperature;			// ... get temperature of item ...
-
-				FLOAT cooldownfactor = GetItemCooldownFactor(pObj);			// ... get cooldown factor ...
-
-				FLOAT newtemperature = max(0.0f, temperature - cooldownfactor);	// ... calculate new temperature ...
-				(*pObj)[i]->data.bTemperature = newtemperature;				// ... set new temperature
-
-#if 0//def JA2TESTVERSION
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
-#endif
-				// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
-				attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
-				for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+				// ... if Item exists and is a gun, a launcher or a barrel ...
+				if ( gGameOptions.fWeaponOverheating && ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pObj->usItem].barrel == TRUE ) )
 				{
-					if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
 					{
-						FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
+						FLOAT temperature = (*pObj)[i]->data.bTemperature;			// ... get temperature of item ...
 
-						FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
+						FLOAT cooldownfactor = GetItemCooldownFactor(pObj);			// ... get cooldown factor ...
 
 						FLOAT newtemperature = max(0.0f, temperature - cooldownfactor);	// ... calculate new temperature ...
-						(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+						(*pObj)[i]->data.bTemperature = newtemperature;				// ... set new temperature
 
 #if 0//def JA2TESTVERSION
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#endif
+						// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+						attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+						for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+						{
+							if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+							{
+								FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
+
+								FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
+
+								FLOAT newtemperature = max(0.0f, temperature - cooldownfactor);	// ... calculate new temperature ...
+								(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
 #endif
 
-						// we assume that there can exist only 1 UGL per weapon
-						break;
+								// we assume that there can exist only 1 UGL per weapon
+								break;
+							}
+						}
+					}
+				}
+
+				if ( gGameOptions.fFoodSystem && Item[pObj->usItem].foodtype > 0 )
+				{
+					if ( Food[Item[pObj->usItem].foodtype].usDecayRate > 0.0f )		// ... if the food can decay...
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
+						{							
+							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - fooddecaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
+						}
 					}
 				}
 			}
 		}
 	}
-  }
 }
 
 // Flugente: determine if we can rest our weapon on something. This ca6n only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
@@ -13666,33 +13687,6 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 	{
 		// let the target collapse...
 		SoldierCollapse(this);
-	}
-}
-
-// Flugente: Food decay in inventory (once an hour)
-void SOLDIERTYPE::SoldierInventoryFoodDecay(void)
-{
-	if ( !gGameOptions.fFoodSystem )
-		return;
-
-	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
-	FLOAT decaymod = 12*60*gGameExternalOptions.sFoodDecayModificator;
-
-	INT8 invsize = (INT8)this->inv.size();									// remember inventorysize, so we don't call size() repeatedly
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)							// ... for all items in our inventory ...
-	{
-		if ( Item[this->inv[bLoop].usItem].foodtype > 0 )					// food decays
-		{
-			OBJECTTYPE * pObj = &(this->inv[bLoop]);						// ... get pointer for this item ...
-
-			if ( pObj != NULL )												// ... if pointer is not obviously useless ...
-			{
-				for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
-				{
-					(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - decaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
-				}
-			}
-		}
 	}
 }
 

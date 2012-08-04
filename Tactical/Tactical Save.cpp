@@ -129,6 +129,7 @@ BOOLEAN InitTempNpcQuoteInfoForNPCFromTempFile();
 BOOLEAN SaveTempNpcQuoteInfoForNPCToTempFile( UINT8 ubNpcId );
 BOOLEAN LoadTempNpcQuoteInfoForNPCFromTempFile( UINT8 ubNpcId );
 UINT32	GetLastTimePlayerWasInSector();
+UINT32 GetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ);	// Flugente: get time for another sector
 void		SetLastTimePlayerWasInSector();
 
 
@@ -1395,6 +1396,39 @@ UINT32 GetLastTimePlayerWasInSector()
 			if( ( pTempNode->ubSectorX == gWorldSectorX ) &&
 					( pTempNode->ubSectorY == gWorldSectorY ) &&
 					( pTempNode->ubSectorZ == gbWorldSectorZ ) )
+			{
+				//set the flag indicating that ther is a temp item file exists for the sector
+				return( pTempNode->uiTimeCurrentSectorWasLastLoaded );
+			}
+			pTempNode = pTempNode->next;
+		}
+
+		#ifdef JA2TESTVERSION
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Failed to Get the 'uiTimeCurrentSectorWasLastLoaded' from an underground sector" );
+		#endif
+
+		return( 0 );
+	}
+	return( 0 );
+}
+
+// Flugente: get time for another sector
+UINT32 GetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ)
+{
+	if( !sMapZ )
+		return( SectorInfo[ SECTOR( sMapX,sMapY) ].uiTimeCurrentSectorWasLastLoaded );
+	else if( sMapZ > 0 )
+	{
+		UNDERGROUND_SECTORINFO *pTempNode = gpUndergroundSectorInfoHead;
+
+		pTempNode = gpUndergroundSectorInfoHead;
+
+		//loop through and look for the right underground sector
+		while( pTempNode )
+		{
+			if( ( pTempNode->ubSectorX == sMapX ) &&
+					( pTempNode->ubSectorY == sMapY ) &&
+					( pTempNode->ubSectorZ == sMapZ ) )
 			{
 				//set the flag indicating that ther is a temp item file exists for the sector
 				return( pTempNode->uiTimeCurrentSectorWasLastLoaded );

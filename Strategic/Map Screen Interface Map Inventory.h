@@ -76,3 +76,11 @@ BOOLEAN	SortInventoryPoolQ(void);
 BOOLEAN	SwitchToInventoryPoolQ(UINT8 newidx);
 
 #endif
+
+// Flugente: handle various cooldown functions in a sector
+void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
+
+// Flugente: handle various cooldown functions over an array of items in a specific sector. 
+// if fWithMinutes = true, adjust cooldown for time since sector was last entered
+// otherwise its used for a turn-precise cooldown
+void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes );

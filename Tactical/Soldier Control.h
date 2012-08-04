@@ -1403,7 +1403,7 @@ public:
 	BOOLEAN IsValidSecondHandShot( void );
 	BOOLEAN IsValidSecondHandShotForReloadingPurposes( void );
 	BOOLEAN SoldierCarriesTwoHandedWeapon( void );
-	void	SoldierInventoryCoolDown( void );		// Flugente FTW 1: Cool down all items in inventory
+	void	SoldierInventoryCoolDown( void );		// Flugente: Cool down/decay all items in inventory
 	BOOLEAN	IsWeaponMounted( void );				// determine if we receive a bonus for mounting our weapon on something
 	OBJECTTYPE* GetUsedWeapon( OBJECTTYPE * pObj );		// if in an underbarrel fire mode, return underbarrel weapon
 	UINT16  GetUsedWeaponNumber( OBJECTTYPE * pObj );	// if in an underbarrel fire mode, return number of underbarrel weapon
@@ -1433,9 +1433,6 @@ public:
 
 	// Flugente: inventory bombs can ignite while in mapscreen. Workaround: Damage items and health
 	void	InventoryExplosion( void );
-
-	// Flugente: Food decay in inventory
-	void	SoldierInventoryFoodDecay( void );
 
 	// Flugente: do we currently provide ammo (pAmmoSlot) for someone else's (pubId) gun (pGunSlot)?
 	BOOLEAN		IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);

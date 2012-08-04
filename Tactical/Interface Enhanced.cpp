@@ -3939,7 +3939,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 
 			///////////////////// poison percentage
 			// only draw if item is poisoned in any way
-			if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || (Item[gpItemDescObject->usItem].usItemClass == IC_GUN && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
+			if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
 			{
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{				
@@ -5252,7 +5252,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 
 		///////////////////// poison percentage
 		// only draw if item is poisoned in any way
-		if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || (Item[gpItemDescObject->usItem].usItemClass == IC_GUN && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
+		if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0 || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{

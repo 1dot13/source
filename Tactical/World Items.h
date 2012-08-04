@@ -119,6 +119,6 @@ extern void FindPanicBombsAndTriggers( void );
 extern INT32 FindWorldItemForBombInGridNo( INT32 sGridNo, INT8 bLevel);
 
 void RefreshWorldItemsIntoItemPools( WORLDITEM * pItemList, INT32 iNumberOfItems );
-void CoolDownWorldItems( BOOLEAN fSetZero = FALSE );			// Flugente FTW 1: Cool down all items in the world (no, really)
+void CoolDownWorldItems( );			// Flugente: Cool/decay down all items in this sector
 
 #endif

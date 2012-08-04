@@ -1128,7 +1128,6 @@ typedef struct
 	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?
 	UINT8	ubOverheatThermometerRedOffset;			// amount of red colour while temperature is below threshold
 	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels alone in the landscape ;-)
-	BOOLEAN	fSetZeroUponNewSector;					// Should loading a new sector set the temperatures of all items in the old sector to zero? (this doesn't apply to inventories)
 	
 	// Flugente: Weapon Mounting
 	BOOLEAN	fWeaponResting;							// Should it be possible to rest your weapon on structures in crouched position?

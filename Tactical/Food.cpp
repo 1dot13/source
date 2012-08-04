@@ -38,7 +38,6 @@ UINT8	gSectorWaterType[256][4];
 //extern BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse );
 //extern BOOLEAN TacticalRemoveSoldier( UINT16 usSoldierIndex );
 extern BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet );
-extern void BuildStashForSelectedSectorAndDecayFood( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 
 // these midifiers are applied separately for both food and water
 // apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
@@ -699,9 +698,6 @@ void HourlyFoodUpdate( void )
 			HourlyFoodAutoDigestion( pSoldier );
 		}
 	}
-
-	// decay food everywhere
-	HourlyFoodDecay();
 }
 
 UINT8	GetWaterQuality(INT16 asMapX, INT16 asMapY, INT8 asMapZ)
@@ -970,135 +966,3 @@ OBJECTTYPE* GetUsableWaterDrumInSector( void )
 	return( NULL );
 }
 
-void HourlyFoodDecay( void )
-{
-	// decay food in all inventories
-	UINT32 cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( SOLDIERTYPE* pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
-	{
-		if ( pSoldier && pSoldier->bActive )
-		{
-			pSoldier->SoldierInventoryFoodDecay();
-		}
-	}
-
-	if ( gGameExternalOptions.fFoodDecayInSectors )
-	{
-		INT16 currentSectorX = gWorldSectorX;
-		INT16 currentSectorY = gWorldSectorY;
-		INT8 currentSectorZ = gbWorldSectorZ;
-
-		// decay food in all visited sectors
-		for ( INT16 sbMapX = 1; sbMapX < MAP_WORLD_X - 1; ++sbMapX )
-		{
-			for ( INT16 sbMapY = 1; sbMapY < MAP_WORLD_Y - 1; ++sbMapY )
-			{
-				for ( UINT8 ubMapZ = 0; ubMapZ < 4; ++ubMapZ )
-				{
-					// only if sector has already been visisted
-					if( GetSectorFlagStatus( sbMapX, sbMapY, ubMapZ, SF_ALREADY_VISITED ) == TRUE )
-					{
-						BuildStashForSelectedSectorAndDecayFood(sbMapX, sbMapY, (INT16)ubMapZ);
-					}
-				}
-			}
-		}
-	}
-}
-
-void SectorFoodDecay( WORLDITEM* pWorldItem, UINT32 size )
-{
-	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
-	FLOAT decaymod = 12*60*gGameExternalOptions.sFoodDecayModificator;
-
-	for( UINT32 uiCount = 0; uiCount < size; ++uiCount )				// ... for all items in the world ...
-	{
-		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
-		{
-			if ( Item[pWorldItem[ uiCount ].object.usItem].foodtype > 0 )			// ... if is food...
-			{
-				OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);				// ... get pointer for this item ...
-
-				if ( pObj != NULL )													// ... if pointer is not obviously useless ...
-				{
-					if ( Food[Item[pObj->usItem].foodtype].usDecayRate > 0.0f )		// ... if the food can decay...
-					{
-						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
-						{							
-							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - decaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-// commented out, as we now look for an xml value. Might be relevant in the future, though
-/*BOOLEAN DrinkableWaterInSector(INT16 asMapX, INT16 asMapY, INT8 asMapZ)
-{	
-	// static variables allow us to remember the result of the last time this function was called - this way, only one call per sector is required
-	static INT16 sMapX = 0;
-	static INT16 sMapY = 0;
-	static INT8  sMapZ = 0;
-	static BOOLEAN drinkablewaterfound = FALSE;
-
-	if ( asMapX != sMapX || asMapY != sMapY || asMapZ != sMapZ )
-	{
-		drinkablewaterfound = FALSE;
-				
-		for( INT32 sGridNo = 0; sGridNo < MAX_MAP_POS; ++sGridNo )
-		{			
-			if ( Water(sGridNo) || IsKitchenFurnitureWaterSource(sGridNo) )
-			{
-				drinkablewaterfound = TRUE;
-				break;
-			}
-		}
-
-		UINT8 ubSectorId = SECTOR(asMapX, asMapY);
-		if (ubSectorId >= 0 && ubSectorId < 256 && gSectorWaterType[ubSectorId][asMapZ] == WATER_DRINKABLE )
-		{
-			drinkablewaterfound = TRUE;
-		}
-
-		sMapX = asMapX;
-		sMapY = asMapY;
-		sMapZ = asMapZ;
-	}
-
-	return drinkablewaterfound;
-}*/
-
-// commented out, as we now look for an xml value. Might be relevant in the future, though
-/*// determine wether there is a kitechen furniture here (we assume its a sink, so it'll have water)
-BOOLEAN IsKitchenFurnitureWaterSource( INT32 sGridNo )
-{
-	STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
-
-	if ( pStruct != NULL )
-	{
-		// Get LEVELNODE for struct and remove!
-		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
-
-		if ( pNode )
-		{
-			UINT32 uiTileType = 0;
-			if ( GetTileType( pNode->usIndex, &uiTileType ) )
-			{
-				UINT16 usIndex = pNode->usIndex;
-
-				// Check if we are a sandbag
-				if ( ( _strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "furn_6.sti", 10) == 0 ) || 
-					 ( _strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "old_furn.sti", 12) == 0 ) || 
-					 ( _strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "furnmix.sti", 11) == 0 ) || 
-					 ( _strnicmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "furn_mix.sti", 12) == 0 ) )
-				{			
-					return TRUE;
-				}
-			}
-		}
-	}
-
-	return FALSE;
-}*/

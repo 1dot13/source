@@ -135,6 +135,8 @@
 
 #include "sgp_logger.h"
 
+#include "Map Screen Interface Map Inventory.h"	// added by Flugente
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -3000,6 +3002,11 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 
 	// This function will either hide or display the tree tops, depending on the game setting
 	SetTreeTopStateForMap();
+
+	// Flugente: certain features need to alter an item's temperature value depending on the time passed
+	// if we do these functions here and adjust for the time passed since this sector was loaded last, it will seem to the player
+	// as if these checks are always performed in any sector
+	SectorInventoryCooldownFunctions(sSectorX, sSectorY, bSectorZ);
 
 	return TRUE; //because the map was loaded.
 }
@@ -6113,9 +6120,6 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 		//if we arent loading a saved game
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
-			// Flugente: Set temperatures of all items in the old sector to zero before entering a new sector
-			CoolDownWorldItems( TRUE );
-
 			// Save the current sectors Item list to a temporary file, if its not the first time in
 			SaveCurrentSectorsInformationToTempItemFile();
 
