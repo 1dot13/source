@@ -2709,7 +2709,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		///////////////////// AIM BONUS MODIFIER
 		if(UsingNewCTHSystem() == false)
 		{
-			if ( GetAimBonus( NULL, gpItemDescObject, 100, 1 ) != 0 )
+			if ( GetAimBonus( gpItemDescSoldier, gpItemDescObject, 100, 1 ) != 0 )
 			{
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -8807,7 +8807,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	///////////////////// AIM BONUS MODIFIER
 	if(UsingNewCTHSystem() == false)
 	{
-		iModifier[0] = GetAimBonus( NULL, gpItemDescObject, 100, 1 );
+		iModifier[0] = GetAimBonus( gpItemDescSoldier, gpItemDescObject, 100, 1 );
 		iModifier[1] = 0;
 		iModifier[2] = 0;
 		if (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0)

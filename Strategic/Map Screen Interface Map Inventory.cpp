@@ -5090,7 +5090,13 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 
 	if ( fWithMinutes )
 	{
-		INT32 sMinutesPassed = __max(0, GetWorldTotalMin() - GetLastTimePlayerWasInSector(sMapX, sMapY, sMapZ) );
+		UINT32 usLastVisited = GetLastTimePlayerWasInSector(sMapX, sMapY, sMapZ);
+
+		// if usLastVisited is 0, we have not yet visited this sector. We don't want to cooldown anything in this case (preplaced food could become rotten jsut because we visit this sector late in our campaign)
+		if ( usLastVisited == 0 )
+			return;
+
+		UINT32 sMinutesPassed = __max(0, GetWorldTotalMin() - usLastVisited );
 
 		if ( sMinutesPassed == 0 )
 			return;
