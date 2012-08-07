@@ -10626,7 +10626,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore(
-								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].cavevisionrangebonus, bLightLevel ),
+								NightBonusScale( Item[ObjList[pSoldier->bScopeMode]->usItem].nightvisionrangebonus, bLightLevel ),
 								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
