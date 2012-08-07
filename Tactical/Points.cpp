@@ -2971,9 +2971,9 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	//{
 		//return( APBPConstants[AP_READY_DUAL] );
 	//}
-	if ( AM_A_ROBOT( pSoldier ) && gGameExternalOptions.fRobotNoReadytime);
+	if ( AM_A_ROBOT( pSoldier ) && gGameExternalOptions.fRobotNoReadytime){
 		return 0;
-	
+	}
 	if ( pSoldier->IsValidSecondHandShot( ) )
 	{
 		//Madd: return the greater of the two weapons + 1:
