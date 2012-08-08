@@ -4958,8 +4958,6 @@ STR16			zSaveLoadText[] =
 #else
 	L"Attempting to load an older version save. Automatically update and load the save?",
 #endif
-	L"Mark Remaining Hostiles",
-	L"Show LBE Content",
 
 	L"Are you sure you want to overwrite the saved game in slot #%d?",
 	L"Do you want to load the game from slot #",

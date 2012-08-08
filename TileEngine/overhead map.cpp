@@ -87,10 +87,11 @@ UINT16 iOffsetVertical;	// Vertical start position of the overview map
 //DBrot: keep track if we should use a bigger version of the overview map for big maps
 //for now, this is a custom solution applicable in 1920x1080
 BOOLEAN		gfUseBiggerOverview = FALSE;
-UINT8		ubResolutionTable[6] = {2, 3, 4, 6, 8, 12};
+UINT8		ubResolutionTable360[6] = {2, 3, 4, 6, 8, 12};
+UINT8		ubResolutionTable160[6] = {1, 1, 2, 4, 4, 5};
 UINT8		gubGridDivisor;
-#define		HORGRIDFRAME 1440
-#define		VERGRIDFRAME 720
+UINT16		gusGridFrameX;
+UINT16		gusGridFrameY;
 #define		SHARPBORDER 1
 #define		HATCHED 2
 //dnl ch45 021009 Current position of map displayed in overhead map, (A=TopLeft, B=BottomLeft, C=TopRight)
@@ -597,12 +598,21 @@ void GoIntoOverheadMap( )
 	iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map
 	iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
 	}
-	if(NightTime()){
-		gubGridDivisor = ubResolutionTable[gGameExternalOptions.ubGridResolutionNight];
+	if(WORLD_MAX == 129600){
+		if(NightTime()){
+			gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionNight];
+		}else{
+			gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionDay];
+		}
 	}else{
-		gubGridDivisor = ubResolutionTable[gGameExternalOptions.ubGridResolutionDay];
+		if(NightTime()){
+			gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionNight];
+		}else{
+			gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionDay];
+		}
 	}
-	
+	gusGridFrameX = WORLD_COLS * 4;
+	gusGridFrameY = WORLD_ROWS * 2;
 	
 	MSYS_DefineRegion( &OverheadBackgroundRegion, 0, 0 , SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH,
 						CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
@@ -1321,18 +1331,18 @@ void RenderOverheadOverlays()
 			continue;
 		
 		//DBrot: mark his general area as hostile
-		if(!gfEditMode && gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] && gfUseBiggerOverview && gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft){
+		if(!gfEditMode && gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY] /*&& gfUseBiggerOverview */&& gGameExternalOptions.ubMarkerMode && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector <= gGameExternalOptions.ubSoldiersLeft){
 			if(pSoldier->bTeam == ENEMY_TEAM){
 				UINT8 ubGridSquareX, ubGridSquareY;
 				
-				ubGridSquareX = sX / (HORGRIDFRAME / gubGridDivisor); 	//( pSoldier->sGridNo / WORLD_COLS ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
-				ubGridSquareY = sY / (VERGRIDFRAME / gubGridDivisor);	//( pSoldier->sGridNo - ( ( pSoldier->sGridNo / WORLD_COLS ) * WORLD_COLS ) ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
+				ubGridSquareX = sX / (gusGridFrameX / gubGridDivisor); 	//( pSoldier->sGridNo / WORLD_COLS ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
+				ubGridSquareY = sY / (gusGridFrameY / gubGridDivisor);	//( pSoldier->sGridNo - ( ( pSoldier->sGridNo / WORLD_COLS ) * WORLD_COLS ) ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
 				
 				
-				HostileArea.iLeft = iOffsetHorizontal + (((HORGRIDFRAME / gubGridDivisor) * ubGridSquareX));
-				HostileArea.iTop = iOffsetVertical + (((VERGRIDFRAME / gubGridDivisor) * ubGridSquareY));
-				HostileArea.iRight = iOffsetHorizontal + (((HORGRIDFRAME / gubGridDivisor) * (ubGridSquareX + 1)));
-				HostileArea.iBottom = iOffsetVertical + (((VERGRIDFRAME / gubGridDivisor) * (ubGridSquareY + 1)));
+				HostileArea.iLeft = iOffsetHorizontal + (((gusGridFrameX / gubGridDivisor) * ubGridSquareX));
+				HostileArea.iTop = iOffsetVertical + (((gusGridFrameY / gubGridDivisor) * ubGridSquareY));
+				HostileArea.iRight = iOffsetHorizontal + (((gusGridFrameX / gubGridDivisor) * (ubGridSquareX + 1)));
+				HostileArea.iBottom = iOffsetVertical + (((gusGridFrameY / gubGridDivisor) * (ubGridSquareY + 1)));
 				if(gGameExternalOptions.ubMarkerMode == SHARPBORDER)
 					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, 255, pDestBuf);
 					

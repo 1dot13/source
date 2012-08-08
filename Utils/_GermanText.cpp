@@ -4806,9 +4806,6 @@ STR16 zSaveLoadText[] =
 #else
 	L"Versuche, älteren Spielstand zu laden. Laden und automatisch aktualisieren?",
 #endif
-	L"Mark Remaining Hostiles",				//TODO.Translate
-	L"Show LBE Content",					//TODO.Translate
-
 	
 	L"Gespeichertes Spiel in Position #%d wirklich überschreiben?",
 	L"Wollen Sie das Spiel aus Position # speichern?",
@@ -4971,13 +4968,12 @@ STR16 zOptionsToggleText[] =
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
 #endif
-	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
-	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
-
 #ifdef ENABLE_ZOMBIES
 	L"Zombies erlauben",						// Flugente Zombies 1.0
 #endif
 	L"Inventar Popup-Menüs",				// the_bob : enable popups for picking items from sector inv
+	L"Übrige Feinde markieren",				
+	L"Tascheninhalt anzeigen",					
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5094,6 +5090,8 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, können Tote als Zombies wieder auferstehen. Seien Sie auf der Hut!",
 #endif
 	L"Wenn diese Funktion aktiviert ist, und Sie mit der linken Maustaste auf einen freien Söldner-Inventarplatz klicken (während das Sektor-Inventar angezeigt wird), wird ein hilfreiches Popup-Menü eingeblendet.",
+	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
+	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

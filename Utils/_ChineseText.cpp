@@ -4960,9 +4960,6 @@ STR16			zSaveLoadText[] =
 #else
 	L"试图载入老版本的存档。你要自动更新并载入存档吗？",
 #endif
-	L"Mark Remaining Hostiles",				//TODO.Translate
-	L"Show LBE Content",					//TODO.Translate
-
 	L"你确认你要将#%d位置的存档覆盖吗?",
 	L"你要从#号位置载入存档吗",
 
@@ -5124,13 +5121,12 @@ STR16		zOptionsToggleText[] =
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
 #endif
-	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
-	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
-
 #ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",				// TODO.Translate
 #endif
 	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
+	L"Mark Remaining Hostiles",				//TODO.Translate
+	L"Show LBE Content",					//TODO.Translate
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5247,6 +5243,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 #endif
 	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
+	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
+	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

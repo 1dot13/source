@@ -5127,6 +5127,8 @@ STR16		zOptionsToggleText[] =
 	L"Allow Zombies",						// Flugente Zombies 1.0
 #endif
 	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
+	L"Mark Remaining Hostiles",				//TODO.Translate
+	L"Show LBE Content",					//TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5243,6 +5245,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
 #endif
 	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
+	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
+	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
