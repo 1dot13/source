@@ -2247,6 +2247,15 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 	}
 
 	this->bInitialActionPoints	= this->bActionPoints;
+
+	// Flugente: due to changes and bugs with enemy reinforcements, we now set a flag if a soldier should start with no APs, and act here accordingly
+	if ( this->bSoldierFlagMask & SOLDIER_NO_AP )
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_NO_AP;
+
+		this->bInitialActionPoints = 0;
+		this->bActionPoints = 0;
+	}
 }
 
 
@@ -13916,21 +13925,20 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 
 				if ( pAmmoObj != NULL )													// ... if pointer is not obviously useless ...
 				{
-					if ( pAmmoObj->ubNumberOfObjects == 1 )
+					//if ( pAmmoObj->ubNumberOfObjects == 1 )
 					{
 						usAmmoItem = pAmmoObj->usItem;
 
 						if ( Item [ usAmmoItem ].usItemClass == IC_AMMO && HasItemFlag( usAmmoItem, AMMO_BELT ) )
 						{
-							// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+							// remember the caliber and type of ammo. They all have to fit
 							usMagIndex     = Item[usAmmoItem].ubClassIndex;
 							usAmmoCalibre  = Magazine[usMagIndex].ubCalibre;
-							//usAmmoMagSize  = Magazine[usMagIndex].ubMagSize;
 							usAmmoAmmoType = Magazine[usMagIndex].ubAmmoType;
 
-							if ( usGunCalibre == usAmmoCalibre && /*usGunMagSize == usAmmoMagSize &&*/ usGunAmmoType == usAmmoAmmoType )
+							if ( usGunCalibre == usAmmoCalibre && usGunAmmoType == usAmmoAmmoType )
 							{
-								// same calibre, same magsize, same ammotype. We can serve this guy
+								// same calibre, same ammotype. We can serve this guy
 								if ( !firstgunfound )
 								{
 									firstgunfound = TRUE;

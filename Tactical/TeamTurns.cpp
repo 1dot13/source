@@ -329,12 +329,16 @@ void EndTurn( UINT8 ubNextTeam )
 	}
 	else
 	{
+		// Flugente: I'm not really sure why we check here for gGameExternalOptions.ubReinforcementsFirstTurnFreeze, shouldn't that be a check for ALLOW_REINFORCEMENTS?
+		// as this inhibits reinforcements during turnbased-mode, I'll check for that instead
 		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
-		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 2)
+		//if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 2)
+		if ( gGameExternalOptions.gfAllowReinforcements )
 		{
 			AddPossiblePendingEnemiesToBattle();
 		}
-		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 3)
+		//if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 3)
+		if ( gGameExternalOptions.gfAllowReinforcements )
 		{
 			AddPossiblePendingMilitiaToBattle();
 		}

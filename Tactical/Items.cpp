@@ -14112,7 +14112,7 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 	if ( !pObject || !(pObject->exists()) || !pSoldier || !pSoldier->bActive || !pSoldier->bInSector || pSoldier->stats.bLife < OKLIFE )
 		// how did we even get here?
-		return false;
+		return ( pObjExtMag );
 
 	UINT16 usItem = pObject->usItem;
 
@@ -14182,13 +14182,27 @@ BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObje
 
 	OBJECTTYPE* pObjExtMag = GetExternalFeedingObject(pSoldier, pObject);
 
-	if ( pObjExtMag && (*pObjExtMag)[0]->data.ubShotsLeft != 0 )
-	{
-		(*pObjExtMag)[0]->data.ubShotsLeft--;
+	if ( !pObjExtMag || pObjExtMag->ubNumberOfObjects == 0)
+		return false;
 
-		if ( (*pObjExtMag)[0]->data.ubShotsLeft == 0 )
+	UINT8 lastobjinstack = pObjExtMag->ubNumberOfObjects - 1;
+
+	if ( (*pObjExtMag)[lastobjinstack]->data.ubShotsLeft != 0 )
+	{
+		(*pObjExtMag)[lastobjinstack]->data.ubShotsLeft--;
+
+		if ( (*pObjExtMag)[lastobjinstack]->data.ubShotsLeft == 0 )
 		{
-			DeleteObj( pObjExtMag );
+			pObjExtMag->ubNumberOfObjects--;
+
+			if ( !pObjExtMag->exists() )
+			{
+				// Delete object
+				DeleteObj( pObjExtMag );
+
+				// dirty interface panel
+				DirtyMercPanelInterface(  pSoldier, DIRTYLEVEL2 );
+			}
 		}
 
 		return( TRUE );

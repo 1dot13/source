@@ -334,8 +334,8 @@ enum
 // -------- added by Flugente: various flags for soldiers --------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 #define SOLDIER_DRUGGED				0x00000001	//1			// Soldier is on drugs
-/*#define unused					0x00000002	//2			// Soldier is on a kill streak
-#define WH40K_BOLTER			0x00000004	//4
+#define SOLDIER_NO_AP				0x00000002	//2			// Soldier has no APs this turn (fix for reinforcement bug)
+/*#define WH40K_BOLTER			0x00000004	//4
 #define WH40K_FLAMER			0x00000008	//8
 
 #define WH40K_POWER_ARMOR		0x00000010	//16

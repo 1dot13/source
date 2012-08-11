@@ -4461,19 +4461,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if ( fAlt )
 				{
-					/*
-					// Flugente: spawn items while debugging
+					
+					/*// Flugente: spawn items while debugging
 					if ( gusSelectedSoldier != NOBODY )
 					{
-						static UINT16 usitem = 1560;
+						static UINT16 usitem = 1075;
 						static INT16 status = 100;
-						static FLOAT temperature = 50000.0;
+						static FLOAT temperature = 00000.0;
 
 						OBJECTTYPE newobj;
 						CreateItem( usitem, status, &newobj );
-
 						(newobj)[0]->data.bTemperature = temperature;
+						AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
 
+						CreateItem( usitem, status, &newobj );
+						(newobj)[0]->data.bTemperature = temperature;
 						AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
 					}*/
 				}

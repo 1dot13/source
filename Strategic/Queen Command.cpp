@@ -1830,8 +1830,11 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 		}
 		// HEADROCK HAM 3.2: enemy reinforcements arrive with 0 APs.
 		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
-		{
+		{			
 			pSoldier->bActionPoints = 0;
+
+			// Flugente: due to a fix, also note here that the reinforcements get no APs.
+			pSoldier->bSoldierFlagMask |= SOLDIER_NO_AP;
 		}
 	}
 	

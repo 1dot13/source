@@ -5073,8 +5073,11 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		
 	HandleSectorCooldownFunctions( sMapX, sMapY, (INT8)sMapZ, pTotalSectorList, uiTotalNumberOfRealItems, TRUE );
 
-	//Save the Items to the the file
-	SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
+	if ( sMapX != gWorldSectorX || sMapY != gWorldSectorY || sMapZ != gbWorldSectorZ )
+	{
+		//Save the Items to the the file
+		SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
+	}
 }
 
 // Flugente: handle various cooldwon functions over an array of items in a specific sector. 
@@ -5117,7 +5120,7 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 		{
 			OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
 
-			if ( pObj != NULL )												// ... if pointer is not obviously useless ...
+			if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
 			{
 				// ... if we use overheating and item is a gun, a launcher or a barrel ...
 				if ( gGameOptions.fWeaponOverheating && ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE ) )

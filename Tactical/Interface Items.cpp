@@ -4146,7 +4146,13 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 				SetFontForeground ( AmmoTypes[usAmmoAmmoType].fontColour );
 
-				swprintf( pStr, L"%d", (*pObject)[iter]->data.ubShotsLeft );
+				// count the total ammo left
+				UINT16 totalammo = 0;
+				int i;
+				for (i=0; i < pObject->ubNumberOfObjects; ++i)
+					totalammo += (*pObject)[i]->data.ubShotsLeft;
+
+				swprintf( pStr, L"%d", totalammo );
 
 				// Get length of string
 				uiStringLength=StringPixLength(pStr, ITEM_FONT );
