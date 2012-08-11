@@ -5041,15 +5041,9 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 //	#endif
 			
 	// now load these items into memory, based on fact if sector is in fact loaded
-	if( ( sMapX == gWorldSectorX )&&( gWorldSectorY == sMapY ) &&(gbWorldSectorZ == sMapZ ) )
+	if( ( sMapX == gWorldSectorX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == sMapZ ) && guiNumWorldItems)
 	{
-		fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, ( INT8 )( sMapZ ), &( uiTotalNumberOfRealItems ), FALSE );
-		Assert( fReturn );
-
-		if ( !uiTotalNumberOfRealItems )
-			return;
-
-		pTotalSectorList = gWorldItems;
+		HandleSectorCooldownFunctions( sMapX, sMapY, (INT8)sMapZ, gWorldItems, guiNumWorldItems, TRUE );
 	}
 	else
 	{
@@ -5069,12 +5063,9 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 			// now load into mem
 			LoadWorldItemsFromTempItemFile(  sMapX,  sMapY, ( INT8 ) ( sMapZ ), pTotalSectorList );
 		}
-	}
-		
-	HandleSectorCooldownFunctions( sMapX, sMapY, (INT8)sMapZ, pTotalSectorList, uiTotalNumberOfRealItems, TRUE );
 
-	if ( sMapX != gWorldSectorX || sMapY != gWorldSectorY || sMapZ != gbWorldSectorZ )
-	{
+		HandleSectorCooldownFunctions( sMapX, sMapY, (INT8)sMapZ, pTotalSectorList, uiTotalNumberOfRealItems, TRUE );
+
 		//Save the Items to the the file
 		SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
 	}
