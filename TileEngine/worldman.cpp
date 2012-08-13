@@ -3599,6 +3599,8 @@ LEVELNODE * FindLevelNodeBasedOnStructure( INT32 sGridNo, STRUCTURE * pStructure
 	return( NULL );
 }
 
+// WANNE: Old JA2 vanilla version to find the shadow tile
+/*
 LEVELNODE * FindShadow( INT32 sGridNo, UINT16 usStructIndex )
 {
 	LEVELNODE *				pLevelNode;
@@ -3621,7 +3623,27 @@ LEVELNODE * FindShadow( INT32 sGridNo, UINT16 usStructIndex )
 		pLevelNode = pLevelNode->pNext;
 	}
 	return( pLevelNode );
+}
+*/
 
+// WANNE: Improved v1.13 version to find the shadow tile. (by Realist)
+// This should fix the bug, finding and swapping shadows when swapping structures
+// e.g: When curring a fence tile, the shadow tile was not swapped. Now it should be fixed.
+LEVELNODE* FindShadow(INT32 sGridNo, UINT16 usStructIndex)
+{
+	TILE_ELEMENT const * const te = &gTileDatabase[usStructIndex];
+	if (te->uiFlags & HAS_SHADOW_BUDDY && te->sBuddyNum != -1)
+	{
+		LEVELNODE* pLevelNode;
+		for (pLevelNode = gpWorldLevelData[sGridNo].pShadowHead; pLevelNode != NULL; pLevelNode = pLevelNode->pNext)
+		{
+			if (pLevelNode->usIndex == te->sBuddyNum)
+			{
+				return pLevelNode;
+			}
+		}
+	}
+	return NULL;
 }
 
 
