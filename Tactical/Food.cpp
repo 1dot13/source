@@ -192,7 +192,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s ate %s", pSoldier->name, Item[pObject->usItem].szItemName );
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s drank %s", pSoldier->name, Item[pObject->usItem].szItemName );
-			
+	
 	// now remove a portion of the food item (or the whole item altogether)
 	UINT16 ptsconsumed = UseKitPoints( pObject, Food[foodtype].ubPortionSize, pSoldier );
 
@@ -200,13 +200,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
 	// if the food is more of a drink, we also restore breath points
 	if ( Food[foodtype].bDrinkPoints > Food[foodtype].bFoodPoints )
 	{
-		//UINT16 ptsconsumed = Food[foodtype].ubPortionSize - ptsleft;
-
-		INT16 usTotalKitPoints = TotalPoints( pObject );
-
-		INT16 sPointsToUse = __min( ptsconsumed, usTotalKitPoints );
-
-		sBPAdjustment = 2 * sPointsToUse * -(100 - pSoldier->bBreath);
+		sBPAdjustment = 2 * ptsconsumed * -(100 - pSoldier->bBreath);
 	}
 
 	DeductPoints( pSoldier, APBPConstants[type], sBPAdjustment );

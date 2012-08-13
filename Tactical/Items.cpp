@@ -7151,13 +7151,13 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 		else if ( Item[pObj->usItem].canteen == TRUE )
 		{
 			// consume this kit totally
-			usPoints -= (((*pObj)[bLoop]->data.objectStatus - 1) / (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction))) /100);
+			usPoints -= (((*pObj)[bLoop]->data.objectStatus - 1) / ((max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction))) /100));
 			(*pObj)[bLoop]->data.objectStatus = 1;
 		}
 		else
 		{
 			// consume this kit totally
-			usPoints -= (((*pObj)[bLoop]->data.objectStatus) / (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction))) /100);
+			usPoints -= (((*pObj)[bLoop]->data.objectStatus) / ((max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction))) /100));
 			(*pObj)[bLoop]->data.objectStatus = 0;
 
 			pObj->ubNumberOfObjects--;
@@ -8851,7 +8851,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 
 	//////////////////////////////////////////////////////////////////////////////
 	// added possibility to remove all camo by using a rag on self - SANDRO
-	if (pObj->usItem == 1022 && gGameExternalOptions.fCamoRemoving)
+	if ( HasItemFlag(pObj->usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving)
 	{
 		if (!EnoughPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE]/2), 0, TRUE ) )
 		{

@@ -724,8 +724,8 @@ extern OBJECTTYPE gTempObject;
 
 #define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
 #define AMMO_BELT_VEST			0x00000200	//512		// this is a vest that can contain AMMO_BELT items in its medium slots
-/*#define unused				0x00000400	//1024
-#define ENEMY_NET_4_LVL_3		0x00000800	//2048
+#define CAMO_REMOVAL			0x00000400	//1024		// item can be used to remove camo
+/*#define ENEMY_NET_4_LVL_3		0x00000800	//2048
 
 #define ENEMY_NET_1_LVL_4		0x00001000	//4096
 #define ENEMY_NET_2_LVL_4       0x00002000	//8192
