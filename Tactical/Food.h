@@ -20,6 +20,7 @@ typedef enum
 {
 	FOOD_STUFFED,
 	FOOD_EXTREMELY_FULL,
+	FOOD_VERY_FULL,
 	FOOD_FULL,
 	FOOD_SLIGHTLY_FULL,
 	FOOD_NORMAL,
@@ -34,6 +35,7 @@ typedef enum
 
 #define FOOD_MERC_START_CONSUME		FOOD_EVEN_LOWER
 #define FOOD_MERC_STOP_FACILITY		FOOD_FULL
+#define FOOD_MERC_REFUSAL			FOOD_VERY_FULL
 
 typedef struct
 {
@@ -73,7 +75,8 @@ typedef enum
 } FoodSectorWaterSupply;
 
 // eat a food object. if fForce = FALSE, the soldier can reject to eat this once
-BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce );
+// if fForceFromDrugs = TRUE, we HAVE to eat this, because we already got the effects from the ApplyDrugs-function (item is both drug and food)
+BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, BOOLEAN fForceFromDrugs );
 
 void GetFoodSituation( SOLDIERTYPE *pSoldier, UINT8* pFoodSituation, UINT8* pWaterSituation );
 void FoodMaxMoraleModifiy( SOLDIERTYPE *pSoldier, UINT8* pubMaxMorale );

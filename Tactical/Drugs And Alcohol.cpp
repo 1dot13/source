@@ -68,7 +68,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 	}
 
 	BOOLEAN consumeitem = TRUE;
-	// if item is also a food iem, don't use it up here, it will be consumed in ApplyFood, which will be called afterwards
+	// if item is also a food item, don't use it up here, it will be consumed in ApplyFood, which will be called afterwards
 	UINT32 foodtype = Item[pObject->usItem].foodtype;
 
 	// if not a food item, nothing to see here
@@ -256,7 +256,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 	fInterfacePanelDirty = DIRTYLEVEL2;
 
 	if ( !consumeitem )
-		ApplyFood( pSoldier, pObject, TRUE );
+		ApplyFood( pSoldier, pObject, TRUE, TRUE );
 
 	return( TRUE );
 }

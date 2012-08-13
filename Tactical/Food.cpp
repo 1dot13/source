@@ -43,8 +43,9 @@ extern BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT3
 // apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
 FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 {
-	{ 100000,	-8,		-2,		-20,	-35,	2},		//	FOOD_STUFFED
-	{ 5000,		-5,		-2,		-5,		-5,		0},		//	FOOD_EXTREMELY_FULL
+	{ 100000,	-8,		-3,		-20,	-35,	2},		//	FOOD_STUFFED
+	{ 7500,		-5,		-2,		-5,		-5,		0},		//	FOOD_EXTREMELY_FULL
+	{ 5000,		0,		-1,		-2,		-2,		0},		//	FOOD_VERY_FULL
 	{ 2500,		2,		-1,		-1,		0,		0},		//	FOOD_FULL
 	{ 1000,		5,		0,		0,		0,		0},		//	FOOD_SLIGHTLY_FULL
 
@@ -59,7 +60,7 @@ FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 };
 
 
-BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
+BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, BOOLEAN fForceFromDrugs )
 {
 	// static variables to remember the last food someone was forced to eat
 	static UINT8 lasteater = 0;
@@ -85,13 +86,13 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
 		type = AP_DRINK;
 
 	// return if we don't have enough APs
-	if (!EnoughPoints( pSoldier, APBPConstants[type], 0, TRUE ) )
+	if ( !fForceFromDrugs && !EnoughPoints( pSoldier, APBPConstants[type], 0, TRUE ) )
 	{
 		return( FALSE );
 	}
 	 
 	// check if we are willing to eat this: if we're filled, the merc refuses
-	if ( ( ( Food[foodtype].bFoodPoints > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_EXTREMELY_FULL].bThreshold ) || Food[foodtype].bFoodPoints <= 0 ) && ( ( Food[foodtype].bDrinkPoints > 0 && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_EXTREMELY_FULL].bThreshold ) || Food[foodtype].bDrinkPoints <= 0 ) )
+	if ( !fForceFromDrugs && ( ( Food[foodtype].bFoodPoints > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold ) || Food[foodtype].bFoodPoints <= 0 ) && ( ( Food[foodtype].bDrinkPoints > 0 && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold ) || Food[foodtype].bDrinkPoints <= 0 ) )
 	{
 		// Say quote!
 		TacticalCharacterDialogue( pSoldier, 61 );
@@ -103,7 +104,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce )
 	FLOAT foodcondition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
 	
 	// food in bad condition is harmful!
-	if ( foodcondition < FOOD_BAD_THRESHOLD )
+	if ( !fForceFromDrugs && foodcondition < FOOD_BAD_THRESHOLD )
 	{
 		// if we can choose to reject a food and haven't yet done so with this type of bad food, do so. Works only once
 		if ( !fForce && ( lasteater != pSoldier->ubID || lastitem != pObject->usItem) )
@@ -363,7 +364,10 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
 			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of nutrition!", pSoldier->name );
+			if ( foodsituation > FOOD_NORMAL )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to being overfed!", pSoldier->name );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of nutrition!", pSoldier->name );
 		}
 
 		// damage health
@@ -390,8 +394,11 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			// Update Profile
 			gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
 			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-			
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of nutrition!", pSoldier->name );
+
+			if ( foodsituation > FOOD_NORMAL )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to being overfed!", pSoldier->name );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of nutrition!", pSoldier->name );
 
 			// if we fall below OKLIFE, we start bleeding...
 			// Reason for this is that 
@@ -439,7 +446,10 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
 			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of nutrition!", pSoldier->name );
+			if ( watersituation > FOOD_NORMAL )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to excessive drinking!", pSoldier->name );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of water!", pSoldier->name );
 		}
 
 		// damage health
@@ -467,7 +477,10 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
 			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 			
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of nutrition!", pSoldier->name );
+			if ( watersituation > FOOD_NORMAL )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to excessive drinking!", pSoldier->name );
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of water!", pSoldier->name );
 
 			// if we fall below OKLIFE, we start bleeding...
 			// Reason for this is that 
@@ -620,7 +633,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 						if ( Item[pObj->usItem].drugtype > 0 )
 							ApplyDrugs( pSoldier, pObj );
 						else
-							ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
+							ApplyFood( pSoldier, pObj, TRUE, FALSE );		// cannot reject to eat this, we chose to eat this ourself!
 
 						// if we're full, finish
 						if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
@@ -659,7 +672,7 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 						if ( Item[pObj->usItem].drugtype > 0 )
 							ApplyDrugs( pSoldier, pObj );
 						else
-							ApplyFood( pSoldier, pObj, TRUE );		// cannot reject to eat this, we chose to eat this ourself!
+							ApplyFood( pSoldier, pObj, TRUE, FALSE );		// cannot reject to eat this, we chose to eat this ourself!
 
 						// if we're full, finish
 						if ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_START_CONSUME].bThreshold )
