@@ -1,7 +1,7 @@
 ﻿<FOODSLIST>
 	<FOOD>
 		<uiIndex>0</uiIndex>
-		<szName>None</szName>
+		<szName>(none)</szName>
 		<bFoodPoints>0</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>0</ubPortionSize>
@@ -12,7 +12,7 @@
 		<uiIndex>1</uiIndex>
 		<szName>Canteen</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>1000</bDrinkPoints>
+		<bDrinkPoints>2000</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -21,7 +21,7 @@
 		<uiIndex>2</uiIndex>
 		<szName>Alcohol</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>3000</bDrinkPoints>
+		<bDrinkPoints>6000</bDrinkPoints>
 		<ubPortionSize>10</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -30,7 +30,7 @@
 		<uiIndex>3</uiIndex>
 		<szName>Beer</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>1200</bDrinkPoints>
+		<bDrinkPoints>2200</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>3</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -39,7 +39,7 @@
 		<uiIndex>4</uiIndex>
 		<szName>Wine</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>2400</bDrinkPoints>
+		<bDrinkPoints>4400</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -47,7 +47,7 @@
 	<FOOD>
 		<uiIndex>5</uiIndex>
 		<szName>Calory bars</szName>
-		<bFoodPoints>30</bFoodPoints>
+		<bFoodPoints>150</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -56,7 +56,7 @@
 	<FOOD>
 		<uiIndex>6</uiIndex>
 		<szName>MRE</szName>
-		<bFoodPoints>310</bFoodPoints>
+		<bFoodPoints>1200</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -65,7 +65,7 @@
 	<FOOD>
 		<uiIndex>7</uiIndex>
 		<szName>EPA</szName>
-		<bFoodPoints>450</bFoodPoints>
+		<bFoodPoints>1600</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>50</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -74,7 +74,7 @@
 	<FOOD>
 		<uiIndex>8</uiIndex>
 		<szName>Calorie Mate</szName>
-		<bFoodPoints>20</bFoodPoints>
+		<bFoodPoints>100</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>10</ubPortionSize>
 		<bMoraleMod>0</bMoraleMod>
@@ -83,7 +83,7 @@
 	<FOOD>
 		<uiIndex>9</uiIndex>
 		<szName>Peak EPA</szName>
-		<bFoodPoints>20</bFoodPoints>
+		<bFoodPoints>80</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>15</ubPortionSize>
 		<bMoraleMod>0</bMoraleMod>
@@ -92,7 +92,7 @@
 	<FOOD>
 		<uiIndex>10</uiIndex>
 		<szName>Hotdog</szName>
-		<bFoodPoints>90</bFoodPoints>
+		<bFoodPoints>380</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -101,7 +101,7 @@
 	<FOOD>
 		<uiIndex>11</uiIndex>
 		<szName>Hamburger</szName>
-		<bFoodPoints>95</bFoodPoints>
+		<bFoodPoints>420</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -110,7 +110,7 @@
 	<FOOD>
 		<uiIndex>12</uiIndex>
 		<szName>Fries</szName>
-		<bFoodPoints>40</bFoodPoints>
+		<bFoodPoints>160</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -119,7 +119,7 @@
 	<FOOD>
 		<uiIndex>13</uiIndex>
 		<szName>Pizza</szName>
-		<bFoodPoints>150</bFoodPoints>
+		<bFoodPoints>620</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>13</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -128,7 +128,7 @@
 	<FOOD>
 		<uiIndex>14</uiIndex>
 		<szName>Spam</szName>
-		<bFoodPoints>165</bFoodPoints>
+		<bFoodPoints>600</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>50</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -137,7 +137,7 @@
 	<FOOD>
 		<uiIndex>15</uiIndex>
 		<szName>Spam 2</szName>
-		<bFoodPoints>170</bFoodPoints>
+		<bFoodPoints>800</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>50</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -146,7 +146,7 @@
 	<FOOD>
 		<uiIndex>16</uiIndex>
 		<szName>C. vegetables</szName>
-		<bFoodPoints>140</bFoodPoints>
+		<bFoodPoints>600</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>50</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -155,7 +155,7 @@
 <FOOD>
 		<uiIndex>17</uiIndex>
 		<szName>C. scorpions</szName>
-		<bFoodPoints>90</bFoodPoints>
+		<bFoodPoints>360</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -164,7 +164,7 @@
 	<FOOD>
 		<uiIndex>18</uiIndex>
 		<szName>Cat food</szName>
-		<bFoodPoints>80</bFoodPoints>
+		<bFoodPoints>320</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>-2</bMoraleMod>
@@ -173,7 +173,7 @@
 	<FOOD>
 		<uiIndex>19</uiIndex>
 		<szName>Baked beans</szName>
-		<bFoodPoints>150</bFoodPoints>
+		<bFoodPoints>620</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>50</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -182,7 +182,7 @@
 	<FOOD>
 		<uiIndex>20</uiIndex>
 		<szName>Steak</szName>
-		<bFoodPoints>220</bFoodPoints>
+		<bFoodPoints>920</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -191,7 +191,7 @@
 	<FOOD>
 		<uiIndex>21</uiIndex>
 		<szName>Bean stew</szName>
-		<bFoodPoints>210</bFoodPoints>
+		<bFoodPoints>800</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -200,7 +200,7 @@
 	<FOOD>
 		<uiIndex>22</uiIndex>
 		<szName>French toast</szName>
-		<bFoodPoints>90</bFoodPoints>
+		<bFoodPoints>300</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -209,7 +209,7 @@
 	<FOOD>
 		<uiIndex>23</uiIndex>
 		<szName>Crepes</szName>
-		<bFoodPoints>90</bFoodPoints>
+		<bFoodPoints>340</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -218,7 +218,7 @@
 	<FOOD>
 		<uiIndex>24</uiIndex>
 		<szName>Pasta</szName>
-		<bFoodPoints>215</bFoodPoints>
+		<bFoodPoints>860</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -227,7 +227,7 @@
 	<FOOD>
 		<uiIndex>25</uiIndex>
 		<szName>Omelet</szName>
-		<bFoodPoints>200</bFoodPoints>
+		<bFoodPoints>700</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -236,7 +236,7 @@
 	<FOOD>
 		<uiIndex>26</uiIndex>
 		<szName>Cow meat</szName>
-		<bFoodPoints>700</bFoodPoints>
+		<bFoodPoints>2000</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>10</ubPortionSize>
 		<bMoraleMod>-2</bMoraleMod>
@@ -245,7 +245,7 @@
   <FOOD>
 		<uiIndex>27</uiIndex>
 		<szName>Bloodcat meat</szName>
-		<bFoodPoints>500</bFoodPoints>
+		<bFoodPoints>2200</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>10</ubPortionSize>
 		<bMoraleMod>-2</bMoraleMod>
@@ -254,7 +254,7 @@
 	<FOOD>
 		<uiIndex>28</uiIndex>
 		<szName>Bread</szName>
-		<bFoodPoints>240</bFoodPoints>
+		<bFoodPoints>550</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
@@ -263,7 +263,7 @@
 	<FOOD>
 		<uiIndex>29</uiIndex>
 		<szName>Applepie</szName>
-		<bFoodPoints>120</bFoodPoints>
+		<bFoodPoints>600</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<ubPortionSize>50</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
@@ -282,7 +282,7 @@
 		<uiIndex>31</uiIndex>
 		<szName>PET bottle</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>1000</bDrinkPoints>
+		<bDrinkPoints>2000</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>0</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -290,8 +290,8 @@
 	<FOOD>
 		<uiIndex>32</uiIndex>
 		<szName>Vegetable juice</szName>
-		<bFoodPoints>40</bFoodPoints>
-		<bDrinkPoints>1000</bDrinkPoints>
+		<bFoodPoints>60</bFoodPoints>
+		<bDrinkPoints>2000</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
 		<usDecayRate>1.2</usDecayRate>
@@ -299,8 +299,8 @@
 	<FOOD>
 		<uiIndex>33</uiIndex>
 		<szName>Milk</szName>
-		<bFoodPoints>5</bFoodPoints>
-		<bDrinkPoints>1000</bDrinkPoints>
+		<bFoodPoints>10</bFoodPoints>
+		<bDrinkPoints>2000</bDrinkPoints>
 		<ubPortionSize>20</ubPortionSize>
 		<bMoraleMod>1</bMoraleMod>
 		<usDecayRate>1.8</usDecayRate>
@@ -309,7 +309,7 @@
 		<uiIndex>34</uiIndex>
 		<szName>Energy drink</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>400</bDrinkPoints>
+		<bDrinkPoints>800</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>0</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -318,7 +318,7 @@
 		<uiIndex>35</uiIndex>
 		<szName>Energy drink 2</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>400</bDrinkPoints>
+		<bDrinkPoints>700</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>0</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
@@ -327,7 +327,7 @@
 		<uiIndex>36</uiIndex>
 		<szName>Coffee</szName>
 		<bFoodPoints>0</bFoodPoints>
-		<bDrinkPoints>300</bDrinkPoints>
+		<bDrinkPoints>600</bDrinkPoints>
 		<ubPortionSize>100</ubPortionSize>
 		<bMoraleMod>2</bMoraleMod>
 		<usDecayRate>0.2</usDecayRate>

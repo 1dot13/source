@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<ItemFlag>
+		<id>0</id>
+		<name>None</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>1</id>
+		<name>Empty Sandbag</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>2</id>
+		<name>Full Sandbag</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>4</id>
+		<name>Shovel</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>8</id>
+		<name>Concertina</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>16</id>
+		<name>Water Drum</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>32</id>
+		<name>Bloodcat Meat</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>64</id>
+		<name>Cow Meat</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>128</id>
+		<name>Belt fed</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>256</id>
+		<name>Ammobelt</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>512</id>
+		<name>Ammobelt vest</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>1024</id>
+		<name>Camo removal</name>
+	</ItemFlag>
+</JA2Data>
