@@ -2930,7 +2930,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		{
 			GetMoraleString( gpSMCurrentMerc, pMoraleStr );
 			// Flugente: food info if food system is active
-			if ( gGameOptions.fFoodSystem )
+			if ( gGameOptions.fFoodSystem && gpSMCurrentMerc->ubProfile != ROBOT && !IsVehicle(gpSMCurrentMerc) )
 			{
 				// Flugente: added a display for poison, only show text if actually poisoned
 				if ( gpSMCurrentMerc->bPoisonSum > 0 )
@@ -5507,7 +5507,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			{
 					GetMoraleString( pSoldier, pMoraleStr );
 
-					if ( gGameOptions.fFoodSystem )
+					if ( gGameOptions.fFoodSystem && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) )
 					{
 						// Flugente: added a display for poison, only show text if actually poisoned
 						if ( pSoldier->bPoisonSum > 0 )

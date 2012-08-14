@@ -38,6 +38,7 @@ UINT8	gSectorWaterType[256][4];
 //extern BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse );
 //extern BOOLEAN TacticalRemoveSoldier( UINT16 usSoldierIndex );
 extern BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet );
+extern BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier);
 
 // these midifiers are applied separately for both food and water
 // apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
@@ -68,6 +69,10 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 	// how did this even happen?
 	if ( !pSoldier || !pObject || !(pObject->exists() ) || (*pObject)[0]->data.objectStatus < 1 )
+		return( FALSE);
+
+	// dont feed our machines
+	if ( pSoldier->ubProfile == ROBOT || IsVehicle(pSoldier) )
 		return( FALSE);
 
 	UINT32 foodtype = Item[pObject->usItem].foodtype;
@@ -364,7 +369,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
 			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
 
-			if ( foodsituation > FOOD_NORMAL )
+			if ( foodsituation < FOOD_NORMAL )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to being overfed!", pSoldier->name );
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of nutrition!", pSoldier->name );
@@ -395,7 +400,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
 			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 
-			if ( foodsituation > FOOD_NORMAL )
+			if ( foodsituation < FOOD_NORMAL )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to being overfed!", pSoldier->name );
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of nutrition!", pSoldier->name );
@@ -448,7 +453,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
 			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
 
-			if ( watersituation > FOOD_NORMAL )
+			if ( watersituation < FOOD_NORMAL )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to excessive drinking!", pSoldier->name );
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of water!", pSoldier->name );
@@ -481,7 +486,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
 			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 			
-			if ( watersituation > FOOD_NORMAL )
+			if ( watersituation < FOOD_NORMAL )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to excessive drinking!", pSoldier->name );
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of water!", pSoldier->name );
@@ -700,7 +705,7 @@ void HourlyFoodUpdate( void )
 	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier)
 	{
 		//if the merc is active, and in Arulco
-		if ( pSoldier && pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && !(pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
+		if ( pSoldier && pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) && !(pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 		{			
 			// digestion
 			HourlyFoodSituationUpdate( pSoldier );
