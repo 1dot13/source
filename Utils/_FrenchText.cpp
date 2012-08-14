@@ -1637,7 +1637,7 @@ STR16 pAssignmentStrings[] =
 	L"Entraîneur", // training a teammate
 	L"Elève", // being trained by someone else 
 	L"Exploitation", // operating a strategic facility
-	L"Eat",		// eating at a facility (cantina etc.)		// TODO. Translate
+	L"Eat",		// eating at a facility (cantina etc.)		// TODO.Translate
 	L"Repos", // Resting at a facility
 	L"Mort(e)", // dead
 	L"Incap.", // abbreviation for incapacitated
@@ -1722,7 +1722,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Entraîneur",
 	L"Elève",
 	L"Exploitation infras.",	
-	L"Eat",		// eating at a facility (cantina etc.) // TODO. Translate
+	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Repos infras.",
 	L"Mort(e)",
 	L"Incap.",
@@ -2925,12 +2925,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
 	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 
-	// added by Flugente to display health and poisoning			// TODO.Translate
-	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+	// added by Flugente to display health and poisoning		// TODO.Translate
+	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s",
 
 	// added by Flugente to display food status
 	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
-	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6647,7 +6647,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"AMBIENT",
 	L"Equipe",
-	L"Eat",// TODO. Translate
+	L"Eat",// TODO.Translate
 	L"Reste",
 	L"Réparer les objets",
 	L"Réparer %s", // Vehicle name inserted here
@@ -7037,10 +7037,11 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|T|r|o|u|s|s|e |d|e |1|e|r |s|o|i|n|s",
 	L"|T|r|o|u|s|s|e |d|e |s|o|i|n|s",
 	L"|B|o|m|b|e |p|o|u|r |s|e|r|r|u|r|e |d|e |p|o|r|t|e",
-	L"|D|r|i|n|k",// TODO. Translate
+	L"|D|r|i|n|k",// TODO.Translate
 	L"|M|e|a|l",
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
+	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7055,15 +7056,15 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nCet objet est de nature électronique, et contient des\ncircuits complexes.\n \nLes objets électroniques sont intrinsèquement plus\ndifficiles à réparer, d'autant plus si vous n'avez pas\nles compétences nécessaires.",
 	L"\n \nLorsque cet objet est porté sur le visage, il le protègera\nde tous les gaz nocifs.\n \nNotez que certains gaz sont corrosifs, et pourrait bien\npénétrer à travers le masque...",
 	L"\n \nCet objet requière des piles. Sans les piles vous ne pouvez pas\nactiver ces principales caractéristiques.\n \nPour utiliser un jeu de piles, attachez-les à cette objet\ncomme si vous m'étiez une lunette de visée à votre arme.",
-	L"\n \nCet objet peut être utilisé pour crocheter des portes\nou des containeurs vérouillés.\n \nLe crochetage est silencieux, mais nécessite des\ncompétences en Mécanique.",
+	L"\n \nCet objet peut être utilisé pour crocheter des portes\nou des containeurs vérouillés.\n \nLe crochetage est silencieux, mais nécessite des\ncompétences en Mécanique. This item modifies\nthe lockpicking chance by ", //JMich_SkillsModifiers: needs to be followed by a number",		// TODO.Translate
 	L"\n \nCet objet peut être utilisé pour couper les clôtures de fil.\n \nCela autorise le mercenaire a passé à travers des zones\nsécurisés, pour éventuellement surprendre l'ennemi !",
-	L"\n \nCet objet peut être utilisé pour frapper des portes\nou des containeurs vérouillés.\n \nFrapper des serrures requière une grande Force,\ngénère beaucoup de bruits, et peut facilement\nvous épuisez. Cependant, c'est une bonne façon\nd'ouvrir une serrure sans avoir des talents en\nMécaniques ou des outils adéquates.",
+	L"\n \nCet objet peut être utilisé pour frapper des portes\nou des containeurs vérouillés.\n \nFrapper des serrures requière une grande Force,\ngénère beaucoup de bruits, et peut facilement\nvous épuisez. Cependant, c'est une bonne façon\nd'ouvrir une serrure sans avoir des talents en\nMécaniques ou des outils adéquates. This item improves \nyour chance by ", //JMich_SkillsModifiers: needs to be followed by a number		// TODO.Translate
 	L"\n \nCet objet peut être utilisé pour détecter des objets métalliques\nenfouis sous terre.\n \nNaturellement, sa fonction première est de détecter les mines\nsans que vous ayez les compétences nécessaires pour les repérer\nà l'oeil nu.\n \nPeut-être trouverez-vous certains trésors cachés...",
 	L"\n \nCet objet peut être utilisé pour faire exploser une bombe\nqui aura été amorçée par un détonateur.\n \nPlantez la bombe en 1er, puis utilisez votre Déclencheur\nà distance pour l'activer quand c'est le bon moment.",
 	L"\n \nQuand il est attaché à un dispositif explosif et positionné\ndans le bon sens, ce détonateur peut être déclenché par un\ndétonateur (séparé) à distance.\n \nLes détonateurs à distance sont excellent pour faire des\npièges, car ils se déclenchent quand vous le souhaitez.\n \nDe plus, vous avez tout le temps pour déguerpir !",
 	L"\n \nQuand il est attaché à un dispositif explosif et positionné\ndans le bon sens, ce détonateur va lancer un compte à\nrebours défini, et explosera quand le temps sera écoulé.\n \nCes détonateurs avec minuterie sont pas chers et facile à\ninstaller, mais vous aurez besoin de temps pour pouvoir\ndéguerpir de là !",
 	L"\n \nCet objet contient de l'essence.\n \nIl pourrait arrivé à point nommé si vous aviez besoin\nde remplir un réservoir d'essence...",
-	L"\n \nCet objet contient divers outils qui peuvent être utilisés\npour réparer d'autres objets.\n \nUne trousse à outil est toujours nécessaire lorsque vous\nêtes en mission de Réparation.",
+	L"\n \nCet objet contient divers outils qui peuvent être utilisés\npour réparer d'autres objets.\n \nUne trousse à outil est toujours nécessaire lorsque vous\nêtes en mission de Réparation. This item modifies\nthe effectiveness of repair by ", //JMich_SkillsModifiers: need to be followed by a number		// TODO.Translate
 	L"\n \nQuand équipé sur le visage, cet objet donne la capacité de\nrepérer les ennemis à travers les murs, grâce à leur\nsignature thermique.",
 	L"\n \nCe merveilleux dispositif peut être utilisé pour repérer\nles ennemis en utilisant les rayons X.\n \nCela révelera tous les ennemis à une certaine distance\npour une courte période de temps.\n \nGardez cela loin de vos organes reproductifs !",
 	L"\n \nCet objet contient de l'eau potable bien fraiche.\nA utillisé lorsque vous êtes assoiffé.",
@@ -7071,10 +7072,11 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nIl s'agit d'un kit médical basic, contenant les ustensibles\nrequis pour faire une intervention médicale basic.\n \nIl peut être utilisé pour soigner un mercenaire blessé et\nempêcher le saignement.\n \nPour une guérison optimale, utlisez une véritable trousse\nde soins et/ou beaucoup de repos.",
 	L"\n \nIl s'agit d'un kit médicale complet, qui peut être utilisé\npour une opération chirurgicale ou autre cas sérieux.\n \nUne trousse de soins est toujours nécessaire lorsque vous\nêtes en mission de Docteur.",
 	L"\n \nCet objet peut être utilisé pour faire sauter les portes\nou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour éviter\nune explosion prématurée.\n \nExploser les serrures est relativement facile et rapide\nà faire. Cependant, c'est très bruyant et dangereux pour\nla plupart des mercernaires.",
-	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
+	L"\n \nThis item will still your thirst\nif you drink it.",// TODO.Translate
 	L"\n \nThis item will still your hunger\nif you eat it.",
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
+	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

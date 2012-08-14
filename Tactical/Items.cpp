@@ -11566,18 +11566,22 @@ INT8 FindCannon( SOLDIERTYPE * pSoldier )
 
 INT8 FindUsableCrowbar( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
+	//JMich_SkillModifiers: Adding a bonus check, to return the best crowbar, and modifying the return value.
+	INT8 bLoop, bonus, FoundCrowbar;
+	FoundCrowbar = NO_SLOT;
+	bonus = -101;
 
 	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if ( Item[pSoldier->inv[bLoop].usItem].crowbar && pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE )
+			if ( Item[pSoldier->inv[bLoop].usItem].crowbar && pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE && Item[pSoldier->inv[bLoop].usItem].CrowbarModifier > bonus)
 			{
-				return( bLoop );
+				bonus = Item[pSoldier->inv[bLoop].usItem].CrowbarModifier;
+				FoundCrowbar = bLoop;
 			}
 		}
 	}
-	return( NO_SLOT );
+	return( FoundCrowbar );
 }
 
 OBJECTTYPE* FindAttachedBatteries( OBJECTTYPE * pObj )
@@ -11652,20 +11656,60 @@ INT8 FindCamoKit( SOLDIERTYPE * pSoldier )
 	}
 	return( NO_SLOT );
 }
+//JMich_SkillModifiers: Adding a function to see if we have an item with disarm bonus
+INT8 FindDisarmKit( SOLDIERTYPE * pSoldier )
+{
+	INT8 bLoop, bonus, FoundKit;
+	FoundKit = NO_SLOT;
+	bonus = 0;
+
+	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+	{
+		if (pSoldier->inv[bLoop].exists() == true) {
+			if ( ( ( Item[pSoldier->inv[bLoop].usItem].DisarmModifier * pSoldier->inv[bLoop][0]->data.objectStatus ) / 100 ) > bonus )
+			{
+				bonus = Item[pSoldier->inv[bLoop].usItem].DisarmModifier * pSoldier->inv[bLoop][0]->data.objectStatus / 100;;
+				FoundKit = bLoop;
+			}
+		}
+	}
+	return( FoundKit );
+}
 INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 {
-	INT8 bLoop;
+	//JMich_SkillModifiers: Adding a bonus check, to return the best LocksmithKit, and modifying the return value.
+	INT8 bLoop, bonus, FoundKit;
+	FoundKit = NO_SLOT;
+	bonus = -101;
 
 	for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if (Item[pSoldier->inv[bLoop].usItem].locksmithkit   )
 			{
-				return( bLoop );
+				//JMich_SkillModifiers: If the locksmith kit has a bonus, reduce it based on the status, so we use the best bonus.
+				if (Item[pSoldier->inv[bLoop].usItem].LockPickModifier > 0 )
+				{	
+					if ( ( Item[pSoldier->inv[bLoop].usItem].LockPickModifier * pSoldier->inv[bLoop][0]->data.objectStatus / 100 ) > bonus  ) 
+					{
+						bonus = ( Item[pSoldier->inv[bLoop].usItem].LockPickModifier * pSoldier->inv[bLoop][0]->data.objectStatus / 100 );
+						FoundKit = bLoop;
+			}
+
+		}
+				//JMich_SkillModifiers: If on the other hand the locksmith is a shoddy one, keep that penalty regardless of status.
+				else
+				{
+					if ( Item[pSoldier->inv[bLoop].usItem].LockPickModifier > bonus  ) 
+					{
+						bonus = Item[pSoldier->inv[bLoop].usItem].LockPickModifier;
+						FoundKit = bLoop;
+	}
+}
 			}
 		}
 	}
-	return( NO_SLOT );
+	return( FoundKit );
 }
 INT8 FindWalkman( SOLDIERTYPE * pSoldier )
 {

@@ -1012,6 +1012,12 @@ typedef struct
 	// Flugente: food type
 	UINT32	foodtype;
 
+	//JMich_SkillModifiers: Adding new skill modifiers
+	INT8	LockPickModifier;
+	UINT8	CrowbarModifier;
+	UINT8	DisarmModifier;
+	INT8	RepairModifier;
+
 } INVTYPE;
 
 // CHRISL: Added new structures to handle LBE gear and the two new XML files that will be needed to deal

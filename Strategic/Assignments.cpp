@@ -2514,6 +2514,9 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 		return(0);
 	}
 
+	//JMich_SkillsModifiers: We should have the best repair kit in hands, so the effectiveness is 100 + kit's effectiveness.
+	ubKitEffectiveness = 100 + Item[pSoldier->inv[HANDPOS].usItem].RepairModifier;
+
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
 	usRepairPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier, FALSE ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
 
@@ -2557,18 +2560,21 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	usKitPts = ToolKitPoints( pSoldier );
 
 	// if kit(s) in extremely bad shape
+	//JMich_SkillsModifiers: Changed this to a divisor
 	if ( usKitPts < 25 )
 	{
-		ubKitEffectiveness = 50;
+		//ubKitEffectiveness = 50;
+		ubKitEffectiveness /= 2;
 	}
 	// if kit(s) in pretty bad shape
 	else if ( usKitPts < 50 )
 	{
-		ubKitEffectiveness = 75;
+		//ubKitEffectiveness = 75
+		ubKitEffectiveness = (ubKitEffectiveness * 3) / 4;
 	}
 	else
 	{
-		ubKitEffectiveness = 100;
+		//ubKitEffectiveness = 100;
 	}
 
 	if (pSoldier->bSectorZ == 0)
@@ -6795,17 +6801,25 @@ void RepairMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 
 void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 {
-	INT8 bPocket = 0;
+	//JMich_SkillModifiers: added bonus to see which is the maximum, and an extra pocket to store the highest bonus found so far.
+	INT8 bPocket = 0, bonus = -101, bToolkitPocket = NO_SLOT;
 
 	// if there isn't a toolkit in his hand
-	if( !Item[pSoldier->inv[ HANDPOS].usItem].toolkit )
+	if( Item[pSoldier->inv[ HANDPOS].usItem].toolkit )
 	{
+		bonus = Item[pSoldier->inv[ HANDPOS].usItem].RepairModifier;
+		bToolkitPocket = HANDPOS;
+	}
 		// run through rest of inventory looking for toolkits, swap the first one into hand if found
 		// CHRISL: Changed to dynamically determine max inventory locations.
 		for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
 		{
-			if( Item[pSoldier->inv[ bPocket ].usItem].toolkit )
+		if( Item[pSoldier->inv[ bPocket ].usItem].toolkit && Item[pSoldier->inv[ bPocket ].usItem].RepairModifier > bonus)
 			{
+			bonus = Item[pSoldier->inv[ bPocket ].usItem].RepairModifier;
+			bToolkitPocket = bPocket;
+		}
+	}
 				// HEADROCK HAM B2.8: These new conditions will create a bias for swapping an item out of
 				// our hand. 
 				
@@ -6816,14 +6830,10 @@ void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 				// Else, if the gun sling slot is free, and the item can go there, it will.
 				else if(UsingNewInventorySystem() && !pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE))
 					SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
-				else if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
+	else if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bToolkitPocket, FALSE))
 					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
-				SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
-				break;
+	SwapObjs( pSoldier, HANDPOS, bToolkitPocket, TRUE );
 			}
-		}
-	}
-}
 
 
 BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )

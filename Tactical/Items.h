@@ -384,6 +384,7 @@ BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj );		// Flugente: no more ne
 OBJECTTYPE* FindAttachedBatteries( OBJECTTYPE * pObj );
 INT8 FindMedKit( SOLDIERTYPE * pSoldier );
 INT8 FindFirstAidKit( SOLDIERTYPE * pSoldier );
+INT8 FindDisarmKit( SOLDIERTYPE * pSoldier );	//JMich_SkillsModifiers: Added function to check for disarm bonus
 INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier );
 INT8 FindCamoKit( SOLDIERTYPE * pSoldier );
 INT8 FindWalkman( SOLDIERTYPE * pSoldier );

@@ -256,7 +256,6 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 	INT32	iSkill;
 	INT32	iChance, iReportChance;
 	INT32	iRoll, iMadeItBy;
-	INT8	bSlot;
 	INT32	iLoop;
 	SOLDIERTYPE * pTeamSoldier;
 	INT8	bBuddyIndex;
@@ -268,6 +267,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 	{
 		case LOCKPICKING_CHECK:
 		case ELECTRONIC_LOCKPICKING_CHECK:
+		INT8	bSlot;
 
 		fForceDamnSound = TRUE;
 
@@ -321,7 +321,16 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 				// this should never happen, but might as well check...
 				iSkill = 0;
 			}
-			iSkill = iSkill * pSoldier->inv[bSlot][0]->data.objectStatus / 100;
+			else
+			{
+				//JMich_SkillsModifiers: Modifying the skill by the bonus from the lockpick, then reducing due to status
+				iSkill += Item[pSoldier->inv[bSlot].usItem].LockPickModifier;
+			}
+			//JMich_SkillsModifiers: If skill goes negative due to crappy lockpicks, the status of them doesn't matter.
+			if (iSkill > 0)
+			{
+				iSkill = (iSkill * pSoldier->inv[bSlot][0]->data.objectStatus) / 100;
+			}
 			break;
 		case ATTACHING_DETONATOR_CHECK:
 		case ATTACHING_REMOTE_DETONATOR_CHECK:
@@ -420,10 +429,15 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 					break;
 				}
 			}
-
 			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 			iSkill = iSkill / 10; // bring the value down to a percentage
+			//JMich_SkillModifiers: Adding a Disarm Trap bonus
+			bSlot = FindDisarmKit( pSoldier);
+			if (bSlot != NO_SLOT)
+			{
+				iSkill += Item[pSoldier->inv[bSlot].usItem].DisarmModifier * pSoldier->inv[bSlot][0]->data.objectStatus / 100;
+			}
 
 			// SANDRO - STOMP traits - Demolitions trait removing traps bonus
 			if ( gGameOptions.fNewTraitSystem )
@@ -468,6 +482,12 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 			iSkill = iSkill / 10; // bring the value down to a percentage
+			//JMich_SkillModifiers: Adding a Disarm Trap bonus
+			bSlot = FindDisarmKit( pSoldier);
+			if (bSlot != NO_SLOT)
+			{
+				iSkill += Item[pSoldier->inv[bSlot].usItem].DisarmModifier * pSoldier->inv[bSlot][0]->data.objectStatus / 100;
+			}
 			// penalty based on poor wisdom
 			iSkill -= (100 - EffectiveWisdom( pSoldier ) ) / 5;
 
@@ -495,7 +515,16 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 		case OPEN_WITH_CROWBAR:
 			// Add for crowbar...
-			iSkill = EffectiveStrength( pSoldier, FALSE ) + 20;
+			//JMich_SkillModifiers: Changing the +20 to the crowbar's bonus.
+			bSlot = FindUsableCrowbar( pSoldier );
+			if (bSlot != NO_SLOT)
+			{
+				iSkill = EffectiveStrength( pSoldier, FALSE ) + Item[pSoldier->inv[bSlot].usItem].CrowbarModifier;
+			}
+			else //how are we trying to force with a crowbar, without having one??
+			{
+				iSkill = 0;
+			}
 			fForceDamnSound = TRUE;
 			break;
 

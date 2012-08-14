@@ -1638,7 +1638,7 @@ STR16 pAssignmentStrings[] =
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
 	L"工作", // L"Staff", // operating a strategic facility //ham3.6
-	L"Eat",		// eating at a facility (cantina etc.)		// TODO. Translate
+	L"Eat",		// eating at a facility (cantina etc.)		// TODO.Translate
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
 	L"死亡", // dead
 	L"无力中", // abbreviation for incapacitated
@@ -1723,7 +1723,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"教练",
 	L"学员",
 	L"设施职员",
-	L"Eat",		// eating at a facility (cantina etc.) // TODO. Translate
+	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"在设施里休养",
 	L"休息",
 	L"无力中",
@@ -2926,12 +2926,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
 	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 
-	// added by Flugente to display health and poisoning			// TODO.Translate
-	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+	// added by Flugente to display health and poisoning		// TODO.Translate
+	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s",
 
 	// added by Flugente to display food status
 	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
-	L"Health: %d/%d\n  Poison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6674,7 +6674,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"环境",
 	L"工作人员",
-	L"Eat",// TODO. Translate
+	L"Eat",// TODO.Translate
 	L"休息",
 	L"修理物品",
 	L"修理%s", // Vehicle name inserted here
@@ -7066,10 +7066,11 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|急|救|包",
 	L"|医|药|箱",
 	L"|破|锁|炸|弹",
-	L"|D|r|i|n|k",// TODO. Translate
+	L"|D|r|i|n|k",// TODO.Translate
 	L"|M|e|a|l",
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
+	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7084,15 +7085,15 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n该物品是电子产品，含有复杂电路。\n \n电子产品在维修者没有电子技能时很难被修复\n。",
 	L"\n \n将该物品佩戴于面部时，使用者不受任何\n有毒气体的伤害。\n \n然而有些腐蚀性气体可以通过腐蚀\n作用穿过这个面罩。",
 	L"\n \n该物品需要电池。没有安装电池时使用者不\n能使用这个物品的主要功能。\n \n只要把所需电池安装于该物品的附件栏即可\n（步骤与将瞄准镜安装在步枪上一样）。",
-	L"\n \n该物品能够用于开锁。\n \n（用技巧）开锁不会发出声音，但是开稍微复\n杂一些的锁需要足够的机械能力。",
+	L"\n \n该物品能够用于开锁。\n \n（用技巧）开锁不会发出声音，但是开稍微复\n杂一些的锁需要足够的机械能力。 This item modifies\nthe lockpicking chance by ", //JMich_SkillsModifiers: needs to be followed by a number		// TODO.Translate
 	L"\n \n该物品能够绞断铁丝网。\n \n使用此物品，佣兵可以快速穿越用铁丝网封锁的地区，以便\n包围敌人！",
-	L"\n \n该物品能够用于破坏锁具。\n \n破坏锁具需要很大的力量，既会发出很大的\n噪音，也很耗费佣兵的体力。但是在没有出色\n的技巧和复杂的工具时，用力量破坏锁具也是明智\n之举。",
+	L"\n \n该物品能够用于破坏锁具。\n \n破坏锁具需要很大的力量，既会发出很大的\n噪音，也很耗费佣兵的体力。但是在没有出色\n的技巧和复杂的工具时，用力量破坏锁具也是明智\n之举。 This item improves \nyour chance by ", //JMich_SkillsModifiers: needs to be followed by a number	// TODO.Translate
 	L"\n \n该物品能够探测地下的金属物品。\n \n显然其主要用于在没有肉眼识别地雷的能力时探测地\n雷。但是你也可以用它发现埋在地下的宝藏。",
 	L"\n \n该物品能够用来引爆已经安装远程爆破引信的炸弹\n。\n \n先放置炸弹，时机一到再用它引爆。",
 	L"\n \n安装该引信的爆破物设置完成后\n，可以被远程控制器引爆。\n \n远程引信是设置陷阱的不二选择，因为它只会在你需要\n它爆炸的时候被引爆，而且留给你足够的时间跑\n开！",
 	L"\n \n安装该引信的爆破物设置完成后\n，该引信会开始倒数计时，并在设置的时间后\n被引爆。\n \n计时引信便宜并且易于安装，但是你必须给它\n设定合适的时间以便你能够跑开！",
 	L"\n \n该物品承有汽油。\n \n在你需要加油时十分有用。",
-	L"\n \n工具箱内装有各种能用来修复其他物品的工具。\n \n安排佣兵进行修复工作时该佣兵必须持有工具\n箱。",
+	L"\n \n工具箱内装有各种能用来修复其他物品的工具。\n \n安排佣兵进行修复工作时该佣兵必须持有工具\n箱。 This item modifies\nthe effectiveness of repair by ", //JMich_SkillsModifiers: need to be followed by a number	// TODO.Translate
 	L"\n \n将该物品佩戴于面部时，\n可以利用热成像原理，\n发现墙壁后方的敌人。",
 	L"\n \n这种功能强大的仪器利用X光搜索敌军。\n \n它可以在短时间内暴露一定范围中的敌人位置。\n请远离生殖器使用！",
 	L"\n \n该物品装有饮用水。\n \n口渴时饮用。",
@@ -7100,10 +7101,11 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这一战场的基础急救包提供了基本的医疗用品。\n \n可以被用来包扎受伤的角色以止血。\n \n如需要回复生命，使用名副其实的医药箱，并辅以大量的休息。",
 	L"\n \n这是名副其实的医药箱，可以用于外科手术或其他复杂的治疗。\n \n安排佣兵进行医疗工作时，该佣兵必须持有医\n药箱。",
 	L"\n \n该物品能够用于爆破锁具。\n \n使用它需要爆破技能以避免过早引爆。\n \n使用炸药是一个相对简单的破锁手段，但是会\n发出很大噪音，并且对于大部分佣兵来说过于\n危险。",
-	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
+	L"\n \nThis item will still your thirst\nif you drink it.",// TODO.Translate
 	L"\n \nThis item will still your hunger\nif you eat it.",
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
+	L"\n \nThis item improves your trap disarm chance by ",			// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

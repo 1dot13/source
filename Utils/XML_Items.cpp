@@ -269,7 +269,12 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ItemFlag") == 0 ||
 				strcmp(name, "FoodType") == 0 ||
 
-				strcmp(name, "fFlags") == 0 ))
+				strcmp(name, "fFlags") == 0 ||
+				//JMich_SkillModifiers: Adding new flags
+				strcmp(name, "LockPickModifier") == 0 ||
+				strcmp(name, "CrowbarModifier") == 0 ||
+				strcmp(name, "DisarmModifier") == 0 ||
+				strcmp(name, "RepairModifier") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1349,8 +1354,28 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.foodtype = (UINT32) atol(pData->szCharData);
 		}
+		//JMich_SkillsModifiers: Parse new values
+		else if(strcmp(name, "LockPickModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.LockPickModifier = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "CrowbarModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.CrowbarModifier = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "DisarmModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.DisarmModifier = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "RepairModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.RepairModifier = (INT8) atol(pData->szCharData);
+		}
 
-		
 		pData->maxReadDepth--;
 	}
 
@@ -1969,6 +1994,12 @@ BOOLEAN WriteItemStats()
 
 			FilePrintf(hFile,"\t\t<FoodType>%d</FoodType>\r\n",											Item[cnt].foodtype  );
 			
+			//JMich_SkillModifiers: Adding the values here as well
+			FilePrintf(hFile, "\t\t<LockPickModifier>%d</LockPickModifier>\r\n",						Item[cnt].LockPickModifier );
+			FilePrintf(hFile, "\t\t<CrowbarModifier>%d</CrowbarModifier>\r\n",							Item[cnt].CrowbarModifier );
+			FilePrintf(hFile, "\t\t<DisarmModifier>%d</DisarmModifier>\r\n",							Item[cnt].DisarmModifier );
+			FilePrintf(hFile, "\t\t<RepairModifier>%d</RepairModifier>\r\n",							Item[cnt].RepairModifier );
+
 			// Flugente poison system
 			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",		Item[cnt].bPoisonPercentage    );
 
