@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
@@ -44,7 +44,8 @@
 		<Handling>0</Handling>
 		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
+		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>      
+		<HeavyGun>0</HeavyGun>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1</uiIndex>
