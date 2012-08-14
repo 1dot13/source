@@ -481,4 +481,10 @@ BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObje
 //DBrot: get the volume of all attached pouches
 UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj);
 INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap);
+
+INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo );
+
 #endif
+
+
+

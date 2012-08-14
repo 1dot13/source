@@ -472,7 +472,7 @@ void STRUCT_Flags::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 	this->fBeginFade = src.fBeginFade;
 	this->fDontChargeReadyAPs = src.fDontChargeReadyAPs;
 	this->fPrevInWater = src.fPrevInWater;
-	this->fGoBackToAimAfterHit = src.fGoBackToAimAfterHit;
+	this->bGoBackToAimAfterHit = src.fGoBackToAimAfterHit;
 	this->fDisplayDamage = src.fDisplayDamage;
 	this->fUIMovementFast = src.fUIMovementFast;
 	this->fDeadSoundPlayed = src.fDeadSoundPlayed;
@@ -734,10 +734,14 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->sLastTarget = src.sLastTarget;
 
 		// HEADROCK HAM 4: TODO: Added four new variables to soldiertype. MAke sure they don't screw it all up!
-		this->dPrevMuzzleOffsetX = 0.0;
-		this->dPrevMuzzleOffsetY = 0.0;
-		this->dPrevCounterForceX = 0.0;
-		this->dPrevCounterForceY = 0.0;
+		this->dPrevMuzzleOffsetX[0] = 0.0;
+		this->dPrevMuzzleOffsetX[1] = 0.0;
+		this->dPrevMuzzleOffsetY[0] = 0.0;
+		this->dPrevMuzzleOffsetY[1] = 0.0;
+		this->dPrevCounterForceX[0] = 0.0;
+		this->dPrevCounterForceX[1] = 0.0;
+		this->dPrevCounterForceY[0] = 0.0;
+		this->dPrevCounterForceY[1] = 0.0;
 
 		this->bTilesMoved = src.bTilesMoved;
 		this->dNextBleed = src.dNextBleed;
@@ -1672,7 +1676,7 @@ BOOLEAN	gfGetNewPathThroughPeople = FALSE;
 
 // LOCAL FUNCTIONS
 // DO NOT CALL UNLESS THROUGH EVENT_SetSoldierPosition
-UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fAltWeaponHolding );
 BOOLEAN CheckForFullStruct( INT32 sGridNo, UINT16 *pusIndex  );
 void SetSoldierLocatorOffsets( SOLDIERTYPE *pSoldier );
 void CheckForFullStructures( SOLDIERTYPE *pSoldier );
@@ -2277,7 +2281,7 @@ void	SOLDIERTYPE::DoNinjaAttack( void )
 		ubTargetStance = gAnimControl[ pTSoldier->usAnimState ].ubEndHeight;
 
 		// Get his life...if < certain value, do finish!
-		// SANDRO - Enhanced Close Combat System - Spinning kick is performed on focuse attack
+		// SANDRO - Enhanced Close Combat System - Spinning kick is performed on focused attack
 		if (gGameExternalOptions.fEnhancedCloseCombatSystem && ( ( this->aiData.bAimTime > 0 ) && ubTargetStance != ANIM_PRONE ))
 		{
 			this->ChangeSoldierState( NINJA_SPINKICK, 0 , FALSE );
@@ -2841,17 +2845,46 @@ BOOLEAN ReevaluateEnemyStance( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 						}
 					}
 
-					if (iClosestEnemy != NOBODY)
+					if (iClosestEnemy != NOBODY ) 
 					{
-						// Change to fire ready animation
-						ConvertGridNoToXY( MercPtrs[ iClosestEnemy ]->sGridNo, &sTargetXPos, &sTargetYPos );
+						
+						// SANDRO - do we want this to be happening at all? It is somehow unwelcomed in IIS and for alternative weapon holding, 
+						// besides it is rather illogical... well, I've made an ini setting for it			
+						if ( gGameExternalOptions.fNoEnemyAutoReadyWeapon == 0 )
+						{	
+							// Change to fire ready animation
+							ConvertGridNoToXY( MercPtrs[ iClosestEnemy ]->sGridNo, &sTargetXPos, &sTargetYPos );
 
-						pSoldier->flags.fDontChargeReadyAPs = TRUE;
+							pSoldier->flags.fDontChargeReadyAPs = TRUE;
 
-						// Ready weapon
-						fReturnVal = pSoldier->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE );
+							// Ready weapon
+							fReturnVal = pSoldier->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE, AIDecideHipOrShoulderStance( pSoldier, MercPtrs[ iClosestEnemy ]->sGridNo ) );
 
-						return( fReturnVal );
+							return( fReturnVal );
+						}
+						// this makes the soldier to only turn towards our direction, instead of raising his weapon
+						else if ( gGameExternalOptions.fNoEnemyAutoReadyWeapon == 2 )
+						{
+							//ConvertGridNoToXY( MercPtrs[ iClosestEnemy ]->sGridNo, &sTargetXPos, &sTargetYPos );
+							//sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
+							INT16 sFacingDir = GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, MercPtrs[ iClosestEnemy ]->sGridNo );
+
+							if ( sFacingDir != pSoldier->ubDirection )
+							{
+								INT16 sAPCost = GetAPsToLook( pSoldier );
+
+								// Check AP cost...
+								if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
+								{
+									return( FALSE );
+								}
+
+								SendSoldierSetDesiredDirectionEvent( pSoldier, sFacingDir );
+								//fReturnVal = MakeSoldierTurn( pSoldier, sXPos, sYPos );
+								
+								return( TRUE );
+							}
+						}
 					}
 
 				}
@@ -2875,7 +2908,8 @@ void CheckForFreeupFromHit( SOLDIERTYPE *pSoldier, UINT32 uiOldAnimFlags, UINT32
 		return;
 	}
 
-	if ( usOldAniState != usNewState && ( uiOldAnimFlags & ANIM_HITSTART ) && !( uiNewAnimFlags & ANIM_HITFINISH ) && !( uiNewAnimFlags & ANIM_IGNOREHITFINISH ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_TURNINGFROMHIT ) )
+	//if ( usOldAniState != usNewState && ( uiOldAnimFlags & ANIM_HITSTART ) && !( uiNewAnimFlags & ANIM_HITFINISH ) && !( uiNewAnimFlags & ANIM_IGNOREHITFINISH ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_TURNINGFROMHIT ) )
+	if ( usOldAniState != usNewState && ( uiOldAnimFlags & ANIM_HITSTART ) && !( uiNewAnimFlags & ANIM_HITFINISH ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_TURNINGFROMHIT ) )
 	{
 		// 0verhaul:  Yet again, this is handled by the state transition code.
 		// Release attacker
@@ -2923,7 +2957,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"EVENT_InitNewSoldierAnim");
 	INT32  usNewGridNo = 0;
 	INT16		sAPCost = 0;
-	INT16		sBPCost = 0;
+	INT32		sBPCost = 0;
 	UINT32	uiOldAnimFlags;
 	UINT32  uiNewAnimFlags;
 	UINT16	usSubState;
@@ -3012,6 +3046,23 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					}
 				}
 			}
+
+			// Going from hip stance to shoulder stance, skip first 2 frames for smoother graphic look
+			if ( usNewState == READY_RIFLE_STAND && (gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING )) )
+			{
+				if ( this->ubBodyType == BIGMALE )
+					usStartingAniCode = 1; // this looks better for big mercs
+				else
+					usStartingAniCode = 2;
+			}
+			// Going from shoulder stance to hip stance
+			else if ( usNewState == READY_ALTERNATIVE_STAND && (gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )) )
+			{
+				if ( Item[this->inv[HANDPOS].usItem].twohanded )
+					usStartingAniCode = 1;
+				else
+					usStartingAniCode = 2;
+			} 
 		}
 
 		if ( usNewState == ADJACENT_GET_ITEM )
@@ -3112,6 +3163,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		// ATE: Don't raise/lower automatically if we are low on health,
 		// as our gun looks lowered anyway....
 		//if ( this->stats.bLife > INJURED_CHANGE_THREASHOLD )
+		if (!this->MercInWater())
 		{
 			// Don't do some of this if we are a monster!
 			// ATE: LOWER AIMATION IS GOOD, RAISE ONE HOWEVER MAY CAUSE PROBLEMS FOR AI....
@@ -3166,11 +3218,30 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		}
 
 		// Are we cowering and are tyring to move, getup first...
-		if ( gAnimControl[ usNewState ].uiFlags & ANIM_MOVING && this->usAnimState == COWERING && gAnimControl[ usNewState ].ubEndHeight == ANIM_STAND )
+		//if ( gAnimControl[ usNewState ].uiFlags & ANIM_MOVING && this->usAnimState == COWERING && gAnimControl[ usNewState ].ubEndHeight == ANIM_STAND )
+		if ( this->usAnimState == COWERING )
 		{
-			this->usPendingAnimation = usNewState;
-			// Set new state to be animation to move to new stance
-			usNewState = END_COWER;
+			if ( gAnimControl[ usNewState ].ubEndHeight == ANIM_STAND )
+			{
+				this->usPendingAnimation = usNewState;
+				this->ubDesiredHeight = ANIM_STAND;
+				usNewState = END_COWER;
+			}
+			else if ( gAnimControl[ usNewState ].ubEndHeight == ANIM_CROUCH )
+			{
+				this->usPendingAnimation = usNewState;
+				this->ubDesiredHeight = ANIM_CROUCH;
+				usNewState = END_COWER_CROUCHED;
+			}
+		}
+		else if( this->usAnimState == COWERING_PRONE )
+		{
+			if ( gAnimControl[ usNewState ].ubEndHeight == ANIM_PRONE )
+			{
+				this->usPendingAnimation = usNewState;
+				this->ubDesiredHeight = ANIM_PRONE;
+				usNewState = END_COWER_PRONE;
+			}
 		}
 
 		// If we want to start swatting, put a pending animation
@@ -3242,43 +3313,48 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		}
 
 		// OK, make guy transition if a big merc...
-		if ( this->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE )
+		//if ( ( this->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE ) && !( this->uiAnimSubFlags & SUB_ANIM_BIGGUYSHOOT2 ) )
+		if ( this->ubBodyType == BIGMALE )
 		{
-			if ( usNewState == KNEEL_DOWN && this->usAnimState != BIGMERC_CROUCH_TRANS_INTO )
+			// SANDRO - we are changing crouching animation here to the old vanilla one, don't do that if alt animations are used
+			if ( !DecideAltAnimForBigMerc( this ) )
 			{
-				//UINT16 usItem;
-
-				// Do we have a rifle?
-				//usItem = this->inv[ HANDPOS ].usItem;
-
-				if ( this->inv[ HANDPOS ].exists() == true )
+				if ( usNewState == KNEEL_DOWN && this->usAnimState != BIGMERC_CROUCH_TRANS_INTO )
 				{
-					if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+					//UINT16 usItem;
+
+					// Do we have a rifle?
+					//usItem = this->inv[ HANDPOS ].usItem;
+
+					if ( this->inv[ HANDPOS ].exists() == true )
 					{
-						//						if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-						if ( (Item[ usItem ].twohanded ) )
+						if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 						{
-							usNewState = BIGMERC_CROUCH_TRANS_INTO;
+							//						if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
+							if ( (Item[ usItem ].twohanded ) )
+							{
+								usNewState = BIGMERC_CROUCH_TRANS_INTO;
+							}
 						}
 					}
 				}
-			}
 
-			if ( usNewState == KNEEL_UP && this->usAnimState != BIGMERC_CROUCH_TRANS_OUTOF )
-			{
-				//UINT16 usItem;
-
-				// Do we have a rifle?
-				//usItem = this->inv[ HANDPOS ].usItem;
-
-				if ( this->inv[ HANDPOS ].exists() == true )
+				if ( usNewState == KNEEL_UP && this->usAnimState != BIGMERC_CROUCH_TRANS_OUTOF )
 				{
-					if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+					//UINT16 usItem;
+
+					// Do we have a rifle?
+					//usItem = this->inv[ HANDPOS ].usItem;
+
+					if ( this->inv[ HANDPOS ].exists() == true )
 					{
-						//						if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-						if ( (Item[ usItem ].twohanded ) )
+						if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 						{
-							usNewState = BIGMERC_CROUCH_TRANS_OUTOF;
+							//						if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
+							if ( (Item[ usItem ].twohanded ) )
+							{
+								usNewState = BIGMERC_CROUCH_TRANS_OUTOF;
+							}
 						}
 					}
 				}
@@ -3299,24 +3375,20 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					// SANDRO - wait wait wait!!! We need to determine if gonna sidestep with weapon raised
 					if (( (gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY ) ||
 						(gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIRE ) ) && gGameExternalOptions.fAllowWalkingWithWeaponRaised )
-					//if ( WeaponReady( this ) )
 					{
 						if ( this->inv[ HANDPOS ].exists() == true && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher)
 						{
-							if ( !(Item[ usItem ].twohanded ) )
+							if ( this->IsValidSecondHandShot() )
 							{
-								if ( this->IsValidSecondHandShot() )
-								{
-									usNewState = SIDE_STEP_DUAL_RDY;
-								}
-								else
-								{
-									usNewState = SIDE_STEP_PISTOL_RDY;
-								}
+								usNewState = SIDE_STEP_DUAL_RDY;
+							}
+							else if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING )
+							{
+								usNewState = SIDE_STEP_ALTERNATIVE_RDY;
 							}
 							else   
 							{
-								usNewState = SIDE_STEP_RIFLE_RDY;							
+								usNewState = SIDE_STEP_WEAPON_RDY;	
 							}
 						}
 					}
@@ -3403,20 +3475,17 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		{
 			if ( this->inv[ HANDPOS ].exists() == true && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher)
 			{
-				if ( !(Item[ usItem ].twohanded ) )
+				if ( this->IsValidSecondHandShot() )
 				{
-					if ( this->IsValidSecondHandShot() )
-					{
-						usNewState = WALKING_DUAL_RDY;
-					}
-					else
-					{
-						usNewState = WALKING_PISTOL_RDY;
-					}
+					usNewState = WALKING_DUAL_RDY;
 				}
-				else   
+				else if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING )
 				{
-					usNewState = WALKING_RIFLE_RDY;							
+					usNewState = WALKING_ALTERNATIVE_RDY;	
+				}
+				else
+				{
+					usNewState = WALKING_WEAPON_RDY;	
 				}
 			}
 		}
@@ -3609,7 +3678,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	{
 		// ATE: Also check for the transition anims to not reset this
 		// this should have used a flag but we're out of them....
-		if ( usNewState != READY_RIFLE_STAND && usNewState != READY_RIFLE_PRONE && usNewState != READY_RIFLE_CROUCH && usNewState != ROBOT_SHOOT )
+		if ( usNewState != READY_ALTERNATIVE_STAND && usNewState != READY_RIFLE_STAND && usNewState != READY_RIFLE_PRONE && usNewState != READY_RIFLE_CROUCH && usNewState != ROBOT_SHOOT )
 		{
 			this->sLastTarget = NOWHERE;
 		}
@@ -3667,11 +3736,17 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		case READY_DUAL_STAND:
 		case READY_DUAL_CROUCH:
 		case READY_DUAL_PRONE:
+		case READY_ALTERNATIVE_STAND:
 
 			// OK, get points to ready weapon....
 			if ( !this->flags.fDontChargeReadyAPs )
 			{
 				sAPCost = GetAPsToReadyWeapon( this, usNewState );
+				// SANDRO - get BP cost for weapon manipulating
+				if ( gGameExternalOptions.ubEnergyCostForWeaponWeight )
+					sBPCost = sAPCost * GetBPCostPer10APsForGunHolding( this ) / 10;
+				else 
+					sBPCost = 0;
 				DeductPoints( this, sAPCost, sBPCost, BEFORESHOT_INTERRUPT );
 			}
 			else
@@ -3681,9 +3756,9 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			break;
 
 		case WALKING:
-		case WALKING_PISTOL_RDY:
-		case WALKING_RIFLE_RDY:
+		case WALKING_WEAPON_RDY:
 		case WALKING_DUAL_RDY:
+		case WALKING_ALTERNATIVE_RDY:
 
 			this->usPendingAnimation = NO_PENDING_ANIMATION;
 			this->aiData.ubPendingActionAnimCount = 0;
@@ -3935,12 +4010,11 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			break;
 
 		case JUMP_OVER_BLOCKING_PERSON:
-
 			// Set path....
 			{
-					INT32 usNewGridNo;
+				INT32 usNewGridNo;
 
-				DeductPoints( this, GetAPsToJumpOver( this ), APBPConstants[BP_JUMP_OVER], SP_MOVEMENT_INTERRUPT ); // changed by SANDRO
+				DeductPoints( this, GetAPsToJumpOver( this ), APBPConstants[BP_JUMP_OVER], SP_MOVEMENT_INTERRUPT );
 
 				usNewGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 				usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( this->ubDirection ) );
@@ -3957,6 +4031,34 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				this->pathing.sFinalDestination = usNewGridNo;
 				// Set direction
 				this->EVENT_InternalSetSoldierDestination( (UINT8) this->pathing.usPathingData[ this->pathing.usPathIndex ], FALSE, JUMP_OVER_BLOCKING_PERSON );
+			}
+			break;
+
+		case LONG_JUMP:
+			// Set path....
+			{
+				INT32 usNewGridNo;
+
+				DeductPoints( this, GetAPsToJumpOver( this ), APBPConstants[BP_JUMP_OVER], SP_MOVEMENT_INTERRUPT );
+
+				usNewGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+				usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( this->ubDirection ) );
+				usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( this->ubDirection ) );
+
+				this->sPlotSrcGrid = this->sGridNo;
+				this->flags.fPastXDest = FALSE;
+				this->flags.fPastYDest = FALSE;
+				this->pathing.usPathDataSize = 0;
+				this->pathing.usPathIndex    = 0;
+				this->pathing.usPathingData[ this->pathing.usPathDataSize ] = this->ubDirection;
+				this->pathing.usPathDataSize++;
+				this->pathing.usPathingData[ this->pathing.usPathDataSize ] = this->ubDirection;
+				this->pathing.usPathDataSize++;
+				this->pathing.usPathingData[ this->pathing.usPathDataSize ] = this->ubDirection;
+				this->pathing.usPathDataSize++;
+				this->pathing.sFinalDestination = usNewGridNo;
+				// Set direction
+				this->EVENT_InternalSetSoldierDestination( (UINT8) this->pathing.usPathingData[ this->pathing.usPathIndex ], FALSE, LONG_JUMP );
 			}
 			break;
 
@@ -4122,7 +4224,8 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	if ( ( gAnimControl[ this->usOldAniState ].uiFlags & ANIM_RAISE_WEAPON) && (gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY) )
 		//equivalent if ( (this->usAnimState == AIM_RIFLE_PRONE) || (this->usAnimState == AIM_RIFLE_CROUCH) || (this->usAnimState == AIM_RIFLE_STAND) )
 	{
-		if ( (this->usOldAniState == READY_RIFLE_STAND) || (this->usOldAniState == READY_RIFLE_CROUCH) || (this->usOldAniState == READY_RIFLE_PRONE) )
+		if ( (this->usOldAniState == READY_RIFLE_STAND) || (this->usOldAniState == READY_RIFLE_CROUCH) || (this->usOldAniState == READY_RIFLE_PRONE) || 
+			(this->usOldAniState == READY_DUAL_STAND) || (this->usOldAniState == READY_DUAL_CROUCH) || (this->usOldAniState == READY_DUAL_PRONE) )
 		{
 			HandleSight(this,SIGHT_LOOK);
 		}
@@ -4594,9 +4697,9 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 				switch( this->usAnimState )
 				{
 					case WALKING:
-					case WALKING_PISTOL_RDY:
-					case WALKING_RIFLE_RDY:
+					case WALKING_WEAPON_RDY:
 					case WALKING_DUAL_RDY:
+					case WALKING_ALTERNATIVE_RDY:
 					case RUNNING:
 						// IN deep water, swim!
 						// Make transition from low to deep
@@ -4778,7 +4881,14 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 
 	// Change to fire animation
 	// Ready weapon
-	this->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE );
+	//if (this->bTeam == gbPlayerNum)
+	//{
+		this->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE, IsValidAlternativeFireMode( this->aiData.bAimTime, sTargetGridNo ) );
+	//}
+	//else
+	//{
+	//	this->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE, AIDecideHipOrShoulderStance( this, sTargetGridNo ) );
+	//}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - hack! - an interrupt pending before shot
@@ -4960,12 +5070,12 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 		usItem = pSoldier->inv[ HANDPOS ].usItem;
 
 		// CHECK 2ND HAND!
-		if ( pSoldier->IsValidSecondHandShot( ) )
+		if ( pSoldier->IsValidSecondHandBurst() )
 		{
-			// Increment the number of people busy doing stuff because of an attack
-			//gTacticalStatus.ubAttackBusyCount++;
-			//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack with 2 guns, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
-
+			return( BURST_DUAL_STAND );
+		}
+		else if ( pSoldier->IsValidSecondHandShot() && !pSoldier->bDoBurst )
+		{
 			return( SHOOT_DUAL_STAND );
 		}
 		else
@@ -4983,12 +5093,6 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 				fDoLowShot = TRUE;
 			}
 
-			// ATE: Made distence away long for psitols such that they never use this....
-			//if ( !(Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-			//{
-			//	fDoLowShot = FALSE;
-			//}
-
 			// Don't do any low shots if in water
 			if ( pSoldier->MercInWater( ) )
 			{
@@ -5000,67 +5104,97 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 			{
 				if ( fDoLowShot )
 				{
-					return( FIRE_BURST_LOW_STAND );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, pSoldier->sTargetGridNo ) )
+					{
+						return( LOW_BURST_ALTERNATIVE_STAND );
+					}
+					else
+					{
+						return( FIRE_BURST_LOW_STAND );
+					}
 				}
 				else
 				{
-					return( STANDING_BURST );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, pSoldier->sTargetGridNo ) )
+					{
+						return( BURST_ALTERNATIVE_STAND );
+					}
+					else
+					{
+						return( STANDING_BURST );
+					}
 				}
 			}
 			else
 			{
 				if ( fDoLowShot )
 				{
-					return( FIRE_LOW_STAND );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, pSoldier->sTargetGridNo ) )
+					{
+						return( LOW_SHOT_ALTERNATIVE_STAND );
+					}
+					else
+					{
+						return( FIRE_LOW_STAND );
+					}
 				}
 				else
 				{
-					return( SHOOT_RIFLE_STAND );
+					if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, pSoldier->sTargetGridNo ) )
+					{
+						return( SHOOT_ALTERNATIVE_STAND );
+					}
+					else
+					{
+						return( SHOOT_RIFLE_STAND );
+					}
 				}
-			}
-		}
-		break;
-
-	case ANIM_PRONE:
-
-		if ( pSoldier->bDoBurst > 0 )
-		{
-			//				pSoldier->flags.fBurstCompleted = FALSE;
-			return( PRONE_BURST );
-		}
-		else
-		{
-			if ( pSoldier->IsValidSecondHandShot( ) )
-			{
-				return( SHOOT_DUAL_PRONE );
-			}
-			else
-			{
-				return( SHOOT_RIFLE_PRONE );
 			}
 		}
 		break;
 
 	case ANIM_CROUCH:
 
-		if ( pSoldier->IsValidSecondHandShot( ) )
+		if ( pSoldier->IsValidSecondHandShot() && pSoldier->bDoBurst > 0 && pSoldier->IsValidSecondHandBurst() )
 		{
-			// Increment the number of people busy doing stuff because of an attack
-			//gTacticalStatus.ubAttackBusyCount++;
-			//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack with 2 guns, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
-
+			return( BURST_DUAL_CROUCH );
+		}
+		else if ( pSoldier->IsValidSecondHandShot() && !pSoldier->bDoBurst )
+		{
 			return( SHOOT_DUAL_CROUCH );
 		}
 		else
 		{
 			if ( pSoldier->bDoBurst > 0 )
 			{
-				//				pSoldier->flags.fBurstCompleted = FALSE;
 				return( CROUCHED_BURST );
 			}
 			else
 			{
 				return( SHOOT_RIFLE_CROUCH );
+			}
+		}
+		break;
+
+	case ANIM_PRONE:
+		
+		if ( pSoldier->IsValidSecondHandShot() && pSoldier->bDoBurst > 0 && pSoldier->IsValidSecondHandBurst() )
+		{
+			return( BURST_DUAL_PRONE );
+		}
+		else if ( pSoldier->IsValidSecondHandShot() && !pSoldier->bDoBurst )
+		{
+			return( SHOOT_DUAL_PRONE );
+		}
+		else
+		{
+			if ( pSoldier->bDoBurst > 0 )
+			{
+				return( PRONE_BURST );
+			}
+			else
+			{
+				return( SHOOT_RIFLE_PRONE );
 			}
 		}
 		break;
@@ -5155,20 +5289,20 @@ void SelectFallAnimation( SOLDIERTYPE *pSoldier )
 
 BOOLEAN SOLDIERTYPE::SoldierReadyWeapon( void )
 {
-	return( this->InternalSoldierReadyWeapon( (INT8)this->ubDirection, FALSE ) );
+	return( this->InternalSoldierReadyWeapon( (INT8)this->ubDirection, FALSE, FALSE ) );
 }
 
-BOOLEAN SOLDIERTYPE::SoldierReadyWeapon( INT16 sTargetXPos, INT16 sTargetYPos, BOOLEAN fEndReady )
+BOOLEAN SOLDIERTYPE::SoldierReadyWeapon( INT16 sTargetXPos, INT16 sTargetYPos, BOOLEAN fEndReady, BOOLEAN fRaiseToHipOnly )
 {
 	INT16								sFacingDir;
 
 	sFacingDir = GetDirectionFromXY( sTargetXPos , sTargetYPos, this );
 
-	return( this->InternalSoldierReadyWeapon( (INT8)sFacingDir, fEndReady ) );
+	return( this->InternalSoldierReadyWeapon( (INT8)sFacingDir, fEndReady, fRaiseToHipOnly ) );
 }
 
 
-BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndReady )
+BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndReady, BOOLEAN fRaiseToHipOnly )
 {
 	UINT16 usAnimState;
 	BOOLEAN	fReturnVal = FALSE;
@@ -5184,7 +5318,7 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalSoldierReadyWeapon: PickingAnimation"));
-	usAnimState = PickSoldierReadyAnimation( this, fEndReady );
+	usAnimState = PickSoldierReadyAnimation( this, fEndReady, fRaiseToHipOnly );
 
 	if ( usAnimState != INVALID_ANIMATION )
 	{
@@ -5221,7 +5355,7 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 	return( fReturnVal );
 }
 
-UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady )
+UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fAltWeaponHolding )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("PickSoldierReadyAnimation"));
 
@@ -5274,7 +5408,18 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady )
 				}
 				else
 				{
-					return( END_RIFLE_STAND );
+					if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )//&& Item[ pSoldier->inv[HANDPOS].usItem ].twohanded)
+					{
+						return( UNREADY_ALTERNATIVE_STAND );
+					}
+					//else if (gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) && !Item[ pSoldier->inv[HANDPOS].usItem ].twohanded)
+					//{
+					//	return( PISTOL_FASTSHOT_UNREADY );
+					//}
+					else
+					{
+						return( END_RIFLE_STAND );
+					}
 				}
 				break;
 
@@ -5309,56 +5454,78 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady )
 	}
 	else
 	{
-
-		// IF our gun is already drawn, do not change animation, just direction
-		if ( !(gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE ) ) )
+		// if our gun is in alternative holding (hip rifle/one-hand pistol) and we are going to shoulder
+		if ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING )) && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND && !fAltWeaponHolding && !Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].HeavyGun)
 		{
-
+			return( READY_RIFLE_STAND );
+		}
+		// this is a specific situation when we have a gun in standard holding (shouldered rifle/two-hand pistol) and was told to go to alternative holding
+		else if ((gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )) && !(gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING )) 
+			&& fAltWeaponHolding && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 && pSoldier->bScopeMode == -1 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND 
+			&& ((!Item[ pSoldier->inv[HANDPOS].usItem ].twohanded && !pSoldier->IsValidSecondHandShot() && !pSoldier->MercInWater() ) || Item[ pSoldier->inv[HANDPOS].usItem ].twohanded ) )
+		{
+			return( READY_ALTERNATIVE_STAND );
+		}
+		// IF our gun is already drawn, do not change animation, just direction
+		else if ( !(gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE ) ) )
+		{
+			switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 			{
-				switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
-				{
-				case ANIM_STAND:
+			case ANIM_STAND:
 
-					// CHECK 2ND HAND!
-					if ( pSoldier->IsValidSecondHandShot( ) )
+				// CHECK 2ND HAND!
+				if ( pSoldier->IsValidSecondHandShot( ) )
+				{
+					return( READY_DUAL_STAND );
+				}
+				else
+				{
+					if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding ) 
 					{
-						return( READY_DUAL_STAND );
+						if (fAltWeaponHolding || (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].HeavyGun && Item[ pSoldier->inv[HANDPOS].usItem ].twohanded) )
+						{
+							return( READY_ALTERNATIVE_STAND );
+						}
+						else
+						{
+							return( READY_RIFLE_STAND );
+						}
 					}
 					else
 					{
 						return( READY_RIFLE_STAND );
 					}
-					break;
-
-				case ANIM_PRONE:
-					// Go into crouch, turn, then go into prone again
-					//pSoldier->ChangeSoldierStance( ANIM_CROUCH );
-					//pSoldier->ubDesiredHeight = ANIM_PRONE;
-					//pSoldier->ChangeSoldierState( PRONE_UP );
-					if ( pSoldier->IsValidSecondHandShot( ) )
-					{
-						return( READY_DUAL_PRONE );
-					}
-					else
-					{
-						return( READY_RIFLE_PRONE );
-					}
-					break;
-
-				case ANIM_CROUCH:
-
-					// CHECK 2ND HAND!
-					if ( pSoldier->IsValidSecondHandShot( ) )
-					{
-						return( READY_DUAL_CROUCH );
-					}
-					else
-					{
-						return( READY_RIFLE_CROUCH );
-					}
-					break;
-
 				}
+				break;
+
+			case ANIM_PRONE:
+				// Go into crouch, turn, then go into prone again
+				//pSoldier->ChangeSoldierStance( ANIM_CROUCH );
+				//pSoldier->ubDesiredHeight = ANIM_PRONE;
+				//pSoldier->ChangeSoldierState( PRONE_UP );
+				if ( pSoldier->IsValidSecondHandShot( ) )
+				{
+					return( READY_DUAL_PRONE );
+				}
+				else
+				{
+					return( READY_RIFLE_PRONE );
+				}
+				break;
+
+			case ANIM_CROUCH:
+
+				// CHECK 2ND HAND!
+				if ( pSoldier->IsValidSecondHandShot( ) )
+				{
+					return( READY_DUAL_CROUCH );
+				}
+				else
+				{
+					return( READY_RIFLE_CROUCH );
+				}
+				break;
+
 			}
 
 		}
@@ -5824,10 +5991,32 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 
 	// Set goback to aim after hit flag!
-	// Only if we were aiming!
-	if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY )
+	// SANDRO - added more cases, alternative weapon holding, go back to cowering, and go back to hth/blade stance 
+	// If we were in hth or blade stance, and we were hit by HtH or blade attack, go back to the fighting stance (if we can still keep up)
+	if (( Item[ usWeaponIndex ].usItemClass & (IC_BLADE | IC_PUNCH) ) && Item[ this->inv[HANDPOS].usItem ].usItemClass & (IC_NONE | IC_BLADE | IC_PUNCH) && 
+		(this->usAnimState == PUNCH_BREATH || this->usAnimState == KNIFE_BREATH || this->usAnimState == NINJA_BREATH) && (gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND) )
 	{
-		this->flags.fGoBackToAimAfterHit = TRUE;
+		if ( this->stats.bLife > 30 && this->bBreath > 25 )
+		{
+			this->flags.bGoBackToAimAfterHit = GO_TO_HTH_BREATH_AFTER_HIT;
+		}
+	}
+	// If we were aiming
+	else if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY )
+	{
+		if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) // alternative weapon holding stance
+			this->flags.bGoBackToAimAfterHit = GO_TO_ALTERNATIVE_AIM_AFTER_HIT;
+		else // standard
+			this->flags.bGoBackToAimAfterHit = GO_TO_AIM_AFTER_HIT;
+	}
+	// if we were cowering (this is different from the bellow, we don't use that status flag for this animation)
+	else if ( this->usAnimState == COWERING )
+	{
+		this->flags.bGoBackToAimAfterHit = GO_TO_COWERING_AFTER_HIT;
+	}
+	else 
+	{
+		this->flags.bGoBackToAimAfterHit = NO_SPEC_STANCE_AFTER_HIT;
 	}
 
 	// IF COWERING, PLAY SPECIFIC GENERIC HIT STAND...
@@ -6590,7 +6779,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		}
 		else
 		{
-			usAnimState = PickSoldierReadyAnimation( this, TRUE );
+			usAnimState = PickSoldierReadyAnimation( this, TRUE, FALSE );
 		}
 
 		// Add a pending animation first!
@@ -6795,8 +6984,8 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BO
 
 
 	// OK, ATE: If we are side_stepping, calculate a NEW desired direction....
-	if ( this->bReverse && (usAnimState == SIDE_STEP || usAnimState == ROLL_PRONE_R || usAnimState == ROLL_PRONE_L 
-		|| usAnimState == SIDE_STEP_PISTOL_RDY || usAnimState == SIDE_STEP_RIFLE_RDY || usAnimState == SIDE_STEP_DUAL_RDY ) )
+	if ( this->bReverse && (usAnimState == SIDE_STEP || usAnimState == ROLL_PRONE_R || usAnimState == ROLL_PRONE_L || usAnimState == SIDE_STEP_ALTERNATIVE_RDY 
+		|| usAnimState == SIDE_STEP_WEAPON_RDY || usAnimState == SIDE_STEP_DUAL_RDY ) )
 	{
 		UINT8 ubPerpDirection;
 
@@ -6903,9 +7092,12 @@ INT8 MultiTiledTurnDirection( SOLDIERTYPE * pSoldier, INT8 bStartDirection, INT8
 
 void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState )
 {
+	INT16 sAPCost = 0;
+	INT32 iBPCost = 0;
+
 	//if ( usAnimState == WALK_BACKWARDS )
 	if ( pSoldier->bReverse && (usAnimState != SIDE_STEP && usAnimState != ROLL_PRONE_R && usAnimState != ROLL_PRONE_L 
-		&& usAnimState != SIDE_STEP_PISTOL_RDY && usAnimState != SIDE_STEP_RIFLE_RDY && usAnimState != SIDE_STEP_DUAL_RDY ) )
+		&& usAnimState != SIDE_STEP_WEAPON_RDY && usAnimState != SIDE_STEP_DUAL_RDY && usAnimState != SIDE_STEP_ALTERNATIVE_RDY ))
 	{
 		// OK, check if we are going to go in the exact opposite than our facing....
 		ubNewDirection = gOppositeDirection[ ubNewDirection ];
@@ -6931,37 +7123,38 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 	{
 		if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )
 		{
-			// SANDRO - hey, we have a function for this around, why not to use it, hm?
+			// SANDRO: hey, we have a function for this around, why not to use it, hm?
 			// silversurfer: we better don't do that. GetAPsToLook( ... ) will charge APs for getting to crouched/prone position
 			// which is already done by SOLDIERTYPE::EVENT_InitNewSoldierAnim( ... ), we would charge twice...
+			// SANDRO: I see. Thanks.
 			// DeductPoints( pSoldier, GetAPsToLook( pSoldier ), 0 );
 			// Deduct points for initial turn!
 			switch( gAnimControl[ usAnimState ].ubEndHeight )
 			{
 				// Now change to appropriate animation
 			case ANIM_STAND:
-				// martial artists can turn faster
-				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-					DeductPoints( pSoldier, ( max( 1, (INT16)((APBPConstants[AP_LOOK_STANDING] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ))), 0 );
-				else
-					DeductPoints( pSoldier, APBPConstants[AP_LOOK_STANDING], 0 );
+				sAPCost = APBPConstants[AP_LOOK_STANDING];
 				break;
 
 			case ANIM_CROUCH:
-				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-					DeductPoints( pSoldier, ( max( 1, (INT16)((APBPConstants[AP_LOOK_CROUCHED] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ))), 0 );
-				else
-					DeductPoints( pSoldier, APBPConstants[AP_LOOK_CROUCHED], 0 );
+				sAPCost = APBPConstants[AP_LOOK_CROUCHED];
 				break;
 
 			case ANIM_PRONE:
-				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-					DeductPoints( pSoldier, (max( 1, (INT16)((APBPConstants[AP_LOOK_PRONE] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5))), 0 );
-				else
-					DeductPoints( pSoldier, APBPConstants[AP_LOOK_PRONE], 0 );
+				sAPCost = APBPConstants[AP_LOOK_PRONE];
 				break;
 			}
+			// martial artists can turn faster
+			if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
+				sAPCost = max( 1, (INT16)((sAPCost * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ));
 
+			// SANDRO: get BP cost for weapon manipulating
+			if ( gGameExternalOptions.ubEnergyCostForWeaponWeight )
+				iBPCost = sAPCost * GetBPCostPer10APsForGunHolding( pSoldier ) / 10;
+			else 
+				iBPCost = 0;
+
+			DeductPoints( pSoldier, sAPCost, iBPCost );
 		}
 
 		pSoldier->flags.fDontChargeTurningAPs = FALSE;
@@ -8122,10 +8315,17 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	case TANK_BURST:
 	case CROUCHED_BURST:
 	case PRONE_BURST:
+	case BURST_ALTERNATIVE_STAND:
+	case LOW_BURST_ALTERNATIVE_STAND:
 		pSoldier->sAniDelay = Weapon[Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex].sAniDelay;
 		AdjustAniSpeed( pSoldier );
 		return;
-		// Lesh: end
+	case BURST_DUAL_STAND:
+	case BURST_DUAL_CROUCH:
+	case BURST_DUAL_PRONE:
+		pSoldier->sAniDelay = (Weapon[Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex].sAniDelay)/2;
+		AdjustAniSpeed( pSoldier );
+		return;
 
 	case PRONE:
 	case STANDING:
@@ -8153,9 +8353,9 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		return;
 
 	case WALKING:
-	case WALKING_PISTOL_RDY:
-	case WALKING_RIFLE_RDY:
+	case WALKING_WEAPON_RDY:
 	case WALKING_DUAL_RDY:
+	case WALKING_ALTERNATIVE_RDY:
 
 		// Adjust based on body type
 		bAdditional = (UINT8)( gubAnimWalkSpeeds[ pStatsSoldier->ubBodyType ].sSpeed );
@@ -8202,11 +8402,11 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		if ( pSoldier->aiData.bAimTime == 0 )
 		{
 			// Quick shot
-			pSoldier->sAniDelay = 70;
+			pSoldier->sAniDelay = 100;
 		}
 		else
 		{
-			pSoldier->sAniDelay = 150;
+			pSoldier->sAniDelay = 200;
 		}
 		AdjustAniSpeed( pSoldier );
 		return;
@@ -11399,19 +11599,35 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 				// CHECK IF HE CAN SEE US, IF SO RANDOMIZE
 				if ( pTSoldier->aiData.bOppList[ this->ubID ] == 0 && pTSoldier->bTeam != this->bTeam )
 				{
-					// WE ARE NOT SEEN
-					this->EVENT_InitNewSoldierAnim( STAB, 0 , FALSE );
-				}
-				else
-				{
-					// WE ARE SEEN
-					if ( Random( 50 ) > 25 )
+					// WE ARE NOT SEEN					
+					// SANDRO - use focused stab animation on aimed blade attacks
+					if ( gGameExternalOptions.fEnhancedCloseCombatSystem && ( this->aiData.bAimTime > 0 ) )
 					{
-						this->EVENT_InitNewSoldierAnim( STAB, 0 , FALSE );
+						this->EVENT_InitNewSoldierAnim( FOCUSED_STAB, 0 , FALSE );
 					}
 					else
 					{
-						this->EVENT_InitNewSoldierAnim( SLICE, 0 , FALSE );
+						this->EVENT_InitNewSoldierAnim( STAB, 0 , FALSE );
+					}
+				}
+				else
+				{
+					// WE ARE SEEN				
+					// SANDRO - use focused stab animation on aimed blade attacks
+					if ( gGameExternalOptions.fEnhancedCloseCombatSystem && ( this->aiData.bAimTime > 0 ) )
+					{
+						this->EVENT_InitNewSoldierAnim( FOCUSED_STAB, 0 , FALSE );
+					}
+					else
+					{
+						if ( Random( 50 ) > 25 )
+						{
+							this->EVENT_InitNewSoldierAnim( STAB, 0 , FALSE );
+						}
+						else
+						{
+							this->EVENT_InitNewSoldierAnim( SLICE, 0 , FALSE );
+						}
 					}
 
 					// IF WE ARE SEEN, MAKE SURE GUY TURNS!
@@ -11644,7 +11860,88 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 
 				if ( !Item[usItem].crowbar )
 				{
-					this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+					BOOLEAN fCannotKick = ( ubDirection & 1 );
+					// SANDRO - we will determine here what type of punch we are gonna use
+					if ( gGameExternalOptions.fEnhancedCloseCombatSystem && ( this->aiData.bAimTime > 0 ) )
+					{
+						if ( gAnimControl[ pTSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
+						{
+							// if we aim for legs, always use kick
+							if ( this->bAimShotLocation == AIM_SHOT_LEGS && !(ubDirection & 1) )
+							{
+								this->EVENT_InitNewSoldierAnim( FOCUSED_HTH_KICK, 0 , FALSE );
+							}
+							// if we aim for head, always use punch animation
+							else if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1) )
+							{
+								this->EVENT_InitNewSoldierAnim( FOCUSED_PUNCH, 0 , FALSE );
+							}
+							// otherwise make it random, but favor the punch a bit
+							else
+							{
+								if ( Random(20) > 8 )
+									this->EVENT_InitNewSoldierAnim( FOCUSED_PUNCH, 0 , FALSE );
+								else
+									this->EVENT_InitNewSoldierAnim( FOCUSED_HTH_KICK, 0 , FALSE );
+							}
+						}
+						else // if crouching enemy
+						{			
+							// random if aiming on head, favor kick though
+							if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1) )
+							{
+								if ( Random(20) > 12 || (ubDirection & 1))
+									this->EVENT_InitNewSoldierAnim( FOCUSED_PUNCH, 0 , FALSE );
+								else
+									this->EVENT_InitNewSoldierAnim( FOCUSED_HTH_KICK, 0 , FALSE );
+							}
+							// otherwise always use kick
+							else
+							{
+								this->EVENT_InitNewSoldierAnim( FOCUSED_HTH_KICK, 0 , FALSE );
+							}
+						}
+					}
+					else
+					{
+						if ( gAnimControl[ pTSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
+						{
+							// if we aim for legs, always use kick
+							if ( this->bAimShotLocation == AIM_SHOT_LEGS && !(ubDirection & 1))
+							{
+								this->EVENT_InitNewSoldierAnim( HTH_KICK, 0 , FALSE );
+							}
+							// if we aim for head, always use punch animation
+							else if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1))
+							{
+								this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+							}
+							// otherwise make it random, but favor the punch a bit
+							else
+							{
+								if ( Random(20) > 8 )
+									this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+								else
+									this->EVENT_InitNewSoldierAnim( HTH_KICK, 0 , FALSE );
+							}
+						}
+						else // if crouching enemy
+						{			
+							// random if aiming on head, favor kick though
+							if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1))
+							{
+								if ( Random(20) > 12 || (ubDirection & 1))
+									this->EVENT_InitNewSoldierAnim( PUNCH, 0 , FALSE );
+								else
+									this->EVENT_InitNewSoldierAnim( HTH_KICK, 0 , FALSE );
+							}
+							// otherwise always use kick
+							else
+							{
+								this->EVENT_InitNewSoldierAnim( HTH_KICK, 0 , FALSE );
+							}
+						}
+					}
 				}
 				else
 				{
@@ -12688,7 +12985,10 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 		this->bWeaponMode = WM_AUTOFIRE;
 		this->bDoAutofire = 1;
 	}
-	this->bScopeMode = USE_BEST_SCOPE;
+	if ( Item[ usNewItem ].twohanded && Weapon[ usNewItem ].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+		this->bScopeMode = USE_ALT_WEAPON_HOLD;
+	else
+		this->bScopeMode = USE_BEST_SCOPE;
 
 	if ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY )
 	{
@@ -13355,7 +13655,8 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	INT8 adjacenttileheight = GetTallestStructureHeight( nextGridNoinSight, FALSE );
 
 	// if the tile actually has a bit of height, we can rest our gun on it
-	if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH && (adjacenttileheight == 1 ||  adjacenttileheight == 2 ) )
+	if (( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH && (adjacenttileheight == 1 ||  adjacenttileheight == 2 ) ) ||
+		( adjacenttileheight == 2 && (gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && (gAnimControl[ this->usAnimState ].uiFlags &(ANIM_ALT_WEAPON_HOLDING)))))
 	{
 		// now we really want to check the next tile
 		nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
@@ -13372,7 +13673,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 					applybipod = TRUE;	
 		}
 	}
-	else if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH && adjacenttileheight == 4)
+	else if ( adjacenttileheight == 4 && (gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH || (gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && (gAnimControl[ this->usAnimState ].uiFlags &(ANIM_ALT_WEAPON_HOLDING))))) 
 	{
 		// tile is as high as a building, but there might be a window, we could look through that
 		// note that we also check for STRUCTURE_OPEN - the window has to be open (smashed)
@@ -13400,7 +13701,7 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	      	}
 		}
 	}
-	else if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && adjacenttileheight == 3 )
+	else if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && adjacenttileheight == 3 && !(gAnimControl[ this->usAnimState ].uiFlags &(ANIM_ALT_WEAPON_HOLDING)) )
 	{
 		// now we really want to check the next tile
 		nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
@@ -15216,12 +15517,47 @@ BOOLEAN SOLDIERTYPE::IsValidSecondHandShot( void )
 {
 	if ( Item[ this->inv[ SECONDHANDPOS ].usItem ].usItemClass == IC_GUN &&
 		!(Item[ this->inv[SECONDHANDPOS ].usItem ].twohanded ) &&
-		!this->bDoBurst &&
+		(!this->bDoBurst || this->IsValidSecondHandBurst() )&&
 		!Item[this->inv[ HANDPOS ].usItem].grenadelauncher &&
 		Item[ this->inv[HANDPOS].usItem ].usItemClass == IC_GUN &&
+		!(Item[ this->inv[HANDPOS ].usItem ].twohanded ) &&
 		this->inv[SECONDHANDPOS][0]->data.gun.bGunStatus >= USABLE &&
 		this->inv[SECONDHANDPOS][0]->data.gun.ubGunShotsLeft > 0 )
 	{
+		return( TRUE );
+	}
+
+	return( FALSE );
+}
+
+BOOLEAN SOLDIERTYPE::IsValidSecondHandBurst( void )
+{
+	// SANDRO - a function to determine if we can autofire with both weapons
+	if ( Item[ this->inv[ SECONDHANDPOS ].usItem ].usItemClass == IC_GUN &&
+		!(Item[ this->inv[SECONDHANDPOS ].usItem ].twohanded ) &&
+		!Item[this->inv[ HANDPOS ].usItem].grenadelauncher &&
+		this->bDoBurst &&
+		Item[ this->inv[HANDPOS].usItem ].usItemClass == IC_GUN &&
+		!(Item[ this->inv[HANDPOS ].usItem ].twohanded ) &&
+		this->inv[SECONDHANDPOS][0]->data.gun.bGunStatus >= USABLE &&
+		this->inv[SECONDHANDPOS][0]->data.gun.ubGunShotsLeft > 0 )
+	{
+		if (this->bDoAutofire)
+		{
+			// if second gun cannot use atuofire mode
+			if (!IsGunAutofireCapable( &this->inv[SECONDHANDPOS] ))
+			{
+				return( FALSE );
+			}
+		}
+		else
+		{
+			// if second gun cannot use burst mode or the burst size is different
+			if (!(IsGunBurstCapable( &this->inv[SECONDHANDPOS], FALSE, NULL )) || (GetShotsPerBurst(&this->inv[HANDPOS]) != GetShotsPerBurst(&this->inv[SECONDHANDPOS])))
+			{
+				return( FALSE );
+			}
+		}
 		return( TRUE );
 	}
 
@@ -15233,7 +15569,7 @@ BOOLEAN SOLDIERTYPE::IsValidSecondHandShotForReloadingPurposes( void )
 	// should be maintained as same as function above with line
 	// about ammo taken out!
 	if ( Item[ this->inv[ SECONDHANDPOS ].usItem ].usItemClass == IC_GUN &&
-		!this->bDoBurst &&
+		//!this->bDoBurst &&
 		!Item[this->inv[ HANDPOS ].usItem].grenadelauncher &&
 		Item[ this->inv[HANDPOS].usItem ].usItemClass == IC_GUN &&
 		this->inv[SECONDHANDPOS][0]->data.gun.bGunStatus >= USABLE //&&
@@ -15247,8 +15583,124 @@ BOOLEAN SOLDIERTYPE::IsValidSecondHandShotForReloadingPurposes( void )
 	return( FALSE );
 }
 
+BOOLEAN SOLDIERTYPE::IsValidAlternativeFireMode( INT16 bAimTime, INT32 iTrgGridNo )
+{
+	if ( this->IsValidShotFromHip( bAimTime, iTrgGridNo ) || this->IsValidPistolFastShot( bAimTime, iTrgGridNo ) )
+	{
+		return( TRUE );
+	}
 
+	return( FALSE );
+}
 
+BOOLEAN SOLDIERTYPE::IsValidShotFromHip( INT16 bAimTime, INT32 iTrgGridNo )
+{
+	// not allowed, or not gun in hand, or not standing
+	if ( !gGameExternalOptions.ubAllowAlternativeWeaponHolding || Item[ this->inv[ HANDPOS ].usItem ].usItemClass != IC_GUN || gAnimControl[ this->usAnimState ].ubEndHeight != ANIM_STAND )
+	{
+		return( FALSE );
+	}
+	// robots cannot do this
+	if ( AM_A_ROBOT( this ) )
+	{
+		return( FALSE );
+	}
+	// must be two handed for this
+	if ( !Item[ this->inv[ HANDPOS ].usItem ].twohanded )
+	{
+		return( FALSE );
+	}
+	// with hybrid aiming behaviour, our stance is important, we don't go from shoulder to hip
+	if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 2 )
+	{
+		// shouldered already?
+		if ( (gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )) && !(gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING )) )
+		{
+			return( FALSE );
+		}
+		// aiming over hip (yellow) indicated levels (and not heavy gun - those are always fired from hip, if aiming from hip allowed)
+		if ( bAimTime > GetNumberAltFireAimLevels( this, iTrgGridNo ) && !Weapon[this->inv[ HANDPOS ].usItem].HeavyGun )
+		{
+			return( FALSE );
+		}
+	}
+	// "scope mode" behaviour lets us select firing from hip manually
+	else if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+	{
+		// we don't care about the stance here, as the player should know what he's doing, we just care about his fire mode selected
+		if ( this->bScopeMode != USE_ALT_WEAPON_HOLD )
+		{
+			return( FALSE );
+		}
+		// we go through, only if scope mode is set on "alternative fire mode"
+	}
+	else if ( bAimTime > 0 )
+	{
+		// no aiming allowed with this
+		return( FALSE );
+	}
+
+	// if we are here, assume we are going to fire from hip
+	return( TRUE );
+
+}
+
+BOOLEAN SOLDIERTYPE::IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo )
+{
+	// not allowed, or not gun in hand, or not standing
+	if ( !gGameExternalOptions.ubAllowAlternativeWeaponHolding || Item[ this->inv[ HANDPOS ].usItem ].usItemClass != IC_GUN || gAnimControl[ this->usAnimState ].ubEndHeight != ANIM_STAND )
+	{
+		return( FALSE );
+	}
+	// robots cannot do this
+	if ( AM_A_ROBOT( this ) )
+	{
+		return( FALSE );
+	}
+	// don't do this in water (yet), and not if firing from 2 guns
+	if ( this->MercInWater() || this->IsValidSecondHandShot() )
+	{
+		return( FALSE );
+	}
+	// must be one handed for this
+	if ( Item[ this->inv[ HANDPOS ].usItem ].twohanded )
+	{
+		return( FALSE );
+	}
+	// with hybrid aiming behaviour, our stance is important, we don't go from two-handed to one-handed grip
+	if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 2 )
+	{
+		// raised already?
+		if ( (gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )) && !(gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING )) )
+		{
+			return( FALSE );
+		}
+		// aiming over alternative (yellow) indicated levels
+		if ( bAimTime > GetNumberAltFireAimLevels( this, iTrgGridNo ) )
+		{
+			return( FALSE );
+		}
+	}
+	// "scope mode" behaviour lets us select alternative firing manually
+	else if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+	{
+		// we don't care about the stance here, as the player should know what he's doing, we just care about his fire mode selected
+		if ( this->bScopeMode != USE_ALT_WEAPON_HOLD )
+		{
+			return( FALSE );
+		}
+		// we go through, only if scope mode is set on "alternative fire mode"
+	}
+	else if ( bAimTime > 0 )
+	{
+		// no aiming allowed with this
+		return( FALSE );
+	}
+
+	// if we are here, assume we are going to fire from alternative stance
+	return( TRUE );
+
+}
 BOOLEAN SOLDIERTYPE::CanRobotBeControlled( void )
 {
 	SOLDIERTYPE *pController;
@@ -16554,4 +17006,101 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 		}
 	}
 	return( FALSE );
+}
+
+BOOLEAN AIDecideHipOrShoulderStance( SOLDIERTYPE * pSoldier, INT32 iGridNo )
+{
+	// TO DO: this should be much more sophisticated
+
+	UINT16 usInHand = pSoldier->usAttackingWeapon;
+
+	// not 2-handed or not standing 
+	if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_STAND || !Item[ pSoldier->inv[HANDPOS].usItem ].twohanded)
+	{
+		return FALSE;
+	}
+	// heavy gun only from hip if standing
+	if (Weapon[usInHand].HeavyGun)
+	{
+		return TRUE;
+	}
+	// we want to make an aimed shot
+	if (pSoldier->aiData.bAimTime > GetNumberAltFireAimLevels( pSoldier, iGridNo))
+	{
+		return FALSE;
+	}
+
+	INT8 bChanceHip = 0;
+
+	if( pSoldier->bDoBurst > 0 )
+		bChanceHip += 25;
+	if( Weapon[usInHand].ubWeaponType == GUN_LMG )
+		bChanceHip += 30;
+	if( Weapon[usInHand].ubWeaponType == GUN_SHOTGUN )
+		bChanceHip += 15;
+
+	// chance to hit with no aiming, add it to the chance to fire from hip
+	if ( !TileIsOutOfBounds( iGridNo ) )
+	{
+		bChanceHip += CalcChanceToHitGun( pSoldier, iGridNo, 0, AIM_SHOT_TORSO );
+	}
+
+	if ( PreChance(bChanceHip))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+
+}
+
+BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier )
+{
+	if ( pSoldier->ubBodyType != BIGMALE )
+	{
+		// WTF!
+		return FALSE;
+	}
+
+	//always use the other anim for badass mercs
+	if ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYSHOOT2 )
+	{
+		return TRUE;
+	}
+
+	// if it is player controlled merc
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
+	{
+		// are we in combat?
+		if ( gTacticalStatus.uiFlags & INCOMBAT )
+		{
+			// then only use it if morale is very high (we are definately winning)
+			if ( pSoldier->aiData.bMorale > 95 )
+			{
+				return TRUE;
+			}
+		}
+		else
+		{
+			// if not we use this with slightly above avarage morale
+			if ( pSoldier->aiData.bMorale > 65 )
+			{
+				return TRUE;
+			}
+		}
+	}
+	// enemy guy
+	else
+	{
+		//never use this for regular enemies, only elites with high morale and level can sometimes show this animation
+		if ( ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA ) && 
+			 ( pSoldier->aiData.bAIMorale >= MORALE_FEARLESS ) && ( pSoldier->stats.bExpLevel > 8 ) )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }

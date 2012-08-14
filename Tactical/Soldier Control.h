@@ -284,6 +284,16 @@ enum
 	NUM_DAMAGABLE_STATS,
 };
 
+// SANDRO - this is for determining what stance to go back after being hit
+enum
+{
+	NO_SPEC_STANCE_AFTER_HIT,
+	GO_TO_AIM_AFTER_HIT,
+	GO_TO_ALTERNATIVE_AIM_AFTER_HIT,
+	GO_TO_HTH_BREATH_AFTER_HIT,
+	GO_TO_COWERING_AFTER_HIT,
+};
+
 // vehicle/human path structure
 struct path
 {
@@ -556,7 +566,7 @@ public:
 	INT8											bTurningFromPronePosition;
 	BOOLEAN											fDontChargeReadyAPs;
 	BOOLEAN											fPrevInWater;
-	BOOLEAN											fGoBackToAimAfterHit;
+	INT8											bGoBackToAimAfterHit;
 	BOOLEAN											fForceRenderColor;
 	BOOLEAN											fForceNoRenderPaletteCycle;
 	BOOLEAN											fStopPendingNextTile;
@@ -877,11 +887,11 @@ public:
 	INT8												bTargetCubeLevel;
 	INT32												sLastTarget;
 	// HEADROCK HAM 4: the muzzle offset of the shooter's previous bullet. (NCTH)
-	FLOAT												dPrevMuzzleOffsetX;
-	FLOAT												dPrevMuzzleOffsetY;
+	FLOAT												dPrevMuzzleOffsetX[2];
+	FLOAT												dPrevMuzzleOffsetY[2];
 	// HEADROCK HAM 4: Two more values. These record the shooter's previous Counter Force applied on the gun.
-	FLOAT												dPrevCounterForceX;
-	FLOAT												dPrevCounterForceY;
+	FLOAT												dPrevCounterForceX[2];
+	FLOAT												dPrevCounterForceY[2];
 	// CHRISL: Track initial offsets for autofire
 	FLOAT												dInitialMuzzleOffsetX;
 	FLOAT												dInitialMuzzleOffsetY;
@@ -1392,16 +1402,20 @@ public:
 
 
 
-	BOOLEAN SoldierReadyWeapon( INT16 sTargetXPos, INT16 sTargetYPos, BOOLEAN fEndReady );
+	BOOLEAN SoldierReadyWeapon( INT16 sTargetXPos, INT16 sTargetYPos, BOOLEAN fEndReady, BOOLEAN fRaiseToHipOnly );
 	BOOLEAN SoldierReadyWeapon( void );
-	BOOLEAN InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndReady );
+	BOOLEAN InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndReady, BOOLEAN fRaiseToHipOnly );
 
 	BOOLEAN CheckSoldierHitRoof( void );
 	BOOLEAN CheckForBreathCollapse( void );
 	BOOLEAN PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValidate );
 	BOOLEAN InternalIsValidStance( INT8 bDirection, INT8 bNewStance );
 	BOOLEAN IsValidSecondHandShot( void );
+	BOOLEAN IsValidSecondHandBurst( void );
 	BOOLEAN IsValidSecondHandShotForReloadingPurposes( void );
+	BOOLEAN IsValidAlternativeFireMode( INT16 bAimTime, INT32 iTrgGridNo );
+	BOOLEAN IsValidShotFromHip( INT16 bAimTime, INT32 iTrgGridNo );
+	BOOLEAN IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo );
 	BOOLEAN SoldierCarriesTwoHandedWeapon( void );
 	void	SoldierInventoryCoolDown( void );		// Flugente: Cool down/decay all items in inventory
 	BOOLEAN	IsWeaponMounted( void );				// determine if we receive a bonus for mounting our weapon on something
@@ -1560,6 +1574,8 @@ UINT8 GetSquadleadersCountInVicinity( SOLDIERTYPE * pSoldier, BOOLEAN fWithHighe
 UINT16 NumberOfDamagedStats( SOLDIERTYPE * pSoldier );
 UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundredths );
 BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType );
+BOOLEAN AIDecideHipOrShoulderStance( SOLDIERTYPE * pSoldier, INT32 iGridNo );
+BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier );
 
 //typedef struct
 class OLDSOLDIERTYPE_101

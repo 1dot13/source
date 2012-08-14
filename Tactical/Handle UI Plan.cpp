@@ -287,11 +287,25 @@ void SelectPausedFireAnimation( SOLDIERTYPE *pSoldier )
 
 			if ( pSoldier->bDoBurst > 0 )
 			{
-				pSoldier->ChangeSoldierState( STANDING_BURST, 2 , FALSE );
+				if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )
+				{
+					pSoldier->ChangeSoldierState( BURST_ALTERNATIVE_STAND, 2 , FALSE );
+				}
+				else
+				{
+					pSoldier->ChangeSoldierState( STANDING_BURST, 2 , FALSE );
+				}
 			}
 			else
 			{
-				pSoldier->ChangeSoldierState( SHOOT_RIFLE_STAND, 2 , FALSE );
+				if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )
+				{
+					pSoldier->ChangeSoldierState( SHOOT_ALTERNATIVE_STAND, 2 , FALSE );
+				}
+				else
+				{
+					pSoldier->ChangeSoldierState( SHOOT_RIFLE_STAND, 2 , FALSE );
+				}
 			}
 			break;
 

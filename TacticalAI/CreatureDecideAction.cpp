@@ -1138,7 +1138,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 				// now it better be a gun, or the guy can't shoot (but has other attack(s))
 
 				// get the minimum cost to attack the same target with this gun
-				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0);
 
 				// if we have enough action points to shoot with this gun
 				if (pSoldier->bActionPoints >= ubMinAPCost)
@@ -1250,7 +1250,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 		}
 
 		// get the minimum cost to attack with this knife
-		ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+		ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0);
 
 		//sprintf(tempstr,"%s - ubMinAPCost = %d",pSoldier->name,ubMinAPCost);
 		//PopMessage(tempstr);

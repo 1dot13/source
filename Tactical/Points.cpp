@@ -44,11 +44,8 @@
 //end rain
 
 extern BOOLEAN IsValidSecondHandShot( SOLDIERTYPE *pSoldier );
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
-//////////////////////////////////////////////////////////////////////////////
-// SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
-//			On the bottom here, there are these functions made
-//////////////////////////////////////////////////////////////////////
 
 INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState );
 
@@ -278,7 +275,7 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 			return(0);
 	}
 
-	if ( ubMovementCost == WALKING_PISTOL_RDY || ubMovementCost == WALKING_RIFLE_RDY || ubMovementCost == WALKING_DUAL_RDY )
+	if ( ubMovementCost == WALKING_WEAPON_RDY || ubMovementCost == WALKING_DUAL_RDY )
 	{
 		iPoints += APBPConstants[BP_MOVEMENT_READY];
 	}
@@ -308,17 +305,17 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 			iPoints *= APBPConstants[BP_RUN_ENERGYCOSTFACTOR];		break;
 
 		case SIDE_STEP:
-		case SIDE_STEP_PISTOL_RDY:
-		case SIDE_STEP_RIFLE_RDY:
+		case SIDE_STEP_WEAPON_RDY:
 		case SIDE_STEP_DUAL_RDY:
+		case SIDE_STEP_ALTERNATIVE_RDY:
 		case WALK_BACKWARDS:
 		case BLOODCAT_WALK_BACKWARDS:
 		case MONSTER_WALK_BACKWARDS:
-		case WALKING_PISTOL_RDY:
-		case WALKING_RIFLE_RDY:
+		case WALKING_WEAPON_RDY:
 		case WALKING_DUAL_RDY:
-		case WALKING :	iPoints *= APBPConstants[BP_WALK_ENERGYCOSTFACTOR];	break;
-
+		case WALKING_ALTERNATIVE_RDY:
+		case WALKING :
+			iPoints *= APBPConstants[BP_WALK_ENERGYCOSTFACTOR];	break;
 		case START_SWAT:
 		case SWATTING:
 		case SWAT_BACKWARDS:
@@ -407,17 +404,17 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			case MONSTER_WALK_BACKWARDS:
 			case LARVAE_WALK:
 			case WALKING :
+			case WALKING_ALTERNATIVE_RDY:
+			case SIDE_STEP_ALTERNATIVE_RDY:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
 				if ( usMovementMode == WALKING && !(pSoldier->MercInWater()) && ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) ))
 				{
 					sPoints += APBPConstants[AP_MODIFIER_READY];	
 				}
 				break;
-			case SIDE_STEP_PISTOL_RDY:
-			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_WEAPON_RDY:
 			case SIDE_STEP_DUAL_RDY:
-			case WALKING_PISTOL_RDY: 
-			case WALKING_RIFLE_RDY:
+			case WALKING_WEAPON_RDY:
 			case WALKING_DUAL_RDY:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 				break;
@@ -477,15 +474,15 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 		{
 			case RUNNING:
 			case WALKING :
-			case WALKING_PISTOL_RDY:
-			case WALKING_RIFLE_RDY:
+			case WALKING_WEAPON_RDY:
 			case WALKING_DUAL_RDY:
 			case LARVAE_WALK:
 			case SIDE_STEP:
-			case SIDE_STEP_PISTOL_RDY:
-			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_WEAPON_RDY:
 			case SIDE_STEP_DUAL_RDY:
 			case WALK_BACKWARDS:
+			case WALKING_ALTERNATIVE_RDY:
+			case SIDE_STEP_ALTERNATIVE_RDY:
 				// charge crouch APs for ducking head!
 				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed
 				break;
@@ -557,17 +554,17 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 			case MONSTER_WALK_BACKWARDS:
 			case LARVAE_WALK:
 			case WALKING :
+			case WALKING_ALTERNATIVE_RDY :
+			case SIDE_STEP_ALTERNATIVE_RDY :
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
-				if (!(pSoldier->MercInWater()) && ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) ))
+				if (!(pSoldier->MercInWater()) && ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) ) && !(gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) )
 				{
 					sPoints += APBPConstants[AP_MODIFIER_READY];	
 				}
 				break;
-			case SIDE_STEP_PISTOL_RDY:
-			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_WEAPON_RDY:
 			case SIDE_STEP_DUAL_RDY:
-			case WALKING_PISTOL_RDY: 
-			case WALKING_RIFLE_RDY:
+			case WALKING_WEAPON_RDY:
 			case WALKING_DUAL_RDY:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 				break;
@@ -633,15 +630,15 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		switch(usMovementMode)
 		{
 			case SIDE_STEP:
-			case SIDE_STEP_PISTOL_RDY:
-			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_WEAPON_RDY:
 			case SIDE_STEP_DUAL_RDY:
 			case WALK_BACKWARDS:
 			case RUNNING:
 			case WALKING :
-			case WALKING_PISTOL_RDY:
-			case WALKING_RIFLE_RDY:
+			case WALKING_WEAPON_RDY:
 			case WALKING_DUAL_RDY:
+			case WALKING_ALTERNATIVE_RDY :
+			case SIDE_STEP_ALTERNATIVE_RDY:
 
 				// Add here cost to go from crouch to stand AFTER fence hop....
 				// Since it's AFTER.. make sure we will be moving after jump...
@@ -671,14 +668,14 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		{
 			case RUNNING:
 			case WALKING :
-			case WALKING_PISTOL_RDY:
-			case WALKING_RIFLE_RDY:
+			case WALKING_WEAPON_RDY:
 			case WALKING_DUAL_RDY:
 			case SIDE_STEP:
-			case SIDE_STEP_PISTOL_RDY:
-			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_WEAPON_RDY:
 			case SIDE_STEP_DUAL_RDY:
 			case WALK_BACKWARDS:
+			case WALKING_ALTERNATIVE_RDY :
+			case SIDE_STEP_ALTERNATIVE_RDY:
 				// charge crouch APs for ducking head!
 				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
 				break;
@@ -929,10 +926,35 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 				
 				if ( gGameOptions.fNewTraitSystem )
 				{
-					// Martial Arts trait reduces the points registered when moving
-					if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && (ubInterruptType == SP_MOVEMENT_INTERRUPT || ubInterruptType == MOVEMENT_INTERRUPT ))
+					// without Night Ops, we get small penalty for interrupting a target in dark
+					if ( !(HAS_SKILL_TRAIT( pOpponent, NIGHT_OPS_NT )) && pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY)
 					{
-						ubPointsRegistered -= gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT );							
+						INT8 bLightLevel = LightTrueLevel(pSoldier->sGridNo, pSoldier->pathing.bLevel);
+						if ( bLightLevel > 6) // 7+ lightlevel is darkness
+						{
+							ubPointsRegistered -= bLightLevel;	// -7 to -12%
+						}
+					}
+
+					// Martial Arts trait reduces the points registered when moving
+					if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && (ubInterruptType == SP_MOVEMENT_INTERRUPT || ubInterruptType == MOVEMENT_INTERRUPT ) &&
+						Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_PUNCH|IC_BLADE|IC_NONE)) // only get this if we have no weapon or blade in hands
+					{
+						// check how far we are, we only get this bonus at certain range
+						INT16 sTileDistance = PythSpacesAway(pSoldier->sGridNo, pOpponent->sGridNo);
+						if ( (sTileDistance <= 9) && (pOpponent->bTargetLevel == pSoldier->bTargetLevel)) // we must be on the same ground level as well
+						{
+							UINT8 ubBonus = gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT );
+							if (sTileDistance > 6) // make it gradually effective based on distance 
+								ubBonus = ubBonus * (10 - sTileDistance) / 4; // at 9th tile it is only 25% of the trait bonus, from 7th tile it is 100%
+
+							// check direction, we get full bonus if running towards the victim, but others around watching the scene have somehow better chance to interfere
+							if ( pSoldier->ubDirection != GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, pOpponent->sGridNo ) )
+							{	
+								ubBonus = ubBonus *2/3; // two thirds only sound reasonable
+							}
+							ubPointsRegistered -= ubBonus;	
+						}					
 					}
 					// Stealhty trait reduced the points registered on all actions
 					if ( HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ) )
@@ -976,7 +998,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 
 
 
-INT32 AdjustBreathPts(SOLDIERTYPE *pSold, INT32 iBPCost)
+INT32 AdjustBreathPts( SOLDIERTYPE * pSoldier , INT32 iBPCost )
 {
  INT16 sBreathFactor = 100;
  UINT8 ubBandaged;
@@ -995,17 +1017,17 @@ INT32 AdjustBreathPts(SOLDIERTYPE *pSold, INT32 iBPCost)
 
 
  // adjust breath factor for current breath deficiency
- sBreathFactor += (100 - pSold->bBreath);
+ sBreathFactor += (100 - pSoldier->bBreath);
 
  // adjust breath factor for current life deficiency (but add 1/2 bandaging)
- ubBandaged = pSold->stats.bLifeMax - pSold->stats.bLife - pSold->bBleeding;
- //sBreathFactor += (pSold->stats.bLifeMax - (pSold->stats.bLife + (ubBandaged / 2)));
- sBreathFactor += 100 * (pSold->stats.bLifeMax - (pSold->stats.bLife + (ubBandaged / 2))) / pSold->stats.bLifeMax;
+ ubBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
+ //sBreathFactor += (pSoldier->stats.bLifeMax - (pSoldier->stats.bLife + (ubBandaged / 2)));
+ sBreathFactor += 100 * (pSoldier->stats.bLifeMax - (pSoldier->stats.bLife + (ubBandaged / 2))) / pSoldier->stats.bLifeMax;
 
- if ( pSold->stats.bStrength > 80 )
+ if ( pSoldier->stats.bStrength > 80 )
  {
 	// give % reduction to breath costs for high strength mercs
-	sBreathFactor -= (pSold->stats.bStrength - 80) / 2;
+	sBreathFactor -= (pSoldier->stats.bStrength - 80) / 2;
  }
 
 /*	THIS IS OLD JAGGED ALLIANCE STUFF (left for possible future reference)
@@ -1020,20 +1042,20 @@ INT32 AdjustBreathPts(SOLDIERTYPE *pSold, INT32 iBPCost)
 */
 
 	// SANDRO - added heat intolerant penalty
-	if ( MercIsHot( pSold ) )
+	if ( MercIsHot( pSoldier ) )
 	{
 		sBreathFactor += 100;
 	}
 	// SANDRO - Less breath consumption for Primitive chars
-	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSold->ubProfile].bCharacterTrait == CHAR_TRAIT_PRIMITIVE )
+	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PRIMITIVE )
 	{
 		sBreathFactor -= 15; // -15% breath consumption
 	}
 
  // if a non-swimmer type is thrashing around in deep water
-	if ( (pSold->ubProfile != NO_PROFILE ) && (gMercProfiles[ pSold->ubProfile ].bDisability == NONSWIMMER) )
+	if ( (pSoldier->ubProfile != NO_PROFILE ) && (gMercProfiles[ pSoldier->ubProfile ].bDisability == NONSWIMMER) )
 	{
-		if ( pSold->usAnimState == DEEP_WATER_TRED || pSold->usAnimState == DEEP_WATER_SWIM)
+		if ( pSoldier->usAnimState == DEEP_WATER_TRED || pSoldier->usAnimState == DEEP_WATER_SWIM)
 		{
 			sBreathFactor *= 7;		// lose breath 5 times faster in deep water!
 		}
@@ -1056,7 +1078,7 @@ INT32 AdjustBreathPts(SOLDIERTYPE *pSold, INT32 iBPCost)
 
 
 
-void UnusedAPsToBreath(SOLDIERTYPE *pSold)
+void UnusedAPsToBreath( SOLDIERTYPE * pSoldier )
 {
 	INT16 sUnusedAPs, sBreathPerAP = 0, sBreathChange, sRTBreathMod;
 	// Note to Andrew (or whomever else it may concern):
@@ -1077,7 +1099,7 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 	// If we are not in turn-based combat...
 
 
-	if ( pSold->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;
 	}
@@ -1085,17 +1107,17 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 	if ( !( gTacticalStatus.uiFlags & TURNBASED ) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		// ALRIGHT, GIVE A FULL AMOUNT BACK, UNLES MODIFIED BY WHAT ACTIONS WE WERE DOING
-		sBreathPerAP = GetBreathPerAP( pSold, pSold->usAnimState );
+		sBreathPerAP = GetBreathPerAP( pSoldier, pSoldier->usAnimState );
 
 		// adjust for carried weight
-		sBreathPerAP = sBreathPerAP * 100 / BreathPointAdjustmentForCarriedWeight( pSold );
+		sBreathPerAP = sBreathPerAP * 100 / BreathPointAdjustmentForCarriedWeight( pSoldier );
 
 		// If this value is -ve, we have a gain, else we have a loos which we should not really do
 		// We just want to limit this to no gain if we were doing stuff...
 		sBreathChange = 3 * sBreathPerAP;
 
 		// Adjust for on drugs
-		HandleBPEffectDueToDrugs( pSold, &sBreathChange );
+		HandleBPEffectDueToDrugs( pSoldier, &sBreathChange );
 
 		if ( sBreathChange > 0 )
 		{
@@ -1105,13 +1127,13 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 		{
 			// We have a gain, now limit this depending on what we were doing...
 			// OK for RT, look at how many tiles we have moved, our last move anim
-			if ( pSold->ubTilesMovedPerRTBreathUpdate > 0 )
+			if ( pSoldier->ubTilesMovedPerRTBreathUpdate > 0 )
 			{
 				// How long have we done this for?
 				// And what anim were we doing?
-				sBreathPerAP = GetBreathPerAP( pSold, pSold->usLastMovementAnimPerRTBreathUpdate );
+				sBreathPerAP = GetBreathPerAP( pSoldier, pSoldier->usLastMovementAnimPerRTBreathUpdate );
 
-				sRTBreathMod = sBreathPerAP * pSold->ubTilesMovedPerRTBreathUpdate;
+				sRTBreathMod = sBreathPerAP * pSoldier->ubTilesMovedPerRTBreathUpdate;
 
 				// Deduct some if we were exerting ourselves
 				// We add here because to gain breath, sBreathChange needs to be -ve
@@ -1131,43 +1153,65 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 		// as fast as the TB values do
 		sBreathChange *= TB_BREATH_RECOVER_MODIFIER;
 
+		// SANDRO: get BP *cost* for weapon holding (reduce breath gain, or even make it breath loss)
+		if ( gGameExternalOptions.ubEnergyCostForWeaponWeight ) 
+		{
+			sBreathChange += 3 * GetBPCostPer10APsForGunHolding( pSoldier ) / 10;
+
+			// if we are actually losing breath by holding a very heavy gun up, lower it if breath already at critical line
+			if ( sBreathChange > 0 && pSoldier->bBreath < OKBREATH )
+			{	
+				// ok, if this gun is rather heavy, and cost us at least 3 energy points per turn
+				if ( (GetBPCostPer10APsForGunHolding( pSoldier ) * 10) >= (300 * gGameExternalOptions.ubEnergyCostForWeaponWeight / 100) ) 
+				{
+					// throw quote
+					if ( !(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_LOW_BREATH ) )
+					{
+						TacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_BREATH );
+						pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_LOW_BREATH;
+					}
+					// Put gun down....
+					pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE );
+				}
+			}
+		}
 
 		// adjust breath only, don't touch action points!
-		DeductPoints(pSold,0,(INT16)sBreathChange );
+		DeductPoints(pSoldier,0,(INT16)sBreathChange );
 
 		// Reset value for RT breath update
-		pSold->ubTilesMovedPerRTBreathUpdate = 0;
+		pSoldier->ubTilesMovedPerRTBreathUpdate = 0;
 
 	}
 	else
 	{
 		// if merc has any APs left unused this turn (that aren't carrying over)
-		if (pSold->bActionPoints > APBPConstants[MAX_AP_CARRIED])
+		if (pSoldier->bActionPoints > APBPConstants[MAX_AP_CARRIED])
 		{
 			// SANDRO - don't reduce the APs if collapsed
-			if ( pSold->bCollapsed || pSold->bBreathCollapsed )
-				sUnusedAPs = pSold->bActionPoints;
+			if ( pSoldier->bCollapsed || pSoldier->bBreathCollapsed )
+				sUnusedAPs = pSoldier->bActionPoints;
 			else
-				sUnusedAPs = pSold->bActionPoints - APBPConstants[MAX_AP_CARRIED];
+				sUnusedAPs = pSoldier->bActionPoints - APBPConstants[MAX_AP_CARRIED];
 
-			sBreathPerAP = GetBreathPerAP( pSold, pSold->usAnimState );
+			sBreathPerAP = GetBreathPerAP( pSoldier, pSoldier->usAnimState );
 
 			if (sBreathPerAP < 0)
 			{
 				// can't gain any breath when we've just been gassed, OR
 				// if standing in tear gas without a gas mask on
-				if ( pSold->flags.uiStatusFlags & SOLDIER_GASSED )
+				if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
 				{
 					return;		// can't breathe here, so get no breath back!
 				}
 			}
 
 			// adjust for carried weight
-			sBreathPerAP = sBreathPerAP * 100 / BreathPointAdjustmentForCarriedWeight( pSold );
+			sBreathPerAP = sBreathPerAP * 100 / BreathPointAdjustmentForCarriedWeight( pSoldier );
 
-			// SANDRO - what the hell!?! This calculation is not correct, it means the less APs you have the more Breath you gain,
-			// when the exact opposite should happen according to the function of this entire procedure!!!
-			//if ( pSold->bTeam != CIV_TEAM && pSold->bTeam != gbPlayerNum)
+			// SANDRO: what the hell? This calculation is not correct, it means the less APs you have the more Breath you gain,
+			// when the exact opposite should happen according to the function of this entire procedure!
+			//if ( pSoldier->bTeam != CIV_TEAM && pSoldier->bTeam != gbPlayerNum)
 			//{
 			//	switch( gGameOptions.ubDifficultyLevel )
 			//	{
@@ -1195,8 +1239,8 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 			//{
 			//	sBreathChange = ((APBPConstants[AP_MAXIMUM] + gGameExternalOptions.iPlayerAPBonus)- sUnusedAPs) * sBreathPerAP;
 			//}
-			// SANDRO - if we want to make difference between difficulty levels, the just make it so with higher difficulty the enemy regenerate faster:
-			if ( pSold->bTeam == ENEMY_TEAM )
+			// SANDRO: if we want to make difference between difficulty levels, then just make it so with higher difficulty the enemy regenerate faster:
+			if ( pSoldier->bTeam == ENEMY_TEAM )
 			{
 				switch( gGameOptions.ubDifficultyLevel )
 				{
@@ -1214,33 +1258,56 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 						break;
 				}
 			}
-			// SANDRO - this simple thing is the correct calculation
+			// SANDRO: this simple thing is the correct calculation
 			sBreathChange = (sUnusedAPs * sBreathPerAP);
+
+			// SANDRO: get BP *cost* for weapon holding (reduce breath gain, or even make it breath loss)
+			if ( gGameExternalOptions.ubEnergyCostForWeaponWeight ) 
+			{
+				sBreathChange += sUnusedAPs * GetBPCostPer10APsForGunHolding( pSoldier ) / 10;
+
+				// if we are actually losing breath by holding a very heavy gun up, lower it if breath already at critical line
+				if ( sBreathChange > 0 && pSoldier->bBreath < OKBREATH )
+				{	
+					// ok, if this gun is rather heavy, and cost us at least 3 energy points per turn
+					if ( (GetBPCostPer10APsForGunHolding( pSoldier ) * 10) >= (300 * gGameExternalOptions.ubEnergyCostForWeaponWeight / 100) ) 
+					{
+						// throw quote
+						if ( !(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_LOW_BREATH ) )
+						{
+							TacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_BREATH );
+							pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_LOW_BREATH;
+						}
+						// Put gun down....
+						pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE );
+					}
+				}
+			}
 		}
 		else
 		{
 			sBreathChange = 0;
 		}
 		// Adjust for on drugs
-		HandleBPEffectDueToDrugs( pSold, &sBreathChange );
+		HandleBPEffectDueToDrugs( pSoldier, &sBreathChange );
 
 		// SANDRO - Penalty for breath regain for being hit by Martial artist
-		if ((pSold->lUnregainableBreath > 0) && (sBreathChange < 0) && gGameOptions.fNewTraitSystem)
+		if ((pSoldier->lUnregainableBreath > 0) && (sBreathChange < 0) && gGameOptions.fNewTraitSystem)
 		{
-			if (pSold->lUnregainableBreath >= (0 - sBreathChange))
+			if (pSoldier->lUnregainableBreath >= (0 - sBreathChange))
 			{
-				pSold->lUnregainableBreath += sBreathChange;
+				pSoldier->lUnregainableBreath += sBreathChange;
 				sBreathChange = 0;
 			}
 			else
 			{
-				sBreathChange += (INT16)(pSold->lUnregainableBreath);
-				pSold->lUnregainableBreath = 0;
+				sBreathChange += (INT16)(pSoldier->lUnregainableBreath);
+				pSoldier->lUnregainableBreath = 0;
 			}
 		}
 
 		// adjust breath only, don't touch action points!
-		DeductPoints(pSold,0,(INT16)sBreathChange );
+		DeductPoints(pSoldier,0,(INT16)sBreathChange );
 
 	}
 }
@@ -1287,9 +1354,9 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 					break;
 
 				case WALKING:
-				case WALKING_PISTOL_RDY:
-				case WALKING_RIFLE_RDY:
+				case WALKING_WEAPON_RDY:
 				case WALKING_DUAL_RDY:
+				case WALKING_ALTERNATIVE_RDY:
 
 					sBreathPerAP = APBPConstants[BP_PER_AP_LT_EFFORT];
 					break;
@@ -1497,7 +1564,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 
 	if ( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
 	{
-		sAPCost = MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost );
+		sAPCost = MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost, bAimTime );
 
 		if ( pSoldier->bDoBurst )
 		{
@@ -1513,7 +1580,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 				// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
 				if (bAimTime > 0)
 				{
-					GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
+					GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost, bAimTime );
 					if(fAddingRaiseGunCost == TRUE)
 					{
 						// HEADROCK HAM 3: No idea what should come here... For now I've put my extra gun-raise costs
@@ -1534,8 +1601,8 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 					
 					// If the weapon has a scope, and the target is within eligible range for scope use
 					
-					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus( pSoldier, &pSoldier->inv[HANDPOS]))
-						|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) > 1.0 )) )
+					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus( pSoldier, &pSoldier->inv[HANDPOS]) && !pSoldier->IsValidAlternativeFireMode(bAimTime,sGridNo))
+						|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) > 1.0 ) && !pSoldier->IsValidAlternativeFireMode(bAimTime,sGridNo)) )
 					{
 						// Add an individual cost for EACH click, as necessary.
 
@@ -1577,7 +1644,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 	//ATE: HERE, need to calculate APs!
 	if ( uiItemClass & IC_EXPLOSV )
 	{
-		sAPCost = MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost );
+		sAPCost = MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost, bAimTime, 0 );
 
 		//sAPCost = 5;
 	}
@@ -1668,14 +1735,14 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 			pSoldier->sWalkToAttackGridNo = sGridNo;
 
 			// Add points to attack
-			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, ubAddTurningCost );
+			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, ubAddTurningCost, bAimTime, 0 );
 			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
 		}
 		else
 		{
 			// Add points to attack
 			// Use our gridno
-			sAPCost += MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost );
+			sAPCost += MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost, bAimTime, 0 );
 		}
 
 		// Add aim time...
@@ -1686,7 +1753,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 	return( sAPCost );
 }
 
-INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
+INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCost, INT16 bAimTime, UINT8 ubForceRaiseGunCost )
 {
 	INT16						sAPCost = 0;
 	UINT32						uiItemClass;
@@ -1718,7 +1785,7 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 
 	if ( uiItemClass == IC_BLADE || uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
 	{
-		sAPCost = MinAPsToShootOrStab( pSoldier, sGridno, ubAddTurningCost, ubForceRaiseGunCost );
+		sAPCost = MinAPsToShootOrStab( pSoldier, sGridno, bAimTime, ubAddTurningCost, ubForceRaiseGunCost );
 	}
 	else if ( uiItemClass & ( IC_GRENADE | IC_THROWN ) )
 	{
@@ -1835,7 +1902,7 @@ INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * 
 	return baseAPsToShootOrStab;
 }
 
-void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise )
+void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise, INT16 bAimTime )
 {
 	UINT8 ubDirection;
 	UINT32	uiMercFlags;
@@ -1878,11 +1945,44 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo
 	}
 	else
 	{
-		// Do we need to ready weapon?
-		if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ) )
+		// SANDRO - alternative weapon holding feature
+		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
 		{
-			fAddingRaiseGunCost = TRUE;
+			if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && !( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_ALT_WEAPON_HOLDING ) ))
+			{
+				fAddingRaiseGunCost = TRUE;
+			}
+			else if ( pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD && ( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_ALT_WEAPON_HOLDING ) || !( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ) ))
+			{
+				fAddingRaiseGunCost = TRUE;
+			}
 		}
+		else if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 2 )
+		{
+			if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ) || 
+				((gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_ALT_WEAPON_HOLDING )) && 
+				(bAimTime > GetNumberAltFireAimLevels( pSoldier, sGridNo )) ))
+			{
+				fAddingRaiseGunCost = TRUE;
+			}
+		}
+		else if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 1 )
+		{
+			if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ) || 
+				((gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_ALT_WEAPON_HOLDING )) && 
+				(bAimTime > 0) ))
+			{
+				fAddingRaiseGunCost = TRUE;
+			}
+		}
+		else 
+		{
+			if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ) )
+			{
+				fAddingRaiseGunCost = TRUE;
+			}	
+		}
+
 		//CHRISL: Handle ready weapon with facing changes based on stance
 		if(fAddingTurningCost && !fAddingRaiseGunCost)
 		{
@@ -1926,20 +2026,40 @@ UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddin
 	return usTurningCost;
 }
 
-UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost)
+UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost, INT32 iTargetGridNum, INT16 bAimTime )
 {
-	UINT16	usRaiseGunCost = 0;
+	UINT16	usRaiseGunCost = 0, usAnimState;
 
 	if (fAddingRaiseGunCost )
 	{
-		usRaiseGunCost = GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState );
+		BOOLEAN fAltFireMode = FALSE;
+		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
+		{
+			if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 && pSoldier->bTeam == gbPlayerNum )
+			{
+				if ( pSoldier->bScopeMode == -1 )
+					fAltFireMode = TRUE;
+			}
+			else if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 1 )
+			{
+				if ( bAimTime == 0 )
+					fAltFireMode = TRUE;
+			}
+			else
+			{
+				if ( bAimTime <= GetNumberAltFireAimLevels( pSoldier, iTargetGridNum ) )
+					fAltFireMode = TRUE;
+			}
+		}
+		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE, fAltFireMode );
+		usRaiseGunCost = GetAPsToReadyWeapon( pSoldier, usAnimState );
 		pSoldier->flags.fDontChargeReadyAPs = FALSE;
 	}
 
 	return usRaiseGunCost;
 }
 
-INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
+INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost )
 {
 	UINT32	uiMercFlags;
 	UINT16	usTargID;
@@ -1968,9 +2088,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 
 	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
-	GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
-
-	// THE LINES FROM HERE HAVE BEEN MOVED DOWN - SANDRO
+	GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost, bAimTime );
 
 	// Snap: reversed DIGICRAB's change.
 	// bFullAPs are BASE APs, which do not include APs caried over from the previous turn.
@@ -1978,6 +2096,15 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 
 	// aim skill is the same whether we are using 1 or 2 guns
 	bAimSkill = CalcAimSkill( pSoldier, usItem );
+
+	if (!TileIsOutOfBounds(sGridNo))
+	{
+		// Given a gridno here, check if we are on a guy - if so - get his gridno
+		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
+		{
+				sGridNo = MercPtrs[ usTargID ]->sGridNo;
+		}
+	}
 
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 	{
@@ -2044,6 +2171,11 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		{
 			bAPCost += BaseAPsToShootOrStab( bFullAPs, bAimSkill, pObjUsed, pSoldier );
 		}
+		// If we are using alternative weapon holding (from hip rifle/one-handed pistol), the shot can be faster if set in the ini
+		if ( gGameExternalOptions.ubAltWeaponHoldingFireSpeedBonus > 0 && pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ))
+		{
+			bAPCost = (INT16)((bAPCost * (100 - gGameExternalOptions.ubAltWeaponHoldingFireSpeedBonus ) / 100)+ 0.5);
+		}
 		/////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - STOMP traits
 		////////////////////////////////////////////////////
@@ -2088,9 +2220,6 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 		/////////////////////////////////////////////////////////////////////////////////////
 	}
 
-	/////////////////////////////////////////////////////////////////////////
-	// THESE MODIFIERS HAVE BEEN JUST MOVED HERE FROM ABOVE - SANDRO
-
 	if (ubForceRaiseGunCost)
 	{
 		fAddingRaiseGunCost = TRUE;
@@ -2111,7 +2240,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 	usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
 
 	//Calculate usRaiseGunCost
-	usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost);
+	usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, sGridNo, bAimTime );
 
 	//charge for turn and/or raise based on the results of fAddingTurningCost & fAddingRaiseGunCost
 	// silversurfer: this was different from HandleItem() and therefore it displayed different values
@@ -2132,22 +2261,15 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurni
 	else
 		bAPCost += (usTurningCost + usRaiseGunCost);	
 	
-	if (!TileIsOutOfBounds(sGridNo))
-	{
-		// Given a gridno here, check if we are on a guy - if so - get his gridno
-		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
-		{
-				sGridNo = MercPtrs[ usTargID ]->sGridNo;
-		}
-	}
-
 	// if attacking a new target (or if the specific target is uncertain)
 	// Added check if the weapon is a throwing knife - otherwise it would add APs for change taregt on cursor but not actually deduct them afterwards - SANDRO
 	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && (Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE) )) 
 	{
-		bAPCost += APBPConstants[AP_CHANGE_TARGET];
+		if ( pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ) )
+			bAPCost += (APBPConstants[AP_CHANGE_TARGET] / 2);
+		else
+			bAPCost += APBPConstants[AP_CHANGE_TARGET];
 	}
-	/////////////////////////////////////////////////////////////////////////
 
 	// the minimum AP cost of ANY shot can NEVER be more than merc's maximum APs!
 	if ( bAPCost > bFullAPs )
@@ -2312,8 +2434,7 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 	{
 		case RUNNING:
 		case WALKING:
-		case WALKING_PISTOL_RDY:
-		case WALKING_RIFLE_RDY:
+		case WALKING_WEAPON_RDY:
 		case WALKING_DUAL_RDY:
 			if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
 			{
@@ -2962,6 +3083,7 @@ BOOLEAN CheckForMercContMove( SOLDIERTYPE *pSoldier )
 INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 {
 	UINT16 usItem;
+	UINT8 ubReadyAPs = 0;
 
 	usItem = pSoldier->inv[ HANDPOS ].usItem;
 
@@ -2991,7 +3113,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 			rt1 = Weapon[usItem].ubReadyTime * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) / 100;
 			rt2 = Weapon[pSoldier->inv[SECONDHANDPOS].usItem].ubReadyTime * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ SECONDHANDPOS ]) ) / 100;
 		}
-		return( max(rt1,rt2) + APBPConstants[AP_READY_DUAL] );
+		ubReadyAPs = ( max(rt1,rt2) + APBPConstants[AP_READY_DUAL] );
 	}
 
 
@@ -3006,34 +3128,65 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		// CHECK FOR RIFLE
 		if ( Item[ usItem ].usItemClass == IC_GUN )
 		{
+			ubReadyAPs = Weapon[ usItem ].ubReadyTime;
+
 			//ADB if 0, which it normally is, avoid the function call and division
-			if (Weapon[ usItem ].ubReadyTime == 0) {
+			if (ubReadyAPs == 0)
+			{
 				return 0;
 			}
 			else 
-			{
-				// SANDRO - STOMP traits
+			{		
+				// Get bonus to draw speed from attachments
+				ubReadyAPs = (( ubReadyAPs * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) ) / 100);
+
+				// alternative weapon holding?
+				if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
+				{
+					// If we are told to go to the alt weapon holding mode
+					if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )
+					{
+						if ( Item[ usItem ].twohanded )
+						{
+							// Raising only to hip, either charge no APs or a portion of them
+							ubReadyAPs = ((ubReadyAPs * gGameExternalOptions.ubToAltWeaponHoldReadyAPsPerc) + 99) / 100 ; // round up for rifles
+						}
+						else
+						{
+							// raising pistol one-handed, make it faster
+							ubReadyAPs = (ubReadyAPs * gGameExternalOptions.ubToAltWeaponHoldReadyAPsPerc) / 100 ; // round down for pistols
+						}
+					}
+					// If we are told to go from alternative to standard weapon holding
+					else if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )
+					{
+						if ( Item[ usItem ].twohanded )
+						{
+							ubReadyAPs = ubReadyAPs * gGameExternalOptions.ubFromAltWeaponHoldReadyAPsPerc / 100; // round down for rifles
+						}
+						else
+						{
+							ubReadyAPs = ((ubReadyAPs * gGameExternalOptions.ubFromAltWeaponHoldReadyAPsPerc)+ 99) / 100; // round up for pistols
+						}
+					}
+				}
+
+				// STOMP traits
 				// Decrease APs to ready LMG if having Auto Weapon trait
 				if ( (Weapon[usItem].ubWeaponType == GUN_LMG) && HAS_SKILL_TRAIT(pSoldier, AUTO_WEAPONS_NT) && ( gGameOptions.fNewTraitSystem ))
 				{
-					return (INT16)(( Weapon[ usItem ].ubReadyTime 
-						* max(0, (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) - gSkillTraitValues.ubAWPercentReadyLMGReduction * NUM_SKILL_TRAITS(pSoldier, AUTO_WEAPONS_NT) ) ) / 100)); // -10% per trait
+					ubReadyAPs = (( ubReadyAPs * max(0, (100 - gSkillTraitValues.ubAWPercentReadyLMGReduction * NUM_SKILL_TRAITS(pSoldier, AUTO_WEAPONS_NT) ) ) / 100)); // -10% per trait
 				}
 				// Decrease APs to ready pistols and revolvers if having Gunslinger trait
 				else if ( (Weapon[usItem].ubWeaponType == GUN_PISTOL) && HAS_SKILL_TRAIT(pSoldier, GUNSLINGER_NT) && ( gGameOptions.fNewTraitSystem ))
 				{
-					return (INT16)(( Weapon[ usItem ].ubReadyTime 
-						* max(0, (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) - gSkillTraitValues.ubGSPercentReadyPistolsReduction * NUM_SKILL_TRAITS(pSoldier, GUNSLINGER_NT) ) ) / 100)); // -15% per trait
+					ubReadyAPs = (( ubReadyAPs * max(0, (100 - gSkillTraitValues.ubGSPercentReadyPistolsReduction * NUM_SKILL_TRAITS(pSoldier, GUNSLINGER_NT) ) ) / 100)); // -15% per trait
 				}
-				//Normal ready time
-				else
-					return (INT16)(( Weapon[ usItem ].ubReadyTime
-						* ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) ) / 100);
 			}
 		}
 	}
 
-	return( 0 );
+	return( (INT16)max( 0, ubReadyAPs ) );
 }
 
 
@@ -3533,6 +3686,16 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 	Assert(pSoldier != NULL);
 	Assert(&pSoldier->inv[HANDPOS] != NULL);
 
+	if (!( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))
+	{
+		// Weapon not ready, check aiming from hip, else add raise gun cost
+		//if (!pSoldier->IsValidShotFromHip(bAimTime,sTargetGridNo))
+		{
+			sAPCost += CalculateRaiseGunCost( pSoldier, TRUE, sTargetGridNo, bAimTime );
+		}
+	}
+
+
 	if (gGameExternalOptions.fIncreasedAimingCost )
 	{
 		// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
@@ -3553,8 +3716,8 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 			
 			// If the weapon has a scope, and the target is within eligible range for scope use
 			
-			if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) >= GetMinRangeForAimBonus(pSoldier, &pSoldier->inv[HANDPOS]))
-				|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) > 1.0 )))
+			if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) >= GetMinRangeForAimBonus(pSoldier, &pSoldier->inv[HANDPOS]) && !pSoldier->IsValidAlternativeFireMode(bAimTime,sTargetGridNo))
+				|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) > 1.0 ) && !pSoldier->IsValidAlternativeFireMode(bAimTime,sTargetGridNo)))
 			{
 				// Add an individual cost for EACH click, as necessary.
 
@@ -3719,4 +3882,291 @@ INT16 GetAPsToDisarmMine( SOLDIERTYPE *pSoldier )
 		return( max( 1, (INT16)((APBPConstants[AP_DISARM_MINE] * (100 - gSkillTraitValues.ubAMHandleBombsAPsReduction)/100) + 0.5 )) );
 	else
 		return( APBPConstants[AP_DISARM_MINE] );
+}
+
+INT32 GetBPCostPer10APsForGunHolding( SOLDIERTYPE * pSoldier, BOOLEAN fEstimate )
+{
+	if ( !gGameExternalOptions.ubEnergyCostForWeaponWeight )
+		return 0;
+	if ( pSoldier == NULL )
+		return 0;
+	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass != IC_GUN && Item[pSoldier->inv[HANDPOS].usItem].usItemClass != IC_LAUNCHER )
+		return 0;
+	if ( !(gAnimControl[ pSoldier->usAnimState ].uiFlags & (ANIM_FIRE | ANIM_FIREREADY) ) && !fEstimate ) // don't if weapon not raised, but do if we are gonna estimate the cost
+		return 0;
+	if ( TANK( pSoldier ) || AM_A_ROBOT( pSoldier ) )
+		return 0;
+	//////////////////////////////////////////////////////////////////////////////
+	// THE BASIC COST FOR HOLDING THE GUN RAISED (per AP)
+	//////////////////////////////////////////////////////////////////////////////
+	// This somehow represents the effort we must make to keep the gun shouldered and pointing on a target.
+	// The cost is not directly generated by firing, but is applied on the fire, as we spend APs.. it is also applied
+	// on shouldering the gun and keeping the gun shouldered over the turns, as well as walking with it up, or turning around.
+
+	INT32 iBPcost = 0;
+
+	// Get weapon total weight
+	INT16 sWeaponWeight = CalculateObjectWeight(&pSoldier->inv[pSoldier->ubAttackingHand]);
+
+	// Make the weight impact exponential, so lightweight guns cost very little or nearly no energy, 
+	// but as the gun weight goes up, the impact raises dramatically	
+
+	// this divisor controls the final value and is adjusted by our strength
+	INT8 bDivisor = 30;
+	double dModifier = 0;
+	// +0.25 per strength between 70 and 80, +0.5 per strength between 80 and 90, +0.75 per strength over 90 
+	// --> max modifier +15 at 100 strength, which equals cca -33% energy cost compared to a merc with 60-70 strength
+	INT16 sOurStrength = EffectiveStrength( pSoldier, FALSE );
+	if ( sOurStrength > 70 )
+	{
+		dModifier += (sOurStrength - 70)/4;
+		if ( sOurStrength > 80 )
+		{
+			dModifier += (sOurStrength - 80)/4;
+			if ( sOurStrength > 90 )
+				dModifier += (sOurStrength - 90)/4;
+		}
+	}
+	// -0.25 per strength below 60, further -0.25 per strength below 50, and further -0.25 per strength below 40 
+	// --> max modifier -15 at 40- strength, which equals doubled energy cost compared to a merc with 60-70 strength
+	else if ( sOurStrength < 60 )
+	{
+		dModifier -= (60 - sOurStrength)/4;
+		if ( sOurStrength < 50 )
+		{
+			dModifier -= (50 - sOurStrength)/4;
+			if ( sOurStrength < 40 )
+				dModifier -= (40 - sOurStrength)/4;
+		}
+	} 
+	// Round the number properly
+	if (dModifier)
+		bDivisor += (INT8)(dModifier + 0.5);
+	else
+		bDivisor += (INT8)(dModifier - 0.5);
+
+	// Calculate the basic cost 
+	// Note: we are multiplying it by 10 here because the final cost is per 10 APs, and because we need some precision in the calculation
+	iBPcost = 10 * sWeaponWeight * sWeaponWeight / bDivisor;
+
+	// ------------------------------------
+	// APPLY MODIFIERS FOR STANCE AND BIPOD
+	dModifier = 0;
+	// Alternative weapon holding?
+	if (( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) || (fEstimate && pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD) )
+	{
+		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded ) // firing from hip is not nearly án effort
+			dModifier += 80; // only 20% cost if on hip
+		else // holding pistol in one hand is worse in this case							
+			dModifier -= 25; // increased cost by 25%
+	}
+	// If weapon is rested on something or we are prone, reduce the power
+	if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() || ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE ) )
+	{
+		dModifier += 90; // only 10% of the regular cost if prone or rested	
+		if ( GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) > 0)
+			iBPcost = 0; // with bipod on top, there is no bp cost
+	}
+	else if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH )
+		dModifier += 50; // only 50% of the cost if crouching
+
+	if ( dModifier != 0 )
+	{
+		dModifier = min( 99, dModifier );
+		iBPcost = (INT32)(iBPcost * (100 - dModifier) / 100);
+	}
+	iBPcost = max(0, iBPcost);
+
+	// What the hell, can't shoulder these, return some crazy breath cost
+	if ( Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding && (!(gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING) || (fEstimate && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )) )
+	{
+		iBPcost = (iBPcost + 25) * 5;
+	}
+
+	// For enemies, modify by difficulty
+	if ( pSoldier->bTeam == ENEMY_TEAM )
+	{
+		switch( gGameOptions.ubDifficultyLevel )
+		{
+			case DIF_LEVEL_EASY:
+				break;
+			case DIF_LEVEL_MEDIUM:
+				iBPcost = (iBPcost * 9)/10; // -10%
+				break;
+			case DIF_LEVEL_HARD:
+				iBPcost = (iBPcost * 3)/4; // -25%
+				break;
+			case DIF_LEVEL_INSANE:
+				iBPcost /= 2; // -50%
+				break;
+		}
+	}
+
+	// Adjust by predefined ini setting
+	iBPcost = (iBPcost * gGameExternalOptions.ubEnergyCostForWeaponWeight / 100);	
+
+	// Now we have a number, but we must convert this number to represent BP cost PER 1 AP
+	// This is roughly "a guess"
+	iBPcost /= 25;
+	// this can make the cost zero, but that's what we actully want - with very light guns, there is no effort at all
+
+	// ::: overview :::
+	// a merc with 85 strength (+5 modifier to divisor)...		
+	// 1) a gun weighting 3 kilos (lightweight ARs), generates cca 25 points														 = 1 BP per AP = 100 BPs per full turn = pretty much nothing
+	// 2) a gun weighting 5 kilos (most ARs with some attachments), generates cca 71 points											 = 3 BPs per AP = 300 BPs per full turn = still ok, similar to climb down a roof once
+	// 3) a gun weighting 8 kilos ("lighter" LMGs like PKM, or heavier ARs with lots of attachments), generates cca 183 points		 = 7 BPs per AP = 700 BPs per full turn = you can handle it, its just like climb roof up and then down once
+	// 4) a gun weighting 11 kilos (Rheinmetall MG3, FN MAG), generates cca 346 points												 = 13 BPs per AP = 1300 BPs per full turn = starts to feel rather heavy soon
+	// 5) s gun weighting 15 kilos (you trying to shoulder Barrett? or Browning M1919?), generates cca 643 points					 = 26 BPs per AP = 2600 BPs per turn = uhh, 
+
+	// after testing, a gun weighting 12 kilos, shouldered in standing position, with 85 strength, together with recoil kick (small one on this one though)... 
+	// took 5-6 whole turns to totaly exhaust the merc, if one turn is equal 20-30 seconds, then it is 2-3 minutes... I think that's reasonable
+
+	return ( iBPcost );
+}
+
+INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
+{
+	if ( !gGameExternalOptions.ubEnergyCostForWeaponRecoilKick )
+		return 0;
+	if ( pSoldier == NULL )
+		return 0;
+	if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass != IC_GUN && Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass != IC_LAUNCHER )
+		return 0;
+	if ( TANK( pSoldier ) || AM_A_ROBOT( pSoldier ) )
+		return 0;
+	//////////////////////////////////////////////////////////////////////////////
+	// THE GUN RECOIL KICK ENERGY COST
+	//////////////////////////////////////////////////////////////////////////////
+	// This is not about how heavy is the gun, but how much it kicks our shoulder.
+	// Single shots may not prove much effect, but on autofire this may incure some nasty energy loss with certain guns.
+
+	// Impact indirectly speaks of the size of the bullet, and thus strength of the backforce, theoretically.. so take it to the account.
+	// (Other than that, we have nothing to base our calculation on by now, the solution would be to make a new tag in weapons.xml, but that's modder-unfriendly.)
+	INT32 iKickPower = (INT32)(Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact);
+
+	// get weapon total weight
+	// Weapon weight here actually helps us, since it absorbs the power of the backforce.
+	INT16 sWeaponWeight = CalculateObjectWeight(&pSoldier->inv[pSoldier->ubAttackingHand]);
+	
+	// --------------------------
+	// CALCULATE BASIC KICK POWER
+	// "Standard weapon" impact is around 30, "standard weapon" weight plus some attachments is 3-5 kilos,
+	// so for 30 and less impact make the kick power equal to it, then exponentially rise, so 40 impact makes double the amount.
+	// Some crazy weapons with 50 (or more) impact then have more than 5x more kick power than "reasonable" guns.
+	if ( iKickPower > 30 )
+		iKickPower = 30 + ((iKickPower - 30) * (iKickPower - 30) / 3);
+
+	// reduce it by 1% per 0,2 kilo of weapon weight
+	sWeaponWeight = min(99,(sWeaponWeight / 2));
+	iKickPower = iKickPower * (100 - sWeaponWeight) / 100;
+
+	// If one-handed gun, reduce it a bit, since the whole thing is somewhat different.
+	if ( !Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded )
+		iKickPower = iKickPower * 3 / 4; // -25%
+
+	// ::: overview :::
+	// Glock 17 generates cca 18 points
+	// Colt M4 (with some attachemnts) generates cca 25 points
+	// .50 Beowulf (with some attachments) generates cca 40 points
+	// OSV-96 generates cca 115 points
+
+	double dModifier = 0;
+
+	// ----------------------------
+	// APPLY REDUCTION FOR STRENGTH 
+	// Furthermore reduce the kicking power by our strength (with "exceptionally" low strength, we get a penalty though). 
+	// -1,5% per strength over 90, -1% per strength between 80 and 90, and -0.5% per strength between 70 and 80 
+	// --> max reduction -30% at 100 strength
+	INT16 sOurStrength = EffectiveStrength( pSoldier, FALSE );
+	if ( sOurStrength < 55 )
+	{
+		dModifier -= (55 - sOurStrength) / 2; //-0.5% per strength below 55 
+		if ( sOurStrength < 35 )
+			dModifier -= (35 - sOurStrength) / 2; //-1% total per strength below 35 
+	}
+	else if ( sOurStrength > 70 )
+	{
+		dModifier += (sOurStrength - 70) / 2; //-0.5% per strength over 70 
+		if ( sOurStrength > 80 )
+		{
+			dModifier += (sOurStrength - 80) / 2; //-1% total per strength over 80
+			if ( sOurStrength > 90 )
+				dModifier += (sOurStrength - 90) / 2; //-1,5% total per strength over 90
+		}
+	} 
+	if ( dModifier != 0 )
+	{
+		dModifier = min( 99, dModifier );
+		iKickPower = (INT32)(iKickPower * (100 - dModifier) / 100);
+	}
+
+	// ------------------------------------
+	// APPLY MODIFIERS FOR STANCE AND BIPOD
+	dModifier = 0;
+	// Alternative weapon holding?
+	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING )
+	{
+		if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded ) // firing from hip makes the kicking rather diminishing
+			dModifier += 80; // only 20% of the regular kick power 
+		else // holding pistol in one hand is worse in this case							
+			dModifier -= 33; // plus 33% power
+	}
+	// If weapon is rested on something or we are prone, reduce the power
+	if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() || ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE ) )
+	{
+		dModifier += 40; // only 60% of the regular kick power if prone		
+		dModifier += (2 * GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])); // minus up to 20% for bipod	
+	}
+	else if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH )
+		dModifier += 20; // only 80% of the regular kick power if crouching
+
+	if ( dModifier != 0 )
+	{
+		dModifier = min( 99, dModifier );
+		iKickPower = (INT32)(iKickPower * (100 - dModifier) / 100);
+	}
+
+	// ---------------------------
+	// APPLY MODIFIER FOR AUTOFIRE
+	// Now, on autofire this becomes real thing.. the kick power evolves by the length of the autofire
+	// Depending somehow on the weapon autofire penalty, the 4th-6th bullet can already deal double the amount of energy loss.
+	if ( pSoldier->bDoBurst > 1 )
+	{					
+		// per every shot after the first one, the power increases by an amount based on the weapon steadiness (autopenalty - reduction of it)
+		// the additional kick factor is 5% base + half the auto penalty, but is itself also reduced by the above adjustments
+		INT16 sSteadiness = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].AutoPenalty - GetAutoToHitBonus(&pSoldier->inv[pSoldier->ubAttackingHand], FALSE );
+		dModifier = (INT32)((3 + (sSteadiness / 2)) * (100 - dModifier) / 100); 
+		if ( dModifier > 0 )
+		{
+			for ( INT16 i = 1; i < pSoldier->bDoBurst; i++ )
+			{
+				iKickPower = (INT32)(iKickPower * ( 100 + dModifier ) / 100);
+			}
+		}
+	}
+
+	// For enemies, modify by difficulty
+	if ( pSoldier->bTeam == ENEMY_TEAM )
+	{
+		switch( gGameOptions.ubDifficultyLevel )
+		{
+			case DIF_LEVEL_EASY:
+				break;
+			case DIF_LEVEL_MEDIUM:
+				iKickPower = (iKickPower * 9)/10; // -10%
+				break;
+			case DIF_LEVEL_HARD:
+				iKickPower = (iKickPower * 3)/4; // -25%
+				break;
+			case DIF_LEVEL_INSANE:
+				iKickPower /= 2; // -50%
+				break;
+		}
+	}
+	
+	// adjust by predefined ini setting
+	iKickPower = (iKickPower * gGameExternalOptions.ubEnergyCostForWeaponRecoilKick / 100);
+	iKickPower = max(0, iKickPower);
+
+	return ( iKickPower );
 }

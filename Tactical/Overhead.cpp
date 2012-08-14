@@ -197,7 +197,7 @@ void MilitiaChangesSides( void );
 extern void CheckForAlertWhenEnemyDies( SOLDIERTYPE * pDyingSoldier );
 extern void PlaySoldierFootstepSound( SOLDIERTYPE *pSoldier );
 extern void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel );
-extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 
 extern void PlayStealthySoldierFootstepSound( SOLDIERTYPE *pSoldier );
@@ -1388,8 +1388,13 @@ BOOLEAN ExecuteOverhead( )
 									pSoldier->bReverse = FALSE;
 
 									BOOLEAN fAimAfterMove = FALSE;
-									if ( pSoldier->usAnimState == SIDE_STEP_PISTOL_RDY || pSoldier->usAnimState == SIDE_STEP_RIFLE_RDY || 
-										pSoldier->usAnimState == WALKING_PISTOL_RDY || pSoldier->usAnimState == WALKING_RIFLE_RDY )
+									if ( pSoldier->usAnimState == WALKING_ALTERNATIVE_RDY || pSoldier->usAnimState == SIDE_STEP_ALTERNATIVE_RDY )
+									{
+										fAimAfterMove = TRUE;
+										pSoldier->usPendingAnimation = AIM_ALTERNATIVE_STAND;
+										pSoldier->ubPendingDirection = pSoldier->ubDirection;
+									}
+									else if ( pSoldier->usAnimState == SIDE_STEP_WEAPON_RDY || pSoldier->usAnimState == WALKING_WEAPON_RDY )
 									{
 										fAimAfterMove = TRUE;
 										pSoldier->usPendingAnimation = AIM_RIFLE_STAND;
@@ -1409,7 +1414,7 @@ BOOLEAN ExecuteOverhead( )
 									}
 
 									// ATE: Play landing sound.....
-									if ( pSoldier->usAnimState == JUMP_OVER_BLOCKING_PERSON )
+									if ( pSoldier->usAnimState == JUMP_OVER_BLOCKING_PERSON || pSoldier->usAnimState == LONG_JUMP )
 									{
 										PlaySoldierFootstepSound( pSoldier );
 									}
@@ -1842,9 +1847,9 @@ BOOLEAN ExecuteOverhead( )
 
 								// For walking, base it on body type!
 								if ( pSoldier->usAnimState == WALKING || 
-									 pSoldier->usAnimState == WALKING_PISTOL_RDY ||
-									 pSoldier->usAnimState == WALKING_RIFLE_RDY ||
-									 pSoldier->usAnimState == WALKING_DUAL_RDY )
+									 pSoldier->usAnimState == WALKING_WEAPON_RDY ||
+									 pSoldier->usAnimState == WALKING_DUAL_RDY ||
+									 pSoldier->usAnimState == WALKING_ALTERNATIVE_RDY )
 								{
 									pSoldier->MoveMerc( gubAnimWalkSpeeds[ pSoldier->ubBodyType ].dMovementChange, dAngle, TRUE );
 
@@ -2270,6 +2275,9 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 	// Find out how much it takes to move here!
 	sAPCost = ActionPointCost( pSoldier, usNewGridNo, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], usAnimState );
 	sBPCost = TerrainBreathPoints( pSoldier, usNewGridNo, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], usAnimState );
+	// SANDRO: add BP cost for weapon holding (additional for APBPConstants[BP_MOVEMENT_READY]), this one is specifically based on the weapon itself
+	if ( gGameExternalOptions.ubEnergyCostForWeaponWeight )
+		sBPCost += sAPCost * GetBPCostPer10APsForGunHolding( pSoldier ) / 10;
 
 	// CHECK IF THIS TILE IS A GOOD ONE!
 	if ( !HandleNextTile( pSoldier, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], usNewGridNo, pSoldier->pathing.sFinalDestination ) )
@@ -6899,7 +6907,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 											else
 											{
 												// If they are aiming, end aim!
-												usAnimState = PickSoldierReadyAnimation( pTeamSoldier, TRUE );
+												usAnimState = PickSoldierReadyAnimation( pTeamSoldier, TRUE, FALSE );
 
 												if ( usAnimState != INVALID_ANIMATION )
 												{
@@ -7808,6 +7816,48 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 	//HEADROCK HAM 3.5: Ratio between AP Loss and Suppression Shock
 	UINT16 uiShockPerAPLossDivisor = APBPConstants[AP_SUPPRESSION_SHOCK_DIVISOR];
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - modify suppression effectiveness based on weapon caliber (i.e. damage)
+	INT16 sFinalSuppressionEffectiveness = gGameExternalOptions.sSuppressionEffectiveness;
+	pSoldier = MercPtrs[ubCausedAttacker];
+	if ( Item[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].usItemClass == IC_GUN )
+	{
+		// +1% per point above 20 impact
+		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 20 )
+		{
+			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 20);
+		}
+		// +2% per point above 30 impact
+		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 30 )
+		{
+			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 30);
+		}
+		// +3% per point above 40 impact
+		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 40 )
+		{
+			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 40);
+		}
+		// +4% per point above 50 impact, some crazy gun here
+		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 50 )
+		{
+			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 50);
+		}
+
+		// add a small bonus to effectiveness based on weapon loudness
+		UINT8 ubGunVolume  = Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubAttackVolume;
+		ubGunVolume = __max( 1, ( ubGunVolume * GetPercentNoiseVolume( pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] ) ) ) / 100 );
+		if ( ubGunVolume >= 50 )
+		{
+			if ( ubGunVolume < 70 ) // up to 5%
+				sFinalSuppressionEffectiveness += ((ubGunVolume - 50)/4);
+			else if ( ubGunVolume < 85 ) // 5% to 10%
+				sFinalSuppressionEffectiveness += (5 + (ubGunVolume - 70)/3);
+			else // 10% to 25% (extremely noisy weaponry)
+				sFinalSuppressionEffectiveness += (10 + (ubGunVolume - 85));
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Loop through every character.
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 	{
@@ -7846,7 +7896,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			// To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
 			// The default is obviously 100%. You can increase or decrease it, at will.
 			// PLEASE NOTE that AP loss governs ALL OTHER SUPPRESSION EFFECTS.
-			ubPointsLost = ( ubPointsLost * gGameExternalOptions.sSuppressionEffectiveness ) / 100;
+			ubPointsLost = ( ubPointsLost * sFinalSuppressionEffectiveness ) / 100;
 
 			// This is an upper cap for the number of APs we can lose per attack.
 			if (usLimitSuppressionAPsLostPerAttack > 0)
@@ -7907,16 +7957,13 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 					}
 					// Else, original shock was already over the limit. No more shock is added.
 				}
-			}
 			// HEADROCK: Cowering is the panic that grips a character due to suffering too much suppression shock. If
 			// enough shock has been accumulated, the soldier goes into this panic. Generally, cowering will cause
 			// the character to drop a stance if he can, overriding other conditions for a stance-change (see below).
 			// Cowering characters may become considerably easier to suppress with additional firepower. In other
 			// words, if you're cowering, you've effectively turned from a bad-ass to a wimp.
 
-			fCower = false;
-			if ( gGameExternalOptions.usSuppressionShockEffect > 0 )
-			{
+				fCower = false;
 				// SANDRO - STOMP traits
 				INT8 bShockForCower = pSoldier->aiData.bShock;
 				if ( gGameOptions.fNewTraitSystem )
@@ -7969,16 +8016,53 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			{
 				case ANIM_PRONE:
 					// can't change stance below prone!
+					// SANDRO - added cower animation when prone (made by Pashancock)
+					if ( fCower )
+					{
+						if ( pSoldier->usAnimState == COWERING_PRONE ) // if cowering alread, do nothing
+						{
+							ubNewStance = 0;
+						}
+						else
+						{
+							pSoldier->EVENT_InitNewSoldierAnim( START_COWER_PRONE, 0 , FALSE ); 
+							ubNewStance = 0;
+						}
+					}
 					break;
 				case ANIM_CROUCH:
-					if (ubPointsLost >= GetAPsProne(pSoldier, TRUE) && IsValidStance( pSoldier, ANIM_PRONE ) && gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE ) // SANDRO - changed to GetAPsProne
+					if (ubPointsLost >= GetAPsProne(pSoldier, TRUE) && IsValidStance( pSoldier, ANIM_PRONE ) )
 					{
 						sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
 						// HEADROCK: Added cowering.						
 						if (TileIsOutOfBounds(sClosestOpponent) || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 || fCower)
-						{
-							ubPointsLost -= GetAPsProne(pSoldier, TRUE);
-							ubNewStance = ANIM_PRONE;
+						{							
+							if ( fCower )
+							{
+								// SANDRO - added cowering animation
+								//if ( Random(4) == 0 )
+								//{
+								//	pSoldier->usPendingAnimation = START_COWER_PRONE;
+								//	pSoldier->ubDesiredHeight = ANIM_PRONE;
+								//	pSoldier->EVENT_InitNewSoldierAnim( PRONE_DOWN, 0 , FALSE ); 
+								//	ubNewStance = 0;
+								//}
+								//else
+								if ( pSoldier->usAnimState == COWERING ) // if cowering alread, do nothing
+								{
+									ubNewStance = 0;
+								}
+								else
+								{
+									pSoldier->EVENT_InitNewSoldierAnim( START_COWER_CROUCHED, 0 , FALSE ); 
+									ubNewStance = 0;
+								}
+							}
+							else
+							{
+								ubPointsLost -= GetAPsProne(pSoldier, TRUE);
+								ubNewStance = ANIM_PRONE;
+							}
 						}
 					}
 					break;
@@ -7988,33 +8072,47 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 						// can't change stance here!
 						break;
 					}
-					else if (ubPointsLost >= (GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE)) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE ) && IsValidStance( pSoldier, ANIM_PRONE ) ) // SANDRO - changed to GetAPsCrouch/Prone
+					else if (ubPointsLost >= (GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE)) && IsValidStance( pSoldier, ANIM_PRONE ) )
 					{
 						sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
 						// HEADROCK: Added cowering.
-						if (TileIsOutOfBounds(sClosestOpponent) || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 ||fCower )
+						if (TileIsOutOfBounds(sClosestOpponent) || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 || fCower )
 						{
-							if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
+							if ( fCower )
 							{
-								// can only crouch for now
-								ubNewStance = ANIM_CROUCH;
+								// SANDRO - added cowering animation
+								DeductPoints( pSoldier, GetAPsCrouch(pSoldier, TRUE), APBPConstants[BP_CROUCH], DISABLED_INTERRUPT );
+								pSoldier->EVENT_InitNewSoldierAnim( START_COWER, 0 , FALSE ); 
+								ubNewStance = 0;
 							}
 							else
 							{
-								// lie prone!
-								ubNewStance = ANIM_PRONE;
+								// can only crouch for now
+								ubPointsLost -= GetAPsCrouch(pSoldier, TRUE);
+								ubNewStance = ANIM_CROUCH;
 							}
 						}
-						else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND && IsValidStance( pSoldier, ANIM_CROUCH ) )
+						else if ( IsValidStance( pSoldier, ANIM_CROUCH ) )
 						{
-							// crouch, at least!
+							// crouch!
+							ubPointsLost -= GetAPsCrouch(pSoldier, TRUE);
 							ubNewStance = ANIM_CROUCH;
 						}
 					}
-					else if ( ubPointsLost >= GetAPsCrouch(pSoldier, TRUE) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH ) && IsValidStance( pSoldier, ANIM_CROUCH ) ) // SANDRO - changed to GetAPsCrouch
+					else if ( ubPointsLost >= GetAPsCrouch(pSoldier, TRUE) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH ) && IsValidStance( pSoldier, ANIM_CROUCH ) )
 					{
-						// crouch!
-						ubNewStance = ANIM_CROUCH;
+						if ( fCower )
+						{
+							DeductPoints( pSoldier, GetAPsCrouch(pSoldier, TRUE), APBPConstants[BP_CROUCH], DISABLED_INTERRUPT );
+							pSoldier->EVENT_InitNewSoldierAnim( START_COWER, 0 , FALSE ); 
+							ubNewStance = 0;
+						}
+						else
+						{
+							// crouch!
+							ubPointsLost -= GetAPsCrouch(pSoldier, TRUE);
+							ubNewStance = ANIM_CROUCH;
+						}
 					}
 					break;
 				}
@@ -8301,7 +8399,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 
 				pTarget->flags.fDontChargeReadyAPs = TRUE;
 				// Ready weapon
-				pTarget->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE );
+				pTarget->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE, AIDecideHipOrShoulderStance( pTarget, pSoldier->sGridNo ) );
 
 				// ATE: Depending on personality, fire back.....
 
@@ -8736,7 +8834,11 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 			pSoldier->bDoAutofire = 1;
 			pSoldier->bDoBurst = TRUE;
 		}
-		pSoldier->bScopeMode = USE_BEST_SCOPE;
+		if ( Item[pSoldier->inv[ HANDPOS ].usItem].twohanded && Weapon[pSoldier->inv[ HANDPOS ].usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+			pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD;
+		else
+			pSoldier->bScopeMode = USE_BEST_SCOPE;
+	
 		DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2 );
 	}
 

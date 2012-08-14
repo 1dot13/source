@@ -352,6 +352,8 @@ typedef struct
 	BOOLEAN fAllowCollectiveInterrupts;
 	BOOLEAN fAllowInstantInterruptsOnSight;
 
+	BOOLEAN fNoEnemyAutoReadyWeapon;
+
 	UINT16 usAwardSpecialExpForQuests;
 
 	BOOLEAN fAllowWalkingWithWeaponRaised;
@@ -1141,6 +1143,19 @@ typedef struct
 	// Flugente: External Feeding
 	UINT8	ubExternalFeeding;						// allow external feeding of guns (0 = no, 1 = only for others, 2 = we can also fed ourselves)
 	
+	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
+	UINT8 ubAllowAlternativeWeaponHolding;
+	UINT8 ubToAltWeaponHoldReadyAPsPerc;
+	UINT8 ubFromAltWeaponHoldReadyAPsPerc;
+	UINT8 ubAltWeaponHoldingFireSpeedBonus;
+	UINT8 ubAltWeaponHoldingCtHPenaly;
+	UINT8 ubAltWeaponHoldingAimingPenaly;
+	UINT8 ubAltWeaponHoldingAimLevelsReduced;
+
+	// Sandro: Energy cost on weapon manipulation
+	UINT8 ubEnergyCostForWeaponWeight;
+	UINT8 ubEnergyCostForWeaponRecoilKick;
+
 	BOOLEAN gBriefingRoom;
 	BOOLEAN gEncyclopedia;
 			

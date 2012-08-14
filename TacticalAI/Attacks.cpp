@@ -156,9 +156,10 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	UINT8 ubMaxPossibleAimTime;
 	INT16 ubAimTime,ubMinAPcost,ubRawAPCost;
 	UINT8 ubChanceToReallyHit = 0;
-	INT16 ubChanceToHit,ubBestAimTime,ubChanceToGetThrough,ubBestChanceToHit;
+	INT16 ubChanceToHit,ubChanceToHit2,ubBestAimTime,ubChanceToGetThrough,ubBestChanceToHit;
 	SOLDIERTYPE *pOpponent;
 	INT16 ubBurstAPs;
+	INT8 bScopeMode;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcBestShot");
 
@@ -210,7 +211,15 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 
 		// calculate minimum action points required to shoot at this opponent
 		//	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
-		ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST);
+		// SANDRO - calculate this with the alternative mode, as it is faster, decide the actual bScopeMode later
+		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
+		{
+			if (!WeaponReady( pSoldier )) // but only if we are not already in raised weapon stance
+				pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
+			else 
+				pSoldier->bScopeMode = USE_BEST_SCOPE; 
+		}
+		ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST,0);
 		// What the.... The APs to attack on the HandleItem side does not make a test like this.	It always uses the MinAPs as a base.
 		//	else
 		//		ubMinAPcost = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), 3 );
@@ -269,17 +278,75 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			}
 		}
 
-		// calc next attack's minimum shooting cost (excludes readying & turning)
-		ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo,FALSE);
-
-		if (pOpponent->sGridNo == pSoldier->sLastTarget)
-		{
-			// raw AP cost calculation included cost of changing target!
-			// Not unless we really needed to change targets!
-			//ubRawAPCost -= APBPConstants[AP_CHANGE_TARGET];
-		}
+		//if (pOpponent->sGridNo == pSoldier->sLastTarget)
+		//{
+		//	// raw AP cost calculation included cost of changing target!
+		//	// Not unless we really needed to change targets!
+		//	//ubRawAPCost -= APBPConstants[AP_CHANGE_TARGET];
+		//}
 
 		iBestHitRate = 0;					 // reset best hit rate to minimum
+
+		// SANDRO: decide here, whether to use the alternative holding or normal holding
+		bScopeMode = USE_BEST_SCOPE; 
+		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
+		{
+			pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
+			ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,0, AIM_SHOT_TORSO); // get CtH from alternative hold, without aiming
+			pSoldier->bScopeMode = USE_BEST_SCOPE; 
+			// CASE #1 - Enemy very close, or we have very good chance to hit from hip with no aiming
+			if (( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) < 5 || ubChanceToHit > 80 ) && !WeaponReady(pSoldier) )
+				bScopeMode = USE_ALT_WEAPON_HOLD; 
+			// CASE #2 - HeavyGun tag, or heavy LMG in hand
+			if (Weapon[pSoldier->usAttackingWeapon].HeavyGun || (Weapon[pSoldier->usAttackingWeapon].ubWeaponType == GUN_LMG && GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) > 50))
+				bScopeMode = USE_ALT_WEAPON_HOLD; 
+			// reset the mode back
+			// CASE #3 - We don't have enough APs for shot from regular stance, and there is at least some reasonable chance we hit target from alternative mode
+			if ( (MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST,0) > pSoldier->bActionPoints) && (ubChanceToHit > 30) ) 
+				bScopeMode = USE_ALT_WEAPON_HOLD; 
+			// CASE #4 - CtH with alternative hold is simply better than with normal hold (probably due to scope giving penalty on short range)
+			else if ( !WeaponReady(pSoldier) ) // ... and we are not in ready weapon stance yet
+			{
+				pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
+				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);
+				pSoldier->bScopeMode = USE_BEST_SCOPE; 
+				ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);
+				if ( ubChanceToHit > ubChanceToHit2 && ubChanceToHit > 30 && (ubChanceToHit-ubChanceToHit2) >= 15 )
+					bScopeMode = USE_ALT_WEAPON_HOLD; 
+			}
+		}
+		if ( gGameExternalOptions.fScopeModes )
+		{
+			// Now try to decide which scope mode is better
+			// we simply compare the chance to hit with various scopes at full aiming, sometimes, we get penalty for using a scope at close range
+			// in case the best scope is not actually the "best" (at this distance), we will use the other one
+			if ( bScopeMode == USE_BEST_SCOPE )
+			{
+				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);
+				std::map<INT8, OBJECTTYPE*> ObjList;
+				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+				do
+				{
+					pSoldier->bScopeMode++;
+					if ( ObjList[pSoldier->bScopeMode] != NULL )
+					{
+						ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);	
+						if ( ubChanceToHit2 > ubChanceToHit )
+						{
+							bScopeMode = pSoldier->bScopeMode;
+							ubChanceToHit = ubChanceToHit2;
+						}
+					}
+				}
+				while( ObjList[pSoldier->bScopeMode] == NULL && pSoldier->bScopeMode != NUM_SCOPE_MODES);
+
+			}
+		}
+		pSoldier->bScopeMode = bScopeMode; // just for later calculations
+		// recalculate MinAPsToAttack with our selected scope mode
+		ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST,0);
+		// calc next attack's minimum shooting cost (excludes readying & turning)
+		ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo,0,FALSE);
 
 		// calculate the maximum possible aiming time
 
@@ -417,8 +484,10 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			pBestShot->bTargetLevel				= pOpponent->pathing.bLevel;
 			pBestShot->iAttackValue		= iAttackValue;
 			pBestShot->ubAPCost			= ubMinAPcost;
+			pBestShot->bScopeMode		= bScopeMode;
 		}
 	}
+	pSoldier->bScopeMode = USE_BEST_SCOPE; // better reset this back
 }
 
 // JA2Gold: added
@@ -931,7 +1000,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				}
 
 				// calculate minimum action points required to throw at this gridno
-				ubMinAPcost = MinAPsToAttack(pSoldier,sGridNo,ADDTURNCOST);
+				ubMinAPcost = MinAPsToAttack(pSoldier,sGridNo,ADDTURNCOST,0);
 				DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("MinAPcost to attack = %d",ubMinAPcost));
 
 				// if we don't have enough APs left to throw even without aiming
@@ -1105,7 +1174,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: checking chance to hit");
 				if ( EXPLOSIVE_GUN( usInHand ) )
 				{
-					ubRawAPCost = MinAPsToShootOrStab( pSoldier, sGridNo, FALSE);
+					ubRawAPCost = MinAPsToShootOrStab( pSoldier, sGridNo,ubMaxPossibleAimTime,FALSE);
 					ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier, sGridNo, ubMaxPossibleAimTime, AIM_SHOT_TORSO );
 				}
 				else
@@ -1287,7 +1356,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 
 		// calc next attack's minimum stabbing cost (excludes movement & turning)
 		//ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
-		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
+		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE,0) - APBPConstants[AP_CHANGE_TARGET];
 		//NumMessage("ubRawAPCost to stab this opponent = ",ubRawAPCost);
 
 
@@ -1479,7 +1548,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 
 		// calc next attack's minimum stabbing cost (excludes movement & turning)
 		//ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
-		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
+		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE,0) - APBPConstants[AP_CHANGE_TARGET];
 		//NumMessage("ubRawAPCost to stab this opponent = ",ubRawAPCost);
 
 		// determine if this is a surprise stab (for tentacles, enemy must not see us, no dist limit)
@@ -2264,7 +2333,7 @@ void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"checkiftosspossible: get minapstoattack");
 		// get the minimum cost to attack with this tossable item
-		ubMinAPcost = MinAPsToAttack( pSoldier, pSoldier->sLastTarget, DONTADDTURNCOST);
+		ubMinAPcost = MinAPsToAttack( pSoldier, pSoldier->sLastTarget, DONTADDTURNCOST,0);
 
 		// if we can afford the minimum AP cost to throw this tossable item
 		if (pSoldier->bActionPoints >= ubMinAPcost)
@@ -2589,7 +2658,7 @@ INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent )
 	INT16		bAttackCost, bTrueActionPoints;
 	UINT16	usActionData;
 
-	bAttackCost = MinAPsToAttack(pSoldier, sClosestOpponent, ADDTURNCOST);
+	bAttackCost = MinAPsToAttack(pSoldier, sClosestOpponent, ADDTURNCOST,pSoldier->aiData.bAimTime);
 
 	if (bAttackCost >= pSoldier->bActionPoints)
 	{
@@ -2656,7 +2725,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 		{
 			// get the minimum cost to attack with this item
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: getting min aps");
-			ubMinAPcost = MinAPsToAttack( pSoldier, pSoldier->sLastTarget, ADDTURNCOST);
+			ubMinAPcost = MinAPsToAttack( pSoldier, pSoldier->sLastTarget, ADDTURNCOST,pBestShot->ubAimTime);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: min AP cost: %d", ubMinAPcost));
 
 			// if we can afford the minimum AP cost

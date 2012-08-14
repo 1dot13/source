@@ -217,6 +217,9 @@ void AIPickBurstLocations( SOLDIERTYPE *pSoldier, INT8 bTargets, SOLDIERTYPE *pT
 	else
 		ubShotsPerBurst = __min(GetShotsPerBurst (&pSoldier->inv[ HANDPOS ]),MAX_BURST_SPREAD_TARGETS);
 
+	if ( pSoldier->IsValidSecondHandBurst() )
+		ubShotsPerBurst = ubShotsPerBurst*2;
+
 	if ( ubShotsPerBurst <= 0 )
 		ubShotsPerBurst = 1;
 

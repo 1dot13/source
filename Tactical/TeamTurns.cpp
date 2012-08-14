@@ -894,7 +894,7 @@ void StartInterrupt( void )
 					pTempSoldier = Squad[ iSquad ][ iCounter ];
 					if ( pTempSoldier && pTempSoldier->bActive && pTempSoldier->bInSector && !pTempSoldier->aiData.bMoved )
 					{
-						INT16 ubMinAPcost = MinAPsToAttack(pSoldier,pInterruptedSoldier->sGridNo,ADDTURNCOST);
+						INT16 ubMinAPcost = MinAPsToAttack(pSoldier,pInterruptedSoldier->sGridNo,ADDTURNCOST, 0);
 						// if we don't have enough APs left to shoot even a snap-shot at this guy
 						if (ubMinAPcost < pSoldier->bActionPoints)
 						{
@@ -1127,7 +1127,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 	{
 		if ( pTempSoldier->bActive && pTempSoldier->bInSector && !pTempSoldier->aiData.bMoved && (pTempSoldier->bActionPoints == pTempSoldier->aiData.bIntStartAPs))
 		{
-			ubMinAPsToAttack = MinAPsToAttack( pTempSoldier, pTempSoldier->sLastTarget, FALSE );
+			ubMinAPsToAttack = MinAPsToAttack( pTempSoldier, pTempSoldier->sLastTarget, FALSE, 0 );
 			if ( (ubMinAPsToAttack <= pTempSoldier->bActionPoints) && (ubMinAPsToAttack > 0) )
 			{
 				pTempSoldier->aiData.bPassedLastInterrupt = TRUE;

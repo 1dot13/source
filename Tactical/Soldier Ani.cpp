@@ -61,6 +61,7 @@
 #include "GameSettings.h"
 #include "interface dialogue.h"
 #include "Strategic Status.h"
+#include "Food.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -71,7 +72,7 @@ class SOLDIERTYPE;
 #define		NO_JUMP											0
 #define		MAX_ANIFRAMES_PER_FLASH			2
 //#define		TIME_FOR_RANDOM_ANIM_CHECK	10
-#define		TIME_FOR_RANDOM_ANIM_CHECK	2
+#define		TIME_FOR_RANDOM_ANIM_CHECK	1
 
 BOOLEAN		gfLastMercTalkedAboutKillingID = NOBODY;
 
@@ -104,7 +105,7 @@ extern BOOLEAN gfKillingGuysForLosingBattle;
 
 extern UINT8 gubInterruptProvoker;
 
-extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 // Animation code explanations!
 //
@@ -381,16 +382,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					//DIGICRAB: Burst UnCap
 					//Loop around in the animation if we still have burst rounds to fire
-					if (pSoldier->bDoBurst
-						&& (
-						pSoldier->bDoBurst <= ( (pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst( pObjHand ))	) 
-						|| (( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst <= Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst))
-						   )
-						)
+					if (pSoldier->bDoBurst && !(pSoldier->IsValidSecondHandBurst())
+						&& ( pSoldier->bDoBurst <= ( (pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst( pObjHand ))	) 
+						|| (( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst <= Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst)) ))
 					{
-						if(pSoldier->usAnimState == 44 || pSoldier->usAnimState == 109 || pSoldier->usAnimState == 108 && pSoldier->usAniCode == 33) //we are standing, crounching or prone, firing the fast shot
+						if(pSoldier->usAnimState == STANDING_BURST || pSoldier->usAnimState == CROUCHED_BURST || pSoldier->usAnimState == PRONE_BURST || pSoldier->usAnimState == BURST_ALTERNATIVE_STAND && pSoldier->usAniCode == 33) //we are standing, crounching or prone, firing the fast shot
 							pSoldier->usAniCode = 3;
-						else if(pSoldier->usAnimState == 175 && pSoldier->usAniCode == 37) //we are firing down to something very close, last shot
+						else if(pSoldier->usAnimState == FIRE_BURST_LOW_STAND || pSoldier->usAnimState == LOW_BURST_ALTERNATIVE_STAND && pSoldier->usAniCode == 37) //we are firing down to something very close, last shot
 							pSoldier->usAniCode = 14;
 					}
 
@@ -781,10 +779,21 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon( &pSoldier->inv[HANDPOS] );
 
-					if ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst) 
-						|| (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst( pObjHand )))) )
+					if ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst) )
 					{
-						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because burst size too large");
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because gl max burst size reached");
+						fStop = TRUE;
+						fFreeUpAttacker = TRUE;
+					}
+					else if (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && !(pSoldier->IsValidSecondHandBurst()) && (pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst( pObjHand )))))
+					{
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because gun max burst size reached");
+						fStop = TRUE;
+						fFreeUpAttacker = TRUE;
+					}
+					else if (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->IsValidSecondHandBurst() && (pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(2*pSoldier->bDoAutofire):(2*GetShotsPerBurst( pObjHand )))))
+					{
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because dual max burst size reached");
 						fStop = TRUE;
 						fFreeUpAttacker = TRUE;
 					}
@@ -880,15 +889,26 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 							switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 							{
 							case ANIM_STAND:
-								pSoldier->ChangeSoldierState( AIM_RIFLE_STAND, 0 , FALSE );
+								if ( pSoldier->usAnimState == BURST_DUAL_STAND )
+									pSoldier->ChangeSoldierState( AIM_DUAL_STAND, 0 , FALSE );
+								else if ( pSoldier->usAnimState == BURST_ALTERNATIVE_STAND || pSoldier->usAnimState == LOW_BURST_ALTERNATIVE_STAND )
+									pSoldier->ChangeSoldierState( AIM_ALTERNATIVE_STAND, 0 , FALSE );
+								else 
+									pSoldier->ChangeSoldierState( AIM_RIFLE_STAND, 0 , FALSE );
 								break;
 
 							case ANIM_PRONE:
-								pSoldier->ChangeSoldierState( AIM_RIFLE_PRONE, 0 , FALSE );
+								if ( pSoldier->usAnimState == BURST_DUAL_PRONE )
+									pSoldier->ChangeSoldierState( AIM_DUAL_PRONE, 0 , FALSE );
+								else
+									pSoldier->ChangeSoldierState( AIM_RIFLE_PRONE, 0 , FALSE );
 								break;
 
 							case ANIM_CROUCH:
-								pSoldier->ChangeSoldierState( AIM_RIFLE_CROUCH, 0 , FALSE );
+								if ( pSoldier->usAnimState == BURST_DUAL_CROUCH )
+									pSoldier->ChangeSoldierState( AIM_DUAL_CROUCH, 0 , FALSE );
+								else
+									pSoldier->ChangeSoldierState( AIM_RIFLE_CROUCH, 0 , FALSE );
 								break;
 
 							}
@@ -1324,33 +1344,68 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 472:
 
 				{
-					BOOLEAN fGoBackToAimAfterHit;
+					INT8 bGoBackToAimAfterHit;
 
 					// Save old flag, then reset. If we do nothing special here, at least go back
 					// to aim if we were.
-					fGoBackToAimAfterHit = pSoldier->flags.fGoBackToAimAfterHit;
-					pSoldier->flags.fGoBackToAimAfterHit = FALSE;
-
-					if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_TURNINGFROMHIT ) )
-					{
-						switch( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
-						{
-						case ANIM_STAND:
-
-							// OK, we can do some cool things here - first is to make guy walkl back a bit...
-							//	pSoldier->ChangeSoldierState( STANDING_HIT_BEGINCROUCHDOWN, 0, FALSE );
-							//	return( TRUE );
-							break;
-
-						}
-					}
+					bGoBackToAimAfterHit = pSoldier->flags.bGoBackToAimAfterHit;
+					pSoldier->flags.bGoBackToAimAfterHit = NO_SPEC_STANCE_AFTER_HIT;
 
 					// CODE: HANDLE ANY RANDOM HIT VARIATIONS WE WISH TO DO.....
-					if ( fGoBackToAimAfterHit )
+					if ( pSoldier->stats.bLife >= OKLIFE && bGoBackToAimAfterHit)
 					{
-						if ( pSoldier->stats.bLife >= OKLIFE )
-						{
-							pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, FALSE );
+						if ( bGoBackToAimAfterHit == GO_TO_AIM_AFTER_HIT )
+						{				
+							pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, FALSE, FALSE );
+						}
+						else if ( bGoBackToAimAfterHit == GO_TO_ALTERNATIVE_AIM_AFTER_HIT && (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND) )
+						{						
+							pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, FALSE, TRUE );
+						}
+						else if ( bGoBackToAimAfterHit == GO_TO_HTH_BREATH_AFTER_HIT && (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND))
+						{						
+							if ( Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass & (IC_NONE | IC_PUNCH) )
+							{
+								if ((((NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) >= ((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA) ? 2 : 1 )) && gGameOptions.fNewTraitSystem ) ||
+									(HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) && !gGameOptions.fNewTraitSystem ) ) && pSoldier->ubBodyType == REGMALE )
+								{
+									if(is_networked)
+										pSoldier->ChangeSoldierState( NINJA_BREATH, 0 , FALSE );
+									else
+										pSoldier->EVENT_InitNewSoldierAnim( NINJA_BREATH, 0 , FALSE );
+								}
+								else
+								{
+									if(is_networked)
+										pSoldier->ChangeSoldierState( PUNCH_BREATH, 0 , FALSE );
+									else
+										pSoldier->EVENT_InitNewSoldierAnim( PUNCH_BREATH, 0 , FALSE );
+								}
+							}
+							else if ( Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass & (IC_BLADE) )
+							{
+								if(is_networked)
+									pSoldier->ChangeSoldierState( KNIFE_BREATH, 0 , FALSE );
+								else
+									pSoldier->EVENT_InitNewSoldierAnim( KNIFE_BREATH, 0 , FALSE );
+							}
+						}
+						else if ( bGoBackToAimAfterHit == GO_TO_COWERING_AFTER_HIT )
+						{			
+							if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH)
+							{
+								if(is_networked)
+									pSoldier->ChangeSoldierState( START_COWER_CROUCHED, 0 , FALSE );
+								else
+									pSoldier->EVENT_InitNewSoldierAnim( START_COWER_CROUCHED, 0 , FALSE );
+							}
+							else if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) 
+							{
+								if(is_networked)
+									pSoldier->ChangeSoldierState( START_COWER_PRONE, 0 , FALSE );
+								else
+									pSoldier->EVENT_InitNewSoldierAnim( START_COWER_PRONE, 0 , FALSE );
+							}
 						}
 						return( TRUE );
 					}
@@ -1632,6 +1687,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				break;
 
 			case 491:
+				// SANDRO - I've been here, messing with stuff...
 
 				// CODE: HANDLE RANDOM BREATH ANIMATION
 				//if ( pSoldier->stats.bLife > INJURED_CHANGE_THREASHOLD )
@@ -1644,141 +1700,229 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						pSoldier->uiTimeOfLastRandomAction = 0;
 
-						// Don't do any in water!
-						if ( !pSoldier->MercInWater( ) )
+						// Don't play these generally if this is the guy selected by player, as this one is "awaiting orders"
+						if (pSoldier->ubID != (UINT8)gusSelectedSoldier || Random( 10 ) == 0 ) 
 						{
-							// OK, make a dice roll
-							ubDiceRoll = (UINT8)Random( 100 );
-
-							// Determine what is in our hand;
-							usItem = pSoldier->inv[ HANDPOS ].usItem;
-
-							// Default to nothing in hand ( nothing in quotes, we do have something but not just visible )
-							ubRandomHandIndex = RANDOM_ANIM_NOTHINGINHAND;
-
-							if ( pSoldier->inv[ HANDPOS ].exists() == true )
+							// Don't do any in water!
+							// Also don't play if we are in the middle of something
+							if ( !pSoldier->MercInWater( ) && !pSoldier->flags.fTurningUntilDone )
 							{
-								if ( Item[ usItem ].usItemClass == IC_GUN )
+								// OK, make a dice roll
+								ubDiceRoll = (UINT8)Random( 100 );
+
+								// Determine what is in our hand;
+								usItem = pSoldier->inv[ HANDPOS ].usItem;
+
+								// Default to nothing in hand ( nothing in quotes, we do have something but not just visible )
+								ubRandomHandIndex = RANDOM_ANIM_NOTHINGINHAND;
+
+								if ( pSoldier->inv[ HANDPOS ].exists() == true )
 								{
-									//										if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-									if ( (Item[ usItem ].twohanded ) )
+									if ( Item[ usItem ].usItemClass == IC_GUN )
 									{
-										// Set to rifle
-										ubRandomHandIndex = RANDOM_ANIM_RIFLEINHAND;
-									}
-									else
-									{
-										// Don't EVER do a trivial anim...
-										break;
+										//										if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
+										if ( (Item[ usItem ].twohanded ) )
+										{
+											// Set to rifle
+											ubRandomHandIndex = RANDOM_ANIM_RIFLEINHAND;
+										}
+										//else
+										//{
+										//	// Don't EVER do a trivial anim...
+										//	break;
+										//	ubRandomHandIndex = RANDOM_ANIM_NOTHINGORPISTOLINHAND;
+										//}
 									}
 								}
-							}
 
-							// Check which animation to play....
-							for ( cnt = 0; cnt < MAX_RANDOM_ANIMS_PER_BODYTYPE; cnt++ )
-							{
-								pAnimDef = &( gRandomAnimDefs[ pSoldier->ubBodyType ][ cnt ] );
-
-								if ( pAnimDef->sAnimID	!= 0 )
+								// Check which animation to play....
+								for ( cnt = 0; cnt < MAX_RANDOM_ANIMS_PER_BODYTYPE; cnt++ )
 								{
-									// If it's an injured animation and we are not in the threashold....
-									if ( ( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && pSoldier->stats.bLife >= INJURED_CHANGE_THREASHOLD )
-									{
-										continue;
-									}
+									pAnimDef = &( gRandomAnimDefs[ pSoldier->ubBodyType ][ cnt ] );
 
-									// If we need to do an injured one, don't do any others...
-									if ( !( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && pSoldier->stats.bLife < INJURED_CHANGE_THREASHOLD )
+									if ( pAnimDef->sAnimID	!= 0 )
 									{
-										continue;
-									}
+										BOOLEAN fStarving = FALSE;
+										UINT8 foodsituation;
+										UINT8 watersituation;
+										GetFoodSituation( pSoldier, &foodsituation, &watersituation );
+										if ( foodsituation >= FOOD_VERY_LOW || watersituation >= FOOD_VERY_LOW )
+											fStarving = TRUE;
 
-									// If it's a drunk animation and we are not in the threashold....
-									if ( ( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && GetDrunkLevel( pSoldier ) < BORDERLINE )
-									{
-										continue;
-									}
-
-									// If we need to do an injured one, don't do any others...
-									if ( !( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && GetDrunkLevel( pSoldier ) >= BORDERLINE )
-									{
-										continue;
-									}
-
-									// Check if it's our hand
-									if ( pAnimDef->ubHandRestriction != RANDOM_ANIM_IRRELEVENTINHAND && pAnimDef->ubHandRestriction != ubRandomHandIndex )
-									{
-										continue;
-									}
-
-									// Check if it's casual and we're in combat and it's not our guy
-									if ( ( pAnimDef->ubFlags & RANDOM_ANIM_CASUAL ) )
-									{
-										// If he's a bad guy, do not do it!
-										if ( pSoldier->bTeam != gbPlayerNum	|| ( gTacticalStatus.uiFlags & INCOMBAT ) )
+										// If it's an injured animation and we are not in the threashold....
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && pSoldier->stats.bLife >= INJURED_CHANGE_THREASHOLD && pSoldier->bPoisonSum <= 0 && !fStarving )
 										{
 											continue;
 										}
-									}
 
-									// If we are an alternate big guy and have been told to use a normal big merc ani...
-									if ( ( pAnimDef->ubFlags & RANDOM_ANIM_FIRSTBIGMERC ) && ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE ) )
-									{
-										continue;
-									}
-
-									// If we are a normal big guy and have been told to use an alternate big merc ani...
-									if ( ( pAnimDef->ubFlags & RANDOM_ANIM_SECONDBIGMERC ) && !( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE ) )
-									{
-										continue;
-									}
-
-									// Check if it's the proper height
-									if ( pAnimDef->ubAnimHeight == gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
-									{
-										// OK, If we rolled a value that lies within the range for this random animation, use this one!
-										if ( ubDiceRoll >= pAnimDef->ubStartRoll && ubDiceRoll <= pAnimDef->ubEndRoll )
+										// If we need to do an injured one, don't do any others...
+										if ( !( pAnimDef->ubFlags & RANDOM_ANIM_INJURED ) && (pSoldier->stats.bLife < INJURED_CHANGE_THREASHOLD || pSoldier->bPoisonSum > 0 || fStarving) )
 										{
-											// Are we playing a sound
-											if ( pAnimDef->sAnimID == RANDOM_ANIM_SOUND )
+											continue;
+										}
+
+										// If it's a drunk animation and we are not in the threashold....
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && GetDrunkLevel( pSoldier ) < BORDERLINE && pSoldier->bPoisonSum <= 0 && !fStarving )
+										{
+											continue;
+										}
+
+										// If we need to do an injured one, don't do any others...
+										if ( !( pAnimDef->ubFlags & RANDOM_ANIM_DRUNK ) && (GetDrunkLevel( pSoldier ) >= BORDERLINE || pSoldier->bPoisonSum > 0 || fStarving) )
+										{
+											continue;
+										}
+
+										// Check if it's our hand
+										/*if ( pAnimDef->ubHandRestriction != RANDOM_ANIM_IRRELEVENTINHAND && pAnimDef->ubHandRestriction != ubRandomHandIndex )
+										{
+											continue;
+										}*/
+
+										// Don't do this if a pistol in hand
+										if ( ubRandomHandIndex == RANDOM_ANIM_RIFLEINHAND && pAnimDef->sAnimID == BIGGUY_STONE )
+										{
+											continue;
+										}
+
+										// Check if it's casual and we're in combat and it's not our guy
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_CASUAL ) )
+										{
+											// If he's a bad guy, do not do it!
+											if ( pSoldier->bTeam != gbPlayerNum	|| ( gTacticalStatus.uiFlags & INCOMBAT ) )
 											{
-												if ( pSoldier->ubBodyType == COW )
+												continue;
+											}
+										}
+										
+										// If it is lookaround animation, don't play it if we see at least one enemy
+										if ( pAnimDef->ubFlags & RANDOM_ANIM_LOOKAROUND )
+										{
+											// enemy on sight, don't pretend we don't see him!
+											if ( pSoldier->aiData.bOppCnt > 0 )
+											{
+												continue;
+											}
+										}
+
+										// If we are an alternate big guy and have been told to use a normal big merc ani...
+										//if ( ( pAnimDef->ubFlags & RANDOM_ANIM_FIRSTBIGMERC ) && ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE ) )
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_FIRSTBIGMERC ) && !( DecideAltAnimForBigMerc( pSoldier )) )
+										{
+											continue;
+										}
+
+										// If we are a normal big guy and have been told to use an alternate big merc ani...
+										//if ( ( pAnimDef->ubFlags & RANDOM_ANIM_SECONDBIGMERC ) && !( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE ) )
+										if ( ( pAnimDef->ubFlags & RANDOM_ANIM_SECONDBIGMERC ) && ( DecideAltAnimForBigMerc( pSoldier )) )
+										{
+											continue;
+										}
+
+										// Check if it's the proper height
+										if ( pAnimDef->ubAnimHeight == gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+										{
+											// OK, If we rolled a value that lies within the range for this random animation, use this one!
+											if ( ubDiceRoll >= pAnimDef->ubStartRoll && ubDiceRoll <= pAnimDef->ubEndRoll )
+											{
+												// Are we playing a sound
+												if ( pAnimDef->sAnimID == RANDOM_ANIM_SOUND )
 												{
-													if ( Random( 2 ) == 1 )
+													if ( pSoldier->ubBodyType == COW )
 													{
-														if ( ( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bVisible == -1 )
+														if ( Random( 10 ) == 1 )
 														{
-															// DO this every 10th time or so...
-															if ( Random( 100 ) < 10 )
+															if ( ( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bVisible == -1 )
 															{
+																// DO this every 10th time or so...
+																if ( Random( 100 ) < 10 )
+																{
+																	// Play sound
+																	PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																}
+															}
+															else
+															{
+
 																// Play sound
-																PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 															}
 														}
-														else
+													}
+													else if ( pSoldier->ubBodyType == CROW )
+													{
+														if ( Random( 4 ) == 1 )
 														{
+															if ( ( gTacticalStatus.uiFlags & INCOMBAT ) && pSoldier->bVisible == -1 )
+															{
+																// DO this every 10th time or so...
+																if ( Random( 100 ) < 10 )
+																{
+																	// Play sound
+																	PlayJA2SampleFromFile(	pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																}
+															}
+															else
+															{
 
-															// Play sound
-															PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+																// Play sound
+																PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+															}
 														}
+													}
+													else
+													{
+														// Play sound
+														PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 													}
 												}
 												else
 												{
-													// Play sound
-													PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+													if ( pAnimDef->ubHandRestriction != RANDOM_ANIM_IRRELEVENTINHAND && pAnimDef->ubHandRestriction != ubRandomHandIndex )
+													{
+														// only if we are told to play an anim without rifle and we have a rifle (we can lower it for an instance), not vice versa
+														if ( pAnimDef->ubHandRestriction == RANDOM_ANIM_RIFLEINHAND && ubRandomHandIndex != RANDOM_ANIM_RIFLEINHAND )
+														{
+															continue;
+														}
+														// this is not for enemy fools, only for cool mercs
+														if ( pSoldier->bTeam != gbPlayerNum )
+														{
+															continue;
+														}
+														// these funny moves are not likely to be used in combat
+														if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
+														{
+															if ( pSoldier->aiData.bMorale < 95 ) // .. unless we are really confident about ourselves
+															{ 
+																continue;
+															}
+															else 
+															{ 
+																if ( Random( 2 ) == 1 ) // even if we are, still make them show seldomly
+																	continue;
+															}
+														}
+														if ( Random( 4 ) == 1 ) // make this rare as we need to lower the weapon -> make the move -> raise the weapon again... rather show off
+														{ 
+															continue;
+														}
+													}
+													// generally make funny moves less common in combat, we need to focus!
+													if ( ( gTacticalStatus.uiFlags & INCOMBAT ) && !( pAnimDef->ubFlags & ( RANDOM_ANIM_INJURED )) && !( pAnimDef->ubFlags & ( RANDOM_ANIM_DRUNK )) && !( pAnimDef->ubFlags & ( RANDOM_ANIM_LOOKAROUND )) )
+													{
+														if ( Random( 3 ) == 1 )
+															continue;
+													}
+													// finally if we got here, send state change
+													pSoldier->ChangeSoldierState( pAnimDef->sAnimID, 0 , FALSE );
 												}
+												return( TRUE );
 											}
-											else
-											{
-												pSoldier->ChangeSoldierState( pAnimDef->sAnimID, 0 , FALSE );
-											}
-											return( TRUE );
 										}
 									}
 								}
 							}
-
 						}
 					}
 				}
@@ -1815,6 +1959,33 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 										CancelAIAction( pTSoldier, TRUE );
 									}
 
+									// SANDRO - Set goback to aim after hit flag
+									if (( Item[ pTSoldier->inv[HANDPOS].usItem ].usItemClass & (IC_BLADE | IC_PUNCH | IC_NONE) ) && pTSoldier->stats.bLife > 30 && pTSoldier->bBreath > 25 && (gAnimControl[ pTSoldier->usAnimState ].ubEndHeight == ANIM_STAND) )
+									{
+										if ( pTSoldier->stats.bLife > 30 && pTSoldier->bBreath > 25 )
+										{
+											pTSoldier->flags.bGoBackToAimAfterHit = GO_TO_HTH_BREATH_AFTER_HIT;
+										}
+									}
+									// If we were aiming
+									// actually no... favor htH a bit more, by making the opponent drop his readied stance when attacked in close combat, regardless he will dodge it or not
+									//else if ( gAnimControl[ pTSoldier->usAnimState ].uiFlags & ANIM_FIREREADY )
+									//{
+									//	if ( gAnimControl[ pTSoldier->usAnimState ].uiFlags & ANIM_ALT_WEAPON_HOLDING ) // alternative weapon holding stance
+									//		pTSoldier->flags.bGoBackToAimAfterHit = GO_TO_ALTERNATIVE_AIM_AFTER_HIT;
+									//	else // standard
+									//		pTSoldier->flags.bGoBackToAimAfterHit = GO_TO_AIM_AFTER_HIT;
+									//}
+									// if we were cowering (this is different from the bellow, we don't use that status flag for this animation)
+									else if ( pTSoldier->usAnimState == COWERING )
+									{
+										pTSoldier->flags.bGoBackToAimAfterHit = GO_TO_COWERING_AFTER_HIT;
+									}
+									else 
+									{
+										pTSoldier->flags.bGoBackToAimAfterHit = NO_SPEC_STANCE_AFTER_HIT;
+									}
+
 									// Turn towards the person!
 									pTSoldier->EVENT_SetSoldierDesiredDirection( GetDirectionFromGridNo( pSoldier->sGridNo, pTSoldier ) );
 
@@ -1822,25 +1993,25 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 									pTSoldier->ChangeSoldierState( DODGE_ONE, 0 , FALSE );
 
 									// SANDRO - after dodging melee attack go to apropriate stance
-									if ( (gAnimControl[ pTSoldier->usAnimState ].ubHeight == ANIM_STAND) && (Item[pTSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH))
-									{
-										if ((((NUM_SKILL_TRAITS( pTSoldier, MARTIAL_ARTS_NT ) >= ((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA) ? 2 : 1 )) && gGameOptions.fNewTraitSystem ) ||
-											(HAS_SKILL_TRAIT( pTSoldier, MARTIALARTS_OT ) && !gGameOptions.fNewTraitSystem ) ) &&
-											 pTSoldier->ubBodyType == REGMALE )
-										{
-											//pTSoldier->usPendingAnimation = NINJA_GOTOBREATH;
-											pTSoldier->usPendingAnimation = NINJA_BREATH ;
-										}
-										else
-										{
-											pTSoldier->usPendingAnimation = PUNCH_BREATH ;
-										}
-									}
-									else if ( (gAnimControl[ pTSoldier->usAnimState ].ubHeight == ANIM_STAND) && (Item[pTSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE))
-									{
-										//pTSoldier->usPendingAnimation = KNIFE_GOTOBREATH;
-										pTSoldier->usPendingAnimation = KNIFE_BREATH ;
-									}
+									//if ( (gAnimControl[ pTSoldier->usAnimState ].ubHeight == ANIM_STAND) && pTSoldier->stats.bLife > 30 && pTSoldier->bBreath > 25 && (Item[pTSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH || Item[pTSoldier->inv[HANDPOS].usItem].usItemClass == IC_NONE))
+									//{
+									//	if ((((NUM_SKILL_TRAITS( pTSoldier, MARTIAL_ARTS_NT ) >= ((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA) ? 2 : 1 )) && gGameOptions.fNewTraitSystem ) ||
+									//		(HAS_SKILL_TRAIT( pTSoldier, MARTIALARTS_OT ) && !gGameOptions.fNewTraitSystem ) ) &&
+									//		 pTSoldier->ubBodyType == REGMALE )
+									//	{
+									//		//pTSoldier->usPendingAnimation = NINJA_GOTOBREATH;
+									//		pTSoldier->usPendingAnimation = NINJA_BREATH ;
+									//	}
+									//	else
+									//	{
+									//		pTSoldier->usPendingAnimation = PUNCH_BREATH ;
+									//	}
+									//}
+									//else if ( (gAnimControl[ pTSoldier->usAnimState ].ubHeight == ANIM_STAND) && pTSoldier->stats.bLife > 30 && pTSoldier->bBreath > 25 && (Item[pTSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE))
+									//{
+									//	//pTSoldier->usPendingAnimation = KNIFE_GOTOBREATH;
+									//	pTSoldier->usPendingAnimation = KNIFE_BREATH ;
+									//}
 								}
 							}
 						}
@@ -2146,6 +2317,70 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						}
 					}
 
+					if (pSoldier->usAnimState == DODGE_ONE && pSoldier->usPendingAnimation == NO_PENDING_ANIMATION )
+					{						
+						INT8 bGoBackToAimAfterHit = pSoldier->flags.bGoBackToAimAfterHit;
+						pSoldier->flags.bGoBackToAimAfterHit = NO_SPEC_STANCE_AFTER_HIT;
+
+						// CODE: HANDLE ANY RANDOM HIT VARIATIONS WE WISH TO DO.....
+						if ( pSoldier->stats.bLife >= OKLIFE && bGoBackToAimAfterHit )
+						{
+							if ( bGoBackToAimAfterHit == GO_TO_AIM_AFTER_HIT )
+							{		
+								pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, FALSE, FALSE );
+							}
+							else if ( bGoBackToAimAfterHit == GO_TO_ALTERNATIVE_AIM_AFTER_HIT && (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND) )
+							{						
+								pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, FALSE, TRUE );
+							}
+							else if ( bGoBackToAimAfterHit == GO_TO_HTH_BREATH_AFTER_HIT && (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND))
+							{						
+								if ( Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass & (IC_NONE | IC_PUNCH) )
+								{
+									if ((((NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) >= ((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA) ? 2 : 1 )) && gGameOptions.fNewTraitSystem ) ||
+										(HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) && !gGameOptions.fNewTraitSystem ) ) && pSoldier->ubBodyType == REGMALE )
+									{
+										if(is_networked)
+											pSoldier->ChangeSoldierState( NINJA_BREATH, 0 , FALSE );
+										else
+											pSoldier->EVENT_InitNewSoldierAnim( NINJA_BREATH, 0 , FALSE );
+									}
+									else
+									{
+										if(is_networked)
+											pSoldier->ChangeSoldierState( PUNCH_BREATH, 0 , FALSE );
+										else
+											pSoldier->EVENT_InitNewSoldierAnim( PUNCH_BREATH, 0 , FALSE );
+									}
+								}
+								else if ( Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass & (IC_BLADE) )
+								{
+									if(is_networked)
+										pSoldier->ChangeSoldierState( KNIFE_BREATH, 0 , FALSE );
+									else
+										pSoldier->EVENT_InitNewSoldierAnim( KNIFE_BREATH, 0 , FALSE );
+								}
+							}
+							else if ( bGoBackToAimAfterHit == GO_TO_COWERING_AFTER_HIT )
+							{			
+								if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH)
+								{
+									if(is_networked)
+										pSoldier->ChangeSoldierState( START_COWER_CROUCHED, 0 , FALSE );
+									else
+										pSoldier->EVENT_InitNewSoldierAnim( START_COWER_CROUCHED, 0 , FALSE );
+								}
+								else if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) 
+								{
+									if(is_networked)
+										pSoldier->ChangeSoldierState( START_COWER_PRONE, 0 , FALSE );
+									else
+										pSoldier->EVENT_InitNewSoldierAnim( START_COWER_PRONE, 0 , FALSE );
+								}
+							}
+							return( TRUE );
+						}
+					}
 
 					pSoldier->ubDesiredHeight = NO_DESIRED_HEIGHT;
 
@@ -2338,6 +2573,34 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 		}
 		else if ( sNewAniFrame > 599 && sNewAniFrame <= 699 )
 		{
+			// SANDRO - added some hacking in here, so I don't need to overwrite all those animation frame scripts
+			switch(pSoldier->usAnimState)
+			{
+			// go to apropriate stance for alternative weapon holding
+			case READY_ALTERNATIVE_STAND:
+			case SHOOT_ALTERNATIVE_STAND:
+			case BURST_ALTERNATIVE_STAND:
+			case LOW_SHOT_ALTERNATIVE_STAND:
+			case LOW_BURST_ALTERNATIVE_STAND:
+				pSoldier->EVENT_InitNewSoldierAnim( AIM_ALTERNATIVE_STAND, 0 , FALSE ); 
+				return( TRUE );
+				break;
+			// hack to raise rifle after using idle animation without one in hand
+			case REG_SQUISH:
+			case REG_PULL:
+			case BIGBUY_FLEX:
+			case BIGBUY_STRECH:
+			case FEM_KICKSN:
+			case FEM_WIPE: 
+				if ( pSoldier->inv[ HANDPOS ].exists() == true && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && Item[ pSoldier->inv[ HANDPOS ].usItem ].twohanded )
+				{
+					pSoldier->EVENT_InitNewSoldierAnim( RAISE_RIFLE, 0 , FALSE );
+					return( TRUE );
+				}
+				break;
+			default:
+				break;
+			}
 			// Jump, to animation script
 			pSoldier->EVENT_InitNewSoldierAnim( (UINT16)(sNewAniFrame - 600 ), 0 , FALSE );
 			return( TRUE );
@@ -3023,11 +3286,53 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			pSoldier->usAniCode = 0;
 
 		}
-		else if ( sNewAniFrame > 999 )
+		else if ( sNewAniFrame > 999 && sNewAniFrame <= 1099 )
 		{
 			// Jump, to animation script ( in the 300+ range )
 			pSoldier->EVENT_InitNewSoldierAnim( (UINT16)(sNewAniFrame - 700 ), 0 , FALSE );
 			return( TRUE );
+		}
+		else if ( sNewAniFrame > 1099 )
+		{				
+			switch( sNewAniFrame )
+			{
+
+			case 1101:
+				// SANDRO - dual burst check for repeating animation
+			{
+				OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+
+				if (pSoldier->bDoBurst && ( pSoldier->bDoBurst <= ( (pSoldier->bDoAutofire)?(2*pSoldier->bDoAutofire):(2*GetShotsPerBurst( pObjHand ))	) ))
+				{
+					if ( pSoldier->usAnimState == BURST_DUAL_PRONE )
+						pSoldier->usAniCode = 2;
+					else
+						pSoldier->usAniCode = 1;
+				}
+				else
+				{
+					pSoldier->usAniCode++;
+				}
+				break;
+			}
+			case 1102:
+				// SANDRO - end dual burst check for going to proper aim state
+
+				switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+				{
+				case ANIM_STAND:
+					pSoldier->EVENT_InitNewSoldierAnim( AIM_DUAL_STAND, 0 , FALSE );
+					break;
+				case ANIM_CROUCH:
+					pSoldier->EVENT_InitNewSoldierAnim( AIM_DUAL_CROUCH, 0 , FALSE );
+					break;
+				case ANIM_PRONE:
+					pSoldier->EVENT_InitNewSoldierAnim( AIM_DUAL_PRONE, 0 , FALSE );
+					break;
+				}
+				return( TRUE );
+				break;
+			}
 		}
 
 		// Loop here until we break on a real item!
@@ -4018,7 +4323,33 @@ BOOLEAN CheckForImproperFireGunEnd( SOLDIERTYPE *pSoldier )
 		if ( Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass != IC_GUN )
 		{
 			// OK, put gun down....
-			pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE );
+			pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE );
+			return( TRUE );
+		}
+	}
+
+	// SANDRO: if we are holding up a very heavy gun, and can't do it anymore, lower it
+	if ( gGameExternalOptions.ubEnergyCostForWeaponWeight && pSoldier->bBreath < OKBREATH )
+	{		
+		// Check for breath collapse, though this should rarely happen
+		if ( pSoldier->CheckForBreathCollapse( ) )
+		{
+			UnSetUIBusy( pSoldier->ubID );
+			SoldierCollapse( pSoldier );
+			pSoldier->bBreathCollapsed = FALSE;
+			return( TRUE );
+		}
+		// ok, if this gun is rather heavy, and cost us at least 3 energy points per turn, and we got very low on breath
+		else if ( (GetBPCostPer10APsForGunHolding( pSoldier ) * 10) >= (300 * gGameExternalOptions.ubEnergyCostForWeaponWeight / 100) ) 
+		{
+			// throw quote
+			if ( !(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_LOW_BREATH ) )
+			{
+				TacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_BREATH );
+				pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_LOW_BREATH;
+			}
+			// Put gun down....
+			pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection, TRUE, FALSE );
 			return( TRUE );
 		}
 	}
@@ -4076,18 +4407,21 @@ BOOLEAN HandleUnjamAnimation( SOLDIERTYPE *pSoldier )
 		return( TRUE );
 
 	case SHOOT_DUAL_STAND:
+	case BURST_DUAL_STAND:
 
 		// Normal shoot rifle.... play
 		pSoldier->ChangeSoldierState( STANDING_SHOOT_DWEL_UNJAM, 0 , FALSE );
 		return( TRUE );
 
 	case SHOOT_DUAL_PRONE:
+	case BURST_DUAL_PRONE:
 
 		// Normal shoot rifle.... play
 		pSoldier->ChangeSoldierState( PRONE_SHOOT_DWEL_UNJAM, 0 , FALSE );
 		return( TRUE );
 
 	case SHOOT_DUAL_CROUCH:
+	case BURST_DUAL_CROUCH:
 
 		// Normal shoot rifle.... play
 		pSoldier->ChangeSoldierState( CROUCH_SHOOT_DWEL_UNJAM, 0 , FALSE );
@@ -4100,6 +4434,20 @@ BOOLEAN HandleUnjamAnimation( SOLDIERTYPE *pSoldier )
 		pSoldier->ChangeSoldierState( STANDING_SHOOT_LOW_UNJAM, 0 , FALSE );
 		return( TRUE );
 
+	case SHOOT_ALTERNATIVE_STAND:
+	case BURST_ALTERNATIVE_STAND:
+
+		// Normal shoot rifle.... play
+		pSoldier->ChangeSoldierState( UNJAM_ALTERNATIVE_STAND, 0 , FALSE );
+		return( TRUE );
+
+	case LOW_SHOT_ALTERNATIVE_STAND:
+	case LOW_BURST_ALTERNATIVE_STAND:
+
+		// Normal shoot rifle.... play
+		pSoldier->ChangeSoldierState( LOW_UNJAM_ALTERNATIVE_STAND, 0 , FALSE );
+		return( TRUE );
+		
 	}
 
 	return( FALSE );

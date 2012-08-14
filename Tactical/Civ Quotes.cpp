@@ -1081,6 +1081,10 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType )
 			iTauntNumber = Random(7);
 			sTauntText = sEnemyTauntsGotHit[iTauntNumber];
 			break;
+		case TAUNT_NOTICED_UNSEEN_MERC:
+			iTauntNumber = Random(7);
+			sTauntText = sEnemyTauntsNoticedMerc[iTauntNumber];
+			break;
 		default:
 			return;
 			break;

@@ -3735,7 +3735,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 				// Flugente: If we display the thermometer for overheating, move the ammo counter a bit to the right
 				if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE )
-					sNewX = sX + 6;
+					sNewX = sX + 2; //6;  // SANDRO - 6 ps too much, 2 are fine
 
 				// Flugente: check for underbarrel weapons and use that object if necessary
 				OBJECTTYPE*	pObjShown = pObject;
@@ -3942,8 +3942,19 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 				std::map<INT8, OBJECTTYPE*> ObjList;
 				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
-								
-				if (ObjList[pSoldier->bScopeMode] != NULL && IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SCOPE ) )
+				
+				if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD )
+				{		
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 55, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+
+					SetFontForeground( FONT_ORANGE );
+			
+					if ( uiBuffer == guiSAVEBUFFER )
+					{
+						RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+					}
+				}
+				else if (ObjList[pSoldier->bScopeMode] != NULL && IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SCOPE ) )
 				{					
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 54, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
 
@@ -3990,7 +4001,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					mprintf( sMagX, sNewY, pStr );
 					gprintfinvalidate( sMagX, sNewY, pStr );
 				}
-				else if (ObjList[pSoldier->bScopeMode] != NULL &&  IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
+				else if (ObjList[pSoldier->bScopeMode] != NULL && IsAttachmentClass(ObjList[pSoldier->bScopeMode]->usItem, AC_SIGHT ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 53, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
 
@@ -4085,6 +4096,36 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
 
+			}
+			// SANDRO - display BRST/AUTO on the second weapon too, if we are going to fire dual bursts
+			if ( pSoldier && pObject == &(pSoldier->inv[SECONDHANDPOS] ) && 
+				(pSoldier->bWeaponMode == WM_BURST || pSoldier->bWeaponMode == WM_AUTOFIRE) && 
+				Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN &&
+				!(Item[ pSoldier->inv[HANDPOS ].usItem ].twohanded ) &&
+				pSoldier->IsValidSecondHandBurst() )
+			{
+				sNewY = sY + 13; // rather arbitrary
+				if ( pSoldier->bWeaponMode == WM_BURST )
+				{
+					swprintf( pStr, New113Message[MSG113_BRST] );
+					SetFontForeground( FONT_RED );
+				}
+				else
+				{
+					swprintf( pStr, New113Message[MSG113_AUTO] );
+					SetFontForeground( FONT_RED );
+				}
+				// Get length of string
+				uiStringLength=StringPixLength(pStr, ITEM_FONT );
+
+				sNewX = sX + sWidth - uiStringLength - 4;
+
+				if ( uiBuffer == guiSAVEBUFFER )
+				{
+					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+				}
+				mprintf( sNewX, sNewY, pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
 			// Flugente: display the time left/frequencies on armed bombs (as we can now arm them in our inventory)
@@ -6074,7 +6115,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					// Flugente: if we altered a gun's attachments, re-evaluate the scope mode and sight
 					if ( gGameExternalOptions.fScopeModes && gpItemPointerSoldier && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 					{
-						ChangeScopeMode( gpItemPointerSoldier );
+						ChangeScopeMode( gpItemPointerSoldier, 0 );
 
 						// reevaluate sight
 						ManLooksForOtherTeams( gpItemPointerSoldier );
@@ -9938,7 +9979,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				else
 				{
-					if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN )
+					if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && (*gpItemPopupObject)[uiItemPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpItemPopupObject->usItem].singleshotrocketlauncher) )
 					{
 						EmptyWeaponMagazine( gpItemPopupObject, &gItemPointer, uiItemPos );
 						InternalMAPBeginItemPointer( gpItemPopupSoldier );
@@ -9949,7 +9990,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			}
 			else
 			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && !(Item[gpItemPopupObject->usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpItemPopupObject->usItem].usItemClass == IC_GUN && (*gpItemPopupObject)[uiItemPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpItemPopupObject->usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 				{
 					EmptyWeaponMagazine( gpItemPopupObject, &gItemPointer, uiItemPos );
 					gpItemPointer = &gItemPointer;

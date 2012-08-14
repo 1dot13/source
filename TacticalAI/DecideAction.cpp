@@ -43,6 +43,7 @@
 
 extern BOOLEAN gfHiddenInterrupt;
 extern BOOLEAN gfUseAlternateQueenPosition;
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 // global status time counters to determine what takes the most time
 
@@ -1240,7 +1241,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise weapons, sniper = %d",pSoldier->sniper));
-	if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->sniper == 0 && ( pSoldier->pathing.bLevel == 1 || Random(100) < 40 ) )
+	if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->sniper == 0 && ( pSoldier->pathing.bLevel == 1 || Random(100) < 40 ) && (pSoldier->bBreath > 30 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 20) )
 	{
 		if ( !(WeaponReady(pSoldier)) ) // SANDRO - only call this if we are not in readied position yet
 		{
@@ -1268,7 +1269,8 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	{
 		if (!(WeaponReady(pSoldier)))
 		{
-			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
+			if ((!gfTurnBasedAI || ((GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) ) <= pSoldier->bActionPoints)) &&
+				 (pSoldier->bBreath > 30 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 20) )
 			{
 				iChance = 25;
 				if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE )
@@ -1284,7 +1286,10 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		}
 		else // if the weapon is ready already, maybe unready it
 		{
-			if ( Random(100) < 40 ) 
+			iChance = 30;
+			// is it a heavy gun? And we have energy cost for shooting enabled? 
+			iChance += GetBPCostPer10APsForGunHolding( pSoldier ); // don't overexagerate yourself
+			if ( Random(100) < iChance ) 
 			{
 				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier deciding to lower weapon"));
 				return(AI_ACTION_LOWER_GUN);
@@ -1319,7 +1324,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->pathing.bLevel == 1)
 				iChance += 35;
 
-			if ( WeaponReady(pSoldier) ) // SANDRO - if readied weapon, make him more likelz to turn around
+			if ( WeaponReady(pSoldier) ) // SANDRO - if readied weapon, make him more likely to turn around
 				iChance += 30;
 
 			if ((INT16)PreRandom(100) < iChance)
@@ -1489,7 +1494,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				sprintf(tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
 				AIPopMessage(tempstr);
 #endif
-				if ( pSoldier->aiData.bOrders == SNIPER )
+				if ( pSoldier->aiData.bOrders == SNIPER && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
 				{
 					if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 					{
@@ -1497,13 +1502,13 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					}
 				}
 				////////////////////////////////////////////////////////////////////////////
-				// SANDRO - allow regular soldiers to raise scoped weapons to see rather away too
+				// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
 				if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
 					 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
 				{
-					if (!(WeaponReady(pSoldier)))
+					if (!(WeaponReady(pSoldier)) && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
 					{
-						if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
+						if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) <= pSoldier->bActionPoints)
 						{
 							if ( Random(100) < 35 ) 
 							{
@@ -1597,6 +1602,14 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	{
 		// take a breather for gods sake!
 		pSoldier->aiData.usActionData = NOWHERE;
+		
+		// is it a heavy gun? And we have energy cost for shooting enabled? 
+		if ( WeaponReady(pSoldier) && GetBPCostPer10APsForGunHolding( pSoldier ) > 0 )
+		{
+			// unready
+			return(AI_ACTION_LOWER_GUN); 
+		}
+
 		return(AI_ACTION_NONE);
 	}
 
@@ -1764,7 +1777,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 //						if ( CanClimbFromHere ( pSoldier, fUp ) )
 						if ( pSoldier->sGridNo == sNoiseGridNo)
 						{
-							if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sNoiseGridNo, ADDTURNCOST)))
+							if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sNoiseGridNo, ADDTURNCOST,0)))
 							{
 								return( AI_ACTION_CLIMB_ROOF );
 							}
@@ -2033,17 +2046,12 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		{
 			////////////////////////////////////////////////////////////////////////////
 			// SANDRO - raise weapon maybe
-			if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubNoiseDir) // if we are facing the direction of where the noise came from
+			if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubNoiseDir && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30)) // if we are facing the direction of where the noise came from
 			{
-				if (!gfTurnBasedAI || (GetAPsToReadyWeapon( pSoldier, ANIM_CROUCH ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints)
+				if (!gfTurnBasedAI || (((GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints))
 				{
-					iChance = 20;
 					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
 						 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
-					{
-						iChance += 30;
-					}
-					if ( Random(100) < (UINT32)iChance ) 
 					{
 						pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
 					}
@@ -2059,19 +2067,17 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	{
 		////////////////////////////////////////////////////////////////////////////
 		// SANDRO - raise weapon maybe
-		if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubNoiseDir) // if we are facing the direction of where the noise came from
+		if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubNoiseDir && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30)) // if we are facing the direction of where the noise came from
 		{
 			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
 			{
-				iChance = 20;
 				if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
 					 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
 				{
-					iChance += 30;
-				}
-				if ( Random(100) < (UINT32)iChance ) 
-				{
-					return( AI_ACTION_RAISE_GUN );
+					if ( Random(100) < 35 ) 
+					{
+						return( AI_ACTION_RAISE_GUN );
+					}
 				}
 			}
 		}
@@ -2458,6 +2464,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			pSoldier->aiData.usActionData = BestShot.sTarget;
 			//POSSIBLE STRUCTURE CHANGE PROBLEM. GOTTHARD 7/14/08
 			pSoldier->aiData.bAimTime			= BestShot.ubAimTime;
+			pSoldier->bScopeMode = BestShot.bScopeMode;
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SNIPER ] );
 			return(AI_ACTION_FIRE_GUN );
 		}
@@ -2586,6 +2593,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				// HEADROCK HAM 4: This is the stupidest thing ever.
 				// Menptr[BestShot.ubOpponent].ubSuppressionPoints += pSoldier->bDoAutofire;
 				Menptr[BestShot.ubOpponent].ubSuppressorID = pSoldier->ubID;
+				if (!WeaponReady( pSoldier ) && gGameExternalOptions.ubAllowAlternativeWeaponHolding){	pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD;	}
 				return( AI_ACTION_FIRE_GUN );
 			}
 			else
@@ -2705,6 +2713,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 #endif
 
 		pSoldier->aiData.usActionData = NOWHERE;
+
+		// is it a heavy gun? And we have energy cost for shooting enabled? 
+		if ( WeaponReady(pSoldier) && GetBPCostPer10APsForGunHolding( pSoldier ) > 0 )
+		{
+			// unready
+			return(AI_ACTION_LOWER_GUN); 
+		}
 		return(AI_ACTION_NONE);
 	}
 
@@ -2896,7 +2911,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) )
 				{
 					// reserve APs for a possible crouch plus a shot
-					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 					
 					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 					{
@@ -3061,7 +3076,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								//if ( CanClimbFromHere ( pSoldier, fUp ) )
 								if (pSoldier->sGridNo == sClosestDisturbance)
 								{
-									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST)))
+									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST,0)))
 									{
 										return( AI_ACTION_CLIMB_ROOF );
 									}
@@ -3126,7 +3141,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 									if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 									{
 										// reserve APs for a possible crouch plus a shot
-										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 										
 										if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 										{
@@ -3164,7 +3179,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 								{
 									// reserve APs for a possible crouch plus a shot
-									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 									
 									if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 									{
@@ -3287,7 +3302,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								//if ( CanClimbFromHere ( pSoldier, fUp ) )
 								if (pSoldier->sGridNo == sClosestFriend)
 								{
-									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST)))
+									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST,0)))
 									{
 										return( AI_ACTION_CLIMB_ROOF );
 									}
@@ -3352,7 +3367,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 							{
 								// either moving significantly closer or into very close range
 								// ensure will we have enough APs for a possible crouch plus a shot
-								if ( InternalGoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, (INT8) (MinAPsToAttack( pSoldier, sClosestOpponent, ADDTURNCOST) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_TAKE_COVER, 0 ) == pSoldier->aiData.usActionData )
+								if ( InternalGoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, (INT8) (MinAPsToAttack( pSoldier, sClosestOpponent, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_TAKE_COVER, 0 ) == pSoldier->aiData.usActionData )
 								{
 									return(AI_ACTION_TAKE_COVER);
 								}
@@ -3502,7 +3517,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
 					AIPopMessage(tempstr);
 #endif
-					if ( pSoldier->aiData.bOrders == SNIPER && !(WeaponReady(pSoldier)) )
+					if ( pSoldier->aiData.bOrders == SNIPER && !(WeaponReady(pSoldier)) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50) )
 					{
 						if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 						{
@@ -3514,7 +3529,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					else if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
 						 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
 					{
-						if (!(WeaponReady(pSoldier)))
+						if (!(WeaponReady(pSoldier)) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 						{
 							if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 							{
@@ -3531,10 +3546,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				}
 			}
 			////////////////////////////////////////////////////////////////////////////
-			// SANDRO - allow regular soldiers to raise scoped weapons to see rather away too
+			// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
 			else if ( pSoldier->ubDirection == ubOpponentDir && !(WeaponReady(pSoldier)))
 			{
-				if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
+				if ((!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 				{
 					if ( pSoldier->aiData.bOrders == SNIPER )
 					{
@@ -3706,7 +3721,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 #endif
 				
 					////////////////////////////////////////////////////////////////////////////
-					// SANDRO - allow regular soldiers to raise scoped weapons to see rather away too
+					// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
 					if (!gfTurnBasedAI || (GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints)
 					{
 						// determine direction from this soldier to the closest opponent
@@ -3714,15 +3729,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 						if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubOpponentDir )
 						{
-							iChance = 25;
 							if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
 									 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
 							{
-								iChance += 25;
-							}
-							if ( Random(100) < (UINT32)iChance ) 
-							{
-								pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
+								if ( Random(100) < 40 ) 
+								{
+									pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
+								}
 							}
 						}
 					}
@@ -3773,7 +3786,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		if ( pSoldier->sniper == 0 )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: sniper raising gun..."));
-			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+			if ((!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 			{
 				if (!(WeaponReady(pSoldier)))
 				{
@@ -3792,7 +3805,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	{
 		////////////////////////////////////////////////////////////////////////////
 		// SANDRO - raise weapon maybe
-		if (!(WeaponReady(pSoldier))) // if we are facing the direction of where the noise came from
+		if (!(WeaponReady(pSoldier)) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50)) // if we are facing the direction of where the noise came from
 		{
 			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
 			{
@@ -4229,7 +4242,7 @@ INT16 ubMinAPCost;
 			if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN && pSoldier->inv[HANDPOS][0]->data.gun.bGunStatus >= USABLE)
 			{
 				// get the minimum cost to attack the same target with this gun
-				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,ADDTURNCOST);
+				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,ADDTURNCOST,0);
 
 				// if we have enough action points to shoot with this gun
 				if (pSoldier->bActionPoints >= ubMinAPCost)
@@ -4373,7 +4386,7 @@ INT16 ubMinAPCost;
 			}
 
 			// get the minimum cost to attack with this knife
-			ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+			ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0,0);
 
 			// if we can afford the minimum AP cost to stab with/throw this knife weapon
 			if (pSoldier->bActionPoints >= ubMinAPCost)
@@ -4448,7 +4461,7 @@ INT16 ubMinAPCost;
 				}
 
 				// get the minimum cost to attack with punch
-				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0,0);
 				// if we can afford the minimum AP cost to punch
 				if (pSoldier->bActionPoints >= ubMinAPCost)
 				{
@@ -4595,7 +4608,7 @@ INT16 ubMinAPCost;
 				}
 
 				// get the minimum cost to attack by HTH
-				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0,0);
 
 				// if we can afford the minimum AP cost to use HTH combat
 				if (pSoldier->bActionPoints >= ubMinAPCost)
@@ -4800,6 +4813,7 @@ INT16 ubMinAPCost;
 		// default settings
 		//POSSIBLE STRUCTURE CHANGE PROBLEM, NOT CURRENTLY CHANGED. GOTTHARD 7/14/08		
 		pSoldier->aiData.bAimTime = BestAttack.ubAimTime;
+		pSoldier->bScopeMode = BestAttack.bScopeMode;
 		pSoldier->bDoBurst			= 0;
 
 		// HEADROCK HAM 3.6: bAimTime represents how MANY aiming levels are used, not how much APs they cost necessarily.
@@ -4808,7 +4822,7 @@ INT16 ubMinAPCost;
 		if (ubBestAttackAction == AI_ACTION_FIRE_GUN)
 		{
 			// Do we need to change stance?  NB We'll have to ready our gun again
-			if ( !TANK( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + GetAPsCrouch( pSoldier, TRUE) + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 1 ) ) )
+			if ( !TANK( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + GetAPsCrouch( pSoldier, TRUE) + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST,0, 1 ) ) )
 			{
 				// since the AI considers shooting chance from standing primarily, if we are not
 				// standing we should always consider a stance change
@@ -4863,7 +4877,7 @@ INT16 ubMinAPCost;
 
 						// account for increased AP cost and having to re-ready weapon
 						ubStanceCost = (UINT8) GetAPsToChangeStance( pSoldier, ubBestStance );
-						BestAttack.ubAPCost = MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 1) + ubStanceCost;
+						BestAttack.ubAPCost = MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 0, 1) + ubStanceCost;
 
 						// Clip the aim time if necessary
 						// HEADROCK HAM 3.6: Use Actual Aiming Costs, without assuming that each aim level = 1 AP.
@@ -4917,6 +4931,10 @@ INT16 ubMinAPCost;
 							case AGGRESSIVE:	iChance += 10; break;
 							case ATTACKSLAYONLY:iChance += 30; break;
 						}
+
+						// SANDRO: more likely to burst when firing from hip
+						if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].twohanded )
+							iChance += 40;
 
 						// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
 						if ( GetMagSize(&pSoldier->inv[BestAttack.bWeaponIn], 0) >= gGameExternalOptions.ubAISuppressionMinimumMagSize && 
@@ -5013,6 +5031,9 @@ INT16 ubMinAPCost;
 							case ATTACKSLAYONLY:iChance += 30; break;
 							}
 
+							// SANDRO: more likely to burst when firing from hip
+							if ( BestAttack.bScopeMode == USE_ALT_WEAPON_HOLD && Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].twohanded )
+								iChance += 40;
 
 							// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
 							if ( GetMagSize(&pSoldier->inv[BestAttack.bWeaponIn], 0) >= gGameExternalOptions.ubAISuppressionMinimumMagSize &&
@@ -5150,25 +5171,30 @@ INT16 ubMinAPCost;
 		else if (ubBestAttackAction == AI_ACTION_KNIFE_MOVE && gGameOptions.fNewTraitSystem)
 		{
 			pSoldier->aiData.bAimTime = 0;
+			iChance = 0;
 
 			if (Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].usItemClass == IC_PUNCH)
 			{
-				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT))
+				if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
+					iChance += 30;
+				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT) )
+					iChance += 30 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT);
+
+				if( PreRandom( 100 ) <= iChance )
 				{
-					if( PreRandom( (gGameExternalOptions.fEnhancedCloseCombatSystem ? 2 : 0) + 2 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT) ) > 2 )
-					{
-						pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6);
-					}
+					pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6);
 				}
 			}
 			else
 			{
+				if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
+					iChance += 30;
 				if (HAS_SKILL_TRAIT( pSoldier, MELEE_NT))
+					iChance += 30;
+
+				if( PreRandom( 100 ) <= iChance )
 				{
-					if( PreRandom( gGameExternalOptions.fEnhancedCloseCombatSystem ? 3 : 1 ) > 0 )
-					{
-						pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6);
-					}
+					pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6);
 				}
 			}
 		}
@@ -6842,7 +6868,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 									//if ( CanClimbFromHere ( pSoldier, fUp ) )
 									if (pSoldier->sGridNo == sClosestDisturbance)
 									{
-										if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST)))
+										if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0)))
 										{
 											return( AI_ACTION_CLIMB_ROOF );
 										}
@@ -6945,7 +6971,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 									if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 									{
 										// reserve APs for a possible crouch plus a shot
-										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 										
 										if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 										{
@@ -7055,7 +7081,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 									//if ( CanClimbFromHere ( pSoldier, fUp ) )
 									if (pSoldier->sGridNo == sClosestFriend)
 									{
-										if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST)))
+										if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST, 0)))
 										{
 											return( AI_ACTION_CLIMB_ROOF );
 										}
@@ -7443,7 +7469,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 					}
 
 					// get the minimum cost to attack with punch
-					ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+					ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0);
 					// if we can afford the minimum AP cost to punch
 					if (pSoldier->bActionPoints >= ubMinAPCost)
 					{
@@ -7553,8 +7579,8 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 						RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
 					}
 
-					// get the minimum cost to attack by HTH
-					ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
+				// get the minimum cost to attack by HTH
+				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0,0);
 
 					// if we can afford the minimum AP cost to use HTH combat
 					if (pSoldier->bActionPoints >= ubMinAPCost)

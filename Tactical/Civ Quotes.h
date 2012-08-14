@@ -83,7 +83,8 @@ enum //enemy taunts - SANDRO
 	TAUNT_RUN_AWAY,
 	TAUNT_SEEK_NOISE,
 	TAUNT_ALERT,
-	TAUNT_GOT_HIT
+	TAUNT_GOT_HIT,
+	TAUNT_NOTICED_UNSEEN_MERC,
 };
 
 void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType ); //enemy taunts - SANDRO

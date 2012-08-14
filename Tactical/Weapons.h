@@ -32,6 +32,7 @@ enum ScopeMode
 	USE_SCOPE_10,
 	NUM_SCOPE_MODES
 };
+#define USE_ALT_WEAPON_HOLD -1 // SANDRO - using this for hip/onehandpistol fire
 
 //ADB moved from Interface Panels.h
 void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem );
@@ -337,12 +338,15 @@ typedef struct
 
  UINT8	ubAimLevels;		// HEADROCK HAM 4: Dictates how many aiming levels this gun supports. If 0, the program
 							// chooses automatically based on the type of gun (see AllowedAimingLevels() ).
+
  UINT8	ubHandling;			// CHRISL HAM 4: This value replaces ubReadyTime for determining a weapons base handling characteristics.
 
  // Flugente FTW 1
  FLOAT usOverheatingJamThreshold;				// if a gun's temperature is above this treshold, it is increasingly prone to jamming
  FLOAT usOverheatingDamageThreshold;			// if a gun is fired while its temperature is above this value, it degrades much faster
  FLOAT usOverheatingSingleShotTemperature;		// a single shot raises a gun's temperature by this amount
+ 
+ BOOLEAN HeavyGun;	// SANDRO - a gun with this cannot be shouldered in standing position, part of shooting from hip feature
 
 } WEAPONTYPE;
 typedef struct
@@ -439,7 +443,7 @@ extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fA
 extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
 
 extern void ChangeWeaponMode( SOLDIERTYPE * pSoldier );
-extern void ChangeScopeMode( SOLDIERTYPE * pSoldier );		// Flugente: use different scope
+extern void ChangeScopeMode( SOLDIERTYPE * pSoldier, INT32 iTrgGridNo );		// Flugente: use different scope
 
 extern BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo, BOOLEAN fStealing );
 
@@ -469,7 +473,7 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 extern CHAR16 gBulletCount[10];
 
 // HEADROCK HAM 4: This function generates a mag-factor bar percentage.
-void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTime );
+void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTime, INT32 iGridNo );
 // HEADROCK HAM 4: This gets the Z of a target regardless of what's there.
 FLOAT GetTargetZPos( SOLDIERTYPE *pShooter, INT32 sTargetGridNo );
 

@@ -6791,6 +6791,19 @@ STR16 sEnemyTauntsGotHit[]=
 
 };
 
+// TODO.Translate
+STR16 sEnemyTauntsNoticedMerc[]=
+{
+	L"Da'ffff...!",
+	L"Oh my God!",
+	L"Holy crap!",
+	L"Enemy!!!",
+	L"Alert! Alert!",
+	L"There is one!",
+	L"Attack!",
+
+};
+
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
 //////////////////////////////////////////////////////
@@ -7060,8 +7073,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nCet objet peut être utilisé pour faire sauter les portes\nou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour éviter\nune explosion prématurée.\n \nExploser les serrures est relativement facile et rapide\nà faire. Cependant, c'est très bruyant et dangereux pour\nla plupart des mercernaires.",
 	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
 	L"\n \nThis item will still your hunger\nif you eat it.",
-	L"\n \With this ammo belt you can\nfeed someone else's MG.",
-	L"\n \You can feed an MG with ammo\nbelts stored in this vest.",
+	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
+	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

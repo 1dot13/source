@@ -106,7 +106,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //extern BOOLEAN gfDisplayFullCountRingBurst;
-extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 //#define AP_TO_AIM_TILE_IF_GETTING_READY 1
 #define AP_TO_AIM_TILE_IF_ALREADY_READY ( Weapon[ Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex ].ubReadyTime ? 2 : 1 )
@@ -1714,7 +1714,7 @@ UINT32 UIHandleMovementMenu( UI_EVENT *pUIEvent )
 				{
 				case MOVEMENT_MENU_RUN:
 
-					if ( pSoldier->usUIMovementMode != WALKING && pSoldier->usUIMovementMode != RUNNING && pSoldier->usUIMovementMode != WALKING_PISTOL_RDY && pSoldier->usUIMovementMode != WALKING_RIFLE_RDY && pSoldier->usUIMovementMode != WALKING_DUAL_RDY )
+					if ( pSoldier->usUIMovementMode != WALKING && pSoldier->usUIMovementMode != RUNNING && pSoldier->usUIMovementMode != WALKING_WEAPON_RDY && pSoldier->usUIMovementMode != WALKING_DUAL_RDY && pSoldier->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
 					{
 						UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_STAND );
 						pSoldier->flags.fUIMovementFast = 1;
@@ -2823,7 +2823,7 @@ UINT32 UIHandleAEndAction( UI_EVENT *pUIEvent )
 				ConvertGridNoToXY( usMapPos, &sTargetXPos, &sTargetYPos );
 
 				// UNReady weapon
-				pSoldier->SoldierReadyWeapon( sTargetXPos, sTargetYPos, TRUE );
+				pSoldier->SoldierReadyWeapon( sTargetXPos, sTargetYPos, TRUE, FALSE );
 
 				gUITargetReady = FALSE;
 			}
@@ -3897,9 +3897,9 @@ BOOLEAN HandleUIMovementCursor( SOLDIERTYPE *pSoldier, UINT32 uiCursorFlags, INT
 						switch ( pSoldier->usUIMovementMode )
 						{
 						case WALKING:
-						case WALKING_PISTOL_RDY:
-						case WALKING_RIFLE_RDY:
+						case WALKING_WEAPON_RDY:
 						case WALKING_DUAL_RDY:
+						case WALKING_ALTERNATIVE_RDY:
 
 							gUIDisplayActionPointsOffY = 10;
 							gUIDisplayActionPointsOffX = 10;
@@ -4205,7 +4205,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 		
 		if (!TileIsOutOfBounds(sGotLocation))
 		{
-			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, TRUE );
+			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, TRUE, pSoldier->aiData.bShownAimTime, 0 );
 
 			// WANNE: Turn around APs were missing, I think ....
 			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
@@ -4722,9 +4722,9 @@ void SetMovementModeCursor( SOLDIERTYPE *pSoldier )
 			switch ( pSoldier->usUIMovementMode )
 			{
 			case WALKING:
-			case WALKING_PISTOL_RDY:
-			case WALKING_RIFLE_RDY:
+			case WALKING_WEAPON_RDY:
 			case WALKING_DUAL_RDY:
+			case WALKING_ALTERNATIVE_RDY:
 				guiNewUICursor = MOVE_WALK_UICURSOR;
 				break;
 
@@ -4785,9 +4785,9 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove )
 				switch ( pSoldier->usUIMovementMode )
 				{
 				case WALKING:
-				case WALKING_PISTOL_RDY:
-				case WALKING_RIFLE_RDY:
+				case WALKING_WEAPON_RDY:
 				case WALKING_DUAL_RDY:
+				case WALKING_ALTERNATIVE_RDY:
 					guiNewUICursor = ALL_MOVE_WALK_UICURSOR;
 					break;
 
@@ -4817,9 +4817,9 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove )
 				switch ( pSoldier->usUIMovementMode )
 				{
 				case WALKING:
-				case WALKING_PISTOL_RDY:
-				case WALKING_RIFLE_RDY:
+				case WALKING_WEAPON_RDY:
 				case WALKING_DUAL_RDY:
+				case WALKING_ALTERNATIVE_RDY:
 					guiNewUICursor = CONFIRM_MOVE_WALK_UICURSOR;
 					break;
 
@@ -4908,7 +4908,10 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 	}
 	else
 	{
-		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
+		if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+			usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE, TRUE );
+		else
+			usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE, FALSE );
 
 		gsCurrentActionPoints = 0;
 
@@ -4956,6 +4959,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 {
 	INT16							sFacingDir, sAPCost, sAPCostToReady;
 	UINT16							usAnimState;
+	INT32							iBPCpst = 0;
 
 	// Make sure the merc is not collapsed!
 	if (!IsValidStance(pSoldier, ANIM_CROUCH) )
@@ -5013,7 +5017,10 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 	}
 	else
 	{
-		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
+		if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+			usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE, TRUE );
+		else
+			usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE, FALSE );
 
 		sAPCostToReady = sAPCost = 0;
 
@@ -5024,6 +5031,9 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		// Lesh: raise weapon include APs to set weapon towards enemy and APs to aquire/change target
 		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) && pTarget != NULL )
 			sAPCost = APBPConstants[AP_CHANGE_TARGET];
+
+		if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 ) 
+			sAPCost /= 2;
 
 		if( usAnimState != INVALID_ANIMATION )
 		{
@@ -5037,7 +5047,12 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		}
 
 		if( usAnimState != INVALID_ANIMATION )
-			pSoldier->SoldierReadyWeapon( sXPos, sYPos, FALSE );
+		{
+			if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+				pSoldier->SoldierReadyWeapon( sXPos, sYPos, FALSE, TRUE );
+			else
+				pSoldier->SoldierReadyWeapon( sXPos, sYPos, FALSE, FALSE );
+		}
 
 		pSoldier->bTurningFromUI = TRUE;
 		guiOldEvent = LA_BEGINUIOURTURNLOCK;
@@ -5045,7 +5060,14 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		// Setting "Last Target"
 
 		pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);
-		DeductPoints( pSoldier, sAPCost, 0, AFTERACTION_INTERRUPT );
+
+		// SANDRO - get BP cost for weapon manipulating
+		if ( gGameExternalOptions.ubEnergyCostForWeaponWeight)
+			iBPCpst = sAPCost * GetBPCostPer10APsForGunHolding( pSoldier ) / 10;
+		else 
+			iBPCpst = 0;
+
+		DeductPoints( pSoldier, sAPCost, iBPCpst, AFTERACTION_INTERRUPT );
 
 		return( TRUE );
 	}
@@ -5731,7 +5753,10 @@ UINT32 UIHandleJumpOver( UI_EVENT *pUIEvent )
 	pSoldier->flags.fTurningUntilDone = TRUE;
 	// ATE: Reset flag to go back to prone...
 	//pSoldier->flags.fTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
-	pSoldier->usPendingAnimation = JUMP_OVER_BLOCKING_PERSON;
+	if (SpacesAway(pSoldier->sGridNo, usMapPos) == 3 )
+		pSoldier->usPendingAnimation = LONG_JUMP;
+	else
+		pSoldier->usPendingAnimation = JUMP_OVER_BLOCKING_PERSON;
 
 
 	return( GAME_SCREEN );
@@ -6691,16 +6716,22 @@ BOOLEAN ValidQuickExchangePosition( )
 // to jump over people.
 BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckForPath )
 {
-	INT32 sFourGrids[4], sDistance=0, sSpot, sIntSpot;
+	// SANDRO: been here, did mess
+	INT32 sFourGrids[4], sDistance=0, sSpot, sInBetween, sInBetween2, iDoorGridNo;
 	static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
 	//INT32 cnt;
-	UINT8	ubGuyThere;
-	UINT8 ubMovementCost;
-	INT32 iDoorGridNo;
+	UINT8	ubGuyThere, ubMovementCost, ubDirection;
+	INT8 bTileHeight = 0;
 
+	// SANDRO: commented out to allow jumping even in cases we could get to the destination normally
 	// First check that action point cost is zero so far
 	// ie: NO PATH!
-	if ( gsCurrentActionPoints != 0 && fCheckForPath )
+	/*if ( gsCurrentActionPoints != 0 && fCheckForPath )
+	{
+		return( FALSE );
+	}*/
+		
+	if( !(_KeyDown( SHIFT )) )
 	{
 		return( FALSE );
 	}
@@ -6709,25 +6740,26 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 	for (INT8 cnt = 0; cnt < 4; cnt++)
 	{
 		// MOVE OUT TWO DIRECTIONS
-		sIntSpot = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
+		sInBetween = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
 
-	// ATE: Check our movement costs for going through walls!
-	ubMovementCost = gubWorldMovementCosts[ sIntSpot ][ sDirs[ cnt ] ][ pSoldier->pathing.bLevel ];
-	if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
-	{
-		ubMovementCost = DoorTravelCost( pSoldier, sIntSpot, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
-	}
+		// SANDRO: moved this someplace else and made it more fluid
+		// ATE: Check our movement costs for going through walls!
+		/*ubMovementCost = gubWorldMovementCosts[ sIntSpot ][ sDirs[ cnt ] ][ pSoldier->pathing.bLevel ];
+		if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+		{
+			ubMovementCost = DoorTravelCost( pSoldier, sIntSpot, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+		}*/
 
 		// If we have hit an obstacle, STOP HERE
-		if ( ubMovementCost >= TRAVELCOST_BLOCKED )
-		{
-			// no good, continue
-			continue;
-		}
+		//if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+		//{
+		//	// no good, continue
+		//	continue;
+		//}
 
 
 		// TWICE AS FAR!
-		sFourGrids[cnt] = sSpot = NewGridNo( sIntSpot, DirectionInc( sDirs[ cnt ] ) );
+		sFourGrids[cnt] = sSpot = NewGridNo( sInBetween, DirectionInc( sDirs[ cnt ] ) );
 
 		// Is the soldier we're looking at here?
 		ubGuyThere = WhoIsThere2( sSpot, pSoldier->pathing.bLevel );
@@ -6736,21 +6768,214 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 		if ( ubGuyThere == pSoldier->ubID )
 		{
 			// Double check OK destination......
-			if ( NewOKDestination( pSoldier, sGridNo, TRUE, (INT8)gsInterfaceLevel ) )
+			if ( NewOKDestination( pSoldier, sGridNo, TRUE, (INT8)gsInterfaceLevel ) && IsLocationSittable( sGridNo, pSoldier->pathing.bLevel ) )
 			{
 				// If the soldier in the middle of doing stuff?
 				if ( !pSoldier->flags.fTurningUntilDone )
 				{
 					// OK, NOW check if there is a guy in between us
 					//
+					// SANDRO: made this a bit different - if we hold down the shift key, and pointing at a spot 2 tiles away, we check if jumping 
+					// there is possible for all cases, and if it is, then we juuuuumpppp!
+					// So we don't care if there is a guy on the ground there, and the cursor wont appear atutomatically anymore
 					//
-					ubGuyThere = WhoIsThere2( sIntSpot, pSoldier->pathing.bLevel );
-
+					//ubGuyThere = WhoIsThere2( sIntSpot, pSoldier->pathing.bLevel );
 					// Is there a guy and is he prone?
-					if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID && gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight == ANIM_PRONE )
+					//if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID && gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight == ANIM_PRONE )
+					//{
+					//	// It's a GO!
+					//	return( TRUE );
+					//}
+					//else
+
+					// Can't jump from a water tile (but we can jumpt TO a water tile)
+					if ( pSoldier->MercInWater() )
 					{
-						// It's a GO!
-						return( TRUE );
+						return( FALSE );
+					}
+
+					// check for cliffs and similar oddities
+					if ( gpWorldLevelData[ sGridNo ].sHeight != gpWorldLevelData[ sSpot ].sHeight )
+					{
+						return( FALSE );
+					}
+
+					// If there's a guy here, and he's not prone, we can't jump over him (maybe the way we hop over fence? lol)
+					ubGuyThere = WhoIsThere2( sInBetween, pSoldier->pathing.bLevel );
+					if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID && gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight != ANIM_PRONE )
+					{
+						return( FALSE );
+					}
+
+					// Get the height of stuff on the tile, we can only jump over low obstacles like this
+					bTileHeight = GetTallestStructureHeight( sInBetween, pSoldier->pathing.bLevel );
+					if ( bTileHeight > 0 && !IsLocationSittableExcludingPeople( sInBetween, pSoldier->pathing.bLevel ) && !( pSoldier->pathing.bLevel && FlatRoofAboveGridNo( sInBetween ) )) 
+					{
+						return( FALSE );
+					}
+
+					// Check again for these structures as they may have odd height preset
+					if (( FindStructure( sInBetween, STRUCTURE_TREE ) != NULL || FindStructure( sInBetween, STRUCTURE_FENCE ) != NULL ||
+						 FindStructure( sInBetween, STRUCTURE_WIREFENCE ) != NULL || FindStructure( sInBetween, STRUCTURE_VEHICLE ) != NULL ||
+						 FindStructure( sInBetween, STRUCTURE_CAVEWALL ) != NULL ) && !IsLocationSittableExcludingPeople( sInBetween, pSoldier->pathing.bLevel ))
+					{	
+						return( FALSE );
+					}
+
+					// Now check for walls between the tiles
+					// Between our tile and the middle tile...
+					ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, pSoldier->sGridNo );
+					ubMovementCost = gubWorldMovementCosts[ pSoldier->sGridNo ][ ubDirection ][ pSoldier->pathing.bLevel ];
+					if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+					{
+						ubMovementCost = DoorTravelCost( pSoldier, pSoldier->sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+					}
+					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+					{
+						return( FALSE );
+					}
+					// Between destination tile and the middle tile...
+					ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, sGridNo );
+					ubMovementCost = gubWorldMovementCosts[ sGridNo ][ ubDirection ][ pSoldier->pathing.bLevel ];
+					if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+					{
+						ubMovementCost = DoorTravelCost( pSoldier, sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+					}
+					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+					{
+						return( FALSE );
+					}
+
+					// If we got here, we are good to go
+					return ( TRUE );
+				}
+			}
+		}
+		// Attempt to long jump
+		else
+		{
+			// 3 TILES FAR!
+			sInBetween2 = sSpot; 
+			sSpot = NewGridNo( sInBetween2, DirectionInc( sDirs[ cnt ] ) );
+
+			// Is the soldier we're looking at here?
+			ubGuyThere = WhoIsThere2( sSpot, pSoldier->pathing.bLevel );
+
+			// Alright folks, here we are!
+			if ( ubGuyThere == pSoldier->ubID )
+			{
+				// Double check OK destination......
+				if ( NewOKDestination( pSoldier, sGridNo, TRUE, (INT8)gsInterfaceLevel ) && IsLocationSittable( sGridNo, pSoldier->pathing.bLevel ) )
+				{
+					// If the soldier in the middle of doing stuff?
+					if ( !pSoldier->flags.fTurningUntilDone )
+					{			
+						// Can't jump from a water tile (but we can jumpt TO a water tile)
+						if ( pSoldier->MercInWater() )
+						{
+							return( FALSE );
+						}
+
+						// This ain't gonna happen with backpack
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
+						{
+							return( FALSE );
+						}
+
+						// check for cliffs and similar oddities
+						if ( gpWorldLevelData[ sGridNo ].sHeight != gpWorldLevelData[ sSpot ].sHeight )
+						{
+							return( FALSE );
+						}
+
+						// If there's a guy on any of the two middle tiles, and he's not prone, we can't jump over him
+						ubGuyThere = WhoIsThere2( sInBetween, pSoldier->pathing.bLevel );
+						if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID && gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight != ANIM_PRONE )
+						{
+							return( FALSE );
+						}
+						ubGuyThere = WhoIsThere2( sInBetween2, pSoldier->pathing.bLevel );
+						if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID && gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight != ANIM_PRONE )
+						{
+							return( FALSE );
+						}
+
+						// Get the height of stuff on both middle tiles, we can only jump over low obstacles
+						bTileHeight = GetTallestStructureHeight( sInBetween, pSoldier->pathing.bLevel );
+						if ( bTileHeight > 0 && !IsLocationSittableExcludingPeople( sInBetween, pSoldier->pathing.bLevel ) && !( pSoldier->pathing.bLevel && FlatRoofAboveGridNo( sInBetween ) )) 
+						{
+							return( FALSE );
+						}
+						bTileHeight = GetTallestStructureHeight( sInBetween2, pSoldier->pathing.bLevel );
+						if ( bTileHeight > 0 && !IsLocationSittableExcludingPeople( sInBetween2, pSoldier->pathing.bLevel ) && !( pSoldier->pathing.bLevel && FlatRoofAboveGridNo( sInBetween2 ) )) 
+						{
+							return( FALSE );
+						}
+
+						// Check again for these structures as they may have odd height preset
+						if (( FindStructure( sInBetween, STRUCTURE_TREE ) != NULL || FindStructure( sInBetween, STRUCTURE_FENCE ) != NULL ||
+							 FindStructure( sInBetween, STRUCTURE_WIREFENCE ) != NULL || FindStructure( sInBetween, STRUCTURE_VEHICLE ) != NULL ||
+							 FindStructure( sInBetween, STRUCTURE_CAVEWALL ) != NULL ) && !IsLocationSittableExcludingPeople( sInBetween, pSoldier->pathing.bLevel ))
+						{	
+							return( FALSE );
+						}
+						if (( FindStructure( sInBetween2, STRUCTURE_TREE ) != NULL || FindStructure( sInBetween2, STRUCTURE_FENCE ) != NULL ||
+							 FindStructure( sInBetween2, STRUCTURE_WIREFENCE ) != NULL || FindStructure( sInBetween2, STRUCTURE_VEHICLE ) != NULL ||
+							 FindStructure( sInBetween2, STRUCTURE_CAVEWALL ) != NULL ) && !IsLocationSittableExcludingPeople( sInBetween2, pSoldier->pathing.bLevel ))
+						{	
+							return( FALSE );
+						}
+
+						// Now check for walls between the tiles
+						// Between our tile and the middle tile next to us...
+						ubDirection = GetDirectionToGridNoFromGridNo( sInBetween2, pSoldier->sGridNo );
+						ubMovementCost = gubWorldMovementCosts[ pSoldier->sGridNo ][ ubDirection ][ pSoldier->pathing.bLevel ];
+						if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+						{
+							ubMovementCost = DoorTravelCost( pSoldier, pSoldier->sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+						}
+						if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+						{
+							return( FALSE );
+						}
+						// Between destination tile and the middle tile next to it...
+						ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, sGridNo );
+						ubMovementCost = gubWorldMovementCosts[ sGridNo ][ ubDirection ][ pSoldier->pathing.bLevel ];
+						if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+						{
+							ubMovementCost = DoorTravelCost( pSoldier, sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+						}
+						if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+						{
+							return( FALSE );
+						}
+						// Now we need to check if there is not a wall between the two middle tiles
+						ubDirection = GetDirectionToGridNoFromGridNo( sInBetween2, sInBetween );
+						switch (ubDirection)
+						{
+						case NORTH: 
+							if ( WallOrClosedDoorExistsOfTopLeftOrientation( sInBetween ) )
+								return( FALSE );
+							break;
+						case EAST: 
+							if ( WallOrClosedDoorExistsOfTopRightOrientation( sInBetween2 ) )
+								return( FALSE );
+							break;
+						case SOUTH:
+							if ( WallOrClosedDoorExistsOfTopLeftOrientation( sInBetween2 ) )
+								return( FALSE );
+							break;
+						case WEST:
+							if ( WallOrClosedDoorExistsOfTopRightOrientation( sInBetween ) )
+								return( FALSE );
+							break;	
+						default:
+							return( FALSE );
+							break;							
+						}						
+
+						// If we got here, we are good to go
+						return ( TRUE );
 					}
 				}
 			}

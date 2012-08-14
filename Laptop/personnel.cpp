@@ -7182,11 +7182,20 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				if( gSkillTraitValues.ubSNAimClicksAdded != 0 )
 				{
-					if( gSkillTraitValues.ubSNAimClicksAdded == 1 && !fExpertLevel )
-						swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[15]);
+					if( UsingNewCTHSystem() == true )
+					{
+						if( gSkillTraitValues.ubSNAimClicksAdded == 1 && !fExpertLevel )
+							swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[17]);
+						else
+							swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[18], ( gSkillTraitValues.ubSNAimClicksAdded * (fExpertLevel ? 2 : 1)));
+					}
 					else
-						swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[16], ( gSkillTraitValues.ubSNAimClicksAdded * (fExpertLevel ? 2 : 1)));
-
+					{
+						if( gSkillTraitValues.ubSNAimClicksAdded == 1 && !fExpertLevel )
+							swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[15]);
+						else
+							swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[16], ( gSkillTraitValues.ubSNAimClicksAdded * (fExpertLevel ? 2 : 1)));
+					}
 					wcscat( apStr, atStr );
 				}
 				break;

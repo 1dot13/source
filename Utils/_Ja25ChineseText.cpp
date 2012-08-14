@@ -134,6 +134,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"栓动步枪拉栓所需行动点 -%d%s \n",// L"-%d%s APs needed to chamber a round with bolt-action rifles \n",
 	L"步枪精确瞄准次数增加 1次\n",// L"Adds one more aim click for rifle-type guns\n",
 	L"步枪精确瞄准次数增加 %d次\n",// L"Adds %d more aim clicks for rifle-type guns\n",
+	// TO DO - translate
+	L"Makes aiming faster with rifle-type guns by one aim click\n",
+	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

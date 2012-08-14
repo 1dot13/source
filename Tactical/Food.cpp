@@ -431,7 +431,9 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 		{
 			UINT8 numberofreduces = 1;
 			// if starving, we lose stats a LOT faster
-			if ( foodsituation == FOOD_STARVING )
+			// SANDRO - shouldn't it be "watersituation" here?
+			//if ( foodsituation == FOOD_STARVING )
+			if ( watersituation == FOOD_STARVING )
 				numberofreduces += Random(2);
 						
 			INT8 oldval = pSoldier->stats.bStrength;
@@ -457,7 +459,9 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 		{
 			UINT8 numberofreduces = 1;
 			// if starving, we lose stats a LOT faster
-			if ( foodsituation == FOOD_STARVING )
+			// SANDRO - shouldn't it be "watersituation" here?
+			//if ( foodsituation == FOOD_STARVING )
+			if ( watersituation == FOOD_STARVING )
 				numberofreduces += 1 + 2 * Random(2);
 
 			INT8 oldlife = pSoldier->stats.bLife;

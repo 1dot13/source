@@ -132,6 +132,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"-%d%s APs benötigt um ein Repetiergewehr erneut fertigzuladen.\n",
 	L"Gibt einen weiteren Ziel-Klick für gewehrartige Waffen\n",
 	L"Gibt weitere %d Ziel-Klicks für gewehrartige Waffen\n",
+	// TO DO - translate
+	L"Makes aiming faster with rifle-type guns by one aim click\n",
+	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

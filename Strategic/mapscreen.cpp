@@ -9741,9 +9741,9 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[pSoldier->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && !(Item[pSoldier->inv[ uiHandPos ].usItem].singleshotrocketlauncher) )
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[pSoldier->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (pSoldier->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[pSoldier->inv[ uiHandPos ].usItem].singleshotrocketlauncher) )
 				{
-					EmptyWeaponMagazine( &(pSoldier->inv[ uiHandPos ]), &gItemPointer );
+					EmptyWeaponMagazine( &(pSoldier->inv[ uiHandPos ]), &gItemPointer, uiHandPos );
 					InternalMAPBeginItemPointer( pSoldier );
 				}
 				else

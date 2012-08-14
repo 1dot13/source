@@ -3539,10 +3539,12 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						ubAPCost += APBPConstants[AP_MODIFIER_RUN];
 						//ubAPCost = (INT16)(DOUBLE)( (sTileCost / RUNDIVISOR) );	break;
 						break;
-					case WALKING_PISTOL_RDY: 
-					case WALKING_RIFLE_RDY:
+					case WALKING_WEAPON_RDY:
 					case WALKING_DUAL_RDY:
 						ubAPCost += APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];	//WALKCOST);
+						break;
+					case WALKING_ALTERNATIVE_RDY:
+						ubAPCost += APBPConstants[AP_MODIFIER_WALK];	//WALKCOST);
 						break;
 					case WALKING:
 						ubAPCost += APBPConstants[AP_MODIFIER_WALK];	//WALKCOST);
@@ -3584,17 +3586,17 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 					{
 						case RUNNING:
 						case WALKING :
-						case WALKING_PISTOL_RDY:
-						case WALKING_RIFLE_RDY:
+						case WALKING_WEAPON_RDY:
 						case WALKING_DUAL_RDY:
+						case WALKING_ALTERNATIVE_RDY :
 							// Here pessimistically assume the path will continue after hopping the fence
-							ubAPCost += GetAPsCrouch( s, TRUE ); // SANDRO - changed
+							ubAPCost += GetAPsCrouch( s, TRUE );
 							break;
 
 						case SWATTING:
 
 							// Add cost to stand once there BEFORE jumping....
-							ubAPCost += GetAPsCrouch( s, TRUE ); // SANDRO - changed
+							ubAPCost += GetAPsCrouch( s, TRUE );
 							break;
 
 						case CRAWLING:
@@ -3609,11 +3611,11 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 					{
 						case RUNNING:
 						case WALKING :
-						case WALKING_PISTOL_RDY:
-						case WALKING_RIFLE_RDY:
+						case WALKING_WEAPON_RDY:
 						case WALKING_DUAL_RDY:
+						case WALKING_ALTERNATIVE_RDY :
 							// charge crouch APs for ducking head!
-							ubAPCost += GetAPsCrouch( s, TRUE ); // SANDRO - changed
+							ubAPCost += GetAPsCrouch( s, TRUE );
 							break;
 
 						default:
@@ -3622,7 +3624,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 				else if (fGoingThroughDoor)
 				{
-					ubAPCost += GetAPsToOpenDoor( s ); // changed by SANDRO
+					ubAPCost += GetAPsToOpenDoor( s );
 					fGoingThroughDoor = FALSE;
 				}
 
@@ -4477,15 +4479,15 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				{
 					case RUNNING:
 					case WALKING :
-					case WALKING_PISTOL_RDY:
-					case WALKING_RIFLE_RDY:
+					case WALKING_WEAPON_RDY:
 					case WALKING_DUAL_RDY:
+					case WALKING_ALTERNATIVE_RDY :
 
 						// Add here cost to go from crouch to stand AFTER fence hop....
 						// Since it's AFTER.. make sure we will be moving after jump...
 						if ( ( iCnt + 2 ) < iLastGrid )
 						{
-							sExtraCostStand += GetAPsCrouch(pSold, TRUE); // changed by SANDRO
+							sExtraCostStand += GetAPsCrouch(pSold, TRUE);
 
 				// ATE: if running, charge extra point to srart again
 				if ( usMovementModeToUseForAPs== RUNNING )
@@ -4500,7 +4502,7 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					case SWATTING:
 
 						// Add cost to stand once there BEFORE....
-						sExtraCostSwat += GetAPsCrouch(pSold, TRUE); // changed by SANDRO
+						sExtraCostSwat += GetAPsCrouch(pSold, TRUE);
 						sPoints = sPoints + sExtraCostSwat;              
 						break;
 
@@ -4521,11 +4523,11 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					{
 						case RUNNING:
 						case WALKING :
-						case WALKING_PISTOL_RDY:
-						case WALKING_RIFLE_RDY:
+						case WALKING_WEAPON_RDY:
 						case WALKING_DUAL_RDY:
+						case WALKING_ALTERNATIVE_RDY :
 							// charge crouch APs for ducking head!
-							sExtraCostStand += GetAPsCrouch(pSold, TRUE); // changed by SANDRO
+							sExtraCostStand += GetAPsCrouch(pSold, TRUE);
 							break;
 
 						default:
@@ -4553,8 +4555,10 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 							sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK];						
 						}
 						break;
-					case WALKING_PISTOL_RDY:
-					case WALKING_RIFLE_RDY:
+					case WALKING_ALTERNATIVE_RDY :
+						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK];
+						break;
+					case WALKING_WEAPON_RDY:
 					case WALKING_DUAL_RDY:
 						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 						break;

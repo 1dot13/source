@@ -2764,7 +2764,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	case AI_ACTION_LOWER_GUN:
 		// for now, just do "action done"
-		pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection,TRUE);
+		pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection,TRUE,FALSE);
 		HandleSight(pSoldier, SIGHT_LOOK );
 		ActionDone( pSoldier );
 		break;
@@ -2774,7 +2774,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		HandleSight(pSoldier, SIGHT_LOOK | SIGHT_RADIO);
 
 		//AXP 23.03.2007: Sniper deadlock fix
-		if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
+		//if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
+		if ( pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
 		{
 			pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 		}

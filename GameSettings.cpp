@@ -1119,6 +1119,19 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fAllowWalkingWithWeaponRaised		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_WALKING_WITH_WEAPON_RAISED", TRUE);
 
+	// SANDRO - Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
+	gGameExternalOptions.ubAllowAlternativeWeaponHolding			= iniReader.ReadInteger("Tactical Gameplay Settings","ALLOW_ALTERNATIVE_WEAPON_HOLDING", 3, 0, 3);
+	gGameExternalOptions.ubToAltWeaponHoldReadyAPsPerc				= iniReader.ReadInteger("Tactical Gameplay Settings","RAISE_TO_ALTWEAPHOLD_READY_APS_PERC", 25, 0, 100);
+	gGameExternalOptions.ubFromAltWeaponHoldReadyAPsPerc			= iniReader.ReadInteger("Tactical Gameplay Settings","RAISE_FROM_ALTWEAPHOLD_READY_APS_PERCENTAGE", 75, 0, 100);
+	gGameExternalOptions.ubAltWeaponHoldingFireSpeedBonus			= iniReader.ReadInteger("Tactical Gameplay Settings","FASTER_SHOT_FROM_ALTWEAPHOLD_PERC", 10, 0, 90);
+	gGameExternalOptions.ubAltWeaponHoldingCtHPenaly				= iniReader.ReadInteger("Tactical Gameplay Settings","CTH_PENALTY_FROM_ALTWEAPHOLD", 30, 0, 90);
+	gGameExternalOptions.ubAltWeaponHoldingAimingPenaly				= iniReader.ReadInteger("Tactical Gameplay Settings","AIMING_PENALY_FROM_ALTWEAPHOLD", 30, 0, 90);
+	gGameExternalOptions.ubAltWeaponHoldingAimLevelsReduced			= iniReader.ReadInteger("Tactical Gameplay Settings","AIMING_LEVELS_REDUCTION_ON_ALTWEAPHOLD", 50, 0, 90);
+
+	// Sandro: Energy cost on weapon manipulation
+	gGameExternalOptions.ubEnergyCostForWeaponWeight				= iniReader.ReadInteger("Tactical Gameplay Settings","ENERGY_COST_FOR_WEAPON_WEIGHT", 100, 0, 250);
+	gGameExternalOptions.ubEnergyCostForWeaponRecoilKick			= iniReader.ReadInteger("Tactical Gameplay Settings","ENERGY_COST_FOR_WEAPON_RECOIL_KICK", 100, 0, 250);
+
 	gGameExternalOptions.fWeaponResting						= iniReader.ReadBoolean("Tactical Gameplay Settings","WEAPON_RESTING",TRUE);
 	gGameExternalOptions.fDisplayWeaponRestingIndicator		= iniReader.ReadBoolean("Tactical Gameplay Settings","WEAPON_RESTING_DISPLAY",TRUE);
 	gGameExternalOptions.ubProneModifierPercentage			= iniReader.ReadInteger("Tactical Gameplay Settings","WEAPON_RESTING_PRONE_BONI_PERCENTAGE", 50, 0, 100);
@@ -1278,6 +1291,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubBasicReactionTimeLengthIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_REACTION_TIME_LENGTH", 25, 5, 100);
 	gGameExternalOptions.fAllowCollectiveInterrupts			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALLOW_COLLECTIVE_INTERRUPTS", TRUE);
 	gGameExternalOptions.fAllowInstantInterruptsOnSight		= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALLOW_INSTANT_INTERRUPTS_ON_SPOTTING", FALSE);
+
+	gGameExternalOptions.fNoEnemyAutoReadyWeapon			= iniReader.ReadInteger("Tactical Gameplay Settings", "NO_ENEMY_AUTOMATIC_WEAPON_READYING", 1, 0, 2);
 
 	//################# Tactical Cover System Settings ##################
 
@@ -1989,7 +2004,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubMAAPsChangeStanceReduction = iniReader.ReadInteger("Martial Arts","APS_CHANGE_STANCE_REDUCTION", 25, 0, 100);
 	gSkillTraitValues.ubMAApsTurnAroundReduction = iniReader.ReadInteger("Martial Arts","APS_TURN_AROUND_REDUCTION", 25, 0, 100);
 	gSkillTraitValues.ubMAAPsClimbOrJumpReduction = iniReader.ReadInteger("Martial Arts","APS_CLIMB_OR_JUMP_REDUCTION", 25, 0, 100);
-	gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving = iniReader.ReadInteger("Martial Arts","REDUCED_CHANCE_TO_BE_INTERRUPTED_WHEN_MOVING", 35, 0, 100);
+	gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving = iniReader.ReadInteger("Martial Arts","REDUCED_CHANCE_TO_BE_INTERRUPTED_WHEN_CHARGING_IN", 40, 0, 100);
 	gSkillTraitValues.ubMAChanceToCkickDoors = iniReader.ReadInteger("Martial Arts","CHANCE_KICK_DOORS_BONUS", 25, 0, 250);
 	gSkillTraitValues.fPermitExtraAnimationsOnlyToMA = iniReader.ReadBoolean("Martial Arts","PERMIT_EXTRA_ANIMATIONS_TO_EXPERT_MARTIAL_ARTS_ONLY", TRUE);
 
@@ -2081,7 +2096,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubSTStealthModeSpeedBonus = iniReader.ReadInteger("Stealthy","STEALTH_MODE_SPEED_BONUS", 50, 0, 100);
 	gSkillTraitValues.ubSTBonusToMoveQuietly = iniReader.ReadInteger("Stealthy","BONUS_TO_MOVE_STEALTHILY", 40, 0, 250);
 	gSkillTraitValues.ubSTStealthBonus = iniReader.ReadInteger("Stealthy","STEALTH_BONUS", 25, 0, 200);
-	gSkillTraitValues.ubSTReducedAPsRegistered = iniReader.ReadInteger("Stealthy","REDUCED_CHANCE_TO_BE_INTERRUPTED", 30, 0, 100);
+	gSkillTraitValues.ubSTReducedAPsRegistered = iniReader.ReadInteger("Stealthy","REDUCED_CHANCE_TO_BE_INTERRUPTED", 20, 0, 100);
 	gSkillTraitValues.ubSTStealthPenaltyForMovingReduction = iniReader.ReadInteger("Stealthy","CHANCE_TO_BE_SPOTTED_FOR_MOVING_REDUCTION", 25, 0, 100);
 
 	// ATHLETICS

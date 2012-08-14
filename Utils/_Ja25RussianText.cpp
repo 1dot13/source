@@ -133,6 +133,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"-%d%s ОД на передёргивание затвора магазинных винтовок\n",
 	L"Плюс 1 клик-прицеливания к оружию типа винтовки\n",
 	L"Плюс %d клик-прицеливания к оружию типа винтовки\n",
+	// TO DO - translate
+	L"Makes aiming faster with rifle-type guns by one aim click\n",
+	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

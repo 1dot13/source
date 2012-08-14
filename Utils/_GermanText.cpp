@@ -6634,6 +6634,19 @@ STR16 sEnemyTauntsGotHit[]=
 
 };
 
+// TODO.Translate
+STR16 sEnemyTauntsNoticedMerc[]=
+{
+	L"Da'ffff...!",
+	L"Oh my God!",
+	L"Holy crap!",
+	L"Enemy!!!",
+	L"Alert! Alert!",
+	L"There is one!",
+	L"Attack!",
+
+};
+
 
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
@@ -6904,8 +6917,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nDieser Gegenstand kann dazu benutzt werden verschlossene\nTüren/Behälter zu sprengen.\n \nExplosionsfertigkeit ist erforderlich um\nvorzeitige Detonationen zu vermeiden.\n \nSchlösser zu sprengen ist der einfache Weg um schnell\ndurch verschlossene Türen/Behälter zu kommen. Wie auch immer,\nes ist Laut und für die meisten Personen gefährlich.",
 	L"\n \nMan kann das trinken.",
 	L"\n \nMan kann das essen.",
-	L"\n \Ein externer Munitionsgurt für MGs.",
-	L"\n \In diese Weste passen auch Munitionsgurte.",
+	L"\n \nEin externer Munitionsgurt für MGs.",
+	L"\n \nIn diese Weste passen auch Munitionsgurte.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

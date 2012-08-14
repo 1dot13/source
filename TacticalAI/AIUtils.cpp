@@ -39,7 +39,7 @@
 // InWaterOrGas - gas stuff
 // RoamingRange - point patrol stuff
 
-extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
 UINT8 Urgency[NUM_STATUS_STATES][NUM_MORALE_STATES] =
 {
@@ -189,7 +189,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 
 	UINT16	usRealAnimState, usBestAnimState;
 	INT8		bBestStanceDiff=-1;
-	INT8		bLoop, bStanceNum, bStanceDiff, bAPsAfterAttack, bCurAimTime;
+	INT8		bLoop, bStanceNum, bStanceDiff, bAPsAfterAttack, bCurAimTime, bSetScopeMode;
 	UINT32	uiChanceOfDamage, uiBestChanceOfDamage, uiCurrChanceOfDamage;
 	UINT32	uiStanceBonus, uiMinimumStanceBonusPerChange = 20 - 3 * pAttack->ubAimTime;
 	INT32		iRange;
@@ -197,7 +197,10 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	bStanceNum = 0;
 	uiCurrChanceOfDamage = 0;
 
-	bAPsAfterAttack = pSoldier->bActionPoints - MinAPsToAttack( pSoldier, pAttack->sTarget, ADDTURNCOST, 1);
+	bSetScopeMode = pSoldier->bScopeMode;
+	pSoldier->bScopeMode = pAttack->bScopeMode;
+	bAPsAfterAttack = pSoldier->bActionPoints - MinAPsToAttack( pSoldier, pAttack->sTarget, ADDTURNCOST, pAttack->ubAimTime, 1);
+	pSoldier->bScopeMode = bSetScopeMode;
 	if (bAPsAfterAttack < GetAPsCrouch(pSoldier, TRUE))
 	{
 		return( 0 );
@@ -511,7 +514,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 		case AI_ACTION_KNIFE_MOVE:            // preparing to stab adjacent opponent
 		case AI_ACTION_THROW_KNIFE:
 			// only FIRE_GUN currently actually pays extra turning costs!
-			bMinPointsNeeded = MinAPsToAttack(pSoldier,pSoldier->aiData.usActionData,ADDTURNCOST);
+			bMinPointsNeeded = MinAPsToAttack(pSoldier,pSoldier->aiData.usActionData,ADDTURNCOST,pSoldier->aiData.bAimTime);
 
 #ifdef BETAVERSION
 			if (ptsNeeded > pSoldier->bActionPoints)

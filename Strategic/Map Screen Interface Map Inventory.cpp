@@ -1217,7 +1217,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						}
 						else
 						{
-							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && !(Item[twItem->object.usItem].singleshotrocketlauncher))
+							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && (twItem->object)[0]->data.gun.ubGunShotsLeft && !(Item[twItem->object.usItem].singleshotrocketlauncher))
 							{
 								EmptyWeaponMagazine( &twItem->object, &gItemPointer );
 								InternalMAPBeginItemPointer( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );

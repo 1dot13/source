@@ -1750,6 +1750,14 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			buffer += sizeof(FLOAT);
 			buffer += sizeof(FLOAT);
 		}
+		// SANDRO: my attempt at making older save games compatible (usually fails, dunno why)
+		// with dual bursts, dPrevMuzzleOffsetX,dPrevMuzzleOffsetY,dPrevCounterForceX,dPrevCounterForceY was made dPrevMuzzleOffsetX[2], etc.
+		if(guiCurrentSaveGameVersion < DUAL_BURST_ADDED) {
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+		}
 		if(guiCurrentSaveGameVersion >= NCTH_AUTOFIRE_UPDATE){
 			numBytesRead = ReadFieldByField(hFile, &this->dInitialMuzzleOffsetX, sizeof(dInitialMuzzleOffsetX), sizeof(FLOAT), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->dInitialMuzzleOffsetY, sizeof(dInitialMuzzleOffsetY), sizeof(FLOAT), numBytesRead);

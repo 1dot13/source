@@ -312,6 +312,7 @@ extern STR16 sEnemyTauntsRunAway[];
 extern STR16 sEnemyTauntsSeekNoise[];
 extern STR16 sEnemyTauntsAlert[];
 extern STR16 sEnemyTauntsGotHit[];
+extern STR16 sEnemyTauntsNoticedMerc[];
 //****
 
 // HEADROCK HAM 3.6: New arrays for facility operation messages

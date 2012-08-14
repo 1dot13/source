@@ -2024,7 +2024,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if (pSoldier && pSoldier->inv[HANDPOS].exists() == true)
 				{
 					sGridNo = pSoldier->sGridNo + DirectionInc( pSoldier->ubDirection );
-					pSoldier->SoldierReadyWeapon( (INT16) (sGridNo % WORLD_COLS), (INT16) (sGridNo / WORLD_COLS), FALSE );
+					pSoldier->SoldierReadyWeapon( (INT16) (sGridNo % WORLD_COLS), (INT16) (sGridNo / WORLD_COLS), FALSE, FALSE );
 				}
 				break;
 
@@ -2295,7 +2295,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					SwapObjs( pSoldier, HANDPOS, bItemIn, TRUE );
 					sGridNo = pSoldier->sGridNo + DirectionInc( pSoldier->ubDirection );
-					pSoldier->SoldierReadyWeapon( (INT16) (sGridNo % WORLD_COLS), (INT16) (sGridNo / WORLD_COLS), FALSE );
+					pSoldier->SoldierReadyWeapon( (INT16) (sGridNo % WORLD_COLS), (INT16) (sGridNo / WORLD_COLS), FALSE, FALSE );
 				}
 				// fall through so that the person faces the nearest merc!
 			case NPC_ACTION_TURN_TO_FACE_NEAREST_MERC:

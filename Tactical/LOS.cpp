@@ -2694,7 +2694,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	}
 
 	// check to see if the guy is a friendly?..if so, up the number of times wounded
-	if( ( pTarget->bTeam == gbPlayerNum ) )
+	if( ( pTarget->bTeam == gbPlayerNum ) && iDamage > 1 ) // damage of 1 is just a scratch, not a real wound
 	{
 		if ( pBullet->usFlags & BULLET_FLAG_BUCKSHOT ) 
 		{
@@ -2702,7 +2702,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			if ( pTarget->bNumPelletsHitBy == 0 )
 				gMercProfiles[ pTarget->ubProfile ].records.usTimesWoundedShot++;
 		}
-		else if ( iDamage > 1 ) // damage of 1 is just a scratch, not a real wound
+		else
 		{
 			if ( pBullet->usFlags & BULLET_FLAG_KNIFE )
 				gMercProfiles[ pTarget->ubProfile ].records.usTimesWoundedStabbed++;
@@ -4141,6 +4141,10 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 
 	OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &(pFirer->inv[pFirer->ubAttackingHand]) );
 
+	BOOLEAN fSecondHandBurst = FALSE;
+	if ( pFirer->ubAttackingHand == SECONDHANDPOS && pFirer->IsValidSecondHandBurst() ) 
+		fSecondHandBurst = TRUE;
+
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBulletGivenTarget"));
 
 	CalculateSoldierZPos( pFirer, FIRING_POS, &dStartZ );
@@ -4468,7 +4472,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 
 		pBullet->ddHorizAngle = ddHorizAngle;
 
-		if (ubLoop == 0 && pFirer->bDoBurst < 2)
+		if (ubLoop == 0 && (pFirer->bDoBurst < 2 || (fSecondHandBurst && pFirer->bDoBurst == 2)))
 		{
 			pBullet->fAimed = TRUE;
 		}
@@ -4616,6 +4620,10 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	int n=0;
 
 	OBJECTTYPE* pObjAttHand = pFirer->GetUsedWeapon( &(pFirer->inv[pFirer->ubAttackingHand]) );
+
+	BOOLEAN fSecondHandBurst = FALSE;
+	if ( pFirer->ubAttackingHand == SECONDHANDPOS && pFirer->IsValidSecondHandBurst() ) 
+		fSecondHandBurst = TRUE;
 
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBulletGivenTarget"));
 
@@ -4970,7 +4978,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 		pBullet->ddHorizAngle = ddHorizAngle;
 
-		if (ubLoop == 0 && pFirer->bDoBurst < 2)
+		if (ubLoop == 0 && pFirer->bDoBurst < 2 || (fSecondHandBurst && pFirer->bDoBurst == 2))
 		{
 			pBullet->fAimed = TRUE;
 		}
@@ -7360,6 +7368,10 @@ BOOLEAN CalculateLOSNormal( 	STRUCTURE *pStructure, INT8 bLOSX, INT8 bLOSY, INT8
 void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT *dEndX, FLOAT *dEndY, FLOAT *dEndZ, OBJECTTYPE *pWeapon, UINT32 uiMuzzleSway, INT16 *sApertureRatio )
 {
 	SOLDIERTYPE *pTarget = SimpleFindSoldier( iTargetGridNo, pShooter->bTargetLevel );
+	BOOLEAN fSecondHandBurst = FALSE;
+
+	if ( pShooter->ubAttackingHand == SECONDHANDPOS && pShooter->IsValidSecondHandBurst() ) 
+		fSecondHandBurst = TRUE;
 
 	///////////////////////////////////////////
 	// Calculate shooter's coordinates
@@ -7452,7 +7464,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	// Note that both optical magnification devices (like scopes) and dot-projection devices (like lasers and 
 	// reflex sights) provide this sort of bonus.
 
-	FLOAT iMagFactor = CalcMagFactor( pShooter, pWeapon, d2DDistance, (UINT8)pShooter->aiData.bAimTime );
+	FLOAT iMagFactor = CalcMagFactor( pShooter, pWeapon, d2DDistance, iTargetGridNo, (UINT8)pShooter->aiData.bAimTime );
 
 	// Next step is to apply scope/projection factor to decrease the size of the aperture. This gives us the "Max
 	// Aperture" value - the size of the shooting circle if the gun is as unstable as possible.
@@ -7483,7 +7495,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	// As you'll see, this allows the shooter to readjust the weapon WHILE it is firing, rather than randomize
 	// muzzle movements every time.
 	
-	if (pShooter->bDoBurst <= 1)
+	if (pShooter->bDoBurst <= 1 || (fSecondHandBurst && pShooter->bDoBurst == 2))
 	{
 
 		///////////////////////////////////////////////////////////////////////////////////////////
@@ -7520,12 +7532,14 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 		/////////////////////////////////////////////
 		// First shot in a burst/auto volley
 
-		if (pShooter->bDoBurst == 1 || pShooter->bDoAutofire > 1)
+		if (pShooter->bDoBurst == 1 || pShooter->bDoAutofire > 1 || (fSecondHandBurst && pShooter->bDoBurst == 2))
 		{
 			// A shooter does not get to exercise counter-force on the first few bullets in a volley.
 			// These commands reset the counter-force.
-			pShooter->dPrevCounterForceX = 0.0;
-			pShooter->dPrevCounterForceY = 0.0;
+			pShooter->dPrevCounterForceX[0] = 0.0;
+			pShooter->dPrevCounterForceX[1] = 0.0;
+			pShooter->dPrevCounterForceY[0] = 0.0;
+			pShooter->dPrevCounterForceY[1] = 0.0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////
 			// STEP 4: Pre-Compensating for Future Recoil
@@ -7552,8 +7566,16 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 		// In a Burst/Autofire volley, we do not need to recalculate muzzle sway or target movement offsets and
 		// other related muzzle movements. Instead, we inherit the muzzle offset variables from the previous bullet
 		// in the volley.
-		dMuzzleOffsetX = pShooter->dPrevMuzzleOffsetX;
-		dMuzzleOffsetY = pShooter->dPrevMuzzleOffsetY;
+		if ( fSecondHandBurst )
+		{
+			dMuzzleOffsetX = pShooter->dPrevMuzzleOffsetX[1];
+			dMuzzleOffsetY = pShooter->dPrevMuzzleOffsetY[1];
+		}
+		else
+		{
+			dMuzzleOffsetX = pShooter->dPrevMuzzleOffsetX[0];
+			dMuzzleOffsetY = pShooter->dPrevMuzzleOffsetY[0];
+		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////
 		// STEP 4: Recoil Offset
@@ -7580,15 +7602,25 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 		// just remember were our muzzle was pointed last, and proceed from there. This allows volleys to be adjusted
 		// while they're being fired, with the hope of redirecting the muzzle towards the center of the target if
 		// the first shot was off-center.
-		pShooter->dPrevMuzzleOffsetX = dMuzzleOffsetX;
-		pShooter->dPrevMuzzleOffsetY = dMuzzleOffsetY;
+		if ( fSecondHandBurst )
+		{
+			pShooter->dPrevMuzzleOffsetX[1] = dMuzzleOffsetX;
+			pShooter->dPrevMuzzleOffsetY[1] = dMuzzleOffsetY;
+		}
+		else
+		{
+			pShooter->dPrevMuzzleOffsetX[0] = dMuzzleOffsetX;
+			pShooter->dPrevMuzzleOffsetY[0] = dMuzzleOffsetY;
+		}
 	}
 	else
 	{
 		// Single-shot fire does not require storing Muzzle Offset for later use. The next fired bullet will calculate
 		// its own offsets. To be on the safe side, we reset the Muzzle Offset values stored in the shooter's data.
-		pShooter->dPrevMuzzleOffsetX = 0;
-		pShooter->dPrevMuzzleOffsetY = 0;
+		pShooter->dPrevMuzzleOffsetX[0] = 0;
+		pShooter->dPrevMuzzleOffsetX[1] = 0;
+		pShooter->dPrevMuzzleOffsetY[0] = 0;
+		pShooter->dPrevMuzzleOffsetY[1] = 0;
 	}
 
 	UINT16 uiRange = GunRange(pWeapon, pShooter);
@@ -7727,7 +7759,7 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 			GetScopeLists(pWeapon, ObjList);
 		
 			// only use scope mode if gun is in hand, otherwise an error might occur!
-			if ( (&pShooter->inv[HANDPOS]) == pWeapon )
+			if ( (&pShooter->inv[HANDPOS]) == pWeapon && ObjList[pShooter->bScopeMode] != NULL && pShooter->bScopeMode != USE_ALT_WEAPON_HOLD )
 				iProjectionFactor = Item[ObjList[pShooter->bScopeMode]->usItem].projectionfactor;
 		}
 		else
@@ -7743,16 +7775,18 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 	return iProjectionFactor;
 }
 
-FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistance, UINT8 ubAimTime )
+FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistance, INT32 iTargetGridNo, UINT8 ubAimTime )
 {
 	FLOAT iFinalMagFactor = 1.0;
-	FLOAT iScopeFactor = 0;
+	FLOAT iScopeFactor = 1.0;
 	FLOAT iProjectionFactor = 0;
 
 	// Flugente: if scope modes are allowed, player team uses them. We either use a scope or we don't, so the magnification factor isn't fitted to range (this is actually bad)
 	if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
 	{
-		iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
+		if (!pShooter->IsValidAlternativeFireMode( ubAimTime, iTargetGridNo ) )
+			iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
+
 		iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
 		iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
 	}
@@ -7763,8 +7797,11 @@ FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistan
 
 		if (ubAimTime > 0)
 		{
-			iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
-			iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
+			if (!pShooter->IsValidAlternativeFireMode( ubAimTime, iTargetGridNo ) )
+			{
+				iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
+				iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
+			}
 			iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
 			iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
 		}
@@ -8420,6 +8457,21 @@ UINT32 CalcCounterForceFrequency(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon)
 						gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_EXP_LEVEL;
 	iCounterForceFrequency /= iDivisor;
 
+	// SAMDRO - shooting dual bursts is somehow harder to control, unless we are ambidextrous
+	if ( pShooter->IsValidSecondHandBurst() )
+	{
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			if ( !(HAS_SKILL_TRAIT( pShooter, AMBIDEXTROUS_NT )) )
+				iCounterForceFrequency = iCounterForceFrequency*9/10; // -10% 
+		}
+		else
+		{
+			if ( !(HAS_SKILL_TRAIT( pShooter, AMBIDEXT_OT )) )
+				iCounterForceFrequency = iCounterForceFrequency*9/10; // -10% 
+		}
+	}
+
 	// Bridge the gap to 100 with the help of the AUTO-WEAPONS skill
 	if(gGameOptions.fNewTraitSystem)
 		traitLoop = NUM_SKILL_TRAITS( pShooter, AUTO_WEAPONS_NT );
@@ -8519,6 +8571,21 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 	INT32 iModifier = (INT32)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
 	UINT32 uiCounterForceAccuracy = (UINT32)(iCounterForceAccuracy + ((iCounterForceAccuracy * iModifier) / 100));
+
+	// SANDRO - shooting dual bursts is somehow harder to control, unless we are ambidextrous
+	if ( pShooter->IsValidSecondHandBurst() )
+	{
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			if ( !(HAS_SKILL_TRAIT( pShooter, AMBIDEXTROUS_NT )) )
+				uiCounterForceAccuracy = uiCounterForceAccuracy*9/10; // -10% 
+		}
+		else
+		{
+			if ( !(HAS_SKILL_TRAIT( pShooter, AMBIDEXT_OT )) )
+				uiCounterForceAccuracy = uiCounterForceAccuracy*9/10; // -10% 
+		}
+	}
 
 	// Now add the effect of the AutoWeapons skill. It "bridges" a portion of the gap between shooter's actual accuracy 
 	// and 100% accuracy. For instance, if the divisor is set to 2 in the INI, the first skill level will close 50% of 
@@ -8811,14 +8878,27 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 
 	// Also, lets set our shooter's Counter Force variables. These will apply for the next bullet in the
 	// volley.
-	pShooter->dPrevCounterForceX = dCounterForceX;
-	pShooter->dPrevCounterForceY = dCounterForceY;
+	if ( pShooter->ubAttackingHand == SECONDHANDPOS && pShooter->IsValidSecondHandBurst() ) 
+	{
+		pShooter->dPrevCounterForceX[1] = dCounterForceX;
+		pShooter->dPrevCounterForceY[1] = dCounterForceY;
+	}
+	else
+	{
+		pShooter->dPrevCounterForceX[0] = dCounterForceX;
+		pShooter->dPrevCounterForceY[0] = dCounterForceY;
+	}
 
 }
 
 // Calculate Recoil Offset
 void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuzzleOffsetY, OBJECTTYPE *pWeapon, UINT32 uiRange )
 {
+	FLOAT dAppliedCounterForceX, dAppliedCounterForceY;
+	FLOAT dCounterForceChangeX, dCounterForceChangeY;
+	BOOLEAN fSecondHandBurst = FALSE;
+	if ( pShooter->ubAttackingHand == SECONDHANDPOS && pShooter->IsValidSecondHandBurst() ) 
+		fSecondHandBurst = TRUE;
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Recoil Calculation
 	//
@@ -8838,7 +8918,10 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	INT8 bGunRecoilX;
 	INT8 bGunRecoilY;
 
-	GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, pShooter->bDoBurst-1 );
+	if( fSecondHandBurst )
+		GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, (pShooter->bDoBurst/2-2) );
+	else
+		GetRecoil( pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, pShooter->bDoBurst-1 );
 
 	// If no recoil, then we shouldn't be here anyway.
 	if(bGunRecoilX == 0 && bGunRecoilY == 0)
@@ -8847,8 +8930,16 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	FLOAT dDistanceRatio = (FLOAT)uiRange / (FLOAT)gGameCTHConstants.NORMAL_RECOIL_DISTANCE;
 
 	// These variables will hold the amount of X/Y force our shooter exerts to try to fight recoil.
-	FLOAT dAppliedCounterForceX = pShooter->dPrevCounterForceX;
-	FLOAT dAppliedCounterForceY = pShooter->dPrevCounterForceY;
+	if ( fSecondHandBurst )
+	{
+		dAppliedCounterForceX = pShooter->dPrevCounterForceX[1];
+		dAppliedCounterForceY = pShooter->dPrevCounterForceY[1];
+	}
+	else
+	{
+		dAppliedCounterForceX = pShooter->dPrevCounterForceX[0];
+		dAppliedCounterForceY = pShooter->dPrevCounterForceY[0];
+	}
 
 	BOOLEAN fTracer = WasPrevBulletATracer( pShooter, pWeapon );
 	
@@ -8940,11 +9031,24 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	// target regardless of CF accuracy.
 
 	// For more explanation read the comments inside the following function:
-
-	// CALCULATE FOR X
-	FLOAT dCounterForceChangeX = CalcCounterForceChange( pShooter, uiCounterForceAccuracy, dCounterForceMax, *dMuzzleOffsetX / dDistanceRatio, bGunRecoilX, pShooter->dPrevCounterForceX, uiIntendedBullets ); 
-	// CALCULATE FOR Y
-	FLOAT dCounterForceChangeY = CalcCounterForceChange( pShooter, uiCounterForceAccuracy, dCounterForceMax, *dMuzzleOffsetY / dDistanceRatio, bGunRecoilY, pShooter->dPrevCounterForceY, uiIntendedBullets ); 
+	if ( fSecondHandBurst )
+	{
+		dAppliedCounterForceX = pShooter->dPrevCounterForceX[1];
+		dAppliedCounterForceY = pShooter->dPrevCounterForceY[1];
+		// CALCULATE FOR X
+		dCounterForceChangeX = CalcCounterForceChange( pShooter, uiCounterForceAccuracy, dCounterForceMax, *dMuzzleOffsetX / dDistanceRatio, bGunRecoilX, pShooter->dPrevCounterForceX[1], uiIntendedBullets ); 
+		// CALCULATE FOR Y
+		dCounterForceChangeY = CalcCounterForceChange( pShooter, uiCounterForceAccuracy, dCounterForceMax, *dMuzzleOffsetY / dDistanceRatio, bGunRecoilY, pShooter->dPrevCounterForceY[1], uiIntendedBullets ); 
+	}
+	else
+	{
+		dAppliedCounterForceX = pShooter->dPrevCounterForceX[0];
+		dAppliedCounterForceY = pShooter->dPrevCounterForceY[0];
+		// CALCULATE FOR X
+		dCounterForceChangeX = CalcCounterForceChange( pShooter, uiCounterForceAccuracy, dCounterForceMax, *dMuzzleOffsetX / dDistanceRatio, bGunRecoilX, pShooter->dPrevCounterForceX[0], uiIntendedBullets ); 
+		// CALCULATE FOR Y
+		dCounterForceChangeY = CalcCounterForceChange( pShooter, uiCounterForceAccuracy, dCounterForceMax, *dMuzzleOffsetY / dDistanceRatio, bGunRecoilY, pShooter->dPrevCounterForceY[0], uiIntendedBullets ); 
+	}
 
 	dAppliedCounterForceX += dCounterForceChangeX;
 	dAppliedCounterForceY += dCounterForceChangeY;
@@ -8966,8 +9070,16 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 
 	// Record how much counter force was applied this time. It will be used for the next few shots until the
 	// shooter can recalculate.
-	pShooter->dPrevCounterForceX = dAppliedCounterForceX;
-	pShooter->dPrevCounterForceY = dAppliedCounterForceY;
+	if ( fSecondHandBurst )
+	{
+		pShooter->dPrevCounterForceX[1] = dAppliedCounterForceX;
+		pShooter->dPrevCounterForceY[1] = dAppliedCounterForceY;
+	}
+	else
+	{
+		pShooter->dPrevCounterForceX[0] = dAppliedCounterForceX;
+		pShooter->dPrevCounterForceY[0] = dAppliedCounterForceY;
+	}
 
 	dAppliedCounterForceX += (FLOAT)bGunRecoilX;
 	dAppliedCounterForceY += (FLOAT)bGunRecoilY;
@@ -9221,7 +9333,12 @@ FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccur
 
 				// However, before using these values we need to ask: are we actually intending to
 				// fire that many bullets?
-				UINT32 uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst - 1);
+				UINT32 uiRoundsRemaining;
+				if ( pShooter->ubAttackingHand == SECONDHANDPOS && pShooter->IsValidSecondHandBurst() ) 
+					uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst/2 - 2);
+				else
+					uiRoundsRemaining = uiIntendedBullets - (pShooter->bDoBurst - 1);
+
 				BOOLEAN fEnoughBullets = true;
 				if (uiRoundsRemaining < uiStepsToReachTargetWhileDecelerating)
 				{

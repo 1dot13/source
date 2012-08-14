@@ -134,6 +134,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"-%d%s du nombre de PA nécessaire pour recharger avec le fusil de précision\n",
 	L"Ajoute un niveau de visée en plus pour chaque fusil de précision\n",
 	L"Ajoute %d niveaux de visée pour chaque fusil de précision\n",
+	// TO DO - translate
+	L"Makes aiming faster with rifle-type guns by one aim click\n",
+	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

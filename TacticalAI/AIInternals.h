@@ -131,6 +131,7 @@ typedef struct
  INT8	bTargetLevel;					// target level of this attack
  INT16 ubAPCost;							// how many APs the attack will use up
  INT8	bWeaponIn;							// the inv slot of the weapon in question
+ INT8	bScopeMode;							// SANDRO: added for scope mode and alternative weapon holding
 } ATTACKTYPE;
 
 extern THREATTYPE Threat[MAXMERCS];

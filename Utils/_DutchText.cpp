@@ -6816,6 +6816,19 @@ STR16 sEnemyTauntsGotHit[]=
 
 };
 
+// TODO.Translate
+STR16 sEnemyTauntsNoticedMerc[]=
+{
+	L"Da'ffff...!",
+	L"Oh my God!",
+	L"Holy crap!",
+	L"Enemy!!!",
+	L"Alert! Alert!",
+	L"There is one!",
+	L"Attack!",
+
+};
+
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
 //////////////////////////////////////////////////////
@@ -7085,8 +7098,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis item can be used to blast open locked\ndoors and containers.\n \nExplosives skill is required to avoid\npremature detonation.\n \nBlowing locks is a relatively easy way of quickly\ngetting through locked doors. However,\nit is very loud, and dangerous to most characters.",
 	L"\n \nThis item will still your thirst\nif you drink it.",// TODO. Translate
 	L"\n \nThis item will still your hunger\nif you eat it.",
-	L"\n \With this ammo belt you can\nfeed someone else's MG.",
-	L"\n \You can feed an MG with ammo\nbelts stored in this vest.",
+	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
+	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

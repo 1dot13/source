@@ -224,7 +224,7 @@ void ToggleTreeTops();
 void ToggleZBuffer();
 void TogglePlanningMode();
 void SetBurstMode();
-void SetScopeMode();
+void SetScopeMode( INT32 usMapPos );
 void ObliterateSector();
 void RandomizeMercProfile();
 void CreateNextCivType();
@@ -4137,10 +4137,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if ( !MercPtrs[ gusSelectedSoldier ]->MercInWater(	) && !(MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags & SOLDIER_ROBOT ) )
 						{
 							//change selected merc to run
-							if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING
-								 && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_PISTOL_RDY
-								  && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_RIFLE_RDY
-								   && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_DUAL_RDY )
+							if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING 
+							   && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING
+								&& MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_WEAPON_RDY
+								 && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_DUAL_RDY
+								  && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_ALTERNATIVE_RDY )
 							{
 								UIHandleSoldierStanceChange( (UINT8)gusSelectedSoldier, ANIM_STAND );
 								MercPtrs[ gusSelectedSoldier ]->flags.fUIMovementFast = 1;
@@ -4481,7 +4482,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					SetScopeMode();
+					SetScopeMode( usMapPos );
 				}
 
 				break;
@@ -5032,10 +5033,14 @@ void CycleSelectedMercsItem()
 		// Get soldier...
 		pSoldier = MercPtrs[ gusSelectedSoldier ];
 
+		UINT16 usOldHandItem = pSoldier->inv[HANDPOS].usItem;
+
 		// Cycle item....
 		usOldItem = CycleItems(pSoldier->inv[ HANDPOS ].usItem);
 
 		CreateItem( (UINT16)usOldItem, 100, &( pSoldier->inv[ HANDPOS ]) );
+
+		pSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, pSoldier->inv[HANDPOS].usItem );
 
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 
@@ -5258,11 +5263,14 @@ void SetBurstMode()
 	}
 }
 
-void SetScopeMode()
+void SetScopeMode( INT32 usMapPos )
 {
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		ChangeScopeMode( MercPtrs[ gusSelectedSoldier ] );
+		if ( GetMouseMapPos( &usMapPos ))
+			ChangeScopeMode( MercPtrs[ gusSelectedSoldier ], usMapPos );
+		else
+			ChangeScopeMode( MercPtrs[ gusSelectedSoldier ], 0 );
 
 		// reevaluate sight
 		ManLooksForOtherTeams( MercPtrs[ gusSelectedSoldier ] );

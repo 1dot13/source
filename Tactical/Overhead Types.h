@@ -12,7 +12,8 @@
 #define REFINE_AIM_4					6
 #define REFINE_AIM_MID4				7
 #define REFINE_AIM_5					8
-#define REFINE_AIM_BURST			10
+#define REFINE_AIM_BURST			-1	// SANDRO - I've changed this from 10 to -1, so when the code asks about how much we aim, it does not return this high value when we don't aim at all
+										// hopefully, it will not cause any troubles anywhere .. it shouldn't 
 
 #define AIM_SHOT_RANDOM				0
 #define AIM_SHOT_HEAD					1

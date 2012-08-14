@@ -85,6 +85,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 // The_Bob - real time sneaking code 01/06/09
 extern void CancelItemPointer(void);
 extern BOOLEAN NobodyAlerted(void);
+extern void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed );
 //#define TESTOPPLIST
 
 // for ManSeesMan()
@@ -870,7 +871,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 	if ((gTacticalStatus.uiFlags & TURNBASED) && 
 		(gTacticalStatus.uiFlags & INCOMBAT) && 
 		(ubSightFlags & SIGHT_INTERRUPT) && 
-		(!gGameOptions.fImprovedInterruptSystem || gGameExternalOptions.fAllowInstantInterruptsOnSight )	)
+		(!gGameOptions.fImprovedInterruptSystem || (gGameOptions.fImprovedInterruptSystem && gGameExternalOptions.fAllowInstantInterruptsOnSight) )	)
 	{
 		ResolveInterruptsVs( pSoldier, SIGHTINTERRUPT );
 	}
@@ -2509,6 +2510,15 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 #ifdef TESTOPPLIST
 			DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3, String( "ManSeesMan: ID %d(%S) to ID %d NEW TO ME",pSoldier->ubID,pSoldier->name,pOpponent->ubID) );	
 #endif
+			// SANDRO - if this is an enemy guy, who was unaware of us till now, and the combat didn't started yet, throw "taunt" and indicator we have been seen
+			if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->bTeam != gbPlayerNum )
+			{
+				if ( pSoldier->aiData.bOppList[pOpponent->ubID] <= NOT_HEARD_OR_SEEN &&	pSoldier->aiData.bAlertStatus != STATUS_RED && pSoldier->aiData.bAlertStatus != STATUS_BLACK )
+				{
+					StartEnemyTaunt( pSoldier, TAUNT_NOTICED_UNSEEN_MERC );
+				}
+				ShowRadioLocator( pSoldier->ubID, 1 );
+			}
 
 			// if we also haven't seen him earlier this turn
 			if (pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN)
@@ -7184,46 +7194,49 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 		}
 	}
 
-	if ( StandardInterruptConditionsMet( pDefender, pAttacker->ubID, bOldOppList ) )
+	if ( !gGameOptions.fImprovedInterruptSystem || (gGameOptions.fImprovedInterruptSystem && gGameExternalOptions.fAllowInstantInterruptsOnSight) )
 	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("INTERRUPT: NoticeUnseenAttacker, standard conditions are met; defender %d, attacker %d", pDefender->ubID, pAttacker->ubID ) );
-
-		// calculate the interrupt duel points
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Calculating int duel pts for defender in NUA" );
-		pDefender->aiData.bInterruptDuelPts = CalcInterruptDuelPts( pDefender, pAttacker->ubID, FALSE);
-	}
-	else
-	{
-		pDefender->aiData.bInterruptDuelPts = NO_INTERRUPT;
-	}
-
-	// say quote
-
-	if (pDefender->aiData.bInterruptDuelPts != NO_INTERRUPT)
-	{
-		// check for possible interrupt and handle control change if it happens
-		// this code is basically ResolveInterruptsVs for 1 man only...
-
-		// calculate active soldier's dueling pts for the upcoming interrupt duel
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Calculating int duel pts for attacker in NUA" );
-		pAttacker->aiData.bInterruptDuelPts = CalcInterruptDuelPts( pAttacker, pDefender->ubID, FALSE );
-		if ( InterruptDuel( pDefender, pAttacker ) )
+		if ( StandardInterruptConditionsMet( pDefender, pAttacker->ubID, bOldOppList ) )
 		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("INTERRUPT: NoticeUnseenAttacker, defender pts %d, attacker pts %d, defender gets interrupt", pDefender->aiData.bInterruptDuelPts, pAttacker->aiData.bInterruptDuelPts ) );
-			AddToIntList( pAttacker->ubID, FALSE, TRUE);
-			AddToIntList( pDefender->ubID, TRUE, TRUE);
-			DoneAddingToIntList( pDefender, TRUE, SIGHTINTERRUPT );
-		}
-		// either way, clear out both sides' duelPts fields to prepare next duel
-		pDefender->aiData.bInterruptDuelPts = NO_INTERRUPT;
-		#ifdef DEBUG_INTERRUPTS
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Resetting int pts for %d in NUA", pDefender->ubID ) );
-		#endif
-		pAttacker->aiData.bInterruptDuelPts = NO_INTERRUPT;
-		#ifdef DEBUG_INTERRUPTS
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Resetting int pts for %d in NUA", pAttacker->ubID ) );
-		#endif
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("INTERRUPT: NoticeUnseenAttacker, standard conditions are met; defender %d, attacker %d", pDefender->ubID, pAttacker->ubID ) );
 
+			// calculate the interrupt duel points
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Calculating int duel pts for defender in NUA" );
+			pDefender->aiData.bInterruptDuelPts = CalcInterruptDuelPts( pDefender, pAttacker->ubID, FALSE);
+		}
+		else
+		{
+			pDefender->aiData.bInterruptDuelPts = NO_INTERRUPT;
+		}
+
+		// say quote
+
+		if (pDefender->aiData.bInterruptDuelPts != NO_INTERRUPT)
+		{
+			// check for possible interrupt and handle control change if it happens
+			// this code is basically ResolveInterruptsVs for 1 man only...
+
+			// calculate active soldier's dueling pts for the upcoming interrupt duel
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Calculating int duel pts for attacker in NUA" );
+			pAttacker->aiData.bInterruptDuelPts = CalcInterruptDuelPts( pAttacker, pDefender->ubID, FALSE );
+			if ( InterruptDuel( pDefender, pAttacker ) )
+			{
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("INTERRUPT: NoticeUnseenAttacker, defender pts %d, attacker pts %d, defender gets interrupt", pDefender->aiData.bInterruptDuelPts, pAttacker->aiData.bInterruptDuelPts ) );
+				AddToIntList( pAttacker->ubID, FALSE, TRUE);
+				AddToIntList( pDefender->ubID, TRUE, TRUE);
+				DoneAddingToIntList( pDefender, TRUE, SIGHTINTERRUPT );
+			}
+			// either way, clear out both sides' duelPts fields to prepare next duel
+			pDefender->aiData.bInterruptDuelPts = NO_INTERRUPT;
+			#ifdef DEBUG_INTERRUPTS
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Resetting int pts for %d in NUA", pDefender->ubID ) );
+			#endif
+			pAttacker->aiData.bInterruptDuelPts = NO_INTERRUPT;
+			#ifdef DEBUG_INTERRUPTS
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Resetting int pts for %d in NUA", pAttacker->ubID ) );
+			#endif
+
+		}
 	}
 }
 
