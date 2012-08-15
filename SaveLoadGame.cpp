@@ -1740,24 +1740,41 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bTargetCubeLevel, sizeof(bTargetCubeLevel), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sLastTarget, sizeof(sLastTarget), sizeof(INT32), numBytesRead);
 		if(guiCurrentSaveGameVersion >= NCTH_DATATYPE_CHANGE){
-			numBytesRead = ReadFieldByField(hFile, &this->dPrevMuzzleOffsetX, sizeof(dPrevMuzzleOffsetX), sizeof(FLOAT), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->dPrevMuzzleOffsetY, sizeof(dPrevMuzzleOffsetY), sizeof(FLOAT), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->dPrevCounterForceX, sizeof(dPrevCounterForceX), sizeof(FLOAT), numBytesRead);
-			numBytesRead = ReadFieldByField(hFile, &this->dPrevCounterForceY, sizeof(dPrevCounterForceY), sizeof(FLOAT), numBytesRead);
+
+			// Flugente: Sandro increased the size of these 4 varisbles to 2 (was 1) when the version got to DUAL_BURST_ADDED. 
+			// So if we load an old game, we set the second value to 0.0f and pretend we read it. This way old savegames will be savegame compatible 
+			if(guiCurrentSaveGameVersion < DUAL_BURST_ADDED)
+			{
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevMuzzleOffsetX, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevMuzzleOffsetX[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevMuzzleOffsetY, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevMuzzleOffsetY[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevCounterForceX, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevCounterForceX[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevCounterForceY, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevCounterForceY[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+			}
+			else
+			{
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevMuzzleOffsetX, sizeof(dPrevMuzzleOffsetX), sizeof(FLOAT), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevMuzzleOffsetY, sizeof(dPrevMuzzleOffsetY), sizeof(FLOAT), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevCounterForceX, sizeof(dPrevCounterForceX), sizeof(FLOAT), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &this->dPrevCounterForceY, sizeof(dPrevCounterForceY), sizeof(FLOAT), numBytesRead);
+			}
 		} else {
 			buffer += sizeof(FLOAT);
 			buffer += sizeof(FLOAT);
 			buffer += sizeof(FLOAT);
 			buffer += sizeof(FLOAT);
 		}
-		// SANDRO: my attempt at making older save games compatible (usually fails, dunno why)
-		// with dual bursts, dPrevMuzzleOffsetX,dPrevMuzzleOffsetY,dPrevCounterForceX,dPrevCounterForceY was made dPrevMuzzleOffsetX[2], etc.
-		if(guiCurrentSaveGameVersion < DUAL_BURST_ADDED) {
-			buffer += sizeof(FLOAT);
-			buffer += sizeof(FLOAT);
-			buffer += sizeof(FLOAT);
-			buffer += sizeof(FLOAT);
-		}
+
 		if(guiCurrentSaveGameVersion >= NCTH_AUTOFIRE_UPDATE){
 			numBytesRead = ReadFieldByField(hFile, &this->dInitialMuzzleOffsetX, sizeof(dInitialMuzzleOffsetX), sizeof(FLOAT), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->dInitialMuzzleOffsetY, sizeof(dInitialMuzzleOffsetY), sizeof(FLOAT), numBytesRead);

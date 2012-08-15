@@ -598,9 +598,15 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 			}
 			else if( pSoldier->ubGroupID != 0 )
 			{
+				// Flugente 2012-08-15: had very weird behaviour here. The outcommented code below failed, because the group size wasn't 0, which then threw an Assert()-error.
+				// This happened in r5468 when assinging a merc on repair duty to the truck, switching back and forth between the two
+				// I'm fixing it by using RemovePlayerFromGroup(), which seems to be intended just for that. 
+				// However, I am at a complete loss as to why this piece of code only throws errors now, seems to me it hasn't changed in ages. Please correct if the error is actually somewhere else
+				RemovePlayerFromGroup( pSoldier->ubGroupID, pSoldier );
+
 				// destroy group and set to zero
-				RemoveGroup( pSoldier->ubGroupID );
-				pSoldier->ubGroupID = 0;
+				//RemoveGroup( pSoldier->ubGroupID );
+				//pSoldier->ubGroupID = 0;
 			}
 
 			if( ( pSoldier->bAssignment != VEHICLE ) || ( 	pSoldier->iVehicleId != iId ) )
