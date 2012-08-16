@@ -36636,7 +36636,7 @@
 		<uiIndex>1188</uiIndex>
 		<szItemName>Ameli</szItemName>
 		<szLongItemName>CETME Ameli</szLongItemName>
-		<szItemDesc>Designed by the Compania de Estudios Técnicos de Materiales Especiales, the Ameli looks as if it was derived from the MG42, but its mechanism is quite different.</szItemDesc>
+		<szItemDesc>Designed by the Compania de Estudios Tecnicos de Materiales Especiales, the Ameli looks as if it was derived from the MG42, but its mechanism is quite different.</szItemDesc>
 		<szBRName>CETME Ameli</szBRName>
 		<szBRDesc>The Ameli we have in stock are the 'light-bolt'-versions with a higher rate of fire than the 'heavy-bolt'-model. Comes with bipod.</szBRDesc>
 		<usItemClass>2</usItemClass>
