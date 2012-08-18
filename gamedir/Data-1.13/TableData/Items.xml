@@ -47304,8 +47304,8 @@
 		<szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>78</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>132</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>13</ItemSize>
