@@ -1258,6 +1258,10 @@ DRUGTYPE Drug[DRUG_TYPE_MAX];
 
 FOODTYPE Food[FOOD_TYPE_MAX];
 
+SECTOR_EXT_DATA	SectorExternalData[256][4];
+
+
+
 BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 {
 	if ( Item[usItemIndex].ubCoolness == 0 && !fIgnoreCoolness )
@@ -3160,6 +3164,9 @@ void SwapObjs(SOLDIERTYPE* pSoldier, int slot, OBJECTTYPE* pObject, BOOLEAN fPer
 
 void DamageObj( OBJECTTYPE * pObj, INT8 bAmount, UINT8 subObject )
 {
+	// Flugente: lower repair threshold
+	(*pObj)[subObject]->data.sRepairThreshold = max(1, (*pObj)[subObject]->data.sRepairThreshold - bAmount/3);
+
 	//usually called from AttachObject, where the attachment is known to be a single item,
 	//and the attachment is only being attached to the top of the stack
 	if (bAmount >= (*pObj)[subObject]->data.objectStatus)
@@ -7520,8 +7527,12 @@ BOOLEAN CreateGun( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	pStackedObject->data.gun.bGunStatus = bStatus;
 	pStackedObject->data.ubImprintID = NO_PROFILE;
 
-	// Flugente FTW 1: temperature on creation is 0
+	// Flugente: temperature on creation is 0
 	pStackedObject->data.bTemperature = 0.0f;
+	
+	pStackedObject->data.sRepairThreshold = (200 + bStatus)/3;	// arbitrary threshold
+	pStackedObject->data.bDirtLevel = 0.0f;
+	pStackedObject->data.sObjectFlag = 0;
 
 	if (Weapon[ usItem ].ubWeaponClass == MONSTERCLASS)
 	{
@@ -7650,6 +7661,12 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		if(UsingNewAttachmentSystem()==true)
 			InitItemAttachments(pObj);
 
+		if (Item[ usItem ].usItemClass == IC_ARMOUR)
+			(*pObj)[0]->data.sRepairThreshold = (200 + bStatus)/3;	// arbitrary threshold
+		else
+			(*pObj)[0]->data.sRepairThreshold = 100;
+
+		(*pObj)[0]->data.bDirtLevel = 0.0f;
 	}
 	if (fRet)
 	{
@@ -8347,6 +8364,8 @@ BOOLEAN DamageItem( OBJECTTYPE * pObject, INT32 iDamage, BOOLEAN fOnGround )
 				}
 				else
 				{
+					(*pObject)[bLoop]->data.sRepairThreshold = max(1, (*pObject)[bLoop]->data.sRepairThreshold - bDamage/3);
+
 					(*pObject)[bLoop]->data.objectStatus -= bDamage;
 					if ((*pObject)[bLoop]->data.objectStatus < 1)
 					{
@@ -8595,7 +8614,8 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->MercInDeepWater( ) )
 	{
-		for ( bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++ )
+		INT8 invsize = (INT8) pSoldier->inv.size();
+		for ( bLoop = 0; bLoop < invsize; ++bLoop )
 		{
 			if (pSoldier->inv[bLoop].exists() == false) {
 				continue;
@@ -8618,6 +8638,11 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 					if (pSoldier->inv[bLoop][0]->data.objectStatus < 1)
 					{
 						pSoldier->inv[bLoop][0]->data.objectStatus = 1;
+					}
+
+					if ( Random(100) < Item[pSoldier->inv[ bLoop ].usItem].usDamageChance )
+					{
+						pSoldier->inv[bLoop][0]->data.sRepairThreshold = max(1, pSoldier->inv[bLoop][0]->data.sRepairThreshold - 1);
 					}
 				}
 			}
@@ -14348,4 +14373,31 @@ INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo )
 		bAltAimLevels += 1;
 
 	return bAltAimLevels ;
+}
+
+// get dirt increase for object with attachments, fConsiderAmmo: with ammo
+FLOAT GetItemDirtIncreaseFactor( OBJECTTYPE * pObj, BOOLEAN fConsiderAmmo )
+{
+	FLOAT dirtincreasefactor = Item[pObj->usItem].dirtIncreaseFactor;
+	
+	if ( pObj->exists() == true ) 
+	{
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if (iter->exists())
+			{
+				dirtincreasefactor += Item[iter->usItem].dirtIncreaseFactor;
+			}
+		}
+	}
+
+	// ammo modifies how much dirt a single shot makes, but only while shooting
+	if ( fConsiderAmmo )		
+		dirtincreasefactor *= (1.0f + AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].dirtModificator);
+		
+	// dirt factor has to be >= 0 (items don't clean themselves)
+	dirtincreasefactor = max(0.0f, dirtincreasefactor);
+
+	return dirtincreasefactor;
 }

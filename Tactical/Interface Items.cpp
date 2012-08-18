@@ -3865,7 +3865,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
-			// Flugente FTW 1
+			// Flugente
 			if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel == TRUE ) )
 			{	
 				OBJECTTYPE*	pObjShown = pObject;
@@ -11394,8 +11394,10 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 	CHAR16	pStr[ 500 ];
 	UINT16	usItem = pObject->usItem;
 	INT32	iNumAttachments = 0;
-	INT16	sValue;
+	INT16	sValue;	
 	FLOAT	fWeight;
+	INT16   sThreshold = 100;
+	FLOAT	bDirt = 0.0f;
 
 	if( pSoldier != NULL )
 	{
@@ -11459,6 +11461,15 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 		if ( fWeight < 0.1 )
 		{
 			fWeight = 0.1f;
+		}
+
+		if ( Item[pObject->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR) )
+		{
+			if (  gGameExternalOptions.fAdvRepairSystem )
+				sThreshold  = (*pObject)[subObject]->data.sRepairThreshold;
+
+			if ( gGameExternalOptions.fDirtSystem )
+				bDirt		= 100 * (*pObject)[subObject]->data.bDirtLevel / OVERHEATING_MAX_TEMPERATURE;
 		}
 
 		switch( Item[ usItem ].usItemClass )
@@ -11529,12 +11540,96 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
 					accuracyheatmultiplicator = (FLOAT)max(0.0, 1.0 - accuracymalus);
 				}
+				
+				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
+				accuracy = (INT8)(accuracy * accuracyheatmultiplicator);
 
-				//Info for weapons
-				//swprintf( pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
-
-					INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
-					accuracy = (INT8)(accuracy * accuracyheatmultiplicator);
+				if ( gGameExternalOptions.fAdvRepairSystem && gGameExternalOptions.fDirtSystem && ( sThreshold < 100 || bDirt > 0 ) )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString8,
+					#else
+						swprintf( pStr, L"%s (%s) [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s\n%s %.2f%%",
+					#endif
+					
+					ItemNames[ usItem ],
+					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
+					sValue,
+					sThreshold,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString(),		//Weight units					
+					gWeaponStatsDesc[ 18 ],		//Dirt String
+					bDirt						//Dirt
+					);
+				}
+				else if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString11,
+					#else
+						swprintf( pStr, L"%s (%s) [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s",
+					#endif
+					
+					ItemNames[ usItem ],
+					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
+					sValue,
+					sThreshold,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units	
+					);
+				}
+				else if ( gGameExternalOptions.fDirtSystem && bDirt > 0 )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString12,
+					#else
+						swprintf( pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s\n%s %.2f%%",
+					#endif
+					
+					ItemNames[ usItem ],
+					AmmoCaliber[ Weapon[ usItem ].ubCalibre ],
+					sValue,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					(Weapon[ usItem ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction( pObject )) / 100),    // Ready AP's
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString(),		//Weight units					
+					gWeaponStatsDesc[ 18 ],		//Dirt String
+					bDirt						//Dirt
+					);
+				}
+				else
+				{					
 					#ifdef CHINESE
 						swprintf( pStr, ChineseSpecString4,
 					#else
@@ -11559,6 +11654,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+				}
 			}
 			break;
 
@@ -11601,9 +11697,89 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				}
 
 				//Info for weapons
-					INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
-					accuracy = (INT8)(accuracy * accuracyheatmultiplicator);
+				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItem ].nAccuracy:Weapon[ usItem ].bAccuracy);
+				accuracy = (INT8)(accuracy * accuracyheatmultiplicator);
 
+				if ( gGameExternalOptions.fAdvRepairSystem && gGameExternalOptions.fDirtSystem && ( sThreshold < 100 || bDirt > 0 ) )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, L"%s [%d%ге(%d%ге)]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s\n %s %.2f%%",
+					#else
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s\n%s %.2f%%",
+					#endif
+
+					ItemNames[ usItem ],
+					sValue,
+					sThreshold,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString(),		//Weight units
+					gWeaponStatsDesc[ 18 ],		//Dirt String
+					bDirt						//Dirt
+					);
+				}
+				else if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, L"%s [%d%ге(%d%ге)]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
+					#else
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
+					#endif
+
+					ItemNames[ usItem ],
+					sValue,
+					sThreshold,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+				}
+				else if ( gGameExternalOptions.fDirtSystem && bDirt > 0 )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, L"%s [%d%ге]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s\n %s %.2f%%",
+					#else
+						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s\n%s %.2f%%",
+					#endif
+
+					ItemNames[ usItem ],
+					sValue,
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					accuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject),
+					gWeaponStatsDesc[ 10 ],		//Range String
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject, NULL )/10 : GunRange( pObject, NULL ),	 // SANDRO - added argument		//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GetModifiedGunRange(usItem)/10 : GetModifiedGunRange(usItem),	//Gun Range
+					gWeaponStatsDesc[ 6 ],		//AP String
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString(),		//Weight units
+					gWeaponStatsDesc[ 18 ],		//Dirt String
+					bDirt						//Dirt
+					);
+				}
+				else
+				{
 					#ifdef CHINESE
 						swprintf( pStr, L"%s [%d%ге]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
 					#else
@@ -11625,6 +11801,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+				}
 			}
 			break;
 
@@ -11632,22 +11809,45 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 		case IC_THROWING_KNIFE:
 		case IC_PUNCH:
 			{
-				#ifdef CHINESE
-					swprintf( pStr, ChineseSpecString5,
-				#else
-					swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s",
-				#endif
+				if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString9,
+					#else
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d\n%s %d\n%s %1.1f %s",
+					#endif
 
-					ItemNames[ usItem ],
-					sValue,
-					gWeaponStatsDesc[ 11 ],					//Damage String
-					GetDamage(pObject), 					//Melee damage
-					gWeaponStatsDesc[ 6 ],					//AP String
-					BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier ), //AP's
-					gWeaponStatsDesc[ 12 ],					//Weight String
-					fWeight,								//Weight
-					GetWeightUnitString()					//Weight units
-					);
+						ItemNames[ usItem ],
+						sValue,
+						sThreshold,
+						gWeaponStatsDesc[ 11 ],					//Damage String
+						GetDamage(pObject), 					//Melee damage
+						gWeaponStatsDesc[ 6 ],					//AP String
+						BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier ), //AP's
+						gWeaponStatsDesc[ 12 ],					//Weight String
+						fWeight,								//Weight
+						GetWeightUnitString()					//Weight units
+						);
+				}
+				else
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString5,
+					#else
+						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s",
+					#endif
+
+						ItemNames[ usItem ],
+						sValue,
+						gWeaponStatsDesc[ 11 ],					//Damage String
+						GetDamage(pObject), 					//Melee damage
+						gWeaponStatsDesc[ 6 ],					//AP String
+						BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject, pSoldier ), //AP's
+						gWeaponStatsDesc[ 12 ],					//Weight String
+						fWeight,								//Weight
+						GetWeightUnitString()					//Weight units
+						);
+				}
 			}
 			break;
 
@@ -11729,12 +11929,35 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					break;
 				}
 
-				#ifdef CHINESE
-					swprintf( pStr, ChineseSpecString6,
-				#else
-					swprintf( pStr, L"%s [%d%%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
-				#endif
-
+				if ( gGameExternalOptions.fAdvRepairSystem && sThreshold < 100 )
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString10,
+					#else
+						swprintf( pStr, L"%s [%d%%(%d%%)]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
+					#endif
+				
+					ItemNames[ usItem ],		//Item long name
+					sValue,						//Item condition
+					sThreshold,					//repair threshold
+					pInvPanelTitleStrings[ 4 ],	//Protection string
+					iProtection,				//Protection rating in % based on best armor
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
+					pInvPanelTitleStrings[ 3 ],	//Camo string
+					GetCamoBonus(pObject)+GetUrbanCamoBonus(pObject)+GetDesertCamoBonus(pObject)+GetSnowCamoBonus(pObject),	//Camo bonus
+					gWeaponStatsDesc[ 12 ],		//Weight string
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+				}
+				else
+				{
+					#ifdef CHINESE
+						swprintf( pStr, ChineseSpecString6,
+					#else
+						swprintf( pStr, L"%s [%d%%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s",
+					#endif
 				
 					ItemNames[ usItem ],		//Item long name
 					sValue,						//Item condition
@@ -11748,6 +11971,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units
 					);
+				}
 			}
 			break;
 

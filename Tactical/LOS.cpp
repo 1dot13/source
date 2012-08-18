@@ -2690,6 +2690,9 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 				// just break it...
 				pTarget->inv[ bHeadSlot ][0]->data.objectStatus = 1;
 			}
+
+			// Flugente: also lower the repair threshold
+			pTarget->inv[ bHeadSlot ][0]->data.sRepairThreshold = max(pTarget->inv[ bHeadSlot ][0]->data.objectStatus, pTarget->inv[ bHeadSlot ][0]->data.sRepairThreshold - iImpact / 6);
 		}
 	}
 
@@ -5761,9 +5764,9 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 
 		if ( overheatjampercentage > 1.0 )
 			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
-				
-		GunIncreaseHeat( pObj );
 	}
+
+	GunIncreaseHeat( pObj );
 
 	// Flugente : Added a malus to reliability for overheated guns
 	// HEADROCK HAM 5: Variable NCTH base change
@@ -5782,6 +5785,11 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObj)[0]->data.objectStatus > 1) )
 	{
 		(*pObj)[0]->data.objectStatus--;
+
+		if ( Random(100) < Item[pObj->usItem].usDamageChance )
+		{
+			(*pObj)[0]->data.sRepairThreshold--;
+		}
 	}
 	///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
 

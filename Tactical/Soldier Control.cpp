@@ -143,6 +143,8 @@ extern INT16 DirIncrementer[8];
 	extern BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode );
 #endif
 
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // Enumerate extended directions
 enum
@@ -13551,7 +13553,7 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 // Flugente: Cool down/decay all items in inventory
 void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 {
-	if ( !gGameOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
+	if ( !gGameOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
 		return;
 
 	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
@@ -13560,6 +13562,16 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 	// food decays slower if underground
 	if ( gbWorldSectorZ > 0 )
 		fooddecaymod *= 0.8f;
+
+	// get sector-specific dirt threshold
+	UINT16 sectormod = 0;
+	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);	
+	if ( gbWorldSectorZ > 0 )
+		sectormod = 100;
+	else if ( ubSectorId >= 0 && ubSectorId < 256  )
+	{
+		sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
+	}
 
 	INT8 invsize = (INT8)this->inv.size();											// remember inventorysize, so we don't call size() repeatedly
 
@@ -13606,6 +13618,28 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 								// we assume that there can exist only 1 UGL per weapon
 								break;
 							}
+						}
+					}
+				}
+
+				if ( gGameExternalOptions.fDirtSystem && ( (Item[pObj->usItem].usItemClass & IC_WEAPON) || (Item[pObj->usItem].usItemClass & IC_ARMOUR) ) )
+				{
+					FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor(pObj, FALSE);			// ... get dirt increase factor ...
+
+					// the current sector determines how much dirt increases
+					dirtincreasefactor *= (sectormod)/100;
+
+					dirtincreasefactor /= gGameExternalOptions.usSectorDirtDivider;
+
+					// items in pockets are a bit protected from dirt
+					if ( bLoop > KNIFEPOCKPOS )
+						dirtincreasefactor /= 3.0f;
+
+					if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+						{
+							(*pObj)[i]->data.bDirtLevel = max(0.0f, min( OVERHEATING_MAX_TEMPERATURE, (*pObj)[i]->data.bDirtLevel + dirtincreasefactor) );	// set new temperature														
 						}
 					}
 				}
@@ -13962,6 +13996,9 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 						{
 							INT16 status = (*iter)[0]->data.objectStatus;
 							(*iter)[0]->data.objectStatus = max(1, (INT16)(status/2));
+
+							INT16 rtstatus = (*iter)[0]->data.sRepairThreshold;
+							(*iter)[0]->data.sRepairThreshold = max(1, (INT16)(rtstatus/2));
 						}
 					}
 				}
@@ -14268,6 +14305,96 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 	}
 	
 	return( isFeeding );
+}
+
+// Flugente: return a cleaning kit from our inventory
+OBJECTTYPE* SOLDIERTYPE::GetCleaningKit()
+{
+	OBJECTTYPE* pObj = NULL;
+
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)						// ... for all items in our inventory ...
+	{
+		// ... if Item exists and is canteen (that can have drink points) ...
+		if (inv[bLoop].exists() == true && HasItemFlag(inv[bLoop].usItem, CLEANING_KIT) )
+		{
+			pObj = &(inv[bLoop]);							// ... get pointer for this item ...
+
+			return( pObj );
+		}
+	}
+
+	return( pObj );
+}
+
+// use any cleaning kits to clean weapons in inventory
+void SOLDIERTYPE::CleanWeapon()
+{
+	// in turnbased, this action costs APs. remove them if possible, otherwise, return
+	INT16 apcost = APBPConstants[AP_FORTIFICATION];
+
+	if ( gTacticalStatus.uiFlags & INCOMBAT )
+	{		
+		if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+			return;
+	}
+
+	OBJECTTYPE* pCleaningKit = GetCleaningKit();
+
+	if ( pCleaningKit )
+	{
+		INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
+		{
+			if (inv[bLoop].exists() && (Item[inv[bLoop].usItem].usItemClass & IC_WEAPON) )
+			{
+				OBJECTTYPE* pObj = &(inv[bLoop]);							// ... get pointer for this item ...
+
+				if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+				{
+					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+					{
+						if ( (*pObj)[i]->data.bDirtLevel > DIRT_MIN_TO_CLEAN )		// ... if weapon is at least a bit dirty ...
+						{
+							// have to recheck for a cleaning kit, as we might have used it up if cleaning a stack of weapons
+							pCleaningKit = GetCleaningKit();
+
+							if ( pCleaningKit )
+							{	
+								if ( (*pObj)[i]->data.bDirtLevel > 0 )
+								{
+									(*pObj)[i]->data.bDirtLevel = 0.0f;
+
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s cleaned %s", this->name, Item[pObj->usItem].szItemName );
+
+									// 33% chance to use up 1% of the cleaning kit
+									if ( Random(2) > 0 )
+										UseKitPoints( pCleaningKit, 1, this );
+
+									if ( gTacticalStatus.uiFlags & INCOMBAT )
+									{
+										// use up APs
+										DeductPoints( this, apcost, 0, AFTERACTION_INTERRUPT );
+
+										// only clean one weapon, we don't want to clean weapons if we didn't plan to
+										return;
+
+										// get out of here if we dont have enough APs for another cleaning operation
+										//if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+											//return;
+									}
+								}
+							}
+							else
+								return;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

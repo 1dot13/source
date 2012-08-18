@@ -3168,6 +3168,10 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 	{
 		// make its condition 100%
 		RepairItem.ItemObject[0]->data.objectStatus = 100;
+
+		// Flugente: shopkeepers will also restore an item's repair threshold
+		RepairItem.ItemObject[0]->data.sRepairThreshold = 100;
+		RepairItem.ItemObject[0]->data.bDirtLevel = 0.0f;
 	}
 
 	// max condition of all permanent attachments on it
@@ -3176,6 +3180,10 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 		{
 			// fix it up
 			(*iter)[0]->data.objectStatus = 100;
+
+			// Flugente: shopkeepers will also restore an item's repair threshold
+			(*iter)[0]->data.sRepairThreshold = 100;
+			(*iter)[0]->data.bDirtLevel = 0.0f;
 		}
 	}
 

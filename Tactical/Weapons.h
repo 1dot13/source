@@ -214,8 +214,9 @@ typedef struct
 	BOOLEAN acidic;
 	INT16	lockBustingPower;
 	BOOLEAN tracerEffect;
-	FLOAT	temperatureModificator;	// Flugente FTW 1.1: modificator for weapon temperature
-	INT16	poisonPercentage;	// Flugente FTW 1.1: modificator for weapon temperature
+	FLOAT	temperatureModificator;	// Flugente: modificator for weapon temperature
+	INT16	poisonPercentage;	// Flugente: modificator for weapon temperature
+	FLOAT	dirtModificator;	// Flugente: modificator for weapon temperature
 
 	//zilpin: pellet spread patterns externalized in XML
 	INT32 spreadPattern;

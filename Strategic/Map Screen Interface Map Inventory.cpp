@@ -48,6 +48,11 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+
+extern void	SetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ);	// Flugente: set last time sector was visited
+
 //dnl ch51 081009
 UINT8 gInventoryPoolIndex = '0';
 std::vector<WORLDITEM> pInventoryPoolListQ[INVPOOLLISTNUM];
@@ -5069,6 +5074,14 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		//Save the Items to the the file
 		SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
 	}
+		
+	HandleSectorCooldownFunctions( sMapX, sMapY, (INT8)sMapZ, pTotalSectorList, uiTotalNumberOfRealItems, TRUE );
+
+	//Save the time the player was last in the sector
+	SetLastTimePlayerWasInSector( sMapX, sMapY, (INT8)sMapZ );
+
+	//Save the Items to the the file
+	SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
 }
 
 // Flugente: handle various cooldwon functions over an array of items in a specific sector. 
@@ -5077,7 +5090,7 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes )
 {
 	// if not using overheating or food system, no point in all this
-	if ( !gGameOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
+	if ( !gGameOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
 		return;
 
 	UINT32 tickspassed = 1;
@@ -5105,6 +5118,16 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 	if ( sMapZ > 0 )
 		foofdecaymod *= 0.8f;
 
+	// get sector-specific dirt threshold
+	UINT16 sectormod = 0;
+	UINT8 ubSectorId = SECTOR(sMapX, sMapY);	
+	if ( sMapZ > 0 )
+		sectormod = 100;
+	else if ( ubSectorId >= 0 && ubSectorId < 256  )
+	{
+		sectormod = SectorExternalData[ubSectorId][sMapZ].usNaturalDirt;
+	}
+	
 	for( UINT32 uiCount = 0; uiCount < size; ++uiCount )				// ... for all items in the world ...
 	{
 		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
@@ -5154,6 +5177,24 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 								// we assume that there can exist only 1 underbarrel weapon per gun
 								break;
 							}
+						}
+					}
+				}
+
+				if ( gGameExternalOptions.fDirtSystem && ( (Item[pObj->usItem].usItemClass & IC_WEAPON) || (Item[pObj->usItem].usItemClass & IC_ARMOUR) ) )
+				{
+					FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor(pObj, FALSE);			// ... get dirt increase factor ...
+
+					// the current sector determines how much dirt increases
+					dirtincreasefactor *= (sectormod)/100;
+
+					dirtincreasefactor /= gGameExternalOptions.usSectorDirtDivider;
+
+					if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+						{
+							(*pObj)[i]->data.bDirtLevel = max(0.0f, min( OVERHEATING_MAX_TEMPERATURE, (*pObj)[i]->data.bDirtLevel + tickspassed * dirtincreasefactor) );	// set new temperature														
 						}
 					}
 				}

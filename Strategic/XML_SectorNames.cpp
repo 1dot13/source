@@ -19,8 +19,8 @@
 // Four different sector names, used at different times.
 extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
 
-// Flugente: To determine wether a sector has water in it. 
-extern UINT8	gSectorWaterType[256][4];
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // moved to lua
 //extern CHAR16 gzSectorUndergroundNames1[256][4][MAX_SECTOR_NAME_LENGTH]; 
@@ -46,6 +46,7 @@ typedef struct
 	CHAR16			szCurExploredName[MAX_SECTOR_NAME_LENGTH];
 	CHAR16			szCurDetailedExploredName[MAX_SECTOR_NAME_LENGTH];
 	UINT8			sWaterType;
+	UINT16			usNaturalDirt;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 } SectorNameParseData;
@@ -70,10 +71,15 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 			// Initiate Array by setting first character to 0.
 			for (UINT16 x = 0; x < 256; x++)
 			{
-				gSectorWaterType[x][0] = 0;
-				gSectorWaterType[x][1] = 0;
-				gSectorWaterType[x][2] = 0;
-				gSectorWaterType[x][3] = 0;
+				SectorExternalData[x][0].usWaterType = 0;				
+				SectorExternalData[x][1].usWaterType = 0;
+				SectorExternalData[x][2].usWaterType = 0;
+				SectorExternalData[x][3].usWaterType = 0;
+
+				SectorExternalData[x][0].usNaturalDirt = 0;
+				SectorExternalData[x][1].usNaturalDirt = 0;
+				SectorExternalData[x][2].usNaturalDirt = 0;
+				SectorExternalData[x][3].usNaturalDirt = 0;
 			
 				if (Sector_Level == 0 )
 				{
@@ -121,7 +127,8 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "szDetailedUnexploredName") == 0 ||
 				strcmp(name, "szExploredName") == 0 ||
 				strcmp(name, "szDetailedExploredName") == 0 ||
-				strcmp(name, "sWaterType") == 0 ))
+				strcmp(name, "sWaterType") == 0 ||
+				strcmp(name, "usNaturalDirt") == 0 ))
 		{
 			pData->curElement = SECTORNAME_ELEMENT;
 
@@ -174,10 +181,15 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
 						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
 
-						gSectorWaterType[ubSectorId][0]	= pData->sWaterType;
-						gSectorWaterType[ubSectorId][1]	= pData->sWaterType;
-						gSectorWaterType[ubSectorId][2]	= pData->sWaterType;
-						gSectorWaterType[ubSectorId][3]	= pData->sWaterType;
+						SectorExternalData[ubSectorId][0].usWaterType = pData->sWaterType;
+						SectorExternalData[ubSectorId][1].usWaterType = pData->sWaterType;
+						SectorExternalData[ubSectorId][2].usWaterType = pData->sWaterType;
+						SectorExternalData[ubSectorId][3].usWaterType = pData->sWaterType;
+
+						SectorExternalData[ubSectorId][0].usNaturalDirt = pData->usNaturalDirt;
+						SectorExternalData[ubSectorId][1].usNaturalDirt = pData->usNaturalDirt;
+						SectorExternalData[ubSectorId][2].usNaturalDirt = pData->usNaturalDirt;
+						SectorExternalData[ubSectorId][3].usNaturalDirt = pData->usNaturalDirt;
 					}
 					// moved to lua
 					//else if (Sector_Level == 1 )
@@ -211,10 +223,15 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
 						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
 
-						gSectorWaterType[ubSectorId][0]	= pData->sWaterType;
-						gSectorWaterType[ubSectorId][1]	= pData->sWaterType;
-						gSectorWaterType[ubSectorId][2]	= pData->sWaterType;
-						gSectorWaterType[ubSectorId][3]	= pData->sWaterType;
+						SectorExternalData[ubSectorId][0].usWaterType = pData->sWaterType;
+						SectorExternalData[ubSectorId][1].usWaterType = pData->sWaterType;
+						SectorExternalData[ubSectorId][2].usWaterType = pData->sWaterType;
+						SectorExternalData[ubSectorId][3].usWaterType = pData->sWaterType;
+
+						SectorExternalData[ubSectorId][0].usNaturalDirt = pData->usNaturalDirt;
+						SectorExternalData[ubSectorId][1].usNaturalDirt = pData->usNaturalDirt;
+						SectorExternalData[ubSectorId][2].usNaturalDirt = pData->usNaturalDirt;
+						SectorExternalData[ubSectorId][3].usNaturalDirt = pData->usNaturalDirt;
 					}
 					// moved to lua
 					//else if (Sector_Level == 1 )
@@ -291,6 +308,12 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
 			pData->sWaterType = (UINT8) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usNaturalDirt") == 0)
+		{
+			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
+			pData->usNaturalDirt = (UINT16) atoi(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;

@@ -493,7 +493,7 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 		sValue =100;
 	}
 
-	// Flugente FTW 1.2
+	// Flugente
 	if ( ubStatus == DRAW_ITEM_TEMPERATURE )
 	{
 		// the food item bar always has full size
@@ -533,6 +533,18 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	dPercentage = (FLOAT)sValue / (FLOAT)100;
 	dEnd				=	dPercentage * sHeight;
 	dStart			= sYPos;
+
+	// Flugente: draw sRepairThreshold in the background
+	if ( gGameExternalOptions.fAdvRepairSystem && ubStatus != DRAW_ITEM_TEMPERATURE && Item[pObject->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR) )
+	{
+		FLOAT repairthresholdend = sHeight * (FLOAT)(*pObject)[0]->data.sRepairThreshold / (FLOAT)100;
+		
+		usLineColor =  Get16BPPColor( FROMRGB( 57, 56, 41 ) );
+		RectangleDraw( TRUE, sXPos, (INT32)(dStart - repairthresholdend), sXPos, (INT32)( dStart - sHeight ) , usLineColor, pDestBuf );
+
+		usLineColor = Get16BPPColor( FROMRGB( 57, 56, 41 ) );
+		RectangleDraw( TRUE, sXPos + 1, (INT32)(dStart - repairthresholdend), sXPos + 1, (INT32)( dStart - sHeight ) , usLineColor, pDestBuf );
+	}
 
 	//usLineColor = Get16BPPColor( STATUS_BAR );
 	usLineColor = sColor1;

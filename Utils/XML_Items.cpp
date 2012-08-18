@@ -268,6 +268,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "PoisonPercentage") == 0 ||
 				strcmp(name, "ItemFlag") == 0 ||
 				strcmp(name, "FoodType") == 0 ||
+				strcmp(name, "DamageChance") == 0 ||
+				strcmp(name, "DirtIncreaseFactor") == 0 ||
 
 				strcmp(name, "fFlags") == 0 ||
 				//JMich_SkillModifiers: Adding new flags
@@ -1375,6 +1377,16 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.RepairModifier = (INT8) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "DamageChance") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usDamageChance = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "DirtIncreaseFactor") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.dirtIncreaseFactor = (FLOAT) atof(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -1990,6 +2002,8 @@ BOOLEAN WriteItemStats()
 
 			FilePrintf(hFile,"\t\t<BlockIronSight>%d</BlockIronSight>\r\n",								Item[cnt].blockironsight  );
 
+			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",							Item[cnt].bPoisonPercentage    );
+
 			FilePrintf(hFile,"\t\t<ItemFlag>%d</ItemFlag>\r\n",											Item[cnt].usItemFlag  );
 
 			FilePrintf(hFile,"\t\t<FoodType>%d</FoodType>\r\n",											Item[cnt].foodtype  );
@@ -2003,6 +2017,9 @@ BOOLEAN WriteItemStats()
 			// Flugente poison system
 			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",		Item[cnt].bPoisonPercentage    );
 
+			FilePrintf(hFile,"\t\t<DamageChance>%d</DamageChance>\r\n",									Item[cnt].usDamageChance  );
+			FilePrintf(hFile,"\t\t<DirtIncreaseFactor>%4.2f</DirtIncreaseFactor>\r\n",					Item[cnt].dirtIncreaseFactor  );
+						
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");

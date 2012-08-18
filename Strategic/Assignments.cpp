@@ -358,7 +358,7 @@ UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient );
 UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealAmount );
 
 // can item be repaired?
-BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus );
+BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold );
 
 // does another merc have a repairable item on them?
 OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPassType );
@@ -3587,7 +3587,7 @@ static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& ite
 		foundItem = false;
 		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex) {
 			// Check the stack item itself
-			if (IsItemRepairable(pObj->usItem, (*pObj)[stackIndex]->data.objectStatus)) {
+			if (IsItemRepairable(pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold)) {
 				RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 				itemsToFix.push(item);
 				break;
@@ -3596,7 +3596,7 @@ static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& ite
 			// Check for attachments (are there stackable items that can take attachments though?)
 			UINT8 attachmentIndex = 0;
 			for (attachmentList::const_iterator iter = (*pObj)[stackIndex]->attachments.begin(); iter != (*pObj)[stackIndex]->attachments.end(); ++iter, ++attachmentIndex) {
-				if (IsItemRepairable(iter->usItem, (*iter)[attachmentIndex]->data.objectStatus )) {
+				if (IsItemRepairable(iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
 					// Send the main item, not the attachment
 					RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 					itemsToFix.push(item);
@@ -3692,7 +3692,7 @@ OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject)
 OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObject)
 {
 	AssertNotNIL(pObj);
-	if ( IsItemRepairable( pObj->usItem, (*pObj)[subObject]->data.objectStatus ) )
+	if ( IsItemRepairable( pObj->usItem, (*pObj)[subObject]->data.objectStatus, (*pObj)[subObject]->data.sRepairThreshold ) )
 	{
 		return( pObj );
 	}
@@ -3700,7 +3700,7 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObje
 	// have to check for attachments after...
 	for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( iter->usItem, (*iter)[subObject]->data.objectStatus ) && iter->exists() ) {
+		if ( IsItemRepairable( iter->usItem, (*iter)[subObject]->data.objectStatus, (*iter)[subObject]->data.sRepairThreshold ) && iter->exists() ) {
 			return( &(*iter) );
 		}
 	}
@@ -3708,8 +3708,8 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObje
 	return( 0 );
 }
 
-
-void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UINT8 * pubRepairPtsLeft )
+// Flugente: changed this function so that it repairs items up to a variable threshold instead of always 100%. This will only happen if the option gGameExternalOptions.fAdvRepairSystem is used
+void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, INT16 sThreshold, UINT8 * pubRepairPtsLeft )
 {
 	INT16		sRepairCostAdj;
 	UINT16	usDamagePts, usPtsFixed;
@@ -3719,7 +3719,7 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 	AssertNotNIL (pubRepairPtsLeft);
 
 	// get item's repair ease, for each + point is 10% easier, each - point is 10% harder to repair
-	sRepairCostAdj = 100 - ( 10 * Item[ usItem ].bRepairEase );
+	sRepairCostAdj = sThreshold - ( 10 * Item[ usItem ].bRepairEase );
 
 	// make sure it ain't somehow gone too low!
 	if (sRepairCostAdj < 10)
@@ -3743,7 +3743,7 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 	}
 
 	// how many points of damage is the item down by?
-	usDamagePts = 100 - *pbStatus;
+	usDamagePts = sThreshold - *pbStatus;
 
 	// adjust that by the repair cost adjustment percentage
 	usDamagePts = (usDamagePts * sRepairCostAdj) / 100;
@@ -3751,8 +3751,8 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 	// do we have enough pts to fully repair the item?
 	if ( *pubRepairPtsLeft >= usDamagePts )
 	{
-		// fix it to 100%
-		*pbStatus = 100;
+		// fix it up to the threshold (max 100%)
+		*pbStatus = sThreshold;
 		*pubRepairPtsLeft -= usDamagePts;
 	}
 	else	// not enough, partial fix only, if any at all
@@ -3766,10 +3766,10 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 		{
 			*pbStatus += usPtsFixed;
 
-			// make sure we don't somehow end up over 100
-			if ( *pbStatus > 100 )
+			// make sure we don't somehow end up over the threshold
+			if ( *pbStatus > sThreshold )
 			{
-				*pbStatus = 100;
+				*pbStatus = sThreshold;
 			}
 		}
 
@@ -3790,22 +3790,32 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 	for ( ubLoop = 0; ubLoop < ubItemsInPocket; ubLoop++ )
 	{
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( pObj->usItem, (*pObj)[ubLoop]->data.objectStatus ) )
+		if ( IsItemRepairable( pObj->usItem, (*pObj)[ubLoop]->data.objectStatus, (*pObj)[ubLoop]->data.sRepairThreshold ) )
 		{
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - merc records, num items repaired
 			// Actually we check if we repaired at least 5% of status, otherwise the item is not considered broken
 			ubBeforeRepair = (UINT8)((*pObj)[ubLoop]->data.objectStatus);
-			// repairable, try to repair it
-			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), pubRepairPtsLeft );
 
+			// Flugente: if using the new advanced repair system, we can only repair up to the repair threshold
+			INT16 threshold = 100;
+			if ( gGameExternalOptions.fAdvRepairSystem && ( (Item[pObj->usItem].usItemClass & IC_WEAPON) || (Item[pObj->usItem].usItemClass & IC_ARMOUR) ) )
+				threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
+
+			// repairable, try to repair it
+			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), threshold, pubRepairPtsLeft );
+						
 			// if the item was repaired to full status and the repair wa at least 5%, add a point
-			if ( (*pObj)[ubLoop]->data.objectStatus == 100 && (((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 4 ))
+			if ( (*pObj)[ubLoop]->data.objectStatus == threshold && (((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 4 ))
 			{
 				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
+
+				// if item was fully repaired, consider it cleaned
+				if ( gGameExternalOptions.fDirtSystem )
+					(*pObj)[ubLoop]->data.bDirtLevel = 0.0f;
 			}
 			// if the item was now repaired to a status of 96-99 and the repair was at least 2%, add a point, consider the item repaired (no points will be awarded for it anyway)
-			else if ( (*pObj)[ubLoop]->data.objectStatus > 95 && (*pObj)[ubLoop]->data.objectStatus < 100 && ((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 1) 
+			else if ( (*pObj)[ubLoop]->data.objectStatus > threshold - 5 && (*pObj)[ubLoop]->data.objectStatus < threshold && ((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 1) 
 			{
 				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
 			}
@@ -4142,14 +4152,20 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 
 
 
-BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus )
+BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 {
 	// check to see if item can/needs to be repaired
 //	if ( ( bStatus < 100) && ( Item[ usItem ].fFlags & ITEM_REPAIRABLE ) )
-	if ( ( bStatus < 100) && ( Item[ usItem ].repairable	) )
+	if ( ( bStatus < 100) && ( Item[ usItem ].repairable ) )
 	{
-		// yep
-		return ( TRUE );
+		if ( gGameExternalOptions.fAdvRepairSystem )
+		{
+			if ( ( ((Item[usItem].usItemClass & IC_WEAPON) != 0) || Item[usItem].usItemClass == IC_ARMOUR ) && bStatus < bThreshold )
+				return ( TRUE );
+		}
+		else
+			// yep
+			return ( TRUE );
 	}
 
 	// nope

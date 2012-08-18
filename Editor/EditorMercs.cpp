@@ -2813,7 +2813,10 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate )
 
 		//randomize the status on non-ammo items.
 		if( !(Item[ gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ].usItem ].usItemClass & IC_AMMO) )
+		{
 			gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ][0]->data.objectStatus = (INT8)(80 + Random( 21 ));
+			gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ][0]->data.sRepairThreshold = max(1, min(100, (100 + gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ][0]->data.objectStatus)/2 ));
+		}
 
 		if( gusMercsNewItemIndex )
 		{

@@ -1142,6 +1142,11 @@ typedef struct
 
 	// Flugente: External Feeding
 	UINT8	ubExternalFeeding;						// allow external feeding of guns (0 = no, 1 = only for others, 2 = we can also fed ourselves)
+
+	// Flugente: advanced repair/dirt system
+	BOOLEAN	fAdvRepairSystem;						// allow thresholds to repairing
+	BOOLEAN fDirtSystem;							// allow dirt on items increase the chance for weapon jamming
+	UINT32	usSectorDirtDivider;					// divide a guns dirt factor by this to get dirt increase for every turn
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

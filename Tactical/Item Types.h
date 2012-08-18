@@ -222,6 +222,7 @@ typedef enum
 
 // Flugente: define for maximum temperature
 #define OVERHEATING_MAX_TEMPERATURE			60000.0f
+#define DIRT_MIN_TO_CLEAN					10.0f		// minimum dirt until we consider cleaning (as weapons constantly get dirtier, this prevents a gun from being constantly cleaned)
 
 //forward declaration
 class OBJECTTYPE;
@@ -478,6 +479,12 @@ public:
 	UINT8		ubDirection;		// direction the bomb faces (for directional explosives)
 	UINT32		ubWireNetworkFlag;	// flags for the tripwire network
 	INT8		bDefuseFrequency;	// frequency for defusing, >=0 values used only
+
+	// Flugente: advanced repair/dirt system
+	INT16		sRepairThreshold;	// repair only possible up to this value
+	FLOAT		bDirtLevel;			// counter for how dirty a gun is
+
+	INT32		sObjectFlag;		// used to notify of various states that apply to this object, but not the item in general
 };
 // Flugente: needed for reading WF maps
 #define SIZEOF_OBJECTDATA_POD	(offsetof(ObjectData, endOfPOD))
@@ -725,9 +732,9 @@ extern OBJECTTYPE gTempObject;
 #define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
 #define AMMO_BELT_VEST			0x00000200	//512		// this is a vest that can contain AMMO_BELT items in its medium slots
 #define CAMO_REMOVAL			0x00000400	//1024		// item can be used to remove camo
-/*#define ENEMY_NET_4_LVL_3		0x00000800	//2048
+#define CLEANING_KIT			0x00000800	//2048		// weapon cleaning kit
 
-#define ENEMY_NET_1_LVL_4		0x00001000	//4096
+/*#define ENEMY_NET_1_LVL_4		0x00001000	//4096
 #define ENEMY_NET_2_LVL_4       0x00002000	//8192
 #define ENEMY_NET_3_LVL_4 		0x00004000	//16384
 #define ENEMY_NET_4_LVL_4		0x00008000	//32768
@@ -1017,6 +1024,10 @@ typedef struct
 	UINT8	CrowbarModifier;
 	UINT8	DisarmModifier;
 	INT8	RepairModifier;
+
+	// Flugente: advanced repair/dirt system
+	UINT8	usDamageChance;							// chance that damage to the status will also damage the repair threshold
+	FLOAT	dirtIncreaseFactor;						// one shot causes this much dirt on a gun
 
 } INVTYPE;
 

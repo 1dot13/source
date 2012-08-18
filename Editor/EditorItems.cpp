@@ -964,7 +964,10 @@ void AddSelectedItemToWorld( INT32 sGridNo )
 	else
 	{
 		if(gTempObject.usItem != OWNERSHIP)//dnl ch35 110909
+		{
 			(*pObject)[0]->data.objectStatus = (INT8)(70 + Random( 26 ));
+			(*pObject)[0]->data.sRepairThreshold = max(1, min(100, (100 + (*pObject)[0]->data.objectStatus)/2 ));
+		}
 	}
 	if( pItem->usItemClass & IC_GUN )
 	{

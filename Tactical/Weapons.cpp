@@ -49,6 +49,7 @@
 	#include "Soldier Functions.h" // added by SANDRO
 	#include "Drugs And Alcohol.h" // HEADROCK HAM 4: Get drunk level
 	#include "LOS.h" // HEADROCK HAM 4: Required for new shooting mechanism. Alternately, maybe move the functions to LOS.h.
+	#include "Campaign Types.h"	// added by Flugente
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -61,6 +62,7 @@ class SOLDIERTYPE;
 extern INT8 gbCurrentRainIntensity;
 //end rain
 
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];	// added by Flugente
 
 // HEADROCK HAM B1: Externalized both values to INI
 //#define MINCHANCETOHIT          1
@@ -1172,7 +1174,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				int invertedBaseJamChance = condition + (reliability * 2) - 
 					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
 
-				// Flugente FTW 1: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
+				// Flugente: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
 				if ( gGameOptions.fWeaponOverheating )
 				{
 					FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObj );	// how much above the gun's usOverheatingJamThreshold are we? ...
@@ -1182,6 +1184,16 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					overheatjamfactor = max(0, overheatjamfactor - 100);				// If we haven't reached the OverheatJamThreshold, no increased chance of jamming because of overheating
 
 					invertedBaseJamChance -= overheatjamfactor;							// lower invertedBaseJamChance	(thereby increasing jamChance later on)
+				}
+
+				// Flugente: dirt can also influence a gun's jamming behaviour
+				if ( gGameExternalOptions.fDirtSystem )
+				{
+					FLOAT dirtpercentage = (*pObj)[0]->data.bDirtLevel / OVERHEATING_MAX_TEMPERATURE;
+					
+					int dirtjamfactor = (int)(100 * dirtpercentage*dirtpercentage);
+					
+					invertedBaseJamChance -= dirtjamfactor;	
 				}
 
 				if (invertedBaseJamChance < 0) 
@@ -1796,8 +1808,15 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 							uiDepreciateTest = max(0,BASIC_DEPRECIATE_CHANCE + 3 * (Item[ iter->usItem ].bReliability + ammoReliability));
 						}
 						if ( !PreRandom( uiDepreciateTest ) && ( (*pObjAttHand)[0]->data.objectStatus > 1) )
+						{
 							(*pA)[0]->data.objectStatus--;
-						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
+
+							if ( Random(100) < Item[pA->usItem].usDamageChance )
+							{
+								(*pA)[0]->data.sRepairThreshold--;
+							}
+						}
 					}
 				}
 			}
@@ -1815,7 +1834,14 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		if ( pAttachment )
 		{
 			// reduce status and see if it falls off
-			(*pAttachment)[0]->data.objectStatus -= (INT8) Random( 2 );
+			INT8 reduction = (INT8) Random( 2 );
+			(*pAttachment)[0]->data.objectStatus -= reduction;
+
+			// Flugente: reduce repair threshold
+			if ( reduction > 0 && Random(100) < Item[pAttachment->usItem].usDamageChance )
+			{
+				(*pAttachment)[0]->data.sRepairThreshold--;
+			}
 
 			if ( (*pAttachment)[0]->data.objectStatus - Random( 35 ) - Random( 35 ) < USABLE )
 			{
@@ -2131,16 +2157,16 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 
 	INT16 iOverheatReliabilityMalus = 0;
-	// Flugente FTW 1: Increase Weapon Temperature
+	// Flugente: Increase Weapon Temperature
 	if ( gGameOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObjAttHand );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
 
 		if ( overheatjampercentage > 1.0 )
 			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
-				
-		GunIncreaseHeat( pObjAttHand );
 	}
+
+	GunIncreaseHeat( pObjAttHand );
 
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	//INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
@@ -2167,6 +2193,12 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjAttHand)[0]->data.objectStatus > 1) )
 	{
 		(*pObjAttHand)[0]->data.objectStatus--;
+
+		// Flugente: reduce repair threshold
+		if ( Random(100) < Item[pObjAttHand->usItem].usDamageChance )
+		{
+			(*pObjAttHand)[0]->data.sRepairThreshold--;
+		}
 	}
 
 	// reduce monster smell (gunpowder smell)
@@ -2368,8 +2400,16 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 							uiDepreciateTest = __max(0,BASIC_DEPRECIATE_CHANCE + 3 * (Item[ iter->usItem ].bReliability + ammoReliability));
 						}
 						if ( !PreRandom( uiDepreciateTest ) && ( (*pObjUsed)[0]->data.objectStatus > 1) )
+						{
 							(*pA)[0]->data.objectStatus--;
-						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
+
+							// Flugente: reduce repair threshold
+							if ( Random(100) < Item[pA->usItem].usDamageChance )
+							{
+								(*pA)[0]->data.sRepairThreshold--;
+							}
+						}
 					}
 				}
 			}
@@ -2387,7 +2427,14 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		if ( pAttachment->exists() )
 		{
 			// reduce status and see if it falls off
-			(*pAttachment)[0]->data.objectStatus -= (INT8) Random( 2 );
+			INT8 reduction = (INT8) Random( 2 );
+			(*pAttachment)[0]->data.objectStatus -= reduction;
+
+			// Flugente: reduce repair threshold
+			if ( reduction > 0 && Random(100) < Item[pAttachment->usItem].usDamageChance )
+			{
+				(*pAttachment)[0]->data.sRepairThreshold--;
+			}
 
 			if ( (*pAttachment)[0]->data.objectStatus - Random( 35 ) - Random( 35 ) < USABLE )
 			{
@@ -2738,9 +2785,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 		if ( overheatjampercentage > 1.0 )
 			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
-
-		GunIncreaseHeat( pObjUsed );
 	}
+
+	GunIncreaseHeat( pObjUsed );
 
 	/* //WarmSteel - Replaced with GetReliability( pObj )
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
@@ -2770,6 +2817,12 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjUsed)[0]->data.objectStatus > 1) )
 	{
 		(*pObjUsed)[0]->data.objectStatus--;
+
+		// Flugente: reduce repair threshold
+		if ( Random(100) < Item[pObjUsed->usItem].usDamageChance )
+		{
+			(*pObjUsed)[0]->data.sRepairThreshold--;
+		}
 	}
 
 	// reduce monster smell (gunpowder smell)
@@ -2887,6 +2940,11 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				bMaxDrop = __max( bMaxDrop, 2 );
 
 				(*pObj)[0]->data.objectStatus -= (INT8) Random( bMaxDrop );     // 0 to (maxDrop - 1)
+
+				if ( bMaxDrop > 0 )
+				{
+					(*pObj)[0]->data.sRepairThreshold = max((*pObj)[0]->data.objectStatus, (*pObj)[0]->data.sRepairThreshold - 1);
+				}
 			}
 
 			// SANDRO - new merc records - times wounded (stabbed)
@@ -3808,8 +3866,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
   // ATE: Check here if the launcher should fail 'cause of bad status.....
   if ( WillExplosiveWeaponFail( pSoldier, pgunobj ) )
   {
-	if ( gGameOptions.fWeaponOverheating )
-		GunIncreaseHeat( pgunobj );
+	GunIncreaseHeat( pgunobj );
     // Explode dude!
 
     // So we still should have ABC > 0
@@ -3826,7 +3883,6 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
     return( FALSE );
   }
 
-  if ( gGameOptions.fWeaponOverheating )
 	GunIncreaseHeat( pgunobj );
 
 	if ( Weapon[ usItemNum ].sSound != NO_WEAPON_SOUND  )
@@ -11530,22 +11586,49 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 
 }
 
-// Flugente FTW 1: Increase temperature of gun in ubAttackingHand
+// Flugente: Increase temperature/dirt of gun in ubAttackingHand due to firing a shot
 void GunIncreaseHeat( OBJECTTYPE *pObj )
 {
-	if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )							// if item is a gun pr launcher...
+	if ( gGameOptions.fWeaponOverheating )
 	{
-	  FLOAT guntemperature = (*pObj)[0]->data.bTemperature;									// ... get current temperature ...
+		if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )							// if item is a gun pr launcher...
+		{
+		  FLOAT guntemperature = (*pObj)[0]->data.bTemperature;									// ... get current temperature ...
 
-	  FLOAT singleshottemperature = GetSingleShotTemperature( pObj );						// ... get temperature rise ...
+		  FLOAT singleshottemperature = GetSingleShotTemperature( pObj );						// ... get temperature rise ...
 
-	  FLOAT newguntemperature = min(guntemperature + singleshottemperature, OVERHEATING_MAX_TEMPERATURE );					// ... calculate new temperature ...
+		  FLOAT newguntemperature = min(guntemperature + singleshottemperature, OVERHEATING_MAX_TEMPERATURE );					// ... calculate new temperature ...
 
-	  (*pObj)[0]->data.bTemperature = newguntemperature;									// ... apply new temperature
+		  (*pObj)[0]->data.bTemperature = newguntemperature;									// ... apply new temperature
 
 #ifdef JA2TESTVERSION
-	  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gun temperature increased from %4.2f to %4.2f", guntemperature, newguntemperature );
+		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gun temperature increased from %4.2f to %4.2f", guntemperature, newguntemperature );
 #endif
+		}
+	}
+
+	// firing a gun also increases dirt
+	if ( gGameExternalOptions.fDirtSystem )
+	{
+		FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor(pObj, TRUE);			// ... get dirt increase factor ...
+
+		// get sector-specific dirt threshold
+		UINT16 sectormod = 0;
+		UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);	
+		if ( gbWorldSectorZ > 0 )
+			sectormod = 100;
+		else if ( ubSectorId >= 0 && ubSectorId < 256  )
+		{
+			sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
+		}
+
+		// the current sector determines how much dirt increases
+		dirtincreasefactor *= (sectormod)/100;
+
+		if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
+		{
+			(*pObj)[0]->data.bDirtLevel = min((*pObj)[0]->data.bDirtLevel + dirtincreasefactor, OVERHEATING_MAX_TEMPERATURE );	// dirt and overheating use the same threshold
+		}
 	}
 }
 
@@ -11579,7 +11662,7 @@ FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 	return singleshottemperature;
 }
 
-// Flugente FTW 1: Get percentage: temperature/damagethreshold
+// Flugente: Get percentage: temperature/damagethreshold
 FLOAT   GetGunOverheatDamagePercentage( OBJECTTYPE * pObj )
 {
 	FLOAT damagethreshold = GetOverheatDamageThreshold(pObj);
@@ -11592,7 +11675,7 @@ FLOAT   GetGunOverheatDamagePercentage( OBJECTTYPE * pObj )
 	return temperature/ damagethreshold ;
 }
 
-// Flugente FTW 1: Get percentage: temperature/jamthreshold
+// Flugente: Get percentage: temperature/jamthreshold
 FLOAT   GetGunOverheatJamPercentage( OBJECTTYPE * pObj )
 {
 	FLOAT jamthreshold = GetOverheatJamThreshold(pObj);

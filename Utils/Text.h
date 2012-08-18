@@ -620,8 +620,8 @@ extern STR16		gTemperatureDesc[ 11 ];
 extern STR16		gFoodDesc[ 8 ];
 
 extern CHAR16		gMoneyStatsDesc[][ 14 ];
-// HEADROCK: Altered value to 16 //WarmSteel - And I need 17.
-extern CHAR16		gWeaponStatsDesc[][ 17 ];
+// HEADROCK: Altered value to 16 //WarmSteel - And I need 17.	// Flugente: 17->19
+extern CHAR16		gWeaponStatsDesc[][ 19 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
 extern STR16		gzWeaponStatsFasthelp[ 32 ];
@@ -636,14 +636,14 @@ extern STR16		szUDBGenWeaponsStatsTooltipText[ 23 ];
 extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 23 ];
 extern STR16		szUDBGenArmorStatsTooltipText[ 3 ];
 extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 3 ];
-extern STR16		szUDBGenAmmoStatsTooltipText[ 5 ];						// Flugente Overheating: 3->4	poison: 4->5
-extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 5 ];			// Flugente Overheating: 3->4	poison: 4->5
+extern STR16		szUDBGenAmmoStatsTooltipText[ 6 ];						// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
+extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 6 ];			// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
 extern STR16		szUDBGenExplosiveStatsTooltipText[ 22 ];
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ];
 extern STR16		szUDBGenSecondaryStatsTooltipText[ 31 ];				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 31 ];	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit
-extern STR16		szUDBAdvStatsTooltipText[ 57 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57
-extern STR16		szUDBAdvStatsExplanationsTooltipText[ 57 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57
+extern STR16		szUDBAdvStatsTooltipText[ 58 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58
+extern STR16		szUDBAdvStatsExplanationsTooltipText[ 58 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58
 extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52
 
 // Headrock: End Externs
@@ -2149,6 +2149,9 @@ extern STR16 ChineseSpecString4;
 extern STR16 ChineseSpecString5;
 extern STR16 ChineseSpecString6;
 extern STR16 ChineseSpecString7;
+extern STR16 ChineseSpecString8;
+extern STR16 ChineseSpecString9;
+extern STR16 ChineseSpecString10;
 
 enum
 {

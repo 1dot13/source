@@ -22,7 +22,6 @@
 	#include "Campaign Types.h"
 	#include "Drugs And Alcohol.h"
 	#include "environment.h"
-	//#include "Game Clock.h"
 	#include "WorldDat.h"
 	#include "Facilities.h"
 #endif
@@ -33,12 +32,10 @@ class SOLDIERTYPE;
 
 extern MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS];
 
-UINT8	gSectorWaterType[256][4];
-
-//extern BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse );
-//extern BOOLEAN TacticalRemoveSoldier( UINT16 usSoldierIndex );
 extern BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet );
 extern BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier);
+
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // these midifiers are applied separately for both food and water
 // apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
@@ -724,7 +721,7 @@ UINT8	GetWaterQuality(INT16 asMapX, INT16 asMapY, INT8 asMapZ)
 	UINT8 ubSectorId = SECTOR(asMapX, asMapY);
 	if (asMapZ == 0 && ubSectorId >= 0 && ubSectorId < 256  )
 	{
-		waterquality = gSectorWaterType[ubSectorId][asMapZ];
+		waterquality = SectorExternalData[ubSectorId][asMapZ].usWaterType;
 	}
 
 	return waterquality;

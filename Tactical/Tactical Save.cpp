@@ -131,6 +131,7 @@ BOOLEAN LoadTempNpcQuoteInfoForNPCFromTempFile( UINT8 ubNpcId );
 UINT32	GetLastTimePlayerWasInSector();
 UINT32 GetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ);	// Flugente: get time for another sector
 void		SetLastTimePlayerWasInSector();
+void		SetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ);	// Flugente: set last time sector was visited
 
 
 extern void InitLoadedWorld( );
@@ -1378,6 +1379,35 @@ void SetLastTimePlayerWasInSector()
 	}
 }
 
+// Flugente: set last time sector was visited
+void SetLastTimePlayerWasInSector(INT16 sMapX, INT16 sMapY, INT8 sMapZ)
+{
+	if( !sMapZ )
+		SectorInfo[ SECTOR( sMapX,sMapY) ].uiTimeCurrentSectorWasLastLoaded = GetWorldTotalMin();
+	else if( sMapZ > 0 )
+	{
+		UNDERGROUND_SECTORINFO *pTempNode = gpUndergroundSectorInfoHead;
+
+		pTempNode = gpUndergroundSectorInfoHead;
+
+		//loop through and look for the right underground sector
+		while( pTempNode )
+		{
+			if( ( pTempNode->ubSectorX == sMapX ) &&
+					( pTempNode->ubSectorY == sMapY ) &&
+					( pTempNode->ubSectorZ == sMapZ ) )
+			{
+				//set the flag indicating that ther is a temp item file exists for the sector
+				pTempNode->uiTimeCurrentSectorWasLastLoaded = GetWorldTotalMin();
+				return;	//break out
+			}
+			pTempNode = pTempNode->next;
+		}
+		#ifdef JA2TESTVERSION
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Failed to Set the 'uiTimeCurrentSectorWasLastLoaded' for an underground sector" );
+		#endif
+	}
+}
 
 
 UINT32 GetLastTimePlayerWasInSector()

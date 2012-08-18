@@ -446,7 +446,7 @@ INT16 ReduceCamoFromSoldier( SOLDIERTYPE * pSoldier, INT16 iCamoToRemove, INT16 
 BOOLEAN HasExtendedEarOn( SOLDIERTYPE * pSoldier );
 BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsume );
 
-// Flugente FTW 1.2
+// Flugente
 FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj );
 void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap );
 
@@ -478,6 +478,16 @@ BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
 OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
 
 BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
+
+// Flugente: additional xml data for sectors
+typedef struct
+{
+	UINT8		usWaterType;			// type of water source in this sector
+	UINT16		usNaturalDirt;			// extra dirt percentage when firing in this sector
+} SECTOR_EXT_DATA;
+
+// get dirt increase for object with attachments, fConsiderAmmo: with ammo
+FLOAT GetItemDirtIncreaseFactor( OBJECTTYPE * pObj, BOOLEAN fConsiderAmmo = TRUE );
 
 //DBrot: get the volume of all attached pouches
 UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj);

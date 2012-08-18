@@ -1890,7 +1890,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			CHAR16 pStr[1000];
 
 			///////////////// PRIMARY DATA - ICONS
-			for (cnt = 0; cnt < 5; cnt++)
+			for (cnt = 0; cnt < 6; cnt++)
 			{
 				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
@@ -1923,7 +1923,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
 			}
 
-			if ( gGameOptions.fWeaponOverheating )	// Flugente FTW 1.1
+			if ( gGameOptions.fWeaponOverheating )	// Flugente
 			{	
 				//////////////////// TEMPERATURE MODIFICATOR
 				{
@@ -1932,7 +1932,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			//////////////////// POISON PERCENTAGE			
-			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );			
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 4 ] );
+
+			if ( gGameExternalOptions.fDirtSystem )	// Flugente
+			{	
+				//////////////////// DIRT MODIFICATOR
+				{
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 5 ] );
+				}
+			}
 		}
 	}
 
@@ -3702,10 +3710,11 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 		}*/
-				// Flugente FTW 1.1:		
-		if ( gGameOptions.fWeaponOverheating )
+				
+		// Flugente
+		if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
 		{
-			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || ( Item[gpItemDescObject->usItem].barrel == TRUE ) || ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ))
 			{
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -3732,7 +3741,13 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 					}
 				}
 				++cnt;
+			}
+		}
 
+		if ( gGameOptions.fWeaponOverheating )
+		{
+			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+			{
 				///////////////////// SINGLE SHOT TEMPERATURE
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -3798,33 +3813,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 			else if ( Item[gpItemDescObject->usItem].barrel == TRUE )		// for barrel items
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ] );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
-
-					iRegionsCreated++;
-
-					for (cnt2 = 1; cnt2 < 4; cnt2++)
-					{
-						MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sLeft),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sTop),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sRight),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sBottom),
-							MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
-
-						MSYS_AddRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]);
-						SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), gzUDBGenIndexTooltipText[ cnt2 ] );
-						SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), HelpTextDoneCallback );
-						MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2] );
-
-						iRegionsCreated++;
-					}
-				}
-				++cnt;
-
+			{				
 				///////////////////// COOLDOWN FACTOR
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{					
@@ -3837,33 +3826,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 
 			// other stuff: various overheat modificators
 			if ( ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ] );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
-
-					iRegionsCreated++;
-
-					for (cnt2 = 1; cnt2 < 4; cnt2++)
-					{
-						MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sLeft),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sTop),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sRight),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sBottom),
-							MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
-
-						MSYS_AddRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]);
-						SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), gzUDBGenIndexTooltipText[ cnt2 ] );
-						SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), HelpTextDoneCallback );
-						MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2] );
-
-						iRegionsCreated++;
-					}
-				}
-				++cnt;
-
+			{				
 				///////////////////// TEMPERATURE MODIFICATOR
 				if ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 )
 				{
@@ -3914,52 +3877,61 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
-//#ifdef ENABLE_ZOMBIES
-		// Flugente Zombies		
-		//if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
-		//{
-			if(!cnt) cnt += 2;
+		if(!cnt) cnt += 2;
 
-			if (cnt >= sFirstLine && cnt < sLastLine)
+		if (cnt >= sFirstLine && cnt < sLastLine)
+		{
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ] );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+
+			iRegionsCreated++;
+
+			for (cnt2 = 1; cnt2 < 4; cnt2++)
 			{
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ] );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
+					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sLeft),
+					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sTop),
+					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sRight),
+					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sBottom),
+				MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
+
+				MSYS_AddRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), gzUDBGenIndexTooltipText[ cnt2 ] );
+				SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), HelpTextDoneCallback );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2] );
 
 				iRegionsCreated++;
-
-				for (cnt2 = 1; cnt2 < 4; cnt2++)
-				{
-					MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
-						(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sLeft),
-						(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sTop),
-						(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sRight),
-						(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sBottom),
-					MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
-
-					MSYS_AddRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]);
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), gzUDBGenIndexTooltipText[ cnt2 ] );
-					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), HelpTextDoneCallback );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2] );
-
-					iRegionsCreated++;
-				}
 			}
-			++cnt;
+		}
+		++cnt;
 
-			///////////////////// poison percentage
-			// only draw if item is poisoned in any way
-			if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
+		///////////////////// poison percentage
+		// only draw if item is poisoned in any way
+		if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{				
+				swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 56 ], szUDBAdvStatsExplanationsTooltipText[ 56 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 			}
+			cnt++;
+		}
+
+		if ( gGameExternalOptions.fDirtSystem )
+		{
+			///////////////////// DIRT MODIFICATOR
+			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{				
-					swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 56 ], szUDBAdvStatsExplanationsTooltipText[ 56 ]);
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
- 				}
-				cnt++;
-			}
-		//}
-//#endif
+				if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+				{
+					swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 57 ], szUDBAdvStatsExplanationsTooltipText[ 57 ]);
+				}
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 			}
+			cnt++;
+		}
 
 		gubDescBoxTotalAdvLines = (UINT8)cnt;
 	}
@@ -4348,22 +4320,24 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 2, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
-		if ( gGameOptions.fWeaponOverheating )	// Flugente FTW 1.1
+		if ( gGameOptions.fWeaponOverheating )	// Flugente
 		{
 			//////////////// TEMPERATURE MODIFICATOR
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 16, gItemDescGenRegions[3][0].sLeft+sOffsetX, gItemDescGenRegions[3][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
-//#ifdef ENABLE_ZOMBIES
-		//if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
-		//{
-			//////////////// POISON PERCENTAGE
-			//{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			//}
-		//}
-//#endif
+
+		//////////////// POISON PERCENTAGE
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+		if ( gGameExternalOptions.fDirtSystem )	// Flugente
+		{
+			//////////////// DIRT MODIFICATOR
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 17, gItemDescGenRegions[5][0].sLeft+sOffsetX, gItemDescGenRegions[5][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+		}
 
 		DrawSecondaryStats( gpItemDescObject );
 	}
@@ -5160,12 +5134,20 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 	*/
 	
-	// Flugente FTW 1.1
+	// Flugente
+	// new line is necessary
+	if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
+	{
+		if( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[gpItemDescObject->usItem].barrel == TRUE || ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
+		{
+			++cnt;		// for the new index-line
+		}
+	}
+
 	if ( gGameOptions.fWeaponOverheating )
 	{		
 		if( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
-			++cnt;		// for the new index-line
 			///////////////////// SINGLE SHOT TEMPERATURE
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -5196,7 +5178,6 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 		else if( Item[gpItemDescObject->usItem].barrel == TRUE )		// for barrel items
 		{
-			++cnt;		// for the new index-line
 			///////////////////// COOLDOWN FACTOR
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -5208,7 +5189,6 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		// for overheat modifiers on attachments and wherenot
 		if ( ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
 		{
-			++cnt;		// for the new index-line
 			///////////////////// TEMPERATURE MODIFICATOR
 			if ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 )
 			{
@@ -5251,26 +5231,33 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 		
-//#ifdef ENABLE_ZOMBIES
-	// Flugente Zombies
-//	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
-//	{
-		if(!cnt) cnt += 2;
+	if(!cnt) cnt += 2;
 
-		++cnt;		// for the new index-line
+	++cnt;		// for the new index-line
 
-		///////////////////// poison percentage
-		// only draw if item is poisoned in any way
-		if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0 || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
+	///////////////////// poison percentage
+	// only draw if item is poisoned in any way
+	if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0 || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
+	{
+		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		cnt++;
+	}
+
+	if ( gGameExternalOptions.fDirtSystem )
+	{
+		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+		{
+			///////////////////// DIRT MODIFICATOR
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 55, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 			cnt++;
 		}
-	//}
-//#endif
+	}
 }
 
 void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
@@ -7630,7 +7617,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		}
 
 		
-		if ( gGameOptions.fWeaponOverheating )	// Flugente FTW 1.1
+		if ( gGameOptions.fWeaponOverheating )	// Flugente
 		{
 			///////////////////// TEMPERATURE MODIFICATOR
 			// Set line to draw into
@@ -7691,26 +7678,83 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			mprintf( usX, usY, pStr );
 		}
 
-//#ifdef ENABLE_ZOMBIES
-//		if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )	// Flugente Zombies
-//		{
-			///////////////////// POISON PERCENTAGE
+		///////////////////// POISON PERCENTAGE
+		// Set line to draw into
+		ubNumLine = 4;
+		// Set Y coordinates
+		sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+		sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+		// base modificator
+		INT16 basevalue = AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage;
+		INT16 modificator = 0;							// Does not exist (yet?)
+		INT16 finalvalue = basevalue - modificator;
+
+		// Print base value
+		SetFontForeground( 5 );
+		sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+		sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+		swprintf( pStr, L"%d", basevalue );
+		FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+		mprintf( usX, usY, pStr );
+
+		// modifier
+		SetFontForeground( 5 );
+		if ( modificator > 0 )
+		{
+			SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			swprintf( pStr, L"%d", modificator );
+		}
+		else if ( modificator < 0 )
+		{
+			SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			swprintf( pStr, L"%d", modificator );
+		}
+		else
+		{
+			swprintf( pStr, L"--" );
+		}
+
+		sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+		sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+		FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+		mprintf( usX, usY, pStr );
+
+		// Print final value
+		SetFontForeground( FONT_MCOLOR_WHITE );				
+		sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+		sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+		swprintf( pStr, L"%d", finalvalue );
+		FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+		mprintf( usX, usY, pStr );
+
+		if ( gGameExternalOptions.fDirtSystem )	// Flugente
+		{
+			///////////////////// DIRT MODIFICATOR
 			// Set line to draw into
-			ubNumLine = 4;
+			ubNumLine = 5;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// base modificator
-			INT16 basevalue = AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage;
-			INT16 modificator = 0;							// Does not exist (yet?)
-			INT16 finalvalue = basevalue - modificator;
+			FLOAT basevalue = AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].dirtModificator;
+			FLOAT modificator = 0;							// Does not exist (yet?)
+			FLOAT finalvalue = basevalue - modificator;
 
 			// Print base value
 			SetFontForeground( 5 );
+			if ( basevalue > 0.0 )
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			}
+			else if ( basevalue < 0.0 )
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			}
 			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			swprintf( pStr, L"%d", basevalue );
+			swprintf( pStr, L"%3.2f", basevalue );
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 
@@ -7718,13 +7762,13 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			SetFontForeground( 5 );
 			if ( modificator > 0 )
 			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%d", modificator );
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%3.2f", modificator );
 			}
 			else if ( modificator < 0 )
 			{
-				SetFontForeground( ITEMDESC_FONTNEGATIVE );
-				swprintf( pStr, L"%d", modificator );
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"%3.2f", modificator );
 			}
 			else
 			{
@@ -7740,11 +7784,10 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			SetFontForeground( FONT_MCOLOR_WHITE );				
 			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%d", finalvalue );
+			swprintf( pStr, L"%3.2f", finalvalue );
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
-//		}
-//#endif
+		}
 	}
 	else if (gubDescBoxPage == 2)
 	{
@@ -10939,10 +10982,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 	*/
 	
-	// Flugente FTW 1.1	
-	if ( gGameOptions.fWeaponOverheating )
+	// Flugente: draw a new description line
+	if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
 	{	
-		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || ( Item[gpItemDescObject->usItem].barrel == TRUE ) )
 		{
 			///////////////////////////////////////////////////// INDEXES
 			if (cnt >= sFirstLine && cnt < sLastLine)
@@ -10968,7 +11011,14 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				}
 			}
 			++cnt;
+		}
+	}
 
+	// Flugente	
+	if ( gGameOptions.fWeaponOverheating )
+	{	
+		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+		{			
 			///////////////////// SINGLE SHOT TEMPERATURE
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -11266,91 +11316,145 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	// Flugente Zombies
-//#ifdef USE_ZOMBIES
-//	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
-	//{
-		///////////////////////////////////////////////////// INDEXES
-		if(!cnt) cnt += 2;
+	///////////////////////////////////////////////////// INDEXES
+	if(!cnt) cnt += 2;
 
+	if (cnt >= sFirstLine && cnt < sLastLine)
+	{
+		SetFontForeground( FONT_MCOLOR_WHITE );
+				
+		// Set Y coordinates
+		sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+		sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;
+		
+		// Repeatedly draw each index: four separate column headers per index.
+		for (UINT8 i = 0; i < 4; i++)
+		{
+			// Select "PROPERTY", "0", "+" or "=" as appropriate.
+			swprintf(pStr, L"%s", gzItemDescGenIndexes[ i ]);
+
+			sLeft = gItemDescAdvRegions[cnt-sFirstLine][i].sLeft;
+			sWidth = gItemDescAdvRegions[cnt-sFirstLine][i].sRight - sLeft;			
+
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+
+			mprintf( usX, usY, pStr );
+		}
+	}
+	++cnt;
+
+	///////////////////// poison percentage
+	iModifier[0] = Item[gpItemDescObject->usItem].bPoisonPercentage;
+
+	UINT8 ammotype = (*gpItemDescObject)[0]->data.gun.ubGunAmmoType;			// ... get type of ammunition used ...
+
+	iModifier[1] = AmmoTypes[ammotype].poisonPercentage;
+	iModifier[2] = iModifier[0] + iModifier[1];
+
+	// only draw if item is poisoned in any way
+	if ( iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0 )
+	{
+		if (cnt >= sFirstLine && cnt < sLastLine)
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+				
+			// Print Values
+			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+			{
+				SetRGBFontForeground( 0, 255, 0 );
+				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+				if (iModifier[cnt2] > 0)
+				{
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
+				}
+				else if (iFloatModifier[cnt2] < 0)
+				{
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				mprintf( usX, usY, pStr );
+			}
+		}
+		cnt++;
+	}
+
+	if ( gGameExternalOptions.fDirtSystem )
+	{	
+		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
+		{
+			///////////////////// DIRT MODIFICATOR
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				
 				// Set Y coordinates
 				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;
-		
-				// Repeatedly draw each index: four separate column headers per index.
-				for (UINT8 i = 0; i < 4; i++)
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				iFloatModifier[0] = Item[ gpItemDescObject->usItem ].dirtIncreaseFactor;				
+				iFloatModifier[2] = GetItemDirtIncreaseFactor( gpItemDescObject, TRUE );
+				iFloatModifier[1] = iFloatModifier[2] - iFloatModifier[0];
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
 				{
-					// Select "PROPERTY", "0", "+" or "=" as appropriate.
-					swprintf(pStr, L"%s", gzItemDescGenIndexes[ i ]);
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iFloatModifier[cnt2] > 0)
+					{						
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTNEGATIVE );
 
-					sLeft = gItemDescAdvRegions[cnt-sFirstLine][i].sLeft;
-					sWidth = gItemDescAdvRegions[cnt-sFirstLine][i].sRight - sLeft;			
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iFloatModifier[cnt2] < 0)
+					{
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTPOSITIVE );
 
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
 					mprintf( usX, usY, pStr );
 				}
 			}
-			++cnt;
-
-			///////////////////// poison percentage
-			iModifier[0] = Item[gpItemDescObject->usItem].bPoisonPercentage;
-
-			UINT8 ammotype = (*gpItemDescObject)[0]->data.gun.ubGunAmmoType;			// ... get type of ammunition used ...
-
-			iModifier[1] = AmmoTypes[ammotype].poisonPercentage;
-			iModifier[2] = iModifier[0] + iModifier[1];
-
-			// only draw if item is poisoned in any way
-			if ( iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0 )
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					// Set Y coordinates
-					sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-					sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
-				
-					// Print Values
-					for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
-					{
-						SetRGBFontForeground( 0, 255, 0 );
-						sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
-						sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-						if (iModifier[cnt2] > 0)
-						{
-							swprintf( pStr, L"%d", iModifier[cnt2] );
-							FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-							#ifdef CHINESE
-								wcscat( pStr, ChineseSpecString1 );
-							#else
-								wcscat( pStr, L"%" );
-							#endif
-						}
-						else if (iFloatModifier[cnt2] < 0)
-						{
-							swprintf( pStr, L"%d", iModifier[cnt2] );
-							FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-							#ifdef CHINESE
-								wcscat( pStr, ChineseSpecString1 );
-							#else
-								wcscat( pStr, L"%" );
-							#endif
-						}
-						else
-						{
-							swprintf( pStr, L"--" );
-							FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-						}
-						mprintf( usX, usY, pStr );
-					}
-				}
-				cnt++;
-			}
-	//}
-//#endif
+			cnt++;
+		}
+	}
 }
 
 void DrawMiscValues( OBJECTTYPE * gpItemDescObject )

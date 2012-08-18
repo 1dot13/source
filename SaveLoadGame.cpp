@@ -1741,7 +1741,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->sLastTarget, sizeof(sLastTarget), sizeof(INT32), numBytesRead);
 		if(guiCurrentSaveGameVersion >= NCTH_DATATYPE_CHANGE){
 
-			// Flugente: Sandro increased the size of these 4 varisbles to 2 (was 1) when the version got to DUAL_BURST_ADDED. 
+			// Flugente: Sandro increased the size of these 4 variables to 2 (was 1) when the version got to DUAL_BURST_ADDED. 
 			// So if we load an old game, we set the second value to 0.0f and pretend we read it. This way old savegames will be savegame compatible 
 			if(guiCurrentSaveGameVersion < DUAL_BURST_ADDED)
 			{

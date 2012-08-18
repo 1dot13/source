@@ -1029,7 +1029,10 @@ ObjectData::ObjectData(const ObjectData& src)
 		this->ubDirection = src.ubDirection;
 		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
 		this->bDefuseFrequency = src.bDefuseFrequency;
-
+		this->sRepairThreshold = src.sRepairThreshold;
+		this->bDirtLevel = src.bDirtLevel;
+		this->sObjectFlag = src.sObjectFlag;
+		
 		//copy over the union
 		this->gun = src.gun;
 
@@ -1053,6 +1056,9 @@ ObjectData& ObjectData::operator =(const ObjectData& src)
 		this->ubDirection = src.ubDirection;
 		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
 		this->bDefuseFrequency = src.bDefuseFrequency;
+		this->sRepairThreshold = src.sRepairThreshold;
+		this->bDirtLevel = src.bDirtLevel;
+		this->sObjectFlag = src.sObjectFlag;
 
 		//copy over the union
 		this->gun = src.gun;
@@ -1342,6 +1348,10 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[0]->data.owner.ubOwnerCivGroup = src.ugYucky.ubOwnerCivGroup;
 			}
 
+			(*this)[0]->data.sRepairThreshold = 100;
+			(*this)[0]->data.bDirtLevel = 0.0f;
+			(*this)[0]->data.sObjectFlag = 0;
+
 			//it's unlikely max will get less over the versions, but still, check the min
 			for (int x = 0; x < OLD_MAX_ATTACHMENTS_101; ++x)
 			{
@@ -1372,6 +1382,10 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				{
 					(*this)[x]->data.bTemperature = OVERHEATING_MAX_TEMPERATURE;
 				}
+
+				(*this)[x]->data.sRepairThreshold = 100;
+				(*this)[x]->data.bDirtLevel = 0.0f;
+				(*this)[x]->data.sObjectFlag = 0;
 			}
 		}
 

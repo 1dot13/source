@@ -225,6 +225,7 @@ void ToggleZBuffer();
 void TogglePlanningMode();
 void SetBurstMode();
 void SetScopeMode( INT32 usMapPos );
+void CleanWeapons();
 void ObliterateSector();
 void RandomizeMercProfile();
 void CreateNextCivType();
@@ -4462,13 +4463,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if ( fAlt )
 				{
+					CleanWeapons();
 					
 					/*// Flugente: spawn items while debugging
 					if ( gusSelectedSoldier != NOBODY )
 					{
-						static UINT16 usitem = 1075;
+						static UINT16 usitem = 1576;
 						static INT16 status = 100;
-						static FLOAT temperature = 00000.0;
+						static FLOAT temperature = 0.0;
 
 						OBJECTTYPE newobj;
 						CreateItem( usitem, status, &newobj );
@@ -5274,6 +5276,46 @@ void SetScopeMode( INT32 usMapPos )
 
 		// reevaluate sight
 		ManLooksForOtherTeams( MercPtrs[ gusSelectedSoldier ] );
+	}
+}
+
+void CleanWeapons()
+{
+	if ( !gGameExternalOptions.fDirtSystem )
+		return;
+
+	// no functionality if not in tactical or in combat, or nobody is here
+	if ( guiCurrentScreen != GAME_SCREEN || (gTacticalStatus.uiFlags & INCOMBAT) )
+		return;
+
+	// if in turnbased mode, perform this action only for the selected merc, and use up APs
+	if ( gTacticalStatus.uiFlags & TURNBASED )
+	{
+		if ( gusSelectedSoldier == NOBODY )
+			return;
+
+		SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
+
+		if ( pSoldier->bActive )
+			pSoldier->CleanWeapon();
+	}
+	else	// peform action for every merc in this sector
+	{	
+		UINT8									bMercID, bLastTeamID;
+		SOLDIERTYPE*							pSoldier = NULL;
+
+		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+
+		// loop through all mercs
+		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+		{
+			//if the merc is in this sector
+			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			{
+				pSoldier->CleanWeapon();
+			}
+		}
 	}
 }
 
