@@ -2152,6 +2152,8 @@ extern STR16 ChineseSpecString7;
 extern STR16 ChineseSpecString8;
 extern STR16 ChineseSpecString9;
 extern STR16 ChineseSpecString10;
+extern STR16 ChineseSpecString11;
+extern STR16 ChineseSpecString12;
 
 enum
 {

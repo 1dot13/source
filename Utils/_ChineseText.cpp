@@ -182,7 +182,7 @@ STR16	pEncyclopediaTypeText[] =
 	L"Unknown",// 0 - unknown
 	L"城市", //1 - cities
 	L"SAM Site", //2 - SAM Site
-	L"其它区域", //3 - other location
+	L"其他区域", //3 - other location
 	L"矿场", //4 - mines 
 	L"军事设施", //5 - military complex 
 	L"研究设施",  //6 - laboratory complex 
@@ -223,7 +223,7 @@ STR16	pEncyclopediaHelpText[] =
 	L"全部显示",
 	L"显示城市",
 	L"显示SAM Sites",
-	L"显示其它区域",
+	L"显示其他区域",
 	L"显示矿场",
 	L"显示军事设施",
 	L"显示研究设施",
@@ -238,7 +238,7 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"全部",
 	L"城市",
 	L"SAM",
-	L"其它",
+	L"其他",
 	L"矿场",
 	L"军事",
 	L"研究所",
@@ -254,13 +254,13 @@ STR16	pEncyclopediaShortInventoryText[] =
 	L"枪械",
 	L"弹药",
 	L"携行具",
-	L"杂项",
+	L"杂货",
 	
 	L"全部", //5
 	L"枪械",
 	L"弹药",
 	L"携行具",
-	L"杂项",
+	L"杂货",
 };
 
 STR16			BoxFilter[] =
@@ -290,7 +290,7 @@ STR16			BoxFilter[] =
 	L"枪械",
 	L"护甲",
 	L"携行具",
-	L"杂项", //20
+	L"杂货", //20
 
 	// Armour
 	L"头盔",
@@ -308,7 +308,7 @@ STR16			BoxFilter[] =
 	L"工具",
 	L"通讯等",
 	L"携行具",
-	L"杂项", //34
+	L"其他", //34
 };
 //-----------
 
@@ -1638,7 +1638,7 @@ STR16 pAssignmentStrings[] =
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
 	L"工作", // L"Staff", // operating a strategic facility //ham3.6
-	L"Eat",		// eating at a facility (cantina etc.)		// TODO.Translate
+	L"饮食",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
 	L"死亡", // dead
 	L"无力中", // abbreviation for incapacitated
@@ -1723,7 +1723,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"教练",
 	L"学员",
 	L"设施职员",
-	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
+	L"饮食",		// eating at a facility (cantina etc.)
 	L"在设施里休养",
 	L"休息",
 	L"无力中",
@@ -1859,7 +1859,7 @@ STR16 pGuardMenuStrings[] =
 	L" 进攻式射击", // the merc can be aggressive in their choice of fire rates
 	L" 节约弹药", // conserve ammo
 	L" 有保留的射击", // fire only when the merc needs to
-	L"其它选择: ", // other options available to merc
+	L"其他选择: ", // other options available to merc
 	L" 可以撤退", // merc can retreat
 	L" 可以寻找掩体",  // merc is allowed to seek cover
 	L" 可以帮助队友", // merc can assist teammates
@@ -1875,7 +1875,7 @@ STR16 pOtherGuardMenuStrings[] =
 	L" *进攻式射击*",
 	L" *节约弹药o*",
 	L" *有保留的射击*",
-	L"其它选择: ",
+	L"其他选择: ",
 	L" *可以撤退*",
 	L" *可以看见覆盖物*",
 	L" *可以帮助队友*",
@@ -2073,7 +2073,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"态度:",	// WANNE: For old traits display instead of "Character:"!
 
-	L"Zombies: %d\n", // TODO.Translate
+	L"僵尸: %d\n", // Zombies: %d\n
 };
 
 
@@ -2294,7 +2294,7 @@ STR16 gpStrategicString[] =
 {
 	L"",	//Unused
 	L"%s在%c%d分区被发现了，另一小队即将到达。",	//STR_DETECTED_SINGULAR
-	L"%s在%c%d分区被发现了，其它几个小队即将到达。",	//STR_DETECTED_PLURAL
+	L"%s在%c%d分区被发现了，其他几个小队即将到达。",	//STR_DETECTED_PLURAL
 	L"你想调整为同时到达吗？",												//STR_COORDINATE
 
 	//Dialog strings for enemies.
@@ -2469,7 +2469,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"连发/5AP: ",		//15
 	L"剩余弹药:",		//16
 	L"默认:",	//17 //WarmSteel - So we can also display default attachments
-	L"Dirt:",	// 18	//added by Flugente	// TODO.Translate
+	L"污垢:",	// 18	//added by Flugente	// TODO.Translate
 
 };
 
@@ -2870,7 +2870,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"异形",
 	L"民兵",
 	L"平民",
-	L"ZOMBIE",		// TODO.Translate
+	L"僵尸",
 	L"离开分区",
 	L"确定",
 	L"取消",
@@ -2927,12 +2927,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
 	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 
-	// added by Flugente to display health and poisoning		// TODO.Translate
-	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+	// added by Flugente to display health and poisoning
+	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s",
 
 	// added by Flugente to display food status
-	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
-	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"生命: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
+	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -2943,7 +2943,7 @@ STR16 pExitingSectorHelpText[] =
 	L"如果勾中，你将被立即自动放置在地图屏幕，\n因为你的佣兵要花些时间来行军。",
 
 	//If you attempt to leave a sector when you have multiple squads in a hostile sector.
-	L"该分区被敌军占据。你不能将佣兵留在这里。\n在进入其它分区前，你必须把这里的问题解决。",
+	L"该分区被敌军占据。你不能将佣兵留在这里。\n在进入其他分区前，你必须把这里的问题解决。",
 
 	//Because you only have one squad in the sector, and the "move all" option is checked, the "go to sector" option is locked to on. 
 	//The helptext explains why it is locked.
@@ -3177,7 +3177,7 @@ STR16 pMovementMenuStrings[] =
 	L"调动佣兵", 	// title for movement box
 	L"安排行军路线",	// done with movement menu, start plotting movement
 	L"取消",		// cancel this menu
-	L"其它",		// title for group of mercs not on squads nor in vehicles
+	L"其他",		// title for group of mercs not on squads nor in vehicles
 };
 
 
@@ -3208,26 +3208,26 @@ STR16 pMapScreenInvenButtonHelpText[] =
 {
 	L"下一页 (|.)",		// next page
 	L"上一页 (|,)",		// previous page
-	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory
+	L"离开 (|E|s|c)",	// exit sector inventory
 
 	// TODO.Translate
-	L"Zoom Inventory", // HEAROCK HAM 5: Inventory Zoom Button
-	L"Stack and merge items", // HEADROCK HAM 5: Stack and Merge
-	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates\n|R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
+	L"放大", // HEAROCK HAM 5: Inventory Zoom Button
+	L"合并堆叠同类的物品", // HEADROCK HAM 5: Stack and Merge
+	L"|L|e|f|t |C|l|i|c|k: 将子弹分类装入弹箱\n|R|i|g|h|t |C|l|i|c|k: 将子弹分类装入纸盒", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"Remove all item attachments", // HEADROCK HAM 5: Separate Attachments
-	L"Eject ammo from all weapons", //HEADROCK HAM 5: Eject Ammo
-	L"|L|e|f|t |C|l|i|c|k: Show all items\n|R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Guns\n|R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Ammunition\n|R|i|g|h|t |C|l|i|c|k: Show only Ammunition", // HEADROCK HAM 5: Filter Button
+	L"移除所有物品的附件", // HEADROCK HAM 5: Separate Attachments
+	L"退出所有武器的子弹", //HEADROCK HAM 5: Eject Ammo
+	L"|L|e|f|t |C|l|i|c|k: 显示全部物品\n|R|i|g|h|t |C|l|i|c|k: 隐藏全部物品", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示武器\n|R|i|g|h|t |C|l|i|c|k|: 只显示武器", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示弹药\n|R|i|g|h|t |C|l|i|c|k: 只显示弹药", // HEADROCK HAM 5: Filter Button
 	// 11 - 15
-	L"|L|e|f|t |C|l|i|c|k: Toggle Explosives\n|R|i|g|h|t |C|l|i|c|k: Show only Explosives", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Melee Weapons\n|R|i|g|h|t |C|l|i|c|k: Show only Melee Weapons", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Armor\n|R|i|g|h|t |C|l|i|c|k: Show only Armor", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle LBEs\n|R|i|g|h|t |C|l|i|c|k: Show only LBEs", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示爆炸物\n|R|i|g|h|t |C|l|i|c|k: 只显示爆炸物", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示近战武器\n|R|i|g|h|t |C|l|i|c|k: 只显示近战武器", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示护甲\n|R|i|g|h|t |C|l|i|c|k: 只显示护甲", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示携行具\n|R|i|g|h|t |C|l|i|c|k: 只显示携行具", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示套装包\n|R|i|g|h|t |C|l|i|c|k: 只显示套装包", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: 切换是否显示杂项物品\n|R|i|g|h|t |C|l|i|c|k: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -3374,11 +3374,11 @@ STR16 pFinanceSummary[] =
 	L"收入: ", 				// credit (subtract from) to player's account
 	L"支出: ",				// debit (add to) to player's account
 	L"昨日实际收入: ",
-	L"昨日其它存款: ",
+	L"昨日其他存款: ",
 	L"昨日支出: ",
 	L"昨日日终余额: ",
 	L"今日实际收入: ",
-	L"今日其它存款: ",
+	L"今日其他存款: ",
 	L"今日支出: ",
 	L"今日当前余额: ",
 	L"预期收入: ",
@@ -3486,9 +3486,9 @@ STR16 pMapScreenStatusStrings[] =
 	L"士气",
 	L"状态",	// the condition of the current vehicle (its "health")
 	L"油量",	// the fuel level of the current vehicle (its "energy")
-	L"Posion",	// TODO.Translate
-	L"Water",		// drink level
-	L"Food",		// food level
+	L"毒性",	// Posion
+	L"口渴",		// drink level
+	L"饥饿",		// food level
 };
 
 
@@ -4021,7 +4021,7 @@ STR16 pPersonnelDepartedStateStrings[] =
 	//reasons why a merc has left.
 	L"阵亡",
 	L"解雇",
-	L"其它: ",
+	L"其他: ",
 	L"结婚",
 	L"合同到期",
 	L"退出",
@@ -4037,7 +4037,7 @@ STR16 pPersonelTeamStrings[] =
 	L"最低日薪: ",
 	L"行动中牺牲: ",
 	L"解雇: ",
-	L"其它: ",
+	L"其他: ",
 };
 
 
@@ -4427,7 +4427,7 @@ STR16			BobbyRFilter[] =
 	L"枪械", //"Guns",
 	L"护甲", //"Armor",
 	L"携行具", //"LBE Gear",
-	L"其他", //"Misc",
+	L"杂货", //"Misc",
 
 	// Armour
 	L"头盔", //"Helmets",
@@ -4445,13 +4445,13 @@ STR16			BobbyRFilter[] =
 	L"工具套装", //"Kits",
 	L"头部装备", //"Face Items",
 	L"携行具", //"LBE Gear",
-	L"Optics", // Madd: new BR filters		// TODO.Translate
-	L"Grip/LAM",
-	L"Muzzle",
-	L"Stock",
-	L"Mag/Trig.",
-	L"Other Att.",
-	L"杂项", //"Misc.",
+	L"瞄镜", // Madd: new BR filters
+	L"握把/LAM",
+	L"消音等",
+	L"枪托",
+	L"弹夹/握把",
+	L"其他附件",
+	L"其他", //"Misc.",
 };
 
 
@@ -4469,7 +4469,7 @@ STR16			BobbyRText[] =
 	L"枪械",	//"Guns", 			//3
 	L"弹药",	//"Ammo",			//4
 	L"护甲",	//"Armor",			//5
-	L"其他",	//"Misc.",			//6	//misc is an abbreviation for miscellaneous
+	L"杂货",	//"Misc.",			//6	//misc is an abbreviation for miscellaneous
 	L"二手货",	//"Used",			//7
 	L"下一页",	//"More Items",
 	L"订货单",	//"ORDER FORM",
@@ -4979,17 +4979,17 @@ STR16			zSaveLoadText[] =
 	L"难度",		//"Difficulty",
 	L"Platinum Mode", //Placeholder English
 
-	L"Bobby Ray Quality", //TODO.Translate
-	L"一般",
-	L"较多",
-	L"很多",
-	L"极多",
+	L"Bobby Ray 货品等级",
+	L"普通|一般",
+	L"一级|较多",
+	L"高级|很多",
+	L"极品|囧多",
 
 	L"新携行系统不兼容640x480的屏幕分辨率，请重新设置分辨率。",
 	L"新携行系统无法使用默认的 Data 文件夹，请仔细读说明。",
 
 	L"当前分辨率不支持存档文件的小队人数，请增加分辨率再试。",	//L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
-	L"Bobby Ray Quantity",//TODO.Translate
+	L"Bobby Ray 供货量",
 };
 
 
@@ -5114,20 +5114,20 @@ STR16		zOptionsToggleText[] =
 	L"显示佣兵军衔",	// shows mercs ranks
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
-	L"禁止光标切换",		            // Disable Cursor Swap
-	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
-	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
-	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
+	L"禁止光标切换",		// Disable Cursor Swap
+	L"佣兵训练时保持沉默",	// Madd: mercs don't say quotes while training
+	L"佣兵修理时保持沉默",	// Madd: mercs don't say quotes while repairing
+	L"佣兵医疗时保持沉默",	// Madd: mercs don't say quotes while doctoring
 	
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
 #endif
 #ifdef ENABLE_ZOMBIES
-	L"Allow Zombies",				// TODO.Translate
+	L"僵尸模式",
 #endif
-	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
-	L"Mark Remaining Hostiles",				//TODO.Translate
-	L"Show LBE Content",					//TODO.Translate
+	L"区域物品栏弹窗匹配拾取",				// the_bob : enable popups for picking items from sector inv
+	L"标记剩余敌人",
+	L"显示LBE(携行具)物品",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5231,21 +5231,21 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时, 显示佣兵脸部装备图。",
 	L"打开时, 佣兵肖像右下角显示脸部装备图标",
-	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
-	L"When ON, mercs will not report progress during training.", //TODO.Translate
-	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
-	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
+	L"打开时，在交换位置和其他动作时光标不切换。键入 |x 可以快速切换。",
+	L"打开时，佣兵训练时不会随时汇报进程。",
+	L"打开时，佣兵修理时不会随时汇报进程。",
+	L"打开时，佣兵医疗时不会随时汇报进程。",
 	
 #ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"打开时，敌军回合将被大幅加速。",
 #endif
 
 #ifdef ENABLE_ZOMBIES
-	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+	L"打开时，被击毙的敌人将有可能变成僵尸！杀出个黎明！",
 #endif
-	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
-	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
-	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
+	L"打开时，在区域物品栏界面，点击佣兵身上空白的携行具位置会弹窗匹配拾取物品。",
+	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
+	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5291,11 +5291,11 @@ STR16	gzGIOScreenText[] =
 	L"随时存盘",
 	L"铁人模式",
 	L"在Demo中禁用",
-	L"Bobby Ray Quality", //TODO.Translate
-	L"极少",
-	L"较少",
-	L"一般",
-	L"很多",
+	L"Bobby Ray 货品等级",
+	L"普通|一般",
+	L"一级|较多",
+	L"高级|很多",
+	L"极品|囧多",
 	L"携行系统 / 附件系统",
 	L"NOT USED",
 	L"NOT USED",
@@ -5348,8 +5348,8 @@ STR16	gzGIOScreenText[] =
 	L"新命中率系统（NCTH）", //L"New Chance to Hit System",
 	L"改进的中断系统（IIS）", //L"Improved Interrupt System",
 	L"武器过热", //L"Weapon Overheating",
-	L"Food System",//TODO.Translate
-	L"Bobby Ray Quantity",//TODO.Translate
+	L"生存模式与食物系统",
+	L"Bobby Ray 供货量",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5516,7 +5516,7 @@ STR16 pDepartedMercPortraitStrings[ ]=
 {
 	L"阵亡",	//"Killed in Action",
 	L"解雇",		//"Dismissed",
-	L"其它",		//"Other",
+	L"其他",		//"Other",
 };
 
 // title for program
@@ -6352,7 +6352,7 @@ STR16 MPClientMessage[] =
 	// 10
 	L"客户端 #%d - '%S' 已准备 - 准备就绪 = %d/%d.",
 	L"客户端 #%d - '%S' 不再准备 - 准备就绪 = %d/%d",
-	L"你已准备。 等候其它客户端... 按'OK'如果你已准备就绪。",
+	L"你已准备。 等候其他客户端... 按'OK'如果你已准备就绪。",
 	L"让我们开始战斗！",
 	L"要开始游戏必须运行一台客户端。",
 	// 15
@@ -6680,7 +6680,7 @@ STR16 gzFacilityAssignmentStrings[]=
 {
 	L"环境",
 	L"工作人员",
-	L"Eat",// TODO.Translate
+	L"饮食",
 	L"休息",
 	L"修理物品",
 	L"修理%s", // Vehicle name inserted here
@@ -7307,28 +7307,27 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
-// TODO.Translate
 // HEADROCK HAM 5: Screen messages for sector inventory sorting reports.
 STR16 gzMapInventorySortingMessage[] =
 {
-	L"Finished sorting ammo into crates in sector %c%d.",
-	L"Finished removing attachments from items in sector %c%d.",
-	L"Finished ejecting ammo from weapons in sector %c%d.",
-	L"Finished stacking and merging all items in sector %c%d.",
+	L"已完成 分类并装箱所有的弹药 在区域 %c%d.",
+	L"已完成 移除所有物品上的附件 在区域 %c%d.",
+	L"已完成 退出所有武器里的子弹 在区域 %c%d.",
+	L"已完成 合并后堆叠了所有物品 在区域 %c%d.",
 };
 
 STR16 gzMapInventoryFilterOptions[] =
 {
-	L"Show all",
-	L"Guns",
-	L"Ammo",
-	L"Explosives",
-	L"Melee Weapons",
-	L"Armor",
-	L"LBE",
-	L"Kits",
-	L"Misc. Items",
-	L"Hide all",
+	L"全部显示",
+	L"枪械",
+	L"弹药",
+	L"炸药",
+	L"格斗武器",
+	L"护甲",
+	L"携行器",
+	L"工具",
+	L"杂物",
+	L"全部隐藏",
 };
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
@@ -7347,18 +7346,17 @@ STR16 gTemperatureDesc[] =
 	L"."
 };
 
-// TODO.Translate
 // Flugente: food condition texts
 STR16 gFoodDesc[] =
 {
-	L"Food is ",
-	L"fresh",
-	L"good",
-	L"ok",
-	L"stale",
-	L"shabby",
-	L"rotting",
-	L"."
+	L"这食物 ",// Food is
+	L"非常新鲜啊",// fresh
+	L"看着还行吧",// good
+	L"挺一般的哎",// ok
+	L"有点难闻了",// stale
+	L"都变味了啊",// shabby
+	L"快要腐烂了",// rotting
+	L"！"// .
 };
 
 CHAR16* ranks[] = 
@@ -7410,15 +7408,15 @@ STR16	zNewTacticalMessages[]=
 	L"如果你要使用编辑器的话，请选择一个战役，不要用默认战役。",			
 };
 
-// The_bob : pocket popup text defs	// TODO.Translate
+// The_bob : pocket popup text defs
 STR16	gszPocketPopupText[]=
 {
-	L"Grenade launchers",	// POCKET_POPUP_GRENADE_LAUNCHERS,
-	L"Rocket launchers",	// POCKET_POPUP_ROCKET_LAUNCHERS
-	L"Melee & thrown weapons",	// POCKET_POPUP_MEELE_AND_THROWN
-	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
-	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
-	L"more...",		//POCKET_POPUP_MOAR
+	L"榴弹发射器",	// POCKET_POPUP_GRENADE_LAUNCHERS,
+	L"火箭发射器",	// POCKET_POPUP_ROCKET_LAUNCHERS
+	L"格斗&投掷武器",	// POCKET_POPUP_MEELE_AND_THROWN
+	L"- 没有合适的弹药 -",	//POCKET_POPUP_NO_AMMO
+	L"- 区域存货没有武器 -",	//POCKET_POPUP_NO_GUNS
+	L"更多...",		//POCKET_POPUP_MOAR
 };
 
 #endif //CHINESE
