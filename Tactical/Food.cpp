@@ -731,8 +731,15 @@ UINT8	GetWaterQuality(INT16 asMapX, INT16 asMapY, INT8 asMapZ)
 // a function that tries to fill up all canteens in this sector
 void SectorFillCanteens( void )
 {
+	if ( !gGameOptions.fFoodSystem )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"SectorFillCanteen not possible, Food System is off!" );
+		return;
+	}
+
 	// no functionality if not in tactical or in combat, or nobody is here
-	if ( guiCurrentScreen != GAME_SCREEN || (gTacticalStatus.uiFlags & INCOMBAT) || gusSelectedSoldier == NOBODY )
+	// can be called from a messagebox, thus the check for MSG_BOX_SCREEN
+	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) || gusSelectedSoldier == NOBODY )
 		return;
 
 	// determine if there are any patches of water in this sector.

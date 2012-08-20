@@ -133,6 +133,8 @@ BOOLEAN DoesItemPoolContainAllHiddenItems( ITEM_POOL *pItemPool );
 void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 void HandleSoldierUseRemote( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 
+void HandleTacticalFunctionSelection( SOLDIERTYPE *pSoldier, INT32 sGridNo );	// Flugente: in tactical, open a selection box for different actions
+
 BOOLEAN ItemPoolOKForDisplay( ITEM_POOL *pItemPool, INT8 bZLevel );
 INT16 GetNumOkForDisplayItemsInPool( ITEM_POOL *pItemPool, INT8 bZLevel );
 

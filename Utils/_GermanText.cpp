@@ -2936,6 +2936,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente to display food status
 	L"Gesundheit: %d/%d\nAusdauer: %d/%d\nMoral: %s\nWasser: %d%s\nEssen: %d%s",
 	L"Ges.: %d/%d\nGift: %d/%d\nAusd.: %d/%d\nMoral: %s\nWasser: %d%s\nEssen: %d%s",
+
+	// added by Flugente: selection of a function to call in tactical
+	L"1 - Fill Canteens 2 - Clean Weapons 3,4 - Nothing",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

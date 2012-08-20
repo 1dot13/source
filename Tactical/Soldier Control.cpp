@@ -14334,7 +14334,7 @@ void SOLDIERTYPE::CleanWeapon()
 	// in turnbased, this action costs APs. remove them if possible, otherwise, return
 	INT16 apcost = APBPConstants[AP_FORTIFICATION];
 
-	if ( gTacticalStatus.uiFlags & INCOMBAT )
+	if ( gTacticalStatus.uiFlags & TURNBASED )
 	{		
 		if ( !EnoughPoints( this, apcost, 0, TRUE ) )
 			return;
@@ -14373,7 +14373,7 @@ void SOLDIERTYPE::CleanWeapon()
 									if ( Random(2) > 0 )
 										UseKitPoints( pCleaningKit, 1, this );
 
-									if ( gTacticalStatus.uiFlags & INCOMBAT )
+									if ( gTacticalStatus.uiFlags & TURNBASED )
 									{
 										// use up APs
 										DeductPoints( this, apcost, 0, AFTERACTION_INTERRUPT );

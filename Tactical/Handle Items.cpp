@@ -66,6 +66,7 @@
 	#include "Morale.h"
 	// added by Flugente
 	#include "drugs and alcohol.h"
+	#include "Food.h"
 #endif
 
 #ifdef JA2UB
@@ -99,6 +100,7 @@ static INT32					gsTempGridNo;
 static INT8						bTempFrequency;
 
 void BombMessageBoxCallBack( UINT8 ubExitValue );
+void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue );		// Flugente: callback after deciding what tactical function to use
 void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue );
 void SwitchMessageBoxCallBack( UINT8 ubExitValue );
 void BoobyTrapDialogueCallBack( void );
@@ -128,6 +130,8 @@ INT8						gbTrapDifficulty;
 BOOLEAN					gfJustFoundBoobyTrap = FALSE;
 
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
+void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
+void CleanWeapons();
 
 BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel ) 
 {
@@ -1635,6 +1639,13 @@ void HandleSoldierUseRemote( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	StartBombMessageBox( pSoldier, sGridNo );
 }
+
+void HandleTacticalFunctionSelection( SOLDIERTYPE *pSoldier, INT32 sGridNo )
+{
+	if ( guiCurrentScreen == GAME_SCREEN )
+		StartTacticalFunctionSelectionMessageBox( pSoldier, sGridNo, pSoldier->pathing.bLevel );
+}
+
 
 void SoldierHandleDropItem( SOLDIERTYPE *pSoldier )
 {
@@ -4485,6 +4496,58 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	}
 }
 
+// Flugente
+void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel )
+{
+	if ( !pSoldier )
+		return;
+
+	gpTempSoldier = pSoldier;
+	gsTempGridNo = sGridNo;
+
+	DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
+}
+
+void CleanWeapons()
+{
+	if ( !gGameExternalOptions.fDirtSystem )
+		return;
+
+	// no functionality if not in tactical or in combat, or nobody is here
+	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) )
+		return;
+
+	// if in turnbased mode, perform this action only for the selected merc, and use up APs
+	if ( gTacticalStatus.uiFlags & TURNBASED )
+	{
+		if ( gusSelectedSoldier == NOBODY )
+			return;
+
+		SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
+
+		if ( pSoldier->bActive )
+			pSoldier->CleanWeapon();
+	}
+	else	// peform action for every merc in this sector
+	{	
+		UINT8									bMercID, bLastTeamID;
+		SOLDIERTYPE*							pSoldier = NULL;
+
+		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+
+		// loop through all mercs
+		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
+		{
+			//if the merc is in this sector
+			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			{
+				pSoldier->CleanWeapon();
+			}
+		}
+	}
+}
+
 void BombMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if (gpTempSoldier)
@@ -4578,9 +4641,31 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 			}
 		}
 	}
-
 }
 
+// Flugente: callback after deciding what tactical function to use
+void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if (gpTempSoldier)
+	{
+		INT32 nextGridNoinSight = gpTempSoldier->sGridNo;
+		nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( gpTempSoldier->ubDirection ) );
+
+		INT8 level = gpTempSoldier->bTargetLevel;
+
+		switch (ubExitValue)
+		{
+		case 1:
+			SectorFillCanteens();
+			break;
+		case 2:
+			CleanWeapons();
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 BOOLEAN HandItemWorks( SOLDIERTYPE *pSoldier, INT8 bSlot )
 {
