@@ -4214,6 +4214,8 @@ STR16			MercInfo[] =
 
 	L"Vous ne pouvez engager plus de 18 mercenaires.",
 	L"Indisponible",											
+	L"Bio", //TODO.Translate
+	L"Inv",								
 };
 
 

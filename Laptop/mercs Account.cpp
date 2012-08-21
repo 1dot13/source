@@ -212,6 +212,11 @@ INT32 GetNumberOfHiredMercs()
 			#else
 			uiContractCharge = gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
 			#endif
+			//JMich_MMG: If gearkit unpaid for, add it to cost
+			if ( gMercProfiles[ usMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID)
+			{
+				uiContractCharge += gMercProfiles[ usMercID ].usOptionalGearCost;
+			}
 			giMercTotalContractCharge += uiContractCharge;
 
 			count++;
@@ -579,6 +584,11 @@ void DisplayHiredMercs()
 			#else
 			uiContractCharge = gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
 			#endif
+			//JMich_MMG: If gearkit unpaid for, add its cost
+			if ( gMercProfiles[ usMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID)
+			{
+				uiContractCharge += gMercProfiles[ usMercID ].usOptionalGearCost;
+			}
 			swprintf(sTemp, L"$%6d", uiContractCharge );
 			DrawTextToScreen(sTemp, MERC_AC_FOURTH_COLUMN_X, usPosY, MERC_AC_FOURTH_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
@@ -621,15 +631,20 @@ void SettleMercAccounts()
 			#else
 			iContractCharge = gMercProfiles[ ubMercID ].sSalary * gMercProfiles[ ubMercID ].iMercMercContractLength;
 			#endif
-
+			//JMich_MMG: If gearkit unpaid for, add its cost
+			if (gMercProfiles[ ubMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID)
+			{
+				iContractCharge += gMercProfiles[ ubMercID ].usOptionalGearCost;
+			}
 			//if the player can afford to pay this merc
 			if( LaptopSaveInfo.iCurrentBalance >= iPartialPayment + iContractCharge )
 			{
 				//Increment the counter that keeps track of the of the number of days the player has paid for merc services
 				LaptopSaveInfo.guiNumberOfMercPaymentsInDays += gMercProfiles[ ubMercID ].iMercMercContractLength;
 
-				//Then reset the merc contract counter
+				//Then reset the merc contract counter (and remove the unpaid gearkit flag)
 				gMercProfiles[ ubMercID ].iMercMercContractLength = 0;
+				gMercProfiles[ ubMercID ].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID);
 
 				//Add this mercs contract charge to the total
 				iPartialPayment += iContractCharge;
@@ -814,7 +829,12 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 			#else
 			uiContractCharge += gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
 			#endif
+			//JMich_MMG: If gearkit unpaid for, add its cost
+			if ( gMercProfiles[ usMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID)
+			{
+				uiContractCharge += gMercProfiles[ usMercID ].usOptionalGearCost;
 		}
+	}
 	}
 
 	return( uiContractCharge );

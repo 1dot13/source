@@ -4220,6 +4220,8 @@ STR16			MercInfo[] =
 
 	L"Wygląda na to, że chcesz wynająć zbyt wielu najemników. Limit wynosi 18.",
 	L"Niedostępny",
+	L"Bio", //TODO.Translate
+	L"Inv",
 };
 
 

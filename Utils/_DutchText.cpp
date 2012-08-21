@@ -4224,6 +4224,8 @@ STR16			MercInfo[] =
 
 	L"Lijkt erop dat je teveel huurlingen wil recruteren. Limiet is 18.",
 	L"Niet beschikbaar",											
+	L"Bio", //TODO.Translate
+	L"Inv",							
 };
 
 

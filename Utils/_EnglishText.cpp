@@ -4222,6 +4222,8 @@ STR16			MercInfo[] =
 
 	L"Looks like you're trying to hire too many mercs. Your limit is 18.",
 	L"Unavailable",											
+	L"Bio",
+	L"Inv",
 };
 
 

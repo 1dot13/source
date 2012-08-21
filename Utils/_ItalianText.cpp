@@ -4212,6 +4212,8 @@ STR16			MercInfo[] =
 
 	L"Sembra che state arruolando troppi mercenari. Il vostro limite è di 18.",
 	L"Non disponibile",											
+	L"Bio", //TODO.Translate
+	L"Inv",								
 };
 
 

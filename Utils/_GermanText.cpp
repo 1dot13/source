@@ -4149,6 +4149,8 @@ STR16 MercInfo[] =
 
 	L"Sie versuchen, zu viele Söldner anzuheuern. Sie haben die Maximalanzahl erreicht.",
 	L"nicht da",											
+	L"Bio", //TODO.Translate
+	L"Inv",								
 };
 
 // For use at the M.E.R.C. web site. Text relating to opening an account with MERC

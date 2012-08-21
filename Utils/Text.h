@@ -923,6 +923,8 @@ enum
 	MERC_FILES_HIRE_TO_MANY_PEOPLE_WARNING,
 
 	MERC_FILES_MERC_UNAVAILABLE,
+	MERC_FILES_BIO,	//JMich_MMG: Adding two new texts for the small button, assuming we manage to add a silhouette with the gear, add it after this.
+	MERC_FILES_INVENTORY,
 	TEXT_NUM_MERC_FILES,
 };
 extern		STR16			MercInfo[];

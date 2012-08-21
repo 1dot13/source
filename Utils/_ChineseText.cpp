@@ -4224,6 +4224,8 @@ STR16			MercInfo[] =
 
 	L"看起来你雇佣了太多的佣兵。最多只能雇18人。",	//"Looks like you're trying to hire too many mercs. Your limit is 18.",
 	L"不可雇佣",	//"Unavailable",
+	L"Bio", //TODO.Translate
+	L"Inv",
 };
 
 
