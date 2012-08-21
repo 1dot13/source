@@ -724,7 +724,8 @@ INT16 GetIndex(CHAR16 siChar)
 	UINT16 ssCount=0;
 	UINT16	usNumberOfSymbols = pFManager->pTranslationTable->usNumberOfSymbols;
 
-	siChar = GetUnicodeChar(siChar);
+//inshy: We don't need anymore ANSI convertation to UNICODE.
+//siChar = GetUnicodeChar(siChar);
 
 	// search the Translation Table and return the index for the font
 	pTrav = pFManager->pTranslationTable->DynamicArrayOf16BitValues;
@@ -745,7 +746,8 @@ INT16 GetIndex(CHAR16 siChar)
 	return 0;
 }
 
-
+//inshy: We don't need anymore ANSI convertation to UNICODE.
+/*
 CHAR16 GetUnicodeChar(CHAR16 siChar)
 {
 		#ifdef GERMAN
@@ -918,7 +920,7 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			//case 236:          siChar = 236;          break;	//i'
 			//case 210:          siChar = 210;          break;	//O'
 			//case 242:          siChar = 242;          break;	//o'
-//inshy: I've added the character codes for French ligatures to the sources, but I haven't added them in the fonts!
+//inshy: French ligatures
 			//Ligature
 			//case 198:          siChar = 198;          break;	//Ж
 			//case 140:          siChar = 338;          break;	//Њ
@@ -930,6 +932,7 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 
 	return siChar;
 }
+*/
 
 //*****************************************************************************
 // SetFont
@@ -1969,23 +1972,23 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 
 	// POLISH letters in UNICODE
-	*temp = 260; // Ґ (он)
+	*temp = 260; // Ґ (on)
 	temp++;
-	*temp = 262; // Ж (це)
+	*temp = 262; // Ж (tse)
 	temp++;
-	*temp = 280; // К (эн)
+	*temp = 280; // К (en')
 	temp++;
-	*temp = 321; // Ј (эль)
+	*temp = 321; // Ј (el')
 	temp++;
-	*temp = 323; // С (энь)
+	*temp = 323; // С (en)
 	temp++;
-	*temp = 211; // У (о краткое)
+	*temp = 211; // У (o kratkoe)
 	temp++;
-	*temp = 346; // Њ (эсь)
+	*temp = 346; // Њ (es')
 	temp++;
-	*temp = 379; // Ї (жет)
+	*temp = 379; // Ї (zhet)
 	temp++;
-	*temp = 377; // Џ (зет)
+	*temp = 377; // Џ (zet)
 	temp++;
 	*temp = 261; // № (он)
 	temp++;
@@ -2070,16 +2073,15 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	*temp = 242; //o'
 	temp++;
 
-//inshy: I've added the character codes for French ligatures to the sources, but I haven't added them in the fonts!
-//Ligature
-//	*temp = 198; //Ж
-//	temp++;
-//	*temp = 338; //Њ
-//	temp++;
-//	*temp = 230; //ж
-//	temp++;
-//	*temp = 339; //њ
-//	temp++;
+//French ligatures
+	*temp = 198; //Ж
+	temp++;
+	*temp = 338; //Њ
+	temp++;
+	*temp = 230; //ж
+	temp++;
+	*temp = 339; //њ
+	temp++;
 
 
 	// Font glyphs for spell targeting icons
