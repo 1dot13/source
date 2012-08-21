@@ -32,29 +32,33 @@ void CreateLoadingScreenProgressBar()
 {
 	gusLeftmostShaded = 162;
 
-	// Special case->show small image centered
-	if (bShowSmallImage == TRUE)
-	{
-		if (iResolution >= _800x600)
-		{
-			CreateProgressBar(0, iScreenWidthOffset + 162, iScreenHeightOffset + 427, iScreenWidthOffset + 480, iScreenHeightOffset + 443);
-		}
-	}
-	else
-	{
-		if (iResolution >= _640x480 && iResolution < _800x600)
-		{
-			CreateProgressBar(0, 162, 427, 480, 443);
-		}
-		else if (iResolution < _1024x768)
-		{
-			CreateProgressBar(0, (202 + (SCREEN_WIDTH - 800)/2), 533 + ((SCREEN_HEIGHT - 600) / 2), 600 + ((SCREEN_WIDTH - 800) / 2), 554 + ((SCREEN_HEIGHT - 600) / 2));
-		}
-		else
-		{
-			CreateProgressBar(0, 259 + ((SCREEN_WIDTH - 1024) / 2), 683 + ((SCREEN_HEIGHT - 768) / 2), 767 + ((SCREEN_WIDTH - 1024) / 2), 708 + ((SCREEN_HEIGHT - 768) / 2));
-		}
-	}
+	//// Special case->show small image centered
+	//if (bShowSmallImage == TRUE)
+	//{
+	//	if (iResolution >= _800x600)
+	//	{
+	//		CreateProgressBar(0, iScreenWidthOffset + 162, iScreenHeightOffset + 427, iScreenWidthOffset + 480, iScreenHeightOffset + 443);
+	//	}
+	//}
+	//else
+	//{
+	//	if (iResolution >= _640x480 && iResolution < _800x600)
+	//	{
+	//		CreateProgressBar(0, 162, 427, 480, 443);
+	//	}
+	//	else if (iResolution < _1024x768)
+	//	{
+	//		CreateProgressBar(0, (202 + (SCREEN_WIDTH - 800)/2), 533 + ((SCREEN_HEIGHT - 600) / 2), 600 + ((SCREEN_WIDTH - 800) / 2), 554 + ((SCREEN_HEIGHT - 600) / 2));
+	//	}
+	//	else
+	//	{
+	//		CreateProgressBar(0, 259 + ((SCREEN_WIDTH - 1024) / 2), 683 + ((SCREEN_HEIGHT - 768) / 2), 767 + ((SCREEN_WIDTH - 1024) / 2), 708 + ((SCREEN_HEIGHT - 768) / 2));
+	//	}
+	//}
+	
+
+	CreateProgressBar(0, SCREEN_WIDTH*162/640, SCREEN_HEIGHT*427/480, SCREEN_WIDTH*480/640, SCREEN_HEIGHT*443/480);
+
 
 	SetProgressBarUseBorder(0, FALSE );
 }
