@@ -6566,9 +6566,21 @@ void RenderItemDescriptionBox( )
 					break;
 				}
 
-				if ( (Transform[x].usItem == gpItemDescObject->usItem) || ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) ) && Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
+				// Flugente: ok, this looks complicated. We allow a transformation option to pop up if:
+				// - there is a transformation
+				// - we are in the game or map screen, it is a single item, and
+				//		- the item is a grenade
+				//		- the item is a bomb and has a detonator or remote detonator attached				
+				if ( Transform[x].usItem == gpItemDescObject->usItem )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
+				}
+				else if ( (guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1 )
+				{
+					if ( (Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) || ( (Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET)) ) )
+					{
+						BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
+					}
 				}
 			}
 		}
@@ -12730,58 +12742,84 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 
 			// Flugente: we can also arm/disarm bombs in our inventory via this menu
 			BOOLEAN fHaveToDisarm = FALSE;		// important check: if item is an armed bomb, we have to disarm it prior to any transformation
-			if ( ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) ) && Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && gpItemDescObject->ubNumberOfObjects == 1 && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ) )
+			if ( ((guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN)) && gpItemDescObject->ubNumberOfObjects == 1 )
 			{
-				iTransformIndex++;
-
-				UINT16 apcost = 20;
-
-				if ( (guiCurrentScreen == GAME_SCREEN) || (guiCurrentScreen == MAP_SCREEN) )
-					apcost = 15;
-
-				// test wether item is already armed
-				INT8 detonatortype;
-				INT8 setting;
-				INT8 defusefrequency;
-				CheckBombSpecifics( gpItemDescObject, &detonatortype, &setting, &defusefrequency );
-
-				CHAR16 MenuRowText[300];
-
-				if ( detonatortype == BOMB_TIMED || detonatortype == BOMB_REMOTE )
+				if ( Item[gpItemDescObject->usItem].usItemClass == IC_BOMB && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET)) )
 				{
-					fHaveToDisarm = TRUE;
+					iTransformIndex++;
+					
+					UINT16 apcost = APBPConstants[AP_INVENTORY_EXPLOSIVE_ACTIVATE];
 
-					if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+					// test wether item is already armed
+					INT8 detonatortype;
+					INT8 setting;
+					INT8 defusefrequency;
+					CheckBombSpecifics( gpItemDescObject, &detonatortype, &setting, &defusefrequency );
+
+					CHAR16 MenuRowText[300];
+
+					if ( detonatortype == BOMB_TIMED || detonatortype == BOMB_REMOTE )
 					{
-						swprintf (MenuRowText, L"Disarm (%d AP)", apcost );
+						fHaveToDisarm = TRUE;
+
+						if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+						{
+							swprintf (MenuRowText, L"Disarm (%d AP)", apcost );
+						}
+						else
+						{
+							swprintf (MenuRowText, L"Disarm");
+						}
 					}
 					else
 					{
-						swprintf (MenuRowText, L"Disarm");
+						if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+						{
+							swprintf (MenuRowText, L"Arm (%d AP)", apcost );
+						}
+						else
+						{
+							swprintf (MenuRowText, L"Arm");
+						}
 					}
+
+					// Generate a new option for the menu
+					POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void, OBJECTTYPE*>( &TransformationMenuPopup_Arm, gpItemDescObject ) );
+					// Set the function that tests whether it's valid at the moment.
+					pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_Arm_TestValid, gpItemDescObject ));
+					// Add the option to the menu.
+					gItemDescTransformPopup->addOption( *pOption );
+					// Set this flag so we know we have at least one Transformation available.
+					fFoundTransformations = true;
 				}
-				else
+				else if ( Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE )
 				{
+					iTransformIndex++;
+
+					UINT16 apcost = 20;
+
+					CHAR16 MenuRowText[300];
+
 					if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
 					{
-						swprintf (MenuRowText, L"Arm (%d AP)", apcost );
+						swprintf (MenuRowText, L"Blow up (%d AP)", apcost );
 					}
 					else
 					{
-						swprintf (MenuRowText, L"Arm");
+						swprintf (MenuRowText, L"Blow up");
 					}
-				}
 
-				// Generate a new option for the menu
-				POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void, OBJECTTYPE*>( &TransformationMenuPopup_Arm, gpItemDescObject ) );
-				// Set the function that tests whether it's valid at the moment.
-				pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_Arm_TestValid, gpItemDescObject ));
-				// Add the option to the menu.
-				gItemDescTransformPopup->addOption( *pOption );
-				// Set this flag so we know we have at least one Transformation available.
-				fFoundTransformations = true;
+					// Generate a new option for the menu
+					POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void, OBJECTTYPE*>( &TransformationMenuPopup_Arm, gpItemDescObject ) );
+					// Set the function that tests whether it's valid at the moment.
+					pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_Arm_TestValid, gpItemDescObject ));
+					// Add the option to the menu.
+					gItemDescTransformPopup->addOption( *pOption );
+					// Set this flag so we know we have at least one Transformation available.
+					fFoundTransformations = true;
+				}
 			}
-				
+										
 			// onyl allow transformations if the item is not an armed bomb
 			if ( !fHaveToDisarm )
 			{
@@ -12960,6 +12998,26 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 		INT8 screen = guiCurrentScreen;
 		if ( screen != GAME_SCREEN && screen != MAP_SCREEN )
 			return;
+
+		// if this is grenade, blow it up, no dialogue settings here
+		if ( Item[pObj->usItem].usItemClass == IC_GRENADE )
+		{
+			INT8 screen = guiCurrentScreen;
+			if ( screen == GAME_SCREEN )
+			{
+				// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
+				IgniteExplosion( (*pObj)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, pObj->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection );
+			}
+			else
+			{
+				// no explosions in map screen - instead we simply damage the inventory and harm our health
+				gpItemDescSoldier->InventoryExplosion();
+			}
+
+			DeleteObj( pObj );
+
+			return;
+		}
 
 		// test wether item is already armed
 		INT8 detonatortype;

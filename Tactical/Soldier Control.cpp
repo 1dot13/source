@@ -14332,7 +14332,7 @@ OBJECTTYPE* SOLDIERTYPE::GetCleaningKit()
 void SOLDIERTYPE::CleanWeapon()
 {
 	// in turnbased, this action costs APs. remove them if possible, otherwise, return
-	INT16 apcost = APBPConstants[AP_FORTIFICATION];
+	INT16 apcost = APBPConstants[AP_CLEANINGKIT];
 
 	if ( gTacticalStatus.uiFlags & TURNBASED )
 	{		

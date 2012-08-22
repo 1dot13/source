@@ -14385,7 +14385,8 @@ FLOAT GetItemDirtIncreaseFactor( OBJECTTYPE * pObj, BOOLEAN fConsiderAmmo )
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 		{
-			if (iter->exists())
+			// it attachment is not a weapon, add its factor
+			if (iter->exists() && !(Item[iter->usItem].usItemClass & IC_WEAPON) )
 			{
 				dirtincreasefactor += Item[iter->usItem].dirtIncreaseFactor;
 			}

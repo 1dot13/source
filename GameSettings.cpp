@@ -2437,9 +2437,10 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_JUMPWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPOFFWALL",40),40);
 	APBPConstants[AP_JUMPOFFWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWALL",24),24);
 
-	APBPConstants[AP_FORTIFICATION] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FORTIFICATION",80),80);
-	APBPConstants[AP_EAT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EAT",80),80);
-	APBPConstants[AP_CLEANINGKIT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLEANINGKIT",80),80);
+	APBPConstants[AP_FORTIFICATION]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FORTIFICATION",80),80);
+	APBPConstants[AP_EAT]							= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EAT",80),80);
+	APBPConstants[AP_CLEANINGKIT]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLEANINGKIT",80),80);
+	APBPConstants[AP_INVENTORY_EXPLOSIVE_ACTIVATE]	= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_EXPLOSIVE_ACTIVATE",20),20);
 
 	SetupMaxActionPointsAnimation();
 #undef ReadInteger
