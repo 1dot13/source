@@ -3,14 +3,7 @@
 
 #include "Types.h"
 
-#ifdef JA2UB
-	#define				GAME_INI_FILE					"Ja2_UB.ini"
-#elif defined (JA113DEMO)
-	#define				GAME_INI_FILE					"Ja2_Demo.ini"
-#else
-	#define				GAME_INI_FILE					"Ja2.ini"
-#endif
-
+#define				GAME_INI_FILE					"Ja2.ini"
 
 //If you add any options, MAKE sure you add the corresponding string to the Options Screen string array.
 //	 look up : zOptionsScreenHelpText , zOptionsToggleText
