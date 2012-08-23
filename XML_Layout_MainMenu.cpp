@@ -50,20 +50,14 @@ mainMenuStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 			   (strcmp(name, "uiIndex") == 0 ||
 			    strcmp(name, "Visible") == 0 ||
 				strcmp(name, "FileName") == 0 ||
-				strcmp(name, "FileName800x600") == 0 ||
-				strcmp(name, "FileName1024x768") == 0 ||
+				strcmp(name, "FitToScreen") == 0 ||
+				strcmp(name, "StretchImage") == 0 ||
+				strcmp(name, "CenterImage") == 0 ||
+				strcmp(name, "ImagePositionRelative") == 0 ||
 				strcmp(name, "ImagePositionX") == 0 ||
 				strcmp(name, "ImagePositionY") == 0 ||
-				strcmp(name, "ImagePosition800x600X") == 0 ||
-				strcmp(name, "ImagePosition800x600Y") == 0 ||			
-				strcmp(name, "ImagePosition1024x768X") == 0 ||
-				strcmp(name, "ImagePosition1024x768Y") == 0	||
 				strcmp(name, "MainMenuY") == 0 ||
-				strcmp(name, "MainMenu800x600Y") == 0 ||
-				strcmp(name, "MainMenu1024x768Y") == 0 ||
 				strcmp(name, "MainMenuX") == 0 ||
-				strcmp(name, "MainMenu800x600X") == 0 ||
-				strcmp(name, "MainMenu1024x768X") == 0 ||
 				strcmp(name, "MainMenuYSpace") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -144,46 +138,34 @@ mainMenuEndElementHandle(void *userData, const XML_Char *name)
 				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: szLocation[%d] = %s, temp = %s",i,&pData->curSectorLoadscreens.szLocation[i],&temp));
 			}				
 		}
-		else if(strcmp(name, "FileName800x600") == 0 && pData->curMainMenu.uiIndex > 0)
-		{	
-		
+		else if(strcmp(name, "FitToScreen") == 0)
+		{
 			pData->curElement = ELEMENT;
-			
-			if(MAX_MAIN_MENU_CHARS >= strlen(pData->szCharData))
-				strcpy(pData->curMainMenu.FileName800x600,pData->szCharData);
-			else
-			{
-				strncpy(pData->curMainMenu.FileName800x600,pData->szCharData,MAX_MAIN_MENU_CHARS);
-				pData->curMainMenu.FileName800x600[MAX_MAIN_MENU_CHARS] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_MAIN_MENU_CHARS);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curMainMenu.FileName800x600[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: szLocation[%d] = %s, temp = %s",i,&pData->curSectorLoadscreens.szLocation[i],&temp));
-			}	
-		}	
-		else if(strcmp(name, "FileName1024x768") == 0 && pData->curMainMenu.uiIndex > 0)
-		{	
-		
+			if (pData->curMainMenu.uiIndex == 0 ) pData->curMainMenu.FitToScreen	= 0;
+			 
+			else pData->curMainMenu.FitToScreen	= (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "StretchImage") == 0)
+		{
 			pData->curElement = ELEMENT;
-			
-			if(MAX_MAIN_MENU_CHARS >= strlen(pData->szCharData))
-				strcpy(pData->curMainMenu.FileName1024x768,pData->szCharData);
-			else
-			{
-				strncpy(pData->curMainMenu.FileName1024x768,pData->szCharData,MAX_MAIN_MENU_CHARS);
-				pData->curMainMenu.FileName1024x768[MAX_MAIN_MENU_CHARS] = '\0';
-			}
-
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_MAIN_MENU_CHARS);i++)
-			{
-				temp = pData->szCharData[i];
-				pData->curMainMenu.FileName1024x768[i] = temp;
-				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: szLocation[%d] = %s, temp = %s",i,&pData->curSectorLoadscreens.szLocation[i],&temp));
-			}			}	
-		
+			if (pData->curMainMenu.uiIndex == 0 ) pData->curMainMenu.StretchImage	= 0;
+			 
+			else pData->curMainMenu.StretchImage = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "CenterImage") == 0)
+		{
+			pData->curElement = ELEMENT;
+			if (pData->curMainMenu.uiIndex == 0 ) pData->curMainMenu.CenterImage	= 0;
+			 
+			else pData->curMainMenu.CenterImage = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ImagePositionRelative") == 0)
+		{
+			pData->curElement = ELEMENT;
+			if (pData->curMainMenu.uiIndex == 0 ) pData->curMainMenu.ImagePositionRelative	= 0;
+			 
+			else pData->curMainMenu.ImagePositionRelative	= (BOOLEAN) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "ImagePositionX") == 0 && pData->curMainMenu.uiIndex > 0)
 		{
 			pData->curElement = ELEMENT;
@@ -193,56 +175,16 @@ mainMenuEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMainMenu.ImagePositionY	= (INT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "ImagePosition800x600X") == 0 && pData->curMainMenu.uiIndex > 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.ImagePosition800x600X	=  (INT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "ImagePosition800x600Y") == 0 && pData->curMainMenu.uiIndex > 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.ImagePosition800x600Y	= (INT32) atol(pData->szCharData);
-		}					   
-		else if(strcmp(name, "ImagePosition1024x768X") == 0 && pData->curMainMenu.uiIndex > 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.ImagePosition1024x768X	=  (INT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "ImagePosition1024x768Y") == 0 && pData->curMainMenu.uiIndex > 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.ImagePosition1024x768Y	=  (INT32) atol(pData->szCharData);
-		}
+		}		
 		else if(strcmp(name, "MainMenuY") == 0 && pData->curMainMenu.uiIndex == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMainMenu.MAINMENU_Y	=  (UINT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "MainMenu800x600Y") == 0 && pData->curMainMenu.uiIndex == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_800x600Y	=  (UINT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "MainMenu1024x768Y") == 0 && pData->curMainMenu.uiIndex == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_1024x768Y	=  (UINT32) atol(pData->szCharData);
-		}
+		}		
 		else if(strcmp(name, "MainMenuX") == 0 && pData->curMainMenu.uiIndex == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMainMenu.MAINMENU_X	=  (UINT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "MainMenu800x600X") == 0 && pData->curMainMenu.uiIndex == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_800x600X	=  (UINT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "MainMenu1024x768X") == 0 && pData->curMainMenu.uiIndex == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_1024x768X	=  (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "MainMenuYSpace") == 0 && pData->curMainMenu.uiIndex == 0)
 		{

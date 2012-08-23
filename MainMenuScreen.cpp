@@ -53,6 +53,9 @@
 #define	MAINMENU_TEXT_FILE						"LoadScreens\\MainMenu.edt"
 #define MAINMENU_RECORD_SIZE					80 * 2
 
+//externals
+extern HVSURFACE ghFrameBuffer;
+extern	HVSURFACE		ghBackBuffer;
 // MENU ITEMS
 enum
 {
@@ -101,7 +104,7 @@ void RestoreButtonBackGrounds();
 
 //Main Menu layout by Jazz
 MAIN_MENU_VALUES gMainMenulayout[MAX_MAIN_MENU_IMAGE];
-VSURFACE_DESC		vs_desc;
+//VSURFACE_DESC		vs_desc;
 
 extern void InitSightRange(); //lal
 
@@ -245,7 +248,8 @@ void HandleMainMenuScreen()
 
 BOOLEAN InitMainMenu( )
 {
-	VOBJECT_DESC	VObjectDesc;
+	//VOBJECT_DESC	VObjectDesc;	
+	VSURFACE_DESC		vs_desc = {};
 
 	//main Menu by JAzz
 	UINT16 iCounter2; 
@@ -283,31 +287,38 @@ BOOLEAN InitMainMenu( )
 	//Main Menu by Jazz
 	for( iCounter2 = 1; iCounter2 < MAX_ELEMENT; iCounter2++ )
 	{
-		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+		//VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+		vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
 
 		if (gMainMenulayout[iCounter2].Visible == 1)
 		{
-			if (iResolution >= _640x480 && iResolution < _800x600)
-			{				
-				strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName);
+			strcpy(vs_desc.ImageFile, gMainMenulayout[iCounter2].FileName);
+			
+			if( !AddVideoSurface( &vs_desc, &gMainMenulayout[iCounter2].uiIndex ) )
+			AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName ) );	
 
-				if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
-					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName ) );				
-			}
-			else if (iResolution < _1024x768)
-			{		
-				strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName800x600);
 
-				if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
-					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName800x600 ) );				
-			}
-			else
-			{		
-				strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName1024x768);
+			//if (iResolution >= _640x480 && iResolution < _800x600)
+			//{				
+			//	strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName);
 
-				if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
-					AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName1024x768 ) );				
-			}
+			//	if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
+			//		AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName ) );				
+			//}
+			//else if (iResolution < _1024x768)
+			//{		
+			//	strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName800x600);
+
+			//	if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
+			//		AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName800x600 ) );				
+			//}
+			//else
+			//{		
+			//	strcpy(VObjectDesc.ImageFile, gMainMenulayout[iCounter2].FileName1024x768);
+
+			//	if( !AddVideoObject( &VObjectDesc, &gMainMenulayout[iCounter2].uiIndex ) )
+			//		AssertMsg(0, String( "Missing %s", gMainMenulayout[iCounter2].FileName1024x768 ) );				
+			//}
 		}
 	}
 	
@@ -343,10 +354,16 @@ void ExitMainMenu( )
 	{	
 		if (gMainMenulayout[iCounter2].Visible == 1)
 		{
-			DeleteVideoObjectFromIndex( gMainMenulayout[iCounter2].uiIndex );
+//			DeleteVideoObjectFromIndex( gMainMenulayout[iCounter2].uiIndex );
+			DeleteVideoSurfaceFromIndex( gMainMenulayout[iCounter2].uiIndex );
 		}
 	}
 	
+
+
+
+
+
 	gMsgBox.uiExitScreen = MAINMENU_SCREEN;
 }
 
@@ -494,9 +511,9 @@ void HandleMainMenuInput()
 		{
 			switch( InputEvent.usParam )
 			{
+//#ifdef JA2TESTVERSION
 
-#ifdef JA2TESTVERSION
-				case 'q':
+				case 'n':
 					gbHandledMainMenu = NEW_GAME;
 					gfMainMenuScreenExit = TRUE;
 					SetMainMenuExitScreen( INIT_SCREEN );
@@ -506,7 +523,7 @@ void HandleMainMenuInput()
 					SetPendingNewScreen( INTRO_SCREEN );
 					gfMainMenuScreenExit = TRUE;
 					break;
-#endif
+//#endif
 				case 'c':
 					gbHandledMainMenu = LOAD_GAME;
 
@@ -526,6 +543,11 @@ void HandleMainMenuInput()
 
 				case 's':
 					gbHandledMainMenu = CREDITS;
+					break;
+
+				case 'q':
+					gfMainMenuScreenExit = TRUE;
+					gfProgramIsRunning = FALSE;
 					break;
 			}
 		}
@@ -626,24 +648,28 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 	SGPFILENAME filenameMP;
 	INT16 sSlot;
 	
-	if (iResolution >= _640x480 && iResolution < _800x600)
-	{
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_X;
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
-		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
-	}
-	else if (iResolution < _1024x768)
-	{
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X + xResOffset;
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y + yResOffset;
-		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
-	}
-	else
-	{
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X + xResOffset;
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y + yResOffset;
-		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
-	}
+	MAINMENU_X = SCREEN_WIDTH * gMainMenulayout[0].MAINMENU_X / 640;
+	MAINMENU_Y = SCREEN_HEIGHT * gMainMenulayout[0].MAINMENU_Y / 480;
+	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+
+	//if (iResolution >= _640x480 && iResolution < _800x600)
+	//{
+	//	MAINMENU_X =  gMainMenulayout[0].MAINMENU_X;
+	//	MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
+	//	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+	//}
+	//else if (iResolution < _1024x768)
+	//{
+	//	MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X + xResOffset;
+	//	MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y + yResOffset;
+	//	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+	//}
+	//else
+	//{
+	//	MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X + xResOffset;
+	//	MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y + yResOffset;
+	//	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+	//}
 
 	if( fCreate )
 	{
@@ -724,32 +750,96 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 
 void RenderMainMenu()
 {
-	HVOBJECT hPixHandle;
+	HVSURFACE hVSurface;
+	HVSURFACE hVSaveSurface;
+	//HVOBJECT hPixHandle;
 	UINT32 iCounter2;
-	
+		
 	//Get and display the background image
 	for( iCounter2 = 1; iCounter2 < MAX_ELEMENT; iCounter2++ )
 	{	
 		if (gMainMenulayout[iCounter2].Visible == 1)
-		{		
-			if (iResolution >= _640x480 && iResolution < _800x600)
-			{	
-				GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
-				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX + xResOffset, gMainMenulayout[iCounter2].ImagePositionY + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
-				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX + xResOffset, gMainMenulayout[iCounter2].ImagePositionY + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
-			}
-			else if (iResolution < _1024x768)
-			{	
-				GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
-				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X + xResOffset, gMainMenulayout[iCounter2].ImagePosition800x600Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
-				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X + xResOffset, gMainMenulayout[iCounter2].ImagePosition800x600Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+		{
+			SGPRect SrcRect, DstRect;
+			INT32 iPosX = 0, iPosY = 0;
+
+			GetVideoSurface(&hVSurface, gMainMenulayout[iCounter2].uiIndex);
+			
+			SrcRect.iLeft = 0;
+			SrcRect.iTop = 0;
+			SrcRect.iRight = hVSurface->usWidth;
+			SrcRect.iBottom = hVSurface->usHeight;
+			
+			//DstRect.iLeft = 0;
+			//DstRect.iTop = 0;
+			//DstRect.iRight = hVSurface->usWidth;
+			//DstRect.iBottom = hVSurface->usHeight;
+			
+			//Stretch the background image to screen size
+			if(gMainMenulayout[iCounter2].FitToScreen == 1)
+			{
+				DstRect.iLeft = 0;
+				DstRect.iTop = 0;
+				DstRect.iRight = SCREEN_WIDTH;
+				DstRect.iBottom = SCREEN_HEIGHT;
 			}
 			else
-			{	
-				GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
-				BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X + xResOffset, gMainMenulayout[iCounter2].ImagePosition1024x768Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
-				BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X + xResOffset, gMainMenulayout[iCounter2].ImagePosition1024x768Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			{
+				if(gMainMenulayout[iCounter2].ImagePositionRelative == 1)
+				{
+					iPosX = SCREEN_WIDTH * gMainMenulayout[iCounter2].ImagePositionX / 640;
+					iPosY = SCREEN_HEIGHT * gMainMenulayout[iCounter2].ImagePositionY / 480;
+				}
+				else
+				{
+					iPosX = gMainMenulayout[iCounter2].ImagePositionX;
+					iPosY = gMainMenulayout[iCounter2].ImagePositionY;
+				}
+
+				DstRect.iLeft = iPosX;
+				DstRect.iTop = iPosY;
+				DstRect.iRight = iPosX + hVSurface->usWidth;
+				DstRect.iBottom = iPosY + hVSurface->usHeight;
+
+				if(gMainMenulayout[iCounter2].StretchImage == 1)
+				{
+					DstRect.iRight = iPosX + SCREEN_WIDTH * hVSurface->usWidth / 640;
+					DstRect.iBottom = iPosY + SCREEN_HEIGHT * hVSurface->usHeight / 480;
+				}
+
+				if(gMainMenulayout[iCounter2].CenterImage == 1)
+				{
+					INT32 iTmpXSize = DstRect.iRight - DstRect.iLeft;
+
+					DstRect.iLeft = SCREEN_WIDTH / 2 - iTmpXSize / 2;
+					DstRect.iRight = DstRect.iLeft + iTmpXSize;
+				}
 			}
+
+			BltStretchVideoSurface( FRAME_BUFFER, gMainMenulayout[iCounter2].uiIndex, 0, 0, VO_BLT_SRCTRANSPARENCY, &SrcRect, &DstRect );
+			BltStretchVideoSurface( guiSAVEBUFFER, gMainMenulayout[iCounter2].uiIndex, 0, 0, VO_BLT_SRCTRANSPARENCY, &SrcRect, &DstRect );
+
+			
+
+
+			//if (iResolution >= _640x480 && iResolution < _800x600)
+			//{	
+			//	GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
+			//	BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX + xResOffset, gMainMenulayout[iCounter2].ImagePositionY + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			//	BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePositionX + xResOffset, gMainMenulayout[iCounter2].ImagePositionY + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			//}
+			//else if (iResolution < _1024x768)
+			//{	
+			//	GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
+			//	BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X + xResOffset, gMainMenulayout[iCounter2].ImagePosition800x600Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			//	BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition800x600X + xResOffset, gMainMenulayout[iCounter2].ImagePosition800x600Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			//}
+			//else
+			//{	
+			//	GetVideoObject(&hPixHandle, gMainMenulayout[iCounter2].uiIndex);
+			//	BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X + xResOffset, gMainMenulayout[iCounter2].ImagePosition1024x768Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			//	BltVideoObject( FRAME_BUFFER, hPixHandle, 0, gMainMenulayout[iCounter2].ImagePosition1024x768X + xResOffset, gMainMenulayout[iCounter2].ImagePosition1024x768Y + yResOffset, VO_BLT_SRCTRANSPARENCY,NULL);
+			//}
 		}
 	}
 
@@ -788,24 +878,28 @@ void RestoreButtonBackGrounds()
 
 #ifndef TESTFOREIGNFONTS
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
-	{
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_X;
-		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
-	}
-	else if (iResolution < _1024x768)
-	{
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y;
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X;
-		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
-	}
-	else
-	{
-		MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y;
-		MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X;
-		MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
-	}
+	MAINMENU_X = SCREEN_WIDTH * gMainMenulayout[0].MAINMENU_X / 640;
+	MAINMENU_Y = SCREEN_HEIGHT * gMainMenulayout[0].MAINMENU_Y / 480;
+	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+
+	//if (iResolution >= _640x480 && iResolution < _800x600)
+	//{
+	//	MAINMENU_Y =  gMainMenulayout[0].MAINMENU_Y;
+	//	MAINMENU_X =  gMainMenulayout[0].MAINMENU_X;
+	//	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+	//}
+	//else if (iResolution < _1024x768)
+	//{
+	//	MAINMENU_Y =  gMainMenulayout[0].MAINMENU_800x600Y;
+	//	MAINMENU_X =  gMainMenulayout[0].MAINMENU_800x600X;
+	//	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+	//}
+	//else
+	//{
+	//	MAINMENU_Y =  gMainMenulayout[0].MAINMENU_1024x768Y;
+	//	MAINMENU_X =  gMainMenulayout[0].MAINMENU_1024x768X;
+	//	MAINMENU_Y_SPACE = gMainMenulayout[0].MAINMENU_Y_SPACE;
+	//}
 			
 	for ( cnt = 0; cnt < NUM_MENU_ITEMS; cnt++ )
 	{		
