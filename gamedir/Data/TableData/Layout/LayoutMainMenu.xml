@@ -5,6 +5,13 @@ X800 Y600
 
 ImagePositionXxxx = (X - 640) / 2
 ImagePositionYyyy = (Y - 480) / 2
+
+StretchImage		if 1 the image is stretched to the screen size
+CenterImage		if 1 the image is centered in X
+ImagePositionRelative	if 0 the image is displayed on the same place on any resolution, ignored when StretchImage is active
+
+all tags with resolution are now obsolete but not removed for compability with older versions
+
 -->
 <MAINMENU>
 <!-- Menu Buttons uiIndex = 0 (required!) -->
@@ -27,6 +34,10 @@ ImagePositionYyyy = (Y - 480) / 2
 		<FileName>LOADSCREENS\MainMenuBackground.sti</FileName>
 		<FileName800x600>LOADSCREENS\MainMenuBackground_800x600.sti</FileName800x600>
 		<FileName1024x768>LOADSCREENS\MainMenuBackground_1024x768.sti</FileName1024x768>
+		<FitToScreen>1</FitToScreen>
+		<StretchImage>0</StretchImage>
+		<CenterImage>0</CenterImage>
+		<ImagePositionRelative>0</ImagePositionRelative>
 		<ImagePositionX>0</ImagePositionX>
 		<ImagePositionY>0</ImagePositionY>
 		<ImagePosition800x600X>0</ImagePosition800x600X>
@@ -41,8 +52,12 @@ ImagePositionYyyy = (Y - 480) / 2
 		<FileName>LOADSCREENS\Ja2Logo.sti</FileName>
 		<FileName800x600>LOADSCREENS\Ja2Logo.sti</FileName800x600>
 		<FileName1024x768>LOADSCREENS\Ja2Logo.sti</FileName1024x768>
+		<FitToScreen>0</FitToScreen>
+		<StretchImage>0</StretchImage>
+		<CenterImage>1</CenterImage>
+		<ImagePositionRelative>1</ImagePositionRelative>
 		<ImagePositionX>188</ImagePositionX>
-		<ImagePositionY>10</ImagePositionY>
+		<ImagePositionY>70</ImagePositionY>
 		<ImagePosition800x600X>268</ImagePosition800x600X>
 		<ImagePosition800x600Y>70</ImagePosition800x600Y>
 		<ImagePosition1024x768X>380</ImagePosition1024x768X>
