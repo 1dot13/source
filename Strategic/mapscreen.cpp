@@ -12277,8 +12277,12 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 		// helicopter route confirmed
 		if( sX + ( sY * MAP_WORLD_X ) == GetLastSectorOfHelicoptersPath( ) )
 		{
+			// WANNE: This check was added in revision 4724, to prevent the loophole for helicopter hovering forever
+			// But is seems, it also causes the bug, that skyrider is stuck in the sector forever (bugzilla #562)
+			// So hopefully, skyrider does not stuck anymore ...
+
 			// if confirm moving to another sector
-			if( ( CheckForClickOverHelicopterIcon( sX, sY ) == FALSE ) )
+			//if( ( CheckForClickOverHelicopterIcon( sX, sY ) == FALSE ) )
 			{
 				// take off
 				TakeOffHelicopter( );
