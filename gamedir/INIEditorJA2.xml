@@ -35,7 +35,7 @@
           <Description_POL></Description_POL>
 		  <Description_CHI>请选择游戏mod对应的“vfs_config.*.ini”来加载这个 mod 。</Description_CHI>
         </Property>
-        <Property name="DEFAULT_JA2_EXECUTABLE" datatype="select" minvalue="0" maxvalue="0" interval="0">
+        <Property name="JA2_START_FILE" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The default Jagged Alliance 2 v1.13 Executable. This file will be used, if you click on the button "Launch JA2 v1.13".</Description_ENG>
           <Description_GER>Dies ist die standardmäßige Jagged Alliance 2 v1.13 Exe Datei, welche gestartet wird, wenn auf die Schaltfläche "Launch JA2 v1.13" geklickt wird.</Description_GER>
           <Description_RUS>Стартовый файл Jagged Alliance 2 v1.13.
