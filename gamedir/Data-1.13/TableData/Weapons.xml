@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
@@ -13094,5 +13094,15 @@
 		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>134</usOverheatingSingleShotTemperature>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1579</uiIndex>
+		<szWeaponName>Garotte</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>8</ubShotsPer4Turns>
+		<ubImpact>10</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
 </WEAPONLIST>

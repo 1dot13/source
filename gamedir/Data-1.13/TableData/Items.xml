@@ -2262,6 +2262,7 @@
 		<BR_ROF>36</BR_ROF>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
@@ -4286,6 +4287,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4376,6 +4378,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7002,6 +7005,7 @@
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>65536</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8705,6 +8709,7 @@
 		<Hardware>1</Hardware>
 		<LocksmithKit>1</LocksmithKit>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -20843,6 +20848,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>44</BR_ROF>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
@@ -33922,6 +33928,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47322,6 +47329,109 @@
 		<Hardware>1</Hardware>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<ItemFlag>2048</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1577</uiIndex>
+		<szItemName>Clothes</szItemName>
+		<szLongItemName>Civilian Clothes</szLongItemName>
+		<szItemDesc>Normal Arulcan clothes. Absolutely nothing to see here.</szItemDesc>
+		<szBRName>Civilian Clothes</szBRName>
+		<szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>513</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>4096</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1578</uiIndex>
+		<szItemName>Dart</szItemName>
+		<szLongItemName>Neurotoxin Dart</szLongItemName>
+		<szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
+		<szBRName>Neurotoxin Dart</szBRName>
+		<szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>601</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>119</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>12</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<HideMuzzleFlash>1</HideMuzzleFlash>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1579</uiIndex>
+		<szItemName>Garotte</szItemName>
+		<szLongItemName>Garotte</szLongItemName>
+		<szItemDesc>In skilled hands, a deadly weapon. In unskilled hands, you better use your fists.</szItemDesc>
+		<szBRName>Garotte</szBRName>
+		<szBRDesc>Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.</szBRDesc>
+		<usItemClass>128</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1579</ubClassIndex>
+		<ubCursor>2</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>102</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>35</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>30</BR_ROF>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>24576</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1580</uiIndex>
+		<szItemName>Body</szItemName>
+		<szLongItemName>Dead Body</szLongItemName>
+		<szItemDesc>A fresh corpse.</szItemDesc>
+		<szBRName>Dead Body</szBRName>
+		<szBRDesc>NO DESCRIPTION NEEDED!!!</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>513</ubGraphicNum>
+		<ubWeight>800</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>34</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<ShowStatus>1</ShowStatus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>32768</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

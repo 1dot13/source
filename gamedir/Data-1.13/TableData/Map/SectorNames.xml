@@ -80,6 +80,7 @@
     <szDetailedExploredName>Omerta</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A10</SectorGrid>
@@ -89,6 +90,7 @@
     <szDetailedExploredName>Omerta</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A11</SectorGrid>
@@ -448,6 +450,7 @@
     <szDetailedExploredName>Tropical, SAM Site</szDetailedExploredName>
     <sWaterType>2</sWaterType>
     <usNaturalDirt>300</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D3</SectorGrid>
@@ -565,6 +568,7 @@
     <szDetailedExploredName>Woods, SAM Site</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>  
    <SECTOR>
     <SectorGrid>D16</SectorGrid>
@@ -799,6 +803,7 @@
     <szDetailedExploredName>Cambria</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F10</SectorGrid>
@@ -880,6 +885,7 @@
     <szDetailedExploredName>Grumm</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G3</SectorGrid>
@@ -1024,6 +1030,7 @@
     <szDetailedExploredName>Grumm</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H3</SectorGrid>
@@ -1033,6 +1040,7 @@
     <szDetailedExploredName>Grumm Mine</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H4</SectorGrid>
@@ -1078,6 +1086,7 @@
     <szDetailedExploredName>Cambria Mine</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>130</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H9</SectorGrid>
@@ -1123,6 +1132,7 @@
     <szDetailedExploredName>Alma</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H14</SectorGrid>
@@ -1132,6 +1142,7 @@
     <szDetailedExploredName>Alma</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H15</SectorGrid>
@@ -1222,6 +1233,7 @@
     <szDetailedExploredName>Desert, SAM Site</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>850</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I9</SectorGrid>
@@ -1267,6 +1279,7 @@
     <szDetailedExploredName>Alma</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
@@ -1474,6 +1487,7 @@
     <szDetailedExploredName>Orta Military Base</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>500</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K5</SectorGrid>
@@ -1744,6 +1758,7 @@
     <szDetailedExploredName>Coastal, road</szDetailedExploredName>
     <sWaterType>2</sWaterType>
     <usNaturalDirt>140</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR> 
    <SECTOR>
     <SectorGrid>M3</SectorGrid>
@@ -1753,6 +1768,7 @@
     <szDetailedExploredName>Swamp, road</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>450</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M4</SectorGrid>
@@ -1762,6 +1778,7 @@
     <szDetailedExploredName>Farmland</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>175</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M5</SectorGrid>
@@ -1771,6 +1788,7 @@
     <szDetailedExploredName>Forest, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M6</SectorGrid>
@@ -1780,6 +1798,7 @@
     <szDetailedExploredName>Forest, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M7</SectorGrid>
@@ -1897,6 +1916,7 @@
     <szDetailedExploredName>Meduna Airport</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N4</SectorGrid>
@@ -1906,6 +1926,7 @@
     <szDetailedExploredName>Meduna, SAM Site</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N5</SectorGrid>
@@ -1915,6 +1936,7 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N6</SectorGrid>
@@ -1924,6 +1946,7 @@
     <szDetailedExploredName>Tropical, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>250</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N7</SectorGrid>
@@ -2041,6 +2064,7 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O4</SectorGrid>
@@ -2050,6 +2074,7 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O5</SectorGrid>
@@ -2185,6 +2210,7 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P4</SectorGrid>
