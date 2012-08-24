@@ -1,0 +1,41 @@
+<!--
+
+This file handles sector variating through using or not using alternative maps.
+Table represent game world. To disable randomness of sector, say E6, you have to
+find its place in the table and put 0 (zero) there. Then JA2 will use only one map
+for this sector: E6.DAT. If you put 1 (one) as a value in table, then the game will
+choose from 2 map-files E6.DAT and E6_A.DAT to use it as map for sector E6. These 2
+maps have equal chances to appear in game, 50/50.
+
+NOTE1: this table is used only when you are starting a new game. Any changes to this
+       file require starting a new game.
+
+NOTE2: some sectors in game already using alternative map in original JA2
+       It is Skyrider quest: B15, E14, D12, C16
+             weapon caches: E11, H5, H10, J12, M9
+             Madlab quest: H7, H16, I11, E4
+             Gabby: I4
+       Do not enable randomization of this sectors until you are know what you're doing
+
+-->
+<ALT_SECTORS_LIST>
+	<!-- index                    1 1 1 1 1 1 1 -->
+	<!--        1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 -->
+	<!--                                        -->
+	<ROW y="A"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="B"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="C"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="D"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="E"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="F"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="G"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="H"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="I"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="J"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="K"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="L"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="M"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="N"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="O"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+	<ROW y="P"> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </ROW>
+</ALT_SECTORS_LIST>

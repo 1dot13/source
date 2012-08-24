@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FILES_SENDER_LIST>
+	<NAME>
+		<uiIndex>0</uiIndex>
+		<Name>Recon Report</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>1</uiIndex>
+		<Name>Intercept #1</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>2</uiIndex>
+		<Name>Intercept #2</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>3</uiIndex>
+		<Name>Intercept #3</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>4</uiIndex>
+		<Name>Intercept #4</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>5</uiIndex>
+		<Name>Intercept #5</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>6</uiIndex>
+		<Name>Intercept #6</Name>
+	</NAME>
+	<NAME>
+		<uiIndex>7</uiIndex>
+		<Name>Mission briefing</Name>
+	</NAME>
+</FILES_SENDER_LIST>

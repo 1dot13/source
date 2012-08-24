@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<ExplosionType>
+		<id>0</id>
+		<name>Normal</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>1</id>
+		<name>Stun</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>2</id>
+		<name>Tear Gas</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>3</id>
+		<name>Mustard Gas</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>4</id>
+		<name>Flare</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>5</id>
+		<name>Noise</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>6</id>
+		<name>Smoke</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>7</id>
+		<name>Creature Gas</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>8</id>
+		<name>Fire</name>
+	</ExplosionType>
+	<ExplosionType>
+		<id>9</id>
+		<name>Flashbang</name>
+	</ExplosionType>
+</JA2Data>

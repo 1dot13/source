@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DELIVERYMETHODTABLE>
+	<DELIVERYMETHOD>
+		<uiIndex>0</uiIndex>
+		<description>Overnight express</description>
+		<DESTINATIONDELIVERYINFOTABLE>
+			<!-- Austin -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>0</uiDestinationIndex>
+				<usDestinationFee>20</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Baghdad -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>1</uiDestinationIndex>
+				<usDestinationFee>295</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Drassen -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>2</uiDestinationIndex>
+				<usDestinationFee>200</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Hong Kong -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>3</uiDestinationIndex>
+				<usDestinationFee>100</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Beirut -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>4</uiDestinationIndex>
+				<usDestinationFee>95</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- London -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>5</uiDestinationIndex>
+				<usDestinationFee>55</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Los Angeles -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>6</uiDestinationIndex>
+				<usDestinationFee>35</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Meduna -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>7</uiDestinationIndex>
+				<usDestinationFee>200</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Metavira -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>8</uiDestinationIndex>
+				<usDestinationFee>190</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Miami -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>9</uiDestinationIndex>
+				<usDestinationFee>35</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Moscow -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>10</uiDestinationIndex>
+				<usDestinationFee>100</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- New York -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>11</uiDestinationIndex>
+				<usDestinationFee>35</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Ottawa -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>12</uiDestinationIndex>
+				<usDestinationFee>45</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Paris -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>13</uiDestinationIndex>
+				<usDestinationFee>55</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Tripoli -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>14</uiDestinationIndex>
+				<usDestinationFee>100</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Tokyo -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>15</uiDestinationIndex>
+				<usDestinationFee>100</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Vancouver -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>16</uiDestinationIndex>
+				<usDestinationFee>45</usDestinationFee>
+				<bDaysAhead>1</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+		</DESTINATIONDELIVERYINFOTABLE>
+	</DELIVERYMETHOD>
+	<DELIVERYMETHOD>
+		<uiIndex>1</uiIndex>
+		<description>2 Business Days</description>
+		<DESTINATIONDELIVERYINFOTABLE>
+			<!-- Austin -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>0</uiDestinationIndex>
+				<usDestinationFee>15</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Baghdad -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>1</uiDestinationIndex>
+				<usDestinationFee>150</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Drassen -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>2</uiDestinationIndex>
+				<usDestinationFee>100</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Hong Kong -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>3</uiDestinationIndex>
+				<usDestinationFee>55</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Beirut -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>4</uiDestinationIndex>
+				<usDestinationFee>65</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- London -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>5</uiDestinationIndex>
+				<usDestinationFee>40</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Los Angeles -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>6</uiDestinationIndex>
+				<usDestinationFee>25</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Meduna -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>7</uiDestinationIndex>
+				<usDestinationFee>100</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Metavira -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>8</uiDestinationIndex>
+				<usDestinationFee>90</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Miami -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>9</uiDestinationIndex>
+				<usDestinationFee>25</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Moscow -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>10</uiDestinationIndex>
+				<usDestinationFee>55</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- New York -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>11</uiDestinationIndex>
+				<usDestinationFee>25</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Ottawa -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>12</uiDestinationIndex>
+				<usDestinationFee>30</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Paris -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>13</uiDestinationIndex>
+				<usDestinationFee>40</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Tripoli -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>14</uiDestinationIndex>
+				<usDestinationFee>55</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Tokyo -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>15</uiDestinationIndex>
+				<usDestinationFee>55</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Vancouver -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>16</uiDestinationIndex>
+				<usDestinationFee>30</usDestinationFee>
+				<bDaysAhead>2</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+		</DESTINATIONDELIVERYINFOTABLE>
+	</DELIVERYMETHOD>
+	<DELIVERYMETHOD>
+		<uiIndex>2</uiIndex>
+		<description>Standard Service</description>
+		<DESTINATIONDELIVERYINFOTABLE>
+			<!-- Austin -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>0</uiDestinationIndex>
+				<usDestinationFee>10</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Baghdad -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>1</uiDestinationIndex>
+				<usDestinationFee>85</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Drassen -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>2</uiDestinationIndex>
+				<usDestinationFee>50</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Hong Kong -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>3</uiDestinationIndex>
+				<usDestinationFee>30</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Beirut -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>4</uiDestinationIndex>
+				<usDestinationFee>40</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- London -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>5</uiDestinationIndex>
+				<usDestinationFee>25</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Los Angeles -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>6</uiDestinationIndex>
+				<usDestinationFee>15</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Meduna -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>7</uiDestinationIndex>
+				<usDestinationFee>50</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Metavira -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>8</uiDestinationIndex>
+				<usDestinationFee>45</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Miami -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>9</uiDestinationIndex>
+				<usDestinationFee>15</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Moscow -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>10</uiDestinationIndex>
+				<usDestinationFee>30</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- New York -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>11</uiDestinationIndex>
+				<usDestinationFee>15</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Ottawa -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>12</uiDestinationIndex>
+				<usDestinationFee>20</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Paris -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>13</uiDestinationIndex>
+				<usDestinationFee>25</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Tripoli -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>14</uiDestinationIndex>
+				<usDestinationFee>30</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Tokyo -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>15</uiDestinationIndex>
+				<usDestinationFee>30</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+
+			<!-- Vancouver -->
+			<DESTINATIONDELIVERYINFO>	
+				<uiDestinationIndex>16</uiDestinationIndex>
+				<usDestinationFee>20</usDestinationFee>
+				<bDaysAhead>3</bDaysAhead>
+			</DESTINATIONDELIVERYINFO>
+		</DESTINATIONDELIVERYINFOTABLE>
+	</DELIVERYMETHOD>
+</DELIVERYMETHODTABLE>

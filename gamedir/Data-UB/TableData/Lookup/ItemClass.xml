@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<ItemClass>
+		<id>1</id>
+		<name>Nothing</name>
+	</ItemClass>
+	<ItemClass>
+		<id>2</id>
+		<name>Gun</name>
+	</ItemClass>
+	<ItemClass>
+		<id>4</id>
+		<name>Knife</name>
+	</ItemClass>
+	<ItemClass>
+		<id>8</id>
+		<name>Throwing Knife</name>
+	</ItemClass>
+	<ItemClass>
+		<id>16</id>
+		<name>Launcher</name>
+	</ItemClass>
+	<ItemClass>
+		<id>32</id>
+		<name>Tentacle</name>
+	</ItemClass>
+	<ItemClass>
+		<id>64</id>
+		<name>Thrown Weapon</name>
+	</ItemClass>
+	<ItemClass>
+		<id>128</id>
+		<name>Blunt Weapon</name>
+	</ItemClass>
+	<ItemClass>
+		<id>256</id>
+		<name>Grenade</name>
+	</ItemClass>
+	<ItemClass>
+		<id>512</id>
+		<name>Bomb</name>
+	</ItemClass>
+	<ItemClass>
+		<id>1024</id>
+		<name>Ammo</name>
+	</ItemClass>
+	<ItemClass>
+		<id>2048</id>
+		<name>Armour</name>
+	</ItemClass>
+	<ItemClass>
+		<id>4096</id>
+		<name>Medkit</name>
+	</ItemClass>
+	<ItemClass>
+		<id>8192</id>
+		<name>Kit</name>
+	</ItemClass>
+	<ItemClass>
+		<id>32768</id>
+		<name>Face Item</name>
+	</ItemClass>
+	<ItemClass>
+		<id>65536</id>
+		<name>Key</name>
+	</ItemClass>
+	<ItemClass>
+		<id>131072</id>
+		<name>Load Bearing Equipment</name>
+	</ItemClass>
+	<ItemClass>
+		<id>268435456</id>
+		<name>Misc</name>
+	</ItemClass>
+	<ItemClass>
+		<id>536870912</id>
+		<name>Money</name>
+	</ItemClass>
+</JA2Data>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<ExplosionSize>
+		<id>0</id>
+		<name>None</name>
+	</ExplosionSize>
+	<ExplosionSize>
+		<id>1</id>
+		<name>Standard</name>
+	</ExplosionSize>
+	<ExplosionSize>
+		<id>2</id>
+		<name>HighExplosive</name>
+	</ExplosionSize>
+</JA2Data>

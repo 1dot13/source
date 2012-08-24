@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<MergeType>
+		<id>0</id>
+		<name>Destruction</name>
+	</MergeType>
+	<MergeType>
+		<id>1</id>
+		<name>Combine</name>
+	</MergeType>
+	<MergeType>
+		<id>2</id>
+		<name>Treat Armour</name>
+	</MergeType>
+	<MergeType>
+		<id>3</id>
+		<name>Explosive</name>
+	</MergeType>
+	<MergeType>
+		<id>4</id>
+		<name>Easy</name>
+	</MergeType>
+	<MergeType>
+		<id>5</id>
+		<name>Electronic</name>
+	</MergeType>
+	<MergeType>
+		<id>6</id>
+		<name>Use Item</name>
+	</MergeType>
+	<MergeType>
+		<id>7</id>
+		<name>Use Item (Hard)</name>
+	</MergeType>
+</JA2Data>

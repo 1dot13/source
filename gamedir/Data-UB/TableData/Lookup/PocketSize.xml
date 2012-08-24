@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<PocketSize>
+		<id>0</id>
+		<name>None</name>
+	</PocketSize>
+	<PocketSize>
+		<id>1</id>
+		<name>Small</name>
+	</PocketSize>
+	<PocketSize>
+		<id>2</id>
+		<name>Medium</name>
+	</PocketSize>
+	<PocketSize>
+		<id>3</id>
+		<name>Large</name>
+	</PocketSize>
+</JA2Data>
