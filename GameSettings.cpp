@@ -1410,7 +1410,7 @@ void LoadGameExternalOptions()
 
 	//################# Tactical Poison Settings ##################
 	gGameExternalOptions.ubPoisonBaseMedicalSkillToCure					= iniReader.ReadInteger("Tactical Poison Settings", "POISON_BASE_MEDICAL_SKILL_TO_CURE", 50, 1, 100);
-	gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator			= iniReader.ReadFloat("Tactical Poison Settings", "POISON_MEDICAL_POINTS_TO_CURE_MULTIPLICATOR", 0.5, 0.1, 10.0);
+	gGameExternalOptions.sPoisonMedicalPtsToCureMultiplicator			= iniReader.ReadFloat("Tactical Poison Settings", "POISON_MEDICAL_POINTS_TO_CURE_MULTIPLICATOR", 0.5f, 0.1f, 10.0f);
 	gGameExternalOptions.sZombiePoisonDamagePercentage					= iniReader.ReadInteger("Tactical Poison Settings", "ZOMBIE_POISON_DAMAGE_PERCENTAGE", 50, 0, 100);	
 	gGameExternalOptions.sPoisonInfectionDamageMultiplier				= iniReader.ReadFloat("Tactical Poison Settings", "POISON_INFECTION_DAMAGE_MULTIPLIER", 4.0, 1.0, 10.0);	
 

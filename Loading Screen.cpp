@@ -27,8 +27,8 @@ extern BOOLEAN gfSchedulesHosed;
 	#include "Ja25_Tactical.h"
 	#include "Ja25 Strategic Ai.h"
 #endif
-
 UINT8 gubLastLoadingScreenID = LOADINGSCREEN_NOTHING;
+//BOOLEAN bShowSmallImage = FALSE;
 SECTOR_LOADSCREENS gSectorLoadscreens[MAX_SECTOR_LOADSCREENS];
 
 static INT16 requestedX, requestedY, requestedZ;
@@ -56,6 +56,10 @@ static STR8 szSectorMap[MAP_WORLD_Y][MAP_WORLD_X] =	{
 	{"N",	"N" ,"N" ,"N" ,"N" ,"N" ,"N" ,"N" ,"N" ,"N" , "N" , "N" , "N" , "N" , "N" , "N" , "N"	,"N"},
 };
 
+// Map LOADINGSCREEN_NOTHING, ..., LOADINGSCREEN_NIGHTBALIME (see enum in header file)
+// to some strings which will be used to create the actual filename
+// (by appending e.g. "_800x600.sti" or something).
+// This is only used when NOT loading them from SectorLoadscreens.xml.
 static STR8 LoadScreenNames[LOADINGSCREEN_NIGHTBALIME+1] =
 {
 	"LS_Heli",
@@ -295,6 +299,15 @@ UINT8 GetLoadScreenID(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ)
 			return LOADINGSCREEN_CAVE;
 		default:
 
+    /*
+    case 1:
+    case 2:
+    case 3:
+         return LOADINGSCREEN_CAVE;
+    break;
+	return LOADINGSCREEN_CAVE;
+   default:
+   */
 #else
 			// Basement Level 1
 			case 1:
@@ -347,13 +360,12 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 	VSURFACE_DESC		vs_desc = {};
 	HVSURFACE			hVSurface;
 	UINT32				uiLoadScreen;
-	STRING512			loadImage = {0};
-	STRING512			sImage = {0};
 
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
 
 	const BOOLEAN fExternalLS = (szSector != NULL) && ((DAY <= ubLoadScreenID && ubLoadScreenID <= NIGHT_ALT) || (ubLoadScreenID == UNDERGROUND));
 								
+
 	if (fExternalLS)
 	{
 		// Get the image path
@@ -415,26 +427,36 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 				}
 			}
 		}
+
+		std::string strImage;
+
+		BuildLoadscreenFilename(strImage, imagePath.c_str(), 0, imageFormat.c_str());
+		strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
 		
-		std::string strLoadscreenImage;
-		BuildLoadscreenFilename(strLoadscreenImage, imagePath.c_str(), 0, imageFormat.c_str());
-		strLoadscreenImage.copy(loadImage, sizeof(loadImage)-1);
+		
+		if ( !FileExists(vs_desc.ImageFile) )
+		{
+			std::string strImage("LOADSCREENS\\");
+			
+			BuildLoadscreenFilename(strImage, LoadScreenNames[1], 0, imageFormat.c_str());
+
+			strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);		
+		}
 	}
 	else
 	{
-		std::string strLoadscreenImage("LOADSCREENS\\");		
+		std::string strImage("LOADSCREENS\\");
 
 		if (LOADINGSCREEN_NOTHING <= ubLoadScreenID && ubLoadScreenID <= LOADINGSCREEN_NIGHTBALIME)
 		{
-			BuildLoadscreenFilename(strLoadscreenImage, LoadScreenNames[ubLoadScreenID], 0, "sti");
+			BuildLoadscreenFilename(strImage, LoadScreenNames[ubLoadScreenID], 0, "sti");
 		}
 		else
 		{
 			// for some reason the heli screen is the default
-			BuildLoadscreenFilename(strLoadscreenImage, LoadScreenNames[0], 0, "sti");
+			BuildLoadscreenFilename(strImage, LoadScreenNames[0], 0, "sti");
 		}
-		
-		strLoadscreenImage.copy(loadImage, sizeof(loadImage)-1);
+		strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
 	}
 
 
@@ -448,19 +470,7 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 	}
 	else
 	{
-		BOOLEAN fOk = FALSE;
-
-		if(FileExists(vs_desc.ImageFile) && AddVideoSurface(&vs_desc, &uiLoadScreen))
-			fOk = TRUE;
-		else
-		{			
-			strncpy(vs_desc.ImageFile, loadImage, sizeof(vs_desc.ImageFile)-1);
-
-			if (FileExists(vs_desc.ImageFile) && AddVideoSurface(&vs_desc, &uiLoadScreen))
-				fOk = TRUE;
-		}
-
-		if (fOk)
+		if( AddVideoSurface(&vs_desc, &uiLoadScreen))
 		{
 			SGPRect SrcRect, DstRect;
 									
@@ -478,7 +488,8 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 			DstRect.iRight = SCREEN_WIDTH;
 			DstRect.iBottom = SCREEN_HEIGHT;
 			
-			BltStretchVideoSurface( FRAME_BUFFER, uiLoadScreen, 0, 0, 0, &SrcRect, &DstRect );							
+			BltStretchVideoSurface( FRAME_BUFFER, uiLoadScreen, 0, 0, 0, &SrcRect, &DstRect );
+						
 			DeleteVideoSurfaceFromIndex( uiLoadScreen );			
 		}
 		else
