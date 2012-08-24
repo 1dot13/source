@@ -340,7 +340,7 @@ void EnterTacticalScreen( )
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: check meanwhile"));
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 /* Ja25 No meanwhiles */
 #else
 	// Locate if in meanwhile...
@@ -952,7 +952,7 @@ UINT32	MainGameScreenHandle(void)
 	
 	
 //UB       
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
  /* JA2UB */
 #else
 	CheckForMeanwhileOKStart( );

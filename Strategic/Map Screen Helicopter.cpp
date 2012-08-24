@@ -678,7 +678,7 @@ void LandHelicopter( void )
 	}
 	else
 	{
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 		Assert( 0 );
 //No meanwhiles
 #else

@@ -1485,7 +1485,7 @@ void BeginLoadScreen( void )
 
 	SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 	if( guiCurrentScreen == MAP_SCREEN && !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
 #else
 //Ja25: No meanwhiles
@@ -1905,7 +1905,7 @@ void GetMapFileName(INT16 sMapX,INT16 sMapY, INT8 bSectorZ, STR8 bString, BOOLEA
 		}
 	}
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 /* Ja25: No meanwhiles */
 #else
 	// If we are in a meanwhile...
@@ -2388,7 +2388,7 @@ void PrepareLoadedSector()
 	BOOLEAN fEnemyPresenceInThisSector = FALSE;
 	BOOLEAN fAddCivs = TRUE;
 	INT8 bMineIndex = -1;
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25 No meanwhiles
 #else
 	if( AreInMeanwhile( ) == FALSE )
@@ -2417,7 +2417,7 @@ void PrepareLoadedSector()
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ))
 	{
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25 No meanwhiles
 #else
 		if ( !AreReloadingFromMeanwhile( ) )
@@ -2542,7 +2542,7 @@ void PrepareLoadedSector()
 		{
 			AddProfilesNotUsingProfileInsertionData();
 		}
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25 No meanwhiles
 #else
 		if( !AreInMeanwhile() || GetMeanwhileID() == INTERROGATION )
@@ -2920,7 +2920,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 		memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS ); 
 	}
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25 No meanwhiles
 #else
 	if( AreInMeanwhile() == FALSE )

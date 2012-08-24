@@ -208,7 +208,7 @@ void HandleEnricoEmail(void)
 	UINT8 ubCurrentProgress = CurrentPlayerProgressPercentage();
 	UINT8 ubHighestProgress = HighestPlayerProgressPercentage();
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //JA25 UB	
 #else
 	// if creatures have attacked a mine (doesn't care if they're still there or not at the moment)

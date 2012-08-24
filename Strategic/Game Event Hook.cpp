@@ -221,7 +221,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			// WANNE: This fixes the bug, that Speck did not sent the email on Day 3, when MERC_WEBSITE_ALL_MERCS_AVAILABLE = TRUE!
 			if ( gGameExternalOptions.fMercDayOne == FALSE /* && gGameExternalOptions.fAllMercsAvailable == FALSE */ )
 			{
-			#if (defined JA2UB || defined JA113NODEMO) 
+			#if (defined JA2UB) 
 			//No JA25 UB
 			#else
 				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 ,TYPE_EMAIL_EMAIL_EDT );
@@ -361,7 +361,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		//	BeginAirRaid( );
 		//	break;
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 // Ja25 No meanwhiles
 #else
 		case EVENT_MEANWHILE:

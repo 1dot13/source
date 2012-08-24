@@ -368,7 +368,7 @@ void RenderRadarScreen( )
 		RenderSquadList( );
 		return;
 	}
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //JA25 No meanwhiles
 #else
 	if( AreInMeanwhile( ) == TRUE )

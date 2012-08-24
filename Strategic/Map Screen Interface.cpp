@@ -5680,7 +5680,7 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	FadeInGameScreen( );
 
 	SetUpShutDownMapScreenHelpTextScreenMask( );
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //no ja25 UB
 #else
 	// Add e-mail message

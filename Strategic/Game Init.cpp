@@ -559,7 +559,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	AutoSaveToSlot[4] = FALSE;
 	
 
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25 no meanwhiles
 #else
 	// reset meanwhile flags
@@ -715,7 +715,7 @@ fFirstTimeInMapScreen = TRUE;
 		InitCustomStrategicLayer ( );
 		#endif
 #else
-		#if (defined JA2UB || defined JA113NODEMO) 
+		#if (defined JA2UB) 
 
 		#else
 		INT32		iStartingCash;

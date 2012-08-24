@@ -38,7 +38,7 @@ void HourlyLarryUpdate( void );
 
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //no UB
 #else
 void HourlyCheckIfSlayAloneSoHeCanLeave();
@@ -100,7 +100,7 @@ CHAR16	zString[128];
 	HourlyQuestUpdate();
 
 	HourlyLarryUpdate();
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 // no UB
 #else
 	HourlyCheckIfSlayAloneSoHeCanLeave();
@@ -445,7 +445,7 @@ void HourlyLarryUpdate( void )
 	}
 
 }
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 // no JA25 UB
 #else 
 void HourlyCheckIfSlayAloneSoHeCanLeave()

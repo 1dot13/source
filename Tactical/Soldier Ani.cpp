@@ -1274,7 +1274,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						}
 						else
 						{
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 					//Ja25 No meanwhiles		
 					          	if ( fMartialArtist )
 #else
@@ -4021,7 +4021,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 		}
 
 		// OK, if we are in a meanwhile and this is elliot...
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //ja25: No queen
 #else
 		if ( AreInMeanwhile( ) )
@@ -4045,7 +4045,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 		// If guy is now dead, play sound!
 		if ( pSoldier->stats.bLife == 0	)
 		{
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25 No meanwhiles		
 #else
 			if ( !AreInMeanwhile() )

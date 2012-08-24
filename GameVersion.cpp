@@ -28,7 +28,7 @@
 	//DEBUG BUILD VERSION	
 	#ifdef JA2UB
 		CHAR16 zVersionLabel[256]		= { L"Debug: Unfinished Business - v1.13.5423 (Development Build)" }; 
-	#elif defined (JA113DEMO) || defined (JA113NODEMO)
+	#elif defined (JA113DEMO)
 		CHAR16 zVersionLabel[256]		= { L"Debug: JA2 Demo - v1.13.5423 (Development Build)" }; 
 	#else
 		CHAR16 zVersionLabel[256]		= { L"Debug: v1.13.5423 (Development Build)" }; 
@@ -47,7 +47,7 @@
 	//RELEASE BUILD VERSION	
 	#ifdef JA2UB
 		CHAR16		zVersionLabel[256]		= { L"Release Unfinished Business - v1.13.5423 (Development Build)" };
-	#elif defined (JA113DEMO) || defined (JA113NODEMO)		
+	#elif defined (JA113DEMO)
 		CHAR16		zVersionLabel[256]		= { L"Release JA2 Demo - v1.13.5423 (Development Build)" };
 	#else
 		CHAR16		zVersionLabel[256]		= { L"Release v1.13.5423 (Development Build)" };

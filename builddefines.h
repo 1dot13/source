@@ -5,35 +5,6 @@
 
 // -----------------------------
 // *****************************
-// WANNE: Enable this define to use the rifle sling feature (Feature was added in Revision: 5207)
-#define ENABLE_RIFLE_SLING
-// -----------------------------
-// *****************************
-
-// -----------------------------
-// *****************************
-// WANNE: Enable this define to show explosives display (Feature was added in Revision: 5210)
-#define ENABLE_DISPLAY_EXPLOSIVES
-// -----------------------------
-// *****************************
-
-// -----------------------------
-// *****************************
-// WANNE: Enable this define, to build an executable where you can enable/disable zombies in tactical (ingame option screen).
-// It seems (and is confirmed), that executables compiled with this zombie option turned on, causes slowdown in tactical.
-//#define ENABLE_ZOMBIES
-// -----------------------------
-// *****************************
-
-// -----------------------------
-// *****************************
-// WANNE: Enable this define, to build the gameloop with the highspeed timer. To use the highspeed timer, you also have to set the HIGHSPEED_TIMER = TRUE in ja2.ini
-#define USE_HIGHSPEED_GAMELOOP_TIMER
-// -----------------------------
-// *****************************
-
-// -----------------------------
-// *****************************
 // WANNE: Enable those 2 defines, if you want to build UB-Version!!
 
 //JA2/Unfinished Business
@@ -46,31 +17,26 @@
 
 // -----------------------------
 // *****************************
-// WANNE: With these defines we can build JA2 DEMO version that runs with 1.13
-// The 2 UB defines (JA2UB  and JA2UBMAPS) have to be disabled in order to build a demo executable
+// WANNE: With these define we can build JA2 DEMO version that runs with 1.13
+// The 2 UB defines (JA2UB  and JA2UBMAPS) should be disabled, because we only want to build the demo version from the JA2 code!
 
-// There are different combinations of the 2 defines
-
-// 1.) Both defines are enabled: Build demo v1.13, which uses the slf files from orginal JA2 demo
 // #define JA113DEMO
-// #define JA113NODEMO
-
-// 2.) !!!! Only JA113DEMO define enabled: Build demo v1.13, which uses the ja2 original files. This is the prefered way of building the 1.13 demo !!!!
-// #define JA113DEMO
-// // #define JA113NODEMO
-
-// 3.) Only JA113NODEMO define enabled: This build a "normal" 1.13 version, with a little influence of a UB version (disable all meanwhiles, emails, no quest with queen, alien queen)
-//     This version can be used for modders to have a "blank" 1.13 version with no special quests.
-// // #define JA113DEMO
-// #define JA113NODEMO
-
-
-// WANNE: If both defines are disabled, we just build "normal" 1.13 or "unfinished business" 1.13 (when JA2UB and JA2UBMAPS enabled) version!
-//#define JA113DEMO
-//#define JA113NODEMO 
-
 // *****************************
 // -----------------------------
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// -----------------------------
+// WANNE: Enable this define, to build an executable where you can enable/disable zombies in tactical (ingame option screen).
+// It seems (and is confirmed), that executables compiled with this zombie option turned on, causes slowdown in tactical.
+//#define ENABLE_ZOMBIES
+// -----------------------------
+
+// -----------------------------
+// WANNE: Enable this define, to build the gameloop with the highspeed timer. To use the highspeed timer, you also have to set the HIGHSPEED_TIMER = TRUE in ja2.ini
+#define USE_HIGHSPEED_GAMELOOP_TIMER
+// -----------------------------
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
 //#define JA2BETAVERSION

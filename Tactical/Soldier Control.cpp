@@ -5741,7 +5741,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		}
 		////////////////////////////////////////////////////////////////////////////
 		sDamage = sDamage / PUNCH_REAL_DAMAGE_PORTION;
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25: No meanwhiles
 #else
 		if ( AreInMeanwhile() && gCurrentMeanwhileDef.ubMeanwhileID == INTERROGATION )
@@ -9093,7 +9093,7 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 	{
 		return;
 	}
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25: No meanwhiles
 #else
 	// ATE: Don't getup if we are in a meanwhile
@@ -9350,7 +9350,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 		// Turn off
 		this->flags.uiStatusFlags &= ( ~SOLDIER_NPC_SHOOTING );
 	}
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 //Ja25: No meanwhiles
 #else
 	// CJC: make sure Elliot doesn't bleed to death!
@@ -11755,7 +11755,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	}
 
 //Ja25 No meanwhiles
-#if (defined JA2UB || defined JA113NODEMO) 
+#if (defined JA2UB) 
 	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE)
 #else
 
