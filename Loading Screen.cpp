@@ -470,7 +470,7 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 	}
 	else
 	{
-		if( AddVideoSurface(&vs_desc, &uiLoadScreen))
+		if (FileExists(vs_desc.ImageFile) && AddVideoSurface(&vs_desc, &uiLoadScreen))
 		{
 			SGPRect SrcRect, DstRect;
 									
