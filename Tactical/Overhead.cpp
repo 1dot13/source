@@ -6104,11 +6104,11 @@ void EnterCombatMode( UINT8 ubStartingTeam )
 
 		if (!is_client || is_server) //hayden
 		{
-		StartPlayerTeamTurn( FALSE, TRUE );
+			StartPlayerTeamTurn( FALSE, TRUE );
 			if(is_client)send_EndTurn( ubStartingTeam ); //hayden
-	}
-	else
-	{
+		}
+		else
+		{
 			//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"client skipped EnterCombatMode");	
 			if(is_client)startCombat(ubStartingTeam);//clients other than server meet and send request for combat for server
 		}

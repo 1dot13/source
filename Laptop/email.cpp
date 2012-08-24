@@ -4650,6 +4650,12 @@ void HandleIMPCharProfileResultsMessage( void)
 				wcscpy(pString, MissingIMPSkillsDescriptions[10]);
 				AddEmailRecordToList( pString );
 			}
+			// Covert ops
+			if ( ProfileHasSkillTrait( iCurrentIMPSlot, COVERT_NT ) > 0 )
+			{
+				wcscpy(pString, MissingIMPSkillsDescriptions[11]);
+				AddEmailRecordToList( pString );
+			}
 	}
 	else
 	{

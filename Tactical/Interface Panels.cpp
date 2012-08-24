@@ -3357,6 +3357,21 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// Say OK acknowledge....
 						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 					}
+					else if ( ApplySpyKit( gpSMCurrentMerc, gpItemPointer ) )
+					{
+						// Dirty
+						fInterfacePanelDirty = DIRTYLEVEL2;
+
+						// Check if it's the same now!
+						if ( gpItemPointer->exists() == false )
+						{
+							gbCompatibleApplyItem = FALSE;
+							EndItemPointer( );
+						}
+
+						// Say OK acknowledge....
+						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+					}
 					else
 					{
 						// Send message

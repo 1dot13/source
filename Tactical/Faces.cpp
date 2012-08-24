@@ -2318,6 +2318,13 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		}
 	}
 
+	// Flugente: add an icon if we are currently in disguise
+	if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+	{
+		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 22 );
+		bNumRightIcons++;
+	}
+
 		switch( pSoldier->bAssignment )
 		{
 			case DOCTOR:

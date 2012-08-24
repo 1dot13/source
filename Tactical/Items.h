@@ -196,6 +196,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier );
 INT8 FindObj( SOLDIERTYPE * pSoldier, UINT16 usItem, INT8 bLower = 0, INT8 bUpper = NUM_INV_SLOTS );
 
 BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs );
+BOOLEAN ApplySpyKit( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj);	// Flugente: apply disguise
 
 UINT32 ConvertProfileMoneyValueToObjectTypeMoneyValue( UINT8 ubStatus );
 UINT8 ConvertObjectTypeMoneyValueToProfileMoneyValue( UINT32 uiMoneyAmount );
@@ -484,6 +485,7 @@ typedef struct
 {
 	UINT8		usWaterType;			// type of water source in this sector
 	UINT16		usNaturalDirt;			// extra dirt percentage when firing in this sector
+	UINT8		usCurfewValue;			// determines wether mercs disguising as civilian are automatically discovered (certain sectors are 'restricted' to civilians)
 } SECTOR_EXT_DATA;
 
 // get dirt increase for object with attachments, fConsiderAmmo: with ammo

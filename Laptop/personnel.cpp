@@ -1769,7 +1769,7 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 						{
 							if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 2 )
 							{
-								ubTempSkillArray[bNumSkillTraits] = (ubCnt + 19);
+								ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
 								bNumSkillTraits++;
 							}
 							else if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 1 )
@@ -1816,9 +1816,18 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 								}
 								else
 								{
-									swprintf( sString, L"%s", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
+									// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
+									UINT8 display1 = ubTempSkillArray[ubCnt];
+									if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+										display1 -= NUM_MINOR_TRAITS;
+									else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
+										display1++;
+									else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+										display1 -= NUM_MINOR_TRAITS;
+
+									swprintf( sString, L"%s", gzMercSkillTextNew[ display1 ] );
 								
-									if ( ubTempSkillArray[ubCnt] > 19 )
+									if ( ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET )
 									{
 										FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, FONT10ARIALBOLD,	&sX, &sY);
 
@@ -1857,15 +1866,28 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 														MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 									MSYS_AddRegion( &gSkillTraitHelpTextRegion[ubCnt] );
 									fAddedTraitRegion[ubCnt] = TRUE;
-									// Assign the text
-									AssignPersonnelSkillTraitHelpText( ((ubTempSkillArray[ubCnt] > 19) ? (ubTempSkillArray[ubCnt]-19) : ubTempSkillArray[ubCnt]), ((ubTempSkillArray[ubCnt] > 19) ? TRUE : FALSE), Menptr[iId].ubProfile, ubCnt );
+
+									// Assign the text									
+									UINT8 traitnr = ubTempSkillArray[ubCnt];
+									UINT8 mlas = NEWTRAIT_MERCSKILL_EXPERTOFFSET;
+									if ( traitnr > mlas )
+									{
+										traitnr = traitnr - mlas;
+									}
+
+									// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
+									UINT8 display2 = ubTempSkillArray[ubCnt];
+									if ( display2 == NUM_MAJOR_TRAITS )
+										display2 += NUM_MINOR_TRAITS;
+
+									AssignPersonnelSkillTraitHelpText( traitnr, ((ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET) ? TRUE : FALSE), Menptr[iId].ubProfile, ubCnt );
 								}
 							}
 
 							// if we have more skills than we can display, show "more" and create a tooltip box with the rest of them
 							if ( fDisplayMoreTraits )
 							{
-								swprintf( sString, L"%s", gzMercSkillTextNew[ 29 ]); // dispaly "More..."
+								swprintf( sString, L"%s", gzMercSkillTextNew[ NEWTRAIT_MERCSKILL_OFFSET_ALL + 1 ]); // dispaly "More..."
 								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 								if( sX <= iMinimumX )
 								{
@@ -7444,7 +7466,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				if( gSkillTraitValues.ubSLEffectiveLevelInRadius != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[1], ( gSkillTraitValues.ubSLEffectiveLevelInRadius * (fExpertLevel ? 2 : 1)), (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[1], ( gSkillTraitValues.ubSLEffectiveLevelInRadius * (fExpertLevel ? 2 : 1)), (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubSLEffectiveLevelAsStandby != 0 )
@@ -7459,7 +7481,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				if( gSkillTraitValues.ubSLOverallSuppresionBonusPercent != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[3], ( gSkillTraitValues.ubSLOverallSuppresionBonusPercent * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[3], ( gSkillTraitValues.ubSLOverallSuppresionBonusPercent * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubSLMoraleGainBonus != 0 )
@@ -7489,12 +7511,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				
 				if( gSkillTraitValues.ubSLFearResistance != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[9], ( gSkillTraitValues.ubSLFearResistance * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[9], ( gSkillTraitValues.ubSLFearResistance * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubSLDeathMoralelossMultiplier != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[10], (1 + ( gSkillTraitValues.ubSLDeathMoralelossMultiplier * (fExpertLevel ? 2 : 1))), (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[10], (1 + ( gSkillTraitValues.ubSLDeathMoralelossMultiplier * (fExpertLevel ? 2 : 1))), (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 				}
 				break;
@@ -7539,17 +7561,17 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				if( gSkillTraitValues.ubTECtHControlledRobotBonus != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[7], ( gSkillTraitValues.ubTECtHControlledRobotBonus * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[7], ( gSkillTraitValues.ubTECtHControlledRobotBonus * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubTETraitsNumToRepairRobot == 2 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[8], (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[8], (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 				}
 				else if( gSkillTraitValues.ubTETraitsNumToRepairRobot == 1 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[8], (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[8], (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + NEWTRAIT_MERCSKILL_EXPERTOFFSET] : gzMercSkillTextNew[ubTraitNumber]));
 					wcscat( apStr, atStr );
 
 					if( gSkillTraitValues.ubTERepairRobotPenaltyReduction != 0 && fExpertLevel)
@@ -7983,6 +8005,35 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				}
 				break;
 			}
+			case COVERT_NT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[0]);
+				wcscat( apStr, atStr );
+
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[1]);
+				wcscat( apStr, atStr );
+
+				if ( !fExpertLevel )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[2], gSkillTraitValues.sCOCloseDetectionRange);
+					wcscat( apStr, atStr );
+				}
+
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[3], gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse);
+				wcscat( apStr, atStr );
+
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[4], ( gSkillTraitValues.sCOMeleeCTHBonus * (fExpertLevel ? 2 : 1)), L"%");
+				wcscat( apStr, atStr );
+
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[5], ( gSkillTraitValues.sCoMeleeInstakillBonus * (fExpertLevel ? 2 : 1)), L"%");
+				wcscat( apStr, atStr );
+				
+				INT16 apreduction =  ( gSkillTraitValues.sCODisguiseAPReduction * (fExpertLevel ? 2 : 1));
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[6], apreduction, L"%");
+				wcscat( apStr, atStr );
+				break;
+			}			
 			case NO_SKILLTRAIT_NT:
 			{
 				swprintf( apStr, L"" );

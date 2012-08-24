@@ -91,8 +91,12 @@ enum RottingCorpseDefines
 
 // Flugente: corpses can now be gutted after they have been decapitated. Atm there is no corpse that can be both gutted and decapitated (to be done later)
 #define		ROTTING_CORPSE_HEAD_TAKEN								0x00001000		// head has been taken off
-#define		ROTTING_CORPSE_GUTTED									0x00001000		// corpse has been gutted
+#define		ROTTING_CORPSE_GUTTED									0x00002000		// corpse has been gutted
+#define		ROTTING_CORPSE_CLOTHES_TAKEN							0x00004000		// corpse is without clothes (atm not visually)
 
+#define		ROTTING_CORPSE_FROM_ADMIN								0x00010000		// corpse is from a admin (used to take his clothes)
+#define		ROTTING_CORPSE_FROM_TROOP								0x00020000		// corpse is from a regular soldier (used to take his clothes)
+#define		ROTTING_CORPSE_FROM_ELITE								0x00040000		// corpse is from a elite soldier (used to take his clothes)
 typedef struct
 {
 	UINT8												ubType;
@@ -199,6 +203,16 @@ ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo , INT8 bLevel );
 BOOLEAN IsValidDecapitationCorpse( ROTTING_CORPSE *pCorpse );
 void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
 
+// Flugente: actions for the covert opts trait
+BOOLEAN IsValidGutCorpse( ROTTING_CORPSE *pCorpse );
+void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse );
+void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+BOOLEAN IsValidTakeCorpse( ROTTING_CORPSE *pCorpse );
+void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+
+BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel );
+
 void GetBloodFromCorpse( SOLDIERTYPE *pSoldier );
 
 UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fForImage );
@@ -220,5 +234,8 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
 	// Flugente: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
 	BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState  );
 #endif
+
+// Flugente: can we take the clothes of this corpse?
+BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier );
 
 #endif

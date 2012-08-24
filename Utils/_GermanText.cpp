@@ -6894,6 +6894,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|M|u|n|i|t|i|o|n|s|g|u|r|t",
 	L"|M|u|n|i|t|i|o|n|s|w|e|s|t|e",
 	L"|D|e|f|u|s|a|l |K|i|t", // TODO.Translate
+	L"|C|o|v|e|r|t |I|t|e|m",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -6929,6 +6930,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nEin externer Munitionsgurt für MGs.",
 	L"\n \nIn diese Weste passen auch Munitionsgurte.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

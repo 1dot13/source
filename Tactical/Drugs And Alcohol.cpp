@@ -387,67 +387,65 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	}
 
 	// Flugente: always do the following checks. Thereby, if the effect runs out, our stats will be back to normal
-	// only do the checks for the player team, as soldiers do not have a gMercProfiles
-	if  ( pSoldier->bTeam == gbPlayerNum)
+	//////////////// STRENGTH ////////////////
+	pSoldier->bExtraStrength	= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_STRENGTH ];
+
+	//////////////// DEXTERITY ////////////////
+	pSoldier->bExtraDexterity	= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_DEXTERITY ];
+
+	//////////////// AGILITY ////////////////
+	pSoldier->bExtraAgility		= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_AGILITY ];
+
+	//////////////// WISDOM ////////////////
+	pSoldier->bExtraWisdom		= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_WISDOM ];
+
+	// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we suddenly become blind for a few turns...
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_BLIND ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_BLIND ] == 1 )
 	{
-		//////////////// STRENGTH ////////////////
-		pSoldier->bExtraStrength	= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STRENGTH ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_STRENGTH ];
+		pSoldier->bBlindedCounter = 3;
+	}
 
-		//////////////// DEXTERITY ////////////////
-		pSoldier->bExtraDexterity	= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_DEXTERITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_DEXTERITY ];
+	// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we get a heart-attack and get knocked out...
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_KNOCKOUT ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_KNOCKOUT ] == 1 )
+	{
+		// Keel over...
+		DeductPoints( pSoldier, 0, 20000 );
+	}
 
-		//////////////// AGILITY ////////////////
-		pSoldier->bExtraAgility		= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_AGILITY ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_AGILITY ];
+	// if we have a life damaging effect, deduct life points
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_LIFEDAMAGE ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ] > 0 )
+	{
+		pSoldier->EVENT_SoldierGotHit( 0, 400, 0, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, -1 );
 
-		//////////////// WISDOM ////////////////
-		pSoldier->bExtraWisdom		= pSoldier->drugs.bDrugEffect[ DRUG_TYPE_WISDOM ] - pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_WISDOM ];
-
-		// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we suddenly become blind for a few turns...
-		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_BLIND ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_BLIND ] == 1 )
+		/*if ( pSoldier->stats.bLife > OKLIFE )
 		{
-			pSoldier->bBlindedCounter = 3;
-		}
-
-		// if our sideeffect count is 1 (which should occur a while AFTER we took the drug), we get a heart-attack and get knocked out...
-		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_KNOCKOUT ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_KNOCKOUT ] == 1 )
-		{
-			// Keel over...
-			DeductPoints( pSoldier, 0, 20000 );
-		}
-
-		// if we have a life damaging effect, deduct life points
-		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_LIFEDAMAGE ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ] > 0 )
-		{
-			if ( pSoldier->stats.bLife > OKLIFE )
-			{
-				INT8 lifepointdamage = pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ];
+			INT8 lifepointdamage = pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ];
 				
-				INT8 applieddamage = pSoldier->stats.bLife;
+			INT8 applieddamage = pSoldier->stats.bLife;
 
-				pSoldier->stats.bLife = max(OKLIFE - 1, pSoldier->stats.bLife - lifepointdamage);
+			pSoldier->stats.bLife = max(OKLIFE - 8, pSoldier->stats.bLife - lifepointdamage);
 
-				applieddamage -= pSoldier->stats.bLife;
+			applieddamage -= pSoldier->stats.bLife;
 
-				pSoldier->iHealableInjury += (applieddamage * 100);
-			}
-		}
+			pSoldier->iHealableInjury += (applieddamage * 100);
+		}*/
+	}
 
-		// if we took an antidote, reduce poisoning
-		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_CUREPOISON ] > 0 )
+	// if we took an antidote, reduce poisoning
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_CUREPOISON ] > 0 )
+	{
+		if (  pSoldier->bPoisonSum > 0 )
 		{
-			if (  pSoldier->bPoisonSum > 0 )
+			if ( pSoldier->bPoisonBleeding > 0 )
 			{
-				if ( pSoldier->bPoisonBleeding > 0 )
-				{
-					pSoldier->bPoisonBleeding--;
-				}
-				else if ( pSoldier->bPoisonLife > 0 )
-				{
-					pSoldier->bPoisonLife--;
-				}
-
-				pSoldier->bPoisonSum--;
+				pSoldier->bPoisonBleeding--;
 			}
+			else if ( pSoldier->bPoisonLife > 0 )
+			{
+				pSoldier->bPoisonLife--;
+			}
+
+			pSoldier->bPoisonSum--;
 		}
 	}
 

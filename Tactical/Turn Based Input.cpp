@@ -4449,7 +4449,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					/*// Flugente: spawn items while debugging
 					if ( gusSelectedSoldier != NOBODY )
 					{
-						static UINT16 usitem = 1576;
+						static UINT16 usitem = 142;
 						static INT16 status = 100;
 						static FLOAT temperature = 0.0;
 

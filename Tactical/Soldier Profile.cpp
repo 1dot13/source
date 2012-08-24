@@ -1701,6 +1701,16 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 		GiveQuestRewardPoint( pSoldier->sSectorX, pSoldier->sSectorY, 6, MIGUEL );
 	}
 
+	// Flugente: people recruited in Arulco are known to the enemy as civilians or even soldiers. So they will be covert whn recruiting them. Of course, this is not for the rebels...
+	if ( ubCharNum == DEVIN || ubCharNum == HAMOUS || ubCharNum == SLAY || ubCharNum == VINCE || ubCharNum == MADDOG || ubCharNum == MICKY )
+	{
+		pNewSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_CIV|SOLDIER_COVERT_NPC_SPECIAL);
+	}
+	else if ( ubCharNum == IGGY || ubCharNum == CONRAD )
+	{
+		pNewSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL);
+	}
+
 	// handle town loyalty adjustment
 	HandleTownLoyaltyForNPCRecruitment( pNewSoldier );
 
@@ -2650,14 +2660,14 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 	{
 		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
 		{
-			if ( bSkillTrait > 0 && bSkillTrait <= NUM_MAJOR_TRAITS )
+			if ( bSkillTrait > 0 && (bSkillTrait <= DOCTOR_NT || bSkillTrait == COVERT_NT ) )
 			{
 				if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] == bSkillTrait )
 				{
 					bNumTraits++;
 					bNumMajorTraitsCounted++;
 				}
-				else if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] > 0 && gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS )
+				else if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] > 0 && (gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] <= DOCTOR_NT || gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] <= COVERT_NT) )
 				{
 					bNumMajorTraitsCounted++;
 				}
@@ -2676,7 +2686,7 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 			}
 		}
 		// cannot have more than 1 rade of minor traits or 2 grades of a major traits
-		if( bSkillTrait > NUM_MAJOR_TRAITS )
+		if( bSkillTrait > DOCTOR_NT && bSkillTrait != COVERT_NT )
 			return ( min(1, bNumTraits) );
 		else
 			return ( min(2, bNumTraits) );

@@ -6315,6 +6315,10 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		}
 	}
 
+	// Flugente: if hit in legs or torso, blood will be on our uniform - this unifrom can't be used to disguise someone anymore
+	if ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_UNIFORM;
+
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
 	{
@@ -6361,6 +6365,10 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
+	// Flugente: if hit in legs or torso, blood will be on our uniform - this unifrom can't be used to disguise someone anymore
+	if ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_UNIFORM;
+
 	INT32 sNewGridNo;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
@@ -6529,6 +6537,9 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 
 void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
+	// Flugente: if hit in legs or torso, blood will be on our uniform - this unifrom can't be used to disguise someone anymore
+	if ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_UNIFORM;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
@@ -11684,7 +11695,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 				}
 				else
 				{
-					if ( IsValidDecapitationCorpse( pCorpse ) )
+					// Flugente: decapitation action now also performs gutting, stripping and taking corpses
+					if ( IsValidDecapitationCorpse( pCorpse ) || IsValidGutCorpse( pCorpse ) || IsValidStripCorpse( pCorpse ) || IsValidTakeCorpse( pCorpse ) )
 					{
 						this->EVENT_InitNewSoldierAnim( DECAPITATE, 0 , FALSE );
 					}
@@ -14393,6 +14405,742 @@ void SOLDIERTYPE::CleanWeapon()
 	}
 }
 
+extern INT16 uiNIVSlotType[NUM_INV_SLOTS];
+
+// do we look like a civilian?
+BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
+{
+	// if we have any camo: not covert
+	if ( GetWornCamo(this) > 0 || GetWornUrbanCamo(this) > 0 || GetWornDesertCamo(this) > 0 || GetWornSnowCamo(this) > 0 )
+		return FALSE;
+
+	if ( UsingNewInventorySystem() )
+	{
+		INT8 invsize = (INT8)this->inv.size();	
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+		{
+			if ( this->inv[bLoop].exists() )
+			{
+				// if we have a back pack: not covert
+				if ( bLoop == BPACKPOCKPOS )
+					return FALSE;
+
+				// do not check the LBE itself (we already checked for camo above)
+				if ( bLoop >= VESTPOCKPOS && bLoop <= CPACKPOCKPOS )
+					continue;
+
+				BOOLEAN checkfurther = FALSE;
+				// further checks it item is not covert. This means that a gun that has that tag will not be detectedif if its inside a pocket!
+				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS )
+					checkfurther = TRUE;
+				else if ( bLoop == KNIFEPOCKPOS && !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+					checkfurther = TRUE;
+				else if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+				{
+					checkfurther = TRUE;
+
+					// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
+					UINT8 checkslot = 0;
+					switch (uiNIVSlotType[bLoop])
+					{
+					case 3:
+						checkslot = VESTPOCKPOS;
+						break;
+					case 4:
+						if ( bLoop == 23 ||  bLoop == 35 ||  bLoop == 36 ||  bLoop == 37 ||  bLoop == 38 )
+							checkslot = LTHIGHPOCKPOS;
+						else
+							checkslot = RTHIGHPOCKPOS;
+						break;
+					case 5:
+						checkslot = CPACKPOCKPOS;
+						break;
+					default:
+						return FALSE;
+					break;
+					}
+
+					// found a slot to check for LBE
+					if ( checkslot > 0 )
+					{
+						// if LBE is covert
+						if ( this->inv[checkslot].exists() && HasItemFlag(this->inv[checkslot].usItem, COVERT) )
+							// pass for this item
+							checkfurther = FALSE;
+					}
+				}
+
+				if ( checkfurther )
+				{
+					// if that item is a gun, explosives, military armour or facewear, we're screwed
+					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_WEAPON|IC_GRENADE|IC_BOMB) ) || 
+						( (Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR) ) && !Item[this->inv[bLoop].usItem].leatherjacket && Armour[ Item[this->inv[bLoop].usItem].ubClassIndex ].ubProtection > 10  ) ||
+						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
+						)
+						return FALSE;
+				}
+			}
+		}
+	}
+	else	// old inventory system. No LBE here, nothing fancy
+	{
+		INT8 invsize = (INT8)this->inv.size();	
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+		{
+			if ( this->inv[bLoop].exists() )
+			{
+				if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+				{
+					// if that item is a gun, explosives, military armour or facewear, we're screwed
+					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_WEAPON|IC_GRENADE|IC_BOMB) ) || 
+						( (Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR) ) && !Item[this->inv[bLoop].usItem].leatherjacket && Armour[ Item[this->inv[bLoop].usItem].ubClassIndex ].ubProtection > 10  ) ||
+						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
+						)
+						return FALSE;
+				}
+			}
+		}
+	}
+
+	return TRUE;
+}
+
+// do we look like a soldier?
+BOOLEAN		SOLDIERTYPE::LooksLikeASoldier( void )
+{
+	return TRUE;
+}
+
+// is our equipment too good for a soldier?
+BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
+{
+	// check the guns in our hands an rifle sling
+	// alert if we have more than 2, any of them has too much attachments or they are way too cool
+	UINT8 numberofguns = 0;
+	UINT8 ubCurrentProgress = CurrentPlayerProgressPercentage();
+	UINT8 maxcoolnessallowed = 1 + ubCurrentProgress / 10;
+	maxcoolnessallowed += 2;	// TODO adjust for level and uniform
+	UINT16 maxitemsize = 4;
+
+	if ( UsingNewInventorySystem() )
+	{
+		INT8 invsize = (INT8)this->inv.size();	
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+		{
+			if ( this->inv[bLoop].exists() )
+			{
+				// if we have a back pack: not covert
+				if ( bLoop == BPACKPOCKPOS )
+					return FALSE;
+
+				// further checks it item is not covert. This means that a gun that has that tag will not be detectedif if its inside a pocket!
+				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS || 
+					!HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+				{
+					// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
+					UINT8 checkslot = 0;
+					switch (uiNIVSlotType[bLoop])
+					{
+					case 3:
+						checkslot = VESTPOCKPOS;
+						break;
+					case 4:
+						if ( bLoop == 23 ||  bLoop == 35 ||  bLoop == 36 ||  bLoop == 37 ||  bLoop == 38 )
+							checkslot = LTHIGHPOCKPOS;
+						else
+							checkslot = RTHIGHPOCKPOS;
+						break;
+					case 5:
+						checkslot = CPACKPOCKPOS;
+						break;
+					default:
+						return FALSE;
+					break;
+					}
+
+					// found a slot to check for LBE
+					if ( checkslot > 0 )
+					{
+						// if LBE is covert
+						if ( this->inv[checkslot].exists() && HasItemFlag(this->inv[checkslot].usItem, COVERT) )
+							// pass for this item
+							continue;
+					}
+
+					// if that item is a gun, explosives, military armour or facewear, investigate further
+					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER|IC_ARMOUR|IC_FACE) ) )
+					{
+						if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) )
+						{
+							++numberofguns;
+
+							if ( numberofguns > 2 )
+								return TRUE;
+
+							OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
+
+							if ( pObj != NULL )	
+							{
+								for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+								{
+									// loop over every item and its attachments
+									if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
+										return TRUE;
+
+									UINT8 numberofattachments = 0;
+									// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+									attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+									for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+									{
+										if ( iter->exists()  )
+										{
+											// loop over every item and its attachments
+											if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
+												return TRUE;
+					
+											++numberofattachments;
+										}
+									}
+
+									// no ordinary soldier is allowed that many attachemnts > not covert
+									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+										return TRUE;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else	// old inventory system. No LBE here, nothing fancy
+	{
+		INT8 invsize = (INT8)this->inv.size();	
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+		{
+			if ( this->inv[bLoop].exists() )
+			{
+				// if that item is a gun, explosives, military armour or facewear, investigate further
+				if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) && (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER|IC_ARMOUR|IC_FACE) ) )
+				{
+					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) )
+					{
+						++numberofguns;
+
+						if ( numberofguns > 2 )
+							return TRUE;
+
+						OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
+
+						if ( pObj != NULL )	
+						{
+							for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+							{
+								// loop over every item and its attachments
+								if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
+									return TRUE;
+
+								UINT8 numberofattachments = 0;
+								// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+								attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+								for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+								{
+									if ( iter->exists()  )
+									{
+										// loop over every item and its attachments
+										if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
+											return TRUE;
+					
+										++numberofattachments;
+									}
+								}
+
+								// no ordinary soldier is allowed that many attachments > not covert
+								if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+									return TRUE;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	return FALSE;
+}
+
+
+// are we in covert mode? we need to have the correct flag set, and not wear anything suspicious, or behave in a suspicious way
+BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
+{
+	SOLDIERTYPE* pSoldier = MercPtrs[ubObserverID];
+
+	if ( !pSoldier )
+		return TRUE;
+		
+	// if we don't have the Flag: not covert
+	// important: no messages up to this point. the function will get called a lot, up to this point there is nothing unusual
+	if ( !(this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) ) )
+		return FALSE;
+		
+	// if we are in a suspicious stance: not covert
+	if ( this->usAnimState == NINJA_SPINKICK || 
+		this->usAnimState == NINJA_PUNCH ||
+		this->usAnimState == NINJA_LOWKICK ||
+		this->usAnimState == PUNCH_LOW ||
+		this->usAnimState == DECAPITATE ||
+		this->usAnimState == CROWBAR_ATTACK ||
+		this->usAnimState == THROW_GRENADE_STANCE ||
+		this->usAnimState == THROW_KNIFE_SP_BM ||
+		this->usAnimState == DODGE_ONE ||
+		this->usAnimState == SLICE ||
+		this->usAnimState == STAB ||
+		this->usAnimState == CROUCH_STAB ||
+		this->usAnimState == PUNCH ||
+		this->usAnimState == PUNCH_BREATH ||
+		this->usAnimState == KICK_DOOR ||
+		this->usAnimState == CUTTING_FENCE ||
+		this->usAnimState == THROW_KNIFE ||
+		this->usAnimState == PLANT_BOMB ||
+		this->usAnimState == USE_REMOTE ||
+		this->usAnimState == TAKE_BLOOD_FROM_CORPSE ||
+		this->usAnimState == PICK_LOCK ||
+		this->usAnimState == LOCKPICK_CROUCHED ||
+		this->usAnimState == STEAL_ITEM_CROUCHED ||
+		this->usAnimState == JUMPWINDOWS
+		)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was seen performing suspicious activities!", this->name );
+		return FALSE;
+	}
+
+	BOOLEAN looklikeaciv = this->LooksLikeACivilian();
+
+	// if we are trying to dress like a civilian, but aren't sucessful: not covert
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV && !looklikeaciv)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not look like a civilian!", this->name );
+		return FALSE;
+	}
+
+	BOOLEAN looklikeasoldier = this->LooksLikeASoldier();
+
+	// if we are trying to dress like a soldier, but aren't sucessful: not covert
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !looklikeasoldier)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not look like a soldier!", this->name );
+		return FALSE;
+	}
+
+	UINT8 covertlevel = NUM_SKILL_TRAITS( this, COVERT_NT );	// our level in covert operations
+	INT32 distance = GetRangeFromGridNoDiff(this->sGridNo, pSoldier->sGridNo);
+
+	// if we are closer than this, our cover will always break if we do not have the skill
+	// if we have the skill, our cover will blow if we dress up as a soldier, but not if we are dressed like a civilian
+	INT32 discoverrange = gSkillTraitValues.sCOCloseDetectionRange;
+	
+	if ( distance < discoverrange )
+	{
+		switch ( covertlevel )
+		{
+		case 2:
+			// a covert ops expert can get as close as he wants, even dressed up as a soldier, without arousing suspicion
+			// exceptions: we are discovered if we are close and bleeding, or if we are drunk while dressed as a soldier
+			{
+				// if we are openly bleeding: not covert
+				if ( this->bBleeding > 0 )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s bleeding was discovered!", this->name );
+					return FALSE;
+				}
+
+				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is drunk and doesn't look like a soldier!", this->name );
+					return FALSE;
+				}
+			}
+			break;
+		case 1:
+			// at lvl covert ops, we can be discovered if we are too close to the enemy and bleed or dressed up as a soldier
+			// however, if we are dressed up as a civilian, we can get as close as we like, we won't be discovered
+			{
+				// if we are openly bleeding: not covert
+				if ( this->bBleeding > 0 )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s bleeding was discovered!", this->name );
+					return FALSE;
+				}
+
+				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"On closer inspection, %s's disguise does not hold!", this->name );
+					return FALSE;
+				}
+			}
+			break;
+		case 0:
+		default:
+			// without the covert ops skill, we can only dress up as civilians. We will be discovered if we get too close to the enemy
+			if ( (this->bSoldierFlagMask & SOLDIER_COVERT_NPC_SPECIAL) == 0 )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"On closer inspection, %s's disguise does not hold!", this->name );
+				return FALSE;
+			}
+			break;	
+		}
+	}
+
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
+	{
+		// civilians are suspicious if they are found in certain sectors. Especially at night
+		// sector specific value:
+		// 0 - civilians are always ok
+		// 1 - civilians are suspicious at night
+		// 2 - civilians are always suspicious
+
+		UINT8 sectordata = 0;
+		UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);	
+		if ( gbWorldSectorZ > 0 )
+			// underground we are always suspicious
+			sectordata = 2;
+		else if ( ubSectorId >= 0 && ubSectorId < 256  )
+			sectordata = SectorExternalData[ubSectorId][gbWorldSectorZ].usCurfewValue;
+
+		if ( sectordata > 1 )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s isn't supposed to be here!", this->name );
+			return FALSE;
+		}
+		// is it night?
+		else if ( sectordata == 1 && GetTimeOfDayAmbientLightLevel() < NORMAL_LIGHTLEVEL_DAY + 2 )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s isn't supposed to be here at this time!", this->name );
+			return FALSE;
+		}
+		
+		// check wether we are around a fresh corpse - this will make us much more suspicious
+		INT32				cnt;
+		ROTTING_CORPSE *	pCorpse;
+		for ( cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+		{
+			pCorpse = &(gRottingCorpse[ cnt ] );
+			
+			if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
+			{
+				// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was seen near a fresh corpse!", this->name );
+					return FALSE;
+				}
+			}
+		}
+	}
+
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+	{
+		// if our equipment is too good, that is suspicious... not covert!
+		if ( this->EquipmentTooGood( (distance < discoverrange) ) )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s equipment raises a few eyebrows!", this->name );
+			return FALSE;
+		}
+
+		// are we targeting a buddy of our observer?
+		if ( this->ubTargetID && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
+		{
+			// if we aiming at a soldier, others will notice our intent... not covert!
+			if ( WeaponReady(this) )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is seen targeting a soldier!", this->name );
+				return FALSE;
+			}
+		}
+
+		// even as a soldier, we will be caught around fresh corpses
+		if (distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse)
+		{
+			// check wether we are around a fresh corpse - this will make us much more suspicious
+			// I deem this necessary, to avoid cheap exploits by nefarious players :-)
+			INT32				cnt;
+			ROTTING_CORPSE *	pCorpse;
+			for ( cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+			{
+				pCorpse = &(gRottingCorpse[ cnt ] );
+			
+				if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
+				{
+					// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
+					if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was seen near a fresh corpse!", this->name );
+						return FALSE;
+					}
+				}
+			}
+		}
+	}
+		
+	return TRUE;
+}
+
+// do we recognize someone else as a combatant?
+BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
+{
+	// this will only work with the new trait system
+	if (!gGameOptions.fNewTraitSystem)
+		return TRUE;
+
+	SOLDIERTYPE* pSoldier = MercPtrs[ubTargetID];
+
+	if ( !pSoldier )
+		return TRUE;
+
+	// if neither of the 2 persons is covert, always return true
+	if ( ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) && ( (this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) )
+		return TRUE;
+
+	// only members of the player team can ever be covert, sorry AI
+	if ( pSoldier->bTeam != OUR_TEAM )
+		return TRUE;
+
+	// neutral characters just dont care
+	if ( this->aiData.bNeutral )
+		return TRUE;
+
+	// check for for vehicles and creatures... weird things happen
+	if ( IsVehicle(pSoldier) || pSoldier->bTeam	== CREATURE_TEAM || this->bTeam	== CREATURE_TEAM )
+		return TRUE;
+		
+	// checking someone from our team...
+	if ( this->bTeam == pSoldier->bTeam )
+	{
+		// not in covert mode: we recognize him
+		if ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 )
+			return TRUE;
+		else
+			// we don't because we accept that he is covert (to not blow his cover)
+			return FALSE;
+	}
+
+	// hack: if this is attacking us at this very moment by punching, do not recognize him...
+	// this resolves the problem that we attack someone from behind and kill him instantly, but the game mechanic forces him to turn before
+	// only allow this if we are not yet alerted (we are suprised, so we don't recognize him in the moment of the attack
+	// also: only allow if he's next to us
+	if ( this->aiData.bAlertStatus < STATUS_RED && pSoldier->ubTargetID == this->ubID )
+	{
+		INT32 nextGridNoinSight = NewGridNo( pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
+		if ( nextGridNoinSight == this->sGridNo && this->pathing.bLevel == pSoldier->pathing.bLevel )
+		{
+			if ( pSoldier->usAnimState == PUNCH )
+				return FALSE;
+			else if ( pSoldier->usAnimState == PUNCH_BREATH )
+				return TRUE;
+		}
+	}
+
+	// do we recognize this guy as an enemy?
+	if ( !pSoldier->SeemsLegit(this->ubID) )
+	{
+		// aha, he/she's a spy! Blow cover
+		if ( pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		{
+			pSoldier->LooseDisguise();
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s has seen through %s disguise!", this->name, pSoldier->name );
+
+			// we have uncovered a spy! Get alerted, if we aren't already
+			if ( this->aiData.bAlertStatus < STATUS_BLACK )
+				this->aiData.bAlertStatus = STATUS_BLACK;
+		}
+
+		return TRUE;
+	}
+		
+	return FALSE;
+}
+
+// dress up in our natural state
+void	SOLDIERTYPE::LooseDisguise( void )
+{
+	// show our true colours
+	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
+
+	if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+	{
+		UINT8				ubProfileIndex;
+		MERCPROFILESTRUCT * pProfile;
+
+		ubProfileIndex = this->ubProfile;
+		pProfile = &(gMercProfiles[ubProfileIndex]);
+
+		SET_PALETTEREP_ID ( this->VestPal,		pProfile->VEST );
+		SET_PALETTEREP_ID ( this->PantsPal,		pProfile->PANTS );
+
+		// Use palette from HVOBJECT, then use substitution for pants, etc
+		memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
+
+		SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
+
+		this->CreateSoldierPalettes();
+	}
+
+	// loose any covert flags
+	// if we are disguised as a civilian, remove that flag, and give us back a civilian clothes item
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
+
+		UINT16 civilianclothesitem = 0;
+		if ( GetFirstItemWithFlag(&civilianclothesitem, CLOTHES_CIVILIAN)  )
+		{
+			CreateItem( civilianclothesitem, 100, &gTempObject );
+
+			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+				AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
+		}
+	}
+
+	// if we are also disguised as a soldier, remove that flag
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_COVERT_SOLDIER;
+	}
+}
+
+// dress up like a civilian
+BOOLEAN		SOLDIERTYPE::DisguiseAsCivilian( void )
+{
+	// this will only work with the new trait system
+	if (!gGameOptions.fNewTraitSystem)
+		return FALSE;
+
+	UINT8 skilllevel = NUM_SKILL_TRAITS( this, COVERT_NT );
+
+	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
+	if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+		return( FALSE );
+
+	this->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
+
+	// wear an enemy uniform
+	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
+
+	if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+	{
+		// wear something random
+		switch( Random( 7 ) )
+		{
+			case 0:	SET_PALETTEREP_ID( this->VestPal, "WHITEVEST"	); break;
+			case 1: SET_PALETTEREP_ID( this->VestPal, "BLACKSHIRT"	); break;
+			case 2: SET_PALETTEREP_ID( this->VestPal, "PURPLESHIRT" ); break;
+			case 3: SET_PALETTEREP_ID( this->VestPal, "BLUEVEST"	); break;
+			case 4: SET_PALETTEREP_ID( this->VestPal, "BROWNVEST"	); break;
+			case 5: SET_PALETTEREP_ID( this->VestPal, "JEANVEST"	); break;
+			case 6: SET_PALETTEREP_ID( this->VestPal, "REDVEST"		); break;
+		}
+
+		switch( Random( 3 ) )
+		{
+			case 0:	SET_PALETTEREP_ID( this->PantsPal, "TANPANTS"	); break;
+			case 1: SET_PALETTEREP_ID( this->PantsPal, "BEIGEPANTS" ); break;
+			case 2: SET_PALETTEREP_ID( this->PantsPal, "GREENPANTS" ); break;
+		}
+
+		// Use palette from HVOBJECT, then use substitution for pants, etc
+		memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
+
+		SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
+
+		this->CreateSoldierPalettes();
+	}
+
+	// if we are also disguised as a soldier, remove that flag
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_COVERT_SOLDIER;
+	}
+
+	DeductPoints( this, apcost, 0 );
+
+	return TRUE;
+}
+
+// dress up like an enemy soldier
+BOOLEAN		SOLDIERTYPE::DisguiseAsSoldierFromCorpse( UINT32 usFlag )
+{
+	// this will only work with the new trait system
+	if (!gGameOptions.fNewTraitSystem)
+		return FALSE;
+
+	// action is only possible if we have the covert ops trait
+	UINT8 skilllevel = NUM_SKILL_TRAITS( this, COVERT_NT );
+	if ( skilllevel < 1)
+		return FALSE;
+
+	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
+	if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+		return( FALSE );
+
+	UINT8 uniformtype = 0;
+
+	if ( usFlag & ROTTING_CORPSE_FROM_ADMIN )
+		uniformtype = UNIFORM_ENEMY_ADMIN;
+	else if ( usFlag & ROTTING_CORPSE_FROM_TROOP )
+		uniformtype = UNIFORM_ENEMY_TROOP;
+	else if ( usFlag & ROTTING_CORPSE_FROM_ELITE )
+		uniformtype = UNIFORM_ENEMY_ELITE;
+	else
+		// no uniform here, so nothing to wear
+		return FALSE;
+
+	this->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+
+	// wear an enemy uniform
+	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
+
+	if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+	{
+		SET_PALETTEREP_ID(this->VestPal,  gUniformColors[ uniformtype ].vest );
+		SET_PALETTEREP_ID(this->PantsPal, gUniformColors[ uniformtype ].pants	);
+
+		// Use palette from HVOBJECT, then use substitution for pants, etc
+		memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
+
+		SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
+		SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
+
+		this->CreateSoldierPalettes();
+	}
+
+	// if we are disguised as a civilian, remove that flag, and give us back a civilian clothes item
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
+	{
+		this->bSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
+
+		UINT16 civilianclothesitem = 0;
+		if ( GetFirstItemWithFlag(&civilianclothesitem, CLOTHES_CIVILIAN)  )
+		{
+			CreateItem( civilianclothesitem, 100, &gTempObject );
+			AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
+		}
+	}
+
+	DeductPoints( this, apcost, 0 );
+
+	return TRUE;
+}
+
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -16455,13 +17203,13 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	{
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
-			if ( uiSkillTraitNumber > 0 && uiSkillTraitNumber <= NUM_MAJOR_TRAITS )
+			if ( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) )
 			{
 				if (pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber)
 				{
 					return( TRUE );
 				}
-				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS )
+				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && (pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS || pSoldier->stats.ubSkillTraits[ bCnt ] == COVERT_NT) )
 				{
 					bNumMajorTraitsCounted++;
 				}
@@ -16511,14 +17259,14 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	{
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
-			if ( uiSkillTraitNumber > 0 && uiSkillTraitNumber <= NUM_MAJOR_TRAITS )
+			if ( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) )
 			{
 				if ( pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber )
 				{
 					bNumberOfTraits++;
 					bNumMajorTraitsCounted++;
 				}
-				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS )
+				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && (pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS || pSoldier->stats.ubSkillTraits[ bCnt ] == COVERT_NT ) )
 				{
 					bNumMajorTraitsCounted++;
 				}
@@ -16537,7 +17285,7 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 			}
 		}
 		// cannot have more than one same minor trait
-		if( uiSkillTraitNumber > NUM_MAJOR_TRAITS )
+		if( uiSkillTraitNumber > NUM_MAJOR_TRAITS && uiSkillTraitNumber != COVERT_NT)
 			return ( min(1, bNumberOfTraits) );
 		else
 			return ( min(2, bNumberOfTraits) );

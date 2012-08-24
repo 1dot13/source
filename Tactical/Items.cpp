@@ -9144,6 +9144,23 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	return( TRUE );
 }
 
+	// Flugente: apply disguise
+BOOLEAN ApplySpyKit( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
+{	
+	if (pObj->exists() == false || !HasItemFlag(pObj->usItem, (CLOTHES_CIVILIAN)) )
+	{
+		return( FALSE );
+	}
+
+	// we get the civilian disguise. AP costs will be checked and deducted here
+	if ( !pSoldier->DisguiseAsCivilian() )
+		return FALSE;
+
+	UseKitPoints( pObj, 100, pSoldier );
+	
+	return( TRUE );
+}
+
 BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs )
 {
 	INT16		sPointsToUse;

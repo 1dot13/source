@@ -7042,6 +7042,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
 	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
+	L"|C|o|v|e|r|t |I|t|e|m",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7077,6 +7078,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

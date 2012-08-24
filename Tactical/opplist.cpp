@@ -446,7 +446,7 @@ void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuel
 		{
 			for ( ubLoop = 0; ubLoop < gubBestToMakeSightingSize; ubLoop++ )
 			{
-				if ( (gubBestToMakeSighting[ ubLoop ] == NOBODY) || (bInterruptDuelPts > MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->aiData.bInterruptDuelPts ) )
+				if ( pSoldier->RecognizeAsCombatant(gubBestToMakeSighting[ ubLoop ])  && (gubBestToMakeSighting[ ubLoop ] == NOBODY) || (bInterruptDuelPts > MercPtrs[ gubBestToMakeSighting[ ubLoop ] ]->aiData.bInterruptDuelPts ) )
 				{
 					if ( gubBestToMakeSighting[ gubBestToMakeSightingSize - 1 ] != NOBODY )
 					{
@@ -509,36 +509,43 @@ void HandleBestSightingPositionInRealtime( void )
 			if (gubBestToMakeSighting[ 1 ] == NOBODY)
 			{	// The_Bob - real time sneaking code 01/06/09
 				// if real time sneaking conditions are met...
-				// this is now in the preferences window - SANDRO
+				// this is now in the preferences window - SANDRO				
 				if (gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] && MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == OUR_TEAM && NobodyAlerted() )
-					{
-						// get rid of the item under cursor (we gotta react FAST)
-						CancelItemPointer();
-						// select (and center screen on) the merc who saw the enemy
-						// HEADROCK HAM 3.6: A much-requested toggle.
-						if (gusSelectedSoldier != (UINT16)MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID &&
-							!gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak)
-							SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
-						// if not quiet, emit a message warning the player
-						if (!gGameExternalOptions.fQuietRealTimeSneak)
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_ENEMIES_SPOOTED]);
+				{
+					// get rid of the item under cursor (we gotta react FAST)
+					CancelItemPointer();
+					// select (and center screen on) the merc who saw the enemy
+					// HEADROCK HAM 3.6: A much-requested toggle.
+					if (gusSelectedSoldier != (UINT16)MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID &&
+						!gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak)
+						SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
+					// if not quiet, emit a message warning the player
+					if (!gGameExternalOptions.fQuietRealTimeSneak)
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_ENEMIES_SPOOTED]);
 
-						return;	// and do nothing
-					}
+					return;	// and do nothing
+				}
+				else if ( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam != OUR_TEAM && MercPtrs[gubBestToMakeSighting[ 0 ]]->aiData.bOppCnt > 0 )
+				{
+					// otherwise, simply award the turn to the team that saw the enemy first
+					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
+				}
 				else
 					// otherwise, simply award the turn to the team that saw the enemy first
 					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
 			}
 			else
 			{
+
+
 				// if 1st and 2nd on same team, or 1st and 3rd on same team, or there IS no 3rd, award turn to 1st
-				if (	( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == MercPtrs[gubBestToMakeSighting[ 1 ]]->bTeam ) ||
+				if (  /*MercPtrs[gubBestToMakeSighting[ 0 ]]->aiData.bOppCnt > 0 &&*/ ( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == MercPtrs[gubBestToMakeSighting[ 1 ]]->bTeam ) ||
 							( (gubBestToMakeSighting[ 2 ] == NOBODY) || ( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == MercPtrs[gubBestToMakeSighting[ 2 ]]->bTeam ) )
 					)
 				{
 					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
 				}
-				else // give turn to 2nd best but interrupt to 1st
+				else //if ( MercPtrs[gubBestToMakeSighting[ 1 ]]->aiData.bOppCnt > 0 ) // give turn to 2nd best but interrupt to 1st
 				{
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Entering combat mode: turn for 2nd best, int for best" );
 
@@ -1766,7 +1773,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 {
 	// if neither side is neutral AND
 	// if this soldier is an opponent (fights for different side)
-	if (pSoldier->bActive && pOpponent->bActive && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide))
+	if (pSoldier->bActive && pOpponent->bActive && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 	{
 		RemoveOneOpponent(pSoldier);
 	}
@@ -2199,6 +2206,9 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		return;
 	}
 
+	// Flugente: update our sight concerning this guy, otherwise we could get way with open attacks because this does not get updated
+	pSoldier->RecognizeAsCombatant(pOpponent->ubID);
+
 	// if we're seeing a guy we didn't see on our last chance to look for him
 	if (pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_CURRENTLY)
 	{
@@ -2503,7 +2513,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 
 		// if both of us are not neutral, AND
 		// if this man is actually a true opponent (we're not on the same side)
-		if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide))
+		if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 		{
 			AddOneOpponent(pSoldier);
 
@@ -3002,7 +3012,7 @@ IAN COMMENTED THIS OUT MAY 1997 - DO WE NEED THIS?
 		if (pOpponent)
 		{
 			// check to see if OPPONENT considers US neutral
-			if ( (pOpponent->aiData.bOppList[ubTarget] == SEEN_CURRENTLY) && !pOpponent->aiData.bNeutral && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && (pSoldier->bSide != pOpponent->bSide) )
+			if ( (pOpponent->aiData.bOppList[ubTarget] == SEEN_CURRENTLY) && !pOpponent->aiData.bNeutral && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && (pSoldier->bSide != pOpponent->bSide) && pOpponent->RecognizeAsCombatant(pSoldier->ubID) )
 			{
 				RemoveOneOpponent(pOpponent);
 			}
@@ -3501,20 +3511,24 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 		}
 		else
 		{
+			// Flugente: no quotes on seeing enemy when covert
+			if ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) ) == 0 )
+			{
 #ifdef ENGLISH
-			if ( Random( 100 ) < 30 )
-			{
-				pSoldier->DoMercBattleSound( BATTLE_SOUND_ENEMY );
-			}
-			else
-			{
-				TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
-			}
+				if ( Random( 100 ) < 30 )
+				{
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_ENEMY );
+				}
+				else
+				{
+					TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
+				}
 #else
-	//ddd TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
-		if(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
-			TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
+				//ddd TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
+				if(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
+					TacticalCharacterDialogue( pSoldier, QUOTE_SEE_ENEMY );
 #endif
+			}
 		}
 	}
 }
@@ -6821,7 +6835,7 @@ void DecayIndividualOpplist(SOLDIERTYPE *pSoldier)
 		{
 				// they are NOT visible now!
 				(*pPersOL)++;
-				if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide))
+				if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 				{
 					RemoveOneOpponent(pSoldier);
 				}
@@ -7084,7 +7098,7 @@ void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier )
 			pOpponent = MercSlots[uiLoop];
 
 			// for every active, living soldier on ANOTHER team
-			if (pOpponent && pOpponent->stats.bLife && !pOpponent->aiData.bNeutral && (pOpponent->bTeam != pSoldier->bTeam) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) )
+			if (pOpponent && pOpponent->stats.bLife && !pOpponent->aiData.bNeutral && (pOpponent->bTeam != pSoldier->bTeam) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 			{
 				if ( pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
 				{

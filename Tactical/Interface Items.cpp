@@ -13148,11 +13148,11 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( gpItemDescSoldier, DEMOLITIONS_NT ))
 			{
 				// increase trap level for Demolitions trait
-				gpItemDescSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
+				(*gpItemDescObject)[0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
 			}
 			else
 			{
-				gpItemDescSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) );
+				(*gpItemDescObject)[0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) );
 			}
 				
 			// Flugente: We armed a bomb in our inventory. We will NOT add it to the item pool and the world bombs.
@@ -13164,8 +13164,8 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 			// so we add 2 to all owner IDs passed through here and subtract 2 later
 			//if (gpItemDescSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) 
 			{
-				gTempObject[0]->data.misc.ubBombOwner = gpItemDescSoldier->ubID + 2;
-				gTempObject[0]->data.ubDirection = gpItemDescSoldier->ubDirection;		// Flugente: direction of bomb is direction of soldier
+				(*gpItemDescObject)[0]->data.misc.ubBombOwner = gpItemDescSoldier->ubID + 2;
+				(*gpItemDescObject)[0]->data.ubDirection = gpItemDescSoldier->ubDirection;		// Flugente: direction of bomb is direction of soldier
 
 				//AddItemToPool( gsTempGridNo, &gTempObject, VISIBLE, gpItemDescSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0 );
 			}

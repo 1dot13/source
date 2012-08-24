@@ -734,13 +734,13 @@ extern OBJECTTYPE gTempObject;
 #define CAMO_REMOVAL			0x00000400	//1024		// item can be used to remove camo
 #define CLEANING_KIT			0x00000800	//2048		// weapon cleaning kit
 
-/*#define ENEMY_NET_1_LVL_4		0x00001000	//4096
-#define ENEMY_NET_2_LVL_4       0x00002000	//8192
-#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
-#define ENEMY_NET_4_LVL_4		0x00008000	//32768
+#define CLOTHES_CIVILIAN		0x00001000	//4096		// with this item you can disguise as a civilian
+#define GAROTTE					0x00002000	//8192		// this item is a garotte
+#define COVERT 					0x00004000	//16384		// if LBE, any gun inside will be covert. On a gun, it will covert in any LBE, even if the LBE does not have that tag itself
+#define CORPSE					0x00008000	//32768		// a dead body
 
-#define PLAYER_NET_1_LVL_1		0x00010000	//65536
-#define PLAYER_NET_2_LVL_1      0x00020000	//131072
+#define SKIN_BLOODCAT			0x00010000	//65536		// retrieve this by skinning (=decapitating) a bloodcat
+/*#define PLAYER_NET_2_LVL_1      0x00020000	//131072
 #define PLAYER_NET_3_LVL_1		0x00040000	//262144
 #define PLAYER_NET_4_LVL_1		0x00080000	//524288
 
@@ -758,6 +758,49 @@ extern OBJECTTYPE gTempObject;
 #define PLAYER_NET_2_LVL_4		0x20000000	//536870912
 #define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
 #define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
+// ----------------------------------------------------------------
+
+// -------- added by Flugente: flags for objects --------
+// the numbering of these flags is important. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+#define CORPSE_M_SMALL			0x00000001	//1
+#define CORPSE_M_BIG			0x00000002	//2
+#define CORPSE_F				0x00000004	//4
+#define CORPSE_NO_HEAD			0x00000008	//8
+
+#define CORPSE_HAIR_BROWN		0x00000010	//16
+#define CORPSE_HAIR_BLACK		0x00000020	//32
+#define CORPSE_HAIR_WHITE   	0x00000040	//64
+#define CORPSE_HAIR_BLOND		0x00000080	//128
+
+#define CORPSE_HAIR_RED			0x00000100	//256
+#define CORPSE_SKIN_PINK		0x00000200	//512
+#define CORPSE_SKIN_TAN			0x00000400	//1024
+#define CORPSE_SKIN_DARK		0x00000800	//2048
+
+#define CORPSE_SKIN_BLACK		0x00001000	//4096
+#define CORPSE_VEST_BROWN       0x00002000	//8192
+#define CORPSE_VEST_grey 		0x00004000	//16384
+#define CORPSE_VEST_GREEN		0x00008000	//32768
+
+#define CORPSE_VEST_JEAN		0x00010000	//65536
+#define CORPSE_VEST_RED			0x00020000	//131072
+#define CORPSE_VEST_BLUE		0x00040000	//262144
+#define CORPSE_VEST_YELLOW		0x00080000	//524288
+
+#define CORPSE_VEST_WHITE		0x00100000	//1048576
+#define CORPSE_VEST_BLACK		0x00200000	//2097152
+#define CORPSE_VEST_GYELLOW		0x00400000	//4194304
+#define CORPSE_VEST_PURPLE		0x00800000	//8388608
+
+#define CORPSE_PANTS_GREEN		0x01000000	//16777216
+#define CORPSE_PANTS_JEAN		0x02000000	//33554432
+#define CORPSE_PANTS_TAN		0x04000000	//67108864
+#define CORPSE_PANTS_BLACK		0x08000000	//134217728
+
+#define CORPSE_PANTS_BLUE		0x10000000	//268435456
+#define CORPSE_PANTS_BEIGE		0x20000000	//536870912
+#define CORPSE_STRIPPED			0x40000000	//1073741824
+//#define unused		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
 
 // replaces candamage
@@ -1702,6 +1745,10 @@ enum
 	IMP_STEALTHY_EXP,
 	IMP_TEACHING_EXP,
 	IMP_LOCKPICKING_EXP,
+
+	// Flugente: added covert ops
+	IMP_COVERT,
+	IMP_COVERT_EXP,
 
 	MAX_IMP_ITEM_TYPES
 };

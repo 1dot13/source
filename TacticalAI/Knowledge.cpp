@@ -189,6 +189,15 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 		if ( CONSIDERED_NEUTRAL( pSoldier, pTemp ) || (pSoldier->bSide == pTemp->bSide))
 			continue;			// next merc
 
+		// Flugente: chance to ignore the noise if the ceator is covert
+		if ( pTemp->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		{
+			// green  AI state: always ignore
+			// yellow AI state: 50% chance to ignore
+			if ( pSoldier->aiData.bAlertStatus == STATUS_GREEN || (pSoldier->aiData.bAlertStatus == STATUS_GREEN && Random(2) < 1 ) )
+				continue;			// next merc
+		}
+
 		pbPersOL = pSoldier->aiData.bOppList + pTemp->ubID;
 		pbPublOL = gbPublicOpplist[pSoldier->bTeam] + pTemp->ubID;
 		psLastLoc = gsLastKnownOppLoc[pSoldier->ubID] + pTemp->ubID;

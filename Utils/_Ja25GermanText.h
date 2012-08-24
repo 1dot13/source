@@ -17,6 +17,7 @@ extern  STR16 gzIMPMajorTraitsHelpTextsMartialArts[];
 extern  STR16 gzIMPMajorTraitsHelpTextsSquadleader[];
 extern  STR16 gzIMPMajorTraitsHelpTextsTechnician[];
 extern  STR16 gzIMPMajorTraitsHelpTextsDoctor[];
+extern  STR16 gzIMPMajorTraitsHelpTextsCovertOps[];		// added by Flugente
 extern  STR16 gzIMPMajorTraitsHelpTextsNone[];
 
 extern	STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[];

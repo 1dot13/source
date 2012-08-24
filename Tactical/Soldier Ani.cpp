@@ -2926,7 +2926,10 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 752:
 
 				// Code: decapitate
-				DecapitateCorpse( pSoldier, pSoldier->sTargetGridNo, pSoldier->bTargetLevel );
+				//DecapitateCorpse( pSoldier, pSoldier->sTargetGridNo, pSoldier->bTargetLevel );
+
+				// Flugente: instead of jsut decapitating, we call a selection window where we can choose what to do with the corpse
+				HandleSoldierUseCorpse( pSoldier, pSoldier->sTargetGridNo, pSoldier->bTargetLevel );	// Flugente: handle corpses
 				break;
 
 			case 753:

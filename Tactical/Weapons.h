@@ -172,6 +172,49 @@ enum
 	AMMO_FLAME,
 };
 
+// -------- added by Flugente: various ammo flags --------
+// flags used for various ammo properties (easier than adding 32 differently named variables). DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+#define AMMO_NEUROTOXIN			0x00000001	//1			// this ammo adds the cyanide drug effect to its target, killing it in a few turns
+/*#define FULL_SANDBAG			0x00000002	//2
+#define SHOVEL					0x00000004	//4
+#define CONCERTINA				0x00000008	//8
+
+#define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
+#define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
+#define COW_MEAT   				0x00000040	//64		// retrieve this by gutting a cow
+#define BELT_FED				0x00000080	//128		// item can be fed externally
+
+#define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
+#define AMMO_BELT_VEST			0x00000200	//512		// this is a vest that can contain AMMO_BELT items in its medium slots
+#define COVERT_OPS_KIT			0x00000400	//1024		// this kit can restore the covert ops disguise
+#define RAG						0x00000800	//2048		// this item is a rag and can be used to remove camo
+
+#define ENEMY_NET_1_LVL_4		0x00001000	//4096
+#define ENEMY_NET_2_LVL_4       0x00002000	//8192
+#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
+#define ENEMY_NET_4_LVL_4		0x00008000	//32768
+
+#define PLAYER_NET_1_LVL_1		0x00010000	//65536
+#define PLAYER_NET_2_LVL_1      0x00020000	//131072
+#define PLAYER_NET_3_LVL_1		0x00040000	//262144
+#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+
+#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
+#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
+#define PLAYER_NET_3_LVL_2		0x00400000	//4194304
+#define PLAYER_NET_4_LVL_2		0x00800000	//8388608
+
+#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
+#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
+#define PLAYER_NET_3_LVL_3		0x04000000	//67108864
+#define PLAYER_NET_4_LVL_3		0x08000000	//134217728
+
+#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
+#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
+#define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
+#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
+// ----------------------------------------------------------------
+
 typedef struct
 {
 	UINT32 uiIndex;
@@ -216,10 +259,13 @@ typedef struct
 	BOOLEAN tracerEffect;
 	FLOAT	temperatureModificator;	// Flugente: modificator for weapon temperature
 	INT16	poisonPercentage;	// Flugente: modificator for weapon temperature
-	FLOAT	dirtModificator;	// Flugente: modificator for weapon temperature
+	FLOAT	dirtModificator;	// Flugente: modificator for dirt generation
 
 	//zilpin: pellet spread patterns externalized in XML
 	INT32 spreadPattern;
+
+	// Flugente: item flag for various properties. Way easier than 32 boolean flags
+	UINT32	ammoflag;
 	
 } AMMOTYPE;
 

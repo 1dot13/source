@@ -8960,8 +8960,21 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 
 	if ( iImpact > 0 && !TANK( pTarget ) )
 	{
+		// Flugente: ammo can now add the lifedamage drug effect. This will kill the target in a few turns.
+		// this is intended to work on darts, but it is possible on any ammo
+		if ( AmmoTypes[ubAmmoType].ammoflag & AMMO_NEUROTOXIN )
+		{			
+			pTarget->bSoldierFlagMask |= SOLDIER_DRUGGED;
 
-		if ( AmmoTypes[ubAmmoType].dart && sHitBy > 20 )
+			// Add lifedamage effects
+			pTarget->drugs.bFutureDrugEffect[ DRUG_TYPE_LIFEDAMAGE ] = min(pTarget->drugs.bFutureDrugEffect[ DRUG_TYPE_LIFEDAMAGE ] + 3, 127);
+			pTarget->drugs.bDrugEffectRate[DRUG_TYPE_LIFEDAMAGE] = 1;
+			pTarget->drugs.bDrugEffect[DRUG_TYPE_LIFEDAMAGE] = 0;
+			pTarget->drugs.bDrugSideEffectRate[DRUG_TYPE_LIFEDAMAGE] = 0;
+			pTarget->drugs.bDrugSideEffect[DRUG_TYPE_LIFEDAMAGE] = 127;
+			pTarget->drugs.bTimesDrugUsedSinceSleep[ DRUG_TYPE_LIFEDAMAGE ]++;
+		}
+		else if ( AmmoTypes[ubAmmoType].dart && sHitBy > 20 )
 		{
 			if (pubSpecial)
 			{
@@ -9434,13 +9447,13 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 	INT32 iImpact, iFluke, iBonus;
 
+	// Flugente: check for underbarrel weapons and use that object if necessary (think of bayonets)
+	OBJECTTYPE* pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
+
 	if (fBladeAttack)
 	{
 		iImpact = ( EffectiveExpLevel( pSoldier ) / 2); // 0 to 4 for level
-
-		// Flugente: check for underbarrel weapons and use that object if necessary (think of bayonets)
-		OBJECTTYPE* pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
-
+				
 		iImpact += GetDamage(pObj);
 		
 		iImpact += EffectiveStrength( pSoldier, FALSE ) / 20; // 0 to 5 for strength, adjusted by damage taken
@@ -9675,6 +9688,34 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
 	{
 		iBonus += 10; // +10%
+	}
+
+	// Flugente: if we are using a garotte, there is a chance that we score an instakill
+	// our level in covert ops and wether the target is aware of us has a huge impact
+	if ( pObj && HasItemFlag(pObj->usItem, GAROTTE) )
+	{
+		INT32 instakillchance = 0;
+		INT32 resistchance = 20;
+
+		if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTarget->sGridNo, pTarget->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+			instakillchance += 30;
+
+		UINT8 skilllevel = NUM_SKILL_TRAITS( pSoldier, COVERT_NT );
+		instakillchance += skilllevel * gSkillTraitValues.sCoMeleeInstakillBonus;
+
+		if ( pTarget->aiData.bAlertStatus == STATUS_YELLOW )
+			resistchance += 20;
+		else if ( pTarget->aiData.bAlertStatus >= STATUS_RED )
+			resistchance += 50;
+
+		if ( pTarget->bCollapsed )
+			resistchance = 0;
+
+		// killchance gets lowered if garotte is in bad shape
+		instakillchance *= ( (*pObj)[0]->data.objectStatus / 100 );
+
+		if ( Random(instakillchance) >= Random(resistchance) )
+			iImpact += 500;
 	}
 
 	// apply all bonuses
@@ -9924,6 +9965,25 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		if ( gGameOptions.fNewTraitSystem )
 		{
 			iAttRating += gSkillTraitValues.bCtHModifierHtHAttack; // Make HtH attacks a little more problematic for untrained mercs
+
+			// Flugente: if we are using a garotte, alter the attack rating on wether we are used in to this weapon, and wether our target can see us
+			if ( HasItemFlag(usInHand, GAROTTE) )
+			{
+				// using a garotte is pretty hard, we get a malus as default value
+				INT32 garottemodifier = -30;
+
+				UINT8 skilllevel = NUM_SKILL_TRAITS( pAttacker, COVERT_NT );
+				garottemodifier += skilllevel * gSkillTraitValues.sCOMeleeCTHBonus;
+
+				if ( pDefender->bCollapsed )
+					garottemodifier += 80;
+
+				// if this guy can see us, get a big malus!
+				else if ( SoldierTo3DLocationLineOfSightTest( pAttacker, pDefender->sGridNo, pDefender->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+					garottemodifier -= 80;
+
+				iAttRating += garottemodifier;
+			}
 
 			// bare hands - bonus for Martial arts
 			if (!pAttacker->usAttackingWeapon && HAS_SKILL_TRAIT( pAttacker, MARTIAL_ARTS_NT ))

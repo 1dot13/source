@@ -731,6 +731,17 @@ void GiveItemsToPC( UINT8 ubProfileId )
 				GiveIMPRandomItems(pProfile, IMP_DOCTOR);
 			}
 		}
+		if (PROFILE_HAS_SKILL_TRAIT(ubProfileId, COVERT_NT))
+		{
+			if( gGameExternalOptions.fExpertsGetDifferentChoices && PROFILE_HAS_EXPERT_TRAIT(ubProfileId, COVERT_NT))
+			{
+ 				GiveIMPRandomItems(pProfile,IMP_COVERT_EXP);
+			}
+			else
+			{
+				GiveIMPRandomItems(pProfile, IMP_COVERT);
+			}
+		}
 		// MINOR TRAITS
 		if (PROFILE_HAS_SKILL_TRAIT(ubProfileId, AMBIDEXTROUS_NT))
 		{
@@ -771,8 +782,7 @@ void GiveItemsToPC( UINT8 ubProfileId )
 		if (PROFILE_HAS_SKILL_TRAIT(ubProfileId, SCOUTING_NT))
 		{
 			GiveIMPRandomItems(pProfile,IMP_SCOUTING);
-		}
-		
+		}		
 	}
 	else
 	{

@@ -54,6 +54,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Gruppenführer",		//GrpFhr und ZgFhr sind scheiße, aber mir fällt ohne Dienstgrade nüscht ein
 	L"Mechaniker",			//Option: Techniker
 	L"Sanitäter",			//Option: Rettungsassistent
+	L"Covert Ops",	// TODO.Translate
 
 	L"Nichts",
 	L"B.S.E. Hauptfertigkeiten",
@@ -68,6 +69,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Zugführer",
 	L"Ingenieur",
 	L"Arzt",
+	L"Spy",	// TODO.Translate
 };
 
 //added another set of skill texts for new minor traits
@@ -238,6 +240,16 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s natürliche Regenerationsrate aller Söldner im selben Sektor",
 	L" (maximal %d Instanzen dieses Bonus pro Sektor)",
 
+};
+STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=		// TODO.Translate
+{
+	L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
+	L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
+	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
+	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
+	L"+%d%s CTH with covert melee weapons\n",
+	L"+%d%s chance of instakill with covert melee weapons\n",
+	L"Disguise AP cost lowered by %d%s.\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {

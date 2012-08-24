@@ -101,6 +101,7 @@ static INT8						bTempFrequency;
 
 void BombMessageBoxCallBack( UINT8 ubExitValue );
 void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue );		// Flugente: callback after deciding what tactical function to use
+void CorpseMessageBoxCallBack( UINT8 ubExitValue );		// Flugente: callback after deciding what to do with a corpse
 void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue );
 void SwitchMessageBoxCallBack( UINT8 ubExitValue );
 void BoobyTrapDialogueCallBack( void );
@@ -132,6 +133,8 @@ BOOLEAN					gfJustFoundBoobyTrap = FALSE;
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
 void CleanWeapons();
+
+void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
 
 BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel ) 
 {
@@ -1647,6 +1650,11 @@ void HandleTacticalFunctionSelection( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 }
 
 
+void HandleSoldierUseCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
+{
+	StartCorpseMessageBox( pSoldier, sGridNo, bLevel );
+}
+
 void SoldierHandleDropItem( SOLDIERTYPE *pSoldier )
 {
 	// LOOK IN PANDING DATA FOR ITEM TO DROP, AND LOCATION
@@ -2439,6 +2447,12 @@ OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 	{
 		fForceOnGround = TRUE;
 		bRenderZHeightAboveLevel = 0;
+	}
+
+	// Flugente: if this item is a corpse, don't add it to the world. Instead spawn a corpse in its position
+	if ( HasItemFlag(pObject->usItem, CORPSE) && AddCorpseFromObject(pObject, *psGridNo, ubLevel ) )
+	{
+		return( NULL );
 	}
 
 	//CHRISL: We need to make sure that item stacks follow the OldInv stacking limits
@@ -4418,6 +4432,19 @@ INT32 AdjustGridNoForItemPlacement( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	return( sActionGridNo );
 }
 
+// Flugente
+void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel )
+{
+	gpTempSoldier = pSoldier;
+
+	// determine what is possible with this corpse
+	BOOLEAN	fDecapitate		= TRUE;
+	BOOLEAN	fTakeClothes	= TRUE;
+	BOOLEAN	fTakeCorpse		= TRUE;
+
+	if ( fDecapitate && fTakeClothes  )
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CORPSE_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, CorpseMessageBoxCallBack, NULL );
+}
 
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 {
@@ -4660,6 +4687,36 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 		case 2:
 			CleanWeapons();
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+// Flugente: callback after deciding what to do with a corpse
+void CorpseMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if (gpTempSoldier)
+	{
+		INT32 nextGridNoinSight = gpTempSoldier->sGridNo;
+		nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( gpTempSoldier->ubDirection ) );
+
+		INT8 level = gpTempSoldier->bTargetLevel;
+
+		switch (ubExitValue)
+		{
+		case 1:
+			DecapitateCorpse( gpTempSoldier, nextGridNoinSight, level );
+			break;
+		case 2:
+			GutCorpse( gpTempSoldier, nextGridNoinSight, level );
+			break;
+		case 3:
+			StripCorpse( gpTempSoldier, nextGridNoinSight, level );
+			break;
+		case 4:
+			TakeCorpse( gpTempSoldier, nextGridNoinSight, level );
 			break;
 		default:
 			break;

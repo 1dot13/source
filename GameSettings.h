@@ -1418,6 +1418,13 @@ typedef struct
 	BOOLEAN fSCPreventsBloodcatsAmbushes;
 	BOOLEAN fSCThrowMessageIfAmbushPrevented;
 
+	// COVERT OPS
+	INT16	sCOMeleeCTHBonus;
+	INT16	sCoMeleeInstakillBonus;
+	INT16	sCODisguiseAPReduction;
+	INT16	sCOCloseDetectionRange;
+	INT16	sCOCloseDetectionRangeSoldierCorpse;
+
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.

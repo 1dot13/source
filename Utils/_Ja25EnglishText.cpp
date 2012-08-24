@@ -58,6 +58,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Deputy",
 	L"Technician",
 	L"Paramedic",
+	L"Covert Ops",
 
 	L"None",
 	L"I.M.P. Major Traits",
@@ -71,6 +72,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Squadleader",
 	L"Engineer",
 	L"Doctor",
+	L"Spy",
 };
 
 //added another set of skill texts for new minor traits
@@ -238,7 +240,16 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s bandaging speed\n",
 	L"+%d%s natural regeneration speed for all soldiers in the same sector", // MINTY - Changed "of" to "for"
 	L" (max %d of these bonuses per sector stack)",
-
+};
+STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
+{
+	L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
+	L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
+	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
+	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
+	L"+%d%s CTH with covert melee weapons\n",
+	L"+%d%s chance of instakill with covert melee weapons\n",
+	L"Disguise AP cost lowered by %d%s.\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {

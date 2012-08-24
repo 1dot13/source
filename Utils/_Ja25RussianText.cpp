@@ -57,6 +57,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Старшина",	//Deputy
 	L"Механик-электронщик",	//Technician
 	L"Санитар",	//Paramedic
+	L"Covert Ops",	// TODO.Translate
 
 	L"Нет",
 	L"I.M.P.: Основные навыки",	//I.M.P. Major Traits
@@ -70,6 +71,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
+	L"Spy",	// TODO.Translate
 };
 
 //added another set of skill texts for new minor traits
@@ -239,6 +241,16 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s к природной скорости регенерации для всех солдат в том же секторе",
 	L" (максимум %d бонуса на находящихся в секторе)",
 
+};
+STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=		// TODO.Translate
+{
+	L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
+	L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
+	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
+	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
+	L"+%d%s CTH with covert melee weapons\n",
+	L"+%d%s chance of instakill with covert melee weapons\n",
+	L"Disguise AP cost lowered by %d%s.\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {

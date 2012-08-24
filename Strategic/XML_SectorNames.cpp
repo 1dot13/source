@@ -45,8 +45,9 @@ typedef struct
 	CHAR16			szCurDetailedUnexploredName[MAX_SECTOR_NAME_LENGTH];
 	CHAR16			szCurExploredName[MAX_SECTOR_NAME_LENGTH];
 	CHAR16			szCurDetailedExploredName[MAX_SECTOR_NAME_LENGTH];
-	UINT8			sWaterType;
-	UINT16			usNaturalDirt;
+	UINT8			sWaterType;			// Food System
+	UINT16			usNaturalDirt;		// Dirt System
+	UINT8			usCurfewValue;		// Covert Ops
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 } SectorNameParseData;
@@ -80,7 +81,12 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				SectorExternalData[x][1].usNaturalDirt = 0;
 				SectorExternalData[x][2].usNaturalDirt = 0;
 				SectorExternalData[x][3].usNaturalDirt = 0;
-			
+
+				SectorExternalData[x][0].usCurfewValue = 0;
+				SectorExternalData[x][1].usCurfewValue = 0;
+				SectorExternalData[x][2].usCurfewValue = 0;
+				SectorExternalData[x][3].usCurfewValue = 0;
+							
 				if (Sector_Level == 0 )
 				{
 					gzSectorNames[x][0][0]=0;
@@ -128,7 +134,8 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "szExploredName") == 0 ||
 				strcmp(name, "szDetailedExploredName") == 0 ||
 				strcmp(name, "sWaterType") == 0 ||
-				strcmp(name, "usNaturalDirt") == 0 ))
+				strcmp(name, "usNaturalDirt") == 0 ||
+				strcmp(name, "usCurfewValue") == 0 ))
 		{
 			pData->curElement = SECTORNAME_ELEMENT;
 
@@ -180,16 +187,6 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
 						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
 						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
-
-						SectorExternalData[ubSectorId][0].usWaterType = pData->sWaterType;
-						SectorExternalData[ubSectorId][1].usWaterType = pData->sWaterType;
-						SectorExternalData[ubSectorId][2].usWaterType = pData->sWaterType;
-						SectorExternalData[ubSectorId][3].usWaterType = pData->sWaterType;
-
-						SectorExternalData[ubSectorId][0].usNaturalDirt = pData->usNaturalDirt;
-						SectorExternalData[ubSectorId][1].usNaturalDirt = pData->usNaturalDirt;
-						SectorExternalData[ubSectorId][2].usNaturalDirt = pData->usNaturalDirt;
-						SectorExternalData[ubSectorId][3].usNaturalDirt = pData->usNaturalDirt;
 					}
 					// moved to lua
 					//else if (Sector_Level == 1 )
@@ -221,17 +218,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(gzSectorNames[ubSectorId][0], pData->szCurUnexploredName);
 						wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
 						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
-						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
-
-						SectorExternalData[ubSectorId][0].usWaterType = pData->sWaterType;
-						SectorExternalData[ubSectorId][1].usWaterType = pData->sWaterType;
-						SectorExternalData[ubSectorId][2].usWaterType = pData->sWaterType;
-						SectorExternalData[ubSectorId][3].usWaterType = pData->sWaterType;
-
-						SectorExternalData[ubSectorId][0].usNaturalDirt = pData->usNaturalDirt;
-						SectorExternalData[ubSectorId][1].usNaturalDirt = pData->usNaturalDirt;
-						SectorExternalData[ubSectorId][2].usNaturalDirt = pData->usNaturalDirt;
-						SectorExternalData[ubSectorId][3].usNaturalDirt = pData->usNaturalDirt;
+						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);												
 					}
 					// moved to lua
 					//else if (Sector_Level == 1 )
@@ -256,6 +243,26 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][3], pData->szCurDetailedExploredName);
 					//}
 				}
+
+				SectorExternalData[ubSectorId][0].usWaterType = pData->sWaterType;
+				SectorExternalData[ubSectorId][1].usWaterType = pData->sWaterType;
+				SectorExternalData[ubSectorId][2].usWaterType = pData->sWaterType;
+				SectorExternalData[ubSectorId][3].usWaterType = pData->sWaterType;
+
+				SectorExternalData[ubSectorId][0].usNaturalDirt = pData->usNaturalDirt;
+				SectorExternalData[ubSectorId][1].usNaturalDirt = pData->usNaturalDirt;
+				SectorExternalData[ubSectorId][2].usNaturalDirt = pData->usNaturalDirt;
+				SectorExternalData[ubSectorId][3].usNaturalDirt = pData->usNaturalDirt;
+
+				SectorExternalData[ubSectorId][0].usCurfewValue = pData->usCurfewValue;
+				SectorExternalData[ubSectorId][1].usCurfewValue = pData->usCurfewValue;
+				SectorExternalData[ubSectorId][2].usCurfewValue = pData->usCurfewValue;
+				SectorExternalData[ubSectorId][3].usCurfewValue = pData->usCurfewValue;
+
+				// clean up values afterwards
+				pData->sWaterType = 0;
+				pData->usNaturalDirt = 100;
+				pData->usCurfewValue = 0;
 			}	
 		}
 
@@ -314,6 +321,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
 			pData->usNaturalDirt = (UINT16) atoi(pData->szCharData);
+		}
+		else if(strcmp(name, "usCurfewValue") == 0)
+		{
+			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
+			pData->usCurfewValue = (UINT16) atoi(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;

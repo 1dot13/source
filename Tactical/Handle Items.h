@@ -135,6 +135,8 @@ void HandleSoldierUseRemote( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 
 void HandleTacticalFunctionSelection( SOLDIERTYPE *pSoldier, INT32 sGridNo );	// Flugente: in tactical, open a selection box for different actions
 
+void HandleSoldierUseCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel );	// Flugente: handle corpses
+
 BOOLEAN ItemPoolOKForDisplay( ITEM_POOL *pItemPool, INT8 bZLevel );
 INT16 GetNumOkForDisplayItemsInPool( ITEM_POOL *pItemPool, INT8 bZLevel );
 

@@ -345,12 +345,12 @@ enum
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 #define SOLDIER_DRUGGED				0x00000001	//1			// Soldier is on drugs
 #define SOLDIER_NO_AP				0x00000002	//2			// Soldier has no APs this turn (fix for reinforcement bug)
-/*#define WH40K_BOLTER			0x00000004	//4
-#define WH40K_FLAMER			0x00000008	//8
+#define SOLDIER_COVERT_CIV			0x00000004	//4			// Soldier is currently disguised as a civilian
+#define SOLDIER_COVERT_SOLDIER		0x00000008	//8			// Soldier is currently disguised as an enemy soldier
 
-#define WH40K_POWER_ARMOR		0x00000010	//16
-#define WH40K_POWER_PACK		0x00000020	//32
-#define WH40K_JUMPPACK   		0x00000040	//64
+#define SOLDIER_DAMAGED_UNIFORM		0x00000010	//16		// Soldier's uniform is damged (and thus can't be taken off of his corpse)
+#define SOLDIER_COVERT_NPC_SPECIAL	0x00000020	//32		// Special flag for NPCs wehn recruited (used for covert stuff)
+/*#define WH40K_JUMPPACK   		0x00000040	//64
 #define WH40K_DISPLACER			0x00000080	//128
 
 #define WH40K_ROSARIUS			0x00000100	//256
@@ -1456,6 +1456,34 @@ public:
 
 	// use any cleaning kits to clean weapons in inventory
 	void	CleanWeapon();
+
+	// Flugente: functions for the covert ops trait
+
+	// are we in covert mode? we need to have the correct flag set, and not wear anything suspicious, or behave in a suspicious way
+
+	// do we look like a civilian?
+	BOOLEAN		LooksLikeACivilian( void );
+
+	// do we look like a soldier?
+	BOOLEAN		LooksLikeASoldier( void );
+
+	// is our equipment too good for a soldier?
+	BOOLEAN		EquipmentTooGood( BOOLEAN fCloselook );
+
+	// does soldier ubObserverID recognize us as his enemy?
+	BOOLEAN		SeemsLegit( UINT8 ubObserverID );
+
+	// do we recognize someone else as a combatant?
+	BOOLEAN		RecognizeAsCombatant(UINT8 ubTargetID);
+
+	// loose disguise, dress up in our natural state
+	void		LooseDisguise( void );
+
+	// dress up like a civilian
+	BOOLEAN		DisguiseAsCivilian( void );
+
+	// dress up like an enemy soldier
+	BOOLEAN		DisguiseAsSoldierFromCorpse( UINT32 usFlag );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

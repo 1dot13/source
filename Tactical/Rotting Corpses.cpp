@@ -275,8 +275,8 @@ BOOLEAN	gbCorpseValidForDecapitation[ NUM_CORPSES ] =
 	1,
 	1,
 	1,
-	1,			// Bloodcat - changed to 1 to allow gutting
-	1,			// Cow - changed to 1 to allow gutting
+	1,			// Bloodcat - changed to 1 to allow skinning (works like decapitating)
+	0,
 	0,
 	0,
 	0,
@@ -494,6 +494,9 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 
 	// Copy elements in
 	memcpy( pCorpse, pCorpseDef, sizeof( ROTTING_CORPSE_DEFINITION ) );
+
+	if ( pCorpseDef->fHeadTaken )
+		pCorpse->def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
 
 	uiDirectionUseFlag = ANITILE_USE_DIRECTION_FOR_START_FRAME;
 
@@ -818,7 +821,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	// Setup some values!
 	memset( &Corpse, 0, sizeof( Corpse ) );
 	Corpse.ubBodyType							= pSoldier->ubBodyType;
-	Corpse.sGridNo								= pSoldier->sGridNo;
+	Corpse.sGridNo								= pSoldier->sGridNo;		
 	Corpse.dXPos									= pSoldier->dXPos;
 	Corpse.dYPos									= pSoldier->dYPos;
 	Corpse.bLevel									= pSoldier->pathing.bLevel;
@@ -894,6 +897,18 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	memcpy( &(Corpse.name), &(pSoldier->name), sizeof(CHAR16) * 10 );
 	Corpse.name[9] = '\0';
 #endif
+
+	// Flugente: mark if this was an army soldier ( we use this to steal his clothes later on )
+	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+		Corpse.usFlags |= ROTTING_CORPSE_FROM_ADMIN;
+	else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY )
+		Corpse.usFlags |= ROTTING_CORPSE_FROM_TROOP;
+	else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE )
+		Corpse.usFlags |= ROTTING_CORPSE_FROM_ELITE;
+
+	// if this soldier's uniform was damaged (gunfire, blade attacks, explosions) then don't allow to take the uniform. We can't stay hidden if we're covered in blood :-)
+	if ( pSoldier->bSoldierFlagMask &SOLDIER_DAMAGED_UNIFORM )
+		Corpse.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
 
 	// Determine corpse type!
 	ubType = (UINT8)gubAnimSurfaceCorpseID[ pSoldier->ubBodyType][ pSoldier->usAnimState ];
@@ -1763,7 +1778,7 @@ INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 
 BOOLEAN IsValidDecapitationCorpse( ROTTING_CORPSE *pCorpse )
 {
-	if ( (pCorpse->def.usFlags & ROTTING_CORPSE_GUTTED) )
+	if ( (pCorpse->def.usFlags & ROTTING_CORPSE_HEAD_TAKEN) )
 	{
 		return( FALSE );
 	}
@@ -1797,14 +1812,12 @@ ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo, INT8 bLevel )
 }
 
 
-void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
+void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse;
 	ROTTING_CORPSE_DEFINITION CorpseDef;
 	UINT16 usHeadIndex = HEAD_1;
-	static UINT16 usBloodCatMeatIndex = 1566;
-	static UINT16 usCowMeatIndex = 1565;
-
+	static UINT16 usBloodCatSkinIndex = 232;
 
 	pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
@@ -1812,41 +1825,30 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
 	{
 		return;
 	}
-
+		
 	if ( IsValidDecapitationCorpse( pCorpse ) )
 	{
 		// Decapitate.....
 		// Copy corpse definition...
 		memcpy( &CorpseDef, &(pCorpse->def), sizeof( ROTTING_CORPSE_DEFINITION ) );
-
-		// Flugente: if the corpse is of a cow or a bloodcat, we don't take its head, we simply gut it and give meat instead of a head
-		if ( CorpseDef.ubType == BLOODCAT_DEAD || CorpseDef.ubType == COW_DEAD )
-		{
-			pCorpse->def.usFlags |= (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_GUTTED);
-
-			if ( CorpseDef.ubType == BLOODCAT_DEAD )
-			{
-				if ( HasItemFlag(usBloodCatMeatIndex, MEAT_BLOODCAT) || GetFirstItemWithFlag(&usBloodCatMeatIndex, MEAT_BLOODCAT) )
-					usHeadIndex = usBloodCatMeatIndex;
-			}
-			else
-			{
-				if ( HasItemFlag(usCowMeatIndex, COW_MEAT) || GetFirstItemWithFlag(&usCowMeatIndex, COW_MEAT) )
-					usHeadIndex = usCowMeatIndex;
-			}
-		}
-
+				
 		// Add new one...
 		CorpseDef.ubType = gDecapitatedCorpse[ CorpseDef.ubType ];
-
-		pCorpse->def.usFlags |= (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_GUTTED);
-
+				
+		pCorpse->def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
+		CorpseDef.fHeadTaken = TRUE;
+		
 		if ( CorpseDef.ubType != 0 )
 		{
 			// Remove old one...
 			RemoveCorpse( pCorpse->iID );
 
-			AddRottingCorpse( &CorpseDef );
+			INT32 iCorpseID = AddRottingCorpse( &CorpseDef );
+
+			if ( iCorpseID != -1 )
+			{
+				gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
+			}
 		}
 
 		// Add head item.....
@@ -1880,6 +1882,12 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
 
 		}
 
+		if (  pCorpse->def.ubType == BLOODCAT_DEAD )
+		{
+			if ( HasItemFlag(usBloodCatSkinIndex, SKIN_BLOODCAT) || GetFirstItemWithFlag(&usBloodCatSkinIndex, SKIN_BLOODCAT) )
+				usHeadIndex = usBloodCatSkinIndex;
+		}
+
 		if ( usHeadIndex > 0 )
 		{
 			CreateItem( usHeadIndex, 100, &gTempObject );
@@ -1889,7 +1897,404 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,	INT8 bLevel )
 			NotifySoldiersToLookforItems( );
 		}
 	}
+}
 
+// Flugente: can this corpse be gutted?
+BOOLEAN IsValidGutCorpse( ROTTING_CORPSE *pCorpse )
+{
+	if ( pCorpse->def.ubType == ROTTING_STAGE2 || (pCorpse->def.usFlags & ROTTING_CORPSE_GUTTED) )
+		return( FALSE );
+
+	return( pCorpse->def.ubType == BLOODCAT_DEAD || pCorpse->def.ubType == COW_DEAD );
+}
+
+// Flugente: gut a corpse
+void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
+{
+	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
+
+	if ( pCorpse == NULL )
+		return;
+		
+	// can this thing be gutted?
+	if ( IsValidGutCorpse( pCorpse ) )
+	{
+		// numbers for the meat acquired by gutting. These values respond to the standard GameDir values, if they have other values in the ini, no problem, we'll search for them
+		static UINT16 usBloodCatMeatIndex = 1566;
+		static UINT16 usCowMeatIndex = 1565;
+		UINT16 meatindex = 0;
+
+		pCorpse->def.usFlags |= ROTTING_CORPSE_GUTTED;
+
+		if ( pCorpse->def.ubType == BLOODCAT_DEAD )
+		{
+			if ( HasItemFlag(usBloodCatMeatIndex, MEAT_BLOODCAT) || GetFirstItemWithFlag(&usBloodCatMeatIndex, MEAT_BLOODCAT) )
+				meatindex = usBloodCatMeatIndex;
+		}
+		else
+		{
+			if ( HasItemFlag(usCowMeatIndex, COW_MEAT) || GetFirstItemWithFlag(&usCowMeatIndex, COW_MEAT) )
+				meatindex = usCowMeatIndex;
+		}
+
+		if ( meatindex > 0 )
+		{
+			CreateItem( meatindex, 100, &gTempObject );
+			AddItemToPool( sGridNo, &gTempObject, INVISIBLE, 0, 0, 0 );
+
+			// All teams lok for this...
+			NotifySoldiersToLookforItems( );
+		}
+	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Not possible, you sick, sick individual!" );
+}
+
+// Flugente: can clothes be taken off of this corpse?
+BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse )
+{
+	if ( pCorpse->def.ubType == ROTTING_STAGE2 || (pCorpse->def.usFlags & ROTTING_CORPSE_CLOTHES_TAKEN) )
+		return( FALSE );
+
+	// is there a uniform we can take?
+	if ( !(pCorpse->def.usFlags & (ROTTING_CORPSE_FROM_ADMIN|ROTTING_CORPSE_FROM_TROOP|ROTTING_CORPSE_FROM_ELITE)) )
+		return( FALSE );
+
+	return( CorpseOkToDress(pCorpse, NULL) );
+}
+
+
+// Flugente: take the clothes off a corpse and wear them
+void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
+{
+	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
+
+	if ( pCorpse == NULL )
+		return;
+
+	// can this thing be stripped?
+	if ( IsValidStripCorpse( pCorpse ) )
+	{
+		// if this fits our body, try to wear it
+		if ( CorpseOkToDress(pCorpse, pSoldier) && pSoldier->DisguiseAsSoldierFromCorpse( pCorpse->def.usFlags ) )
+		{
+			// we took the clothes, mark this
+			pCorpse->def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
+		}
+	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No clothes to take!" );
+}
+
+// Flugente: can clothes be taken off of this corpse?
+BOOLEAN IsValidTakeCorpse( ROTTING_CORPSE *pCorpse )
+{
+	if ( pCorpse->def.ubType >= BLOODCAT_DEAD || pCorpse->def.ubType == NO_CORPSE )
+		return( FALSE );
+
+	return( TRUE );
+}
+
+// Flugente: take a corpse into your hand, thereby removing it from the field
+void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
+{
+	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
+
+	if ( pCorpse == NULL )
+		return;
+	
+	// can this corpse be picked up?
+	if ( IsValidTakeCorpse( pCorpse ) )
+	{
+		// is there a 'corpse' item?
+		UINT16 corpseitem = 0;
+		if ( GetFirstItemWithFlag(&corpseitem, CORPSE)  )
+		{
+			// we have to make sure this can be placed in our hands, as corpses can only be carried in hands.
+			// At this point, we will have a knife in our first hand, so check if our second hand is free
+			if ( !(pSoldier->inv[SECONDHANDPOS].exists()) )
+			{
+				CreateItem( corpseitem, 100, &gTempObject );
+
+				if(CanItemFitInPosition(pSoldier, &gTempObject, SECONDHANDPOS, FALSE))
+				{
+					// determine Body type
+					if ( pCorpse->def.ubBodyType == BIGMALE || pCorpse->def.ubBodyType == STOCKYMALE || pCorpse->def.ubBodyType == FATCIV )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_M_BIG;
+					else if ( pCorpse->def.ubBodyType == REGFEMALE || pCorpse->def.ubBodyType == MINICIV || pCorpse->def.ubBodyType == DRESSCIV )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_F;
+
+					if ( pCorpse->def.usFlags & ROTTING_CORPSE_HEAD_TAKEN )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_HEAD;
+
+					if ( pCorpse->def.usFlags & ROTTING_CORPSE_CLOTHES_TAKEN )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_STRIPPED;
+				
+					// now we have to get the correct flags for the object from the corpse, so that upon recreating the corpse, it looks the same
+					UINT8 headpal = 0, skinpal = 0, vestpal = 0, pantspal = 0;
+					GetPaletteRepIndexFromID(pCorpse->def.HeadPal, &headpal);
+					GetPaletteRepIndexFromID(pCorpse->def.SkinPal, &skinpal);
+					GetPaletteRepIndexFromID(pCorpse->def.VestPal, &vestpal);
+					GetPaletteRepIndexFromID(pCorpse->def.PantsPal, &pantspal);
+
+					switch ( headpal )
+					{
+					case 0:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_HAIR_BLOND;
+						break;
+					case 1:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_HAIR_BROWN;
+						break;
+					case 2:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_HAIR_BLACK;
+						break;
+					case 3:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_HAIR_WHITE;
+						break;				
+					case 4:
+					default:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_HAIR_RED;
+						break;
+					}
+
+					switch ( skinpal )
+					{
+					case 13:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_SKIN_PINK;
+						break;
+					case 14:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_SKIN_TAN;
+						break;
+					case 15:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_SKIN_DARK;
+						break;
+					case 16:
+					default:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_SKIN_BLACK;
+						break;
+					}
+
+					switch ( vestpal )
+					{
+					case 17:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_BROWN;
+						break;
+					case 18:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_grey;
+						break;
+					case 19:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_GREEN;
+						break;
+					case 20:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_JEAN;
+						break;
+					case 21:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_RED;
+						break;
+					case 22:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_BLUE;
+						break;
+					case 23:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_YELLOW;
+						break;
+					case 24:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_WHITE;
+						break;
+					case 25:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_BLACK;
+						break;
+					case 26:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_GYELLOW;
+						break;
+					case 27:
+					default:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_VEST_PURPLE;
+						break;
+					}
+
+					switch ( pantspal )
+					{
+					case 7:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_PANTS_GREEN;
+						break;
+					case 8:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_PANTS_JEAN;
+						break;
+					case 9:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_PANTS_TAN;
+						break;
+					case 10:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_PANTS_BLACK;
+						break;
+					case 11:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_PANTS_BLUE;
+						break;
+					case 12:
+					default:
+						gTempObject[0]->data.sObjectFlag |= CORPSE_PANTS_BEIGE;
+						break;
+					}
+
+					gTempObject.MoveThisObjectTo(pSoldier->inv[SECONDHANDPOS], ALL_OBJECTS, pSoldier, SECONDHANDPOS);
+
+					if ( pCorpse->def.ubType != 0 )
+					{
+						// Remove corpse...
+						RemoveCorpse( pCorpse->iID );
+					}
+				}
+			}
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No free hand to carry corpse!" );
+		}
+	}
+}
+
+// Flugente: create a corpse from an object and plce it in the world
+BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
+{
+	if ( !pObj || !HasItemFlag(pObj->usItem, CORPSE) )
+		return FALSE;
+
+	ROTTING_CORPSE_DEFINITION		Corpse;
+
+	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_M_BIG )
+	{
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_HEAD )
+			Corpse.ubType = MMERC_JFK;
+		else
+			Corpse.ubType = MMERC_BCK;
+
+		Corpse.ubBodyType = BIGMALE;
+	}
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_F )
+	{
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_HEAD )
+			Corpse.ubType = FMERC_JFK;
+		else
+			Corpse.ubType = FMERC_BCK;
+
+		Corpse.ubBodyType = REGFEMALE;
+	}
+	else
+	{
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_M_SMALL )
+			Corpse.ubType = SMERC_JFK;
+		else
+			Corpse.ubType = SMERC_BCK;
+
+		Corpse.ubBodyType = REGMALE;
+	}
+
+	Corpse.sGridNo = sGridNo;
+	
+	Corpse.dXPos = CenterX(Corpse.sGridNo);
+	Corpse.dYPos = CenterY(Corpse.sGridNo);
+
+	Corpse.sHeightAdjustment = 0;
+
+	// check the objects flagmask and set the corpse palette IDs accordingly
+
+	// Hair
+	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BROWN )
+		SET_PALETTEREP_ID( Corpse.HeadPal,	"BROWNHEAD" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BLACK )
+		SET_PALETTEREP_ID( Corpse.HeadPal,	"BLACKHEAD" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_WHITE )
+		SET_PALETTEREP_ID( Corpse.HeadPal,	"WHITEHEAD" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_HAIR_BLOND )
+		SET_PALETTEREP_ID( Corpse.HeadPal,	"BLONDHEAD" );
+	else
+		SET_PALETTEREP_ID( Corpse.HeadPal,	"REDHEAD" );
+
+	// Skin
+	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_PINK )
+		SET_PALETTEREP_ID( Corpse.SkinPal,	"PINKSKIN" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_TAN )
+		SET_PALETTEREP_ID( Corpse.SkinPal,	"TANSKIN" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_SKIN_DARK )
+		SET_PALETTEREP_ID( Corpse.SkinPal,	"DARKSKIN" );
+	else
+		SET_PALETTEREP_ID( Corpse.SkinPal,	"BLACKSKIN" );
+
+	// Vest
+	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BROWN )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"BROWNVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_grey )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"greyVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_GREEN )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"GREENVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_JEAN )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"JEANVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_RED )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"REDVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLUE )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"BLUEVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_YELLOW )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"YELLOWVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_WHITE )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"WHITEVEST" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLACK )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"BLACKSHIRT" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_GYELLOW )
+		SET_PALETTEREP_ID( Corpse.VestPal,	"GYELLOWSHIRT" );
+	else
+		SET_PALETTEREP_ID( Corpse.VestPal,	"PURPLESHIRT" );
+
+	// Pants
+	if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN )
+		SET_PALETTEREP_ID( Corpse.PantsPal,	"GREENPANTS" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_JEAN )
+		SET_PALETTEREP_ID( Corpse.PantsPal,	"JEANPANTS" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_TAN )
+		SET_PALETTEREP_ID( Corpse.PantsPal,	"TANPANTS" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLACK )
+		SET_PALETTEREP_ID( Corpse.PantsPal,	"BLACKPANTS" );
+	else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLUE )
+		SET_PALETTEREP_ID( Corpse.PantsPal,	"BLUEPANTS" );
+	else
+		SET_PALETTEREP_ID( Corpse.PantsPal,	"BEIGEPANTS" );
+
+	//SET_PALETTEREP_ID( Corpse.VestPal,  gUniformColors[ UNIFORM_ENEMY_TROOP ].vest );
+	//SET_PALETTEREP_ID( Corpse.PantsPal, gUniformColors[ UNIFORM_ENEMY_TROOP ].pants	);
+
+	Corpse.ubDirection = NORTH;
+	Corpse.uiTimeOfDeath = GetWorldTotalMin();
+
+	Corpse.usFlags = 0;		// no flags here, at least not the new ones
+
+	Corpse.bLevel = bLevel;
+
+	Corpse.bVisible = 1;
+	Corpse.bNumServicingCrows = 0;
+	Corpse.ubProfile = NO_PROFILE;
+	Corpse.fHeadTaken = FALSE;
+	Corpse.ubAIWarningValue = 20;
+	
+	INT32 iCorpseID = AddRottingCorpse( &Corpse );
+
+	if ( iCorpseID != -1 )
+	{		
+		AllMercsOnTeamLookForCorpse(&( gRottingCorpse[ iCorpseID ] ), OUR_TEAM);
+
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_HEAD )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
+
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_STRIPPED )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
+
+		// TODO: change this so it always fits, not dependant these colours
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_YELLOW && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_ADMIN;
+		else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_RED && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_TROOP;
+		else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLACK && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLACK )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_ELITE;
+
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 
@@ -2552,3 +2957,85 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 		return( canbezombie );
 	}
 #endif
+
+// Flugente: can we take the clothes of this corpse?
+// calling this with NULL for soldier will give a general answer for any bodytype
+BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier )
+{
+	if ( !pCorpse )
+		return FALSE;
+
+	switch ( pCorpse->def.ubType )
+	{
+		case SMERC_JFK:
+		case SMERC_BCK:
+		case SMERC_FWD:
+		case SMERC_DHD:
+		case SMERC_PRN:
+		case SMERC_WTR:
+		case SMERC_FALL:
+		case SMERC_FALLF:
+		case M_DEAD1:
+		case M_DEAD2:
+		case H_DEAD1:
+		case H_DEAD2:
+		case S_DEAD1:
+		case S_DEAD2:
+		case C_DEAD1:
+		case C_DEAD2:
+			if ( pSoldier )
+			{
+				if ( pSoldier->ubBodyType == REGMALE )
+					return TRUE;
+			}
+			else
+				return TRUE;
+
+			break;
+
+		case MMERC_JFK:
+		case MMERC_BCK:
+		case MMERC_FWD:
+		case MMERC_DHD:
+		case MMERC_PRN:
+		case MMERC_WTR:
+		case MMERC_FALL:
+		case MMERC_FALLF:
+		case FT_DEAD1:
+		case FT_DEAD2:
+			if ( pSoldier )
+			{
+				if ( pSoldier->ubBodyType == BIGMALE || pSoldier->ubBodyType == STOCKYMALE )
+					return TRUE;
+			}
+			else
+				return TRUE;
+
+			break;
+			
+		case FMERC_JFK:
+		case FMERC_BCK:
+		case FMERC_FWD:
+		case FMERC_DHD:
+		case FMERC_PRN:
+		case FMERC_WTR:
+		case FMERC_FALL:
+		case FMERC_FALLF:
+		case W_DEAD1:
+		case W_DEAD2:
+			if ( pSoldier )
+			{
+				if ( pSoldier->ubBodyType == REGFEMALE )
+					return TRUE;
+			}
+			else
+				return TRUE;
+
+			break;
+
+		default:
+			break;
+	}
+
+	return FALSE;
+}

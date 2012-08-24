@@ -238,7 +238,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 						CHAR16 pStrAux[50]; 
 						swprintf( pStrAux, L"(%s)", gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]]);
 						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, pStrAux );
-						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1] + 19] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1] + NEWTRAIT_MERCSKILL_EXPERTOFFSET] );
 						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2]] );
 						//swprintf( pStrInfo, L"%s\n", pStrInfo );
 					}
@@ -247,7 +247,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 						CHAR16 pStrAux[50]; 
 						swprintf( pStrAux, L"(%s)", gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1]]);
 						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, pStrAux );
-						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2] + 19] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2] + NEWTRAIT_MERCSKILL_EXPERTOFFSET] );
 						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]] );
 					}
 					else if (( pSoldier->stats.ubSkillTraits[0] == pSoldier->stats.ubSkillTraits[2] ) && pSoldier->stats.ubSkillTraits[0] != 0 )
@@ -255,7 +255,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 						CHAR16 pStrAux[50]; 
 						swprintf( pStrAux, L"(%s)", gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]]);
 						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, pStrAux );
-						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2] + 19] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2] + NEWTRAIT_MERCSKILL_EXPERTOFFSET] );
 						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1]] );
 					}
 					else
