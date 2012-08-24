@@ -3,16 +3,14 @@
 uiIndex				- the loadscreen index, number the loadscreens sequentially starting at 0 and ending at 256 (do not change!)
 szLocation			- the location (sector) to which the loadscreen applies
 RandomAltSector		- Should there be a random 50/50 chance (set to 1) to load alternate sector?
-szImageFormat		- The image format of the loadscreen. Currently only STI is used.
-szDay				- Path to the loadscreen image (640x480), which should be displayed at daytime, starting from Loadscreen folder, without image format
-szNigh				- Path to the loadscreen image (640x480), which should be displayed at nighttime, starting from Loadscreen folder, without image format					 
-szDayAlt			- Path to the alternate loadscreen image (640x480), which should be displayed at daytime, starting from Loadscreen folder, without image format	
+szImageFormat		- The image format of the loadscreen (PNG, STI)
+szDay				- Path to the loadscreen image, which should be displayed at daytime, starting from Loadscreen folder, without image format
+szNigh				- Path to the loadscreen image, which should be displayed at nighttime, starting from Loadscreen folder, without image format					 
+szDayAlt			- Path to the alternate loadscreen image, which should be displayed at daytime, starting from Loadscreen folder, without image format	
 					  There is a 50/50 chance that this image will be used instead of szDay, if RandomAltSector is set to 1
-szNighAlt			- Path to the alternate loadscreen image (640x480), which should be displayed at nighttime, starting from Loadscreen folder, without image format	
+szNighAlt			- Path to the alternate loadscreen image, which should be displayed at nighttime, starting from Loadscreen folder, without image format	
 					  There is a 50/50 chance that this image will be used instead of szNight, if RandomAltSector is set to 1
 					  
-INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800x600 or _1024x768. If this rule applies to the image, they will be automatically loaded
-      (E.g: LS_Heli_800x600.sti, LS_DayChitzena_1024x768.sti)
 -->
 <LOADSCREENS>
 	<!-- Start Sector (Landing Zone) -->

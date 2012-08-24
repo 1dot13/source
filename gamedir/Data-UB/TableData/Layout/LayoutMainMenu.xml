@@ -26,7 +26,7 @@ ImagePositionRelative	if 0 the image is displayed on the same place on any resol
 		<uiIndex>1</uiIndex>
 		<Visible>1</Visible>
 		<Description>BackGround</Description>
-		<FileName>Interface\MM24Background.sti</FileName>
+		<FileName>Loadscreens\MainMenuBackground.sti</FileName>
 		<FitToScreen>1</FitToScreen>
 		<StretchImage>0</StretchImage>
 		<CenterImage>0</CenterImage>
