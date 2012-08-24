@@ -418,7 +418,7 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 		
 		std::string strLoadscreenImage;
 		BuildLoadscreenFilename(strLoadscreenImage, imagePath.c_str(), 0, imageFormat.c_str());
-		strLoadscreenImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
+		strLoadscreenImage.copy(loadImage, sizeof(loadImage)-1);
 	}
 	else
 	{
@@ -434,7 +434,7 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 			BuildLoadscreenFilename(strLoadscreenImage, LoadScreenNames[0], 0, "sti");
 		}
 		
-		strLoadscreenImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
+		strLoadscreenImage.copy(loadImage, sizeof(loadImage)-1);
 	}
 
 
