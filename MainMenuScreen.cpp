@@ -750,9 +750,7 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 
 void RenderMainMenu()
 {
-	HVSURFACE hVSurface;
-	HVSURFACE hVSaveSurface;
-	//HVOBJECT hPixHandle;
+	HVSURFACE hVSurface;	
 	UINT32 iCounter2;
 		
 	//Get and display the background image
