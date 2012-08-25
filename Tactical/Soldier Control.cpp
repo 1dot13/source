@@ -14691,6 +14691,11 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == DECAPITATE ||
 		this->usAnimState == CROWBAR_ATTACK ||
 		this->usAnimState == THROW_GRENADE_STANCE ||
+		this->usAnimState == SHOOT_ROCKET_CROUCHED ||
+		this->usAnimState == LOB_GRENADE_STANCE ||
+		this->usAnimState == THROW_KNIFE ||
+		this->usAnimState == CUTTING_FENCE ||
+		this->usAnimState == HELIDROP ||
 		this->usAnimState == THROW_KNIFE_SP_BM ||
 		this->usAnimState == DODGE_ONE ||
 		this->usAnimState == SLICE ||
@@ -14703,6 +14708,8 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == THROW_KNIFE ||
 		this->usAnimState == PLANT_BOMB ||
 		this->usAnimState == USE_REMOTE ||
+		this->usAnimState == STEAL_ITEM ||
+		this->usAnimState == SHOOT_ROCKET ||
 		this->usAnimState == TAKE_BLOOD_FROM_CORPSE ||
 		this->usAnimState == PICK_LOCK ||
 		this->usAnimState == LOCKPICK_CROUCHED ||

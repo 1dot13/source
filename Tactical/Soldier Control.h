@@ -1459,8 +1459,6 @@ public:
 
 	// Flugente: functions for the covert ops trait
 
-	// are we in covert mode? we need to have the correct flag set, and not wear anything suspicious, or behave in a suspicious way
-
 	// do we look like a civilian?
 	BOOLEAN		LooksLikeACivilian( void );
 
