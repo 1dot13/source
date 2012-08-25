@@ -781,6 +781,13 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值，以一个技能值为基准。（大概是技能高低影响 AP 消耗？）</Description_CHI>
         </Property>
+        <Property name="AP_FORTIFICATION" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="80" interval="1">
+          <Description_ENG>The APs needed build a fortification structure.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
       </Properties>
     </Section>
     <Section name="BPConstants">
