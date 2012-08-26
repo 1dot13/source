@@ -26692,4 +26692,24 @@
 		<itemIndex>1523</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1581</attachmentIndex>
+		<itemIndex>683</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1581</attachmentIndex>
+		<itemIndex>693</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1581</attachmentIndex>
+		<itemIndex>776</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1581</attachmentIndex>
+		<itemIndex>784</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
 </ATTACHMENTLIST>

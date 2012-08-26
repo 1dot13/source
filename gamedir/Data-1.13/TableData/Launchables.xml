@@ -53,6 +53,10 @@
 		<itemIndex>922</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>1581</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
 		<launchableIndex>148</launchableIndex>
 		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
@@ -91,6 +95,10 @@
 	<LAUNCHABLE>
 		<launchableIndex>148</launchableIndex>
 		<itemIndex>921</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>1581</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>148</launchableIndex>
@@ -141,6 +149,10 @@
 		<itemIndex>922</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>1581</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
 		<launchableIndex>150</launchableIndex>
 		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
@@ -183,6 +195,10 @@
 	<LAUNCHABLE>
 		<launchableIndex>150</launchableIndex>
 		<itemIndex>922</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>1581</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>152</launchableIndex>
@@ -517,6 +533,10 @@
 		<itemIndex>922</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
+		<launchableIndex>991</launchableIndex>
+		<itemIndex>1581</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
 		<launchableIndex>992</launchableIndex>
 		<itemIndex>906</itemIndex>
 	</LAUNCHABLE>
@@ -567,6 +587,10 @@
 	<LAUNCHABLE>
 		<launchableIndex>995</launchableIndex>
 		<itemIndex>922</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>995</launchableIndex>
+		<itemIndex>1581</itemIndex>	
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>1370</launchableIndex>

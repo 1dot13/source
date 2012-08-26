@@ -47436,4 +47436,40 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1581</uiIndex>
+		<szItemName>Rifle Grenade Device</szItemName>
+		<szLongItemName>Rifle Grenade Device</szLongItemName>
+		<szItemDesc>This little device enables your rifle to fire grenades. A loaded magazine is required, and obviously no other firing mdoes are possible while there is a grenade attached.</szItemDesc>
+		<szBRName>Rifle Grenade Device</szBRName>
+		<szBRDesc>Transform your WW2 rifleman into a WW2 grenadier.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<usItemClass>16</usItemClass>
+		<AttachmentClass>33554432</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>16</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>149</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>12</ItemSize>
+		<usPrice>125</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<GrenadeLauncher>1</GrenadeLauncher>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

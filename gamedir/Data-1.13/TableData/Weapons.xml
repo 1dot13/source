@@ -13105,4 +13105,30 @@
 		<usReloadDelay>200</usReloadDelay>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1581</uiIndex>
+		<szWeaponName>Rifle Grenade Device</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubReadyTime>16</ubReadyTime>
+		<ubShotsPer4Turns>5.83</ubShotsPer4Turns>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubDeadliness>60</ubDeadliness>
+		<ubMagSize>1</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>403</sSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<SilencedSound>157</SilencedSound>
+		<APsToReload>32</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>16</Handling>
+		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>500</usOverheatingSingleShotTemperature>
+	</WEAPON>
 </WEAPONLIST>
