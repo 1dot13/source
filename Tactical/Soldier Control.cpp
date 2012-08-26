@@ -12995,6 +12995,16 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 		this->bWeaponMode = WM_AUTOFIRE;
 		this->bDoAutofire = 1;
 	}
+		
+	// Flugente: if using a rifle grenade device, and a grenade i equipped, only grenade launching is allowed
+	if ( HasAttachmentOfClass( &(this->inv[HANDPOS]), AC_RIFLEGRENADE) )
+	{
+		OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( &(this->inv[HANDPOS]) );
+
+		if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( &(this->inv[HANDPOS]), pRifleGrenadeDeviceObj->usItem) )
+			this->bWeaponMode = WM_ATTACHED_GL;
+	}
+
 	if ( Item[ usNewItem ].twohanded && Weapon[ usNewItem ].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
 		this->bScopeMode = USE_ALT_WEAPON_HOLD;
 	else

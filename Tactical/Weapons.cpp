@@ -3803,8 +3803,8 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	OBJECTTYPE	Launchable;
 	OBJECTTYPE * pObj;
 	UINT16			usItemNum;
-  INT32       iID;
-  REAL_OBJECT *pObject;
+	INT32       iID;
+	REAL_OBJECT *pObject;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("UseLauncher, target = %d", sTargetGridNo) );
 	usItemNum = pSoldier->usAttackingWeapon;
@@ -3855,7 +3855,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 		{
-			if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_LAUNCHER|IC_LAUNCHER) )
+			if ( iter->exists() && Item[ iter->usItem ].usItemClass & IC_LAUNCHER )
 			{
 				pgunobj = &(*iter);
 				break;
@@ -3884,6 +3884,16 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
   }
 
 	GunIncreaseHeat( pgunobj );
+
+	// Flugente: if we are using a rifle grenade, we also use up one of the gun's bullets
+	if ( IsAttachmentClass(pgunobj->usItem, AC_RIFLEGRENADE) )
+	{
+		if ( (*pObj)[0]->data.gun.ubGunShotsLeft> 0 )
+			(*pObj)[0]->data.gun.ubGunShotsLeft--;
+
+		// increase heat, as we 'fired' a bullet
+		GunIncreaseHeat( pObj );
+	}
 
 	if ( Weapon[ usItemNum ].sSound != NO_WEAPON_SOUND  )
 	{
@@ -10435,6 +10445,22 @@ BOOLEAN IsGunWeaponModeCapable( OBJECTTYPE* pObject, WeaponMode bWpnMode, SOLDIE
 {
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("IsGunWeaponModeCapable: weapon mode=%d",bWpnMode));
 
+	// Flugente: if have a riflegrenade device attached, and that thing has a launchable grenade, block all other firing modes
+	if ( HasAttachmentOfClass(pObject, AC_RIFLEGRENADE) )
+	{
+		OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher(pObject);
+
+		if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( pObject, pRifleGrenadeDeviceObj->usItem) )
+		{
+			if ( bWpnMode == WM_ATTACHED_GL )
+			{				
+				return TRUE;
+			}
+			else
+				return FALSE;
+		}
+	}
+
 	switch(bWpnMode)
 	{
 		case WM_NORMAL:
@@ -10453,11 +10479,11 @@ BOOLEAN IsGunWeaponModeCapable( OBJECTTYPE* pObject, WeaponMode bWpnMode, SOLDIE
 //		return (FindAttachment( &(pSoldier->inv[ubHandPos]), UNDER_GLAUNCHER ) != 0 && FindLaunchableAttachment( &(pSoldier->inv[ubHandPos]), UNDER_GLAUNCHER ) != 0 );
 
 		//return (!Item[pSoldier->inv[ubHandPos].usItem].grenadelauncher &&  IsGrenadeLauncherAttached( &(pSoldier->inv[ubHandPos]) ) && FindLaunchableAttachment( &(pSoldier->inv[ubHandPos]), GetAttachedGrenadeLauncher( &(pSoldier->inv[ubHandPos]) )) != 0 );
-		return (!Item[pObject->usItem].grenadelauncher &&  IsGrenadeLauncherAttached( pObject ) && FindLaunchableAttachment( pObject, GetAttachedGrenadeLauncher( pObject )) != 0 );
+		return ( (!Item[pObject->usItem].grenadelauncher && !IsAttachmentClass(pObject->usItem, AC_RIFLEGRENADE) ) &&  IsGrenadeLauncherAttached( pObject ) && FindLaunchableAttachment( pObject, GetAttachedGrenadeLauncher( pObject )) != 0 );
 
 		case WM_ATTACHED_GL_BURST:
 			//return (!Item[pSoldier->inv[ubHandPos].usItem].grenadelauncher && IsGrenadeLauncherAttached( &(pSoldier->inv[ubHandPos]) ) && Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[ubHandPos])].ubShotsPerBurst > 0 && FindLaunchableAttachment( &(pSoldier->inv[ubHandPos]), GetAttachedGrenadeLauncher( &(pSoldier->inv[ubHandPos]))) != 0 );
-			return (!Item[pObject->usItem].grenadelauncher && IsGrenadeLauncherAttached( pObject ) && Weapon[GetAttachedGrenadeLauncher(pObject)].ubShotsPerBurst > 0 && FindLaunchableAttachment( pObject, GetAttachedGrenadeLauncher( pObject)) != 0 );
+			return ( (!Item[pObject->usItem].grenadelauncher && !HasAttachmentOfClass( pObject, AC_RIFLEGRENADE ) ) && IsGrenadeLauncherAttached( pObject ) && Weapon[GetAttachedGrenadeLauncher(pObject)].ubShotsPerBurst > 0 && FindLaunchableAttachment( pObject, GetAttachedGrenadeLauncher( pObject)) != 0 );
 
 		case WM_ATTACHED_GL_AUTO:
 			return FALSE;
@@ -11053,6 +11079,16 @@ void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 				pSoldier->bWeaponMode = WM_AUTOFIRE;
 			else
 				pSoldier->bWeaponMode = WM_NORMAL;
+
+			if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_RIFLEGRENADE) )
+			{
+				OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( &(pSoldier->inv[HANDPOS]) );
+
+				if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( &(pSoldier->inv[HANDPOS]), pRifleGrenadeDeviceObj->usItem) )
+				{
+					pSoldier->bWeaponMode = WM_ATTACHED_GL;
+				}
+			}
 		}
 	}
 	// Changed by ADB, rev 1513

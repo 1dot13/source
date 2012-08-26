@@ -1959,11 +1959,16 @@ INT8 FindNonSmokeLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 
 OBJECTTYPE* FindLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon )
 {
-	if (pObj->exists() == true) {
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ValidLaunchable( iter->usItem, usWeapon) && iter->exists())
+	if (pObj->exists() == true)
+	{
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() )
 			{
-				return &(*iter);
+				if (ValidLaunchable( iter->usItem, usWeapon) )
+				{
+					return &(*iter);
+				}
 			}
 		}
 	}
@@ -2282,7 +2287,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	{
 		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
 		{
-			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, AC_GRENADE|AC_ROCKET|AC_MODPOUCH ) )
+			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, (AC_GRENADE|AC_ROCKET|AC_MODPOUCH) ) )
 			{//Search for identical attachments unless we're dealing with rifle grenades
 			//DBrot: or pouches
 				fSameItem = TRUE;
@@ -4875,6 +4880,26 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						}
 					}	
 				}*/
+
+				// Flugente: if this is a gun that we have in our first hand and it has a rifle grenade device
+				if ( pSoldier && HasAttachmentOfClass( this, AC_RIFLEGRENADE) && Item[this->usItem].usItemClass == IC_GUN && this == &(pSoldier->inv[ HANDPOS ]) )
+				{
+					// get rifle grenade device
+					OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( this );
+					
+					// if it exists...
+					if ( pRifleGrenadeDeviceObj )
+					{
+						// check if it now has a launchable grenade attached
+						OBJECTTYPE* pRiflefileGrenade = FindLaunchableAttachment( this, pRifleGrenadeDeviceObj->usItem);
+
+						// if that grenade is of the same type as the item we attached, adjust firing mode
+						if ( pRiflefileGrenade && pRiflefileGrenade->usItem == attachmentObject.usItem )
+						{
+							pSoldier->bWeaponMode = WM_ATTACHED_GL;
+						}
+					}
+				}
 			}
 		}
 
@@ -11402,12 +11427,14 @@ INT16 GetFlashSuppressorStatus( OBJECTTYPE * pObj )
 
 BOOLEAN IsGrenadeLauncherAttached( OBJECTTYPE * pObj, UINT8 subObject )
 {
-	if (pObj->exists() == true) {
+	if (pObj->exists() == true)
+	{
 		if (Item[pObj->usItem].grenadelauncher )
 			return TRUE;
 
-		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].grenadelauncher && iter->exists() )
+		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && (Item[iter->usItem].grenadelauncher || IsAttachmentClass( iter->usItem, AC_RIFLEGRENADE ) ) )
 			{
 				return TRUE;
 			}
@@ -11418,12 +11445,26 @@ BOOLEAN IsGrenadeLauncherAttached( OBJECTTYPE * pObj, UINT8 subObject )
 
 OBJECTTYPE* FindAttachment_GrenadeLauncher( OBJECTTYPE * pObj )
 {
-	if (pObj->exists() == true) {
+	if (pObj->exists() == true) 
+	{
+		// Flugente: as it is now possible to have both a grenade launcher and a rifle grenade attached to a gun, the rifle grenade has priority. We thus have to search for it first
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() )
+			{
+				if ( IsAttachmentClass(iter->usItem, AC_RIFLEGRENADE) )
+				{
+					return &(*iter);
+				}
+			}
+		}
+
 		if (Item[pObj->usItem].grenadelauncher )
 			return pObj;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].grenadelauncher && iter->exists() )
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].grenadelauncher )
 			{
 				return( &(*iter) );
 			}
@@ -11431,14 +11472,29 @@ OBJECTTYPE* FindAttachment_GrenadeLauncher( OBJECTTYPE * pObj )
 	}
 	return( 0 );
 }
+
 INT16 GetGrenadeLauncherStatus( OBJECTTYPE * pObj )
 {
-	if (pObj->exists() == true) {
+	if (pObj->exists() == true)
+	{
+		// Flugente: as it is now possible to have both a grenade launcher and a rifle grenade attached to a gun, the rifle grenade has priority. We thus have to search for it first
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() )
+			{
+				if ( IsAttachmentClass(iter->usItem, AC_RIFLEGRENADE) )
+				{
+					return( (*iter)[0]->data.objectStatus );
+				}
+			}
+		}
+
 		if (Item[pObj->usItem].grenadelauncher  )
 			return (*pObj)[0]->data.objectStatus;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].grenadelauncher && iter->exists())
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].grenadelauncher )
 			{
 				return( (*iter)[0]->data.objectStatus );
 			}
@@ -11446,14 +11502,29 @@ INT16 GetGrenadeLauncherStatus( OBJECTTYPE * pObj )
 	}
 	return( ITEM_NOT_FOUND );
 }
+
 UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj )
 {
-	if (pObj->exists() == true) {
+	if (pObj->exists() == true)
+	{
+		// Flugente: as it is now possible to have both a grenade launcher and a rifle grenade attached to a gun, the rifle grenade has priority. We thus have to search for it first
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() )
+			{
+				if ( IsAttachmentClass(iter->usItem, AC_RIFLEGRENADE) )
+				{
+					return( (UINT16) Item[iter->usItem].uiIndex );
+				}
+			}
+		}
+
 		if (Item[pObj->usItem].grenadelauncher  )
 			return pObj->usItem;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].grenadelauncher && iter->exists())
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].grenadelauncher )
 			{
 				return( (UINT16) Item[iter->usItem].uiIndex );
 			}
@@ -11466,8 +11537,9 @@ UINT16 GetAttachedUnderBarrel( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ((Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) ) && iter->exists())
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) ))
 			{
 				return( (UINT16) Item[iter->usItem].uiIndex );
 			}
@@ -11479,8 +11551,9 @@ BOOLEAN IsUnderBarrelAttached( OBJECTTYPE * pObj, UINT8 subObject )
 {
 	if (pObj->exists() == true) {
 
-		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) && iter->exists() )
+		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) )
 			{
 				return TRUE;
 			}
@@ -11493,8 +11566,9 @@ OBJECTTYPE* FindAttachment_UnderBarrel( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) && iter->exists() )
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) )
 			{
 				return( &(*iter) );
 			}
@@ -11507,8 +11581,9 @@ INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) && iter->exists())
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) )
 			{
 				return( (*iter)[0]->data.objectStatus );
 			}

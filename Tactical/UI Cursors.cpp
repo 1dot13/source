@@ -2632,6 +2632,16 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL )
 	{
+		// Flugente: if using a rifle grenade, only allow firing if there is a bullet in the gun's magazine (required for firing)
+		if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_RIFLEGRENADE) )
+		{
+			OBJECTTYPE* pObj = &(pSoldier->inv[HANDPOS]);
+			if ( (*pObj)[0]->data.gun.ubGunShotsLeft> 0 )
+				return( TRAJECTORYCURS );
+			else
+				return( INVALIDCURS );
+		}
+
 		return( TRAJECTORYCURS );
 	}
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || ( pSoldier->bWeaponMode == WM_BURST && Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher ) )
