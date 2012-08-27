@@ -1662,13 +1662,17 @@ void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 			// CHRISL: adjust settings to use variables for coords
 			if ( guiCurrentItemDescriptionScreen != MAP_SCREEN )
 			{
-				sX=((UsingNewInventorySystem() == false))?496:221;
-				sY=((UsingNewInventorySystem() == false))?INV_INTERFACE_START_Y+106:INV_INTERFACE_START_Y+5;
+				//sX=((UsingNewInventorySystem() == false))?496:221;
+				//sY=((UsingNewInventorySystem() == false))?INV_INTERFACE_START_Y+106:INV_INTERFACE_START_Y+5;
+				sX=KEYRING_X;
+				sY=KEYRING_Y;
 			}
 			else
 			{
-				sX=((UsingNewInventorySystem() == false))?217:188;
-				sY=((UsingNewInventorySystem() == false))?271:126;
+				//sX=((UsingNewInventorySystem() == false))?217:188;
+				//sY=((UsingNewInventorySystem() == false))?271:126;
+				sX=MAP_KEYRING_X;
+				sY=MAP_KEYRING_Y;
 			}
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiGoldKeyVO, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 			RestoreExternBackgroundRect( sX, sY, 29, 23 );

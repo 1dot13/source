@@ -1145,7 +1145,7 @@ BOOLEAN InitializeInvPanelCoordsOld()
 	TIME_REMAINING_X				= xResOffset + 215;	
 	CONTRACT_X						= xResOffset + 185;
 	TRASH_CAN_X						= xResOffset + 176;	
-	MAP_KEYRING_X					= xResOffset + 217;	
+	MAP_KEYRING_X					= xResOffset + 217;	//218/165 on Inventory_Bottom_Panel.sti
 	POP_UP_BOX_X					= xResOffset + 120;	
 	STR_X							= xResOffset + 112;	
 	LVL_X							= xResOffset + 159;	
@@ -1374,7 +1374,7 @@ BOOLEAN InitializeInvPanelCoordsNew()
 	TIME_REMAINING_X				= xResOffset + 215;	
 	CONTRACT_X						= xResOffset + 185;
 	TRASH_CAN_X						= xResOffset + 209;
-	MAP_KEYRING_X					= xResOffset + 180;
+	MAP_KEYRING_X					= xResOffset + 186; //184/19 on Inventory_Bottom_Panel.sti
 	POP_UP_BOX_X					= xResOffset + 120;
 	STR_X							= xResOffset + 112;	
 	LVL_X							= xResOffset + 159;
@@ -1592,7 +1592,7 @@ BOOLEAN InitializeInvPanelCoordsNew()
 	TRASH_CAN_HEIGHT				= 239 - 217;
 
 	// keyring
-	MAP_KEYRING_Y					= 127;
+	MAP_KEYRING_Y					= 126;
 
 	//Text offsets
 	Y_OFFSET						= 2;

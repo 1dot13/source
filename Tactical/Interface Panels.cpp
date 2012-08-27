@@ -1617,9 +1617,9 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	INTERFACE_CLOCK_Y	= ( 119	+ INV_INTERFACE_START_Y );
 	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
 
-	// Keyring	
-	KEYRING_X			= xResOffset + 494;
-	KEYRING_Y			= (105 + INV_INTERFACE_START_Y);
+	// Keyring	496/106 on Inventory_Bottom_Panel.sti
+	KEYRING_X			= xResOffset + 496;
+	KEYRING_Y			= (106 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
 	return ( TRUE );
@@ -1989,8 +1989,8 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	INTERFACE_CLOCK_Y	= ( 117	+ INV_INTERFACE_START_Y );
 	LOCATION_NAME_Y		= ( 89	+ INTERFACE_START_Y		);
 
-	//Keyring
-	KEYRING_X			= xResOffset + 217; //209;
+	//Keyring 218/5 on Inventory_Bottom_Panel.sti
+	KEYRING_X			= xResOffset + 219; //209;
 	KEYRING_Y			= (5 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
