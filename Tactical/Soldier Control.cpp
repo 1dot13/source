@@ -14440,6 +14440,10 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				if ( bLoop >= VESTPOCKPOS && bLoop <= CPACKPOCKPOS )
 					continue;
 
+				// seriously? a corpse? of course this is suspicious!
+				if ( HasItemFlag(this->inv[bLoop].usItem, CORPSE) )
+					return FALSE;
+
 				BOOLEAN checkfurther = FALSE;
 				// further checks it item is not covert. This means that a gun that has that tag will not be detectedif if its inside a pocket!
 				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS )
@@ -14519,6 +14523,17 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 // do we look like a soldier?
 BOOLEAN		SOLDIERTYPE::LooksLikeASoldier( void )
 {
+	INT8 invsize = (INT8)this->inv.size();	
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+	{
+		if ( this->inv[bLoop].exists() )
+		{
+			// seriously? a corpse? of course this is suspicious!
+			if ( HasItemFlag(this->inv[bLoop].usItem, CORPSE) )
+				return FALSE;
+		}
+	}
+
 	return TRUE;
 }
 
@@ -14746,7 +14761,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	// if we are trying to dress like a soldier, but aren't sucessful: not covert
 	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !looklikeasoldier)
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not look like a soldier!", this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is carrying a corpse!", this->name );
 		return FALSE;
 	}
 
