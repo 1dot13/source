@@ -132,7 +132,7 @@ BOOLEAN					gfJustFoundBoobyTrap = FALSE;
 
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
-void CleanWeapons();
+void CleanWeapons( BOOLEAN fCleanAll );
 
 void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
 
@@ -4535,7 +4535,7 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
 }
 
-void CleanWeapons()
+void CleanWeapons( BOOLEAN fCleanAll )
 {
 	if ( !gGameExternalOptions.fDirtSystem )
 		return;
@@ -4553,7 +4553,7 @@ void CleanWeapons()
 		SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
 
 		if ( pSoldier->bActive )
-			pSoldier->CleanWeapon();
+			pSoldier->CleanWeapon(fCleanAll);
 	}
 	else	// peform action for every merc in this sector
 	{	
@@ -4569,7 +4569,7 @@ void CleanWeapons()
 			//if the merc is in this sector
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
-				pSoldier->CleanWeapon();
+				pSoldier->CleanWeapon(fCleanAll);
 			}
 		}
 	}
@@ -4686,7 +4686,12 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			SectorFillCanteens();
 			break;
 		case 2:
-			CleanWeapons();
+			// clean a single weapon
+			CleanWeapons(FALSE);
+			break;
+		case 3:
+			// clean all weapons
+			CleanWeapons(TRUE);
 			break;
 		default:
 			break;

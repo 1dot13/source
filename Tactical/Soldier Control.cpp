@@ -14346,8 +14346,8 @@ OBJECTTYPE* SOLDIERTYPE::GetCleaningKit()
 	return( pObj );
 }
 
-// use any cleaning kits to clean weapons in inventory
-void SOLDIERTYPE::CleanWeapon()
+// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all eapons found, otherwise just the first one
+void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 {
 	// in turnbased, this action costs APs. remove them if possible, otherwise, return
 	INT16 apcost = APBPConstants[AP_CLEANINGKIT];
@@ -14396,12 +14396,13 @@ void SOLDIERTYPE::CleanWeapon()
 										// use up APs
 										DeductPoints( this, apcost, 0, AFTERACTION_INTERRUPT );
 
-										// only clean one weapon, we don't want to clean weapons if we didn't plan to
-										return;
+										// if fCleanAll is false, only clean one weapon
+										if (!fCleanAll )
+											return;
 
 										// get out of here if we dont have enough APs for another cleaning operation
-										//if ( !EnoughPoints( this, apcost, 0, TRUE ) )
-											//return;
+										if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+											return;
 									}
 								}
 							}

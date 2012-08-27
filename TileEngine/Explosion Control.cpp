@@ -3676,9 +3676,8 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 						// tripwire just gets activated
 						if ( Item[pObj->usItem].tripwire == 1 )
 						{
-							// this is important - we have to check for the tripwire's temperature. 
-							// The temperature serves as a temporary flag replacement, marking that a tripwire has already been activated, and shouldn't be activated again
-							if ( (*pObj)[0]->data.bTemperature < 1 )
+							// this is important - we have to check wether the wire has already been activated 
+							if ( ( (*pObj)[0]->data.sObjectFlag & TRIPWIRE_ACTIVATED ) == 0 )
 							{
 								// determine this tripwire's flag
 								UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
@@ -3725,10 +3724,9 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 									}
 																
 									// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
-									// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
-									// As i do not want to create an itm flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
-									// (temperature for tripwire isn't needed anywhere else, so its ok)
-									(*pObj)[0]->data.bTemperature = 1000.0;
+									// Because of this, ActivateSurroundingTripwire would normally find this wire again, thus a loop would occur.
+									// So we mark the wire with this flag
+									(*pObj)[0]->data.sObjectFlag |= TRIPWIRE_ACTIVATED;
 
 									// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
 									if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )
@@ -3872,13 +3870,13 @@ void HandleExplosionQueue( void )
 
 				if ( fgunfound && pAttGun && pAttGun->exists() )
 				{
-					// Flugente 2012-06-16: I ran into a weird bug. If activating multiple guntraps, an errro would occur when placing a gun on the floor. 
+					// Flugente 2012-06-16: I ran into a weird bug. If activating multiple guntraps, an error would occur when placing a gun on the floor. 
 					// The problem is the function GetFreeWorldItemIndex( ) in AddItemToWorld() in World Items.cpp.
 					// It gets a free index for the item that should be placed. If there is no free index, it creates a bigger array, copies the current array into it, and then deletes the old index.
 					// For some reason still unknown to me, this corrupts the pObj-pointer. It also corrupts the pAttGun-pointer, this is the reason I create a new object.
-					// I had to move some functions here to take care of that. It would be good if spmeone with more knowledge could take a look at this.
+					// I had to move some functions here to take care of that. It would be good if someone with more knowledge could take a look at this.
 
-					// fire with this gun, if possible. Afterwards palce it on the floor
+					// fire with this gun, if possible. Afterwards place it on the floor
 					OBJECTTYPE object(*pAttGun);
 					CheckAndFireTripwireGun( &object, sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
 				}
@@ -3896,9 +3894,9 @@ void HandleExplosionQueue( void )
 					}
 					gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
 				}
-
-				// we have to set the wire's temperature back to 0, otherwise tripwire will only work once
-				(newtripwireObject)[0]->data.bTemperature = 0;
+				
+				// delete the flag, otherwise wire will only work once
+				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
 
 				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
 				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
@@ -4380,10 +4378,9 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 						}
 												
 						// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
-						// Because of this, ActivateSurroundingTripwire wouldm normally find this wire again, a loop would occur.
-						// As i do not want to create an item flag for this purpose right now (but its on my TODO-list), we set the temperature of the wire to a higher value 
-						// (temperature for tripwire isn't needed anywhere else, so its ok)
-						(*pObj)[0]->data.bTemperature = 1000.0;
+						// Because of this, ActivateSurroundingTripwire would normally find this wire again, thus a loop would occur.
+						// So we mark the wire with this flag
+						(*pObj)[0]->data.sObjectFlag |= TRIPWIRE_ACTIVATED;
 
 						// activate surrounding tripwires and tripwire-activated mines, unless tripwire is too much damaged and we are unlucky.. 
 						if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )

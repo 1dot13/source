@@ -1454,8 +1454,8 @@ public:
 	// Flugente: return a cleaning kit from our inventory
 	OBJECTTYPE* GetCleaningKit();
 
-	// use any cleaning kits to clean weapons in inventory
-	void	CleanWeapon();
+	// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all eapons found, otherwise just the first one
+	void	CleanWeapon( BOOLEAN fCleanAll );
 
 	// Flugente: functions for the covert ops trait
 
