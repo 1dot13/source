@@ -624,7 +624,6 @@ extern CHAR16		gMoneyStatsDesc[][ 14 ];
 extern CHAR16		gWeaponStatsDesc[][ 19 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
-extern STR16		gzWeaponStatsFasthelp[ 32 ];
 extern STR16		gzWeaponStatsFasthelpTactical[ 32 ];
 extern STR16		gzMiscItemStatsFasthelp[ 34 ];
 // HEADROCK HAM 4: New tooltip texts

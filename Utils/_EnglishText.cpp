@@ -2476,45 +2476,6 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
-// changing item type while watching its description box
-// HEADROCK HAM 5: Apparently this isn't used anymore... see the next array.
-STR16		gzWeaponStatsFasthelp[ 32 ] =
-{
-	L"Accuracy",
-	L"Damage",
-	L"Range",
-	L"",	//3
-	L"Aiming Levels",
-	L"Aiming Modifier",
-	L"Average Best Laser Range",
-	L"Flash Suppression",
-	L"Loudness (lower is better)",
-	L"Reliability",
-	L"Repair Ease",
-	L"Min. Range for Aiming Bonus",
-	L"To-Hit Modifier",
-	L"APs to ready",
-	L"APs to fire Single",
-	L"APs to fire Burst",
-	L"APs to fire Auto",
-	L"APs to Reload",
-	L"APs to Reload Manually",
-	L"",	//19
-	L"Bipod Modifier",
-	L"Autofire shots per 5 AP",
-	L"Burst/Auto Penalty (Lower is better)",	//22
-	L"APs to Throw",
-	L"APs to Launch",
-	L"APs to Stab",
-	L"No Single Shot!",
-	L"No Burst Mode!",
-	L"No Auto Mode!",
-	L"APs to Bash",
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
-};
-
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
 	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",

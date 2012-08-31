@@ -871,7 +871,7 @@ STR16 pPasteMercPlacementText[] =
 {
 	L"Placement not pasted as no placement is saved in buffer.",
 	L"Placement pasted.",
-	L"Placement not pasted as the maximum number of placements for this team is already used.",
+	L"Placement not pasted as the maximum number of placements for this team has been reached.",
 };
 
 //editscreen.cpp
@@ -2114,6 +2114,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Старшина",	//Deputy
 	L"Механик-электронщик",	//Technician
 	L"Санитар",	//Paramedic
+	L"Covert Ops",		// 10	// TODO.Translate
 	// Minor traits
 	L"Ловкач",	//Ambidextrous
 	L"Мастер клинка",	//Melee
@@ -2135,6 +2136,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
+	L"Spy",				// 30	// TODO.Translate
 	L"Ещё...",
 };
 //////////////////////////////////////////////////////////
@@ -2474,44 +2476,6 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
-// changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 32 ] =
-{
-	L"Точность",							//Accuracy
-	L"Урон",							//Damage
-	L"Дальнобойность",						//Range
-	L"",	//3
-	L"Уровни прицеливания",	//Aiming Levels
-	L"Модификатор прицельной стрельбы",				//Aiming Modifier
-	L"Радиус наилучшей видимости\nточки прицеливания",		//Average Best Laser Range
-	L"Пламегаситель",						//Flash Suppression
-	L"Шумность (чем меньше, тем лучше)",				//Loudness (Lower is better)
-	L"Надёжность",							//Reliability
-	L"Простота ремонта",						//Repair Ease
-	L"Минимальная эффективная дальность",				//Min. Range for Aiming Bonus
-	L"Модификатор точности",					//To-Hit Modifier	
-	L"ОД на вскидку",						//APs to ready
-	L"ОД на 1 выстрел",						//APs to fire Single
-	L"ОД на огонь с отсечкой",					//APs to fire Burst
-	L"ОД на огонь очередью",					//APs to fire Auto
-	L"ОД на замену магазина",					//APs to Reload
-	L"ОД на досылку патрона",					//APs to Reload Manually
-	L"",	//19
-	L"Бонус от сошек\n(при стрельбе лёжа)",				//Bipod Modifier
-	L"Выстрелов в автоматическом\nрежиме за 5 ОД",			//Autofire shots per 5 AP
-	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (чем меньше, тем лучше)",	//Burst/Auto Penalty	//22
-	L"ОД на бросок",						//APs to Throw
-	L"ОД на выстрел",						//APs to Launch
-	L"ОД на удар ножом",						//APs to Stab
-	L"Не стреляет одиночными!",					//No Single Shot!
-	L"Нет отсечки патрона!",					//No Burst Mode!
-	L"Нет автоматического режима!",					//No Auto Mode!
-	L"ОД на удар",							//APs to Bash
-	L"Штраф за отдачу при \nстрельбе очередью \n(чем меньше, тем лучше)",	//Autofire Penalty (Lower is better)
-    L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(чем меньше, тем лучше)",		//Burst Penalty (Lower is better)
-};
-
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
 	// TODO.Translate
@@ -2938,7 +2902,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Nothing",	// TODO.Translate
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
+	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6280,6 +6244,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Подрывник: Сеять гранаты, как семена по полю; минировать поле, как картошку садить - густо и минимум 20 соток; а после созерцать на полет конечностей... Вот то, ради чего вы живёте! ± ",	//Demolitions: Sowing grenades like seeds, planting bombs, watching the limbs flying.. This is what you live for!
 	// Scouting
 	L"Разведчик: Ничто не скроется от вашего зоркого взгляда! ± ",	//Scouting: Nothing can escape your notice!
+	// Covert ops
+	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7045,7 +7011,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
 	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",
+	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7081,7 +7047,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

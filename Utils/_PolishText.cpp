@@ -2110,39 +2110,41 @@ STR16 gzMercSkillText[] =
 // SANDRO - added this
 STR16 gzMercSkillTextNew[] = 
 {
-// Major traits
-L"Brak UmiejętnoŚci",
-L"Broń Automatyczna",
-L"Broń Ciężka",
-L"Strzelec Wyborowy",
-L"MyŚliwy",
-L"Pistolero",
-L"Walka Wręcz",
-L"Zastępca Szeryfa",
-L"Technik",
-L"Paramedyk",
-// Minor traits
-L"OburęcznoŚć",
-L"Walka Wręcz",
-L"Rzucanie",
-L"Operacje Nocne",
-L"UkradkowoŚć",
-L"Atletyka",
-L"Bodybuilding",
-L"Ładunki Wybuchowe",
-L"Uczenie",
-L"Zwiad",
-// second names for major skills
-L"Strzelec RKMu",
-L"Bombardier",
-L"Snajper",
-L"MyŚliwy",
-L"Pistolero",
-L"Sztuki Walki",
-L"Dowódca Drużyny",
-L"Inżynier",
-L"Doktor",
-L"Więcej...",
+	// Major traits
+	L"Brak UmiejętnoŚci",
+	L"Broń Automatyczna",
+	L"Broń Ciężka",
+	L"Strzelec Wyborowy",
+	L"MyŚliwy",
+	L"Pistolero",
+	L"Walka Wręcz",
+	L"Zastępca Szeryfa",
+	L"Technik",
+	L"Paramedyk",
+	L"Covert Ops",		// 10	// TODO.Translate
+	// Minor traits
+	L"OburęcznoŚć",
+	L"Walka Wręcz",
+	L"Rzucanie",
+	L"Operacje Nocne",
+	L"UkradkowoŚć",
+	L"Atletyka",
+	L"Bodybuilding",
+	L"Ładunki Wybuchowe",
+	L"Uczenie",
+	L"Zwiad",
+	// second names for major skills
+	L"Strzelec RKMu",
+	L"Bombardier",
+	L"Snajper",
+	L"MyŚliwy",
+	L"Pistolero",
+	L"Sztuki Walki",
+	L"Dowódca Drużyny",
+	L"Inżynier",
+	L"Doktor",
+	L"Spy",				// 30	// TODO.Translate
+	L"Więcej...",
 };
 //////////////////////////////////////////////////////////
 
@@ -2481,44 +2483,6 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
-// changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 32 ] =
-{
-	L"CelnoŚć",
-	L"Obraż.",
-	L"Zas.",
-	L"",	//3
-	L"Aiming Levels",
-	L"Modf. celowania",
-	L"Średni max zasg. lasera",
-	L"Tłumienie błysku",
-	L"GłoŚnoŚć (mniej - lepiej)",
-	L"Stan",
-	L"Trud napraw",
-	L"Min. zasg. dla bonusu cel.",
-	L"Modyf. trafień",	
-	L"AP/przygot.",
-	L"AP za 1 strzał",
-	L"AP za serię",
-	L"AP za Auto",
-	L"AP/przeładuj",
-	L"AP/przeładuj ręcznie",
-	L"",	//19
-	L"Modf. dwójnogu",
-	L"Auto/5AP",
-	L"PA: (mniej - lepiej)",	//22
-	L"AP za rzut",
-	L"AP za strzał",
-	L"AP/cios-nóż",
-	L"Wył. 1 strzał!",
-	L"Wył. serię!",
-	L"Wył. auto!",
-	L"AP/cios-łom",
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
-};
-
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
 	// TODO.Translate
@@ -2945,7 +2909,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Nothing",	// TODO.Translate
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
+	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6306,6 +6270,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Materiały wybuchowe: Potrafisz wysadzić miasto przy użyciu standardowego wyposażenia kuchni! ± ",
 	// Scouting
 	L"Zwiadowca: Nic nie umknie twej uwadze! ± ",
+	// Covert ops
+	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7077,7 +7043,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
 	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",
+	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7113,7 +7079,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

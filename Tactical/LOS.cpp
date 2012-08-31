@@ -5295,7 +5295,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	UINT8		ubLoop=0;
 	UINT8		ubShots=0;
 	UINT8		ubImpact=0;
-	INT8		bCTGT;
+	INT8		bCTGT = 0;
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
 	int n=0;

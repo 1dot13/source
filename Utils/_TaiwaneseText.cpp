@@ -869,7 +869,7 @@ STR16 pPasteMercPlacementText[] =
 {
 	L"Placement not pasted as no placement is saved in buffer.",
 	L"Placement pasted.",
-	L"Placement not pasted as the maximum number of placements for this team is already used.",
+	L"Placement not pasted as the maximum number of placements for this team has been reached.",
 };
 
 //editscreen.cpp
@@ -2114,6 +2114,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Deputy",
 	L"Technician",
 	L"Paramedic",
+	L"Covert Ops",		// 10	// TODO.Translate
 	// Minor traits
 	L"Ambidextrous",
 	L"Melee",
@@ -2135,6 +2136,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Squadleader",
 	L"Engineer",
 	L"Doctor",
+	L"Spy",				// 30	// TODO.Translate
 	L"More...",
 };
 //////////////////////////////////////////////////////////
@@ -2475,44 +2477,6 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
-// changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 32 ] =
-{
-	L"Accuracy",
-	L"Damage",
-	L"Range",
-	L"",	//3
-	L"Aiming Levels",
-	L"Aiming Modifier",
-	L"Average Best Laser Range",
-	L"Flash Suppression",
-	L"Loudness (Lower is better)",
-	L"Reliability",
-	L"Repair Ease",
-	L"Min. Range for Aiming Bonus",
-	L"To-Hit Modifier",	
-	L"APs to ready",
-	L"APs to fire Single",
-	L"APs to fire Burst",
-	L"APs to fire Auto",
-	L"APs to Reload",
-	L"APs to Reload Manually",
-	L"",	//19
-	L"Bipod Modifier",
-	L"Autofire shots per 5 AP",
-	L"Burst/Auto Penalty (Lower is better)",	//22
-	L"APs to Throw",
-	L"APs to Launch",
-	L"APs to Stab",
-	L"No Single Shot!",
-	L"No Burst Mode!",
-	L"No Auto Mode!",
-	L"APs to Bash",
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
-};
-
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
 	// TODO.Translate
@@ -2939,7 +2903,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Nothing",	// TODO.Translate
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
+	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6312,7 +6276,9 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Demolitions
 	L"Demolitions: You can blow up a whole city just by common home stuff! ± ",
 	// Scouting
-	L"Scouting: Nothing can escape your notice! ± ",	
+	L"Scouting: Nothing can escape your notice! ± ",
+	// Covert ops
+	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7082,7 +7048,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
 	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",
+	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7118,7 +7084,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

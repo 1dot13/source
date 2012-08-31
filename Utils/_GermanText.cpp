@@ -894,7 +894,7 @@ STR16 pPasteMercPlacementText[] =
 {
 	L"Placement not pasted as no placement is saved in buffer.",
 	L"Placement pasted.",
-	L"Placement not pasted as the maximum number of placements for this team is already used.",
+	L"Placement not pasted as the maximum number of placements for this team has been reached.",
 };
 
 //editscreen.cpp
@@ -2125,7 +2125,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Gruppenführer",
 	L"Mechaniker",
 	L"Sanitäter",
-
+	L"Covert Ops",		// 10	// TODO.Translate
 	// Minor traits
 	L"Beidhänder",
 	L"Messerkämpfer",
@@ -2148,7 +2148,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Zugführer",
 	L"Ingenieur",
 	L"Arzt",
-	
+	L"Spy",				// 30	// TODO.Translate
 	L"Mehr...",
 };
 
@@ -2481,43 +2481,6 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
-// changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 32 ] =
-{
-	L"Genauigkeit",
-	L"Schaden",
-	L"Reichweite",
-	L"",	//3
-	L"Zielgenauigkeit",
-	L"Zielen-Modifikator",
-	L"Durchschn. beste Laser-Reichweite",
-	L"Mündungsfeuerdämpfung",
-	L"Lautstärke (Niedriger ist besser)",
-	L"Zuverlässigkeit",
-	L"Reparaturleichtigkeit",
-	L"Min. Reichweite für Zielen-Bonus",
-	L"Treffer-Modifikator",	
-	L"APs zum Anlegen",
-	L"APs für Einzelschuss",
-	L"APs für Feuerstoß",
-	L"APs für Autofeuer",
-	L"APs zum Nachladen",
-	L"APs zum manuellen Nachladen",
-	L"",	//19
-	L"Zweibein-Modifikator",
-	L"Autofeuer: Schüsse je 5 AP",
-	L"Burst/Auto-Streuung (Niedriger ist besser)",	//22
-	L"APs zum Werfen",
-	L"APs zum Abschießen",
-	L"APs zum Stechen",
-	L"Kein Einzelschuss!",
-	L"Kein Feuerstoß!",
-	L"Kein Autofeuer!",
-	L"APs zum Schlagen",
-	L"Autofeuer-Streuung (Niedriger ist besser)",
-	L"Feuerstoß-Streuung (Niedriger ist besser)",
-};
 
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {	
@@ -2941,7 +2904,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Nothing",	// TODO.Translate
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
+	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6128,7 +6091,9 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Demolitions
 	L"Sprengmeister: Nutzen Sie Ihre Begeisterung für alles, was mit mehrfacher Schallgeschwindigkeit expandiert um sich im Training mit Granaten und Sprengstoffen hervorzutun. ± ",
 	// Scouting
-	L"Aufklärer: Sie sind über die Maßen aufmerksam, haben ein sehr reges Auge und einen nimmermüden Geist. ± ",	
+	L"Aufklärer: Sie sind über die Maßen aufmerksam, haben ein sehr reges Auge und einen nimmermüden Geist. ± ",
+	// Covert ops
+	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -6897,7 +6862,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|M|u|n|i|t|i|o|n|s|g|u|r|t",
 	L"|M|u|n|i|t|i|o|n|s|w|e|s|t|e",
 	L"|D|e|f|u|s|a|l |K|i|t", // TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",
+	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -6933,7 +6898,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nEin externer Munitionsgurt für MGs.",
 	L"\n \nIn diese Weste passen auch Munitionsgurte.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

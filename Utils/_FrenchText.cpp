@@ -2114,6 +2114,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Manager",
 	L"Technicien",
 	L"Médecin",
+	L"Covert Ops",		// 10	// TODO.Translate
 	// Minor traits
 	L"Ambidextre",
 	L"Mêlée",
@@ -2135,6 +2136,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Commandant",
 	L"Ingénieur",
 	L"Chirurgien",
+	L"Spy",				// 30	// TODO.Translate
 	L"Plus...",
 };
 //////////////////////////////////////////////////////////
@@ -2473,44 +2475,6 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
-// changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 32 ] =
-{
-	L"Précision",
-	L"Dégats",
-	L"Portée",
-	L"",	//3
-	L"Niveaux de visée",
-	L"Facteur de visée",
-	L"Meilleurs portée maser moyenne",
-	L"Cache-flammes",
-	L"Intensité sonore (Valeur faible recommandée)",
-	L"Fiabilité",
-	L"Facilité d'entretien",
-	L"Portée mini pour bonus visée",
-	L"Facteur de toucher",	
-	L"PA pour mettre en joue",
-	L"PA par tir",
-	L"PA par rafale",
-	L"PA pour tir auto.",
-	L"PA pour recharger",
-	L"PA pour recharger manuellement",
-	L"",	//19
-	L"Facteur du bipied",
-	L"Nombre de tirs pour 5 PA",
-	L"Pénalité Rafale/Auto (Valeur faible recommandée)",	//22
-	L"PA pour jeter",
-	L"PA pour lancer",
-	L"PA pour poignarder",
-	L"Pas de tir simple!",
-	L"Pas de tir en rafale!",
-	L"Pas de tir auto.!",
-	L"PA pour frapper",
-	L"Pénalité Auto (Moins c'est mieux)",
-    L"Pénalité Rafale (Moins c'est mieux)",
-};
-
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
 	// TODO.Translate
@@ -2937,7 +2901,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Nothing",	// TODO.Translate
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
+	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -6289,6 +6253,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Démolition: Vous pouvez réduire à néant toute une ville rien qu'avec des produits ménagers ! ± ",
 	// Scouting
 	L"Reconnaissance: Rien n'échappe à votre vigilance ! ± ",
+	// Covert ops
+	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -7053,7 +7019,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|m|m|o |B|e|l|t",
 	L"|A|m|m|o |V|e|s|t",
 	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",
+	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7089,7 +7055,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
+	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
