@@ -7843,12 +7843,32 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 	UINT32 ubWireNetworkFlag = 0;
 	if ( Item[pObj->usItem].tripwire == 1 && bSetting > 0 && bSetting < 17 ) // checks for safety
 	{
+		// we are placing it, so it's ours
+		ubWireNetworkFlag |= TRIPWIRE_NETWORK_OWNER_PLAYER;
+				
 		// the bSetting consists of the network number + 4 * (network hierarchy - 1)
+		INT8 netnr = bSetting % 4;
+		INT8 hierarchytimesfour = bSetting - netnr;
 
-		// account for placement by the enemy
-		INT8 editoradj = 16;
-		//if ( editor ) editoradj = 0;	or something like that
-		ubWireNetworkFlag = 1 << (editoradj - 1 + bSetting);
+		if ( 1 == netnr )
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_1;
+		else if ( 2 == netnr )
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_2;
+		else if ( 3 == netnr )
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_3;
+		else
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_4;
+
+		if ( 0 == hierarchytimesfour )
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_1;
+		else if ( 1 == hierarchytimesfour )
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_2;
+		else if ( 2 == hierarchytimesfour )
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_3;
+		else
+			ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_4;
+
+		// TOOD: once tripwire can be placed in the editor, this has to be altered
 	}
 
 	if (fDefuse)	// TODO: doesn't work this way if both a detonator and a remote defuse is attached...

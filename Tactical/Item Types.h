@@ -675,45 +675,51 @@ extern OBJECTTYPE gTempObject;
 
 // -------- added by Flugente: flags for tripwire networks --------
 // the numbering of these flags is important. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
-#define ENEMY_NET_1_LVL_1		0x00000001	//1
-#define ENEMY_NET_2_LVL_1		0x00000002	//2
-#define ENEMY_NET_3_LVL_1		0x00000004	//4
-#define ENEMY_NET_4_LVL_1		0x00000008	//8
+// these flags were revised on 2012-9-2
+// it is theoretically possible to have much more than the currently existing 4 networks, and to have many more hierarchy levels
+// however, at the moment, there is no need for that
+#define TRIPWIRE_NETWORK_OWNER_ENEMY		0x00000001	//1			// this wire belongs to an enemy network
+#define TRIPWIRE_NETWORK_OWNER_PLAYER		0x00000002	//2			// this wire was set by the player
+//#define TRIPWIRE_NETWORK_OWNER_PLAYER		0x00000004	//4			// unused, might one day be used in multiplayer or with several factions
+//#define TRIPWIRE_NETWORK_OWNER_PLAYER		0x00000008	//8			// unused, might one day be used in multiplayer or with several factions
 
-#define ENEMY_NET_1_LVL_2		0x00000010	//16
-#define ENEMY_NET_2_LVL_2		0x00000020	//32
-#define ENEMY_NET_3_LVL_2   	0x00000040	//64
-#define ENEMY_NET_4_LVL_2		0x00000080	//128
+#define TRIPWIRE_NETWORK_NET_1				0x00000010	//16		// network number  of the wire
+#define TRIPWIRE_NETWORK_NET_2				0x00000020	//32
+#define TRIPWIRE_NETWORK_NET_3   			0x00000040	//64
+#define TRIPWIRE_NETWORK_NET_4				0x00000080	//128
 
-#define ENEMY_NET_1_LVL_3		0x00000100	//256
+/*#define ENEMY_NET_1_LVL_3		0x00000100	//256
 #define ENEMY_NET_2_LVL_3		0x00000200	//512
 #define ENEMY_NET_3_LVL_3		0x00000400	//1024
 #define ENEMY_NET_4_LVL_3		0x00000800	//2048
 
-#define ENEMY_NET_1_LVL_4		0x00001000	//4096
-#define ENEMY_NET_2_LVL_4       0x00002000	//8192
-#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
-#define ENEMY_NET_4_LVL_4		0x00008000	//32768
+#define TRIPWIRE_NETWORK_LVL_1				0x00001000	//4096		// hierarchy level of the wire
+#define TRIPWIRE_NETWORK_LVL_2				0x00002000	//8192
+#define TRIPWIRE_NETWORK_LVL_3 				0x00004000	//16384
+#define TRIPWIRE_NETWORK_LVL_4				0x00008000	//32768
 
 #define PLAYER_NET_1_LVL_1		0x00010000	//65536
 #define PLAYER_NET_2_LVL_1      0x00020000	//131072
 #define PLAYER_NET_3_LVL_1		0x00040000	//262144
-#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+#define PLAYER_NET_4_LVL_1		0x00080000	//524288*/
 
-#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
-#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
-#define PLAYER_NET_3_LVL_2		0x00400000	//4194304
-#define PLAYER_NET_4_LVL_2		0x00800000	//8388608
+// WARNING! It is important that the flags with the highest numbers are the hierarchy flags!
+// This allows for a very simple check on wether a wire gets called
+// keep this in mind when adding additional flags!
+#define TRIPWIRE_NETWORK_LVL_1				0x00100000	//1048576	// hierarchy level of the wire
+#define TRIPWIRE_NETWORK_LVL_2				0x00200000	//2097152
+#define TRIPWIRE_NETWORK_LVL_3				0x00400000	//4194304
+#define TRIPWIRE_NETWORK_LVL_4				0x00800000	//8388608
 
-#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
-#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
-#define PLAYER_NET_3_LVL_3		0x04000000	//67108864
-#define PLAYER_NET_4_LVL_3		0x08000000	//134217728
+/*#define TRIPWIRE_NETWORK_LVL_1		0x01000000	//16777216
+#define TRIPWIRE_NETWORK_LVL_2		0x02000000	//33554432
+#define TRIPWIRE_NETWORK_LVL_3		0x04000000	//67108864
+#define TRIPWIRE_NETWORK_LVL_4		0x08000000	//134217728
 
 #define PLAYER_NET_1_LVL_4		0x10000000	//268435456
 #define PLAYER_NET_2_LVL_4		0x20000000	//536870912
 #define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
-#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648
+#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: various item flags --------
@@ -772,7 +778,7 @@ extern OBJECTTYPE gTempObject;
 #define CORPSE_HAIR_WHITE   	0x00000040	//64
 #define CORPSE_HAIR_BLOND		0x00000080	//128
 
-#define CORPSE_HAIR_RED			0x00000100	//256
+#define CORPSE_NO_ZOMBIE_RISE	0x00000100	//256		// no zombie can rise from this corpse
 #define CORPSE_SKIN_PINK		0x00000200	//512
 #define CORPSE_SKIN_TAN			0x00000400	//1024
 #define CORPSE_SKIN_DARK		0x00000800	//2048

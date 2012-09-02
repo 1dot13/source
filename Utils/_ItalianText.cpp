@@ -2895,6 +2895,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with the corpses
 	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
+
+	// Flugente: weapon cleaning	// TODO.Translate
+	L"%s cleaned %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -7373,6 +7376,67 @@ STR16	gszPocketPopupText[]=
 	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
 	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
 	L"more...",		//POCKET_POPUP_MOAR
+};
+
+// Flugente: externalised texts for some features	// TODO.Translate
+STR16	szCovertTextStr[]=
+{
+	L"%s has camo!",
+	L"%s has a backpack!",
+	L"%s is seen carrying a corpse!",
+	L"%s wears suspicious LBE gear!",
+	L"%s possesses military hardware!",
+	L"%s carries too many guns!",
+	L"%s equipment is too good!",
+	L"%s gun has too many attachments!",
+	L"%s was seen performing suspicious activities!",
+	L"%s does not look like a civilian!",
+	L"%s bleeding was discovered!",
+	L"%s is drunk and doesn't look like a soldier!",
+	L"On closer inspection, %s's disguise does not hold!",
+	L"%s isn't supposed to be here!",
+	L"%s isn't supposed to be here at this time!",
+	L"%s was seen near a fresh corpse!",
+	L"%s equipment raises a few eyebrows!",
+	L"%s is seen targeting a soldier!",
+	L"%s has seen through %s disguise!",
+	L"No clothes item found in Items.xml!",
+	L"This does not work with the old trait system!",
+	L"Not enough Aps!",
+	L"Bad palette found!",
+	L"You need the covert skill to do this!",
+	L"No uniform found!",
+};
+
+STR16	szCorpseTextStr[]=
+{
+	L"No head item found in Items.xml!",
+	L"Corpse cannot be decapitated!",
+	L"No meat item found in Items.xml!",
+	L"Not possible, you sick, twisted individual!",
+	L"No clothes to take!",
+	L"%s cannot take clothes off of this corpse!",
+	L"This corpse cannot be taken!",
+	L"No free hand to carry corpse!",
+	L"No corpse item found in Items.xml!",
+	L"Invalid corpse ID!",
+};
+
+STR16	szFoodTextStr[]=
+{
+	L"%s does not want to eat %s",
+	L"%s does not want to drink %s",
+	L"%s ate %s",
+	L"%s drank %s",
+	L"%s's strength was damaged due to being overfed!",
+	L"%s's strength was damaged due to lack of nutrition!",
+	L"%s's health was damaged due to being overfed!",
+	L"%s's health was damaged due to lack of nutrition!",
+	L"%s's strength was damaged due to excessive drinking!",
+	L"%s's strength was damaged due to lack of water!",
+	L"%s's health was damaged due to excessive drinking!",
+	L"%s's health was damaged due to lack of water!",
+	L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
 #endif //ITALIAN

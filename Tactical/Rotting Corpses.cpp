@@ -1896,7 +1896,11 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 			// All teams lok for this...
 			NotifySoldiersToLookforItems( );
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_HEAD_ITEM] );
 	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_DECAPITATION] );
 }
 
 // Flugente: can this corpse be gutted?
@@ -1945,9 +1949,11 @@ void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 			// All teams lok for this...
 			NotifySoldiersToLookforItems( );
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_MEAT_ITEM] );
 	}
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Not possible, you sick, sick individual!" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_GUTTING] );
 }
 
 // Flugente: can clothes be taken off of this corpse?
@@ -1969,7 +1975,7 @@ void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
-	if ( pCorpse == NULL )
+	if ( pCorpse == NULL || !pSoldier )
 		return;
 
 	// can this thing be stripped?
@@ -1981,9 +1987,11 @@ void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 			// we took the clothes, mark this
 			pCorpse->def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_STRIPPING_POSSIBLE], pSoldier->name );
 	}
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No clothes to take!" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_CLOTHESFOUND] );
 }
 
 // Flugente: can clothes be taken off of this corpse?
@@ -2000,7 +2008,7 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
-	if ( pCorpse == NULL )
+	if ( pCorpse == NULL || !pSoldier )
 		return;
 	
 	// can this corpse be picked up?
@@ -2029,6 +2037,11 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 
 					if ( pCorpse->def.usFlags & ROTTING_CORPSE_CLOTHES_TAKEN )
 						gTempObject[0]->data.sObjectFlag |= CORPSE_STRIPPED;
+
+#ifdef ENABLE_ZOMBIES
+					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NEVER_RISE_AGAIN )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_ZOMBIE_RISE;
+#endif
 				
 					// now we have to get the correct flags for the object from the corpse, so that upon recreating the corpse, it looks the same
 					UINT8 headpal = 0, skinpal = 0, vestpal = 0, pantspal = 0;
@@ -2053,7 +2066,7 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 						break;				
 					case 4:
 					default:
-						gTempObject[0]->data.sObjectFlag |= CORPSE_HAIR_RED;
+						// the default value (which is also used for red hair) is nothing. Upon spawning a corpse from an item, we assume that it has red hair if none of the above flags is found
 						break;
 					}
 
@@ -2145,12 +2158,16 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 				}
 			}
 			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No free hand to carry corpse!" );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_FREEHAND] );
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_CORPSE_ITEM] );
 	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_TAKING] );
 }
 
-// Flugente: create a corpse from an object and plce it in the world
+// Flugente: create a corpse from an object and place it in the world
 BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 {
 	if ( !pObj || !HasItemFlag(pObj->usItem, CORPSE) )
@@ -2291,8 +2308,15 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 		else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLACK && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLACK )
 			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_ELITE;
 
+#ifdef ENABLE_ZOMBIES
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_ZOMBIE_RISE )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
+#endif
+
 		return TRUE;
 	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_INVALID_CORPSE_ID] );
 
 	return FALSE;
 }

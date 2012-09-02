@@ -902,7 +902,12 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				}
 				else
 				{
-					pSoldier->EVENT_SoldierBeginCutFence( sAdjustedGridNo, ubDirection );
+					// Flugente: if we are trying to defuse a tripwire, call EVENT_SoldierDefuseTripwire() instead
+					INT32 tripwirefound = FindWorldItemForTripwireInGridNo( sGridNo, pSoldier->pathing.bLevel, TRUE );
+					if ( tripwirefound != -1 )
+						pSoldier->EVENT_SoldierDefuseTripwire( sGridNo, tripwirefound );
+					else
+						pSoldier->EVENT_SoldierBeginCutFence( sAdjustedGridNo, ubDirection );
 				}
 
 
@@ -1611,7 +1616,7 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				pSoldier->inv[ HANDPOS ][0]->data.ubDirection = pSoldier->ubDirection;
 
 				// no frequency known... give a default value, so we don't defuse it by accident
-				gTempObject[0]->data.ubWireNetworkFlag = ENEMY_NET_1_LVL_1;
+				gTempObject[0]->data.ubWireNetworkFlag = (TRIPWIRE_NETWORK_OWNER_ENEMY|TRIPWIRE_NETWORK_NET_1|TRIPWIRE_NETWORK_LVL_1);
 				gTempObject[0]->data.bDefuseFrequency = 0;
 
 				// we now know there is something nasty here
@@ -1653,6 +1658,18 @@ void HandleTacticalFunctionSelection( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 void HandleSoldierUseCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	StartCorpseMessageBox( pSoldier, sGridNo, bLevel );
+}
+
+void HandleSoldierDefuseTripwire( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT32 sItem )
+{
+	gpBoobyTrapItemPool   = GetItemPoolForIndex( sGridNo, sItem, pSoldier->pathing.bLevel );
+	gpBoobyTrapSoldier    = pSoldier;
+	gsBoobyTrapGridNo     = sGridNo;
+	gbBoobyTrapLevel      = pSoldier->pathing.bLevel;
+	gfDisarmingBuriedBomb = FALSE;
+	gbTrapDifficulty      = (gWorldItems[ sItem ].object)[0]->data.bTrap;
+
+	DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ DISARM_BOOBYTRAP_PROMPT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
 }
 
 void SoldierHandleDropItem( SOLDIERTYPE *pSoldier )

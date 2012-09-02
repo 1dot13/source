@@ -3686,25 +3686,26 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 								BOOLEAN samenetwork = FALSE;
 								BOOLEAN sameorlowerhierarchy = FALSE;
 
-								if ( ubWireNetworkFlag <= ubFlag )		// hierarchy of a group is sorted, so this suffices
+								// the biggest flags are the hierarchy flags, so a simple comparison is enough here
+								if ( ubWireNetworkFlag <= ubFlag )
 									sameorlowerhierarchy = TRUE;
 							
 								if ( !sameorlowerhierarchy )
 									continue;
 
-								for (INT8 i = 0; i < 2; ++i)	// 2 runs: first for enemy networks, second for player networks
+								// test: do the 2 wires belong to the same 'side'?
+								if ( ( (ubFlag & TRIPWIRE_NETWORK_OWNER_ENEMY) && (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_ENEMY) ) || ( (ubFlag & TRIPWIRE_NETWORK_OWNER_PLAYER) && (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER) ) )
 								{
-									for (INT8 j = 0; j < 4; ++j)
-									{
-										UINT32 samenetworkflag = ( ENEMY_NET_1_LVL_1 | ENEMY_NET_1_LVL_2 | ENEMY_NET_1_LVL_3 | ENEMY_NET_1_LVL_4 ) << (16*i + j);			// comparing with this flag will determine the network
-
-										if ( ( (ubFlag & samenetworkflag) != 0 ) && ( (ubWireNetworkFlag & samenetworkflag) != 0 ) )
-											samenetwork = TRUE;
-
-										if ( samenetwork )
-											break;
-									}
+									if ( ( (ubFlag & TRIPWIRE_NETWORK_NET_1) && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_1) ) ||
+										( (ubFlag & TRIPWIRE_NETWORK_NET_2) && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_2) ) ||
+										( (ubFlag & TRIPWIRE_NETWORK_NET_3) && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_3) ) ||
+										( (ubFlag & TRIPWIRE_NETWORK_NET_4) && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_4) ) )
+										samenetwork = TRUE;
+									else
+										continue;
 								}
+								else
+									continue;
 
 								if ( samenetwork && sameorlowerhierarchy )
 								{

@@ -116,9 +116,9 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 			// notification
 			if ( type == AP_EAT )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not want to eat %s", pSoldier->name, Item[pObject->usItem].szItemName );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_EAT], pSoldier->name, Item[pObject->usItem].szItemName );
 			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not want to drink %s", pSoldier->name, Item[pObject->usItem].szItemName );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_DRINK], pSoldier->name, Item[pObject->usItem].szItemName );
 
 			// Say quote!
 			TacticalCharacterDialogue( pSoldier, 61 );
@@ -192,9 +192,9 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 	// notification
 	if ( type == AP_EAT )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s ate %s", pSoldier->name, Item[pObject->usItem].szItemName );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_ATE], pSoldier->name, Item[pObject->usItem].szItemName );
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s drank %s", pSoldier->name, Item[pObject->usItem].szItemName );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DRANK], pSoldier->name, Item[pObject->usItem].szItemName );
 	
 	// now remove a portion of the food item (or the whole item altogether)
 	UINT16 ptsconsumed = UseKitPoints( pObject, Food[foodtype].ubPortionSize, pSoldier );
@@ -367,9 +367,9 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
 
 			if ( foodsituation < FOOD_NORMAL )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to being overfed!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_STR_DAMAGE_FOOD_TOO_MUCH], pSoldier->name );
 			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of nutrition!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_STR_DAMAGE_FOOD_TOO_LESS], pSoldier->name );
 		}
 
 		// damage health
@@ -398,9 +398,9 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 
 			if ( foodsituation < FOOD_NORMAL )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to being overfed!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_HEALTH_DAMAGE_FOOD_TOO_MUCH], pSoldier->name );
 			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of nutrition!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_HEALTH_DAMAGE_FOOD_TOO_LESS], pSoldier->name );
 
 			// if we fall below OKLIFE, we start bleeding...
 			// Reason for this is that 
@@ -451,9 +451,9 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
 
 			if ( watersituation < FOOD_NORMAL )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to excessive drinking!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_STR_DAMAGE_DRINK_TOO_MUCH], pSoldier->name );
 			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's strength was damaged due to lack of water!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_STR_DAMAGE_DRINK_TOO_LESS], pSoldier->name );
 		}
 
 		// damage health
@@ -484,9 +484,9 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 			gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 			
 			if ( watersituation < FOOD_NORMAL )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to excessive drinking!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_HEALTH_DAMAGE_DRINK_TOO_MUCH], pSoldier->name );
 			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's health was damaged due to lack of water!", pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_HEALTH_DAMAGE_DRINK_TOO_LESS], pSoldier->name );
 
 			// if we fall below OKLIFE, we start bleeding...
 			// Reason for this is that 
@@ -733,7 +733,7 @@ void SectorFillCanteens( void )
 {
 	if ( !gGameOptions.fFoodSystem )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"SectorFillCanteen not possible, Food System is off!" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_ERROR_NO_FOOD_SYSTEM] );
 		return;
 	}
 

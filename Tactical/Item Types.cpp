@@ -1317,7 +1317,7 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[0]->data.misc.bActionValue = src.ugYucky.bActionValue;
 				(*this)[0]->data.misc.ubTolerance = src.ugYucky.ubTolerance;	// includes ubLocationID
 				(*this)[0]->data.ubDirection = DIRECTION_IRRELEVANT;
-				(*this)[0]->data.ubWireNetworkFlag = ENEMY_NET_1_LVL_1;
+				(*this)[0]->data.ubWireNetworkFlag = (TRIPWIRE_NETWORK_OWNER_ENEMY|TRIPWIRE_NETWORK_NET_1|TRIPWIRE_NETWORK_LVL_1);
 				(*this)[0]->data.bDefuseFrequency = 0;
 				break;
 			default:

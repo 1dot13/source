@@ -1129,15 +1129,19 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 										// determine this tripwire's flag
 										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
-										// correct network?
-										if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_1 | PLAYER_NET_1_LVL_2 | PLAYER_NET_1_LVL_3 | PLAYER_NET_1_LVL_4 ) ) != 0 )
-											bMines = MINES_NET_1;
-										else if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_1 | PLAYER_NET_2_LVL_2 | PLAYER_NET_2_LVL_3 | PLAYER_NET_2_LVL_4 ) ) != 0 )
-											bMines = MINES_NET_2;
-										else if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_1 | PLAYER_NET_3_LVL_2 | PLAYER_NET_3_LVL_3 | PLAYER_NET_3_LVL_4 ) ) != 0 )
-											bMines = MINES_NET_3;
-										else if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_1 | PLAYER_NET_4_LVL_2 | PLAYER_NET_4_LVL_3 | PLAYER_NET_4_LVL_4 ) ) != 0 )
-											bMines = MINES_NET_4;
+										// only if its one of our networks
+										if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER ) != 0 )
+										{
+											// correct network?
+											if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_1 ) != 0 )
+												bMines = MINES_NET_1;
+											else if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_2 ) != 0 )
+												bMines = MINES_NET_2;
+											else if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_3 ) != 0 )
+												bMines = MINES_NET_3;
+											else if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_4 ) != 0 )
+												bMines = MINES_NET_4;
+										}
 									}
 								}
 								break;
@@ -1151,15 +1155,15 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
 										// correct network?
-										if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_1 | PLAYER_NET_1_LVL_2 | PLAYER_NET_1_LVL_3 | PLAYER_NET_1_LVL_4 ) ) != 0 )
+										if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER ) != 0 && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_1 ) != 0 )
 										{
 											bMines = MINES_LVL_1;
 
-											if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_2 ) ) != 0 )
+											if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_2 ) ) != 0 )
 												bMines = MINES_LVL_2;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_3 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_3 ) ) != 0 )
 												bMines = MINES_LVL_3;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_1_LVL_4 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_4 ) ) != 0 )
 												bMines = MINES_LVL_4;
 										}
 									}
@@ -1175,15 +1179,15 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
 										// correct network?
-										if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_1 | PLAYER_NET_2_LVL_2 | PLAYER_NET_2_LVL_3 | PLAYER_NET_2_LVL_4 ) ) != 0 )
+										if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER ) != 0 && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_2 ) != 0 )
 										{
 											bMines = MINES_LVL_1;
 
-											if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_2 ) ) != 0 )
+											if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_2 ) ) != 0 )
 												bMines = MINES_LVL_2;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_3 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_3 ) ) != 0 )
 												bMines = MINES_LVL_3;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_2_LVL_4 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_4 ) ) != 0 )
 												bMines = MINES_LVL_4;
 										}
 									}
@@ -1199,15 +1203,15 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
 										// correct network?
-										if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_1 | PLAYER_NET_3_LVL_2 | PLAYER_NET_3_LVL_3 | PLAYER_NET_3_LVL_4 ) ) != 0 )
+										if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER ) != 0 && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_3 ) != 0 )
 										{
 											bMines = MINES_LVL_1;
 
-											if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_2 ) ) != 0 )
+											if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_2 ) ) != 0 )
 												bMines = MINES_LVL_2;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_3 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_3 ) ) != 0 )
 												bMines = MINES_LVL_3;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_3_LVL_4 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_4 ) ) != 0 )
 												bMines = MINES_LVL_4;
 										}
 									}
@@ -1223,15 +1227,15 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 										UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
 
 										// correct network?
-										if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_1 | PLAYER_NET_4_LVL_2 | PLAYER_NET_4_LVL_3 | PLAYER_NET_4_LVL_4 ) ) != 0 )
+										if ( (ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER ) != 0 && (ubWireNetworkFlag & TRIPWIRE_NETWORK_NET_4 ) != 0 )
 										{
 											bMines = MINES_LVL_1;
 
-											if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_2 ) ) != 0 )
+											if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_2 ) ) != 0 )
 												bMines = MINES_LVL_2;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_3 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_3 ) ) != 0 )
 												bMines = MINES_LVL_3;
-											else if ( (ubWireNetworkFlag & ( PLAYER_NET_4_LVL_4 ) ) != 0 )
+											else if ( (ubWireNetworkFlag & ( TRIPWIRE_NETWORK_LVL_4 ) ) != 0 )
 												bMines = MINES_LVL_4;
 										}
 									}

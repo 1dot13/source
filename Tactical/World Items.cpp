@@ -287,6 +287,36 @@ INT32 FindWorldItemForBombInGridNo( INT32 sGridNo, INT8 bLevel )
 	return( -1 );
 }
 
+// Flugente: is there a planted tripwire at this gridno? fKnown = TRUE: only return true if we know of that one already
+INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKnown )
+{
+	UINT32			uiBombIndex;
+	OBJECTTYPE*		pObj = NULL;
+
+	for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; uiBombIndex++)
+	{
+		if (gWorldBombs[ uiBombIndex ].fExists && gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].sGridNo == sGridNo && gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].ubLevel == bLevel )
+		{
+			pObj = &( gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].object );
+
+			if ( pObj && Item[pObj->usItem].tripwire )
+			{
+				if ( !fKnown )
+					return( gWorldBombs[ uiBombIndex ].iItemIndex );
+
+				// owned by the player team - we know of this thing
+				if ( (*pObj)[0]->data.ubWireNetworkFlag & TRIPWIRE_NETWORK_OWNER_PLAYER )					
+					return( gWorldBombs[ uiBombIndex ].iItemIndex );
+
+				// something is here, as a blue flag is planted
+				if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+					return( gWorldBombs[ uiBombIndex ].iItemIndex );
+			}
+		}
+	}
+	return( -1 );
+}
+
 
 void FindPanicBombsAndTriggers( void )
 {

@@ -118,6 +118,9 @@ extern INT32 AddBombToWorld( INT32 iItemIndex );
 extern void FindPanicBombsAndTriggers( void );
 extern INT32 FindWorldItemForBombInGridNo( INT32 sGridNo, INT8 bLevel);
 
+// Flugente: is there a planted tripwire at this gridno? fKnown = TRUE: only return true if we know of that one already
+extern INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKnown = TRUE );
+
 void RefreshWorldItemsIntoItemPools( WORLDITEM * pItemList, INT32 iNumberOfItems );
 void CoolDownWorldItems( );			// Flugente: Cool/decay down all items in this sector
 

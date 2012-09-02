@@ -3073,7 +3073,7 @@ void recievePLANTEXPLOSIVE (RPCParameters *rpcParameters)
 				(*pObj)[0]->data.misc.bDelay = exp->bDelayFreq;
 
 			(*pObj)[0]->data.ubDirection = DIRECTION_IRRELEVANT;
-			(*pObj)[0]->data.ubWireNetworkFlag = ENEMY_NET_1_LVL_1;
+			(*pObj)[0]->data.ubWireNetworkFlag = (TRIPWIRE_NETWORK_OWNER_ENEMY|TRIPWIRE_NETWORK_NET_1|TRIPWIRE_NETWORK_LVL_1);
 			(*pObj)[0]->data.bDefuseFrequency = 0;
 			
 			// save old clients WorldID if we can

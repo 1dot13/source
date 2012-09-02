@@ -12058,7 +12058,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDir
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginDropBomb( void )
+void SOLDIERTYPE::EVENT_SoldierBeginDropBomb( )
 {
 	// Increment the number of people busy doing stuff because of an attack
 	switch( gAnimControl[ this->usAnimState ].ubHeight )
@@ -12076,6 +12076,29 @@ void SOLDIERTYPE::EVENT_SoldierBeginDropBomb( void )
 		break;
 	}
 
+}
+
+void SOLDIERTYPE::EVENT_SoldierDefuseTripwire( INT32 sGridNo, INT32 sItem )
+{
+	// Flugente: if item is tripwireactivated and is a planted bomb, call the defuse dialogue. We obviously know about the item's existence already...
+	if ( gWorldItems[ sItem ].object.exists() && gWorldItems[ sItem ].object.fFlags & OBJECT_ARMED_BOMB && Item[gWorldItems[ sItem ].object.usItem].tripwire == 1 )
+	{		
+		// Increment the number of people busy doing stuff because of an attack
+		switch( gAnimControl[ this->usAnimState ].ubHeight )
+		{
+		case ANIM_STAND:
+
+			this->EVENT_InitNewSoldierAnim( CROUCHING, 0 , FALSE );
+			break;
+
+		default:
+
+			// Call handler for planting bomb...
+			HandleSoldierDefuseTripwire(this, sGridNo, sItem );
+			this->SoldierGotoStationaryStance( );
+			break;
+		}
+	}
 }
 
 
@@ -13694,10 +13717,9 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE )
 		return( FALSE );
 
-	BOOLEAN onroof = FALSE;
 	// not possible to get this bonus on a roof, as there are no objects on the roof on which we could rest our gun
 	if ( this->pathing.bLevel == 1 )
-		onroof = TRUE;
+		return( FALSE );
 
 	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
 	INT32 nextGridNoinSight = this->sGridNo;
@@ -13719,9 +13741,9 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 		if (!pStructure)
 		{
 			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
-			if ( !IsLocationSittable( nextGridNoinSight, onroof ) )
+			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 				// resting our gun on people would be rude - only allow if nobody is there
-				if( WhoIsThere2( nextGridNoinSight, onroof ) == NOBODY )
+				if( WhoIsThere2( nextGridNoinSight, 0 ) == NOBODY )
 					applybipod = TRUE;	
 		}
 	}
@@ -13764,9 +13786,9 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 		if (!pStructure)
 		{
 			// for some reason I find EXTREMELY FRUSTRATING, we might get a heigth of 2 on a totally empty tile... so we check if we could occupy the tile
-			if ( !IsLocationSittable( nextGridNoinSight, onroof ) )
+			if ( !IsLocationSittable( nextGridNoinSight, 0 ) )
 				// resting our gun on people would be rude - only allow if nobody is there
-				if( WhoIsThere2( nextGridNoinSight, onroof ) == NOBODY )
+				if( WhoIsThere2( nextGridNoinSight, 0 ) == NOBODY )
 					applybipod = TRUE;	
 		}
 	}
@@ -14006,7 +14028,7 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 					INT16 status = (*pObj)[0]->data.objectStatus;
 					(*pObj)[0]->data.objectStatus = max(1, (INT16)(status/2));
 
-					// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+					// also damage every attachment
 					attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
 					for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
 					{
@@ -14070,12 +14092,10 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 
 	UINT16 usGunItem      = 0;
 	UINT8  usGunCalibre   = 0;
-	//UINT16 usGunMagSize   = 0;
 	UINT8  usGunAmmoType  = 0;
 	
 	UINT16 usAmmoItem     = 0;
 	UINT8  usAmmoCalibre  = 0;
-	//UINT16 usAmmoMagSize  = 0;
 	UINT8  usAmmoAmmoType = 0;
 	
 	UINT16 usMagIndex	  = 0;
@@ -14102,7 +14122,6 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 		usMagIndex = Item[usAmmoItem].ubClassIndex;
 
 		usAmmoCalibre  = Magazine[usMagIndex].ubCalibre;
-		//usAmmoMagSize  = Magazine[usMagIndex].ubMagSize;
 		usAmmoAmmoType = Magazine[usMagIndex].ubAmmoType;
 
 		// our current stance is important
@@ -14191,11 +14210,10 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 				OBJECTTYPE* pObjInHands = &(pTeamSoldier->inv[teamsoldierinvpos]);
 				if ( pObjInHands && pObjInHands->exists() && Item [ pObjInHands->usItem ].usItemClass == IC_GUN && (HasItemFlag( pObjInHands->usItem, BELT_FED ) || HasAttachmentOfClass(pObjInHands, AC_FEEDER) ) && (*pObjInHands)[0]->data.gun.ubGunShotsLeft > 0 )
 				{
-					// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+					// remember the caliber and type of ammo. They all have to fit
 					usGunItem = pObjInHands->usItem;
 
 					usGunCalibre  = Weapon[usGunItem].ubCalibre;
-					//usGunMagSize  = Weapon[usGunItem].ubMagSize;
 					usGunAmmoType = (*pObjInHands)[0]->data.gun.ubGunAmmoType;
 
 					if ( usGunCalibre == usAmmoCalibre && /*usGunMagSize == usAmmoMagSize &&*/ usGunAmmoType == usAmmoAmmoType )
@@ -14267,9 +14285,8 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 			// can't use this, end
 			continue;
 				
-		// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
+		// remember the caliber and type of ammo. They all have to fit
 		usGunCalibre  = Weapon[usGunItem].ubCalibre;
-		//usGunMagSize  = Weapon[usGunItem].ubMagSize;
 		usGunAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
 		
 		// now check the inventory for an ammo belt. If we are not from the player team or a robot, we will search the entire inventory
@@ -14385,7 +14402,7 @@ void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 								{
 									(*pObj)[i]->data.bDirtLevel = 0.0f;
 
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s cleaned %s", this->name, Item[pObj->usItem].szItemName );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[WEAPON_CLEANING_STR], this->name, Item[pObj->usItem].szItemName );
 
 									// 33% chance to use up 1% of the cleaning kit
 									if ( Random(2) > 0 )
@@ -14423,7 +14440,10 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 {
 	// if we have any camo: not covert
 	if ( GetWornCamo(this) > 0 || GetWornUrbanCamo(this) > 0 || GetWornDesertCamo(this) > 0 || GetWornSnowCamo(this) > 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CAMOFOUND], this->name );
 		return FALSE;
+	}
 
 	if ( UsingNewInventorySystem() )
 	{
@@ -14434,7 +14454,10 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 			{
 				// if we have a back pack: not covert
 				if ( bLoop == BPACKPOCKPOS )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->name );
 					return FALSE;
+				}
 
 				// do not check the LBE itself (we already checked for camo above)
 				if ( bLoop >= VESTPOCKPOS && bLoop <= CPACKPOCKPOS )
@@ -14442,10 +14465,13 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 
 				// seriously? a corpse? of course this is suspicious!
 				if ( HasItemFlag(this->inv[bLoop].usItem, CORPSE) )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRYCORPSEFOUND], this->name );
 					return FALSE;
+				}
 
 				BOOLEAN checkfurther = FALSE;
-				// further checks it item is not covert. This means that a gun that has that tag will not be detectedif if its inside a pocket!
+				// further checks it item is not covert. This means that a gun that has that tag will not be detected if its inside a pocket!
 				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS )
 					checkfurther = TRUE;
 				else if ( bLoop == KNIFEPOCKPOS && !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
@@ -14458,6 +14484,9 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 					UINT8 checkslot = 0;
 					switch (uiNIVSlotType[bLoop])
 					{
+					case 2:
+						// this is worn LBE gear itself
+						break;
 					case 3:
 						checkslot = VESTPOCKPOS;
 						break;
@@ -14471,8 +14500,11 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						checkslot = CPACKPOCKPOS;
 						break;
 					default:
-						return FALSE;
-					break;
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name );
+							return FALSE;
+						}
+						break;
 					}
 
 					// found a slot to check for LBE
@@ -14492,7 +14524,10 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( (Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR) ) && !Item[this->inv[bLoop].usItem].leatherjacket && Armour[ Item[this->inv[bLoop].usItem].ubClassIndex ].ubProtection > 10  ) ||
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name );
 						return FALSE;
+					}
 				}
 			}
 		}
@@ -14511,7 +14546,10 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( (Item[this->inv[bLoop].usItem].usItemClass & (IC_ARMOUR) ) && !Item[this->inv[bLoop].usItem].leatherjacket && Armour[ Item[this->inv[bLoop].usItem].ubClassIndex ].ubProtection > 10  ) ||
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name );
 						return FALSE;
+					}
 				}
 			}
 		}
@@ -14530,7 +14568,10 @@ BOOLEAN		SOLDIERTYPE::LooksLikeASoldier( void )
 		{
 			// seriously? a corpse? of course this is suspicious!
 			if ( HasItemFlag(this->inv[bLoop].usItem, CORPSE) )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRYCORPSEFOUND], this->name );
 				return FALSE;
+			}
 		}
 	}
 
@@ -14557,16 +14598,25 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 			{
 				// if we have a back pack: not covert
 				if ( bLoop == BPACKPOCKPOS )
-					return FALSE;
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->name );
+					return TRUE;
+				}
 
-				// further checks it item is not covert. This means that a gun that has that tag will not be detectedif if its inside a pocket!
-				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS || 
-					!HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+				// further checks it item is not covert. This means that an item that has that tag will not be detected if it is inside a pocket!
+				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS )
+					;
+				else if ( bLoop == KNIFEPOCKPOS && !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+					;
+				else if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
 				{
 					// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
 					UINT8 checkslot = 0;
 					switch (uiNIVSlotType[bLoop])
 					{
+					case 2:
+						// this is worn LBE gear itself
+						break;
 					case 3:
 						checkslot = VESTPOCKPOS;
 						break;
@@ -14580,8 +14630,11 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						checkslot = CPACKPOCKPOS;
 						break;
 					default:
-						return FALSE;
-					break;
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name );
+							return FALSE;
+						}
+						break;
 					}
 
 					// found a slot to check for LBE
@@ -14592,47 +14645,59 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 							// pass for this item
 							continue;
 					}
+				}
 
-					// if that item is a gun, explosives, military armour or facewear, investigate further
-					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER|IC_ARMOUR|IC_FACE) ) )
+				// if that item is a gun, explosives, military armour or facewear, investigate further
+				if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER|IC_ARMOUR|IC_FACE) ) )
+				{
+					if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) )
 					{
-						if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) )
+						++numberofguns;
+
+						if ( numberofguns > 2 )
 						{
-							++numberofguns;
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYGUNS], this->name );
+							return TRUE;
+						}
+					}
 
-							if ( numberofguns > 2 )
-								return TRUE;
+					OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
 
-							OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
-
-							if ( pObj != NULL )	
+					if ( pObj != NULL )	
+					{
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+						{
+							// loop over every item and its attachments
+							if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 							{
-								for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
+								return TRUE;
+							}
+
+							UINT8 numberofattachments = 0;
+							// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
+							attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+							for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+							{
+								if ( iter->exists()  )
 								{
 									// loop over every item and its attachments
-									if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
-										return TRUE;
-
-									UINT8 numberofattachments = 0;
-									// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
-									attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
-									for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
+									if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 									{
-										if ( iter->exists()  )
-										{
-											// loop over every item and its attachments
-											if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
-												return TRUE;
-					
-											++numberofattachments;
-										}
-									}
-
-									// no ordinary soldier is allowed that many attachemnts > not covert
-									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
 										return TRUE;
+									}
+					
+									++numberofattachments;
+
+									// no ordinary soldier is allowed that many attachments > not covert
+									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+									{
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name );
+										return TRUE;
+									}
 								}
-							}
+							}								
 						}
 					}
 				}
@@ -14654,7 +14719,10 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						++numberofguns;
 
 						if ( numberofguns > 2 )
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYGUNS], this->name );
 							return TRUE;
+						}
 
 						OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
 
@@ -14664,7 +14732,10 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 							{
 								// loop over every item and its attachments
 								if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
+								{
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
 									return TRUE;
+								}
 
 								UINT8 numberofattachments = 0;
 								// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
@@ -14675,7 +14746,10 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									{
 										// loop over every item and its attachments
 										if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
+										{
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
 											return TRUE;
+										}
 					
 										++numberofattachments;
 									}
@@ -14683,7 +14757,10 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 
 								// no ordinary soldier is allowed that many attachments > not covert
 								if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
+								{
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name );
 									return TRUE;
+								}
 							}
 						}
 					}
@@ -14709,7 +14786,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	if ( !(this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) ) )
 		return FALSE;
 		
-	// if we are in a suspicious stance: not covert
+	// if we are in a suspicious activity: not covert
 	if ( this->usAnimState == NINJA_SPINKICK || 
 		this->usAnimState == NINJA_PUNCH ||
 		this->usAnimState == NINJA_LOWKICK ||
@@ -14743,25 +14820,20 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == JUMPWINDOWS
 		)
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was seen performing suspicious activities!", this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->name );
 		return FALSE;
 	}
-
-	BOOLEAN looklikeaciv = this->LooksLikeACivilian();
-
+	
 	// if we are trying to dress like a civilian, but aren't sucessful: not covert
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV && !looklikeaciv)
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV && !(this->LooksLikeACivilian()) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not look like a civilian!", this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CIV], this->name );
 		return FALSE;
 	}
-
-	BOOLEAN looklikeasoldier = this->LooksLikeASoldier();
-
+	
 	// if we are trying to dress like a soldier, but aren't sucessful: not covert
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !looklikeasoldier)
+	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !(this->LooksLikeASoldier()) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is carrying a corpse!", this->name );
 		return FALSE;
 	}
 
@@ -14783,13 +14855,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				// if we are openly bleeding: not covert
 				if ( this->bBleeding > 0 )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s bleeding was discovered!", this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->name );
 					return FALSE;
 				}
 
 				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is drunk and doesn't look like a soldier!", this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DRUNKEN_SOLDIER], this->name );
 					return FALSE;
 				}
 			}
@@ -14801,13 +14873,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				// if we are openly bleeding: not covert
 				if ( this->bBleeding > 0 )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s bleeding was discovered!", this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->name );
 					return FALSE;
 				}
 
 				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"On closer inspection, %s's disguise does not hold!", this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->name );
 					return FALSE;
 				}
 			}
@@ -14817,7 +14889,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			// without the covert ops skill, we can only dress up as civilians. We will be discovered if we get too close to the enemy
 			if ( (this->bSoldierFlagMask & SOLDIER_COVERT_NPC_SPECIAL) == 0 )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"On closer inspection, %s's disguise does not hold!", this->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->name );
 				return FALSE;
 			}
 			break;	
@@ -14842,13 +14914,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 
 		if ( sectordata > 1 )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s isn't supposed to be here!", this->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN], this->name );
 			return FALSE;
 		}
 		// is it night?
 		else if ( sectordata == 1 && GetTimeOfDayAmbientLightLevel() < NORMAL_LIGHTLEVEL_DAY + 2 )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s isn't supposed to be here at this time!", this->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN_NIGHT], this->name );
 			return FALSE;
 		}
 		
@@ -14864,7 +14936,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
 				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was seen near a fresh corpse!", this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->name );
 					return FALSE;
 				}
 			}
@@ -14876,7 +14948,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		// if our equipment is too good, that is suspicious... not covert!
 		if ( this->EquipmentTooGood( (distance < discoverrange) ) )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s equipment raises a few eyebrows!", this->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SUSPICIOUS_EQUIPMENT], this->name );
 			return FALSE;
 		}
 
@@ -14886,7 +14958,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			// if we aiming at a soldier, others will notice our intent... not covert!
 			if ( WeaponReady(this) )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is seen targeting a soldier!", this->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->name );
 				return FALSE;
 			}
 		}
@@ -14907,7 +14979,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 					// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
 					if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was seen near a fresh corpse!", this->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->name );
 						return FALSE;
 					}
 				}
@@ -14981,7 +15053,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 		{
 			pSoldier->LooseDisguise();
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s has seen through %s disguise!", this->name, pSoldier->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], this->name, pSoldier->name  );
 
 			// we have uncovered a spy! Get alerted, if we aren't already
 			if ( this->aiData.bAlertStatus < STATUS_BLACK )
@@ -15036,6 +15108,8 @@ void	SOLDIERTYPE::LooseDisguise( void )
 			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
 				AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 	}
 
 	// if we are also disguised as a soldier, remove that flag
@@ -15050,13 +15124,19 @@ BOOLEAN		SOLDIERTYPE::DisguiseAsCivilian( void )
 {
 	// this will only work with the new trait system
 	if (!gGameOptions.fNewTraitSystem)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ERROR_OLDTRAITS] );
 		return FALSE;
+	}
 
 	UINT8 skilllevel = NUM_SKILL_TRAITS( this, COVERT_NT );
 
 	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
 	if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
 		return( FALSE );
+	}
 
 	this->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
 
@@ -15094,6 +15174,8 @@ BOOLEAN		SOLDIERTYPE::DisguiseAsCivilian( void )
 
 		this->CreateSoldierPalettes();
 	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BAD_PALETTE] );
 
 	// if we are also disguised as a soldier, remove that flag
 	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
@@ -15111,16 +15193,25 @@ BOOLEAN		SOLDIERTYPE::DisguiseAsSoldierFromCorpse( UINT32 usFlag )
 {
 	// this will only work with the new trait system
 	if (!gGameOptions.fNewTraitSystem)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ERROR_OLDTRAITS] );
 		return FALSE;
+	}
 
 	// action is only possible if we have the covert ops trait
 	UINT8 skilllevel = NUM_SKILL_TRAITS( this, COVERT_NT );
 	if ( skilllevel < 1)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_SKILL] );
 		return FALSE;
+	}
 
 	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
 	if ( !EnoughPoints( this, apcost, 0, TRUE ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
 		return( FALSE );
+	}
 
 	UINT8 uniformtype = 0;
 
@@ -15131,8 +15222,11 @@ BOOLEAN		SOLDIERTYPE::DisguiseAsSoldierFromCorpse( UINT32 usFlag )
 	else if ( usFlag & ROTTING_CORPSE_FROM_ELITE )
 		uniformtype = UNIFORM_ENEMY_ELITE;
 	else
+	{
 		// no uniform here, so nothing to wear
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_UNIFORM_FOUND] );
 		return FALSE;
+	}
 
 	this->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
 
@@ -15166,6 +15260,8 @@ BOOLEAN		SOLDIERTYPE::DisguiseAsSoldierFromCorpse( UINT32 usFlag )
 			CreateItem( civilianclothesitem, 100, &gTempObject );
 			AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 	}
 
 	DeductPoints( this, apcost, 0 );

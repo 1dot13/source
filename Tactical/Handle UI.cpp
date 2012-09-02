@@ -4408,6 +4408,11 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		{
 			return( TRUE );
 		}
+		// Flugente: if there is tripwire here that we know of, allow handling
+		else if ( FindWorldItemForTripwireInGridNo( usMapPos, pSoldier->pathing.bLevel, TRUE ) != -1 )
+		{
+			return( TRUE );
+		}
 		else
 		{
 			return( FALSE );
