@@ -2287,42 +2287,46 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		bNumRightIcons++;
 	}
 
-	// Flugente: food system - symbols used if hungry or thirsty
-	if ( gGameOptions.fFoodSystem )
+	// Flugente: only display these symbols if using the new portrait icons
+	if ( gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE )
 	{
-		if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
+		// Flugente: food system - symbols used if hungry or thirsty
+		if ( gGameOptions.fFoodSystem )
 		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
-			bNumRightIcons++;	
-		}
+			if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
+				bNumRightIcons++;	
+			}
 		
-		if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
-		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
-			bNumRightIcons++;
+			if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
+				bNumRightIcons++;
+			}
 		}
-	}
-	// Flugente: are we supplying ammo to someone else?
-	if ( gGameExternalOptions.ubExternalFeeding > 0 )
-	{
-		UINT8 ubID1 = 0;
-		UINT16 ubGunSlot1 = 0;
-		UINT16 ubFaceSlot1 = 0;
-		UINT8 ubID2 = 0;
-		UINT16 ubGunSlot2 = 0;
-		UINT16 ubFaceSlot2 = 0;
-		if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
+		// Flugente: are we supplying ammo to someone else?
+		if ( gGameExternalOptions.ubExternalFeeding > 0 )
 		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 21 );
-			bNumRightIcons++;
+			UINT8 ubID1 = 0;
+			UINT16 ubGunSlot1 = 0;
+			UINT16 ubFaceSlot1 = 0;
+			UINT8 ubID2 = 0;
+			UINT16 ubGunSlot2 = 0;
+			UINT16 ubFaceSlot2 = 0;
+			if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 21 );
+				bNumRightIcons++;
+			}
 		}
-	}
 
-	// Flugente: add an icon if we are currently in disguise
-	if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
-	{
-		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 22 );
-		bNumRightIcons++;
+		// Flugente: add an icon if we are currently in disguise
+		if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 22 );
+			bNumRightIcons++;
+		}
 	}
 
 		switch( pSoldier->bAssignment )
