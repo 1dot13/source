@@ -435,6 +435,7 @@ typedef struct
 	UINT16		ubFragRange;
 	UINT16		ubHorizontalDegree;	// Flugente: size of the horizontal arc into which fragments will be shot
 	UINT16		ubVerticalDegree;	// Flugente: size of the vertical arc into which fragments will be shot
+	FLOAT		bIndoorModifier; //DBrot: confined areas enhance effect
 } EXPLOSIVETYPE;
 
 //GLOBALS

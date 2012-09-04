@@ -64,7 +64,8 @@ explosiveStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 				strcmp(name, "ubFragDamage") == 0 ||
 				strcmp(name, "ubFragRange") == 0 ||
 				strcmp(name, "ubHorizontalDegree") == 0 ||
-				strcmp(name, "ubVerticalDegree") == 0 )) 
+				strcmp(name, "ubVerticalDegree") == 0 ||
+				strcmp(name, "bIndoorModifier") == 0 ))  
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -210,6 +211,12 @@ explosiveEndElementHandle(void *userData, const XML_Char *name)
 			pData->curExplosive.ubVerticalDegree = (UINT16) atol(pData->szCharData);
 		}
 
+		else if(strcmp(name, "bIndoorModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.bIndoorModifier = (FLOAT) atof(pData->szCharData);
+		}
+
 		pData->maxReadDepth--;
 	}
 
@@ -320,6 +327,7 @@ BOOLEAN WriteExplosiveStats()
 			FilePrintf(hFile,"\t\t<ubFragRange>%d</ubFragRange>\r\n",							Explosive[cnt].fExplodeOnImpact	);
 			FilePrintf(hFile,"\t\t<ubHorizontalDegree>%d</ubHorizontalDegree>\r\n",				Explosive[cnt].ubHorizontalDegree	);
 			FilePrintf(hFile,"\t\t<ubVerticalDegree>%d</ubVerticalDegree>\r\n",					Explosive[cnt].ubVerticalDegree	);
+			FilePrintf(hFile,"\t\t<bIndoorModifier>%d</bIndoorModifier>\r\n",					Explosive[cnt].bIndoorModifier	);
 
 			FilePrintf(hFile,"\t</EXPLOSIVE>\r\n");
 		}

@@ -492,8 +492,9 @@ typedef struct
 FLOAT GetItemDirtIncreaseFactor( OBJECTTYPE * pObj, BOOLEAN fConsiderAmmo = TRUE );
 
 //DBrot: get the volume of all attached pouches
-UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj);
+UINT8 GetVolumeAlreadyTaken(OBJECTTYPE * pObj, INT16 exceptSlot);
 INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap);
+UINT8 GetFirstPocketOnItem(UINT16 usIndex);
 
 INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo );
 

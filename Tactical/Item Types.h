@@ -1110,7 +1110,6 @@ typedef enum eLBE_CLASS	// Designation of lbeClass
 	BACKPACK,
 	LBE_POCKET,
 	OTHER_POCKET,
-	MOD_POCKET //DBrot: added mod_pocket to identify modular pouches
 };
 
 

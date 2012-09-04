@@ -1564,6 +1564,7 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"Vous ne pouvez pas attacher %s à cette emplacement.",
 	L"%s n'ira dans aucun emplacement de libre.",
+	L"There's not enough space for this pocket.", //TODO:Translate
 };
 
 
@@ -2471,6 +2472,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"Munit. rest. :",		//16
 	L"Par défaut :",	//17 //WarmSteel - So we can also display default attachments
 	L"Dirt:",	// 18	//added by Flugente	// TODO.Translate
+	L"Space:", // 19 //space left on Molle items //TODO.Translate
 
 };
 

@@ -2189,12 +2189,20 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 	// HEADROCK HAM 3.6: Can now use negative modifier.
 	INT16 newDamage = (INT16)GetModifiedExplosiveDamage( pExplosive->ubDamage );
 	//INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
-
+	
+	//DBrot: apply a modifier to confined explosions
+	if(InARoom(sBombGridNo, NULL)){
+		newDamage += (INT16)newDamage * pExplosive->bIndoorModifier;
+	}
 	sWoundAmt = newDamage + (INT16) ( (newDamage * uiRoll) / 100 );
 
 	// Calculate breath amount ( if stun damage applicable )
 	INT16 newBreath = (INT16)GetModifiedExplosiveDamage( pExplosive->ubStunDamage );
 	//INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
+
+	if(InARoom(sBombGridNo, NULL)){
+		newBreath += (INT16)newBreath * pExplosive->bIndoorModifier;
+	}
 
 	sBreathAmt = ( newBreath * 100 ) + (INT16) ( ( ( newBreath / 2 ) * 100 * uiRoll ) / 100 ) ;
 

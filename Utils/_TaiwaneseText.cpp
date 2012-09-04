@@ -1565,6 +1565,7 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"You cannot attach %s to this slot.",
 	L"The %s will not fit in any open slots.",
+	L"There's not enough space for this pocket.", //TODO:Translate
 };
 
 
@@ -2473,6 +2474,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	// TODO.Translate
 	L"Default:",	//17 //WarmSteel - So we can also display default attachments
 	L"Dirt:",	// 18	//added by Flugente
+	L"Space:", // 19 //space left on Molle items //TODO.Translate
 
 };
 

@@ -1580,6 +1580,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s's Schneetarnung wurde herunter gewaschen.",
 	L"Sie können %s nicht an dieser Einbaustelle anbringen.",
 	L"%s passt in keine freie Einbaustelle.",
+	L"Für diese Tasche ist nicht mehr genug Platz.",
 };
 
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
@@ -2477,6 +2478,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 
 	L"Standard:",	//17 //WarmSteel - So we can also display default attachments
 	L"Dirt:",	// 18	//added by Flugente	// TODO.Translate
+	L"Space:", // 19 //space left on Molle items //TODO.Translate
 
 };
 
