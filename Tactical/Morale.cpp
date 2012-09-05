@@ -550,14 +550,15 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 			}
 		}
 
-		if (pSoldier->pathing.bLevel == 1)
+		// Flugente: what the heck? why is morale lowered or increased depending on our height? This doesn't make any sense. AT ALL.
+		/*if (pSoldier->pathing.bLevel == 1)
 		{
 			bMoraleMod--;
 		}
 		else if (pSoldier->pathing.bLevel > 5)
 		{
 			bMoraleMod++;
-		}
+		}*/
 
 		if (bMoraleMod > 0)
 		{
