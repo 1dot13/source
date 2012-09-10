@@ -332,4 +332,22 @@
 		<bMoraleMod>2</bMoraleMod>
 		<usDecayRate>0.2</usDecayRate>
 	</FOOD>
+	<FOOD>
+		<uiIndex>37</uiIndex>
+		<szName>Oatmeal</szName>
+		<bFoodPoints>500</bFoodPoints>
+		<bDrinkPoints>0</bDrinkPoints>
+		<ubPortionSize>100</ubPortionSize>
+		<bMoraleMod>1</bMoraleMod>
+		<usDecayRate>2.3</usDecayRate>
+	</FOOD>
+	<FOOD>
+		<uiIndex>37</uiIndex>
+		<szName>Bag of rice</szName>
+		<bFoodPoints>2000</bFoodPoints>
+		<bDrinkPoints>0</bDrinkPoints>
+		<ubPortionSize>5</ubPortionSize>
+		<bMoraleMod>1</bMoraleMod>
+		<usDecayRate>1.5</usDecayRate>
+	</FOOD>
 </FOODSLIST>

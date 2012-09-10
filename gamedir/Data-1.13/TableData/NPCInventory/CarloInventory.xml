@@ -120,4 +120,14 @@
 		<sItemIndex>1575</sItemIndex>
 		<ubOptimalNumber>12</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>24</uiIndex>
+		<sItemIndex>1582</sItemIndex>
+		<ubOptimalNumber>7</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>25</uiIndex>
+		<sItemIndex>1583</sItemIndex>
+		<ubOptimalNumber>4</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>
