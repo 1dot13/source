@@ -342,7 +342,7 @@
 		<usDecayRate>2.3</usDecayRate>
 	</FOOD>
 	<FOOD>
-		<uiIndex>37</uiIndex>
+		<uiIndex>38</uiIndex>
 		<szName>Bag of rice</szName>
 		<bFoodPoints>2000</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
