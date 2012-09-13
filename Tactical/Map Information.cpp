@@ -629,6 +629,10 @@ void UpdateOldVersionMap()
 	{ //Allow map edgepoints to be regenerated as new system has been reenabled.
 		gMapInformation.ubMapVersion = 27;
 	}
+	if( gMapInformation.ubMapVersion < 29 )
+	{ 
+		gMapInformation.ubMapVersion = 29;
+	}
 }
 
 void AutoCalculateItemNoOverwriteStatus()

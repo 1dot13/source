@@ -641,7 +641,7 @@ void GoIntoOverheadMap( )
 		FilenameForBPP("INTERFACE\\MAP_BORD_800x600.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
 			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_800x600.sti" );
-	}else if(iResolution >= _1680x1050){
+	}else if(iResolution >= _1680x1050 && gfUseBiggerOverview){
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\MAP_BORD_1920x1080.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )

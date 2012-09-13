@@ -2214,12 +2214,22 @@ BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorM
 		}
 	}
 
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
-	{
+	
 		// Write out room information
-		FileWrite( hfile, &gusWorldRoomInfo[ cnt ], sizeof( UINT16 ), &uiBytesWritten );
-
-	}
+		if(ubMinorMapVersion < 29){
+			UINT8 tmproom;
+			for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+			{
+				tmproom = (UINT8)gusWorldRoomInfo[ cnt ];
+				FileWrite( hfile, &tmproom, sizeof( UINT8 ), &uiBytesWritten );
+			}
+		}else{
+			for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+			{
+				FileWrite( hfile, &gusWorldRoomInfo[ cnt ], sizeof( UINT16 ), &uiBytesWritten );
+			}
+		}
+	
 
 	if ( uiFlags & MAP_WORLDITEMS_SAVED )
 	{
