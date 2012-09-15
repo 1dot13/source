@@ -283,147 +283,171 @@ BombItem:
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>34</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, NORTH</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1523</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>35</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, NORTHEAST</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1584</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>36</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, EAST</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1585</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>37</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, SOUTHEAST</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1586</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>38</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, SOUTH</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1587</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>39</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, SOUTHWEST</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1588</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>40</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, WEST</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1589</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>41</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>M18 Claymore, NORTHWEST</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1590</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>42</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 1 Lvl 1</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1524</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>43</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 1 Lvl 2</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1591</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>44</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 1 Lvl 3</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1592</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>45</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 1 Lvl 4</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1593</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>46</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 2 Lvl 1</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1594</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>47</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 2 Lvl 2</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1595</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>48</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 2 Lvl 3</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1596</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>49</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 2 Lvl 4</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1597</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>50</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 3 Lvl 1</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1598</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>51</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 3 Lvl 2</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1599</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>52</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 3 Lvl 3</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1600</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>53</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 3 Lvl 4</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1601</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>54</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 4 Lvl 1</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1602</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>55</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 4 Lvl 2</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1603</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>56</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 4 Lvl 3</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1604</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>57</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Net 4 Lvl 4</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1605</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>58</uiIndex>

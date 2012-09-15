@@ -174,6 +174,7 @@
 		<RepairModifier>0</RepairModifier>
 		<DamageChance>0</DamageChance>
 		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
+		<usActionItemFlag>0</usActionItemFlag>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -46007,6 +46008,7 @@
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>256</usActionItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46038,6 +46040,7 @@
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>17</usActionItemFlag> <!-- net 1, lvl 1-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47512,6 +47515,711 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<FoodType>38</FoodType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
+	<ITEM>
+		<uiIndex>1584</uiIndex><!-->NORTHEAST DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>512</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1585</uiIndex><!-->EAST DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>1024</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1586</uiIndex><!-->SOUTHEAST DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>2048</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1587</uiIndex><!-->SOUTH DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>4096</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1588</uiIndex><!-->SOUTHWEST DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>8192</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1589</uiIndex><!-->WEST DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>16384</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1590</uiIndex><!-->NORTHWEST DIRECTION (map editor only)-->
+		<szItemName>M18 Claymore</szItemName>
+		<szLongItemName>M18 Claymore</szLongItemName>
+		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+		<szBRName>M18 Claymore</szBRName>
+		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>85</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>97</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>1250</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Mine>1</Mine>
+		<Directional>1</Directional>
+		<TripWireActivation>1</TripWireActivation>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>32768</usActionItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
+	<ITEM>
+		<uiIndex>1591</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>33</usActionItemFlag> <!-- net 1, lvl 2-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1592</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>65</usActionItemFlag> <!-- net 1, lvl 3-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1593</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>129</usActionItemFlag> <!-- net 1, lvl 4-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1594</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>18</usActionItemFlag> <!-- net 2, lvl 1-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1595</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>34</usActionItemFlag> <!-- net 2, lvl 2-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1596</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>66</usActionItemFlag> <!-- net 2, lvl 3-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1597</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>130</usActionItemFlag> <!-- net 2, lvl 4-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1598</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>20</usActionItemFlag> <!-- net 3, lvl 1-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1599</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>36</usActionItemFlag> <!-- net 3, lvl 2-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1600</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>68</usActionItemFlag> <!-- net 3, lvl 3-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1601</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>132</usActionItemFlag> <!-- net 3, lvl 4-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1602</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>24</usActionItemFlag> <!-- net 4, lvl 1-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1603</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>40</usActionItemFlag> <!-- net 4, lvl 2-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1604</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>72</usActionItemFlag> <!-- net 4, lvl 3-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1605</uiIndex>
+		<szItemName>Tripwire</szItemName>
+		<szLongItemName>Tripwire</szLongItemName>
+		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+		<szBRName>Tripwire</szBRName>
+		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>10</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usActionItemFlag>136</usActionItemFlag> <!-- net 4, lvl 4-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
