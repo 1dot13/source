@@ -91,45 +91,49 @@ CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] =
 */
 const STR16 GetActionItemName( OBJECTTYPE *pItem )
 {
-UINT32 i,o;
-CHAR16	temp[30];
+	UINT32 i,o;
+	CHAR16	temp[30];
 
 	if( !pItem || pItem->usItem != ACTION_ITEM )
 		return NULL;
 
 		
-if( (*pItem)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP )
+	if( (*pItem)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP )
 	{
-			for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ i++ )
+		for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ ++i )
+		{
+			if ( ActionItemsValues[ i ].BlowUp == 0 )
+			{
+				if ( (*pItem)[0]->data.misc.bActionValue == ActionItemsValues[ i ].ActionID )
 				{
-					if ( ActionItemsValues[ i ].BlowUp == 0 )
-					{
-						if ( (*pItem)[0]->data.misc.bActionValue == ActionItemsValues[ i ].ActionID )
-						{
-							wcscpy(temp, gszActionItemDesc[i]);
-							o = i;
-						}
-					}
+					wcscpy(temp, gszActionItemDesc[i]);
+					o = i;
+					break;
 				}
-			return ActionItemsValues[ o ].szName;
+			}
+		}
+
+		return ActionItemsValues[ o ].szName;
 	}
 	else
 	{
-				for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ i++ )
+		for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ ++i )
+		{
+			if ( ActionItemsValues[ i ].BlowUp == 1 )
+			{
+				if ( (*pItem)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP )
 				{
-					if ( ActionItemsValues[ i ].BlowUp == 1 )
+					if ( (*pItem)[0]->data.misc.usBombItem == ActionItemsValues[ i ].BombItem )
 					{
-						if ( (*pItem)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP )
-						{
-							if ( (*pItem)[0]->data.misc.usBombItem == ActionItemsValues[ i ].BombItem )
-							{
-								wcscpy(temp, gszActionItemDesc[i]);
-								o = i;
-							}
-						}
+						wcscpy(temp, gszActionItemDesc[i]);
+						o = i;
+						break;
 					}
 				}
-			return ActionItemsValues[ o ].szName;
+			}
+		}
+
+		return ActionItemsValues[ o ].szName;
 	/*
 
 	
@@ -1506,24 +1510,37 @@ void ActionItemCallback( GUI_BUTTON *btn, INT32 reason )
 
 void ChangeActionItem( OBJECTTYPE *pItem, /*INT8*/ INT16 bActionItemIndex )
 {
-/*UINT32*/ INT16 i;
-//(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
+	/*INT16 i; //UINT32 i;
+	//(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
 
-			for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; /*=ACTIONITEM_NEW;*/ i++ )
-				{
-					pItem->usItem = ACTION_ITEM;
+	for (i= ACTIONITEM_TRIP_KLAXON; i< NUM_ACTIONITEMS; ++i) //=ACTIONITEM_NEW; i++ )
+	{
+		pItem->usItem = ACTION_ITEM;
 					
-						if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 1 )
-						{
-							(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
-							(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;	
-						}
-						else if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 0 )
-						{
-							(*pItem)[0]->data.misc.usBombItem = NOTHING; //ActionItemsValues[ i ].BombItem;
-							(*pItem)[0]->data.misc.bActionValue = ActionItemsValues[ i ].ActionID;
-						}
-				}
+		if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 1 )
+		{
+			(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
+			(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;
+			break;
+		}
+		else if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 0 )
+		{
+			(*pItem)[0]->data.misc.usBombItem = NOTHING; //ActionItemsValues[ i ].BombItem;
+			(*pItem)[0]->data.misc.bActionValue = ActionItemsValues[ i ].ActionID;
+			break;
+		}
+	}*/
+
+	if ( ActionItemsValues[ bActionItemIndex ].BlowUp == 1 )
+	{
+		(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
+		(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ bActionItemIndex ].BombItem;
+	}
+	else if ( ActionItemsValues[ bActionItemIndex ].BlowUp == 0 )
+	{
+		(*pItem)[0]->data.misc.usBombItem = NOTHING;
+		(*pItem)[0]->data.misc.bActionValue = ActionItemsValues[ bActionItemIndex ].ActionID;
+	}
 
 
 /*

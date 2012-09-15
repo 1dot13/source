@@ -809,6 +809,56 @@ extern OBJECTTYPE gTempObject;
 #define TRIPWIRE_ACTIVATED		0x80000000	//2147483648		// for tripwire activation (gets set and unset when activating tripwire)
 // ----------------------------------------------------------------
 
+// -------- added by Flugente: flags for action items --------
+// the numbering of these flags is important. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+// these flags are supposed to be given to items that are used with action items. When an object is created from these action items, various object properties are set depending on this
+// for example, directional explosive mines have to get their direction from this, as there is no way to specify this in the editor. Even if there was, there are no varaibles to store this information
+// adding variables to the existing structure is unadvisable, as it would break too many existing structures.
+// note: it will be assumed that tripwire placed via the editor is of enemy networks, so there is no flag for that
+#define ITEM_TRIPWIRE_NETWORK_NET_1		0x00000001	//1			// network number  of the wire
+#define ITEM_TRIPWIRE_NETWORK_NET_2		0x00000002	//2
+#define ITEM_TRIPWIRE_NETWORK_NET_3		0x00000004	//4
+#define ITEM_TRIPWIRE_NETWORK_NET_4		0x00000008	//8
+
+#define ITEM_TRIPWIRE_NETWORK_LVL_1		0x00000010	//16		// hierarchy level of the wire
+#define ITEM_TRIPWIRE_NETWORK_LVL_2		0x00000020	//32
+#define ITEM_TRIPWIRE_NETWORK_LVL_3   	0x00000040	//64
+#define ITEM_TRIPWIRE_NETWORK_LVL_4		0x00000080	//128
+
+#define ITEM_DIRECTION_NORTH			0x00000100	//256		// direction for directional exxplosives (claymore etc.)
+#define ITEM_DIRECTION_NORTHEAST		0x00000200	//512
+#define ITEM_DIRECTION_EAST				0x00000400	//1024
+#define ITEM_DIRECTION_SOUTHEAST		0x00000800	//2048
+
+#define ITEM_DIRECTION_SOUTH			0x00001000	//4096
+#define ITEM_DIRECTION_SOUTHWEST		0x00002000	//8192
+#define ITEM_DIRECTION_WEST 			0x00004000	//16384
+#define ITEM_DIRECTION_NORTHWEST		0x00008000	//32768
+
+/*#define PLAYER_NET_1_LVL_1		0x00010000	//65536
+#define PLAYER_NET_2_LVL_1      0x00020000	//131072
+#define PLAYER_NET_3_LVL_1		0x00040000	//262144
+#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+
+#define TRIPWIRE_NETWORK_LVL_1				0x00100000	//1048576	// hierarchy level of the wire
+#define TRIPWIRE_NETWORK_LVL_2				0x00200000	//2097152
+#define TRIPWIRE_NETWORK_LVL_3				0x00400000	//4194304
+#define TRIPWIRE_NETWORK_LVL_4				0x00800000	//8388608
+
+/*#define TRIPWIRE_NETWORK_LVL_1		0x01000000	//16777216
+#define TRIPWIRE_NETWORK_LVL_2		0x02000000	//33554432
+#define TRIPWIRE_NETWORK_LVL_3		0x04000000	//67108864
+#define TRIPWIRE_NETWORK_LVL_4		0x08000000	//134217728
+
+#define PLAYER_NET_1_LVL_4		0x10000000	//268435456
+#define PLAYER_NET_2_LVL_4		0x20000000	//536870912
+#define PLAYER_NET_3_LVL_4		0x40000000	//1073741824
+#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
+
+#define ITEM_TRIPWIRE_ANY				0x000000FF
+#define ITEM_DIRECTION_ANY				0x0000FF00
+// ----------------------------------------------------------------
+
 // replaces candamage
 //#define ITEM_DAMAGEABLE			0x0001
 //// replaces canrepair
@@ -1077,6 +1127,9 @@ typedef struct
 	// Flugente: advanced repair/dirt system
 	UINT8	usDamageChance;							// chance that damage to the status will also damage the repair threshold
 	FLOAT	dirtIncreaseFactor;						// one shot causes this much dirt on a gun
+
+	// Flugente: a flag that is necessary for transforming action items to objects with new abilities (for now, tripwire networks and directional explosives)
+	UINT32	usActionItemFlag;
 
 } INVTYPE;
 

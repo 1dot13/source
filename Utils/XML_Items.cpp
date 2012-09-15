@@ -276,7 +276,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "LockPickModifier") == 0 ||
 				strcmp(name, "CrowbarModifier") == 0 ||
 				strcmp(name, "DisarmModifier") == 0 ||
-				strcmp(name, "RepairModifier") == 0 ))
+				strcmp(name, "RepairModifier") == 0 ||
+				strcmp(name, "usActionItemFlag") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1387,7 +1388,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.dirtIncreaseFactor = (FLOAT) atof(pData->szCharData);
 		}
-
+		else if(strcmp(name, "usActionItemFlag") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usActionItemFlag = (UINT32) atol(pData->szCharData);
+		}
+		
 		pData->maxReadDepth--;
 	}
 
@@ -2019,7 +2025,9 @@ BOOLEAN WriteItemStats()
 
 			FilePrintf(hFile,"\t\t<DamageChance>%d</DamageChance>\r\n",									Item[cnt].usDamageChance  );
 			FilePrintf(hFile,"\t\t<DirtIncreaseFactor>%4.2f</DirtIncreaseFactor>\r\n",					Item[cnt].dirtIncreaseFactor  );
-						
+
+			FilePrintf(hFile,"\t\t<usActionItemFlag>%d</usActionItemFlag>\r\n",							Item[cnt].usActionItemFlag  );
+									
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");

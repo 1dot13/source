@@ -3678,11 +3678,16 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 				OBJECTTYPE* pObj = &( gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].object );
 				if (!((*pObj).fFlags & OBJECT_DISABLED_BOMB))
 				{
+					// Flugente: we can either activate a bomb, or an action item that simulates a bomb - we have to check that first
+					UINT16 usBombItem = pObj->usItem;
+					if ( usBombItem == ACTION_ITEM )
+						usBombItem = (*pObj)[0]->data.misc.usBombItem;
+
 					// if item can be activated by tripwire, detonate it
-					if ( Item[pObj->usItem].tripwireactivation == 1 )
+					if ( Item[usBombItem].tripwireactivation == 1 )
 					{
 						// tripwire just gets activated
-						if ( Item[pObj->usItem].tripwire == 1 )
+						if ( Item[usBombItem].tripwire == 1 )
 						{
 							// this is important - we have to check wether the wire has already been activated 
 							if ( ( (*pObj)[0]->data.sObjectFlag & TRIPWIRE_ACTIVATED ) == 0 )
@@ -3890,6 +3895,37 @@ void HandleExplosionQueue( void )
 					CheckAndFireTripwireGun( &object, sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
 				}
 				
+				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+						
+				// if no other bomb exists here
+				if ( FindWorldItemForBombInGridNo(sGridNo, ubLevel) == -1 )
+				{
+					// make sure no one thinks there is a bomb here any more!
+					if ( gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_PLAYER_MINE_PRESENT )
+					{
+						RemoveBlueFlag( sGridNo, ubLevel );
+					}
+					gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_ENEMY_MINE_PRESENT);
+				}
+				
+				// delete the flag, otherwise wire will only work once
+				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
+
+				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
+			}
+			// Flugente: handle tripwire gun traps here...
+			// tripwire gets called and activated in ActivateSurroundingTripwire
+			// now for action item tripwire
+			else if ( pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && Item[(*pObj)[0]->data.misc.usBombItem].tripwire == 1 )
+			{
+				OBJECTTYPE newtripwireObject;
+				CreateItem( (*pObj)[0]->data.misc.usBombItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+
+				// determine this tripwire's flag
+				UINT32 ubWireNetworkFlag = (TRIPWIRE_NETWORK_OWNER_ENEMY|TRIPWIRE_NETWORK_NET_1|TRIPWIRE_NETWORK_LVL_1);	// this will get fixed eventually
+												
 				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 						
@@ -4369,7 +4405,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 						SetOffBombsByFrequency( ubID, (*pObj)[0]->data.misc.bFrequency );
 					}
 					// Flugente: a tripwire activates all other tripwires in connection, and detonates all bombs in connection that are tripwire-activated
-					else if ( Item[pObj->usItem].tripwire == 1 )
+					else if ( Item[pObj->usItem].tripwire == 1 || (pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && Item[(*pObj)[0]->data.misc.usBombItem].tripwire == 1 ) )
 					{
 						gubPersonToSetOffExplosions = ubID;
 
