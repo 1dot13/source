@@ -2660,14 +2660,14 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 	{
 		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
 		{
-			if ( bSkillTrait > 0 && (bSkillTrait <= DOCTOR_NT || bSkillTrait == COVERT_NT ) )
+			if ( TwoStagedTrait(bSkillTrait) )
 			{
 				if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] == bSkillTrait )
 				{
 					bNumTraits++;
 					bNumMajorTraitsCounted++;
 				}
-				else if ( gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] > 0 && (gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] <= DOCTOR_NT || gMercProfiles[ubProfileID].bSkillTraits[ bCnt ] <= COVERT_NT) )
+				else if ( TwoStagedTrait(gMercProfiles[ubProfileID].bSkillTraits[ bCnt ]) )
 				{
 					bNumMajorTraitsCounted++;
 				}

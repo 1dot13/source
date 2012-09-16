@@ -1869,10 +1869,9 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 
 									// Assign the text									
 									UINT8 traitnr = ubTempSkillArray[ubCnt];
-									UINT8 mlas = NEWTRAIT_MERCSKILL_EXPERTOFFSET;
-									if ( traitnr > mlas )
+									if ( traitnr > NEWTRAIT_MERCSKILL_EXPERTOFFSET )
 									{
-										traitnr = traitnr - mlas;
+										traitnr = traitnr - (NEWTRAIT_MERCSKILL_EXPERTOFFSET);
 									}
 
 									// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits

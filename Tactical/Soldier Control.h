@@ -1620,6 +1620,8 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 BOOLEAN AIDecideHipOrShoulderStance( SOLDIERTYPE * pSoldier, INT32 iGridNo );
 BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier );
 
+BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber );		// Flugente: determine if this (new) trait has two stages
+
 //typedef struct
 class OLDSOLDIERTYPE_101
 {

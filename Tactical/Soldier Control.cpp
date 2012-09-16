@@ -17208,13 +17208,13 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	{
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
-			if ( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) )
+			if ( TwoStagedTrait( uiSkillTraitNumber ) )
 			{
 				if (pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber)
 				{
 					return( TRUE );
 				}
-				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && (pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS || pSoldier->stats.ubSkillTraits[ bCnt ] == COVERT_NT) )
+				else if ( TwoStagedTrait(pSoldier->stats.ubSkillTraits[ bCnt ]) )
 				{
 					bNumMajorTraitsCounted++;
 				}
@@ -17264,14 +17264,14 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	{
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
-			if ( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) )
+			if ( TwoStagedTrait( uiSkillTraitNumber ) )
 			{
 				if ( pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber )
 				{
 					bNumberOfTraits++;
 					bNumMajorTraitsCounted++;
 				}
-				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && (pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS || pSoldier->stats.ubSkillTraits[ bCnt ] == COVERT_NT ) )
+				else if ( TwoStagedTrait( pSoldier->stats.ubSkillTraits[ bCnt ] ) )
 				{
 					bNumMajorTraitsCounted++;
 				}
@@ -17290,7 +17290,7 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 			}
 		}
 		// cannot have more than one same minor trait
-		if( uiSkillTraitNumber > NUM_MAJOR_TRAITS && uiSkillTraitNumber != COVERT_NT)
+		if( !TwoStagedTrait(uiSkillTraitNumber) )
 			return ( min(1, bNumberOfTraits) );
 		else
 			return ( min(2, bNumberOfTraits) );
@@ -17979,4 +17979,9 @@ BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier )
 	}
 
 	return FALSE;
+}
+
+BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber )
+{
+	return( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) );
 }
