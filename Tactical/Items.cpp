@@ -9191,20 +9191,128 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	return( TRUE );
 }
 
-	// Flugente: apply disguise
-BOOLEAN ApplySpyKit( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
-{	
-	if (pObj->exists() == false || !HasItemFlag(pObj->usItem, (CLOTHES_CIVILIAN)) )
+// Flugente: apply clothes, and eventually disguise
+BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
+{
+	// this will only work with the new trait system
+	if (!gGameOptions.fNewTraitSystem)
 	{
-		return( FALSE );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ERROR_OLDTRAITS] );
+		return FALSE;
 	}
 
-	// we get the civilian disguise. AP costs will be checked and deducted here
-	if ( !pSoldier->DisguiseAsCivilian() )
-		return FALSE;
+	if ( !pSoldier || pObj->exists() == false )
+		return( FALSE );
 
-	UseKitPoints( pObj, 100, pSoldier );
+	UINT8 skilllevel = NUM_SKILL_TRAITS( pSoldier, COVERT_NT );
+
+	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( 100 - gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
+	if ( !EnoughPoints( pSoldier, apcost, 0, TRUE ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
+		return( FALSE );
+	}
+			
+	// determine clothes type
+	UINT32 clothestype = Item[pObj->usItem].clothestype;
+
+	// if not a clothes item, nothing to see here
+	if ( clothestype == 0 || clothestype > CLOTHES_MAX )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_UNIFORM_FOUND] );
+		return( FALSE);
+	}
 	
+	UINT8 filler = 0;
+	// if it has a vest, wear it
+	bool newvest  = FALSE;	
+	if ( GetPaletteRepIndexFromID(Clothes[clothestype].vest, &filler) )
+		newvest = TRUE;
+
+	// if it has pants, wear them
+	bool newpants = FALSE;
+	if ( GetPaletteRepIndexFromID(Clothes[clothestype].pants, &filler) )
+		newpants = TRUE;
+	
+	if ( newvest || newpants )
+	{
+		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
+
+		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		{
+			if ( newvest )
+			{
+				// if we are already wearing a vest, give us back that item
+				if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_VEST )
+				{
+					UINT16 vestitem = 0;
+					if ( GetFirstClothesItemWithSpecificData(&vestitem, pSoldier->VestPal, "blank")  )
+					{
+						CreateItem( vestitem, 100, &gTempObject );
+						if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					}
+					else
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+				}
+
+				SET_PALETTEREP_ID( pSoldier->VestPal, Clothes[clothestype].vest );
+				pSoldier->bSoldierFlagMask |= SOLDIER_NEW_VEST;
+			}
+
+			if ( newpants )
+			{
+				// if we are already wearing a vest, give us back that item
+				if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_PANTS )
+				{
+					UINT16 pantsitem = 0;
+					if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", pSoldier->PantsPal)  )
+					{
+						CreateItem( pantsitem, 100, &gTempObject );
+						if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					}
+					else
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+				}
+
+				SET_PALETTEREP_ID( pSoldier->PantsPal, Clothes[clothestype].pants );
+				pSoldier->bSoldierFlagMask |= SOLDIER_NEW_PANTS;
+			}
+
+			// Use palette from HVOBJECT, then use substitution for pants, etc
+			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( pSoldier->p8BPPPalette ) * 256 );
+
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+
+			pSoldier->CreateSoldierPalettes();
+
+			UseKitPoints( pObj, 100, pSoldier );
+
+			DeductPoints( pSoldier, apcost, 0 );
+		}
+
+		if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->bSoldierFlagMask & SOLDIER_NEW_PANTS )
+		{
+			// first, remove the covert flags, adn then reapply the correct ones, in case we switch between civilina and military garb
+			pSoldier->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+
+			// we now have to determine wether we are currently wearing civilian or military clothes
+			for ( int i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+			{
+				if ( pSoldier->VestPal == gUniformColors[ i ].vest && pSoldier->PantsPal == gUniformColors[ i ].pants )
+					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+			}
+
+			// if not dressed as a soldier, we must be dressed as a civilian
+			if ( !(pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
+				pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
+		}
+	}
+		
 	return( TRUE );
 }
 
@@ -14529,4 +14637,57 @@ FLOAT GetItemDirtIncreaseFactor( OBJECTTYPE * pObj, BOOLEAN fConsiderAmmo )
 	dirtincreasefactor = max(0.0f, dirtincreasefactor);
 
 	return dirtincreasefactor;
+}
+
+// Flugente: retrieve a specific clothes item, if such a thing exists
+BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalVest, PaletteRepID aPalPants )
+{
+	bool vestok  = FALSE;
+	bool pantsok = FALSE;
+
+	UINT8 filler = 0;
+	if ( !GetPaletteRepIndexFromID(aPalVest, &filler) )
+		vestok = TRUE;
+
+	if ( !GetPaletteRepIndexFromID(aPalPants, &filler) )
+		pantsok = TRUE;
+
+	register UINT16 i;
+	for (i = 1; i < MAXITEMS; ++i)
+	{
+		if ( Item[i].clothestype > 0 )
+		{
+			bool tmpvestok  = vestok;
+			bool tmppantsok = pantsok;
+
+			UINT8 vestpalid = 0;
+			GetPaletteRepIndexFromID(aPalVest, &vestpalid);
+
+			// if we are looking for vests, do so
+			if ( !tmpvestok  )
+			{				
+				if ( COMPARE_PALETTEREP_ID(aPalVest, Clothes[Item[i].clothestype].vest) )
+				{
+					tmpvestok = TRUE;
+				}
+			}
+
+			// if we are looking for pants, do so
+			if ( !tmppantsok )
+			{
+				if ( COMPARE_PALETTEREP_ID(aPalPants, Clothes[Item[i].clothestype].pants) )
+				{
+					tmppantsok = TRUE;
+				}
+			}
+
+			if ( tmpvestok && tmppantsok )
+			{
+				*pusItem = i;
+				return( TRUE );
+			}
+		}
+	}
+
+	return( FALSE );
 }

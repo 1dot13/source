@@ -897,15 +897,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	memcpy( &(Corpse.name), &(pSoldier->name), sizeof(CHAR16) * 10 );
 	Corpse.name[9] = '\0';
 #endif
-
-	// Flugente: mark if this was an army soldier ( we use this to steal his clothes later on )
-	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
-		Corpse.usFlags |= ROTTING_CORPSE_FROM_ADMIN;
-	else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY )
-		Corpse.usFlags |= ROTTING_CORPSE_FROM_TROOP;
-	else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE )
-		Corpse.usFlags |= ROTTING_CORPSE_FROM_ELITE;
-
+		
 	// if this soldier's uniform was damaged (gunfire, blade attacks, explosions) then don't allow to take the uniform. We can't stay hidden if we're covered in blood :-)
 	if ( pSoldier->bSoldierFlagMask &SOLDIER_DAMAGED_UNIFORM )
 		Corpse.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
@@ -1962,15 +1954,11 @@ BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse )
 	if ( pCorpse->def.ubType == ROTTING_STAGE2 || (pCorpse->def.usFlags & ROTTING_CORPSE_CLOTHES_TAKEN) )
 		return( FALSE );
 
-	// is there a uniform we can take?
-	if ( !(pCorpse->def.usFlags & (ROTTING_CORPSE_FROM_ADMIN|ROTTING_CORPSE_FROM_TROOP|ROTTING_CORPSE_FROM_ELITE)) )
-		return( FALSE );
-
-	return( CorpseOkToDress(pCorpse, NULL) );
+	return( CorpseOkToDress(pCorpse) );
 }
 
 
-// Flugente: take the clothes off a corpse and wear them
+// Flugente: take the clothes off a corpse
 void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
@@ -1981,20 +1969,35 @@ void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 	// can this thing be stripped?
 	if ( IsValidStripCorpse( pCorpse ) )
 	{
-		// if this fits our body, try to wear it
-		if ( CorpseOkToDress(pCorpse, pSoldier) && pSoldier->DisguiseAsSoldierFromCorpse( pCorpse->def.usFlags ) )
+		// determine which clothes to spawn
+		UINT16 vestitem = 0;
+		if ( GetFirstClothesItemWithSpecificData(&vestitem, pCorpse->def.VestPal, "blank")  )
 		{
-			// we took the clothes, mark this
-			pCorpse->def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
+			CreateItem( vestitem, 100, &gTempObject );
+			if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
 		}
 		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_STRIPPING_POSSIBLE], pSoldier->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
+		UINT16 pantsitem = 0;
+		if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", pCorpse->def.PantsPal)  )
+		{
+			CreateItem( pantsitem, 100, &gTempObject );
+			if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
+		// we took the clothes, mark this
+		pCorpse->def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
 	}
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_CLOTHESFOUND] );
 }
 
-// Flugente: can clothes be taken off of this corpse?
+// Flugente: can this corpse be carried?
 BOOLEAN IsValidTakeCorpse( ROTTING_CORPSE *pCorpse )
 {
 	if ( pCorpse->def.ubType >= BLOODCAT_DEAD || pCorpse->def.ubType == NO_CORPSE )
@@ -2271,10 +2274,7 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 		SET_PALETTEREP_ID( Corpse.PantsPal,	"BLUEPANTS" );
 	else
 		SET_PALETTEREP_ID( Corpse.PantsPal,	"BEIGEPANTS" );
-
-	//SET_PALETTEREP_ID( Corpse.VestPal,  gUniformColors[ UNIFORM_ENEMY_TROOP ].vest );
-	//SET_PALETTEREP_ID( Corpse.PantsPal, gUniformColors[ UNIFORM_ENEMY_TROOP ].pants	);
-
+	
 	Corpse.ubDirection = NORTH;
 	Corpse.uiTimeOfDeath = GetWorldTotalMin();
 
@@ -2299,15 +2299,7 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 
 		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_STRIPPED )
 			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
-
-		// TODO: change this so it always fits, not dependant these colours
-		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_YELLOW && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN )
-			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_ADMIN;
-		else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_RED && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_GREEN )
-			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_TROOP;
-		else if ( (*pObj)[0]->data.sObjectFlag & CORPSE_VEST_BLACK && (*pObj)[0]->data.sObjectFlag & CORPSE_PANTS_BLACK )
-			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_FROM_ELITE;
-
+				
 #ifdef ENABLE_ZOMBIES
 		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_ZOMBIE_RISE )
 			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
@@ -2984,7 +2976,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 
 // Flugente: can we take the clothes of this corpse?
 // calling this with NULL for soldier will give a general answer for any bodytype
-BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier )
+BOOLEAN CorpseOkToDress( ROTTING_CORPSE* pCorpse )
 {
 	if ( !pCorpse )
 		return FALSE;
@@ -3007,16 +2999,6 @@ BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier )
 		case S_DEAD2:
 		case C_DEAD1:
 		case C_DEAD2:
-			if ( pSoldier )
-			{
-				if ( pSoldier->ubBodyType == REGMALE )
-					return TRUE;
-			}
-			else
-				return TRUE;
-
-			break;
-
 		case MMERC_JFK:
 		case MMERC_BCK:
 		case MMERC_FWD:
@@ -3026,17 +3008,7 @@ BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier )
 		case MMERC_FALL:
 		case MMERC_FALLF:
 		case FT_DEAD1:
-		case FT_DEAD2:
-			if ( pSoldier )
-			{
-				if ( pSoldier->ubBodyType == BIGMALE || pSoldier->ubBodyType == STOCKYMALE )
-					return TRUE;
-			}
-			else
-				return TRUE;
-
-			break;
-			
+		case FT_DEAD2:			
 		case FMERC_JFK:
 		case FMERC_BCK:
 		case FMERC_FWD:
@@ -3047,14 +3019,7 @@ BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier )
 		case FMERC_FALLF:
 		case W_DEAD1:
 		case W_DEAD2:
-			if ( pSoldier )
-			{
-				if ( pSoldier->ubBodyType == REGFEMALE )
-					return TRUE;
-			}
-			else
-				return TRUE;
-
+			return TRUE;
 			break;
 
 		default:

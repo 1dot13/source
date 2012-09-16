@@ -94,9 +94,6 @@ enum RottingCorpseDefines
 #define		ROTTING_CORPSE_GUTTED									0x00002000		// corpse has been gutted
 #define		ROTTING_CORPSE_CLOTHES_TAKEN							0x00004000		// corpse is without clothes (atm not visually)
 
-#define		ROTTING_CORPSE_FROM_ADMIN								0x00010000		// corpse is from a admin (used to take his clothes)
-#define		ROTTING_CORPSE_FROM_TROOP								0x00020000		// corpse is from a regular soldier (used to take his clothes)
-#define		ROTTING_CORPSE_FROM_ELITE								0x00040000		// corpse is from a elite soldier (used to take his clothes)
 typedef struct
 {
 	UINT8												ubType;
@@ -236,6 +233,6 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
 #endif
 
 // Flugente: can we take the clothes of this corpse?
-BOOLEAN CorpseOkToDress( ROTTING_CORPSE *	pCorpse, SOLDIERTYPE* pSoldier );
+BOOLEAN CorpseOkToDress( ROTTING_CORPSE* pCorpse );
 
 #endif

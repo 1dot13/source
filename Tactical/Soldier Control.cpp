@@ -15068,7 +15068,38 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 
 // dress up in our natural state
 void	SOLDIERTYPE::LooseDisguise( void )
+{	
+	// loose any covert flags
+	this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+}
+
+// take off any clothes item and switch back to original clothes
+// no - this function does not want you think it does. Leave Fox alone, you perv.
+void	SOLDIERTYPE::Strip()
 {
+	// loose any covert and clothes flags
+	this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
+
+	UINT16 vestitem = 0;
+	if ( GetFirstClothesItemWithSpecificData(&vestitem, this->VestPal, "blank")  )
+	{
+		CreateItem( vestitem, 100, &gTempObject );
+		if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+			AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
+	UINT16 pantsitem = 0;
+	if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", this->PantsPal)  )
+	{
+		CreateItem( pantsitem, 100, &gTempObject );
+		if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+			AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+	}
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
 	// show our true colours
 	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
 
@@ -15093,182 +15124,7 @@ void	SOLDIERTYPE::LooseDisguise( void )
 
 		this->CreateSoldierPalettes();
 	}
-
-	// loose any covert flags
-	// if we are disguised as a civilian, remove that flag, and give us back a civilian clothes item
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
-	{
-		this->bSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
-
-		UINT16 civilianclothesitem = 0;
-		if ( GetFirstItemWithFlag(&civilianclothesitem, CLOTHES_CIVILIAN)  )
-		{
-			CreateItem( civilianclothesitem, 100, &gTempObject );
-
-			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-				AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
-		}
-		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
-	}
-
-	// if we are also disguised as a soldier, remove that flag
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
-	{
-		this->bSoldierFlagMask &= ~SOLDIER_COVERT_SOLDIER;
-	}
 }
-
-// dress up like a civilian
-BOOLEAN		SOLDIERTYPE::DisguiseAsCivilian( void )
-{
-	// this will only work with the new trait system
-	if (!gGameOptions.fNewTraitSystem)
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ERROR_OLDTRAITS] );
-		return FALSE;
-	}
-
-	UINT8 skilllevel = NUM_SKILL_TRAITS( this, COVERT_NT );
-
-	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
-	if ( !EnoughPoints( this, apcost, 0, TRUE ) )
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
-		return( FALSE );
-	}
-
-	this->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
-
-	// wear an enemy uniform
-	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
-
-	if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
-	{
-		// wear something random
-		switch( Random( 7 ) )
-		{
-			case 0:	SET_PALETTEREP_ID( this->VestPal, "WHITEVEST"	); break;
-			case 1: SET_PALETTEREP_ID( this->VestPal, "BLACKSHIRT"	); break;
-			case 2: SET_PALETTEREP_ID( this->VestPal, "PURPLESHIRT" ); break;
-			case 3: SET_PALETTEREP_ID( this->VestPal, "BLUEVEST"	); break;
-			case 4: SET_PALETTEREP_ID( this->VestPal, "BROWNVEST"	); break;
-			case 5: SET_PALETTEREP_ID( this->VestPal, "JEANVEST"	); break;
-			case 6: SET_PALETTEREP_ID( this->VestPal, "REDVEST"		); break;
-		}
-
-		switch( Random( 3 ) )
-		{
-			case 0:	SET_PALETTEREP_ID( this->PantsPal, "TANPANTS"	); break;
-			case 1: SET_PALETTEREP_ID( this->PantsPal, "BEIGEPANTS" ); break;
-			case 2: SET_PALETTEREP_ID( this->PantsPal, "GREENPANTS" ); break;
-		}
-
-		// Use palette from HVOBJECT, then use substitution for pants, etc
-		memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
-
-		SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
-
-		this->CreateSoldierPalettes();
-	}
-	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BAD_PALETTE] );
-
-	// if we are also disguised as a soldier, remove that flag
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
-	{
-		this->bSoldierFlagMask &= ~SOLDIER_COVERT_SOLDIER;
-	}
-
-	DeductPoints( this, apcost, 0 );
-
-	return TRUE;
-}
-
-// dress up like an enemy soldier
-BOOLEAN		SOLDIERTYPE::DisguiseAsSoldierFromCorpse( UINT32 usFlag )
-{
-	// this will only work with the new trait system
-	if (!gGameOptions.fNewTraitSystem)
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ERROR_OLDTRAITS] );
-		return FALSE;
-	}
-
-	// action is only possible if we have the covert ops trait
-	UINT8 skilllevel = NUM_SKILL_TRAITS( this, COVERT_NT );
-	if ( skilllevel < 1)
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_SKILL] );
-		return FALSE;
-	}
-
-	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
-	if ( !EnoughPoints( this, apcost, 0, TRUE ) )
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
-		return( FALSE );
-	}
-
-	UINT8 uniformtype = 0;
-
-	if ( usFlag & ROTTING_CORPSE_FROM_ADMIN )
-		uniformtype = UNIFORM_ENEMY_ADMIN;
-	else if ( usFlag & ROTTING_CORPSE_FROM_TROOP )
-		uniformtype = UNIFORM_ENEMY_TROOP;
-	else if ( usFlag & ROTTING_CORPSE_FROM_ELITE )
-		uniformtype = UNIFORM_ENEMY_ELITE;
-	else
-	{
-		// no uniform here, so nothing to wear
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_UNIFORM_FOUND] );
-		return FALSE;
-	}
-
-	this->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
-
-	// wear an enemy uniform
-	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
-
-	if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
-	{
-		SET_PALETTEREP_ID(this->VestPal,  gUniformColors[ uniformtype ].vest );
-		SET_PALETTEREP_ID(this->PantsPal, gUniformColors[ uniformtype ].pants	);
-
-		// Use palette from HVOBJECT, then use substitution for pants, etc
-		memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
-
-		SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
-
-		this->CreateSoldierPalettes();
-	}
-
-	// if we are disguised as a civilian, remove that flag, and give us back a civilian clothes item
-	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
-	{
-		this->bSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
-
-		UINT16 civilianclothesitem = 0;
-		if ( GetFirstItemWithFlag(&civilianclothesitem, CLOTHES_CIVILIAN)  )
-		{
-			CreateItem( civilianclothesitem, 100, &gTempObject );
-			AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
-		}
-		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
-	}
-
-	DeductPoints( this, apcost, 0 );
-
-	return TRUE;
-}
-
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {

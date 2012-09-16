@@ -131,10 +131,12 @@ INT8						gbTrapDifficulty;
 BOOLEAN					gfJustFoundBoobyTrap = FALSE;
 
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
-void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
-void CleanWeapons( BOOLEAN fCleanAll );
 
-void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );		// added by Flugente
+// added by Flugente
+void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
+void CleanWeapons( BOOLEAN fCleanAll );
+void Strip( SOLDIERTYPE * pSoldier );
+void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 
 BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel ) 
 {
@@ -4592,6 +4594,12 @@ void CleanWeapons( BOOLEAN fCleanAll )
 	}
 }
 
+// take off custom clothes
+void Strip( SOLDIERTYPE * pSoldier )
+{
+	pSoldier->Strip();
+}
+
 void BombMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if (gpTempSoldier)
@@ -4709,6 +4717,10 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 		case 3:
 			// clean all weapons
 			CleanWeapons(TRUE);
+			break;
+		case 4:
+			// take off custom clothes 
+			Strip(gpTempSoldier);
 			break;
 		default:
 			break;

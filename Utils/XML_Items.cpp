@@ -277,7 +277,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "CrowbarModifier") == 0 ||
 				strcmp(name, "DisarmModifier") == 0 ||
 				strcmp(name, "RepairModifier") == 0 ||
-				strcmp(name, "usActionItemFlag") == 0 ))
+				strcmp(name, "usActionItemFlag") == 0 ||
+				strcmp(name, "clothestype") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1393,6 +1394,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.usActionItemFlag = (UINT32) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "clothestype") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.clothestype = (UINT32) atol(pData->szCharData);
+		}
 		
 		pData->maxReadDepth--;
 	}
@@ -2021,12 +2027,13 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile, "\t\t<RepairModifier>%d</RepairModifier>\r\n",							Item[cnt].RepairModifier );
 
 			// Flugente poison system
-			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",		Item[cnt].bPoisonPercentage    );
+			FilePrintf(hFile,"\t\t<PoisonPercentage>%d</PoisonPercentage>\r\n",							Item[cnt].bPoisonPercentage    );
 
 			FilePrintf(hFile,"\t\t<DamageChance>%d</DamageChance>\r\n",									Item[cnt].usDamageChance  );
 			FilePrintf(hFile,"\t\t<DirtIncreaseFactor>%4.2f</DirtIncreaseFactor>\r\n",					Item[cnt].dirtIncreaseFactor  );
 
 			FilePrintf(hFile,"\t\t<usActionItemFlag>%d</usActionItemFlag>\r\n",							Item[cnt].usActionItemFlag  );
+			FilePrintf(hFile,"\t\t<clothestype>%d</clothestype>\r\n",									Item[cnt].clothestype  );
 									
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

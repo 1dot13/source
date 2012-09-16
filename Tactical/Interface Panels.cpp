@@ -3357,7 +3357,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// Say OK acknowledge....
 						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 					}
-					else if ( ApplySpyKit( gpSMCurrentMerc, gpItemPointer ) )
+					else if ( ApplyClothes( gpSMCurrentMerc, gpItemPointer ) )
 					{
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;

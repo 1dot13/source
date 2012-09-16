@@ -349,11 +349,11 @@ enum
 #define SOLDIER_COVERT_SOLDIER		0x00000008	//8			// Soldier is currently disguised as an enemy soldier
 
 #define SOLDIER_DAMAGED_UNIFORM		0x00000010	//16		// Soldier's uniform is damged (and thus can't be taken off of his corpse)
-#define SOLDIER_COVERT_NPC_SPECIAL	0x00000020	//32		// Special flag for NPCs wehn recruited (used for covert stuff)
-/*#define WH40K_JUMPPACK   		0x00000040	//64
-#define WH40K_DISPLACER			0x00000080	//128
+#define SOLDIER_COVERT_NPC_SPECIAL	0x00000020	//32		// Special flag for NPCs when recruited (used for covert stuff)
+#define SOLDIER_NEW_VEST   			0x00000040	//64		// Soldier is wearing new vest. if having both vest and pants, he can disguise
+#define SOLDIER_NEW_PANTS			0x00000080	//128		// Soldier is wearing new pants
 
-#define WH40K_ROSARIUS			0x00000100	//256
+/*#define WH40K_ROSARIUS			0x00000100	//256
 #define WH40K_SEAL				0x00000200	//512
 #define WH40K_POWER_WEAPON		0x00000400	//1024
 #define ENEMY_NET_4_LVL_3		0x00000800	//2048
@@ -393,6 +393,19 @@ typedef struct
 
 // HEADROCK HAM 3.6: Uniform colors for the different soldier classes
 extern UNIFORMCOLORS gUniformColors[NUM_UNIFORMS];
+
+// Flugente: a structure for clothing items
+typedef struct
+{
+	UINT16			uiIndex;
+	CHAR16			szName[80];				// name of these clothes
+	PaletteRepID	vest;
+	PaletteRepID	pants;
+} CLOTHES_STRUCT;
+
+#define CLOTHES_MAX	50
+
+extern CLOTHES_STRUCT Clothes[CLOTHES_MAX];
 
 // This macro should be used whenever we want to see if someone is neutral
 // IF WE ARE CONSIDERING ATTACKING THEM.	Creatures & bloodcats will attack neutrals
@@ -1476,13 +1489,10 @@ public:
 	BOOLEAN		RecognizeAsCombatant(UINT8 ubTargetID);
 
 	// loose disguise, dress up in our natural state
-	void		LooseDisguise( void );
+	void		LooseDisguise( void );	
 
-	// dress up like a civilian
-	BOOLEAN		DisguiseAsCivilian( void );
-
-	// dress up like an enemy soldier
-	BOOLEAN		DisguiseAsSoldierFromCorpse( UINT32 usFlag );
+	// take off any clothes item and switch back to original clothes
+	void		Strip();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

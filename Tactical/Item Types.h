@@ -859,6 +859,8 @@ extern OBJECTTYPE gTempObject;
 #define ITEM_DIRECTION_ANY				0x0000FF00
 // ----------------------------------------------------------------
 
+
+
 // replaces candamage
 //#define ITEM_DAMAGEABLE			0x0001
 //// replaces canrepair
@@ -1130,6 +1132,9 @@ typedef struct
 
 	// Flugente: a flag that is necessary for transforming action items to objects with new abilities (for now, tripwire networks and directional explosives)
 	UINT32	usActionItemFlag;
+
+	// Flugente: clothes type that 'links' to an entry in Clothes.xml
+	UINT32	clothestype;
 
 } INVTYPE;
 

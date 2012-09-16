@@ -196,7 +196,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier );
 INT8 FindObj( SOLDIERTYPE * pSoldier, UINT16 usItem, INT8 bLower = 0, INT8 bUpper = NUM_INV_SLOTS );
 
 BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs );
-BOOLEAN ApplySpyKit( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj);	// Flugente: apply disguise
+BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj);	// Flugente: apply clothes, and eventually disguise
 
 UINT32 ConvertProfileMoneyValueToObjectTypeMoneyValue( UINT8 ubStatus );
 UINT8 ConvertObjectTypeMoneyValueToProfileMoneyValue( UINT32 uiMoneyAmount );
@@ -497,6 +497,9 @@ INT16 GetPocketFromAttachment(OBJECTTYPE * pObj, UINT8 pMap);
 UINT8 GetFirstPocketOnItem(UINT16 usIndex);
 
 INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo );
+
+// Flugente: retrieve a specific clothes item, if such a thing exists
+BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalVest, PaletteRepID aPalPants );
 
 #endif
 
