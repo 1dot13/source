@@ -69,7 +69,7 @@
 	
 	<CLOTHES>
     <uiIndex>8</uiIndex>
-		<szName>GYELLOWSHIRT</szName>
+		<szName>light green</szName>
 		<Vest>GYELLOWSHIRT</Vest>
 	</CLOTHES>
 	
@@ -124,6 +124,13 @@
 	<CLOTHES>
     <uiIndex>17</uiIndex>
 		<szName>Bluejeans</szName>
+		<Pants>BLUEPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>18</uiIndex>
+		<szName>white t-shirt and jeans</szName>
+		<Vest>WHITEVEST</Vest>
 		<Pants>BLUEPANTS</Pants>
 	</CLOTHES>
 

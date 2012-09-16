@@ -47346,19 +47346,17 @@
 		<szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>513</ubGraphicNum>
-		<ubWeight>1</ubWeight>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>148</ubGraphicNum>
+		<ubWeight>12</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>13</ItemSize>
-		<usPrice>250</usPrice>
+		<usPrice>110</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>4096</ItemFlag>
+		<clothestype>18</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48473,10 +48471,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1616</uiIndex>
-		<szItemName>Bright yellow shirt</szItemName>
-		<szLongItemName>Bright yellow shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable bright yellow T-shirt.</szItemDesc>
-		<szBRName>Bright yellow shirt</szBRName>
+		<szItemName>Light green shirt</szItemName>
+		<szLongItemName>Light green shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable light green yellow T-shirt.</szItemDesc>
+		<szBRName>Light green shirt</szBRName>
 		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
