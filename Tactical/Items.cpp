@@ -14652,6 +14652,11 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 	if ( !GetPaletteRepIndexFromID(aPalPants, &filler) )
 		pantsok = TRUE;
 
+	// getting the best item isn't straightforward. As combo clothes can be found first, we will search for each item whose clothestype matches, and retreive the loest item that has
+	// the lowest clothestype
+	UINT32 bestclothestype = 999999;
+	UINT16 bestitem = 0;
+
 	register UINT16 i;
 	for (i = 1; i < MAXITEMS; ++i)
 	{
@@ -14682,11 +14687,20 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 			}
 
 			if ( tmpvestok && tmppantsok )
-			{
-				*pusItem = i;
-				return( TRUE );
+			{	
+				if ( Item[i].clothestype < bestclothestype )
+				{
+					bestclothestype = Item[i].clothestype;
+					bestitem = i;
+				}
 			}
 		}
+	}
+
+	if ( bestitem > 0 )
+	{
+		*pusItem = bestitem;
+		return( TRUE );
 	}
 
 	return( FALSE );
