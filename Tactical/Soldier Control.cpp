@@ -15073,56 +15073,76 @@ void	SOLDIERTYPE::LooseDisguise( void )
 	this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
 }
 
-// take off any clothes item and switch back to original clothes
+// undisguise or take off any clothes item and switch back to original clothes
 // no - this function does not want you think it does. Leave Fox alone, you perv.
 void	SOLDIERTYPE::Strip()
 {
-	// loose any covert and clothes flags
-	this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
-
-	UINT16 vestitem = 0;
-	if ( GetFirstClothesItemWithSpecificData(&vestitem, this->VestPal, "blank")  )
+	// if covert, loose that ability
+	if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 	{
-		CreateItem( vestitem, 100, &gTempObject );
-		if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-			AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+		// loose any covert flags
+		this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+	}
+	// if already not covert, take off clothes
+	else if ( this->bSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
+	{
+		// loose any clothes flags
+		this->bSoldierFlagMask &= ~(SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
+
+		UINT16 vestitem = 0;
+		if ( GetFirstClothesItemWithSpecificData(&vestitem, this->VestPal, "blank")  )
+		{
+			CreateItem( vestitem, 100, &gTempObject );
+			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+				AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
+		UINT16 pantsitem = 0;
+		if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", this->PantsPal)  )
+		{
+			CreateItem( pantsitem, 100, &gTempObject );
+			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+				AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
+		// show our true colours
+		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
+
+		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		{
+			UINT8				ubProfileIndex;
+			MERCPROFILESTRUCT * pProfile;
+
+			ubProfileIndex = this->ubProfile;
+			pProfile = &(gMercProfiles[ubProfileIndex]);
+
+			SET_PALETTEREP_ID ( this->VestPal,		pProfile->VEST );
+			SET_PALETTEREP_ID ( this->PantsPal,		pProfile->PANTS );
+
+			// Use palette from HVOBJECT, then use substitution for pants, etc
+			memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
+
+			SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
+			SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
+			SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
+			SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
+
+			this->CreateSoldierPalettes();
+		}
 	}
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
-
-	UINT16 pantsitem = 0;
-	if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", this->PantsPal)  )
 	{
-		CreateItem( pantsitem, 100, &gTempObject );
-		if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-			AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
-	}
-	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
-
-	// show our true colours
-	UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );
-
-	if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
-	{
-		UINT8				ubProfileIndex;
-		MERCPROFILESTRUCT * pProfile;
-
-		ubProfileIndex = this->ubProfile;
-		pProfile = &(gMercProfiles[ubProfileIndex]);
-
-		SET_PALETTEREP_ID ( this->VestPal,		pProfile->VEST );
-		SET_PALETTEREP_ID ( this->PantsPal,		pProfile->PANTS );
-
-		// Use palette from HVOBJECT, then use substitution for pants, etc
-		memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );
-
-		SetPaletteReplacement( this->p8BPPPalette, this->HeadPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->VestPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->PantsPal );
-		SetPaletteReplacement( this->p8BPPPalette, this->SkinPal );
-
-		this->CreateSoldierPalettes();
+		// if the player is an annoying little perv, tell them so, girls!
+		if ( this->ubBodyType == REGFEMALE )
+		{
+			// sigh. We were hired by an idiot.
+			TacticalCharacterDialogue( this, QUOTE_IMPATIENT_QUOTE );
+			this->aiData.bMorale = max(0, this->aiData.bMorale - 1);
+		}
 	}
 }
 

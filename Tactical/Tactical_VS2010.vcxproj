@@ -194,6 +194,7 @@
     <ClCompile Include="XML_AttachmentSlots.cpp" />
     <ClCompile Include="XML_BurstSounds.cpp" />
     <ClCompile Include="XML_CivGroupNames.cpp" />
+    <ClCompile Include="XML_Clothes.cpp" />
     <ClCompile Include="XML_ComboMergeInfo.cpp" />
     <ClCompile Include="XML_CompatibleFaceItems.cpp" />
     <ClCompile Include="XML_Drugs.cpp" />

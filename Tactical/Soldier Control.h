@@ -1491,7 +1491,7 @@ public:
 	// loose disguise, dress up in our natural state
 	void		LooseDisguise( void );	
 
-	// take off any clothes item and switch back to original clothes
+	// lose disguise or take off any clothes item and switch back to original clothes
 	void		Strip();
 	//////////////////////////////////////////////////////////////////////////////
 

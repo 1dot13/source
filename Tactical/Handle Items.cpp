@@ -4594,7 +4594,7 @@ void CleanWeapons( BOOLEAN fCleanAll )
 	}
 }
 
-// take off custom clothes
+// undisguise or take off custom clothes
 void Strip( SOLDIERTYPE * pSoldier )
 {
 	pSoldier->Strip();
@@ -4719,7 +4719,7 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			CleanWeapons(TRUE);
 			break;
 		case 4:
-			// take off custom clothes 
+			// undisguise or take off custom clothes 
 			Strip(gpTempSoldier);
 			break;
 		default:
