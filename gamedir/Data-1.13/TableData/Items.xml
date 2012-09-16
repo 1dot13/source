@@ -175,6 +175,7 @@
 		<DamageChance>0</DamageChance>
 		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
 		<usActionItemFlag>0</usActionItemFlag>
+		<clothestype>0</clothestype>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -48220,6 +48221,425 @@
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
 		<usActionItemFlag>136</usActionItemFlag> <!-- net 4, lvl 4-->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1606</uiIndex>
+		<szItemName>Black shirt</szItemName>
+		<szLongItemName>Black shirt</szLongItemName>
+		<szItemDesc>Part of the uniform of Arulco's elite guard. Pretending to be one of them carries the death penalty.</szItemDesc>
+		<szBRName>Black shirt</szBRName>
+		<szBRDesc>Not for sale through BR</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>135</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<clothestype>2</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1607</uiIndex>
+		<szItemName>Blue shirt</szItemName>
+		<szLongItemName>Blue shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable blue T-shirt.</szItemDesc>
+		<szBRName>Blue shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>136</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>6</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1608</uiIndex>
+		<szItemName>Brown shirt</szItemName>
+		<szLongItemName>Brown shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable brown T-shirt.</szItemDesc>
+		<szBRName>Brown shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>137</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>11</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1609</uiIndex>
+		<szItemName>Green shirt</szItemName>
+		<szLongItemName>Green shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable green T-shirt.</szItemDesc>
+		<szBRName>Green shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>138</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>4</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1610</uiIndex>
+		<szItemName>Grey shirt</szItemName>
+		<szLongItemName>Grey shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable grey T-shirt.</szItemDesc>
+		<szBRName>Grey shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>139</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>7</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1611</uiIndex>
+		<szItemName>Yellow shirt</szItemName>
+		<szLongItemName>Yellow shirt</szLongItemName>
+		<szItemDesc>Part of the uniform of the armed administrative branch of the arulcan army.</szItemDesc>
+		<szBRName>Yellow shirt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>140</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<clothestype>1</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1612</uiIndex>
+		<szItemName>White shirt</szItemName>
+		<szLongItemName>White shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable yellow T-shirt.</szItemDesc>
+		<szBRName>White shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>141</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>9</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1613</uiIndex>
+		<szItemName>Purple shirt</szItemName>
+		<szLongItemName>Purple shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable purple T-shirt.</szItemDesc>
+		<szBRName>Purple shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>142</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>10</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1614</uiIndex>
+		<szItemName>Red shirt</szItemName>
+		<szLongItemName>Red shirt</szLongItemName>
+		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+		<szBRName>Red shirt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>143</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<clothestype>3</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1615</uiIndex>
+		<szItemName>Jean shirt</szItemName>
+		<szLongItemName>Jean shirt</szLongItemName>
+		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+		<szBRName>Jean shirt</szBRName>
+		<szBRDesc>Jean. What kind of colour is 'jean' anyway? Stupid colour names. In my days, you wore black and that was it.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>144</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>5</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1616</uiIndex>
+		<szItemName>Bright yellow shirt</szItemName>
+		<szLongItemName>Bright yellow shirt</szLongItemName>
+		<szItemDesc>A totally unremarkable bright yellow T-shirt.</szItemDesc>
+		<szBRName>Bright yellow shirt</szBRName>
+		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>145</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>8</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1617</uiIndex>
+		<szItemName>Beige pants</szItemName>
+		<szLongItemName>Beige pants</szLongItemName>
+		<szItemDesc>Pants. Be sure to wear a pair if you leave the house.</szItemDesc>
+		<szBRName>Beige pants</szBRName>
+		<szBRDesc>We also sell pants. In beige. Sigh. What has this shop come to? Does anyone even read this?</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>146</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>90</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>14</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1618</uiIndex>
+		<szItemName>Black pants</szItemName>
+		<szLongItemName>Black army trousers</szLongItemName>
+		<szItemDesc>Part of the arulcan elite guard uniform.</szItemDesc>
+		<szBRName>Black pants</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>147</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>120</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<clothestype>13</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1619</uiIndex>
+		<szItemName>Bluejeans</szItemName>
+		<szLongItemName>Bluejeans</szLongItemName>
+		<szItemDesc>A pair of no-name bluejeans.</szItemDesc>
+		<szBRName>Bluejeans</szBRName>
+		<szBRDesc>You know, I used to wear them before they were cool.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>148</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>60</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>5</BR_NewInventory>
+		<clothestype>17</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1620</uiIndex>
+		<szItemName>Army trousers</szItemName>
+		<szLongItemName>Army trousers</szLongItemName>
+		<szItemDesc>Standard army pants.</szItemDesc>
+		<szBRName>Army trousers</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>149</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>120</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<clothestype>12</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1621</uiIndex>
+		<szItemName>Jean pants</szItemName>
+		<szLongItemName>Jean pants</szLongItemName>
+		<szItemDesc>Pants. This might be useful, don't you think?</szItemDesc>
+		<szBRName>Jean pants</szBRName>
+		<szBRDesc>42 little jeans had to lose their skin to create this jean pair of pants. So please buy it.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>150</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>90</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>16</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1622</uiIndex>
+		<szItemName>Tan pants</szItemName>
+		<szLongItemName>Tan pants</szLongItemName>
+		<szItemDesc>Pants. Of limited use as a weapon, if you ask me. But you propably don't, I know you.</szItemDesc>
+		<szBRName>Tan pants</szBRName>
+		<szBRDesc>We are not sure what this has to do with a tan, but please buy them anyway.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>151</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>90</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<clothestype>15</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
