@@ -451,45 +451,52 @@ BombItem:
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>58</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Stun Grenade</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1528</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>59</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Tear Gas</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1529</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>60</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Mustard Gas</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1530</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>61</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Mini Grenade</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1531</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>62</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire MK2 Grenade</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1532</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>63</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Flare</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1533</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>64</uiIndex>
-		<Name>Empty action</Name>
-		<ActionID>0</ActionID>
-		<Blow_Up>0</Blow_Up>
+		<Name>Tripwire Smoke Grenade</Name>
+		<ActionID>3</ActionID>
+		<Blow_Up>1</Blow_Up>
+		<BombItem>1534</BombItem>
 	</ACTION_ITEM>
 	<ACTION_ITEM>
 		<uiIndex>65</uiIndex>
