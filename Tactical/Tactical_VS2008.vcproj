@@ -1023,6 +1023,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Clothes.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_ComboMergeInfo.cpp"
 				>
 			</File>
