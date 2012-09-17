@@ -6315,9 +6315,11 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		}
 	}
 
-	// Flugente: if hit in legs or torso, blood will be on our uniform - this unifrom can't be used to disguise someone anymore
-	if ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_UNIFORM;
+	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
+	if ( ubHitLocation == AIM_SHOT_TORSO  )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
+	else if ( ubHitLocation == AIM_SHOT_LEGS )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
@@ -6365,9 +6367,11 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
-	// Flugente: if hit in legs or torso, blood will be on our uniform - this unifrom can't be used to disguise someone anymore
-	if ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_UNIFORM;
+	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
+	if ( ubHitLocation == AIM_SHOT_TORSO  )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
+	else if ( ubHitLocation == AIM_SHOT_LEGS )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
 
 	INT32 sNewGridNo;
 
@@ -6537,9 +6541,11 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 
 void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
-	// Flugente: if hit in legs or torso, blood will be on our uniform - this unifrom can't be used to disguise someone anymore
-	if ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS )
-		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_UNIFORM;
+	// Flugente: if hit in legs or torso, blood will be on our uniform - parts of the clothes cannot be worn anymore
+	if ( ubHitLocation == AIM_SHOT_TORSO  )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
+	else if ( ubHitLocation == AIM_SHOT_LEGS )
+		pSoldier->bSoldierFlagMask |= SOLDIER_DAMAGED_PANTS;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
@@ -15086,28 +15092,36 @@ void	SOLDIERTYPE::Strip()
 	// if already not covert, take off clothes
 	else if ( this->bSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
 	{
+		// if having a new vest that is undamaged, take it off
+		if ( (this->bSoldierFlagMask & SOLDIER_NEW_VEST) && !(this->bSoldierFlagMask & SOLDIER_DAMAGED_VEST) )
+		{
+			UINT16 vestitem = 0;
+			if ( GetFirstClothesItemWithSpecificData(&vestitem, this->VestPal, "blank")  )
+			{
+				CreateItem( vestitem, 100, &gTempObject );
+				if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+					AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+			}
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+		}
+
+		// if having new pants that are undamaged, take them off
+		if ( (this->bSoldierFlagMask & SOLDIER_NEW_PANTS) && !(this->bSoldierFlagMask & SOLDIER_DAMAGED_PANTS) )
+		{
+			UINT16 pantsitem = 0;
+			if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", this->PantsPal)  )
+			{
+				CreateItem( pantsitem, 100, &gTempObject );
+				if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+					AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+			}
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+		}
+
 		// loose any clothes flags
 		this->bSoldierFlagMask &= ~(SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
-
-		UINT16 vestitem = 0;
-		if ( GetFirstClothesItemWithSpecificData(&vestitem, this->VestPal, "blank")  )
-		{
-			CreateItem( vestitem, 100, &gTempObject );
-			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-				AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
-		}
-		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
-
-		UINT16 pantsitem = 0;
-		if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", this->PantsPal)  )
-		{
-			CreateItem( pantsitem, 100, &gTempObject );
-			if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-				AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
-		}
-		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 
 		// show our true colours
 		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( this, this->usAnimState );

@@ -348,13 +348,13 @@ enum
 #define SOLDIER_COVERT_CIV			0x00000004	//4			// Soldier is currently disguised as a civilian
 #define SOLDIER_COVERT_SOLDIER		0x00000008	//8			// Soldier is currently disguised as an enemy soldier
 
-#define SOLDIER_DAMAGED_UNIFORM		0x00000010	//16		// Soldier's uniform is damged (and thus can't be taken off of his corpse)
+#define SOLDIER_DAMAGED_VEST		0x00000010	//16		// Soldier's vest is damaged (and thus can't be taken off)
 #define SOLDIER_COVERT_NPC_SPECIAL	0x00000020	//32		// Special flag for NPCs when recruited (used for covert stuff)
 #define SOLDIER_NEW_VEST   			0x00000040	//64		// Soldier is wearing new vest. if having both vest and pants, he can disguise
 #define SOLDIER_NEW_PANTS			0x00000080	//128		// Soldier is wearing new pants
 
-/*#define WH40K_ROSARIUS			0x00000100	//256
-#define WH40K_SEAL				0x00000200	//512
+#define SOLDIER_DAMAGED_PANTS		0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
+/*#define WH40K_SEAL				0x00000200	//512
 #define WH40K_POWER_WEAPON		0x00000400	//1024
 #define ENEMY_NET_4_LVL_3		0x00000800	//2048
 

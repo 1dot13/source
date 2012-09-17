@@ -805,8 +805,10 @@ extern OBJECTTYPE gTempObject;
 
 #define CORPSE_PANTS_BLUE		0x10000000	//268435456
 #define CORPSE_PANTS_BEIGE		0x20000000	//536870912
-#define CORPSE_STRIPPED			0x40000000	//1073741824
-#define TRIPWIRE_ACTIVATED		0x80000000	//2147483648		// for tripwire activation (gets set and unset when activating tripwire)
+#define CORPSE_NO_VEST			0x40000000	//1073741824		// corpse has no vest item (it has been either taken or been destroyed)
+#define CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED		0x80000000	//2147483648		// corpse has no pants item/for tripwire activation (gets set and unset when activating tripwire)
+
+// Flugente TODO 2012-09-17: next time we break savegame compatibility, extend the flagmasks from UINT32 to UINT64. I didn't do it this time (see double-used flag above), as we try to minimise those breaks. But it is needed.
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: flags for action items --------

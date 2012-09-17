@@ -92,7 +92,8 @@ enum RottingCorpseDefines
 // Flugente: corpses can now be gutted after they have been decapitated. Atm there is no corpse that can be both gutted and decapitated (to be done later)
 #define		ROTTING_CORPSE_HEAD_TAKEN								0x00001000		// head has been taken off
 #define		ROTTING_CORPSE_GUTTED									0x00002000		// corpse has been gutted
-#define		ROTTING_CORPSE_CLOTHES_TAKEN							0x00004000		// corpse is without clothes (atm not visually)
+#define		ROTTING_CORPSE_NO_VEST									0x00004000		// corpse has no vest (atm not visually)
+#define		ROTTING_CORPSE_NO_PANTS									0x00008000		// corpse has no vest (atm not visually)
 
 typedef struct
 {

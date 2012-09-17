@@ -899,8 +899,11 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 #endif
 		
 	// if this soldier's uniform was damaged (gunfire, blade attacks, explosions) then don't allow to take the uniform. We can't stay hidden if we're covered in blood :-)
-	if ( pSoldier->bSoldierFlagMask &SOLDIER_DAMAGED_UNIFORM )
-		Corpse.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
+	if ( pSoldier->bSoldierFlagMask & SOLDIER_DAMAGED_VEST )
+		Corpse.usFlags |= ROTTING_CORPSE_NO_VEST;
+
+	if ( pSoldier->bSoldierFlagMask & SOLDIER_DAMAGED_PANTS )
+		Corpse.usFlags |= ROTTING_CORPSE_NO_PANTS;
 
 	// Determine corpse type!
 	ubType = (UINT8)gubAnimSurfaceCorpseID[ pSoldier->ubBodyType][ pSoldier->usAnimState ];
@@ -1951,7 +1954,7 @@ void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 // Flugente: can clothes be taken off of this corpse?
 BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse )
 {
-	if ( pCorpse->def.ubType == ROTTING_STAGE2 || (pCorpse->def.usFlags & ROTTING_CORPSE_CLOTHES_TAKEN) )
+	if ( pCorpse->def.ubType == ROTTING_STAGE2 || ((pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST) && (pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS)) )
 		return( FALSE );
 
 	return( CorpseOkToDress(pCorpse) );
@@ -1970,28 +1973,34 @@ void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 	if ( IsValidStripCorpse( pCorpse ) )
 	{
 		// determine which clothes to spawn
-		UINT16 vestitem = 0;
-		if ( GetFirstClothesItemWithSpecificData(&vestitem, pCorpse->def.VestPal, "blank")  )
+		if ( !(pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST) )
 		{
-			CreateItem( vestitem, 100, &gTempObject );
-			if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+			UINT16 vestitem = 0;
+			if ( GetFirstClothesItemWithSpecificData(&vestitem, pCorpse->def.VestPal, "blank")  )
+			{
+				CreateItem( vestitem, 100, &gTempObject );
+				if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+			}
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 		}
-		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 
-		UINT16 pantsitem = 0;
-		if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", pCorpse->def.PantsPal)  )
+		if ( !(pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS) )
 		{
-			CreateItem( pantsitem, 100, &gTempObject );
-			if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-				AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+			UINT16 pantsitem = 0;
+			if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", pCorpse->def.PantsPal)  )
+			{
+				CreateItem( pantsitem, 100, &gTempObject );
+				if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+			}
+			else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 		}
-		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 
 		// we took the clothes, mark this
-		pCorpse->def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
+		pCorpse->def.usFlags |= (ROTTING_CORPSE_NO_VEST|ROTTING_CORPSE_NO_PANTS);
 	}
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_CLOTHESFOUND] );
@@ -2038,8 +2047,11 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 					if ( pCorpse->def.usFlags & ROTTING_CORPSE_HEAD_TAKEN )
 						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_HEAD;
 
-					if ( pCorpse->def.usFlags & ROTTING_CORPSE_CLOTHES_TAKEN )
-						gTempObject[0]->data.sObjectFlag |= CORPSE_STRIPPED;
+					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_VEST;
+
+					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS )
+						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED;
 
 #ifdef ENABLE_ZOMBIES
 					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NEVER_RISE_AGAIN )
@@ -2297,8 +2309,11 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_HEAD )
 			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
 
-		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_STRIPPED )
-			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_CLOTHES_TAKEN;
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_VEST )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_NO_VEST;
+
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED )
+			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_NO_PANTS;
 				
 #ifdef ENABLE_ZOMBIES
 		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_ZOMBIE_RISE )
