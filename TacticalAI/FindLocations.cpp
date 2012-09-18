@@ -1665,10 +1665,11 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	INT32 sGridNo;
 	INT32					sBestSpot = NOWHERE;
 	INT32					iTempValue, iValue, iBestValue = 0;
-	ITEM_POOL *		pItemPool;
-	OBJECTTYPE *	pObj;
-	INVTYPE *			pItem;
+	ITEM_POOL *				pItemPool;
+	OBJECTTYPE *			pObj;
+	INVTYPE *				pItem;
 	INT32					iItemIndex, iBestItemIndex;
+	BOOLEAN					fDumbEnoughtoPickup = FALSE;
 
 	iTempValue = -1;
 	iItemIndex = iBestItemIndex = -1;
@@ -1754,6 +1755,10 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	}
 
 	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_PICKUP_ITEM ), COPYREACHABLE, 0 );//dnl ch50 071009
+
+	// Flugente: if the soldier is 'dumb enough', he may pick up certain items... which can be used to lure the AI into traps
+	if ( pSoldier->stats.bWisdom < 70 )
+		fDumbEnoughtoPickup = TRUE;
 
 	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1953,6 +1958,12 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 											break;
 										}
 								}
+							}
+							// Flugente: if the soldier is 'dumb enough', he may pick up 'interesting items'. This can be used to lure him into traps (a certain scene in FMJ comes to mind)
+							else if ( fDumbEnoughtoPickup && pItem->usItemClass == IC_MISC && HasItemFlag(pObj->usItem, ATTENTION_ITEM) )
+							{
+								// oooh... shiny!
+								iTempValue = 1000;
 							}
 							else
 							{

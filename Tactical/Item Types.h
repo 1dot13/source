@@ -740,7 +740,7 @@ extern OBJECTTYPE gTempObject;
 #define CAMO_REMOVAL			0x00000400	//1024		// item can be used to remove camo
 #define CLEANING_KIT			0x00000800	//2048		// weapon cleaning kit
 
-//#define CLOTHES_CIVILIAN		0x00001000	//4096		// with this item you can disguise as a civilian // not used anymore
+#define ATTENTION_ITEM			0x00001000	//4096		// this item is 'interesting' to the AI. Dumb soldiers may try to pick it up
 #define GAROTTE					0x00002000	//8192		// this item is a garotte
 #define COVERT 					0x00004000	//16384		// if LBE, any gun inside will be covert. On a gun, it will covert in any LBE, even if the LBE does not have that tag itself
 #define CORPSE					0x00008000	//32768		// a dead body
