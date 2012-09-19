@@ -4449,18 +4449,22 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					/*// Flugente: spawn items while debugging
 					if ( gusSelectedSoldier != NOBODY )
 					{
-						static UINT16 usitem = 142;
+						static UINT16 usitem = 269;
 						static INT16 status = 100;
 						static FLOAT temperature = 0.0;
 
 						OBJECTTYPE newobj;
 						CreateItem( usitem, status, &newobj );
 						(newobj)[0]->data.bTemperature = temperature;
-						AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
+						
+						if ( !AutoPlaceObject( MercPtrs[ gusSelectedSoldier ], &newobj, FALSE ) )
+							AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
 
 						CreateItem( usitem, status, &newobj );
 						(newobj)[0]->data.bTemperature = temperature;
-						AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
+						
+						if ( !AutoPlaceObject( MercPtrs[ gusSelectedSoldier ], &newobj, FALSE ) )
+							AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
 					}*/
 				}
 				else
