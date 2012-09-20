@@ -37,6 +37,15 @@ extern BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier);
 
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
+#define FOOD_BAD_THRESHOLD							0.5f		// must be > 0 !!!!!
+#define FOOD_BAD_THRESHOLD_INVERSE					1.0f/FOOD_BAD_THRESHOLD
+
+#define FOOD_MORALE_DRINK_TO_FOOD_RATIO				1.0f
+#define FOOD_FACILITY_WATER_FACTOR					3.0f		// in a facility that serves food, only the food value is specified in the xml. drink value is food value multiplied by this
+
+#define FOOD_POW_MULTIPLICATOR						1.2f		// multiplicator to the water we get when POWs (so many times our water digestion rate, so we will barely survive)
+#define FOOD_WATER_POISONOUS_TEMPERATURE			20000.0f	// termperature value of water taken out of swamps etc.
+
 // these midifiers are applied separately for both food and water
 // apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
 FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
@@ -130,8 +139,8 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 		INT32 maxpts = max(Food[foodtype].bFoodPoints, Food[foodtype].bDrinkPoints);
 
 		// divide by 100 (poison sum is in [0, 99]
-		// multiply with FOOD_BAD_THRESHOLD for more reasonable values
-		INT8 poisonadd = (INT8)(0.01 * maxpts * (1.0 - foodcondition) * FOOD_BAD_THRESHOLD );
+		// multiply with 0.25 for more reasonable values
+		INT8 poisonadd = (INT8)(0.01 * 0.25 * maxpts * (1.0 - foodcondition) );
 
 		pSoldier->AddPoison(poisonadd);
 	}
@@ -754,7 +763,7 @@ void SectorFillCanteens( void )
 
 		// if the water in this sector is poisoned, we add a different temperature - resulting in worsening of the item's decay status
 		if ( waterquality == WATER_POISONOUS )
-			addtemperature = 0.0f;
+			addtemperature = FOOD_WATER_POISONOUS_TEMPERATURE;
 
 		// first step: fill all canteens in inventories
 		INT8									bMercID, bLastTeamID;

@@ -3,18 +3,10 @@
 
 #include "soldier control.h"
 
-#define FOOD_BAD_THRESHOLD							0.5f		// must be > 0 !!!!!
-#define FOOD_BAD_THRESHOLD_INVERSE					1.0f/FOOD_BAD_THRESHOLD
-
 #define FOOD_MIN									- 20000
 #define FOOD_MAX									10000
 #define DRINK_MIN									- 20000
 #define DRINK_MAX									10000
-
-#define FOOD_MORALE_DRINK_TO_FOOD_RATIO				1.0f
-#define FOOD_FACILITY_WATER_FACTOR					3.0f
-
-#define FOOD_POW_MULTIPLICATOR						1.2f		// multiplicator to the water we get when POWs (so many times our water digestion rate, so we will barely survive)
 
 typedef enum
 {
