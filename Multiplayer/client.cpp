@@ -2337,8 +2337,10 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		cDamageMultiplier=cl_lan->damageMultiplier;
 		cSameMercAllowed=cl_lan->sameMercAllowed;
 		
-		gsMercArriveSectorX=cl_lan->gsMercArriveSectorX;
-		gsMercArriveSectorY=cl_lan->gsMercArriveSectorY;
+
+		gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX = cl_lan->gsMercArriveSectorX;
+		gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY = cl_lan->gsMercArriveSectorY;
+
 
 		// WANNE - BMP: We have to initialize the map size here!!
 		InitializeWorldSize(gsMercArriveSectorX, gsMercArriveSectorY, 0);
@@ -2568,8 +2570,8 @@ void reapplySETTINGS()
 	gMercProfiles[ 68 ].sSalary = 2200; //iggy;
 
 	// Stuff from recieveSETTINGS
-	gsMercArriveSectorX=gMPServerSettings.gsMercArriveSectorX;
-	gsMercArriveSectorY=gMPServerSettings.gsMercArriveSectorY;
+	gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX = gMPServerSettings.gsMercArriveSectorX;
+	gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY = gMPServerSettings.gsMercArriveSectorY;
 
 	cGameType=gMPServerSettings.gameType;
 	cDisableMorale=gMPServerSettings.disableMorale;
@@ -2788,8 +2790,9 @@ void recieveMAPCHANGE( RPCParameters *rpcParameters )
 	else
 	{
 		// copy new map settings locally
-		gsMercArriveSectorX=cl_lan->gsMercArriveSectorX;
-		gsMercArriveSectorY=cl_lan->gsMercArriveSectorY;
+		gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX = cl_lan->gsMercArriveSectorX;
+		gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY = cl_lan->gsMercArriveSectorY;
+
 
 		ChangeSelectedMapSector( gsMercArriveSectorX, gsMercArriveSectorY, 0 );
 
