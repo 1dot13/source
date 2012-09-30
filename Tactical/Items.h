@@ -501,6 +501,9 @@ INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo );
 // Flugente: retrieve a specific clothes item, if such a thing exists
 BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalVest, PaletteRepID aPalPants );
 
+// Flugente: function to determine what item a random item spawns
+BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem );
+
 #endif
 
 

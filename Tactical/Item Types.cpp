@@ -5,6 +5,7 @@
 #include "GameSettings.h"
 #include "screenids.h"
 #include "Action Items.h"	// added by Flugente for the ACTION_ITEM_BLOW_UP value
+#include "Random.h"			// added by Flugente
 
 
 int		BODYPOSFINAL		= GUNSLINGPOCKPOS;//RESET in initInventory
@@ -1326,6 +1327,11 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 			this->usItem = NONE;
 		}
 
+		// Flugente: random items
+		UINT16 newitemfromrandom = 0;
+		if ( GetItemFromRandomItem(src.usItem, &newitemfromrandom) )
+			this->usItem = newitemfromrandom;
+
 		//and now the big change, the union
 		//copy the old data, making sure not to write over, since the old size is actually 9 bytes
 		if (ubNumberOfObjects == 1) {
@@ -1341,7 +1347,8 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 			(*this)[0]->data.gun.bGunAmmoStatus = 0;
 			(*this)[0]->data.gun.ubGunState = 0;
 			//Lastly, convert values from the old format to the new based on the type of object
-			switch(Item[src.usItem].usItemClass)
+						
+			switch(Item[this->usItem].usItemClass)
 			{
 			case IC_MONEY:
 				(*this)[0]->data.money.uiMoneyAmount = src.ugYucky.uiMoneyAmount;

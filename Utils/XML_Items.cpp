@@ -278,7 +278,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "DisarmModifier") == 0 ||
 				strcmp(name, "RepairModifier") == 0 ||
 				strcmp(name, "usActionItemFlag") == 0 ||
-				strcmp(name, "clothestype") == 0 ))
+				strcmp(name, "clothestype") == 0 ||
+				strcmp(name, "randomitem") == 0 ||
+				strcmp(name, "randomitemcoolnessmodificator") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1399,7 +1401,21 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.clothestype = (UINT32) atol(pData->szCharData);
 		}
-		
+		else if(strcmp(name, "randomitem") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.randomitem = (UINT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "randomitemcoolnessmodificator") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.randomitemcoolnessmodificator = (INT8) atol(pData->szCharData);
+
+			// no nonsense, only values between -20 and + 20
+			pData->curItem.randomitemcoolnessmodificator = min(20, max(-20, pData->curItem.randomitemcoolnessmodificator) );
+		}
+
+						
 		pData->maxReadDepth--;
 	}
 
@@ -2034,7 +2050,9 @@ BOOLEAN WriteItemStats()
 
 			FilePrintf(hFile,"\t\t<usActionItemFlag>%d</usActionItemFlag>\r\n",							Item[cnt].usActionItemFlag  );
 			FilePrintf(hFile,"\t\t<clothestype>%d</clothestype>\r\n",									Item[cnt].clothestype  );
-									
+			FilePrintf(hFile,"\t\t<randomitem>%d</randomitem>\r\n",										Item[cnt].randomitem  );
+			FilePrintf(hFile,"\t\t<randomitemcoolnessmodificator>%d</randomitemcoolnessmodificator>\r\n",	Item[cnt].randomitemcoolnessmodificator  );
+												
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");

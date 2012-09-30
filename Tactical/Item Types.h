@@ -1138,7 +1138,24 @@ typedef struct
 	// Flugente: clothes type that 'links' to an entry in Clothes.xml
 	UINT32	clothestype;
 
+	// Flugente: a link to RandomItemsClass.xml. Out of such an item, a random object is created, depending on the entries in the xml
+	UINT16	randomitem;
+	INT8	randomitemcoolnessmodificator;		// alters the allowed maximum coolness a random item can have
+
 } INVTYPE;
+
+
+// Flugente: move this to a better position
+typedef struct RANDOM_ITEM_CHOICE_TYPE
+{
+	UINT16		uiIndex;
+	//CHAR16		szName[80];					// name of this choice (not used ingame, only for readability)
+	UINT16		randomitem[10];				// room to link to other random item choices
+	UINT16		item[10];					// room for up to 10 items
+
+} RANDOM_ITEM_CHOICE_TYPE;
+
+extern RANDOM_ITEM_CHOICE_TYPE gRandomItemClass[200];
 
 // CHRISL: Added new structures to handle LBE gear and the two new XML files that will be needed to deal
 // with the IC pockets and the new inventory system.

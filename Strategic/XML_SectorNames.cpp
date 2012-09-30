@@ -325,7 +325,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "usCurfewValue") == 0)
 		{
 			pData->curElement = SECTORNAME_ELEMENT_SECTOR;
-			pData->usCurfewValue = (UINT16) atoi(pData->szCharData);
+			pData->usCurfewValue = (UINT8) atoi(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;

@@ -1037,6 +1037,11 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	// the weapon class here ranges from 1 to 11, so subtract 1 to get a gun level
 	usGunIndex = SelectStandardArmyGun( (UINT8) (bWeaponClass - 1));
 
+	// Flugente: random items
+	UINT16 newitemfromrandom = 0;
+	if ( GetItemFromRandomItem(usGunIndex, &newitemfromrandom) )
+		usGunIndex = newitemfromrandom;
+
 	//WarmSteel - Removed the attachment check here. why check twice anyway?
 	//Now, we have chosen all of the correct items.  Now, we will assign them into the slots.
 	//Because we are dealing with enemies, automatically give them full ammo in their weapon.
@@ -3436,6 +3441,11 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 				uiChoice = Random(gArmyItemChoices[ typeIndex ].ubChoices);
 		}
 		usItem = gArmyItemChoices[ typeIndex ].bItemNo[ uiChoice ];
+
+		// Flugente: random items
+		UINT16 newitemfromrandom = 0;
+		if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
+			usItem = newitemfromrandom;
 
 		pickItem = FALSE;
 
