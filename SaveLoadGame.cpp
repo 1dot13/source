@@ -2477,11 +2477,22 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 	{
 		int size;
 		
-		// When saving maps with the new map editor that has weapon overheated feature included!
-		if (dMajorMapVersion >= 7 && ubMinorMapVersion >= 28)
+		if (dMajorMapVersion >= 7 && ubMinorMapVersion >= 30)
 		{
 			// Flugente: changed this, otherwise game would crash when reading WF maps if class ObjectData was different. this is a rough fix and by no means perfect
 			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) );
+		}
+		// When saving maps with the new map editor that has weapon overheated feature included!
+		else if (dMajorMapVersion >= 7 && ubMinorMapVersion >= 28)
+		{
+			// Flugente 12-09-30: ok, this will look really odd, so I'll explain. We have to account for padding of structures. Before map version 30, ObjectData had size 32 due to padding. 
+			// Up to ubWireNetworkFlag the size is 28, then bDefuseFrequency adds size 1 - but due to padding, the size was 32. Now, upon adding sRepairThreshold, the size is still 32, as the padded 3 bytes
+			// are now used. Due to this, we only have to reduce for the sizes of bDirtLevel and sObjectFlag, but not sRepairThreshold (sizeof(ObjectData) is now 40).
+			// But of course, we now 'read' the values for sRepairThreshold, but there weren't any in older map versions, resulting in garbage values - we therefore set that manually to 100
+			// Of course, once the ObjectData-Class is altered, this has to be altered as well!
+			LOADDATA(&(this->data), *hBuffer, sizeof(ObjectData) - (sizeof(this->data.bDirtLevel) + sizeof(this->data.sObjectFlag) ) );
+
+			this->data.sRepairThreshold = 100;
 		}
 		else
 		{
