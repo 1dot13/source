@@ -176,6 +176,8 @@
 		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
 		<usActionItemFlag>0</usActionItemFlag>
 		<clothestype>0</clothestype>
+		<randomitem>0</randomitem>
+		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -47445,7 +47447,6 @@
 		<szItemDesc>This little device enables your rifle to fire grenades. A loaded magazine is required, and obviously no other firing mdoes are possible while there is a grenade attached.</szItemDesc>
 		<szBRName>Rifle Grenade Device</szBRName>
 		<szBRDesc>Transform your WW2 rifleman into a WW2 grenadier.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
 		<usItemClass>16</usItemClass>
 		<AttachmentClass>33554432</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
@@ -48638,6 +48639,50 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<clothestype>15</clothestype>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1623</uiIndex>
+		<szItemName>random NATO AR number 1</szItemName>
+		<szLongItemName>random NATO AR 1</szLongItemName>
+		<szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+		<szBRName>random NATO AR 1</szBRName>
+		<szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>1</ubGraphicNum>		
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>90</usPrice>
+		<ubCoolness>1</ubCoolness>		
+		<randomitem>15</randomitem>
+		<randomitemcoolnessmodificator>-1</randomitemcoolnessmodificator>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1624</uiIndex>
+		<szItemName>random WP AR number 1</szItemName>
+		<szLongItemName>random WP AR 1</szLongItemName>
+		<szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+		<szBRName>random WP AR 1</szBRName>
+		<szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>1</ubGraphicNum>		
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>90</usPrice>
+		<ubCoolness>1</ubCoolness>		
+		<randomitem>16</randomitem>
+		<randomitemcoolnessmodificator>1</randomitemcoolnessmodificator>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
