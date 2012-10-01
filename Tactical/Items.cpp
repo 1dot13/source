@@ -14781,7 +14781,6 @@ BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem )
 		rdclasstaboocnt = 0;
 
 		// determine maximum allowed coolness
-		// TODO: adjust this depending on a random item coolness modificator
 		rditemmaxcoolness = HighestPlayerProgressPercentage() / 10 + 1 + Item[usRandomItem].randomitemcoolnessmodificator;	// the random item itself can modify coolness
 		
 		// build the list of items to choose from. We will search down the random item class an can even branch into mulitple other random item classes.
@@ -14860,7 +14859,13 @@ BOOL AddToRandomListFromItem( UINT16 usItem )
 		{
 			// only allow those items that are viable at the current progress
 			if ( Item[usItem].ubCoolness <= rditemmaxcoolness )
-				randomitemarray[itemcnt++] = usItem;
+			{
+				// if item is food, not drug or canteen, and food system is off, don't add this
+				if ( !gGameOptions.fFoodSystem && Item[usItem].foodtype > 0 && Item[usItem].drugtype == 0 && Item[usItem].canteen == 0 )
+					;
+				else
+					randomitemarray[itemcnt++] = usItem;
+			}
 
 			// if maximum is reached, return false, thereby signalling an end
 			return ( itemcnt < RANDOM_ITEM_MAX_NUMBER );
