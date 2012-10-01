@@ -1042,6 +1042,10 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	if ( GetItemFromRandomItem(usGunIndex, &newitemfromrandom) )
 		usGunIndex = newitemfromrandom;
 
+	// if item is still radnom, use default gun -> GLOCK 17
+	if ( Item[usGunIndex].randomitem > 0 )
+		usGunIndex = GLOCK_17;
+
 	//WarmSteel - Removed the attachment check here. why check twice anyway?
 	//Now, we have chosen all of the correct items.  Now, we will assign them into the slots.
 	//Because we are dealing with enemies, automatically give them full ammo in their weapon.
@@ -3471,6 +3475,10 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 					pickItem = TRUE;
 				}
 			}
+
+			// Flugente: if item is still random, don't pick it
+			if ( Item[usItem].randomitem > 0 )
+				pickItem = FALSE;
 		}
 
 

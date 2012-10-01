@@ -1328,9 +1328,12 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 		}
 
 		// Flugente: random items
-		UINT16 newitemfromrandom = 0;
+		UINT16 newitemfromrandom = NONE;
 		if ( GetItemFromRandomItem(src.usItem, &newitemfromrandom) )
 			this->usItem = newitemfromrandom;
+
+		if ( Item[this->usItem].randomitem > 0 )
+			this->usItem = NONE;
 
 		//and now the big change, the union
 		//copy the old data, making sure not to write over, since the old size is actually 9 bytes

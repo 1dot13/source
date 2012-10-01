@@ -2783,13 +2783,24 @@ BOOLEAN EvaluateValidMerge( UINT16 usMerge, UINT16 usItem, UINT16 * pusResult, U
 		}
 	}
 
+	// Flugente: for random items, we have to do the resolution here
+	UINT16 result1 = Merge[iLoop][2];
+	UINT16 rdresult1 = 0;
+	if ( GetItemFromRandomItem(result1, &rdresult1) )
+		result1 = rdresult1;
+
+	UINT16 result2 = Merge[iLoop][3];
+	UINT16 rdresult2 = 0;
+	if ( GetItemFromRandomItem(result2, &rdresult2) )
+		result2 = rdresult2;
+
 	//WarmSteel - Return false if the results aren't valid.
-	if( !ItemIsLegal(Merge[iLoop][2], TRUE) && !ItemIsLegal(Merge[iLoop][3], TRUE) ){
+	if( !ItemIsLegal(result1, TRUE) && !ItemIsLegal(result2, TRUE) ){
 		return( FALSE );
 	}
 
-	*pusResult = Merge[iLoop][2];
-	*pusResult2 = Merge[iLoop][3];
+	*pusResult = result1;
+	*pusResult2 = result2;
 	*pubType = (UINT8) Merge[iLoop][4];
 	*pubAPCost = (UINT8) Merge[iLoop][5];
 	return( TRUE );
@@ -7654,6 +7665,12 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	UINT16 newitemfromrandom = 0;
 	if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
 		usItem = newitemfromrandom;
+
+	if (usItem == 0)
+	{
+		DebugBreakpoint();
+		return( FALSE );
+	}
 
 	if (Item[ usItem ].usItemClass == IC_GUN)
 	{
@@ -14031,6 +14048,12 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 		if (Transform->usResult[curResult] > 0)
 		{
 			usResult[curResult] = Transform->usResult[curResult];
+
+			// Flugente: resolution of random items
+			UINT16 rdresult = 0;
+			if ( GetItemFromRandomItem(usResult[curResult], &rdresult) )
+				usResult[curResult] = rdresult;
+
 			// Count the number of valid result items
 			iNumResults++;
 		}
