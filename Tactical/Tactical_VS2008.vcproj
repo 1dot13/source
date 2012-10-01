@@ -1143,6 +1143,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_RandomItem.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_RandomStats.cpp"
 				>
 			</File>
