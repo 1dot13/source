@@ -6394,6 +6394,8 @@ STR16 MPClientMessage[] =
 	L"Le client s'est déconnecté et s'est fermé.",
 	L"Le client n'est pas démarré.",
 	L"INFO: Si le jeu est bloqué (la barre de progression des adversaires ne se déplace pas), notifier le au serveur en appuyant sur ALT + E pour aller directement à votre tour de jeu !",
+	// 80
+	L"AI's turn - %d left",		// TODO.Translate
 };
 
 STR16 gszMPEdgesText[] =

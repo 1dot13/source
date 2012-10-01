@@ -6233,6 +6233,8 @@ STR16 MPClientMessage[] =
 	L"Client Verbindung aufgelöst und heruntergefahren.",
 	L"Client läuft nicht.",
 	L"INFO: Falls das Spiel hängen bleibt (die Statusanzeige beim Gegnerischen Zug bewegt sich nicht), informieren Sie den Server, dass dieser ALT + E drücken soll, um Ihnen den Spielzug wieder zu geben!",
+	// 80
+	L"AI's turn - %d left",		// TODO.Translate
 };
 
 STR16 gszMPEdgesText[] =

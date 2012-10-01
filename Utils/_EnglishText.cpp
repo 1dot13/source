@@ -6407,7 +6407,9 @@ STR16 MPClientMessage[] =
 	L"Client failed to start. Terminating.",
 	L"Client disconnected and shutdown.",
 	L"Client is not running.",
-	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",	
+	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",
+	// 80
+	L"AI's turn - %d left",
 };
 
 STR16 gszMPEdgesText[] =
