@@ -3654,6 +3654,10 @@ void ScrollWorld( )
 			}
 
 
+			//hayden - disable mouse scrolling for window dev ease
+			if(iDisableMouseScrolling)break;
+
+
 			// Do mouse - PUT INTO A TIMER!
 			// Put a counter on starting from mouse, if we have not started already!
 			if ( !gfScrollInertia && gfScrollPending == FALSE )

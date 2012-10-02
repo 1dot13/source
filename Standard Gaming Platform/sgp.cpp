@@ -1678,6 +1678,10 @@ void GetRuntimeSettings( )
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
+
+
+	// haydent: mouse scrolling
+	iDisableMouseScrolling = (int) GetPrivateProfileInt( "Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling, INIFile );
 #else
 	gbPixelDepth = PIXEL_DEPTH;
 
@@ -1715,6 +1719,9 @@ void GetRuntimeSettings( )
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int)oProps.getIntProperty("Ja2 Settings","PLAY_INTRO", iPlayIntro);
+
+	// haydent: mouse scrolling
+	iDisableMouseScrolling = (int)oProps.getIntProperty("Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling);
 
 #ifdef USE_CODE_PAGE
 	s_DebugKeyboardInput = oProps.getBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);

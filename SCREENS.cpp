@@ -6,6 +6,7 @@
 
 int iResolution;		// INI file
 int iPlayIntro;
+int iDisableMouseScrolling;
 /* WANNE, Sgt.Kolja
  * INI file (Windowed or Fullscreen) 
  * REPLACE all defines WINDOWED_MODE with this variable
