@@ -1918,7 +1918,7 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 	INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
 	SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
 
-	if(INT->bTeam==netbTeam)//for us or AI
+	if(INT->bTeam==netbTeam)//for us or AI //im not sure about this comment. i think this if check only if its for us... - hayden
 	{
 		INT->bTeam=0;
 		INT->ubID=INT->ubID - ubID_prefix;
@@ -1945,7 +1945,7 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 	}
 
 	// WANNE - MP: This seems to cause the HANG on AI interrupt where we have to press ALT + E on the server!
-	if(	INT->bTeam != 0)
+	if(	INT->bTeam != 0)//not for our team - hayden
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[17] );
 		//stop moving merc who was interrupted and init UI bar
@@ -1955,6 +1955,9 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 		InitEnemyUIBar( 0, 0 );
 		fInterfacePanelDirty = DIRTYLEVEL2;
 		gTacticalStatus.fInterruptOccurred = TRUE;
+
+		AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+		//this needed to add details of who's interrupt it is - hayden
 	}
 	else
 	{
