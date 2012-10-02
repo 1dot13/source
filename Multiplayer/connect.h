@@ -130,6 +130,9 @@ void reapplySETTINGS();
 BOOLEAN CheckConditionsForBattle( GROUP *pGroup ); // this comes from strategic movement.cpp
 
 extern char client_names[4][30];
+
+extern CHAR16 TeamNameStrings[][30];
+
 // OJW - 20081204
 // I need to keep track of all the clients readyness, spawn edge and team
 // <TODO> want to change this all to use client_info, but dont want to make sweeping

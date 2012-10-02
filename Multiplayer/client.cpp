@@ -557,6 +557,9 @@ typedef struct
 bullets_table bTable[11][50];
 
 char client_names[4][30];
+
+char team_names[][30];//hayden need client_names with AI
+
 // OJW - 20081204
 int	 client_ready[4];
 int	 client_edges[5];
@@ -638,6 +641,22 @@ void turn_callback (UINT8 ubResult);
 void ChatCallback (UINT8 ubResult);
 void HandleClientConnectionLost();
 void disconnected_callback(UINT8 ubResult);
+
+//hayden - i need this for message references
+CHAR16 TeamNameStrings[][30] =
+{
+	L"You", // player's turn
+	L"AI",
+	L"Creature",
+	L"Militia",
+	L"Civilian",
+	L"Player_Plan",// planning turn
+	L"Client #1",//hayden
+	L"Client #2",//hayden
+	L"Client #3",//hayden
+	L"Client #4",//hayden
+
+};
 
 // OJW - 20081222
 void send_gameover( void );
@@ -1734,6 +1753,9 @@ void start_battle ( void )
 					swprintf(full, MPClientMessage[57],i+1,name);
 
 					memcpy( TeamTurnString[ (i+6) ] , full, sizeof( CHAR16) * 255 );
+
+					memcpy( TeamNameStrings[ (i+6) ] , name, sizeof( CHAR16) * 30 );
+					//give me a copy too ;) - hayden
 				}
 			}
 
@@ -1919,12 +1941,12 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 	INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
 	SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
 
-	if(INT->bTeam==netbTeam)//for us or AI //im not sure about this comment. i think this if check only if its for us... - hayden
+	if(INT->bTeam==netbTeam)//for us
 	{
 		INT->bTeam=0;
 		INT->ubID=INT->ubID - ubID_prefix;
 
-		for(int i=0; i <= INT->gubOutOfTurnPersons; i++)
+		for(int i=0; i <= INT->gubOutOfTurnPersons; i++)//this loop translates soldier id's from what they are in someone else's game to what they are locally
 		{
 			if((INT->gubOutOfTurnOrder[i] >= ubID_prefix) && (INT->gubOutOfTurnOrder[i] < (ubID_prefix+6)))
 			{
@@ -1934,21 +1956,16 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 		memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
 		gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
 
-		// AI has interrupted
-		if (INT->bTeam == 1)
-		{
-			//AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-		}
-		else
-		{
-			AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-		}
+
+		AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt of %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );
+
 	}
 
 	// WANNE - MP: This seems to cause the HANG on AI interrupt where we have to press ALT + E on the server!
 	if(	INT->bTeam != 0)//not for our team - hayden
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[17] );
+		
 		//stop moving merc who was interrupted and init UI bar
 		SOLDIERTYPE* pMerc = MercPtrs[ INT->ubID ];	
 		pMerc->HaultSoldierFromSighting(TRUE);
@@ -1959,6 +1976,8 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 
 		AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
 		//this needed to add details of who's interrupt it is - hayden
+		
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt with %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
 	}
 	else
 	{
@@ -1969,7 +1988,7 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 		}
 		else //start our interrupt turn
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[37] );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt of %s awarded to you.", TeamNameStrings[pOpponent->bTeam] );//was MPClientMessage[37], can be reconnected if text updated and translated
 
 			SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
 			ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
@@ -1980,7 +1999,7 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 
 void intAI (SOLDIERTYPE *pSoldier )
 {
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[17] );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"intAI with %s", TeamNameStrings[pSoldier->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
 	AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ pSoldier->bTeam ] );
 	gTacticalStatus.fInterruptOccurred = TRUE;		
 }
@@ -2021,9 +2040,9 @@ void resume_turn(RPCParameters *rpcParameters)
 	if(is_server)
 		Sawarded=false;
 	
-	if(INT->bTeam==netbTeam || (INT->bTeam==1 && is_server))//may need working
+	if(INT->bTeam==netbTeam || (INT->bTeam==1 && is_server))//may need working //its for us or we are the server and its for the AI
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[18] );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Resumed turn after interrupt of %s", TeamNameStrings[INT->bTeam] );//was MPClientMessage[18], can be reconnected if text updated and translated
 
 		for(int i=0; i <= INT->gubOutOfTurnPersons; i++)
 		{
