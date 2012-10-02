@@ -990,6 +990,7 @@ void recieveHIT(RPCParameters *rpcParameters)
 		INT8 bTeam=pSoldier->bTeam;
 		INT32 iBullet = bTable[bTeam][SWeaponHit->iBullet].local_id;
 				
+		StopBullet( iBullet );
 		RemoveBullet(iBullet);
 
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"removed bullet" );	
