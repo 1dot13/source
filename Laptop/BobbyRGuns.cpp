@@ -134,6 +134,9 @@
 #define		BOBBYR_ORDER_SUBTOTAL_X						iScreenWidthOffset + 470//490
 #define		BOBBYR_ORDER_SUBTOTAL_Y						BOBBYR_ORDER_FORM_Y+2//BOBBYR_HOME_BUTTON_Y
 
+#define		BOBBYR_ORDER_PAGE_X						iScreenWidthOffset + 285
+#define		BOBBYR_ORDER_PAGE_Y						BOBBYR_ORDER_FORM_Y+2//BOBBYR_HOME_BUTTON_Y
+
 #define		BOBBYR_PERCENT_FUNTCIONAL_X				BOBBYR_ORDER_SUBTOTAL_X
 #define		BOBBYR_PERCENT_FUNTCIONAL_Y				BOBBYR_ORDER_SUBTOTAL_Y + 15
 
@@ -1393,6 +1396,7 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 	UINT16	usItemIndex;
 	CHAR16	sDollarTemp[60];
 	CHAR16	sTemp[60];
+	CHAR16	sPage[60];
 	INT16		pItemNumbers[ BOBBYR_NUM_WEAPONS_ON_PAGE ];
 	BOOLEAN		bAddItem = FALSE;
 
@@ -1405,6 +1409,10 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 	InsertDollarSignInToString( sDollarTemp );
 	swprintf( sTemp, L"%s %s", BobbyRText[BOBBYR_GUNS_SUB_TOTAL], sDollarTemp );
 	DrawTextToScreen(sTemp, BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
+
+	//Buggler: Display the current page & total pages at the bottom of the screen
+	swprintf( sPage, L"%d / %d", gubCurPage + 1, gubNumPages );
+	DrawTextToScreen(sPage, BOBBYR_ORDER_PAGE_X, BOBBYR_ORDER_PAGE_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED | TEXT_SHADOWED);
 
 	//Display the Used item disclaimer
 	if( gfOnUsedPage )
@@ -3880,16 +3888,24 @@ void HandleBobbyRGunsKeyBoardInput()
 				case LEFTARROW:
 					// previous page
 					if( gubCurPage > 0 )
-						gubCurPage--;
-
+					{
+						if( fCtrl )
+							gubCurPage = 0;
+						else
+							gubCurPage--;
+					}
 					fReDrawScreenFlag = TRUE;
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case RIGHTARROW:
 					// next page
 					if( gubCurPage < gubNumPages - 1 )
-						gubCurPage++;
-
+					{
+						if( fCtrl )
+							gubCurPage = gubNumPages - 1;
+						else
+							gubCurPage++;
+					}
 					fReDrawScreenFlag = TRUE;
 					fPausedReDrawScreenFlag = TRUE;
 				break;
@@ -4008,6 +4024,38 @@ void HandleBobbyRGunsKeyBoardInput()
 		{
 			switch( InputEvent.usParam )
 			{
+				case LEFTARROW:
+					// previous page
+					if( gubCurPage > 0 )
+						gubCurPage--;
+
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case RIGHTARROW:
+					// next page
+					if( gubCurPage < gubNumPages - 1 )
+						gubCurPage++;
+
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_LEFTARROW:
+					// jump to 5 pages back
+					if( gubCurPage > 0 )
+						gubCurPage = __max(gubCurPage - 5, 0);
+					
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_RIGHTARROW:
+					// jump to 5 pages forward
+					if( gubCurPage < gubNumPages - 1 )
+						gubCurPage = __min(gubNumPages - 1, gubCurPage + 5);
+					
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
 				case '1':
 					// 1st item on screen
 					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) || 

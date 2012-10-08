@@ -8251,7 +8251,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					// next character
 					GoToNextCharacterInList( );
 					break;
-
 				case UPARROW:
 					// up a line
 					MapScreenMsgScrollUp( 1 );
@@ -8267,6 +8266,28 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case SHIFT_PGDN:
 					// down a page
 					MapScreenMsgScrollDown( MAX_MESSAGES_ON_MAP_BOTTOM );
+					break;
+				case ',': 
+					if( fShowMapInventoryPool == TRUE )
+					{
+						// if can go to previous page, go there
+						if( iCurrentInventoryPoolPage > 0 )
+						{
+							iCurrentInventoryPoolPage--;
+							fMapPanelDirty = TRUE;
+						}
+					}
+					break;
+				case '.': 
+					if( fShowMapInventoryPool == TRUE )
+					{
+						// if can go to next page, go there
+						if( iCurrentInventoryPoolPage < ( iLastInventoryPoolPage ) )
+						{
+							iCurrentInventoryPoolPage++;
+							fMapPanelDirty = TRUE;
+						}
+					}
 					break;
 			}
 		}

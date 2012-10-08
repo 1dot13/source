@@ -95,7 +95,7 @@
 
 #define	HIGH_STAT_COLOR									FONT_MCOLOR_WHITE
 #define	MED_STAT_COLOR									FONT_MCOLOR_DKWHITE
-#define	LOW_STAT_COLOR									FONT_MCOLOR_DKWHITE
+#define	LOW_STAT_COLOR									FONT_MCOLOR_DKGRAY
 
 #define	SIZE_MERC_BIO_INFO	400	* 2
 #define SIZE_MERC_ADDITIONAL_INFO 160 * 2
@@ -180,6 +180,9 @@
 #define		NEXT_BOX_Y				NEXT_Y - 4
 #define		NEXT_BR_X				NEXT_X + BOTTOM_BUTTON_START_WIDTH
 #define		NEXT_BR_Y				NEXT_BOX_Y + BOTTOM_BUTTON_START_HEIGHT
+
+#define		PAGE_X					iScreenWidthOffset + 582
+#define		PAGE_Y					PREVIOUS_Y + 4
 
 #define		AIM_MERC_INFO_X			iScreenWidthOffset + 124
 #define		AIM_MERC_INFO_Y			iScreenHeightOffset + 223 + LAPTOP_SCREEN_WEB_DELTA_Y
@@ -2152,6 +2155,7 @@ BOOLEAN DisplayMercsFace()
 void DisplayMercStats()
 {
 	UINT8	ubColor;
+	CHAR16	sPage[60];
 	if(gGameExternalOptions.gfUseNewStartingGearInterface)
 	{
 		//
@@ -2326,13 +2330,17 @@ void DisplayMercStats()
 		ubColor = GetStatColor( gMercProfiles[gbCurrentSoldier].bMedical );
 		DrawNumeralsToScreen(gMercProfiles[gbCurrentSoldier].bMedical, 3, STATS_SECOND_NUM, MEDICAL_Y, AIM_M_NUMBER_FONT, ubColor	);
 	}
+
+	//Buggler: Display current AIM index & total AIM members at the bottom of the screen
+	swprintf( sPage, L"%d / %d", gbCurrentIndex + 1, MAX_NUMBER_MERCS );
+	DrawTextToScreen(sPage, PAGE_X, PAGE_Y, 0, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 }
 
 UINT8	GetStatColor( INT8 bStat )
 {
 	if( bStat >= 80 )
 		return( HIGH_STAT_COLOR );
-	else if( bStat >= 50 )
+	else if( bStat >= 20 )
 		return( MED_STAT_COLOR );
 	else
 		return( LOW_STAT_COLOR );
@@ -5076,6 +5084,22 @@ void HandleAimMemberKeyBoardInput()
 						InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 					}
 				break;
+				case BACKSPACE:
+					if( gubPopUpBoxAction != AIM_POPUP_DISPLAY )
+					{
+						if( gubVideoConferencingMode != AIM_VIDEO_NOT_DISPLAYED_MODE )
+						{
+							// close video conference
+							gubVideoConferencingMode = AIM_VIDEO_POPDOWN_MODE;
+							//gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+						}
+						else
+						{
+							// back to AIM Facial Index Screen
+							guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_FACIAL_INDEX;
+						}
+					}
+				break;
 #ifdef JA2TESTVERSION
 				case SPACE:
 					QuickHireMerc();
@@ -5155,6 +5179,44 @@ void HandleAimMemberKeyBoardInput()
 				break;
 				default:
 					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+				break;
+			}
+		}
+		else if( InputEvent.usEvent == KEY_REPEAT )
+		{
+			switch( InputEvent.usParam )
+			{
+				case LEFTARROW:
+					// previous button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex > 0)
+						gbCurrentIndex--;
+					else
+						gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case RIGHTARROW:
+					// next button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex < MAX_NUMBER_MERCS -1 )
+						gbCurrentIndex++;
+					else
+						gbCurrentIndex = 0;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
 				break;
 			}
 		}

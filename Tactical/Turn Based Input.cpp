@@ -4531,6 +4531,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						}
 					}
 				}
+				else if ( fCtrl )
+				{
+					// used for "lock" / "unlock" the mouse cursor in windowed mode
+				}
 				else
 				{
 					// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel

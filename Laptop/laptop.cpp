@@ -82,6 +82,7 @@
 	#include "cheats.h"
 	#include "Strategic Status.h"
 	#include "Arms Dealer Init.h"
+	#include "GameSettings.h"
 #endif
 
 #include "connect.h"
@@ -504,9 +505,6 @@ BOOLEAN gfWWWaitSubSitesVisitedFlags[LAPTOP_MODE_SIRTECH - LAPTOP_MODE_WWW ];
 
 //INT32 iBookMarkList[MAX_BOOKMARKS];
 
-// flag to see if mouse is captured in the laptop's area or not
-BOOLEAN fMouseCaptured;
-
 // mouse regions
 MOUSE_REGION gEmailRegion;
 MOUSE_REGION gWWWRegion;
@@ -802,8 +800,6 @@ UINT32 LaptopScreenInit()
 
 	gfAtLeastOneMercWasHired = FALSE;
 
-	fMouseCaptured = TRUE;
-
 	//No longer inits the laptop screens, now InitLaptopAndLaptopScreens() does
 #ifdef JA2UB	
 	InitJa25SaveStruct();
@@ -1058,6 +1054,12 @@ INT32 EnterLaptop()
 
 	fShowAtmPanelStartButton = TRUE;
 
+	// lock cursor to screen
+	if ( gGameExternalOptions.fLaptopMouseCaptured == TRUE )
+	{
+		RestrictMouseCursor( &LaptopScreenRect );
+	}
+
 	InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return( TRUE );
@@ -1065,9 +1067,6 @@ INT32 EnterLaptop()
 
 void ExitLaptop()
 {
-
-	fMouseCaptured = TRUE;
-
 	// exit is called due to message box, leave
 	if( fExitDueToMessageBox )
 	{
@@ -1102,7 +1101,6 @@ void ExitLaptop()
 	//}
 
 	// release cursor
-	fMouseCaptured = false;
 	FreeMouseCursor( );
 
 	// set the fact we are currently not in laptop, for rendering purposes
@@ -2178,14 +2176,6 @@ UINT32 LaptopScreenHandle()
 	}
 
 	RestoreBackgroundRects();
-
-	// lock cursor to screen
-	if ( fMouseCaptured == TRUE )
-	{
-		RestrictMouseCursor( &LaptopScreenRect );
-	}
-
-
 
 	// handle animated cursors
 	HandleAnimatedCursors( );
@@ -6013,18 +6003,16 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 			MarkButtonsDirty( );
 		}
 	}
-	else if( ( ( usEvent == KEY_DOWN ) || ( usEvent == KEY_REPEAT ) ) && ( ( usParam == 'z' ) || ( usParam == 'Z' ) || ( usParam == 'y' ) || ( usParam == 'Y' ) ) )
+	else if( ( ( usEvent == KEY_DOWN ) || ( usEvent == KEY_REPEAT ) ) && ( ( usParam == 'z' ) || ( usParam == 'y' ) ) )
 	{
 		if ( usKeyState & CTRL_DOWN )
 		{
-			if ( fMouseCaptured == TRUE )
+			if( IsCursorRestricted( ) )
 			{
-				fMouseCaptured = FALSE;
 				FreeMouseCursor( );
 			}
 			else
 			{
-				fMouseCaptured = TRUE;
 				RestrictMouseCursor( &LaptopScreenRect );
 			}
 

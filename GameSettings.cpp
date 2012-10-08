@@ -1569,6 +1569,7 @@ void LoadGameExternalOptions()
 #endif
 	gGameExternalOptions.fDisableLaptopTransition			= iniReader.ReadBoolean("Laptop Settings", "DISABLE_LAPTOP_TRANSITION", FALSE);
 	gGameExternalOptions.fFastWWWSitesLoading				= iniReader.ReadBoolean("Laptop Settings", "FAST_WWW_SITES_LOADING", FALSE);
+	gGameExternalOptions.fLaptopMouseCaptured				= iniReader.ReadBoolean("Laptop Settings", "LAPTOP_MOUSE_CAPTURED", FALSE);
 
 
 	//################# Bobby Ray Settings ##################

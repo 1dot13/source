@@ -730,6 +730,9 @@ typedef struct
 	// CHRISL: Skyrider and enemy occupied sectors
 	UINT8 ubSkyriderHotLZ;
 
+	// Laptop mouse capturing
+	BOOLEAN fLaptopMouseCaptured;
+
 	// WANNE: Fast loading settings
 	BOOLEAN fDisableLaptopTransition;
 	BOOLEAN fFastWWWSitesLoading;
