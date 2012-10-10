@@ -207,6 +207,9 @@ void EntryInitEditorItemsInfo()
 					else
 						eInfo.sNumEquipment3++;
 					break;
+				case IC_RANDOMITEM:
+					eInfo.sNumRandomItems++;
+					break;
 				//case IC_KEY:
 				//	eInfo.sNumKeys++;
 				//	break;
@@ -309,6 +312,11 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			eInfo.sNumItems = eInfo.sNumKeys;
 			eInfo.sScrollIndex = eInfo.sSaveKeysScrollIndex;
 			eInfo.sSelItemIndex = eInfo.sSaveSelKeysIndex;
+			break;
+		case TBAR_MODE_ITEM_RANDOMITEM:
+			eInfo.sNumItems = eInfo.sNumRandomItems;
+			eInfo.sScrollIndex = eInfo.sSaveRandomItemScrollIndex;
+			eInfo.sSelItemIndex = eInfo.sSaveSelRandomItemIndex;
 			break;
 		default:
 			//error
@@ -472,6 +480,9 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 					else
 						fTypeMatch = eInfo.uiItemType == TBAR_MODE_ITEM_EQUIPMENT3;
 					iEquipCount++;
+					break;
+				case IC_RANDOMITEM:
+					fTypeMatch = eInfo.uiItemType == TBAR_MODE_ITEM_RANDOMITEM;
 					break;
 			}
 			if( fTypeMatch )
@@ -746,6 +757,10 @@ void ClearEditorItemsInfo()
 		case TBAR_MODE_ITEM_KEYS:
 			eInfo.sSaveSelKeysIndex = eInfo.sSelItemIndex;
 			eInfo.sSaveKeysScrollIndex = eInfo.sScrollIndex;
+			break;
+		case TBAR_MODE_ITEM_RANDOMITEM:
+			eInfo.sSaveSelRandomItemIndex = eInfo.sSelItemIndex;
+			eInfo.sSaveRandomItemScrollIndex = eInfo.sScrollIndex;
 			break;
 	}
 }

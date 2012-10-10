@@ -1341,6 +1341,7 @@ void HandleJA2ToolbarSelection( void )
 		case TBAR_MODE_ITEM_EQUIPMENT3:
 		case TBAR_MODE_ITEM_TRIGGERS:
 		case TBAR_MODE_ITEM_KEYS:
+		case TBAR_MODE_ITEM_RANDOMITEM:
 			//Set up the items by type.
 			InitEditorItemsInfo(iEditorToolbarState);
 			if( gubCurrMercMode != MERC_GETITEMMODE )

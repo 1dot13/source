@@ -453,7 +453,7 @@ STR16 iEditorBuildingsToolbarText[] =
 
 STR16 iEditorItemsToolbarText[] =
 {
-	L"Armes", //0
+	L"Arm.", //0
 	L"Munitions",
 	L"Armures",
 	L"LBE",
@@ -463,6 +463,7 @@ STR16 iEditorItemsToolbarText[] =
 	L"E3",
 	L"Détentes",
 	L"Clés",
+	L"Rnd",	// TODO.Translate
 };
 
 STR16 iEditorMapInfoToolbarText[] =

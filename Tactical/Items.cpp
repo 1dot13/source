@@ -7661,10 +7661,13 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		return( FALSE );
 	}
 
-	// Flugente: random items
-	UINT16 newitemfromrandom = 0;
-	if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
-		usItem = newitemfromrandom;
+	// Flugente: random items - not while editing!
+	if ( guiCurrentScreen != EDIT_SCREEN )
+	{
+		UINT16 newitemfromrandom = 0;
+		if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
+			usItem = newitemfromrandom;
+	}
 
 	if (usItem == 0)
 	{
@@ -14735,7 +14738,7 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 	return( FALSE );
 }
 
-#define RANDOM_ITEM_MAX_NUMBER	200
+#define RANDOM_ITEM_MAX_NUMBER 1000
 #define RANDOM_TABOO_MAX		 50
 #define	RANDOM_XML_LENGTH		 10
 

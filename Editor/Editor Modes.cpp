@@ -72,6 +72,10 @@ void SetEditorItemsTaskbarMode( UINT16 usNewMode )
 			ClickEditorButton( ITEMS_KEYS );
 			iEditorToolbarState = TBAR_MODE_ITEM_KEYS;
 			break;
+		case ITEMS_RANDOMITEM:
+			ClickEditorButton( ITEMS_RANDOMITEM );
+			iEditorToolbarState = TBAR_MODE_ITEM_RANDOMITEM;
+			break;
 	}
 }
 

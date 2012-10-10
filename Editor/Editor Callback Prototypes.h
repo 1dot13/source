@@ -104,6 +104,7 @@ void ItemsEquipment3Callback(GUI_BUTTON *btn,INT32 reason);
 void ItemsTriggersCallback(GUI_BUTTON *btn,INT32 reason);
 void ItemsKeysCallback(GUI_BUTTON *btn, INT32 reason);
 void ItemsLeftScrollCallback(GUI_BUTTON *btn, INT32 reason);
+void ItemsRandomItemCallback(GUI_BUTTON *btn, INT32 reason);
 void ItemsRightScrollCallback(GUI_BUTTON *btn, INT32 reason);
 void MouseMovedInItemsRegion(MOUSE_REGION *reg, INT32 reason);
 void MouseClickedInItemsRegion(MOUSE_REGION *reg, INT32 reason);

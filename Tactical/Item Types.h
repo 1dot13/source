@@ -619,6 +619,7 @@ extern OBJECTTYPE gTempObject;
 
 #define IC_MISC						0x10000000
 #define IC_MONEY					0x20000000
+#define IC_RANDOMITEM				0x40000000	// added by Flugente for random items
 
 // PARENT TYPES
 #define IC_WEAPON					( IC_GUN | IC_BLADE | IC_THROWING_KNIFE | IC_LAUNCHER | IC_TENTACLES )

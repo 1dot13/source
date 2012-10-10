@@ -787,6 +787,12 @@ void ItemsKeysCallback(GUI_BUTTON *btn,INT32 reason)
 		SetEditorItemsTaskbarMode( ITEMS_KEYS );
 }
 
+void ItemsRandomItemCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+		SetEditorItemsTaskbarMode( ITEMS_RANDOMITEM );
+}
+
 void ItemsLeftScrollCallback(GUI_BUTTON *btn, INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)

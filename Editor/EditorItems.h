@@ -20,12 +20,12 @@ typedef struct{
 	INT16	sScrollIndex;	//current scroll index (0 is far left, 1 is next tile to the right, ...)
 	INT16	sSaveSelWeaponsIndex, sSaveSelAmmoIndex, sSaveSelArmourIndex, sSaveSelLBEIndex, sSaveSelExplosivesIndex,
 					sSaveSelEquipment1Index, sSaveSelEquipment2Index, sSaveSelEquipment3Index,
-					sSaveSelTriggersIndex, sSaveSelKeysIndex;
+					sSaveSelTriggersIndex, sSaveSelKeysIndex, sSaveSelRandomItemIndex;
 	INT16	sSaveWeaponsScrollIndex, sSaveAmmoScrollIndex, sSaveArmourScrollIndex, sSaveLBEScrollIndex,
 					sSaveExplosivesScrollIndex, sSaveEquipment1ScrollIndex, sSaveEquipment2ScrollIndex,
-					sSaveEquipment3ScrollIndex, sSaveTriggersScrollIndex, sSaveKeysScrollIndex;
+					sSaveEquipment3ScrollIndex, sSaveTriggersScrollIndex, sSaveKeysScrollIndex, sSaveRandomItemScrollIndex;
 	INT16	sNumWeapons, sNumAmmo, sNumArmour, sLBEGear, sNumExplosives, sNumEquipment1, sNumEquipment2, sNumEquipment3, 
-					sNumTriggers, sNumKeys;
+					sNumTriggers, sNumKeys, sNumRandomItems;
 }EditorItemsInfo;
 
 extern EditorItemsInfo eInfo;

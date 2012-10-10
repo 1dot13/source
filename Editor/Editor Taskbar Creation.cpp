@@ -550,44 +550,48 @@ void InitEditorItemsToolbar()
 	SetFontForeground( FONT_MCOLOR_LTRED );
 	iEditorButton[ITEMS_WEAPONS] =
 		CreateTextButton(iEditorItemsToolbarText[0],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 440, 59, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 440, 39, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsWeaponsCallback);
 	iEditorButton[ITEMS_AMMO] =
 		CreateTextButton(iEditorItemsToolbarText[1],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 159, 2 * iScreenHeightOffset + 440, 40, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 139, 2 * iScreenHeightOffset + 440, 40, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsAmmoCallback);
 	iEditorButton[ITEMS_ARMOUR] =
 		CreateTextButton(iEditorItemsToolbarText[2],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 199, 2 * iScreenHeightOffset + 440, 52, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 179, 2 * iScreenHeightOffset + 440, 52, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsArmourCallback);
 	iEditorButton[ITEMS_LBEGEAR] =
 		CreateTextButton(iEditorItemsToolbarText[3],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 251, 2 * iScreenHeightOffset + 440, 30, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 231, 2 * iScreenHeightOffset + 440, 30, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsLBECallback);
 	iEditorButton[ITEMS_EXPLOSIVES] =
 		CreateTextButton(iEditorItemsToolbarText[4],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 281, 2 * iScreenHeightOffset + 440, 39, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 261, 2 * iScreenHeightOffset + 440, 30, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsExplosivesCallback);
 	iEditorButton[ITEMS_EQUIPMENT1] =
 		CreateTextButton(iEditorItemsToolbarText[5],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 320, 2 * iScreenHeightOffset + 440, 21, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 291, 2 * iScreenHeightOffset + 440, 21, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsEquipment1Callback);
 	iEditorButton[ITEMS_EQUIPMENT2] =
 		CreateTextButton(iEditorItemsToolbarText[6],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 341, 2 * iScreenHeightOffset + 440, 21, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 312, 2 * iScreenHeightOffset + 440, 21, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsEquipment2Callback);
 	iEditorButton[ITEMS_EQUIPMENT3] =
 		CreateTextButton(iEditorItemsToolbarText[7],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 362, 2 * iScreenHeightOffset + 440, 21, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 333, 2 * iScreenHeightOffset + 440, 21, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsEquipment3Callback);
 	iEditorButton[ITEMS_TRIGGERS] =
 		CreateTextButton(iEditorItemsToolbarText[8],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 383, 2 * iScreenHeightOffset + 440, 59, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 354, 2 * iScreenHeightOffset + 440, 59, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsTriggersCallback );
 	iEditorButton[ITEMS_KEYS] =
 		CreateTextButton(iEditorItemsToolbarText[9],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 442, 2 * iScreenHeightOffset + 440, 38, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		iScreenWidthOffset + 413, 2 * iScreenHeightOffset + 440, 38, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
 		ItemsKeysCallback );
+	iEditorButton[ITEMS_RANDOMITEM] =
+		CreateTextButton(iEditorItemsToolbarText[10],(UINT16)BLOCKFONT, FONT_MCOLOR_DKWHITE, FONT_BLACK, BUTTON_USE_DEFAULT,
+		iScreenWidthOffset + 451, 2 * iScreenHeightOffset + 440, 29, 20, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,DEFAULT_MOVE_CALLBACK,
+		ItemsRandomItemCallback);
 
 	iEditorButton[ITEMS_LEFTSCROLL] =
 		CreateEasyNoToggleButton( iScreenWidthOffset + 1, 2 * iScreenHeightOffset + 361,"EDITOR//leftscroll.sti", ItemsLeftScrollCallback);

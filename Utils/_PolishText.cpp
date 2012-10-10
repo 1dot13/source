@@ -469,6 +469,7 @@ STR16 iEditorItemsToolbarText[] =
 	L"E3",
 	L"Włączniki",
 	L"Klucze",
+	L"Rnd",	// TODO.Translate
 };
 
 STR16 iEditorMapInfoToolbarText[] =

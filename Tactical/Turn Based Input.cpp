@@ -4447,7 +4447,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else if ( fAlt )
 				{
 					// Flugente: spawn items while debugging
-					if ( gusSelectedSoldier != NOBODY )
+					/*if ( gusSelectedSoldier != NOBODY )
 					{
 						static UINT16 usitem = 1623;
 						static INT16 status = 100;
@@ -4465,7 +4465,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						
 						if ( !AutoPlaceObject( MercPtrs[ gusSelectedSoldier ], &newobj, FALSE ) )
 							AddItemToPool( MercPtrs[ gusSelectedSoldier ]->sGridNo, &newobj, 1, 0, 0, -1 );
-					}
+					}*/
 				}
 				else
 				{
