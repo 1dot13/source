@@ -1162,15 +1162,16 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 #ifdef BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"unchecked interrupt call area:(resume interrupted interrupt)...");
 #endif
-		
-			if ((nbTeam > 0) && (nbTeam <6 ) && is_server) // AI interrupt resume and im server
+			// INTERRUPT is calculated on the server who controls AI
+			if (0)//(nbTeam > 0) && (nbTeam <6 ) && is_server) //the AI had interrupted someone //experiment with 0 as with doneaddindtointlist func
 			{
 				send_interrupt( npSoldier );
 				StartInterrupt();
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s and AI", TeamNameStrings[npSoldier->bTeam]);//tried to use pSoldier, but its not available. find another way to get correct team
 
 			}
-			else if(is_server && gTacticalStatus.ubCurrentTeam == 1)// resume AI interrupted and im server
+			// INTERRUPT is calculated on the server who controls AI
+			else if(is_server && gTacticalStatus.ubCurrentTeam == 1)//its AI's turn (it got interrupted)
 			{
 				//hayden
 				send_interrupt( npSoldier );
@@ -1183,7 +1184,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt of AI by %s", TeamNameStrings[npSoldier->bTeam]);
 
 			}
-			else// pure client awarding interrupt resume //suspect it needs to be: else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
+			else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn//else// pure client awarding interrupt resume //its our turn
 			{
 				
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s", TeamNameStrings[npSoldier->bTeam]);//this can be simplified if above comment is implemented
@@ -2259,10 +2260,10 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 				//npSoldier is interruptor
 				//hayden
 
-				// INTERRUPT is calculated on the server
-				if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is for AI and are server
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s is interrupt by AI", TeamNameStrings[pSoldier->bTeam]);
+				// INTERRUPT is calculated on the server who controls AI
+				if (0)//((nbTeam > 0) && (nbTeam <6 ) && is_server) //the AI has interrupted someone//made this 0 as interrupt should only be calculated by person whos turn it is
+				{ 
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt calculated between %s and AI", TeamNameStrings[pSoldier->bTeam]);
 					
 					// Only display the top message if we (the server) got interrupted
 					if (pSoldier->bTeam == 0)
@@ -2272,8 +2273,8 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 					StartInterrupt();
 
 				}
-				// INTERRUPT is calculated on the server
-				else if(is_server && gTacticalStatus.ubCurrentTeam == 1)//  against ai and are server
+				// INTERRUPT is calculated on the server who controls AI
+				else if(is_server && gTacticalStatus.ubCurrentTeam == 1)//the AI has been interrupted
 				{
 					//hayden
 					send_interrupt( npSoldier ); //
@@ -2282,15 +2283,14 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 					else 
 						StartInterrupt();//
 					
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"AI is interrupted by %s", TeamNameStrings[npSoldier->bTeam]);
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt calculated with AI and %s", TeamNameStrings[npSoldier->bTeam]);
 				}
-				// INTERRUPT is calculated on the pure client
-				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
-				{																	
-					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);
+				// INTERRUPT is calculated on the pure client or server
+				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn
+				{
+					//ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);
 
 					send_interrupt( npSoldier );
-
 
 					SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
 					//AdjustNoAPToFinishMove( pMerc, TRUE );	
@@ -2302,7 +2302,7 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 					AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
 					gTacticalStatus.fInterruptOccurred = TRUE;
 
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"You have interrupted %s", TeamNameStrings[npSoldier->bTeam]);
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt calculated against You by %s", TeamNameStrings[npSoldier->bTeam]);
 				}
 				else
 				{

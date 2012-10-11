@@ -6390,7 +6390,7 @@ STR16 MPClientMessage[] =
 	L"Mode spectateur désactivé",
 	L"Choisir le numéro du client a kické :",
 	// 75
-	L"La team #%d a été anéantie.",
+	L"La team %s a été anéantie.",
 	L"Le client n'as pas réussi à démarrer. Terminé.",
 	L"Le client s'est déconnecté et s'est fermé.",
 	L"Le client n'est pas démarré.",

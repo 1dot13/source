@@ -1941,10 +1941,18 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 	INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
 	SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
 
-	if(INT->bTeam==netbTeam)//for us
+	if(INT->bTeam == netbTeam || (is_server && INT->bTeam == 1))//its for us or we are server and its for AI which we control
 	{
-		INT->bTeam=0;
-		INT->ubID=INT->ubID - ubID_prefix;
+		
+		if(INT->bTeam == netbTeam){//for me
+			INT->bTeam=0;
+			INT->ubID=INT->ubID - ubID_prefix;
+			AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+		}else{//for ai
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"starting ai" );
+			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+		}
+
 
 		for(int i=0; i <= INT->gubOutOfTurnPersons; i++)//this loop translates soldier id's from what they are in someone else's game to what they are locally
 		{
@@ -1957,14 +1965,24 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 		gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
 
 
-		AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt of %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );
+		//AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved interrupt between %s and %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );
+
+
+	
+		 //start interrupt turn //real interrupt code
+			SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
+			ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
+			StartInterrupt();
+	
 
 	}
-
-	// WANNE - MP: This seems to cause the HANG on AI interrupt where we have to press ALT + E on the server!
-	if(	INT->bTeam != 0)//not for our team - hayden
+	else//its not for us, make faux interrupt look while it happens
 	{
+	//this following section starts the interrupt, either with faux interrupt look, or real interrupt code, or nothing if already there
+
+	//if(	INT->bTeam != 0)//not for our team - hayden
+	//{
 		
 		//stop moving merc who was interrupted and init UI bar
 		SOLDIERTYPE* pMerc = MercPtrs[ INT->ubID ];	
@@ -1977,29 +1995,14 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 		AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
 		//this needed to add details of who's interrupt it is - hayden
 		
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt with %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved interrupt with %s and %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
 	}
-	else
-	{
-		//it for us ! :)
-		if(INT->gubOutOfTurnPersons==0)//indicates finished interrupt maybe can just call end interrupt
-		{
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"old int finish" );
-		}
-		else //start our interrupt turn
-		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt of %s awarded to you.", TeamNameStrings[pOpponent->bTeam] );//was MPClientMessage[37], can be reconnected if text updated and translated
 
-			SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
-			ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
-			StartInterrupt();
-		}
-	}
 }
 
 void intAI (SOLDIERTYPE *pSoldier )
 {
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"intAI with %s", TeamNameStrings[pSoldier->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
+	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"intAI with %s", TeamNameStrings[pSoldier->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
 	AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ pSoldier->bTeam ] );
 	gTacticalStatus.fInterruptOccurred = TRUE;		
 }
@@ -4606,7 +4609,7 @@ void teamwiped ( void )
 void recieve_wipe (RPCParameters *rpcParameters)
 {
 	sc_struct* data = (sc_struct*)rpcParameters->input;
-	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, MPClientMessage[75], data->ubStartingTeam );
+	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, MPClientMessage[75], TeamNameStrings[data->ubStartingTeam] );
 	if(is_server)
 	{
 		if(gTacticalStatus.ubCurrentTeam==data->ubStartingTeam)EndTurn( data->ubStartingTeam+1 );	

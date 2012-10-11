@@ -6229,7 +6229,7 @@ STR16 MPClientMessage[] =
 	L"Überwachungsmodus wurde ausgeschaltet",
 	L"Wählen Sie den Client, der gekickt werden soll. #1: <Abbruch>, #2: %S, #3: %S, #4: %S",
 	// 75
-	L"Team #%d wurde vernichtet",
+	L"Team %s wurde vernichtet",
 	L"Client konnte nicht gestartet werden. Beendigung.",
 	L"Client Verbindung aufgelöst und heruntergefahren.",
 	L"Client läuft nicht.",
