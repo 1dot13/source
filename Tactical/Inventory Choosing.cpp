@@ -1042,7 +1042,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	if ( GetItemFromRandomItem(usGunIndex, &newitemfromrandom) )
 		usGunIndex = newitemfromrandom;
 
-	// if item is still radnom, use default gun -> GLOCK 17
+	// if item is still random, use default gun -> GLOCK 17
 	if ( Item[usGunIndex].randomitem > 0 )
 		usGunIndex = GLOCK_17;
 

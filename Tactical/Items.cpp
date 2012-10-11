@@ -7661,13 +7661,10 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		return( FALSE );
 	}
 
-	// Flugente: random items - not while editing!
-	if ( guiCurrentScreen != EDIT_SCREEN )
-	{
-		UINT16 newitemfromrandom = 0;
-		if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
-			usItem = newitemfromrandom;
-	}
+	// Flugente: random items
+	UINT16 newitemfromrandom = 0;
+	if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
+		usItem = newitemfromrandom;
 
 	if (usItem == 0)
 	{
@@ -14761,6 +14758,11 @@ BOOL RandomItemIsTaboo( UINT16 usRandomItem );
 BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem )
 {
 	*pusNewItem = 0;
+
+	// no random item solving in the map editor
+#ifdef JA2EDITOR
+	return FALSE;
+#endif
 
 	// is this a random item?
 	if ( Item[usRandomItem].randomitem > 0 )
