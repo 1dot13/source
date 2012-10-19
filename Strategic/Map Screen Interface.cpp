@@ -2342,6 +2342,12 @@ BOOLEAN ValidSelectableCharForNextOrPrev( INT32 iNewCharSlot )
 {
 	BOOLEAN fHoldingItem = FALSE;
 
+	// not in popup
+	if ( InItemStackPopup( ) || InSectorStackPopup( ) || InKeyRingPopup( ) )
+	{
+		return( FALSE );
+	}
+
 	// if holding an item
 	if ( ( gMPanelRegion.Cursor == EXTERN_CURSOR ) || gpItemPointer || fMapInventoryItem )
 	{

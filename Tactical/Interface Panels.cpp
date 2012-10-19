@@ -736,6 +736,18 @@ void SetSMPanelCurrentMerc( UINT8 ubNewID )
 		DeleteItemDescriptionBox( );
 	}
 
+	// Remove stack popup panel if one up....
+	if ( InItemStackPopup( ) || InSectorStackPopup( ) )
+	{
+		DeleteItemStackPopup( );
+	}
+
+	// Remove keyring popup panel if one up....
+	if ( InKeyRingPopup( ) )
+	{
+		DeleteKeyRingPopup( );
+	}
+
 	if ( gfInItemPickupMenu )
 	{
 		gfSMDisableForItems = TRUE;

@@ -16106,6 +16106,12 @@ void ChangeCharacterListSortMethod( INT32 iValue )
 		return;
 	}
 
+	// not in popup or item in hand
+	if( InItemStackPopup( ) || InSectorStackPopup( ) || InKeyRingPopup( ) || gpItemPointer != NULL )
+	{
+		return;
+	}
+
 	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
 	{
 		AbortMovementPlottingMode( );

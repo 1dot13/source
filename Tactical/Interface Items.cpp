@@ -8990,11 +8990,11 @@ BOOLEAN InitSectorStackPopup( SOLDIERTYPE *pSoldier, WORLDITEM *pInventoryPoolLi
 	gfInSectorStackPopup = TRUE;
 	fShowInventoryFlag = TRUE;
 
-	//Reserict mouse cursor to panel
+	//Restrict mouse cursor to panel
 	aRect.iLeft = sInvX + sOffSetX;
 	aRect.iTop = sInvY + sOffSetY;
 	aRect.iRight = aRect.iLeft + sItemWidth * usPopupWidth;
-	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)) * usPopupHeight;
 
 	RestrictMouseCursor( &aRect );
 
@@ -9160,11 +9160,11 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 
 	gfInItemStackPopup = TRUE;
 
-	//Reserict mouse cursor to panel
+	//Restrict mouse cursor to panel
 	aRect.iLeft = sInvX + xResOffset;
 	aRect.iTop = sInvY + sOffSetY;
-	aRect.iRight = aRect.iLeft + sItemWidth * usPopupWidth;
-	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
+	aRect.iRight = aRect.iLeft + min(cnt,sItemWidth) * usPopupWidth;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)) * usPopupHeight;
 	//aRect.iTop = sInvY;
 	//aRect.iLeft = sInvX;
 	//aRect.iBottom = sInvY + sInvHeight;
@@ -9469,11 +9469,11 @@ BOOLEAN InitKeyRingPopup( SOLDIERTYPE *pSoldier, INT16 sInvX, INT16 sInvY, INT16
 
 	gfInKeyRingPopup = TRUE;
 
-	//Reserict mouse cursor to panel
+	//Restrict mouse cursor to panel
 	aRect.iLeft = gsKeyRingPopupInvX + sOffSetX;
 	aRect.iTop = sInvY + sOffSetY;
 	aRect.iRight = aRect.iLeft + sKeyRingItemWidth * usPopupWidth;
-	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sKeyRingItemWidth)+1) * usPopupHeight;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sKeyRingItemWidth)) * usPopupHeight;
 
 	RestrictMouseCursor( &aRect );
 
@@ -11961,8 +11961,8 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					sThreshold,					//repair threshold
 					pInvPanelTitleStrings[ 4 ],	//Protection string
 					iProtection,				//Protection rating in % based on best armor
-					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
 					Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
 					pInvPanelTitleStrings[ 3 ],	//Camo string
 					GetCamoBonus(pObject)+GetUrbanCamoBonus(pObject)+GetDesertCamoBonus(pObject)+GetSnowCamoBonus(pObject),	//Camo bonus
 					gWeaponStatsDesc[ 12 ],		//Weight string
@@ -11982,8 +11982,8 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					sValue,						//Item condition
 					pInvPanelTitleStrings[ 4 ],	//Protection string
 					iProtection,				//Protection rating in % based on best armor
-					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
 					Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
+					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
 					pInvPanelTitleStrings[ 3 ],	//Camo string
 					GetCamoBonus(pObject)+GetUrbanCamoBonus(pObject)+GetDesertCamoBonus(pObject)+GetSnowCamoBonus(pObject),	//Camo bonus
 					gWeaponStatsDesc[ 12 ],		//Weight string
