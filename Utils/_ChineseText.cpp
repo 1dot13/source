@@ -1905,6 +1905,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"撤退", // retreat militia
 	L"向我靠拢", // retreat militia
 	L"卧倒", // retreat militia
+	L"Crouch",	// TODO.Translate
 	L"隐蔽",
 	L"全体: 进攻",
 	L"全体: 原地坚守",
@@ -1912,6 +1913,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"全体: 向我靠拢",
 	L"全体: 分散",
 	L"全体: 卧倒",
+	L"All: Crouch",	// TODO.Translate
 	L"全体: 隐蔽",
 	//L"All: Find items",
 	L"取消", // cancel this menu

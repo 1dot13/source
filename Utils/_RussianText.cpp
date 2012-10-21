@@ -1905,6 +1905,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Отступать", // retreat militia
 	L"За мной", // retreat militia
 	L"Ложись", // retreat militia	
+	L"Crouch",	// TODO.Translate
 	L"В укрытие",
 	L"Все в атаку", 
 	L"Всем держать оборону",
@@ -1912,6 +1913,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Все за мной",
 	L"Всем рассеяться",
 	L"Всем залечь",
+	L"All: Crouch",	// TODO.Translate
 	L"Всем в укрытие",
 	//L"Всем искать предметы",
 	L"Отмена", // cancel this menu

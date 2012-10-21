@@ -1896,7 +1896,8 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Hold Position", // set militia to stationary
 	L"Retreat", // retreat militia
 	L"Come to me", // retreat militia
-	L"Get down", // retreat militia	
+	L"Get down", // retreat militia
+	L"Crouch",	// TODO.Translate
 	L"Take cover",
 	L"All: Attack", 
 	L"All: Hold Position",
@@ -1904,6 +1905,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"All: Come to me",
 	L"All: Spread out",
 	L"All: Get down",
+	L"All: Crouch",	// TODO.Translate
 	L"All: Take cover",
 	//L"All: Find items",
 	L"Cancel", // cancel this menu

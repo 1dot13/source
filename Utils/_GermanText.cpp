@@ -1904,6 +1904,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Rückzug",		// retreat militia
 	L"An meine Position",	// retreat militia
 	L"Auf den Boden",	// retreat militia	
+	L"Ducken",
 	L"In Deckung gehen",
 	L"Alle: Angreifen", 
 	L"Alle: Position halten",
@@ -1911,6 +1912,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Alle: An meine Position",
 	L"Alle: Ausschwärmen",
 	L"Alle: Auf den Boden",
+	L"Alle: Ducken",
 	L"Alle: In Deckung gehen",
 	//L"All: Find items",
 	L"Abbrechen",		// cancel this menu

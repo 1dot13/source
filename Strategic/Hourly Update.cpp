@@ -296,7 +296,9 @@ void HourlyQuestUpdate( void )
 }
 
 #define BAR_TEMPTATION 4
-#define NUM_LARRY_ITEMS 6
+
+// Flugente: abandoned the LarryItems for the new drug system
+/*#define NUM_LARRY_ITEMS 6
 UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 {
 	// item, temptation, points to use
@@ -306,18 +308,19 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 	{	WINE,									3, 50	},
 	{ REGEN_BOOSTER,				3, 100 },
 	{	BEER,									2, 100 },
-};
+};*/
 
 #define LARRY_FALLS_OFF_WAGON 8
 
 void HourlyLarryUpdate( void )
 {
-	SOLDIERTYPE *			pSoldier;
-	INT8							bSlot = NO_SLOT, bBoozeSlot;
-	INT8							bLarryItemLoop;
+	SOLDIERTYPE *				pSoldier;
+	INT8						bSlot = NO_SLOT, bBoozeSlot;
+	INT8						bLarryItemLoop;
 	UINT16						usTemptation = 0;
 	UINT16						usCashAmount;
 	BOOLEAN						fBar = FALSE;
+	OBJECTTYPE*					pObj = NULL;
 
 	pSoldier = FindSoldierByProfileID( LARRY_NORMAL, TRUE );
 	if ( !pSoldier )
@@ -339,8 +342,23 @@ void HourlyLarryUpdate( void )
 			return;
 		}
 
+		// Flugente: reworked this for the new drug system. We now loop over our entire inventory
+		INT8 invsize = (INT8)pSoldier->inv.size();										// remember inventorysize, so we don't call size() repeatedly
+		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+		{
+			if ( pSoldier->inv[bLoop].exists() && Item[ pSoldier->inv[bLoop].usItem ].drugtype > 0 )
+			{
+				pObj = &(pSoldier->inv[bLoop]);
+
+				usTemptation = 5;
+
+				// any drug will do... I'm not going to create a new tag for sth minor like this
+				break;
+			}
+		}
+
 		// look for items in Larry's inventory to maybe use
-		for ( bLarryItemLoop = 0; bLarryItemLoop < NUM_LARRY_ITEMS; bLarryItemLoop++ )
+		/*for ( bLarryItemLoop = 0; bLarryItemLoop < NUM_LARRY_ITEMS; bLarryItemLoop++ )
 		{
 			bSlot = FindObj( pSoldier, LarryItems[ bLarryItemLoop ][ 0 ] );
 			if ( bSlot != NO_SLOT )
@@ -348,7 +366,7 @@ void HourlyLarryUpdate( void )
 				usTemptation = LarryItems[ bLarryItemLoop ][ 1 ];
 				break;
 			}
-		}
+		}*/
 
 		// check to see if we're in a bar sector, if we are, we have access to alcohol
 		// which may be better than anything we've got...
@@ -397,7 +415,7 @@ void HourlyLarryUpdate( void )
 					SwapLarrysProfiles( pSoldier );
 					if ( bSlot != NO_SLOT )
 					{
-						UseKitPoints( &(pSoldier->inv[ bSlot ]), LarryItems[ bLarryItemLoop ][ 2 ], pSoldier );
+						UseKitPoints( &(pSoldier->inv[ bSlot ]), 25/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
 					}
 				}
 			}
@@ -427,8 +445,10 @@ void HourlyLarryUpdate( void )
 				}
 				if ( bSlot != NO_SLOT )
 				{
+					// Flugente: abandoned LarryItems
 					// ahhhh!!!
-					UseKitPoints( &(pSoldier->inv[ bSlot ]), LarryItems[ bLarryItemLoop ][ 2 ], pSoldier );
+					if ( pObj )
+						UseKitPoints( pObj, 100/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
 				}
 			}
 		}

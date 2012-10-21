@@ -1013,6 +1013,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_RETREAT );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_COMETOME );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_GETDOWN );
+			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_CROUCH );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_TAKE_COVER );		
 		}
 		else
@@ -1022,6 +1023,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_RETREAT );
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_COMETOME );
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_GETDOWN );
+			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_CROUCH );
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_TAKE_COVER );
 		}
 	}
@@ -1034,6 +1036,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_COMETOME );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_SPREAD );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_GETDOWN );
+		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_CROUCH );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_COVER );
 		//UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_ITEMS );
 	}
@@ -1045,6 +1048,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_COMETOME );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_SPREAD );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_GETDOWN );
+		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_CROUCH );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_COVER );
 		//ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_ITEMS );
 	}
@@ -1437,8 +1441,29 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case( MILCON_MENU_CROUCH ):
+					{
+						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
+							SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
 
-					case( MILCON_MENU_TAKE_COVER ):
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+							StatChange( pSoldier, LDRAMT, 1, FALSE );
+						}
+
+						// stop showing menu
+						fShowMilitiaControlMenu = FALSE;
+						giAssignHighLine = -1;
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+					}
+					break;
+
+
+				case( MILCON_MENU_TAKE_COVER ):
 					{	
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
@@ -1749,9 +1774,38 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case( MILCON_MENU_ALL_CROUCH ):
+					{
+						UINT8 cnt;
+						SOLDIERTYPE *pTeamSoldier;
+						
+						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 
+						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; ++cnt, ++pTeamSoldier)
+						{
+							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
+							{
+								SendChangeSoldierStanceEvent( pTeamSoldier, ANIM_CROUCH );
+							}
+						}
 
-					case( MILCON_MENU_ALL_TAKE_COVER ):
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+							StatChange( pSoldier, LDRAMT, 1, FALSE );
+						}
+
+						// stop showing menu
+						fShowMilitiaControlMenu = FALSE;
+						giAssignHighLine = -1;
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+					}
+					break;
+
+				case( MILCON_MENU_ALL_TAKE_COVER ):
 					{
 						//UINT8 cnt;
 						//SOLDIERTYPE *pTeamSoldier;
