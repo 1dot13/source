@@ -4518,12 +4518,19 @@ STR16			AimSortText[] =
 
 	// sort by...
 
-	L"Prix",											
+	L"Prix",
 	L"Expérience",
 	L"Tir",
-	L"Médecine",
-	L"Explosifs",
 	L"Mécanique",
+	L"Explosifs",
+	L"Médecine",
+	L"Santé",
+	L"Agilité",
+	L"Dextérité",
+	L"Force",
+	L"Commandement",
+	L"Sagesse",
+	L"Nom",
 
 	//Text of the links to other AIM pages
 
@@ -4575,9 +4582,9 @@ STR16			CharacterInfo[] =
 {
 	// The various attributes of the merc
 
-	L"Santé",										
-	L"Agilité",										
-	L"Dextérité",									
+	L"Santé",
+	L"Agilité",
+	L"Dextérité",
 	L"Force",
 	L"Commandement",
 	L"Sagesse",
@@ -4717,9 +4724,16 @@ STR16			AimFiText[] =
 	L"Prix",
 	L"Expérience",
 	L"Tir",
-	L"Médecine",
-	L"Explosifs",
 	L"Mécanique",
+	L"Explosifs",
+	L"Médecine",
+	L"Santé",
+	L"Agilité",
+	L"Dextérité",
+	L"Force",
+	L"Commandement",
+	L"Sagesse",
+	L"Nom",
 
 	// The title of the page, the above text gets added at the end of this text
 

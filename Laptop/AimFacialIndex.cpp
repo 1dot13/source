@@ -14,6 +14,8 @@
 	#include "aimsort.h"
 	#include "Assignments.h"
 	#include "GameSettings.h"
+	#include "english.h"
+	#include "sysutil.h"
 #endif
 
 
@@ -78,6 +80,9 @@ void BtnNewProfilesButtonCallback(GUI_BUTTON *btn,INT32 reason);
 
 INT32 PAGE_BUTTON;
 
+//Hotkey Assignment
+void HandleAimFacialIndexKeyBoardInput();
+
 void GameInitAimFacialIndex()
 {
 
@@ -113,31 +118,51 @@ static STR16 GetPageButtonText()
 
 void BtnNewProfilesButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
-UINT32 i;
-
-	for(i=0; i<MAX_NUMBER_MERCS; i++)
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		gAimProfiles[i] = TRUE;
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			UINT32 i;
+			
+			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-	if ( START_MERC == 0 )
-	{
-		START_MERC = 40;
-	}	
-	else if ( START_MERC == 40 )
-	{
-		if ( MAX_NUMBER_MERCS > 80 )
-			START_MERC = 80;
-		else
-			START_MERC = 0;
-	}
-	else
-	{
-		START_MERC = 0;
-	}
+			for(i=0; i<MAX_NUMBER_MERCS; i++)
+			{
+				gAimProfiles[i] = TRUE;
+			}
 
-	ExitAimFacialIndex();
-	EnterAimFacialIndex();
+			if ( START_MERC == 0 )
+			{
+				START_MERC = 40;
+			}	
+			else if ( START_MERC == 40 )
+			{
+				if ( MAX_NUMBER_MERCS > 80 )
+					START_MERC = 80;
+				else
+					START_MERC = 0;
+			}
+			else
+			{
+				START_MERC = 0;
+			}
+
+			ExitAimFacialIndex();
+			EnterAimFacialIndex();
+
+			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+		}
+	}
+	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
 }
 
 BOOLEAN EnterAimFacialIndex()
@@ -259,6 +284,7 @@ void HandleAimFacialIndex()
 //	if( fShowBookmarkInfo )
 //		fPausedReDrawScreenFlag = TRUE;
 
+	HandleAimFacialIndexKeyBoardInput();
 }
 
 BOOLEAN RenderAimFacialIndex()
@@ -474,9 +500,84 @@ BOOLEAN DrawMercsFaceToScreen(UINT8 ubMercID, UINT16 usPosX, UINT16 usPosY, UINT
 
 
 
+void HandleAimFacialIndexKeyBoardInput()
+{
+	InputAtom					InputEvent;
+	UINT32	i;
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while (DequeueEvent(&InputEvent) == TRUE)
+#endif
 
+	{//!HandleTextInput( &InputEvent ) &&
+		if( InputEvent.usEvent == KEY_DOWN )
+		{
+			switch (InputEvent.usParam)
+			{
+				case BACKSPACE:
+					// back to AIM sorting screen
+					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_SORTED_FILES;
+					break;
+				case LEFTARROW:
+					// previous page
+					for(i=0; i<MAX_NUMBER_MERCS; i++)
+					{
+						gAimProfiles[i] = TRUE;
+					}
 
+					if ( START_MERC == 40 )
+					{
+						START_MERC = 0;
+					}	
+					else if ( START_MERC == 0 )
+					{
+						if ( MAX_NUMBER_MERCS > 80 )
+							START_MERC = 80;
+						else
+							START_MERC = 40;
+					}
+					else
+					{
+						START_MERC = 40;
+					}
 
+					ExitAimFacialIndex();
+					EnterAimFacialIndex();
+					break;
+				case RIGHTARROW:
+					// next page
+					for(i=0; i<MAX_NUMBER_MERCS; i++)
+					{
+						gAimProfiles[i] = TRUE;
+					}
+
+					if ( START_MERC == 0 )
+					{
+						START_MERC = 40;
+					}	
+					else if ( START_MERC == 40 )
+					{
+						if ( MAX_NUMBER_MERCS > 80 )
+							START_MERC = 80;
+						else
+							START_MERC = 0;
+					}
+					else
+					{
+						START_MERC = 0;
+					}
+
+					ExitAimFacialIndex();
+					EnterAimFacialIndex();
+					break;
+				default:
+					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+					break;
+			}
+		}
+	}
+}
 
 

@@ -4529,9 +4529,16 @@ STR16			AimSortText[] =
 	L"薪金",	//"Price",
 	L"级别",	//"Experience",
 	L"枪法",	//"Marksmanship",
-	L"医疗",	//"Medical",
-	L"爆破",	//"Explosives",
 	L"机械",	//"Mechanical",
+	L"爆破",	//"Explosives",
+	L"医疗",	//"Medical",
+	L"生命",	//"Health",
+	L"敏捷",	//"Agility",
+	L"灵巧",	//"Dexterity",
+	L"力量",	//"Strength",
+	L"领导",	//"Leadership",
+	L"智慧",	//"Wisdom",
+	L"姓名",	//"Name",
 
 	//Text of the links to other AIM pages
 
@@ -4725,9 +4732,16 @@ STR16			AimFiText[] =
 	L"薪金",	//"Price",
 	L"级别",	//"Experience",
 	L"枪法",	//"Marksmanship",
-	L"医疗",	//"Medical",
-	L"爆破",	//"Explosives",
 	L"机械",	//"Mechanical",
+	L"爆破",	//"Explosives",
+	L"医疗",	//"Medical",
+	L"生命",	//"Health",
+	L"敏捷",	//"Agility",
+	L"灵巧",	//"Dexterity",
+	L"力量",	//"Strength",
+	L"领导",	//"Leadership",
+	L"智慧",	//"Wisdom",
+	L"姓名",	//"Name",
 
 	// The title of the page, the above text gets added at the end of this text
 

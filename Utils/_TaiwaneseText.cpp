@@ -4532,9 +4532,16 @@ STR16			AimSortText[] =
 	L"Price",											
 	L"Experience",
 	L"Marksmanship",
-	L"Medical",
-	L"Explosives",
 	L"Mechanical",
+	L"Explosives",
+	L"Medical",
+	L"Health",
+	L"Agility",
+	L"Dexterity",
+	L"Strength",
+	L"Leadership",
+	L"Wisdom",
+	L"Name",
 
 	//Text of the links to other AIM pages
 
@@ -4728,9 +4735,16 @@ STR16			AimFiText[] =
 	L"Price",
 	L"Experience",
 	L"Marksmanship",
-	L"Medical",
-	L"Explosives",
 	L"Mechanical",
+	L"Explosives",
+	L"Medical",
+	L"Health",
+	L"Agility",
+	L"Dexterity",
+	L"Strength",
+	L"Leadership",
+	L"Wisdom",
+	L"Name",
 
 	// The title of the page, the above text gets added at the end of this text
 

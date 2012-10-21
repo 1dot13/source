@@ -4528,12 +4528,19 @@ STR16			AimSortText[] =
 
 	// sort by...
 
-	L"Prijs",											
+	L"Prijs",
 	L"Ervaring",
 	L"Trefzekerheid",
-	L"Medisch",
-	L"Explosieven",
 	L"Technisch",
+	L"Explosieven",
+	L"Medisch",
+	L"Gezondheid",
+	L"Beweeglijkheid",
+	L"Handigheid",
+	L"Kracht",
+	L"Leiderschap",
+	L"Wijsheid",
+	L"Naam",
 
 	//Text of the links to other AIM pages
 
@@ -4727,9 +4734,16 @@ STR16			AimFiText[] =
 	L"Prijs",
 	L"Ervaring",
 	L"Trefzekerheid",
-	L"Medisch",
-	L"Explosieven",
 	L"Technisch",
+	L"Explosieven",
+	L"Medisch",
+	L"Gezondheid",
+	L"Beweeglijkheid",
+	L"Handigheid",
+	L"Kracht",
+	L"Leiderschap",
+	L"Wijsheid",
+	L"Naam",
 
 	// The title of the page, the above text gets added at the end of this text
 

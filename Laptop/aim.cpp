@@ -15,6 +15,8 @@
 	#include "LaptopSave.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "GameSettings.h"
+	#include "english.h"
+	#include "sysutil.h"
 #endif
 
 #include "LocalizedStrings.h"
@@ -205,6 +207,10 @@ UINT8		GetNextAimAd( UINT8 ubCurrentAd );
 
 BOOLEAN		fFirstTimeIn=TRUE;
 
+//Hotkey Assignment
+void HandleAimKeyBoardInput();
+
+
 //
 // ***********************	Functions		*************************
 //
@@ -349,6 +355,8 @@ void HandleAIM()
 {
 	HandleAdAndWarningArea( gfInitAdArea, FALSE );
 	gfInitAdArea = FALSE;
+
+	HandleAimKeyBoardInput();
 }
 
 void RenderAIM()
@@ -1303,8 +1311,40 @@ UINT8 GetNextAimAd( UINT8 ubCurrentAd )
 
 
 
+void HandleAimKeyBoardInput()
+{
+	InputAtom					InputEvent;
 
+#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
+	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
+#else
+	while (DequeueEvent(&InputEvent) == TRUE)
+#endif
 
-
+	{//!HandleTextInput( &InputEvent ) &&
+		if( InputEvent.usEvent == KEY_DOWN )
+		{
+			switch (InputEvent.usParam)
+			{
+				case 'h':
+					guiCurrentLaptopMode = LAPTOP_MODE_AIM_HISTORY;
+					break;
+				case 'l':
+					guiCurrentLaptopMode = LAPTOP_MODE_AIM_LINKS;
+					break;
+				case 'm':
+					if(!fFirstTimeIn)
+						guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_SORTED_FILES;
+					break;
+				case 'p':
+					guiCurrentLaptopMode = LAPTOP_MODE_AIM_POLICIES;
+					break;
+				default:
+					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+					break;
+			}
+		}
+	}
+}
 
 
