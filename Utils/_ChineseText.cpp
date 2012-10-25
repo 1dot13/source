@@ -5111,10 +5111,7 @@ STR16		zOptionsToggleText[] =
 	L"佣兵训练时保持沉默",	// Madd: mercs don't say quotes while training
 	L"佣兵修理时保持沉默",	// Madd: mercs don't say quotes while repairing
 	L"佣兵医疗时保持沉默",	// Madd: mercs don't say quotes while doctoring
-	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
-#endif
 
 #ifdef ENABLE_ZOMBIES
 	L"僵尸模式",
@@ -5229,10 +5226,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，佣兵训练时不会随时汇报进程。",
 	L"打开时，佣兵修理时不会随时汇报进程。",
 	L"打开时，佣兵医疗时不会随时汇报进程。",
-	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"打开时，敌军回合将被大幅加速。",
-#endif
 
 #ifdef ENABLE_ZOMBIES
 	L"打开时，被击毙的敌人将有可能变成僵尸！杀出个黎明！",

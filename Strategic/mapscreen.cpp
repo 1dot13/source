@@ -6825,35 +6825,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 	while( DequeueEvent( &InputEvent ) )
 	{
-		#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-		#else
-			GetCursorPos(&MousePos);
-			ScreenToClient(ghWindow, &MousePos); // In window coords!
-
-			// HOOK INTO MOUSE HOOKS
-			switch(InputEvent.usEvent)
-			{
-					case LEFT_BUTTON_DOWN:
-						MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-						break;
-					case LEFT_BUTTON_UP:
-						MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
-						break;
-					case RIGHT_BUTTON_DOWN:
-						MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-						break;
-					case RIGHT_BUTTON_UP:
-						MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-						break;
-					case RIGHT_BUTTON_REPEAT:
-						MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-						break;
-					case LEFT_BUTTON_REPEAT:
-						MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-						break;
-			}
-		#endif
-
 		if( InputEvent.usEvent == KEY_DOWN )
 		{
 			// if game is paused because of player, unpause with any key
@@ -8293,6 +8264,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 		}
 		else
 		{
+			extern void HandleDefaultEvent(InputAtom *Event);
 			HandleDefaultEvent(&InputEvent);
 		}
 	}

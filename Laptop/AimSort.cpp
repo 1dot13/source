@@ -1088,12 +1088,7 @@ void HandleAimSortKeyBoardInput()
 {
 	InputAtom					InputEvent;
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
-#else
-	while (DequeueEvent(&InputEvent) == TRUE)
-#endif
-
 	{//!HandleTextInput( &InputEvent ) &&
 		if( InputEvent.usEvent == KEY_DOWN )
 		{

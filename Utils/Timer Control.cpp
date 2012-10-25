@@ -14,10 +14,7 @@
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "interface control.h"
-	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	#include "keymap.h"
-#endif
 
 #endif
 
@@ -29,13 +26,12 @@
 #include "connect.h"
 
 // Base resolution of callback timer
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	static INT32 BASETIMESLICE = 10;
-	const INT32 FASTFORWARDTIMESLICE = 1000;
-	const UINT32 FREQUENCY_CONST = 1000000;
-	static INT32 MIN_NOTIFY_TIME = 16000;
-	static INT32 UPDATETIMESLICE = 10000;
-#endif
+static INT32 BASETIMESLICE = 10;
+const INT32 FASTFORWARDTIMESLICE = 1000;
+const UINT32 FREQUENCY_CONST = 1000000;
+static INT32 MIN_NOTIFY_TIME = 16000;
+static INT32 UPDATETIMESLICE = 10000;
+
 
 INT32	giClockTimer = -1;
 INT32	giTimerDiag = 0;
@@ -45,21 +41,20 @@ UINT32	guiBaseJA2NoPauseClock = 0;
 
 BOOLEAN	gfPauseClock = FALSE;
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	BOOLEAN  gfHispeedClockMode = FALSE;
+BOOLEAN  gfHispeedClockMode = FALSE;
 
-	const inline UINT32 TIME_US_TO_MS(UINT32 value) { return value / 1000; }
-	const inline UINT32 TIME_MS_TO_US(UINT32 value) { return value * 1000; }
+const inline UINT32 TIME_US_TO_MS(UINT32 value) { return value / 1000; }
+const inline UINT32 TIME_MS_TO_US(UINT32 value) { return value * 1000; }
 
-	UINT32   giFastForwardPeriod = FASTFORWARDTIMESLICE;
-	BOOLEAN giFastForwardMode = FALSE;
-	INT32   giFastForwardKey = 0;
-	UINT32  guiTimeSlice = 0;
-	FLOAT gfClockSpeedPercent = 1.0;
-	LARGE_INTEGER gliPerfFreq = {0};
-	LARGE_INTEGER gliPerfCount = {0};
-	LARGE_INTEGER gliPerfCountNext = {0};
-#endif
+UINT32   giFastForwardPeriod = FASTFORWARDTIMESLICE;
+BOOLEAN giFastForwardMode = FALSE;
+INT32   giFastForwardKey = 0;
+UINT32  guiTimeSlice = 0;
+FLOAT gfClockSpeedPercent = 1.0;
+LARGE_INTEGER gliPerfFreq = {0};
+LARGE_INTEGER gliPerfCount = {0};
+LARGE_INTEGER gliPerfCountNext = {0};
+
 
 INT32		giTimerIntervals[ NUMTIMERS ] =
 {
@@ -105,18 +100,16 @@ CUSTOMIZABLE_TIMER_CALLBACK gpCustomizableTimerCallback = NULL;
 // Clock Callback event ID
 MMRESULT	gTimerID;
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	TIMECAPS	gtc;
+TIMECAPS	gtc;
 
-	HANDLE		ghClockThread;
-	DWORD		gdwClockThreadId;
-	HANDLE		ghClockThreadShutdown;
+HANDLE		ghClockThread;
+DWORD		gdwClockThreadId;
+HANDLE		ghClockThreadShutdown;
 
-	HANDLE		ghNotifyThread;
-	DWORD		gdwNotifyThreadId;
-	HANDLE		ghNotifyThreadEvent;
-	HANDLE		ghNotifyThreadShutdownComplete;
-#endif
+HANDLE		ghNotifyThread;
+DWORD		gdwNotifyThreadId;
+HANDLE		ghNotifyThreadEvent;
+HANDLE		ghNotifyThreadShutdownComplete;
 
 // GLOBALS FOR CALLBACK
 UINT32				gCNT;
@@ -141,148 +134,67 @@ extern INT32 giFlashContractBaseTime;
 extern UINT32 guiFlashCursorBaseTime;
 extern INT32 giPotCharPathBaseTime;
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	typedef void (*TIMER_NOTIFY_CALLBACK) ( INT32 timer, PTR state );
-	struct TIMER_NOTIFY_ITEM
-	{
-		TIMER_NOTIFY_CALLBACK callback;
-		PTR state;
-	};
-	typedef std::list<TIMER_NOTIFY_ITEM> TIMER_NOTIFY_ITEM_LIST;
-	typedef TIMER_NOTIFY_ITEM_LIST::iterator TIMER_NOTIFY_ITEM_ITERATOR;
-	static TIMER_NOTIFY_ITEM_LIST glNotifyCallbacks;
-	static CRITICAL_SECTION gcsNotifyLock;
 
-	static bool HasTimerNotifyCallbacks( );
-	static void BroadcastTimerNotify(INT32 );
-	static BOOLEAN UpdateTimeCounter( INT32 &counter, INT32 &iTimeLeft );
-	static BOOLEAN UpdateCounter( INT32 counter, INT32 &iTimeLeft);
-	static void UpdateTimer();
-#endif
+typedef void (*TIMER_NOTIFY_CALLBACK) ( INT32 timer, PTR state );
+struct TIMER_NOTIFY_ITEM
+{
+	TIMER_NOTIFY_CALLBACK callback;
+	PTR state;
+};
+typedef std::list<TIMER_NOTIFY_ITEM> TIMER_NOTIFY_ITEM_LIST;
+typedef TIMER_NOTIFY_ITEM_LIST::iterator TIMER_NOTIFY_ITEM_ITERATOR;
+static TIMER_NOTIFY_ITEM_LIST glNotifyCallbacks;
+static CRITICAL_SECTION gcsNotifyLock;
+
+static bool HasTimerNotifyCallbacks( );
+static void BroadcastTimerNotify(INT32 );
+static BOOLEAN UpdateTimeCounter( INT32 &counter, INT32 &iTimeLeft );
+static BOOLEAN UpdateCounter( INT32 counter, INT32 &iTimeLeft);
+static void UpdateTimer();
+
 
 UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UINT32 uiUser );
 
 // CALLBACKS
 void CALLBACK FlashItem( UINT uiID, UINT uiMsg, DWORD uiUser, DWORD uiDw1, DWORD uiDw2 );
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	)
+
+void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	)
+{
+	static BOOLEAN fInFunction = FALSE;
+	//SOLDIERTYPE		*pSoldier;
+
+	if ( !fInFunction )
 	{
-		static BOOLEAN fInFunction = FALSE;
-		//SOLDIERTYPE		*pSoldier;
+		fInFunction = TRUE;
 
-		if ( !fInFunction )
+		BOOLEAN timerDone = FALSE;
+		BOOLEAN tickTime = FALSE;
+		INT32 iTimeLeft = 0;
+
+		// Use QPC to check if BASETIMESLICE (in ms) has passed
+		if (IsHiSpeedClockMode())
 		{
-			fInFunction = TRUE;
-
-			BOOLEAN timerDone = FALSE;
-			BOOLEAN tickTime = FALSE;
-			INT32 iTimeLeft = 0;
-
-			// Use QPC to check if BASETIMESLICE (in ms) has passed
-			if (IsHiSpeedClockMode())
+			// Only advance time when sufficient time has passed to exceed next time
+			QueryPerformanceCounter(&gliPerfCount);
+			if (gliPerfCount.QuadPart > gliPerfCountNext.QuadPart)
 			{
-				// Only advance time when sufficient time has passed to exceed next time
-				QueryPerformanceCounter(&gliPerfCount);
-				if (gliPerfCount.QuadPart > gliPerfCountNext.QuadPart)
-				{
-					INT32 iNext = IsFastForwardMode() ? giFastForwardPeriod : UPDATETIMESLICE;
-					gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + (iNext * gliPerfFreq.QuadPart) / FREQUENCY_CONST;
-					iTimeLeft = iNext;
-					timerDone = IsFastForwardMode();
-					tickTime = TRUE;
-				}
-			}
-			else
-			{
-				// When using millisecond timer, advance time everytime this function is called
+				INT32 iNext = IsFastForwardMode() ? giFastForwardPeriod : UPDATETIMESLICE;
+				gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + (iNext * gliPerfFreq.QuadPart) / FREQUENCY_CONST;
+				iTimeLeft = iNext;
+				timerDone = IsFastForwardMode();
 				tickTime = TRUE;
-				timerDone = !IsFastForwardMode();
 			}
-			if (tickTime)
-			{
-				guiBaseJA2NoPauseClock += BASETIMESLICE;
-
-				if ( !gfPauseClock )
-				{
-					guiBaseJA2Clock += BASETIMESLICE;
-
-					for ( gCNT = 0; gCNT < NUMTIMERS; gCNT++ )
-					{
-						timerDone |= UpdateCounter( gCNT, iTimeLeft  );
-					}
-
-					// Update some specialized countdown timers...
-					timerDone |= UpdateTimeCounter( giTimerAirRaidQuote, iTimeLeft );
-					timerDone |= UpdateTimeCounter( giTimerAirRaidDiveStarted, iTimeLeft );
-					timerDone |= UpdateTimeCounter( giTimerAirRaidUpdate, iTimeLeft );
-					timerDone |= UpdateTimeCounter( giTimerTeamTurnUpdate, iTimeLeft );
-
-					if ( gpCustomizableTimerCallback )
-					{
-						timerDone |= UpdateTimeCounter( giTimerCustomizable, iTimeLeft );
-					}
-
-	#ifndef BOUNDS_CHECKER
-
-					// If mapscreen...
-					if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
-					{
-						// IN Mapscreen, loop through player's team.....
-						for ( gCNT = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; gCNT <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; gCNT++ )
-						{
-							gPSOLDIER = MercPtrs[ gCNT ];
-							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PortraitFlashCounter, iTimeLeft );
-							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PanelAnimateCounter, iTimeLeft );
-						}
-					}
-					else
-					{
-						// Set update flags for soldiers
-						////////////////////////////
-						for ( gCNT = 0; gCNT < guiNumMercSlots; gCNT++ )
-						{
-							gPSOLDIER = MercSlots[ gCNT ];
-
-							if ( gPSOLDIER != NULL )
-							{
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.UpdateCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.DamageCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.ReloadCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.FlashSelCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.BlinkSelCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PortraitFlashCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.AICounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.FadeCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.NextTileCounter, iTimeLeft );
-								timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PanelAnimateCounter, iTimeLeft );
-	#ifdef JA2UB
-								timerDone |= UpdateTimeCounter( gPSOLDIER->GetupFromJA25StartCounter, iTimeLeft );
-	#endif
-							}
-						}
-					}
-	#endif
-				}
-			}
-
-			if (timerDone)
-				SetEvent(ghNotifyThreadEvent);
-			fInFunction = FALSE;
 		}
-	}
-#else
-	void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	)
-	{
-		static BOOLEAN fInFunction = FALSE;
-		//SOLDIERTYPE		*pSoldier;
-
-		if ( !fInFunction )
+		else
 		{
-			fInFunction = TRUE;
-
+			// When using millisecond timer, advance time everytime this function is called
+			tickTime = TRUE;
+			timerDone = !IsFastForwardMode();
+		}
+		if (tickTime)
+		{
 			guiBaseJA2NoPauseClock += BASETIMESLICE;
-
 
 			if ( !gfPauseClock )
 			{
@@ -290,346 +202,268 @@ void CALLBACK FlashItem( UINT uiID, UINT uiMsg, DWORD uiUser, DWORD uiDw1, DWORD
 
 				for ( gCNT = 0; gCNT < NUMTIMERS; gCNT++ )
 				{
-					UPDATECOUNTER( gCNT );
+					timerDone |= UpdateCounter( gCNT, iTimeLeft  );
 				}
 
 				// Update some specialized countdown timers...
-				UPDATETIMECOUNTER( giTimerAirRaidQuote );
-				UPDATETIMECOUNTER( giTimerAirRaidDiveStarted );
-				UPDATETIMECOUNTER( giTimerAirRaidUpdate );
-				UPDATETIMECOUNTER( giTimerTeamTurnUpdate );
+				timerDone |= UpdateTimeCounter( giTimerAirRaidQuote, iTimeLeft );
+				timerDone |= UpdateTimeCounter( giTimerAirRaidDiveStarted, iTimeLeft );
+				timerDone |= UpdateTimeCounter( giTimerAirRaidUpdate, iTimeLeft );
+				timerDone |= UpdateTimeCounter( giTimerTeamTurnUpdate, iTimeLeft );
 
 				if ( gpCustomizableTimerCallback )
 				{
-					UPDATETIMECOUNTER( giTimerCustomizable );
+					timerDone |= UpdateTimeCounter( giTimerCustomizable, iTimeLeft );
 				}
 
-	#ifndef BOUNDS_CHECKER
+#ifndef BOUNDS_CHECKER
 
-			// If mapscreen...
-			if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
-			{
-			// IN Mapscreen, loop through player's team.....
-				for ( gCNT = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; gCNT <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; gCNT++ )
+				// If mapscreen...
+				if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 				{
-					gPSOLDIER = MercPtrs[ gCNT ];
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PortraitFlashCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PanelAnimateCounter );
-			}
-			}
-			else
-			{
-				// Set update flags for soldiers
-				////////////////////////////
-				for ( gCNT = 0; gCNT < guiNumMercSlots; gCNT++ )
-				{
-					gPSOLDIER = MercSlots[ gCNT ];
-
-					if ( gPSOLDIER != NULL )
+					// IN Mapscreen, loop through player's team.....
+					for ( gCNT = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; gCNT <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; gCNT++ )
 					{
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.UpdateCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.DamageCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.ReloadCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.FlashSelCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.BlinkSelCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PortraitFlashCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.AICounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.FadeCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.NextTileCounter );
-						UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PanelAnimateCounter );
-	#ifdef JA2UB
-						UPDATETIMECOUNTER( gPSOLDIER->GetupFromJA25StartCounter );
-	#endif
+						gPSOLDIER = MercPtrs[ gCNT ];
+						timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PortraitFlashCounter, iTimeLeft );
+						timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PanelAnimateCounter, iTimeLeft );
 					}
 				}
-			}
-	#endif
-			}
+				else
+				{
+					// Set update flags for soldiers
+					////////////////////////////
+					for ( gCNT = 0; gCNT < guiNumMercSlots; gCNT++ )
+					{
+						gPSOLDIER = MercSlots[ gCNT ];
 
-
-			fInFunction = FALSE;
-		}
-	}
+						if ( gPSOLDIER != NULL )
+						{
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.UpdateCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.DamageCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.ReloadCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.FlashSelCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.BlinkSelCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PortraitFlashCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.AICounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.FadeCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.NextTileCounter, iTimeLeft );
+							timerDone |= UpdateTimeCounter( gPSOLDIER->timeCounters.PanelAnimateCounter, iTimeLeft );
+#ifdef JA2UB
+							timerDone |= UpdateTimeCounter( gPSOLDIER->GetupFromJA25StartCounter, iTimeLeft );
 #endif
-
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	static UINT32 MIN_TIMER(UINT32 timer, UINT32 other)
-	{
-		UINT32 value = TIME_MS_TO_US(timer);
-		return ( value && value < other ? value : other );
-	}
-
-	// Returns the smallest time interval for a counter currently in use
-	UINT32 GetNextCounterDoneTime(void)
-	{
-		QueryPerformanceCounter(&gliPerfCount);
-		INT32 time = (INT32)(((gliPerfCountNext.QuadPart - gliPerfCount.QuadPart) * FREQUENCY_CONST) / gliPerfFreq.QuadPart);
-		return (UINT32)((time > 0) ? time : 0);
-	}
-
-	// Function to test if there are any outstanding timers.  Used in fast forward routines
-	BOOLEAN IsTimerActive(void)
-	{
-		return GetNextCounterDoneTime() <= FASTFORWARDTIMESLICE ? TRUE : FALSE;
-	}
-
-	DWORD WINAPI JA2ClockThread( LPVOID lpParam ) 
-	{
-		__try
-		{
-			for(;;) 
-			{
-				TimeProc(0, 0, 0, 0, 0);
-
-				DWORD dwResult = WaitForSingleObject(ghClockThreadShutdown, 0);
-				if (dwResult == WAIT_OBJECT_0 || dwResult == WAIT_ABANDONED)
-					break;
-				YieldProcessor();
-
-				// Sleep for a couple of milliseconds if not in fast forward mode
-				if (!IsFastForwardMode())
-					Sleep( TIME_US_TO_MS( GetNextCounterDoneTime() ) );
-			} 
+						}
+					}
+				}
+#endif
+			}
 		}
-		__except( EXCEPTION_EXECUTE_HANDLER  )
-		{
-			// Unhandled exception just exit
-		}
-		return 0L;
-	}
 
-	DWORD WINAPI JA2NotifyThread( LPVOID lpParam ) 
+		if (timerDone)
+			SetEvent(ghNotifyThreadEvent);
+		fInFunction = FALSE;
+	}
+}
+
+
+
+static UINT32 MIN_TIMER(UINT32 timer, UINT32 other)
+{
+	UINT32 value = TIME_MS_TO_US(timer);
+	return ( value && value < other ? value : other );
+}
+
+// Returns the smallest time interval for a counter currently in use
+UINT32 GetNextCounterDoneTime(void)
+{
+	QueryPerformanceCounter(&gliPerfCount);
+	INT32 time = (INT32)(((gliPerfCountNext.QuadPart - gliPerfCount.QuadPart) * FREQUENCY_CONST) / gliPerfFreq.QuadPart);
+	return (UINT32)((time > 0) ? time : 0);
+}
+
+// Function to test if there are any outstanding timers.  Used in fast forward routines
+BOOLEAN IsTimerActive(void)
+{
+	return GetNextCounterDoneTime() <= FASTFORWARDTIMESLICE ? TRUE : FALSE;
+}
+
+DWORD WINAPI JA2ClockThread( LPVOID lpParam ) 
+{
+	__try
 	{
-		HANDLE waitHandles[] = {ghClockThreadShutdown, ghNotifyThreadEvent};
 		for(;;) 
 		{
+			TimeProc(0, 0, 0, 0, 0);
+
 			DWORD dwResult = WaitForSingleObject(ghClockThreadShutdown, 0);
 			if (dwResult == WAIT_OBJECT_0 || dwResult == WAIT_ABANDONED)
 				break;
+			YieldProcessor();
 
-			DWORD waitTime = (!IsFastForwardMode()) ? max(TIME_US_TO_MS(MIN_NOTIFY_TIME), TIME_US_TO_MS( GetNextCounterDoneTime() ) ) : 0;
-			dwResult = WaitForMultipleObjectsEx(_countof(waitHandles), waitHandles, FALSE, waitTime, FALSE);
-			if (dwResult == WAIT_OBJECT_0)
-				break;
-			if (dwResult >= WAIT_ABANDONED_0 && dwResult <= (WAIT_ABANDONED_0 + _countof(waitHandles)))
-				break;
-			if ( dwResult == WAIT_FAILED || dwResult == WAIT_TIMEOUT || (dwResult-WAIT_OBJECT_0) == 1)
-			{
-				if (HasTimerNotifyCallbacks())
-				{
-					BroadcastTimerNotify(-1);
-				}
-			}
-			else
-			{
-				// unexpected failure
-			}
+			// Sleep for a couple of milliseconds if not in fast forward mode
+			if (!IsFastForwardMode())
+				Sleep( TIME_US_TO_MS( GetNextCounterDoneTime() ) );
 		} 
-		SetEvent(ghNotifyThreadShutdownComplete);
-		return 0L;
 	}
-#endif
-
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	BOOLEAN InitializeJA2Clock()
+	__except( EXCEPTION_EXECUTE_HANDLER  )
 	{
-	#ifdef CALLBACKTIMER
-		MMRESULT	mmResult;
-		INT32			cnt;
-
-		// Init timer delays
-		for ( cnt = 0; cnt < NUMTIMERS; cnt++ )
-		{
-			giTimerCounters[ cnt ] = giTimerIntervals[ cnt ];
-		}
-
-
-		// First get timer resolutions
-		mmResult = timeGetDevCaps( &gtc, sizeof( gtc ) );
-
-		if ( mmResult != TIMERR_NOERROR )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
-		}
-
-		if ( !QueryPerformanceFrequency(&gliPerfFreq) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get performance frequency");
-		}
-		if ( !QueryPerformanceCounter(&gliPerfCount) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get performance frequency");
-		}
-
-		timeBeginPeriod(gtc.wPeriodMin);
-
-		InitializeCriticalSection(&gcsNotifyLock);
-
-		if (IsHiSpeedClockMode())
-		{
-			ghClockThreadShutdown = CreateEvent(NULL, TRUE, FALSE, NULL);
-			ghNotifyThreadEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-			ghNotifyThreadShutdownComplete = CreateEvent(NULL, TRUE, FALSE, NULL);
-			ghClockThread = CreateThread( 
-				NULL,              // default security attributes
-				0,                 // use default stack size  
-				JA2ClockThread,    // thread function 
-				NULL,              // argument to thread function 
-				0,                 // use default creation flags 
-				&gdwClockThreadId);// returns the thread identifier 
-			ghNotifyThread = CreateThread( 
-				NULL,              // default security attributes
-				0,                 // use default stack size  
-				JA2NotifyThread,    // thread function 
-				NULL,              // argument to thread function 
-				0,                 // use default creation flags 
-				&gdwNotifyThreadId);// returns the thread identifier 
-		}
-		else
-		{
-			UpdateTimer();
-		}
-	#endif
-
-		return TRUE;
+		// Unhandled exception just exit
 	}
-#else
-	BOOLEAN InitializeJA2Clock(void)
+	return 0L;
+}
+
+DWORD WINAPI JA2NotifyThread( LPVOID lpParam ) 
+{
+	HANDLE waitHandles[] = {ghClockThreadShutdown, ghNotifyThreadEvent};
+	for(;;) 
 	{
+		DWORD dwResult = WaitForSingleObject(ghClockThreadShutdown, 0);
+		if (dwResult == WAIT_OBJECT_0 || dwResult == WAIT_ABANDONED)
+			break;
 
-	#ifdef CALLBACKTIMER
-
-
-		MMRESULT	mmResult;
-		TIMECAPS	tc;
-		INT32			cnt;
-
-		// Init timer delays
-		for ( cnt = 0; cnt < NUMTIMERS; cnt++ )
+		DWORD waitTime = (!IsFastForwardMode()) ? max(TIME_US_TO_MS(MIN_NOTIFY_TIME), TIME_US_TO_MS( GetNextCounterDoneTime() ) ) : 0;
+		dwResult = WaitForMultipleObjectsEx(_countof(waitHandles), waitHandles, FALSE, waitTime, FALSE);
+		if (dwResult == WAIT_OBJECT_0)
+			break;
+		if (dwResult >= WAIT_ABANDONED_0 && dwResult <= (WAIT_ABANDONED_0 + _countof(waitHandles)))
+			break;
+		if ( dwResult == WAIT_FAILED || dwResult == WAIT_TIMEOUT || (dwResult-WAIT_OBJECT_0) == 1)
 		{
-			giTimerCounters[ cnt ] = giTimerIntervals[ cnt ];
-		}
-
-
-		// First get timer resolutions
-		mmResult = timeGetDevCaps( &tc, sizeof( tc ) );
-
-		if ( mmResult != TIMERR_NOERROR )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
-		}
-
-		// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
-		gTimerID = timeSetEvent( BASETIMESLICE, BASETIMESLICE, TimeProc, (DWORD)0, TIME_PERIODIC );
-
-		if ( !gTimerID )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
-		}
-
-	#endif
-
-		return TRUE;
-	}
-#endif
-
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	void	ShutdownJA2Clock(void)
-	{
-		if (IsHiSpeedClockMode())
-		{
-			SetEvent(ghClockThreadShutdown);
-			WaitForSingleObject(ghNotifyThreadShutdownComplete, 2000);
-			HANDLE waitHandles[] = {ghClockThread, ghNotifyThread};
-			WaitForMultipleObjects(_countof(waitHandles), waitHandles, TRUE, 1000);
-			CloseHandle(ghClockThreadShutdown);
-			CloseHandle(ghClockThread);
-			CloseHandle(ghNotifyThreadEvent);
-			CloseHandle(ghNotifyThread);
-			// During ungraceful shutdowns notify lock may be in use in notify thread
-			if (TryEnterCriticalSection(&gcsNotifyLock))
+			if (HasTimerNotifyCallbacks())
 			{
-				LeaveCriticalSection(&gcsNotifyLock);
-				DeleteCriticalSection(&gcsNotifyLock);
+				BroadcastTimerNotify(-1);
 			}
 		}
 		else
 		{
-			// Make sure we kill the timer
-	#ifdef CALLBACKTIMER
-			timeKillEvent( gTimerID );
-	#endif
+			// unexpected failure
 		}
+	} 
+	SetEvent(ghNotifyThreadShutdownComplete);
+	return 0L;
+}
 
-		timeEndPeriod(gtc.wPeriodMin);
+
+
+BOOLEAN InitializeJA2Clock()
+{
+#ifdef CALLBACKTIMER
+	MMRESULT	mmResult;
+	INT32			cnt;
+
+	// Init timer delays
+	for ( cnt = 0; cnt < NUMTIMERS; cnt++ )
+	{
+		giTimerCounters[ cnt ] = giTimerIntervals[ cnt ];
 	}
-#else
-	void	ShutdownJA2Clock(void)
+
+
+	// First get timer resolutions
+	mmResult = timeGetDevCaps( &gtc, sizeof( gtc ) );
+
+	if ( mmResult != TIMERR_NOERROR )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
+	}
+
+	if ( !QueryPerformanceFrequency(&gliPerfFreq) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get performance frequency");
+	}
+	if ( !QueryPerformanceCounter(&gliPerfCount) )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get performance frequency");
+	}
+
+	timeBeginPeriod(gtc.wPeriodMin);
+
+	InitializeCriticalSection(&gcsNotifyLock);
+
+	if (IsHiSpeedClockMode())
+	{
+		ghClockThreadShutdown = CreateEvent(NULL, TRUE, FALSE, NULL);
+		ghNotifyThreadEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+		ghNotifyThreadShutdownComplete = CreateEvent(NULL, TRUE, FALSE, NULL);
+		ghClockThread = CreateThread( 
+			NULL,              // default security attributes
+			0,                 // use default stack size  
+			JA2ClockThread,    // thread function 
+			NULL,              // argument to thread function 
+			0,                 // use default creation flags 
+			&gdwClockThreadId);// returns the thread identifier 
+		ghNotifyThread = CreateThread( 
+			NULL,              // default security attributes
+			0,                 // use default stack size  
+			JA2NotifyThread,    // thread function 
+			NULL,              // argument to thread function 
+			0,                 // use default creation flags 
+			&gdwNotifyThreadId);// returns the thread identifier 
+	}
+	else
+	{
+		UpdateTimer();
+	}
+#endif
+
+	return TRUE;
+}
+
+
+void	ShutdownJA2Clock(void)
+{
+	if (IsHiSpeedClockMode())
+	{
+		SetEvent(ghClockThreadShutdown);
+		WaitForSingleObject(ghNotifyThreadShutdownComplete, 2000);
+		HANDLE waitHandles[] = {ghClockThread, ghNotifyThread};
+		WaitForMultipleObjects(_countof(waitHandles), waitHandles, TRUE, 1000);
+		CloseHandle(ghClockThreadShutdown);
+		CloseHandle(ghClockThread);
+		CloseHandle(ghNotifyThreadEvent);
+		CloseHandle(ghNotifyThread);
+		// During ungraceful shutdowns notify lock may be in use in notify thread
+		if (TryEnterCriticalSection(&gcsNotifyLock))
+		{
+			LeaveCriticalSection(&gcsNotifyLock);
+			DeleteCriticalSection(&gcsNotifyLock);
+		}
+	}
+	else
 	{
 		// Make sure we kill the timer
-	#ifdef CALLBACKTIMER
-
+#ifdef CALLBACKTIMER
 		timeKillEvent( gTimerID );
-
-	#endif
-
-	}
 #endif
-
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UINT32 uiUser )
-	{
-		MMRESULT	mmResult;
-		MMRESULT	TimerID;
-
-
-		// First get timer resolutions
-		mmResult = timeGetDevCaps( &gtc, sizeof( gtc ) );
-
-		if ( mmResult != TIMERR_NOERROR )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
-		}
-
-		// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
-		TimerID = timeSetEvent( (UINT)uiDelay, (UINT)uiDelay, TimerProc, (DWORD)uiUser, TIME_PERIODIC );
-
-		if ( !TimerID )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
-		}
-
-		return ( (UINT32)TimerID );
-	}
-#else
-	UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UINT32 uiUser )
-	{
-		MMRESULT	mmResult;
-		TIMECAPS	tc;
-		MMRESULT	TimerID;
-
-
-		// First get timer resolutions
-		mmResult = timeGetDevCaps( &tc, sizeof( tc ) );
-
-		if ( mmResult != TIMERR_NOERROR )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
-		}
-
-		// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
-		TimerID = timeSetEvent( (UINT)uiDelay, (UINT)uiDelay, TimerProc, (DWORD)uiUser, TIME_PERIODIC );
-
-		if ( !TimerID )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
-		}
-
-		return ( (UINT32)TimerID );
 	}
 
-#endif
+	timeEndPeriod(gtc.wPeriodMin);
+}
 
+
+UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UINT32 uiUser )
+{
+	MMRESULT	mmResult;
+	MMRESULT	TimerID;
+
+
+	// First get timer resolutions
+	mmResult = timeGetDevCaps( &gtc, sizeof( gtc ) );
+
+	if ( mmResult != TIMERR_NOERROR )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
+	}
+
+	// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
+	TimerID = timeSetEvent( (UINT)uiDelay, (UINT)uiDelay, TimerProc, (DWORD)uiUser, TIME_PERIODIC );
+
+	if ( !TimerID )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
+	}
+
+	return ( (UINT32)TimerID );
+}
 
 void RemoveJA2TimerCallback( UINT32 uiTimer )
 {
@@ -729,240 +563,238 @@ void SetTileAnimCounter( INT32 iTime )
 	giTimerIntervals[ ANIMATETILES ] = iTime;
 }
 
+void SetFastForwardPeriod(DOUBLE value)
+{
+	giFastForwardPeriod = (UINT32)(value);
+	if (giFastForwardPeriod <= 1)
+		giFastForwardPeriod = 1;
+}
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	void SetFastForwardPeriod(DOUBLE value)
+void SetFastForwardKey(INT32 key)
+{
+	giFastForwardKey = key;
+}
+
+BOOLEAN IsFastForwardKeyPressed()
+{
+	// WANNE: In a multiplayer game it is not allowed for the "pure" client to do fast forward
+	// Only the server is allowed to do, because the AI is generated on the server
+	if (is_networked)
 	{
-		giFastForwardPeriod = (UINT32)(value);
-		if (giFastForwardPeriod <= 1)
-			giFastForwardPeriod = 1;
+		if (!is_server)				// It is not allowed when we are not the server
+			return false;
+		else if (gTacticalStatus.ubCurrentTeam != 1)	// It is not allowed, when it is not the enemy turn!
+			return false;
 	}
 
-	void SetFastForwardKey(INT32 key)
-	{
-		giFastForwardKey = key;
-	}
+	return giFastForwardKey && IsKeyPressed(giFastForwardKey);
+}
 
-	BOOLEAN IsFastForwardKeyPressed()
-	{
-		// WANNE: In a multiplayer game it is not allowed for the "pure" client to do fast forward
-		// Only the server is allowed to do, because the AI is generated on the server
-		if (is_networked)
-		{
-			if (!is_server)				// It is not allowed when we are not the server
-				return false;
-			else if (gTacticalStatus.ubCurrentTeam != 1)	// It is not allowed, when it is not the enemy turn!
-				return false;
+void SetFastForwardMode(BOOLEAN enable)
+{
+	giFastForwardMode = enable;
+	UpdateTimer();
+}
+
+BOOLEAN IsFastForwardMode()
+{
+	return giFastForwardMode || IsFastForwardKeyPressed();
+}
+
+LONGLONG GetJA2Microseconds()
+{
+	return gliPerfCount.QuadPart * FREQUENCY_CONST / gliPerfFreq.QuadPart;
+}
+
+void AddTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state )
+{
+	EnterCriticalSection(&gcsNotifyLock);
+	BOOL addItem = TRUE;
+	for (TIMER_NOTIFY_ITEM_ITERATOR itr = glNotifyCallbacks.begin(); itr != glNotifyCallbacks.end(); ++itr) {
+		if ( callback == (*itr).callback && state == (*itr).state ){
+			addItem = FALSE;
+			break;
 		}
-
-		return giFastForwardKey && IsKeyPressed(giFastForwardKey);
 	}
-
-	void SetFastForwardMode(BOOLEAN enable)
+	if (addItem)
 	{
-		giFastForwardMode = enable;
-		UpdateTimer();
+		TIMER_NOTIFY_ITEM item;
+		item.callback = callback;
+		item.state = state;
+		glNotifyCallbacks.push_back(item);
 	}
+	LeaveCriticalSection(&gcsNotifyLock);
+}
 
-	BOOLEAN IsFastForwardMode()
+void RemoveTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state )
+{
+	EnterCriticalSection(&gcsNotifyLock);
+	for ( TIMER_NOTIFY_ITEM_ITERATOR itr = glNotifyCallbacks.begin(); itr != glNotifyCallbacks.end(); ) 
 	{
-		return giFastForwardMode || IsFastForwardKeyPressed();
+		if ( callback == (*itr).callback && state == (*itr).state )
+			itr = glNotifyCallbacks.erase(itr);
+		else
+			++itr;
 	}
+	LeaveCriticalSection(&gcsNotifyLock);
+}
 
-	LONGLONG GetJA2Microseconds()
+void ClearTimerNotifyCallbacks()
+{
+	// If we cannot get the lock it is likely due to exception while handling notification and we are shutting down
+	if ( TryEnterCriticalSection(&gcsNotifyLock) )
 	{
-		return gliPerfCount.QuadPart * FREQUENCY_CONST / gliPerfFreq.QuadPart;
-	}
-
-	void AddTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state )
-	{
-		EnterCriticalSection(&gcsNotifyLock);
-		BOOL addItem = TRUE;
-		for (TIMER_NOTIFY_ITEM_ITERATOR itr = glNotifyCallbacks.begin(); itr != glNotifyCallbacks.end(); ++itr) {
-			if ( callback == (*itr).callback && state == (*itr).state ){
-				addItem = FALSE;
-				break;
-			}
-		}
-		if (addItem)
-		{
-			TIMER_NOTIFY_ITEM item;
-			item.callback = callback;
-			item.state = state;
-			glNotifyCallbacks.push_back(item);
-		}
+		glNotifyCallbacks.clear();
 		LeaveCriticalSection(&gcsNotifyLock);
 	}
+}
 
-	void RemoveTimerNotifyCallback( TIMER_NOTIFY_CALLBACK callback, PTR state )
+static bool HasTimerNotifyCallbacks( )
+{
+	return !glNotifyCallbacks.empty();
+}
+
+
+// Call timer notify routine
+//   Separate the callback notifies with normal try/catch
+//   as SEH __try/__except are incompatible with C++ exceptions
+static void InnerTimerNotify(INT32 timer)
+{
+   try
+   {
+	  for (TIMER_NOTIFY_ITEM_ITERATOR itr = glNotifyCallbacks.begin(); itr != glNotifyCallbacks.end(); ++itr)
+	  {
+		 if ( NULL != (*itr).callback)
+			(*itr).callback( timer, (*itr).state );
+	  }
+   }
+   catch (...)   {}
+}
+static void BroadcastTimerNotify(INT32 timer)
+{
+	EnterCriticalSection(&gcsNotifyLock);
+	__try
 	{
-		EnterCriticalSection(&gcsNotifyLock);
-		for ( TIMER_NOTIFY_ITEM_ITERATOR itr = glNotifyCallbacks.begin(); itr != glNotifyCallbacks.end(); ) 
-		{
-			if ( callback == (*itr).callback && state == (*itr).state )
-				itr = glNotifyCallbacks.erase(itr);
-			else
-				++itr;
-		}
+		__try { InnerTimerNotify(timer); }
+		__except( EXCEPTION_EXECUTE_HANDLER  )
+		{ /*  Not sure.  exit? */ }
+	}
+	__finally
+	{
 		LeaveCriticalSection(&gcsNotifyLock);
 	}
+}
 
-	void ClearTimerNotifyCallbacks()
-	{
-		// If we cannot get the lock it is likely due to exception while handling notification and we are shutting down
-		if ( TryEnterCriticalSection(&gcsNotifyLock) )
-		{
-			glNotifyCallbacks.clear();
-			LeaveCriticalSection(&gcsNotifyLock);
-		}
-	}
-
-	static bool HasTimerNotifyCallbacks( )
-	{
-		return !glNotifyCallbacks.empty();
-	}
-
-
-	// Call timer notify routine
-	//   Separate the callback notifies with normal try/catch
-	//   as SEH __try/__except are incompatible with C++ exceptions
-	static void InnerTimerNotify(INT32 timer)
-	{
-	   try
-	   {
-		  for (TIMER_NOTIFY_ITEM_ITERATOR itr = glNotifyCallbacks.begin(); itr != glNotifyCallbacks.end(); ++itr)
-		  {
-			 if ( NULL != (*itr).callback)
-				(*itr).callback( timer, (*itr).state );
-		  }
-	   }
-	   catch (...)   {}
-	}
-	static void BroadcastTimerNotify(INT32 timer)
-	{
-		EnterCriticalSection(&gcsNotifyLock);
-		__try
-		{
-			__try { InnerTimerNotify(timer); }
-			__except( EXCEPTION_EXECUTE_HANDLER  )
-			{ /*  Not sure.  exit? */ }
-		}
-		__finally
-		{
-			LeaveCriticalSection(&gcsNotifyLock);
-		}
-	}
-
-	BOOLEAN UpdateTimeCounter( INT32 &counter, INT32 &iTimeLeft)
-	{
-		if (counter == 0) {
-			return FALSE;
-		} else if ( ( counter - BASETIMESLICE ) < 0 ) {
-			counter = 0;
-			return TRUE;
-		} else {
-			counter -= BASETIMESLICE;
-			if ( counter < iTimeLeft )
-				iTimeLeft = counter;
-			return FALSE;
-		}
+BOOLEAN UpdateTimeCounter( INT32 &counter, INT32 &iTimeLeft)
+{
+	if (counter == 0) {
+		return FALSE;
+	} else if ( ( counter - BASETIMESLICE ) < 0 ) {
+		counter = 0;
+		return TRUE;
+	} else {
+		counter -= BASETIMESLICE;
+		if ( counter < iTimeLeft )
+			iTimeLeft = counter;
 		return FALSE;
 	}
+	return FALSE;
+}
 
-	BOOLEAN UpdateCounter( INT32 counterIdx, INT32 &iTimeLeft )
-	{
-		INT32& counter = giTimerCounters[ counterIdx ];
-		return UpdateTimeCounter(counter, iTimeLeft);
-	}
+BOOLEAN UpdateCounter( INT32 counterIdx, INT32 &iTimeLeft )
+{
+	INT32& counter = giTimerCounters[ counterIdx ];
+	return UpdateTimeCounter(counter, iTimeLeft);
+}
 
-	BOOLEAN UpdateCounter( INT32 counterIdx )
-	{
-		INT32 iDummy = 0;
-		return UpdateCounter(counterIdx, iDummy);
-	}
+BOOLEAN UpdateCounter( INT32 counterIdx )
+{
+	INT32 iDummy = 0;
+	return UpdateCounter(counterIdx, iDummy);
+}
 
-	void ResetCounter(INT32 counterIdx)
-	{
-		giTimerCounters[ counterIdx ] = giTimerIntervals[ counterIdx ];
-	}
+void ResetCounter(INT32 counterIdx)
+{
+	giTimerCounters[ counterIdx ] = giTimerIntervals[ counterIdx ];
+}
 
-	BOOLEAN CounterDone(INT32 counterIdx)
-	{
-		return ( giTimerCounters[ counterIdx ] == 0 ) ? TRUE : FALSE;
-	}
+BOOLEAN CounterDone(INT32 counterIdx)
+{
+	return ( giTimerCounters[ counterIdx ] == 0 ) ? TRUE : FALSE;
+}
 
-	void ResetTimerCounter(INT32 &timer, INT32 value)
-	{
-		timer = value;
-	}
+void ResetTimerCounter(INT32 &timer, INT32 value)
+{
+	timer = value;
+}
 
-	BOOLEAN TimeCounterDone(INT32 timer)
-	{
-		return ( timer == 0 ) ? TRUE : FALSE;
-	}
+BOOLEAN TimeCounterDone(INT32 timer)
+{
+	return ( timer == 0 ) ? TRUE : FALSE;
+}
 
-	void ZeroTimeCounter(INT32& timer)
-	{
-		timer = 0;
-	}
+void ZeroTimeCounter(INT32& timer)
+{
+	timer = 0;
+}
 
-	BOOLEAN IsJA2TimerThread()
-	{
-		return (GetCurrentThreadId() == gdwClockThreadId);
-	}
+BOOLEAN IsJA2TimerThread()
+{
+	return (GetCurrentThreadId() == gdwClockThreadId);
+}
 
-	#ifndef GetJA2Clock
-	UINT32	GetJA2Clock()
-	{
-		return guiBaseJA2Clock;
-	}
-	#endif
+#ifndef GetJA2Clock
+UINT32	GetJA2Clock()
+{
+	return guiBaseJA2Clock;
+}
+#endif
 
-	#ifndef GetJA2NoPauseClock
-	UINT32	GetJA2NoPauseClock()
-	{
-		return guiBaseJA2NoPauseClock;
-	}
-	#endif
+#ifndef GetJA2NoPauseClock
+UINT32	GetJA2NoPauseClock()
+{
+	return guiBaseJA2NoPauseClock;
+}
+#endif
 
-	void SetHiSpeedClockMode(BOOLEAN enable)
-	{
-		gfHispeedClockMode = enable;
-	}
+void SetHiSpeedClockMode(BOOLEAN enable)
+{
+	gfHispeedClockMode = enable;
+}
 
-	BOOLEAN IsHiSpeedClockMode()
-	{
-		return gfHispeedClockMode;
-	}
+BOOLEAN IsHiSpeedClockMode()
+{
+	return gfHispeedClockMode;
+}
 
-	void SetNotifyFrequencyKey(INT32 value)
-	{
-		MIN_NOTIFY_TIME = value;
-	}
+void SetNotifyFrequencyKey(INT32 value)
+{
+	MIN_NOTIFY_TIME = value;
+}
 
-	void SetClockSpeedPercent(FLOAT value)
-	{
-		gfClockSpeedPercent = value;
-		UPDATETIMESLICE = (UINT32)((FLOAT)TIME_MS_TO_US(BASETIMESLICE) * 100.0f / value);
-		UpdateTimer();
-	}
+void SetClockSpeedPercent(FLOAT value)
+{
+	gfClockSpeedPercent = value;
+	UPDATETIMESLICE = (UINT32)((FLOAT)TIME_MS_TO_US(BASETIMESLICE) * 100.0f / value);
+	UpdateTimer();
+}
 
-	void UpdateTimer()
+void UpdateTimer()
+{
+	// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
+	if (!IsHiSpeedClockMode())
 	{
-		// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
-		if (!IsHiSpeedClockMode())
+		UINT uiTimeSlice = giFastForwardMode ? gtc.wPeriodMin : max(gtc.wPeriodMin, TIME_US_TO_MS(UPDATETIMESLICE));
+		if (uiTimeSlice != guiTimeSlice)
 		{
-			UINT uiTimeSlice = giFastForwardMode ? gtc.wPeriodMin : max(gtc.wPeriodMin, TIME_US_TO_MS(UPDATETIMESLICE));
-			if (uiTimeSlice != guiTimeSlice)
+			guiTimeSlice = uiTimeSlice;
+			if (gTimerID != 0) timeKillEvent(gTimerID);
+			gTimerID = timeSetEvent( uiTimeSlice, uiTimeSlice, TimeProc, (DWORD)0, TIME_PERIODIC );
+			if ( !gTimerID )
 			{
-				guiTimeSlice = uiTimeSlice;
-				if (gTimerID != 0) timeKillEvent(gTimerID);
-				gTimerID = timeSetEvent( uiTimeSlice, uiTimeSlice, TimeProc, (DWORD)0, TIME_PERIODIC );
-				if ( !gTimerID )
-				{
-					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
-				}
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
 			}
 		}
 	}
-#endif
+}
+

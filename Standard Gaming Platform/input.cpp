@@ -111,9 +111,8 @@ BOOLEAN		gfCurrentStringInputState;
 StringInput *gpCurrentStringDescriptor;
 
 // Thread
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	static CRITICAL_SECTION gcsInputQueueLock;
-#endif
+static CRITICAL_SECTION gcsInputQueueLock;
+
 
 // Local function headers
 
@@ -282,9 +281,7 @@ BOOLEAN InitializeInputManager(void)
 //	ghKeyboardHook = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC) KeyboardHandler, (HINSTANCE) 0, GetCurrentThreadId());
 //	DbgMessage(TOPIC_INPUT, DBG_LEVEL_2, String("Set keyboard hook returned %d", ghKeyboardHook));
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	InitializeCriticalSection(&gcsInputQueueLock);
-#endif
 
 	ghMouseHook = SetWindowsHookEx(WH_MOUSE, (HOOKPROC) MouseHandler, (HINSTANCE) 0, GetCurrentThreadId());
 	DbgMessage(TOPIC_INPUT, DBG_LEVEL_2, String("Set mouse hook returned %d", ghMouseHook));
@@ -299,10 +296,7 @@ void ShutdownInputManager(void)
 //	UnhookWindowsHookEx(ghKeyboardHook);
 	UnhookWindowsHookEx(ghMouseHook);
 	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	DeleteCriticalSection(&gcsInputQueueLock);
-#endif
-
 }
 
 void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
@@ -343,11 +337,7 @@ void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 	}
 }
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	void InternalQueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
-#else
-	void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
-#endif
+void InternalQueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 {
 	UINT32 uiTimer;
 	UINT16 usKeyState;
@@ -470,45 +460,21 @@ void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 	}
 }
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
-	{
-		EnterCriticalSection(&gcsInputQueueLock);
-		__try {
-			InternalQueueEvent(ubInputEvent, usParam, uiParam);
-		}__finally {
-			LeaveCriticalSection(&gcsInputQueueLock);
-		}
+
+void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
+{
+	EnterCriticalSection(&gcsInputQueueLock);
+	__try {
+		InternalQueueEvent(ubInputEvent, usParam, uiParam);
+	}__finally {
+		LeaveCriticalSection(&gcsInputQueueLock);
 	}
-#endif
+}
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
-	{
-		EnterCriticalSection(&gcsInputQueueLock);
-		__try
-		{
-			// Is there an event to dequeue
-			if (gusQueueCount > 0)
-			{
-				memcpy( Event, &( gEventQueue[gusHeadIndex] ), sizeof( InputAtom ) );
-
-				// Check if it has the masks!
-				if ( ( Event->usEvent & uiMaskFlags ) )
-				{
-					return( DequeueEvent( Event) );
-				}
-			}
-
-			return( FALSE );
-		}
-		__finally
-		{
-			LeaveCriticalSection(&gcsInputQueueLock);
-		}
-	}
-#else
-	BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
+BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
+{
+	EnterCriticalSection(&gcsInputQueueLock);
+	__try
 	{
 		// Is there an event to dequeue
 		if (gusQueueCount > 0)
@@ -524,13 +490,13 @@ void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 
 		return( FALSE );
 	}
-#endif
+	__finally
+	{
+		LeaveCriticalSection(&gcsInputQueueLock);
+	}
+}
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	BOOLEAN InternalDequeueEvent(InputAtom *Event)
-#else
-	BOOLEAN DequeueEvent(InputAtom *Event)
-#endif
+BOOLEAN InternalDequeueEvent(InputAtom *Event)
 {
 	HandleSingleClicksAndButtonRepeats( );
 
@@ -562,20 +528,19 @@ void QueuePureEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 	}
 }
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	BOOLEAN DequeueEvent(InputAtom *Event)
+BOOLEAN DequeueEvent(InputAtom *Event)
+{
+	__try
 	{
-		__try
-		{
-			EnterCriticalSection(&gcsInputQueueLock);
-			return InternalDequeueEvent(Event);
-		}
-		__finally
-		{
-			LeaveCriticalSection(&gcsInputQueueLock);
-		}
+		EnterCriticalSection(&gcsInputQueueLock);
+		return InternalDequeueEvent(Event);
 	}
-#endif
+	__finally
+	{
+		LeaveCriticalSection(&gcsInputQueueLock);
+	}
+}
+
 
 void KeyChange(UINT32 usParam, UINT32 uiParam, UINT8 ufKeyState)
 {

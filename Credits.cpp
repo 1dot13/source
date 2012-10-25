@@ -417,11 +417,7 @@ void			GetCreditScreenUserInput()
 {
 	InputAtom Event;
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
-#else
-	while( DequeueEvent( &Event ) )
-#endif
 	{
 		if( Event.usEvent == KEY_DOWN )
 		{

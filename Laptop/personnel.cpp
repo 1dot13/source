@@ -6445,11 +6445,7 @@ void HandlePersonnelKeyboard( void )
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
-#else
-	while (DequeueEvent(&InputEvent) == TRUE)
-#endif
 	{
 		if ( (InputEvent.usEvent == KEY_DOWN ) && (InputEvent.usParam >= '0' ) && ( InputEvent.usParam <= '9') )
 		{

@@ -4958,10 +4958,7 @@ STR16 zOptionsToggleText[] =
 	L"Stummes Trainieren",					// Madd: mercs don't say quotes while training
 	L"Stummes Reparieren",					// Madd: mercs don't say quotes while repairing
 	L"Stumme Behandlung",					// Madd: mercs don't say quotes while doctoring
-	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
-#endif
 #ifdef ENABLE_ZOMBIES
 	L"Zombies erlauben",						// Flugente Zombies 1.0
 #endif
@@ -5075,10 +5072,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über ihren Fortschritt während des Trainings nicht mehr berichten.",
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über ihren Reperaturfortschritt nicht mehr berichten.",
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über den ärztlichen Fortschritt nicht mehr berichten.",
-
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
-#endif
 
 #ifdef ENABLE_ZOMBIES
 	L"Wenn diese Funktion aktiviert ist, können Tote als Zombies wieder auferstehen. Seien Sie auf der Hut!",

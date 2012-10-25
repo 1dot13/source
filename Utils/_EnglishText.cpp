@@ -5110,11 +5110,7 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Training",						// Madd: mercs don't say quotes while training
 	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring
-	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
-#endif
-
 #ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",						// Flugente Zombies 1.0
 #endif
@@ -5228,10 +5224,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, mercs will not report progress during training.",
 	L"When ON, mercs will not report progress during repairing.",
 	L"When ON, mercs will not report progress during doctoring.",
-	
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER 
 	L"When ON, AI turns will be much faster.",
-#endif
 
 #ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will spawn. Be aware!",							// allow zombies

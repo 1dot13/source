@@ -31,11 +31,6 @@
 // It seems (and is confirmed), that executables compiled with this zombie option turned on, causes slowdown in tactical.
 //#define ENABLE_ZOMBIES
 // -----------------------------
-
-// -----------------------------
-// WANNE: Enable this define, to build the gameloop with the highspeed timer. To use the highspeed timer, you also have to set the HIGHSPEED_TIMER = TRUE in ja2.ini
-#define USE_HIGHSPEED_GAMELOOP_TIMER
-// -----------------------------
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)

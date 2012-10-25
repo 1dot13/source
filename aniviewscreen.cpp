@@ -185,11 +185,7 @@ UINT32  AniEditScreenHandle(void)
 
 	}
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
   if (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
-#else
-  if (DequeueEvent(&InputEvent) == TRUE)
-#endif
   {
     if ((InputEvent.usEvent == KEY_DOWN)&&(InputEvent.usParam == ESC))
     {

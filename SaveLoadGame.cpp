@@ -4021,9 +4021,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ShutdownNPCQuotes();
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	SetFastForwardMode(FALSE); // FF can sometimes be active if quick-load during AI turn transition
-#endif
 
 	//very small TODO
 	//Bugfix = Stop the chopter sound

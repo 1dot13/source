@@ -148,12 +148,10 @@ BOOLEAN InitializeGame(void)
 	InitButtonSystem();
 	InitCursors( );
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
 	SetFastForwardPeriod(gGameExternalOptions.iFastForwardPeriod);
 	SetFastForwardKey(gGameExternalOptions.iFastForwardKey);
 	SetNotifyFrequencyKey(gGameExternalOptions.iNotifyFrequency);
 	SetClockSpeedPercent(gGameExternalOptions.fClockSpeedPercent);
-#endif	
 
 	// Init Fonts
 	if ( !InitializeFonts( ) )
@@ -599,22 +597,20 @@ void NextLoopCheckForEnoughFreeHardDriveSpace()
 	gubCheckForFreeSpaceOnHardDriveCount = 0;
 }
 
+// Called by any game loop after all known events were handled
+void HandleDefaultEvent(InputAtom *Event)
+{
+	const int MouseButtonEvents = LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|
+		LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|MIDDLE_BUTTON_UP|X1_BUTTON_UP|X2_BUTTON_UP|
+		RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP|MIDDLE_BUTTON_DOWN|X1_BUTTON_DOWN|X2_BUTTON_DOWN|
+		MOUSE_WHEEL_UP|MOUSE_WHEEL_DOWN;
 
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	// Called by any game loop after all known events were handled
-	void HandleDefaultEvent(InputAtom *Event)
+	if (Event != NULL && Event->usEvent & MouseButtonEvents)
 	{
-		const int MouseButtonEvents = LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|
-			LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|MIDDLE_BUTTON_UP|X1_BUTTON_UP|X2_BUTTON_UP|
-			RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP|MIDDLE_BUTTON_DOWN|X1_BUTTON_DOWN|X2_BUTTON_DOWN|
-			MOUSE_WHEEL_UP|MOUSE_WHEEL_DOWN;
-
-		if (Event != NULL && Event->usEvent & MouseButtonEvents)
-		{
-			POINT		MousePos;
-			GetCursorPos(&MousePos);
-			ScreenToClient(ghWindow, &MousePos); // In window coords!
-			MouseSystemHook(Event->usEvent, (UINT16)MousePos.x ,(UINT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
-		}
+		POINT		MousePos;
+		GetCursorPos(&MousePos);
+		ScreenToClient(ghWindow, &MousePos); // In window coords!
+		MouseSystemHook(Event->usEvent, (UINT16)MousePos.x ,(UINT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
 	}
-#endif
+}
+

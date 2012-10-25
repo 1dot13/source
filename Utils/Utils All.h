@@ -103,10 +103,7 @@
 #include "vobject.h"
 #include "overhead types.h"
 #include "tactical save.h"
-
-#ifdef USE_HIGHSPEED_GAMELOOP_TIMER
-	#include "KeyMap.h"
-#endif
+#include "KeyMap.h"
 
 //#include <windows.h>
 //#include <windowsx.h>
