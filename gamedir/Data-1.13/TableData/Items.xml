@@ -47543,8 +47543,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47577,8 +47575,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47611,8 +47607,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47645,8 +47639,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47679,8 +47671,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47713,8 +47703,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47747,8 +47735,6 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
 		<Directional>1</Directional>
 		<TripWireActivation>1</TripWireActivation>
@@ -47780,8 +47766,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47811,8 +47795,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47842,8 +47824,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47873,8 +47853,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47904,8 +47882,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47935,8 +47911,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47966,8 +47940,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -47997,8 +47969,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48028,8 +47998,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48059,8 +48027,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48090,8 +48056,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48121,8 +48085,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48152,8 +48114,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48183,8 +48143,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
@@ -48214,8 +48172,6 @@
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
