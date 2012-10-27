@@ -1100,6 +1100,7 @@ UINT32 GetArmsDealerItemTypeFromItemNumber( UINT16 usItem )
 	// CHRISL: Itendify new class for inventory system
 		case IC_LBEGEAR:
 		case IC_BELTCLIP:
+		case IC_RANDOMITEM:
 			return( 0 );
 			break;
 		default:
