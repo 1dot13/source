@@ -1300,6 +1300,95 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OBJECTTYPE& src)
 		this->ubMission = src.ubMission;
 		this->objectStack = src.objectStack;
 		//this->usAttachmentSlotIndexVector = src.usAttachmentSlotIndexVector;
+
+		// Flugente fix: there is a severe problem with Action items. The problem is that in the above switch statement, we use the default stuff for action items.
+		// If the action item is a bomb etc. (bActionValue = 3), we want to set the bomb item. But due to EXTREME RETARDNESS, the ugYucky-struct differs on variable positions.
+		// To be precise (see in ItemTypes.h: union OLD_OBJECTTYPE_101_UNION for reference), its
+		// 
+		// ...
+		//	INT8		bGunStatus;			// status % of gun
+		//	UINT8		ubGunAmmoType;	// ammo type, as per weapons.h
+		//	UINT8		ubGunShotsLeft;	// duh, amount of ammo left
+		//	UINT16		usGunAmmoItem;	// the item # for the item table
+		// ...
+		//
+		// in the first struct, that is used for the default stuff, but 
+		//
+		// ...
+		//  INT8		bBombStatus;			// % status
+		//	INT8		bDetonatorType;		// timed, remote, or pressure-activated
+		//	UINT16		usBombItem;				// the usItem of the bomb.
+		//	union
+		//	{
+		// ...
+		// 
+		// in the struct that stores the bomb item.
+		// Now, if our action item has a Bombitem > 255, that value is read from UINT16		ubGunShotsLeft in OBJECT_GUN. 
+		// In the OBJECTTYPE::data union, OBJECT_GUN and OBJECT_BOMBS_AND_OTHER both have the UINT16 that stores the usBombItem or ubGunShotsLeft at the same position. So until here it is ok...
+		// However, this value now gets written into ugYucky.ubGunShotsLeft - which is an UINT8 instead of UINT16. This means that any item number > 255 is cut down.
+		// This error seems to have always been here (13 years). It just never occured until now.
+		// An easy fix would be to just switch  the positions of UINT8ubGunShotsLeft and UINT16 usGunAmmoItem. However we cannot do that, as that will affect every object read ever anywhere.
+		//
+		// For this reason, I now present you this filthy, ugly hack, specifically for action items handle bombs:
+		if ( src.usItem == ACTION_ITEM && (src)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP )
+		{
+			(*this)[0]->data.misc.bDetonatorType = (src)[0]->data.misc.bDetonatorType;
+			(*this)[0]->data.misc.usBombItem = (src)[0]->data.misc.usBombItem;
+			(*this)[0]->data.misc.bDelay = (src)[0]->data.misc.bDelay;	// includes bFrequency
+			(*this)[0]->data.misc.ubBombOwner = (src)[0]->data.misc.ubBombOwner;
+			(*this)[0]->data.misc.bActionValue = (src)[0]->data.misc.bActionValue;
+			(*this)[0]->data.misc.ubTolerance = (src)[0]->data.misc.ubTolerance;	// includes ubLocationID
+			(*this)[0]->data.ubWireNetworkFlag = TRIPWIRE_NETWORK_OWNER_ENEMY;	// it is always assumed that preplated traps are of hostile origin
+
+			// if the item has any tripwire action item flags, use them, otherwise, use default values
+			if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_ANY )
+			{
+				if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_NET_1 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_1;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_NET_2 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_2;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_NET_3 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_3;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_NET_4 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_NET_4;
+
+				if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_LVL_1 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_1;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_LVL_2 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_2;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_LVL_3 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_3;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_TRIPWIRE_NETWORK_LVL_4 )
+					(*this)[0]->data.ubWireNetworkFlag |= TRIPWIRE_NETWORK_LVL_4;
+			}
+			else
+				(*this)[0]->data.ubWireNetworkFlag |= (TRIPWIRE_NETWORK_NET_1|TRIPWIRE_NETWORK_LVL_1);
+
+			// if the item has any directional action item flag, use them, otherwise, direction does not matter
+			if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_ANY )
+			{
+				if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_NORTH )
+					(*this)[0]->data.ubDirection = NORTH;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_NORTHEAST )
+					(*this)[0]->data.ubDirection = NORTHEAST;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_EAST )
+					(*this)[0]->data.ubDirection = EAST;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_SOUTHEAST )
+					(*this)[0]->data.ubDirection = SOUTHEAST;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_SOUTH )
+					(*this)[0]->data.ubDirection = SOUTH;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_SOUTHWEST )
+					(*this)[0]->data.ubDirection = SOUTHWEST;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_WEST )
+					(*this)[0]->data.ubDirection = WEST;
+				else if ( Item[(src)[0]->data.misc.usBombItem].usActionItemFlag & ITEM_DIRECTION_NORTHWEST )
+					(*this)[0]->data.ubDirection = NORTHWEST;
+			}
+			else
+				(*this)[0]->data.ubDirection = DIRECTION_IRRELEVANT;
+
+			(*this)[0]->data.bDefuseFrequency = 0;
+		}
 	}
 	return *this;
 }

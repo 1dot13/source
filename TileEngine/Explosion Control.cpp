@@ -3863,10 +3863,7 @@ void HandleExplosionQueue( void )
 			{
 				OBJECTTYPE newtripwireObject;
 				CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
-
-				// determine this tripwire's flag
-				UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
-
+				
 				// search for attached guns
 				BOOLEAN fgunfound = FALSE;
 				OBJECTTYPE* pAttGun = NULL;
@@ -3922,10 +3919,7 @@ void HandleExplosionQueue( void )
 			{
 				OBJECTTYPE newtripwireObject;
 				CreateItem( (*pObj)[0]->data.misc.usBombItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
-
-				// determine this tripwire's flag
-				UINT32 ubWireNetworkFlag = (TRIPWIRE_NETWORK_OWNER_ENEMY|TRIPWIRE_NETWORK_NET_1|TRIPWIRE_NETWORK_LVL_1);	// this will get fixed eventually
-												
+																
 				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 						
