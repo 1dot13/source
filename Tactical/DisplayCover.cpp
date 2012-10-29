@@ -1069,7 +1069,8 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bMines, BOOLE
 			if (!((*pObj).fFlags & OBJECT_DISABLED_BOMB))
 			{
 				// we are looking for hostile mines and have got an detector equipped
-				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
+				// some bombs cannot be found via metal detector
+				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector && !( HasItemFlag(pObj->usItem, NO_METAL_DETECTION) || HasItemFlag((*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION) ) )
 				{
 					// display all mines
 					bMines = MINE_BOMB;

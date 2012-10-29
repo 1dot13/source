@@ -5389,7 +5389,8 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 				pObj = &( gWorldItems[ gWorldBombs[uiWorldBombIndex].iItemIndex ].object );
 				if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE && !((*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED) && (!((*pObj).fFlags & OBJECT_DISABLED_BOMB)) )
 				{
-					if ( fMining && (*pObj)[0]->data.bTrap <= 10 )
+					// Flugente: some bombs cannot be found via metal detector
+					if ( fMining && (*pObj)[0]->data.bTrap <= 10 && !( HasItemFlag(pObj->usItem, NO_METAL_DETECTION) || HasItemFlag((*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION) ) )
 					{
 						// add blue flag
 						AddBlueFlag( sNextGridNo, pSoldier->pathing.bLevel );

@@ -747,9 +747,9 @@ extern OBJECTTYPE gTempObject;
 #define CORPSE					0x00008000	//32768		// a dead body
 
 #define SKIN_BLOODCAT			0x00010000	//65536		// retrieve this by skinning (=decapitating) a bloodcat
-/*#define PLAYER_NET_2_LVL_1      0x00020000	//131072
-#define PLAYER_NET_3_LVL_1		0x00040000	//262144
-#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+#define NO_METAL_DETECTION      0x00020000	//131072	// a planted bomb with this flag can NOT be detected via metal detector. Use sparingly!
+#define JUMP_GRENADE			0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
+/*#define PLAYER_NET_4_LVL_1		0x00080000	//524288
 
 #define PLAYER_NET_1_LVL_2		0x00100000	//1048576
 #define PLAYER_NET_2_LVL_2		0x00200000	//2097152

@@ -337,6 +337,16 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	}
 	// Callahan end
 
+	// Flugente: bouncing grenades/jumping mines explode from about waist heigth, so we add 25 to sZ. However, on order for this to work on roofs, we have to add another 50
+	// if on a roof, as heigth is only added if bLevel = 1 and sZ = 0
+	if ( HasItemFlag(usItem, JUMP_GRENADE) )
+	{
+		sZ += 25;
+
+		if ( bLevel )
+			sZ += ROOF_LEVEL_HEIGHT;
+	}
+
 	ExpParams.sX	 = sX;
 	ExpParams.sY	 = sY;
 	ExpParams.sZ	 = sZ;
