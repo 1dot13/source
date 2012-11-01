@@ -1205,7 +1205,8 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						if(ValidAmmoType(twItem->object.usItem, gpItemPointer->usItem) == TRUE)
 							fValidPointer = true;
 					}
-					if(twItem->object.ubNumberOfObjects == 1 && fValidPointer)
+					// access description box directly if CTRL is pressed for stack items
+					if((twItem->object.ubNumberOfObjects == 1 || _KeyDown( CTRL )) && fValidPointer)
 					{
 						fShowInventoryFlag = TRUE;
 

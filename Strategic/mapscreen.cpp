@@ -9720,17 +9720,9 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		// Check for # of slots in item
 		// CHRISL: Use new ItemSlotLimit function if we're using the new inventory system
 		UINT8 isLimit = ItemSlotLimit(&pSoldier->inv[uiHandPos], uiHandPos, pSoldier);
-		if ( ( pSoldier->inv[ uiHandPos ].ubNumberOfObjects > 1 ) && ( isLimit > 0 ) )
-		{
-			if ( !InItemStackPopup( ) )
-			{
-				// CHRISL: Changed final parameter so that we fill the inventory screen
-				InitItemStackPopup( pSoldier, (UINT8)uiHandPos, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
-				fTeamPanelDirty=TRUE;
-				fInterfacePanelDirty = DIRTYLEVEL2;
-			}
-		}
-		else
+
+		// access description box directly if CTRL is pressed for stack items
+		if (!( ( pSoldier->inv[ uiHandPos ].ubNumberOfObjects > 1 ) && ( isLimit > 0 ) ) || _KeyDown( CTRL ) )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
@@ -9749,6 +9741,16 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 						fInterfacePanelDirty = DIRTYLEVEL2;
 					}
 				}
+			}
+		}
+		else
+		{
+			if ( !InItemStackPopup( ) )
+			{
+				// CHRISL: Changed final parameter so that we fill the inventory screen
+				InitItemStackPopup( pSoldier, (UINT8)uiHandPos, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+				fTeamPanelDirty=TRUE;
+				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
 		}
 	}

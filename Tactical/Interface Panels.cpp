@@ -4046,7 +4046,23 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// Check for # of slots in item
 		// CHRISL: Use new ItemSlotLimit function if we're using the new inventory system
 		UINT8 isLimit = ItemSlotLimit( &gpSMCurrentMerc->inv[ uiHandPos ], uiHandPos, gpSMCurrentMerc );
-		if( ( gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects > 1 && isLimit > 0 ) && ( guiCurrentScreen != MAP_SCREEN ) )
+
+		// access description box directly if CTRL is pressed for stack items
+		if( !( ( gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects > 1 && isLimit > 0 ) && ( guiCurrentScreen != MAP_SCREEN ) ) || _KeyDown( CTRL ) )
+		{
+			if ( !InItemDescriptionBox( ) )
+			{
+				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
+				{
+					EmptyWeaponMagazine( &(gpSMCurrentMerc->inv[ uiHandPos ]), &gItemPointer, uiHandPos );
+					gpItemPointer = &gItemPointer;
+					gpItemPointerSoldier = gpSMCurrentMerc;
+				}
+				else
+					InitItemDescriptionBox( gpSMCurrentMerc, (UINT8)uiHandPos, ITEMDESC_START_X, ITEMDESC_START_Y, 0 );
+			}
+		}
+		else
 		{
 			if ( !InItemStackPopup( )	)
 			{
@@ -4068,20 +4084,6 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					inv_interface_start_x = 248;
 				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, inv_interface_start_x, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
 
-			}
-		}
-		else
-		{
-			if ( !InItemDescriptionBox( ) )
-			{
-				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
-				{
-					EmptyWeaponMagazine( &(gpSMCurrentMerc->inv[ uiHandPos ]), &gItemPointer, uiHandPos );
-					gpItemPointer = &gItemPointer;
-					gpItemPointerSoldier = gpSMCurrentMerc;
-				}
-				else
-					InitItemDescriptionBox( gpSMCurrentMerc, (UINT8)uiHandPos, ITEMDESC_START_X, ITEMDESC_START_Y, 0 );
 			}
 		}
 	}

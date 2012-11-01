@@ -8994,7 +8994,7 @@ BOOLEAN InitSectorStackPopup( SOLDIERTYPE *pSoldier, WORLDITEM *pInventoryPoolLi
 	aRect.iLeft = sInvX + sOffSetX;
 	aRect.iTop = sInvY + sOffSetY;
 	aRect.iRight = aRect.iLeft + sItemWidth * usPopupWidth;
-	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)) * usPopupHeight;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
 
 	RestrictMouseCursor( &aRect );
 
@@ -9164,7 +9164,7 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 	aRect.iLeft = sInvX + xResOffset;
 	aRect.iTop = sInvY + sOffSetY;
 	aRect.iRight = aRect.iLeft + min(cnt,sItemWidth) * usPopupWidth;
-	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)) * usPopupHeight;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
 	//aRect.iTop = sInvY;
 	//aRect.iLeft = sInvX;
 	//aRect.iBottom = sInvY + sInvHeight;
@@ -9978,6 +9978,11 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		//Remove
 		gfItemPopupRegionCallbackEndFix = TRUE;
 
+		// Close old description box when nothing in hand while clicking on an item in sector stack
+		if ( InItemDescriptionBox( ) && gpItemPointer == NULL && InSectorStackPopup( ) && gpItemPopupObject->ubNumberOfObjects > uiItemPos )
+		{
+			DeleteItemDescriptionBox( );
+		}
 
 		DeleteItemStackPopup( );
 
