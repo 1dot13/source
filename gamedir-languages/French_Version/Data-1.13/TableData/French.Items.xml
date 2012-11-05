@@ -16493,2090 +16493,670 @@
 		<szBRName>Concertina Stack</szBRName>
 		<szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>		
 	</ITEM>
-<ITEM>
-		<uiIndex>1543</uiIndex>
-		<szItemName>Shovel</szItemName>
-		<szLongItemName>Shovel</szLongItemName>
-		<szItemDesc>Perfect for digging your own grave, hitting people over the head (and then dig their grave) or building makeshift fortifications.</szItemDesc>
-		<szBRName>Shovel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>		
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>197</ubGraphicNum>
-		<ubWeight>20</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>32</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<bRepairEase>-2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<Hardware>1</Hardware>		
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>4</ItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1544</uiIndex>
-		<szItemName>Calory Bars</szItemName>
-		<szLongItemName>Calory Bars</szLongItemName>
-		<szItemDesc>Because normal food is sooo 2011.</szItemDesc>
-		<szBRName>Calory Bars</szBRName>
-		<szBRDesc>Calories, without distracting taste.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>115</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>16</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>3</BR_NewInventory>
-		<FoodType>5</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1545</uiIndex>
-		<szItemName>MRE</szItemName>
-		<szLongItemName>MRE</szLongItemName>
-		<szItemDesc>An individual food ration in use with the US military.</szItemDesc>
-		<szBRName>MRE</szBRName>
-		<szBRDesc>If its good for the US army, it better be good enough for you.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>118</ubGraphicNum>
-		<ubWeight>7</ubWeight>
-		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>12</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>25</BR_NewInventory>
-		<FoodType>6</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1546</uiIndex>
-		<szItemName>EPA</szItemName>
-		<szLongItemName>EPA</szLongItemName>
-		<szItemDesc>German army food. Beware the Raviolis! </szItemDesc>
-		<szBRName>EPA</szBRName>
-		<szBRDesc>This box of german army food will bring you through the day. Note the cookies, which also serve as burning material.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>111</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>28</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>20</BR_NewInventory>
-		<FoodType>7</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1547</uiIndex>
-		<szItemName>Calorie Mate</szItemName>
-		<szLongItemName>Calorie Mate</szLongItemName>
-		<szItemDesc>It better taste better than it looks...</szItemDesc>
-		<szBRName>Calorie Mate</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>101</ubGraphicNum>
-		<ubWeight>8</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>15</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>8</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1548</uiIndex>
-		<szItemName>Peak EPA</szItemName>
-		<szLongItemName>Peak EPA</szLongItemName>
-		<szItemDesc>A small bottle of vitamins and steroids.</szItemDesc>
-		<szBRName>Peak EPA</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>122</ubGraphicNum>
-		<ubWeight>4</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>12</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>9</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1549</uiIndex>
-		<szItemName>Hotdog</szItemName>
-		<szLongItemName>Hotdog</szLongItemName>
-		<szItemDesc>Butchery leftovers with old bread. Enjoy.</szItemDesc>
-		<szBRName>Hotdog</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>114</ubGraphicNum>
-		<ubWeight>6</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>4</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>10</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1550</uiIndex>
-		<szItemName>Hamburger</szItemName>
-		<szLongItemName>Hamburger</szLongItemName>
-		<szItemDesc>For some obscure reason, this is also sold outside Hamburg.</szItemDesc>
-		<szBRName>Hamburger</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>113</ubGraphicNum>
-		<ubWeight>5</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>6</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>11</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1551</uiIndex>
-		<szItemName>Fries</szItemName>
-		<szLongItemName>French Fries</szLongItemName>
-		<szItemDesc>Or 'Freedom Fries', as some people like to call them.</szItemDesc>
-		<szBRName>Fries</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>112</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>2</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>12</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1552</uiIndex>
-		<szItemName>Pizza</szItemName>
-		<szLongItemName>Pizza</szLongItemName>
-		<szItemDesc>Favourite food of couch potatoes and sewer-based squads of tortoise ninjas everywhere.</szItemDesc>
-		<szBRName>Pizza</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>124</ubGraphicNum>
-		<ubWeight>4</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>5</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>13</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1553</uiIndex>
-		<szItemName>Spam</szItemName>
-		<szLongItemName>Spam</szLongItemName>
-		<szItemDesc>Spam, spam, spam, spam, spam, spam, baked beans, spam, spam, spam and spam.</szItemDesc>
-		<szBRName>Spam</szBRName>
-		<szBRDesc>A viking's favourite food.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>126</ubGraphicNum>
-		<ubWeight>8</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>8</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>15</BR_NewInventory>
-		<FoodType>14</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1554</uiIndex>
-		<szItemName>Spam 2</szItemName>
-		<szLongItemName>Spam in a can</szLongItemName>
-		<szItemDesc>Spam, spam, spam, spam, spam, spam, spam, spam, lovely spam, wonderful spam!</szItemDesc>
-		<szBRName>Spam 2</szBRName>
-		<szBRDesc>Hey, at least it doesn't fill up your mailbox...</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>125</ubGraphicNum>
-		<ubWeight>8</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>8</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>15</BR_NewInventory>
-		<FoodType>15</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1555</uiIndex>
-		<szItemName>C. vegetables</szItemName>
-		<szLongItemName>Canned vegetables</szLongItemName>
-		<szItemDesc>These vegetables will stay edible forever, much to children's dismay.</szItemDesc>
-		<szBRName>C. vegetables</szBRName>
-		<szBRDesc>Nutritious, long-lasting, and animal-friendly.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>106</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>6</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>18</BR_NewInventory>
-		<FoodType>16</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1556</uiIndex>
-		<szItemName>C. scorpions</szItemName>
-		<szLongItemName>Canned scorpions</szLongItemName>
-		<szItemDesc>How about something exotic? Like poisonous insects?</szItemDesc>
-		<szBRName>C. scorpions</szBRName>
-		<szBRDesc>We were assured this is actually eaten in some place we forgot.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>105</ubGraphicNum>
-		<ubWeight>7</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>12</usPrice>
-		<ubCoolness>4</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>7</BR_NewInventory>
-		<DrugType>8192</DrugType>
-		<FoodType>17</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1557</uiIndex>
-		<szItemName>Cat food</szItemName>
-		<szLongItemName>Canned cat food</szLongItemName>
-		<szItemDesc>Seriously? You really think about eating this? You should rethink this assignment...</szItemDesc>
-		<szBRName>Cat food</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>103</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>2</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>18</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1558</uiIndex>
-		<szItemName>Baked beans</szItemName>
-		<szLongItemName>Canned baked beans</szLongItemName>
-		<szItemDesc>Tip: Best served with spam.</szItemDesc>
-		<szBRName>Baked beans</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>102</ubGraphicNum>
-		<ubWeight>8</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>6</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>19</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1559</uiIndex>
-		<szItemName>Steak</szItemName>
-		<szLongItemName>Steak</szLongItemName>
-		<szItemDesc>The best arulcan steak you'll find in .. Arulco.</szItemDesc>
-		<szBRName>Steak</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>128</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>24</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>20</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1560</uiIndex>
-		<szItemName>Bean stew</szItemName>
-		<szLongItemName>Bean stew</szLongItemName>
-		<szItemDesc>A mexican-style bean stew. Really hot!</szItemDesc>
-		<szBRName>Bean stew</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>116</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>22</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>21</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1561</uiIndex>
-		<szItemName>French toast</szItemName>
-		<szLongItemName>French toast</szLongItemName>
-		<szItemDesc>Mhmm, breakfast!</szItemDesc>
-		<szBRName>French toast</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>129</ubGraphicNum>
-		<ubWeight>4</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>7</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>22</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
   <ITEM>
-		<uiIndex>1562</uiIndex>
-		<szItemName>Crepes</szItemName>
-		<szLongItemName>Crepes</szLongItemName>
-		<szItemDesc>A spinach and mushroom crepe.</szItemDesc>
-		<szBRName>Crepes</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>127</ubGraphicNum>
-		<ubWeight>5</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>6</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>23</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1563</uiIndex>
-		<szItemName>Pasta</szItemName>
-		<szLongItemName>Pasta</szLongItemName>
-		<szItemDesc>Italian pasta.</szItemDesc>
-		<szBRName>Pasta</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>121</ubGraphicNum>
-		<ubWeight>12</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>23</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>24</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1564</uiIndex>
-		<szItemName>Omelet</szItemName>
-		<szLongItemName>Omelet</szLongItemName>
-		<szItemDesc>Omelet du fromage. Or not?</szItemDesc>
-		<szBRName>Omelet</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>119</ubGraphicNum>
-		<ubWeight>8</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>21</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>25</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1565</uiIndex>
-		<szItemName>Cow meat</szItemName>
-		<szLongItemName>Cow meat</szLongItemName>
-		<szItemDesc>Sure, you can eat it right now. Cooking is for wussies, eh?</szItemDesc>
-		<szBRName>Cow meat</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>108</ubGraphicNum>
-		<ubWeight>30</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>30</ItemSize>
-		<usPrice>12</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<ItemFlag>64</ItemFlag>
-		<FoodType>26</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1566</uiIndex>
-		<szItemName>Bloodcat meat</szItemName>
-		<szLongItemName>Bloodcat meat</szLongItemName>
-		<szItemDesc>You have to be a tough guy to kill them, but an even tougher guy to eat them!</szItemDesc>
-		<szBRName>Bloodcat meat</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>99</ubGraphicNum>
-		<ubWeight>30</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<ItemFlag>32</ItemFlag>
-		<FoodType>27</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>	
-	<ITEM>
-		<uiIndex>1567</uiIndex>
-		<szItemName>Bread</szItemName>
-		<szLongItemName>Bread loaf</szLongItemName>
-		<szItemDesc>A loaf of bread, made from grain of local farms.</szItemDesc>
-		<szBRName>Bread</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>100</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>4</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>28</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1568</uiIndex>
-		<szItemName>Applepie</szItemName>
-		<szLongItemName>Applepie</szLongItemName>
-		<szItemDesc>A delicious applepie made from tasty arulcan apples. Don't you do anything naughty with it!</szItemDesc>
-		<szBRName>Applepie</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>98</ubGraphicNum>
-		<ubWeight>13</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>8</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>29</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1569</uiIndex>
-		<szItemName>Water drum</szItemName>
-		<szLongItemName>Water drum</szLongItemName>
-		<szItemDesc>A rusty old water barrel.</szItemDesc>
-		<szBRName>Water drum</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>131</ubGraphicNum>
-		<ubWeight>10000</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>30</ItemSize>
-		<usPrice>65</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<Canteen>1</Canteen>
-		<ItemFlag>16</ItemFlag>
-		<FoodType>30</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1570</uiIndex>
-		<szItemName>PET bottle</szItemName>
-		<szLongItemName>PET bottle</szLongItemName>
-		<szItemDesc>A bottle with 1 liter of still mineral water.</szItemDesc>
-		<szBRName>PET bottle</szBRName>
-		<szBRDesc>1 liter of healthy mineral water, in a one-use bottle.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>123</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>2</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>30</BR_NewInventory>
-		<FoodType>31</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1571</uiIndex>
-		<szItemName>Vegetable juice</szItemName>
-		<szLongItemName>Vegetable juice</szLongItemName>
-		<szItemDesc>A drink that is so nutritious, it also stills your hunger (a bit).</szItemDesc>
-		<szBRName>Vegetable juice</szBRName>
-		<szBRDesc>For those without teeth who want to eat vegetables.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>130</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>3</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<BR_NewInventory>14</BR_NewInventory>
-		<FoodType>32</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1572</uiIndex>
-		<szItemName>Milk</szItemName>
-		<szLongItemName>Milk</szLongItemName>
-		<szItemDesc>Cow milk, 1 liter.</szItemDesc>
-		<szBRName>Milk</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>117</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>3</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>33</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1573</uiIndex>
-		<szItemName>Energy drink</szItemName>
-		<szLongItemName>Energy drink</szLongItemName>
-		<szItemDesc>You can almost taste the yummy chemicals that went into this.</szItemDesc>
-		<szBRName>Energy drink</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>110</ubGraphicNum>
-		<ubWeight>5</ubWeight>
-		<ubPerPocket>3</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>6</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<DrugType>1</DrugType>
-		<FoodType>34</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1574</uiIndex>
-		<szItemName>Energy drink 2</szItemName>
-		<szLongItemName>Energy drink 2</szLongItemName>
-		<szItemDesc>Both tastes and refreshes like a kick in the belly.</szItemDesc>
-		<szBRName>Energy drink 2</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>109</ubGraphicNum>
-		<ubWeight>5</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>6</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<DrugType>1</DrugType>
-		<FoodType>35</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1575</uiIndex>
-		<szItemName>Coffee</szItemName>
-		<szLongItemName>Coffee</szLongItemName>
-		<szItemDesc>Apparently some people can get hooked to this stuff.</szItemDesc>
-		<szBRName>Coffee</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>107</ubGraphicNum>
-		<ubWeight>4</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>22</ItemSize>
-		<usPrice>4</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<DrugType>1</DrugType>
-		<FoodType>36</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1576</uiIndex>
-		<szItemName>Cleaning Kit</szItemName>
-		<szLongItemName>Gun Cleaning Kit</szLongItemName>
-		<szItemDesc>Contains everything necessary to clean your gun in the field.</szItemDesc>
-		<szBRName>Cleaning Kit</szBRName>
-		<szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>134</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<Attachment>1</Attachment>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Hardware>1</Hardware>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>2048</ItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1577</uiIndex>
-		<szItemName>Clothes</szItemName>
-		<szLongItemName>Civilian Clothes</szLongItemName>
-		<szItemDesc>Normal Arulcan clothes. Absolutely nothing to see here.</szItemDesc>
-		<szBRName>Civilian Clothes</szBRName>
-		<szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>148</ubGraphicNum>
-		<ubWeight>12</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>110</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<clothestype>18</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1578</uiIndex>
-		<szItemName>Dart</szItemName>
-		<szLongItemName>Neurotoxin Dart</szLongItemName>
-		<szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
-		<szBRName>Neurotoxin Dart</szBRName>
-		<szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
-		<usItemClass>1024</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>601</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>119</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>12</ItemSize>
-		<usPrice>200</usPrice>
-		<ubCoolness>8</ubCoolness>
-		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1579</uiIndex>
-		<szItemName>Garotte</szItemName>
-		<szLongItemName>Garotte</szLongItemName>
-		<szItemDesc>In skilled hands, a deadly weapon. In unskilled hands, you better use your fists.</szItemDesc>
-		<szBRName>Garotte</szBRName>
-		<szBRDesc>Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.</szBRDesc>
-		<usItemClass>128</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1579</ubClassIndex>
-		<ubCursor>2</ubCursor>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>102</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>35</usPrice>
-		<ubCoolness>4</ubCoolness>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>5</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<BR_ROF>30</BR_ROF>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>24576</ItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1580</uiIndex>
-		<szItemName>Body</szItemName>
-		<szLongItemName>Dead Body</szLongItemName>
-		<szItemDesc>A fresh corpse.</szItemDesc>
-		<szBRName>Dead Body</szBRName>
-		<szBRDesc>NO DESCRIPTION NEEDED!!!</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>513</ubGraphicNum>
-		<ubWeight>800</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>34</ItemSize>
-		<usPrice>1</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<ShowStatus>1</ShowStatus>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<ItemFlag>32768</ItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1581</uiIndex>
-		<szItemName>Rifle Grenade Device</szItemName>
-		<szLongItemName>Rifle Grenade Device</szLongItemName>
-		<szItemDesc>This little device enables your rifle to fire grenades. A loaded magazine is required, and obviously no other firing mdoes are possible while there is a grenade attached.</szItemDesc>
-		<szBRName>Rifle Grenade Device</szBRName>
-		<szBRDesc>Transform your WW2 rifleman into a WW2 grenadier.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<usItemClass>16</usItemClass>
-		<AttachmentClass>33554432</AttachmentClass>
-		<nasAttachmentClass>2</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>16</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>149</ubGraphicNum>
-		<ubWeight>2</ubWeight>
-		<ubPerPocket>4</ubPerPocket>
-		<ItemSize>12</ItemSize>
-		<usPrice>125</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<Attachment>1</Attachment>
-		<BR_NewInventory>2</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<GrenadeLauncher>1</GrenadeLauncher>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<DamageChance>10</DamageChance>
-		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1582</uiIndex>
-		<szItemName>Oatmeal</szItemName>
-		<szLongItemName>Oatmeal</szLongItemName>
-		<szItemDesc>Favourite food of horses, but not children, everywhere.</szItemDesc>
-		<szBRName>Oatmeal</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>132</ubGraphicNum>
-		<ubWeight>10</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>4</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>37</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1583</uiIndex>
-		<szItemName>Rice</szItemName>
-		<szLongItemName>Bag of rice</szLongItemName>
-		<szItemDesc>One of the most consumed goods ever.</szItemDesc>
-		<szBRName>Bag of rice</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>133</ubGraphicNum>
-		<ubWeight>30</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>14</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<FoodType>38</FoodType>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
-	<ITEM>
-		<uiIndex>1584</uiIndex><!-->NORTHEAST DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>512</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1585</uiIndex><!-->EAST DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>1024</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1586</uiIndex><!-->SOUTHEAST DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>2048</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1587</uiIndex><!-->SOUTH DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>4096</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1588</uiIndex><!-->SOUTHWEST DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>8192</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1589</uiIndex><!-->WEST DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>16384</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1590</uiIndex><!-->NORTHWEST DIRECTION (map editor only)-->
-		<szItemName>M18 Claymore</szItemName>
-		<szLongItemName>M18 Claymore</szLongItemName>
-		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
-		<szBRName>M18 Claymore</szBRName>
-		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>85</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>97</ubGraphicNum>
-		<ubWeight>16</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>17</ItemSize>
-		<usPrice>1250</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<bRepairEase>-4</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
-		<Mine>1</Mine>
-		<Directional>1</Directional>
-		<TripWireActivation>1</TripWireActivation>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>32768</usActionItemFlag>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
-	<ITEM>
-		<uiIndex>1591</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>33</usActionItemFlag> <!-- net 1, lvl 2-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1592</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>65</usActionItemFlag> <!-- net 1, lvl 3-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1593</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>129</usActionItemFlag> <!-- net 1, lvl 4-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1594</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>18</usActionItemFlag> <!-- net 2, lvl 1-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1595</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>34</usActionItemFlag> <!-- net 2, lvl 2-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1596</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>66</usActionItemFlag> <!-- net 2, lvl 3-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1597</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>130</usActionItemFlag> <!-- net 2, lvl 4-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1598</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>20</usActionItemFlag> <!-- net 3, lvl 1-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1599</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>36</usActionItemFlag> <!-- net 3, lvl 2-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1600</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>68</usActionItemFlag> <!-- net 3, lvl 3-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1601</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>132</usActionItemFlag> <!-- net 3, lvl 4-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1602</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>24</usActionItemFlag> <!-- net 4, lvl 1-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1603</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>40</usActionItemFlag> <!-- net 4, lvl 2-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1604</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>72</usActionItemFlag> <!-- net 4, lvl 3-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1605</uiIndex>
-		<szItemName>Tripwire</szItemName>
-		<szLongItemName>Tripwire</szLongItemName>
-		<szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-		<szBRName>Tripwire</szBRName>
-		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>86</ubClassIndex>
-		<ubCursor>18</ubCursor>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>1</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>10</ItemSize>
-		<usPrice>10</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<Damageable>1</Damageable>
-		<Metal>1</Metal>
-		<BigGunList>1</BigGunList>
-		<BR_NewInventory>40</BR_NewInventory>
-		<BR_UsedInventory>25</BR_UsedInventory>
-		<Mine>1</Mine>
-		<TripWireActivation>1</TripWireActivation>
-		<TripWire>1</TripWire>
-		<usActionItemFlag>136</usActionItemFlag> <!-- net 4, lvl 4-->
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1606</uiIndex>
-		<szItemName>Black shirt</szItemName>
-		<szLongItemName>Black shirt</szLongItemName>
-		<szItemDesc>Part of the uniform of Arulco's elite guard. Pretending to be one of them carries the death penalty.</szItemDesc>
-		<szBRName>Black shirt</szBRName>
-		<szBRDesc>Not for sale through BR</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>135</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>100</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<clothestype>2</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1607</uiIndex>
-		<szItemName>Blue shirt</szItemName>
-		<szLongItemName>Blue shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable blue T-shirt.</szItemDesc>
-		<szBRName>Blue shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>136</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>6</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1608</uiIndex>
-		<szItemName>Brown shirt</szItemName>
-		<szLongItemName>Brown shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable brown T-shirt.</szItemDesc>
-		<szBRName>Brown shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>137</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>11</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1609</uiIndex>
-		<szItemName>Green shirt</szItemName>
-		<szLongItemName>Green shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable green T-shirt.</szItemDesc>
-		<szBRName>Green shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>138</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>4</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1610</uiIndex>
-		<szItemName>Grey shirt</szItemName>
-		<szLongItemName>Grey shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable grey T-shirt.</szItemDesc>
-		<szBRName>Grey shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>139</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>7</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1611</uiIndex>
-		<szItemName>Yellow shirt</szItemName>
-		<szLongItemName>Yellow shirt</szLongItemName>
-		<szItemDesc>Part of the uniform of the armed administrative branch of the arulcan army.</szItemDesc>
-		<szBRName>Yellow shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>140</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>100</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<clothestype>1</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1612</uiIndex>
-		<szItemName>White shirt</szItemName>
-		<szLongItemName>White shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable yellow T-shirt.</szItemDesc>
-		<szBRName>White shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>141</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>9</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1613</uiIndex>
-		<szItemName>Purple shirt</szItemName>
-		<szLongItemName>Purple shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable purple T-shirt.</szItemDesc>
-		<szBRName>Purple shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>142</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>10</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1614</uiIndex>
-		<szItemName>Red shirt</szItemName>
-		<szLongItemName>Red shirt</szLongItemName>
-		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
-		<szBRName>Red shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>143</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>100</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<clothestype>3</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1615</uiIndex>
-		<szItemName>Jean shirt</szItemName>
-		<szLongItemName>Jean shirt</szLongItemName>
-		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
-		<szBRName>Jean shirt</szBRName>
-		<szBRDesc>Jean. What kind of colour is 'jean' anyway? Stupid colour names. In my days, you wore black and that was it.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>144</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>200</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>5</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1616</uiIndex>
-		<szItemName>Light green shirt</szItemName>
-		<szLongItemName>Light green shirt</szLongItemName>
-		<szItemDesc>A totally unremarkable light green yellow T-shirt.</szItemDesc>
-		<szBRName>Light green shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>145</ubGraphicNum>
-		<ubWeight>3</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>20</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>8</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1617</uiIndex>
-		<szItemName>Beige pants</szItemName>
-		<szLongItemName>Beige pants</szLongItemName>
-		<szItemDesc>Pants. Be sure to wear a pair if you leave the house.</szItemDesc>
-		<szBRName>Beige pants</szBRName>
-		<szBRDesc>We also sell pants. In beige. Sigh. What has this shop come to? Does anyone even read this?</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>146</ubGraphicNum>
-		<ubWeight>9</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>90</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>14</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1618</uiIndex>
-		<szItemName>Black pants</szItemName>
-		<szLongItemName>Black army trousers</szLongItemName>
-		<szItemDesc>Part of the arulcan elite guard uniform.</szItemDesc>
-		<szBRName>Black pants</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>147</ubGraphicNum>
-		<ubWeight>9</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>120</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<clothestype>13</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1619</uiIndex>
-		<szItemName>Bluejeans</szItemName>
-		<szLongItemName>Bluejeans</szLongItemName>
-		<szItemDesc>A pair of no-name bluejeans.</szItemDesc>
-		<szBRName>Bluejeans</szBRName>
-		<szBRDesc>You know, I used to wear them before they were cool.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>148</ubGraphicNum>
-		<ubWeight>9</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>60</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>5</BR_NewInventory>
-		<clothestype>17</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1620</uiIndex>
-		<szItemName>Army trousers</szItemName>
-		<szLongItemName>Army trousers</szLongItemName>
-		<szItemDesc>Standard army pants.</szItemDesc>
-		<szBRName>Army trousers</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>149</ubGraphicNum>
-		<ubWeight>9</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>120</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<clothestype>12</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1621</uiIndex>
-		<szItemName>Jean pants</szItemName>
-		<szLongItemName>Jean pants</szLongItemName>
-		<szItemDesc>Pants. This might be useful, don't you think?</szItemDesc>
-		<szBRName>Jean pants</szBRName>
-		<szBRDesc>42 little jeans had to lose their skin to create this jean pair of pants. So please buy it.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>150</ubGraphicNum>
-		<ubWeight>9</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>90</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>16</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1622</uiIndex>
-		<szItemName>Tan pants</szItemName>
-		<szLongItemName>Tan pants</szLongItemName>
-		<szItemDesc>Pants. Of limited use as a weapon, if you ask me. But you propably don't, I know you.</szItemDesc>
-		<szBRName>Tan pants</szBRName>
-		<szBRDesc>We are not sure what this has to do with a tan, but please buy them anyway.</szBRDesc>
-		<usItemClass>8192</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>151</ubGraphicNum>
-		<ubWeight>9</ubWeight>
-		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>13</ItemSize>
-		<usPrice>90</usPrice>
-		<ubCoolness>5</ubCoolness>
-		<Damageable>1</Damageable>
-		<WaterDamages>1</WaterDamages>
-		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>3</BR_NewInventory>
-		<clothestype>15</clothestype>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
+    <uiIndex>1543</uiIndex>
+    <szItemName>Shovel</szItemName>
+    <szLongItemName>Shovel</szLongItemName>
+    <szItemDesc>Perfect for digging your own grave, hitting people over the head (and then dig their grave) or building makeshift fortifications.</szItemDesc>
+    <szBRName>Shovel</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1544</uiIndex>
+    <szItemName>Calory Bars</szItemName>
+    <szLongItemName>Calory Bars</szLongItemName>
+    <szItemDesc>Because normal food is sooo 2011.</szItemDesc>
+    <szBRName>Calory Bars</szBRName>
+    <szBRDesc>Calories, without distracting taste.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1545</uiIndex>
+    <szItemName>MRE</szItemName>
+    <szLongItemName>MRE</szLongItemName>
+    <szItemDesc>An individual food ration in use with the US military.</szItemDesc>
+    <szBRName>MRE</szBRName>
+    <szBRDesc>If its good for the US army, it better be good enough for you.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1546</uiIndex>
+    <szItemName>EPA</szItemName>
+    <szLongItemName>EPA</szLongItemName>
+    <szItemDesc>German army food. Beware the Raviolis! </szItemDesc>
+    <szBRName>EPA</szBRName>
+    <szBRDesc>This box of german army food will bring you through the day. Note the cookies, which also serve as burning material.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1547</uiIndex>
+    <szItemName>Calorie Mate</szItemName>
+    <szLongItemName>Calorie Mate</szLongItemName>
+    <szItemDesc>It better taste better than it looks...</szItemDesc>
+    <szBRName>Calorie Mate</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1548</uiIndex>
+    <szItemName>Peak EPA</szItemName>
+    <szLongItemName>Peak EPA</szLongItemName>
+    <szItemDesc>A small bottle of vitamins and steroids.</szItemDesc>
+    <szBRName>Peak EPA</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1549</uiIndex>
+    <szItemName>Hotdog</szItemName>
+    <szLongItemName>Hotdog</szLongItemName>
+    <szItemDesc>Butchery leftovers with old bread. Enjoy.</szItemDesc>
+    <szBRName>Hotdog</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1550</uiIndex>
+    <szItemName>Hamburger</szItemName>
+    <szLongItemName>Hamburger</szLongItemName>
+    <szItemDesc>For some obscure reason, this is also sold outside Hamburg.</szItemDesc>
+    <szBRName>Hamburger</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1551</uiIndex>
+    <szItemName>Fries</szItemName>
+    <szLongItemName>French Fries</szLongItemName>
+    <szItemDesc>Or 'Freedom Fries', as some people like to call them.</szItemDesc>
+    <szBRName>Fries</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1552</uiIndex>
+    <szItemName>Pizza</szItemName>
+    <szLongItemName>Pizza</szLongItemName>
+    <szItemDesc>Favourite food of couch potatoes and sewer-based squads of tortoise ninjas everywhere.</szItemDesc>
+    <szBRName>Pizza</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1553</uiIndex>
+    <szItemName>Spam</szItemName>
+    <szLongItemName>Spam</szLongItemName>
+    <szItemDesc>Spam, spam, spam, spam, spam, spam, baked beans, spam, spam, spam and spam.</szItemDesc>
+    <szBRName>Spam</szBRName>
+    <szBRDesc>A viking's favourite food.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1554</uiIndex>
+    <szItemName>Spam 2</szItemName>
+    <szLongItemName>Spam in a can</szLongItemName>
+    <szItemDesc>Spam, spam, spam, spam, spam, spam, spam, spam, lovely spam, wonderful spam!</szItemDesc>
+    <szBRName>Spam 2</szBRName>
+    <szBRDesc>Hey, at least it doesn't fill up your mailbox...</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1555</uiIndex>
+    <szItemName>C. vegetables</szItemName>
+    <szLongItemName>Canned vegetables</szLongItemName>
+    <szItemDesc>These vegetables will stay edible forever, much to children's dismay.</szItemDesc>
+    <szBRName>C. vegetables</szBRName>
+    <szBRDesc>Nutritious, long-lasting, and animal-friendly.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1556</uiIndex>
+    <szItemName>C. scorpions</szItemName>
+    <szLongItemName>Canned scorpions</szLongItemName>
+    <szItemDesc>How about something exotic? Like poisonous insects?</szItemDesc>
+    <szBRName>C. scorpions</szBRName>
+    <szBRDesc>We were assured this is actually eaten in some place we forgot.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1557</uiIndex>
+    <szItemName>Cat food</szItemName>
+    <szLongItemName>Canned cat food</szLongItemName>
+    <szItemDesc>Seriously? You really think about eating this? You should rethink this assignment...</szItemDesc>
+    <szBRName>Cat food</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1558</uiIndex>
+    <szItemName>Baked beans</szItemName>
+    <szLongItemName>Canned baked beans</szLongItemName>
+    <szItemDesc>Tip: Best served with spam.</szItemDesc>
+    <szBRName>Baked beans</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1559</uiIndex>
+    <szItemName>Steak</szItemName>
+    <szLongItemName>Steak</szLongItemName>
+    <szItemDesc>The best arulcan steak you'll find in .. Arulco.</szItemDesc>
+    <szBRName>Steak</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1560</uiIndex>
+    <szItemName>Bean stew</szItemName>
+    <szLongItemName>Bean stew</szLongItemName>
+    <szItemDesc>A mexican-style bean stew. Really hot!</szItemDesc>
+    <szBRName>Bean stew</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1561</uiIndex>
+    <szItemName>French toast</szItemName>
+    <szLongItemName>French toast</szLongItemName>
+    <szItemDesc>Mhmm, breakfast!</szItemDesc>
+    <szBRName>French toast</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1562</uiIndex>
+    <szItemName>Crepes</szItemName>
+    <szLongItemName>Crepes</szLongItemName>
+    <szItemDesc>A spinach and mushroom crepe.</szItemDesc>
+    <szBRName>Crepes</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1563</uiIndex>
+    <szItemName>Pasta</szItemName>
+    <szLongItemName>Pasta</szLongItemName>
+    <szItemDesc>Italian pasta.</szItemDesc>
+    <szBRName>Pasta</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1564</uiIndex>
+    <szItemName>Omelet</szItemName>
+    <szLongItemName>Omelet</szLongItemName>
+    <szItemDesc>Omelet du fromage. Or not?</szItemDesc>
+    <szBRName>Omelet</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1565</uiIndex>
+    <szItemName>Cow meat</szItemName>
+    <szLongItemName>Cow meat</szLongItemName>
+    <szItemDesc>Sure, you can eat it right now. Cooking is for wussies, eh?</szItemDesc>
+    <szBRName>Cow meat</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1566</uiIndex>
+    <szItemName>Bloodcat meat</szItemName>
+    <szLongItemName>Bloodcat meat</szLongItemName>
+    <szItemDesc>You have to be a tough guy to kill them, but an even tougher guy to eat them!</szItemDesc>
+    <szBRName>Bloodcat meat</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1567</uiIndex>
+    <szItemName>Bread</szItemName>
+    <szLongItemName>Bread loaf</szLongItemName>
+    <szItemDesc>A loaf of bread, made from grain of local farms.</szItemDesc>
+    <szBRName>Bread</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1568</uiIndex>
+    <szItemName>Applepie</szItemName>
+    <szLongItemName>Applepie</szLongItemName>
+    <szItemDesc>A delicious applepie made from tasty arulcan apples. Don't you do anything naughty with it!</szItemDesc>
+    <szBRName>Applepie</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1569</uiIndex>
+    <szItemName>Water drum</szItemName>
+    <szLongItemName>Water drum</szLongItemName>
+    <szItemDesc>A rusty old water barrel.</szItemDesc>
+    <szBRName>Water drum</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1570</uiIndex>
+    <szItemName>PET bottle</szItemName>
+    <szLongItemName>PET bottle</szLongItemName>
+    <szItemDesc>A bottle with 1 liter of still mineral water.</szItemDesc>
+    <szBRName>PET bottle</szBRName>
+    <szBRDesc>1 liter of healthy mineral water, in a one-use bottle.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1571</uiIndex>
+    <szItemName>Vegetable juice</szItemName>
+    <szLongItemName>Vegetable juice</szLongItemName>
+    <szItemDesc>A drink that is so nutritious, it also stills your hunger (a bit).</szItemDesc>
+    <szBRName>Vegetable juice</szBRName>
+    <szBRDesc>For those without teeth who want to eat vegetables.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1572</uiIndex>
+    <szItemName>Milk</szItemName>
+    <szLongItemName>Milk</szLongItemName>
+    <szItemDesc>Cow milk, 1 liter.</szItemDesc>
+    <szBRName>Milk</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1573</uiIndex>
+    <szItemName>Energy drink</szItemName>
+    <szLongItemName>Energy drink</szLongItemName>
+    <szItemDesc>You can almost taste the yummy chemicals that went into this.</szItemDesc>
+    <szBRName>Energy drink</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1574</uiIndex>
+    <szItemName>Energy drink 2</szItemName>
+    <szLongItemName>Energy drink 2</szLongItemName>
+    <szItemDesc>Both tastes and refreshes like a kick in the belly.</szItemDesc>
+    <szBRName>Energy drink 2</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1575</uiIndex>
+    <szItemName>Coffee</szItemName>
+    <szLongItemName>Coffee</szLongItemName>
+    <szItemDesc>Apparently some people can get hooked to this stuff.</szItemDesc>
+    <szBRName>Coffee</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1576</uiIndex>
+    <szItemName>Cleaning Kit</szItemName>
+    <szLongItemName>Gun Cleaning Kit</szLongItemName>
+    <szItemDesc>Contains everything necessary to clean your gun in the field.</szItemDesc>
+    <szBRName>Cleaning Kit</szBRName>
+    <szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1577</uiIndex>
+    <szItemName>Clothes</szItemName>
+    <szLongItemName>Civilian Clothes</szLongItemName>
+    <szItemDesc>Normal Arulcan clothes. Absolutely nothing to see here.</szItemDesc>
+    <szBRName>Civilian Clothes</szBRName>
+    <szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1578</uiIndex>
+    <szItemName>Dart</szItemName>
+    <szLongItemName>Neurotoxin Dart</szLongItemName>
+    <szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
+    <szBRName>Neurotoxin Dart</szBRName>
+    <szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1579</uiIndex>
+    <szItemName>Garotte</szItemName>
+    <szLongItemName>Garotte</szLongItemName>
+    <szItemDesc>In skilled hands, a deadly weapon. In unskilled hands, you better use your fists.</szItemDesc>
+    <szBRName>Garotte</szBRName>
+    <szBRDesc>Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1580</uiIndex>
+    <szItemName>Body</szItemName>
+    <szLongItemName>Dead Body</szLongItemName>
+    <szItemDesc>A fresh corpse.</szItemDesc>
+    <szBRName>Dead Body</szBRName>
+    <szBRDesc>NO DESCRIPTION NEEDED!!!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1581</uiIndex>
+    <szItemName>Rifle Grenade Device</szItemName>
+    <szLongItemName>Rifle Grenade Device</szLongItemName>
+    <szItemDesc>This little device enables your rifle to fire grenades. A loaded magazine is required, and obviously no other firing mdoes are possible while there is a grenade attached.</szItemDesc>
+    <szBRName>Rifle Grenade Device</szBRName>
+    <szBRDesc>Transform your WW2 rifleman into a WW2 grenadier.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1582</uiIndex>
+    <szItemName>Oatmeal</szItemName>
+    <szLongItemName>Oatmeal</szLongItemName>
+    <szItemDesc>Favourite food of horses, but not children, everywhere.</szItemDesc>
+    <szBRName>Oatmeal</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1583</uiIndex>
+    <szItemName>Rice</szItemName>
+    <szLongItemName>Bag of rice</szLongItemName>
+    <szItemDesc>One of the most consumed goods ever.</szItemDesc>
+    <szBRName>Bag of rice</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
+  <ITEM>
+    <uiIndex>1584</uiIndex>
+    <!-->NORTHEAST DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1585</uiIndex>
+    <!-->EAST DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1586</uiIndex>
+    <!-->SOUTHEAST DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1587</uiIndex>
+    <!-->SOUTH DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1588</uiIndex>
+    <!-->SOUTHWEST DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1589</uiIndex>
+    <!-->WEST DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1590</uiIndex>
+    <!-->NORTHWEST DIRECTION (map editor only)-->
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+  </ITEM>
+  <!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
+  <ITEM>
+    <uiIndex>1591</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1592</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1593</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1594</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1595</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1596</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1597</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1598</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+
+  </ITEM>
+  <ITEM>
+    <uiIndex>1599</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1600</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1601</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1602</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1603</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1604</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1605</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1606</uiIndex>
+    <szItemName>Black shirt</szItemName>
+    <szLongItemName>Black shirt</szLongItemName>
+    <szItemDesc>Part of the uniform of Arulco's elite guard. Pretending to be one of them carries the death penalty.</szItemDesc>
+    <szBRName>Black shirt</szBRName>
+    <szBRDesc>Not for sale through BR</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1607</uiIndex>
+    <szItemName>Blue shirt</szItemName>
+    <szLongItemName>Blue shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable blue T-shirt.</szItemDesc>
+    <szBRName>Blue shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1608</uiIndex>
+    <szItemName>Brown shirt</szItemName>
+    <szLongItemName>Brown shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable brown T-shirt.</szItemDesc>
+    <szBRName>Brown shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1609</uiIndex>
+    <szItemName>Green shirt</szItemName>
+    <szLongItemName>Green shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable green T-shirt.</szItemDesc>
+    <szBRName>Green shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1610</uiIndex>
+    <szItemName>Grey shirt</szItemName>
+    <szLongItemName>Grey shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable grey T-shirt.</szItemDesc>
+    <szBRName>Grey shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1611</uiIndex>
+    <szItemName>Yellow shirt</szItemName>
+    <szLongItemName>Yellow shirt</szLongItemName>
+    <szItemDesc>Part of the uniform of the armed administrative branch of the arulcan army.</szItemDesc>
+    <szBRName>Yellow shirt</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1612</uiIndex>
+    <szItemName>White shirt</szItemName>
+    <szLongItemName>White shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable yellow T-shirt.</szItemDesc>
+    <szBRName>White shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1613</uiIndex>
+    <szItemName>Purple shirt</szItemName>
+    <szLongItemName>Purple shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable purple T-shirt.</szItemDesc>
+    <szBRName>Purple shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1614</uiIndex>
+    <szItemName>Red shirt</szItemName>
+    <szLongItemName>Red shirt</szLongItemName>
+    <szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+    <szBRName>Red shirt</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1615</uiIndex>
+    <szItemName>Jean shirt</szItemName>
+    <szLongItemName>Jean shirt</szLongItemName>
+    <szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+    <szBRName>Jean shirt</szBRName>
+    <szBRDesc>Jean. What kind of colour is 'jean' anyway? Stupid colour names. In my days, you wore black and that was it.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1616</uiIndex>
+    <szItemName>Light green shirt</szItemName>
+    <szLongItemName>Light green shirt</szLongItemName>
+    <szItemDesc>A totally unremarkable light green yellow T-shirt.</szItemDesc>
+    <szBRName>Light green shirt</szBRName>
+    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1617</uiIndex>
+    <szItemName>Beige pants</szItemName>
+    <szLongItemName>Beige pants</szLongItemName>
+    <szItemDesc>Pants. Be sure to wear a pair if you leave the house.</szItemDesc>
+    <szBRName>Beige pants</szBRName>
+    <szBRDesc>We also sell pants. In beige. Sigh. What has this shop come to? Does anyone even read this?</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1618</uiIndex>
+    <szItemName>Black pants</szItemName>
+    <szLongItemName>Black army trousers</szLongItemName>
+    <szItemDesc>Part of the arulcan elite guard uniform.</szItemDesc>
+    <szBRName>Black pants</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1619</uiIndex>
+    <szItemName>Bluejeans</szItemName>
+    <szLongItemName>Bluejeans</szLongItemName>
+    <szItemDesc>A pair of no-name bluejeans.</szItemDesc>
+    <szBRName>Bluejeans</szBRName>
+    <szBRDesc>You know, I used to wear them before they were cool.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1620</uiIndex>
+    <szItemName>Army trousers</szItemName>
+    <szLongItemName>Army trousers</szLongItemName>
+    <szItemDesc>Standard army pants.</szItemDesc>
+    <szBRName>Army trousers</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1621</uiIndex>
+    <szItemName>Jean pants</szItemName>
+    <szLongItemName>Jean pants</szLongItemName>
+    <szItemDesc>Pants. This might be useful, don't you think?</szItemDesc>
+    <szBRName>Jean pants</szBRName>
+    <szBRDesc>42 little jeans had to lose their skin to create this jean pair of pants. So please buy it.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1622</uiIndex>
+    <szItemName>Tan pants</szItemName>
+    <szLongItemName>Tan pants</szLongItemName>
+    <szItemDesc>Pants. Of limited use as a weapon, if you ask me. But you propably don't, I know you.</szItemDesc>
+    <szBRName>Tan pants</szBRName>
+    <szBRDesc>We are not sure what this has to do with a tan, but please buy them anyway.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1623</uiIndex>
+    <szItemName>random NATO AR number 1</szItemName>
+    <szLongItemName>random NATO AR 1</szLongItemName>
+    <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+    <szBRName>random NATO AR 1</szBRName>
+    <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1624</uiIndex>
+    <szItemName>random WP AR number 1</szItemName>
+    <szLongItemName>random WP AR 1</szLongItemName>
+    <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+    <szBRName>random WP AR 1</szBRName>
+    <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+  </ITEM>
 </ITEMLIST>

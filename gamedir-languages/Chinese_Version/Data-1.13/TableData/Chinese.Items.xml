@@ -12399,7 +12399,6 @@
 		<szItemDesc>Butchery leftovers with old bread. Enjoy.</szItemDesc>
 		<szBRName>Hotdog</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
-
 	</ITEM>
 	<ITEM>
 		<uiIndex>1550</uiIndex>
@@ -12988,4 +12987,20 @@
 		<szBRName>Tan pants</szBRName>
 		<szBRDesc>We are not sure what this has to do with a tan, but please buy them anyway.</szBRDesc>
 	</ITEM>
+  <ITEM>
+    <uiIndex>1623</uiIndex>
+    <szItemName>random NATO AR number 1</szItemName>
+    <szLongItemName>random NATO AR 1</szLongItemName>
+    <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+    <szBRName>random NATO AR 1</szBRName>
+    <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1624</uiIndex>
+    <szItemName>random WP AR number 1</szItemName>
+    <szLongItemName>random WP AR 1</szLongItemName>
+    <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
+    <szBRName>random WP AR 1</szBRName>
+    <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
