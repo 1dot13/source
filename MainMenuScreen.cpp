@@ -515,6 +515,12 @@ void HandleMainMenuInput()
 					SetMainMenuExitScreen( INIT_SCREEN );
 					break;
 
+				case 'm':
+					gbHandledMainMenu = NEW_MP_GAME;
+					gfMainMenuScreenExit = TRUE;
+					SetMainMenuExitScreen( MP_JOIN_SCREEN );
+					break;
+
 				case 'i':
 					SetPendingNewScreen( INTRO_SCREEN );
 					gfMainMenuScreenExit = TRUE;

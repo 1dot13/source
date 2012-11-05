@@ -254,6 +254,7 @@ void DeleteItemDescriptionBox( );
 extern BOOLEAN UseNASDesc(OBJECTTYPE  *pObject);
 INT16 sNASXCorrection(OBJECTTYPE * pObject);
 INT16 sNASYCorrection(OBJECTTYPE * pObject);
+void HandleItemDescTabButton( );
 
 BOOLEAN InItemStackPopup( );
 BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );

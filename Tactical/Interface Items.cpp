@@ -12457,40 +12457,31 @@ void DeletePool(ITEM_POOL *pItemPool)
 
 void ItemDescTabButtonCallback( GUI_BUTTON *btn, INT32 reason )
 {
-	switch (btn->UserData[0])
-	{
-		case 0:
-			gubDescBoxPage = 0;
-			InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
-			RenderItemDescriptionBox();
+	gubDescBoxPage = btn->UserData[0];
+	HandleItemDescTabButton( );
+}
 
-			if (giItemDescAmmoButton > -1)
-				MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
-			
+void HandleItemDescTabButton( )
+{
+	InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
+	RenderItemDescriptionBox();
+
+	if (giItemDescAmmoButton > -1)
+		MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
+
+	switch (gubDescBoxPage)
+	{
+		case 0:	
 			ItemDescTabButtonOn( 0 );
 			ItemDescTabButtonOff( 1 );
 			ItemDescTabButtonOff( 2 );
 			break;
 		case 1:
-			gubDescBoxPage = 1;
-			InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
-			RenderItemDescriptionBox();
-
-			if (giItemDescAmmoButton > -1)
-				MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
-
 			ItemDescTabButtonOff( 0 );
 			ItemDescTabButtonOn( 1 );
 			ItemDescTabButtonOff( 2 );
 			break;
 		case 2:
-			gubDescBoxPage = 2;
-			InternalInitEDBTooltipRegion( gpItemDescObject, guiCurrentItemDescriptionScreen );
-			RenderItemDescriptionBox();
-
-			if (giItemDescAmmoButton > -1)
-				MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
-
 			ItemDescTabButtonOff( 0 );
 			ItemDescTabButtonOff( 1 );
 			ItemDescTabButtonOn( 2 );

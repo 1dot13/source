@@ -2090,8 +2090,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case TAB:
+				// go to next tab in enhanced description box
+				if( ( fCtrl ) && InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
+				{			
+					if ( gubDescBoxPage < 2 )
+					{
+						gubDescBoxPage++;
+					}
+					else
+					{					
+						gubDescBoxPage = 0;
+					}
+					HandleItemDescTabButton( );
+				}
 				// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
-				if ( ( gpItemPointer == NULL ) &&
+				else if ( ( gpItemPointer == NULL ) &&
 					( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ UPDOWN_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 				{
 					UIHandleChangeLevel( NULL );

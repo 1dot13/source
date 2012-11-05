@@ -7089,6 +7089,22 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					StopAnyCurrentlyTalkingSpeech( );
 					break;
 
+				case TAB:
+					// go to next tab in enhanced description box
+					if( InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
+					{			
+						if ( gubDescBoxPage < 2 )
+						{
+							gubDescBoxPage++;
+						}
+						else
+						{					
+							gubDescBoxPage = 0;
+						}
+						HandleItemDescTabButton( );
+					}
+					break;
+
 				case F1:
 				case F2:
 				case F3:
