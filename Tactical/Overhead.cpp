@@ -3938,6 +3938,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 				case T_REX:
 				case DRUGGIST:
 				case GENERAL:
+				case JIM:
 				case JACK:
 				case OLAF:
 				case RAY:

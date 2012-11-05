@@ -360,6 +360,7 @@ typedef struct
 	BOOLEAN fEnableChanceOfEnemyAmbushes; 
 	INT8 bChanceModifierEnemyAmbushes;
 	UINT8 usSpecialNPCStronger;
+	BOOLEAN fAssassinsAreDisguised;	// added by Flugente
 	///////////////////////////////////////
 
 	// System settings

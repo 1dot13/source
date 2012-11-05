@@ -2114,6 +2114,7 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 			case T_REX:
 			case DRUGGIST:
 			case GENERAL:
+			case JIM:
 			case JACK:
 			case OLAF:
 			case RAY:
@@ -2232,6 +2233,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 				case T_REX:
 				case DRUGGIST:
 				case GENERAL:
+				case JIM:
 				case JACK:
 				case OLAF:
 				case RAY:
@@ -13893,6 +13895,7 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 			case T_REX:
 			case DRUGGIST:
 			case GENERAL:
+			case JIM:
 			case JACK:
 			case OLAF:
 			case RAY:

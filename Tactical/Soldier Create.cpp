@@ -1248,6 +1248,78 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 		//	pSoldier->snowCamo = 100;
 		//}
 	}
+
+	// Flugente: if playing with the covert trait, the assasins come covert, so they are tougher to find	
+	if ( gGameExternalOptions.fAssassinsAreDisguised && gGameOptions.fNewTraitSystem && pSoldier->ubProfile >= JIM && pSoldier->ubProfile <= TYRONE )
+	{
+		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
+
+		UINT8 rnd = Random(11);
+
+		// Vest
+		switch ( rnd )
+		{
+		case 0:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"BROWNVEST" );
+			break;
+		case 1:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"greyVEST" );
+			break;
+		case 2:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"GREENVEST" );
+			break;
+		case 3:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"JEANVEST" );
+			break;
+		case 4:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"REDVEST" );
+			break;
+		case 5:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"BLUEVEST" );
+			break;
+		case 6:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"YELLOWVEST" );
+			break;
+		case 7:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"WHITEVEST" );
+			break;
+		case 8:
+			SET_PALETTEREP_ID(  pSoldier->VestPal,	"BLACKSHIRT" );
+			break;
+		case 9:
+			SET_PALETTEREP_ID( pSoldier->VestPal,	"GYELLOWSHIRT" );
+			break;
+		default:
+			SET_PALETTEREP_ID( pSoldier->VestPal,	"PURPLESHIRT" );
+			break;
+		}
+
+		rnd = Random(6);
+
+		// Pants
+		switch ( rnd )
+		{
+		case 0:
+			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"GREENPANTS" );
+			break;
+		case 1:
+			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"JEANPANTS" );
+			break;
+		case 2:
+			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"TANPANTS" );
+			break;
+		case 3:
+			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"BLACKPANTS" );
+			break;
+		case 4:
+			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"BLUEPANTS" );
+			break;
+		default:
+			SET_PALETTEREP_ID(  pSoldier->PantsPal,	"BEIGEPANTS" );
+			break;
+		}
+	}
+
 	return( TRUE );
 }
 

@@ -1833,6 +1833,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 			case T_REX:
 			case DRUGGIST:
 			case GENERAL:
+			case JIM:
 			case JACK:
 			case OLAF:
 			case RAY:

@@ -1059,6 +1059,9 @@ void LoadGameExternalOptions()
 	// SANDRO - Special NPCs strength increased by percent
 	gGameExternalOptions.usSpecialNPCStronger = iniReader.ReadInteger("Tactical Difficulty Settings", "SPECIAL_NPCS_STRONGER",0, 0, 200);
 
+	// Flugente: the assassins are disguised initially, so it is harder for the player to detect them
+	gGameExternalOptions.fAssassinsAreDisguised		  = iniReader.ReadBoolean("Tactical Difficulty Settings", "ASSASSINS_DISGUISED", TRUE);
+	
 
 	//################# Tactical Vision Settings #################
 
