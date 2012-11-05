@@ -9767,3 +9767,18 @@ void HandleDisplayingOfPlayerLostDialogue( void )
 	}
 }
 #endif
+
+// Flugente: the entire new trait to string thingy is a fucked up mess. I've had it. Heres a function that simply handles that crap.
+STR16 GetNewTraitStr(UINT8 aTrait)
+{
+	if ( aTrait <= DOCTOR_NT )
+		;
+	else if ( aTrait <= SCOUTING_NT )
+		++aTrait;
+	else if ( aTrait == COVERT_NT )
+		aTrait = 10;
+	else if ( aTrait >= SCOUTING_NT + NUM_MINOR_TRAITS  )
+		aTrait -= NUM_MINOR_TRAITS;
+
+	return gzMercSkillTextNew[ aTrait ];
+}

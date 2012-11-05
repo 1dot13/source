@@ -893,6 +893,10 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 			break;
 	}
 
+	// if zombie and headshots are required, forbid rising if killed by headshot
+	if ( pSoldier->IsZombie() && gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill && (pSoldier->bSoldierFlagMask & SOLDIER_HEADSHOT) )
+		Corpse.usFlags |= ROTTING_CORPSE_NEVER_RISE_AGAIN;
+
 	// Flugente: copy name of soldier...
 	memcpy( &(Corpse.name), &(pSoldier->name), sizeof(CHAR16) * 10 );
 	Corpse.name[9] = '\0';
@@ -2730,7 +2734,7 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 			pNewSoldier->bPoisonBleeding		= pNewSoldier->bPoisonSum - pNewSoldier->bPoisonLife;
 			// zombies get 200% poison absorption, but no resistance to it, as it would reduce their healing
 			pNewSoldier->bPoisonResistance		= 0;
-			pNewSoldier->bPoisonAbsorption		= 200 + Random(100);
+			pNewSoldier->bPoisonAbsorption		= 0;	// Flugente: Screw this, we use GetPoisonAbsorption() instead... I declare this variable dead until further notice
 			//////////////////////////////////////////////////////////////////////
 
 #ifdef ENABLE_ZOMBIES

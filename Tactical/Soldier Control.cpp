@@ -5861,7 +5861,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		return;
 	}
 
-	INT16 poisondamage = (INT16) ( sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage() / 100 );
+	INT16 poisondamage = (INT16) ( (sDamage * MercPtrs[ubAttackerID]->GetPoisonDamagePercentage()) / 100 );
 
 	// DEDUCT LIFE
 	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, poisondamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
@@ -10480,6 +10480,10 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 
 				fReturnVal = TRUE;
 			}
+
+			// Flugente: some bodytypes can't do these animations, so skip this
+			if ( IsAnimationValidForBodyType( this, this->usPendingAnimation ) == FALSE )
+				fReturnVal = FALSE;
 		}
 	}
 
@@ -11838,7 +11842,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 					if ( pTSoldier->bBreath - breathdamage < 0 )
 						breathdamage = pTSoldier->bBreath;
 
-					INT16 poisondamage = (INT16) ( sDamage * this->GetPoisonDamagePercentage() / 100 );
+					INT16 poisondamage = (INT16) ( (damage * this->GetPoisonDamagePercentage()) / 100 );
 					
 					// zombies do ~50% poison damage
 					pTSoldier->SoldierTakeDamage( 0, damage, poisondamage, breathdamage, TAKE_DAMAGE_HANDTOHAND, this->ubID, pTSoldier->sGridNo, 0, TRUE );
@@ -13956,6 +13960,11 @@ INT16	SOLDIERTYPE::GetPoisonAbsorption( void )
 {
 	// Flugente: absorption can per definition only be >= 0 (at least that's my definition)
 	INT16 val = bPoisonAbsorption;
+
+#ifdef ENABLE_ZOMBIES
+	if ( IsZombie() )
+		val += 200;
+#endif
 		
 	val = max(0, val);
 
@@ -15017,6 +15026,12 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 
 	if ( !pSoldier )
 		return TRUE;
+
+#ifdef ENABLE_ZOMBIES
+	// zombies don't care about disguises
+	if ( IsZombie() )
+		return TRUE;
+#endif
 
 	// if neither of the 2 persons is covert, always return true
 	if ( ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) && ( (this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) )

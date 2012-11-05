@@ -354,8 +354,8 @@ enum
 #define SOLDIER_NEW_PANTS			0x00000080	//128		// Soldier is wearing new pants
 
 #define SOLDIER_DAMAGED_PANTS		0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
-/*#define WH40K_SEAL				0x00000200	//512
-#define WH40K_POWER_WEAPON		0x00000400	//1024
+#define SOLDIER_HEADSHOT			0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
+/*#define WH40K_POWER_WEAPON		0x00000400	//1024
 #define ENEMY_NET_4_LVL_3		0x00000800	//2048
 
 #define ENEMY_NET_1_LVL_4		0x00001000	//4096

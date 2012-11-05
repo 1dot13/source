@@ -112,6 +112,13 @@ void ValidateEnemiesHaveWeapons()
 			{
 				continue;
 			}
+
+#ifdef ENABLE_ZOMBIES
+			// Flugente: zombies are fine with having no weapons...
+			if ( pSoldier->IsZombie() )
+				continue;
+#endif
+
 			if( !pSoldier->inv[ HANDPOS ].usItem )
 			{
 				iNumInvalid++;

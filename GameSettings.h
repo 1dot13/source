@@ -383,6 +383,7 @@ typedef struct
 	BOOLEAN fZombieOnlyHeadshotsWork;
 	INT8	sZombieDifficultyLevel;
 	BOOLEAN fZombieRiseWithArmour;
+	BOOLEAN fZombieOnlyHeadShotsPermanentlyKill;
 #endif
 	
 	// Flugente: poison settings
@@ -406,6 +407,8 @@ typedef struct
 		
 	BOOLEAN fFoodDecayInSectors;
 	FLOAT	sFoodDecayModificator;
+
+	UINT8	usFoodMaxPoisoning;
 	
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;

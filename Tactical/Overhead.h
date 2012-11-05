@@ -404,4 +404,6 @@ extern UINT8 NumEnemyInSector();
 	extern UINT8 NumZombiesInSector();
 #endif
 
+STR16 GetNewTraitStr(UINT8 aTrait);		// Flugente: deal with the insane new trait to string stuff
+
 #endif

@@ -8866,11 +8866,20 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	UINT8					ubAmmoType;
 
 #ifdef ENABLE_ZOMBIES
-	if ( pTarget->IsZombie() && gGameExternalOptions.fZombieOnlyHeadshotsWork )
+	if ( pTarget->IsZombie() )
 	{
 		// if bullet does not hits anything other than the head, it doesn't do any damage
-		if ( ubHitLocation != AIM_SHOT_HEAD )
+		if ( gGameExternalOptions.fZombieOnlyHeadshotsWork && ubHitLocation != AIM_SHOT_HEAD )
 			return 0;
+
+		// set a flag if this was a headshot, unset if it wasn't. Thus we can determine if this was a headshot kill (only if life > 0, ignore if already dead)
+		if ( gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill && pTarget->stats.bLife > 0 )
+		{
+			if ( ubHitLocation == AIM_SHOT_HEAD  )
+				pTarget->bSoldierFlagMask |= SOLDIER_HEADSHOT;
+			else
+				pTarget->bSoldierFlagMask &= ~SOLDIER_HEADSHOT;
+		}
 	}
 #endif
 
@@ -9737,6 +9746,18 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 	// Flugente: moved the damage calculation into a separate function
 	BOOLEAN autoresolve = IsAutoResolveActive();		
 	iImpact = max( 1, (INT32)(iImpact * (100 - pTarget->GetDamageResistance(autoresolve, FALSE)) / 100 ) );
+
+#ifdef ENABLE_ZOMBIES
+	// Flugente: if the target is a zombie, any melee attack, regardless of hit location, will set the headshot flag. Thus any zombie killed in melee will stay dead (if you play with that option)
+	if ( pTarget->IsZombie() )
+	{
+		// set a flag if this was a headshot, unset if it wasn't. Thus we can determine if this was a headshot kill (only if life > 0, ignore if already dead)
+		if ( gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill && pTarget->stats.bLife > 0 )
+		{
+			pTarget->bSoldierFlagMask |= SOLDIER_HEADSHOT;
+		}
+	}
+#endif
 
 	return( iImpact );
 }
