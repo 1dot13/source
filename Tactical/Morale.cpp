@@ -710,12 +710,16 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 					{
 						if ( gGameOptions.fNewTraitSystem )
 						{
-							// SANDRO - no penalty for pacifists to run away
-							if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_PACIFIST )
-								HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
-							// Double morale drop for aggressive people
-							if  ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
-								HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+							// Flugente: if we have the covert trait and are covert, we might simply be returning from a reconnaissance mission in enemy territory. No need for a morale drop in this case
+							if ( !HAS_SKILL_TRAIT( pTeamSoldier, COVERT_NT ) || ( pTeamSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) == 0) )
+							{
+								// SANDRO - no penalty for pacifists to run away
+								if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_PACIFIST )
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+								// Double morale drop for aggressive people
+								if  ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+							}
 						}
 						else
 						{
