@@ -116,7 +116,7 @@ Possible values for Here tag:
 		<Sector y="A" x="6">
 			<TravelRating>5</TravelRating>
 			<North>EDGEOFWORLD</North>
-			<East>PLAINS</East>
+			<East>HILLS</East>
 			<South>PLAINS</South>
 			<West>EDGEOFWORLD</West>
 			<Here>HILLS</Here>
@@ -126,7 +126,7 @@ Possible values for Here tag:
 			<North>EDGEOFWORLD</North>
 			<East>HILLS</East>
 			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<West>HILLS</West>
 			<Here>HILLS</Here>
 		</Sector>
 		<Sector y="A" x="8">
@@ -189,7 +189,7 @@ Possible values for Here tag:
 			<TravelRating>8</TravelRating>
 			<North>EDGEOFWORLD</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>DENSE</Here>
 		</Sector>
@@ -316,9 +316,9 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="B" x="15">
 			<TravelRating>10</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<North>SPARSE</North>
+			<East>DENSE</East>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>SWAMP</Here>
 		</Sector>
@@ -326,15 +326,15 @@ Possible values for Here tag:
 			<TravelRating>0</TravelRating>
 			<North>EDGEOFWORLD</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<South>DENSE</South>
+			<West>DENSE</West>
 			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="C" x="1">
 			<TravelRating>8</TravelRating>
 			<North>PLAINS</North>
 			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<South>GROUNDBARRIER</South>
 			<West>EDGEOFWORLD</West>
 			<Here>TROPICS</Here>
 		</Sector>
@@ -358,7 +358,7 @@ Possible values for Here tag:
 			<TravelRating>20</TravelRating>
 			<North>SPARSE</North>
 			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>SPARSE</Here>
 		</Sector>
@@ -390,7 +390,7 @@ Possible values for Here tag:
 			<TravelRating>48</TravelRating>
 			<North>PLAINS</North>
 			<East>ROAD</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>ROAD</West>
 			<Here>SPARSE_ROAD</Here>
 		</Sector>
@@ -422,7 +422,7 @@ Possible values for Here tag:
 			<TravelRating>8</TravelRating>
 			<North>DENSE</North>
 			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>DENSE</West>
 			<Here>SPARSE</Here>
 		</Sector>
@@ -444,23 +444,23 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="C" x="15">
 			<TravelRating>7</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<North>SPARSE</North>
+			<East>SPARSE</East>
+			<South>SPARSE</South>
 			<West>GROUNDBARRIER</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="C" x="16">
 			<TravelRating>5</TravelRating>
-			<North>PLAINS</North>
+			<North>DENSE</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<South>DENSE</South>
+			<West>SPARSE</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="D" x="1">
-			<TravelRating>7</TravelRating>
-			<North>PLAINS</North>
+			<TravelRating>0</TravelRating>
+			<North>GROUNDBARRIER</North>
 			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
 			<West>EDGEOFWORLD</West>
@@ -484,7 +484,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="D" x="4">
 			<TravelRating>12</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>TOWN</East>
 			<South>HILLS</South>
 			<West>PLAINS</West>
@@ -516,11 +516,11 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="D" x="8">
 			<TravelRating>16</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>SPARSE</East>
 			<South>SPARSE</South>
 			<West>PLAINS</West>
-			<Here>DENSE</Here>
+			<Here>WATER</Here>
 		</Sector>
 		<Sector y="D" x="9">
 			<TravelRating>50</TravelRating>
@@ -533,7 +533,7 @@ Possible values for Here tag:
 		<Sector y="D" x="10">
 			<TravelRating>11</TravelRating>
 			<North>PLAINS</North>
-			<East>PLAINS</East>
+			<East>SPARSE</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
 			<Here>PLAINS</Here>
@@ -542,15 +542,15 @@ Possible values for Here tag:
 			<TravelRating>5</TravelRating>
 			<North>DENSE</North>
 			<East>DENSE</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
-			<Here>SPARSE</Here>
+			<South>SPARSE</South>
+			<West>SPARSE</West>
+			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="D" x="12">
 			<TravelRating>11</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>DENSE</West>
 			<Here>SWAMP</Here>
 		</Sector>
@@ -566,24 +566,24 @@ Possible values for Here tag:
 			<TravelRating>12</TravelRating>
 			<North>PLAINS</North>
 			<East>DENSE</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>WATER</Here>
 		</Sector>
 		<Sector y="D" x="15">
 			<TravelRating>8</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
+			<North>SPARSE</North>
+			<East>SPARSE</East>
 			<South>PLAINS</South>
 			<West>DENSE</West>
 			<Here>TOWN</Here>
 		</Sector>
 		<Sector y="D" x="16">
 			<TravelRating>5</TravelRating>
-			<North>PLAINS</North>
+			<North>DENSE</North>
 			<East>EDGEOFWORLD</East>
 			<South>EDGEOFWORLD</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="E" x="1">
@@ -668,7 +668,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="E" x="11">
 			<TravelRating>9</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>PLAINS</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
@@ -676,11 +676,11 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="E" x="12">
 			<TravelRating>35</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>ROAD</East>
 			<South>ROAD</South>
 			<West>PLAINS</West>
-			<Here>SPARSE</Here>
+			<Here>SPARSE_ROAD</Here>
 		</Sector>
 		<Sector y="E" x="13">
 			<TravelRating>45</TravelRating>
@@ -692,8 +692,8 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="E" x="14">
 			<TravelRating>8</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
+			<North>SPARSE</North>
+			<East>SPARSE</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
 			<Here>SWAMP</Here>
@@ -703,7 +703,7 @@ Possible values for Here tag:
 			<North>PLAINS</North>
 			<East>EDGEOFWORLD</East>
 			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>DENSE_ROAD</Here>
 		</Sector>
 		<Sector y="E" x="16">
@@ -726,7 +726,7 @@ Possible values for Here tag:
 		<Sector y="F" x="2">
 			<TravelRating>4</TravelRating>
 			<North>GROUNDBARRIER</North>
-			<East>NS_RIVER</East>
+			<East>EW_RIVER</East>
 			<South>PLAINS</South>
 			<West>GROUNDBARRIER</West>
 			<Here>COASTAL</Here>
@@ -736,7 +736,7 @@ Possible values for Here tag:
 			<North>ROAD</North>
 			<East>PLAINS</East>
 			<South>ROAD</South>
-			<West>NS_RIVER</West>
+			<West>EW_RIVER</West>
 			<Here>PLAINS_ROAD</Here>
 		</Sector>
 		<Sector y="F" x="4">
@@ -831,7 +831,7 @@ Possible values for Here tag:
 			<TravelRating>3</TravelRating>
 			<North>PLAINS</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
+			<South>DENSE</South>
 			<West>PLAINS</West>
 			<Here>DENSE_ROAD</Here>
 		</Sector>
@@ -872,7 +872,7 @@ Possible values for Here tag:
 			<TravelRating>65</TravelRating>
 			<North>PLAINS</North>
 			<East>ROAD</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>ROAD</West>
 			<Here>HILLS_ROAD</Here>
 		</Sector>
@@ -928,7 +928,7 @@ Possible values for Here tag:
 			<TravelRating>25</TravelRating>
 			<North>PLAINS</North>
 			<East>ROAD</East>
-			<South>PLAINS</South>
+			<South>SAND</South>
 			<West>ROAD</West>
 			<Here>SAND_ROAD</Here>
 		</Sector>
@@ -941,7 +941,7 @@ Possible values for Here tag:
 			<Here>PLAINS_ROAD</Here>
 		</Sector>
 		<Sector y="G" x="13">
-			<TravelRating>65</TravelRating>
+			<TravelRating>10</TravelRating>
 			<North>PLAINS</North>
 			<East>PLAINS</East>
 			<South>PLAINS</South>
@@ -949,7 +949,7 @@ Possible values for Here tag:
 			<Here>PLAINS</Here>
 		</Sector>
 		<Sector y="G" x="14">
-			<TravelRating>60</TravelRating>
+			<TravelRating>12</TravelRating>
 			<North>PLAINS</North>
 			<East>PLAINS</East>
 			<South>PLAINS</South>
@@ -958,9 +958,9 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="G" x="15">
 			<TravelRating>16</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<North>DENSE</North>
+			<East>DENSE</East>
+			<South>NS_RIVER</South>
 			<West>PLAINS</West>
 			<Here>DENSE</Here>
 		</Sector>
@@ -968,8 +968,8 @@ Possible values for Here tag:
 			<TravelRating>4</TravelRating>
 			<North>EDGEOFWORLD</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<South>SPARSE</South>
+			<West>DENSE</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="H" x="1">
@@ -991,25 +991,25 @@ Possible values for Here tag:
 		<Sector y="H" x="3">
 			<TravelRating>65</TravelRating>
 			<North>ROAD</North>
-			<East>PLAINS</East>
+			<East>SPARSE</East>
 			<South>ROAD</South>
 			<West>TOWN</West>
 			<Here>TOWN</Here>
 		</Sector>
 		<Sector y="H" x="4">
 			<TravelRating>8</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
+			<North>SPARSE</North>
+			<East>DENSE</East>
 			<South>DENSE</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="H" x="5">
 			<TravelRating>10</TravelRating>
 			<North>GROUNDBARRIER</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<East>HILLS</East>
+			<South>SPARSE</South>
+			<West>DENSE</West>
 			<Here>HILLS</Here>
 		</Sector>
 		<Sector y="H" x="6">
@@ -1017,7 +1017,7 @@ Possible values for Here tag:
 			<North>ROAD</North>
 			<East>HILLS</East>
 			<South>ROAD</South>
-			<West>PLAINS</West>
+			<West>HILLS</West>
 			<Here>HILLS_ROAD</Here>
 		</Sector>
 		<Sector y="H" x="7">
@@ -1054,14 +1054,14 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="H" x="11">
 			<TravelRating>7</TravelRating>
-			<North>PLAINS</North>
+			<North>SAND</North>
 			<East>PLAINS</East>
 			<South>PLAINS</South>
 			<West>SAND</West>
 			<Here>SAND</Here>
 		</Sector>
 		<Sector y="H" x="12">
-			<TravelRating>12</TravelRating>
+			<TravelRating>55</TravelRating>
 			<North>ROAD</North>
 			<East>ROAD</East>
 			<South>SPARSE</South>
@@ -1077,7 +1077,7 @@ Possible values for Here tag:
 			<Here>TOWN</Here>
 		</Sector>
 		<Sector y="H" x="14">
-			<TravelRating>65</TravelRating>
+			<TravelRating>60</TravelRating>
 			<North>PLAINS</North>
 			<East>PLAINS</East>
 			<South>TOWN</South>
@@ -1086,18 +1086,18 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="H" x="15">
 			<TravelRating>12</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<North>NS_RIVER</North>
+			<East>SPARSE</East>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="H" x="16">
 			<TravelRating>3</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<South>SPARSE</South>
+			<West>SPARSE</West>
 			<Here>SPARSE</Here>
 		</Sector>
 		<Sector y="I" x="1">
@@ -1109,9 +1109,9 @@ Possible values for Here tag:
 			<Here>GROUNDBARRIER</Here>
 		</Sector>
 		<Sector y="I" x="2">
-			<TravelRating>3</TravelRating>
+			<TravelRating>0</TravelRating>
 			<North>GROUNDBARRIER</North>
-			<East>PLAINS</East>
+			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
 			<West>GROUNDBARRIER</West>
 			<Here>GROUNDBARRIER</Here>
@@ -1119,9 +1119,9 @@ Possible values for Here tag:
 		<Sector y="I" x="3">
 			<TravelRating>45</TravelRating>
 			<North>ROAD</North>
-			<East>PLAINS</East>
+			<East>SPARSE</East>
 			<South>ROAD</South>
-			<West>PLAINS</West>
+			<West>GROUNDBARRIER</West>
 			<Here>COASTAL_ROAD</Here>
 		</Sector>
 		<Sector y="I" x="4">
@@ -1129,12 +1129,12 @@ Possible values for Here tag:
 			<North>DENSE</North>
 			<East>DENSE</East>
 			<South>SWAMP</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="I" x="5">
 			<TravelRating>5</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>SPARSE</East>
 			<South>DENSE</South>
 			<West>DENSE</West>
@@ -1152,7 +1152,7 @@ Possible values for Here tag:
 			<TravelRating>10</TravelRating>
 			<North>PLAINS</North>
 			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>SPARSE</Here>
 		</Sector>
@@ -1192,12 +1192,12 @@ Possible values for Here tag:
 			<TravelRating>10</TravelRating>
 			<North>SPARSE</North>
 			<East>SPARSE</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
-			<Here>PLAINS</Here>
+			<Here>SPARSE</Here>
 		</Sector>
 		<Sector y="I" x="13">
-			<TravelRating>10</TravelRating>
+			<TravelRating>55</TravelRating>
 			<North>TOWN</North>
 			<East>TOWN</East>
 			<South>SPARSE</South>
@@ -1205,7 +1205,7 @@ Possible values for Here tag:
 			<Here>TOWN</Here>
 		</Sector>
 		<Sector y="I" x="14">
-			<TravelRating>55</TravelRating>
+			<TravelRating>65</TravelRating>
 			<North>TOWN</North>
 			<East>PLAINS</East>
 			<South>ROAD</South>
@@ -1214,18 +1214,18 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="I" x="15">
 			<TravelRating>10</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<North>SPARSE</North>
+			<East>SPARSE</East>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>SPARSE</Here>
 		</Sector>
 		<Sector y="I" x="16">
 			<TravelRating>2</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>EDGEOFWORLD</East>
 			<South>EDGEOFWORLD</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>SPARSE</Here>
 		</Sector>
 		<Sector y="J" x="1">
@@ -1248,7 +1248,7 @@ Possible values for Here tag:
 			<TravelRating>50</TravelRating>
 			<North>ROAD</North>
 			<East>SWAMP</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>ROAD</West>
 			<Here>COASTAL_ROAD</Here>
 		</Sector>
@@ -1278,7 +1278,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="J" x="7">
 			<TravelRating>6</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>SAND</East>
 			<South>SAND</South>
 			<West>DENSE</West>
@@ -1314,11 +1314,11 @@ Possible values for Here tag:
 			<East>PLAINS</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
-			<Here>SAND</Here>
+			<Here>PLAINS</Here>
 		</Sector>
 		<Sector y="J" x="12">
 			<TravelRating>10</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>SPARSE</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
@@ -1342,9 +1342,9 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="J" x="15">
 			<TravelRating>10</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
+			<South>SPARSE</South>
 			<West>PLAINS</West>
 			<Here>SPARSE</Here>
 		</Sector>
@@ -1375,7 +1375,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="K" x="3">
 			<TravelRating>4</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>SWAMP</East>
 			<South>SWAMP</South>
 			<West>SWAMP</West>
@@ -1449,7 +1449,7 @@ Possible values for Here tag:
 			<TravelRating>70</TravelRating>
 			<North>PLAINS</North>
 			<East>ROAD</East>
-			<South>ROAD</South>
+			<South>PLAINS</South>
 			<West>ROAD</West>
 			<Here>PLAINS_ROAD</Here>
 		</Sector>
@@ -1464,17 +1464,17 @@ Possible values for Here tag:
 		<Sector y="K" x="14">
 			<TravelRating>50</TravelRating>
 			<North>ROAD</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<East>SPARSE</East>
+			<South>SPARSE</South>
 			<West>ROAD</West>
 			<Here>SPARSE_ROAD</Here>
 		</Sector>
 		<Sector y="K" x="15">
 			<TravelRating>7</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>EDGEOFWORLD</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<South>SPARSE</South>
+			<West>SPARSE</West>
 			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="K" x="16">
@@ -1513,17 +1513,17 @@ Possible values for Here tag:
 		<Sector y="L" x="4">
 			<TravelRating>15</TravelRating>
 			<North>SWAMP</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
+			<East>DENSE</East>
+			<South>SPARSE</South>
 			<West>SWAMP</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="L" x="5">
 			<TravelRating>10</TravelRating>
 			<North>DENSE</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<East>SPARSE</East>
+			<South>DENSE</South>
+			<West>DENSE</West>
 			<Here>DENSE</Here>
 		</Sector>
 		<Sector y="L" x="6">
@@ -1531,7 +1531,7 @@ Possible values for Here tag:
 			<North>ROAD</North>
 			<East>PLAINS</East>
 			<South>ROAD</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>PLAINS_ROAD</Here>
 		</Sector>
 		<Sector y="L" x="7">
@@ -1576,7 +1576,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="L" x="12">
 			<TravelRating>55</TravelRating>
-			<North>ROAD</North>
+			<North>PLAINS</North>
 			<East>PLAINS</East>
 			<South>GROUNDBARRIER</South>
 			<West>TOWN</West>
@@ -1585,26 +1585,26 @@ Possible values for Here tag:
 		<Sector y="L" x="13">
 			<TravelRating>18</TravelRating>
 			<North>PLAINS</North>
-			<East>PLAINS</East>
+			<East>SPARSE</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
 			<Here>COASTAL</Here>
 		</Sector>
 		<Sector y="L" x="14">
 			<TravelRating>7</TravelRating>
-			<North>PLAINS</North>
-			<East>PLAINS</East>
-			<South>PLAINS</South>
-			<West>PLAINS</West>
+			<North>SPARSE</North>
+			<East>SPARSE</East>
+			<South>SWAMP</South>
+			<West>SPARSE</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="L" x="15">
 			<TravelRating>3</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>EDGEOFWORLD</East>
 			<South>EDGEOFWORLD</South>
-			<West>PLAINS</West>
-			<Here>DENSE</Here>
+			<West>SPARSE</West>
+			<Here>SPARSE</Here>
 		</Sector>
 		<Sector y="L" x="16">
 			<TravelRating>0</TravelRating>
@@ -1641,7 +1641,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="M" x="4">
 			<TravelRating>38</TravelRating>
-			<North>PLAINS</North>
+			<North>SPARSE</North>
 			<East>PLAINS</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
@@ -1649,7 +1649,7 @@ Possible values for Here tag:
 		</Sector>
 		<Sector y="M" x="5">
 			<TravelRating>70</TravelRating>
-			<North>PLAINS</North>
+			<North>DENSE</North>
 			<East>ROAD</East>
 			<South>ROAD</South>
 			<West>PLAINS</West>
@@ -1696,7 +1696,7 @@ Possible values for Here tag:
 			<Here>TROPICS_ROAD</Here>
 		</Sector>
 		<Sector y="M" x="11">
-			<TravelRating>5</TravelRating>
+			<TravelRating>0</TravelRating>
 			<North>GROUNDBARRIER</North>
 			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
@@ -1704,7 +1704,7 @@ Possible values for Here tag:
 			<Here>GROUNDBARRIER</Here>
 		</Sector>
 		<Sector y="M" x="12">
-			<TravelRating>12</TravelRating>
+			<TravelRating>0</TravelRating>
 			<North>GROUNDBARRIER</North>
 			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
@@ -1714,17 +1714,17 @@ Possible values for Here tag:
 		<Sector y="M" x="13">
 			<TravelRating>5</TravelRating>
 			<North>PLAINS</North>
-			<East>PLAINS</East>
+			<East>SPARSE</East>
 			<South>EDGEOFWORLD</South>
 			<West>GROUNDBARRIER</West>
 			<Here>SPARSE</Here>
 		</Sector>
 		<Sector y="M" x="14">
 			<TravelRating>2</TravelRating>
-			<North>PLAINS</North>
+			<North>SWAMP</North>
 			<East>EDGEOFWORLD</East>
 			<South>EDGEOFWORLD</South>
-			<West>PLAINS</West>
+			<West>SPARSE</West>
 			<Here>SWAMP</Here>
 		</Sector>
 		<Sector y="M" x="15">
