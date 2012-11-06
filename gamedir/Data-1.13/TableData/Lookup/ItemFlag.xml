@@ -34,18 +34,54 @@
 	</ItemFlag>
 	<ItemFlag>
 		<id>128</id>
-		<name>Belt fed</name>
+		<name>Belt Fed</name>
 	</ItemFlag>
 	<ItemFlag>
 		<id>256</id>
-		<name>Ammobelt</name>
+		<name>Ammo Belt</name>
 	</ItemFlag>
 	<ItemFlag>
 		<id>512</id>
-		<name>Ammobelt vest</name>
+		<name>Ammo Belt Vest</name>
 	</ItemFlag>
 	<ItemFlag>
 		<id>1024</id>
-		<name>Camo removal</name>
+		<name>Camo Remover</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>2048</id>
+		<name>Gun Cleaner</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>4096</id>
+		<name>Interesting Item (AI)</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>8192</id>
+		<name>Garotte</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>16384</id>
+		<name>Covert Item</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>24576</id>
+		<name>Garotte + Covert Item</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>32768</id>
+		<name>Corpse</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>65536</id>
+		<name>Bloodcat Skin</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>131072</id>
+		<name>No Metal Detection</name>
+	</ItemFlag>
+	<ItemFlag>
+		<id>262144</id>
+		<name>Jumping Grenade</name>
 	</ItemFlag>
 </JA2Data>

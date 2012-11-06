@@ -132,4 +132,16 @@
 		<id>4194304</id>
 		<name>Iron Sight</name>
 	</AttachmentClass>
+	<AttachmentClass>
+		<id>8388608</id>
+		<name>Feeder</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>16777216</id>
+		<name>Modular Pouch</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>33554432</id>
+		<name>Rifle Grenade</name>
+	</AttachmentClass>
 </JA2Data>
