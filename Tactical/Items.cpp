@@ -9326,8 +9326,11 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 			// we now have to determine wether we are currently wearing civilian or military clothes
 			for ( int i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
 			{
-				if ( pSoldier->VestPal == gUniformColors[ i ].vest && pSoldier->PantsPal == gUniformColors[ i ].pants )
+				if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
+				{
 					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+					break;
+				}
 			}
 
 			// if not dressed as a soldier, we must be dressed as a civilian
