@@ -828,7 +828,7 @@ Possible values for Here tag:
 			<Here>PLAINS_ROAD</Here>
 		</Sector>
 		<Sector y="F" x="15">
-			<TravelRating>3</TravelRating>
+			<TravelRating>10</TravelRating>
 			<North>PLAINS</North>
 			<East>EDGEOFWORLD</East>
 			<South>DENSE</South>
@@ -957,7 +957,7 @@ Possible values for Here tag:
 			<Here>PLAINS_ROAD</Here>
 		</Sector>
 		<Sector y="G" x="15">
-			<TravelRating>16</TravelRating>
+			<TravelRating>6</TravelRating>
 			<North>DENSE</North>
 			<East>DENSE</East>
 			<South>NS_RIVER</South>
