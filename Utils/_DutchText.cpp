@@ -7434,6 +7434,8 @@ STR16	szCovertTextStr[]=
 	L"Bad palette found!",
 	L"You need the covert skill to do this!",
 	L"No uniform found!",
+	L"%s is now disguised as a civilian.",
+	L"%s is now disguised as a soldier.",
 };
 
 STR16	szCorpseTextStr[]=

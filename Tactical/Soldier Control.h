@@ -410,7 +410,7 @@ extern CLOTHES_STRUCT Clothes[CLOTHES_MAX];
 // This macro should be used whenever we want to see if someone is neutral
 // IF WE ARE CONSIDERING ATTACKING THEM.	Creatures & bloodcats will attack neutrals
 // but they can't attack empty vehicles!!
-#define CONSIDERED_NEUTRAL( me, them ) ( (them->aiData.bNeutral) && ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
+#define CONSIDERED_NEUTRAL( me, them ) ( (them->aiData.bNeutral || them->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) && ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
 
 typedef struct
 {

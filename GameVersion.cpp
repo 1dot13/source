@@ -50,7 +50,7 @@
 	#elif defined (JA113DEMO)
 		CHAR16		zVersionLabel[256]		= { L"Release JA2 Demo - v1.13.5520 (Development Build)" };
 	#else
-		CHAR16		zVersionLabel[256]		= { L"Release v1.13.5520 (Development Build)" };
+		CHAR16		zVersionLabel[256]		= { L"Release v1.13.5521 (Development Build)" };
 	#endif
 
 #endif

@@ -626,7 +626,7 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Difficulty Level (Default: Experienced = 1)
 	gGameOptions.ubDifficultyLevel =  ((UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_DIFFICULTY_LEVEL, 1)) + 1;
 
-	// Bobby Ray Quantity (Default: Great = 2)
+	// Bobby Ray Quality (Default: Great = 2)
 	gGameOptions.ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 2);		 
 
 	// Bobby Ray Quantity (Default: Great = 2)
@@ -3583,7 +3583,7 @@ UINT32	GameInitOptionsScreenInit( void )
 	// Difficulty Level (Default: Experienced = 1)
 	gGameOptions.ubDifficultyLevel =  ((UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_DIFFICULTY_LEVEL, 1)) + 1;
 
-	// Bobby Ray Quantity (Default: Great = 2)
+	// Bobby Ray Quality (Default: Great = 2)
 	gGameOptions.ubBobbyRayQuality = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUALITY, 2);		 
 
 	// Bobby Ray Quantity (Default: Great = 2)
