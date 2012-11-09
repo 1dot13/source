@@ -431,7 +431,8 @@
     <szDetailedUnexploredName>Swamp</szDetailedUnexploredName>
     <szExploredName>Swamp</szExploredName>
     <szDetailedExploredName>Swamp</szDetailedExploredName>
-    <sWaterType>3</sWaterType><usNaturalDirt>100</usNaturalDirt>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D1</SectorGrid>
