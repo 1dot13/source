@@ -100,6 +100,8 @@ typedef enum
 	AI_ACTION_STEAL_MOVE, // added by SANDRO
 
 	AI_ACTION_RELOAD_GUN,
+
+	AI_ACTION_JUMP_WINDOW,	// added by Flugente: jump through a window
 } ActionType;
 
 

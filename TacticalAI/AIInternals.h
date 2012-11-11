@@ -177,10 +177,10 @@ void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
 	// Flugente: Zombie AI
 	INT8 ZombieDecideAction( SOLDIERTYPE * pZombie );	
 	void ZombieDecideAlertStatus( SOLDIERTYPE *pZombie );
-
-	// a variant of ClosestSeenOpponent(...), that allows zombies 
-	INT32 ClosestSeenOpponentforZombie(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
 #endif
+
+// a variant of ClosestSeenOpponent(...), that allows to find enemies on a roof 
+INT32 ClosestSeenOpponentWithRoof(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
 
 INT8 CrowDecideAction( SOLDIERTYPE * pSoldier );
 void DecideAlertStatus( SOLDIERTYPE *pSoldier );

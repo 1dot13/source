@@ -17,6 +17,7 @@
 	#include "overhead.h"
 	#include "Random.h"
 	#include "Pathai.h"
+	#include "GameSettings.h"	// added by Flugente
 #endif
 
 
@@ -210,7 +211,7 @@ BOOLEAN FindWindowJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bSta
 	if (direction2 == NORTH || direction2 == WEST)
 	{
 		// IF there is a fence in this gridno, return false!
-		if ( IsJumpableWindowPresentAtGridNo( sGridNo, direction2 ) )
+		if ( IsJumpableWindowPresentAtGridNo( sGridNo, direction2, gGameExternalOptions.fCanJumpThroughClosedWindows ) )
 		{
 			return( FALSE );
 		}
@@ -241,7 +242,7 @@ BOOLEAN FindWindowJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bSta
 			// ATE: Check if there is somebody waiting here.....
 
 			// Check if we have a fence here
-			if ( IsJumpableWindowPresentAtGridNo( sNewGridNo , direction2) )
+			if ( IsJumpableWindowPresentAtGridNo( sNewGridNo , direction2, gGameExternalOptions.fCanJumpThroughClosedWindows) )
 			{
 				fFound = TRUE;
 

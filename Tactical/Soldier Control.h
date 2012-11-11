@@ -14,6 +14,7 @@
 #include "worlddef.h"
 #include <vector>
 #include <iterator>
+#include "GameSettings.h"	// added by Flugente
 
 #define PTR_CIVILIAN	(pSoldier->bTeam == CIV_TEAM)
 #define PTR_CROUCHED	(gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_CROUCH)

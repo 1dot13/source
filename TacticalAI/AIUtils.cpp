@@ -578,6 +578,14 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			//bMinPointsNeeded = GetAPsToStealItem( pSoldier, NULL, pSoldier->aiData.usActionData );;
 			break;
 
+		case AI_ACTION_JUMP_WINDOW:
+			if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				bMinPointsNeeded = GetAPsToJumpThroughWindows( pSoldier, TRUE );
+			else
+				bMinPointsNeeded = GetAPsToJumpFence( pSoldier, FALSE );
+
+			break;
+
 		default:
 #ifdef BETAVERSION
 			//NumMessage("AffordableAction - Illegal action type = ",pSoldier->aiData.bAction);
@@ -1299,101 +1307,98 @@ INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLeve
 }
 
 
-// special variant with a minor twist for the zombie AI
-#ifdef ENABLE_ZOMBIES
-	INT32 ClosestSeenOpponentforZombie(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel)
+// special variant with a minor twist
+INT32 ClosestSeenOpponentWithRoof(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel)
+{
+	INT32 sGridNo, sClosestOpponent = NOWHERE;
+	UINT32 uiLoop;
+	INT32 iRange, iClosestRange = 1500;
+	INT8	*pbPersOL;
+	INT8	bLevel, bClosestLevel;
+	SOLDIERTYPE * pOpp;
+
+	bClosestLevel = -1;
+
+	// look through this man's personal & public opplists for opponents known
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 	{
-		INT32 sGridNo, sClosestOpponent = NOWHERE;
-		UINT32 uiLoop;
-		INT32 iRange, iClosestRange = 1500;
-		INT8	*pbPersOL;
-		INT8	bLevel, bClosestLevel;
-		SOLDIERTYPE * pOpp;
+		pOpp = MercSlots[ uiLoop ];
 
-		bClosestLevel = -1;
-
-		// look through this man's personal & public opplists for opponents known
-		for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+		// if this merc is inactive, at base, on assignment, or dead
+		if (!pOpp)
 		{
-			pOpp = MercSlots[ uiLoop ];
-
-			// if this merc is inactive, at base, on assignment, or dead
-			if (!pOpp)
-			{
-				continue;			// next merc
-			}
-
-			// if this merc is neutral/on same side, he's not an opponent
-			if ( CONSIDERED_NEUTRAL( pSoldier, pOpp ) || (pSoldier->bSide == pOpp->bSide))
-			{
-				continue;			// next merc
-			}
-
-			// Special stuff for Carmen the bounty hunter
-			if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
-			{
-				continue;	// next opponent
-			}
-
-			pbPersOL = pSoldier->aiData.bOppList + pOpp->ubID;
-
-			// if this opponent is not seen personally
-			if (*pbPersOL != SEEN_CURRENTLY)
-			{
-				continue;			// next merc
-			}
-
-			// since we're dealing with seen people, use exact gridnos
-			sGridNo = pOpp->sGridNo;
-			bLevel = pOpp->pathing.bLevel;
-
-			// if we are standing at that gridno(!, obviously our info is old...)
-			if (sGridNo == pSoldier->sGridNo)
-			{
-				continue;			// next merc
-			}
-
-			// special: allow zombies to also find opponents on a roof
-			// otherwise they have will never decide to climb a roof while they are seeing an enemy
-			// this function is used only for turning towards closest opponent or changing stance
-			// as such, if they AI is in a building,
-			// we should ignore people who are on the roof of the same building as the AI
-			if ( !pSoldier->IsZombie() && (bLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, sGridNo ) )
-			{
-				continue;
-			}
-
-			// I hope this will be good enough; otherwise we need a fractional/world-units-based 2D distance function
-			//sRange = PythSpacesAway( pSoldier->sGridNo, sGridNo);
-			iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
-
-			if (iRange < iClosestRange)
-			{
-				iClosestRange = iRange;
-				sClosestOpponent = sGridNo;
-				bClosestLevel = bLevel;
-			}
+			continue;			// next merc
 		}
 
-	#ifdef DEBUGDECISIONS	
-		if (!TileIsOutOfBounds(sClosestOpponent))
+		// if this merc is neutral/on same side, he's not an opponent
+		if ( CONSIDERED_NEUTRAL( pSoldier, pOpp ) || (pSoldier->bSide == pOpp->bSide))
 		{
-			AINumMessage("CLOSEST OPPONENT is at gridno ",sClosestOpponent);
+			continue;			// next merc
 		}
-	#endif
 
-		if (psGridNo)
+		// Special stuff for Carmen the bounty hunter
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
 		{
-			*psGridNo = sClosestOpponent;
+			continue;	// next opponent
 		}
-		if (pbLevel)
+
+		pbPersOL = pSoldier->aiData.bOppList + pOpp->ubID;
+
+		// if this opponent is not seen personally
+		if (*pbPersOL != SEEN_CURRENTLY)
 		{
-			*pbLevel = bClosestLevel;
+			continue;			// next merc
 		}
-		return( sClosestOpponent );
+
+		// since we're dealing with seen people, use exact gridnos
+		sGridNo = pOpp->sGridNo;
+		bLevel = pOpp->pathing.bLevel;
+
+		// if we are standing at that gridno(!, obviously our info is old...)
+		if (sGridNo == pSoldier->sGridNo)
+		{
+			continue;			// next merc
+		}
+
+		// special: allow zombies to also find opponents on a roof
+		// otherwise they have will never decide to climb a roof while they are seeing an enemy
+		// this function is used only for turning towards closest opponent or changing stance
+		// as such, if they AI is in a building,
+		// we should ignore people who are on the roof of the same building as the AI
+		/*if ( !pSoldier->IsZombie() && (bLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, sGridNo ) )
+		{
+			continue;
+		}*/
+
+		// I hope this will be good enough; otherwise we need a fractional/world-units-based 2D distance function
+		//sRange = PythSpacesAway( pSoldier->sGridNo, sGridNo);
+		iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
+
+		if (iRange < iClosestRange)
+		{
+			iClosestRange = iRange;
+			sClosestOpponent = sGridNo;
+			bClosestLevel = bLevel;
+		}
+	}
+
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sClosestOpponent))
+	{
+		AINumMessage("CLOSEST OPPONENT is at gridno ",sClosestOpponent);
 	}
 #endif
 
+	if (psGridNo)
+	{
+		*psGridNo = sClosestOpponent;
+	}
+	if (pbLevel)
+	{
+		*pbLevel = bClosestLevel;
+	}
+	return( sClosestOpponent );
+}
 
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 {

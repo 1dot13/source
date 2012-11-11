@@ -8912,7 +8912,7 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 			 this->ubPendingDirection = bNewDirection;
 			 //this->usPendingAnimation = CLIMBUPROOF;
 
- #ifdef ENABLE_ZOMBIES
+#ifdef ENABLE_ZOMBIES
 			 // Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
 			 if ( IsAnimationValidForBodyType( this, CLIMBUPROOF ) == FALSE )
 			 {
@@ -8990,8 +8990,43 @@ void SOLDIERTYPE::BeginSoldierClimbWindow( void )
 		EVENT_InternalSetSoldierDesiredDirection( this, bDirection, FALSE, this->usAnimState );
 		this->flags.fTurningUntilDone = TRUE;
 		// ATE: Reset flag to go back to prone...
+				
+		// Flugente: In case an animation is missing (civilian bodytypes), we TELEPORT instead
+		if ( IsAnimationValidForBodyType( this, JUMPWINDOWS ) == FALSE )
+		{
+			TeleportSoldier( this, this->sTempNewGridNo, TRUE );
+		}
+		else
+		{
 		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
-		this->usPendingAnimation = JUMPWINDOWS; //HOPFENCE;
+			this->usPendingAnimation = JUMPWINDOWS;
+	}
+
+		// Flugente: if an AI guy, end turn (weird endless clock syndrome)
+		if ( this->bTeam != OUR_TEAM )
+			EndAIGuysTurn( this);
+
+		// Flugente: if we are jumping through an intact window, smash it during our animation
+		if ( gGameExternalOptions.fCanJumpThroughClosedWindows )
+		{
+			INT32 sNewGridNo = sGridNo;
+			if (this->ubDirection == NORTH || this->ubDirection == WEST)
+				sNewGridNo = NewGridNo( sGridNo, (UINT16)DirectionInc( (UINT8)this->ubDirection ) );
+			
+			// is there really an intact window that we jump through?
+			if ( IsJumpableWindowPresentAtGridNo( sNewGridNo, this->ubDirection, TRUE ) && !IsJumpableWindowPresentAtGridNo( sNewGridNo, this->ubDirection, FALSE ) )
+			{
+				STRUCTURE * pStructure = FindStructure( sNewGridNo, STRUCTURE_WALLNWINDOW );
+				if ( pStructure && !( pStructure->fFlags & STRUCTURE_OPEN ) )
+				{
+					// intact window found. Smash it!
+					WindowHit( sNewGridNo, pStructure->usStructureID, (this->ubDirection == SOUTH || this->ubDirection == EAST), TRUE );
+
+					// we get a bit of damage for jumping through a window
+					this->SoldierTakeDamage( 0, 1, 0, 1000, TAKE_DAMAGE_ELECTRICITY, NOBODY, sNewGridNo, 0, TRUE );
+				}
+			}
+		}
 	}
 }
 

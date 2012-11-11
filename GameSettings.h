@@ -377,6 +377,7 @@ typedef struct
 	BOOLEAN fZombieSpawnWaves;
 	INT8	sZombieRiseWaveFrequency;	
 	BOOLEAN fZombieCanClimb;
+	BOOLEAN fZombieCanJumpWindows;
 	BOOLEAN fZombieExplodingCivs;
 	INT8	sEnemyZombieDamageResistance;
 	INT8	sEnemyZombieBreathDamageResistance;
@@ -1068,6 +1069,7 @@ typedef struct
 
 	//legion by Jazz
 	BOOLEAN fCanJumpThroughWindows;
+	BOOLEAN fCanJumpThroughClosedWindows;	
 	BOOLEAN fCanClimbOnWalls;
 
 	//legion by Jazz

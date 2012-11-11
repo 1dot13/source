@@ -2845,6 +2845,11 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		}
 		break;
 
+	case AI_ACTION_JUMP_WINDOW:
+		{
+			pSoldier->BeginSoldierClimbWindow();
+		}
+		break;
 
 	default:
 #ifdef BETAVERSION

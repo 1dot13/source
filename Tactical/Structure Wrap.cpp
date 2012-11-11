@@ -21,7 +21,7 @@ extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ,
 
 //----------------legion by Jazz
 
-BOOLEAN	IsJumpableWindowPresentAtGridNo( INT32 sGridNo, INT8 direction2 )
+BOOLEAN	IsJumpableWindowPresentAtGridNo( INT32 sGridNo, INT8 direction2, BOOLEAN fIntactWindowsAlso )
 {
 	STRUCTURE * pStructure;
 
@@ -29,16 +29,17 @@ BOOLEAN	IsJumpableWindowPresentAtGridNo( INT32 sGridNo, INT8 direction2 )
 
 	if ( pStructure )
 	{
-
-             if ( ( direction2 == SOUTH || direction2 == NORTH ) && (pStructure->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructure->ubWallOrientation == INSIDE_TOP_LEFT ) && pStructure->fFlags & STRUCTURE_WALLNWINDOW && !(pStructure->fFlags & STRUCTURE_SPECIAL) && ( pStructure->fFlags & STRUCTURE_OPEN ) )
-	        {
-         	return( TRUE );
-	      	}
+		if ( ( direction2 == SOUTH || direction2 == NORTH ) && (pStructure->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructure->ubWallOrientation == INSIDE_TOP_LEFT ) && pStructure->fFlags & STRUCTURE_WALLNWINDOW && !(pStructure->fFlags & STRUCTURE_SPECIAL) )
+	    {
+			if ( fIntactWindowsAlso || ( pStructure->fFlags & STRUCTURE_OPEN ) )
+         		return( TRUE );
+	    }
 	                            	
-            if ( ( direction2 == EAST || direction2 == WEST ) && ( pStructure->ubWallOrientation == OUTSIDE_TOP_RIGHT || pStructure->ubWallOrientation == INSIDE_TOP_RIGHT ) && pStructure->fFlags & STRUCTURE_WALLNWINDOW && !(pStructure->fFlags & STRUCTURE_SPECIAL) && ( pStructure->fFlags & STRUCTURE_OPEN ) )
-	      	{
-		return( TRUE );
-	      	}
+        if ( ( direction2 == EAST || direction2 == WEST ) && ( pStructure->ubWallOrientation == OUTSIDE_TOP_RIGHT || pStructure->ubWallOrientation == INSIDE_TOP_RIGHT ) && pStructure->fFlags & STRUCTURE_WALLNWINDOW && !(pStructure->fFlags & STRUCTURE_SPECIAL) )
+		{
+			if ( fIntactWindowsAlso || ( pStructure->fFlags & STRUCTURE_OPEN ) )
+				return( TRUE );
+	    }
 	}
 
 	return( FALSE );
