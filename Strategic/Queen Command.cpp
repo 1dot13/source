@@ -1529,7 +1529,13 @@ void AddPossiblePendingEnemiesToBattle()
 		ubGroupIndex = Random( ubNumGroupsInSector);
 		pGroup = pGroupInSectorList[ ubGroupIndex];
 
-		ubNumAvailable = pGroup->ubGroupSize - pGroup->pEnemyGroup->ubElitesInBattle - pGroup->pEnemyGroup->ubTroopsInBattle - pGroup->pEnemyGroup->ubAdminsInBattle;
+		// Flugente fix: check for underflow...
+		UINT8 currentgroupsize = pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle;
+		if ( currentgroupsize > pGroup->ubGroupSize )
+			ubNumAvailable = 0;
+		else
+			ubNumAvailable = pGroup->ubGroupSize - currentgroupsize;
+
 		if (!ubNumAvailable)
 		{
 			// Looks like we picked an empty group.  Make a note of it

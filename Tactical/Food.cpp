@@ -759,7 +759,14 @@ void SectorFillCanteens( void )
 	// If not, see if there is a water drum, and fill up the canteens from that one
 	UINT8 waterquality = GetWaterQuality(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 
-	if ( waterquality == WATER_DRINKABLE || waterquality == WATER_POISONOUS )
+	// search for a water drum
+	BOOLEAN waterdrumfound = FALSE;
+	OBJECTTYPE* pWaterDrum = GetUsableWaterDrumInSector();
+	if ( !pWaterDrum || !(pWaterDrum->exists()) )
+		waterdrumfound = TRUE;
+
+	// drink from sector if water is ok, or it is poisonous but we haven't found a useable water drum
+	if ( waterquality == WATER_DRINKABLE || (waterquality == WATER_POISONOUS && !waterdrumfound) )
 	{
 		// the temperature of the water in this sector (temperature reflects the quality)
 		FLOAT addtemperature = OVERHEATING_MAX_TEMPERATURE;
@@ -837,12 +844,8 @@ void SectorFillCanteens( void )
 			}
 		}
 	}
-	else
+	else if ( waterdrumfound )
 	{
-		OBJECTTYPE* pWaterDrum = GetUsableWaterDrumInSector();
-		if ( !pWaterDrum || !(pWaterDrum->exists()) )
-			return;
-
 		INT32 drumsize = Food[Item[pWaterDrum->usItem].foodtype].bDrinkPoints;
 
 		// first step: fill all canteens in inventories

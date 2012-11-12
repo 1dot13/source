@@ -2460,6 +2460,9 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			}
 			else
 			{
+				// Flugente: kids are smaller. We have to keep hat in mind... otherwise we will never make a sucessful headshot
+				BOOLEAN iskid = ( pTarget->ubBodyType == HATKIDCIV || pTarget->ubBodyType == KIDCIV );
+				
 				switch (gAnimControl[ pTarget->usAnimState ].ubEndHeight)
 				{
 				case ANIM_STAND:
@@ -2471,17 +2474,36 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 						{
 							dZPosRelToMerc -= HEIGHT_UNITS;
 						}
-						if (dZPosRelToMerc > STANDING_HEAD_BOTTOM_POS)
+
+						if ( iskid )
 						{
-							ubHitLocation = AIM_SHOT_HEAD;
-						}
-						else if (dZPosRelToMerc < STANDING_TORSO_BOTTOM_POS )
-						{
-							ubHitLocation = AIM_SHOT_LEGS;
+							if (dZPosRelToMerc > STANDING_HEAD_BOTTOM_POS_KID)
+							{
+								ubHitLocation = AIM_SHOT_HEAD;
+							}
+							else if (dZPosRelToMerc < STANDING_TORSO_BOTTOM_POS_KID )
+							{
+								ubHitLocation = AIM_SHOT_LEGS;
+							}
+							else
+							{
+								ubHitLocation = AIM_SHOT_TORSO;
+							}
 						}
 						else
 						{
-							ubHitLocation = AIM_SHOT_TORSO;
+							if (dZPosRelToMerc > STANDING_HEAD_BOTTOM_POS)
+							{
+								ubHitLocation = AIM_SHOT_HEAD;
+							}
+							else if (dZPosRelToMerc < STANDING_TORSO_BOTTOM_POS )
+							{
+								ubHitLocation = AIM_SHOT_LEGS;
+							}
+							else
+							{
+								ubHitLocation = AIM_SHOT_TORSO;
+							}
 						}
 						break;
 					}
@@ -2491,18 +2513,38 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 					{
 						dZPosRelToMerc -= HEIGHT_UNITS;
 					}
-					if (dZPosRelToMerc > CROUCHED_HEAD_BOTTOM_POS)
+					
+					if ( iskid )
 					{
-						ubHitLocation = AIM_SHOT_HEAD;
-					}
-					else if ( dZPosRelToMerc < CROUCHED_TORSO_BOTTOM_POS )
-					{
-						// prevent targets in water from being hit in legs
-						ubHitLocation = AIM_SHOT_LEGS;
+						if (dZPosRelToMerc > CROUCHED_HEAD_BOTTOM_POS_KID)
+						{
+							ubHitLocation = AIM_SHOT_HEAD;
+						}
+						else if ( dZPosRelToMerc < CROUCHED_TORSO_BOTTOM_POS_KID )
+						{
+							// prevent targets in water from being hit in legs
+							ubHitLocation = AIM_SHOT_LEGS;
+						}
+						else
+						{
+							ubHitLocation = AIM_SHOT_TORSO;
+						}
 					}
 					else
 					{
-						ubHitLocation = AIM_SHOT_TORSO;
+						if (dZPosRelToMerc > CROUCHED_HEAD_BOTTOM_POS)
+						{
+							ubHitLocation = AIM_SHOT_HEAD;
+						}
+						else if ( dZPosRelToMerc < CROUCHED_TORSO_BOTTOM_POS )
+						{
+							// prevent targets in water from being hit in legs
+							ubHitLocation = AIM_SHOT_LEGS;
+						}
+						else
+						{
+							ubHitLocation = AIM_SHOT_TORSO;
+						}
 					}
 					break;
 				case ANIM_PRONE:
