@@ -3809,15 +3809,18 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 			if ( (*pObj)[ubLoop]->data.objectStatus == threshold && (((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 4 ))
 			{
 				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
-
-				// if item was fully repaired, consider it cleaned
-				if ( gGameExternalOptions.fDirtSystem )
-					(*pObj)[ubLoop]->data.bDirtLevel = 0.0f;
 			}
 			// if the item was now repaired to a status of 96-99 and the repair was at least 2%, add a point, consider the item repaired (no points will be awarded for it anyway)
 			else if ( (*pObj)[ubLoop]->data.objectStatus > threshold - 5 && (*pObj)[ubLoop]->data.objectStatus < threshold && ((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 1) 
 			{
 				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
+			}
+
+			if ( (*pObj)[ubLoop]->data.objectStatus == threshold )
+			{
+				// if item was fully repaired, consider it cleaned
+				if ( gGameExternalOptions.fDirtSystem )
+					(*pObj)[ubLoop]->data.bDirtLevel = 0.0f;
 			}
 			// note: this system is bad if we can repair only 1% per hour (which is rather we are total losers)
 			///////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1071,7 +1071,16 @@ void StartInterrupt( void )
 			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
 
 		if (pTempSoldier != NULL)
-			StartNPCAI( pTempSoldier );
+		{
+			// Flugente 12-11-13: I observed an isntance where the pTempSoldier was a player merc, leading to a deadlock here. The reason was that during an iinterrupot by a civilian, he somehow did not win
+			// instead the game used the last merc entry... which overflowed, and thus started at merc 0, which is always a player merc
+			// I am not sure if this is the best solution... however it seems to work for me.
+			// If anybody knows a better solution, feel free to do so
+			if ( pTempSoldier->bTeam != OUR_TEAM )
+				StartNPCAI( pTempSoldier );
+			else
+				EndInterrupt(TRUE);
+		}
 	}
 
 	if ( !gfHiddenInterrupt )

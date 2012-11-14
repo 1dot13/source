@@ -50,20 +50,20 @@ extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 // apart from the ubStatDamageChance values, be careful not to set any modifiers below -50 or above 0 unless you know what you are doing!!!
 FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 {
-	{ 100000,	-8,		-3,		-20,	-35,	2},		//	FOOD_STUFFED
-	{ 7500,		-5,		-2,		-5,		-5,		0},		//	FOOD_EXTREMELY_FULL
-	{ 5000,		0,		-1,		-2,		-2,		0},		//	FOOD_VERY_FULL
-	{ 2500,		2,		-1,		-1,		0,		0},		//	FOOD_FULL
+	{ 100000,	-8,		+3,		-20,	-35,	2},		//	FOOD_STUFFED
+	{ 7500,		-5,		+2,		-5,		-5,		0},		//	FOOD_EXTREMELY_FULL
+	{ 5000,		0,		+1,		-2,		-2,		0},		//	FOOD_VERY_FULL
+	{ 2500,		2,		+1,		-1,		0,		0},		//	FOOD_FULL
 	{ 1000,		5,		0,		0,		0,		0},		//	FOOD_SLIGHTLY_FULL
 
 	{ 0,		0,		0,		0,		0,		0},		//	FOOD_NORMAL
 
 	{ -1000,	0,		0,		0,		0,		0},		//	FOOD_LOW
 	{ -2500,	-2,		0,		0,		0,		0},		//	FOOD_EVEN_LOWER
-	{ -5000,	-8,		-1,		-10,	-18,	5},		//	FOOD_VERY_LOW
-	{ -7500,	-15,	-2,		-20,	-15,	25},	//	FOOD_DANGER
-	{ -8750,	-25,	-2,		-35,	-30,	75},	//	FOOD_DESPERATE
-	{ -10000,	-40,	-3,		-45,	-45,	100},	//	FOOD_STARVING
+	{ -5000,	-8,		+1,		-10,	-18,	5},		//	FOOD_VERY_LOW
+	{ -7500,	-15,	+2,		-20,	-15,	25},	//	FOOD_DANGER
+	{ -8750,	-25,	+2,		-35,	-30,	75},	//	FOOD_DESPERATE
+	{ -10000,	-40,	+3,		-45,	-45,	100},	//	FOOD_STARVING
 };
 
 
@@ -286,7 +286,7 @@ void FoodNeedForSleepModifiy( SOLDIERTYPE *pSoldier, UINT8* pubNeedForSleep )
 	UINT8 watersituation;
 	GetFoodSituation( pSoldier, &foodsituation, &watersituation );
 	
-	(*pubNeedForSleep) += max(1, (INT16)((*pubNeedForSleep) + FoodMoraleMods[foodsituation].bSleepModifier + FoodMoraleMods[watersituation].bSleepModifier ));
+	(*pubNeedForSleep) = max(1, (INT16)((*pubNeedForSleep) + FoodMoraleMods[foodsituation].bSleepModifier + FoodMoraleMods[watersituation].bSleepModifier ));
 }
 
 void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints )
