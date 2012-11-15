@@ -4040,7 +4040,7 @@ UINT8 LastActiveTeamMember( UINT8 ubTeam )
 
 void CheckForPotentialAddToBattleIncrement( SOLDIERTYPE *pSoldier )
 {
-UINT16 iCounter2;
+	UINT16 iCounter2;
 	// Check if we are a threat!
 	if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
 	{
@@ -4079,17 +4079,13 @@ UINT16 iCounter2;
 			*/
 			
 			//New Group by Jazz
-			for( iCounter2 = REBEL_CIV_GROUP; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )
-				{	
-					if ( pSoldier->ubCivilianGroup == iCounter2 && zCivGroupName[iCounter2].AddToBattle == TRUE )
-					{
-						if ( FindObjClass( pSoldier, IC_WEAPON ) != NO_SLOT )
-						{
-							gTacticalStatus.bNumFoughtInBattle[ pSoldier->bTeam ]++;
-						}
-					}	
+			if ( FindObjClass( pSoldier, IC_WEAPON ) != NO_SLOT && pSoldier->ubCivilianGroup >= REBEL_CIV_GROUP && pSoldier->ubCivilianGroup < NUM_CIV_GROUPS )
+			{	
+				if ( zCivGroupName[pSoldier->ubCivilianGroup].AddToBattle == TRUE )
+				{
+					gTacticalStatus.bNumFoughtInBattle[ pSoldier->bTeam ]++;
 				}
-			
+			}
 		}
 		else
 		{

@@ -1072,7 +1072,7 @@ void StartInterrupt( void )
 
 		if (pTempSoldier != NULL)
 		{
-			// Flugente 12-11-13: I observed an isntance where the pTempSoldier was a player merc, leading to a deadlock here. The reason was that during an iinterrupot by a civilian, he somehow did not win
+			// Flugente 12-11-13: I observed an instance where the pTempSoldier was a player merc, leading to a deadlock here. The reason was that during an iinterrupot by a civilian, he somehow did not win
 			// instead the game used the last merc entry... which overflowed, and thus started at merc 0, which is always a player merc
 			// I am not sure if this is the best solution... however it seems to work for me.
 			// If anybody knows a better solution, feel free to do so

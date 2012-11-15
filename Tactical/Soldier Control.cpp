@@ -15071,11 +15071,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 	// if neither of the 2 persons is covert, always return true
 	if ( ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) && ( (this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) )
 		return TRUE;
-
-	// only members of the player team can ever be covert, sorry AI
-	if ( pSoldier->bTeam != OUR_TEAM )
-		return TRUE;
-
+	
 	// neutral characters just dont care
 	if ( this->aiData.bNeutral )
 		return TRUE;
@@ -15119,6 +15115,8 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 		{
 			pSoldier->LooseDisguise();
 
+			pSoldier->Strip();
+
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], this->name, pSoldier->name  );
 
 			// we have uncovered a spy! Get alerted, if we aren't already
@@ -15140,14 +15138,13 @@ void	SOLDIERTYPE::LooseDisguise( void )
 }
 
 // undisguise or take off any clothes item and switch back to original clothes
-// no - this function does not want you think it does. Leave Fox alone, you perv.
+// no - this function does not do what you think it does. Leave Fox alone, you perv.
 void	SOLDIERTYPE::Strip()
 {
 	// if covert, loose that ability
 	if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 	{
-		// loose any covert flags
-		this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+		LooseDisguise();
 	}
 	// if already not covert, take off clothes
 	else if ( this->bSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )

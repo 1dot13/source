@@ -99,7 +99,7 @@ int INV_INTERFACE_START_Y;//	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 
 HIDDEN_NAMES_VALUES zHiddenNames[500]; //legion2 Jazz
 ENEMY_NAMES_VALUES zEnemyName[500];
-ENEMY_RANK_VALUES zEnemyRank[500];
+ENEMY_RANK_VALUES zEnemyRank[20];				// Flugente: set this to 20, which should be way enough, as there are onyl 10 exp levels
 CIV_NAMES_VALUES zCivGroupName[NUM_CIV_GROUPS];
 
 BOOLEAN	gfInMovementMenu = FALSE;
@@ -1653,7 +1653,6 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	INT32			iBack;
 	TILE_ELEMENT	TileElem;
 	CHAR16			*pStr;
-	//CHAR16			*pStr2;
 	CHAR16			NameStr[ 50 ];
 	UINT16			usGraphicToUse = THIRDPOINTERS1;
 	BOOLEAN		 fRaiseName = FALSE;
@@ -1709,8 +1708,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			//}
 			if ( pSoldier->flags.fFlashLocator == pSoldier->ubNumLocateCycles )
 			{
-					pSoldier->flags.fFlashLocator = FALSE;
-					pSoldier->flags.fShowLocator = FALSE;
+				pSoldier->flags.fFlashLocator = FALSE;
+				pSoldier->flags.fShowLocator = FALSE;
 			}
 
 			//if ( pSoldier->flags.fShowLocator )
@@ -1741,15 +1740,12 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				}
 				else
 				{
-
 					BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 
-				//BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, 0, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+					//BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, 0, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
-
 			}
 		}
-		//return;
 	}
 
 
@@ -1786,7 +1782,6 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 	}
 
-
 	// If he is in the middle of a certain animation, ignore!
 	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_NOSHOW_MARKER )
 	{
@@ -1798,11 +1793,9 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	{
 		return;
 	}
-
-
+	
 	GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, FALSE );
-
-
+	
 	// Display name
 	SetFont( TINYFONT1 );
 	SetFontBackground( FONT_MCOLOR_BLACK );
@@ -1816,7 +1809,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
-		fRaiseName = TRUE;
+			fRaiseName = TRUE;
 		}
 		else if ( gfUIMouseOnValidCatcher == 3 && pSoldier->ubID == gubUIValidCatcherID )
 		{
@@ -1824,7 +1817,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
-		fRaiseName = TRUE;
+			fRaiseName = TRUE;
 		}
 		else if ( gfUIMouseOnValidCatcher == 4 && pSoldier->ubID == gubUIValidCatcherID )
 		{
@@ -1832,26 +1825,25 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
-		fRaiseName = TRUE;
+			fRaiseName = TRUE;
 		}
 		else if ( pSoldier->bAssignment >= ON_DUTY )
 		{
-				SetFontForeground( FONT_YELLOW );
-				swprintf( NameStr, L"(%s)", pAssignmentStrings[ pSoldier->bAssignment ] );
-				FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-				gprintfdirty( sX, sY, NameStr );
-				mprintf( sX, sY, NameStr );
-		fRaiseName = TRUE;
+			SetFontForeground( FONT_YELLOW );
+			swprintf( NameStr, L"(%s)", pAssignmentStrings[ pSoldier->bAssignment ] );
+			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
+			fRaiseName = TRUE;
 		}
 		else if ( pSoldier->bTeam == gbPlayerNum &&	pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !(	pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
 		{
-				swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
-				FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-				gprintfdirty( sX, sY, NameStr );
-				mprintf( sX, sY, NameStr );
-		fRaiseName = TRUE;
+			swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
+			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
+			fRaiseName = TRUE;
 		}
-
 
 		// If not in a squad....
 		if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -1871,83 +1863,80 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 		if ( fDoName )
 		{
-		if ( fRaiseName )
-		{
-		
-		
-		//legion2 jazz
-		if (pSoldier->ubBodyType == ROBOTNOWEAPON && pSoldier->bTeam == ENEMY_TEAM )
-		{
-		swprintf( NameStr, zGrod[0] );
-		}
-		else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
-		{
-		swprintf( NameStr,L"???" );
-		}
-		else
-		{
-		swprintf( NameStr, L"%s", pSoldier->name );
-		}
+			if ( fRaiseName )
+			{
+				//legion2 jazz
+				if (pSoldier->ubBodyType == ROBOTNOWEAPON && pSoldier->bTeam == ENEMY_TEAM )
+				{
+					swprintf( NameStr, zGrod[0] );
+				}
+				else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
+				{
+					swprintf( NameStr,L"???" );
+				}
+				else
+				{
+					swprintf( NameStr, L"%s", pSoldier->name );
+				}
 		  
-		//Legion	
-		if (pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW)
-		{
-		  swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
-		//swprintf( NameStr, pVehicleStrings[4] );
-		}
-		else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
-		{
-		swprintf( NameStr,L"???" );
-		}
-		else
-		{
-		swprintf( NameStr, L"%s", pSoldier->name );
-		}	
-		//-------
+				//Legion	
+				if (pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW)
+				{
+				  swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
+					//swprintf( NameStr, pVehicleStrings[4] );
+				}
+				else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
+				{
+					swprintf( NameStr,L"???" );
+				}
+				else
+				{
+					swprintf( NameStr, L"%s", pSoldier->name );
+				}	
+				//-------
 		
-			//swprintf( NameStr, L"%s", pSoldier->name );
-			FindFontCenterCoordinates( sXPos, (INT16)( sYPos - 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			gprintfdirty( sX, sY, NameStr );
-			mprintf( sX, sY, NameStr );
-		}
-		else
-		{
-		
-			//legion Jazz 
-			if (pSoldier->ubBodyType == ROBOTNOWEAPON && pSoldier->bTeam == ENEMY_TEAM )
-			{
-			swprintf( NameStr, zGrod[0] );
-			}
-			else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
-			{
-			swprintf( NameStr,L"???" );
+				//swprintf( NameStr, L"%s", pSoldier->name );
+				FindFontCenterCoordinates( sXPos, (INT16)( sYPos - 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );
 			}
 			else
 			{
-			swprintf( NameStr, L"%s", pSoldier->name );
-			}
+				//legion Jazz 
+				if (pSoldier->ubBodyType == ROBOTNOWEAPON && pSoldier->bTeam == ENEMY_TEAM )
+				{
+					swprintf( NameStr, zGrod[0] );
+				}
+				else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
+				{
+					swprintf( NameStr,L"???" );
+				}
+				else
+				{
+					swprintf( NameStr, L"%s", pSoldier->name );
+				}
 		
-			//Legion	
-			if (pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW)
-			{
-			//swprintf( NameStr, pVehicleStrings[4] );
-			swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
-			}
-			else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
-			{
-			swprintf( NameStr,L"???" );
-			}
-			else
-			{
-			swprintf( NameStr, L"%s", pSoldier->name );
-			}
-			//---------------
+				//Legion	
+				if (pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW)
+				{
+					//swprintf( NameStr, pVehicleStrings[4] );
+					swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
+				}
+				else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
+				{
+					swprintf( NameStr,L"???" );
+				}
+				else
+				{
+					wprintf( NameStr, L"%s", pSoldier->name );
+				}
+				//---------------
 			
-			//swprintf( NameStr, L"%s", pSoldier->name );
-			FindFontCenterCoordinates( sXPos, sYPos, (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			gprintfdirty( sX, sY, NameStr );
-			mprintf( sX, sY, NameStr );
-		}
+				//swprintf( NameStr, L"%s", pSoldier->name );
+				FindFontCenterCoordinates( sXPos, sYPos, (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );
+			}
 		}
 
 //		if ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -2000,7 +1989,6 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				FindFontCenterCoordinates( sXPos, (INT16)(sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 				gprintfdirty( sX, sY, NameStr );
 				mprintf( sX, sY, NameStr );
-
 			}
 			else
 			{
@@ -2008,91 +1996,80 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				SetFontBackground( FONT_MCOLOR_BLACK );
 				SetFontForeground( FONT_MCOLOR_DKRED );
 
-
 				pStr = GetSoldierHealthString( pSoldier );
-
 
 				FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 10 ), (INT16)(80 ), 1, pStr, TINYFONT1, &sX, &sY );
 				gprintfdirty( sX, sY, pStr );
 				mprintf( sX, sY, pStr );
 			
-			//-----------------	
-				if (gGameExternalOptions.fEnemyNames == TRUE && gGameExternalOptions.fEnemyRank == FALSE)
+				//-----------------	
+				if ( pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE )
 				{
-				for( iCounter2 = 0; iCounter2 < 500; iCounter2++ )
+					if ( pSoldier->bTeam == ENEMY_TEAM )
 					{
-					if (zEnemyName[iCounter2].Enabled == 1)
-					{
+						if (gGameExternalOptions.fEnemyNames == TRUE && gGameExternalOptions.fEnemyRank == FALSE)
+						{
+							for( iCounter2 = 0; iCounter2 < 500; ++iCounter2 )
+							{
+								if (zEnemyName[iCounter2].Enabled == 1)
+								{
+									if ( pSoldier->sSectorX == zEnemyName[iCounter2].SectorX && pSoldier->sSectorY == zEnemyName[iCounter2].SectorY )
+									{
+										swprintf(NameStr, zEnemyName[iCounter2].szCurGroup);
 				
-					if ((gWorldSectorX == zEnemyName[iCounter2].SectorX && gWorldSectorY == zEnemyName[iCounter2].SectorY ))
-					{
-					if (NumEnemiesInSector( zEnemyName[iCounter2].SectorX  , zEnemyName[iCounter2].SectorY ) && pSoldier->ubProfile == NO_PROFILE && pSoldier->bTeam == 1 ) 
-					{	
-			
-					swprintf(NameStr, zEnemyName[iCounter2].szCurGroup);
-				
-					SetFont( TINYFONT1 );
-					SetFontBackground( FONT_MCOLOR_BLACK );
-					SetFontForeground( FONT_YELLOW );
+										SetFont( TINYFONT1 );
+										SetFontBackground( FONT_MCOLOR_BLACK );
+										SetFontForeground( FONT_YELLOW );
 					
-					//legion2
-					FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-					gprintfdirty( sX, sY, NameStr );
-					mprintf( sX, sY, NameStr );
+										//legion2
+										FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+										gprintfdirty( sX, sY, NameStr );
+										mprintf( sX, sY, NameStr );
 				
-					}
-					}
-					}
-					}
-				} 
-				
-				if (gGameExternalOptions.fEnemyNames == FALSE && gGameExternalOptions.fEnemyRank == TRUE)
-				{
-					for( iCounter2 = 1; iCounter2 < 13; iCounter2++ )
-					{
-						if (zEnemyRank[iCounter2].Enabled == 1)
-						{			
-						
-							if ( zEnemyRank[iCounter2].Stats == 0 && zEnemyRank[iCounter2].ExpLevel > 0 && pSoldier->ubProfile == NO_PROFILE && pSoldier->bTeam == 1 && pSoldier->stats.bExpLevel == zEnemyRank[iCounter2].ExpLevel )  
-							{	
-							
-								swprintf(NameStr, zEnemyRank[iCounter2].szCurRank);
-							
-								SetFont( TINYFONT1 );
-								SetFontBackground( FONT_MCOLOR_BLACK );
-								SetFontForeground( FONT_YELLOW );
-								
-								//legion2
-								FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-								gprintfdirty( sX, sY, NameStr );
-								mprintf( sX, sY, NameStr );
+										break;
+									}
+								}
 							}
 						}
-					}
-				
-				}
-				
-				
-				if (gGameExternalOptions.fCivGroupName == TRUE)
-				{
-					for( iCounter2 = 1; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )
-					{
-						if (zCivGroupName[iCounter2].Enabled == 1)
-						{			
-							if (pSoldier->ubProfile == NO_PROFILE && pSoldier->ubCivilianGroup == iCounter2 ) 
-							{	
+						else if (gGameExternalOptions.fEnemyNames == FALSE && gGameExternalOptions.fEnemyRank == TRUE)
+						{
+							for( iCounter2 = 1; iCounter2 < 11; ++iCounter2 )
+							{
+								if (zEnemyRank[iCounter2].Enabled == 1)
+								{		
+									if ( zEnemyRank[iCounter2].Stats == 0 && pSoldier->stats.bExpLevel == zEnemyRank[iCounter2].ExpLevel )  
+									{
+										swprintf(NameStr, zEnemyRank[iCounter2].szCurRank);
 							
-								swprintf(NameStr, zCivGroupName[iCounter2].szCurGroup);
-							
-								SetFont( TINYFONT1 );
-								SetFontBackground( FONT_MCOLOR_BLACK );
-								SetFontForeground( FONT_YELLOW );
+										SetFont( TINYFONT1 );
+										SetFontBackground( FONT_MCOLOR_BLACK );
+										SetFontForeground( FONT_YELLOW );
 								
-								//legion2
-								FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-								gprintfdirty( sX, sY, NameStr );
-								mprintf( sX, sY, NameStr );
-							}
+										//legion2
+										FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+										gprintfdirty( sX, sY, NameStr );
+										mprintf( sX, sY, NameStr );
+
+										break;
+									}
+								}
+							}				
+						}
+					}
+					else if (gGameExternalOptions.fCivGroupName == TRUE && pSoldier->ubCivilianGroup > 0 )
+					{
+						if (zCivGroupName[pSoldier->ubCivilianGroup].Enabled == 1)
+						{	
+							swprintf(NameStr, zCivGroupName[pSoldier->ubCivilianGroup].szCurGroup);
+							
+							SetFont( TINYFONT1 );
+							SetFontBackground( FONT_MCOLOR_BLACK );
+							SetFontForeground( FONT_YELLOW );
+								
+							//legion2
+							FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+							gprintfdirty( sX, sY, NameStr );
+							mprintf( sX, sY, NameStr );
 						}
 					}
 				}
@@ -2109,10 +2086,10 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_YELLOW );
 
-				swprintf( NameStr, gzLateLocalizedString[ 15 ] );
-				FindFontCenterCoordinates( sXPos, (INT16)(sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-				gprintfdirty( sX, sY, NameStr );
-				mprintf( sX, sY, NameStr );
+			swprintf( NameStr, gzLateLocalizedString[ 15 ] );
+			FindFontCenterCoordinates( sXPos, (INT16)(sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
 		}
 
 		pStr = GetSoldierHealthString( pSoldier );
@@ -2132,45 +2109,59 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		mprintf( sX, sY, pStr );
 		
 		//-----------------	
-		if (gGameExternalOptions.fEnemyNames == TRUE  && gGameExternalOptions.fEnemyRank == FALSE)
+		if ( pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE )
 		{
-			for( iCounter2 = 0; iCounter2 < 500; iCounter2++ )
+#ifdef ENABLE_ZOMBIES
+			if ( pSoldier->IsZombie() )
 			{
-				if (zEnemyName[iCounter2].Enabled == 1 )
-				{
-		
-					if ((gWorldSectorX == zEnemyName[iCounter2].SectorX && gWorldSectorY == zEnemyName[iCounter2].SectorY ))
-					{
-						if (NumEnemiesInSector( zEnemyName[iCounter2].SectorX  , zEnemyName[iCounter2].SectorY ) && pSoldier->ubProfile == NO_PROFILE && pSoldier->bTeam == 1 ) 
-						{	
-	
-							swprintf(NameStr, zEnemyName[iCounter2].szCurGroup);
+				swprintf(NameStr, pSoldier->name);
 							
-							SetFont( TINYFONT1 );
-							SetFontBackground( FONT_MCOLOR_BLACK );
-							SetFontForeground( FONT_YELLOW );
+				// Display name
+				SetFont( TINYFONT1 );
+				SetFontBackground( FONT_MCOLOR_BLACK );
+				SetFontForeground( FONT_MCOLOR_WHITE );
 								
-							//legion2
-							FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-							gprintfdirty( sX, sY, NameStr );
-							mprintf( sX, sY, NameStr );
+				//legion2
+				FindFontCenterCoordinates( sXPos, (INT16)( sYPos -10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );
+			}
+			else
+#endif
+			if ( pSoldier->bTeam == ENEMY_TEAM )
+			{
+				if (gGameExternalOptions.fEnemyNames == TRUE  && gGameExternalOptions.fEnemyRank == FALSE)
+				{
+					for( iCounter2 = 0; iCounter2 < 500; ++iCounter2 )
+					{
+						if (zEnemyName[iCounter2].Enabled == 1 )
+						{
+							if ( pSoldier->sSectorX == zEnemyName[iCounter2].SectorX && pSoldier->sSectorY == zEnemyName[iCounter2].SectorY )
+							{
+								swprintf(NameStr, zEnemyName[iCounter2].szCurGroup);
+							
+								SetFont( TINYFONT1 );
+								SetFontBackground( FONT_MCOLOR_BLACK );
+								SetFontForeground( FONT_YELLOW );
+								
+								//legion2
+								FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+								gprintfdirty( sX, sY, NameStr );
+								mprintf( sX, sY, NameStr );
 		
+								break;
+							}
 						}
 					}
 				}
-			}
-		}
-		
-		if (gGameExternalOptions.fEnemyNames == FALSE && gGameExternalOptions.fEnemyRank == TRUE)
+				else if (gGameExternalOptions.fEnemyNames == FALSE && gGameExternalOptions.fEnemyRank == TRUE)
 				{
-					for( iCounter2 = 1; iCounter2 < 13; iCounter2++ )
+					for( iCounter2 = 1; iCounter2 < 11; ++iCounter2 )
 					{
 						if (zEnemyRank[iCounter2].Enabled == 1)
 						{
-						
-							if ( zEnemyRank[iCounter2].Stats == 0 && zEnemyRank[iCounter2].ExpLevel > 0 && pSoldier->ubProfile == NO_PROFILE && pSoldier->bTeam == 1 && pSoldier->stats.bExpLevel == zEnemyRank[iCounter2].ExpLevel )  
-							{	
-							
+							if ( zEnemyRank[iCounter2].Stats == 0 && pSoldier->stats.bExpLevel == zEnemyRank[iCounter2].ExpLevel )  
+							{
 								swprintf(NameStr, zEnemyRank[iCounter2].szCurRank);
 							
 								SetFont( TINYFONT1 );
@@ -2181,53 +2172,30 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 								FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 								gprintfdirty( sX, sY, NameStr );
 								mprintf( sX, sY, NameStr );
+
+								break;
 							}
 						}
 					}
-				
 				}
-		
-		if (gGameExternalOptions.fCivGroupName == TRUE)
-		{
-			for( iCounter2 = 1; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )
+			}
+			else if (gGameExternalOptions.fCivGroupName == TRUE && pSoldier->ubCivilianGroup > 0 )
 			{
-				if (zCivGroupName[iCounter2].Enabled == 1)
-				{
-	
-					if (pSoldier->ubProfile == NO_PROFILE && pSoldier->ubCivilianGroup == iCounter2 ) 
-					{	
-						swprintf(NameStr, zCivGroupName[iCounter2].szCurGroup);
-					
-						SetFont( TINYFONT1 );
-						SetFontBackground( FONT_MCOLOR_BLACK );
-						SetFontForeground( FONT_YELLOW );
-						
-						//legion2
-						FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-						gprintfdirty( sX, sY, NameStr );
-						mprintf( sX, sY, NameStr );
-					}
+				if (zCivGroupName[pSoldier->ubCivilianGroup].Enabled == 1)
+				{	
+					swprintf(NameStr, zCivGroupName[pSoldier->ubCivilianGroup].szCurGroup);
+							
+					SetFont( TINYFONT1 );
+					SetFontBackground( FONT_MCOLOR_BLACK );
+					SetFontForeground( FONT_YELLOW );
+								
+					//legion2
+					FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+					gprintfdirty( sX, sY, NameStr );
+					mprintf( sX, sY, NameStr );
 				}
 			}
 		}
-
-#ifdef ENABLE_ZOMBIES
-		if ( pSoldier->IsZombie() )
-		{
-			swprintf(NameStr, pSoldier->name);
-							
-			// Display name
-			SetFont( TINYFONT1 );
-			SetFontBackground( FONT_MCOLOR_BLACK );
-			SetFontForeground( FONT_MCOLOR_WHITE );
-								
-			//legion2
-			FindFontCenterCoordinates( sXPos, (INT16)( sYPos -10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			gprintfdirty( sX, sY, NameStr );
-			mprintf( sX, sY, NameStr );
-		}
-#endif
-	//------------
 	}
 }
 

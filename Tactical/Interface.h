@@ -61,7 +61,7 @@ typedef struct
 
 } ENEMY_RANK_VALUES;
 
-extern ENEMY_RANK_VALUES zEnemyRank[500];
+extern ENEMY_RANK_VALUES zEnemyRank[20];
 
 typedef struct
 {

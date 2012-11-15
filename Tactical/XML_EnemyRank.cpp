@@ -228,7 +228,7 @@ BOOLEAN WriteEnemyRank( STR fileName)
 		UINT32 cnt;
 
 		FilePrintf(hFile,"<ENEMY_RANK>\r\n");
-		for(cnt = 0;cnt < 500;cnt++)
+		for(cnt = 0;cnt < 20; ++cnt)
 		{
 			FilePrintf(hFile,"\t<RANK>\r\n");
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n", cnt);
