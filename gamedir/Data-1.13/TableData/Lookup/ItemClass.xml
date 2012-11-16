@@ -84,4 +84,8 @@
 		<id>536870912</id>
 		<name>Money</name>
 	</ItemClass>
+	<ItemClass>
+		<id>1073741824</id>
+		<name>Random Item</name>
+	</ItemClass>
 </JA2Data>
