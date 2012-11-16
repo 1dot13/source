@@ -700,24 +700,38 @@ void ProcessImplicationsOfMeanwhile( void )
 			break;
 
 		case CAMBRIA_LIBERATED:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 8, 7 ); //lalien: The queen should try to get the city back
+			//ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 8, 7 ); //lalien: The queen should try to get the city back
+
+			ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_CAMBRIA, 8, 8 );
 			break;
 
 		case ALMA_LIBERATED:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 14, 9 );//lalien: The queen should try to get the city back
+			//ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 14, 9 );//lalien: The queen should try to get the city back
+
+			ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_ALMA, 14, 9 );
 			break;
 
 		case GRUMM_LIBERATED:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 3, 8 );//lalien: The queen should try to get the city back
+			//ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 3, 8 );//lalien: The queen should try to get the city back
+
+			ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_GRUMM, 3, 8 );
 			break;
 
 		case CHITZENA_LIBERATED:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 2, 2 );//lalien: The queen should try to get the city back
+			//ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 2, 2 );//lalien: The queen should try to get the city back
+
+			ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_CHITZENA, 2, 2 );
 			break;
 
 		case BALIME_LIBERATED:
 			ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 11, 12 );//lalien: The queen should try to get the city back
+			//ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, 11, 12 );//lalien: The queen should try to get the city back
+
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_BALIME, 12, 12 );
 			break;
 
 		case DRASSEN_LIBERATED:

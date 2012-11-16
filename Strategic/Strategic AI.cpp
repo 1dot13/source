@@ -4381,6 +4381,367 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 			break;
 
+		case NPC_ACTION_SEND_SOLDIERS_TO_CHITZENA:
+		case NPC_ACTION_SEND_SOLDIERS_TO_GRUMM:
+		case NPC_ACTION_SEND_SOLDIERS_TO_CAMBRIA:
+		case NPC_ACTION_SEND_SOLDIERS_TO_ALMA:
+		case NPC_ACTION_SEND_SOLDIERS_TO_BALIME:
+			{
+				if ( gGameExternalOptions.ubAgressiveStrategicAI < 1)
+				{
+					ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, sSectorX, sSectorY );
+					break;
+				}
+
+				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
+			
+				UINT32 grouptroops = ubNumSoldiers;
+				UINT32 groupelites = 0;
+				if ( gGameOptions.ubDifficultyLevel > 0 )
+					groupelites = ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel;
+
+				UINT32 totalusedsoldiers = 4 * min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+
+				switch( usActionCode )
+				{
+					case NPC_ACTION_SEND_SOLDIERS_TO_CHITZENA:
+						ubSourceSectorID = SEC_H3;
+						ubTargetSectorID = SEC_B2;
+
+						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+							ubSourceSectorID = SEC_P3;
+
+						pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+										
+						break;
+					case NPC_ACTION_SEND_SOLDIERS_TO_GRUMM:
+						ubSourceSectorID = SEC_M3;
+						ubTargetSectorID = SEC_H3;
+
+						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+							ubSourceSectorID = SEC_P3;
+
+						pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_M2, 0, grouptroops, groupelites );
+						pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_M3, 0, grouptroops, groupelites );
+						pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_M3, 0, grouptroops, groupelites );
+						pGroup3 = CreateNewEnemyGroupDepartingFromSector( SEC_M6, 0, grouptroops, groupelites );
+
+						break;
+					case NPC_ACTION_SEND_SOLDIERS_TO_CAMBRIA:
+						ubSourceSectorID = SEC_M6;
+						ubTargetSectorID = SEC_H8;
+
+						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+							ubSourceSectorID = SEC_P3;
+
+						pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_M6, 0, grouptroops, groupelites );
+						pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_M6, 0, grouptroops, groupelites );
+						pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_M6, 0, grouptroops, groupelites );
+						pGroup3 = CreateNewEnemyGroupDepartingFromSector( SEC_L11, 0, grouptroops, groupelites );
+
+						break;
+					case NPC_ACTION_SEND_SOLDIERS_TO_ALMA:
+						ubSourceSectorID = SEC_G9;
+						ubTargetSectorID = SEC_H13;
+
+						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						{
+							ubSourceSectorID = SEC_J9;
+							ubTargetSectorID = SEC_I13;
+
+							if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+								ubSourceSectorID = SEC_P3;
+						}
+
+						pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+
+						break;
+					case NPC_ACTION_SEND_SOLDIERS_TO_BALIME:
+						ubSourceSectorID = SEC_N5;
+						ubTargetSectorID = SEC_L11;
+
+						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+							ubSourceSectorID = SEC_P3;
+
+						pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+						pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+
+						break;
+				}
+
+
+				if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
+				{
+					pGroup0->pEnemyGroup->ubIntention = STAGE;
+					pGroup1->pEnemyGroup->ubIntention = STAGE;
+					pGroup2->pEnemyGroup->ubIntention = STAGE;
+					pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
+
+					gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+
+				}
+				else
+				{
+					//this should never happen (but if it did, then this is the best way to deal with it).
+					pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+					pGroup1->pEnemyGroup->ubIntention = PURSUIT;
+					pGroup2->pEnemyGroup->ubIntention = PURSUIT;
+					pGroup3->pEnemyGroup->ubIntention = PURSUIT;
+				}
+								
+				switch( usActionCode )
+				{
+				case NPC_ACTION_SEND_SOLDIERS_TO_CHITZENA:
+					MoveSAIGroupToSector( &pGroup0, SEC_B1, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_C2, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_B3, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_B1, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+					break;
+
+				case NPC_ACTION_SEND_SOLDIERS_TO_GRUMM:
+					MoveSAIGroupToSector( &pGroup0, SEC_H4, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_I3, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_I3, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_G3, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+					break;
+
+				case NPC_ACTION_SEND_SOLDIERS_TO_CAMBRIA:
+					MoveSAIGroupToSector( &pGroup0, SEC_I8, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_I8, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_H7, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_H9, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+					break;
+
+				case NPC_ACTION_SEND_SOLDIERS_TO_ALMA:
+					if ( ubSourceSectorID == SEC_G9 )
+					{
+						MoveSAIGroupToSector( &pGroup0, SEC_H12, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+						MoveSAIGroupToSector( &pGroup1, SEC_H12, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+						MoveSAIGroupToSector( &pGroup2, SEC_G13, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+						MoveSAIGroupToSector( &pGroup3, SEC_G13, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+					}
+					else
+					{
+						MoveSAIGroupToSector( &pGroup0, SEC_J13, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+						MoveSAIGroupToSector( &pGroup1, SEC_J13, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+						MoveSAIGroupToSector( &pGroup2, SEC_I12, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+						MoveSAIGroupToSector( &pGroup3, SEC_I12, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+					}
+					break;
+
+				case NPC_ACTION_SEND_SOLDIERS_TO_BALIME:
+					MoveSAIGroupToSector( &pGroup0, SEC_K11, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_L10, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_L10, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_K11, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+					break;
+				}
+
+				//Madd: unlimited reinforcements?
+				if ( !gfUnlimitedTroops )
+					giReinforcementPool -= totalusedsoldiers;
+
+				giReinforcementPool = max( giReinforcementPool, 0 );
+			}
+			break;
+
+		case NPC_ACTION_GLOBAL_OFFENSIVE_1:
+		case NPC_ACTION_GLOBAL_OFFENSIVE_2:		// for now, just a copy...
+			{
+				if ( gGameExternalOptions.ubAgressiveStrategicAI < 2 )
+				{
+					break;
+				}
+								
+				// depending on which cities the player currently holds, we send out attack on multiple cities. We try to make these attacks occur simultaneously, so the palyer will have to fend off
+				// multiple gigantic attacks on different cities. Ideally, the attacks will be timed so well that the player cannot use a sqaud in both battles, even with use of the helicopter
+				// we first have to check which cities we have to attack. For that, we simply check wether there are troops in the target sector. If not, we will attack here
+				BOOLEAN fAttack_Grumm	= !(SectorInfo[ SEC_H3 ].ubNumTroops > 0);
+				BOOLEAN fAttack_Cambria = !(SectorInfo[ SEC_H8 ].ubNumTroops > 0);
+				BOOLEAN fAttack_Alma	= !(SectorInfo[ SEC_I13 ].ubNumTroops > 0);
+				BOOLEAN fAttack_Balime	= !(SectorInfo[ SEC_L11 ].ubNumTroops > 0);
+
+				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
+			
+				UINT32 grouptroops = ubNumSoldiers;
+				UINT32 groupelites = 0;
+				if ( gGameOptions.ubDifficultyLevel > 0 )
+					groupelites = ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel;
+
+				UINT32 totalusedsoldiers = 0;
+
+				if ( fAttack_Grumm )
+				{
+					ubSourceSectorID = SEC_M6;
+					ubTargetSectorID = SEC_H3;
+
+					if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						ubSourceSectorID = SEC_P3;
+
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
+					pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
+					pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
+					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+
+					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+
+					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
+					{
+						pGroup0->pEnemyGroup->ubIntention = STAGE;
+						pGroup1->pEnemyGroup->ubIntention = STAGE;
+						pGroup2->pEnemyGroup->ubIntention = STAGE;
+						pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
+
+						gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+
+					}
+					else
+					{
+						//this should never happen (but if it did, then this is the best way to deal with it).
+						pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup1->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup2->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup3->pEnemyGroup->ubIntention = PURSUIT;
+					}
+
+					MoveSAIGroupToSector( &pGroup0, SEC_H4, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_I3, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_I3, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_G3, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+				}
+
+				if ( fAttack_Cambria )
+				{
+					ubSourceSectorID = SEC_P3;
+					ubTargetSectorID = SEC_H8;
+
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+
+					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+
+					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
+					{
+						pGroup0->pEnemyGroup->ubIntention = STAGE;
+						pGroup1->pEnemyGroup->ubIntention = STAGE;
+						pGroup2->pEnemyGroup->ubIntention = STAGE;
+						pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
+
+						gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+
+					}
+					else
+					{
+						//this should never happen (but if it did, then this is the best way to deal with it).
+						pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup1->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup2->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup3->pEnemyGroup->ubIntention = PURSUIT;
+					}
+
+					MoveSAIGroupToSector( &pGroup0, SEC_I8, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_I8, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_H7, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_H9, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+				}
+
+				if ( fAttack_Alma )
+				{
+					ubSourceSectorID = SEC_M6;
+					ubTargetSectorID = SEC_I13;
+
+					if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						ubSourceSectorID = SEC_P3;
+
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+
+					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+
+					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
+					{
+						pGroup0->pEnemyGroup->ubIntention = STAGE;
+						pGroup1->pEnemyGroup->ubIntention = STAGE;
+						pGroup2->pEnemyGroup->ubIntention = STAGE;
+						pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
+
+						gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+
+					}
+					else
+					{
+						//this should never happen (but if it did, then this is the best way to deal with it).
+						pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup1->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup2->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup3->pEnemyGroup->ubIntention = PURSUIT;
+					}
+
+					MoveSAIGroupToSector( &pGroup0, SEC_J13, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_J13, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_I12, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_I12, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+				}
+
+				if ( fAttack_Balime )
+				{
+					ubSourceSectorID = SEC_M2;
+					ubTargetSectorID = SEC_L11;
+
+					if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+						ubSourceSectorID = SEC_P3;
+
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
+
+					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+
+					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
+					{
+						pGroup0->pEnemyGroup->ubIntention = STAGE;
+						pGroup1->pEnemyGroup->ubIntention = STAGE;
+						pGroup2->pEnemyGroup->ubIntention = STAGE;
+						pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
+
+						gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+
+					}
+					else
+					{
+						//this should never happen (but if it did, then this is the best way to deal with it).
+						pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup1->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup2->pEnemyGroup->ubIntention = PURSUIT;
+						pGroup3->pEnemyGroup->ubIntention = PURSUIT;
+					}
+
+					MoveSAIGroupToSector( &pGroup0, SEC_K11, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup1, SEC_L10, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup2, SEC_L10, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+					MoveSAIGroupToSector( &pGroup3, SEC_K11, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
+				}
+
+				//Madd: unlimited reinforcements?
+				if ( !gfUnlimitedTroops )
+					giReinforcementPool -= totalusedsoldiers;
+
+				giReinforcementPool = max( giReinforcementPool, 0 );
+			}
+			break;
 
 		case NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION:
 			//Send 4, 8, or 12 troops (based on difficulty) to the location of the first battle.	If nobody is there when they arrive,

@@ -1508,6 +1508,11 @@ void LoadGameExternalOptions()
 	// Drassen counterattack
 	gGameExternalOptions.ubSendTroopsToDrassen			= iniReader.ReadBoolean("Strategic Event Settings","TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN",TRUE);
 
+	// Flugente: new strategic AI
+	gGameExternalOptions.ubAgressiveStrategicAI			= iniReader.ReadInteger("Strategic Event Settings","AGGRESSIVE_STRATEGIC_AI", 1, 0, 4);
+	gGameExternalOptions.ubGameProgressOffensiveStage1	= iniReader.ReadInteger("Strategic Event Settings","GAME_PROGRESS_OFFENSIVE_STAGE_1", 65, 0, 100);
+	gGameExternalOptions.ubGameProgressOffensiveStage2	= iniReader.ReadInteger("Strategic Event Settings","GAME_PROGRESS_OFFENSIVE_STAGE_2", 80, 0, 100);
+	
 	// Enable/Disable crepitus completely in SCI-FI mode.
 	gGameExternalOptions.fEnableCrepitus				= iniReader.ReadBoolean("Strategic Event Settings", "ENABLE_CREPITUS", TRUE);
 

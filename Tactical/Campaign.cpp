@@ -35,6 +35,8 @@
 	#include "Town Militia.h"
 	#include "Campaign Types.h"
 	#include "Tactical Save.h"
+	#include "Strategic AI.h"
+	#include "interface Dialogue.h"
 #endif
 
 #ifdef JA2UB
@@ -1725,6 +1727,17 @@ void HourlyProgressUpdate(void)
 		{
 			gMercProfiles[ IGGY ].sSectorX = 5;
 			gMercProfiles[ IGGY ].sSectorY = MAP_ROW_C;
+		}
+
+		// Flugente: on certain progress levels, the queen decides to initiate major attacks
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage1 && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressOffensiveStage1 )
+		{
+			ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_1, 0, 0 );
+		}
+
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage2 && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressOffensiveStage2 )
+		{
+			ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_2, 0, 0 );
 		}
 
 		gStrategicStatus.ubHighestProgress = ubCurrentProgress;

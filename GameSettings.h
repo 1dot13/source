@@ -521,6 +521,9 @@ typedef struct
 	UINT32 ubGameProgressMikeAvailable;
 	UINT32 ubGameProgressIggyAvaliable;
 	BOOLEAN ubSendTroopsToDrassen;
+	UINT8  ubAgressiveStrategicAI;
+	UINT32 ubGameProgressOffensiveStage1;
+	UINT32 ubGameProgressOffensiveStage2;
 
 	// WDS - make number of mercenaries, etc. be configurable
 	// group sizes

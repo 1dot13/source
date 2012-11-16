@@ -762,7 +762,7 @@ void SectorFillCanteens( void )
 	// search for a water drum
 	BOOLEAN waterdrumfound = FALSE;
 	OBJECTTYPE* pWaterDrum = GetUsableWaterDrumInSector();
-	if ( !pWaterDrum || !(pWaterDrum->exists()) )
+	if ( pWaterDrum && (pWaterDrum->exists()) )
 		waterdrumfound = TRUE;
 
 	// drink from sector if water is ok, or it is poisonous but we haven't found a useable water drum
