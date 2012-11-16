@@ -1501,7 +1501,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubGameProgressStartMadlabQuest			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 0, 100);
 	gGameExternalOptions.ubGameProgressMikeAvailable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 0, 100);
 	gGameExternalOptions.ubGameProgressIggyAvaliable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_IGGY_AVAILABLE",70, 0, 100);
-
+	gGameExternalOptions.ubGameProgressOffensiveStage1			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_OFFENSIVE_STAGE_1", 65, 0, 100);
+	gGameExternalOptions.ubGameProgressOffensiveStage2			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_OFFENSIVE_STAGE_2", 80, 0, 100);
 
 	//################# Strategic Event Settings ##################
 
@@ -1510,9 +1511,7 @@ void LoadGameExternalOptions()
 
 	// Flugente: new strategic AI
 	gGameExternalOptions.ubAgressiveStrategicAI			= iniReader.ReadInteger("Strategic Event Settings","AGGRESSIVE_STRATEGIC_AI", 1, 0, 4);
-	gGameExternalOptions.ubGameProgressOffensiveStage1	= iniReader.ReadInteger("Strategic Event Settings","GAME_PROGRESS_OFFENSIVE_STAGE_1", 65, 0, 100);
-	gGameExternalOptions.ubGameProgressOffensiveStage2	= iniReader.ReadInteger("Strategic Event Settings","GAME_PROGRESS_OFFENSIVE_STAGE_2", 80, 0, 100);
-	
+		
 	// Enable/Disable crepitus completely in SCI-FI mode.
 	gGameExternalOptions.fEnableCrepitus				= iniReader.ReadBoolean("Strategic Event Settings", "ENABLE_CREPITUS", TRUE);
 
