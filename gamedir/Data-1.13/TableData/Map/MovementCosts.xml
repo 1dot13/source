@@ -742,7 +742,7 @@ Possible values for Here tag:
 		<Sector y="F" x="4">
 			<TravelRating>9</TravelRating>
 			<North>HILLS</North>
-			<East>HILLS</East>
+			<East>GROUNDBARRIER</East>
 			<South>PLAINS</South>
 			<West>PLAINS</West>
 			<Here>HILLS</Here>
@@ -750,9 +750,9 @@ Possible values for Here tag:
 		<Sector y="F" x="5">
 			<TravelRating>6</TravelRating>
 			<North>HILLS</North>
-			<East>HILLS</East>
+			<East>GROUNDBARRIER</East>
 			<South>PLAINS</South>
-			<West>HILLS</West>
+			<West>GROUNDBARRIER</West>
 			<Here>HILLS</Here>
 		</Sector>
 		<Sector y="F" x="6">
@@ -760,7 +760,7 @@ Possible values for Here tag:
 			<North>PLAINS</North>
 			<East>PLAINS</East>
 			<South>GROUNDBARRIER</South>
-			<West>HILLS</West>
+			<West>GROUNDBARRIER</West>
 			<Here>HILLS</Here>
 		</Sector>
 		<Sector y="F" x="7">
