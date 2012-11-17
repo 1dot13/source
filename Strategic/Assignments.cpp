@@ -4163,12 +4163,13 @@ BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 	{
 		if ( gGameExternalOptions.fAdvRepairSystem )
 		{
-			if ( ( ((Item[usItem].usItemClass & IC_WEAPON) != 0) || Item[usItem].usItemClass == IC_ARMOUR ) && bStatus < bThreshold )
-				return ( TRUE );
+			if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus >= bThreshold )
+				// nay
+				return ( FALSE );
 		}
-		else
-			// yep
-			return ( TRUE );
+
+		// yep
+		return ( TRUE );
 	}
 
 	// nope
