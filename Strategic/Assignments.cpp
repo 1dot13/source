@@ -467,7 +467,7 @@ UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLE
 void CheckForAndHandleHospitalPatients( void );
 void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft );
 
-void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier );
+BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier );
 BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
 
 void RepositionMouseRegions( void );
@@ -3421,12 +3421,17 @@ void HandleRepairmenInSector( INT16 sX, INT16 sY, INT8 bZ )
 			{
 				if ( ( pTeamSoldier->bAssignment == REPAIR ) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
 				{
-					MakeSureToolKitIsInHand( pTeamSoldier );
-					// character is in sector, check if can repair
-					if ( CanCharacterRepair( pTeamSoldier ) && ( EnoughTimeOnAssignment( pTeamSoldier ) ) )
+					if ( MakeSureToolKitIsInHand( pTeamSoldier ) )
 					{
-						HandleRepairBySoldier( pTeamSoldier );
+						// character is in sector, check if can repair
+						if ( CanCharacterRepair( pTeamSoldier ) && ( EnoughTimeOnAssignment( pTeamSoldier ) ) )
+						{
+							HandleRepairBySoldier( pTeamSoldier );
+						}
 					}
+					else
+						// if we have no toolkit, then we cannot repair anything
+						AssignmentDone( pTeamSoldier, TRUE, TRUE );
 				}
 			}
 		}
@@ -4133,20 +4138,18 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	}
 	else	// still has stuff to repair
 	{
+		// Flugente: observed an instance where toolkit ran out, but assignment was not quitted, resulting in a crash on the next hour - better check here
+		if ( FindToolkit( pSoldier ) == NO_SLOT )
+		{
+			// he could (maybe) repair something, but can't because he doesn't have a tool kit!
+			AssignmentAborted( pSoldier, NO_MORE_TOOL_KITS );
+		}
+
 		// if nothing got repaired, there's a problem
 		if ( ubRepairPtsUsed == 0 )
 		{
-			// see if not having a toolkit is the problem
-			if ( FindToolkit( pSoldier ) == NO_SLOT )
-			{
-				// he could (maybe) repair something, but can't because he doesn't have a tool kit!
-				AssignmentAborted( pSoldier, NO_MORE_TOOL_KITS );
-			}
-			else
-			{
-				// he can't repair anything because he doesn't have enough skill!
-				AssignmentAborted( pSoldier, INSUF_REPAIR_SKILL );
-			}
+			// he can't repair anything because he doesn't have enough skill!
+			AssignmentAborted( pSoldier, INSUF_REPAIR_SKILL );
 		}
 	}
 
@@ -4163,6 +4166,14 @@ BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 	{
 		if ( gGameExternalOptions.fAdvRepairSystem )
 		{
+			if ( gGameExternalOptions.fOnlyRepairGunsArmour )
+			{
+				if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus < bThreshold )
+					return ( TRUE );
+				else
+					return ( FALSE );
+			}
+
 			if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus >= bThreshold )
 				// nay
 				return ( FALSE );
@@ -6819,7 +6830,7 @@ void RepairMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
+BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 {
 	//JMich_SkillModifiers: added bonus to see which is the maximum, and an extra pocket to store the highest bonus found so far.
 	INT8 bPocket = 0, bonus = -101, bToolkitPocket = NO_SLOT;
@@ -6830,30 +6841,37 @@ void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 		bonus = Item[pSoldier->inv[ HANDPOS].usItem].RepairModifier;
 		bToolkitPocket = HANDPOS;
 	}
-		// run through rest of inventory looking for toolkits, swap the first one into hand if found
-		// CHRISL: Changed to dynamically determine max inventory locations.
-		for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
-		{
+		
+	// run through rest of inventory looking for toolkits, swap the first one into hand if found
+	// CHRISL: Changed to dynamically determine max inventory locations.
+	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+	{
 		if( Item[pSoldier->inv[ bPocket ].usItem].toolkit && Item[pSoldier->inv[ bPocket ].usItem].RepairModifier > bonus)
-			{
+		{
 			bonus = Item[pSoldier->inv[ bPocket ].usItem].RepairModifier;
 			bToolkitPocket = bPocket;
 		}
 	}
-				// HEADROCK HAM B2.8: These new conditions will create a bias for swapping an item out of
-				// our hand. 
+
+	// Flugente: ehem... shouldn't we actually CHECK wether there IS a toolkit? We should check that beforehand...
+	if ( bToolkitPocket == NO_SLOT )
+		return FALSE;
+	
+	// HEADROCK HAM B2.8: These new conditions will create a bias for swapping an item out of our hand. 
 				
-				//If the second hand is free, the item will go to the SECONDHANDPOS while the toolkit
-				// goes into the HANDPOS
-				if( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_WEAPON | IC_PUNCH) && !pSoldier->inv[SECONDHANDPOS].exists())
-					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
-				// Else, if the gun sling slot is free, and the item can go there, it will.
-				else if(UsingNewInventorySystem() && !pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE))
-					SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
+	//If the second hand is free, the item will go to the SECONDHANDPOS while the toolkit goes into the HANDPOS
+	if( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_WEAPON | IC_PUNCH) && !pSoldier->inv[SECONDHANDPOS].exists())
+		SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+	// Else, if the gun sling slot is free, and the item can go there, it will.
+	else if( UsingNewInventorySystem() && !pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE) )
+		SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
 	else if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bToolkitPocket, FALSE))
-					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+		SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+	
 	SwapObjs( pSoldier, HANDPOS, bToolkitPocket, TRUE );
-			}
+
+	return TRUE;
+}
 
 
 BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
