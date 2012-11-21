@@ -6,7 +6,7 @@
 		<szFacilityShortName>Hôpital</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>DOCTOR</ubAssignmentType>
-			<szTooltipText>Pratiquez une opération chirurgicale sur vous soldats blessés, en utilisant un équipement de pointe. Augmente l'efficacité du docteur.</szTooltipText>
+			<szTooltipText>Pratiquez une opération chirurgicale sur vos soldats blessés, en utilisant un équipement de pointe. Augmente l'efficacité du docteur.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -52,7 +52,7 @@
 		<szFacilityShortName>Campement</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>REST</ubAssignmentType>
-			<szTooltipText>Il y a des tas de lits ici. Ils sont basic, mais c'est déjà mieux que de dormir dehors !</szTooltipText>
+			<szTooltipText>Il y a des tas de lits ici. Ils sont basiques, mais c'est déjà mieux que de dormir dehors !</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -62,7 +62,7 @@
 		<szFacilityShortName>QG militaire</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
-			<szTooltipText>La salle de crise militaire comporte toutes sortes de matériel numérique, conçu pour maintenir une bonne prise sur la situation stratégique à travers le pays. Cela vous aidera à coordonner vos défenses, et à recueillir des informations sur les mouvements ennemis dans le désert.</szTooltipText>
+			<szTooltipText>La salle de crise militaire comporte toutes sortes de matériel numérique, conçu pour maintenir une bonne prise sur la situation stratégique à travers le pays. Cela vous aidera à coordonner vos défenses et à recueillir des informations sur les mouvements ennemis dans le désert.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -72,7 +72,7 @@
 		<szFacilityShortName>Stand</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRACTICE_MARKSMANSHIP</ubAssignmentType>
-			<szTooltipText>Pourquoi ne pas passez un peu de temps à vous entrainer à tirer ? Les cibles factices ne demandent que ça. C'est toujours mieux que de tirer sur des boîtes de conserves placés sur un rocher dans le désert... Augmente l'efficacité de l'apprentissage en TIR</szTooltipText>
+			<szTooltipText>Pourquoi ne pas passer un peu de temps à vous entrainer à tirer ? Les cibles factices ne demandent que ça. C'est toujours mieux que de tirer sur des boîtes de conserves placés sur un rocher dans le désert... Augmente l'efficacité de l'apprentissage en TIR</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -82,7 +82,7 @@
 		<szFacilityShortName>A.C.A</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
-			<szTooltipText>Les habitants sont disposés à aller explorer les alentours pour vous. Vous pourrrez alors collecter ces informations pour vous donner une idée plus précise de l'activité ennemis dans cette région.</szTooltipText>
+			<szTooltipText>Les habitants sont disposés à aller explorer les alentours pour vous. Vous pourrrez alors collecter ces informations pour vous donner une idée plus précise de l'activité ennemie dans cette région.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -118,7 +118,7 @@
 		<szFacilityShortName>Club</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
-			<szTooltipText>Il a un tas d'équipements sportifs qui n'attendent qu'à être utilisé. C'est est une excellente façon d'obtenir un entraînement équilibré qui pourrait considérablement améliorer votre forme. Augmente l'efficacité de l'apprentissage en SANTE.</szTooltipText>
+			<szTooltipText>Il a un tas d'équipements sportifs qui n'attendent qu'à être utilisé. C'est une excellente façon d'obtenir un entraînement équilibré qui pourrait considérablement améliorer votre forme. Augmente l'efficacité de l'apprentissage en SANTE.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -158,7 +158,7 @@
 		<szFacilityShortName>Plage</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>REST</ubAssignmentType>
-			<szTooltipText>Soleil, sable fin, mer. On est bien loin de l'enfer des tranchées !.</szTooltipText>
+			<szTooltipText>Soleil, sable fin, mer. On est bien loin de l'enfer des tranchées !</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
