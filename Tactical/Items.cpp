@@ -7981,7 +7981,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 			{
 				removedAttachment = *pAttachment;
 				iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
-
+				pAttachment = NULL;
 				objDeleted = TRUE;
 				break;
 			}
@@ -7995,7 +7995,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 				{
 					removedAttachment = *pAttachment;
 					iter = (*this)[subObject]->RemoveAttachmentAtIter(iter);
-
+					pAttachment = NULL;
 					objDeleted = TRUE;
 					break;
 				}
@@ -8097,8 +8097,11 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	if(pNewObj != NULL)
 		*pNewObj = removedAttachment;
 
-	if(pAttachment->exists() && (pAttachment->usItem == 0 || pAttachment->usItem == removedAttachment.usItem ))
-		*pAttachment = removedAttachment;
+
+	// Why is this here? By now, the object, pAttachment had been pointing to, has already been deconstructed via RemoveAttachmentAtIter.
+	// (Commenting out the following two lines)
+	//if(pAttachment->exists() && (pAttachment->usItem == 0 || pAttachment->usItem == removedAttachment.usItem ))
+	//	*pAttachment = removedAttachment;
 
 	if (pNewObj->exists() && Item[pNewObj->usItem].grenadelauncher )//UNDER_GLAUNCHER)
 	{
