@@ -5200,22 +5200,22 @@ void BlitTownGridMarkers( void )
 				sScreenX += 2;
 			}
 
-			if( StrategicMap[ pTownLocationsList[ iCounter ] - MAP_WORLD_X ].bNameId == BLANK_SECTOR )
+			if( StrategicMap[ pTownLocationsList[ iCounter ] - MAP_WORLD_X ].bNameId != StrategicMap[ pTownLocationsList[ iCounter ] ].bNameId )
 			{
 				LineDraw( TRUE,  sScreenX - 1, sScreenY - 1, sScreenX + sWidth - 1, sScreenY - 1, usColor, pDestBuf );
 			}
 
-			if( ( StrategicMap[ pTownLocationsList[ iCounter ] + MAP_WORLD_X ].bNameId == BLANK_SECTOR ) /* || ( StrategicMap[ pTownLocationsList[ iCounter ] + MAP_WORLD_X ].bNameId == PALACE ) */ )
+			if( ( StrategicMap[ pTownLocationsList[ iCounter ] + MAP_WORLD_X ].bNameId != StrategicMap[ pTownLocationsList[ iCounter ] ].bNameId ) /* || ( StrategicMap[ pTownLocationsList[ iCounter ] + MAP_WORLD_X ].bNameId == PALACE ) */ )
 			{
 				LineDraw( TRUE,  sScreenX - 1, sScreenY + sHeight - 1, sScreenX + sWidth - 1, sScreenY + sHeight - 1, usColor, pDestBuf );
 			}
 
-			if( StrategicMap[ pTownLocationsList[ iCounter ] - 1 ].bNameId == BLANK_SECTOR )
+			if( StrategicMap[ pTownLocationsList[ iCounter ] - 1 ].bNameId != StrategicMap[ pTownLocationsList[ iCounter ] ].bNameId )
 			{
 				LineDraw( TRUE,  sScreenX - 2, sScreenY - 1, sScreenX - 2, sScreenY + sHeight - 1, usColor, pDestBuf );
 			}
 
-			if( StrategicMap[ pTownLocationsList[ iCounter ] + 1 ].bNameId == BLANK_SECTOR )
+			if( StrategicMap[ pTownLocationsList[ iCounter ] + 1 ].bNameId != StrategicMap[ pTownLocationsList[ iCounter ] ].bNameId )
 			{
 				LineDraw( TRUE,  sScreenX + sWidth - 1, sScreenY - 1, sScreenX + sWidth - 1, sScreenY + sHeight - 1, usColor, pDestBuf );
 			}
