@@ -8110,10 +8110,14 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 		OBJECTTYPE* pGrenade = FindAttachmentByClass( this, IC_GRENADE );
 		if (pGrenade->exists())
 		{
-			pNewObj->AttachObject(NULL, pGrenade, FALSE, 0, -1, 0);
 			//ADB ubWeight has been removed, see comments in OBJECTTYPE
 			//pNewObj->ubWeight = CalculateObjectWeight( pNewObj );
-			this->RemoveAttachment(pGrenade, NULL, 0, NULL, 1, 0);
+
+			// we might have to do it in this order, because if we attach first,
+			// the object is pretty much gone and RemoveAttachment won't work (returns right away)
+			OBJECTTYPE tmp;
+			this->RemoveAttachment(pGrenade, &tmp, 0, NULL, 1, 0);
+			pNewObj->AttachObject(NULL, &tmp, FALSE, 0, -1, 0);
 		}
 	}
 	//Removing an attachment can alter slots, check them.
