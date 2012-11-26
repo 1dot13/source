@@ -1804,6 +1804,26 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 												continue;
 											}
 										}
+										
+										// If it is lookaround animation, don't play it if we see at least one enemy
+										if ( pAnimDef->ubFlags & RANDOM_ANIM_SHOWOFF )
+										{
+											// enemy on sight, don't pretend we don't see him!
+											if ( pSoldier->ubProfile != NO_PROFILE )
+											{
+												if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait != CHAR_TRAIT_SHOWOFF && Random( 10 ) < 9 )
+												{
+													continue;
+												}
+											}
+											else 
+											{
+												if ( Random( 10 ) < 7 )
+												{
+													continue;
+												}
+											}
+										}
 
 										// If we are an alternate big guy and have been told to use a normal big merc ani...
 										//if ( ( pAnimDef->ubFlags & RANDOM_ANIM_FIRSTBIGMERC ) && ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYTHREATENSTANCE ) )

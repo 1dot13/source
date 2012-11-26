@@ -6733,12 +6733,7 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 	{
 		return( FALSE );
 	}*/
-		
-	if( !(_KeyDown( SHIFT )) )
-	{
-		return( FALSE );
-	}
-
+	
 	// Loop through positions...
 	for (INT8 cnt = 0; cnt < 4; cnt++)
 	{
@@ -6803,11 +6798,18 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 						return( FALSE );
 					}
 
-					// If there's a guy here, and he's not prone, we can't jump over him (maybe the way we hop over fence? lol)
+					// If there's a guy here, and he's not prone, we can't jump over him (maybe the way we hop over fence when he's crouched? lol)
 					ubGuyThere = WhoIsThere2( sInBetween, pSoldier->pathing.bLevel );
-					if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID && gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight != ANIM_PRONE )
+					if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID )
 					{
-						return( FALSE );
+						if ( gAnimControl[ MercPtrs[ ubGuyThere ]->usAnimState ].ubHeight != ANIM_PRONE )
+						{
+							return( FALSE );
+						}
+						else if ( gsCurrentActionPoints == 0 || !fCheckForPath )
+						{
+							return( TRUE );
+						}
 					}
 
 					// Get the height of stuff on the tile, we can only jump over low obstacles like this
@@ -6845,6 +6847,11 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 						ubMovementCost = DoorTravelCost( pSoldier, sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
 					}
 					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+					{
+						return( FALSE );
+					}
+						
+					if( !(_KeyDown( SHIFT ) && _KeyDown( CTRL )) )
 					{
 						return( FALSE );
 					}
@@ -6975,6 +6982,11 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 						default:
 							return( FALSE );
 							break;							
+						}
+						
+						if( !(_KeyDown( SHIFT ) && _KeyDown( CTRL )) )
+						{
+							return( FALSE );
 						}						
 
 						// If we got here, we are good to go

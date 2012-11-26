@@ -24,6 +24,7 @@
 #define	RANDOM_ANIM_INJURED							0x08
 #define	RANDOM_ANIM_DRUNK								0x10
 #define	RANDOM_ANIM_LOOKAROUND							0x20
+#define	RANDOM_ANIM_SHOWOFF							0x40
 
 
 #define	INJURED_CHANGE_THREASHOLD			30

@@ -2058,7 +2058,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gRandomAnimDefs[ BIGMALE ][ 0 ].sAnimID							= BIGBUY_FLEX;
 	gRandomAnimDefs[ BIGMALE ][ 0 ].ubStartRoll					= 0;
 	gRandomAnimDefs[ BIGMALE ][ 0 ].ubEndRoll						= 9;
-	gRandomAnimDefs[ BIGMALE ][ 0 ].ubFlags							= RANDOM_ANIM_CASUAL;
+	gRandomAnimDefs[ BIGMALE ][ 0 ].ubFlags							= RANDOM_ANIM_CASUAL | RANDOM_ANIM_SHOWOFF;
 	gRandomAnimDefs[ BIGMALE ][ 0 ].ubAnimHeight				= ANIM_STAND;
 
 	gRandomAnimDefs[ BIGMALE ][ 1 ].ubHandRestriction		= RANDOM_ANIM_NOTHINGINHAND;
