@@ -930,6 +930,11 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 		SetupProfileInsertionDataForSoldier( pSoldier );
 	}
 
+	if (IsVehicle(pSoldier))
+	{
+		// for some reason, vehicles have their own idea of handling group ids
+		RemovePlayerFromGroup(pVehicleList[ pSoldier->bVehicleID ].ubMovementGroup, pSoldier);
+	}
 	//remove him from the soldier structure
 	if( pSoldier->bAssignment >= ON_DUTY )
 	{
