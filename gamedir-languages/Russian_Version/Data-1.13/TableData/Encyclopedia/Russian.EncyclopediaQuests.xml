@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ENCYCLOPEDIA>
-	<!-- Quest 1 -->
+		<!-- Quest 1 -->
 	<DATA>
 		<uiIndex>0</uiIndex>
 		<Name>Письмо</Name>
@@ -9,21 +9,21 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Доставить письмо Мигелю.</ImageDescBefore>
-		<ImageDescAfter>Письмо доставлено, воссоединились с повстанцами.</ImageDescAfter>
+		<ImageDescBefore>Нужно найти Мигеля и доставить ему письмо от Энрико.</ImageDescBefore>
+		<ImageDescAfter>Письмо доставлено, присоеденились к повстанцам.</ImageDescAfter>
 	</DATA>
-	<!-- Quest 2 -->
+		<!-- Quest 2 -->
 	<DATA>
 		<uiIndex>1</uiIndex>
-		<Name>Пища</Name>
+		<Name>Еда</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Повстанцам нужна провизия из Драссена.</ImageDescBefore>
-		<ImageDescAfter>Отец Уокер поставляет провизию в Омерту.</ImageDescAfter>
+		<ImageDescBefore>Повстанцам нужна еда из Драссена.</ImageDescBefore>
+		<ImageDescAfter>Повстанцы получили еду от отца Уокера.</ImageDescAfter>
 	</DATA>
-		<!-- Quest 2 -->
+		<!-- Quest 3 -->
 	<DATA>
 		<uiIndex>2</uiIndex>
 		<Name>Награда</Name>
@@ -31,41 +31,41 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Награда за головы террористов.</ImageDescBefore>
-		<ImageDescAfter>Все террористы пойманы.</ImageDescAfter>
+		<ImageDescBefore>Кармен Данчо даст награду за головы террористов.</ImageDescBefore>
+		<ImageDescAfter>Все террористы были найдены и обезврежены.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 4 -->
 	<DATA>
 		<uiIndex>3</uiIndex>
-		<Name>Кубок для Босса</Name>
+		<Name>20.000$ за Кубок Удачи</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Босс предлагает $20,000 за Кубок.</ImageDescBefore>
-		<ImageDescAfter>Отдали кубок Боссу.</ImageDescAfter>
+		<ImageDescBefore>"Босс" заплатит 20.000$ за Кубок Удачи.</ImageDescBefore>
+		<ImageDescAfter>Кубок доставлен "Боссу".</ImageDescAfter>
 	</DATA>
 		<!-- Quest 5 -->
 	<DATA>
 		<uiIndex>4</uiIndex>
-		<Name>Украденные деньги у Босса</Name>
+		<Name>Деньги "Босса"</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Босс хочет свои деньги назад.</ImageDescBefore>
-		<ImageDescAfter>С Боссом покончено.</ImageDescAfter>
+		<ImageDescBefore>"Босс" хочет получить свои деньги обратно.</ImageDescBefore>
+		<ImageDescAfter>Проблема c "Боссом" решена.</ImageDescAfter> <!-- Либо заплатили либо перестреляли гопников нафиг -->
 	</DATA>
 		<!-- Quest 6 -->
 	<DATA>
 		<uiIndex>5</uiIndex>
-		<Name>Джои</Name>
+		<Name>Найти Джои</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Найти убежавшего мальчишку Джои.</ImageDescBefore>
-		<ImageDescAfter>Джои вернулся домой.</ImageDescAfter>
+		<ImageDescBefore>Найти сбежавшего мальчишку по имени Джои</ImageDescBefore>
+		<ImageDescAfter>Джои найден и возвращён родителям.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 7 -->
 	<DATA>
@@ -75,63 +75,63 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Энжел хочет, чтобы спасли Марию.</ImageDescBefore>
+		<ImageDescBefore>Энжел хочет чтобы ты освободил Марию из публичного дома. Вас никто не должен видеть.</ImageDescBefore>
 		<ImageDescAfter>Мария спасена.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 8 -->
 	<DATA>
 		<uiIndex>7</uiIndex>
-		<Name>Кубок для Читзены</Name>
+		<Name>Вернуть Кубок</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Людям Читзены нужно вернуть Кубок.</ImageDescBefore>
-		<ImageDescAfter>Кубок возвращен.</ImageDescAfter>
+		<ImageDescBefore>Янни попросил вернуть Кубок Удачи обратно в Читзену.</ImageDescBefore>
+		<ImageDescAfter>Кубок возвращён.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 9 -->
 	<DATA>
 		<uiIndex>8</uiIndex>
-		<Name>Плен</Name>
+		<Name>Отряд захвачен в плен!</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Отряд разбит и захвачен!</ImageDescBefore>
-		<ImageDescAfter>Узники обнаружены!</ImageDescAfter>
+		<ImageDescBefore>Отряд захвачен в плен!</ImageDescBefore>
+		<ImageDescAfter>Заключённые найдены!</ImageDescAfter>
 	</DATA>
 		<!-- Quest 10 -->
 	<DATA>
 		<uiIndex>9</uiIndex>
-		<Name>Допрос</Name>
+		<Name>Отряд захвачен в плен!</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2>Отряд захвачен!</PageDesc2>
+		<PageDesc2>Отряд захвачен в плен!</PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Отряд захвачен!</ImageDescBefore>
-		<ImageDescAfter>Допрос Дейдраны.</ImageDescAfter>
+		<ImageDescBefore>Отряд захвачен в плен!</ImageDescBefore>
+		<ImageDescAfter>Отряд был допрошен.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 11 -->
 	<DATA>
 		<uiIndex>10</uiIndex>
-		<Name>Фермеры</Name>
+		<Name>Хиксы</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Достали фермеры живущие к востоку от Камбрии.</ImageDescBefore>
+		<ImageDescBefore>Фермеры, живущие к востоку от Камбрии, доставляют неприятности жителям города.</ImageDescBefore>
 		<ImageDescAfter>Проблема с фермерами решена.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 12 -->
 	<DATA>
 		<uiIndex>11</uiIndex>
-		<Name>Учёный</Name>
+		<Name>Пропавший учёный</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Сбежал ученый Дейдраны!</ImageDescBefore>
-		<ImageDescAfter>Обнаружен ученый Дейдраны.</ImageDescAfter>
+		<ImageDescBefore>Учёный, работающий на Дейдрану, исчез!</ImageDescBefore>
+		<ImageDescAfter>Доктор Кайрнс обнаружен.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 13 -->
 	<DATA>
@@ -141,19 +141,19 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Нужна видеокамера для робота.</ImageDescBefore>
-		<ImageDescAfter>Отдали видеокамеру Шизу.</ImageDescAfter>
+		<ImageDescBefore>Нужно найти видеокамеру для робота.</ImageDescBefore>
+		<ImageDescAfter>Видеокамера отдана Кайрнсу</ImageDescAfter>
 	</DATA>
 		<!-- Quest 14 -->
 	<DATA>
 		<uiIndex>13</uiIndex>
-		<Name>Кошки-убийцы</Name>
+		<Name>Кошки убийцы в Альме</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Альму терроризируют Кошки-Убийцы!</ImageDescBefore>
-		<ImageDescAfter>С Кошками-Убийцами покончено.</ImageDescAfter>
+		<ImageDescBefore>Кошки-убийцы нападают на жителей Альмы!</ImageDescBefore>
+		<ImageDescAfter>Хищники больше не представляют угрозы.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 15 -->
 	<DATA>
@@ -163,19 +163,19 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Отшельник знает все про этих 'насекомых'.</ImageDescBefore>
-		<ImageDescAfter>Нашли отшельника.</ImageDescAfter>
+		<ImageDescBefore>Отшельник что-то знает об этих "монстрах".</ImageDescBefore>
+		<ImageDescAfter>Отшельник найден.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 16 -->
 	<DATA>
 		<uiIndex>15</uiIndex>
-		<Name>Жуки</Name>
+		<Name>Гигантские жуки</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Гигантские 'жуки' в шахтах!</ImageDescBefore>
-		<ImageDescAfter>Убили королеву Рептионов!</ImageDescAfter>
+		<ImageDescBefore>Гигантские 'жуки' в шахте! Шахта закрыта.</ImageDescBefore>
+		<ImageDescAfter>Крепитус уничтожена!</ImageDescAfter>
 	</DATA>
 		<!-- Quest 17 -->
 	<DATA>
@@ -185,30 +185,30 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Где-то есть пилот вертолета.</ImageDescBefore>
-		<ImageDescAfter>Нашли пилота вертолета.</ImageDescAfter>
+		<ImageDescBefore>Пилот вертолёта прячется недалеко от Драссена, предположительно на болотах.</ImageDescBefore>
+		<ImageDescAfter>Пилот вертолёта найден.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 18 -->
 	<DATA>
 		<uiIndex>17</uiIndex>
-		<Name>Эскорт</Name>
+		<Name>Пилот вертолёта</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Отвести Небесного Всадника к вертолету в Драссене.</ImageDescBefore>
-		<ImageDescAfter>Небесный Всадник работает на нас.</ImageDescAfter>
+		<ImageDescBefore>Доставить Небесного всадника в аэропорт Драссена.</ImageDescBefore>
+		<ImageDescAfter>Небесный всадник работает на нас.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 19 -->
 	<DATA>
 		<uiIndex>18</uiIndex>
-		<Name>Динамо</Name>
+		<Name>Освободить заключённого</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Нужно освободить Динамо из тюрьмы Тиксы.</ImageDescBefore>
-		<ImageDescAfter>Освободили Динамо.</ImageDescAfter>
+		<ImageDescBefore>Динамо должен быть освобожден из тюрьмы Тикса.</ImageDescBefore>
+		<ImageDescAfter>Динамо на свободе.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 20 -->
 	<DATA>
@@ -218,19 +218,19 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Сопроводить туристов в аэропорт Драссена.</ImageDescBefore>
-		<ImageDescAfter>С туристами все в порядке.</ImageDescAfter>
+		<ImageDescBefore>Дставить туристов в аэропорт Драссена.</ImageDescBefore>
+		<ImageDescAfter>Туристы покинули страну.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 21 -->
 	<DATA>
 		<uiIndex>20</uiIndex>
-		<Name>Фабрика</Name>
+		<Name>Дорин</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Вероятно, Дорин плохо обращается с детьми.</ImageDescBefore>
-		<ImageDescAfter>Разобрались с Дорин.</ImageDescAfter>
+		<ImageDescBefore>Дорин жестоко обращается с детьми.</ImageDescBefore>
+		<ImageDescAfter>Проблема с Дорин решена.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 22 -->
 	<DATA>
@@ -240,8 +240,8 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Кайл хочет свой собственный магазин.</ImageDescBefore>
-		<ImageDescAfter>Дали Кайлу доверенность на магазин Энжела.</ImageDescAfter>
+		<ImageDescBefore>Кайл хочет купить магазин кожаной одежды.</ImageDescBefore>
+		<ImageDescAfter>Магазин продан Кайлу.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 23 -->
 	<DATA>
@@ -251,7 +251,7 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Шенк достанет топливо, если его отвести в Эстони.</ImageDescBefore>
-		<ImageDescAfter>Джейк согласен продавать нам топливо.</ImageDescAfter>
+		<ImageDescBefore>Шенк на свободе. Нужно рассказать об этом Джейку.</ImageDescBefore>
+		<ImageDescAfter>Топливо можно купить у Джейка.</ImageDescAfter>
 	</DATA>
 </ENCYCLOPEDIA>
