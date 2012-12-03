@@ -52,7 +52,16 @@
 		<ubIndex>3</ubIndex>
 		<szFacilityName>Prison Complex</szFacilityName>
 		<szFacilityShortName>Prison</szFacilityShortName>
-		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>100</usPerformance>
+			<usPrisonBaseLimit>60</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
@@ -330,6 +339,38 @@
 				<bBaseEffect>1</bBaseEffect>
 				<ubRange>0</ubRange>
 			</DRUNK>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>21</ubIndex>
+		<szFacilityName>Military Prison</szFacilityName>
+		<szFacilityShortName>Prison</szFacilityShortName>
+		<ubTotalStaffLimit>3</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+			<ubStaffLimit>3</ubStaffLimit>
+			<usPerformance>100</usPerformance>
+			<usPrisonBaseLimit>20</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>22</ubIndex>
+		<szFacilityName>Town Prison</szFacilityName>
+		<szFacilityShortName>Prison</szFacilityShortName>
+		<ubTotalStaffLimit>1</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>100</usPerformance>
+			<usPrisonBaseLimit>5</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 	

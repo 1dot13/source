@@ -48644,4 +48644,29 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1625</uiIndex>
+		<szItemName>Handcuffs</szItemName>
+		<szLongItemName>Handcuffs</szLongItemName>
+		<szItemDesc>If you want to arrest someone, it is helpful to keep them from using their hands.</szItemDesc>
+		<szBRName>Handcuffs</szBRName>
+		<szBRDesc>Standard police handcuffs.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>35</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Sinks>1</Sinks>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>10</BR_UsedInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>524288</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
