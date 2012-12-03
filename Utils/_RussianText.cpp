@@ -2916,7 +2916,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// Flugente: weapon cleaning	// TODO.Translate
 	L"%s cleaned %s",
 
-	// added by Flugente: decide what to do with prisoners
+	// added by Flugente: decide what to do with prisoners	// TODO.Translate
 	L"You have no prison for these prisoners, you have to let them go",
 	L"Yes - Send prisoners to jail      No - Let them go",
 };
@@ -7432,6 +7432,7 @@ STR16	szFoodTextStr[]=
 	L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
+// TODO.Translate
 STR16	szPrisonerTextStr[]=
 {
 	L"%d prisoners were interrogated.",
