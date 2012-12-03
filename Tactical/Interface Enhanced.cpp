@@ -7501,7 +7501,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final Penetration
-			FLOAT fArmourImpactReduction = 1.0f / ((FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionDivisor);
+			FLOAT fArmourImpactReduction = ((FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionMultiplier / (FLOAT) AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].armourImpactReductionDivisor);
 
 			// Get base Penetration
 			FLOAT fFinalArmourImpactReduction = fArmourImpactReduction;

@@ -752,8 +752,8 @@ extern OBJECTTYPE gTempObject;
 #define JUMP_GRENADE			0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
 #define HANDCUFFS				0x00080000	//524288	// item can be used to capture soldiers
 
-/*#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
-#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
+#define TASER					0x00100000	//1048576	// item is a taser, melee hits with this will drain breath (if batteries are supplied)
+/*#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
 #define PLAYER_NET_3_LVL_2		0x00400000	//4194304
 #define PLAYER_NET_4_LVL_2		0x00800000	//8388608
 

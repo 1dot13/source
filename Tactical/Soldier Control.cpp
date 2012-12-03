@@ -5671,6 +5671,25 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			// Dirty panel
 			fInterfacePanelDirty = DIRTYLEVEL2;
 		}
+		// Flugente: like FIRE_WEAPON_BLINDED_BY_SPIT_SPECIAL but without the damage dependency
+		else if ( ubSpecial == FIRE_WEAPON_BLINDED_SPECIAL )
+		{
+			// blinded!!
+			if ( (this->bBlindedCounter == 0)  )
+			{
+				// say quote
+				if (this->flags.uiStatusFlags & SOLDIER_PC)
+				{
+					TacticalCharacterDialogue( this, QUOTE_BLINDED );
+				}
+				DecayIndividualOpplist( this );
+			}
+
+			this->bBlindedCounter += 2* Random(3) + 2;
+
+			// Dirty panel
+			fInterfacePanelDirty = DIRTYLEVEL2;
+		}
 		sBreathLoss += APBPConstants[BP_GET_HIT];
 		ubReason = TAKE_DAMAGE_GUNFIRE;
 	}
@@ -5753,6 +5772,47 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		}
 #endif
 		ubReason = TAKE_DAMAGE_HANDTOHAND;
+
+		// Flugente: if the weapon is a taser and has enough batteries, the damage will be 0, but the breathdamage will knock out anyone
+		if ( HasItemFlag(usWeaponIndex, TASER) )
+		{
+			if ( !Item[usWeaponIndex].needsbatteries )
+			{
+				// a taser without batteries is odd, but why not, perhaps the thing has a 1000 pund battery or sth
+				sDamage = 0;
+				sBreathLoss = 20000;
+				ubReason = TAKE_DAMAGE_ELECTRICITY;
+			}
+			// if we need batteries, lets see if we can find some...
+			else
+			{
+				// check for batteries
+				OBJECTTYPE* pBatteries = FindAttachedBatteries( &(MercPtrs[ubAttackerID]->inv[HANDPOS]) );
+				if ( pBatteries )
+				{
+					sDamage = 0;
+					sBreathLoss = 20000;
+					ubReason = TAKE_DAMAGE_ELECTRICITY;
+
+					// use up 8-12 percent of batteries
+					if ( Item[pBatteries->usItem].percentstatusdrainreduction > 0 )
+						(*pBatteries)[0]->data.objectStatus -= (INT8)( (8 + Random( 5 )) * (100 - Item[(*pBatteries)[0]->data.objectStatus].percentstatusdrainreduction)/100 );
+					else
+						(*pBatteries)[0]->data.objectStatus -= (INT8)( (8 + Random( 5 )) );
+					if ( (*pBatteries)[0]->data.objectStatus <= 0 )
+					{
+						// destroy batteries
+						pBatteries->RemoveObjectsFromStack(1);
+						if (pBatteries->exists() == false) {
+							MercPtrs[ubAttackerID]->inv[HANDPOS].RemoveAttachment(pBatteries);
+						}
+					}
+
+					// insert electrical sound effect here
+					PlayJA2Sample( DOOR_ELECTRICITY, RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+				}
+			}
+		}
 	}
 	// marke added one 'or' for explosive ammo. variation of: AmmoTypes[this->inv[this->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize > 1
 	//  extracting attacker´s ammo type

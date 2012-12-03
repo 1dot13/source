@@ -175,8 +175,8 @@ enum
 // -------- added by Flugente: various ammo flags --------
 // flags used for various ammo properties (easier than adding 32 differently named variables). DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 #define AMMO_NEUROTOXIN			0x00000001	//1			// this ammo adds the cyanide drug effect to its target, killing it in a few turns
-/*#define FULL_SANDBAG			0x00000002	//2
-#define SHOVEL					0x00000004	//4
+#define AMMO_BLIND				0x00000002	//2			// this ammo will blind if it hits the head
+/*#define SHOVEL					0x00000004	//4
 #define CONCERTINA				0x00000008	//8
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in

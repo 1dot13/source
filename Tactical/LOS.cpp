@@ -2555,7 +2555,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			}
 		}
 
-		if ( ( AmmoTypes[ubAmmoType].monsterSpit ) && (ubHitLocation == AIM_SHOT_HEAD) && ( ! (pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) ) )
+		if ( ( AmmoTypes[ubAmmoType].monsterSpit || ( AmmoTypes[ubAmmoType].ammoflag & AMMO_BLIND ) ) && (ubHitLocation == AIM_SHOT_HEAD) && ( ! (pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) ) )
 		{
 			UINT8			ubOppositeDirection;
 
@@ -2563,27 +2563,28 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			ubAttackDirection = (UINT8) GetDirectionToGridNoFromGridNo( pBullet->sOrigGridNo, pTarget->sGridNo );
 			ubOppositeDirection = gOppositeDirection[ ubAttackDirection ];
 
-			if ( ! ( ubOppositeDirection == pTarget->ubDirection || ubAttackDirection == gOneCCDirection[ pTarget->ubDirection ] || ubAttackDirection == gOneCDirection[ pTarget->ubDirection ] ) )
-			{
-				// lucky bastard was facing away!
-			}
-			//			else if ( ( (pTarget->inv[HEAD1POS].usItem == NIGHTGOGGLES) || (pTarget->inv[HEAD1POS].usItem == SUNGOGGLES) || (pTarget->inv[HEAD1POS].usItem == GASMASK) ) && ( PreRandom( 100 ) < (UINT32) (pTarget->inv[HEAD1POS][0]->data.objectStatus) ) )
-			else if ( ( (pTarget->inv[HEAD1POS].exists() == true) ) && ( PreRandom( 100 ) < (UINT32) (pTarget->inv[HEAD1POS][0]->data.objectStatus) ) )
-			{
-				// lucky bastard was wearing protective stuff
-				bHeadSlot = HEAD1POS;
-			}
-			else if ( ( (pTarget->inv[HEAD2POS].exists() == true) ) && ( PreRandom( 100 ) < (UINT32) (pTarget->inv[HEAD2POS][0]->data.objectStatus) ) )
-			{
-				// lucky bastard was wearing protective stuff
-				bHeadSlot = HEAD2POS;
-			}
-			else
-			{
-				// splat!!
-				ubSpecial = FIRE_WEAPON_BLINDED_BY_SPIT_SPECIAL;
-			}
+			if ( ubOppositeDirection == pTarget->ubDirection || ubOppositeDirection == gOneCCDirection[ pTarget->ubDirection ] || ubOppositeDirection == gOneCDirection[ pTarget->ubDirection ] )
+			{				
+				if ( (pTarget->inv[HEAD1POS].exists() == true) && ( PreRandom( 100 ) < (UINT32) (pTarget->inv[HEAD1POS][0]->data.objectStatus) ) && AmmoTypes[ubAmmoType].monsterSpit )
+				{
+					// lucky bastard was wearing protective stuff
+					bHeadSlot = HEAD1POS;
+				}
+				else if ( (pTarget->inv[HEAD2POS].exists() == true) && ( PreRandom( 100 ) < (UINT32) (pTarget->inv[HEAD2POS][0]->data.objectStatus) ) && AmmoTypes[ubAmmoType].monsterSpit )
+				{
+					// lucky bastard was wearing protective stuff
+					bHeadSlot = HEAD2POS;
+				}
+				else
+				{
+					// splat!!
+					ubSpecial = FIRE_WEAPON_BLINDED_BY_SPIT_SPECIAL;
 
+					// damage independent calculation of blindness (for pepper spray etc.)
+					if ( AmmoTypes[ubAmmoType].ammoflag & AMMO_BLIND )
+						ubSpecial = FIRE_WEAPON_BLINDED_SPECIAL;
+				}
+			}
 		}
 
 	}
