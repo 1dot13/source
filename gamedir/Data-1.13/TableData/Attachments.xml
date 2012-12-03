@@ -10372,6 +10372,11 @@
 		<APCost>8</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
+		<attachmentIndex>322</attachmentIndex>
+		<itemIndex>1626</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
 		<attachmentIndex>592</attachmentIndex>
 		<itemIndex>674</itemIndex>
 		<APCost>20</APCost>

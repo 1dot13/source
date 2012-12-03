@@ -31006,7 +31006,7 @@
 		<szBRDesc>Kobra is the answer to the needs of Russian special forces operatives who need a gunsight for fast target acquisition. Fits most AK rifles instead of a scope.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>8</AttachmentClass>
-		<nasAttachmentClass>65536</nasAttachmentClass>
+		<nasAttachmentClass>8</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>556</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -48665,6 +48665,88 @@
 		<BR_UsedInventory>10</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<ItemFlag>524288</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1626</uiIndex>
+		<szItemName>Stun Gun</szItemName>
+		<szLongItemName>Stun Gun</szLongItemName>
+		<szItemDesc>If applied correctly, this stun gun will hit anyone it touches with over 2 million volts. In case you find yourself in need of a drooling, helpless victim.</szItemDesc>
+		<szBRName>Stun Gun</szBRName>
+		<szBRDesc>At 2 million V, this baby will leave even the sturdiest men helpless on the floor. Batteries not included!</szBRDesc>
+		<usItemClass>128</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>49</ubClassIndex>
+		<ubCursor>2</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>102</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>60</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>		
+		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>3</BR_UsedInventory>
+		<BR_ROF>30</BR_ROF>
+		<BrassKnuckles>1</BrassKnuckles>
+		<ItemFlag>1048576</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1627</uiIndex>
+		<szItemName>Pepper Spray</szItemName>
+		<szLongItemName>Pepper Spray</szLongItemName>
+		<szItemDesc>Well, its better than flailing your ams helplessly.</szItemDesc>
+		<szBRName>Pepper Spray</szBRName>
+		<szBRDesc>Repel any thug with this pepper spray. Spray into his face for best effect.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1627</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>1</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<usPrice>8</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>6</BR_NewInventory>
+		<BR_ROF>36</BR_ROF>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1628</uiIndex>
+		<szItemName>Spray Canister</szItemName>
+		<szLongItemName>Pepper Spray Canister</szLongItemName>
+		<szItemDesc>If you think you need to carry several of these, consider moving out of town.</szItemDesc>
+		<szBRName>Pepper Spray Canister</szBRName>
+		<szBRDesc>Though one might think so, putting this on your food is not the best idea you could have.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>602</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>363</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<usPrice>2</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Sinks>1</Sinks>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
