@@ -127,7 +127,7 @@ Changes do not require starting of a new game.
 			<townName>Tixa</townName>
 			<townUsesLoyalty>0</townUsesLoyalty>
 			<townRebelSentiment>20</townRebelSentiment>
-			<townMilitiaAllowed>0</townMilitiaAllowed>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<hiddenTown>1</hiddenTown>
 			<townIcon>1</townIcon>
 			<szIconFile>interface\PRISON.sti</szIconFile>
