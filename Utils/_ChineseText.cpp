@@ -1635,13 +1635,14 @@ STR16 pAssignmentStrings[] =
 	L"在途中",// in transit - abbreviated form
 	L"修理", // repairing
 	L"锻炼", // training themselves
-  L"民兵", // training a town to revolt
-  L"游击队", //L"M.Militia", //training moving militia units //ham3.6
+	L"民兵", // training a town to revolt
+	L"游击队", //L"M.Militia", //training moving militia units //ham3.6
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
 	L"工作", // L"Staff", // operating a strategic facility //ham3.6
 	L"饮食",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
+	L"Prison",		// Flugente: interrogate prisoners
 	L"死亡", // dead
 	L"无力中", // abbreviation for incapacitated
 	L"战俘", // Prisoner of war - captured
@@ -1727,6 +1728,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"设施职员",
 	L"饮食",		// eating at a facility (cantina etc.)
 	L"在设施里休养",
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
 	L"休息",
 	L"无力中",
 	L"战俘",
@@ -1772,6 +1774,7 @@ STR16 pLongAssignmentStrings[] =
 	L"学员",
 	L"设施职员",  //L"Staff Facility",
 	L"休息",  //L"Rest at Facility",
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
 	L"死亡",
 	L"无力中",
 	L"战俘",
@@ -2598,7 +2601,8 @@ CHAR16 zHealthStr[][13] =
 	L"受伤",	//"WOUNDED",    	//	>= 45
 	L"健康",	//"HEALTHY",    	//	>= 60
 	L"强壮",	//"STRONG",     	// 	>= 75
-  L"极好",	//"EXCELLENT",		// 	>= 90
+	L"极好",	//"EXCELLENT",		// 	>= 90
+	L"CAPTURED",	// added by Flugente TODO.Translate
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -2911,6 +2915,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// Flugente: weapon cleaning	// TODO.Translate
 	L"%s cleaned %s",
+
+	// added by Flugente: decide what to do with prisoners
+	L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - Send prisoners to jail      No - Let them go",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3409,6 +3417,7 @@ STR16 pTransactionText[] =
 	L"将装备卖给了当地人",
 	L"工厂使用", // L"Facility Use", // HEADROCK HAM 3.6
 	L"民兵保养", // L"Militia upkeep", // HEADROCK HAM 3.6
+	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6711,6 +6720,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"训练医疗",
 	L"训练领导",
 	L"训练爆破",
+	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
 };
 STR16 Additional113Text[]=
 {
@@ -7474,6 +7484,15 @@ STR16	szFoodTextStr[]=
 	L"%s's health was damaged due to excessive drinking!",
 	L"%s's health was damaged due to lack of water!",
 	L"Sectorwide canteen filling not possible, Food System is off!"
+};
+
+STR16	szPrisonerTextStr[]=
+{
+	L"%d prisoners were interrogated.",
+	L"%d prisoners paid ransom money.",
+	L"%d prisoners revealed enemy positions.",
+	L"%d prisoners joined our cause.",
+	L"Prisoners start a massive riot in %s!",
 };
 
 #endif //CHINESE

@@ -64,6 +64,7 @@ enum
 	FACILITY_STAFF,		// HEADROCK HAM 3.6: Operating a facility for strategic gain.
 	FACILITY_EAT,		// added by Flugente
 	FACILITY_REST,			// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
+	FACILITY_INTERROGATE_PRISONERS,	// added by Flugente
 	ASSIGNMENT_DEAD,
 	ASSIGNMENT_UNCONCIOUS,			// unused
 	ASSIGNMENT_POW,
@@ -189,6 +190,9 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts,
 // find number of repair pts repairman has available
 UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts, BOOLEAN fMakeSureKitIsInHand );
 
+// Flugente: calculate interrogation and prison guard values
+FLOAT CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
+FLOAT CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
 // get bonus tarining pts due to an instructor for this student
 // HEADROCK HAM 3.5: Three functions below have lost an argument which is no longer required ("uiAtGunRange", which was "uiAtFacility" in HAM 3.4)

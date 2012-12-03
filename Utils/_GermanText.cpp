@@ -1651,6 +1651,7 @@ STR16 pAssignmentStrings[] =
 	L"Betrieb", // operating a strategic facility
 	L"Essen",		// eating at a facility (cantina etc.)
 	L"Pause", // Resting at a facility
+	L"Verhör",		// Flugente: interrogate prisoners
 	L"Tot", // dead
 	L"Koma", // abbreviation for incapacitated	//LOOTF - "Unfähig" klingt schlimm. Geändert auf Koma. Vorschläge?
 	L"Gefangen", // Prisoner of war - captured
@@ -1732,6 +1733,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Betriebspersonal",
 	L"Essen",		// eating at a facility (cantina etc.)
 	L"Betriebspause",
+	L"Gefangene verhören",		// Flugente: interrogate prisoners
 	L"Tot",
 	L"Koma",			//LOOTF - s.o.
 	L"Gefangen",
@@ -1775,6 +1777,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Rekrut",
 	L"Betriebspersonal",
 	L"Betriebspause",
+	L"Gefangene verhören",		// Flugente: interrogate prisoners
 	L"Tot",
 	L"Unfähig",
 	L"Gefangen",
@@ -2601,7 +2604,8 @@ CHAR16 zHealthStr[][13] =	//used to be 10
 	L"VERWUNDET",	//	>= 45
 	L"GESUND",	//	>= 60
 	L"STARK",	// 	>= 75
-	L"SEHR GUT",	// 	>= 90	 
+	L"SEHR GUT",	// 	>= 90
+	L"GEFANGEN",	// added by Flugente
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -2913,6 +2917,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// Flugente: weapon cleaning	// TODO.Translate
 	L"%s cleaned %s",
+
+	// added by Flugente: decide what to do with prisoners
+	L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - Send prisoners to jail      No - Let them go",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3382,6 +3390,7 @@ STR16 pTransactionText[] =
 	L"%s hat Geld angelegt.",
 	L"Betriebskosten",			// HEADROCK HAM 3.6
 	L"Unterhaltskosten für Miliz",		// HEADROCK HAM 3.6
+	L"Lösegeld erpresst",	// Flugente: prisoner system
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6521,6 +6530,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Trainer Technik",
 	L"Trainer Führungsqualität",
 	L"Trainer Sprengstoff",
+	L"Gefangene verhören",	// added by Flugente
 };
 
 STR16 Additional113Text[]=
@@ -7282,6 +7292,15 @@ STR16	szFoodTextStr[]=
 	L"%s's health was damaged due to excessive drinking!",
 	L"%s's health was damaged due to lack of water!",
 	L"Sectorwide canteen filling not possible, Food System is off!"
+};
+
+STR16	szPrisonerTextStr[]=
+{
+	L"%d prisoners were interrogated.",
+	L"%d prisoners paid ransom money.",
+	L"%d prisoners revealed enemy positions.",
+	L"%d prisoners joined our cause.",
+	L"Prisoners start a massive riot in %s!",
 };
 
 #endif //GERMAN

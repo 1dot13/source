@@ -141,9 +141,16 @@ INT16 GetFacilityModifier( UINT8 ubModifierType, UINT8 ubFacilityType, UINT8 ubA
 				sAssignmentModifier = 100 + ((sAssignmentModifier-100) + (sAmbientModifier-100));
 				return (sAssignmentModifier);
 
+			// Flugente: not needed anywhere atm
 			case FACILITY_CANTINA_MOD:
 				sAssignmentModifier = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCantinaFoodModifier;
 				sAmbientModifier = gFacilityTypes[ubFacilityType].AssignmentData[0].sCantinaFoodModifier;
+				sAssignmentModifier = 100 + ((sAssignmentModifier-100) + (sAmbientModifier-100));
+				return (sAssignmentModifier);
+
+			case FACILITY_PRISON_MOD:
+				sAssignmentModifier = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].usPrisonBaseLimit;
+				sAmbientModifier = gFacilityTypes[ubFacilityType].AssignmentData[0].usPrisonBaseLimit;
 				sAssignmentModifier = 100 + ((sAssignmentModifier-100) + (sAmbientModifier-100));
 				return (sAssignmentModifier);
 
@@ -905,6 +912,9 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 			break;
 		case FACILITY_REST:
 			bAssignmentIndex = FAC_REST;
+			break;
+		case FACILITY_INTERROGATE_PRISONERS:
+			bAssignmentIndex = FAC_INTERROGATE_PRISONERS;
 			break;
 		default:
 			bAssignmentIndex = -1;

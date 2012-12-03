@@ -4142,6 +4142,24 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
 	}
+	else if ( uiFlags == MOVEUI_TARGET_HANDCUFF )
+	{
+		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		if ( sActionGridNo == -1 )
+		{
+			sActionGridNo = usMapPos;
+		}
+
+		sAPCost = GetAPsToHandcuff( pSoldier, sActionGridNo );
+
+		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+
+		if ( sActionGridNo != pSoldier->sGridNo )
+		{
+			gfUIHandleShowMoveGrid = TRUE;
+			gsUIHandleShowMoveGridLocation = sActionGridNo;
+		}
+	}
 	else if ( uiFlags == MOVEUI_TARGET_MERCS )
 	{
 		   INT32		sGotLocation = NOWHERE;
@@ -4491,6 +4509,21 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 			}
 		}
 
+		return( FALSE );
+	}
+
+	if ( ubItemCursor == HANDCUFFCURS )
+	{
+		if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, HANDCUFFS ) )
+		{
+			if ( gfUIFullTargetFound )
+			{
+				usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+
+				return( TRUE );
+			}
+		}
+				
 		return( FALSE );
 	}
 

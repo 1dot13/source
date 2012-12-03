@@ -398,6 +398,12 @@ void TrainSoldierWithPts( SOLDIERTYPE *pSoldier, INT16 sTrainPts );
 // train militia in this sector with this soldier
 BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT16 sTrainingPts );
 
+// Flugente:: handle processing of prisoners
+void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
+
+// Flugente: prisons can riot if there aren't enough guards around
+void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ );
+
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -2220,7 +2226,9 @@ void UpdateAssignments()
 			for( bZ = 0; bZ < 4; bZ++)
 			{
 				// handle militia squads movings and creating (not an assignment)
-				if(!bZ && sX < 17 && sY < 17 && sX > 0 && sY > 0)UpdateMilitiaSquads( sX, sY );
+				if(!bZ && sX < 17 && sY < 17 && sX > 0 && sY > 0)
+					UpdateMilitiaSquads( sX, sY );
+
 				// is there anyone in this sector?
 				if( fSectorsWithSoldiers[ sX + sY * MAP_WORLD_X ][ bZ ]	== TRUE )
 				{
@@ -2232,7 +2240,14 @@ void UpdateAssignments()
 
 					// handle any training
 					HandleTrainingInSector( sX, sY, bZ );
+
+					// handle processing of prisoners
+					HandlePrisonerProcessingInSector( sX, sY, bZ );
 				}
+
+				// Flugente: prisons can riot if there aren't enough guards around
+				if ( !bZ )
+					HandlePrison( sX, sY, bZ );
 			}
 		}
 	}
@@ -2596,6 +2611,84 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	return(( UINT8 )usRepairPts);
 }
 
+extern INT32 CalcThreateningEffectiveness( UINT8 ubMerc );
+
+// Flugente: calculate interrogation value
+FLOAT CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
+{
+	UINT32 usInterrogationPoints = 0;	
+
+	// for max points we display the maximum amount of prisoners instead
+	*pusMaxPts = 0;
+	if ( !pSoldier || !pSoldier->bSectorZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
+
+		*pusMaxPts = (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar);
+	}
+
+	// no prisoners -> no interrogation (this should not happen)
+	if ( !*pusMaxPts )
+		return .0f;
+
+	usInterrogationPoints = 50 + 10 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier );
+
+	// adjust for threatening value
+	INT32 threatenvalue = CalcThreateningEffectiveness( pSoldier->ubProfile ) * gMercProfiles[pSoldier->ubProfile].usApproachFactor[2] ;
+
+	usInterrogationPoints *= threatenvalue;
+	usInterrogationPoints /= 6500;
+
+	// TODO: adjust for cop background
+
+	// adjust for fatigue
+	ReducePointsForFatigue( pSoldier, &usInterrogationPoints );
+
+	// return current repair pts
+	return( usInterrogationPoints );
+}
+
+// Flugente: calculate prison guard value
+FLOAT CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
+{
+	// this is not an assignment. Simply being in the sector will allow us to be counted as guards
+	UINT32 usValue = 0;	
+
+	// for max points we display the maximum amount of prisoners instead
+	*pusMaxPts = 0;
+	/*if ( !pSoldier || !pSoldier->bSectorZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
+
+		*pusMaxPts = (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar);
+	}
+
+	// no prisoners -> no interrogation (this should not happen)
+	if ( !*pusMaxPts )
+		return .0f;*/
+
+	if ( pSoldier->flags.fMercAsleep )
+		return 0;
+
+	usValue = 15 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier ) / 2 + 2 * EffectiveStrength( pSoldier, FALSE);
+
+	if (gGameOptions.fNewTraitSystem)
+	{
+		usValue += 25 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) + 10 * HAS_SKILL_TRAIT( pSoldier, MELEE_NT );
+	}
+	else
+	{
+		usValue += 25 * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT ) + 25 * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND_OT ) + 10 * HAS_SKILL_TRAIT( pSoldier, KNIFING_OT );
+	}
+			
+	// adjust for fatigue
+	ReducePointsForFatigue( pSoldier, &usValue );
+
+	// TODO: adjust for prison guard background
+
+	// return current repair pts
+	return( usValue );
+}
 
 UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier)
 {
@@ -5379,6 +5472,345 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 
 }
 
+extern INT32 giReinforcementPool;
+
+// handle processing of prisoners
+void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
+{
+	// Is there a prison in this sector?
+	UINT16 prisonerbaselimit = 0;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(sMapX, sMapY)][cnt].fFacilityHere)
+		{
+			// we determine wether this is a prison by checking for usPrisonBaseLimit
+			if (gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0)
+			{
+				prisonerbaselimit = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit;
+				break;
+			}
+		}
+	}
+
+	if ( !prisonerbaselimit )
+		return;
+
+	// Are there any prisoners in this prison?
+	UINT32 numprisoners = 0;
+	if ( !bZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+		
+		numprisoners = pSectorInfo->uiNumberOfPrisonersOfWar;
+	}
+	else
+	{
+		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+		numprisoners = pSectorInfo->uiNumberOfPrisonersOfWar;
+	}
+
+	if ( !numprisoners )
+		return;
+
+	// if sector not under our control, has enemies in it, or is currently in combat mode
+	if (!SectorOursAndPeaceful( sMapX, sMapY, bZ ))
+		return;
+
+	// loop over all mercs in this sector that are on the FACILITY_INTERROGATE_PRISONERS assignment and determine their interrogation progress
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt=0;
+	UINT8 numinterrogators = 0;
+	FLOAT	interrogationpoints = .0f;
+		
+	// count any interrogators found here, and sum up their interrogation values
+	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
+		{
+			// if he's training teammates in this stat
+			if( ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
+			{
+				++numinterrogators;
+				
+				UINT16 tmp;
+				interrogationpoints += CalculateInterrogationValue(pSoldier, &tmp );
+			}
+		}
+	}
+
+	if ( !numinterrogators )
+		return;
+
+	// for every x points, we can interrogate 1 prisoner
+	// TODO: for now, we lose the remaining points
+	UINT32 prisonersinterrogated = interrogationpoints / 100;
+
+	if ( prisonersinterrogated > numprisoners )
+		prisonersinterrogated = numprisoners;
+
+	if ( !prisonersinterrogated )
+		return;
+
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_PROCESSED], prisonersinterrogated  );
+		
+	UINT32 turnedmilitia = 0;
+	UINT32 revealedpositions = 0;
+	UINT32 ransomscollected = 0;
+	UINT32 ransommoney = 0;
+	for ( UINT32 i = 0; i < prisonersinterrogated; ++i )
+	{
+		// we determine what happens to the prisoners
+		UINT8 result = Random( 100 );
+
+		// chance that prisoner will work on our side as militia
+		if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance )
+		{
+			++turnedmilitia;
+
+			// we continue so that this guy can not also run back to the queen
+			continue;
+		}
+		// chance that prisoner will give us random info about enemy positions
+		else if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance + gGameExternalOptions.ubPrisonerProcessInfoBaseChance )
+		{
+			BOOLEAN found = FALSE;
+			// run through sectors and handle each type in sector
+			for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+			{
+				if ( found )
+					break;
+
+				for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+				{					
+					UINT32 result = Random(100);
+					if ( result < gGameExternalOptions.ubPrisonerProcessInfoDetectChance )
+					{
+						// there need to be enemies here...
+						if ( NumStationaryEnemiesInSector( sX, sY ) == 0 )
+							continue;
+
+						// enemy patrol detected
+						SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
+
+						if ( result < gGameExternalOptions.ubPrisonerProcessInfoNumberChance )
+						{
+							// we also learned the number of enemies
+							SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
+						}
+
+						if ( result < gGameExternalOptions.ubPrisonerProcessInfoDirectionChance )
+						{
+							// we also learned the direction of the patrol
+							SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+						}
+
+						++revealedpositions;
+						found = TRUE;
+						break;
+					}
+				}
+			}
+		}
+		// chance prisoner will grant us ransom money
+		else if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance + gGameExternalOptions.ubPrisonerProcessInfoBaseChance + gGameExternalOptions.ubPrisonerProcessRansomBaseChance )
+		{
+			ransommoney += (Random(5) + 1) * 100;
+
+			++ransomscollected;
+		}
+		// we have to let him go without any benefits
+		else
+		{
+
+		}
+
+		// there is a chance that escaped prisoners may return to the queen...
+		if ( Random( 100 ) < gGameExternalOptions.ubPrisonerReturntoQueenChance )
+			++giReinforcementPool;
+	}
+		
+	if ( turnedmilitia )
+	{
+		// add these guys to the local garrison as green militias
+		StrategicAddMilitiaToSector(sMapX, sMapY, GREEN_MILITIA, turnedmilitia);
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_MILITIA], turnedmilitia  );
+	}
+
+	if ( revealedpositions )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_DETECTION], revealedpositions  );
+
+	if ( ransomscollected )
+	{
+		AddTransactionToPlayersBook( PRISONER_RANSOM, 0, GetWorldTotalMin(), ransommoney );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RANSOM], ransomscollected  );
+	}
+
+	// give experience rewards to the interrogators
+	// total experience to share
+	FLOAT totalexp = 100 * prisonersinterrogated;
+	FLOAT expratio = totalexp / (interrogationpoints * 33);	// TODO
+
+	// award experience
+	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
+		{
+			// if he's training teammates in this stat
+			if( ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS ) && ( EnoughTimeOnAssignment( pSoldier ) ) && ( pSoldier->flags.fMercAsleep == FALSE ) )
+			{
+				UINT16 tmp;
+				UINT16 exppoints = (UINT16)(expratio * CalculateInterrogationValue(pSoldier, &tmp ) );
+								
+				StatChange( pSoldier, LDRAMT,		exppoints, TRUE );
+				StatChange( pSoldier, WISDOMAMT,	max(0, exppoints - 1), TRUE );
+				StatChange( pSoldier, EXPERAMT,		max(0, exppoints - 2), TRUE );
+			}
+		}
+	}
+		
+	// remove interrogated prisoners...
+	if ( !bZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+		
+		// safety first...
+		if ( prisonersinterrogated > pSectorInfo->uiNumberOfPrisonersOfWar )
+			pSectorInfo->uiNumberOfPrisonersOfWar = 0;
+		else
+			pSectorInfo->uiNumberOfPrisonersOfWar -= prisonersinterrogated;
+	}
+	else
+	{
+		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+		// safety first...
+		if ( prisonersinterrogated > pSectorInfo->uiNumberOfPrisonersOfWar )
+			pSectorInfo->uiNumberOfPrisonersOfWar = 0;
+		else
+			pSectorInfo->uiNumberOfPrisonersOfWar -= prisonersinterrogated;
+	}
+}
+
+// Flugente: prisons can riot if there aren't enough guards around
+void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+{
+	BOOLEAN fBeginRiot = FALSE;
+
+	// Is there a prison in this sector?
+	UINT16 prisonerbaselimit = 0;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(sMapX, sMapY)][cnt].fFacilityHere)
+		{
+			// we determine wether this is a prison by checking for usPrisonBaseLimit
+			if (gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0)
+			{
+				prisonerbaselimit = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit;
+				break;
+			}
+		}
+	}
+
+	if ( !prisonerbaselimit )
+		return;
+
+	// Are there any prisoners in this prison?
+	UINT32 numprisoners = 0;
+	if ( !bZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+		
+		numprisoners = pSectorInfo->uiNumberOfPrisonersOfWar;
+	}
+	else
+	{
+		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+		numprisoners = pSectorInfo->uiNumberOfPrisonersOfWar;
+	}
+
+	if ( !numprisoners )
+		return;
+
+	// if sector is not under our control, the prisoners are added to the local garrison
+	if( !bZ && StrategicMap[ sMapX + sMapY * MAP_WORLD_X ].fEnemyControlled == TRUE )
+	{
+		// add enemies
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+
+		pSectorInfo->ubNumTroops += numprisoners;
+
+	}
+
+	// if sector not under our control, has enemies in it, or is currently in combat mode
+	if (!SectorOursAndPeaceful( sMapX, sMapY, bZ ))
+		return;
+
+	// loop over all mercs in this sector that are on the FACILITY_INTERROGATE_PRISONERS assignment and determine their interrogation progress
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT8 numprisonguards = 0;
+	FLOAT prisonguardvalue = .0f;
+		
+	// count any interrogators found here, and sum up their interrogation values
+	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
+		{
+			++numprisonguards;
+
+			UINT16 tmp;
+			prisonguardvalue += CalculatePrisonGuardValue(pSoldier, &tmp );
+		}
+	}
+	// add militia strength
+	if ( !bZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+		
+		prisonguardvalue += 100 * pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + 150 * pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + 200 * pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	}
+	else
+	{
+		// there are no underground prisons, so screw this...
+	}
+	
+	if ( !numprisonguards )
+		fBeginRiot = TRUE;
+
+	// we now have to determine the combined strength of the prisoners
+	FLOAT prisonerriotvalue = .0f;
+	for ( UINT32 i = 0; i < numprisoners; ++i )
+	{
+		prisonerriotvalue += 100.0f;
+	}
+
+	if ( prisonerriotvalue > prisonguardvalue )
+	{
+		if ( numprisoners > prisonerbaselimit && Random( (UINT32)(prisonerriotvalue) ) > Random( (UINT32)(prisonguardvalue) ) )
+			fBeginRiot = TRUE;
+	}
+
+	if ( fBeginRiot )
+	{
+		// add enemies
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+
+		pSectorInfo->ubNumTroops += numprisoners;
+
+		CHAR16				zShortTownIDString[ 50 ];
+		GetShortSectorString( sMapX, sMapX, zShortTownIDString );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RIOT], zShortTownIDString  );
+	}
+}
 
 INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 {
@@ -11540,6 +11972,31 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				pSoldier->bVehicleUnderRepairID = ( INT8 )iParam3;
 			}
 			break;
+
+		case( FACILITY_INTERROGATE_PRISONERS ):
+			if( pSoldier->CanProcessPrisoners() )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != FACILITY_INTERROGATE_PRISONERS )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, FACILITY_INTERROGATE_PRISONERS );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
+
 		case( VEHICLE ):
 			if( CanCharacterVehicle( pSoldier ) && IsThisVehicleAccessibleToSoldier( pSoldier, iParam1 ) )
 			{
@@ -12610,6 +13067,10 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = !CanCharacterRepair( pSoldier ) || HasCharacterFinishedRepairing( pSoldier );
 					break;
 
+				case FACILITY_INTERROGATE_PRISONERS:
+					fNothingToDo = !pSoldier->CanProcessPrisoners();
+					break;
+
 				case TRAIN_TOWN:
 					fNothingToDo = !CanCharacterTrainMilitia( pSoldier );
 					break;
@@ -12829,6 +13290,16 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						ChangeSoldiersAssignment( pSoldier, FACILITY_STAFF );
+						pSoldier->sFacilityTypeOperated = bParam;
+						fItWorked = TRUE;
+					}
+					break;
+
+				case FACILITY_INTERROGATE_PRISONERS:
+					if ( CanCharacterFacility( pSoldier, bParam, FAC_INTERROGATE_PRISONERS ) && pSoldier->CanProcessPrisoners() )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						ChangeSoldiersAssignment( pSoldier, FACILITY_INTERROGATE_PRISONERS );
 						pSoldier->sFacilityTypeOperated = bParam;
 						fItWorked = TRUE;
 					}
@@ -16324,7 +16795,9 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 					pSoldier->bTrainStat = EXPLOSIVE_ASSIGN;
 					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
 					break;
-
+				case FAC_INTERROGATE_PRISONERS:
+					ChangeSoldiersAssignment( pSoldier, FACILITY_INTERROGATE_PRISONERS );
+					break;
 			}
 			
 			// Flugente: I guess this piece of code is here to get a group Id for the soldier, which must not be there for movement specifically. Just my understanding, in case anybody else coming here wonders

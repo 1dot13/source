@@ -1660,6 +1660,11 @@ BOOLEAN ExecuteOverhead( )
 											pSoldier->EVENT_SoldierBuildStructure( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
 											pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
 										}
+										else if ( pSoldier->aiData.ubPendingAction == MERC_HANDCUFF_PERSON )
+										{
+											pSoldier->EVENT_SoldierHandcuffPerson( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
+											pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
+										}
 										else if ( pSoldier->aiData.ubPendingAction == MERC_GIVEITEM	)
 										{
 											pSoldier->EVENT_SoldierBeginGiveItem( );
@@ -4040,7 +4045,7 @@ UINT8 LastActiveTeamMember( UINT8 ubTeam )
 
 void CheckForPotentialAddToBattleIncrement( SOLDIERTYPE *pSoldier )
 {
-	UINT16 iCounter2;
+	//UINT16 iCounter2;
 	// Check if we are a threat!
 	if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
 	{
@@ -6632,6 +6637,240 @@ void DeathNoMessageTimerCallback( void )
 	}
 }
 
+BOOLEAN GetPlayerControlledPrisonSectorId(UINT32& auSectorID)
+{
+	auSectorID = 0;
+	UINT16 highestprisonsize = 0;
+
+	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			if ( !SectorOursAndPeaceful( sX, sY, 0 ) )
+				continue;
+
+			// Is there a prison in this sector?
+			for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
+			{
+				// Is this facility here?
+				if (gFacilityLocations[SECTOR(sX, sY)][cnt].fFacilityHere)
+				{
+					// we determine wether this is a prison by checking for usPrisonBaseLimit
+					if ( gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > highestprisonsize )
+					{
+						highestprisonsize = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit;
+						auSectorID = SECTOR(sX, sY);
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	return (highestprisonsize > 0);
+}
+
+extern INT32 giReinforcementPool;
+
+void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if ( !gbWorldSectorZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+
+		UINT32 prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
+
+		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
+
+		if (ubExitValue == MSG_BOX_RETURN_YES)
+		{
+			UINT32 uSectorID = 0;
+			if ( GetPlayerControlledPrisonSectorId(uSectorID) )
+			{
+				SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ uSectorID ] );
+
+				if ( pPrisonSectorInfo )
+					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
+			}
+		}
+		else
+		{
+			// send some prisoners back to queen's pool
+			// there is a chance that escaped prisoners may return to the queen...
+			giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
+		}
+	}
+	else
+	{
+		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		
+		UINT32 prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
+
+		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
+
+		if (ubExitValue == MSG_BOX_RETURN_YES)
+		{
+			UINT32 uSectorID = 0;
+			if ( GetPlayerControlledPrisonSectorId(uSectorID) )
+			{
+				SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ uSectorID ] );
+
+				if ( pPrisonSectorInfo )
+					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
+			}
+		}
+		else
+		{
+			// send some prisoners back to queen's pool
+			// there is a chance that escaped prisoners may return to the queen...
+			giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
+		}
+	}
+}
+
+void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+{
+	SOLDIERTYPE *pTeamSoldier;
+	INT32				cnt = 0;
+	UINT8				ubNumPrisoners = 0;
+	UINT8				ubNumPrisonerAdmin = 0;
+	UINT8				ubNumPrisonerTroop = 0;
+	UINT8				ubNumPrisonerElite = 0;
+
+	// Check if the battle is won!
+	// Loop through all mercs and make go
+	for ( pTeamSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; ++pTeamSoldier, ++cnt )
+	{
+		// Kill those not already dead.,...
+		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == ENEMY_TEAM )
+		{
+			// For sure for flag thet they are dead is not set
+			if ( ( pTeamSoldier->bSoldierFlagMask & SOLDIER_POW ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
+			{
+				if ( pTeamSoldier->stats.bLife > OKLIFE && pTeamSoldier->stats.bLife != 0 )
+				{
+					switch ( pTeamSoldier->ubSoldierClass )
+					{
+					case SOLDIER_CLASS_ADMINISTRATOR:	ubNumPrisonerAdmin++; break;
+					case SOLDIER_CLASS_ARMY:			ubNumPrisonerTroop++; break;
+					case SOLDIER_CLASS_ELITE:			ubNumPrisonerElite++; break;
+					default:
+						// if none of the above classes, ignore this one
+						continue;
+						break;
+					}
+
+					++ubNumPrisoners;
+
+					// place items on the floor
+					INT8 bVisible = 0;
+					UINT16 usItemFlags = 0;
+					UINT8 size = pTeamSoldier->inv.size();
+					for ( UINT8 cnt = 0; cnt < size; ++cnt )
+					{
+						OBJECTTYPE* pObj = &( pTeamSoldier->inv[ cnt ] );
+
+						if ( pObj->exists() == true )
+						{
+							// Check if it's supposed to be dropped
+							if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pTeamSoldier->bTeam == gbPlayerNum )
+							{
+								if ( !(Item[ pObj->usItem ].defaultundroppable ) )
+								{
+									//ReduceAmmoDroppedByNonPlayerSoldiers( pTeamSoldier, cnt );
+
+									//if this soldier was an enemy
+									// Kaiden: Added from UB's reveal all items after combat feature!
+									// HEADROCK HAM B2.8: Now also reveals equipment dropped by militia, if requirement is met.
+									if( pTeamSoldier->bTeam == ENEMY_TEAM ||
+										( gGameExternalOptions.ubMilitiaDropEquipment == 2 && pTeamSoldier->bTeam == MILITIA_TEAM ) ||
+										( gGameExternalOptions.ubMilitiaDropEquipment == 1 && pTeamSoldier->bTeam == MILITIA_TEAM && Menptr[ pTeamSoldier->ubAttackerID ].bTeam != OUR_TEAM ))
+										{
+											//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
+											usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
+
+											if ( Item[pObj->usItem].damageable && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
+											{
+												(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
+												(*pObj)[0]->data.objectStatus = min(max((*pObj)[0]->data.objectStatus,1),100); // never below 1% or above 100%
+
+												(*pObj)[0]->data.sRepairThreshold = max(1, min(100, ((*pObj)[0]->data.objectStatus + 200)/3 ));
+											}
+										}
+
+										//if(UsingNewAttachmentSystem()==true)
+											//ReduceAttachmentsOnGunForNonPlayerChars(pTeamSoldier, pObj);
+
+									// HEADROCK HAM B2.8: Militia will drop items only if allowed.
+									if (!(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pTeamSoldier->bTeam == MILITIA_TEAM ) &&
+										!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pTeamSoldier->bTeam == MILITIA_TEAM && Menptr[ pTeamSoldier->ubAttackerID ].bTeam == OUR_TEAM ))
+									{
+										AddItemToPool( pTeamSoldier->sGridNo, pObj, bVisible , pTeamSoldier->pathing.bLevel, usItemFlags, -1 );
+									}
+								}
+							}
+						}
+					}
+
+					DropKeysInKeyRing( pTeamSoldier, pTeamSoldier->sGridNo, pTeamSoldier->pathing.bLevel, bVisible, FALSE, 0, FALSE );
+
+					// Make team look for items
+					AllSoldiersLookforItems( TRUE );
+
+					if ( pTeamSoldier->bTeam != gbPlayerNum )
+						// Remove merc!
+						// ATE: Remove merc slot first - will disappear if no corpse data found!
+						TacticalRemoveSoldier( pTeamSoldier->ubID );
+					else
+						pTeamSoldier->RemoveSoldierFromGridNo( );
+
+					// Remove as target
+					RemoveManAsTarget( pTeamSoldier );
+				}
+			}
+		}
+	}
+	
+    if (!bMapZ) // Battle ended Above-ground
+    {
+        SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
+
+		pSectorInfo->uiNumberOfPrisonersOfWar += ubNumPrisoners;
+
+        pSectorInfo->ubNumAdmins -= ubNumPrisonerAdmin;
+		pSectorInfo->ubNumTroops -= ubNumPrisonerTroop;
+		pSectorInfo->ubNumElites -= ubNumPrisonerElite;
+
+		pSectorInfo->ubAdminsInBattle -= ubNumPrisonerAdmin;
+		pSectorInfo->ubTroopsInBattle -= ubNumPrisonerTroop;
+		pSectorInfo->ubElitesInBattle -= ubNumPrisonerElite;
+    }
+    else
+    {
+        UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
+
+		pSectorInfo->uiNumberOfPrisonersOfWar += ubNumPrisoners;
+        
+		pSectorInfo->ubNumAdmins -= ubNumPrisonerAdmin;
+		pSectorInfo->ubNumTroops -= ubNumPrisonerTroop;
+		pSectorInfo->ubNumElites -= ubNumPrisonerElite;
+
+		pSectorInfo->ubAdminsInBattle -= ubNumPrisonerAdmin;
+		pSectorInfo->ubTroopsInBattle -= ubNumPrisonerTroop;
+		pSectorInfo->ubElitesInBattle -= ubNumPrisonerElite;
+    }
+
+	if ( ubNumPrisoners )
+	{
+		//if ( guiCurrentScreen == GAME_SCREEN )
+		UINT32 uSectorID = 0;
+		if ( GetPlayerControlledPrisonSectorId(uSectorID) )
+			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_DECIDE_STR ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, PrisonerMessageBoxCallBack, NULL );
+		else
+			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_NO_PRISONS_STR ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+	}
+}
+
 void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
     if (!bMapZ) // Battle ended Above-ground
@@ -6828,6 +7067,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 				return( FALSE );
 			}
 		}
+
+		// Flugente: remove those enemies that are captured and add them to the prisoner pool
+		RemoveCapturedEnemiesFromSectorInfo( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 		// Kill all enemies. Sometime even after killing all the enemies, there appeares "in battle" enemies in sector info
 		RemoveStaticEnemiesFromSectorInfo( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
@@ -7431,6 +7673,10 @@ UINT8 NumCapableEnemyInSector( )
 				}
 				else
 				{
+					// Flugente: captured soldiers also do not count
+					if ( pTeamSoldier->bSoldierFlagMask & SOLDIER_POW )
+						continue;
+
 					// Check for any more badguys
 					if ( !pTeamSoldier->aiData.bNeutral && (pTeamSoldier->bSide != 0 ) )
 					{

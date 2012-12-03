@@ -2404,6 +2404,14 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 
 				break;
+
+			case FACILITY_INTERROGATE_PRISONERS:
+				sIconIndex		= 23;
+				fDoIcon			= TRUE;
+				sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) ) / 100;
+				fShowNumber		= TRUE;
+				fShowMaximum	= TRUE;
+				break;
 		}
 
 		// Check for being serviced...

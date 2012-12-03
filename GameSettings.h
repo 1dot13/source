@@ -1130,8 +1130,8 @@ typedef struct
 	// Flugente: Weapon Overheating
 	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?
 	UINT8	ubOverheatThermometerRedOffset;			// amount of red colour while temperature is below threshold
-	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels alone in the landscape ;-)
-	FLOAT	iOverheatTemperatureGlobalModfier;		// a global modifier to the singel shot temperatuer value, if one feels that all values hould be lower/higher
+	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels left alone in the landscape ;-)
+	FLOAT	iOverheatTemperatureGlobalModfier;		// a global modifier to the singel shot temperature value, if one feels that all values should be lower/higher
 	
 	// Flugente: Weapon Mounting
 	BOOLEAN	fWeaponResting;							// Should it be possible to rest your weapon on structures in crouched position?
@@ -1150,6 +1150,17 @@ typedef struct
 	BOOLEAN fOnlyRepairGunsArmour;					// we can only repair guns and armour
 	BOOLEAN fDirtSystem;							// allow dirt on items increase the chance for weapon jamming
 	UINT32	usSectorDirtDivider;					// divide a guns dirt factor by this to get dirt increase for every turn
+
+	// Flugente: prisoner related settings
+	BOOLEAN fAllowPrisonerSystem;
+	BOOLEAN	fEnemyCanSurrender;
+	UINT8	ubPrisonerReturntoQueenChance;
+	UINT8	ubPrisonerProcessDefectChance;
+	UINT8	ubPrisonerProcessInfoBaseChance;
+	UINT8	ubPrisonerProcessInfoDetectChance;
+	UINT8	ubPrisonerProcessInfoNumberChance;
+	UINT8	ubPrisonerProcessInfoDirectionChance;
+	UINT8	ubPrisonerProcessRansomBaseChance;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

@@ -3012,9 +3012,12 @@ IAN COMMENTED THIS OUT MAY 1997 - DO WE NEED THIS?
 		if (pOpponent)
 		{
 			// check to see if OPPONENT considers US neutral
-			if ( (pOpponent->aiData.bOppList[ubTarget] == SEEN_CURRENTLY) && !pOpponent->aiData.bNeutral && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && (pSoldier->bSide != pOpponent->bSide) && pOpponent->RecognizeAsCombatant(pSoldier->ubID) )
+			if ( (pOpponent->aiData.bOppList[ubTarget] == SEEN_CURRENTLY) && !pOpponent->aiData.bNeutral && (pSoldier->bSide != pOpponent->bSide) )
 			{
-				RemoveOneOpponent(pOpponent);
+				// Flugente: we consider enemies to be neutral if they are prisoners of war (otherwise the AI would kill prisoners). Bu as we want to remove them, we have to account for that
+				// we also move RecognizeAsCombatant to be the last condition checked, because it is the most computationally expensive one
+				if ( ( !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) || pSoldier->bSoldierFlagMask & SOLDIER_POW ) && pOpponent->RecognizeAsCombatant(pSoldier->ubID) )
+					RemoveOneOpponent(pOpponent);
 			}
 			UpdatePersonal(pOpponent,ubTarget,NOT_HEARD_OR_SEEN,NOWHERE,0);
 			gbSeenOpponents[ubLoop][ubTarget] = FALSE;

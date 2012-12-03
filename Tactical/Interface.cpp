@@ -5043,6 +5043,10 @@ STR16 GetSoldierHealthString( SOLDIERTYPE *pSoldier )
 	}
 	else	
 	{
+		// Flugente: display if we are a prisoner of war
+		if ( pSoldier->bSoldierFlagMask & SOLDIER_POW )
+			return zHealthStr[ 7 ];
+
 		INT32 cnt, cntStart;
 		if( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
 		{

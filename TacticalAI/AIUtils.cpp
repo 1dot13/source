@@ -2971,3 +2971,48 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 
 	return(iThreatValue);
 }
+
+// Flugente: get the id of the closest soldier with a specific flag that we can currently see
+UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam, UINT32 aFlag )
+{
+	UINT8 id = NOBODY;
+
+	UINT32				uiLoop;
+	BOOLEAN				fRangeRestricted = FALSE, fFound = FALSE;
+	SOLDIERTYPE *		pFriend;
+	INT16				range = aRange;
+
+	// go through each soldier, looking for "friends" (soldiers on same side)
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+	{
+		pFriend = MercSlots[ uiLoop ];
+
+		// if this merc is inactive, not in sector, or dead
+		if (!pFriend)
+			continue;
+		
+		if ( auTeam != pFriend->bTeam )
+			continue;
+
+		// check for flag
+		if ( !(pFriend->bSoldierFlagMask & aFlag) )
+			continue;
+				
+		// skip ourselves
+		if (pFriend->ubID == pSoldier->ubID)
+			continue;
+				
+		// if we're not already neighbors
+		if (SpacesAway(pSoldier->sGridNo, pFriend->sGridNo) < range)
+		{
+			// can we see this guy?
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pFriend->sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+			{
+				range = SpacesAway(pSoldier->sGridNo,pFriend->sGridNo);
+				id = pFriend->ubID;
+			}
+		}
+	}
+		
+	return id;
+}

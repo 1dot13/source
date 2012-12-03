@@ -20,8 +20,9 @@ extern	CHAR16		zTrackingNumber[16];
 //
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
-#define			SAVE_GAME_VERSION								135 // 134	// 133	// 132 //131 //125 //124		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
+#define			SAVE_GAME_VERSION								136 // 134	// 133	// 132 //131 //125 //124		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
 
+#define			PRISON_SYSTEM									136	// Flugente: added var to the sector structure. Shouldn't break compatibility, but let's be safe
 #define			DUAL_BURST_ADDED								135
 #define			MORE_ROOMS										134 // changed room numbers from 8 to 16 bit by DBrot
 #define			FOOD_CHANGES									133	// changes for food system

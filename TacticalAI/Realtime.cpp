@@ -132,8 +132,12 @@ void RTHandleAI( SOLDIERTYPE * pSoldier )
 			#endif
 			// let it continue
 			return;
+		}
 	}
-	}
+
+	// Flugente: prisoners of war don't do anything
+	if ( pSoldier->bSoldierFlagMask & SOLDIER_POW )
+		return;
 
 	// if man has nothing to do
 	if (pSoldier->aiData.bAction == AI_ACTION_NONE)

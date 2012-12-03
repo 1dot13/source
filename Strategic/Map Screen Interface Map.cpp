@@ -6930,6 +6930,24 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		}
 	}
 
+	// Flugente: we know that enemies are here
+	if ( uiSectorFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
+	{
+		fDetection = TRUE;
+
+		// we know how many there are
+		if ( uiSectorFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER )
+		{
+			fCount = TRUE;
+		}
+
+		// we know the direction they are moving in
+		if ( uiSectorFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION )
+		{
+			fDirection = TRUE;
+		}
+	}
+
 	// Facilities can set a flag that allows detection in some sectors. We can read flags directly from the sector
 	// data to know whether we should show the enemies there. This overrides ANYTHING else.
 	if (SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubDetectionLevel & 1)

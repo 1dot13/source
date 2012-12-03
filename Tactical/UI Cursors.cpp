@@ -54,6 +54,7 @@ UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated
 UINT8 HandleJarCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );	//added by Flugente
+UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );	//added by Flugente
 
 extern BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel );
 
@@ -302,6 +303,11 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 		case FORTICURS:
 
 			ubCursorID = HandleFortificationCursor( pSoldier, sTargetGridNo, uiCursorFlags );
+			break;
+
+		case HANDCUFFCURS:
+
+			ubCursorID = HandleHandcuffCursor( pSoldier, sTargetGridNo, uiCursorFlags );
 			break;
 
 		case INVALIDCURS:
@@ -2208,7 +2214,26 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 	return( FORTIFICATION_RED_UICURSOR );
 }
 
+UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
+{
+	// DRAW PATH TO GUY
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_HANDCUFF );
+	
+	// do we have handcuffs in our hand?
+	if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, HANDCUFFS ) )
+	{
+		// is there a person here?
+		UINT8 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+		if ( usSoldierIndex != NOBODY )
+		{
+			// no handcuffing if the guy is already caught...
+			if ( !(MercPtrs[usSoldierIndex]->bSoldierFlagMask & SOLDIER_POW) )
+				return( HANDCUFF_GREY_UICURSOR );
+		}
+	}
 
+	return( HANDCUFF_RED_UICURSOR );
+}
 
 void HandleEndConfirmCursor( SOLDIERTYPE *pSoldier )
 {
@@ -2684,6 +2709,10 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	// Flugente: cursor for building fortifications
 	if ( HasItemFlag(usInHand, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
 		ubCursor = FORTICURS;
+
+	// Flugente: cursor for handcuffs
+	if ( HasItemFlag(usInHand, HANDCUFFS) )
+		ubCursor = HANDCUFFCURS;
 
 	// Now check our terrain to see if we cannot do the action now...
 	if ( WaterTooDeepForAttacks( pSoldier->sGridNo) )

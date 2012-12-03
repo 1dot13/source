@@ -95,6 +95,10 @@ enum //strategic values for each sector
 #define	SF_HAVE_SAID_PLAYER_QUOTE_NEW_SECTOR		0x00001000
 #endif
 
+#define SF_ASSIGN_NOTICED_ENEMIES_HERE				0x00002000		// Flugente: info from assigment: enemies were found
+#define SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER		0x00004000		// Flugente: info from assigment: enemies were found, and we know their number
+#define SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION	0x00008000		// Flugente: info from assigment: enemies were found, and we know the direction they are moving in
+
 #define SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS			0x00100000		//Temp File starts with sm_
 #define SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS		0x00200000		//Temp File starts with l_
 #define SF_REVEALED_STATUS_TEMP_FILE_EXISTS			0x01000000		//Temp File starts with v_
@@ -182,6 +186,7 @@ enum
 	FAC_TRAINER_MECHANICAL,
 	FAC_TRAINER_LEADERSHIP,
 	FAC_TRAINER_EXPLOSIVES,	
+	FAC_INTERROGATE_PRISONERS,
 	NUM_FACILITY_ASSIGNMENTS,
 };
 
@@ -249,6 +254,7 @@ typedef struct FACILITYASSIGNMENTTYPE
 	UINT16 usMineIncomeModifier;	// Percentage income adjustment
 	BOOLEAN fOnlyLocalMineAffected;		// Determines whether income modifier applies to local mine only, or all mines.
 	INT16 sCantinaFoodModifier;		// how many food points do we get when spending time in a cantina?
+	UINT16 usPrisonBaseLimit;		// for how many prisoners was this prison built?
 	
 	UINT8 ubMinimumStrength;		// Minimum STR Requirement to begin this assignment
 	UINT8 ubMinimumHealth;			// Minimum HLT Requirement to begin this assignment
@@ -473,7 +479,9 @@ typedef struct SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	INT8	bPadding[ 41 ];
+	UINT32	uiNumberOfPrisonersOfWar;
+
+	INT8	bPadding[ 37 ];
 
 }SECTORINFO;
 
@@ -510,7 +518,9 @@ typedef struct UNDERGROUND_SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	INT8	bPadding[36];
+	UINT32	uiNumberOfPrisonersOfWar;
+
+	INT8	bPadding[32];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

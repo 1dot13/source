@@ -1635,13 +1635,14 @@ STR16 pAssignmentStrings[] =
 	L"In Trans", // in transit - abbreviated form
 	L"Repair", // repairing
 	L"Practice", // training themselves  
-  L"Militia", // training a town to revolt 
+	L"Militia", // training a town to revolt 
 	L"M.Militia", //training moving militia units		// TODO.Translate
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
+	L"Prison",		// Flugente: interrogate prisoners
 	L"Dead", // dead
 	L"Incap.", // abbreviation for incapacitated
 	L"POW", // Prisoner of war - captured
@@ -1727,6 +1728,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Facility Staff",			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Resting at Facility",		// TODO.Translate
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
 	L"Dead",
 	L"Incap.",
 	L"POW",
@@ -1772,6 +1774,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Student",
 	L"Staff Facility",		// TODO.Translate
 	L"Rest at Facility",	// TODO.Translate
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
 	L"Dead",
 	L"Incap.",
 	L"POW",
@@ -2599,7 +2602,8 @@ CHAR16 zHealthStr[][13] =
 	L"WOUNDED",    	//	>= 45
 	L"HEALTHY",    	//	>= 60
 	L"STRONG",     	// 	>= 75
-  L"EXCELLENT",		// 	>= 90
+	L"EXCELLENT",		// 	>= 90
+	L"CAPTURED",	// added by Flugente TODO.Translate
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -2912,6 +2916,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// Flugente: weapon cleaning	// TODO.Translate
 	L"%s cleaned %s",
+
+	// added by Flugente: decide what to do with prisoners
+	L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - Send prisoners to jail      No - Let them go",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3412,6 +3420,7 @@ STR16 pTransactionText[] =
 	L"Sold Item(s) to the Locals",
 	L"Facility Use", // HEADROCK HAM 3.6		// TODO.Translate
 	L"Militia upkeep", // HEADROCK HAM 3.6		// TODO.Translate
+	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6707,6 +6716,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Trainer Mechanical",
 	L"Trainer Leadership",
 	L"Trainer Explosives",
+	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
 };
 
 STR16 Additional113Text[]=
@@ -7471,6 +7481,15 @@ STR16	szFoodTextStr[]=
 	L"%s's health was damaged due to excessive drinking!",
 	L"%s's health was damaged due to lack of water!",
 	L"Sectorwide canteen filling not possible, Food System is off!"
+};
+
+STR16	szPrisonerTextStr[]=
+{
+	L"%d prisoners were interrogated.",
+	L"%d prisoners paid ransom money.",
+	L"%d prisoners revealed enemy positions.",
+	L"%d prisoners joined our cause.",
+	L"Prisoners start a massive riot in %s!",
 };
 
 #endif //TAIWANESE

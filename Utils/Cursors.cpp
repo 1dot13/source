@@ -122,6 +122,9 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\hammer.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: fortification stuff
 	{ "CURSORS\\hammer_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
 
+	{ "CURSORS\\handcuffs.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: handcuffs stuff
+	{ "CURSORS\\handcuffs_r.sti"									, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
+
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\cur_tagr_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
@@ -1182,6 +1185,7 @@ CursorData CursorDatabase[] =
 		0,							0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR , 0, 0					, 0, 0 },
 
+	// Flugente: fortification
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FORTIFICATION				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0,							0, 0, 0, 0,
@@ -1191,6 +1195,21 @@ CursorData CursorDatabase[] =
 
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FORTIFICATION_RED		,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
+
+	// Flugente: handcuffs
+	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_HANDCUFFS				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
+
+	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_HANDCUFFS_RED		,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0,							0, 0, 0, 0,
 		0,							0, 0, 0, 0,
 		0,							0, 0, 0, 0,

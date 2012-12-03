@@ -15217,6 +15217,51 @@ void	SOLDIERTYPE::Strip()
 	}
 }
 
+// can we process prisoners in this sector?
+BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
+{
+	if ( !bInSector || stats.bLife < OKLIFE )
+		return FALSE;
+
+	// Is there a prison in this sector?
+	BOOLEAN prisonhere = FALSE;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(this->sSectorX, this->sSectorY)][cnt].fFacilityHere)
+		{
+			// we determine wether this is a prison by checking for usPrisonBaseLimit
+			if (gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0)
+			{
+				prisonhere = TRUE;
+				break;
+			}
+		}
+	}
+
+	if ( !prisonhere )
+		return FALSE;
+
+	// Are there any prisoners in this prison?
+	if ( !this->bSectorZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+		
+		if ( pSectorInfo->uiNumberOfPrisonersOfWar > 0 )
+			return TRUE;
+	}
+	// no underground prisons anyway
+	/*else
+	{
+		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+		if ( pSectorInfo->uiNumberOfPrisonersOfWar > 0 )
+			return TRUE;
+	}*/
+
+	return FALSE;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -16109,6 +16154,103 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 	}
 
 	if ( !fSuccess )
+	{
+		// Say NOTHING quote...
+		this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+	}
+}
+
+void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection )
+{
+	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+
+	if ( ubPerson != NOBODY && MercPtrs[ ubPerson ]->bTeam == ENEMY_TEAM && !(MercPtrs[ ubPerson ]->bSoldierFlagMask & SOLDIER_POW) )
+	{
+		// we found someone we can handcuff
+		SOLDIERTYPE* pSoldier =  MercPtrs[ ubPerson ];
+
+		// check wether we will be successful
+		BOOLEAN success = FALSE;
+		if ( pSoldier->flags.fMercAsleep || pSoldier->bCollapsed )
+			success = TRUE;
+		else
+		{
+			// check wether we can forcefully handcuff the other soldier, but this will be hard
+			UINT32 attackrating  = 10 * EffectiveExpLevel( this )     +     EffectiveStrength( this, FALSE )     + 2 * EffectiveDexterity( this, FALSE )     +     EffectiveAgility( this, FALSE );
+			UINT32 defenserating = 10 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveStrength( pSoldier, FALSE ) +     EffectiveDexterity( pSoldier, FALSE ) + 2 * EffectiveAgility( pSoldier, FALSE );
+
+			ReducePointsForFatigue( this, &attackrating );
+			ReducePointsForFatigue( pSoldier, &defenserating );
+
+			if ( Random(attackrating) > Random(defenserating) + 50 )
+				success = TRUE;
+		}
+
+		if ( success )
+		{
+			// arrest this guy
+			pSoldier->bSoldierFlagMask |= SOLDIER_POW;
+
+			// move the items in his hands to the floor and move our handcuff into his hands
+			if ( pSoldier->inv[ HANDPOS ].exists() == true && !( pSoldier->inv[ HANDPOS ].fFlags & OBJECT_UNDROPPABLE ))
+			{
+				// ATE: if our guy, make visible....
+				INT8 bVisible = (pSoldier->bTeam == gbPlayerNum) ? 1 : 0;
+				UINT16 itemflags = ( pSoldier->bTeam == ENEMY_TEAM ) ? 0 : WORLD_ITEM_DROPPED_FROM_ENEMY;
+
+				if(UsingNewAttachmentSystem()==true)
+					ReduceAttachmentsOnGunForNonPlayerChars(pSoldier, &(pSoldier->inv[ HANDPOS ]));
+
+				AddItemToPool( pSoldier->sGridNo, &(pSoldier->inv[ HANDPOS ]), bVisible, pSoldier->pathing.bLevel, itemflags, -1 ); //Madd: added usItemFlags to function arguments
+				DeleteObj( &(pSoldier->inv[HANDPOS]) );
+			}
+
+			if ( pSoldier->inv[ SECONDHANDPOS ].exists() == true && !( pSoldier->inv[ SECONDHANDPOS ].fFlags & OBJECT_UNDROPPABLE ))
+			{
+				// ATE: if our guy, make visible....
+				INT8 bVisible = (pSoldier->bTeam == gbPlayerNum) ? 1 : 0;
+				UINT16 itemflags = ( pSoldier->bTeam == ENEMY_TEAM ) ? 0 : WORLD_ITEM_DROPPED_FROM_ENEMY;
+
+				if(UsingNewAttachmentSystem()==true)
+					ReduceAttachmentsOnGunForNonPlayerChars(pSoldier, &(pSoldier->inv[ SECONDHANDPOS ]));
+
+				AddItemToPool( pSoldier->sGridNo, &(pSoldier->inv[ SECONDHANDPOS ]), bVisible, pSoldier->pathing.bLevel, itemflags, -1 ); //Madd: added usItemFlags to function arguments
+				DeleteObj( &(pSoldier->inv[SECONDHANDPOS]) );
+			}
+
+			// move handcuffs to his hands
+			if ( HasItemFlag(  (&(this->inv[HANDPOS]))->usItem, HANDCUFFS ) )
+			{
+				AutoPlaceObject( pSoldier, &(this->inv[HANDPOS]), FALSE );
+				DeleteObj( &(this->inv[HANDPOS]) );
+			}
+
+			// CHANGE DIRECTION AND GOTO ANIMATION NOW
+			this->EVENT_SetSoldierDesiredDirection( ubDirection );
+			this->EVENT_SetSoldierDirection( ubDirection );
+
+			// CHANGE TO ANIMATION
+			this->EVENT_InitNewSoldierAnim( RELOAD_ROBOT, 0 , FALSE );
+
+			// we gain a bit of experience...
+			StatChange( this, STRAMT, 2, TRUE );
+			StatChange( this, DEXTAMT, 3, TRUE );
+			StatChange( this, EXPERAMT, 2, TRUE );
+
+			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), 0, AFTERACTION_INTERRUPT );
+		}
+		else
+		{
+			// we gain a bit of experience...
+			StatChange( this, DEXTAMT, 2, TRUE );
+
+			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), 0, AFTERACTION_INTERRUPT );
+
+			// curses!
+			this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+		}
+	}
+	else
 	{
 		// Say NOTHING quote...
 		this->DoMercBattleSound( BATTLE_SOUND_NOTHING );

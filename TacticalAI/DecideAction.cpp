@@ -869,32 +869,42 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	}
 
 //ddd{
-	if(gGameExternalOptions.bNewTacticalAIBehavior 
-		&& !( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) ) 
-		&& pSoldier->bTeam == ENEMY_TEAM)
+	if(gGameExternalOptions.bNewTacticalAIBehavior && pSoldier->bTeam == ENEMY_TEAM )
 	{
-
-		INT32				cnt;
-		ROTTING_CORPSE *	pCorpse;
-
-		for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+		if ( !(gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-			pCorpse = &(gRottingCorpse[ cnt ] );
+
+			INT32				cnt;
+			ROTTING_CORPSE *	pCorpse;
+
+			for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+			{
+				pCorpse = &(gRottingCorpse[ cnt ] );
 			
-			if ( pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 )
-				if ( PythSpacesAway( pSoldier->sGridNo, pCorpse->def.sGridNo ) <= 5 )//приделать сравнение переменно дальности видения (smaxvid ?)
-				{
-					//проверить, находится ли труп в поле зрения драника.мента?
-					//CHRISL: Shouldn't we be using the corpse's bLevel?  Otherwise a soldier inside a building can see a corpse on the roof of that building
-					//if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
-					if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+				if ( pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 )
+					if ( PythSpacesAway( pSoldier->sGridNo, pCorpse->def.sGridNo ) <= 5 )//приделать сравнение переменно дальности видения (smaxvid ?)
 					{
-						ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_FOUND_DEAD_BODY]);
-						//pCorpse->def.ubAIWarningValue=0;
-						gRottingCorpse[ cnt ].def.ubAIWarningValue=0;
-						return( AI_ACTION_RED_ALERT );
+						//проверить, находится ли труп в поле зрения драника.мента?
+						//CHRISL: Shouldn't we be using the corpse's bLevel?  Otherwise a soldier inside a building can see a corpse on the roof of that building
+						//if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+						{
+							ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_FOUND_DEAD_BODY]);
+							//pCorpse->def.ubAIWarningValue=0;
+							gRottingCorpse[ cnt ].def.ubAIWarningValue=0;
+							return( AI_ACTION_RED_ALERT );
+						}
 					}
-				}
+			}
+		}
+
+		// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
+		if ( pSoldier->bTeam == ENEMY_TEAM )
+		{
+			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 10, ENEMY_TEAM, SOLDIER_POW );
+
+			if ( ubPerson != NOBODY )
+				return( AI_ACTION_RED_ALERT );
 		}
 	}
 //ddd}
@@ -1462,7 +1472,14 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		return(AI_ACTION_NONE);
 	}
 
+	// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
+	if ( pSoldier->bTeam == ENEMY_TEAM )
+	{
+		UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 10, ENEMY_TEAM, SOLDIER_POW );
 
+		if ( ubPerson != NOBODY )
+			return( AI_ACTION_RED_ALERT );
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	// LOOK AROUND TOWARD NOISE: determine %chance for man to turn towards noise

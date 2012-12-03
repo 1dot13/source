@@ -99,6 +99,7 @@ void InitAssignmentDataArray( facilitytypeParseData *pData )
 	pData->curAssignmentData.fOnlyLocalMineAffected = 0;
 
 	pData->curAssignmentData.sCantinaFoodModifier = 100;
+	pData->curAssignmentData.usPrisonBaseLimit = 0;
 
 	pData->curAssignmentData.ubMaximumBreath = 100;
 	pData->curAssignmentData.ubMaximumMorale = 100;
@@ -220,7 +221,8 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 				strcmp(name, "sSkyriderCostModifier") == 0 ||
 				strcmp(name, "usMineIncomeModifier") == 0 ||
 				strcmp(name, "fOnlyLocalMineAffected") == 0 ||
-				strcmp(name, "sCantinaFoodModifier") == 0 ))
+				strcmp(name, "sCantinaFoodModifier") == 0 ||
+				strcmp(name, "usPrisonBaseLimit") == 0 ))
 		{
 			pData->curElement = FACILITYTYPE_ASSIGNMENT_ELEMENT;
 
@@ -453,6 +455,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fOnlyLocalMineAffected = pData->curFacilityTypeData.AssignmentData[cnt].fOnlyLocalMineAffected;
 
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].sCantinaFoodModifier = pData->curFacilityTypeData.AssignmentData[cnt].sCantinaFoodModifier;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usPrisonBaseLimit = pData->curFacilityTypeData.AssignmentData[cnt].usPrisonBaseLimit;
 							
 							// Conditions
 							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumStrength = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumStrength;
@@ -593,6 +596,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fOnlyLocalMineAffected = pData->curAssignmentData.fOnlyLocalMineAffected;
 
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].sCantinaFoodModifier = pData->curAssignmentData.sCantinaFoodModifier;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usPrisonBaseLimit = pData->curAssignmentData.usPrisonBaseLimit;
 
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumBreath = pData->curAssignmentData.ubMaximumBreath;
 					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumMorale = pData->curAssignmentData.ubMaximumMorale;
@@ -823,6 +827,11 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
 				pData->curAssignmentType = FAC_STUDENT_EXPLOSIVES;
+			}
+			else if (strcmp(pData->szCharData, "INTERROGATE_PRISONERS") == 0)
+			{
+				//pData->curAssignmentType = (INT16) atol(pData->szCharData);
+				pData->curAssignmentType = FAC_INTERROGATE_PRISONERS;
 			}			
 			else
 			{
@@ -945,7 +954,13 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "sCantinaFoodModifier") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_ASSIGNMENT;
-			pData->curAssignmentData.sCantinaFoodModifier = (UINT16) atol(pData->szCharData);
+			pData->curAssignmentData.sCantinaFoodModifier = (INT16) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usPrisonBaseLimit") == 0 )
+		{
+			pData->curElement = FACILITYTYPE_ASSIGNMENT;
+			pData->curAssignmentData.usPrisonBaseLimit = (UINT16) atol(pData->szCharData);
 		}
 
 		//////////////////////////////////////////////

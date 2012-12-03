@@ -1215,6 +1215,87 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
+	// Flugente: handcuffing people
+	if ( HasItemFlag(usHandItem, HANDCUFFS ) )
+	{
+		// ATE: AI CANNOT GO THROUGH HERE!
+		INT32 usMapPos;
+		BOOLEAN	fHadToUseCursorPos = FALSE;
+
+		GetMouseMapPos( &usMapPos );
+
+		// See if we can get there to stab
+		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+		if ( sActionGridNo == -1 )
+		{
+			// Try another location...
+			sActionGridNo =	FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+
+			if ( sActionGridNo == -1 )
+			{
+				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
+			}
+
+			/*if ( !gTacticalStatus.fAutoBandageMode )
+			{
+				fHadToUseCursorPos = TRUE;
+			}*/
+		}
+
+		// Calculate AP costs...
+		sAPCost = GetAPsToHandcuff( pSoldier, sActionGridNo );
+		sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+
+		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+		{
+			// OK, set UI
+			SetUIBusy( pSoldier->ubID );
+
+			// CHECK IF WE ARE AT THIS GRIDNO NOW
+			if ( pSoldier->sGridNo != sActionGridNo )
+			{
+				// SEND PENDING ACTION
+				pSoldier->aiData.ubPendingAction = MERC_HANDCUFF_PERSON;
+
+				if ( fHadToUseCursorPos )
+				{
+					pSoldier->aiData.sPendingActionData2	= usMapPos;
+				}
+				else
+				{
+					if ( pTargetSoldier != NULL )
+					{
+						pSoldier->aiData.sPendingActionData2	= pTargetSoldier->sGridNo;
+					}
+					else
+					{
+						pSoldier->aiData.sPendingActionData2	= sGridNo;
+					}
+				}
+				pSoldier->aiData.bPendingActionData3	= ubDirection;
+				pSoldier->aiData.ubPendingActionAnimCount = 0;
+
+				// WALK UP TO DEST FIRST
+				pSoldier->EVENT_InternalGetNewSoldierPath( sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
+			}
+			else
+			{
+				pSoldier->EVENT_SoldierHandcuffPerson( sAdjustedGridNo, ubDirection );
+			}
+
+			if ( fFromUI )
+			{
+				guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+			}
+
+			return( ITEM_HANDLE_OK );
+		}
+		else
+		{
+			return( ITEM_HANDLE_NOAPS );
+		}
+	}
+
 	if ( Item[usHandItem].canandstring )
 	{
 		STRUCTURE					*pStructure;
@@ -4574,7 +4655,7 @@ void CleanWeapons( BOOLEAN fCleanAll )
 		if ( pSoldier->bActive )
 			pSoldier->CleanWeapon(fCleanAll);
 	}
-	else	// peform action for every merc in this sector
+	else	// perform action for every merc in this sector
 	{	
 		UINT8									bMercID, bLastTeamID;
 		SOLDIERTYPE*							pSoldier = NULL;

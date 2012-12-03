@@ -223,6 +223,7 @@ enum
 	MERC_ATTACH_CAN,
 	MERC_FUEL_VEHICLE,
 	MERC_BUILD_FORTIFICATION,
+	MERC_HANDCUFF_PERSON,
 };
 
 // ENUMERATIONS FOR THROW ACTIONS
@@ -356,8 +357,8 @@ enum
 
 #define SOLDIER_DAMAGED_PANTS		0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
 #define SOLDIER_HEADSHOT			0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
-/*#define WH40K_POWER_WEAPON		0x00000400	//1024
-#define ENEMY_NET_4_LVL_3		0x00000800	//2048
+#define SOLDIER_POW					0x00000400	//1024		// we are a prisoner of war
+/*#define ENEMY_NET_4_LVL_3		0x00000800	//2048
 
 #define ENEMY_NET_1_LVL_4		0x00001000	//4096
 #define ENEMY_NET_2_LVL_4       0x00002000	//8192
@@ -411,7 +412,7 @@ extern CLOTHES_STRUCT Clothes[CLOTHES_MAX];
 // This macro should be used whenever we want to see if someone is neutral
 // IF WE ARE CONSIDERING ATTACKING THEM.	Creatures & bloodcats will attack neutrals
 // but they can't attack empty vehicles!!
-#define CONSIDERED_NEUTRAL( me, them ) ( (them->aiData.bNeutral || them->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) && ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
+#define CONSIDERED_NEUTRAL( me, them ) ( (them->aiData.bNeutral || them->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_POW)) && ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
 
 typedef struct
 {
@@ -1322,6 +1323,7 @@ public:
 	void EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCounter );
 
 	void EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
+	void EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 
 	BOOLEAN EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestart );
 	void EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState );
@@ -1494,6 +1496,9 @@ public:
 
 	// lose disguise or take off any clothes item and switch back to original clothes
 	void		Strip();
+
+	// Flugente: prisoner system
+	BOOLEAN		CanProcessPrisoners();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

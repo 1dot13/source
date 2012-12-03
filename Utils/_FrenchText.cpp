@@ -1641,6 +1641,7 @@ STR16 pAssignmentStrings[] =
 	L"Exploitation", // operating a strategic facility
 	L"Eat",		// eating at a facility (cantina etc.)		// TODO.Translate
 	L"Repos", // Resting at a facility
+	L"Prison",		// Flugente: interrogate prisoners
 	L"Mort(e)", // dead
 	L"Incap.", // abbreviation for incapacitated
 	L"Capturé", // Prisoner of war - captured
@@ -1726,6 +1727,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Exploitation infras.",	
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Repos infras.",
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -1771,6 +1773,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Elève",
 	L"Exploitation infras.",	
 	L"Repos infras.",
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -2598,6 +2601,7 @@ CHAR16 zHealthStr[][13] =
 	L"EN FORME",    	//	>= 60
 	L"BON",     	// 	>= 75
 	L"EXCELLENT",		// 	>= 90
+	L"CAPTURED",	// added by Flugente TODO.Translate
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -2910,6 +2914,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// Flugente: weapon cleaning	// TODO.Translate
 	L"%s cleaned %s",
+
+	// added by Flugente: decide what to do with prisoners
+	L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - Send prisoners to jail      No - Let them go",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3411,6 +3419,7 @@ STR16 pTransactionText[] =
 	L"Materiel vendu à la population",
 	L"Infrastucture utilisée", // HEADROCK HAM 3.6
 	L"Entretien de la milice", // HEADROCK HAM 3.6
+	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6679,6 +6688,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Entraineur Mécanique",
 	L"Entraineur Commandement",
 	L"Entraineur Explosif",
+	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
 };
 STR16 Additional113Text[]=
 {
@@ -7441,6 +7451,15 @@ STR16	szFoodTextStr[]=
 	L"%s's health was damaged due to excessive drinking!",
 	L"%s's health was damaged due to lack of water!",
 	L"Sectorwide canteen filling not possible, Food System is off!"
+};
+
+STR16	szPrisonerTextStr[]=
+{
+	L"%d prisoners were interrogated.",
+	L"%d prisoners paid ransom money.",
+	L"%d prisoners revealed enemy positions.",
+	L"%d prisoners joined our cause.",
+	L"Prisoners start a massive riot in %s!",
 };
 
 #endif //FRENCH

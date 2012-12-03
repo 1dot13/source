@@ -174,6 +174,7 @@ typedef enum ATTACHMENT_SLOT{
 #define	TINCANCURS	22
 #define REFUELCURS  23
 #define FORTICURS 24
+#define HANDCUFFCURS 25
 
 #define CAMERARANGE 10
 
@@ -728,7 +729,7 @@ extern OBJECTTYPE gTempObject;
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
 #define EMPTY_SANDBAG			0x00000001	//1
 #define FULL_SANDBAG			0x00000002	//2
-#define SHOVEL					0x00000004	//4
+#define SHOVEL					0x00000004	//4			// a shovel is used for filling sandbags and other building-related tasks
 #define CONCERTINA				0x00000008	//8
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
@@ -743,15 +744,15 @@ extern OBJECTTYPE gTempObject;
 
 #define ATTENTION_ITEM			0x00001000	//4096		// this item is 'interesting' to the AI. Dumb soldiers may try to pick it up
 #define GAROTTE					0x00002000	//8192		// this item is a garotte
-#define COVERT 					0x00004000	//16384		// if LBE, any gun inside will be covert. On a gun, it will covert in any LBE, even if the LBE does not have that tag itself
+#define COVERT 					0x00004000	//16384		// if LBE, any gun inside will be covert. On a gun, it will be covert in any LBE, even if the LBE does not have that tag itself
 #define CORPSE					0x00008000	//32768		// a dead body
 
 #define SKIN_BLOODCAT			0x00010000	//65536		// retrieve this by skinning (=decapitating) a bloodcat
 #define NO_METAL_DETECTION      0x00020000	//131072	// a planted bomb with this flag can NOT be detected via metal detector. Use sparingly!
 #define JUMP_GRENADE			0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
-/*#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+#define HANDCUFFS				0x00080000	//524288	// item can be used to capture soldiers
 
-#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
+/*#define PLAYER_NET_1_LVL_2		0x00100000	//1048576
 #define PLAYER_NET_2_LVL_2		0x00200000	//2097152
 #define PLAYER_NET_3_LVL_2		0x00400000	//4194304
 #define PLAYER_NET_4_LVL_2		0x00800000	//8388608

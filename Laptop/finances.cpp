@@ -1571,6 +1571,11 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 			swprintf(pString, L"%s", pTransactionText[ MILITIA_UPKEEP ]);
 			break;
 
+		// Flugente: ransom from released prisoners
+		case PRISONER_RANSOM:
+			swprintf(pString, L"%s", pTransactionText[ PRISONER_RANSOM ]);
+			break;
+
 	}
 
 

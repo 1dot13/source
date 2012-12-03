@@ -1789,7 +1789,12 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	}
 	*/
 
-
+	// Flugente: pows don't do anything
+	if ( pSoldier->bSoldierFlagMask & SOLDIER_POW )
+	{
+		EndAIGuysTurn( pSoldier);
+		return;
+	}
 
 	if ((pSoldier->aiData.bAction != AI_ACTION_NONE) && pSoldier->aiData.bActionInProgress)
 	{
