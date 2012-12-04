@@ -5477,6 +5477,9 @@ extern INT32 giReinforcementPool;
 // handle processing of prisoners
 void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
+	if ( !gGameExternalOptions.fAllowPrisonerSystem )
+		return;
+
 	// Is there a prison in this sector?
 	UINT16 prisonerbaselimit = 0;
 	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
@@ -5698,6 +5701,9 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 // Flugente: prisons can riot if there aren't enough guards around
 void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
+	if ( !gGameExternalOptions.fAllowPrisonerSystem )
+		return;
+
 	BOOLEAN fBeginRiot = FALSE;
 
 	// Is there a prison in this sector?

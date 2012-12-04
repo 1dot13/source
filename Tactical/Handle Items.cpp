@@ -1216,7 +1216,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	}
 
 	// Flugente: handcuffing people
-	if ( HasItemFlag(usHandItem, HANDCUFFS ) )
+	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usHandItem, HANDCUFFS ) )
 	{
 		// ATE: AI CANNOT GO THROUGH HERE!
 		INT32 usMapPos;

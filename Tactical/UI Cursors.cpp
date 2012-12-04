@@ -2711,7 +2711,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 		ubCursor = FORTICURS;
 
 	// Flugente: cursor for handcuffs
-	if ( HasItemFlag(usInHand, HANDCUFFS) )
+	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usInHand, HANDCUFFS) )
 		ubCursor = HANDCUFFCURS;
 
 	// Now check our terrain to see if we cannot do the action now...

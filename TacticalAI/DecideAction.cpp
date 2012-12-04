@@ -899,7 +899,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		}
 
 		// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
-		if ( pSoldier->bTeam == ENEMY_TEAM )
+		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
 		{
 			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 10, ENEMY_TEAM, SOLDIER_POW );
 
@@ -1473,7 +1473,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	}
 
 	// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
-	if ( pSoldier->bTeam == ENEMY_TEAM )
+	if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
 	{
 		UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 10, ENEMY_TEAM, SOLDIER_POW );
 

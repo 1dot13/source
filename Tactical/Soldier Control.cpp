@@ -5776,22 +5776,15 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		// Flugente: if the weapon is a taser and has enough batteries, the damage will be 0, but the breathdamage will knock out anyone
 		if ( HasItemFlag(usWeaponIndex, TASER) )
 		{
-			if ( !Item[usWeaponIndex].needsbatteries )
-			{
-				// a taser without batteries is odd, but why not, perhaps the thing has a 1000 pund battery or sth
-				sDamage = 0;
-				sBreathLoss = 20000;
-				ubReason = TAKE_DAMAGE_ELECTRICITY;
-			}
-			// if we need batteries, lets see if we can find some...
-			else
+			// tasers need batteries, because I say so
+			if ( Item[usWeaponIndex].needsbatteries )
 			{
 				// check for batteries
 				OBJECTTYPE* pBatteries = FindAttachedBatteries( &(MercPtrs[ubAttackerID]->inv[HANDPOS]) );
 				if ( pBatteries )
 				{
 					sDamage = 0;
-					sBreathLoss = 20000;
+					sBreathLoss = 30000;
 					ubReason = TAKE_DAMAGE_ELECTRICITY;
 
 					// use up 8-12 percent of batteries
@@ -16222,6 +16215,9 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 
 void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection )
 {
+	if ( !gGameExternalOptions.fAllowPrisonerSystem )
+		return;
+
 	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
 
 	if ( ubPerson != NOBODY && MercPtrs[ ubPerson ]->bTeam == ENEMY_TEAM && !(MercPtrs[ ubPerson ]->bSoldierFlagMask & SOLDIER_POW) )
@@ -16237,12 +16233,23 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 		{
 			// check wether we can forcefully handcuff the other soldier, but this will be hard
 			UINT32 attackrating  = 10 * EffectiveExpLevel( this )     +     EffectiveStrength( this, FALSE )     + 2 * EffectiveDexterity( this, FALSE )     +     EffectiveAgility( this, FALSE );
-			UINT32 defenserating = 10 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveStrength( pSoldier, FALSE ) +     EffectiveDexterity( pSoldier, FALSE ) + 2 * EffectiveAgility( pSoldier, FALSE );
+			UINT32 defenserating = 10 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveStrength( pSoldier, FALSE ) + 2 * EffectiveDexterity( pSoldier, FALSE ) + 2 * EffectiveAgility( pSoldier, FALSE );
+
+			if (gGameOptions.fNewTraitSystem)
+			{
+				attackrating  += 25 * NUM_SKILL_TRAITS( this, MARTIAL_ARTS_NT )     + 10 * HAS_SKILL_TRAIT( this, MELEE_NT );
+				defenserating += 25 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) + 10 * HAS_SKILL_TRAIT( pSoldier, MELEE_NT );
+			}
+			else
+			{
+				attackrating  += 25 * NUM_SKILL_TRAITS( this, MARTIALARTS_OT )     + 25 * NUM_SKILL_TRAITS( this, HANDTOHAND_OT )     + 10 * HAS_SKILL_TRAIT( this, KNIFING_OT );
+				defenserating += 25 * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT ) + 25 * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND_OT ) + 10 * HAS_SKILL_TRAIT( pSoldier, KNIFING_OT );
+			}
 
 			ReducePointsForFatigue( this, &attackrating );
 			ReducePointsForFatigue( pSoldier, &defenserating );
 
-			if ( Random(attackrating) > Random(defenserating) + 50 )
+			if ( Random(attackrating) > Random(defenserating) + 100 )
 				success = TRUE;
 		}
 
