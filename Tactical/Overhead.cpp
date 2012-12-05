@@ -6674,14 +6674,21 @@ extern INT32 giReinforcementPool;
 
 void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 {
+	if (ubExitValue == MSG_BOX_RETURN_NO)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RELEASED] );
+	}
+
+	UINT32 prisonerstobemoved = 0;
+	BOOLEAN success = FALSE;
 	if ( !gbWorldSectorZ )
 	{
 		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
 
-		UINT32 prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
+		prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
 
 		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
-
+				
 		if (ubExitValue == MSG_BOX_RETURN_YES)
 		{
 			UINT32 uSectorID = 0;
@@ -6690,21 +6697,23 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 				SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ uSectorID ] );
 
 				if ( pPrisonSectorInfo )
+				{
+					success = TRUE;
+
 					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
+
+					CHAR16 wString[ 64 ];
+					GetShortSectorString( gWorldSectorX, gWorldSectorY, wString );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
+				}
 			}
-		}
-		else
-		{
-			// send some prisoners back to queen's pool
-			// there is a chance that escaped prisoners may return to the queen...
-			giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
 		}
 	}
 	else
 	{
 		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 		
-		UINT32 prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
+		prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
 
 		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
 
@@ -6716,16 +6725,23 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 				SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ uSectorID ] );
 
 				if ( pPrisonSectorInfo )
+				{
+					success = TRUE;
+
 					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
+
+					CHAR16 wString[ 64 ];
+					GetShortSectorString( gWorldSectorX, gWorldSectorY, wString );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
+				}
 			}
 		}
-		else
-		{
-			// send some prisoners back to queen's pool
-			// there is a chance that escaped prisoners may return to the queen...
-			giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
-		}
 	}
+
+	if ( !success )
+		// send some prisoners back to queen's pool
+		// there is a chance that escaped prisoners may return to the queen...
+		giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
 }
 
 void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )

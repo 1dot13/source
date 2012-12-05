@@ -480,8 +480,9 @@ typedef struct SECTORINFO
 #endif
 	
 	UINT32	uiNumberOfPrisonersOfWar;
-
-	INT8	bPadding[ 37 ];
+	UINT8	uiInterrogationHundredsLeft;
+	
+	INT8	bPadding[ 36 ];
 
 }SECTORINFO;
 

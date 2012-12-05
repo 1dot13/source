@@ -191,8 +191,8 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts,
 UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts, BOOLEAN fMakeSureKitIsInHand );
 
 // Flugente: calculate interrogation and prison guard values
-FLOAT CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
-FLOAT CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
+UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
+UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
 // get bonus tarining pts due to an instructor for this student
 // HEADROCK HAM 3.5: Three functions below have lost an argument which is no longer required ("uiAtGunRange", which was "uiAtFacility" in HAM 3.4)

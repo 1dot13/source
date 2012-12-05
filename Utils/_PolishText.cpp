@@ -7488,6 +7488,9 @@ STR16	szPrisonerTextStr[]=
 	L"%d prisoners revealed enemy positions.",
 	L"%d prisoners joined our cause.",
 	L"Prisoners start a massive riot in %s!",
+	L"Prisoners were sent to %s!",
+	L"Prisoners have been released!",
+	L"The army now occupies the prison in %s, the prisoners were freed!",
 };
 
 #endif //POLISH

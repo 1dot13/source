@@ -2408,7 +2408,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			case FACILITY_INTERROGATE_PRISONERS:
 				sIconIndex		= 23;
 				fDoIcon			= TRUE;
-				sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) ) / 100;
+				sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts )/100 );
 				fShowNumber		= TRUE;
 				fShowMaximum	= TRUE;
 				break;
