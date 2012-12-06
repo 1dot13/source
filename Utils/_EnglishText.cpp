@@ -2918,6 +2918,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente: decide what to do with prisoners
 	L"You have no prison for these prisoners, you have to let them go",
 	L"Yes - Send prisoners to jail      No - Let them go",
+	L"Ask enemy for surrender?",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

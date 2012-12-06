@@ -406,4 +406,6 @@ extern UINT8 NumEnemyInSector();
 
 STR16 GetNewTraitStr(UINT8 aTrait);		// Flugente: deal with the insane new trait to string stuff
 
+void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );			// Flugente: offer the enemy the chance to surrender
+
 #endif

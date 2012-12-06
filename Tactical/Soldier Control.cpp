@@ -16620,8 +16620,17 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 			apsDeducted = TRUE;
 
-			StartCivQuote( pTSoldier );
-			return( FALSE );
+			// Flugente: if we are talking to an enemy, we have the option to offer them surrendering
+			if ( pTSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fEnemyCanSurrender )
+			{
+				HandleSurrenderOffer(pTSoldier);
+				return( FALSE );
+			}
+			else
+			{
+				StartCivQuote( pTSoldier );
+				return( FALSE );
+			}
 		}
 	}
 

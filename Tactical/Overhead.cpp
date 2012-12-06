@@ -10040,3 +10040,104 @@ STR16 GetNewTraitStr(UINT8 aTrait)
 
 	return gzMercSkillTextNew[ aTrait ];
 }
+
+static UINT8 prisonerdialoguetargetID = 0;
+
+void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
+{
+	if (ubExitValue == MSG_BOX_RETURN_YES)
+	{
+		// we determine the chance that enemy will surrender. This depends on the strength of our and their side
+		UINT32 playersidestrength	= 0;
+		UINT32 enemysidestrength	= 0;
+
+		SOLDIERTYPE *pSoldier = NULL;		
+		UINT32 uiCnt=0;
+
+		// player team
+		UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+		UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+		{
+			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			{
+				// if he's training teammates in this stat
+				if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
+				{
+					// player side counts double, to put more emphasize on overwhelming the enemy with mercs and not just militia
+					playersidestrength += 2;
+				}
+			}
+		}
+
+		// militia team
+		firstid = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
+		lastid  = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID;
+		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+		{
+			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			{
+				// if he's training teammates in this stat
+				if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
+				{
+					++playersidestrength;
+				}
+			}
+		}
+
+		// enemy team
+		firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+		lastid  = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+		{
+			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+			{
+				// if he's training teammates in this stat
+				if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
+				{
+					++enemysidestrength;
+				}
+			}
+		}
+
+		// perhaps this can be fleshed out more, for now, let's see if this is acceptable behaviour
+		if ( playersidestrength >= 6 * enemysidestrength )
+		{
+			// it is enough to simply set all soldiers to captured
+			firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+			lastid  = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+			for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+			{
+				if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+				{
+					// if he's training teammates in this stat
+					if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
+					{
+						pSoldier->bSoldierFlagMask |= SOLDIER_POW;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		// normal dialog
+		StartCivQuote( MercPtrs[ prisonerdialoguetargetID ] );
+	}
+
+	ReduceAttackBusyCount( );
+}
+
+// Flugente: offer the enemy the chance to surrender
+void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
+{
+	// only for enemies...
+	if ( !pSoldier || pSoldier->bTeam != ENEMY_TEAM )
+		return;
+
+	// remember the target's ID
+	prisonerdialoguetargetID = pSoldier->ubID;
+
+	// open a dialogue box and see wether we really want to offer this, or just talk
+	DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, PrisonerSurrenderMessageBoxCallBack, NULL );
+}
