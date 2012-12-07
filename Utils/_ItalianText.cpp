@@ -7478,6 +7478,7 @@ STR16	szPrisonerTextStr[]=
 	L"Prisoners were sent to %s!",
 	L"Prisoners have been released!",
 	L"The army now occupies the prison in %s, the prisoners were freed!",
+	L"The enemy refuses to surrender!",
 };
 
 #endif //ITALIAN

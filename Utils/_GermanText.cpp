@@ -7305,6 +7305,7 @@ STR16	szPrisonerTextStr[]=
 	L"Gefangene wurden nach %s geschickt!",
 	L"Gefangene freigelassen!",
 	L"Die Armee hat das Gefängnis in %s besetzt, die Gefangenen wurden befreit!",
+	L"Der Gegner weigert sich aufzugeben!",
 };
 
 #endif //GERMAN

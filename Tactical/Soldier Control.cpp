@@ -15315,6 +15315,26 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 	return FALSE;
 }
 
+UINT32		SOLDIERTYPE::GetSurrenderStrength()
+{
+	if( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed  || (this->bSoldierFlagMask & SOLDIER_POW) )
+		return 0;
+
+	UINT32 value = 100 + 10 * EffectiveExpLevel( this ) + EffectiveStrength( this, FALSE ) + 3 * EffectiveMarksmanship( this) + EffectiveLeadership( this) / 4;
+
+	ReducePointsForFatigue( this, &value );
+
+	value = (value * this->stats.bLife / this->stats.bLifeMax);
+
+	// adjust for type of soldier
+	if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE || this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+		value *= 1.5;
+	else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
+		value *= 0.75;
+
+	return value;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -16620,8 +16640,8 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 			apsDeducted = TRUE;
 
-			// Flugente: if we are talking to an enemy, we have the option to offer them surrendering
-			if ( pTSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fEnemyCanSurrender )
+			// Flugente: if we are talking to an enemy, we have the option to offer them surrendering... but not on y levels >= 16 (no surrendering in the palace, as we have to kill, not capture, the queen)
+			if ( pTSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fEnemyCanSurrender && gWorldSectorY < WORLD_MAP_X - 2 )
 			{
 				HandleSurrenderOffer(pTSoldier);
 				return( FALSE );

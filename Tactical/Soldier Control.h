@@ -1499,6 +1499,7 @@ public:
 
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();
+	UINT32		GetSurrenderStrength();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

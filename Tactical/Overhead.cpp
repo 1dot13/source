@@ -10061,12 +10061,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
-				// if he's training teammates in this stat
-				if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
-				{
-					// player side counts double, to put more emphasize on overwhelming the enemy with mercs and not just militia
-					playersidestrength += 2;
-				}
+				// player side counts double, to put more emphasize on overwhelming the enemy with mercs and not just spamming militia
+				playersidestrength += 2 * pSoldier->GetSurrenderStrength();
 			}
 		}
 
@@ -10077,11 +10073,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
-				// if he's training teammates in this stat
-				if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
-				{
-					++playersidestrength;
-				}
+				playersidestrength += pSoldier->GetSurrenderStrength();
 			}
 		}
 
@@ -10092,11 +10084,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
-				// if he's training teammates in this stat
-				if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
-				{
-					++enemysidestrength;
-				}
+				enemysidestrength += pSoldier->GetSurrenderStrength();
 			}
 		}
 
@@ -10110,14 +10098,15 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 				{
-					// if he's training teammates in this stat
-					if( ( pSoldier->stats.bLife >= OKLIFE ) && !(pSoldier->bSoldierFlagMask & SOLDIER_POW) )
+					if( pSoldier->stats.bLife >= OKLIFE )
 					{
 						pSoldier->bSoldierFlagMask |= SOLDIER_POW;
 					}
 				}
 			}
 		}
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_SURRENDER] );
 	}
 	else
 	{
@@ -10131,7 +10120,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 {
-	// only for enemies...
+	// only against enemies...
 	if ( !pSoldier || pSoldier->bTeam != ENEMY_TEAM )
 		return;
 
