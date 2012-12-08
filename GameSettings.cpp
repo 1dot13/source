@@ -1289,6 +1289,10 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fNoEnemyAutoReadyWeapon			= iniReader.ReadInteger("Tactical Gameplay Settings", "NO_ENEMY_AUTOMATIC_WEAPON_READYING", 1, 0, 2);
 
+
+	// enable schedules and decision making for any named npc regardless of their team
+	gGameExternalOptions.fAllNamedNpcsDecideAction			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALL_NAMED_NPCS_DECIDE_ACTION", FALSE);
+
 	//################# Tactical Cover System Settings ##################
 
 	// CPT: Cover System Settings

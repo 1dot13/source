@@ -813,7 +813,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	// if real-time, and not in the way, do nothing 90% of the time (for GUARDS!)
 	// unless in water (could've started there), then we better swim to shore!
 
-	if (fCivilian)
+	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
 		// special stuff for civs
 
@@ -1427,7 +1427,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		return( ZombieDecideActionYellow(pSoldier) );
 #endif
 
-	if (fCivilian)
+	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
 		if (pSoldier->flags.uiStatusFlags & SOLDIER_COWERING)
 		{

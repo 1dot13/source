@@ -344,6 +344,7 @@ typedef struct
 	BOOLEAN fAllowInstantInterruptsOnSight;
 
 	BOOLEAN fNoEnemyAutoReadyWeapon;
+	BOOLEAN fAllNamedNpcsDecideAction;
 
 	UINT16 usAwardSpecialExpForQuests;
 
