@@ -722,9 +722,9 @@
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>40</lbeIndex>
-		<lbeClass>2</lbeClass>
+		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
+		<lbeFilledSize>30</lbeFilledSize>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
