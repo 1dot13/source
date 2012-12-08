@@ -14151,6 +14151,11 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	this->usItem = usResult[0];
 	// Record the new itemclass
 	UINT32 uiNewClass = Item[this->usItem].usItemClass;
+
+	// Flugente: if the new item is a food item (and the old one wasn't), we define it to be fresh, so adjust its temperature
+	if ( Item[usOldItem].foodtype == 0 &&  Item[this->usItem].foodtype > 0 )
+		(*this)[0]->data.bTemperature = OVERHEATING_MAX_TEMPERATURE;
+
 	// Make a clone of this object, so that we can point the DescBox to it later if we run into any problems.
 	gCloneItemDescObject = *(this);
 	///////////////////////////////////////////////////////////////
