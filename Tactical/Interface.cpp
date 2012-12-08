@@ -239,6 +239,8 @@ UINT32					guiVEHINV;
 UINT32					guiBURSTACCUM;
 UINT32					guiITEMPOINTERHATCHES;
 
+UINT32					guiUNDERWATER;	// added by Flugente
+
 // UI Globals
 MOUSE_REGION	gViewportRegion;
 MOUSE_REGION	gRadarRegion;
@@ -513,6 +515,12 @@ BOOLEAN InitializeTacticalInterface(	)
 	FilenameForBPP("INTERFACE\\burst1.sti", VObjectDesc.ImageFile);
 	if( !AddVideoObject( &VObjectDesc, &guiBURSTACCUM ) )
 		AssertMsg(0, "Missing INTERFACE\\burst1.sti" );
+
+	// Flugente: load fish symbol (signifies that a merc is diving until someone comes up with a proper animation)
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\fish.sti", VObjectDesc.ImageFile);
+	if( !AddVideoObject( &VObjectDesc, &guiUNDERWATER ) )
+		AssertMsg(0, "Missing INTERFACE\\fish.sti" );
 
 	//CHRISL: Moved to seperate function so we can call seperately
 	InitializeTacticalPortraits();
@@ -1747,7 +1755,45 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			}
 		}
 	}
+	// Flugente: show a small animation hat signifies that a merc is underwater (hopefully temporary until someone comes up with a proper animation)
+	else if ( pSoldier->UsesScubaGear() )
+	{
+		if ( TIMECOUNTERDONE( pSoldier->timeCounters.BlinkSelCounter, 320 ) )
+		{
+			RESETTIMECOUNTER( pSoldier->timeCounters.BlinkSelCounter, 320 );
+			
+			// Update frame
+			pSoldier->sLocatorFrame++;
 
+			if ( pSoldier->sLocatorFrame == 5 )
+			{
+				// Update time we do this
+				pSoldier->sLocatorFrame = 0;
+			}
+		}
+
+		if ( pSoldier->flags.fFlashLocator == pSoldier->ubNumLocateCycles )
+		{
+				pSoldier->flags.fShowLocator = FALSE;
+		}
+		
+		// Render the beastie
+		GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
+
+		// Adjust for bars!
+		sXPos += 25;
+		sYPos += 25;
+
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiUNDERWATER, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+	}
 
 	if ( !pSoldier->flags.fShowLocator )
 	{

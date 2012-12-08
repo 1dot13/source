@@ -1500,6 +1500,9 @@ public:
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();
 	UINT32		GetSurrenderStrength();
+
+	// Flugente: scuba gear
+	BOOLEAN		UsesScubaGear();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

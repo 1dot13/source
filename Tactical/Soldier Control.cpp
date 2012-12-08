@@ -15335,6 +15335,22 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength()
 	return value;
 }
 
+// Flugente: scuba gear
+BOOLEAN		SOLDIERTYPE::UsesScubaGear()
+{
+	if ( !this->MercInHighWater() )
+		return FALSE;
+
+	// do we wear a scuba mask?
+	if ( !( this->inv[ HEAD1POS ].exists() && HasItemFlag(this->inv[ HEAD1POS ].usItem, SCUBA_MASK) ) && !( this->inv[ HEAD2POS ].exists() && HasItemFlag(this->inv[ HEAD2POS ].usItem, SCUBA_MASK) ) )
+		return FALSE;
+
+	if ( !this->inv[VESTPOCKPOS].exists() || !HasItemFlag( this->inv[VESTPOCKPOS].usItem, SCUBA_BOTTLE ) )
+		return FALSE;
+
+	return TRUE;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;

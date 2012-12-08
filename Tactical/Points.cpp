@@ -331,6 +331,19 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 		iPoints = max(1, (INT16)((iPoints * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100) + 0.5));
 	}
 
+	// Flugente: scuba fins reduce movement cost in water, but increase cost on land
+	if ( pSoldier->inv[LEGPOS].exists() && HasItemFlag( pSoldier->inv[LEGPOS].usItem, SCUBA_FINS ) )
+	{
+		if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+		{
+			iPoints /= 2;
+		}
+		else
+		{
+			iPoints *= 2;
+		}
+	}
+
 	// ATE: Adjust these by realtime movement
  if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
  {
@@ -443,6 +456,20 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 		{
 			sPoints = max(1, (INT16)((sPoints * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
 		}
+
+		// Flugente: scuba fins reduce movement cost in water, but increase cost on land
+		if ( pSoldier->inv[LEGPOS].exists() && HasItemFlag( pSoldier->inv[LEGPOS].usItem, SCUBA_FINS ) )
+		{
+			if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+			{
+				sPoints /= 2;
+			}
+			else
+			{
+				sPoints *= 2;
+			}
+		}
+
 		// Check if doors if not player's merc (they have to open them manually)
 		if ( sSwitchValue == TRAVELCOST_DOOR && pSoldier->bTeam != gbPlayerNum )
 		{

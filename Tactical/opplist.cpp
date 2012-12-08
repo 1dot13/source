@@ -2206,6 +2206,10 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		return;
 	}
 
+	// Flugente: if the other guy is in med or deep water and wearing scua gear, then we cannot see him as he is submerged
+	if ( pOpponent->UsesScubaGear() )
+		return;
+
 	// Flugente: update our sight concerning this guy, otherwise we could get way with open attacks because this does not get updated
 	pSoldier->RecognizeAsCombatant(pOpponent->ubID);
 

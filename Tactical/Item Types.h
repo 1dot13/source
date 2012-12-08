@@ -753,11 +753,11 @@ extern OBJECTTYPE gTempObject;
 #define HANDCUFFS				0x00080000	//524288	// item can be used to capture soldiers
 
 #define TASER					0x00100000	//1048576	// item is a taser, melee hits with this will drain breath (if batteries are supplied)
-/*#define PLAYER_NET_2_LVL_2		0x00200000	//2097152
-#define PLAYER_NET_3_LVL_2		0x00400000	//4194304
-#define PLAYER_NET_4_LVL_2		0x00800000	//8388608
+#define SCUBA_BOTTLE			0x00200000	//2097152	// item is a scuba gear air bottle
+#define SCUBA_MASK				0x00400000	//4194304	// item is a scuba gear breathing mask
+#define SCUBA_FINS				0x00800000	//8388608	// this item speed up swimming, but slows walking and running
 
-#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
+/*#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
 #define PLAYER_NET_2_LVL_3		0x02000000	//33554432
 #define PLAYER_NET_3_LVL_3		0x04000000	//67108864
 #define PLAYER_NET_4_LVL_3		0x08000000	//134217728
