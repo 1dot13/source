@@ -48751,4 +48751,89 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1629</uiIndex>
+		<szItemName>Scuba Mask</szItemName>
+		<szLongItemName>Scuba Mask</szLongItemName>
+		<szItemDesc>This mask, in conjunction with a diving bottle, allows you to stay underwater.</szItemDesc>
+		<szBRName>Scuba Mask</szBRName>
+		<szBRDesc>Whenever you feel you could go down, be sure to protect your eyes and retain vision with one of these.</szBRDesc>
+		<usItemClass>32768</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>55</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Attachment>1</Attachment>
+		<Sinks>1</Sinks>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>4</BR_UsedInventory>
+		<ItemFlag>4194304</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1630</uiIndex>
+		<szItemName>Diving Bottle</szItemName>
+		<szLongItemName>Diving Bottle</szLongItemName>
+		<szItemDesc>Contains enough oxygen to stay underwater for many minutes.</szItemDesc>
+		<szBRName>Diving Bottle</szBRName>
+		<szBRDesc>Standard equipment for divers.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>40</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>746</ubGraphicNum>
+		<ubWeight>65</ubWeight>
+		<ItemSize>23</ItemSize>
+		<usPrice>165</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<ItemFlag>2097152</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1631</uiIndex>
+		<szItemName>Scuba Fins</szItemName>
+		<szLongItemName>Scuba Fins</szLongItemName>
+		<szItemDesc>What you'll lose in maneuverability on land you'll gain in water.</szItemDesc>
+		<szBRName>Scuba Fins</szBRName>
+		<szBRDesc>Not only can you swim much faster with these, you'll also be the star of every penguin-themed costume party.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>92</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>237</ubGraphicNum>
+		<ubWeight>10</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>230</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>3</BR_UsedInventory>
+		<ItemFlag>8388608</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
