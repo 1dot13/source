@@ -6703,7 +6703,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
 
 					CHAR16 wString[ 64 ];
-					GetShortSectorString( gWorldSectorX, gWorldSectorY, wString );
+					GetShortSectorString( (INT16)((uSectorID % MAP_WORLD_X) + 1), (INT16)((uSectorID / MAP_WORLD_X) + 2), wString );
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
 				}
 			}
@@ -6731,7 +6731,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
 
 					CHAR16 wString[ 64 ];
-					GetShortSectorString( gWorldSectorX, gWorldSectorY, wString );
+					GetShortSectorString( (INT16)(uSectorID % MAP_WORLD_X), (INT16)(uSectorID / MAP_WORLD_X), wString );
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
 				}
 			}

@@ -15273,7 +15273,7 @@ void	SOLDIERTYPE::Strip()
 // can we process prisoners in this sector?
 BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 {
-	if ( !bInSector || stats.bLife < OKLIFE )
+	if ( stats.bLife < OKLIFE )
 		return FALSE;
 
 	// Is there a prison in this sector?
@@ -15298,7 +15298,7 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 	// Are there any prisoners in this prison?
 	if ( !this->bSectorZ )
 	{
-		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( this->sSectorX, this->sSectorY ) ] );
 		
 		if ( pSectorInfo->uiNumberOfPrisonersOfWar > 0 )
 			return TRUE;

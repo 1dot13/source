@@ -5504,7 +5504,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		return;
 
 	// Are there any prisoners in this prison?
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 		
 	UINT32 numprisoners = pSectorInfo->uiNumberOfPrisonersOfWar;
 
