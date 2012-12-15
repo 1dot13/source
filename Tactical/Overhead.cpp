@@ -6881,9 +6881,9 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 		//if ( guiCurrentScreen == GAME_SCREEN )
 		UINT32 uSectorID = 0;
 		if ( GetPlayerControlledPrisonSectorId(uSectorID) )
-			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_DECIDE_STR ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, PrisonerMessageBoxCallBack, NULL );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, PrisonerMessageBoxCallBack, NULL );
 		else
-			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_NO_PRISONS_STR ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_NO_PRISONS_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
 	}
 }
 
@@ -10047,6 +10047,9 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if (ubExitValue == MSG_BOX_RETURN_YES)
 	{
+		// we have to remove the region, as we are calling a message from within a messagebox
+		MSYS_RemoveRegion(&(gMsgBox.BackRegion) );
+
 		// we determine the chance that enemy will surrender. This depends on the strength of our and their side
 		UINT32 playersidestrength	= 0;
 		UINT32 enemysidestrength	= 0;
