@@ -5731,6 +5731,9 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	{
 		// add enemies
 		pSectorInfo->ubNumTroops += numprisoners;
+
+		// all prisoners are free, reduce count!
+		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
 				
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_ARMY_FREED_PRISON], wSectorName );
 
@@ -5784,6 +5787,9 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	{
 		// add enemies
 		pSectorInfo->ubNumTroops += numprisoners;
+
+		// all prisoners are free, reduce count!
+		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RIOT], wSectorName  );
 	}
