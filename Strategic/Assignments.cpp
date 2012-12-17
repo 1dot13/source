@@ -2637,7 +2637,25 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 	INT32 threatenvalue = CalcThreateningEffectiveness( pSoldier->ubProfile ) * gMercProfiles[pSoldier->ubProfile].usApproachFactor[2] ;
 
 	usInterrogationPoints *= threatenvalue;
-	usInterrogationPoints /= 6500;
+
+	UINT16 performancemodifier = 100;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )][cnt].fFacilityHere)
+		{
+			// we determine wether this is a prison by checking for usPrisonBaseLimit
+			if (gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0)
+			{
+				performancemodifier = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPerformance;
+				break;
+			}
+		}
+	}
+
+	performancemodifier = min(1000,  max(10, performancemodifier) );
+
+	usInterrogationPoints = (usInterrogationPoints * performancemodifier) / (650000);
 
 	// TODO: adjust for cop background
 
@@ -5548,8 +5566,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	UINT32 prisonersinterrogated = interrogationpoints / 100;
 	
 	// the part that gets left behind is saved to the map (but not the part that gets lost due to there not being enough prisoners)
-	interrogationpoints -= prisonersinterrogated * 100;
-	pSectorInfo->uiInterrogationHundredsLeft = (UINT8)(interrogationpoints);
+	pSectorInfo->uiInterrogationHundredsLeft = (UINT8)(interrogationpoints - prisonersinterrogated * 100);
 
 	if ( prisonersinterrogated > numprisoners )
 		prisonersinterrogated = numprisoners;

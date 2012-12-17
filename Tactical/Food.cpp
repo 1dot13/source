@@ -743,12 +743,6 @@ UINT8	GetWaterQuality(INT16 asMapX, INT16 asMapY, INT8 asMapZ)
 // a function that tries to fill up all canteens in this sector
 void SectorFillCanteens( void )
 {
-	if ( !gGameOptions.fFoodSystem )
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_ERROR_NO_FOOD_SYSTEM] );
-		return;
-	}
-
 	// no functionality if not in tactical or in combat, or nobody is here
 	// can be called from a messagebox, thus the check for MSG_BOX_SCREEN
 	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) || gusSelectedSoldier == NOBODY )
@@ -814,7 +808,8 @@ void SectorFillCanteens( void )
 
 				// it would be pretty pointless to fill our canteens and then not to drink from them even though we are hungry. If there is an unlimited water source in this sector, drink from our 
 				// freshly filled canteens. Thus calling this function repeatedly will cause us to drink till we're full, and restore our canteens to full level
-				EatFromInventory( pSoldier, TRUE );
+				if ( gGameOptions.fFoodSystem )
+					EatFromInventory( pSoldier, TRUE );
 			}
 		}
 

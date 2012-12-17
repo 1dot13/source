@@ -15328,9 +15328,9 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength()
 
 	// adjust for type of soldier
 	if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE || this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
-		value *= 1.5;
+		value *= 1.5f;
 	else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
-		value *= 0.75;
+		value *= 0.75f;
 
 	return value;
 }
@@ -16324,8 +16324,16 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			// move handcuffs to his hands
 			if ( HasItemFlag(  (&(this->inv[HANDPOS]))->usItem, HANDCUFFS ) )
 			{
-				AutoPlaceObject( pSoldier, &(this->inv[HANDPOS]), FALSE );
-				DeleteObj( &(this->inv[HANDPOS]) );
+				// stack handcuffs (like a stack of binders) simply gets used up a bit
+				if ( Item[(&(this->inv[HANDPOS]))->usItem].usItemClass == IC_KIT  )
+				{
+					UseKitPoints( &(this->inv[HANDPOS]), 10, pSoldier );
+				}
+				else
+				{
+					AutoPlaceObject( pSoldier, &(this->inv[HANDPOS]), FALSE );
+					DeleteObj( &(this->inv[HANDPOS]) );
+				}
 			}
 
 			// CHANGE DIRECTION AND GOTO ANIMATION NOW
