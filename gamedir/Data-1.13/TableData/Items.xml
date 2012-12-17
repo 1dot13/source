@@ -48836,4 +48836,27 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1632</uiIndex>
+		<szItemName>Binders</szItemName>
+		<szLongItemName>Stack of Binders</szLongItemName>
+		<szItemDesc>Surprisingly, this also works on people, as a very poor man's handcuff.</szItemDesc>
+		<szBRName>Stack of Binders</szBRName>
+		<szBRDesc>Useful for sorting your cables. This stack should be enough for your office.</szBRDesc>
+		<usItemClass>8192</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>35</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>4</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Sinks>1</Sinks>
+		<BR_NewInventory>8</BR_NewInventory>
+		<ItemFlag>524288</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

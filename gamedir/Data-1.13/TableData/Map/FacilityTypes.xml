@@ -57,7 +57,7 @@
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
 			<ubStaffLimit>4</ubStaffLimit>
-			<usPerformance>100</usPerformance>
+			<usPerformance>120</usPerformance>
 			<usPrisonBaseLimit>60</usPrisonBaseLimit>
 			<CONDITIONS>
 			</CONDITIONS>
@@ -367,7 +367,7 @@
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
 			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
-			<usPerformance>100</usPerformance>
+			<usPerformance>90</usPerformance>
 			<usPrisonBaseLimit>5</usPrisonBaseLimit>
 			<CONDITIONS>
 			</CONDITIONS>
