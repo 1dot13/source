@@ -601,10 +601,11 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				// ATE: if it's the begin cower animation, unset ui, cause it could
 				// be from player changin stance
-				if ( pSoldier->usAnimState == START_COWER )
+				if ( pSoldier->usAnimState == START_COWER || pSoldier->usAnimState == START_COWER_CROUCHED || pSoldier->usAnimState == START_COWER_PRONE )
 				{
 					UnSetUIBusy( pSoldier->ubID );
-				}
+				} 
+
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
 				else if ( gGameOptions.fImprovedInterruptSystem )
