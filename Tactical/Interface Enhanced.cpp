@@ -7508,11 +7508,11 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 
 			// Print base value
 			SetFontForeground( 5 );
-			if ( fArmourImpactReduction < 1.0 )
+			if ( fArmourImpactReduction > 1.0 )
 			{
 				SetFontForeground( ITEMDESC_FONTNEGATIVE );
 			}
-			else if ( fArmourImpactReduction > 1.0 )
+			else if ( fArmourImpactReduction < 1.0 )
 			{
 				SetFontForeground( ITEMDESC_FONTPOSITIVE );
 			}

@@ -6984,7 +6984,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \n即子弹穿透目标护甲的能力。\n \n该值大于1时，被子弹命中的护甲的防护值会成比例减少。\n \n反之，当该值小于1时，\n则增加了目标护甲的防护值。\n \n该数值越高越好。",
+	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen below 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen above 1.0, the bullet increases the\nprotection value of the armor instead.\n \nLower is better.",	// TODO.Translate
 	L"\n \n该值决定子弹打穿护甲击中身体时的伤害力\n加成。\n \n该值大于1时，子弹在穿过护甲后会增加伤害。\n \n当该值小于1时，子弹穿过护甲后会减少伤害。\n \n该数值越高越好。",
 	L"\n \n该值是子弹在击中目标前已经造成的潜在伤害的倍率。\n \n大于1的数值可以增加伤害，\n反之则减少伤害。\n \n该数值越高越好。",
 	L"\n \n子弹温度系数。\n \n该数值越低越好。",

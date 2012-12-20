@@ -6794,7 +6794,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nDas ist die Fähigkeit der Kugel, in die Rüstung\neines Ziels einzudringen.\n \nWenn der Wert grösser als 1.0 ist, reduziert die Kugel \nverhältnismäßig den Schutz jeglicher Rüstung auf die sie eintrifft.\n \nIst der Wert kleiner als 1.0, tritt die Kugel weniger tief in die Rüstung des Ziels ein.\n \nHöher ist besser.",
+	L"\n \nDas ist die Fähigkeit der Kugel, in die Rüstung\neines Ziels einzudringen.\n \nWenn der Wert kleiner als 1.0 ist, reduziert die Kugel \nverhältnismäßig den Schutz jeglicher Rüstung auf die sie eintrifft.\n \nIst der Wert grösser als 1.0, tritt die Kugel weniger tief in die Rüstung des Ziels ein.\n \nKleiner ist besser.",
 	L"\n \nBestimmt eine verhältnismäßige Zunahme des Schadenspotentials,\nsobald die Kugel die Rüstung des Ziels\ndurchbricht und den Körper dahinter trifft.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHöher ist besser.",
 	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren den Schaden.\n \nHöher ist besser.",
 	L"\n \nProzentuale zusätzliche Hitze\ndurch diese Munitionsart.\n \nNiedriger ist besser.",
