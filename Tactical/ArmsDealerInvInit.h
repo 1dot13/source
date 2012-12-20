@@ -2,6 +2,7 @@
 #define	_ARMS_DEALER_INV_INIT__H_
 
 #include "Item Types.h"
+#include "Arms Dealer Init.h"
 
 #define		LAST_DEALER_ITEM					0//-1
 #define		NO_DEALER_ITEM						0
@@ -81,5 +82,9 @@ extern DEALER_POSSIBLE_INV gRaulInventory[MAXITEMS+1];
 extern DEALER_POSSIBLE_INV gPerkoInventory[MAXITEMS+1];
 #endif
 extern DEALER_POSSIBLE_INV gFredoInventory[MAXITEMS+1];
+
+// added by Flugente 2012-12-19
+extern DEALER_POSSIBLE_INV gTinaInventory[MAXITEMS+1];
+extern DEALER_POSSIBLE_INV gArmsDealerAdditional[ADDITIONAL_ARMS_DEALERS][MAXITEMS+1];
 
 #endif

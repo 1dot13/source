@@ -1,9 +1,9 @@
 #ifndef _ARMS_DEALERS_INIT__H_
 #define _ARMS_DEALERS_INIT__H_
 
-
 #include "Store Inventory.h"
 
+#define ADDITIONAL_ARMS_DEALERS		20	// Flugente: this does NOT include Tina, this is for the as-of-yet undetermined slots
 
 //enums for the various arms dealers
 enum
@@ -50,7 +50,12 @@ enum
 	ARMS_DEALER_BETTY,
 #endif
 
-	NUM_ARMS_DEALERS,
+	// Flugente: added new merchants (and slots for even more of them)
+	ARMS_DEALER_TINA,
+
+	ARMS_DEALER_ADDITIONAL_1,
+
+	NUM_ARMS_DEALERS = ARMS_DEALER_ADDITIONAL_1 + ADDITIONAL_ARMS_DEALERS,
 };
 
 #define NUM_ORIGINAL_ARMS_DEALERS 19
@@ -66,70 +71,69 @@ enum
 
 
 //The following defines indicate what items can be sold by the arms dealer
-#define		ARMS_DEALER_HANDGUNCLASS			0x00000001
-#define		ARMS_DEALER_SMGCLASS					0x00000002
-#define		ARMS_DEALER_RIFLECLASS				0x00000004
-#define		ARMS_DEALER_MGCLASS						0x00000008
-#define		ARMS_DEALER_SHOTGUNCLASS			0x00000010
+#define		ARMS_DEALER_HANDGUNCLASS			0x00000001	// 1
+#define		ARMS_DEALER_SMGCLASS				0x00000002	// 2
+#define		ARMS_DEALER_RIFLECLASS				0x00000004	// 4
+#define		ARMS_DEALER_MGCLASS					0x00000008	// 8
+#define		ARMS_DEALER_SHOTGUNCLASS			0x00000010	// 16
 
-#define		ARMS_DEALER_KNIFECLASS				0x00000020
+#define		ARMS_DEALER_KNIFECLASS				0x00000020	// 32
 
-#define		ARMS_DEALER_BLADE							0x00000040
-#define		ARMS_DEALER_LAUNCHER					0x00000080
+#define		ARMS_DEALER_BLADE					0x00000040	// 64
+#define		ARMS_DEALER_LAUNCHER				0x00000080	// 128
 
-#define		ARMS_DEALER_ARMOUR						0x00000100
-#define		ARMS_DEALER_MEDKIT						0x00000200
-#define		ARMS_DEALER_MISC							0x00000400
-#define		ARMS_DEALER_AMMO							0x00000800
+#define		ARMS_DEALER_ARMOUR					0x00000100	// 256
+#define		ARMS_DEALER_MEDKIT					0x00000200	// 512
+#define		ARMS_DEALER_MISC					0x00000400	// 1024
+#define		ARMS_DEALER_AMMO					0x00000800	// 2048
 
-#define		ARMS_DEALER_GRENADE						0x00001000
-#define		ARMS_DEALER_BOMB							0x00002000
-#define		ARMS_DEALER_EXPLOSV						0x00004000
+#define		ARMS_DEALER_GRENADE					0x00001000	// 4096
+#define		ARMS_DEALER_BOMB					0x00002000	// 8192
+#define		ARMS_DEALER_EXPLOSV					0x00004000	// 16384
 
-#define		ARMS_DEALER_KIT								0x00008000
+#define		ARMS_DEALER_KIT						0x00008000	// 32764
 
-#define		ARMS_DEALER_FACE							0x00010000
-//#define		ARMS_DEALER_THROWN						0x00020000
-//#define		ARMS_DEALER_KEY								0x00040000
+#define		ARMS_DEALER_FACE					0x00010000	// 65536
+//#define		ARMS_DEALER_THROWN				0x00020000	// 131072
+//#define		ARMS_DEALER_KEY					0x00040000	// 262144
 
-//#define		ARMS_DEALER_VIDEO_CAMERA			0x00020000
+//#define		ARMS_DEALER_VIDEO_CAMERA		0x00020000	// 131072
 
-#define		ARMS_DEALER_DETONATORS				0x00040000
+#define		ARMS_DEALER_DETONATORS				0x00040000	// 262144
 
-#define		ARMS_DEALER_ATTACHMENTS				0x00080000
-
-
-#define		ARMS_DEALER_ALCOHOL						0x00100000
-#define		ARMS_DEALER_ELECTRONICS				0x00200000
-#define		ARMS_DEALER_HARDWARE					0x00400000	| ARMS_DEALER_KIT
-
-#define		ARMS_DEALER_MEDICAL						0x00800000	| ARMS_DEALER_MEDKIT
-
-//#define		ARMS_DEALER_EMPTY_JAR					0x01000000
-#define		ARMS_DEALER_CREATURE_PARTS		0x02000000
-#define		ARMS_DEALER_ROCKET_RIFLE			0x04000000
-
-#define		ARMS_DEALER_ONLY_USED_ITEMS		0x08000000
-#define		ARMS_DEALER_GIVES_CHANGE			0x10000000		//The arms dealer will give the required change when doing a transaction
-#define		ARMS_DEALER_ACCEPTS_GIFTS			0x20000000		//The arms dealer is the kind of person who will accept gifts
-#define		ARMS_DEALER_SOME_USED_ITEMS		0x40000000		//The arms dealer can have used items in his inventory
-#define		ARMS_DEALER_HAS_NO_INVENTORY	0x80000000		//The arms dealer does not carry any inventory
+#define		ARMS_DEALER_ATTACHMENTS				0x00080000	// 524288
 
 
-#define		ARMS_DEALER_ALL_GUNS				ARMS_DEALER_HANDGUNCLASS | ARMS_DEALER_SMGCLASS | ARMS_DEALER_RIFLECLASS | ARMS_DEALER_MGCLASS | ARMS_DEALER_SHOTGUNCLASS
+#define		ARMS_DEALER_ALCOHOL					0x00100000	// 1048576
+#define		ARMS_DEALER_ELECTRONICS				0x00200000	// 2097152
+#define		ARMS_DEALER_HARDWARE				0x00400000	| ARMS_DEALER_KIT
+
+#define		ARMS_DEALER_MEDICAL					0x00800000	| ARMS_DEALER_MEDKIT
+
+//#define		ARMS_DEALER_EMPTY_JAR			0x01000000	// 16777216
+#define		ARMS_DEALER_CREATURE_PARTS			0x02000000	// 33554432
+#define		ARMS_DEALER_ROCKET_RIFLE			0x04000000	// 67108864
+
+#define		ARMS_DEALER_ONLY_USED_ITEMS			0x08000000	// 134217728
+#define		ARMS_DEALER_GIVES_CHANGE			0x10000000	// 268435456	//The arms dealer will give the required change when doing a transaction
+#define		ARMS_DEALER_ACCEPTS_GIFTS			0x20000000	// 536870912	//The arms dealer is the kind of person who will accept gifts
+#define		ARMS_DEALER_SOME_USED_ITEMS			0x40000000	// 1073741824	//The arms dealer can have used items in his inventory
+#define		ARMS_DEALER_HAS_NO_INVENTORY		0x80000000	// 2147483648	//The arms dealer does not carry any inventory
+
 
 #define		ARMS_DEALER_BIG_GUNS				ARMS_DEALER_SMGCLASS | ARMS_DEALER_RIFLECLASS | ARMS_DEALER_MGCLASS | ARMS_DEALER_SHOTGUNCLASS
 
-#define		ARMS_DEALER_ALL_WEAPONS			ARMS_DEALER_ALL_GUNS | ARMS_DEALER_BLADE | ARMS_DEALER_LAUNCHER | ARMS_DEALER_KNIFECLASS
+#define		ARMS_DEALER_ALL_GUNS				ARMS_DEALER_HANDGUNCLASS | ARMS_DEALER_BIG_GUNS
+
+#define		ARMS_DEALER_ALL_WEAPONS				ARMS_DEALER_ALL_GUNS | ARMS_DEALER_BLADE | ARMS_DEALER_LAUNCHER | ARMS_DEALER_KNIFECLASS
 
 #ifdef JA2UB
 //Raul
-#define	ARMS_DEALER_FLAG__RAUL_HAS_SOLD_BARRETT_TO_PLAYER					0x00000001	// Raul has sold the Barrett to the player
-#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_48											0x00000002	// Raul said the quote for when the player first puts the hand cannon down
-#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_49											0x00000004	// Quote for when player removes hand cannon from players offer area
-#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_50											0x00000008	// Quote for when player adds the hand cannon AGAIN into the players offer area
+#define	ARMS_DEALER_FLAG__RAUL_HAS_SOLD_BARRETT_TO_PLAYER			0x00000001	// Raul has sold the Barrett to the player
+#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_48						0x00000002	// Raul said the quote for when the player first puts the hand cannon down
+#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_49						0x00000004	// Quote for when player removes hand cannon from players offer area
+#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_50						0x00000008	// Quote for when player adds the hand cannon AGAIN into the players offer area
 #endif
-
 
 
 //
@@ -138,7 +142,7 @@ enum
 //
 
 // Alex Fredo
-#define	ARMS_DEALER_FLAG__FREDO_HAS_SAID_ROCKET_RIFLE_QUOTE				0x00000001	// Alex Fredo has already repaired the Rocket Rifle
+#define	ARMS_DEALER_FLAG__FREDO_HAS_SAID_ROCKET_RIFLE_QUOTE			0x00000001	// Alex Fredo has already repaired the Rocket Rifle
 // Franz Hinkle
 #define	ARMS_DEALER_FLAG__FRANZ_HAS_SOLD_VIDEO_CAMERA_TO_PLAYER		0x00000001	// Franz Hinkle has sold the video camera to the player
 
@@ -146,6 +150,10 @@ enum
 // THIS STRUCTURE HAS UNCHANGING INFO THAT DOESN'T GET SAVED/RESTORED/RESET
 typedef struct
 {
+	// added for xml externalisation by Flugente 2012-12-18
+	UINT16		uiIndex;	
+	CHAR16		szName[80];					// name of this merchant (used in xml, not used ingame)
+
 	union
 	{
 		struct
@@ -163,7 +171,7 @@ typedef struct
 	UINT8		ubShopKeeperID;					// Merc Id for the dealer
 	UINT8		ubTypeOfArmsDealer;			// Whether he buys/sells, sells, buys, or repairs
 	INT32		iInitialCash;						// How much cash dealer starts with (we now reset to this amount once / day)
-	UINT32	uiFlags;								// various flags which control the dealer's operations
+	UINT32		uiFlags;							// various flags which control the dealer's operations
 
 	UINT32		dailyIncrement;
 	UINT32		dailyMaximum;
@@ -320,7 +328,8 @@ typedef std::list<DEALER_SPECIAL_ITEM> DealerItemList;
 extern std::vector<DealerItemList>	gArmsDealersInventory;
 void OrderDealerItems(int armsDealer, int usItem, int numItems, int arrivalDay);
 
-extern const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ];
+// Flugente 2012-12-19: merchant data has been externalised - see XML_Merchants.cpp
+//extern const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ];
 extern std::vector<ARMS_DEALER_INFO>	armsDealerInfo;
 extern ARMS_DEALER_STATUS		gArmsDealerStatus[ NUM_ARMS_DEALERS ];
 

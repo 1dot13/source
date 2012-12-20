@@ -43,7 +43,8 @@ void ConvertCreatureBloodToElixir( void );
 
 UINT8 gubLastSpecialItemAddedAtElement = 255;
 
-
+// Flugente 2012-12-19: merchant data has been externalised - see XML_Merchants.cpp
+#if 0
 // THIS STRUCTURE HAS UNCHANGING INFO THAT DOESN'T GET SAVED/RESTORED/RESET
 // TODO: externalize
 const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ] =
@@ -94,6 +95,8 @@ const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ] =
 
 
 };
+#endif
+
 std::vector<ARMS_DEALER_INFO>	armsDealerInfo (NUM_ARMS_DEALERS);
 
 
@@ -1301,6 +1304,16 @@ BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex )
 			break;
 
 		default:
+			{
+				// Flugente: if we set this guy to be a repairguy, and this item is NOT electronic, well, we can
+				if ( armsDealerInfo[ubArmsDealer].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+				{
+					if ( !( Item[ usItemIndex ].electronic ) )
+						return(TRUE);
+					else
+						return(FALSE);
+				}
+			}
 			AssertMsg( FALSE, String( "CanDealerRepairItem(), Arms Dealer %d is not a recognized repairman!.	AM 1.", ubArmsDealer ) );
 	}
 

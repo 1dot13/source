@@ -691,7 +691,9 @@ DEALER_POSSIBLE_INV gFredoInventory[MAXITEMS+1];// =
 //	{ LAST_DEALER_ITEM,	NO_DEALER_ITEM },		//Last One
 //};
 
+DEALER_POSSIBLE_INV gTinaInventory[MAXITEMS+1];
 
+DEALER_POSSIBLE_INV gArmsDealerAdditional[ADDITIONAL_ARMS_DEALERS][MAXITEMS+1];
 
 // prototypes
 
@@ -792,7 +794,18 @@ INT8 GetDealersMaxItemAmount( UINT8 ubDealerID, UINT16 usItemIndex )
 			return( GetMaxItemAmount( gMannyInventory, usItemIndex ) );
 			break;
 
+		case ARMS_DEALER_TINA:
+			return( GetMaxItemAmount( gTinaInventory, usItemIndex ) );
+			break;
+
 		default:
+			{
+				if ( ubDealerID < NUM_ARMS_DEALERS )
+				{
+					UINT8 additionaldealernumber = ubDealerID - ARMS_DEALER_ADDITIONAL_1;
+					return( GetMaxItemAmount( gArmsDealerAdditional[additionaldealernumber], usItemIndex ) );
+				}
+			}
 			Assert( FALSE );
 			return( 0 );
 			break;
@@ -911,7 +924,18 @@ DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT8 ubArmsDealerID 
 			return( gMannyInventory );
 			break;
 
+		case ARMS_DEALER_TINA:
+			return( gTinaInventory );
+			break;
+
 		default:
+			{
+				if ( ubArmsDealerID < NUM_ARMS_DEALERS )
+				{
+					UINT8 additionaldealernumber = ubArmsDealerID - ARMS_DEALER_ADDITIONAL_1;
+					return( gArmsDealerAdditional[additionaldealernumber] );
+				}
+			}
 			return( NULL );
 	}
 }

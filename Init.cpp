@@ -385,6 +385,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	SGP_THROW_IFFALSE(ReadInFoodStats(fileName),FOODFILENAME);
 
 	strcpy(fileName, directoryName);
+	strcat(fileName, MERCHANTSFILENAME);
+	SGP_THROW_IFFALSE(ReadInMerchantStats(fileName),MERCHANTSFILENAME);
+
+	strcpy(fileName, directoryName);
 	strcat(fileName, CLOTHESFILENAME);
 	SGP_THROW_IFFALSE(ReadInClothesStats(fileName),CLOTHESFILENAME);
 
@@ -465,9 +469,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, IMPITEMCHOICESFILENAME);
 	SGP_THROW_IFFALSE(ReadInIMPItemChoicesStats(fileName),IMPITEMCHOICESFILENAME);
 
-	std::copy(DefaultarmsDealerInfo, 
+	// Flugente 2012-12-19: merchant data has been externalised - see XML_Merchants.cpp
+	/*std::copy(DefaultarmsDealerInfo, 
 			  DefaultarmsDealerInfo + sizeof(DefaultarmsDealerInfo)/sizeof(*DefaultarmsDealerInfo), 
-			  armsDealerInfo.begin());
+			  armsDealerInfo.begin());*/
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, TONYINVENTORYFILENAME);
@@ -560,7 +565,91 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, FREDOINVENTORYFILENAME);
 	SGP_THROW_IFFALSE(ReadInInventoryStats(gFredoInventory,fileName),FREDOINVENTORYFILENAME);
 
+	// Flugente: added new merchants
+	strcpy(fileName, directoryName);
+	strcat(fileName, TINAINVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gTinaInventory,fileName),TINAINVENTORYFILENAME);
+		
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_1_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[0],fileName),ADITIONALDEALER_1_INVENTORYFILENAME);
 
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_2_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[1],fileName),ADITIONALDEALER_2_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_3_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[2],fileName),ADITIONALDEALER_3_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_4_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[3],fileName),ADITIONALDEALER_4_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_5_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[4],fileName),ADITIONALDEALER_5_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_6_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[5],fileName),ADITIONALDEALER_6_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_7_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[6],fileName),ADITIONALDEALER_7_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_8_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[7],fileName),ADITIONALDEALER_8_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_9_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[8],fileName),ADITIONALDEALER_9_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_10_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[9],fileName),ADITIONALDEALER_10_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_11_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[10],fileName),ADITIONALDEALER_11_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_12_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[11],fileName),ADITIONALDEALER_12_INVENTORYFILENAME);
+	
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_13_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[12],fileName),ADITIONALDEALER_13_INVENTORYFILENAME);
+	
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_14_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[13],fileName),ADITIONALDEALER_14_INVENTORYFILENAME);
+	
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_15_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[14],fileName),ADITIONALDEALER_15_INVENTORYFILENAME);
+	
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_16_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[15],fileName),ADITIONALDEALER_16_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_17_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[16],fileName),ADITIONALDEALER_17_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_18_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[17],fileName),ADITIONALDEALER_18_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_19_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[18],fileName),ADITIONALDEALER_19_INVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ADITIONALDEALER_20_INVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gArmsDealerAdditional[19],fileName),ADITIONALDEALER_20_INVENTORYFILENAME);
+	
 	strcpy(fileName, directoryName);
 	strcat(fileName, CITYTABLEFILENAME);
 	SGP_THROW_IFFALSE(ReadInMapStructure(fileName, FALSE),CITYTABLEFILENAME);

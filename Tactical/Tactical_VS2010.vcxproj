@@ -218,6 +218,7 @@
     <ClCompile Include="XML_LBEPocketPopup.cpp" />
     <ClCompile Include="XML_LoadBearingEquipment.cpp" />
     <ClCompile Include="XML_Magazine.cpp" />
+    <ClCompile Include="XML_Merchants.cpp" />
     <ClCompile Include="XML_MercStartingGear.cpp" />
     <ClCompile Include="XML_Merge.cpp" />
     <ClCompile Include="XML_NewFaceGear.cpp" />

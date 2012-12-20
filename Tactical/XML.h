@@ -67,6 +67,7 @@ typedef PARSE_STAGE;
 #define	EXPLOSIVESFILENAME						"Explosives.xml"
 #define DRUGSFILENAME							"Drugs.xml"
 #define FOODFILENAME							"Food.xml"
+#define MERCHANTSFILENAME						"NPCInventory\\Merchants.xml"
 #define CLOTHESFILENAME							"Clothes.xml"
 #define RANDOMITEMFILENAME						"RandomItem.xml"
 #define	AMMOFILENAME							"AmmoStrings.xml"
@@ -108,6 +109,27 @@ typedef PARSE_STAGE;
 #define ARNIEINVENTORYFILENAME					"NPCInventory\\ArnieInventory.xml"
 #define PERKOINVENTORYFILENAME					"NPCInventory\\PerkoInventory.xml"
 #define FREDOINVENTORYFILENAME					"NPCInventory\\FredoInventory.xml"
+#define TINAINVENTORYFILENAME					"NPCInventory\\TinaInventory.xml"
+#define ADITIONALDEALER_1_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_1_Inventory.xml"
+#define ADITIONALDEALER_2_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_2_Inventory.xml"
+#define ADITIONALDEALER_3_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_3_Inventory.xml"
+#define ADITIONALDEALER_4_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_4_Inventory.xml"
+#define ADITIONALDEALER_5_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_5_Inventory.xml"
+#define ADITIONALDEALER_6_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_6_Inventory.xml"
+#define ADITIONALDEALER_7_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_7_Inventory.xml"
+#define ADITIONALDEALER_8_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_8_Inventory.xml"
+#define ADITIONALDEALER_9_INVENTORYFILENAME		"NPCInventory\\AdditionalDealer_9_Inventory.xml"
+#define ADITIONALDEALER_10_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_10_Inventory.xml"
+#define ADITIONALDEALER_11_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_11_Inventory.xml"
+#define ADITIONALDEALER_12_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_12_Inventory.xml"
+#define ADITIONALDEALER_13_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_13_Inventory.xml"
+#define ADITIONALDEALER_14_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_14_Inventory.xml"
+#define ADITIONALDEALER_15_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_15_Inventory.xml"
+#define ADITIONALDEALER_16_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_16_Inventory.xml"
+#define ADITIONALDEALER_17_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_17_Inventory.xml"
+#define ADITIONALDEALER_18_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_18_Inventory.xml"
+#define ADITIONALDEALER_19_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_19_Inventory.xml"
+#define ADITIONALDEALER_20_INVENTORYFILENAME	"NPCInventory\\AdditionalDealer_20_Inventory.xml"
 
 #ifdef JA2UB
 #define BETTYINVENTORYFILENAME					"NPCInventory\\BettyInventory.xml"
@@ -307,6 +329,10 @@ extern BOOLEAN WriteDrugsStats();
 // Flugente: food
 extern BOOLEAN ReadInFoodStats(STR fileName);
 extern BOOLEAN WriteFoodStats();
+
+// Flugente: merchants
+extern BOOLEAN ReadInMerchantStats(STR fileName);
+extern BOOLEAN WriteMerchantStats();
 
 // Flugente: clothes
 extern BOOLEAN ReadInClothesStats(STR fileName);
