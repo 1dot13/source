@@ -58,7 +58,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"班副",// L"Deputy",
 	L"技师",// L"Technician",
 	L"救护员",// L"Paramedic",
-	L"Covert Ops",	// TODO.Translate
+	L"特工",// L"Covert Ops",
 
 	L"无",// L"None",
 	L"I.M.P 主要特殊技能",// L"I.M.P. Major Traits",
@@ -72,7 +72,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"班长",// L"Squadleader",
 	L"工兵",// L"Engineer",
 	L"军医",// L"Doctor",
-	L"Spy",	// TODO.Translate
+	L"间谍",// L"Spy",
 };
 
 //added another set of skill texts for new minor traits
@@ -137,8 +137,8 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"步枪精确瞄准次数增加 1次\n",// L"Adds one more aim click for rifle-type guns\n",
 	L"步枪精确瞄准次数增加 %d次\n",// L"Adds %d more aim clicks for rifle-type guns\n",
 	// TO DO - translate
-	L"Makes aiming faster with rifle-type guns by one aim click\n",
-	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
+	L"迅速瞄准：步枪精确瞄准次数加快（即减少）1次\n",//L"Makes aiming faster with rifle-type guns by one aim click\n",
+	L"迅速瞄准：步枪精确瞄准次数加快（即减少）%d次\n",//L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -197,7 +197,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"上/下房顶所需行动点 -%d%s\n",// L"-%d%s APs needed to climb on/off roof and jump obstacles\n",
 	L"踢门成功率 +%d%s\n",// L"+%d%s chance to kick doors\n",
 	L"你的格斗攻击将有特殊的动画效果\n",// L"You gain special animations for hand to hand combat\n",
-	L"-%d%s chance to be interrupted when moving\n", // TODO.Translate
+	L"移动时被中断的几率降低 -%d%s\n", // L"-%d%s chance to be interrupted when moving\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
@@ -213,7 +213,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"(叠加效果最多是 %d 次)\n",// L"(Max simultaneous bonuses for one soldier is %d)\n",
 	L"+%d%s %s的恐惧抵抗力 (程序参数问题只能用这个语序)\n",// L"+%d%s fear resistence of %s\n",
 	L"缺陷: 会给其他人造成 %d 倍的士气下降, 如果 %s 的阵亡的话 (程序参数问题只能用这个语序)\n",// L"Drawback: %dx morale loss for %s's death for all other mercs\n",
-	L"+%d%s chance to trigger collective interrupts\n", // TODO.Translate
+	L"触发小队集体中断的几率增加 +%d%s\n", // L"+%d%s chance to trigger collective interrupts\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
@@ -243,15 +243,15 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"(这种效果最多叠加 %d 次)",// L" (max %d these bonuses per sector)",
 
 };
-STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=		// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
-	L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
-	L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
-	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
-	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
-	L"+%d%s CTH with covert melee weapons\n",
-	L"+%d%s chance of instakill with covert melee weapons\n",
-	L"Disguise AP cost lowered by %d%s.\n",
+	L"可在敌后伪装成市民或敌军士兵\n",//L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
+	L"以下情况会暴露身份：可疑动作、可疑装备或者接近新鲜尸体\n",//L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
+	L"在靠近敌人 %d 格内伪装成士兵会被自动发现而暴露\n",//L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
+	L"在靠近尸体 %d 格内伪装成士兵会被自动发现而暴露\n",//L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
+	L"伪装状态下使用近战武器攻击时，命中率增加 +%d%s\n",//L"+%d%s CTH with covert melee weapons\n",
+	L"伪装状态下使用近战武器攻击时，秒杀几率增加 +%d%s\n",//L"+%d%s chance of instakill with covert melee weapons\n",
+	L"伪装动作消耗的AP降低 %d%s\n",//L"Disguise AP cost lowered by %d%s.\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {

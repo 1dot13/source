@@ -126,25 +126,25 @@ CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] =
 STR16 pMenuStrings[] =
 {
 	//Encyclopedia
-	L"区域", // 0
+	L"区域",
 	L"人物",
 	L"物品",
 	L"探索",
 	L"菜单5",
-	L"菜单6", //5
+	L"菜单6",
 	L"菜单7", 
 	L"菜单8",
 	L"菜单9",
 	L"菜单10",
-	L"菜单11", //10
+	L"菜单11",
 	L"菜单12",
 	L"菜单13",
 	L"菜单14",
 	L"菜单15",
-	L"菜单15", // 15
+	L"菜单15",
 	
 	//Briefing Room
-	L"Exit",
+	L"退出",
 };
 
 STR16	pOtherButtonsText[] =
@@ -173,13 +173,13 @@ STR16	pSectorPageText[] =
 	L"主页面",
 	L">>",
 	L"类型: ",
-	L"Empty data",
+	L"空白数据",
 	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
 };
 
 STR16	pEncyclopediaTypeText[] = 
 {
-	L"Unknown",// 0 - unknown
+	L"未知",
 	L"城市", //1 - cities
 	L"SAM Site", //2 - SAM Site
 	L"其他区域", //3 - other location
@@ -1552,21 +1552,21 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"敌人已经没有装备可偷了！",
 	L"敌人手中没有装备！",
 
-	L"%s 的沙漠迷彩油已经耗竭失效了.",
-	L"%s 的沙漠迷彩油已经冲刷失效了.",
+	L"%s 的沙漠迷彩油已经耗竭失效了。",
+	L"%s 的沙漠迷彩油已经冲刷失效了。",
 	
-	L"%s 的丛林迷彩油已经耗竭失效了.",
-	L"%s 的丛林迷彩油已经冲刷失效了.",
+	L"%s 的丛林迷彩油已经耗竭失效了。",
+	L"%s 的丛林迷彩油已经冲刷失效了。",
 	
-	L"%s 的城市伪装迷彩油已经耗竭失效了.",
-	L"%s 的城市伪装迷彩油已经冲刷失效了.",
+	L"%s 的城市伪装迷彩油已经耗竭失效了。",
+	L"%s 的城市伪装迷彩油已经冲刷失效了。",
 	
-	L"%s 的雪地迷彩油已经耗竭失效了.",
-	L"%s 的雪地迷彩油已经冲刷失效了.",
+	L"%s 的雪地迷彩油已经耗竭失效了。",
+	L"%s 的雪地迷彩油已经冲刷失效了。",
 
-	L"你不能将其附加在当前功能槽.",
-	L"%s 不适合打开的任何功能槽.",
-	L"There's not enough space for this pocket.", //TODO:Translate
+	L"你不能将其附加在当前功能槽。",
+	L"%s 不适合打开的任何功能槽。",
+	L"没有足够的空间。", //L"There's not enough space for this pocket.",
 };
 
 
@@ -1642,7 +1642,7 @@ STR16 pAssignmentStrings[] =
 	L"工作", // L"Staff", // operating a strategic facility //ham3.6
 	L"饮食",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
-	L"Prison",		// Flugente: interrogate prisoners
+	L"监狱", // L"Prison",
 	L"死亡", // dead
 	L"无力中", // abbreviation for incapacitated
 	L"战俘", // Prisoner of war - captured
@@ -1728,7 +1728,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"设施职员",
 	L"饮食",		// eating at a facility (cantina etc.)
 	L"在设施里休养",
-	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
+	L"审讯俘虏", // L"Interrogate prisoners",
 	L"休息",
 	L"无力中",
 	L"战俘",
@@ -1774,7 +1774,7 @@ STR16 pLongAssignmentStrings[] =
 	L"学员",
 	L"设施职员",  //L"Staff Facility",
 	L"休息",  //L"Rest at Facility",
-	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
+	L"审讯俘虏", // L"Interrogate prisoners",
 	L"死亡",
 	L"无力中",
 	L"战俘",
@@ -1908,7 +1908,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"撤退", // retreat militia
 	L"向我靠拢", // retreat militia
 	L"卧倒", // retreat militia
-	L"Crouch",	// TODO.Translate
+	L"蹲下",	// L"Crouch",
 	L"隐蔽",
 	L"全体: 进攻",
 	L"全体: 原地坚守",
@@ -1916,7 +1916,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"全体: 向我靠拢",
 	L"全体: 分散",
 	L"全体: 卧倒",
-	L"All: Crouch",	// TODO.Translate
+	L"全体: 蹲下",	// L"All: Crouch",
 	L"全体: 隐蔽",
 	//L"All: Find items",
 	L"取消", // cancel this menu
@@ -2121,7 +2121,7 @@ STR16 gzMercSkillTextNew[] =
 	L"班副",
 	L"技师",
 	L"救护兵",
-	L"Covert Ops",		// 10	// TODO.Translate
+	L"特工",		// L"Covert Ops",
 	// Minor traits
 	L"双持",
 	L"近战",
@@ -2478,8 +2478,8 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"连发/5AP: ",		//15
 	L"剩余弹药:",		//16
 	L"默认:",	//17 //WarmSteel - So we can also display default attachments
-	L"污垢:",	// 18	//added by Flugente	// TODO.Translate
-	L"Space:", // 19 //space left on Molle items //TODO.Translate
+	L"污垢:",	// 18	//added by Flugente
+	L"空位:", // 19 //space left on Molle items L"Space:",
 
 };
 
@@ -2602,7 +2602,7 @@ CHAR16 zHealthStr[][13] =
 	L"健康",	//"HEALTHY",    	//	>= 60
 	L"强壮",	//"STRONG",     	// 	>= 75
 	L"极好",	//"EXCELLENT",		// 	>= 90
-	L"CAPTURED",	// added by Flugente TODO.Translate
+	L"被俘", // L"CAPTURED",
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -2894,11 +2894,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"你已经有了两辆车，无法拥有更多的车辆。",
 
 	// added by Flugente for defusing/setting up trap networks
-	L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
-	L"Set defusing frequency:",
-	L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
-	L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
-	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
+	L"选择引爆频率 (1 - 4) 或拆除频率 (A - D):", //L"Choose detonation frequency (1 - 4) or defuse frequency (A - D):",
+	L"设置拆除频率:", //L"Set defusing frequency:",
+	L"设置引爆频率 (1 - 4) 和拆除频率 (A - D):", //L"Set detonation frequency (1 - 4) and defusing frequency (A - D):",
+	L"设置引爆时间回合数 (1 - 4) 和拆除频率 (A - D):", //L"Set detonation time in turns (1 - 4) and defusing frequency (A - D):",
+	L"Select tripwire hierarchy (1 - 4) and network (A - D):", //L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 
 	// added by Flugente to display health and poisoning
 	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s",
@@ -2908,18 +2908,18 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 
 	// added by Flugente: selection of a function to call in tactical
-	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Take off clothes",	// TODO.Translate
+	L"1 - 装满水壶 2 - 清理枪支污垢 3 - 清理所有枪支污垢 4 - 脱掉衣服", //L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Take off clothes",
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
+	L"1 - 砍掉头颅 2 - 取出内脏 3 - 脱掉衣服 4 - 拿起尸体", //L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
 
-	// Flugente: weapon cleaning	// TODO.Translate
-	L"%s cleaned %s",
+	// Flugente: weapon cleaning
+	L"%s 清理了 %s", //L"%s cleaned %s",
 
-	// added by Flugente: decide what to do with prisoners	// TODO.Translate
-	L"You have no prison for these prisoners, you have to let them go",
-	L"Yes - Send prisoners to jail      No - Let them go",
-	L"Ask enemy for surrender?",
+	// added by Flugente: decide what to do with prisoners
+	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - 将俘虏送入监狱      No - 放俘虏离开这里", //L"Yes - Send prisoners to jail      No - Let them go",
+	L"劝说敌人投降？", //L"Ask enemy for surrender?",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3418,7 +3418,7 @@ STR16 pTransactionText[] =
 	L"将装备卖给了当地人",
 	L"工厂使用", // L"Facility Use", // HEADROCK HAM 3.6
 	L"民兵保养", // L"Militia upkeep", // HEADROCK HAM 3.6
-	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
+	L"释放俘虏所需的赎金", //L"Ransom for released prisoners",
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4207,8 +4207,8 @@ STR16			MercInfo[] =
 
 	L"看起来你雇佣了太多的佣兵。最多只能雇18人。",	//"Looks like you're trying to hire too many mercs. Your limit is 18.",
 	L"不可雇佣",	//"Unavailable",
-	L"Bio", //TODO.Translate
-	L"Inv",
+	L"生平", //L"Bio",
+	L"物品", //L"Inv",
 };
 
 
@@ -6188,10 +6188,9 @@ STR16 New113HAMMessage[] =
 	L"日常支出",// L"Daily Expenses",
 	// 21 - 25
 	L"维持民兵的资金不足！%d 名民兵回老家结婚去了。",// L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
-	// TODO.Translate
-	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5
-	L"To attach an item to another item during combat, you must pick them both up first.", // HAM 5
-	L"To merge two items during combat, you must pick them both up first.", // HAM 5
+	L"要在战斗中查看某样物品，你必须先把它捡起来。", // L"To examine an item's stats during combat, you must pick it up manually first.",
+	L"要在战斗中组合两样物品，你必须先把它们捡起来。", // L"To attach an item to another item during combat, you must pick them both up first.",
+	L"要在战斗中合并两样物品，你必须先把它们捡起来。", // L"To merge two items during combat, you must pick them both up first.",
 };
 
 // TODO.Translate
@@ -6296,8 +6295,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"爆破：播种手雷，深埋炸弹，看羊羔飞。这就是你的生活！ ± ",
 	// Scouting
 	L"侦查：没有什么东西你觉察不到！ ± ",
-	// Covert ops // TODO.Translate
-	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
+	// Covert ops
+	L"特工: 你让詹姆斯邦德甘拜下风！ ± ",		// L"Covert Operations: You make 007 look like an amateur! ± ",
 };
 
 STR16 NewInvMessage[] = 
@@ -6721,7 +6720,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"训练医疗",
 	L"训练领导",
 	L"训练爆破",
-	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
+	L"审讯俘虏", //L"Interrogate Prisoners",
 };
 STR16 Additional113Text[]=
 {
@@ -6828,16 +6827,15 @@ STR16 sEnemyTauntsGotHit[]=
 
 };
 
-// TODO.Translate
 STR16 sEnemyTauntsNoticedMerc[]=
 {
-	L"Da'ffff...!",
-	L"Oh my God!",
-	L"Holy crap!",
-	L"Enemy!!!",
-	L"Alert! Alert!",
-	L"There is one!",
-	L"Attack!",
+	L"草…我草！", //L"Da'ffff...!",
+	L"我的天哪！", //L"Oh my God!",
+	L"真他妈的！", //L"Holy crap!",
+	L"有敌人！", //L"Enemy!!!",
+	L"警报！警报！", //L"Alert! Alert!",
+	L"这儿有一个！", //L"There is one!",
+	L"进攻！", //L"Attack!",
 
 };
 
@@ -6911,7 +6909,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|精|度",
 	L"|杀|伤|力",
 	L"|射|程",
-	L"|H|a|n|d|l|i|n|g |D|i|f|f|i|c|u|l|t|y",	// TODO.Translate
+	L"|操|控|难|度",
 	L"|精|瞄|等|级",
 	L"|瞄|准|镜|倍|率",
 	L"|红|点|效|果",
@@ -6928,7 +6926,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|上|弹|A|P",
 	L"|换|弹|夹|A|P",
 	L"",
-	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
+	L"|后|坐|力",
 	L"|连|发|子|弹|数/5|A|P",
 };
 
@@ -6937,7 +6935,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n决定该武器发射的子弹偏离瞄准点的远近。\n \n数值范围：0~100。越高越好。",
 	L"\n \n决定该武器发射的子弹的平均伤害，不包括\n护甲或穿甲修正。\n \n该数值越高越好。",
 	L"\n \n从该枪射出的子弹在落地前的\n最大飞行距离（格数）。\n \n该数值越高越好。",
-	L"\n \nDetermines the difficulty of holding and firing\nthis gun.\n \nHigher Handling Difficulty results in lower\nchance-to-hit - when aimed and especially when\nunaimed.\n \nLower is better.",	// TODO.Translate
+	L"\n \n决定握持该武器进行射击时的操控难度。\n \n操控难度越高，命中率越低。\n \n该数值越低越好。",
 	L"\n \n这个数值显示了该武器的精瞄等级。\n \n精瞄等级越低，每次瞄准获得的命中率加成越\n高。因此，精瞄等级要求较低的武器可以在不损\n失精度的情况下更快地瞄准。\n \n该数值越低越好。",
 	L"\n \n该值大于1.0时，远距离瞄准中的误差会按比例减小。\n \n \n请注意，高倍率瞄准镜不利于射击距离过近的目标。\n \n \n该值为1.0则说明该武器未安装瞄准镜。\n",
 	L"\n \n在一定距离上按比例减少瞄准误差。\n \n红点效果只在一定距离内有效，因为超过该距离\n光点就会开始暗淡，最终在足够远处消失。\n \n该数值越高越好。",
@@ -6954,7 +6952,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n重新装填子弹所需的AP。\n \n该数值越低越好。",
 	L"\n \n在射击间歇为该武器手动更换弹匣的AP消耗。\n \n该数值越低越好。",
 	L"",	// No longer used!
-	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
+	L"\n \n该参数是武器枪口在单发或自动模式下每发子弹所造成的最大偏移量。\n \n该数值越低越好。",
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
 };
 
@@ -6978,25 +6976,25 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|翻|搅|力|（|开|花|弹|）",
 	L"|爆|炸|力|（|炸|子|儿|）",
 	L"|过|热|修|正",
-	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
-	L"|D|i|r|t |M|o|d|i|f|i|c|a|t|i|o|n",	// TODO.Translate
+	L"|毒|性|百|分|比",
+	L"|污|垢|修|正",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen below 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen above 1.0, the bullet increases the\nprotection value of the armor instead.\n \nLower is better.",	// TODO.Translate
+	L"\n \n即子弹穿透目标护甲的能力。\n \n该值大于1时，被子弹命中的护甲的防护值会成比例减少。\n \n反之，当该值小于1时，\n则增加了目标护甲的防护值。\n \n该数值越高越好。",
 	L"\n \n该值决定子弹打穿护甲击中身体时的伤害力\n加成。\n \n该值大于1时，子弹在穿过护甲后会增加伤害。\n \n当该值小于1时，子弹穿过护甲后会减少伤害。\n \n该数值越高越好。",
 	L"\n \n该值是子弹在击中目标前已经造成的潜在伤害的倍率。\n \n大于1的数值可以增加伤害，\n反之则减少伤害。\n \n该数值越高越好。",
 	L"\n \n子弹温度系数。\n \n该数值越低越好。",
-	L"\n \nDetermines what percentage of a\nbullet's damage will be poisonous.",	// TODO.Translate
-	L"\n \nAdditional dirt generated by this ammunition.\n \nLower is better.",		// TODO.Translate
+	L"\n \n该值决定子弹伤害中具有毒性的百分比。",
+	L"\n \n弹药造成的额外污垢。\n \n该数值越低越好。",
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|杀|伤|力",
 	L"|眩|晕|杀|伤|力",
-	L"|E|x|p|l|o|d|e|s |o|n| |I|m|p|a|c|t",		// HEADROCK HAM 5	// TODO.Translate
+	L"|爆|炸|杀|伤|力",
 	L"|爆|炸|范|围",
 	L"|眩|晕|爆|炸|范|围",
 	L"|噪|音|扩|散|范|围",
@@ -7011,10 +7009,10 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|烟|雾|最|终|范|围",
 	L"|燃|烧|最|终|范|围",
 	L"|效|果|持|续|时|间",
-	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
-	L"|N|u|m|b|e|r |o|f |F|r|a|g|m|e|n|t|s",
-	L"|D|a|m|a|g|e |p|e|r |F|r|a|g|m|e|n|t",
-	L"|F|r|a|g|m|e|n|t |R|a|n|g|e",
+	// HEADROCK HAM 5: Fragmentation
+	L"|碎|片|数|量",
+	L"|碎|片|单|片|杀|伤",
+	L"|碎|片|半|径",
 	// HEADROCK HAM 5: End Fragmentations
 	L"|噪|音",
 	L"|挥|发|性",
@@ -7024,7 +7022,7 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
 	L"\n \n本次爆炸造成的伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，\n而具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
 	L"\n \n爆破造成的非致命性眩晕伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，\n而具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
-	L"\n \nThis explosive will not bounce around -\nit will explode as soon as it hits any obstacle.",	// HEADROCK HAM 5	// TODO.Translate
+	L"\n \n该爆破品不会弹来弹去。\n \n它一碰到任何实物就会立刻爆炸！",
 	L"\n \n这是该爆破品的有效杀伤半径。\n \n目标距爆炸中心越远，受到的伤害越少。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品的眩晕伤害半径。\n \n目标距爆炸中心越远，受到的伤害越少。\n \n该数值越高越好。",
 	L"\n \n这是该陷阱所发出噪音的传播距离。\n \n在该距离之内的士兵可能听到这个噪音\n并有所警觉。\n \n该数值越高越好。",
@@ -7039,11 +7037,9 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \n这是该爆破品释放的烟雾消散前的最大半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n（如果有的话）。更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品释放的火焰熄灭前的最大半径。\n \n在该半径之内的敌人每回合都会受到所列出的\n物理伤害与眩晕伤害\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是爆炸效果的持续时间。\n \n爆炸效果的范围每回合都会向所有的方向增加一\n格，直到其半径达到所列出的最大值。\n \n一旦持续时间过去，爆炸效果就会完全消失。\n \n注意照明类的爆炸与众不同，会随着时间\n流逝越来越小。\n \n该数值越高越好。",
-	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
-	L"\n \nThis is the number of fragments that will\nbe ejected from the explosion.\n \nFragments are similar to bullets, and may hit\nanyone who's close enough to the explosion.\n \nHigher is better.",
-	L"\n \nThe potential amount of damage caused by each\nfragment ejected from the explosion.\n \nHigher is better.",
-	L"\n \nThis is the average range to which fragments\nfrom this explosion will fly.\n \nSome fragments may end up further away, or fail\nto cover the distance altogether.\n \nHigher is better.",
-	// HEADROCK HAM 5: End Fragmentations
+	L"\n \n这是爆炸中溅射出碎片的数量。\n \n碎片和子弹类似，会击中任何距离太近的人。\n \n该数值越高越好。",
+	L"\n \n这是爆炸中溅射出碎片的潜在伤害。\n \n该数值越高越好。",
+	L"\n \n这是爆炸中溅射出碎片的平均散布范围。\n \n或近或远，这里是取平均值。\n \n该数值越高越好。",
 	L"\n \n这是爆破品爆炸时发出的声音能够被佣兵和敌\n军听到的距离（格数）。\n \n听到爆炸声的敌人会察觉到你。\n \n该数值越低越好。",
 	L"\n \n这个数值代表该爆破品受到伤害时（如其他爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，\n应当极力避免。\n \n数值范围：0~100，越低越好。",
 	
@@ -7077,12 +7073,12 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|急|救|包",
 	L"|医|药|箱",
 	L"|破|锁|炸|弹",
-	L"|D|r|i|n|k",// TODO.Translate
-	L"|M|e|a|l",
-	L"|A|m|m|o |B|e|l|t",
-	L"|A|m|m|o |V|e|s|t",
-	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
-	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
+	L"|饮|料",
+	L"|食|物",
+	L"|输|弹|带", //L"|A|m|m|o |B|e|l|t",
+	L"|机|枪|手|背|包", //L"|A|m|m|o |V|e|s|t",
+	L"|拆|弹|工|具", //L"|D|e|f|u|s|a|l |K|i|t",
+	L"|间|谍|器|材", //L"|C|o|v|e|r|t |I|t|e|m",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7097,15 +7093,15 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n该物品是电子产品，含有复杂电路。\n \n电子产品在维修者没有电子技能时很难被修复\n。",
 	L"\n \n将该物品佩戴于面部时，使用者不受任何\n有毒气体的伤害。\n \n然而有些腐蚀性气体可以通过腐蚀\n作用穿过这个面罩。",
 	L"\n \n该物品需要电池。没有安装电池时使用者不\n能使用这个物品的主要功能。\n \n只要把所需电池安装于该物品的附件栏即可\n（步骤与将瞄准镜安装在步枪上一样）。",
-	L"\n \n该物品能够用于开锁。\n \n（用技巧）开锁不会发出声音，但是开稍微复\n杂一些的锁需要足够的机械能力。 This item modifies\nthe lockpicking chance by ", //JMich_SkillsModifiers: needs to be followed by a number		// TODO.Translate
+	L"\n \n该物品能够用于开锁。\n \n（用技巧）开锁不会发出声音，但是开稍微复\n杂一些的锁需要足够的机械能力。 该物品提升了开锁几率 ",
 	L"\n \n该物品能够绞断铁丝网。\n \n使用此物品，佣兵可以快速穿越用铁丝网封锁的地区，以便\n包围敌人！",
-	L"\n \n该物品能够用于破坏锁具。\n \n破坏锁具需要很大的力量，既会发出很大的\n噪音，也很耗费佣兵的体力。但是在没有出色\n的技巧和复杂的工具时，用力量破坏锁具也是明智\n之举。 This item improves \nyour chance by ", //JMich_SkillsModifiers: needs to be followed by a number	// TODO.Translate
+	L"\n \n该物品能够用于破坏锁具。\n \n破坏锁具需要很大的力量，既会发出很大的\n噪音，也很耗费佣兵的体力。但是在没有出色\n的技巧和复杂的工具时，用力量破坏锁具也是明智\n之举。 该物品提升了撬锁几率 ",
 	L"\n \n该物品能够探测地下的金属物品。\n \n显然其主要用于在没有肉眼识别地雷的能力时探测地\n雷。但是你也可以用它发现埋在地下的宝藏。",
 	L"\n \n该物品能够用来引爆已经安装远程爆破引信的炸弹\n。\n \n先放置炸弹，时机一到再用它引爆。",
 	L"\n \n安装该引信的爆破物设置完成后\n，可以被远程控制器引爆。\n \n远程引信是设置陷阱的不二选择，因为它只会在你需要\n它爆炸的时候被引爆，而且留给你足够的时间跑\n开！",
 	L"\n \n安装该引信的爆破物设置完成后\n，该引信会开始倒数计时，并在设置的时间后\n被引爆。\n \n计时引信便宜并且易于安装，但是你必须给它\n设定合适的时间以便你能够跑开！",
 	L"\n \n该物品承有汽油。\n \n在你需要加油时十分有用。",
-	L"\n \n工具箱内装有各种能用来修复其他物品的工具。\n \n安排佣兵进行修复工作时该佣兵必须持有工具\n箱。 This item modifies\nthe effectiveness of repair by ", //JMich_SkillsModifiers: need to be followed by a number	// TODO.Translate
+	L"\n \n工具箱内装有各种能用来修复其他物品的工具。\n \n安排佣兵进行修复工作时该佣兵必须持有工具\n箱。 该物品提升了维修效能 ",
 	L"\n \n将该物品佩戴于面部时，\n可以利用热成像原理，\n发现墙壁后方的敌人。",
 	L"\n \n这种功能强大的仪器利用X光搜索敌军。\n \n它可以在短时间内暴露一定范围中的敌人位置。\n请远离生殖器使用！",
 	L"\n \n该物品装有饮用水。\n \n口渴时饮用。",
@@ -7113,12 +7109,12 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这一战场的基础急救包提供了基本的医疗用品。\n \n可以被用来包扎受伤的角色以止血。\n \n如需要回复生命，使用名副其实的医药箱，并辅以大量的休息。",
 	L"\n \n这是名副其实的医药箱，可以用于外科手术或其他复杂的治疗。\n \n安排佣兵进行医疗工作时，该佣兵必须持有医\n药箱。",
 	L"\n \n该物品能够用于爆破锁具。\n \n使用它需要爆破技能以避免过早引爆。\n \n使用炸药是一个相对简单的破锁手段，但是会\n发出很大噪音，并且对于大部分佣兵来说过于\n危险。",
-	L"\n \nThis item will still your thirst\nif you drink it.",// TODO.Translate
-	L"\n \nThis item will still your hunger\nif you eat it.",
-	L"\n \nWith this ammo belt you can\nfeed someone else's MG.",
-	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
-	L"\n \nThis item improves your trap disarm chance by ",			// TODO.Translate
-	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
+	L"\n \n饮用该物品能让你止渴。", //L"\n \nThis item will still your thirst\nif you drink it.",
+	L"\n \n食用该物品能让你充饥。", //L"\n \nThis item will still your hunger\nif you eat it.",
+	L"\n \n使用该供弹带，你可以为他人的机关枪供弹。", //L"\n \nWith this ammo belt you can\nfeed someone else's MG.", 
+	L"\n \n使用该机枪手背包中的供弹带，你可以为他人的机关枪供弹。", //L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.", 
+	L"\n \n该物品提升你的陷阱解除几率 ", //L"\n \nThis item improves your trap disarm chance by ",
+	L"\n \n该物品及附着其上的所有物品均让怀疑者无从觉察。", //L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -7179,8 +7175,8 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|冷|却|参|数",
 	L"|卡|壳|阈|值",
 	L"|损|坏|阈|值",
-	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",	// TODO.Translate
-	L"|D|i|r|t |M|o|d|i|f|i|e|r",			// TODO.Translate
+	L"|毒|性|百|分|比",
+	L"|污|垢|修|正",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7242,8 +7238,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n武器的冷却系数数增加了(百分比)。\n \n该数值越高越好。",
 	L"\n \n武器的卡壳阈值增加了(百分比)。\n \n该数值越高越好。",
 	L"\n \n武器的损坏阈值增加了(百分比)。\n \n该数值越高越好。",
-	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",	// TODO.Translate
-	L"\n \nA single shot causes this much dirt.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",	// TODO.Translate
+	L"\n \n总伤害中毒性伤害所占的百分比。\n\n部分取决于敌人的装备是否有毒性抵抗或毒性吸收属性。",
+	L"\n \n单发射击所造成的污垢。\n所使用的子弹类型和附件种类对本值有影响。\n \n该数值越低越好。",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -7424,81 +7420,80 @@ STR16	gszPocketPopupText[]=
 	L"更多...",		//POCKET_POPUP_MOAR
 };
 
-// Flugente: externalised texts for some features	// TODO.Translate
+// Flugente: externalised texts for some features
 STR16	szCovertTextStr[]=
 {
-	L"%s has camo!",
-	L"%s has a backpack!",
-	L"%s is seen carrying a corpse!",
-	L"%s wears suspicious LBE gear!",
-	L"%s possesses military hardware!",
-	L"%s carries too many guns!",
-	L"%s equipment is too good!",
-	L"%s gun has too many attachments!",
-	L"%s was seen performing suspicious activities!",
-	L"%s does not look like a civilian!",
-	L"%s bleeding was discovered!",
-	L"%s is drunk and doesn't look like a soldier!",
-	L"On closer inspection, %s's disguise does not hold!",
-	L"%s isn't supposed to be here!",
-	L"%s isn't supposed to be here at this time!",
-	L"%s was seen near a fresh corpse!",
-	L"%s equipment raises a few eyebrows!",
-	L"%s is seen targeting a soldier!",
-	L"%s has seen through %s disguise!",
-	L"No clothes item found in Items.xml!",
-	L"This does not work with the old trait system!",
-	L"Not enough Aps!",
-	L"Bad palette found!",
-	L"You need the covert skill to do this!",
-	L"No uniform found!",
-	L"%s is now disguised as a civilian.",
-	L"%s is now disguised as a soldier.",
+	L"%s 有迷彩油的痕迹！", //L"%s has camo!",
+	L"%s 有不合身份的背包！", //L"%s has a backpack!",
+	L"%s 被发现携带尸体！", //L"%s is seen carrying a corpse!",
+	L"%s 穿戴了可疑的携行具！", //L"%s wears suspicious LBE gear!",
+	L"%s 有军用装备！", //L"%s possesses military hardware!",
+	L"%s 携带了太多的枪支！", //L"%s carries too many guns!",
+	L"%s 的装备太过精良！", //L"%s equipment is too good!",
+	L"%s 的枪支加装了太多的附件！", //L"%s gun has too many attachments!",
+	L"%s 被发现有可疑举动！", //L"%s was seen performing suspicious activities!",
+	L"%s 被发现不像个平民！", //L"%s does not look like a civilian!",
+	L"%s 被发现流血不止了！", //L"%s bleeding was discovered!",
+	L"%s 醉醺醺的完全不像个士兵！", //L"%s is drunk and doesn't look like a soldier!",
+	L"%s 的伪装在近距离观察下HOLD不住了！", //L"On closer inspection, %s's disguise does not hold!",
+	L"%s 不应该出现在这里！", //L"%s isn't supposed to be here!",
+	L"%s 不应该在这个时候出现在这里！", //L"%s isn't supposed to be here at this time!",
+	L"%s 被发现在新鲜尸体旁边行踪诡秘！", //L"%s was seen near a fresh corpse!",
+	L"%s 的装备让人惊疑！", //L"%s equipment raises a few eyebrows!",
+	L"%s 被发现瞄准了其他士兵！", //L"%s is seen targeting a soldier!",
+	L"%s 被识破了 %s 伪装！", //L"%s has seen through %s disguise!",
+	L"无法找到对应的衣服信息在 Items.xml 中！", //L"No clothes item found in Items.xml!",
+	L"这在传统特性系统下无法工作！", //L"This does not work with the old trait system!",
+	L"行动点数（AP）不足！", //L"Not enough Aps!",
+	L"色板无效！", //L"Bad palette found!",
+	L"你得有伪装技能才能做这个！", //L"You need the covert skill to do this!",
+	L"未发现制服！", //L"No uniform found!",
+	L"%s 已伪装成平民", //L"%s is now disguised as a civilian.",
+	L"%s 已伪装成士兵", //L"%s is now disguised as a soldier.",
 };
 
 STR16	szCorpseTextStr[]=
 {
-	L"No head item found in Items.xml!",
-	L"Corpse cannot be decapitated!",
-	L"No meat item found in Items.xml!",
-	L"Not possible, you sick, twisted individual!",
-	L"No clothes to take!",
-	L"%s cannot take clothes off of this corpse!",
-	L"This corpse cannot be taken!",
-	L"No free hand to carry corpse!",
-	L"No corpse item found in Items.xml!",
-	L"Invalid corpse ID!",
+	L"无法找到对应的头颅信息在 Items.xml 中！", //L"No head item found in Items.xml!",
+	L"这尸体无法被斩首！", //L"Corpse cannot be decapitated!",
+	L"无法找到对应的肉类信息在 Items.xml 中！", //L"No meat item found in Items.xml!",
+	L"这不可能！你这个恶心、变态的家伙！", //L"Not possible, you sick, twisted individual!",
+	L"这尸体已无衣可脱！", //L"No clothes to take!",
+	L"%s 无法脱掉这尸体的衣服！", //L"%s cannot take clothes off of this corpse!",
+	L"这尸体无法被带走！", //L"This corpse cannot be taken!",
+	L"没有第三只手携带尸体了！", //L"No free hand to carry corpse!",
+	L"无法找到对应的尸体信息在 Items.xml 中！", //L"No corpse item found in Items.xml!",
+	L"无效的尸体 ID!", //L"Invalid corpse ID!",
 };
 
 STR16	szFoodTextStr[]=
 {
-	L"%s does not want to eat %s",
-	L"%s does not want to drink %s",
-	L"%s ate %s",
-	L"%s drank %s",
-	L"%s's strength was damaged due to being overfed!",
-	L"%s's strength was damaged due to lack of nutrition!",
-	L"%s's health was damaged due to being overfed!",
-	L"%s's health was damaged due to lack of nutrition!",
-	L"%s's strength was damaged due to excessive drinking!",
-	L"%s's strength was damaged due to lack of water!",
-	L"%s's health was damaged due to excessive drinking!",
-	L"%s's health was damaged due to lack of water!",
-	L"Sectorwide canteen filling not possible, Food System is off!"
+	L"%s 不想吃 %s",//L"%s does not want to eat %s",
+	L"%s 不想喝 %s",//L"%s does not want to drink %s",
+	L"%s 吃了 %s",//L"%s ate %s",
+	L"%s 喝了 %s",//L"%s drank %s",
+	L"%s 的力量受损，因为吃得太饱，撑得四肢无力！",//L"%s's strength was damaged due to being overfed!",
+	L"%s 的力量受损，因为没有吃的，饿得头晕眼花！",//L"%s's strength was damaged due to lack of nutrition!",
+	L"%s 的生命受损，因为吃得太饱，撑得肠胃欲裂！",//L"%s's health was damaged due to being overfed!",
+	L"%s 的生命受损，因为没有吃的，饿得精神恍惚！",//L"%s's health was damaged due to lack of nutrition!",
+	L"%s 的力量受损，因为喝太多水，他水中毒了！",//L"%s's strength was damaged due to excessive drinking!",
+	L"%s 的力量受损，因为没有水喝，渴疯了！",//L"%s's strength was damaged due to lack of water!",
+	L"%s 的生命受损，因为喝太多水，他水中毒了！",//L"%s's health was damaged due to excessive drinking!",
+	L"%s 的生命受损，因为没有水喝，渴疯了！",//L"%s's health was damaged due to lack of water!",
+	L"区域供水不可行，食物和生存系统已被关闭"//L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
-// TODO.Translate
 STR16	szPrisonerTextStr[]=
 {
-	L"%d prisoners were interrogated.",
-	L"%d prisoners paid ransom money.",
-	L"%d prisoners revealed enemy positions.",
-	L"%d prisoners joined our cause.",
-	L"Prisoners start a massive riot in %s!",
-	L"Prisoners were sent to %s!",
-	L"Prisoners have been released!",
-	L"The army now occupies the prison in %s, the prisoners were freed!",
-	L"The enemy refuses to surrender!",
+	L"%d 名俘虏已被审讯", //L"%d prisoners were interrogated.",
+	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
+	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
+	L"%d 名俘虏已加入我方阵营", //L"%d prisoners joined our cause.",
+	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
+	L"俘虏被押送前往 %s 监狱", //L"Prisoners were sent to %s!",
+	L"俘虏已被释放！", //L"Prisoners have been released!",
+	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
+	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
 };
 
 #endif //CHINESE
