@@ -2203,7 +2203,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 	
 	//DBrot: apply a modifier to confined explosions
 	if(InARoom(sBombGridNo, NULL)){
-		newDamage += (INT16)newDamage * pExplosive->bIndoorModifier;
+		newDamage += (INT16)(newDamage * pExplosive->bIndoorModifier);
 	}
 	sWoundAmt = newDamage + (INT16) ( (newDamage * uiRoll) / 100 );
 
@@ -2212,7 +2212,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 	//INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
 
 	if(InARoom(sBombGridNo, NULL)){
-		newBreath += (INT16)newBreath * pExplosive->bIndoorModifier;
+		newBreath += (INT16)(newBreath * pExplosive->bIndoorModifier);
 	}
 
 	sBreathAmt = ( newBreath * 100 ) + (INT16) ( ( ( newBreath / 2 ) * 100 * uiRoll ) / 100 ) ;

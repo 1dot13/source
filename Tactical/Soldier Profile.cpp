@@ -1701,7 +1701,7 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 		GiveQuestRewardPoint( pSoldier->sSectorX, pSoldier->sSectorY, 6, MIGUEL );
 	}
 
-	// Flugente: people recruited in Arulco are known to the enemy as civilians or even soldiers. So they will be covert whn recruiting them. Of course, this is not for the rebels...
+	// Flugente: people recruited in Arulco are known to the enemy as civilians or even soldiers. So they will be covert when recruited. Of course, this is not for the rebels...
 	if ( ubCharNum == DEVIN || ubCharNum == HAMOUS || ubCharNum == SLAY || ubCharNum == VINCE || ubCharNum == MADDOG || ubCharNum == MICKY )
 	{
 		pNewSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_CIV|SOLDIER_COVERT_NPC_SPECIAL);
@@ -1821,6 +1821,9 @@ BOOLEAN RecruitEPC( UINT8 ubCharNum )
 
 	// Set whatkind of merc am i
 	pNewSoldier->ubWhatKindOfMercAmI = MERC_TYPE__EPC;
+
+	// Flugente: people recruited in Arulco are known to the enemy as civilians or even soldiers. So they will be covert when recruited. Of course, this is not for the rebels...
+	pNewSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_CIV|SOLDIER_COVERT_NPC_SPECIAL);
 
 	UpdateTeamPanelAssignments( );
 

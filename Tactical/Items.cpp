@@ -9327,12 +9327,13 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 
 		if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->bSoldierFlagMask & SOLDIER_NEW_PANTS )
 		{
-			// first, remove the covert flags, adn then reapply the correct ones, in case we switch between civilina and military garb
+			// first, remove the covert flags, and then reapply the correct ones, in case we switch between civilian and military clothes
 			pSoldier->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
 
 			// we now have to determine wether we are currently wearing civilian or military clothes
-			for ( int i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+			for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
 			{
+				// both parts have to fit. We cant mix different uniforms and get soldier disguise
 				if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
 				{
 					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;

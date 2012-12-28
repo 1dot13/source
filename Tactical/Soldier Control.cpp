@@ -14614,7 +14614,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name, Item[bLoop].szItemName );
 							return FALSE;
 						}
 						break;
@@ -14638,7 +14638,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name, Item[bLoop].szItemName );
 						return FALSE;
 					}
 				}
@@ -14660,7 +14660,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name, Item[bLoop].szItemName );
 						return FALSE;
 					}
 				}
@@ -14691,16 +14691,50 @@ BOOLEAN		SOLDIERTYPE::LooksLikeASoldier( void )
 	return TRUE;
 }
 
+INT8		SOLDIERTYPE::GetUniformType()
+{
+	// we determine wether we are currently wearing civilian or military clothes
+	for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= NUM_UNIFORMS; ++i )
+	{
+		// both parts have to fit. We cant mix different uniforms and get soldier disguise
+		if ( COMPARE_PALETTEREP_ID(this->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(this->PantsPal, gUniformColors[ i ].pants) )
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 // is our equipment too good for a soldier?
 BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 {
-	// check the guns in our hands an rifle sling
+	// check the guns in our hands and rifle sling
 	// alert if we have more than 2, any of them has too much attachments or they are way too cool
 	UINT8 numberofguns = 0;
 	UINT8 ubCurrentProgress = CurrentPlayerProgressPercentage();
 	UINT8 maxcoolnessallowed = 1 + ubCurrentProgress / 10;
-	maxcoolnessallowed += 2;	// TODO adjust for level and uniform
-	UINT16 maxitemsize = 4;
+
+	INT8 uniformtype = GetUniformType();
+
+	// adjust max coolness depending on uniform
+	switch ( uniformtype )
+	{
+	case UNIFORM_ENEMY_ADMIN:
+		maxcoolnessallowed += 1;
+		break;
+	case UNIFORM_ENEMY_TROOP:
+		maxcoolnessallowed += 2;
+		break;
+	case UNIFORM_ENEMY_ELITE:
+		maxcoolnessallowed += 3;
+		break;
+	default:
+		// we do not wear a proper army uniform, uncover us. Note: This should never happen - if this message shows, somewhere, something is wrong
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNIFORM_NOORDER], this->name );
+		return TRUE;
+		break;
+	}
 
 	if ( UsingNewInventorySystem() )
 	{
@@ -14744,7 +14778,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name, Item[bLoop].szItemName );
 							return FALSE;
 						}
 						break;
@@ -14783,7 +14817,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 							// loop over every item and its attachments
 							if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[pObj->usItem].szItemName );
 								return TRUE;
 							}
 
@@ -14797,7 +14831,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									// loop over every item and its attachments
 									if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[iter->usItem].szItemName );
 										return TRUE;
 									}
 					
@@ -14806,7 +14840,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									// no ordinary soldier is allowed that many attachments > not covert
 									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name, Item[pObj->usItem].szItemName );
 										return TRUE;
 									}
 								}
@@ -14846,7 +14880,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 								// loop over every item and its attachments
 								if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[pObj->usItem].szItemName );
 									return TRUE;
 								}
 
@@ -14860,7 +14894,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 										// loop over every item and its attachments
 										if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 										{
-											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name );
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[iter->usItem].szItemName );
 											return TRUE;
 										}
 					
@@ -14871,7 +14905,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 								// no ordinary soldier is allowed that many attachments > not covert
 								if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name, Item[pObj->usItem].szItemName );
 									return TRUE;
 								}
 							}
@@ -15000,6 +15034,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		case 0:
 		default:
 			// without the covert ops skill, we can only dress up as civilians. We will be discovered if we get too close to the enemy
+			// exception: special NPCs and EPCs can still get close (the Kulbas, for example, ARE civilians, so they apply)
 			if ( (this->bSoldierFlagMask & SOLDIER_COVERT_NPC_SPECIAL) == 0 )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->name );
@@ -15146,7 +15181,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 
 	// hack: if this is attacking us at this very moment by punching, do not recognize him...
 	// this resolves the problem that we attack someone from behind and kill him instantly, but the game mechanic forces him to turn before
-	// only allow this if we are not yet alerted (we are suprised, so we don't recognize him in the moment of the attack
+	// only allow this if we are not yet alerted (we are suprised, so we don't recognize him in the moment of the attack)
 	// also: only allow if he's next to us
 	if ( this->aiData.bAlertStatus < STATUS_RED && pSoldier->ubTargetID == this->ubID )
 	{

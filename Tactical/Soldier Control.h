@@ -1482,6 +1482,9 @@ public:
 	// do we look like a soldier?
 	BOOLEAN		LooksLikeASoldier( void );
 
+	// what kind of uniform are we wearing? returns -1 if none is worn
+	INT8		GetUniformType();
+
 	// is our equipment too good for a soldier?
 	BOOLEAN		EquipmentTooGood( BOOLEAN fCloselook );
 

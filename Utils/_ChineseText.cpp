@@ -7426,11 +7426,11 @@ STR16	szCovertTextStr[]=
 	L"%s 有迷彩油的痕迹！", //L"%s has camo!",
 	L"%s 有不合身份的背包！", //L"%s has a backpack!",
 	L"%s 被发现携带尸体！", //L"%s is seen carrying a corpse!",
-	L"%s 穿戴了可疑的携行具！", //L"%s wears suspicious LBE gear!",
-	L"%s 有军用装备！", //L"%s possesses military hardware!",
+	L"%s's %s is suspicious!",
+	L"%s's %s is considered military hardware!",
 	L"%s 携带了太多的枪支！", //L"%s carries too many guns!",
-	L"%s 的装备太过精良！", //L"%s equipment is too good!",
-	L"%s 的枪支加装了太多的附件！", //L"%s gun has too many attachments!",
+	L"%s's %s is too advanced for an arulcan soldier!",
+	L"%s's %s has too many attachments!",
 	L"%s 被发现有可疑举动！", //L"%s was seen performing suspicious activities!",
 	L"%s 被发现不像个平民！", //L"%s does not look like a civilian!",
 	L"%s 被发现流血不止了！", //L"%s bleeding was discovered!",
@@ -7450,6 +7450,7 @@ STR16	szCovertTextStr[]=
 	L"未发现制服！", //L"No uniform found!",
 	L"%s 已伪装成平民", //L"%s is now disguised as a civilian.",
 	L"%s 已伪装成士兵", //L"%s is now disguised as a soldier.",
+	L"%s wears a disorderly uniform!",
 };
 
 STR16	szCorpseTextStr[]=

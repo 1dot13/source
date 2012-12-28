@@ -4402,7 +4402,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				if ( gGameOptions.ubDifficultyLevel > 0 )
 					groupelites = ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel;
 
-				UINT32 totalusedsoldiers = 4 * min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+				UINT32 totalusedsoldiers = 4 * min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
 
 				switch( usActionCode )
 				{
@@ -4591,7 +4591,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, grouptroops, groupelites );
 					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 
-					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+					totalusedsoldiers += min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
 
 					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 					{
@@ -4648,7 +4648,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 
-					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+					totalusedsoldiers += min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
 
 					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 					{
@@ -4688,7 +4688,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 
-					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+					totalusedsoldiers += min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
 
 					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 					{
@@ -4728,7 +4728,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 					pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 
-					totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+					totalusedsoldiers += min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
 
 					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 					{
@@ -4769,7 +4769,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 						pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, grouptroops, groupelites );
 
-						totalusedsoldiers += min(grouptroops + groupelites, gGameExternalOptions.iMaxEnemyGroupSize);
+						totalusedsoldiers += min(grouptroops + groupelites, (UINT32)gGameExternalOptions.iMaxEnemyGroupSize);
 
 						if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 						{
