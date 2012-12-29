@@ -6646,7 +6646,12 @@ BOOLEAN GetPlayerControlledPrisonSectorId(UINT32& auSectorID)
 	{
 		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
 		{
+			// only sectors where there are no ongoing battles or even enemy garrisons are valid for our cause
 			if ( !SectorOursAndPeaceful( sX, sY, 0 ) )
+				continue;
+
+			// only allow sectors which we have controlled at least once - otherwise prisoners might get sent to San Mona prison, even though the player never was there
+			if ( !SectorInfo[ (UINT8)SECTOR( sX, sY ) ].fSurfaceWasEverPlayerControlled )
 				continue;
 
 			// Is there a prison in this sector?

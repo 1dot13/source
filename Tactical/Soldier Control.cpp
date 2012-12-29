@@ -14964,7 +14964,12 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == PICK_LOCK ||
 		this->usAnimState == LOCKPICK_CROUCHED ||
 		this->usAnimState == STEAL_ITEM_CROUCHED ||
-		this->usAnimState == JUMPWINDOWS
+		this->usAnimState == JUMPWINDOWS ||
+		this->usAnimState == FOCUSED_PUNCH ||
+		this->usAnimState == FOCUSED_STAB ||
+		this->usAnimState == HTH_KICK ||
+		this->usAnimState == FOCUSED_HTH_KICK ||
+		this->usAnimState == LONG_JUMP
 		)
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->name );
@@ -15156,8 +15161,8 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 		return TRUE;
 #endif
 
-	// if neither of the 2 persons is covert, always return true
-	if ( ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) && ( (this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 ) )
+	// not in covert mode: we recognize him
+	if ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 )
 		return TRUE;
 	
 	// neutral characters just dont care
@@ -15165,19 +15170,12 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 		return TRUE;
 
 	// check for for vehicles and creatures... weird things happen
-	if ( IsVehicle(pSoldier) || pSoldier->bTeam	== CREATURE_TEAM || this->bTeam	== CREATURE_TEAM )
+	if ( IsVehicle(pSoldier) || IsVehicle(this) || pSoldier->bTeam	== CREATURE_TEAM || this->bTeam	== CREATURE_TEAM )
 		return TRUE;
 		
-	// checking someone from our team...
-	if ( this->bTeam == pSoldier->bTeam )
-	{
-		// not in covert mode: we recognize him
-		if ( (pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0 )
-			return TRUE;
-		else
-			// we don't because we accept that he is covert (to not blow his cover)
-			return FALSE;
-	}
+	// if from same team, do not uncover
+	if ( this->bTeam == pSoldier->bTeam || this->bSide == pSoldier->bSide )
+		return TRUE;
 
 	// hack: if this is attacking us at this very moment by punching, do not recognize him...
 	// this resolves the problem that we attack someone from behind and kill him instantly, but the game mechanic forces him to turn before
@@ -15237,7 +15235,7 @@ void	SOLDIERTYPE::Strip()
 	// if already not covert, take off clothes
 	else if ( this->bSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
 	{
-		// if having a new vest that is undamaged, take it off
+		// if we have undamaged clothes, spawn them, the graphci will be removed anyway
 		if ( (this->bSoldierFlagMask & SOLDIER_NEW_VEST) && !(this->bSoldierFlagMask & SOLDIER_DAMAGED_VEST) )
 		{
 			UINT16 vestitem = 0;
@@ -15251,7 +15249,6 @@ void	SOLDIERTYPE::Strip()
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 		}
 
-		// if having new pants that are undamaged, take them off
 		if ( (this->bSoldierFlagMask & SOLDIER_NEW_PANTS) && !(this->bSoldierFlagMask & SOLDIER_DAMAGED_PANTS) )
 		{
 			UINT16 pantsitem = 0;

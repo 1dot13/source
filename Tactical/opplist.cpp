@@ -1773,7 +1773,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 {
 	// if neither side is neutral AND
 	// if this soldier is an opponent (fights for different side)
-	if (pSoldier->bActive && pOpponent->bActive && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
+	if (pSoldier->bActive && pOpponent->bActive && !CONSIDERED_NEUTRAL_NOT_POW( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL_NOT_POW( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 	{
 		RemoveOneOpponent(pSoldier);
 	}
@@ -6807,7 +6807,7 @@ void DecayIndividualOpplist(SOLDIERTYPE *pSoldier)
 	if (pSoldier->stats.bLife < OKLIFE)
 	{
 		// must make sure that public opplist is kept to match...
-		for ( uiLoop = 0; uiLoop < TOTAL_SOLDIERS; uiLoop++ )
+		for ( uiLoop = 0; uiLoop < TOTAL_SOLDIERS; ++uiLoop )
 		{
 			if ( pSoldier->aiData.bOppList[ uiLoop ] == SEEN_CURRENTLY )
 			{
@@ -6822,7 +6822,7 @@ void DecayIndividualOpplist(SOLDIERTYPE *pSoldier)
 	}
 
 	// man looks for each of his opponents WHO IS CURRENTLY SEEN
-	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
 	{
 		pOpponent = MercSlots[ uiLoop ];
 
@@ -6835,20 +6835,19 @@ void DecayIndividualOpplist(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
-		pPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
+			pPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
 
-	 // if this opponent is seen currently
-	 if (*pPersOL == SEEN_CURRENTLY)
-		{
+			 // if this opponent is seen currently
+			 if (*pPersOL == SEEN_CURRENTLY)
+			{
 				// they are NOT visible now!
 				(*pPersOL)++;
 				if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
 				{
 					RemoveOneOpponent(pSoldier);
 				}
-
+			}
 		}
-	}
 	}
 }
 

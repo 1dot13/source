@@ -61,6 +61,7 @@
 
 	#include "drugs and alcohol.h"
 	#include "Food.h"
+	#include "opplist.h"
 #endif
 
 #ifdef JA2UB
@@ -9288,6 +9289,9 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 
 				SET_PALETTEREP_ID( pSoldier->VestPal, Clothes[clothestype].vest );
 				pSoldier->bSoldierFlagMask |= SOLDIER_NEW_VEST;
+
+				// this vest is not damaged, so remove the damaged vest flag
+				pSoldier->bSoldierFlagMask &= ~SOLDIER_DAMAGED_VEST;
 			}
 
 			if ( newpants )
@@ -9308,6 +9312,9 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 
 				SET_PALETTEREP_ID( pSoldier->PantsPal, Clothes[clothestype].pants );
 				pSoldier->bSoldierFlagMask |= SOLDIER_NEW_PANTS;
+
+				// these pants are not damaged, so remove the damaged pants flag
+				pSoldier->bSoldierFlagMask &= ~SOLDIER_DAMAGED_PANTS;
 			}
 
 			// Use palette from HVOBJECT, then use substitution for pants, etc
@@ -9349,6 +9356,9 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 				pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->name );
 			}
+
+			// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
+			OtherTeamsLookForMan(pSoldier);
 		}
 	}
 		

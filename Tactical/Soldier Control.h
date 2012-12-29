@@ -414,6 +414,9 @@ extern CLOTHES_STRUCT Clothes[CLOTHES_MAX];
 // but they can't attack empty vehicles!!
 #define CONSIDERED_NEUTRAL( me, them ) ( (them->aiData.bNeutral || them->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_POW)) && ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
 
+// Flugente: this version still counts POWs as enemies. This allows correct refreshing of the enemy count whn taking prisoners and then moving away
+#define CONSIDERED_NEUTRAL_NOT_POW( me, them ) ( (them->aiData.bNeutral || them->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) && ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) )
+
 typedef struct
 {
 	UINT8			ubKeyID;
