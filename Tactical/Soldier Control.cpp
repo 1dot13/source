@@ -16326,6 +16326,9 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			// arrest this guy
 			pSoldier->bSoldierFlagMask |= SOLDIER_POW;
 
+			// Remove as target
+			RemoveManAsTarget( pSoldier );
+
 			// move the items in his hands to the floor and move our handcuff into his hands
 			if ( pSoldier->inv[ HANDPOS ].exists() == true && !( pSoldier->inv[ HANDPOS ].fFlags & OBJECT_UNDROPPABLE ))
 			{
@@ -16381,6 +16384,9 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			StatChange( this, EXPERAMT, 2, TRUE );
 
 			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), 0, AFTERACTION_INTERRUPT );
+
+			// this might have been the last guy...
+			CheckForEndOfBattle( FALSE );
 		}
 		else
 		{

@@ -5351,15 +5351,15 @@ INT16 ubMinAPCost;
 					// if yes, and we are facing it, jump
 					// if no, go on, nothing to see here
 					// determine direction of our target
-					INT8 targetdirection = GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
+					UINT8 targetdirection = GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 					// determine if there is a jumpable window here, in the direction of our target
 					// store old direction for this check
-					INT tmpdirection = pSoldier->ubDirection;
+					UINT8 tmpdirection = pSoldier->ubDirection;
 					pSoldier->ubDirection = targetdirection;
 
 					INT8 windowdirection = DIRECTION_IRRELEVANT;
-					if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == windowdirection )
+					if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == (UINT8)windowdirection )
 					{
 						pSoldier->ubDirection = tmpdirection;
 
@@ -5389,31 +5389,28 @@ INT16 ubMinAPCost;
 	// The situation mentioned above happens...
 	else if ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) )
 	{
-		if ( 1 )//gGameExternalOptions.fZombieCanClimb )
+		if (!TileIsOutOfBounds(targetGridNo) )
 		{
-			if (!TileIsOutOfBounds(targetGridNo) )
+			// need to climb AND have enough APs to get there this turn
+			BOOLEAN fUp = TRUE;
+			if (pSoldier->pathing.bLevel > 0 )
+				fUp = FALSE;
+
+			if ( pSoldier->bActionPoints > GetAPsToClimbRoof ( pSoldier, fUp ) )
 			{
-				// need to climb AND have enough APs to get there this turn
-				BOOLEAN fUp = TRUE;
-				if (pSoldier->pathing.bLevel > 0 )
-					fUp = FALSE;
+				pSoldier->aiData.usActionData = targetGridNo;//FindClosestClimbPoint(pSoldier, fUp );
 
-				if ( pSoldier->bActionPoints > GetAPsToClimbRoof ( pSoldier, fUp ) )
-				{
-					pSoldier->aiData.usActionData = targetGridNo;//FindClosestClimbPoint(pSoldier, fUp );
-
-					// Necessary test: can we climb up at this position? It might happen that our target is directly above us, then we'll have to move
-					INT8 newdirection;
-					if ( ( fUp && FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) || ( !fUp && FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) )
-					{							
-						return( AI_ACTION_CLIMB_ROOF );
-					}
-					else
-					{
-						return(AI_ACTION_SEEK_OPPONENT);
-					}
+				// Necessary test: can we climb up at this position? It might happen that our target is directly above us, then we'll have to move
+				INT8 newdirection;
+				if ( ( fUp && FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) || ( !fUp && FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) )
+				{							
+					return( AI_ACTION_CLIMB_ROOF );
 				}
-			}	
+				else
+				{
+					return(AI_ACTION_SEEK_OPPONENT);
+				}
+			}
 		}
 	}
 

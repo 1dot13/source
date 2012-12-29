@@ -6765,10 +6765,11 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 		// Kill those not already dead.,...
 		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == ENEMY_TEAM )
 		{
-			// For sure for flag thet they are dead is not set
+			// Only pows that are not dead yet
 			if ( ( pTeamSoldier->bSoldierFlagMask & SOLDIER_POW ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 			{
-				if ( pTeamSoldier->stats.bLife > OKLIFE && pTeamSoldier->stats.bLife != 0 )
+				// if we arrive here and the guy has lifepoints < OKLIFE, something is very odd... better take him prisoner and remove him anyway
+				//if ( pTeamSoldier->stats.bLife > OKLIFE && pTeamSoldier->stats.bLife != 0 )
 				{
 					switch ( pTeamSoldier->ubSoldierClass )
 					{
@@ -10109,6 +10110,9 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 					if( pSoldier->stats.bLife >= OKLIFE )
 					{
 						pSoldier->bSoldierFlagMask |= SOLDIER_POW;
+
+						// Remove as target
+						RemoveManAsTarget( pSoldier );
 					}
 				}
 			}
