@@ -2048,7 +2048,7 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 					else if ( pCorpse->def.ubBodyType == REGFEMALE || pCorpse->def.ubBodyType == MINICIV || pCorpse->def.ubBodyType == DRESSCIV )
 						gTempObject[0]->data.sObjectFlag |= CORPSE_F;
 
-					if ( pCorpse->def.usFlags & ROTTING_CORPSE_HEAD_TAKEN )
+					if ( pCorpse->def.usFlags & ROTTING_CORPSE_HEAD_TAKEN || pCorpse->def.fHeadTaken )
 						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_HEAD;
 
 					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST )

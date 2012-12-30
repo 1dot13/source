@@ -662,14 +662,8 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	switch( pSoldier->ubProfile )
+	if ( pSoldier->IsAssassin() )
 	{
-	case JIM:
-	case JACK:
-	case OLAF:
-	case RAY:
-	case OLGA:
-	case TYRONE:
 		sDesiredMercLoc = ClosestPC( pSoldier, &sDesiredMercDist );
 		
 		if (!TileIsOutOfBounds(sDesiredMercLoc))
@@ -691,9 +685,6 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 				}
 			}
 		}
-		break;
-	default:
-		break;
 	}
 
 	return( AI_ACTION_NONE );
@@ -838,9 +829,36 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 				}
 			}
 
-			if (pSoldier->ubProfile != NO_PROFILE)
+			if ( pSoldier->ubProfile != NO_PROFILE || pSoldier->IsAssassin() )
 			{
-				pSoldier->aiData.bAction = DecideActionNamedNPC( pSoldier );
+				if ( pSoldier->ubProfile != NO_PROFILE )
+					pSoldier->aiData.bAction = DecideActionNamedNPC( pSoldier );
+				else
+				{
+					INT32 sDesiredMercDist;
+					INT32 sDesiredMercLoc = ClosestUnDisguisedPC( pSoldier, &sDesiredMercDist );
+		
+					if (!TileIsOutOfBounds(sDesiredMercLoc))
+					{
+						if ( sDesiredMercDist <= NPC_TALK_RADIUS * 2 )
+						{
+							AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
+							// now wait a bit!
+							pSoldier->aiData.usActionData = 5000;
+							pSoldier->aiData.bAction = AI_ACTION_WAIT;
+						}
+						else
+						{
+							pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards( pSoldier, sDesiredMercLoc, AI_ACTION_APPROACH_MERC );
+				
+							if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+							{
+								pSoldier->aiData.bAction = AI_ACTION_APPROACH_MERC;
+							}
+						}
+					}
+				}
+
 				if ( pSoldier->aiData.bAction != AI_ACTION_NONE )
 				{
 					return( pSoldier->aiData.bAction );
@@ -852,9 +870,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 				}
 				// turn off counter so we don't check it again
 				pSoldier->uiTimeSinceLastSpoke = 0;
-
 			}
-
 		}
 
 		// if not in the way, do nothing most of the time
@@ -1440,18 +1456,44 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			// ******************
 			// REAL TIME NPC CODE
 			// ******************
-			if (pSoldier->ubProfile != NO_PROFILE)
+			if (pSoldier->ubProfile != NO_PROFILE || pSoldier->IsAssassin() )
 			{
-				pSoldier->aiData.bAction = DecideActionNamedNPC( pSoldier );
+				if ( pSoldier->ubProfile != NO_PROFILE )
+					pSoldier->aiData.bAction = DecideActionNamedNPC( pSoldier );
+				else
+				{
+					INT32 sDesiredMercDist;
+					INT32 sDesiredMercLoc = ClosestUnDisguisedPC( pSoldier, &sDesiredMercDist );
+
+					// Flugente: if this guy is disguised, do not consider him
+		
+					if (!TileIsOutOfBounds(sDesiredMercLoc))
+					{
+						if ( sDesiredMercDist <= NPC_TALK_RADIUS * 2 )
+						{
+							AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
+							// now wait a bit!
+							pSoldier->aiData.usActionData = 5000;
+							pSoldier->aiData.bAction = AI_ACTION_WAIT;
+						}
+						else
+						{
+							pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards( pSoldier, sDesiredMercLoc, AI_ACTION_APPROACH_MERC );
+				
+							if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+							{
+								pSoldier->aiData.bAction = AI_ACTION_APPROACH_MERC;
+							}
+						}
+					}
+				}
+
 				if ( pSoldier->aiData.bAction != AI_ACTION_NONE )
 				{
 					return( pSoldier->aiData.bAction );
 				}
-
 			}
-
 		}
-
 	}
 
 	// determine the most important noise heard, and its relative value

@@ -1249,8 +1249,8 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 		//}
 	}
 
-	// Flugente: if playing with the covert trait, the assasins come covert, so they are tougher to find	
-	if ( gGameExternalOptions.fAssassinsAreDisguised && gGameOptions.fNewTraitSystem && pSoldier->ubProfile >= JIM && pSoldier->ubProfile <= TYRONE )
+	// Flugente: if playing with the covert trait, the assassins come covert, so they are tougher to find	
+	if ( gGameExternalOptions.fAssassinsAreDisguised && gGameOptions.fNewTraitSystem && pSoldier->IsAssassin() )
 	{
 		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
 
@@ -3015,6 +3015,127 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 	return TacticalCreateSoldier( &pp, &ubID );
 }
 
+// Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwsie they jsut blend in
+SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	// this needs the covert ops trait, and thus the new trait system
+	if ( !gGameOptions.fNewTraitSystem )
+		return NULL;
+
+	// not in autoresolve!
+	if( guiCurrentScreen == AUTORESOLVE_SCREEN )
+	{
+		return NULL;
+	}
+
+	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
+	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ELITE );
+	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ELITE );
+	bp.bTeam = CIV_TEAM;
+	bp.bOrders	= SEEKENEMY;
+	bp.bAttitude = (INT8) Random( MAXATTITUDES );
+	bp.bBodyType = Random(4);
+	bp.ubSoldierClass = SOLDIER_CLASS_ELITE;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+
+	if ( pSoldier )
+	{
+		// set correct stats
+		pSoldier->stats.bLife = pSoldier->stats.bLifeMax = (INT8)( 70 + Random( 26 ) );
+		pSoldier->stats.bAgility = (INT8)( 70 + Random( 16 ) );
+
+		// add assassin flag
+		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
+
+		// add spy trait lvl2
+		pSoldier->stats.ubSkillTraits[0] = COVERT_NT;
+		pSoldier->stats.ubSkillTraits[1] = COVERT_NT;
+
+		// set correct civ group
+		pSoldier->ubCivilianGroup = ASSASSIN_CIV_GROUP;
+
+		// set militia name to further irritate the player
+		swprintf( pSoldier->name, TacticalStr[ MILITIA_TEAM_MERC_NAME ] );
+
+		// wear a militia uniform
+		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
+
+		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		{
+			switch( disguisetype )
+			{
+			case ELITE_MILITIA:
+				SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_ELITE ].vest );
+				SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_ELITE ].pants );
+				break;
+			case REGULAR_MILITIA:
+				SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_REGULAR ].vest );
+				SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_REGULAR ].pants );
+				break;
+			default:
+				SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].vest );
+				SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].pants );
+				break;
+			}
+
+			// Use palette from HVOBJECT, then use substitution for pants, etc
+			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( pSoldier->p8BPPPalette ) * 256 );
+
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+
+			pSoldier->CreateSoldierPalettes();
+		}
+	
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+	}
+
+	return( pSoldier );
+}
+
+void CreateAssassin(UINT8 disguisetype)
+{
+	SOLDIERTYPE* pSoldier = TacticalCreateEnemyAssassin( disguisetype );
+
+	if ( pSoldier )
+	{
+		// find a valid starting gridno
+		if ( pSoldier->sInsertionGridNo <= 0 )
+		{
+			UINT8 tries = 0;		// counter for gridno function... if we fail to get a valid starting gridno multiple times, do not place assassin
+			INT32 sGridNo = NOWHERE;
+			do
+			{
+				if ( ++tries > 20 )
+					return;
+
+				sGridNo = RandomGridNo();				
+			}
+			// a valid starting gridno must be valid, not in a structure, not in water, and not too near to our mercs
+			while( TileIsOutOfBounds(sGridNo) || FindStructure( sGridNo, STRUCTURE_BLOCKSMOVES ) || TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) || GridNoNearPlayerMercs(sGridNo,  12) );
+
+			pSoldier->sInsertionGridNo = sGridNo;
+		}
+
+		AddSoldierToSector( pSoldier->ubID );
+
+		// So we can see them!
+		AllTeamsLookForAll(NO_INTERRUPTS);
+
+		gTacticalStatus.fCivGroupHostile[ ASSASSIN_CIV_GROUP ] = CIV_GROUP_WILL_BECOME_HOSTILE;
+	}
+}
 
 void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass )
 {

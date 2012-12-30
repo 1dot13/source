@@ -162,6 +162,7 @@ INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier );
 
 INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );
+INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );	// Flugente: like ClosestPC(...), but does not account for covert or not visible mercs
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
 
 void DebugAI( STR szOutput );

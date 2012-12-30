@@ -2125,7 +2125,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					//MakeCivHostile( pSoldier, 2 );
 				}
-				if (pSoldier->ubProfile != NO_PROFILE && pSoldier->stats.bLife >= OKLIFE)
+				if ( ( pSoldier->ubProfile != NO_PROFILE || pSoldier->IsAssassin() ) && pSoldier->stats.bLife >= OKLIFE )
 				{
 					// trigger quote!
 					//TriggerNPCWithIHateYouQuote( pSoldier->ubProfile );

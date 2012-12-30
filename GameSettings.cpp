@@ -1062,7 +1062,12 @@ void LoadGameExternalOptions()
 	// Flugente: the assassins are disguised initially, so it is harder for the player to detect them
 	gGameExternalOptions.fAssassinsAreDisguised		  = iniReader.ReadBoolean("Tactical Difficulty Settings", "ASSASSINS_DISGUISED", TRUE);
 	
-
+	// Flugente: does the queen send out assassins that mix among your militia?
+	gGameExternalOptions.fEnemyAssassins			    = iniReader.ReadBoolean("Tactical Difficulty Settings", "ENEMY_ASSASSINS", TRUE);
+	gGameExternalOptions.usAssassinMinimumProgress	    = iniReader.ReadInteger("Tactical Difficulty Settings", "ASSASSIN_MINIMUM_PROGRESS", 30, 0, 100);
+	gGameExternalOptions.usAssassinMinimumMilitia	    = iniReader.ReadInteger("Tactical Difficulty Settings", "ASSASSIN_MINIMUM_MILITIA", 10, 0, 64);
+	gGameExternalOptions.usAssassinPropabilityModifier	= iniReader.ReadInteger("Tactical Difficulty Settings", "ASSASSIN_PROPABILITY_MODIFIER", 100, 0, 1000);		
+	
 	//################# Tactical Vision Settings #################
 
 	// Sight range

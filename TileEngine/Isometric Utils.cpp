@@ -1422,3 +1422,21 @@ INT32 RandomGridNo()
 	}while( !GridNoOnVisibleWorldTile( iMapIndex ) );
 	return iMapIndex;
 }
+
+// Flugente: is this gridno near a player merc?
+BOOLEAN GridNoNearPlayerMercs( INT32 sGridNo, INT16 sRadius )
+{
+	SOLDIERTYPE* pTeamSoldier = NULL;
+	INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	INT32 lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	{
+		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector )
+		{
+			if ( PythSpacesAway(sGridNo, pTeamSoldier->sGridNo) < sRadius )
+				return( TRUE );
+		}
+	}
+		
+	return( FALSE );
+}

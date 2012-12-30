@@ -3066,35 +3066,21 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 		}
 
 	}
-	else if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->aiData.bNeutral )
+	else if ( pSoldier->bTeam == CIV_TEAM && pSoldier->IsAssassin() && pSoldier->aiData.bNeutral )
 	{
-		switch( pSoldier->ubProfile )
-		{
-		case JIM:
-		case JACK:
-		case OLAF:
-		case RAY:
-		case OLGA:
-		case TYRONE:
-			{
-				INT32 sDesiredMercDist;
+		INT32 sDesiredMercDist;
 				
-				if (!TileIsOutOfBounds(ClosestPC( pSoldier, &sDesiredMercDist )))
-				{
-					if ( sDesiredMercDist <= NPC_TALK_RADIUS * 2 )
-					{
-						// stop
-						CancelAIAction( pSoldier, TRUE );
-						// aaaaaaaaaaaaaaaaaaaaatttaaaack!!!!
-						AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
-						//MakeCivHostile( pSoldier, 2 );
-						//TriggerNPCWithIHateYouQuote( pSoldier->ubProfile );
-					}
-				}
+		if (!TileIsOutOfBounds(ClosestPC( pSoldier, &sDesiredMercDist )))
+		{
+			if ( sDesiredMercDist <= NPC_TALK_RADIUS * 2 )
+			{
+				// stop
+				CancelAIAction( pSoldier, TRUE );
+				// aaaaaaaaaaaaaaaaaaaaatttaaaack!!!!
+				AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
+				//MakeCivHostile( pSoldier, 2 );
+				//TriggerNPCWithIHateYouQuote( pSoldier->ubProfile );
 			}
-			break;
-		default:
-			break;
 		}
 	}
 

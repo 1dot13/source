@@ -770,6 +770,11 @@ void CheckHostileOrSayQuoteList( void )
 					{
 						gTacticalStatus.fCivGroupHostile[ pSoldier->ubCivilianGroup ] = CIV_GROUP_HOSTILE;
 					}
+
+					// reevaluate sight - we might already see people that weren't enemies until now
+					ManLooksForOtherTeams(pSoldier);
+
+					pSoldier->aiData.bAlertStatus = STATUS_RED;
 				}
 			}
 
@@ -2370,6 +2375,42 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 					}
 				}
 			}
+			// Flugente: for assassins without profiles
+			else if ( pSoldier->IsAssassin() && pSoldier->bTeam == CIV_TEAM )
+			{
+				// if we are an assassin and still neutral and undercover, approach target and then become hostile
+				if ( pSoldier->aiData.bNeutral && pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+				{
+					// only if this guy isn't disguised himself!
+					if ( (pOpponent->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0)
+					{
+						if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP && gTacticalStatus.fCivGroupHostile[ pSoldier->ubCivilianGroup ] >= CIV_GROUP_WILL_BECOME_HOSTILE )
+						{
+							// measure distance to our opponent, only go hostile if he is close enough
+							if ( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) <= NPC_TALK_RADIUS * 2 )
+							{
+								AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
+								fNotAddedToList = FALSE;
+							}
+						}
+					}
+				}
+
+				if ( fNotAddedToList )
+				{
+					// change orders, reset action!
+					if ( pSoldier->aiData.bOrders != SEEKENEMY )
+					{
+						pSoldier->aiData.bOrders = SEEKENEMY;
+						if ( pSoldier->aiData.bOppCnt == 0 )
+						{
+							// didn't see anyone before!
+							CancelAIAction( pSoldier, TRUE );
+							SetNewSituation( pSoldier );
+						}
+					}
+				}
+			}
 			else
 			{
 				if ( pSoldier->bTeam == CIV_TEAM )
@@ -2515,9 +2556,29 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 			*/
 		}
 
-		// if both of us are not neutral, AND
-		// if this man is actually a true opponent (we're not on the same side)
-		if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
+		// Flugente: reworked this to account for covert ops and assassin mechanisms
+		// if we are not neutral against this guy, we are truly opponents (we're not on the same side) and recognize him as an opponent...
+		BOOLEAN fAddAsOpponent = FALSE;
+		if ( !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide) && pSoldier->RecognizeAsCombatant(pOpponent->ubID) )
+		{
+			 // ... check wether he is not neutral against us (account for the fact that we might be covert!)
+			// if we are an NPC assassin
+			if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			{
+				// check wether our opponent would see us as an opponent if we weren't covert
+				if ( !( (pSoldier->aiData.bNeutral || pSoldier->bSoldierFlagMask & SOLDIER_POW) && ( pOpponent->bTeam != CREATURE_TEAM || pOpponent->flags.uiStatusFlags & SOLDIER_VEHICLE ) ) )
+					fAddAsOpponent = TRUE;
+			}
+			else
+			{
+				// simply check wether this guy sees us as an opponent too
+				if ( !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) )
+					fAddAsOpponent = TRUE;
+			}
+		}
+
+
+		if ( fAddAsOpponent )
 		{
 			AddOneOpponent(pSoldier);
 

@@ -13828,6 +13828,10 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	if ( this->pathing.bLevel == 1 )
 		return( FALSE );
 
+	// this is odd - invalid GridNo... well, not mounted then
+	if ( TileIsOutOfBounds(this->sGridNo) )
+		return( FALSE );
+
 	// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
 	INT32 nextGridNoinSight = this->sGridNo;
 	if ( this->ubDirection == NORTH ||  this->ubDirection == SOUTHWEST  ||  this->ubDirection == WEST ||  this->ubDirection == NORTHWEST )
@@ -14718,16 +14722,22 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 	INT8 uniformtype = GetUniformType();
 
 	// adjust max coolness depending on uniform
+	// enemy spies get a small bonus here
 	switch ( uniformtype )
 	{
 	case UNIFORM_ENEMY_ADMIN:
 		maxcoolnessallowed += 1;
 		break;
 	case UNIFORM_ENEMY_TROOP:
+	case UNIFORM_MILITIA_ROOKIE:	
 		maxcoolnessallowed += 2;
 		break;
 	case UNIFORM_ENEMY_ELITE:
+	case UNIFORM_MILITIA_REGULAR:	
 		maxcoolnessallowed += 3;
+		break;
+	case UNIFORM_MILITIA_ELITE:
+		maxcoolnessallowed += 4;
 		break;
 	default:
 		// we do not wear a proper army uniform, uncover us. Note: This should never happen - if this message shows, somewhere, something is wrong
@@ -15108,16 +15118,17 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		// are we targeting a buddy of our observer?
 		if ( this->ubTargetID && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
 		{
-			// if we aiming at a soldier, others will notice our intent... not covert!
+			// if we are aiming at a soldier, others will notice our intent... not covert!
 			if ( WeaponReady(this) )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->name, MercPtrs[this->ubTargetID]->name );
 				return FALSE;
 			}
 		}
 
 		// even as a soldier, we will be caught around fresh corpses
-		if (distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse)
+		// assassins will not be uncovered around corpses, as the AI cannot willingly evade them... one could 'ward' against assassins by surrounding yourself with fresh corpses
+		if (distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !(this->bSoldierFlagMask & SOLDIER_ASSASSIN) )
 		{
 			// check wether we are around a fresh corpse - this will make us much more suspicious
 			// I deem this necessary, to avoid cheap exploits by nefarious players :-)
@@ -15208,6 +15219,11 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 			// we have uncovered a spy! Get alerted, if we aren't already
 			if ( this->aiData.bAlertStatus < STATUS_BLACK )
 				this->aiData.bAlertStatus = STATUS_BLACK;
+
+			// reset our sight of this guy
+			this->aiData.bOppList[pSoldier->ubID] = NOT_HEARD_OR_SEEN;
+
+			ManSeesMan(this, pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, 0, 0);
 		}
 
 		return TRUE;
@@ -15216,11 +15232,22 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 	return FALSE;
 }
 
-// dress up in our natural state
+// loose covert property
 void	SOLDIERTYPE::LooseDisguise( void )
 {	
 	// loose any covert flags
 	this->bSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
+
+	// rehandle sight for everybody
+	SOLDIERTYPE*		pSoldier;
+	UINT8 iLoop = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	for (pSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; ++iLoop, ++pSoldier )
+	{
+		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
+		{
+			RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
+		}
+	}
 }
 
 // undisguise or take off any clothes item and switch back to original clothes
@@ -15327,7 +15354,7 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 	if ( !prisonhere )
 		return FALSE;
 
-	// Are there any prisoners in this prison?
+	// Are there any prisoners in this prison? note that there are no underground prisons
 	if ( !this->bSectorZ )
 	{
 		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( this->sSectorX, this->sSectorY ) ] );
@@ -15335,14 +15362,6 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 		if ( pSectorInfo->uiNumberOfPrisonersOfWar > 0 )
 			return TRUE;
 	}
-	// no underground prisons anyway
-	/*else
-	{
-		UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-		if ( pSectorInfo->uiNumberOfPrisonersOfWar > 0 )
-			return TRUE;
-	}*/
 
 	return FALSE;
 }
@@ -15381,6 +15400,20 @@ BOOLEAN		SOLDIERTYPE::UsesScubaGear()
 		return FALSE;
 
 	return TRUE;
+}
+
+// Flugente: are we an assassin?
+BOOLEAN		SOLDIERTYPE::IsAssassin()
+{
+	// kingpin's hitmen are assassins
+	if ( this->ubProfile >= JIM && this->ubProfile <= TYRONE )
+		return TRUE;
+
+	// there can be non-NPC assassins too
+	if ( this->bSoldierFlagMask & SOLDIER_ASSASSIN )
+		return TRUE;
+
+	return FALSE;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
@@ -16731,23 +16764,17 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 	}
 	else if (pTSoldier->aiData.bNeutral)
 	{
-		switch( pTSoldier->ubProfile )
+		if ( pTSoldier->IsAssassin() )
 		{
-		case JIM:
-		case JACK:
-		case OLAF:
-		case RAY:
-		case OLGA:
-		case TYRONE:
 			// Start combat etc
 			DeleteTalkingMenu();
 			CancelAIAction( pTSoldier, TRUE );
 			AddToShouldBecomeHostileOrSayQuoteList( pTSoldier->ubID );
-			break;
-		default:
+		}
+		else
+		{
 			// Start talking!
 			return( InitiateConversation( pTSoldier, this, NPC_INITIAL_QUOTE, 0 ) );
-			break;
 		}
 	}
 	else

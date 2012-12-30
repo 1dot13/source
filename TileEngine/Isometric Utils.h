@@ -151,5 +151,7 @@ BOOLEAN FindWallJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStart
 BOOLEAN FindLowerLevelWall( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection ); 
 BOOLEAN FindWindowJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection );
 
+// Flugente: is this gridno near a player merc?
+BOOLEAN GridNoNearPlayerMercs( INT32 sGridNo, INT16 sRadius );
 
 #endif

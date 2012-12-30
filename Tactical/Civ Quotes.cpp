@@ -953,6 +953,23 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 
 	}
 
+	// Flugente: if we are an assassin, we speak like the militia we emulate
+	if ( pCiv->bSoldierFlagMask & SOLDIER_ASSASSIN )
+	{
+		switch ( pCiv->GetUniformType() )
+		{
+		case UNIFORM_MILITIA_REGULAR:
+			ubCivQuoteID = CIV_QUOTE_MEDIUM_MILITIA;
+			break;
+		case UNIFORM_MILITIA_ELITE:
+			ubCivQuoteID = CIV_QUOTE_ELITE_MILITIA;
+			break;
+		default:
+			ubCivQuoteID = CIV_QUOTE_GREEN_MILITIA;
+			break;
+		}
+	}
+
 	// Determine location...
 	// Get location of civ on screen.....
 	GetSoldierScreenPos( pCiv, &sScreenX, &sScreenY );

@@ -361,7 +361,15 @@ typedef struct
 	BOOLEAN fEnableChanceOfEnemyAmbushes; 
 	INT8 bChanceModifierEnemyAmbushes;
 	UINT8 usSpecialNPCStronger;
-	BOOLEAN fAssassinsAreDisguised;	// added by Flugente
+
+	// Flugente: should kingpin's hitmen be disguised? This will make them have random clothes among other stuff
+	BOOLEAN fAssassinsAreDisguised;
+
+	// Flugente: does the queen send out assassins that mix among your militia?
+	BOOLEAN fEnemyAssassins;
+	UINT8	usAssassinMinimumProgress;
+	UINT8	usAssassinMinimumMilitia;
+	UINT32  usAssassinPropabilityModifier;
 	///////////////////////////////////////
 
 	// System settings
@@ -522,6 +530,8 @@ typedef struct
 	UINT32 ubGameProgressMikeAvailable;
 	UINT32 ubGameProgressIggyAvaliable;
 	BOOLEAN ubSendTroopsToDrassen;
+
+	// Flugente: new counterattacks and other new AI tactics
 	UINT8  ubAgressiveStrategicAI;
 	UINT32 ubGameProgressOffensiveStage1;
 	UINT32 ubGameProgressOffensiveStage2;

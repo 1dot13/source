@@ -1425,16 +1425,22 @@ void RenderOverheadOverlays()
 		{ //normal
 			if(is_networked)
 			{
-				if(pSoldier->bTeam!=0)
+				if(pSoldier->bTeam != OUR_TEAM)
 				{
 					if(pSoldier->bSide==1)
 					{
 						// Civ (white)
-						if (pSoldier->bTeam == 4)
-							Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 4 );
+						if (pSoldier->bTeam == CIV_TEAM)
+						{
+							// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
+							if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, MILITIA_TEAM );
+							else
+								Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, CIV_TEAM );
+						}
 						// Enemy (red)
 						else
-							Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 1 );
+							Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, ENEMY_TEAM );
 					}
 
 					// Other clients
@@ -1449,8 +1455,15 @@ void RenderOverheadOverlays()
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			}
 			else
-			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
-			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
+			{
+				// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
+				if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, MILITIA_TEAM );
+				else
+					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+
+				RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
+			}
 		}
 		else if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{ //vehicle

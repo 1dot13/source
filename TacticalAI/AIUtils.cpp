@@ -1459,6 +1459,59 @@ INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 	return( sGridNo );
 }
 
+// Flugente: like ClosestPC(...), but does not account for covert or not visible mercs
+INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
+{
+	// used by NPCs... find the closest PC
+	// NOTE: skips EPCs!
+
+	UINT8 ubLoop;
+	SOLDIERTYPE		*pTargetSoldier;
+	INT32					sMinDist = WORLD_MAX;
+	INT32					sDist;
+	INT32					sGridNo = NOWHERE;
+
+	// Loop through all mercs on player team
+	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++)
+	{
+		pTargetSoldier = Menptr + ubLoop;
+
+		if (!pTargetSoldier->bActive || !pTargetSoldier->bInSector)
+			continue;
+				
+		// if not conscious, skip him
+		if (pTargetSoldier->stats.bLife < OKLIFE)
+			continue;
+
+		if ( AM_AN_EPC( pTargetSoldier ) )
+			continue;
+
+		if ( pTargetSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			continue;
+
+		sDist = PythSpacesAway(pSoldier->sGridNo,pTargetSoldier->sGridNo);
+
+		// if this PC is not visible to the soldier, then add a penalty to the distance
+		// so that we weight in favour of visible mercs
+		if ( pTargetSoldier->bTeam != pSoldier->bTeam && pSoldier->aiData.bOppList[ ubLoop ] != SEEN_CURRENTLY )
+			continue;
+
+		if (sDist < sMinDist)
+		{
+			sMinDist = sDist;
+			sGridNo = pTargetSoldier->sGridNo;
+		}
+	}
+
+	if ( psDistance )
+	{
+		*psDistance = sMinDist;
+	}
+
+	return( sGridNo );
+}
+
 INT32 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT32 sStartGridNo, INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 {
 	INT32 sGridNo;

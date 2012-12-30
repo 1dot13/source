@@ -54,6 +54,8 @@
 #include "Queen Command.h"
 
 #include "Map Edgepoints.h"
+#include "Campaign.h"	// added by Flugente for HighestPlayerProgressPercentage()
+
 BOOLEAN gfOriginalList = TRUE;
 
 SOLDIERINITNODE *gSoldierInitHead = NULL;
@@ -911,7 +913,12 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	//we now have the number, so compared it to the num we can add, and determine how we will
 	//randomly determine which nodes to add.
 	if( !ubSlotsAvailable )
-	{	//There aren't any basic placements of desired team, so exit.
+	{
+		// Flugente: decide wether to spawn enemy assassins in this sector (not kingpin's hitmen, they are handled elsewhere)
+		if ( bTeam == MILITIA_TEAM )
+			SectorAddAssassins(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
+		//There aren't any basic placements of desired team, so exit.
 		return ubNumAdded;
 	}
 	curr = mark;
@@ -953,6 +960,11 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 		}
 		curr = curr->next;
 	}
+
+	// Flugente: decide wether to spawn enemy assassins in this sector (not kingpin's hitmen, they are handled elsewhere)
+	if ( bTeam == MILITIA_TEAM )
+		SectorAddAssassins(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
 	return ubNumAdded;
 }
 
@@ -2674,5 +2686,84 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			// Flugente: due to a fix, also note here that the reinforcements get no APs.
 			pSoldier->bSoldierFlagMask |= SOLDIER_NO_AP;
 		}
+	}
+}
+
+extern UINT32 GetWorldTotalMin( );
+
+// Flugente: decide wether to spawn enemy assassins in this sector (not kingpin's hitmen, they are handled elsewhere)
+void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+{
+	// this needs to be turned on on, and new trait system needs to be active
+	if ( !gGameExternalOptions.fEnemyAssassins || !gGameOptions.fNewTraitSystem )
+		return;
+
+	// only possible if a certain progress has been reached - the queen only sends out assassins after a while
+	if ( HighestPlayerProgressPercentage() < gGameExternalOptions.usAssassinMinimumProgress )
+		return;
+
+	// not in underground sectors
+	if ( sMapZ > 0 )
+		return;
+
+	SECTORINFO *pSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];
+	if ( !pSector )
+		return;
+
+	// does not work atm, time gets reset too early
+	// not if we have recently been in this sector
+	//if ( pSector->uiTimeCurrentSectorWasLastLoaded + 10 > GetWorldTotalMin() )
+		//return;
+
+	// do not spawn if militia size is very small (we will be spotted much easier by the player)
+	UINT32 totalmilitia = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	if ( totalmilitia < gGameExternalOptions.usAssassinMinimumMilitia )
+		return;
+
+	// count current number of civilians
+	UINT16 numberofcivs = 0;
+	SOLDIERTYPE* pTeamSoldier = NULL;
+	INT32 cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	INT32 lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	{
+		// check if teamsoldier exists in this sector
+		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->sSectorX == sMapX && pTeamSoldier->sSectorY == sMapY && pTeamSoldier->bSectorZ == sMapZ )
+			++numberofcivs;
+	}
+
+	// we can't spawn if all civilian slots are already taken
+	if ( numberofcivs >= gGameExternalOptions.ubGameMaximumNumberOfCivilians )
+		return;
+
+	// now count militia, and which type (green, regular, elite) is most numerous - that will be the best type to blend in	
+	UINT8 militiacnt = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+	UINT8 militiadisguise = GREEN_MILITIA;
+	if ( pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] > militiacnt )
+	{
+		militiacnt = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+		militiadisguise = REGULAR_MILITIA;
+	}
+	if ( pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] > militiacnt )
+	{
+		militiacnt = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+		militiadisguise = ELITE_MILITIA;
+	}
+		
+	// the bigger the militia, the more likely infiltration
+	// if militia is at maximum, there is a 10% chance of infiltration
+	UINT32 resultrange = gGameExternalOptions.ubGameMaximumNumberOfRebels * 10;
+	UINT32 modifiedmilitianumber = totalmilitia * gGameExternalOptions.usAssassinPropabilityModifier / 100;
+	if ( Random(resultrange) >= modifiedmilitianumber )
+		return;
+
+	CreateAssassin( militiadisguise );
+	++numberofcivs;
+
+	// if there is still room for a second assassin, and we are feeling very lucky again, add a second one
+	if ( numberofcivs < gGameExternalOptions.ubGameMaximumNumberOfCivilians && Random(resultrange) < modifiedmilitianumber )
+	{
+		CreateAssassin( militiadisguise );
+		++numberofcivs;
 	}
 }

@@ -426,6 +426,10 @@ SOLDIERTYPE* TacticalCreateArmyTroop();
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass );
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 
+// Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
+SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype);
+void CreateAssassin(UINT8 disguisetype);
+
 // randomly generates a relative level rating (attributes or equipment)
 void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass );
 

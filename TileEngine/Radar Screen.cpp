@@ -614,26 +614,30 @@ void RenderRadarScreen( )
 						}
 						else
 						{
-				// If on roof, make darker....
-				if ( pSoldier->pathing.bLevel > 0 )
-				{
-						 usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
-				}
-				else
-				{
-							usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
-				}
+							// If on roof, make darker....
+							if ( pSoldier->pathing.bLevel > 0 )
+							{
+								usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
+							}
+							else
+							{
+								usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
+							}
 						}
 					}
 					else
 					{
 						usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
-
-			// Override civ team with red if hostile...
-			if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && ( pSoldier->bSide != gbPlayerNum ) )
-			{
+												
+						// Override civ team with red if hostile...
+						if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && ( pSoldier->bSide != gbPlayerNum ) )
+						{
 							usLineColor = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
-			}
+						}
+
+						// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
+						if ( pSoldier->bSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+							usLineColor = Get16BPPColor( gTacticalStatus.Team[ MILITIA_TEAM ].RadarColor );
 
 						// Render different color if an enemy and he's unconscious
 						if ( pSoldier->bTeam != gbPlayerNum && pSoldier->stats.bLife < OKLIFE )
@@ -641,11 +645,11 @@ void RenderRadarScreen( )
 							usLineColor = Get16BPPColor( FROMRGB( 128, 128, 128 ) );
 						}
 
-			// If on roof, make darker....
-			if ( pSoldier->bTeam == gbPlayerNum && pSoldier->pathing.bLevel > 0 )
-			{
-						usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
-			}
+						// If on roof, make darker....
+						if ( pSoldier->bTeam == gbPlayerNum && pSoldier->pathing.bLevel > 0 )
+						{
+							usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
+						}
 					}
 
 					RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );

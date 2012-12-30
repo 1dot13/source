@@ -440,7 +440,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		//NumMessage("SHOT AttackValue = ",iAttackValue / 1000);
 
 		// special stuff for assassins to ignore militia more
-		if ( pSoldier->ubProfile >= JIM && pSoldier->ubProfile <= TYRONE && pOpponent->bTeam == MILITIA_TEAM )
+		if ( pSoldier->IsAssassin() && pOpponent->bTeam == MILITIA_TEAM )
 		{
 			iAttackValue /= 2;
 		}

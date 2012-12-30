@@ -358,9 +358,9 @@ enum
 #define SOLDIER_DAMAGED_PANTS		0x00000100	//256		// Soldier's vest is damaged (and thus can't be taken off)
 #define SOLDIER_HEADSHOT			0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
 #define SOLDIER_POW					0x00000400	//1024		// we are a prisoner of war
-/*#define ENEMY_NET_4_LVL_3		0x00000800	//2048
+#define SOLDIER_ASSASSIN			0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
 
-#define ENEMY_NET_1_LVL_4		0x00001000	//4096
+/*#define ENEMY_NET_1_LVL_4		0x00001000	//4096
 #define ENEMY_NET_2_LVL_4       0x00002000	//8192
 #define ENEMY_NET_3_LVL_4 		0x00004000	//16384
 #define ENEMY_NET_4_LVL_4		0x00008000	//32768
@@ -1494,7 +1494,7 @@ public:
 	// do we recognize someone else as a combatant?
 	BOOLEAN		RecognizeAsCombatant(UINT8 ubTargetID);
 
-	// loose disguise, dress up in our natural state
+	// loose covert property
 	void		LooseDisguise( void );	
 
 	// lose disguise or take off any clothes item and switch back to original clothes
@@ -1506,6 +1506,9 @@ public:
 
 	// Flugente: scuba gear
 	BOOLEAN		UsesScubaGear();
+
+	// Flugente: are we an assassin?
+	BOOLEAN		IsAssassin();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	
