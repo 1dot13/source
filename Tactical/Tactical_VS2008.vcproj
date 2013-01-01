@@ -1123,6 +1123,10 @@
 				>
 			</File>
 			<File
+				RelativePath="XML_Merchants.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_Merge.cpp"
 				>
 			</File>
