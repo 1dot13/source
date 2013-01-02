@@ -143,11 +143,27 @@ UINT32 MapUtilScreenHandle(void)
 	iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;// Vertical start position of the overview map
 	InitNewOverheadDB((UINT8)giCurrentTilesetID);
 	gfOverheadMapDirty = TRUE;
-	RenderOverheadMap(0, (WORLD_COLS/2), iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal+640, iOffsetVertical+320, TRUE);
+	
+	//Buggler: interim code for radar map sti creation <= 360x360 based on DBrot bigger overview code
+	if(iResolution >= _1680x1050 && WORLD_COLS <= 360)
+		RenderOverheadMap(0, (WORLD_COLS/2), iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + (640 * WORLD_COLS / OLD_WORLD_COLS), iOffsetVertical + (320 * WORLD_ROWS / OLD_WORLD_ROWS), TRUE);
+	else
+		RenderOverheadMap(0, (WORLD_COLS/2), iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal+640, iOffsetVertical+320, TRUE);
+	
 	TrashOverheadMap();
-	// OK, NOW PROCESS OVERHEAD MAP ( SHOUIDL BE ON THE FRAMEBUFFER )
-	gdXStep	= (FLOAT)640 / (FLOAT)MINIMAP_X_SIZE;
-	gdYStep	= (FLOAT)320 / (FLOAT)MINIMAP_Y_SIZE;
+	// OK, NOW PROCESS OVERHEAD MAP ( SHOULD BE ON THE FRAMEBUFFER )
+	//Buggler: interim code for radar map sti creation <= 360x360 based on DBrot bigger overview code
+	if(iResolution >= _1680x1050 && WORLD_COLS <= 360)
+	{	
+		gdXStep	= (FLOAT)(640 * WORLD_COLS / OLD_WORLD_COLS) / (FLOAT)MINIMAP_X_SIZE;
+		gdYStep	= (FLOAT)(320 * WORLD_ROWS / OLD_WORLD_ROWS) / (FLOAT)MINIMAP_Y_SIZE;
+	}
+	else
+	{
+		gdXStep	= (FLOAT)640 / (FLOAT)MINIMAP_X_SIZE;
+		gdYStep	= (FLOAT)320 / (FLOAT)MINIMAP_Y_SIZE;
+	}
+	
 	dStartX = iOffsetHorizontal;
 	dStartY = iOffsetVertical;
 	// Adjust if we are using a restricted map...
@@ -190,18 +206,38 @@ UINT32 MapUtilScreenHandle(void)
 			{
 				for ( iWindowY = iSubY1; iWindowY < iSubY2; iWindowY++ )
 				{
-					if ( iWindowX >= iOffsetHorizontal && iWindowX < (iOffsetHorizontal+640) && iWindowY >= iOffsetVertical && iWindowY < (iOffsetVertical+320) )
+					//Buggler: interim code for radar map sti creation <= 360x360 based on DBrot bigger overview code					
+					if(iResolution >= _1680x1050 && WORLD_COLS <= 360)
 					{
-						s16BPPSrc = pSrcBuf[ ( iWindowY * (uiSrcPitchBYTES/2) ) + iWindowX ];
+						if ( iWindowX >= iOffsetHorizontal && iWindowX < (iOffsetHorizontal + (640 * WORLD_COLS / OLD_WORLD_COLS)) && iWindowY >= iOffsetVertical && iWindowY < (iOffsetVertical + (320 * WORLD_ROWS / OLD_WORLD_ROWS)) )
+						{
+							s16BPPSrc = pSrcBuf[ ( iWindowY * (uiSrcPitchBYTES/2) ) + iWindowX ];
 
-						uiRGBColor = GetRGBColor( s16BPPSrc );
+							uiRGBColor = GetRGBColor( s16BPPSrc );
 
-						bR += SGPGetRValue( uiRGBColor );
-						bG += SGPGetGValue( uiRGBColor );
-						bB += SGPGetBValue( uiRGBColor );
+							bR += SGPGetRValue( uiRGBColor );
+							bG += SGPGetGValue( uiRGBColor );
+							bB += SGPGetBValue( uiRGBColor );
 
-						// Average!
-						iCount++;
+							// Average!
+							iCount++;
+						}
+					}
+					else
+					{
+						if ( iWindowX >= iOffsetHorizontal && iWindowX < (iOffsetHorizontal + 640) && iWindowY >= iOffsetVertical && iWindowY < (iOffsetVertical + 320) )
+						{
+							s16BPPSrc = pSrcBuf[ ( iWindowY * (uiSrcPitchBYTES/2) ) + iWindowX ];
+
+							uiRGBColor = GetRGBColor( s16BPPSrc );
+
+							bR += SGPGetRValue( uiRGBColor );
+							bG += SGPGetGValue( uiRGBColor );
+							bB += SGPGetBValue( uiRGBColor );
+
+							// Average!
+							iCount++;
+						}
 					}
 				}
 			}
