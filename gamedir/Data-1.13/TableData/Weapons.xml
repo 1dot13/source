@@ -13154,8 +13154,8 @@
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
-		<sSound>299</sSound>
-		<sReloadSound>100</sReloadSound>
+		<sSound>498</sSound>
+		<sReloadSound>497</sReloadSound>
 		<bBurstAP>20</bBurstAP>
 		<APsToReload>12</APsToReload>
 		<SwapClips>1</SwapClips>
