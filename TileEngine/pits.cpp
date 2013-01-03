@@ -24,6 +24,13 @@ BOOLEAN gfShowPits = FALSE;
 
 BOOLEAN gfLoadPitsWithoutArming = FALSE;
 
+// Flugente: while I don't really see a use to the pit mechanism at the moment, I tested it a bit. I highly recommend to use
+// AddStructToHead(...) and AddObjectToHead(...) along the existing AddObjectToTail(...)-calls. Otherwise the water tiles disappear when reloading the map.
+// It is also highly advisable to perform CompileWorldTerrainIDs() (but only for each relevant gridno, this needs a separate function), otherwise the water tiles
+// do not behave like water tiles at all (they are still treated like normal floor tiles).
+// An issue remaining for me is that after calling this function, mercs standing on new water tiles do not use the water aniamtions - one has ti move them to anothe tile, or save and reload.
+// It might be useful to do SearchForOtherMembersWithinPitRadiusAndMakeThemFall() but instead reset their animations in there.
+// The pit mechnism is notable for its exitgrid mechanism however, that allows painless creation of new exitgrids, and sends mercs somewhere else.
 void Add3X3Pit( INT32 iMapIndex )
 {
 	EXITGRID ExitGrid;

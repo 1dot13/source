@@ -15096,8 +15096,35 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			
 			if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
 			{
+				// check: is this corpse that of an ally of the observing soldier?
+				BOOLEAN fCorpseOFAlly = FALSE;
+				if ( pSoldier->bTeam == ENEMY_TEAM )
+				{
+					// check wether corpse was one of soldier's allies
+					for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+					{
+						if ( COMPARE_PALETTEREP_ID(pCorpse->def.VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pCorpse->def.PantsPal, gUniformColors[ i ].pants) )
+						{
+							fCorpseOFAlly = TRUE;
+							break;
+						}
+					}
+				}
+				else if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
+				{
+					// check wether corpse was one of soldier's allies					
+					for ( UINT8 i = UNIFORM_MILITIA_ROOKIE; i <= UNIFORM_MILITIA_ELITE; ++i )
+					{
+						if ( COMPARE_PALETTEREP_ID(pCorpse->def.VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pCorpse->def.PantsPal, gUniformColors[ i ].pants) )
+						{
+							fCorpseOFAlly = TRUE;
+							break;
+						}
+					}
+				}
+
 				// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+				if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->name );
 					return FALSE;
@@ -15140,8 +15167,35 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			
 				if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
 				{
+					// check: is this corpse that of an ally of the observing soldier?
+					BOOLEAN fCorpseOFAlly = FALSE;
+					if ( pSoldier->bTeam == ENEMY_TEAM )
+					{
+						// check wether corpse was one of soldier's allies
+						for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+						{
+							if ( COMPARE_PALETTEREP_ID(pCorpse->def.VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pCorpse->def.PantsPal, gUniformColors[ i ].pants) )
+							{
+								fCorpseOFAlly = TRUE;
+								break;
+							}
+						}
+					}
+					else if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
+					{
+						// check wether corpse was one of soldier's allies					
+						for ( UINT8 i = UNIFORM_MILITIA_ROOKIE; i <= UNIFORM_MILITIA_ELITE; ++i )
+						{
+							if ( COMPARE_PALETTEREP_ID(pCorpse->def.VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pCorpse->def.PantsPal, gUniformColors[ i ].pants) )
+							{
+								fCorpseOFAlly = TRUE;
+								break;
+							}
+						}
+					}
+
 					// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
-					if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+					if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 					{
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->name );
 						return FALSE;
