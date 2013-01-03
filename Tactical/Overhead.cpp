@@ -10056,8 +10056,15 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
-				// player side counts double, to put more emphasize on overwhelming the enemy with mercs and not just spamming militia
-				playersidestrength += 2 * pSoldier->GetSurrenderStrength();
+				// if we are disguised as a civilian, the enemy does not take us into the equation - he does not consider us
+				if ( pSoldier->bSoldierFlagMask & SOLDIER_COVERT_CIV )
+					;
+				// if we are disguised as a soldier, the enemy counts us on HIS team
+				else if ( pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+					enemysidestrength += pSoldier->GetSurrenderStrength();
+				else
+					// player side counts double, to put more emphasize on overwhelming the enemy with mercs and not just spamming militia
+					playersidestrength += 2 * pSoldier->GetSurrenderStrength();
 			}
 		}
 
@@ -10104,7 +10111,20 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			}
 		}
 		else
+		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_REFUSE_SURRENDER] );
+
+			// if asking for surrender while undercover and the enemy refuses, he learns who you are, so he uncovers you
+			if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			{
+				MercPtrs[ gusSelectedSoldier ]->LooseDisguise();
+
+				MercPtrs[ gusSelectedSoldier ]->Strip();
+
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SURRENDER_FAILED]  );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVER_SINGLE], MercPtrs[ gusSelectedSoldier ]->name  );
+			}
+		}
 	}
 	else
 	{
