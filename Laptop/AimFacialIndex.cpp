@@ -515,6 +515,9 @@ void HandleAimFacialIndexKeyBoardInput()
 					// back to AIM sorting screen
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_SORTED_FILES;
 					break;
+				case ENTER:
+					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS;
+					break;
 				case LEFTARROW:
 					// previous page
 					for(i=0; i<MAX_NUMBER_MERCS; i++)

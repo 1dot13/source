@@ -1349,14 +1349,12 @@ void BtnBobbyRNextPreviousPageCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			if( gubCurPage > 0 )
 			{
-				if (_KeyDown( 16 ) ) // SHIFT
-				{
-					gubCurPage = __max(gubCurPage - 5, 0);
-				}
+				if (_KeyDown( 17 ) ) // CTRL
+					gubCurPage = 0;
+				else if (_KeyDown( 16 ) ) // SHIFT
+					gubCurPage = __max(gubCurPage - 10, 0);
 				else
-				{
 					gubCurPage--;
-				}
 			}
 		}
 		//else next screen
@@ -1364,14 +1362,12 @@ void BtnBobbyRNextPreviousPageCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			if( gubCurPage < gubNumPages - 1 )
 			{
-				if (_KeyDown( 16 ) ) // SHIFT
-				{
-					gubCurPage = __min(gubNumPages - 1, gubCurPage + 5);
-				}
+				if (_KeyDown( 17 ) ) // CTRL
+					gubCurPage = gubNumPages - 1;
+				else if (_KeyDown( 16 ) ) // SHIFT
+					gubCurPage = __min(gubNumPages - 1, gubCurPage + 10);
 				else
-				{
 					gubCurPage++;
-				}
 			}
 		}
 
@@ -3911,18 +3907,26 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_LEFTARROW:
-					// jump to 5 pages back
+					// jump to 10 pages back
 					if( gubCurPage > 0 )
-						gubCurPage = __max(gubCurPage - 5, 0);
-					
+					{
+						if( fCtrl )
+							gubCurPage = 0;
+						else
+							gubCurPage = __max(gubCurPage - 10, 0);
+					}
 					fReDrawScreenFlag = TRUE;
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_RIGHTARROW:
-					// jump to 5 pages forward
+					// jump to 10 pages forward
 					if( gubCurPage < gubNumPages - 1 )
-						gubCurPage = __min(gubNumPages - 1, gubCurPage + 5);
-					
+					{
+						if( fCtrl )
+							gubCurPage = gubNumPages - 1;
+						else
+							gubCurPage = __min(gubNumPages - 1, gubCurPage + 10);
+					}
 					fReDrawScreenFlag = TRUE;
 					fPausedReDrawScreenFlag = TRUE;
 				break;
@@ -4042,17 +4046,17 @@ void HandleBobbyRGunsKeyBoardInput()
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_LEFTARROW:
-					// jump to 5 pages back
+					// jump to 10 pages back
 					if( gubCurPage > 0 )
-						gubCurPage = __max(gubCurPage - 5, 0);
+						gubCurPage = __max(gubCurPage - 10, 0);
 					
 					fReDrawScreenFlag = TRUE;
 					fPausedReDrawScreenFlag = TRUE;
 				break;
 				case SHIFT_RIGHTARROW:
-					// jump to 5 pages forward
+					// jump to 10 pages forward
 					if( gubCurPage < gubNumPages - 1 )
-						gubCurPage = __min(gubNumPages - 1, gubCurPage + 5);
+						gubCurPage = __min(gubNumPages - 1, gubCurPage + 10);
 					
 					fReDrawScreenFlag = TRUE;
 					fPausedReDrawScreenFlag = TRUE;

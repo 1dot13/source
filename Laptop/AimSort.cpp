@@ -1103,6 +1103,7 @@ void HandleAimSortKeyBoardInput()
 				case 'f':
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS;
 					break;
+				case ENTER:
 				case 'm':
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_FACIAL_INDEX;
 					break;

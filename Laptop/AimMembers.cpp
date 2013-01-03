@@ -1923,7 +1923,14 @@ BOOLEAN Stop = FALSE;
 			InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
 			if( gbCurrentIndex > 0)
-				gbCurrentIndex--;
+			{
+				if (_KeyDown( 17 ) ) // CTRL
+					gbCurrentIndex = 0;
+				else if (_KeyDown( 16 ) ) // SHIFT
+					gbCurrentIndex = __max(gbCurrentIndex - 10, 0);
+				else
+					gbCurrentIndex--;
+			}
 			else
 				gbCurrentIndex = MAX_NUMBER_MERCS - 1;
 
@@ -1996,8 +2003,15 @@ BOOLEAN Stop = FALSE;
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 			InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
-			if( gbCurrentIndex < MAX_NUMBER_MERCS -1 )
-				gbCurrentIndex++;
+			if( gbCurrentIndex < MAX_NUMBER_MERCS - 1 )
+			{
+				if (_KeyDown( 17 ) ) // CTRL
+					gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+				else if (_KeyDown( 16 ) ) // SHIFT
+					gbCurrentIndex = __min(MAX_NUMBER_MERCS - 1, gbCurrentIndex + 10);
+				else
+					gbCurrentIndex++;
+			}
 			else
 				gbCurrentIndex = 0;
 
@@ -2558,7 +2572,7 @@ INT8 AimMemberHireMerc()
 	HireMercStruct.ubInsertionCode	= INSERTION_CODE_ARRIVING_GAME;
 
 	HireMercStruct.fCopyProfileItemsOver = gfBuyEquipment;
-	//if the players is buyibng the equipment
+	//if the players is buying the equipment
 	if( gfBuyEquipment )
 	{
 		gMercProfiles[ ubCurrentSoldier ].usOptionalGearCost = 0;
@@ -5039,7 +5053,12 @@ void HandleAimMemberKeyBoardInput()
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
 					if( gbCurrentIndex > 0)
-						gbCurrentIndex--;
+					{
+						if (_KeyDown( 17 ) ) // CTRL
+							gbCurrentIndex = 0;
+						else
+							gbCurrentIndex--;
+					}
 					else
 						gbCurrentIndex = MAX_NUMBER_MERCS - 1;
 
@@ -5054,8 +5073,55 @@ void HandleAimMemberKeyBoardInput()
 					// next button
 					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 
-					if( gbCurrentIndex < MAX_NUMBER_MERCS -1 )
-						gbCurrentIndex++;
+					if( gbCurrentIndex < MAX_NUMBER_MERCS - 1 )
+					{
+						if (_KeyDown( 17 ) ) // CTRL
+							gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+						else
+							gbCurrentIndex++;
+					}
+					else
+						gbCurrentIndex = 0;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case SHIFT_LEFTARROW:
+					// previous button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex > 0)
+					{
+						if (_KeyDown( 17 ) ) // CTRL
+							gbCurrentIndex = 0;
+						else
+							gbCurrentIndex = __max(gbCurrentIndex - 10, 0);
+					}
+					else
+						gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case SHIFT_RIGHTARROW:
+					// next button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex < MAX_NUMBER_MERCS - 1 )
+					{
+						if (_KeyDown( 17 ) ) // CTRL
+							gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+						else
+							gbCurrentIndex = __min(MAX_NUMBER_MERCS - 1, gbCurrentIndex + 10);
+					}
 					else
 						gbCurrentIndex = 0;
 
@@ -5113,10 +5179,12 @@ void HandleAimMemberKeyBoardInput()
 						// kit 1
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-						//tais: handle selected kit
-						WeaponKitSelectionUpdate(0);
-
+						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						{
+							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+							//tais: handle selected kit
+							WeaponKitSelectionUpdate(0);
+						}
 						gfRedrawScreen = TRUE;
 					}
 				break;
@@ -5126,10 +5194,12 @@ void HandleAimMemberKeyBoardInput()
 						// kit 2
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-						//tais: handle selected kit
-						WeaponKitSelectionUpdate(1);
-
+						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						{
+							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+							//tais: handle selected kit
+							WeaponKitSelectionUpdate(1);
+						}
 						gfRedrawScreen = TRUE;
 					}
 				break;
@@ -5139,10 +5209,12 @@ void HandleAimMemberKeyBoardInput()
 						// kit 3
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-						//tais: handle selected kit
-						WeaponKitSelectionUpdate(2);
-
+						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						{
+							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+							//tais: handle selected kit
+							WeaponKitSelectionUpdate(2);
+						}
 						gfRedrawScreen = TRUE;
 					}
 				break;
@@ -5152,10 +5224,12 @@ void HandleAimMemberKeyBoardInput()
 						// kit 4
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-						//tais: handle selected kit
-						WeaponKitSelectionUpdate(3);
-
+						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						{
+							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+							//tais: handle selected kit
+							WeaponKitSelectionUpdate(3);
+						}
 						gfRedrawScreen = TRUE;
 					}
 				break;
@@ -5165,10 +5239,12 @@ void HandleAimMemberKeyBoardInput()
 						// kit 5
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-						//tais: handle selected kit
-						WeaponKitSelectionUpdate(4);
-
+						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						{
+							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+							//tais: handle selected kit
+							WeaponKitSelectionUpdate(4);
+						}
 						gfRedrawScreen = TRUE;
 					}
 				break;
@@ -5203,6 +5279,38 @@ void HandleAimMemberKeyBoardInput()
 
 					if( gbCurrentIndex < MAX_NUMBER_MERCS -1 )
 						gbCurrentIndex++;
+					else
+						gbCurrentIndex = 0;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case SHIFT_LEFTARROW:
+					// previous button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex > 0)
+						gbCurrentIndex = __max(gbCurrentIndex - 10, 0);
+					else
+						gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case SHIFT_RIGHTARROW:
+					// next button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex < MAX_NUMBER_MERCS - 1 )
+						gbCurrentIndex = __min(MAX_NUMBER_MERCS - 1, gbCurrentIndex + 10);
 					else
 						gbCurrentIndex = 0;
 
