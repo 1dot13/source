@@ -1782,8 +1782,12 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		// award life 'experience' for travelling, based on travel time!
 		if ( !pGroup->fVehicle )
 		{
-			// gotta be walking to get tougher
-			AwardExperienceForTravelling( pGroup );
+			// Flugente: do not award experience gain if we never left
+			if ( !fNeverLeft )
+			{
+				// gotta be walking to get tougher
+				AwardExperienceForTravelling( pGroup );
+			}
 		}
 		else if( !IsGroupTheHelicopterGroup( pGroup ) )
 		{

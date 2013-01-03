@@ -50,6 +50,7 @@
 #include "Campaign Types.h"
 #include "soldier tile.h"		// added by Flugente
 #include "Sound Control.h"		// added by Flugente
+#include "Soldier Functions.h"	// added by Flugente for DoesSoldierWearGasMask(...)
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2555,7 +2556,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			}
 		}
 
-		if ( ( AmmoTypes[ubAmmoType].monsterSpit || ( AmmoTypes[ubAmmoType].ammoflag & AMMO_BLIND ) ) && (ubHitLocation == AIM_SHOT_HEAD) && ( ! (pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) ) )
+		if ( ( AmmoTypes[ubAmmoType].monsterSpit || ( !DoesSoldierWearGasMask(pTarget) && AmmoTypes[ubAmmoType].ammoflag & AMMO_BLIND ) ) && (ubHitLocation == AIM_SHOT_HEAD) && ( ! (pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) ) )
 		{
 			UINT8			ubOppositeDirection;
 

@@ -1713,8 +1713,10 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 			bPtsLeft = 0;
 		}
 	}
+
+	//CHRISL: If by some chance ubPtsLeft ends up being higher then uiActual, we'll end up with a huge value since uiActual is an unsigned variable.
 	// if there are any ptsLeft now, then we didn't actually get to use them
-	uiActual = max(0, (uiActual - bPtsLeft));
+	uiActual = max(0, (INT32)(uiActual - bPtsLeft));
 
 	// usedAPs equals (actionPts) * (%of possible points actually used)
 	uiUsedAPs = ( uiActual * uiAvailAPs ) / uiPossible;
