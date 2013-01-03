@@ -7451,6 +7451,8 @@ STR16	szCovertTextStr[]=
 	L"%s 已伪装成平民", //L"%s is now disguised as a civilian.",
 	L"%s 已伪装成士兵", //L"%s is now disguised as a soldier.",
 	L"%s wears a disorderly uniform!",// TODO.Translate
+	L"In retrospect, asking for surrender in disguise wasn't the best idea...",
+	L"%s was uncovered!",
 };
 
 STR16	szCorpseTextStr[]=

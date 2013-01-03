@@ -7263,6 +7263,8 @@ STR16	szCovertTextStr[]=
 	L"%s is now disguised as a civilian.",
 	L"%s is now disguised as a soldier.",
 	L"%s wears a disorderly uniform!",
+	L"In retrospect, asking for surrender in disguise wasn't the best idea...",
+	L"%s was uncovered!",
 };
 
 STR16	szCorpseTextStr[]=
