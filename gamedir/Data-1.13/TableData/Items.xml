@@ -48654,7 +48654,7 @@
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>35</ubGraphicNum>
+		<ubGraphicNum>153</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>16</ItemSize>
@@ -48680,8 +48680,8 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>102</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>154</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>13</ItemSize>
@@ -48716,7 +48716,8 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1627</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>1</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>155</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<usPrice>8</usPrice>
@@ -48740,8 +48741,8 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>602</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>363</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>156</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<usPrice>2</usPrice>
@@ -48760,8 +48761,8 @@
 		<szBRDesc>Whenever you feel you could go down, be sure to protect your eyes and retain vision with one of these.</szBRDesc>
 		<usItemClass>32768</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>55</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>157</ubGraphicNum>
 		<ubWeight>5</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>17</ItemSize>
@@ -48789,8 +48790,8 @@
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>40</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>746</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>158</ubGraphicNum>
 		<ubWeight>65</ubWeight>
 		<ItemSize>23</ItemSize>
 		<usPrice>165</usPrice>
@@ -48817,8 +48818,8 @@
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>92</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>237</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>159</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<ItemSize>18</ItemSize>
