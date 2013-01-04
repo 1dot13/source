@@ -733,6 +733,7 @@ typedef struct
 	FLOAT uShotHeadPenalty;
 	FLOAT fShotHeadDivisor;
 	INT16 iPenaltyShootUnSeen;
+	BOOLEAN fNoStandingAnimAdjustInCombat;	// Flugente: in turnbased combat, do not adjust animation after arriving at target location
 
 	//Inventory AP Weight Divisor
 	FLOAT uWeightDivisor;

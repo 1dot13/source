@@ -1701,7 +1701,18 @@ BOOLEAN ExecuteOverhead( )
 
 												if ( !fAimAfterMove ) // SANDRO - don't do this after movement with weapon raised
 												{
-													pSoldier->SoldierGotoStationaryStance( );
+													// Flugente: if in turnbased combat and option is selected, do not go to standing animation
+													// By this, we wont have to spend additional APs when we continue to run
+													if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT && gGameExternalOptions.fNoStandingAnimAdjustInCombat )
+													{
+														pSoldier->AdjustNoAPToFinishMove( TRUE );
+
+														pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+														pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
+														pSoldier->aiData.ubPendingAction				= NO_PENDING_ACTION;
+													}
+													else
+														pSoldier->SoldierGotoStationaryStance( );
 												}
 											}
 										}

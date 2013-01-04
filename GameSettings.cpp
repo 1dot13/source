@@ -1262,8 +1262,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fShotHeadDivisor					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_DIVISOR",1.5,1,10);	
 
 	// Penalty for fire when you don't see enemy (when you see enemy because his see militya or ather merc)
-	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,255);		
-	
+	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,255);
+
+	// Flugente: in turnbased combat, do not adjust animation after arriving at target location
+	gGameExternalOptions.fNoStandingAnimAdjustInCombat		= iniReader.ReadBoolean("Tactical Interface Settings","NO_STANDING_ANIM_ADJUSTMENT_IN_COMBAT", TRUE);	
+			
 	//Inventory AP Weight Divisor
 	gGameExternalOptions.uWeightDivisor						= iniReader.ReadFloat("Tactical Interface Settings","INV_AP_WEIGHT_DIVISOR",5,0,100);		
 	
