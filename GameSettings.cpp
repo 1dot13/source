@@ -1642,6 +1642,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usAttachmentDropRate				= iniReader.ReadInteger("Item Property Settings","ATTACHMENT_DROP_RATE",10, 0, 100);
 	gGameExternalOptions.iMaxEnemyAttachments				= iniReader.ReadInteger("Item Property Settings","MAX_ENEMY_ATTACHMENTS",6, 2, MAX_ATTACHMENTS);
 
+	// Flugente: class specific gun choice
+	gGameExternalOptions.fSoldierClassSpecificItemTables	= iniReader.ReadBoolean("Item Property Settings","SOLDIERCLASS_SPECIFIC_ITEM_TABLES", TRUE);
+
 	//################# Strategic Enemy AI Settings ##################
 
 	// WDS - New AI

@@ -13807,7 +13807,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 	}
 }
 
-// Flugente: determine if we can rest our weapon on something. This ca6n only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
+// Flugente: determine if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
 BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 {
 	BOOLEAN applybipod = FALSE;
@@ -14201,8 +14201,12 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 	if ( gGameExternalOptions.ubExternalFeeding == 0 )
 		return( FALSE );
 
-	//  basic check if are up to this task
+	//  basic check if we are up to this task
 	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE )
+		return( FALSE );
+
+	// this is odd - invalid GridNo... well, no feeding then
+	if ( TileIsOutOfBounds(this->sGridNo) )
 		return( FALSE );
 
 	BOOLEAN	isFeeding = FALSE;
@@ -14847,7 +14851,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 					
 									++numberofattachments;
 
-									// no ordinary soldier is allowed that many attachments > not covert
+									// no ordinary soldier is allowed that many attachments -> not covert
 									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 									{
 										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name, Item[pObj->usItem].szItemName );

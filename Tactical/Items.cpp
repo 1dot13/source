@@ -7374,12 +7374,16 @@ UINT16 FindReplacementMagazineIfNecessary( UINT16 usOldGun, UINT16 usOldAmmo, UI
 // increase this if any gun can have more types that this
 #define MAX_AMMO_TYPES_PER_GUN		24  // MADD MARKER
 
-UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness )
+UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness, INT8 bSoldierClass )
 {
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
 	// with item class ammo, which has class index ubLoop
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine (by index)"));
+
+	// Flugente: if accessing with wrong soldier class, or not using different selection choices, take default one
+	if ( bSoldierClass >= SOLDIER_GUN_CHOICE_SELECTIONS || bSoldierClass < SOLDIER_CLASS_NONE || !gGameExternalOptions.fSoldierClassSpecificItemTables )
+		bSoldierClass = SOLDIER_CLASS_NONE;
 
 	WEAPONTYPE *	pWeapon;
 	UINT16			usLoop;
@@ -7408,11 +7412,11 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
 			// Madd: check to see if allowed by army
-			if ( gArmyItemChoices[ENEMYAMMOTYPES].ubChoices > 0 )
+			if ( gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].ubChoices > 0 )
 			{
-				for ( int i=0;i<gArmyItemChoices[ENEMYAMMOTYPES].ubChoices;i++ )
+				for ( int i=0;i<gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].ubChoices;i++ )
 				{
-					if ( gArmyItemChoices[ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
+					if ( gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
 					{
 						usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
 						break;
@@ -7460,12 +7464,16 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness
 	}
 }
 
-UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard, UINT8 maxCoolness )
+UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard, UINT8 maxCoolness, INT8 bSoldierClass )
 {
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
 	// with item class ammo, which has class index ubLoop
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine"));
+
+	// Flugente: if accessing with wrong soldier class, or not using different selection choices, take default one
+	if ( bSoldierClass >= SOLDIER_GUN_CHOICE_SELECTIONS || bSoldierClass < SOLDIER_CLASS_NONE || !gGameExternalOptions.fSoldierClassSpecificItemTables )
+		bSoldierClass = SOLDIER_CLASS_NONE;
 
 	WEAPONTYPE *	pWeapon;
 	UINT16			usLoop;
@@ -7494,11 +7502,11 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard, UINT8 maxCool
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
 			// Madd: check to see if allowed by army
-			if ( gArmyItemChoices[ENEMYAMMOTYPES].ubChoices > 0 )
+			if ( gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].ubChoices > 0 )
 			{
-				for ( int i=0;i<gArmyItemChoices[ENEMYAMMOTYPES].ubChoices;i++ )
+				for ( int i=0;i<gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].ubChoices;i++ )
 				{
-					if ( gArmyItemChoices[ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
+					if ( gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
 					{
 						usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
 						break;

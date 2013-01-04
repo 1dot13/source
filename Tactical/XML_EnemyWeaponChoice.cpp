@@ -416,7 +416,7 @@ extendedarmygunchoicesEndElementHandle(void *userData, const XML_Char *name)
 
 
 
-BOOLEAN ReadInExtendedArmyGunChoicesStats(STR fileName)
+BOOLEAN ReadInExtendedArmyGunChoicesStats(ARMY_GUN_CHOICE_TYPE* pGunChoice, STR fileName)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -453,7 +453,7 @@ BOOLEAN ReadInExtendedArmyGunChoicesStats(STR fileName)
 
 
 	memset(&pData,0,sizeof(pData));
-	pData.curArray = gExtendedArmyGunChoices;
+	pData.curArray = pGunChoice;
 	pData.maxArraySize = ARMY_GUN_LEVELS;
 
 	XML_SetUserData(parser, &pData);
@@ -499,9 +499,9 @@ BOOLEAN WriteExtendedArmyGunChoicesStats()
 			FilePrintf(hFile,"\t<ENEMYGUNCHOICES>\r\n");
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",								cnt );
-			FilePrintf(hFile,"\t\t<ubChoices>%d</ubChoices>\r\n",								gExtendedArmyGunChoices[cnt].ubChoices	);
+			FilePrintf(hFile,"\t\t<ubChoices>%d</ubChoices>\r\n",								gExtendedArmyGunChoices[SOLDIER_CLASS_NONE][cnt].ubChoices	);
 			for (int i=0;i<50;i++)
-				FilePrintf(hFile,"\t\t<bItemNo%d>%d</bItemNo%d>\r\n",i+1,gExtendedArmyGunChoices[cnt].bItemNo[i],i+1	);
+				FilePrintf(hFile,"\t\t<bItemNo%d>%d</bItemNo%d>\r\n",i+1,gExtendedArmyGunChoices[SOLDIER_CLASS_NONE][cnt].bItemNo[i],i+1	);
 
 
 			FilePrintf(hFile,"\t</ENEMYGUNCHOICES>\r\n");

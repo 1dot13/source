@@ -328,6 +328,9 @@ enum
 #endif
 };
 
+// Flugente: there are now separate gun choices, depending on a soldier's class
+#define SOLDIER_GUN_CHOICE_SELECTIONS SOLDIER_CLASS_CREATURE
+
 #define SOLDIER_CLASS_ENEMY( bSoldierClass )		( ( bSoldierClass >= SOLDIER_CLASS_ADMINISTRATOR ) && ( bSoldierClass <= SOLDIER_CLASS_ARMY ) )
 #define SOLDIER_CLASS_MILITIA( bSoldierClass )	( ( bSoldierClass >= SOLDIER_CLASS_GREEN_MILITIA ) && ( bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA ) )
 

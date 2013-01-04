@@ -15,6 +15,7 @@
 #include "XML_Language.h"
 #include "Encyclopedia_Data.h"
 #include "Encyclopedia.h"
+#include "Inventory Choosing.h"		// added by Flugente
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -52,42 +53,57 @@ typedef PARSE_STAGE;
 #define TAIWANESE_PREFIX						"Taiwanese."
 #define CHINESE_PREFIX							"Chinese."
 
-#define	ATTACHMENTSFILENAME						"Attachments.xml"
-#define	ATTACHMENTINFOFILENAME					"AttachmentInfo.xml"
-#define	ITEMSFILENAME							"Items.xml"
-#define	WEAPONSFILENAME							"Weapons.xml"
-#define	LAUNCHABLESFILENAME						"Launchables.xml"
-#define	COMPATIBLEFACEITEMSFILENAME				"CompatibleFaceItems.xml"
-#define	MERGESFILENAME							"Merges.xml"
-#define	ATTACHMENTCOMBOMERGESFILENAME			"AttachmentComboMerges.xml"
+#define	ATTACHMENTSFILENAME						"Items\\Attachments.xml"
+#define	ATTACHMENTINFOFILENAME					"Items\\AttachmentInfo.xml"
+#define	ITEMSFILENAME							"Items\\Items.xml"
+#define	WEAPONSFILENAME							"Items\\Weapons.xml"
+#define	LAUNCHABLESFILENAME						"Items\\Launchables.xml"
+#define	COMPATIBLEFACEITEMSFILENAME				"Items\\CompatibleFaceItems.xml"
+#define	MERGESFILENAME							"Items\\Merges.xml"
+#define	ATTACHMENTCOMBOMERGESFILENAME			"Items\\AttachmentComboMerges.xml"
 // HEADROCK HAM 5: Item Transformations Filename
-#define ITEMTRANSFORMATIONSFILENAME				"Item_Transformations.xml"
-#define	MAGAZINESFILENAME						"Magazines.xml"
-#define	ARMOURSFILENAME							"Armours.xml"
-#define	EXPLOSIVESFILENAME						"Explosives.xml"
-#define DRUGSFILENAME							"Drugs.xml"
-#define FOODFILENAME							"Food.xml"
+#define ITEMTRANSFORMATIONSFILENAME				"Items\\Item_Transformations.xml"
+#define	MAGAZINESFILENAME						"Items\\Magazines.xml"
+#define	ARMOURSFILENAME							"Items\\Armours.xml"
+#define	EXPLOSIVESFILENAME						"Items\\Explosives.xml"
+#define DRUGSFILENAME							"Items\\Drugs.xml"
+#define FOODFILENAME							"Items\\Food.xml"
 #define MERCHANTSFILENAME						"NPCInventory\\Merchants.xml"
-#define CLOTHESFILENAME							"Clothes.xml"
-#define RANDOMITEMFILENAME						"RandomItem.xml"
-#define	AMMOFILENAME							"AmmoStrings.xml"
-#define	AMMOTYPESFILENAME						"AmmoTypes.xml"
-#define	INCOMPATIBLEATTACHMENTSFILENAME			"IncompatibleAttachments.xml"
-#define	ATTACHMENTSLOTSFILENAME					"AttachmentSlots.xml"
-#define	ENEMYGUNCHOICESFILENAME					"EnemyGunChoices.xml"
-#define	ENEMYITEMCHOICESFILENAME				"EnemyItemChoices.xml"
-#define	IMPITEMCHOICESFILENAME					"IMPItemChoices.xml"
+#define CLOTHESFILENAME							"Items\\Clothes.xml"
+#define RANDOMITEMFILENAME						"Items\\RandomItem.xml"
+#define	AMMOFILENAME							"Items\\AmmoStrings.xml"
+#define	AMMOTYPESFILENAME						"Items\\AmmoTypes.xml"
+#define	INCOMPATIBLEATTACHMENTSFILENAME			"Items\\IncompatibleAttachments.xml"
+#define	ATTACHMENTSLOTSFILENAME					"Items\\AttachmentSlots.xml"
+#define	IMPITEMCHOICESFILENAME					"Inventory\\IMPItemChoices.xml"
+
+// Flugente: added new gun and item choices for different soldier classes
+#define	ENEMYGUNCHOICESFILENAME					"Inventory\\EnemyGunChoices.xml"	// default selection
+#define	GUNCHOICESFILENAME_ENEMY_ADMIN			"Inventory\\GunChoices_Enemy_Admin.xml"
+#define	GUNCHOICESFILENAME_ENEMY_REGULAR		"Inventory\\GunChoices_Enemy_Regular.xml"
+#define	GUNCHOICESFILENAME_ENEMY_ELITE			"Inventory\\GunChoices_Enemy_Elite.xml"
+#define	GUNCHOICESFILENAME_MILITIA_GREEN		"Inventory\\GunChoices_Militia_Green.xml"
+#define	GUNCHOICESFILENAME_MILITIA_REGULAR		"Inventory\\GunChoices_Militia_Regular.xml"
+#define	GUNCHOICESFILENAME_MILITIA_ELITE		"Inventory\\GunChoices_Militia_Elite.xml"
+
+#define	ENEMYITEMCHOICESFILENAME				"Inventory\\EnemyItemChoices.xml"	// default selection
+#define ITEMCHOICESFILENAME_ENEMY_ADMIN			"Inventory\\ItemChoices_Enemy_Admin.xml"
+#define ITEMCHOICESFILENAME_ENEMY_REGULAR		"Inventory\\ItemChoices_Enemy_Regular.xml"
+#define ITEMCHOICESFILENAME_ENEMY_ELITE			"Inventory\\ItemChoices_Enemy_Elite.xml"
+#define ITEMCHOICESFILENAME_MILITIA_GREEN		"Inventory\\ItemChoices_Militia_Green.xml"
+#define ITEMCHOICESFILENAME_MILITIA_REGULAR		"Inventory\\ItemChoices_Militia_Regular.xml"
+#define ITEMCHOICESFILENAME_MILITIA_ELITE		"Inventory\\ItemChoices_Militia_Elite.xml"
 
 // CHRISL:
-#define LOADBEARINGEQUIPMENTFILENAME			"LoadBearingEquipment.xml"
-#define LBEPOCKETFILENAME						"Pockets.xml"
+#define LOADBEARINGEQUIPMENTFILENAME			"Items\\LoadBearingEquipment.xml"
+#define LBEPOCKETFILENAME						"Inventory\\Pockets.xml"
 // THE_BOB : added for pocket popup definitions
-#define LBEPOCKETPOPUPFILENAME					"PocketPopups.xml"
+#define LBEPOCKETPOPUPFILENAME					"Inventory\\PocketPopups.xml"
 
-#define MERCSTARTINGGEARFILENAME				"MercStartingGear.xml"
+#define MERCSTARTINGGEARFILENAME				"Inventory\\MercStartingGear.xml"
 
 #ifdef JA2UB
-#define MERCSTARTINGGEAR25FILENAME				"MercStartingGear25.xml"  //ja25 ub
+#define MERCSTARTINGGEAR25FILENAME				"Inventory\\MercStartingGear25.xml"  //ja25 ub
 #endif
 
 #define TONYINVENTORYFILENAME					"NPCInventory\\TonyInventory.xml"
@@ -142,7 +158,7 @@ typedef PARSE_STAGE;
 #define SOUNDSFILENAME							"Sounds\\Sounds.xml"
 #define BURSTSOUNDSFILENAME						"Sounds\\BurstSounds.xml"
 
-#define EXPLOSIONDATAFILENAME					"ExplosionData.xml"
+#define EXPLOSIONDATAFILENAME					"Items\\ExplosionData.xml"
 
 #define CITYTABLEFILENAME						"Map\\Cities.xml"
 #define MOVEMENTCOSTFILENAME					"Map\\MovementCosts.xml"
@@ -157,11 +173,11 @@ typedef PARSE_STAGE;
 #define COMPOSITIONFILENAME						"Army\\ArmyComposition.xml"
 
 // WANNE: drops filename
-#define ENEMYWEAPONDROPSFILENAME				"EnemyWeaponDrops.xml"
-#define ENEMYAMMODROPSFILENAME					"EnemyAmmoDrops.xml"
-#define ENEMYEXPLOSIVEDROPSFILENAME				"EnemyExplosiveDrops.xml"
-#define ENEMYARMOURDROPSFILENAME				"EnemyArmourDrops.xml"
-#define ENEMYMISCDROPSFILENAME					"EnemyMiscDrops.xml"
+#define ENEMYWEAPONDROPSFILENAME				"Inventory\\EnemyWeaponDrops.xml"
+#define ENEMYAMMODROPSFILENAME					"Inventory\\EnemyAmmoDrops.xml"
+#define ENEMYEXPLOSIVEDROPSFILENAME				"Inventory\\EnemyExplosiveDrops.xml"
+#define ENEMYARMOURDROPSFILENAME				"Inventory\\EnemyArmourDrops.xml"
+#define ENEMYMISCDROPSFILENAME					"Inventory\\EnemyMiscDrops.xml"
 
 // WANNE: Sector loadscreens [2007-05-18]
 #define SECTORLOADSCREENSFILENAME				"Map\\SectorLoadscreens.xml"
@@ -352,10 +368,10 @@ extern BOOLEAN WriteAttachmentSlotsStats();
 extern BOOLEAN ReadInAttachmentSlotsStats(STR fileName);
 
 extern BOOLEAN WriteExtendedArmyGunChoicesStats();
-extern BOOLEAN ReadInExtendedArmyGunChoicesStats(STR fileName);
+extern BOOLEAN ReadInExtendedArmyGunChoicesStats(ARMY_GUN_CHOICE_TYPE* pGunChoice, STR fileName);
 
 extern BOOLEAN WriteArmyItemChoicesStats();
-extern BOOLEAN ReadInArmyItemChoicesStats(STR fileName);
+extern BOOLEAN ReadInArmyItemChoicesStats(ARMY_GUN_CHOICE_TYPE* pGunChoice, STR fileName);
 
 extern BOOLEAN WriteIMPItemChoicesStats();
 extern BOOLEAN ReadInIMPItemChoicesStats(STR fileName);

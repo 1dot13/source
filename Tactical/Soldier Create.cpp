@@ -3015,7 +3015,7 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 	return TacticalCreateSoldier( &pp, &ubID );
 }
 
-// Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwsie they jsut blend in
+// Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwsie they just blend in
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
@@ -3033,9 +3033,18 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 		return NULL;
 	}
 
+	UINT8 assassinclass = SOLDIER_CLASS_GREEN_MILITIA;
+	if ( disguisetype == REGULAR_MILITIA )
+		assassinclass = SOLDIER_CLASS_REG_MILITIA;
+	else if ( disguisetype == ELITE_MILITIA )
+		assassinclass = SOLDIER_CLASS_ELITE_MILITIA;
+	else if ( disguisetype > ELITE_MILITIA )
+		// invalid class, abort
+		return NULL;
+
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ELITE );
-	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ELITE );
+	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), assassinclass );
+	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), assassinclass );
 	bp.bTeam = CIV_TEAM;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );

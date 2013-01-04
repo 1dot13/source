@@ -714,6 +714,9 @@ typedef struct
 	UINT32	usAttachmentDropRate;
 	INT16   iMaxEnemyAttachments;
 
+	// Flugente: class specific gun/item choice
+	BOOLEAN	fSoldierClassSpecificItemTables;
+
 	//** ddd
 	//enable ext mouse key
 	BOOLEAN fExtMouseKeyEnabled;
