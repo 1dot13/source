@@ -3949,7 +3949,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				
 				if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD )
 				{		
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 55, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 56, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
 
 					SetFontForeground( FONT_ORANGE );
 			
