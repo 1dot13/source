@@ -236,9 +236,6 @@ typedef PARSE_STAGE;
 //CIV Names
 #define CIVGROUPNAMESFILENAME					"CivGroupNames.xml"
 
-//Sender Name List
-#define SENDERNAMELISTFILENAME					"SenderNameList.xml"
-
 #define ACTIONITEMSFILENAME					"MapAction\\Actionitems.xml"
 
 #define IMPPORTRAITS					"IMPPortraits.xml"

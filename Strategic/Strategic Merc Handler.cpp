@@ -504,7 +504,6 @@ void MercDailyUpdate()
 							if (cnt < 178)
 							{
 								UINT16 iMsgLength = cnt;
-								//UINT8 sender = cnt - 119;	// SenderNameList.xml
 
 								// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
 								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, cnt, GetWorldTotalMin(), -1 , TYPE_EMAIL_EMAIL_EDT_NAME_MERC);							
@@ -514,7 +513,6 @@ void MercDailyUpdate()
 							{
 								// TODO.RW: Send generic mail
 								UINT16 iMsgLength = cnt;
-								//UINT8 sender = cnt - 119;	// SenderNameList.xml
 
 								// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
 								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, cnt, GetWorldTotalMin(), -1 , TYPE_EMAIL_EMAIL_EDT_NAME_MERC);							
