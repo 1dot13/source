@@ -1699,9 +1699,10 @@ void GetRuntimeSettings( )
 	s_CodePage = oProps.getStringProperty(L"Ja2 Settings", L"CODE_PAGE");
 #endif // USE_CODE_PAGE
 
-// get timer/clock initialization state
-SetHiSpeedClockMode( oProps.getBoolProperty("Ja2 Settings", "HIGHSPEED_TIMER", false) ? TRUE : FALSE );	
-
+	// WANNE: Highspeed Timer always ON (no more optional in the ja2.ini)
+	// get timer/clock initialization state
+	//SetHiSpeedClockMode( oProps.getBoolProperty("Ja2 Settings", "HIGHSPEED_TIMER", false) ? TRUE : FALSE );	
+	SetHiSpeedClockMode( TRUE );
 
 #endif
 }
