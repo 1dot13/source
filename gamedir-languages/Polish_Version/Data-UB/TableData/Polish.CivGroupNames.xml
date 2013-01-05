@@ -1,0 +1,1281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CIV_GROUP_NAMES>
+  <NAME>
+	<uiIndex>0</uiIndex>
+	
+    <szGroup>None</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>1</uiIndex>
+	
+    <szGroup>Rebel</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>2</uiIndex>
+	
+    <szGroup>KingPin</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>3</uiIndex>
+	
+    <szGroup>Sanmona Arms</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>4</uiIndex>
+	
+    <szGroup>Angels</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>5</uiIndex>
+	
+    <szGroup>Beggars</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>6</uiIndex>
+	
+    <szGroup>Tourists</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>7</uiIndex>
+	
+    <szGroup>Alma Militia</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>8</uiIndex>
+	
+    <szGroup>Doctors</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>9</uiIndex>
+	
+    <szGroup>Couple1</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>10</uiIndex>
+	
+    <szGroup>Hicks</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>11</uiIndex>
+	
+    <szGroup>Warden</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>12</uiIndex>
+	
+    <szGroup>Junkyard</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>13</uiIndex>
+	
+    <szGroup>Factory Kids</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>14</uiIndex>
+	
+    <szGroup>Queens</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>15</uiIndex>
+	<szGroup>Vareez Sektor i10</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>16</uiIndex>
+	
+    <szGroup>Bez nazwy 16</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>17</uiIndex>
+	<szGroup>Vareez Sektor i11</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>18</uiIndex>
+	
+    <szGroup>Bez nazwy 18</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>19</uiIndex>
+	
+    <szGroup>Bez nazwy 19</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>20</uiIndex>
+	
+    <szGroup>Bez nazwy 20</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>21</uiIndex>
+	
+    <szGroup>Bez nazwy 21</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>22</uiIndex>
+	
+    <szGroup>Bez nazwy 22</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>23</uiIndex>
+	
+    <szGroup>Bez nazwy 23</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>24</uiIndex>
+	
+    <szGroup>Bez nazwy 24</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>25</uiIndex>
+	
+    <szGroup>Bez nazwy 25</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>26</uiIndex>
+	
+    <szGroup>Bez nazwy 26</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>27</uiIndex>
+	
+    <szGroup>Bez nazwy 27</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>28</uiIndex>
+	
+    <szGroup>Bez nazwy 28</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>29</uiIndex>
+	
+    <szGroup>Bez nazwy 29</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>30</uiIndex>
+	
+    <szGroup>Bez nazwy 30</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>31</uiIndex>
+	
+    <szGroup>Bez nazwy 31</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>32</uiIndex>
+	
+    <szGroup>Bez nazwy 32</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>33</uiIndex>
+	
+    <szGroup>Bez nazwy 33</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>34</uiIndex>
+	
+    <szGroup>Bez nazwy 34</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>35</uiIndex>
+	
+    <szGroup>Bez nazwy 35</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>36</uiIndex>
+	
+    <szGroup>Bez nazwy 36</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>37</uiIndex>
+	
+    <szGroup>Bez nazwy 37</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>38</uiIndex>
+	
+    <szGroup>Bez nazwy 38</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>39</uiIndex>
+	
+    <szGroup>Bez nazwy 39</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>40</uiIndex>
+	
+    <szGroup>Bez nazwy 40</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>41</uiIndex>
+	
+    <szGroup>Bez nazwy 41</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>42</uiIndex>
+	
+    <szGroup>Bez nazwy 42</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>43</uiIndex>
+	
+    <szGroup>Bez nazwy 43</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>44</uiIndex>
+	
+    <szGroup>Bez nazwy 44</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>45</uiIndex>
+	
+    <szGroup>Bez nazwy 45</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>46</uiIndex>
+	
+    <szGroup>Bez nazwy 46</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>47</uiIndex>
+	
+    <szGroup>Bez nazwy 47</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>48</uiIndex>
+	
+    <szGroup>Bez nazwy 48</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>49</uiIndex>
+	
+    <szGroup>Bez nazwy 49</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>50</uiIndex>
+	
+    <szGroup>Bez nazwy 50</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>51</uiIndex>
+	
+    <szGroup>Bez nazwy 51</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>52</uiIndex>
+	
+    <szGroup>Bez nazwy 52</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>53</uiIndex>
+	
+    <szGroup>Bez nazwy 53</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>54</uiIndex>
+	
+    <szGroup>Bez nazwy 54</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>55</uiIndex>
+	
+    <szGroup>Bez nazwy 55</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>56</uiIndex>
+	
+    <szGroup>Bez nazwy 56</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>57</uiIndex>
+	
+    <szGroup>Bez nazwy 57</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>58</uiIndex>
+	
+    <szGroup>Bez nazwy 58</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>59</uiIndex>
+	
+    <szGroup>Bez nazwy 59</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>60</uiIndex>
+	
+    <szGroup>Bez nazwy 60</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>61</uiIndex>
+	
+    <szGroup>Bez nazwy 61</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>62</uiIndex>
+	
+    <szGroup>Bez nazwy 62</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>63</uiIndex>
+	
+    <szGroup>Bez nazwy 63</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>64</uiIndex>
+	
+    <szGroup>Bez nazwy 64</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>65</uiIndex>
+	
+    <szGroup>Bez nazwy 65</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>66</uiIndex>
+	
+    <szGroup>Bez nazwy 66</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>67</uiIndex>
+	
+    <szGroup>Bez nazwy 67</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>68</uiIndex>
+	
+    <szGroup>Bez nazwy 68</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>69</uiIndex>
+	
+    <szGroup>Bez nazwy 69</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>70</uiIndex>
+	
+    <szGroup>Bez nazwy 70</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>71</uiIndex>
+	
+    <szGroup>Bez nazwy 71</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>72</uiIndex>
+	
+    <szGroup>Bez nazwy 72</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>73</uiIndex>
+	
+    <szGroup>Bez nazwy 73</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>74</uiIndex>
+	
+    <szGroup>Bez nazwy 74</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>75</uiIndex>
+	
+    <szGroup>Bez nazwy 75</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>76</uiIndex>
+	
+    <szGroup>Bez nazwy 76</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>77</uiIndex>
+	
+    <szGroup>Bez nazwy 77</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>78</uiIndex>
+	
+    <szGroup>Bez nazwy 78</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>79</uiIndex>
+	
+    <szGroup>Bez nazwy 79</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>80</uiIndex>
+	
+    <szGroup>Bez nazwy 80</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>81</uiIndex>
+	
+    <szGroup>Bez nazwy 81</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>82</uiIndex>
+	
+    <szGroup>Bez nazwy 82</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>83</uiIndex>
+	
+    <szGroup>Bez nazwy 83</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>84</uiIndex>
+	
+    <szGroup>Bez nazwy 84</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>85</uiIndex>
+	
+    <szGroup>Bez nazwy 85</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>86</uiIndex>
+	
+    <szGroup>Bez nazwy 86</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>87</uiIndex>
+	
+    <szGroup>Bez nazwy 87</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>88</uiIndex>
+	
+    <szGroup>Bez nazwy 88</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>89</uiIndex>
+	
+    <szGroup>Bez nazwy 89</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>90</uiIndex>
+	
+    <szGroup>Bez nazwy 90</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>91</uiIndex>
+	
+    <szGroup>Bez nazwy 91</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>92</uiIndex>
+	
+    <szGroup>Bez nazwy 92</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>93</uiIndex>
+	
+    <szGroup>Bez nazwy 93</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>94</uiIndex>
+	
+    <szGroup>Bez nazwy 94</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>95</uiIndex>
+	
+    <szGroup>Bez nazwy 95</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>96</uiIndex>
+	
+    <szGroup>Bez nazwy 96</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>97</uiIndex>
+	
+    <szGroup>Bez nazwy 97</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>98</uiIndex>
+	
+    <szGroup>Bez nazwy 98</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>99</uiIndex>
+	
+    <szGroup>Bez nazwy 99</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>100</uiIndex>
+	
+    <szGroup>Bez nazwy 100</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>101</uiIndex>
+	
+    <szGroup>Bez nazwy 101</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>102</uiIndex>
+	
+    <szGroup>Bez nazwy 102</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>103</uiIndex>
+	
+    <szGroup>Bez nazwy 103</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>104</uiIndex>
+	
+    <szGroup>Bez nazwy 104</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>105</uiIndex>
+	
+    <szGroup>Bez nazwy 105</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>106</uiIndex>
+	
+    <szGroup>Bez nazwy 106</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>107</uiIndex>
+	
+    <szGroup>Bez nazwy 107</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>108</uiIndex>
+	
+    <szGroup>Bez nazwy 108</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>109</uiIndex>
+	
+    <szGroup>Bez nazwy 109</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>110</uiIndex>
+	
+    <szGroup>Bez nazwy 110</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>111</uiIndex>
+	
+    <szGroup>Bez nazwy 111</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>112</uiIndex>
+	
+    <szGroup>Bez nazwy 112</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>113</uiIndex>
+	
+    <szGroup>Bez nazwy 113</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>114</uiIndex>
+	
+    <szGroup>Bez nazwy 114</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>115</uiIndex>
+	
+    <szGroup>Bez nazwy 115</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>116</uiIndex>
+	
+    <szGroup>Bez nazwy 116</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>117</uiIndex>
+	
+    <szGroup>Bez nazwy 117</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>118</uiIndex>
+	
+    <szGroup>Bez nazwy 118</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>119</uiIndex>
+	
+    <szGroup>Bez nazwy 119</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>120</uiIndex>
+	
+    <szGroup>Bez nazwy 120</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>121</uiIndex>
+	
+    <szGroup>Bez nazwy 121</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>122</uiIndex>
+	
+    <szGroup>Bez nazwy 122</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>123</uiIndex>
+	
+    <szGroup>Bez nazwy 123</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>124</uiIndex>
+	
+    <szGroup>Bez nazwy 124</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>125</uiIndex>
+	
+    <szGroup>Bez nazwy 125</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>126</uiIndex>
+	
+    <szGroup>Bez nazwy 126</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>127</uiIndex>
+	
+    <szGroup>Bez nazwy 127</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>128</uiIndex>
+	
+    <szGroup>Bez nazwy 128</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>129</uiIndex>
+	
+    <szGroup>Bez nazwy 129</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>130</uiIndex>
+	
+    <szGroup>Bez nazwy 130</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>131</uiIndex>
+	
+    <szGroup>Bez nazwy 131</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>132</uiIndex>
+	
+    <szGroup>Bez nazwy 132</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>133</uiIndex>
+	
+    <szGroup>Bez nazwy 133</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>134</uiIndex>
+	
+    <szGroup>Bez nazwy 134</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>135</uiIndex>
+	
+    <szGroup>Bez nazwy 135</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>136</uiIndex>
+	
+    <szGroup>Bez nazwy 136</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>137</uiIndex>
+	
+    <szGroup>Bez nazwy 137</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>138</uiIndex>
+	
+    <szGroup>Bez nazwy 138</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>139</uiIndex>
+	
+    <szGroup>Bez nazwy 139</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>140</uiIndex>
+	
+    <szGroup>Bez nazwy 140</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>141</uiIndex>
+	
+    <szGroup>Bez nazwy 141</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>142</uiIndex>
+	
+    <szGroup>Bez nazwy 142</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>143</uiIndex>
+	
+    <szGroup>Bez nazwy 143</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>144</uiIndex>
+	
+    <szGroup>Bez nazwy 144</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>145</uiIndex>
+	
+    <szGroup>Bez nazwy 145</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>146</uiIndex>
+	
+    <szGroup>Bez nazwy 146</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>147</uiIndex>
+	
+    <szGroup>Bez nazwy 147</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>148</uiIndex>
+	
+    <szGroup>Bez nazwy 148</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>149</uiIndex>
+	
+    <szGroup>Bez nazwy 149</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>150</uiIndex>
+	
+    <szGroup>Bez nazwy 150</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>151</uiIndex>
+	
+    <szGroup>Bez nazwy 151</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>152</uiIndex>
+	
+    <szGroup>Bez nazwy 152</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>153</uiIndex>
+	
+    <szGroup>Bez nazwy 153</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>154</uiIndex>
+	
+    <szGroup>Bez nazwy 154</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>155</uiIndex>
+	
+    <szGroup>Bez nazwy 155</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>156</uiIndex>
+	
+    <szGroup>Bez nazwy 156</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>157</uiIndex>
+	
+    <szGroup>Bez nazwy 157</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>158</uiIndex>
+	
+    <szGroup>Bez nazwy 158</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>159</uiIndex>
+	
+    <szGroup>Bez nazwy 159</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>160</uiIndex>
+	
+    <szGroup>Bez nazwy 160</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>161</uiIndex>
+	
+    <szGroup>Bez nazwy 161</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>162</uiIndex>
+	
+    <szGroup>Bez nazwy 162</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>163</uiIndex>
+	
+    <szGroup>Bez nazwy 163</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>164</uiIndex>
+	
+    <szGroup>Bez nazwy 164</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>165</uiIndex>
+	
+    <szGroup>Bez nazwy 165</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>166</uiIndex>
+	
+    <szGroup>Bez nazwy 166</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>167</uiIndex>
+	
+    <szGroup>Bez nazwy 167</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>168</uiIndex>
+	
+    <szGroup>Bez nazwy 168</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>169</uiIndex>
+	
+    <szGroup>Bez nazwy 169</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>160</uiIndex>
+	
+    <szGroup>Bez nazwy 160</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>170</uiIndex>
+	
+    <szGroup>Bez nazwy 170</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>171</uiIndex>
+	
+    <szGroup>Bez nazwy 171</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>172</uiIndex>
+	
+    <szGroup>Bez nazwy 172</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>173</uiIndex>
+	
+    <szGroup>Bez nazwy 173</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>174</uiIndex>
+	
+    <szGroup>Bez nazwy 174</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>175</uiIndex>
+	
+    <szGroup>Bez nazwy 175</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>176</uiIndex>
+	
+    <szGroup>Bez nazwy 176</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>177</uiIndex>
+	
+    <szGroup>Bez nazwy 177</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>178</uiIndex>
+	
+    <szGroup>Bez nazwy 178</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>179</uiIndex>
+	
+    <szGroup>Bez nazwy 179</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>180</uiIndex>
+	
+    <szGroup>Bez nazwy 180</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>181</uiIndex>
+	
+    <szGroup>Bez nazwy 181</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>182</uiIndex>
+	
+    <szGroup>Bez nazwy 182</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>183</uiIndex>
+	
+    <szGroup>Bez nazwy 183</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>184</uiIndex>
+	
+    <szGroup>Bez nazwy 184</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>185</uiIndex>
+	
+    <szGroup>Bez nazwy 185</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>186</uiIndex>
+	
+    <szGroup>Bez nazwy 186</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>187</uiIndex>
+	
+    <szGroup>Bez nazwy 187</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>188</uiIndex>
+	
+    <szGroup>Bez nazwy 188</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>189</uiIndex>
+	
+    <szGroup>Bez nazwy 189</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>190</uiIndex>
+	
+    <szGroup>Bez nazwy 190</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>191</uiIndex>
+	
+    <szGroup>Bez nazwy 191</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>192</uiIndex>
+	
+    <szGroup>Bez nazwy 192</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>193</uiIndex>
+	
+    <szGroup>Bez nazwy 193</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>194</uiIndex>
+	
+    <szGroup>Bez nazwy 194</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>195</uiIndex>
+	
+    <szGroup>Bez nazwy 195</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>196</uiIndex>
+	
+    <szGroup>Bez nazwy 196</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>197</uiIndex>
+	
+    <szGroup>Bez nazwy 197</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>198</uiIndex>
+	
+    <szGroup>Bez nazwy 198</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>199</uiIndex>
+	
+    <szGroup>Bez nazwy 199</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>200</uiIndex>
+	
+    <szGroup>Bez nazwy 200</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>201</uiIndex>
+	
+    <szGroup>Bez nazwy 201</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>202</uiIndex>
+	
+    <szGroup>Bez nazwy 202</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>203</uiIndex>
+	
+    <szGroup>Bez nazwy 203</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>204</uiIndex>
+	
+    <szGroup>Bez nazwy 204</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>205</uiIndex>
+	
+    <szGroup>Bez nazwy 205</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>206</uiIndex>
+	
+    <szGroup>Bez nazwy 206</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>207</uiIndex>
+	
+    <szGroup>Bez nazwy 207</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>208</uiIndex>
+	
+    <szGroup>Bez nazwy 208</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>209</uiIndex>
+	
+    <szGroup>Bez nazwy 209</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>210</uiIndex>
+	
+    <szGroup>Bez nazwy 210</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>211</uiIndex>
+	
+    <szGroup>Bez nazwy 211</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>212</uiIndex>
+	
+    <szGroup>Bez nazwy 212</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>213</uiIndex>
+	
+    <szGroup>Bez nazwy 213</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>214</uiIndex>
+	
+    <szGroup>Bez nazwy 214</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>215</uiIndex>
+	
+    <szGroup>Bez nazwy 215</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>216</uiIndex>
+	
+    <szGroup>Bez nazwy 216</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>217</uiIndex>
+	
+    <szGroup>Bez nazwy 217</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>218</uiIndex>
+	
+    <szGroup>Bez nazwy 218</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>219</uiIndex>
+	
+    <szGroup>Bez nazwy 219</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>220</uiIndex>
+	
+    <szGroup>Bez nazwy 220</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>221</uiIndex>
+	
+    <szGroup>Bez nazwy 221</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>222</uiIndex>
+	
+    <szGroup>Bez nazwy 222</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>223</uiIndex>
+	
+    <szGroup>Bez nazwy 223</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>224</uiIndex>
+	
+    <szGroup>Bez nazwy 224</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>225</uiIndex>
+	
+    <szGroup>Bez nazwy 225</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>226</uiIndex>
+	
+    <szGroup>Bez nazwy 226</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>227</uiIndex>
+	
+    <szGroup>Bez nazwy 227</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>228</uiIndex>
+	
+    <szGroup>Bez nazwy 228</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>229</uiIndex>
+	
+    <szGroup>Bez nazwy 229</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>230</uiIndex>
+	
+    <szGroup>Bez nazwy 230</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>231</uiIndex>
+	
+    <szGroup>Bez nazwy 231</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>232</uiIndex>
+	
+    <szGroup>Bez nazwy 232</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>233</uiIndex>
+	
+    <szGroup>Bez nazwy 233</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>234</uiIndex>
+	
+    <szGroup>Bez nazwy 234</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>235</uiIndex>
+	
+    <szGroup>Bez nazwy 235</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>236</uiIndex>
+	
+    <szGroup>Bez nazwy 236</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>237</uiIndex>
+	
+    <szGroup>Bez nazwy 237</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>238</uiIndex>
+	
+    <szGroup>Bez nazwy 238</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>239</uiIndex>
+	
+    <szGroup>Bez nazwy 239</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>240</uiIndex>
+	
+    <szGroup>Bez nazwy 240</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>241</uiIndex>
+	
+    <szGroup>Bez nazwy 241</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>242</uiIndex>
+	
+    <szGroup>Bez nazwy 242</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>243</uiIndex>
+	
+    <szGroup>Bez nazwy 243</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>244</uiIndex>
+	
+    <szGroup>Bez nazwy 244</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>245</uiIndex>
+	
+    <szGroup>Bez nazwy 245</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>246</uiIndex>
+	
+    <szGroup>Bez nazwy 246</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>247</uiIndex>
+	
+    <szGroup>Bez nazwy 247</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>248</uiIndex>
+	
+    <szGroup>Bez nazwy 248</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>249</uiIndex>
+	
+    <szGroup>Bez nazwy 249</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>250</uiIndex>
+	
+    <szGroup>Bez nazwy 250</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>251</uiIndex>
+	
+    <szGroup>Bez nazwy 251</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>252</uiIndex>
+	
+    <szGroup>Bez nazwy 252</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>253</uiIndex>
+	
+    <szGroup>Bez nazwy 253</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>254</uiIndex>
+	
+    <szGroup>Bez nazwy 254</szGroup>
+  </NAME>
+</CIV_GROUP_NAMES>
