@@ -176,8 +176,8 @@ INT16		ITEMDESC_DONE_Y;
 #define		ITEMDESC_ITEM_WIDTH			117
 #define		ITEMDESC_ITEM_HEIGHT		54
 
-#define		ITEMDESC_AMMO_TEXT_X	3
-#define		ITEMDESC_AMMO_TEXT_Y	1
+#define		ITEMDESC_AMMO_TEXT_X	2
+#define		ITEMDESC_AMMO_TEXT_Y	3
 #define		ITEMDESC_AMMO_TEXT_WIDTH 31
 
 #define		WORD_WRAP_INV_WIDTH			58
@@ -3530,13 +3530,13 @@ void RenderPocketItemCapacity( UINT32 uiWhichBuffer, INT8 pCapacity, INT16 bPos,
 	// Setup display parameters
 	SetFont( ITEM_FONT );
 	SetFontBackground( FONT_MCOLOR_BLACK );
-	SetFontForeground( FONT_RED );
+	SetFontForeground( FONT_LTRED );
 	if(pSoldier == NULL || (pCapacity != 0 && CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)bPos, FALSE)))
 	{
 		// Adjust capacity to account for current items
 		if(gpItemPointer->usItem == pObj->usItem)
 		{
-			SetFontForeground( FONT_GREEN );
+			SetFontForeground( FONT_LTGREEN );
 			pCapacity = pCapacity - pObj->ubNumberOfObjects;
 			if(pCapacity > 0)
 				swprintf( pStr, L"+%d", pCapacity );
@@ -4415,7 +4415,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 
 		// Set font properties
 		SetFontForeground( FONT_GRAY4 );
-		SetFont( TINYFONT1 );
+		SetFont( SMALLFONT1 );
 
 		// Find difference in width and height.
 		INT16 sFontHeightDifference = 1;
@@ -4497,7 +4497,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 
 		// Set font properties
 		SetFontForeground( FONT_GRAY4 );
-		SetFont( TINYFONT1 );
+		SetFont( SMALLFONT1 );
 
 		// Find difference in width and height.
 		INT16 sFontHeightDifference = 1;
@@ -5050,7 +5050,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
 		{
 			// in mapscreen, move over a bit
-			giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, TINYFONT1,
+			giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, BLOCKFONTNARROW,
 															 sForeColour, FONT_MCOLOR_BLACK,
 															 sForeColour, FONT_MCOLOR_BLACK,
 															 TEXT_CJUSTIFIED,
@@ -5062,7 +5062,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		{
 
 			// not in mapscreen
-			giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, TINYFONT1,
+			giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, BLOCKFONTNARROW,
 															 sForeColour, FONT_MCOLOR_BLACK,
 															 sForeColour, FONT_MCOLOR_BLACK,
 															 TEXT_CJUSTIFIED,
@@ -5084,7 +5084,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 			MSYS_SetBtnUserData( giItemDescAmmoButton, 1, ubStatusIndex );
 		}
 
-		FindFontCenterCoordinates( (INT16)ITEMDESC_AMMO_TEXT_X, (INT16)ITEMDESC_AMMO_TEXT_Y, ITEMDESC_AMMO_TEXT_WIDTH, GetFontHeight( TINYFONT1 ), pStr, TINYFONT1, &usX, &usY);
+		FindFontCenterCoordinates( (INT16)ITEMDESC_AMMO_TEXT_X, (INT16)ITEMDESC_AMMO_TEXT_Y, ITEMDESC_AMMO_TEXT_WIDTH, GetFontHeight( BLOCKFONTNARROW ), pStr, BLOCKFONTNARROW, &usX, &usY);
 
 		SpecifyButtonTextOffsets( giItemDescAmmoButton, (UINT8) usX, (UINT8) usY, TRUE );
 

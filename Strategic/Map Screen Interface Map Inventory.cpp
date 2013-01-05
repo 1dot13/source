@@ -538,11 +538,11 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		// Determine Color
 		if ( fMapInventoryItemCompatable[ iCurrentSlot ] )
 		{
-			sOutLine = Get16BPPColor( FROMRGB( 255, 255, 255 ) );
+			sOutLine = Get16BPPColor( FROMRGB( 210, 210, 210 ) );
 		}
 		else if ( gfMapInventoryItemToZoom[ iCurrentSlot ] )
 		{
-			sOutLine = Get16BPPColor( FROMRGB( 255, 255, 55 ) );
+			sOutLine = Get16BPPColor( FROMRGB( 235, 235, 30 ) );
 		}
 	}
 	else
@@ -630,7 +630,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	SetFontDestBuffer( guiSAVEBUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	SetFont( MAP_INVEN_NAME_FONT );
-	SetFontForeground( FONT_WHITE );
+	SetFontForeground( FONT_GRAY2 );
 	SetFontBackground( FONT_BLACK );
 
 	// HEADROCK HAM 5: Offset is now changeable.
@@ -659,7 +659,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		SetFontDestBuffer( guiSAVEBUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 		SetFont( uiSalePriceFont );
-		SetFontForeground( FONT_RED );
+		SetFontForeground( FONT_LTRED );
 		SetFontBackground( FONT_BLACK );
 
 		INT16 sOffsetX = (fMapInventoryZoom ? 12 : 10);
@@ -3745,7 +3745,7 @@ void ResetMapInventoryOffsets( void )
 		MAP_INVEN_SLOT_HEIGHT = 32;
 		MAP_INVEN_SLOT_IMAGE_HEIGHT = 24;
 
-		MAP_INVEN_NAME_FONT = SMALLCOMPFONT;
+		MAP_INVEN_NAME_FONT = BLOCKFONTNARROW;
 
 	}
 	else
