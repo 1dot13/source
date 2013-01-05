@@ -4852,7 +4852,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	INT16 bTrainerEffSkill = 0;
 	INT16 bTrainerNatSkill = 0;
 	INT16 bTrainingBonus = 0;
-	INT8 bOpinionFactor;
+	INT8 bOpinionFactor = 0;
 
 	// assume training impossible for max pts
 	*pusMaxPts = 0;
