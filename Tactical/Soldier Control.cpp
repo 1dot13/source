@@ -15474,6 +15474,240 @@ BOOLEAN		SOLDIERTYPE::IsAssassin()
 	return FALSE;
 }
 
+UINT8	SOLDIERTYPE::GetMultiTurnAction()
+{
+	return usMultiTurnAction;
+}
+
+void	SOLDIERTYPE::StartMultiTurnAction(UINT8 usActionType)
+{
+	// check wether we can perform any action at all
+	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds(this->sGridNo) || this->pathing.bLevel != 0 || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND || this->bCollapsed )
+		return;
+
+	// if we already perform a multi-turn action, overwrite it
+	if ( GetMultiTurnAction() > MTA_NONE )
+		CancelMultiTurnAction(FALSE);
+
+	// set up the action and costs
+	usMultiTurnAction = usActionType;
+
+	// the action shall be performed on the gridno directly in front of us
+	sMTActionGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+
+	// for now, adding and removing a structure has the same AP cost - that might change in the future
+	switch( usMultiTurnAction )
+	{
+	case MTA_FORTIFY:
+		bOverTurnAPS = APBPConstants[AP_FORTIFICATION];		
+		break;
+	case MTA_REMOVE_FORTIFY:
+		bOverTurnAPS = APBPConstants[AP_REMOVE_FORTIFICATION];		
+		break;
+	case MTA_FILL_SANDBAG:
+		bOverTurnAPS = APBPConstants[AP_FILL_SANDBAG];		
+		break;
+	}
+
+	// immediately starting the action would leave us without APs, thus removing the benefit of multi-turn actions (ability to do something else while performing a longer action)
+	// for this reason, we only do this when we are not in combat
+	if ( !( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT ) )
+		UpdateMultiTurnAction();
+}
+
+void	SOLDIERTYPE::CancelMultiTurnAction(BOOLEAN fFinished)
+{
+	// stop action
+	if ( !fFinished )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANCEL], this->name, szMTATextStr[this->usMultiTurnAction] );
+		
+	bOverTurnAPS		= 0;
+	sMTActionGridNo		= NOWHERE;
+	usMultiTurnAction	= MTA_NONE;
+}
+
+// if we are doing any multiturn-action, remove our current APs from it, and if possible, perform the action and finish the process
+BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
+{
+	// nothing to do here
+	if ( this->usMultiTurnAction == MTA_NONE )
+		return FALSE;
+
+	// check wether we can perform any action at all
+	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds(this->sGridNo) || TileIsOutOfBounds(this->sMTActionGridNo) || this->pathing.bLevel != 0 || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND || this->bCollapsed )
+	{
+		CancelMultiTurnAction(FALSE);
+		return FALSE;
+	}
+
+	// check wether our selected action can still be performed
+	BOOLEAN fActionStillValid = TRUE;
+
+	// determine the gridno before us and the item we have in our main hand, this is enough for the current actions
+	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
+	if ( !pObj || !(pObj->exists()) )
+		fActionStillValid = FALSE;
+
+	// error if the gridno we started working on is not the gridno we are currently looking at
+	if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
+		fActionStillValid = FALSE;
+
+	if ( !fActionStillValid )
+	{
+		CancelMultiTurnAction(FALSE);
+		return FALSE;
+	}
+
+	// a static variable that is the item number of sandbags. Hardcoding item numbers is bad, that's why we will search for it.
+	static UINT16 fullsandbagnr = 1541;
+
+	INT16 entireapcost = 0;
+	INT16 entirebpcost = 0;
+	switch( usMultiTurnAction )
+	{
+	case MTA_FORTIFY:
+		{
+			entireapcost = APBPConstants[AP_FORTIFICATION];
+			entirebpcost = APBPConstants[BP_FORTIFICATION];
+
+			if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
+				fActionStillValid = FALSE;
+		}
+		break;
+	case MTA_REMOVE_FORTIFY:
+		{
+			entireapcost = APBPConstants[AP_REMOVE_FORTIFICATION];
+			entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
+
+			if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, (SHOVEL)) )
+				fActionStillValid = FALSE;
+		}
+		break;
+
+	case MTA_FILL_SANDBAG:
+		{
+			entireapcost = APBPConstants[AP_FILL_SANDBAG];
+			entirebpcost = APBPConstants[BP_FILL_SANDBAG];
+
+			if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, EMPTY_SANDBAG) )
+				fActionStillValid = FALSE;
+			else
+			{
+				INT8 bOverTerrainType = GetTerrainType( sGridNo );
+				if( bOverTerrainType != FLAT_GROUND && bOverTerrainType != DIRT_ROAD && bOverTerrainType != LOW_GRASS )
+					fActionStillValid = FALSE;
+				else
+				{
+					// check if we have a shovel in our second hand
+					OBJECTTYPE* pShovelObj = &(this->inv[SECONDHANDPOS]);
+					if ( !pShovelObj || !(pShovelObj->exists()) || !HasItemFlag(this->inv[ SECONDHANDPOS ].usItem, SHOVEL) )
+						fActionStillValid = FALSE;
+				}
+			}
+		}
+		break;
+	}
+
+	if ( !fActionStillValid )
+	{
+		CancelMultiTurnAction(FALSE);
+		return FALSE;
+	}
+	
+	// if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
+	if ( !( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT ) )
+		bOverTurnAPS = 0;
+	// otherwise this might take longer, so we refresh our animation
+	else
+	{
+		// refresh animations
+		if (!is_networked)
+			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+		else
+			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+
+		// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
+		this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
+	}
+
+	// if we can afford it, do it now
+	if ( bOverTurnAPS <= this->bActionPoints )
+	{
+		switch( usMultiTurnAction )
+		{
+		case MTA_FORTIFY:
+			{
+				// Build the thing
+				if ( BuildFortification( this->sMTActionGridNo, Item[ pObj->usItem ].usItemFlag ) )
+				{
+					// Erase 'material' item from our hand - we 'use' it to build the structure
+					DeleteObj( &(this->inv[HANDPOS]) );
+
+					// we gain a bit of experience...
+					StatChange( this, STRAMT, 4, TRUE );
+					StatChange( this, HEALTHAMT, 2, TRUE );
+				}
+			}
+			break;
+
+		case MTA_REMOVE_FORTIFY:
+			{
+				if ( RemoveFortification( this->sMTActionGridNo ) )
+				{
+					// eventually search for the number of a sandbag item
+					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
+					{
+						CreateItem( fullsandbagnr, 100, &gTempObject );
+
+						AddItemToPool( this->sMTActionGridNo, &gTempObject, 1, 0, 0, -1 );
+
+						// we gain a bit of experience...
+						StatChange( this, STRAMT, 3, TRUE );
+						StatChange( this, HEALTHAMT, 2, TRUE );
+					}
+				}
+			}
+			break;
+
+		case MTA_FILL_SANDBAG:
+			{
+				// eventually search for the number of a sandbag item
+				if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
+				{
+					// Erase 'material' item from our hand - we 'used' it to build the structure
+					INT8 bObjSlot = HANDPOS;
+
+					CreateItem( fullsandbagnr, 100, &gTempObject );
+
+					SwapObjs( this, bObjSlot, &gTempObject, TRUE );
+
+					// we gain a bit of experience...
+					StatChange( this, STRAMT, 1, TRUE );
+					StatChange( this, HEALTHAMT, 1, TRUE );
+				}
+			}
+			break;
+		}
+
+		if ( entireapcost > 0 )
+			DeductPoints( this, bOverTurnAPS, (INT32)(entirebpcost * this->bOverTurnAPS / entireapcost), 0);
+
+		// we're done here!
+		CancelMultiTurnAction(TRUE);		
+	}
+	// remove the costs as much as we can
+	else if ( this->bActionPoints > 0 )
+	{
+		INT16 oldAPs = this->bActionPoints;
+		if ( bOverTurnAPS > 0 )
+			DeductPoints( this, this->bActionPoints, (INT32)(entirebpcost * this->bActionPoints / entireapcost), 0);
+
+		bOverTurnAPS -= oldAPs;
+	}
+
+	return TRUE;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -16255,8 +16489,6 @@ extern UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 
 void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection )
 {
-	// a static variable that is the item number of sandbags. Hardcoding item numbers is bad, that's why we will search for it.
-	static UINT16 fullsandbagnr = 1541;
 	BOOLEAN fSuccess = FALSE;
 
 	// if specified by the ini, building/disassembling stuff is disabled while enemies are around
@@ -16275,36 +16507,12 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 
 	if ( pObj && pObj->exists() && HasItemFlag(this->inv[ HANDPOS ].usItem, (EMPTY_SANDBAG|FULL_SANDBAG|SHOVEL|CONCERTINA)) )
 	{
-		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
-
-		if (!is_networked)
-			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
-		else
-			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
-
-		// ugly, ugly hack: as e do not have a special animation for this action, we use the 'cut a fence' animations
-		// however, APs are directly deducted because of this. So we can't use the AP_FORTIFICATION costs
-		// for this reason, we deduct the APS still missing here
-		INT16 restAPs = max(0, APBPConstants[AP_FORTIFICATION] - APBPConstants[AP_USEWIRECUTTERS]);
-		
 		if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (FULL_SANDBAG|CONCERTINA)) )
 		{
 			// Build the thing
-			if ( BuildFortification( Item[ pObj->usItem ].usItemFlag ) )
-			{
-				// Erase 'material' item from our hand - we 'used' it to build the structure
-				DeleteObj( &(this->inv[HANDPOS]) );
+			this->StartMultiTurnAction( MTA_FORTIFY );
 
-				// we gain a bit of experience...
-				StatChange( this, STRAMT, 4, TRUE );
-				StatChange( this, HEALTHAMT, 2, TRUE );
-
-				DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
-
-				fSuccess = TRUE;
-			}
+			fSuccess = TRUE;
 		}
 		else if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (EMPTY_SANDBAG)) )
 		{
@@ -16316,52 +16524,17 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 
 				if ( pShovelObj && pShovelObj->exists() && HasItemFlag(this->inv[ SECONDHANDPOS ].usItem, (SHOVEL)) )
 				{
-					// eventually search for the number of a sandbag item
-					if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
-					{
-						// Erase 'material' item from our hand - we 'used' it to build the structure
-						INT8 bObjSlot = HANDPOS;
+					this->StartMultiTurnAction( MTA_FILL_SANDBAG );
 
-						CreateItem( fullsandbagnr, 100, &gTempObject );
-
-						SwapObjs( this, bObjSlot, &gTempObject, TRUE );
-
-						// we gain a bit of experience...
-						StatChange( this, STRAMT, 1, TRUE );
-						StatChange( this, HEALTHAMT, 1, TRUE );
-
-						DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
-
-						fSuccess = TRUE;
-					}
+					fSuccess = TRUE;
 				}
 			}
 		}
 		else if ( HasItemFlag(this->inv[ HANDPOS ].usItem, (SHOVEL)) )
 		{
-			// Build the thing
-			if ( RemoveFortification( sGridNo ) )
-			{
-				// eventually search for the number of a sandbag item
-				if ( HasItemFlag(fullsandbagnr, FULL_SANDBAG) || GetFirstItemWithFlag(&fullsandbagnr, FULL_SANDBAG) )
-				{
-					// Erase 'material' item from our hand - we 'used' it to build the structure
-					INT8 bObjSlot = HANDPOS;
+			this->StartMultiTurnAction( MTA_REMOVE_FORTIFY );
 
-					CreateItem( fullsandbagnr, 100, &gTempObject );
-
-					// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
-					AddItemToPool( sGridNo, &gTempObject, 1, 0, 0, -1 );
-
-					// we gain a bit of experience...
-					StatChange( this, STRAMT, 3, TRUE );
-					StatChange( this, HEALTHAMT, 2, TRUE );
-
-					DeductPoints( this, restAPs, 0, AFTERACTION_INTERRUPT );
-
-					fSuccess = TRUE;
-				}
-			}
+			fSuccess = TRUE;
 		}
 	}
 
@@ -16369,6 +16542,17 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 	{
 		// Say NOTHING quote...
 		this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+	}
+	else
+	{
+		// CHANGE DIRECTION AND GOTO ANIMATION NOW
+		this->EVENT_SetSoldierDesiredDirection( ubDirection );
+		this->EVENT_SetSoldierDirection( ubDirection );
+
+		if (!is_networked)
+			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+		else
+			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 	}
 }
 
@@ -16474,7 +16658,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			StatChange( this, DEXTAMT, 3, TRUE );
 			StatChange( this, EXPERAMT, 2, TRUE );
 
-			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), 0, AFTERACTION_INTERRUPT );
+			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), APBPConstants[BP_HANDCUFF], AFTERACTION_INTERRUPT );
 
 			// this might have been the last guy...
 			CheckForEndOfBattle( FALSE );
@@ -16484,7 +16668,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			// we gain a bit of experience...
 			StatChange( this, DEXTAMT, 2, TRUE );
 
-			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), 0, AFTERACTION_INTERRUPT );
+			DeductPoints( this, GetAPsToHandcuff( this, sGridNo ), APBPConstants[BP_HANDCUFF], AFTERACTION_INTERRUPT );
 
 			// curses!
 			this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );

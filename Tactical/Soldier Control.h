@@ -389,6 +389,16 @@ enum
 #define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
 // ----------------------------------------------------------------
 
+// Flugente: types of multi-turn actions
+enum
+{
+	MTA_NONE = 0,
+	MTA_FORTIFY,
+	MTA_REMOVE_FORTIFY,
+	MTA_FILL_SANDBAG,
+	NUM_MTA,
+};
+
 // enum of uniform pieces
 typedef struct
 {
@@ -1249,8 +1259,13 @@ public:
 	UINT8	usStarveDamageHealth;	// damage to health due to starvation. Can be cured by surgery, but only if nutrition level is high enough again
 	UINT8	usStarveDamageStrength;	// damage to strength due to starvation. Can be cured by surgery, but only if nutrition level is high enough again
 
+	// Flugente: multi-turn actions	
+	INT16	bOverTurnAPS;			// remaining AP cost for the next turns	(allows actions to be performed for more than one turn)
+	INT32	sMTActionGridNo;		// gridno on which we perfrom our multi-turn action
+	UINT8	usMultiTurnAction;		// specifies which multi-turn action we are currently performing, 0: none
+
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
-	UINT8	ubFiller[20];	
+	UINT8	ubFiller[13];	
 	
 #ifdef JA2UB
 	//ja25
@@ -1512,6 +1527,12 @@ public:
 
 	// Flugente: are we an assassin?
 	BOOLEAN		IsAssassin();
+
+	// Flugente: multi-turn actions
+	UINT8	GetMultiTurnAction();
+	void	StartMultiTurnAction(UINT8 usActionType);
+	void	CancelMultiTurnAction(BOOLEAN fFinished);
+	BOOLEAN	UpdateMultiTurnAction();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

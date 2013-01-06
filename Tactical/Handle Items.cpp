@@ -1140,6 +1140,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
 		if ( HasItemFlag(usHandItem, (EMPTY_SANDBAG)) )
 		{
+			sAPCost = APBPConstants[AP_FILL_SANDBAG];
+
 			// check if we have a shovel in our second hand
 			OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
 
@@ -1155,10 +1157,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				return( ITEM_HANDLE_REFUSAL );
 			}
 		}
-
-		// if we have a shovel in our hands, the targetted gridno must be a fortification (debris will do for this check)
-		if ( HasItemFlag(usHandItem, (SHOVEL)) )
+		// if we have a shovel in our hands, the targeted gridno must be a fortification (debris will do for this check)
+		else if ( HasItemFlag(usHandItem, (SHOVEL)) )
 		{
+			sAPCost = APBPConstants[AP_REMOVE_FORTIFICATION];
+
 			STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
 
 			if ( !pStruct )
@@ -1166,16 +1169,20 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				return( ITEM_HANDLE_REFUSAL );
 			}
 		}
+		else
+		{
+			sAPCost = APBPConstants[AP_FORTIFICATION];
+		}
 
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
 		if ( sActionGridNo != -1 )
 		{			
 			// Calculate AP costs...
-			sAPCost = GetAPsToBuildFortification( pSoldier, sActionGridNo );
 			sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
-			if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+			//if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+			if ( pSoldier->bActionPoints > 0 )
 			{
 				// CHECK IF WE ARE AT THIS GRIDNO NOW
 				if ( pSoldier->sGridNo != sActionGridNo )
@@ -6251,9 +6258,8 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	SetCustomizableTimerCallbackAndDelay( 1000, CheckForPickedOwnership, TRUE );
 }
 
-BOOLEAN BuildFortification( UINT32 flag )
-{
-	INT32				sGridNo;		
+BOOLEAN BuildFortification( INT32 sGridNo, UINT32 flag )
+{	
 	UINT32				fHeadType;
 	UINT16				usUseIndex;
 	UINT16				usUseObjIndex = 0;
@@ -6268,9 +6274,7 @@ BOOLEAN BuildFortification( UINT32 flag )
 	{
 		return FALSE;
 	}
-
-	GetMouseMapPos( &sGridNo );
-
+	
 	if( InARoom( sGridNo, NULL ) )
 		return FALSE;
 

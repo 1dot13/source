@@ -3681,17 +3681,6 @@ INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 
 }
 
-INT16 GetAPsToBuildFortification( SOLDIERTYPE *pSoldier, INT32 usMapPos )
-{
-	INT16						sAPCost = 0;
-
-	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-		
-	sAPCost += APBPConstants[AP_FORTIFICATION];
-
-	return sAPCost;
-}
-
 INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
 	INT16						sAPCost = 0;

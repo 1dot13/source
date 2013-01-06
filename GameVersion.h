@@ -20,8 +20,9 @@ extern	CHAR16		zTrackingNumber[16];
 //
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
-#define			SAVE_GAME_VERSION								137 // 134	// 133	// 132 //131 //125 //124		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
+#define			SAVE_GAME_VERSION								138
 
+#define			MULTITURN_ACTIONS								138	// Flugente: multiturn actions
 #define			EXTERNALISED_MERCHANTS							137	// Flugente: increased the number of merchants and externalised their data
 #define			PRISON_SYSTEM									136	// Flugente: added var to the sector structure. Shouldn't break compatibility, but let's be safe
 #define			DUAL_BURST_ADDED								135

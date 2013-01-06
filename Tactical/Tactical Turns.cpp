@@ -240,6 +240,9 @@ void HandleTacticalEndTurn( )
 				//{
 				////	UpdateStats( pSoldier );
 				//}
+								
+				// Flugente: update multi-turn actions
+				pSoldier->UpdateMultiTurnAction();
 			}
 		}
 

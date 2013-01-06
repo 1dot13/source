@@ -2327,6 +2327,13 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 22 );
 			bNumRightIcons++;
 		}
+
+		// Flugente: add an icon if we are performing a multi-turn action
+		if ( MercPtrs[ pFace->ubSoldierID ]->GetMultiTurnAction() > MTA_NONE )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 24 );
+			bNumRightIcons++;
+		}
 	}
 
 		switch( pSoldier->bAssignment )

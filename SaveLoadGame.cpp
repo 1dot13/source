@@ -2024,12 +2024,31 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageHealth, sizeof(usStarveDamageHealth), sizeof(UINT8), numBytesRead);
 			numBytesRead = ReadFieldByField(hFile, &this->usStarveDamageStrength, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
 
-			numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+			if ( guiCurrentSaveGameVersion >=  MULTITURN_ACTIONS )
+			{
+				numBytesRead = ReadFieldByField(hFile, &this->bOverTurnAPS, sizeof(bOverTurnAPS), sizeof(INT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &this->sMTActionGridNo, sizeof(sMTActionGridNo), sizeof(INT32), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &this->usMultiTurnAction, sizeof(usMultiTurnAction), sizeof(UINT8), numBytesRead);
+
+				numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+			}
+			else
+			{
+				this->bOverTurnAPS		= 0;
+				this->sMTActionGridNo	= NOWHERE;
+				this->usMultiTurnAction = 0;
+
+				// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
+				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction);
+				UINT8 blarg[tmp];
+				numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
+				
+				numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+			}
 		}
 		else
 		{
 			//CHRISL: We have to make sure we add a buffer to account for the lack of ubInterruptCounter and that buffer needs to be a full DWORD in size
-			buffer = 0;
 			for(int i = 0; i < sizeof(bFoodLevel); ++i)
 				buffer++;
 			while((buffer%4) > 0)
@@ -2054,8 +2073,6 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				buffer++;
 			while((buffer%4) > 0)
 				buffer++;
-
-			numBytesRead += buffer;
 		}
 
 #ifdef JA2UB

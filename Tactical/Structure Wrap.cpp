@@ -574,7 +574,7 @@ BOOLEAN IsFortificationPossibleAtGridNo( INT32 sGridNo )
 
 	STRUCTURE * pStructure = NULL;
 
-	pStructure = FindStructure( sGridNo, (STRUCTURE_OBSTACLE) );
+	pStructure = FindStructure( sGridNo, (STRUCTURE_OBSTACLE|STRUCTURE_PERSON) );
 
 	return( pStructure == NULL );
 }

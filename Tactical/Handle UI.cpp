@@ -4132,8 +4132,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			sActionGridNo = usMapPos;
 		}
 
-		sAPCost = GetAPsToBuildFortification( pSoldier, sActionGridNo );
-
+		sAPCost = APBPConstants[AP_FORTIFICATION];
 		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
 		if ( sActionGridNo != pSoldier->sGridNo )

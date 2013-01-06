@@ -2415,6 +2415,16 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_INV_TO_BIG_POCKET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_BIG_POCKET",4),4);
 	APBPConstants[AP_INV_TO_SMALL_POCKET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_TO_SMALL_POCKET",5),5);
 	APBPConstants[AP_INV_MAX_COST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INV_MAX_COST",25),25);
+	APBPConstants[AP_JUMPWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPOFFWALL",40),40);
+	APBPConstants[AP_JUMPOFFWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWALL",24),24);
+	APBPConstants[AP_FORTIFICATION]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FORTIFICATION", 250), 250);
+	APBPConstants[AP_REMOVE_FORTIFICATION]			= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_REMOVE_FORTIFICATION", 150), 150);
+	APBPConstants[AP_FILL_SANDBAG]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FILL_SANDBAG", 200), 200);
+	APBPConstants[AP_EAT]							= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EAT",80),80);
+	APBPConstants[AP_CLEANINGKIT]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLEANINGKIT",80),80);
+	APBPConstants[AP_INVENTORY_EXPLOSIVE_ACTIVATE]	= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_EXPLOSIVE_ACTIVATE",20),20);
+	APBPConstants[AP_DISGUISE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_DISGUISE",80),80);
+	APBPConstants[AP_HANDCUFF]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_HANDCUFF",50),50);
 
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);
@@ -2465,21 +2475,14 @@ void LoadGameAPBPConstants()
 	APBPConstants[BP_JUMP_OVER] = iniReader.ReadInteger("BPConstants","BP_JUMP_OVER",250);
 	APBPConstants[BP_BACK_PACK] = iniReader.ReadInteger("APConstants","BP_JUMP_OVER",50);
 	APBPConstants[BP_WORK_ZIPPER] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",250);
-	APBPConstants[BP_UNJAM] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",0);
-	
+	APBPConstants[BP_UNJAM] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",0);	
 	APBPConstants[BP_JUMPOFFWALL] = iniReader.ReadInteger("BPConstants","BP_JUMPOFFWALL",250);
 	APBPConstants[BP_JUMPWALL] = iniReader.ReadInteger("BPConstants","BP_JUMPWALL",500);
-	
-	APBPConstants[AP_JUMPWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPOFFWALL",40),40);
-	APBPConstants[AP_JUMPOFFWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWALL",24),24);
-
-	APBPConstants[AP_FORTIFICATION]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FORTIFICATION",80),80);
-	APBPConstants[AP_EAT]							= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EAT",80),80);
-	APBPConstants[AP_CLEANINGKIT]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLEANINGKIT",80),80);
-	APBPConstants[AP_INVENTORY_EXPLOSIVE_ACTIVATE]	= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_EXPLOSIVE_ACTIVATE",20),20);
-	APBPConstants[AP_DISGUISE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_DISGUISE",80),80);
-	APBPConstants[AP_HANDCUFF]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_HANDCUFF",50),50);
-
+	APBPConstants[BP_FORTIFICATION]					= iniReader.ReadInteger("BPConstants","BP_FORTIFICATION", 700);
+	APBPConstants[BP_REMOVE_FORTIFICATION]			= iniReader.ReadInteger("BPConstants","BP_REMOVE_FORTIFICATION", 400);
+	APBPConstants[BP_FILL_SANDBAG]					= iniReader.ReadInteger("BPConstants","BP_FILL_SANDBAG", 500);
+	APBPConstants[BP_HANDCUFF]						= iniReader.ReadInteger("BPConstants","BP_HANDCUFF", 100);
+			
 	SetupMaxActionPointsAnimation();
 #undef ReadInteger
 }

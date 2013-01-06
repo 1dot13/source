@@ -356,7 +356,6 @@ INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT32 usMapPos );
 INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT32 usMapPos );
 INT16 GetBPsTouseJar( SOLDIERTYPE *pSoldier );
 
-INT16 GetAPsToBuildFortification( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 
 INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier );
