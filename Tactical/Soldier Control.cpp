@@ -15572,6 +15572,8 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 
 			if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
 				fActionStillValid = FALSE;
+			else if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, (FULL_SANDBAG|CONCERTINA)) )
+				fActionStillValid = FALSE;
 		}
 		break;
 	case MTA_REMOVE_FORTIFY:
