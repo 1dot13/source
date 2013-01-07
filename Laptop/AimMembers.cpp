@@ -5181,11 +5181,19 @@ void HandleAimMemberKeyBoardInput()
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
 						{
-							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-							//tais: handle selected kit
-							WeaponKitSelectionUpdate(0);
+							UINT8 i;
+							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
+							{
+								if(gMercProfileGear[gbCurrentSoldier][0].inv[i] != NONE)
+								{
+									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+									//tais: handle selected kit
+									WeaponKitSelectionUpdate(0);
+									gfRedrawScreen = TRUE;
+									break;
+								}
+							}
 						}
-						gfRedrawScreen = TRUE;
 					}
 				break;
 				case '2':
@@ -5196,11 +5204,19 @@ void HandleAimMemberKeyBoardInput()
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
 						{
-							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-							//tais: handle selected kit
-							WeaponKitSelectionUpdate(1);
+							UINT8 i;							
+							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
+							{
+								if(gMercProfileGear[gbCurrentSoldier][1].inv[i] != NONE)
+								{
+									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+									//tais: handle selected kit
+									WeaponKitSelectionUpdate(1);
+									gfRedrawScreen = TRUE;
+									break;
+								}
+							}
 						}
-						gfRedrawScreen = TRUE;
 					}
 				break;
 				case '3':
@@ -5211,11 +5227,19 @@ void HandleAimMemberKeyBoardInput()
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
 						{
-							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-							//tais: handle selected kit
-							WeaponKitSelectionUpdate(2);
+							UINT8 i;							
+							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
+							{
+								if(gMercProfileGear[gbCurrentSoldier][2].inv[i] != NONE)
+								{
+									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+									//tais: handle selected kit
+									WeaponKitSelectionUpdate(2);
+									gfRedrawScreen = TRUE;
+									break;
+								}
+							}
 						}
-						gfRedrawScreen = TRUE;
 					}
 				break;
 				case '4':
@@ -5226,11 +5250,19 @@ void HandleAimMemberKeyBoardInput()
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
 						{
-							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-							//tais: handle selected kit
-							WeaponKitSelectionUpdate(3);
+							UINT8 i;							
+							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
+							{
+								if(gMercProfileGear[gbCurrentSoldier][3].inv[i] != NONE)
+								{
+									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+									//tais: handle selected kit
+									WeaponKitSelectionUpdate(3);
+									gfRedrawScreen = TRUE;
+									break;
+								}
+							}
 						}
-						gfRedrawScreen = TRUE;
 					}
 				break;
 				case '5':
@@ -5241,11 +5273,19 @@ void HandleAimMemberKeyBoardInput()
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
 						{
-							gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-							//tais: handle selected kit
-							WeaponKitSelectionUpdate(4);
+							UINT8 i;							
+							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
+							{
+								if(gMercProfileGear[gbCurrentSoldier][4].inv[i] != NONE)
+								{
+									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+									//tais: handle selected kit
+									WeaponKitSelectionUpdate(4);
+									gfRedrawScreen = TRUE;
+									break;
+								}
+							}
 						}
-						gfRedrawScreen = TRUE;
 					}
 				break;
 				default:

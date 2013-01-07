@@ -42,10 +42,11 @@
 #define		BOBBYR_ORDER_TEXT_COLOR						75
 
 #define		BOBBYR_STATIC_TEXT_COLOR					75
-#define	BOBBYR_ITEM_DESC_TEXT_FONT				FONT10ARIAL
-#define	BOBBYR_ITEM_DESC_TEXT_COLOR				FONT_MCOLOR_WHITE
-#define	BOBBYR_ITEM_NAME_TEXT_FONT				FONT10ARIAL
-#define	BOBBYR_ITEM_NAME_TEXT_COLOR				FONT_MCOLOR_WHITE
+#define		BOBBYR_ITEM_DESC_TEXT_FONT					FONT10ARIAL
+#define		BOBBYR_ITEM_DESC_TEXT_COLOR					FONT_MCOLOR_WHITE
+#define		BOBBYR_ITEM_DESC_TEXT_COLOR_ALT				FONT_GRAY1
+#define		BOBBYR_ITEM_NAME_TEXT_FONT					FONT10ARIAL
+#define		BOBBYR_ITEM_NAME_TEXT_COLOR					FONT_MCOLOR_WHITE
 
 #define		NUM_BOBBYRPAGE_MENU								6
 #define		NUM_CATALOGUE_BUTTONS							5
@@ -317,11 +318,14 @@ BOOLEAN DisplayArmourInfo(UINT16 usItemIndex, UINT16 usTextPosY, BOOLEAN fUsed, 
 BOOLEAN DisplayMiscInfo(UINT16 usItemIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16 usBobbyIndex);
 BOOLEAN DisplayGunInfo(UINT16 usItemIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16 usBobbyIndex);
 BOOLEAN DisplayAmmoInfo(UINT16 usItemIndex, UINT16 usPosY, BOOLEAN fUsed, UINT16 usBobbyIndex);
+BOOLEAN DisplayGrenadeBombInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16 usBobbyIndex);
 
 BOOLEAN DisplayBigItemImage(UINT16 ubIndex, UINT16 usPosY);
 //void InitFirstAndLastGlobalIndex(UINT32 ubItemClassMask);
 UINT16 DisplayCostAndQty(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight, UINT16 usBobbyIndex, BOOLEAN fUsed);
 UINT16 DisplayRof(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayGunAP(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayMeleeAP(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayRange(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayMagazine(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
@@ -330,6 +334,10 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 UINT16 DisplayLBEInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayWeight(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayCaliber(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayExplosiveDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayExplosiveStunDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayProtection(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
+UINT16 DisplayCamo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 void CreateMouseRegionForBigImage(UINT16 usPosY, UINT8 ubCount, INT16 *pItemNumbers );
 // HEADROCK HAM 4: Now can purchase ALL items available.
 void PurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems );
@@ -1661,6 +1669,46 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 
 			case IC_GRENADE:
 			case IC_BOMB:
+				// USED
+				if (uiItemClass == BOBBYR_USED_ITEMS)
+				{
+					if (iFilter > -1)
+					{
+						if (Item[usItemIndex].usItemClass == IC_GRENADE ||
+							Item[usItemIndex].usItemClass == IC_BOMB)
+						{
+							bAddItem = TRUE;
+						}
+					}
+				}
+				// MISC
+				else
+				{
+					if (iFilter > -1)
+					{
+						if (Item[usItemIndex].usItemClass == iFilter)
+						{
+							bAddItem = true;
+						}
+					}
+				}
+
+				if (bAddItem == TRUE)
+				{
+					gusItemNumberForItemsOnScreen[ ubCount ] = i;
+
+					DisplayBigItemImage( usItemIndex, PosY);
+
+					//Display Items Name
+					DisplayItemNameAndInfo(usTextPosY, usItemIndex, i, gfOnUsedPage);
+
+					DisplayGrenadeBombInfo(usItemIndex, usTextPosY, gfOnUsedPage, i);
+
+					PosY += BOBBYR_GRID_OFFSET;
+					usTextPosY += BOBBYR_GRID_OFFSET;
+					ubCount++;
+				}
+				break;
 			case IC_MISC:
 			case IC_MEDKIT:
 			case IC_KIT:
@@ -1671,9 +1719,7 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 				{
 					if (iFilter > -1)
 					{
-						if (Item[usItemIndex].usItemClass == IC_GRENADE ||
-							Item[usItemIndex].usItemClass == IC_BOMB ||
-							Item[usItemIndex].usItemClass == IC_MISC ||
+						if (Item[usItemIndex].usItemClass == IC_MISC ||
 							Item[usItemIndex].usItemClass == IC_MEDKIT ||
 							Item[usItemIndex].usItemClass == IC_KIT ||
 							Item[usItemIndex].usItemClass == IC_LBEGEAR ||
@@ -1744,8 +1790,8 @@ BOOLEAN DisplayGunInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16 
 	usHeight = usTextPosY;
 	//Display the weight, caliber, mag, rng, dam, rof text
 
-	//Weight
-	usHeight = DisplayWeight(usHeight, usIndex, usFontHeight);
+	//Weight - Removed due to limited space
+	//usHeight = DisplayWeight(usHeight, usIndex, usFontHeight);
 
 	//Caliber
 	usHeight = DisplayCaliber(usHeight, usIndex, usFontHeight);
@@ -1753,14 +1799,17 @@ BOOLEAN DisplayGunInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16 
 	//Magazine
 	usHeight = DisplayMagazine(usHeight, usIndex, usFontHeight);
 
-	//Range
-	usHeight = DisplayRange(usHeight, usIndex, usFontHeight);
-
 	//Damage
 	usHeight = DisplayDamage(usHeight, usIndex, usFontHeight);
 
+	//Range
+	usHeight = DisplayRange(usHeight, usIndex, usFontHeight);
+
 	//ROF
 	usHeight = DisplayRof(usHeight, usIndex, usFontHeight);
+
+	//AP
+	usHeight = DisplayGunAP(usHeight, usIndex, usFontHeight);
 
 	//Display the Cost and the qty bought and on hand
 	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
@@ -1785,6 +1834,9 @@ BOOLEAN DisplayNonGunWeaponInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed
 
 	//Damage
 	usHeight = DisplayDamage(usHeight, usIndex, usFontHeight);
+
+	//AP
+	usHeight = DisplayMeleeAP(usHeight, usIndex, usFontHeight);
 
 	//Display the Cost and the qty bought and on hand
 	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
@@ -1811,6 +1863,34 @@ BOOLEAN DisplayAmmoInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16
 
 	//Magazine
 	usHeight = DisplayMagazine(usHeight, usIndex, usFontHeight);
+
+	//Display the Cost and the qty bought and on hand
+	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
+
+	return(TRUE);
+} //DisplayAmmoInfo
+
+
+BOOLEAN DisplayGrenadeBombInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16 usBobbyIndex)
+{
+	UINT16	usHeight;
+	UINT16 usFontHeight;
+	usFontHeight = GetFontHeight(BOBBYR_ITEM_DESC_TEXT_FONT);
+
+	//Display Items Name
+//	DisplayItemNameAndInfo(usTextPosY, usIndex, fUsed);
+
+	usHeight = usTextPosY;
+	//Display the weight, caliber, mag, rng, dam, rof text
+
+	//Weight
+	usHeight = DisplayWeight(usHeight, usIndex, usFontHeight);
+
+	//Explosive Damage
+	usHeight = DisplayExplosiveDamage(usHeight, usIndex, usFontHeight);
+
+	//Explosive Stun Damage
+	usHeight = DisplayExplosiveStunDamage(usHeight, usIndex, usFontHeight);
 
 	//Display the Cost and the qty bought and on hand
 	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
@@ -1893,6 +1973,12 @@ BOOLEAN DisplayArmourInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT
 
 	//Weight
 	usHeight = DisplayWeight(usHeight, usIndex, usFontHeight);
+
+	//Protection
+	usHeight = DisplayProtection(usHeight, usIndex, usFontHeight);
+
+	//Camo
+	usHeight = DisplayCamo(usHeight, usIndex, usFontHeight);
 
 	//Display the Cost and the qty bought and on hand
 	usHeight = DisplayCostAndQty(usTextPosY, usIndex, usFontHeight, usBobbyIndex, fUsed);
@@ -2003,6 +2089,65 @@ UINT16 DisplayRof(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	return(usPosY);
 }
 
+UINT16 DisplayGunAP(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16 sTemp[20];
+	CHAR16 sTemp2[20];
+	OBJECTTYPE pObject;
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_AP], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	
+	CreateItem(usIndex, 100, &pObject);
+	UINT16		readyAPs = (UINT16)(( Weapon[ usIndex ].ubReadyTime * (100 - Item[ usIndex ].percentreadytimeapreduction)) / 100);
+	INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
+	
+	swprintf( sTemp, L"(%d)", readyAPs );
+
+	if ( Weapon[ usIndex ].NoSemiAuto )
+		wcscat( sTemp, L"-" );
+	else
+	{
+		swprintf( sTemp2, L"%d", ubAttackAPs );
+		wcscat( sTemp, sTemp2 );
+	}
+
+	if (GetShotsPerBurst(&pObject) > 0)
+	{
+		swprintf( sTemp2, L"/%d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
+		wcscat( sTemp, sTemp2 );
+	}
+	else
+		wcscat( sTemp, L"/-" );
+
+	if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
+	{
+		swprintf( sTemp2, L"/%d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
+		wcscat( sTemp, sTemp2 );
+	}
+	else
+		wcscat( sTemp, L"/-" );
+
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayMeleeAP(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16 sTemp[20];
+	OBJECTTYPE pObject;
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_AP], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	
+	CreateItem(usIndex, 100, &pObject);
+	INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
+
+	swprintf( sTemp, L"%d", ubAttackAPs );
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
 UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
 	CHAR16	sTemp[20];
@@ -2039,7 +2184,7 @@ UINT16 DisplayRange(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	gunRange = (UINT16)GetModifiedGunRange( usIndex);
 
 	swprintf(sTemp, L"%3d %s", gunRange, pMessageStrings[ MSG_METER_ABBREVIATION ] );
-	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
 }
@@ -2054,7 +2199,7 @@ UINT16 DisplayMagazine(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	}else{
 		swprintf(sTemp, L"%3d %s", Magazine[Item[usIndex].ubClassIndex].ubMagSize, pMessageStrings[ MSG_ROUNDS_ABBREVIATION ] );
 	}
-	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
 }
@@ -2085,6 +2230,84 @@ UINT16 DisplayCaliber(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	DrawTextToScreen( zTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayExplosiveDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16	sTemp[20];
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_DAMAGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	
+	UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usIndex ].ubClassIndex].ubDamage );
+	
+	swprintf(sTemp, L"%4d", explDamage);
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayExplosiveStunDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16	sTemp[20];
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_STUN], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	
+	UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usIndex ].ubClassIndex].ubStunDamage );
+	
+	swprintf(sTemp, L"%4d", explStunDamage);
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayProtection(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16	sTemp[20];
+	CHAR16	sTemp2[20];
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_PROTECTION], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	
+	INT32 iProtection = Armour[ Item[ usIndex ].ubClassIndex ].ubProtection;
+
+	switch( Armour[ Item[ usIndex ].ubClassIndex ].ubArmourClass )
+	{
+	case( ARMOURCLASS_HELMET ):
+		iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
+		break;
+
+	case( ARMOURCLASS_VEST ):
+		iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+		break;
+
+	case( ARMOURCLASS_LEGGINGS ):
+		iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
+		break;
+
+	case( ARMOURCLASS_PLATE ):
+		iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+		break;
+	}
+	
+	swprintf(sTemp, L"%d", iProtection, Armour[ Item[ usIndex ].ubClassIndex ].ubProtection);
+	wcscat( sTemp, L"%%" );
+	swprintf( sTemp2, L"(%d)", Armour[ Item[ usIndex ].ubClassIndex ].ubProtection );
+	wcscat( sTemp, sTemp2 );
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosY += usFontHeight + 2;
+	return(usPosY);
+}
+
+UINT16 DisplayCamo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
+{
+	CHAR16 sTemp[20];
+
+	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_CAMO], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	
+	swprintf(sTemp, L"%d", Item[ usIndex ].camobonus);
+	wcscat( sTemp, L"%%" );
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
 }
@@ -2151,7 +2374,7 @@ UINT16 DisplayWeight(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_WEIGHT], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	swprintf(sTemp, L"%3.2f %s", GetWeightBasedOnMetricOption(Item[ usIndex ].ubWeight)/10, GetWeightUnitString() );
-	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
 }
@@ -2498,43 +2721,6 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 		switch( Item[ pItemNumbers[ i ] ].usItemClass )
 		{
 		case IC_GUN:
-			//Calculate AP's
-			//INT16 apStr[20];
-
-			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
-			//{
-			//	INT16 apStr2[20];
-			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
-
-			//	swprintf( apStr, L"%d", ubAttackAPs );
-
-			//	if (GetShotsPerBurst(pObject) > 0)
-			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
-			//		wcscat( apStr, apStr2 );
-			//	}
-			//	else
-			//	{
-			//		wcscat( apStr, L" / -" );
-			//	}
-
-			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
-			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
-			//		wcscat( apStr, apStr2 );
-			//	}
-			//	else
-			//	{
-			//		wcscat( apStr, L" / -" );
-			//	}
-			//}
-			//else
-			//{
-			//	swprintf( apStr, L"" );
-			//}
-
-			//Info for weapons
-			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
 				// HEADROCK HAM 3.6: Can now take a negative modifier.
 				//UINT16	gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
@@ -2558,7 +2744,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				UINT16		usAttachment;
 
 				CreateItem(pItemNumbers[ i ], 100, &pObject);
-				UINT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
+				INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
 
 				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
 					swprintf( apStr, L"-" );
@@ -2702,7 +2888,6 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					gWeaponStatsDesc[ 6 ],					//AP String
 					readyAPs,
 					apStr,									//AP's
-					//L"- / - / -",
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
 					GetWeightUnitString(),					//Weight units
@@ -2711,54 +2896,46 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			}
 			break;
 
-
-
 		case IC_LAUNCHER:
-			//Calculate AP's
-			//INT16 apStr[20];
-
-			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
-			//{
-			//	INT16 apStr2[20];
-			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
-
-			//	swprintf( apStr, L"%d", ubAttackAPs );
-
-			//	if (GetShotsPerBurst(pObject) > 0)
-			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
-			//		wcscat( apStr, apStr2 );
-			//	}
-			//	else
-			//	{
-			//		wcscat( apStr, L" / -" );
-			//	}
-
-			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
-			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
-			//		wcscat( apStr, apStr2 );
-			//	}
-			//	else
-			//	{
-			//		wcscat( apStr, L" / -" );
-			//	}
-			//}
-			//else
-			//{
-			//	swprintf( apStr, L"" );
-			//}
-
-			//Info for weapons
-			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
 				// HEADROCK HAM 3.6: Can now take a negative modifier.
 				UINT16 gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
+				UINT16 readyAPs = (UINT16)(( Weapon[ pItemNumbers[ i ] ].ubReadyTime * (100 - Item[ pItemNumbers[ i ] ].percentreadytimeapreduction)) / 100);
 				UINT16 usRange = (UINT16)GetModifiedGunRange(pItemNumbers[ i ]);
 				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ pItemNumbers[ i ] ].nAccuracy:Weapon[ pItemNumbers[ i ] ].bAccuracy);
 				//UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
-				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s",
+				//Calculate AP's
+				CHAR16		apStr[20];
+				CHAR16		apStr2[20];
+				OBJECTTYPE	pObject;
+
+				CreateItem(pItemNumbers[ i ], 100, &pObject);
+				INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
+
+				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
+					swprintf( apStr, L"-" );
+				else
+					swprintf( apStr2, L"%d", ubAttackAPs );
+					wcscat( apStr, apStr2 );
+
+				if (GetShotsPerBurst(&pObject) > 0)
+				{
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
+					wcscat( apStr, apStr2 );
+				}
+				else
+					wcscat( apStr, L" / -" );
+
+				if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
+				{
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
+					wcscat( apStr, apStr2 );
+				}
+				else
+					wcscat( apStr, L" / -" );
+				
+				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
 					accuracy,								//Accuracy
@@ -2767,8 +2944,8 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					gWeaponStatsDesc[ 10 ],					//Range String
 					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? usRange/10 : usRange,	//Gun Range 
 					gWeaponStatsDesc[ 6 ],					//AP String
-					//apStr,								//AP's
-					L"- / - / -",
+					readyAPs,
+					apStr,									//AP's
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
 					GetWeightUnitString()					//Weight units
@@ -2782,15 +2959,16 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			{
 				// HEADROCK HAM 3.6: Can now take a negative modifier 
 				//UINT16 meleeDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
-				UINT16 meleeDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
+				//UINT16 meleeDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
+				OBJECTTYPE pObject;
 
-				swprintf( pStr, L"%s\n%s %d\n%s %s\n%s %1.1f %s",
+				CreateItem(pItemNumbers[ i ], 100, &pObject);
+				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],
 					gWeaponStatsDesc[ 11 ],					//Damage String
-					meleeDamage,							//Melee damage
+					GetDamage(&pObject),					//Melee damage
 					gWeaponStatsDesc[ 6 ],					//AP String
-					//apStr,								//AP's
-					L"-",
+					BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL ), //AP's
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
 					GetWeightUnitString()					//Weight units

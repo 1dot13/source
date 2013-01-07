@@ -4467,9 +4467,13 @@ STR16			BobbyRText[] =
 	L"Poids :",		// Weight of all the items of the same type
 	L"Cal :",			// the caliber of the gun
 	L"Chrg :",			// number of rounds of ammo the Magazine can hold
-	L"Portée:",			// The range of the gun
-	L"Dégats:",			// Damage of the weapon	
+	L"Portée :",			// The range of the gun
+	L"Dégats :",			// Damage of the weapon	
 	L"CdT :",			// Weapon's Rate Of Fire, acronym ROF
+	L"PA :",				// Weapon's Action Points, acronym AP
+	L"Etourdissement :",	// Weapon's Stun Damage
+	L"Protect :",		// Armour's Protection
+	L"Cam. :",			// Armour's Camouflage
 	L"Prix :",			// Cost of the item
 	L"En réserve :",			// The number of items still in the store's inventory
 	L"Qté commandée :",		// The number of items on order

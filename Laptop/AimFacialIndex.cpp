@@ -519,56 +519,62 @@ void HandleAimFacialIndexKeyBoardInput()
 					guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS;
 					break;
 				case LEFTARROW:
-					// previous page
-					for(i=0; i<MAX_NUMBER_MERCS; i++)
+					if ( MAX_NUMBER_MERCS > (AIM_FI_NUM_MUGSHOTS_X * AIM_FI_NUM_MUGSHOTS_Y) )
 					{
-						gAimProfiles[i] = TRUE;
-					}
+						// previous page
+						for(i=0; i<MAX_NUMBER_MERCS; i++)
+						{
+							gAimProfiles[i] = TRUE;
+						}
 
-					if ( START_MERC == 40 )
-					{
-						START_MERC = 0;
-					}	
-					else if ( START_MERC == 0 )
-					{
-						if ( MAX_NUMBER_MERCS > 80 )
-							START_MERC = 80;
+						if ( START_MERC == 40 )
+						{
+							START_MERC = 0;
+						}	
+						else if ( START_MERC == 0 )
+						{
+							if ( MAX_NUMBER_MERCS > 80 )
+								START_MERC = 80;
+							else
+								START_MERC = 40;
+						}
 						else
+						{
 							START_MERC = 40;
+						}
+					
+						ExitAimFacialIndex();
+						EnterAimFacialIndex();
 					}
-					else
-					{
-						START_MERC = 40;
-					}
-
-					ExitAimFacialIndex();
-					EnterAimFacialIndex();
 					break;
 				case RIGHTARROW:
-					// next page
-					for(i=0; i<MAX_NUMBER_MERCS; i++)
+					if ( MAX_NUMBER_MERCS > (AIM_FI_NUM_MUGSHOTS_X * AIM_FI_NUM_MUGSHOTS_Y) )
 					{
-						gAimProfiles[i] = TRUE;
-					}
+						// next page
+						for(i=0; i<MAX_NUMBER_MERCS; i++)
+						{
+							gAimProfiles[i] = TRUE;
+						}
 
-					if ( START_MERC == 0 )
-					{
-						START_MERC = 40;
-					}	
-					else if ( START_MERC == 40 )
-					{
-						if ( MAX_NUMBER_MERCS > 80 )
-							START_MERC = 80;
+						if ( START_MERC == 0 )
+						{
+							START_MERC = 40;
+						}	
+						else if ( START_MERC == 40 )
+						{
+							if ( MAX_NUMBER_MERCS > 80 )
+								START_MERC = 80;
+							else
+								START_MERC = 0;
+						}
 						else
+						{
 							START_MERC = 0;
+						}
+					
+						ExitAimFacialIndex();
+						EnterAimFacialIndex();
 					}
-					else
-					{
-						START_MERC = 0;
-					}
-
-					ExitAimFacialIndex();
-					EnterAimFacialIndex();
 					break;
 				default:
 					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );

@@ -4481,6 +4481,10 @@ STR16			BobbyRText[] =
 	L"Rng:",			// The range of the gun
 	L"Dam:",			// Damage of the weapon	
 	L"ROF:",			// Weapon's Rate Of Fire, acronym ROF
+	L"AP:",				// Weapon's Action Points, acronym AP
+	L"Stun:",			// Weapon's Stun Damage
+	L"Protect:",		// Armour's Protection
+	L"Camo:",			// Armour's Camouflage
 	L"Cost:",			// Cost of the item
 	L"In stock:",			// The number of items still in the store's inventory
 	L"Qty on Order:",		// The number of items on order

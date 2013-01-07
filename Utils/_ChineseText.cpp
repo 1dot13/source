@@ -4478,6 +4478,10 @@ STR16			BobbyRText[] =
 	L"射程: ",	//"Rng:",			// The range of the gun
 	L"杀伤力: ",	//"Dam:",			// Damage of the weapon
 	L"射速: ",	//"ROF:",			// Weapon's Rate Of Fire, acronym ROF
+	L"AP: ",	//L"AP:",				// Weapon's Action Points, acronym AP
+	L"晕眩: ",	//L"Stun:",			// Weapon's Stun Damage
+	L"防护: ",	//L"Protect:",		// Armour's Protection
+	L"伪装: ",	//L"Camo:",			// Armour's Camouflage
 	L"单价: ",	//"Cost:",			// Cost of the item
 	L"库存: ",	//"In stock:",			// The number of items still in the store's inventory
 	L"购买量: ",	//"Qty on Order:",		// The number of items on order
