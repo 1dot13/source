@@ -4205,10 +4205,14 @@ STR16			MercInfo[] =
 	L"Ingehuurd",
 	L"Salaris:",
 	L"Per Dag",
+	L"Aanv. Uitrusting:",
+	L"Totaal:",
 	L"Overleden",
 
 	L"Lijkt erop dat je teveel huurlingen wil recruteren. Limiet is 18.",
-	L"Niet beschikbaar",											
+	L"Koop Uitrusting?",
+	L"Niet beschikbaar",
+	L"Unsettled Bills", //TODO.Translate
 	L"Bio", //TODO.Translate
 	L"Inv",							
 };

@@ -4195,10 +4195,14 @@ STR16			MercInfo[] =
 	L"Engagé",
 	L"Salaire :",
 	L"Par jour",
+	L"Matériel optionnel :",
+	L"Total :",
 	L"Décédé(e)",
 
 	L"Vous ne pouvez engager plus de 18 mercenaires.",
-	L"Indisponible",											
+	L"Acheter équipement ?",
+	L"Indisponible",
+	L"Unsettled Bills", //TODO.Translate
 	L"Bio", //TODO.Translate
 	L"Inv",								
 };

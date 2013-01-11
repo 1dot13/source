@@ -2,7 +2,6 @@
 
 //time for a new header :)
 extern int readyteamreg[10];
-extern bool NOGEAR;
 
 typedef struct
 {

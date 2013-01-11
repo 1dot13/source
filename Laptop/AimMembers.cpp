@@ -5174,7 +5174,7 @@ void HandleAimMemberKeyBoardInput()
 					break;
 #endif
 				case '1':
-					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
 					{
 						// kit 1
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
@@ -5197,7 +5197,7 @@ void HandleAimMemberKeyBoardInput()
 					}
 				break;
 				case '2':
-					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
 					{
 						// kit 2
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
@@ -5220,7 +5220,7 @@ void HandleAimMemberKeyBoardInput()
 					}
 				break;
 				case '3':
-					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
 					{
 						// kit 3
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
@@ -5243,7 +5243,7 @@ void HandleAimMemberKeyBoardInput()
 					}
 				break;
 				case '4':
-					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
 					{
 						// kit 4
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
@@ -5266,7 +5266,7 @@ void HandleAimMemberKeyBoardInput()
 					}
 				break;
 				case '5':
-					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
 					{
 						// kit 5
 						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];

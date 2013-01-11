@@ -4193,10 +4193,14 @@ STR16			MercInfo[] =
 	L"Assoldato",
 	L"Salario:",
 	L"Al giorno",
+	L"Dispositivo opzionale:",
+	L"Totale:",
 	L"Deceduto",
 
 	L"Sembra che state arruolando troppi mercenari. Il vostro limite è di 18.",
-	L"Non disponibile",											
+	L"Compra equip.?",
+	L"Non disponibile",
+	L"Unsettled Bills", //TODO.Translate
 	L"Bio", //TODO.Translate
 	L"Inv",								
 };

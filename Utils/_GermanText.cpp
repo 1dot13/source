@@ -4129,10 +4129,14 @@ STR16 MercInfo[] =
 	L"Angestellt",	
 	L"Sold:",
 	L"Pro Tag",
+	L"Zusätzl. Ausrüst:",
+	L"Gesamt:",
 	L"Verstorben",	
 
 	L"Sie versuchen, zu viele Söldner anzuheuern. Sie haben die Maximalanzahl erreicht.",
-	L"nicht da",											
+	L"Ausrüstung kaufen?",
+	L"nicht da",
+	L"Unsettled Bills", //TODO.Translate
 	L"Bio", //TODO.Translate
 	L"Inv",								
 };

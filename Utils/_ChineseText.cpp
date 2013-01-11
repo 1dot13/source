@@ -4202,11 +4202,15 @@ STR16			MercInfo[] =
 	L"主页",	//"Home",
 	L"已雇佣",	//"Hired",
 	L"日薪: ",	//"Salary:",
-	L"每日",		//"Per Day",
+	L"每日",	//"per Day",
+	L"可选装备: ",	//"Optional Gear:",
+	L"合计: ",	//"Total:",
 	L"阵亡",	//"Deceased",
 
 	L"看起来你雇佣了太多的佣兵。最多只能雇18人。",	//"Looks like you're trying to hire too many mercs. Your limit is 18.",
+	L"购买装备？",	//"Buy Equipment?",	
 	L"不可雇佣",	//"Unavailable",
+	L"Unsettled Bills", //TODO.Translate
 	L"生平", //L"Bio",
 	L"物品", //L"Inv",
 };

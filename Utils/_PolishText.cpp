@@ -4201,10 +4201,14 @@ STR16			MercInfo[] =
 	L"Najęty",
 	L"Koszt:",
 	L"Dziennie",
+	L"Opcjonalne wyposażenie:",
+	L"Razem:",
 	L"Nie żyje",
 
 	L"Wygląda na to, że chcesz wynająć zbyt wielu najemników. Limit wynosi 18.",
+	L"Weź sprzęt?",
 	L"Niedostępny",
+	L"Unsettled Bills", //TODO.Translate
 	L"Bio", //TODO.Translate
 	L"Inv",
 };

@@ -4201,11 +4201,15 @@ STR16			MercInfo[] =
 	L"Home",
 	L"Hired",
 	L"Salary:",
-	L"Per Day",
+	L"per Day",
+	L"Optional Gear:",
+	L"Total:",
 	L"Deceased",
 
 	L"Looks like you're trying to hire too many mercs. Your limit is 18.",
-	L"Unavailable",											
+	L"Buy Equipment?",
+	L"Unavailable",
+	L"Unsettled Bills",
 	L"Bio",
 	L"Inv",
 };
