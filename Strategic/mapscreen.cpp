@@ -6811,7 +6811,6 @@ void InitializeWorldSize(INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ)
 void GetMapKeyboardInput( UINT32 *puiNewEvent )
 {
 	InputAtom InputEvent;
-	POINT MousePos;
 	INT8 bSquadNumber;
 	UINT8 ubGroupId = 0;
 	BOOLEAN fCtrl, fAlt;
@@ -9489,19 +9488,6 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				return;
 			}
 
-			if ( _KeyDown(CTRL) )
-			{
-				//CleanUpStack( &( pSoldier->inv[ uiHandPos ] ), NULL );
-
-				if( AutoPlaceObjectToWorld(pSoldier, &( pSoldier->inv[ uiHandPos ] ) ) )
-				{
-					//INVRenderINVPanelItem( pSoldier, uiHandPos, DIRTYLEVEL2);	// redraw the empty slot
-
-					fTeamPanelDirty = TRUE;
-					RenderTeamRegionBackground();
-				}
-			}
-
 			/* CHRISL: For New Inventory system.  Are we removing an existing LBE item?  If so, we need to pull
 			all items in the relevant IC Group pockets out of the soldiers inventory and put them into the LBE items
 			inventory. But first, find out if we already have a LBE item inventory for this item and this merc.  If we 
@@ -9538,7 +9524,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 			HandleTacticalEffectsOfEquipmentChange( pSoldier, uiHandPos, usOldItemIndex, NOTHING );
 
-		fInterfacePanelDirty = DIRTYLEVEL2;
+			fInterfacePanelDirty = DIRTYLEVEL2;
 			fCharacterInfoPanelDirty = TRUE;
 		}
 		else	// item in cursor
@@ -9851,6 +9837,19 @@ void MAPBeginItemPointer( SOLDIERTYPE *pSoldier, UINT8 ubHandPos )
 		numToMove = 1;
 	}
 	pSoldier->inv[ubHandPos].MoveThisObjectTo(gItemPointer, numToMove, pSoldier, ubHandPos);
+	
+	//Autoplace to map sector invectory
+	if ( _KeyDown(CTRL) )
+	{
+		if( AutoPlaceObjectToWorld(pSoldier, &gItemPointer) )
+		{
+			//INVRenderINVPanelItem( pSoldier, uiHandPos, DIRTYLEVEL2);	// redraw the empty slot
+
+			fTeamPanelDirty = TRUE;
+			RenderTeamRegionBackground();
+		}
+		return;
+	}
 
 	if ( gItemPointer.exists() == false )
 	{

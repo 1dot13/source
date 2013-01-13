@@ -6775,10 +6775,12 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 		}
 
 		// WANNE: This should fix the bug, that items get lost in the sector when switching between tactical sectors
-		// This bug was introduced in revision 4571 (2011-07-14)
+		// This bug was introduced in revision 4571 (2011-07-14), fixed in 5228
+		// Buggler:  Previously item get lost when holding CTRL & clicking on item in merc inventory when map screen shows other sectors
+		// Fixed above issue on commit in 5781 (2013-01-13). Please remove all comments if no reported issue after adequate public testing
 		
-		//if(!fShowMapInventoryPool)
-		if(fShowMapInventoryPool)
+		if(!fShowMapInventoryPool)
+		//if(fShowMapInventoryPool) // Buggler: to remove too
 		{
 			fShowMapInventoryPool = TRUE;
 			CreateDestroyMapInventoryPoolButtons(FALSE);
