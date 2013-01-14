@@ -18625,5 +18625,5 @@ BOOLEAN DecideAltAnimForBigMerc( SOLDIERTYPE * pSoldier )
 
 BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber )
 {
-	return( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) );
+	return( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_ORIGINAL_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) );
 }
