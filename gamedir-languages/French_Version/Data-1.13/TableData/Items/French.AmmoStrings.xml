@@ -27,8 +27,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>5</uiIndex>
-		<AmmoCaliber>12 gauge</AmmoCaliber>
-		<BRCaliber>12 gauge</BRCaliber>
+		<AmmoCaliber>Calibre 12</AmmoCaliber>
+		<BRCaliber>Calibre 12</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>6</uiIndex>
@@ -67,23 +67,23 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>13</uiIndex>
-		<AmmoCaliber>Monster</AmmoCaliber>
-		<BRCaliber>Monster</BRCaliber>
+		<AmmoCaliber>Monstre</AmmoCaliber>
+		<BRCaliber>Monstre</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>14</uiIndex>
-		<AmmoCaliber>Rocket</AmmoCaliber>
-		<BRCaliber>Rocket</BRCaliber>
+		<AmmoCaliber>Roquette</AmmoCaliber>
+		<BRCaliber>Roquette</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>15</uiIndex>
-		<AmmoCaliber>Dart</AmmoCaliber>
-		<BRCaliber>Dart</BRCaliber>
+		<AmmoCaliber>Fléchette</AmmoCaliber>
+		<BRCaliber>Fléchette</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>16</uiIndex>
-		<AmmoCaliber>flame</AmmoCaliber>
-		<BRCaliber>flame</BRCaliber>
+		<AmmoCaliber>Flame</AmmoCaliber>
+		<BRCaliber>Flame</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>17</uiIndex>
@@ -207,8 +207,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>41</uiIndex>
-		<AmmoCaliber>12.7x97mm Subsonic</AmmoCaliber>
-		<BRCaliber>12.7x97mm</BRCaliber>
+		<AmmoCaliber>12.7x97mm Sbsonique</AmmoCaliber>
+		<BRCaliber>12.7x97mm Sbsonique</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>42</uiIndex>
