@@ -34,8 +34,10 @@ GENERAL INSTRUCTIONS
 	The general rule is if the string is very short (less than 10 characters), then it's short because of 
 	interface limitations.  On the other hand, full sentences commonly have little limitations for length.  
 	Strings in between are a little dicey.
+
 - Never translate a string to appear on multiple lines.  All strings L"This is a really long string...", 
 	must fit on a single line no matter how long the string is.  All strings start with L" and end with ",
+
 - Never remove any extra spaces in strings.  In addition, all strings containing multiple sentences only 
 	have one space after a period, which is different than standard typing convention.  Never modify sections 
 	of strings contain combinations of % characters.  These are special format characters and are always 
@@ -44,13 +46,16 @@ GENERAL INSTRUCTIONS
 	%% is how a single % character is built.  There are countless types, but strings containing these 
 	special characters are usually commented to explain what they mean.  If it isn't commented, then 
 	if you can't figure out the context, then feel free to ask SirTech.
+
 - Comments are always started with // Anything following these two characters on the same line are 
 	considered to be comments.  Do not translate comments.  Comments are always applied to the following 
 	string(s) on the next line(s), unless the comment is on the same line as a string.  
+
 - All new comments made by SirTech will use "//@@@ comment" (without the quotes) notation.  By searching 
 	for @@@ everytime you recieve a new version, it will simplify your task and identify special instructions.
   Commonly, these types of comments will be used to ask you to abbreviate a string.  Please leave the 
 	comments intact, and SirTech will remove them once the translation for that particular area is resolved.
+
 - If you have a problem or question with translating certain strings, please use "//!!! comment" 
 	(without the quotes).  The syntax is important, and should be identical to the comments used with @@@ 
 	symbols.  SirTech will search for !!! to look for your problems and questions.  This is a more 
@@ -429,17 +434,17 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"Placer les décalcomanies murales en utilisant la méthode de sélection",
 	L"Placer les étages en utilisant la méthode de sélection", //10
 	L"Placer les meubles génériques en utilisant la méthode de sélection",
-	L"Placer les murs avec la méthode courte",
-	L"Placer les portes avec la méthode courte",
-	L"Placer les fenêtres avec la méthode courte",
-	L"Placer les murs endommagés avec la méthode courte",
-	L"Vérouiller ou piéger les porte existantes",
+	L"Placer les murs avec la méthode rapide",
+	L"Placer les portes avec la méthode rapide",
+	L"Placer les fenêtres avec la méthode rapide",
+	L"Placer les murs endommagés avec la méthode rapide",
+	L"Verrouiller ou piéger les portes existantes",
 
 	L"Ajouter une nouvelle salle",
-	L"Editer les mûrs de caverne.",
-	L"Enlevez un secteur de la construction existante.",
-	L"Enlevez une construction", //20
-	L"Ajoutez/remplacez le toit de la construction par un nouveau toit plat.",
+	L"Editer les murs de caverne.",
+	L"Enlever un secteur de la construction existante.",
+	L"Enlever une construction", //20
+	L"Ajouter/remplacer le toit de la construction par un nouveau toit plat.",
 	L"Copier une construction",
 	L"Bouger une construction",
 	L"Dessiner le numéro de pièce",
@@ -489,12 +494,12 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Nouveau niveau de caverne",
 	L"Sauvegarder la carte",
 	L"Charger la carte",
-	L"Séléctionner un tileset",
+	L"Sélectionner un tileset",
 	L"Quitter le mode éditeur",
 	L"Quitter le jeu.",
 	L"Créer un carte de radar",
-	L"La carte vérifiée, elle sera sauvée sur le format original JA2.\nCette option est seulement valable sur les cartes de taille 'normales' qui ne font pas référence aux nombres de réseau (ex: réseau de sortie) > 25600.",
-	L"La carte vérifiée et chargée, elle sera élargie automatiquement selon les rangées et colonnes choisies.",
+	L"Une fois la carte vérifiée, elle sera sauvée sous le format original JA2.\nCette option est seulement valable sur les cartes de taille 'normale' qui ne font pas référence aux nombre de réseaux (ex: réseau de sortie) > 25600.",
+	L"Une fois la carte vérifiée et chargée, elle sera élargie automatiquement selon les rangées et colonnes choisies.",
 };
 
 STR16 iEditorTerrainToolbarText[] =
@@ -503,16 +508,16 @@ STR16 iEditorTerrainToolbarText[] =
 	L"Sélectionner les textures du sol de la carte",
 	L"Placer les rives et falaises",
 	L"Dessiner les routes",
-	L"Déssiner les débris",
+	L"Dessiner les débris",
 	L"Placer les arbres & buissons",
 	L"Placer les rochers",
 	L"Placer barrils & autres camelotes",
-	L"Remplisser le secteur",
+	L"Remplir le secteur",
 	L"Effacer le dernier changement",
 	L"Basculer en mode supprimer", //10
 	L"Taille du cycle",
-	L"Augmenter la densité de la brosse",
-	L"Diminuer la densité de la brosse",
+	L"Augmenter la densité du pinceau",
+	L"Diminuer la densité du pinceau",
 };
 
 STR16 iEditorTaskbarInternalText[]=
@@ -521,7 +526,7 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Bâtiment",
 	L"Objets",
 	L"Mercenaires",
-	L"Map Info",
+	L"Info carte",
 	L"Options",
 };
 
@@ -569,10 +574,10 @@ STR16 iRenderDoorLockInfoText[]=
 
 STR16 iRenderEditorInfoText[]=
 {
-	L"Enregistrer la map au format vanilla JA2 (v1.12) (Version: 5.00 / 25)", //0
+	L"Enregistrer la carte au format vanilla JA2 (v1.12) (Version: 5.00 / 25)", //0
 	L"Aucune carte n'est actuellement chargée.",
 	L"Fichier:  %S, Tileset actuel:  %s",
-	L"Elargir la map au chargement",
+	L"Elargir la carte au chargement",
 };
 //EditorBuildings.cpp
 STR16 iUpdateBuildingsInfoText[] =
@@ -580,7 +585,7 @@ STR16 iUpdateBuildingsInfoText[] =
 	L"BASCULER", //0
 	L"VUES",
 	L"MODE DE SELECTION",
-	L"METHODE COURTE",
+	L"METHODE RAPIDE",
 	L"MODE DE CONSTRUCTION",
 	L"Pièce #", //5
 };
@@ -588,10 +593,10 @@ STR16 iUpdateBuildingsInfoText[] =
 STR16 iRenderDoorEditingWindowText[] =
 {
 	L"Modification des attributs de verrouillage à l'index %d de la carte.",
-	L"Vérrouillage ID",
+	L"Verrouillage ID",
 	L"Type de piège",
 	L"Niveau du piège",
-	L"Vérrouillé",
+	L"Verrouillé",
 };
 
 //EditorItems.cpp
@@ -653,8 +658,8 @@ STR16 pUpdateMapInfoText[] =
 CHAR16 gszScheduleActions[ 11 ][20] =
 {
 	L"Pas d'action",
-	L"Porte vérrouillé",
-	L"Porte dévérouillé",
+	L"Porte verrouillée",
+	L"Porte déverrouillée",
 	L"Porte ouverte",
 	L"Porte fermée",
 	L"Aller à la No",
@@ -738,33 +743,33 @@ STR16 pCreateEditMercWindowText[] =
 STR16 pDisplayBodyTypeInfoText[] =
 {
 	L"Aléatoire", //0
-	L"Reg Male",
-	L"Big Male",
-	L"Stocky Male",
-	L"Reg Female",
-	L"NE Tank", //5
-	L"NW Tank",
-	L"Fat Civilian",
-	L"M Civilian",
-	L"Miniskirt",
-	L"F Civilian", //10
-	L"Kid w/ Hat",
-	L"Humvee",
+	L"Hme norm",
+	L"Hme Grd",
+	L"Hme trappu",
+	L"Femme norm",
+	L"Char NE", //5
+	L"Char NO",
+	L"Civil gros",
+	L"H Civil",
+	L"Minijupe",
+	L"F Civil", //10
+	L"Enf. chap.",
+	L"Hummer",
 	L"Eldorado",
-	L"Icecream Truck",
+	L"Camion glace",
 	L"Jeep", //15
-	L"Kid Civilian",
-	L"Domestic Cow",
-	L"Cripple",
-	L"Unarmed Robot",
-	L"Larvae", //20
-	L"Infant",
-	L"Yng F Monster",
-	L"Yng M Monster",
-	L"Adt F Monster",
-	L"Adt M Monster", //25
-	L"Queen Monster",
-	L"Bloodcat",
+	L"Enf civil",
+	L"Vache",
+	L"Infirme",
+	L"Robot désarmé",
+	L"Larve", //20
+	L"Jeune",
+	L"Pt Monstre F",
+	L"Pt Monstre M",
+	L"Monstre Adt F",
+	L"Monstre Adt M", //25
+	L"Monstre Reine",
+	L"ChtSauvg",
 };
 
 STR16 pUpdateMercsInfoText[] = 
@@ -810,8 +815,8 @@ STR16 pUpdateMercsInfoText[] =
 	L"ALEATOIRE",
 	
 	L"En spécifiant un indice de profil, toutes les informations seront extraites du profil ",
-	L"et remplacer par les valeurs que vous avez édité. Les fonctions d'édition seront aussi désactivé ",
-	L"bien, que vous serez toujours en mesure de regarder les stats, etc. En appuyant sur ENTREE cela extraira ",
+	L"et remplacées par les valeurs que vous avez édité. Les fonctions d'édition seront aussi désactivées ",
+	L"bien que vous soyez toujours en mesure de regarder les stats, etc. En appuyant sur ENTREE cela extraira ",
 	L"automatiquement le numéro que vous avez tapé.  Un champ vide effacera le profil. Le nombre",
 	L"actuel de profil allant de 0 à ",
 	
@@ -821,7 +826,7 @@ STR16 pUpdateMercsInfoText[] =
 	L"STATIONNAIRE",
 	L"EN APPEL", //40
 	L"MIS EN GARDE",
-	L"CHERCHEZ ENNEMIE",
+	L"CHERCHER ENNEMI",
 	L"PATROUILLE PROCHE",
 	L"PATROUILLE LONTAINE",
 	L"PATROUILLE DE POINT",
@@ -837,15 +842,15 @@ STR16 pUpdateMercsInfoText[] =
 	L"3)",
 	L"4)",
 	
-	L"vérouillé",
-	L"dévérouillé",
+	L"verrouillé",
+	L"déverrouillé",
 	L"ouvert",
-	L"fermer",
+	L"fermé",
 	
 	L"Cliquez sur la grille no adjacente à la porte que vous souhaitez %s.", //60
 	L"Cliquez sur la grille no où vous voulez aller avoir %s la porte.",
 	L"Cliquez sur la grille no où vous voulez aller.",
-	L"Cliquez sur la grille no où vous voulez dormir.	La personne retournera automatiquement à sa position initiale lorsqu'elle se réveillera.",
+	L"Cliquez sur la grille no où vous voulez dormir.	Le personnage retournera automatiquement à sa position initiale lorsqu'il se réveillera.",
 	L" Cliquez sur la ESC pour annuler l'entrée de cette ligne dans le calendrier.",
 };
 
@@ -882,9 +887,9 @@ STR16 pEditModeShutdownText[] =
 
 STR16 pHandleKeyboardShortcutsText[] = 
 {
-	L"Etes-vous sur de vouloir retirer toute les lumières ?", //0
-	L"Etes-vous sûr de vouloir renverser le calendrier ?",
-	L"Etes-vous sûr de vouloir effacer tous les horaires ?",
+	L"Êtes-vous sur de vouloir retirer toutes les lumières ?", //0
+	L"Êtes-vous sur de vouloir inverser le calendrier ?",
+	L"Êtes-vous sur de vouloir effacer tous les horaires ?",
 	
 	L"Cliquage de placement activé",
 	L"Cliquage de placement désactivé",
@@ -897,18 +902,18 @@ STR16 pHandleKeyboardShortcutsText[] =
 	L"Placement aléatoire activé",
 	L"Placement aléatoire désactivé",
 	
-	L"Retirer la cîme des arbres", //10
+	L"Cacher la cîme des arbres", //10
 	L"Montrer la cîme des arbres",
 	
 	L"Réinitialisation de l'aggrandissement de la carte",
 	
 	L"Ancienne méthode d'aggrandissement",
-	L"Aggrandissment fait",
+	L"Aggrandissement fait",
 };
 
 STR16 pPerformSelectedActionText[] = 
 {
-	L"Création du carte radar pour %S", //0
+	L"Création de carte radar pour %S", //0
 	
 	L"Supprimer la carte actuelle et commencer un nouveau niveau de sous-sol ?",
 	L"Supprimer la carte actuelle et commencer un nouveau niveau de cave ?",
@@ -919,22 +924,22 @@ STR16 pPerformSelectedActionText[] =
 
 STR16 pWaitForHelpScreenResponseText[] = 
 {
-	L"HOME", //0
+	L"Début", //0
 	L"Activer l'éditeur de faux éclairage ON/OFF",
 
 	L"INSER",
 	L"Activer le mode de remplissage ON/OFF",
 
-	L"BKSPC",
+	L"RET.AR",
 	L"Annuler la dernière modification",
 
-	L"DEL",
+	L"SUPR",
 	L"Effacement rapide d'objet sous le curseur de la souris",
 
 	L"ESC",
 	L"Quitter l'éditeur",
 
-	L"PGUP/PGDN", //10
+	L"PHAUT/PBAS", //10
 	L"Changement d'objets qui doivent être collé",
 
 	L"F1",
@@ -947,10 +952,10 @@ STR16 pWaitForHelpScreenResponseText[] =
 	L"Charger la carte",
 
 	L"+/-",
-	L"Changement l'obscurité de .01",
+	L"Changer l'obscurité de .01",
 
 	L"SHFT +/-",  //20
-	L"Changement l'obscurité de .05",
+	L"Changer l'obscurité de .05",
 
 	L"0 - 9",
 	L"Changer le nom de carte/tileset",
@@ -959,22 +964,22 @@ STR16 pWaitForHelpScreenResponseText[] =
 	L"Changer la taille du pinceau",
 
 	L"d",
-	L"Dessinez des débris",
+	L"Dessiner des débris",
 
 	L"o",
-	L"Dessinez des obstacles",
+	L"Dessiner des obstacles",
 
 	L"r", //30
-	L"Dessinez des rochers",
+	L"Dessiner des rochers",
 
 	L"t",
-	L"Acriver l'affichage des arbres ON/OFF",
+	L"Activer l'affichage des arbres ON/OFF",
 
 	L"g",
-	L"Dessinez les textures du sol",
+	L"Dessiner les textures du sol",
 
 	L"w",
-	L"Dessinez les murs des bâtiments",
+	L"Dessiner les murs des bâtiments",
 
 	L"e",
 	L"Activer le mode effacer ON/OFF",
@@ -985,8 +990,8 @@ STR16 pWaitForHelpScreenResponseText[] =
 
 STR16 pAutoLoadMapText[] =
 {
-	L"La carte vient d'être corrompu. N'enregistrer pas, ne quittez pas, demander à parler à Kris ! Si il n'est pas là, sauver la carte en utilisant un nom de fichier temporaire et documenter tout ce que vous venez de faire, surtout la dernière action !",
-	L"Le calendrier vient d'être corrompu.  N'enregistrer pas, ne quittez pas, demander à parler à Kris ! Si il n'est pas là, sauver la carte en utilisant un nom de fichier temporaire et documenter tout ce que vous venez de faire, surtout la dernière action !",
+	L"La carte vient d'être corrompue. N'enregistrez pas, ne quittez pas, demandez à parler à Kris ! Si il n'est pas là, sauvez la carte en utilisant un nom de fichier temporaire et documentez tout ce que vous venez de faire, surtout la dernière action !",
+	L"Le calendrier vient d'être corrompu.  N'enregistrez pas, ne quittez pas, demandez à parler à Kris ! Si il n'est pas là, sauvez la carte en utilisant un nom de fichier temporaire et documentez tout ce que vous venez de faire, surtout la dernière action !",
 };
 
 STR16 pShowHighGroundText[] =
@@ -998,111 +1003,111 @@ STR16 pShowHighGroundText[] =
 //Item Statistics.cpp
 CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 {
-	L"Klaxon Mine",
-	L"Flare Mine",
-	L"Teargas Explosion",
-	L"Stun Explosion",
-	L"Smoke Explosion",
-	L"Mustard Gas",
-	L"Land Mine",
-	L"Open Door",
-	L"Close Door",
-	L"3x3 Hidden Pit",
-	L"5x5 Hidden Pit",
-	L"Small Explosion",
-	L"Medium Explosion",
-	L"Large Explosion",
-	L"Toggle Door",
-	L"Toggle Action1s",
-	L"Toggle Action2s",
-	L"Toggle Action3s",
-	L"Toggle Action4s",
-	L"Enter Brothel",
-	L"Exit Brothel",
-	L"Kingpin Alarm",
-	L"Sex with Prostitute",
-	L"Reveal Room",
-	L"Local Alarm",
-	L"Global Alarm",
-	L"Klaxon Sound",
-	L"Unlock door",
-	L"Toggle lock",
-	L"Untrap door",
-	L"Tog pressure items",
-	L"Museum alarm",
-	L"Bloodcat alarm",
-	L"Big teargas",
+	L"Mine klaxon",
+	L"Mine Flash",
+	L"Explosion lacrymo",
+	L"Explosion Assourd.",
+	L"Explosion Fumée",
+	L"Gaz moutarde",
+	L"Mine",
+	L"Ouvrir porte",
+	L"Fermer porte",
+	L"Puit caché 3x3 ",
+	L"Puit caché 5x5",
+	L"Pt Explosion",
+	L"Moy Explosion",
+	L"Grd Explosion",
+	L"Encl porte",
+	L"Encl Action1s",
+	L"Encl Action2s",
+	L"Encl Action3s",
+	L"Encl Action4s",
+	L"Entrer ds bordel",
+	L"Sortir du Bordel",
+	L"Alarme Kingpin",
+	L"Sexe avec pute",
+	L"Montrer pièce",
+	L"Alarme locale",
+	L"Alarm globale",
+	L"Bruit Klaxon",
+	L"Déverr porte",
+	L"Encl verrou",
+	L"Déminer porte",
+	L"Encl Obj press",
+	L"Alarme musée",
+	L"Alarme chtsvg",
+	L"Grd lacrymo",
 };
 
 STR16 pUpdateItemStatsPanelText[] =
 {
-	L"Toggle hide flag", //0
-	L"No item selected.",
-	L"Slot available for",
-	L"random generation.",
-	L"Keys not editable.",
-	L"ProfileID of owner",
-	L"Item class not implemented.",
-	L"Slot locked as empty.",
-	L"Status",
-	L"Rounds",
-	L"Trap Level", //10
-	L"Quantity",
-	L"Trap Level",
-	L"Status",
-	L"Trap Level",
-	L"Status",
-	L"Quantity",
-	L"Trap Level",
+	L"Drapeaux on/off", //0
+	L"Aucun obj selec",
+	L"Slot dispo pour",
+	L"Création aléatoire",
+	L"Touche non modif",
+	L"ID du proprio",
+	L"Classe d'obj non incluse",
+	L"Slot vide verr",
+	L"Statut",
+	L"Balles",
+	L"Niv piège", //10
+	L"Quantité",
+	L"Niv piège",
+	L"Statut",
+	L"Niv piège",
+	L"Statut",
+	L"Quantité",
+	L"Niv piège",
 	L"Dollars",
-	L"Status",
-	L"Trap Level", //20
-	L"Trap Level",
+	L"Statut",
+	L"Niv piège", //20
+	L"Niv piège",
 	L"Tolerance",
-	L"Alarm Trigger",
-	L"Exist Chance",
-	L"B",
+	L"Déclic alarme",
+	L"Chance exist",// !!! Context
+	L"B",// !!! Context
 	L"R",
 	L"S",
 };
 
 STR16 pSetupGameTypeFlagsText[] =
 {
-	L"Item appears in both Sci-Fi and Realistic modes. (|B)", //0
-	L"Item appears in |Realistic mode only.",
-	L"Item appears in |Sci-Fi mode only.",
+	L"Obj apparaît en mode SF et réaliste. (|B)", //0
+	L"Obj apparaît slt en mode |réaliste.",
+	L"Obj apparaît slt en mode |SF.",
 };
 
 STR16 pSetupGunGUIText[] =
 {
-	L"SILENCER", //0
-	L"SNIPERSCOPE",
-	L"LASERSCOPE",
-	L"BIPOD",
-	L"DUCKBILL",
-	L"G-LAUNCHER", //5
+	L"SILENCIEUX", //0
+	L"LNTTESNIPER",
+	L"LNTTELASER",
+	L"BIPIED",
+	L"BCCANARD",
+	L"LANCE-G", //5
 };
 
 STR16 pSetupArmourGUIText[] =
 {
-	L"CERAMIC PLATES", //0
+	L"PLAQ CERAMIQUE", //0
 };
 
 STR16 pSetupExplosivesGUIText[] =
 {
-	L"DETONATOR",
+	L"DETNATEUR",
 };
 
 STR16 pSetupTriggersGUIText[] =
 {
-	L"If the panic trigger is an alarm trigger,\nenemies won't attempt to use it if they\nare already aware of your presence.",
+	L"Si le déclencheur de panique est une alarme,\nl'enemi ne la sonnera pas\nsi il vous a déjà détecté.",
 };
 
 //Sector Summary.cpp
 
 STR16 pCreateSummaryWindowText[]=
 {
-	L"Okay", //0
+	L"Ok", //0
 	L"A",
 	L"G",
 	L"B1",
@@ -1118,8 +1123,8 @@ STR16 pRenderSectorInformationText[] =
 	L"Tileset:  %s", //0
 	L"Info. version:  Résumé:  1.%02d,  Carte:  %1.2f / %02d",
 	L"Nombre d'objets:  %d", 
-	L"Nombre de lumière:  %d",
-	L"Nombre de points d'entré:  %d",
+	L"Nombre de lumières:  %d",
+	L"Nombre de points d'entrée:  %d",
 	
 	L"N",
 	L"E",
@@ -1133,45 +1138,45 @@ STR16 pRenderSectorInformationText[] =
 	L"Ennemis :  %d",
 	L"Admins :  %d",
 	
-	L"(%d detailed, %d profile -- %d have priority existance)",
-	L"Troops:  %d",
+	L"(%d detaillé, %d profil -- %d existe en priorité)",
+	L"Troupes:  %d",
 	
-	L"(%d detailed, %d profile -- %d have priority existance)",
+	L"(%d detaillé, %d profil -- %d existe en priorité)",
 	L"Elites:  %d",
 	
-	L"(%d detailed, %d profile -- %d have priority existance)",
-	L"Civilians:  %d",  //20
+	L"(%d detaillé, %d profil -- %d existe en priorité)",
+	L"Civils:  %d",  //20
 	
-	L"(%d detailed, %d profile -- %d have priority existance)",
+	L"(%d detaillé, %d profil -- %d existe en priorité)",
 	
-	L"Humans:  %d",
-	L"Cows:  %d",
-	L"Bloodcats:  %d",
+	L"Humains:  %d",
+	L"Vaches:  %d",
+	L"Chtsauvg:  %d",
 	
-	L"Creatures:  %d",
+	L"Créatures:  %d",
 	
-	L"Monsters:  %d",
-	L"Bloodcats:  %d",
+	L"Monstres:  %d",
+	L"Chtsauvg:  %d",
 	
-	L"Number of locked and/or trapped doors:  %d",
-	L"Locked:  %d",
-	L"Trapped:  %d", //30
-	L"Locked & Trapped:  %d",
+	L"Nombre de portes verr et/ou piègées:  %d",
+	L"Verr:  %d",
+	L"Piègées:  %d", //30
+	L"Verr & piègées:  %d",
 	
-	L"Civilians with schedules:  %d",
+	L"Civils prgrammés:  %d",
 	
-	L"Too many exit grid destinations (more than 4)...",
-	L"ExitGrids:  %d (%d with a long distance destination)",
-	L"ExitGrids:  none",
-	L"ExitGrids:  1 destination using %d exitgrids",
-	L"ExitGrids:  2 -- 1) Qty: %d, 2) Qty: %d",
-	L"ExitGrids:  3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d",
-	L"ExitGrids:  3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d, 4) Qty: %d",
-	L"Enemy Relative Attributes:  %d bad, %d poor, %d norm, %d good, %d great (%+d Overall)", //40
-	L"Enemy Relative Equipment:  %d bad, %d poor, %d norm, %d good, %d great (%+d Overall)",
-	L"%d placements have patrol orders without any waypoints defined.",
+	L"Trop de destinations vers grille de sortie (plus de 4)...",
+	L"GrilleSortie:  %d (%d vers destination longue dist)",
+	L"GrilleSortie:  aucune",
+	L"GrilleSortie:  1 destination utilisant %d GrilleSortie",
+	L"GrilleSortie:  2 -- 1) Qté: %d, 2) Qté: %d",
+	L"GrilleSortie:  3 -- 1) Qté: %d, 2) Qté: %d, 3) Qté: %d",
+	L"GrilleSortie:  3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d, 4) Qty: %d",
+	L"Carac relative ennemi:  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)", //40
+	L"Equipement relatif ennemi:  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)",
+	L"%d placements have patrol orders without any waypoints defined.",//!!! Context ? -> These are just a validation messages from the map editor. You can just simple translate it
 	L"%d placements have waypoints, but without any patrol orders.",
-	L"%d gridnos have questionable room numbers.  Please validate.",
+	L"%d N° grille ont n° pièce étrange. Validez svp.",
 	
 };
 
@@ -1179,57 +1184,57 @@ STR16 pRenderItemDetailsText[] =
 {
 	L"R",  //0
 	L"S",
-	L"Enemy",
+	L"Ennemi",
 	
-	L"TOO MANY ITEMS TO DISPLAY!",
+	L"TROP D'OBJETS A L'ECRAN!",
 	
-	L"Panic1",
-	L"Panic2",
-	L"Panic3",
+	L"Panique1",
+	L"Panique2",
+	L"Panique3",
 	L"Norm1",
 	L"Norm2",
 	L"Norm3",
 	L"Norm4", //10
-	L"Pressure Actions",
+	L"Actions appuyer",
 	
-	L"TOO MANY ITEMS TO DISPLAY!",
+	L"TROP D'OBJETS A L'ECRAN!",
 	
-	L"PRIORITY ENEMY DROPPED ITEMS",
-	L"None",
+	L"OBJ DROPE D'ENMI PRIORITAIRE",
+	L"Rien",
 	
-	L"TOO MANY ITEMS TO DISPLAY!",
-	L"NORMAL ENEMY DROPPED ITEMS",
-	L"TOO MANY ITEMS TO DISPLAY!",
-	L"None",
-	L"TOO MANY ITEMS TO DISPLAY!",
-	L"ERROR:  Can't load the items for this map.  Reason unknown.", //20	
+	L"TROP D'OBJETS A L'ECRAN!",
+	L"OBJ DROPE D'ENMI NORM",
+	L"TROP D'OBJETS A L'ECRAN!",
+	L"Rien",
+	L"TROP D'OBJETS A L'ECRAN!",
+	L"ERREUR:  Imposs charg obj sur carte. Raison inconn.", //20	
 };
 
 STR16 pRenderSummaryWindowText[] =
 {
-	L"CAMPAIGN EDITOR -- %s Version 1.%02d", //0
-	L"(NO MAP LOADED).",
-	L"You currently have %d outdated maps.",
-	L"The more maps that need to be updated, the longer it takes.  It'll take ",
-	L"approximately 4 minutes on a P200MMX to analyse 100 maps, so",
-	L"depending on your computer, it may vary.",
-	L"Do you wish to regenerate info for ALL these maps at this time (y/n)?",
+	L"EDITEUR CAMPAGNE -- %s Version 1.%02d", //0
+	L"(AUC MAP CHRGEE).",
+	L" %d de vos maps sont obsolètes.",
+	L"Plus de maps à MAJ = plus de temps. Ca prend ",
+	L"à peu près 4 min sur un P200MMX pour analyser 100 maps, donc",
+	L"la durée peu varier selon votre pc.",
+	L"Voulez-vous MAJ TOUTES ces maps (y/n) ?",
 	
-	L"There is no sector currently selected.",
+	L"Aucun secteur sélectionné.",
 	
-	L"Entering a temp file name that doesn't follow campaign editor conventions...",
+	L"Nom de fichier temp en conflit avec le format de l'éditeur de campagne",
 	
-	L"You need to either load an existing map or create a new map before being",
-	L"able to enter the editor, or you can quit (ESC or Alt+x).", //10
+	L"Il faut charger ou bien créer une map afin d'entrer dans l'éditeur",
+	L",ou bien vous pouvez quitter (ESC ou Alt+x).", //10
 
-	L", ground level",					
-	L", underground level 1",	
-	L", underground level 2",	
-	L", underground level 3",	
-	L", alternate G level",					
-	L", alternate B1 level",	
-	L", alternate B2 level",	
-	L", alternate B3 level",
+	L", RDC",					
+	L", Sous-sol -1",	
+	L", Sous-sol -2",	
+	L", Sous-sol -3",	
+	L", RDC alternatif",					
+	L", Niv B1 alternatif",	
+	L", Niv B2 alternatif",	
+	L", Niv B3 alternatif",
 	
 	L"DETAILS OBJETS -- secteur %s",
 	L"Les informations sommaires pour le secteur %s :", //20
@@ -1248,8 +1253,8 @@ STR16 pRenderSummaryWindowText[] =
 	
 	L"FICHIER:  %s",
 	
-	L"Override READONLY",
-	L"Écrasez Fichier", //30
+	L"Outrepasser LECTURESEULE",//!!! Length limitation ? -> should be OK
+	L"Écraser Fichier", //30
 	
 	L"Vous n'avez actuellement aucune donnée sommaire.  En en créant un, vous pourrez garder la trace",
 	L"des informations se rapportant à tous les secteurs que vous éditez et sauvez.  La progression de la création",
@@ -1282,7 +1287,7 @@ STR16 pSummaryLoadMapCallbackText[] =
 
 STR16 pReportErrorText[] =
 {
-	L"Skipping update for %s.  Probably due to tileset conflicts...",
+	L"Pas de MAJ pour %s. Prbablment du à des conflits tilesets",
 };
 
 STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[] =
@@ -1299,15 +1304,15 @@ STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 {
 	L"MISE A JOUR VERSION MAJEURE",
 	L"Il y a %d de cartes qui requièrent une mise à jour majeure.",
-	L"Mise à jour de toutes les cartes périmées",
+	L"Mise à jour de toutes les cartes obsolètes",
 };
 
 //selectwin.cpp
 STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 {
-	L"%S[%d] is from default tileset %s (%S)",
-	L"File:  %S, subindex:  %d (%S)",
-	L"Current Tileset:  %s",
+	L"%S[%d] appartient à tileset def %s (%S)",
+	L"Fichier:  %S, sousindex:  %d (%S)",
+	L"Tileset utilisé:  %s",
 };
 
 //Cursor Modes.cpp
@@ -1341,13 +1346,13 @@ CHAR16 zGrod[][500] =
 
 STR16 pCreditsJA2113[] =
 {
-	L"@T,{;JA2 v1.13 Development Team",
-	L"@T,C144,R134,{;Coding",
-	L"@T,C144,R134,{;Graphics and Sounds",
-	L"@};(Various other mods!)",
-	L"@T,C144,R134,{;Items",
-	L"@T,C144,R134,{;Other Contributors",
-	L"@};(All other community members who contributed input and feedback!)",
+	L"@T,{;JA2 v1.13 Eq Développeurs",
+	L"@T,C144,R134,{;Code",
+	L"@T,C144,R134,{;Graphismes et Sons",
+	L"@};(Autre mods!)",
+	L"@T,C144,R134,{;Objets",
+	L"@T,C144,R134,{;Autre contributeurs",
+	L"@};(Tous les membres de la communauté qui ont contribué !)",
 };
 
 CHAR16 ItemNames[MAXITEMS][80] =
@@ -1386,7 +1391,7 @@ CHAR16 AmmoCaliber[MAXITEMS][20];// =
 //	L"", // dart
 //	L"", // flame
 //	L".50 cal", // barrett
-//	L"9mm Hvy", // Val silent
+//	L"9mm Lrd", // Val silent
 //};
 
 // This BobbyRayAmmoCaliber is virtually the same as AmmoCaliber however the bobby version doesnt have as much room for the words.
@@ -1416,7 +1421,7 @@ CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 //	L"", // dart
 //	L"", // Lance-Flammes
 //	L".50 cal", // barrett
-//	L"9mm Hvy", // Val silent
+//	L"9mm Lrd", // Val silent
 //};
 
 
@@ -1440,7 +1445,7 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Tour des créatures",
 	L"Tour de la milice",
 	L"Tour des civils",
-	L"Player_Plan",// planning turn
+	L"Plan_joueur",// planning turn
 	L"Client #1",//hayden
 	L"Client #2",//hayden
 	L"Client #3",//hayden
@@ -1522,7 +1527,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Accessoires",
 	
 	//You cannot use "item(s)" and your "other item" at the same time.
-	//Ex:  You cannot use sun goggles and you gas mask at the same time.
+	//Ex:  You cannot use sun goggles and your gas mask at the same time.
 	L"Vous ne pouvez utiliser votre %s et votre %s simultanément.",
 
 	L"Vous pouvez combiner cet accessoire avec certains objets en le mettant dans l'un des quatre emplacements disponibles.",
@@ -1530,7 +1535,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Ce secteur n'a pas été sécurisé !",
 	L"Vous devez donner %s à %s",//inverted !! you still need to give the letter to X
 	L"%s a été touché à la tête !",
-	L"Rompre le combat ?",
+	L"Cesser le combat ?",
 	L"Cet accessoire ne pourra plus être enlevé. Désirez-vous toujours le mettre ?",
 	L"%s se sent beaucoup mieux !",
 	L"%s a glissé sur des billes !",
@@ -1551,21 +1556,21 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"L'ennemi n'as plus rien à voler!",
 	L"L'ennemi n'a rien dans les mains!",
 
-	L"%s a perdu son camouflage de désert.",
-	L"%s a perdu son camouflage de désert à cause de l'eau.",
+	L"%s a perdu son camouflage désert.",
+	L"%s a perdu son camouflage désert à cause de l'eau.",
 	
-	L"%s a perdu son camouflage de bois.",
-	L"%s a perdu son camouflage de bois à cause de l'eau",
+	L"%s a perdu son camouflage forêt.",
+	L"%s a perdu son camouflage forêt à cause de l'eau.",
 	
 	L"%s a perdu son camouflage urbain.",
 	L"%s a perdu son camouflage urbain à cause de l'eau.",
 	
-	L"%s a perdu son camouflage de neige.",
-	L"%s a perdu son camouflage de neige à cause de l'eau.",
+	L"%s a perdu son camouflage neige.",
+	L"%s a perdu son camouflage neige à cause de l'eau.",
 
 	L"Vous ne pouvez pas attacher %s à cette emplacement.",
 	L"%s n'ira dans aucun emplacement de libre.",
-	L"There's not enough space for this pocket.", //TODO:Translate
+	L"Pas assez de place pour cette poche.",
 };
 
 
@@ -1636,12 +1641,12 @@ STR16 pAssignmentStrings[] =
 	L"Formation", // training themselves  
 	L"Milice", // training a town to revolt
 	L"Milice M.", //training moving militia units	
-	L"Entraîneur", // training a teammate
+	L"Entraîneur", // training a teammate //!!! Too long ? (11 char) -> 11 chars is OK
 	L"Elève", // being trained by someone else 
 	L"Exploitation", // operating a strategic facility
-	L"Eat",		// eating at a facility (cantina etc.)		// TODO.Translate
+	L"Mange",		// eating at a facility (cantina etc.)		// TODO.Translate
 	L"Repos", // Resting at a facility
-	L"Prison",		// Flugente: interrogate prisoners
+	L"Prison",		// Flugente: interrogate prisoners // TODO.Translate
 	L"Mort(e)", // dead
 	L"Incap.", // abbreviation for incapacitated
 	L"Capturé", // Prisoner of war - captured
@@ -1655,7 +1660,7 @@ STR16 pMilitiaString[] =
 	L"Milice", // the title of the militia box
 	L"Disponibles", //the number of unassigned militia troops
 	L"Vous ne pouvez réorganiser la milice lors d'un combat !",
-	L"Des milices ne sont pas assignées à un secteur. Voulez-vous les dissoudre ?",
+	L"Des milices ne sont pas assignées à un secteur. Voulez-vous les démobiliser ?",//!!! Too long ? (80 char) -> it is OK
 };
 
 
@@ -1663,7 +1668,7 @@ STR16 pMilitiaButtonString[] =
 {
 	L"Auto", // auto place the militia troops for the player
 	L"OK", // done placing militia troops
-	L"Dissoudre", // HEADROCK HAM 3.6: Disband militia
+	L"Démobiliser", // HEADROCK HAM 3.6: Disband militia
 };
 
 STR16 pConditionStrings[] = 
@@ -1721,13 +1726,13 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Réparation",
 	L"Formation", 
 	L"Milice",
-	L"Forme la milice mobile",
+	L"Forme la milice mobile",//!!! Too long ? -> It is OK
 	L"Entraîneur",
 	L"Elève",
-	L"Exploitation infras.",	
-	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
+	L"Exploitation infras.",	//!!! Idem ? -> The current translation is OK
+	L"Manger",		// eating at a facility (cantina etc.)
 	L"Repos infras.",
-	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners	// TODO.Translate
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -1771,9 +1776,9 @@ STR16 pLongAssignmentStrings[] =
 	L"Milice mobile",
 	L"Entraîneur",
 	L"Elève",
-	L"Exploitation infras.",	
+	L"Exploitation infras.",	//!!! Idem ? -> Current translation is OK
 	L"Repos infras.",
-	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
+	L"Interrogate prisoners",		// Flugente: interrogate prisoners // TODO.Translate
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -1807,7 +1812,7 @@ STR16 pLongAttributeStrings[] =
 	L"DEXTERITE",  
 	L"AGILITE", 
 	L"SAGESSE", 
-	L"PRECISION",
+	L"PRECISION",//!!! Accurate but not very good. Char limit ? -> 12 characters is the limit
 	L"MEDECINE",
 	L"MECANIQUE",
 	L"COMMANDEMENT",
@@ -1905,9 +1910,9 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Attaquez", // set militia to aggresive
 	L"Tenez la Position", // set militia to stationary
 	L"Retraite", // retreat militia
-	L"Rejoignez moi", // retreat militia
-	L"Couchez vous", // retreat militia	
-	L"Crouch",	// TODO.Translate
+	L"Rejoignez-moi", // retreat militia
+	L"Couchez-vous", // retreat militia	
+	L"Accroupi",
 	L"A couvert!",
 	L"All: Attaquez", 
 	L"All: Tenez la Position",
@@ -1915,7 +1920,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"All: Rejoignez-moi",
 	L"All: Dispersez-vous",
 	L"All: Couchez-vous",
-	L"All: Crouch",	// TODO.Translate
+	L"All: Accroupi",
 	L"All: A couvert!",
 	//L"All: Trouver materiel",
 	L"Annuler", // cancel this menu
@@ -2008,7 +2013,7 @@ STR16 pPersonnelScreenStrings[] =
 	L"Acompte méd. : ", // amount of medical deposit put down on the merc
 	L"Contrat : ", // cost of current contract
 	L"Tués : ", // number of kills by merc
-	L"Participation : ", // number of assists on kills by merc
+	L"Participation : ", // number of assists on kills by merc //!!!ugly. Char limit ? -> 17 chars
 	L"Coût/jour :", // daily cost of merc
 	L"Coût total :", // total cost of merc
 	L"Contrat :", // cost of current contract
@@ -2058,13 +2063,13 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Personnes rencontrées : %d\n",
 	L"Secteurs découverts : %d\n",
 	L"Embuscades empêchées : %d\n",
-	L"Quêtes faîtes : %d\n",
+	L"Quêtes faites : %d\n",//!!!Ugly. Char limit ? -> Total: 28 chars
 
 	L"Tactiques de combats : %d\n",
 	L"Combats autorésolus : %d\n",
-	L"Temps écoulés : %d\n",
+	L"Temps écoulé : %d\n",
 	L"Embuscades expérimentées : %d\n",
-	L"Meilleurs combats : %d Ennemies\n",
+	L"Meilleurs combats : %d Ennemies\n",//!!! Ennemies/Ennemis ? -> whatever you like
 
 	L"Tirs : %d\n",
 	L"Poignardés : %d\n",
@@ -2079,7 +2084,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Attitudes :",	// WANNE: For old traits display instead of "Character:"!
 
-	L"Zombies: %d\n", // TODO.Translate
+	L"Zombies: %d\n",
 };
 
 
@@ -2095,7 +2100,7 @@ STR16 gzMercSkillText[] =
 	L"Enseigner",
 	L"Armes lourdes",
 	L"Armes automatiques",
-	L"Discretion",
+	L"Discrétion",
 	L"Ambidextre",
 	L"Voleur",
 	L"Arts martiaux",
@@ -2115,20 +2120,20 @@ STR16 gzMercSkillTextNew[] =
 	L"Armes automatiques",
 	L"Armes lourdes",
 	L"Tireur d'élite",
-	L"Scout",
+	L"Scout",// !!!Scout =! Eclaireur.
 	L"Bandit",
 	L"Corps-à-corps",
 	L"Manager",
 	L"Technicien",
 	L"Médecin",
-	L"Covert Ops",		// 10	// TODO.Translate
+	L"Covert Ops",		// 10	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
 	// Minor traits
 	L"Ambidextre",
 	L"Mêlée",
 	L"Lancer",
 	L"Opérations de nuit",
 	L"Discrétion",
-	L"Athlétic",
+	L"Athlétique",
 	L"Masse musculaire",
 	L"Démolition",
 	L"Enseigner",
@@ -2143,7 +2148,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Commandant",
 	L"Ingénieur",
 	L"Chirurgien",
-	L"Spy",				// 30	// TODO.Translate
+	L"Spy",				// 30	// TODO.Translate !!! "Espion" ? Char limit ?
 	L"Plus...",
 };
 //////////////////////////////////////////////////////////
@@ -2203,7 +2208,7 @@ STR16 pMapScreenMouseRegionHelpText[] =
 	L"Choix du personnage",
 	L"Affectation",
 	L"Destination",
-	L"|Contrat du mercenaire",
+	L"|Contrat du mercenaire", //!!! Char typo before "Contrat" ?
 	L"Retirer mercenaire",
 	L"Repos", 
 };
@@ -2296,7 +2301,7 @@ STR16 pLandTypeStrings[] =
 	L"Sous-sols d'Orta",	//The basement of Orta (K4)
 	L"Tunnel",				//The tunnel access from the maze garden in Meduna 
 										//leading to the secret shelter underneath the palace
-	L"Abri",				//The shelter underneath the queen's palace
+	L"Abri",				//The shelter underneath the queen's palace !!! "Bunker" is much better here. Char limit ?
 	L"",							//Unused
 };
 
@@ -2419,8 +2424,8 @@ STR16 gpStrategicString[] =
 	L"Résolution automatique du combat\nsans charger la carte. (|A)",
 	L"Résolution automatique impossible lorsque\nvous attaquez.",
 	L"Pénétrez dans le secteur pour engager le combat. (|E)",
-	L"Faire retraite vers le secteur précédent. (|R)",				//singular version
-	L"Faire retraite vers les secteurs précédents. (|R)", //multiple groups with same previous sector
+	L"Battre en retraite vers le secteur précédent. (|R)",				//singular version
+	L"Battre en retraite vers les secteurs précédents. (|R)", //multiple groups with same previous sector !!! Changed "Faire" to "Battre en". Char limit ?
 
 	//various popup messages for battle conditions.  
 
@@ -2477,8 +2482,8 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"AUTO/5:",		//15
 	L"Munit. rest. :",		//16
 	L"Par défaut :",	//17 //WarmSteel - So we can also display default attachments
-	L"Dirt:",	// 18	//added by Flugente	// TODO.Translate
-	L"Space:", // 19 //space left on Molle items //TODO.Translate
+	L"Slté:",	// 18	//added by Flugente	// TODO.Translate !!! Done "Slté" = "Saleté"
+	L"Place:", // 19 //space left on Molle items //TODO.Translate !!! Done
 
 };
 
@@ -2601,7 +2606,7 @@ CHAR16 zHealthStr[][13] =
 	L"EN FORME",    	//	>= 60
 	L"BON",     	// 	>= 75
 	L"EXCELLENT",		// 	>= 90
-	L"CAPTURED",	// added by Flugente TODO.Translate
+	L"CAPTURED",	// added by Flugente // TODO.Translate
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -3056,7 +3061,7 @@ STR16 sFacilitiesStrings[] =
 	L"Prison",
 	L"Militaire",
 	L"Aéroport",
-	L"Champ de tir",		// a field for soldiers to practise their shooting skills
+	L"Pas de tir",		// a field for soldiers to practise their shooting skills
 };
 
 // text for inventory pop up button
@@ -3420,7 +3425,7 @@ STR16 pTransactionText[] =
 	L"Materiel vendu à la population",
 	L"Infrastucture utilisée", // HEADROCK HAM 3.6
 	L"Entretien de la milice", // HEADROCK HAM 3.6
-	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
+	L"Ransom for released prisoners",	// Flugente: prisoner system // TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4195,13 +4200,13 @@ STR16			MercInfo[] =
 	L"Engagé",
 	L"Salaire :",
 	L"Par jour",
-	L"Matériel optionnel :",
-	L"Total :",
+	L"Matériel optionnel :",	// TODO.Translate
+	L"Total :",		// TODO.Translate
 	L"Décédé(e)",
 
 	L"Vous ne pouvez engager plus de 18 mercenaires.",
-	L"Acheter équipement ?",
-	L"Indisponible",
+	L"Acheter équipement ?",	// TODO.Translate
+	L"Indisponible",											
 	L"Unsettled Bills", //TODO.Translate
 	L"Bio", //TODO.Translate
 	L"Inv",								
@@ -4471,13 +4476,13 @@ STR16			BobbyRText[] =
 	L"Poids :",		// Weight of all the items of the same type
 	L"Cal :",			// the caliber of the gun
 	L"Chrg :",			// number of rounds of ammo the Magazine can hold
-	L"Portée :",			// The range of the gun
-	L"Dégats :",			// Damage of the weapon	
+	L"Portée:",			// The range of the gun
+	L"Dégats:",			// Damage of the weapon	
 	L"CdT :",			// Weapon's Rate Of Fire, acronym ROF
-	L"PA :",				// Weapon's Action Points, acronym AP
-	L"Etourdissement :",	// Weapon's Stun Damage
-	L"Protect :",		// Armour's Protection
-	L"Cam. :",			// Armour's Camouflage
+	L"PA :",				// Weapon's Action Points, acronym AP	// TODO.Translate
+	L"Etourdissement :",	// Weapon's Stun Damage		// TODO.Translate
+	L"Protect :",		// Armour's Protection		// TODO.Translate
+	L"Cam. :",			// Armour's Camouflage		// TODO.Translate
 	L"Prix :",			// Cost of the item
 	L"En réserve :",			// The number of items still in the store's inventory
 	L"Qté commandée :",		// The number of items on order
@@ -6697,7 +6702,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Entraineur Mécanique",
 	L"Entraineur Commandement",
 	L"Entraineur Explosif",
-	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
+	L"Interrogate Prisoners",	// added by Flugente	// TODO.Translate
 };
 STR16 Additional113Text[]=
 {
@@ -6958,7 +6963,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen below 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen above 1.0, the bullet increases the\nprotection value of the armor instead.\n \nLower is better.",	// TODO.Translate
+	L"\n \nCeci est la capacité de la balle à pénétrer\nl'armure de la cible.\n \nAvec une valeur supérieure à 1.0, la balle réduiera fortement\nla valeur de protection de l'armure touchée.\n \nValeur élevée recommandée.",
 	L"\n \nDétermine le potentiel de la balle à faire des dégâts\nsur le corps après avoir traversée l'armure.\n \nAvec une valeur supérieure à 1.0, la balle fera de lourds dégâts\naprès pénétration\nAvec une valeur inférieure à 1.0, la balle fera des dégâts moindre\naprès pénétration.\n \nValeur élevée recommandée.",
 	L"\n \nMultiplicateur de potentiel de dégâts juste avant\nl'impact de la balle.\n \nAvec une valeur supérieure à 1.0, la balle fera de lourds dégâts\nUne valeur inférieure à 1.0 fera des dégâts moindre.\n \nValeur élevée recommandée.",
 	L"\n \nAdditional heat generated by this ammunition.\n \nLower is better.",		// TODO.Translate
@@ -7405,33 +7410,33 @@ STR16	szCovertTextStr[]=
 	L"%s has camo!",
 	L"%s has a backpack!",
 	L"%s is seen carrying a corpse!",
-	L"%s's %s is suspicious!",
-	L"%s's %s is considered military hardware!",
+	L"%s wears suspicious LBE gear!",
+	L"%s possesses military hardware!",
 	L"%s carries too many guns!",
-	L"%s's %s is too advanced for an arulcan soldier!",
-	L"%s's %s has too many attachments!",
+	L"%s equipment is too good!",
+	L"%s gun has too many attachments!",
 	L"%s was seen performing suspicious activities!",
 	L"%s does not look like a civilian!",
 	L"%s bleeding was discovered!",
-	L"%s is drunk and doesn't behave like a soldier!",
+	L"%s is drunk and doesn't look like a soldier!",
 	L"On closer inspection, %s's disguise does not hold!",
 	L"%s isn't supposed to be here!",
 	L"%s isn't supposed to be here at this time!",
 	L"%s was seen near a fresh corpse!",
 	L"%s equipment raises a few eyebrows!",
-	L"%s is seen targetting %s!",
-	L"%s has seen through %s's disguise!",
+	L"%s is seen targeting a soldier!",
+	L"%s has seen through %s disguise!",
 	L"No clothes item found in Items.xml!",
 	L"This does not work with the old trait system!",
-	L"Not enough APs!",
+	L"Not enough Aps!",
 	L"Bad palette found!",
 	L"You need the covert skill to do this!",
 	L"No uniform found!",
 	L"%s is now disguised as a civilian.",
 	L"%s is now disguised as a soldier.",
-	L"%s wears a disorderly uniform!",
-	L"In retrospect, asking for surrender in disguise wasn't the best idea...",
-	L"%s was uncovered!",
+	L"%s wears a disorderly uniform!",		// TODO.Translate
+	L"In retrospect, asking for surrender in disguise wasn't the best idea...",		// TODO.Translate
+	L"%s was uncovered!",		// TODO.Translate
 };
 
 STR16	szCorpseTextStr[]=
