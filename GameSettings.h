@@ -1211,7 +1211,8 @@ typedef struct
 	UINT8 ubMaxNumberOfTraits;
 	UINT8 ubNumberOfMajorTraitsAllowed;
 
-	BOOLEAN fAllowDrQTraitsException;
+	BOOLEAN fAllowSpecialMercTraitsException;
+	UINT8 ubSpecialMercID;
 
 	BOOLEAN fAllowAttributePrereq;
 

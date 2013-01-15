@@ -2657,11 +2657,20 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 {
 	INT8 bNumTraits = 0;
 	INT8 bNumMajorTraitsCounted = 0;
+	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;
+	INT8 bMaxMajorTraits = gSkillTraitValues.ubNumberOfMajorTraitsAllowed;
 
 	// check old/new traits
 	if (gGameOptions.fNewTraitSystem)
 	{
-		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
+		// exception for special merc
+		if ( gSkillTraitValues.fAllowSpecialMercTraitsException && ubProfileID == gSkillTraitValues.ubSpecialMercID)
+		{
+			bMaxTraits++;
+			bMaxMajorTraits++;
+		}
+		
+		for ( INT8 bCnt = 0; bCnt < bMaxTraits; bCnt++ )
 		{
 			if ( TwoStagedTrait(bSkillTrait) )
 			{
@@ -2675,7 +2684,7 @@ INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait )
 					bNumMajorTraitsCounted++;
 				}
 				// if we exceeded the allowed number of major traits, ignore the rest of them
-				if ( bNumMajorTraitsCounted >= gSkillTraitValues.ubNumberOfMajorTraitsAllowed )
+				if ( bNumMajorTraitsCounted >= bMaxMajorTraits )
 				{
 					break;
 				}

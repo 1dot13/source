@@ -17838,16 +17838,17 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	INT8 bNumMajorTraitsCounted = 0;
 	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;
 	INT8 bMaxMajorTraits = gSkillTraitValues.ubNumberOfMajorTraitsAllowed;
-	// special case for Dr.Q - he's allowed to have 3 major traits and one minor for total by default
-	if ( pSoldier->ubProfile == 33 && gSkillTraitValues.fAllowDrQTraitsException )
-	{
-		bMaxTraits++;
-		bMaxMajorTraits++;
-	}
 
 	// check old/new traits
 	if (gGameOptions.fNewTraitSystem)
 	{
+		// exception for special merc
+		if ( gSkillTraitValues.fAllowSpecialMercTraitsException && pSoldier->ubProfile == gSkillTraitValues.ubSpecialMercID)
+		{
+			bMaxTraits++;
+			bMaxMajorTraits++;
+		}
+		
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
 			if ( TwoStagedTrait( uiSkillTraitNumber ) )
@@ -17894,16 +17895,17 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 	INT8 bNumMajorTraitsCounted = 0;
 	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;
 	INT8 bMaxMajorTraits = gSkillTraitValues.ubNumberOfMajorTraitsAllowed;
-	// special case for Dr.Q - he's allowed to have 3 major traits and one minor for total by default
-	if ( pSoldier->ubProfile == 33 && gSkillTraitValues.fAllowDrQTraitsException )
-	{
-		bMaxTraits++;
-		bMaxMajorTraits++;
-	}
 
 	// check old/new traits
 	if (gGameOptions.fNewTraitSystem)
 	{
+		// exception for special merc
+		if ( gSkillTraitValues.fAllowSpecialMercTraitsException && pSoldier->ubProfile == gSkillTraitValues.ubSpecialMercID)
+		{
+			bMaxTraits++;
+			bMaxMajorTraits++;
+		}
+		
 		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
 			if ( TwoStagedTrait( uiSkillTraitNumber ) )
