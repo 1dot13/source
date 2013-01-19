@@ -16980,7 +16980,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			apsDeducted = TRUE;
 
 			// Flugente: if we are talking to an enemy, we have the option to offer them surrendering... but not on y levels >= 16 (no surrendering in the palace, as we have to kill, not capture, the queen)
-			if ( pTSoldier->bTeam == ENEMY_TEAM && gGameExternalOptions.fEnemyCanSurrender && gWorldSectorY < WORLD_MAP_X - 2 )
+			if ( pTSoldier->bTeam == ENEMY_TEAM && (gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) && gWorldSectorY < WORLD_MAP_X - 2 )
 			{
 				HandleSurrenderOffer(pTSoldier);
 				return( FALSE );

@@ -1170,6 +1170,7 @@ typedef struct
 	// Flugente: prisoner related settings
 	BOOLEAN fAllowPrisonerSystem;
 	BOOLEAN	fEnemyCanSurrender;
+	BOOLEAN	fPlayerCanAsktoSurrender;
 	UINT8	ubPrisonerReturntoQueenChance;
 	UINT8	ubPrisonerProcessDefectChance;
 	UINT8	ubPrisonerProcessInfoBaseChance;

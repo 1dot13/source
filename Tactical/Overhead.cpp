@@ -10048,21 +10048,28 @@ static UINT8 prisonerdialoguetargetID = 0;
 
 void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
-	if (ubExitValue == MSG_BOX_RETURN_YES)
+	SOLDIERTYPE *pSoldier = NULL;		
+	UINT32 uiCnt=0;
+	BOOLEAN success = FALSE;
+
+	if ( ubExitValue == 1 )
 	{
+		if ( !gGameExternalOptions.fEnemyCanSurrender )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ SRT_PRISONER_INI_SETTING_OFF ]  );
+			return;
+		}
+
 		// we have to remove the region, as we are calling a message from within a messagebox
 		MSYS_RemoveRegion(&(gMsgBox.BackRegion) );
 
 		// we determine the chance that enemy will surrender. This depends on the strength of our and their side
 		UINT32 playersidestrength	= 0;
 		UINT32 enemysidestrength	= 0;
-
-		SOLDIERTYPE *pSoldier = NULL;		
-		UINT32 uiCnt=0;
-
+				
 		// player team
-		UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-		UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+		UINT32 firstid = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		UINT32 lastid  = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
 		{
 			if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
@@ -10137,6 +10144,55 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			}
 		}
 	}
+	// we offered to surrender OURSELVES TO the enemy
+	else if ( ubExitValue == 2 )
+	{
+		if ( !gGameExternalOptions.fPlayerCanAsktoSurrender )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ SRT_PRISONER_INI_SETTING_OFF ]  );
+			return;
+		}
+
+		// in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
+		if ( !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
+		{
+			if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
+			{
+				gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
+
+				// CJC Dec 1 2002: fix multiple captures
+				BeginCaptureSquence();
+
+				// Do capture....
+				uiCnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+				for ( pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCnt, ++pSoldier)
+				{
+					// Are we active and in sector.....
+					if ( pSoldier->bActive && pSoldier->bInSector )
+					{
+						if ( pSoldier->stats.bLife != 0 )
+						{
+							EnemyCapturesPlayerSoldier( pSoldier );
+
+							RemoveSoldierFromTacticalSector( pSoldier, TRUE );
+						}
+					}
+				}
+
+				EndCaptureSequence( );
+
+				gfSurrendered = TRUE;
+				SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
+
+				success = TRUE;
+			}
+		}
+
+		if ( !success )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ STR_PRISONER_REFUSE_TAKE_PRISONERS ]  );
+		}
+	}
 	else
 	{
 		// normal dialog
@@ -10157,5 +10213,5 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 	prisonerdialoguetargetID = pSoldier->ubID;
 
 	// open a dialogue box and see wether we really want to offer this, or just talk
-	DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, PrisonerSurrenderMessageBoxCallBack, NULL );
+	DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
 }

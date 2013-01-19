@@ -2920,6 +2920,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
 	L"Yes - 将俘虏送入监狱      No - 放俘虏离开这里", //L"Yes - Send prisoners to jail      No - Let them go",
 	L"劝说敌人投降？", //L"Ask enemy for surrender?",
+	L"1 - Ask enemy for surrender 2 - Surrender to enemy 3,4 - Talk",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -7507,6 +7508,8 @@ STR16	szPrisonerTextStr[]=
 	L"俘虏已被释放！", //L"Prisoners have been released!",
 	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
+	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
+	L"This behaviour is set OFF in your ini settings.",
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate

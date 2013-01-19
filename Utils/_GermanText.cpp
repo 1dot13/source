@@ -2922,6 +2922,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"You have no prison for these prisoners, you have to let them go",
 	L"Yes - Send prisoners to jail      No - Let them go",
 	L"Ask enemy for surrender?",
+	L"1 - Ask enemy for surrender 2 - Surrender to enemy 3,4 - Talk",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -7319,6 +7320,8 @@ STR16	szPrisonerTextStr[]=
 	L"Gefangene freigelassen!",
 	L"Die Armee hat das Gefängnis in %s besetzt, die Gefangenen wurden befreit!",
 	L"Der Gegner weigert sich aufzugeben!",
+	L"Der Gegner will uns tot sehen!",
+	L"Dieses Feature ist in der ini auf AUS gesetzt.",
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate
