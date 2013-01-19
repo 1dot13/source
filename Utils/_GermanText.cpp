@@ -4982,7 +4982,8 @@ STR16 zOptionsToggleText[] =
 #endif
 	L"Inventar Popup-Menüs",				// the_bob : enable popups for picking items from sector inv
 	L"Übrige Feinde markieren",				
-	L"Tascheninhalt anzeigen",					
+	L"Tascheninhalt anzeigen",
+	L"Mausradrichtung umkehren",			
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5097,7 +5098,8 @@ STR16 zOptionsScreenHelpText[] =
 #endif
 	L"Wenn diese Funktion aktiviert ist, und Sie mit der linken Maustaste auf einen freien Söldner-Inventarplatz klicken (während das Sektor-Inventar angezeigt wird), wird ein hilfreiches Popup-Menü eingeblendet.",
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
-	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Taschen statt den Anbauteilen deren Inhalt angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

@@ -6822,6 +6822,7 @@ void	QueryTBWheel( UINT32 *puiNewEvent )
 	INT32		usMapPos=0;
 	UINT8		bID;
 
+	gViewportRegion.WheelState = gViewportRegion.WheelState * ( gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1 );
 	// stub
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
 	{

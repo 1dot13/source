@@ -5137,6 +5137,7 @@ STR16		zOptionsToggleText[] =
 	L"区域物品栏弹窗匹配拾取",				// the_bob : enable popups for picking items from sector inv
 	L"标记剩余敌人",
 	L"显示LBE(携行具)物品",
+	L"Invert mouse wheel",			// TODO.Translate
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5252,6 +5253,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，在区域物品栏界面，点击佣兵身上空白的携行具位置会弹窗匹配拾取物品。",
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
+	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

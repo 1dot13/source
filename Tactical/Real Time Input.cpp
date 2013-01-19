@@ -1736,6 +1736,7 @@ void	QueryRTWheels( UINT32 *puiNewEvent )
 	INT32		sMapPos=0;
 	UINT8		bID;
 
+	gViewportRegion.WheelState = gViewportRegion.WheelState * ( gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1 );
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
 	{
 		if (!GetMouseMapPos( &sMapPos ) )

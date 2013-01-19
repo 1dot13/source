@@ -259,6 +259,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_LAST_ENEMY"					,  FALSE );
 		 
 		gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_LBE_CONTENT"					,  TRUE );
+		gGameSettings.fOptions[TOPTION_INVERT_WHEEL]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_INVERT_WHEEL"					,  FALSE );
 
 		gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
 
@@ -419,6 +420,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_AUTO_FAST_FORWARD_MODE           = " << (gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_LAST_ENEMY				  = " << (gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]					?	 "TRUE"	: "FALSE" ) << endl;
 		settings << "TOPTION_SHOW_LBE_CONTENT				  = " << (gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					?	 "TRUE"	: "FALSE" ) << endl;
+		settings << "TOPTION_INVERT_WHEEL				  = " << (gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						?	 "TRUE"	: "FALSE" ) << endl;
 
 #ifdef ENABLE_ZOMBIES
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
@@ -556,6 +558,7 @@ void InitGameSettings()
 
 	gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]						= FALSE;
 	gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					= TRUE;
+	gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						= FALSE;
 
 #ifdef ENABLE_ZOMBIES
 	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies 1.0	

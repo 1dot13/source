@@ -94,6 +94,7 @@ enum
 
 	TOPTION_SHOW_LAST_ENEMY,					//DBrot: show approximate locations for the last enemies
 	TOPTION_SHOW_LBE_CONTENT,					//DBrot: toggle between the content of an lbe and its attachments
+	TOPTION_INVERT_WHEEL,						//jikuja: invert mouse wheel
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
