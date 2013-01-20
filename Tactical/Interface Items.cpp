@@ -13049,13 +13049,30 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 		}
 		else if ( HasAttachmentOfClass( gpItemDescObject, (AC_DEFUSE ) ) )
 		{
+			wcscpy( gzUserDefinedButton[0], L"1-A" );
+			wcscpy( gzUserDefinedButton[1], L"1-B" );
+			wcscpy( gzUserDefinedButton[2], L"1-C" );
+			wcscpy( gzUserDefinedButton[3], L"1-D" );
+			wcscpy( gzUserDefinedButton[4], L"2-A" );
+			wcscpy( gzUserDefinedButton[5], L"2-B" );
+			wcscpy( gzUserDefinedButton[6], L"2-C" );
+			wcscpy( gzUserDefinedButton[7], L"2-D" );
+			wcscpy( gzUserDefinedButton[8], L"3-A" );
+			wcscpy( gzUserDefinedButton[9], L"3-B" );
+			wcscpy( gzUserDefinedButton[10], L"3-C" );
+			wcscpy( gzUserDefinedButton[11], L"3-D" );
+			wcscpy( gzUserDefinedButton[12], L"4-A" );
+			wcscpy( gzUserDefinedButton[13], L"4-B" );
+			wcscpy( gzUserDefinedButton[14], L"4-C" );
+			wcscpy( gzUserDefinedButton[15], L"4-D" );
+
 			if ( HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR ) ) )
 			{
-				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
+				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
 			}
 			else if ( HasAttachmentOfClass( gpItemDescObject, (AC_REMOTEDET ) ) )
 			{
-				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS,  TacticalStr[ CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
+				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], screen, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombInventoryMessageBoxCallBack, NULL );
 			}
 		}
 		else if ( HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR ) ) )

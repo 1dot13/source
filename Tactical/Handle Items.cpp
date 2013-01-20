@@ -4543,27 +4543,33 @@ INT32 AdjustGridNoForItemPlacement( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel )
 {
 	gpTempSoldier = pSoldier;
-
-	// determine what is possible with this corpse
-	BOOLEAN	fDecapitate		= TRUE;
-	BOOLEAN	fTakeClothes	= TRUE;
-	BOOLEAN	fTakeCorpse		= TRUE;
-
-	if ( fDecapitate && fTakeClothes  )
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CORPSE_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, CorpseMessageBoxCallBack, NULL );
+		
+	wcscpy( gzUserDefinedButton[0], TacticalStr[ DECAPITATE_STR ] );
+	wcscpy( gzUserDefinedButton[1], TacticalStr[ GUT_STR ] );
+	wcscpy( gzUserDefinedButton[2], TacticalStr[ TAKE_CLOTHES_STR ] );
+	wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_BODY_STR ] );
+	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ CORPSE_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, CorpseMessageBoxCallBack, NULL );
 }
 
 void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 {
 	//DBrot: More Rooms
-	//UINT8 ubRoom;
 	UINT16 usRoom;
 
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 	if (Item[ pSoldier->inv[HANDPOS].usItem].remotetrigger )
 	{
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_BOMB_OR_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		wcscpy( gzUserDefinedButton[0], L"1" );
+		wcscpy( gzUserDefinedButton[1], L"2" );
+		wcscpy( gzUserDefinedButton[2], L"3" );
+		wcscpy( gzUserDefinedButton[3], L"4" );
+		wcscpy( gzUserDefinedButton[4], L"A" );
+		wcscpy( gzUserDefinedButton[5], L"B" );
+		wcscpy( gzUserDefinedButton[6], L"C" );
+		wcscpy( gzUserDefinedButton[7], L"D" );
+
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_BOMB_OR_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, BombMessageBoxCallBack, NULL );
 	}
 	else if (pSoldier->inv[HANDPOS].usItem == REMOTETRIGGER)
 	{
@@ -4603,13 +4609,30 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	}
 	else if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_DEFUSE ) )
 	{
+		wcscpy( gzUserDefinedButton[0], L"1-A" );
+		wcscpy( gzUserDefinedButton[1], L"1-B" );
+		wcscpy( gzUserDefinedButton[2], L"1-C" );
+		wcscpy( gzUserDefinedButton[3], L"1-D" );
+		wcscpy( gzUserDefinedButton[4], L"2-A" );
+		wcscpy( gzUserDefinedButton[5], L"2-B" );
+		wcscpy( gzUserDefinedButton[6], L"2-C" );
+		wcscpy( gzUserDefinedButton[7], L"2-D" );
+		wcscpy( gzUserDefinedButton[8], L"3-A" );
+		wcscpy( gzUserDefinedButton[9], L"3-B" );
+		wcscpy( gzUserDefinedButton[10], L"3-C" );
+		wcscpy( gzUserDefinedButton[11], L"3-D" );
+		wcscpy( gzUserDefinedButton[12], L"4-A" );
+		wcscpy( gzUserDefinedButton[13], L"4-B" );
+		wcscpy( gzUserDefinedButton[14], L"4-C" );
+		wcscpy( gzUserDefinedButton[15], L"4-D" );
+
 		if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_DETONATOR ) ) )
 		{
-			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
 		}
 		else if ( HasAttachmentOfClass( &(pSoldier->inv[ HANDPOS ] ), (AC_REMOTEDET) ) )
 		{
-			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS,  TacticalStr[ CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+			DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS,  TacticalStr[ CHOOSE_REMOTE_DETONATE_AND_REMOTE_DEFUSE_FREQUENCY_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
 		}
 		else
 		{
@@ -4626,7 +4649,24 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	}
 	else if ( Item[ (&(pSoldier->inv[HANDPOS]))->usItem ].tripwire == 1 )
 	{
-		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS, BombMessageBoxCallBack, NULL );
+		wcscpy( gzUserDefinedButton[0], L"1-A" );
+		wcscpy( gzUserDefinedButton[1], L"1-B" );
+		wcscpy( gzUserDefinedButton[2], L"1-C" );
+		wcscpy( gzUserDefinedButton[3], L"1-D" );
+		wcscpy( gzUserDefinedButton[4], L"2-A" );
+		wcscpy( gzUserDefinedButton[5], L"2-B" );
+		wcscpy( gzUserDefinedButton[6], L"2-C" );
+		wcscpy( gzUserDefinedButton[7], L"2-D" );
+		wcscpy( gzUserDefinedButton[8], L"3-A" );
+		wcscpy( gzUserDefinedButton[9], L"3-B" );
+		wcscpy( gzUserDefinedButton[10], L"3-C" );
+		wcscpy( gzUserDefinedButton[11], L"3-D" );
+		wcscpy( gzUserDefinedButton[12], L"4-A" );
+		wcscpy( gzUserDefinedButton[13], L"4-B" );
+		wcscpy( gzUserDefinedButton[14], L"4-C" );
+		wcscpy( gzUserDefinedButton[15], L"4-D" );
+
+		DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ CHOOSE_TRIPWIRE_NETWORK ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, BombMessageBoxCallBack, NULL );
 	}
 }
 
@@ -4639,7 +4679,11 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 
-	DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
+	wcscpy( gzUserDefinedButton[0], TacticalStr[ FILL_CANTEEN_STR ] );
+	wcscpy( gzUserDefinedButton[1], TacticalStr[ CLEAN_ONE_GUN_STR ] );
+	wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
+	wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
+	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
 }
 
 void CleanWeapons( BOOLEAN fCleanAll )

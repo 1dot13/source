@@ -78,6 +78,9 @@ extern STR16 pUpdatePanelButtons[];
 CHAR16		gzUserDefinedButton1[ 128 ];
 CHAR16		gzUserDefinedButton2[ 128 ];
 
+// Flugente: made an array for user-defined buttons
+CHAR16		gzUserDefinedButton[ NUM_CUSTOM_BUTTONS ][ 128 ];
+
 INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 	VSURFACE_DESC		vs_desc;
@@ -179,6 +182,18 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			usCursor = CURSOR_LAPTOP_SCREEN;
 			break;
 
+		case MSG_BOX_BASIC_MEDIUM_BUTTONS:
+			ubMercBoxBackground = DIALOG_MERC_POPUP_BACKGROUND;
+			ubMercBoxBorder			= DIALOG_MERC_POPUP_BORDER;
+
+			// Add button images
+			gMsgBox.iButtonImages			= LoadButtonImage( "INTERFACE\\PreferencesButtons.sti", -1,0,-1,1,-1 );
+			ubFontColor	= FONT_MCOLOR_WHITE;
+			ubFontShadowColor = DEFAULT_SHADOW;
+			usCursor = CURSOR_NORMAL;
+
+			break;
+
 		default:
 			ubMercBoxBackground = BASIC_MERC_POPUP_BACKGROUND;
 			ubMercBoxBorder			= BASIC_MERC_POPUP_BORDER;
@@ -217,9 +232,11 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 	// Flugente: increase the height of the display box under certain conditions
 	UINT16 heightincrease = 0;
-	if ( usFlags & MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS )
+	if ( usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS )
+		heightincrease = 120;
+	if ( usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
 		heightincrease = 50;
-	if ( usFlags & MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS )
+	if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 		heightincrease = 90;
 
 	// Init message box
@@ -361,30 +378,38 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			ForceButtonUnDirty( gMsgBox.uiButton[i] );
 		}
 	}
+	// Create four numbered buttons
+	else if ( usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS )
+	{
+		sButtonX = (usTextBoxWidth - 115)/ 2;
+		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 130 - MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+				
+		for ( INT8 j = 0; j < 4; ++j)
+		{
+			sButtonY += 35;
+			gMsgBox.uiButton[j] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[j], FONT12ARIAL,
+													ubFontColor, ubFontShadowColor,
+													ubFontColor, ubFontShadowColor,
+													TEXT_CJUSTIFIED,
+													(INT16)(gMsgBox.sX + sButtonX ), (INT16)(gMsgBox.sY + sButtonY ), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,
+													DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NumberedMsgBoxCallback );
+			MSYS_SetBtnUserData( gMsgBox.uiButton[j], 0, j+1);
+			SetButtonCursor(gMsgBox.uiButton[j], usCursor);
+			ForceButtonUnDirty( gMsgBox.uiButton[j] );
+		}
+	}
 	// Create eight numbered buttons
-	else if ( usFlags & MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS )
+	else if ( usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
 	{
 		sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
 		sButtonX = sBlankSpace / 2;
 		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease;
-
-		STR16 eightstr[8] = {
-			L"1",
-			L"2",
-			L"3",
-			L"4",
-			L"A",
-			L"B",
-			L"C",
-			L"D",
-		};
-
 		sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
 				
 		for ( INT8 i = 0; i < 2; ++i)
 		{
 			// new row
-			sButtonY += MSGBOX_SMALL_BUTTON_WIDTH;// + MSGBOX_SMALL_BUTTON_X_SEP;
+			sButtonY += MSGBOX_SMALL_BUTTON_WIDTH;
 
 			// begin from the front
 			sButtonX = sBlankSpace / 2 -  MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
@@ -394,7 +419,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 				INT8 k = 4*i + j;
 
 				sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
-				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, eightstr[k], FONT12ARIAL,
+				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
 														ubFontColor, ubFontShadowColor,
 														ubFontColor, ubFontShadowColor,
 														TEXT_CJUSTIFIED,
@@ -402,40 +427,16 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 														DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NumberedMsgBoxCallback );
 				MSYS_SetBtnUserData( gMsgBox.uiButton[k], 0, k+1);
 				SetButtonCursor(gMsgBox.uiButton[k], usCursor);
+				ForceButtonUnDirty( gMsgBox.uiButton[k] );
 			}
-		}
-		
-		for ( INT8 i = 7; i >= 0; --i)
-		{
-			ForceButtonUnDirty( gMsgBox.uiButton[i] );
 		}
 	}
 	// Create sixteen numbered buttons
-	else if ( usFlags & MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS )
+	else if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 	{
 		sBlankSpace = usTextBoxWidth - MSGBOX_SMALL_BUTTON_WIDTH * 4 - MSGBOX_SMALL_BUTTON_X_SEP * 3;
 		sButtonX = sBlankSpace / 2;
 		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10 - heightincrease - 6;
-
-		STR16 sixteenstr[16] = {
-			L"1-A",
-			L"1-B",
-			L"1-C",
-			L"1-D",
-			L"2-A",
-			L"2-B",
-			L"2-C",
-			L"2-D",
-			L"3-A",
-			L"3-B",
-			L"3-C",
-			L"3-D",
-			L"4-A",
-			L"4-B",
-			L"4-C",
-			L"4-D",
-		};
-
 		sButtonY -= MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
 				
 		for ( INT8 i = 0; i < 4; ++i)
@@ -449,9 +450,9 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			for ( INT8 j = 0; j < 4; ++j)
 			{
 				INT8 k = 4*i + j;
-
+				
 				sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
-				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, sixteenstr[k], FONT12ARIAL,
+				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
 														ubFontColor, ubFontShadowColor,
 														ubFontColor, ubFontShadowColor,
 														TEXT_CJUSTIFIED,
@@ -459,12 +460,8 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 														DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)NumberedMsgBoxCallback );
 				MSYS_SetBtnUserData( gMsgBox.uiButton[k], 0, k+1);
 				SetButtonCursor(gMsgBox.uiButton[k], usCursor);
+				ForceButtonUnDirty( gMsgBox.uiButton[k] );
 			}
-		}
-
-		for ( INT8 i = 15; i >= 0; --i)
-		{
-			ForceButtonUnDirty( gMsgBox.uiButton[i] );
 		}
 	}
 	else if (usFlags & MSG_BOX_FLAG_INPUTBOX)
@@ -703,7 +700,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 		}
 
-		if ( usFlags & MSG_BOX_FLAG_GENERIC )
+		if ( usFlags & MSG_BOX_FLAG_GENERIC_TWO_BUTTONS )
 		{
 			sButtonX = ( usTextBoxWidth - ( MSGBOX_BUTTON_WIDTH + MSGBOX_BUTTON_WIDTH + MSGBOX_BUTTON_X_SEP ) ) / 2;
 			sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 10;
@@ -971,14 +968,21 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 			RemoveButton( gMsgBox.uiButton[i] );
 		}
 	}
-	else if ( gMsgBox.usFlags & MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS )
+	else if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS )
+	{
+		for (UINT8 i = 0; i < 4; ++i)
+		{
+			RemoveButton( gMsgBox.uiButton[i] );
+		}
+	}
+	else if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
 	{
 		for (UINT8 i = 0; i < 8; ++i)
 		{
 			RemoveButton( gMsgBox.uiButton[i] );
 		}
 	}
-	else if ( gMsgBox.usFlags & MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS )
+	else if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 	{
 		for (UINT8 i = 0; i < 16; ++i)
 		{
@@ -1024,7 +1028,7 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 			RemoveButton( gMsgBox.uiOKButton );
 		}
 
-		if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC )
+		if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_TWO_BUTTONS )
 		{
 			RemoveButton( gMsgBox.uiYESButton );
 			RemoveButton( gMsgBox.uiNOButton );
@@ -1211,14 +1215,21 @@ UINT32	MessageBoxScreenHandle( )
 				MarkAButtonDirty( gMsgBox.uiButton[i] );
 			}
 		}
-		else if ( gMsgBox.usFlags & MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS )
+		else if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS )
+		{
+			for (UINT8 i = 0; i < 4; ++i)
+			{
+				MarkAButtonDirty( gMsgBox.uiButton[i] );
+			}
+		}
+		else if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
 		{
 			for (UINT8 i = 0; i < 8; ++i)
 			{
 				MarkAButtonDirty( gMsgBox.uiButton[i] );
 			}
 		}
-		else if ( gMsgBox.usFlags & MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS )
+		else if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 		{
 			for (UINT8 i = 0; i < 16; ++i)
 			{
@@ -1262,7 +1273,7 @@ UINT32	MessageBoxScreenHandle( )
 			MarkAButtonDirty( gMsgBox.uiOKButton );
 		}
 
-		if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC )
+		if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_TWO_BUTTONS )
 		{
 			MarkAButtonDirty( gMsgBox.uiYESButton );
 			MarkAButtonDirty( gMsgBox.uiNOButton );
@@ -1309,142 +1320,143 @@ UINT32	MessageBoxScreenHandle( )
 	while (DequeueSpecificEvent(&InputEvent, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
 		if( !HandleTextInput( &InputEvent ) && InputEvent.usEvent == KEY_DOWN )
+		{
+			if( ( InputEvent.usParam == ESC ) || ( InputEvent.usParam == 'n') )
 			{
-				if( ( InputEvent.usParam == ESC ) || ( InputEvent.usParam == 'n') )
+				if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
 				{
-					if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
-					{
-							// Exit messagebox
-							gMsgBox.bHandled = MSG_BOX_RETURN_NO;
-					}
-					//OJW - 20090208 - Input Box
-					else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
-					{
 						// Exit messagebox
 						gMsgBox.bHandled = MSG_BOX_RETURN_NO;
-						memset(gszMsgBoxInputString,0,sizeof(CHAR16)*255);
-					}
 				}
-
-				if( InputEvent.usParam == ENTER )
+				//OJW - 20090208 - Input Box
+				else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
 				{
-					if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_NO;
+					memset(gszMsgBoxInputString,0,sizeof(CHAR16)*255);
+				}
+			}
+
+			if( InputEvent.usParam == ENTER )
+			{
+				if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
+				{
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_YES;
+				}
+				else if( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
+				{
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
+				}
+				else if( gMsgBox.usFlags & MSG_BOX_FLAG_CONTINUESTOP )
+				{
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
+				}
+				//OJW - 20090208 - Input Box
+				else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
+				{
+					// retrieve the string from the text box
+					Get16BitStringFromField( 0, gszMsgBoxInputString, 255 ); // these indexes are based on the order created
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
+				}
+			}
+
+			if( InputEvent.usParam == 'o' )
+			{
+				if( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
+				{
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
+				}
+			}
+			if( InputEvent.usParam == 'y' )
+			{
+				if( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
+				{
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_YES;
+				}
+			}
+
+			// box with four buttons
+			UINT32 four[8] = {
+				'1',
+				'2',
+				'3',
+				'4',
+			};
+
+			for ( INT8 i = 0; i < 4; ++i )
+			{
+				if( InputEvent.usParam == four[i] )
+				{
+					if ( gMsgBox.usFlags & MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS )
 					{
 						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_YES;
-					}
-					else if( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
-					{
-						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
-					}
-					else if( gMsgBox.usFlags & MSG_BOX_FLAG_CONTINUESTOP )
-					{
-						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
-					}
-					//OJW - 20090208 - Input Box
-					else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
-					{
-						// retrieve the string from the text box
-						Get16BitStringFromField( 0, gszMsgBoxInputString, 255 ); // these indexes are based on the order created
-						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
-					}
-				}
-				if( InputEvent.usParam == 'o' )
-				{
-					if( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
-					{
-						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
-					}
-				}
-				if( InputEvent.usParam == 'y' )
-				{
-					if( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
-					{
-						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_YES;
-					}
-				}
-
-				// box with four buttons
-				UINT32 four[8] = {
-					'1',
-					'2',
-					'3',
-					'4',
-				};
-
-				for ( INT8 i = 0; i < 4; ++i )
-				{
-					if( InputEvent.usParam == four[i] )
-					{
-						if ( gMsgBox.usFlags & MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS )
-						{
-							// Exit messagebox
-							gMsgBox.bHandled = 1;
-						}
-					}
-				}
-
-				// box with eight buttons
-				UINT32 eighttxt[8] = {
-					'1',
-					'2',
-					'3',
-					'4',
-					'A',
-					'B',
-					'C',
-					'D',
-				};
-
-				for ( INT8 i = 0; i < 8; ++i )
-				{
-					if( InputEvent.usParam == eighttxt[i] )
-					{
-						if ( gMsgBox.usFlags & MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS )
-						{
-							// Exit messagebox
-							gMsgBox.bHandled = 1;
-						}
-					}
-				}
-				
-				// box with sixteen buttons
-				UINT32 sixteentxt[16] = {
-					'1-A',
-					'1-B',
-					'1-C',
-					'1-D',
-					'2-A',
-					'2-B',
-					'2-C',
-					'2-D',
-					'3-A',
-					'3-B',
-					'3-C',
-					'3-D',
-					'4-A',
-					'4-B',
-					'4-C',
-					'4-D',
-				};
-
-				for ( INT8 i = 0; i < 16; ++i )
-				{
-					if( InputEvent.usParam == sixteentxt[i] )
-					{
-						if ( gMsgBox.usFlags & MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS )
-						{
-							// Exit messagebox
-							gMsgBox.bHandled = 1;
-						}
+						gMsgBox.bHandled = 1;
 					}
 				}
 			}
+
+			// box with eight buttons
+			UINT32 eighttxt[8] = {
+				'1',
+				'2',
+				'3',
+				'4',
+				'A',
+				'B',
+				'C',
+				'D',
+			};
+
+			for ( INT8 i = 0; i < 8; ++i )
+			{
+				if( InputEvent.usParam == eighttxt[i] )
+				{
+					if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS )
+					{
+						// Exit messagebox
+						gMsgBox.bHandled = 1;
+					}
+				}
+			}
+				
+			// box with sixteen buttons
+			UINT32 sixteentxt[16] = {
+				'1-A',
+				'1-B',
+				'1-C',
+				'1-D',
+				'2-A',
+				'2-B',
+				'2-C',
+				'2-D',
+				'3-A',
+				'3-B',
+				'3-C',
+				'3-D',
+				'4-A',
+				'4-B',
+				'4-C',
+				'4-D',
+			};
+
+			for ( INT8 i = 0; i < 16; ++i )
+			{
+				if( InputEvent.usParam == sixteentxt[i] )
+				{
+					if ( gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
+					{
+						// Exit messagebox
+						gMsgBox.bHandled = 1;
+					}
+				}
+			}
+		}
 	}
 
 	if ( gMsgBox.bHandled )

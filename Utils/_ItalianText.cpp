@@ -2899,20 +2899,30 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical
-	L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Take off clothes",	// TODO.Translate
+	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
+	L"What do you want to do?",
+	L"Fill canteens",
+	L"Clean gun",
+	L"Clean all guns",
+	L"Take off clothes",
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",	// TODO.Translate
+	L"What do you want to do with the body?",
+	L"Decapitate",
+	L"Gut",
+	L"Take Clothes",
+	L"Take Body",
 
-	// Flugente: weapon cleaning	// TODO.Translate
+	// Flugente: weapon cleaning
 	L"%s cleaned %s",
 
-	// added by Flugente: decide what to do with prisoners	// TODO.Translate
+	// added by Flugente: decide what to do with prisoners
 	L"You have no prison for these prisoners, you have to let them go",
 	L"Yes - Send prisoners to jail      No - Let them go",
-	L"Ask enemy for surrender?",
-	L"1 - Ask enemy for surrender 2 - Surrender to enemy 3,4 - Talk",	// TODO.Translate
+	L"What do you want to do?",
+	L"Demand surrender",
+	L"Offer surrender",
+	L"Talk",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

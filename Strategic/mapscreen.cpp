@@ -15451,7 +15451,7 @@ void CreateBullsEyeOrChopperSelectionPopup( void )
 	wcscpy( gzUserDefinedButton2, pHelicopterEtaStrings[ 9 ] );
 
 	// do a BULLSEYE/CHOPPER message box
-	DoScreenIndependantMessageBox( pHelicopterEtaStrings[ 7 ], MSG_BOX_FLAG_GENERIC, BullsEyeOrChopperSelectionPopupCallback );
+	DoScreenIndependantMessageBox( pHelicopterEtaStrings[ 7 ], MSG_BOX_FLAG_GENERIC_TWO_BUTTONS, BullsEyeOrChopperSelectionPopupCallback );
 }
 
 

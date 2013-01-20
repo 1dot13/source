@@ -4229,6 +4229,10 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 							// set back ubWireNetworkFlag and bDefuseFrequency, but not the direction... bomb is still aimed, it is just turned off
 							(*pObj)[0]->data.ubWireNetworkFlag = 0;
 							(*pObj)[0]->data.bDefuseFrequency = 0;
+							(*pObj)[0]->data.misc.bDelay = 0;
+							(*pObj)[0]->data.misc.bFrequency = 0;
+							(*pObj)[0]->data.misc.ubBombOwner = NOBODY;
+							(*pObj)[0]->data.misc.bDetonatorType = 0;
 						
 							//create a new item: copy the old item
 							OBJECTTYPE newbombitem( *pObj );

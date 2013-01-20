@@ -2907,20 +2907,30 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"生命: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical
-	L"1 - 装满水壶 2 - 清理枪支污垢 3 - 清理所有枪支污垢 4 - 脱掉衣服", //L"1 - Fill Canteens 2 - Clean one gun 3 - Clean all guns 4 - Take off clothes",
+	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
+	L"What do you want to do?",
+	L"Fill canteens",
+	L"Clean gun",
+	L"Clean all guns",
+	L"Take off clothes",
 
 	// added by Flugente: decide what to do with the corpses
-	L"1 - 砍掉头颅 2 - 取出内脏 3 - 脱掉衣服 4 - 拿起尸体", //L"1 - Decapitate 2 - Gut 3 - Take Clothes 4 - Take Body",
+	L"What do you want to do with the body?",
+	L"Decapitate",
+	L"Gut",
+	L"Take Clothes",
+	L"Take Body",
 
 	// Flugente: weapon cleaning
-	L"%s 清理了 %s", //L"%s cleaned %s",
+	L"%s cleaned %s",
 
 	// added by Flugente: decide what to do with prisoners
-	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
-	L"Yes - 将俘虏送入监狱      No - 放俘虏离开这里", //L"Yes - Send prisoners to jail      No - Let them go",
-	L"劝说敌人投降？", //L"Ask enemy for surrender?",
-	L"1 - Ask enemy for surrender 2 - Surrender to enemy 3,4 - Talk",	// TODO.Translate
+	L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - Send prisoners to jail      No - Let them go",
+	L"What do you want to do?",
+	L"Demand surrender",
+	L"Offer surrender",
+	L"Talk",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

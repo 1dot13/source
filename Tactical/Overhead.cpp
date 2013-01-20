@@ -10213,5 +10213,9 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 	prisonerdialoguetargetID = pSoldier->ubID;
 
 	// open a dialogue box and see wether we really want to offer this, or just talk
-	DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
+	wcscpy( gzUserDefinedButton[0], TacticalStr[ PRISONER_DEMAND_SURRENDER_STR ] );
+	wcscpy( gzUserDefinedButton[1], TacticalStr[ PRISONER_OFFER_SURRENDER_STR ] );
+	wcscpy( gzUserDefinedButton[2], TacticalStr[ PRISONER_TALK_STR ] );
+	wcscpy( gzUserDefinedButton[3], TacticalStr[ PRISONER_TALK_STR ] );
+	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
 }

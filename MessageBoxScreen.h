@@ -15,12 +15,13 @@
 #define		MSG_BOX_FLAG_CONTINUESTOP				0x0100			// continue stop box
 #define		MSG_BOX_FLAG_OKSKIP						0x0200			// Displays ok or skip (meanwhile) buttons
 #define		MSG_BOX_FLAG_GENERICCONTRACT			0x0400			// displays contract buttoin + 2 user-defined text buttons
-#define		MSG_BOX_FLAG_GENERIC					0x0800			// 2 user-defined text buttons
+#define		MSG_BOX_FLAG_GENERIC_TWO_BUTTONS		0x0800			// 2 user-defined text buttons
 // OJW - Adding text chatbox 
-#define		MSG_BOX_FLAG_INPUTBOX					0x1000 // has a text input field
-// Flugente - added boxes for simultaneous defuse/detonate mechanism
-#define		MSG_BOX_FLAG_EIGHT_NUMBERED_BUTTONS		0x2000			// Displays eight numbered buttons, 1-4, 10, 20, 30, 40. Numbers 1-4 respond to the normal detonate mechanism, rest to defusing
-#define		MSG_BOX_FLAG_SIXTEEN_NUMBERED_BUTTONS	0x4000			// Displays sixteen numbered buttons, 1-16, for setting up a tripwire network and choosing both a detonation and defusing frequency
+#define		MSG_BOX_FLAG_INPUTBOX					0x1000			// has a text input field
+// Flugente - added boxes with multiple buttons that can be renamed easily
+#define		MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS		0x2000			// Displays four numbered buttons with definable labels
+#define		MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS		0x4000			// Displays eight numbered buttons with definable labels
+#define		MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS	0x8000			// Displays sixteen numbered buttons with definable labels
 
 // message box return codes
 #define		MSG_BOX_RETURN_OK						1				// ENTER or on OK button
@@ -39,12 +40,16 @@ enum
 	MSG_BOX_BASIC_SMALL_BUTTONS,
 	MSG_BOX_IMP_STYLE,
 	MSG_BOX_LAPTOP_DEFAULT,
+	MSG_BOX_BASIC_MEDIUM_BUTTONS,
 };
 
 
 typedef void (*MSGBOX_CALLBACK)( UINT8 bExitValue );	
 
+// Flugente: made an array for user-defined buttons
+#define		NUM_CUSTOM_BUTTONS	16
 
+extern		CHAR16		gzUserDefinedButton[ NUM_CUSTOM_BUTTONS ][ 128 ];
 
 typedef struct
 {
