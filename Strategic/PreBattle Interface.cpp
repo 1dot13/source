@@ -147,6 +147,7 @@ BOOLEAN gfBlinkHeader = FALSE;
 
 // mouse regions in mapscreen proper than must have thier help text disabled then re-enabled
 extern MOUSE_REGION gMapStatusBarsRegion;
+extern MOUSE_REGION gCharInfoFaceRegion;
 extern MOUSE_REGION gCharInfoHandRegion;
 
 extern INT32 giMapContractButton;
@@ -351,6 +352,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 		// reset the help text for mouse regions
 		SetRegionFastHelpText( &gCharInfoHandRegion, L"" );
+		SetRegionFastHelpText( &gCharInfoFaceRegion, L"" );
 		SetRegionFastHelpText( &gMapStatusBarsRegion, L"" );
 
 		gfDisplayPotentialRetreatPaths = FALSE;

@@ -846,6 +846,9 @@ void LoadGameExternalOptions()
 	// CHRISL: New setting to allow Slay to remain as a hired PC
 	gGameExternalOptions.fEnableSlayForever					= iniReader.ReadBoolean("Recruitment Settings", "SLAY_STAYS_FOREVER", FALSE);
 
+	// Buggler: setting to show/hide skills/traits in AIM & MERC hiring page
+	gGameExternalOptions.fShowSkillsInHirePage			= iniReader.ReadBoolean("Recruitment Settings", "SHOW_SKILLS_IN_HIRING_PAGE", FALSE);
+
 	//################# Financial Settings #################
 
 	gGameExternalOptions.iStartingCashNovice		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_NOVICE",45000, 2000, 0x0FFFFFFF);

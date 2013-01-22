@@ -1834,8 +1834,8 @@ STR16 pShortAttributeStrings[] =
 	L"智慧", // wisdom
 	L"级别", // experience level
 	L"枪法", // marksmanship skill
-	L"爆破", // explosive skill
 	L"机械", // mechanical skill
+	L"爆破", // explosive skill
 	L"医疗", // medical skill
 };
 
@@ -4214,7 +4214,7 @@ STR16			MercInfo[] =
 	L"已雇佣",	//"Hired",
 	L"日薪: ",	//"Salary:",
 	L"每日",	//"per Day",
-	L"可选装备: ",	//"Optional Gear:",
+	L"装备: ",	//"Gear:",
 	L"合计: ",	//"Total:",
 	L"阵亡",	//"Deceased",
 

@@ -1841,8 +1841,8 @@ STR16 pShortAttributeStrings[] =
 	L"Int", // wisdom
 	L"DoŚ", // experience level
 	L"Str", // marksmanship skill
-	L"Wyb", // explosive skill
 	L"Mec", // mechanical skill
+	L"Wyb", // explosive skill
 	L"Med", // medical skill
 };
 
@@ -4212,7 +4212,7 @@ STR16			MercInfo[] =
 	L"Najęty",
 	L"Koszt:",
 	L"Dziennie",
-	L"Opcjonalne wyposażenie:",
+	L"Gear:", //TODO.Translate
 	L"Razem:",
 	L"Nie żyje",
 
@@ -4649,7 +4649,7 @@ STR16			CharacterInfo[] =
 	L"Dodatkowe informacje",				// Title for the additional info for the merc's bio
 	L"Aktywni członkowie",		//20		// Title of the page
 	L"Opcjonalne wyposażenie:",				// Displays the optional gear cost
-	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
+	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's //TODO.Translate
 	L"Wymagany jest zastaw na życie",			// If the merc required a medical deposit, this is displayed
 	L"Zestaw nr 1",				// Text on Starting Gear Selection Button 1
 	L"Zestaw nr 2",				// Text on Starting Gear Selection Button 2

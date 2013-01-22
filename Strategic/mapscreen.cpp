@@ -296,10 +296,10 @@ int LVL_X;
 int LVL_Y;
 int MRK_X;
 int MRK_Y;
-int EXP_X;
-int EXP_Y;
 int MEC_X;
 int MEC_Y;
+int EXP_X;
+int EXP_Y;
 int MED_X;
 int MED_Y;
 
@@ -1294,10 +1294,10 @@ BOOLEAN InitializeInvPanelCoordsOld()
 	LVL_Y							= AGL_Y;
 	MRK_X							= LVL_X;
 	MRK_Y							= DEX_Y;
-	EXP_X							= LVL_X;
-	EXP_Y							= STR_Y;
 	MEC_X							= LVL_X;
-	MEC_Y							= LDR_Y;
+	MEC_Y							= STR_Y;
+	EXP_X							= LVL_X;
+	EXP_Y							= LDR_Y;
 	MED_X							= LVL_X;
 	MED_Y							= WIS_Y;
 
@@ -1624,10 +1624,10 @@ BOOLEAN InitializeInvPanelCoordsNew()
 	LVL_Y							= AGL_Y;
 	MRK_X							= LVL_X;
 	MRK_Y							= DEX_Y;
-	EXP_X							= LVL_X;
-	EXP_Y							= STR_Y;
 	MEC_X							= LVL_X;
-	MEC_Y							= LDR_Y;
+	MEC_Y							= STR_Y;
+	EXP_X							= LVL_X;
+	EXP_Y							= LDR_Y;
 	MED_X							= LVL_X;
 	MED_Y							= WIS_Y;
 
@@ -2157,7 +2157,6 @@ void DrawFace( INT16 sCharNumber )
 		return;
 	}
 
-
 	if( ( gCharactersList[ bSelectedInfoChar ].usSolID == sOldId )&&( fReDrawFace == FALSE ) )
 	{
 		// are the same, return
@@ -2548,34 +2547,6 @@ void DrawCharStats( INT16 sCharNum )
 	FindFontRightCoordinates(MRK_X,MRK_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
 	DrawString(sString,usX, MRK_Y,CHAR_FONT );
 
-	// explosives
-	swprintf( sString, L"%d", pSoldier->stats.bExplosive );
-	
-	// SANDRO - if damaged stat we could regain, show in red until repaired
-	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES] > 0 ))
-	{
-		SetFontForeground( FONT_RED );
-	}
-	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeExplosivesTime)&& ( pSoldier->timeChanges.uiChangeExplosivesTime != 0 ) )
-	{
-		if( pSoldier->usValueGoneUp & EXP_INCREASE )
-		{
-			SetFontForeground( FONT_LTGREEN );
-		}
-		else
-		{
-			SetFontForeground( FONT_RED );
-		}
-	}
-	else
-	{
-		SetFontForeground(CHAR_TEXT_FONT_COLOR);
-	}
-
-	// right justify
-	FindFontRightCoordinates(EXP_X,EXP_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
-	DrawString(sString,usX, EXP_Y,CHAR_FONT );
-
 	// mechanical
 	swprintf( sString, L"%d", pSoldier->stats.bMechanical );
 	
@@ -2603,6 +2574,34 @@ void DrawCharStats( INT16 sCharNum )
 	// right justify
 	FindFontRightCoordinates(MEC_X,MEC_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
 	DrawString(sString,usX, MEC_Y,CHAR_FONT );
+	
+	// explosives
+	swprintf( sString, L"%d", pSoldier->stats.bExplosive );
+	
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeExplosivesTime)&& ( pSoldier->timeChanges.uiChangeExplosivesTime != 0 ) )
+	{
+		if( pSoldier->usValueGoneUp & EXP_INCREASE )
+		{
+			SetFontForeground( FONT_LTGREEN );
+		}
+		else
+		{
+			SetFontForeground( FONT_RED );
+		}
+	}
+	else
+	{
+		SetFontForeground(CHAR_TEXT_FONT_COLOR);
+	}
+
+	// right justify
+	FindFontRightCoordinates(EXP_X,EXP_Y,STAT_WID ,STAT_HEI,sString , CHAR_FONT, &usX, &usY);
+	DrawString(sString,usX, EXP_Y,CHAR_FONT );
 
 	// medical
 	swprintf( sString, L"%d", pSoldier->stats.bMedical );
@@ -9836,6 +9835,7 @@ void MAPBeginItemPointer( SOLDIERTYPE *pSoldier, UINT8 ubHandPos )
 	{
 		numToMove = 1;
 	}
+
 	pSoldier->inv[ubHandPos].MoveThisObjectTo(gItemPointer, numToMove, pSoldier, ubHandPos);
 	
 	//Autoplace to map sector invectory

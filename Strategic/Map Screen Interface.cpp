@@ -54,6 +54,8 @@
 	#include "Queen Command.h"
 	#include "Render Fun.h"
 	#include "Food.h"
+	#include "Personnel.h"
+	#include "mapscreen.h"
 #endif
 
 #include "connect.h"
@@ -232,6 +234,7 @@ BOOLEAN fShowMapScreenMovementList = FALSE;
 MapScreenCharacterSt gCharactersList[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS+1];
 
 extern MOUSE_REGION gCharInfoHandRegion;
+extern MOUSE_REGION gCharInfoFaceRegion;
 MOUSE_REGION	gMapStatusBarsRegion;
 
 SGPPoint MovePosition={450, 100 };
@@ -1942,7 +1945,7 @@ void RemoveMapStatusBarsRegion( void )
 
 void UpdateCharRegionHelpText( void )
 {
-	CHAR16 sString[ 128 ];
+	CHAR16 sString[ 128 ], sTemp[ 20 ];
 	CHAR16 pMoraleStr[ 128 ];
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -2031,6 +2034,93 @@ void UpdateCharRegionHelpText( void )
 
 		SetRegionFastHelpText( &gMapStatusBarsRegion, sString );
 
+		// Buggler: skills/traits tooltip on merc portrait
+		if( ( pSoldier->stats.bLife != 0 ) && !AM_A_ROBOT( pSoldier ) && !IsVehicle( pSoldier ) )
+		{
+			// clear pStr value
+			swprintf( sString, L"");
+
+			if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
+			{
+				UINT8 ubTempSkillArray[30];
+				INT8 bNumSkillTraits = 0;
+
+				// lets rearrange our skills to a temp array
+				// we also get the number of lines (skills) to be displayed 
+				for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+				{
+					if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 2 )
+					{
+						ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+						bNumSkillTraits++;
+					}
+					else if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 1 )
+					{
+						ubTempSkillArray[bNumSkillTraits] = ubCnt;
+						bNumSkillTraits++;
+					}
+				}
+
+				if ( bNumSkillTraits == 0 )
+				{
+					swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+				}
+				else
+				{
+					for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+					{	
+						// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
+						UINT8 display1 = ubTempSkillArray[ubCnt];
+						if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+							display1 -= NUM_MINOR_TRAITS;
+						else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
+							display1++;
+						else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+							display1 -= NUM_MINOR_TRAITS;
+
+						swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ display1 ] );
+						wcscat( sString, sTemp );
+					}
+				}
+			}
+			else
+			{
+				INT8 bSkill1 = 0, bSkill2 = 0; 	
+				bSkill1 = gMercProfiles[ pSoldier->ubProfile ].bSkillTraits[0];
+				bSkill2 = gMercProfiles[ pSoldier->ubProfile ].bSkillTraits[1];
+
+				if ( bSkill1 == 0 && bSkill2 == 0 )
+				{
+					swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+				}
+				else
+				{
+					//if the 2 skills are the same, add the '(expert)' at the end
+					if( bSkill1 == bSkill2 )
+					{
+						swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
+					}
+					else
+					{
+						//Display the first skill
+						if( bSkill1 != 0 )
+						{
+							swprintf( sString, L"%s\n", gzMercSkillText[bSkill1] );
+						}
+						if( bSkill2 != 0 )
+						{
+							swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
+							wcscat( sString, sTemp );
+						}
+					}
+				}
+			}
+			SetRegionFastHelpText( &gCharInfoFaceRegion, sString );
+		}
+		else
+		{
+			SetRegionFastHelpText( &gCharInfoFaceRegion, L"" );
+		}
 
 		// update CONTRACT button help text
 		if ( CanExtendContractForCharSlot( bSelectedInfoChar ) )

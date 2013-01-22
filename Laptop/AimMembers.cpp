@@ -45,6 +45,7 @@
 	#include "Sound Control.h"
 	#include "Quests.h"
 	#include "strategicmap.h"
+	#include "Personnel.h"
 #endif
 
 #include "Strategic Town Loyalty.h"
@@ -658,6 +659,7 @@ extern void HelpTextDoneCallback( void );
 
 //tais: tooltip regions for weaponbox images
 MOUSE_REGION	gWeaponboxFasthelpRegion[WEAPONBOX_TOTAL_ITEMS];
+extern void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber );
 
 
 //*******************************************
@@ -1242,7 +1244,7 @@ BOOLEAN RenderAIMMembers()
 	}
 
 
-	//if we are to renbder the 'click face' text
+	//if we are to render the 'click face' text
 	if(	gfAimMemberDisplayFaceHelpText )
 	{
 		DisplayAimMemberClickOnFaceHelpText();
@@ -1567,7 +1569,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	HVOBJECT		hVObject;
 	UINT32			usHeight, usWidth;
 	ETRLEObject		*pTrav;
-	CHAR16			gzItemName[ SIZE_ITEM_NAME ];
+	CHAR16			gzItemName[ 5000 ];
 	UINT8			ubItemCount=0;
 	UINT8			ubColumnCount=0;
 
@@ -1641,8 +1643,8 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 
 					DrawTextToScreen( zTempStr, (UINT16)(PosX-1), (UINT16)(PosY+20), AIM_MEMBER_WEAPON_NAME_WIDTH, AIM_M_FONT_DYNAMIC_TEXT, AIM_M_WEAPON_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
 				}
-
-				wcscpy( gzItemName, ShortItemNames[ usItem ] );
+				
+				GetHelpTextForItemInLaptop( gzItemName, usItem );
 				SetRegionFastHelpText( &(gWeaponboxFasthelpRegion[ubItemCount-1]), gzItemName );
 				SetRegionHelpEndCallback( &(gWeaponboxFasthelpRegion[ubItemCount-1]), HelpTextDoneCallback );
 				MSYS_EnableRegion( &gWeaponboxFasthelpRegion[ubItemCount-1] );
@@ -5562,6 +5564,8 @@ void DisplayPopUpBoxExplainingMercArrivalLocationAndTimeCallBack( UINT8 bExitVal
 
 void DisplayAimMemberClickOnFaceHelpText()
 {
+	CHAR16 sString[ 128 ], sTemp[ 20 ];
+
 	if(gGameExternalOptions.gfUseNewStartingGearInterface)
 	{
 		//display the 'left click' onscreen help msg a bit to the right
@@ -5577,6 +5581,90 @@ void DisplayAimMemberClickOnFaceHelpText()
 	//display the 'right click' onscreen help msg
 	DrawTextToScreen( AimMemberText[2], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_TITLE_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 	DrawTextToScreen( AimMemberText[3], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y+AIM_FI_CLICK_DESC_TEXT_Y_OFFSET, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+
+	// Buggler: skills/traits tooltip on merc portrait
+	if( gGameExternalOptions.fShowSkillsInHirePage == TRUE )
+	{
+		// clear string value
+		swprintf( sString, L"");
+
+		if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
+		{
+			UINT8 ubTempSkillArray[30];
+			INT8 bNumSkillTraits = 0;
+
+			// lets rearrange our skills to a temp array
+			// we also get the number of lines (skills) to be displayed 
+			for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+			{
+				if ( ProfileHasSkillTrait( gbCurrentSoldier, ubCnt ) == 2 )
+				{
+					ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+					bNumSkillTraits++;
+				}
+				else if ( ProfileHasSkillTrait( gbCurrentSoldier, ubCnt ) == 1 )
+				{
+					ubTempSkillArray[bNumSkillTraits] = ubCnt;
+					bNumSkillTraits++;
+				}
+			}
+
+			if ( bNumSkillTraits == 0 )
+			{
+				swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+			}
+			else
+			{
+				for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+				{	
+					// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
+					UINT8 display1 = ubTempSkillArray[ubCnt];
+					if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+						display1 -= NUM_MINOR_TRAITS;
+					else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
+						display1++;
+					else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+						display1 -= NUM_MINOR_TRAITS;
+
+					swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ display1 ] );
+					wcscat( sString, sTemp );
+				}
+			}
+		}
+		else
+		{
+			INT8 bSkill1 = 0, bSkill2 = 0; 	
+			bSkill1 = gMercProfiles[ gbCurrentSoldier ].bSkillTraits[0];
+			bSkill2 = gMercProfiles[ gbCurrentSoldier ].bSkillTraits[1];
+
+			if ( bSkill1 == 0 && bSkill2 == 0 )
+			{
+				swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+			}
+			else
+			{
+				//if the 2 skills are the same, add the '(expert)' at the end
+				if( bSkill1 == bSkill2 )
+				{
+					swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
+				}
+				else
+				{
+					//Display the first skill
+					if( bSkill1 != 0 )
+					{
+						swprintf( sString, L"%s\n", gzMercSkillText[bSkill1] );
+					}
+					if( bSkill2 != 0 )
+					{
+						swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
+						wcscat( sString, sTemp );
+					}
+				}
+			}
+		}
+		SetRegionFastHelpText( &gSelectedFaceRegion, sString );
+	}
 }
 
 void CreateWeaponBoxMouseRegions()

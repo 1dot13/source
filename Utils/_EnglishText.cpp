@@ -1834,8 +1834,8 @@ STR16 pShortAttributeStrings[] =
 	L"Wis", // wisdom
 	L"Lvl", // experience level
 	L"Mrk", // marksmanship skill
-	L"Exp", // explosive skill
 	L"Mec", // mechanical skill
+	L"Exp", // explosive skill
 	L"Med", // medical skill
 };
 
@@ -2906,7 +2906,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical
+	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
 	L"What do you want to do?",
 	L"Fill canteens",
 	L"Clean gun",
@@ -4213,7 +4213,7 @@ STR16			MercInfo[] =
 	L"Hired",
 	L"Salary:",
 	L"per Day",
-	L"Optional Gear:",
+	L"Gear:",
 	L"Total:",
 	L"Deceased",
 
@@ -7503,7 +7503,7 @@ STR16	szPrisonerTextStr[]=
 	L"Prisoners have been released!",
 	L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"The enemy refuses to surrender!",
-	L"The enemy refuses to take you as prisoners - they prefer you dead!",
+	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
 	L"This behaviour is set OFF in your ini settings.",
 };
 

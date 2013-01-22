@@ -1826,8 +1826,8 @@ STR16 pShortAttributeStrings[] =
 	L"Sag", // wisdom
 	L"Liv", // experience level
 	L"Tir", // marksmanship skill
-	L"Esp", // explosive skill
 	L"Mec", // mechanical skill
+	L"Esp", // explosive skill
 	L"PS", // medical skill
 };
 
@@ -4204,7 +4204,7 @@ STR16			MercInfo[] =
 	L"Assoldato",
 	L"Salario:",
 	L"Al giorno",
-	L"Dispositivo opzionale:",
+	L"Gear:", //TODO.Translate
 	L"Totale:",
 	L"Deceduto",
 
@@ -4640,7 +4640,7 @@ STR16			CharacterInfo[] =
 	L"Ulteriori informazioni",				// Title for the additional info for the merc's bio
 	L"Membri attivi",		//20		// Title of the page
 	L"Dispositivo opzionale:",				// Displays the optional gear cost
-	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
+	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's //TODO.Translate
 	L"Deposito MEDICO richiesto",			// If the merc required a medical deposit, this is displayed
 	L"Kit 1",				// Text on Starting Gear Selection Button 1  // TODO.Translate
 	L"Kit 2",				// Text on Starting Gear Selection Button 2

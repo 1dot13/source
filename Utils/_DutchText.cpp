@@ -1830,8 +1830,8 @@ STR16 pShortAttributeStrings[] =
 	L"Wij", // wisdom
 	L"Niv", // experience level
 	L"Tre", // marksmanship skill
-	L"Exp", // explosive skill
 	L"Tec", // mechanical skill
+	L"Exp", // explosive skill
 	L"Med", // medical skill
 };
 
@@ -4216,7 +4216,7 @@ STR16			MercInfo[] =
 	L"Ingehuurd",
 	L"Salaris:",
 	L"Per Dag",
-	L"Aanv. Uitrusting:",
+	L"Gear:", //TODO.Translate
 	L"Totaal:",
 	L"Overleden",
 
@@ -4653,7 +4653,7 @@ STR16			CharacterInfo[] =
 	L"Extra Info",				// Title for the additional info for the merc's bio
 	L"Actieve Leden",		//20		// Title of the page
 	L"Aanv. Uitrusting:",				// Displays the optional gear cost
-	L"gear",			//"gear",		//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
+	L"gear",			//"gear",		//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's //TODO.Translate
 	L"MEDISCHE aanbetaling nodig",			// If the merc required a medical deposit, this is displayed
 	L"Uitrusting 1",				// Text on Starting Gear Selection Button 1  // TODO.Translate
 	L"Uitrusting 2",				// Text on Starting Gear Selection Button 2

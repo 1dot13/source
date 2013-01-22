@@ -1835,8 +1835,8 @@ STR16 pShortAttributeStrings[] =
 	L"Wsh", // wisdom
 	L"Erf", // experience level
 	L"Trf", // marksmanship skill
-	L"Spr", // explosive skill
 	L"Tec", // mechanical skill
+	L"Spr", // explosive skill
 	L"Med", // medical skill
 };
 
@@ -4140,7 +4140,7 @@ STR16 MercInfo[] =
 	L"Angestellt",	
 	L"Sold:",
 	L"Pro Tag",
-	L"Zusätzl. Ausrüst:",
+	L"Ausr.:",
 	L"Gesamt:",
 	L"Verstorben",	
 
@@ -4993,7 +4993,7 @@ STR16 zOptionsToggleText[] =
 #endif
 	L"Inventar Popup-Menüs",				// the_bob : enable popups for picking items from sector inv
 	L"Übrige Feinde markieren",				
-	L"Tascheninhalt anzeigen",
+	L"Tascheninhalt anzeigen",			
 	L"Mausradrichtung umkehren",			
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
@@ -5012,7 +5012,7 @@ STR16 zOptionsToggleText[] =
 };
 
 //This is the help text associated with the above toggles.
-STR16 zOptionsScreenHelpText[] =
+STR16	zOptionsScreenHelpText[] =
 {
 	// HEADROCK HAM 4: Added more tooltip text to some toggles, in order to explain them better.
 
@@ -5109,7 +5109,7 @@ STR16 zOptionsScreenHelpText[] =
 #endif
 	L"Wenn diese Funktion aktiviert ist, und Sie mit der linken Maustaste auf einen freien Söldner-Inventarplatz klicken (während das Sektor-Inventar angezeigt wird), wird ein hilfreiches Popup-Menü eingeblendet.",
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
-	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Taschen statt den Anbauteilen deren Inhalt angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
@@ -7330,8 +7330,8 @@ STR16	szPrisonerTextStr[]=
 	L"Gefangene freigelassen!",
 	L"Die Armee hat das Gefängnis in %s besetzt, die Gefangenen wurden befreit!",
 	L"Der Gegner weigert sich aufzugeben!",
-	L"Der Gegner will uns tot sehen!",
-	L"Dieses Feature ist in der ini auf AUS gesetzt.",
+	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
+	L"This behaviour is set OFF in your ini settings.",
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate

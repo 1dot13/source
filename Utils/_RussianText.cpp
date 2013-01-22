@@ -1834,8 +1834,8 @@ STR16 pShortAttributeStrings[] =
 	L"Инт", // wisdom
 	L"Опт", // experience level
 	L"Мет", // marksmanship skill
-	L"Взр", // explosive skill
 	L"Мех", // mechanical skill
+	L"Взр", // explosive skill
 	L"Мед", // medical skill
 };
 
@@ -4203,7 +4203,7 @@ STR16			MercInfo[] =
 	L"Нанят",
 	L"Oплaтa",
 	L"в день",
-	L"Снаряжение:",
+	L"Снаряж.:",
 	L"Всего:",
 	L"Погиб",
 

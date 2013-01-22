@@ -1124,6 +1124,8 @@ typedef struct
 
 	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO
 
+	BOOLEAN fShowSkillsInHirePage;
+
 	BOOLEAN fBobbyRayFastShipments;
 
 	BOOLEAN fGridExitInTurnBased;

@@ -37,13 +37,13 @@
 #define			POISON_BLEEDING_BAR_SHADOW			FROMRGB( 128, 60, 128 )
 #define			POISON_BLEEDING_BAR					FROMRGB( 240, 20, 240 )
 
-#define			CURR_BREATH_BAR_SHADOW				FROMRGB( 8,		12, 118 ) // the MAX max breatth, always at 100%
-#define			CURR_BREATH_BAR						FROMRGB( 8,		12, 160 )
-#define			CURR_MAX_BREATH						FROMRGB( 0,		0,	0		) // the current max breath, black
-#define			CURR_MAX_BREATH_SHADOW				FROMRGB( 0,		0,	0		)
+#define			CURR_BREATH_BAR_SHADOW				FROMRGB( 17,	24, 170 ) // the lt blue current breath
+#define			CURR_BREATH_BAR						FROMRGB( 46,	51, 243 )
+#define			CURR_MAX_BREATH						FROMRGB( 0,		0,	0	) // the current max breath, black
+#define			CURR_MAX_BREATH_SHADOW				FROMRGB( 0,		0,	0	)
 #define			MORALE_BAR_SHADOW					FROMRGB( 8,		112, 12 )
 #define			MORALE_BAR							FROMRGB( 8,		180, 12 )
-#define			BREATH_BAR_SHADOW					FROMRGB( 60,	108, 108 ) // the lt blue current breath
+#define			BREATH_BAR_SHADOW					FROMRGB( 60,	108, 108 ) // the MAX max breath, always at 100%
 #define			BREATH_BAR							FROMRGB( 113,	178, 218 )
 #define			BREATH_BAR_SHAD_BACK				FROMRGB( 1,1,1 )
 #define			FACE_WIDTH							48

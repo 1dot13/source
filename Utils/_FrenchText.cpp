@@ -1838,8 +1838,8 @@ STR16 pShortAttributeStrings[] =
 	L"Sag", // sagesse
 	L"Niv", // experience level
 	L"Tir", // marksmanship skill
-	L"Exp", // explosive skill
 	L"Méc", // mechanical skill
+	L"Exp", // explosive skill
 	L"Méd", // medical skill
 };
 
@@ -4211,7 +4211,7 @@ STR16			MercInfo[] =
 	L"Engagé",
 	L"Salaire :",
 	L"Par jour",
-	L"Matériel optionnel :",	// TODO.Translate
+	L"Gear :",	// TODO.Translate
 	L"Total :",		// TODO.Translate
 	L"Décédé(e)",
 
@@ -4648,7 +4648,7 @@ STR16			CharacterInfo[] =
 	L"Info. complémentaires",				// Title for the additional info for the merc's bio
 	L"Membres actifs",		//20		// Title of the page
 	L"Matériel optionnel :",				// Displays the optional gear cost
-	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
+	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's //TODO.Translate
 	L"Dépôt Médical",			// If the merc required a medical deposit, this is displayed
 	L"Kit 1",				// Text on Starting Gear Selection Button 1 
 	L"Kit 2",				// Text on Starting Gear Selection Button 2
@@ -5143,7 +5143,7 @@ STR16		zOptionsToggleText[] =
 	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
 	L"Mark Remaining Hostiles",				//TODO.Translate
 	L"Show LBE Content",					//TODO.Translate
-	L"Invert mouse wheel",			// TODO.Translate
+	L"Invert mouse wheel",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5258,7 +5258,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
-	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
+	L"When ON, inverts mouse wheel directions.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

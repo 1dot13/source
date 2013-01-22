@@ -351,6 +351,10 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32 uiItemClass );
 void OutOfStockMessageBoxCallBack( UINT8 bExitValue );
 UINT8 CheckPlayersInventoryForGunMatchingGivenAmmoID( INT16 sItemID );
 void BobbyrRGunsHelpTextDoneCallBack( void );
+
+//Buggler: Seperated function for easy code reuse
+void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber );
+
 #ifdef JA2BETAVERSION
 	void ReportBobbyROrderError( UINT16 usItemNumber, UINT8 ubPurchaseNum, UINT8 ubQtyOnHand, UINT8 ubNumPurchasing );
 #endif
@@ -2694,8 +2698,7 @@ void SetFirstLastPagesForUsed(INT32 iFilter)
 void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNumbers )
 {
 	UINT8	i;
-	CHAR16	zItemName[ SIZE_ITEM_NAME ];
-	UINT8	ubItemCount=0;
+	UINT16	usItem;
 	// HEADROCK HAM 3: Increased size, to allow larger tooltips. Used for Attachments Shown on Tooltips feature.
 	// Please note, if a mod introduces a weapon that can take several hundred attachments, this value MIGHT overflow.
 	// I do not have the expertise to think of a better solution. Still, 5000 is enough for around 200 possible attachments,
@@ -2713,383 +2716,9 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 		MSYS_AddRegion(&gSelectedBigImageRegion[ i ]);
 		MSYS_SetRegionUserData( &gSelectedBigImageRegion[ i ], 0, i);
 
+		usItem = pItemNumbers[ i ];
 
-		//get item weight
-		FLOAT fWeight = GetWeightBasedOnMetricOption(Item[ pItemNumbers[ i ] ].ubWeight)/10;
-
-
-		switch( Item[ pItemNumbers[ i ] ].usItemClass )
-		{
-		case IC_GUN:
-			{
-				// HEADROCK HAM 3.6: Can now take a negative modifier.
-				//UINT16	gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
-				UINT16		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
-				UINT16		readyAPs = (UINT16)(( Weapon[ pItemNumbers[ i ] ].ubReadyTime * (100 - Item[ pItemNumbers[ i ] ].percentreadytimeapreduction)) / 100);
-				UINT16		gunRange = (UINT16)GetModifiedGunRange(pItemNumbers[ i ]);
-
-				//Calculate AP's
-				CHAR16		apStr[20];
-				CHAR16		apStr2[20];
-				OBJECTTYPE	pObject;
-
-				// HEADROCK HAM 3: Variables for "Possible Attachment List"
-				BOOLEAN		fAttachmentsFound = FALSE;
-				// Contains entire string of attachment names
-				CHAR16		attachStr[3900];
-				// Contains current attachment string
-				CHAR16		attachStr2[100];
-				// Contains temporary attachment list before added to string constant from text.h
-				CHAR16		attachStr3[3900];
-				UINT16		usAttachment;
-
-				CreateItem(pItemNumbers[ i ], 100, &pObject);
-				INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
-
-				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
-					swprintf( apStr, L"-" );
-				else
-					swprintf( apStr, L"%d", ubAttackAPs );
-
-				if (GetShotsPerBurst(&pObject) > 0)
-				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
-					wcscat( apStr, apStr2 );
-				}
-				else
-					wcscat( apStr, L" / -" );
-
-				if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
-				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
-					wcscat( apStr, apStr2 );
-				}
-				else
-					wcscat( apStr, L" / -" );
-
-				// HEADROCK HAM 3: Empty these strings first, to avoid crashes. Please keep this here.
-				swprintf( attachStr, L"" );
-				swprintf( attachStr2, L"" );
-				swprintf( attachStr3, L"" );
-
-				// HEADROCK HAM 3: Generate list of possible attachments to a gun (Guns only!)
-				if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
-				{
-					UINT16 iLoop = 0;
-					// Check entire attachment list
-					while( 1 )
-					{
-						//Madd: Common Attachment Framework
-						//TODO: Note that the items in this list will be duplicated if they are present in both the CAF and the old attachment method
-						//need to refactor this to work more like the NAS attachment slots method
-						usAttachment = 0;
-						if ( IsAttachmentPointAvailable(Item[pItemNumbers[ i ]].uiIndex, iLoop) )
-						{	
-							usAttachment = iLoop;
-							// If the attachment is not hidden
-							if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
-							{
-								if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
-								{
-									// End list early to avoid stack overflow
-									wcscat( attachStr3, L"\n..." );
-									break;
-								}
-								else
-								{// Add the attachment's name to the list.
-									fAttachmentsFound = TRUE;
-									swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
-									wcscat( attachStr3, attachStr2);
-								}
-							}
-						}
-
-						// Is the weapon we're checking the same as the one we're tooltipping?
-						usAttachment = 0;
-						if (Attachment[iLoop][1] == Item[pItemNumbers[ i ]].uiIndex)
-						{
-							usAttachment = Attachment[iLoop][0];
-						}
-
-						// If the attachment is not hidden
-						if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
-						{
-							if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
-							{
-								// End list early to avoid stack overflow
-								wcscat( attachStr3, L"\n..." );
-								break;
-							}
-							else
-							{// Add the attachment's name to the list.
-								fAttachmentsFound = TRUE;
-								swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
-								wcscat( attachStr3, attachStr2);
-							}
-						}
-
-
-						iLoop++;
-						if (Attachment[iLoop][0] == 0 && Item[iLoop].usItemClass == 0)
-						{
-							// Reached end of list
-							break;
-						}
-					}
-					if (fAttachmentsFound)
-					{
-						// Add extra empty line and attachment list title
-						swprintf( attachStr, L"\n \n%s", gWeaponStatsDesc[ 14 ] );
-						wcscat( attachStr, attachStr3 );
-					}
-				}
-
-				//Sum up default attachments.
-				BOOLEAN fFoundDefault = FALSE;
-				swprintf( attachStr2, L"" );
-				swprintf( attachStr3, L"" );
-				for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
-					if(Item[pItemNumbers[ i ]].defaultattachments[cnt] != 0){
-						if (wcslen( attachStr ) + wcslen(attachStr3) + wcslen(Item[ Item[pItemNumbers[ i ]].defaultattachments[cnt] ].szItemName) > 3800)
-						{
-							// End list early to avoid stack overflow
-							wcscat( attachStr3, L"\n..." );
-							break;
-						}
-						fFoundDefault = TRUE;
-						swprintf( attachStr2, L"\n%s", Item[ Item[pItemNumbers[ i ]].defaultattachments[cnt] ].szItemName );
-						wcscat( attachStr3, attachStr2 );
-					} else {
-						//If we found an empty entry, we can assume the rest will be empty too.
-						break;
-					}
-				}
-				if(fFoundDefault){
-					//Found at least one default attachment, write it to the attachment string.
-					CHAR16 defaultStr[50];
-					swprintf( defaultStr, L"\n \n%s", gWeaponStatsDesc[ 17 ] );
-					wcscat( attachStr, defaultStr );
-					wcscat( attachStr, attachStr3 );
-				}
-
-				// HEADROCK HAM 3: Added last string (attachStr), for display of the possible attachment list. 
-				// If the feature is deactivated, the attachStr will simply be empty at this point 
-				// (remember? we emptied it earlier!).
-				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ pItemNumbers[ i ] ].nAccuracy:Weapon[ pItemNumbers[ i ] ].bAccuracy);
-				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s%s",
-					ItemNames[ pItemNumbers[ i ] ],
-					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ],
-					gWeaponStatsDesc[ 9 ],					//Accuracy String
-					accuracy,								//Accuracy
-					gWeaponStatsDesc[ 11 ],					//Damage String
-					gunDamage,								//Gun damage
-					gWeaponStatsDesc[ 10 ],					//Range String
-					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? gunRange/10 : gunRange,	//Gun Range 
-					gWeaponStatsDesc[ 6 ],					//AP String
-					readyAPs,
-					apStr,									//AP's
-					gWeaponStatsDesc[ 12 ],					//Weight String
-					fWeight,								//Weight
-					GetWeightUnitString(),					//Weight units
-					attachStr
-					);
-			}
-			break;
-
-		case IC_LAUNCHER:
-			{
-				// HEADROCK HAM 3.6: Can now take a negative modifier.
-				UINT16 gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
-				UINT16 readyAPs = (UINT16)(( Weapon[ pItemNumbers[ i ] ].ubReadyTime * (100 - Item[ pItemNumbers[ i ] ].percentreadytimeapreduction)) / 100);
-				UINT16 usRange = (UINT16)GetModifiedGunRange(pItemNumbers[ i ]);
-				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ pItemNumbers[ i ] ].nAccuracy:Weapon[ pItemNumbers[ i ] ].bAccuracy);
-				//UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
-
-				//Calculate AP's
-				CHAR16		apStr[20];
-				CHAR16		apStr2[20];
-				OBJECTTYPE	pObject;
-
-				CreateItem(pItemNumbers[ i ], 100, &pObject);
-				INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
-
-				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
-					swprintf( apStr, L"-" );
-				else
-					swprintf( apStr2, L"%d", ubAttackAPs );
-					wcscat( apStr, apStr2 );
-
-				if (GetShotsPerBurst(&pObject) > 0)
-				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
-					wcscat( apStr, apStr2 );
-				}
-				else
-					wcscat( apStr, L" / -" );
-
-				if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
-				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
-					wcscat( apStr, apStr2 );
-				}
-				else
-					wcscat( apStr, L" / -" );
-				
-				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s",
-					ItemNames[ pItemNumbers[ i ] ],
-					gWeaponStatsDesc[ 9 ],					//Accuracy String
-					accuracy,								//Accuracy
-					gWeaponStatsDesc[ 11 ],					//Damage String
-					gunDamage,								//Gun damage
-					gWeaponStatsDesc[ 10 ],					//Range String
-					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? usRange/10 : usRange,	//Gun Range 
-					gWeaponStatsDesc[ 6 ],					//AP String
-					readyAPs,
-					apStr,									//AP's
-					gWeaponStatsDesc[ 12 ],					//Weight String
-					fWeight,								//Weight
-					GetWeightUnitString()					//Weight units
-					);
-			}
-			break;
-
-		case IC_BLADE:
-		case IC_THROWING_KNIFE:
-		case IC_PUNCH:
-			{
-				// HEADROCK HAM 3.6: Can now take a negative modifier 
-				//UINT16 meleeDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
-				//UINT16 meleeDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
-				OBJECTTYPE pObject;
-
-				CreateItem(pItemNumbers[ i ], 100, &pObject);
-				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",
-					ItemNames[ pItemNumbers[ i ] ],
-					gWeaponStatsDesc[ 11 ],					//Damage String
-					GetDamage(&pObject),					//Melee damage
-					gWeaponStatsDesc[ 6 ],					//AP String
-					BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL ), //AP's
-					gWeaponStatsDesc[ 12 ],					//Weight String
-					fWeight,								//Weight
-					GetWeightUnitString()					//Weight units
-					);
-			}
-			break;
-
-		case IC_AMMO:
-			{
-				swprintf( pStr, L"%s\n%s %1.1f %s",
-					ItemNames[ pItemNumbers[ i ] ],	//Item long name
-					gWeaponStatsDesc[ 12 ],			//Weight String
-					fWeight,						//Weight
-					GetWeightUnitString()			//Weight units
-					);
-
-				//Lal: do not delete, commented out for next version
-				//swprintf( pStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
-				//	AmmoCaliber[ Magazine[ Item[usItem].ubClassIndex ].ubCalibre ],			//Ammo calibre
-				//	AmmoTypes[Magazine[ Item[usItem].ubClassIndex ].ubAmmoType].ammoName,	//Ammo type
-				//	MagNames[Magazine[ Item[usItem].ubClassIndex ].ubMagType],				//Magazine type
-				//	Magazine[ Item[usItem].ubClassIndex ].ubMagSize,						//Magazine capacity
-				//	(*pObject)[0]->data.ubShotsLeft,	//Shots left
-				//	gWeaponStatsDesc[ 12 ],		//Weight String
-				//	fWeight,					//Weight
-				//	GetWeightUnitString()		//Weight units
-				//	);
-
-				//specify the help text only if the items is ammo
-				//and only if the user has an item that can use the particular type of ammo
-				ubItemCount = CheckPlayersInventoryForGunMatchingGivenAmmoID( pItemNumbers[ i ] );
-				if( ubItemCount != 0 )
-				{
-					swprintf( zItemName, L"\n%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
-					wcscat(	pStr, zItemName );
-				}
-			}
-			break;
-
-		case IC_GRENADE:
-		case IC_BOMB:
-			// explosives
-			//if ( (Item[ pItemNumbers[ i ] ].usItemClass == IC_GRENADE)||(Item[ pItemNumbers[ i ] ].usItemClass == IC_BOMB) )
-			{
-				// HEADROCK HAM 3.6: Can now use negative modifier.
-				//UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.bExplosivesDamageModifier );
-				//UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
-				UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage );
-				UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage );
-
-
-				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",
-					ItemNames[ pItemNumbers[ i ] ],
-					gWeaponStatsDesc[ 11 ],		//Damage String
-					explDamage,					//Expl damage
-					gWeaponStatsDesc[ 13 ],		//Stun Damage String
-					explStunDamage,				//Stun Damage
-					gWeaponStatsDesc[ 12 ],		//Weight String
-					fWeight,					//Weight
-					GetWeightUnitString()		//Weight units
-					);
-			}
-			break;
-
-		case IC_ARMOUR:
-			//Armor
-			//if (Item[ pItemNumbers[ i ] ].usItemClass == IC_ARMOUR)
-			{
-				INT32 iProtection = Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection;
-
-				switch( Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubArmourClass )
-				{
-				case( ARMOURCLASS_HELMET ):
-					iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
-					break;
-
-				case( ARMOURCLASS_VEST ):
-					iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
-					break;
-
-				case( ARMOURCLASS_LEGGINGS ):
-					iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
-					break;
-
-				case( ARMOURCLASS_PLATE ):
-					iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
-					break;
-				}
-
-				swprintf( pStr, L"%s\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s",
-					ItemNames[ pItemNumbers[ i ] ],									//Item long name
-					pInvPanelTitleStrings[ 4 ],										//Protection string
-					iProtection,													//Protection rating in % based on best armor
-					Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection,	//Protection (raw data)
-					pInvPanelTitleStrings[ 3 ],				//Camo string
-					Item[ pItemNumbers[ i ] ].camobonus,	//Camo bonus
-					gWeaponStatsDesc[ 12 ],					//Weight string
-					fWeight,								//Weight
-					GetWeightUnitString()					//Weight units
-					);
-			}
-			break;
-
-		case IC_MISC:
-		case IC_MEDKIT:
-		case IC_KIT:
-		case IC_FACE:
-		default:
-			// The final, and typical case, is that of an item with a percent status
-			{
-				swprintf( pStr, L"%s\n%s %1.1f %s",
-					ItemNames[ pItemNumbers[ i ] ],	//Item long name
-					gWeaponStatsDesc[ 12 ],			//Weight String
-					fWeight,						//Weight
-					GetWeightUnitString()			//Weight units
-					);
-			}
-			break;
-		}
-
-
+		GetHelpTextForItemInLaptop( pStr, usItem );
 
 		SetRegionFastHelpText( &gSelectedBigImageRegion[ i ], pStr );
 		SetRegionHelpEndCallback( &gSelectedBigImageRegion[ i ], BobbyrRGunsHelpTextDoneCallBack );
@@ -4289,5 +3918,384 @@ void HandleBobbyRGunsKeyBoardInput()
 			extern void HandleDefaultEvent(InputAtom *Event);
 			HandleDefaultEvent(&InputEvent);
 		}
+	}
+}
+
+void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
+{		
+	CHAR16	zItemName[ SIZE_ITEM_NAME ];
+	UINT8	ubItemCount=0;
+
+	//get item weight
+	FLOAT fWeight = GetWeightBasedOnMetricOption(Item[ usItemNumber ].ubWeight)/10;
+
+	switch( Item[ usItemNumber ].usItemClass )
+	{
+	case IC_GUN:
+		{
+			// HEADROCK HAM 3.6: Can now take a negative modifier.
+			//UINT16	gunDamage = (UINT16)( Weapon[ usItemNumber ].ubImpact + ( (double) Weapon[ usItemNumber ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+			UINT16		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usItemNumber ].ubImpact );
+			UINT16		readyAPs = (UINT16)(( Weapon[ usItemNumber ].ubReadyTime * (100 - Item[ usItemNumber ].percentreadytimeapreduction)) / 100);
+			UINT16		gunRange = (UINT16)GetModifiedGunRange(usItemNumber);
+
+			//Calculate AP's
+			CHAR16		apStr[20];
+			CHAR16		apStr2[20];
+			OBJECTTYPE	pObject;
+
+			// HEADROCK HAM 3: Variables for "Possible Attachment List"
+			BOOLEAN		fAttachmentsFound = FALSE;
+			// Contains entire string of attachment names
+			CHAR16		attachStr[3900];
+			// Contains current attachment string
+			CHAR16		attachStr2[100];
+			// Contains temporary attachment list before added to string constant from text.h
+			CHAR16		attachStr3[3900];
+			UINT16		usAttachment;
+
+			CreateItem(usItemNumber, 100, &pObject);
+			INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
+
+			if ( Weapon[ usItemNumber ].NoSemiAuto )
+				swprintf( apStr, L"-" );
+			else
+				swprintf( apStr, L"%d", ubAttackAPs );
+
+			if (GetShotsPerBurst(&pObject) > 0)
+			{
+				swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
+				wcscat( apStr, apStr2 );
+			}
+			else
+				wcscat( apStr, L" / -" );
+
+			if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
+			{
+				swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
+				wcscat( apStr, apStr2 );
+			}
+			else
+				wcscat( apStr, L" / -" );
+
+			// HEADROCK HAM 3: Empty these strings first, to avoid crashes. Please keep this here.
+			swprintf( attachStr, L"" );
+			swprintf( attachStr2, L"" );
+			swprintf( attachStr3, L"" );
+
+			// HEADROCK HAM 3: Generate list of possible attachments to a gun (Guns only!)
+			if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
+			{
+				UINT16 iLoop = 0;
+				// Check entire attachment list
+				while( 1 )
+				{
+					//Madd: Common Attachment Framework
+					//TODO: Note that the items in this list will be duplicated if they are present in both the CAF and the old attachment method
+					//need to refactor this to work more like the NAS attachment slots method
+					usAttachment = 0;
+					if ( IsAttachmentPointAvailable(Item[usItemNumber].uiIndex, iLoop) )
+					{	
+						usAttachment = iLoop;
+						// If the attachment is not hidden
+						if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
+						{
+							if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
+							{
+								// End list early to avoid stack overflow
+								wcscat( attachStr3, L"\n..." );
+								break;
+							}
+							else
+							{// Add the attachment's name to the list.
+								fAttachmentsFound = TRUE;
+								swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
+								wcscat( attachStr3, attachStr2);
+							}
+						}
+					}
+
+					// Is the weapon we're checking the same as the one we're tooltipping?
+					usAttachment = 0;
+					if (Attachment[iLoop][1] == Item[usItemNumber].uiIndex)
+					{
+						usAttachment = Attachment[iLoop][0];
+					}
+
+					// If the attachment is not hidden
+					if (usAttachment > 0 && !Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
+					{
+						if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
+						{
+							// End list early to avoid stack overflow
+							wcscat( attachStr3, L"\n..." );
+							break;
+						}
+						else
+						{// Add the attachment's name to the list.
+							fAttachmentsFound = TRUE;
+							swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
+							wcscat( attachStr3, attachStr2);
+						}
+					}
+
+
+					iLoop++;
+					if (Attachment[iLoop][0] == 0 && Item[iLoop].usItemClass == 0)
+					{
+						// Reached end of list
+						break;
+					}
+				}
+				if (fAttachmentsFound)
+				{
+					// Add extra empty line and attachment list title
+					swprintf( attachStr, L"\n \n%s", gWeaponStatsDesc[ 14 ] );
+					wcscat( attachStr, attachStr3 );
+				}
+			}
+
+			//Sum up default attachments.
+			BOOLEAN fFoundDefault = FALSE;
+			swprintf( attachStr2, L"" );
+			swprintf( attachStr3, L"" );
+			for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
+				if(Item[usItemNumber].defaultattachments[cnt] != 0){
+					if (wcslen( attachStr ) + wcslen(attachStr3) + wcslen(Item[ Item[usItemNumber].defaultattachments[cnt] ].szItemName) > 3800)
+					{
+						// End list early to avoid stack overflow
+						wcscat( attachStr3, L"\n..." );
+						break;
+					}
+					fFoundDefault = TRUE;
+					swprintf( attachStr2, L"\n%s", Item[ Item[usItemNumber].defaultattachments[cnt] ].szItemName );
+					wcscat( attachStr3, attachStr2 );
+				} else {
+					//If we found an empty entry, we can assume the rest will be empty too.
+					break;
+				}
+			}
+			if(fFoundDefault){
+				//Found at least one default attachment, write it to the attachment string.
+				CHAR16 defaultStr[50];
+				swprintf( defaultStr, L"\n \n%s", gWeaponStatsDesc[ 17 ] );
+				wcscat( attachStr, defaultStr );
+				wcscat( attachStr, attachStr3 );
+			}
+
+			// HEADROCK HAM 3: Added last string (attachStr), for display of the possible attachment list. 
+			// If the feature is deactivated, the attachStr will simply be empty at this point 
+			// (remember? we emptied it earlier!).
+			INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItemNumber ].nAccuracy:Weapon[ usItemNumber ].bAccuracy);
+			swprintf( pzStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s%s",
+				ItemNames[ usItemNumber ],
+				AmmoCaliber[ Weapon[ usItemNumber ].ubCalibre ],
+				gWeaponStatsDesc[ 9 ],					//Accuracy String
+				accuracy,								//Accuracy
+				gWeaponStatsDesc[ 11 ],					//Damage String
+				gunDamage,								//Gun damage
+				gWeaponStatsDesc[ 10 ],					//Range String
+				gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? gunRange/10 : gunRange,	//Gun Range 
+				gWeaponStatsDesc[ 6 ],					//AP String
+				readyAPs,
+				apStr,									//AP's
+				gWeaponStatsDesc[ 12 ],					//Weight String
+				fWeight,								//Weight
+				GetWeightUnitString(),					//Weight units
+				attachStr
+				);
+		}
+		break;
+
+	case IC_LAUNCHER:
+		{
+			// HEADROCK HAM 3.6: Can now take a negative modifier.
+			UINT16 gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usItemNumber ].ubImpact );
+			UINT16 readyAPs = (UINT16)(( Weapon[ usItemNumber ].ubReadyTime * (100 - Item[ usItemNumber ].percentreadytimeapreduction)) / 100);
+			UINT16 usRange = (UINT16)GetModifiedGunRange(usItemNumber);
+			INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItemNumber ].nAccuracy:Weapon[ usItemNumber ].bAccuracy);
+			//UINT16 gunDamage = (UINT16)( Weapon[ usItemNumber ].ubImpact + ( (double) Weapon[ usItemNumber ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+
+			//Calculate AP's
+			CHAR16		apStr[20];
+			CHAR16		apStr2[20];
+			OBJECTTYPE	pObject;
+
+			CreateItem(usItemNumber, 100, &pObject);
+			INT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL );
+
+			if ( Weapon[ usItemNumber ].NoSemiAuto )
+				swprintf( apStr, L"-" );
+			else
+				swprintf( apStr, L"%d", ubAttackAPs );
+
+			if (GetShotsPerBurst(&pObject) > 0)
+			{
+				swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject, NULL ) );
+				wcscat( apStr, apStr2 );
+			}
+			else
+				wcscat( apStr, L" / -" );
+
+			if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
+			{
+				swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3, NULL ) );
+				wcscat( apStr, apStr2 );
+			}
+			else
+				wcscat( apStr, L" / -" );
+			
+			swprintf( pzStr, L"%s\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s",
+				ItemNames[ usItemNumber ],
+				gWeaponStatsDesc[ 9 ],					//Accuracy String
+				accuracy,								//Accuracy
+				gWeaponStatsDesc[ 11 ],					//Damage String
+				gunDamage,								//Gun damage
+				gWeaponStatsDesc[ 10 ],					//Range String
+				gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? usRange/10 : usRange,	//Gun Range 
+				gWeaponStatsDesc[ 6 ],					//AP String
+				readyAPs,
+				apStr,									//AP's
+				gWeaponStatsDesc[ 12 ],					//Weight String
+				fWeight,								//Weight
+				GetWeightUnitString()					//Weight units
+				);
+		}
+		break;
+
+	case IC_BLADE:
+	case IC_THROWING_KNIFE:
+	case IC_PUNCH:
+		{
+			// HEADROCK HAM 3.6: Can now take a negative modifier 
+			//UINT16 meleeDamage = (UINT16)( Weapon[ usItemNumber ].ubImpact + ( (double) Weapon[ usItemNumber ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+			//UINT16 meleeDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ usItemNumber ].ubImpact );
+			OBJECTTYPE pObject;
+
+			CreateItem(usItemNumber, 100, &pObject);
+			swprintf( pzStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",
+				ItemNames[ usItemNumber ],
+				gWeaponStatsDesc[ 11 ],					//Damage String
+				GetDamage(&pObject),					//Melee damage
+				gWeaponStatsDesc[ 6 ],					//AP String
+				BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject, NULL ), //AP's
+				gWeaponStatsDesc[ 12 ],					//Weight String
+				fWeight,								//Weight
+				GetWeightUnitString()					//Weight units
+				);
+		}
+		break;
+
+	case IC_AMMO:
+		{
+			swprintf( pzStr, L"%s\n%s %1.1f %s",
+				ItemNames[ usItemNumber ],	//Item long name
+				gWeaponStatsDesc[ 12 ],			//Weight String
+				fWeight,						//Weight
+				GetWeightUnitString()			//Weight units
+				);
+
+			//Lal: do not delete, commented out for next version
+			//swprintf( pzStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
+			//	AmmoCaliber[ Magazine[ Item[usItem].ubClassIndex ].ubCalibre ],			//Ammo calibre
+			//	AmmoTypes[Magazine[ Item[usItem].ubClassIndex ].ubAmmoType].ammoName,	//Ammo type
+			//	MagNames[Magazine[ Item[usItem].ubClassIndex ].ubMagType],				//Magazine type
+			//	Magazine[ Item[usItem].ubClassIndex ].ubMagSize,						//Magazine capacity
+			//	(*pObject)[0]->data.ubShotsLeft,	//Shots left
+			//	gWeaponStatsDesc[ 12 ],		//Weight String
+			//	fWeight,					//Weight
+			//	GetWeightUnitString()		//Weight units
+			//	);
+
+			//specify the help text only if the items is ammo
+			//and only if the user has an item that can use the particular type of ammo
+			ubItemCount = CheckPlayersInventoryForGunMatchingGivenAmmoID( usItemNumber );
+			if( ubItemCount != 0 )
+			{
+				swprintf( zItemName, L"\n%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
+				wcscat(	pzStr, zItemName );
+			}
+		}
+		break;
+
+	case IC_GRENADE:
+	case IC_BOMB:
+		// explosives
+		//if ( (Item[ usItemNumber ].usItemClass == IC_GRENADE)||(Item[ usItemNumber ].usItemClass == IC_BOMB) )
+		{
+			// HEADROCK HAM 3.6: Can now use negative modifier.
+			//UINT16 explDamage = (UINT16)( Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.bExplosivesDamageModifier );
+			//UINT16 explStunDamage = (UINT16)( Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+			UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage );
+			UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage );
+
+
+			swprintf( pzStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",
+				ItemNames[ usItemNumber ],
+				gWeaponStatsDesc[ 11 ],		//Damage String
+				explDamage,					//Expl damage
+				gWeaponStatsDesc[ 13 ],		//Stun Damage String
+				explStunDamage,				//Stun Damage
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+		break;
+
+	case IC_ARMOUR:
+		//Armor
+		//if (Item[ usItemNumber ].usItemClass == IC_ARMOUR)
+		{
+			INT32 iProtection = Armour[ Item[ usItemNumber ].ubClassIndex ].ubProtection;
+
+			switch( Armour[ Item[ usItemNumber ].ubClassIndex ].ubArmourClass )
+			{
+			case( ARMOURCLASS_HELMET ):
+				iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
+				break;
+
+			case( ARMOURCLASS_VEST ):
+				iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+				break;
+
+			case( ARMOURCLASS_LEGGINGS ):
+				iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
+				break;
+
+			case( ARMOURCLASS_PLATE ):
+				iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+				break;
+			}
+
+			swprintf( pzStr, L"%s\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s",
+				ItemNames[ usItemNumber ],									//Item long name
+				pInvPanelTitleStrings[ 4 ],										//Protection string
+				iProtection,													//Protection rating in % based on best armor
+				Armour[ Item[ usItemNumber ].ubClassIndex ].ubProtection,	//Protection (raw data)
+				pInvPanelTitleStrings[ 3 ],				//Camo string
+				Item[ usItemNumber ].camobonus,	//Camo bonus
+				gWeaponStatsDesc[ 12 ],					//Weight string
+				fWeight,								//Weight
+				GetWeightUnitString()					//Weight units
+				);
+		}
+		break;
+
+	case IC_MISC:
+	case IC_MEDKIT:
+	case IC_KIT:
+	case IC_FACE:
+	default:
+		// The final, and typical case, is that of an item with a percent status
+		{
+			swprintf( pzStr, L"%s\n%s %1.1f %s",
+				ItemNames[ usItemNumber ],	//Item long name
+				gWeaponStatsDesc[ 12 ],			//Weight String
+				fWeight,						//Weight
+				GetWeightUnitString()			//Weight units
+				);
+		}
+		break;
 	}
 }

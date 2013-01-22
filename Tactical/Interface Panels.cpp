@@ -72,6 +72,7 @@
 	#include "MessageBoxScreen.h"
 	#include "wordwrap.h"
 	#include "Boxing.h"
+	#include "personnel.h"
 	// HEADROCK HAM 3.6: This is required for Stat Progress Bars
 	#include "Campaign.h"
 	#include "Food.h"	// added by Flugente
@@ -249,10 +250,10 @@ int SM_EXPLVL_X;
 int SM_EXPLVL_Y;
 int SM_MRKM_X;
 int SM_MRKM_Y;
-int SM_EXPL_X;
-int SM_EXPL_Y;
 int SM_MECH_X;
 int SM_MECH_Y;
+int SM_EXPL_X;
+int SM_EXPL_Y;
 int SM_MED_X;
 int SM_MED_Y;
 
@@ -1609,10 +1610,10 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	SM_EXPLVL_Y				= ( 7 + INV_INTERFACE_START_Y );
 	SM_MRKM_X				= ( 163 + INTERFACE_START_X );
 	SM_MRKM_Y				= ( 17 + INV_INTERFACE_START_Y );
-	SM_EXPL_X				= ( 163 + INTERFACE_START_X );
-	SM_EXPL_Y				= ( 27 + INV_INTERFACE_START_Y );
 	SM_MECH_X				= ( 163 + INTERFACE_START_X );
-	SM_MECH_Y				= ( 37 + INV_INTERFACE_START_Y );
+	SM_MECH_Y				= ( 27 + INV_INTERFACE_START_Y );
+	SM_EXPL_X				= ( 163 + INTERFACE_START_X );
+	SM_EXPL_Y				= ( 37 + INV_INTERFACE_START_Y );
 	SM_MED_X				= ( 163 + INTERFACE_START_X );
 	SM_MED_Y				= ( 47 + INV_INTERFACE_START_Y );
 
@@ -1981,10 +1982,10 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	SM_EXPLVL_Y				= ( 7 + INV_INTERFACE_START_Y );
 	SM_MRKM_X				= ( 163 + INTERFACE_START_X );
 	SM_MRKM_Y				= ( 17 + INV_INTERFACE_START_Y );
-	SM_EXPL_X				= ( 163 + INTERFACE_START_X );
-	SM_EXPL_Y				= ( 27 + INV_INTERFACE_START_Y );
 	SM_MECH_X				= ( 163 + INTERFACE_START_X );
-	SM_MECH_Y				= ( 37 + INV_INTERFACE_START_Y );
+	SM_MECH_Y				= ( 27 + INV_INTERFACE_START_Y );
+	SM_EXPL_X				= ( 163 + INTERFACE_START_X );
+	SM_EXPL_Y				= ( 37 + INV_INTERFACE_START_Y );
 	SM_MED_X				= ( 163 + INTERFACE_START_X );
 	SM_MED_Y				= ( 47 + INV_INTERFACE_START_Y );
 
@@ -2480,7 +2481,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 	INT16	usX, usY;
 	CHAR16 sString[9];
 	UINT32	cnt;
-	static CHAR16 pStr[ 200 ], pMoraleStr[ 20 ];
+	static CHAR16 pStr[ 200 ], pMoraleStr[ 20 ], sTemp[ 20 ];
 
 	if ( gubSelectSMPanelToMerc != NOBODY )
 	{
@@ -2810,16 +2811,16 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			FindFontRightCoordinates(SM_MRKM_X, SM_MRKM_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeExplosivesTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & EXP_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES] > 0 )) ? TRUE : FALSE), FALSE); // SANDRO
-
-			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bExplosive );
-			FindFontRightCoordinates(SM_EXPL_X, SM_EXPL_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString );
-
 			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMechanicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MECH_INCREASE ? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_MECHANICAL] > 0 )) ? TRUE : FALSE), FALSE); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMechanical );
 			FindFontRightCoordinates(SM_MECH_X, SM_MECH_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY , sString );
+
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeExplosivesTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & EXP_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES] > 0 )) ? TRUE : FALSE), FALSE); // SANDRO
+
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bExplosive );
+			FindFontRightCoordinates(SM_EXPL_X, SM_EXPL_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
 			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMedicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MED_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_MEDICAL] > 0 )) ? TRUE : FALSE), FALSE); // SANDRO
@@ -2968,11 +2969,92 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			}
 			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
 
-		}
+			// Buggler: skills/traits tooltip on merc portrait
+			// clear pStr value
+			swprintf( pStr, L"");
+
+			if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
+			{
+				UINT8 ubTempSkillArray[30];
+				INT8 bNumSkillTraits = 0;
+
+				// lets rearrange our skills to a temp array
+				// we also get the number of lines (skills) to be displayed 
+				for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+				{
+					if ( ProfileHasSkillTrait( gpSMCurrentMerc->ubProfile, ubCnt ) == 2 )
+					{
+						ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+						bNumSkillTraits++;
+					}
+					else if ( ProfileHasSkillTrait( gpSMCurrentMerc->ubProfile, ubCnt ) == 1 )
+					{
+						ubTempSkillArray[bNumSkillTraits] = ubCnt;
+						bNumSkillTraits++;
+					}
+				}
+
+				if ( bNumSkillTraits == 0 )
+				{
+					swprintf( pStr, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+				}
+				else
+				{
+					for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+					{	
+						// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
+						UINT8 display1 = ubTempSkillArray[ubCnt];
+						if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+							display1 -= NUM_MINOR_TRAITS;
+						else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
+							display1++;
+						else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+							display1 -= NUM_MINOR_TRAITS;
+
+						swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ display1 ] );
+						wcscat( pStr, sTemp );
+					}
+				}
+			}
+			else
+			{
+				INT8 bSkill1 = 0, bSkill2 = 0; 	
+				bSkill1 = gMercProfiles[ gpSMCurrentMerc->ubProfile ].bSkillTraits[0];
+				bSkill2 = gMercProfiles[ gpSMCurrentMerc->ubProfile ].bSkillTraits[1];
+
+				if ( bSkill1 == 0 && bSkill2 == 0 )
+				{
+					swprintf( pStr, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+				}
+				else
+				{
+					//if the 2 skills are the same, add the '(expert)' at the end
+					if( bSkill1 == bSkill2 )
+					{
+						swprintf( pStr, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
+					}
+					else
+					{
+						//Display the first skill
+						if( bSkill1 != 0 )
+						{
+							swprintf( pStr, L"%s\n", gzMercSkillText[bSkill1] );
+						}
+						if( bSkill2 != 0 )
+						{
+							swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
+							wcscat( pStr, sTemp );
+						}
+					}
+				}
+			}
+			SetRegionFastHelpText( &gSM_SELMERCPanelRegion, pStr );
+			}
 		}
 		else
 		{
 			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), L"" );
+			SetRegionFastHelpText( &gSM_SELMERCPanelRegion, L"" );
 		}
 
 		//if we are in the shop keeper interface
@@ -3647,7 +3729,7 @@ UINT32 GetInvMovementCost(OBJECTTYPE* pObj, UINT32 old_pos, UINT32 new_pos)
 	else
 		weight_modifier = 0;
 
-	UINT32 cost = 0; 
+	INT32 cost = 0; 
 
 	cost += uiAPCostFromSlot[src_type];
 	cost += uiAPCostToSlot[dst_type];
@@ -5360,7 +5442,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 	INT16 sFontX, sFontY;
 	UINT32				cnt, posIndex;
 	SOLDIERTYPE		*pSoldier;
-	static				CHAR16		pStr[ 512 ], pMoraleStr[ 20 ];
+	static				CHAR16		pStr[ 512 ], pMoraleStr[ 20 ], sTemp[ 20 ];
 
 	if ( fDirty == DIRTYLEVEL2 )
 	{
@@ -5434,7 +5516,6 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 					//OK, for each item, set dirty text if applicable!
 					SetRegionFastHelpText( &(gTEAM_SecondHandInv[ cnt ]), pStr );
 				}
-
 
 				// Render Selected guy if selected
 				if ( gusSelectedSoldier == pSoldier->ubID && gTacticalStatus.ubCurrentTeam == OUR_TEAM && OK_INTERRUPT_MERC( pSoldier ) )
@@ -5516,66 +5597,148 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			if ( fDirty != DIRTYLEVEL0 )
 			{
 				// UPdate stats!
-		if ( fDirty == DIRTYLEVEL2 )
-		{
-				if ( pSoldier->stats.bLife != 0 )
+				if ( fDirty == DIRTYLEVEL2 )
 				{
-			if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
-			{
-				 swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax );
-				 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-			}
-			else if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
-			{
-				 swprintf( pStr, gzLateLocalizedString[ 16 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
-				 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-			}
-			else
-			{
-					GetMoraleString( pSoldier, pMoraleStr );
-
-					if ( gGameOptions.fFoodSystem && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) )
+					if ( pSoldier->stats.bLife != 0 )
 					{
-						// Flugente: added a display for poison, only show text if actually poisoned
-						if ( pSoldier->bPoisonSum > 0 )
+						if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 						{
-							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_AND_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+							 swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax );
+							 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+						}
+						else if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
+						{
+							 swprintf( pStr, gzLateLocalizedString[ 16 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
+							 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
 						}
 						else
 						{
-							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+							GetMoraleString( pSoldier, pMoraleStr );
+			
+							if ( gGameOptions.fFoodSystem && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) )
+							{
+								// Flugente: added a display for poison, only show text if actually poisoned
+								if ( pSoldier->bPoisonSum > 0 )
+								{
+									swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_AND_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+								}
+								else
+								{
+									swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%", (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+								}
+							}
+							else
+							{
+								// Flugente: added a display for poison, only show text if actually poisoned
+								if ( pSoldier->bPoisonSum > 0 )
+								{
+									swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+								}
+								else
+								{
+									swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+								}
+							}
+							SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+			
+							// Buggler: skills/traits tooltip on merc portrait
+							// clear pStr value
+							swprintf( pStr, L"");
+			
+							if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
+							{
+								UINT8 ubTempSkillArray[30];
+								INT8 bNumSkillTraits = 0;
+			
+								// lets rearrange our skills to a temp array
+								// we also get the number of lines (skills) to be displayed 
+								for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+								{
+									if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 2 )
+									{
+										ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+										bNumSkillTraits++;
+									}
+									else if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 1 )
+									{
+										ubTempSkillArray[bNumSkillTraits] = ubCnt;
+										bNumSkillTraits++;
+									}
+								}
+			
+								if ( bNumSkillTraits == 0 )
+								{
+									swprintf( pStr, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+								}
+								else
+								{
+									for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+									{	
+										// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
+										UINT8 display1 = ubTempSkillArray[ubCnt];
+										if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+											display1 -= NUM_MINOR_TRAITS;
+										else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
+											display1++;
+										else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+											display1 -= NUM_MINOR_TRAITS;
+			
+										swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ display1 ] );
+										wcscat( pStr, sTemp );
+									}
+								}
+							}
+							else
+							{
+								INT8 bSkill1 = 0, bSkill2 = 0; 	
+								bSkill1 = gMercProfiles[ pSoldier->ubProfile ].bSkillTraits[0];
+								bSkill2 = gMercProfiles[ pSoldier->ubProfile ].bSkillTraits[1];
+			
+								if ( bSkill1 == 0 && bSkill2 == 0 )
+								{
+									swprintf( pStr, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+								}
+								else
+								{
+									//if the 2 skills are the same, add the '(expert)' at the end
+									if( bSkill1 == bSkill2 )
+									{
+										swprintf( pStr, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
+									}
+									else
+									{
+										//Display the first skill
+										if( bSkill1 != 0 )
+										{
+											swprintf( pStr, L"%s\n", gzMercSkillText[bSkill1] );
+										}
+										if( bSkill2 != 0 )
+										{
+											swprintf( sTemp, L"%s", gzMercSkillText[bSkill2] );
+											wcscat( pStr, sTemp );
+										}
+									}
+								}
+							}
+							SetRegionFastHelpText( &(gTEAM_FaceRegions[ cnt ]), pStr );
 						}
 					}
 					else
 					{
-						// Flugente: added a display for poison, only show text if actually poisoned
-						if ( pSoldier->bPoisonSum > 0 )
-						{
-							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_POISON_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bPoisonSum, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
-						}
-						else
-						{
-							swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
-						}
+						SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
+						SetRegionFastHelpText( &(gTEAM_FaceRegions[ cnt ]), L"" );
 					}
-					SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-			}
-		}
-		else
-		{
-			SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
-		}
-	}
+				}
 
 				if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 				{
 					DrawLifeUIBarEx( pSoldier, sTEAMLifeXY[ posIndex ], sTEAMLifeXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
 
-			if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
-			{
-					DrawBreathUIBarEx( pSoldier, sTEAMBreathXY[ posIndex ], sTEAMBreathXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
-					DrawMoraleUIBarEx( pSoldier, sTEAMMoraleXY[ posIndex ], sTEAMMoraleXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
-			}
+					if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
+					{
+							DrawBreathUIBarEx( pSoldier, sTEAMBreathXY[ posIndex ], sTEAMBreathXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
+							DrawMoraleUIBarEx( pSoldier, sTEAMMoraleXY[ posIndex ], sTEAMMoraleXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
+					}
 
 					if ( gTacticalStatus.uiFlags & TURNBASED && pSoldier->stats.bLife >= OKLIFE )
 					{
@@ -5626,9 +5789,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 
 					// Erase APs
 					RestoreExternBackgroundRect( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1 ], TM_AP_WIDTH, TM_AP_HEIGHT );
-
 				}
-
 			}
 
 			RenderSoldierTeamInv( pSoldier, sTEAMHandInvXY[ posIndex ], sTEAMHandInvXY[ posIndex + 1 ], (UINT8)cnt, fDirty );
