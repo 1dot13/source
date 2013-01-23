@@ -263,6 +263,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 //Madd: Simple Localization
 //Read in the correct ammostring file for the given language
 	strcpy(fileName, directoryName);
+/*
 #ifdef GERMAN
 	strcat(fileName, GERMAN_PREFIX); // add German. prefix to filename
 #endif
@@ -287,7 +288,16 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #ifdef CHINESE
 	strcat(fileName, CHINESE_PREFIX); // add Chinese. prefix to filename
 #endif
+*/
 	strcat(fileName, AMMOFILENAME);
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInCivGroupNamesStats(fileName,TRUE), fileName);
+		}
+#endif
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInAmmoStats(fileName))
 	{
