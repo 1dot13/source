@@ -2907,30 +2907,30 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"生命: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 	L"生命: %d/%d\n毒性: %d/%d\n精力: %d/%d\n士气: %s\n口渴: %d%s\n饥饿: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
-	L"What do you want to do?",
-	L"Fill canteens",
-	L"Clean gun",
-	L"Clean all guns",
-	L"Take off clothes",
+	// added by Flugente: selection of a function to call in tactical
+	L"你想要做的是什么？",
+	L"装满水壶",
+	L"清理枪支污垢",
+	L"清理所有枪支污垢",
+	L"脱掉衣服",
 
 	// added by Flugente: decide what to do with the corpses
-	L"What do you want to do with the body?",
-	L"Decapitate",
-	L"Gut",
-	L"Take Clothes",
-	L"Take Body",
+	L"你想要对尸体做什么？",
+	L"砍掉头颅",
+	L"取出内脏",
+	L"脱掉衣服",
+	L"拿起尸体",
 
 	// Flugente: weapon cleaning
-	L"%s cleaned %s",
+	L"%s 清理了 %s",
 
 	// added by Flugente: decide what to do with prisoners
-	L"You have no prison for these prisoners, you have to let them go",
-	L"Yes - Send prisoners to jail      No - Let them go",
-	L"What do you want to do?",
-	L"Demand surrender",
-	L"Offer surrender",
-	L"Talk",
+	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
+	L"Yes - 将俘虏送入监狱      No - 放俘虏离开这里", //L"Yes - Send prisoners to jail      No - Let them go",
+	L"你想要做什么？",
+	L"劝说敌人投降",
+	L"Offer surrender",//TODO.Translate
+	L"交谈",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -5145,21 +5145,21 @@ STR16		zOptionsToggleText[] =
 #ifdef ENABLE_ZOMBIES
 	L"僵尸模式",
 #endif
-	L"区域物品栏弹窗匹配拾取",				// the_bob : enable popups for picking items from sector inv
+	L"区域物品栏弹窗匹配拾取",			// the_bob : enable popups for picking items from sector inv
 	L"标记剩余敌人",
 	L"显示LBE(携行具)物品",
-	L"Invert mouse wheel",			// TODO.Translate
+	L"反转鼠标滚轮", 					//L"Invert mouse wheel",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
-	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
+	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
+	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG 选项--",					// an example options screen options header (pure text)
-	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.
-	L"重置所有选项",							// failsafe show/hide option to reset all options
-	L"确定要重置？",							// a do once and reset self option (button like effect)
-	L"Debug Options in other builds",		// allow debugging in release or mapeditor
-	L"DEBUG Render Option group",			// an example option that will show/hide other options
-	L"Render Mouse Regions",				// an example of a DEBUG build option
-	L"-----------------",					// an example options screen options divider (pure text)
+	L"Report Miss Offsets",				// Screen messages showing amount and direction of shot deviation.
+	L"重置所有选项",					// failsafe show/hide option to reset all options
+	L"确定要重置？",					// a do once and reset self option (button like effect)
+	L"Debug Options in other builds",	// allow debugging in release or mapeditor
+	L"DEBUG Render Option group",		// an example option that will show/hide other options
+	L"Render Mouse Regions",			// an example of a DEBUG build option
+	L"-----------------",				// an example options screen options divider (pure text)
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"THE_LAST_OPTION",
@@ -5264,7 +5264,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，在区域物品栏界面，点击佣兵身上空白的携行具位置会弹窗匹配拾取物品。",
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
-	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
+	L"打开时，反转鼠标滚轮方向。",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
