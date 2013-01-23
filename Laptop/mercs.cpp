@@ -30,6 +30,7 @@
 	#include "Soldier Profile.h"
 	#include "Game Event Hook.h"
 	#include "Quests.h"
+	#include "AimMembers.h"
 #endif
 
 #ifdef JA2UB
@@ -507,6 +508,10 @@ BOOLEAN EnterMercs()
 	//init the face
 
 	gfJustEnteredMercSite = TRUE;
+
+	//Display a popup msg box telling the user when and where the merc will arrive after hire
+	if( gfJustHiredAMercMerc == TRUE )
+		DisplayPopUpBoxExplainingMercArrivalLocationAndTime();
 
 	//if NOT entering from a subsite
 	if( gubArrivedFromMercSubSite == MERC_CAME_FROM_OTHER_PAGE )
