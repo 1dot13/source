@@ -260,53 +260,27 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInAmmoTypeStats(fileName),AMMOTYPESFILENAME);
 
-//Madd: Simple Localization
-//Read in the correct ammostring file for the given language
 	strcpy(fileName, directoryName);
-/*
-#ifdef GERMAN
-	strcat(fileName, GERMAN_PREFIX); // add German. prefix to filename
-#endif
-#ifdef RUSSIAN
-	strcat(fileName, RUSSIAN_PREFIX); // add Russian. prefix to filename
-#endif
-#ifdef DUTCH
-	strcat(fileName, DUTCH_PREFIX); // add Dutch. prefix to filename
-#endif
-#ifdef POLISH
-	strcat(fileName, POLISH_PREFIX); // add Polish. prefix to filename
-#endif
-#ifdef FRENCH
-	strcat(fileName, FRENCH_PREFIX); // add French. prefix to filename
-#endif
-#ifdef ITALIAN
-	strcat(fileName, ITALIAN_PREFIX); // add Italian. prefix to filename
-#endif
-#ifdef TAIWANESE
-	strcat(fileName, TAIWANESE_PREFIX); // add Taiwanese. prefix to filename
-#endif
-#ifdef CHINESE
-	strcat(fileName, CHINESE_PREFIX); // add Chinese. prefix to filename
-#endif
-*/
 	strcat(fileName, AMMOFILENAME);
-#ifndef ENGLISH
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			SGP_THROW_IFFALSE(ReadInCivGroupNamesStats(fileName,TRUE), fileName);
-		}
-#endif
+
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInAmmoStats(fileName))
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+		
+	if ( FileExists(fileName) )
+	{
+		SGP_THROW_IFFALSE(ReadInAmmoStats(fileName),AMMOFILENAME);
+	}
+	else
 	{
 		//CHRISL: If we fail to load, try loading just the default english
 		strcpy(fileName, directoryName);
 		strcat(fileName, AMMOFILENAME);
-		SGP_THROW_IFFALSE(!ReadInAmmoStats(fileName),AMMOFILENAME);
+		SGP_THROW_IFFALSE(ReadInAmmoStats(fileName),AMMOFILENAME);
 	}
-
+#else	
+	SGP_THROW_IFFALSE(ReadInAmmoStats(fileName),AMMOFILENAME);
+#endif
 
 	// Lesh: added this, begin
 	strcpy(fileName, directoryName);
