@@ -1136,14 +1136,6 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
-// WANNE: The file "TableData/Text/TacticalMessages.xml" is not yet used
-#if 0
-		strcpy(fileName, directoryName);
-		strcat(fileName, TEXTFILENAME);
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInLanguageLocation(fileName,FALSE,zlanguageText,0), TEXTFILENAME);
-#endif
-
 #ifndef ENGLISH
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )

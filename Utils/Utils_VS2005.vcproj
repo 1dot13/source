@@ -774,10 +774,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\XML_Strings.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\XMLProperties.cpp"
 				>
 			</File>
