@@ -9,23 +9,20 @@
 			<szTooltipText>Используйте возможности госпиталя и его современное оборудование для спасения жизни ваших раненых бойцов. Повышает эффективность докторских умений.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>2</ubIndex>
-		<szFacilityName>Грязненькая пивнушка</szFacilityName>
+		<szFacilityName>Убогая пивнушка</szFacilityName>
 		<szFacilityShortName>Пивная</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>REST</ubAssignmentType>
 			<szTooltipText>Отведайте напитков в местной пивной! Улучшите отношение горожан к вам за цену выпивки и возможность напиться.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>3</ubIndex>
 		<szFacilityName>Тюремный комплекс</szFacilityName>
 		<szFacilityShortName>Тюрьма</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>4</ubIndex>
 		<szFacilityName>Малый аэропорт</szFacilityName>
@@ -35,7 +32,6 @@
 			<szTooltipText>Потратьте своё свободное время на загрузку и разгрузку самолётов. Увеличивает эффективность тренировки вашей силы.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>5</ubIndex>
 		<szFacilityName>Завод комплектующих</szFacilityName>
@@ -45,7 +41,6 @@
 			<szTooltipText>На станках этого завода можно изготовить любые запчасти. Такая возможность значительно увеличит вашу эффективность при ремонте вещей, если конечно вы умеете обращаться с инструментами.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>6</ubIndex>
 		<szFacilityName>Военные казармы</szFacilityName>
@@ -55,7 +50,6 @@
 			<szTooltipText>Обычная казарма, ничего лишнего: кровати, кровати и ещё раз кровати. Однако, всё равно, это лучше ночёвки на улице!</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>7</ubIndex>
 		<szFacilityName>Военный штаб</szFacilityName>
@@ -65,7 +59,6 @@
 			<szTooltipText>Штаб оснащён всевозможным электронным оборудованием, разработанным для концентрации и обработки стратегической информации по всей стране. Это поможет вам организовать свою защиту, а так же сбор информации о вражеских передвижениях вне городов.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>8</ubIndex>
 		<szFacilityName>Полигон</szFacilityName>
@@ -75,7 +68,6 @@
 			<szTooltipText>Почему бы не потратить немного времени на оттачивание вашей меткости? Выставленные мишени просто притягивают вас пострелять.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>9</ubIndex>
 		<szFacilityName>Служба A.C.A</szFacilityName>
@@ -85,13 +77,11 @@
 			<szTooltipText>Возможно, местные жители согласятся разведать для вас местность в округе. Вы можете получать от них сведения, которые помогут в прогнозировании действий врага в близлежащей местности.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>10</ubIndex>
 		<szFacilityName>ПВО</szFacilityName>
 		<szFacilityShortName>ПВО</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>11</ubIndex>
 		<szFacilityName>Шахта</szFacilityName>
@@ -101,7 +91,6 @@
 			<szTooltipText>Любого, кто знает как установить взрывчатку, шахтёры примут с распростёртыми объятиями. Увеличивает эффективность обучения взрывному делу.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>12</ubIndex>
 		<szFacilityName>Малая Церковь</szFacilityName>
@@ -111,7 +100,6 @@
 			<szTooltipText>Торжественный час молитвы и преданности вере в тихой небольшой церкви может помочь поднять чей-то дух. А так же, это могло бы убедить местных жителей, что вы уважаете их образ жизни.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>13</ubIndex>
 		<szFacilityName>Боксёрский клуб</szFacilityName>
@@ -121,19 +109,16 @@
 			<szTooltipText>Здесь имеется много гимнастического оборудования, которое только и ждёт чтобы им воспользовались. Отличный способ получить комплексную разминку, которая могла бы значительно улучшить вашу физическую форму. Увеличивает эффективность практики здоровья.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>14</ubIndex>
 		<szFacilityName>Национальный музей</szFacilityName>
 		<szFacilityShortName>Музей</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>15</ubIndex>
 		<szFacilityName>Лаборатория</szFacilityName>
 		<szFacilityShortName>Лаборатория</szFacilityShortName>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>16</ubIndex>
 		<szFacilityName>Автосвалка</szFacilityName>
@@ -151,7 +136,6 @@
 			<szTooltipText>Это место практически завалено запасными частями ко всякой всячине, некоторые находки просто паражают - как можно было выбросить такую нужную хрень?!. Такое обилие комплектующих значительно ускорит ремонт ваших вещей.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>17</ubIndex>
 		<szFacilityName>Морской курорт</szFacilityName>
@@ -161,13 +145,11 @@
 			<szTooltipText>Солнце, песок, прибой... Отдохнуть никогда не помешает. Да и отдых здесь гораздо приятнее сна в лесу под дождём.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
-
 	<FACILITYTYPE>
 		<ubIndex>18</ubIndex>
 		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
 		<szFacilityShortName>Legacy</szFacilityShortName>
 	</FACILITYTYPE>
-	
 	<FACILITYTYPE> 
 		<ubIndex>19</ubIndex>  
 		<szFacilityName>Полевой госпиталь</szFacilityName>  
@@ -178,4 +160,34 @@
 		</ASSIGNMENT> 
 	</FACILITYTYPE>
 	
+		<FACILITYTYPE>
+		<ubIndex>20</ubIndex>
+		<szFacilityName>Столовая казармы</szFacilityName>
+		<szFacilityShortName>Столовая</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>FACILITY_EAT</ubAssignmentType>
+			<szTooltipText>В казарме размещается столовая. Ваши наёмники могут поесть здесь.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>21</ubIndex>
+		<szFacilityName>Военная тюрьма</szFacilityName>
+		<szFacilityShortName>Тюрьма</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Ваши наёмники могут допросить здесь пленных. Заключенные могут присоединиться к вам, или сообщить полезную информацию.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>22</ubIndex>
+		<szFacilityName>Городская тюрьма</szFacilityName>
+		<szFacilityShortName>Тюрьма</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Ваши наёмники могут допросить здесь пленных. Заключенные могут присоединиться к вам, или сообщить полезную информацию.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
 </FACILITYTYPES>

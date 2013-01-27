@@ -245,4 +245,9 @@
 		<AmmoCaliber>Пушечное ядро</AmmoCaliber>
 		<BRCaliber>Пушечное ядро</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>49</uiIndex>
+		<AmmoCaliber>Перцовый аэрозоль</AmmoCaliber>
+		<BRCaliber>Перцовый аэрозоль</BRCaliber>
+	</AMMO>
 </AMMOLIST>
