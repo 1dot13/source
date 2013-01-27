@@ -258,7 +258,7 @@
 			OutputDirectory="bin\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_LinkerVS2008.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops;.\ja2.vsprops;.\ja2_Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool

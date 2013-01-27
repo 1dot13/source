@@ -317,12 +317,6 @@
     <ClCompile Include="XML_SenderNameList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XML_Strings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XML_Strings2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XMLProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

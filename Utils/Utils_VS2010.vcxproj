@@ -116,8 +116,6 @@
     <ClCompile Include="XML_Items.cpp" />
     <ClCompile Include="XML_Language.cpp" />
     <ClCompile Include="XML_SenderNameList.cpp" />
-    <ClCompile Include="XML_Strings.cpp" />
-    <ClCompile Include="XML_Strings2.cpp" />
     <ClCompile Include="_ChineseText.cpp" />
     <ClCompile Include="_DutchText.cpp" />
     <ClCompile Include="_EnglishText.cpp" />
