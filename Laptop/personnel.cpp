@@ -4802,40 +4802,15 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 	VOBJECT_DESC	VObjectDesc;
 	
 	
-		if ( ( iId >= 0 ) && ( iId < 100 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )
-		{
-			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[iId].ubFaceIndex );
-		} 
-		else if ( ( iId > 99 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )
-		{			
-			sprintf(sTemp, "%s%03d.sti", IMP_FACES_DIR,	gMercProfiles[iId].ubFaceIndex);			
-		}
-		else if ( ( iId >= 0 ) && ( iId < 100 ))
-		{			
-			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[iId].ubFaceIndex);			
-		}
-		else 
-		{			
-			sprintf(sTemp, "%s%03d.sti", FACES_DIR,	gMercProfiles[iId].ubFaceIndex);			
-		}
+	if ( ( iId >= 0 ) && ( iId < 100 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )
+		sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex );
+	else if ( ( iId > 99 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )		
+		sprintf(sTemp, "%s%03d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex);
+	else if ( ( iId >= 0 ) && ( iId < 100 ))			
+		sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex);
+	else			
+		sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex);
 	
-/*
-	if( ( 50 < 	iId	)&&( 57 > 	iId	) ) 
-	{
-		sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ iId ].ubFaceIndex );
-	} 
-	else 
-	{
-		if(	iId	< 100 ) 
-		{
-			sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ iId ].ubFaceIndex );			
-		} 
-		else 
-		{		
-			sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[ iId ].ubFaceIndex	);			
-		}
-	}
-*/
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP(sTemp, VObjectDesc.ImageFile);
 	CHECKV(AddVideoObject(&VObjectDesc, &guiFACE));
