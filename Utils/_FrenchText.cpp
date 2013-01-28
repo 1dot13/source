@@ -3617,8 +3617,13 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
+#ifdef JA2UB
+	L"%s doit-il abandonner son équipement sur place (%s) ou à Drassen (B13) avant de quitter Tracona ?",
+	L"%s doit-il abandonner son équipement sur place (%s) ou à Omerta (A9) avant de quitter Tracona ?",
+#else
 	L"%s doit-il abandonner son équipement sur place (%s) ou à Drassen (B13) avant de quitter Arulco ?",
 	L"%s doit-il abandonner son équipement sur place (%s) ou à Omerta (A9) avant de quitter Arulco ?",
+#endif
 	L"est sur le point de partir et laissera son équipement à Omerta (A9).",
 	L"est sur le point de partir et laissera son équipement à Drassen (B13).",
 	L"%s est sur le point de partir et laissera son équipement en %s.",

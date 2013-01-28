@@ -2080,7 +2080,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"По жизни:",	//Attitudes For old traits display instead of "Character:"!
 
-	L"Zombies: %d\n", // TODO.Translate
+	L"Зомби: %d\n",
 };
 
 
@@ -2143,11 +2143,10 @@ STR16 gzMercSkillTextNew[] =
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
-	L"Spy",				// 30	// TODO.Translate
+	L"Шпион",				// 30
 	L"Ещё...",
 };
 //////////////////////////////////////////////////////////
-
 
 // This is pop up help text for the options that are available to the merc
 
@@ -2602,7 +2601,7 @@ CHAR16 zHealthStr[][13] =
 	L"ЗДОРОВ",    	//	>= 60
 	L"СИЛЕН",     	// 	>= 75
 	L"ОТЛИЧНО",		// 	>= 90
-	L"CAPTURED",	// added by Flugente TODO.Translate
+	L"ЗАХВАЧЕН",
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -2666,7 +2665,7 @@ STR16 pVehicleStrings[] =
  L"Фургон",
  L"Джип",
  L"Танк",
- L"Вертолет",
+ L"Вертолёт",
 };
 
 STR16 pShortVehicleStrings[] =
@@ -2843,7 +2842,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"РЕПТИОН",
 	L"ОПОЛЧЕНЕЦ",
 	L"ЖИТЕЛЬ",
-	L"ZOMBIE",		// TODO.Translate
+	L"ЗОМБИ",
 	L"Выход из сектора",
 	L"ДА",
 	L"ОТМЕНА",
@@ -2901,36 +2900,36 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Select tripwire hierarchy (1 - 4) and network (A - D):",
 
 	// added by Flugente to display health and poisoning		// TODO.Translate
-	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s",
+	L"Здоровье: %d/%d\nЯд: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s",
 
 	// added by Flugente to display food status
-	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
-	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
+	L"Здоровье: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s\nВода: %d%s\nПища: %d%s",
+	L"Здоровье: %d/%d\nЯд: %d/%d\nЭнергия: %d/%d\nБоевой дух: %s\nВода: %d%s\nПища: %d%s",
 
 	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
-	L"What do you want to do?",
-	L"Fill canteens",
-	L"Clean gun",
-	L"Clean all guns",
-	L"Take off clothes",
+	L"Что будем делать?",
+	L"Наполнить фляги",
+	L"Почистить оружие",
+	L"Почистить всё оружие",
+	L"Снять одежду",
 
 	// added by Flugente: decide what to do with the corpses
-	L"What do you want to do with the body?",
-	L"Decapitate",
-	L"Gut",
-	L"Take Clothes",
-	L"Take Body",
+	L"Что будем делать с телом?",
+	L"Отсечь голову",
+	L"Потрошить",
+	L"Снять одежду",
+	L"Забрать тело",
 
 	// Flugente: weapon cleaning
-	L"%s cleaned %s",
+	L"%s чистит %s",
 
 	// added by Flugente: decide what to do with prisoners
-	L"You have no prison for these prisoners, you have to let them go",
-	L"Yes - Send prisoners to jail      No - Let them go",
-	L"What do you want to do?",
-	L"Demand surrender",
-	L"Offer surrender",
-	L"Talk",
+	L"У вас нет тюрьмы для содержания заключённых, придётся отпустить их",
+	L"Да - Отправить заключенных в тюрьму      Нет - Отпустит",
+	L"Что вы хотите сделать?",
+	L"Требовать сдаться",
+	L"Предлоить сдаться",
+	L"Переговоры",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -3204,28 +3203,26 @@ STR16 pMapScreenBorderButtonHelpText[] =
 
 STR16 pMapScreenInvenButtonHelpText[] =
 {
-	L"Next (|.)",		// next page // TODO.Translate
-	L"Previous (|,)",		// previous page // TODO.Translate
-	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory // TODO.Translate
-
-	// TODO.Translate
-	L"Zoom Inventory", // HEAROCK HAM 5: Inventory Zoom Button
-	L"Stack and merge items", // HEADROCK HAM 5: Stack and Merge
-	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates\n|R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
+	L"Следующая \nстраница (|.)",		// next page
+	L"Предыдущая \nстраница (|,)",		// previous page
+	L"Закрыть инвентарь сектора (|E|s|c)",	// exit sector inventory
+	L"Увеличить предметы", // HEAROCK HAM 5: Inventory Zoom Button
+	L"Сложить и объединить предметы", // HEADROCK HAM 5: Stack and Merge
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Собрать патроны в ящики\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Собрать патроны в коробки", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"Remove all item attachments", // HEADROCK HAM 5: Separate Attachments
-	L"Eject ammo from all weapons", //HEADROCK HAM 5: Eject Ammo
-	L"|L|e|f|t |C|l|i|c|k: Show all items\n|R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Guns\n|R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Ammunition\n|R|i|g|h|t |C|l|i|c|k: Show only Ammunition", // HEADROCK HAM 5: Filter Button
+	L"Снять всю навеску \nс предметов", // HEADROCK HAM 5: Separate Attachments
+	L"Разрядить всё оружие", //HEADROCK HAM 5: Eject Ammo
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Показать все предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть все предметы", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть оружие\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать оружие", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть аммуницию\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать аммуницию", // HEADROCK HAM 5: Filter Button
 	// 11 - 15
-	L"|L|e|f|t |C|l|i|c|k: Toggle Explosives\n|R|i|g|h|t |C|l|i|c|k: Show only Explosives", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Melee Weapons\n|R|i|g|h|t |C|l|i|c|k: Show only Melee Weapons", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Armor\n|R|i|g|h|t |C|l|i|c|k: Show only Armor", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle LBEs\n|R|i|g|h|t |C|l|i|c|k: Show only LBEs", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть взрывчатку\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать взрывчатку", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть холодное оружие\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать холодное оружие", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть броню\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать броню", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть разгрузочные системы\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать разгрузочные системы", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть наборы\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать наборы", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
+	L"|Л|е|в|ы|й| |щ|е|л|ч|ё|к|: Скрыть прочие предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|ё|к|: Показать прочие предметы", // HEADROCK HAM 5: Filter Button
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -3431,7 +3428,7 @@ STR16 pTransactionText[] =
 	L"Снаряжение продано населению",
 	L"Оснащение персонала", // HEADROCK HAM 3.6		//Facility Use
 	L"Содержание ополчения", // HEADROCK HAM 3.6		//Militia upkeep
-	L"Ransom for released prisoners",	// Flugente: prisoner system TODO.Translate
+	L"Выкуп за освобожденных заключенных",	// Ransom for released prisoners
 };
 
 STR16 pTransactionAlternateText[] =
@@ -3485,9 +3482,9 @@ STR16 pMapScreenStatusStrings[] =
 	L"Боевой дух",
 	L"Состояние",	// the condition of the current vehicle (its "health")
 	L"Бензин",	// the fuel level of the current vehicle (its "energy")
-	L"Poison",	// TODO.Translate
-	L"Water",		// drink level
-	L"Food",		// food level
+	L"Яд",	// Poison
+	L"Вода",		// drink level 	//Water
+	L"Пища",		// food level		//Food
 };
 
 
@@ -3616,8 +3613,13 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
+#ifdef JA2UB
+	L"Должен ли %s оставить свою амуницию здесь (в %s) или позже в Драссене (B13) перед отлетом из Траконы?",
+	L"Должен ли %s оставить свою амуницию здесь (в %s) или позже в Омерте (A9) перед отлетом из Траконы?",
+#else
 	L"Должен ли %s оставить свою амуницию здесь (в %s) или позже в Драссене (B13) перед отлетом?",
 	L"Должен ли %s оставить свою амуницию здесь (в %s) или позже в Омерте (A9) перед отлетом?",
+#endif
 	L"скоро уходит и оставит свою амуницию в Омерте (А9).",
 	L"скоро уходит и оставит свою амуницию в Драссене (B13).",
 	L"%s скоро уходит и оставит свою амуницию в %s.",
@@ -3627,8 +3629,13 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
+#ifdef JA2UB
+	L"Должна ли %s оставить свою амуницию здесь (в %s) или позже в Драссене (B13) перед отлетом из Траконы?",
+	L"Должна ли %s оставить свою амуницию здесь (в %s) или позже в Омерте (A9) перед отлетом из Траконы?",
+#else
 	L"Должна ли %s оставить свою амуницию здесь (в %s) или позже в Драссене (B13) перед отлетом?",
 	L"Должна ли %s оставить свою амуницию здесь (в %s) или позже в Омерте (A9) перед отлетом?",
+#endif
 	L"скоро уходит и оставит свою амуницию в Омерте (А9).",
 	L"скоро уходит и оставит свою амуницию в Драссене (B13).",
 	L"%s скоро уходит и оставит свою амуницию в %s.",
@@ -3646,6 +3653,8 @@ STR16 pMercContractOverStrings[] =
 
 // Text used on IMP Web Pages
 
+// WDS: Allow flexible numbers of IMPs of each sex
+//    note: I only updated the English text to remove "three" below
 STR16 pImpPopUpStrings[] =
 {
 	L"Неверный код доступа.",
@@ -3871,7 +3880,7 @@ STR16 pBookMarkStrings[] =
 	L"Цветы",
 	L"Страховка",
 	L"Oтмeнa",
-	L"Encyclopedia",
+	L"Энциклопедия",
 	L"Briefing Room",
 };
 
@@ -3982,8 +3991,8 @@ STR16 pWebPagesTitles[] =
 	L"",
 	L"Адрес не найден.",
 	L"Бобби Рэй - последние поступления",
-	L"Encyclopedia",
-	L"Encyclopedia - Data",
+	L"Энциклопедия",
+	L"Энциклопедия - данные",
 	L"Briefing Room",
 	L"Briefing Room - Data",
 };
@@ -4178,6 +4187,7 @@ STR16			MercAccountPageText[] =
 	L"Дальше",
 };
 
+
 //For use at the M.E.R.C. web site. Text relating a MERC mercenary
 
 
@@ -4226,6 +4236,7 @@ STR16			MercNoAccountText[] =
 	L"Отмена",
 	L"Вы еще не зарегистрировались. Желаете открыть счет?",
 };
+
 
 
 // For use at the M.E.R.C. web site. MERC Homepage
@@ -4391,7 +4402,6 @@ STR16			BobbyROrderFormText[] =
 	L"Заказы",
 };
 
-
 STR16			BobbyRFilter[] =
 {
 	// Guns
@@ -4437,12 +4447,12 @@ STR16			BobbyRFilter[] =
 	L"Наборы",
 	L"Головные",
 	L"Разгр.с-мы",
-	L"Optics", // Madd: new BR filters		// TODO.Translate
+	L"Прицелы", // Madd: new BR filters
 	L"Grip/LAM",
 	L"Muzzle",
 	L"Stock",
 	L"Mag/Trig.",
-	L"Other Att.",
+	L"Др. навеска",
 	L"Разное",
 };
 
@@ -4549,15 +4559,22 @@ STR16			AimSortText[] =
 	L"Цена",
 	L"Опыт",
 	L"Меткость",
-	L"Медицина",
-	L"Взрывчатка",
 	L"Механика",
+	L"Взрывчатка",
+	L"Медицина",
+	L"Здоровье",
+	L"Проворность",
+	L"Ловкость",
+	L"Сила",
+	L"Лидерство",
+	L"Мудрость",
+	L"Имя",
 
 	//Text of the links to other AIM pages
 
-	L"Показать фотографии наемников",
-	L"Просмотреть информацию о наемниках",
-	L"Просмотреть архивную галерею A.I.M.", 
+	L"Фотографии наёмников",
+	L"Информация о наёмниках",
+	L"Архив A.I.M.", 
 
 	// text to display how the entries will be sorted
 
@@ -4745,9 +4762,16 @@ STR16			AimFiText[] =
 	L"Цена",
 	L"Опыт",
 	L"Меткость",
-	L"Медицина",
-	L"Взрывчатка",
 	L"Механика",
+	L"Взрывчатка",
+	L"Медицина",
+	L"Здоровье",
+	L"Проворность",
+	L"Ловкость",
+	L"Сила",
+	L"Лидерство",
+	L"Мудрость",
+	L"Имя",
 
 	// The title of the page, the above text gets added at the end of this text
 
@@ -4785,6 +4809,11 @@ STR16			AimAlumniText[] =
 
 	L"ОК"			// Stops displaying information on selected merc
 };
+
+
+
+
+
 
 //AIM Home Page
 
@@ -4932,6 +4961,7 @@ STR16			zSaveLoadText[] =
 	L"ОШИБКА загрузки игры!",
 
 	L"Это сохранение было сделано иной версией игры. Скорее всего, загрузить его не удастся. Все равно продолжить?",
+
 	L"Возможно файлы сохранений повреждены. Желаете их удалить?",
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
@@ -4969,7 +4999,8 @@ STR16			zSaveLoadText[] =
 
 	L"Элементы фантастики",
 	L"Платиновая серия",
-	L"Бобби Рэя Quality", //TODO.Translate
+
+	L"Ассортимент Бобби Рэя",
 	L"Нормальный",
 	L"Большой",
 	L"Огромный",
@@ -4979,8 +5010,9 @@ STR16			zSaveLoadText[] =
 	L"Загрузка игры, начатой в режиме \"Нового Инвентаря\", невозможна. Установите в Ja2.ini игровую папку 'Data-1.13' и повторите попытку.",
 
 	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.", // TODO.Translate
-	L"Bobby Ray Quantity", //TODO.Translate
+	L"Количество товара у Бобби Рэя",
 };
+
 
 
 //MapScreen
@@ -5017,7 +5049,7 @@ STR16		zMarksMapScreenText[] =
 	L"Стратегическая Карта",
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"Сейчас у вас нет мобильных групп ополчения. Включите этот режим в следующий раз, когда наберёте их.",
-	L"This view shows where your Mobile Militia can and cannot go. GREY = Mobile Militia refuse to go here. RED = Mobile Militia can go here, but you've told them not to. YELLOW = Mobile Militia can enter this sector, but not leave. GREEN = Mobile Militia can go here freely. Right click a Green/Yellow sector to cycle its behavior.",
+	L"Здесь показано куда ваши мобильные отряды могут пройти и куда нет. СЕРЫЙ = не пойдут туда. КРАСНЫЙ = могут пойти туда, но вы запретили им. ЖЁЛТЫЙ = могут вступить в сектор, но не могут его покинуть. ЗЕЛЁНЫЙ = могут свободно передвигаться. Правым щелчком кнопки мыши можно менять цветовой статус сектора.",
 };
 
 
@@ -5100,19 +5132,18 @@ STR16		zOptionsToggleText[] =
 	L"Подсветить навык к повышению",		//Stat Progress Bars	// Show progress towards stat increase
 	L"Новая расцветка стратег. карты",	//Alternate Strategy-Map Colors //Change color scheme of Strategic Map
 	L"Заметная летящая пуля",				// Show alternate bullet graphics (tracers)
-	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
+	L"Показать ранг бойца",						// shows mercs ranks
 	L"Показать снаряжение на голове",				//Show Face gear graphics
 	L"Показать иконки снаряжения",
-	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
-	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
-	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
-	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
-	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
-
+	L"Отключить меняющийся курсор",		            // Disable Cursor Swap
+	L"Тихая тренировка",						// Madd: mercs don't say quotes while training
+	L"Тихий ремонт",						// Madd: mercs don't say quotes while repairing
+	L"Тихое лечение",						// Madd: mercs don't say quotes while doctoring
+	L"Быстрый ход компьютера",			// Automatic fast forward through AI turns
 #ifdef ENABLE_ZOMBIES
-	L"Allow Zombies",						// Flugente Zombies 1.0
+	L"Зомби в игре!",						// Flugente Zombies 1.0
 #endif
-	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
+	L"Меню в инвентаре бойца",				// the_bob : enable popups for picking items from sector inv
 	L"Mark Remaining Hostiles",				//TODO.Translate
 	L"Show LBE Content",					//TODO.Translate
 	L"Invert mouse wheel",			// TODO.Translate
@@ -5216,19 +5247,19 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, навык, \nкоторый вскоре повысится будет подсвечен.",
 	L"Если включено, необследованные сектрора \nна стратегической карте будут чёрно-белыми.",
 	L"Если включено, летящая пуля будет более заметной.",
-	L"When ON, ranks will be displayed before merc names in the strategic view.",					// TODO.Translate
+	L"Если включено, на стратегическом экране будет подписан ранг бойца перед его именем.",
 	L"Если включено, на портрете наёмника будет отображено одетое головное снаряжение.",
 	L"Если включено, в правом нижнем углу \nна портрете наёмника будут отображены иконки \nодетого головного снаряжения.",
-	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
-	L"When ON, mercs will not report progress during training.",
-	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
-	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
-	L"When ON, AI turns will be much faster.",		// TODO.Translate
+	L"Если включено, курсор не будет меняться показывая все возможные действия. \nЧтобы поменяться местами с человеком рядом, нажмите |X.",
+	L"Если включено, бойцы не будут сообщать о повышении своих умений.",
+	L"Если включено, бойцы не будут сообщать о статусе ремонта.",
+	L"Если включено, бойцы не будут сообщать о лечения.",
+	L"Если включено, ожидание пока походят противник, гражданские и животные будет значительно меньше.",
 
 #ifdef ENABLE_ZOMBIES
-	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+	L"Если включено, будут появляться зомби. Развлекайся!",
 #endif
-	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
+	L"Если включено, при просмотре предметов сектора в инвентаре бойца \nбудет доступно меню по нажатии левой кнопки на пустой карман.",
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
@@ -5243,7 +5274,6 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, отладочные настройки \nбудут показаны в общем списке.",	//Toggle to display debugging render options
 	L"Attempts to display slash-rects around mouse regions",	// an example of a DEBUG build option
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",	// an example options screen options divider (pure text)
-
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"Последняя строка в списке настроек.",
@@ -5277,21 +5307,21 @@ STR16	gzGIOScreenText[] =
 	L"в любое время",
 	L"лишь в мирное",
 	L"Отключено в демо-версии", 
-	L"Бобби Рэя Quality", //TODO.Translate
+	L"Ассортимент Бобби Рэя",
 	L"хороший",
 	L"большой",
 	L"огромный",
 	L"всё и сразу",
-	L"Инвентарь / Навеска",		//Inventory / Attachments
+	L"Инвентарь / Навеска",
 	L"NOT USED",
 	L"NOT USED",
 	L"Загрузить",
 	L"УСТАНОВКИ ИГРЫ (актуальны только настроки игры сервера)",
 	// Added by SANDRO
-	L"Умения IMP персонажа",	//Skill Traits
+	L"Умения персонажа",
 	L"старые",
 	L"новые",
-	L"Количество IMP персонажей",	//Max IMP Characters
+	L"Создаваемых персонажей",
 	L"1",
 	L"2",
 	L"3",
@@ -5302,9 +5332,9 @@ STR16	gzGIOScreenText[] =
 	L"нет",
 	L"да",
 #ifdef JA2UB
-	L"Tex and John",
-	L"Random",
-	L"All",
+	L"Текс и Джон",
+	L"Случайно",
+	L"Оба сразу",
 #else
 	L"Число террористов",
 	L"случайное",
@@ -5324,20 +5354,19 @@ STR16	gzGIOScreenText[] =
 	L"новый / старая",
 	L"новый / новая",
 
-	// TODO.Translate
 	// Squad Size
-	L"Max. Squad Size",
+	L"Бойцов в отряде",
 	L"6",
 	L"8",
 	L"10",
 	//L"Faster Bobby Ray Shipments",
-	L"Inventory Manipulation Costs AP",
+	L"Манипуляции с инвентарём за ОД",
 
-	L"New Chance to Hit System",
-	L"Improved Interrupt System",
-	L"Weapon Overheating",
-	L"Food System",//TODO.Translate
-	L"Bobby Ray Quantity",
+	L"Новая система прицеливания",	//New Chance to Hit System
+	L"Новая система перехвата хода",
+	L"Перегрев оружия",
+	L"Игра с едой",
+	L"Количество товара у Бобби Рэя",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5582,7 +5611,8 @@ STR16 pMessageStrings[] =
 	L"Бросить",
 	L"Передать",
 
-	L"%s передан %s.", //"Item" passed to "merc".  Please try to keep the item %s before the merc %s, otherwise, must notify SirTech.
+	L"%s передан %s.", //"Item" passed to "merc".  Please try to keep the item %s before the merc %s, otherwise,
+											 //must notify SirTech.
 	L"Не хватает места, чтобы передать %s %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest ( Ceramic Plate 'Attached )'
@@ -5640,7 +5670,6 @@ STR16 pMessageStrings[] =
 	L"Клиент",	//Client
 	L"Нельзя одновременно установить \"Старый\" инвентарь и \"Новую Систему Навески\".",	//You cannot use the Old Inventory and the New Attachment System at the same time.
 
-	// TODO.Translate
 	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
 	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
 	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
@@ -5814,7 +5843,7 @@ STR16	gzCreditNames[]=
 {
 	L"Chris Camfield",
 	L"Shaun Lyng",
-	L"Kris Mдrnes",
+	L"Kris Märnes",
 	L"Ian Currie",
 	L"Linda Currie",
 	L"Eric \"WTF\" Cheng",
@@ -5868,6 +5897,7 @@ STR16	gzCreditNameFunny[]=
 	L"(Делал предметы и загрузочные экраны!)",			// Joey \"Joeker\" Whelan",
 };
 
+// HEADROCK: Adjusted strings for better feedback, and added new string for LBE repair.
 STR16 sRepairsDoneString[] =
 {
 	L"%s: завершён ремонт личных вещей.",
@@ -5927,6 +5957,7 @@ STR16 gzLateLocalizedString[] =
 #else
 	L"Арулько",
 #endif
+
 	L"(на крыше)",
 
 	L"Здоровье: %d/%d",
@@ -5999,6 +6030,7 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"%s: отвалилась ствольная насадка!",
+	// HEADROCK HAM 3.5: Changed to reflect facility effect.
 	L"В этом секторе ополченцев могут тренировать не более %d человек.",	//No more than %d militia trainers are permitted in this sector.
 	L"Вы уверены?",
 
@@ -6025,7 +6057,6 @@ STR16 gzLateLocalizedString[] =
 	//Displayed with the version information when cheats are enabled.
 	L"Прогресс игры текущий/максимально достигнутый: %d%%/%d%%",
 
-	//59
 	L"Сопроводить Джона и Мэри?",
 	
 	//60
@@ -6035,9 +6066,10 @@ STR16 gzLateLocalizedString[] =
 	L"%s выпустил на %d больше пуль!",
 	L"%s выпустил на одну пулю больше!",
 
-	L"You need to close the item description box first!",	// TODO.Translate
+	L"Сперва закрой описание предмета!",
 };
 
+// HEADROCK HAM 3.5: Added sector name
 STR16 gzCWStrings[] = 
 {
 	L"Вызвать подкрепление из соседних секторов для %s?",
@@ -6110,7 +6142,7 @@ STR16 New113Message[] =
 	L"UAUTO",
 	L"Снайпер!",
 	L"Невозможно разделить деньги из-за предмета на курсоре.",
-	L"Точка высадки новых наемников перенесена в %s, так как предыдущая точка высадки %s захвачена противником.",
+	L"Точка высадки прибывающих наёмников перенесена в %s, так как запланированное место высадки %s захвачено противником.",
 	L"Выброшена вещь.",
 	L"Выброшены все вещи выбранной группы.",
 	L"Вещь продана голодающему населению Арулько.",
@@ -6121,9 +6153,12 @@ STR16 New113Message[] =
 	L"В приделах видимости нет врагов.",	//No enemies in sight
 	L"Красться в режиме реального времени ОТКЛ.",	//Real-time sneaking OFF
 	L"Красться в режиме реального времени ВКЛ.",	//Real-time sneaking ON
+	//L"Enemy spotted! (Ctrl + x to enter turn based)",
 	L"Обнаружен враг!", // this should be enough - SANDRO
+	//////////////////////////////////////////////////////////////////////////////////////
+	// These added by SANDRO
 	L"%s отлично справился с кражей!",	//%s was successful at stealing!
-	L"У %s нет достаточного количества очков действия, чтобы украсть все выбранные вещи.",	//%s did not have enough action points to steal all selected items.
+	L"%s: недостаточно очков действия, чтобы украсть все выбранные вещи.",	//%s did not have enough action points to steal all selected items.
 	L"Хотите провести хирургическую операцию %s перед перевязкой? (Вы сможете восстановить около %i здоровья).",	//Do you want to perform surgery on %s before bandaging? (You can heal about %i Health.)
 	L"Хотите провести хирургическую операцию %s? (Вы сможете восстановить около %i здоровья).",	//Do you want to perform surgery on %s? (You can heal about %i Health.)
 	L"Хотите сначала провести необходимую хирургическую операцию? (пациент(ы) - %i).",	//Do you wish to perform necessary surgeries first? (%i patient(s))
@@ -6171,19 +6206,16 @@ STR16 New113HAMMessage[] =
 	L"Н/Д в этом секторе",	//N/A in this sector
 	L"Дневной расход",
 	// 21 - 25
-	L"Недостаточно денег чтобы заплатить всему нанятому ополчению. %d ополченцев было распущенно и распущено домой.",	//Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.
-
-	// TODO.Translate
-	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5
+	L"Недостаточно денег для выплат нанятому ополчению. %d ополченцев было распущенно и отправлено домой.",	//Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.
+	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5 TODO.Translate
 	L"To attach an item to another item during combat, you must pick them both up first.", // HAM 5
 	L"To merge two items during combat, you must pick them both up first.", // HAM 5
 };
 
-// TODO.Translate
 // HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
 STR16 gzTransformationMessage[] = 
 {
-	L"No available adjustments",
+	L"No available adjustments",	// TODO.Translate
 	L"%s was split into several parts.",
 	L"%s was split into several parts. Check %s's inventory for the resulting items.",
 	L"Due to lack of inventory space after transformation, some of %s's items have been dropped to the ground.",
@@ -6197,6 +6229,7 @@ STR16 gzTransformationMessage[] =
 	L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
 };
 
+// WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16	New113MERCMercMailTexts[] =
@@ -6211,6 +6244,7 @@ STR16	New113MERCMercMailTexts[] =
 	L"Ставим в известность, что отличная работа полковника Фредерика Биггенса заслуживает поощрения в виде повышения гонорара. Постановление считать действительным с текущего момента. ± ± Спек Т. Кляйн ± ",
 };
 
+// WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercAvailable.xml" file!
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
 STR16	New113AIMMercMailTexts[] =
 {
@@ -6259,6 +6293,8 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Снайпер: У вас глаза ястреба. В свободное время вы развлекаетесь отстреливая крылышки у мух с расстояния 100 метров! ± ",	//Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards!
 	// Camouflage
 	L"Маскировка: На вашем фоне кусты выглядят синтетическими! ± ",	//Camouflage: Beside you, even bushes look synthetic!
+	// SANDRO - new strings for new traits added
+	// MINTY - Altered the texts for more natural English, and added a little flavour too
 	// Ranger
 	L"Лесничий: Эти рейнджеры из Техаса, на вашем фоне выгледят дилетантами! Вы умеете рационально выбирать путь, стать незаметным для зверя, с одного выстрела из ружья попасть белке в глаз. ± ",	//Ranger: Those amateurs from Texas have nothing on you!
 	// Gunslinger
@@ -6488,13 +6524,12 @@ STR16 gzMPChatboxText[] =
 	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата.",
 };
 
+// Following strings added - SANDRO
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits
 	L"На следующей странице вам нужно выбрать профессиональные навыки в соответствии со специализацией вашего наёмника. Вы можете выбрать не более двух разных навыка или один и владеть им в совершенстве.",
-	
 	L"Можно выбрать всего один навык или вообще остаться без него. Тогда вам будут даны дополнительные баллы для улучшения некоторых параметров. Внимание: навыки электроника, стрельба с двух рук и маскировка не могут быть экспертными.",
-
 	// For new major/minor traits
 	L"Следующий этап - выбор навыков, которые определят специализацию вашего наёмника. На первой странице можно выбрать до двух основных навыков, которые определят роль бойца в отряде. На второй - дополнительные навыки, подчеркивающие личные качества бойца.", 
 	L"Всего можно взять не более трёх навыков. Так, если Вы не выбрали основной навык, то можно взять три дополнительных. Если же вы выбрали оба основных навыка (или один улучшенный), то будет доступен лишь один дополнительный...",  
@@ -6624,6 +6659,7 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s заболел(а) в секторе %s, и вынужден(а) отложить текущую задачу.",
 	L"%s заболел(а) и не может продолжить работу над %s в %s.",
 	L"%s получил(а) травму в секторе %s.",
+	// 31 - 35
 	L"%s получил(а) серьёзную травму в секторе %s.",
 
 
@@ -6690,21 +6726,22 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Тренер на Взрывчатку",
 	L"Interrogate Prisoners",	// added by Flugente	TODO.Translate
 };
-
 STR16 Additional113Text[]=
 {
 	L"Для запуска Jagged Alliance 2 v1.13 в оконном режиме требуется установить 16-битное качество цветопередачи экрана",
 
-	// TODO.Translate
-	// WANNE: Savegame slots validation against INI file
+	// WANNE: Savegame slots validation against INI file 	// TODO.Translate
 	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
 	L"Mercenary (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"Enemy (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
 	L"Creature (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
 	L"Militia (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
 	L"Civilian (MAX_NUMBER_CIVS_IN_TACTICAL)",
+
 };
 
+// SANDRO - Taunts (here for now, xml for future, I hope)
+// MINTY - Changed some of the following taunts to sound more natural
 STR16 sEnemyTauntsFireGun[]=
 {
 	L"Отведай ка гостинца!",
@@ -6794,10 +6831,9 @@ STR16 sEnemyTauntsGotHit[]=
 
 };
 
-// TODO.Translate
 STR16 sEnemyTauntsNoticedMerc[]=
 {
-	L"Da'ffff...!",
+	L"Da'ffff...!",	// TODO.Translate
 	L"Oh my God!",
 	L"Holy crap!",
 	L"Enemy!!!",
@@ -7012,6 +7048,7 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nThis is the distance (in Tiles) within which\nsoldiers and mercs will hear the explosion when\nit goes off.\n \nEnemies hearing the explosion will be alerted to your\npresence.\n \nLower is better.",
 	L"\n \nThis value represents a chance (out of 100) for this\nexplosive to spontaneously explode whenever it is damaged\n(for instance, when other explosions go off nearby).\n \nCarrying highly-volatile explosives into combat\nis therefore extremely risky and should be avoided.\n \nScale: 0-100.\nLower is better.",
+
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
@@ -7277,80 +7314,78 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
-// TODO.Translate
 // HEADROCK HAM 5: Screen messages for sector inventory sorting reports.
 STR16 gzMapInventorySortingMessage[] =
 {
-	L"Finished sorting ammo into crates in sector %c%d.",
-	L"Finished removing attachments from items in sector %c%d.",
-	L"Finished ejecting ammo from weapons in sector %c%d.",
-	L"Finished stacking and merging all items in sector %c%d.",
+	L"В квадрате  %c%d завершена сборка аммуниции в ящики.",
+	L"С предметов в квадрате %c%d снята вся навеска.",
+	L"В квадрате %c%d всё оружие разряжено.",
+	L"В квадрате %c%d все вещи сгруппированы и объединены.",
 };
 
 STR16 gzMapInventoryFilterOptions[] =
 {
-	L"Show all",
-	L"Guns",
-	L"Ammo",
-	L"Explosives",
-	L"Melee Weapons",
-	L"Armor",
-	L"LBE",
-	L"Kits",
-	L"Misc. Items",
-	L"Hide all",
+	L"Показать всё",
+	L"Оружие",
+	L"Патроны",
+	L"Взрывчатка",
+	L"Холодное оружие",
+	L"Броня",
+	L"Рузгруз. системы",
+	L"Наборы",
+	L"Прочие предметы",
+	L"Скрыть всё",
 };
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
-STR16 gTemperatureDesc[] =			// TODO.Translate
+STR16 gTemperatureDesc[] =
 {
-	L"Temperature is ",
-	L"very low",
-	L"low",
-	L"medium",
-	L"high",
-	L"very high",
-	L"dangerous",
-	L"CRITICAL",
-	L"DRAMATIC",
-	L"unknown",
+	L"Температура ",
+	L"очень низкая",
+	L"низкая",
+	L"умеренная",
+	L"высокая",
+	L"очень высокая",
+	L"опасная",
+	L"КРИТИЧЕСКАЯ",
+	L"ФАТАЛЬНАЯ",
+	L"неизвестна",
 	L"."
 };
 
-// TODO.Translate
 // Flugente: food condition texts
 STR16 gFoodDesc[] =
 {
-	L"Food is ",
-	L"fresh",
-	L"good",
-	L"ok",
-	L"stale",
-	L"shabby",
-	L"rotting",
+	L"Пища ",
+	L"свежая",
+	L"хорошая",
+	L"нормальная",
+	L"несвежая",
+	L"порченная",
+	L"подгнившая",
 	L"."
 };
 
-// TODO.Translate
 CHAR16* ranks[] = 
-{	L"",			//ExpLevel 0
-	L"Pvt. ",		//ExpLevel 1
-	L"Pfc. ",		//ExpLevel 2
-	L"Cpl. ",		//ExpLevel 3
-	L"Sgt. ",		//ExpLevel 4
-	L"Lt. ",		//ExpLevel 5
-	L"Cpt. ",		//ExpLevel 6
-	L"Maj. ",		//ExpLevel 7
-	L"Lt.Col. ",	//ExpLevel 8
-	L"Col. ",		//ExpLevel 9
-	L"Gen. "		//ExpLevel 10
+{	L"",			//ExpLevel 0// TODO.Translate
+	L"Рядовой ",		//ExpLevel 1
+	L"Ефрейтор ",		//ExpLevel 2
+	L"Мл. сержант ",		//ExpLevel 3
+	L"Сержант ",		//ExpLevel 4
+	L"Лейтенант ",		//ExpLevel 5
+	L"Капитан ",		//ExpLevel 6
+	L"Майор ",		//ExpLevel 7
+	L"Подполк. ",	//ExpLevel 8
+	L"Полковник ",		//ExpLevel 9
+	L"Генерал "		//ExpLevel 10
 };
+
 
 STR16	gzNewLaptopMessages[]=
 {
-	L"Ask about our special offer!",
-	L"Temporarily Unavailable",
-	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+	L"Спрашивайте о нашем специальном предложении!",
+	L"Временно недоступно",
+	L"Ознакомительная игра 'Jagged Alliance 2: Цена Свободы' содержит только первые 6 карт секторов. Финальная версия игры будет включать в себя гораздо больше возможностей (полная информация содержится в приложенном файле Readme.txt).",
 };
 
 STR16	zNewTacticalMessages[]=
@@ -7383,12 +7418,12 @@ STR16	zNewTacticalMessages[]=
 // The_bob : pocket popup text defs	// TODO.Translate
 STR16	gszPocketPopupText[]=
 {
-	L"Grenade launchers",	// POCKET_POPUP_GRENADE_LAUNCHERS,
-	L"Rocket launchers",	// POCKET_POPUP_ROCKET_LAUNCHERS
-	L"Melee & thrown weapons",	// POCKET_POPUP_MEELE_AND_THROWN
-	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
-	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
-	L"more...",		//POCKET_POPUP_MOAR
+	L"Гранатомёты",	// POCKET_POPUP_GRENADE_LAUNCHERS,
+	L"Рокетницы",	// POCKET_POPUP_ROCKET_LAUNCHERS
+	L"Холодное и метательное оружие",	// POCKET_POPUP_MEELE_AND_THROWN
+	L"- нет патронов -",	//POCKET_POPUP_NO_AMMO
+	L"- нет оружия в секторе -",	//POCKET_POPUP_NO_GUNS
+	L"ещё...",		//POCKET_POPUP_MOAR
 };
 
 // Flugente: externalised texts for some features	// TODO.Translate
@@ -7428,16 +7463,16 @@ STR16	szCovertTextStr[]=
 
 STR16	szCorpseTextStr[]=
 {
-	L"No head item found in Items.xml!",
-	L"Corpse cannot be decapitated!",
-	L"No meat item found in Items.xml!",
-	L"Not possible, you sick, twisted individual!",
-	L"No clothes to take!",
-	L"%s cannot take clothes off of this corpse!",
-	L"This corpse cannot be taken!",
-	L"No free hand to carry corpse!",
-	L"No corpse item found in Items.xml!",
-	L"Invalid corpse ID!",
+	L"Предмета 'голова' не найдено в Items.xml!",
+	L"Тело невозможно обезглавить!",
+	L"Мясных изделий не найдено в Items.xml!",
+	L"Ты больной! Тебе лечиться надо! Действие невозможно.",
+	L"Снимать с тела нечего!",
+	L"%s не может снять одежду с этого трупа!",
+	L"Это тело невозможно забрать с собой!", //This corpse cannot be taken!
+	L"Освободите руки чтобы тянуть тело!", //No free hand to carry corpse
+	L"Предметов тела не найдено в Items.xml!", //No corpse item found in Items.xml
+	L"Неверный ID тела!", //Invalid corpse ID
 };
 
 STR16	szFoodTextStr[]=
@@ -7457,10 +7492,9 @@ STR16	szFoodTextStr[]=
 	L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
-// TODO.Translate
 STR16	szPrisonerTextStr[]=
 {
-	L"%d prisoners were interrogated.",
+	L"%d prisoners were interrogated.", // TODO.Translate
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
 	L"%d prisoners joined our cause.",
