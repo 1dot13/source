@@ -1983,6 +1983,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			|| ProfileCurrentlyTalkingInDialoguePanel( ubCharacterNum )
 			|| (gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_FORCENPCQUOTE) )
 			)
+
 	{
 		ubFileNumID = ubCharacterNum;
 
@@ -1998,7 +1999,6 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			ubFileNumID = 155;
 		}
 
-
 		if ( fWavFile )
 		{
 			if ( gSoundProfileValue[ubFileNumID].EnabledSound == TRUE )
@@ -2013,7 +2013,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 		}
 		else
 		{
-		// assume EDT files are in EDT directory on HARD DRIVE
+			// assume EDT files are in EDT directory on HARD DRIVE
 			sprintf( zFileName,"NPCDATA\\%03d.EDT", ubFileNumID );
 		}
 	}
@@ -2029,29 +2029,28 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 //inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 				if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
 				{
-//#ifdef JA2UB
+#ifdef JA2UB
 					sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					if ( !FileExists( zFileName ) )
 					{
 						sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					}					
-								
-//#else
-//					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-//#endif
+#else
+					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+#endif
 					if ( !FileExists( zFileName ) )
 					{
-//inshy: fix for UB-1.13 version only						sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-//#ifdef JA2UB
-						sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+//inshy: fix for UB-1.13 version only
+#ifdef JA2UB
+					sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 						
 					if ( !FileExists( zFileName ) )
 					{
 						sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 					}	
-//#else
-//						sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-//#endif
+#else
+						sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+#endif
 //<SB> Also check for Russian Gold sound files (identical to international ones)
 						if(! FileExists( zFileName ) )
 						{
@@ -2088,6 +2087,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 
 	return( zFileName );
 }
+
 
 // Used to see if the dialog text file exists
 BOOLEAN DialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile, STR8 *ppStr )
