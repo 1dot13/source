@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ITEMLIST>
   <ITEM>
     <uiIndex>0</uiIndex>
@@ -2603,7 +2603,7 @@
   <ITEM>
     <uiIndex>325</uiIndex>
     <szItemName>Серебро</szItemName>
-    <szLongItemName>Серебряный самородок</szLongItemName>
+    <szLongItemName>Серебро</szLongItemName>
     <szItemDesc>Самородок чистого серебра. Скорее всего, добыт в одной из серебряных шахт Арулько.</szItemDesc>
     <szBRName>Серебряный самородок</szBRName>
     <szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
@@ -2611,7 +2611,7 @@
   <ITEM>
     <uiIndex>326</uiIndex>
     <szItemName>Золото</szItemName>
-    <szLongItemName>Золотой самородок</szLongItemName>
+    <szLongItemName>Золото</szLongItemName>
     <szItemDesc>Те же наличные, разве что потяжелее. Блестящий внушительный кусок беспримесного золота. Вот это сюрприз: золотые шахты Арулько порядком истощены.</szItemDesc>
     <szBRName>Золотой самородок</szBRName>
     <szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
@@ -2619,7 +2619,7 @@
   <ITEM>
     <uiIndex>327</uiIndex>
     <szItemName>Бензин</szItemName>
-    <szLongItemName>Канистра с бензином</szLongItemName>
+    <szLongItemName>Канистра бензина</szLongItemName>
     <szItemDesc>Используйте эту канистру с умом: бензин в Арулько достать практически невозможно.</szItemDesc>
     <szBRName>Канистра с бензином</szBRName>
     <szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
@@ -6998,7 +6998,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>874</uiIndex>
-    <szItemName>К-т шлема СО</szItemName>
+    <szItemName>СО к-т шлема</szItemName>
     <szLongItemName>Комплект для модернизации шлема</szLongItemName>
     <szItemDesc>Этот уникальный комплект может превратить любой стандартный кевларовый шлем в аналог шлема стэлс отряда.</szItemDesc>
     <szBRName>К-т шлема СО</szBRName>
@@ -7006,7 +7006,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>875</uiIndex>
-    <szItemName>К-т жилета СО</szItemName>
+    <szItemName>СО к-т жилета</szItemName>
     <szLongItemName>Комплект для модернизации жилета</szLongItemName>
     <szItemDesc>Комплект модернизации содержит все необходимое для превращения кевларового бронежилета в современную броню стэлс отряда для проведения скрытных операций.</szItemDesc>
     <szBRName>К-т жилета СО</szBRName>
@@ -7014,7 +7014,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>876</uiIndex>
-    <szItemName>К-т брюк СО</szItemName>
+    <szItemName>СО к-т брюк</szItemName>
     <szLongItemName>Комплект для модернизации брюк</szLongItemName>
     <szItemDesc>В этом комплекте есть все необходимое для переделки ваших кевларовых брюк в брюки стэлс отрядов, задействованных в проведении скрытных операций.</szItemDesc>
     <szBRName>К-т брюк СО</szBRName>
@@ -7022,7 +7022,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>877</uiIndex>
-    <szItemName>К-т жилета РВ</szItemName>
+    <szItemName>РВ к-т жилета</szItemName>
     <szLongItemName>К-т для модернизации до жилета разведвойск</szLongItemName>
     <szItemDesc>Комплект модернизации содержит все необходимое для превращения вашего жилета из Кевлара, Тварона или бронежилета охранника в камуфлированный жилет разведчика.</szItemDesc>
     <szBRName>К-т жилета разведчика</szBRName>
@@ -7030,7 +7030,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>878</uiIndex>
-    <szItemName>К-т шорт РВ</szItemName>
+    <szItemName>РВ к-т брюк</szItemName>
     <szLongItemName>К-т для модернизации до брюк разведвойск</szLongItemName>
     <szItemDesc>В этом комплекте содержится все необходимое для превращения ваших брюк из арамидных волокон Кевлара или Тварона в камуфлированные брюки разведчика.</szItemDesc>
     <szBRName>К-т шорт разведчика</szBRName>
@@ -7054,7 +7054,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>881</uiIndex>
-    <szItemName>К-т жилета МВ</szItemName>
+    <szItemName>МВ к-т жилета</szItemName>
     <szLongItemName>Комплект модернизации до жилета механика</szLongItemName>
     <szItemDesc>Комплект модернизации содержит все необходимое для превращения жилета из волокон Кевлара, Тварона, Спектра, Дайнима или жилета охранника в жилет механика-взрывника.</szItemDesc>
     <szBRName>К-т жилета механика</szBRName>
@@ -7062,7 +7062,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>882</uiIndex>
-    <szItemName>К-т брюк МВ</szItemName>
+    <szItemName>МВ к-т брюк</szItemName>
     <szLongItemName>Комплект модернизации до брюк механика</szLongItemName>
     <szItemDesc>В этом комплекте содержится все что вам нужно для превращения ваших брюк из Кевлара, Тварона, Спектра или Дайнима в брюки механика или подрывника.</szItemDesc>
     <szBRName>К-т брюк механика</szBRName>
@@ -7070,7 +7070,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>883</uiIndex>
-    <szItemName>К-т жилета ПЛ</szItemName>
+    <szItemName>ПЛ к-т жилета</szItemName>
     <szLongItemName>Комплект модернизации до полевого жилета</szLongItemName>
     <szItemDesc>Комплект модернизации содержит все необходимое для превращения вашего жилета из Кевлара, Тварона, Спектра, Дайнима или бронежилета охранника в жилет для проведения полевых операций.</szItemDesc>
     <szBRName>К-т полевого жилета</szBRName>
@@ -7078,7 +7078,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>884</uiIndex>
-    <szItemName>К-т брюк ПЛ</szItemName>
+    <szItemName>ПЛ к-т брюк</szItemName>
     <szLongItemName>Комплект модернизации до полевых брюк</szLongItemName>
     <szItemDesc>Комплект содержит все что вам нужно для превращения ваших брюк из Кевлара, Тварона, Спектра или Дайнима в брюки для проведения полевых операций.</szItemDesc>
     <szBRName>К-т полевых брюк</szBRName>
@@ -12190,172 +12190,172 @@
     <szBRName>KAC Masterkey</szBRName>
     <szBRDesc>Tired of having to pack an Assault Rifle and an additional Shotgun? With this specially adapted shotgun, you can carry 2 in 1!</szBRDesc>
   </ITEM>
-    <ITEM>
-	  <uiIndex>1523</uiIndex>
-	  <szItemName>M18 Claymore</szItemName>
-	  <szLongItemName>M18 Claymore</szLongItemName>
-	  <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. Pro-Tip: Front towards enemy.</szItemDesc>
-	  <szBRName>M18 Claymore</szBRName>
-	  <szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>		
+  <ITEM>
+    <uiIndex>1523</uiIndex>
+    <szItemName>M18 Claymore</szItemName>
+    <szLongItemName>M18 Claymore</szLongItemName>
+    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. Pro-Tip: Front towards enemy.</szItemDesc>
+    <szBRName>M18 Claymore</szBRName>
+    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Be careful in what direction you aim, though. Can also be activated remotely.</szBRDesc>
   </ITEM>
   <ITEM>
-	  <uiIndex>1524</uiIndex>
-	  <szItemName>Tripwire</szItemName>
-	  <szLongItemName>Tripwire</szLongItemName>
-	  <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-	  <szBRName>Tripwire</szBRName>
-	  <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>		
+    <uiIndex>1524</uiIndex>
+    <szItemName>Tripwire</szItemName>
+    <szLongItemName>Tripwire</szLongItemName>
+    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
+    <szBRName>Tripwire</szBRName>
+    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
   </ITEM>
-	<ITEM>
-		<uiIndex>1525</uiIndex>
-		<szItemName>Rifle Sling</szItemName>
-		<szLongItemName>Rifle Sling</szLongItemName>
-		<szItemDesc>This simple sling prevents you from losing your gun in the heat of combat.</szItemDesc>
-		<szBRName>Rifle Sling</szBRName>
-		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1526</uiIndex>
-		<szItemName>Remote Defuse</szItemName>
-		<szLongItemName>Remote Defuse</szLongItemName>
-		<szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency. </szItemDesc>
-		<szBRName>Remote Defuse</szBRName>
-		<szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1527</uiIndex>
-		<szItemName>Remote Combo</szItemName>
-		<szLongItemName>Remote Combo</szLongItemName>
-		<szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these... </szItemDesc>
-		<szBRName>Remote Combo</szBRName>
-		<szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>		
-	</ITEM>	
-	<ITEM>
-		<uiIndex>1528</uiIndex>
-		<szItemName>Tripwire Stun Grenade</szItemName>
-		<szLongItemName>Tripwire Stun Grenade</szLongItemName>
-		<szItemDesc>This standard stun grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Stun Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1529</uiIndex>
-		<szItemName>Tripwire Tear Gas</szItemName>
-		<szLongItemName>Tripwire Tear Gas Grenade</szLongItemName>
-		<szItemDesc>This standard tear gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Tear Gas Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1530</uiIndex>
-		<szItemName>Tripwire Mustard Gas</szItemName>
-		<szLongItemName>Tripwire Mustard Gas Grenade</szLongItemName>
-		<szItemDesc>This standard mustard gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Mustard Gas Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1531</uiIndex>
-		<szItemName>Tripwire Mini Grenade</szItemName>
-		<szLongItemName>Tripwire Mini Grenade</szLongItemName>
-		<szItemDesc>This standard mini grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Mini Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1532</uiIndex>
-		<szItemName>Tripwire Grenade</szItemName>
-		<szLongItemName>Tripwire Grenade Mine</szLongItemName>
-		<szItemDesc>This standard MK2 grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1533</uiIndex>
-		<szItemName>Tripwire Flare</szItemName>
-		<szLongItemName>Tripwire Emergency Flare</szLongItemName>
-		<szItemDesc>This emergency flare has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Emergency Flare</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1534</uiIndex>
-		<szItemName>Tripwire Smoke Grenade</szItemName>
-		<szLongItemName>Tripwire Smoke Grenade</szLongItemName>
-		<szItemDesc>This smoke grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
-		<szBRName>Tripwire Smoke Grenade</szBRName>
-		<szBRDesc>NO TEXT NEEDED.</szBRDesc>		
-	</ITEM>
   <ITEM>
-		<uiIndex>1535</uiIndex>
-		<szItemName>Barrage</szItemName>
-		<szLongItemName>Barrage Drug</szLongItemName>
-		<szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Sideeffects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
-		<szBRName>Barrage Drug</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1536</uiIndex>
-		<szItemName>Reflex</szItemName>
-		<szLongItemName>Reflex Drug</szLongItemName>
-		<szItemDesc>This combat drug increases reflexes and reaction times... while it lasts. Afterwards the effects reverse. May cause paranoia.</szItemDesc>
-		<szBRName>Reflex Drug</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1537</uiIndex>
-		<szItemName>Occulin</szItemName>
-		<szLongItemName>Occulin Drug</szLongItemName>
-		<szItemDesc>Temporarily enhances vision, but puts a heavy strain on the eyes.</szItemDesc>
-		<szBRName>Occulin Drug</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1538</uiIndex>
-		<szItemName>Stim</szItemName>
-		<szLongItemName>Stim Drug</szLongItemName>
-		<szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
-		<szBRName>Stim Drug</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>		
-	</ITEM>
+    <uiIndex>1525</uiIndex>
+    <szItemName>Rifle Sling</szItemName>
+    <szLongItemName>Rifle Sling</szLongItemName>
+    <szItemDesc>This simple sling prevents you from losing your gun in the heat of combat.</szItemDesc>
+    <szBRName>Rifle Sling</szBRName>
+    <szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1526</uiIndex>
+    <szItemName>Remote Defuse</szItemName>
+    <szLongItemName>Remote Defuse</szLongItemName>
+    <szItemDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency. </szItemDesc>
+    <szBRName>Remote Defuse</szBRName>
+    <szBRDesc>Put this device on your bombs. You can safely disarm a planted bomb via remote control, provided you know the correct frequency.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1527</uiIndex>
+    <szItemName>Remote Combo</szItemName>
+    <szLongItemName>Remote Combo</szLongItemName>
+    <szItemDesc>This sophisticated device allows you to either arm or disarm a bomb. No evil mastermind's plan would work without these... </szItemDesc>
+    <szBRName>Remote Combo</szBRName>
+    <szBRDesc>Blow up an entire city, or be the hero and turn a off doomsday device? With this equipment, the choice is yours.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1528</uiIndex>
+    <szItemName>Tripwire Stun Grenade</szItemName>
+    <szLongItemName>Tripwire Stun Grenade</szLongItemName>
+    <szItemDesc>This standard stun grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Stun Grenade</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1529</uiIndex>
+    <szItemName>Tripwire Tear Gas</szItemName>
+    <szLongItemName>Tripwire Tear Gas Grenade</szLongItemName>
+    <szItemDesc>This standard tear gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Tear Gas Grenade</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1530</uiIndex>
+    <szItemName>Tripwire Mustard Gas</szItemName>
+    <szLongItemName>Tripwire Mustard Gas Grenade</szLongItemName>
+    <szItemDesc>This standard mustard gas grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Mustard Gas Grenade</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1531</uiIndex>
+    <szItemName>Tripwire Mini Grenade</szItemName>
+    <szLongItemName>Tripwire Mini Grenade</szLongItemName>
+    <szItemDesc>This standard mini grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Mini Grenade</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1532</uiIndex>
+    <szItemName>Tripwire Grenade</szItemName>
+    <szLongItemName>Tripwire Grenade Mine</szLongItemName>
+    <szItemDesc>This standard MK2 grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Grenade</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1533</uiIndex>
+    <szItemName>Tripwire Flare</szItemName>
+    <szLongItemName>Tripwire Emergency Flare</szLongItemName>
+    <szItemDesc>This emergency flare has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Emergency Flare</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1534</uiIndex>
+    <szItemName>Tripwire Smoke Grenade</szItemName>
+    <szLongItemName>Tripwire Smoke Grenade</szLongItemName>
+    <szItemDesc>This smoke grenade has been rigged with tripwire, resulting in a simple, although quite effective, makeshift mine.</szItemDesc>
+    <szBRName>Tripwire Smoke Grenade</szBRName>
+    <szBRDesc>NO TEXT NEEDED.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1535</uiIndex>
+    <szItemName>Barrage</szItemName>
+    <szLongItemName>Barrage Drug</szLongItemName>
+    <szItemDesc>This combat drug increases physical strength to impressive levels for a short time. Sideeffects include greatly increased aggresiveness and the risk of heart attack.</szItemDesc>
+    <szBRName>Barrage Drug</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1536</uiIndex>
+    <szItemName>Reflex</szItemName>
+    <szLongItemName>Reflex Drug</szLongItemName>
+    <szItemDesc>This combat drug increases reflexes and reaction times... while it lasts. Afterwards the effects reverse. May cause paranoia.</szItemDesc>
+    <szBRName>Reflex Drug</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1537</uiIndex>
+    <szItemName>Occulin</szItemName>
+    <szLongItemName>Occulin Drug</szLongItemName>
+    <szItemDesc>Temporarily enhances vision, but puts a heavy strain on the eyes.</szItemDesc>
+    <szBRName>Occulin Drug</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1538</uiIndex>
+    <szItemName>Stim</szItemName>
+    <szLongItemName>Stim Drug</szLongItemName>
+    <szItemDesc>Allows great physical feats and increases your endurance, while your mind goes haywire.</szItemDesc>
+    <szBRName>Stim Drug</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
   <ITEM>
     <uiIndex>1539</uiIndex>
     <szItemName>Antidote</szItemName>
     <szLongItemName>Antidote</szLongItemName>
     <szItemDesc>This antidote can cure poison over time. WARNING: May cause temporary blindness and a severe migraine.</szItemDesc>
     <szBRName>Antidote</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>    
+    <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
-		<uiIndex>1540</uiIndex>
-		<szItemName>Sandbags</szItemName>
-		<szLongItemName>Sandbags, empty</szLongItemName>
-		<szItemDesc>A bunch of rugged, empty bags. What could you possibly store in there?</szItemDesc>
-		<szBRName>Sandbags, empty</szBRName>
-		<szBRDesc>Only a fool would not fortify his position, especially at these prices!</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1541</uiIndex>
-		<szItemName>Sandbags</szItemName>
-		<szLongItemName>Sandbags, filled</szLongItemName>
-		<szItemDesc>Whenever you need fortification, flood control, or cheap weigzt lifting equipment, these come in handy.</szItemDesc>
-		<szBRName>Sandbags</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>		
-	</ITEM>
-	<ITEM>
-		<uiIndex>1542</uiIndex>
-		<szItemName>Concertina</szItemName>
-		<szLongItemName>Concertina Stack</szLongItemName>
-		<szItemDesc>A cheap way of denying access to areas. Be careful, don't hurt yourself while planting this.</szItemDesc>
-		<szBRName>Concertina Stack</szBRName>
-		<szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>		
-	</ITEM>
+    <uiIndex>1540</uiIndex>
+    <szItemName>Мешки</szItemName>
+    <szLongItemName>Пустые мешки</szLongItemName>
+    <szItemDesc>Несколько прочных, пустых мешков. И что же в них вы можете складывать?</szItemDesc>
+    <szBRName>Пустые мешки</szBRName>
+    <szBRDesc>Только дурак бы не укрепил свою позицию, тем более, по таким ценам!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1541</uiIndex>
+    <szItemName>Мешки</szItemName>
+    <szLongItemName>Мешки с песком</szLongItemName>
+    <szItemDesc>Нужно укрепление при наводнении, или дешевое решение для перевеса на кран-балку - вот решение! Мешок с песком пригодится всегда.</szItemDesc>
+    <szBRName>Мешки с песком</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1542</uiIndex>
+    <szItemName>Concertina</szItemName>
+    <szLongItemName>Concertina Stack</szLongItemName>
+    <szItemDesc>A cheap way of denying access to areas. Be careful, don't hurt yourself while planting this.</szItemDesc>
+    <szBRName>Concertina Stack</szBRName>
+    <szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>
+  </ITEM>
   <ITEM>
     <uiIndex>1543</uiIndex>
-    <szItemName>Shovel</szItemName>
-    <szLongItemName>Shovel</szLongItemName>
-    <szItemDesc>Perfect for digging your own grave, hitting people over the head (and then dig their grave) or building makeshift fortifications.</szItemDesc>
-    <szBRName>Shovel</szBRName>
+    <szItemName>Лопата</szItemName>
+    <szLongItemName>Лопата</szLongItemName>
+    <szItemDesc>Идеально подходит для рытья себе могилы, для проламывания людям черепа (а после уж рыть могилу) или создания временных укреплений.</szItemDesc>
+    <szBRName>Лопата</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12528,51 +12528,51 @@
   </ITEM>
   <ITEM>
     <uiIndex>1565</uiIndex>
-    <szItemName>Cow meat</szItemName>
-    <szLongItemName>Cow meat</szLongItemName>
-    <szItemDesc>Sure, you can eat it right now. Cooking is for wussies, eh?</szItemDesc>
-    <szBRName>Cow meat</szBRName>
+    <szItemName>Говядина</szItemName>
+    <szLongItemName>Говядина</szLongItemName>
+    <szItemDesc>Конечно, вы можете съесть его прямо сейчас. Готовка пищи для для слабаков, ведь так? </szItemDesc>
+    <szBRName>Говядина</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1566</uiIndex>
-    <szItemName>Bloodcat meat</szItemName>
-    <szLongItemName>Bloodcat meat</szLongItemName>
-    <szItemDesc>You have to be a tough guy to kill them, but an even tougher guy to eat them!</szItemDesc>
-    <szBRName>Bloodcat meat</szBRName>
+    <szItemName>Мясо кошки</szItemName>
+    <szLongItemName>Мясо кошки-убийцы</szLongItemName>
+    <szItemDesc>Да вы круты, раз смогли убить одну из этих кошек! Но есть их мясо - это вообще жесткач!</szItemDesc>
+    <szBRName>Мясо кошки-убийцы</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1567</uiIndex>
-    <szItemName>Bread</szItemName>
-    <szLongItemName>Bread loaf</szLongItemName>
-    <szItemDesc>A loaf of bread, made from grain of local farms.</szItemDesc>
-    <szBRName>Bread</szBRName>
+    <szItemName>Хлеб</szItemName>
+    <szLongItemName>Буханка хлеба</szLongItemName>
+    <szItemDesc>Буханка хлеба, выпеченная из зерна, собранного на местных фермах.</szItemDesc>
+    <szBRName>Хлеб</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1568</uiIndex>
-    <szItemName>Applepie</szItemName>
-    <szLongItemName>Applepie</szLongItemName>
-    <szItemDesc>A delicious applepie made from tasty arulcan apples. Don't you do anything naughty with it!</szItemDesc>
-    <szBRName>Applepie</szBRName>
+    <szItemName>Пирог</szItemName>
+    <szLongItemName>Яблочный пирог</szLongItemName>
+    <szItemDesc>Аппетитный яблочный пирог из вкусных яблок Арулько.</szItemDesc>
+    <szBRName>Яблочный пирог</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1569</uiIndex>
-    <szItemName>Water drum</szItemName>
-    <szLongItemName>Water drum</szLongItemName>
-    <szItemDesc>A rusty old water barrel.</szItemDesc>
-    <szBRName>Water drum</szBRName>
+    <szItemName>Водяной коллектор</szItemName>
+    <szLongItemName>Нижний барабан котла</szLongItemName>
+    <szItemDesc>Ржавый и старый барабан парового котла.</szItemDesc>
+    <szBRName>Нижний барабан котла</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1570</uiIndex>
-    <szItemName>PET bottle</szItemName>
-    <szLongItemName>PET bottle</szLongItemName>
-    <szItemDesc>A bottle with 1 liter of still mineral water.</szItemDesc>
-    <szBRName>PET bottle</szBRName>
-    <szBRDesc>1 liter of healthy mineral water, in a one-use bottle.</szBRDesc>
+    <szItemName>Минералка</szItemName>
+    <szLongItemName>Минеральная вода</szLongItemName>
+    <szItemDesc>Бутылка с чистой минеральной водой. Целый литр.</szItemDesc>
+    <szBRName>Бутылка</szBRName>
+    <szBRDesc>Один литр отличной минеральной воды в одноразовой пластиковой бутылке.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1571</uiIndex>
@@ -12584,10 +12584,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>1572</uiIndex>
-    <szItemName>Milk</szItemName>
-    <szLongItemName>Milk</szLongItemName>
-    <szItemDesc>Cow milk, 1 liter.</szItemDesc>
-    <szBRName>Milk</szBRName>
+    <szItemName>Молоко</szItemName>
+    <szLongItemName>Молоко</szLongItemName>
+    <szItemDesc>Коровье молоко, 1 литр. Как говорится: пейте дети молоко, туалет не далеко!</szItemDesc>
+    <szBRName>Молоко</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12616,11 +12616,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>1576</uiIndex>
-    <szItemName>Cleaning Kit</szItemName>
-    <szLongItemName>Gun Cleaning Kit</szLongItemName>
-    <szItemDesc>Contains everything necessary to clean your gun in the field.</szItemDesc>
-    <szBRName>Cleaning Kit</szBRName>
-    <szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
+    <szItemName>Набор чистки</szItemName>
+    <szLongItemName>Набор для чистки оружия</szLongItemName>
+    <szItemDesc>Этот набор содержит всё необходимое для чистки вашего оружия в полевых условиях.</szItemDesc>
+    <szBRName>Набор для чистки</szBRName>
+    <szBRDesc>Даже самое смертельное орудие разрушения нуждается в уходе время от времени...</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1577</uiIndex>
@@ -12806,7 +12806,6 @@
     <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
     <szBRName>Tripwire</szBRName>
     <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
-
   </ITEM>
   <ITEM>
     <uiIndex>1599</uiIndex>
@@ -13015,5 +13014,69 @@
     <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
     <szBRName>random WP AR 1</szBRName>
     <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1625</uiIndex>
+    <szItemName>Handcuffs</szItemName>
+    <szLongItemName>Handcuffs</szLongItemName>
+    <szItemDesc>If you want to arrest someone, it is helpful to keep them from using their hands.</szItemDesc>
+    <szBRName>Handcuffs</szBRName>
+    <szBRDesc>Standard police handcuffs.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1626</uiIndex>
+    <szItemName>Stun Gun</szItemName>
+    <szLongItemName>Stun Gun</szLongItemName>
+    <szItemDesc>If applied correctly, this stun gun will hit anyone it touches with over 2 million volts. In case you find yourself in need of a drooling, helpless victim.</szItemDesc>
+    <szBRName>Stun Gun</szBRName>
+    <szBRDesc>At 2 million V, this baby will leave even the sturdiest men helpless on the floor. Batteries not included!</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1627</uiIndex>
+    <szItemName>Pepper Spray</szItemName>
+    <szLongItemName>Pepper Spray</szLongItemName>
+    <szItemDesc>Well, its better than flailing your ams helplessly.</szItemDesc>
+    <szBRName>Pepper Spray</szBRName>
+    <szBRDesc>Repel any thug with this pepper spray. Spray into his face for best effect.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1628</uiIndex>
+    <szItemName>Spray Canister</szItemName>
+    <szLongItemName>Pepper Spray Canister</szLongItemName>
+    <szItemDesc>If you think you need to carry several of these, consider moving out of town.</szItemDesc>
+    <szBRName>Pepper Spray Canister</szBRName>
+    <szBRDesc>Though one might think so, putting this on your food is not the best idea you could have.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1629</uiIndex>
+    <szItemName>Scuba Mask</szItemName>
+    <szLongItemName>Scuba Mask</szLongItemName>
+    <szItemDesc>This mask, in conjunction with a diving bottle, allows you to stay underwater.</szItemDesc>
+    <szBRName>Scuba Mask</szBRName>
+    <szBRDesc>Whenever you feel you could go down, be sure to protect your eyes and retain vision with one of these.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1630</uiIndex>
+    <szItemName>Diving Bottle</szItemName>
+    <szLongItemName>Diving Bottle</szLongItemName>
+    <szItemDesc>Contains enough oxygen to stay underwater for many minutes.</szItemDesc>
+    <szBRName>Diving Bottle</szBRName>
+    <szBRDesc>Standard equipment for divers.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1631</uiIndex>
+    <szItemName>Scuba Fins</szItemName>
+    <szLongItemName>Scuba Fins</szLongItemName>
+    <szItemDesc>What you'll lose in maneuverability on land you'll gain in water.</szItemDesc>
+    <szBRName>Scuba Fins</szBRName>
+    <szBRDesc>Not only can you swim much faster with these, you'll also be the star of every penguin-themed costume party.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1632</uiIndex>
+    <szItemName>Binders</szItemName>
+    <szLongItemName>Stack of Binders</szLongItemName>
+    <szItemDesc>Surprisingly, this also works on people, as a very poor man's handcuff.</szItemDesc>
+    <szBRName>Stack of Binders</szBRName>
+    <szBRDesc>Useful for sorting your cables. This stack should be enough for your office.</szBRDesc>
   </ITEM>
 </ITEMLIST>
