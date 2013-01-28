@@ -5364,9 +5364,6 @@ void DisplayLevelString( void )
 // function to manipulate the number of towns people on the cursor
 BOOLEAN PickUpATownPersonFromSector( UINT8 ubType, INT16 sX, INT16 sY )
 {
-
-
-
 	// see if there are any militia of this type in this sector
 	if( !SectorInfo[ SECTOR( sX, sY ) ].ubNumberOfCivsAtLevel[ ubType ] )
 	{
@@ -5390,22 +5387,27 @@ BOOLEAN PickUpATownPersonFromSector( UINT8 ubType, INT16 sX, INT16 sY )
 		gfStrategicMilitiaChangesMade = TRUE;
 	}
 
+	// the number of units transferred
+	INT16 countMovedCivs = 1;
+	if (_KeyDown(SHIFT))
+		countMovedCivs = SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ];
+
 	// otherwise pick this guy up
 	switch( ubType )
 	{
 		case( GREEN_MILITIA ):
-			sGreensOnCursor++;
+			sGreensOnCursor += countMovedCivs;
 		break;
 		case( REGULAR_MILITIA ):
-			sRegularsOnCursor++;
+			sRegularsOnCursor += countMovedCivs;
 		break;
 		case( ELITE_MILITIA ):
-			sElitesOnCursor++;
+			sElitesOnCursor += countMovedCivs;
 		break;
 	}
 
 	// reduce number in this sector
-	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ]--;
+	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ] -= countMovedCivs;
 
 	fMapPanelDirty = TRUE;
 
@@ -5422,8 +5424,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 		return( FALSE );
 	}
 
-	if( SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] +  SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]
-		+  SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] >= iMaxMilitiaPerSector )
+	// to move a group of militia
+	INT32 countFreeCivPlace = iMaxMilitiaPerSector - SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] 
+		- SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] -  SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+
+	if( countFreeCivPlace <= 0 )
 	{
 		return( FALSE );
 	}
@@ -5438,6 +5443,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 		gfStrategicMilitiaChangesMade = TRUE;
 	}
 
+	// the number of units transferred
+	INT16 countMovedCivs = 1;
+
 	// drop the guy into this sector
 	switch( ubType )
 	{
@@ -5448,14 +5456,29 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 				return( FALSE );
 			}
 
-			sGreensOnCursor--;
+			if (_KeyDown(SHIFT)) 
+			{
+				if (countFreeCivPlace <= sGreensOnCursor)
+					countMovedCivs = countFreeCivPlace;
+				else 
+					countMovedCivs = sGreensOnCursor;
+			}
+
+			sGreensOnCursor -= countMovedCivs;
 		break;
 		case( REGULAR_MILITIA ):
 			if( !sRegularsOnCursor )
 			{
 				return( FALSE );
 			}
-			sRegularsOnCursor--;
+
+			if (_KeyDown(SHIFT)) 
+			{
+				if (countFreeCivPlace <= sRegularsOnCursor) countMovedCivs = countFreeCivPlace;
+				else countMovedCivs = sRegularsOnCursor;
+			}
+
+			sRegularsOnCursor -= countMovedCivs;
 		break;
 		case( ELITE_MILITIA ):
 			if( !sElitesOnCursor )
@@ -5463,12 +5486,18 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 				return( FALSE );
 			}
 
-			sElitesOnCursor--;
+			if (_KeyDown(SHIFT)) 
+			{
+				if (countFreeCivPlace <= sElitesOnCursor) countMovedCivs = countFreeCivPlace;
+				else countMovedCivs = sElitesOnCursor;
+			}
+
+			sElitesOnCursor -= countMovedCivs;
 		break;
 	}
 
 	// up the number in this sector of this type of militia
-	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ]++;
+	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ] += countMovedCivs;
 
 	fMapPanelDirty = TRUE;
 
