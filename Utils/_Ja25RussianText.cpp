@@ -43,6 +43,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Нет",
 	L"I.M.P.: Специализация",
 	L"(эксперт)",
+
 };
 
 //added another set of skill texts for new major traits
@@ -57,7 +58,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Старшина",	//Deputy
 	L"Механик-электронщик",	//Technician
 	L"Санитар",	//Paramedic
-	L"Covert Ops",	// TODO.Translate
+	L"Тайные операции",	//Covert Ops
 
 	L"Нет",
 	L"I.M.P.: Основные навыки",	//I.M.P. Major Traits
@@ -71,7 +72,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
-	L"Spy",	// TODO.Translate
+	L"Шпион",	//Spy
 };
 
 //added another set of skill texts for new minor traits
@@ -135,8 +136,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"-%d%s ОД на передёргивание затвора магазинных винтовок\n",
 	L"Плюс 1 клик-прицеливания к оружию типа винтовки\n",
 	L"Плюс %d клик-прицеливания к оружию типа винтовки\n",
-	// TO DO - translate
-	L"Makes aiming faster with rifle-type guns by one aim click\n",
+	L"Makes aiming faster with rifle-type guns by one aim click\n",	//TODO.Translate
 	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
 };
@@ -196,7 +196,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"нужно на %d%s ОД меньше чтобы слезть/залезть на крышу и перепрыгнуть препятствие\n",
 	L"+%d%s к шансу выбить дверь ногой\n",
 	L"Вы получаете специальные движения для атак в ближнем бою\n",
-	L"-%d%s chance to be interrupted when moving\n", // TODO.Translate
+	L"-%d%s к шансу перехвата хода во время движения\n", //chance to be interrupted when moving
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
@@ -212,7 +212,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"(Максимальное количество одновременных бонусов для одного солдата %d)\n",
 	L"+%d%s сопротивление страху у %s\n",
 	L"Недостаток: %dx кратное ухудшение боевого духа у наёмников если погибает %s\n",
-	L"+%d%s chance to trigger collective interrupts\n", // TODO.Translate
+	L"+%d%s к шансу получить перехват всем отрядом\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
@@ -240,17 +240,16 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s к скорости перевязки\n",
 	L"+%d%s к природной скорости регенерации для всех солдат в том же секторе",
 	L" (максимум %d бонуса на находящихся в секторе)",
-
 };
-STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=		// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
-	L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
-	L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
-	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
-	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
-	L"+%d%s CTH with covert melee weapons\n",
-	L"+%d%s chance of instakill with covert melee weapons\n",
-	L"Disguise AP cost lowered by %d%s.\n",
+	L"Может переодеваться в гражданского или солдата, \nчтобы проникать в тыл врага.\n",
+	L"Будет раскрыт, если совершает подозрительные действия, \nимеет подозрительное снаряжение или застигнут над остывающим трупом.\n",
+	L"Будет моментально раскрыт если переодет в солдата \nи находится ближе %d клеток к врагу.\n",
+	L"Будет моментально раскрыт если переодет в солдата \nи находится ближе %d клеток к остывающему трупу.\n",
+	L"+%d%s к шансу попадания скрытным оружием ближнего боя.\n",
+	L"+%d%s к шансу на смертельный удар скрытным оружием ближнего боя.\n",
+	L"ОД на переодевание снижено на %d%s.\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
@@ -311,7 +310,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"+%d%s двигаться тихо\n",
 	L"+%d%s к скрытности (быть 'невидимым' если вас не обнаружили)\n",
 	L"Уменьшение штрафа на видимость в укрытии на %d%s\n",
-	L"-%d%s chance to be interrupted\n", // TODO.Translate
+	L"-%d%s к шансу быть перехваченным\n", //chance to be interrupted
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
@@ -432,7 +431,9 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"При виде больших насекомых может впасть в крайности и наворотить дел... \nНахождение в тропических лесах так же понижает его работоспособность.",
 	L"Иногда забывает приказы, из-за чего теряет \nнекоторое количество Очков Действия во время боя.",
 	L"Иногда бывают приступы помутнения рассудка. \nВ такие моменты он расстреливает весь магазин до последней пули. \nПадает духом, если его оружие этого не позволяет.",
+
 };
+
 
 
 STR16 gzIMPProfileCostText[]=
@@ -444,6 +445,7 @@ STR16 zGioNewTraitsImpossibleText[]=
 {
 	L"Нельзя выбрать новые умения IMP персонажа с отключенным PROFEX. Проверьте значение файла настроек JA2_Options.ini, ключ: READ_PROFILE_DATA_FROM_XML.",
 };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
@@ -466,6 +468,5 @@ STR16 gzDisplayCoverText[]=
 	L"Лес и пустыня",
 	L"" // yes empty for now
 };
-
 
 #endif

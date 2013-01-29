@@ -2477,7 +2477,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"Осталось патрон:",		//16	//Remaining ammo
 
 	L"Предустановка:",	//17 //WarmSteel - So we can also display default attachments
-	L"Dirt:",	// 18	//added by Flugente	// TODO.Translate
+	L"Нагар:",	// 18
 	L"Space:", // 19 //space left on Molle items //TODO.Translate
 
 };
@@ -4221,8 +4221,8 @@ STR16			MercInfo[] =
 	L"Со снаряжением?",
 	L"Недоступно",
 	L"Unsettled Bills", //TODO.Translate
-	L"Bio", //TODO.Translate
-	L"Inv",
+	L"Информация",
+	L"Снаряжение",
 };
 
 
@@ -5144,9 +5144,9 @@ STR16		zOptionsToggleText[] =
 	L"Зомби в игре!",						// Flugente Zombies 1.0
 #endif
 	L"Меню в инвентаре бойца",				// the_bob : enable popups for picking items from sector inv
-	L"Mark Remaining Hostiles",				//TODO.Translate
-	L"Show LBE Content",					//TODO.Translate
-	L"Invert mouse wheel",			// TODO.Translate
+	L"Отметить оставшихся врагов",
+	L"Показывать содержимое разгрузок",
+	L"Инвертировать колесо мыши",
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5260,9 +5260,9 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, будут появляться зомби. Развлекайся!",
 #endif
 	L"Если включено, при просмотре предметов сектора в инвентаре бойца \nбудет доступно меню по нажатии левой кнопки на пустой карман.",
-	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
-	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
-	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
+	L"Если включено, высвечивается примерное положение последних врагов в секторе.",
+	L"Если включено, показывает содержимое разгрузки, иначе - обычный интерфейс новой системы навески.",
+	L"Если включено, инвертирует направление прокрутки колеса мыши.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5284,9 +5284,9 @@ STR16	gzGIOScreenText[] =
 {
 	L"УСТАНОВКИ НАЧАЛА ИГРЫ",
 #ifdef JA2UB
-	L"Random Manuel texts ",
-	L"Off",
-	L"On",
+	L"Случайная история Мануэля",
+	L"да",
+	L"нет",
 #else
 	L"Элементы фантастики",
 	L"нет",
@@ -6929,7 +6929,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|О|Д |н|а |а|в|т|о.|с|т|р|е|л|ь|б|у",
 	L"|О|Д |н|а |п|е|р|е|з|а|р|я|д|к|у", 
 	L"|О|Д |н|а |д|о|с|ы|л|а|н|и|я |п|а|т|р|о|н|ы",
-	L"",	// No longer used!
+	L"|L|a|t|e|r|a|l |R|e|c|o|i|l",	// No longer used
 	L"|T|o|t|a|l |R|e|c|o|i|l",		// TODO.Translate
 	L"|Р|а|с|х|о|д |п|а|т|р|о|н |н|а |к|а|ж|д|ы|е |5 |О|Д",
 };
@@ -6955,7 +6955,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nThe number of APs required to fire\nan Autofire Volley of three bullets.\n \nIf you wish to fire more than 3 bullets,\nyou will need to pay extra APs.\n \nIf this icon is greyed-out, autofire\nis not possible with this weapon.\n \nLower is better.",
 	L"\n \nThe number of APs required to reload\nthis weapon.\n \nLower is better.",
 	L"\n \nThe number of APs required to rechamber this weapon\nbetween each and every shot fired.\n \nLower is better.",
-	L"",	// No longer used!
+	L"\n \nThe distance this weapon's muzzle will shift\nhorizontally between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting to the right.\nNegative numbers indicate shifting to the left.\n \nCloser to 0 is better.", // No longer used
 	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
 	L"\n \nIndicates the number of bullets that will be added\nto an autofire volley for every extra 5 APs\nyou spend.\n \nHigher is better.",
 };
@@ -7421,8 +7421,8 @@ STR16	gszPocketPopupText[]=
 	L"Гранатомёты",	// POCKET_POPUP_GRENADE_LAUNCHERS,
 	L"Рокетницы",	// POCKET_POPUP_ROCKET_LAUNCHERS
 	L"Холодное и метательное оружие",	// POCKET_POPUP_MEELE_AND_THROWN
-	L"- нет патронов -",	//POCKET_POPUP_NO_AMMO
-	L"- нет оружия в секторе -",	//POCKET_POPUP_NO_GUNS
+	L"- no matching ammo -",	//POCKET_POPUP_NO_AMMO
+	L"- no guns in inventory -",	//POCKET_POPUP_NO_GUNS
 	L"ещё...",		//POCKET_POPUP_MOAR
 };
 
