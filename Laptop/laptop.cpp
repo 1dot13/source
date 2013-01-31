@@ -607,6 +607,7 @@ void ShouldNewMailBeDisplayed( void );
 void DisplayPlayersBalanceToDate( void );
 void CheckIfNewWWWW( void );
 void HandleLapTopESCKey( void );
+void HandleLapTopEnterKey( void );
 BOOLEAN InitTitleBarMaximizeGraphics( UINT32 uiBackgroundGraphic, STR16 pTitle, UINT32 uiIconGraphic, UINT16 usIconGraphicIndex );
 void RemoveTitleBarMaximizeGraphics();
 BOOLEAN DisplayTitleBarMaximizeGraphic(BOOLEAN fForward, BOOLEAN fInit, UINT16 usTopLeftX, UINT16 usTopLeftY, UINT16 usTopRightX );
@@ -703,8 +704,7 @@ void HandleLapTopCursorUpDate()
 	guiPreviousLapTopCursor=guiCurrentLapTopCursor;
 
 }
-void
-GetLaptopKeyboardInput()
+void GetLaptopKeyboardInput()
 {
 	InputAtom					InputEvent;
 	POINT	MousePos;
@@ -4661,39 +4661,37 @@ void CheckIfNewWWWW( void )
 
 void HandleLapTopESCKey( void )
 {
-
 	// will handle esc key events, since handling depends on state of laptop
-
 
 	if( fNewMailFlag )
 	{
 		// get rid of new mail warning box
-	fNewMailFlag=FALSE;
-	CreateDestroyNewMailButton();
+		fNewMailFlag=FALSE;
+		CreateDestroyNewMailButton();
 
 		// force redraw
-	fReDrawScreenFlag = TRUE;
-	RenderLaptop( );
+		fReDrawScreenFlag = TRUE;
+		RenderLaptop( );
 	}
 	else if(fDeleteMailFlag)
 	{
-	// get rid of delete mail box
-	fDeleteMailFlag=FALSE;
-	CreateDestroyDeleteNoticeMailButton();
+		// get rid of delete mail box
+		fDeleteMailFlag = FALSE;
+		CreateDestroyDeleteNoticeMailButton();
 
 		// force redraw
-	fReDrawScreenFlag = TRUE;
-	RenderLaptop( );
+		fReDrawScreenFlag = TRUE;
+		RenderLaptop( );
 	}
 	else if( fErrorFlag )
 	{
 		// get rid of error warning box
-	fErrorFlag=FALSE;
-	CreateDestroyErrorButton();
+		fErrorFlag=FALSE;
+		CreateDestroyErrorButton();
 
 		// force redraw
-	fReDrawScreenFlag = TRUE;
-	RenderLaptop( );
+		fReDrawScreenFlag = TRUE;
+		RenderLaptop( );
 	}
 
 	else if( gfShowBookmarks )
@@ -4702,19 +4700,36 @@ void HandleLapTopESCKey( void )
 		gfShowBookmarks = FALSE;
 
 		// force redraw
-	fReDrawScreenFlag = TRUE;
+		fReDrawScreenFlag = TRUE;
 		RenderLapTopImage( );
-	RenderLaptop( );
+		RenderLaptop( );
 	}
 	else
 	{
-	// leave
+		// leave
 		fExitingLaptopFlag = TRUE;
 		HandleExit( );
 	}
 
+	return;
+}
 
 
+void HandleLapTopEnterKey( void )
+{
+	// will handle esc key events, since handling depends on state of laptop
+
+	if( fNewMailFlag )
+	{
+		// get rid of new mail warning box
+		fNewMailFlag=FALSE;
+		CreateDestroyNewMailButton();
+
+		// force redraw
+		fReDrawScreenFlag = TRUE;
+		RenderLaptop( );
+	}
+	
 	return;
 }
 
@@ -4764,16 +4779,17 @@ void HandleRightButtonUpEvent( void )
 		RenderLapTopImage( );
 	RenderLaptop( );
 	}
+	/* // Buggler: bugged mouse region render behavior on returning to view another mail message after right click in other laptop modes
 	else if( fDisplayMessageFlag )
 	{
 		fDisplayMessageFlag = FALSE;
 
-			// force redraw
-	fReDrawScreenFlag = TRUE;
+		// force redraw
+		fReDrawScreenFlag = TRUE;
 		RenderLapTopImage( );
-	RenderLaptop( );
+		RenderLaptop( );
 
-	}
+	}*/
 	else if( fShowBookmarkInfo )
 	{
 		fShowBookmarkInfo = FALSE;
@@ -5853,8 +5869,13 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 
 	if ( (usEvent == KEY_DOWN ) && (usParam == ESC ) )
 	{
-	// esc hit, check to see if boomark list is shown, if so, get rid of it, otherwise, leave
-	HandleLapTopESCKey( );
+		// handle various functions of ESC key
+		HandleLapTopESCKey( );
+	}
+	else if ( (usEvent == KEY_DOWN ) && (usParam == ENTER ) )
+	{
+		// handle various functions of Enter key
+		HandleLapTopEnterKey( );
 	}
 	else if( (usEvent == KEY_DOWN ) && ( usParam == TAB ) )
 	{
