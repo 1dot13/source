@@ -1810,18 +1810,23 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 		uiItemClass = Item[ undbarItem ].usItemClass;
 	}
 
-	if ( uiItemClass == IC_BLADE || uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
+	// bare fist or with brass knuckles
+	if ( !(pSoldier->inv[HANDPOS].exists()) || Item[pSoldier->inv[HANDPOS].usItem].brassknuckles ) 
+	{
+		sAPCost = MinAPsToPunch( pSoldier, sGridno, ubAddTurningCost );
+	}
+	else if ( uiItemClass & ( IC_PUNCH | IC_BLADE | IC_GUN | IC_LAUNCHER | IC_TENTACLES | IC_THROWING_KNIFE ) )
 	{
 		sAPCost = MinAPsToShootOrStab( pSoldier, sGridno, bAimTime, ubAddTurningCost, ubForceRaiseGunCost );
-	}
+	}	
+	// thrown items
 	else if ( uiItemClass & ( IC_GRENADE | IC_THROWN ) )
 	{
 		sAPCost = MinAPsToThrow( pSoldier, sGridno, ubAddTurningCost );
 	}
-	else if ( uiItemClass == IC_PUNCH )
-	{
+	// for exceptions
+	else 
 		sAPCost = MinAPsToPunch( pSoldier, sGridno, ubAddTurningCost );
-	}
 
 	return sAPCost;
 }
@@ -2213,8 +2218,8 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubAWFiringSpeedBonusLMGs ) / 100)+ 0.5);
 			}
-			// Decreased APs needed for melee attacks - Melee
-			if ( Item[ usUBItem ].usItemClass == IC_BLADE && ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) ) )
+			// Decreased APs needed for melee attacks - Melee (Blade only)
+			else if ( Item[ usUBItem ].usItemClass == IC_BLADE && ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubMEBladesAPsReduction ) / 100)+ 0.5);
 			}
@@ -2223,17 +2228,17 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubTHBladesAPsReduction ) / 100)+ 0.5);
 			}
-			// Decreased APs needed for launchers - Heavy Eeapons
+			// Decreased APs needed for launchers - Heavy Weapons
 			else if ( (Item[ usUBItem ].usItemClass == IC_LAUNCHER || Item[usUBItem].grenadelauncher ) && !(Item[usUBItem].rocketlauncher) && !(Item[usUBItem].mortar) && ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) ))
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
 			}
-			// Decreased APs needed for launchers - Heavy Eeapons
+			// Decreased APs needed for launchers - Heavy Weapons
 			else if (( Item[usUBItem].rocketlauncher || Item[usUBItem].singleshotrocketlauncher ) && !(Item[usUBItem].mortar) && ( HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) ))
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWRocketLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
 			}
-			// Decreased APs needed for mortar - Heavy Eeapons
+			// Decreased APs needed for mortar - Heavy Weapons
 			else if ( Item[usUBItem].mortar && HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWMortarAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
@@ -2289,7 +2294,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		bAPCost += (usTurningCost + usRaiseGunCost);	
 	
 	// if attacking a new target (or if the specific target is uncertain)
-	// Added check if the weapon is a throwing knife - otherwise it would add APs for change taregt on cursor but not actually deduct them afterwards - SANDRO
+	// Added check if the weapon is a throwing knife - otherwise it would add APs for change target on cursor but not actually deduct them afterwards - SANDRO
 	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && (Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE) )) 
 	{
 		if ( pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ) )
@@ -2334,17 +2339,16 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 
 			// Check if target is prone, if so, calc cost...
 			if ( gAnimControl[ MercPtrs[ usTargID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
-		 {
-			 bAPCost += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
-		 }
+			{
+				bAPCost += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
+			}
 			else
-		 {
-			 if ( pSoldier->sGridNo == sGridNo )
-			 {
-				 bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
-			 }
-		 }
-
+			{
+				if ( pSoldier->sGridNo == sGridNo )
+				{
+					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+				}
+			}
 		}
 
 		if (ubAddTurningCost)
@@ -2365,7 +2369,6 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 				}
 			}
 		}
-
 	}
 
 	bAPCost += ApsToPunch( pSoldier ); // SANDRO - changed this to direct us to specific calc function
@@ -2376,7 +2379,7 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 // SANDRO - added function
 INT16 ApsToPunch( SOLDIERTYPE *pSoldier )
 {
-	if (gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && (!(pSoldier->inv[HANDPOS].exists()) || Item[pSoldier->inv[HANDPOS].usItem].brassknuckles) )
+	if (gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ))
 	{
 		return ( max( 1, (INT16)((APBPConstants[AP_PUNCH] * (100 - gSkillTraitValues.ubMAPunchAPsReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/ 100) + 0.5)) );
 	}
