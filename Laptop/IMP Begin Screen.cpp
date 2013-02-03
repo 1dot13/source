@@ -574,18 +574,21 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		// ViSoR (07.01.2012) : Russian and Belarussian layouts
 		//
 #if defined(RUSSIAN) || defined(BELARUSSIAN)
-		if( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x419) // Russian
+		// ViSoR (02.02.2013): Fix for Cyrillic layouts
+		DWORD threadId = GetWindowThreadProcessId( ghWindow, 0 );
+		DWORD layout = (DWORD)GetKeyboardLayout( threadId ) & 0xFFFF;
+		if( layout == 0x419 ) // Russian
 		{
 			unsigned char TranslationTable[] = 
-				" #İ####ı####á-ş.0123456789ÆæÁ#Ş##ÔÈÑÂÓÀÏĞØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïğøîëäüòùçéêûåãìö÷íÿÕ#Ú¨";
+				" #İ####ı####á-ş.0123456789ÆæÁ#Ş,#ÔÈÑÂÓÀÏĞØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïğøîëäüòùçéêûåãìö÷íÿÕ#Ú¨";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
 		}
-		else if ( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x423) // Belarussian
+		else if( layout == 0x423 ) // Belarussian
 		{
 			unsigned char TranslationTable[] = 
-				" #İ####ı####á-ş.0123456789ÆæÁ#Ş##Ô²ÑÂÓÀÏĞØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïğøîëäüò¢çéêûåãìö÷íÿÕ#'¨";
+				" #İ####ı####á-ş.0123456789ÆæÁ#Ş,#Ô²ÑÂÓÀÏĞØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïğøîëäüò¢çéêûåãìö÷íÿÕ#'¨";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
