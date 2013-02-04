@@ -2103,6 +2103,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	UINT16 usItem;
 	UINT16 usRaiseGunCost = 0;
 	UINT16 usTurningCost = 0;
+	UINT16 usRange;
 
 	UINT16 usUBItem = 0;
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
@@ -2136,6 +2137,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		{
 				sGridNo = MercPtrs[ usTargID ]->sGridNo;
 		}
+		usRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 	}
 
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
@@ -2256,11 +2258,27 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	{
 		fAddingRaiseGunCost = TRUE;
 	}
-
-	if ( Item[ usUBItem ].usItemClass == IC_THROWING_KNIFE )
+	
+	if (!TileIsOutOfBounds(sGridNo))
 	{
-		// Do we need to stand up?
-		bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+		// throwing knifes
+		if ( Item[ usUBItem ].usItemClass == IC_THROWING_KNIFE )
+		{
+			// Do we need to stand up?
+			bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+		}
+		// blunt weapons & blades
+		else if ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE )
+		{
+			if ( usTargID != NOBODY  )
+			{
+				// Check if target is prone, if so, calc cost...
+				if ( gAnimControl[ MercPtrs[ usTargID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
+					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
+				else
+					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+			}
+		}
 	}
 
 	if ( AM_A_ROBOT( pSoldier ) )
@@ -2269,7 +2287,12 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	}
 
 	//Calculate usTurningCost
-	usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
+	if (!TileIsOutOfBounds(sGridNo))
+	{
+		// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
+		if ( !( ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE ) && usRange > 1 ) )
+			usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
+	}
 
 	//Calculate usRaiseGunCost
 	usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, sGridNo, bAimTime );
@@ -2324,36 +2347,30 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost)
 {
 	UINT8	bAPCost = 0;
-	UINT16 usTargID;
+	UINT16	usTargID;
 	UINT8	ubDirection;
+	UINT16	usRange;
 
 	//	bAimSkill = ( pSoldier->stats.bDexterity + pSoldier->stats.bAgility) / 2;	
 	if (!TileIsOutOfBounds(sGridNo))
 	{
 		usTargID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
+		usRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
 		if ( usTargID != NOBODY  )
 		{
-			sGridNo = MercPtrs[ usTargID ]->sGridNo;
-
 			// Check if target is prone, if so, calc cost...
 			if ( gAnimControl[ MercPtrs[ usTargID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
-			{
 				bAPCost += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
-			}
 			else
-			{
-				if ( pSoldier->sGridNo == sGridNo )
-				{
-					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
-				}
-			}
+				bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 		}
 
 		if (ubAddTurningCost)
 		{
-			if ( pSoldier->sGridNo == sGridNo )
+			// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
+			if ( usRange == 1 )
 			{
 				// ATE: Use standing turn cost....
 				ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
@@ -2363,9 +2380,9 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 				{
 					// SANDRO - Athletics trait check added
 					if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-						bAPCost += max( 1, (INT16)((APBPConstants[AP_LOOK_STANDING] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/100) + 0.5 ));
+						bAPCost += max( 1, (INT16)((GetAPsToLook( pSoldier ) * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/100) + 0.5 ));
 					else
-						bAPCost += APBPConstants[AP_LOOK_STANDING];
+						bAPCost += GetAPsToLook( pSoldier );
 				}
 			}
 		}
