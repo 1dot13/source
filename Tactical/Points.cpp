@@ -2317,8 +2317,9 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		bAPCost += (usTurningCost + usRaiseGunCost);	
 	
 	// if attacking a new target (or if the specific target is uncertain)
-	// Added check if the weapon is a throwing knife - otherwise it would add APs for change target on cursor but not actually deduct them afterwards - SANDRO
-	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && (Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE) )) 
+	// Added check if the weapon is throwing knife/melee weapons - otherwise it would add APs for change target on cursor but not actually deduct them afterwards - SANDRO
+	if ( ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )&&
+				( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE ) ) ) 
 	{
 		if ( pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ) )
 			bAPCost += (APBPConstants[AP_CHANGE_TARGET] / 2);
