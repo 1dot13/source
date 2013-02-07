@@ -209,7 +209,7 @@ opinionEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 
 			// Sets new index for writing.
-			pData->curIndex = (UINT32) atol(pData->szCharData);
+			pData->curIndex = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 
 		else if(strcmp(name, "Opinion0") == 0)

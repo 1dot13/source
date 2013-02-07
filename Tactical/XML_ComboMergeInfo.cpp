@@ -101,7 +101,7 @@ attachmentcombomergeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentComboMerge.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curAttachmentComboMerge.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "usItem") == 0)
 		{

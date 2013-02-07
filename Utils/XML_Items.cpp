@@ -541,7 +541,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "usItemClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usItemClass = (UINT32) atol(pData->szCharData);
+			pData->curItem.usItemClass = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "nasAttachmentClass") == 0)
 		{
@@ -1318,7 +1318,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "AttachmentClass")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.attachmentclass   = (UINT32) atol(pData->szCharData);
+			pData->curItem.attachmentclass   = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "TripWireActivation")	 == 0)
 		{
@@ -1338,7 +1338,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "DrugType")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.drugtype   = (UINT32) atol(pData->szCharData);
+			pData->curItem.drugtype   = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "BlockIronSight")	 == 0)
 		{
@@ -1353,12 +1353,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ItemFlag") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usItemFlag = (UINT32) atol(pData->szCharData);
+			pData->curItem.usItemFlag = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "FoodType") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.foodtype = (UINT32) atol(pData->szCharData);
+			pData->curItem.foodtype = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		//JMich_SkillsModifiers: Parse new values
 		else if(strcmp(name, "LockPickModifier") == 0)
@@ -1394,12 +1394,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "usActionItemFlag") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usActionItemFlag = (UINT32) atol(pData->szCharData);
+			pData->curItem.usActionItemFlag = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "clothestype") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.clothestype = (UINT32) atol(pData->szCharData);
+			pData->curItem.clothestype = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "randomitem") == 0)
 		{

@@ -132,7 +132,7 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curAmmoType.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "fontColour") == 0)
 		{
@@ -302,7 +302,7 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ammoflag") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.ammoflag	= (UINT32) atol(pData->szCharData);
+			pData->curAmmoType.ammoflag	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 
 		pData->maxReadDepth--;

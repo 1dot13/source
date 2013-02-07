@@ -219,7 +219,7 @@ lbepocketParseData * pData = (lbepocketParseData *)userData;
 		else if(strcmp(name, "pRestriction") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curLBEPocket.pRestriction = (UINT32) atol(pData->szCharData);
+			pData->curLBEPocket.pRestriction = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}	//DBrot: MOLLE added tag
 		else if(strcmp(name, "pVolume") == 0)
 		{

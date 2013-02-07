@@ -160,27 +160,27 @@ merchantEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiFlags") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.uiFlags	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.uiFlags	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "dailyIncrement") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.dailyIncrement	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.dailyIncrement	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "dailyMaximum") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.dailyMaximum	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.dailyMaximum	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "dailyRetained") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.dailyRetained	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.dailyRetained	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "minCoolness") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.minCoolness	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.minCoolness	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 
 			// fit for reasonable values
 			pData->curMerchant.minCoolness = min(10, max(1, pData->curMerchant.minCoolness) );
@@ -188,7 +188,7 @@ merchantEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "maxCoolness") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.maxCoolness	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.maxCoolness	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 
 			// fit for reasonable values
 			pData->curMerchant.maxCoolness = min(10, max(1, pData->curMerchant.maxCoolness) );
@@ -196,22 +196,22 @@ merchantEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "addToCoolness") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.addToCoolness	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.addToCoolness	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "coolnessProgressRate") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.coolnessProgressRate	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.coolnessProgressRate	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "daysDelayMin") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.daysDelayMin	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.daysDelayMin	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "daysDelayMax") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMerchant.daysDelayMax	= (UINT32) atol(pData->szCharData);
+			pData->curMerchant.daysDelayMax	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "useBRSetting") == 0)
 		{

@@ -134,7 +134,7 @@ languageLocationEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = LANGUAGE_ELEMENT;
-			pData->curLanguageData.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curLanguageData.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "Message") == 0 )
 		{

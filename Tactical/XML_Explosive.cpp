@@ -115,7 +115,7 @@ explosiveEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curExplosive.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curExplosive.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ubType") == 0)
 		{

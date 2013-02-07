@@ -109,7 +109,7 @@ mainMenuEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMainMenu.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curMainMenu.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "Visible") == 0)
 		{
@@ -179,17 +179,17 @@ mainMenuEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "MainMenuY") == 0 && pData->curMainMenu.uiIndex == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_Y	=  (UINT32) atol(pData->szCharData);
+			pData->curMainMenu.MAINMENU_Y	=  (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}		
 		else if(strcmp(name, "MainMenuX") == 0 && pData->curMainMenu.uiIndex == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_X	=  (UINT32) atol(pData->szCharData);
+			pData->curMainMenu.MAINMENU_X	=  (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "MainMenuYSpace") == 0 && pData->curMainMenu.uiIndex == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMainMenu.MAINMENU_Y_SPACE	=  (UINT32) atol(pData->szCharData);
+			pData->curMainMenu.MAINMENU_Y_SPACE	=  (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		pData->maxReadDepth--;
 	}

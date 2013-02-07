@@ -102,12 +102,12 @@ miscDropEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMiscDrop.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curMiscDrop.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "usItemClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMiscDrop.usItemClass	= (UINT32) atol(pData->szCharData);
+			pData->curMiscDrop.usItemClass	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ubEnemyDropRate") == 0)
 		{

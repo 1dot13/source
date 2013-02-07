@@ -620,7 +620,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "Name") == 0 )
 		{
@@ -667,7 +667,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "MaxPages") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.MaxPages	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.MaxPages	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "PageDesc1") == 0 )
 		{
@@ -922,42 +922,42 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ImagePosition1X") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionX[0]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionX[0]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition1Y") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionY[0]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionY[0]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition2X") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionX[1]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionX[1]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition2Y") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionY[1]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionY[1]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition3X") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionX[2]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionX[2]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition3Y") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionY[2]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionY[2]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition4X") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionX[3]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionX[3]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePosition4Y") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.sImagePositionY[3]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.sImagePositionY[3]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "SpecialQuestImage") == 0)
 		{
@@ -1003,22 +1003,22 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ImagePositionBeforeX") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.ImagePositionQX[0]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.ImagePositionQX[0]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePositionBeforeY") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.ImagePositionQY[0]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.ImagePositionQY[0]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePositionAfterX") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.ImagePositionQX[1]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.ImagePositionQX[1]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImagePositionAfterY") == 0)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
-			pData->curEncyclopediaData.ImagePositionQY[1]	= (UINT32) atol(pData->szCharData);
+			pData->curEncyclopediaData.ImagePositionQY[1]	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "ImageDescBefore") == 0 )
 		{

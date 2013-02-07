@@ -121,12 +121,12 @@ explosionDataEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ExplosionSoundID") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->expData.uiExplosionSoundID = (UINT32) atol(pData->szCharData);
+			pData->expData.uiExplosionSoundID = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "AltExplosionSoundID") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->expData.uiAltExplosionSoundID = (UINT32) atol(pData->szCharData);
+			pData->expData.uiAltExplosionSoundID = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "BlastFilename") == 0)
 		{

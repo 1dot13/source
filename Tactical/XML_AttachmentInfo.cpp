@@ -101,7 +101,7 @@ attachmentinfoEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentInfo.uiIndex	= (UINT32) atol(pData->szCharData);
+			pData->curAttachmentInfo.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "usItem") == 0)
 		{
@@ -111,7 +111,7 @@ attachmentinfoEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiItemClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentInfo.uiItemClass= (UINT32) atol(pData->szCharData);
+			pData->curAttachmentInfo.uiItemClass= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "bAttachmentSkillCheck") == 0)
 		{

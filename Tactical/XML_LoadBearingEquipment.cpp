@@ -111,12 +111,12 @@ lbeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "lbeClass") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curLBE.lbeClass  = (UINT32) atol(pData->szCharData);
+			pData->curLBE.lbeClass  = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "lbeCombo") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curLBE.lbeCombo  = (UINT32) atol(pData->szCharData);
+			pData->curLBE.lbeCombo  = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "lbeFilledSize") == 0)
 		{

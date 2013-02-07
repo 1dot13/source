@@ -113,7 +113,7 @@ attachmentslotEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiSlotIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentSlot.uiSlotIndex	= (UINT32) atol(pData->szCharData);
+			pData->curAttachmentSlot.uiSlotIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "szSlotName") == 0)
 		{
