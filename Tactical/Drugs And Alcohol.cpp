@@ -598,13 +598,13 @@ BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier )
 	{
 		// Are we in a side effect or good effect?
 		if ( pSoldier->drugs.bDrugEffect[ cnt ] )
-		{
 			return( TRUE );
-		}
-		else if ( pSoldier->drugs.bDrugSideEffect[ cnt ] )
-		{
+		
+		if ( pSoldier->drugs.bDrugSideEffect[ cnt ] )
 			return( TRUE );
-		}
+
+		if ( pSoldier->bRegenerationCounter > 0)
+			return( TRUE );
 	}
 
 	return( FALSE );
