@@ -1058,7 +1058,7 @@
   </ITEM>
   <ITEM>
     <uiIndex>132</uiIndex>
-    <szItemName>Llacrymogène</szItemName>
+    <szItemName>Lacrymogène</szItemName>
     <szLongItemName>Grenade lacrymo.</szLongItemName>
     <szItemDesc>Cette grenade relâche un gaz lacrymogène qui met vos ennemis hors combat, ou au moins les empêche de viser correctement.</szItemDesc>
     <szBRName>Grenade lacrymogène</szBRName>
@@ -1069,13 +1069,13 @@
     <szItemName>Gaz moutarde</szItemName>
     <szLongItemName>Grenade gaz mout.</szLongItemName>
     <szItemDesc>Cette grenade relâche un gaz toxique inodore qui ronge les poumons de ses victimes. Sans intervention médicale, le décès survient rapidement.</szItemDesc>
-    <szBRName>Grenade Gaz moutarde</szBRName>
+    <szBRName>Grenade gaz moutarde</szBRName>
     <szBRDesc>Non, nous ne parlons pas d'art culinaire : cette grenade relâche un gaz toxique inodore qui ronge les poumons de ses victimes. Sans intervention médicale, le décès survient rapidement.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>134</uiIndex>
-    <szItemName>Mini Grenade</szItemName>
-    <szLongItemName>Mini Grenade</szLongItemName>
+    <szItemName>Mini grenade</szItemName>
+    <szLongItemName>Mini grenade</szLongItemName>
     <szItemDesc>Cette grenade de petite taille peut être lancée à grande distance et cause des dégâts significatifs. Idéale pour préparer un assaut.</szItemDesc>
     <szBRName>Grenade offensive</szBRName>
     <szBRDesc>Cette grenade de petite taille peut être lancée à grande distance et cause des dégâts significatifs. Idéale pour préparer un assaut. Le choix des femmes, des vraies...</szBRDesc>
@@ -1220,7 +1220,7 @@
     <uiIndex>152</uiIndex>
     <szItemName>Obus de char</szItemName>
     <szLongItemName>Obus de char</szLongItemName>
-    <szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+    <szItemDesc>PAS DE DESCRIPTION !</szItemDesc>
     <szBRName>Obus de char</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
@@ -8124,7 +8124,7 @@
     <uiIndex>1015</uiIndex>
     <szItemName>Pelle</szItemName>
     <szLongItemName>Pelle</szLongItemName>
-    <szItemDesc>Parfait pour creuser votre propre tombe ou frapper des personnes sur la tête (puis creuser leur tombe).</szItemDesc>
+    <szItemDesc>Elle est parfaite pour creuser votre propre tombe ou frapper des personnes sur la tête (puis creuser leur tombe).</szItemDesc>
     <szBRName>Pelle</szBRName>
     <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
@@ -9514,10 +9514,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>1189</uiIndex>
-    <szItemName>Fusée Éclairante</szItemName>
-    <szLongItemName>Fusée Éclairante</szLongItemName>
+    <szItemName>Fusée éclairante</szItemName>
+    <szLongItemName>Fusée éclairante</szLongItemName>
     <szItemDesc>Une fusée éclairante normalement utilisé pour les urgences.</szItemDesc>
-    <szBRName>Fusée Éclairante</szBRName>
+    <szBRName>Fusée éclairante</szBRName>
     <szBRDesc>Plus lumineuse qu'une torche chimique, mais aussi d'une durée relativement plus courte, cette fusée éclairante vous illuminera la nuit.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12148,9 +12148,9 @@
     <uiIndex>1518</uiIndex>
     <szItemName>Boî. 6x35mm PE</szItemName>
     <szLongItemName>Boîte, 6x35 PE</szLongItemName>
-    <szItemDesc>Une boîte de munitions 6x35mm "Full metal jacket" pour les armes de défense personnelle. Si les têtes creuses ne suffisent pas. </szItemDesc>
+    <szItemDesc>Une boîte de munitions 6x35mm "Full metal jacket" pour les armes de défense personnelle. Si les têtes creuses ne suffisent pas.</szItemDesc>
     <szBRName>Boîte, 6x35mm PE</szBRName>
-    <szBRDesc>Une boîte de munitions 6x35mm "Full metal jacket" pour les armes de défense personnelle. Si les têtes creuses ne suffisent pas. </szBRDesc>
+    <szBRDesc>Une boîte de munitions 6x35mm "Full metal jacket" pour les armes de défense personnelle. Si les têtes creuses ne suffisent pas.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1519</uiIndex>
@@ -12194,10 +12194,10 @@
   </ITEM>
   <ITEM>
     <uiIndex>1524</uiIndex>
-    <szItemName>Fil Piège</szItemName>
-    <szLongItemName>Fil Piège</szLongItemName>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
     <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
-    <szBRName>Fil Piège</szBRName>
+    <szBRName>Fil piège</szBRName>
     <szBRDesc>Du fil piège pour des mines. Seulement 10 dollars le mètre, juste cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12226,58 +12226,58 @@
   </ITEM>
   <ITEM>
     <uiIndex>1528</uiIndex>
-    <szItemName>Gr. Ass/Piège</szItemName>
-    <szLongItemName>Gr Assom/Piège</szLongItemName>
+    <szItemName>Assommante/Fil</szItemName>
+    <szLongItemName>Assommante piègée</szLongItemName>
     <szItemDesc>Cette grenade assommante est reliée avec du fil piège qui donne un résultat simple, mais très efficace... Un piège de fortune. Vous êtes un sacré bricoleur !!</szItemDesc>
-    <szBRName>Gr. Assommante/Piège</szBRName>
+    <szBRName>Grenade assommante piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1529</uiIndex>
     <szItemName>Gr. Lacr/Piège</szItemName>
-    <szLongItemName>Gr Lacrymo/Piège</szLongItemName>
+    <szLongItemName>Lacrymogène piègée</szLongItemName>
     <szItemDesc>Cette grenade lacrymogène est reliée avec du fil piège qui donne un résultat simple, mais très efficace... Un piège artisanal, vous êtes un sacré bricoleur !!</szItemDesc>
-    <szBRName>Gr. Lacrymogène/Piège</szBRName>
+    <szBRName>Grenade lacrymogène piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1530</uiIndex>
-    <szItemName>Gr. Gaz M/Piège</szItemName>
-    <szLongItemName>Gr Gaz Mout/Piège</szLongItemName>
+    <szItemName>Gaz moutarde/Fil</szItemName>
+    <szLongItemName>Gaz moutarde piègée</szLongItemName>
     <szItemDesc>Cette grenade de gaz moutarde est reliée avec du fil piège qui donne un résultat simple, mais très efficace... Un piège artisanal !!</szItemDesc>
-    <szBRName>Gr. Gaz Moutarde/Piège</szBRName>
+    <szBRName>Grenade gaz moutarde piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1531</uiIndex>
-    <szItemName>Gr. Mini/Piège</szItemName>
-    <szLongItemName>Mini Grenade/Piège</szLongItemName>
+    <szItemName>Mini Grena./Fil</szItemName>
+    <szLongItemName>Mini grenade piègée</szLongItemName>
     <szItemDesc>Cette mini grenade est reliée avec du fil piège qui donne un résultat simple, mais très efficace... Un piège de fortune, vous êtes un sacré bricoleur !!</szItemDesc>
-    <szBRName>Gr. Mini/Piège</szBRName>
+    <szBRName>Grenade offensive piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1532</uiIndex>
-    <szItemName>Gr. MK2/Piège</szItemName>
-    <szLongItemName>Grenade MK2/Piège</szLongItemName>
+    <szItemName>Grenade MK2/Fil</szItemName>
+    <szLongItemName>Grenade MK2 piègée</szLongItemName>
     <szItemDesc>Cette grenade MK2 est reliée avec du fil piège qui donne un résultat simple, mais très efficace... un piège artisanal. Vous êtes un sacré bricoleur !!</szItemDesc>
-    <szBRName>Gr. MK2/Piège</szBRName>
+    <szBRName>Grenade MK2 piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1533</uiIndex>
-    <szItemName>Fusée Écl/Piège</szItemName>
-    <szLongItemName>Fusée Éclair/Piège</szLongItemName>
+    <szItemName>Éclairante/Fil</szItemName>
+    <szLongItemName>Éclairante piègée</szLongItemName>
     <szItemDesc>Cette fusée éclairante est reliée avec du fil piège qui donne un résultat simple, mais très efficace... Un piège lumineux, vous êtes un sacré bricoleur !!</szItemDesc>
-    <szBRName>Fusée Éclairante/Piège</szBRName>
+    <szBRName>Fusée éclairante piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1534</uiIndex>
-    <szItemName>Gr. Fumig/Piège</szItemName>
-    <szLongItemName>Gr Fumigène/Piège</szLongItemName>
+    <szItemName>Fumigène/Fil</szItemName>
+    <szLongItemName>Fumigène piègée</szLongItemName>
     <szItemDesc>Cette grenade fumigène est reliée avec du fil piège qui donne un résultat simple, mais très efficace... Un piège de fortune, vous êtes un sacré bricoleur !!</szItemDesc>
-    <szBRName>Gr. Fumigène/Piège</szBRName>
+    <szBRName>Grenade fumigène piègée</szBRName>
     <szBRDesc>TEXTE NON NÉCESSAIRE.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -12346,731 +12346,731 @@
   </ITEM>
   <ITEM>
     <uiIndex>1543</uiIndex>
-    <szItemName>Shovel</szItemName>
-    <szLongItemName>Shovel</szLongItemName>
-    <szItemDesc>Perfect for digging your own grave, hitting people over the head (and then dig their grave) or building makeshift fortifications.</szItemDesc>
-    <szBRName>Shovel</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Pelle</szItemName>
+    <szLongItemName>Pelle</szLongItemName>
+    <szItemDesc>Elle est parfaite pour creuser votre propre tombe, ou frapper des personnes sur la tête (puis creuser leur tombe) construire des fortifications de fortune.</szItemDesc>
+    <szBRName>Pelle</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1544</uiIndex>
-    <szItemName>Calory Bars</szItemName>
-    <szLongItemName>Calory Bars</szLongItemName>
-    <szItemDesc>Because normal food is sooo 2011.</szItemDesc>
-    <szBRName>Calory Bars</szBRName>
-    <szBRDesc>Calories, without distracting taste.</szBRDesc>
+    <szItemName>Barre calorique</szItemName>
+    <szLongItemName>Barres caloriques</szLongItemName>
+    <szItemDesc>Parce que la nourriture normale est trop 2011.</szItemDesc>
+    <szBRName>Barres caloriques</szBRName>
+    <szBRDesc>Des calories, mais sans toucher au goût.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1545</uiIndex>
-    <szItemName>MRE</szItemName>
-    <szLongItemName>MRE</szLongItemName>
-    <szItemDesc>An individual food ration in use with the US military.</szItemDesc>
-    <szBRName>MRE</szBRName>
-    <szBRDesc>If its good for the US army, it better be good enough for you.</szBRDesc>
+    <szItemName>Ration MRE</szItemName>
+    <szLongItemName>Ration combat MRE</szLongItemName>
+    <szItemDesc>Une ration alimentaire individuelle utilisée par l'armée américaine.</szItemDesc>
+    <szBRName>Ration de combat MRE</szBRName>
+    <szBRDesc>Si c'est bon pour l'armée américaine, alors ça sera bien assez bon pour vous.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1546</uiIndex>
-    <szItemName>EPA</szItemName>
-    <szLongItemName>EPA</szLongItemName>
-    <szItemDesc>German army food. Beware the Raviolis! </szItemDesc>
-    <szBRName>EPA</szBRName>
-    <szBRDesc>This box of german army food will bring you through the day. Note the cookies, which also serve as burning material.</szBRDesc>
+    <szItemName>Ration EPA</szItemName>
+    <szLongItemName>Ration combat EPA</szLongItemName>
+    <szItemDesc>EPA (Einmannpakung) est la ration de combat de l'armée allemande. Méfiez-vous des raviolis !</szItemDesc>
+    <szBRName>Ration de combat EPA</szBRName>
+    <szBRDesc>Ce sachet alimentaire de l'armée allemande, vous tiendra au ventre toute la journée. Notez que les biscuits peuvent aussi servir de combustible.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1547</uiIndex>
     <szItemName>Calorie Mate</szItemName>
     <szLongItemName>Calorie Mate</szLongItemName>
-    <szItemDesc>It better taste better than it looks...</szItemDesc>
+    <szItemDesc>Cela a bien meilleur goût que ça en a l'air...</szItemDesc>
     <szBRName>Calorie Mate</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1548</uiIndex>
-    <szItemName>Peak EPA</szItemName>
-    <szLongItemName>Peak EPA</szLongItemName>
-    <szItemDesc>A small bottle of vitamins and steroids.</szItemDesc>
-    <szBRName>Peak EPA</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Fortifiant EPA</szItemName>
+    <szLongItemName>Fortifiant EPA</szLongItemName>
+    <szItemDesc>Un flacon de vitamines et de stéroïdes.</szItemDesc>
+    <szBRName>Boîte de fortifiant EPA</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1549</uiIndex>
     <szItemName>Hotdog</szItemName>
     <szLongItemName>Hotdog</szLongItemName>
-    <szItemDesc>Butchery leftovers with old bread. Enjoy.</szItemDesc>
+    <szItemDesc>Des restes de boucherie avec du vieux pain rassis. Un régal ! N'oubliez pas la moutarde ou le ketchup !</szItemDesc>
     <szBRName>Hotdog</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1550</uiIndex>
     <szItemName>Hamburger</szItemName>
     <szLongItemName>Hamburger</szLongItemName>
-    <szItemDesc>For some obscure reason, this is also sold outside Hamburg.</szItemDesc>
-    <szBRName>Hamburger</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemDesc>Pour d'obscures raisons, il est aussi vendu en dehors de Hambourg.</szItemDesc>
+    <szBRName>Viande, hamburger</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1551</uiIndex>
-    <szItemName>Fries</szItemName>
-    <szLongItemName>French Fries</szLongItemName>
-    <szItemDesc>Or 'Freedom Fries', as some people like to call them.</szItemDesc>
-    <szBRName>Fries</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Frites</szItemName>
+    <szLongItemName>Frites françaises</szLongItemName>
+    <szItemDesc>Ou "Frites de la liberté", comme certains aiment à les appeler.</szItemDesc>
+    <szBRName>Frites</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1552</uiIndex>
     <szItemName>Pizza</szItemName>
     <szLongItemName>Pizza</szLongItemName>
-    <szItemDesc>Favourite food of couch potatoes and sewer-based squads of tortoise ninjas everywhere.</szItemDesc>
+    <szItemDesc>Nourriture favorite des téléspectateurs scotchés sur leur divan et des équipes de tortues ninja basées dans les égouts, ceci partout dans le monde.</szItemDesc>
     <szBRName>Pizza</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1553</uiIndex>
     <szItemName>Spam</szItemName>
     <szLongItemName>Spam</szLongItemName>
-    <szItemDesc>Spam, spam, spam, spam, spam, spam, baked beans, spam, spam, spam and spam.</szItemDesc>
-    <szBRName>Spam</szBRName>
-    <szBRDesc>A viking's favourite food.</szBRDesc>
+    <szItemDesc>Spam, spam, spam, spam, spam, spam, haricots blancs sauce tomate, spam, spam, spam, spam...</szItemDesc>
+    <szBRName>Boîte de spam</szBRName>
+    <szBRDesc>La nourriture préférée des vikings.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1554</uiIndex>
     <szItemName>Spam 2</szItemName>
-    <szLongItemName>Spam in a can</szLongItemName>
-    <szItemDesc>Spam, spam, spam, spam, spam, spam, spam, spam, lovely spam, wonderful spam!</szItemDesc>
-    <szBRName>Spam 2</szBRName>
-    <szBRDesc>Hey, at least it doesn't fill up your mailbox...</szBRDesc>
+    <szLongItemName>Spam en boîte</szLongItemName>
+    <szItemDesc>Spam, spam, spam, spam, spam, spam, spam, spam, adorable spam, merveilleux spam !</szItemDesc>
+    <szBRName>Boîte de spam 2</szBRName>
+    <szBRDesc>Hé, au moins il ne polluera pas votre boîte mail...</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1555</uiIndex>
-    <szItemName>C. vegetables</szItemName>
-    <szLongItemName>Canned vegetables</szLongItemName>
-    <szItemDesc>These vegetables will stay edible forever, much to children's dismay.</szItemDesc>
-    <szBRName>C. vegetables</szBRName>
-    <szBRDesc>Nutritious, long-lasting, and animal-friendly.</szBRDesc>
+    <szItemName>Légumes</szItemName>
+    <szLongItemName>Légumes en conserve</szLongItemName>
+    <szItemDesc>Ces légumes resteront comestibles à jamais, au grand dam des enfants.</szItemDesc>
+    <szBRName>Boîte de légumes</szBRName>
+    <szBRDesc>Nutritif, longue conservation et l'ami des animaux.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1556</uiIndex>
-    <szItemName>C. scorpions</szItemName>
-    <szLongItemName>Canned scorpions</szLongItemName>
-    <szItemDesc>How about something exotic? Like poisonous insects?</szItemDesc>
-    <szBRName>C. scorpions</szBRName>
-    <szBRDesc>We were assured this is actually eaten in some place we forgot.</szBRDesc>
+    <szItemName>Scorpions</szItemName>
+    <szLongItemName>Conserve scorpions</szLongItemName>
+    <szItemDesc>Que diriez-vous de manger un plat exotique ? Comme des animaux venimeux, par exemple ?</szItemDesc>
+    <szBRName>Boîte de scorpions</szBRName>
+    <szBRDesc>On nous a assuré que ça se mange réellement dans un pays, mais nous avons oublié son nom.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1557</uiIndex>
-    <szItemName>Cat food</szItemName>
-    <szLongItemName>Canned cat food</szLongItemName>
-    <szItemDesc>Seriously? You really think about eating this? You should rethink this assignment...</szItemDesc>
-    <szBRName>Cat food</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Boîte pour chat</szItemName>
+    <szLongItemName>Boîte pour chat</szLongItemName>
+    <szItemDesc>Sérieusement ? Vous pensez vraiment manger ça ? Vous devriez repenser à votre mission...</szItemDesc>
+    <szBRName>Boîte d'aliment pour chat</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1558</uiIndex>
-    <szItemName>Baked beans</szItemName>
-    <szLongItemName>Canned baked beans</szLongItemName>
-    <szItemDesc>Tip: Best served with spam.</szItemDesc>
-    <szBRName>Baked beans</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Haricots</szItemName>
+    <szLongItemName>Boîte de haricots</szLongItemName>
+    <szItemDesc>Boîte de haricots blancs sauce tomate. Conseil : À servir avec du spam.</szItemDesc>
+    <szBRName>Boîte de haricots</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1559</uiIndex>
     <szItemName>Steak</szItemName>
     <szLongItemName>Steak</szLongItemName>
-    <szItemDesc>The best arulcan steak you'll find in .. Arulco.</szItemDesc>
-    <szBRName>Steak</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemDesc>Vous trouverez le meilleur steak arulcan sur... Arulco.</szItemDesc>
+    <szBRName>Viande, steak</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1560</uiIndex>
-    <szItemName>Bean stew</szItemName>
-    <szLongItemName>Bean stew</szLongItemName>
-    <szItemDesc>A mexican-style bean stew. Really hot!</szItemDesc>
-    <szBRName>Bean stew</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Ragoût haricots</szItemName>
+    <szLongItemName>Ragoût de haricots</szLongItemName>
+    <szItemDesc>Un ragoût de haricots mexicain. Du costaud !</szItemDesc>
+    <szBRName>Aliment, ragoût de haricots</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1561</uiIndex>
-    <szItemName>French toast</szItemName>
-    <szLongItemName>French toast</szLongItemName>
-    <szItemDesc>Mhmm, breakfast!</szItemDesc>
-    <szBRName>French toast</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Pain perdu</szItemName>
+    <szLongItemName>Pain perdu</szLongItemName>
+    <szItemDesc>Miam, un déssert !</szItemDesc>
+    <szBRName>Aliment, pain perdu</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1562</uiIndex>
-    <szItemName>Crepes</szItemName>
-    <szLongItemName>Crepes</szLongItemName>
-    <szItemDesc>A spinach and mushroom crepe.</szItemDesc>
-    <szBRName>Crepes</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Crêpes</szItemName>
+    <szLongItemName>Crêpes</szLongItemName>
+    <szItemDesc>Une crêpe aux épinards et aux champignons.</szItemDesc>
+    <szBRName>Aliment, crêpes</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1563</uiIndex>
-    <szItemName>Pasta</szItemName>
-    <szLongItemName>Pasta</szLongItemName>
-    <szItemDesc>Italian pasta.</szItemDesc>
-    <szBRName>Pasta</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Pâtes</szItemName>
+    <szLongItemName>Pâtes</szLongItemName>
+    <szItemDesc>Pâtes italiennes.</szItemDesc>
+    <szBRName>Aliment, pâtes</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1564</uiIndex>
-    <szItemName>Omelet</szItemName>
-    <szLongItemName>Omelet</szLongItemName>
-    <szItemDesc>Omelet du fromage. Or not?</szItemDesc>
-    <szBRName>Omelet</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Omelette</szItemName>
+    <szLongItemName>Omelette</szLongItemName>
+    <szItemDesc>Omelette au fromage. Ou sans ?</szItemDesc>
+    <szBRName>Aliment, omelette</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1565</uiIndex>
-    <szItemName>Cow meat</szItemName>
-    <szLongItemName>Cow meat</szLongItemName>
-    <szItemDesc>Sure, you can eat it right now. Cooking is for wussies, eh?</szItemDesc>
-    <szBRName>Cow meat</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Bœuf</szItemName>
+    <szLongItemName>Viande de bœuf</szLongItemName>
+    <szItemDesc>Bien sûr, vous pouvez la manger crue. La cuisson, c'est pour les  chochottes, n'est-ce pas ?</szItemDesc>
+    <szBRName>Viande de bœuf</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1566</uiIndex>
-    <szItemName>Bloodcat meat</szItemName>
-    <szLongItemName>Bloodcat meat</szLongItemName>
-    <szItemDesc>You have to be a tough guy to kill them, but an even tougher guy to eat them!</szItemDesc>
-    <szBRName>Bloodcat meat</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Chat sauvage</szItemName>
+    <szLongItemName>Viande chat sauvage</szLongItemName>
+    <szItemDesc>Vous êtes un dur à cuire pour les tuer, mais encore plus dur pour les manger !</szItemDesc>
+    <szBRName>Viande de chat sauvage</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1567</uiIndex>
-    <szItemName>Bread</szItemName>
-    <szLongItemName>Bread loaf</szLongItemName>
-    <szItemDesc>A loaf of bread, made from grain of local farms.</szItemDesc>
-    <szBRName>Bread</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Pain de mie</szItemName>
+    <szLongItemName>Pain de mie</szLongItemName>
+    <szItemDesc>Une miche de pain, fabriquée à partir de céréales des fermes locales.</szItemDesc>
+    <szBRName>Aliment, pain de mie </szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1568</uiIndex>
-    <szItemName>Applepie</szItemName>
-    <szLongItemName>Applepie</szLongItemName>
-    <szItemDesc>A delicious applepie made from tasty arulcan apples. Don't you do anything naughty with it!</szItemDesc>
-    <szBRName>Applepie</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Tourte pommes</szItemName>
+    <szLongItemName>Tourte aux pommes</szLongItemName>
+    <szItemDesc>Une délicieuse tourte aux savoureuses pommes d'Arulco. Ne faites rien de mal avec elle !</szItemDesc>
+    <szBRName>Aliment, tourte aux pommes</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1569</uiIndex>
-    <szItemName>Water drum</szItemName>
-    <szLongItemName>Water drum</szLongItemName>
-    <szItemDesc>A rusty old water barrel.</szItemDesc>
-    <szBRName>Water drum</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Tonneau d'eau</szItemName>
+    <szLongItemName>Tonneau d'eau</szLongItemName>
+    <szItemDesc>Un vieux tonneau rouillé.</szItemDesc>
+    <szBRName>Tonneau d'eau</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1570</uiIndex>
-    <szItemName>PET bottle</szItemName>
-    <szLongItemName>PET bottle</szLongItemName>
-    <szItemDesc>A bottle with 1 liter of still mineral water.</szItemDesc>
-    <szBRName>PET bottle</szBRName>
-    <szBRDesc>1 liter of healthy mineral water, in a one-use bottle.</szBRDesc>
+    <szItemName>Bouteille PET</szItemName>
+    <szLongItemName>Bouteille en PET</szLongItemName>
+    <szItemDesc>Une bouteille en plastique d'un litre d'eau minérale non gazeuse.</szItemDesc>
+    <szBRName>Bouteille en PET</szBRName>
+    <szBRDesc>Une bouteille en plastique d'un litre d'une bonne eau minérale, à usage unique.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1571</uiIndex>
-    <szItemName>Vegetable juice</szItemName>
-    <szLongItemName>Vegetable juice</szLongItemName>
-    <szItemDesc>A drink that is so nutritious, it also stills your hunger (a bit).</szItemDesc>
-    <szBRName>Vegetable juice</szBRName>
-    <szBRDesc>For those without teeth who want to eat vegetables.</szBRDesc>
+    <szItemName>Jus de fruits</szItemName>
+    <szLongItemName>Jus de fruits</szLongItemName>
+    <szItemDesc>Une boisson qui est très nutritive et ça coupera également votre faim (un peu).</szItemDesc>
+    <szBRName>Bouteille jus de fruits</szBRName>
+    <szBRDesc>Pour ceux qui n'ont plus de dents et qui veulent manger des fruits ou des légumes.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1572</uiIndex>
-    <szItemName>Milk</szItemName>
-    <szLongItemName>Milk</szLongItemName>
-    <szItemDesc>Cow milk, 1 liter.</szItemDesc>
-    <szBRName>Milk</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Lait</szItemName>
+    <szLongItemName>Lait</szLongItemName>
+    <szItemDesc>Un litre de lait.</szItemDesc>
+    <szBRName>Bouteille de lait</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1573</uiIndex>
-    <szItemName>Energy drink</szItemName>
-    <szLongItemName>Energy drink</szLongItemName>
-    <szItemDesc>You can almost taste the yummy chemicals that went into this.</szItemDesc>
-    <szBRName>Energy drink</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Boisson énergi.</szItemName>
+    <szLongItemName>Boisson énergisante</szLongItemName>
+    <szItemDesc>Vous pouvez goûter les délicieux produits chimiques qui se trouvent dans sa composition.</szItemDesc>
+    <szBRName>Bouteille énergisante</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1574</uiIndex>
-    <szItemName>Energy drink 2</szItemName>
-    <szLongItemName>Energy drink 2</szLongItemName>
-    <szItemDesc>Both tastes and refreshes like a kick in the belly.</szItemDesc>
-    <szBRName>Energy drink 2</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Boisson énergé.</szItemName>
+    <szLongItemName>Boisson énergétique</szLongItemName>
+    <szItemDesc>Son goût et sa fraîcheur sont comme un coup-de-pied dans le ventre.</szItemDesc>
+    <szBRName>Bouteille énergétique</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1575</uiIndex>
-    <szItemName>Coffee</szItemName>
-    <szLongItemName>Coffee</szLongItemName>
-    <szItemDesc>Apparently some people can get hooked to this stuff.</szItemDesc>
-    <szBRName>Coffee</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Café</szItemName>
+    <szLongItemName>Café</szLongItemName>
+    <szItemDesc>Apparemment, certaines personnes deviennent accro à cette boisson.</szItemDesc>
+    <szBRName>Bouteille café</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1576</uiIndex>
-    <szItemName>Cleaning Kit</szItemName>
-    <szLongItemName>Gun Cleaning Kit</szLongItemName>
-    <szItemDesc>Contains everything necessary to clean your gun in the field.</szItemDesc>
-    <szBRName>Cleaning Kit</szBRName>
-    <szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
+    <szItemName>Kit nettoyage</szItemName>
+    <szLongItemName>Kit de nettoyage</szLongItemName>
+    <szItemDesc>Contient tout le nécessaire pour nettoyer votre arme.</szItemDesc>
+    <szBRName>Kit de nettoyage d'arme</szBRName>
+    <szBRDesc>Même les outils les plus mortelles ont besoin d'être bichonnés... de temps en temps.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1577</uiIndex>
-    <szItemName>Clothes</szItemName>
-    <szLongItemName>Civilian Clothes</szLongItemName>
-    <szItemDesc>Normal Arulcan clothes. Absolutely nothing to see here.</szItemDesc>
-    <szBRName>Civilian Clothes</szBRName>
-    <szBRDesc>Since when does this shop sell cheap clothes?</szBRDesc>
+    <szItemName>Vêtements</szItemName>
+    <szLongItemName>Vêtements civils</szLongItemName>
+    <szItemDesc>De simples vêtements du pays. Il n'y a absolument rien à voir ici.</szItemDesc>
+    <szBRName>Vêtements civils</szBRName>
+    <szBRDesc>Depuis quand cette boutique vend des vêtements bon marché ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1578</uiIndex>
-    <szItemName>Dart</szItemName>
-    <szLongItemName>Neurotoxin Dart</szLongItemName>
-    <szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
-    <szBRName>Neurotoxin Dart</szBRName>
-    <szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
+    <szItemName>Neurotoxine</szItemName>
+    <szLongItemName>Fléch. empoisonnée</szLongItemName>
+    <szItemDesc>Un excellent choix pour un assassin. Au moindre contact avec la peau, elle tue en moins d'une minute. Pas de salut possible.</szItemDesc>
+    <szBRName>Fléchette de neurotoxine</szBRName>
+    <szBRDesc>Eh, nous venons de recevoir ces fléchettes empoisonnées ultra-cool. Ça peut tuer un éléphant ! Faites attention à ne pas en toucher une par accident, comme ce pauvre Jimmy du service des exportations.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1579</uiIndex>
-    <szItemName>Garotte</szItemName>
-    <szLongItemName>Garotte</szLongItemName>
-    <szItemDesc>In skilled hands, a deadly weapon. In unskilled hands, you better use your fists.</szItemDesc>
-    <szBRName>Garotte</szBRName>
-    <szBRDesc>Easily concealable, lightweigth, maintenance-free. Though you might want to reconsider if your victim sees you.</szBRDesc>
+    <szItemName>Garrot</szItemName>
+    <szLongItemName>Garrot</szLongItemName>
+    <szItemDesc>Entre des mains expertes, une arme mortelle. Dans des mains inexpertes, il vaut mieux utiliser vos poings.</szItemDesc>
+    <szBRName>Garrot</szBRName>
+    <szBRDesc>Discret, léger et sans entretien. Et vous pouvez changer d'avis si votre victime vous voit.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1580</uiIndex>
-    <szItemName>Body</szItemName>
-    <szLongItemName>Dead Body</szLongItemName>
-    <szItemDesc>A fresh corpse.</szItemDesc>
-    <szBRName>Dead Body</szBRName>
-    <szBRDesc>NO DESCRIPTION NEEDED!!!</szBRDesc>
+    <szItemName>Corps</szItemName>
+    <szLongItemName>Cadavre</szLongItemName>
+    <szItemDesc>Un cadavre.</szItemDesc>
+    <szBRName>Cadavre</szBRName>
+    <szBRDesc>PAS DE DESCRIPTION !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1581</uiIndex>
-    <szItemName>Rifle Grenade Device</szItemName>
-    <szLongItemName>Rifle Grenade Device</szLongItemName>
-    <szItemDesc>This little device enables your rifle to fire grenades. A loaded magazine is required, and obviously no other firing mdoes are possible while there is a grenade attached.</szItemDesc>
-    <szBRName>Rifle Grenade Device</szBRName>
-    <szBRDesc>Transform your WW2 rifleman into a WW2 grenadier.</szBRDesc>
+    <szItemName>Manchon</szItemName>
+    <szLongItemName>Manchon lance-gren.</szLongItemName>
+    <szItemDesc>Ce manchon permet à votre fusil de lancer des grenades. Le magasin doit être chargé et évidemment aucun autre mode de tir n'est possible tant que la grenade est montée sur le manchon.</szItemDesc>
+    <szBRName>Lance-grenade, manchon</szBRName>
+    <szBRDesc>Transformez votre soldat, en grenadier de la Seconde Guerre mondiale.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1582</uiIndex>
-    <szItemName>Oatmeal</szItemName>
-    <szLongItemName>Oatmeal</szLongItemName>
-    <szItemDesc>Favourite food of horses, but not children, everywhere.</szItemDesc>
-    <szBRName>Oatmeal</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Flocons d'avoine</szItemName>
+    <szLongItemName>Flocons d'avoinel</szLongItemName>
+    <szItemDesc>Nourriture favorite des chevaux, mais pas des enfants... Enfin pas partout.</szItemDesc>
+    <szBRName>Boîte flocons d'avoine</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1583</uiIndex>
-    <szItemName>Rice</szItemName>
-    <szLongItemName>Bag of rice</szLongItemName>
-    <szItemDesc>One of the most consumed goods ever.</szItemDesc>
-    <szBRName>Bag of rice</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Sac de riz</szItemName>
+    <szLongItemName>Sac de riz</szLongItemName>
+    <szItemDesc>L'aliment le plus consommé dans le monde.</szItemDesc>
+    <szBRName>Boîte de riz</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
-  <!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
+  <!-- Copies de claymore. C'est simplement destiné à l'éditeur de carte et ne doit pas être utilisé autrement-->
   <ITEM>
     <uiIndex>1584</uiIndex>
-    <!-->NORTHEAST DIRECTION (map editor only)-->
+    <!-->DIRECTION NORD-EST (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1585</uiIndex>
-    <!-->EAST DIRECTION (map editor only)-->
+    <!-->DIRECTION EST (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1586</uiIndex>
-    <!-->SOUTHEAST DIRECTION (map editor only)-->
+    <!-->DIRECTION SUD-EST (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1587</uiIndex>
-    <!-->SOUTH DIRECTION (map editor only)-->
+    <!-->DIRECTION SUD (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1588</uiIndex>
-    <!-->SOUTHWEST DIRECTION (map editor only)-->
+    <!-->DIRECTION SUD-OUEST (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1589</uiIndex>
-    <!-->WEST DIRECTION (map editor only)-->
+    <!-->DIRECTION OUEST (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1590</uiIndex>
-    <!-->NORTHWEST DIRECTION (map editor only)-->
+    <!-->DIRECTION NORD-OUEST (éditeur de carte uniquement)-->
     <szItemName>M18 Claymore</szItemName>
     <szLongItemName>M18 Claymore</szLongItemName>
-    <szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
+    <szItemDesc>La M18 Claymore est une mine directionnelle qui se déclenche avec un détonateur à distance ou un fil piège (fil tendu) ou s'utilise tout simplement comme une mine. 700 billes d'acier sont envoyées sur un arc de 60 degrés et d'une hauteur maximum de 2 m. Conseil : FRONT TOWARDS ENEMY (AVANT VERS L'ENNEMI).</szItemDesc>
     <szBRName>M18 Claymore</szBRName>
-    <szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
+    <szBRDesc>Pour tendre des embuscades avec un réseau de fils piège (fil tendu) et leurs bébés. S'active aussi à distance. Nous déclinons toute responsabilité en cas de blessures ou de décès, en raison d'une mise en place dans le mauvais sens.</szBRDesc>
   </ITEM>
-  <!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
+  <!-- Copies du fil piège. C'est simplement destiné à l'éditeur de carte et ne doit pas être utilisé autrement-->
   <ITEM>
     <uiIndex>1591</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1592</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1593</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1594</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1595</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1596</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1597</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1598</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1599</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1600</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1601</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1602</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1603</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1604</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1605</uiIndex>
-    <szItemName>Tripwire</szItemName>
-    <szLongItemName>Tripwire</szLongItemName>
-    <szItemDesc>If you want to build intricate, complex systems of mines, you'll need tripwire to connect your devices. You know you want to.</szItemDesc>
-    <szBRName>Tripwire</szBRName>
-    <szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
+    <szItemName>Fil piège</szItemName>
+    <szLongItemName>Fil piège</szLongItemName>
+    <szItemDesc>Si vous voulez construire un labyrinthe de mines, vous aurez besoin de ce fil piège pour les connecter. Vous savez ce que vous voulez.</szItemDesc>
+    <szBRName>Fil piège</szBRName>
+    <szBRDesc>Du fil piège pour des mines ou autres. Seulement 10 dollars le mètre, seulement cette semaine !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1606</uiIndex>
-    <szItemName>Black shirt</szItemName>
-    <szLongItemName>Black shirt</szLongItemName>
-    <szItemDesc>Part of the uniform of Arulco's elite guard. Pretending to be one of them carries the death penalty.</szItemDesc>
-    <szBRName>Black shirt</szBRName>
-    <szBRDesc>Not for sale through BR</szBRDesc>
+    <szItemName>Chemise noire</szItemName>
+    <szLongItemName>Chemise noire</szLongItemName>
+    <szItemDesc>La chemise de l'uniforme de la Garde de la Reine. Pour faire semblant d'être l'un d'eux en portant la couleur du deuil.</szItemDesc>
+    <szBRName>T-shirt noir</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1607</uiIndex>
-    <szItemName>Blue shirt</szItemName>
-    <szLongItemName>Blue shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable blue T-shirt.</szItemDesc>
-    <szBRName>Blue shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt bleu</szItemName>
+    <szLongItemName>T-shirt bleu</szLongItemName>
+    <szItemDesc>Un banal T-shirt bleu.</szItemDesc>
+    <szBRName>T-shirt bleu</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, tu sais ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1608</uiIndex>
-    <szItemName>Brown shirt</szItemName>
-    <szLongItemName>Brown shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable brown T-shirt.</szItemDesc>
-    <szBRName>Brown shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt brun</szItemName>
+    <szLongItemName>T-shirt brun</szLongItemName>
+    <szItemDesc>Un banal T-shirt brun.</szItemDesc>
+    <szBRName>T-shirt brun</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, tu sais ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1609</uiIndex>
-    <szItemName>Green shirt</szItemName>
-    <szLongItemName>Green shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable green T-shirt.</szItemDesc>
-    <szBRName>Green shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt vert</szItemName>
+    <szLongItemName>T-shirt vert</szLongItemName>
+    <szItemDesc>Un banal T-shirt vert.</szItemDesc>
+    <szBRName>T-shirt vert</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, tu sais ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1610</uiIndex>
-    <szItemName>Grey shirt</szItemName>
-    <szLongItemName>Grey shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable grey T-shirt.</szItemDesc>
-    <szBRName>Grey shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt gris</szItemName>
+    <szLongItemName>T-shirt gris</szLongItemName>
+    <szItemDesc>Un banal T-shirt gris.</szItemDesc>
+    <szBRName>T-shirt gris</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, tu sais ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1611</uiIndex>
-    <szItemName>Yellow shirt</szItemName>
-    <szLongItemName>Yellow shirt</szLongItemName>
-    <szItemDesc>Part of the uniform of the armed administrative branch of the arulcan army.</szItemDesc>
-    <szBRName>Yellow shirt</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>T-shirt jaune</szItemName>
+    <szLongItemName>T-shirt jaune</szLongItemName>
+    <szItemDesc>Le haut de l'uniforme de l'intendance dans l'armée d'Arulco.</szItemDesc>
+    <szBRName>T-shirt jaune</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1612</uiIndex>
-    <szItemName>White shirt</szItemName>
-    <szLongItemName>White shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable yellow T-shirt.</szItemDesc>
-    <szBRName>White shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt blanc</szItemName>
+    <szLongItemName>T-shirt blanc</szLongItemName>
+    <szItemDesc>Un banal T-shirt blanc.</szItemDesc>
+    <szBRName>T-shirt blanc</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, tu sais ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1613</uiIndex>
-    <szItemName>Purple shirt</szItemName>
-    <szLongItemName>Purple shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable purple T-shirt.</szItemDesc>
-    <szBRName>Purple shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt violet</szItemName>
+    <szLongItemName>T-shirt violet</szLongItemName>
+    <szItemDesc>Un banal T-shirt violet.</szItemDesc>
+    <szBRName>T-shirt violet</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, comme vous pouvez le voir ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1614</uiIndex>
-    <szItemName>Red shirt</szItemName>
-    <szLongItemName>Red shirt</szLongItemName>
-    <szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
-    <szBRName>Red shirt</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>T-shirt rouge</szItemName>
+    <szLongItemName>T-shirt rouge</szLongItemName>
+    <szItemDesc>Attention : Le port de cette couleur criarde augmente le risque d'un décès prématuré.</szItemDesc>
+    <szBRName>T-shirt rouge</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1615</uiIndex>
-    <szItemName>Jean shirt</szItemName>
-    <szLongItemName>Jean shirt</szLongItemName>
-    <szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
-    <szBRName>Jean shirt</szBRName>
-    <szBRDesc>Jean. What kind of colour is 'jean' anyway? Stupid colour names. In my days, you wore black and that was it.</szBRDesc>
+    <szItemName>T-shirt Jean</szItemName>
+    <szLongItemName>T-shirt Jean</szLongItemName>
+    <szItemDesc>Attention : Le port de cette couleur criarde augmente le risque d'un décès prématuré.</szItemDesc>
+    <szBRName>T-shirt Jean</szBRName>
+    <szBRDesc>Jean... Qu'elles sont les couleurs de ce "jean", de toute façon ? À part ces stupides noms de couleurs. De mon temps, on le portait noir tout simplement.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1616</uiIndex>
-    <szItemName>Light green shirt</szItemName>
-    <szLongItemName>Light green shirt</szLongItemName>
-    <szItemDesc>A totally unremarkable light green yellow T-shirt.</szItemDesc>
-    <szBRName>Light green shirt</szBRName>
-    <szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+    <szItemName>T-shirt vert</szItemName>
+    <szLongItemName>T-shirt vert clair</szLongItemName>
+    <szItemDesc>Un banal T-shirt vert clair.</szItemDesc>
+    <szBRName>T-shirt vert clair</szBRName>
+    <szBRDesc>Eh oui, nous vendons des vêtements maintenant. C'est un tee-shirt, comme vous pouvez le voir ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1617</uiIndex>
-    <szItemName>Beige pants</szItemName>
-    <szLongItemName>Beige pants</szLongItemName>
-    <szItemDesc>Pants. Be sure to wear a pair if you leave the house.</szItemDesc>
-    <szBRName>Beige pants</szBRName>
-    <szBRDesc>We also sell pants. In beige. Sigh. What has this shop come to? Does anyone even read this?</szBRDesc>
+    <szItemName>Pantalon beige</szItemName>
+    <szLongItemName>Pantalon beige</szLongItemName>
+    <szItemDesc>Assurez-vous de porter le vôtre avant de quitter la maison.</szItemDesc>
+    <szBRName>Pantalon beige</szBRName>
+    <szBRDesc>Nous vendons aussi des pantalons, en beige. Pfff, à quoi sert cette boutique ? Quelqu'un a-t-il même lu ce message ?</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1618</uiIndex>
-    <szItemName>Black pants</szItemName>
-    <szLongItemName>Black army trousers</szLongItemName>
-    <szItemDesc>Part of the arulcan elite guard uniform.</szItemDesc>
-    <szBRName>Black pants</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Pantalon noir</szItemName>
+    <szLongItemName>Pantalon noir</szLongItemName>
+    <szItemDesc>Le pantalon de l'uniforme de la Garde de la Reine.</szItemDesc>
+    <szBRName>Pantalon noir</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1619</uiIndex>
     <szItemName>Bluejeans</szItemName>
     <szLongItemName>Bluejeans</szLongItemName>
-    <szItemDesc>A pair of no-name bluejeans.</szItemDesc>
+    <szItemDesc>Une paire de bluejeans sans nom.</szItemDesc>
     <szBRName>Bluejeans</szBRName>
-    <szBRDesc>You know, I used to wear them before they were cool.</szBRDesc>
+    <szBRDesc>Vous savez, j'avais l'habitude de les porter avant que ça devienne branché.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1620</uiIndex>
-    <szItemName>Army trousers</szItemName>
-    <szLongItemName>Army trousers</szLongItemName>
-    <szItemDesc>Standard army pants.</szItemDesc>
-    <szBRName>Army trousers</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>Pant. militaire</szItemName>
+    <szLongItemName>Pantalon militaire</szLongItemName>
+    <szItemDesc>Pantalon standard de l'armée.</szItemDesc>
+    <szBRName>Pantalon militaire</szBRName>
+    <szBRDesc>Pas à vendre.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1621</uiIndex>
-    <szItemName>Jean pants</szItemName>
-    <szLongItemName>Jean pants</szLongItemName>
-    <szItemDesc>Pants. This might be useful, don't you think?</szItemDesc>
-    <szBRName>Jean pants</szBRName>
-    <szBRDesc>42 little jeans had to lose their skin to create this jean pair of pants. So please buy it.</szBRDesc>
+    <szItemName>Pantalon jeans</szItemName>
+    <szLongItemName>Pantalon jeans</szLongItemName>
+    <szItemDesc>Un jeans, c'est toujours utile, n'est-ce pas ?</szItemDesc>
+    <szBRName>Pantalon jeans</szBRName>
+    <szBRDesc>42 petits jeans ont dû être utilisés pour créer ce pantalon. Achetez-le, s'il vous plaît.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1622</uiIndex>
-    <szItemName>Tan pants</szItemName>
-    <szLongItemName>Tan pants</szLongItemName>
-    <szItemDesc>Pants. Of limited use as a weapon, if you ask me. But you propably don't, I know you.</szItemDesc>
-    <szBRName>Tan pants</szBRName>
-    <szBRDesc>We are not sure what this has to do with a tan, but please buy them anyway.</szBRDesc>
+    <szItemName>Pantalon brun</szItemName>
+    <szLongItemName>Pantalon brun clair</szLongItemName>
+    <szItemDesc>Un pantalon d'une utilité limitée comme arme, si vous me le demandez. Mais vous ne le ferez pas, je vous connais.</szItemDesc>
+    <szBRName>Pantalon brun clair</szBRName>
+    <szBRDesc>Nous ne sommes pas sûr que cette couleur a un rapport avec le bronzage, mais de toute façon achetez-le, merci.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1623</uiIndex>
-    <szItemName>random NATO AR number 1</szItemName>
-    <szLongItemName>random NATO AR 1</szLongItemName>
-    <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
-    <szBRName>random NATO AR 1</szBRName>
-    <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+    <szItemName>Art. aléatoire 1 de l'OTAN</szItemName>
+    <szLongItemName>Article aléatoire 1 de l'OTAN</szLongItemName>
+    <szItemDesc>Si vous lisez ce message, c'est que Flugente n'a probablement pas piger la façon de créer des objets. Allez-le lui reprocher !</szItemDesc>
+    <szBRName>Article aléatoire 1 de l'OTAN</szBRName>
+    <szBRDesc>PAS DE DESCRIPTION !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1624</uiIndex>
-    <szItemName>random WP AR number 1</szItemName>
-    <szLongItemName>random WP AR 1</szLongItemName>
-    <szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
-    <szBRName>random WP AR 1</szBRName>
-    <szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
+    <szItemName>Article aléatoire 1 du PV</szItemName>
+    <szLongItemName>Article aléatoire 1 du PV</szLongItemName>
+    <szItemDesc>Si vous lisez ce message, c'est que Flugente n'a probablement pas piger la façon de créer des objets. Allez-le lui reprocher !</szItemDesc>
+    <szBRName>Article aléatoire 1 du PV</szBRName>
+    <szBRDesc>PAS DE DESCRIPTION !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1625</uiIndex>
-    <szItemName>Handcuffs</szItemName>
-    <szLongItemName>Handcuffs</szLongItemName>
-    <szItemDesc>If you want to arrest someone, it is helpful to keep them from using their hands.</szItemDesc>
-    <szBRName>Handcuffs</szBRName>
-    <szBRDesc>Standard police handcuffs.</szBRDesc>
+    <szItemName>Menottes</szItemName>
+    <szLongItemName>Menottes</szLongItemName>
+    <szItemDesc>Si vous voulez arrêter quelqu'un, il est très utile de les empêcher d'utiliser leurs mains.</szItemDesc>
+    <szBRName>Menottes</szBRName>
+    <szBRDesc>Des menottes de police.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1626</uiIndex>
-    <szItemName>Stun Gun</szItemName>
-    <szLongItemName>Stun Gun</szLongItemName>
-    <szItemDesc>If applied correctly, this stun gun will hit anyone it touches with over 2 million volts. In case you find yourself in need of a drooling, helpless victim.</szItemDesc>
-    <szBRName>Stun Gun</szBRName>
-    <szBRDesc>At 2 million V, this baby will leave even the sturdiest men helpless on the floor. Batteries not included!</szBRDesc>
+    <szItemName>Pistolet paral.</szItemName>
+    <szLongItemName>Pistolet paralysant</szLongItemName>
+    <szItemDesc>Si vous l'appliquez correctement, ce stupéfiant pistolet enverra plus de deux millions de volts à la personne qu'il touche. Dans le cas où vous vous trouvez dans le besoin d'avoir une victime impuissante.</szItemDesc>
+    <szBRName>Pistolet paralysant</szBRName>
+    <szBRDesc>Avec deux millions de volts, ce bébé laissera vos adversaires même les plus robustes, impuissants au sol. Piles non incluses !</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1627</uiIndex>
-    <szItemName>Pepper Spray</szItemName>
-    <szLongItemName>Pepper Spray</szLongItemName>
-    <szItemDesc>Well, its better than flailing your ams helplessly.</szItemDesc>
-    <szBRName>Pepper Spray</szBRName>
-    <szBRDesc>Repel any thug with this pepper spray. Spray into his face for best effect.</szBRDesc>
+    <szItemName>Gaz lacrymogène</szItemName>
+    <szLongItemName>Extincteur lacrymo.</szLongItemName>
+    <szItemDesc>Eh bien, c'est nettement mieux que d'agiter désespérément vos bras.</szItemDesc>
+    <szBRName>Extincteur lacrymogène</szBRName>
+    <szBRDesc>Repousser toutes sortes de voyous avec cet extincteur lacrymogène. Vaporisez vers le visage pour un meilleur résultat.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1628</uiIndex>
-    <szItemName>Spray Canister</szItemName>
-    <szLongItemName>Pepper Spray Canister</szLongItemName>
-    <szItemDesc>If you think you need to carry several of these, consider moving out of town.</szItemDesc>
-    <szBRName>Pepper Spray Canister</szBRName>
-    <szBRDesc>Though one might think so, putting this on your food is not the best idea you could have.</szBRDesc>
+    <szItemName>Bidon lacrymo.</szItemName>
+    <szLongItemName>Bidon lacrymogène</szLongItemName>
+    <szItemDesc>Si vous pensez faire un stock de ces bidons, envisagez de déménager hors de la ville.</szItemDesc>
+    <szBRName>Recharge lacrymogène</szBRName>
+    <szBRDesc>On peut y penser, mais en mettre sur votre nourriture n'est pas la meilleure idée que vous ayez.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1629</uiIndex>
-    <szItemName>Scuba Mask</szItemName>
-    <szLongItemName>Scuba Mask</szLongItemName>
-    <szItemDesc>This mask, in conjunction with a diving bottle, allows you to stay underwater.</szItemDesc>
-    <szBRName>Scuba Mask</szBRName>
-    <szBRDesc>Whenever you feel you could go down, be sure to protect your eyes and retain vision with one of these.</szBRDesc>
+    <szItemName>Masque plongée</szItemName>
+    <szLongItemName>Masque de plongée</szLongItemName>
+    <szItemDesc>Ce masque, relié avec une bouteille de plongée, vous permet de rester sous l'eau.</szItemDesc>
+    <szBRName>Masque de plongée</szBRName>
+    <szBRDesc>Chaque fois que vous allez faire de la plongée, n'oubliez pas de protéger vos yeux avec ce masque pour avoir une bonne vision.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1630</uiIndex>
-    <szItemName>Diving Bottle</szItemName>
-    <szLongItemName>Diving Bottle</szLongItemName>
-    <szItemDesc>Contains enough oxygen to stay underwater for many minutes.</szItemDesc>
-    <szBRName>Diving Bottle</szBRName>
-    <szBRDesc>Standard equipment for divers.</szBRDesc>
+    <szItemName>Bout. plongée</szItemName>
+    <szLongItemName>Bouteille plongée</szLongItemName>
+    <szItemDesc>Elle contient suffisamment d'oxygène pour rester sous l'eau pendant plusieurs minutes.</szItemDesc>
+    <szBRName>Bouteille de plongée</szBRName>
+    <szBRDesc>Une bouteille pour la plongée sous-marine.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1631</uiIndex>
-    <szItemName>Scuba Fins</szItemName>
-    <szLongItemName>Scuba Fins</szLongItemName>
-    <szItemDesc>What you'll lose in maneuverability on land you'll gain in water.</szItemDesc>
-    <szBRName>Scuba Fins</szBRName>
-    <szBRDesc>Not only can you swim much faster with these, you'll also be the star of every penguin-themed costume party.</szBRDesc>
+    <szItemName>Palmes</szItemName>
+    <szLongItemName>Palmes</szLongItemName>
+    <szItemDesc>Avec ces palmes, vous allez perdre de la mobilité sur le terrain, mais vous allez le gagner dans l'eau.</szItemDesc>
+    <szBRName>Palmes</szBRName>
+    <szBRDesc>Non seulement vous pouvez nager beaucoup plus vite avec ces palmes, mais vous serez également la star des soirées costumées sur le thème des pingouins.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1632</uiIndex>
-    <szItemName>Binders</szItemName>
-    <szLongItemName>Stack of Binders</szLongItemName>
-    <szItemDesc>Surprisingly, this also works on people, as a very poor man's handcuff.</szItemDesc>
-    <szBRName>Stack of Binders</szBRName>
-    <szBRDesc>Useful for sorting your cables. This stack should be enough for your office.</szBRDesc>
+    <szItemName>Colliers</szItemName>
+    <szLongItemName>Colliers de serrage</szLongItemName>
+    <szItemDesc>C'est incroyable, ça fonctionne aussi sur les gens comme des menottes d'un corne-cul.</szItemDesc>
+    <szBRName>Colliers de serrage</szBRName>
+    <szBRDesc>Très utile pour trier vos câbles. Ce paquet devrait être suffisant pour vos besoins.</szBRDesc>
   </ITEM>
 </ITEMLIST>
