@@ -47370,7 +47370,7 @@
 		<szLongItemName>Neurotoxin Dart</szLongItemName>
 		<szItemDesc>A true Assassin's choice. The slightest skin contact will kill the target in under a minute. No salvation possible.</szItemDesc>
 		<szBRName>Neurotoxin Dart</szBRName>
-		<szBRDesc>Yo man, we jsut got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
+		<szBRDesc>Yo man, we just got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>601</ubClassIndex>
@@ -48856,6 +48856,29 @@
 		<Sinks>1</Sinks>
 		<BR_NewInventory>8</BR_NewInventory>
 		<ItemFlag>524288</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1633</uiIndex>
+		<szItemName>Dart Crate</szItemName>
+		<szLongItemName>Neurotoxin Dart Crate</szLongItemName>
+		<szItemDesc>A hundred insanely poisonous darts. Why do you need so many?</szItemDesc>
+		<szBRName>Neurotoxin Dart Crate</szBRName>
+		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>603</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>728</ubGraphicNum>
+		<ubWeight>100</ubWeight>
+		<ItemSize>34</ItemSize>
+		<usPrice>20000</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

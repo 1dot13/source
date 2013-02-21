@@ -57,6 +57,8 @@ For example, the new drug 'Occulin' has a <DrugType>425984</DrugType>. This give
 You can test the drug effect in game by showing the vision range of your merc. You will also notice icons on the merc portraits for different drug effects.
 
 More Infos: http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&Number=303972#Post303972
+
+Note: The regeneration drug has no entries - that is intended, because this effect is treated in a very different way.
 	
 -->
 <DRUGSLIST>
