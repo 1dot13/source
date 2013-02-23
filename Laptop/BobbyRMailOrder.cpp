@@ -77,8 +77,8 @@ enum
 	BR_DROP_DOWN_DISPLAY,
 };
 
-#define		BOBBYR_ORDER_NUM_SHIPPING_CITIES	17
-#define		BOBBYR_NUM_DISPLAYED_CITIES				10
+//#define		BOBBYR_ORDER_NUM_SHIPPING_CITIES	17
+//#define		BOBBYR_NUM_DISPLAYED_CITIES				10
 
 #define		BOBBYR_NUM_DISPLAYED_ITEMS				10
 
@@ -1504,7 +1504,8 @@ BOOLEAN CreateDestroyBobbyRDropDown( UINT8 ubDropDownAction )
 
 			usPosX = BOBBYR_CITY_START_LOCATION_X;
 			usPosY = BOBBYR_CITY_START_LOCATION_Y;
-			for( i=0; i< BOBBYR_NUM_DISPLAYED_CITIES; i++)
+			//for( i=0; i< BOBBYR_NUM_DISPLAYED_CITIES; i++)
+			for( i=0; i< guiNumOfDisplayedCities; i++)
 			{
 				MSYS_DefineRegion( &gSelectedDropDownRegion[i], usPosX, (UINT16)(usPosY+4), (UINT16)(usPosX+BOBBYR_DROP_DOWN_WIDTH-6), (UINT16)(usPosY+usFontHeight+7), MSYS_PRIORITY_HIGH,
 										CURSOR_WWW, SelectDropDownMovementCallBack, SelectDropDownRegionCallBack);
@@ -2112,7 +2113,8 @@ void DrawGoldRectangle( INT8 bCityNum )
 	//usHeight = usTempHeight / (BOBBYR_ORDER_NUM_SHIPPING_CITIES+1);
 	usHeight = usTempHeight / (gPostalService.LookupDestinationList().size()+1);
 
-	usPosY = usTempPosY + (UINT16)( ( ( BOBBYR_SCROLL_AREA_HEIGHT - 2 * BOBBYR_SCROLL_ARROW_HEIGHT ) /	(FLOAT)(BOBBYR_ORDER_NUM_SHIPPING_CITIES +1) ) * bCityNum );
+	//usPosY = usTempPosY + (UINT16)( ( ( BOBBYR_SCROLL_AREA_HEIGHT - 2 * BOBBYR_SCROLL_ARROW_HEIGHT ) / (FLOAT)(BOBBYR_ORDER_NUM_SHIPPING_CITIES +1) ) * bCityNum );
+	usPosY = usTempPosY + (UINT16)( ( ( BOBBYR_SCROLL_AREA_HEIGHT - 2 * BOBBYR_SCROLL_ARROW_HEIGHT ) / (FLOAT)(gPostalService.LookupDestinationList().size()+1) ) * bCityNum );
 
 	temp = BOBBYR_SCROLL_AREA_Y + BOBBYR_SCROLL_AREA_HEIGHT - BOBBYR_SCROLL_ARROW_HEIGHT - usHeight - 1;
 
