@@ -65,8 +65,8 @@ UINT16 NUM_SLOT;
 #define		SAVE_LOAD_TITLE_COLOR							FONT_MCOLOR_WHITE
 
 #define		SAVE_LOAD_NORMAL_FONT							FONT12ARIAL
-#define		SAVE_LOAD_NORMAL_COLOR							2
-#define		SAVE_LOAD_NORMAL_SHADOW_COLOR					118
+#define		SAVE_LOAD_NORMAL_COLOR							FONT_GRAY2
+#define		SAVE_LOAD_NORMAL_SHADOW_COLOR					FONT_NEARBLACK
 
 #define		SAVE_LOAD_QUICKSAVE_FONT						FONT12ARIAL
 #define		SAVE_LOAD_QUICKSAVE_COLOR						2
@@ -998,34 +998,61 @@ void GetSaveLoadScreenUserInput()
 			switch( Event.usParam )
 			{
 				case '1':
-					SetSelection( 1 );
+					SetSelection( 0 );
 					break;
 				case '2':
-					SetSelection( 2 );
+					SetSelection( 1 );
 					break;
 				case '3':
-					SetSelection( 3 );
+					SetSelection( 2 );
 					break;
 				case '4':
-					SetSelection( 4 );
+					SetSelection( 3 );
 					break;
 				case '5':
-					SetSelection( 5 );
+					SetSelection( 4 );
 					break;
 				case '6':
-					SetSelection( 6 );
+					SetSelection( 5 );
 					break;
 				case '7':
-					SetSelection( 7 );
+					SetSelection( 6 );
 					break;
 				case '8':
-					SetSelection( 8 );
+					SetSelection( 7 );
 					break;
 				case '9':
-					SetSelection( 9 );
+					SetSelection( 8 );
 					break;
 				case '0':
+					SetSelection( 9 );
+					break;
+				case '!':
 					SetSelection( 10 );
+					break;
+				case '@':
+					SetSelection( 11 );
+					break;
+				case '#':
+					SetSelection( 12 );
+					break;
+				case '$':
+					SetSelection( 13 );
+					break;
+				case '%':
+					SetSelection( 14 );
+					break;
+				case '^':
+					SetSelection( 15 );
+					break;
+				case '&':
+					SetSelection( 16 );
+					break;
+				case '*':
+					SetSelection( 17 );
+					break;
+				case '(':
+					SetSelection( 18 );
 					break;
 			}
 		}
@@ -1041,7 +1068,61 @@ void GetSaveLoadScreenUserInput()
 				case DNARROW:
 					MoveSelectionUpOrDown( FALSE );
 					break;
+				
+				case LEFTARROW:
+					// previous page
+					if ( PAGE_SLOT > 0 )
+					{
+						PAGE_SLOT = PAGE_SLOT - 1;
+					
+						if ( PAGE_SLOT == 0 || PAGE_SLOT < 0 )
+							VAL_SLOT_START = 0; 
+						else if ( PAGE_SLOT >= 1 )
+							VAL_SLOT_START = (PAGE_SLOT * 19);
+						
+						if (PAGE_SLOT == 0 || PAGE_SLOT < 0 )
+						{
+							DisableButton( guiPrevButton );
+							EnableButton( guiNextButton );
+							PAGE_SLOT = 0;
+						}
+						else if (PAGE_SLOT < MAX_PAGE_SLOT)
+						{
+							EnableButton( guiNextButton );
+						}
 
+						DestroySaveLoadTextInputBoxes();
+
+						NewEnterSaveLoadScreen();
+					}
+					break;
+				
+				case RIGHTARROW:
+					// next page
+					if ( PAGE_SLOT < MAX_PAGE_SLOT )
+					{
+						PAGE_SLOT = PAGE_SLOT + 1;
+
+						if ( PAGE_SLOT >= 1 )
+							VAL_SLOT_START = (PAGE_SLOT * 19);
+						else if ( PAGE_SLOT >= MAX_PAGE_SLOT )
+						{
+							VAL_SLOT_START = (MAX_PAGE_SLOT * 19);
+							PAGE_SLOT = MAX_PAGE_SLOT;
+						}
+
+						if (PAGE_SLOT > 0 )
+							EnableButton( guiPrevButton );
+
+						if (PAGE_SLOT > MAX_PAGE_SLOT || PAGE_SLOT == MAX_PAGE_SLOT )
+							DisableButton( guiNextButton );
+
+						DestroySaveLoadTextInputBoxes();
+
+						NewEnterSaveLoadScreen();
+					}
+					break;
+				
 				case ESC:
 					if( gbSelectedSaveLocation == -1 )
 					{
@@ -1759,20 +1840,22 @@ void BtnNewPrevButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( PAGE_SLOT == 0 || PAGE_SLOT < 0 )
 			VAL_SLOT_START = 0; 
 		else if ( PAGE_SLOT >= 1 )
-			VAL_SLOT_START = (PAGE_SLOT * 19);	
+			VAL_SLOT_START = (PAGE_SLOT * 19);
 			
-			if (PAGE_SLOT == 0 || PAGE_SLOT < 0 )
-			{
-				DisableButton( guiPrevButton );
-				EnableButton( guiNextButton );
-				PAGE_SLOT = 0;
-			}
-			else if (PAGE_SLOT < MAX_PAGE_SLOT)
-			{
-				EnableButton( guiNextButton );
-			}
-			
-			NewEnterSaveLoadScreen();			
+		if (PAGE_SLOT == 0 || PAGE_SLOT < 0 )
+		{
+			DisableButton( guiPrevButton );
+			EnableButton( guiNextButton );
+			PAGE_SLOT = 0;
+		}
+		else if (PAGE_SLOT < MAX_PAGE_SLOT)
+		{
+			EnableButton( guiNextButton );
+		}
+		
+		DestroySaveLoadTextInputBoxes();
+
+		NewEnterSaveLoadScreen();
 
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
@@ -1797,20 +1880,22 @@ void BtnNewNextButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		PAGE_SLOT = PAGE_SLOT + 1;
 		
 		if ( PAGE_SLOT >= 1 )
-			VAL_SLOT_START = (PAGE_SLOT * 19);	
+			VAL_SLOT_START = (PAGE_SLOT * 19);
 		else if ( PAGE_SLOT >= MAX_PAGE_SLOT )
 		{
-			VAL_SLOT_START = (MAX_PAGE_SLOT * 19);	
+			VAL_SLOT_START = (MAX_PAGE_SLOT * 19);
 			PAGE_SLOT = MAX_PAGE_SLOT;
 		}
 
-			if (PAGE_SLOT > 0 )
-				EnableButton( guiPrevButton );
+		if (PAGE_SLOT > 0 )
+			EnableButton( guiPrevButton );
 
-			if (PAGE_SLOT > MAX_PAGE_SLOT || PAGE_SLOT == MAX_PAGE_SLOT )
-				DisableButton( guiNextButton );
+		if (PAGE_SLOT > MAX_PAGE_SLOT || PAGE_SLOT == MAX_PAGE_SLOT )
+			DisableButton( guiNextButton );
+		
+		DestroySaveLoadTextInputBoxes();
 
-		NewEnterSaveLoadScreen();				
+		NewEnterSaveLoadScreen();
 				
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
