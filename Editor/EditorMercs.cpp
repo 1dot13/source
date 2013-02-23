@@ -3769,7 +3769,7 @@ void PasteMercPlacement( INT32 iMapIndex )
 
 		if( gTempBasicPlacement.fDetailedPlacement )
 		{
-			CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo( &tempDetailedPlacement, &gTempDetailedPlacement, &gTempBasicPlacement );
+			CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo( &tempDetailedPlacement, &gTempDetailedPlacement, &gTempBasicPlacement, sSectorX, sSectorY );
 		}
 		else
 		{

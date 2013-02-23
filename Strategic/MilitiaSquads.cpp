@@ -31,6 +31,7 @@
 #include "connect.h"
 #include "MilitiaSquads.h"
 #include "Reinforcement.h"
+#include "Inventory Choosing.h"		// added by Flugente for MoveOneMilitiaEquipmentSet() and MoveMilitiaEquipment()
 
 // Debug defines
 
@@ -321,6 +322,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				ubTargetElite--;
 				ubMilitiaToTrain--;
 				ubActualyAdded++;
+				MoveOneMilitiaEquipmentSet(sMapX, sMapY, sTMapX, sTMapY, ELITE_MILITIA);
 			}
 			else if (ubTargetRegular > 0)
 			{
@@ -329,6 +331,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				ubTargetRegular--;
 				ubMilitiaToTrain--;
 				ubActualyAdded++;
+				MoveOneMilitiaEquipmentSet(sMapX, sMapY, sTMapX, sTMapY, REGULAR_MILITIA);
 			}
 			else if (ubTargetGreen > 0)
 			{
@@ -337,6 +340,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				ubTargetGreen--;
 				ubMilitiaToTrain--;
 				ubActualyAdded++;
+				MoveOneMilitiaEquipmentSet(sMapX, sMapY, sTMapX, sTMapY, GREEN_MILITIA);
 			}
 			else
 			{
@@ -366,7 +370,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 					GetWorldDay( ) < gGameExternalOptions.guiTrainVeteranMilitiaDelay )) // Or not YET allowed to train elites
 				{
 					// Add a regular. This will effectively replace one Green militia
-					StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
+					StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1);
 					ubTargetElite--;
 					ubMilitiaToTrain--;	
 					ubActualyAdded++;
@@ -599,6 +603,10 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			bRegularsDestTeam = bTotalRegulars - bRegularsSourceTeam;
 			bElitesDestTeam = bTotalElites - bElitesSourceTeam;
 
+			// Flugente: mobiles take along their gear
+			// move only gear for those who come new into a sector
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+
 			// Erase ALL militia from both locations.
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
@@ -626,6 +634,10 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			bElitesSourceTeam = pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 			bElitesDestTeam = bElitesSourceTeam / 2;
+
+			// Flugente: mobiles take along their gear
+			// move only gear for those who come new into a sector
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
 
 			// Add half team to target sector
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, bGreensDestTeam );
@@ -703,6 +715,10 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 				}
 			}
 
+			// Flugente: mobiles take along their gear
+			// move only gear for those who come new into a sector
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+
 			// Erase ALL militia from both locations.
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
@@ -721,6 +737,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 		}
 		else
 		{
+			// Flugente: mobiles take along their gear
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+
 			// Entire group moves from Source to Target, leaving no one behind.			
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );

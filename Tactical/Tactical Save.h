@@ -49,6 +49,8 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile();
 // Loads a World Item array from that sectors temp item file
 BOOLEAN LoadWorldItemsFromTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, WORLDITEM *pData );
 
+BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 uiNumberOfItems, WORLDITEM *pData );
+
 //When the savegame version changes, load the temp files, then immediately save them again in the new format
 BOOLEAN UpdateWorldItemsTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 

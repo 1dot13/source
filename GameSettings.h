@@ -473,6 +473,19 @@ typedef struct
 	INT8	bRegularMilitiaEquipmentQualityModifier;
 	INT8	bVeteranMilitiaEquipmentQualityModifier;
 
+	// Flugente - militia equipment
+	BOOLEAN	fMilitiaUseSectorInventory;
+	BOOLEAN fMilitiaUseSectorInventory_Armour;
+	BOOLEAN fMilitiaUseSectorInventory_Face;
+	BOOLEAN fMilitiaUseSectorInventory_Melee;
+	BOOLEAN fMilitiaUseSectorInventory_Gun;
+	BOOLEAN fMilitiaUseSectorInventory_Ammo;
+	BOOLEAN fMilitiaUseSectorInventory_Grenade;
+	BOOLEAN fMilitiaUseSectorInventory_Launcher;
+	UINT16 usMilitiaAmmo_Min;
+	UINT16 usMilitiaAmmo_Max;
+	UINT16 usMilitiaAmmo_OptimalMagCount;
+
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	BOOLEAN tonyUsesBRSetting;
 	BOOLEAN devinUsesBRSetting;

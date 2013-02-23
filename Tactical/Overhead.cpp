@@ -10219,3 +10219,34 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 	wcscpy( gzUserDefinedButton[3], TacticalStr[ PRISONER_TALK_STR ] );
 	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
 }
+
+void TeamDropAll(UINT8 bTeam)
+{
+	if ( bTeam > PLAYER_PLAN )
+		return;
+
+	// not if there is a battle going on, or this team is hostile to us
+	if ( (gTacticalStatus.uiFlags & INCOMBAT ) )
+		return;
+
+	if ( gTacticalStatus.Team[ gbPlayerNum ].bSide != gTacticalStatus.Team[ bTeam ].bSide )
+		return;
+
+	SOLDIERTYPE *pSoldier;
+
+#ifdef JA2BETAVERSION
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Team %d drops all items for inspection!", bTeam );
+#endif
+
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[ bTeam ].bFirstID;
+	UINT32 lastid  = gTacticalStatus.Team[ bTeam ].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	{
+		// if soldier is in the current sector, drop all equipment (that has the TAKEN_BY_MILITIA-flag set)
+		if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+		{
+			pSoldier->DropSectorEquipment();
+		}
+	}
+}

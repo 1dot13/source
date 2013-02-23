@@ -2186,7 +2186,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 
 	if( mclass == SOLDIER_CLASS_ELITE_MILITIA )
 	{
-		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_ELITE_MILITIA );
+		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_ELITE_MILITIA, sX, sY );
 		if( gpCivs[i].pSoldier->ubBodyType == REGFEMALE )
 		{
 			gpCivs[i].usIndex = MILITIA3F_FACE;
@@ -2198,7 +2198,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 	}
 	else if( mclass == SOLDIER_CLASS_REG_MILITIA )
 	{
-		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_REG_MILITIA );
+		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_REG_MILITIA, sX, sY );
 		if( gpCivs[i].pSoldier->ubBodyType == REGFEMALE )
 		{
 			gpCivs[i].usIndex = MILITIA2F_FACE;
@@ -2210,7 +2210,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 	}
 	else if( mclass == SOLDIER_CLASS_GREEN_MILITIA )
 	{
-		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_GREEN_MILITIA );
+		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_GREEN_MILITIA, sX, sY );
 		if( gpCivs[i].pSoldier->ubBodyType == REGFEMALE )
 		{
 			gpCivs[i].usIndex = MILITIA1F_FACE;
@@ -2725,6 +2725,10 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 					#endif
 					break;
 			}
+
+			// Flugente: drop sector equipment
+			gpCivs[ i ].pSoldier->DropSectorEquipment();
+
 			if( fDeleteForGood && gpCivs[ i ].pSoldier->stats.bLife < OKLIFE/2 )
 			{
 				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpCivs[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );

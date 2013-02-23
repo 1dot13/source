@@ -612,6 +612,15 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		}
 	}
 
+	if( gGameExternalOptions.fMilitiaUseSectorInventory && ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ ) )
+	{
+		//Shade the item, but only if it is an active item!
+		if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true)
+		{
+			UINT16 usMilitia_EQColor = Get16BPPColor( FROMRGB( 69, 197, 149 ) );
+			DrawHatchOnInventory_MilitiaAccess( guiSAVEBUFFER, sX, sY, MAP_INVEN_SLOT_WIDTH, MAP_INVEN_SLOT_IMAGE_HEIGHT , usMilitia_EQColor);
+		}
+	}
 
 	// the name
 
@@ -1316,13 +1325,24 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				if ( gpItemPointer == NULL )
 				{
-					swprintf( sString, pMapInventoryErrorString[ 2 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+					if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
+					{
+						if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ )
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~ WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+						else
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+					}
+					else
+					{
+						swprintf( sString, pMapInventoryErrorString[ 2 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+						DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+					}
 				}
 				else
 				{
 					swprintf( sString, pMapInventoryErrorString[ 5 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
-				}
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+					DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				}				
 				return;
 			}
 		}
@@ -1366,7 +1386,15 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				*/
 			}
 
-			BeginInventoryPoolPtr( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ) );
+			if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
+			{
+				if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ )
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~ WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+				else
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+			}
+			else
+				BeginInventoryPoolPtr( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ) );
 		}
 		else
 		{

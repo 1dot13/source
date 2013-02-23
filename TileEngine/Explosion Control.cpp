@@ -3701,7 +3701,7 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 						if ( Item[usBombItem].tripwire == 1 )
 						{
 							// this is important - we have to check wether the wire has already been activated 
-							if ( ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED ) == 0 )
+							if ( ( (*pObj)[0]->data.sObjectFlag & TRIPWIRE_ACTIVATED ) == 0 )
 							{
 								// determine this tripwire's flag
 								UINT32 ubWireNetworkFlag = (*pObj)[0]->data.ubWireNetworkFlag;
@@ -3751,7 +3751,7 @@ BOOLEAN ActivateSurroundingTripwire( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UIN
 									// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
 									// Because of this, ActivateSurroundingTripwire would normally find this wire again, thus a loop would occur.
 									// So we mark the wire with this flag
-									(*pObj)[0]->data.sObjectFlag |= CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED;
+									(*pObj)[0]->data.sObjectFlag |= TRIPWIRE_ACTIVATED;
 
 									// activate surrounding tripwires, unless tripwire is too much damaged and we are unlucky.. 
 									if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )
@@ -3918,7 +3918,7 @@ void HandleExplosionQueue( void )
 				}
 				
 				// delete the flag, otherwise wire will only work once
-				(newtripwireObject)[0]->data.sObjectFlag &= ~CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED;
+				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
 
 				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
 				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
@@ -3946,7 +3946,7 @@ void HandleExplosionQueue( void )
 				}
 				
 				// delete the flag, otherwise wire will only work once
-				(newtripwireObject)[0]->data.sObjectFlag &= ~CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED;
+				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
 
 				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
 				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
@@ -4434,7 +4434,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 						// Flugente hack: the tripwire will get removed in HandleExplosionQueue (it is still needed in there until the bomb gets called). 
 						// Because of this, ActivateSurroundingTripwire would normally find this wire again, thus a loop would occur.
 						// So we mark the wire with this flag
-						(*pObj)[0]->data.sObjectFlag |= CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED;
+						(*pObj)[0]->data.sObjectFlag |= TRIPWIRE_ACTIVATED;
 
 						// activate surrounding tripwires and tripwire-activated mines, unless tripwire is too much damaged and we are unlucky.. 
 						if ( (*pObj)[0]->data.objectStatus > (INT16)Random(50) )

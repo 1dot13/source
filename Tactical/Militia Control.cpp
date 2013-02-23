@@ -153,6 +153,9 @@ void ResetMilitia()
 		// a flag for autoresolve if different initialization or destruction is desired.
 		guiCurrentScreen = GAME_SCREEN;
 
+		// Flugente: cause all militia whose equipment is from this sector to drop it
+		TeamDropAll( MILITIA_TEAM );
+
 		RemoveMilitiaFromTactical();
 		ubNumGreen = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA);
 		ubNumReg = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA);

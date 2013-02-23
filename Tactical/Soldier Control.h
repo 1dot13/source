@@ -363,8 +363,8 @@ enum
 #define SOLDIER_POW					0x00000400	//1024		// we are a prisoner of war
 #define SOLDIER_ASSASSIN			0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
 
-/*#define ENEMY_NET_1_LVL_4		0x00001000	//4096
-#define ENEMY_NET_2_LVL_4       0x00002000	//8192
+/*#define SOLDIER_EQ_TAKEN			0x00001000	//4096		// this militia's equipment was taken from a sector inventory
+#define SOLDIER_EQ_EMPTY			0x00002000	//8192		// this militia has no equipment and is to be equipped from the sector inventory
 #define ENEMY_NET_3_LVL_4 		0x00004000	//16384
 #define ENEMY_NET_4_LVL_4		0x00008000	//32768
 
@@ -1533,6 +1533,8 @@ public:
 	void	StartMultiTurnAction(UINT8 usActionType);
 	void	CancelMultiTurnAction(BOOLEAN fFinished);
 	BOOLEAN	UpdateMultiTurnAction();
+
+	void	DropSectorEquipment();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

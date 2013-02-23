@@ -3241,6 +3241,38 @@ void DrawHatchOnInventory( UINT32 uiSurface, UINT16 usPosX, UINT16 usPosY, UINT1
 	UnLockVideoSurface( uiSurface );
 }
 
+void DrawHatchOnInventory_MilitiaAccess( UINT32 uiSurface, UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT16 usHeight, UINT16 usColor )
+{
+	UINT8	 *pDestBuf;
+	UINT32 uiDestPitchBYTES;
+	SGPRect ClipRect;
+	static UINT8 Pattern[8][8] =
+	{
+		1,0,0,0,0,0,0,0,
+		0,0,0,0,0,1,0,0,
+		0,0,1,0,0,0,0,0,
+		0,0,0,0,0,0,0,1,
+		0,0,0,0,1,0,0,0,
+		0,1,0,0,0,0,0,0,
+		0,0,0,0,0,0,1,0,
+		0,0,0,1,0,0,0,0
+	};
+	// CHRISL:
+	ClipRect.iLeft = usPosX-1;
+	ClipRect.iRight = usPosX + usWidth-1;
+	ClipRect.iTop = usPosY;
+	ClipRect.iBottom = usPosY + usHeight;
+
+	pDestBuf = LockVideoSurface( uiSurface, &uiDestPitchBYTES );	
+	if(usColor == 0){
+		Blt16BPPBufferPixelateRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, Pattern );
+	}
+	else{
+		Blt16BPPBufferPixelateRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, Pattern, usColor );
+	}
+	UnLockVideoSurface( uiSurface );
+}
+
 
 UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, UINT16 usItemID, FLOAT dModifier, OBJECTTYPE *pItemObject )
 {

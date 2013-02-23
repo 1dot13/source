@@ -412,13 +412,12 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 			sButtonY += MSGBOX_SMALL_BUTTON_WIDTH;
 
 			// begin from the front
-			sButtonX = sBlankSpace / 2 -  MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
+			sButtonX = sBlankSpace / 2;
 
 			for ( INT8 j = 0; j < 4; ++j)
 			{
 				INT8 k = 4*i + j;
 
-				sButtonX += MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
 				gMsgBox.uiButton[k] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[k], FONT12ARIAL,
 														ubFontColor, ubFontShadowColor,
 														ubFontColor, ubFontShadowColor,
@@ -428,6 +427,8 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 				MSYS_SetBtnUserData( gMsgBox.uiButton[k], 0, k+1);
 				SetButtonCursor(gMsgBox.uiButton[k], usCursor);
 				ForceButtonUnDirty( gMsgBox.uiButton[k] );
+
+				sButtonX += 75 + MSGBOX_SMALL_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP;
 			}
 		}
 	}

@@ -423,7 +423,7 @@ SOLDIERTYPE* TacticalCreateArmyTroop();
 #ifdef ENABLE_ZOMBIES
 	SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
 #endif
-SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass );
+SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY );	// Flugente: added sector coordinates
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 
 // Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
@@ -461,7 +461,8 @@ UINT8 GetPythDistanceFromPalace( INT16 sSectorX, INT16 sSectorY );
 //Used to generate a detailed placement from a basic placement.	This assumes that the detailed placement
 //doesn't exist, meaning there are no static attributes.	This is called when you wish to convert a basic 
 //placement into a detailed placement just before creating a soldier.
-void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, BASIC_SOLDIERCREATE_STRUCT *bp );
+// Flugente: added sector coordinates, used for militia using sector equipment
+void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, BASIC_SOLDIERCREATE_STRUCT *bp, INT16 sX = -1, INT16 sY = -1 );
 
 //Used exclusively by the editor when the user wishes to change a basic placement into a detailed placement.
 //Because the intention is to make some of the attributes static, all of the information that can be generated
@@ -473,8 +474,9 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 //When you are ready to generate a soldier with a static detailed placement slot, this function will generate
 //the proper priority placement slot given the static detailed placement and it's accompanying basic placment.
 //For the purposes of merc editing, the static detailed placement is preserved.
+// Flugente: added sector coordinates, used for militia using sector equipment
 void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo( 
-		SOLDIERCREATE_STRUCT *pp, SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp );
+		SOLDIERCREATE_STRUCT *pp, SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp, INT16 sX = -1, INT16 sY = -1);
 
 //Used to update a existing soldier's attributes with the new static detailed placement info.	This is used
 //by the editor upon exiting the editor into the game, to update the existing soldiers with new information.

@@ -2055,7 +2055,7 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_VEST;
 
 					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS )
-						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED;
+						gTempObject[0]->data.sObjectFlag |= CORPSE_NO_PANTS;
 
 #ifdef ENABLE_ZOMBIES
 					if ( pCorpse->def.usFlags & ROTTING_CORPSE_NEVER_RISE_AGAIN )
@@ -2316,7 +2316,7 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_VEST )
 			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_NO_VEST;
 
-		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_PANTS_AND_TRIPWIRE_ACTIVATED )
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_PANTS )
 			gRottingCorpse[ iCorpseID ].def.usFlags |= ROTTING_CORPSE_NO_PANTS;
 				
 #ifdef ENABLE_ZOMBIES

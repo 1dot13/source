@@ -15,6 +15,9 @@
 //Kaiden: This constant is to flag items that an enemy drops when they die.
 #define	WORLD_ITEM_DROPPED_FROM_ENEMY								0x0800
 
+// Flugente: when equipping militia from inventory, do not consider this item
+#define	WORLD_ITEM_TABOO_FOR_MILITIA_EQ								0x1000
+
 class WORLDITEM;//dnl ch33 120909
 class _OLD_WORLDITEM;//dnl ch42 280909
 

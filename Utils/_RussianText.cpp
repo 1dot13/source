@@ -2930,6 +2930,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Требовать сдаться",
 	L"Предлоить сдаться",
 	L"Переговоры",
+	L"Militia inspection",//TODO.Translate
+	L"unused",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

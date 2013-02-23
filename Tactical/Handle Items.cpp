@@ -4683,7 +4683,11 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	wcscpy( gzUserDefinedButton[1], TacticalStr[ CLEAN_ONE_GUN_STR ] );
 	wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
 	wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
-	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
+	wcscpy( gzUserDefinedButton[4], TacticalStr[ MILITIA_DROP_EQ_STR ] );
+	wcscpy( gzUserDefinedButton[5], TacticalStr[ UNUSED_STR ] );
+	wcscpy( gzUserDefinedButton[6], TacticalStr[ UNUSED_STR ] );
+	wcscpy( gzUserDefinedButton[7], TacticalStr[ UNUSED_STR ] );
+	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
 }
 
 void CleanWeapons( BOOLEAN fCleanAll )
@@ -4853,6 +4857,11 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 		case 4:
 			// undisguise or take off custom clothes 
 			Strip(gpTempSoldier);
+			break;
+
+		case 5:
+			// militia drops all gear taken from sector inventory
+			TeamDropAll( MILITIA_TEAM );
 			break;
 		default:
 			break;

@@ -17,6 +17,8 @@
 	#include "EnemyItemDrops.h"
 	#include "strategic.h"
 	#include "Game Clock.h"
+	#include "message.h"
+	#include "Tactical Save.h"	// added by Flugente
 #endif
 
 /*
@@ -1262,7 +1264,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	if( bAmmoClips && usAmmoIndex )
 	{
 		//Madd: ensure a minimum # of bullets to make sure enemies don't run out and run away
-		while ( ( bAmmoClips * Weapon[usGunIndex].ubMagSize - Weapon[usGunIndex].ubMagSize) < 20 ) // each soldier should have at least 20 bullets, ie: 2 9mm 15rd clips, 3 7rd shotgun shells, 4 6rd speedloaders, etc.
+		while ( ( (bAmmoClips - 1) * Weapon[usGunIndex].ubMagSize ) < 20 ) // each soldier should have at least 20 bullets, ie: 2 9mm 15rd clips, 3 7rd shotgun shells, 4 6rd speedloaders, etc.
 		{
 			bAmmoClips++;
 		}
@@ -3572,3 +3574,1055 @@ UINT16 PickARandomAttachment(UINT8 typeIndex, INT8 bSoldierClass, UINT16 usBaseI
 	else
 		return 0;
 }
+
+////////////////// Flugente: militia equipment feature ///////////////////////////////////
+// determines how good an item is
+UINT32 ItemFitness( OBJECTTYPE* pObj, UINT8 idx )
+{
+	UINT32 value = 0;
+
+	if ( Item[ pObj->usItem ].usItemClass & IC_ARMOUR )
+	{
+		value = Armour[ Item[ pObj->usItem ].ubClassIndex ].ubProtection * Armour[ Item[ pObj->usItem ].ubClassIndex ].ubCoverage * (*pObj)[idx]->data.objectStatus;
+	}
+	else if ( Item[ pObj->usItem ].usItemClass & IC_FACE )
+	{
+		if ( Item[ pObj->usItem ].gasmask )
+			value = (*pObj)[idx]->data.objectStatus;
+		else if ( Item[ pObj->usItem ].hearingrangebonus )
+		{
+			value = Item[ pObj->usItem ].hearingrangebonus;
+		}
+		else
+		{
+			value += (NightTime() ? Item[ pObj->usItem ].nightvisionrangebonus : Item[ pObj->usItem ].dayvisionrangebonus );
+		}
+	}
+	else if ( Item[ pObj->usItem ].usItemClass & (IC_BLADE|IC_PUNCH) )
+	{
+		value = (*pObj)[idx]->data.objectStatus * Weapon[ Item[ pObj->usItem ].ubClassIndex ].ubImpact;
+	}
+	else if ( Item[ pObj->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+	{
+		// value is damage * range * firing rate, modified by number of attachments and accuracy
+		value = GetDamage(pObj) * GunRange(pObj, NULL) * max(1, GetAutofireShotsPerFiveAPs(pObj));
+
+		value = value * (10 + (UINT32)GetGunAccuracy(pObj)) / 10;
+
+		value = value * (10 + (*pObj)[0]->AttachmentListSize()) / 10;
+
+		value *= (*pObj)[idx]->data.objectStatus;
+	}
+	// default
+	else
+	{
+		value = (*pObj)[idx]->data.objectStatus * Item[pObj->usItem].ubCoolness;
+	}
+
+	return value;
+}
+
+// how much ammo does this item need?
+UINT32 GetNeededTotalAmmo( UINT16 usItem )
+{
+	// determine what amount of ammo is deemed 'enough' for this gun
+	return max(gGameExternalOptions.usMilitiaAmmo_Min, min(gGameExternalOptions.usMilitiaAmmo_Max, gGameExternalOptions.usMilitiaAmmo_OptimalMagCount * Weapon[ usItem ].ubMagSize));
+}
+
+// special version of ItemFitness() that takes ammo count into consideration
+UINT32 ItemFitness_WithAmmo( OBJECTTYPE* pObj, UINT8 idx, UINT32 uiBullets )
+{
+	return (ItemFitness(pObj, idx) * uiBullets) / max(1, GetNeededTotalAmmo(pObj->usItem));
+}
+
+// retreives the next free slot in pWorldItem (we want to keep it short and not add too many items) 
+UINT32 GetNextFreeIndex( WORLDITEM* pWorldItem, UINT32 uiMaxCount, UINT32 uiCount )
+{
+	for( ; uiCount < uiMaxCount; ++uiCount )
+	{
+		if( !pWorldItem[ uiCount ].fExists )
+			return uiCount;
+	}
+
+	return -1;
+}
+
+// These are the things we are searching for
+enum {
+	SI_HELMET = 0,
+	SI_VEST,
+	SI_LEGS,
+	SI_FACE1,
+	SI_FACE2,
+	SI_GASMASK,
+	SI_MELEE,
+	SI_GRENADE,
+	SI_GUN,
+	SI_LAUNCHER,
+
+	SI_MAX,
+} searchItem;
+
+// this structis used to store the location of the best item of a category, we use it to later easily retrieve it from the sector inventory
+struct ItemSearchStruct {
+	ItemSearchStruct::ItemSearchStruct() : found(FALSE), done(FALSE), pos(0), slot(0), soldierslot(0), val(0) {}
+	BOOLEAN found;			// has any item been found for this?
+	BOOLEAN done;			// are we done evaluating this item?
+	UINT32 pos;				// position in pWorldItem of this object
+	UINT8 slot;				// slot of the specific object on the position in pWorldItem
+	UINT16 soldierslot;		// slot on which this item should be equipped
+	UINT32 val;				// the fitness value of this object
+};
+
+// evaluate an object an remember it if it is the best so far
+void EvaluateObjForItem( WORLDITEM* pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi )
+{
+	// safety first
+	if ( !pWorldItem || !pObj || !pSi )
+		// THIS SHOULDN'T HAPPEN!
+		return;
+
+	for(UINT8 i = 0; i < pObj->ubNumberOfObjects; ++i)
+	{
+		UINT32 fitness = ItemFitness(pObj, i);
+		if ( !pSi->found || fitness > pSi->val )
+		{
+			pSi->found	= TRUE;
+			pSi->pos	= uiCount;
+			pSi->slot	= i;
+			pSi->val	= fitness;
+		}
+	}
+}
+
+// special version of EvaluateObjForItem(): we take the existing ammo count into consideration
+void EvaluateObjForItem_WithAmmo( WORLDITEM* pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi, UINT32 uiBullets )
+{
+	// safety first
+	if ( !pWorldItem || !pObj || !pSi )
+		// THIS SHOULDN'T HAPPEN!
+		return;
+
+	for(UINT8 i = 0; i < pObj->ubNumberOfObjects; ++i)
+	{
+		UINT32 fitness = ItemFitness_WithAmmo(pObj, i, uiBullets);
+		if ( !pSi->found || fitness > pSi->val )
+		{
+			pSi->found	= TRUE;
+			pSi->pos	= uiCount;
+			pSi->slot	= i;
+			pSi->val	= fitness;
+		}
+	}
+}
+
+// forward declaration for default parameter
+// if pSi has an entry, move gun from pWorldItem into pp
+void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake = 1 );
+
+// if pSi has an entry, move gun from pWorldItem into pp
+void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake )
+{
+	if ( pSi->found && !pSi->done )
+	{
+		UINT8 usRealTake = min(usTake, pWorldItem[ pSi->pos ].object.ubNumberOfObjects);
+		pWorldItem[ pSi->pos ].object.MoveThisObjectTo(gTempObject, usRealTake );
+
+		for ( UINT8 i = 0; i < usRealTake; ++i )
+			gTempObject[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+
+		pp->Inv[ pSi->soldierslot ]	= gTempObject;				
+		
+		if ( pWorldItem[ pSi->pos ].object.ubNumberOfObjects < 1 )
+		{
+			RemoveItemFromPool(pWorldItem[ pSi->pos ].sGridNo, (pSi->pos), pWorldItem[ pSi->pos ].ubLevel);
+			pWorldItem[ pSi->pos ].fExists = FALSE;
+		}
+	}
+
+	pSi->done = TRUE;
+}
+
+typedef std::map<UINT8, UINT32>	AmmoType_BulletCountMap;					// used to count how many bullets of an ammotype we have
+typedef std::map<UINT8, AmmoType_BulletCountMap> Calibre_BulletCountMap;	// this map stores a map containing all the different ammotypes and how many bulltes we have for them
+
+struct LauncherHelpStruct {
+	LauncherHelpStruct::LauncherHelpStruct() : fNeedsAmmo(TRUE), ammocount(0) {}
+	BOOLEAN fNeedsAmmo;		// the launcher isn't singleshot (LAW), it needs ammo
+	UINT16	ammocount;		// so much ammo found for this
+};
+
+typedef std::map<UINT16, LauncherHelpStruct> LauncherHelpMap;
+
+// how many bullets does this map have? (used for one caliber each)
+UINT32 GetTotalCalibreAmmo( AmmoType_BulletCountMap* pAmmoBulletMap )
+{
+	UINT32 bullets = 0;
+	AmmoType_BulletCountMap::iterator ammotype_itend = pAmmoBulletMap->end();
+	for( AmmoType_BulletCountMap::iterator ammotype_it = pAmmoBulletMap->begin(); ammotype_it != ammotype_itend; ++ammotype_it )
+	{
+		bullets += (*ammotype_it).second;
+	}
+
+	return bullets;
+}
+
+// are there enough bullets for the gun? 
+BOOLEAN EnoughBulletsForGun( UINT16 usItem, AmmoType_BulletCountMap* pAmmoBulletMap )
+{
+	if ( !pAmmoBulletMap || !(Item[usItem].usItemClass & IC_GUN) )
+		return FALSE;
+
+	// for now, we are satisfied if we have enough bullets for at least 2 magazines/at least 10 bullets/max 200 bullets. This could be externalised...
+	if ( GetTotalCalibreAmmo(pAmmoBulletMap) >= GetNeededTotalAmmo(usItem) )
+		return TRUE;
+
+	return FALSE;
+}
+
+// spawn fitting ammo for pObj from pAmmoBulletMap into pp
+void SpawnFittingAmmo(SOLDIERCREATE_STRUCT *pp, OBJECTTYPE* pObj, AmmoType_BulletCountMap* pAmmoBulletMap, BOOLEAN fUseAll )
+{
+	if ( !pObj || !pAmmoBulletMap || !(Item[pObj->usItem].usItemClass & IC_GUN) )
+		return;
+
+	BOOLEAN firstmag = TRUE;
+	OBJECTTYPE newMag;
+	UINT16 magsize = GetMagSize(pObj);	
+	UINT32 neededbullets = GetNeededTotalAmmo(pObj->usItem);
+	if ( fUseAll )
+		neededbullets = GetTotalCalibreAmmo(pAmmoBulletMap);
+
+	// we simply use up the ammotypes one after another. Until people complain, and this gets more complicated ;-)
+	AmmoType_BulletCountMap::iterator ammotype_itend = pAmmoBulletMap->end();
+	for( AmmoType_BulletCountMap::iterator ammotype_it = pAmmoBulletMap->begin(); ammotype_it != ammotype_itend; ++ammotype_it )
+	{
+		if ( (*ammotype_it).second > 0 )
+		{
+			UINT8 ammotype = (*ammotype_it).first;
+			UINT16 magitem = FindReplacementMagazine( Weapon[ pObj->usItem ].ubCalibre, magsize, ammotype );
+
+			while ( neededbullets > 0 )
+			{
+				UINT16 deductedbullets = min(neededbullets, min(magsize, (*ammotype_it).second));
+
+				(*ammotype_it).second	-= deductedbullets;
+				neededbullets			-= deductedbullets;
+
+				// the first mag goes right into the gun
+				if ( firstmag )
+				{
+					firstmag = FALSE;
+
+					(*pObj)[0]->data.gun.ubGunAmmoType = ammotype;
+					(*pObj)[0]->data.gun.ubGunShotsLeft = deductedbullets;
+				}
+				else
+				{
+					// create ammo in inventory
+					CreateAmmo(magitem, &gTempObject, deductedbullets);
+					gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+					PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+				}
+
+				// if we have as many bullets as we wanted, get out of here
+				if ( !neededbullets )
+					return;
+
+				// if we used all bullets of this ammotype, go to the next one
+				if ( !(*ammotype_it).second )
+					break;
+			}
+		}
+	}
+}
+
+void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, INT8 bSoldierClass)
+{
+	BOOLEAN fReturn					= FALSE;
+	UINT32 uiTotalNumberOfRealItems = 0;
+	UINT32 uiNumOriginalItems		= 0;
+	WORLDITEM* pWorldItem			= NULL;
+	SOLDIERCREATE_STRUCT tmp;
+	UINT32 uiCount					= 0;
+	INT32 dummygridno				= NOWHERE;
+
+	if ( !gGameExternalOptions.fMilitiaUseSectorInventory )
+		return;
+
+	TakeMilitiaEquipmentfromSector(sSourceX, sSourceY, 0, &tmp, bSoldierClass);
+
+	// open target sector inv
+	if( ( gWorldSectorX == sTargetX )&&( gWorldSectorY == sTargetY ) && (gbWorldSectorZ == 0 ) )
+	{
+		uiTotalNumberOfRealItems = guiNumWorldItems;
+		pWorldItem = gWorldItems;
+	}
+	else
+	{
+		// not loaded, load
+		// get total number, visable and invisible
+		fReturn = GetNumberOfWorldItemsFromTempItemFile( sTargetX, sTargetY, 0, &( uiTotalNumberOfRealItems ), TRUE );
+		Assert( fReturn );
+
+		if( uiTotalNumberOfRealItems > 0 )
+		{
+			// allocate space for the list
+			pWorldItem = new WORLDITEM[ uiTotalNumberOfRealItems ];
+			
+			// now load into mem
+			LoadWorldItemsFromTempItemFile(  sTargetX,  sTargetY, 0, pWorldItem );
+		}
+	}
+
+	uiNumOriginalItems = uiTotalNumberOfRealItems;
+
+	// we note the last item existing in the inventory (but not ammo, as we delete those). We use this to assess how much we really need to increase the inventory
+	UINT32 existingitemsfound = 0;
+
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
+	{
+		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
+		{
+			++existingitemsfound;
+			dummygridno = pWorldItem[ uiCount ].sGridNo;
+		}
+	}
+
+	if ( dummygridno == NOWHERE )
+	{
+		dummygridno = RandomGridNo();
+
+		if ( dummygridno == NOWHERE )
+			return;
+	}
+
+	/////////////////////////////// ADD ITEMS FROM STRUCT TO SECTOR /////////////////////////////////////////////////////
+	// We will now add the items from tmp to the target sector
+	// first, determine how many items we added, and add an increased copy of pWorldItem
+	UINT16 numnewitems = 0;
+	UINT8 invsize = tmp.Inv.size();
+	for (UINT8 i = 0; i < invsize; ++i)
+	{
+		if ( tmp.Inv[ i ].exists() )
+			++numnewitems;
+	}
+
+	// new total size needed is number of existing items found + number of needed ammo crate objects, but at least uiTotalNumberOfRealItems:
+	UINT32 uiNewInvSize = max(uiTotalNumberOfRealItems, existingitemsfound + numnewitems);
+
+	// create a bigger inventory wit big enough size
+	WORLDITEM* pWorldItem_tmp = new WORLDITEM[ uiNewInvSize ];
+	
+	// copy over old inventory
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
+	{
+		pWorldItem_tmp[uiCount] = pWorldItem[uiCount];
+	}
+
+	uiCount = 0;
+
+	// now add the items from the struct
+	for (UINT8 i = 0; i < invsize; ++i)
+	{
+		// only add existing items that were taken by militia (it can happen that we generate fitting ammo, do not take that)
+		if ( tmp.Inv[ i ].exists() && tmp.Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+		{
+			uiCount =  GetNextFreeIndex( pWorldItem_tmp, uiNewInvSize, uiCount );
+
+			if ( uiCount < 0 )
+			{
+				// Error! this shouldn't happen!
+				return;
+			}
+			
+			pWorldItem_tmp[uiCount].fExists										= TRUE;
+			pWorldItem_tmp[uiCount].sGridNo										= dummygridno;
+			pWorldItem_tmp[uiCount].ubLevel										= 0;
+			pWorldItem_tmp[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
+			pWorldItem_tmp[uiCount].bVisible									= 1;
+			pWorldItem_tmp[uiCount].bRenderZHeightAboveLevel					= 0;
+			pWorldItem_tmp[uiCount].soldierID									= -1;
+			pWorldItem_tmp[uiCount].object										= tmp.Inv[ i ];
+		}
+	}
+		
+	// use the new map
+	uiTotalNumberOfRealItems = uiNewInvSize;
+	delete[] pWorldItem;
+	pWorldItem = pWorldItem_tmp;
+	/////////////////////////////// ADD ITEMS FROM STRUCT TO SECTOR /////////////////////////////////////////////////////
+		
+	// save the changed intentory
+	// open sector inv
+	if( ( gWorldSectorX == sTargetX )&&( gWorldSectorY == sTargetY ) && (gbWorldSectorZ == 0 ) )
+	{
+		guiNumWorldItems = uiTotalNumberOfRealItems;
+		gWorldItems = pWorldItem;
+	}
+	else
+	{
+		//Save the Items to the the file
+		SaveWorldItemsToTempItemFile( sTargetX, sTargetY, 0, uiTotalNumberOfRealItems, pWorldItem );
+	}
+}
+
+void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, UINT8 usElites, UINT8 usRegulars, UINT8 usGreens)
+{
+	// atm there is no class-specific selection, but that might change in the future
+	for (UINT8 i = 0; i < usElites; ++i)
+	{
+		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_ELITE_MILITIA);
+	}
+
+	for (UINT8 i = 0; i < usRegulars; ++i)
+	{
+		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_REG_MILITIA);
+	}
+
+	for (UINT8 i = 0; i < usGreens; ++i)
+	{
+		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_GREEN_MILITIA);
+	}
+}
+
+void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
+{
+	BOOLEAN fReturn					= FALSE;
+	UINT32 uiTotalNumberOfRealItems = 0;
+	WORLDITEM* pWorldItem			= NULL;
+	UINT32 uiCount					= 0;
+	INT32 dummygridno				= NOWHERE;					// this gridno will be the new position of items we create (ammo crates)
+	BOOLEAN fNightTime				= NightTime();	
+	ItemSearchStruct si[SI_MAX];								// this struct stores the necessary data on the items we find during our search
+	Calibre_BulletCountMap calibrebulletountmap;				// a struct that saves all ammo we will find
+	UINT32 existingitemsfound		= 0;						// a counter that stores the number of really existing items in the inventory
+	UINT16 numcrates				= 0;
+	OBJECTTYPE newObj;
+	BOOLEAN fSearchForAmmo = TRUE;
+	UINT16 usLauncherItem			= 0;
+	UINT8 usLauncherAmmoLeftToTake	= 0;
+
+	if ( !gGameExternalOptions.fMilitiaUseSectorInventory )
+		return;
+		
+	// open sector inv
+	if( ( gWorldSectorX == sMapX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == sMapZ ) )
+	{
+		uiTotalNumberOfRealItems = guiNumWorldItems;
+		pWorldItem = gWorldItems;
+	}
+	else
+	{
+		// not loaded, load
+		// get total number, visable and invisible
+		fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, ( INT8 )( sMapZ ), &( uiTotalNumberOfRealItems ), FALSE );
+		Assert( fReturn );
+
+		if( uiTotalNumberOfRealItems > 0 )
+		{
+			// allocate space for the list
+			pWorldItem = new WORLDITEM[ uiTotalNumberOfRealItems ];
+
+			if ( !uiTotalNumberOfRealItems )
+				return;
+
+			// now load into mem
+			LoadWorldItemsFromTempItemFile(  sMapX,  sMapY, ( INT8 ) ( sMapZ ), pWorldItem );
+		}
+	}
+
+	std::vector<std::pair<BOOLEAN, UINT16> > blarg;
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
+	{
+		blarg.push_back( std::pair<BOOLEAN, UINT16>(pWorldItem[ uiCount ].fExists, pWorldItem[ uiCount ].object.usItem) );
+	}
+	
+	// initialize soldier slots
+	si[SI_HELMET].soldierslot	= HELMETPOS;
+	si[SI_VEST].soldierslot		= VESTPOS;
+	si[SI_LEGS].soldierslot		= LEGPOS;
+	si[SI_FACE1].soldierslot	= HEAD1POS;
+	si[SI_FACE2].soldierslot	= HEAD2POS;
+	si[SI_GASMASK].soldierslot	= MEDPOCK1POS;
+	si[SI_MELEE].soldierslot	= BIGPOCK1POS;
+	si[SI_GRENADE].soldierslot	= BIGPOCK2POS;
+	si[SI_GUN].soldierslot		= HANDPOS;
+	si[SI_LAUNCHER].soldierslot = BIGPOCK2POS;
+
+	// depending on gamesettings, we only have to search for some items
+	si[SI_HELMET].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
+	si[SI_VEST].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
+	si[SI_LEGS].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
+	si[SI_FACE1].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_FACE2].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_GASMASK].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_MELEE].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Melee;
+	si[SI_GRENADE].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Grenade;
+	si[SI_GUN].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Gun;
+	si[SI_LAUNCHER].done	= !gGameExternalOptions.fMilitiaUseSectorInventory_Launcher;
+	fSearchForAmmo			= (gGameExternalOptions.fMilitiaUseSectorInventory_Gun && gGameExternalOptions.fMilitiaUseSectorInventory_Ammo);	// we only search for ammo if we also search for guns
+
+	LauncherHelpMap launcherhelpmap;
+		
+	// erase existing soldier inventory, if any
+	for ( UINT8 i = 0; i < pp->Inv.size(); ++i )
+	{ 
+		//clear items, but only if they have write status.
+		if( !(pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE) )
+		{
+			if ( Item[pp->Inv[ i ].usItem].usItemClass & IC_ARMOUR && gGameExternalOptions.fMilitiaUseSectorInventory_Armour )
+			{
+				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+					si[SI_HELMET].done = si[SI_VEST].done = si[SI_LEGS].done = TRUE;
+				else
+					DeleteObj(&pp->Inv[ i ]);
+			}
+			else if ( Item[pp->Inv[ i ].usItem].usItemClass & IC_FACE && gGameExternalOptions.fMilitiaUseSectorInventory_Face )
+			{
+				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+					si[SI_FACE1].done = si[SI_FACE2].done = si[SI_GASMASK].done = TRUE;
+				else
+					DeleteObj(&pp->Inv[ i ]);
+			}			
+			else if ( Item[pp->Inv[ i ].usItem].usItemClass & (IC_BLADE|IC_PUNCH) && gGameExternalOptions.fMilitiaUseSectorInventory_Melee )
+			{
+				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+					si[SI_MELEE].done = TRUE;
+				else
+					DeleteObj(&pp->Inv[ i ]);
+			}
+			else if ( Item[pp->Inv[ i ].usItem].usItemClass & IC_GRENADE && gGameExternalOptions.fMilitiaUseSectorInventory_Grenade )
+			{
+				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+					si[SI_GRENADE].done = TRUE;
+				else
+					DeleteObj(&pp->Inv[ i ]);
+			}
+			else if ( Item[pp->Inv[ i ].usItem].usItemClass & (IC_GUN|IC_AMMO) && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )
+			{
+				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+				{
+					si[SI_GUN].done = TRUE;
+					fSearchForAmmo = FALSE;
+				}
+				else
+					DeleteObj(&pp->Inv[ i ]);
+			}
+			else if ( Item[pp->Inv[ i ].usItem].usItemClass & IC_LAUNCHER && gGameExternalOptions.fMilitiaUseSectorInventory_Launcher )
+			{
+				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+					si[SI_LAUNCHER].done = TRUE;
+				else
+					DeleteObj(&pp->Inv[ i ]);
+			}
+		}
+	}
+
+	if ( uiTotalNumberOfRealItems == 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Militia found no items to equip, uses harsh langugage instead!" );
+		return;
+	}
+		
+	// Preparation: first, remove all ammo from all guns and merge it into ammo crates. add these crates at the beginning of pWorldItem, sorted by caliber. Remember the total bullet count
+	// While doing this loop, also check if there exist any guns/helmets/.. etc., If not, then we can simply skip the specific checks by setting the corresponding markers to true
+	// we can ease up work by already checking for reachability and militia accessabilitiy
+	// Then we will do a first loop over all items. In here, we will check for which guns and launchers there exists sufficient ammo. 
+	// We will save these calibers in a map, where we also store the amount of ammo available in the crates.
+	// We will only allow the selection of a gun if
+	// - it is not jammed
+	// - its status is over 50% (ini parameter, TODO)
+	// - there is at least 2 times its magazine capacity available (but check for a minimum of 10 [parameter] bullets and a maximum of 300 [paramter] bullets)
+	// if possible, select such a gun and add ammo in fitting magazines
+	//	 if necessary, reload gun
+	// if not possible, lower these thresholds
+
+	// Idea: only sort at the very first loop of calling this function (1st militia). After the last loop (last militiaman), resort again to shorten the list
+
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
+	{
+		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
+		{
+			dummygridno = pWorldItem[ uiCount ].sGridNo;
+
+			OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
+
+			if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
+			{
+				// this would be the place where we check wether the militia is allowed to pick up an item depending on its soldierclass
+
+				// test wether item is reachable and useable by militia
+				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ) )
+				{
+					// armour
+					if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_ARMOUR && (!si[SI_HELMET].done || !si[SI_VEST].done || !si[SI_LEGS].done ) )
+					{
+						switch( Armour[ Item[ pWorldItem[ uiCount ].object.usItem ].ubClassIndex ].ubArmourClass )
+						{
+						case( ARMOURCLASS_HELMET ):
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_HELMET] );
+							break;
+						case( ARMOURCLASS_VEST ):
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_VEST] );
+							break;
+						case( ARMOURCLASS_LEGGINGS ):
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_LEGS] );
+							break;
+						}
+					}
+					// face gear
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_FACE && (!si[SI_FACE1].done || !si[SI_FACE2].done) )
+					{
+						// make sure we dont wear NVGs on the day or sunglasses at night (only posers wear sunglasses at night)
+						if ( ( !fNightTime && Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus > Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus )
+							|| ( fNightTime && Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus < Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus ) )
+							continue;
+
+						// gasmasks are reserved for a special slot and will only be worn if we do not have 2 face items. items that increase our vision (NVGs adn sungooggles) get to slot 1, everything else in 2
+						if ( Item[ pWorldItem[ uiCount ].object.usItem ].gasmask )
+							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GASMASK] );
+						else if ( Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus || Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus )
+							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_FACE1] );
+						else 
+							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_FACE2] );
+					}
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_BLADE|IC_PUNCH) && !si[SI_MELEE].done )
+					{
+						EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_MELEE] );
+					}
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_GRENADE && !si[SI_GRENADE].done )
+					{
+						// if this is a valid launchable for any launcher we found, update their potential ammocount
+						LauncherHelpMap::iterator itend = launcherhelpmap.end();
+						for (LauncherHelpMap::iterator it = launcherhelpmap.begin(); it != itend; ++it)
+						{
+							if ( (*it).second.fNeedsAmmo && ValidLaunchable( pWorldItem[ uiCount ].object.usItem, (*it).first ) )
+								(*it).second.ammocount += pWorldItem[ uiCount ].object.ubNumberOfObjects;
+						}
+
+						// if this item can be thrown, its a hand grenade, thus we will evaluate it
+						if ( Item[ pWorldItem[ uiCount ].object.usItem ].ubCursor == TOSSCURS )
+							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GRENADE] );
+					}
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_BOMB )
+					{
+						// if this is a valid launchable for any launcher we found, update their potential ammocount
+						LauncherHelpMap::iterator itend = launcherhelpmap.end();
+						for (LauncherHelpMap::iterator it = launcherhelpmap.begin(); it != itend; ++it)
+						{
+							if ( (*it).second.fNeedsAmmo && ValidLaunchable( pWorldItem[ uiCount ].object.usItem, (*it).first ) )
+								(*it).second.ammocount += pWorldItem[ uiCount ].object.ubNumberOfObjects;
+						}
+					}
+					// ammo
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_AMMO && fSearchForAmmo )
+					{
+						UINT16 usItem = pWorldItem[ uiCount ].object.usItem;
+						UINT16 usMagIndex = Item[usItem].ubClassIndex;
+
+						// we count ammo and then remove it. We will later add it again in the form of ammo crates
+						UINT8 calibre = Magazine[usMagIndex].ubCalibre;
+						UINT8 ammotype = Magazine[usMagIndex].ubAmmoType;
+						UINT32 newammo = 0;
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)	
+						{
+							newammo += (*pObj)[i]->data.ubShotsLeft;
+						}
+
+						// add ammo to our map
+						if ( calibrebulletountmap[calibre][ammotype] )
+							calibrebulletountmap[calibre][ammotype] += newammo;
+						else
+							calibrebulletountmap[calibre][ammotype] = newammo;
+
+						// delete items
+						RemoveItemFromPool(pWorldItem[uiCount].sGridNo,(uiCount),pWorldItem[uiCount].ubLevel);
+						pWorldItem[ uiCount ].fExists = FALSE;
+					}
+					// gun
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_GUN && !si[SI_GUN].done )
+					{
+						EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GUN] );
+
+						// we count ammo and then remove it. We will later add it again in the form of ammo crates
+						UINT8 calibre = Weapon[ pWorldItem[ uiCount ].object.usItem ].ubCalibre;
+						// guns in a stack can have different ammo, thus he need to add it individually
+						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)	
+						{
+							UINT8 ammotype = (*pObj)[i]->data.gun.ubGunAmmoType;
+
+							if ( (*pObj)[i]->data.gun.ubGunShotsLeft )
+							{
+								// add ammo to our map
+								if ( calibrebulletountmap[calibre][ammotype] )
+									calibrebulletountmap[calibre][ammotype] += (*pObj)[i]->data.gun.ubGunShotsLeft;
+								else
+									calibrebulletountmap[calibre][ammotype] = (*pObj)[i]->data.gun.ubGunShotsLeft;
+
+								// we empty the gun
+								(*pObj)[i]->data.gun.ubGunShotsLeft = 0;
+							}
+						}												
+					}
+					// launcher
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_LAUNCHER && !si[SI_LAUNCHER].done )
+					{
+						// add launcher type to our launcher map
+						LauncherHelpMap::iterator fnd = launcherhelpmap.find( pWorldItem[ uiCount ].object.usItem );
+						if ( fnd == launcherhelpmap.end() )
+						{
+							LauncherHelpStruct tmp;
+							tmp.fNeedsAmmo = !Item[pWorldItem[ uiCount ].object.usItem].singleshotrocketlauncher;
+							launcherhelpmap[ pWorldItem[ uiCount ].object.usItem ] = tmp;
+						}
+					}
+				}
+			}
+		}
+	}
+				
+	// if the dummy GridNo is still NOWHERE, we did not find a single reachable item. So we can just get out of here (no need to make ammo crates, as we did not find any ammo either)
+	if ( dummygridno == NOWHERE )
+	{
+		dummygridno = RandomGridNo();
+
+		if ( dummygridno == NOWHERE )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Militia found no items to equip, uses harsh langugage instead!" );
+			return;
+		}
+	}
+
+	SearchItemRetrieval( pWorldItem, &si[SI_HELMET], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_VEST], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_LEGS], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_FACE1], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_FACE2], pp );
+
+	// special: of there is a free face slot and we have a gasmask, equip it there
+	if ( si[SI_GASMASK].found )
+	{
+		if ( !si[SI_FACE1].found )
+			si[SI_GASMASK].soldierslot = si[SI_FACE1].soldierslot;
+		else if ( !si[SI_FACE2].found )
+			si[SI_GASMASK].soldierslot = si[SI_FACE2].soldierslot;
+	}
+
+	SearchItemRetrieval( pWorldItem, &si[SI_GASMASK], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_MELEE], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_GRENADE], pp, 2 );	// if on a stack, we are willing to take 2 grenades at once
+
+	// we investigate the launchers we found, and their ammo. 
+	// It can happen that we miss launcher ammo if it coccured earlier than a launcher, but this cannot be helped, as I dont want to add an extra loop over all items for this
+	if ( gGameExternalOptions.fMilitiaUseSectorInventory_Launcher && !si[SI_LAUNCHER].done )
+	{
+		LauncherHelpMap::iterator itend = launcherhelpmap.end();
+		for (LauncherHelpMap::iterator it = launcherhelpmap.begin(); it != itend; ++it)
+		{
+			// we pick the first launcher that needs no ammo or has enough ammo
+			if ( !(*it).second.fNeedsAmmo || (*it).second.ammocount > 3 )
+			{
+				usLauncherItem = (*it).first;
+				usLauncherAmmoLeftToTake = (*it).second.ammocount ? 3 : 0;
+			}
+		}
+	}
+
+	// if found a gun, check wether we have enough ammo for it
+	if ( si[SI_GUN].found )
+	{
+		UINT8 calibre = Weapon[ pWorldItem[ si[SI_GUN].pos ].object.usItem ].ubCalibre;
+
+		Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.find( calibre );
+		if ( !fSearchForAmmo || calibremap_it != calibrebulletountmap.end() )
+		{
+			// do we have enough ammo form that calibre?
+			if ( !fSearchForAmmo || EnoughBulletsForGun( pWorldItem[ si[SI_GUN].pos ].object.usItem, &((*calibremap_it).second) ) )
+			{
+				// awesome! then take that gun...
+				SearchItemRetrieval( pWorldItem, &si[SI_GUN], pp );
+
+				// ... and give us enough ammo
+				if ( fSearchForAmmo )
+					SpawnFittingAmmo(pp, &(pp->Inv[ HANDPOS ]), &((*calibremap_it).second), FALSE );
+			}
+			// too bad. We need to look for another weapon then
+			else
+			{
+				si[SI_GUN].found = FALSE;
+			}
+		}
+	}
+	// we didn't find any gun at all. Now what?
+	else
+	{
+		si[SI_GUN].done = TRUE;
+	}
+	 		
+	// if we found guns, but not enough ammo for our favourite, reset our results. In the next loop, we will also accept lower ammo counts
+	if ( !si[SI_GUN].done )
+	{
+		si[SI_GUN].found	= FALSE;
+		si[SI_GUN].val		= 0;
+	}
+
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
+	{
+		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
+		{
+			++existingitemsfound;
+			OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
+
+			if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
+			{
+				// this would be the place where we check wether the militia is allowed to pick up an item depending on its soldierclass
+
+				// test wether item is reachable 
+				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ) )
+				{
+					// only if we are still looking for a gun
+					if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_GUN && !si[SI_GUN].done )
+					{
+						UINT8 calibre = Weapon[ pWorldItem[ uiCount ].object.usItem ].ubCalibre;
+
+						Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.find( calibre );
+
+						if ( calibremap_it != calibrebulletountmap.end() )
+						{
+							UINT32 bullets = GetTotalCalibreAmmo( &((*calibremap_it).second) );
+
+							EvaluateObjForItem_WithAmmo( pWorldItem, pObj, uiCount, &si[SI_GUN], bullets );
+						}
+						// no ammo found... a gun without bullets is useless, ignore this thing
+						else
+						{
+							//EvaluateObjForItem_WithAmmo( pWorldItem, pObj, uiCount, &si[SI_GUN], 0 );
+						}
+					}
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_AMMO && fSearchForAmmo )
+					{
+						// THIS SHOULDN'T HAPPEN!!! ERROR IF IT DOES!!!
+						return;
+					}
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_LAUNCHER && !si[SI_LAUNCHER].done )
+					{
+						// if launcher is of the type we want, evaluate it
+						if ( pWorldItem[ uiCount ].object.usItem == usLauncherItem )
+						{
+							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_LAUNCHER] );
+						}
+					}
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GRENADE|IC_BOMB) && !si[SI_LAUNCHER].done && usLauncherAmmoLeftToTake )
+					{
+						// if launcher is of the type we want, evaluate it
+						if ( ValidLaunchable(pWorldItem[ uiCount ].object.usItem, usLauncherItem) )
+						{
+							// take item and reduce amount left to take
+							UINT8 totake = min(usLauncherAmmoLeftToTake, pWorldItem[ uiCount ].object.ubNumberOfObjects);
+							usLauncherAmmoLeftToTake = max(0, usLauncherAmmoLeftToTake - totake);
+							
+							pWorldItem[ uiCount ].object.MoveThisObjectTo(gTempObject, totake);
+
+							gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+
+							PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		
+							if ( pWorldItem[ uiCount ].object.ubNumberOfObjects < 1 )
+							{
+								RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
+								pWorldItem[ uiCount ].fExists = FALSE;
+							}
+						}
+					}
+				}
+			}			
+		}
+	}
+
+	SearchItemRetrieval( pWorldItem, &si[SI_LAUNCHER], pp );
+
+	// now that we know which gun to take, do so
+	// if found a gun, check wether we have enough ammo for it
+	if ( !si[SI_GUN].done )
+	{
+		if ( si[SI_GUN].found )
+		{
+			UINT8 calibre = Weapon[ pWorldItem[ si[SI_GUN].pos ].object.usItem ].ubCalibre;
+
+			Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.find( calibre );
+			if ( !fSearchForAmmo || calibremap_it != calibrebulletountmap.end() )
+			{
+				// do we have enough ammo form that calibre?
+				if ( !fSearchForAmmo || EnoughBulletsForGun( pWorldItem[ si[SI_GUN].pos ].object.usItem, &((*calibremap_it).second) ) )
+				{
+					// take this gun
+					SearchItemRetrieval( pWorldItem, &si[SI_GUN], pp );
+
+					// enough ammo found. Take the correct amount
+					SpawnFittingAmmo(pp, &(pp->Inv[ HANDPOS ]), &((*calibremap_it).second), FALSE );
+				}
+				else
+				{
+					// take this gun
+					SearchItemRetrieval( pWorldItem, &si[SI_GUN], pp );
+
+					// not enough ammo... use whatever is left
+					SpawnFittingAmmo(pp, &(pp->Inv[ HANDPOS ]), &((*calibremap_it).second), TRUE );
+				}
+			}
+			// no ammo at all... this is bad
+			else
+			{
+				si[SI_GUN].done = TRUE;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Militia found no gun to equip, uses harsh langugage instead!" );
+			}
+		}
+		// we didn't find any gun at all. Now what?
+		else
+		{
+			si[SI_GUN].done = TRUE;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Militia found no gun to equip, uses harsh langugage instead!" );
+		}
+	}
+		 
+	// if we selected a gun but do not select ammo, we have to spawn fitting ammo the traditional way
+	if ( gGameExternalOptions.fMilitiaUseSectorInventory_Gun && !gGameExternalOptions.fMilitiaUseSectorInventory_Ammo)
+	{
+		UINT16 usGunIndex = pp->Inv[ HANDPOS ].usItem;
+		if ( usGunIndex )
+		{
+			// check default ammo first...
+			UINT16 usAmmoIndex = DefaultMagazine( usGunIndex );
+			UINT8 ubChanceStandardAmmo = 100;
+			if ( AmmoTypes[Magazine[ Item[ usAmmoIndex ].ubClassIndex ].ubAmmoType].standardIssue )
+				ubChanceStandardAmmo = 80;
+			else
+				ubChanceStandardAmmo = 100 - (Random(9) * 9);
+
+			usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo, max(Item[usGunIndex].ubCoolness, HighestPlayerProgressPercentage() / 10 + 3 ), pp->ubSoldierClass);
+
+			if ( usAmmoIndex <= 0 )
+				usAmmoIndex = DefaultMagazine(usGunIndex);
+
+			//Madd: ensure a minimum # of bullets to make sure enemies don't run out and run away
+			UINT8 numberofmags = 3 + Random(2);
+			while ( ( (numberofmags - 1) * Weapon[usGunIndex].ubMagSize ) < 20 ) // each soldier should have at least 20 bullets, ie: 2 9mm 15rd clips, 3 7rd shotgun shells, 4 6rd speedloaders, etc
+				++numberofmags;
+
+			CreateItems( usAmmoIndex, 100, numberofmags, &gTempObject );
+			gTempObject.fFlags |= OBJECT_UNDROPPABLE;
+			PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		}
+	}
+	 
+	/////////////////////////////// ADD AMMO CRATES /////////////////////////////////////////////////////
+	// add ammo in crates to the inventory
+	// if we found a gun, we've already deducted mmo for it. Now we add the ammo to the inventory again
+	// as we do not want to increase the sector inventory size needlessly, we analyzed in the last loop wether there are empty slots - we will fill these up
+
+	// TODO: this does not take into account instances where we will need MULTIPLE stacks of ammo crates
+	// first determine how many ammocrates we will create
+	Calibre_BulletCountMap::iterator calibremap_itend = calibrebulletountmap.end();
+	for ( Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.begin(); calibremap_it != calibremap_itend; ++calibremap_it )
+	{
+		numcrates += (*calibremap_it).second.size();
+	}
+
+	// new total size needed is number of existing items found + number of needed ammo crate objects, but at least uiTotalNumberOfRealItems:
+	UINT32 uiNewInvSize = max(uiTotalNumberOfRealItems, existingitemsfound + numcrates);
+
+	// create a bigger inventory wit big enough size
+	WORLDITEM* pWorldItem_tmp = new WORLDITEM[ uiNewInvSize ];
+	
+	// copy over old inventory
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
+	{
+		pWorldItem_tmp[uiCount] = pWorldItem[uiCount];
+	}
+
+	// set counter back to 0, as we will loop over the inventory in search for empty slots
+	uiCount = 0;
+
+	// add ammo crates	
+	for ( Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.begin(); calibremap_it != calibremap_itend; ++calibremap_it )
+	{
+		UINT8 calibre = (*calibremap_it).first;
+
+		AmmoType_BulletCountMap::iterator ammotype_itend = (*calibremap_it).second.end();
+		for( AmmoType_BulletCountMap::iterator ammotype_it = (*calibremap_it).second.begin(); ammotype_it != ammotype_itend; ++ammotype_it )
+		{
+			UINT8 ammotype = (*ammotype_it).first;
+			UINT32 bullets = (*ammotype_it).second;
+
+			if ( bullets > 0 )
+			{
+				// find a fitting crate
+				for(int iLoop = 0; iLoop < MAXITEMS; ++iLoop)
+				{
+					if (Item[iLoop].usItemClass == 0)
+						break; //no more valid items after this point
+
+					//if ammo crate && calibers match && Ammo Types match
+					if(Item[iLoop].usItemClass == IC_AMMO && Magazine[Item[iLoop].ubClassIndex].ubMagType == AMMO_CRATE && Magazine[Item[iLoop].ubClassIndex].ubCalibre == calibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == ammotype )
+					{
+						// We determine how many ammo crates we will need. We create them as a stack, where the first entry might not be full
+						// Note: if we exceed 255 crates, we would get an overflow, thus the min()-check.
+						UINT8 neededcrates = min(255, bullets / Magazine[Item[iLoop].ubClassIndex].ubMagSize + 1);
+
+						CreateItems( iLoop, 100, neededcrates, &newObj );
+
+						bullets -= (neededcrates - 1) * Magazine[Item[iLoop].ubClassIndex].ubMagSize;
+						newObj[0]->data.ubShotsLeft = bullets;
+						bullets -= bullets;
+						
+						uiCount =  GetNextFreeIndex( pWorldItem_tmp, uiNewInvSize, uiCount );
+						if ( uiCount < 0 )
+						{
+							// Error! this shouldn't happen!
+							return;
+						}
+										
+						pWorldItem_tmp[uiCount].fExists										= TRUE;
+						pWorldItem_tmp[uiCount].sGridNo										= dummygridno;
+						pWorldItem_tmp[uiCount].ubLevel										= 0;
+						pWorldItem_tmp[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
+						pWorldItem_tmp[uiCount].bVisible									= 1;
+						pWorldItem_tmp[uiCount].bRenderZHeightAboveLevel					= 0;
+						pWorldItem_tmp[uiCount].soldierID									= -1;
+						pWorldItem_tmp[uiCount].object										= newObj;
+
+						break;
+					}
+				}
+			}
+
+			// if there are still bullets, then we did not find a fitting ammo crate. Better tell that to the player
+			// This can also happen if we'd need over 255 ammo crates
+			if ( bullets > 0 )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Found no ammocrate for calibre %d ammotype %d, %d bullets will be lost.", calibre, ammotype, bullets );
+			}
+		}
+	}
+
+	// use the new map
+	uiTotalNumberOfRealItems = uiNewInvSize;
+	delete[] pWorldItem;
+	pWorldItem = pWorldItem_tmp;
+	/////////////////////////////// ADD AMMO CRATES /////////////////////////////////////////////////////
+	
+	// save the changed intentory
+	// open sector inv
+	if( ( sMapX == gWorldSectorX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == sMapZ ) )
+	{
+		guiNumWorldItems = uiTotalNumberOfRealItems;
+		gWorldItems = pWorldItem;
+	}
+	else
+	{
+		//Save the Items to the the file
+		SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pWorldItem );
+	}
+}
+////////////////// Flugente: militia equipment feature ///////////////////////////////////

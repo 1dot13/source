@@ -1833,7 +1833,20 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.bRegularMilitiaEquipmentQualityModifier = iniReader.ReadInteger("Militia Strength Settings", "REGULAR_MILITIA_EQUIPMENT_QUALITY_MODIFIER", 0, -5, 10);
 	gGameExternalOptions.bVeteranMilitiaEquipmentQualityModifier = iniReader.ReadInteger("Militia Strength Settings", "VETERAN_MILITIA_EQUIPMENT_QUALITY_MODIFIER", 1, -5, 10);
 
+	//################# Militia Equipment Settings ##################
 
+	gGameExternalOptions.fMilitiaUseSectorInventory				= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT", FALSE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Armour		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_ARMOUR", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Face		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_FACE", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Melee		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_MELEE", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Gun			= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_GUN", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Ammo		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Grenade		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_GRENADE", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_Launcher	= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_LAUNCHER", TRUE);
+	gGameExternalOptions.usMilitiaAmmo_Min						= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_MIN",  10,  1, 400);
+	gGameExternalOptions.usMilitiaAmmo_Max						= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_MAX", 200, 30, 400);
+	gGameExternalOptions.usMilitiaAmmo_OptimalMagCount			= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_OPTIMAL_MAG_COUNT", 2, 1, 10);
+	
 	//################# Shopkeeper Inventory Settings ##################
 
 	// WDS - Improve Tony's and Devin's inventory like BR's

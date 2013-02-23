@@ -2093,7 +2093,7 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 //Used to generate a detailed placement from a basic placement.	This assumes that the detailed placement
 //doesn't exist, meaning there are no static attributes.	This is called when you wish to convert a basic
 //placement into a detailed placement just before creating a soldier.
-void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, BASIC_SOLDIERCREATE_STRUCT *bp )
+void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, BASIC_SOLDIERCREATE_STRUCT *bp, INT16 sX, INT16 sY )
 {
 	INT8 bBaseAttribute;
 	UINT8 ubSoldierClass;
@@ -2375,7 +2375,17 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 #else
 	if( !bp->fDetailedPlacement && ubSoldierClass != SOLDIER_CLASS_NONE && ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_MINER )
 #endif
-		GenerateRandomEquipment( pp, ubSoldierClass, bp->bRelativeEquipmentLevel);
+	{
+			GenerateRandomEquipment( pp, ubSoldierClass, bp->bRelativeEquipmentLevel);
+
+			// Flugente testing: militia get equipment in a different way
+			if ( pp->bTeam == MILITIA_TEAM && sX > 0 && sX < 17 && sY > 0 && sY < 17 )
+			{
+				INT8 sZ = gbWorldSectorZ > -1 ? gbWorldSectorZ : 0;
+
+				TakeMilitiaEquipmentfromSector(sX, sY, sZ, pp, ubSoldierClass);
+			}
+	}
 
 	DecideToAssignSniperOrders(pp);
 
@@ -2462,7 +2472,7 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 //the proper detailed placement slot given the static detailed placement and it's accompanying basic placement.
 //For the purposes of merc editing, the static detailed placement is preserved.
 void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
-		SOLDIERCREATE_STRUCT *pp, SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp )
+		SOLDIERCREATE_STRUCT *pp, SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp, INT16 sX, INT16 sY )
 {
 	UINT32 i;
 
@@ -2499,7 +2509,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 
 		return; //done
 	}
-	CreateDetailedPlacementGivenBasicPlacementInfo( pp, bp );
+	CreateDetailedPlacementGivenBasicPlacementInfo( pp, bp, sX, sY );
 	pp->ubScheduleID			= spp->ubScheduleID;
 	//Replace any of the new placement's attributes with static attributes.
 	if( spp->bExpLevel		!= -1 )			pp->bExpLevel			=	spp->bExpLevel;
@@ -2550,6 +2560,15 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 #endif
 	{
 		GenerateRandomEquipment( pp, bp->ubSoldierClass, bp->bRelativeEquipmentLevel);
+
+		// Flugente testing: militia get equipment in a different way
+		if ( pp->bTeam == MILITIA_TEAM && sX > 0 && sX < 17 && sY > 0 && sY < 17 )
+		{
+			INT8 sZ = gbWorldSectorZ > -1 ? gbWorldSectorZ : 0;
+
+			TakeMilitiaEquipmentfromSector(sX, sY, sZ, pp, bp->ubSoldierClass);
+		}
+
 		DecideToAssignSniperOrders(pp);
 	}
 
@@ -2958,7 +2977,7 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 }
 
 
-SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass )
+SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
@@ -2984,7 +3003,7 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass )
 	bp.bAttitude = (INT8) Random( MAXATTITUDES );
 	//bp.bAttitude = AGGRESSIVE;
 	bp.bBodyType = -1;
-	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp, sX, sY );
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
 
 	return pSoldier;
@@ -4293,7 +4312,10 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					// Chance to gain second weapon and ambidextrous trait
 					else if ( Chance( iChance/2 ) && !Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded && !BTraitAssigned  ) // 1/2 of chance
 					{
-						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
+						if ( pCreateStruct->bTeam == MILITIA_TEAM && gGameExternalOptions.fMilitiaUseSectorInventory && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )
+							;
+						else
+							(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 
 						pSoldier->stats.ubSkillTraits[1] = AMBIDEXTROUS_NT;
 

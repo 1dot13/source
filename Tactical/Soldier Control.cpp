@@ -112,6 +112,7 @@
 
 #include "IMP Skill Trait.h"	// added by Flugente
 #include "Food.h"				// added by Flugente
+#include "Tactical Save.h"		// added by Flugente for AddItemsToUnLoadedSector()
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -14717,6 +14718,11 @@ INT8		SOLDIERTYPE::GetUniformType()
 // is our equipment too good for a soldier?
 BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 {
+	// if militia is equipped from sector inventory(and thu by the player itself), then its item selection is no longer bound to any progress calculation
+	// we thus canno check for equipment - the only way to find out is to look at this guy sharply, and to eventually realise that this gear did not come from the player
+	if ( gGameExternalOptions.fMilitiaUseSectorInventory && this->IsAssassin() )
+		return FALSE;
+
 	// check the guns in our hands and rifle sling
 	// alert if we have more than 2, any of them has too much attachments or they are way too cool
 	UINT8 numberofguns = 0;
@@ -15708,6 +15714,65 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 	}
 
 	return TRUE;
+}
+
+void	SOLDIERTYPE::DropSectorEquipment()
+{
+	OBJECTTYPE* pObj = NULL;
+	UINT8 size = this->inv.size();
+
+	if ( ( this->sSectorX == gWorldSectorX ) && ( this->sSectorY == gWorldSectorY ) && ( this->bSectorZ == gbWorldSectorZ) )
+	{
+		for ( UINT8 cnt = 0; cnt < size; ++cnt )
+		{
+			pObj = &( this->inv[ cnt ] );
+
+			if ( pObj->exists()  )
+			{			
+				// Check if it's supposed to be dropped
+				if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) && !(Item[ pObj->usItem ].defaultundroppable ) && (*pObj)[0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+				{
+					(*pObj)[0]->data.sObjectFlag &= ~TAKEN_BY_MILITIA;
+
+					// if we are not replacing ammo, unload gun prior to dropping it
+					if ( !gGameExternalOptions.fMilitiaUseSectorInventory_Ammo && Item[ pObj->usItem ].usItemClass & IC_GUN )
+						(*pObj)[0]->data.gun.ubGunShotsLeft = 0;
+
+					AddItemToPool( this->sGridNo, pObj, 1 , this->pathing.bLevel, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
+					DeleteObj( &(this->inv[cnt]) );
+				}
+			}
+		}
+	}
+	else
+	{
+		OBJECTTYPE pObject[NUM_INV_SLOTS];
+		UINT8 counter = 0;
+
+		for ( UINT8 cnt = 0; cnt < size; ++cnt )
+		{
+			pObj = &( this->inv[ cnt ] );
+
+			if ( pObj->exists()  )
+			{			
+				// Check if it's supposed to be dropped
+				if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) && !(Item[ pObj->usItem ].defaultundroppable ) && (*pObj)[0]->data.sObjectFlag & TAKEN_BY_MILITIA )
+				{
+					(*pObj)[0]->data.sObjectFlag &= ~TAKEN_BY_MILITIA;
+
+					// if we are not replacing ammo, unload gun prior to dropping it
+					if ( !gGameExternalOptions.fMilitiaUseSectorInventory_Ammo && Item[ pObj->usItem ].usItemClass & IC_GUN )
+						(*pObj)[0]->data.gun.ubGunShotsLeft = 0;
+
+					pObject[counter++] = *pObj;
+
+					DeleteObj( &(this->inv[cnt]) );
+				}
+			}
+		}
+
+		AddItemsToUnLoadedSector( this->sSectorX, this->sSectorY, this->bSectorZ, RandomGridNo(), counter, pObject, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+	}
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

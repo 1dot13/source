@@ -408,4 +408,6 @@ STR16 GetNewTraitStr(UINT8 aTrait);		// Flugente: deal with the insane new trait
 
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );			// Flugente: offer the enemy the chance to surrender
 
+void TeamDropAll(UINT8 bTeam);
+
 #endif

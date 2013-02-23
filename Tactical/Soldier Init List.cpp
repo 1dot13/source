@@ -646,12 +646,12 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 			}
 		}
 		CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
-			&tempDetailedPlacement, curr->pDetailedPlacement, curr->pBasicPlacement );
+			&tempDetailedPlacement, curr->pDetailedPlacement, curr->pBasicPlacement, gWorldSectorX, gWorldSectorY );
 	}
 	else
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: create detailed placement"));
-		CreateDetailedPlacementGivenBasicPlacementInfo( &tempDetailedPlacement, curr->pBasicPlacement );
+		CreateDetailedPlacementGivenBasicPlacementInfo( &tempDetailedPlacement, curr->pBasicPlacement, gWorldSectorX, gWorldSectorY );
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: if not edit mode"));
@@ -1482,10 +1482,16 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 
 	//we now have the numbers of available slots for each soldier class, so loop through three times
 	//and randomly choose some (or all) of the matching slots to fill.	This is done randomly.
-	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY; ubCurrClass++ )
+	// Flugente: changed the order of the classes, as we want to ahve elites first (relevant if militia takes equipment from the sector)
+	UINT8 reorder[3];
+	reorder[0] = SOLDIER_CLASS_ELITE;
+	reorder[1] = SOLDIER_CLASS_ARMY;
+	reorder[2] = SOLDIER_CLASS_ADMINISTRATOR;
+
+	for( UINT8 i = 0; i < 3; ++i )
 	{
 		//First, prepare the counters.
-		switch( ubCurrClass )
+		switch( reorder[i] )
 		{
 		case SOLDIER_CLASS_ADMINISTRATOR:
 			pCurrSlots = &ubGreenSlots;
@@ -1506,13 +1512,13 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 		{
 			if( curr->pBasicPlacement->bTeam == ENEMY_TEAM || curr->pBasicPlacement->bTeam == MILITIA_TEAM )
 			{
-				if( curr->pBasicPlacement->ubSoldierClass == ubCurrClass )
+				if( curr->pBasicPlacement->ubSoldierClass == reorder[i] )
 				{
 					if( *pCurrSlots <= *pCurrTotal || Random( *pCurrSlots ) < *pCurrTotal )
 					{
 						curr->pBasicPlacement->bTeam = MILITIA_TEAM;
 						curr->pBasicPlacement->bOrders = STATIONARY;
-						switch( ubCurrClass )
+						switch( reorder[i] )
 						{
 						case SOLDIER_CLASS_ADMINISTRATOR:
 							curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_GREEN_MILITIA;
@@ -2537,17 +2543,37 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 	if (ubTotalSoldiers == 0)
 		return;
 
+	// Flugente: if militia picks up equipemnt from sectors, it is necessary to know from where it comes
+	INT16 sX = gWorldSectorX;
+	INT16 sY = gWorldSectorY;
+	
 	switch( ubStrategicInsertionCode )
 	{
-	case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
-	case INSERTION_CODE_EAST:		bDesiredDirection = SOUTHWEST;										break;
-	case INSERTION_CODE_SOUTH:	bDesiredDirection = NORTHWEST;										break;
-	case INSERTION_CODE_WEST:		bDesiredDirection = NORTHEAST;										break;
-	default:	AssertMsg( 0, "Illegal direction passed to AddSoldierInitListMilitiaOnEdge()" );	break;
+	case INSERTION_CODE_NORTH:	
+		bDesiredDirection = SOUTHEAST;
+		--sY;
+		break;
+	case INSERTION_CODE_EAST:
+		bDesiredDirection = SOUTHWEST;
+		--sX;
+		break;
+	case INSERTION_CODE_SOUTH:
+		bDesiredDirection = NORTHWEST;
+		++sY;
+		break;
+	case INSERTION_CODE_WEST:
+		bDesiredDirection = NORTHEAST;
+		++sX;
+		break;
+	default:	
+		AssertMsg( 0, "Illegal direction passed to AddSoldierInitListMilitiaOnEdge()" );
+		break;
 	}
 #ifdef JA2TESTVERSION
 	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Militia reinforcements have arrived!	(%d admins, %d troops, %d elite)", ubNumGreen, ubNumReg, ubNumElites );
 #endif
+
+	// Flugente: if militia takes items from sector inventories, then militia coming from neighbouring sectors will have to take it from there
 
 	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumGreen + ubNumReg + ubNumElites) );
 	ubCurrSlot = 0;
@@ -2557,7 +2583,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 		{
 			ubNumElites--;
 			ubTotalSoldiers--;
-			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_ELITE_MILITIA);
+			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_ELITE_MILITIA, sX, sY);
 
 			// Lesh: if pSoldier is NULL then no slot for a new men or other problems
 			//		it better to leave this function is such case
@@ -2597,7 +2623,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 		{
 			ubNumReg--;
 			ubTotalSoldiers--;
-			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_REG_MILITIA);
+			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_REG_MILITIA, sX, sY);
 
 			// Lesh: if pSoldier is NULL then no slot for a new men or other problems
 			//		it better to leave this function is such case
@@ -2637,7 +2663,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 		{
 			ubNumGreen--;
 			ubTotalSoldiers--;
-			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_GREEN_MILITIA);
+			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_GREEN_MILITIA, sX, sY);
 
 			// Lesh: if pSoldier is NULL then no slot for a new men or other problems
 			//		it better to leave this function is such case
