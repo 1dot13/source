@@ -4858,7 +4858,6 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			// undisguise or take off custom clothes 
 			Strip(gpTempSoldier);
 			break;
-
 		case 5:
 			// militia drops all gear taken from sector inventory
 			TeamDropAll( MILITIA_TEAM );
@@ -4879,19 +4878,25 @@ void CorpseMessageBoxCallBack( UINT8 ubExitValue )
 
 		INT8 level = gpTempSoldier->bTargetLevel;
 
+		INT16 sAPCost = CalcTotalAPsToAttack( gpTempSoldier, nextGridNoinSight, FALSE, gpTempSoldier->aiData.bAimTime );
+
 		switch (ubExitValue)
 		{
 		case 1:
 			DecapitateCorpse( gpTempSoldier, nextGridNoinSight, level );
+			DeductPoints( gpTempSoldier, sAPCost, 0 );
 			break;
 		case 2:
 			GutCorpse( gpTempSoldier, nextGridNoinSight, level );
+			DeductPoints( gpTempSoldier, sAPCost, 0 );
 			break;
 		case 3:
 			StripCorpse( gpTempSoldier, nextGridNoinSight, level );
+			DeductPoints( gpTempSoldier, sAPCost, 0 );
 			break;
 		case 4:
 			TakeCorpse( gpTempSoldier, nextGridNoinSight, level );
+			DeductPoints( gpTempSoldier, sAPCost, 0 );
 			break;
 		default:
 			break;

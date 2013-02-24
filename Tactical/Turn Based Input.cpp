@@ -4512,12 +4512,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				break;
 
-			// added by Flugente
-			case ':':
-
-				TeamDropAll( MILITIA_TEAM );
-				break;
-
 			case 'z':
 				if( fCtrl && fAlt )
 				{
