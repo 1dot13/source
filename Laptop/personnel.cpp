@@ -37,6 +37,9 @@
 #include "Soldier Macros.h"
 #include "InterfaceItemImages.h"
 
+#include "Map Screen Interface.h"	// added by Flugente
+
+
 // WDS - make number of mercenaries, etc. be configurable
 #define MAX_MERCS_ON_SCREEN 20
 
@@ -1309,7 +1312,12 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 	}
 
 	//Display the mercs name
-	mprintf(sX+iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y, sString );
+	if ( Menptr[iId].bAssignment < ON_DUTY && gGameExternalOptions.fUseXMLSquadNames )
+	{		
+		swprintf( sString, L"%s", SquadNames[ Menptr[iId].bAssignment ].squadname);
+	}
+	else
+		mprintf(sX+iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y, sString );
 
 	swprintf( sString, L"%s", pPersonnelAssignmentStrings[Menptr[iId].bAssignment]);
 

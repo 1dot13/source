@@ -775,6 +775,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_SquadNames.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_UniformColors.cpp"
 				>
 			</File>

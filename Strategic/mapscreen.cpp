@@ -2829,7 +2829,10 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	}
 	else
 	{
-		wcscpy( sString, pAssignmentStrings[ pSoldier->bAssignment ] );
+		if ( gGameExternalOptions.fUseXMLSquadNames )
+			swprintf( sString, L"%s", SquadNames[ pSoldier->bAssignment ].squadname );
+		else
+			wcscpy( sString, pAssignmentStrings[ pSoldier->bAssignment ] );
 	}
 
 	FindFontCenterCoordinates( CHAR_ASSIGN_X, CHAR_ASSIGN1_Y, CHAR_ASSIGN_WID, CHAR_ASSIGN_HEI, sString, CHAR_FONT, &usX, &usY );
@@ -15553,7 +15556,10 @@ void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 	}
 	else
 	{
-		wcscpy(sString, pAssignmentStrings[ pSoldier->bAssignment ] );
+		if ( gGameExternalOptions.fUseXMLSquadNames )
+			swprintf( sString, L" %s", SquadNames[ pSoldier->bAssignment ].squadname );
+		else
+			wcscpy(sString, pAssignmentStrings[ pSoldier->bAssignment ] );
 	}
 	// If soldier is working at a facility, add an asterisk.
 	if (pSoldier->sFacilityTypeOperated != -1)

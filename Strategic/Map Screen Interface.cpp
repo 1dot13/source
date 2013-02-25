@@ -367,6 +367,8 @@ SGPPoint OrigFacilityPosition = { 160, 150 }; // HEADROCK HAM 3.6
 SGPPoint OrigFacilityAssignmentPosition = { 220,150 }; // HEADROCK HAM 3.6
 //SGPPoint OrigTalkToAllPosition = { 160, 150 };
 
+SQUAD_NAMES	SquadNames[20];
+
 //extern BOOLEAN fMapExitDueToMessageBox;
 
 // at least one merc was hired at some time
@@ -3871,11 +3873,17 @@ void AddStringsToMoveBox( void )
 		// add this squad, now add all the grunts in it
 		if( fSquadIsMoving[ iCount ] )
 		{
-			swprintf( sString, L"*%s*", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
+			if ( gGameExternalOptions.fUseXMLSquadNames )
+				swprintf( sString, L"*%s*", SquadNames[ iSquadMovingList[ iCount ] ].squadname );
+			else
+				swprintf( sString, L"*%s*", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
 		else
 		{
-			swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
+			if ( gGameExternalOptions.fUseXMLSquadNames )
+				swprintf( sString, L"%s", SquadNames[ iSquadMovingList[ iCount ] ].squadname );
+			else
+				swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
 		AddMonoString(&hStringHandle, sString );
 
@@ -3962,11 +3970,17 @@ void AddStringsToMoveBox( void )
 			// add OTHER soldiers (not on duty nor in a vehicle)
 			if( IsSoldierSelectedForMovement( pSoldierMovingList[ iCount ] ) == TRUE )
 			{
-				swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
+				if ( gGameExternalOptions.fUseXMLSquadNames )
+					swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, SquadNames[	pSoldierMovingList[ iCount ]->bAssignment ].squadname );
+				else
+					swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
 			}
 			else
 			{
-				swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
+				if ( gGameExternalOptions.fUseXMLSquadNames )
+					swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, SquadNames[	pSoldierMovingList[ iCount ]->bAssignment ].squadname );
+				else
+					swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
 			}
 			AddMonoString(&hStringHandle, sString );
 		}

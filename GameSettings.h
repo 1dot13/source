@@ -1221,6 +1221,9 @@ typedef struct
 
 	BOOLEAN fRobotNoReadytime;						//DBrot: should the robot need to ready his gun?
 
+	// Flugente: externalised squad names
+	BOOLEAN fUseXMLSquadNames;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct

@@ -69,12 +69,15 @@ typedef PARSE_STAGE;
 #define FOODFILENAME							"Items\\Food.xml"
 #define CLOTHESFILENAME							"Items\\Clothes.xml"
 #define RANDOMITEMFILENAME						"Items\\RandomItem.xml"
+#define SQUADNAMEFILENAME						"SquadNames.xml"
 #define	AMMOFILENAME							"Items\\AmmoStrings.xml"
 #define	AMMOTYPESFILENAME						"Items\\AmmoTypes.xml"
 #define	INCOMPATIBLEATTACHMENTSFILENAME			"Items\\IncompatibleAttachments.xml"
 #define	ATTACHMENTSLOTSFILENAME					"Items\\AttachmentSlots.xml"
 #define LOADBEARINGEQUIPMENTFILENAME			"Items\\LoadBearingEquipment.xml"
 #define EXPLOSIONDATAFILENAME					"Items\\ExplosionData.xml"
+#define LBEPOCKETFILENAME						"Items\\Pockets.xml"
+#define LBEPOCKETPOPUPFILENAME					"Items\\PocketPopups.xml"
 
 #define	ENEMYGUNCHOICESFILENAME					"Inventory\\EnemyGunChoices.xml"	// default selection
 #define	GUNCHOICESFILENAME_ENEMY_ADMIN			"Inventory\\GunChoices_Enemy_Admin.xml"
@@ -91,8 +94,6 @@ typedef PARSE_STAGE;
 #define ITEMCHOICESFILENAME_MILITIA_REGULAR		"Inventory\\ItemChoices_Militia_Regular.xml"
 #define ITEMCHOICESFILENAME_MILITIA_ELITE		"Inventory\\ItemChoices_Militia_Elite.xml"
 #define	IMPITEMCHOICESFILENAME					"Inventory\\IMPItemChoices.xml"
-#define LBEPOCKETFILENAME						"Inventory\\Pockets.xml"
-#define LBEPOCKETPOPUPFILENAME					"Inventory\\PocketPopups.xml"
 #define MERCSTARTINGGEARFILENAME				"Inventory\\MercStartingGear.xml"
 #define ENEMYWEAPONDROPSFILENAME				"Inventory\\EnemyWeaponDrops.xml"
 #define ENEMYAMMODROPSFILENAME					"Inventory\\EnemyAmmoDrops.xml"
@@ -296,6 +297,10 @@ extern BOOLEAN WriteClothesStats();
 // Flugente: random items
 extern BOOLEAN ReadInRandomItemStats(STR fileName);
 extern BOOLEAN WriteRandomItemStats();
+
+// Flugente: squad names
+extern BOOLEAN ReadInSquadNamesStats(STR fileName);
+extern BOOLEAN WriteSquadNamesStats();
 
 extern BOOLEAN ReadInAmmoStats(STR fileName);
 extern BOOLEAN WriteAmmoStats();

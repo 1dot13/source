@@ -9226,10 +9226,16 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					swprintf( sString, pMapErrorString[ 37 ], pSoldier->name );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_TOO_FAR:
-					swprintf( sString, pMapErrorString[ 20 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
+					if ( gGameExternalOptions.fUseXMLSquadNames )
+						swprintf( sString, pMapErrorString[ 20 ], pSoldier->name, SquadNames[ iValue ].squadname );
+					else
+						swprintf( sString, pMapErrorString[ 20 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_FULL:
-					swprintf( sString, pMapErrorString[ 19 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
+					if ( gGameExternalOptions.fUseXMLSquadNames )
+						swprintf( sString, pMapErrorString[ 19 ], pSoldier->name, SquadNames[ iValue ].squadname );
+					else
+						swprintf( sString, pMapErrorString[ 19 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
 					break;
 				default:
 					// generic "you can't join this squad" msg
@@ -10059,13 +10065,17 @@ void CreateSquadBox( void )
  // add strings for box
  for(uiCounter=0; uiCounter <= uiMaxSquad; uiCounter++)
  {
-	// get info about current squad and put in	string
-	//SQUAD10 FIX
-	swprintf( sString, L"%s ( %d/%d )", pSquadMenuStrings[uiCounter], NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
-	AddMonoString(&hStringHandle, sString );
+	 // get info about current squad and put in	string
+	 //SQUAD10 FIX
+	 if ( gGameExternalOptions.fUseXMLSquadNames )
+		swprintf( sString, L"%s ( %d/%d )", SquadNames[ uiCounter ].squadname, NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
+	 else
+		swprintf( sString, L"%s ( %d/%d )", pSquadMenuStrings[uiCounter], NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
 
-	// make sure it is unhighlighted
-	UnHighLightLine(hStringHandle);
+	 AddMonoString(&hStringHandle, sString );
+
+	 // make sure it is unhighlighted
+	 UnHighLightLine(hStringHandle);
  }
 
  // add cancel line
@@ -13743,6 +13753,10 @@ UINT32 GetLastSquadListedInSquadMenu( void )
 	{
 		uiMaxSquad = NUMBER_OF_SQUADS - 1;
 	}
+
+	// Flugente: if using xml squad names, always show all squads - people will propably want to use them
+	if ( gGameExternalOptions.fUseXMLSquadNames )
+		uiMaxSquad = NUMBER_OF_SQUADS - 1;
 
 	return( uiMaxSquad );
 }

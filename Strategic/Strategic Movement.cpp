@@ -1931,7 +1931,10 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 					{
 						// squad
 						// HEADROCK HAM 3.6: Messages are no longer yellow by default.
-						ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pAssignmentStrings[ pGroup->pPlayerList->pSoldier->bAssignment ], pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
+						if ( gGameExternalOptions.fUseXMLSquadNames )
+							ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], SquadNames[ pGroup->pPlayerList->pSoldier->bAssignment ].squadname, pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
+						else
+							ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pAssignmentStrings[ pGroup->pPlayerList->pSoldier->bAssignment ], pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
 					}
 					else
 					{

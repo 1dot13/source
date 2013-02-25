@@ -1915,6 +1915,8 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fRobotNoReadytime					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_NO_READYTIME", FALSE); 
 	
+	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
+
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE
 	// dnl ch51 081009 JA2 Debug Settings

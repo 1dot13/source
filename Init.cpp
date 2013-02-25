@@ -381,6 +381,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	SGP_THROW_IFFALSE(ReadInRandomItemStats(fileName),RANDOMITEMFILENAME);
 
 	strcpy(fileName, directoryName);
+	strcat(fileName, SQUADNAMEFILENAME);
+	SGP_THROW_IFFALSE(ReadInSquadNamesStats(fileName),SQUADNAMEFILENAME);
+
+	strcpy(fileName, directoryName);
 	strcat(fileName, ARMOURSFILENAME);
 	SGP_THROW_IFFALSE(ReadInArmourStats(fileName),ARMOURSFILENAME);
 

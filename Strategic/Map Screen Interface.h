@@ -21,6 +21,14 @@ typedef struct FASTHELPREGION {
 
 } FASTHELPREGION;
 
+// Flugente: externalised squad names
+typedef struct
+{
+	UINT32 uiIndex;
+	CHAR16	squadname[10];
+} SQUAD_NAMES;
+
+extern SQUAD_NAMES	SquadNames[20];
 
 extern UINT8 FIRSTmercTOdisplay ;
 extern UINT8 maxNumberOfMercVisibleInStrategyList;
