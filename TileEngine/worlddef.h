@@ -41,9 +41,13 @@ class SOLDIERTYPE;
 // SB: new map version, with map dimensions added
 #define MAJOR_MAP_VERSION		7.0		
 //Current minor map version updater.
-//#define MINOR_MAP_VERSION		28		// 27 -> 28: increased to 28 because of included weapon overheated and tripwire feature. See ObjectClass for the new Tags!
+#define MINOR_MAP_OVERHEATING		28		// 27 -> 28: Flugente:: increased to 28 because of included weapon overheated and tripwire feature. See ObjectClass for the new Tags!
 //#define MINOR_MAP_VERSION		29		// 28 -> 29: increased range of roomnumbers to full UINT16 by DBrot
-#define MINOR_MAP_VERSION		30		// 30 -> 29: necessary change due to repair system by Flugente
+#define MINOR_MAP_REPAIR_SYSTEM		30		// 30 -> 29: Flugente:: necessary change due to repair system
+#define MINOR_MAP_ITEMFLAG64		31		// 30 -> 31: Flugente: changed sObjectFlag from INT32 to UINT64
+
+#define MINOR_MAP_VERSION		MINOR_MAP_ITEMFLAG64
+
 //dnl ch33 230909
 #define VANILLA_MAJOR_MAP_VERSION 5.00
 #define VANILLA_MINOR_MAP_VERSION 25
