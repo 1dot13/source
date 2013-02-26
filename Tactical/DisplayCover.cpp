@@ -331,7 +331,8 @@ void AddCoverObjectsToViewArea()
 	{
 		return;
 	}
-	INT32 ubX, ubY, ubZ;
+
+	register INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
@@ -340,12 +341,13 @@ void AddCoverObjectsToViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
-				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
 
 				if ( bCover != -1 && ( bCover != MAX_COVER || HasAdjTile( ubX, ubY, ubZ ) ) )
 				{
+					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+					BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
+
 					TileDefines tile = GetTileCoverIndex(!fInverseColor ? bCover : MAX_COVER - bCover);
 					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN) ubZ );
 					fChanged = TRUE;
@@ -367,7 +369,8 @@ void RemoveCoverObjectsFromViewArea()
 	{
 		return;
 	}
-	INT32 ubX, ubY, ubZ;
+
+	register INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
@@ -376,12 +379,13 @@ void RemoveCoverObjectsFromViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
-				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
 
 				if ( bCover != -1 )
 				{
+					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+					BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
+
 					TileDefines tile = GetTileCoverIndex(!fInverseColor ? bCover : MAX_COVER - bCover);
 					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );
 					bCover = -1;
@@ -439,7 +443,8 @@ void DisplayCover( const BOOLEAN& forceUpdate )
 
 void CalculateCover()
 {
-	INT32 ubX, ubY, ubZ;
+	register INT32 ubX, ubY;
+	register INT8 ubZ;
 	SOLDIERTYPE* pSoldier;
 
 	RemoveCoverObjectsFromViewArea();
@@ -454,15 +459,12 @@ void CalculateCover()
 		return;
 	}
 
-
 	// at we're here, we want to display cover, so remove the mines display
 	if ( gubDrawModeMine != MINES_DRAW_OFF )
 		RemoveMinesObjectsFromViewArea();
 
 	GetSoldier( &pSoldier, gusSelectedSoldier );
-
-	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
-
+	
 	INT16 usTmp;
 	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
 	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
@@ -476,35 +478,31 @@ void CalculateCover()
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
-				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
-
+				
 				GetGridNoForViewPort( ubX, ubY, sGridNo );
 
 				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
 				{
 					continue;
 				}
-
-				if ( !NewOKDestination( pSoldier, sGridNo, false, (INT8) ubZ ) )
-				{
-					continue;
-				}
-
-				// do not show stuff on roofs if ground is shown
-				if ( ubZ == I_ROOF_LEVEL && !IsTheRoofVisible( sGridNo ) )
-				{
-					continue;
-				}
-
+								
 				// do not show stuff on ground if roof is shown
-				if ( ubZ == I_GROUND_LEVEL && IsTheRoofVisible( sGridNo ) )
+				if ( IsTheRoofVisible( sGridNo ) )
+				{
+					if ( ubZ == I_GROUND_LEVEL )
+						continue;
+				}
+				// do not show stuff on roofs if ground is shown
+				else if ( ubZ == I_ROOF_LEVEL )
+					continue;
+
+				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
 				{
 					continue;
 				}
 
-				// if (BehindSoldier( x, y ))
-
+				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
+				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
 
 				if ( gubDrawMode == COVER_DRAW_ENEMY_VIEW ) // view of enemies against your selected merc
 				{
@@ -890,11 +888,12 @@ void AddMinesObjectsToViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
 
 				if ( bMines != MINES_ALL && ( bMines != MAX_MINES || MineTileHasAdjTile( ubX, ubY, ubZ ) ) )
 				{
+					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+
 					TileDefines tile = GetTileMinesIndex( bMines );
 					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN) ubZ );
 					fChanged = TRUE;
@@ -925,11 +924,12 @@ void RemoveMinesObjectsFromViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
 
 				if ( bMines != MINES_ALL )
 				{
+					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+
 					TileDefines tile = GetTileMinesIndex( bMines );
 					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );
 					bMines = MINES_ALL;
@@ -1014,8 +1014,7 @@ void CalculateMines()
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
-
+				
 				GetGridNoForViewPort( ubX, ubY, sGridNo );
 
 				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
@@ -1023,31 +1022,31 @@ void CalculateMines()
 					continue;
 				}
 
-				if ( !NewOKDestination( pSoldier, sGridNo, false, (INT8) ubZ ) )
+				if ( IsTheRoofVisible( sGridNo ) )
+				{
+					if ( ubZ == I_GROUND_LEVEL )
+						continue;
+				}
+				else if ( ubZ == I_ROOF_LEVEL )
 				{
 					continue;
 				}
-
-				// do not show stuff on roofs if ground is shown
-				if ( ubZ == I_ROOF_LEVEL && !IsTheRoofVisible( sGridNo ) )
-				{
-					continue;
-				}
-
-				// do not show stuff on ground if roof is shown
-				if ( ubZ == I_GROUND_LEVEL && IsTheRoofVisible( sGridNo ) )
-				{
-					continue;
-				}
-				
-				bMines = MAX_MINES;
-
+																
 				// if we are looking for hostile mines, but the tile is out of our' detectors range, skip looking for mines
 				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
 				{
 					if ( PythSpacesAway(sSelectedSoldierGridNo, sGridNo) > 4 )
 						continue;
 				}
+
+				if ( !NewOKDestination( pSoldier, sGridNo, false, (INT8) ubZ ) )
+				{
+					continue;
+				}
+
+				INT8& bMines = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bMines;
+
+				bMines = MAX_MINES;
 
 				DetermineMineDisplayInTile( sGridNo, ubZ, bMines, fWithMineDetector );
 			}
