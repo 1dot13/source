@@ -69,7 +69,6 @@ typedef PARSE_STAGE;
 #define FOODFILENAME							"Items\\Food.xml"
 #define CLOTHESFILENAME							"Items\\Clothes.xml"
 #define RANDOMITEMFILENAME						"Items\\RandomItem.xml"
-#define SQUADNAMEFILENAME						"SquadNames.xml"
 #define	AMMOFILENAME							"Items\\AmmoStrings.xml"
 #define	AMMOTYPESFILENAME						"Items\\AmmoTypes.xml"
 #define	INCOMPATIBLEATTACHMENTSFILENAME			"Items\\IncompatibleAttachments.xml"
@@ -231,6 +230,7 @@ typedef PARSE_STAGE;
 #define RPCFACESSMALLFILENAME					"RPCFacesSmall.xml"
 #define SPREADPATTERNSFILENAME					"SpreadPatterns.xml"
 #define VEHICLESFILENAME						"Vehicles.xml"
+#define SQUADNAMEFILENAME						"SquadNames.xml"
 
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
