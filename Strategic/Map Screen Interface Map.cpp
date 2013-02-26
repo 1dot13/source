@@ -5734,42 +5734,20 @@ void RenderIconsPerSectorForSelectedTown( void )
 		// now display
 		for( iCurrentTroopIcon = 0; iCurrentTroopIcon < iTotalNumberOfTroops; iCurrentTroopIcon++ )
 		{
-			// get screen x and y coords
-			if( sSectorMilitiaMapSector == iCounter )
-			{
-				sX =  ( iCurrentTroopIcon % POPUP_MILITIA_ICONS_PER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + ( ( iCounter % MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_WIDTH ) + 2;
-				sY =  ( iCurrentTroopIcon / POPUP_MILITIA_ICONS_PER_ROW ) * ( MEDIUM_MILITIA_ICON_SPACING - 1 ) + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_MAP_Y + ( ( iCounter / MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_HEIGHT ) + 3;
+			sX =  ( iCurrentTroopIcon % POPUP_MILITIA_ICONS_PER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + ( ( iCounter % MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_WIDTH ) + 3;
+			sY =  ( iCurrentTroopIcon / POPUP_MILITIA_ICONS_PER_ROW ) * ( MEDIUM_MILITIA_ICON_SPACING ) + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_MAP_Y + ( ( iCounter / MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_HEIGHT ) + 3;
 
-				if( iCurrentTroopIcon < iNumberOfGreens )
-				{
-					iCurrentIcon = 5;
-				}
-				else if( iCurrentTroopIcon < iNumberOfGreens + iNumberOfRegulars )
-				{
-					iCurrentIcon = 6;
-				}
-				else
-				{
-					iCurrentIcon = 7;
-				}
+			if( iCurrentTroopIcon < iNumberOfGreens )
+			{
+				iCurrentIcon = 8;
+			}
+			else if( iCurrentTroopIcon < iNumberOfGreens + iNumberOfRegulars )
+			{
+				iCurrentIcon = 9;
 			}
 			else
 			{
-				sX =  ( iCurrentTroopIcon % POPUP_MILITIA_ICONS_PER_ROW ) * MEDIUM_MILITIA_ICON_SPACING + MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + ( ( iCounter % MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_WIDTH ) + 3;
-				sY =  ( iCurrentTroopIcon / POPUP_MILITIA_ICONS_PER_ROW ) * ( MEDIUM_MILITIA_ICON_SPACING ) + MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_MAP_Y + ( ( iCounter / MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_HEIGHT ) + 3;
-
-				if( iCurrentTroopIcon < iNumberOfGreens )
-				{
-					iCurrentIcon = 8;
-				}
-				else if( iCurrentTroopIcon < iNumberOfGreens + iNumberOfRegulars )
-				{
-					iCurrentIcon = 9;
-				}
-				else
-				{
-					iCurrentIcon = 10;
-				}
+				iCurrentIcon = 10;
 			}
 
 			BltVideoObject( FRAME_BUFFER, hVObject, ( UINT16 )( iCurrentIcon ), sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );

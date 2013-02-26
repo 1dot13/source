@@ -7092,17 +7092,20 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 				case TAB:
 					// go to next tab in enhanced description box
-					if( InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
-					{			
-						if ( gubDescBoxPage < 2 )
-						{
-							gubDescBoxPage++;
+					if( fCtrl )
+					{
+						if( InItemDescriptionBox( ) && gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE )
+						{			
+							if ( gubDescBoxPage < 2 )
+							{
+								gubDescBoxPage++;
+							}
+							else
+							{					
+								gubDescBoxPage = 0;
+							}
+							HandleItemDescTabButton( );
 						}
-						else
-						{					
-							gubDescBoxPage = 0;
-						}
-						HandleItemDescTabButton( );
 					}
 					break;
 
