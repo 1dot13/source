@@ -10621,7 +10621,10 @@ void CreateAssignmentsBox( void )
 		if( ( uiCounter == ASSIGN_MENU_ON_DUTY ) && ( pSoldier != NULL ) && ( pSoldier->bAssignment < ON_DUTY ) )
 		{
 			// show his squad # in brackets
-			swprintf( sString, L"%s(%d)", pAssignMenuStrings[uiCounter], pSoldier->bAssignment + 1 );
+			if ( gGameExternalOptions.fUseXMLSquadNames )
+				swprintf( sString, L"%s(%s)", pAssignMenuStrings[uiCounter], SquadNames[ pSoldier->bAssignment ].squadname );
+			else
+				swprintf( sString, L"%s(%d)", pAssignMenuStrings[uiCounter], pSoldier->bAssignment + 1 );
 		}
 		else
 		{

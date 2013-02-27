@@ -60,6 +60,7 @@
 	#include "Queen Command.h"
 	// HEADROCK HAM 4: Included for new CTH indicator
 	#include "weapons.h"
+	#include "Map Screen Interface.h"	// added by Flugente for SquadNames
 
 #endif
 
@@ -1884,7 +1885,11 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 		else if ( pSoldier->bTeam == gbPlayerNum &&	pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !(	pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
 		{
-			swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
+			if ( gGameExternalOptions.fUseXMLSquadNames )
+				swprintf( NameStr, SquadNames[ pSoldier->bAssignment ].squadname );
+			else
+				swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
+
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );

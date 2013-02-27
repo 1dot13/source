@@ -5269,7 +5269,11 @@ BOOLEAN HandlePlayerGroupEnteringSectorToCheckForNPCsOfNote( GROUP *pGroup )
 
 	// build string for squad
 	GetSectorIDString( sSectorX, sSectorY, bSectorZ, wSectorName, FALSE );
-	swprintf( sString, pLandMarkInSectorString[ 0 ], pGroup->pPlayerList->pSoldier->bAssignment + 1, wSectorName );
+
+	if ( gGameExternalOptions.fUseXMLSquadNames && pGroup->pPlayerList->pSoldier->bAssignment < ON_DUTY )
+		swprintf( sString, pLandMarkInSectorString[ 0 ], SquadNames[ pGroup->pPlayerList->pSoldier->bAssignment ].squadname, wSectorName );
+	else
+		swprintf( sString, pLandMarkInSectorString[ 0 ], pGroup->pPlayerList->pSoldier->bAssignment + 1, wSectorName );
 
 	if ( GroupAtFinalDestination( pGroup ) )
 	{
