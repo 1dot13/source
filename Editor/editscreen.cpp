@@ -1997,20 +1997,169 @@ void HandleKeyboardShortcuts( )
 					iCurrentAction = ACTION_NEXT_SELECTIONTYPE;
 					break;
 				case ',':
-					gusSelectionType = LINESELECTION;
-					gusPreserveSelectionWidth--;
-					if( !gusPreserveSelectionWidth )
-						gusPreserveSelectionWidth = 8;
+					// item left scroll
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex )
+						{
+							if( EditorInputEvent.usKeyState & CTRL_DOWN )
+								eInfo.sScrollIndex = __max(eInfo.sScrollIndex - 60, 0);
+							else
+								eInfo.sScrollIndex--;
+							
+							if( !eInfo.sScrollIndex )
+								DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
+								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					else
+					{
+						gusSelectionType = LINESELECTION;
+						gusPreserveSelectionWidth--;
+						if( !gusPreserveSelectionWidth )
+							gusPreserveSelectionWidth = 8;
+					}
 					gfRenderTaskbar = TRUE;
 					break;
 				case '.':
-					gusSelectionType = LINESELECTION;
-					gusPreserveSelectionWidth++;
-					if( gusPreserveSelectionWidth > 8 )
-						gusPreserveSelectionWidth = 1;
+					// item right scroll
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
+						{
+							if( EditorInputEvent.usKeyState & CTRL_DOWN )
+								eInfo.sScrollIndex = __min(eInfo.sScrollIndex + 60, (eInfo.sNumItems+1)/2-6);
+							else
+								eInfo.sScrollIndex++;
+							
+							EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
+								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					else
+					{
+						gusSelectionType = LINESELECTION;
+						gusPreserveSelectionWidth++;
+						if( gusPreserveSelectionWidth > 8 )
+							gusPreserveSelectionWidth = 1;
+					}
 					gfRenderTaskbar = TRUE;
+					break;
+				case '<':
+					// item left scroll by page
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex )
+						{
+							if( EditorInputEvent.usKeyState & CTRL_DOWN )
+								eInfo.sScrollIndex = 0;
+							else
+								eInfo.sScrollIndex = __max(eInfo.sScrollIndex - 6, 0);
+							
+							if( !eInfo.sScrollIndex )
+								DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
+								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					gfRenderTaskbar = TRUE;
+					break;
+				case '>':
+					// item right scroll by page
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
+						{
+							if( EditorInputEvent.usKeyState & CTRL_DOWN )
+								eInfo.sScrollIndex = max( ((eInfo.sNumItems+1)/2)-6, 0);
+							else
+								eInfo.sScrollIndex = __min(eInfo.sScrollIndex + 6, (eInfo.sNumItems+1)/2-6);
+							
+							EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
+								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					gfRenderTaskbar = TRUE;
+					break;
 				default:
 					iCurrentAction = ACTION_NULL;
+					break;
+			}
+		}
+		else if ( !HandleSummaryInput( &EditorInputEvent ) && !HandleTextInput( &EditorInputEvent ) && EditorInputEvent.usEvent == KEY_REPEAT )
+		{	
+			switch( EditorInputEvent.usParam )
+			{
+				case ',':
+					// item left scroll
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex )
+						{
+							if( EditorInputEvent.usKeyState & CTRL_DOWN )
+								eInfo.sScrollIndex = __max(eInfo.sScrollIndex - 60, 0);
+							else
+								eInfo.sScrollIndex--;
+							
+							if( !eInfo.sScrollIndex )
+								DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
+								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					gfRenderTaskbar = TRUE;
+					break;
+				case '.':
+					// item right scroll
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
+						{
+							if( EditorInputEvent.usKeyState & CTRL_DOWN )
+								eInfo.sScrollIndex = __min(eInfo.sScrollIndex + 60, (eInfo.sNumItems+1)/2-6);
+							else
+								eInfo.sScrollIndex++;
+							
+							EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
+								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					gfRenderTaskbar = TRUE;
+					break;
+				case '<':
+					// item left scroll by page
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex )
+						{
+							eInfo.sScrollIndex = __max(eInfo.sScrollIndex - 6, 0);
+							
+							if( !eInfo.sScrollIndex )
+								DisableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex < ((eInfo.sNumItems+1)/2)-6 )
+								EnableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					gfRenderTaskbar = TRUE;
+					break;
+				case '>':
+					// item right scroll by page
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
+						{
+							eInfo.sScrollIndex = __min(eInfo.sScrollIndex + 6, (eInfo.sNumItems+1)/2-6);
+							
+							EnableButton( iEditorButton[ITEMS_LEFTSCROLL] );
+							if( eInfo.sScrollIndex == max( ((eInfo.sNumItems+1)/2)-6, 0) )
+								DisableButton( iEditorButton[ITEMS_RIGHTSCROLL] );
+						}
+					}
+					gfRenderTaskbar = TRUE;
 					break;
 			}
 		}

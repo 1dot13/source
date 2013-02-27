@@ -322,6 +322,7 @@ STR16			BoxFilter[] =
 STR16 iEditorItemStatsButtonsText[] =
 {
 	L"Supprimer",
+	L"Article supprimer (|D|e|l)",
 };
 
 STR16 FaceDirs[8] = 
@@ -359,11 +360,11 @@ STR16 iEditorMercsToolbarText[] =
  L"Calendrier mode",
  L"Calendrier mode",
  L"SUPPRIMER",
- L"Supprimer le mercenaire sélectionné (SUPPR).",
+ L"Supprimer le mercenaire sélectionné (|S|u|p|p|r)",
  L"SUIVANT", //20
- L"Mercenaire suivant (ESPACE).",
+ L"Mercenaire suivant (|E|s|p|a|c|e)",
  L"Changer l'existance prioritaire",
- L"Changer si le placement a/naccès à toutes les portes.",
+ L"Changer si le placement a/naccès à toutes les portes",
  
  //Orders
  L"STATIONNAIRE",
@@ -468,7 +469,9 @@ STR16 iEditorItemsToolbarText[] =
 	L"E3",
 	L"Détentes",
 	L"Clés",
-	L"Rnd",	// TODO.Translate
+	L"Rnd",	//10 // TODO.Translate
+	L"Précédent (|,)",		// previous page
+	L"Suivant (|.)",		// next page
 };
 
 STR16 iEditorMapInfoToolbarText[] =
@@ -496,7 +499,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Charger la carte",
 	L"Sélectionner un tileset",
 	L"Quitter le mode éditeur",
-	L"Quitter le jeu.",
+	L"Quitter le jeu",
 	L"Créer un carte de radar",
 	L"Une fois la carte vérifiée, elle sera sauvée sous le format original JA2.\nCette option est seulement valable sur les cartes de taille 'normale' qui ne font pas référence aux nombre de réseaux (ex: réseau de sortie) > 25600.",
 	L"Une fois la carte vérifiée et chargée, elle sera élargie automatiquement selon les rangées et colonnes choisies.",

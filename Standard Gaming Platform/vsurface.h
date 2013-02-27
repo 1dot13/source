@@ -117,8 +117,8 @@ typedef struct
 {
 	UINT32				fCreateFlags;						// Specifies creation flags like from file or not
 	SGPFILENAME		ImageFile;							// Filename of image data to use
-	UINT16				usWidth;								// Width, ignored if given from file
-	UINT16				usHeight;								// Height, ignored if given from file
+	UINT32				usWidth;								// Width, ignored if given from file
+	UINT32				usHeight;								// Height, ignored if given from file
 	UINT8					ubBitDepth;							// BPP, ignored if given from file
 
 } VSURFACE_DESC;

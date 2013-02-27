@@ -230,7 +230,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	UINT32 uiVideoObjectIndex;
 	UINT16 usUselessWidth, usUselessHeight;
 	INT16 sWidth, sOffset, sStart;
-	INT16 i, x, y;
+	INT32 i, x, y;
 	UINT16 usCounter;
 	CHAR16 pStr[ 100 ];//, pStr2[ 100 ];
 	CHAR16 pItemName[SIZE_ITEM_NAME];
@@ -332,7 +332,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//every pair of items (odd rounded up) requires 60 pixels for width.
 	//the minimum buffer size is 420.	Height is always 80 pixels.
 
-	eInfo.sWidth = (eInfo.sNumItems > 12) ? ((eInfo.sNumItems+1)/2)*60 : SCREEN_HEIGHT - 120;
+	eInfo.sWidth = (eInfo.sNumItems > 12) ? (((INT32) eInfo.sNumItems+1)/2)*60 : SCREEN_HEIGHT - 120;
 	eInfo.sHeight = 80;
 	// Create item buffer
 	GetCurrentVideoSettings( &usUselessWidth, &usUselessHeight, &ubBitDepth );

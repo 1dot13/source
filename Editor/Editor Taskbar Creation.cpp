@@ -45,6 +45,7 @@ void InitEditorItemStatsButtons()
 	iEditorButton[ ITEMSTATS_DELETE_BTN ] =
 		CreateTextButton( iEditorItemStatsButtonsText[0], FONT10ARIAL, FONT_RED, FONT_BLACK, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 600, 2 * iScreenHeightOffset + 441, 36, 16, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL+1, DEFAULT_MOVE_CALLBACK, ItemStatsDeleteCallback );
+	SetButtonFastHelpText( iEditorButton[ ITEMSTATS_DELETE_BTN ], iEditorItemStatsButtonsText[1]);
 }
 
 void InitEditorMercsToolbar()
@@ -595,8 +596,10 @@ void InitEditorItemsToolbar()
 
 	iEditorButton[ITEMS_LEFTSCROLL] =
 		CreateEasyNoToggleButton( iScreenWidthOffset + 1, 2 * iScreenHeightOffset + 361,"EDITOR//leftscroll.sti", ItemsLeftScrollCallback);
+	SetButtonFastHelpText(iEditorButton[ITEMS_LEFTSCROLL], iEditorItemsToolbarText[11]);
 	iEditorButton[ITEMS_RIGHTSCROLL] =
 		CreateEasyNoToggleButton( iScreenWidthOffset + 50, 2 * iScreenHeightOffset + 361,"EDITOR//rightscroll.sti", ItemsRightScrollCallback);
+	SetButtonFastHelpText(iEditorButton[ITEMS_RIGHTSCROLL], iEditorItemsToolbarText[12]);
 
 }
 

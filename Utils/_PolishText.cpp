@@ -323,6 +323,7 @@ STR16			BoxFilter[] =
 STR16 iEditorItemStatsButtonsText[] =
 {
 	L"Usuń",
+	L"Przedmiot usuń (|D|e|l)",
 };
 
 STR16 FaceDirs[8] = 
@@ -360,11 +361,11 @@ STR16 iEditorMercsToolbarText[] =
  L"Tryb planowania",
  L"Tryb planowania",
  L"Usuń",
- L"Usuń zaznaczonego najemnika (DEL).",
+ L"Usuń zaznaczonego najemnika (|D|e|l)",
  L"Kolejny", //20
- L"Znajdź następnego najemnika (SPACE).",
+ L"Znajdź następnego najemnika (|S|p|a|c|e)",
  L"Włącz priorytet egzystencji",
- L"Postać ma dostęp do wszystkich zamkniętych drzwi.",
+ L"Postać ma dostęp do wszystkich zamkniętych drzwi",
  
  //Orders
  L"STACJONARNY",
@@ -469,7 +470,9 @@ STR16 iEditorItemsToolbarText[] =
 	L"E3",
 	L"Włączniki",
 	L"Klucze",
-	L"Rnd",	// TODO.Translate
+	L"Rnd",	//10 // TODO.Translate
+	L"Previous (|,)",		// previous page // TODO.Translate
+	L"Next (|.)",		// next page // TODO.Translate
 };
 
 STR16 iEditorMapInfoToolbarText[] =
@@ -497,7 +500,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"Wczytaj mapę",
 	L"Wybierz zestaw",
 	L"Wyjdź z trybu edycji do trybu gry",
-	L"Wyjdź z trybu edycji.",
+	L"Wyjdź z trybu edycji",
 	L"Utwórz mapę radaru",
 	L"Kiedy zaznaczone, mapa będzie zapisana w oryginalnym formacie JA2.\nTa opcja jest ważna przy normalnych wielkoŚciach map, których numery siatki nie są (siatki wyjŚcia) > 25600.",
 	L"Kiedy zaznaczone, wczytana mapa lub nowa, będzie powiększona automatycznie do wybranych rozmiarów.",

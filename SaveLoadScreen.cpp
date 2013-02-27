@@ -1069,8 +1069,8 @@ void GetSaveLoadScreenUserInput()
 					MoveSelectionUpOrDown( FALSE );
 					break;
 				
-				case LEFTARROW:
-					// previous page
+				case ',':
+					// previous page, LEFTARROW not used due to interference with textbox navigation
 					if ( PAGE_SLOT > 0 )
 					{
 						PAGE_SLOT = PAGE_SLOT - 1;
@@ -1097,8 +1097,8 @@ void GetSaveLoadScreenUserInput()
 					}
 					break;
 				
-				case RIGHTARROW:
-					// next page
+				case '.':
+					// next page, RIGHTARROW not used due to interference with textbox navigation
 					if ( PAGE_SLOT < MAX_PAGE_SLOT )
 					{
 						PAGE_SLOT = PAGE_SLOT + 1;
