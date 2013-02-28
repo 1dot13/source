@@ -5247,10 +5247,15 @@ BOOLEAN InitializeTEAMPanel(	)
 	context sensitive cursor when closing the inventory panel*/
 	fDisplayOverheadMap = TRUE;
 
+	// WANNE: Make a black background color for the whole screen
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
+
 /*	OK i need to initialize coords here
  *	Isnt it cool
  *	any questions? joker
- *	i moved it
+ *	i moved itrk
+
  */
 //	InitializeTEAMPanelCoords( );
 	// INit viewport region
