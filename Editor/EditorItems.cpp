@@ -229,12 +229,12 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	HVOBJECT hVObject;
 	UINT32 uiVideoObjectIndex;
 	UINT16 usUselessWidth, usUselessHeight;
-	INT16 sWidth, sOffset, sStart;
+	INT32 sWidth, sOffset, sStart;
 	INT32 i, x, y;
 	UINT16 usCounter;
 	CHAR16 pStr[ 100 ];//, pStr2[ 100 ];
 	CHAR16 pItemName[SIZE_ITEM_NAME];
-	UINT8						ubBitDepth;
+	UINT8 ubBitDepth;
 	BOOLEAN fTypeMatch;
 	INT32 iEquipCount = 0;
 
