@@ -3982,19 +3982,19 @@ void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 
 //						early exit if no items are found in sector at all
 
 // 1st loop:			Count all ammo in ammo and guns, evaluate all armour/face items/hand grenades/melee items/guns/launchers
+//						We do not yet evaluate guns - we do that later, when we know what ammo exists
 //						We store ammo in a map that also stores caliber and ammotype
 //						We store launchers in a structure that stores their item, wether they need ammo, and how much ammo we found
 //						We evaluate objects via EvaluateObjForItem(...). If you are unsatisgied with militia selections, try to improve this funtion first
 
 // 1st loop afterwork:	If we are unable to determine a valid GridNo, soemthing is wrong here, abort
 //						Definite decision on armour/face items/melee items/hand grenades
-//						We can take a gun if we already found a satisfying amount of ammo for our favourite
 
-// 2nd loop:			If no gun was selected after 1st loop, reevaluate all guns, taking ammo into account (we know how much ammo there is, as we wrote that into our map)
+// 2nd loop:			Evaluate all guns, taking ammo into account (we know how much ammo there is, as we wrote that into our map)
 //						We know know what launchers that need ammo we have here, thus we can test bombs and grenades on wether they are such ammo. Note this in the launcher map
 
 // 2nd loop afterwork:	We now know all launchers and their ammo, we decide which launcher to take
-//						If we did not take a gun earlier, we now can, as we know all ammo
+//						Decide on a gun, we can now do that as we know all ammo
 //						If we have selected a gun, but do not take ammo from the inventory, spawn ammo in the traditional way
 
 // 3rd loop:			If we ever decide to pick up a gun, we will have done so now. We will look for fitting ammo in all ammo/guns, spawn correct magazines in our inventory, and remove ammo from found objects
@@ -4061,7 +4061,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 		}
 	}
 
-	// for easy view of the loaded sector inventory in the debugger
+	// this vector isn't used anywhere - it simply allows us to easily view the contents of the inventory in debug mode
 #ifdef JA2TESTVERSION
 	std::vector<std::pair<BOOLEAN, UINT16> > overviewvector;
 	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
@@ -4163,6 +4163,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	///////////////////////////////// 1st loop /////////////////////////////////////////////////////////
 
 	// 1st loop:			Count all ammo in ammo and guns, evaluate all armour/face items/hand grenades/melee items/guns/launchers
+	//						We do not yet evaluate guns - we do that later, when we know what ammo exists
 	//						We store ammo in a map that also stores caliber and ammotype
 	//						We store launchers in a structure that stores their item, wether they need ammo, and how much ammo we found
 	//						We evaluate objects via EvaluateObjForItem(...). If you are unsatisgied with militia selections, try to improve this funtion first
@@ -4248,8 +4249,6 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 					// gun
 					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_GUN && !si[SI_GUN].done )
 					{
-						EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GUN] );
-
 						// we count ammo and then remove it. We will later add it again in the form of ammo crates
 						UINT8 calibre = Weapon[ pWorldItem[ uiCount ].object.usItem ].ubCalibre;
 						// guns in a stack can have different ammo, thus he need to add it individually
@@ -4290,7 +4289,6 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 
 	// 1st loop afterwork:	If we are unable to determine a valid GridNo, soemthing is wrong here, abort
 	//						Definite decision on armour/face items/melee items/hand grenades
-	//						We can take a gun if we already found a satisfying amount of ammo for our favourite
 				
 	// if the dummy GridNo is still NOWHERE, we did not find a single reachable item. If getting a random gridno also fails, better get out of here
 	if ( dummygridno == NOWHERE )
@@ -4322,66 +4320,12 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	SearchItemRetrieval( pWorldItem, &si[SI_GASMASK], pp );
 	SearchItemRetrieval( pWorldItem, &si[SI_MELEE], pp );
 	SearchItemRetrieval( pWorldItem, &si[SI_GRENADE], pp, 2 );	// if on a stack, we are willing to take 2 grenades at once
-		
-	// if found a gun, check wether we have enough ammo for it
-	if ( si[SI_GUN].found )
-	{
-		UINT8 calibre = Weapon[ pWorldItem[ si[SI_GUN].pos ].object.usItem ].ubCalibre;
-
-		Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.find( calibre );
-		if ( !fSearchForAmmo || calibremap_it != calibrebulletountmap.end() )
-		{
-			// do we have enough ammo form that calibre?
-			if ( !fSearchForAmmo || EnoughBulletsForGun( pWorldItem[ si[SI_GUN].pos ].object.usItem, &((*calibremap_it).second) ) )
-			{
-				usSelectedGunBulletsNeeded = fSearchForAmmo ? GetNeededTotalAmmo( pWorldItem[ si[SI_GUN].pos ].object.usItem ) : 0;
-				usSelectedGunBulletCount   = fSearchForAmmo ? pWorldItem[ si[SI_GUN].pos ].object[0]->data.gun.ubGunShotsLeft : 0;
-
-				// awesome! then take that gun...
-				SearchItemRetrieval( pWorldItem, &si[SI_GUN], pp );
-
-				// empty the gun, create a mag
-				if ( !fSearchForAmmo )
-				{
-					UINT16 bulletstomove = (pp->Inv[ HANDPOS ])[0]->data.gun.ubGunShotsLeft;
-					if ( bulletstomove )
-					{
-						(pp->Inv[ HANDPOS ])[0]->data.gun.ubGunShotsLeft = 0;
-						UINT8 ammotype = (pp->Inv[ HANDPOS ])[0]->data.gun.ubGunAmmoType;
-						UINT16 magsize = GetMagSize( &(pp->Inv[ HANDPOS ] ) );
-						UINT16 magitem = FindReplacementMagazine( Weapon[ pp->Inv[ HANDPOS ].usItem ].ubCalibre, magsize, ammotype );
-											
-						// create ammo in inventory
-						CreateAmmo(magitem, &newAmmoObj, bulletstomove);
-						fNewMagCreated = TRUE;
-					}
-				}
-			}
-			// too bad. We need to look for another weapon then
-			else
-			{
-				si[SI_GUN].found = FALSE;
-			}
-		}
-	}
-	// we didn't find any gun at all. Now what?
-	else
-	{
-		si[SI_GUN].done = TRUE;
-	}
-	 		
-	// if we found guns, but not enough ammo for our favourite, reset our results. In the next loop, we will also accept lower ammo counts
-	if ( !si[SI_GUN].done )
-	{
-		si[SI_GUN].found	= FALSE;
-		si[SI_GUN].val		= 0;
-	}
 
 	///////////////////////////////// 1st loop afterwork /////////////////////////////////////////////////////////
 
 	///////////////////////////////// 2nd loop /////////////////////////////////////////////////////////
 
-	// Second loop:		If no gun was selected after 1st loop, reevaluate all guns, taking ammo into account (we know how much ammo there is, as we wrote that into our map)
+	// Second loop:		Evaluate all guns, taking ammo into account (we know how much ammo there is, as we wrote that into our map)
 	//					We know know what launchers that need ammo we have here, thus we can test bombs and grenades on wether they are such ammo. Note this in the launcher map
 
 	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
@@ -4436,7 +4380,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	///////////////////////////////// 2nd loop afterwork /////////////////////////////////////////////////////////
 
 	// 2nd loop afterwork:	We now know all launchers and their ammo, we decide which launcher to take
-	//						If we did not take a gun earlier, we now can, as we know all ammo
+	//						Decide on a gun, we can now do that as we know all ammo
 	//						If we have selected a gun, but do not take ammo from the inventory, spawn ammo in the traditional way
 
 	// we investigate the launchers we found, and their ammo.
