@@ -360,9 +360,12 @@ void ExitMainMenu( )
 	
 	gMsgBox.uiExitScreen = MAINMENU_SCREEN;
 
-	// Reload the external gameplay data for a multiplayer game
-	if (is_networked)
+	// WANNE: Re-Init to get the correct data
+	if (gbHandledMainMenu == NEW_GAME || gbHandledMainMenu == NEW_MP_GAME || gbHandledMainMenu == LOAD_GAME)
+	{
 		LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+		InitDependingGameStyleOptions();
+	}
 }
 
 // WANNE - MP: This method initializes variables that should be initialized
@@ -466,8 +469,6 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				gfLoadGameUponEntry = TRUE;
 		}
 
-		InitDependingGameStyleOptions();
-
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -530,7 +531,6 @@ void HandleMainMenuInput()
 					// WANNE: Some initializing was missing when directly loading last savegame
 					// form main menu with ALT + C
 					giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-					InitDependingGameStyleOptions();
 
 					break;
 
