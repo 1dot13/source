@@ -354,16 +354,15 @@ void ExitMainMenu( )
 	{			
 		if (gMainMenulayout[iCounter2].Visible == 1)
 		{
-			// WANNE: This is a dirty fix. I don't know when that was introduced, but when clicking on "Multiplayer Game", the game crashes when trying to call DeleteVideoSurfaceFromIndex()
-			if (is_networked && iCounter2 == 1)
-				continue;		
-
-//			DeleteVideoObjectFromIndex( gMainMenulayout[iCounter2].uiIndex );
 			DeleteVideoSurfaceFromIndex( gMainMenulayout[iCounter2].uiIndex );
 		}
 	}
 	
 	gMsgBox.uiExitScreen = MAINMENU_SCREEN;
+
+	// Reload the external gameplay data for a multiplayer game
+	if (is_networked)
+		LoadExternalGameplayData(TABLEDATA_DIRECTORY);
 }
 
 // WANNE - MP: This method initializes variables that should be initialized
@@ -445,9 +444,6 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 				//if something didnt work, dont even know how to make error code...//hayden
 			}
-
-			// Reload the external gameplay data, because maybe we started a MP game before!
-			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
 
 			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
 			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
