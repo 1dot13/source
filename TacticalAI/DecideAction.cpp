@@ -5369,69 +5369,60 @@ INT16 ubMinAPCost;
 	INT32	targetGridNo = -1;
 	INT8	targetbLevel =  0;
 	sClosestOpponent = ClosestSeenOpponentWithRoof(pSoldier, &targetGridNo, &targetbLevel);
-	if (!TileIsOutOfBounds(sClosestOpponent) && ! ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) ) )
+	if ( !TileIsOutOfBounds(sClosestOpponent) && !TileIsOutOfBounds(targetGridNo) && SameBuilding( pSoldier->sGridNo, targetGridNo ) )
 	{
-		//////////////////////////////////////////////////////////////////////
-		// GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
-		//////////////////////////////////////////////////////////////////////
-
-		// try to move towards him
-		pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,sClosestOpponent,AI_ACTION_GET_CLOSER);
-
-		// if it's possible			
-		if (!TileIsOutOfBounds(sClosestOpponent))
+		if ( targetbLevel == pSoldier->pathing.bLevel && targetbLevel == 0 )
 		{
-			if (targetbLevel != pSoldier->pathing.bLevel )
-				return(AI_ACTION_MOVE_TO_CLIMB);
-			else
+			//////////////////////////////////////////////////////////////////////
+			// GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
+			//////////////////////////////////////////////////////////////////////
+
+			// try to move towards him
+			pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,sClosestOpponent,AI_ACTION_GET_CLOSER);
+				
+			// Flugente: if on the same level and there is a jumpable window here, jump through it
+			if ( gGameExternalOptions.fCanJumpThroughWindows )
 			{
-				// Flugente: if on the same level and there is a jumpable window here, jump through it
-				if ( gGameExternalOptions.fCanJumpThroughWindows && targetbLevel == pSoldier->pathing.bLevel && targetbLevel == 0 )
+				// determine if there is a jumpable window in the direction to our target
+				// if yes, and we are not facing it, face it now
+				// if yes, and we are facing it, jump
+				// if no, go on, nothing to see here
+				// determine direction of our target
+				UINT8 targetdirection = GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
+
+				// determine if there is a jumpable window here, in the direction of our target
+				// store old direction for this check
+				UINT8 tmpdirection = pSoldier->ubDirection;
+				pSoldier->ubDirection = targetdirection;
+
+				INT8 windowdirection = DIRECTION_IRRELEVANT;
+				if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == (UINT8)windowdirection )
 				{
-					// determine if there is a jumpable window in the direction to our target
-					// if yes, and we are not facing it, face it now
-					// if yes, and we are facing it, jump
-					// if no, go on, nothing to see here
-					// determine direction of our target
-					UINT8 targetdirection = GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
-
-					// determine if there is a jumpable window here, in the direction of our target
-					// store old direction for this check
-					UINT8 tmpdirection = pSoldier->ubDirection;
-					pSoldier->ubDirection = targetdirection;
-
-					INT8 windowdirection = DIRECTION_IRRELEVANT;
-					if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == (UINT8)windowdirection )
-					{
-						pSoldier->ubDirection = tmpdirection;
-
-						// are we already looking in that direction?
-						if ( pSoldier->ubDirection == targetdirection )
-						{
-							// jump through the window
-							return(AI_ACTION_JUMP_WINDOW);
-						}
-						else
-						{
-							// look into that direction
-							if ( pSoldier->InternalIsValidStance( targetdirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-							{
-								pSoldier->aiData.usActionData = targetdirection;
-								return(AI_ACTION_CHANGE_FACING);
-							}
-
-						}
-					}
-
 					pSoldier->ubDirection = tmpdirection;
+
+					// are we already looking in that direction?
+					if ( pSoldier->ubDirection == targetdirection )
+					{
+						// jump through the window
+						return(AI_ACTION_JUMP_WINDOW);
+					}
+					else
+					{
+						// look into that direction
+						if ( pSoldier->InternalIsValidStance( targetdirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+						{
+							pSoldier->aiData.usActionData = targetdirection;
+							return(AI_ACTION_CHANGE_FACING);
+						}
+
+					}
 				}
+
+				pSoldier->ubDirection = tmpdirection;
 			}
 		}
-	}
-	// The situation mentioned above happens...
-	else if ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) )
-	{
-		if (!TileIsOutOfBounds(targetGridNo) )
+		// The situation mentioned above happens...
+		else
 		{
 			// need to climb AND have enough APs to get there this turn
 			BOOLEAN fUp = TRUE;

@@ -2317,7 +2317,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("Soldier GridNo = %d, action data = %d ", pSoldier->sGridNo , pSoldier->aiData.usActionData));
 		}
 
-		if ( gfTurnBasedAI && pSoldier->aiData.bAlertStatus < STATUS_BLACK )
+		if ( gfTurnBasedAI && pSoldier->aiData.bAlertStatus <= STATUS_BLACK )
 		{			
 			if (TileIsOutOfBounds(pSoldier->sLastTwoLocations[0]))
 			{
