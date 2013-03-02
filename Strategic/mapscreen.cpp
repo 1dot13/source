@@ -2829,7 +2829,7 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	}
 	else
 	{
-		if ( gGameExternalOptions.fUseXMLSquadNames )
+		if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < ON_DUTY )
 			swprintf( sString, L"%s", SquadNames[ pSoldier->bAssignment ].squadname );
 		else
 			wcscpy( sString, pAssignmentStrings[ pSoldier->bAssignment ] );

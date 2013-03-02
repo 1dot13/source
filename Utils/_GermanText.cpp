@@ -2931,12 +2931,13 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"Sie haben kein Gefängnis für die Gefangenen und müssen diese nun laufen lassen",
-	L"Ja - Gefangene ins Gefängnis bringen      Nein - Laßt sie gehen",
+	L"Wohin mit den Gefangenen?",
+	L"Entlassen",
 	L"Was möchten Sie tun?",
-	L"Aufgabe einfordern",
-	L"Aufgabe anbieten",
+	L"Kapitulation fordern",
+	L"Kapitulation anbieten",
 	L"Sprechen",
-	L"Militia inspection",//TODO.Translate
+	L"Miliz inspizieren",
 	L"unused",
 };
 

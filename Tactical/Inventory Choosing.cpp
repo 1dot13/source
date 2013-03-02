@@ -3726,17 +3726,17 @@ void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERC
 	if ( pSi->found && !pSi->done )
 	{
 		UINT8 usRealTake = min(usTake, pWorldItem[ pSi->pos ].object.ubNumberOfObjects);
-		pWorldItem[ pSi->pos ].object.MoveThisObjectTo(gTempObject, usRealTake );
+		pWorldItem[ pSi->pos ].object.MoveThisObjectTo(pp->Inv[ pSi->soldierslot ], usRealTake );
 
 		for ( UINT8 i = 0; i < usRealTake; ++i )
-			gTempObject[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
-
-		pp->Inv[ pSi->soldierslot ]	= gTempObject;				
+			(pp->Inv[ pSi->soldierslot ])[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
 		
 		if ( pWorldItem[ pSi->pos ].object.ubNumberOfObjects < 1 )
 		{
 			RemoveItemFromPool(pWorldItem[ pSi->pos ].sGridNo, (pSi->pos), pWorldItem[ pSi->pos ].ubLevel);
-			pWorldItem[ pSi->pos ].fExists = FALSE;
+
+			// setting this to false can lead to cases where we 'forget' items without a valid gridno - though I am unsure why.
+			//pWorldItem[ pSi->pos ].fExists = FALSE;
 		}
 	}
 
@@ -4683,6 +4683,14 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	///////////////////////////////// Exit /////////////////////////////////////////////////////////
 
 	// Exit:				Save changed inventory
+
+#ifdef JA2TESTVERSION
+	std::vector<std::pair<BOOLEAN, UINT16> > overviewvector2;
+	for( uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )
+	{
+		overviewvector2.push_back( std::pair<BOOLEAN, UINT16>(pWorldItem[ uiCount ].fExists, pWorldItem[ uiCount ].object.usItem) );
+	}
+#endif
 
 	// save the changed inventory
 	// open sector inv

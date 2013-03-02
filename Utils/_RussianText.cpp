@@ -2928,7 +2928,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"У вас нет тюрьмы для содержания заключённых, придётся отпустить их",
-	L"Да - Отправить заключенных в тюрьму      Нет - Отпустит",
+	L"Where do you want to send the prisoners?",//TODO.Translate
+	L"Let them go",
 	L"Что вы хотите сделать?",
 	L"Требовать сдаться",
 	L"Предлоить сдаться",

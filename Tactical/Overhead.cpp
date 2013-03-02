@@ -6634,10 +6634,10 @@ void DeathNoMessageTimerCallback( void )
 	}
 }
 
-BOOLEAN GetPlayerControlledPrisonSectorId(UINT32& auSectorID)
+// get a vector of all player-controlled sectors with prison facilities. It is assumed that a sector has max. one of these
+BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT32>& arSectorIDVector )
 {
-	auSectorID = 0;
-	UINT16 highestprisonsize = 0;
+	arSectorIDVector.clear();
 
 	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
@@ -6658,10 +6658,9 @@ BOOLEAN GetPlayerControlledPrisonSectorId(UINT32& auSectorID)
 				if (gFacilityLocations[SECTOR(sX, sY)][cnt].fFacilityHere)
 				{
 					// we determine wether this is a prison by checking for usPrisonBaseLimit
-					if ( gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > highestprisonsize )
+					if ( gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0 )
 					{
-						highestprisonsize = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit;
-						auSectorID = SECTOR(sX, sY);
+						arSectorIDVector.push_back( SECTOR(sX, sY) );
 						break;
 					}
 				}
@@ -6669,14 +6668,35 @@ BOOLEAN GetPlayerControlledPrisonSectorId(UINT32& auSectorID)
 		}
 	}
 
-	return (highestprisonsize > 0);
+	return ( arSectorIDVector.size() > 0 );
 }
 
 extern INT32 giReinforcementPool;
 
 void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 {
-	if (ubExitValue == MSG_BOX_RETURN_NO)
+	UINT32 usSectorID = 0;
+
+	// Get a list of all available prisons, and create a fitting messagebox
+	std::vector<UINT32> prisonsectorvector;
+	if ( GetPlayerControlledPrisonList( prisonsectorvector ) )
+	{
+		UINT8 cnt = 1;
+		std::vector<UINT32>::iterator itend = prisonsectorvector.end();
+		for (std::vector<UINT32>::iterator it = prisonsectorvector.begin(); it != itend; ++it)
+		{
+			if ( ubExitValue == cnt )
+			{
+				usSectorID = (*it);
+				break;
+			}
+
+			++cnt;
+		}
+	}
+
+	// if sector is still not set, then we did not select one - release prisoners
+	if ( usSectorID == 0 )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RELEASED] );
 	}
@@ -6691,23 +6711,19 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
 				
-		if (ubExitValue == MSG_BOX_RETURN_YES)
+		if ( usSectorID > 0)
 		{
-			UINT32 uSectorID = 0;
-			if ( GetPlayerControlledPrisonSectorId(uSectorID) )
+			SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ usSectorID ] );
+
+			if ( pPrisonSectorInfo )
 			{
-				SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ uSectorID ] );
+				success = TRUE;
 
-				if ( pPrisonSectorInfo )
-				{
-					success = TRUE;
+				pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
 
-					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
-
-					CHAR16 wString[ 64 ];
-					GetShortSectorString( (INT16)((uSectorID % MAP_WORLD_X) + 1), (INT16)((uSectorID / MAP_WORLD_X) + 2), wString );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
-				}
+				CHAR16 wString[ 64 ];
+				GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), wString );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
 			}
 		}
 	}
@@ -6719,23 +6735,19 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 		pSectorInfo->uiNumberOfPrisonersOfWar = 0;
 
-		if (ubExitValue == MSG_BOX_RETURN_YES)
+		if ( usSectorID > 0)
 		{
-			UINT32 uSectorID = 0;
-			if ( GetPlayerControlledPrisonSectorId(uSectorID) )
+			SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ usSectorID ] );
+
+			if ( pPrisonSectorInfo )
 			{
-				SECTORINFO *pPrisonSectorInfo = &( SectorInfo[ uSectorID ] );
+				success = TRUE;
 
-				if ( pPrisonSectorInfo )
-				{
-					success = TRUE;
+				pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
 
-					pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
-
-					CHAR16 wString[ 64 ];
-					GetShortSectorString( (INT16)(uSectorID % MAP_WORLD_X), (INT16)(uSectorID / MAP_WORLD_X), wString );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
-				}
+				CHAR16 wString[ 64 ];
+				GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), wString );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
 			}
 		}
 	}
@@ -6881,10 +6893,33 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 	if ( ubNumPrisoners )
 	{
-		//if ( guiCurrentScreen == GAME_SCREEN )
-		UINT32 uSectorID = 0;
-		if ( GetPlayerControlledPrisonSectorId(uSectorID) )
-			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, PrisonerMessageBoxCallBack, NULL );
+		// Get a list of all available prisons, and create a fitting messagebox
+		std::vector<UINT32> prisonsectorvector;
+		if ( GetPlayerControlledPrisonList( prisonsectorvector ) )
+		{
+			UINT8 cnt = 0;
+			std::vector<UINT32>::iterator itend = prisonsectorvector.end();
+			for (std::vector<UINT32>::iterator it = prisonsectorvector.begin(); it != itend; ++it)
+			{
+				UINT32 usSectorID = (*it);
+				CHAR16				zShortTownIDString[ 50 ];
+
+				GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), zShortTownIDString );
+
+				// Set string for generic button
+				swprintf( gzUserDefinedButton[ cnt++ ], L"%s", zShortTownIDString );
+
+				if ( cnt >= 7 )
+					break;
+			}
+
+			for ( ; cnt < 8; ++cnt)
+			{
+				wcscpy( gzUserDefinedButton[ cnt ], TacticalStr[ PRISONER_LETGO_STR ] );
+			}
+
+			DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, PrisonerMessageBoxCallBack, NULL );
+		}
 		else
 			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ PRISONER_NO_PRISONS_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
 	}
