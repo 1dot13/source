@@ -4910,6 +4910,7 @@ STR16 zMarksMapScreenText[] =
 STR16 pLandMarkInSectorString[] =
 {
 	L"Trupp %d hat in Sektor %s jemanden bemerkt.",
+	L"Trupp %s hat in Sektor %s jemanden bemerkt.",
 };
 
 // confirm the player wants to pay X dollars to build a militia force in town

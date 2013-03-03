@@ -3733,7 +3733,9 @@ void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERC
 		
 		if ( pWorldItem[ pSi->pos ].object.ubNumberOfObjects < 1 )
 		{
-			RemoveItemFromPool(pWorldItem[ pSi->pos ].sGridNo, (pSi->pos), pWorldItem[ pSi->pos ].ubLevel);
+			// account for items with invalid gridnos...
+			if ( pWorldItem[ pSi->pos ].sGridNo != NOWHERE )
+				RemoveItemFromPool(pWorldItem[ pSi->pos ].sGridNo, (pSi->pos), pWorldItem[ pSi->pos ].ubLevel);
 
 			// setting this to false can lead to cases where we 'forget' items without a valid gridno - though I am unsure why.
 			//pWorldItem[ pSi->pos ].fExists = FALSE;

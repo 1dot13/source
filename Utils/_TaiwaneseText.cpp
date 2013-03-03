@@ -5065,6 +5065,7 @@ STR16		zMarksMapScreenText[] =
 STR16 pLandMarkInSectorString[] =
 {
 	L"Squad %d has noticed someone in sector %s",
+	L"Squad %s has noticed someone in sector %s",// TODO.Translate
 };
 
 // confirm the player wants to pay X dollars to build a militia force in town
