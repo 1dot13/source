@@ -7521,7 +7521,7 @@ STR16	szPrisonerTextStr[]=
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
 	L"%d 名俘虏已加入我方阵营", //L"%d prisoners joined our cause.",
 	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
-	L"俘虏被押送前往 %s 监狱", //L"Prisoners were sent to %s!",
+	L"%d 俘虏被押送前往 %s 监狱", //L"Prisoners were sent to %s!",
 	L"俘虏已被释放！", //L"Prisoners have been released!",
 	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
@@ -7536,6 +7536,16 @@ STR16	szMTATextStr[]=	// TODO.Translate
 	L"removing a fortification",
 	L"filling sandbags",
 	L"%s had to stop %s.",
+};
+
+STR16	szInventoryArmTextStr[]= // TODO.Translate
+{
+	L"Blow up (%d AP)",
+	L"Blow up",
+	L"Arm (%d AP)",
+	L"Arm",
+	L"Disarm (%d AP)",
+	L"Disarm",
 };
 
 #endif //CHINESE

@@ -7506,7 +7506,7 @@ STR16	szPrisonerTextStr[]=
 	L"%d prisoners revealed enemy positions.",
 	L"%d prisoners joined our cause.",
 	L"Prisoners start a massive riot in %s!",
-	L"Prisoners were sent to %s!",
+	L"%d prisoners were sent to %s!",
 	L"Prisoners have been released!",
 	L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"The enemy refuses to surrender!",
@@ -7521,6 +7521,16 @@ STR16	szMTATextStr[]=
 	L"removing a fortification",
 	L"filling sandbags",
 	L"%s had to stop %s.",
+};
+
+STR16	szInventoryArmTextStr[]=
+{
+	L"Blow up (%d AP)",
+	L"Blow up",
+	L"Arm (%d AP)",
+	L"Arm",
+	L"Disarm (%d AP)",
+	L"Disarm",
 };
 
 #endif //ENGLISH

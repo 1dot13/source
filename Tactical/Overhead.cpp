@@ -6723,7 +6723,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 				CHAR16 wString[ 64 ];
 				GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), wString );
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], prisonerstobemoved, wString  );
 			}
 		}
 	}
@@ -6747,7 +6747,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 				CHAR16 wString[ 64 ];
 				GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), wString );
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], wString  );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], prisonerstobemoved, wString  );
 			}
 		}
 	}

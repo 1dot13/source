@@ -12765,7 +12765,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 				{
 					iTransformIndex++;
 					
-					UINT16 apcost = APBPConstants[AP_INVENTORY_EXPLOSIVE_ACTIVATE];
+					UINT16 usAPCost = APBPConstants[AP_INVENTORY_ARM];
 
 					// test wether item is already armed
 					INT8 detonatortype;
@@ -12779,24 +12779,24 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 					{
 						fHaveToDisarm = TRUE;
 
-						if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+						if ( usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
 						{
-							swprintf (MenuRowText, L"Disarm (%d AP)", apcost );
+							swprintf (MenuRowText, szInventoryArmTextStr[STR_INV_ARM_DISARM_AP], usAPCost );
 						}
 						else
 						{
-							swprintf (MenuRowText, L"Disarm");
+							swprintf (MenuRowText, szInventoryArmTextStr[STR_INV_ARM_DISARM]);
 						}
 					}
 					else
 					{
-						if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+						if ( usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
 						{
-							swprintf (MenuRowText, L"Arm (%d AP)", apcost );
+							swprintf (MenuRowText, szInventoryArmTextStr[STR_INV_ARM_ARM_AP], usAPCost );
 						}
 						else
 						{
-							swprintf (MenuRowText, L"Arm");
+							swprintf (MenuRowText, szInventoryArmTextStr[STR_INV_ARM_ARM]);
 						}
 					}
 
@@ -12813,17 +12813,17 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 				{
 					iTransformIndex++;
 
-					UINT16 apcost = 20;
+					UINT16 usAPCost = APBPConstants[AP_INVENTORY_ARM];
 
 					CHAR16 MenuRowText[300];
 
-					if ( apcost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+					if ( usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
 					{
-						swprintf (MenuRowText, L"Blow up (%d AP)", apcost );
+						swprintf (MenuRowText, szInventoryArmTextStr[STR_INV_ARM_BLOWUP_AP], usAPCost );
 					}
 					else
 					{
-						swprintf (MenuRowText, L"Blow up");
+						swprintf (MenuRowText, szInventoryArmTextStr[STR_INV_ARM_BLOWUP]);
 					}
 
 					// Generate a new option for the menu
@@ -13019,6 +13019,21 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 		// if this is grenade, blow it up, no dialogue settings here
 		if ( Item[pObj->usItem].usItemClass == IC_GRENADE )
 		{
+			// Start reading transformation data with APBP costs.
+			UINT16 usAPCost = APBPConstants[AP_INVENTORY_ARM];
+			INT32 iBPCost   = APBPConstants[BP_INVENTORY_ARM];
+	
+			// Check whether our soldier can afford this transformation!
+			if (!EnoughPoints( gpItemDescSoldier, (INT16)usAPCost, iBPCost, true ))
+			{
+				return;
+			}
+			else
+			{
+				// Soldier can afford the transformation. Deduct APBP as necessary.
+				DeductPoints( gpItemDescSoldier, (INT16)usAPCost, iBPCost, false );
+			}
+
 			INT8 screen = guiCurrentScreen;
 			if ( screen == GAME_SCREEN )
 			{

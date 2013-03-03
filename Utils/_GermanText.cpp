@@ -7330,7 +7330,7 @@ STR16	szPrisonerTextStr[]=
 	L"%d Gefangene haben uns Truppenstandorte verraten.",
 	L"%d Gefangene schliessen sich uns an.",
 	L"Gefangenenaufstand in %s!",
-	L"Gefangene wurden nach %s geschickt!",
+	L"%d Gefangene wurden nach %s geschickt!",
 	L"Gefangene freigelassen!",
 	L"Die Armee hat das Gefängnis in %s besetzt, die Gefangenen wurden befreit!",
 	L"Der Gegner weigert sich aufzugeben!",
@@ -7345,6 +7345,16 @@ STR16	szMTATextStr[]=
 	L"entferne eine Befestigung",
 	L"Sandsäcke befüllen",
 	L"%s musste %s stoppen.",
+};
+
+STR16	szInventoryArmTextStr[]= // TODO.Translate
+{
+	L"Blow up (%d AP)",
+	L"Blow up",
+	L"Arm (%d AP)",
+	L"Arm",
+	L"Disarm (%d AP)",
+	L"Disarm",
 };
 
 #endif //GERMAN
