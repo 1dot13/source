@@ -5608,8 +5608,8 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					UINT32 result = Random(100);
 					if ( result < gGameExternalOptions.ubPrisonerProcessInfoDetectChance )
 					{
-						// there need to be enemies here...
-						if ( NumStationaryEnemiesInSector( sX, sY ) == 0 )
+						// there need to be mobile enemies here - that the quenn has troops in towns we do not own is hardly worthy information
+						if ( NumMobileEnemiesInSector( sX, sY ) == 0 )
 							continue;
 
 						// enemy patrol detected

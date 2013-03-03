@@ -4585,7 +4585,9 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 							
 							if ( pWorldItem[ uiCount ].object.ubNumberOfObjects < 1 )
 							{
-								RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
+								if ( pWorldItem[ uiCount ].sGridNo != NOWHERE )
+									RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
+
 								pWorldItem[ uiCount ].fExists = FALSE;
 							}
 						}
@@ -4615,7 +4617,9 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 		
 							if ( pWorldItem[ uiCount ].object.ubNumberOfObjects < 1 )
 							{
-								RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
+								if ( pWorldItem[ uiCount ].sGridNo != NOWHERE )
+									RemoveItemFromPool(pWorldItem[ uiCount ].sGridNo, uiCount, pWorldItem[ uiCount ].ubLevel);
+
 								pWorldItem[ uiCount ].fExists = FALSE;
 							}
 						}

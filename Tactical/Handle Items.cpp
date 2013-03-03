@@ -2086,6 +2086,35 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 							// Make copy of item
 							gTempObject = gWorldItems[ pItemPool->iItemIndex ].object;
 
+							// Flugente: if we allow militia to use sector equipment, then mark gear they pick up, so that they drop it too.
+							if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fMilitiaUseSectorInventory )
+							{
+								if ( Item[gTempObject.usItem].usItemClass & IC_ARMOUR && gGameExternalOptions.fMilitiaUseSectorInventory_Armour )
+								{
+									gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+								}
+								else if ( Item[gTempObject.usItem].usItemClass & IC_FACE && gGameExternalOptions.fMilitiaUseSectorInventory_Face )
+								{
+									gTempObject[0]->data.sObjectFlag |= IC_FACE;
+								}
+								else if ( Item[gTempObject.usItem].usItemClass & (IC_BLADE|IC_PUNCH) && gGameExternalOptions.fMilitiaUseSectorInventory_Melee )
+								{
+									gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+								}
+								else if ( Item[gTempObject.usItem].usItemClass & IC_GRENADE && gGameExternalOptions.fMilitiaUseSectorInventory_Grenade )
+								{
+									gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+								}
+								else if ( Item[gTempObject.usItem].usItemClass & (IC_GUN|IC_AMMO) && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )
+								{
+									gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+								}
+								else if ( Item[gTempObject.usItem].usItemClass & IC_LAUNCHER && gGameExternalOptions.fMilitiaUseSectorInventory_Launcher )
+								{
+									gTempObject[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+								}
+							}
+
 							if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
 							{
 								// check to see if the object has been swapped with one in inventory
@@ -2210,6 +2239,35 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 					}
 					*/
 					RemoveItemFromPool( sGridNo, iItemIndex, pSoldier->pathing.bLevel );
+
+					// Flugente: if we allow militia to use sector equipment, then mark gear they pick up, so that they drop it too.
+					if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fMilitiaUseSectorInventory )
+					{
+						if ( Item[gWorldItems[ iItemIndex ].object.usItem].usItemClass & IC_ARMOUR && gGameExternalOptions.fMilitiaUseSectorInventory_Armour )
+						{
+							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+						}
+						else if ( Item[gWorldItems[ iItemIndex ].object.usItem].usItemClass & IC_FACE && gGameExternalOptions.fMilitiaUseSectorInventory_Face )
+						{
+							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= IC_FACE;
+						}
+						else if ( Item[gWorldItems[ iItemIndex ].object.usItem].usItemClass & (IC_BLADE|IC_PUNCH) && gGameExternalOptions.fMilitiaUseSectorInventory_Melee )
+						{
+							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+						}
+						else if ( Item[gWorldItems[ iItemIndex ].object.usItem].usItemClass & IC_GRENADE && gGameExternalOptions.fMilitiaUseSectorInventory_Grenade )
+						{
+							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+						}
+						else if ( Item[gWorldItems[ iItemIndex ].object.usItem].usItemClass & (IC_GUN|IC_AMMO) && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )
+						{
+							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+						}
+						else if ( Item[gWorldItems[ iItemIndex ].object.usItem].usItemClass & IC_LAUNCHER && gGameExternalOptions.fMilitiaUseSectorInventory_Launcher )
+						{
+							gWorldItems[ iItemIndex ].object[0]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+						}
+					}
 
 					if ( !AutoPlaceObject( pSoldier, &(gWorldItems[ iItemIndex ].object ), TRUE ) )
 					{

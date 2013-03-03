@@ -15738,7 +15738,11 @@ void	SOLDIERTYPE::DropSectorEquipment()
 					if ( !gGameExternalOptions.fMilitiaUseSectorInventory_Ammo && Item[ pObj->usItem ].usItemClass & IC_GUN )
 						(*pObj)[0]->data.gun.ubGunShotsLeft = 0;
 
-					AddItemToPool( this->sGridNo, pObj, 1 , this->pathing.bLevel, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
+					INT32 sPutGridNo = this->sGridNo;
+					if ( sPutGridNo == NOWHERE )
+						sPutGridNo = RandomGridNo();
+
+					AddItemToPool( sPutGridNo, pObj, 1 , this->pathing.bLevel, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
 					DeleteObj( &(this->inv[cnt]) );
 				}
 			}
