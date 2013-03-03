@@ -6855,6 +6855,9 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 					else
 						pTeamSoldier->RemoveSoldierFromGridNo( );
 
+					// this function updates number of enemies, and also updates groups
+					ProcessQueenCmdImplicationsOfDeath( pTeamSoldier );
+
 					// Remove as target
 					RemoveManAsTarget( pTeamSoldier );
 				}
@@ -6867,28 +6870,12 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
         SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
 		pSectorInfo->uiNumberOfPrisonersOfWar += ubNumPrisoners;
-
-        pSectorInfo->ubNumAdmins -= ubNumPrisonerAdmin;
-		pSectorInfo->ubNumTroops -= ubNumPrisonerTroop;
-		pSectorInfo->ubNumElites -= ubNumPrisonerElite;
-
-		pSectorInfo->ubAdminsInBattle -= ubNumPrisonerAdmin;
-		pSectorInfo->ubTroopsInBattle -= ubNumPrisonerTroop;
-		pSectorInfo->ubElitesInBattle -= ubNumPrisonerElite;
     }
     else
     {
         UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
 
 		pSectorInfo->uiNumberOfPrisonersOfWar += ubNumPrisoners;
-        
-		pSectorInfo->ubNumAdmins -= ubNumPrisonerAdmin;
-		pSectorInfo->ubNumTroops -= ubNumPrisonerTroop;
-		pSectorInfo->ubNumElites -= ubNumPrisonerElite;
-
-		pSectorInfo->ubAdminsInBattle -= ubNumPrisonerAdmin;
-		pSectorInfo->ubTroopsInBattle -= ubNumPrisonerTroop;
-		pSectorInfo->ubElitesInBattle -= ubNumPrisonerElite;
     }
 
 	if ( ubNumPrisoners )
