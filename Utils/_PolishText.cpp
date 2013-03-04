@@ -453,9 +453,12 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"Rysuj numer pomieszczenia",
 	L"Usuń numer pomieszczenia",
 
-	L"Przełącz tryb wymazywania",
-	L"Cofnij ostatnią zmianę",
-	L"Wybierz rozmiar pędzla",
+	L"Przełącz tryb wymazywania (|E)",
+	L"Cofnij ostatnią zmianę (|B|a|c|k|s|p|a|c|e)",
+	L"Wybierz rozmiar pędzla (|A/|Z)",
+	L"Dachy (|H)",
+	L"Ściany (|W)", //30
+	L"Dane Pom. (|N)",
 };
 
 STR16 iEditorItemsToolbarText[] =
@@ -480,9 +483,9 @@ STR16 iEditorMapInfoToolbarText[] =
 	L"Dodaj źródło Światła z otoczenia", //0
 	L"Przełącz fałszywe Światła z otoczenia.",
 	L"Dodaj pola wyjŚcia (p-klik, aby usunąć istniejące).",
-	L"Wybierz rozmiar pędzla",
-	L"Cofnij ostatnią zmianę",
-	L"Przełącz tryb wymazywania",
+	L"Wybierz rozmiar pędzla (|A/|Z)",
+	L"Cofnij ostatnią zmianę (|B|a|c|k|s|p|a|c|e)",
+	L"Przełącz tryb wymazywania (|E)",
 	L"OkreŚl punkt północny dla celów potwierdzenia.",
 	L"OkreŚl punkt zachodu dla celów potwierdzenia.",
 	L"OkreŚl punkt wschodu dla celów potwierdzenia.",
@@ -493,14 +496,14 @@ STR16 iEditorMapInfoToolbarText[] =
 
 STR16 iEditorOptionsToolbarText[]=
 {
-	L"Nowa mapa",  //0
+	L"Nowa na wolnym powietrzu",  //0
 	L"Nowa piwnica",
 	L"Nowy poziom jaskini",
-	L"Zapisz mapę",
-	L"Wczytaj mapę",
+	L"Zapisz mapę (|C|t|r|l+|S)",
+	L"Wczytaj mapę (|C|t|r|l+|L)",
 	L"Wybierz zestaw",
 	L"Wyjdź z trybu edycji do trybu gry",
-	L"Wyjdź z trybu edycji",
+	L"Wyjdź z trybu edycji (|A|l|t+|X)",
 	L"Utwórz mapę radaru",
 	L"Kiedy zaznaczone, mapa będzie zapisana w oryginalnym formacie JA2.\nTa opcja jest ważna przy normalnych wielkoŚciach map, których numery siatki nie są (siatki wyjŚcia) > 25600.",
 	L"Kiedy zaznaczone, wczytana mapa lub nowa, będzie powiększona automatycznie do wybranych rozmiarów.",
@@ -508,20 +511,20 @@ STR16 iEditorOptionsToolbarText[]=
 
 STR16 iEditorTerrainToolbarText[] =
 {
-	L"Rysuj tekstury terenu", //0
+	L"Rysuj tekstury terenu (|G)", //0
 	L"Ustaw tekstury terenu mapy",
-	L"UmieŚć brzegi i urwiska",
-	L"Rysuj drogi",
-	L"Rysuj gruzy",
-	L"UmieŚć drzewa i krzewy",
-	L"UmieŚć skały",
-	L"UmieŚć beczki i inne Śmieci",
+	L"UmieŚć brzegi i urwiska (|C)",
+	L"Rysuj drogi (|P)",
+	L"Rysuj gruzy (|D)",
+	L"UmieŚć drzewa i krzewy (|T)",
+	L"UmieŚć skały (|R)",
+	L"UmieŚć beczki i inne Śmieci (|O)",
 	L"Wypełnij teren",
-	L"Cofnij ostatnią zmianę",
-	L"Przełącz tryb wymazywania", //10
-	L"Wybierz rozmiar pędzla",
-	L"Zwiększ gęstoŚć pędzla",
-	L"Zmniejsz gęstoŚć pędzla",
+	L"Cofnij ostatnią zmianę (|B|a|c|k|s|p|a|c|e)",
+	L"Przełącz tryb wymazywania (|E)", //10
+	L"Wybierz rozmiar pędzla (|A/|Z)",
+	L"Zwiększ gęstoŚć pędzla (|])",
+	L"Zmniejsz gęstoŚć pędzla (|[)",
 };
 
 STR16 iEditorTaskbarInternalText[]=
@@ -532,6 +535,12 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Najemnicy",
 	L"Dane mapy",
 	L"Opcje",
+	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Terrain fasthelp text // TODO.Translate
+	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Buildings fasthelp text // TODO.Translate
+	L"", //Items fasthelp text // TODO.Translate
+	L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc", //Mercs fasthelp text // TODO.Translate
+	L"|C|t|r|l+|G: Go to grid no\n \n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions", //Map Info fasthelp text // TODO.Translate
+	L"|C|t|r|l+|N: create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)", //Options fasthelp text // TODO.Translate
 };
 
 //Editor Taskbar Utils.cpp
@@ -1078,9 +1087,9 @@ STR16 pUpdateItemStatsPanelText[] =
 
 STR16 pSetupGameTypeFlagsText[] =
 {
-	L"Przedmiot będzie wyŚwietlany w trybie Sci-Fi i realistycznym. (|B)", //0
-	L"Przedmiot będzie wyŚwietlany tylko |w trybie realistycznym.",
-	L"Przedmiot będzie wyŚwietlany tylko |w trybie Sci-Fi.",
+	L"Przedmiot będzie wyŚwietlany w trybie Sci-Fi i realistycznym", //0
+	L"Przedmiot będzie wyŚwietlany tylko w trybie realistycznym",
+	L"Przedmiot będzie wyŚwietlany tylko w trybie Sci-Fi",
 };
 
 STR16 pSetupGunGUIText[] =

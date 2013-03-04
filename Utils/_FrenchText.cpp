@@ -451,10 +451,12 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"Dessiner le numéro de pièce",
 	L"Supprimer le numéro de pièce",
 
-	L"Activer le mode supprimer",
-	L"Effacer le dernier changement",
-	L"Taille du cycle",
-
+	L"Activer le mode supprimer (|E)",
+	L"Effacer le dernier changement (|B|a|c|k|s|p|a|c|e)",
+	L"Taille du cycle (|A/|Z)",
+	L"Toits (|H)",
+	L"Murs (|W)", //30
+	L"Info Piece (|N)",
 };
 
 STR16 iEditorItemsToolbarText[] =
@@ -479,9 +481,9 @@ STR16 iEditorMapInfoToolbarText[] =
 	L"Ajouter une source de lumière ambiante", //0
 	L"Basculer en fausse lumière ambiante.",
 	L"Ajouter des réseaux de sortie (clic droit pour une requête existante).",
-	L"Taille de cycle",
-	L"Effacer le dernier changement",
-	L"Basculer en mode supprimer",
+	L"Taille de cycle (|A/|Z)",
+	L"Effacer le dernier changement (|B|a|c|k|s|p|a|c|e)",
+	L"Basculer en mode supprimer (|E)",
 	L"Spécifier un point au NORD pour valider le but.",
 	L"Spécifier un point à l'OUEST pour valider le but.",
 	L"Spécifier un point à l'EST pour valider le but.",
@@ -492,14 +494,14 @@ STR16 iEditorMapInfoToolbarText[] =
 
 STR16 iEditorOptionsToolbarText[]=
 {
-	L"Nouvelle carte",  //0
+	L"Nouveau niveau extérieur ",  //0
 	L"Nouveau sous-sol",
 	L"Nouveau niveau de caverne",
-	L"Sauvegarder la carte",
-	L"Charger la carte",
+	L"Sauvegarder la carte (|C|t|r|l+|S)",
+	L"Charger la carte (|C|t|r|l+|L)",
 	L"Sélectionner un tileset",
 	L"Quitter le mode éditeur",
-	L"Quitter le jeu",
+	L"Quitter le jeu (|A|l|t+|X)",
 	L"Créer un carte de radar",
 	L"Une fois la carte vérifiée, elle sera sauvée sous le format original JA2.\nCette option est seulement valable sur les cartes de taille 'normale' qui ne font pas référence aux nombre de réseaux (ex: réseau de sortie) > 25600.",
 	L"Une fois la carte vérifiée et chargée, elle sera élargie automatiquement selon les rangées et colonnes choisies.",
@@ -507,20 +509,20 @@ STR16 iEditorOptionsToolbarText[]=
 
 STR16 iEditorTerrainToolbarText[] =
 {
-	L"Dessiner des textures de sol", //0
+	L"Dessiner des textures de sol (|G)", //0
 	L"Sélectionner les textures du sol de la carte",
-	L"Placer les rives et falaises",
-	L"Dessiner les routes",
-	L"Dessiner les débris",
-	L"Placer les arbres & buissons",
-	L"Placer les rochers",
-	L"Placer barrils & autres camelotes",
+	L"Placer les rives et falaises (|C)",
+	L"Dessiner les routes (|P)",
+	L"Dessiner les débris (|D)",
+	L"Placer les arbres & buissons (|T)",
+	L"Placer les rochers (|R)",
+	L"Placer barrils & autres camelotes (|O)",
 	L"Remplir le secteur",
-	L"Effacer le dernier changement",
-	L"Basculer en mode supprimer", //10
-	L"Taille du cycle",
-	L"Augmenter la densité du pinceau",
-	L"Diminuer la densité du pinceau",
+	L"Effacer le dernier changement (|B|a|c|k|s|p|a|c|e)",
+	L"Basculer en mode supprimer (|E)", //10
+	L"Taille du cycle (|A/|Z)",
+	L"Augmenter la densité du pinceau (|])",
+	L"Diminuer la densité du pinceau (|[)",
 };
 
 STR16 iEditorTaskbarInternalText[]=
@@ -531,6 +533,12 @@ STR16 iEditorTaskbarInternalText[]=
 	L"Mercenaires",
 	L"Info carte",
 	L"Options",
+	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Terrain fasthelp text // TODO.Translate
+	L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method", //Buildings fasthelp text // TODO.Translate
+	L"", //Items fasthelp text // TODO.Translate
+	L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc", //Mercs fasthelp text // TODO.Translate
+	L"|C|t|r|l+|G: Go to grid no\n \n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions", //Map Info fasthelp text // TODO.Translate
+	L"|C|t|r|l+|N: create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)", //Options fasthelp text // TODO.Translate
 };
 
 //Editor Taskbar Utils.cpp
@@ -1076,9 +1084,9 @@ STR16 pUpdateItemStatsPanelText[] =
 
 STR16 pSetupGameTypeFlagsText[] =
 {
-	L"Obj apparaît en mode SF et réaliste. (|B)", //0
-	L"Obj apparaît slt en mode |réaliste.",
-	L"Obj apparaît slt en mode |SF.",
+	L"Obj apparaît en mode SF et réaliste", //0
+	L"Obj apparaît slt en mode réaliste",
+	L"Obj apparaît slt en mode SF",
 };
 
 STR16 pSetupGunGUIText[] =

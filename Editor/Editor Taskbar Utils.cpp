@@ -892,8 +892,8 @@ void RenderEditorInfo( )
 
 	//dnl ch52 091009
 	SetFont(FONT12ARIAL);
-	SetFontShadow(NO_SHADOW);
-	SetFontForeground(FONT_BLACK);
+	SetFontShadow(FONT_NEARBLACK);
+	SetFontForeground(FONT_GRAY2);
 	SetFontBackground(FONT_BLACK);
 
 	//dnl ch1 101009 Display the mapindex position

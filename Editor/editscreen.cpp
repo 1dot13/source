@@ -1553,6 +1553,10 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case F1:
+					/*
+					//Buggler: help screen not in used due to space limitations
+					iCurrentAction = ACTION_HELPSCREEN;
+					*/
 					gfRenderWorld = TRUE;
 					gfRenderTaskbar = TRUE;
 					break;
@@ -1635,11 +1639,11 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case '[':
-					iCurrentAction = ACTION_DENSITY_DOWN;
+					iEditorToolbarState = TBAR_MODE_DENS_DWN;
 					break;
 
 				case ']':
-					iCurrentAction = ACTION_DENSITY_UP;
+					iEditorToolbarState = TBAR_MODE_DENS_UP;
 					break;
 
 				case '+':
@@ -1708,6 +1712,17 @@ void HandleKeyboardShortcuts( )
 					{
 						iCurrentAction = ACTION_COPY_MERC_PLACEMENT;
 					}
+					else
+					{
+						if( iCurrentTaskbar != TASK_TERRAIN )
+						{
+							iTaskMode = TASK_TERRAIN;
+							DoTaskbar();
+						}
+
+						iCurrentAction = ACTION_NULL;
+						SetEditorTerrainTaskbarMode( TERRAIN_PLACE_CLIFFS );
+					}
 					break;
 				case 'C'://dnl ch7 210909 Clicked Placement Switch
 					if(fDontUseClick)
@@ -1729,10 +1744,7 @@ void HandleKeyboardShortcuts( )
 					}
 
 					iCurrentAction = ACTION_NULL;
-					iDrawMode = DRAW_MODE_DEBRIS;
-					ClickEditorButton( TERRAIN_PLACE_DEBRIS );
-					iEditorToolbarState = TBAR_MODE_DRAW_DEBRIS;
-					TerrainTileDrawMode = TERRAIN_TILES_NODRAW;
+					SetEditorTerrainTaskbarMode( TERRAIN_PLACE_DEBRIS );
 					break;
 				case 'e':
 					if ( iDrawMode >= DRAW_MODE_ERASE )
@@ -1864,6 +1876,12 @@ void HandleKeyboardShortcuts( )
 					break;
 #endif
 				case 'n':
+					if (EditorInputEvent.usKeyState & CTRL_DOWN )
+					{					
+						UpdateLastActionBeforeLeaving();
+						iCurrentAction = ACTION_NEW_MAP;
+						break;
+					}
 					if( fBuildingShowRoomInfo ^= 1 )
 					{
 						SetRenderFlags( RENDER_FLAG_ROOMIDS );
@@ -1882,9 +1900,17 @@ void HandleKeyboardShortcuts( )
 						DoTaskbar();
 					}
 					iCurrentAction = ACTION_NULL;
-					iDrawMode = DRAW_MODE_OSTRUCTS2;
-					ClickEditorButton( TERRAIN_PLACE_MISC );
-					iEditorToolbarState = TBAR_MODE_DRAW_OSTRUCTS2;
+					SetEditorTerrainTaskbarMode( TERRAIN_PLACE_MISC );
+					break;
+				case 'p': // roads
+					if( iCurrentTaskbar != TASK_TERRAIN )
+					{
+						iTaskMode = TASK_TERRAIN;
+						DoTaskbar();
+					}
+
+					iCurrentAction = ACTION_NULL;
+					SetEditorTerrainTaskbarMode( TERRAIN_PLACE_ROADS );
 					break;
 				case 'r': // rocks
 					if ( iCurrentTaskbar != TASK_TERRAIN )
@@ -1893,9 +1919,7 @@ void HandleKeyboardShortcuts( )
 						DoTaskbar();
 					}
 					iCurrentAction = ACTION_NULL;
-					iDrawMode = DRAW_MODE_OSTRUCTS1;
-					ClickEditorButton( TERRAIN_PLACE_ROCKS );
-					iEditorToolbarState = TBAR_MODE_DRAW_OSTRUCTS1;
+					SetEditorTerrainTaskbarMode( TERRAIN_PLACE_ROCKS );
 					break;
 				case 'R'://dnl ch8 210909 Random Placement Switch
 					if(fDontUseRandom)
@@ -1922,9 +1946,7 @@ void HandleKeyboardShortcuts( )
 						DoTaskbar();
 					}
 					iCurrentAction = ACTION_NULL;
-					iDrawMode = DRAW_MODE_OSTRUCTS;
-					ClickEditorButton( TERRAIN_PLACE_TREES );
-					iEditorToolbarState = TBAR_MODE_DRAW_OSTRUCTS;
+					SetEditorTerrainTaskbarMode( TERRAIN_PLACE_TREES );
 					break;
 				case 'T':
 					if ( fShowTrees )
@@ -2088,7 +2110,8 @@ void HandleKeyboardShortcuts( )
 					iCurrentAction = ACTION_NULL;
 					break;
 			}
-		}
+		}		
+		/* //Buggler: Commented out specific keys repeating function as it will result in double character entry in input box
 		else if ( !HandleSummaryInput( &EditorInputEvent ) && !HandleTextInput( &EditorInputEvent ) && EditorInputEvent.usEvent == KEY_REPEAT )
 		{	
 			switch( EditorInputEvent.usParam )
@@ -2163,6 +2186,7 @@ void HandleKeyboardShortcuts( )
 					break;
 			}
 		}
+		*/
 	}
 }
 

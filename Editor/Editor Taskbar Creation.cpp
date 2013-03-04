@@ -453,14 +453,17 @@ void InitEditorBuildingsToolbar()
 		CreateTextButton(iEditorBuildingsToolbarText[0],(UINT16)SMALLCOMPFONT, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 400, 50, 15, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,BUTTON_NO_CALLBACK,
 		BuildingToggleRoofViewCallback);
+	SetButtonFastHelpText(iEditorButton[BUILDING_TOGGLE_ROOF_VIEW],iEditorBuildingsToolbarText[29]);
 	iEditorButton[BUILDING_TOGGLE_WALL_VIEW] =
 		CreateTextButton(iEditorBuildingsToolbarText[1],(UINT16)SMALLCOMPFONT, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 415, 50, 15, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,BUTTON_NO_CALLBACK,
 		BuildingToggleWallViewCallback);
+	SetButtonFastHelpText(iEditorButton[BUILDING_TOGGLE_WALL_VIEW],iEditorBuildingsToolbarText[30]);
 	iEditorButton[BUILDING_TOGGLE_INFO_VIEW] =
 		CreateTextButton(iEditorBuildingsToolbarText[2],(UINT16)SMALLCOMPFONT, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 430, 50, 15, BUTTON_TOGGLE,MSYS_PRIORITY_NORMAL,BUTTON_NO_CALLBACK,
 		BuildingToggleInfoViewCallback);
+	SetButtonFastHelpText(iEditorButton[BUILDING_TOGGLE_INFO_VIEW],iEditorBuildingsToolbarText[31]);
 	//Selection method buttons
 	iEditorButton[BUILDING_PLACE_WALLS] =
 		CreateEasyToggleButton( iScreenWidthOffset + 180,2 * iScreenHeightOffset + 370,"EDITOR//wall.sti", BuildingWallCallback);
@@ -775,11 +778,11 @@ void InitEditorTerrainToolbar()
 	SetButtonFastHelpText(iEditorButton[TERRAIN_CYCLE_BRUSHSIZE],iEditorTerrainToolbarText[11]);
 
 	iEditorButton[TERRAIN_RAISE_DENSITY] =
-		CreateEasyNoToggleButton( iScreenWidthOffset + 280,SCREEN_HEIGHT - 50,"EDITOR//uparrow.sti", BtnIncBrushDensityCallback);
+		CreateEasyNoToggleButton( iScreenWidthOffset + 350,SCREEN_HEIGHT - 50,"EDITOR//uparrow.sti", BtnIncBrushDensityCallback);
 	SetButtonFastHelpText(iEditorButton[TERRAIN_RAISE_DENSITY],iEditorTerrainToolbarText[12]);
 
 	iEditorButton[TERRAIN_LOWER_DENSITY] =
-		CreateEasyNoToggleButton( iScreenWidthOffset + 350,SCREEN_HEIGHT - 50,"EDITOR//downarrow.sti", BtnDecBrushDensityCallback);
+		CreateEasyNoToggleButton( iScreenWidthOffset + 280,SCREEN_HEIGHT - 50,"EDITOR//downarrow.sti", BtnDecBrushDensityCallback);
 	SetButtonFastHelpText(iEditorButton[TERRAIN_LOWER_DENSITY],iEditorTerrainToolbarText[13]);
 }
 
@@ -791,31 +794,37 @@ void CreateEditorTaskbarInternal()
 		iScreenWidthOffset + 100, SCREEN_HEIGHT - 20, 90, 20, BUTTON_TOGGLE,MSYS_PRIORITY_HIGH,BUTTON_NO_CALLBACK,
 		TaskTerrainCallback);
 	SpecifyButtonDownTextColors( iEditorButton[TAB_TERRAIN], FONT_YELLOW, FONT_ORANGE );
+	SetButtonFastHelpText(iEditorButton[ TAB_TERRAIN ],iEditorTaskbarInternalText[6]);
 	iEditorButton[ TAB_BUILDINGS ] =
 		CreateTextButton(iEditorTaskbarInternalText[1], (UINT16)SMALLFONT1, FONT_LTKHAKI, FONT_DKKHAKI, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 190, SCREEN_HEIGHT - 20, 90, 20, BUTTON_TOGGLE,MSYS_PRIORITY_HIGH,BUTTON_NO_CALLBACK,
 		TaskBuildingCallback);
 	SpecifyButtonDownTextColors( iEditorButton[TAB_BUILDINGS], FONT_YELLOW, FONT_ORANGE );
+	SetButtonFastHelpText(iEditorButton[ TAB_BUILDINGS ],iEditorTaskbarInternalText[7]);
 	iEditorButton[ TAB_ITEMS ] =
 		CreateTextButton(iEditorTaskbarInternalText[2], (UINT16)SMALLFONT1, FONT_LTKHAKI, FONT_DKKHAKI, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 280, SCREEN_HEIGHT - 20, 90, 20, BUTTON_TOGGLE,MSYS_PRIORITY_HIGH,BUTTON_NO_CALLBACK,
 		TaskItemsCallback);
 	SpecifyButtonDownTextColors( iEditorButton[TAB_ITEMS], FONT_YELLOW, FONT_ORANGE );
+	SetButtonFastHelpText(iEditorButton[ TAB_ITEMS ],iEditorTaskbarInternalText[8]);
 	iEditorButton[ TAB_MERCS ] =
 		CreateTextButton(iEditorTaskbarInternalText[3], (UINT16)SMALLFONT1, FONT_LTKHAKI, FONT_DKKHAKI, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 370, SCREEN_HEIGHT - 20, 90, 20, BUTTON_TOGGLE,MSYS_PRIORITY_HIGH,BUTTON_NO_CALLBACK,
 		TaskMercsCallback);
 	SpecifyButtonDownTextColors( iEditorButton[TAB_MERCS], FONT_YELLOW, FONT_ORANGE );
+	SetButtonFastHelpText(iEditorButton[ TAB_MERCS ],iEditorTaskbarInternalText[9]);
 	iEditorButton[ TAB_MAPINFO ] =
 		CreateTextButton(iEditorTaskbarInternalText[4], (UINT16)SMALLFONT1, FONT_LTKHAKI, FONT_DKKHAKI, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 460, SCREEN_HEIGHT - 20, 90, 20, BUTTON_TOGGLE,MSYS_PRIORITY_HIGH,BUTTON_NO_CALLBACK,
 		TaskMapInfoCallback);
 	SpecifyButtonDownTextColors( iEditorButton[TAB_MAPINFO], FONT_YELLOW, FONT_ORANGE );
+	SetButtonFastHelpText(iEditorButton[ TAB_MAPINFO ],iEditorTaskbarInternalText[10]);
 	iEditorButton[ TAB_OPTIONS ] =
 		CreateTextButton(iEditorTaskbarInternalText[5], (UINT16)SMALLFONT1, FONT_LTKHAKI, FONT_DKKHAKI, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 550, SCREEN_HEIGHT - 20, 90, 20, BUTTON_TOGGLE,MSYS_PRIORITY_HIGH,BUTTON_NO_CALLBACK,
 		TaskOptionsCallback);
 	SpecifyButtonDownTextColors( iEditorButton[TAB_OPTIONS], FONT_YELLOW, FONT_ORANGE );
+	SetButtonFastHelpText(iEditorButton[ TAB_OPTIONS ],iEditorTaskbarInternalText[11]);
 
 	//Create the buttons within each tab.
 	InitEditorTerrainToolbar();
