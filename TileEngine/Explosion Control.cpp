@@ -273,7 +273,7 @@ void RecountExplosions( void )
 }
 
 
-
+extern void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsDmg );
 
 // GENERATE EXPLOSION
 void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32 sGridNo, UINT16 usItem, BOOLEAN fLocate, INT8 bLevel, UINT8 ubDirection )
@@ -356,6 +356,12 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	ExpParams.bLevel	= bLevel;
 
 	GenerateExplosion( &ExpParams );
+
+	// Flugente: if the explosion occured in a building, this might lower loyalty in town
+	if ( Item[ usItem ].usItemClass & IC_EXPLOSV && ubOwner != NOBODY && ubOwner < 255 )
+	{
+		HandleLoyaltyForDemolitionOfBuilding( MercPtrs[ubOwner], Explosive[ Item[ usItem ].ubClassIndex ].ubDamage );
+	}
 
 	// HEADROCK HAM 5.1: Launch fragments from the explosion.
 	if (Explosive[ Item[ usItem ].ubClassIndex ].usNumFragments > 0 )

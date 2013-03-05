@@ -221,7 +221,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 	DeductPoints( pSoldier, APBPConstants[type], sBPAdjustment );
 
 	// let it be known that we are eating
-	if ( pSoldier->bTeam == gbPlayerNum )
+	if ( pSoldier->bTeam == gbPlayerNum && gGameExternalOptions.fFoodEatingSounds )
 	{
 		if ( type == AP_EAT )
 		{

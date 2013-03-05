@@ -3170,6 +3170,41 @@ extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 static UINT8 roomcnt = 0;
 
+// For now, this is only used for prison cells
+INT32 GetSittableGridNoInRoom(UINT16 usRoom, BOOLEAN fEnoughSpace)
+{
+	INT32 insertiongridno = NOWHERE;
+
+	// get sector data and look fo a fitting room
+	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);
+	if ( ubSectorId >= 0 && ubSectorId < 256  )
+	{
+		for ( UINT32 uiLoop = 0; uiLoop < WORLD_MAX; ++uiLoop )
+		{
+			if ( (gusWorldRoomInfo[ uiLoop ] == usRoom) )
+			{
+				if ( fEnoughSpace )
+				{
+					// we have to make sure that the gridno is deep in the room, as otherwise the gridno might be corrected to be on the other side of a wall
+					if ( ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(NORTH) ) ] != usRoom ) 
+						|| ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(EAST) ) ] != usRoom )
+						|| ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(SOUTH) ) ] != usRoom )
+						|| ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(WEST) ) ] != usRoom ) )
+									continue;
+				}
+								
+				// check wether this location is sittable
+				if ( IsLocationSittable( uiLoop, 0 ) )
+				{
+					return uiLoop;
+				}
+			}
+		}
+	}
+
+	return NOWHERE;
+}
+
 void CreatePrisonerOfWar()
 {
 	INT32 insertiongridno = NOWHERE;
@@ -3178,36 +3213,25 @@ void CreatePrisonerOfWar()
 	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);
 	if ( ubSectorId >= 0 && ubSectorId < 256  )
 	{
+		// We need to 'condense' the room numbers, as some might be empty in the xml
+		UINT16 realrooms[MAX_PRISON_ROOMS];
+
 		UINT8 numrooms = 0;
 		for(UINT8 i = 0; i < MAX_PRISON_ROOMS; ++i)
+		{
 			if ( SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i] > 0)
-				++numrooms;
+			{
+				realrooms[numrooms++] = SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i];
+			}
+		}
 
 		++roomcnt;
 		if ( roomcnt >= numrooms )
 			roomcnt = 0;
 
-		UINT16 room = SectorExternalData[ubSectorId][0].usPrisonRoomNumber[roomcnt];
+		UINT16 room = realrooms[roomcnt];
 				
-		for ( UINT32 uiLoop = 0; uiLoop < WORLD_MAX; ++uiLoop )
-		{
-			if ( (gusWorldRoomInfo[ uiLoop ] == room) )
-			{
-				// we have to make sure that the gridno is deep in the room, as otherwise the gridno might be corrected to be on the other side of a wall
-				if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(NORTH) ) ] == room )
-					if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(EAST) ) ] == room )
-						if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(SOUTH) ) ] == room )
-							if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(WEST) ) ] == room )
-							{
-								// check wether this location is sittable
-								if ( IsLocationSittable( uiLoop, 0 ) )
-								{
-									insertiongridno = uiLoop;
-									break;
-								}
-							}
-			}
-		}
+		insertiongridno = GetSittableGridNoInRoom(room, TRUE);
 
 		// invalid gridno? Get out of here
 		if ( TileIsOutOfBounds(insertiongridno) )

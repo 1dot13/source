@@ -420,6 +420,8 @@ typedef struct
 	FLOAT	sFoodDecayModificator;
 
 	UINT8	usFoodMaxPoisoning;
+
+	BOOLEAN fFoodEatingSounds;
 	
 	//Animation settings
 	FLOAT giPlayerTurnSpeedUpFactor;

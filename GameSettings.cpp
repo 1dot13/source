@@ -1445,9 +1445,10 @@ void LoadGameExternalOptions()
 	
 	gGameExternalOptions.fFoodDecayInSectors							= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_DECAY_IN_SECTORS", TRUE);
 	gGameExternalOptions.sFoodDecayModificator							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DECAY_MODIFICATOR",			1.0f, 0.1f, 10.0f);
-
 	gGameExternalOptions.usFoodMaxPoisoning								= iniReader.ReadInteger("Tactical Food Settings", "FOOD_MAX_POISONING",  5, 0, 100);
-	
+	gGameExternalOptions.fFoodEatingSounds								= iniReader.ReadBoolean("Tactical Food Settings", "FOOD_EATING_SOUNDS", TRUE);
+
+		
 	//################# Strategic Gamestart Settings ##################
 
 	//Lalien: Game starting time

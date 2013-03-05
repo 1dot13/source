@@ -15441,6 +15441,8 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength()
 
 	value = (value * this->stats.bLife / this->stats.bLifeMax);
 
+	value = value * (5 + sqrt((double) max(1, this->aiData.bMorale))) / 15;
+
 	// adjust for type of soldier
 	if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE || this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
 		value *= 1.5f;
