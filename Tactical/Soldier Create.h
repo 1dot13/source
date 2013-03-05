@@ -430,6 +430,8 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype);
 void CreateAssassin(UINT8 disguisetype);
 
+void CreatePrisonerOfWar();
+
 // randomly generates a relative level rating (attributes or equipment)
 void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass );
 

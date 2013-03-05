@@ -3970,17 +3970,11 @@ void AddStringsToMoveBox( void )
 			// add OTHER soldiers (not on duty nor in a vehicle)
 			if( IsSoldierSelectedForMovement( pSoldierMovingList[ iCount ] ) == TRUE )
 			{
-				if ( gGameExternalOptions.fUseXMLSquadNames )
-					swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, SquadNames[	pSoldierMovingList[ iCount ]->bAssignment ].squadname );
-				else
-					swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
+				swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
 			}
 			else
 			{
-				if ( gGameExternalOptions.fUseXMLSquadNames )
-					swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, SquadNames[	pSoldierMovingList[ iCount ]->bAssignment ].squadname );
-				else
-					swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
+				swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
 			}
 			AddMonoString(&hStringHandle, sString );
 		}

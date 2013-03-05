@@ -3824,6 +3824,15 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 				HandleMurderOfCivilian( pSoldierOld, pSoldierOld->flags.fIntendedTarget );
 			}
 		}
+
+		// Flugente: if this was a prisoner of war, reduce their sector count by 1
+		if ( pSoldierOld->bSoldierFlagMask & SOLDIER_POW_PRISON )
+		{
+			// get sector
+			SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+			if ( pSector )
+				pSector->uiNumberOfPrisonersOfWar = max(0, pSector->uiNumberOfPrisonersOfWar - 1);
+		}
 	}
 	else if ( pSoldierOld->bTeam == MILITIA_TEAM )
 	{
@@ -8604,6 +8613,11 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 			}
 		}
 	}
+	// Flugente: if we attack prisoners, the local support might wane, as we turned out to be cruel oppressors, not liberators
+	else if ( (pTarget->bTeam == CIV_TEAM) && (pTarget->ubCivilianGroup == POW_PRISON_CIV_GROUP) )
+	{
+		HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_PRISONERS_TORTURED, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 	else if (pTarget->bTeam == CREATURE_TEAM && pTarget->ubBodyType == BLOODCAT && pTarget->aiData.bNeutral)
 	{
 		// Attacked a bloodcat.
@@ -10130,8 +10144,12 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			}
 		}
 
+		// print out values
+		if ( gGameExternalOptions.fDisplaySurrenderSValues )
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"PlayerStrength : %d Enemystrength: %6.0f", playersidestrength, gGameExternalOptions.fSurrenderMultiplier * enemysidestrength );
+
 		// perhaps this can be fleshed out more, for now, let's see if this is acceptable behaviour
-		if ( playersidestrength >= 6 * enemysidestrength )
+		if ( playersidestrength >= gGameExternalOptions.fSurrenderMultiplier * enemysidestrength )
 		{
 			// it is enough to simply set all soldiers to captured
 			firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;

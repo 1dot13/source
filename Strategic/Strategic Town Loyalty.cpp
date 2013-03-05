@@ -1702,6 +1702,10 @@ void HandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sSectorY
 		case GLOBAL_LOYALTY_LOSE_SAM:
 			iLoyaltyChange = -250;
 			break;
+		// Flugente: morale drop for torturing prisoners
+		case GLOBAL_LOYALTY_PRISONERS_TORTURED:
+			iLoyaltyChange = -25;
+			break;
 
 		default:
 			Assert(FALSE);

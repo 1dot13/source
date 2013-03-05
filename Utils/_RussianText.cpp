@@ -2854,6 +2854,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"ОПОЛЧЕНЕЦ",
 	L"ЖИТЕЛЬ",
 	L"ЗОМБИ",
+	L"PRISONER",//TODO.Translate
 	L"Выход из сектора",
 	L"ДА",
 	L"ОТМЕНА",

@@ -2855,6 +2855,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"民兵",
 	L"平民",
 	L"僵尸",
+	L"PRISONER",//TODO.Translate
 	L"离开分区",
 	L"确定",
 	L"取消",

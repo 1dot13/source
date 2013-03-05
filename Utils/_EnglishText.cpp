@@ -2854,6 +2854,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"MILITIA",
 	L"CIVILIAN",
 	L"ZOMBIE",
+	L"PRISONER",
 	L"Exiting Sector",
 	L"OK",
 	L"Cancel",

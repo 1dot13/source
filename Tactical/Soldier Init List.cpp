@@ -918,6 +918,10 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 		if ( bTeam == MILITIA_TEAM )
 			SectorAddAssassins(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 
+		// Flugente: spawn prisoners of war in prison sectors
+		if ( bTeam == CIV_TEAM )
+			SectorAddPrisonersofWar(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
 		//There aren't any basic placements of desired team, so exit.
 		return ubNumAdded;
 	}
@@ -964,6 +968,10 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	// Flugente: decide wether to spawn enemy assassins in this sector (not kingpin's hitmen, they are handled elsewhere)
 	if ( bTeam == MILITIA_TEAM )
 		SectorAddAssassins(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
+	// Flugente: spawn prisoners of war in prison sectors
+	if ( bTeam == CIV_TEAM )
+		SectorAddPrisonersofWar(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 
 	return ubNumAdded;
 }
@@ -2791,5 +2799,61 @@ void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	{
 		CreateAssassin( militiadisguise );
 		++numberofcivs;
+	}
+}
+
+// Flugente: decide wether to create prisoners of war in a sector. Not to be confused with player POWs
+void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+{
+	// this needs to be turned on on
+	if ( !gGameExternalOptions.fAllowPrisonerSystem )
+		return;
+	
+	// not in underground sectors
+	if ( sMapZ > 0 )
+		return;
+
+	// get sector
+	SECTORINFO *pSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];
+	if ( !pSector )
+		return;
+
+	// only continue if there are prisoners in this sector that need to be placed
+	UINT32 numprisoners = pSector->uiNumberOfPrisonersOfWar;
+
+	numprisoners = 30;
+
+	if ( !numprisoners )
+		return;
+		
+	// count current number of civilians and already placed pows
+	UINT16 numberofcivs = 0;
+	UINT16 numberofpows = 0;
+	SOLDIERTYPE* pTeamSoldier = NULL;
+	INT32 cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
+	INT32 lastid = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	{
+		// check if teamsoldier exists in this sector
+		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->sSectorX == sMapX && pTeamSoldier->sSectorY == sMapY && pTeamSoldier->bSectorZ == sMapZ )
+			++numberofcivs;
+
+		// count how many pows are already placed
+		if ( pTeamSoldier->bSoldierFlagMask & SOLDIER_POW_PRISON )
+			++numberofpows;
+	}
+
+	// we can't spawn if all civilian slots are already taken (we leave a bit of reserve for more important civs)
+	UINT8 maxcivs = max(0, gGameExternalOptions.ubGameMaximumNumberOfCivilians - 3);
+
+	for (UINT8 i = numberofpows; i < numprisoners; ++i)
+	{
+		if ( numberofcivs < maxcivs )
+		{
+			CreatePrisonerOfWar();
+			++numberofcivs;
+		}
+		else
+			break;
 	}
 }

@@ -3165,6 +3165,98 @@ void CreateAssassin(UINT8 disguisetype)
 	}
 }
 
+extern UINT16*	gusWorldRoomInfo;
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+
+static UINT8 roomcnt = 0;
+
+void CreatePrisonerOfWar()
+{
+	INT32 insertiongridno = NOWHERE;
+
+	// get sector data and look fo a fitting room
+	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);
+	if ( ubSectorId >= 0 && ubSectorId < 256  )
+	{
+		UINT8 numrooms = 0;
+		for(UINT8 i = 0; i < MAX_PRISON_ROOMS; ++i)
+			if ( SectorExternalData[ubSectorId][0].usPrisonRoomNumber[i] > 0)
+				++numrooms;
+
+		++roomcnt;
+		if ( roomcnt >= numrooms )
+			roomcnt = 0;
+
+		UINT16 room = SectorExternalData[ubSectorId][0].usPrisonRoomNumber[roomcnt];
+				
+		for ( UINT32 uiLoop = 0; uiLoop < WORLD_MAX; ++uiLoop )
+		{
+			if ( (gusWorldRoomInfo[ uiLoop ] == room) )
+			{
+				// we have to make sure that the gridno is deep in the room, as otherwise the gridno might be corrected to be on the other side of a wall
+				if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(NORTH) ) ] == room )
+					if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(EAST) ) ] == room )
+						if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(SOUTH) ) ] == room )
+							if ( gusWorldRoomInfo[ NewGridNo( uiLoop, DirectionInc(WEST) ) ] == room )
+							{
+								// check wether this location is sittable
+								if ( IsLocationSittable( uiLoop, 0 ) )
+								{
+									insertiongridno = uiLoop;
+									break;
+								}
+							}
+			}
+		}
+
+		// invalid gridno? Get out of here
+		if ( TileIsOutOfBounds(insertiongridno) )
+			return;
+	}
+
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
+	UINT8						ubID;
+
+	static INT8 bPowBodyType = REGMALE;
+
+	MercCreateStruct.initialize();
+	MercCreateStruct.bTeam				= CIV_TEAM;
+	MercCreateStruct.ubProfile			= NO_PROFILE;
+	MercCreateStruct.sSectorX			= gWorldSectorX;
+	MercCreateStruct.sSectorY			= gWorldSectorY;
+	MercCreateStruct.bSectorZ			= gbWorldSectorZ;
+	MercCreateStruct.sInsertionGridNo	= insertiongridno;
+	MercCreateStruct.ubDirection		= Random(NUM_WORLD_DIRECTIONS);
+	MercCreateStruct.bBodyType			= bPowBodyType;
+
+	++bPowBodyType;
+	if ( bPowBodyType > REGFEMALE )
+		bPowBodyType = REGMALE;
+
+	RandomizeNewSoldierStats( &MercCreateStruct );
+	
+	SOLDIERTYPE* pSoldier = TacticalCreateSoldier( &MercCreateStruct, &ubID );
+
+	if ( pSoldier )
+	{
+		AddSoldierToSector( pSoldier->ubID );
+
+		// mark this guy
+		pSoldier->bSoldierFlagMask |= SOLDIER_POW_PRISON;
+
+		// set correct civ group
+		pSoldier->ubCivilianGroup = POW_PRISON_CIV_GROUP;
+
+		// set militia name to further irritate the player
+		swprintf( pSoldier->name, TacticalStr[ POW_TEAM_MERC_NAME ] );
+
+		// So we can see them!
+		AllTeamsLookForAll(NO_INTERRUPTS);
+
+		gTacticalStatus.fCivGroupHostile[ POW_PRISON_CIV_GROUP ] = CIV_GROUP_NEUTRAL;
+	}
+}
+
 void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass )
 {
 	UINT8 ubLocationModifier = 0;

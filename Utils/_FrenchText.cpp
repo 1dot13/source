@@ -2859,6 +2859,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Milice",
 	L"CIVIL",
 	L"ZOMBIE",		// TODO.Translate
+	L"PRISONER",//TODO.Translate
 	L"Quitter Secteur",
 	L"OK",
 	L"Annuler",

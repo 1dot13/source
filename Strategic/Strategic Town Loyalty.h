@@ -63,6 +63,8 @@ typedef enum
 	GLOBAL_LOYALTY_GAIN_SAM,
 	GLOBAL_LOYALTY_LOSE_SAM,
 	GLOBAL_LOYALTY_QUEEN_BATTLE_WON,
+	GLOBAL_LOYALTY_GRIZZLY_DEAD,			// Flugente: I have no idea what the playn behind this is, but I found it in the lua script. It isn't used anywhere in the code though...
+	GLOBAL_LOYALTY_PRISONERS_TORTURED,		// Flugente: the player has attacked prisoners
 
 } GlobalLoyaltyEventTypes;
 

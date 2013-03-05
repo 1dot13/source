@@ -882,6 +882,7 @@ enum
 	MILITIA_TEAM_MERC_NAME,
 	CIV_TEAM_MERC_NAME,
 	ZOMBIE_TEAM_MERC_NAME,
+	POW_TEAM_MERC_NAME,
 	
 	//The text for the 'exiting sector' gui
 	EXIT_GUI_TITLE_STR,

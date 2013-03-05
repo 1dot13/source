@@ -62,4 +62,7 @@ void AddProfilesNotUsingProfileInsertionData();
 // Flugente: decide wether to spawn enemy assassins in this sector (not kingpin's hitmen, they are handled elsewhere)
 void SectorAddAssassins( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 
+// Flugente: decide wether to create prisoners of war in a sector. Not to be confused with player POWs
+void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
+
 #endif

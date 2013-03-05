@@ -2863,6 +2863,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"SAMOOBRONA",
 	L"CYWIL",
 	L"ZOMBIE",		// TODO.Translate
+	L"PRISONER",//TODO.Translate
 	L"WyjŚcie z sektora",
 	L"OK",
 	L"Anuluj",
