@@ -141,19 +141,21 @@
 	<Loyalty>1</Loyalty>
   </NAME>
   <NAME>
-	<uiIndex>20</uiIndex>
-	<Enabled>0</Enabled>
-    <szGroup>Empty Slot20</szGroup>
-	<AddToBattle>0</AddToBattle>
-	<Loyalty>0</Loyalty>
-  </NAME>
-  <NAME>
-	<uiIndex>21</uiIndex>
-	<Enabled>0</Enabled>
-    <szGroup>Empty Slot21</szGroup>
-	<AddToBattle>0</AddToBattle>
-	<Loyalty>0</Loyalty>
-  </NAME>
+	 <!-- This is the group assassins use, thus the name -->
+		<uiIndex>20</uiIndex>
+		<Enabled>0</Enabled>
+		<szGroup>Militia</szGroup>
+		<AddToBattle>0</AddToBattle>
+		<Loyalty>0</Loyalty>
+	</NAME>
+	<NAME>
+    <!-- Prisoners of war the player keeps in his prison -->
+		<uiIndex>21</uiIndex>
+		<Enabled>1</Enabled>
+		<szGroup>Prisoner</szGroup>
+		<AddToBattle>0</AddToBattle>
+		<Loyalty>0</Loyalty>
+	</NAME>
   <NAME>
 	<uiIndex>22</uiIndex>
 	<Enabled>0</Enabled>

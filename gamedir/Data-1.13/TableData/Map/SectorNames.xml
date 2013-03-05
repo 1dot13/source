@@ -163,6 +163,7 @@
     <szDetailedExploredName>Chitzena Mine</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>250</usNaturalDirt>
+    <usPrisonRoomNumber00>3</usPrisonRoomNumber00>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B3</SectorGrid>
@@ -479,6 +480,9 @@
     <szDetailedExploredName>San Mona</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usPrisonRoomNumber00>8</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>9</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>10</usPrisonRoomNumber02>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D6</SectorGrid>
@@ -950,6 +954,10 @@
     <szDetailedExploredName>Cambria</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
+    <usPrisonRoomNumber00>41</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>42</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>44</usPrisonRoomNumber02>
+    <usPrisonRoomNumber03>45</usPrisonRoomNumber03>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G10</SectorGrid>
@@ -1281,6 +1289,20 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
+    <usPrisonRoomNumber00>38</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>39</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>40</usPrisonRoomNumber02>
+    <usPrisonRoomNumber03>41</usPrisonRoomNumber03>
+    <usPrisonRoomNumber04>42</usPrisonRoomNumber04>
+    <usPrisonRoomNumber05>43</usPrisonRoomNumber05>
+    <usPrisonRoomNumber06>44</usPrisonRoomNumber06>
+    <usPrisonRoomNumber07>45</usPrisonRoomNumber07>
+    <usPrisonRoomNumber08>46</usPrisonRoomNumber08>
+    <usPrisonRoomNumber09>47</usPrisonRoomNumber09>
+    <usPrisonRoomNumber10>48</usPrisonRoomNumber10>
+    <usPrisonRoomNumber11>49</usPrisonRoomNumber11>
+    <usPrisonRoomNumber12>50</usPrisonRoomNumber12>
+    <usPrisonRoomNumber13>51</usPrisonRoomNumber13>
    </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
@@ -1389,6 +1411,22 @@
     <szDetailedExploredName>Desert</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>1000</usNaturalDirt>
+    <usPrisonRoomNumber00>5</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>6</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>7</usPrisonRoomNumber02>
+    <usPrisonRoomNumber03>8</usPrisonRoomNumber03>
+    <usPrisonRoomNumber04>9</usPrisonRoomNumber04>
+    <usPrisonRoomNumber05>10</usPrisonRoomNumber05>
+    <usPrisonRoomNumber06>11</usPrisonRoomNumber06>
+    <usPrisonRoomNumber07>12</usPrisonRoomNumber07>
+    <usPrisonRoomNumber08>13</usPrisonRoomNumber08>
+    <usPrisonRoomNumber09>14</usPrisonRoomNumber09>
+    <usPrisonRoomNumber10>15</usPrisonRoomNumber10>
+    <usPrisonRoomNumber11>16</usPrisonRoomNumber11>
+    <usPrisonRoomNumber12>17</usPrisonRoomNumber12>
+    <usPrisonRoomNumber13>18</usPrisonRoomNumber13>
+    <usPrisonRoomNumber14>19</usPrisonRoomNumber14>
+    <usPrisonRoomNumber15>20</usPrisonRoomNumber15>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J10</SectorGrid>
@@ -1957,6 +1995,7 @@
     <szDetailedExploredName>Coastal, road</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>140</usNaturalDirt>
+    <usPrisonRoomNumber00>3</usPrisonRoomNumber00>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N8</SectorGrid>

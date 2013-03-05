@@ -155,6 +155,8 @@ EventGlobal = {
 	GLOBAL_LOYALTY_GAIN_SAM = 10,
 	GLOBAL_LOYALTY_LOSE_SAM = 11,
 	GLOBAL_LOYALTY_QUEEN_BATTLE_WON = 12,
+	GLOBAL_LOYALTY_GRIZZLY_DEAD = 13,
+	GLOBAL_LOYALTY_PRISONERS_TORTURED = 14,
 }
 
 
@@ -272,6 +274,18 @@ local iLoyaltyChange = 0
 		iLoyaltyChange = -250	
 		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
 
+  elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_GRIZZLY_DEAD then
+		
+		if ( CheckMercIsDead(3) == false ) then 
+		iLoyaltyChange = 1000	
+		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
+		end
+
+  elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_PRISONERS_TORTURED then
+		
+		iLoyaltyChange = -60
+		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
+		
 	end
 	
 end
