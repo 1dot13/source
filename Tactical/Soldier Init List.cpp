@@ -2820,9 +2820,6 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 
 	// only continue if there are prisoners in this sector that need to be placed
 	UINT32 numprisoners = pSector->uiNumberOfPrisonersOfWar;
-
-	numprisoners = 30;
-
 	if ( !numprisoners )
 		return;
 		
