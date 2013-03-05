@@ -494,7 +494,7 @@ STR16 iEditorMapInfoToolbarText[] =
 
 STR16 iEditorOptionsToolbarText[]=
 {
-	L"Nouveau niveau extérieur ",  //0
+	L"Nouvelle carte",  //0
 	L"Nouveau sous-sol",
 	L"Nouveau niveau de caverne",
 	L"Sauvegarder la carte (|C|t|r|l+|S)",
@@ -799,7 +799,7 @@ STR16 pUpdateMercsInfoText[] =
 	
 	L"Armée",
 	L"Admin",
-	L"Elite", //10
+	L"Élite", //10
 	
 	L"Niveau d'exp.",
 	L"Sante",
@@ -1084,9 +1084,9 @@ STR16 pUpdateItemStatsPanelText[] =
 
 STR16 pSetupGameTypeFlagsText[] =
 {
-	L"Obj apparaît en mode SF et réaliste", //0
-	L"Obj apparaît slt en mode réaliste",
-	L"Obj apparaît slt en mode SF",
+	L"Obj apparaît en mode SF et réaliste. (|B)", //0
+	L"Obj apparaît slt en mode |réaliste.",
+	L"Obj apparaît slt en mode |SF.",
 };
 
 STR16 pSetupGunGUIText[] =
@@ -1153,7 +1153,7 @@ STR16 pRenderSectorInformationText[] =
 	L"Troupes:  %d",
 	
 	L"(%d detaillé, %d profil -- %d existe en priorité)",
-	L"Elites:  %d",
+	L"Élites:  %d",
 	
 	L"(%d detaillé, %d profil -- %d existe en priorité)",
 	L"Civils:  %d",  //20
@@ -1545,18 +1545,18 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Vous pouvez combiner cet accessoire avec certains objets en le mettant dans l'un des quatre emplacements disponibles (Ici, cet accessoire n'est pas compatible avec cet objet).",
 	L"Ce secteur n'a pas été sécurisé !",
 	L"Vous devez donner %s à %s",//inverted !! you still need to give the letter to X
-	L"%s a été touché à la tête !",
+	L"%s a été touché(e) à la tête !",
 	L"Cesser le combat ?",
 	L"Cet accessoire ne pourra plus être enlevé. Désirez-vous toujours le mettre ?",
 	L"%s se sent beaucoup mieux !",
 	L"%s a glissé sur des billes !",
-	L"%s n'est pas parvenu à ramasser le/la %s !",
+	L"%s n'est pas parvenu(e) à ramasser le/la %s !",
 	L"%s a réparé le %s",
 	L"Interruption pour ",
 	L"Voulez-vous vous rendre ?",
 	L"Cette personne refuse votre aide.",
 	L"JE NE CROIS PAS !",
-	L"Pour utiliser l'hélicoptère de Skyrider, vous devez ASSIGNER vos mercenaires au VEHICULE.",
+	L"Pour utiliser l'hélicoptère de Skyrider, vous devez ASSIGNER vos mercenaires au VÉHICULE.",
 	L"%s ne peut recharger qu'UNE arme",
 	L"Tour des chats sauvages",
 	L"automatique",
@@ -1564,8 +1564,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"précis",
 	L"peu précis",
 	L"Pas de coup par coup",
-	L"L'ennemi n'as plus rien à voler!",
-	L"L'ennemi n'a rien dans les mains!",
+	L"L'ennemi n'as plus rien à voler !",
+	L"L'ennemi n'a rien dans les mains !",
 
 	L"%s a perdu son camouflage désert.",
 	L"%s a perdu son camouflage désert à cause de l'eau.",
@@ -1653,7 +1653,7 @@ STR16 pAssignmentStrings[] =
 	L"Milice", // training a town to revolt
 	L"Milice M.", //training moving militia units	
 	L"Entraîneur", // training a teammate //!!! Too long ? (11 char) -> 11 chars is OK
-	L"Elève", // being trained by someone else 
+	L"Élève", // being trained by someone else 
 	L"Exploitation", // operating a strategic facility
 	L"Mange",		// eating at a facility (cantina etc.)		// TODO.Translate
 	L"Repos", // Resting at a facility
@@ -1687,18 +1687,18 @@ STR16 pConditionStrings[] =
 	L"Excellent", //the state of a soldier .. excellent health
 	L"Bon", // good health
 	L"En forme", // fair health
-	L"Blessé", // wounded health
-	L"Fatigué", // tired
-	L"Epuisé", // bleeding to death
-	L"Inconscient", // knocked out 
-	L"Mourant", // near death
-	L"Mort", // dead
+	L"Blessé(e)", // wounded health
+	L"Fatigué(e)", // tired
+	L"Epuisé(e)", // bleeding to death
+	L"Inconscient(e)", // knocked out 
+	L"Mourant(e)", // near death
+	L"Mort(e)", // dead
 };
 
 STR16 pEpcMenuStrings[] =
 {
 	L"Service", // set merc on active duty
-	L"Patient", // set as a patient to receive medical aid
+	L"Patient(e)", // set as a patient to receive medical aid
 	L"Transport", // tell merc to enter vehicle
 	L"Laisser", // let the escorted character go off on their own
 	L"Annuler", // close this menu
@@ -1739,7 +1739,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Milice",
 	L"Forme la milice mobile",//!!! Too long ? -> It is OK
 	L"Entraîneur",
-	L"Elève",
+	L"Élève",
 	L"Exploitation infras.",	//!!! Idem ? -> The current translation is OK
 	L"Manger",		// eating at a facility (cantina etc.)
 	L"Repos infras.",
@@ -1820,12 +1820,12 @@ STR16 pPOWStrings[] =
 STR16 pLongAttributeStrings[] =
 {
 	L"FORCE", 
-	L"DEXTERITE",  
-	L"AGILITE", 
+	L"DEXTÉRITÉ",  
+	L"AGILITÉ", 
 	L"SAGESSE", 
-	L"PRECISION",//!!! Accurate but not very good. Char limit ? -> 12 characters is the limit
-	L"MEDECINE",
-	L"MECANIQUE",
+	L"PRÉCISION",//!!! Accurate but not very good. Char limit ? -> 12 characters is the limit
+	L"MÉDECINE",
+	L"MÉCANIQUE",
 	L"COMMANDEMENT",
 	L"EXPLOSIFS",
 	L"NIVEAU",
@@ -1877,7 +1877,7 @@ STR16 pGuardMenuStrings[] =
 {
 	L"Cadence de tir :", // the allowable rate of fire for a merc who is guarding
 	L"Feu à volonté", // the merc can be aggressive in their choice of fire rates
-	L"Economiser munitions", // conserve ammo 
+	L"Économiser munitions", // conserve ammo 
 	L"Tir restreint", // fire only when the merc needs to 
 	L"Autres Options :", // other options available to merc
 	L"Retraite", // merc can retreat
@@ -1893,7 +1893,7 @@ STR16 pOtherGuardMenuStrings[] =
 {
 	L"Cadence de tir :",
 	L"*Feu à volonté*",
-	L"*Economiser munitions*",
+	L"*Économiser munitions*",
 	L"*Tir restreint*",
 	L"Autres Options :",
 	L"*Retraite*",
@@ -1919,20 +1919,20 @@ STR16 pAssignMenuStrings[] =
 STR16 pMilitiaControlMenuStrings[] =
 {
 	L"Attaquez", // set militia to aggresive
-	L"Tenez la Position", // set militia to stationary
+	L"Tenez la position", // set militia to stationary
 	L"Retraite", // retreat militia
 	L"Rejoignez-moi", // retreat militia
 	L"Couchez-vous", // retreat militia	
 	L"Accroupi",
-	L"A couvert!",
+	L"À couvert!",
 	L"All: Attaquez", 
-	L"All: Tenez la Position",
+	L"All: Tenez la position",
 	L"All: Retraite",
 	L"All: Rejoignez-moi",
 	L"All: Dispersez-vous",
 	L"All: Couchez-vous",
 	L"All: Accroupi",
-	L"All: A couvert!",
+	L"All: À couvert!",
 	//L"All: Trouver materiel",
 	L"Annuler", // cancel this menu
 };
@@ -2055,7 +2055,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Coups tirés : %d\n",
 	L"Missiles tirés : %d\n",
-	L"Grenades lancés : %d\n",
+	L"Grenades lancées : %d\n",
 	L"Couteaus lancés : %d\n",
 	L"Attaques au couteau : %d\n",
 	L"Attaques au corps-à-corps : %d\n",
@@ -2105,10 +2105,10 @@ STR16 gzMercSkillText[] =
 	L"Aucune spécialité",
 	L"Crochetage",
 	L"Combat à mains nues",
-	L"Electronique",
+	L"Électronique",
 	L"Opérations de nuit",
-	L"Lancer",
-	L"Enseigner",
+	L"Le lancer",
+	L"Instructeur",
 	L"Armes lourdes",
 	L"Armes automatiques",
 	L"Discrétion",
@@ -2133,7 +2133,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Tireur d'élite",
 	L"Scout",// !!!Scout =! Eclaireur.
 	L"Bandit",
-	L"Corps-à-corps",
+	L"Corps à corps",
 	L"Manager",
 	L"Technicien",
 	L"Médecin",
@@ -2141,13 +2141,13 @@ STR16 gzMercSkillTextNew[] =
 	// Minor traits
 	L"Ambidextre",
 	L"Mêlée",
-	L"Lancer",
+	L"Le lancer",
 	L"Opérations de nuit",
 	L"Discrétion",
 	L"Athlétique",
-	L"Masse musculaire",
-	L"Démolition",
-	L"Enseigner",
+	L"Culturiste",
+	L"Sabotage",
+	L"Instructeur",
 	L"Reconnaissance",
 	// second names for major skills
 	L"Mitrailleur",
@@ -2231,7 +2231,7 @@ STR16 pNoiseVolStr[] =
 	L"FAIBLE",
 	L"MOYEN",
 	L"FORT",
-	L"TRES FORT",
+	L"TRÈS FORT",
 };
 
 // types of noises 
@@ -2335,7 +2335,7 @@ STR16 gpStrategicString[] =
 
 	//The headers are for the autoresolve type (MUST BE UPPERCASE)
 
-	L"DEFENSEURS",								//STR_AR_DEFEND_HEADER
+	L"DÉFENSEURS",								//STR_AR_DEFEND_HEADER
 	L"ATTAQUANTS",								//STR_AR_ATTACK_HEADER
 	L"RENCONTRE",								//STR_AR_ENCOUNTER_HEADER
 	L"Secteur",		//The Sector A9 part of the header		//STR_AR_SECTOR_HEADER
@@ -2343,7 +2343,7 @@ STR16 gpStrategicString[] =
 	//The battle ending conditions						
 
 	L"VICTOIRE !",								//STR_AR_OVER_VICTORY
-	L"DEFAITE !",								//STR_AR_OVER_DEFEAT
+	L"DÉFAITE !",								//STR_AR_OVER_DEFEAT
 	L"REDDITION !",							//STR_AR_OVER_SURRENDERED
 	L"CAPTURE !",								//STR_AR_OVER_CAPTURED
 	L"RETRAITE !",								//STR_AR_OVER_RETREATED
@@ -2351,7 +2351,7 @@ STR16 gpStrategicString[] =
 	//These are the labels for the different types of enemies we fight in autoresolve.
 
 	L"Milice",							//STR_AR_MILITIA_NAME,
-	L"Elite",								//STR_AR_ELITE_NAME,
+	L"Élite",								//STR_AR_ELITE_NAME,
 	L"Troupe",								//STR_AR_TROOP_NAME,
 	L"Admin",								//STR_AR_ADMINISTRATOR_NAME,
 	L"Créature",								//STR_AR_CREATURE_NAME,
@@ -2376,11 +2376,11 @@ STR16 gpStrategicString[] =
 	L"Retraite",							//STR_PB_RETREATMERCS_BTN,
 
 	//The different headers(titles) for the prebattle interface.
-	L"ENNEMI REPERE",							//STR_PB_ENEMYENCOUNTER_HEADER,
+	L"ENNEMI REPÉRÉ",							//STR_PB_ENEMYENCOUNTER_HEADER,
 	L"ATTAQUE ENNEMIE",							//STR_PB_ENEMYINVASION_HEADER, // 30
 	L"EMBUSCADE !",								//STR_PB_ENEMYAMBUSH_HEADER
-	L"VOUS PENETREZ EN SECTEUR ENNEMI",				//STR_PB_ENTERINGENEMYSECTOR_HEADER
-	L"ATTAQUE DE CREATURES",							//STR_PB_CREATUREATTACK_HEADER
+	L"VOUS PÉNÉTREZ EN SECTEUR ENNEMI",				//STR_PB_ENTERINGENEMYSECTOR_HEADER
+	L"ATTAQUE DE CRÉATURES",							//STR_PB_CREATUREATTACK_HEADER
 	L"AMBUSCADE DE CHATS SAUVAGES",							//STR_PB_BLOODCATAMBUSH_HEADER
 	L"VOUS ENTREZ DANS LE REPAIRE DES CHATS SAUVAGES",			//STR_PB_ENTERINGBLOODCATLAIR_HEADER
 
@@ -2473,7 +2473,7 @@ STR16 sKeyDescriptionStrings[2] =
 CHAR16		gWeaponStatsDesc[][ 19 ] =
 {
 	// HEADROCK: Changed this for Extended Description project
-	L"Etat :",
+	L"État :",
 	L"Poids :", 
 	L"P. d'action",	
 	L"Por. :",		// Range
@@ -2483,11 +2483,11 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"=",
 	L"=",
 						//Lal: additional strings for tooltips
-	L"Precision :",	//9
+	L"Précision :",	//9
 	L"Portée :",		//10	
-	L"Dégats :", 	//11
+	L"Dégât :", 	//11
 	L"Poids :",		//12
-	L"Etourdissement :",//13
+	L"Étourdissement :",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
 	L"Accessoire :",	//14
 	L"AUTO/5:",		//15
@@ -2557,8 +2557,8 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Facteur de PA recharger (Valeur faible recommandée)",
 	L"Facteur de capacité chargeur",
 	L"Facteur de PA attaque (Valeur faible recommandée)",
-	L"Facteur de dégats",
-	L"Facteur de dégats Mélée", // 20
+	L"Facteur de dégâts",
+	L"Facteur de dégâts Mélée", // 20
 	L"Camouflage bois",
 	L"Camouflage urbain",
 	L"Camouflage désert",
@@ -2613,7 +2613,7 @@ CHAR16 zHealthStr[][13] =
 	L"MOURANT",		//	>= 0
 	L"CRITIQUE", 		//	>= 15
 	L"FAIBLE",		//	>= 30
-	L"BLESSE",    	//	>= 45
+	L"BLESSÉ",    	//	>= 45
 	L"EN FORME",    	//	>= 60
 	L"BON",     	// 	>= 75
 	L"EXCELLENT",		// 	>= 90
@@ -2721,9 +2721,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"La serrure est piégée par %s.", 
 	L"Pas de serrure.",
 	L"Réussite !",
-	L"Echec.",
+	L"Échec.",
 	L"Réussite !",
-	L"Echec.",
+	L"Échec.",
 	L"La serrure n'est pas piégée.",
 	L"Réussite !",
 	// The %s is a merc name
@@ -2732,10 +2732,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"La serrure n'est pas piégée.",
 	L"Verrouillée.",
 	L"PORTE",
-	L"PIEGEE",
-	L"VERROUILLEE",
+	L"PIÉGÉE",
+	L"VERROUILLÉE",
 	L"OUVERTE",
-	L"ENFONCEE",
+	L"ENFONCÉE",
 	L"Un interrupteur. Voulez-vous l'actionner ?",
 	L"Désamorcer le piège ?",
 	L"Préc...",
@@ -2749,7 +2749,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// In the next 2 strings, %s is a name
 
-	L"%s a été payé.",
+	L"%s a été payé(e).",
 	L"%d dus à %s.",
 	L"Choisir la fréquence de détonation :",  	//in this case, frequency refers to a radio signal
 	L"Nombre de tours avant explosion :",	//how much time, in turns, until the bomb blows
@@ -2804,13 +2804,13 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// These messages are displayed during play to alert the player to a particular situation
 
-	L"ENRAYE",					//weapon is jammed.
+	L"ENRAYÉ",					//weapon is jammed.
 	L"Le robot a besoin de munitions calibre %s.",		//Robot is out of ammo
 	L"Lancer ici ? Aucune chance.",		//Merc can't throw to the destination he selected
 
 	// These are different buttons that the player can turn on and off.
 
-	L"Discretion (|Z)",
+	L"Discrétion (|Z)",
 	L"Carte (|M)",
 	L"Fin du tour (|D)",
 	L"Parler à",
@@ -2825,12 +2825,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Options (|O)",
 	L"Rafale (|B)",
 	L"Regarder/Pivoter (|L)",
-	L"Santé : %d/%d\nEnergie : %d/%d\nMoral : %s",
+	L"Santé : %d/%d\nÉnergie : %d/%d\nMoral : %s",
 	L"Pardon ?",					//this means "what?" 
 	L"Suite",					//an abbrieviation for "Continued" 
 	L"Sourdine désactivée pour %s.",
 	L"Sourdine activée pour %s.",
-	L"Etat : %d/%d\nCarburant : %d/%d",
+	L"État : %d/%d\nCarburant : %d/%d",
 	L"Sortir du véhicule" ,
 	L"Changer d'escouade ( |M|a|j| |E|s|p|a|c|e )",
 	L"Conduire",
@@ -2855,8 +2855,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Télécommande inutilisée.",
 	L"La rafale a vidé le chargeur !",
 	L"SOLDAT",
-	L"CREPITUS",
-	L"Milice",
+	L"CRÉPITUS",
+	L"MILICE",
 	L"CIVIL",
 	L"ZOMBIE",		// TODO.Translate
 	L"PRISONER",//TODO.Translate
@@ -2874,7 +2874,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Afficher cime des arbres",
 	L"CORBEAU",				//Crow, as in the large black bird
 	L"COU",
-	L"TETE",
+	L"TÊTE",
 	L"TORSE",
 	L"JAMBES",
 	L"Donner informations à la Reine ?",
@@ -2889,12 +2889,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Chemin bloqué. Voulez-vous changer de place avec cette personne ?",
 	L"La personne refuse de bouger.",
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
-	L"Etes-vous d'accord pour payer %s ?",
+	L"Êtes-vous d'accord pour payer %s ?",
 	L"Acceptez-vous le traitement médical gratuit ?",
 	L"Voulez-vous épouser Daryl ?",
 	L"Trousseau de Clés",
 	L"Vous ne pouvez pas faire ça avec ce personnage.",
-	L"Epargner Krott ?",
+	L"Épargner Krott ?",
 	L"Hors de portée",
 	L"Mineur",
 	L"Un véhicule ne peut rouler qu'entre des secteurs",
@@ -2904,7 +2904,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Verrou touché",
 	L"Verrou détruit",
 	L"Quelqu'un d'autre veut essayer sur cette porte.",
-	L"Etat : %d/%d\nCarburant : %d/%d",
+	L"État : %d/%d\nCarburant : %d/%d",
 	L"%s ne peut pas voir %s.",  // Cannot see person trying to talk to
 	L"Accessoire retiré",
 	L"Ne peut pas gagner un autre véhicule car vous en avez déjà 2",
@@ -2968,7 +2968,7 @@ STR16 pExitingSectorHelpText[] =
 	L"Faites sortir vos derniers mercenaires du secteur\npour aller dans l'écran de carte le temps que vos mercenaires fassent le voyage.",
 
 	//If an EPC is the selected merc, it won't allow the merc to leave alone as the merc is being escorted.  The "single" button is disabled.
-	L"%s doit être escorté(e) par vos mercenaires et ne peut quitter ce secteur tout seul.",
+	L"%s doit être escorté(e) par vos mercenaires et ne peut quitter ce secteur tout(e) seul(e).",
 
 	//If only one conscious merc is left and is selected, and there are EPCs in the squad, the merc will be prohibited from leaving alone.
 	//There are several strings depending on the gender of the merc and how many EPCs are in the squad.
@@ -3128,9 +3128,9 @@ STR16 pwMineStrings[] =
 	L"Production estimée",
 	L"Abandonnée",				// 5
 	L"Fermée",
-	L"Epuisée",
+	L"Épuisée",
 	L"Production",
-	L"Etat",
+	L"État",
 	L"Productivité",
 	L"Type de minerai",				// 10
 	L"Contrôle de la ville",
@@ -3360,7 +3360,7 @@ STR16 pNewMailStrings[] =
 STR16 pDeleteMailStrings[] =
 {
  L"Effacer message ?",
- L"Effacer message NON CONSULTE ?",
+ L"Effacer message NON CONSULTÉ ?",
 };
 
 
@@ -3425,7 +3425,7 @@ STR16 pTransactionText[] =
 	L"Commission", 
 	L"Engagé", 				// Merc was hired
 	L"Achats Bobby Ray", 		// Bobby Ray is the name of an arms dealer
-	L"Règlement M.E.R.C.",
+	L"Règlement MERC",
 	L"Acompte médical pour %s", 		// medical deposit for merc
 	L"Analyse IMP", 		// IMP is the acronym for International Mercenary Profiling
 	L"Assurance pour %s", 
@@ -3501,9 +3501,9 @@ STR16 pLeftEquipmentString[] =
 STR16 pMapScreenStatusStrings[] =
 {
 	L"Santé",
-	L"Energie",
+	L"Énergie",
 	L"Moral",
-	L"Etat",	// the condition of the current vehicle (its "Santé")
+	L"État",	// the condition of the current vehicle (its "Santé")
 	L"Carburant",	// the fuel level of the current vehicle (its "energy")
 	L"Poison",	// TODO.Translate
 	L"Water",		// drink level
@@ -3662,7 +3662,7 @@ STR16 pMercContractOverStrings[] =
 	L"a rempli son contrat, elle est rentrée chez elle.", 		// merc's contract is over and has departed
 	L"est parti, son contrat ayant été annulé.", 		// merc's contract has been terminated
 	L"est partie, son contrat ayant été annulé.",		// merc's contract has been terminated
-	L"Vous devez trop d'argent à la M.E.R.C., %s quitte Arulco.", // Your M.E.R.C. account is invalid so merc left
+	L"Vous devez trop d'argent à la MERC, %s quitte Arulco.", // Your M.E.R.C. account is invalid so merc left
 };
 
 // Text used on IMP Web Pages
@@ -3671,7 +3671,7 @@ STR16 pMercContractOverStrings[] =
 //    note: I only updated the English text to remove "three" below
 STR16 pImpPopUpStrings[] =
 {
-	L"Code Incorrect",
+	L"Code incorrect",
 	L"Vous allez établir un nouveau profil. Etes-vous sûr de vouloir recommencer ?",
 	L"Veuillez entrer votre nom et votre sexe.",
 	L"Vous n'avez pas les moyens de vous offrir une analyse de profil.",
@@ -3760,7 +3760,7 @@ STR16 pHistoryHeaders[] =
 	L"Page", 			// the current page in the history report we are in
 	L"Jour", 			// the days the history report occurs over
 	L"Lieu", 			// location (in sector) the event occurred
-	L"Evénement", 			// the event label
+	L"Événement", 			// the event label
 };
 
 // various history events
@@ -3773,11 +3773,11 @@ STR16 pHistoryStrings[] =
 {
 	L"",																						// leave this line blank
 	//1-5
-	L"%s engagé(e) sur le site de l'A.I.M.", 										// merc was hired from the aim site
-	L"%s engagé(e) sur le site M.E.R.C.", 									// merc was hired from the aim site
+	L"%s engagé(e) sur le site de l'AIM.", 										// merc was hired from the aim site
+	L"%s engagé(e) sur le site MERC.", 									// merc was hired from the aim site
 	L"%s meurt.", 															// merc was killed
-	L"Versements M.E.R.C.",								// paid outstanding bills at MERC
-	L"Ordre de mission d'Enrico Chivaldori accepté",	
+	L"Versements MERC.",								// paid outstanding bills at MERC
+	L"Ordre de mission de Chivaldori Enrico accepté",	
 	//6-10
 	L"Profil IMP",
 	L"Souscription d'un contrat d'assurance pour %s.", 				// insurance contract purchased
@@ -3788,7 +3788,7 @@ STR16 pHistoryStrings[] =
 	L"Extension du contrat de %s (1 semaine).", 					// Extented "mercs name"'s for a week
 	L"Extension du contrat de %s (2 semaines).", 					// Extented "mercs name"'s 2 weeks
 	L"%s a été renvoyé(e).", 													// "merc's name" was dismissed.
-	L"%s a démissionné.", 																		// "merc's name" quit.
+	L"%s a démissionné(e).", 																		// "merc's name" quit.
 	L"quête commencée.", 															// a particular quest started
 	//16-20
 	L"quête achevée.",
@@ -3797,7 +3797,7 @@ STR16 pHistoryStrings[] =
 	L"Activation du mode triche",
 	L"Le ravitaillement devrait arriver demain à Omerta",
 	//21-25
-	L"%s a quitté l'escouade pour épouser Daryl Hick",
+	L"%s a quitté l'escouade pour épouser Hick Daryl",
 	L"Expiration du contrat de %s.",
 	L"Recrutement de %s.",
 	L"Plainte d'Enrico pour manque de résultats",
@@ -3821,7 +3821,7 @@ STR16 pHistoryStrings[] =
 	L"Fusil à roquettes récupéré auprès du Sergent Krott.",
 	L"Acte de propriété du magasin d'Angel donné à Kyle.",
 	//41-45
-	L"Madlab propose de construire un robot.",
+	L"Foulab propose de construire un robot.",
 	L"Gabby fait des décoctions rendant invisible aux créatures.",
 	L"Keith est hors-jeu.",
 	L"Howard fournit du cyanure à la Reine Deidranna.",
@@ -3841,25 +3841,25 @@ STR16 pHistoryStrings[] =
 	//56-60
 	L"Dave refait gratuitement le plein s'il a du carburant.",
 	L"Pot-de-vin donné à Pablo.",
-	L"Kingpin cache un trésor dans la mine de San Mona.",
-	L"Victoire de %s dans l'Extreme Fighting",
-	L"Défaite de %s dans l'Extreme Fighting",
+	L"Caïd cache un trésor dans la mine de San Mona.",
+	L"Victoire de %s dans le combat extrème",
+	L"Défaite de %s dans le combat extrème",
 	//61-65
-	L"Disqualification de %s dans l'Extreme Fighting",
+	L"Disqualification de %s dans le combat extrème",
 	L"Importante somme découverte dans la mine abandonnée.",
-	L"Rencontre avec un tueur engagé par Kingpin.",
+	L"Rencontre avec un tueur engagé par Caïd.",
 	L"Perte du secteur",				//ENEMY_INVASION_CODE
 	L"Secteur défendu",
 	//66-70
 	L"Défaite",							//ENEMY_ENCOUNTER_CODE
 	L"Embuscade",						//ENEMY_AMBUSH_CODE
 	L"Embuscade ennemie déjouée",
-	L"Echec de l'attaque",			//ENTERING_ENEMY_SECTOR_CODE
+	L"Échec de l'attaque",			//ENTERING_ENEMY_SECTOR_CODE
 	L"Réussite de l'attaque !",
 	//71-75
 	L"Attaque de créatures",			//CREATURE_ATTACK_CODE
 	L"Ambuscade de chats sauvages",			//BLOODCAT_AMBUSH_CODE
-	L"Elimination des chats sauvages",
+	L"Élimination des chats sauvages",
 	L"%s a été tué(e)",
 	L"Tête de terroriste donnée à Carmen",
 	L"Reste Slay",
@@ -3876,12 +3876,12 @@ STR16 pHistoryLocations[] =
 STR16 pLaptopIcons[] =
 {
 	L"E-mail",
-	L"Internet",
+	L"Favoris",
 	L"Finances",
 	L"Personnel",
 	L"Historique",
 	L"Fichiers",
-	L"Eteindre",
+	L"Éteindre",
 	L"sir-FER 4.0",			// our play on the company name (Sirtech) and web surFER
 };
 
@@ -3890,10 +3890,10 @@ STR16 pLaptopIcons[] =
 
 STR16 pBookMarkStrings[] =
 {
-	L"A.I.M.",
+	L"AIM",
 	L"Bobby Ray",
-	L"I.M.P",
-	L"M.E.R.C.",
+	L"IMP",
+	L"MERC",
 	L"Morgue",
 	L"Fleuriste",
 	L"Assurance",
@@ -3975,19 +3975,19 @@ STR16 pWebTitle[ ]=
 
 STR16 pWebPagesTitles[] =
 {
-	L"A.I.M.",
-	L"Membres A.I.M.",
-	L"Galerie A.I.M.",		// a mug shot is another name for a portrait
-	L"Tri A.I.M.",
-	L"A.I.M.",
-	L"Anciens A.I.M.",
-	L"Règlement A.I.M.",
-	L"Historique A.I.M.",
-	L"Liens A.I.M.",
-	L"M.E.R.C.",
-	L"Comptes M.E.R.C.",
-	L"Enregistrement M.E.R.C.",
-	L"Index M.E.R.C.",
+	L"AIM",
+	L"Membres AIM",
+	L"Galerie AIM",		// a mug shot is another name for a portrait
+	L"Tri AIM",
+	L"AIM",
+	L"Anciens AIM",
+	L"Règlement AIM",
+	L"Historique AIM",
+	L"Liens AIM",
+	L"MERC",
+	L"Comptes MERC",
+	L"Enregistrement MERC",
+	L"Index MERC",
 	L"Bobby Ray",
 	L"Bobby Ray - Armes",
 	L"Bobby Ray - Munitions",
@@ -3995,8 +3995,8 @@ STR16 pWebPagesTitles[] =
 	L"Bobby Ray - Divers",							//misc is an abbreviation for miscellaneous				
 	L"Bobby Ray - Occasions",
 	L"Bobby Ray - Commande",
-	L"I.M.P.",
-	L"I.M.P.",
+	L"IMP",
+	L"IMP",
 	L"Service des Fleuristes Associés",
 	L"Service des Fleuristes Associés - Exposition",
 	L"Service des Fleuristes Associés - Bon de commande",
@@ -4044,7 +4044,7 @@ STR16 pPersonnelDepartedStateStrings[] =
 
 STR16 pPersonelTeamStrings[] =
 {
-	L"Equipe actuelle",
+	L"Équipe actuelle",
 	L"Départs",
 	L"Coût quotidien :",
 	L"Coût maximum :",
@@ -4075,7 +4075,7 @@ STR16 pPersonnelTeamStatsStrings[] =
 	L"TIR",
 	L"TECH",
 	L"EXPL",
-	L"MED",
+	L"MÉD",
 };
 
 
@@ -4231,7 +4231,7 @@ STR16			MercInfo[] =
 	L"Engagé",
 	L"Salaire :",
 	L"Par jour",
-	L"Gear :",	// TODO.Translate
+	L"Paquetage :",
 	L"Total :",		// TODO.Translate
 	L"Décédé(e)",
 
@@ -4262,7 +4262,7 @@ STR16			MercNoAccountText[] =
 STR16			MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
-	L"Speck T. Kline, fondateur",
+	L"Kline Speck, fondateur",
 	L"Cliquez ici pour ouvrir un compte",
 	L"Cliquez ici pour voir votre compte",
 	L"Cliquez ici pour consulter les fichiers",
@@ -4275,8 +4275,8 @@ STR16			MercHomePageText[] =
 
 STR16			sFuneralString[] =
 {
-	L"Morgue McGillicutty : A votre écoute depuis 1983.",
-	L"Murray \"Pops\" McGillicutty, notre directeur bien aimé, est un ancien mercenaire de l'AIM. Sa spécialité : la mort des autres.",
+	L"Morgue Mc Gillicutty : À votre écoute depuis 1983.",
+	L"Mc Gillicutty Murray dit Pops, notre directeur bien aimé, est un ancien mercenaire de l'AIM. Sa spécialité : la mort des autres.",
 	L"Pops l'a côtoyée pendant si longtemps qu'il est un expert de la mort, à tous points de vue.",
 	L"La morgue McGillicutty vous offre un large éventail de services funéraires, depuis une écoute compréhensive jusqu'à la reconstitution des corps... dispersés.",
 	L"Laissez donc la morgue McGillicutty vous aider, pour que votre compagnon repose enfin en paix.",
@@ -4284,9 +4284,9 @@ STR16			sFuneralString[] =
 	// Text for the various links available at the bottom of the page
 	L"ENVOYER FLEURS",
 	L"CERCUEILS & URNES",
-	L"CREMATION",
+	L"CRÉMATION",
 	L"SERVICES FUNERAIRES",
-	L"NOTRE ETIQUETTE",
+	L"NOTRE ÉTIQUETTE",
 
 	// The text that comes up when you click on any of the links ( except for send flowers ).
 	L"Le concepteur de ce site s'est malheureusement absenté pour cause de décès familial. Il reviendra dès que possible pour rendre ce service encore plus efficace.",
@@ -4414,7 +4414,7 @@ STR16			BobbyROrderFormText[] =
 	L"* Matériel d'occasion",		// Disclaimer stating that the item is used
 	L"Vous n'avez pas les moyens.",		//20	// A popup message that to warn of not enough money
 	L"<AUCUNE>",				// Gets displayed when there is non valid city selected
-	L"Etes-vous sûr de vouloir envoyer cette commande à %s ?",		// A popup that asks if the city selected is the correct one
+	L"Êtes-vous sûr de vouloir envoyer cette commande à %s ?",		// A popup that asks if the city selected is the correct one
 	L"Poids total **",			// Displays the weight of the package
 	L"** Pds Min.",				// Disclaimer states that there is a minimum weight for the package
 	L"Envois",	
@@ -4508,14 +4508,14 @@ STR16			BobbyRText[] =
 	L"Cal :",			// the caliber of the gun
 	L"Chrg :",			// number of rounds of ammo the Magazine can hold
 	L"Portée:",			// The range of the gun
-	L"Dégats:",			// Damage of the weapon	
+	L"Dégâts:",			// Damage of the weapon	
 	L"CdT :",			// Weapon's Rate Of Fire, acronym ROF
 	L"PA :",				// Weapon's Action Points, acronym AP	// TODO.Translate
-	L"Etourdissement :",	// Weapon's Stun Damage		// TODO.Translate
+	L"Étourdissement :",	// Weapon's Stun Damage		// TODO.Translate
 	L"Protect :",		// Armour's Protection		// TODO.Translate
 	L"Cam. :",			// Armour's Camouflage		// TODO.Translate
 	L"Prix :",			// Cost of the item
-	L"En réserve :",			// The number of items still in the store's inventory
+	L"En stock :",			// The number of items still in the store's inventory
 	L"Qté commandée :",		// The number of items on order
 	L"Endommagé",			// If the item is damaged
 	L"Poids :",			// the Weight of the item
@@ -4568,7 +4568,7 @@ STR16			BobbyRaysFrontText[] =
 
 STR16			AimSortText[] =
 {
-	L"Membres A.I.M.",				// Title
+	L"Membres AIM",				// Title
 	// Title for the way to sort
 	L"Tri par :",					
 
@@ -4592,7 +4592,7 @@ STR16			AimSortText[] =
 
 	L"Afficher l'index de la galerie de portraits",
 	L"Consulter le fichier individuel",
-	L"Consulter la galerie des anciens de l'A.I.M.",
+	L"Consulter la galerie des anciens de l'AIM",
 
 	// text to display how the entries will be sorted
 
@@ -4668,7 +4668,7 @@ STR16			CharacterInfo[] =
 	L"Info. complémentaires",				// Title for the additional info for the merc's bio
 	L"Membres actifs",		//20		// Title of the page
 	L"Matériel optionnel :",				// Displays the optional gear cost
-	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's //TODO.Translate
+	L"Paquetage",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's //TODO.Translate
 	L"Dépôt Médical",			// If the merc required a medical deposit, this is displayed
 	L"Kit 1",				// Text on Starting Gear Selection Button 1 
 	L"Kit 2",				// Text on Starting Gear Selection Button 2
@@ -4736,7 +4736,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"Equipe de mercenaires déjà au complet.",
+	L"Équipe de mercenaires déjà au complet.",
 
 	L"Message pré-enregistré",
 	L"Message enregistré",
@@ -4747,7 +4747,7 @@ STR16			AimPopUpText[] =
 
 STR16			AimLinkText[] =
 {
-	L"Liens A.I.M.",	//The title of the AIM links page
+	L"Liens AIM",	//The title of the AIM links page
 };
 
 
@@ -4758,7 +4758,7 @@ STR16			AimLinkText[] =
 
 STR16			AimHistoryText[] =
 {
-	L"Historique A.I.M.",					//Title
+	L"Historique AIM",					//Title
 
 	// Text on the buttons at the bottom of the page
 
@@ -4793,8 +4793,8 @@ STR16			AimFiText[] =
 
 	// The title of the page, the above text gets added at the end of this text
 
-	L"Tri ascendant des membres de l'A.I.M. par %s",
-	L"Tri descendant des membres de l'A.I.M. par %s",
+	L"Tri ascendant des membres de l'AIM par %s",
+	L"Tri descendant des membres de l'AIM par %s",
 
 	// Instructions to the players on what to do
 
@@ -4839,7 +4839,7 @@ STR16			AimScreenText[] =
 {
 	// AIM disclaimers
 	
-	L"A.I.M. et le logo A.I.M. sont des marques déposées dans la plupart des pays.",
+	L"AIM et le logo A.I.M. sont des marques déposées dans la plupart des pays.",
 	L"N'espérez même pas nous copier !",
 	L"Copyright 2008-2009 A.I.M., Ltd. Tous droits réservés.",
 
@@ -4876,15 +4876,15 @@ STR16 SKI_Text[ ] =
 {
 	L"MARCHANDISE EN STOCK",		//Header for the merchandise available
 	L"PAGE",				//The current store inventory page being displayed
-	L"COUT TOTAL",				//The total cost of the the items in the Dealer inventory area
+	L"COÛT TOTAL",				//The total cost of the the items in the Dealer inventory area
 	L"VALEUR TOTALE",			//The total value of items player wishes to sell
 	L"EVALUATION",				//Button text for dealer to evaluate items the player wants to sell
 	L"TRANSACTION",			//Button text which completes the deal. Makes the transaction.
 	L"OK",				//Text for the button which will leave the shopkeeper interface.
-	L"COUT REPARATION",			//The amount the dealer will charge to repair the merc's goods
+	L"COÛT RÉPARATION",			//The amount the dealer will charge to repair the merc's goods
 	L"1 HEURE",			// SINGULAR! The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"%d HEURES",		// PLURAL!   The text underneath the inventory slot when an item is given to the dealer to be repaired
-	L"REPARE",		// Text appearing over an item that has just been repaired by a NPC repairman dealer
+	L"RÉPARÉ",		// Text appearing over an item that has just been repaired by a NPC repairman dealer
 	L"Plus d'emplacements libres.",	//Message box that tells the user there is non more room to put there stuff
 	L"%d MINUTES",		// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Objet lâché à terre.",
@@ -4999,13 +4999,13 @@ STR16			zSaveLoadText[] =
 	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour?",
 #endif
 
-	L"Etes-vous sûr de vouloir écraser la sauvegarde #%d ?",
+	L"Êtes-vous sûr de vouloir écraser la sauvegarde #%d ?",
 	L"Voulez-vous charger la sauvegarde #%d ?",
 
 
 	//The first %d is a number that contains the amount of free space on the users hard drive,
 	//the second is the recommended amount of free space.
-	L"Votre risquez de manquer d'espace disque. Il ne vous reste que %d Mo de libre alors que le jeu nécessite %d Mo d'espace libre.",	
+	L"Vous risquez de manquer d'espace. Il ne vous reste que %d Mo de libre alors que le jeu nécessite %d Mo d'espace libre.",	
 
 	L"Enregistrement",			//When saving a game, a message box with this string appears on the screen
 
@@ -5063,7 +5063,7 @@ STR16		zMarksMapScreenText[] =
 	L"%s ne peut pas former plus de miliciens.",
 	L"Le mercenaire a un contrat déterminé.", 
 	L"Ce mercenaire n'est pas assuré.",
-	L"Ecran carte",		// 24
+	L"Écran carte",		// 24
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"Vous n'avez actuellement aucune Milice Mobile. Retournez à ce mode du vue quand vous en aurez recruté.",
 	L"Cette vue montre où votre Milice Mobile peut et ne peut pas aller. Gris = La Milice Mobile refuse d'aller ici. ROUGE = La Milice Mobile peut aller ici, mais vous avez dit de ne pas y aller. JAUNE = La Milice Mobile peut entrer dans ce secteur, mais ne peut en sortir. VERT = la Milice Mobile peut aller ici librement. Right click a Green/Yellow sector to cycle its behavior.",
@@ -5080,7 +5080,7 @@ STR16 pLandMarkInSectorString[] =
 STR16 pMilitiaConfirmStrings[] =
 {
 	L"L'entraînement de la milice vous coûtera $", // telling player how much it will cost
-	L"Etes-vous d'accord ?", // asking player if they wish to pay the amount requested
+	L"Êtes-vous d'accord ?", // asking player if they wish to pay the amount requested
 	L"Vous n'en avez pas les moyens.", // telling the player they can't afford to train this town
 	L"Voulez-vous poursuivre l'entraînement de la milice à %s (%s %d) ?", // continue training this town?
 	L"Coût $", // the cost in dollars to train militia
@@ -5100,7 +5100,7 @@ STR16 pMilitiaConfirmStrings[] =
 STR16	gzMoneyWithdrawMessageText[] = 
 {
 	L"Vous ne pouvez retirer que 20 000 $ à la fois.",
-	L"Etes-vous sûr de vouloir déposer %s sur votre compte ?",
+	L"Êtes-vous sûr de vouloir déposer %s sur votre compte ?",
 };
 
 STR16	gzCopyrightText[] = 
@@ -5249,12 +5249,12 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, affiche une barre de probabilités de succès sur le curseur.",
 	L"Si activé, les rafales de lance grenades ont un curseur de rafale.",
 	L"Si activé, les ennemis feront de temps en temps des remarques sur certaines actions.", // Changed from Enemies Drop All Items - SANDRO
-	L"Si activé, les grenades lances grenades ont un grand angle (|Q).",
+	L"Si activé, les grenades lance-grenades ont un grand angle (|Q).",
 	L"Si activé, le mode tour par tour ne sera pas actif si vous n'êtes pas vu ou entendu par l'ennemie à moins d'appuyer sur |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
-	L"Si activé, |E|s|p|a|c|e selectionne l'escouade suivante.",
+	L"Si activé, |E|s|p|a|c|e sélectionne l'escouade suivante.",
 	L"Si activé, les ombres d'objets sont affichées.",
 	L"Si activé, la portée des armes est affichée en nombres de cases.",
-	L"Si activé, les effets de traçantes sont affichés pour les tir simples.",
+	L"Si activé, les effets de traçantes sont affichés pour les tirs simples.",
 	L"Si activé, le son de pluie est audible quand il pleut.",
 	L"Si activé, les corbeaux sont présents dans le jeu.",
 	L"Si activé, une fenêtre info-bulle apparaît lorsque vous appuyez sur |A|l|t et que le curseur est au dessus d'un ennemi.",
@@ -5263,11 +5263,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
 	L"Si cette option est activée et que des ennemis sont présents, \nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
 	L"Si activé, montre la progression des caractères à travers le gain de niveaux.",
-	L"Si activé, la carte stratégique sera coloré différemment selon l'exploration.",
+	L"Si activé, la carte stratégique sera colorée différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
 	L"When ON, ranks will be displayed before merc names in the strategic view.",		// TODO.Translate
 	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",
-	L"Si activé, vous verrez les icones correspondant à l'équipement porté en bas à droite du portrait.",
+	L"Si activé, vous verrez les icônes correspondant à l'équipement porté en bas à droite du portrait.",
 	L"Si activé, le curseur ne basculera pas entre changer de position et une autre action. Appuyez sur |x pour initier un échange rapide.",
 	L"When ON, mercs will not report progress during training.",
 	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
@@ -5331,15 +5331,15 @@ STR16	gzGIOScreenText[] =
 	L"Excellente",
 	L"Superbe",
 	L"Inventaire / Accessoire",
-	L"NON UTILISE",
-	L"NON UTILISE",
+	L"NON UTILISÉ",
+	L"NON UTILISÉ",
 	L"Charge jeu multi",
 	L"CONFIGURATION DU JEU (Les paramètres serveur seulement prennent effet)",
 	// Added by SANDRO
 	L"Skill Traits",
 	L"Ancien",
 	L"Nouveau",
-	L"Nombre max de merc I.M.P",
+	L"Nombre max de merc IMP",
 	L"1",
 	L"2",
 	L"3",
@@ -5347,8 +5347,8 @@ STR16	gzGIOScreenText[] =
 	L"5",
 	L"6",
 	L"Objets lachés par les ennemis",
-	L"Off",
-	L"On",
+	L"Non",
+	L"Oui",
 #ifdef JA2UB
 	L"Tex and John",
 	L"Random",
@@ -5510,7 +5510,7 @@ STR16 pDeliveryLocationStrings[] =
 	L"Londres",			//London, England
 	L"Los Angeles",	//Los Angeles, California, USA (SW corner of USA)
 	L"Meduna",			//Meduna -- the other airport in JA2 that you can receive items.
-	L"Metavira",		//The island of Metavira was the fictional location used by JA1
+	L"Métavira",		//The island of Metavira was the fictional location used by JA1
 	L"Miami",				//Miami, Florida, USA (SE corner of USA)
 	L"Moscou",			//Moscow, USSR
 	L"New-York",		//New York, New York, USA

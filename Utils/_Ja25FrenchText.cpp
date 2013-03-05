@@ -26,9 +26,9 @@ void this_is_the_Ja25FrenchText_public_symbol(void){;}
 STR16 gzIMPSkillTraitsText[]=
 {
 	L"Crochetage",
-	L"Corps-à-corps",
-	L"Electronique",
-	L"Operations de nuit",
+	L"Corps à corps",
+	L"Électronique",
+	L"Opérations de nuit",
 	L"Lancer",
 	L"Enseigner",
 	L"Armes lourdes",
@@ -41,7 +41,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Arts martiaux",
 
 	L"aucune",
-	L"Spécialtés I.M.P.",
+	L"Spécialtés IMP",
 	L"(Expert)",
 
 };
@@ -54,14 +54,14 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Tireur d'élite",
 	L"Scout",
 	L"Bandit",
-	L"Corps-à-corps",
+	L"Corps à corps",
 	L"Manager",
 	L"Technicien",
 	L"Médecin",
 	L"Covert Ops",	// TODO.Translate
 
 	L"Personne",
-	L"I.M.P. Traits pincipaux",
+	L"Traits pincipaux IMP",
 	// second names
 	L"Mitrailleur",
 	L"Bombardier",
@@ -80,26 +80,26 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
 	L"Ambidextre",
 	L"Mêlée",
-	L"Lancer",
+	L"Le lancer",
 	L"Opérations de nuit",
 	L"Discrétion",
-	L"Athlétic",
-	L"Masse musculaire",
-	L"Démolition",
-	L"Enseigner",
+	L"Athlétique",
+	L"Culturiste",
+	L"Sabotage",
+	L"Instructeur",
 	L"Reconnaissance",
 
 	L"Personne",
-	L"I.M.P. Traits mineurs",
+	L"Traits mineurs IMP",
 };
 
 //these texts are for help popup windows, describing trait properties
 STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 {
 	L"+%d%s de chance de toucher avec une arme d'assaut\n",
-	L"+%d%s de chance de toucher avec un SMGs\n",
-	L"+%d%s de chance de toucher avec un LMGs\n",
-	L"-%d%s du nombre de PA nécessaire pour tirer avec un LMGs\n",
+	L"+%d%s de chance de toucher avec un SMG\n",
+	L"+%d%s de chance de toucher avec un LMG\n",
+	L"-%d%s du nombre de PA nécessaire pour tirer avec un LMG\n",
 	L"-%d%s du nombre de PA nécessaire pour préparer une arme automatique légère\n",
 	L"La pénalité dû au mode Rafale/Auto est réduit de %d%s\n",
 	L"Réduire la propabilité de tirer plus de balles que prévu en mode Auto\n",
@@ -170,33 +170,33 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 };
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
-	L"-%d%s du nombre de PA nécessaire pour les attaques au corps-à-corps (mains nues ou avec un coup de poing américain)\n",
+	L"-%d%s du nombre de PA nécessaire pour les attaques au corps à corps (mains nues ou avec un coup de poing américain)\n",
 	L"+%d%s de chance de toucher avec les mains nues\n",
 	L"+%d%s de chance de toucher avec un coup de poing américain\n",
-	L"+%d%s de dégâts des attaques au corps-à-corps (mains nues ou avec un coup de poing américain)\n",
-	L"+%d%s de dégâts sur le souffle des attaques au corps-à-corps (mains nues ou avec un coup de poing américain)\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend en peu de temps à récupérer\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend un peu plus de temps à récupérer\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend plus de temps à récupérer\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend beaucoup plus de temps à récupérer\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend énormément de temps à récupérer\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et met des heures à récupérer\n",
-	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et vas surement ne pas se relever\n",
+	L"+%d%s de dégâts des attaques au corps à corps (mains nues ou avec un coup de poing américain)\n",
+	L"+%d%s de dégâts sur le souffle des attaques au corps à corps (mains nues ou avec un coup de poing américain)\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et prend en peu de temps à récupérer\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et prend un peu plus de temps à récupérer\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et prend plus de temps à récupérer\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et prend beaucoup plus de temps à récupérer\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et prend énormément de temps à récupérer\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et met des heures à récupérer\n",
+	L"L'ennemi est abasourdi en raison de votre attaque au corps à corps et vas sûrement ne pas se relever\n",
 	L"Le coups de poing va faire +%d%s de dégâts en plus\n",
 	L"Votre coups de pieds spécial va faire +%d%s de dégâts en plus\n",
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps\n",
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps à main nues",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps\n",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps à mains nues",
 	L" ou avec le coup de poing américain",
 	L" (+%d%s avec le coup de poing américain)",
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps avec un coup de poing américain\n",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps avec un coup de poing américain\n",
 	L"+%d%s de chance d'esquiver une attaque de n'importe quelle arme de mêlée\n",
-	L"-%d%s du nombre de PA nécessaire pour voler l'arme de son ennemie\n",
+	L"-%d%s du nombre de PA nécessaire pour voler l'arme de son ennemi\n",
 	L"-%d%s du nombre de PA nécessaire pour changer de posture (debout, accroupie, coucher), se retourner, monter/descendre du toit et sauter les obstacles\n",
 	L"-%d%s du nombre de PA nécessaire pour changer de posture (debout, accroupie, coucher)\n",
 	L"-%d%s du nombre de PA nécessaire pour se retourner\n",
 	L"-%d%s du nombre de PA nécessaire pour monter/descendre du toit et sauter les obstacles\n",
 	L"+%d%s de chance d'ouvrir la porte\n",
-	L"Vous obtenez une animation spéciale pour votre combat au corps-à-corps\n",
+	L"Vous obtenez une animation spéciale pour votre combat au corps à corps\n",
 	L"-%d%s chance to be interrupted when moving\n", // TODO.Translate
 
 };
@@ -209,10 +209,10 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"+%d de gain de moral pour les mercenaires aux alentours\n",
 	L"-%d de perte de moral pour les mercenaires aux alentours\n",
 	L"Bonus valables pour %d cases aux alentours",
-	L" (%d cases pour en encadrement élargis)",
+	L" (%d cases pour en encadrement élargi)",
 	L"(Le maximum de bonus simultanés pour un joueur est de %d)\n",
 	L"+%d%s de crainte de résistance à %s\n",
-	L"Inconvénient: %dx perte de moral à la mort de %s pour les autres mercenaires\n",
+	L"Inconvénient : %dx perte de moral à la mort de %s pour les autres mercenaires\n",
 	L"+%d%s chance to trigger collective interrupts\n", // TODO.Translate
 
 };
@@ -264,7 +264,7 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"+%d%s de vitesse de rechargement d'une arme avec un chargeur\n",
 	L"+%d%s de vitesse de rechargement d'une arme avec des cartouches\n",
 	L"-%d%s du nombre de PA nécessaire pour prendre un objet\n",
-	L"-%d%s du nombre de PA nécessaire pour utiliser le backpack\n",
+	L"-%d%s du nombre de PA nécessaire pour utiliser le sac à dos\n",
 	L"-%d%s du nombre de PA nécessaire pour ouvrir une porte\n",
 	L"-%d%s du nombre de PA nécessaire pour poser/retirer une bombe ou une mine\n",
 	L"-%d%s du nombre de PA nécessaire pour attacher des objets entre eux\n",
@@ -302,7 +302,7 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"Vue effective augmentée de +%d dans la nuit\n",
 	L"Audition augmentée de +%d\n",
 	L"Audition augmentée de +%d lorsque vous êtes en hauteur\n",
-	L"+%d de chance d'interrompre une action d'une ennemi dans la nuit\n",
+	L"+%d de chance d'interrompre une action d'un ennemi dans la nuit\n",
 	L"Le besoin de dormir est réduit de -%d\n",
 
 };
@@ -310,7 +310,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"-%d%s du nombre de PA nécessaire pour bouger silencieusement\n",
 	L"+%d%s de chance de bouger silencieusement\n",
-	L"+%d%s en discrétion (étant 'invisible si inaperçu)\n",
+	L"+%d%s en discrétion (étant invisible si inaperçu)\n",
 	L"Réduit la pénalité dû au déplacement silencieux de %d%s\n",
 	L"-%d%s chance to be interrupted\n", // TODO.Translate
 
@@ -324,7 +324,7 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"A %d%s de résistance aux dégâts\n",
 	L"+%d%s de force effective pour porter de lourdes charges\n",
-	L"Réduit la perte d'énergie lorsque vous êtes touché au corps-à-corps de %d%s\n",
+	L"Réduit la perte d'énergie lorsque vous êtes touché au corps à corps de %d%s\n",
 	L"Augmente les dégâts nécessaire pour que vous tombiez à terre, si vous êtes touché aux jambes, de %d%s\n",
 
 };
@@ -336,8 +336,8 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 	L"+%d%s de dégâts causés par une bombe ou une mine\n",
 	L"+%d%s pour contrôler un détonateur\n",
 	L"+%d%s pour placer/retirer un contrôleur de bombe\n",
-	L"Diminue la chance que l'ennemie puisse détecter vos bombes/mines (+%d par level de bombe)\n",
-	L"Augmente la chance de former une plus grosse détonation quand l'ennemie ouvrira une porte piégée (dégâts multipliés par %d)\n",
+	L"Diminue la chance que l'ennemi puisse détecter vos bombes/mines (+%d par level de bombe)\n",
+	L"Augmente la chance de former une plus grosse détonation quand l'ennemi ouvrira une porte piégée (dégâts multipliés par %d)\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
@@ -354,9 +354,9 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"+%d de distance effective avec une lunette de visée sur votre arme\n",
 	L"+%d de distance effective avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
 	L"-%d de vues étroites avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
-	L"Si vous êtes dans le secteur, vous saurez le nombre exact d'ennemies présent dans les secteurs aux alentours\n",
-	L"Si vous êtes dans le secteur,vous saurez la présence au non d'ennemies dans les secteurs alentours\n",
-	L"Empêche l'ennemie de prendre en embuscade votre équipe\n",
+	L"Si vous êtes dans le secteur, vous saurez le nombre exact d'ennemis présent dans les secteurs aux alentours\n",
+	L"Si vous êtes dans le secteur,vous saurez la présence au non d'ennemis dans les secteurs alentours\n",
+	L"Empêche l'ennemi de prendre en embuscade votre équipe\n",
 	L"Empêche les félins (les gros chats) de prendre en embuscade votre équipe\n",
 
 };
@@ -368,14 +368,14 @@ STR16 gzIMPMinorTraitsHelpTextsNone[]=
 STR16 gzIMPOldSkillTraitsHelpTexts[]=
 {
 	L"+%d%s de bonus de crochetage\n",	// 0
-	L"+%d%s de chance de toucher au corps-à-corps\n",
-	L"+%d%s de dégâts au corps-à-corps\n",
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps\n",
-	L"Elimine la pénalité dû à la réparation et à la manipulation\nd'objets électriques (serrures, pièges, détonateurs, etc)\n",
+	L"+%d%s de chance de toucher au corps à corps\n",
+	L"+%d%s de dégâts au corps à corps\n",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps\n",
+	L"Élimine la pénalité dû à la réparation et à la manipulation\nd'objets électriques (serrures, pièges, détonateurs, etc)\n",
 	L"+%d de vision effective dans la nuit\n",
 	L"+%d d'audition effective dans la nuit\n",
 	L"+%d d'audition effective dnas la nuit sur un toit\n",
-	L"+%d de chance d'interrompre un ennemie dans la nuit\n",
+	L"+%d de chance d'interrompre un ennemi dans la nuit\n",
 	L"Le besoin de dormir est réduit de -%d\n",
 	L"+%d%s de distance maximale lors d'un lancer quelconque\n",	// 10
 	L"+%d%s de chance de toucher lors d'un lancer quelconque\n",
@@ -386,22 +386,22 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"La pénalité dû au tir en mode automatique est réduite de %d\n",
 	L"Réduit la probabilité d'un tir en mode automatique non voulu\n",
 	L"+%d%s de chance de bouger silencieusement\n",
-	L"+%d%s en ruse (étant 'invisible si inaperçu)\n",
-	L"Elimine la pénalité lorsque vous tirez avec une arme dans chaque main à la suite\n",	// 20
+	L"+%d%s en ruse (étant invisible si inaperçu)\n",
+	L"Élimine la pénalité lorsque vous tirez avec une arme dans chaque main à la suite\n",	// 20
 	L"+%d%s de chance de toucher avec une arme de mêlée\n",
 	L"+%d%s de chance d'esquiver une attaque de mêlée si vous avez un couteau dans la main\n",
 	L"+%d%s de chance d'esquiver une attaque de mêlée si vous avez quelque chose d'autre dans la main\n",
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps si vous avez un couteau dans la main\n",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps si vous avez un couteau dans la main\n",
 	L"-%d%s de distance effective nécessaire pour viser votre cible avec n'importe quelle arme\n",
 	L"+%d%s de bonus par niveau de visée\n",
 	L"Fournit un camouflage permanent\n",
-	L"+%d%s de chance de toucher au corps-à-corps\n",
-	L"+%d%s de dégâts au corps-à-corps\n",
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps si vous avez les mains vides\n",	// 30
-	L"+%d%s de chance d'esquiver une attaque au corps-à-corps si vous n'avez pas les mains vides\n",
+	L"+%d%s de chance de toucher au corps à corps\n",
+	L"+%d%s de dégâts au corps à corps\n",
+	L"+%d%s de chance d'esquiver une attaque au corps à corps si vous avez les mains vides\n",	// 30
+	L"+%d%s de chance d'esquiver une attaque au corps à corps si vous n'avez pas les mains vides\n",
 	L"+%d%s de chance d'esquiver une attaque avec une arme de mêlée\n",
-	L"Peut faire un coup de pied à des ennemies affaiblis qui fera le double de dégâts\n",
-	L"Vous obtenez une animation spéciale pour votre combat au corps-à-corps\n",
+	L"Peut faire un coup de pied à des ennemis affaiblis qui fera le double de dégâts\n",
+	L"Vous obtenez une animation spéciale pour votre combat au corps à corps\n",
 	L"Pas de bonus",
 };
 
@@ -414,12 +414,12 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"+ : Obtiens un bonus lorsqu'il entraîne la milice et à une meilleur communication.\n- : Ne gagne aucun moral pour les actions des autres mercenaires.",
 	L"+ : Apprend plus rapidemment en étant le professeur ou l'élève.\n- : A moins de résistance à la peur et la folie.",
 	L"+ : Son énergie descend un peu plus lentement sauf lorsqu'il est docteur, qu'il répare, qu'il entraîne ou qu'il apprend.\n- : Ses compétences en sagesse, commandement, explosifs, mécanique et médecine s'améliorent légèrement plus lentement.",
-	L"+ : A un peu plus de chance de toucher lors d'un tir automatique et inflige plus de dégâts au corps-à-corps.\n	Obtiens un peu plus de morale lors d'un kill.\n- : A une pénalité lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.",
+	L"+ : A un peu plus de chance de toucher lors d'un tir automatique et inflige plus de dégâts au corps à corps.\n	Obtiens un peu plus de morale lors d'un décès.\n- : A une pénalité lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.",
 	L"+ : A un bonus lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.\n- : Sa chance d'interrompre une action ennemie est légèrement diminué.",
-	L"+ : Augmente la résistance à la folie et la peur.\n    La perte de moral dû aux dégâts reçus et à la mort d'un mercenaire est moindre.\n- : Vous êtes plus facilement touchable et l'ennemie a sa pénalité dû à votre mouvement réduite.",
+	L"+ : Augmente la résistance à la folie et la peur.\n    La perte de moral dû aux dégâts reçus et à la mort d'un mercenaire est moindre.\n- : Vous êtes plus facilement touchable et l'ennemi a sa pénalité dû à votre mouvement réduite.",
 	L"+ : Gagne du moral lorsque vous faîtes une mission qui n'est pas lié au combat (excepté l'entraînement de milice).\n- : Pas de gains lorsque vous tuez quelqu'un.",
-	L"+ : A plus de chance d'infliger des pertes de stats sur l'ennemie, qui peut aussi infliger de lourds dégâts.\n	Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemie.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
-	L"+ : A de meilleures performances lorsqu'un certains types d'ennemies est opposé à lui.\n- : Les mercenaires qui possèdent le même type que l'ennemie gagne moins de moral.",
+	L"+ : A plus de chance d'infliger des pertes de stats sur l'ennemi, qui peut aussi infliger de lourds dégâts.\n	Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemi.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
+	L"+ : A de meilleures performances lorsqu'un certains types d'ennemis est opposé à lui.\n- : Les mercenaires qui possèdent le même type que l'ennemi gagne moins de moral.",
 
 };
 
@@ -445,23 +445,23 @@ STR16 gzIMPProfileCostText[]=
 
 STR16 zGioNewTraitsImpossibleText[]=
 {
-	L"Vous ne pouvez pas choisir le Nouveau Système de Trait avec l'outil PROFEX désactivé. Regardez votre fichier JA2_Options.ini avec l'entrée: READ_PROFILE_DATA_FROM_XML.",
+	L"Vous ne pouvez pas choisir le Nouveau Système de Trait avec l'outil PROFEX désactivé. Regardez votre fichier JA2_Options.ini avec l'entrée : READ_PROFILE_DATA_FROM_XML.",
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Vous avez choisi le mode IRON MAN. La difficultée du jeu s'en trouveras considerablement augmentée du fait de l'imposssiblité de sauvegarder en territoire ennemi. Ce paramètre prendra effet tout au long de la partie.  Etes-vous vraiment sûr de vouloir jouer en mode IRON MAN ?",
+	L"Vous avez choisi le mode IRON MAN. La difficultée du jeu s'en trouveras considerablement augmentée du fait de l'imposssiblité de sauvegarder en territoire ennemi. Ce paramètre prendra effet tout au long de la partie. Êtes-vous vraiment sûr de vouloir jouer en mode IRON MAN ?",
 };
 
 STR16 gzDisplayCoverText[]=
 {
 	L"Contraste: %d/100 %s, Luminosité: %d/100",
-	L"Distance de tir: %d/%d cases, Chance de toucher: %d/100",
-	L"Distance de tir: %d/%d cases, Stabilité du canon: %d/100",
+	L"Distance de tir: %d/%d cases, Chance de toucher : %d/100",
+	L"Distance de tir: %d/%d cases, Stabilité du canon : %d/100",
 	L"Désactivation de la couverture de l'affichage",
-	L"Afficher la vue qu'on les ennemies",
+	L"Afficher la vue qu'ont les ennemis",
 	L"Afficher les zones de danger des mercenaires",
 	L"Bois", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
 	L"Urbain",
