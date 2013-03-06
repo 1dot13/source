@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <AMMOLIST>
 	<AMMO>
 		<uiIndex>0</uiIndex>
@@ -12,7 +12,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>2</uiIndex>
-		<AmmoCaliber>9x19mm</AmmoCaliber>
+		<AmmoCaliber>9x19</AmmoCaliber>
 		<BRCaliber>9x19mm</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -27,8 +27,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>5</uiIndex>
-		<AmmoCaliber>12 gauge</AmmoCaliber>
-		<BRCaliber>12 gauge</BRCaliber>
+		<AmmoCaliber>Cal 12</AmmoCaliber>
+		<BRCaliber> 12</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>6</uiIndex>
@@ -37,52 +37,52 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>7</uiIndex>
-		<AmmoCaliber>5.45x39mm</AmmoCaliber>
+		<AmmoCaliber>5.45x39</AmmoCaliber>
 		<BRCaliber>5.45x39mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>8</uiIndex>
-		<AmmoCaliber>5.56x45mm</AmmoCaliber>
+		<AmmoCaliber>5.56x45</AmmoCaliber>
 		<BRCaliber>5.56x45mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>9</uiIndex>
-		<AmmoCaliber>7.62x51mm</AmmoCaliber>
+		<AmmoCaliber>7.62x51</AmmoCaliber>
 		<BRCaliber>7.62x51mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>10</uiIndex>
-		<AmmoCaliber>7.62x39mm</AmmoCaliber>
+		<AmmoCaliber>7.62x39</AmmoCaliber>
 		<BRCaliber>7.62x39mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>11</uiIndex>
-		<AmmoCaliber>4.7x33mm</AmmoCaliber>
+		<AmmoCaliber>4.7x33</AmmoCaliber>
 		<BRCaliber>4.7x33mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>12</uiIndex>
-		<AmmoCaliber>5.7x28mm</AmmoCaliber>
+		<AmmoCaliber>5.7x28</AmmoCaliber>
 		<BRCaliber>5.7x28mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>13</uiIndex>
-		<AmmoCaliber>Monster</AmmoCaliber>
-		<BRCaliber>Monster</BRCaliber>
+		<AmmoCaliber>Monstre</AmmoCaliber>
+		<BRCaliber>Monstre</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>14</uiIndex>
-		<AmmoCaliber>Rocket</AmmoCaliber>
-		<BRCaliber>Rocket</BRCaliber>
+		<AmmoCaliber>Roquette</AmmoCaliber>
+		<BRCaliber>Roquette</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>15</uiIndex>
-		<AmmoCaliber>Dart</AmmoCaliber>
-		<BRCaliber>Dart</BRCaliber>
+		<AmmoCaliber>Fléchette</AmmoCaliber>
+		<BRCaliber>Fléchette</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>16</uiIndex>
-		<AmmoCaliber>flame</AmmoCaliber>
-		<BRCaliber>flame</BRCaliber>
+		<AmmoCaliber>Cocktail</AmmoCaliber>
+		<BRCaliber>Cocktail</BRCaliber>
 	</AMMO>
 </AMMOLIST>

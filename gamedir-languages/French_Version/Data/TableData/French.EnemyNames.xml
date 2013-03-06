@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ENEMY_NAMES>
 <!--A-->
   <NAME>
@@ -988,7 +988,7 @@
   </NAME>
   <NAME>
     <uiIndex>242</uiIndex>
-    <szGroup>Soldat ennemi d'Ã©lite</szGroup>
+    <szGroup>Soldat ennemi d'élite</szGroup>
   </NAME>
   <NAME>
     <uiIndex>243</uiIndex>

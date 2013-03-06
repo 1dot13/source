@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <CIV_GROUP_NAMES>
   <NAME>
 	<uiIndex>0</uiIndex>
@@ -8,17 +8,17 @@
   <NAME>
 	<uiIndex>1</uiIndex>
 	
-    <szGroup>Rebelles</szGroup>
+    <szGroup>Rebelle</szGroup>
   </NAME>
  <NAME>
 	<uiIndex>2</uiIndex>
 	
-    <szGroup>KingPin</szGroup>
+    <szGroup>Sbire</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>3</uiIndex>
 	
-    <szGroup>Sanmona Arms</szGroup>
+    <szGroup>Armée San Mona</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>4</uiIndex>
@@ -28,22 +28,22 @@
   <NAME>
 	<uiIndex>5</uiIndex>
 	
-    <szGroup>Mendiants</szGroup>
+    <szGroup>Mendiant</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>6</uiIndex>
 	
-    <szGroup>Touristes</szGroup>
+    <szGroup>Touriste</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>7</uiIndex>
 	
-    <szGroup>Milice d'Alme</szGroup>
+    <szGroup>Milice d'Alma</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>8</uiIndex>
 	
-    <szGroup>Docteurs</szGroup>
+    <szGroup>Docteur</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>9</uiIndex>
@@ -53,27 +53,27 @@
   <NAME>
 	<uiIndex>10</uiIndex>
 	
-    <szGroup>Ploucs</szGroup>
+    <szGroup>Plouc</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>11</uiIndex>
 	
-    <szGroup>Gardien</szGroup>
+    <szGroup>Maton</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>12</uiIndex>
 	
-    <szGroup>Décharge</szGroup>
+    <szGroup>Ferrailleur</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>13</uiIndex>
 	
-    <szGroup>Enf. Usine</szGroup>
+    <szGroup>Enfant ouvrier</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>14</uiIndex>
 	
-    <szGroup>Reines</szGroup>
+    <szGroup>Reine</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>15</uiIndex>

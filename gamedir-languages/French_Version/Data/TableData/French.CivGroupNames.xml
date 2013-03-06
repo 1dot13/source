@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <CIV_GROUP_NAMES>
   <NAME>
 	<uiIndex>0</uiIndex>
@@ -8,17 +8,17 @@
   <NAME>
 	<uiIndex>1</uiIndex>
 	
-    <szGroup>Rebel</szGroup>
+    <szGroup>Rebelle</szGroup>
   </NAME>
  <NAME>
 	<uiIndex>2</uiIndex>
 	
-    <szGroup>KingPin</szGroup>
+    <szGroup>Sbire</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>3</uiIndex>
 	
-    <szGroup>Sanmona Arms</szGroup>
+    <szGroup>Armée San Mona</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>4</uiIndex>
@@ -28,22 +28,22 @@
   <NAME>
 	<uiIndex>5</uiIndex>
 	
-    <szGroup>Beggars</szGroup>
+    <szGroup>Mendiant</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>6</uiIndex>
 	
-    <szGroup>Tourists</szGroup>
+    <szGroup>Touriste</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>7</uiIndex>
 	
-    <szGroup>Alma Militia</szGroup>
+    <szGroup>Milice d'Alma</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>8</uiIndex>
 	
-    <szGroup>Doctors</szGroup>
+    <szGroup>Docteur</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>9</uiIndex>
@@ -53,62 +53,62 @@
   <NAME>
 	<uiIndex>10</uiIndex>
 	
-    <szGroup>Hicks</szGroup>
+    <szGroup>Plouc</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>11</uiIndex>
 	
-    <szGroup>Warden</szGroup>
+    <szGroup>Maton</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>12</uiIndex>
 	
-    <szGroup>Junkyard</szGroup>
+    <szGroup>Ferrailleur</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>13</uiIndex>
 	
-    <szGroup>Factory Kids</szGroup>
+    <szGroup>Enfant ouvrier</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>14</uiIndex>
 	
-    <szGroup>Queens</szGroup>
+    <szGroup>Reine</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>15</uiIndex>
 	
-    <szGroup>Empty Slot15</szGroup>
+    <szGroup>Slot Vide 15</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>16</uiIndex>
 	
-    <szGroup>Empty Slot16</szGroup>
+    <szGroup>Slot Vide 16</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>17</uiIndex>
 	
-    <szGroup>Empty Slot17</szGroup>
+    <szGroup>Slot Vide 17</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>18</uiIndex>
 	
-    <szGroup>Empty Slot18</szGroup>
+    <szGroup>Slot Vide 18</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>19</uiIndex>
 	
-    <szGroup>Empty Slot19</szGroup>
+    <szGroup>Slot Vide 19</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>20</uiIndex>
 	
-    <szGroup>Empty Slot20</szGroup>
+    <szGroup>Slot Vide 20</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>21</uiIndex>
 	
-    <szGroup>Empty Slot21</szGroup>
+    <szGroup>Slot Vide t21</szGroup>
   </NAME>
   <NAME>
 	<uiIndex>22</uiIndex>

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 
 uiIndex:			The profile index from BinaryData\prof.dat or from TableData\MercProfiles.xml
 Name:				The name of the vehicle, which is displayed for example in tactical, when hovering the mouse over the vehicle.
@@ -993,15 +993,15 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>162</uiIndex>
-		<Name>Truck</Name>
-		<LongName>Ice cream truck</LongName>
-		<ShortName>Truck</ShortName>
+		<Name>Camion</Name>
+		<LongName>Camion de glaces</LongName>
+		<ShortName>Camion</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>163</uiIndex>
-		<Name>Heli</Name>
-		<LongName>Helicopter</LongName>
-		<ShortName>Heli</ShortName>
+		<Name>Héli</Name>
+		<LongName>Hélicoptère</LongName>
+		<ShortName>Héli</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>164</uiIndex>
