@@ -3434,58 +3434,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'K':
+				// Flugente: reworked this
 				//CHRISL: Swap gunsling
 				if ( gusSelectedSoldier != NOBODY && UsingNewInventorySystem() == true)
 				{
 					SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
-					BOOLEAN handFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE) || (pSoldier->inv[HANDPOS].exists() == false && pSoldier->inv[SECONDHANDPOS].exists() == false));
-					BOOLEAN slingFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[GUNSLINGPOCKPOS], HANDPOS, FALSE) || pSoldier->inv[GUNSLINGPOCKPOS].exists() == false);
-					
-					if(Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].twohanded && pSoldier->inv[SECONDHANDPOS].exists() == true)
-						handFit = FALSE;
 
-					if( handFit == TRUE && slingFit == TRUE)
-					{
-						if (gGameOptions.fInventoryCostsAP)
-						{
-							UINT8 APCost = 0;
-							if (pSoldier->inv[GUNSLINGPOCKPOS].exists())
-							{
-								APCost += ( APBPConstants [ AP_INV_FROM_SLING ] + APBPConstants [ AP_INV_TO_HANDS ] );
-								if (gGameExternalOptions.uWeightDivisor != 0)
-									APCost += DynamicAdjustAPConstants((int)((Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor),(int)((Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor));
-							}
-							if (pSoldier->inv[HANDPOS].exists())
-							{
-								APCost += ( APBPConstants [ AP_INV_TO_SLING ] + APBPConstants [ AP_INV_FROM_HANDS ] );
-								if (gGameExternalOptions.uWeightDivisor != 0)
-									APCost += DynamicAdjustAPConstants((int)((Item[pSoldier->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor),(int)((Item[pSoldier->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor));
-							}
-							APCost = __min(APCost, APBPConstants[AP_INV_MAX_COST]);
-							if (pSoldier->bActionPoints >= APCost)
-							{
-								// SANDRO - I dared to change this to use the apropriate function, as that function is actually important for IIS
-								//pSoldier->bActionPoints -= APCost;
-								DeductPoints( pSoldier, APCost, 0 );
-
-								SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
-								HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
-							}
-							else
-							{
-								CHAR16	zOutputString[512];
-								swprintf( zOutputString, New113Message[MSG113_INVENTORY_APS_INSUFFICIENT], APCost, pSoldier->bActionPoints);
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
-							}
-						}
-						else
-						{
-							SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
-							HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
-						}
-					}
-					fCharacterInfoPanelDirty = TRUE;
-					fInterfacePanelDirty = DIRTYLEVEL2;
+					if ( fAlt )
+						// switch to knife, or from knife to gun
+						pSoldier->SwitchWeapons( TRUE );
+					else if ( fCtrl )
+						// switch to sidearm, or from sidearm to non-sidearm gun
+						pSoldier->SwitchWeapons( FALSE, TRUE );
+					else
+						// switch to and from gunsling
+						pSoldier->SwitchWeapons( );
 				}
 				break;
 

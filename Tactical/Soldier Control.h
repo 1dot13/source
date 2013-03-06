@@ -1535,6 +1535,9 @@ public:
 	BOOLEAN	UpdateMultiTurnAction();
 
 	void	DropSectorEquipment();
+
+	// Flugente: switch hand item for gunsling weapon, or pistol, or knife
+	void	SwitchWeapons( BOOLEAN fKnife = FALSE, BOOLEAN fSideArm = FALSE );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

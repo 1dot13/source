@@ -15781,6 +15781,195 @@ void	SOLDIERTYPE::DropSectorEquipment()
 	}
 }
 
+//  Flugente: switch hand item for gunsling weapon, or pistol, or knife
+void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
+{
+	// NIV-only
+	if ( !UsingNewInventorySystem() )
+		return;
+
+	// The slot we move our hand object from and the new object to is obviously always HANDPOS
+	
+	// The second slot is the one from where we retrieve the object we search
+	UINT8 retrieveslot = GUNSLINGPOCKPOS;
+	// The third slot is where we put our hand item into
+	UINT8 handobjstorageslot = HANDPOS;
+
+	// if we swap knifes or sidearms, we search for any such item if we do not already have it in our hands. If we do, we instead search for a gun to switch
+	if ( fKnife )
+	{
+		// if we already have a knife in hand, search for a gun instead
+		if ( this->inv[HANDPOS].exists() && Item[this->inv[HANDPOS].usItem].usItemClass & IC_BLADE )
+		{
+			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			{
+				// we use the first gun we can find
+				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && this->inv[i].ubNumberOfObjects == 1 )
+				{
+					retrieveslot = i;
+					break;
+				}
+			}
+		}
+		// search for a knife
+		else
+		{
+			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			{
+				// take first blade
+				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_BLADE && this->inv[i].ubNumberOfObjects == 1 )
+				{
+					retrieveslot = i;
+					break;
+				}
+			}
+		}
+	}
+	else if ( fSideArm )
+	{
+		// if we already have a sidearm in hand, search for a gun tat isn't a sidearm instead
+		if ( this->inv[HANDPOS].exists() && Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN && Weapon[ Item[ this->inv[HANDPOS].usItem ].ubClassIndex ].ubWeaponClass == HANDGUNCLASS )
+		{
+			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			{
+				// we use the first gun we can find
+				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && Weapon[ Item[ this->inv[i].usItem ].ubClassIndex ].ubWeaponClass != HANDGUNCLASS && this->inv[i].ubNumberOfObjects == 1 )
+				{
+					retrieveslot = i;
+					break;
+				}
+			}
+		}
+		// search for a sidearm
+		else
+		{
+			for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+			{
+				// take first blade
+				if ( this->inv[i].exists() && Item[this->inv[i].usItem].usItemClass & IC_GUN && Weapon[ Item[ this->inv[i].usItem ].ubClassIndex ].ubWeaponClass == HANDGUNCLASS && this->inv[i].ubNumberOfObjects == 1 )
+				{
+					retrieveslot = i;
+					break;
+				}
+			}
+		}
+	}
+
+	// search a slot to put our hand object into
+	for(UINT8 i = GUNSLINGPOCKPOS; i < NUM_INV_SLOTS; ++i)
+	{
+		// take first slot that hadn item would fit
+		if ( CanItemFitInPosition(this, &this->inv[HANDPOS], i, FALSE) )
+		{
+			if ( i == retrieveslot || !this->inv[i].exists() )
+			{
+				handobjstorageslot = i;
+				break;
+			}
+		}
+	}
+	
+	BOOLEAN handcanMove = (CanItemFitInPosition(this, &this->inv[HANDPOS], handobjstorageslot, FALSE) || (this->inv[HANDPOS].exists() == false && this->inv[SECONDHANDPOS].exists() == false));
+	BOOLEAN searchitemCanMove = (CanItemFitInPosition(this, &this->inv[retrieveslot], HANDPOS, FALSE) || this->inv[retrieveslot].exists() == false);
+					
+	if(Item[this->inv[retrieveslot].usItem].twohanded && this->inv[SECONDHANDPOS].exists() == true)
+		handcanMove = FALSE;
+
+	if( handcanMove == TRUE && searchitemCanMove == TRUE)
+	{
+		if (gGameOptions.fInventoryCostsAP)
+		{
+			UINT8 APCost = 0;
+			if (gGameExternalOptions.uWeightDivisor != 0)
+			{
+				// we need to determine moving costs according to slots
+				INT16 fromretrieve = uiNIVSlotType[retrieveslot];
+				INT16 tohand       = uiNIVSlotType[HANDPOS];
+				INT16 fromhand     = uiNIVSlotType[HANDPOS];
+				INT16 tostorage    = uiNIVSlotType[handobjstorageslot];
+
+				//If these 2 arrays are initiated outside the function, APBPConstants will not have been initialized, and all values will be 0
+				INT16 uiAPCostFromSlot[12] =
+				{
+					APBPConstants[AP_INV_FROM_NONE],
+					APBPConstants[AP_INV_FROM_HANDS],
+					APBPConstants[AP_INV_FROM_EQUIPMENT],
+					APBPConstants[AP_INV_FROM_VEST],
+					APBPConstants[AP_INV_FROM_RIG],
+					APBPConstants[AP_INV_FROM_CPACK],
+					APBPConstants[AP_INV_FROM_BPACK],
+					APBPConstants[AP_INV_FROM_SLING],
+					APBPConstants[AP_INV_FROM_KNIFE],
+					APBPConstants[AP_INV_FROM_FACE],
+					APBPConstants[AP_INV_FROM_BIG_POCKET],
+					APBPConstants[AP_INV_FROM_SMALL_POCKET]
+				};
+				INT16 uiAPCostToSlot[12] =
+				{
+					APBPConstants[AP_INV_TO_NONE],
+					APBPConstants[AP_INV_TO_HANDS],
+					APBPConstants[AP_INV_TO_EQUIPMENT],
+					APBPConstants[AP_INV_TO_VEST],
+					APBPConstants[AP_INV_TO_RIG],
+					APBPConstants[AP_INV_TO_CPACK],
+					APBPConstants[AP_INV_TO_BPACK],
+					APBPConstants[AP_INV_TO_SLING],
+					APBPConstants[AP_INV_TO_KNIFE],
+					APBPConstants[AP_INV_TO_FACE],
+					APBPConstants[AP_INV_TO_BIG_POCKET],
+					APBPConstants[AP_INV_TO_SMALL_POCKET]
+				};
+				
+				if (this->inv[retrieveslot].exists())
+				{
+					APCost += ( uiAPCostFromSlot[ fromretrieve ] + uiAPCostToSlot [ tohand ] );
+					INT16 weight = (int)((Item[this->inv[retrieveslot].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor);
+					APCost += DynamicAdjustAPConstants(weight, weight);
+				}
+				if (this->inv[HANDPOS].exists())
+				{
+					APCost += ( uiAPCostFromSlot [ fromhand ] + uiAPCostToSlot [ tostorage ] );
+					INT16 weight = (int)((Item[this->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor);
+					APCost += DynamicAdjustAPConstants(weight, weight);
+				}
+			}
+			APCost = __min(APCost, APBPConstants[AP_INV_MAX_COST]);
+			if (this->bActionPoints >= APCost)
+			{
+				// SANDRO - I dared to change this to use the apropriate function, as that function is actually important for IIS
+				//pSoldier->bActionPoints -= APCost;
+				DeductPoints( this, APCost, 0 );
+
+				SwapObjs(&this->inv[HANDPOS], &this->inv[retrieveslot]);
+
+				// if we store our han item in a different position than the item we retrieve originally was, swap again
+				if ( handobjstorageslot != retrieveslot )
+					SwapObjs(&this->inv[retrieveslot], &this->inv[handobjstorageslot]);
+
+				HandleTacticalEffectsOfEquipmentChange(this, HANDPOS, this->inv[retrieveslot].usItem, this->inv[HANDPOS].usItem);
+			}
+			else
+			{
+				CHAR16	zOutputString[512];
+				swprintf( zOutputString, New113Message[MSG113_INVENTORY_APS_INSUFFICIENT], APCost, this->bActionPoints);
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
+			}
+		}
+		else
+		{
+			SwapObjs(&this->inv[HANDPOS], &this->inv[retrieveslot]);
+
+			// if we store our han item in a different position than the item we retrieve originally was, swap again
+			if ( handobjstorageslot != retrieveslot )
+				SwapObjs(&this->inv[retrieveslot], &this->inv[handobjstorageslot]);
+
+			HandleTacticalEffectsOfEquipmentChange(this, HANDPOS, this->inv[retrieveslot].usItem, this->inv[HANDPOS].usItem);
+		}
+	}
+	fCharacterInfoPanelDirty = TRUE;
+	fInterfacePanelDirty = DIRTYLEVEL2;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
