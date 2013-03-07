@@ -1182,6 +1182,7 @@ typedef struct
 	BOOLEAN	fAdvRepairSystem;						// allow thresholds to repairing
 	BOOLEAN fOnlyRepairGunsArmour;					// we can only repair guns and armour
 	BOOLEAN fDirtSystem;							// allow dirt on items increase the chance for weapon jamming
+	BOOLEAN fFullRepairCleansGun;					// repairing a gun up to its current repair threshold also cleans the gun
 	UINT32	usSectorDirtDivider;					// divide a guns dirt factor by this to get dirt increase for every turn
 
 	// Flugente: prisoner related settings

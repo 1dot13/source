@@ -3935,7 +3935,7 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 			if ( (*pObj)[ubLoop]->data.objectStatus == threshold )
 			{
 				// if item was fully repaired, consider it cleaned
-				if ( gGameExternalOptions.fDirtSystem )
+				if ( gGameExternalOptions.fDirtSystem && gGameExternalOptions.fFullRepairCleansGun )
 					(*pObj)[ubLoop]->data.bDirtLevel = 0.0f;
 			}
 			// note: this system is bad if we can repair only 1% per hour (which is rather we are total losers)
