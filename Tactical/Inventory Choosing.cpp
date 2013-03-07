@@ -3799,6 +3799,7 @@ void SpawnFittingAmmo(SOLDIERCREATE_STRUCT *pp, OBJECTTYPE* pObj, UINT8 ammotype
 	if ( (*pObj)[0]->data.gun.ubGunShotsLeft == 0 )
 	{
 		(*pObj)[0]->data.gun.ubGunAmmoType = ammotype;
+		(*pObj)[0]->data.gun.usGunAmmoItem = magitem;
 
 		deductedbullets = min(magsize, numberofbullets);
 		numberofbullets	-= deductedbullets;
