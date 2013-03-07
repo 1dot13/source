@@ -203,14 +203,14 @@
 	<EMAIL>
 		<!-- Biff -->
 		<uiIndex>40</uiIndex>
-		<Subject>Augmentation des tarifs.</Subject>//!!! char length ?
+		<Subject>Augmentation des tarifs.</Subject>
 		<Message>Soyez informé qu'au vu des dernières performances de Biff, ses honoraires ont été augmentés. Personnellement, cela ne me surprend pas. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Haywire -->
 		<uiIndex>41</uiIndex>
 		<Subject>Augmentation des tarifs.</Subject>
-		<Message>Ce message a pour but de vous informer de l'augmentation des honoraires de Dingo au vu de sa performance exemplaire. Cette augmentation prend effet sur l'instant. ± ± Kline Speck T. ± </Message>
+		<Message>Ce message a pour but de vous informer de l'augmentation des honoraires de Dingo au vu de sa performance exemplaire. Cette augmentation prend effet sur l'instant. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Gasket -->
