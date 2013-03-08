@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <SECTOR_NAMES>
   <SECTOR>
     <SectorGrid>A1</SectorGrid>
@@ -989,10 +989,10 @@
    </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
-    <szUnexploredName>Mine de Alma</szUnexploredName>
-    <szDetailedUnexploredName>Mine de Alma</szDetailedUnexploredName>
-    <szExploredName>Mine de Alma</szExploredName>
-    <szDetailedExploredName>Mine de Alma</szDetailedExploredName>
+    <szUnexploredName>Mine d'Alma</szUnexploredName>
+    <szDetailedUnexploredName>Mine d'Alma</szDetailedUnexploredName>
+    <szExploredName>Mine d'Alma</szExploredName>
+    <szDetailedExploredName>Mine d'Alma</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I15</SectorGrid>

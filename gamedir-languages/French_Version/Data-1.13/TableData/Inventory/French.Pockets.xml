@@ -6,7 +6,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>1</pIndex>
-		<pName>Sangle pour arme</pName>
+		<pName>Sangle Arme </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>2</pIndex>
@@ -14,67 +14,67 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
-		<pName>Véhicle</pName>
+		<pName>Véhicule </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>4</pIndex>
-		<pName>General Large</pName>
+		<pName>Sac combat </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>5</pIndex>
-		<pName>Sac de combat</pName>
+		<pName>Grande poc. </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Ceinture de munition</pName>
+		<pName>Poche SAW </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>7</pIndex>
-		<pName>Etui pour SMG</pName>
+		<pName>Étui PM </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
-		<pName>Medium General</pName>
+		<pName>Utilitaire </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>9</pIndex>
-		<pName>LgMagPocket</pName>
+		<pName>Long chargeur </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>AR Mag</pName>
+		<pName>Chargeur fusil </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
-		<pName>Etui pour pistolet</pName>
+		<pName>Étui pistolet </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>12</pIndex>
-		<pName>SMG Mag</pName>
+		<pName>Chargeur PM </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>13</pIndex>
-		<pName>Grenade pour fusil</pName>
+		<pName>Grenade fusil </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>14</pIndex>
-		<pName>Grenade</pName>
+		<pName>Grenade </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>15</pIndex>
-		<pName>Pistol Mag</pName>
+		<pName>Chargeur </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>16</pIndex>
-		<pName>Tiny General</pName>
+		<pName>Fine poche </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>17</pIndex>
-		<pName>Small General</pName>
+		<pName>Poche exigue </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>18</pIndex>
-		<pName>Attache de ceinture</pName>
+		<pName>Porte-gourde </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
@@ -82,14 +82,14 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>Sac médical</pName>
+		<pName>P. médicale </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
-		<pName>Sac de Seringues</pName>
+		<pName>P. seringues </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>Ceinture double</pName>
+		<pName>Mousqueton </pName>
 	</POCKET>
 </POCKETLIST>

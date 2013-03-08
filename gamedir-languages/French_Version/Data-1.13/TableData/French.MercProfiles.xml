@@ -12,7 +12,7 @@
 	<PROFILE>
 		<uiIndex>2</uiIndex>
 		<zName>Roberts Rudy, Œil de Lynx</zName>
-		<zNickname>Lynx</zNickname>
+		<zNickname>Œil de L.</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>3</uiIndex>
@@ -111,8 +111,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>22</uiIndex>
-		<zName>Hennessy Frank, Hitman</zName>
-		<zNickname>Hitman</zNickname>
+		<zName>Hennessy Frank, l'Exécuteur</zName>
+		<zNickname>Exécuteur</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>23</uiIndex>
@@ -226,8 +226,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>45</uiIndex>
-		<zName>Hillman Tim, Gumpy</zName>
-		<zNickname>Gumpy</zNickname>
+		<zName>Hillman Tim, le Grincheux</zName>
+		<zNickname>Grincheux</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>46</uiIndex>
@@ -256,32 +256,32 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>51</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGmale1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>52</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGmale2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>53</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGmale3</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>54</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGLady1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>55</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGLady2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>56</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>PGLady3</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -336,8 +336,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>67</uiIndex>
-		<zName>Druz Breeham, Shank</zName>
-		<zNickname>Shank</zNickname>
+		<zName>Druz Breeham, le Gringalet</zName>
+		<zNickname>Gringalet</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>68</uiIndex>
@@ -356,7 +356,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>RPC71</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -796,7 +796,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
-		<zName/>
+		<zName></zName>
 		<zNickname>Speck...</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -816,13 +816,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
@@ -842,12 +842,12 @@
 	<PROFILE>
 		<uiIndex>168</uiIndex>
 		<zName>Colonel Biggins Frédéric</zName>
-		<zNickname>Biggins</zNickname>
+		<zNickname>Frédéric</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>169</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>170</uiIndex>
@@ -896,208 +896,208 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>180</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>182</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>183</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>184</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>185</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>186</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>187</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>188</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>189</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>190</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>191</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>192</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>193</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>194</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>195</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>196</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>197</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>198</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>199</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>200</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>201</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>202</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>203</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>204</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>205</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>206</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>207</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>208</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>209</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>210</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>211</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>212</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>213</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>214</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>215</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>216</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>217</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>218</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>219</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>220</uiIndex>
@@ -1127,7 +1127,7 @@
 	<PROFILE>
 		<uiIndex>225</uiIndex>
 		<zName>Wilkens Mary-Beth</zName>
-		<zNickname>Beth</zNickname>
+		<zNickname>Mary-Beth</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>226</uiIndex>
@@ -1136,13 +1136,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>227</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>228</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>229</uiIndex>
@@ -1196,8 +1196,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>239</uiIndex>
-		<zName>Moffat Marty, Kaboom</zName>
-		<zNickname>Kaboom</zNickname>
+		<zName>Moffat Marty, Badaboum</zName>
+		<zNickname>Badaboum</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>240</uiIndex>
@@ -1221,57 +1221,57 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>244</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>245</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>246</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>247</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>248</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>249</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>250</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>251</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>253</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>254</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname></zNickname>
 	</PROFILE>
 </MERCPROFILES>
