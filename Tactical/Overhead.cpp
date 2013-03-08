@@ -1703,13 +1703,43 @@ BOOLEAN ExecuteOverhead( )
 												{
 													// Flugente: if in turnbased combat and option is selected, do not go to standing animation
 													// By this, we wont have to spend additional APs when we continue to run
-													if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT && gGameExternalOptions.fNoStandingAnimAdjustInCombat )
+													if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT && gGameExternalOptions.fNoStandingAnimAdjustInCombat && !pSoldier->bCollapsed && !pSoldier->bBreathCollapsed )
 													{
-														pSoldier->AdjustNoAPToFinishMove( TRUE );
+														// Flugente: We have to decide depending on the animation we have, otherwise we canc ause bugs if we do this after being hit by an explosion etc.
+														BOOLEAN dontadjustanim = FALSE;
+														switch ( pSoldier->usAnimState )
+														{
+														case WALKING:
+														case CROUCHING:
+														case SWATTING:
+														case RUNNING:
+														case CRAWLING:
+														case END_HURT_WALKING:
+														case SWAT_BACKWARDS:
+														case SWATTING_WK:
+														case SWAT_BACKWARDS_WK:
+														case SWAT_BACKWARDS_NOTHING:
+														case RUNNING_W_PISTOL:
+														case SIDE_STEP_WEAPON_RDY:
+														case SIDE_STEP_DUAL_RDY:
+														case WALKING_WEAPON_RDY:
+														case WALKING_DUAL_RDY:
+														case WALKING_ALTERNATIVE_RDY:
+														case SIDE_STEP_ALTERNATIVE_RDY:
+															dontadjustanim = TRUE;
+															break;
+														}
 
-														pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-														pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
-														pSoldier->aiData.ubPendingAction				= NO_PENDING_ACTION;
+														if ( dontadjustanim )
+														{
+															pSoldier->AdjustNoAPToFinishMove( TRUE );
+
+															pSoldier->usPendingAnimation		= NO_PENDING_ANIMATION;
+															pSoldier->ubPendingDirection		= NO_PENDING_DIRECTION;
+															pSoldier->aiData.ubPendingAction	= NO_PENDING_ACTION;
+														}
+														else
+															pSoldier->SoldierGotoStationaryStance( );
 													}
 													else
 														pSoldier->SoldierGotoStationaryStance( );
