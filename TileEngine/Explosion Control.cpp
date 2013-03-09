@@ -358,7 +358,8 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	GenerateExplosion( &ExpParams );
 
 	// Flugente: if the explosion occured in a building, this might lower loyalty in town
-	if ( Item[ usItem ].usItemClass & IC_EXPLOSV && ubOwner != NOBODY && ubOwner < 255 )
+	UINT16 tmp;
+	if ( Item[ usItem ].usItemClass & IC_EXPLOSV && ubOwner != NOBODY && ubOwner < 255 && InARoom( sGridNo, &tmp ) )
 	{
 		HandleLoyaltyForDemolitionOfBuilding( MercPtrs[ubOwner], Explosive[ Item[ usItem ].ubClassIndex ].ubDamage );
 	}
