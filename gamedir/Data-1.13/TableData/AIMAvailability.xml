@@ -1067,7 +1067,6 @@
 		<ProfilId>177</ProfilId>
 		<AimBioID>47</AimBioID>
 	</AIM>
-	<!-- Set <ProfileId> to 178, if you want Spooky to be available in AIM -->
 	<AIM>
 		<uiIndex>178</uiIndex>
 		<description>Spooky</description>
@@ -1466,27 +1465,27 @@
 	</AIM>
 	<AIM>
 		<uiIndex>244</uiIndex>
-		<description></description>
-		<ProfilId>-1</ProfilId>
-		<AimBioID>-1</AimBioID>
+		<description>Elroy</description>
+		<ProfilId>244</ProfilId>
+		<AimBioID>63</AimBioID>
 	</AIM>
 	<AIM>
 		<uiIndex>245</uiIndex>
-		<description></description>
-		<ProfilId>-1</ProfilId>
-		<AimBioID>-1</AimBioID>
+		<description>Mouse</description>
+		<ProfilId>245</ProfilId>
+		<AimBioID>64</AimBioID>
 	</AIM>
 	<AIM>
 		<uiIndex>246</uiIndex>
-		<description></description>
-		<ProfilId>-1</ProfilId>
-		<AimBioID>-1</AimBioID>
+		<description>Hector</description>
+		<ProfilId>246</ProfilId>
+		<AimBioID>65</AimBioID>
 	</AIM>
 	<AIM>
 		<uiIndex>247</uiIndex>
-		<description></description>
-		<ProfilId>-1</ProfilId>
-		<AimBioID>-1</AimBioID>
+		<description>Rev</description>
+		<ProfilId>247</ProfilId>
+		<AimBioID>66</AimBioID>
 	</AIM>
 	<AIM>
 		<uiIndex>248</uiIndex>
