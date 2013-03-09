@@ -11586,8 +11586,11 @@ BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier )
 		if ( Item[(*pObj)[0]->data.gun.usGunAmmoItem].hidemuzzleflash )
 			return TRUE;
 
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].hidemuzzleflash && iter->exists() )
+		attachmentList::iterator iter    = (*pObj)[0]->attachments.begin();
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (; iter != iterend; ++iter)
+		{
+			if (iter->exists() && Item[iter->usItem].hidemuzzleflash )
 			{
 				return( TRUE );
 			}

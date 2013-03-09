@@ -5608,8 +5608,12 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					UINT32 result = Random(100);
 					if ( result < gGameExternalOptions.ubPrisonerProcessInfoDetectChance )
 					{
-						// there need to be mobile enemies here - that the quenn has troops in towns we do not own is hardly worthy information
+						// there need to be mobile enemies here - that the queen has troops in towns we do not own is hardly worthy information
 						if ( NumMobileEnemiesInSector( sX, sY ) == 0 )
+							continue;
+
+						// not if we already know about this sector
+						if ( SectorInfo[ SECTOR( sX, sY ) ].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
 							continue;
 
 						// enemy patrol detected
@@ -5783,6 +5787,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 	// add militia strength		
 	prisonguardvalue += 100 * pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + 150 * pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + 200 * pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+	numprisonguards += pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] + pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 	
 	if ( !numprisonguards )
 		fBeginRiot = TRUE;

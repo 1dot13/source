@@ -5223,7 +5223,7 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 					{
 						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
 						{
-							(*pObj)[i]->data.bDirtLevel = max(0.0f, min( OVERHEATING_MAX_TEMPERATURE, (*pObj)[i]->data.bDirtLevel + tickspassed * dirtincreasefactor) );	// set new temperature														
+							(*pObj)[i]->data.bDirtLevel = max(0.0f, min( OVERHEATING_MAX_TEMPERATURE, (*pObj)[i]->data.bDirtLevel + tickspassed * dirtincreasefactor) );	// set new dirt value
 						}
 					}
 				}
@@ -5233,8 +5233,8 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 					if ( Food[Item[pObj->usItem].foodtype].usDecayRate > 0.0f )		// ... if the food can decay...
 					{
 						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
-						{							
-							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - foofdecaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature														
+						{						
+							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - foofdecaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature
 						}
 					}
 				}

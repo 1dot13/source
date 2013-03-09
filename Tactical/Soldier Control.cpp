@@ -14326,8 +14326,8 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 		
 			// ok, we are facing a teammate. Check if he has a gun in any hand that still has ammo left
 			UINT16 pTeamSoldierfirstslot = HANDPOS;
-			UINT16 pTeamSoldierlastslot  = SECONDHANDPOS;
-			for (UINT16 teamsoldierinvpos = pTeamSoldierfirstslot; teamsoldierinvpos <= pTeamSoldierlastslot; ++teamsoldierinvpos)
+			UINT16 pTeamSoldierlastslot  = VESTPOCKPOS;
+			for (UINT16 teamsoldierinvpos = pTeamSoldierfirstslot; teamsoldierinvpos < pTeamSoldierlastslot; ++teamsoldierinvpos)
 			{
 				OBJECTTYPE* pObjInHands = &(pTeamSoldier->inv[teamsoldierinvpos]);
 				if ( pObjInHands && pObjInHands->exists() && Item [ pObjInHands->usItem ].usItemClass == IC_GUN && (HasItemFlag( pObjInHands->usItem, BELT_FED ) || HasAttachmentOfClass(pObjInHands, AC_FEEDER) ) && (*pObjInHands)[0]->data.gun.ubGunShotsLeft > 0 )
@@ -14379,7 +14379,7 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 
 	// this determines which slots we'll search for ammo
 	UINT16 firstslotforammo = MEDPOCK1POS;
-	UINT16 lastslotforammo  = MEDPOCK2POS;
+	UINT16 lastslotforammo  = MEDPOCK3POS;
 
 	// for robots and AI-controlled soldiers (who don't have any LBE gear), we put a change in here so that ALL their slots are checked for ammo
 	if ( this->bTeam != gbPlayerNum || MercPtrs[ this->ubID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
@@ -14395,8 +14395,8 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 	}
 
 	UINT16 searchgunfirstslot = HANDPOS;
-	UINT16 searchgunlastslot  = SECONDHANDPOS;
-	for (UINT16 invpos = searchgunfirstslot; invpos <= searchgunlastslot; ++invpos)
+	UINT16 searchgunlastslot  = VESTPOCKPOS;
+	for (UINT16 invpos = searchgunfirstslot; invpos < searchgunlastslot; ++invpos)
 	{
 		// check our hands for guns
 		OBJECTTYPE* pObj = &(this->inv[invpos]);
@@ -14412,7 +14412,7 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 		usGunAmmoType = (*pObj)[0]->data.gun.ubGunAmmoType;
 		
 		// now check the inventory for an ammo belt. If we are not from the player team or a robot, we will search the entire inventory
-		for ( UINT16 bLoop = firstslotforammo; bLoop <= lastslotforammo; ++bLoop)
+		for ( UINT16 bLoop = firstslotforammo; bLoop < lastslotforammo; ++bLoop)
 		{
 			if (this->inv[bLoop].exists() == true )
 			{
