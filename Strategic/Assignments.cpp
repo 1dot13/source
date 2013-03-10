@@ -3915,9 +3915,20 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 
 			// Flugente: if using the new advanced repair system, we can only repair up to the repair threshold
 			INT16 threshold = 100;
-			if ( gGameExternalOptions.fAdvRepairSystem && ( (Item[pObj->usItem].usItemClass & IC_WEAPON) || (Item[pObj->usItem].usItemClass & IC_ARMOUR) ) )
-				threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
+			if ( gGameExternalOptions.fAdvRepairSystem && (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) )
+			{
+				if ( !gGameExternalOptions.fMercsCanDoAdvancedRepairs || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
+				{
+					threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
+				}
+			}
 
+			// repairable, try to repair it
+			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), threshold, pubRepairPtsLeft );
+
+			if ( gGameExternalOptions.fAdvRepairSystem && gGameExternalOptions.fMercsCanDoAdvancedRepairs && ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) ) && ( (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) ) )
+				(*pObj)[ubLoop]->data.sRepairThreshold = max((*pObj)[ubLoop]->data.sRepairThreshold, (*pObj)[ubLoop]->data.objectStatus);
+			
 			// repairable, try to repair it
 			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), threshold, pubRepairPtsLeft );
 						

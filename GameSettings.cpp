@@ -1568,6 +1568,7 @@ void LoadGameExternalOptions()
 	// Flugente: advanced repair/dirt system
 	gGameExternalOptions.fAdvRepairSystem					= iniReader.ReadBoolean("Strategic Gameplay Settings","ADVANCED_REPAIR", FALSE);
 	gGameExternalOptions.fOnlyRepairGunsArmour				= iniReader.ReadBoolean("Strategic Gameplay Settings","ONLY_REPAIR_GUNS_AND_ARMOUR", FALSE);
+	gGameExternalOptions.fMercsCanDoAdvancedRepairs			= iniReader.ReadBoolean("Strategic Gameplay Settings","MERCS_CAN_DO_ADVANCED_REPAIRS", FALSE);
 	gGameExternalOptions.fDirtSystem						= iniReader.ReadBoolean("Strategic Gameplay Settings","DIRT_SYSTEM", FALSE);
 	gGameExternalOptions.fFullRepairCleansGun				= iniReader.ReadBoolean("Strategic Gameplay Settings","FULL_REPAIR_CLEANS_GUN", FALSE);	
 	gGameExternalOptions.usSectorDirtDivider				= iniReader.ReadInteger("Strategic Gameplay Settings","SECTOR_DIRT_DIVIDER", 1000, 1, 100000);

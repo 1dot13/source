@@ -2941,7 +2941,8 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 				(*pObj)[0]->data.objectStatus -= (INT8) Random( bMaxDrop );     // 0 to (maxDrop - 1)
 
-				if ( bMaxDrop > 0 )
+				// Flugente: reduce repair threshold
+				if ( bMaxDrop > 0 && Random(100) < Item[pObj->usItem].usDamageChance )
 				{
 					(*pObj)[0]->data.sRepairThreshold = max((*pObj)[0]->data.objectStatus, (*pObj)[0]->data.sRepairThreshold - 1);
 				}
