@@ -3177,7 +3177,7 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 			// fix it up
 			(*iter)[0]->data.objectStatus = 100;
 
-			// Flugente: shopkeepers will also restore an item's repair threshold
+			// Flugente: shopkeepers will also restore an item's repair threshold and clean it
 			(*iter)[0]->data.sRepairThreshold = 100;
 			(*iter)[0]->data.bDirtLevel = 0.0f;
 		}

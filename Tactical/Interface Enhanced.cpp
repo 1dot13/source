@@ -11425,7 +11425,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
 				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
 
-				iFloatModifier[0] = Item[ gpItemDescObject->usItem ].dirtIncreaseFactor;				
+				iFloatModifier[0] = Item[ gpItemDescObject->usItem ].dirtIncreaseFactor * gGameExternalOptions.iDirtGlobalModifier;				
 				iFloatModifier[2] = GetItemDirtIncreaseFactor( gpItemDescObject, TRUE );
 				iFloatModifier[1] = iFloatModifier[2] - iFloatModifier[0];
 

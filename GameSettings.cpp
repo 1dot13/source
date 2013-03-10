@@ -1571,6 +1571,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fDirtSystem						= iniReader.ReadBoolean("Strategic Gameplay Settings","DIRT_SYSTEM", FALSE);
 	gGameExternalOptions.fFullRepairCleansGun				= iniReader.ReadBoolean("Strategic Gameplay Settings","FULL_REPAIR_CLEANS_GUN", FALSE);	
 	gGameExternalOptions.usSectorDirtDivider				= iniReader.ReadInteger("Strategic Gameplay Settings","SECTOR_DIRT_DIVIDER", 1000, 1, 100000);
+	gGameExternalOptions.iDirtGlobalModifier				= iniReader.ReadFloat  ("Strategic Gameplay Settings","DIRT_GLOBAL_MODIFIER", 1.25f, 0.1f, 10.0f);
 	
 	// Flugente: prisoner system
 	gGameExternalOptions.fAllowPrisonerSystem				= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_TAKE_PRISONERS", TRUE);

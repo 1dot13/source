@@ -2921,8 +2921,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
 	L"Что будем делать?",
 	L"Наполнить фляги",
-	L"Почистить оружие",
-	L"Почистить всё оружие",
+	L"Clean guns (Merc)",//TODO.Translate
+	L"Clean guns (Team)",
 	L"Снять одежду",
 
 	// added by Flugente: decide what to do with the corpses

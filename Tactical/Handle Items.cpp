@@ -134,7 +134,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 
 // added by Flugente
 void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
-void CleanWeapons( BOOLEAN fCleanAll );
+void CleanWeapons( BOOLEAN fEntireTeam );
 void Strip( SOLDIERTYPE * pSoldier );
 void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 
@@ -4748,7 +4748,7 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
 }
 
-void CleanWeapons( BOOLEAN fCleanAll )
+void CleanWeapons( BOOLEAN fEntireTeam )
 {
 	if ( !gGameExternalOptions.fDirtSystem )
 		return;
@@ -4758,7 +4758,7 @@ void CleanWeapons( BOOLEAN fCleanAll )
 		return;
 
 	// if in turnbased mode, perform this action only for the selected merc, and use up APs
-	if ( gTacticalStatus.uiFlags & TURNBASED )
+	if ( !fEntireTeam || gTacticalStatus.uiFlags & TURNBASED )
 	{
 		if ( gusSelectedSoldier == NOBODY )
 			return;
@@ -4766,7 +4766,7 @@ void CleanWeapons( BOOLEAN fCleanAll )
 		SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
 
 		if ( pSoldier->bActive )
-			pSoldier->CleanWeapon(fCleanAll);
+			pSoldier->CleanWeapon(FALSE);
 	}
 	else	// perform action for every merc in this sector
 	{	
@@ -4782,7 +4782,7 @@ void CleanWeapons( BOOLEAN fCleanAll )
 			//if the merc is in this sector
 			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 			{
-				pSoldier->CleanWeapon(fCleanAll);
+				pSoldier->CleanWeapon(TRUE);
 			}
 		}
 	}
@@ -4905,11 +4905,11 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			SectorFillCanteens();
 			break;
 		case 2:
-			// clean a single weapon
+			// clean weapons of selected merc
 			CleanWeapons(FALSE);
 			break;
 		case 3:
-			// clean all weapons
+			// clean weapons of entire team
 			CleanWeapons(TRUE);
 			break;
 		case 4:

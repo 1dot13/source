@@ -2921,8 +2921,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente: selection of a function to call in tactical
 	L"What do you want to do?",
 	L"Fill canteens",
-	L"Clean gun",
-	L"Clean all guns",
+	L"Clean guns (Merc)",
+	L"Clean guns (Team)",
 	L"Take off clothes",
 
 	// added by Flugente: decide what to do with the corpses

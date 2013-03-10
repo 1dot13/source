@@ -14702,9 +14702,12 @@ FLOAT GetItemDirtIncreaseFactor( OBJECTTYPE * pObj, BOOLEAN fConsiderAmmo )
 		}
 	}
 
-	// ammo modifies how much dirt a single shot makes, but only while shooting
+	// ammo modifies how much dirt a single shot makes, but only while shooting, not when a gun gets dirty due to environmental effects
 	if ( fConsiderAmmo )		
 		dirtincreasefactor *= (1.0f + AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].dirtModificator);
+
+	// multiply again for global modifer
+	dirtincreasefactor *= gGameExternalOptions.iDirtGlobalModifier;
 		
 	// dirt factor has to be >= 0 (items don't clean themselves)
 	dirtincreasefactor = max(0.0f, dirtincreasefactor);

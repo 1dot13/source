@@ -11762,7 +11762,7 @@ FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 		singleshottemperature = Weapon[ pObj->usItem ].usOverheatingSingleShotTemperature;
 
 		// determine modificator according to attachments
-		FLOAT modificator = gGameExternalOptions.iOverheatTemperatureGlobalModfier;
+		FLOAT modificator = 1.0f;
 
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
@@ -11777,6 +11777,9 @@ FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 		modificator += AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].temperatureModificator;
 
 		singleshottemperature *= modificator;
+
+		// multiply again for global modifer
+		singleshottemperature *= gGameExternalOptions.iOverheatTemperatureGlobalModfier;
 	}
 
 	return singleshottemperature;

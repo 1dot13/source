@@ -14485,7 +14485,7 @@ OBJECTTYPE* SOLDIERTYPE::GetCleaningKit()
 	return( pObj );
 }
 
-// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all eapons found, otherwise just the first one
+// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all weapons found, otherwise just the first one
 void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 {
 	// in turnbased, this action costs APs. remove them if possible, otherwise, return
@@ -14526,16 +14526,15 @@ void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 
 									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[WEAPON_CLEANING_STR], this->name, Item[pObj->usItem].szItemName );
 
-									// 33% chance to use up 1% of the cleaning kit
-									if ( Random(2) > 0 )
-										UseKitPoints( pCleaningKit, 1, this );
+									// always use up 1% of the cleaning kit (they last too long otherwise)
+									UseKitPoints( pCleaningKit, 1, this );
 
 									if ( gTacticalStatus.uiFlags & TURNBASED )
 									{
 										// use up APs
 										DeductPoints( this, apcost, 0, AFTERACTION_INTERRUPT );
 
-										// if fCleanAll is false, only clean one weapon
+										// if fCleanAll is false, only clean first weapon
 										if (!fCleanAll )
 											return;
 
