@@ -2551,7 +2551,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 	if (ubTotalSoldiers == 0)
 		return;
 
-	// Flugente: if militia picks up equipemnt from sectors, it is necessary to know from where it comes
+	// Flugente: if militia picks up equipment from sectors, it is necessary to know from where it comes
 	INT16 sX = gWorldSectorX;
 	INT16 sY = gWorldSectorY;
 	
@@ -2563,7 +2563,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 		break;
 	case INSERTION_CODE_EAST:
 		bDesiredDirection = SOUTHWEST;
-		--sX;
+		++sX;
 		break;
 	case INSERTION_CODE_SOUTH:
 		bDesiredDirection = NORTHWEST;
@@ -2571,7 +2571,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 		break;
 	case INSERTION_CODE_WEST:
 		bDesiredDirection = NORTHEAST;
-		++sX;
+		--sX;
 		break;
 	default:	
 		AssertMsg( 0, "Illegal direction passed to AddSoldierInitListMilitiaOnEdge()" );
