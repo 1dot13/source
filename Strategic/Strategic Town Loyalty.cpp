@@ -1047,6 +1047,10 @@ void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsD
 	// get town id
 	bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
 
+	// Flugente: for safety reasons, exit if not in a town
+	if( bTownId == BLANK_SECTOR )
+		return;
+
 	// penalize the side that did it
 	if( pSoldier->bTeam == OUR_TEAM )
 	{
