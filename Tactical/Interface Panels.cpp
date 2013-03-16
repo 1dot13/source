@@ -3354,11 +3354,10 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							// This should fix the bug and crashes with missing faces
 							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 							{
-								if (SetCamoFace( gpSMCurrentMerc ))
-								{
-									DeleteSoldierFace( gpSMCurrentMerc );// remove face
-									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-								}
+								// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
+								SetCamoFace( gpSMCurrentMerc );
+								DeleteSoldierFace( gpSMCurrentMerc );// remove face
+								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
 							}
 							
 							
