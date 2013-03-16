@@ -677,22 +677,30 @@ void RenderEditorItemsInfo()
 			}
 		}
 	}
-	//draw the numbers of each visible item that currently resides in the world.
+	//draw item index no & the numbers of each visible item that currently resides in the world.
 	maxIndex = min( maxIndex, eInfo.sNumItems-1 );
 	for( i = minIndex; i <= maxIndex; i++ )
 	{
+		x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
+		y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
+		SetFont( BLOCKFONTNARROW );
+		SetFontForeground( FONT_LTGREEN );
+		SetFontShadow( FONT_NEARBLACK );
+		
+		// item index no
+		mprintf( x + 12, y + 18, L"%d", eInfo.pusItemIndex[ i ] );
+		
+		// numbers of each visible item
 		usNumItems = CountNumberOfEditorPlacementsInWorld( i, &usQuantity );
+
 		if( usNumItems )
 		{
-			x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
-			y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
 			SetFont( FONT10ARIAL );
 			SetFontForeground( FONT_YELLOW );
-			SetFontShadow( FONT_NEARBLACK );
 			if( usNumItems == usQuantity )
-				mprintf( x + 12, y + 4, L"%d", usNumItems );
+				mprintf( x + 10, y + 4, L"%d", usNumItems );
 			else
-				mprintf( x + 12, y + 4, L"%d(%d)", usNumItems, usQuantity );
+				mprintf( x + 10, y + 4, L"%d(%d)", usNumItems, usQuantity );
 		}
 	}
 }

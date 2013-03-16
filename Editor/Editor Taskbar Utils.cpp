@@ -856,6 +856,15 @@ void RenderSelectedItemBlownUp()
 		mprintf( xp, yp, pStr );
 		SetFontForeground( FONT_YELLOW );
 	}
+	else
+	{
+		// Display item index no
+		xp = sScreenX + 2;
+		yp += 10;
+		SetFont( BLOCKFONTNARROW );
+		SetFontForeground( FONT_LTGREEN );
+		mprintf( xp, yp, L"%d", Item[ gpItem->usItem ].uiIndex );
+	}
 
 	//Count the number of items in the current pool, and display that.
 	i = 0;
@@ -868,6 +877,8 @@ void RenderSelectedItemBlownUp()
 	}
 	xp = sScreenX;
 	yp = sScreenY + 10;
+	SetFont( FONT10ARIAL );
+	SetFontForeground( FONT_YELLOW );
 	mprintf( xp, yp, L"%d", i );
 
 	//If the item is hidden, render a blinking H (just like DG)

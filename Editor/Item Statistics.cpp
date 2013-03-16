@@ -654,6 +654,9 @@ void UpdateItemStatsPanel()
 	}
 	if( gpEditingItemPool )
 	{
+		mprintf( iScreenWidthOffset + 587, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[25] );
+		mprintf( iScreenWidthOffset + 609, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[26] );
+		mprintf( iScreenWidthOffset + 630, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[27] );
 		INT32 iPercent = 100 - gWorldItems[ gpEditingItemPool->iItemIndex ].ubNonExistChance;
 		if( iPercent == 100 )
 			SetFontForeground( FONT_YELLOW );
@@ -662,9 +665,6 @@ void UpdateItemStatsPanel()
 		else
 			SetFontForeground( FONT_RED );
 		mprintf( iScreenWidthOffset + 512, 2 * iScreenHeightOffset + 444, pUpdateItemStatsPanelText[24] );
-		mprintf( iScreenWidthOffset + 587, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[25] );
-		mprintf( iScreenWidthOffset + 609, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[26] );
-		mprintf( iScreenWidthOffset + 630, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[27] );
 	}
 	InvalidateRegion( iScreenWidthOffset + 477, 2 * iScreenHeightOffset + 362, 161, 97 );
 }

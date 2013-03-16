@@ -2477,10 +2477,64 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case '9':
 				ChangeCurrentSquad( 8 );
-								
+				break;
+
 			case '0':
 				ChangeCurrentSquad( 9 );
-				
+				break;
+
+			case '!':
+				ChangeCurrentSquad( 10 );
+				break;
+
+			case '@':
+				ChangeCurrentSquad( 11 );
+				break;
+
+			case '#':
+				ChangeCurrentSquad( 12 );
+				break;
+
+			case '$':
+				ChangeCurrentSquad( 13 );
+				break;
+
+			case '%':
+				ChangeCurrentSquad( 14 );
+				break;
+
+			case '^':
+				ChangeCurrentSquad( 15 );
+				break;
+
+			case '&':
+				ChangeCurrentSquad( 16 );
+				break;
+
+			case '*':
+				if ( fCtrl )
+				{
+					if ( gTacticalStatus.uiFlags & RED_ITEM_GLOW_ON	)
+					{
+						gTacticalStatus.uiFlags &= (~RED_ITEM_GLOW_ON );
+					}
+					else
+					{
+						gTacticalStatus.uiFlags |= RED_ITEM_GLOW_ON;
+					}
+				}
+				else
+					ChangeCurrentSquad( 17 );
+				break;
+
+			case '(':
+				ChangeCurrentSquad( 18 );
+				break;
+
+			case ')':
+				ChangeCurrentSquad( 19 );
+				break;
+
 			case 'x':
 
 				if ( !fCtrl && !fAlt )
@@ -3390,12 +3444,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-
-			case '$':
-
-
-				break;
-
 			case 'k':
 				if( fAlt )
 				{
@@ -3658,21 +3706,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 				break;
-
-
-			case '*':
-
-				if ( gTacticalStatus.uiFlags & RED_ITEM_GLOW_ON	)
-				{
-					gTacticalStatus.uiFlags &= (~RED_ITEM_GLOW_ON );
-				}
-				else
-				{
-					gTacticalStatus.uiFlags |= RED_ITEM_GLOW_ON;
-				}
-				break;
-
-
 
 				// swap sungoggles and nightgoggles
 			case 'N':
