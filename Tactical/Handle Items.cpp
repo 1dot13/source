@@ -4754,11 +4754,11 @@ void CleanWeapons( BOOLEAN fEntireTeam )
 		return;
 
 	// no functionality if not in tactical or in combat, or nobody is here
-	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) )
+	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) )
 		return;
 
-	// if in turnbased mode, perform this action only for the selected merc, and use up APs
-	if ( !fEntireTeam || gTacticalStatus.uiFlags & TURNBASED )
+	// if in combat, always only for selected merc
+	if ( !fEntireTeam || (gTacticalStatus.uiFlags & INCOMBAT) )
 	{
 		if ( gusSelectedSoldier == NOBODY )
 			return;

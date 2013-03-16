@@ -14226,8 +14226,8 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 		
 	// do this check for both hands
 	UINT16 firstslot = HANDPOS;
-	UINT16 lastslot  = SECONDHANDPOS;
-	for (UINT16 invpos = firstslot; invpos <= lastslot; ++invpos)
+	UINT16 lastslot  = VESTPOCKPOS;
+	for (UINT16 invpos = firstslot; invpos < lastslot; ++invpos)
 	{
 		// do we have ammo in our hands?
 		OBJECTTYPE* pAmmoObj = &(this->inv[invpos]);
@@ -14257,10 +14257,6 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 		INT32 lastid = gTacticalStatus.Team[ this->bTeam ].bLastID;
 		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
 		{
-			// we ourselves don't count, we can't face ourselves
-			//if ( cnt == this->ubID )
-				//continue;
-
 			// check if teamsoldier exists in this sector
 			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->sSectorX != this->sSectorX || pTeamSoldier->sSectorY != this->sSectorY || pTeamSoldier->bSectorZ != this->bSectorZ )
 				continue;
@@ -14363,9 +14359,6 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16
 					}
 				}
 			}
-
-			// if we reach this point, the only soldier that we could reach doesn't fit -> stop this search
-			//break;
 		}				
 	}
 

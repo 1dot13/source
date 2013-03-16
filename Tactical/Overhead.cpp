@@ -10188,7 +10188,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
 				{
-					if( pSoldier->stats.bLife >= OKLIFE )
+					// only if not dying, and if not a NPC (Mike...)
+					if( pSoldier->stats.bLife >= OKLIFE && pSoldier->ubProfile == NO_PROFILE )
 					{
 						pSoldier->bSoldierFlagMask |= SOLDIER_POW;
 
