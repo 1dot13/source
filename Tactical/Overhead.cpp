@@ -10291,15 +10291,16 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
 }
 
-void TeamDropAll(UINT8 bTeam)
+void TeamDropAll(UINT8 bTeam, BOOLEAN fForce)
 {
 	if ( bTeam > PLAYER_PLAN )
 		return;
 
-	// not if there is a battle going on, or this team is hostile to us
-	if ( (gTacticalStatus.uiFlags & INCOMBAT ) )
+	// not if there is a battle going on
+	if ( (gTacticalStatus.uiFlags & INCOMBAT ) && !fForce )
 		return;
 
+	// not if this team is hostile to us
 	if ( gTacticalStatus.Team[ gbPlayerNum ].bSide != gTacticalStatus.Team[ bTeam ].bSide )
 		return;
 

@@ -6133,11 +6133,11 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 	else if( ubUnloadCode == ABOUT_TO_TRASH_WORLD )
 	{
 		//if we arent loading a saved game
-		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+		/*if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
 			// Flugente: cause all militia whose equipment is from this sector to drop it
 			TeamDropAll( MILITIA_TEAM );
-		}
+		}*/
 
 		//Save the current sectors open temp files to the disk
 		if( !SaveCurrentSectorsInformationToTempItemFile() )
@@ -6274,8 +6274,14 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld()
 		//     Added logic to prevent a crash when player mercs would retreat from a battle involving militia and enemies.
 		//		 Without the return here, it would proceed to trash the world, and then when autoresolve would come up to
 		//     finish the tactical battle, it would fail to find the existing soldier information (because it was trashed).
-    if( HandlePotentialBringUpAutoresolveToFinishBattle( sBattleSectorX, sBattleSectorY, sBattleSectorZ ) )
+		if( HandlePotentialBringUpAutoresolveToFinishBattle( sBattleSectorX, sBattleSectorY, sBattleSectorZ ) )
 		{
+			// Flugente: cause all militia whose equipment is from this sector to drop it - otherwise it can get lost
+			TeamDropAll( MILITIA_TEAM, TRUE );
+
+			// Save the current sectors Item list to a temporary file, if its not the first time in
+			SaveCurrentSectorsInformationToTempItemFile();
+
 			return FALSE;
 		}
 		//end
