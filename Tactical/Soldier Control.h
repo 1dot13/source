@@ -1489,7 +1489,7 @@ public:
 	// Flugente: return a cleaning kit from our inventory
 	OBJECTTYPE* GetCleaningKit();
 
-	// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all eapons found, otherwise just the first one
+	// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all weapons found, otherwise just the first one
 	void	CleanWeapon( BOOLEAN fCleanAll );
 
 	// Flugente: functions for the covert ops trait
@@ -1517,6 +1517,9 @@ public:
 
 	// lose disguise or take off any clothes item and switch back to original clothes
 	void		Strip();
+
+	// check wether our disguise is any good
+	void		SpySelfTest();
 
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();

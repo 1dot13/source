@@ -15385,6 +15385,15 @@ void	SOLDIERTYPE::Strip()
 	}
 }
 
+// check wether our disguise is any good
+void		SOLDIERTYPE::SpySelfTest()
+{
+	if ( SeemsLegit(this->ubID) )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TEST_OK], this->name );
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TEST_FAIL], this->name );
+}
+
 // can we process prisoners in this sector?
 BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 {

@@ -7490,6 +7490,8 @@ STR16	szCovertTextStr[]=
 	L"%s wears a disorderly uniform!",// TODO.Translate
 	L"In retrospect, asking for surrender in disguise wasn't the best idea...",
 	L"%s was uncovered!",
+	L"%s's disguise seems to be ok...",
+	L"%s's disguise will not hold.",
 };
 
 STR16	szCorpseTextStr[]=
