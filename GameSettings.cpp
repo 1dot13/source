@@ -1581,12 +1581,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSurrenderMultiplier				= iniReader.ReadFloat("Strategic Gameplay Settings", "SURRENDER_MULTIPLIER", 5.0f, 2.0f, 10.0f);
 	gGameExternalOptions.fPlayerCanAsktoSurrender			= iniReader.ReadBoolean("Strategic Gameplay Settings","PLAYER_CAN_ASK_TO_SURRENDER", TRUE);
 	gGameExternalOptions.ubPrisonerReturntoQueenChance		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_RETURN_TO_ARMY_CHANCE", 50, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessDefectChance		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_DEFECT_CHANCE", 10, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessInfoBaseChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_BASECHANCE", 10, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessInfoDetectChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_DETECT_CHANCE", 5, 0, 100);
+	gGameExternalOptions.ubPrisonerProcessDefectChance		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_DEFECT_CHANCE", 25, 0, 100);
+	gGameExternalOptions.ubPrisonerProcessInfoBaseChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_BASECHANCE", 25, 0, 100);
 	gGameExternalOptions.ubPrisonerProcessInfoNumberChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_NUMBER_CHANCE", 30, 0, 100);
 	gGameExternalOptions.ubPrisonerProcessInfoDirectionChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_DIRECTION_CHANCE", 40, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessRansomBaseChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_RANSOM_CHANCE", 10, 0, 100);
+	gGameExternalOptions.ubPrisonerProcessRansomBaseChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_RANSOM_CHANCE", 25, 0, 100);
 
 	// CHRISL: Determine how Skyrider should handle landing in enemy occupied sectors
 	gGameExternalOptions.ubSkyriderHotLZ					= iniReader.ReadInteger("Strategic Gameplay Settings", "ALLOW_SKYRIDER_HOT_LZ", 0);

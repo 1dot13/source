@@ -1196,7 +1196,6 @@ typedef struct
 	UINT8	ubPrisonerReturntoQueenChance;
 	UINT8	ubPrisonerProcessDefectChance;
 	UINT8	ubPrisonerProcessInfoBaseChance;
-	UINT8	ubPrisonerProcessInfoDetectChance;
 	UINT8	ubPrisonerProcessInfoNumberChance;
 	UINT8	ubPrisonerProcessInfoDirectionChance;
 	UINT8	ubPrisonerProcessRansomBaseChance;

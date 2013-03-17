@@ -5608,45 +5608,38 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		else if ( result < gGameExternalOptions.ubPrisonerProcessDefectChance + gGameExternalOptions.ubPrisonerProcessInfoBaseChance )
 		{
 			BOOLEAN found = FALSE;
-			// run through sectors and handle each type in sector
-			for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+			UINT8 maxtries = 20;
+			for(UINT8 infotry = 0; infotry < maxtries; ++infotry)
 			{
-				if ( found )
-					break;
+				UINT8 usX = 1 + Random( MAP_WORLD_X - 2 );
+				UINT8 usY = 1 + Random( MAP_WORLD_Y - 2 );
 
-				for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
-				{					
-					UINT32 result = Random(100);
-					if ( result < gGameExternalOptions.ubPrisonerProcessInfoDetectChance )
-					{
-						// there need to be mobile enemies here - that the queen has troops in towns we do not own is hardly worthy information
-						if ( NumMobileEnemiesInSector( sX, sY ) == 0 )
-							continue;
+				// there need to be mobile enemies here - that the queen has troops in towns we do not own is hardly worthy information, and empty sectors aren't interesting
+				if ( NumMobileEnemiesInSector( usX, usY ) == 0 )
+					continue;
 
-						// not if we already know about this sector
-						if ( SectorInfo[ SECTOR( sX, sY ) ].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
-							continue;
+				// not if we already know about this sector
+				if ( SectorInfo[ SECTOR( usX, usY ) ].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
+					continue;
 
-						// enemy patrol detected
-						SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
+				// enemy patrol detected
+				SectorInfo[ SECTOR( usX, usY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
 
-						if ( result < gGameExternalOptions.ubPrisonerProcessInfoNumberChance )
-						{
-							// we also learned the number of enemies
-							SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
-						}
-
-						if ( result < gGameExternalOptions.ubPrisonerProcessInfoDirectionChance )
-						{
-							// we also learned the direction of the patrol
-							SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
-						}
-
-						++revealedpositions;
-						found = TRUE;
-						break;
-					}
+				if ( Chance(gGameExternalOptions.ubPrisonerProcessInfoNumberChance) )
+				{
+					// we also learned the number of enemies
+					SectorInfo[ SECTOR( usX, usY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
 				}
+
+				if ( Chance(gGameExternalOptions.ubPrisonerProcessInfoDirectionChance) )
+				{
+					// we also learned the direction of the patrol
+					SectorInfo[ SECTOR( usX, usY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+				}
+
+				++revealedpositions;
+				found = TRUE;
+				break;
 			}
 		}
 		// chance prisoner will grant us ransom money
