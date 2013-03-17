@@ -5312,6 +5312,15 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				gTempObject[0]->data.bTrap = 0;
 				gTempObject.fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );
+
+				// Flugente: set back all bomb parameters, otherwsie the bomb will still be armed in the inventory
+				// set back ubWireNetworkFlag and bDefuseFrequency, but not the direction... bomb is still aimed, it is just turned off
+				gTempObject.fFlags &= ~( OBJECT_ARMED_BOMB );
+				gTempObject[0]->data.ubWireNetworkFlag = 0;
+				gTempObject[0]->data.bDefuseFrequency = 0;
+				gTempObject[0]->data.misc.bDetonatorType = 0;
+				gTempObject[0]->data.misc.bDelay = 0;
+				gTempObject[0]->data.misc.bFrequency = 0;
 			}
 
 			// place it in the guy's inventory/cursor
@@ -5604,7 +5613,7 @@ BOOLEAN NearbyGroundSeemsWrong( SOLDIERTYPE * pSoldier, INT32 sGridNo, BOOLEAN f
 				if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_PRESSURE && !((*pObj).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED) && (!((*pObj).fFlags & OBJECT_DISABLED_BOMB)) )
 				{
 					// Flugente: some bombs cannot be found via metal detector
-					if ( fMining && (*pObj)[0]->data.bTrap <= 10 && !( HasItemFlag(pObj->usItem, NO_METAL_DETECTION) || HasItemFlag((*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION) ) )
+					if ( fMining && (*pObj)[0]->data.bTrap <= 20 && !( HasItemFlag(pObj->usItem, NO_METAL_DETECTION) || HasItemFlag((*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION) ) )
 					{
 						// add blue flag
 						AddBlueFlag( sNextGridNo, pSoldier->pathing.bLevel );
