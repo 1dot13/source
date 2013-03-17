@@ -108,7 +108,7 @@ BOOLEAN					PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionI
 void						PhysicsResolveCollision( REAL_OBJECT *pObject, vector_3 *pVelocity, vector_3 *pNormal, real CoefficientOfRestitution );
 void						PhysicsDeleteObject( REAL_OBJECT *pObject );
 BOOLEAN					PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, real DeltaTime );
-FLOAT						CalculateForceFromRange( OBJECTTYPE *pItem, INT16 sRange, FLOAT dDegrees );
+FLOAT						CalculateForceFromRange( UINT16 usItem, INT16 sRange, FLOAT dDegrees );
 
 INT32          RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );
 
@@ -2034,7 +2034,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		if ( fMortar || fGLauncher )
 		{
 			// find min force
-			dMinForce = CalculateForceFromRange( pItem, (INT16)( sMinRange / 10 ), (FLOAT)( PI / 4 ) );
+			dMinForce = CalculateForceFromRange( pItem->usItem, (INT16)( sMinRange / 10 ), (FLOAT)( PI / 4 ) );
 
 			if ( dMagForce < dMinForce )
 			{
@@ -2151,7 +2151,7 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 
 
 
-FLOAT CalculateForceFromRange( OBJECTTYPE *pItem, INT16 sRange, FLOAT dDegrees )
+FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees )
 {
 	FLOAT				dMagForce;
 	INT32 sSrcGridNo, sDestGridNo;
@@ -2169,7 +2169,7 @@ FLOAT CalculateForceFromRange( OBJECTTYPE *pItem, INT16 sRange, FLOAT dDegrees )
 
 	// Buggler: impact explosives requiring larger force to reach desired range due to no bounce
 	// Please change the if conditions too when definition of OBJECT_DETONATE_ON_IMPACT( object ) changes
-	if ( ( Item[ pItem->usItem ].usItemClass == IC_BOMB ) || ( Explosive[ Item[ pItem->usItem ].ubClassIndex ].fExplodeOnImpact ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
+	if ( ( Item[ usItem ].usItemClass == IC_BOMB ) || ( Explosive[ Item[ usItem ].ubClassIndex ].fExplodeOnImpact ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
 		// Use a mortar shell objecttype to simulate impact explosives
 		CreateItem( MORTAR_SHELL, 100, &gTempObject );
 	else
@@ -2196,7 +2196,7 @@ FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTY
 
 	uiMaxRange = CalcMaxTossRange( pSoldier, pItem->usItem, fArmed );
 
-	dMagForce = CalculateForceFromRange( pItem, (INT16) uiMaxRange, dDegrees );
+	dMagForce = CalculateForceFromRange( pItem->usItem, (INT16) uiMaxRange, dDegrees );
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateSoldierMaxForce: done");
 	return( dMagForce );
