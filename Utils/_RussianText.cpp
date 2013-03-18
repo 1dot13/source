@@ -1440,10 +1440,10 @@ CHAR16 WeaponType[MAXITEMS][30] =
 	L"Авт.пистолет",	//MP 'Автоматический пистолет'
 	L"ПП",			//SMG 'Пистолет-пулемет'
 	L"Винтовка",		//Rifle
-	L"Сн.винтовка",		//Sniper rifle 'Снайперская винтовка'
-	L"Шт.винтовка",		//Assault rifle 'Штурмовая винтовка'
-	L"Ручной пулемет",	//LMG 'Ручной пулемет'
-	L"Ружье",		//Shotgun 'Гладкоствольное ружье'
+	L"Сн.винтовка",		//Sniper rifle
+	L"Шт.винтовка",		//Assault rifle
+	L"Ручной пулемёт",	//LMG
+	L"Ружьё",		//Shotgun
 };
 
 CHAR16 TeamTurnString[][STRING_LENGTH] =
@@ -1537,13 +1537,13 @@ CHAR16 Message[][STRING_LENGTH] =
 	//Ex:  You cannot use sun goggles and you gas mask at the same time.
 	L"Нельзя использовать %s и %s одновременно.",
 
-	L"Этот предмет можно присоединить к другим предметам, поместив его в одно из четырех мест для приспособлений.",
-	L"Этот предмет можно присоединить к другим предметам, поместив его в одно из четырех мест для приспособлений. (Однако эти предметы несовместимы)",
+	L"Этот предмет можно присоединить к другим, поместив его в одно из четырех мест для навески.",
+	L"Этот предмет можно присоединить к другим, поместив его в одно из четырех мест для навески. (Однако эти предметы несовместимы)",
 	L"В секторе еще остались враги!",
-	L"%s требует полную оплату, нужно заплатить еще %s", 
+	L"%s требует полную оплату, нужно заплатить ещё %s", 
 	L"%s: попадание в голову!",
 	L"Покинуть битву?",
-	L"Это несъемное приспособление. Установить его?",
+	L"Это несъёмное приспособление. Установить его?",
 	L"%s чувствует прилив энергии!",
 	L"%s поскальзывается на стеклянных шариках!",
 	L"%s не удалось отобрать %s у врага!",
@@ -1552,9 +1552,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Сдаться?",
 	L"Человек отверг вашу помощь.",
 	L"Вам это надо?",
-  L"Чтобы воспользоваться вертолётом Небесного Всадника - выберите 'Машина/Вертолёт'.",
-	L"%s успевает зарядить только одно оружие.", //%s only had enough time to reload ONE gun
-	L"Ход Кошек-Убийц", //Bloodcats' turn
+  L"Чтобы воспользоваться вертолётом Небесного Всадника - выберите \"Транспорт/Вертолёт\".",
+	L"%s успевает зарядить только одно оружие.",
+	L"Ход кошек-убийц", //Bloodcats' turn
 	L"автоматический", //full auto
 	L"неавтоматический", //no full auto
 	L"точный", //accurate
@@ -1654,7 +1654,7 @@ STR16 pAssignmentStrings[] =
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Отдых", // Resting at a facility					//Rest
 	L"Prison",		// Flugente: interrogate prisoners
-	L"Мертв",	// dead
+	L"Мёртв",	// dead
 	L"Недеесп.",	// abbreviation for incapacitated
 	L"В плену",	// Prisoner of war - captured
 	L"Госпиталь",	// patient in a hospital 
@@ -1666,7 +1666,7 @@ STR16 pMilitiaString[] =
 {
 	L"Ополчение", // the title of the militia box
 	L"Запас", //the number of unassigned militia troops
-	L"Нельзя перераспределять ополчение, когда враг находится в этом районе!",
+	L"Нельзя перераспределять ополчение во время боя!",
 	L"Здесь присутствуют ополченцы из других секторов. Распустить их по своим прежним позициям?", //Some militia were not assigned to a sector. Would you like to disband them?
 };
 
@@ -1685,7 +1685,7 @@ STR16 pConditionStrings[] =
 	L"Сносное",	//fair health
 	L"Ранен",	//wounded health
 	L"Устал",	//tired
-	L"Кровотечение", //bleeding to death
+	L"Кровоточит", //bleeding to death
 	L"Без сознания", //knocked out 
 	L"Умирает",	//near death
 	L"Мертв",	//dead
@@ -1693,7 +1693,7 @@ STR16 pConditionStrings[] =
 
 STR16 pEpcMenuStrings[] =
 {
-	L"Сражаться", // set merc on active duty
+	L"На службе", // set merc on active duty
 	L"Пациент", // set as a patient to receive medical aid
 	L"Транспорт", // tell merc to enter vehicle
 	L"Без эскорта", // let the escorted character go off on their own
@@ -1740,7 +1740,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Отдыхает",		//Resting at Facility
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners	TODO.Translate
-	L"Мертв",
+	L"Мёртв",
 	L"Недеесп.",
 	L"В плену",
 	L"Госпиталь", 
@@ -1786,7 +1786,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Работает с населением",		//Staff Facility
 	L"Отдыхает в заведении",		//Resting at Facility
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
-	L"Мертв",
+	L"Мёртв",
 	L"Недееспособен",
 	L"В плену",
 	L"В госпитале", // patient in a hospital 
@@ -1858,7 +1858,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 	L"Здоровье", // the health level of the current merc
 	L"Боев.дух", // the morale of the current merc
 	L"Сост.",	// the condition of the current vehicle
-	L"Бензин",	// the fuel level of the current vehicle
+	L"Топливо",	// the fuel level of the current vehicle
 };
 
 STR16 pTrainingStrings[] =
@@ -2339,7 +2339,7 @@ STR16 gpStrategicString[] =
 	L"ПОБЕДА!",					//STR_AR_OVER_VICTORY
 	L"ПОРАЖЕНИЕ!",					//STR_AR_OVER_DEFEAT
 	L"СДАЛСЯ!",					//STR_AR_OVER_SURRENDERED
-	L"ПЛЕНЕН!",					//STR_AR_OVER_CAPTURED
+	L"ПЛЕНЁН!",					//STR_AR_OVER_CAPTURED
 	L"ОТСТУПИЛ!",					//STR_AR_OVER_RETREATED
 
 	//These are the labels for the different types of enemies we fight in autoresolve.
@@ -2696,7 +2696,7 @@ STR16	zVehicleName[] =
 	L"Фургон",			// Ice cream truck
 	L"Джип",
 	L"Танк",
-	L"Вертолет", 		//an abbreviation for Helicopter
+	L"Вертолёт", 		//an abbreviation for Helicopter
 };
 
 
@@ -2872,7 +2872,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"ГОЛОВА",
 	L"ТОРС",
 	L"НОГИ",
-	L"Рассказать Королеве то, что она хочет знать?",
+	L"Рассказать королеве то, что она хочет знать?",
 	L"Регистрация отпечатков пальцев пройдена.",
 	L"Неопознанные отпечатки пальцев. Оружие заблокировано.",
 	L"Цель захвачена",
@@ -2963,7 +2963,7 @@ STR16 pExitingSectorHelpText[] =
 	L"Выведя оставшихся наемников из этого сектора,\nвы автоматически попадете на экран карты,\nтак как на путешествие потребуется некоторое время.",
 
 	//If an EPC is the selected merc, it won't allow the merc to leave alone as the merc is being escorted.  The "single" button is disabled.
-	L"%s нуждается в сопровождении ваших наемников и не может в одиночку покинуть сектор.",
+	L"%s нуждается в сопровождении ваших наёмников и не может самостоятельно покинуть сектор.",
 
 	//If only one conscious merc is left and is selected, and there are EPCs in the squad, the merc will be prohibited from leaving alone.
 	//There are several strings depending on the gender of the merc and how many EPCs are in the squad.
@@ -2975,7 +2975,7 @@ STR16 pExitingSectorHelpText[] =
 
 	//If one or more of your mercs in the selected squad aren't in range of the traversal area, then the  "move all" option is disabled,
 	//and this helptext explains why.
-	L"Все ваши наемники должны быть в машине,\nчтобы отряд смог отправиться в место назначения.",
+	L"Все ваши наёмники должны быть в машине,\nчтобы отряд смог отправиться в место назначения.",
 
 	L"", //UNUSED
 
@@ -3042,7 +3042,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"У вертолета закончилось топливо. Придется совершить посадку на вражеской территории!",	// warning that the sector the helicopter is going to use for refueling is under enemy control -> 
   L"Пассажиры:",
   L"Выбрать вертолет или точку высадки?",
-  L"Вертолет",
+  L"Вертолёт",
   L"Высадка",
 };
 
@@ -3137,7 +3137,7 @@ STR16 pwMineStrings[] =
 
 STR16 pwMiscSectorStrings[] =
 {
-	L"Вражеские силы",
+	L"Силы врага",
 	L"Сектор",
 	L"Количество предметов",
 	L"Неизвестно",
@@ -3464,7 +3464,7 @@ STR16 pSkyriderText[] =
 	L"",//unused
 	L"",//unused
 	L"Небесный Всадник готов к полету.", // Skyrider was grounded but has been freed
-	L"У Небесного Всадника нет пассажиров. Если вы хотите переправить бойцов в этот сектор, посадите их в вертолет (приказ 'Машина/Вертолет')."
+	L"У Небесного Всадника нет пассажиров. Если вы хотите переправить бойцов в этот сектор, посадите их в вертолет (приказ \"Транспорт/Вертолёт\")."
 };
 
 
@@ -3536,7 +3536,7 @@ STR16 pMapErrorString[] =
 	L"нуждается в сопровождении чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
 	L"нуждается в сопровождении чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
 #ifdef JA2UB
-	L"Наёмник ещё не прибыл в Tracona!",
+	L"Наёмник ещё не прибыл в Тракону!",
 #else
 	L"Наёмник ещё не прибыл в Арулько!",
 #endif
@@ -3595,10 +3595,10 @@ STR16 pMapErrorString[] =
 // help text used during strategic route plotting
 STR16 pMapPlotStrings[] =
 {
-	L"Еще раз щелкните по точке назначения, чтобы подтвердить путь или щелкните по другому сектору, чтобы установить больше путевых точек.",
-	L"Путь движения подтвержден.",
+	L"Ещё раз щелкните по точке назначения, чтобы подтвердить путь или щелкните по другому сектору, чтобы установить больше путевых точек.",
+	L"Путь движения подтверждён.",
 	L"Точка назначения не изменена.",
-	L"Путь движения отменен.",
+	L"Путь движения отменён.",
 	L"Путь сокращен.",
 };
 
@@ -3659,8 +3659,8 @@ STR16 pMercSheLeaveString[] =
 
 STR16 pMercContractOverStrings[] =
 {
-	L"отправляется домой, так как его контракт завершен.", 		// merc's contract is over and has departed
-	L"отправляется домой, так как ее контракт завершен.", 		// merc's contract is over and has departed
+	L"отправляется домой, так как время его контракта истекло.", 		// merc's contract is over and has departed
+	L"отправляется домой, так как время её контракта истекло.", 		// merc's contract is over and has departed
 	L"уходит, так как его контракт был прерван.", 		// merc's contract has been terminated
 	L"уходит, так как ее контракт был прерван.",		// merc's contract has been terminated
 	L"Вы должны M.E.R.C. слишком много денег, так что %s уходит.", // Your M.E.R.C. account is invalid so merc left
@@ -3711,8 +3711,8 @@ STR16 pImpButtonText[] =
 	L"НЕТ",
 	L"Назад", 			// back one page
 	L"Отменить", 			// cancel selection
-	L"Да, все верно.",
-	L"Нет, еще раз взгляну.",
+	L"Да, всё верно.",
+	L"Нет, ещё раз взгляну.",
 	L"Регистрация", 		// the IMP site registry..when name and gender is selected
 	L"Анализ данных", 		// analyzing your profile results
 	L"Готово",
@@ -3842,7 +3842,7 @@ STR16 pHistoryStrings[] =
 	L"%s: победа в бое без правил.",
 	L"%s: проигрыш в бое без правил.",
 	//61-65
-	L"%s: дисквалификация в бое без правил.",	//дисквалификация из боя?
+	L"%s: дисквалификация в бое без правил.",
 	L"В заброшенной шахте найдена куча денег.",
 	L"Встречен убийца, посланный Боссом.",
 	L"Потерян контроль над сектором",				//ENEMY_INVASION_CODE
@@ -3894,7 +3894,7 @@ STR16 pBookMarkStrings[] =
 	L"Похороны",
 	L"Цветы",
 	L"Страховка",
-	L"Oтмeнa",
+	L"Отмена",
 	L"Энциклопедия",
 	L"Briefing Room",
 };
@@ -3972,7 +3972,7 @@ STR16 pWebTitle[ ]=
 
 STR16 pWebPagesTitles[] =
 {
-	L"А.I.M.",
+	L"A.I.M.",
 	L"A.I.M. Состав",
 	L"A.I.M. Портреты",		// a mug shot is another name for a portrait
 	L"A.I.M. Сортировка",
@@ -4015,7 +4015,7 @@ STR16 pWebPagesTitles[] =
 STR16 pShowBookmarkString[] =
 {
 	L"Подсказка",
-	L"Щелкните еще раз по кнопке \"Сайты\" для отображения меню сайтов.",
+	L"Щелкните ещё раз по кнопке \"Сайты\" для открытия списка.",
 };
 
 STR16 pLaptopTitles[] =
@@ -4034,7 +4034,7 @@ STR16 pPersonnelDepartedStateStrings[] =
 	L"Уволен",
 	L"Другое",
 	L"Вышла замуж",
-	L"Контракт истек",
+	L"Контракт истёк",
 	L"Выход",
 };
 // personnel strings appearing in the Personnel Manager on the laptop
@@ -4226,7 +4226,7 @@ STR16			MercInfo[] =
 	L"Дополнительная информация",
 	L"В начало",
 	L"Нанят",
-	L"Oплaтa",
+	L"Оплата",
 	L"в день",
 	L"Снаряж.:",
 	L"Всего:",
@@ -4249,7 +4249,7 @@ STR16			MercNoAccountText[] =
 	//Text on the buttons at the bottom of the screen
 	L"Открыть счет",
 	L"Отмена",
-	L"Вы еще не зарегистрировались. Желаете открыть счет?",
+	L"Вы ещё не зарегистрировались. Желаете открыть счёт?",
 };
 
 
@@ -4260,8 +4260,8 @@ STR16			MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
 	L"Спек Т. Кляйн, основатель и хозяин",
-	L"Открыть счет",
-	L"Просмотр счета",
+	L"Открыть счёт",
+	L"Просмотр счёта",
 	L"Просмотр файлов",
 	// The version number on the video conferencing system that pops up when Speck is talking
 	L"Speck Com v3.2",
@@ -4287,7 +4287,7 @@ STR16	sFuneralString[] =
 
 	// The text that comes up when you click on any of the links ( except for send flowers ).
 	L"К сожалению, наш сайт не закончен, в связи с утратой в семье. Мы постараемся продолжить работу после прочтения завещания и выплат долгов умершего. Сайт вскоре откроется.",
-	L"Мы искренне сочувствуем вам в это трудное время. Заходите еще.",
+	L"Мы искренне сочувствуем вам в это трудное время. Заходите ещё.",
 };
 
 // Text for the florist Home page
@@ -4522,7 +4522,7 @@ STR16			BobbyRText[] =
 	//Popup that tells the player that they can only order 10 items at a time
 	
 	L"Чёрт! В эту форму можно внести не более " ,//First part
-	L" позиций для одного заказа. Если вы хотите заказать больше (а мы надеемся, вы хотите), то заполните еще один заказ и примите наши извинения за неудобства.", 
+	L" позиций для одного заказа. Если хотите заказать больше (а мы надеемся, вы хотите), то заполните еще один заказ и примите наши извинения за неудобства.", 
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
@@ -4625,7 +4625,7 @@ STR16			AimMemberText[] =
 	L"Левый щелчок",
 	L"связаться с бойцом.",
 	L"Правый щелчок - ",
-	L"экран с фотографиями.",
+	L"фотографии бойцов.",
 };
 
 //Aim Member.c
@@ -4796,7 +4796,7 @@ STR16			AimFiText[] =
 	// Instructions to the players on what to do
 
 	L"Левый щелчок",
-	L"Выбрать наемника",
+	L"Выбрать наёмника",
 	L"Правый щелчок",
 	L"Критерий сортировки",
 
@@ -4856,7 +4856,7 @@ STR16			AimBottomMenuText[] =
 {
 	//Text for the links at the bottom of all AIM pages
 	L"В начало",
-	L"Наемники",
+	L"Наёмники",
 	L"Архив",
 	L"Правила",
 	L"Информация",
@@ -5521,7 +5521,7 @@ STR16 pDeliveryLocationStrings[] =
 STR16 pSkillAtZeroWarning[] =
 { //This string is used in the IMP character generation.  It is possible to select 0 ability
 	//in a skill meaning you can't use it.  This text is confirmation to the player.
-	L"Вы уверены? Значение 0 означает отсутствие этого навыка вообще.",
+	L"Вы уверены? Значение ноль - означает отсутствие этого навыка вообще.",
 };
 
 STR16 pIMPBeginScreenStrings[] =
@@ -5639,10 +5639,10 @@ STR16 pMessageStrings[] =
 	L"Активирован режим кодов.",
 
 	//Toggling various stealth modes
-	L"Отряд идет тихим шагом.",
-	L"Отряд идет обычным шагом.",
-	L"%s идет тихим шагом.",
-	L"%s идет обычным шагом.",
+	L"Отряд идёт тихим шагом.",
+	L"Отряд идёт обычным шагом.",
+	L"%s идёт тихим шагом.",
+	L"%s идёт обычным шагом.",
 
 	//Wireframes are shown through buildings to reveal doors and windows that can't otherwise be seen in 
 	//an isometric engine.  You can toggle this mode freely in the game.
@@ -5749,7 +5749,7 @@ STR16 gzLaptopHelpText[] =
 {
 	//Buttons:
 	L"Просмотреть почту",
-	L"Посетить Интернет сайты",
+	L"Посетить интернет сайты",
 	L"Просмотреть полученные данные",
 	L"Просмотреть журнал последних событий",
 	L"Показать информацию о команде",
@@ -6007,7 +6007,7 @@ STR16 gzLateLocalizedString[] =
 	//27-28
 	//Messages why a player can't time compress.
 	L"Сейчас небезопасно включать сжатие времени - у вас есть наемники в секторе %s.",
-	L"Сейчас небезопасно включать сжатие времени - у вас есть наемники в пещерах с жуками.",
+	L"Сейчас небезопасно включать сжатие времени - у вас есть наемники в пещерах с тварями.",
 
 	//29-31 singular versions @@@2 elite to veteran
 	L"1 новобранец из ополчения стал элитным солдатом.",

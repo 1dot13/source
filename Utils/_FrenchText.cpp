@@ -369,10 +369,10 @@ STR16 iEditorMercsToolbarText[] =
  //Orders
  L"STATIONNAIRE",
  L"EN DEFENSE",
- L"AU TELEPHONE",
+ L"AU TÉLÉPHONE",
  L"CHERCHER LES ENNEMIS",
  L"PATROUILLE RAPPROCHE",
- L"PATROUILLE ELOIGNE",
+ L"PATROUILLE ÉLOIGNE",
  L"POINT DE RASSEMBLEMENT", //30
  L"TOUR DE PATROUILLE",
  
@@ -442,7 +442,7 @@ STR16 iEditorBuildingsToolbarText[] =
 	L"Verrouiller ou piéger les portes existantes",
 
 	L"Ajouter une nouvelle salle",
-	L"Editer les murs de caverne.",
+	L"Éditer les murs de caverne.",
 	L"Enlever un secteur de la construction existante.",
 	L"Enlever une construction", //20
 	L"Ajouter/remplacer le toit de la construction par un nouveau toit plat.",
@@ -588,7 +588,7 @@ STR16 iRenderEditorInfoText[]=
 	L"Enregistrer la carte au format vanilla JA2 (v1.12) (Version: 5.00 / 25)", //0
 	L"Aucune carte n'est actuellement chargée.",
 	L"Fichier:  %S, Tileset actuel:  %s",
-	L"Elargir la carte au chargement",
+	L"Élargir la carte au chargement",
 };
 //EditorBuildings.cpp
 STR16 iUpdateBuildingsInfoText[] =
@@ -721,7 +721,7 @@ STR16 EditMercOrders[8] =
 
 STR16 EditMercAttitudes[6] = 
 { 
-	L"Defensif",
+	L"Défensif",
 	L"Solitaire courageux",
 	L"Brave copain",
 	L"Solitaire Rusé",
@@ -820,10 +820,10 @@ STR16 pUpdateMercsInfoText[] =
 	L"Couleur veste :",
 	L"Couleur pantalon :",
 	
-	L"ALEATOIRE",
-	L"ALEATOIRE",
-	L"ALEATOIRE", //30
-	L"ALEATOIRE",
+	L"ALÉATOIRE",
+	L"ALÉATOIRE",
+	L"ALÉATOIRE", //30
+	L"ALÉATOIRE",
 	
 	L"En spécifiant un indice de profil, toutes les informations seront extraites du profil ",
 	L"et remplacées par les valeurs que vous avez édité. Les fonctions d'édition seront aussi désactivées ",
@@ -954,7 +954,7 @@ STR16 pWaitForHelpScreenResponseText[] =
 	L"Changement d'objets qui doivent être collé",
 
 	L"F1",
-	L"Ecran d'aide",
+	L"Écran d'aide",
 
 	L"F10",
 	L"Sauvegarder la carte actuelle",
@@ -1126,7 +1126,7 @@ STR16 pCreateSummaryWindowText[]=
 	L"B3", //5
 	L"CHARGER",
 	L"SAUVER",
-	L"MISE A JOUR",
+	L"MISE À JOUR",
 };
 
 STR16 pRenderSectorInformationText[] =
@@ -1184,7 +1184,7 @@ STR16 pRenderSectorInformationText[] =
 	L"GrilleSortie:  3 -- 1) Qté: %d, 2) Qté: %d, 3) Qté: %d",
 	L"GrilleSortie:  3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d, 4) Qty: %d",
 	L"Carac relative ennemi:  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)", //40
-	L"Equipement relatif ennemi:  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)",
+	L"Équipement relatif ennemi:  %d mauvais, %d faible, %d norm, %d bon, %d super (%+d en tout)",
 	L"%d placements have patrol orders without any waypoints defined.",//!!! Context ? -> These are just a validation messages from the map editor. You can just simple translate it
 	L"%d placements have waypoints, but without any patrol orders.",
 	L"%d N° grille ont n° pièce étrange. Validez svp.",
@@ -1197,7 +1197,7 @@ STR16 pRenderItemDetailsText[] =
 	L"S",
 	L"Ennemi",
 	
-	L"TROP D'OBJETS A L'ECRAN!",
+	L"TROP D'OBJETS À L'ECRAN!",
 	
 	L"Panique1",
 	L"Panique2",
@@ -1208,23 +1208,23 @@ STR16 pRenderItemDetailsText[] =
 	L"Norm4", //10
 	L"Actions appuyer",
 	
-	L"TROP D'OBJETS A L'ECRAN!",
+	L"TROP D'OBJETS À L'ÉCRAN!",
 	
 	L"OBJ DROPE D'ENMI PRIORITAIRE",
 	L"Rien",
 	
-	L"TROP D'OBJETS A L'ECRAN!",
+	L"TROP D'OBJETS À L'ÉCRAN!",
 	L"OBJ DROPE D'ENMI NORM",
-	L"TROP D'OBJETS A L'ECRAN!",
+	L"TROP D'OBJETS À L'ÉCRAN!",
 	L"Rien",
-	L"TROP D'OBJETS A L'ECRAN!",
+	L"TROP D'OBJETS À L'ÉCRAN!",
 	L"ERREUR:  Imposs charg obj sur carte. Raison inconn.", //20	
 };
 
 STR16 pRenderSummaryWindowText[] =
 {
-	L"EDITEUR CAMPAGNE -- %s Version 1.%02d", //0
-	L"(AUC MAP CHRGEE).",
+	L"ÉDITEUR CAMPAGNE -- %s Version 1.%02d", //0
+	L"(AUC MAP CHRGÉE).",
 	L" %d de vos maps sont obsolètes.",
 	L"Plus de maps à MAJ = plus de temps. Ca prend ",
 	L"à peu près 4 min sur un P200MMX pour analyser 100 maps, donc",
@@ -1247,7 +1247,7 @@ STR16 pRenderSummaryWindowText[] =
 	L", Niv B2 alternatif",	
 	L", Niv B3 alternatif",
 	
-	L"DETAILS OBJETS -- secteur %s",
+	L"DÉTAILS OBJETS -- secteur %s",
 	L"Les informations sommaires pour le secteur %s :", //20
 	
 	L"Les informations sommaires pour le secteur %s",
@@ -1313,7 +1313,7 @@ STR16 pSummaryUpdateCallbackText[] =
 
 STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 {
-	L"MISE A JOUR VERSION MAJEURE",
+	L"MISE À JOUR VERSION MAJEURE",
 	L"Il y a %d de cartes qui requièrent une mise à jour majeure.",
 	L"Mise à jour de toutes les cartes obsolètes",
 };
@@ -1645,7 +1645,7 @@ STR16 pAssignmentStrings[] =
 	L"Esc. 20",
 	L"Service", // on active duty
 	L"Docteur", // administering medical aid
-	L"Patient", // getting medical aid
+	L"Patient(e)", // getting medical aid
 	L"Transport", // in a vehicle
 	L"Transit", // in transit - abbreviated form
 	L"Réparation", // repairing
@@ -1660,7 +1660,7 @@ STR16 pAssignmentStrings[] =
 	L"Prison",		// Flugente: interrogate prisoners // TODO.Translate
 	L"Mort(e)", // dead
 	L"Incap.", // abbreviation for incapacitated
-	L"Capturé", // Prisoner of war - captured
+	L"Capturé(e)", // Prisoner of war - captured
 	L"Hôpital", // patient in a hospital 
 	L"Vide",	// Vehicle is empty
 };
@@ -1689,7 +1689,7 @@ STR16 pConditionStrings[] =
 	L"En forme", // fair health
 	L"Blessé(e)", // wounded health
 	L"Fatigué(e)", // tired
-	L"Epuisé(e)", // bleeding to death
+	L"Épuisé(e)", // bleeding to death
 	L"Inconscient(e)", // knocked out 
 	L"Mourant(e)", // near death
 	L"Mort(e)", // dead
@@ -1870,7 +1870,7 @@ STR16 pTrainingStrings[] =
 	L"Formation", // tell merc to train self 
 	L"Milice", // tell merc to train town 
 	L"Entraîneur", // tell merc to act as trainer
-	L"Elève", // tell merc to be train by other 
+	L"Élève", // tell merc to be train by other 
 };
 
 STR16 pGuardMenuStrings[] =
@@ -1907,7 +1907,7 @@ STR16 pAssignMenuStrings[] =
 {
 	L"Service", // merc is on active duty
 	L"Docteur", // the merc is acting as a doctor
-	L"Patient", // the merc is receiving medical attention
+	L"Patient(e)", // the merc is receiving medical attention
 	L"Transport", // the merc is in a vehicle
 	L"Réparation", // the merc is repairing items 
 	L"Formation", // the merc is training
@@ -1925,14 +1925,14 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Couchez-vous", // retreat militia	
 	L"Accroupi",
 	L"À couvert!",
-	L"All: Attaquez", 
-	L"All: Tenez la position",
-	L"All: Retraite",
-	L"All: Rejoignez-moi",
-	L"All: Dispersez-vous",
-	L"All: Couchez-vous",
-	L"All: Accroupi",
-	L"All: À couvert!",
+	L"Tous : Attaquez", 
+	L"Tous : Tenez la position",
+	L"Tous : Retraite",
+	L"Tous : Rejoignez-moi",
+	L"Tous : Dispersez-vous",
+	L"Tous : Couchez-vous",
+	L"Tous : Accroupi",
+	L"Tous : À couvert!",
 	//L"All: Trouver materiel",
 	L"Annuler", // cancel this menu
 };
@@ -1973,7 +1973,7 @@ STR16 pTrainingMenuStrings[] =
 	L"Milice", // train the town 
 	L"Milice mobile",
 	L"Entraîneur", // train your teammates 
-	L"Elève",  // be trained by an instructor 
+	L"Élève",  // be trained by an instructor 
 	L"Annuler", // cancel this menu
 };
 
@@ -2056,9 +2056,9 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Coups tirés : %d\n",
 	L"Missiles tirés : %d\n",
 	L"Grenades lancées : %d\n",
-	L"Couteaus lancés : %d\n",
+	L"Couteaux lancés : %d\n",
 	L"Attaques au couteau : %d\n",
-	L"Attaques au corps-à-corps : %d\n",
+	L"Attaques au corps à corps : %d\n",
 	L"Tirs réussis : %d\n",
 
 	L"Serrures crochetées : %d\n",
@@ -2095,7 +2095,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Attitudes :",	// WANNE: For old traits display instead of "Character:"!
 
-	L"Zombies: %d\n",
+	L"Zombies : %d\n",
 };
 
 
@@ -2131,13 +2131,13 @@ STR16 gzMercSkillTextNew[] =
 	L"Armes automatiques",
 	L"Armes lourdes",
 	L"Tireur d'élite",
-	L"Scout",// !!!Scout =! Eclaireur.
-	L"Bandit",
-	L"Corps à corps",
-	L"Manager",
+	L"Éclaireur",// !!!Scout =! Eclaireur.
+	L"Flingueur",
+	L"Arts martiaux",
+	L"Meneur",
 	L"Technicien",
 	L"Médecin",
-	L"Covert Ops",		// 10	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
+	L"Espionnage",		// 10	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
 	// Minor traits
 	L"Ambidextre",
 	L"Mêlée",
@@ -2159,7 +2159,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Commandant",
 	L"Ingénieur",
 	L"Chirurgien",
-	L"Spy",				// 30	// TODO.Translate !!! "Espion" ? Char limit ?
+	L"Espion",				// 30
 	L"Plus...",
 };
 //////////////////////////////////////////////////////////
@@ -2172,7 +2172,7 @@ STR16 pTacticalPopupButtonStrings[] =
 	L"Debout/Marcher (|S)",
 	L"Accroupi/Avancer (|C)",
 	L"Debout/Courir (|R)",
-	L"A terre/Ramper (|P)",
+	L"À terre/Ramper (|P)",
 	L"Regarder (|L)",
 	L"Action",
 	L"Parler",
@@ -2428,7 +2428,7 @@ STR16 gpStrategicString[] =
 	//This message is for mercs arriving in sectors.  Ex:  Red has arrived in sector A9.
 	//Don't uppercase first character, or add spaces on either end.
 
-	L"est arrivé dans le secteur", 
+	L"est arrivé(e) dans le secteur", 
 
 	//These entries are for button popup help text for the prebattle interface.  All popup help
 	//text supports the use of \n to denote new line.  Do not use spaces before or after the \n.
@@ -2487,7 +2487,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 	L"Portée :",		//10	
 	L"Dégât :", 	//11
 	L"Poids :",		//12
-	L"Étourdissement :",//13
+	L"Choc :",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
 	L"Accessoire :",	//14
 	L"AUTO/5:",		//15
@@ -2617,7 +2617,7 @@ CHAR16 zHealthStr[][13] =
 	L"EN FORME",    	//	>= 60
 	L"BON",     	// 	>= 75
 	L"EXCELLENT",		// 	>= 90
-	L"CAPTURED",	// added by Flugente // TODO.Translate
+	L"EN PRISON",	// added by Flugente // TODO.Translate
 };
 
 STR16 gzHiddenHitCountStr[1] =
@@ -3526,7 +3526,7 @@ STR16 pEtaString[] =
 STR16 pTrashItemText[] =
 {
 	L"Vous ne le reverrez jamais. Vous êtes sûr de vous ?", 	// do you want to continue and lose the item forever
-	L"Cet objet a l'air VRAIMENT important. Vous êtes bien sûr (mais alors BIEN SUR) de vouloir l'abandonner ?", // does the user REALLY want to trash this item
+	L"Cet objet a l'air VRAIMENT important. Vous êtes bien sûr (mais alors BIEN SÛR) de vouloir l'abandonner ?", // does the user REALLY want to trash this item
 };
 
 
@@ -3537,7 +3537,7 @@ STR16 pMapErrorString[] =
 //1-5
 	L"Déplacez d'abord votre escouade.",
 	L"Des ordres de mouvement ? C'est un secteur hostile !",
-	L"Les mercenaires doivent d'abord être assignés à une escouade ou un vehicule.",
+	L"Les mercenaires doivent d'abord être assignés à une escouade ou un véhicule.",
 	L"Vous n'avez plus aucun membre dans votre escouade.", 		// you have non members, can't do anything 
 	L"Le mercenaire ne peut obéir.",			 		// merc can't comply with your order
 //6-10
@@ -4050,7 +4050,7 @@ STR16 pPersonelTeamStrings[] =
 	L"Coût maximum :",
 	L"Coût minimum :",
 	L"Morts en mission :",
-	L"Démissionés :",
+	L"Démissions :",
 	L"Autres :",
 };
 
@@ -4228,7 +4228,7 @@ STR16			MercInfo[] =
 	L"Suivant",
 	L"Infos complémentaires",
 	L"Home",
-	L"Engagé",
+	L"Engagé(e)",
 	L"Salaire :",
 	L"Par jour",
 	L"Paquetage :",
@@ -4262,7 +4262,7 @@ STR16			MercNoAccountText[] =
 STR16			MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
-	L"Kline Speck, fondateur",
+	L"Kline Speck T., fondateur",
 	L"Cliquez ici pour ouvrir un compte",
 	L"Cliquez ici pour voir votre compte",
 	L"Cliquez ici pour consulter les fichiers",
@@ -4278,8 +4278,8 @@ STR16			sFuneralString[] =
 	L"Morgue Mc Gillicutty : À votre écoute depuis 1983.",
 	L"Mc Gillicutty Murray dit Pops, notre directeur bien aimé, est un ancien mercenaire de l'AIM. Sa spécialité : la mort des autres.",
 	L"Pops l'a côtoyée pendant si longtemps qu'il est un expert de la mort, à tous points de vue.",
-	L"La morgue McGillicutty vous offre un large éventail de services funéraires, depuis une écoute compréhensive jusqu'à la reconstitution des corps... dispersés.",
-	L"Laissez donc la morgue McGillicutty vous aider, pour que votre compagnon repose enfin en paix.",
+	L"La morgue Mc Gillicutty vous offre un large éventail de services funéraires, depuis une écoute compréhensive jusqu'à la reconstitution des corps... dispersés.",
+	L"Laissez donc la morgue Mc Gillicutty vous aider, pour que votre compagnon repose enfin en paix.",
 
 	// Text for the various links available at the bottom of the page
 	L"ENVOYER FLEURS",
@@ -4461,7 +4461,7 @@ STR16			BobbyRFilter[] =
 	L"Mêlée",
 	L"Grenades",
 	L"Explosifs",
-	L"Kits Med.",
+	L"Kits Méd.",
 	L"Kits",
 	L"Mat. Face",
 	L"Mat. LBE",
@@ -4511,7 +4511,7 @@ STR16			BobbyRText[] =
 	L"Dégâts:",			// Damage of the weapon	
 	L"CdT :",			// Weapon's Rate Of Fire, acronym ROF
 	L"PA :",				// Weapon's Action Points, acronym AP	// TODO.Translate
-	L"Étourdissement :",	// Weapon's Stun Damage		// TODO.Translate
+	L"Choc :",	// Weapon's Stun Damage		// TODO.Translate
 	L"Protect :",		// Armour's Protection		// TODO.Translate
 	L"Cam. :",			// Armour's Camouflage		// TODO.Translate
 	L"Prix :",			// Cost of the item
@@ -4724,8 +4724,8 @@ STR16			VideoConfercingText[] =
 
 STR16			AimPopUpText[] =
 {
-	L"TRANSFERT ACCEPTE",	// You hired the merc
-	L"TRANSFERT REFUSE",		// Player doesn't have enough money, message 1
+	L"TRANSFERT ACCEPTÉ",	// You hired the merc
+	L"TRANSFERT REFUSÉ",		// Player doesn't have enough money, message 1
 	L"FONDS INSUFFISANTS",				// Player doesn't have enough money, message 2
 
 	// if the merc is not available, one of the following is displayed over the merc's face
@@ -4878,7 +4878,7 @@ STR16 SKI_Text[ ] =
 	L"PAGE",				//The current store inventory page being displayed
 	L"COÛT TOTAL",				//The total cost of the the items in the Dealer inventory area
 	L"VALEUR TOTALE",			//The total value of items player wishes to sell
-	L"EVALUATION",				//Button text for dealer to evaluate items the player wants to sell
+	L"ÉVALUATION",				//Button text for dealer to evaluate items the player wants to sell
 	L"TRANSACTION",			//Button text which completes the deal. Makes the transaction.
 	L"OK",				//Text for the button which will leave the shopkeeper interface.
 	L"COÛT RÉPARATION",			//The amount the dealer will charge to repair the merc's goods
@@ -5039,15 +5039,15 @@ STR16		zMarksMapScreenText[] =
 	L"Vous n'avez pas de milice : vous devez entraîner les habitants de la ville.",
 	L"Revenu quotidien",
 	L"Assurance vie", 
-	L"%s n'est pas fatigué.", 
+	L"%s n'est pas fatigué(e).", 
 	L"%s est en mouvement et ne peut dormir.", 
-	L"%s est trop fatigué pour obéir.",
+	L"%s est trop fatigué(e) pour obéir.",
 	L"%s conduit.",
 	L"L'escouade ne peut progresser si l'un de ses membres se repose.",
 
 	// stuff for contracts
 	L"Vous pouvez payer les honoraires de ce mercenaire, mais vous ne pouvez pas vous offrir son assurance.",
-	L"La prime d'assurance de %s coûte %s pour %d jour(s) supplémentaire(s). Voulez-vous les payer ?",
+	L"La prime d'assurance de %s coûte %s pour %d jour(s) supplémentaire(s). Voulez-vous la payer ?",
 	L"Inventaire du Secteur",
 	L"Le mercenaire a un dépôt médical.",
 	
@@ -5336,7 +5336,7 @@ STR16	gzGIOScreenText[] =
 	L"Charge jeu multi",
 	L"CONFIGURATION DU JEU (Les paramètres serveur seulement prennent effet)",
 	// Added by SANDRO
-	L"Skill Traits",
+	L"Compétences",
 	L"Ancien",
 	L"Nouveau",
 	L"Nombre max de merc IMP",
@@ -5524,7 +5524,7 @@ STR16 pDeliveryLocationStrings[] =
 STR16 pSkillAtZeroWarning[] =
 { //This string is used in the IMP character generation.  It is possible to select 0 ability
 	//in a skill meaning you can't use it.  This text is confirmation to the player.
-	L"Etes-vous sûr de vous ? Une valeur de ZERO signifie que vous serez INCAPABLE d'utiliser cette compétence.",
+	L"Êtes-vous sûr de vous ? Une valeur de ZÉRO signifie que vous serez INCAPABLE d'utiliser cette compétence.",
 };
 
 STR16 pIMPBeginScreenStrings[] =
@@ -5602,7 +5602,7 @@ STR16 pMessageStrings[] =
 	L"USD",					//Abbreviation to US dollars
 	L"n/a",					//Lowercase acronym for not applicable.
 	L"Entre-temps",		//Meanwhile
-	L"%s est arrivé dans le secteur %s%s", //Name/Squad has arrived in sector A9.  Order must not change without notifying
+	L"%s est arrivée dans le secteur %s%s", //Name/Squad has arrived in sector A9.  Order must not change without notifying
 																		//SirTech
 	L"Version",
 	L"Emplacement de sauvegarde rapide vide",
@@ -5642,9 +5642,9 @@ STR16 pMessageStrings[] =
 	L"Triche niveau 2",
 
 	//Toggling various stealth modes
-	L"Escouade en mode discretion.",
+	L"Escouade en mode discrétion.",
 	L"Escouade en mode normal.",
-	L"%s en mode discretion.",
+	L"%s en mode discrétion.",
 	L"%s en mode normal.",
 
 	//Wireframes are shown through buildings to reveal doors and windows that can't otherwise be seen in 
@@ -5673,7 +5673,7 @@ STR16 pMessageStrings[] =
 	L"Un colis vient d'arriver à Drassen.",
  	L"%s devrait arriver au point d'entrée (secteur %s) au jour %d vers %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 	L"Historique mis à jour.",
-	L"Curseur de visée pour raf.Gre. (Dispersion activée)",
+	L"Curseur de visée pour raf.gre. (Dispersion activée)",
 	L"Curseur de trajectoire raf.gre. (Dispersion desact.)",
 	L"Enabled Soldier Tooltips", // Changed from Drop All On - SANDRO
 	L"Disabled Soldier Tooltips", // Changed from Drop All Off - SANDRO
@@ -5766,9 +5766,9 @@ STR16 gzLaptopHelpText[] =
 	L"Bobby Ray : Petits et Gros Calibres",
 	L"Institut des Mercenaires Professionnels",
 	L"Mouvement pour l'Entraînement et le Recrutement des Commandos",
-	L"Morgue McGillicutty",
+	L"Morgue Mc Gillicutty",
 	L"Service des Fleuristes Associés",
-	L"Courtiers d'Assurance des Mercenaires de l'A.I.M.",
+	L"Courtiers d'Assurance des Mercenaires de l'AIM",
 	//New Bookmarks
 	L"",
 	L"Encyclopedia",
@@ -5879,7 +5879,7 @@ STR16	gzCreditNames[]=
 STR16	gzCreditNameTitle[]=
 {
 	L"Programmeur", 			// Chris Camfield
-	L"Co-designer/Ecrivain",							// Shaun Lyng
+	L"Co-designer/Écrivain",							// Shaun Lyng
 	L"Systèmes stratégiques & Programmeur",					//Kris Marnes
 	L"Producteur/Co-designer",						// Ian Currie
 	L"Co-designer/Conception des cartes",				// Linda Currie
@@ -5929,8 +5929,8 @@ STR16 zGioDifConfirmText[]=
 {
 	L"Vous avez choisi le mode de difficulté NOVICE. Ce mode de jeu est conseillé pour les joueurs qui découvrent Jagged Alliance, qui n'ont pas l'habitude de jouer à des jeux de stratégie ou qui souhaitent que les combats ne durent pas trop longtemps. Ce choix influe sur de nombreux paramètres du jeu. Etes-vous certain de vouloir jouer en mode Novice ?",
 	L"Vous avez choisi le mode de difficulté EXPERIMENTE. Ce mode de jeu est conseillé pour les joueurs qui ont déjà joué à Jagged Alliance ou des jeux de stratégie. Ce choix influe sur de nombreux paramètres du jeu. Etes-vous certain de vouloir jouer en mode Expérimenté ?",
-	L"Vous avez choisi le mode de difficulté EXPERT. Vous aurez été prévenu. Ne venez pas vous plaindre si vos mercenaires quittent Arulco dans un cerceuil. Ce choix influe sur de nombreux paramètres du jeu. Etes-vous certain de vouloir jouer en mode Expert ?",
-	L"Vous avez choisi le mode de difficulté INCROYABLE. ATTENTION: Ne venez pas vous plaindre si vos mercenaires quittent Arulco en petits morceaux... Deidranna va vous tuer. A coup sûr.  Ce choix influe sur de nombreux paramètres du jeu. Etes-vous certain de vouloir jouer en mode INCROYABLE ?",
+	L"Vous avez choisi le mode de difficulté EXPERT. Vous aurez été prévenu. Ne venez pas vous plaindre si vos mercenaires quittent Arulco dans un cerceuil. Ce choix influe sur de nombreux paramètres du jeu. Êtes-vous certain de vouloir jouer en mode Expert ?",
+	L"Vous avez choisi le mode de difficulté INCROYABLE. ATTENTION: Ne venez pas vous plaindre si vos mercenaires quittent Arulco en petits morceaux... Deidranna va vous tuer. À coup sûr.  Ce choix influe sur de nombreux paramètres du jeu. Êtes-vous certain de vouloir jouer en mode INCROYABLE ?",
 };
 
 STR16 gzLateLocalizedString[] =
@@ -5997,7 +5997,7 @@ STR16 gzLateLocalizedString[] =
 	L"%d soldats ont été promus vétérans.",
 
 	//25
-	L"Echanger",
+	L"Échanger",
 
 	//26
 	//Name has gone psycho -- when the game forces the player into burstmode (certain unstable characters)
@@ -6177,8 +6177,8 @@ STR16 New113Message[] =
 	L"Voulez-vous faire les premiers soins sur ce patient d'abord ?",
 	L"Appliquez les premiers soins automatiquement avec chirurgie ou sans ?",
 	L"La chirurgie sur %s est finie.",
-	L"%s est touché au torse et perd un maximum de points de vie !",
-	L"%s est touché au torse et perd %d points de vie !",
+	L"%s est touché(e) au torse et perd un maximum de points de vie !",
+	L"%s est touché(e) au torse et perd %d points de vie !",
 	L"%s a regagné 1 point sur les %s perdus",
 	L"%s a regagné %d points sur les %s perdus",
 	L"Vos compétences de reconnaissance vous ont empêchés d'être pris en embuscade par l'ennemi !",
@@ -6194,31 +6194,31 @@ STR16 New113HAMMessage[] =
 {
 	// 0 - 5
 	L"%s sombre dans la peur !",
-	L"%s est cloué au sol !",
+	L"%s est cloué(e) au sol !",
 	L"%s tire plus de fois que désiré !",
 	L"Vous ne pouvez pas former de milice dans ce secteur.",
 	L"La milice prend %s.",
-	L"Vous ne pouvez pas former de milice alors que des ennemies sont présents !", 
+	L"Vous ne pouvez pas former de milice alors que des ennemis sont présents !", 
 	// 6 - 10
 	L"Manque %s points en Commandement pour former la milice.",
 	L"Pas plus de %d milices mobiles peuvent être entrainées dans ce secteur.",
 	L"Aucune pièce dans %s ou autours pour des nouvelles milices mobiles !",
-	L"Vous devez avoir %d villes de milice dans chaque secteur libérée de %s  pour pouvoir former une milice mobile.",
-	L"Ne peut pas diriger une installation tant que les ennemies sont présents !",
+	L"Vous devez avoir %d villes de milice dans chaque secteur libéré de %s  pour pouvoir former une milice mobile.",
+	L"Ne peut pas diriger une installation tant que les ennemis sont présents !",
 	// 11 - 15
 	L"Manque de %s en sagesse pour pourvoir installer des équipements destinés au personnel.",
-	L"%s est déja entièrement pourvu en personnel.",
+	L"%s est déjà entièrement pourvu en personnel.",
 	L"Cela va coûter %d$ par heure pour construire cette infrastucture. Voulez-vous continuer ?",
-	L"Vous n'avez pas assez d'argents pour payer toute les infrastructures aujourd'hui.%d $ ont déjà été payés, mais vous devez encore %d $. Les habitants ne sont pas patients...",
-	L"Vous n'avez pas assez d'argents pour payer toute les infrastructures aujourd'hui. Vous devez %d$. Les habitants ne sont pas patients...",
+	L"Vous n'avez pas assez d'argents pour payer toutes les infrastructures aujourd'hui.%d $ ont déjà été payés, mais vous devez encore %d $. Les habitants ne sont pas patients...",
+	L"Vous n'avez pas assez d'argents pour payer toutes les infrastructures aujourd'hui. Vous devez %d$. Les habitants ne sont pas patients...",
 	// 16 - 20
-	L"Vous avez une dette échue de %d $ pour l'opération d'installation et aucun argent pour le régler !",
+	L"Vous avez une dette échue de %d $ pour l'opération d'installation et aucun argent pour la régler !",
 	L"Vous avez une dette échue de %d $ pour l'opération d'installation. Vous ne pouvez pas assigner ce merc au installation avant que vous n'ayez assez d'argent pour régler la dette entière.",
 	L"Vous avez une dette échue de %d $ pour l'opération d'installation. Voulez-vous tout payer d'un coup ?",
 	L"N/A est dans ce secteur",
-	L"Dépenses quotidiennes",
+	L"Coût quotidien",
 	// 21 - 25
-	L"Fonds insuffisants pour payer toute la milice enrôlée ! %d milices se sont dissolu et sont rentrés chez eux.",
+	L"Fonds insuffisants pour payer toute la milice enrôlée ! %d membres de la milice sont partis pour rentrer chez eux.",
 
 	// TODO.Translate
 	L"To examine an item's stats during combat, you must pick it up manually first.", // HAM 5
@@ -6249,52 +6249,52 @@ STR16 gzTransformationMessage[] =
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
-	L"Nous vous informons que de par ses perfomances passées, Gaston voit ses honoraires augmentés. Personellement, je ne suis pas surpris. ± ± Speck T. Kline ± ",
+	L"Nous vous informons que de par ses perfomances passées, Gaston voit ses honoraires augmentés. Personellement, je ne suis pas surpris. ± ± Kline Speck ",
 	// Stogie: Text from Line 43 in Email.edt
-	L"Soyez informé que, à paritr de maintenant, le honoraires de Stogie ont augmentés en accord avec ses compétences. ± ± Speck T. Kline ± ", 
+	L"Soyez informé qu'à paritr de maintenant, les honoraires de Stogie ont augmenté en accord avec ses compétences. ± ± Kline Speck ± ", 
 	// Tex: Text from Line 45 in Email.edt
-	L"Sachez que l'experience de Text lui autorisent une promotion. Son salaire a donc été ajusté pour refleter sa valeur équitablement. ± ± Speck T. Kline ± ",
+	L"Sachez que l'expérience de Tex lui autorise une promotion. Son salaire a donc été ajusté pour refléter sa vraie valeur. ± ± Kline Speck ± ",
 	// Biggens: Text from Line 49 in Email.edt
-	L"Prenez note. De par des performances accrues Biggens voit le prix de ses services augmentés. ± ± Speck T. Kline ± ",
+	L"Prenez note. De par ses performances accrues, Biggens voit le prix de ses services augmentés. ± ± Kline Speck ± ",
 };
 
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
 STR16	New113AIMMercMailTexts[] =
 {
 	// Monk
-	L"TR du serveur AIM: Message de Victor Kolesnikov",
+	L"TR du serveur AIM : Message de Kolesnikov Victor",
 	L"Salut. Ici Monk. Message reçu. Je suis disponible si vous voulez me voir. ± ± J’attends votre appel. ±",
 
 	// Brain
-	L"TR du serveur AIM: Message de Janno Allik",
-	L"Je suis prêt à conciderer votre offre. Il y a un temps et un lieu pour tout. ± ± Janno Allik ±",
+	L"TR du serveur AIM : Message de Allik Janno",
+	L"Je suis prêt à considérer votre offre. Il y a un temps et un lieu pour tout. ± ± Allik Janno ±",
 
 	// Scream
-	L"TR du serveur AIM: Message de Lennart Vilde",
-	L"Lennart Vilde est maintenant disponible! ±",
+	L"TR du serveur AIM : Message de Vilde Lennart",
+	L"Vilde Lennart est maintenant disponible! ±",
 
 	// Henning
-	L"TR du serveur AIM: Message de Henning von Branitz",
-	L"J’ai reçu votre message, merci. Pour parler d’embauche, contactez-moi sur le site web de l’AIM. ± ± Henning von Branitz ±",
+	L"TR du serveur AIM : Message de von Branitz Henning",
+	L"J’ai reçu votre message, merci. Pour parler d’embauche, contactez-moi sur le site web de l’AIM. ± ± Von Branitz Henning ±",
 
 	// Luc
-	L"TR du serveur AIM: Message de Luc Fabre",
-	L"Message reçu, merci! Je suis heureux de considérer votre proposition. Vous savez où me trouver. ± ± Au plaisir de vous entendre.±",
+	L"TR du serveur AIM : Message de Fabre Luc",
+	L"Message reçu, merci! Je suis heureux de considérer votre proposition. Vous savez où me trouver. ± ± Au plaisir de vous entendre. ±",
 
 	// Laura
-	L"TR du serveur AIM: Message de Dr. Laura Colin",
-	L"Salutations! Merci pour votre message, il semble intéressant. ± ± Visiter l’AIM à nouveau, je serais ravie d’en entendre plus. ± ± Cordialement! ± ± Dr. Laura Colin ±",
+	L"TR du serveur AIM : Message de Dr Colin Laura",
+	L"Salutations ! Merci pour votre message, il semble intéressant. ± ± Visiter l’AIM à nouveau, je serais ravie d’en entendre plus. ± ± Cordialement ! ± ± Dr Colin Laura ±",
 
 	// Grace
-	L"TR du serveur AIM: Message de Graziella Girelli",
-	L"Vous vouliez me contacter, mais vous n’avez pas réussi.± ± Une réunion de famille. Je suis sûr que vous comprenez? J’en ai maintenant assez de la famille et serait très heureuse si vous voulez me contacter de nouveau sur le site AIM. ± ± Ciao! ±",
+	L"TR du serveur AIM : Message de Girelli Graziella",
+	L"Vous vouliez me contacter, mais vous n’avez pas réussi.± ± Une réunion de famille. Je suis sûr que vous comprenez ? J’en ai maintenant assez de la famille et serais très heureuse si vous voulez me contacter de nouveau sur le site AIM. ± ± Ciao ! ±",
 
 	// Rudolf
-	L"TR du serveur AIM: Message de Rudolf Steiger",
+	L"TR du serveur AIM : Message de Steiger Rudolf",
 	L"Vous savez combien j’ai d’appel par jour ? Tous les branleurs pensent pouvoir m’appeler. ± ± Mais je suis de retour, si vous avez quelque chose d’intéressant pour moi. ±",
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
-	L"TR du serveur AIM: Message des disponibilités des mercs",
+	L"TR du serveur AIM : Message des disponibilités des mercs",
 	L"J'ai reçu votre message. J'attends votre appel. ±",
 };
 
@@ -6308,25 +6308,25 @@ STR16 MissingIMPSkillsDescriptions[] =
 	L"Camouflage : Sans compter que derrière vous même les buissons semblent synthétiques! ± ",	
 	// SANDRO - new strings for new traits added
 	// Ranger
-	L"Soldat: Vous êtes celui du déserts du Texas, n'est-ce pas ! ± ",	
+	L"Soldat : Vous êtes celui du déserts du Texas, n'est-ce pas ! ± ",	
 	// Gunslinger
-	L"Bandit: Avec un pistolet ou deux, vous pouvez être aussi mortel que Billy the Kid ! ± ",
+	L"Bandit : Avec un pistolet ou deux, vous pouvez être aussi mortel que Billy the Kid ! ± ",
 	// Squadleader
-	L"Commandant: Naturel leader et commandant, vous êtes le gros calibre, sans blague ! ± ",
+	L"Commandant : Naturel leader et commandant, vous êtes le gros calibre, sans blague ! ± ",
 	// Technician
-	L"Technicien: Fixer les objets, retirer les pièges, planter les bombes, c'est ça votre boulot ! ± ",
+	L"Technicien : Fixer les objets, retirer les pièges, planter les bombes, c'est ça votre boulot ! ± ",
 	// Doctor
-	L"Docteur: Vous pouvez faire une intervention chirurgicale avec un couteau Suisse et un chewing gum et cela n'importe où ! ± ",
+	L"Docteur:  Vous pouvez faire une intervention chirurgicale avec un couteau suisse et un chewing gum et cela n'importe où ! ± ",
 	// Athletics
-	L"Athletic: Votre vitesse et votre vitalitée sont au top des possibilitées actuelles! ± ",
+	L"Athlétique: Votre vitesse et votre vitalité sont au top des possibilités actuelles! ± ",
 	// Bodybuilding
-	L"Culturiste: Cette grande figure musclée qui ne peut pas être dominée est en faîte vous en réalité ! ± ",
+	L"Culturiste : Cette grande figure musclée qui ne peut pas être dominée est en faite vous en réalité ! ± ",
 	// Demolitions
-	L"Démolition: Vous pouvez réduire à néant toute une ville rien qu'avec des produits ménagers ! ± ",
+	L"Sabotage : Vous pouvez réduire à néant toute une ville rien qu'avec des produits ménagers ! ± ",
 	// Scouting
-	L"Reconnaissance: Rien n'échappe à votre vigilance ! ± ",
+	L"Reconnaissance : Rien n'échappe à votre vigilance ! ± ",
 	// Covert ops
-	L"Covert Operations: You make 007 look like an amateur! ± ",		// TODO.Translate
+	L"Espionnage : Vous ferez passer 007 pour un amateur ! ± ",		// TODO.Translate
 };
 
 STR16 NewInvMessage[] = 
@@ -6336,8 +6336,8 @@ STR16 NewInvMessage[] =
 	L"Sac à dos non trouvé",
 	L"La fermeture éclair fonctionne seulement en combat",
 	L"Ne peut se déplacer si la fermeture éclair est ouverte",
-	L"Êtes vous sûr de vouloir voulez vendre tous les articles du secteur ?",
-	L"Êtes vous sûr de vouloir supprimer tous les articles du secteur ?",
+	L"Êtes-vous sûr de vouloir vendre tous les articles du secteur ?",
+	L"Êtes-vous sûr de vouloir supprimer tous les articles du secteur ?",
 	L"Ne peut pas escalader avec un sac à dos",
 };
 
@@ -6367,8 +6367,8 @@ STR16 MPClientMessage[] =
 {
 	// 0
 	L"Initialisation du client RakNet...",		
-	L"Connection à l'IP: %S ...",
-	L"Réception des optiosn de jeu:",
+	L"Connection à l'IP : %S ...",
+	L"Réception des optiosn de jeu :",
 	L"Vous êtes déjà connecté.",
 	L"Vous êtes déjà connecté...",
 	// 5
@@ -6380,7 +6380,7 @@ STR16 MPClientMessage[] =
 	// 10
 	L"Client #%d - '%S' est prêt - Total prêts = %d/%d.",
 	L"Client #%d - '%S' n'est pas encore prêt - Total prêts = %d/%d",
-	L"Vous êtes prêt. En attente des autre clients... Cliquez sur 'OK' si vous n'êtes plus prêt.",
+	L"Vous êtes prêt. En attente des autres clients... Cliquez sur 'OK' si vous n'êtes plus prêt.",
 	L"Laissez-nous, la bataille commence !",
 	L"Un client doit poser sa candidature pour démarrer la partie.",
 	// 15
@@ -6398,7 +6398,7 @@ STR16 MPClientMessage[] =
 	// 25
 	L"",
 	L"Nouvelle conncetion: Client #%d - '%S'.",
-	L"Equipe: %d.",//not used any more
+	L"Équipe: %d.",//not used any more
 	L"'%s' (client %d - '%S') a été tué par '%s' (client %d - '%S')",
 	L"Client kické #%d - '%S'",
 	// 30
@@ -6540,28 +6540,28 @@ STR16 gzMPChatboxText[] =
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits
-	L"A la page suivante, vous allez choisir vos traits de compétence selon votre spécialisation professionnel comme un mercenaire. Pas plus de deux traits différents ou un trait expert peuvent être choisis.",
+	L"À la page suivante, vous allez choisir vos traits de compétence selon votre spécialisation professionnel comme un mercenaire. Pas plus de deux traits différents ou un trait expert peuvent être choisis.",
 	L"Vous pouvez aussi choisir seulement un ou même aucun trait, ce qui vous donnera un bonus à vos points d'attributs, une sorte de compensation. Notez que les compétences : mécanique, ambidextre et camouflage ne peuvent pas être prises aux niveaux experts.",
 	// For new major/minor traits
-	L"L'étape suivante est le choix de vos traits de compétences. A la première page vous pouvez choisir jusqu'à deux traits principaux, qui représentent surtout votre rôle dans une équipe. Tandis qu'à la deuxième page, c'est la liste de vos traits mineurs, qui représentent des exploits personnels.",
+	L"L'étape suivante est le choix de vos traits de compétences. À la première page vous pouvez choisir jusqu'à deux traits principaux, qui représentent surtout votre rôle dans une équipe. Tandis qu'à la deuxième page, c'est la liste de vos traits mineurs, qui représentent des exploits personnels.",
 	L"Pas plus de trois choix au total sont possibles. Ce qui signifie que si vous ne choisissez aucun trait principal, vous pourrez alors choisir trois traits secondaires. Si vous choisissez deux traits principaux (ou un en expert), vous pourrez alors choisir qu'un seul trait secondaire...",
 };
 
 STR16 sgAttributeSelectionText[] = 
 {
 	L"Ajustez s'il vous plaît vos attributs physiques selon vos vraies capacités. Vous ne pouvez pas augmenter les scores au-dessus de",
-	L"Examen des attributs et compétences de l'I.M.P.",
+	L"Examen des attributs et compétences de l'IMP",
 	L"Points bonus :",
 	L"Départ au niveau",
 	// New strings for new traits
-	L"A la page suivante vous allez spécifier vos attributs physiques comme : la santé, la dextérité, l'agilité, la force et la sagesse. Les attributs ne peuvent pas aller plus bas que %d.",
+	L"À la page suivante vous allez spécifier vos attributs physiques comme : la santé, la dextérité, l'agilité, la force et la sagesse. Les attributs ne peuvent pas aller plus bas que %d.",
 	L"Le reste est appelé 'habilitées' et à la différence des attributs, ils peuvent être mis à zéro signifiant que vous serez un incapable dans cette habilitée !",
 	L"Tous les scores sont mis à un minimum au début. Notez que certains attributs sont mis a des valeurs spécifiques correspondant aux traits de compétence que vous avez choisis. Vous ne pouvez pas mettre ces attributs plus bas.",
 };
 
 STR16 pCharacterTraitBeginIMPStrings[] =
 {
-	L"Analyse du cacractère I.M.P.",
+	L"Analyse du cacractère IMP",
 	L"L'analyse de votre personnage est la prochaine étape. À la première page on vous montrera une liste d'attitudes à choisir. Nous imaginons bien que vous pourriez vous identifier à plusieurs d'entre elles, mais vous ne pourrez en choisir qu'une seule. Choisissez celle qui vous correspond le plus. ",
 	L"La deuxième page montre des handicaps que vous pourriez avoir. Si vous souffrez de n'importe lequel de ces handicaps, choisissez le (un seul choix est possible). Soyez honnête, pensez que c'est un entretien d'embauche et qu'il est toujours important de faire connaitre votre vraie personnalité.",
 };
@@ -6578,7 +6578,7 @@ STR16 gzIMPAttitudesText[]=
 	L"Gros tireur",
 	L"Trou du cul",
 	L"Lâche",
-	L"Attitudes I.M.P.",
+	L"Attitudes IMP",
 };
 
 STR16 gzIMPCharacterTraitText[]=
@@ -6596,23 +6596,23 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Pacifiste",
 	L"Malicieux",
 	L"Frimeur",
-	L"Traits de caractère I.M.P.",
+	L"Traits de caractère IMP",
 };
 
 STR16 gzIMPColorChoosingText[] = 
 {
-	L"Teinte et musculature I.M.P.",
-	L"Couleurs I.M.P.",
+	L"Teint et musculature IMP",
+	L"Couleurs IMP",
 	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos vêtements. Ainsi que votre physionomie (traits physiques). ",
 	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos vêtements.",
-	L"Cocher içi pour utiliser une prise en main alternative du fusil.",
-	L"\n(Attention: vous devez avoir une grande force pour utiliser cela.)",
+	L"Cocher ici pour utiliser une prise en main alternative du fusil.",
+	L"\n(Attention : vous devez avoir une grande force pour l'utiliser.)",
 };
 
 STR16 sColorChoiceExplanationTexts[]=
 {
 	L"Cheveux",
-	L"Teinte",
+	L"Teint",
 	L"T-shirt",
 	L"Pantalon",
 	L"Corps normal",
@@ -6629,7 +6629,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Peur des insectes",
 	L"Distrait",
 	L"Psychotique",
-	L"Handicaps I.M.P.",
+	L"Handicaps IMP",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
@@ -6695,12 +6695,12 @@ STR16 gzFacilityRiskResultStrings[]=
 STR16 gzFacilityAssignmentStrings[]=
 {
 	L"AMBIENT",
-	L"Equipe",
-	L"Eat",// TODO.Translate
+	L"Équipe",
+	L"Manger",// TODO.Translate
 	L"Reste",
 	L"Réparer les objets",
 	L"Réparer %s", // Vehicle name inserted here
-	L"Réparer le Robot",
+	L"Réparer le robot",
 	// 6-10
 	L"Docteur",
 	L"Patient",
@@ -6715,16 +6715,16 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Apprendre Commandement",
 	L"Apprendre Explosif",
 	// 16-20
-	L"Elève Force",
-	L"Elève Dextérité",
-	L"Elève Agilité",
-	L"Elève Santé",
-	L"Elève Tir",
+	L"Élève Force",
+	L"Élève Dextérité",
+	L"Élève Agilité",
+	L"Élève Santé",
+	L"Élève Tir",
 	// 21-25
-	L"Elève Médecin",
-	L"Elève Mécanique",
-	L"Elève Commandement",
-	L"Elève Explosif",
+	L"Élève Médecin",
+	L"Élève Mécanique",
+	L"Élève Commandement",
+	L"Élève Explosif",
 	L"Entraineur Force",
 	// 26-30
 	L"Entraineur Dextérité",
@@ -6754,14 +6754,14 @@ STR16 Additional113Text[]=
 // SANDRO - Taunts (here for now, xml for future, I hope)
 STR16 sEnemyTauntsFireGun[]=
 {
-	L"Suce moi ça !",
-	L"Prends toi ça !",
+	L"Suce-moi ça !",
+	L"Prends-toi ça !",
 	L"Viens par là !",
 	L"T'es à moi !",
 	L"Meurs !",
 	L"T'as peur enfoiré ?",
 	L"Ca va faire mal !",
-	L"Viens la batard !",
+	L"Viens la bâtard !",
 	L"Allez viens ! J'ai pas toute la vie !",
 	L"Vas voir ta mère !",
 	L"Je vais t'envoyer sous terre dans peu de temps !",
@@ -6783,20 +6783,20 @@ STR16 sEnemyTauntsFireLauncher[]=
 STR16 sEnemyTauntsThrow[]=
 {
 	L"Attrape !",
-	L"Et c'est partit !",
-	L"Prend toi çà !",
-	L"Et un pour toi",
-	L"Mouhahaha.",
-	L"Attrape ça sale porc!",
-	L"Sa va faire mal !.",
+	L"Et c'est parti !",
+	L"Prends-toi ça !",
+	L"Et un pour toi !",
+	L"Mouhahaha !",
+	L"Attrape ça sale porc !",
+	L"Ça va faire mal !",
 };
 
 STR16 sEnemyTauntsChargeKnife[]=
 {
-	L"J'vais découper ton crâne.",
-	L"Viens voir papa.",
-	L"Montre moi tes couilles !",
-	L"Je vais te découper en pièces !",
+	L"J'vais te trépané !",
+	L"Viens voir papa !",
+	L"Montre-moi tes couilles !",
+	L"Je vais te découper en rondelles !",
 	L"Hannibal Lecter, ppfft tu me connais pas !",
 };
 
@@ -6804,7 +6804,7 @@ STR16 sEnemyTauntsRunAway[]=
 {
 	L"On est vraiment dans un grosse merde...",
 	L"Ils disent de rejoindre l'armée. Mais pas pour cette merde !",
-	L"J'en ai assez.",
+	L"J'en ai plein le cul :",
 	L"Oh my God.",
 	L"On n'est pas assez payé pour ça !",
 	L"C'est vraiment trop pour moi.",
@@ -6817,7 +6817,7 @@ STR16 sEnemyTauntsSeekNoise[]=
 	L"T'as entendu !",
 	L"Qui est là ?",
 	L"Qu'est ce que s'est ?",
-	L"Hey ! What the...",
+	L"Eh ! C'est quoi ce bordel ?",
 
 };
 
@@ -6832,12 +6832,12 @@ STR16 sEnemyTauntsAlert[]=
 STR16 sEnemyTauntsGotHit[]=
 {
 	L"Ouch !",
-	L"Ugh !",
-	L"Ca... ça fait mal !",
-	L"You fuck !",
-	L"Tu vas le regret.. uhh.. ter ça.",
-	L"What the..!",
-	L"Maintenant vous... m'avez énervé !",
+	L"Pouah !",
+	L"Ça... ça fait mal !",
+	L"Enfoiré !",
+	L"Tu vas regret.. uhh.. ter ça.",
+	L"C'est quoi ce bordel ?",
+	L"Maintenant vous... m'avez énervé(e) !",
 
 };
 
@@ -6876,7 +6876,7 @@ STR16 gzItemDescGenHeaders[] =
 	L"Primaire",
 	L"Secondaire",
 	L"Coût PA",
-	L"Rafale / Auto",
+	L"Rafale/Auto",
 };
 
 STR16 gzItemDescGenIndexes[] =
@@ -6947,7 +6947,7 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 {
-	L"\n \nDétermine si des balles tirées par cette arme dévieront\nloin de l'impact d'origine.\n \nEchelle: 0-100.\nValeur élevée recommandée.",
+	L"\n \nDétermine si des balles tirées par cette arme dévieront\nloin de l'impact d'origine.\n \nÉchelle : 0-100.\nValeur élevée recommandée.",
 	L"\n \nDétermine la quantité moyenne de dégâts faits par\ndes balles tirées de cette arme, avant\n de tenir compte de l'armure et de la pénétration d'armure.\n \nValeur élevée recommandée.",
 	L"\n \nDistance maximale (en cases) que vont parcourir les balles\ntirées par cette arme avant de redescendre vers le sol.\n \nValeur élevée recommandée.",
 	L"\n \nDetermines the difficulty of holding and firing\nthis gun.\n \nHigher Handling Difficulty results in lower\nchance-to-hit - when aimed and especially when\nunaimed.\n \nLower is better.",	// TODO.Translate
@@ -7039,26 +7039,26 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \nLa quantité de dégâts non mortels (étourdissant) causés\npar cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent des\ndégâts seulement une fois (quand ils explosent), tandis\nque les explosifs à effets prolongés livrent cette\nquantité de dégâts d'étourdissement à chaque tour jusqu'à\nce que l'effet se dissipe.\n \nValeur élevée recommandée.",
 	L"\n \nThis explosive will not bounce around -\nit will explode as soon as it hits any obstacle.",	// HEADROCK HAM 5	// TODO.Translate
 	L"\n \nRayon de l'explosion causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
-	L"\n \nRayon de l'etourdissement causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de l'onde de choc causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nDistance du parcours du bruit causé par ce piège.\n Les ennemis placés en deçà de cette distance entendront\n votre piège et sonneront l'alerte.\n \nValeur faible recommandée.",
-	L"\n \nRayon de départ libéré par la lacrymogène.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
-	L"\n \nRayon de départ libéré par le gaz moutarde.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
-	L"\n \nRayon de départ émis par le flash lumineux.\n \nLes cases autours du centre de l'effet deviendront très\nlumineuses, quand celles autours ne seront que\nlégèrement plus lumineuse que la normale.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nA noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
-	L"\n \nRayon de départ libéré par la fumée.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz. plus important,\nquiconque se trouvant à l'intérieur de la fumée aura des difficultés à se repérer,\net perdra aussi sa visibilité.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
-	L"\n \nRayon de départ causés par les flammes.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
-	L"\n \nRayon de fin libéré par la lacrymogène avant\nqu'il ne se dissipe.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également le début du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
-	L"\n \nRayon de fin libéré par le gaz moutarde avant\nqu'il ne se dissipe.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également le début du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
-	L"\n \nRayon de fin émis par le flash lumineux.\n \nLes cases autours du centre de l'effet deviendront très\nlumineuses, quand celles autours ne seront que\nlégèrement plus lumineuse que la normale.\n \nA noter également la fin du rayon et la durée de\nl'effet.\n \nA noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
-	L"\n \nRayon de fin libéré par la fumée.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz. plus important,\nquiconque se trouvant à l'intérieur de la fumée aura des difficultés à se repérer,\net perdra aussi sa visibilité.\n \nA noter également la fin du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
-	L"\n \nRayon de départ causés par les flammes.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour.\n \nA noter également la fin du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
-	L"\n \nDurée des effets de l'explosion.\n \nChaque tour, le rayon s'aggrandit d'un case dans\n toutes les directions, avant d'atteindre\nla vlauer de fin de rayon indiquée.\n \nQuand la durée a été atteinte, les effets se\ndissipent complètement.\n \nA noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ libéré par la lacrymogène.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nÀ noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ libéré par le gaz moutarde.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nÀ noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ émis par le flash lumineux.\n \nLes cases autours du centre de l'effet deviendront très\nlumineuses, quand celles autours ne seront que\nlégèrement plus lumineuse que la normale.\n \nÀ noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nÀ noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ libéré par la fumée.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz. plus important,\nquiconque se trouvant à l'intérieur de la fumée aura des difficultés à se repérer,\net perdra aussi sa visibilité.\n \nÀ noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ causés par les flammes.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour.\n \nÀ noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin libéré par la lacrymogène avant\nqu'il ne se dissipe.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nÀ noter également le début du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin libéré par le gaz moutarde avant\nqu'il ne se dissipe.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nÀ noter également le début du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin émis par le flash lumineux.\n \nLes cases autours du centre de l'effet deviendront très\nlumineuses, quand celles autours ne seront que\nlégèrement plus lumineuse que la normale.\n \nÀ noter également la fin du rayon et la durée de\nl'effet.\n \nÀ noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin libéré par la fumée.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz. plus important,\nquiconque se trouvant à l'intérieur de la fumée aura des difficultés à se repérer,\net perdra aussi sa visibilité.\n \nÀ noter également la fin du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ causés par les flammes.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour.\n \nÀ noter également la fin du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nDurée des effets de l'explosion.\n \nChaque tour, le rayon s'aggrandit d'un case dans\n toutes les directions, avant d'atteindre\nla vlauer de fin de rayon indiquée.\n \nQuand la durée a été atteinte, les effets se\ndissipent complètement.\n \nÀ noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
 	// HEADROCK HAM 5: Fragmentation		// TODO.Translate
 	L"\n \nThis is the number of fragments that will\nbe ejected from the explosion.\n \nFragments are similar to bullets, and may hit\nanyone who's close enough to the explosion.\n \nHigher is better.",
 	L"\n \nThe potential amount of damage caused by each\nfragment ejected from the explosion.\n \nHigher is better.",
 	L"\n \nThis is the average range to which fragments\nfrom this explosion will fly.\n \nSome fragments may end up further away, or fail\nto cover the distance altogether.\n \nHigher is better.",
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nDistance (en cases) en deçà de laquelle chaque\nsoldats et mercs peuvent entendre l'explosion.\n \nLes ennemis qui entendent cette explosion peuvent alerter de\nvotre présence.\n \nValeur faible recommandée.",
-	L"\n \nCette valeur représente la chance (sur 100) que cette\nexplosif explose spontanément chaque fois qu'il est endommagé\n(Par exemple, quand il y a d'autres explosions à proximité).\n \nTransporter des explosifs hautement volatiles en combat\nest donc extrêmement risqué et devrait être évitée.\n \nEchelle: 0-100.\nValeur faible recommandée.",
+	L"\n \nCette valeur représente la chance (sur 100) que cette\nexplosif explose spontanément chaque fois qu'il est endommagé\n(Par exemple, quand il y a d'autres explosions à proximité).\n \nTransporter des explosifs hautement volatiles en combat\nest donc extrêmement risqué et devrait être évitée.\n \nÉchelle : 0-100.\nValeur faible recommandée.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
@@ -7121,7 +7121,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nQuand équipé sur le visage, cet objet donne la capacité de\nrepérer les ennemis à travers les murs, grâce à leur\nsignature thermique.",
 	L"\n \nCe merveilleux dispositif peut être utilisé pour repérer\nles ennemis en utilisant les rayons X.\n \nCela révelera tous les ennemis à une certaine distance\npour une courte période de temps.\n \nGardez cela loin de vos organes reproductifs !",
 	L"\n \nCet objet contient de l'eau potable bien fraiche.\nA utillisé lorsque vous êtes assoiffé.",
-	L"\n \nCet objet contient du digestif, gnôle, eau-de-vie, liqueur,\nqu'importe comment vous appelez cela.\n \nA utlisez avec modération. Boire ou conduire !\nPeut causer une cirrhose du foie.",
+	L"\n \nCet objet contient du digestif, gnôle, eau-de-vie, liqueur,\nqu'importe comment vous appelez cela.\n \nA utlisé avec modération. Boire ou conduire !\nPeut causer une cirrhose du foie.",
 	L"\n \nIl s'agit d'un kit médical basic, contenant les ustensibles\nrequis pour faire une intervention médicale basic.\n \nIl peut être utilisé pour soigner un mercenaire blessé et\nempêcher le saignement.\n \nPour une guérison optimale, utlisez une véritable trousse\nde soins et/ou beaucoup de repos.",
 	L"\n \nIl s'agit d'un kit médicale complet, qui peut être utilisé\npour une opération chirurgicale ou autre cas sérieux.\n \nUne trousse de soins est toujours nécessaire lorsque vous\nêtes en mission de Docteur.",
 	L"\n \nCet objet peut être utilisé pour faire sauter les portes\nou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour éviter\nune explosion prématurée.\n \nExploser les serrures est relativement facile et rapide\nà faire. Cependant, c'est très bruyant et dangereux pour\nla plupart des mercernaires.",
@@ -7198,10 +7198,10 @@ STR16 szUDBAdvStatsTooltipText[]=
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
-	L"\n \nLorsque attaché à une arme de distance, cet objet modifie la\nvaleur de sa précision.\n \nLe gain en précision permet à l'arme de pouvoir toucher une\ncible à des distances plus élevées plus souvent\n \nEchelle : -100 to +100.\nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la précision du tireur pour un tir avec\nune arme à distance de la valeur suivante.\n \nEchelle: -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nLorsque attaché à une arme de distance, cet objet modifie la\nvaleur de sa précision.\n \nLe gain en précision permet à l'arme de pouvoir toucher une\ncible à des distances plus élevées plus souvent\n \nÉchelle : -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la précision du tireur pour un tir avec\nune arme à distance de la valeur suivante.\n \nÉchelle : -100 to +100.\nValeur élevée recommandée.",
 	L"\n \nCet objet modifie la précision du tireur pour un tir avec\nune arme à distance avec un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie le gain de précision pris à chaque\nniveau de visée, de la valeur suivante.\n \nEchelle : -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCet objet modifie le gain de précision pris à chaque\nniveau de visée, de la valeur suivante.\n \nÉchelle : -100 to +100.\nValeur élevée recommandée.",
 	L"\n \nCet objet modifie le gain de précision pris à chaque\nniveau de visée, d'un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
 	L"\n \nCet objet modifie le nombre de niveau de visée que cette arme\npeut avoir.\n \nRéduire le nombre de niveau de visée signifie que chaque\nniveau ajoute proportionnellement plus de précision au tir.\nPar conséquent, même les bas niveaux de visée vous\npermetterons de garder une bonne précision avec une vitesse\npour viser élevée !\n \nValeur faible recommandée.",
 	L"\n \nCet objet modifie la précision maximale du tireur équipé d'une\narme à distance, avec un pourcentage basé sur sa précision\ninitiale.\n \nValeur élevée recommandée.",
@@ -7260,10 +7260,10 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 {
-	L"\n \nLa précision de cette arme a été modifié\npar une munition, un accessoire ou un attribut inhérent à l'arme.\n \nAugmenter la précision permet de toucher une cible\nà longue distance plus souvent.\n \nEchelle: -100 to +100.\nValeur élevée recommandée.",
-	L"\n \nCette arme modifie la précision du tireur\n,de n'importe quel mode de tir, de la valeur suivante.\n \nEchelle: -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nLa précision de cette arme a été modifié\npar une munition, un accessoire ou un attribut inhérent à l'arme.\n \nAugmenter la précision permet de toucher une cible\nà longue distance plus souvent.\n \nÉchelle : -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCette arme modifie la précision du tireur\n,de n'importe quel mode de tir, de la valeur suivante.\n \nÉchelle : -100 to +100.\nValeur élevée recommandée.",
 	L"\n \nCette arme modifie la précision du tireur\n,de n'importe quel mode de tir, du pourcentage suivant.\nPourcentage basé sur la précision initiale du tireur.\n \nValeur élevée recommandée.",
-	L"\n \nCette arme modifie la quantité de précision gagnée\nà chaque niveau de visée de la valeur suivante.\n \nEchelle: -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCette arme modifie la quantité de précision gagnée\nà chaque niveau de visée de la valeur suivante.\n \nÉchelle : -100 to +100.\nValeur élevée recommandée.",
 	L"\n \nCette arme modifie la quantité de précision gagnée\nà chaque niveau de visée du pourcentage suivant.\nPourcentage basé sur la précision initiale du tireur.\n \nValeur élevée recommandée.",
 	L"\n \nLe nombre de niveaux de visée supplémentaires permis par\ncette arme a été modifié par une munition, un accessoire\n, ou bien intégré dans les attributs.\nSi le nombre de niveau de visée a baissé, c'est que l'arme est\nplus rapide à viser sans perdre en précision.\n \nInversement, si le nombre de visée a augmenté,l'arme sera\nplus lente à viser sans perdre en précision.\n \nValeur faible recommandée.",
 	L"\n \nCette arme modifie la précision maximum du tireur\nbasé sur un pourcentage de la précision initiale maximale.\n \nValeur élevée recommandée.",

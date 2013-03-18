@@ -58,7 +58,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Manager",
 	L"Technicien",
 	L"Médecin",
-	L"Covert Ops",	// TODO.Translate
+	L"Espionnage",
 
 	L"Personne",
 	L"Traits pincipaux IMP",
@@ -72,7 +72,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Commandant",
 	L"Ingénieur",
 	L"Chirurgien",
-	L"Spy",	// TODO.Translate
+	L"Espion",
 };
 
 //added another set of skill texts for new minor traits
