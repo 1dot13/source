@@ -131,6 +131,30 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
   </MERC>
   <MERC>
 	<uiIndex>7</uiIndex>
+	<Name>Rev</Name>
+	<Drunk>0</Drunk>
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<MercBioID>22</MercBioID>
+	<ProfilId>247</ProfilId>
+	<usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>8</uiIndex>
+	<Name>Elroy</Name>
+	<Drunk>0</Drunk>
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<MercBioID>24</MercBioID>
+	<ProfilId>244</ProfilId>
+	<usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>9</uiIndex>
 	<Name>Postie</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -142,7 +166,19 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>2</usDay>
   </MERC>
   <MERC>
-	<uiIndex>8</uiIndex>
+	<uiIndex>10</uiIndex>
+	<Name>Ears</Name>
+	<Drunk>0</Drunk>
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<MercBioID>23</MercBioID>
+	<ProfilId>249</ProfilId>
+	<usMoneyPaid>400</usMoneyPaid>
+	<usDay>5</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>11</uiIndex>
 	<Name>Leon</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -154,7 +190,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>10</usDay>
   </MERC>
   <MERC>
-	<uiIndex>9</uiIndex>
+	<uiIndex>12</uiIndex>
 	<Name>Sparky</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -166,7 +202,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>2</usDay>
   </MERC>
   <MERC>
-	<uiIndex>10</uiIndex>
+	<uiIndex>13</uiIndex>
 	<Name>Beth</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -178,7 +214,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>2</usDay>
   </MERC>
   <MERC>
-	<uiIndex>11</uiIndex>
+	<uiIndex>14</uiIndex>
 	<Name>Sam</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -190,7 +226,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>10</usDay>
   </MERC>
   <MERC>
-	<uiIndex>12</uiIndex>
+	<uiIndex>15</uiIndex>
 	<Name>Bubba</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -202,7 +238,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>8</usDay>
   </MERC>
   <MERC>
-	<uiIndex>13</uiIndex>
+	<uiIndex>16</uiIndex>
 	<Name>Larry</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -214,7 +250,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>15</usDay>
   </MERC>
   <MERC>
-	<uiIndex>14</uiIndex>
+	<uiIndex>17</uiIndex>
 	<Name>Larry</Name>
 	<Drunk>1</Drunk>
 	<uiAlternateIndex>7</uiAlternateIndex>
@@ -226,7 +262,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>0</usDay>
   </MERC>
   <MERC>
-	<uiIndex>15</uiIndex>
+	<uiIndex>18</uiIndex>
 	<Name>Numb</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -238,7 +274,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>20</usDay>
   </MERC>
   <MERC>
-	<uiIndex>16</uiIndex>
+	<uiIndex>19</uiIndex>
 	<Name>Tex</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -250,7 +286,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>21</usDay>
   </MERC>
   <MERC>
-	<uiIndex>17</uiIndex>
+	<uiIndex>20</uiIndex>
 	<Name>Biggins</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -262,7 +298,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>23</usDay>
   </MERC>
   <MERC>
-	<uiIndex>18</uiIndex>
+	<uiIndex>21</uiIndex>
 	<Name>Cougar</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -274,7 +310,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>25</usDay>
   </MERC>
   <MERC>
-	<uiIndex>19</uiIndex>
+	<uiIndex>22</uiIndex>
 	<Name>Gaston</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -286,7 +322,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	<usDay>30</usDay>
   </MERC>
   <MERC>
-	<uiIndex>20</uiIndex>
+	<uiIndex>23</uiIndex>
 	<Name>Stogie</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
@@ -299,7 +335,7 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
   </MERC>
   <!-- Spooky is an optional merc and not enabled in default 1.13. If you want to enable him, just remove the comment
   <MERC>
-	<uiIndex>21</uiIndex>
+	<uiIndex>24</uiIndex>
 	<Name>Spooky</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
