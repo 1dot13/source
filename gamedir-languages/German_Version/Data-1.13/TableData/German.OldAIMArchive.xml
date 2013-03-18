@@ -1,112 +1,35 @@
-﻿<OLD_MERC>
-	<MERC>
-		<!-- Needle -->
-		<uiIndex>0</uiIndex>
-		<NickName>Needle</NickName>
-		<Name>Doktor Mark Kranhuim</Name>
-		<Bio>Nach über einem Jahrzehnt heldenhaften Dienstes fiel Needles bei seinem jährlichen Check-up durch und war gezwungen, seinen vorzeitigen Abschied zu nehmen. Die Muskelschwäche an seinem rechten Auge hatte sich so weit verschlimmert, daß er eine potentielle Gefahr für seinen Trupp in einer Schlachtsituation darstellte. Zur Zeit arbeitet er als Leichenbeschauer  in der Nachtschicht beim New Yorker Leichenbeschauamt.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Gary -->
-		<uiIndex>1</uiIndex>
-		<NickName>Gary</NickName>
-		<Name>Gary Roachburn</Name>
-		<Bio>Gary Roachburn, berühmt für seinen Stammbaum und seine lose Zunge, war der zweite Sproß der Familie Roachburn, der sich von der Organisation verabschiedete. Nach dem plötzlichen Unfalltod seines Vaters, Oberst Leon Roachburn, ließ Gary das Leben eines Söldners hinter sich und übernahm eine Saisonarbeit bei den amerikanischen Pfadfindern. Im Moment ist er im Camp Takaddata stationiert.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Sam -->
-		<uiIndex>2</uiIndex>
-		<NickName>Sam</NickName>
-		<Name>Samuel "Sam" Garver</Name>
-		<Bio>Nach einer bewegten Söldnerkarriere reichte Sam Garver seinen Pensionsantrag ein und genießt nunmehr seinen Ruhestand in Florida Keys. Er verbringt seine Zeit als Besitzer/Betreiber von Sams Alligator-Ranch und Geschenkshop. Direkt an der Highway 71 gelegen und somit bequem erreichbar hat sich der Shop für seine exklusiven Kampfmesser mit alligatorlederbezogenem Griff einen Namen gemacht.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Boss -->
-		<uiIndex>3</uiIndex>
-		<NickName>Boss</NickName>
-		<Name>Glen "Boss" Hatchet</Name>
-		<Bio>Boss Hatchet pflegte immer zu sagen, daß er dieses Geschäft eines Tages auf seinen eigenen zwei Beinen verlassen würde, und genau das tat er auch. Als sich ihm die Gelegenheit bot, das Oldtimer-Restaurations- und Reparatur- Geschäft von Victoria Waters zu managen, tauschte er seine Waffe gegen  einen Werkzeugkasten ein. Am lebhaftesten werden sich die meisten aber an ihn erinnern wegen der Abreibung, die er Dr. Bernie Gloveless beim letztjährigen A.I.M.-Weihnachtsfeier verpaßte.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Smoke -->
-		<uiIndex>4</uiIndex>
-		<NickName>Smoke</NickName>
-		<Name>Smoke Peterson</Name>
-		<Bio>Im Laufe der vielen Jahre nicht gerade zuverlässigen Dienstes bei A.I.M. wurde Smoke Peterson wiederholt abgemahnt wegen Sprengladungen mit zu kurzer Zündschnur - eben pubertäre Versuche, für billige Lacher zu sorgen. So bewahrheitete sich dann zur Genugtuung vieler Mitglieder der Spruch: Wer zuletzt lacht, lacht am besten, als Peterson - abgelenkt von einem Steinchen in seinem Kampfstiefel - sich mit einem lauten Knall, einer großen  Rauchwolke und einer Riesensauerei von dieser Welt verabschiedete.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Jimmy -->
-		<uiIndex>5</uiIndex>
-		<NickName>Jimmy</NickName>
-		<Name>Jimmy Upton</Name>
-		<Bio>Leider ist es manchmal schwer, alte Gewohnheiten loszuwerden. Jimmy Upton wurde in einer Bank in Südwest-Detroit nach der Geschäftszeit erwischt. Trotz seiner vehementen Beteuerungen und angeblicher Ahnungslosigkeit ob der Herkunft der in seinem Besitz befindlichen Einbruchwerkzeuge wurde er zu einer fünfjährigen Gefängnisstrafe verurteilt. Sobald Upton diese Strafe abgesessen hat, wird er nach Ohio zurückgebracht, wo ihn noch eine Reststrafe von sieben Jahren für einen früheren Einbruch erwartet.</Bio>
-	</MERC>
+﻿<OLD_MERC>		
 	<MERC>
 		<!-- Doc -->
-		<uiIndex>6</uiIndex>
+		<uiIndex>0</uiIndex>
 		<NickName>Doc</NickName>
 		<Name>Doc Koolhan</Name>
 		<Bio>Doc Koolhan quittierte den Dienst bei A.I.M., um seine Energien ganz der medizinischen Tätigkeit zu widmen. Bereits seit Jahren hatte er nebenher eine freie Klinik in Tripolis geleitet. Nach einer sechsmonatigen Vollzeitbeschäftigung verließ er jedoch die Klinik und schloß sich den Ärzten ohne Grenzen an. Derzeit wird er im Dienste der Organisation in Tunesien vermutet.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Wink -->
-		<uiIndex>7</uiIndex>
+		<uiIndex>1</uiIndex>
 		<NickName>Wink</NickName>
 		<Name>Wink Dickerson</Name>
 		<Bio>Hauptsächlich bekannt für seinen starken Wurfarm, aber eher schlechte Treffsicherheit, erhielt Wink Dickerson endlich die Chance, auf die er sein ganzes Leben lang gewartet hatte. Wegen empfindlicher Budgetkürzungen war der Baseballclub Montreal Expos gezwungen, fast überall für einen mehr oder minder talentierten Werfer zu suchen. Nach Unterzeichnung eines Vertrages für 140 kanadische Dollar pro Woche wird Wink in der kommenden Saison als fünfter Werfer aufgestellt.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Beth -->
-		<uiIndex>8</uiIndex>
-		<NickName>Beth</NickName>
-		<Name>Mary Beth Wilkens</Name>
-		<Bio>Leider haben wir über einen höchst tragischen Vorfall zu berichten. Mary Beth verstarb letzten August auf der Treppe zu ihrer Wohnung in den Händen eines bewaffneten Geisteskranken. Nach monatelangen Belästigungen und Nachstellungen wurde sie von einem verwirrten Söldnerfanatiker auf dem Heimweg vom Einkaufen überfallen. Mary Beths Zielstrebigkeit und positive Ausstrahlung wird uns allen ein Beispiel bleiben.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Bud -->
-		<uiIndex>9</uiIndex>
-		<NickName>Bud</NickName>
-		<Name>Lt. Bud Hellar</Name>
-		<Bio>Nach seinem Abschied von A.I.M. hat Leutnant Bud Hellar verschiedene Jobs innegehabt, u.a. als persönlicher Bodyguard von Mike Tyson oder  Parkplatzwächter im Pentagon. Er verließ die Organisation in gutem Einvernehmen und wird wegen seiner unerschütterlichen Motivation und Loyalität in Erinnerung bleiben. Letzten Berichten zufolge arbeitet er nun als Sicherheitsberater in der Tabakindustrie. Obwohl das durchaus zu ihm passen würde, wurde diese Information bisher nicht bestätigt.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Larry -->
-		<uiIndex>10</uiIndex>
+		<uiIndex>2</uiIndex>
 		<NickName>Larry</NickName>
 		<Name>Larry Roachburn</Name>
 		<Bio>Nach acht Aufenthalten in Entziehungskliniken ohne bleibenden Erfolg blieb A.I.M. keine andere Wahl, als Larry Roachburns Mitgliedschaft bei der  Organisation zu kündigen. Wie wir erfahren haben, hat der Tod von Larrys Vater ihn veranlaßt, noch einen Versuch zu unternehmen, um sich von den Teufeln seiner Sucht zu befreien und seinen Körper von der jahrzehntelangen Vergiftung zu reinigen. Die Organisation wünscht ihm für die Zukunft alles Gute und viel Glück.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Ears -->
-		<uiIndex>11</uiIndex>
+		<uiIndex>3</uiIndex>
 		<NickName>Ears</NickName>
 		<Name>Edward "Ears" Stockwell</Name>
 		<Bio>Ears Stockwell reichte seinen Abschied vor fast achtzehn Monaten ein. Seitdem haben wir nichts von ihm gehört und haben daher keine Neuigkeiten über ihn zu berichten. Um ehrlich zu sein, haben wir uns auch nicht sonderlich angestrengt, um Kontakt zu ihm aufzunehmen.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Moses -->
-		<uiIndex>12</uiIndex>
-		<NickName>Moses</NickName>
-		<Name>Murray "Moses" Ebstern</Name>
-		<Bio>Als sich ihm die Gelegenheit bot, die Vorruhestandsregelung von A.I.M., die alle Söldner über fünfzig betrifft, in Anspruch zu nehmen, beschloß  Moses, daß es an der Zeit war, weiterzuziehen und etwas Neues anzufangen. Ebstern investierte sein Trennungsgeld in ein eigenes Restaurant, und nach nur zwei Jahren seit der Eröffnung hat Murray's bereits den Ruf erworben, das beste Rauchfleisch in ganz New Delhi zu servieren.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Screw -->
-		<uiIndex>13</uiIndex>
-		<NickName>Screw</NickName>
-		<Name>Patrick "Screw" Phillips</Name>
-		<Bio>Wir bedauern, mitteilen zu müssen, daß Patrick Philipps die Reihen von A.I.M. verlassen hat. Aufgrund mehrerer Differenzen, meistens verursacht durch seine Überschreitungen der üblichen sozialen Normen, fand es Screw das Beste, seine Karriere als Selbständiger fortzusetzen. Das letzte Mal, als wir von ihm hörten, war er auf Freelance-Basis für einige der neuen Länder in Osteuropa tätig.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Rusty -->
-		<uiIndex>14</uiIndex>
-		<NickName>Rusty</NickName>
-		<Name>Russell "Rusty" Hunter</Name>
-		<Bio>Seit Jahren bekannt als einer der besten Sprengstoffspezialisten von A.I.M. errang Rusty einen legendären Ruf für seine herausragenden Kenntnisse und seine Vernunft. Vor kurzem nahm Russel Hunter einen längeren Urlaub, um in einem namhaften Filmstudio als Berater für Spezialeffekte zu arbeiten. Erfreulicherweise haben sich im vergangenen Jahr viele neue Talente auf dem Sprengstoffgebiet bei A.I.M. hervorgetan.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Bernie -->
-		<uiIndex>15</uiIndex>
+		<uiIndex>4</uiIndex>
 		<NickName>Bernie</NickName>
 		<Name>Doktor Bernie Gloveless</Name>
 		<Bio>Bernies Laufbahn bei A.I.M. kann am besten als wechselvoll beschrieben werden. Nach seiner Weigerung, seine Position als Organisationsarzt  aufzugeben und nach einer Vielzahl von Beschwerden von anderen Mitgliedern sah sich A.I.M. zur unehrenvollen Entlassung von Dr. Bernie Gloveless gezwungen. Er ist z.Zt. bei einem internationalen Versicherungsunternehmen tätig. Also merken Sie sich besser seinen Namen für den Fall, daß  Ihre Firma Sie zum nächsten jährlichen Gesundheits-Check schickt...</Bio>
@@ -120,98 +43,63 @@
 	</MERC>
 	<MERC>
 		<!-- Pops -->
-		<uiIndex>17</uiIndex>
+		<uiIndex>5</uiIndex>
 		<NickName>Pops</NickName>
 		<Name>Pops McGillicutty</Name>
 		<Bio>Nachdem wir jahrelang versucht hatten, Pops McGillicutty dazu zu überreden, in Ruhestand zu gehen, sah sich A.I.M. schließlich gezwungen, eine verbindliche Ruhestandsklausel für alle Mitglieder einzuführen, die das 85. Lebensjahr erreichen. Pops wollte seinen Teil zur Eliminierung von  Flußbegräbnissen beitragen und richtete einen Web-gestützten Begräbnissalon ein, spezialisiert auf die respektvolle Beisetzung von Söldnern.</Bio>
 	</MERC>
 	<MERC>
-		<!-- Kelly -->
-		<uiIndex>18</uiIndex>
-		<NickName>Kelly</NickName>
-		<Name>Col. Leo Kelly</Name>
-		<Bio>Oberst Leo Kelly, oft als "Obersöldner" bezeichnet, verschwand kurz nachdem der Bosnienkrieg eskalierte. Einige unserer Mitglieder behaupten zwar, ihn im Dschungel von Napir im Kommando einer Spezialeinheit gesehen zu haben, und im Abspann von Steven Segals letztem Streifen wurde er als technischer Berater für die Schlachtsequenzen genannt, aber offiziell haben wir keine Kenntnis über seinen Aufenthaltsort.</Bio>
-	</MERC>
-	<MERC>
 		<!-- Tex -->
-		<uiIndex>19</uiIndex>
+		<uiIndex>6</uiIndex>
 		<NickName>Tex</NickName>
 		<Name>Tex R. Colburn</Name>
 		<Bio>Einer unserer schillerndsten Krieger, Tex Colburn, gab seine sechsschüssigen Revolver auf, um sich seinen Traum zu erfüllen: Filmschauspieler zu werden. Als aufgehender Stern im japanischen Western spielte er die Hauptrolle in "Viel Staub, noch mehr Kugeln" und erhielt glänzende Kritiken für seine Rollen in den Klassikern "Angriff der Zwergponies" und "Ewig rollen die Räder".</Bio>
 	</MERC>
 	<MERC>
 		<!-- Hurl -->
-		<uiIndex>20</uiIndex>
+		<uiIndex>7</uiIndex>
 		<NickName>Hurl</NickName>
 		<Name>Hurl E. Cutter</Name>
 		<Bio>Hurl, ein profitabler Patient für Ärzte überall, wird seit neun Monaten vermißt. Eine gründliche Untersuchung der Krankenhausunterlagen und unidentifizierten Leichen im Havanna-Gebiet, seinem letzten bekannten Aufenthaltsort, hat bisher keine Ergebnisse gebracht. Fidel Dahan ist wegen Hurls Verschwinden mehrmals befragt worden, aber die Polizei tappt nach wie vor völlig im Dunkeln.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Biff -->
-		<uiIndex>21</uiIndex>
+		<uiIndex>8</uiIndex>
 		<NickName>Biff</NickName>
 		<Name>Biff Apscott</Name>
 		<Bio>Biff Apscott war wirklich einzigartig unter den Söldnern. Wir werden seine jugendliche Begeisterung sehr vermissen ebenso wie seine Art, jeden an seinen eigenen Mut glauben zu lassen. Obgleich es unglaublich klingt, hat man uns darüber informiert, daß er seine eigene Söldnerorganisation ins Leben gerufen hat, in dem etwas bemitleidenswerten Bestreben, mit A.I.M. zu konkurrieren. Es ist sicherlich unnötig zu erwähnen, wie bestürtzt wir sind.</Bio>
 	</MERC>
 	<MERC>
-		<!-- Spike -->
-		<uiIndex>22</uiIndex>
-		<NickName>Spike</NickName>
-		<Name>Major Spike Scallion</Name>
-		<Bio>Der Abschied Spike Scallions von A.I.M. war ein großer Verlust für die Organisation. Sein sicheres Auftreten und sein klares Kommando in allen Situationen war immer ein Halt für diejenigen, die neben ihn in schwierigen Lagen kämpften. Major Scallion wurde ein lukrativer langfristiger Vertrag als militärischer Berater der Nordkoreaner angeboten, und keine noch so wohlwollenden Verhandlungen unsererseits konnten ihn zum Bleiben bewegen.</Bio>
-	</MERC>
-	<MERC>
 		<!-- Raffi -->
-		<uiIndex>23</uiIndex>
+		<uiIndex>9</uiIndex>
 		<NickName>Raffi</NickName>
 		<Name>Dr. Raffitto "Raffi" Leevon</Name>
 		<Bio>Doktor Leevon, dessen Doktortitel immer heftig diskutiert wurde, verließ die Organisation Anfang des Jahres ohne Kündigungsschreiben. Wie es scheint, hat er seinen Namen geändert und eine neue Karriere begonnen. Dr. Raffiman und seine Franko-funk-Band, Souffle &amp; Sülze, haben die Musikwelt in ihren Bann geschlagen mit dem unverwechselbaren Sound ihrer synthetisierten Löffel und ihrem neuesten Hit "Berliner Bauernbubenblues".</Bio>
 	</MERC>
 	<MERC>
 		<!-- Mike -->
-		<uiIndex>24</uiIndex>
+		<uiIndex>10</uiIndex>
 		<NickName>Mike</NickName>
 		<Name>Mike</Name>
 		<Bio>Inmitten der laufenden Verhandlungen über eine nochmalige Solderhöhung wurden die Gespräche plötzlich von Mike abgebrochen, als er darüber informiert wurde, daß sich mehrere Mitarbeiter bereits über seine überzogenen Honorarforderungen beschwert hatten. Sein derzeitiger Aufenthaltsort ist unbekannt, so wie ungefähr alles andere über ihn auch. Die letzte schriftliche Mitteilung, die wir von ihm erhielten, wurde in dem kleinen Land abgestempelt, dessen Namen wir nicht mehr wissen.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Hector -->
-		<uiIndex>25</uiIndex>
-		<NickName>Hector</NickName>
-		<Name>Hector Alvarez</Name>
-		<Bio>Hector Alvarez wurde in Zaire schwer verwundet, worauf ihm von den Ärzten unbefristete Berufsunfähigkeit attestiert wurde. Mit dem Geld aus seiner Versicherung eröffnete er in seiner Heimatstadt Margarita (Venezuela) ein Hotel mit Halbpension und Meeresblick. Trotz Übernachtungspreisen von mindestens $49,99 ist sein "Eier bis zum Abwinken"-Frühstück besonders bei deutschen Touristen der absolute Hit.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Snake -->
-		<uiIndex>26</uiIndex>
-		<NickName>Snake</NickName>
-		<Name>Johnny "Snake" Edwards</Name>
-		<Bio>Man nennt ihn auch den "Alten Mister Zuverlässig". Er kam überall hinein und wieder heraus, und keiner hat was gemerkt. Leider steht auf seinem Grabstein in Maupaa nichts weiter als "Kriegsopfer". Snake wurde das Opfer unnötiger Diplomatie, weswegen Alan "Spam" Webster vors Kriegsgericht kam. Während der nämlich mit einem der Indianer, die sie umzingelt hatten, friedlich verhandeln wollte, bekam Snake eine Kugel direkt zwischen die Augen verpaßt.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Speck -->
-		<uiIndex>27</uiIndex>
+		<uiIndex>11</uiIndex>
 		<NickName>Speck</NickName>
 		<Name>Speck T. Kline</Name>
 		<Bio>Der Lifestyle eines Söldners paßte nie so recht zu Speck, aber weil er reparieren konnte, was sonst als irreparabel galt, war er eines unserer gefragtesten Mitglieder. Deswegen sind wir auch so überrascht, daß er sich entschlossen hat, mit unserer Organisation zu konkurrieren. A.I.M. wünscht ihm dabei alles Gute - er wird es brauchen.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Weasel -->
-		<uiIndex>28</uiIndex>
+		<uiIndex>12</uiIndex>
 		<NickName>Weasel</NickName>
 		<Name>Willy "Weasel" Augustin</Name>
 		<Bio>Der Winzige Willy, auch bekannt als "Weasel" oder "das Sprachrohr" wurde meist als kostenloses Paar zusätzlicher Ohren engagiert, immer am Puls des Trupps. Irgendwann wurde Augustin dann von der Gerechtigkeit eingeholt. Nachdem er seine Frau wegen Betrugs des Sozialamts verpfiffen hatte, kehrte sie nach der Festsetzung der Kaution nach Hause zurück und blies ihm das Licht aus.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Leech -->
-		<uiIndex>29</uiIndex>
-		<NickName>Leech</NickName>
-		<Name>Timothy "Leech" Jenkins</Name>
-		<Bio>Es war nicht leicht, Leech loszuwerden. Er ist bei seinen Vorgesetzten ständig angeeckt. Seine Sturheit und sein Ungehorsam haben uns keine andere Wahl gelassen, als ihn nur auf Probe anzustellen. Nach fünf Probezeiten wurde er dann gebeten, seine Kündigung einzureichen, aber er hat sich natürlich geweigert. Dann klagte Leech auf Weiterbeschäftigung. Im Moment versuchen wir, uns außergerichtlich auf Entschädigung in unbekannter Höhe zu einigen.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Lance -->
-		<uiIndex>30</uiIndex>
+		<uiIndex>13</uiIndex>
 		<NickName>Lance</NickName>
 		<Name>Lance Fisher</Name>
 		<Bio>Aufgrund ständiger Differenzen mit Victoria Waters wurde Lance gebeten, A.I.M. zu verlassen und statt dessen einen Posten bei der Westpoint Military Academy anzunehmen. Er akzeptierte das Angebot und arbeitet augenblicklich als Dozent für Ethik und Taktischen Rückzug. Darüber hat er auch ein Buch geschrieben: "Wie ich mich ohne Schmerzensschreie in Sicherheit bringe" ist in den Buchhandlungen der meisten militärischen Ausbildungsstätten zu haben.</Bio>
@@ -225,135 +113,79 @@
 	</MERC>
 	<MERC>
 		<!-- Eli -->
-		<uiIndex>32</uiIndex>
+		<uiIndex>14</uiIndex>
 		<NickName>Eli</NickName>
 		<Name>Doktor Eli Summers</Name>
 		<Bio>Doktor Summers war in jeder Hinsicht ein Spieler, der sich bei seinen Vorgesetzten beliebt gemacht hat, weil er gerne zusammen mit Neulingen Aufträge übernahm und seinen Geschäften ganz unaufdringlich nachging. Obwohl die A.I.M. bedauert, daß er die Organisation verlassen hat, sind wir doch froh zu hören, daß der gute Doktor sein Lieblingshobby zum Beruf gemacht hat und an der Seniors Pro Golf Tour teilnimmt, wo Eli bei den Depends Open in Pebble Beach einen respektablen vierten Rang belegte.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Elroy -->
-		<uiIndex>33</uiIndex>
+		<uiIndex>15</uiIndex>
 		<NickName>Elroy</NickName>
 		<Name>Elroy B. Tolken</Name>
 		<Bio>Er ist weg. Wir haben ihn nicht weiter gefragt. Er interessiert uns nicht. Er interessiert überhaupt niemanden.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Skitz -->
-		<uiIndex>34</uiIndex>
+		<uiIndex>16</uiIndex>
 		<NickName>Skitz</NickName>
 		<Name>Bruce "Skitz" Bonner</Name>
 		<Bio>Bruce Bonner ist weg - weit weg! Weil wir inzwischen neue qualifizierte Sprengstoffexperten anheuern konnten, ist uns diese längst überfällige Entscheidung leicht gefallen. Nach rekordverdächtigen acht Probezeiten wurde Skitz von der Organisation ausgeschlossen. Trotz Therapie und 21 Elektroschock-Behandlungen bleibt Skitz im St. Michael Krankenhaus für kriminelle Geistesgestörte.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Wally -->
-		<uiIndex>35</uiIndex>
+		<uiIndex>17</uiIndex>
 		<NickName>Wally</NickName>
 		<Name>Walter "Wally" Yuntz</Name>
 		<Bio>Jemand hat mal gesagt, daß Wally zuerst nur kein Glück hatte und später auch noch Pech dazukam. Nachdem er erfahren mußte, daß er tatsächlich Probleme mit den Augen hat, wollte sich Wally unters Messer legen. Mit der Augenkorrektur hätte seine schlechte Trefferquote für immer der Vergangenheit angehört, aber leider kam es bei dem OP-Laser zu einer Fehlfunktion. Jetzt ist Wally vollkommen blind. Er und sein Hund Chippy sind Dr. Eli Summers Caddies auf der Seniors Pro Golf Tour.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Turtle -->
-		<uiIndex>36</uiIndex>
+		<uiIndex>18</uiIndex>
 		<NickName>Turtle</NickName>
 		<Name>Herman "Turtle" Regents</Name>
 		<Bio>Turtles Abgang läßt sich vielleicht am besten mit einem Ausschnitt aus seinem Kündigungsschreiben beschreiben: "Die Geschwindigkeit des Kampfes war zu viel für mich. Ich mußte nicht auf Streife gehen, sondern auf Streife RENNEN. Ich habe hin- und herüberlegt, sehe aber keine andere Alternative, als meine sofortige Kündigung einzureichen." Das letzte, was wir von Herman gehört haben, war, daß er in Chicago als Polizist auf Probe arbeitet.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Kaboom -->
-		<uiIndex>37</uiIndex>
-		<NickName>Kaboom</NickName>
-		<Name>Marty "Kaboom" Moffat</Name>
-		<Bio>In einem der merkwürdigsten Verfahren, die je gegen unsere Organisation angestrengt wurden, haben Marty Moffats Angehörige eine Klage wegen fahrlässiger Tötung eingereicht. Kaboom ist angeblich aufgrund der Verletzungen, die er sich beim Entschärfen einer Bombe zuzog, gehirntot. Folglich sind ihm gemäß seines gültigen Spenderausweises Organe entnommen worden. Die Angehörigen haben diese Organentnahme angefochten und behaupten, Marty habe nur einen schlechten Tag. Mehr sagen wir dazu nicht.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Rev -->
-		<uiIndex>38</uiIndex>
+		<uiIndex>19</uiIndex>
 		<NickName>Rev</NickName>
 		<Name>Reverend Clyde Potter</Name>
 		<Bio>Aufgrund zahlreicher Klagen unserer atheistischen Mitglieder wurde die Position des Feldgeistlichen bei der A.I.M. abgeschafft, und Preachy Potter, ohnehin eines der am wenigsten gefragten Mitglieder, wurde an die Luft gesetzt. Reverend Clyde Potter hat danach eine Stellung bei der Innercity Church of Christ in Baltimore angenommen. Seitdem bestreitet er, jemals etwas mit der A.I.M. zu tun gehabt zu haben und läßt sich am Telefon verleugnen.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Sparky -->
-		<uiIndex>39</uiIndex>
-		<NickName>Sparky</NickName>
-		<Name>Megan "Sparky" Roachburn</Name>
-		<Bio>Die Roachburns waren einst eine angesehene Soldatenfamilie, doch seit der Kündigung von Megan ist es damit endgültig vorbei. Das einzige weibliche Mitglied der Roachburn-Familie, das je bei der A.I.M. diente, hat jetzt ihren Traumjob gefunden. Sparky als Testkundin für K-Markt. Obwohl sie zugeben muß, daß es ein bißchen langweilig werden kann, immer nur zu prüfen, ob die Kassiererinnen mal was aus der Kasse nehmen, arbeitet sie doch lieber im Kaufhaus als auf dem Schlachtfeld.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Mitch -->
-		<uiIndex>40</uiIndex>
+		<uiIndex>20</uiIndex>
 		<NickName>Mitch</NickName>
 		<Name>Dr. Mitch Shudlem</Name>
 		<Bio>Weil er sich nie an das blutige Geschäft der Söldner gewöhnen konnte, ist Doktor Shudlem nach reiflicher Überlegung wieder zum blutigen Geschäft im Kreißsaal zurückgekehrt. Im Augenblick leitet er die Abteilung für Geburtsnachsorge im Maria-Hilf-Krankenhaus für alleinerziehende Mütter. Er behauptet, die Rückkehr zu seinen Wurzeln sei das beste gewesen, was ihm passieren konnte. Er fragt sich, warum er den Job überhaupt je an den Nagel gehängt hat.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Carp -->
-		<uiIndex>41</uiIndex>
+		<uiIndex>21</uiIndex>
 		<NickName>Carp</NickName>
 		<Name>Howard "Carp" Melfield</Name>
 		<Bio>Carp konnte sich zwar in keinem Spezialgebiet verbessern, ist aber dennoch fest mit A.I.M. verbunden, so daß wir ihm einen Schreibtisch- Job angeboten haben. Ab sofort ist Howard Melfield für Gesundheit, Sicherheit, Pensionsansprüche und Zahnarztunterlagen unserer Mitglieder zuständig. Er hat außerdem unentgeltlich den Vorsitz des Komittees zur Planung der betrieblichen Weihnachtsfeier übernommen.</Bio>
 	</MERC>
 	<MERC>
 		<!-- It -->
-		<uiIndex>42</uiIndex>
+		<uiIndex>22</uiIndex>
 		<NickName>It</NickName>
 		<Name>Carl "It" Goodman</Name>
 		<Bio>Wegen seiner unglaublichen Körperkraft war Carl jahrelang unübertroffen im Umgang mit der Brechstange. Seine Vorgesetzten schätzten ihn wegen seines einfachen, freundlichen Wesens. Goodman ist inzwischen wieder zu den Profiwrestlern zurückgekehrt, um sich, wie er sagt, neuen und echten Herausforderungen zu stellen. Freunde und Fans kennen ihn als "Masked Mercenary" Samstag nacht im Pay-TV.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Vinny -->
-		<uiIndex>43</uiIndex>
-		<NickName>Vinny</NickName>
-		<Name>Vincenzo "Vinny" Massimo</Name>
-		<Bio>Vinnys Dienst bei der A.I.M. war untadelig, und seine Personalakte ist makellos. Sein Privatleben hingegen sieht ganz anders aus. Der alte Klugscheißer wurde von der A.I.M. ausgeschlossen, nachdem gegen ihn Anklage wegen krimineller Umtriebe und Steuerhinterziehung erhoben wurde. Gegen Vinny wird wegen zahlreicher Vergehen wie Manipulation von Münzautomaten, Doping von Rennpferden mit Demerol und Zuhälterei für das olympische Wasserpolo-Team ermittelt.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Bob -->
-		<uiIndex>44</uiIndex>
-		<NickName>Bob</NickName>
-		<Name>Captain Bob Adams</Name>
-		<Bio>Obwohl auch als Söldner erfolgreich, ließ die Fliegerei den hochdekorierten Air Force-Piloten Bob Adams nie ganz los. Daher hat es uns nicht überrascht, als Captain Adams vor mehr als einem Jahr kündigte und bei einer großen amerikanischen Fluglinie anheuerte. Leider hat er vergangenen Juli auf einem kurzen Inlandsflug die Kontrolle über sein Flugzeug verloren und ist bei dem Absturz kurz hinter Phoenix ums Leben gekommen.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Hamous -->
-		<uiIndex>45</uiIndex>
+		<uiIndex>23</uiIndex>
 		<NickName>Hamous</NickName>
 		<Name>Hamous</Name>
 		<Bio>Hamous sammelte erste Erfahrungen auf dem Schlachtfeld in Metavira. Sein Auftraggeber Jack Richards hat ihn uns wärmstens empfohlen, so daß wir ihm ein Praktikum bei A.I.M. gegeben haben, das kürzlich zu Ende gegangen ist. Leider hat der arme Hamous nie genug Geld für den Mini-Van sparen könne, den er sich so sehnlich gewünscht hat. Also hat er kurzerhand in einem Vorort von Paris einen gestohlen. Zuletzt wurde er auf dem Weg nach Istanbul gesichtet.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Mouse -->
-		<uiIndex>46</uiIndex>
-		<NickName>Mouse</NickName>
-		<Name>Anita "Mouse" Backman</Name>
-		<Bio>Anitas Aufenthalt bei A.I.M. war kurz und ruhig. Mouse war für ihre unübertroffene Fähigkeit bekannt, unbeachtet zu bleiben, und reichte ihre Kündigung zur gleichen Zeit wie Dr. Margaret "Stella" Trammel ein. So weit wir wissen, sind sie zusammen auf die Jungferninseln gezogen, wo Anita Backman als Arzthelferin/Sprechstundenhilfe in der neu eröffneten Praxis arbeitet.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Postie -->
-		<uiIndex>47</uiIndex>
-		<NickName>Postie</NickName>
-		<Name>Jack "Postie" Durham</Name>
-		<Bio>Postie ist einer der wenigen Söldner, von denen wir bedauern, daß sie je Mitglieder der A.I.M. geworden sind. Zum Glück hatte die Klage bei der  Postgewerkschaft auf Wiedereinstellung Erfolg, und Postie hat bei voller Bezahlung seinen Dienst wieder aufgenommen. Er wurde dem Kundendienst zugeteilt. Seitdem ist die Zahl der Beschwerden drastisch zurückgegangen.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Leon -->
-		<uiIndex>48</uiIndex>
-		<NickName>Leon</NickName>
-		<Name>Col. Leon Roachburn</Name>
-		<Bio>Col. Leon Roachburn, der Mann, der bestimmt nie "Vater des Jahres" geworden wäre, war ein verantwortungsbewußter Soldat und für viele ein Mentor. Er verstarb letztes Weihnachten, als sein Wohnwagen durch brennendes Fett Feuer fing. Bemerkenswert: Er hinterließ ein Vermögen von mehr als einer Million Dollar. Weniger bemerkenswert: Seine Kinder bekommen keinen Cent. Pamela Sue Anderson ist als Alleinerbin eingesetzt.</Bio>
-	</MERC>
+	</MERC>	
 	<MERC>
 		<!-- Dyno -->
-		<uiIndex>49</uiIndex>
+		<uiIndex>24</uiIndex>
 		<NickName>Dyno</NickName>
 		<Name>Roger "Dyno" Wittman</Name>
 		<Bio>Roger hat's versucht. Er hat's echt versucht. Aber er hatte es halt nicht drauf. Deswegen haben sich manche seiner Kollegen gerne über ihn lustig gemacht, und andere gerne ihre Gewehre mit ihm gereinigt. Schließlich hat er eingesehen, daß er für diesen Beruf nicht geschaffen war. Unseren Informationen zufolge spielt Dyno zur Zeit ein grünes Nilpferd in einer Tiersendung für Kinder.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Spam -->
-		<uiIndex>50</uiIndex>
-		<NickName>Spam</NickName>
-		<Name>Alan "Spam" Webster</Name>
-		<Bio>Alan Websters Dienst bei A.I.M. war kurz und schmerzhaft. Seine Zeit auf friedenssichernden Missionen für die U.N. hatte offenbar seine Aggressionen gehemmt und gefährdete umgekehrt die Truppe. Nach dem Zwischenfall in Maupaa, bei dem Johnny "Snake" Edwards ums Leben kam, konnte die A.I.M. seine Unfähigkeit, bewaffnete Männer ernst zu nehmen, nicht länger ignorieren. Spam kam vors Kriegsgericht und wurde im März dieses Jahres entlassen.</Bio>
 	</MERC>
 </OLD_MERC>
