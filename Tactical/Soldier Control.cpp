@@ -2164,7 +2164,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 		this->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 
 	// Don't max out if we are drugged....
-	if ( !GetDrugEffect( this, (DRUG_TYPE_ADRENALINE|DRUG_TYPE_AGILITY) ) )
+	if ( !GetDrugEffect( this, DRUG_TYPE_ADRENALINE ) && !!GetDrugEffect( this, DRUG_TYPE_AGILITY ) )
 	{
 		///////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - following code messed a bit
