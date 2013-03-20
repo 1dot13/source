@@ -257,32 +257,32 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>51</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGmale1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>52</uiIndex>
-		<zName></zName>
-		<zNickname>PGmale2 </zNickname>
+		<zName/>
+		<zNickname>PGmale2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>53</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGmale3</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>54</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGLady1</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>55</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGLady2</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>56</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>PGLady3</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -357,7 +357,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
-		<zName></zName>
+		<zName/>
 		<zNickname>RPC71</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -797,7 +797,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
-		<zName>Спек Т. Кляйн </zName>
+		<zName>Спек Т. Кляйн</zName>
 		<zNickname>Спек...</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -817,13 +817,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
@@ -847,8 +847,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>169</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>170</uiIndex>
@@ -892,33 +892,33 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>178</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>180</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>182</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>183</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName/>
+		<zNickname/>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>184</uiIndex>
@@ -1242,23 +1242,23 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>248</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Доктор Маргарет Траммел "Звёздочка"</zName>
+		<zNickname>Звёздочка</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>249</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Эдвард "Ухо" Стоквел</zName>
+		<zNickname>Ухо</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>250</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Мюррей Эбстерн "Моисей"</zName>
+		<zNickname>Моисей</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>251</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Лэсли Петерсон "Смоук"</zName>
+		<zNickname>Смоук</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>
