@@ -3148,6 +3148,37 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 
 			fFailure=FALSE;
 
+			// Flugente: if we are disguised and try to steal from a conscious enemy, there is a chance that he notices us and we lose our disguise. If he can see us this always happens
+			if ( !fSoldierCollapsed && pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			{
+				BOOLEAN fUncovered = FALSE;
+
+				// if he sees us, always loose disguise
+				if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
+					fUncovered = TRUE;
+				else
+				{
+					UINT8 chance = 10;
+
+					if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_LAST_TURN )
+						chance += 40;
+
+					chance += pSoldier->aiData.bAlertStatus * 10;
+
+					if ( Chance(chance) )
+						fUncovered = TRUE;
+				}
+
+				if ( fUncovered )
+				{
+					pSoldier->LooseDisguise();
+					pSoldier->Strip();
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_STEAL_FAIL], pSoldier->name  );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pTargetSoldier->name, pSoldier->name  );
+				}
+			}
+
 						// WDS 07/19/2008 - Random number use fix
 			// Do we have the chance to steal more than 1 item?
 			// SANDRO - taking items from collapsed soldiers is treated differently

@@ -7301,6 +7301,7 @@ STR16	szCovertTextStr[]=
 	L"%s wurde enttarnt!",
 	L"%s's Verkleidung sollte überzeugen",
 	L"%s's Verkleidung wird auffliegen!",
+	L"%s wurde beim Stehlen erwischt!",
 };
 
 STR16	szCorpseTextStr[]=

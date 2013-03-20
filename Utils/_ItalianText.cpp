@@ -7475,6 +7475,7 @@ STR16	szCovertTextStr[]=
 	L"%s was uncovered!",
 	L"%s's disguise seems to be ok...",
 	L"%s's disguise will not hold.",
+	L"%s was caught stealing!",
 };
 
 STR16	szCorpseTextStr[]=
