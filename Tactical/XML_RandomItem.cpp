@@ -9,7 +9,7 @@
 	#include "Item Types.h"
 #endif
 
-RANDOM_ITEM_CHOICE_TYPE gRandomItemClass[200];
+RANDOM_ITEM_CHOICE_TYPE gRandomItemClass[RANDOM_ITEM_MAX_CATEGORIES];
 
 struct
 {
@@ -272,7 +272,7 @@ BOOLEAN ReadInRandomItemStats(STR fileName)
 
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = gRandomItemClass;
-	pData.maxArraySize = 200;
+	pData.maxArraySize = RANDOM_ITEM_MAX_CATEGORIES;
 
 	XML_SetUserData(parser, &pData);
 	

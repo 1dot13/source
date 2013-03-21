@@ -1162,7 +1162,9 @@ typedef struct RANDOM_ITEM_CHOICE_TYPE
 
 } RANDOM_ITEM_CHOICE_TYPE;
 
-extern RANDOM_ITEM_CHOICE_TYPE gRandomItemClass[200];
+#define RANDOM_ITEM_MAX_CATEGORIES 1000
+
+extern RANDOM_ITEM_CHOICE_TYPE gRandomItemClass[RANDOM_ITEM_MAX_CATEGORIES];
 
 // CHRISL: Added new structures to handle LBE gear and the two new XML files that will be needed to deal
 // with the IC pockets and the new inventory system.

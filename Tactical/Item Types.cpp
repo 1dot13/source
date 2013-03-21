@@ -1465,6 +1465,46 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				(*this)[0]->data.gun.usGunAmmoItem = src.ugYucky.usGunAmmoItem;
 				(*this)[0]->data.gun.bGunAmmoStatus = src.ugYucky.bGunAmmoStatus;
 				(*this)[0]->data.gun.ubGunState = src.ugYucky.ubGunState;
+
+				// Flugente: if we resolved a random item, we have to give it ammo...
+				if ( Item[newitemfromrandom].usItemClass == IC_GUN )
+				{
+					(*this)[0]->data.ubImprintID = NO_PROFILE;
+
+					if (Weapon[ this->usItem ].ubWeaponClass == MONSTERCLASS)
+					{
+						(*this)[0]->data.gun.ubGunShotsLeft = 1;
+						(*this)[0]->data.gun.ubGunAmmoType = AMMO_MONSTER;
+						(*this)[0]->data.gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER; // 0verhaul:  Monsters don't have to reload!
+					}
+					else if ( EXPLOSIVE_GUN( this->usItem ) )
+					{
+						if ( Item[this->usItem].singleshotrocketlauncher )
+						{
+							(*this)[0]->data.gun.ubGunShotsLeft = 1;
+						}
+						else
+						{
+							// cannon
+							(*this)[0]->data.gun.ubGunShotsLeft = 0;
+						}
+						(*this)[0]->data.gun.bGunAmmoStatus = 100;
+						(*this)[0]->data.gun.ubGunAmmoType = 0;
+					}
+					else
+					{
+						UINT16 usAmmo = DefaultMagazine( this->usItem );
+						if ( usAmmo )
+						{
+							(*this)[0]->data.gun.usGunAmmoItem = usAmmo;
+							(*this)[0]->data.gun.ubGunAmmoType = Magazine[ Item[ usAmmo ].ubClassIndex].ubAmmoType;
+							(*this)[0]->data.gun.bGunAmmoStatus = 100;
+							(*this)[0]->data.gun.ubGunShotsLeft = Magazine[ Item[ usAmmo ].ubClassIndex ].ubMagSize;
+							(*this)[0]->data.gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER; // Madd: new guns should have cartridge in chamber
+						}
+					}
+				}
+
 				break;
 			}
 
