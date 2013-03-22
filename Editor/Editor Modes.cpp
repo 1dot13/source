@@ -29,7 +29,7 @@ BOOLEAN gfShowExitGrids = FALSE;
 
 void SetEditorItemsTaskbarMode( UINT16 usNewMode )
 {
-	UnclickEditorButtons( ITEMS_WEAPONS, ITEMS_KEYS );
+	UnclickEditorButtons( ITEMS_WEAPONS, ITEMS_RANDOMITEM );
 	switch( usNewMode )
 	{
 		case ITEMS_WEAPONS:

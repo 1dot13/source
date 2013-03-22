@@ -181,6 +181,7 @@ BOOLEAN EditModeInit( void );
 BOOLEAN EditModeShutdown( void );
 void EnsureStatusOfEditorButtons();
 
+extern INT8 gbEditingMode;
 
 extern BOOLEAN fAllDone;
 extern DisplayList Selection;
@@ -1464,7 +1465,7 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case DEL:
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS && gbEditingMode != 0 ) //gbEditingMode != EDITING_NOTHING
 						DeleteSelectedItem();
 					else if( gsSelectedMercID != -1 )
 					{

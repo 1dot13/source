@@ -398,7 +398,8 @@ void ExecuteItemStatsCmd( /*UINT8*/ UINT16  ubAction )
 		case ITEMSTATS_DEFAULT:
 			break;
 		case ITEMSTATS_DELETE:
-			DeleteSelectedItem();
+			if ( gbEditingMode != EDITING_NOTHING )
+				DeleteSelectedItem();
 			break;
 		case ITEMSTATS_SHOW:
 			ShowSelectedItem();
@@ -585,12 +586,22 @@ void UpdateItemStatsPanel()
 	SetFontForeground( FONT_GRAY2 );
 	SetFontShadow( FONT_NEARBLACK );
 	SetFontBackground( FONT_BLACK );
+	
 	if( gpItem && iCurrentTaskbar == TASK_ITEMS &&
 			gbEditingMode != EDITING_TRIGGERS && gbEditingMode != EDITING_ACTIONITEMS )
 	{
 		mprintf( iScreenWidthOffset + 500, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[0] );
 	}
+	
 	SetFontForeground( FONT_YELLOW );
+
+	if( gpItem && iCurrentTaskbar == TASK_ITEMS )
+	{
+		mprintf( iScreenWidthOffset + 587, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[25] );
+		mprintf( iScreenWidthOffset + 609, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[26] );
+		mprintf( iScreenWidthOffset + 630, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[27] );
+	}
+
 	switch( gbEditingMode )
 	{
 		case EDITING_NOTHING:
@@ -654,9 +665,6 @@ void UpdateItemStatsPanel()
 	}
 	if( gpEditingItemPool )
 	{
-		mprintf( iScreenWidthOffset + 587, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[25] );
-		mprintf( iScreenWidthOffset + 609, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[26] );
-		mprintf( iScreenWidthOffset + 630, 2 * iScreenHeightOffset + 366, pUpdateItemStatsPanelText[27] );
 		INT32 iPercent = 100 - gWorldItems[ gpEditingItemPool->iItemIndex ].ubNonExistChance;
 		if( iPercent == 100 )
 			SetFontForeground( FONT_YELLOW );
