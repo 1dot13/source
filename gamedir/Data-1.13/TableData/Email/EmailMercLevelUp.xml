@@ -1286,14 +1286,16 @@ Message:		The email message body
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Dyno -->
 		<uiIndex>252</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself informed that due to improvement in Dyno's performance his salary requires reconsideration.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Turtle -->
 		<uiIndex>253</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that due to Turtle's exceptional performance his wages have been recalculated.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>254</uiIndex>
