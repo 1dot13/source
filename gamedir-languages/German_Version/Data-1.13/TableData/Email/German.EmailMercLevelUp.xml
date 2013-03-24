@@ -303,16 +303,14 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Gaston -->
 		<uiIndex>58</uiIndex>
-		<Subject>Benachrichtigung über Solderhöhung</Subject>
-		<Message>Hiermit geben wir zur Kenntnis, dass aufgrund von Gastons guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Stogie -->
 		<uiIndex>59</uiIndex>
-		<Subject>Benachrichtigung über Solderhöhung</Subject>
-		<Message>Bitte nehmen Sie zur Kenntnis, dass Stogies Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>60</uiIndex>
@@ -842,24 +840,26 @@
 	<EMAIL>
 		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Bitte nehmen Sie zur Kenntnis, dass Gastons Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Texs guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Bitte nehmen Sie hiermit offiziell zur Kenntnis, daß Biggens Tagessold aufgrund seiner verbesserten Leistungen erhöht wurde. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -907,6 +907,7 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Spooky -->
 		<uiIndex>178</uiIndex>
 		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Bitte nehmen Sie zur Kenntnis, dass Spookys Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden. ± ± Speck T. Kline ± </Message>
@@ -1118,37 +1119,37 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Bitte nehmen Sie zur Kenntnis, daß Posties Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Reubans guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Leons guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Bitte nehmen Sie zur Kenntnis, daß Garys Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Bitte nehmen Sie zur Kenntnis, daß Sparky aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Beths guten Leistungen in der Vergangenheit ihr Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Sams guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
@@ -1237,8 +1238,9 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Elroy -->
 		<uiIndex>244</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Bitte nehmen Sie zur Kenntnis, daß Elroys Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
@@ -1252,8 +1254,9 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Rev -->
 		<uiIndex>247</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Bitte nehmen Sie zur Kenntnis, daß Reverend aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
@@ -1262,8 +1265,9 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Ears -->
 		<uiIndex>249</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
 		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Ears guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
@@ -1277,14 +1281,16 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Dyno -->
 		<uiIndex>252</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Bitte nehmen Sie zur Kenntnis, daß Dynos Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Turtle -->
 		<uiIndex>253</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Turtles guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>254</uiIndex>
