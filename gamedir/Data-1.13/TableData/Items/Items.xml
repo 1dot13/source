@@ -47435,6 +47435,7 @@
 		<usPrice>1</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<ItemFlag>32768</ItemFlag>
 		<STAND_MODIFIERS />
@@ -48260,7 +48261,7 @@
 		<szLongItemName>Green shirt</szLongItemName>
 		<szItemDesc>A totally unremarkable green T-shirt.</szItemDesc>
 		<szBRName>Green shirt</szBRName>
-		<szBRDesc>Apparently we sell clothes now. Well, this is a T-shirt, you know?</szBRDesc>
+		<szBRDesc>When they said 'Go green', this wasn't what they meant.</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
@@ -48382,7 +48383,7 @@
 		<uiIndex>1614</uiIndex>
 		<szItemName>Red shirt</szItemName>
 		<szLongItemName>Red shirt</szLongItemName>
-		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+		<szItemDesc>Warning: Wearing this on duty talking increases your death risk tremendously.</szItemDesc>
 		<szBRName>Red shirt</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>8192</usItemClass>
@@ -48406,7 +48407,7 @@
 		<uiIndex>1615</uiIndex>
 		<szItemName>Jean shirt</szItemName>
 		<szLongItemName>Jean shirt</szLongItemName>
-		<szItemDesc>Warning: Wearing this while talking increases your death risk tremendously.</szItemDesc>
+		<szItemDesc>A jean shirt.</szItemDesc>
 		<szBRName>Jean shirt</szBRName>
 		<szBRDesc>Jean. What kind of colour is 'jean' anyway? Stupid colour names. In my days, you wore black and that was it.</szBRDesc>
 		<usItemClass>8192</usItemClass>
