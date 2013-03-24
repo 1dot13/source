@@ -887,11 +887,23 @@ void AddSelectedItemToWorld( INT32 sGridNo )
 
 	if( eInfo.uiItemType == TBAR_MODE_ITEM_KEYS )
 	{
-		CreateKeyObject( &gTempObject, 1, (UINT8)eInfo.sSelItemIndex );
+		if ( fEditorCreateItemFromKeyboard )
+		{		
+			CreateKeyObject( &gTempObject, 1, (UINT8)usEditorTempItem );
+			fEditorCreateItemFromKeyboard = FALSE;
+		}
+		else
+			CreateKeyObject( &gTempObject, 1, (UINT8)eInfo.sSelItemIndex );
 	}
 	else
 	{
-		CreateItem( eInfo.pusItemIndex[eInfo.sSelItemIndex], 100, &gTempObject );
+		if ( fEditorCreateItemFromKeyboard )
+		{		
+			CreateItem( usEditorTempItem, 100, &gTempObject );
+			fEditorCreateItemFromKeyboard = FALSE;
+		}
+		else
+			CreateItem( eInfo.pusItemIndex[eInfo.sSelItemIndex], 100, &gTempObject );
 	}
 	usFlags = 0;
 	switch( gTempObject.usItem )

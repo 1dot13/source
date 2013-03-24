@@ -82,6 +82,9 @@ extern BOOLEAN fRaiseWorld;//dnl ch3 210909
 extern BOOLEAN fShowHighGround;//dnl ch2 210909
 void ShowHighGround(INT32 iShowHighGroundCommand);//dnl ch2 210909
 
+extern BOOLEAN fEditorCreateItemFromKeyboard;
+extern UINT16 usEditorTempItem;
+
 #endif
 #endif
 

@@ -44,6 +44,7 @@
 	#include "newsmooth.h"
 	#include "Smoothing Utils.h"
 	#include "messagebox.h"
+	#include "messageboxscreen.h"
 	#include "Soldier Create.h"
 	#include "Soldier Init List.h"
 	#include "Text Input.h"
@@ -234,6 +235,17 @@ void RemoveGotoGridNoUI();
 BOOLEAN gfGotoGridNoUI = FALSE;
 INT32 guiGotoGridNoUIButtonID;
 MOUSE_REGION GotoGridNoUIRegion;
+
+//Buggler: Create item with keyboard shortcut
+void EditorKeyboardItemCreationCallBack( UINT8 ubResult );
+void CreateKeyboardItemCreationUI();
+void RemoveKeyboardItemCreationUI();
+BOOLEAN gfKeyboardItemCreationUI = FALSE;
+INT32 guiKeyboardItemCreationUIButtonID;
+MOUSE_REGION KeyboardItemCreationUIRegion;
+INT32 giCreateItemCursorMapIndex;
+BOOLEAN fEditorCreateItemFromKeyboard = FALSE;
+UINT16 usEditorTempItem = 1632;
 
 //----------------------------------------------------------------------------------------------
 //	EditScreenInit
@@ -1398,6 +1410,27 @@ void HandleKeyboardShortcuts( )
 						break;
 				}
 			}
+			else if( gfKeyboardItemCreationUI )
+			{
+				switch( EditorInputEvent.usParam )
+				{
+					case ESC:
+						SetInputFieldStringWith16BitString( 0, L"" );
+						RemoveKeyboardItemCreationUI();
+						break;
+					case ENTER:
+						RemoveKeyboardItemCreationUI();
+						break;
+					case 'x':
+						if( EditorInputEvent.usKeyState & ALT_DOWN )
+						{
+							SetInputFieldStringWith16BitString( 0, L"" );
+							RemoveKeyboardItemCreationUI();
+							iCurrentAction = ACTION_QUIT_GAME;
+						}
+						break;
+				}
+			}
 			else switch( EditorInputEvent.usParam )
 			{
 				case HOME:
@@ -2106,6 +2139,30 @@ void HandleKeyboardShortcuts( )
 						}
 					}
 					gfRenderTaskbar = TRUE;
+					break;
+				case '/':
+					// Buggler: create item with keyboard input
+					if( iCurrentTaskbar == TASK_ITEMS )
+					{
+						if( !GetMouseXY( &sGridX, &sGridY ) )
+							return;
+
+						if( !(gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA ) )
+						{	//if mouse cursor not in the game screen.
+							return;
+						}
+						
+						fEditorCreateItemFromKeyboard = TRUE;
+
+						giCreateItemCursorMapIndex = MAPROWCOLTOPOS( sGridY, sGridX );
+												
+						if( EditorInputEvent.usKeyState & CTRL_DOWN )
+							CreateKeyboardItemCreationUI();
+						else
+							AddSelectedItemToWorld( giCreateItemCursorMapIndex );
+
+						gfRenderWorld = TRUE;
+					}
 					break;
 				default:
 					iCurrentAction = ACTION_NULL;
@@ -4551,7 +4608,7 @@ UINT32	EditScreenHandle( void )
 	EnsureStatusOfEditorButtons();
 
 	// Handle scrolling of the map if needed
-	if( !gfGotoGridNoUI && iDrawMode != DRAW_MODE_SHOW_TILESET && !gfSummaryWindowActive &&
+	if( !gfGotoGridNoUI && !gfKeyboardItemCreationUI && iDrawMode != DRAW_MODE_SHOW_TILESET && !gfSummaryWindowActive &&
 			!gfEditingDoor && !gfNoScroll && !InOverheadMap() )
 		ScrollWorld();
 
@@ -4639,8 +4696,8 @@ void CreateGotoGridNoUI()
 	DisableEditorTaskbar();
 	//Create the background panel.
 	guiGotoGridNoUIButtonID =
-		CreateTextButton( L"Enter gridno:", FONT10ARIAL, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 290, iScreenHeightOffset + 155, 60, 50, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL, DEFAULT_MOVE_CALLBACK, MSYS_NO_CALLBACK );
+		CreateTextButton( L"Enter Gridno:", FONT10ARIAL, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
+		iScreenWidthOffset + 288, iScreenHeightOffset + 155, 64, 50, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL, DEFAULT_MOVE_CALLBACK, MSYS_NO_CALLBACK );
 	SpecifyDisabledButtonStyle( guiGotoGridNoUIButtonID, DISABLED_STYLE_NONE );
 	SpecifyButtonTextOffsets( guiGotoGridNoUIButtonID, 5, 5, FALSE );
 	DisableButton( guiGotoGridNoUIButtonID );
@@ -4760,3 +4817,40 @@ UINT32 EditScreenShutdown( )
 
 #endif
 
+void CreateKeyboardItemCreationUI()
+{
+	gfKeyboardItemCreationUI = TRUE;
+	//Disable the rest of the editor
+	DisableEditorTaskbar();
+	//Create the background panel.
+	guiKeyboardItemCreationUIButtonID =
+		CreateTextButton( L"Enter ItemID:", FONT10ARIAL, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
+		iScreenWidthOffset + 288, iScreenHeightOffset + 155, 64, 50, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL, DEFAULT_MOVE_CALLBACK, MSYS_NO_CALLBACK );
+	SpecifyDisabledButtonStyle( guiKeyboardItemCreationUIButtonID, DISABLED_STYLE_NONE );
+	SpecifyButtonTextOffsets( guiKeyboardItemCreationUIButtonID, 5, 5, FALSE );
+	DisableButton( guiKeyboardItemCreationUIButtonID );
+	//Create a blanket region so nobody can use
+	MSYS_DefineRegion( &KeyboardItemCreationUIRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,	MSYS_PRIORITY_NORMAL+1, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	//Init a text input field.
+	InitTextInputModeWithScheme( DEFAULT_SCHEME );
+	AddTextInputField( iScreenWidthOffset + 300, iScreenHeightOffset + 180, 40, 18, MSYS_PRIORITY_HIGH, L"", 4, INPUTTYPE_NUMERICSTRICT );
+}
+
+void RemoveKeyboardItemCreationUI()
+{
+	INT16 sTemp;
+
+	gfKeyboardItemCreationUI = FALSE;
+	//Enable the rest of the editor
+	EnableEditorTaskbar();
+	RemoveButton( guiKeyboardItemCreationUIButtonID );
+	sTemp = GetNumericStrictValueFromField( 0 );
+	KillTextInputMode();
+	MSYS_RemoveRegion( &KeyboardItemCreationUIRegion );
+	if ( sTemp != -1 )
+	{
+		usEditorTempItem = sTemp;
+		AddSelectedItemToWorld( giCreateItemCursorMapIndex );
+	}
+	MarkWorldDirty();
+}

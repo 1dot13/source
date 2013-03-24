@@ -979,6 +979,7 @@ void RenderEditorInfo( )
 //taskbar render, we need to draw the buttons without hilites, hence this flag.	This flag is
 //always true in ButtonSystem.c, so it won't effect anything else.
 extern BOOLEAN gfGotoGridNoUI;
+extern BOOLEAN gfKeyboardItemCreationUI;
 
 void ProcessEditorRendering()
 {
@@ -1016,7 +1017,7 @@ void ProcessEditorRendering()
 
 	if( gfSummaryWindowActive )
 		RenderSummaryWindow();
-	else if( !gfGotoGridNoUI && !InOverheadMap() )
+	else if( !gfGotoGridNoUI && !gfKeyboardItemCreationUI && !InOverheadMap() )
 		RenderMercStrings();
 
 	if( gfEditingDoor )
@@ -1026,7 +1027,7 @@ void ProcessEditorRendering()
 		RenderAllTextFields();
 	RenderEditorInfo();
 
-	if( !gfSummaryWindowActive && !gfGotoGridNoUI && !InOverheadMap() )
+	if( !gfSummaryWindowActive && !gfGotoGridNoUI && !gfKeyboardItemCreationUI && !InOverheadMap() )
 	{
 		if( gpItem && gsItemGridNo != -1 )
 			RenderSelectedItemBlownUp();
