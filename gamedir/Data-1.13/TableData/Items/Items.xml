@@ -48697,6 +48697,7 @@
 		<Electronic>1</Electronic>
 		<NeedsBatteries>1</NeedsBatteries>
 		<ShowStatus>1</ShowStatus>
+		<DefaultAttachment>322</DefaultAttachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>3</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
