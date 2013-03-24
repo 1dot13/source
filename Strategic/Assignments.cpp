@@ -3905,33 +3905,30 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 
 	for ( ubLoop = 0; ubLoop < ubItemsInPocket; ubLoop++ )
 	{
+		// Flugente: if using the new advanced repair system, we can only repair up to the repair threshold
+		INT16 threshold = 100;
+		if ( gGameExternalOptions.fAdvRepairSystem && (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) )
+		{
+			if ( !gGameExternalOptions.fMercsCanDoAdvancedRepairs || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
+			{
+				threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
+			}
+		}
+
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( pObj->usItem, (*pObj)[ubLoop]->data.objectStatus, (*pObj)[ubLoop]->data.sRepairThreshold ) )
+		if ( IsItemRepairable( pObj->usItem, (*pObj)[ubLoop]->data.objectStatus, threshold ) )
 		{
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - merc records, num items repaired
 			// Actually we check if we repaired at least 5% of status, otherwise the item is not considered broken
 			ubBeforeRepair = (UINT8)((*pObj)[ubLoop]->data.objectStatus);
-
-			// Flugente: if using the new advanced repair system, we can only repair up to the repair threshold
-			INT16 threshold = 100;
-			if ( gGameExternalOptions.fAdvRepairSystem && (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) )
-			{
-				if ( !gGameExternalOptions.fMercsCanDoAdvancedRepairs || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
-				{
-					threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
-				}
-			}
-
+						
 			// repairable, try to repair it
 			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), threshold, pubRepairPtsLeft );
 
 			if ( gGameExternalOptions.fAdvRepairSystem && gGameExternalOptions.fMercsCanDoAdvancedRepairs && ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) ) && ( (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) ) )
 				(*pObj)[ubLoop]->data.sRepairThreshold = max((*pObj)[ubLoop]->data.sRepairThreshold, (*pObj)[ubLoop]->data.objectStatus);
-			
-			// repairable, try to repair it
-			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), threshold, pubRepairPtsLeft );
-						
+									
 			// if the item was repaired to full status and the repair wa at least 5%, add a point
 			if ( (*pObj)[ubLoop]->data.objectStatus == threshold && (((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 4 ))
 			{

@@ -24,6 +24,7 @@
 	#include "environment.h"
 	#include "WorldDat.h"
 	#include "Facilities.h"
+	#include "Soldier macros.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -714,7 +715,7 @@ void HourlyFoodUpdate( void )
 	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier)
 	{
 		//if the merc is active, and in Arulco
-		if ( pSoldier && pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) && !(pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
+		if ( pSoldier && pSoldier->bActive && !AM_AN_EPC(pSoldier) && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) && !(pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 		{			
 			// digestion
 			HourlyFoodSituationUpdate( pSoldier );
