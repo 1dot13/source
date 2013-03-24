@@ -4948,15 +4948,21 @@ void CorpseMessageBoxCallBack( UINT8 ubExitValue )
 
 		INT16 sAPCost = CalcTotalAPsToAttack( gpTempSoldier, nextGridNoinSight, FALSE, gpTempSoldier->aiData.bAimTime );
 
+		BOOLEAN fDamageKnife = FALSE;
+
 		switch (ubExitValue)
 		{
 		case 1:
-			DecapitateCorpse( gpTempSoldier, nextGridNoinSight, level );
-			DeductPoints( gpTempSoldier, sAPCost, 0 );
+			if ( DecapitateCorpse( gpTempSoldier, nextGridNoinSight, level ) )
+				fDamageKnife = TRUE;
+
+			DeductPoints( gpTempSoldier, sAPCost, 0 );			
 			break;
 		case 2:
-			GutCorpse( gpTempSoldier, nextGridNoinSight, level );
-			DeductPoints( gpTempSoldier, sAPCost, 0 );
+			if ( GutCorpse( gpTempSoldier, nextGridNoinSight, level ) )
+				fDamageKnife = TRUE;
+
+			DeductPoints( gpTempSoldier, sAPCost, 0 );			
 			break;
 		case 3:
 			StripCorpse( gpTempSoldier, nextGridNoinSight, level );
@@ -4968,6 +4974,20 @@ void CorpseMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 		default:
 			break;
+		}
+
+		// 35% chance to damage our knife a bit
+		if ( fDamageKnife && Chance(35) )
+		{
+			if ( Item[ gpTempSoldier->inv[HANDPOS].usItem ].usItemClass & IC_BLADE )
+			{
+				gpTempSoldier->inv[HANDPOS][0]->data.objectStatus--;
+
+				if ( Random(100) < Item[ gpTempSoldier->inv[HANDPOS].usItem ].usDamageChance )
+				{
+					gpTempSoldier->inv[HANDPOS][0]->data.sRepairThreshold--;
+				}
+			}
 		}
 	}
 }

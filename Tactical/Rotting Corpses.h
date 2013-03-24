@@ -199,15 +199,15 @@ extern UINT8					gb4DirectionsFrom8[8];
 
 ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo , INT8 bLevel );
 BOOLEAN IsValidDecapitationCorpse( ROTTING_CORPSE *pCorpse );
-void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+BOOLEAN DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
 
 // Flugente: actions for the covert opts trait
 BOOLEAN IsValidGutCorpse( ROTTING_CORPSE *pCorpse );
-void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+BOOLEAN GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
 BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse );
-void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+BOOLEAN StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
 BOOLEAN IsValidTakeCorpse( ROTTING_CORPSE *pCorpse );
-void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
+BOOLEAN TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel );
 
 BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel );
 

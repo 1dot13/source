@@ -1811,7 +1811,7 @@ ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo, INT8 bLevel )
 }
 
 
-void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
+BOOLEAN DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse;
 	ROTTING_CORPSE_DEFINITION CorpseDef;
@@ -1821,9 +1821,7 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 	pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
 	if ( pCorpse == NULL )
-	{
-		return;
-	}
+		return FALSE;
 		
 	if ( IsValidDecapitationCorpse( pCorpse ) )
 	{
@@ -1894,12 +1892,16 @@ void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 
 			// All teams lok for this...
 			NotifySoldiersToLookforItems( );
+
+			return TRUE;
 		}
 		else
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_HEAD_ITEM] );
 	}
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_DECAPITATION] );
+
+	return FALSE;
 }
 
 // Flugente: can this corpse be gutted?
@@ -1912,12 +1914,12 @@ BOOLEAN IsValidGutCorpse( ROTTING_CORPSE *pCorpse )
 }
 
 // Flugente: gut a corpse
-void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
+BOOLEAN GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
 	if ( pCorpse == NULL )
-		return;
+		return FALSE;
 		
 	// can this thing be gutted?
 	if ( IsValidGutCorpse( pCorpse ) )
@@ -1947,12 +1949,16 @@ void GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 
 			// All teams lok for this...
 			NotifySoldiersToLookforItems( );
+
+			return TRUE;
 		}
 		else
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_MEAT_ITEM] );
 	}
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_GUTTING] );
+
+	return FALSE;
 }
 
 // Flugente: can clothes be taken off of this corpse?
@@ -1966,12 +1972,12 @@ BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse )
 
 
 // Flugente: take the clothes off a corpse
-void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
+BOOLEAN StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
 	if ( pCorpse == NULL || !pSoldier )
-		return;
+		return FALSE;
 
 	// can this thing be stripped?
 	if ( IsValidStripCorpse( pCorpse ) )
@@ -2005,9 +2011,13 @@ void StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 
 		// we took the clothes, mark this
 		pCorpse->def.usFlags |= (ROTTING_CORPSE_NO_VEST|ROTTING_CORPSE_NO_PANTS);
+
+		return TRUE;
 	}
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_CLOTHESFOUND] );
+
+	return FALSE;
 }
 
 // Flugente: can this corpse be carried?
@@ -2020,12 +2030,12 @@ BOOLEAN IsValidTakeCorpse( ROTTING_CORPSE *pCorpse )
 }
 
 // Flugente: take a corpse into your hand, thereby removing it from the field
-void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
+BOOLEAN TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, bLevel );
 
 	if ( pCorpse == NULL || !pSoldier )
-		return;
+		return FALSE;
 	
 	// can this corpse be picked up?
 	if ( IsValidTakeCorpse( pCorpse ) )
@@ -2175,6 +2185,8 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 						RemoveCorpse( pCorpse->iID );
 					}
 				}
+
+				return TRUE;
 			}
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_FREEHAND] );
@@ -2184,6 +2196,8 @@ void TakeCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 	}
 	else
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCorpseTextStr[STR_CORPSE_NO_TAKING] );
+
+	return FALSE;
 }
 
 // Flugente: create a corpse from an object and place it in the world
