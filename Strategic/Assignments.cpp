@@ -1379,12 +1379,17 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 
 BOOLEAN DoesTownHaveRatingToTrainMilitia( INT8 bTownId )
 {
-DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Assignments1");
-	// min loyalty rating?
-	if( ( gTownLoyalty[ bTownId ].ubRating < gGameExternalOptions.iMinLoyaltyToTrain ) )
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Assignments1");
+	
+	// Ignores check if FALSE, thereby allowing militia training for town sectors with deactivated loyalty tag
+	if (gfTownUsesLoyalty[ bTownId ])
 	{
-		// nope
-		return( FALSE );
+		// min loyalty rating?
+		if( ( gTownLoyalty[ bTownId ].ubRating < gGameExternalOptions.iMinLoyaltyToTrain ) )
+		{
+			// nope
+			return( FALSE );
+		}
 	}
 
 	return( TRUE );
