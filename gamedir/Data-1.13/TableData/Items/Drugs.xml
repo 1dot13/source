@@ -268,7 +268,7 @@ Note: The regeneration drug has no entries - that is intended, because this effe
 		<ubDrugTravelRate>1</ubDrugTravelRate>
 		<ubDrugWearoffRate>1</ubDrugWearoffRate>
 		<ubDrugEffect>2</ubDrugEffect>
-		<ubDrugSideEffect>100</ubDrugSideEffect>
+		<ubDrugSideEffect>4</ubDrugSideEffect>
 		<ubDrugSideEffectRate>1</ubDrugSideEffectRate>
 		<ubMoralBacklash>0</ubMoralBacklash>
 	</DRUG>
