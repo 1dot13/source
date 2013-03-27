@@ -2745,7 +2745,12 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 			if ( pTSoldier != NULL )
 			{
 				// If this is one of our own guys.....pop up requiester...
-				if ( ( pTSoldier->bTeam == gbPlayerNum || pTSoldier->bTeam == MILITIA_TEAM ) && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass != IC_MEDKIT && !Item[pSoldier->inv[ HANDPOS ].usItem].gascan && gTacticalStatus.ubLastRequesterTargetID != pTSoldier->ubProfile && ( pTSoldier->ubID != pSoldier->ubID ) )
+				if ( ( pTSoldier->bTeam == gbPlayerNum || pTSoldier->bTeam == MILITIA_TEAM ) 
+					&& Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass != IC_MEDKIT 
+					&& !Item[pSoldier->inv[ HANDPOS ].usItem].gascan
+					&& !ItemCanBeAppliedToOthers( pSoldier->inv[ HANDPOS ].usItem )
+					&& gTacticalStatus.ubLastRequesterTargetID != pTSoldier->ubProfile 
+					&& ( pTSoldier->ubID != pSoldier->ubID ) )
 				{
 					CHAR16	zStr[200];
 
@@ -4159,6 +4164,24 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
 	}
+	else if ( uiFlags == MOVEUI_TARGET_APPLYITEM )
+	{
+		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		if ( sActionGridNo == -1 )
+		{
+			sActionGridNo = usMapPos;
+		}
+
+		sAPCost = GetAPsToApplyItem( pSoldier, sActionGridNo );
+
+		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+
+		if ( sActionGridNo != pSoldier->sGridNo )
+		{
+			gfUIHandleShowMoveGrid = TRUE;
+			gsUIHandleShowMoveGridLocation = sActionGridNo;
+		}
+	}
 	else if ( uiFlags == MOVEUI_TARGET_MERCS )
 	{
 		   INT32		sGotLocation = NOWHERE;
@@ -4514,6 +4537,21 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 	if ( ubItemCursor == HANDCUFFCURS )
 	{
 		if ( HasItemFlag( (&(pSoldier->inv[HANDPOS]))->usItem, HANDCUFFS ) )
+		{
+			if ( gfUIFullTargetFound )
+			{
+				usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+
+				return( TRUE );
+			}
+		}
+				
+		return( FALSE );
+	}
+
+	if ( ubItemCursor == APPLYITEMCURS )
+	{
+		if ( ItemCanBeAppliedToOthers( (&(pSoldier->inv[HANDPOS]))->usItem ) )
 		{
 			if ( gfUIFullTargetFound )
 			{

@@ -175,6 +175,7 @@ typedef enum ATTACHMENT_SLOT{
 #define REFUELCURS  23
 #define FORTICURS 24
 #define HANDCUFFCURS 25
+#define APPLYITEMCURS 26
 
 #define CAMERARANGE 10
 

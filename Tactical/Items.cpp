@@ -14955,3 +14955,27 @@ BOOL RandomItemIsTaboo( UINT16 usRandomItem )
 
 	return FALSE;
 }
+
+// Flugente: can item be applied to other people?
+BOOLEAN ItemCanBeAppliedToOthers( UINT16 usItem )
+{
+	if ( Item[ usItem ].drugtype )
+		return TRUE;
+
+	if ( Item[ usItem ].gasmask )
+		return TRUE;
+		
+	if ( Item[ usItem ].canteen )
+		return TRUE;
+
+	if ( Item[ usItem ].camouflagekit )
+		return TRUE;
+
+	if ( Item[ usItem ].clothestype )
+		return TRUE;
+
+	if ( Item[ usItem ].usItemClass == IC_BOMB )
+		return TRUE;
+		
+	return FALSE;
+}

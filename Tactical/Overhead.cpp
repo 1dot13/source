@@ -1665,6 +1665,11 @@ BOOLEAN ExecuteOverhead( )
 											pSoldier->EVENT_SoldierHandcuffPerson( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
 											pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
 										}
+										else if ( pSoldier->aiData.ubPendingAction == MERC_APPLYITEM )
+										{
+											pSoldier->EVENT_SoldierApplyItemToPerson( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
+											pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
+										}
 										else if ( pSoldier->aiData.ubPendingAction == MERC_GIVEITEM	)
 										{
 											pSoldier->EVENT_SoldierBeginGiveItem( );

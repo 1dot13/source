@@ -224,6 +224,7 @@ enum
 	MERC_FUEL_VEHICLE,
 	MERC_BUILD_FORTIFICATION,
 	MERC_HANDCUFF_PERSON,
+	MERC_APPLYITEM,
 };
 
 // ENUMERATIONS FOR THROW ACTIONS
@@ -1342,6 +1343,7 @@ public:
 
 	void EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 	void EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
+	void EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
 
 	BOOLEAN EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestart );
 	void EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState );

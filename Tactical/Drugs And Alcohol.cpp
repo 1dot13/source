@@ -415,20 +415,7 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	// if we have a life damaging effect, deduct life points
 	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_LIFEDAMAGE ] == 0 && pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ] > 0 )
 	{
-		pSoldier->EVENT_SoldierGotHit( 0, 400, 0, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, -1 );
-
-		/*if ( pSoldier->stats.bLife > OKLIFE )
-		{
-			INT8 lifepointdamage = pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_LIFEDAMAGE ];
-				
-			INT8 applieddamage = pSoldier->stats.bLife;
-
-			pSoldier->stats.bLife = max(OKLIFE - 8, pSoldier->stats.bLife - lifepointdamage);
-
-			applieddamage -= pSoldier->stats.bLife;
-
-			pSoldier->iHealableInjury += (applieddamage * 100);
-		}*/
+		pSoldier->EVENT_SoldierGotHit( 0, 10, 0, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, -1 );
 	}
 
 	// if we took an antidote, reduce poisoning

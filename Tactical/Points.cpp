@@ -3713,6 +3713,17 @@ INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	return sAPCost;
 }
 
+INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
+{
+	INT16 sAPCost = 0;
+
+	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+		
+	sAPCost += APBPConstants[AP_APPLYITEM];
+
+	return sAPCost;
+}
+
 INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 {
 	// -25% APs needed to for MA traits

@@ -16944,6 +16944,150 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 	}
 }
 
+void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection )
+{
+	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+
+	if ( ubPerson != NOBODY )
+	{
+		// we found someone
+		SOLDIERTYPE* pSoldier =  MercPtrs[ ubPerson ];
+
+		OBJECTTYPE* pObj = &(this->inv[ HANDPOS ]);
+
+		if ( pSoldier && pObj->exists() )
+		{
+			UINT16 usItem = pObj->usItem;
+			
+			if ( ItemCanBeAppliedToOthers( usItem ) )
+			{
+				BOOLEAN success = TRUE;
+
+				// if the other guy is not on our side, and he is concious, he resists
+				if ( this->bSide != pSoldier->bSide && !pSoldier->bCollapsed )
+				{
+					// wether we are sucessful depends on dexterity, and his alert status (he gets a malus on green state)
+					UINT32 attackervalue = 30 + 4 * EffectiveExpLevel( this ) + EffectiveDexterity( this, FALSE ) + 20 * HAS_SKILL_TRAIT(this, STEALTHY_NT);
+					UINT32 defendervalue = 100 + 3 * EffectiveExpLevel( pSoldier ) + 100 * (pSoldier->aiData.bAlertStatus - 1);
+					
+					// we are penalized for the weight of the item
+					UINT16 weight = pObj->GetWeightOfObjectInStack(0);
+					attackervalue = attackervalue / weight;
+
+					if ( Random(attackervalue) > Random(defendervalue) )
+						success = TRUE;
+					else
+					{
+						success = FALSE;
+
+						// if we are disguised, there is a chance that he'll uncover us
+						if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+						{
+							this->LooseDisguise();
+							this->Strip();
+
+							// alert the soldier
+							pSoldier->aiData.bAlertStatus = min(pSoldier->aiData.bAlertStatus,  STATUS_RED);
+
+							ProcessImplicationsOfPCAttack( this, &pSoldier, REASON_NORMAL_ATTACK );
+
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_APPLYITEM_STEAL_FAIL], this->name, pSoldier->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->name, this->name  );
+						}
+					}
+				}
+
+				if ( success )
+				{
+					if ( !gGameOptions.fFoodSystem && Item[ usItem ].canteen )
+					{
+						BOOLEAN tmp = FALSE;
+						success = ApplyCanteen( pSoldier, pObj, &tmp );
+					}
+					else if ( Item[ usItem ].drugtype || Item[ usItem ].canteen )
+					{
+						// applying drugs also handles food items
+						success = ApplyDrugs( pSoldier, pObj );
+					}
+					else if ( Item[ usItem ].camouflagekit )
+					{
+						BOOLEAN tmp = FALSE;
+						success = ApplyCammo( pSoldier, pObj, &tmp );
+
+						if ( success )
+						{
+							// WANNE: We should only delete the face, if there was a camo we applied.
+							// This should fix the bug and crashes with missing faces
+							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+							{
+								// Flugente: refresh face regardless of result of SetCamoFace(), otherwise applying a rag will not clean the picture
+								SetCamoFace( pSoldier );
+								DeleteSoldierFace( pSoldier );// remove face
+								pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+							}
+
+							// Dirty
+							fInterfacePanelDirty = DIRTYLEVEL2;
+						}
+					}
+					else if ( Item[ usItem ].gasmask )
+					{
+						// put this item into a (at best empty) faceslot if no gasmask is been worn
+						INT8 bSlot = FindGasMask( pSoldier );
+						if ( bSlot == NO_SLOT || (bSlot != HEAD1POS && bSlot != HEAD2POS ) )
+						{
+							if ( !(pSoldier->inv[HEAD1POS]).exists() )
+							{
+								success = PlaceObject( pSoldier, HEAD1POS, pObj );
+							}
+							else if ( !(pSoldier->inv[HEAD2POS]).exists() )
+							{
+								success = PlaceObject( pSoldier, HEAD2POS, pObj );
+							}
+							else
+							{
+								// no gasmask is worn, and both faceslots are occupied - remove the item in slot 2 and put the gasmask there
+								AddItemToPool( pSoldier->sGridNo, &(pSoldier->inv[HEAD2POS]), 1, pSoldier->pathing.bLevel, 0, -1 );
+
+								success = PlaceObject( pSoldier, HEAD2POS, pObj );
+							}
+						}
+					}
+					else if (  Item[ usItem ].clothestype )
+					{
+						 ApplyClothes( pSoldier, pObj );
+
+						// Dirty
+						fInterfacePanelDirty = DIRTYLEVEL2;
+					}
+					else if ( Item[ usItem ].usItemClass == IC_BOMB )
+					{
+						success = AutoPlaceObjectAnywhere( pSoldier, pObj, FALSE );
+					}
+
+					this->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+				}
+
+				DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
+
+				if ( !success )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s could not apply %s to %s.", this->name, Item[usItem].szLongItemName, pSoldier->name );
+			}
+			else
+			{
+				DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
+
+				// curses!
+				this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+			}
+
+			return;
+		}
+	}
+
+	// Say NOTHING quote...
+	this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+}
 
 void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )
 {

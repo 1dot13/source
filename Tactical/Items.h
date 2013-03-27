@@ -507,6 +507,9 @@ BOOLEAN	GetFirstClothesItemWithSpecificData( UINT16* pusItem, PaletteRepID aPalV
 // Flugente: function to determine what item a random item spawns
 BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem );
 
+// Flugente: can item be applied to other people?
+BOOLEAN ItemCanBeAppliedToOthers( UINT16 usItem );
+
 #endif
 
 

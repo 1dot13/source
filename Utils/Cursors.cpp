@@ -119,11 +119,14 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\bullseye.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\deadleap.sti"											, FALSE, 0, 0, 0, NULL },
 
-	{ "CURSORS\\hammer.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: fortification stuff
+	{ "CURSORS\\hammer.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: fortification
 	{ "CURSORS\\hammer_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
 
-	{ "CURSORS\\handcuffs.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: handcuffs stuff
+	{ "CURSORS\\handcuffs.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: handcuffs
 	{ "CURSORS\\handcuffs_r.sti"									, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
+
+	{ "CURSORS\\apply_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: apply items - still needs animation
+	{ "CURSORS\\apply.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// yes, the red one is the 'valid' one - just like for taking items
 
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
@@ -1215,6 +1218,21 @@ CursorData CursorDatabase[] =
 		0,							0, 0, 0, 0,
 		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
 
+	// Flugente: apply item
+	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_APPLYITEM				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
+
+	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_APPLYITEM_RED		,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		0,							0, 0, 0, 0,
+		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
+		
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FUEL				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0,							0, 0, 0, 0,

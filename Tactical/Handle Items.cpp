@@ -273,7 +273,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		return( ITEM_HANDLE_BROKEN );
 	}
 
-	if ( fFromUI && pSoldier->bTeam == gbPlayerNum && pTargetSoldier && (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral) && pTargetSoldier->ubBodyType != CROW && Item[ usHandItem ].usItemClass != IC_MEDKIT )
+	if ( fFromUI && pSoldier->bTeam == gbPlayerNum && pTargetSoldier && (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral) && pTargetSoldier->ubBodyType != CROW && Item[ usHandItem ].usItemClass != IC_MEDKIT && !ItemCanBeAppliedToOthers(usHandItem) )
 	{
 		if ( pSoldier->ubProfile != NO_PROFILE	)
 		{
@@ -1288,6 +1288,86 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			else
 			{
 				pSoldier->EVENT_SoldierHandcuffPerson( sAdjustedGridNo, ubDirection );
+
+				UnSetUIBusy( pSoldier->ubID );
+			}
+
+			if ( fFromUI )
+			{
+				guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+			}
+
+			return( ITEM_HANDLE_OK );
+		}
+		else
+		{
+			return( ITEM_HANDLE_NOAPS );
+		}
+	}
+
+	// Flugente: apply misc items to other soldiers
+	if ( ItemCanBeAppliedToOthers( usHandItem ) )
+	{
+		// ATE: AI CANNOT GO THROUGH HERE!
+		INT32 usMapPos;
+		BOOLEAN	fHadToUseCursorPos = FALSE;
+
+		GetMouseMapPos( &usMapPos );
+
+		// See if we can get there to stab
+		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+		if ( sActionGridNo == -1 )
+		{
+			// Try another location...
+			sActionGridNo =	FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+
+			if ( sActionGridNo == -1 )
+			{
+				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
+			}
+		}
+
+		// Calculate AP costs...
+		sAPCost = GetAPsToApplyItem( pSoldier, sActionGridNo );
+		sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+
+		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+		{
+			// OK, set UI
+			SetUIBusy( pSoldier->ubID );
+
+			// CHECK IF WE ARE AT THIS GRIDNO NOW
+			if ( pSoldier->sGridNo != sActionGridNo )
+			{
+				// SEND PENDING ACTION
+				pSoldier->aiData.ubPendingAction = MERC_APPLYITEM;
+
+				if ( fHadToUseCursorPos )
+				{
+					pSoldier->aiData.sPendingActionData2	= usMapPos;
+				}
+				else
+				{
+					if ( pTargetSoldier != NULL )
+					{
+						pSoldier->aiData.sPendingActionData2	= pTargetSoldier->sGridNo;
+					}
+					else
+					{
+						pSoldier->aiData.sPendingActionData2	= sGridNo;
+					}
+				}
+				pSoldier->aiData.bPendingActionData3	= ubDirection;
+				pSoldier->aiData.ubPendingActionAnimCount = 0;
+
+				// WALK UP TO DEST FIRST
+				pSoldier->EVENT_InternalGetNewSoldierPath( sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
+			}
+			else
+			{
+				pSoldier->EVENT_SoldierApplyItemToPerson( sAdjustedGridNo, ubDirection );
+
+				UnSetUIBusy( pSoldier->ubID );
 			}
 
 			if ( fFromUI )

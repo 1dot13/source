@@ -54,7 +54,8 @@ UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated
 UINT8 HandleJarCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );	//added by Flugente
-UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );	//added by Flugente
+UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );		//added by Flugente
+UINT8 HandleApplyItemCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );		//added by Flugente
 
 extern BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel );
 
@@ -308,6 +309,11 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 		case HANDCUFFCURS:
 
 			ubCursorID = HandleHandcuffCursor( pSoldier, sTargetGridNo, uiCursorFlags );
+			break;
+
+		case APPLYITEMCURS:
+
+			ubCursorID = HandleApplyItemCursor( pSoldier, sTargetGridNo, uiCursorFlags );
 			break;
 
 		case INVALIDCURS:
@@ -2235,6 +2241,24 @@ UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 	return( HANDCUFF_RED_UICURSOR );
 }
 
+UINT8 HandleApplyItemCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
+{
+	// DRAW PATH TO GUY
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM );
+		
+	if ( ItemCanBeAppliedToOthers( (&(pSoldier->inv[HANDPOS]))->usItem ) )
+	{
+		// is there a person here?
+		UINT8 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+		if ( usSoldierIndex != NOBODY )
+		{
+			return( APPLYITEM_GREY_UICURSOR );
+		}
+	}
+
+	return( APPLYITEM_RED_UICURSOR );
+}
+
 void HandleEndConfirmCursor( SOLDIERTYPE *pSoldier )
 {
 	UINT16				usInHand;
@@ -2714,6 +2738,10 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usInHand, HANDCUFFS) )
 		ubCursor = HANDCUFFCURS;
 
+	// Flugente: apply misc items to other soldiers
+	if ( ItemCanBeAppliedToOthers( usInHand ) )
+		ubCursor = APPLYITEMCURS;
+		
 	// Now check our terrain to see if we cannot do the action now...
 	if ( WaterTooDeepForAttacks( pSoldier->sGridNo) )
 	{

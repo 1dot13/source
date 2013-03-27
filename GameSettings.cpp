@@ -2452,6 +2452,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_CLEANINGKIT]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLEANINGKIT",80),80);
 	APBPConstants[AP_DISGUISE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_DISGUISE",80),80);
 	APBPConstants[AP_HANDCUFF]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_HANDCUFF",50),50);
+	APBPConstants[AP_APPLYITEM]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_APPLYITEM",50),50);	
 	APBPConstants[AP_INVENTORY_ARM]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_ARM",50),50);
 
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
@@ -2510,6 +2511,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[BP_REMOVE_FORTIFICATION]			= iniReader.ReadInteger("BPConstants","BP_REMOVE_FORTIFICATION", 400);
 	APBPConstants[BP_FILL_SANDBAG]					= iniReader.ReadInteger("BPConstants","BP_FILL_SANDBAG", 500);
 	APBPConstants[BP_HANDCUFF]						= iniReader.ReadInteger("BPConstants","BP_HANDCUFF", 100);
+	APBPConstants[BP_APPLYITEM]						= iniReader.ReadInteger("BPConstants","BP_APPLYITEM", 50);	
 	APBPConstants[BP_INVENTORY_ARM]					= iniReader.ReadInteger("BPConstants","BP_INVENTORY_ARM", 10);
 			
 	SetupMaxActionPointsAnimation();
