@@ -1,98 +1,3 @@
-<!-- Max Profiles 0 - 254 -->
-<!-- uiIndex 200 - can not be profile! 				-->
-
-<!-- Type -->
-
-<!-- (0) None (not used) 							-->
-<!-- (1) AIM 										-->
-<!-- (2) MERC 										-->
-<!-- (3) RPC 										-->
-<!-- (4) NPC 										-->
-<!-- (5) Vehicle 									-->
-<!-- (6) IMP 										-->
-
-<!-- Original Attitude -->
-
-<!-- (0) Normal										-->
-<!-- (1) Friendly									-->
-<!-- (2) Loner										-->
-<!-- (3) Optimist									-->
-<!-- (4) Pessimist									-->
-<!-- (5) Aggressive									-->
-<!-- (6) Arrogant									-->
-<!-- (7) Big Shot									-->
-<!-- (8) Asshole									-->
-<!-- (9) Coward										-->
-
-<!-- Original Skill List -->
-
-<!-- (0) None			 							-->
-<!-- (1) Lock Picking								-->
-<!-- (2) Hand-to-Hand								-->
-<!-- (3) Electronics								-->
-<!-- (4) Night Ops									-->
-<!-- (5) Throwing									-->
-<!-- (6) Teaching		 							-->
-<!-- (7) Heavy Weapons								-->
-<!-- (8) Auto Weapons								-->
-<!-- (9) Stealthy									-->
-<!-- (10) Ambidexterous								-->
-<!-- (11) Thiefing (not used)						-->
-<!-- (12) Martial Arts								-->
-<!-- (13) Knifing									-->
-<!-- (14) Rooftop Sniping							-->
-<!-- (15) Camouflaged								-->
-
-<!-- STOMP Skill List -->
-
-<!-- major Skill (1)	Auto Weapons/Machinegunner 	-->
-<!-- major Skill (2)	Heavy Weapons/Bombardier 	-->
-<!-- major Skill (3)	Marksman/Sniper 			-->
-<!-- major Skill (4)	Hunter/Ranger 				-->
-<!-- major Skill (5)	Gunslinger/Gunfighter 		-->
-<!-- major Skill (6)	Hand-to-Hand/Martial Arts	-->
-<!-- major Skill (7)	Deputy/Squadleader 			-->
-<!-- major Skill (8)	Technician/Engineer			-->
-<!-- major Skill (9)	Paramedic/Doctor			-->
-
-<!-- minor Skill (10)	Ambidexterous				-->
-<!-- minor Skill (11)	Melee						-->	
-<!-- minor Skill (12)   Throwing					-->
-<!-- minor Skill (13)	Night Ops					-->
-<!-- minor Skill (14)	Stealthy					-->	
-<!-- minor Skill (15)	Athletics					-->
-<!-- minor Skill (16)	Bodybuilding				-->
-<!-- minor Skill (17)	Demolitions					-->
-<!-- minor Skill (18)	Teaching					-->
-<!-- minor Skill (19)	Scouting					-->
-
-<!-- STOMP Character Traits -->
-
-<!-- (0) Neutral 									-->
-<!-- (1) Sociable 									-->
-<!-- (2) Loner										-->
-<!-- (3) Optimist 									-->
-<!-- (4) Assertive									-->
-<!-- (5) Intellectual								-->
-<!-- (6) Primitive									-->
-<!-- (7) Aggressive									-->
-<!-- (8) Phlegmatic									-->
-<!-- (9) Dauntless									-->
-<!-- (10) Pacifist 									-->
-<!-- (11) Malicious									-->
-<!-- (12) Show-off									-->
-
-<!-- STOMP Disabilities -->
-
-<!-- (0) None 										-->
-<!-- (1) Heat Intolerant 							-->
-<!-- (2) Nervous 									-->
-<!-- (3) Claustrophobic 							-->
-<!-- (4) Non Swimmer 								-->
-<!-- (5) Fear of Insects 							-->
-<!-- (6) Forgetful 									-->
-<!-- (7) Psycho 									-->
-
 <MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
@@ -20991,9 +20896,9 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
-		<sSalary>1500</sSalary>
-		<uiWeeklySalary>9600</uiWeeklySalary>
-		<uiBiWeeklySalary>1700</uiBiWeeklySalary>
+		<sSalary>1200</sSalary>
+		<uiWeeklySalary>7600</uiWeeklySalary>
+		<uiBiWeeklySalary>13000</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>1500</sMedicalDepositAmount>
 		<usOptionalGearCost>0</usOptionalGearCost>
@@ -21134,7 +21039,7 @@
 		<bMedical>29</bMedical>
 		<bMechanical>88</bMechanical>
 		<bExpLevel>5</bExpLevel>
-		<bEvolution>2</bEvolution>
+		<bEvolution>1</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
