@@ -433,70 +433,76 @@ BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile )
 //Random stats
 void RandomStats ()
 {
-UINT32 cnt;
-INT8 bBaseAttribute = 0;
-MERCPROFILESTRUCT * pProfile;
+	UINT32 cnt;
+	INT8 bBaseAttribute = 0;
+	MERCPROFILESTRUCT * pProfile;
+
+	BOOLEAN randomStatsEnabled = FALSE;
 
 	for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
 	{
-		if ( gRandomStatsValue[cnt].Enabled == TRUE )
+		// WANNE: Random Stats are based on the INI entry (MERCS_RANDOM_STATS)
+		if ((gGameExternalOptions.ubMercRandomStats == 1) || (gGameExternalOptions.ubMercRandomStats == 2 && gRandomStatsValue[cnt].Enabled))
+			randomStatsEnabled = TRUE;
+
+		if ( randomStatsEnabled == TRUE )
+		{
+			bBaseAttribute = gRandomStatsValue[cnt].BaseAttribute + ( 4 * gRandomStatsValue[cnt].ExpLevel );
+			pProfile = &(gMercProfiles[cnt]);
+		
+			pProfile->bExpLevel = gRandomStatsValue[cnt].ExpLevel;
+
+			if ( gRandomStatsValue[cnt].RandomLife == TRUE )
 			{
-						bBaseAttribute = gRandomStatsValue[cnt].BaseAttribute + ( 4 * gRandomStatsValue[cnt].ExpLevel );
-						pProfile = &(gMercProfiles[cnt]);
-					
-						pProfile->bExpLevel = gRandomStatsValue[cnt].ExpLevel;
-
-						if ( gRandomStatsValue[cnt].RandomLife == TRUE )
-							{
-								pProfile->bLifeMax = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-								pProfile->bLife = pProfile->bLifeMax;
-							}	
-							
-						if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
-							{
-								pProfile->bAgility = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}							
-							
-						if ( gRandomStatsValue[cnt].RandomLeadership == TRUE )
-							{
-								pProfile->bLeadership = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}							
-														
-						if ( gRandomStatsValue[cnt].RandomDexterity == TRUE )
-							{
-								pProfile->bDexterity = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}	
-							
-						if ( gRandomStatsValue[cnt].RandomWisdom == TRUE )
-							{
-								pProfile->bWisdom = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}	
-							
-						if ( gRandomStatsValue[cnt].RandomMarksmanship == TRUE )
-							{
-								pProfile->bMarksmanship = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}	
-							
-						if ( gRandomStatsValue[cnt].RandomMedical == TRUE )
-							{
-								pProfile->bMedical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}
-							
-						if ( gRandomStatsValue[cnt].RandomMechanical == TRUE )
-							{
-								pProfile->bMechanical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}	
-
-						if ( gRandomStatsValue[cnt].RandomExplosive == TRUE )
-							{
-								pProfile->bExplosive = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}	
-
-						if ( gRandomStatsValue[cnt].RandomStrength == TRUE )
-							{
-								pProfile->bStrength = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-							}								
+				pProfile->bLifeMax = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				pProfile->bLife = pProfile->bLifeMax;
+			}	
+				
+			if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
+			{
+				pProfile->bAgility = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}							
+				
+			if ( gRandomStatsValue[cnt].RandomLeadership == TRUE )
+			{
+				pProfile->bLeadership = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}							
+											
+			if ( gRandomStatsValue[cnt].RandomDexterity == TRUE )
+			{
+				pProfile->bDexterity = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}	
+				
+			if ( gRandomStatsValue[cnt].RandomWisdom == TRUE )
+			{
+				pProfile->bWisdom = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}	
+				
+			if ( gRandomStatsValue[cnt].RandomMarksmanship == TRUE )
+			{
+				pProfile->bMarksmanship = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}	
+				
+			if ( gRandomStatsValue[cnt].RandomMedical == TRUE )
+			{
+				pProfile->bMedical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
 			}
+				
+			if ( gRandomStatsValue[cnt].RandomMechanical == TRUE )
+			{
+				pProfile->bMechanical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}	
+
+			if ( gRandomStatsValue[cnt].RandomExplosive == TRUE )
+			{
+				pProfile->bExplosive = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}	
+
+			if ( gRandomStatsValue[cnt].RandomStrength == TRUE )
+			{
+				pProfile->bStrength = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+			}								
+		}
 	}
 }
 
