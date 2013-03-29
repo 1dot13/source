@@ -2740,7 +2740,21 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 
 	// Flugente: apply misc items to other soldiers
 	if ( ItemCanBeAppliedToOthers( usInHand ) )
-		ubCursor = APPLYITEMCURS;
+	{
+		// if item is a bomb, only allow apply if hovering over a soldier (otherwise we cannot mine anymore)
+		if ( Item[ usInHand ].usItemClass == IC_BOMB )
+		{
+			INT32 usMapPos = NOWHERE;
+			if ( GetMouseMapPos( &usMapPos ) )
+			{
+				// is there a person here?
+				 if ( WhoIsThere2( usMapPos, pSoldier->pathing.bLevel ) != NOBODY )
+					 ubCursor = APPLYITEMCURS;
+			}
+		}
+		else
+			ubCursor = APPLYITEMCURS;
+	}
 		
 	// Now check our terrain to see if we cannot do the action now...
 	if ( WaterTooDeepForAttacks( pSoldier->sGridNo) )

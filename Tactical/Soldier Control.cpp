@@ -16985,15 +16985,15 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 						{
 							this->LooseDisguise();
 							this->Strip();
-
-							// alert the soldier
-							pSoldier->aiData.bAlertStatus = min(pSoldier->aiData.bAlertStatus,  STATUS_RED);
-
-							ProcessImplicationsOfPCAttack( this, &pSoldier, REASON_NORMAL_ATTACK );
-
+														
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_APPLYITEM_STEAL_FAIL], this->name, pSoldier->name );
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->name, this->name  );
 						}
+
+						// alert the soldier
+						pSoldier->aiData.bAlertStatus = min(pSoldier->aiData.bAlertStatus,  STATUS_RED);
+
+						ProcessImplicationsOfPCAttack( this, &pSoldier, REASON_NORMAL_ATTACK );
 					}
 				}
 
@@ -17002,7 +17002,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 					if ( !gGameOptions.fFoodSystem && Item[ usItem ].canteen )
 					{
 						BOOLEAN tmp = FALSE;
-						success = ApplyCanteen( pSoldier, pObj, &tmp );
+						success = ApplyCanteen( pSoldier, pObj, &tmp, FALSE );
 					}
 					else if ( Item[ usItem ].drugtype || Item[ usItem ].canteen )
 					{
@@ -17012,7 +17012,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 					else if ( Item[ usItem ].camouflagekit )
 					{
 						BOOLEAN tmp = FALSE;
-						success = ApplyCammo( pSoldier, pObj, &tmp );
+						success = ApplyCammo( pSoldier, pObj, &tmp, FALSE );
 
 						if ( success )
 						{
@@ -17055,7 +17055,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 					}
 					else if (  Item[ usItem ].clothestype )
 					{
-						 ApplyClothes( pSoldier, pObj );
+						 ApplyClothes( pSoldier, pObj, FALSE );
 
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
@@ -17083,10 +17083,25 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 
 			return;
 		}
-	}
 
-	// Say NOTHING quote...
-	this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+		// Say NOTHING quote...
+		this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+	}
+	else
+	{
+		// if this is  bomb, but nobody is there, plant the bomb instead
+		OBJECTTYPE* pObj = &(this->inv[ HANDPOS ]);
+
+		if ( pObj->exists() )
+		{
+			UINT16 usItem = pObj->usItem;
+
+			if ( Item[ usItem ].usItemClass == IC_BOMB )
+			{
+				this->EVENT_SoldierBeginDropBomb( );
+			}
+		}
+	}
 }
 
 void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )

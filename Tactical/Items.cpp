@@ -8956,7 +8956,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 }
 
-BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs )
+BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs, BOOLEAN fUseAPs )
 {
 	// Added - SANDRO
 	INT8		bPointsToUse;
@@ -8972,7 +8972,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	// added possibility to remove all camo by using a rag on self - SANDRO
 	if ( HasItemFlag(pObj->usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving)
 	{
-		if (!EnoughPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE]/2), 0, TRUE ) )
+		if ( fUseAPs && !EnoughPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE]/2), 0, TRUE ) )
 		{
 			(*pfGoodAPs) = FALSE;
 			return( TRUE );
@@ -8983,7 +8983,8 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 		// damage the rag :) - actually you would need to flag it damagable in the items.XML
 		DamageItem( pObj, 22, FALSE );
 
-		DeductPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE] / 2), 0 );
+		if ( fUseAPs )
+			DeductPoints( pSoldier, (APBPConstants[AP_CAMOFLAGE] / 2), 0 );
 
 		// Reload palettes....
 		if ( pSoldier->bInSector )
@@ -8998,9 +8999,9 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	}
 	//////////////////////////////////////////////////////////////////////////////
 
-	if (!EnoughPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0, TRUE ) )
+	if ( fUseAPs && !EnoughPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0, TRUE ) )
 	{
-    (*pfGoodAPs) = FALSE;
+		(*pfGoodAPs) = FALSE;
 		return( TRUE );
 	}
 
@@ -9221,7 +9222,8 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 
 	UseKitPoints( pObj, bPointsToUse, pSoldier );
 
-	DeductPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0 );
+	if ( fUseAPs )
+		DeductPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0 );
 
 	// Reload palettes....
 	if ( pSoldier->bInSector )
@@ -9233,7 +9235,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 }
 
 // Flugente: apply clothes, and eventually disguise
-BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
+BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs )
 {
 	// this will only work with the new trait system
 	if (!gGameOptions.fNewTraitSystem)
@@ -9248,7 +9250,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 	UINT8 skilllevel = NUM_SKILL_TRAITS( pSoldier, COVERT_NT );
 
 	INT16 apcost = (APBPConstants[AP_DISGUISE] * ( 100 - gSkillTraitValues.sCODisguiseAPReduction * skilllevel))/100;
-	if ( !EnoughPoints( pSoldier, apcost, 0, TRUE ) )
+	if ( fUseAPs && !EnoughPoints( pSoldier, apcost, 0, TRUE ) )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NOT_ENOUGH_APS] );
 		return( FALSE );
@@ -9339,7 +9341,8 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 
 			UseKitPoints( pObj, 100, pSoldier );
 
-			DeductPoints( pSoldier, apcost, 0 );
+			if ( fUseAPs )
+				DeductPoints( pSoldier, apcost, 0 );
 		}
 
 		if ( pSoldier->bSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->bSoldierFlagMask & SOLDIER_NEW_PANTS )
@@ -9375,7 +9378,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj)
 	return( TRUE );
 }
 
-BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs )
+BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAPs, BOOLEAN fUseAPs )
 {
 	INT16		sPointsToUse;
 	UINT16	usTotalKitPoints;
@@ -9394,28 +9397,29 @@ BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGood
 		return( FALSE );
 	}
 
-	if (!EnoughPoints( pSoldier, APBPConstants[AP_DRINK], 0, TRUE ) )
+	if ( fUseAPs && !EnoughPoints( pSoldier, APBPConstants[AP_DRINK], 0, TRUE ) )
 	{
-    (*pfGoodAPs) = FALSE;
+		(*pfGoodAPs) = FALSE;
 		return( TRUE );
 	}
 
-  if ( pSoldier->bTeam == gbPlayerNum )
-  {
-    if ( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
-    {
-		  PlayJA2Sample( DRINK_CANTEEN_MALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-    }
-    else
-    {
-		  PlayJA2Sample( DRINK_CANTEEN_FEMALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-    }
-  }
+	if ( pSoldier->bTeam == gbPlayerNum )
+	{
+		if ( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
+		{
+			PlayJA2Sample( DRINK_CANTEEN_MALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+		}
+		else
+		{
+			PlayJA2Sample( DRINK_CANTEEN_FEMALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+		}
+	}
 
 	sPointsToUse = __min( 20, usTotalKitPoints );
 
 	// CJC Feb 9.  Canteens don't seem effective enough, so doubled return from them
-	DeductPoints( pSoldier, APBPConstants[AP_DRINK], (INT16) (2 * sPointsToUse * -(100 - pSoldier->bBreath) ) );
+	if ( fUseAPs )
+		DeductPoints( pSoldier, APBPConstants[AP_DRINK], (INT16) (2 * sPointsToUse * -(100 - pSoldier->bBreath) ) );
 
 	UseKitPoints( pObj, sPointsToUse, pSoldier );
 

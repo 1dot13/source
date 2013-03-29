@@ -3375,7 +3375,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 						}
 					}					
-					else if ( !gGameOptions.fFoodSystem && ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+					else if ( !gGameOptions.fFoodSystem && ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs, TRUE ) )
 					{
 						// Dirty
 						if ( fGoodAPs )
