@@ -7677,11 +7677,19 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	if ( GetItemFromRandomItem(usItem, &newitemfromrandom) )
 		usItem = newitemfromrandom;
 
+#ifdef JA2EDITOR
+
+	// Buggler: usItem == 0 is technically an item too, so need to run code to delete existing item in editor/merc inventory mode
+
+#else //non-editor version
+
 	if (usItem == 0)
 	{
 		DebugBreakpoint();
 		return( FALSE );
 	}
+
+#endif
 
 	if (Item[ usItem ].usItemClass == IC_GUN)
 	{

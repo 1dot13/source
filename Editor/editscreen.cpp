@@ -2054,7 +2054,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case ',':
 					// item left scroll
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex )
 						{
@@ -2080,7 +2080,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case '.':
 					// item right scroll
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
 						{
@@ -2105,7 +2105,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case '<':
 					// item left scroll by page
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex )
 						{
@@ -2124,7 +2124,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case '>':
 					// item right scroll by page
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
 						{
@@ -2176,7 +2176,7 @@ void HandleKeyboardShortcuts( )
 			{
 				case ',':
 					// item left scroll
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex )
 						{
@@ -2195,7 +2195,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case '.':
 					// item right scroll
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
 						{
@@ -2213,7 +2213,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case '<':
 					// item left scroll by page
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex )
 						{
@@ -2229,7 +2229,7 @@ void HandleKeyboardShortcuts( )
 					break;
 				case '>':
 					// item right scroll by page
-					if( iCurrentTaskbar == TASK_ITEMS )
+					if( iCurrentTaskbar == TASK_ITEMS || gubCurrMercMode == MERC_GETITEMMODE )
 					{
 						if( eInfo.sScrollIndex < max( ((eInfo.sNumItems+1)/2)-6, 0) )
 						{
