@@ -908,8 +908,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>178</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Извещение о повышении цен на услуги.</Subject>
+		<Message>Please take note. Due to the improved performance of Spooky his fees for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>179</uiIndex>
@@ -1118,38 +1118,38 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Postie</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. As of this moment, Postie's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Reuban</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note, due to the improvement in Reuban's performance his compensation for services render has undergone a revaluation.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Leon</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note, due to the improvement in Leon's performance his compensation for services render has undergone a revaluation.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Gary</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please do not answer. Following Gary's personal improvement, his fees for services rendered have been reestimated.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Sparky</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note of this notification. Due to Sparky's significantly improved performance her salary has been increased.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Beth</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself informed that Beth's improved performance entitles her to wages' reconsideration.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Sam</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>This notice is to inform you that due to Sam's exemplary performance his fees have been revised. Effective immediately there will be an increase to his salary.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>227</uiIndex>
@@ -1163,8 +1163,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
-		<Subject>Subject : Notice of Fee Increase</Subject>
-		<Message>Message : TODO: Manuel</Message>
+		<Subject>Subject: None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>230</uiIndex>
@@ -1238,8 +1238,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>244</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Извещение о повышении цен на услуги.</Subject>
+		<Message>Please be advised that Elroy's substantial experience gain entitles him to adequately substantial salary raise. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>245</uiIndex>
@@ -1253,8 +1253,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>247</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Извещение о повышении цен на услуги.</Subject>
+		<Message>Please be informed that Reverend's wages have been increased due to exceptional improvement in his abilities. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>248</uiIndex>
@@ -1263,8 +1263,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>249</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Извещение о повышении цен на услуги.</Subject>
+		<Message>Please consider yourself legally informed that due to improvement in Ears' perfomance his honorarium has been raised.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>250</uiIndex>
@@ -1277,14 +1277,16 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Dyno -->
 		<uiIndex>252</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Извещение о повышении цен на услуги.</Subject>
+		<Message>Please consider yourself informed that due to improvement in Dyno's performance his salary requires reconsideration.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Turtle -->
 		<uiIndex>253</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Извещение о повышении цен на услуги.</Subject>
+		<Message>Please be advised that due to Turtle's exceptional performance his wages have been recalculated.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>254</uiIndex>

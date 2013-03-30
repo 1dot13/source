@@ -52,7 +52,7 @@
 		<!-- Steroid -->
 		<uiIndex>8</uiIndex>
 		<Subject>CC du serveur AIM : Message de Gontarski Bobby</Subject>
-		<Message>Ceci est massage de Robert Gontarski. Je suis la sur AIM pour servur vous. Vous cliquez sur visage mien. ±</Message>
+		<Message>Ceci est massage de Bobby Gontarski. Je suis la sur AIM pour servur vous. Vous cliquez sur visage mien. ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Igor -->
@@ -64,7 +64,7 @@
 		<!-- Shadow -->
 		<uiIndex>10</uiIndex>
 		<Subject>CC du serveur AIM : ???d?? ???????</Subject>
-		<Message>&gt;&gt;MESSAGE ANONYME VIA AIM. Vous avez demandé Fantôme. Je serai peut-être sur AIM pendant un moment. Qui sait ? ±</Message>
+		<Message>>>MESSAGE ANONYME VIA AIM. Vous avez demandé Fantôme. Je serai peut-être sur AIM pendant un moment. Qui sait ? ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Red -->
@@ -233,7 +233,7 @@
 		<uiIndex>38</uiIndex>
 		<Subject>CC du serveur AIM : Message du Dr Dawson Michael</Subject>
 		<Message>Super ! J'ai eu ton message et ça m'intéresse de travailler avec toi. ± ± Merci ± ± Dr Dawson Michael. ±</Message>
-		</EMAIL>
+	</EMAIL>
 	<EMAIL>
 		<!-- Meltdown -->
 		<uiIndex>39</uiIndex>
