@@ -7356,7 +7356,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 	this->ResetExtraStats();
 
 	// ATE: Add decay effect sfor drugs...
-	if ( fFromRealTime  ) //&& iRealTimeCounter % 300 )
+	//if ( fFromRealTime  ) //&& iRealTimeCounter % 300 )
 	{
 		HandleEndTurnDrugAdjustments( this );
 	}
@@ -15508,13 +15508,13 @@ void	SOLDIERTYPE::StartMultiTurnAction(UINT8 usActionType)
 	switch( usMultiTurnAction )
 	{
 	case MTA_FORTIFY:
-		bOverTurnAPS = APBPConstants[AP_FORTIFICATION];		
+		bOverTurnAPS = GetAPsToBuildFortification( this );		
 		break;
 	case MTA_REMOVE_FORTIFY:
-		bOverTurnAPS = APBPConstants[AP_REMOVE_FORTIFICATION];		
+		bOverTurnAPS = GetAPsToRemoveFortification( this );	
 		break;
 	case MTA_FILL_SANDBAG:
-		bOverTurnAPS = APBPConstants[AP_FILL_SANDBAG];		
+		bOverTurnAPS = GetAPsToFillSandbag( this );
 		break;
 	}
 
@@ -15576,7 +15576,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 	{
 	case MTA_FORTIFY:
 		{
-			entireapcost = APBPConstants[AP_FORTIFICATION];
+			entireapcost = GetAPsToBuildFortification( this );
 			entirebpcost = APBPConstants[BP_FORTIFICATION];
 
 			if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
@@ -15587,7 +15587,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 		break;
 	case MTA_REMOVE_FORTIFY:
 		{
-			entireapcost = APBPConstants[AP_REMOVE_FORTIFICATION];
+			entireapcost = GetAPsToRemoveFortification( this );
 			entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
 
 			if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, (SHOVEL)) )
@@ -15597,7 +15597,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 
 	case MTA_FILL_SANDBAG:
 		{
-			entireapcost = APBPConstants[AP_FILL_SANDBAG];
+			entireapcost = GetAPsToFillSandbag( this );
 			entirebpcost = APBPConstants[BP_FILL_SANDBAG];
 
 			if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, EMPTY_SANDBAG) )

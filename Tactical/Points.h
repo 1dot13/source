@@ -358,6 +358,9 @@ INT16 GetBPsTouseJar( SOLDIERTYPE *pSoldier );
 
 INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
+INT16 GetAPsToBuildFortification( SOLDIERTYPE *pSoldier );			// added by Flugente
+INT16 GetAPsToRemoveFortification( SOLDIERTYPE *pSoldier );			// added by Flugente
+INT16 GetAPsToFillSandbag( SOLDIERTYPE *pSoldier );					// added by Flugente
 
 INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier );
 

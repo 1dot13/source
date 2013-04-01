@@ -3724,6 +3724,33 @@ INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	return sAPCost;
 }
 
+INT16 GetAPsToBuildFortification( SOLDIERTYPE *pSoldier )
+{
+	INT16 sAPCost = 0;
+		
+	sAPCost += APBPConstants[AP_FORTIFICATION];
+
+	return sAPCost;
+}
+
+INT16 GetAPsToRemoveFortification( SOLDIERTYPE *pSoldier )
+{
+	INT16 sAPCost = 0;
+		
+	sAPCost += APBPConstants[AP_REMOVE_FORTIFICATION];
+
+	return sAPCost;
+}
+
+INT16 GetAPsToFillSandbag( SOLDIERTYPE *pSoldier )
+{
+	INT16 sAPCost = 0;
+		
+	sAPCost += APBPConstants[AP_FILL_SANDBAG];
+
+	return sAPCost;
+}
+
 INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 {
 	// -25% APs needed to for MA traits
