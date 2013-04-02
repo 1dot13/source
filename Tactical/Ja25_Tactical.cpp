@@ -1800,7 +1800,7 @@ void DisplayCommanderMorrisNote( SOLDIERTYPE *pSoldier )
 	{
 		gJa25SaveStruct.ubDisplayCommanderMorrisNote = DMN__DISPLAY_PART_1; 
 
-		swprintf( zString, zNewTacticalMessages[ TCTL_MSG__END_GAME_POPUP_TXT_1 ], pSoldier->name );
+		swprintf( zString, zNewTacticalMessages[ TCTL_MSG__END_GAME_POPUP_TXT_1 ], pSoldier->GetName() );
 	}
 
 	//if it si the second part of the note to be displayed
@@ -1808,7 +1808,7 @@ void DisplayCommanderMorrisNote( SOLDIERTYPE *pSoldier )
 	{
 		gJa25SaveStruct.ubDisplayCommanderMorrisNote = DMN__DISPLAY_PART_2; 
 
-		swprintf( zString, zNewTacticalMessages[ TCTL_MSG__END_GAME_POPUP_TXT_2 ], pSoldier->name, pSoldier->name );
+		swprintf( zString, zNewTacticalMessages[ TCTL_MSG__END_GAME_POPUP_TXT_2 ], pSoldier->GetName(), pSoldier->GetName() );
 	}
 
 	//Display it

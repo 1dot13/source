@@ -1906,7 +1906,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 			if( fExplainWhyNot )
 			{
 				// on the move, can't sleep
-				swprintf( sString, zMarksMapScreenText[ 5 ], pSoldier->name );
+				swprintf( sString, zMarksMapScreenText[ 5 ], pSoldier->GetName() );
 				DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 			}
 
@@ -1921,7 +1921,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 				if( fExplainWhyNot )
 				{
 					// is driving, can't sleep
-					swprintf( sString, zMarksMapScreenText[ 7 ], pSoldier->name );
+					swprintf( sString, zMarksMapScreenText[ 7 ], pSoldier->GetName() );
 					DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 				}
 
@@ -1966,7 +1966,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 	{
 		if( fExplainWhyNot )
 		{
-			swprintf( sString, zMarksMapScreenText[ 4 ], pSoldier->name );
+			swprintf( sString, zMarksMapScreenText[ 4 ], pSoldier->GetName() );
 			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		}
 
@@ -1997,7 +1997,7 @@ BOOLEAN CanCharacterBeAwakened( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 	{
 		if ( fExplainWhyNot )
 		{
-			swprintf( sString, zMarksMapScreenText[ 6 ], pSoldier->name );
+			swprintf( sString, zMarksMapScreenText[ 6 ], pSoldier->GetName() );
 			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		}
 
@@ -3011,7 +3011,7 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient )
 	// there are doctors here but noone can heal this guy
 	if( ( fDoctorInSector ) && ( fDoctorCloseEnough == FALSE ) )
 	{
-		swprintf( sString, pDoctorWarningString[ 0 ] , pPatient->name );
+		swprintf( sString, pDoctorWarningString[ 0 ] , pPatient->GetName() );
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL);
 		return( FALSE );
 	}
@@ -3961,12 +3961,12 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 				// report it as fixed
 				if ( pSoldier == pOwner )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_REPAIRED ], pSoldier->name, ItemNames[ pObj->usItem ] );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_REPAIRED ], pSoldier->GetName(), ItemNames[ pObj->usItem ] );
 				}
 				else
 				{
 					// NOTE: may need to be changed for localized versions
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 35 ], pSoldier->name, pOwner->name, ItemNames[ pObj->usItem ] );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 35 ], pSoldier->GetName(), pOwner->GetName(), ItemNames[ pObj->usItem ] );
 				}
 			}
 			if ( *pubRepairPtsLeft == 0 )
@@ -4125,7 +4125,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 				{
 					// No items left in queue: All items have been repaired
 					if (itemsToFix.empty())
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 3 ], pSoldier->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 3 ], pSoldier->GetName() );
 					else {
 						// The current item was a weapon/armor
 						if ( (IsWeapon(object.item->usItem) || Item[object.item->usItem].usItemClass == IC_ARMOUR) &&
@@ -4134,7 +4134,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 						{
 
 							// All weapons & armor have been repaired
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 ], pSoldier->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 ], pSoldier->GetName() );
 							StopTimeCompression();
 						}
 					}
@@ -4219,7 +4219,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			// if he fixed something of his, and now has no more of his own items to fix
 			if ( fAnyOfSoldiersOwnItemsWereFixed && !DoesCharacterHaveAnyItemsToRepair( pSoldier, -1 ) )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 0 ], pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 0 ], pSoldier->GetName() );
 
 				// let player react
 				StopTimeCompression();
@@ -5962,7 +5962,7 @@ void AssignmentAborted( SOLDIERTYPE *pSoldier, UINT8 ubReason )
 {
 	AssertLT( ubReason, NUM_ASSIGN_ABORT_REASONS );
 
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ ubReason ], pSoldier->name );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ ubReason ], pSoldier->GetName() );
 
 	StopTimeCompression();
 
@@ -6336,7 +6336,7 @@ BOOLEAN AutoSleepMerc( SOLDIERTYPE *pSoldier )
 	}
 	else
 	{
-	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s",	pMercFellAsleepString[ 0 ], pSoldier->name );
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s",	pMercFellAsleepString[ 0 ], pSoldier->GetName() );
 	}
 
 
@@ -9231,26 +9231,29 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			switch( bCanJoinSquad )
 			{
 				case CHARACTER_CANT_JOIN_SQUAD_SQUAD_MOVING:
-					swprintf( sString, pMapErrorString[ 36 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
+					if ( gGameExternalOptions.fUseXMLSquadNames )
+						swprintf( sString, pMapErrorString[ 36 ], pSoldier->GetName(), SquadNames[ iValue ].squadname );
+					else
+						swprintf( sString, pMapErrorString[ 36 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_VEHICLE:
-					swprintf( sString, pMapErrorString[ 37 ], pSoldier->name );
+					swprintf( sString, pMapErrorString[ 37 ], pSoldier->GetName() );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_TOO_FAR:
 					if ( gGameExternalOptions.fUseXMLSquadNames )
-						swprintf( sString, pMapErrorString[ 20 ], pSoldier->name, SquadNames[ iValue ].squadname );
+						swprintf( sString, pMapErrorString[ 20 ], pSoldier->GetName(), SquadNames[ iValue ].squadname );
 					else
-						swprintf( sString, pMapErrorString[ 20 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
+						swprintf( sString, pMapErrorString[ 20 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_FULL:
 					if ( gGameExternalOptions.fUseXMLSquadNames )
-						swprintf( sString, pMapErrorString[ 19 ], pSoldier->name, SquadNames[ iValue ].squadname );
+						swprintf( sString, pMapErrorString[ 19 ], pSoldier->GetName(), SquadNames[ iValue ].squadname );
 					else
-						swprintf( sString, pMapErrorString[ 19 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
+						swprintf( sString, pMapErrorString[ 19 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
 				default:
 					// generic "you can't join this squad" msg
-					swprintf( sString, pMapErrorString[ 38 ], pSoldier->name, pLongAssignmentStrings[ iValue ] );
+					swprintf( sString, pMapErrorString[ 38 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
 			}
 
@@ -9793,7 +9796,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
-						swprintf( sString, zMarksMapScreenText[ 19 ], pSoldier->name );
+						swprintf( sString, zMarksMapScreenText[ 19 ], pSoldier->GetName() );
 
 						DoScreenIndependantMessageBox( sString , MSG_BOX_FLAG_OK, NULL );
 					}
@@ -9937,7 +9940,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
-						swprintf( sString, zMarksMapScreenText[ 18 ], pSoldier->name );
+						swprintf( sString, zMarksMapScreenText[ 18 ], pSoldier->GetName() );
 
 						DoScreenIndependantMessageBox( sString , MSG_BOX_FLAG_OK, NULL );
 					}
@@ -10250,7 +10253,7 @@ void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract )
 	return;
 
 	// send a message stating that offer of contract extension made
-	//MapScreenMessage(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Offered to extend %s's contract by another %s.", pCharacter->name, pContractExtendStrings[ iContract ] );
+	//MapScreenMessage(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Offered to extend %s's contract by another %s.", pCharacter->GetName(), pContractExtendStrings[ iContract ] );
 
 	return;
 }
@@ -10262,7 +10265,7 @@ void PostTerminateMessage( SOLDIERTYPE *pCharacter )
 	return;
 
 	// send a message stating that termination of contract done
-	//MapScreenMessage(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's contract has been terminated.", pCharacter->name );
+	//MapScreenMessage(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s's contract has been terminated.", pCharacter->GetName() );
 
 }
 
@@ -13994,7 +13997,7 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 
 		if ( fSomethingWasRepairedThisPass && !DoesCharacterHaveAnyItemsToRepair( pSoldier, ubPassType ) )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 + ubPassType ], pSoldier->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 + ubPassType ], pSoldier->GetName() );
 
 			// let player react
 			StopTimeCompression();
@@ -14030,12 +14033,12 @@ BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSold
 				// report it as unjammed
 				if ( pRepairSoldier == pOwnerSoldier )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 53 ], pRepairSoldier->name, ItemNames[ pOwnerSoldier->inv[ bPocket ].usItem ] );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 53 ], pRepairSoldier->GetName(), ItemNames[ pOwnerSoldier->inv[ bPocket ].usItem ] );
 				}
 				else
 				{
 					// NOTE: may need to be changed for localized versions
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 54 ], pRepairSoldier->name, pOwnerSoldier->name, ItemNames[ pOwnerSoldier->inv[ bPocket ].usItem ] );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 54 ], pRepairSoldier->GetName(), pOwnerSoldier->GetName(), ItemNames[ pOwnerSoldier->inv[ bPocket ].usItem ] );
 				}
 
 				fAnyGunsWereUnjammed = TRUE;
@@ -14776,7 +14779,7 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 	if( !fSufficientLeadership )
 	{
 		// Report "Insufficient Leadership Skill"
-		swprintf(sString, New113HAMMessage[6], pSoldier->name);
+		swprintf(sString, New113HAMMessage[6], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return ( FALSE );
 	}
@@ -14930,7 +14933,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 	if( !fSufficientLeadership )
 	{
 		// Report "Insufficient Leadership Skill"
-		swprintf(sString, New113HAMMessage[6], pSoldier->name);
+		swprintf(sString, New113HAMMessage[6], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return ( FALSE );
 	}
@@ -15956,79 +15959,79 @@ BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFaci
 
 	if (pSoldier->stats.bStrength < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumStrength)
 	{
-		swprintf(sString, gzFacilityErrorMessage[0], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[0], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bDexterity < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumDexterity)
 	{
-		swprintf(sString, gzFacilityErrorMessage[1], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[1], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bAgility < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumAgility)
 	{
-		swprintf(sString, gzFacilityErrorMessage[2], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[2], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bLife < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumHealth)
 	{
-		swprintf(sString, gzFacilityErrorMessage[3], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[3], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bWisdom < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumWisdom)
 	{
-		swprintf(sString, gzFacilityErrorMessage[4], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[4], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bMarksmanship < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMarksmanship)
 	{
-		swprintf(sString, gzFacilityErrorMessage[5], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[5], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bMedical < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMedical)
 	{
-		swprintf(sString, gzFacilityErrorMessage[6], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[6], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bMechanical < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMechanical)
 	{
-		swprintf(sString, gzFacilityErrorMessage[7], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[7], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bLeadership < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLeadership)
 	{
-		swprintf(sString, gzFacilityErrorMessage[8], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[8], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bExplosive < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumExplosives)
 	{
-		swprintf(sString, gzFacilityErrorMessage[9], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[9], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->stats.bExpLevel < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLevel)
 	{
-		swprintf(sString, gzFacilityErrorMessage[10], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[10], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->aiData.bMorale < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMorale)
 	{
-		swprintf(sString, gzFacilityErrorMessage[11], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[11], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	if (pSoldier->bBreathMax < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumBreath)
 	{
-		swprintf(sString, gzFacilityErrorMessage[12], pSoldier->name);
+		swprintf(sString, gzFacilityErrorMessage[12], pSoldier->GetName());
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
@@ -16100,7 +16103,7 @@ BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFaci
 
 		if( fFoundMedKit == FALSE )
 		{
-			swprintf( sString, zMarksMapScreenText[19], pSoldier->name );
+			swprintf( sString, zMarksMapScreenText[19], pSoldier->GetName() );
 			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 			return( FALSE );
 		}
@@ -16113,7 +16116,7 @@ BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFaci
 		// make sure he has a toolkit
 		if ( FindToolkit( pSoldier ) == NO_SLOT )
 		{
-			swprintf( sString, zMarksMapScreenText[18], pSoldier->name );
+			swprintf( sString, zMarksMapScreenText[18], pSoldier->GetName() );
 			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 			return( FALSE );
 		}
@@ -16124,7 +16127,7 @@ BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFaci
 				// items?
 				if ( !DoesCharacterHaveAnyItemsToRepair( pSoldier, FINAL_REPAIR_PASS ) )
 				{
-					swprintf( sString, gzFacilityErrorMessage[16], pSoldier->name );
+					swprintf( sString, gzFacilityErrorMessage[16], pSoldier->GetName() );
 					DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 					return( FALSE );
 				}

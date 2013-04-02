@@ -2529,7 +2529,7 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 		case SNIPER:				return ( 5 );
 		default:
 #ifdef BETAVERSION
-			sprintf(tempstr,"%s has invalid orders = %d",pSoldier->name,pSoldier->aiData.bOrders);
+			sprintf(tempstr,"%s has invalid orders = %d",pSoldier->GetName(),pSoldier->aiData.bOrders);
 			PopMessage(tempstr);
 #endif
 			return(0);
@@ -2787,7 +2787,7 @@ void AINumMessage(const STR8	str, INT32 num)
 void AINameMessage(SOLDIERTYPE * pSoldier,const STR8	str,INT32 num)
 {
 	STR tempstr;
-	sprintf( tempstr,"%d %s %d",pSoldier->name , str, num);
+	sprintf( tempstr,"%d %s %d",pSoldier->GetName() , str, num);
 	DebugAI( tempstr );
 }
 #endif

@@ -1234,15 +1234,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, STRAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, STRAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[0], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[0], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[0], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[0], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1286,15 +1286,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, AGILAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, AGILAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[1], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[1], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[1], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[1], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1344,9 +1344,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[2], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[2], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[2], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[2], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1390,15 +1390,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, WISDOMAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, WISDOMAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[3], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[3], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[3], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[3], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1447,7 +1447,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, HEALTHAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, HEALTHAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							if (pSoldier->stats.bLife >= OKLIFE)
@@ -1455,9 +1455,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 								// Do Screen Message and stop time.
 								GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 								if (!fOperatingFacility)
-									swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[4], szSectorGrid );
+									swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[4], szSectorGrid );
 								else
-									swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[4], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+									swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[4], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 								DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 								StopTimeCompression();
 							}
@@ -1467,9 +1467,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 								// Do Screen Message and stop time.
 								GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 								if (!fOperatingFacility)
-									swprintf( sString, gzFacilityErrorMessage[28], pSoldier->name, szSectorGrid );
+									swprintf( sString, gzFacilityErrorMessage[28], pSoldier->GetName(), szSectorGrid );
 								else
-									swprintf( sString, gzFacilityErrorMessage[29], pSoldier->name, gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+									swprintf( sString, gzFacilityErrorMessage[29], pSoldier->GetName(), gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 								AddCharacterToAnySquad( pSoldier );
 								DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 								StopTimeCompression();
@@ -1515,15 +1515,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, MARKAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, MARKAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[5], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[5], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[5], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[5], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1567,15 +1567,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, LDRAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, LDRAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[6], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[6], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[6], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[6], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1619,15 +1619,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, MECHANAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, MECHANAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[7], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[7], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[7], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[7], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1671,15 +1671,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, MEDICALAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, MEDICALAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 														if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[8], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[8], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[8], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[8], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1723,15 +1723,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							fBadResult = TRUE;
 
 							// Log message
-							BuildStatChangeString( sString, pSoldier->name, FALSE, Result, EXPLODEAMT );
+							BuildStatChangeString( sString, pSoldier->GetName(), FALSE, Result, EXPLODEAMT );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 							// Do Screen Message and stop time.
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->name, gzFacilityRiskResultStrings[9], szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[17], pSoldier->GetName(), gzFacilityRiskResultStrings[9], szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->name, gzFacilityRiskResultStrings[9], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[18], pSoldier->GetName(), gzFacilityRiskResultStrings[9], gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 							StopTimeCompression();
 						}
@@ -1753,15 +1753,15 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 								{
 									// Log message
 									GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
-									swprintf( sString, gzFacilityErrorMessage[31], pSoldier->name, szSectorGrid );
+									swprintf( sString, gzFacilityErrorMessage[31], pSoldier->GetName(), szSectorGrid );
 									ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 									// Do Screen Message, stop time, and take character off duty immediately.
 									GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 									if (!fOperatingFacility)
-										swprintf( sString, gzFacilityErrorMessage[19], pSoldier->name, szSectorGrid );
+										swprintf( sString, gzFacilityErrorMessage[19], pSoldier->GetName(), szSectorGrid );
 									else
-										swprintf( sString, gzFacilityErrorMessage[20], pSoldier->name, gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+										swprintf( sString, gzFacilityErrorMessage[20], pSoldier->GetName(), gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 									AddCharacterToAnySquad( pSoldier );
 									DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 									StopTimeCompression();
@@ -1770,16 +1770,16 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 								{
 									// Log message
 									GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
-									swprintf( sString, gzFacilityErrorMessage[30], pSoldier->name, szSectorGrid );
+									swprintf( sString, gzFacilityErrorMessage[30], pSoldier->GetName(), szSectorGrid );
 									ScreenMsg( usColor, MSG_INTERFACE, sString );
 
 									// Soldier isn't bleeding too bad. Let the player know, but don't take any action.
 									// Do Screen Message and stop time.
 									GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 									if (!fOperatingFacility)
-										swprintf( sString, gzFacilityErrorMessage[21], pSoldier->name, szSectorGrid );
+										swprintf( sString, gzFacilityErrorMessage[21], pSoldier->GetName(), szSectorGrid );
 									else
-										swprintf( sString, gzFacilityErrorMessage[22], pSoldier->name, gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
+										swprintf( sString, gzFacilityErrorMessage[22], pSoldier->GetName(), gFacilityTypes[ubFacilityType].szFacilityName, szSectorGrid );
 									DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 									StopTimeCompression();
 								}
@@ -1807,7 +1807,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						if (GetDrunkLevel(pSoldier) == BORDERLINE)
 						{
 							// Log message
-							swprintf( sString, gzFacilityErrorMessage[27], pSoldier->name );
+							swprintf( sString, gzFacilityErrorMessage[27], pSoldier->GetName() );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 						}
 
@@ -1941,9 +1941,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							DecrementTownLoyalty( ubTownID, abs(Result) );
 							// Log message
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[23], pTownNames[ubTownID], pSoldier->name );
+								swprintf( sString, gzFacilityErrorMessage[23], pTownNames[ubTownID], pSoldier->GetName() );
 							else
-								swprintf( sString, gzFacilityErrorMessage[24], pTownNames[ubTownID], pSoldier->name, gFacilityTypes[ubFacilityType].szFacilityName );
+								swprintf( sString, gzFacilityErrorMessage[24], pTownNames[ubTownID], pSoldier->GetName(), gFacilityTypes[ubFacilityType].szFacilityName );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 							
 							// SANDRO - add to merc records - facility accidents counter
@@ -1963,9 +1963,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// Log message
 							GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, szSectorGrid );
 							if (!fOperatingFacility)
-								swprintf( sString, gzFacilityErrorMessage[25], pSoldier->name, szSectorGrid );
+								swprintf( sString, gzFacilityErrorMessage[25], pSoldier->GetName(), szSectorGrid );
 							else
-								swprintf( sString, gzFacilityErrorMessage[26], pSoldier->name, szSectorGrid, gFacilityTypes[ubFacilityType].szFacilityName );
+								swprintf( sString, gzFacilityErrorMessage[26], pSoldier->GetName(), szSectorGrid, gFacilityTypes[ubFacilityType].szFacilityName );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
 							
 							// SANDRO - add to merc records - facility accidents counter

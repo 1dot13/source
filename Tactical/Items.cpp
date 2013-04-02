@@ -3577,7 +3577,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 	if (pSoldier->bTeam == gbPlayerNum)
 	{
 		// spit out a message if this is one of our folks reloading
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_PLAYER_RELOADS], pSoldier->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_PLAYER_RELOADS], pSoldier->GetName() );
 	}
 
 	DeductPoints( pSoldier, bAPs, 0 );
@@ -3897,7 +3897,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 					}
 					else
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_RELOAD_ONLY_ONE_GUN ], pSoldier->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_RELOAD_ONLY_ONE_GUN ], pSoldier->GetName() );
 					}
 				}
 			}
@@ -8920,23 +8920,23 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 		{
 			pSoldier->CreateSoldierPalettes( );
 		}
-	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->name );
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->GetName() );
 	
 			if ( pSoldier->bCamo <= 0 )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WASHED_OFF], pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WASHED_OFF], pSoldier->GetName() );
 			}
 			else if ( pSoldier->urbanCamo <= 0 )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WASHED_OFF], pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WASHED_OFF], pSoldier->GetName() );
 			}
 			else if ( pSoldier->snowCamo <= 0 )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WASHED_OFF], pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WASHED_OFF], pSoldier->GetName() );
 			}
 			else if ( pSoldier->desertCamo <= 0 )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WASHED_OFF], pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WASHED_OFF], pSoldier->GetName() );
 			}
 	}
 
@@ -9365,7 +9365,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
 				{
 					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
 
 					break;
 				}
@@ -9375,7 +9375,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 			if ( !(pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
 			{
 				pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
 			}
 
 			// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
@@ -14375,7 +14375,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 		CHAR16 pStr[500];
 		// Item was split apart. Since it was in the sector inventory, it's common sense that all results 
 		// are in the sector inventory as well, so no need to report anything extra.
-		swprintf( pStr, gzTransformationMessage[ 1 ], Item[usOrigItem].szItemName, pSoldier->name );
+		swprintf( pStr, gzTransformationMessage[ 1 ], Item[usOrigItem].szItemName, pSoldier->GetName() );
 		ScreenMsg( FONT_ORANGE, MSG_INTERFACE, pStr );
 	}
 	else if (fSplit || fDropped)
@@ -14384,21 +14384,21 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 		if (fSplit && !fDropped)
 		{
 			// Item was split apart, but all subitems remained in the inventory.
-			swprintf( pStr, gzTransformationMessage[ 2 ], Item[usOrigItem].szItemName, pSoldier->name );
+			swprintf( pStr, gzTransformationMessage[ 2 ], Item[usOrigItem].szItemName, pSoldier->GetName() );
 			ScreenMsg( FONT_ORANGE, MSG_INTERFACE, pStr );
 		}
 		else if (fDropped && !fSplit)
 		{
 			// Either the item itself or another item has been dropped to the sector inventory due to lack of
 			// space.
-			swprintf( pStr, gzTransformationMessage[ 3 ], pSoldier->name );
+			swprintf( pStr, gzTransformationMessage[ 3 ], pSoldier->GetName() );
 			DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_OK, NULL );
 		}
 		else if (fDropped && fSplit)
 		{
 			// Item was split apart. Either the item itself or another item has been dropped to the sector 
 			// inventory due to lack of space.
-			swprintf( pStr, gzTransformationMessage[ 4 ], Item[usOrigItem].szItemName, pSoldier->name );
+			swprintf( pStr, gzTransformationMessage[ 4 ], Item[usOrigItem].szItemName, pSoldier->GetName() );
 			DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_OK, NULL );
 		}
 	}

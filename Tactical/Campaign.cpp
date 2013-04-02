@@ -117,7 +117,7 @@ void StatChange(SOLDIERTYPE *pSoldier, UINT8 ubStat, UINT16 usNumChances, UINT8 
 
 	if( pSoldier->bAssignment == ASSIGNMENT_POW )
 	{
-		ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"ERROR: StatChange: %s improving stats while POW! ubStat %d", pSoldier->name, ubStat );
+		ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"ERROR: StatChange: %s improving stats while POW! ubStat %d", pSoldier->GetName(), ubStat );
 		return;
 	}
 
@@ -715,7 +715,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 				CHAR16 wTempString[ 128 ];
 
 				// tell player about it
-				BuildStatChangeString( wTempString, pSoldier->name, fChangeTypeIncrease, sPtsChanged, ubStat );
+				BuildStatChangeString( wTempString, pSoldier->GetName(), fChangeTypeIncrease, sPtsChanged, ubStat );
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, wTempString );
 			}
 

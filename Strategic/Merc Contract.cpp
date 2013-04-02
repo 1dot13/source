@@ -1146,11 +1146,11 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 	{
 		if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 		{
-			swprintf( sString, pMercHeLeaveString[ 4 ], pSoldier->name, zShortTownIDString );
+			swprintf( sString, pMercHeLeaveString[ 4 ], pSoldier->GetName(), zShortTownIDString );
 		}
 		else
 		{
-			swprintf( sString, pMercSheLeaveString[ 4 ], pSoldier->name, zShortTownIDString );
+			swprintf( sString, pMercSheLeaveString[ 4 ], pSoldier->GetName(), zShortTownIDString );
 		}
 		fInSector = TRUE;
 	}
@@ -1163,11 +1163,11 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 		{
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, L"%s %s", pSoldier->name, pMercHeLeaveString[ 3 ] );
+				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercHeLeaveString[ 3 ] );
 			}
 			else
 			{
-				swprintf( sString, L"%s %s", pSoldier->name, pMercSheLeaveString[ 3 ] );
+				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercSheLeaveString[ 3 ] );
 			}
 			fInSector = TRUE;
 		}
@@ -1178,11 +1178,11 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, pMercHeLeaveString[ 0 ], pSoldier->name, zShortTownIDString );
+				swprintf( sString, pMercHeLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString );
 			}
 			else
 			{
-				swprintf( sString, pMercSheLeaveString[ 0 ], pSoldier->name, zShortTownIDString );
+				swprintf( sString, pMercSheLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString );
 			}
 
 		}
@@ -1193,11 +1193,11 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 		{
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, L"%s %s", pSoldier->name, pMercHeLeaveString[ 2 ] );
+				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercHeLeaveString[ 2 ] );
 			}
 			else
 			{
-				swprintf( sString, L"%s %s", pSoldier->name, pMercSheLeaveString[ 2 ] );
+				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercSheLeaveString[ 2 ] );
 			}
 			fInSector = TRUE;
 		}
@@ -1208,11 +1208,11 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, pMercHeLeaveString[ 1 ], pSoldier->name, zShortTownIDString );
+				swprintf( sString, pMercHeLeaveString[ 1 ], pSoldier->GetName(), zShortTownIDString );
 			}
 			else
 			{
-				swprintf( sString, pMercSheLeaveString[ 1 ], pSoldier->name, zShortTownIDString );
+				swprintf( sString, pMercSheLeaveString[ 1 ], pSoldier->GetName(), zShortTownIDString );
 			}
 		}
 	}
@@ -1508,7 +1508,7 @@ void HandleNotifyPlayerCanAffordInsurance( SOLDIERTYPE *pSoldier, UINT8 ubLength
 	InsertCommasForDollarFigure( sStringA );
 	InsertDollarSignInToString( sStringA );
 
-	swprintf( sString, zMarksMapScreenText[ 10 ], pSoldier->name, sStringA, ubLength );
+	swprintf( sString, zMarksMapScreenText[ 10 ], pSoldier->GetName(), sStringA, ubLength );
 
 	//Set the length to the global variable ( so we know how long the contract is in the callback )
 	gubContractLength = ubLength;

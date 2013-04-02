@@ -1543,6 +1543,9 @@ public:
 
 	// Flugente: switch hand item for gunsling weapon, or pistol, or knife
 	void	SwitchWeapons( BOOLEAN fKnife = FALSE, BOOLEAN fSideArm = FALSE );
+
+	// Flugente: return a soldier's name. This allows for very easy manipulation of a soldier's name with pre- an suffixes, ranks etc.
+	STR16	GetName();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

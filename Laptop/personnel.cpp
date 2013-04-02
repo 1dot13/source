@@ -4045,7 +4045,7 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			/*if( iId == -1 )
 				swprintf( sString, L"%s", pPOWStrings[1] );
 			else*/
-				swprintf( sString, L"%s", MercPtrs[ iId ]->name );
+				swprintf( sString, L"%s", MercPtrs[ iId ]->GetName() );
 		} else {
 			// get name
 			swprintf( sString, L"%s", gMercProfiles[ iDepartedId ].zNickname );
@@ -4219,7 +4219,7 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 				swprintf( sString, L"%s", pPOWStrings[1] );
 			}
 			else*/
-				swprintf( sString, L"%s", MercPtrs[ iId ]->name );
+				swprintf( sString, L"%s", MercPtrs[ iId ]->GetName() );
 		}
 		else
 		{

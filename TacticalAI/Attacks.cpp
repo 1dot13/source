@@ -206,7 +206,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			continue;	// next opponent
 
 #ifdef DEBUGATTACKS
-		DebugAI( String( "%s sees %s at gridno %d\n",pSoldier->name,ExtMen[pOpponent->ubID].name,pOpponent->sGridNo ) );
+		DebugAI( String( "%s sees %s at gridno %d\n",pSoldier->GetName(),ExtMen[pOpponent->ubID].GetName(),pOpponent->sGridNo ) );
 #endif
 
 		// calculate minimum action points required to shoot at this opponent
@@ -384,7 +384,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				// ExtMen[pOpponent->ubID].haveStats = TRUE;
 				//NumMessage("chance to Hit = ",ubChanceToHit);
 
-				//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
+				//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].GetName(),ubAimTime,ubChanceToHit);
 				//PopMessage(tempstr);
 
 				iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
@@ -1537,7 +1537,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 		}
 
 #ifdef DEBUGATTACKS
-		DebugAI( String( "%s can see %s\n",pSoldier->name,ExtMen[pOpponent->ubID].name ) );
+		DebugAI( String( "%s can see %s\n",pSoldier->GetName(),ExtMen[pOpponent->ubID].GetName() ) );
 #endif
 
 		// calculate minimum action points required to stab at this opponent
@@ -2262,7 +2262,7 @@ INT8 CanNPCAttack(SOLDIERTYPE *pSoldier)
 	{
 		//LocateMember(pSoldier->ubID,SETLOCATOR); // locate to this NPC, don't center
 		STR16 tempstr;
-		sprintf(tempstr,"%s can't attack! (not OKToAttack, Reason code = %d)",pSoldier->name,bCanAttack);
+		sprintf(tempstr,"%s can't attack! (not OKToAttack, Reason code = %d)",pSoldier->GetName(),bCanAttack);
 		AIPopMessage(tempstr);
 	}
 #endif

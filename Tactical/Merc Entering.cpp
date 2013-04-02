@@ -498,7 +498,7 @@ void HandleHeliDrop( )
 				// Check for merc arrives quotes...
 				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
 
-				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->name );
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->GetName() );
 
 			}
 
@@ -554,7 +554,7 @@ void HandleHeliDrop( )
 				// Check for merc arrives quotes...
 				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
 
-				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->name );
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ cnt ] ]->GetName() );
 
 			}
 
@@ -702,7 +702,7 @@ void HandleHeliDrop( )
 							gfFirstGuyDown = FALSE;
 							SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
 						}
-						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->name );
+						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->GetName() );
 
 						gbCurDrop++;
 

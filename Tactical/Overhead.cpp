@@ -1785,7 +1785,7 @@ BOOLEAN ExecuteOverhead( )
 										if ( pSoldier->pathing.usPathDataSize != MAX_PATH_LIST_SIZE )
 										{
 #ifdef JA2BETAVERSION
-											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Path for %s ( %d ) did not make merc get to dest (%d spaces away).", pSoldier->name, pSoldier->ubID, PythSpacesAway( pSoldier->pathing.sFinalDestination, pSoldier->sGridNo) );
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Path for %s ( %d ) did not make merc get to dest (%d spaces away).", pSoldier->GetName(), pSoldier->ubID, PythSpacesAway( pSoldier->pathing.sFinalDestination, pSoldier->sGridNo) );
 #endif
 										}
 
@@ -2109,7 +2109,7 @@ void HaltGuyFromNewGridNoBecauseOfNoAPs( SOLDIERTYPE *pSoldier )
 	// Display message if our merc...
 	if ( pSoldier->bTeam == gbPlayerNum && ( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ GUY_HAS_RUN_OUT_OF_APS_STR ], pSoldier->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ GUY_HAS_RUN_OUT_OF_APS_STR ], pSoldier->GetName() );
 	}
 
 	UnSetUIBusy( pSoldier->ubID );
@@ -2338,7 +2338,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 		// ATE: If our own guy and an initial move.. display message
 		//if ( fInitialMove && pSoldier->bTeam == gbPlayerNum	)
 		//{
-		//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ NO_PATH_FOR_MERC ], pSoldier->name );
+		//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ NO_PATH_FOR_MERC ], pSoldier->GetName() );
 		//}
 
 		pSoldier->bEndDoorOpenCode = FALSE;
@@ -2577,7 +2577,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 				{
 					// 20% chance of falling over!
 					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 37 ], pSoldier->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 37 ], pSoldier->GetName() );
 					SoldierCollapse( pSoldier );
 					if (pSoldier->bActionPoints > 0)
 					{
@@ -2590,7 +2590,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 				{
 					// 20% chance of falling over!
 					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 37 ], pSoldier->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 37 ], pSoldier->GetName() );
 					SoldierCollapse( pSoldier );
 					if (pSoldier->bActionPoints > 0)
 					{
@@ -3214,7 +3214,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 		// OK, we want to display message that we can't....
 		if ( fFromUI )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ MERC_IS_UNAVAILABLE_STR ], pSoldier->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ MERC_IS_UNAVAILABLE_STR ], pSoldier->GetName() );
 		}
 		return;
 	}
@@ -3661,7 +3661,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 		// ATE: Added string to player
 		if ( bVisible != -1 && pSoldierOld->ubProfile != NO_PROFILE )
 		{
-			ScreenMsg( FONT_RED, MSG_INTERFACE, pMercDeadString[ 0 ], pSoldierOld->name );
+			ScreenMsg( FONT_RED, MSG_INTERFACE, pMercDeadString[ 0 ], pSoldierOld->GetName() );
 		}
 
 		switch( pSoldierOld->ubProfile )
@@ -5827,7 +5827,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
 						if ( !pTargetSoldier->bBleeding && pTargetSoldier->stats.bLife >= OKLIFE && !(pTargetSoldier->iHealableInjury >= 100 && pTeamSoldier->fDoingSurgery)) // check for surgery added by SANDRO
 						{
 							if ( fThrowMessage ) // throw message "all bandaged" only if there was something to bandage - SANDRO
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_ALL_BANDAGED_STR ], pTargetSoldier->name );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_ALL_BANDAGED_STR ], pTargetSoldier->GetName() );
 
 							// Cancel all services for this guy!
 							pTargetSoldier->ReceivingSoldierCancelServices( );
@@ -5861,7 +5861,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
 							}
 							else
 							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_OUT_OF_BANDAGES_STR ], pTeamSoldier->name );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_OUT_OF_BANDAGES_STR ], pTeamSoldier->GetName() );
 								pTeamSoldier->GivingSoldierCancelServices( );
 
 								if ( !gTacticalStatus.fAutoBandageMode )
@@ -5916,7 +5916,7 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 					if ( !pTargetSoldier->bBleeding && pTargetSoldier->stats.bLife >= OKLIFE && !(pTargetSoldier->iHealableInjury >= 100 && pTeamSoldier->fDoingSurgery)) // check for surgery added by SANDRO
 					{
 						if ( fThrowMessage ) // throw message "all bandaged" only if there was something to bandage - SANDRO
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_ALL_BANDAGED_STR ], pTargetSoldier->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_ALL_BANDAGED_STR ], pTargetSoldier->GetName() );
 
 						// Cancel all services for this guy!
 						pTargetSoldier->ReceivingSoldierCancelServices( );
@@ -5959,7 +5959,7 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 						}
 						else
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_OUT_OF_BANDAGES_STR ], pTeamSoldier->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MERC_IS_OUT_OF_BANDAGES_STR ], pTeamSoldier->GetName() );
 							pTeamSoldier->GivingSoldierCancelServices( );
 
 							if ( !gTacticalStatus.fAutoBandageMode )
@@ -8317,7 +8317,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 					// If soldier is visible on-screen, report to player that they are cowering.
 					if ( pSoldier->bVisible != -1 )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[0], pSoldier->name );				
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[0], pSoldier->GetName() );				
 				}
 			}
 
@@ -8461,7 +8461,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 					if ( pSoldier->bVisible != -1 )
 					{
 						// "Soldier is pinned down!"
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[1], pSoldier->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[1], pSoldier->GetName() );
 						// HEADROCK HAM 3.2: Added a radio locator!
 						ShowRadioLocator( (UINT8)pSoldier->ubID, SHOW_LOCATOR_NORMAL );
 					}
@@ -8691,7 +8691,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 #ifdef JA2TESTVERSION
 			if (pTarget->flags.uiStatusFlags & SOLDIER_PC)
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"%s is changing teams", pTarget->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"%s is changing teams", pTarget->GetName() );
 			}
 #endif
 			// member of a civ group, either recruited or neutral, so should
@@ -10216,7 +10216,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 				MercPtrs[ gusSelectedSoldier ]->Strip();
 
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SURRENDER_FAILED]  );
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVER_SINGLE], MercPtrs[ gusSelectedSoldier ]->name  );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVER_SINGLE], MercPtrs[ gusSelectedSoldier ]->GetName()  );
 			}
 		}
 	}

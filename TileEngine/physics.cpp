@@ -2550,7 +2550,7 @@ BOOLEAN DoCatchObject( REAL_OBJECT *pObject )
 	{
 		pObject->fDropItem = FALSE;
 
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_MERC_CAUGHT_ITEM ], pSoldier->name, ShortItemNames[ usItem ] );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_MERC_CAUGHT_ITEM ], pSoldier->GetName(), ShortItemNames[ usItem ] );
 	}
 
 	return( TRUE );

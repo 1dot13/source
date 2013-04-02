@@ -6364,7 +6364,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND && !pSoldier->MercInWater( ) )
 					{
 						fFallenOver = TRUE;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 20 ], pSoldier->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 20 ], pSoldier->GetName() );
 					}
 				}
 			}
@@ -12636,7 +12636,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 			gTacticalStatus.ubLastRequesterSurgeryTargetID = NOBODY; // reset last target
 
 			// throw message
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SURGERY_FINISHED ], pVictim->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SURGERY_FINISHED ], pVictim->GetName() );
 
 			// add to record - another surgery undergoed
 			if ( pVictim->ubProfile != NO_PROFILE && usLifeReturned >= 100 )
@@ -14517,7 +14517,7 @@ void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
 								{
 									(*pObj)[i]->data.bDirtLevel = 0.0f;
 
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[WEAPON_CLEANING_STR], this->name, Item[pObj->usItem].szItemName );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[WEAPON_CLEANING_STR], this->GetName(), Item[pObj->usItem].szItemName );
 
 									// always use up 1% of the cleaning kit (they last too long otherwise)
 									UseKitPoints( pCleaningKit, 1, this );
@@ -14555,7 +14555,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 	// if we have any camo: not covert
 	if ( GetWornCamo(this) > 0 || GetWornUrbanCamo(this) > 0 || GetWornDesertCamo(this) > 0 || GetWornSnowCamo(this) > 0 )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CAMOFOUND], this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CAMOFOUND], this->GetName() );
 		return FALSE;
 	}
 
@@ -14569,7 +14569,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				// if we have a back pack: not covert
 				if ( bLoop == BPACKPOCKPOS )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->GetName() );
 					return FALSE;
 				}
 
@@ -14580,7 +14580,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				// seriously? a corpse? of course this is suspicious!
 				if ( HasItemFlag(this->inv[bLoop].usItem, CORPSE) )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRYCORPSEFOUND], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRYCORPSEFOUND], this->GetName() );
 					return FALSE;
 				}
 
@@ -14615,7 +14615,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name, Item[bLoop].szItemName );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->GetName(), Item[bLoop].szItemName );
 							return FALSE;
 						}
 						break;
@@ -14639,7 +14639,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name, Item[bLoop].szItemName );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->GetName(), Item[bLoop].szItemName );
 						return FALSE;
 					}
 				}
@@ -14661,7 +14661,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->name, Item[bLoop].szItemName );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->GetName(), Item[bLoop].szItemName );
 						return FALSE;
 					}
 				}
@@ -14683,7 +14683,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeASoldier( void )
 			// seriously? a corpse? of course this is suspicious!
 			if ( HasItemFlag(this->inv[bLoop].usItem, CORPSE) )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRYCORPSEFOUND], this->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRYCORPSEFOUND], this->GetName() );
 				return FALSE;
 			}
 		}
@@ -14743,7 +14743,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 		break;
 	default:
 		// we do not wear a proper army uniform, uncover us. Note: This should never happen - if this message shows, somewhere, something is wrong
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNIFORM_NOORDER], this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNIFORM_NOORDER], this->GetName() );
 		return TRUE;
 		break;
 	}
@@ -14758,7 +14758,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 				// if we have a back pack: not covert
 				if ( bLoop == BPACKPOCKPOS )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->GetName() );
 					return TRUE;
 				}
 
@@ -14790,7 +14790,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->name, Item[bLoop].szItemName );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->GetName(), Item[bLoop].szItemName );
 							return FALSE;
 						}
 						break;
@@ -14815,7 +14815,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 
 						if ( numberofguns > 2 )
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYGUNS], this->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYGUNS], this->GetName() );
 							return TRUE;
 						}
 					}
@@ -14829,7 +14829,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 							// loop over every item and its attachments
 							if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[pObj->usItem].szItemName );
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[pObj->usItem].szItemName );
 								return TRUE;
 							}
 
@@ -14843,7 +14843,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									// loop over every item and its attachments
 									if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[iter->usItem].szItemName );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[iter->usItem].szItemName );
 										return TRUE;
 									}
 					
@@ -14852,7 +14852,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 									// no ordinary soldier is allowed that many attachments -> not covert
 									if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name, Item[pObj->usItem].szItemName );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->GetName(), Item[pObj->usItem].szItemName );
 										return TRUE;
 									}
 								}
@@ -14879,7 +14879,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 
 						if ( numberofguns > 2 )
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYGUNS], this->name );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYGUNS], this->GetName() );
 							return TRUE;
 						}
 
@@ -14892,7 +14892,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 								// loop over every item and its attachments
 								if ( Item[pObj->usItem].ubCoolness > maxcoolnessallowed )
 								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[pObj->usItem].szItemName );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[pObj->usItem].szItemName );
 									return TRUE;
 								}
 
@@ -14906,7 +14906,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 										// loop over every item and its attachments
 										if ( Item[iter->usItem].ubCoolness > maxcoolnessallowed )
 										{
-											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->name, Item[iter->usItem].szItemName );
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEMSTOOGOOD], this->GetName(), Item[iter->usItem].szItemName );
 											return TRUE;
 										}
 					
@@ -14917,7 +14917,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 								// no ordinary soldier is allowed that many attachments > not covert
 								if ( numberofattachments > gGameExternalOptions.iMaxEnemyAttachments )
 								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->name, Item[pObj->usItem].szItemName );
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOOMANYATTACHMENTS], this->GetName(), Item[pObj->usItem].szItemName );
 									return TRUE;
 								}
 							}
@@ -14984,14 +14984,14 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		this->usAnimState == LONG_JUMP
 		)
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName() );
 		return FALSE;
 	}
 	
 	// if we are trying to dress like a civilian, but aren't sucessful: not covert
 	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV && !(this->LooksLikeACivilian()) )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CIV], this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CIV], this->GetName() );
 		return FALSE;
 	}
 	
@@ -15019,13 +15019,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				// if we are openly bleeding: not covert
 				if ( this->bBleeding > 0 )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName() );
 					return FALSE;
 				}
 
 				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && GetDrunkLevel( this ) != SOBER )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DRUNKEN_SOLDIER], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DRUNKEN_SOLDIER], this->GetName() );
 					return FALSE;
 				}
 			}
@@ -15037,13 +15037,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				// if we are openly bleeding: not covert
 				if ( this->bBleeding > 0 )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BLEEDING], this->GetName() );
 					return FALSE;
 				}
 
 				if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->GetName() );
 					return FALSE;
 				}
 			}
@@ -15054,7 +15054,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			// exception: special NPCs and EPCs can still get close (the Kulbas, for example, ARE civilians, so they apply)
 			if ( (this->bSoldierFlagMask & SOLDIER_COVERT_NPC_SPECIAL) == 0 )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE], this->GetName() );
 				return FALSE;
 			}
 			break;	
@@ -15079,13 +15079,13 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 
 		if ( sectordata > 1 )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN], this->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN], this->GetName() );
 			return FALSE;
 		}
 		// is it night?
 		else if ( sectordata == 1 && GetTimeOfDayAmbientLightLevel() < NORMAL_LIGHTLEVEL_DAY + 2 )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN_NIGHT], this->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN_NIGHT], this->GetName() );
 			return FALSE;
 		}
 		
@@ -15128,7 +15128,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 				// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
 				if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->GetName() );
 					return FALSE;
 				}
 			}
@@ -15140,7 +15140,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		// if our equipment is too good, that is suspicious... not covert!
 		if ( this->EquipmentTooGood( (distance < discoverrange) ) )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SUSPICIOUS_EQUIPMENT], this->name );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SUSPICIOUS_EQUIPMENT], this->GetName() );
 			return FALSE;
 		}
 
@@ -15150,7 +15150,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			// if we are aiming at a soldier, others will notice our intent... not covert!
 			if ( WeaponReady(this) )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->name, MercPtrs[this->ubTargetID]->name );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->GetName(), MercPtrs[this->ubTargetID]->GetName() );
 				return FALSE;
 			}
 		}
@@ -15199,7 +15199,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 					// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
 					if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->name );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->GetName() );
 						return FALSE;
 					}
 				}
@@ -15270,7 +15270,7 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant(UINT8 ubTargetID)
 
 			pSoldier->Strip();
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], this->name, pSoldier->name  );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], this->GetName(), pSoldier->GetName()  );
 
 			// we have uncovered a spy! Get alerted, if we aren't already
 			if ( this->aiData.bAlertStatus < STATUS_BLACK )
@@ -15389,9 +15389,9 @@ void	SOLDIERTYPE::Strip()
 void		SOLDIERTYPE::SpySelfTest()
 {
 	if ( SeemsLegit(this->ubID) )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TEST_OK], this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TEST_OK], this->GetName() );
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TEST_FAIL], this->name );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TEST_FAIL], this->GetName() );
 }
 
 // can we process prisoners in this sector?
@@ -15528,7 +15528,7 @@ void	SOLDIERTYPE::CancelMultiTurnAction(BOOLEAN fFinished)
 {
 	// stop action
 	if ( !fFinished )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANCEL], this->name, szMTATextStr[this->usMultiTurnAction] );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANCEL], this->GetName(), szMTATextStr[this->usMultiTurnAction] );
 		
 	bOverTurnAPS		= 0;
 	sMTActionGridNo		= NOWHERE;
@@ -15969,6 +15969,15 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	}
 	fCharacterInfoPanelDirty = TRUE;
 	fInterfacePanelDirty = DIRTYLEVEL2;
+}
+
+static CHAR16	tmpname[ 100 ];
+STR16 SOLDIERTYPE::GetName()
+{
+	tmpname[0] =  '\0' ;
+	wcscat( tmpname, this->name );
+
+	return tmpname;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
@@ -16986,8 +16995,8 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 							this->LooseDisguise();
 							this->Strip();
 														
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_APPLYITEM_STEAL_FAIL], this->name, pSoldier->name );
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->name, this->name  );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_APPLYITEM_STEAL_FAIL], this->GetName(), pSoldier->GetName() );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName(), this->GetName()  );
 						}
 
 						// alert the soldier
@@ -17071,7 +17080,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 				DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
 
 				if ( !success )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s could not apply %s to %s.", this->name, Item[usItem].szLongItemName, pSoldier->name );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s could not apply %s to %s.", this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
 			}
 			else
 			{
@@ -18586,9 +18595,9 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
 				{
 					if ( usStatIncreasement == 1 )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->name, sStat  );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->GetName(), sStat  );
 					else
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->name, usStatIncreasement, sStat  );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->GetName(), usStatIncreasement, sStat  );
 				}
 			}
 			//if( pSoldier->ubCriticalStatDamage[cnt] > 0 )
@@ -18642,9 +18651,9 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
 				{
 					if ( usStatIncreasement == 1 )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->name, sStat  );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->GetName(), sStat  );
 					else
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->name, usStatIncreasement, sStat  );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->GetName(), usStatIncreasement, sStat  );
 				}
 			}
 		}
@@ -18685,9 +18694,9 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
 				{
 					if ( usStatIncreasement == 1 )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->name, sStat  );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->GetName(), sStat  );
 					else
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->name, usStatIncreasement, sStat  );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->GetName(), usStatIncreasement, sStat  );
 				}
 			}
 		}
