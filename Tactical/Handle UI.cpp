@@ -6921,7 +6921,7 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 						return( FALSE );
 					}
 						
-					if( !(_KeyDown( SHIFT ) && _KeyDown( CTRL )) )
+					if( !(_KeyDown( SHIFT ) && _KeyDown( ALT )) )
 					{
 						return( FALSE );
 					}
@@ -7054,7 +7054,7 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 							break;							
 						}
 						
-						if( !(_KeyDown( SHIFT ) && _KeyDown( CTRL )) )
+						if( !(_KeyDown( SHIFT ) && _KeyDown( ALT )) )
 						{
 							return( FALSE );
 						}						
