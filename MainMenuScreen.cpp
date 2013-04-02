@@ -354,18 +354,16 @@ void ExitMainMenu( )
 	{			
 		if (gMainMenulayout[iCounter2].Visible == 1)
 		{
+			// WANNE: This is a dirty fix. I don't know when that was introduced, but when clicking on "Multiplayer Game", the game crashes when trying to call DeleteVideoSurfaceFromIndex()
+			if (is_networked && iCounter2 == 1)
+				continue;		
+
+//			DeleteVideoObjectFromIndex( gMainMenulayout[iCounter2].uiIndex );
 			DeleteVideoSurfaceFromIndex( gMainMenulayout[iCounter2].uiIndex );
 		}
 	}
 	
 	gMsgBox.uiExitScreen = MAINMENU_SCREEN;
-
-	// WANNE: Re-Init to get the correct data
-	if (gbHandledMainMenu == NEW_GAME || gbHandledMainMenu == NEW_MP_GAME || gbHandledMainMenu == LOAD_GAME)
-	{
-		LoadExternalGameplayData(TABLEDATA_DIRECTORY);
-		InitDependingGameStyleOptions();
-	}
 }
 
 // WANNE - MP: This method initializes variables that should be initialized
@@ -448,6 +446,9 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				//if something didnt work, dont even know how to make error code...//hayden
 			}
 
+			// Reload the external gameplay data, because maybe we started a MP game before!
+			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+
 			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
 			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
 		}
@@ -468,6 +469,8 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			if( gfKeyState[ ALT ] )
 				gfLoadGameUponEntry = TRUE;
 		}
+
+		InitDependingGameStyleOptions();
 
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
@@ -531,6 +534,7 @@ void HandleMainMenuInput()
 					// WANNE: Some initializing was missing when directly loading last savegame
 					// form main menu with ALT + C
 					giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+					InitDependingGameStyleOptions();
 
 					break;
 
