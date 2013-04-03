@@ -17008,12 +17008,19 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 
 				if ( success )
 				{
-					if ( !gGameOptions.fFoodSystem && Item[ usItem ].canteen )
+					if ( Item[ usItem ].canteen )
 					{
-						BOOLEAN tmp = FALSE;
-						success = ApplyCanteen( pSoldier, pObj, &tmp, FALSE );
+						if ( !gGameOptions.fFoodSystem )
+						{
+							BOOLEAN tmp = FALSE;
+							success = ApplyCanteen( pSoldier, pObj, &tmp, FALSE );
+						}
+						else
+						{
+							success = ApplyFood( pSoldier, pObj, TRUE, TRUE );
+						}
 					}
-					else if ( Item[ usItem ].drugtype || Item[ usItem ].canteen )
+					else if ( Item[ usItem ].drugtype )
 					{
 						// applying drugs also handles food items
 						success = ApplyDrugs( pSoldier, pObj );
