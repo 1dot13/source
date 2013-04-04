@@ -2136,8 +2136,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Arts martiaux",
 	L"Meneur",
 	L"Technicien",
-	L"Médecin",
-	L"Espionnage",		// 10	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
+	L"Médecin",	
 	// Minor traits
 	L"Ambidextre",
 	L"Mêlée",
@@ -2149,6 +2148,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Sabotage",
 	L"Instructeur",
 	L"Reconnaissance",
+	// covert ops is a major trait that was added later
+	L"Espionnage",		// 10	// TODO.Translate !!! "Infiltrateur" ? Char limit ?
 	// second names for major skills
 	L"Mitrailleur",
 	L"Bombardier",
@@ -2159,6 +2160,17 @@ STR16 gzMercSkillTextNew[] =
 	L"Commandant",
 	L"Ingénieur",
 	L"Chirurgien",
+	// placeholders for minor traits
+	L"Placeholder",		// 30
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 35
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 39
 	L"Espion",				// 30
 	L"Plus...",
 };

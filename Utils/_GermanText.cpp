@@ -2142,8 +2142,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Faustkämpfer",
 	L"Gruppenführer",
 	L"Mechaniker",
-	L"Sanitäter",
-	L"Geheimagent",
+	L"Sanitäter",	
 	// Minor traits
 	L"Beidhänder",
 	L"Messerkämpfer",
@@ -2155,7 +2154,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Sprengmeister",
 	L"Ausbilder",
 	L"Aufklärer",
-
+	// covert ops is a major trait that was added later
+	L"Geheimagent",
 	// second names for major skills
 	L"MG-Veteran",
 	L"Artillerist",
@@ -2166,6 +2166,17 @@ STR16 gzMercSkillTextNew[] =
 	L"Zugführer",
 	L"Ingenieur",
 	L"Arzt",
+	// placeholders for minor traits
+	L"Placeholder",		// 30
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 35
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 39
 	L"Spion",				// 30
 	L"Mehr...",
 };

@@ -2123,7 +2123,7 @@ STR16 gzMercSkillTextNew[] =
 {
 	// Major traits
 	L"No Skill",		// 0
-	L"Auto Weapons",
+	L"Auto Weapons",	// 1
 	L"Heavy Weapons",
 	L"Marksman",
 	L"Hunter",
@@ -2131,21 +2131,22 @@ STR16 gzMercSkillTextNew[] =
 	L"Hand to Hand",
 	L"Deputy",
 	L"Technician",
-	L"Paramedic",
-	L"Covert Ops",		// 10
+	L"Paramedic",		// 9	
 	// Minor traits
-	L"Ambidextrous",
+	L"Ambidextrous",	// 10
 	L"Melee",
 	L"Throwing",
 	L"Night Ops",
-	L"Stealthy",		// 15
-	L"Athletics",
+	L"Stealthy",
+	L"Athletics",		// 15
 	L"Bodybuilding",
 	L"Demolitions",
 	L"Teaching",
-	L"Scouting",		// 20
+	L"Scouting",		// 19
+	// covert ops is a major trait that was added later
+	L"Covert Ops",		// 20
 	// second names for major skills
-	L"Machinegunner",
+	L"Machinegunner",	// 21
 	L"Bombardier",
 	L"Sniper",
 	L"Ranger",
@@ -2153,8 +2154,19 @@ STR16 gzMercSkillTextNew[] =
 	L"Martial Arts",
 	L"Squadleader",
 	L"Engineer",
-	L"Doctor",
-	L"Spy",				// 30
+	L"Doctor",			// 20	
+	// placeholders for minor traits
+	L"Placeholder",		// 30
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 35
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 39
+	L"Spy",				// 40
 	L"More...",
 };
 //////////////////////////////////////////////////////////

@@ -404,8 +404,6 @@ extern UINT8 NumEnemyInSector();
 	extern UINT8 NumZombiesInSector();
 #endif
 
-STR16 GetNewTraitStr(UINT8 aTrait);		// Flugente: deal with the insane new trait to string stuff
-
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );			// Flugente: offer the enemy the chance to surrender
 
 // setting fForce to TRUE allows dropping of gear in combat (used in auto-resolve instances)

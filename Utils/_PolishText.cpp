@@ -2139,8 +2139,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Walka Wręcz",
 	L"Zastępca Szeryfa",
 	L"Technik",
-	L"Paramedyk",
-	L"Covert Ops",		// 10	// TODO.Translate
+	L"Paramedyk",	
 	// Minor traits
 	L"Oburęczność",
 	L"Walka Wręcz",
@@ -2152,6 +2151,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Ładunki Wybuchowe",
 	L"Uczenie",
 	L"Zwiad",
+	// covert ops is a major trait that was added later
+	L"Covert Ops",		// 10	// TODO.Translate
 	// second names for major skills
 	L"Strzelec RKMu",
 	L"Bombardier",
@@ -2162,7 +2163,17 @@ STR16 gzMercSkillTextNew[] =
 	L"Dowódca Drużyny",
 	L"Inżynier",
 	L"Doktor",
-	L"Spy",				// 30	// TODO.Translate
+	L"Placeholder",		// 30
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 35
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 39
+	L"Spy",				// 40	// TODO.Translate
 	L"Więcej...",
 };
 //////////////////////////////////////////////////////////

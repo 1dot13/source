@@ -1805,8 +1805,7 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
 							fAddedTraitRegion[0] = TRUE;
 							// Assign the text
-							AssignPersonnelSkillTraitHelpText( 0, FALSE, iId, 0 );						
-						
+							AssignPersonnelSkillTraitHelpText( 0, FALSE, iId, 0 );
 						}
 						else
 						{
@@ -1816,24 +1815,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 
 							for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
 							{
-								// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
-								UINT8 display1 = ubTempSkillArray[ubCnt];
-								if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
-									display1 -= NUM_MINOR_TRAITS;
-								else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
-									display1++;
-								else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
-									display1 -= NUM_MINOR_TRAITS;
-								
 								if ( ubCnt >= 4 && bNumSkillTraits > 5 )
 								{
 									fDisplayMoreTraits = TRUE;
-									swprintf( sString, L"%s\n", gzMercSkillTextNew[ display1 ] );
+									swprintf( sString, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
 									wcscat( sString2, sString );
 								}
 								else
 								{
-									swprintf( sString, L"%s", gzMercSkillTextNew[ display1 ] );
+									swprintf( sString, L"%s", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
 								
 									if ( ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET )
 									{
@@ -1875,26 +1865,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 									MSYS_AddRegion( &gSkillTraitHelpTextRegion[ubCnt] );
 									fAddedTraitRegion[ubCnt] = TRUE;
 
-									// Assign the text									
-									UINT8 traitnr = ubTempSkillArray[ubCnt];
-									if ( traitnr > NEWTRAIT_MERCSKILL_EXPERTOFFSET )
-									{
-										traitnr = traitnr - (NEWTRAIT_MERCSKILL_EXPERTOFFSET);
-									}
-
-									// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
-									UINT8 display2 = ubTempSkillArray[ubCnt];
-									if ( display2 == NUM_MAJOR_TRAITS )
-										display2 += NUM_MINOR_TRAITS;
-
-									AssignPersonnelSkillTraitHelpText( traitnr, ((ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET) ? TRUE : FALSE), Menptr[iId].ubProfile, ubCnt );
+									// Assign the text
+									AssignPersonnelSkillTraitHelpText( ubTempSkillArray[ubCnt], ((ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET) ? TRUE : FALSE), Menptr[iId].ubProfile, ubCnt );
 								}
 							}
 
 							// if we have more skills than we can display, show "more" and create a tooltip box with the rest of them
 							if ( fDisplayMoreTraits )
 							{
-								swprintf( sString, L"%s", gzMercSkillTextNew[ NEWTRAIT_MERCSKILL_OFFSET_ALL + 1 ]); // dispaly "More..."
+								swprintf( sString, L"%s", gzMercSkillTextNew[ 2 * NEWTRAIT_MERCSKILL_OFFSET_ALL + 1 ]); // display "More..."
 								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 								if( sX <= iMinimumX )
 								{

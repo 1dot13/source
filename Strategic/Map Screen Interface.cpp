@@ -2070,17 +2070,8 @@ void UpdateCharRegionHelpText( void )
 				else
 				{
 					for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
-					{	
-						// Flugente: as the whole trait display is fubar, we have to to a special treatment here for new traits
-						UINT8 display1 = ubTempSkillArray[ubCnt];
-						if ( display1 > SCOUTING_NT + NEWTRAIT_MERCSKILL_EXPERTOFFSET )
-							display1 -= NUM_MINOR_TRAITS;
-						else if ( display1 >= AMBIDEXTROUS_NT && display1 <= SCOUTING_NT )
-							display1++;
-						else if ( display1 == NEWTRAIT_MERCSKILL_EXPERTOFFSET )
-							display1 -= NUM_MINOR_TRAITS;
-
-						swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ display1 ] );
+					{
+						swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
 						wcscat( sString, sTemp );
 					}
 				}

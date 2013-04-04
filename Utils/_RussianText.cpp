@@ -2132,7 +2132,6 @@ STR16 gzMercSkillTextNew[] =
 	L"Старшина",	//Deputy
 	L"Механик-электронщик",	//Technician
 	L"Санитар",	//Paramedic
-	L"Covert Ops",		// 10	// TODO.Translate
 	// Minor traits
 	L"Ловкач",	//Ambidextrous
 	L"Мастер клинка",	//Melee
@@ -2144,6 +2143,8 @@ STR16 gzMercSkillTextNew[] =
 	L"Подрывник",	//Demolitions
 	L"Инструктор",	//Teaching
 	L"Разведчик",	//Scouting
+	// covert ops is a major trait that was added later
+	L"Covert Ops",		// 20	// TODO.Translate
 	// second names for major skills
 	L"Пулемётчик",	//Machinegunner
 	L"Артиллерист",	//Bombardier
@@ -2154,6 +2155,16 @@ STR16 gzMercSkillTextNew[] =
 	L"Командир",	//Squadleader
 	L"Инженер",	//Engineer
 	L"Доктор",	//Doctor
+	L"Placeholder",		// 30
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 35
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 39
 	L"Шпион",				// 30
 	L"Ещё...",
 };

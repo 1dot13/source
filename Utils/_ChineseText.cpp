@@ -2131,8 +2131,7 @@ STR16 gzMercSkillTextNew[] =
 	L"格斗家",
 	L"班副",
 	L"技师",
-	L"救护兵",
-	L"特工",		// L"Covert Ops",
+	L"救护兵",	
 	// Minor traits
 	L"双持",
 	L"近战",
@@ -2144,6 +2143,8 @@ STR16 gzMercSkillTextNew[] =
 	L"爆破",
 	L"教学",
 	L"侦察",		// 20
+	// covert ops is a major trait that was added later
+	L"特工",		// L"Covert Ops",
 	// second names for major skills
 	L"机枪手",
 	L"掷弹兵",
@@ -2154,6 +2155,16 @@ STR16 gzMercSkillTextNew[] =
 	L"班长",
 	L"工兵",
 	L"军医",
+	L"Placeholder",		// 30
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 35
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",
+	L"Placeholder",		// 39
 	L"间谍",				// 30
 	L"更多...",
 };
