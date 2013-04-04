@@ -1136,13 +1136,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>227</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Hurl</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>228</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Doc</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>229</uiIndex>
@@ -1221,53 +1221,53 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>244</uiIndex>
-		<Name></Name>
+		<Name>Elroy</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>245</uiIndex>
-		<Name></Name>
+		<Name>Mouse</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>246</uiIndex>
-		<Name></Name>
+		<Name>Hector</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>247</uiIndex>
-		<Name></Name>
+		<Name>Rev</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>248</uiIndex>
-		<Name></Name>
+		<Name>Stella</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>249</uiIndex>
-		<Name></Name>
+		<Name>Ears</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>250</uiIndex>
-		<Name></Name>
+		<Name>Moses</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>251</uiIndex>
-		<Name></Name>
+		<Name>Smoke</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>
-		<Name></Name>
+		<Name>Dyno</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>253</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Turtle</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>254</uiIndex>

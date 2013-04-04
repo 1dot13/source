@@ -1162,9 +1162,10 @@ Message:		The email message body
 		<Message>This notice is to inform you that due to Sam's exemplary performance his fees have been revised. Effective immediately there will be an increase to his salary.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Hurl -->
 		<uiIndex>227</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>This notice is to inform you that due to Hurl's exceptional effectiveness his salary has undergone a significant recalculation.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>228</uiIndex>

@@ -1199,9 +1199,10 @@ Message:		The email message boy
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Doc -->
 		<uiIndex>228</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Subject : FW from AIM Server: Message from Dr. Ahmad Koolhan</Subject>
+		<Message>Message : TODO!</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
