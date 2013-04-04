@@ -1141,7 +1141,7 @@ typedef struct
 
 	BOOLEAN fShowSkillsInHirePage;
 
-	UINT8 ubMercRandomStats;
+	BOOLEAN fMercRandomStats;
 
 	BOOLEAN fBobbyRayFastShipments;
 
