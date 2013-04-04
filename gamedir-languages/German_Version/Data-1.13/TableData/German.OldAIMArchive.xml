@@ -1,42 +1,35 @@
 ﻿<OLD_MERC>		
 	<MERC>
-		<!-- Doc -->
-		<uiIndex>0</uiIndex>
-		<NickName>Doc</NickName>
-		<Name>Doc Koolhan</Name>
-		<Bio>Doc Koolhan quittierte den Dienst bei A.I.M., um seine Energien ganz der medizinischen Tätigkeit zu widmen. Bereits seit Jahren hatte er nebenher eine freie Klinik in Tripolis geleitet. Nach einer sechsmonatigen Vollzeitbeschäftigung verließ er jedoch die Klinik und schloß sich den Ärzten ohne Grenzen an. Derzeit wird er im Dienste der Organisation in Tunesien vermutet.</Bio>
-	</MERC>
-	<MERC>
 		<!-- Wink -->
-		<uiIndex>1</uiIndex>
+		<uiIndex>0</uiIndex>
 		<NickName>Wink</NickName>
 		<Name>Wink Dickerson</Name>
 		<Bio>Hauptsächlich bekannt für seinen starken Wurfarm, aber eher schlechte Treffsicherheit, erhielt Wink Dickerson endlich die Chance, auf die er sein ganzes Leben lang gewartet hatte. Wegen empfindlicher Budgetkürzungen war der Baseballclub Montreal Expos gezwungen, fast überall für einen mehr oder minder talentierten Werfer zu suchen. Nach Unterzeichnung eines Vertrages für 140 kanadische Dollar pro Woche wird Wink in der kommenden Saison als fünfter Werfer aufgestellt.</Bio>
 	</MERC>	
 	<MERC>
 		<!-- Larry -->
-		<uiIndex>2</uiIndex>
+		<uiIndex>1</uiIndex>
 		<NickName>Larry</NickName>
 		<Name>Larry Roachburn</Name>
 		<Bio>Nach acht Aufenthalten in Entziehungskliniken ohne bleibenden Erfolg blieb A.I.M. keine andere Wahl, als Larry Roachburns Mitgliedschaft bei der  Organisation zu kündigen. Wie wir erfahren haben, hat der Tod von Larrys Vater ihn veranlaßt, noch einen Versuch zu unternehmen, um sich von den Teufeln seiner Sucht zu befreien und seinen Körper von der jahrzehntelangen Vergiftung zu reinigen. Die Organisation wünscht ihm für die Zukunft alles Gute und viel Glück.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Ears -->
-		<uiIndex>3</uiIndex>
+		<uiIndex>2</uiIndex>
 		<NickName>Ears</NickName>
 		<Name>Edward "Ears" Stockwell</Name>
 		<Bio>Ears Stockwell reichte seinen Abschied vor fast achtzehn Monaten ein. Seitdem haben wir nichts von ihm gehört und haben daher keine Neuigkeiten über ihn zu berichten. Um ehrlich zu sein, haben wir uns auch nicht sonderlich angestrengt, um Kontakt zu ihm aufzunehmen.</Bio>
 	</MERC>	
 	<MERC>
 		<!-- Bernie -->
-		<uiIndex>4</uiIndex>
+		<uiIndex>3</uiIndex>
 		<NickName>Bernie</NickName>
 		<Name>Doktor Bernie Gloveless</Name>
 		<Bio>Bernies Laufbahn bei A.I.M. kann am besten als wechselvoll beschrieben werden. Nach seiner Weigerung, seine Position als Organisationsarzt  aufzugeben und nach einer Vielzahl von Beschwerden von anderen Mitgliedern sah sich A.I.M. zur unehrenvollen Entlassung von Dr. Bernie Gloveless gezwungen. Er ist z.Zt. bei einem internationalen Versicherungsunternehmen tätig. Also merken Sie sich besser seinen Namen für den Fall, daß  Ihre Firma Sie zum nächsten jährlichen Gesundheits-Check schickt...</Bio>
 	</MERC>
-	<MERC>
+		<MERC>
 		<!-- Reuban -->
-		<uiIndex>16</uiIndex>
+		<uiIndex>4</uiIndex>
 		<NickName>Reuban</NickName>
 		<Name>"Unusually Ruthless" Reuban</Name>
 		<Bio>Nachdem er jahrelang der Verhaftung entgehen konnte, wurde Reuban schließlich gefangen und nach Rumänien abgeschoben. Für das Niedermetzeln seiner Frau und Familie verbüßt er sechsmal lebenslänglich. Obwohl Reuban sein Leben nie mehr als freier Mann genießen wird, scheint er sich seiner neuen Umgebung gut angepaßt zu haben. Zu seinen Pflichten im Gefängnis gehört u.a. Landschaftsgärtnerei, und einige seiner Buchsbaumskulpturen haben der Anstalt bereits mehrere Preise beschieden.</Bio>
@@ -103,13 +96,6 @@
 		<NickName>Lance</NickName>
 		<Name>Lance Fisher</Name>
 		<Bio>Aufgrund ständiger Differenzen mit Victoria Waters wurde Lance gebeten, A.I.M. zu verlassen und statt dessen einen Posten bei der Westpoint Military Academy anzunehmen. Er akzeptierte das Angebot und arbeitet augenblicklich als Dozent für Ethik und Taktischen Rückzug. Darüber hat er auch ein Buch geschrieben: "Wie ich mich ohne Schmerzensschreie in Sicherheit bringe" ist in den Buchhandlungen der meisten militärischen Ausbildungsstätten zu haben.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Stella -->
-		<uiIndex>31</uiIndex>
-		<NickName>Stella</NickName>
-		<Name>Dr. Margaret "Stella" Trammel</Name>
-		<Bio>Margaret war die erste Frau in den Reihen der A.I.M. und wird schmerzlich vermißt. Neben den harten Schlachten, die sie auf dem Feld geschlagen hat, wird man sich an Dr. Trammel auch wegen ihres Kampfes um die Gleichberechtigung gleichgeschlechtlicher Lebenspartner erinnern. Sie hat kürzlich eine kleine Familienpraxis auf den Jungferninseln eröffnet.</Bio>
 	</MERC>
 	<MERC>
 		<!-- Eli -->
