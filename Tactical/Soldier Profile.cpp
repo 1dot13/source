@@ -437,10 +437,10 @@ void RandomStats ()
 	INT8 bBaseAttribute = 0;
 	MERCPROFILESTRUCT * pProfile;
 
-	BOOLEAN randomStatsEnabled = FALSE;
-
 	for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
 	{
+		BOOLEAN randomStatsEnabled = FALSE;
+
 		// WANNE: Random Stats are based on the INI entry (MERCS_RANDOM_STATS)
 		if ((gGameExternalOptions.ubMercRandomStats == 1) || (gGameExternalOptions.ubMercRandomStats == 2 && gRandomStatsValue[cnt].Enabled))
 			randomStatsEnabled = TRUE;
