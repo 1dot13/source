@@ -15971,13 +15971,18 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	fInterfacePanelDirty = DIRTYLEVEL2;
 }
 
-static CHAR16	tmpname[ 100 ];
+UINT8 tmpuser = 0;
+static CHAR16	tmpname[2][ 100 ];	// we need 2 arrays, in case we need 2 name pointers in one string
 STR16 SOLDIERTYPE::GetName()
 {
-	tmpname[0] =  '\0' ;
-	wcscat( tmpname, this->name );
+	++tmpuser;
+	if ( tmpuser > 1 )
+		tmpuser = 0;
 
-	return tmpname;
+	tmpname[tmpuser][0] =  '\0' ;
+	wcscat( tmpname[tmpuser], this->name );
+
+	return tmpname[tmpuser];
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
