@@ -297,11 +297,18 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 		return; // no explosive / no attacker
 	}
 
+	// The ammotype used. WARNING! This will only be != 0 if ubOwner != NOBODY !
+	UINT16 ammotype = 0;
+		
 	// Okay, we either got an explosive or a real attacker to check for.
 	// Let's check for the attacker first.
 	if ( ubOwner != NOBODY )
 	{
-		if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize < 2 )
+		OBJECTTYPE* pUsedGun = MercPtrs[ ubOwner ]->GetUsedWeapon( &MercPtrs [ ubOwner ]->inv[MercPtrs[ubOwner]->ubAttackingHand] );
+
+		ammotype = (*pUsedGun)[0]->data.gun.ubGunAmmoType;
+
+		if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && AmmoTypes[ammotype].explosionSize < 2 )
 		{
 			return; // no explosive and attackers gun is not fireing HE
 		}
@@ -328,7 +335,7 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	// No explosive but an attacker with HE ammo.
 	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && ubOwner != NOBODY)
 	{
-		ExpParams.ubTypeID = (INT8)Explosive[AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ][0]->data.gun.ubGunAmmoType].highExplosive].ubAnimationID;
+		ExpParams.ubTypeID = (INT8)Explosive[AmmoTypes[ammotype].highExplosive].ubAnimationID;
 		// return;
 	}
 	else // just normal explosives should get here
