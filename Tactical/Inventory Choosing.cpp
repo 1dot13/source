@@ -3595,7 +3595,7 @@ UINT32 ItemFitness( OBJECTTYPE* pObj, UINT8 idx )
 		}
 		else
 		{
-			value += (NightTime() ? Item[ pObj->usItem ].nightvisionrangebonus : Item[ pObj->usItem ].dayvisionrangebonus );
+			value = (*pObj)[idx]->data.objectStatus * (NightTime() ? Item[ pObj->usItem ].nightvisionrangebonus : Item[ pObj->usItem ].dayvisionrangebonus );
 		}
 	}
 	else if ( Item[ pObj->usItem ].usItemClass & (IC_BLADE|IC_PUNCH) )
@@ -3632,7 +3632,8 @@ UINT32 GetNeededTotalAmmo( UINT16 usItem )
 // special version of ItemFitness() that takes ammo count into consideration
 UINT32 ItemFitness_WithAmmo( OBJECTTYPE* pObj, UINT8 idx, UINT32 uiBullets )
 {
-	return (ItemFitness(pObj, idx) * uiBullets) / max(1, GetNeededTotalAmmo(pObj->usItem));
+	UINT32 optimalammo = GetNeededTotalAmmo(pObj->usItem);
+	return (ItemFitness(pObj, idx) * min(uiBullets, optimalammo) ) / max(1, optimalammo);
 }
 
 // retreives the next free slot in pWorldItem (we want to keep it short and not add too many items) 
@@ -3975,7 +3976,7 @@ void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 
 // This function loads the sector inventory of a given sector and fills the inventory of a SOLDIERCREATE_STRUCT according to the game settings. The soldier class is a parameter, but is currently not used
 // This function is rather lengthy, this is due to the fact that we have to loop over the entire sector inventory mulitple times. Below is a small documentation. If you change anything, please update it - Flugente
 
-// We loop over the inventory 3 times. I'll briefly explain why. After each loop we do a few other things - like taking items or doin further evaluation
+// We loop over the inventory 3 times. I'll briefly explain why. After each loop we do a few other things - like taking items or doing further evaluation
 // Note that any items we checked have to be reachable AND not be 'taboo' to the militia.
 
 // Preparation:			load correct sector inventory
