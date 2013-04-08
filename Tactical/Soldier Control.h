@@ -1534,18 +1534,22 @@ public:
 	BOOLEAN		IsAssassin();
 
 	// Flugente: multi-turn actions
-	UINT8	GetMultiTurnAction();
-	void	StartMultiTurnAction(UINT8 usActionType);
-	void	CancelMultiTurnAction(BOOLEAN fFinished);
-	BOOLEAN	UpdateMultiTurnAction();
+	UINT8		GetMultiTurnAction();
+	void		StartMultiTurnAction(UINT8 usActionType);
+	void		CancelMultiTurnAction(BOOLEAN fFinished);
+	BOOLEAN		UpdateMultiTurnAction();
 
-	void	DropSectorEquipment();
+	void		DropSectorEquipment();
 
 	// Flugente: switch hand item for gunsling weapon, or pistol, or knife
-	void	SwitchWeapons( BOOLEAN fKnife = FALSE, BOOLEAN fSideArm = FALSE );
+	void		SwitchWeapons( BOOLEAN fKnife = FALSE, BOOLEAN fSideArm = FALSE );
 
 	// Flugente: return a soldier's name. This allows for very easy manipulation of a soldier's name with pre- an suffixes, ranks etc.
-	STR16	GetName();
+	STR16		GetName();
+
+	INT8		GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubTargetProfile );
+
+	void		AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

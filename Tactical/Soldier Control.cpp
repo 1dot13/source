@@ -2164,7 +2164,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 		this->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 
 	// Don't max out if we are drugged....
-	if ( !GetDrugEffect( this, DRUG_TYPE_ADRENALINE ) && !!GetDrugEffect( this, DRUG_TYPE_AGILITY ) )
+	if ( !MercUnderTheInfluence( this, DRUG_TYPE_ADRENALINE ) && !MercUnderTheInfluence( this, DRUG_TYPE_AGILITY ) )
 	{
 		///////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - following code messed a bit
@@ -8515,7 +8515,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	// If a moving animation and w/re on drugs, increase speed....
 	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_MOVING )
 	{
-		if ( GetDrugEffect( pSoldier, DRUG_TYPE_ADRENALINE ) )
+		if ( MercUnderTheInfluence( pSoldier, DRUG_TYPE_ADRENALINE ) )
 		{
 			pSoldier->sAniDelay = pSoldier->sAniDelay / 2;
 		}
@@ -15983,6 +15983,200 @@ STR16 SOLDIERTYPE::GetName()
 	wcscat( tmpname[tmpuser], this->name );
 
 	return tmpname[tmpuser];
+}
+
+INT8 SOLDIERTYPE::GetTraitCTHModifier( UINT16 usItem, INT16 ubAimTime, UINT8 ubTargetProfile )
+{
+	INT8 modifier = 0;
+
+	// Modify for traits
+	if( gGameOptions.fNewTraitSystem )
+	{
+		// Bonus for heavy weapons moved here from above to get instant CtH bonus and not marksmanship bonus, 
+		// which is supressed by weapon condition
+		if (Item[usItem].rocketlauncher || Item[usItem].singleshotrocketlauncher)
+		{
+			modifier += gSkillTraitValues.bCtHModifierRocketLaunchers; // -25% for untrained mercs !!!
+
+			if (HAS_SKILL_TRAIT( this, HEAVY_WEAPONS_NT ))
+				modifier += gSkillTraitValues.ubHWBonusCtHRocketLaunchers * NUM_SKILL_TRAITS( this, HEAVY_WEAPONS_NT ); // +25% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usItem].ubWeaponType == GUN_PISTOL )
+		{
+			modifier += gSkillTraitValues.bCtHModifierPistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( this, GUNSLINGER_NT ) && this->bDoBurst == 0 && this->bDoAutofire == 0 )
+				modifier += gSkillTraitValues.ubGSBonusCtHPistols * NUM_SKILL_TRAITS( this, GUNSLINGER_NT ); // +10% per trait
+		}
+		else if ( Weapon[usItem].ubWeaponType == GUN_M_PISTOL )
+		{
+			modifier += gSkillTraitValues.bCtHModifierMachinePistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( this, GUNSLINGER_NT ) && ((this->bDoBurst == 0 && this->bDoAutofire == 0) || !gSkillTraitValues.ubGSCtHMPExcludeAuto))
+				modifier += gSkillTraitValues.ubGSBonusCtHMachinePistols * NUM_SKILL_TRAITS( this, GUNSLINGER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Machinegunner skill on assault rifles, SMGs and LMGs
+		else if ( Weapon[usItem].ubWeaponType == GUN_AS_RIFLE )
+		{
+			modifier += gSkillTraitValues.bCtHModifierAssaultRifles; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( this, AUTO_WEAPONS_NT ) )
+				modifier += gSkillTraitValues.ubAWBonusCtHAssaultRifles * NUM_SKILL_TRAITS( this, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usItem].ubWeaponType == GUN_SMG ) 
+		{
+			modifier += gSkillTraitValues.bCtHModifierSMGs; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( this, AUTO_WEAPONS_NT ) )
+				modifier += gSkillTraitValues.ubAWBonusCtHSMGs * NUM_SKILL_TRAITS( this, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usItem].ubWeaponType == GUN_LMG )
+		{
+			modifier += gSkillTraitValues.bCtHModifierLMGs; // -10% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( this, AUTO_WEAPONS_NT ) )
+				modifier += gSkillTraitValues.ubAWBonusCtHLMGs * NUM_SKILL_TRAITS( this, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usItem].ubWeaponType == GUN_SN_RIFLE )
+		{
+			modifier += gSkillTraitValues.bCtHModifierSniperRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( this, SNIPER_NT ) && this->bDoBurst == 0 && this->bDoAutofire == 0 )
+				modifier += gSkillTraitValues.ubSNBonusCtHSniperRifles * NUM_SKILL_TRAITS( this, SNIPER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Ranger skill on rifles and shotguns
+		else if ( Weapon[usItem].ubWeaponType == GUN_RIFLE ) 
+		{
+			modifier += gSkillTraitValues.bCtHModifierRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( this, RANGER_NT ) && this->bDoBurst == 0 && this->bDoAutofire == 0 )
+				modifier += gSkillTraitValues.ubRABonusCtHRifles * NUM_SKILL_TRAITS( this, RANGER_NT ); // +5% per trait
+			//CHRISL: Why wouldn't sniper training include standard rifles which are often used as "poor-man sniper rifles"
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( this, SNIPER_NT ) && this->bDoBurst == 0 && this->bDoAutofire == 0 )
+				modifier += gSkillTraitValues.ubSNBonusCtHRifles * NUM_SKILL_TRAITS( this, SNIPER_NT ); // +5% per trait
+		}
+		else if ( Weapon[usItem].ubWeaponType == GUN_SHOTGUN )
+		{
+			modifier += gSkillTraitValues.bCtHModifierShotguns; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( this, RANGER_NT ) )
+				modifier += gSkillTraitValues.ubRABonusCtHShotguns * NUM_SKILL_TRAITS( this, RANGER_NT ); // +10% per trait
+		}
+
+		// Added small CtH penalty for robot if controller hasn't the Technician trait
+		if( AM_A_ROBOT( this ) )
+		{
+			modifier += gSkillTraitValues.bCtHModifierRobot; // -10% 
+
+			if ( HAS_SKILL_TRAIT( this->GetRobotController(), TECHNICIAN_NT ) )
+				modifier += gSkillTraitValues.ubTECtHControlledRobotBonus * NUM_SKILL_TRAITS( this->GetRobotController(), TECHNICIAN_NT ); // +10% per trait
+		}
+
+		// Added character traits influence
+		if ( this->ubProfile != NO_PROFILE )
+		{		
+			// Sociable - better performance in groups
+			if ( gMercProfiles[ this->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( this->ubProfile, CHAR_TRAIT_SOCIABLE );
+				if ( bNumMercs > 2 )
+					modifier += 5;
+				else if ( bNumMercs > 0 )
+					modifier += 2;
+			}
+			// Loner - better performance when alone
+			else if ( gMercProfiles[ this->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( this->ubProfile, CHAR_TRAIT_LONER );
+				if ( bNumMercs == 0 )
+					modifier += 5;
+				else if ( bNumMercs <= 1 )
+					modifier += 2;
+			}
+			// Aggressive - bonus on bursts/autofire
+			else if ( gMercProfiles[ this->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+			{	
+				if (( this->bDoBurst || this->bDoAutofire ) && !ubAimTime )
+					modifier += 10;
+			}
+			// Show-off - better performance if some babes around to impress
+			else if ( gMercProfiles[ this->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( this->ubProfile, CHAR_TRAIT_SHOWOFF );
+				if ( bNumMercs > 1 )
+					modifier += 5;
+				else if ( bNumMercs > 0 )
+					modifier += 2;
+			}
+			// Added disabilities
+			if ( this->ubProfile != NO_PROFILE )
+			{
+				// Heat intolerant penalty
+				if ( MercIsHot( this ) )
+				{
+					modifier -= 15;
+				}
+				// Small penalty for fear of insects in tropical sectors
+				// Flugente: drugs can temporarily cause a merc get a new disability
+				else if ( ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) || MercUnderTheInfluence(this, DRUG_TYPE_FEAROFINSECTS) )&& MercIsInTropicalSector( this ) )
+				{
+					// fear of insects, and we are in tropical sector
+					modifier -= 5;
+				}
+			}
+		}
+		// Dauntless - penalty for not taking proper cover
+		if ( ubTargetProfile != NOBODY )
+		{
+			if ( gMercProfiles[ ubTargetProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+				modifier += 5;
+		}
+	}
+	else
+	{
+		// this rather unlogical bonus for psychotic characters applies only with old traits
+		if ( this->ubProfile != NO_PROFILE && gMercProfiles[ this->ubProfile ].bDisability == PSYCHO || MercUnderTheInfluence(this, DRUG_TYPE_PSYCHO))
+		{
+			modifier += AIM_BONUS_PSYCHO;
+		}
+	}
+
+	return modifier;
+}
+
+void SOLDIERTYPE::AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelRate, UINT8 usSideEffect )
+{
+	// in case of wrong inout, stay safe
+	if ( uDrugType >= DRUG_TYPE_MAX )
+		return;
+
+	// Add effects
+	if ( ( this->drugs.bFutureDrugEffect[ uDrugType ] + usEffect ) < 127 )
+	{
+		this->drugs.bFutureDrugEffect[ uDrugType ] += usEffect;
+	}
+	this->drugs.bDrugEffectRate[ uDrugType ]		= usTravelRate;
+
+	// Reset once we sleep...
+	this->drugs.bTimesDrugUsedSinceSleep[ uDrugType ]++;
+
+	// Increment side effects..
+	if ( ( this->drugs.bDrugSideEffect[ uDrugType ] + usSideEffect ) < 127 )
+	{
+		this->drugs.bDrugSideEffect[ uDrugType ]	+= usSideEffect;
+	}
+	// Stop side effects until were done....
+	this->drugs.bDrugSideEffectRate[ uDrugType ]	= 0;
+
+	// set flag: we are on drugs
+	this->bSoldierFlagMask |= SOLDIER_DRUGGED;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

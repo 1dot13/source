@@ -74,10 +74,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 	// if not a food item, nothing to see here
 	if ( gGameOptions.fFoodSystem && foodtype > 0  )
 		consumeitem = FALSE;
-
-	// set flag: we are on drugs
-	pSoldier->bSoldierFlagMask |= SOLDIER_DRUGGED;
-
+		
 	// Flugente: we have to check for every single type of drug ( a drug applied may consist of several 'pure' drug types)	
 	for (UINT8 i = DRUG_TYPE_ADRENALINE; i < DRUG_TYPE_MAX; ++i)
 	{
@@ -90,22 +87,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		if ( (ubDrugType & drugtestflag) != 0 )
 		{
 			// Add effects
-			if ( ( pSoldier->drugs.bFutureDrugEffect[ i ] + Drug[i].ubDrugEffect ) < 127 )
-			{
-				pSoldier->drugs.bFutureDrugEffect[ i ]	+= Drug[i].ubDrugEffect;
-			}
-			pSoldier->drugs.bDrugEffectRate[ i ]		= Drug[i].ubDrugTravelRate;
-
-			// Reset once we sleep...
-			pSoldier->drugs.bTimesDrugUsedSinceSleep[ i ]++;
-
-			// Increment side effects..
-			if ( ( pSoldier->drugs.bDrugSideEffect[ i ] + Drug[i].ubDrugSideEffect ) < 127 )
-			{
-				pSoldier->drugs.bDrugSideEffect[ i ]	+= ( Drug[i].ubDrugSideEffect );
-			}
-			// Stop side effects until were done....
-			pSoldier->drugs.bDrugSideEffectRate[ i ]	= 0;
+			pSoldier->AddDrugValues( i, Drug[i].ubDrugEffect, Drug[i].ubDrugTravelRate, Drug[i].ubDrugSideEffect );
 
 			// ATE: Make guy collapse from heart attack if too much stuff taken....
 			if ( pSoldier->drugs.bDrugSideEffectRate[ i ] > ( Drug[i].ubDrugSideEffect * 3 ) )
@@ -205,7 +187,7 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 			// chance of an extra point
 			if ( PreRandom( 100 / REGEN_POINTS_PER_BOOSTER ) < (UINT32) ( (*pObject)[0]->data.objectStatus % (100 / REGEN_POINTS_PER_BOOSTER ) ) )
 			{
-				bRegenPointsGained++;
+				++bRegenPointsGained;
 			}
 		}
 
@@ -216,6 +198,9 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 			pSoldier->bRegenerationCounter = __min( pSoldier->bRegenerationCounter + bRegenPointsGained, REGEN_POINTS_PER_BOOSTER );
 		}
 		pSoldier->bRegenBoostersUsedToday++;
+
+		// set flag: we are on drugs
+		pSoldier->bSoldierFlagMask |= SOLDIER_DRUGGED;
 	}
 
 	// increase drug counter if not alcoholic drug
@@ -357,8 +342,6 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->bRegenerationCounter > 0)
 	{
-//		bBandaged = BANDAGED( pSoldier );
-
 		// increase life
 		pSoldier->bPoisonLife = max(pSoldier->bPoisonSum, pSoldier->bPoisonLife + pSoldier->stats.bLife - __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax ) );
 		pSoldier->stats.bLife = __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax );
@@ -441,25 +424,6 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		pSoldier->bSoldierFlagMask &= ~SOLDIER_DRUGGED;
 }
 
-INT8 GetDrugEffect( SOLDIERTYPE *pSoldier, UINT8 ubDrugType	)
-{
-	return( pSoldier->drugs.bDrugEffect[ ubDrugType ] );
-}
-
-
-INT8 GetDrugSideEffect( SOLDIERTYPE *pSoldier, UINT8 ubDrugType )
-{
-	// If we have a o-positive effect
-	if ( pSoldier->drugs.bDrugEffect[ ubDrugType ] > 0 )
-	{
-		return( 0 );
-	}
-	else
-	{
-		return( pSoldier->drugs.bDrugSideEffect[ ubDrugType ] );
-	}
-}
-
 void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 {
 	INT8	bDrunkLevel;
@@ -476,9 +440,9 @@ void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 		// Adjust!
 		sPoints -= pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ADRENALINE ];
 
-		if ( sPoints < APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]] )
+		if ( sPoints < APBPConstants[AP_MINIMUM] )
 		{
-			sPoints = APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]];
+			sPoints = APBPConstants[AP_MINIMUM];
 		}
 	}
 	
@@ -489,15 +453,14 @@ void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 		// Reduce....
 		sPoints -= HANGOVER_AP_REDUCE;
 
-		if ( sPoints < APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]] )
+		if ( sPoints < APBPConstants[AP_MINIMUM] )
 		{
-			sPoints = APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]];
+			sPoints = APBPConstants[AP_MINIMUM];
 		}
 	}
 
 	(*pubPoints) = sPoints;
 }
-
 
 void HandleBPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *psPointReduction )
 {
@@ -539,7 +502,6 @@ void HandleDamageResistanceEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT32 *psPoi
 	}
 }
 
-
 INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier )
 {
 	INT8 bNumDrinks;
@@ -572,26 +534,17 @@ INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier )
 	}
 }
 
-
 INT32 EffectStatForBeingDrunk( SOLDIERTYPE *pSoldier, INT32 iStat )
 {
 	return( ( iStat * giDrunkModifier[ GetDrunkLevel( pSoldier ) ] / 100 ) );
 }
 
-
 BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier )
 {
 	for (UINT8 cnt = DRUG_TYPE_ADRENALINE; cnt < DRUG_TYPE_MAX; ++cnt)
 	{
-		// Are we in a side effect or good effect?
-		if ( pSoldier->drugs.bDrugEffect[ cnt ] )
-			return( TRUE );
-		
-		if ( pSoldier->drugs.bDrugSideEffect[ cnt ] )
-			return( TRUE );
-
-		if ( pSoldier->bRegenerationCounter > 0)
-			return( TRUE );
+		if ( MercUnderTheInfluence(pSoldier, cnt) )
+			return TRUE;
 	}
 
 	return( FALSE );
@@ -605,13 +558,13 @@ BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier, UINT8 aDrugType )
 
 	// Are we in a side effect or good effect?
 	if ( pSoldier->drugs.bDrugEffect[ aDrugType ] )
-	{
 		return( TRUE );
-	}
-	else if ( pSoldier->drugs.bDrugSideEffect[ aDrugType ] )
-	{
+		
+	if ( pSoldier->drugs.bDrugSideEffect[ aDrugType ] )
 		return( TRUE );
-	}
+
+	if ( pSoldier->bRegenerationCounter > 0)
+		return( TRUE );
 
 	return( FALSE );
 }
