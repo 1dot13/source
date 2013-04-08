@@ -12590,15 +12590,22 @@ FLOAT GetScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj, FLO
 
 FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj, FLOAT uiRange )
 {
+	// Flugente: if this weapon is an underbarrel weapon, use the 'carrier' weapon instead
+	OBJECTTYPE* pObjUsed = pObj;
+	if ( pObj == pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] ) )
+	{
+		pObjUsed = &pSoldier->inv[pSoldier->ubAttackingHand];
+	}
+
 	// Flugente: if scope modes are allowed, player team uses them
-	if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pObj->exists() == true && Item[pObj->usItem].usItemClass == IC_GUN )
+	if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pObjUsed->exists() == true && Item[pObjUsed->usItem].usItemClass == IC_GUN )
 	{
 		// Flugente: check for scope mode
 		std::map<INT8, OBJECTTYPE*> ObjList;
-		GetScopeLists(pObj, ObjList);
+		GetScopeLists(pObjUsed, ObjList);
 		
 		// only use scope mode if gun is in hand, otherwise an error might occur!
-		if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
+		if ( (&pSoldier->inv[HANDPOS]) == pObjUsed  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
 			// now apply the bonus from the scope we use
 			return max(1.0f, Item[ObjList[pSoldier->bScopeMode]->usItem].scopemagfactor);
 		else
@@ -12611,8 +12618,8 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 	FLOAT ActualCurrentFactor = 0.0;
 	INT32 iCurrentTotalPenalty = 0;
 	INT32 iBestTotalPenalty = 0;
-	FLOAT rangeModifier = GetScopeRangeMultiplier(pSoldier, pObj, uiRange);
-	FLOAT iProjectionFactor = CalcProjectionFactor(pSoldier, pObj, uiRange, 1);
+	FLOAT rangeModifier = GetScopeRangeMultiplier(pSoldier, pObjUsed, uiRange);
+	FLOAT iProjectionFactor = CalcProjectionFactor(pSoldier, pObjUsed, uiRange, 1);
 
 	if (TargetMagFactor <= 1.0f)
 	{
@@ -12623,7 +12630,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 	if ( pObj->exists() == true && UsingNewCTHSystem() == true )
 	{
 		// Real Scope Magnification Factor from the item
-		CurrentFactor = __max(1.0f, Item[pObj->usItem].scopemagfactor);
+		CurrentFactor = __max(1.0f, Item[pObjUsed->usItem].scopemagfactor);
 
 		if (CurrentFactor > 1.0f)
 		{
@@ -12651,7 +12658,7 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 		
 		// Now perform the same process for each scope installed on the item. The difference is, we also compare to 
 		// BestTotalPenalty to find the scope that gives the least penalty compared to its bonus.
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		for (attachmentList::iterator iter = (*pObjUsed)[0]->attachments.begin(); iter != (*pObjUsed)[0]->attachments.end(); ++iter) 
 		{
 			if (iter->exists() && Item[iter->usItem].scopemagfactor > 1.0f)
 			{

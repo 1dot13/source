@@ -7803,19 +7803,26 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 
 	if (ubAimTime > 0)
 	{
+		// Flugente: if this weapon is an underbarrel weapon, use the 'carrier' weapon instead
+		OBJECTTYPE* pObjUsed = pWeapon;
+		if ( pWeapon == pShooter->GetUsedWeapon( &pShooter->inv[pShooter->ubAttackingHand] ) )
+		{
+			pObjUsed = &pShooter->inv[pShooter->ubAttackingHand];
+		}
+
 		// Flugente: if scope modes are allowed, player team uses them
-		if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
+		if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pObjUsed->exists() == true && Item[pObjUsed->usItem].usItemClass == IC_GUN )
 		{
 			// Flugente: check for scope mode
 			std::map<INT8, OBJECTTYPE*> ObjList;
-			GetScopeLists(pWeapon, ObjList);
+			GetScopeLists(pObjUsed, ObjList);
 		
 			// only use scope mode if gun is in hand, otherwise an error might occur!
-			if ( (&pShooter->inv[HANDPOS]) == pWeapon && ObjList[pShooter->bScopeMode] != NULL && pShooter->bScopeMode != USE_ALT_WEAPON_HOLD )
+			if ( (&pShooter->inv[HANDPOS]) == pObjUsed && ObjList[pShooter->bScopeMode] != NULL && pShooter->bScopeMode != USE_ALT_WEAPON_HOLD )
 				iProjectionFactor = Item[ObjList[pShooter->bScopeMode]->usItem].projectionfactor;
 		}
 		else
-			iProjectionFactor = GetProjectionFactor( pWeapon );
+			iProjectionFactor = GetProjectionFactor( pObjUsed );
 
 		if (floor(iTargetMagFactor*10) > floor(iProjectionFactor*10.001))
 		{
