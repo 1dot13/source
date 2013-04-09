@@ -10,10 +10,11 @@
 	#include "points.h"
 	#include "message.h"
 	#include "GameSettings.h" // SANDRO - had to add this, dammit!
-#include "Random.h"
-#include "Text.h"
-#include "Interface.h"
-#include "Food.h"	// added by Flugente
+	#include "Random.h"
+	#include "Text.h"
+	#include "Interface.h"
+	#include "Food.h"			// added by Flugente
+	#include "Animation data.h"	// added by Flugente for SoldierBodyTypes
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -260,8 +261,8 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	{
 		UINT32 drugtestflag = (1 << cnt);			// comparing with this flag will determine the drug
 
-		// we do not actually test for DRUG_REGENERATION, because that is checked afterwards separately
-		if ( (drugtestflag & DRUG_REGENERATION ) != 0 )
+		// omit DRUG_TYPE_REGENERATION, because that is checked afterwards separately
+		if ( cnt == DRUG_TYPE_REGENERATION )
 			continue;
 		
 		// If side effect aret is non-zero....
@@ -419,6 +420,97 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		}
 	}
 
+	// etorphine stuns while it lasts. It can also damage and possibly kill the target if overdosed. The dosage depends on our bodytype
+	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STUNANDKILL ] )
+	{
+		// Keel over...
+		DeductPoints( pSoldier, 0, 20000 );
+
+		UINT8 bodyweight = 10;
+		switch ( pSoldier->ubBodyType )
+		{
+		case REGMALE:
+		case MANCIV:
+			bodyweight = 10;
+			break;
+
+		case BIGMALE:
+		case STOCKYMALE:
+			bodyweight = 12;
+			break;
+
+		case REGFEMALE:
+			bodyweight = 9;
+			break;
+
+		case ADULTFEMALEMONSTER:
+		case AM_MONSTER:
+			bodyweight = 30;
+			break;
+
+		case YAF_MONSTER:
+		case YAM_MONSTER:
+			bodyweight = 20;
+			break;
+
+		case LARVAE_MONSTER:
+			bodyweight = 4;
+			break;
+
+		case INFANT_MONSTER:
+			bodyweight = 10;
+			break;
+
+		case QUEENMONSTER:
+			bodyweight = 100;
+			break;
+
+		case FATCIV:
+		case MINICIV:
+		case DRESSCIV:
+			bodyweight = 8;
+			break;
+
+		case HATKIDCIV:
+		case KIDCIV:
+			bodyweight = 4;
+			break;
+
+		case CRIPPLECIV:
+			bodyweight = 7;
+			break;
+
+		case COW:
+			bodyweight = 20;
+			break;
+
+		case CROW:
+			bodyweight = 1;
+			break;
+
+		case BLOODCAT:
+			bodyweight = 20;
+			break;
+
+		case ROBOTNOWEAPON:
+		case HUMVEE:
+		case TANK_NW:
+		case TANK_NE:
+		case ELDORADO:
+		case ICECREAMTRUCK:
+		case JEEP:
+			// this should not happen anyway...
+			bodyweight = 100;
+			break;
+		}
+
+		if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STUNANDKILL ] > bodyweight )
+		{
+			if ( Chance( 10 * (pSoldier->drugs.bDrugEffect[ DRUG_TYPE_STUNANDKILL ] - bodyweight) ) )
+				pSoldier->EVENT_SoldierGotHit( 0, 400, 0, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, -1 );
+		}
+	}
+
 	// if all drug effects have ended, delete flag
 	if ( !MercUnderTheInfluence(pSoldier) )
 		pSoldier->bSoldierFlagMask &= ~SOLDIER_DRUGGED;
@@ -565,6 +657,20 @@ BOOLEAN MercUnderTheInfluence( SOLDIERTYPE *pSoldier, UINT8 aDrugType )
 
 	if ( pSoldier->bRegenerationCounter > 0)
 		return( TRUE );
+
+	return( FALSE );
+}
+
+BOOLEAN MercDruggedButNotDrunk( SOLDIERTYPE *pSoldier )
+{
+	for (UINT8 cnt = DRUG_TYPE_ADRENALINE; cnt < DRUG_TYPE_MAX; ++cnt)
+	{
+		if ( cnt == DRUG_TYPE_ALCOHOL )
+			continue;
+
+		if ( MercUnderTheInfluence(pSoldier, cnt) )
+			return TRUE;
+	}
 
 	return( FALSE );
 }
