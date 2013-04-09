@@ -48885,4 +48885,24 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1634</uiIndex>
+		<szItemName>M99</szItemName>
+		<szLongItemName>M99</szLongItemName>
+		<szItemDesc>A very strong animal tranquilizer. Lethal if overdosed, and you are not an elephant.</szItemDesc>
+		<szBRName>M99</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>70</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<Medical>1</Medical>
+		<DrugType>2097152</DrugType>
+	</ITEM>
 </ITEMLIST>
