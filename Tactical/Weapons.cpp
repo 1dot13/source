@@ -4990,7 +4990,11 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	}
 
 	// Flugente: moved trait modifiers into a member function
-	iTraitModifier = pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, pTarget->ubProfile );
+	UINT8 targetprofile = NOBODY;
+	if ( pTarget && pTarget->ubProfile != NOBODY )
+		targetprofile = pTarget->ubProfile;
+
+	iTraitModifier = pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
 
 	// SHOOTING AT SAME TARGET AGAIN
 	if (sGridNo == pSoldier->sLastTarget )
@@ -6459,7 +6463,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Modify for traits
 	// Flugente: moved trait modifiers into a member function
-	iChance += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, pTarget->ubProfile );
+	UINT8 targetprofile = NOBODY;
+	if ( pTarget && pTarget->ubProfile != NOBODY )
+		targetprofile = pTarget->ubProfile;
+
+	iChance += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
 		
 	/////////////////////////////////////////////////////////////////////////////////////
 	

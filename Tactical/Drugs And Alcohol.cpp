@@ -259,8 +259,6 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 	// We test for every 'pure' drug separately
 	for (cnt = DRUG_TYPE_ADRENALINE; cnt < DRUG_TYPE_MAX; ++cnt)
 	{
-		UINT32 drugtestflag = (1 << cnt);			// comparing with this flag will determine the drug
-
 		// omit DRUG_TYPE_REGENERATION, because that is checked afterwards separately
 		if ( cnt == DRUG_TYPE_REGENERATION )
 			continue;
