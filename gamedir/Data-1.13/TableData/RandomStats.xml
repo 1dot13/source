@@ -4088,29 +4088,29 @@
 	<PROFIL>
 		<uiIndex>227</uiIndex>
 		<Name>Hurl</Name>
-		<Enabled>0</Enabled>
-		<BaseAttribute>0</BaseAttribute>
-		<ExpLevel>0</ExpLevel>
+		<Enabled>1</Enabled>
+		<BaseAttribute>55</BaseAttribute>
+		<ExpLevel>1</ExpLevel>
 		<RandomLife>0</RandomLife>
 		<RandomAgility>0</RandomAgility>
 		<RandomLeadership>0</RandomLeadership>
 		<RandomDexterity>0</RandomDexterity>
 		<RandomWisdom>0</RandomWisdom>
-		<RandomMarksmanship>0</RandomMarksmanship>
+		<RandomMarksmanship>1</RandomMarksmanship>
 		<RandomMedical>0</RandomMedical>
 		<RandomMechanical>0</RandomMechanical>
 		<RandomExplosive>0</RandomExplosive>
 		<RandomScientific>0</RandomScientific>
-		<RandomStrength>0</RandomStrength>
+		<RandomStrength>1</RandomStrength>
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>228</uiIndex>
 		<Name>Doc</Name>
-		<Enabled>0</Enabled>
-		<BaseAttribute>0</BaseAttribute>
-		<ExpLevel>0</ExpLevel>
-		<RandomLife>0</RandomLife>
-		<RandomAgility>0</RandomAgility>
+		<Enabled>1</Enabled>
+		<BaseAttribute>64</BaseAttribute>
+		<ExpLevel>2</ExpLevel>
+		<RandomLife>1</RandomLife>
+		<RandomAgility>1</RandomAgility>
 		<RandomLeadership>0</RandomLeadership>
 		<RandomDexterity>0</RandomDexterity>
 		<RandomWisdom>0</RandomWisdom>
@@ -4119,7 +4119,7 @@
 		<RandomMechanical>0</RandomMechanical>
 		<RandomExplosive>0</RandomExplosive>
 		<RandomScientific>0</RandomScientific>
-		<RandomStrength>0</RandomStrength>
+		<RandomStrength>1</RandomStrength>
 	</PROFIL>
 	<PROFIL>
 		<uiIndex>229</uiIndex>
