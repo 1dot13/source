@@ -8098,7 +8098,9 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 		// Also take ourselves into account
 		if ((ubNumberOfSL < gSkillTraitValues.ubSLMaxBonuses) && HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT ))
 		{
-			ubNumberOfSL = max( gSkillTraitValues.ubSLMaxBonuses, (ubNumberOfSL + NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )) );
+			// Flugente: This seems wrong. gSkillTraitValues.ubSLMaxBonuses should be the upper, not lower bound of squadleasders...
+			//ubNumberOfSL = max( gSkillTraitValues.ubSLMaxBonuses, (ubNumberOfSL + NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )) );
+			ubNumberOfSL = min( gSkillTraitValues.ubSLMaxBonuses, (ubNumberOfSL + NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )) );
 		}
 		bTolerance += (bTolerance * gSkillTraitValues.ubSLOverallSuppresionBonusPercent * ubNumberOfSL / 100);
 	}
@@ -8154,21 +8156,24 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 20 )
 		{
 			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 20);
-		}
-		// +2% per point above 30 impact
-		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 30 )
-		{
-			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 30);
-		}
-		// +3% per point above 40 impact
-		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 40 )
-		{
-			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 40);
-		}
-		// +4% per point above 50 impact, some crazy gun here
-		if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 50 )
-		{
-			sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 50);
+
+			// +2% per point above 30 impact
+			if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 30 )
+			{
+				sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 30);
+
+				// +3% per point above 40 impact
+				if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 40 )
+				{
+					sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 40);
+
+					// +4% per point above 50 impact, some crazy gun here
+					if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 50 )
+					{
+						sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 50);
+					}
+				}
+			}
 		}
 
 		// add a small bonus to effectiveness based on weapon loudness
@@ -8231,16 +8236,19 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			{
 				if (ubPointsLost > usLimitSuppressionAPsLostPerAttack)
 				{
-					ubPointsLost = __max(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
+					// Flugente: eh.. woudln't this _always_ be 255? I suspect this should be __min
+					//ubPointsLost = __max(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
+					ubPointsLost = __min(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
 				}
 			}
 
 			// This makes sure that we never lose more APs than we're allowed per turn.
 			if (usLimitSuppressionAPsLostPerTurn > 0)
 			{
-				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > APBPConstants[AP_MAX_TURN_SUPPRESSED])
+				// Flugente: apply a bit of safety here (beware of underflow)
+				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > usLimitSuppressionAPsLostPerTurn)
 				{
-					ubPointsLost = usLimitSuppressionAPsLostPerTurn - pSoldier->ubAPsLostToSuppression;
+					ubPointsLost = __max(0, usLimitSuppressionAPsLostPerTurn - pSoldier->ubAPsLostToSuppression);
 				}
 			}
 
