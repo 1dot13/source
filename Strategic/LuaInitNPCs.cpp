@@ -58,6 +58,7 @@
 #include "Queen Command.h"
 #include "gamescreen.h"
 #include "Arms Dealer Init.h"
+#include "Squads.h"
 
 extern "C" {
 #include "lua.h"
@@ -715,6 +716,47 @@ static int l_HiddenTown (lua_State *L);
 static int l_gubBoxerID(lua_State *L);
 static int l_RemoveGraphicFromTempFile (lua_State *L);
 
+//14-10-2011
+static int l_PlaceGroupInSector(lua_State *L);
+static int l_CheckSoldierSectorZ (lua_State *L);
+static int l_CheckSoldierSectorX (lua_State *L);
+static int l_CheckSoldierSectorY (lua_State *L);
+static int l_CheckSoldierbGroupID (lua_State *L);
+
+static int l_ChangeSelectedMapSector (lua_State *L);
+
+static int l_InternalLeaveTacticalScreen (lua_State *L);
+
+static int l_SetSoldierSectorZ (lua_State *L);
+static int l_SetSoldierSectorX (lua_State *L);
+static int l_SetSoldierSectorY (lua_State *L);
+static int l_SetSoldierbGroupID (lua_State *L);
+
+static int l_SetMercPtsrubGroupID(lua_State *L);
+static int l_SetMercPtsrSectorX(lua_State *L);
+static int l_SetMercPtsrSectorY(lua_State *L);
+static int l_SetMercPtsrSectorZ(lua_State *L);
+
+static int l_CheckMercPtsrSectorX(lua_State *L);
+static int l_CheckMercPtsrSectorY(lua_State *L);
+static int l_CheckMercPtsrSectorZ(lua_State *L);
+static int l_CheckSoldierbGroupID (lua_State *L);
+
+static int l_GetGroup (lua_State *L);
+
+static int l_SetPendingNewScreen(lua_State *L);
+static int l_AddFilesToPlayersLog(lua_State *L);
+static int l_fBobbyRSiteCanBeAccessed(lua_State *L);
+static int l_AddExitGridToWorld (lua_State *L);
+static int l_WorldLevelDataMAPELEMENT_REVEALED(lua_State *L);
+static int l_CreateKeyProfInv (lua_State *L);
+static int l_FindSoldierByProfileIDBool (lua_State *L);
+
+static int l_CreateKeyAndAddItemToPool (lua_State *L);
+static int l_CreateKeyProfInvAndAddItemToPool (lua_State *L);
+static int l_usStrategicInsertionDataProfileID (lua_State *L);
+
+
 using namespace std;
 
 UINT16 idProfil;
@@ -808,34 +850,49 @@ void IniFunction(lua_State *L)
 
 	lua_register(L, "HireMerc", l_HireMerc);
 
-	//Briefing room
+	//------Briefing Room------
+	
 	lua_register(L, "SetEndMission", l_SetEndMission);
 	lua_register(L, "SetStartMission", l_SetStartMission);
 	lua_register(L, "CheckMission", l_CheckMission);
+	
+	//------Global------
+	
+	lua_register(L, "SetGlobalBool", l_SetGlobalLuaBool);
+	lua_register(L, "SetGlobalVal", l_SetGlobalLuaVal);	
+	lua_register(L, "SetGlobalTrue", l_SetGlobalLuaBoolTrue);
+	lua_register(L, "SetGlobalFalse", l_SetGlobalLuaBoolFalse);
+	lua_register(L, "CheckGlobalBool", l_CheckGlobalLuaBool);
+	lua_register(L, "CheckGlobalVal", l_CheckGlobalLuaVal);	
+	lua_register(L, "GetGlobalVal", l_GetGlobalLuaVal);	
 
-	//Sector
-	lua_register(L, "AddAlternateSector", l_AddAlternateSector);
-	lua_register(L, "AddAltUnderGroundSector", l_AddAltUnderGroundSector);
-	lua_register(L, "AddAltSector", l_AddAlternateSector);
-	lua_register(L, "AddAltUGSector", l_AddAltUnderGroundSector);
-	lua_register(L, "AddAltSectorNew", l_AddAlternateSectorNew);
-	lua_register(L, "AddAltUGSectorNew", l_AddAltUnderGroundSectorNew);
-
-	//Loyalty
+	//------Email------
+	
+	lua_register(L, "AddPreReadEmail", l_AddPreReadEmail);
+	lua_register(L, "AddEmail", l_AddEmail);
+	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
+	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
+	lua_register(L, "AddEmailXML", l_AddEmailXML2);
+	
+	//------Time------
+	
+	lua_register(L, "GetWorldMinutesInDay", l_GetWorldMinutesInDay);
+	lua_register(L, "GetWorldHour", l_GetWorldHour);		
+	lua_register(L, "ExecuteStrategicAIAction", l_ExecuteStrategicAIAction);
+	lua_register(L, "GetWorldTotalMin", l_GetWorldTotalMin );	
+	
+	//------Loyalty-------
+	
 	lua_register(L, "IncrementTownLoyalty", l_IncrementTownLoyalty);
 	lua_register(L, "IncrementTownLoyaltyEverywhere", l_IncrementTownLoyaltyEverywhere);
 	lua_register(L, "DecrementTownLoyalty", l_DecrementTownLoyalty);
 	lua_register(L, "SetTownLoyalty", l_SetTownLoyalty);
 	lua_register(L, "InTownSectorWithTrainingLoyalty",l_InTownSectorWithTrainingLoyalty);
+	lua_register(L, "SetGlobalLoyaltyEvent", l_SetHandleGlobalLoyaltyEvent);
+		
+	//------MERC-------	
 	
-	//Merc - Add
-	
-	lua_register(L, "SetMercProfiles", l_SetMercProfiles);
-	lua_register(L, "AddNPC", l_AddNPC);
-	lua_register(L, "AddNPCtoSector", l_AddNPCTOSECTOR);	
-	lua_register(L, "ChangeNpcToDifferentSector", l_ChangeNpcToDifferentSector);	
-	
-	//Merc - Check
+	//Check merc
 	lua_register(L, "CheckNPCSector", l_CheckNPCSector);	
 	lua_register(L, "CheckLastDateSpokenTot", l_ubLastDateSpokenTot);	
 	lua_register(L, "CheckNPCData1", l_fNPCData);	
@@ -879,23 +936,35 @@ void IniFunction(lua_State *L)
 	lua_register(L, "CheckSoldierInSector", l_CheckSoldierInSector);	
 	lua_register(L, "CheckSoldierActive", l_CheckSoldierActive);	
 	lua_register(L, "CheckForPotentialAddToBattleIncrement", l_CheckForPotentialAddToBattleIncrement);
-	
-	lua_register(L, "CheckFPAddBattleIncrement", l_CheckForPotentialAddToBattleIncrement);
-	
 	lua_register(L, "CheckAction", l_CheckAction);
 	lua_register(L, "CheckSoldierNoiseVolume", l_CheckSoldierNoiseVolume);
 	lua_register(L, "CheckSoldierAlertStatus", l_CheckSoldierAlertStatus);	
+	lua_register(L, "PythSpacesAway",l_PythSpacesAway);
+	lua_register(L, "FindSoldierByProfileID", l_FindSoldierByProfileID);
+	lua_register(L, "SoldierTo3DLocationLineOfSightTest", l_SoldierTo3DLocationLineOfSightTest);
+	lua_register(L, "ClosestPC", l_ClosestPC );
+	lua_register(L, "TileIsOutOfBounds", l_TileIsOutOfBounds );	
+	lua_register(L, "FindItemSoldier",l_FindItemSoldier);
+	lua_register(L, "TileIsOutOfBoundsClosestPC", l_TileIsOutOfBoundsClosestPC);
+	lua_register(L, "CheckCharacterSectorZ", l_CheckCharacterSectorZ);
+	lua_register(L, "CheckSoldierNeutral", l_bNeutral);	
+	lua_register(L, "CheckSoldierAttitude", l_bAttitude);
+	lua_register(L, "FindSoldierTeam",l_FindSoldierTeam);
+	lua_register(L, "WhatKindOfMercAmI",l_ubWhatKindOfMercAmI);	
+	lua_register(L, "IsMercDead", l_IsMercDead);
+	lua_register(L, "IsMercHireable", l_IsMercHireable);	
 	
-	//Merc - set
+	//Set merc
 	lua_register(L, "SetThreatenDefaultResponseUsedRecently", l_bThreatenDefaultResponseUsedRecently);
 	lua_register(L, "SetRecruitDefaultResponseUsedRecently", l_bRecruitDefaultResponseUsedRecently);
 	lua_register(L, "SetFriendlyOrDirectDefaultResponseUsedRecently", l_bFriendlyOrDirectDefaultResponseUsedRecently);
-	
-	//nowe
+	lua_register(L, "SetMercProfiles", l_SetMercProfiles);
+	lua_register(L, "AddNPC", l_AddNPC);
+	lua_register(L, "AddNPCtoSector", l_AddNPCTOSECTOR);	
+	lua_register(L, "ChangeNpcToDifferentSector", l_ChangeNpcToDifferentSector);
 	lua_register(L, "SetTDRUsedRecently", l_bThreatenDefaultResponseUsedRecently);
 	lua_register(L, "SetRDRUsedRecently", l_bRecruitDefaultResponseUsedRecently);
 	lua_register(L, "SetFDRUsedRecently", l_bFriendlyOrDirectDefaultResponseUsedRecently);
-	
 	lua_register(L, "SetMiscFlags2", l_ubMiscFlags2Set);
 	lua_register(L, "SetMiscFlags1", l_ubMiscFlags1Set);
 	lua_register(L, "SetNPCData1", l_bNPCData);	
@@ -915,60 +984,153 @@ void IniFunction(lua_State *L)
 	lua_register(L, "SetProfileFaceData", l_SetProfileFaceData );
 	lua_register(L, "SetSoldierSide", l_SetSoldierSide);	
 	lua_register(L, "SetSoldierOrders", l_SetSoldierOrders);
-
-	//Merc - Get
-	lua_register(L, "GetDirection", l_GetDirection); //new
-	lua_register(L, "GetNPCGridNo", l_GetGridoProfileID);
-	lua_register(L, "GetProfileFaceData", l_GetProfileFaceData );	
-	
-	//Merc - tiggers
 	lua_register(L, "TriggerNPCRecord", l_TriggerNPCRecord);
 	lua_register(L, "TriggerNPCRecordImmediately", l_TriggerNPCRecordImmediately);
 	lua_register(L, "TriggerNPCWithIHateYouQuote", l_TriggerNPCWithIHateYouQuote);	
-	
-	//Merc - other
-	lua_register(L, "FindItemSoldier",l_FindItemSoldier);
-	lua_register(L, "UnRecruitEPC",l_UnRecruitEPC);
-	lua_register(L, "MakeHostile",l_MakeHostile);
-	lua_register(L, "PythSpacesAway",l_PythSpacesAway);
-	lua_register(L, "RemoveObjectFromSoldierProfile", l_RemoveObjectFromSoldierProfile);	
-	lua_register(L, "TeleportSoldier", l_TeleportSoldier);		
-	lua_register(L, "DeadSoldier", l_EVENT_SoldierGotHit);	
-	lua_register(L, "FindSoldierByProfileID", l_FindSoldierByProfileID);	
-	lua_register(L, "TileIsOutOfBoundsClosestPC", l_TileIsOutOfBoundsClosestPC);	
 	lua_register(L, "RecruitRPC", l_RecruitRPC);
-	lua_register(L, "RecruitEPC", l_RecruitEPC);	
+	lua_register(L, "RecruitEPC", l_RecruitEPC);		
+	lua_register(L, "UnRecruitEPC",l_UnRecruitEPC);
 	lua_register(L, "NPCGotoGridNo", l_NPCGotoGridNo);	
-	lua_register(L, "RecalculateOppCntsDueToNoLongerNeutral", l_RecalculateOppCntsDueToNoLongerNeutral);
-	lua_register(L, "ActionStopMerc", l_EVENT_StopMerc);
-	lua_register(L, "AddToShouldBecomeHostileOrSayQuoteList", l_AddToShouldBecomeHostileOrSayQuoteList);	
-	lua_register(L, "EnterGroupCombatMode", l_SetEnterCombatMode);	
-	lua_register(L, "InitNewSoldierAnim", l_EVENT_InitNewSoldierAnim);
-	lua_register(L, "EnterShopKeeperInterfaceScreen", l_EnterShopKeeperInterfaceScreen);
-	lua_register(L, "SoldierTo3DLocationLineOfSightTest", l_SoldierTo3DLocationLineOfSightTest);
+	lua_register(L, "TeleportSoldier", l_TeleportSoldier);
+	lua_register(L, "DeadSoldier", l_EVENT_SoldierGotHit);
 	lua_register(L, "CancelAIAction", l_CancelAIAction);
 	lua_register(L, "RESETTIMECOUNTER", l_RESETTIMECOUNTER);
-	lua_register(L, "ClosestPC", l_ClosestPC );
-	lua_register(L, "TileIsOutOfBounds", l_TileIsOutOfBounds );	
-	
-	//Team
-	lua_register(L, "FindSoldierTeam",l_FindSoldierTeam);
-	lua_register(L, "WhatKindOfMercAmI",l_ubWhatKindOfMercAmI);	
+	lua_register(L, "RemoveObjectFromSoldierProfile", l_RemoveObjectFromSoldierProfile);	
+	lua_register(L, "InitNewSoldierAnim", l_EVENT_InitNewSoldierAnim);	
+	lua_register(L, "ActionStopMerc", l_EVENT_StopMerc);
+	lua_register(L, "EnterShopKeeperInterfaceScreen", l_EnterShopKeeperInterfaceScreen);
+	lua_register(L, "HandleNPCGotoGridNo", l_HandleNPCGotoGridNo );
+	lua_register(L, "HandleNPCDoAction", l_HandleNPCDoAction );
+	lua_register(L, "HandleNPCClosePanel", l_HandleNPCClosePanel );
+	lua_register(L, "HandleNPCTriggerNPC", l_HandleNPCTriggerNPC );
+	lua_register(L, "SetMercStatus", l_Merc_Status);
+	lua_register(L, "SetNPCLife", l_SetbLife);	
+	lua_register(L, "TacticalCharacterDialogue", l_TacticalCharacterDialogue);
+	lua_register(L, "DeleteMercInventory", l_DeleteMercInventory);
+	lua_register(L, "DeleteSlotMercInventory", l_DeleteMercInventory);
+	lua_register(L, "SetSoldierNonNeutral", l_SetSoldierNonNeutral);
+	lua_register(L, "MercProfileSetBIGPOCK2POS", l_gMercProfileGearset);
+	lua_register(L, "MercProfileSetPOCKPOS", l_gMercProfileGearset);
+		
+	//Get  merc
+	lua_register(L, "GetDirection", l_GetDirection); //new
+	lua_register(L, "GetNPCGridNo", l_GetGridoProfileID);
+	lua_register(L, "GetProfileFaceData", l_GetProfileFaceData );
+	lua_register(L, "GetMercStatus", l_Get_Merc_Status);	
+	lua_register(L, "GetNPCLifeMax", l_GetbLifeMax);	
+	lua_register(L, "GetNPCBalance", l_GetiBalance);
+	lua_register(L, "GetCharacterSectorZ", l_GetCharacterSectorZ);
+	lua_register(L, "GetCharacterSectorX", l_GetCharacterSectorX);
+	lua_register(L, "GetCharacterSectorY", l_GetCharacterSectorY);	
 
-//  lua_register(L, "ActionInProgress", l_ActionInProgress);	
+	//Tactical merc
+	lua_register(L, "CheckCivGroupHostile", l_fCivGroupHostile);	
+	lua_register(L, "gTacticalStatus", l_gTacticalStatus);
+	lua_register(L, "CheckCombatMode", l_CheckCombatMode);		
+	lua_register(L, "GetTacticalStatusFirstID", l_GetFirstID); //new
+	lua_register(L, "GetTacticalStatusLastID", l_GetLastID); //new	
+	lua_register(L, "TacticalStatusTeamHuman", l_TacticalStatusTeamHuman );
+	lua_register(L, "TacticalStatusTeamActive", l_TacticalStatusTeamActive);	
+
+	lua_register(L, "GetPlayerMercID", l_ubID );
+	lua_register(L, "GetMapMercSlotID", l_ubID );
+	lua_register(L, "SetOffPanicBombs", l_SetOffPanicBombs );
+	lua_register(L, "WearGasMaskIfAvailable", l_WearGasMaskIfAvailable );	
+	lua_register(L, "SetNewSituationMercPtrs", l_SetNewSituationMercPtsr);
+	lua_register(L, "SetCivGroupHostile", l_SetCivGroupHostile); 	
+	lua_register(L, "EnterTeamCombatMode", l_SetEnterCombatModeTeam);		
+	lua_register(L, "DeadMercPtrs", l_AnimMercPtsrSoldierGotHit );	
+	lua_register(L, "AnimMercPtrs", l_AnimMercPtsrInSector);
+	lua_register(L, "CheckMercPtrsInCivilianGroup", l_CheckMercPtrsInCivilianGroup); 
+	lua_register(L, "CheckMercPtrsInActive", l_CheckMercPtrsActive); 
+	lua_register(L, "CheckMercPtrsInSector", l_CheckMercPtsrInSector); 	
+	lua_register(L, "CheckMercPtrsID1SeenID2", l_CheckMercPtsrubIDSeenubID2); 	
+	lua_register(L, "MakeMercPtrsHostile", l_MakeMercPtrsHostile);	
+	lua_register(L, "CheckSoldierBodyType", l_CheckSoldierBodyType );
+	lua_register(L, "GetSoldierBodyType", l_GetSoldierBodyType );
+	lua_register(L, "SetSoldierBodyType", l_SetSoldierBodyType );
+
+	lua_register(L, "MercPtsrAIFlags", l_AnimMercPtsrfAIFlags );
+	lua_register(L, "MercPtsrNextAction", l_AnimMercPtsrbNextAction );
+	lua_register(L, "MercPtsrNextActionData", l_AnimMercPtsrusNextActionData );
+	lua_register(L, "MercPtsrAbsoluteFinalDestination", l_AnimMercPtsrsAbsoluteFinalDestination );
+	lua_register(L, "MercPtsrStrategicInsertionCode", l_AnimMercPtsrubStrategicInsertionCode );
+	lua_register(L, "MercPtsrStrategicInsertionData", l_AnimMercPtsrusStrategicInsertionData );
 	
+	lua_register(L, "PlayerMercsInSector", l_PlayerMercsInSector);
+	lua_register(L, "GetPlayerMercsInSector", l_GetPlayerMercsInSector);
+	lua_register(L, "PlayerGroupsInSector", l_PlayerGroupsInSector);
+	lua_register(L, "GetPlayerGroupsInSector", l_GetPlayerGroupsInSector);
+
+	lua_register(L, "UpdateMercsInSector", l_UpdateMercsInSector);	
 	
-//  lua_register(L, "MakeCivHostile", l_MakeCivHostile); //new	
+	lua_register(L, "ChangeMercPtrsTeam", l_ChangeMercPtrsTeam);
+	lua_register(L, "IS_CIV_BODY_TYPE", l_IS_CIV_BODY_TYPE );
 	
-	//Fact and Quest
+	//------Action------
+	
+	lua_register(L, "SetOffBombsByFrequency", l_SetOffBombsByFrequency);	
+	lua_register(L, "SetOffBombs", l_SetOffBombsByFrequency);	
+	lua_register(L, "ToggleActionItemsByFrequency", l_ToggleActionItemsByFrequency);
+	lua_register(L, "ActionDoor", l_Action_door);	
+	lua_register(L, "ActionDoorOpen", l_Action_door_open);
+	lua_register(L, "ActionDoorClose", l_Action_door_close);	
+
+	//------Fact and Quest------
+	
 	lua_register(L, "SetFactTrue", l_SetFactTrue);
 	lua_register(L, "SetFactFalse", l_SetFactFalse);
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckQuest", l_gubQuest);
 	lua_register(L, "StartQuest", l_StartQuest);
 	lua_register(L, "EndQuest", l_EndQuest);
+	lua_register(L, "gubFact", l_gubFact);
+	lua_register(L, "GetgubFact", l_GetgubFact);
+	lua_register(L, "gubQuest", l_gubQuest);
 	
-	//Other
+	//------Objects------
+	
+	lua_register(L, "CreateItem", l_CreateItem);
+	lua_register(L, "CreateMoney", l_CreateMoney);
+	lua_register(L, "SetWorldItemsExists", l_SetgWorldItemsExists);
+	lua_register(L, "GetWorldItemsExists", l_gWorldItemsExists);
+	lua_register(L, "GetWorldItemsObjectItem", l_gWorldItemsObjectItem);
+	lua_register(L, "GetWorldItemsObjectDataMoney", l_gWorldItemsObjectDataMoney);	
+	lua_register(L, "MoveItemPools", l_MoveItemPools);
+	lua_register(L, "GetNumberOfWorldItemsFromTempItemFile", l_GetNumberOfWorldItemsFromTempItemFile);
+	lua_register(L, "ItemExistsAtLocation", l_ItemExistsAtLocation);
+	lua_register(L, "AddCreateItemToPool", l_CreateItemToPool);
+	lua_register(L, "AddCreateItemsToUnLoadedSector", l_CreateToUnLoadedSector);
+			
+	//------Maps------
+	
+	lua_register(L, "SetRender", l_SetRender);
+	lua_register(L, "ConvertGridNoToXY", l_ConvertGridNoToXY);
+	lua_register(L, "AddStructToHead", l_AddStructToHead);	
+	lua_register(L, "RemoveStruct", l_RemoveStruct);	
+	lua_register(L, "ApplyMapChangesToMapTempFile", l_ApplyMapChangesToMapTempFile);	
+	lua_register(L, "SectorEnemyControlled", l_fEnemyControlled);	
+	lua_register(L, "ItemTypeExistsAtLocation", l_ItemTypeExistsAtLocation);
+	lua_register(L, "GetTownLoyaltyLiberatedAlready", l_GetTownLoyaltyfLiberatedAlready);
+	lua_register(L, "GetTownLoyaltyStarted", l_GetTownLoyaltyfStarted);
+	lua_register(L, "GetTownLoyaltyRating", l_GetTownLoyaltyubRating);
+	lua_register(L, "GetTownLoyaltyChange", l_GetTownLoyaltysChange);
+	lua_register(L, "SetTownLoyaltyLiberatedAlready", l_SetTownLoyaltyfLiberatedAlready);
+	lua_register(L, "SetTownLoyaltyStarted", l_SetTownLoyaltyfStarted);
+	lua_register(L, "SetTownLoyaltyRating", l_SetTownLoyaltyubRating);
+	lua_register(L, "SetTownLoyaltyChange", l_SetTownLoyaltysChange);	
+	lua_register(L, "GetTownUsesLoyalty", l_GetgfTownUsesLoyalty);	
+	lua_register(L, "SetTownUsesLoyalty", l_SetgfTownUsesLoyalty);
+	lua_register(L, "GetCharacterTown", l_GetgMercProfilesbTown);
+	lua_register(L, "SetCharacterTown", l_SetgMercProfilesbTown);
+	lua_register(L, "RemoveGraphicFromTempFile", l_RemoveGraphicFromTempFile);
+	
+	//------Others------
+	
+	lua_register(L, "SearchForOtherMembersWithinPitRadiusAndMakeThemFall", l_SearchForOtherMembersWithinPitRadiusAndMakeThemFall );
+	lua_register(L, "Add3X3Pit", l_Add3X3Pit );
+	lua_register(L, "Add5X5Pit", l_Add5X5Pit );
+	lua_register(L, "TogglePressureActionItemsInGridNo", l_TogglePressureActionItemsInGridNo );
 	//lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "HospitalTempBalance", l_HospitalTempBalance);
 	lua_register(L, "HospitalRefund", l_HospitalRefund);
@@ -977,55 +1139,18 @@ void IniFunction(lua_State *L)
 	lua_register(L, "SetUpHelicopterForPlayer", l_SetUpHelicopterForPlayer);
 	lua_register(L, "MakeNoise", l_MakeNoise );
 	lua_register(L, "WorldLevelDataTerrainID", l_WorldLevelDataTerrainID );
-
-	//Action - Bomb
-	lua_register(L, "SetOffBombsByFrequency", l_SetOffBombsByFrequency);	
-	lua_register(L, "SetOffBombs", l_SetOffBombsByFrequency);	
-	lua_register(L, "ToggleActionItemsByFrequency", l_ToggleActionItemsByFrequency);
+	lua_register(L, "AddTransactionToPlayersBook", l_AddTransactionToPlayersBook );	
+	lua_register(L, "AddHistoryToPlayersLog", l_AddHistoryToPlayersLog);
+	lua_register(L, "AddFutureDayStrategicEvent", l_AddFutureDayStrategicEvent);
+	lua_register(L, "ResetHistoryFact", l_ResetHistoryFact);
+	lua_register(L, "SetHistoryFact", l_SetHistoryFact);
+	lua_register(L, "SetPublicNoiseVolume", l_gubPublicNoiseVolume);
+	lua_register(L, "SetPublicNoiseGridNo", l_gsPublicNoiseGridNo);
+	lua_register(L, "GetMercArrivalTimeOfDay", l_GetMercArrivalTimeOfDay);
+	lua_register(L, "StrategicPythSpacesAway", l_StrategicPythSpacesAway);
 	
-	//Action - other
-	lua_register(L, "ActionDoor", l_Action_door);	
-	lua_register(L, "ActionDoorOpen", l_Action_door_open);
-	lua_register(L, "ActionDoorClose", l_Action_door_close);
-	lua_register(L, "Add3X3Pit", l_Add3X3Pit );
-	lua_register(L, "Add5X5Pit", l_Add5X5Pit );
-	lua_register(L, "SearchForOtherMembersWithinPitRadiusAndMakeThemFall", l_SearchForOtherMembersWithinPitRadiusAndMakeThemFall );
-	lua_register(L, "TogglePressureActionItemsInGridNo", l_TogglePressureActionItemsInGridNo );	
-
-	//Global
-	lua_register(L, "SetGlobalBool", l_SetGlobalLuaBool);
-	lua_register(L, "SetGlobalVal", l_SetGlobalLuaVal);	
-	lua_register(L, "SetGlobalTrue", l_SetGlobalLuaBoolTrue);
-	lua_register(L, "SetGlobalFalse", l_SetGlobalLuaBoolFalse);
-	lua_register(L, "CheckGlobalBool", l_CheckGlobalLuaBool);
-	lua_register(L, "CheckGlobalVal", l_CheckGlobalLuaVal);	
-	lua_register(L, "GetGlobalVal", l_GetGlobalLuaVal);	
+	//------Map Action Items------
 	
-	//Maps
-	lua_register(L, "SetRender", l_SetRender);
-	lua_register(L, "ConvertGridNoToXY", l_ConvertGridNoToXY);
-	lua_register(L, "AddStructToHead", l_AddStructToHead);	
-	lua_register(L, "RemoveStruct", l_RemoveStruct);	
-	lua_register(L, "ApplyMapChangesToMapTempFile", l_ApplyMapChangesToMapTempFile);	
-	lua_register(L, "SectorEnemyControlled", l_fEnemyControlled);	
-	lua_register(L, "ItemTypeExistsAtLocation", l_ItemTypeExistsAtLocation);	
-	
-	//Time
-	lua_register(L, "GetWorldMinutesInDay", l_GetWorldMinutesInDay);
-	lua_register(L, "GetWorldHour", l_GetWorldHour);		
-	lua_register(L, "ExecuteStrategicAIAction", l_ExecuteStrategicAIAction);	
-	
-	//Email
-	lua_register(L, "AddPreReadEmail", l_AddPreReadEmail);
-	lua_register(L, "AddEmail", l_AddEmail);
-	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
-	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
-	lua_register(L, "AddEmailXML", l_AddEmailXML2);
-	//Items
-	lua_register(L, "CreateItem", l_CreateItem);
-	lua_register(L, "CreateMoney", l_CreateMoney);	
-	
-	//AI ACTION
 	lua_register(L, "ACTION_ITEM_OPEN_DOOR", l_ACTION_ITEM_OPEN_DOOR);	
 	lua_register(L, "ACTION_ITEM_CLOSE_DOOR", l_ACTION_ITEM_CLOSE_DOOR );
 	//lua_register(L, "ACTION_ITEM_BLOW_UP", l_ACTION_ITEM_BLOW_UP );
@@ -1049,73 +1174,20 @@ void IniFunction(lua_State *L)
 	lua_register(L, "ACTION_ITEM_UNTRAP_DOOR", l_ACTION_ITEM_UNTRAP_DOOR);
 	lua_register(L, "ACTION_ITEM_TOGGLE_PRESSURE_ITEMS", l_ACTION_ITEM_TOGGLE_PRESSURE_ITEMS);
 	lua_register(L, "ACTION_ITEM_MUSEUM_ALARM", l_ACTION_ITEM_MUSEUM_ALARM);
-	lua_register(L, "ACTION_ITEM_BLOODCAT_ALARM", l_ACTION_ITEM_BLOODCAT_ALARM );
+	lua_register(L, "ACTION_ITEM_BLOODCAT_ALARM", l_ACTION_ITEM_BLOODCAT_ALARM );	
 	
-	//Sounds
+	//------Sector------
+	
+	lua_register(L, "AddAlternateSector", l_AddAlternateSector);
+	lua_register(L, "AddAltUnderGroundSector", l_AddAltUnderGroundSector);
+	lua_register(L, "AddAltSector", l_AddAlternateSector);
+	lua_register(L, "AddAltUGSector", l_AddAltUnderGroundSector);
+	lua_register(L, "AddAltSectorNew", l_AddAlternateSectorNew);
+	lua_register(L, "AddAltUGSectorNew", l_AddAltUnderGroundSectorNew);
+	
+	//------Sounds------
+	
 	lua_register(L, "PlayJA2Sample", l_PlayJA2Sample);	
-	
-	//Tactical
-	lua_register(L, "CheckCivGroupHostile", l_fCivGroupHostile);	
-	lua_register(L, "gTacticalStatus", l_gTacticalStatus);
-	lua_register(L, "CheckCombatMode", l_CheckCombatMode);	
-	
-	lua_register(L, "GetTacticalStatusFirstID", l_GetFirstID); //new
-	lua_register(L, "GetTacticalStatusLastID", l_GetLastID); //new	
-	lua_register(L, "TacticalStatusTeamHuman", l_TacticalStatusTeamHuman );
-	lua_register(L, "TacticalStatusTeamActive", l_TacticalStatusTeamActive);	
-	lua_register(L, "SetPublicNoiseVolume", l_gubPublicNoiseVolume);
-	lua_register(L, "SetPublicNoiseGridNo", l_gsPublicNoiseGridNo);
-
-	//MercPtrs
-	lua_register(L, "GetPlayerMercID", l_ubID );
-	lua_register(L, "GetMapMercSlotID", l_ubID );
-	
-	lua_register(L, "SetOffPanicBombs", l_SetOffPanicBombs );
-	lua_register(L, "WearGasMaskIfAvailable", l_WearGasMaskIfAvailable );	
-	lua_register(L, "SetNewSituationMercPtrs", l_SetNewSituationMercPtsr);
-	lua_register(L, "SetCivGroupHostile", l_SetCivGroupHostile); 	
-	lua_register(L, "EnterTeamCombatMode", l_SetEnterCombatModeTeam);		
-	lua_register(L, "DeadMercPtrs", l_AnimMercPtsrSoldierGotHit );	
-	lua_register(L, "AnimMercPtrs", l_AnimMercPtsrInSector);
-	
-	lua_register(L, "CheckMercPtrsInCivilianGroup", l_CheckMercPtrsInCivilianGroup); 
-	lua_register(L, "CheckMercPtrsInActive", l_CheckMercPtrsActive); 
-	lua_register(L, "CheckMercPtrsInSector", l_CheckMercPtsrInSector); 	
-	lua_register(L, "CheckMercPtrsID1SeenID2", l_CheckMercPtsrubIDSeenubID2); 	
-	lua_register(L, "MakeMercPtrsHostile", l_MakeMercPtrsHostile);	
-	
-	//v0.9
-	
-	lua_register(L, "ChangeMercPtrsTeam", l_ChangeMercPtrsTeam);
-	
-	lua_register(L, "HandleNPCGotoGridNo", l_HandleNPCGotoGridNo );
-	lua_register(L, "HandleNPCDoAction", l_HandleNPCDoAction );
-	lua_register(L, "HandleNPCClosePanel", l_HandleNPCClosePanel );
-	lua_register(L, "HandleNPCTriggerNPC", l_HandleNPCTriggerNPC );
-	
-	lua_register(L, "IS_CIV_BODY_TYPE", l_IS_CIV_BODY_TYPE );
-	lua_register(L, "SetOffBombsInGridNo", l_SetOffBombsInGridNo );
-	lua_register(L, "ActivateSwitchInGridNo", l_ActivateSwitchInGridNo );	
-	
-	lua_register(L, "UpdateAndDamageSAMIfFound", l_UpdateAndDamageSAMIfFound );
-	lua_register(L, "DoesSAMExistHere", l_DoesSAMExistHere );
-	lua_register(L, "UpdateSAMDoneRepair", l_UpdateSAMDoneRepair );
-	lua_register(L, "ActiveTimedBombExists", l_ActiveTimedBombExists );
-	lua_register(L, "RemoveAllActiveTimedBombs", l_RemoveAllActiveTimedBombs );
-	
-	lua_register(L, "CheckSoldierBodyType", l_CheckSoldierBodyType );
-	lua_register(L, "GetSoldierBodyType", l_GetSoldierBodyType );
-	lua_register(L, "SetSoldierBodyType", l_SetSoldierBodyType );
-	
-	lua_register(L, "MercPtsrAIFlags", l_AnimMercPtsrfAIFlags );
-	lua_register(L, "MercPtsrNextAction", l_AnimMercPtsrbNextAction );
-	lua_register(L, "MercPtsrNextActionData", l_AnimMercPtsrusNextActionData );
-	lua_register(L, "MercPtsrAbsoluteFinalDestination", l_AnimMercPtsrsAbsoluteFinalDestination );
-	lua_register(L, "MercPtsrStrategicInsertionCode", l_AnimMercPtsrubStrategicInsertionCode );
-	lua_register(L, "MercPtsrStrategicInsertionData", l_AnimMercPtsrusStrategicInsertionData );
-	
-	lua_register(L, "PauseGame", l_PauseGame );
-	
 	lua_register(L, "SetMusicMode", l_SetMusicMode );
 	lua_register(L, "MusicPlay", l_MusicPlay );
 	lua_register(L, "MusicSetVolume", l_MusicSetVolume );
@@ -1126,88 +1198,33 @@ void IniFunction(lua_State *L)
 	lua_register(L, "SetSoundEffectsVolume", l_SetSoundEffectsVolume );
 	lua_register(L, "SetSpeechVolume", l_SetSpeechVolume );
 	lua_register(L, "GetSoundEffectsVolume", l_GetSoundEffectsVolume );
-	lua_register(L, "GetSpeechVolume", l_GetSpeechVolume );
+	lua_register(L, "GetSpeechVolume", l_GetSpeechVolume );	
 	
-	lua_register(L, "AddTransactionToPlayersBook", l_AddTransactionToPlayersBook );
-	lua_register(L, "GetWorldTotalMin", l_GetWorldTotalMin );	
+	//------Game External Options------
 	
-	//gGameExternalOptions
 	lua_register(L, "SetInvestigateSector", l_SetInvestigateSector );
 	lua_register(L, "CheckInvestigateSector", l_CheckInvestigateSector );
-	
 	lua_register(L, "GetStartingCashNovice", l_GetStartingCashNovice );
 	lua_register(L, "GetStartingCashExperienced", l_GetStartingCashExperienced );
 	lua_register(L, "GetStartingCashExpert", l_GetStartingCashExpert );
 	lua_register(L, "GetStartingCashInsane", l_GetStartingCashInsane );
+	lua_register(L, "GetFirstArrivalDelay", l_GetiFirstArrivalDelay);
+	lua_register(L, "GetDefaultArrivalSectorX", l_GetubDefaultArrivalSectorX);
+	lua_register(L, "GetDefaultArrivalSectorY", l_GetubDefaultArrivalSectorY);
+	lua_register(L, "SetFirstArrivalDelay", l_SetiFirstArrivalDelay);
+	lua_register(L, "SetDefaultArrivalSectorX", l_SetubDefaultArrivalSectorX);
+	lua_register(L, "SetDefaultArrivalSectorY", l_SetubDefaultArrivalSectorY);
 	
-	lua_register(L, "DeleteTalkingMenu", l_DeleteTalkingMenu );
-
-	lua_register(L, "PlayerMercsInSector", l_PlayerMercsInSector);
-	lua_register(L, "GetPlayerMercsInSector", l_GetPlayerMercsInSector);
-	lua_register(L, "PlayerGroupsInSector", l_PlayerGroupsInSector);
-	lua_register(L, "GetPlayerGroupsInSector", l_GetPlayerGroupsInSector);
-
-	lua_register(L, "SetSoldierNonNeutral", l_SetSoldierNonNeutral);
-	
-	lua_register(L, "CheckSoldierNeutral", l_bNeutral);	
-	lua_register(L, "CheckSoldierAttitude", l_bAttitude);		
-	
-	lua_register(L, "AffectAllTownsLoyaltyByDistanceFrom", l_AffectAllTownsLoyaltyByDistanceFrom);	
-	
-	lua_register(L, "InitCreatureQuest", l_InitCreatureQuest);	
-	
-	lua_register(L, "DecrementTownLoyaltyEverywhere", l_DecrementTownLoyaltyEverywhere);
-
-	lua_register(L, "GetSoldierTeam", l_GetSoldierTeam);
-	
-	lua_register(L, "WhichBuddy", l_WhichBuddy);
-	
-	
-	//Object
-	lua_register(L, "SetWorldItemsExists", l_SetgWorldItemsExists);
-	lua_register(L, "GetWorldItemsExists", l_gWorldItemsExists);
-	lua_register(L, "GetWorldItemsObjectItem", l_gWorldItemsObjectItem);
-	lua_register(L, "GetWorldItemsObjectDataMoney", l_gWorldItemsObjectDataMoney);
-	
-	lua_register(L, "AddHistoryToPlayersLog", l_AddHistoryToPlayersLog);
-	lua_register(L, "AddFutureDayStrategicEvent", l_AddFutureDayStrategicEvent);	
-
-	lua_register(L, "GetNPCBalance", l_GetiBalance);
-	
-	lua_register(L, "AddCreateItemToPool", l_CreateItemToPool);
-	lua_register(L, "AddCreateItemsToUnLoadedSector", l_CreateToUnLoadedSector);
-	
-	lua_register(L, "GetCharacterSectorZ", l_GetCharacterSectorZ);
-	lua_register(L, "GetCharacterSectorX", l_GetCharacterSectorX);
-	lua_register(L, "GetCharacterSectorY", l_GetCharacterSectorY);	
-	
-	lua_register(L, "AddSameDayStrategicEvent", l_AddSameDayStrategicEvent);
-
-	//lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	
-	lua_register(L, "MoveItemPools", l_MoveItemPools);
-	
-	
-	lua_register(L, "GetNumberOfWorldItemsFromTempItemFile", l_GetNumberOfWorldItemsFromTempItemFile);
-	
-	lua_register(L, "gubFact", l_gubFact);
-	
-	lua_register(L, "GetgubFact", l_GetgubFact);
+	//------Quests------
 	
 	lua_register(L, "GetTacticalStatusEnemyInSector", l_GetTacticalStatusEnemyInSector);
-	
 	lua_register(L, "CountNumberOfBobbyPurchasesThatAreInTransit", l_CountNumberOfBobbyPurchasesThatAreInTransit);	
-
 	lua_register(L, "CheckForNewShipment", l_CheckForNewShipment);	
-	
 	lua_register(L, "NumMalesPresent",l_NumMalesPresent);
 	lua_register(L, "NumWoundedMercsNearby",l_NumWoundedMercsNearby);
 	lua_register(L, "NumMercsNear",l_NumMercsNear);
 	lua_register(L, "CheckTalkerStrong",l_CheckTalkerStrong);	
 	lua_register(L, "CheckTalkerFemale",l_CheckTalkerFemale);	
-	
-	lua_register(L, "CheckCharacterSectorZ", l_CheckCharacterSectorZ);
-	
 	lua_register(L, "IssueHeadMinerQuote", l_IssueHeadMinerQuote);
 	lua_register(L, "GetHeadMinersMineIndex", l_GetHeadMinersMineIndex);
 	lua_register(L, "PlayerSpokeToHeadMiner", l_PlayerSpokeToHeadMiner);
@@ -1218,51 +1235,90 @@ void IniFunction(lua_State *L)
 	lua_register(L, "IsHisMineLostAndRegained", l_IsHisMineLostAndRegained);
 	lua_register(L, "IsHisMineAtMaxProduction", l_IsHisMineAtMaxProduction);
 	lua_register(L, "ResetQueenRetookMine", l_ResetQueenRetookMine);
+	lua_register(L, "BoxerExists", l_BoxerExists);
+	lua_register(L, "CurrentPlayerProgressPercentage", l_CurrentPlayerProgressPercentage);
+	lua_register(L, "UnderGroundSectorVisited", l_UnderGroundSectorVisited);
+	lua_register(L, "HasHisMineBeenProducingForPlayerForSomeTime", l_HasHisMineBeenProducingForPlayerForSomeTime);	
+	lua_register(L, "AnotherFightPossible", l_AnotherFightPossible);	
+	lua_register(L, "PredictDailyIncomeFromAMine", l_PredictDailyIncomeFromAMine);	
+	lua_register(L, "CheckTalkerUnpropositionedFemale", l_CheckTalkerUnpropositionedFemale);	
+		
+	//------Intro------
 	
+	lua_register(L, "DisplaySirtechSplashScreen", l_DisplaySirtechSplashScreen);
+	lua_register(L, "SetEnteringMapScreen", l_gfEnteringMapScreen);
+	lua_register(L, "SetIntroScreenExit", l_gfIntroScreenExit);
+	lua_register(L, "SetDoneWithSplashScreen", l_gfDoneWithSplashScreen);
+	lua_register(L, "SetIntroExitScreen", l_guiIntroExitScreen);	
+	lua_register(L, "SetIntroScreenMode", l_gbIntroScreenMode);	
+	lua_register(L, "SetVideo", l_iStringToUse);	
+	lua_register(L, "StopVideo", l_StopVideo);	
+	lua_register(L, "StartVideo", l_StartVideo);
 	
-	lua_register(L, "GetFirstArrivalDelay", l_GetiFirstArrivalDelay);
-	lua_register(L, "GetDefaultArrivalSectorX", l_GetubDefaultArrivalSectorX);
-	lua_register(L, "GetDefaultArrivalSectorY", l_GetubDefaultArrivalSectorY);
+	//------Town------
 	
-	lua_register(L, "SetFirstArrivalDelay", l_SetiFirstArrivalDelay);
-	lua_register(L, "SetDefaultArrivalSectorX", l_SetubDefaultArrivalSectorX);
-	lua_register(L, "SetDefaultArrivalSectorY", l_SetubDefaultArrivalSectorY);
+	lua_register(L, "VisibleTown", l_VisibleTown);
+	lua_register(L, "HiddenTown", l_HiddenTown);
+	//lua_register(L, "EraseTown", l_EraseTown);
+	//lua_register(L, "ResizeTown", l_ResizeTown);
+	lua_register(L, "GetTownIdForSector", l_GetTownIdForSector);
+	lua_register(L, "CheckIfEntireTownHasBeenLiberated", l_CheckIfEntireTownHasBeenLiberated);
+	lua_register(L, "CheckIfEntireTownHasBeenLost", l_CheckIfEntireTownHasBeenLost);
 	
-	lua_register(L, "ResetHistoryFact", l_ResetHistoryFact);
-	lua_register(L, "SetHistoryFact", l_SetHistoryFact);
+	//------Shop------
 	
-	lua_register(L, "TacticalCharacterDialogue", l_TacticalCharacterDialogue);
-	
-	lua_register(L, "DeleteMercInventory", l_DeleteMercInventory);
-	
-	lua_register(L, "DeleteSlotMercInventory", l_DeleteMercInventory);
-	
+	lua_register(L, "GuaranteeAtLeastXItemsOfIndex", l_GuaranteeAtLeastXItemsOfIndex);	
 
-	lua_register(L, "IsMercDead", l_IsMercDead);
-	lua_register(L, "IsMercHireable", l_IsMercHireable);
-	lua_register(L, "NumberOfMercsOnPlayerTeam", l_NumberOfMercsOnPlayerTeam);
+//--------------------------------------------------------------------------------------------
 	
-	lua_register(L, "GetMercArrivalTimeOfDay", l_GetMercArrivalTimeOfDay);
-	lua_register(L, "StrategicPythSpacesAway", l_StrategicPythSpacesAway);
+	lua_register(L, "CheckFPAddBattleIncrement", l_CheckForPotentialAddToBattleIncrement);
+	
+	lua_register(L, "MakeHostile",l_MakeHostile);
+	
+	lua_register(L, "RecalculateOppCntsDueToNoLongerNeutral", l_RecalculateOppCntsDueToNoLongerNeutral);
+	lua_register(L, "AddToShouldBecomeHostileOrSayQuoteList", l_AddToShouldBecomeHostileOrSayQuoteList);	
+	lua_register(L, "EnterGroupCombatMode", l_SetEnterCombatMode);	
+
+	
+//  lua_register(L, "ActionInProgress", l_ActionInProgress);	
+//  lua_register(L, "MakeCivHostile", l_MakeCivHostile); //new		
+	
+	//v0.9
+
+	lua_register(L, "SetOffBombsInGridNo", l_SetOffBombsInGridNo );
+	lua_register(L, "ActivateSwitchInGridNo", l_ActivateSwitchInGridNo );	
+	
+	lua_register(L, "UpdateAndDamageSAMIfFound", l_UpdateAndDamageSAMIfFound );
+	lua_register(L, "DoesSAMExistHere", l_DoesSAMExistHere );
+	lua_register(L, "UpdateSAMDoneRepair", l_UpdateSAMDoneRepair );
+	lua_register(L, "ActiveTimedBombExists", l_ActiveTimedBombExists );
+	lua_register(L, "RemoveAllActiveTimedBombs", l_RemoveAllActiveTimedBombs );
+	
+	lua_register(L, "PauseGame", l_PauseGame );
+	
+	lua_register(L, "DeleteTalkingMenu", l_DeleteTalkingMenu );
+
+	lua_register(L, "AffectAllTownsLoyaltyByDistanceFrom", l_AffectAllTownsLoyaltyByDistanceFrom);	
+	
+	lua_register(L, "InitCreatureQuest", l_InitCreatureQuest);	
+	
+	lua_register(L, "DecrementTownLoyaltyEverywhere", l_DecrementTownLoyaltyEverywhere);
+
+	lua_register(L, "GetSoldierTeam", l_GetSoldierTeam);
+	
+	lua_register(L, "AddSameDayStrategicEvent", l_AddSameDayStrategicEvent);
+
+	//lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+
+	lua_register(L, "NumberOfMercsOnPlayerTeam", l_NumberOfMercsOnPlayerTeam);
 	
 	//-----------------------------------------------
 	lua_register(L, "SectorEnemy", l_SectorEnemy);
 	
-	lua_register(L, "ItemExistsAtLocation", l_ItemExistsAtLocation);
+	//-------------------------------------------------
 	
-	lua_register(L, "SetMercStatus", l_Merc_Status);
-	
-	lua_register(L, "GetMercStatus", l_Get_Merc_Status);	
-	
-	lua_register(L, "SetNPCLife", l_SetbLife);	
-	lua_register(L, "GetNPCLifeMax", l_GetbLifeMax);	
-	
-	lua_register(L, "HasHisMineBeenProducingForPlayerForSomeTime", l_HasHisMineBeenProducingForPlayerForSomeTime);	
-
-	lua_register(L, "AnotherFightPossible", l_AnotherFightPossible);	
-	
-	lua_register(L, "PredictDailyIncomeFromAMine", l_PredictDailyIncomeFromAMine);	
-	
+	lua_register(L, "WhichBuddy", l_WhichBuddy);
+		
 	//brak w faq
 	lua_register(L, "SetGroupSectorValue", l_SetGroupSectorValue);	
 	lua_register(L, "SetGroupNextSectorValue", l_SetGroupNextSectorValue);		
@@ -1275,12 +1331,7 @@ void IniFunction(lua_State *L)
 	
 	lua_register(L, "EnterSector", l_EnterSector);
 	
-	lua_register(L, "gubQuest", l_gubQuest);
-	
-	lua_register(L, "GetTownIdForSector", l_GetTownIdForSector);
-	lua_register(L, "UpdateMercsInSector", l_UpdateMercsInSector);
-	lua_register(L, "CheckIfEntireTownHasBeenLiberated", l_CheckIfEntireTownHasBeenLiberated);
-	lua_register(L, "CheckIfEntireTownHasBeenLost", l_CheckIfEntireTownHasBeenLost);
+
 	lua_register(L, "DidFirstBattleTakePlaceInThisTown", l_DidFirstBattleTakePlaceInThisTown);
 	lua_register(L, "SetTheFirstBattleSector", l_SetTheFirstBattleSector);
 	lua_register(L, "AdjustLoyaltyForCivsEatenByMonsters", l_AdjustLoyaltyForCivsEatenByMonsters);
@@ -1289,22 +1340,6 @@ void IniFunction(lua_State *L)
 	
 	lua_register(L, "GetCharacterTotalDaysServed", l_GetusTotalDaysServed);
 	lua_register(L, "SetCharacterTotalDaysServed", l_SetusTotalDaysServed);
-	
-	lua_register(L, "GetTownLoyaltyLiberatedAlready", l_GetTownLoyaltyfLiberatedAlready);
-	lua_register(L, "GetTownLoyaltyStarted", l_GetTownLoyaltyfStarted);
-	lua_register(L, "GetTownLoyaltyRating", l_GetTownLoyaltyubRating);
-	lua_register(L, "GetTownLoyaltyChange", l_GetTownLoyaltysChange);
-
-	lua_register(L, "SetTownLoyaltyLiberatedAlready", l_SetTownLoyaltyfLiberatedAlready);
-	lua_register(L, "SetTownLoyaltyStarted", l_SetTownLoyaltyfStarted);
-	lua_register(L, "SetTownLoyaltyRating", l_SetTownLoyaltyubRating);
-	lua_register(L, "SetTownLoyaltyChange", l_SetTownLoyaltysChange);	
-
-	lua_register(L, "GetTownUsesLoyalty", l_GetgfTownUsesLoyalty);	
-	lua_register(L, "SetTownUsesLoyalty", l_SetgfTownUsesLoyalty);
-
-	lua_register(L, "GetCharacterTown", l_GetgMercProfilesbTown);
-	lua_register(L, "SetCharacterTown", l_SetgMercProfilesbTown);
 	
 	lua_register(L, "GetTimeQuestWasStarted", l_GetTimeQuestWasStarted);
 	
@@ -1318,13 +1353,6 @@ void IniFunction(lua_State *L)
 
 	lua_register(L, "CALCULATE_STRATEGIC_INDEX", l_CALCULATE_STRATEGIC_INDEX);	
 
-	lua_register(L, "CheckTalkerUnpropositionedFemale", l_CheckTalkerUnpropositionedFemale);	
-	
-	lua_register(L, "BoxerExists", l_BoxerExists);
-	lua_register(L, "CurrentPlayerProgressPercentage", l_CurrentPlayerProgressPercentage);
-	
-	lua_register(L, "UnderGroundSectorVisited", l_UnderGroundSectorVisited);	
-	
 	lua_register(L, "SetTurnTimeLimit", l_fTurnTimeLimit);		
 
 	lua_register(L, "InitMercFace", l_InitFace);
@@ -1357,12 +1385,6 @@ void IniFunction(lua_State *L)
 	
 	lua_register(L, "WhoIs", l_WhoIs);	
 
-	//Shop
-	lua_register(L, "GuaranteeAtLeastXItemsOfIndex", l_GuaranteeAtLeastXItemsOfIndex);	
-	
-	lua_register(L, "MercProfileSetBIGPOCK2POS", l_gMercProfileGearset);
-	lua_register(L, "MercProfileSetPOCKPOS", l_gMercProfileGearset);		
-	
 	lua_register(L, "FindUnderGroundSector", l_FindUnderGroundSector);
 	lua_register(L, "AddEnemyToUnderGroundSector", l_AddEnemyToUnderGroundSector);
 	lua_register(L, "FindUnderGroundSectorVisited", l_FindUnderGroundSectorVisited);
@@ -1375,22 +1397,7 @@ void IniFunction(lua_State *L)
 
 	lua_register(L, "ReStartingGame", l_ReStartingGame);
 	
-	lua_register(L, "AddCustomEmail", l_AddCustomEmail);
-
-	//intro
-	lua_register(L, "DisplaySirtechSplashScreen", l_DisplaySirtechSplashScreen);
-	
-	lua_register(L, "SetEnteringMapScreen", l_gfEnteringMapScreen);
-	lua_register(L, "SetIntroScreenExit", l_gfIntroScreenExit);
-	lua_register(L, "SetDoneWithSplashScreen", l_gfDoneWithSplashScreen);
-	lua_register(L, "SetIntroExitScreen", l_guiIntroExitScreen);	
-	lua_register(L, "SetIntroScreenMode", l_gbIntroScreenMode);	
-
-	lua_register(L, "SetVideo", l_iStringToUse);	
-	lua_register(L, "StopVideo", l_StopVideo);	
-	lua_register(L, "StartVideo", l_StartVideo);	
-
-	lua_register(L, "SetGlobalLoyaltyEvent", l_SetHandleGlobalLoyaltyEvent);	
+	lua_register(L, "AddCustomEmail", l_AddCustomEmail);	
 	
 	lua_register(L, "SetDefaultArrivalSector", l_SetDefaultArrivalSector);	
 	lua_register(L, "GetDefaultArrivalSector", l_GetDefaultArrivalSector);
@@ -1421,30 +1428,60 @@ void IniFunction(lua_State *L)
 	lua_register(L, "InternalLocateGridNo", l_SetInternalLocateGridNo );
 	#endif
 	
-	//lua_register(L, "GetINITIALHELIGRIDNO1", l_getMercgridNo0);
-	//lua_register(L, "GetINITIALHELIGRIDNO2", l_getMercgridNo1);
-	//lua_register(L, "GetINITIALHELIGRIDNO3", l_getMercgridNo2);
-	//lua_register(L, "GetINITIALHELIGRIDNO4", l_getMercgridNo3);
-	//lua_register(L, "GetINITIALHELIGRIDNO5", l_getMercgridNo4);
-	//lua_register(L, "GetINITIALHELIGRIDNO6", l_getMercgridNo5);
-	//lua_register(L, "GetINITIALHELIGRIDNO7", l_getMercgridNo6);
-	
-	lua_register(L, "ExecuteTacticalTextBox", l_ExecuteTacticalTextBox);
+	//lua_register(L, "ExecuteTacticalTextBox", l_ExecuteTacticalTextBox);
 
-	//Town function
-	lua_register(L, "VisibleTown", l_VisibleTown);
-	lua_register(L, "HiddenTown", l_HiddenTown);
-	//lua_register(L, "EraseTown", l_EraseTown);
-	//lua_register(L, "ResizeTown", l_ResizeTown);
-	
+	//14-10-2011
+
 	lua_register(L, "gubBoxerID", l_gubBoxerID);
 	
-	lua_register(L, "RemoveGraphicFromTempFile", l_RemoveGraphicFromTempFile);
+	lua_register(L,"PlaceGroupInSector", l_PlaceGroupInSector);
+	lua_register(L,"GetSoldierSectorZ", l_CheckSoldierSectorZ);
+	lua_register(L,"GetSoldierSectorX", l_CheckSoldierSectorX);
+	lua_register(L,"GetSoldierSectorY", l_CheckSoldierSectorY);
+	lua_register(L,"GetSoldierbGroupID", l_CheckSoldierbGroupID);
+	lua_register(L,"ChangeSelectedMapSector", l_ChangeSelectedMapSector);
 	
-
+	lua_register(L,"InternalLeaveTacticalScreen", l_InternalLeaveTacticalScreen);
+	
+	lua_register(L,"SetSoldierSectorZ", l_SetSoldierSectorZ);
+	lua_register(L,"SetSoldierSectorX", l_SetSoldierSectorX);
+	lua_register(L,"SetSoldierSectorY", l_SetSoldierSectorY);
+	lua_register(L,"SetSoldierGroupID", l_SetSoldierbGroupID);
+	
+	lua_register(L,"SetMercPtsrGroupID", l_SetMercPtsrubGroupID);
+	lua_register(L,"SetMercPtsrSectorX", l_SetMercPtsrSectorX);
+	lua_register(L,"SetMercPtsrSectorY", l_SetMercPtsrSectorY);
+	lua_register(L,"SetMercPtsrSectorZ", l_SetMercPtsrSectorZ);
+	
+	lua_register(L,"GetMercPtsrSectorX", l_CheckMercPtsrSectorX);
+	lua_register(L,"GetMercPtsrSectorY", l_CheckMercPtsrSectorY);
+	lua_register(L,"GetMercPtsrSectorZ", l_CheckMercPtsrSectorZ);
+	lua_register(L,"GetMercPtsrGroupID", l_CheckSoldierbGroupID);
+	
+	lua_register(L,"GetGroup", l_GetGroup);
+	
+	//02-04-2013
+	lua_register(L,"SetPendingNewScreen", l_SetPendingNewScreen);
+	lua_register(L,"AddFilesToPlayersLog", l_AddFilesToPlayersLog);
+	
+	lua_register(L,"SetBobbyRSiteCanBeAccessed", l_fBobbyRSiteCanBeAccessed);
+	
+	lua_register(L,"AddExitGridToWorld", l_AddExitGridToWorld);
+	
+	
+	lua_register(L,"WorldLevelDataMapElementRevealed", l_WorldLevelDataMAPELEMENT_REVEALED);
+	
+	lua_register(L,"FindProfile", l_FindSoldierByProfileIDBool);
+	
+	lua_register(L,"CreateKeyProfInv", l_CreateKeyProfInv);
+	
+	lua_register(L,"CreateKeyAndAddKeyToPool", l_CreateKeyAndAddItemToPool);
+	lua_register(L,"CreateKeyProfInvAndAddKeyToPool", l_CreateKeyProfInvAndAddItemToPool);
+	
+	
+	lua_register(L,"CheckProfileStrategicInsertionData", l_usStrategicInsertionDataProfileID);
+	
 }
-
-
 
 //------------------- intro -----------
 
@@ -2664,7 +2701,7 @@ SOLDIERTYPE * FindSoldierByProfileID2( UINT8 ubProfileID, BOOLEAN fPlayerMercsOn
 	cnt2 = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
   for ( pSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt2++ ,pSoldier++)
 	{
-		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->ubCivilianGroup == 17 )
+		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			return( pSoldier );
 		}
@@ -4305,277 +4342,207 @@ return 1;
 
 static int l_IsHisMineRunningOut(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubMinerProfileId;
-BOOLEAN Bool;
-	for (i= 1; i<=n; i++ )
+
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubMinerProfileId = lua_tointeger(L,i);
-	}
-	
-	Bool = 	IsHisMineRunningOut(ubMinerProfileId );
-	
-	lua_pushboolean(L, Bool);
+		UINT8 ubMinerProfileId = lua_tointeger(L,1);
+		BOOLEAN Bool = 	IsHisMineRunningOut(ubMinerProfileId );
+		lua_pushboolean(L, Bool);
+	}	
 	
 return 1;
 }
 
 static int l_GetHeadMinersMineIndex(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 
-UINT8 ubMinerProfileId;
-UINT8 ID2;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubMinerProfileId = lua_tointeger(L,i);
-	}
-	
-	ID2 = 	GetHeadMinersMineIndex(ubMinerProfileId);
-	
+		UINT8 ubMinerProfileId = lua_tointeger(L,1);
+		UINT8 ID2 = 	GetHeadMinersMineIndex(ubMinerProfileId);
 		lua_pushinteger(L, ID2);
-	
+	}
 return 1;
 }
 
 
 static int l_PlayerSpokeToHeadMiner(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubMinerProfileId;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubMinerProfileId = lua_tointeger(L,i);
-	}
+		UINT8 ubMinerProfileId = lua_tointeger(L,1);
+		PlayerSpokeToHeadMiner( ubMinerProfileId );
 	
-	PlayerSpokeToHeadMiner( ubMinerProfileId );
+	}
 	
 return 0;
 }
 
 static int l_ResetQueenRetookMine(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubMinerProfileId;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubMinerProfileId = lua_tointeger(L,i);
-	}
+		UINT8 ubMinerProfileId = lua_tointeger(L,1);
+		ResetQueenRetookMine( ubMinerProfileId );
 	
-    ResetQueenRetookMine( ubMinerProfileId );
+	}	
 	
 return 0;
 }
 
 static int l_IssueHeadMinerQuote(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT8 bMineIndex;
-UINT8 ubQuoteType;
-	for (i= 1; i<=n; i++ )
+
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) bMineIndex = lua_tointeger(L,i);
-		if (i == 2 ) ubQuoteType = lua_tointeger(L,i);
+		INT8 bMineIndex = lua_tointeger(L,1);
+		UINT8 ubQuoteType = lua_tointeger(L,2);
+
+		IssueHeadMinerQuote( bMineIndex, ubQuoteType );
 	}
 	
-	IssueHeadMinerQuote( bMineIndex, ubQuoteType );
-
 return 0;
 }
 
 static int l_NumMercsNear(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 
-UINT8 ubProfileID;
-UINT8 ubMaxDist;
-UINT8 ID2;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ubProfileID = lua_tointeger(L,i);
-		if (i == 2 ) ubMaxDist = lua_tointeger(L,i);
-	}
-	
-	ID2 = 	NumMercsNear( ubProfileID, ubMaxDist );
-	
+		UINT8 ubProfileID = lua_tointeger(L,1);
+		UINT8 ubMaxDist = lua_tointeger(L,2);
+		UINT8 ID2 = 	NumMercsNear( ubProfileID, ubMaxDist );
 		lua_pushinteger(L, ID2);
+		
+	}		
 	
 return 1;
 }
 
 static int l_PredictDailyIncomeFromAMine(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-INT8 bMineIndex;
-UINT32 val;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) bMineIndex = lua_tointeger(L,i);
-		if (i == 2 ) Bool = lua_toboolean(L,i);
-	}
-	
-	val = PredictDailyIncomeFromAMine( bMineIndex, Bool );
-	
+		INT8 bMineIndex = lua_tointeger(L,1);
+		BOOLEAN Bool = lua_toboolean(L,2);
+		UINT32 val = PredictDailyIncomeFromAMine( bMineIndex, Bool );
 		lua_pushinteger(L, val);
+		
+	}		
 	
 return 1;
 }
 
 static int l_GetIdOfMineForSector(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT8 val;
-INT16 sSectorX;
-INT16 sSectorY; 
-INT8 bSectorZ;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) sSectorX = lua_tointeger(L,i);
-		if (i == 2 ) sSectorY = lua_tointeger(L,i);
-		if (i == 3 ) bSectorZ = lua_tointeger(L,i);
-	}
+		INT16 sSectorX = lua_tointeger(L,1);
+		INT16 sSectorY = lua_tointeger(L,2);
+		INT8 bSectorZ = lua_tointeger(L,3);
+
+		INT8 val = GetIdOfMineForSector( sSectorX, sSectorY, bSectorZ );
 	
-	val = GetIdOfMineForSector( sSectorX, sSectorY, bSectorZ );
+		lua_pushinteger(L, val);
 	
-	lua_pushinteger(L, val);
+	}	
+	
 return 1;
 }
 
 static int l_SpokenToHeadMiner(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-UINT8 ubMineIndex;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubMineIndex = lua_tointeger(L,i);
-	}
+		UINT8 ubMineIndex = lua_tointeger(L,1);
+		BOOLEAN Bool = SpokenToHeadMiner( ubMineIndex );
+		lua_pushboolean(L, Bool);
+	}	
 	
-	Bool = SpokenToHeadMiner( ubMineIndex );
-	
-	lua_pushboolean(L, Bool);
 return 1;
 }
 
 static int l_AnotherFightPossible(lua_State *L)
 {
-BOOLEAN Bool;
 
-	Bool = 	AnotherFightPossible( );
+	BOOLEAN Bool = 	AnotherFightPossible( );
+	lua_pushboolean(L, Bool);
 	
-		lua_pushboolean(L, Bool);
 return 1;
 }
 
 static int l_fTurnTimeLimit(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) Bool = lua_tointeger(L,i);
-	}
-	
 
-	gGameOptions.fTurnTimeLimit = Bool;
+	if ( lua_gettop(L) >= 1 )
+	{
+		BOOLEAN Bool = lua_tointeger(L,1);
+
+		gGameOptions.fTurnTimeLimit = Bool;
+	}	
 	
 return 0;
 }
 
 static int l_HasHisMineBeenProducingForPlayerForSomeTime(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-UINT8 ubProfileID;
-	for (i= 1; i<=n; i++ )
+
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubProfileID = lua_tointeger(L,i);
-	}
-	
-	Bool = 	HasHisMineBeenProducingForPlayerForSomeTime( ubProfileID );
+		UINT8 ubProfileID = lua_tointeger(L,1);
+
+		BOOLEAN Bool = 	HasHisMineBeenProducingForPlayerForSomeTime( ubProfileID );
 	
 		lua_pushboolean(L, Bool);
+	}	
 	
 return 1;
 }
 
 static int l_CheckTalkerFemale(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
-BOOLEAN Bool;
-	
-	Bool =  CheckTalkerFemale( );
-	
-		lua_pushboolean(L, Bool);
+	BOOLEAN Bool =  CheckTalkerFemale( );
+	lua_pushboolean(L, Bool);
 	
 return 1;
 }
 
 static int l_CheckTalkerStrong(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
-BOOLEAN Bool;
-	
-	Bool =  CheckTalkerStrong( );
-	
-		lua_pushboolean(L, Bool);
+	BOOLEAN Bool =  CheckTalkerStrong( );
+	lua_pushboolean(L, Bool);
 	
 return 1;
 }
 
 static int l_NumMalesPresent(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 id;
-UINT8 ubProfileID;
 	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubProfileID = lua_tointeger(L,i);  
-	}
-	
-	id = NumMalesPresent( ubProfileID );
-	lua_pushinteger(L, id);
+		UINT8 ubProfileID = lua_tointeger(L,1);  
+		UINT8 id = NumMalesPresent( ubProfileID );
+		lua_pushinteger(L, id);
+	}	
 	
 return 1;
 }
 
 static int l_NumWoundedMercsNearby(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 
-INT8 ID,ID2;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
-	ID2 = 	NumWoundedMercsNearby(ID);
-	
+		INT8 ID = lua_tointeger(L,1);
+		INT8 ID2 = 	NumWoundedMercsNearby(ID);
 		lua_pushinteger(L, ID2);
+	}	
 	
 return 1;
 }
@@ -4583,28 +4550,23 @@ return 1;
 
 static int l_gubFact(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-UINT32 Fact;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) Fact = lua_tointeger(L,i);
-		if (i == 2 ) Bool = lua_toboolean(L,i);
-	}
+		UINT32 Fact = lua_tointeger(L,1);
+		BOOLEAN Bool = lua_toboolean(L,2);
+
 		gubFact[Fact] = Bool;
+		
+	}	
 	
 return 0;
 }
 
 static int l_CheckPlayerHasHead(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
-BOOLEAN Bool;
-
-	Bool = CheckPlayerHasHead();
+	BOOLEAN Bool = CheckPlayerHasHead();
 	
 	lua_pushboolean(L, Bool);
 	
@@ -4613,18 +4575,14 @@ return 1;
 
 static int l_GetgubFact(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-UINT32 Fact;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) Fact = lua_tointeger(L,i);
-	}
-		Bool = gubFact[Fact];
-		
-	lua_pushboolean(L, Bool);
+		UINT32 Fact = lua_tointeger(L,1);
+		BOOLEAN Bool = gubFact[Fact];
+		lua_pushboolean(L, Bool);
+	
+	}	
 	
 return 1;
 }
@@ -4632,12 +4590,8 @@ return 1;
 
 static int l_CheckForNewShipment(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
-BOOLEAN Bool;
-
-	Bool = CheckForNewShipment();
-		
+	BOOLEAN Bool = CheckForNewShipment();	
 	lua_pushboolean(L, Bool);
 	
 return 1;
@@ -4646,13 +4600,8 @@ return 1;
 
 static int l_CountNumberOfBobbyPurchasesThatAreInTransit(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
-
-UINT16 id;
-
-	id = CountNumberOfBobbyPurchasesThatAreInTransit();
-		
+	UINT16 id = CountNumberOfBobbyPurchasesThatAreInTransit();	
 	lua_pushinteger(L, id);
 	
 return 1;
@@ -4660,15 +4609,13 @@ return 1;
 
 static int l_FunctionCheckForKingpinsMoneyMissing(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) Bool = lua_toboolean(L,i);
-	}
+		BOOLEAN Bool = lua_toboolean(L,1);
+
 		CheckForKingpinsMoneyMissing( Bool );
+	}
 	
 return 0;
 }
@@ -4676,48 +4623,37 @@ return 0;
 
 static int l_GetNumberOfWorldItemsFromTempItemFile(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-INT16 sMapX;
-INT16 sMapY;
-INT8 bMapZ;
-UINT32 puiNumberOfItems;
-BOOLEAN fIfEmptyCreate;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 5 )
 	{
-		if (i == 1 ) sMapX = lua_tointeger(L,i);
-		if (i == 2 ) sMapY = lua_tointeger(L,i);
-		if (i == 3 ) bMapZ = lua_tointeger(L,i);
-		if (i == 4 ) puiNumberOfItems = lua_tointeger(L,i);
-		if (i == 5 ) fIfEmptyCreate = lua_toboolean(L,i);
-	}
+		 INT16 sMapX = lua_tointeger(L,1);
+		 INT16 sMapY = lua_tointeger(L,2);
+		 INT8 bMapZ = lua_tointeger(L,3);
+		 UINT32 puiNumberOfItems = lua_tointeger(L,4);
+		 BOOLEAN fIfEmptyCreate = lua_toboolean(L,5);
+
 	
-		Bool = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &puiNumberOfItems, fIfEmptyCreate );
+		BOOLEAN Bool = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &puiNumberOfItems, fIfEmptyCreate );
 
 		lua_pushboolean(L, Bool);
+		
+	}		
 		
 return 1;
 }
 
 static int l_MoveItemPools(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT32 sStartPos;
-INT32 sEndPos;
-INT8 bStartLevel;
-INT8 bEndLevel;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) sStartPos = lua_tointeger(L,i);
-		if (i == 2 ) sEndPos = lua_tointeger(L,i);
-		if (i == 3 ) bStartLevel = lua_tointeger(L,i);
-		if (i == 4 ) bEndLevel = lua_tointeger(L,i);
-	}
+		INT32 sStartPos = lua_tointeger(L,1);
+		INT32 sEndPos = lua_tointeger(L,2);
+		INT8 bStartLevel = lua_tointeger(L,3);
+		INT8 bEndLevel = lua_tointeger(L,4);
+
 		MoveItemPools( sStartPos, sEndPos, bStartLevel, bEndLevel );
+	}	
 	
 return 0;
 }
@@ -4725,157 +4661,134 @@ return 0;
 
 static int l_AddFutureDayStrategicEvent(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubCallbackID;
-UINT32 uiMinStamp;
-UINT32 uiParam; 
-UINT32 uiNumDaysFromPresent;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) ubCallbackID = lua_tointeger(L,i);
-		if (i == 2 ) uiMinStamp = lua_tointeger(L,i);
-		if (i == 3 ) uiParam = lua_tointeger(L,i);
-		if (i == 4 ) uiNumDaysFromPresent = lua_tointeger(L,i);
-	}
+		UINT8 ubCallbackID = lua_tointeger(L,1);
+		UINT32 uiMinStamp = lua_tointeger(L,2);
+		UINT32 uiParam = lua_tointeger(L,3);
+		UINT32 uiNumDaysFromPresent = lua_tointeger(L,4);
+
 		AddFutureDayStrategicEvent( ubCallbackID, uiMinStamp, uiParam, uiNumDaysFromPresent );
 	
+	}	
 return 0;
 }
 
 static int l_AddSameDayStrategicEvent(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubCallbackID;
-UINT32 uiMinStamp; 
-UINT32 uiParam;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) ubCallbackID = lua_tointeger(L,i);
-		if (i == 2 ) uiMinStamp = lua_tointeger(L,i);
-		if (i == 3 ) uiParam = lua_tointeger(L,i);
-	}
+		UINT8 ubCallbackID = lua_tointeger(L,1);
+		UINT32 uiMinStamp = lua_tointeger(L,2);
+		UINT32 uiParam = lua_tointeger(L,3);
+
 		AddSameDayStrategicEvent( ubCallbackID, uiMinStamp, uiParam );
+	}	
 	
 return 0;
 }
 
 static int l_AddHistoryToPlayersLog(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubCode;
-UINT8 ubSecondCode; 
-UINT32 uiDate; 
-INT16 sSectorX; 
-INT16 sSectorY;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 5 )
 	{
-		if (i == 1 ) ubCode = lua_tointeger(L,i);
-		if (i == 2 ) ubSecondCode = lua_tointeger(L,i);
-		if (i == 3 ) uiDate = lua_tointeger(L,i);
-		if (i == 4 ) sSectorX = lua_tointeger(L,i);
-		if (i == 5 ) sSectorY = lua_tointeger(L,i);
-	}
+		UINT8 ubCode = lua_tointeger(L,1);
+		UINT8 ubSecondCode = lua_tointeger(L,2);
+		UINT32 uiDate = lua_tointeger(L,3);
+		INT16 sSectorX = lua_tointeger(L,4);
+		INT16 sSectorY = lua_tointeger(L,5);
+
 		AddHistoryToPlayersLog( ubCode, ubSecondCode, uiDate, sSectorX, sSectorY );
+	}	
+	
+return 0;
+}
+
+static int l_AddFilesToPlayersLog(lua_State *L)
+{
+
+	if ( lua_gettop(L) >= 3 )
+	{
+		UINT8 ubCode = lua_tointeger(L,1);
+		UINT32 uiDate = lua_tointeger(L,2);
+		UINT8 ubFormat = lua_tointeger(L,3);
+
+		AddFilesToPlayersLog(ubCode, uiDate , ubFormat, NULL, NULL );
+	}
 	
 return 0;
 }
 
 static int l_gWorldItemsObjectDataMoney(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 
-UINT32 uiLoop, MoneyAmount;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiLoop = lua_tointeger(L,i);
-	}
-		MoneyAmount =  gWorldItems[uiLoop].object[0]->data.money.uiMoneyAmount;
+		UINT32 uiLoop = lua_tointeger(L,1);
+
+		UINT32 MoneyAmount =  gWorldItems[uiLoop].object[0]->data.money.uiMoneyAmount;
 		lua_pushinteger(L, MoneyAmount);
+	}	
 	
 return 1;
 }
 
 static int l_gWorldItemsObjectItem(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 
-UINT32 uiLoop, Object;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiLoop = lua_tointeger(L,i);
-	}
-		Object =  gWorldItems[ uiLoop ].object.usItem;
+		UINT32 uiLoop = lua_tointeger(L,1);
+
+		UINT32 Object =  gWorldItems[ uiLoop ].object.usItem;
 		lua_pushinteger(L, Object);
+	}	
 	
 return 1;
 }
 
 static int l_ItemExistsAtLocation(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-INT32 sGridNo;
-INT32 iItemIndex;
-UINT8 ubLevel;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-		if (i == 2 ) iItemIndex = lua_tointeger(L,i);
-		if (i == 3 ) ubLevel = lua_tointeger(L,i);
-	}
-		Bool =  ItemExistsAtLocation( sGridNo, iItemIndex, ubLevel );
+		INT32 sGridNo = lua_tointeger(L,1);
+		INT32 iItemIndex = lua_tointeger(L,2);
+		UINT8 ubLevel = lua_tointeger(L,3);
+
+		BOOLEAN Bool =  ItemExistsAtLocation( sGridNo, iItemIndex, ubLevel );
 		lua_pushboolean(L, Bool);
+	}	
 	
 return 1;
 }
 
 static int l_gWorldItemsExists(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-UINT32 uiLoop;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiLoop = lua_tointeger(L,i);
-	}
+		UINT32 uiLoop = lua_tointeger(L,1);
 
-		Bool = gWorldItems[ uiLoop ].fExists;
-			
+		BOOLEAN Bool = gWorldItems[ uiLoop ].fExists;
 		lua_pushboolean(L, Bool);
+	}	
 	
 return 1;
 }
 
 static int l_SetgWorldItemsExists(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-UINT32 uiLoop;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) uiLoop = lua_tointeger(L,i);
-		if (i == 2 ) Bool = lua_tointeger(L,i);
-	}
-
-		gWorldItems[ uiLoop ].fExists = Bool;
-			
+		UINT32 uiLoop = lua_tointeger(L,1);
+		BOOLEAN Bool = lua_tointeger(L,2);
 		
+		gWorldItems[ uiLoop ].fExists = Bool;	
+	}		
 	
 return 0;
 }
@@ -4884,19 +4797,13 @@ return 0;
 
 static int l_bAttitude(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-
 SOLDIERTYPE * pSoldier;
-UINT32 Attitude;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) Attitude = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 Attitude = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 			{
@@ -4904,15 +4811,13 @@ UINT32 Attitude;
 			}
 
 		lua_pushinteger(L, Attitude);
+	}	
 	
 return 1;
 }
 
 static int l_InitCreatureQuest (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-
 	InitCreatureQuest();
 	
 return 0;
@@ -4920,112 +4825,86 @@ return 0;
 
 static int l_AffectAllTownsLoyaltyByDistanceFrom (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 iLoyaltyChange;
-INT16 sSectorX; 
-INT16 sSectorY;
-INT8 bSectorZ;
-int i;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) iLoyaltyChange = lua_tointeger(L,i);
-		if (i == 2 ) sSectorX = lua_tointeger(L,i);
-		if (i == 3 ) sSectorY = lua_tointeger(L,i);
-		if (i == 4 ) bSectorZ = lua_tointeger(L,i);
+		UINT32 iLoyaltyChange = lua_tointeger(L,1);
+		INT16 sSectorX = lua_tointeger(L,2);
+		INT16 sSectorY = lua_tointeger(L,3);
+		INT8 bSectorZ = lua_tointeger(L,4);
+
+		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ );
 	}
-	
-	AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ );
-	
+		
 return 0;
 }
 
 static int l_PlayerMercsInSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT8 ubSectorX;
-UINT8 ubSectorY; 
-UINT8 ubSectorZ;
-UINT8 val;	
-int i;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) ubSectorX = lua_tointeger(L,i);
-		if (i == 2 ) ubSectorY = lua_tointeger(L,i);
-		if (i == 3 ) ubSectorZ = lua_tointeger(L,i);
-	}
-	val =  PlayerMercsInSector( ubSectorX, ubSectorY, ubSectorZ );
+		UINT8 ubSectorX = lua_tointeger(L,1);
+		UINT8 ubSectorY = lua_tointeger(L,2);
+		UINT8 ubSectorZ = lua_tointeger(L,3);
+
+		UINT8 val =  PlayerMercsInSector( ubSectorX, ubSectorY, ubSectorZ );
 		
-	lua_pushinteger(L, val);
+		lua_pushinteger(L, val);
+	}	
 	
 return 1;
 }
 
 static int l_GetPlayerMercsInSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT8 ubSectorX;
-UINT8 ubSectorY; 
-UINT8 ubSectorZ;
-UINT8 val;	
-int i;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) ubSectorX = lua_tointeger(L,i);
-		if (i == 2 ) ubSectorY = lua_tointeger(L,i);
-		if (i == 3 ) ubSectorZ = lua_tointeger(L,i);
-	}	
-		val = PlayerMercsInSector( ubSectorX, ubSectorY, ubSectorZ );
+		UINT8 ubSectorX = lua_tointeger(L,1);
+		UINT8 ubSectorY = lua_tointeger(L,2);
+		UINT8 ubSectorZ = lua_tointeger(L,3);
+
+		UINT8 val = PlayerMercsInSector( ubSectorX, ubSectorY, ubSectorZ );
 		
-	lua_pushinteger(L, val);
+		lua_pushinteger(L, val);
+	
+	}		
 	
 return 1;
 }
 
 static int l_GetPlayerGroupsInSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT8 bSectorX;
-UINT8 bSectorY; 
-UINT8 bSectorZ;
-UINT8 val;	
-int i;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) bSectorX = lua_tointeger(L,i);
-		if (i == 2 ) bSectorY = lua_tointeger(L,i);
-		if (i == 3 ) bSectorZ = lua_tointeger(L,i);
-	}	
-		val = PlayerGroupsInSector( bSectorX, bSectorY, bSectorZ );
+		UINT8  bSectorX = lua_tointeger(L,1);
+		UINT8 bSectorY = lua_tointeger(L,2);
+		UINT8 bSectorZ = lua_tointeger(L,3);
+
+		UINT8 val = PlayerGroupsInSector( bSectorX, bSectorY, bSectorZ );
 		
-	lua_pushinteger(L, val);
+		lua_pushinteger(L, val);
+	}	
 	
 return 1;
 }
 
 static int l_PlayerGroupsInSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT8 ubSectorX;
-UINT8 ubSectorY; 
-UINT8 ubSectorZ;
 
-UINT8 Group;
-int i;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) ubSectorX = lua_tointeger(L,i);
-		if (i == 2 ) ubSectorY = lua_tointeger(L,i);
-		if (i == 3 ) ubSectorZ = lua_tointeger(L,i);
-	}
-	
-	Group = PlayerGroupsInSector( ubSectorX, ubSectorY, ubSectorZ );
+		UINT8 ubSectorX = lua_tointeger(L,1);
+		UINT8 ubSectorY = lua_tointeger(L,2);
+		UINT8 ubSectorZ = lua_tointeger(L,3);
+
+		UINT8 Group = PlayerGroupsInSector( ubSectorX, ubSectorY, ubSectorZ );
 		
-	lua_pushinteger(L, Group);
+		lua_pushinteger(L, Group);
+	
+	}	
 	
 return 1;
 }
@@ -5033,8 +4912,7 @@ return 1;
 
 static int l_DeleteTalkingMenu (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-	
+
 	DeleteTalkingMenu( );
 	
 return 0;
@@ -5042,62 +4920,49 @@ return 0;
 
 static int l_SetubDefaultArrivalSectorY (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-int i;
-
-UINT32 val;
-	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) val = lua_tointeger(L,i);
-	}
-	 gGameExternalOptions.ubDefaultArrivalSectorY = val;
-	
+		UINT32 val = lua_tointeger(L,1);
+
+		gGameExternalOptions.ubDefaultArrivalSectorY = val;
+	}	
 	
 return 0;
 }
 
 static int l_SetiFirstArrivalDelay (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-int i;
-
-UINT32 val;
 	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) val = lua_tointeger(L,i);
-	}
-	 gGameExternalOptions.iFirstArrivalDelay = val;
+		UINT32 val = lua_tointeger(L,1);
+
+		gGameExternalOptions.iFirstArrivalDelay = val;
+	 
+	}	 
 	
 return 0;
 }
 
 static int l_SetubDefaultArrivalSectorX (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT32 val;
 	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) val = lua_tointeger(L,i);
-	}
-	gGameExternalOptions.ubDefaultArrivalSectorX = val;
+		UINT32 val = lua_tointeger(L,1);
+		gGameExternalOptions.ubDefaultArrivalSectorX = val;
+	}	
 	
 return 0;
 }
 
 
 //----
+
 static int l_GetubDefaultArrivalSectorY (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
 	
-	val = gGameExternalOptions.ubDefaultArrivalSectorY;
+	UINT32 val = gGameExternalOptions.ubDefaultArrivalSectorY;
 	
 	lua_pushinteger(L, val);
 	
@@ -5106,10 +4971,8 @@ return 1;
 
 static int l_GetiFirstArrivalDelay (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
 	
-	val = gGameExternalOptions.iFirstArrivalDelay;
+	UINT32 val = gGameExternalOptions.iFirstArrivalDelay;
 	
 	lua_pushinteger(L, val);
 	
@@ -5118,10 +4981,8 @@ return 1;
 
 static int l_GetubDefaultArrivalSectorX (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
 	
-	val = gGameExternalOptions.ubDefaultArrivalSectorX;
+	UINT32 val = gGameExternalOptions.ubDefaultArrivalSectorX;
 	
 	lua_pushinteger(L, val);
 	
@@ -5130,10 +4991,8 @@ return 1;
 
 static int l_GetStartingCashInsane (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
 	
-	val = gGameExternalOptions.iStartingCashInsane;
+	UINT32 val = gGameExternalOptions.iStartingCashInsane;
 	
 	lua_pushinteger(L, val);
 	
@@ -5142,10 +5001,8 @@ return 1;
 
 static int l_GetStartingCashExpert (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
 	
-	val = gGameExternalOptions.iStartingCashExpert;
+	UINT32 val = gGameExternalOptions.iStartingCashExpert;
 	
 	lua_pushinteger(L, val);
 	
@@ -5154,10 +5011,8 @@ return 1;
 
 static int l_GetStartingCashExperienced (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
-	
-	val = gGameExternalOptions.iStartingCashExperienced;
+
+	UINT32 val = gGameExternalOptions.iStartingCashExperienced;
 	
 	lua_pushinteger(L, val);
 	
@@ -5166,10 +5021,8 @@ return 1;
 
 static int l_GetStartingCashNovice (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 val;
 	
-	val = gGameExternalOptions.iStartingCashNovice;
+	UINT32 val = gGameExternalOptions.iStartingCashNovice;
 	
 	lua_pushinteger(L, val);
 	
@@ -5178,41 +5031,32 @@ return 1;
 
 static int l_GetWorldTotalMin (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 uiDate; 
-
-	uiDate = GetWorldTotalMin();
-return 0;
+	UINT32	uiDate = GetWorldTotalMin();
+	
+	lua_pushinteger(L, uiDate);
+	
+return 1;
 }
 
 static int l_AddTransactionToPlayersBook (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubCode;
-UINT8 ubSecondCode; 
-UINT32 uiDate; 
-INT32 iAmount;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) ubCode = lua_tointeger(L,i);
-		if (i == 2 ) ubSecondCode = lua_tointeger(L,i);
-		if (i == 3 ) uiDate = lua_tointeger(L,i);
-		if (i == 4 ) iAmount = lua_tointeger(L,i);
-	}
+		UINT8 ubCode = lua_tointeger(L,1);
+		UINT8 ubSecondCode = lua_tointeger(L,2);
+		UINT32 uiDate = lua_tointeger(L,3);
+		INT32 iAmount = lua_tointeger(L,4);
 
-	AddTransactionToPlayersBook(ubCode, ubSecondCode, uiDate, iAmount);
+		AddTransactionToPlayersBook(ubCode, ubSecondCode, uiDate, iAmount);
+	}
 return 0;
 }
 
 
 static int l_CheckInvestigateSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-BOOLEAN Bool;
 	
-	Bool = gGameExternalOptions.gfInvestigateSector;
+	BOOLEAN Bool = gGameExternalOptions.gfInvestigateSector;
 	    
 	lua_pushboolean(L, Bool);
 	
@@ -5221,17 +5065,12 @@ return 1;
 
 static int l_SetInvestigateSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) Bool = lua_toboolean(L,i);
-	}
-	
-	gGameExternalOptions.gfInvestigateSector = Bool;
-	
+		BOOLEAN Bool = lua_toboolean(L,1);
+
+		gGameExternalOptions.gfInvestigateSector = Bool;
+	}	
 return 0;
 }
 
@@ -5264,10 +5103,7 @@ return 0;
 
 static int l_MusicGetVolume (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 uiVolume;
-
-	uiVolume = MusicGetVolume( );
+	UINT32 uiVolume = MusicGetVolume( );
 	
 	lua_pushinteger(L, uiVolume);
 	
@@ -5276,11 +5112,7 @@ return 1;
 
 static int l_GetSpeechVolume (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 uiVolume;
-
-	uiVolume = GetSpeechVolume( );
-	
+	UINT32 uiVolume = GetSpeechVolume( );
 	lua_pushinteger(L, uiVolume);
 	
 return 1;
@@ -5288,105 +5120,68 @@ return 1;
 
 static int l_GetSoundEffectsVolume (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT32 uiVolume;
-
-	uiVolume = GetSoundEffectsVolume( );
-	
+	UINT32 uiVolume = GetSoundEffectsVolume( );
 	lua_pushinteger(L, uiVolume);
-	
 return 1;
 }
 
 static int l_SetSoundEffectsVolume (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT32 uiVolume;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiVolume = lua_tointeger(L,i);
+		UINT32 uiVolume = lua_tointeger(L,1);
+		SetSoundEffectsVolume( uiVolume );
 	}
-	
-	SetSoundEffectsVolume( uiVolume );
-	
+		
 return 0;
 }
 
 static int l_SetSpeechVolume (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-int i;
-UINT32 uiVolume;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiVolume = lua_tointeger(L,i);
-	}
-	
-	SetSpeechVolume( uiVolume );
-	
+		UINT32 uiVolume = lua_tointeger(L,1);
+		SetSpeechVolume( uiVolume );
+	}	
 return 0;
 }
 
 static int l_MusicSetVolume (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT32 uiVolume;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiVolume = lua_tointeger(L,i);
-	}
-	
-	MusicSetVolume( uiVolume );
-	
+		UINT32 uiVolume = lua_tointeger(L,1);
+
+		MusicSetVolume( uiVolume );
+	}	
 return 0;
 }
 
 static int l_MusicPlay (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT32 uiNum;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) uiNum = lua_tointeger(L,i);
-	}
-	
-	MusicPlay( uiNum );
-	
+		UINT32 uiNum = lua_tointeger(L,1);
+
+		MusicPlay( uiNum );
+	}	
 return 0;
 }
 
 static int l_SetMusicMode (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-int i;
-UINT8 ubMusicMode;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubMusicMode = lua_tointeger(L,i);
-	}
-	
-	SetMusicMode( ubMusicMode );
-	
+		UINT8 ubMusicMode = lua_tointeger(L,1);
+
+		SetMusicMode( ubMusicMode );
+	}	
 return 0;
 }
 
 static int l_PlayerTeamFull (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-BOOLEAN Full;
-
-
-		Full =  PlayerTeamFull( );
+	BOOLEAN Full =  PlayerTeamFull( );
 		
 	lua_pushboolean(L, Full);
 	
@@ -5395,130 +5190,88 @@ return 1;
 
 static int l_PauseGame (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-BOOLEAN Pause;
-int i;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) Pause = lua_toboolean(L,i);
-	}
+		BOOLEAN Pause = lua_toboolean(L,1);
 
+		if (Pause == TRUE)
+		{
+			HandlePlayerPauseUnPauseOfGame( );
+		}
 	
-	if (Pause == TRUE)
-	{
-	HandlePlayerPauseUnPauseOfGame( );
-	}
+	}	
 	
 return 0;
 }
 
 static int l_SetProfileFaceData (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubCharNum;
-UINT8 ubFaceIndex;
-UINT16 usEyesX;
-UINT16 usEyesY;
-UINT16 usMouthX;
-UINT16 usMouthY;
-
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 6 )
 	{
-		if (i == 1 ) ubCharNum = lua_tointeger(L,i);
-		if (i == 2 ) ubFaceIndex = lua_tointeger(L,i);
-		if (i == 3 ) usEyesX = lua_tointeger(L,i);
-		if (i == 4 ) usEyesY = lua_tointeger(L,i);
-		if (i == 5 ) usMouthX = lua_tointeger(L,i);
-		if (i == 6 ) usMouthY = lua_tointeger(L,i);
-	}
+		UINT8 ubCharNum = lua_tointeger(L,1);
+		UINT8 ubFaceIndex = lua_tointeger(L,2);
+		UINT16 usEyesX = lua_tointeger(L,3);
+		UINT16 usEyesY = lua_tointeger(L,4);
+		UINT16 usMouthX = lua_tointeger(L,5);
+		UINT16 usMouthY = lua_tointeger(L,6);
 
-	SetProfileFaceData( ubCharNum, ubFaceIndex, usEyesX, usEyesY, usMouthX, usMouthY );
-	
+		SetProfileFaceData( ubCharNum, ubFaceIndex, usEyesX, usEyesY, usMouthX, usMouthY );
+	}	
 return 0;
 }
 
 static int l_GetProfileFaceData (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubCharNum;
-UINT8 ubFaceIndex;
-UINT16 usEyesX;
-UINT16 usEyesY;
-UINT16 usMouthX;
-UINT16 usMouthY;
-
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ubCharNum = lua_tointeger(L,i);
-	}
+		UINT8 ubCharNum = lua_tointeger(L,1);
 
-	ubFaceIndex = gMercProfiles[ ubCharNum ].ubFaceIndex;
-	usEyesX = gMercProfiles[ ubCharNum ].usEyesX;
-	usEyesY = gMercProfiles[ ubCharNum ].usEyesY;
-	usMouthX = gMercProfiles[ ubCharNum ].usMouthX;
-	usMouthY = gMercProfiles[ ubCharNum ].usMouthY;
+		UINT8 ubFaceIndex = gMercProfiles[ ubCharNum ].ubFaceIndex;
+		UINT16 usEyesX = gMercProfiles[ ubCharNum ].usEyesX;
+		UINT16 usEyesY = gMercProfiles[ ubCharNum ].usEyesY;
+		UINT16 usMouthX = gMercProfiles[ ubCharNum ].usMouthX;
+		UINT16 usMouthY = gMercProfiles[ ubCharNum ].usMouthY;
 	
-	lua_pushinteger(L, ubFaceIndex);
-	lua_pushinteger(L, usEyesX);
-	lua_pushinteger(L, usEyesY);
-	lua_pushinteger(L, usMouthX);
-	lua_pushinteger(L, usMouthY);
+		lua_pushinteger(L, ubFaceIndex);
+		lua_pushinteger(L, usEyesX);
+		lua_pushinteger(L, usEyesY);
+		lua_pushinteger(L, usMouthX);
+		lua_pushinteger(L, usMouthY);
+	}
 	
 return 5;
 }
 
 static int l_SetOffPanicBombs (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
-UINT8 ubID;
-INT8 bPanicTrigger;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) bPanicTrigger = lua_tointeger(L,i);
-	}
-
-	SetOffPanicBombs( ubID, bPanicTrigger );
-	
+		UINT8 ubID = lua_tointeger(L,1);
+		INT8 bPanicTrigger = lua_tointeger(L,2);
+		SetOffPanicBombs( ubID, bPanicTrigger );
+	}	
 return 0;
 }
 
 static int l_ToggleActionItemsByFrequency (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT16 ID;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-
-	ToggleActionItemsByFrequency( FIRST_MAP_PLACED_FREQUENCY + ID );
-	
+		UINT16 ID = lua_tointeger(L,1);
+		ToggleActionItemsByFrequency( FIRST_MAP_PLACED_FREQUENCY + ID );
+	}	
 return 0;
 }
 
 static int l_PlayJA2Sample (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT32 sGridNo;
-UINT16 sample;
-INT8 SoundVolume2;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) sample = lua_tointeger(L,i);
-		if (i == 2 ) SoundVolume2 = lua_tointeger(L,i);
-		if (i == 3 ) sGridNo = lua_tointeger(L,i);
-	}
+		UINT16 sample = lua_tointeger(L,1);
+		INT8 SoundVolume2 = lua_tointeger(L,2);
+		UINT32  sGridNo = lua_tointeger(L,3);
 	PlayJA2Sample( sample, RATE_11025, SoundVolume( SoundVolume2, sGridNo ), 5, SoundDir( sGridNo ) );
+	}
 return 0;
 }
 
@@ -5526,60 +5279,46 @@ return 0;
 
 static int l_WorldLevelDataTerrainID(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT32 sGridNo, sGridNo2;
+UINT32 sGridNo, sGridNo2;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
 
-	sGridNo2 = gpWorldLevelData[sGridNo].ubTerrainID;
+		sGridNo2 = gpWorldLevelData[sGridNo].ubTerrainID;
 	
-	lua_pushboolean(L, sGridNo2);
+		lua_pushboolean(L, sGridNo2);
+	
+	}	
 	
 return 1;
 }
 
 static int l_MakeNoise(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubNoiseMaker;
-INT32 sGridNo;
-INT8 bLevel;
-UINT8 ubTerrType; 
-UINT8 ubVolume;
-UINT8 ubNoiseType;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 6 )
 	{
-		if (i == 1 ) ubNoiseMaker = lua_tointeger(L,i);
-		if (i == 2 ) sGridNo = lua_tointeger(L,i);
-		if (i == 3 ) bLevel = lua_tointeger(L,i);
-		if (i == 4 ) ubTerrType = lua_tointeger(L,i);
-		if (i == 5 ) ubVolume = lua_tointeger(L,i);
-		if (i == 6 ) ubNoiseType = lua_tointeger(L,i);
-	}
+		UINT8 ubNoiseMaker = lua_tointeger(L,1);
+		INT32 sGridNo = lua_tointeger(L,2);
+		INT8 bLevel = lua_tointeger(L,3);
+		UINT8 ubTerrType = lua_tointeger(L,4);
+		UINT8 ubVolume = lua_tointeger(L,5);
+		UINT8 ubNoiseType = lua_tointeger(L,6);
 
-	MakeNoise( ubNoiseMaker, sGridNo, bLevel, ubTerrType, ubVolume, ubNoiseType );
+		MakeNoise( ubNoiseMaker, sGridNo, bLevel, ubTerrType, ubVolume, ubNoiseType );
+	}	
 	
 return 0;
 }
 
 static int l_TacticalStatusTeamHuman(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 team;
 BOOLEAN Bool;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) team = lua_tointeger(L,i);
-	}
+		UINT8 team = lua_tointeger(L,1);
 
 	if (gTacticalStatus.Team[team].bHuman )
 		Bool = TRUE;
@@ -5587,23 +5326,18 @@ BOOLEAN Bool;
 		Bool = FALSE;
 	
 		lua_pushboolean(L, Bool);
-	
+	}	
 return 1;
 }
 
 
 static int l_TacticalStatusTeamActive(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 team;
 BOOLEAN Bool;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) team = lua_tointeger(L,i);
-	}
+		UINT8 team = lua_tointeger(L,1);
 
 	if (gTacticalStatus.Team[team].bTeamActive )
 		Bool = TRUE;
@@ -5611,23 +5345,43 @@ BOOLEAN Bool;
 		Bool = FALSE;
 	
 		lua_pushboolean(L, Bool);
+		
+	}		
 	
+return 1;
+}
+
+static int l_usStrategicInsertionDataProfileID(lua_State *L)
+{
+BOOLEAN Bool;
+SOLDIERTYPE * pSoldier;
+UINT32 sGridNo = 0;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT8 ID = lua_tointeger(L,1);
+
+		pSoldier = FindSoldierByProfileID( ID, FALSE );
+		if (pSoldier)
+			{
+				sGridNo = pSoldier->usStrategicInsertionData;
+			}
+
+		lua_pushinteger(L, sGridNo);
+	}	
+		
 return 1;
 }
 
 static int l_bNeutral(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
 BOOLEAN Bool;
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 			{
@@ -5638,48 +5392,42 @@ SOLDIERTYPE * pSoldier;
 			}
 
 		lua_pushboolean(L, Bool);
-	
+	}	
+		
 return 1;
 }
 
 static int l_CheckSoldierAlertStatus(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 Status_alert, ID;
-
+UINT8 Status_alert;
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 			Status_alert = pSoldier->aiData.bAlertStatus;		
 
 		lua_pushinteger(L, Status_alert);
+		
+	}		
 	
 return 1;
 }
 
 static int l_InitFace(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 UINT8 ID;
 UINT8  IDFace = -1;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) IDFace = lua_tointeger(L,i);
-	}
-	
-	
+		ID = lua_tointeger(L,1);
+		IDFace = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 			{
@@ -5691,23 +5439,19 @@ SOLDIERTYPE * pSoldier;
 				   pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
 				
 			}
-
+	}
 return 0;
 }
 
 static int l_ActionInProgress(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID,cnt,cnt2;
-
+UINT8 cnt2;
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) cnt = lua_tointeger(L,i);
-	}
+		UINT8 ID = lua_tointeger(L,1);
+		UINT8 cnt = lua_tointeger(L,2);
 	
 		if ( ID > -1 )
 		{
@@ -5734,61 +5478,53 @@ SOLDIERTYPE * pSoldier;
 			
 			
 		}
+	}
 	
 return 0;
 }
 
 static int l_SetSoldierNonNeutral(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
-		
-	if ( ID != NO_PROFILE ) 
-	{
-		pSoldier = FindSoldierByProfileID( ID, FALSE );	
-		if (pSoldier)
-			{
-				SetSoldierNonNeutral (pSoldier); 
-			}
-	}
-	else
-	{
+		UINT8 ID = lua_tointeger(L,1);
+
+		if ( ID != NO_PROFILE ) 
+		{
+			pSoldier = FindSoldierByProfileID( ID, FALSE );	
+			if (pSoldier)
+				{
+					SetSoldierNonNeutral (pSoldier); 
+				}
+		}
+		else
+		{
 		pSoldier = FindSoldierByProfileID_( ID );
 		if ( pSoldier->ubProfile == ID ) 
-		{
-			
-			if (pSoldier)
-			{
-				 SetSoldierNonNeutral (pSoldier);
-			}	
+		{	
+				if (pSoldier)
+				{
+					SetSoldierNonNeutral (pSoldier);
+				}	
+			}
 		}
-	}
+	
+	}	
 
 return 0;
 }
 
 static int l_CheckSoldierNoiseVolume(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 NoiseVolume, ID;
-
+UINT8 NoiseVolume;
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 			{
@@ -5796,154 +5532,121 @@ SOLDIERTYPE * pSoldier;
 			NoiseVolume = pSoldier->aiData.ubNoiseVolume;		
 			}
 
-		lua_pushinteger(L, NoiseVolume);
-	
+		lua_pushinteger(L, NoiseVolume);	
+	}	
 return 1;
 }
 
 
 static int l_TogglePressureActionItemsInGridNo(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT32 sGridNo;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
-	
+		UINT32 sGridNo = lua_tointeger(L,1);
+
 		TogglePressureActionItemsInGridNo( sGridNo );
-	
+	}
 return 0;
 }
 
-
-
 static int l_TriggerNPCWithIHateYouQuote(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+
 		TriggerNPCWithIHateYouQuote(ID);
-	
+		
+	}
+			
 return 0;
 }
 
 static int l_SetNewSituation(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
 BOOLEAN Bool = FALSE;
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
-			pSoldier = FindSoldierByProfileID( ID, FALSE );
-			if (pSoldier)
-			{
+		UINT8 ID = lua_tointeger(L,1);
+
+		pSoldier = FindSoldierByProfileID( ID, FALSE );
+		if (pSoldier)
+		{
 			SetNewSituation(pSoldier);
-			}
-		
+		}
+	}	
+	
 return 0;
 }
 
 static int l_SetNoiseGridno(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 sGridNo;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) sGridNo = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 sGridNo = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			pSoldier->aiData.sNoiseGridno = sGridNo;
 		}
-	
+		
+	}	
 return 0;
 }
 
 static int l_SetNoiseVolume(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 NoiseVolume;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) NoiseVolume = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 NoiseVolume = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			pSoldier->aiData.ubNoiseVolume = NoiseVolume;
 		}
+	}	
 	
 return 0;
 }
 
 static int l_TacticalCharacterDialogue(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 Quote;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) Quote = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 Quote = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			TacticalCharacterDialogue (pSoldier,Quote);
 		}
+		
+	}		
 	
 return 0;
 }
 
 static int l_SetAlertStatus(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 AlertStatus;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) AlertStatus = lua_tointeger(L,i);
-	}
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 AlertStatus = lua_tointeger(L,2);
 	
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
@@ -5951,65 +5654,55 @@ SOLDIERTYPE * pSoldier;
 			pSoldier->aiData.bAlertStatus = AlertStatus;
 		}
 	
+	}
 return 0;
 }
 
 static int l_CheckAction(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
 UINT32 Action;
 
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			Action = pSoldier->aiData.bAction; 
 		}
 		
-	lua_pushinteger(L, Action);
+		lua_pushinteger(L, Action);
+	}	
 	
 return 1;
 }
 
 static int l_SetNextAction(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 NextAction;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) NextAction = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 NextAction = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			pSoldier->aiData.bNextAction = NextAction;
 		}
-
+	}
 return 0;
 }
 
 static int l_ActiveTimedBombExists(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
 BOOLEAN Bool;
 
-	 Bool = ActiveTimedBombExists ();
+	Bool = ActiveTimedBombExists ();
 		
 	lua_pushboolean(L, Bool);
 	
@@ -6019,32 +5712,25 @@ return 1;
 
 static int l_DoesSAMExistHere(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 sSectorX;
-INT16 sSectorY;
-INT16 sSectorZ;
-INT32 sGridNo;
-BOOLEAN Bool;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) sSectorX = lua_tointeger(L,i);
-		if (i == 2 ) sSectorY = lua_tointeger(L,i);
-		if (i == 3 ) sSectorZ = lua_tointeger(L,i);
-		if (i == 4 ) sGridNo = lua_tointeger(L,i);
-	}
-	
-	Bool =  DoesSAMExistHere( sSectorX, sSectorY, sSectorZ, sGridNo );
+		INT16 sSectorX = lua_tointeger(L,1);
+		INT16 sSectorY = lua_tointeger(L,2);
+		INT16 sSectorZ = lua_tointeger(L,3);
+		INT32 sGridNo = lua_tointeger(L,4);
+
+	BOOLEAN Bool =  DoesSAMExistHere( sSectorX, sSectorY, sSectorZ, sGridNo );
 		
 	lua_pushboolean(L, Bool);
+	
+	}	
 	
 return 1;
 }
 
 static int l_RemoveAllActiveTimedBombs(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
 RemoveAllActiveTimedBombs( );
 	
@@ -6053,111 +5739,88 @@ return 0;
 
 static int l_UpdateSAMDoneRepair(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 sSectorX;
-INT16 sSectorY;
-INT16 sSectorZ;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) sSectorX = lua_tointeger(L,i);
-		if (i == 2 ) sSectorY = lua_tointeger(L,i);
-		if (i == 3 ) sSectorZ = lua_tointeger(L,i);
-	}
+		INT16 sSectorX = lua_tointeger(L,1);
+		INT16 sSectorY = lua_tointeger(L,2);
+		INT16 sSectorZ = lua_tointeger(L,3);
 	
 	UpdateSAMDoneRepair( sSectorX, sSectorY, sSectorZ );
+	
+	}
 	
 return 0;
 }
 
 static int l_UpdateAndDamageSAMIfFound(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 sSectorX;
-INT16 sSectorY;
-INT16 sSectorZ;
-INT32 sGridNo;
-UINT8 ubDamage; 
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 5 )
 	{
-		if (i == 1 ) sSectorX = lua_tointeger(L,i);
-		if (i == 2 ) sSectorY = lua_tointeger(L,i);
-		if (i == 3 ) sSectorZ = lua_tointeger(L,i);
-		if (i == 4 ) sGridNo = lua_tointeger(L,i);
-		if (i == 5 ) ubDamage = lua_tointeger(L,i);
-	}
-	
+		INT16 sSectorX = lua_tointeger(L,1);
+		INT16 sSectorY = lua_tointeger(L,2);
+		INT16 sSectorZ = lua_tointeger(L,3);
+		INT32 sGridNo = lua_tointeger(L,4);
+		UINT8 ubDamage = lua_tointeger(L,5);
+
 	UpdateAndDamageSAMIfFound( sSectorX, sSectorY, sSectorZ, sGridNo, ubDamage );
+	}	
 	
 return 0;
 }
 
 static int l_ActivateSwitchInGridNo(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubID;
-INT32 sGridNo;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-		if (i == 2 ) sGridNo = lua_tointeger(L,i);
-	}
+		UINT8 ubID = lua_tointeger(L,1);
+		INT32 sGridNo = lua_tointeger(L,2);
 	
 	if ( sGridNo > 0 && ubID > -1 )
 			ActivateSwitchInGridNo( ubID, sGridNo );
+			
+	}
+	
 return 0;
 }
 
 static int l_HandleNPCTriggerNPC(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubTargetNPC;
-UINT8 ubTargetRecord;
-BOOLEAN fShowDialogueMenu;
-UINT8 ubTargetApproach;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
-		if (i == 2 ) ubTargetRecord = lua_tointeger(L,i);
-		if (i == 3 ) fShowDialogueMenu = lua_toboolean(L,i);
-		if (i == 4 ) ubTargetApproach = lua_tointeger(L,i);
-	}
-	
+		UINT8 ubTargetNPC = lua_tointeger(L,1);
+		UINT8 ubTargetRecord = lua_tointeger(L,2);
+		BOOLEAN fShowDialogueMenu = lua_toboolean(L,3);
+		UINT8 ubTargetApproach = lua_tointeger(L,4);
+
 	if ( ubTargetNPC > -1 )
 			HandleNPCTriggerNPC ( ubTargetNPC, ubTargetRecord, fShowDialogueMenu, ubTargetApproach );
+	}			
+			
 return 0;
 }
 
 static int l_HandleNPCGotoGridNo(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ubTargetNPC;
-INT32 usGridNo;
-UINT8 ubQuoteNum;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
-		if (i == 2 ) usGridNo = lua_tointeger(L,i);
-		if (i == 3 ) ubQuoteNum = lua_tointeger(L,i);
-	}
-	
+		UINT8 ubTargetNPC = lua_tointeger(L,1);
+		INT32 usGridNo = lua_tointeger(L,2);
+		UINT8 ubQuoteNum = lua_tointeger(L,3);
+
 	if ( ubTargetNPC > -1 )
 			HandleNPCGotoGridNo (ubTargetNPC , usGridNo, ubQuoteNum);
+			
+	}	
+	
 return 0;
 }
 
 static int l_HandleNPCClosePanel(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
 
 	HandleNPCClosePanel ();
 		
@@ -6166,113 +5829,89 @@ return 0;
 
 static int l_HandleNPCDoAction(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT16 usActionCode; 
-UINT8 ubQuoteNum;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) usActionCode = lua_tointeger(L,i);
-		if (i == 3 ) ubQuoteNum = lua_tointeger(L,i);
-	}
+		UINT8 ID = lua_tointeger(L,1);
+		UINT16 usActionCode = lua_tointeger(L,2);
+		UINT8 ubQuoteNum = lua_tointeger(L,3);
+
 	
 	if ( ID > -1 )
 			HandleNPCDoAction (ID , usActionCode, ubQuoteNum);
-		
+	}		
 
 return 0;
 }
 
 static int l_SetNextActionData(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 NextActionData;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) NextActionData = lua_tointeger(L,i);
-	}
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 NextActionData = lua_tointeger(L,2);
 	
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			pSoldier->aiData.usNextActionData = NextActionData;
 		}
+		
+	}
 
 return 0;
 }
 
 static int l_RESETTIMECOUNTER(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 Counter;
-
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) Counter = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 Counter = lua_tointeger(L,2);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			RESETTIMECOUNTER( pSoldier->timeCounters.AICounter, Counter );
 		}
+		
+	}		
 
 return 0;
 }
 
 static int l_CancelAIAction(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
 SOLDIERTYPE * pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-	}
-	
+		UINT8 ID = lua_tointeger(L,1);
+
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
 			CancelAIAction( pSoldier, TRUE );
-		}
-
+		}	
+	}		
 return 0;
 }
 
 static int l_SoldierTo3DLocationLineOfSightTest(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 ID;
-UINT32 sGridNo;
 BOOLEAN Bool;
 SOLDIERTYPE * pSoldier;
-INT8 bLevel;
-INT8 bCubeLevel;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) sGridNo = lua_tointeger(L,i);
-		if (i == 3 ) bLevel = lua_tointeger(L,i);
-		if (i == 4 ) bCubeLevel = lua_tointeger(L,i);
-	}
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 sGridNo = lua_tointeger(L,2);
+		INT8 bLevel = lua_tointeger(L,3);
+		INT8 bCubeLevel = lua_tointeger(L,4);
+
 	
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
@@ -6284,25 +5923,22 @@ INT8 bCubeLevel;
 		}
 		
 			lua_pushboolean(L, Bool);
+	}			
+			
 return 1;
 }
 //------------
 
 static int l_NPCGotoGridNo (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
-UINT32 Gridno,sAdjustedGridNo;
-
-UINT8 ID;
+UINT32 sAdjustedGridNo;
 SOLDIERTYPE *		pSoldier;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ID = lua_tointeger(L,i);
-		if (i == 2 ) Gridno = lua_tointeger(L,i);
-	}
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 Gridno = lua_tointeger(L,2);
+
 
 	if ( ID  >= 0 && Gridno >= 1 )
 	{
@@ -6324,6 +5960,7 @@ SOLDIERTYPE *		pSoldier;
 					}
 				}
 	}
+	}
 return 0;
 }
 
@@ -6332,18 +5969,16 @@ return 0;
 
 static int l_ApplyMapChangesToMapTempFile (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 BOOLEAN Bool = FALSE;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) Bool = lua_toboolean(L,i);
-	}
+		Bool = lua_toboolean(L,1);
+
 
 	// Remove old graphic
 	ApplyMapChangesToMapTempFile( Bool );
-	
+	}	
 return 0;
 }
 
@@ -6393,78 +6028,86 @@ return 0;
 }
 */
 
-static int l_RemoveStruct (lua_State *L)
+static int l_AddExitGridToWorld (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool = FALSE;
-UINT16 usTileIndex;
-UINT32 Gridno, uiCheckType;
-UINT16 usSubIndex;
+EXITGRID ExitGrid;
+UINT32 Gridno1 = 0;
+UINT32 Gridno2 = 0;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 5 )
 	{
-		if (i == 1 ) uiCheckType = lua_tointeger(L,i);
-		if (i == 2 ) usSubIndex = lua_tointeger(L,i);
-		if (i == 3 ) Gridno = lua_tointeger(L,i);
+		UINT8 SectorX = lua_tointeger(L,1);
+		UINT8 SectorY = lua_tointeger(L,2);
+		INT8 SectorZ = lua_tointeger(L,3);
+		Gridno1 = lua_tointeger(L,4);
+		Gridno2 = lua_tointeger(L,5);
+		
+		ExitGrid.ubGotoSectorX = SectorX;
+		ExitGrid.ubGotoSectorY = SectorY;
+		ExitGrid.ubGotoSectorZ = SectorZ;
+		ExitGrid.usGridNo = Gridno1;
+	
+		AddExitGridToWorld( Gridno2, &ExitGrid );			
+		
 	}
 
-	GetTileIndexFromTypeSubIndex( uiCheckType, usSubIndex, &usTileIndex );
-	RemoveStruct( Gridno, usTileIndex );
-	
+return 0;
+}
+
+static int l_RemoveStruct (lua_State *L)
+{
+UINT16 usTileIndex;
+
+	if ( lua_gettop(L) >= 3 )
+	{
+		UINT32 uiCheckType = lua_tointeger(L,1);
+		UINT16 usSubIndex = lua_tointeger(L,2);
+		UINT32 Gridno = lua_tointeger(L,3);
+		
+		GetTileIndexFromTypeSubIndex( uiCheckType, usSubIndex, &usTileIndex );
+		RemoveStruct( Gridno, usTileIndex );		
+	}
+
 return 0;
 }
 
 static int l_AddStructToHead (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool = FALSE;
 UINT16 usTileIndex;
-UINT32 Gridno, uiCheckType;
-UINT16 usSubIndex;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 3 )
 	{
-		if (i == 1 ) uiCheckType = lua_tointeger(L,i);
-		if (i == 2 ) usSubIndex = lua_tointeger(L,i);
-		if (i == 3 ) Gridno = lua_tointeger(L,i);
+		UINT32 uiCheckType = lua_tointeger(L,1);
+		UINT16 usSubIndex = lua_tointeger(L,2);
+		UINT32 Gridno = lua_tointeger(L,3);
+		
+		GetTileIndexFromTypeSubIndex( uiCheckType, usSubIndex, &usTileIndex );
+		AddStructToHead( Gridno, usTileIndex );	
 	}
 
-	GetTileIndexFromTypeSubIndex( uiCheckType, usSubIndex, &usTileIndex );
-	AddStructToHead( Gridno, usTileIndex );
-	
 return 0;
 }
 
 static int l_ConvertGridNoToXY (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-BOOLEAN Bool = FALSE;
-UINT32 Gridno,dis;
 INT16 sX, sY;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) Gridno = lua_tointeger(L,i);
-		if (i == 2 ) dis = lua_tointeger(L,i);
+		UINT32 Gridno = lua_tointeger(L,1);
+		UINT32 dis = lua_tointeger(L,2);
+		
+		// Redo movement costs....
+		ConvertGridNoToXY( Gridno, &sX, &sY ); 
+		RecompileLocalMovementCostsFromRadius( Gridno, dis );	
+		
 	}
-
-	// Redo movement costs....
-	ConvertGridNoToXY( Gridno, &sX, &sY ); 
-	RecompileLocalMovementCostsFromRadius( Gridno, dis );
 	
 return 0;
 }
 
 static int l_SetRender (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-
 	gTacticalStatus.uiFlags |= NOHIDE_REDUNDENCY;
 	
 	InvalidateWorldRedundency( );
@@ -6472,28 +6115,35 @@ UINT8  n = lua_gettop(L);
 	
 return 0;
 }
+
+static int l_WorldLevelDataMAPELEMENT_REVEALED(lua_State *L)
+{
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT32 sGridNo = lua_tointeger(L,1);
+		
+		gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_REVEALED;
+	}
+	
+return 0;
+}
  
 //-----------------
 static int l_SetUpHelicopterForPlayer (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT16 SextorX;
-UINT16 SextorY;
 
-UINT8 SkyDrive;
 UINT8 vehicle = 163;	// Default: Helicopter
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 4 )
 	{
-		if (i == 1 ) SextorX = lua_tointeger(L,i);
-		if (i == 2 ) SextorY = lua_tointeger(L,i);
-		if (i == 3 ) SkyDrive = lua_tointeger(L,i);
-		if (i == 4 ) vehicle = lua_tointeger(L,i);
+		UINT16 SextorX = lua_tointeger(L,1);
+		UINT16 SextorY = lua_tointeger(L,2);
+		UINT8 SkyDrive = lua_tointeger(L,3);
+		vehicle = lua_tointeger(L,4);
+		
+		SetUpHelicopterForPlayer( SextorX, SextorY, SkyDrive, vehicle );
 	}
 
-	SetUpHelicopterForPlayer( SextorX, SextorY, SkyDrive, vehicle );
-	
 return 0;
 }
 
@@ -6502,20 +6152,14 @@ return 0;
 //open door
 static int l_ACTION_ITEM_OPEN_DOOR (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
-
 OBJECTTYPE DoorCloser;
-
 UINT32 sGridNo;
-
 STRUCTURE *pStructure;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
+
 
 		pStructure = FindStructure( sGridNo, STRUCTURE_ANYDOOR );
 		if (pStructure)
@@ -6538,26 +6182,20 @@ STRUCTURE *pStructure;
 				gfExplosionQueueMayHaveChangedSight = TRUE;
 			}
 		}
-	
+	}
 return 0;
 }	
 
 //Close Door
 static int l_ACTION_ITEM_CLOSE_DOOR (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
-
 OBJECTTYPE DoorCloser;
-
 UINT32 sGridNo;
-
 STRUCTURE *pStructure;
-	for (i= 1; i<=n; i++ )
+
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
 
 		pStructure = FindStructure( sGridNo, STRUCTURE_ANYDOOR );
 		if (pStructure)
@@ -6580,6 +6218,7 @@ STRUCTURE *pStructure;
 				// because we are basically just ensuring that the door is closed
 			}
 		}
+	}	
 	
 return 0;
 }	
@@ -6587,16 +6226,14 @@ return 0;
 
 static int l_ACTION_ITEM_TOGGLE_DOOR (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 OBJECTTYPE DoorCloser;
 UINT32 sGridNo;
 STRUCTURE *pStructure;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
+
 
 		pStructure = FindStructure( sGridNo, STRUCTURE_ANYDOOR );
 		if (pStructure)
@@ -6611,44 +6248,40 @@ STRUCTURE *pStructure;
 			}
 			gfExplosionQueueMayHaveChangedSight = TRUE;
 		}
-	
+	}	
 return 0;
 }	
 
 //locked unlocked door
 static int l_ACTION_ITEM_UNLOCK_DOOR (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 OBJECTTYPE DoorCloser;
 UINT32 sGridNo;
 DOOR * pDoor;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
+
 			pDoor = FindDoorInfoAtGridNo( sGridNo );
 			if ( pDoor )
 			{
 				pDoor->fLocked = FALSE;
 			}
-	
+	}	
 return 0;
 }			
 
 static int l_ACTION_ITEM_TOGGLE_LOCK (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 OBJECTTYPE DoorCloser;
 UINT32 sGridNo;
 DOOR * pDoor;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
+
 			pDoor = FindDoorInfoAtGridNo( sGridNo );
 			if ( pDoor )
 			{
@@ -6661,126 +6294,101 @@ DOOR * pDoor;
 					pDoor->fLocked = TRUE;
 				}
 			}
-
+	}
 return 0;
 }	
 
 static int l_ACTION_ITEM_UNTRAP_DOOR (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 OBJECTTYPE DoorCloser;
 UINT32 sGridNo;
 DOOR * pDoor;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
+
 			pDoor = FindDoorInfoAtGridNo( sGridNo );
 			if ( pDoor )
 			{
 				pDoor->ubTrapLevel = 0;
 				pDoor->ubTrapID = NO_TRAP;
 			}
-		
+	}	
+	
 return 0;
 }	
 
 static int l_ACTION_ITEM_SMALL_PIT (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 OBJECTTYPE DoorCloser;
 UINT32 sGridNo;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		sGridNo = lua_tointeger(L,1);
 
 		Add3X3Pit( sGridNo );
 		SearchForOtherMembersWithinPitRadiusAndMakeThemFall( sGridNo, 1 );
-		
+	}	
+	
 return 0;
 }
 
 static int l_SearchForOtherMembersWithinPitRadiusAndMakeThemFall (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-OBJECTTYPE DoorCloser;
-UINT32 sGridNo;
-INT16 sRadius;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-		if (i == 2 ) sRadius = lua_tointeger(L,i);
-	}
+		UINT32 sGridNo = lua_tointeger(L,1);
+		INT16 sRadius = lua_tointeger(L,2);
+
 		SearchForOtherMembersWithinPitRadiusAndMakeThemFall( sGridNo, sRadius );
-		
+	}	
+	
 return 0;
 }
 
 static int l_Add5X5Pit (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-OBJECTTYPE DoorCloser;
-UINT32 sGridNo;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		UINT32 sGridNo = lua_tointeger(L,1);
+
 		Add5X5Pit( sGridNo );
-		
+	}	
+	
 return 0;
 }
 
 static int l_Add3X3Pit (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-OBJECTTYPE DoorCloser;
-UINT32 sGridNo;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		UINT32 sGridNo = lua_tointeger(L,1);
+
 		Add3X3Pit( sGridNo );
-		
+	}	
+	
 return 0;
 }
 
 static int l_ACTION_ITEM_LARGE_PIT (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-OBJECTTYPE DoorCloser;
-UINT32 sGridNo;
-
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		UINT32 sGridNo = lua_tointeger(L,1);
 
 		Add5X5Pit( sGridNo );
 		SearchForOtherMembersWithinPitRadiusAndMakeThemFall( sGridNo, 2 );
-		
+	}	
+	
 return 0;
 }
 
 static int l_ACTION_ITEM_TOGGLE_ACTION1 (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
-
 	ToggleActionItemsByFrequency( FIRST_MAP_PLACED_FREQUENCY + 1 );
 		
 return 0;
@@ -6788,9 +6396,6 @@ return 0;
 		
 static int l_ACTION_ITEM_TOGGLE_ACTION2 (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
-
 	ToggleActionItemsByFrequency( FIRST_MAP_PLACED_FREQUENCY + 2 );
 		
 return 0;
@@ -6798,9 +6403,6 @@ return 0;
 
 static int l_ACTION_ITEM_TOGGLE_ACTION3 (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
-
 	ToggleActionItemsByFrequency( FIRST_MAP_PLACED_FREQUENCY + 3 );
 		
 return 0;
@@ -6808,9 +6410,6 @@ return 0;
 
 static int l_ACTION_ITEM_TOGGLE_ACTION4 (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
-
 	ToggleActionItemsByFrequency( FIRST_MAP_PLACED_FREQUENCY + 4 );
 		
 return 0;
@@ -6818,41 +6417,33 @@ return 0;
 
 static int l_ACTION_ITEM_TOGGLE_PRESSURE_ITEMS (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-OBJECTTYPE DoorCloser;
-UINT32 sGridNo;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) sGridNo = lua_tointeger(L,i);
-	}
+		UINT32 sGridNo = lua_tointeger(L,1);
 
-TogglePressureActionItemsInGridNo( sGridNo );
-		
+		TogglePressureActionItemsInGridNo( sGridNo );
+	}	
 return 0;
 }
 
 static int l_ACTION_ITEM_ENTER_BROTHEL (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
+
 	
 return 0;
 }
 
 static int l_ACTION_ITEM_EXIT_BROTHEL (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
+
 	
 return 0;
 }
 
 static int l_ACTION_ITEM_KINGPIN_ALARM (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-OBJECTTYPE DoorCloser;
+
 		
 return 0;
 }
@@ -6863,6 +6454,7 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 	INT32 sGridNo = NOWHERE;
 		
 	if ( n >= 1)
+	{
 		sGridNo = lua_tointeger(L, 1);
 
 	if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -6937,31 +6529,33 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 			}
 		}
 	}
-		
+	}	
 	return 0;
 }
 
 static int l_ACTION_ITEM_REVEAL_ROOM (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
-	OBJECTTYPE DoorCloser;
 	INT32 sGridNo = NOWHERE;
 	
 	if ( n >= 1)
+	{
 		sGridNo = lua_tointeger(L, 1);
 
-	// Flugente: check for valid sGridNo
-	if ( TileIsOutOfBounds(sGridNo) )
-		return 0;
+		// Flugente: check for valid sGridNo
+		if ( TileIsOutOfBounds(sGridNo) )
+			return 0;
 
-	//DBrot: More Rooms
-	//UINT8 ubRoom;
-	UINT16 usRoom;
-	if ( InAHiddenRoom( sGridNo, &usRoom ) )
-	{
-		RemoveRoomRoof( sGridNo, usRoom, NULL );
+		//DBrot: More Rooms
+		//UINT8 ubRoom;
+		UINT16 usRoom;
+		if ( InAHiddenRoom( sGridNo, &usRoom ) )
+		{
+			RemoveRoomRoof( sGridNo, usRoom, NULL );
+		}
+	
 	}
-			
+	
 	return 0;
 }
 
@@ -6969,7 +6563,7 @@ static int l_ACTION_ITEM_LOCAL_ALARM (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
 	{
-		INT32 sGridNo = lua_tointeger(L, 1);
+		UINT32 sGridNo = lua_tointeger(L, 1);
 
 		// Flugente: check for valid sGridNo
 		if ( TileIsOutOfBounds(sGridNo) )
@@ -7055,29 +6649,28 @@ static int l_Action_door (lua_State *L)
 	BOOLEAN Bool;
 	INT32 sGridNo = NOWHERE;
 
-	for (int i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 )
-			Bool = lua_toboolean(L,i);
-		if (i == 2 )
-			sGridNo = lua_tointeger(L,i);
-	}
+			Bool = lua_toboolean(L,1);
+			sGridNo = lua_tointeger(L,2);
 
-	// Flugente: check for valid sGridNo
-	if ( TileIsOutOfBounds(sGridNo) )
-		return 0;
+
+		// Flugente: check for valid sGridNo
+		if ( TileIsOutOfBounds(sGridNo) )
+			return 0;
 		
-	if (Bool == FALSE)
-	{	
-		DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
+		if (Bool == FALSE)
+		{	
+			DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
 			PerformItemAction ( sGridNo, &DoorCloser );
-	}
-	else
-	{		
-		DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_OPEN_DOOR;
+		}
+		else
+		{		
+			DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_OPEN_DOOR;
 			PerformItemAction ( sGridNo, &DoorCloser );
-	}
+		}
 	
+	}	
 	return 0;
 }			
 
@@ -7088,15 +6681,17 @@ static int l_Action_door_open (lua_State *L)
 	INT32 sGridNo = NOWHERE;
 
 	if ( n >= 1)
+	{
 		sGridNo = lua_tointeger(L, 1);
 
-	// Flugente: check for valid sGridNo
-	if ( TileIsOutOfBounds(sGridNo) )
-		return 0;
+		// Flugente: check for valid sGridNo
+		if ( TileIsOutOfBounds(sGridNo) )
+			return 0;
 
-	DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_OPEN_DOOR;
-	PerformItemAction ( sGridNo, &DoorCloser );
-		
+		DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_OPEN_DOOR;
+		PerformItemAction ( sGridNo, &DoorCloser );
+	}	
+	
 	return 0;
 }	
 
@@ -7107,15 +6702,16 @@ static int l_Action_door_close (lua_State *L)
 	INT32 sGridNo = NOWHERE;
 
 	if ( n >= 1)
+	{
 		sGridNo = lua_tointeger(L, 1);
 
-	// Flugente: check for valid sGridNo
-	if ( TileIsOutOfBounds(sGridNo) )
-		return 0;
+		// Flugente: check for valid sGridNo
+		if ( TileIsOutOfBounds(sGridNo) )
+			return 0;
 
-	DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
-	PerformItemAction ( sGridNo, &DoorCloser );
-			
+		DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
+		PerformItemAction ( sGridNo, &DoorCloser );
+	}		
 	return 0;
 }	
 //-----------------------------------
@@ -7123,26 +6719,23 @@ static int l_Action_door_close (lua_State *L)
 //action
 static int l_SetOffBombsByFrequency (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	INT8 ACTION;
-	UINT8 ID;
 	SOLDIERTYPE *		pSoldier;
 
-	for (int i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) ACTION = lua_tointeger(L,i);
-		if (i == 2 ) ID = lua_tointeger(L,i);
-	}
+		INT8 ACTION = lua_tointeger(L,1);
+		UINT8 ID = lua_tointeger(L,2);
 
-	if (ACTION >= 1 || ACTION <=4)
-	{
-		pSoldier = FindSoldierByProfileID( ID, TRUE );
-		if (pSoldier)
+
+		if (ACTION >= 1 || ACTION <=4)
 		{
-			SetOffBombsByFrequency( pSoldier->ubID, FIRST_MAP_PLACED_FREQUENCY + ACTION );
+			//pSoldier = FindSoldierByProfileID( ID, TRUE );
+			//if (pSoldier)
+			//{
+				SetOffBombsByFrequency( ID /*pSoldier->ubID*/, FIRST_MAP_PLACED_FREQUENCY + ACTION );
+			//}
 		}
 	}
-
 	return 0;
 }
 
@@ -7211,19 +6804,14 @@ static int l_SetGlobalLuaBool (lua_State *L)
 
 static int l_SetGlobalLuaVal (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	UINT32 val;
-	INT32 set;
-
-	for (int i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) val = lua_tointeger(L,i);
-		if (i == 2 ) set = lua_tointeger(L,i);
-	}
+		UINT32 val = lua_tointeger(L,1);
+		INT32 set = lua_tointeger(L,2);
 
-	if ( val >=0 ||  1000<= val ) 
-		gLuaGlobal[val].iGlobalLuaVal = set;
-	
+		if ( val >=0 ||  1000<= val ) 
+			gLuaGlobal[val].iGlobalLuaVal = set;
+	}	
 	return 0;
 }
 
@@ -7247,16 +6835,12 @@ static int l_GetGlobalLuaVal (lua_State *L)
 
 static int l_CheckGlobalLuaBool (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	UINT32 val;
-	BOOLEAN Bool;
-
-	if (n >= 1 ) val = lua_tointeger(L,1);
-	//if (i == 2 ) set = lua_toboolean(L,i);
-
-	Bool = gLuaGlobal[val].fGlobalLuaBool;
-
-	lua_pushboolean(L, Bool);
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT32 val = lua_tointeger(L,1);
+		BOOLEAN Bool = gLuaGlobal[val].fGlobalLuaBool;
+		lua_pushboolean(L, Bool);
+	}
 	
 	return 1;
 }
@@ -7713,17 +7297,12 @@ static int l_RecalculateOppCntsDueToNoLongerNeutral (lua_State *L)
 
 static int l_CheckSoldierActive (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
 SOLDIERTYPE *pSoldier;
-UINT8 UID;
 BOOLEAN Bool;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
-	}
+		UINT8 UID = lua_tointeger(L,1);
 
 		pSoldier = FindSoldierByProfileID( UID, FALSE );
 	if (pSoldier)
@@ -7735,23 +7314,19 @@ BOOLEAN Bool;
 		}
 		
 		lua_pushboolean(L, Bool);
-								
+	}	
+	
 return 1;
 }
 
 static int l_CheckSoldierInSector (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-
 SOLDIERTYPE *pSoldier;
-UINT8 UID;
 BOOLEAN Bool;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
-	}
+		UINT8 UID = lua_tointeger(L,1);
 
 		pSoldier = FindSoldierByProfileID( UID, FALSE );
 	if (pSoldier)
@@ -7763,22 +7338,19 @@ BOOLEAN Bool;
 		}
 		
 		lua_pushboolean(L, Bool);
-								
+	}								
 return 1;
 }
 
 static int l_GetSoldierTeam (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 INT8 Side;
 SOLDIERTYPE *pSoldier;
-UINT8 UID;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 1 )
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
-	}
+		UINT8 UID = lua_tointeger(L,1);
+
 
 		pSoldier = FindSoldierByProfileID( UID, FALSE );
 			if (pSoldier)
@@ -7787,24 +7359,20 @@ UINT8 UID;
 				}	
 				
 		lua_pushinteger(L, Side);
-		
+	}
+	
 return 1;
 }
 
 static int l_ChangeSoldierTeam (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT8 Side;
 SOLDIERTYPE *pSoldier;
-UINT8 UID;
 
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
-		if (i == 2 ) Side = lua_tointeger(L,i);
-	}
+		UINT8 UID = lua_tointeger(L,1);
+		INT8 Side = lua_tointeger(L,2);
+
 
 		pSoldier = FindSoldierByProfileID( UID, FALSE );
 	if (pSoldier)
@@ -7812,25 +7380,23 @@ UINT8 UID;
 		
 			ChangeSoldierTeam( pSoldier, Side );
 		}
-		
+	}		
 							
 return 0;
 }
 
 static int l_ChangeMercPtrsTeam (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
 INT8 Side;
 SOLDIERTYPE *pSoldier;
 UINT8 UID;
 BOOLEAN Bool;
 
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop(L) >= 2 )
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
-		if (i == 2 ) Side = lua_tointeger(L,i);
-	}
+		UID = lua_tointeger(L,1);
+		Side = lua_tointeger(L,2);
+
 	
 		if ( MercPtrs[ UID ]->bInSector && MercPtrs[ UID ]->bActive )
 			Bool = TRUE;
@@ -7844,7 +7410,8 @@ BOOLEAN Bool;
 			pSoldier->bSide = Side;
 			}
 		}
-						
+	}	
+	
 return 0;
 }
 
@@ -8275,6 +7842,67 @@ static int l_CreateItem (lua_State *L)
 	return 0;
 }
 
+static int l_CreateKeyProfInvAndAddItemToPool (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+	OBJECTTYPE	Object;	
+	UINT8 ubNumberOfKeys;
+	UINT8 ubKeyIdValue;
+	UINT8 ubTargetNPC;
+	SOLDIERTYPE *pSoldier;
+	INT32	iWorldItem;
+	INT32 sGridNo;
+	UINT8 bLevel;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
+		if (i == 2 ) ubNumberOfKeys = lua_tointeger(L,i);
+		if (i == 3 ) ubKeyIdValue = lua_tointeger(L,i);
+		if (i == 4 ) sGridNo = lua_tointeger(L,i);
+		if (i == 5 ) bLevel = lua_tointeger(L,i);
+	}
+	
+		pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
+
+		if ( pSoldier )
+			{
+				OBJECTTYPE Key;
+				CreateKeyObject( &Key , ubNumberOfKeys, ubKeyIdValue );
+				AutoPlaceObject( pSoldier, &Key, TRUE );
+				AddItemToPoolAndGetIndex( sGridNo, &Key, -1, bLevel, 0, 0, -1, &iWorldItem );
+			}	
+
+	return 0;
+}
+
+static int l_CreateKeyAndAddItemToPool (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+	OBJECTTYPE	Object;	
+	UINT8 ubNumberOfKeys;
+	UINT8 ubKeyIdValue;
+	INT32	iWorldItem;
+	INT32 sGridNo;
+	UINT8 bLevel;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubNumberOfKeys = lua_tointeger(L,i);
+		if (i == 2 ) ubKeyIdValue = lua_tointeger(L,i);
+		if (i == 3 ) sGridNo = lua_tointeger(L,i);
+		if (i == 4 ) bLevel = lua_tointeger(L,i);
+	}
+				OBJECTTYPE Key;
+				CreateKeyObject( &Key , ubNumberOfKeys, ubKeyIdValue );
+				AddItemToPoolAndGetIndex( sGridNo, &Key, -1, bLevel, 0, 0, -1, &iWorldItem );
+			
+
+	return 0;
+}
+
 //Create items
 static int l_CreateToUnLoadedSector (lua_State *L)
 {
@@ -8289,7 +7917,7 @@ static int l_CreateToUnLoadedSector (lua_State *L)
 	INT8 bMapZ;
 	UINT32 uiNumberOfItems;
 	UINT8 ubLevel;
-	UINT16 usFlags; 
+	//UINT16 usFlags; 
 	INT8 bRenderZHeightAboveLevel;
 	INT8 bVisible;
 	BOOLEAN fReplaceEntireFile;
@@ -8304,14 +7932,44 @@ static int l_CreateToUnLoadedSector (lua_State *L)
 		if (i == 6 ) sGridNo = lua_tointeger(L,i);
 		if (i == 7 ) uiNumberOfItems = lua_tointeger(L,i);
 		if (i == 8 ) ubLevel = lua_tointeger(L,i);
-		if (i == 9 ) usFlags = lua_tointeger(L,i);
-		if (i == 10 ) bRenderZHeightAboveLevel = lua_tointeger(L,i);
-		if (i == 11 ) bVisible = lua_tointeger(L,i);
-		if (i == 12 ) fReplaceEntireFile = lua_toboolean(L,i);
+		//if (i == 9 ) usFlags = lua_tointeger(L,i);
+		if (i == 9 ) bRenderZHeightAboveLevel = lua_tointeger(L,i);
+		if (i == 10 ) bVisible = lua_tointeger(L,i);
+		if (i == 11 ) fReplaceEntireFile = lua_toboolean(L,i);
 	}
 
 	CreateItem( usItem, bStatus, &Object ); 
-	AddItemsToUnLoadedSector( sMapX, sMapY, bMapZ, sGridNo, uiNumberOfItems, &Object, ubLevel, usFlags, bRenderZHeightAboveLevel, bVisible, fReplaceEntireFile );
+	AddItemsToUnLoadedSector( sMapX, sMapY, bMapZ, sGridNo, uiNumberOfItems, &Object, ubLevel, WORLD_ITEM_REACHABLE, bRenderZHeightAboveLevel, bVisible, fReplaceEntireFile );
+
+	return 0;
+}
+
+//Create Key
+static int l_CreateKeyProfInv (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+	OBJECTTYPE	Object;	
+	UINT8 ubNumberOfKeys;
+	UINT8 ubKeyIdValue;
+	UINT8 ubTargetNPC;
+	SOLDIERTYPE *pSoldier;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
+		if (i == 2 ) ubNumberOfKeys = lua_tointeger(L,i);
+		if (i == 3 ) ubKeyIdValue = lua_tointeger(L,i);
+	}
+	
+		pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
+
+		if ( pSoldier )
+			{
+				OBJECTTYPE Key;
+				CreateKeyObject( &Key , ubNumberOfKeys, ubKeyIdValue );
+				AutoPlaceObject( pSoldier, &Key, TRUE );
+			}	
 
 	return 0;
 }
@@ -8327,7 +7985,7 @@ static int l_CreateItemToPool (lua_State *L)
 	INT16 bStatus;
 	UINT8 ubLevel;
 	INT8 bVisible;
-	UINT16 usFlags;
+	//UINT16 usFlags;
 	INT8 bRenderZHeightAboveLevel;
 
 	for (i= 1; i<=n; i++ )
@@ -8337,12 +7995,12 @@ static int l_CreateItemToPool (lua_State *L)
 		if (i == 3 ) sGridNo = lua_tointeger(L,i);
 		if (i == 5 ) bVisible = lua_tointeger(L,i);
 		if (i == 5 ) ubLevel = lua_tointeger(L,i);
-		if (i == 6 ) usFlags = lua_tointeger(L,i);
-		if (i == 7 ) bRenderZHeightAboveLevel = lua_tointeger(L,i);
+		//if (i == 6 ) usFlags = lua_tointeger(L,i);
+		if (i == 6 ) bRenderZHeightAboveLevel = lua_tointeger(L,i);
 	}
 
 	CreateItem( usItem, bStatus, &Object ); 
-	AddItemToPool( sGridNo, &Object, bVisible, ubLevel, usFlags, bRenderZHeightAboveLevel );
+	AddItemToPool( sGridNo, &Object, bVisible, ubLevel, WORLD_ITEM_REACHABLE, bRenderZHeightAboveLevel );
 
 	return 0;
 }
@@ -9257,6 +8915,36 @@ static int l_FindSoldierByProfileID (lua_State *L)
 	return 1;
 }
 
+static int l_FindSoldierByProfileIDBool (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+	UINT8 ubTargetNPC = 0,ubLoop = 0,ubLoopLimit = 0;
+	SOLDIERTYPE *pSoldier;
+	UINT8 id = -1;
+	BOOLEAN ProfBool = FALSE;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
+	//	if (i == 2 ) fPlayerMercsOnly = lua_tointeger(L,i);
+	}
+		
+	ubLoopLimit = MAX_NUM_SOLDIERS;
+
+	for (ubLoop = 0, pSoldier = MercPtrs[0]; ubLoop < ubLoopLimit; ubLoop++, pSoldier++)
+	{
+		if (pSoldier->bActive && pSoldier->ubProfile == ubTargetNPC)
+		{
+			ProfBool = TRUE;
+		}
+	}
+		
+	lua_pushboolean(L, ProfBool);
+		
+	return 1;
+}
+
 static int l_ubWhatKindOfMercAmI (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -9936,6 +9624,22 @@ static int l_SetPendingNewScreenSEXSCREEN (lua_State *L)
 	UINT8  n = lua_gettop(L);
 
 	SetPendingNewScreen( SEX_SCREEN );
+			
+	return 0;
+}
+
+static int l_SetPendingNewScreen (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	
+	UINT8 scr = 0;
+	int i = 0;
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) scr = lua_tointeger(L,i);
+	}
+
+	SetPendingNewScreen( scr );
 			
 	return 0;
 }
@@ -11594,6 +11298,592 @@ static int lh_getBooleanFromTable(lua_State *L, const char * fieldname)
 	lua_pop(L, 1);
 	return i;
 }
+//14-10-2011
+
+static int l_InternalLeaveTacticalScreen (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+UINT32 uiNewScreen;
+
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) uiNewScreen = lua_tointeger(L,i);
+	}
+
+	InternalLeaveTacticalScreen( uiNewScreen );
+	
+return 0;
+}
+
+static int l_ChangeSelectedMapSector (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT16 sMapX;
+INT16 sMapY;
+INT8 bMapZ;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sMapX = lua_tointeger(L,i);
+		if (i == 2 ) sMapY = lua_tointeger(L,i);
+		if (i == 3 ) bMapZ = lua_tointeger(L,i);
+	}
+
+	ChangeSelectedMapSector( sMapX, sMapY, bMapZ );
+	
+return 0;
+}
+
+static int l_PlaceGroupInSector (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+ UINT8 ubGroupID;
+ INT16 sPrevX;
+ INT16 sPrevY;
+ INT16 sNextX;
+ INT16 sNextY; 
+ INT8 bZ; 
+ BOOLEAN fCheckForBattle;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubGroupID = lua_tointeger(L,i);
+		if (i == 2 ) sPrevX = lua_tointeger(L,i);
+		if (i == 3 ) sPrevY = lua_tointeger(L,i);
+ 		if (i == 4 ) sNextX = lua_tointeger(L,i);
+ 		if (i == 5 ) sNextY = lua_tointeger(L,i); 
+ 		if (i == 6 ) bZ = lua_tointeger(L,i);
+ 		if (i == 7 ) fCheckForBattle  = lua_toboolean(L,i);
+	}
+
+	PlaceGroupInSector( ubGroupID, sPrevX, sPrevY, sNextX, sNextY, bZ, fCheckForBattle );
+									
+return 0;
+}
+
+static int l_SetSoldierbGroupID (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT8 bGroupID;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 2 ) bGroupID = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		pSoldier->ubGroupID = bGroupID;	
+	}
+										
+return 0;
+}
+
+static int l_CheckSoldierbGroupID (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT8 bGroupID;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		bGroupID = pSoldier->ubGroupID;		
+	}
+	else
+	{
+		bGroupID = NUMBER_OF_SQUADS;
+	}
+		
+	lua_pushinteger(L, bGroupID);
+										
+return 1;
+}
+
+static int l_CheckSoldierSectorY (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT16 SectorY;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		SectorY = pSoldier->sSectorY;		
+	}
+		
+	lua_pushinteger(L, SectorY);
+										
+return 1;
+}
+
+static int l_CheckSoldierSectorX (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT16 SectorX;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		SectorX = pSoldier->sSectorX;		
+	}
+		
+	lua_pushinteger(L, SectorX);
+										
+return 1;
+}
+
+static int l_CheckSoldierSectorZ (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT8 SectorZ;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		SectorZ = pSoldier->bSectorZ;		
+	}
+		
+	lua_pushinteger(L, SectorZ);
+										
+return 1;
+}
+
+static int l_SetSoldierSectorY (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT16 SectorY;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 2 ) SectorY = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		pSoldier->sSectorY = SectorY;		
+	}
+										
+return 0;
+}
+
+static int l_SetSoldierSectorX (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT16 SectorX;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 2 ) SectorX = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		pSoldier->sSectorX = SectorX;		
+	}
+										
+return 0;
+}
+
+static int l_SetSoldierSectorZ (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT8 SectorZ;
+SOLDIERTYPE *pSoldier;
+UINT8 UID;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 2 ) SectorZ = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UID, FALSE );
+	
+	if (pSoldier)
+	{
+		pSoldier->bSectorZ = SectorZ;		
+	}
+										
+return 0;
+}
+
+static int l_SetMercPtsrSectorZ(lua_State *L)
+{
+
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT8 SectorZ;
+
+	if ( lua_gettop(L) >= 2 )
+	{
+		ubID = lua_tointeger(L,1);
+		SectorZ = lua_tointeger(L,2);
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			pSoldier->bSectorZ = SectorZ;
+		}
+	}
+	
+	}
+
+	return 0;
+}
+
+static int l_SetMercPtsrSectorX(lua_State *L)
+{
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT16 SectorX;
+
+	if ( lua_gettop(L) >= 2 )
+	{
+		ubID = lua_tointeger(L,1);
+		SectorX = lua_tointeger(L,2);
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			pSoldier->sSectorX = SectorX;
+		}
+	}
+	
+	}
+
+	return 0;
+}
+
+static int l_SetMercPtsrSectorY(lua_State *L)
+{
+
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT16 SectorY;
+
+	if ( lua_gettop(L) >= 2 )
+	{
+		ubID = lua_tointeger(L,1);
+		SectorY = lua_tointeger(L,2);
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			pSoldier->sSectorY = SectorY;
+		}
+	}
+	
+	}
+
+	return 0;
+}
+
+static int l_SetMercPtsrubGroupID(lua_State *L)
+{
+
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT8 GroupID;
+
+	if ( lua_gettop(L) >= 2 )
+	{
+		ubID = lua_tointeger(L,1);
+		GroupID = lua_tointeger(L,2);
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			pSoldier->ubGroupID = GroupID;
+		}
+	}
+
+	
+	}
+	return 0;
+}
+
+static int l_CheckMercPtsrSectorY(lua_State *L)
+{
+
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT16 SectorY;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		ubID = lua_tointeger(L,1);
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			SectorY = pSoldier->sSectorY;
+		}
+	}
+	else
+	{	
+		SectorY = 0;
+	}
+	
+	lua_pushinteger(L, SectorY);
+	
+	}
+
+	return 1;
+}
+
+static int l_CheckMercPtsrSectorX(lua_State *L)
+{
+
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT16 SectorX;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		ubID = lua_tointeger(L,1);
+
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			SectorX = pSoldier->sSectorX;
+		}
+	}
+	else
+	{	
+		SectorX = 0;
+	}
+	
+	lua_pushinteger(L, SectorX);
+	
+	}	
+
+	return 1;
+}
+
+static int l_CheckMercPtsrSectorZ(lua_State *L)
+{
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	INT16 SectorZ;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		ubID = lua_tointeger(L,1);
+
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			SectorZ = pSoldier->bSectorZ;
+		}
+	}
+	else
+	{	
+		SectorZ = 0;
+	}
+	
+	lua_pushinteger(L, SectorZ);
+
+	}
+
+	return 1;
+}
+
+static int l_CheckMercPtsrubGroupID(lua_State *L)
+{
+	UINT8 ubID = 0;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
+	UINT8 GroupID;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		ubID = lua_tointeger(L,1);
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{
+		pSoldier = MercPtrs[ ubID ];
+		
+		if (pSoldier)
+		{
+			GroupID = pSoldier->ubGroupID;
+		}
+		else
+		{
+			GroupID = NUMBER_OF_SQUADS;
+		}
+	}
+	else
+		GroupID = NUMBER_OF_SQUADS;
+	
+	lua_pushinteger(L, GroupID);
+	
+	}
+
+	return 1;
+}
+
+static int l_GetGroup(lua_State *L)
+{
+	UINT8 ubGroupID = NUMBER_OF_SQUADS;
+	UINT8 GroupID = NUMBER_OF_SQUADS;
+	BOOLEAN Bool = FALSE;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		 ubGroupID = lua_tointeger(L,1);
+
+		if ( GetGroup( ubGroupID ) )
+		{
+			GroupID = ubGroupID;
+		}
+	
+		lua_pushinteger(L, GroupID);
+	
+	}	
+
+	return 1;
+}
+
+static int l_fBobbyRSiteCanBeAccessed (lua_State *L)
+{
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		BOOLEAN LaptopAcc = lua_toboolean(L,1);
+
+		LaptopSaveInfo.fBobbyRSiteCanBeAccessed = LaptopAcc;
+	
+	}	
+return 0;
+}
 
 static int lh_getIntegerFromTable(lua_State *L, const char * fieldname)
 {
@@ -11736,9 +12026,7 @@ static int l_gTacticalStatus(lua_State *L)
 	return 0;
 }
 
-
 //--------------------------------------------------------------
-
 
 BOOLEAN SaveLuaGlobalToSaveGameFile( HWFILE hFile )
 {
