@@ -1,6 +1,6 @@
 --[[
 
-	http://www.legion.zone.zg.pl/doku.php/modowanie/ja/art_ja_m_22_lua
+	http://legion.itzg.pl/mzgb/pmwiki/pmwiki.php?n=JaggedAlliance2UBV1.Jav113lua
 
 **********************
 ** Global variables **
@@ -163,7 +163,7 @@ EventGlobal =
 	GLOBAL_LOYALTY_GAIN_SAM = 10,
 	GLOBAL_LOYALTY_LOSE_SAM = 11,
 	GLOBAL_LOYALTY_QUEEN_BATTLE_WON = 12,
-	GLOBAL_LOYALTY_GRIZZLY_DEAD = 13,
+	GLOBAL_LOYALTY_UNUSED = 13,
 }
 
 
@@ -280,13 +280,6 @@ function HandleGlobalLoyaltyEvent( ubEventType, sSectorX, sSectorY, bSectorZ )
 		
 		iLoyaltyChange = -250	
 		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
-
-	elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_GRIZZLY_DEAD then
-		
-		if ( CheckMercIsDead(3) == false ) then 
-		iLoyaltyChange = 1000	
-		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
-		end
 
 	end
 	
