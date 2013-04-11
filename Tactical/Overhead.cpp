@@ -8224,6 +8224,12 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			// more shallow. 
 			// The relation between AP Loss and Suppression Points is LINEAR.
 			ubPointsLost = ( ( (pSoldier->ubSuppressionPoints * APBPConstants[AP_SUPPRESSION_MOD]) / (bTolerance + 6) ) * 2 + 1 ) / 2;
+
+			// Flugente: added ini options for suppression effectiveness for player team and everybody else
+			if ( pSoldier->bTeam == gbPlayerNum )
+				sFinalSuppressionEffectiveness = sFinalSuppressionEffectiveness * gGameExternalOptions.usSuppressionEffectivenessPlayer / 100;
+			else 
+				sFinalSuppressionEffectiveness = sFinalSuppressionEffectiveness * gGameExternalOptions.usSuppressionEffectivenessAI / 100;
 			
 			// INI-Controlled intensity. SuppressionEffectiveness acts as a percentage applied to the number of lost APs. 
 			// To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
@@ -8236,7 +8242,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			{
 				if (ubPointsLost > usLimitSuppressionAPsLostPerAttack)
 				{
-					// Flugente: eh.. woudln't this _always_ be 255? I suspect this should be __min
+					// Flugente: eh.. wouldn't this _always_ be 255? I suspect this should be __min
 					//ubPointsLost = __max(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
 					ubPointsLost = __min(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
 				}

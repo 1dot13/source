@@ -4432,8 +4432,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 							ubSourceSectorID = SEC_P3;
 
 						stagesector0 = SEC_M2;
-						stagesector1 = SEC_M3;
-						stagesector2 = SEC_M3;
+						stagesector1 = ubSourceSectorID;
+						stagesector2 = ubSourceSectorID;
 						stagesector3 = SEC_M6;
 
 						assaultsector0 = SEC_H4;
@@ -4449,10 +4449,18 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
 							ubSourceSectorID = SEC_P3;
 
-						stagesector0 = SEC_M6;
-						stagesector1 = SEC_M6;
-						stagesector2 = SEC_M6;
+						stagesector0 = ubSourceSectorID;
+						stagesector1 = ubSourceSectorID;
+						stagesector2 = ubSourceSectorID;
 						stagesector3 = SEC_L11;
+
+						if ( !(SectorInfo[ stagesector3 ].ubNumTroops > 0) )
+						{
+							ubSourceSectorID = SEC_N9;
+
+							if ( !(SectorInfo[ stagesector3 ].ubNumTroops > 0) )
+									ubSourceSectorID = ubSourceSectorID;
+						}
 
 						assaultsector0 = SEC_I8;
 						assaultsector1 = SEC_I8;

@@ -809,6 +809,10 @@ typedef struct
 	UINT8 ubSuppressionToleranceMax;
 	UINT8 ubSuppressionToleranceMin;
 
+	// Flugente: suppression modifiers for player and other teams
+	UINT16 usSuppressionEffectivenessPlayer;
+	UINT16 usSuppressionEffectivenessAI;
+
 	// HEADROCK HAM B2: Suppression Shock effectiveness (percentage, 100 = "normal", 0 = deactivated. Range 0-65535)
 	UINT16 usSuppressionShockEffect;
 
