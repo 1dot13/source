@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			MODULARIZED_AI									140	// Flugente: new savegame version due to modularized AI
 #define			MILITIA_EQUIPMENT								139	// Flugente: militia can equip from sector inventory
 #define			MULTITURN_ACTIONS								138	// Flugente: multiturn actions
 #define			EXTERNALISED_MERCHANTS							137	// Flugente: increased the number of merchants and externalised their data
@@ -58,7 +59,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								MILITIA_EQUIPMENT
+#define			SAVE_GAME_VERSION								MODULARIZED_AI
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

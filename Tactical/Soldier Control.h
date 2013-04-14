@@ -1272,7 +1272,8 @@ public:
 
 	INT16	bAIIndex;			    // PlanFactory from the modularized tactical AI that shall be used
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
-	UINT8	ubFiller[11];	
+	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
+	UINT8	ubFiller[10];	
 	
 #ifdef JA2UB
 	//ja25
