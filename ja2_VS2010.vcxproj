@@ -97,10 +97,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\JA2 SVN play r5870\</OutDir>
+    <OutDir>$(SolutionDir)\bin\VS2010\</OutDir>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
     <TargetExt>.exe</TargetExt>
-    <IntDir>..\..\..\JA2 SVN play r5870\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
     <LinkIncremental>true</LinkIncremental>
