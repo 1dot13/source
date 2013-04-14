@@ -24,7 +24,7 @@
   </ItemGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\.;.\.;.\ext\VFS\include;..\ext\VFS\include;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;..\Standard Gaming Platform;.\Standard Gaming Platform;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\Console;.\Console;.\ext\libpng;..\ext\libpng;.\ext\zlib;..\ext\zlib;;$(NOINHERIT)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\.;.\.;.\ext\VFS\include;..\ext\VFS\include;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\ModularizedTacticalAI;.\ModularizedTacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;..\Standard Gaming Platform;.\Standard Gaming Platform;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\Console;.\Console;.\ext\libpng;..\ext\libpng;.\ext\zlib;..\ext\zlib;;$(NOINHERIT)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>JA2;CINTERFACE;XML_STATIC;VFS_STATIC;VFS_WITH_SLF;VFS_WITH_7ZIP;USE_VFS;_CRT_SECURE_NO_DEPRECATE;$(JA2Language);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>

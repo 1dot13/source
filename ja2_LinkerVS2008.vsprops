@@ -7,6 +7,6 @@
 	<Tool
 		Name="VCLinkerTool"
 		AdditionalLibraryDirectories="lib\VS2008\$(ConfigurationName)"
-		AdditionalDependencies="Console.lib Editor.lib Laptop.lib lua.lib SGP.lib Strategic.lib Tactical.lib TacticalAI.lib TileEngine.lib Utils.lib VFS.lib 7z.lib libpng.lib zlib.lib"
+		AdditionalDependencies="Console.lib Editor.lib Laptop.lib lua.lib SGP.lib Strategic.lib Tactical.lib TacticalAI.lib ModularizedTacticalAI.lib TileEngine.lib Utils.lib VFS.lib 7z.lib libpng.lib zlib.lib"
 	/>
 </VisualStudioPropertySheet>

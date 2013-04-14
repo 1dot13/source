@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
+# Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ja2", "ja2_VS2008.vcproj", "{B112F6BA-AF32-489C-B405-916C0F182D10}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0BE7070B-C8C5-409A-82DD-0701D54A1C6C} = {0BE7070B-C8C5-409A-82DD-0701D54A1C6C}
@@ -50,7 +50,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ja2export", "ext\export\ja2
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7z", "ext\VFS\build\7z_VS2008.vcproj", "{9AD14886-DB5C-4EFF-AE17-35F9BD684692}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModularizedTacticalAI", "ModularizedTacticalAI\ModularizedTacticalAI.vcproj", "{FF0A809E-A370-4640-A301-17B76D7A5B4E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModularizedTacticalAI", "ModularizedTacticalAI\ModularizedTacticalAI_VS2008.vcproj", "{FF0A809E-A370-4640-A301-17B76D7A5B4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
