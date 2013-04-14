@@ -218,12 +218,12 @@ Global
 		{9AD14886-DB5C-4EFF-AE17-35F9BD684692}.Release|Win32.Build.0 = Release|Win32
 		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Debug|Win32.Build.0 = Debug|Win32
-		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditor|Win32.ActiveCfg = Release|Win32
-		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditor|Win32.Build.0 = Release|Win32
-		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditorD|Win32.ActiveCfg = Release|Win32
-		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditorD|Win32.Build.0 = Release|Win32
-		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Release_WithDebugInfo|Win32.ActiveCfg = Release|Win32
-		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Release_WithDebugInfo|Win32.Build.0 = Release|Win32
+		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditor|Win32.ActiveCfg = MapEditor|Win32
+		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditor|Win32.Build.0 = MapEditor|Win32
+		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditorD|Win32.ActiveCfg = MapEditorD|Win32
+		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.MapEditorD|Win32.Build.0 = MapEditorD|Win32
+		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Release_WithDebugInfo|Win32.ActiveCfg = Release_WithDebugInfo|Win32
+		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Release_WithDebugInfo|Win32.Build.0 = Release_WithDebugInfo|Win32
 		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Release|Win32.ActiveCfg = Release|Win32
 		{FF0A809E-A370-4640-A301-17B76D7A5B4E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
