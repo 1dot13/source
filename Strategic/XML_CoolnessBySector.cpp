@@ -12,8 +12,6 @@
 	#include "MemMan.h"
 	#include "Debug Control.h"
 	#include "mapscreen.h"
-
-	#include "Soldier Create.cpp"
 #endif
 
 #define MAX_CHAR_DATA_LENGTH			500

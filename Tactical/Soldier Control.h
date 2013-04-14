@@ -723,6 +723,15 @@ public:
 	TIMECOUNTER									NextTileCounter;
 };
 
+// forward declaration for modularized tactical ai
+namespace AI
+{
+    namespace tactical
+    {
+        class Plan;
+    }
+}
+
 class STRUCT_Statistics//last edited at version 102
 {
 public:
@@ -775,10 +784,6 @@ public:
 
 	// Constructor
 	SOLDIERTYPE();
-	// Copy Constructor
-	SOLDIERTYPE(const SOLDIERTYPE&);
-	// Assignment operator
-	SOLDIERTYPE& operator=(const SOLDIERTYPE&);
 	// Destructor
 	~SOLDIERTYPE();
 
@@ -1265,8 +1270,9 @@ public:
 	INT32	sMTActionGridNo;		// gridno on which we perfrom our multi-turn action
 	UINT8	usMultiTurnAction;		// specifies which multi-turn action we are currently performing, 0: none
 
+	INT16	bAIIndex;			    // PlanFactory from the modularized tactical AI that shall be used
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
-	UINT8	ubFiller[13];	
+	UINT8	ubFiller[11];	
 	
 #ifdef JA2UB
 	//ja25
@@ -1285,6 +1291,7 @@ public:
 	// properly until it is all fixed and the files updated.
 
 	Inventory inv;
+    AI::tactical::Plan*                             ai_masterplan_; // Interface object for ModularizedTacticalAI
 
 	//data from version 101 wrapped into structs
 	STRUCT_AIData									aiData;

@@ -100,6 +100,7 @@
 #endif
 
 #include "ub_config.h"
+#include "../ModularizedTacticalAI/include/Plan.h" // for plan destructor call
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -1023,11 +1024,16 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bDrinkLevel = 0;
 		this->usStarveDamageHealth = 0;
 		this->usStarveDamageStrength = 0;
+		this->bAIIndex = 0;
     }
     return *this;
 }
 
-SOLDIERTYPE::~SOLDIERTYPE() {}
+SOLDIERTYPE::~SOLDIERTYPE()
+{
+    if(ai_masterplan_)
+        delete ai_masterplan_;
+}
 
 SOLDIERTYPE::SOLDIERTYPE() {
 	initialize();
@@ -1061,38 +1067,6 @@ UINT32 SOLDIERTYPE::GetChecksum( )
 	return( uiChecksum );
 }
 
-
-// Copy Constructor
-SOLDIERTYPE::SOLDIERTYPE(const SOLDIERTYPE& src)
-{
-	memcpy(this, &src, SIZEOF_SOLDIERTYPE_POD);
-	inv = src.inv;
-	aiData = src.aiData;
-	flags = src.flags;
-	timeChanges = src.timeChanges;
-	timeCounters = src.timeCounters;
-	drugs = src.drugs;
-	stats = src.stats;
-	pathing = src.pathing;
-}
-
-// Assignment operator
-SOLDIERTYPE& SOLDIERTYPE::operator=(const SOLDIERTYPE& src)
-{
-	if (this != &src) {
-		memcpy(this, &src, SIZEOF_SOLDIERTYPE_POD);
-		aiData = src.aiData;
-		flags = src.flags;
-		timeChanges = src.timeChanges;
-		timeCounters = src.timeCounters;
-		drugs = src.drugs;
-		stats = src.stats;
-		pathing = src.pathing;
-		inv = src.inv;
-    }
-    return *this;
-}
-
 // Initialize the soldier.
 //  Use this instead of the old method of calling memset!
 //  Note that the constructor does this automatically.
@@ -1100,6 +1074,7 @@ void SOLDIERTYPE::initialize()
 {
 	memset( this, 0, SIZEOF_SOLDIERTYPE_POD);
 	inv.clear();
+    ai_masterplan_ = 0;
 
 	memset( &aiData, 0, sizeof(STRUCT_AIData) );
 	memset( &flags, 0, sizeof(STRUCT_Flags) );
@@ -19271,3 +19246,4 @@ BOOLEAN TwoStagedTrait( UINT8 uiSkillTraitNumber )
 {
 	return( uiSkillTraitNumber > 0 && (uiSkillTraitNumber <= NUM_ORIGINAL_MAJOR_TRAITS || uiSkillTraitNumber == COVERT_NT) );
 }
+

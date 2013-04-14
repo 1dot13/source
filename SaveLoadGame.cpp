@@ -2029,6 +2029,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				numBytesRead = ReadFieldByField(hFile, &this->bOverTurnAPS, sizeof(bOverTurnAPS), sizeof(INT16), numBytesRead);
 				numBytesRead = ReadFieldByField(hFile, &this->sMTActionGridNo, sizeof(sMTActionGridNo), sizeof(INT32), numBytesRead);
 				numBytesRead = ReadFieldByField(hFile, &this->usMultiTurnAction, sizeof(usMultiTurnAction), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &this->bAIIndex, sizeof(bAIIndex), sizeof(UINT16), numBytesRead);
 
 				numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
 			}
@@ -2037,6 +2038,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				this->bOverTurnAPS		= 0;
 				this->sMTActionGridNo	= NOWHERE;
 				this->usMultiTurnAction = 0;
+				this->bAIIndex			= 0;
 
 				// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
 				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction);
