@@ -2967,6 +2967,9 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 				if( !pSoldier )
 					return NULL;
 
+				// the militia in autoresolve will drop their gear after combat. For this reason, there is no need for MercPtrs[i] to also drop it
+				MercPtrs[i]->bSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
+
 				//Assign a bogus ID, then return it
 				pSoldier->ubID = 255;
 				return pSoldier;

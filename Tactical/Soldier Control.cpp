@@ -15721,6 +15721,13 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 
 void	SOLDIERTYPE::DropSectorEquipment()
 {
+	// not if we already dropped the gear
+	if ( this->bSoldierFlagMask & SOLDIER_EQUIPMENT_DROPPED )
+		return;
+
+	// set marker: we are about to drop our gear
+	this->bSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
+
 	OBJECTTYPE* pObj = NULL;
 	UINT8 size = this->inv.size();
 

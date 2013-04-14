@@ -365,8 +365,8 @@ enum
 #define SOLDIER_ASSASSIN			0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
 
 #define SOLDIER_POW_PRISON			0x00001000	//4096		// this guy is a prisoner of war in a prison sector. SOLDIER_POW refers to people we capture, this refers to people we hold captive
-/*#define SOLDIER_EQ_EMPTY			0x00002000	//8192		// this militia has no equipment and is to be equipped from the sector inventory
-#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
+#define SOLDIER_EQUIPMENT_DROPPED	0x00002000	//8192		// under certain circumstances, militia can be ordered to drop their gear twice. Thus we set a marker to avoid that.
+/*#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
 #define ENEMY_NET_4_LVL_4		0x00008000	//32768
 
 #define PLAYER_NET_1_LVL_1		0x00010000	//65536

@@ -6133,11 +6133,11 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 	else if( ubUnloadCode == ABOUT_TO_TRASH_WORLD )
 	{
 		//if we arent loading a saved game
-		/*if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
 			// Flugente: cause all militia whose equipment is from this sector to drop it
 			TeamDropAll( MILITIA_TEAM );
-		}*/
+		}
 
 		//Save the current sectors open temp files to the disk
 		if( !SaveCurrentSectorsInformationToTempItemFile() )
