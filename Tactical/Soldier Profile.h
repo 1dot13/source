@@ -388,7 +388,7 @@ typedef struct
 
 	UINT16		usApproachFactor[4];
 
-	INT8 bMercOpinion[75];
+	INT8 bMercOpinion[NUMBER_OF_OPINIONS];
 	
 	UINT32 Type;
 	

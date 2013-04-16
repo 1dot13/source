@@ -2543,7 +2543,7 @@ void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop )
 {
 	UINT8 cnt;
 
-	for (cnt=0; cnt<75; cnt++ )
+	for (cnt=0; cnt< NUMBER_OF_OPINIONS; ++cnt )
 	{
 		gMercProfiles[ uiLoop ].bMercOpinion[cnt] = tempProfiles[ uiLoop ].bMercOpinion[cnt] ;
 	}

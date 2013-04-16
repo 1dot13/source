@@ -1235,7 +1235,7 @@ BOOLEAN SOLDIERCREATE_STRUCT::Load(HWFILE hFile, int versionToLoad, bool loadChe
 BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool forceLoadOldEncryption, bool wasSavedWithEncryption)
 {
 	UINT32	uiNumBytesRead;
-	INT32	numBytesRead = 0, temp = 0;
+	INT32	numBytesRead = 0, temp = 0, buffer = 0;
 	UINT8	filler = 0;
 	this->initialize();
 
@@ -1400,7 +1400,20 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->bTown, sizeof(this->bTown), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bTownAttachment, sizeof(this->bTownAttachment), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->usOptionalGearCost, sizeof(this->usOptionalGearCost), sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, this->bMercOpinion, sizeof(this->bMercOpinion), sizeof(INT8), numBytesRead);
+		
+		if ( guiCurrentSaveGameVersion >=  ENLARGED_OPINIONS )
+		{
+			numBytesRead = ReadFieldByField( hFile, this->bMercOpinion, sizeof(this->bMercOpinion), sizeof(INT8), numBytesRead);
+		}
+		else
+		{
+			// Flugente: for old savegames, only read the number of old opinions, and then add a buffer value to get fitting sizes
+			numBytesRead = ReadFieldByField( hFile, this->bMercOpinion, NUMBER_OF_OPINIONS_OLD, sizeof(INT8), numBytesRead);
+
+			for(int i = 0; i < sizeof(this->bMercOpinion) - NUMBER_OF_OPINIONS_OLD; ++i)
+				++buffer;
+		}
+
 		numBytesRead = ReadFieldByField( hFile, &this->bApproached, sizeof(this->bApproached), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bMercStatus, sizeof(this->bMercStatus), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, this->bHatedTime, sizeof(this->bHatedTime), sizeof(INT8), numBytesRead);
@@ -1441,7 +1454,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		
 		//DBrot: More rooms
 		int size;
-		if ( numBytesRead != SIZEOF_MERCPROFILESTRUCT_POD )
+		if ( numBytesRead + buffer != SIZEOF_MERCPROFILESTRUCT_POD )
 		{
 			return(FALSE);
 		}
