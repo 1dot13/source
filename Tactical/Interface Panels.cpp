@@ -580,6 +580,8 @@ extern void UpdateItemHatches();
 
 extern SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier );
 
+extern BOOLEAN gfMouseLockedOnBorder;
+
 // Wraps up check for AP-s get from a different soldier for in a vehicle...
 INT16 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 {
@@ -7842,6 +7844,7 @@ void GoToMapScreenFromTactical( void )
 		return;
 	}
 	// ok, proceed!
+	gfMouseLockedOnBorder = FALSE;
 	gfEnteringMapScreen = TRUE;
 }
 
