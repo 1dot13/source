@@ -1866,7 +1866,13 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 									fAddedTraitRegion[ubCnt] = TRUE;
 
 									// Assign the text
-									AssignPersonnelSkillTraitHelpText( ubTempSkillArray[ubCnt], ((ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET) ? TRUE : FALSE), Menptr[iId].ubProfile, ubCnt );
+									BOOLEAN fExpert = (ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+
+									UINT8 traitnr = ubTempSkillArray[ubCnt];
+									if ( fExpert )
+										traitnr -= NEWTRAIT_MERCSKILL_EXPERTOFFSET;
+
+									AssignPersonnelSkillTraitHelpText( traitnr, fExpert, Menptr[iId].ubProfile, ubCnt );
 								}
 							}
 
