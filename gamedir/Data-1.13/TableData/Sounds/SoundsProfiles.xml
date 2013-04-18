@@ -896,13 +896,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Skitz</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>180</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Weasel</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>
@@ -1222,12 +1222,12 @@
 	<PROFILE>
 		<uiIndex>244</uiIndex>
 		<Name>Elroy</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>245</uiIndex>
 		<Name>Mouse</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>246</uiIndex>
@@ -1237,7 +1237,7 @@
 	<PROFILE>
 		<uiIndex>247</uiIndex>
 		<Name>Rev</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>248</uiIndex>
@@ -1262,7 +1262,7 @@
 	<PROFILE>
 		<uiIndex>252</uiIndex>
 		<Name>Dyno</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>253</uiIndex>

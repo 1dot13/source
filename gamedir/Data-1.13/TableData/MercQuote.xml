@@ -1970,25 +1970,25 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
-		<Name></Name>
+		<Name>Skitz</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
+		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
-		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
-		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
+		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
+		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>180</uiIndex>
-		<Name></Name>
+		<Name>Weasel</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
 		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
+		<QuoteExpGotGunOrUsedGun>61</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
-		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
-		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
+		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
+		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>

@@ -922,14 +922,16 @@ Message:		The email message body
 		<Message>Please take note. Due to the improved performance of Spooky his fees for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Skitz-->
 		<uiIndex>179</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Skitz his salary has been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Weasel -->
 		<uiIndex>180</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Weasel his wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>181</uiIndex>
