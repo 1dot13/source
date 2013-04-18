@@ -13,17 +13,19 @@ namespace AI
     namespace tactical
     {
         /**@class LegacyAIPlan
-         * @brief Component/Concrete Product. Generates a Plan that executes the AI as it was before modularization.
+         * @brief Component/Concrete Product. Wrapper/Re-Write of DecideAction()
          *
-         * A simple encapsulation of the functions TurnBasedHandleNPCAI() and RTHandleAI(), defined in
-         * TacticalAI/AIMain.cpp and TacticalAI/Realtime.cpp, respectively. The AI handles decisions for all kinds of
-         * NPCs (enemies, zombies, civilians, ...)
+         * This plan began as a simple forwarding object for DecideAction(), and will, in the course of the AI redesign,
+         * be split into elementary NPC actions. It is as such only a intermediate product used to bring structure where
+         * the is currently none.
          */
         class LegacyAIPlan: public Plan
         {
             private:
             public:
-                virtual void execute(bool turn_based, PlanInputData& manipulated_object);
+                LegacyAIPlan(SOLDIERTYPE* npc);
+                virtual void execute(PlanInputData& environment);
+                virtual bool done() const {return false;}
         };
     }
 }

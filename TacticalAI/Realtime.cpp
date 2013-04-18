@@ -19,71 +19,11 @@
 	#include "Quests.h"
 	#include "GameSettings.h"
 #endif
+// needed to use the modularized tactical AI:
+#include "ModularizedTacticalAI/include/Plan.h"
+#include "ModularizedTacticalAI/include/PlanFactoryLibrary.h"
+#include "ModularizedTacticalAI/include/AbstractPlanFactory.h"
 
-INT8 RTPlayerDecideAction( SOLDIERTYPE * pSoldier )
-{
-	INT8 bAction=AI_ACTION_NONE;
-
-	if (gTacticalStatus.fAutoBandageMode)
-	{
-		bAction = DecideAutoBandage( pSoldier );
-	}
-#ifdef ENABLE_ZOMBIES
-	else if ( pSoldier->IsZombie() )
-	{
-		bAction = ZombieDecideAction( pSoldier );
-	}
-#endif
-	else
-	{
-		bAction = DecideAction( pSoldier );
-	}
-
-	#ifdef DEBUGDECISIONS
-		STR tempstr;
-		sprintf(tempstr,"DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->aiData.usActionData);
-		DebugAI( tempstr );
-	#endif
-
-	return(bAction);
-}
-
-INT8 RTDecideAction(SOLDIERTYPE *pSoldier)
-{
-	if (CREATURE_OR_BLOODCAT( pSoldier ) )
-	{
-		return( CreatureDecideAction( pSoldier ) );
-	}
-#ifdef ENABLE_ZOMBIES
-	else if ( pSoldier->IsZombie() )
-	{
-		return( ZombieDecideAction( pSoldier ) );
-	}
-#endif
-	else if (pSoldier->ubBodyType == CROW)
-	{
-		return( CrowDecideAction( pSoldier ) );
-	}
-	else if (pSoldier->bTeam == gbPlayerNum)
-	{
-		return( RTPlayerDecideAction( pSoldier ) );
-	}
-	else
-	{
-		// handle traversal
-		if ( (pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags3 & PROFILE_MISC_FLAG3_HANDLE_DONE_TRAVERSAL ) )
-		{
-			TriggerNPCWithGivenApproach( pSoldier->ubProfile, APPROACH_DONE_TRAVERSAL, FALSE );
-			gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags3 &= (~PROFILE_MISC_FLAG3_HANDLE_DONE_TRAVERSAL);
-			pSoldier->ubQuoteActionID = 0;
-			// wait a tiny bit
-			pSoldier->aiData.usActionData = 100;
-			return( AI_ACTION_WAIT );
-		}
-
-		return( DecideAction( pSoldier ) );
-	}
-}
 
 UINT16 RealtimeDelay( SOLDIERTYPE * pSoldier )
 {
@@ -236,7 +176,16 @@ void RTHandleAI( SOLDIERTYPE * pSoldier )
 			{
 				if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV))
 				{
-					pSoldier->aiData.bAction = RTDecideAction( pSoldier );
+                    if(!pSoldier->ai_masterplan_) // if the Soldier has no plan, create one
+                    {
+                        if(pSoldier->bAIIndex == 0) // not yet initialized, use bTeam+1 as default
+                            pSoldier->bAIIndex = pSoldier->bTeam + 1;
+                        AI::tactical::AIInputData ai_input;
+                        AI::tactical::PlanFactoryLibrary* plan_lib(AI::tactical::PlanFactoryLibrary::instance());
+                        pSoldier->ai_masterplan_ = plan_lib->create_plan(pSoldier->bAIIndex, pSoldier, ai_input);
+                    }
+                    AI::tactical::PlanInputData plan_input(false, gTacticalStatus);
+                    pSoldier->ai_masterplan_->execute(plan_input);
 				}
 			}
 		}

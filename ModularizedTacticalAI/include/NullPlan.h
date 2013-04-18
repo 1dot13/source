@@ -32,7 +32,9 @@ namespace AI
         {
             private:
             public:
-                virtual void execute(bool turn_based, PlanInputData& manipulated_object);
+                NullPlan(SOLDIERTYPE* npc);
+                virtual void execute(PlanInputData& environment);
+                bool done() const {return false;}
         };
     }
 }

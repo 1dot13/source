@@ -11,12 +11,12 @@ namespace AI
 {
     namespace tactical
     {
-        Plan* NullPlanFactory::create_plan(const AIInputData& input)
+        Plan* NullPlanFactory::create_plan(SOLDIERTYPE* npc, const AIInputData& input)
         {
-            return new NullPlan();
+            return new NullPlan(npc);
         }
 
-        void NullPlanFactory::update_plan(const AIInputData& input, Plan* plan_to_change)
+        void NullPlanFactory::update_plan(SOLDIERTYPE* npc, const AIInputData& input)
         {
             // the idea is to do nothing, so let's do it...
         }

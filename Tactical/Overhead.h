@@ -57,7 +57,7 @@ enum
 #define NUM_PANIC_TRIGGERS      3
 #define ENEMY_OFFERED_SURRENDER 0x01
 
-typedef struct
+struct TacticalStatusType
 {
     UINT32                          uiFlags;
     TacticalTeamType        Team[ MAXTEAMS ];
@@ -163,7 +163,7 @@ typedef struct
 
     // PADDING GONE!!!!!
 
-} TacticalStatusType;
+};
 
 
 extern UINT8    gbPlayerNum;

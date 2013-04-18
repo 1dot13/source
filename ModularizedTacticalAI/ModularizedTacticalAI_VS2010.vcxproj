@@ -128,20 +128,30 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AbstractPlanFactory.cpp" />
+    <ClCompile Include="src\CrowPlan.cpp" />
     <ClCompile Include="src\LegacyAIPlan.cpp" />
     <ClCompile Include="src\LegacyAIPlanFactory.cpp" />
+    <ClCompile Include="src\LegacyCreaturePlan.cpp" />
+    <ClCompile Include="src\LegacyZombiePlan.cpp" />
     <ClCompile Include="src\NullPlan.cpp" />
     <ClCompile Include="src\NullPlanFactory.cpp" />
+    <ClCompile Include="src\Plan.cpp" />
     <ClCompile Include="src\PlanFactoryLibrary.cpp" />
+    <ClCompile Include="src\PlanList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AbstractPlanFactory.h" />
-    <ClInclude Include="include\LegacyAIPlan.h" />
+    <ClInclude Include="include\CrowPlan.h" />
     <ClInclude Include="include\LegacyAIPlanFactory.h" />
-    <ClInclude Include="include\NullPlan.h" />
+    <ClInclude Include="include\LegacyAIPlan.h" />
+    <ClInclude Include="include\LegacyCreaturePlan.h" />
+    <ClInclude Include="include\LegacyZombiePlan.h" />
     <ClInclude Include="include\NullPlanFactory.h" />
-    <ClInclude Include="include\Plan.h" />
+    <ClInclude Include="include\NullPlan.h" />
     <ClInclude Include="include\PlanFactoryLibrary.h" />
+    <ClInclude Include="include\Plan.h" />
+    <ClInclude Include="include\PlanList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

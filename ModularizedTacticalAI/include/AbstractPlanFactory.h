@@ -6,6 +6,8 @@
 #ifndef ABSTRACT_PLAN_FACTORY_H_
 #define ABSTRACT_PLAN_FACTORY_H_
 
+#include <iosfwd>
+
 class SOLDIERTYPE;
 
 namespace AI
@@ -13,16 +15,48 @@ namespace AI
     namespace tactical
     {
         /**@class AIInputData
-         * @brief Wrapper class around the environmental data required to build an AI plan
+         * @brief Wrapper class around the environmental data required to build or update an AI plan
          * 
-         * At the moment, simply a wrapper around SOLDIERTYPE. Future versions might require more data; without the
-         * wrapper, *every* Concrete Factory ever created would need to be changed in this event. With the wrapper, no
-         * change is required at all.
+         * The data contained in objects of this class are currently collected in HanldeNoise() and ManSeesMan(), both
+         * defined in Tactical/opplist.cpp
+         * Future versions might require more or different data; without the wrapper, *every* Concrete Factory ever
+         * created would need to be changed in this event. With the wrapper, no change is required at all.
          */
-        struct AIInputData
+        class AIInputData
         {
-            SOLDIERTYPE* npc_to_plan_for_;
+            private:
+                enum event_type {no_event, auditive_event, visual_event};
+                event_type event_type_;
+                /// Only visual: the opponent seen by the updated NPC
+                SOLDIERTYPE* opponent_;
+                /// Only auditive: ID of the noise maker; (at least for NPC-generated sounds) ID of NPC
+                int noise_maker_;
+                /// Location of event
+                int grid_no_;
+                int level_;
+                /// Only auditive: volume of heard sound (at the hearing NPC, not the source)
+                int volume_;
+                int type_;
+                int caller1_;
+                int caller2_;
+            public:
+                /// Empty types are used for overload resolution in order to generate different types of events with
+                /// simple constructor calls.
+                struct Auditive{ };
+                struct Visual{ };
+                /// Constructor for noise events
+                AIInputData(Auditive, int noise_maker, int grid_no, int level, int volume, int type);
+                /// Constructor for sight events
+                AIInputData(Visual, SOLDIERTYPE* opponent, int grid_no, int level, int caller1, int caller2);
+                /// Default constructor, called when no event occurred
+                AIInputData();
+                bool is_auditive_event() const {return event_type_ == auditive_event;}
+                bool is_visual_event() const {return event_type_ == visual_event;}
+                /// Allow the output function used for debugging to access the members directly
+                friend std::ostream& operator<<(std::ostream& os, const AIInputData& i);
         };
+        std::ostream& operator<<(std::ostream& os, const AIInputData& i);
+
         class Plan;
         /**@class AbstractPlanFactory
          * @brief Abstract Factory. Base class for all plan factories.
@@ -37,6 +71,7 @@ namespace AI
         class AbstractPlanFactory
         {
             private:
+                /// Flag set iff delayed initialization was already performed
                 bool initialize_called_;
             public:
                 AbstractPlanFactory() : initialize_called_(false) { }
@@ -54,21 +89,25 @@ namespace AI
                  * The subclasses (i.e., Concrete Factories) implpmenting this routine contain
                  * the decision-making AI core.
                  *
-                 * @param input A pointer to a structure containing all required input data in order for the AI
-                 * algorithms to perform their task. At the moment, simply a wrapper around SOLDIERTYPE. Future versions
+                 * @param npc The NPC the plan is for
+                 * @param input A reference to a structure containing all required input data in order for the AI
+                 * algorithms to perform their task. At the moment, empty. Future versions
                  * might require other datatypes; without the wrapper, *every* Concrete Factory ever created would need
                  * to be changed in this event.
                  * @return A Plan object tree representing the produced strategy
                  */
-                virtual Plan* create_plan(const AIInputData& input) = 0;
-                /**@brief Abstract Plan object hierarchy update function, called in order to update an already created
-                 *         plan
+                virtual Plan* create_plan(SOLDIERTYPE* npc, const AIInputData& input) = 0;
+
+                /**@brief Abstract Plan object hierarchy update function, called in order to update an already created plan
                  *
-                 * @param input A pointer to a structure containing all required input data in order for the AI
-                 *        algorithms to perform their task
-                 * @param plan_to_change The Plan object hierarchy that is to be updated
+                 * If no plan exists, it is created; this should not be the general case, but might happen for
+                 * 'interrupted' NPCs that haven't had the chance to plan yet.
+                 *
+                 * @param npc A pointer to the npc owning the ai_masterplan_ to be changed.
+                 * @param input A reference to a structure containing all required input data in order for the AI
+                 * @post npc->ai_masterplan_ is not null
                  */
-                virtual void update_plan(const AIInputData& input, Plan* plan_to_change) = 0;
+                virtual void update_plan(SOLDIERTYPE* npc, const AIInputData& input) = 0;
         };
     }
 }

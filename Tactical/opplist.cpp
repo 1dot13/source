@@ -57,6 +57,9 @@
 #endif
 
 #include "connect.h"
+#include "../ModularizedTacticalAI/include/Plan.h"
+#include "../ModularizedTacticalAI/include/PlanFactoryLibrary.h"
+#include "../ModularizedTacticalAI/include/AbstractPlanFactory.h"
 
 //rain
 //#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
@@ -2154,67 +2157,21 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ManSeesMan");
 
 	if (pSoldier->ubID >= TOTAL_SOLDIERS)
-	{
-		/*
-		#ifdef BETAVERSION
-		NumMessage("ManSeesMan: ERROR - ptr->guynum = ",ptr->guynum);
-		#endif
-		*/
 		return;
-	}
-
 	if (pOpponent->ubID >= TOTAL_SOLDIERS)
-	{
-		/*
-		#ifdef BETAVERSION
-		NumMessage("ManSeesMan: ERROR - oppPtr->guynum = ",oppPtr->guynum);
-		#endif
-		*/
 		return;
-	}
-
 	// if we're somehow looking while inactive, at base, dying or already dead
 	if (!pSoldier->bActive || !pSoldier->bInSector || (pSoldier->stats.bLife < OKLIFE))
-	{
-		/*
-		#ifdef BETAVERSION
-		sprintf(tempstr,"ManSeesMan: ERROR - %s is SEEING ManSeesMan while inactive/at base/dead/dying",ExtMen[ptr->guynum].name);
-		PopMessage(tempstr);
-		#endif
-		*/
 		return;
-	}
-
 	// if we're somehow seeing a guy who is inactive, at base, or already dead
 	if (!pOpponent->bActive || !pOpponent->bInSector || pOpponent->stats.bLife <= 0)
-	{
-		/*
-		#ifdef BETAVERSION
-		sprintf(tempstr,"ManSeesMan: ERROR - %s sees %s, ManSeesMan, who is inactive/at base/dead",ExtMen[ptr->guynum].name,ExtMen[oppPtr->guynum].name);
-		PopMessage(tempstr);
-		#endif
-		*/
 		return;
-	}
-
-
 	// if we're somehow seeing a guy who is on the same team
 	if (pSoldier->bTeam == pOpponent->bTeam)
-	{
-		/*
-		#ifdef BETAVERSION
-		sprintf(tempstr,"ManSeesMan: ERROR - on SAME TEAM.  ptr->guynum = %d, oppPtr->guynum = %d",
-		ptr->guynum,oppPtr->guynum);
-		PopMessage(tempstr);
-		#endif
-		*/
 		return;
-	}
-
 	// Flugente: if the other guy is in med or deep water and wearing scua gear, then we cannot see him as he is submerged
 	if ( pOpponent->UsesScubaGear() )
 		return;
-
 	// Flugente: update our sight concerning this guy, otherwise we could get way with open attacks because this does not get updated
 	pSoldier->RecognizeAsCombatant(pOpponent->ubID);
 
@@ -2355,15 +2312,6 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 				{
 					switch( pSoldier->ubProfile )
 					{
-						/*
-						case MIKE:
-						if ( gfPlayerTeamSawMike && !( gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
-						{
-						InitiateConversation( pSoldier, pOpponent, NPC_INITIAL_QUOTE, 0 );
-						gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags2 |= PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE;
-						}
-						break;
-						*/
 					case IGGY:
 						if ( ! ( gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
 						{
@@ -2813,7 +2761,10 @@ if(SEE_MENT)
 		// ATE: Check stance, change to threatending
 		ReevaluateEnemyStance( pSoldier, pSoldier->usAnimState );
 	}
-
+    AI::tactical::AIInputData ai_input(AI::tactical::AIInputData::Visual(), pOpponent, sOppGridNo, bOppLevel, ubCaller, ubCaller2);
+    AI::tactical::PlanInputData plan_input((gTacticalStatus.uiFlags & TURNBASED)!=0, gTacticalStatus);
+    AI::tactical::PlanFactoryLibrary* plan_lib(AI::tactical::PlanFactoryLibrary::instance());
+    plan_lib->update_plan(pSoldier->bAIIndex, pSoldier, ai_input);
 }
 
 
@@ -6333,14 +6284,12 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 	INT8		bDirection;
 	BOOLEAN fMuzzleFlash = FALSE;
 
-//	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "%d hears noise from %d (%d/%d) volume %d", pSoldier->ubID, ubNoiseMaker, sGridNo, bLevel, ubVolume ) );
-
-
 	if ( pSoldier->ubBodyType == CROW )
 	{
 		CrowsFlyAway( pSoldier->bTeam );
 		return;
 	}
+//	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "%d hears noise from %d (%d/%d) volume %d", pSoldier->ubID, ubNoiseMaker, sGridNo, bLevel, ubVolume ) );
 
 	// "Turn head" towards the source of the noise and try to see what's there
 
@@ -6649,6 +6598,10 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 			}
 		}
 	}
+    AI::tactical::AIInputData ai_input(AI::tactical::AIInputData::Auditive(), ubNoiseMaker, sGridNo, bLevel, ubVolume, ubNoiseType);
+    AI::tactical::PlanInputData plan_input((gTacticalStatus.uiFlags & TURNBASED)!=0, gTacticalStatus);
+    AI::tactical::PlanFactoryLibrary* plan_lib(AI::tactical::PlanFactoryLibrary::instance());
+    plan_lib->update_plan(pSoldier->bAIIndex, pSoldier, ai_input);
 }
 
 void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir )

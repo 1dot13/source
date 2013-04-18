@@ -11,10 +11,15 @@ namespace AI
 {
     namespace tactical
     {
-        /// Simply end the turn for the npc passed in the manipulated_object wrapper, then return.
-        void NullPlan::execute(bool turn_based, PlanInputData& manipulated_object)
+        NullPlan::NullPlan(SOLDIERTYPE* npc)
+            : Plan(npc)
         {
-            EndAIGuysTurn(manipulated_object.controlled_npc_);
+        }
+
+        /// Simply set the action to be performed to AI_ACTION_NONE
+        void NullPlan::execute(PlanInputData& environment)
+        {
+            get_npc()->aiData.bAction = AI_ACTION_NONE;
         }
     }
 }

@@ -339,23 +339,47 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\AbstractPlanFactory.cpp"
+				>
+			<\File>
+			<File
+				RelativePath=".\src\CrowPlan.cpp"
+				>
+			<\File>
+			<File
 				RelativePath=".\src\LegacyAIPlan.cpp"
 				>
-			</File>
+			<\File>
 			<File
 				RelativePath=".\src\LegacyAIPlanFactory.cpp"
 				>
-			</File>
+			<\File>
+			<File
+				RelativePath=".\src\LegacyCreaturePlan.cpp"
+				>
+			<\File>
+			<File
+				RelativePath=".\src\LegacyZombiePlan.cpp"
+				>
+			<\File>
 			<File
 				RelativePath=".\src\NullPlan.cpp"
 				>
-			</File>
+			<\File>
 			<File
 				RelativePath=".\src\NullPlanFactory.cpp"
 				>
-			</File>
+			<\File>
+			<File
+				RelativePath=".\src\Plan.cpp"
+				>
+			<\File>
 			<File
 				RelativePath=".\src\PlanFactoryLibrary.cpp"
+				>
+			<\File>
+				<File
+				RelativePath=".\src\PlanList.cpp"
 				>
 			</File>
 		</Filter>
@@ -369,7 +393,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\LegacyAIPlan.h"
+				RelativePath=".\include\CrowPlan.h"
 				>
 			</File>
 			<File
@@ -377,7 +401,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\NullPlan.h"
+				RelativePath=".\include\LegacyAIPlan.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\LegacyCreaturePlan.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\LegacyZombiePlan.h"
 				>
 			</File>
 			<File
@@ -385,11 +417,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\Plan.h"
+				RelativePath=".\include\NullPlan.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\PlanFactoryLibrary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\Plan.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PlanList.h"
 				>
 			</File>
 		</Filter>

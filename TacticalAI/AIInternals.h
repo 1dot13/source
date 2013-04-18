@@ -5,6 +5,9 @@
 #include "random.h"
 #include "Points.h"
 
+#include <iostream>
+#include <iomanip>
+
 
 extern BOOLEAN gfTurnBasedAI;
 
@@ -103,6 +106,14 @@ enum
 
 #undef max
 #define max(a,b) ((a) > (b) ? (a) : (b))
+
+// Added by feynman - remove all the ugly #ifdefs printf combinations for required for DebugAI
+//#define DEBUGAI
+#ifdef DEBUGAI
+    #define DEBUGAIMSG(X) std::cerr<<"AIDEBUGMSG "<<std::setw(40)<<__FILE__<<":"<<std::setw(4)<<__LINE__<<": "<< X<<std::endl
+#else
+    #define DEBUGAIMSG(X)
+#endif
 
 typedef struct
 {

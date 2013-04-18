@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="ModularizedTacticalAI"
 	ProjectGUID="{FF0A809E-A370-4640-A301-17B76D7A5B4E}"
 	RootNamespace="TacticalAI"
@@ -341,11 +341,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\AbstractPlanFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\CrowPlan.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LegacyAIPlan.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\LegacyAIPlanFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LegacyCreaturePlan.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LegacyZombiePlan.cpp"
 				>
 			</File>
 			<File
@@ -357,7 +373,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Plan.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\PlanFactoryLibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\PlanList.cpp"
 				>
 			</File>
 		</Filter>
@@ -371,11 +395,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CrowPlan.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\LegacyAIPlan.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\LegacyAIPlanFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\LegacyCreaturePlan.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\LegacyZombiePlan.h"
 				>
 			</File>
 			<File
@@ -392,6 +428,10 @@
 			</File>
 			<File
 				RelativePath=".\include\PlanFactoryLibrary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PlanList.h"
 				>
 			</File>
 		</Filter>

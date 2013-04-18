@@ -3,20 +3,19 @@
  * @author feynman (bears-pit.com)
  */
 
+// XXX Add includes for new factories here XXX
 #include "../include/PlanFactoryLibrary.h"
 #include "../include/NullPlanFactory.h"
 #include "../include/LegacyAIPlanFactory.h"
-// XXX Add includes for new factories here XXX
 
 
 #include "../../Utils/INIReader.h"
-
-#undef max // Who the fuck writes MACROS not using CAPITAL LETTERS??? You, sir, have lost your coding license. Please hand over your compiler and leave. Now.
-
 #include <stdexcept>
 #include <limits>
 #include <string>
 #include <sstream>
+
+#undef max
 
 namespace AI
 {
@@ -28,6 +27,7 @@ namespace AI
           *
           * This is the place where new factories need to be "registred" in order for them to be available using the
           * settings in AI.ini 
+          * The constructor is private due to the singleton pattern
           */
         PlanFactoryLibrary::PlanFactoryLibrary()
         {
@@ -66,18 +66,35 @@ namespace AI
 
         /**@brief Create a plan for the given input using the factory at the given index
          * @param index Index of the concrete plan factory to use, set in the constructor via ini settings
+         * @param npc The NPC the created plan is for
          * @param input The environmental data required for a factory to plan
          * @throws std::out_of_range for invalid index
          * @throws std::logic_error for valid index, but undefined factory (most likely due to typo in AI.ini)
-         * @return Pointer to the only instance of the PlanFactoryLibrary
+         * @return A new plan
          */
-        Plan* PlanFactoryLibrary::create_plan(size_t index, AIInputData& input) const
+        Plan* PlanFactoryLibrary::create_plan(size_t index, SOLDIERTYPE* npc, const AIInputData& input) const
         {
             if(index >= ai_index_to_factory_mapping_.size())
                 throw std::out_of_range("PlanFactoryLibrary detected invalid factory index");
             if(!ai_index_to_factory_mapping_[index])
                 throw std::logic_error("PlanFactoryLibrary encountered a nullptr for a valid index (typo in AI.ini?)");
-            return ai_index_to_factory_mapping_[index]->create_plan(input);
+            return ai_index_to_factory_mapping_[index]->create_plan(npc, input);
+        }
+
+        /**@brief Update a plan for the given input using the factory at the given index
+         * @param index Index of the concrete plan factory to use, set in the constructor via ini settings
+         * @param npc The NPC the updated plan is for
+         * @param input The environmental data required for a factory to plan
+         * @throws std::out_of_range for invalid index
+         * @throws std::logic_error for valid index, but undefined factory (most likely due to typo in AI.ini)
+         */
+        void PlanFactoryLibrary::update_plan(size_t index, SOLDIERTYPE* npc, const AIInputData& input) const
+        {
+            if(index >= ai_index_to_factory_mapping_.size())
+                throw std::out_of_range("PlanFactoryLibrary detected invalid factory index");
+            if(!ai_index_to_factory_mapping_[index])
+                throw std::logic_error("PlanFactoryLibrary encountered a nullptr for a valid index (typo in AI.ini?)");
+            return ai_index_to_factory_mapping_[index]->update_plan(npc, input);
         }
     }
 }

@@ -63,8 +63,6 @@
 #include "ModularizedTacticalAI/include/Plan.h"
 #include "ModularizedTacticalAI/include/PlanFactoryLibrary.h"
 #include "ModularizedTacticalAI/include/AbstractPlanFactory.h"
-#include <stdexcept>
-#include <iostream>
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -500,19 +498,10 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 		gubAICounter++;
 
-		if(!pSoldier->ai_masterplan_) // if the Soldier has no plan, create one
-        {
-            if(pSoldier->bAIIndex == 0) // not yet initialized, use bTeam+1 as default
-                pSoldier->bAIIndex = pSoldier->bTeam + 1;
-            AI::tactical::AIInputData ai_input;
-            ai_input.npc_to_plan_for_ = pSoldier;
-            AI::tactical::PlanFactoryLibrary* plan_lib(AI::tactical::PlanFactoryLibrary::instance());
-            pSoldier->ai_masterplan_ = plan_lib->create_plan(pSoldier->bAIIndex, ai_input);
-        }
-
-        AI::tactical::PlanInputData plan_input;
-        plan_input.controlled_npc_ = pSoldier;
-        pSoldier->ai_masterplan_->execute(gfTurnBasedAI, plan_input);
+        if(gfTurnBasedAI)
+            TurnBasedHandleNPCAI(pSoldier);
+        else
+            RTHandleAI( pSoldier );
 	}
 	else
 	{
@@ -1445,26 +1434,16 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		{
 			if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV))
 			{
-#ifdef ENABLE_ZOMBIES
-				if ( pSoldier->IsZombie() )
-				{	
-					pSoldier->aiData.bAction = ZombieDecideAction(pSoldier);
-				}
-				else if (CREATURE_OR_BLOODCAT( pSoldier ))
-#else
-				if (CREATURE_OR_BLOODCAT( pSoldier ))
-#endif
+				if(!pSoldier->ai_masterplan_) // if the Soldier has no plan, create one
 				{
-					pSoldier->aiData.bAction = CreatureDecideAction( pSoldier );
+					if(pSoldier->bAIIndex == 0) // not yet initialized, use bTeam+1 as default
+						pSoldier->bAIIndex = pSoldier->bTeam + 1;
+					AI::tactical::AIInputData ai_input;
+					AI::tactical::PlanFactoryLibrary* plan_lib(AI::tactical::PlanFactoryLibrary::instance());
+					pSoldier->ai_masterplan_ = plan_lib->create_plan(pSoldier->bAIIndex, pSoldier, ai_input);
 				}
-				else if (pSoldier->ubBodyType == CROW)
-				{
-					pSoldier->aiData.bAction = CrowDecideAction( pSoldier );
-				}
-				else
-				{
-					pSoldier->aiData.bAction = DecideAction(pSoldier);
-				}
+				AI::tactical::PlanInputData plan_input(true, gTacticalStatus);
+				pSoldier->ai_masterplan_->execute(plan_input);
 			}
 		}
 
