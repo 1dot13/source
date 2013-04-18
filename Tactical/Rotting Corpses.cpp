@@ -494,10 +494,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 
 	// Copy elements in
 	memcpy( pCorpse, pCorpseDef, sizeof( ROTTING_CORPSE_DEFINITION ) );
-
-	if ( pCorpseDef->fHeadTaken )
-		pCorpse->def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
-
+	
 	uiDirectionUseFlag = ANITILE_USE_DIRECTION_FOR_START_FRAME;
 
 	// If we are a soecial type...
@@ -511,8 +508,17 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 		case FMERC_FALLF:
 
 			uiDirectionUseFlag = ANITILE_USE_4DIRECTION_FOR_START_FRAME;
+
+		// Flugente: remember if there was still a head attached to the guy
+		case SMERC_JFK:
+		case MMERC_JFK:
+		case FMERC_JFK:
+
+			 pCorpseDef->fHeadTaken = true;
 	}
 
+	if ( pCorpseDef->fHeadTaken )
+		pCorpse->def.usFlags |= ROTTING_CORPSE_HEAD_TAKEN;
 
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
@@ -2226,9 +2232,9 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 
 		Corpse.ubBodyType = REGFEMALE;
 	}
-	else
+	else //if ( (*pObj)[0]->data.sObjectFlag & CORPSE_M_SMALL )
 	{
-		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_M_SMALL )
+		if ( (*pObj)[0]->data.sObjectFlag & CORPSE_NO_HEAD )
 			Corpse.ubType = SMERC_JFK;
 		else
 			Corpse.ubType = SMERC_BCK;
@@ -2317,6 +2323,10 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 	Corpse.ubProfile = NO_PROFILE;
 	Corpse.fHeadTaken = FALSE;
 	Corpse.ubAIWarningValue = 20;
+
+	// Flugente: use zombie name (it's the only way this will ever be relevant again anyway)
+	swprintf( Corpse.name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
+	Corpse.name[9] = '\0';
 	
 	INT32 iCorpseID = AddRottingCorpse( &Corpse );
 
