@@ -84,6 +84,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\.;.\.;.\ext\VFS\include;..\ext\VFS\include;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\ModularizedTacticalAI;.\ModularizedTacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;..\Standard Gaming Platform;.\Standard Gaming Platform;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\Console;.\Console;.\ext\libpng;..\ext\libpng;.\ext\zlib;..\ext\zlib;;$(NOINHERIT)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

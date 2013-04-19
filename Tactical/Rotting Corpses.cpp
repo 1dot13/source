@@ -2324,9 +2324,11 @@ BOOLEAN AddCorpseFromObject(OBJECTTYPE* pObj, INT32 sGridNo, INT8 bLevel )
 	Corpse.fHeadTaken = FALSE;
 	Corpse.ubAIWarningValue = 20;
 
+#ifdef ENABLE_ZOMBIES
 	// Flugente: use zombie name (it's the only way this will ever be relevant again anyway)
 	swprintf( Corpse.name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
 	Corpse.name[9] = '\0';
+#endif
 	
 	INT32 iCorpseID = AddRottingCorpse( &Corpse );
 
