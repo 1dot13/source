@@ -20537,9 +20537,9 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
-		<bNewSkillTrait1>14</bNewSkillTrait1>
-		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait1>20</bNewSkillTrait1>
+		<bNewSkillTrait2>20</bNewSkillTrait2>
+		<bNewSkillTrait3>14</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -20621,7 +20621,7 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>0</bNewSkillTrait1>
+		<bNewSkillTrait1>20</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>248</bBuddy1>
