@@ -1252,7 +1252,7 @@
 	<PROFILE>
 		<uiIndex>250</uiIndex>
 		<Name>Moses</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>251</uiIndex>
