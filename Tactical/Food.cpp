@@ -535,8 +535,8 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 	// if we're a prisoner, we can't feed ourself, and the player can't do that either. Instead the army provides food (not much and of bad quality)
 	if (pSoldier->bAssignment == ASSIGNMENT_POW)
 	{
-		INT16 powwater   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * FOOD_POW_MULTIPLICATOR;
-		INT16 powfoodadd = powwater * gGameExternalOptions.usFoodDigestionHourlyBaseFood / gGameExternalOptions.usFoodDigestionHourlyBaseDrink;
+		INT16 powwater   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * gGameExternalOptions.sFoodDigestionAssignment * FOOD_POW_MULTIPLICATOR;
+		INT16 powfoodadd = powwater * gGameExternalOptions.usFoodDigestionHourlyBaseFood / max(1, gGameExternalOptions.usFoodDigestionHourlyBaseDrink);
 
 		// if we're thirsty or hungry, and this is nutritious, consume it
 		if ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_VERY_LOW].bThreshold  )

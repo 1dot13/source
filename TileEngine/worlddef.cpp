@@ -2843,6 +2843,9 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	gfBasement = FALSE;
 	gfCaves = FALSE;
 
+	// Flugente: select loadscreen hint
+	SetNewLoadScreenHint();
+
 	SetRelativeStartAndEndPercentage(0, 0, 1, L"Trashing world...");
 #ifdef JA2TESTVERSION
 	uiStartTime = GetJA2Clock();

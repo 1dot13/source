@@ -218,6 +218,7 @@ typedef PARSE_STAGE;
 #define MERCAVAILABILITY						"MercAvailability.xml"
 #define MERCOPINIONSFILENAME					"MercOpinions.xml"
 #define MERCPROFILESFILENAME					"MercProfiles.xml"
+#define LOADSCREENHINTSFILENAME					"LoadScreenHints.xml"
 
 #ifdef JA2UB
 	#define MERCPROFILESFILENAME25				"MercProfiles25.xml"
@@ -301,6 +302,10 @@ extern BOOLEAN WriteRandomItemStats();
 // Flugente: squad names
 extern BOOLEAN ReadInSquadNamesStats(STR fileName);
 extern BOOLEAN WriteSquadNamesStats();
+
+// Flugente: loadscreen hints
+extern BOOLEAN ReadInLoadScreenHints(STR fileName);
+extern BOOLEAN WriteLoadScreenHints();
 
 extern BOOLEAN ReadInAmmoStats(STR fileName);
 extern BOOLEAN WriteAmmoStats();

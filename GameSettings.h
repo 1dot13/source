@@ -622,6 +622,7 @@ typedef struct
 	INT32 ubEnemiesItemDrop;
 
 	BOOLEAN	gfUseExternalLoadscreens;
+	BOOLEAN gfUseLoadScreenHints;		// added by Flugente
 
 	//tais: nsgi
 	BOOLEAN gfUseNewStartingGearInterface;

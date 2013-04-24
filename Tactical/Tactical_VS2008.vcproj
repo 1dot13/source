@@ -1113,6 +1113,9 @@
 			<File
 				RelativePath="XML_LoadBearingEquipment.cpp"
 				>
+			<File
+				RelativePath="XML_LoadScreenHints.cpp"
+				>
 			</File>
 			<File
 				RelativePath="XML_Magazine.cpp"

@@ -31,6 +31,64 @@ typedef struct PROGRESSBAR
 
 extern PROGRESSBAR *pBar[ MAX_PROGRESSBARS ];
 
+// Flugente: a structure for clothing items
+typedef struct
+{
+	UINT16			uiIndex;
+	CHAR16			szName[256];			// name of these clothes
+	UINT32			usFlags;				// flags that can be used to determine wether a hint is currently appropriate
+	BOOLEAN			fAlreadyShown;			// to remember if this hint has already been shown in this game (reset on starting exe)
+} LOADSCREENHINT_STRUCT;
+
+#define LOADSCREENHINT_MAX	200
+
+extern LOADSCREENHINT_STRUCT zLoadScreenHint[LOADSCREENHINT_MAX];
+
+// Flugente: this function selects the next hint to display, and makes sure it is not played again during this run of the exe
+void SetNewLoadScreenHint();
+
+// -------- added by Flugente: various flags for loadscreen hints--------
+// easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+#define LOADSCREEN_LORE					0x00000001	//1			// ingame history and background
+#define LOADSCREEN_WEAPON				0x00000002	//2			// tips on weapons
+#define LOADSCREEN_ITEM					0x00000004	//4			// general tip on items
+#define LOADSCREEN_KEYBIND				0x00000008	//8			// tip on new key commands
+
+#define LOADSCREEN_FOOD					0x00000010	//16		// food tips
+#define LOADSCREEN_ZOMBIE				0x00000020	//32		// zombie tips
+#define LOADSCREEN_OVERHEAT_DIRT   		0x00000040	//64		// tips on overheating & dirt
+#define LOADSCREEN_NCTH					0x00000080	//128		// tips on using NCTH
+
+#define LOADSCREEN_COVERTOPS			0x00000100	//256		// tips on using the covert ops trait
+//#define SOLDIER_HEADSHOT			0x00000200	//512		// last hit received was a headshot (attack to the head, so knifes/punches also work)
+//#define SOLDIER_POW					0x00000400	//1024		// we are a prisoner of war
+//#define SOLDIER_ASSASSIN			0x00000800	//2048		// we are an enemy assassin, and thus we will behave very different from normal enemies
+
+//#define SOLDIER_POW_PRISON			0x00001000	//4096		// this guy is a prisoner of war in a prison sector. SOLDIER_POW refers to people we capture, this refers to people we hold captive
+//#define SOLDIER_EQUIPMENT_DROPPED	0x00002000	//8192		// under certain circumstances, militia can be ordered to drop their gear twice. Thus we set a marker to avoid that
+//#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
+/*#define WH40K_SOLDIER_BLANK								0x00008000	//32768			// we are a blank, the ultimate weapon against psykers and daemons
+
+#define WH40K_SOLDIER_IDENTIFIED_BLANK					0x00010000	//65536			// we are a blank, and the player has learned this (used for laptop display)
+#define WH40K_SOLDIER_DEMON_DAMMALUS_ACTIVE				0x00020000	//131072		// demon disability: damage malus is active
+#define WH40K_SOLDIER_DEMON_LINKEDBULLETS				0x00040000	//262144		// demon dual wield: our first bullet hit, thus we get a huge bonus to the second bullet
+#define WH40K_SOLDIER_OBLITERATOR						0x00080000	//524288		// soldier has the obliterator virus
+
+#define WH40K_SOLDIER_ADEPTA_PRAYER_DAMAGE				0x00100000	//1048576
+#define WH40K_SOLDIER_ADEPTA_PRAYER_CTH					0x00200000	//2097152
+#define WH40K_SOLDIER_ADEPTA_PRAYER_SUPPRESSION			0x00400000	//4194304
+#define WH40K_SOLDIER_ADEPTA_PRAYER_ENERGYREGEN			0x00800000	//8388608
+
+#define WH40K_SOLDIER_TIMEBUBBLEEFFECT					0x01000000	//16777216
+#define WH40K_SOLDIER_VOX_OPERATOR_LISTENING			0x02000000	//33554432
+#define WH40K_SOLDIER_VOX_OPERATOR_JAMMING				0x04000000	//67108864
+#define WH40K_SOLDIER_VOX_OPERATOR_SCANNING				0x08000000	//134217728
+
+#define WH40K_SOLDIER_COMMISSAR_MILITIA_KILL_BONUS		0x10000000	//268435456		// guardsmen under our command killed a heretic. This grants a bonus to our next hit with one-handed weapons
+#define WH40K_SOLDIER_ADEPTA_PRAYER_REDUCEDAMAGE		0x20000000	//536870912		// reduce damage taken by 2
+#define WH40K_SOLDIER_ILLUSION							0x40000000	//1073741824	// Soldier is an Illusion
+#define WH40K_SOLDIER_KILLSTREAK						0x80000000	//2147483648	// Soldier is on a kill streak*/
+
 void CreateLoadingScreenProgressBar();
 void RemoveLoadingScreenProgressBar();
 

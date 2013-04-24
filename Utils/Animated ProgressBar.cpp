@@ -12,7 +12,8 @@
 	#include "music control.h"
 	#include "Timer Control.h"
 	#include "sysutil.h"
-#include "math.h"
+	#include "random.h"
+	#include "math.h"
 #endif
 
 double rStart, rEnd;
@@ -218,6 +219,52 @@ void RemoveProgressBar( UINT8 ubID )
 	}
 }
 
+// Flugente: stuff needed for loadscreen hints
+extern UINT16 num_found_loadscreenhints;
+static UINT16 usCurrentLoadScreenHint = 0;
+
+// Flugente: this function selects the next hint to display, and makes sure it is not played again during this run of the exe
+void SetNewLoadScreenHint()
+{
+	if ( !gGameExternalOptions.gfUseLoadScreenHints )
+		return;
+
+	UINT16 lastfnd = 0;
+	UINT8 possiblehints[LOADSCREENHINT_MAX];
+
+	for(UINT32 cnt = 1; cnt <= num_found_loadscreenhints; ++cnt)
+	{
+		if ( !zLoadScreenHint[cnt].fAlreadyShown )
+		{
+			// we now check the flags of a hint to determine wether it can show up. It can if at least one flag is valid
+			BOOLEAN fShow = FALSE;			
+			// still unsure how to check for these...
+			if ( zLoadScreenHint[cnt].usFlags & (LOADSCREEN_LORE|LOADSCREEN_WEAPON|LOADSCREEN_ITEM|LOADSCREEN_KEYBIND)  )
+				fShow = TRUE;
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_FOOD && gGameOptions.fFoodSystem )
+				fShow = TRUE;
+#ifdef ENABLE_ZOMBIES
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_ZOMBIE && gGameSettings.fOptions[TOPTION_ZOMBIES] )
+				fShow = TRUE;
+#endif
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_OVERHEAT_DIRT && (gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem) )
+				fShow = TRUE;
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_NCTH && UsingNewCTHSystem() )
+				fShow = TRUE;
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_COVERTOPS && gGameOptions.fNewTraitSystem )
+				fShow = TRUE;
+						
+			if ( fShow )
+				possiblehints[lastfnd++] = cnt;
+		}
+	}
+
+	UINT16 sel = possiblehints[ Random(lastfnd) ];
+	zLoadScreenHint[sel].fAlreadyShown = TRUE;
+
+	usCurrentLoadScreenHint = sel;
+}
+
 //An important setup function.	The best explanation is through example.	The example being the loading
 //of a file -- there are many stages of the map loading.	In JA2, the first step is to load the tileset.
 //Because it is a large chunk of the total loading of the map, we may gauge that it takes up 30% of the
@@ -282,6 +329,13 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 			SetFontShadow( pCurr->ubMsgFontShadowColor );
 			SetFontBackground( 0 );
 			mprintf( pCurr->usBarLeft, pCurr->usBarBottom + 3, str );
+			
+			// Flugente: loadscreen hints
+			if ( usCurrentLoadScreenHint )
+			{				
+				gprintfinvalidate( pCurr->usBarLeft, pCurr->usBarBottom + 3 - 200, L"%s", zLoadScreenHint[usCurrentLoadScreenHint].szName );
+				mprintf( pCurr->usBarLeft, pCurr->usBarBottom + 3 - 200, L"%s", zLoadScreenHint[usCurrentLoadScreenHint].szName );
+			}
 		}
 	}
 }
