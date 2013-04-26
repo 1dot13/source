@@ -47,21 +47,21 @@ static BOOLEAN gfDontRestartSong = FALSE;
 
 CHAR8 *szMusicList[NUM_MUSIC]=
 {
-	"MUSIC\\marimbad 2.wav",
-	"MUSIC\\menumix1.wav",
-	"MUSIC\\nothing A.wav",
-	"MUSIC\\nothing B.wav",
-	"MUSIC\\nothing C.wav",
-	"MUSIC\\nothing D.wav",
-	"MUSIC\\tensor A.wav",
-	"MUSIC\\tensor B.wav",
-	"MUSIC\\tensor C.wav",
-	"MUSIC\\triumph.wav",
-	"MUSIC\\death.wav",
-	"MUSIC\\battle A.wav",
-	"MUSIC\\tensor B.wav",
-	"MUSIC\\creepy.wav",
-	"MUSIC\\creature battle.wav",
+	"MUSIC\\marimbad 2",
+	"MUSIC\\menumix1",
+	"MUSIC\\nothing A",
+	"MUSIC\\nothing B",
+	"MUSIC\\nothing C",
+	"MUSIC\\nothing D",
+	"MUSIC\\tensor A",
+	"MUSIC\\tensor B",
+	"MUSIC\\tensor C",
+	"MUSIC\\triumph",
+	"MUSIC\\death",
+	"MUSIC\\battle A",
+	"MUSIC\\tensor B",
+	"MUSIC\\creepy",
+	"MUSIC\\creature battle",
 };
 
 BOOLEAN StartMusicBasedOnMode(void);
@@ -113,6 +113,7 @@ BOOLEAN MusicPlay(UINT32 uiNum)
 	//if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
 	//return FALSE;
 
+	static CHAR8 zFileName[164];
 	SOUNDPARMS spParms;
 
 	if(fMusicPlaying)
@@ -127,7 +128,12 @@ BOOLEAN MusicPlay(UINT32 uiNum)
 
 	//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "About to call SoundPlayStreamedFile" );
 
-	uiMusicHandle = SoundPlayStreamedFile(szMusicList[uiNum], &spParms);
+	// Lesh: patch to allow playback ogg files
+	sprintf( zFileName, "%s.ogg", szMusicList[uiNum] );
+	if ( !FileExists( zFileName ) )
+		sprintf( zFileName, "%s.wav", szMusicList[uiNum] );
+
+	uiMusicHandle = SoundPlayStreamedFile(zFileName, &spParms);
 
 	if(uiMusicHandle != SOUND_ERROR)
 	{
