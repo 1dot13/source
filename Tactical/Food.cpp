@@ -67,6 +67,36 @@ FoodMoraleMod FoodMoraleMods[NUM_FOOD_MORALE_TYPES] =
 	{ -10000,	-40,	+3,		-45,	-45,	100},	//	FOOD_STARVING
 };
 
+// Flugente: LootFragg had a nice idea: food intake should be non-linear.
+// The idea is that for a starving person, a piece of food raises the food percentage more than it would for somebody overfed.
+// I thus created the 'food integral'. The points we get from food depend on the situation we are in when we eat something
+// As a result, we dont have to stuff unholy amounts of food in when we ar elow on food, but overfeeding gets harder.
+// It is thus more reasonable to eat when you are hungry instead of stuffing like a bear before hibernation.
+
+FLOAT FoodEfficiency_Primitive( FLOAT aVal )
+{
+	return aVal - aVal*aVal/FOOD_HALF_RANGE + aVal*aVal*aVal/(3*FOOD_HALF_RANGE*FOOD_HALF_RANGE);
+}
+
+FLOAT FoodIntegral( INT32 a, INT32 b )
+{
+	if ( a >= b )
+		return 0.0;
+
+	if ( a < FOOD_MIN ) a = FOOD_MIN;
+	if ( b > FOOD_MAX ) b = FOOD_MAX;
+
+	return ( FoodEfficiency_Primitive( (FLOAT)b ) - FoodEfficiency_Primitive( (FLOAT)a ) );
+}
+
+void AddFoodpoints( INT32& arCurrentFood, INT32 aVal )
+{
+	// the amount of points we get depends on our current food situation and the amount of food points
+	INT32 intake = FoodIntegral( arCurrentFood, arCurrentFood + aVal );
+
+	arCurrentFood = min(arCurrentFood + intake, FOOD_MAX);
+	arCurrentFood = max(arCurrentFood, FOOD_MIN);
+}
 
 BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, BOOLEAN fForceFromDrugs )
 {
@@ -157,11 +187,8 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 	INT32 drinkpts = (INT32) (Food[foodtype].bDrinkPoints * percentualsize * conditionmodifier );
 
 	// eat it!
-	pSoldier->bFoodLevel = min(pSoldier->bFoodLevel + foodpts, FOOD_MAX);
-	pSoldier->bFoodLevel = max(pSoldier->bFoodLevel, FOOD_MIN);
-
-	pSoldier->bDrinkLevel = min(pSoldier->bDrinkLevel + drinkpts, DRINK_MAX);
-	pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel, DRINK_MIN);
+	AddFoodpoints(pSoldier->bFoodLevel, foodpts);
+	AddFoodpoints(pSoldier->bDrinkLevel, drinkpts);
 
 	/////////////////// MORALE //////////////////////
 	INT8 moralemod = Food[foodtype].bMoraleMod;
@@ -346,7 +373,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 
 	// due to digestion, reduce our food and drink levels
 	pSoldier->bFoodLevel  = max(pSoldier->bFoodLevel  - (INT32) (activitymodifier * gGameExternalOptions.usFoodDigestionHourlyBaseFood), FOOD_MIN);
-	pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel - (INT32) (activitymodifier * temperaturemodifier * gGameExternalOptions.usFoodDigestionHourlyBaseDrink), DRINK_MIN);
+	pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel - (INT32) (activitymodifier * temperaturemodifier * gGameExternalOptions.usFoodDigestionHourlyBaseDrink), FOOD_MIN);
 
 	// there is a chance that we take damage to our health and strength stats if we are starving (or insanely obese :-) )
 	UINT8 foodsituation;
@@ -540,16 +567,10 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 
 		// if we're thirsty or hungry, and this is nutritious, consume it
 		if ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_VERY_LOW].bThreshold  )
-		{				
-			pSoldier->bDrinkLevel = min(pSoldier->bDrinkLevel + powwater, DRINK_MAX);
-			pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel, DRINK_MIN);
-		}
+			AddFoodpoints(pSoldier->bDrinkLevel, powwater);
 
 		if ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_VERY_LOW].bThreshold )
-		{
-			pSoldier->bFoodLevel = min(pSoldier->bFoodLevel + powfoodadd, FOOD_MAX);
-			pSoldier->bFoodLevel = max(pSoldier->bFoodLevel, FOOD_MIN);
-		}
+			AddFoodpoints(pSoldier->bDrinkLevel, powfoodadd);
 	}
 	else
 	{
@@ -576,16 +597,10 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 
 						// if we're thirsty or hungry, and this is nutritious, consume it. When in a cantina, we are willing to eat a bit more
 						if ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_STOP_FACILITY].bThreshold  )
-						{				
-							pSoldier->bDrinkLevel = min(pSoldier->bDrinkLevel + cantinawater, DRINK_MAX);
-							pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel, DRINK_MIN);
-						}
+							AddFoodpoints(pSoldier->bDrinkLevel, cantinawater);
 
 						if ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_STOP_FACILITY].bThreshold )
-						{
-							pSoldier->bFoodLevel = min(pSoldier->bFoodLevel + cantinafoodadd, FOOD_MAX);
-							pSoldier->bFoodLevel = max(pSoldier->bFoodLevel, FOOD_MIN);
-						}
+							AddFoodpoints(pSoldier->bFoodLevel, cantinafoodadd);
 					}
 				}
 			}

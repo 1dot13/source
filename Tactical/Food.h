@@ -4,9 +4,10 @@
 #include "soldier control.h"
 
 #define FOOD_MIN									- 20000
-#define FOOD_MAX									10000
-#define DRINK_MIN									- 20000
-#define DRINK_MAX									10000
+#define FOOD_MAX									20000
+
+#define FOOD_RANGE									(FOOD_MAX - FOOD_MIN)
+#define FOOD_HALF_RANGE								(FOOD_RANGE / 2)
 
 typedef enum
 {

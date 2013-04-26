@@ -1989,8 +1989,8 @@ void UpdateCharRegionHelpText( void )
 															pMapScreenStatusStrings[ 5 ], pSoldier->bPoisonBleeding, bPoisonBandaged, pSoldier->bPoisonLife, pSoldier->bPoisonSum,
 															pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,															
 															pMapScreenStatusStrings[ 2 ], pMoraleStr,
-															pMapScreenStatusStrings[ 6 ], (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%",
-															pMapScreenStatusStrings[ 7 ], (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+															pMapScreenStatusStrings[ 6 ], (INT32)(100*(pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%",
+															pMapScreenStatusStrings[ 7 ], (INT32)(100*(pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%" );
 						}
 						else
 						{
@@ -1998,8 +1998,8 @@ void UpdateCharRegionHelpText( void )
 															pMapScreenStatusStrings[ 0 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
 															pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,
 															pMapScreenStatusStrings[ 2 ], pMoraleStr,
-															pMapScreenStatusStrings[ 6 ], (INT32)(100*pSoldier->bDrinkLevel/FOOD_MAX), L"%",
-															pMapScreenStatusStrings[ 7 ], (INT32)(100*pSoldier->bFoodLevel/FOOD_MAX), L"%" );
+															pMapScreenStatusStrings[ 6 ], (INT32)(100*(pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%",
+															pMapScreenStatusStrings[ 7 ], (INT32)(100*(pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%" );
 						}
 					}
 					else
