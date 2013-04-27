@@ -1858,7 +1858,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usMilitiaAmmo_Min						= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_MIN",  10,  1, 400);
 	gGameExternalOptions.usMilitiaAmmo_Max						= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_MAX", 200, 30, 400);
 	gGameExternalOptions.usMilitiaAmmo_OptimalMagCount			= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_OPTIMAL_MAG_COUNT", 2, 1, 10);
-	
+	gGameExternalOptions.fMilitiaUseSectorClassSpecificTaboos	= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_CLASS_SPECIFIC_TABOOS", TRUE);
+			
 	//################# Shopkeeper Inventory Settings ##################
 
 	// WDS - Improve Tony's and Devin's inventory like BR's

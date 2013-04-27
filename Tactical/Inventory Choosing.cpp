@@ -3731,6 +3731,11 @@ void SearchItemRetrieval( WORLDITEM* pWorldItem, ItemSearchStruct* pSi, SOLDIERC
 
 		for ( UINT8 i = 0; i < usRealTake; ++i )
 			(pp->Inv[ pSi->soldierslot ])[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+
+		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN )
+			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_GREEN;
+		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
+			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_BLUE;
 		
 		if ( pWorldItem[ pSi->pos ].object.ubNumberOfObjects < 1 )
 		{
@@ -3981,7 +3986,7 @@ void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 
 
 // Preparation:			load correct sector inventory
 //						init selection structures
-//						decide which items categories to look for
+//						decide which item categories to look for
 //						delete existing soldier inventory, but account for gear already selected by this function (failsafe)
 //						early exit if no items are found in sector at all
 
@@ -3989,9 +3994,9 @@ void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 
 //						We do not yet evaluate guns - we do that later, when we know what ammo exists
 //						We store ammo in a map that also stores caliber and ammotype
 //						We store launchers in a structure that stores their item, wether they need ammo, and how much ammo we found
-//						We evaluate objects via EvaluateObjForItem(...). If you are unsatisgied with militia selections, try to improve this funtion first
+//						We evaluate objects via EvaluateObjForItem(...). If you are unsatisfied with militia selections, try to improve this funtion first
 
-// 1st loop afterwork:	If we are unable to determine a valid GridNo, soemthing is wrong here, abort
+// 1st loop afterwork:	If we are unable to determine a valid GridNo, something is wrong here, abort
 //						Definite decision on armour/face items/melee items/hand grenades
 
 // 2nd loop:			Evaluate all guns, taking ammo into account (we know how much ammo there is, as we wrote that into our map)
@@ -4001,12 +4006,12 @@ void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 
 //						Decide on a gun, we can now do that as we know all ammo
 //						If we have selected a gun, but do not take ammo from the inventory, spawn ammo in the traditional way
 
-// 3rd loop:			If we ever decide to pick up a gun, we will have done so now. We will look for fitting ammo in all ammo/guns, spawn correct magazines in our inventory, and remove ammo from found objects
+// 3rd loop:			If we ever decide to pick up a gun, we will have done so by now. We will look for fitting ammo in all ammo/guns, spawn correct magazines in our inventory, and remove ammo from found objects
 //						As we have decided on which launcher we want, we evaluate all launchers of this type and take if afterwards. We also move enough ammo into our inventory.
-//						If we created a new mag from the gun we took, try to add this to an empty invetory slot, if none is found, enlarge the inventory afterwards
+//						If we created a new mag from the gun we took, try to add this to an empty inventory slot, if none is found, enlarge the inventory afterwards
 
 // 3rd loop afterwork:	Take launcher
-//						Add mag if created adn it couldn't be added to empty slot earlier by enlarging the inventory
+//						Add mag if created and it couldn't be added to empty slot earlier by enlarging the inventory
 
 // Exit:				Save changed inventory
 void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
@@ -4027,15 +4032,25 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	UINT8 usLauncherAmmoLeftToTake	= 0;
 	UINT16 usSelectedGunBulletsNeeded = 0;						// how many bullets do we want for our gun
 	UINT16 usSelectedGunBulletCount = 0;						// how many bullets have we already taken for our selected gun
+	UINT16 usTabooFlag = 0;
 	
 	if ( !gGameExternalOptions.fMilitiaUseSectorInventory )
 		return;
+
+	// depending on our bSoldierClass, we may be forbidden from taking items the player has flagged
+	// note that in the current implmentation, items with the WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN-flag will have the higher flags as well, but that might change in the future
+	if ( bSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+		usTabooFlag = WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE;
+	else if ( bSoldierClass == SOLDIER_CLASS_REG_MILITIA )
+		usTabooFlag = WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE;
+	else
+		usTabooFlag = WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN;
 
 	///////////////////////////////// Preparation /////////////////////////////////////////////////////////
 
 	// Preparation:			load correct sector inventory
 	//						init selection structures
-	//						decide which items categories to look for
+	//						decide which item categories to look for
 	//						delete existing soldier inventory, but account for gear already selected by this function (failsafe)
 	//						early exit if no items are found in sector at all
 		
@@ -4185,7 +4200,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 				// this would be the place where we check wether the militia is allowed to pick up an item depending on its soldierclass
 
 				// test wether item is reachable and useable by militia
-				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ) )
+				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & usTabooFlag) )
 				{
 					// armour
 					if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_ARMOUR && (!si[SI_HELMET].done || !si[SI_VEST].done || !si[SI_LEGS].done ) )
@@ -4343,7 +4358,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 				// this would be the place where we check wether the militia is allowed to pick up an item depending on its soldierclass
 
 				// test wether item is reachable 
-				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ) )
+				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & usTabooFlag) )
 				{
 					// only if we are still looking for a gun
 					if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_GUN && !si[SI_GUN].done )
@@ -4529,7 +4544,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 			if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
 			{
 				// test wether item is reachable 
-				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ) )
+				if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem[ uiCount ].usFlags & usTabooFlag) )
 				{
 					// look for fitting ammo
 					if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_GUN && fSearchForAmmo && usSelectedGunBulletCount < usSelectedGunBulletsNeeded )

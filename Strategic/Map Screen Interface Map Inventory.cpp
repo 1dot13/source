@@ -612,12 +612,18 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		}
 	}
 
-	if( gGameExternalOptions.fMilitiaUseSectorInventory && ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ ) )
+	if( gGameExternalOptions.fMilitiaUseSectorInventory && ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL ) )
 	{
 		//Shade the item, but only if it is an active item!
 		if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true)
 		{
-			UINT16 usMilitia_EQColor = Get16BPPColor( FROMRGB( 69, 197, 149 ) );
+			// colour depends on flag
+			UINT16 usMilitia_EQColor = Get16BPPColor( FROMRGB( 31, 123, 129 ) );
+			if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
+				usMilitia_EQColor = Get16BPPColor( FROMRGB( 57, 4, 155 ) );
+			if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE )
+				usMilitia_EQColor = Get16BPPColor( FROMRGB( 156, 37, 3 ) );
+
 			DrawHatchOnInventory_MilitiaAccess( guiSAVEBUFFER, sX, sY, MAP_INVEN_SLOT_WIDTH, MAP_INVEN_SLOT_IMAGE_HEIGHT , usMilitia_EQColor);
 		}
 	}
@@ -1327,10 +1333,20 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				{
 					if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
 					{
-						if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ )
-							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~ WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+						if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE )
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL;
+						else if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE;
+						else if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN )
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE;
 						else
-							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+						{
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN;
+
+							// if we do not use class specific taboos, set all flags at once
+							if ( !gGameExternalOptions.fMilitiaUseSectorClassSpecificTaboos )
+								pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL;
+						}
 					}
 					else
 					{
@@ -1388,10 +1404,20 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 
 			if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
 			{
-				if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ )
-					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~ WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+				if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE )
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL;
+				else if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE;
+				else if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN )
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE;
 				else
-					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ;
+				{
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN;
+
+					// if we do not use class specific taboos, set all flags at once
+					if ( !gGameExternalOptions.fMilitiaUseSectorClassSpecificTaboos )
+						pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL;
+				}
 			}
 			else
 				BeginInventoryPoolPtr( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ) );

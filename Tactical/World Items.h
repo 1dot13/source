@@ -16,7 +16,11 @@
 #define	WORLD_ITEM_DROPPED_FROM_ENEMY								0x0800
 
 // Flugente: when equipping militia from inventory, do not consider this item
-#define	WORLD_ITEM_TABOO_FOR_MILITIA_EQ								0x1000
+#define	WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE								0x1000
+#define	WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE								0x2000
+#define	WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN								0x4000
+
+#define WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL									0x7000
 
 class WORLDITEM;//dnl ch33 120909
 class _OLD_WORLDITEM;//dnl ch42 280909

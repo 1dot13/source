@@ -487,6 +487,7 @@ typedef struct
 	UINT16 usMilitiaAmmo_Min;
 	UINT16 usMilitiaAmmo_Max;
 	UINT16 usMilitiaAmmo_OptimalMagCount;
+	BOOLEAN	fMilitiaUseSectorClassSpecificTaboos;
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	BOOLEAN tonyUsesBRSetting;

@@ -910,6 +910,11 @@ BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sG
 
 
 		pWorldItems[ cnt ].object = pObject[uiLoop1];
+
+		if ( (*pObject)[uiLoop1]->data.sObjectFlag & TAKEN_BY_MILITIA_TABOO_GREEN )
+			pWorldItems[ cnt ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN;
+		if ( (*pObject)[uiLoop1]->data.sObjectFlag & TAKEN_BY_MILITIA_TABOO_BLUE )
+			pWorldItems[ cnt ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE;
 	}
 
 	//Save the Items to the the file

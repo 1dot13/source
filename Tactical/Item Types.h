@@ -813,8 +813,8 @@ extern OBJECTTYPE gTempObject;
 
 #define TRIPWIRE_ACTIVATED		0x0000000100000000	//		 4294967296
 #define TAKEN_BY_MILITIA		0x0000000200000000	//		 8589934592
-//#define CORPSE_PANTS_TAN		0x0000000400000000	//		17179869184
-//#define CORPSE_PANTS_BLACK	0x0000000800000000	//		34359738368
+#define TAKEN_BY_MILITIA_TABOO_GREEN		0x0000000400000000	//		17179869184		// this item is taboo for green militia (have to reset flag for world item upon dropping it)
+#define TAKEN_BY_MILITIA_TABOO_BLUE			0x0000000800000000	//		34359738368		// this item is taboo for blue militia (have to reset flag for world item upon dropping it)
 
 // Flugente TODO 2012-09-17: next time we break savegame compatibility, extend the flagmasks from UINT32 to UINT64. I didn't do it this time (see double-used flag above), as we try to minimise those breaks. But it is needed.
 // ----------------------------------------------------------------
