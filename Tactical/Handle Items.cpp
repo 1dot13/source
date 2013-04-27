@@ -2949,9 +2949,15 @@ OBJECTTYPE* InternalAddItemToPool( INT32 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 	}
 
 	if ( (*pObject)[0]->data.sObjectFlag & TAKEN_BY_MILITIA_TABOO_GREEN )
+	{
+		(*pObject)[0]->data.sObjectFlag &= ~ TAKEN_BY_MILITIA_TABOO_GREEN;
 		gWorldItems[ iWorldItem ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN;
+	}
 	if ( (*pObject)[0]->data.sObjectFlag & TAKEN_BY_MILITIA_TABOO_BLUE )
+	{
+		(*pObject)[0]->data.sObjectFlag &= ~ TAKEN_BY_MILITIA_TABOO_BLUE;
 		gWorldItems[ iWorldItem ].usFlags |= WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE;
+	}
 
 	return( &(gWorldItems[ iWorldItem ].object ) );
 }
