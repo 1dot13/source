@@ -1257,7 +1257,7 @@
 	<PROFILE>
 		<uiIndex>251</uiIndex>
 		<Name>Smoke</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>
