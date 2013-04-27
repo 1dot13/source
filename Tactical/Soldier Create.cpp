@@ -733,7 +733,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			//CHRISL: make sure nails gets his jacket no matter what
 			if(pCreateStruct->ubProfile == 34 && pCreateStruct->fCopyProfileItemsOver == FALSE)
 			{
-				CreateItem(188, 100, &Soldier.inv[VESTPOS]);
+				CreateItem(LEATHER_JACKET, 100, &Soldier.inv[VESTPOS]);
 			}
 		}
 

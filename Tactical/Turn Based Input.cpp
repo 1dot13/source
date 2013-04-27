@@ -4461,7 +4461,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					
 						//Heinz: 28.02.09 BUGFIX: giving G41 to Maria only in cheat mode
 						// Create object and set
-						CreateItem( (UINT16) G41, 100, &Object );
+						CreateItem( G41, 100, &Object );
 
 						pSoldier = FindSoldierByProfileID( MARIA, FALSE );
 
@@ -4951,7 +4951,7 @@ void MakeSelectedSoldierTired()
 	INT32 usMapPos;
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
-		CreateItem( (UINT16)TNT, 100, &gTempObject );
+		CreateItem( TNT, 100, &gTempObject );
 		AddItemToPool( usMapPos, &gTempObject, -1, 0, 0, 0 );
 	}
 

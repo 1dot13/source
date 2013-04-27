@@ -1116,7 +1116,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=0;
 	pSoldier->bVisible = 1;
 
-	if(MercCreateStruct.ubProfile==64)//slay
+	if(MercCreateStruct.ubProfile==SLAY)//slay
 	{
 		pSoldier->ubBodyType = REGMALE;
 		gMercProfiles[ pSoldier->ubProfile ].ubBodyType = REGMALE;

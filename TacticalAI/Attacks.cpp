@@ -747,7 +747,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}
@@ -1318,7 +1318,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 			continue;			// next merc
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 			continue;	// next opponent
 
 #ifdef DEBUGATTACKS

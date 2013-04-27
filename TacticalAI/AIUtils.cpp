@@ -1142,7 +1142,7 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}
@@ -1245,7 +1245,7 @@ INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLeve
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}
@@ -1337,7 +1337,7 @@ INT32 ClosestSeenOpponentWithRoof(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpp->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}
@@ -2040,7 +2040,7 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 	 continue;			// next merc
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}

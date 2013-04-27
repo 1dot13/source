@@ -943,7 +943,7 @@ UINT8 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
 			continue;
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pTargetSoldier->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pTargetSoldier->ubProfile != SLAY)
 		{
 			continue;  // next opponent
 		}

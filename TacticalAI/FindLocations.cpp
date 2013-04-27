@@ -29,6 +29,7 @@
 	#include "lighting.h"
 	#include "Buildings.h"
 	#include "GameSettings.h"
+	#include "Soldier Profile.h"
 #endif
 
 #include "PathAIDebug.h"
@@ -703,7 +704,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}
@@ -1168,7 +1169,7 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 		{
 			continue;	// next opponent
 		}
