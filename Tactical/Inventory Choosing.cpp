@@ -4027,7 +4027,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	UINT16 numcrates				= 0;
 	BOOLEAN fNewMagCreated			= FALSE;
 	OBJECTTYPE newAmmoObj;
-	BOOLEAN fSearchForAmmo = TRUE;
+	BOOLEAN fSearchForAmmo			= TRUE;
 	UINT16 usLauncherItem			= 0;
 	UINT8 usLauncherAmmoLeftToTake	= 0;
 	UINT16 usSelectedGunBulletsNeeded = 0;						// how many bullets do we want for our gun
@@ -4367,17 +4367,20 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 
 						Calibre_BulletCountMap::iterator calibremap_it = calibrebulletountmap.find( calibre );
 
-						if ( calibremap_it != calibrebulletountmap.end() )
+						if ( fSearchForAmmo )
 						{
-							UINT32 bullets = GetTotalCalibreAmmo( &((*calibremap_it).second) );
+							// only evaluate of ammo is found!
+							if ( calibremap_it != calibrebulletountmap.end() )
+							{
+								UINT32 bullets = GetTotalCalibreAmmo( &((*calibremap_it).second) );
 
-							EvaluateObjForItem_WithAmmo( pWorldItem, pObj, uiCount, &si[SI_GUN], bullets );
+								EvaluateObjForItem_WithAmmo( pWorldItem, pObj, uiCount, &si[SI_GUN], bullets );
+							}
 						}
-						// no ammo found... a gun without bullets is useless, ignore this thing
-						//else
-						//{
-							//EvaluateObjForItem_WithAmmo( pWorldItem, pObj, uiCount, &si[SI_GUN], 0 );
-						//}
+						else
+						{
+							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GUN] );
+						}
 					}
 					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GRENADE|IC_BOMB) && !si[SI_LAUNCHER].done )
 					{
