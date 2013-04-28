@@ -489,6 +489,9 @@ typedef struct
 	UINT16 usMilitiaAmmo_OptimalMagCount;
 	BOOLEAN	fMilitiaUseSectorClassSpecificTaboos;
 
+	// Flugente - allow accessing other mercs inventory via 'stealing'
+	BOOLEAN fAccessOtherMercInventories;
+
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	BOOLEAN tonyUsesBRSetting;
 	BOOLEAN devinUsesBRSetting;

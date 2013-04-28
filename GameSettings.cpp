@@ -1310,6 +1310,8 @@ void LoadGameExternalOptions()
 	// enable schedules and decision making for any named npc regardless of their team
 	gGameExternalOptions.fAllNamedNpcsDecideAction			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALL_NAMED_NPCS_DECIDE_ACTION", FALSE);
 
+	gGameExternalOptions.fAccessOtherMercInventories		= iniReader.ReadBoolean("Tactical Gameplay Settings","ACCESS_OTHER_MERC_INVENTORIES", TRUE);
+
 	//################# Tactical Cover System Settings ##################
 
 	// CPT: Cover System Settings

@@ -3088,7 +3088,12 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		if (fStealing)
 		{
 			// Calculate the possible chance to steal!
-			if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || TANK( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
+			// Flugente: if we are on the same team, allow guaranteed full access
+			if ( gGameExternalOptions.fAccessOtherMercInventories && pTargetSoldier->bTeam == pSoldier->bTeam )
+			{
+				iHitChance = 100;
+			}
+			else if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || TANK( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
 			{
 				iHitChance = 0;
 			}
@@ -3182,7 +3187,8 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						// WDS 07/19/2008 - Random number use fix
 			// Do we have the chance to steal more than 1 item?
 			// SANDRO - taking items from collapsed soldiers is treated differently
-			if (( fSoldierCollapsed || (!gGameExternalOptions.fEnhancedCloseCombatSystem && iDiceRoll < (iHitChance * 2 / 3))) && pSoldier->bTeam == gbPlayerNum )
+			// Flugente: if we are on the same team, allow guaranteed full access
+			if ( (gGameExternalOptions.fAccessOtherMercInventories && pTargetSoldier->bTeam == pSoldier->bTeam ) || ( fSoldierCollapsed || (!gGameExternalOptions.fEnhancedCloseCombatSystem && iDiceRoll < (iHitChance * 2 / 3))) && pSoldier->bTeam == gbPlayerNum )
 			{
 				// first, charge extra Aps, because it's difficlut to pickup from other soldier
 				if (gGameExternalOptions.fEnhancedCloseCombatSystem)
