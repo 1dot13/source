@@ -147,6 +147,11 @@ extern char	cServerName[30];
 
 //OJW - 20081224
 #define MAX_CONNECT_RETRIES	5
+
+// WANNE: If this define is enabled, it hopefully fixes the "enemy AI got stuck on pure client interrupt". (this "fix" was added in revision 5623)
+// After some MP-Tests: It seems there are still problems with enemy interupt and if this define is enabled the ALT + E (give turn to client) does not work correctly. So I disabled this define for now ...
+//#define INTERRUPT_MP_DEADLOCK_FIX
+
 #define ENABLE_COLLISION (is_server && pBullet->pFirer->ubID<120) || (!is_server && is_client && pBullet->pFirer->ubID<20) || (!is_server && !is_client) 
 extern bool auto_retry;
 extern int giNumTries;

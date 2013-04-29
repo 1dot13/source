@@ -1936,69 +1936,136 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 }
 
 // WANNE - MP: Here we have to add AddTopMessage() on the clients
-void recieveINTERRUPT (RPCParameters *rpcParameters)
-{
-	INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
-	SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
-
-	if(INT->bTeam == netbTeam || (is_server && INT->bTeam == 1))//its for us or we are server and its for AI which we control
+#ifdef INTERRUPT_MP_DEADLOCK_FIX
+	
+	void recieveINTERRUPT (RPCParameters *rpcParameters)
 	{
+		INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
+		SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
+
+		if(INT->bTeam == netbTeam || (is_server && INT->bTeam == 1))//its for us or we are server and its for AI which we control
+		{
+			
+			if(INT->bTeam == netbTeam){//for me
+				INT->bTeam=0;
+				INT->ubID=INT->ubID - ubID_prefix;
+				AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+			}else{//for ai
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"starting ai" );
+				AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+			}
+
+
+			for(int i=0; i <= INT->gubOutOfTurnPersons; i++)//this loop translates soldier id's from what they are in someone else's game to what they are locally
+			{
+				if((INT->gubOutOfTurnOrder[i] >= ubID_prefix) && (INT->gubOutOfTurnOrder[i] < (ubID_prefix+6)))
+				{
+					INT->gubOutOfTurnOrder[i]=INT->gubOutOfTurnOrder[i]-ubID_prefix;
+				}
+			}
+			memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+			gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
+
+
+			//AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved interrupt between %s and %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );
+
+
 		
-		if(INT->bTeam == netbTeam){//for me
+			 //start interrupt turn //real interrupt code
+				SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
+				ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
+				StartInterrupt();
+		
+
+		}
+		else//its not for us, make faux interrupt look while it happens
+		{
+		//this following section starts the interrupt, either with faux interrupt look, or real interrupt code, or nothing if already there
+
+		//if(	INT->bTeam != 0)//not for our team - hayden
+		//{
+			
+			//stop moving merc who was interrupted and init UI bar
+			SOLDIERTYPE* pMerc = MercPtrs[ INT->ubID ];	
+			pMerc->HaultSoldierFromSighting(TRUE);
+			FreezeInterfaceForEnemyTurn();
+			InitEnemyUIBar( 0, 0 );
+			fInterfacePanelDirty = DIRTYLEVEL2;
+			gTacticalStatus.fInterruptOccurred = TRUE;
+
+			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+			//this needed to add details of who's interrupt it is - hayden
+			
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved interrupt with %s and %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
+		}
+
+	}
+
+#else
+
+	void recieveINTERRUPT (RPCParameters *rpcParameters)
+	{
+		INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
+		SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
+
+		if(INT->bTeam==netbTeam)//for us
+		{
 			INT->bTeam=0;
 			INT->ubID=INT->ubID - ubID_prefix;
+
+			for(int i=0; i <= INT->gubOutOfTurnPersons; i++)//this loop translates soldier id's from what they are in someone else's game to what they are locally
+			{
+				if((INT->gubOutOfTurnOrder[i] >= ubID_prefix) && (INT->gubOutOfTurnOrder[i] < (ubID_prefix+6)))
+				{
+					INT->gubOutOfTurnOrder[i]=INT->gubOutOfTurnOrder[i]-ubID_prefix;
+				}
+			}
+			memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
+			gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
+
+
 			AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-		}else{//for ai
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"starting ai" );
-			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt of %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );
+
 		}
 
-
-		for(int i=0; i <= INT->gubOutOfTurnPersons; i++)//this loop translates soldier id's from what they are in someone else's game to what they are locally
+		// WANNE - MP: This seems to cause the HANG on AI interrupt where we have to press ALT + E on the server!
+		if(	INT->bTeam != 0)//not for our team - hayden
 		{
-			if((INT->gubOutOfTurnOrder[i] >= ubID_prefix) && (INT->gubOutOfTurnOrder[i] < (ubID_prefix+6)))
+			
+			//stop moving merc who was interrupted and init UI bar
+			SOLDIERTYPE* pMerc = MercPtrs[ INT->ubID ];	
+			pMerc->HaultSoldierFromSighting(TRUE);
+			FreezeInterfaceForEnemyTurn();
+			InitEnemyUIBar( 0, 0 );
+			fInterfacePanelDirty = DIRTYLEVEL2;
+			gTacticalStatus.fInterruptOccurred = TRUE;
+
+			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
+			//this needed to add details of who's interrupt it is - hayden
+			
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt with %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
+		}
+		else
+		{
+			//it for us ! :)
+			if(INT->gubOutOfTurnPersons==0)//indicates finished interrupt maybe can just call end interrupt
 			{
-				INT->gubOutOfTurnOrder[i]=INT->gubOutOfTurnOrder[i]-ubID_prefix;
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"old int finish" );
+			}
+			else //start our interrupt turn
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt of %s awarded to you.", TeamNameStrings[pOpponent->bTeam] );//was MPClientMessage[37], can be reconnected if text updated and translated
+
+				SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
+				ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
+				StartInterrupt();
 			}
 		}
-		memcpy(gubOutOfTurnOrder,INT->gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
-		gubOutOfTurnPersons = INT->gubOutOfTurnPersons;
-
-
-		//AddTopMessage( PLAYER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved interrupt between %s and %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );
-
-
-	
-		 //start interrupt turn //real interrupt code
-			SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
-			ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
-			StartInterrupt();
-	
-
-	}
-	else//its not for us, make faux interrupt look while it happens
-	{
-	//this following section starts the interrupt, either with faux interrupt look, or real interrupt code, or nothing if already there
-
-	//if(	INT->bTeam != 0)//not for our team - hayden
-	//{
-		
-		//stop moving merc who was interrupted and init UI bar
-		SOLDIERTYPE* pMerc = MercPtrs[ INT->ubID ];	
-		pMerc->HaultSoldierFromSighting(TRUE);
-		FreezeInterfaceForEnemyTurn();
-		InitEnemyUIBar( 0, 0 );
-		fInterfacePanelDirty = DIRTYLEVEL2;
-		gTacticalStatus.fInterruptOccurred = TRUE;
-
-		AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-		//this needed to add details of who's interrupt it is - hayden
-		
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved interrupt with %s and %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
 	}
 
-}
+#endif
 
 void intAI (SOLDIERTYPE *pSoldier )
 {
