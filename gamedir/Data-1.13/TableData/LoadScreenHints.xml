@@ -58,4 +58,37 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>If a 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>8</uiIndex>
+    <szName>Don't forget to check out Jagged Alliance: Flashback on Kickstarter!</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>9</uiIndex>
+    <szName>Don't be lame! Drop backpacks with [SHIFT]+[B] in tactical to enhance movement and enable climbing.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>10</uiIndex>
+    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helping bears at www.ja-galaxy-forum.com</szName>
+    <keybind>1</keybind>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>11</uiIndex>
+    <szName>Turn the wheel to your fortune. Increase Chance To Hit in all fire modes with the mouse [WHEEL]. [ALT]+[WHEEL] sets size of auto-fire volley.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>12</uiIndex>
+    <szName>Facilities granted. Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
+    <keybind>1</keybind>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>13</uiIndex>
+    <szName>Guild of Thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
+    <keybind>1</keybind>
+    <lore>1</lore>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
