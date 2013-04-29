@@ -1113,8 +1113,9 @@
 			<File
 				RelativePath="XML_LoadBearingEquipment.cpp"
 				>
+			</File>
 			<File
-				RelativePath="XML_LoadScreenHints.cpp"
+				RelativePath=".\XML_LoadScreenHints.cpp"
 				>
 			</File>
 			<File
@@ -1122,11 +1123,11 @@
 				>
 			</File>
 			<File
-				RelativePath="XML_MercStartingGear.cpp"
+				RelativePath="XML_Merchants.cpp"
 				>
 			</File>
 			<File
-				RelativePath="XML_Merchants.cpp"
+				RelativePath="XML_MercStartingGear.cpp"
 				>
 			</File>
 			<File

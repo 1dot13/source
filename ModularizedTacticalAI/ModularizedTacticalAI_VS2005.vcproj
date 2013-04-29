@@ -341,43 +341,43 @@
 			<File
 				RelativePath=".\src\AbstractPlanFactory.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\CrowPlan.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\LegacyAIPlan.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\LegacyAIPlanFactory.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\LegacyCreaturePlan.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\LegacyZombiePlan.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\NullPlan.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\NullPlanFactory.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\Plan.cpp"
 				>
-			<\File>
+			</File>
 			<File
 				RelativePath=".\src\PlanFactoryLibrary.cpp"
 				>
-			<\File>
+			</File>
 				<File
 				RelativePath=".\src\PlanList.cpp"
 				>
