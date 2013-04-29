@@ -913,14 +913,16 @@
 		<Message>Bitte nehmen Sie zur Kenntnis, dass Spookys Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Skitz -->
 		<uiIndex>179</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Bitte nehmen Sie zur Kenntnis, dass Skitzs Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Weasel -->
 		<uiIndex>180</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Weasels guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>181</uiIndex>
