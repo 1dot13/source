@@ -3089,7 +3089,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		{
 			// Calculate the possible chance to steal!
 			// Flugente: if we are on the same team, allow guaranteed full access
-			if ( gGameExternalOptions.fAccessOtherMercInventories && pTargetSoldier->bTeam == pSoldier->bTeam )
+			if ( gGameExternalOptions.fAccessOtherMercInventories && pTargetSoldier->bTeam == pSoldier->bTeam && pTargetSoldier->ubID != pSoldier->ubID )
 			{
 				iHitChance = 100;
 			}
@@ -3188,7 +3188,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			// Do we have the chance to steal more than 1 item?
 			// SANDRO - taking items from collapsed soldiers is treated differently
 			// Flugente: if we are on the same team, allow guaranteed full access
-			if ( (gGameExternalOptions.fAccessOtherMercInventories && pTargetSoldier->bTeam == pSoldier->bTeam ) || ( fSoldierCollapsed || (!gGameExternalOptions.fEnhancedCloseCombatSystem && iDiceRoll < (iHitChance * 2 / 3))) && pSoldier->bTeam == gbPlayerNum )
+			if ( (gGameExternalOptions.fAccessOtherMercInventories && pTargetSoldier->bTeam == pSoldier->bTeam && pTargetSoldier->ubID != pSoldier->ubID ) || ( fSoldierCollapsed || (!gGameExternalOptions.fEnhancedCloseCombatSystem && iDiceRoll < (iHitChance * 2 / 3))) && pSoldier->bTeam == gbPlayerNum )
 			{
 				// first, charge extra Aps, because it's difficlut to pickup from other soldier
 				if (gGameExternalOptions.fEnhancedCloseCombatSystem)

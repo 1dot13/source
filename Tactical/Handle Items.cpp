@@ -6294,7 +6294,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 			else
 			{
 				// Flugente: if we are on the same team, allow guaranteed full access
-				if ( gGameExternalOptions.fAccessOtherMercInventories && pOpponent->bTeam == pSoldier->bTeam )
+				if ( gGameExternalOptions.fAccessOtherMercInventories && pOpponent->bTeam == pSoldier->bTeam && pOpponent->ubID != pSoldier->ubID )
 					fStealItem = TRUE;
 				else
 				{

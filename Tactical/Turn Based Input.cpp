@@ -5676,7 +5676,7 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 		if ( gfUIFullTargetFound )
 		{
 			// Flugente: allow stealing if the other guy is an enemy, OR if we are on the same team
-			if ( (( guiUIFullTargetFlags & ENEMY_MERC ) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC )) || (gGameExternalOptions.fAccessOtherMercInventories && guiUIFullTargetFlags & OWNED_MERC) )
+			if ( (( guiUIFullTargetFlags & ENEMY_MERC ) && !( guiUIFullTargetFlags & UNCONSCIOUS_MERC )) || (gGameExternalOptions.fAccessOtherMercInventories && gusUIFullTargetID != pSoldier->ubID && guiUIFullTargetFlags & OWNED_MERC) )
 			{
 				sActionGridNo =	FindAdjacentGridEx( pSoldier, MercPtrs[ gusUIFullTargetID ]->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 				if ( sActionGridNo == -1 )
