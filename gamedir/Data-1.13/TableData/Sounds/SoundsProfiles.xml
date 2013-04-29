@@ -1242,7 +1242,7 @@
 	<PROFILE>
 		<uiIndex>248</uiIndex>
 		<Name>Stella</Name>
-		<EnabledSound>0</EnabledSound>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>249</uiIndex>
