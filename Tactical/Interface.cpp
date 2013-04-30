@@ -4430,11 +4430,13 @@ BOOLEAN AddTopMessage( UINT8 ubType, STR16 pzString )
 	fFound = TRUE;
 	cnt = 0;
 
-	
+	// WANNE: Disabled AI count on turnbar, because it shows different count on clients
+	/*
 	if(is_networked && gTacticalStatus.ubCurrentTeam == 1 && ubType == COMPUTER_TURN_MESSAGE){
 		//add ai count to turn bar - haydent
 		swprintf( pzString, MPClientMessage[80], NumEnemyInSector());
 	}
+	*/
 
 	if ( fFound )
 	{
