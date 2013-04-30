@@ -1073,10 +1073,10 @@ UINT32 ProcessFileIO()
 			//ATE: Any current mercs are transfered here...
 			//UpdateMercsInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
-			AddSoldierInitListTeamToWorld( ENEMY_TEAM,		255 );
-			AddSoldierInitListTeamToWorld( CREATURE_TEAM,	255 );
-			AddSoldierInitListTeamToWorld( MILITIA_TEAM,	255 );
-			AddSoldierInitListTeamToWorld( CIV_TEAM,		255 );
+			AddSoldierInitListTeamToWorld( ENEMY_TEAM,		TOTAL_SOLDIERS + 1 );
+			AddSoldierInitListTeamToWorld( CREATURE_TEAM,	TOTAL_SOLDIERS + 1 );
+			AddSoldierInitListTeamToWorld( MILITIA_TEAM,	TOTAL_SOLDIERS + 1 );
+			AddSoldierInitListTeamToWorld( CIV_TEAM,		TOTAL_SOLDIERS + 1 );
 			iCurrentAction = ACTION_NULL;
 			gbCurrentFileIOStatus = IOSTATUS_NONE;
 			if( !gfCaves && !gfBasement )

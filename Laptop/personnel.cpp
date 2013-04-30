@@ -3076,14 +3076,14 @@ INT32 GetIdOfDepartedMercWithHighestStat( INT32 iStat )
 	for( uiLoopCounter=0; fNotDone ; uiLoopCounter++ )
 	{
 		//if we are at the end of
-		if( uiLoopCounter == 255 && bCurrentList == 2 )
+		if( uiLoopCounter == NUM_PROFILES && bCurrentList == 2 )
 		{
 			fNotDone = FALSE;
 			continue;
 		}
 
 		// check if we need to move to the next list
-		if( uiLoopCounter == 255 )
+		if( uiLoopCounter == NUM_PROFILES )
 		{
 			if( bCurrentList == 0 )
 			{
@@ -3249,7 +3249,7 @@ INT32 GetIdOfDepartedMercWithLowestStat( INT32 iStat )
 		}
 */
 		//if we are at the end of
-		if( uiLoopCounter == 255 && bCurrentList == 2 )
+		if( uiLoopCounter == NUM_PROFILES && bCurrentList == 2 )
 		{
 			fNotDone = FALSE;
 			continue;
@@ -3257,7 +3257,7 @@ INT32 GetIdOfDepartedMercWithLowestStat( INT32 iStat )
 
 		// check if we need to move to the next list
 //		if( *bCurrentListValue == -1 )
-		if( uiLoopCounter == 255 )
+		if( uiLoopCounter == NUM_PROFILES )
 		{
 			if( bCurrentList == 0 )
 			{
@@ -3786,7 +3786,7 @@ INT32 GetAvgStatOfPastTeamStat( INT32 iStat )
 */
 
 		//if we are at the end of
-		if( uiLoopCounter == 255 && bCurrentList == 2 )
+		if( uiLoopCounter == NUM_PROFILES && bCurrentList == 2 )
 		{
 			fNotDone = FALSE;
 			continue;
@@ -3794,7 +3794,7 @@ INT32 GetAvgStatOfPastTeamStat( INT32 iStat )
 
 		// check if we need to move to the next list
 //		if( *bCurrentListValue == -1 )
-		if( uiLoopCounter == 255 )
+		if( uiLoopCounter == NUM_PROFILES )
 		{
 			if( bCurrentList == 0 )
 			{

@@ -6,6 +6,7 @@
 #define	SURPRISED					3
 
 #include "soldier control.h"
+#include "soldier profile type.h"
  
 // Defines
 #define		NUM_FACE_SLOTS					50
@@ -25,7 +26,7 @@ typedef struct
 	BOOLEAN gSnowCamoface;
 } CAMO_FACE;
 
-extern CAMO_FACE gCamoFace[255];
+extern CAMO_FACE gCamoFace[NUM_PROFILES];
 
 
 typedef struct

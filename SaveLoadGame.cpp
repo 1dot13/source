@@ -8367,7 +8367,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	{
 
 		//Camo Face by Jazz
-		for (int i=0;i<255;i++)
+		for (int i=0;i<NUM_PROFILES;++i)
 		{
 			gCamoFace[i].gCamoface = FALSE;
 			gCamoFace[i].gUrbanCamoface = FALSE;

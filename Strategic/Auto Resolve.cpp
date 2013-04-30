@@ -2713,7 +2713,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	{
 		if( gpCivs[ i ].pSoldier )
 		{
-			ubCurrentRank = 255;
+			ubCurrentRank = MAX_AR_TEAM_SIZE;
 			switch( gpCivs[ i ].pSoldier->ubSoldierClass )
 			{
 				case SOLDIER_CLASS_GREEN_MILITIA:		ubCurrentRank = GREEN_MILITIA;		break;

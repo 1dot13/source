@@ -1151,11 +1151,11 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		pSoldier = new SOLDIERTYPE(Soldier); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 		if( !pSoldier )
 			return NULL;
-		pSoldier->ubID = 255;
+		pSoldier->ubID = NUM_PROFILES;
 		pSoldier->sSectorX = (INT16)SECTORX( ubSectorID );
 		pSoldier->sSectorY = (INT16)SECTORY( ubSectorID );
 		pSoldier->bSectorZ = 0;
-		*pubID = 255;
+		*pubID = NUM_PROFILES;
 		return pSoldier;
 	}
 }
@@ -2790,7 +2790,7 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 					return NULL;
 
 				//Assign a bogus ID, then return it
-				pSoldier->ubID = 255;
+				pSoldier->ubID = NUM_PROFILES;
 				return pSoldier;
 			}
 		}
@@ -2971,7 +2971,7 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 				MercPtrs[i]->bSoldierFlagMask |= SOLDIER_EQUIPMENT_DROPPED;
 
 				//Assign a bogus ID, then return it
-				pSoldier->ubID = 255;
+				pSoldier->ubID = NUM_PROFILES;
 				return pSoldier;
 			}
 		}

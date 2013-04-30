@@ -645,7 +645,7 @@ fFirstTimeInMapScreen = TRUE;
 	// ------------------------
 	if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 	{		
-		for (int i=0;i<255;i++)
+		for (int i=0;i<NUM_PROFILES;++i)
 		{
 			gCamoFace[i].gCamoface = FALSE;
 			gCamoFace[i].gUrbanCamoface = FALSE;
@@ -1117,7 +1117,7 @@ void ReStartingGame()
 	if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 	{
 		//Camo Face
-		for (int i=0;i<255;i++)
+		for (int i=0;i<NUM_PROFILES;++i)
 		{
 			gCamoFace[i].gCamoface = FALSE;
 			gCamoFace[i].gUrbanCamoface = FALSE;

@@ -5353,9 +5353,9 @@ return 1;
 
 static int l_usStrategicInsertionDataProfileID(lua_State *L)
 {
-BOOLEAN Bool;
-SOLDIERTYPE * pSoldier;
-UINT32 sGridNo = 0;
+	//BOOLEAN Bool;
+	SOLDIERTYPE * pSoldier;
+	UINT32 sGridNo = 0;
 
 	if ( lua_gettop(L) >= 1 )
 	{
@@ -5363,14 +5363,14 @@ UINT32 sGridNo = 0;
 
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
-			{
-				sGridNo = pSoldier->usStrategicInsertionData;
-			}
+		{
+			sGridNo = pSoldier->usStrategicInsertionData;
+		}
 
 		lua_pushinteger(L, sGridNo);
 	}	
 		
-return 1;
+	return 1;
 }
 
 static int l_bNeutral(lua_State *L)
@@ -6719,7 +6719,7 @@ static int l_Action_door_close (lua_State *L)
 //action
 static int l_SetOffBombsByFrequency (lua_State *L)
 {
-	SOLDIERTYPE *		pSoldier;
+	//SOLDIERTYPE *		pSoldier;
 
 	if ( lua_gettop(L) >= 2 )
 	{
@@ -10625,7 +10625,7 @@ static int l_CheckFact (lua_State *L)
 			ubProfileID = lua_tointeger(L,i);
 	}
 
-	if ( ubProfileID != 255 && CheckFact( fact, ubProfileID ) )
+	if ( ubProfileID != NUM_PROFILES && CheckFact( fact, ubProfileID ) )
 	{	
 		checkfact= TRUE;
 	}

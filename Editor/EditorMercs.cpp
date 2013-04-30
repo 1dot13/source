@@ -699,10 +699,10 @@ void ResetAllMercPositions()
 		//}
 		curr = curr->next;
 	}
-	AddSoldierInitListTeamToWorld( ENEMY_TEAM,		255 );
-	AddSoldierInitListTeamToWorld( CREATURE_TEAM, 255 );
-	AddSoldierInitListTeamToWorld( MILITIA_TEAM,		255 );
-	AddSoldierInitListTeamToWorld( CIV_TEAM,			255 );
+	AddSoldierInitListTeamToWorld( ENEMY_TEAM,		TOTAL_SOLDIERS + 1 );
+	AddSoldierInitListTeamToWorld( CREATURE_TEAM,   TOTAL_SOLDIERS + 1 );
+	AddSoldierInitListTeamToWorld( MILITIA_TEAM,	TOTAL_SOLDIERS + 1 );
+	AddSoldierInitListTeamToWorld( CIV_TEAM,		TOTAL_SOLDIERS + 1 );
 	gpSelected = NULL;
 	gsSelectedMercID = -1;
 }

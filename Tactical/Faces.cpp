@@ -65,7 +65,7 @@ extern BOOLEAN	gfInItemPickupMenu;
 RPC_SMALL_FACE_VALUES gRPCSmallFaceValues[200];
 UINT8	ubRPCNumSmallFaceValues = 200;
 
-CAMO_FACE gCamoFace[255];
+CAMO_FACE gCamoFace[NUM_PROFILES];
 
 FACE_GEAR_VALUES zNewFaceGear[MAXITEMS];
 FACE_GEAR_VALUES zNewFaceGearIMP[MAXITEMS];
