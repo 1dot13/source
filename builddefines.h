@@ -28,8 +28,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // -----------------------------
 // WANNE: Enable this define, to build an executable where you can enable/disable zombies in tactical (ingame option screen).
-// It seems (and is confirmed), that executables compiled with this zombie option turned on, causes slowdown in tactical.
-//#define ENABLE_ZOMBIES
+#define ENABLE_ZOMBIES
 // -----------------------------
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
