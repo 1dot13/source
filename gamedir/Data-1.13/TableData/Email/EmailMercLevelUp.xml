@@ -934,14 +934,16 @@ Message:		The email message body
 		<Message>Please take note. Due to the improved performance of Weasel his wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- It -->
 		<uiIndex>181</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Improved performance of It entitles him to increased salary. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Bernie -->
 		<uiIndex>182</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Bernie's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>183</uiIndex>
