@@ -148,9 +148,15 @@ extern char	cServerName[30];
 //OJW - 20081224
 #define MAX_CONNECT_RETRIES	5
 
+// WANNE: After some MP-Tests: It seems there are still problems with enemy interupt and if this define is enabled the ALT + E (give turn to client) does not work correctly. So I disabled this define for now ...
 // WANNE: If this define is enabled, it hopefully fixes the "enemy AI got stuck on pure client interrupt". (this "fix" was added in revision 5623)
-// After some MP-Tests: It seems there are still problems with enemy interupt and if this define is enabled the ALT + E (give turn to client) does not work correctly. So I disabled this define for now ...
 //#define INTERRUPT_MP_DEADLOCK_FIX
+
+// WANNE: This features seems to work, but there is a big problem: If the enemy is moving the game always wants to scroll to the enemy for the client who does not really see the enemy.
+// This makes is impossible to play because it is always scrolling... Disabled for now!
+// WANNE: If enabled, friendly players (in COOP and Team-Deathmatch) share the same field of view for the enemies.
+// For example: If client #1 sees an enemy, also friendly client #2 sees the enemy on the minimap.
+//#define ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 
 #define ENABLE_COLLISION (is_server && pBullet->pFirer->ubID<120) || (!is_server && is_client && pBullet->pFirer->ubID<20) || (!is_server && !is_client) 
 extern bool auto_retry;

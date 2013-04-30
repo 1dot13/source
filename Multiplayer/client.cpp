@@ -1114,7 +1114,10 @@ void recieveHIRE(RPCParameters *rpcParameters)
 
 	pSoldier->bSide=0; //default coop only
 	gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=0;
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 	pSoldier->bVisible = 1;
+#endif
 
 	if(MercCreateStruct.ubProfile==SLAY)//slay
 	{
@@ -1125,16 +1128,23 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	if(cGameType==MP_TYPE_DEATHMATCH)//all vs all only
 	{
 		pSoldier->bSide=1;
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 		pSoldier->bVisible = 0;
+#endif
+
 		gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=1;
-		
 	}
 	if(cGameType==MP_TYPE_TEAMDEATMATCH) //allow teams
 	{
 		if(sHireMerc->team != TEAM)
 		{
 			pSoldier->bSide=1;
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 			pSoldier->bVisible = 0;
+#endif
+
 			gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=1;
 		}
 	}

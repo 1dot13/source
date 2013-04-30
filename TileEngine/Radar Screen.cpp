@@ -568,8 +568,17 @@ void RenderRadarScreen( )
 				// Don't place guys in radar until visible!
 				if ( pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) && !(pSoldier->ubMiscSoldierFlags & SOLDIER_MISC_XRAYED) )
 				{
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 					continue;// ie dont render
-					
+#else
+					if(is_networked && pSoldier->bSide==0)
+					{
+					}
+					else
+					{
+						continue;// ie dont render
+					}
+#endif
 				}
 
 				// Don't render guys if they are dead!

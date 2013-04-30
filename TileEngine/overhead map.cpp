@@ -1360,7 +1360,19 @@ void RenderOverheadOverlays()
 
 		if( !gfTacticalPlacementGUIActive && pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 		{
-					continue;// ie dont render
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
+			continue;// ie dont render
+#else
+			if(is_networked && pSoldier->bSide==0)
+			{
+			}
+			else
+			{
+			continue;// ie dont render
+			}
+#endif
+
 		}
 		
 		if (TileIsOutOfBounds(pSoldier->sGridNo))

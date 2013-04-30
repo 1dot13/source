@@ -917,9 +917,11 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
 	RadioSightings(pSoldier,EVERYBODY, MILITIA_TEAM);
 
-//haydent
-if(is_networked &&  pSoldier->bSide == 0 && pSoldier->bTeam != OUR_TEAM)
-	RadioSightings(pSoldier,EVERYBODY, OUR_TEAM);
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
+	//haydent
+	if(is_networked &&  pSoldier->bSide == 0 && pSoldier->bTeam != OUR_TEAM)
+		RadioSightings(pSoldier,EVERYBODY, OUR_TEAM);
+#endif
 
 //ddd}
 			// if it's our local player's merc
@@ -1424,13 +1426,15 @@ void EndMuzzleFlash( SOLDIERTYPE * pSoldier )
 	}
 */	
 
-//ddd{
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 //haydent
 if(is_networked &&  pSoldier->bSide == 0)
 {
 	//stay visible
 }
 else
+#endif
 {
 	if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)	
 	{	if ( pSoldier->bTeam != gbPlayerNum && pSoldier->bTeam != MILITIA_TEAM )
@@ -1442,8 +1446,9 @@ else
 			pSoldier->bVisible = 0; // indeterminate state
 	}
 }//haydent
-//ddd}
-	
+
+
+
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 	{
 		pOtherSoldier = MercSlots[ uiLoop ];
@@ -1485,8 +1490,12 @@ else
 					}
 					//ddd}
 
+					
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 					//haydent
-					if(is_networked &&  pOtherSoldier->bSide == 0 && pOtherSoldier->bTeam != OUR_TEAM)pSoldier->bVisible = TRUE; // yes, still seen
+					if(is_networked &&  pOtherSoldier->bSide == 0 && pOtherSoldier->bTeam != OUR_TEAM)
+						pSoldier->bVisible = TRUE; // yes, still seen
+#endif
 				}
 			}
 		}
@@ -1848,13 +1857,16 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 				pOpponent->bVisible = 0;
 			}
 */			
-//ddd{
+
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 //haydent
 if(is_networked &&  pSoldier->bSide == 0)
 {
 	//stay visible
 }
 else
+#endif
 {
 	if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
 	{ if ( (pSoldier->bTeam == gbPlayerNum || pSoldier->bTeam == MILITIA_TEAM) && !(pOpponent->bTeam == gbPlayerNum || pOpponent->bTeam == MILITIA_TEAM ) )
@@ -1865,7 +1877,6 @@ else
 		if ( pSoldier->bTeam == gbPlayerNum && pOpponent->bTeam != gbPlayerNum )
 			pOpponent->bVisible = 0;
 	}
-	//ddd}
 }//haydent
 		}
 	}
@@ -2656,8 +2667,11 @@ else
 	SEE_MENT = TRUE;
 }
 
-//haydent
-if((is_networked &&  pSoldier->bSide == 0 && pSoldier->bTeam != OUR_TEAM) && (pOpponent->bVisible <= 0))SEE_MENT = TRUE;
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
+	//haydent
+	if((is_networked &&  pSoldier->bSide == 0 && pSoldier->bTeam != OUR_TEAM) && (pOpponent->bVisible <= 0))
+		SEE_MENT = TRUE;
+#endif
 
 //ddd}
 
@@ -2840,14 +2854,16 @@ void OtherTeamsLookForMan(SOLDIERTYPE *pOpponent)
 		pOpponent->bVisible = 0;
 	}
 */	
-//ddd{
 
+
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 //haydent
 if(is_networked &&  pOpponent->bSide == 0)
 {
 	//stay visible
 }
 else
+#endif
 {
 
 	if(gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
@@ -2863,7 +2879,6 @@ else
 
 }//haydent
 
-//ddd}
 #ifdef TESTOPPLIST
 	DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3,
 			String("OTHERTEAMSLOOKFORMAN ID %d(%S) team %d side %d",pOpponent->ubID,pOpponent->name,pOpponent->bTeam,pOpponent->bSide ));
@@ -3353,14 +3368,15 @@ void BetweenTurnsVisibilityAdjustments(void)
 	{
 		if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife)
 		{
-			//ddd{
 			BOOLEAN SEE_MENT = FALSE;
 
+#ifdef ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 		if(is_networked &&  pSoldier->bSide == 0)//haydent
 		{
 			//stay visible
 		}
 		else
+#endif
 		{
 			
 			if (gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa)
@@ -3372,7 +3388,7 @@ void BetweenTurnsVisibilityAdjustments(void)
 			}
 
 		}//haydent
-			//ddd}
+			
 /*comm by ddd
 #ifdef WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
 			if (!PTR_OURTEAM && pSoldier->bTeam != MILITIA_TEAM)
