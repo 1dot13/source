@@ -1273,9 +1273,13 @@ void LoadGameExternalOptions()
 	// Penalty for fire when you don't see enemy (when you see enemy because his see militya or ather merc)
 	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,255);
 
-	// Flugente: in turnbased combat, do not adjust animation after arriving at target location
-	gGameExternalOptions.fNoStandingAnimAdjustInCombat		= iniReader.ReadBoolean("Tactical Interface Settings","NO_STANDING_ANIM_ADJUSTMENT_IN_COMBAT", TRUE);	
-			
+	if (!is_networked)
+		// Flugente: in turnbased combat, do not adjust animation after arriving at target location
+		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= iniReader.ReadBoolean("Tactical Interface Settings","NO_STANDING_ANIM_ADJUSTMENT_IN_COMBAT", TRUE);	
+	else
+		// WANNE: This makes problem for the AI soldiers on the pure client, so why is is set to false
+		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= FALSE;
+
 	//Inventory AP Weight Divisor
 	gGameExternalOptions.uWeightDivisor						= iniReader.ReadFloat("Tactical Interface Settings","INV_AP_WEIGHT_DIVISOR",5,0,100);		
 	
