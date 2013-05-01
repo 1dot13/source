@@ -366,8 +366,8 @@ enum
 
 #define SOLDIER_POW_PRISON			0x00001000	//4096		// this guy is a prisoner of war in a prison sector. SOLDIER_POW refers to people we capture, this refers to people we hold captive
 #define SOLDIER_EQUIPMENT_DROPPED	0x00002000	//8192		// under certain circumstances, militia can be ordered to drop their gear twice. Thus we set a marker to avoid that.
-/*#define ENEMY_NET_3_LVL_4 		0x00004000	//16384
-#define ENEMY_NET_4_LVL_4		0x00008000	//32768
+#define SOLDIER_ACCESSTEAMMEMBER	0x00004000	//16384		// this merc is accessing another team member'S inventory (via abusing the stealing mechanic)
+/*#define ENEMY_NET_4_LVL_4		0x00008000	//32768
 
 #define PLAYER_NET_1_LVL_1		0x00010000	//65536
 #define PLAYER_NET_2_LVL_1      0x00020000	//131072

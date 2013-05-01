@@ -8552,8 +8552,13 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
         }
         else if ( pTarget->bTeam == gbPlayerNum && !(gTacticalStatus.uiFlags & INCOMBAT) )
         {
+			// Flugente: if we are on the same team adn are currently stealing (accessing inventory) from a teammember, do NOT retaliate
+			if ( gGameExternalOptions.fAccessOtherMercInventories && pTarget->bTeam == pSoldier->bTeam && pTarget->ubID != pSoldier->ubID && pSoldier->bSoldierFlagMask & SOLDIER_ACCESSTEAMMEMBER )
+			{
+				
+			}
             // firing at one of our own guys who is not a rebel etc
-            if ( pTarget->stats.bLife >= OKLIFE && !(pTarget->bCollapsed) && !AM_A_ROBOT( pTarget ) && (bReason == REASON_NORMAL_ATTACK ) )
+            else if ( pTarget->stats.bLife >= OKLIFE && !(pTarget->bCollapsed) && !AM_A_ROBOT( pTarget ) && (bReason == REASON_NORMAL_ATTACK ) )
             {
                 // OK, sturn towards the prick
                 // Change to fire ready animation

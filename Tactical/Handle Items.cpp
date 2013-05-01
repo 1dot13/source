@@ -6295,7 +6295,17 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 			{
 				// Flugente: if we are on the same team, allow guaranteed full access
 				if ( gGameExternalOptions.fAccessOtherMercInventories && pOpponent->bTeam == pSoldier->bTeam && pOpponent->ubID != pSoldier->ubID )
+				{
 					fStealItem = TRUE;
+
+					// yuk, this is ugly... stealing items is counted as an attack. So what happens that if we steal from a teammember, the merc that we have stored in our targetD
+					// (which will be the first merc hired when we land in Arulco) will react to our 'attack' and 'shoot back'.
+					// so we now have 2 ways to resolve this issue:
+					//	- remove the 'steal from teammember' stuff from the usual stealing stuff, and add it as a new action (like handcuffing), complete with building the steal-sub-menu and everything
+					//	- or introduce a flag that prohibits teammembers from 'reaction-firing' on us. Set it upon stealing (here) and remove it after the steal menu is closed
+					// or simplicity reasons, I will do #2 here. Until it breaks, then I'll be forced to do #1.
+					pSoldier->bSoldierFlagMask |= SOLDIER_ACCESSTEAMMEMBER;
+				}
 				else
 				{
 					// Check, if we can steal the item
