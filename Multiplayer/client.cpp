@@ -2052,9 +2052,6 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 			fInterfacePanelDirty = DIRTYLEVEL2;
 			gTacticalStatus.fInterruptOccurred = TRUE;
 
-#ifdef INTERRUPT_MP_DEADLOCK_FIX
-			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ INT->bTeam ] );
-#endif
 			//this needed to add details of who's interrupt it is - hayden
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupt with %s awarded to %s.", TeamNameStrings[pOpponent->bTeam], TeamNameStrings[INT->bTeam] );//was MPClientMessage[17], can be reconnected if text updated and translated
 		}

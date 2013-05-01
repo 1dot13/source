@@ -148,7 +148,7 @@ extern char	cServerName[30];
 //OJW - 20081224
 #define MAX_CONNECT_RETRIES	5
 
-// WANNE: After some MP-Tests: It seems there are still problems with enemy interupt and if this define is enabled the ALT + E (give turn to client) does not work correctly. So I disabled this define for now ...
+// WANNE: After some MP-Tests: It seems there are still problems with enemy interupt and if this define is enabled the ALT + E (give turn to client) does not work either. So I disabled this define for now ...
 // WANNE: If this define is enabled, it hopefully fixes the "enemy AI got stuck on pure client interrupt". (this "fix" was added in revision 5623)
 //#define INTERRUPT_MP_DEADLOCK_FIX
 
