@@ -6294,7 +6294,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 			else
 			{
 				// Flugente: if we are on the same team, allow guaranteed full access
-				if ( gGameExternalOptions.fAccessOtherMercInventories && pOpponent->bTeam == pSoldier->bTeam && pOpponent->ubID != pSoldier->ubID )
+				if ( AllowedToStealFromTeamMate(pSoldier->ubID, pOpponent->ubID) )
 				{
 					fStealItem = TRUE;
 
@@ -6305,6 +6305,10 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 					//	- or introduce a flag that prohibits teammembers from 'reaction-firing' on us. Set it upon stealing (here) and remove it after the steal menu is closed
 					// or simplicity reasons, I will do #2 here. Until it breaks, then I'll be forced to do #1.
 					pSoldier->bSoldierFlagMask |= SOLDIER_ACCESSTEAMMEMBER;
+
+					// if we are Nails, don't allow taking our vest
+					if ( pOpponent->ubProfile == 34 && i == VESTPOS )
+						fStealItem = FALSE;
 				}
 				else
 				{

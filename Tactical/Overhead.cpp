@@ -8553,7 +8553,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
         else if ( pTarget->bTeam == gbPlayerNum && !(gTacticalStatus.uiFlags & INCOMBAT) )
         {
 			// Flugente: if we are on the same team adn are currently stealing (accessing inventory) from a teammember, do NOT retaliate
-			if ( gGameExternalOptions.fAccessOtherMercInventories && pTarget->bTeam == pSoldier->bTeam && pTarget->ubID != pSoldier->ubID && pSoldier->bSoldierFlagMask & SOLDIER_ACCESSTEAMMEMBER )
+			if ( AllowedToStealFromTeamMate(pSoldier->ubID, pTarget->ubID) && pSoldier->bSoldierFlagMask & SOLDIER_ACCESSTEAMMEMBER )
 			{
 				
 			}
@@ -10147,3 +10147,11 @@ void TeamDropAll(UINT8 bTeam, BOOLEAN fForce)
     }
 }
 
+// are we allowed to steal access this guy's inventory?
+BOOLEAN AllowedToStealFromTeamMate( UINT8 ubID, UINT8 ubTargetID )
+{
+	if ( gGameExternalOptions.fAccessOtherMercInventories && ubID != ubTargetID && MercPtrs[ubID]->bTeam == MercPtrs[ubTargetID]->bTeam && !AM_AN_EPC(MercPtrs[ubTargetID]) && !IsVehicle(MercPtrs[ubTargetID]) )
+		return TRUE;
+
+	return FALSE;
+}

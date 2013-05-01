@@ -358,5 +358,8 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );         // Flugente: offer t
 // setting fForce to TRUE allows dropping of gear in combat (used in auto-resolve instances)
 void TeamDropAll(UINT8 bTeam, BOOLEAN fForce = FALSE);
 
+// are we allowed to steal access this guy's inventory?
+BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
+
 #endif
 
