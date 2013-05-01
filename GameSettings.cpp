@@ -2286,7 +2286,7 @@ void LoadModSettings(){
 	gModSettings.ubOmertaDropOffZ = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Z", 0);
 	gModSettings.iOmertaDropOff = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_GRIDNO", 4868);
 
-
+	gModSettings.sRocketRifleGridNo = iniReader.ReadInteger("Alma", "ROCKETRIFLE_POSITION", 10472);
 }
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
 {

@@ -1661,6 +1661,8 @@ typedef struct
 	UINT8 ubOmertaDropOffZ;
 	INT32 iOmertaDropOff;
 
+	INT32 sRocketRifleGridNo;
+
 }MOD_SETTINGS;
 
 extern MOD_SETTINGS gModSettings;

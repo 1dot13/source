@@ -732,7 +732,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[FACT_IRA_NOT_PRESENT] = !CheckNPCWithin( ubProfileID, IRA, 10 );
 			break;
 		case FACT_IRA_TALKING:
-			gubFact[FACT_IRA_TALKING] = ( gubSrcSoldierProfile == 59 );
+			gubFact[FACT_IRA_TALKING] = ( gubSrcSoldierProfile == IRA );
 			break;
 		case FACT_IRA_UNHIRED_AND_ALIVE:
 			if ( gMercProfiles[ IRA ].bMercStatus != MERC_IS_DEAD && CheckNPCSector( IRA, 10, 1, 1) && !(gMercProfiles[IRA].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED) )
@@ -787,22 +787,22 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 
 		case FACT_BRENDA_IN_STORE_AND_ALIVE:
 			// ensure alive
-			if ( gMercProfiles[ 85 ].bMercStatus == MERC_IS_DEAD)
+			if ( gMercProfiles[ BRENDA ].bMercStatus == MERC_IS_DEAD)
 			{
 				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = FALSE;
 			}
 			// ensure in a building and nearby
-			else if ( !(NPCInRoom( 85, gModSettings.usPornShopRoomBrenda ) )	)
+			else if ( !(NPCInRoom( BRENDA, gModSettings.usPornShopRoomBrenda ) )	)
 			{
 				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = FALSE;
 			}
 			else
 			{
-				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = CheckNPCWithin( ubProfileID, 85, 12 );
+				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = CheckNPCWithin( ubProfileID, BRENDA, 12 );
 			}
 			break;
 		case FACT_BRENDA_DEAD:
-			gubFact[FACT_BRENDA_DEAD] = (gMercProfiles[ 85 ].bMercStatus == MERC_IS_DEAD);
+			gubFact[FACT_BRENDA_DEAD] = (gMercProfiles[ BRENDA ].bMercStatus == MERC_IS_DEAD);
 			break;
 		case FACT_NPC_IS_ENEMY:
 			gubFact[FACT_NPC_IS_ENEMY] = CheckNPCIsEnemy( ubProfileID ) || gMercProfiles[ ubProfileID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_NEEDS_TO_SAY_HOSTILE_QUOTE;
@@ -813,7 +813,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 			*/
 		case FACT_SPIKE_AT_DOOR:
-			gubFact[FACT_SPIKE_AT_DOOR] = CheckNPCAt( 93, 9817 );
+			gubFact[FACT_SPIKE_AT_DOOR] = CheckNPCAt( SPIKE, 9817 );
 			break;
 		case FACT_WOUNDED_MERCS_NEARBY:
 			gubFact[usFact] = (NumWoundedMercsNearby( ubProfileID ) > 0);
@@ -825,7 +825,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = (NumWoundedMercsNearby( ubProfileID ) > 1);
 			break;
 		case FACT_HANS_AT_SPOT:
-			gubFact[usFact] = CheckNPCAt( 117, gModSettings.iHansGridNo );
+			gubFact[usFact] = CheckNPCAt( HANS, gModSettings.iHansGridNo );
 			break;
 		case FACT_MULTIPLE_MERCS_CLOSE:
 			gubFact[usFact] = ( NumMercsNear( ubProfileID, 3 ) > 1 );
@@ -855,13 +855,13 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = CheckTalkerFemale();
 			break;
 		case FACT_CARMEN_IN_C5:
-			gubFact[usFact] = CheckNPCSector( 78, 5, MAP_ROW_C, 0 );
+			gubFact[usFact] = CheckNPCSector( CARMEN, 5, MAP_ROW_C, 0 );
 			break;
 		case FACT_JOEY_IN_C5:
-			gubFact[usFact] = CheckNPCSector( 90, 5, MAP_ROW_C, 0 );
+			gubFact[usFact] = CheckNPCSector( JOEY, 5, MAP_ROW_C, 0 );
 			break;
 		case FACT_JOEY_NEAR_MARTHA:
-			gubFact[usFact] = CheckNPCWithin( 90, 109, 5 ) && ( CheckGuyVisible( MARTHA, JOEY ) || CheckGuyVisible( JOEY, MARTHA ) );
+			gubFact[usFact] = CheckNPCWithin( JOEY, MARTHA, 5 ) && ( CheckGuyVisible( MARTHA, JOEY ) || CheckGuyVisible( JOEY, MARTHA ) );
 			break;
 		case FACT_JOEY_DEAD:
 			gubFact[usFact] = gMercProfiles[ JOEY ].bMercStatus == MERC_IS_DEAD;
@@ -882,7 +882,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = ( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_C && gbWorldSectorZ == 0 );
 			break;
 		case FACT_CARMEN_HAS_TEN_THOUSAND:
-			gubFact[usFact] = ( gMercProfiles[ 78 ].uiMoney >= 10000 );
+			gubFact[usFact] = ( gMercProfiles[ CARMEN ].uiMoney >= 10000 );
 			break;
 		case FACT_SLAY_IN_SECTOR:
 			gubFact[usFact] = (gMercProfiles[ SLAY ].sSectorX == gWorldSectorX && gMercProfiles[ SLAY ].sSectorY == gWorldSectorY && gMercProfiles[ SLAY ].bSectorZ == gbWorldSectorZ );
@@ -1160,7 +1160,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_ROCKET_RIFLE_EXISTS:
-			gubFact[usFact] = ItemTypeExistsAtLocation( 10472, ROCKET_RIFLE, 0, NULL );
+			gubFact[usFact] = ItemTypeExistsAtLocation( gModSettings.sRocketRifleGridNo, ROCKET_RIFLE, 0, NULL );
 			break;
 
 		case FACT_PABLO_ALIVE:
