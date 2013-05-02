@@ -904,7 +904,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.giCivilianTurnSpeedUpFactor	= iniReader.ReadFloat("Graphics Settings","CIVILIAN_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
 
 	gGameExternalOptions.gfUseExternalLoadscreens		= iniReader.ReadBoolean("Graphics Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
-	gGameExternalOptions.gfUseLoadScreenHints			= iniReader.ReadBoolean("Graphics Settings","USE_LOADSCREENHINTS", TRUE);
+	
+	if (!is_networked)
+		gGameExternalOptions.gfUseLoadScreenHints		= iniReader.ReadBoolean("Graphics Settings","USE_LOADSCREENHINTS", TRUE);
+	else
+		gGameExternalOptions.gfUseLoadScreenHints		= FALSE;
+
+	if (!is_networked)
+		gGameExternalOptions.ubAdditionalDelayUntilLoadScreenDisposal	= iniReader.ReadInteger("Graphics Settings","ADDITIONAL_DELAY_UNTIL_LOADSCREEN_DISPOSAL", 2, 0, 10);
+	else
+		gGameExternalOptions.ubAdditionalDelayUntilLoadScreenDisposal	= 0;
 
 	//tais: enable/disable New Starting Gear Interface (0 = disabled, classic style; 1 = enabled, new 21 item view and up to 5 gearkit selection)
 	gGameExternalOptions.gfUseNewStartingGearInterface		= iniReader.ReadBoolean("Graphics Settings","USE_NEW_STARTING_GEAR_INTERFACE", FALSE);

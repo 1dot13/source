@@ -627,6 +627,7 @@ typedef struct
 
 	BOOLEAN	gfUseExternalLoadscreens;
 	BOOLEAN gfUseLoadScreenHints;		// added by Flugente
+	UINT32	ubAdditionalDelayUntilLoadScreenDisposal;		// added by WANNE to have time to read the load screen hints
 
 	//tais: nsgi
 	BOOLEAN gfUseNewStartingGearInterface;
