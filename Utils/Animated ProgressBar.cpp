@@ -14,6 +14,7 @@
 	#include "sysutil.h"
 	#include "random.h"
 	#include "math.h"
+	#include "WordWrap.h"
 #endif
 
 double rStart, rEnd;
@@ -329,14 +330,13 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 			SetFontShadow( pCurr->ubMsgFontShadowColor );
 			SetFontBackground( 0 );
 			mprintf( pCurr->usBarLeft, pCurr->usBarBottom + 3, str );
-			
-			// Flugente: loadscreen hints
-			if ( usCurrentLoadScreenHint )
-			{				
-				gprintfinvalidate( pCurr->usBarLeft, pCurr->usBarBottom + 3 - 200, L"%s", zLoadScreenHint[usCurrentLoadScreenHint].szName );
-				mprintf( pCurr->usBarLeft, pCurr->usBarBottom + 3 - 200, L"%s", zLoadScreenHint[usCurrentLoadScreenHint].szName );
-			}
 		}
+	}
+
+	// Flugente: loadscreen hints
+	if (gGameExternalOptions.gfUseLoadScreenHints && usCurrentLoadScreenHint )
+	{				
+		DrawTextToScreen( zLoadScreenHint[usCurrentLoadScreenHint].szName, 1, pCurr->usBarBottom + 3 - 200, SCREEN_WIDTH - 1, FONT12ARIAL, FONT_MCOLOR_WHITE, 0, FALSE, INVALIDATE_TEXT | CENTER_JUSTIFIED );
 	}
 }
 
