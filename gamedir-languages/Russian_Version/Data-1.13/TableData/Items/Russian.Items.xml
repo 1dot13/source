@@ -13079,4 +13079,20 @@
     <szBRName>Stack of Binders</szBRName>
     <szBRDesc>Useful for sorting your cables. This stack should be enough for your office.</szBRDesc>
   </ITEM>
+  <ITEM>
+    <uiIndex>1633</uiIndex>
+    <szItemName>Dart Crate</szItemName>
+    <szLongItemName>Neurotoxin Dart Crate</szLongItemName>
+    <szItemDesc>A hundred insanely poisonous darts. Why do you need so many?</szItemDesc>
+    <szBRName>Neurotoxin Dart Crate</szBRName>
+    <szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1634</uiIndex>
+    <szItemName>M99</szItemName>
+    <szLongItemName>M99</szLongItemName>
+    <szItemDesc>A very strong animal tranquilizer. Lethal if overdosed, and you are not an elephant.</szItemDesc>
+    <szBRName>M99</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
