@@ -303,7 +303,9 @@ extern STR16 gzIMPCharacterTraitText[];
 extern STR16 gzIMPAttitudesText[];
 extern STR16 gzIMPColorChoosingText[];
 extern STR16 sColorChoiceExplanationTexts[];
-extern STR16 gzIMPDisabilityTraitText[];
+extern STR16 gzIMPDisabilityTraitText[];			// added by Flugente
+extern STR16 gzIMPDisabilityTraitEmailTextDeaf[];	// added by Flugente
+extern STR16 gzIMPDisabilityTraitEmailTextShortSighted[];
 extern STR16 sEnemyTauntsFireGun[];
 extern STR16 sEnemyTauntsFireLauncher[];
 extern STR16 sEnemyTauntsThrow[];

@@ -371,6 +371,10 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	else
 	{
 		range = pSoldier->bViewRange;
+
+		// Flugente: adjust sightrange
+		range = (UINT16)( (range * (100 + pSoldier->GetSightRangeBonus()) ) / 100);
+
 		// balance item viewing range between normal and the limit set by opplist-type functions -- CJC
 		range = (AdjustMaxSightRangeForEnvEffects( pSoldier, LightTrueLevel( pSoldier->sGridNo, pSoldier->pathing.bLevel), range ) + range) / 2;
 	}

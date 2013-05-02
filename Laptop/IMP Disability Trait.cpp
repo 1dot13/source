@@ -41,8 +41,14 @@ enum
 
 
 
-#define	IMP_DISABILITY_COLUMN_START_X								( LAPTOP_SCREEN_UL_X + 136 )
+//#define	IMP_DISABILITY_COLUMN_START_X								( LAPTOP_SCREEN_UL_X + 136 )
+#define	IMP_DISABILITY_COLUMN_START_X								( LAPTOP_SCREEN_UL_X + 15 )
+#define	IMP_DISABILITY_2ND_COLUMN_START_X							( IMP_DISABILITY_COLUMN_START_X + 241 )
+
 #define	IMP_DISABILITY_COLUMN_START_Y								( LAPTOP_SCREEN_WEB_UL_Y + 40 )
+#define IMP_DISABILITY_2ND_COLUMN_START_Y							IMP_DISABILITY_COLUMN_START_Y
+
+#define IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN				6
 
 #define	IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS									38
 
@@ -146,15 +152,26 @@ void EnterIMPDisabilityTrait( void )
 	HandleDisabilityTraitButtonStates( );
 	
 	// add regions for help texts
+	UINT16 usPosX = IMP_DISABILITY_COLUMN_START_X + 62;
 	UINT16 usPosY = IMP_DISABILITY_COLUMN_START_Y + 8;
 	for( UINT8 ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
 	{
-		MSYS_DefineRegion( &gMR_DisabilityHelpTextRegions[ubCnt], ( IMP_DISABILITY_COLUMN_START_X + 62 ), ( usPosY ),
-						(IMP_DISABILITY_COLUMN_START_X + 218), ( usPosY + 17), MSYS_PRIORITY_HIGH,
+		MSYS_DefineRegion( &gMR_DisabilityHelpTextRegions[ubCnt], usPosX, ( usPosY ),
+						(usPosX + 156), ( usPosY + 17), MSYS_PRIORITY_HIGH,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 		MSYS_AddRegion( &gMR_DisabilityHelpTextRegions[ubCnt] );
 		
-		usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
+		//Determine the next x location
+		if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+			usPosX = IMP_DISABILITY_COLUMN_START_X + 62;
+		else
+			usPosX = IMP_DISABILITY_2ND_COLUMN_START_X + 62;
+
+		//Determine the next Y location
+		if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+			usPosY = IMP_DISABILITY_COLUMN_START_Y + 8;
+		else
+			usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
 	}
 }
 
@@ -242,15 +259,15 @@ void AddImpDisabilityTraitButtons()
 		//ButtonList[ giIMPDisabilityTraitAnswerButton[ ubCnt ] ]->ubSoundSchemeID = 0;
 
 		//Determine the next x location
-		//if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+		if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
 			usPosX = IMP_DISABILITY_COLUMN_START_X;
-		//else
-		//	usPosX = IMP_DISABILITY_2ND_COLUMN_START_X;
+		else
+			usPosX = IMP_DISABILITY_2ND_COLUMN_START_X;
 
 		//Determine the next Y location
-		//if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
-		//	usPosY = IMP_DISABILITY_2ND_COLUMN_START_Y;
-		//else
+		if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+			usPosY = IMP_DISABILITY_2ND_COLUMN_START_Y;
+		else
 			usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
 	}
 }
@@ -380,15 +397,15 @@ void IMPDisabilityTraitDisplayDisabilityTraits()
 		AssignDisabilityHelpText( ubCnt );
 
 		//Determine the next x location
-	//	if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+		if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
 			usPosX = IMP_DISABILITY_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
-		//else
-		//	usPosX = IMP_DISABILITY_2ND_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
+		else
+			usPosX = IMP_DISABILITY_2ND_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
 
 		//Determine the next Y location
-		//if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
-		//	usPosY = IMP_DISABILITY_2ND_COLUMN_START_Y + IMP_DISABILITY_TRAIT__TEXT_OFFSET_Y;
-		//else
+		if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+			usPosY = IMP_DISABILITY_2ND_COLUMN_START_Y + IMP_DISABILITY_TRAIT__TEXT_OFFSET_Y;
+		else
 			usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
 	}
 }

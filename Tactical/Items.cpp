@@ -11272,6 +11272,9 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 		bonus -= 10;
 	}
 
+	// Flugente: add sight range bonus due to disabilities, traits etc. (not equipment)
+	bonus += pSoldier->GetSightRangeBonus();
+
 	// SANDRO - STOMP traits - Scouting bonus for sight range with binoculars and similar
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->pathing.bLevel == 0 )
 	{

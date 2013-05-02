@@ -6659,7 +6659,21 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Boi się owadów",
 	L"Zapominalski",
 	L"Psychol",
+	L"Deaf",
+	L"Shortsighted",
 	L"Niepełnosprawności I.M.P.-a",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextDeaf[] =// TODO.Translate
+{
+	L"We bet you're glad this isn't voicemail.",
+	L"You've either visited to many discos in your teens, or were to close a massive artillery bombardment. Or just old. Either way, your team better learn sign language.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
+{
+	L"You'll be screwed if you ever lose your glasses.",
+	L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

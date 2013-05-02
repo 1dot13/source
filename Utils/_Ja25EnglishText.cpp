@@ -431,7 +431,8 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"A look at large insects can cause big problems\nand being in tropical sectors also reduce his performance a bit.",
 	L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
 	L"He can go psycho and shoot like mad once in a while\nand can lose morale if unable to do that so given weapon.",
-
+	L"Drastically reduced hearing.",
+	L"Sight range is lowered.",
 };
 
 

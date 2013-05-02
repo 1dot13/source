@@ -216,6 +216,9 @@ typedef enum
 	FEAR_OF_INSECTS,
 	FORGETFUL,
 	PSYCHO,
+	// Flugente: more disabilities
+	DEAF,
+	SHORTSIGHTED,
 	NUM_DISABILITIES
 } PersonalityTrait;
 

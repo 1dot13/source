@@ -1469,6 +1469,8 @@ public:
 
 	// returns damage resistance in percent
 	INT32	GetDamageResistance( BOOLEAN fAutoResolve = FALSE, BOOLEAN fCalcBreathLoss = FALSE);
+	INT8	GetHearingBonus();
+	INT16	GetSightRangeBonus();
 
 	INT16	GetSoldierCriticalDamageBonus( void );	// Flugente: determines critical damage bonus depending on class, skill, etc.
 

@@ -13999,6 +13999,33 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 	return( resistance );
 }
 
+INT8	SOLDIERTYPE::GetHearingBonus()
+{
+	INT8 bonus = 0;
+
+	INT8 bSlot = FindHearingAid(this);
+	if ( bSlot != -1 )
+	{
+		// at 81-100% adds +5, at 61-80% adds +4, at 41-60% adds +3, etc.
+		bonus += GetHearingRangeBonus(this);	// pSoldier->inv[bSlot][0]->data.objectStatus / 20 + 1;
+	}
+
+	if ( gMercProfiles[ this->ubProfile ].bDisability == DEAF )
+		bonus -= 5;
+	
+	return bonus;
+}
+
+INT16	SOLDIERTYPE::GetSightRangeBonus()
+{
+	INT16 bonus = 0;
+
+	if ( gMercProfiles[ this->ubProfile ].bDisability == SHORTSIGHTED )
+		bonus -= 10;
+	
+	return bonus;
+}
+
 INT16 SOLDIERTYPE::GetSoldierCriticalDamageBonus( void )
 {
 	INT16 val = 0;

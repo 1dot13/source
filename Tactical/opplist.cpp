@@ -1539,8 +1539,6 @@ void TurnOffTeamsMuzzleFlashes( UINT8 ubTeam )
 INT8 DecideHearing( SOLDIERTYPE * pSoldier )
 {
 	// calculate the hearing value for the merc...
-
-	INT8		bSlot;
 	INT8		bHearing;
 
 	if ( TANK( pSoldier ) )
@@ -1571,14 +1569,7 @@ INT8 DecideHearing( SOLDIERTYPE * pSoldier )
 			bHearing += 1 * NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT );
 	}
 
-	//bSlot = FindObj( pSoldier, EXTENDEDEAR );
-	//if ( bSlot == HEAD1POS || bSlot == HEAD2POS)
-	bSlot = FindHearingAid(pSoldier);
-	if ( bSlot != -1 )
-	{
-		// at 81-100% adds +5, at 61-80% adds +4, at 41-60% adds +3, etc.
-		bHearing += GetHearingRangeBonus(pSoldier);	// pSoldier->inv[bSlot][0]->data.objectStatus / 20 + 1;
-	}
+	bHearing += pSoldier->GetHearingBonus();
 
 	// adjust for dark conditions
 	switch ( ubAmbientLightLevel )

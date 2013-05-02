@@ -6471,7 +6471,21 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Angst vor Insekten",
 	L"Vergesslichkeit",
 	L"Psychopath",
+	L"Schwerhörigkeit",
+	L"Kurzsichtigkeit",
 	L"Ihre größte Schwäche",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextDeaf[] =
+{
+	L"Sie sind bestimmt froh, dass wir ihnen das hier nicht auf die Mailbox sprechen.",
+	L"Sie haben entweder in ihrer Jugend zuviele Diskos besucht, oder zu viele Bombardierungen von nahem erlebt. Oder sie sind einfach alt. Ihr Team sollte jedenfalls Gebärdensprache lernen.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
+{
+	L"Ohne ihre Brille sind sie aufgeschmissen.",
+	L"Das passiert wenn man dauernd nur vor der Glotze rumhängt. Sie hätten mehr Karotten essen sollen. Schon mal einen Hasen mit Brille gesehen? Aha.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

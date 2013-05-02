@@ -4065,13 +4065,13 @@ void HandleIMPCharProfileResultsMessage( void)
 		switch( gMercProfiles[ iCurrentIMPSlot ].bDisability)
 		{
 			// normal as can be
-		case( NO_DISABILITY ):
-		iOffSet = IMP_PERSONALITY_NORMAL;
+			case( NO_DISABILITY ):
+				iOffSet = IMP_PERSONALITY_NORMAL;
 				break;
 			case( HEAT_INTOLERANT ):
 				iOffSet = IMP_PERSONALITY_HEAT;
 				break;
-		case( NERVOUS ):
+			case( NERVOUS ):
 				iOffSet = IMP_PERSONALITY_NERVOUS;
 				break;
 			case( CLAUSTROPHOBIC ):
@@ -4091,25 +4091,49 @@ void HandleIMPCharProfileResultsMessage( void)
 				break;
 		}
 
-		// personality tick
-//	DEF: removed 1/12/99, cause it was changing the length of email that were already calculated
-//		LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + Random( IMP_PERSONALITY_LENGTH - 1 ) + 1 ), MAIL_STRING_SIZE );
-		LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + 1 ), MAIL_STRING_SIZE );
-		// add to list
-		AddEmailRecordToList( pString );
-
-		// persoanlity paragraph
-		LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + IMP_PERSONALITY_LENGTH ), MAIL_STRING_SIZE );
-	// add to list
-		AddEmailRecordToList( pString );
-
-		// extra paragraph for bugs
-		if( gMercProfiles[ iCurrentIMPSlot ].bDisability == FEAR_OF_INSECTS )
+		// Flugente: new personalities do not get their text from .edt files
+		if ( gMercProfiles[ iCurrentIMPSlot ].bDisability == DEAF )
 		{
-		// persoanlity paragraph
-			LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + IMP_PERSONALITY_LENGTH + 1 ), MAIL_STRING_SIZE );
+			swprintf( pString, gzIMPDisabilityTraitEmailTextDeaf[0] );
+
+			AddEmailRecordToList( pString );
+
+			swprintf( pString, gzIMPDisabilityTraitEmailTextDeaf[1] );
+
+			AddEmailRecordToList( pString );
+		}
+		else if ( gMercProfiles[ iCurrentIMPSlot ].bDisability == SHORTSIGHTED )
+		{
+			swprintf( pString, gzIMPDisabilityTraitEmailTextShortSighted[0] );
+
+			AddEmailRecordToList( pString );
+
+			swprintf( pString, gzIMPDisabilityTraitEmailTextShortSighted[1] );
+
+			AddEmailRecordToList( pString );
+		}
+		else
+		{
+			// personality tick
+			//	DEF: removed 1/12/99, cause it was changing the length of email that were already calculated
+			//LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + Random( IMP_PERSONALITY_LENGTH - 1 ) + 1 ), MAIL_STRING_SIZE );
+			LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + 1 ), MAIL_STRING_SIZE );
 			// add to list
 			AddEmailRecordToList( pString );
+
+			// personality paragraph
+			LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + IMP_PERSONALITY_LENGTH ), MAIL_STRING_SIZE );
+			// add to list
+			AddEmailRecordToList( pString );
+
+			// extra paragraph for bugs
+			if( gMercProfiles[ iCurrentIMPSlot ].bDisability == FEAR_OF_INSECTS )
+			{
+				// personality paragraph
+				LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( iOffSet + IMP_PERSONALITY_LENGTH + 1 ), MAIL_STRING_SIZE );
+				// add to list
+				AddEmailRecordToList( pString );
+			}
 		}
 
 	// attitude intro
