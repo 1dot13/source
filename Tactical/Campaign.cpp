@@ -160,23 +160,23 @@ void ProfileStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 
 void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumChances, UINT8 ubReason)
 {
-  UINT32 uiCnt,uiEffLevel;
-  INT16 sSubPointChange = 0;
+	UINT32 uiCnt,uiEffLevel;
+	INT16 sSubPointChange = 0;
 	UINT16 usChance=0;
 	UINT16 usSubpointsPerPoint;
 	UINT16 usSubpointsPerLevel;
 	INT8 bCurrentRating;
-  UINT16 *psStatGainPtr;
+	UINT16 *psStatGainPtr;
 	BOOLEAN fAffectedByWisdom = TRUE;
 
 	Assert(pProfile != NULL);
 
-  if ( pProfile->bEvolution == NO_EVOLUTION )
-    return;     // No change possible, quit right away
+	if ( pProfile->bEvolution == NO_EVOLUTION )
+		return;     // No change possible, quit right away
 
-  // if this is a Reverse-Evolving merc who attempting to train
-  if ( ( ubReason == FROM_TRAINING ) && ( pProfile->bEvolution == DEVOLVE ) )
-    return;	// he doesn't get any benefit, but isn't penalized either
+	// if this is a Reverse-Evolving merc who attempting to train
+	if ( ( ubReason == FROM_TRAINING ) && ( pProfile->bEvolution == DEVOLVE ) )
+		return;	// he doesn't get any benefit, but isn't penalized either
 
 	if (usNumChances == 0)
 		return;
@@ -185,73 +185,73 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel);
 	usSubpointsPerLevel = SubpointsPerPoint(EXPERAMT, pProfile->bExpLevel);
 
-  switch (ubStat)
-  {
-    case HEALTHAMT:
-      bCurrentRating = pProfile->bLifeMax;
-      psStatGainPtr = (UINT16 *)&(pProfile->sLifeGain);
+	switch (ubStat)
+	{
+		case HEALTHAMT:
+			bCurrentRating = pProfile->bLifeMax;
+			psStatGainPtr = (UINT16 *)&(pProfile->sLifeGain);
 			// NB physical stat checks not affected by wisdom, unless training is going on
 			fAffectedByWisdom = FALSE;
-      break;
+		break;
 
-    case AGILAMT:
-      bCurrentRating = pProfile->bAgility;
-      psStatGainPtr = (UINT16 *)&(pProfile->sAgilityGain);
+		case AGILAMT:
+			bCurrentRating = pProfile->bAgility;
+			psStatGainPtr = (UINT16 *)&(pProfile->sAgilityGain);
 			fAffectedByWisdom = FALSE;
-      break;
+		break;
 
-    case DEXTAMT:
-      bCurrentRating = pProfile->bDexterity;
-      psStatGainPtr = (UINT16 *)&(pProfile->sDexterityGain);
+		case DEXTAMT:
+			bCurrentRating = pProfile->bDexterity;
+			psStatGainPtr = (UINT16 *)&(pProfile->sDexterityGain);
 			fAffectedByWisdom = FALSE;
-      break;
+		break;
 
-    case WISDOMAMT:
-      bCurrentRating = pProfile->bWisdom;
-      psStatGainPtr = (UINT16 *)&(pProfile->sWisdomGain);
-      break;
+		case WISDOMAMT:
+			bCurrentRating = pProfile->bWisdom;
+			psStatGainPtr = (UINT16 *)&(pProfile->sWisdomGain);
+		break;
 
-    case MEDICALAMT:
-      bCurrentRating = pProfile->bMedical;
-      psStatGainPtr = (UINT16 *)&(pProfile->sMedicalGain);
-      break;
+		case MEDICALAMT:
+			bCurrentRating = pProfile->bMedical;
+			psStatGainPtr = (UINT16 *)&(pProfile->sMedicalGain);
+		break;
 
-    case EXPLODEAMT:
-      bCurrentRating = pProfile->bExplosive;
-      psStatGainPtr = (UINT16 *)&(pProfile->sExplosivesGain);
-      break;
+		case EXPLODEAMT:
+			bCurrentRating = pProfile->bExplosive;
+			psStatGainPtr = (UINT16 *)&(pProfile->sExplosivesGain);
+		break;
 
-    case MECHANAMT:
-      bCurrentRating = pProfile->bMechanical;
-      psStatGainPtr = (UINT16 *)&(pProfile->sMechanicGain);
-      break;
+		case MECHANAMT:
+			bCurrentRating = pProfile->bMechanical;
+			psStatGainPtr = (UINT16 *)&(pProfile->sMechanicGain);
+		break;
 
-    case MARKAMT:
-      bCurrentRating = pProfile->bMarksmanship;
-      psStatGainPtr = (UINT16 *)&(pProfile->sMarksmanshipGain);
-      break;
+		case MARKAMT:
+			bCurrentRating = pProfile->bMarksmanship;
+			psStatGainPtr = (UINT16 *)&(pProfile->sMarksmanshipGain);
+		break;
 
-    case EXPERAMT:
-      bCurrentRating = pProfile->bExpLevel;
-      psStatGainPtr = (UINT16 *)&(pProfile->sExpLevelGain);
-      break;
+		case EXPERAMT:
+			bCurrentRating = pProfile->bExpLevel;
+			psStatGainPtr = (UINT16 *)&(pProfile->sExpLevelGain);
+		break;
 
 		case STRAMT:
-      bCurrentRating = pProfile->bStrength;
-      psStatGainPtr = (UINT16 *)&(pProfile->sStrengthGain);
+			bCurrentRating = pProfile->bStrength;
+			psStatGainPtr = (UINT16 *)&(pProfile->sStrengthGain);
 			fAffectedByWisdom = FALSE;
-      break;
+		break;
 
 		case LDRAMT:
-      bCurrentRating = pProfile->bLeadership;
-      psStatGainPtr = (UINT16 *)&(pProfile->sLeadershipGain);
-      break;
+			bCurrentRating = pProfile->bLeadership;
+			psStatGainPtr = (UINT16 *)&(pProfile->sLeadershipGain);
+		break;
 
-    default:
+		default:
 			// BETA message
-      ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"ERROR: ProcessStatChange: Rcvd unknown ubStat %d", ubStat);
-      return;
-  }
+			ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"ERROR: ProcessStatChange: Rcvd unknown ubStat %d", ubStat);
+		return;
+	}
 
 
 	if (ubReason == FROM_TRAINING)
@@ -268,11 +268,11 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	}
 
 
-  // loop once for each chance to improve
-  for (uiCnt = 0; uiCnt < usNumChances; uiCnt++)
-  {
-    if (pProfile->bEvolution == NORMAL_EVOLUTION)               // Evolves!
-    {
+	// loop once for each chance to improve
+	for (uiCnt = 0; uiCnt < usNumChances; uiCnt++)
+	{
+		if (pProfile->bEvolution != DEVOLVE)               // Evolves!
+		{
 			// if this is improving from a failure, and a successful roll would give us enough to go up a point
 			if ((ubReason == FROM_FAILURE) && ((*psStatGainPtr + 1) >= usSubpointsPerPoint))
 			{
@@ -280,7 +280,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				break;
 			}
 
-      if (ubStat != EXPERAMT)
+			if (ubStat != EXPERAMT)
 			{
 				// NON-experience level changes, actual usChance depends on bCurrentRating
 				// Base usChance is '100 - bCurrentRating'
@@ -292,62 +292,70 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 					usChance = 0;
 				}
 			}
-      else
-      {
-			  // Experience level changes, actual usChance depends on level
-			  // Base usChance is '100 - (10 * current level)'
+			else
+			{
+				// Experience level changes, actual usChance depends on level
+				// Base usChance is '100 - (10 * current level)'
 				usChance = 100 - 10 * (bCurrentRating + (*psStatGainPtr / usSubpointsPerPoint));
-      }
+			}
 
-      // if there IS a usChance, adjust it for high or low wisdom (50 is avg)
-      if (usChance > 0 && fAffectedByWisdom)
+			// if there IS a usChance, adjust it for high or low wisdom (50 is avg)
+			if (usChance > 0 && fAffectedByWisdom)
 			{
 				usChance += (usChance * (pProfile->bWisdom + (pProfile->sWisdomGain / SubpointsPerPoint(WISDOMAMT, pProfile->bExpLevel)) - 50)) / 100;
 			}
 
 /*
-      // if the stat is Marksmanship, and the guy is a hopeless shot
-      if ((ubStat == MARKAMT) && (pProfile->bSpecialTrait == HOPELESS_SHOT))
+			// if the stat is Marksmanship, and the guy is a hopeless shot
+			if ((ubStat == MARKAMT) && (pProfile->bSpecialTrait == HOPELESS_SHOT))
 			{
 				usChance /= 5;		// MUCH slower to improve, divide usChance by 5
 			}
 */
 
-		// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
-		if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
-		{
-			switch (ubStat)
+			// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
+			if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
 			{
-				case WISDOMAMT:
-				case MEDICALAMT:
-				case EXPLODEAMT:
-				case MECHANAMT:
-				case LDRAMT:
-					usChance = max(1, (usChance - 10)); // -10% chance to gain the point
-					break;
-			}
-		}
-
-
-      // maximum possible usChance is 99%
-      if (usChance > 99)
-			{
-				usChance = 99;
+				switch (ubStat)
+				{
+					case WISDOMAMT:
+					case MEDICALAMT:
+					case EXPLODEAMT:
+					case MECHANAMT:
+					case LDRAMT:
+						usChance = max(1, (usChance - 10)); // -10% chance to gain the point
+						break;
+				}
 			}
 
-		if (PreRandom(100) < usChance )
-      {
-        (*psStatGainPtr)++;
+			// Buggler: more evolution rate choices
+			if (pProfile->bEvolution == THREEQUARTER_EVOLUTION)
+				usChance = max(1, usChance * 0.75);
+			else if (pProfile->bEvolution == HALF_EVOLUTION)
+				usChance =  max(1, usChance * 0.5);
+			else if (pProfile->bEvolution == ONEQUARTER_EVOLUTION)
+				usChance =  max(1, usChance * 0.25);
+
+
+			// maximum possible usChance is 99%
+			if (usChance > 99)
+			{
+					usChance = 99;
+			}
+
+			if (PreRandom(100) < usChance )
+			{
+				(*psStatGainPtr)++;
 				sSubPointChange++;
 
-        // as long as we're not dealing with exp_level changes (already added above!)
-        // and it's not from training, and the exp level isn't max'ed out already
-        if ((ubStat != EXPERAMT) && (ubReason != FROM_TRAINING))
-        {
-          uiEffLevel = pProfile->bExpLevel + (pProfile->sExpLevelGain / usSubpointsPerLevel);
+				// as long as we're not dealing with exp_level changes (already added above!)
+				// and it's not from training, and the exp level isn't max'ed out already
+				if ((ubStat != EXPERAMT) && (ubReason != FROM_TRAINING))
+				{
+					uiEffLevel = pProfile->bExpLevel + (pProfile->sExpLevelGain / usSubpointsPerLevel);
 
 					// if level is not at maximum
-	        if (uiEffLevel < MAXEXPLEVEL)
+					if (uiEffLevel < MAXEXPLEVEL)
 					{
 						// if this is NOT improving from a failure, OR it would NOT give us enough to go up a level
 						if ((ubReason != FROM_FAILURE) || ((pProfile->sExpLevelGain + 1) < usSubpointsPerLevel))
@@ -357,14 +365,14 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 						}
 					}
 				}
-	    }
-    }
-    else                          // Regresses!
-    {
+			}
+		}
+		else                          // Regresses!
+		{
 			// regression can happen from both failures and successes (but not training, checked above)
 
-      if (ubStat != EXPERAMT)
-      {
+			if (ubStat != EXPERAMT)
+			{
 				// NON-experience level changes, actual usChance depends on bCurrentRating
 				switch (ubStat)
 				{
@@ -386,8 +394,8 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 						usChance = bCurrentRating + (*psStatGainPtr / usSubpointsPerPoint);
 						break;
 				}
-      }
-      else
+			}
+			else
 			{
 				// Experience level changes, actual usChance depends on level
 				// Base usChance is '10 * (current level - 1)'
@@ -404,32 +412,32 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				{
 					usChance = 1;
 				}
-      }
+			}
 
 			if (usChance <= 0)
 				usChance = 1;
 
-      if (PreRandom(100) < usChance )
-      {
+			if (PreRandom(100) < usChance )
+			{
 				(*psStatGainPtr)--;
 				sSubPointChange--;
 
-        // as long as we're not dealing with exp_level changes (already added above!)
-        // and it's not from training, and the exp level isn't max'ed out already
-        if ((ubStat != EXPERAMT) && (ubReason != FROM_TRAINING))
-        {
-          uiEffLevel = pProfile->bExpLevel + (pProfile->sExpLevelGain / usSubpointsPerLevel );
+				// as long as we're not dealing with exp_level changes (already added above!)
+				// and it's not from training, and the exp level isn't max'ed out already
+				if ((ubStat != EXPERAMT) && (ubReason != FROM_TRAINING))
+				{
+					uiEffLevel = pProfile->bExpLevel + (pProfile->sExpLevelGain / usSubpointsPerLevel );
 
 					// if level is not at minimum
-          if (uiEffLevel > 1)
+					if (uiEffLevel > 1)
 					{
-            // all other stat changes count towards experience level changes (1 for 1 basis)
-            pProfile->sExpLevelGain--;
+						// all other stat changes count towards experience level changes (1 for 1 basis)
+						pProfile->sExpLevelGain--;
 					}
 				}
-      }
-    }
-  }
+			}
+		}
+	}
 
 #ifdef STAT_CHANGE_DEBUG
 	if (sSubPointChange != 0)

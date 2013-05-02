@@ -256,10 +256,14 @@ typedef enum
 
 
 // training defines for evolution, no stat increase, stat decrease( de-evolve )
-typedef enum{
+typedef enum
+{
 	NORMAL_EVOLUTION =0,
 	NO_EVOLUTION,
 	DEVOLVE,
+	THREEQUARTER_EVOLUTION,
+	HALF_EVOLUTION,
+	ONEQUARTER_EVOLUTION,
 } CharacterEvolution;
 
 #define BUDDY_MERC( prof, bud ) ((prof)->bBuddy[0] == (bud) || (prof)->bBuddy[1] == (bud) || (prof)->bBuddy[2] == (bud) )
