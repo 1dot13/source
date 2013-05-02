@@ -19006,7 +19006,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
-		<bDisability>4</bDisability>
+		<bDisability>9</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
 		<bDeathRate>101</bDeathRate>
@@ -20098,7 +20098,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
-		<bDisability>6</bDisability>
+		<bDisability>8</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>85</bReputationTolerance>
 		<bDeathRate>28</bDeathRate>
@@ -20350,7 +20350,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
-		<bDisability>3</bDisability>
+		<bDisability>9</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>38</bReputationTolerance>
 		<bDeathRate>33</bDeathRate>
