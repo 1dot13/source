@@ -6,7 +6,6 @@
 	#include "Utilities.h"
 	#include "Game Clock.h"
 	#include "Render Dirty.h"
-	#include "wCheck.h"
 	#include "Font Control.h"
 	#include "WordWrap.h"
 	#include "Text Input.h"
@@ -54,7 +53,6 @@
 	#include "PATHAI.h"
 	#include "Points.h"
 	#include "InterfaceItemImages.h"
-	#include "Interface Enhanced.h"
 #endif
 
 #ifdef JA2UB

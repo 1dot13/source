@@ -3,15 +3,12 @@
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
-	#include "vobject_private.h"
 	#include "vobject_blitters.h"
-	#include "wcheck.h"
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "input.h"
@@ -19,18 +16,14 @@
 	#include "screenids.h"
 	#include "container.h"
 	#include "overhead.h"
-	#include "Isometric Utils.h"
 	#include "sysutil.h"
 	#include "Font Control.h"
-	#include "Radar Screen.h"
 	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "Event Pump.h"
-	#include "Timer Control.h"
 	#include "Render Dirty.h"
 	#include "Sys Globals.h"
 	#include "interface.h"
-	#include "soldier ani.h"
 	#include <wchar.h>
 	#include <tchar.h>
 	#include "english.h"

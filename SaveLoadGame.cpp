@@ -48,7 +48,6 @@
 	#include "GameVersion.h"
 	#include "GameSettings.h"
 	#include "Music Control.h"
-	#include "GameScreen.h"
 	#include "Options Screen.h"
 	#include "Ai.h"
 	#include "RenderWorld.h"
@@ -138,7 +137,6 @@
 
 #include <vfs/Core/vfs.h>
 //rain
-#include "Rain.h"
 //end rain
 
 #include "connect.h"

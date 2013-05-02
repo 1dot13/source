@@ -2,9 +2,7 @@
 #include "AI All.h"
 #include "sound control.h"
 #include "Debug Control.h"
-#include "cheats.h"
 #else
-#include "wcheck.h"
 #include "sgp.h"
 #include "ai.h"
 #include "Isometric Utils.h"
@@ -13,7 +11,6 @@
 #include "Event Pump.h"
 #include "Soldier Control.h"
 #include "Overhead Types.h"
-#include "sys globals.h"
 #include "opplist.h"
 #include "animation control.h"
 #include "font control.h"
@@ -53,7 +50,6 @@
 #include "Quests.h"
 #include "Campaign Types.h"
 #include "Queen Command.h"
-#include "cheats.h"
 #include "points.h"
 #include "Soldier Functions.h" // added by SANDRO
 #endif

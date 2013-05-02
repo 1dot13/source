@@ -8,7 +8,6 @@
 	#include "Assignments.h"
 	#include "Interface Control.h"
 	#include "Overhead.h"
-	#include "Music Control.h"
 	#include "Soldier Profile.h"
 	#include "Dialogue Control.h"
 	#include "personnel.h"

@@ -8,7 +8,6 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "Interface.h"
-	#include "Item Statistics.h"
 	#include "LuaInitNPCs.h"
 	#include "email.h"
 #endif

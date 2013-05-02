@@ -6,7 +6,6 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "Interface.h"
-	#include "EditorMercs.h"
 #endif
 
 struct

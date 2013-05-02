@@ -1,7 +1,6 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include <memory.h>
 	#include "Map Edgepoints.h"
 
 	#include "pathai.h"

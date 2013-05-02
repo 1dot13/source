@@ -11,7 +11,6 @@
 	#include "Strategic Movement.h"
 	#include "Strategic Status.h"
 	#include "GameSettings.h"
-	#include "Creature Spreading.h"
 	#include "Strategic AI.h"
 	#include "XML.h"
 	#include "expat.h"

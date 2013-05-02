@@ -7,7 +7,6 @@
 	#include "XML.h"
 	#include "Interface.h"
 	#include "IMP Confirm.h"
-	#include "IMP Portraits.h"
 	#include "Soldier Profile.h"
 #endif
 

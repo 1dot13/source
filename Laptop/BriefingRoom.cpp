@@ -11,8 +11,6 @@
 	#include "email.h"
 	#include "Game Clock.h"
 	#include "Text.h"
-	#include "LaptopSave.h"
-	#include "Multi Language Graphic Utils.h"
 	#include "soldier profile type.h"
 #endif
 

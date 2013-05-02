@@ -5,13 +5,10 @@
 	#include "Music Control.h"
 	#include "soundman.h"
 	#include "Random.h"
-	#include "gamescreen.h"
 	#include "jascreens.h"
-	#include "Creature Spreading.h"
 	#include "overhead.h"
 	#include "timer control.h"
 	#include "strategicmap.h"
-	#include "fade screen.h"
 #endif
 
 //extern int iScreenMode;

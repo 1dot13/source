@@ -11,7 +11,6 @@
 	#include "Animation Cache.h"
 	#include "Animation Data.h"
 	#include "Animation Control.h"
-	#include "sys globals.h"
 	#include "Debug Control.h"
 #endif
 

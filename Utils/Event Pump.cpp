@@ -2,7 +2,6 @@
 	#include "Utils All.h"
 #else
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "container.h"

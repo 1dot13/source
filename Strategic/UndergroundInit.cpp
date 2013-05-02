@@ -3,7 +3,6 @@
 #include <sstream>
 
 #include "UndergroundInit.h"
-#include "Campaign Init.h"
 #include "FileMan.h"
 #include "GameSettings.h"
 #include "Game Clock.h"

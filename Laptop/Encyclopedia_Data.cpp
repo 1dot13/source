@@ -8,7 +8,6 @@
 	#include "WCheck.h"
 	#include "WordWrap.h"
 	#include "Text.h"
-	#include "Multi Language Graphic Utils.h"
 	#include "Encrypted File.h"
 	#include "Soldier Profile.h"
 #endif	
@@ -16,7 +15,6 @@
 #include "Encyclopedia_Data.h"
 #include "Encyclopedia.h"
 #include "Quests.h"
-#include "Tactical Save.h"
 
 #define MAX_FILTR_LOCATION_BUTTONS 11
 #define FILTR_INVENTORY_BUTTONS 5

@@ -19,7 +19,6 @@
 #include "items.h"
 #include "GameSettings.h"
 
-#include "cursors.h"
 
 #include "Map Information.h"
 #include "soldier profile.h"

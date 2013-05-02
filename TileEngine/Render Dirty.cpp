@@ -15,10 +15,8 @@
 	#include "Render Dirty.h"
 	#include "sysutil.h"
 	#include "container.h"
-	#include "wcheck.h"
 	#include "video.h"
 	#include "vobject_blitters.h"
-	#include "WinFont.h"
 	#include "Font Control.h"
 #endif
 

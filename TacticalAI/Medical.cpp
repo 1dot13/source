@@ -2,7 +2,6 @@
 	#include "AI All.h"
 #else
 	#include "types.h"
-	#include "wcheck.h"
 
 	#include "Soldier Functions.h"
 	#include "ai.h"

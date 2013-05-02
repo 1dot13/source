@@ -13,8 +13,6 @@
 	#endif
 	#include "himage.h"
 	#include "vobject.h"
-	#include "vobject_private.h"
-	#include "video_private.h"
 	#include "wcheck.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"

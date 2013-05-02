@@ -12,7 +12,6 @@
 
 
 #include <dbghelp.h>
-#include <iostream>
 
 #include <vfs/Tools/vfs_log.h>
 

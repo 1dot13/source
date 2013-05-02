@@ -14,7 +14,6 @@
 	#include "Store Inventory.h"
 	#include "LaptopSave.h"
 	#include "Finances.h"
-	#include "AimMembers.h"
 	#include "Overhead.h"
 	#include "Weapons.h"
 	#include "GameSettings.h"

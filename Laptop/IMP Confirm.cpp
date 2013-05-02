@@ -6,10 +6,8 @@
 	#include "IMP HomePage.h"
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
-	#include "WCheck.h"
 	#include "Debug.h"
 	#include "WordWrap.h"
-	#include "Render Dirty.h"
 	#include "Encrypted File.h"
 	#include "cursors.h"
 	#include "laptop.h"
@@ -22,7 +20,6 @@
 	#include "Soldier Profile Type.h"
 	#include "Soldier Control.h"
 	#include "IMP Portraits.h"
-	#include "IMP Voices.h"
 	#include "Overhead.h"
 	#include "finances.h"
 	#include "history.h"
@@ -34,7 +31,6 @@
 	#include "weapons.h"
 	#include "Random.h"
 	#include "GameVersion.h"
-	#include "faces.h"
 	#include "GameSettings.h"
 #endif
 

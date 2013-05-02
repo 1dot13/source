@@ -39,7 +39,6 @@
 	#include "Map Screen Interface.h"
 	#include "text.h"
 	#include "Merc Contract.h"
-	#include "history.h"
 	#include "Town Militia.h"
 	#include "meanwhile.h"
 	#include "SkillCheck.h"

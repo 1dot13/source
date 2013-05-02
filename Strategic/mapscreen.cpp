@@ -31,11 +31,9 @@
 	#include <tchar.h>
 	#include "cursors.h"
 	#include "Soldier Profile.h"
-	#include "Interface Cursors.h"
 	#include "Interface Panels.h"
 	#include "Interface Control.h"
 	#include "sys globals.h"
-	#include "environment.h"
 	#include "Radar Screen.h"
 	#include "Render Dirty.h"
 	#include "utilities.h"
@@ -82,7 +80,6 @@
 	#include "english.h"
 	#include "Fade Screen.h"
 	#include "Strategic Mines.h"
-	#include "GameVersion.h"
 	#include "SaveLoadScreen.h"
 	#include "Options Screen.h"
 	#include "Auto Resolve.h"
@@ -101,7 +98,6 @@
 	#include "cheats.h"
 	#include "Strategic Town Loyalty.h"
 	#include "GameSettings.h"
-	#include "_Ja25EnglishText.h"
 	#include "Militia Control.h"
 	#include "Tactical Save.h"
 	#include "Explosion Control.h"
@@ -117,7 +113,6 @@
 #endif
 
 #include "connect.h" //hayden
-#include "fresh_header.h"
 #include "InterfaceItemImages.h"
 
 #ifdef JA2UB

@@ -9,7 +9,6 @@
 	#include "Strategic Movement.h"
 	#include "Assignments.h"
 	#include "OverHead.h"
-	#include "RenderWorld.h"
 	#include "Interface.h"
 	#include "Vehicles.h"
 	#include "Map Screen Helicopter.h"

@@ -9,7 +9,6 @@
 	#include "Event Pump.h"
 	#include "weapons.h"
 	#include "Animation Control.h"
-	#include "sys globals.h"
 	#include "Handle UI.h"
 	#include "Isometric Utils.h"
 	#include "worldman.h"

@@ -3,15 +3,12 @@
   #include "winfont.h"
 #else
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "himage.h"
 	#include "vsurface.h"
-	#include "vsurface_private.h"
 	#include "wcheck.h"
 	#include "Font Control.h"
-	#include "WinFont.h"
 #endif
 
 INT32		  giCurWinFont = 0;

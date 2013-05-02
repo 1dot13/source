@@ -17,7 +17,6 @@
 	#include "interface panels.h"
 	#include "strategic.h"
 	#include "worlddef.h"
-	#include "tile animation.h"
 	#include "Isometric Utils.h"
 	#include "Mapscreen.h"
 	#include "message.h"

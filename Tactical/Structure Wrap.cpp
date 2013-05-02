@@ -3,7 +3,6 @@
 #else
 	#include <stdio.h>
 	#include "debug.h"
-	#include "wcheck.h"
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "structure wrap.h"

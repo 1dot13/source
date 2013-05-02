@@ -29,7 +29,6 @@
 	#include "local.h"
 #endif
 
-#include "zmouse.h"
 
 // Make sure to refer to the translation table which is within one of the following files (depending
 // on the language used). ENGLISH.C, JAPANESE.C, FRENCH.C, GERMAN.C, SPANISH.C, etc...

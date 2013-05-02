@@ -26,7 +26,6 @@
 	#include "Map Screen Interface.h"
 	#include "Map Screen Helicopter.h"
 	#include "Scheduling.h"
-	#include "BobbyRGuns.h"
 	#include "Arms Dealer Init.h"
 	#include "Strategic town reputation.h"
 	#include "air raid.h"

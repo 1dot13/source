@@ -18,7 +18,6 @@
 	#include "Render Fun.h"
 	#include "Boxing.h"
 	#include "Text.h"
-	#include "Structure Wrap.h"
 	#ifdef _DEBUG
 		#include "renderworld.h"
 		#include "video.h"
@@ -32,7 +31,6 @@
 	#include "Soldier Profile.h"
 #endif
 
-#include "PathAIDebug.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - all "APBPConstants[AP_CROUCH]" and "APBPConstants[AP_PRONE]" here    

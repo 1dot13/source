@@ -4,7 +4,6 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
 	//#include "soldier control.h"
@@ -13,7 +12,6 @@
 	#include "weapons.h"
 	#include "handle items.h"
 	#include "worlddef.h"
-	#include "worldman.h"
 	#include "rotting corpses.h"
 	#include "tile cache.h"
 	#include "isometric utils.h"
@@ -30,7 +28,6 @@
 	#include "Handle UI.h"
 	#include "squads.h"
 	#include "english.h"
-	#include "cursors.h"
 	#include "cursor control.h"
 	#include "Merc Hiring.h"
 	#include "Font Control.h"

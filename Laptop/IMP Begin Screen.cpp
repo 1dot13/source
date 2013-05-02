@@ -7,11 +7,9 @@
 	#include "IMP HomePage.h"
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
-	#include "WCheck.h"
 	#include "Timer Control.h"
 	#include "Debug.h"
 	#include "WordWrap.h"
-	#include "Render Dirty.h"
 	#include "Encrypted File.h"
 	#include "cursors.h"
 	#include "laptop.h"
@@ -21,18 +19,15 @@
 	#include "messageboxscreen.h"
 	#include "Soldier Profile Type.h"
 	#include "IMP Portraits.h"
-	#include "IMP Voices.h"
 	#include "IMP Attribute Selection.h"
 	#include "english.h"
 	#include "line.h"
 	#include "Merc Hiring.h"
 	#include "strategic.h"
-	#include "Game Clock.h"
 	#include "text.h"
 	#include "LaptopSave.h"
 #endif
 
-#include <vfs/Tools/vfs_parser_tools.h>
 
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138
 #define NICK_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 195

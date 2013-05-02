@@ -9,7 +9,6 @@
 	#include "WorldMan.h"
 	#include "AIInternals.h"
 	#include "Items.h"
-	#include "wcheck.h"
 	#include "message.h"
 	#include "los.h"
 	#include "assignments.h"

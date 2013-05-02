@@ -1,33 +1,30 @@
 #include <iostream>
-#include <string>
 #include <sstream>
 
 
 #include "connect.h"
 #include "FileMan.h"
 #include "GameSettings.h"
-#include "Game Init.h"
 #include "interface Dialogue.h"
-#include "opplist.h"
 #include "Strategic All.h"
 #include "Luaglobal.h"
 #include "Boxing.h"
 #include "LuaInitNPCs.h"
-#include "Game Clock.h"
 #include "Overhead.h"
 #include "Music Control.h"
 
 #include "Intro.h"
-#include "End Game.h"
 #include "Queen Command.h"
 #include "gamescreen.h"
 #include "Map Screen Interface Map.h"
-#include "ub_config.h"
 
 #include "Creature Spreading.h"
 #include "World Items.h"
 #include "Map Screen Helicopter.h"
 #include "Campaign Types.h"
+
+#include "ub_config.h"
+#include "Ja25_Tactical.h"
 
 extern "C" {
 #include "lua.h"
@@ -35,7 +32,6 @@ extern "C" {
 #include "lualib.h"
 }
 
-#include "Ja25_Tactical.h"
 
 using namespace std;
 

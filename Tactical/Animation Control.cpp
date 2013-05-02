@@ -4,7 +4,6 @@
 #include "builddefines.h"
 #include <stdio.h>
 #include <string.h>
-#include "wcheck.h"
 #include "stdlib.h"
 #include "debug.h"
 #include "Animation Control.h"
@@ -16,7 +15,6 @@
 #include "worlddef.h"
 #include "worldman.h"
 #include "rotting corpses.h"
-#include "points.h"
 #include "Debug Control.h"
 #include "Random.h"
 #include "Soldier Control.h"

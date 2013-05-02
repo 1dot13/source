@@ -9,7 +9,6 @@
 	#include "WordWrap.h"
 	#include "Soldier Profile.h"
 	#include "stdlib.h"
-	#include "Game Clock.h"
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "english.h"

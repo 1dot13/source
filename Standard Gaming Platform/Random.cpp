@@ -1,5 +1,4 @@
 #include "Random.h"
-#include <time.h>
 #include "debug control.h"
 
 extern bool is_client;

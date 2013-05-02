@@ -20,11 +20,9 @@
 	#include "Random.h"
 	#include "items.h"
 
-	#include "cursors.h"
 
 	#include "Map Information.h"
 	#include "soldier profile.h"
-	#include "Sys Globals.h"
 	#include "EditorMercs.h"
 	#include "Animation Data.h"
 	#include "message.h"

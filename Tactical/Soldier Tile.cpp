@@ -4,7 +4,6 @@
 	#include <wchar.h>
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "Render Fun.h"
 	#include "stdlib.h"
 	#include "debug.h"
@@ -15,23 +14,18 @@
 	#include "Animation Data.h"
 	#include "Animation Control.h"
 	#include "container.h"
-	#include <math.h>
 	#include "pathai.h"
 	#include "Random.h"
 	#include "worldman.h"
 	#include "Isometric Utils.h"
-	#include "Render Dirty.h"
 	#include "renderworld.h"
-	#include "sys globals.h"
 	#include "video.h"
 	#include "points.h"
-	#include "Win util.h"
 //	#include "Sound Control.h"
 	#include "lighting.h"
 	#include "weapons.h"
 	#include "vobject_blitters.h"
 	#include "Handle UI.h"
-	#include "soldier ani.h"
 	#include "Event pump.h"
 	#include "opplist.h"
 	#include "ai.h"
@@ -39,16 +33,12 @@
 	#include "lighting.h"
 	#include "faces.h"
 	#include "Soldier Profile.h"
-	#include "gap.h"
-	#include "interface panels.h"
-	#include "campaign.h"
 
 	#ifdef NETWORKED
 	#include "Networking.h"
 	#include "NetworkEvent.h"
 	#endif
 
-	#include "structure wrap.h"
 	#include "items.h"
 	#include "Soundman.h"
 	#include "soldier tile.h"

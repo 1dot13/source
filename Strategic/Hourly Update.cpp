@@ -10,7 +10,6 @@
 	#include "Quests.h"
 	#include "Game Clock.h"
 	#include "Overhead.h"
-	#include "Boxing.h"
 	#include "jascreens.h"
 	#include "screenids.h"
 	#include "Items.h"

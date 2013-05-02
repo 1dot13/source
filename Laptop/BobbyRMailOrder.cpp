@@ -32,7 +32,6 @@
 #include "connect.h"
 #include "GameSettings.h"
 #include <vfs/Core/vfs.h>
-#include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/File/vfs_file.h>
 
 /*

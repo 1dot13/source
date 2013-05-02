@@ -2,7 +2,6 @@
 	#include "Tactical All.h"
 #else
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "gameloop.h"
@@ -14,13 +13,11 @@
 	#include "Button System.h"
 	#include "interface.h"
 	#include "vsurface.h"
-	#include "wcheck.h"
 	#include "input.h"
 	#include "Handle UI.h"
 	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "renderworld.h"
-	#include "sys globals.h"
 	#include "cursors.h"
 	#include "radar screen.h"
 	#include "worldman.h"
@@ -28,7 +25,6 @@
 	#include "render dirty.h"
 	#include "utilities.h"
 	#include "interface cursors.h"
-	#include "Sound Control.h"
 	#include "lighting.h"
 	#include "Interface Panels.h"
 	#include "pathai.h"

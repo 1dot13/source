@@ -3,12 +3,10 @@
 #else
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
 	#include "math.h"
 	#include "worlddef.h"
-	#include "worldman.h"
 	#include "renderworld.h"
 
 
@@ -16,14 +14,10 @@
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
 	#include "Event Pump.h"
-	#include "Timer Control.h"
 	#include "Render Fun.h"
-	#include "Render Dirty.h"
-	#include "mousesystem.h"
 	#include "interface.h"
 	#include "sysutil.h"
 	#include "FileMan.h"
-	#include "points.h"
 	#include "Random.h"
 	#include "ai.h"
 	#include "Interactive Tiles.h"

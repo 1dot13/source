@@ -14,8 +14,6 @@
 	#include "Map Screen Interface.h"
 	#include "Interface.h"
 	#include "Laptopsave.h"
-	#include "finances.h"
-	#include "Game Clock.h"
 	#include "Assignments.h"
 	#include "squads.h"
 	#include "Soldier Create.h"

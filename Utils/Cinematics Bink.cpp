@@ -4,7 +4,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <share.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -28,7 +27,6 @@
 #include <vfs/Core/vfs_file_raii.h>
 
 
-#include "radmalw.i"
 
 
 #include <crtdbg.h>

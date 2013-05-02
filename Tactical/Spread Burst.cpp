@@ -3,13 +3,11 @@
 #else
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
 	//#include "soldier control.h"
 	#include "weapons.h"
 	#include "cursor control.h"
-	#include "cursors.h"
 	#include "soldier find.h"
 	#include "isometric utils.h"
 	#include "renderworld.h"

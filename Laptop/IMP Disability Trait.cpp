@@ -17,8 +17,6 @@
 	#include "_Ja25EnglishText.h"
 	#include "wordwrap.h"
 	#include "CharProfile.h"
-	#include "soldier profile type.h"
-	#include "IMP Compile Character.h"
 	#include "GameSettings.h"
 #endif
 

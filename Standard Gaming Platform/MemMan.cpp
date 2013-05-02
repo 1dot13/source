@@ -49,7 +49,6 @@
 //**************************************************************************
 
 #ifdef JA2
-#include "mousesystem.h"
 #include "MessageBoxScreen.h"
 STR16 gzJA2ScreenNames[] =
 {

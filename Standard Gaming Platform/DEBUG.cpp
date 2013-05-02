@@ -25,14 +25,10 @@
 
 	#include "types.h"
 	#include <windows.h>
-	#include <ddeml.h>
 	#include <stdio.h>
 	#include <string>
 	#include <sstream>
 	#include "debug.h"
-	#include "WCheck.h"
-	#include "TopicIDs.h"
-	#include "TopicOps.h"
 	#include "WizShare.h"
 
 	//Kris addition

@@ -30,7 +30,6 @@
 	#include	"dialogue control.h"
 	//#include	"Soldier Control.h"
 	#include	"overhead.h"
-	#include	"AimMembers.h"
 	#include	"MessageBoxScreen.h"
 	#include	"Stdio.h"
 	#include	"english.h"

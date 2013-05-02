@@ -8,8 +8,6 @@
 	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "WordWrap.h"
-	#include "Cursors.h"
-	#include "interface items.h"
 	#include "Encrypted File.h"
 	#include "text.h"
 #endif

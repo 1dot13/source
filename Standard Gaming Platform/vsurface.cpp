@@ -15,7 +15,6 @@
 #include "himage.h"
 #include "vsurface.h"
 #include "vsurface_private.h"
-#include "video_private.h"
 #include "wcheck.h"
 #include "vobject_blitters.h"
 #endif

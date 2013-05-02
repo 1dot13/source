@@ -7,14 +7,10 @@
 	#include "worlddat.h"
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "time.h"
 	#include "video.h"
 	#include "debug.h"
-	#include "smooth.h"
-	#include "worldman.h"
-	#include "mousesystem.h"
 	#include "sys globals.h"
 	#include "tiledat.h"
 	#include "Fileman.h"

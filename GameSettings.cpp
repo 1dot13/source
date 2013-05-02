@@ -34,7 +34,6 @@
 	#include "Queen Command.h"
 	#include "Game Clock.h"
 	#include "Init.h"
-	#include "displaycover.h"
 	#include "InterfaceItemImages.h"
 #endif
 

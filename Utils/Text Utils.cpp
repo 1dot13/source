@@ -1,7 +1,6 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else
-	#include "Language Defines.h"
 	#include "text.h"
 	#include "Fileman.h"
 	#include "GameSettings.h"

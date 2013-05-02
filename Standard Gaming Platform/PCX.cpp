@@ -4,7 +4,6 @@
 	#include "WIZ8 SGP ALL.H"
 #else
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include "pcx.h"
 	#include "memman.h"
 	#include "fileman.h"

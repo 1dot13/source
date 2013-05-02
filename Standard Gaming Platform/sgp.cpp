@@ -9,7 +9,6 @@
 #else
 	#include "types.h"
 	#include <windows.h>
-	#include <windowsx.h>
 	#include <stdio.h>
 	#include <stdarg.h>
 	#include <string.h>
@@ -58,9 +57,7 @@
 #include <iostream>
 #include <excpt.h>
 
-#include "ExceptionHandling.h"
 
-#include "dbt.h"
 #include "INIReader.h"
 #include "Console.h"
 #include "Lua Interpreter.h"

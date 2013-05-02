@@ -23,8 +23,6 @@
 	#include "cursors.h"
 	#include "Queen Command.h"
 	#include "Pathai.h"
-	#include "Music Control.h"
-	#include "Strategic Turns.h"
 	#include "lighting.h"
 	#include "environment.h"
 	#include "Explosion Control.h"

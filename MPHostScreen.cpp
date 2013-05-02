@@ -16,7 +16,6 @@
 	#include "Sysutil.h"
 	#include "Fade Screen.h"
 	#include "Cursor Control.h"
-	#include "Music Control.h"
 	#include "cursors.h"
 	#include "Intro.h"
 	#include "Text.h"

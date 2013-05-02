@@ -92,7 +92,6 @@
 	#include "Loading Screen.h"
 	#include "Queen Command.h"
 	#include "Enemy Soldier Save.h"
-	#include "Boxing.h"
 	#include "NPC.h"
 	#include "Strategic Event Handler.h"
 	#include "MessageBoxScreen.h"

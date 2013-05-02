@@ -4,7 +4,6 @@
 	#include "TileEngine All.h"
 #else
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "Radar Screen.h"
@@ -28,7 +27,6 @@
 	#include "Interface Control.h"
 	#include "Game Clock.h"
 	#include "Map Screen Interface Map Inventory.h"
-	#include "environment.h"
 	#include "meanwhile.h"
 	#include "strategicmap.h"
 	#include "Animation Data.h"

@@ -55,14 +55,12 @@
 	#include "Opplist.h"
 	#include "qarray.h"
 	#include "render fun.h"
-	#include "environment.h"
 	#include "Map Information.h"
 	#include "GameSettings.h"
 	#include "end game.h"
 	#include "interface control.h"
 	#include "Map Screen Interface Map Inventory.h"
 	// added by SANDRO
-	#include "Game Clock.h" 
 	#include "Morale.h"
 	// added by Flugente
 	#include "drugs and alcohol.h"

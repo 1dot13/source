@@ -3,7 +3,6 @@
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "gameloop.h"
@@ -19,10 +18,8 @@
 	#include "input.h"
 	#include "Handle UI.h"
 	#include "renderworld.h"
-	#include "sys globals.h"
 	#include "cursors.h"
 	#include "radar screen.h"
-	#include "worldman.h"
 	#include "Font Control.h"
 	#include "render dirty.h"
 	#include "utilities.h"

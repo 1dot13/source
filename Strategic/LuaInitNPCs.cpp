@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <sstream>
 
 #include "Lua Interpreter.h"
@@ -51,10 +50,10 @@
 #include "Ja25Update.h"
 #include "ub_config.h"
 #include "Ja25Update.h"
+#include "End Game.h"
 #endif
 
 #include "Intro.h"
-#include "End Game.h"
 #include "Queen Command.h"
 #include "gamescreen.h"
 #include "Arms Dealer Init.h"
@@ -68,7 +67,6 @@ extern "C" {
 
 #include "lua_state.h"
 #include "lua_function.h"
-#include <vfs/Core/vfs_string.h>
 
 #include "Encrypted File.h"
 //-------------------------- UB ------------------------------

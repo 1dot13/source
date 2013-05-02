@@ -3,7 +3,6 @@
 #else
 	#include <stdio.h>
 	#include "debug.h"
-	#include "wcheck.h"
 	#include "mousesystem.h"
 	#include "jascreens.h"
 	#include "worlddef.h"

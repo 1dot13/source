@@ -1,7 +1,6 @@
 
 //#include "stdafx.h"
 #include "profiler.h"
-#include "BinaryHeap.hpp"
 
 using namespace std;
 

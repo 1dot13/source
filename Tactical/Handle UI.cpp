@@ -7,7 +7,6 @@
 #include "builddefines.h"
 #include <stdio.h>
 #include <string.h>
-#include "wcheck.h"
 #include "stdlib.h"
 #include "debug.h"
 #include "math.h"
@@ -34,7 +33,6 @@
 #include "opplist.h"
 #include "worldman.h"
 #include "weapons.h"
-#include "Sound Control.h"
 #include "renderworld.h"
 #include "structure.h"
 #include "interface panels.h"
@@ -71,7 +69,6 @@
 #include "text.h"
 #include "dialogue control.h"
 #include "line.h"
-#include "render dirty.h"
 #include "GameSettings.h"
 #include "los.h"
 #include "Campaign Types.h"

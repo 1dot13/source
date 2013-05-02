@@ -16,7 +16,6 @@
 	#include "Debug Control.h"
 	#include "utilities.h"
 	#include "worlddef.h"
-	#include "worldman.h"
 	#include "Fileman.h"
 #endif
 

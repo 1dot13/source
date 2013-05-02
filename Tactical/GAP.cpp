@@ -8,7 +8,6 @@
 	#include "gap.h"
 	#include "Sound Control.h"
 	#include "soundman.h"
-	#include "Timer Control.h"
 	#include <stdio.h>
 	#include "FileMan.h"
 #endif

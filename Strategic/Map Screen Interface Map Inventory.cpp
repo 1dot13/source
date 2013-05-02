@@ -21,7 +21,6 @@
 	#include "Tactical Save.h"
 	#include "Overhead.h"
 	#include "english.h"
-	#include "Multi Language Graphic Utils.h"
 	#include "GameSettings.h"
 	#include "Radar Screen.h"
 	#include "message.h"

@@ -2,18 +2,15 @@
 	#include "Tactical All.h"
 #else
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "mousesystem.h"
 	#include "vsurface.h"
-	#include "wcheck.h"
 	#include "input.h"
 	#include "Handle UI.h"
 	#include "cursors.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "render dirty.h"
 	#include "Interface Cursors.h"
 	#include "interface.h"
 	#include "Isometric utils.h"

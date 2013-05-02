@@ -10,14 +10,9 @@
 	#include "FileMan.h"
 #endif
 
-#include "ExceptionHandling.h"
 
-#include <time.h>
-#include <tlhelp32.h>
-#include <imagehlp.h>
 
 #ifdef JA2
-	#include "GameVersion.h"
 #endif
 
 //If we are to use exception handling

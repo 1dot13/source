@@ -1,6 +1,5 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
-	#include "Intro.h"
 #else
 	#include "Types.h"
 	#include "MPConnectScreen.h"
@@ -18,12 +17,9 @@
 	#include "Cursor Control.h"
 	#include "Music Control.h"
 	#include "cursors.h"
-	#include "Intro.h"
 	#include "Text.h"
 	#include "Text Input.h"
-	#include "_Ja25EnglishText.h"
 	#include "Soldier Profile.h"
-	#include "Loading Screen.h"
 	#include "Animated ProgressBar.h"
 	#include "mainmenuscreen.h"
 #endif
@@ -32,7 +28,6 @@
 #include "Game Init.h"
 #include "connect.h"
 #include "network.h" // for client name
-#include "saveloadscreen.h"
 #include "message.h"
 #include "init.h"
 #include "xml.h"

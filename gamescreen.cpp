@@ -5,12 +5,10 @@
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "gameloop.h"
 	#include "vobject.h"
-	#include "wcheck.h"
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "font.h"
@@ -36,7 +34,6 @@
 	#include "renderworld.h"
 	#include "sys globals.h"
 	#include "environment.h"
-	#include "Music Control.h"
 	#include "bullets.h"
 	#include "Assignments.h"
 	#include "message.h"

@@ -4,7 +4,6 @@
 	#include "types.h"
 	#include "Fog Of War.h"
 	#include "Isometric Utils.h"
-	#include "worldman.h"
 	#include "Simple Render Utils.h"
 	#include "Renderworld.h"
 	#include "lighting.h"

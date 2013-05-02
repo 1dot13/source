@@ -2,8 +2,6 @@
 	#include "Laptop All.h"
 #else
 	#include "Laptop All.h"
-	#include "Utilities.h"
-	#include "WCheck.h"
 	#include "timer control.h"
 	#include "Debug.h"
 	#include "WordWrap.h"
@@ -11,8 +9,6 @@
 	#include "email.h"
 	#include "Game Clock.h"
 	#include "Text.h"
-	#include "LaptopSave.h"
-	#include "Multi Language Graphic Utils.h"
 	#include "soldier profile type.h"
 #endif
 

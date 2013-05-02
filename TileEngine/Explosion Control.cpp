@@ -7,7 +7,6 @@
 #else
 #include <stdio.h>
 #include <string.h>
-#include "wcheck.h"
 #include "stdlib.h"
 #include "debug.h"
 //#include "soldier control.h"
@@ -35,13 +34,11 @@
 #include "tiledat.h"
 #include "interactive tiles.h"
 #include "SaveLoadMap.h"
-#include "Handle Doors.h"
 #include "Message.h"
 #include "Random.h"
 #include "smokeeffects.h"
 #include "handle ui.h"
 #include "pathai.h"
-#include "pits.h"
 #include "campaign Types.h"
 #include "strategicmap.h"
 #include "strategic.h"

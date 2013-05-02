@@ -4,13 +4,11 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include <windows.h>
-	#include <windowsx.h>
 	#include <mmsystem.h>
 	#include <dsound.h>
 #else
 	#include "types.h"
 	#include <windows.h>
-	#include <windowsx.h>
 	#include <mmsystem.h>
 	#include <dsound.h>
 #endif

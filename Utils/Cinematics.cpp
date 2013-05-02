@@ -17,7 +17,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <share.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -41,10 +40,8 @@
 
 #include "vsurface_private.h"
 
-#include "Intro.h"
 
 
-#include "radmalw.i"
 
 
 #include <crtdbg.h>

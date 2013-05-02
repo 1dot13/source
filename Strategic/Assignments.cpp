@@ -26,7 +26,6 @@
 	#include "Map Screen Helicopter.h"
 	#include "PopUpBox.h"
 	#include "Vehicles.h"
-	#include "Strategic Merc Handler.h"
 	#include "Merc Contract.h"
 	#include "Map Screen Interface Map.h"
 	#include "Strategic Movement.h"

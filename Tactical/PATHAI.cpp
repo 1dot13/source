@@ -13,7 +13,6 @@
 #else
 	#include <stdio.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
 	#include "MemMan.h"
@@ -32,7 +31,6 @@
 	#include "worldman.h"
 //	#include "renderworld.h"
 	#include "pathai.h"
-	#include "PathAIDebug.h"
 	#include "Points.h"
 	#include "ai.h"
 	#include "Random.h"
@@ -44,7 +42,6 @@
 	#include "soldier profile.h" // added by SANDRO
 #endif
 #include "connect.h"
-#include "PathAIDebug.h"
 
 #include "LOS.h"  //ddd
 

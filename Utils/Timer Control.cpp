@@ -5,7 +5,6 @@
 	#include <windows.h>
 	#include <mmsystem.h>
 	#include <string.h>
-	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
 	#include "Timer Control.h"

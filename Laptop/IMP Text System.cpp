@@ -3,7 +3,6 @@
 #else
 	#include "WordWrap.h"
 	#include "sgp.h"
-	#include "Render Dirty.h"
 	#include "Encrypted File.h"
 	#include "IMP Text System.h"
 	#include "CharProfile.h"
@@ -24,7 +23,6 @@
 	#include "WCheck.h"
 	#include "Debug.h"
 	#include "WordWrap.h"
-	#include "Render Dirty.h"
 	#include "Encrypted File.h"
 	#include "cursors.h"
 	#include "soldier profile.h"

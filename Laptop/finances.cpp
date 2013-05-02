@@ -8,7 +8,6 @@
 	#include "WCheck.h"
 	#include "Debug.h"
 	#include "WordWrap.h"
-	#include "Render Dirty.h"
 	#include "Encrypted File.h"
 	#include "cursors.h"
 	#include "Soldier Profile.h"

@@ -30,7 +30,6 @@
 	#include	"English.h"
 	#include	"Gameloop.h"
 	#include	"Game Init.h"
-	#include	"Sys Globals.h"
 	#include	"Text.h"
 	#include	"Message.h"
 	#include	"Map Screen Interface.h"
@@ -39,7 +38,6 @@
 	#include	"PostalService.h"
 #endif
 
-#include "Campaign Init.h"
 #include "connect.h"
 
 #ifdef JA2UB

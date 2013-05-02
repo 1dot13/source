@@ -10,7 +10,6 @@
 	#include "Encrypted File.h"
 	#include "faces.h"
 	#include "wcheck.h"
-	#include "render dirty.h"
 	#include "soldier profile.h"
 	#include "wordwrap.h"
 	#include "sysutil.h"
@@ -61,7 +60,6 @@
 	// including this for Strategic AI.h
 	#include "Strategic Movement.h"
 	#include "Strategic AI.h"
-	#include "Handle Doors.h"
 	#include "Soldier create.h"
 	#include "SkillCheck.h"
 	#include "Sound Control.h"

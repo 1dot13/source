@@ -4,7 +4,6 @@
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include "sgp.h"
 	#include "worlddef.h"
@@ -14,7 +13,6 @@
 	#include "Animation Control.h"
 	#include "points.h"
 	#include "overhead.h"
-	#include "structure wrap.h"
 	#include "tile animation.h"
 	#include "Interactive Tiles.h"
 	#include "handle doors.h"

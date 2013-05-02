@@ -10,7 +10,6 @@
 	#include "sgp.h"
 	#include "Gameloop.h"
 	#include "Screens.h"
-	#include "Wcheck.h"
 	#include "INIReader.h"
 	#include "vobject_blitters.h"
 	#include "renderworld.h"
@@ -25,14 +24,12 @@
 	#include "Utilities.h"
 	#include "Radar Screen.h"
 	#include "Render Dirty.h"
-	#include "cursors.h"
 	#include "Sound Control.h"
 	#include "Event Pump.h"
 	#include "lighting.h"
 	#include "Cursor Control.h"
 	#include "music control.h"
 	#include "video.h"
-	#include "sys globals.h"
 	#include "mapscreen.h"
 	#include "interface items.h"
 	#include "Maputility.h"
@@ -82,9 +79,7 @@
 
 
 #include "Civ Quotes.h"
-#include "Sector Summary.h"
 #include "LuaInitNPCs.h"
-#include "Encyclopedia_Data.h"
 #include "Encyclopedia.h"
 #include "AimArchives.h"
 

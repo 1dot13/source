@@ -4,7 +4,6 @@
 	#include "builddefines.h"
 	#include <math.h>
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include <time.h>
 	#include <wchar.h>
 	#include "input.h"
@@ -21,7 +20,6 @@
 	#include "Sound Control.h"
 #endif
 
-#include <vfs/Tools/vfs_parser_tools.h>
 
 STR16 szClipboard;
 BOOLEAN gfNoScroll = FALSE;

@@ -28,7 +28,6 @@
 	#include "GameSettings.h"
 	#include "Text.h"
 	#include "MessageBoxScreen.h"
-	#include "Creature Spreading.h"
 	#include "Town Militia.h"
 	#include "history.h"
 	#include "meanwhile.h"

@@ -21,7 +21,6 @@
 	#include "Intro.h"
 	#include "Text.h"
 	#include "Text Input.h"
-	#include "_Ja25EnglishText.h"
 	#include "Soldier Profile.h"
 #endif
 
@@ -29,7 +28,6 @@
 #include "Game Init.h"
 #include "connect.h"
 #include "network.h" // for client name
-#include "saveloadscreen.h"
 
 
 ////////////////////////////////////////////

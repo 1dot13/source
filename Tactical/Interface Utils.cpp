@@ -3,14 +3,12 @@
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <stdarg.h>
 	#include "sgp.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "interface utils.h"
 	#include "render dirty.h"
 	#include "interface.h"
-	#include "interface control.h"
 	#include "sysutil.h"
 	#include "faces.h"
 	#include "render dirty.h"

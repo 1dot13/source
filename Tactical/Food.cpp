@@ -17,7 +17,6 @@
 	#include "Sound Control.h"
 	#include "Assignments.h"
 	#include "Overhead.h"
-	#include "worldman.h"
 	#include "Isometric Utils.h"
 	#include "Campaign Types.h"
 	#include "Drugs And Alcohol.h"

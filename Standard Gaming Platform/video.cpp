@@ -11,7 +11,6 @@
 #include <io.h>
 #include "renderworld.h"
 #include "Render Dirty.h"
-#include "Isometric utils.h"
 #include "fade screen.h"
 #include "impTGA.h"
 #include "timer control.h"
