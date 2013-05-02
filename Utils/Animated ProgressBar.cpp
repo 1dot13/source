@@ -32,6 +32,8 @@ extern BOOLEAN bShowSmallImage;
 
 void CreateLoadingScreenProgressBar()
 {
+	ResetLoadScreenHint();
+
 	gusLeftmostShaded = 162;
 
 	//// Special case->show small image centered
@@ -224,6 +226,11 @@ void RemoveProgressBar( UINT8 ubID )
 extern UINT16 num_found_loadscreenhints;
 static UINT16 usCurrentLoadScreenHint = 0;
 
+void ResetLoadScreenHint()
+{
+	usCurrentLoadScreenHint = 0;
+}
+
 // Flugente: this function selects the next hint to display, and makes sure it is not played again during this run of the exe
 void SetNewLoadScreenHint()
 {
@@ -335,8 +342,8 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 
 	// Flugente: loadscreen hints
 	if (gGameExternalOptions.gfUseLoadScreenHints && usCurrentLoadScreenHint )
-	{				
-		DrawTextToScreen( zLoadScreenHint[usCurrentLoadScreenHint].szName, 1, pCurr->usBarBottom + 3 - 200, SCREEN_WIDTH - 1, FONT12ARIAL, FONT_MCOLOR_WHITE, 0, FALSE, INVALIDATE_TEXT | CENTER_JUSTIFIED );
+	{		
+		DisplayWrappedString( 10, pCurr->usBarBottom + 3 - 100, SCREEN_WIDTH - 10, 2, FONT12ARIAL, FONT_MCOLOR_WHITE, zLoadScreenHint[usCurrentLoadScreenHint].szName, FONT_MCOLOR_BLACK, FALSE, INVALIDATE_TEXT | CENTER_JUSTIFIED );
 	}
 }
 

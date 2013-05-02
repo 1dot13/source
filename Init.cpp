@@ -386,8 +386,26 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, LOADSCREENHINTSFILENAME);
-	SGP_THROW_IFFALSE(ReadInLoadScreenHints(fileName),LOADSCREENHINTSFILENAME);
 
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+		
+	if ( FileExists(fileName) )
+	{
+		SGP_THROW_IFFALSE(ReadInLoadScreenHints(fileName),LOADSCREENHINTSFILENAME);
+	}
+	else
+	{
+		//CHRISL: If we fail to load, try loading just the default english
+		strcpy(fileName, directoryName);
+		strcat(fileName, LOADSCREENHINTSFILENAME);
+		SGP_THROW_IFFALSE(ReadInLoadScreenHints(fileName),LOADSCREENHINTSFILENAME);
+	}
+#else	
+	SGP_THROW_IFFALSE(ReadInLoadScreenHints(fileName),LOADSCREENHINTSFILENAME);
+#endif
+	
+	
 	strcpy(fileName, directoryName);
 	strcat(fileName, ARMOURSFILENAME);
 	SGP_THROW_IFFALSE(ReadInArmourStats(fileName),ARMOURSFILENAME);

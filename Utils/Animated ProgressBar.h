@@ -46,6 +46,7 @@ extern LOADSCREENHINT_STRUCT zLoadScreenHint[LOADSCREENHINT_MAX];
 
 // Flugente: this function selects the next hint to display, and makes sure it is not played again during this run of the exe
 void SetNewLoadScreenHint();
+void ResetLoadScreenHint();
 
 // -------- added by Flugente: various flags for loadscreen hints--------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!

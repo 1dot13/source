@@ -2883,6 +2883,9 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 	UNDERGROUND_SECTORINFO *pNode = NULL;
 	CHAR8 bFilename[ 50 ];
 
+	// Reset
+	//ResetLoadScreenHint();
+
 	// pause game
 	PauseGame( );
 
