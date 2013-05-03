@@ -178,6 +178,7 @@
 		<clothestype>0</clothestype>
 		<randomitem>0</randomitem>
 		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
+		<FlashLightRange>0</FlashLightRange>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -29542,6 +29543,7 @@
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
@@ -48904,5 +48906,115 @@
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
 		<DrugType>2097152</DrugType>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1635</uiIndex>
+		<szItemName>LAM-Flashlight</szItemName>
+		<szLongItemName>Rifle LAM-Flashlight Combo</szLongItemName>
+		<szItemDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems. Flashlight is ON.</szItemDesc>
+		<szBRName>Rifle LAM-Flashlight</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>4</AttachmentClass>
+		<nasAttachmentClass>4</nasAttachmentClass>
+		<ubGraphicNum>341</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>2500</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
+		<ToHitBonus>20</ToHitBonus>
+		<BestLaserRange>300</BestLaserRange>
+		<CamoBonus>-15</CamoBonus>
+		<UrbanCamoBonus>-15</UrbanCamoBonus>
+		<DesertCamoBonus>-15</DesertCamoBonus>
+		<SnowCamoBonus>-15</SnowCamoBonus>
+		<StealthBonus>-15</StealthBonus>
+		<NightVisionRangeBonus>20</NightVisionRangeBonus>
+		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
+		<ProjectionFactor>3.0</ProjectionFactor>
+		<FlashLightRange>15</FlashLightRange>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1636</uiIndex>
+		<szItemName>Flashlight</szItemName>
+		<szLongItemName>Flashlight</szLongItemName>
+		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the hea.</szItemDesc>
+		<szBRName>Flashlight</szBRName>
+		<szBRDesc>We say: let there be light! Batteries included.</szBRDesc>
+		<usItemClass>128</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>49</ubClassIndex>
+		<ubCursor>2</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>154</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>		
+		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
+		<ShowStatus>1</ShowStatus>
+		<DefaultAttachment>322</DefaultAttachment>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>3</BR_UsedInventory>
+		<BR_ROF>30</BR_ROF>
+		<BrassKnuckles>1</BrassKnuckles>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1637</uiIndex>
+		<szItemName>Flashlight</szItemName>
+		<szLongItemName>Flashlight</szLongItemName>
+		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head. Flashlight is ON.</szItemDesc>
+		<szBRName>Flashlight</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>128</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>49</ubClassIndex>
+		<ubCursor>2</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>154</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>13</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>		
+		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
+		<ShowStatus>1</ShowStatus>
+		<DefaultAttachment>322</DefaultAttachment>
+		<BR_ROF>30</BR_ROF>
+		<BrassKnuckles>1</BrassKnuckles>
+		<FlashLightRange>18</FlashLightRange>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
 	</ITEM>
 </ITEMLIST>

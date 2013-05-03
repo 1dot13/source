@@ -221,4 +221,72 @@
 		<szMenuRowText>Combat mode</szMenuRowText>
 		<szTooltipText>Ready for combat.</szTooltipText>
 	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>950</usItem>
+		<usResult1>1635</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>1</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>ON</szMenuRowText>
+		<szTooltipText>Switch on flashlight.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1635</usItem>
+		<usResult1>950</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>1</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>OFF</szMenuRowText>
+		<szTooltipText>Switch off flashlight.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1636</usItem>
+		<usResult1>1637</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>1</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>ON</szMenuRowText>
+		<szTooltipText>Switch on flashlight.</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1637</usItem>
+		<usResult1>1636</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>1</usAPCost>
+		<iBPCost>0</iBPCost>
+		<szMenuRowText>OFF</szMenuRowText>
+		<szTooltipText>Switch off flashlight.</szTooltipText>
+	</TRANSFORM>
 </TRANSFORMATIONS_LIST>

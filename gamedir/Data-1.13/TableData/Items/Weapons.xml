@@ -13162,4 +13162,24 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1636</uiIndex>
+		<szWeaponName>Flashlight</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubImpact>18</ubImpact>
+		<ubDeadliness>3</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1637</uiIndex>
+		<szWeaponName>Flashlight</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubImpact>18</ubImpact>
+		<ubDeadliness>3</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
 </WEAPONLIST>
