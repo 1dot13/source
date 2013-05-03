@@ -26,6 +26,7 @@
 #endif
 
 #include "SaveLoadGame.h"
+#include "GameVersion.h"	// added by Flugente
 
 
 //forward declarations of common classes to eliminate includes
@@ -33,7 +34,7 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 
-#define		NUM_LIGHT_EFFECT_SLOTS					25
+#define		NUM_LIGHT_EFFECT_SLOTS					500 // 25	// Flugente: raised to 500  - lets see what happens
 
 
 // GLOBAL FOR LIGHT LISTING
@@ -102,8 +103,8 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 	LightSpritePosition( pLight->iLight, (INT16)( CenterX( pLight->sGridNo ) / CELL_X_SIZE ), (INT16)( CenterY( pLight->sGridNo ) / CELL_Y_SIZE ) );
 }
 
-
-INT32 NewLightEffect( INT32 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
+// Flugente: create a pure light, worry about updating sight in other functions
+INT32 NewLightEffectInternal( INT32 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
 {
 	LIGHTEFFECT *pLight;
 	INT32				iLightIndex;
@@ -127,13 +128,27 @@ INT32 NewLightEffect( INT32 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
 
 	UpdateLightingSprite( pLight );
 
+	return iLightIndex;
+}
+
+INT32 NewLightEffect( INT32 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
+{
+	INT32 iLightIndex = NewLightEffectInternal( sGridNo, ubDuration, ubStartRadius );
+
 	// Handle sight here....
 	AllTeamsLookForAll( FALSE );
 
 	//Play the breaklight sound
 //	PlayJA2Sample( BREAK_LIGHT_IGNITING, RATE_11025, SoundVolume( LOWVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 // MAdd:	for some reason this crashes the game!
-	return( pLight->iLight );
+
+	if ( iLightIndex > -1 )
+	{
+		LIGHTEFFECT *pLight = &gLightEffectData[ iLightIndex ];
+		return( pLight->iLight );
+	}
+
+	return -1;
 }
 
 
@@ -468,12 +483,25 @@ BOOLEAN LoadLightEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	//loop through and load the list
 	for( uiCnt=0; uiCnt<guiNumLightEffects;uiCnt++)
 	{
-		//Load the Light effect Data
-		FileRead( hFile, &gLightEffectData[ uiCnt ], sizeof( LIGHTEFFECT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( LIGHTEFFECT ) )
+		if(guiCurrentSaveGameVersion >= DYNAMIC_FLASHLIGHTS)
 		{
-			FileClose( hFile );
-			return( FALSE );
+			//Load the Light effect Data
+			FileRead( hFile, &gLightEffectData[ uiCnt ], sizeof( LIGHTEFFECT ), &uiNumBytesRead );
+			if( uiNumBytesRead != sizeof( LIGHTEFFECT ) )
+			{
+				return( FALSE );
+			}
+		}
+		else
+		{
+			UINT16 bla = sizeof( LIGHTEFFECT );
+
+			//Load the Light effect Data
+			FileRead( hFile, &gLightEffectData[ uiCnt ], LIGHTEFFECT_OLDSIZE, &uiNumBytesRead );
+			if( uiNumBytesRead != LIGHTEFFECT_OLDSIZE )
+			{
+				return( FALSE );
+			}
 		}
 	}
 
@@ -496,4 +524,35 @@ void ResetLightEffects()
 	//Clear out the old list
 	memset( gLightEffectData, 0, sizeof( LIGHTEFFECT ) * NUM_LIGHT_EFFECT_SLOTS );
 	guiNumLightEffects = 0;
+}
+
+// Flugente: create and destroy light sources tied to a person
+void CreatePersonalLight( INT32 sGridNo, UINT8 ubID )
+{
+	INT32 iLightIndex = NewLightEffectInternal( sGridNo, 0, 1 );
+
+	if ( iLightIndex > -1 )
+	{
+		gLightEffectData[ iLightIndex ].ubOwner  = ubID;
+		gLightEffectData[ iLightIndex ].flags	|= LIGHTEFFECT_FLASHLIGHT;
+	}
+}
+
+void RemovePersonalLights( UINT8 ubID )
+{
+	LIGHTEFFECT *pLight;
+
+	// Set to unallocated....
+	for ( UINT32 cnt = 0; cnt < guiNumLightEffects; ++cnt )
+	{
+		pLight = &gLightEffectData[ cnt ];
+
+		if ( pLight->iLight != (-1) && pLight->flags & LIGHTEFFECT_FLASHLIGHT && pLight->ubOwner == ubID && pLight->fAllocated )			
+		{
+			pLight->fAllocated = FALSE;
+			pLight->flags &= ~LIGHTEFFECT_FLASHLIGHT;
+			
+			LightSpriteDestroy( pLight->iLight );
+		}
+	}
 }

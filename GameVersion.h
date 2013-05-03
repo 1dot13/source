@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			DYNAMIC_FLASHLIGHTS								142	// Flugente: had to add variables to LIGHTEFFECT-struct
 #define			ENLARGED_OPINIONS								141	// Flugente: increased numberof merc opinions to 255, thus need to change savegame reading
 #define			MODULARIZED_AI									140	// Flugente: new savegame version due to modularized AI
 #define			MILITIA_EQUIPMENT								139	// Flugente: militia can equip from sector inventory
@@ -60,7 +61,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								ENLARGED_OPINIONS
+#define			SAVE_GAME_VERSION								DYNAMIC_FLASHLIGHTS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

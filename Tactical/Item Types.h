@@ -1150,6 +1150,9 @@ typedef struct
 	UINT16	randomitem;
 	INT8	randomitemcoolnessmodificator;		// alters the allowed maximum coolness a random item can have
 
+	// Flugente: range of a flashlight (an item with usFlashLightRange > 0 is deemed a flashlight)
+	UINT8	usFlashLightRange;
+
 } INVTYPE;
 
 

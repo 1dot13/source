@@ -111,6 +111,25 @@ void HandleTacticalPanelSwitch( )
 	}
 }
 
+// Flugente: handle flashlights
+void HandleFlashLights()
+{
+	if ( !fInterfacePanelDirty )
+		return;
+
+	SOLDIERTYPE* pSoldier = NULL;
+
+	for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
+	{
+		pSoldier = MercSlots[ uiLoop ];
+
+		if ( pSoldier != NULL && pSoldier->bSoldierFlagMask & SOLDIER_REDOFLASHLIGHT )
+		{
+			pSoldier->HandleFlashLights();
+		}
+	}
+}
+
 void RenderTacticalInterface( )
 {
 
@@ -143,6 +162,8 @@ void RenderTacticalInterface( )
 	if( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 		HandleAutoFaces( );
 
+	// Flugente: handle flashlights
+	HandleFlashLights();
 }
 
 

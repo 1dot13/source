@@ -23,8 +23,14 @@ typedef struct
 	INT32		iLight;
 	UINT32	uiTimeOfLastUpdate;
 
+	// Flugente: added variables necessary for dynamic (flash-)lighting
+	INT32		flags;
+	UINT8		ubOwner;
+	
 } LIGHTEFFECT;
 
+#define LIGHTEFFECT_OLDSIZE				20			// Flugente: the old size of LIGHTEFFECT (before Gameversion DYNAMIC_FLASHLIGHTS)
+#define	LIGHTEFFECT_FLASHLIGHT			0x00000001
 
 
 // Decays all light effects...
@@ -47,5 +53,9 @@ BOOLEAN LoadLightEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 void ResetLightEffects();
 
 BOOLEAN IsLightEffectAtTile( INT32 sGridNo );
+
+// Flugente: create and destroy light sources tied to a person
+void CreatePersonalLight( INT32 sGridNo, UINT8 ubID );
+void RemovePersonalLights( UINT8 ubID );
 
 #endif

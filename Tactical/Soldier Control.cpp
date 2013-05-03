@@ -108,6 +108,7 @@
 #include "IMP Skill Trait.h"	// added by Flugente
 #include "Food.h"				// added by Flugente
 #include "Tactical Save.h"		// added by Flugente for AddItemsToUnLoadedSector()
+#include "LightEffects.h"		// added by Flugente for CreatePersonalLight()
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -4613,6 +4614,8 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 				}
 			}
 
+			this->HandleFlashLights();
+
 			///HandlePlacingRoofMarker( this, this->sGridNo, TRUE, FALSE );
 
 			this->HandleAnimationProfile( this->usAnimState, FALSE );
@@ -7008,8 +7011,10 @@ void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
 
 		// Now change to appropriate animation
 		this->EVENT_InitNewSoldierAnim( usNewState, 0 , FALSE );
-		}
 	}
+
+	this->bSoldierFlagMask |= SOLDIER_REDOFLASHLIGHT;
+}
 
 void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState )
 {
@@ -7277,6 +7282,9 @@ void SOLDIERTYPE::EVENT_SetSoldierDirection( UINT16	usNewDirection )
 	// Remove old location data
 	this->HandleAnimationProfile( this->usAnimState, TRUE );
 
+	// Flugente
+	BOOLEAN fNew = (this->ubDirection != (INT8)usNewDirection);
+
 	this->ubDirection = (INT8)usNewDirection;
 
 	// Updated extended direction.....
@@ -7307,6 +7315,9 @@ void SOLDIERTYPE::EVENT_SetSoldierDirection( UINT16	usNewDirection )
 	// Change values!
 	SetSoldierLocatorOffsets( this );
 
+	// Flugente: only update flashlights if we changed our direction
+	if ( fNew )
+		this->HandleFlashLights();
 }
 
 
@@ -13674,6 +13685,52 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 // Flugente: Cool down/decay all items in inventory
 void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 {
+	// if we have any active flashlights (in our hands for simplicity), drain their batteries
+	// do this check for both hands
+	UINT16 firstslot = HANDPOS;
+	UINT16 lastslot  = VESTPOCKPOS;
+	for (UINT16 invpos = firstslot; invpos < lastslot; ++invpos)
+	{
+		OBJECTTYPE* pObj = &(this->inv[invpos]);
+		
+		if ( !pObj || !(pObj->exists()) )
+			// can't use this, end
+			continue;
+
+		OBJECTTYPE* pBattery = FindAttachedBatteries(pObj);
+		if ( !pBattery )
+			continue;
+
+		BOOLEAN flashlightfound = FALSE;
+		if ( Item [ pObj->usItem ].usFlashLightRange )
+			flashlightfound = TRUE;
+
+		if ( !flashlightfound )
+		{
+			attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+				flashlightfound = TRUE;
+		}
+
+		if ( flashlightfound )
+		{
+			// 5% chance to lose 1 point
+			if ( pBattery && Chance(5) )
+				(*pBattery)[0]->data.objectStatus -= 1;
+
+			if ( (*pBattery)[0]->data.objectStatus <= 0 )
+			{
+				// destroy batteries
+				pBattery->RemoveObjectsFromStack(1);
+				if (pBattery->exists() == false)
+					this->inv[HANDPOS].RemoveAttachment(pBattery);
+			}
+		}
+	}
+
+	// handle flashlight. This is necessary in this location, as we need to do this at least once per turn
+	this->HandleFlashLights();
+
 	if ( !gGameOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
 		return;
 
@@ -15975,6 +16032,9 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	}
 	fCharacterInfoPanelDirty = TRUE;
 	fInterfacePanelDirty = DIRTYLEVEL2;
+
+	// Flugente: we have to recheck our flashlights
+	this->HandleFlashLights();
 }
 
 UINT8 tmpuser = 0;
@@ -16183,6 +16243,139 @@ void SOLDIERTYPE::AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelR
 
 	// set flag: we are on drugs
 	this->bSoldierFlagMask |= SOLDIER_DRUGGED;
+}
+
+void SOLDIERTYPE::HandleFlashLights()
+{
+	// no more need to redo this check
+	this->bSoldierFlagMask &= ~SOLDIER_REDOFLASHLIGHT;
+
+	// we must be active and in a sector (not travelling) in a valid position
+	if ( !bActive || !bInSector || TileIsOutOfBounds(this->sGridNo) )
+		return;
+
+	// no flashlight stuff if it isn't night, and we aren't underground
+	if ( !NightTime() && !gbWorldSectorZ )
+		return;
+
+	// remove existing lights we 'own'
+	if ( this->bSoldierFlagMask & SOLDIER_LIGHT_OWNER )
+	{
+		RemovePersonalLights( this->ubID );
+
+		this->bSoldierFlagMask &= ~SOLDIER_LIGHT_OWNER;
+	}
+			
+	// not possible to get this bonus on a roof, due to our lighting system
+	if ( !this->pathing.bLevel )
+	{
+		UINT8 flashlightrange = this->GetBestEquippedFlashLightRange();
+
+		// the range at which we create additional light sources to the side
+		UINT8 firstexpand  = 8;
+		UINT8 secondexpand = 12;
+
+		// depending on our direction, alter range
+		if ( this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST )
+		{
+			flashlightrange = std::sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
+			firstexpand		= std::sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
+			secondexpand	= std::sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
+		}
+
+		// if no flashlight is found, this will be 0
+		if ( flashlightrange )
+		{
+			// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
+			INT32 nextGridNoinSight = this->sGridNo;
+
+			for(UINT8 i = 0; i < flashlightrange; ++i)
+			{
+				nextGridNoinSight = NewGridNo( nextGridNoinSight, DirectionInc( this->ubDirection ) );
+
+				if ( SoldierToVirtualSoldierLineOfSightTest( this, nextGridNoinSight, this->pathing.bLevel, gAnimControl[ this->usAnimState ].ubEndHeight, FALSE ) )
+					CreatePersonalLight( nextGridNoinSight, this->ubID );
+
+				// after a certain range, add new lights to the side to simulate a light cone
+				if ( i > firstexpand )
+				{
+					INT8 sidedir1 = (this->ubDirection + 2) % NUM_WORLD_DIRECTIONS;
+					INT8 sidedir2 = (this->ubDirection - 2) % NUM_WORLD_DIRECTIONS;
+
+					INT32 sideGridNo1 = NewGridNo( nextGridNoinSight, DirectionInc( sidedir1 ) );
+					sideGridNo1 = NewGridNo( sideGridNo1, DirectionInc( sidedir1 ) );
+
+					if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo1, this->pathing.bLevel, gAnimControl[ this->usAnimState ].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
+						CreatePersonalLight( sideGridNo1, this->ubID );
+
+					if ( i > secondexpand )
+					{
+						sideGridNo1 = NewGridNo( sideGridNo1, DirectionInc( sidedir1 ) );
+
+						if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo1, this->pathing.bLevel, gAnimControl[ this->usAnimState ].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
+							CreatePersonalLight( sideGridNo1, this->ubID );
+					}
+
+					INT32 sideGridNo2 = NewGridNo( nextGridNoinSight, DirectionInc( sidedir2 ) );
+					sideGridNo2 = NewGridNo( sideGridNo2, DirectionInc( sidedir2 ) );
+
+					if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo2, this->pathing.bLevel, gAnimControl[ this->usAnimState ].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
+						CreatePersonalLight( sideGridNo2, this->ubID );
+
+					if ( i > secondexpand )
+					{
+						sideGridNo2 = NewGridNo( sideGridNo2, DirectionInc( sidedir2 ) );
+
+						if ( SoldierToVirtualSoldierLineOfSightTest( this, sideGridNo2, this->pathing.bLevel, gAnimControl[ this->usAnimState ].ubEndHeight, FALSE, NO_DISTANCE_LIMIT ) )
+							CreatePersonalLight( sideGridNo2, this->ubID );
+					}
+				}
+			}
+
+			// take note: we own a light source
+			this->bSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
+		}
+	}	
+	
+	// refresh sight for everybody
+	AllTeamsLookForAll( TRUE );
+		
+	SetRenderFlags(RENDER_FLAG_FULL);
+}
+
+UINT8 SOLDIERTYPE::GetBestEquippedFlashLightRange()
+{
+	UINT8 bestrange = 0;
+
+	// do this check for both hands
+	UINT16 firstslot = HANDPOS;
+	UINT16 lastslot  = VESTPOCKPOS;
+	for (UINT16 invpos = firstslot; invpos < lastslot; ++invpos)
+	{
+		OBJECTTYPE* pObj = &(this->inv[invpos]);
+
+		if ( !pObj || !(pObj->exists()) )
+			// can't use this, end
+			continue;
+
+		// due to our attachment system, flashlights on guns do not require the batteries to be attached to the flashlight itself - anywhere will do
+		if ( !FindAttachedBatteries(pObj) )
+			continue;
+
+		if ( Item [ pObj->usItem ].usFlashLightRange )
+		{
+			bestrange = max(bestrange, Item [ pObj->usItem ].usFlashLightRange);
+		}
+
+		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+		{
+			if(iter->exists() && Item [ iter->usItem ].usFlashLightRange )
+				bestrange = max(bestrange, Item [ iter->usItem ].usFlashLightRange);
+		}
+	}
+
+	return( bestrange );
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

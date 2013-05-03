@@ -8665,6 +8665,9 @@ void SwapHandItems( SOLDIERTYPE * pSoldier )
 		SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 	}
+
+	// Flugente: we have to recheck our flashlights
+	pSoldier->HandleFlashLights();
 }
 
 void SwapOutHandItem( SOLDIERTYPE * pSoldier )
@@ -8694,6 +8697,9 @@ void SwapOutHandItem( SOLDIERTYPE * pSoldier )
 			// otherwise there's no room for the item anywhere!
 		}
 	}
+
+	// Flugente: we have to recheck our flashlights
+	pSoldier->HandleFlashLights();
 }
 
 void WaterDamage( SOLDIERTYPE *pSoldier )
@@ -14406,6 +14412,9 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 			DoScreenIndependantMessageBox( pStr, MSG_BOX_FLAG_OK, NULL );
 		}
 	}
+
+	// Flugente: we have to recheck our flashlights
+	pSoldier->HandleFlashLights();
 
 	// Signal a successful transformation.
 	return TRUE;

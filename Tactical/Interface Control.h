@@ -17,6 +17,9 @@ void ResetInterface( );
 void RenderTopmostTacticalInterface( );
 void RenderTacticalInterface( );
 
+// Flugente: handle flashlights
+void HandleFlashLights();
+
 void StartViewportOverlays( );
 void EndViewportOverlays( );
 
