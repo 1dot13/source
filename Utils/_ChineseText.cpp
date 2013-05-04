@@ -1951,15 +1951,15 @@ STR16 pRemoveMercStrings[] =
 
 STR16 pAttributeMenuStrings[] =
 {
-	L"力量",	//"Strength",
-	L"灵巧",	//"Dexterity",
-	L"敏捷",	//"Agility",
 	L"生命",	//"Health",
-	L"枪法",	//"Marksmanship",
-	L"医疗",	//"Medical",
-	L"机械",	//"Mechanical",
+	L"敏捷",	//"Agility",
+	L"灵巧",	//"Dexterity",
+	L"力量",	//"Strength",
 	L"领导",	//"Leadership",
+	L"枪法",	//"Marksmanship",
+	L"机械",	//"Mechanical",
 	L"爆破",	//"Explosives",
+	L"医疗",	//"Medical",
 	L"取消",	//"Cancel",
 };
 

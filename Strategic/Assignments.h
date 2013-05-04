@@ -77,15 +77,15 @@ enum
 
 // Train stats defines (must match ATTRIB_MENU_ defines, and pAttributeMenuStrings )
 enum{
-	STRENGTH = 0,
-	DEXTERITY,
+	HEALTH = 0,
 	AGILITY,
-	HEALTH,
-	MARKSMANSHIP,
-	MEDICAL,
-	MECHANICAL,
+	DEXTERITY,
+	STRENGTH,
 	LEADERSHIP,
+	MARKSMANSHIP,
+	MECHANICAL,
 	EXPLOSIVE_ASSIGN,
+	MEDICAL,
 	NUM_TRAINABLE_STATS
 	// NOTE: Wisdom isn't trainable!
 };

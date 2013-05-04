@@ -1949,15 +1949,15 @@ STR16 pRemoveMercStrings[] ={
 
 STR16 pAttributeMenuStrings[] =
 {
-	L"Kraft",
-	L"Geschicklichkeit",
-	L"Beweglichkeit",
 	L"Gesundheit",
-	L"Treffsicherheit",
-	L"Medizin",
-	L"Technik",
+	L"Beweglichkeit",
+	L"Geschicklichkeit",
+	L"Kraft",
 	L"Führungsqualität",
+	L"Treffsicherheit",
+	L"Technik",
 	L"Sprengstoffe",
+	L"Medizin",
 	L"Abbrechen",
 };
 
