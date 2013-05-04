@@ -1052,13 +1052,13 @@
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>14</bNewSkillTrait3>
-		<bBuddy1>255</bBuddy1>
+		<bBuddy1>10</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
-		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLike>1</bLearnToLike>
+		<bLearnToLikeTime>42</bLearnToLikeTime>
 		<bHated1>255</bHated1>
 		<bHatedTime1>0</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20672,7 +20672,7 @@
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>8</usMouthX>
-		<usMouthY>21</usMouthY>
+		<usMouthY>23</usMouthY>
 		<uiEyeDelay>0</uiEyeDelay>
 		<uiMouthDelay>0</uiMouthDelay>
 		<uiBlinkFrequency>3000</uiBlinkFrequency>
@@ -20883,10 +20883,10 @@
 		<bBuddy5>-1</bBuddy5>
 		<bLearnToLike>0</bLearnToLike>
 		<bLearnToLikeTime>0</bLearnToLikeTime>
-		<bHated1>14</bHated1>
-		<bHatedTime1>8</bHatedTime1>
-		<bHated2>227</bHated2>
-		<bHatedTime2>24</bHatedTime2>
+		<bHated1>227</bHated1>
+		<bHatedTime1>24</bHatedTime1>
+		<bHated2>-1</bHated2>
+		<bHatedTime2>0</bHatedTime2>
 		<bHated3>0</bHated3>
 		<bHatedTime3>0</bHatedTime3>
 		<bHated4>0</bHated4>
