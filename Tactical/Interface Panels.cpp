@@ -1099,7 +1099,7 @@ void UpdateSMPanel( )
 		// Enable some buttons!
 		// Changed by ADB, rev 1513
 		//if ( ((IsGunAutofireCapable( gpSMCurrentMerc, HANDPOS ) || IsGunBurstCapable( gpSMCurrentMerc, HANDPOS , FALSE )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
-		if ( ((IsGunAutofireCapable( &gpSMCurrentMerc->inv[HANDPOS] ) || IsGunBurstCapable( &gpSMCurrentMerc->inv[HANDPOS], FALSE, gpSMCurrentMerc )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) || IsUnderBarrelAttached( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
+		if ( ((IsGunAutofireCapable( &gpSMCurrentMerc->inv[HANDPOS] ) || IsGunBurstCapable( &gpSMCurrentMerc->inv[HANDPOS], FALSE, gpSMCurrentMerc )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) || IsWeaponAttached( &(gpSMCurrentMerc->inv[HANDPOS]), IC_GUN ) )
 		{
 			EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		}
@@ -2189,6 +2189,7 @@ BOOLEAN CreateSMPanelButtons( )
 	iBurstButtonImages[ WM_ATTACHED_UB ]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1,  7, -1, -1, -1 );
 	iBurstButtonImages[ WM_ATTACHED_UB_BURST ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 	iBurstButtonImages[ WM_ATTACHED_UB_AUTO ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_BAYONET ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 
 	FilenameForBPP("INTERFACE\\invadd-ons.sti", ubString);
 	// Load button Graphics
@@ -2415,7 +2416,7 @@ void	RemoveSMPanelButtons( )
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB_BURST ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB_AUTO ] );
-
+	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_BAYONET ] );
 }
 
 

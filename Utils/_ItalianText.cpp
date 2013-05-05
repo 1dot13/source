@@ -6160,6 +6160,7 @@ STR16 New113Message[] =
 	L"UB",
 	L"UBRST",
 	L"UAUTO",
+	L"BAYONET",
 	L"Sniper!",
 	L"Unable to split money due to having an item on your cursor.",
 	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",

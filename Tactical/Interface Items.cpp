@@ -3740,24 +3740,47 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				// Flugente: check for underbarrel weapons and use that object if necessary
 				OBJECTTYPE*	pObjShown = pObject;
 				INVTYPE		*pItemShown = pItem;
-				if ( pItem->usItemClass == IC_GUN && pSoldier && ( pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO ) )
+				if ( pItem->usItemClass == IC_GUN && pSoldier )
 				{
-					OBJECTTYPE  *pObjectUnderBarrel = FindAttachment_UnderBarrel( pObject );
-
-					if ( pObjectUnderBarrel )
+					if ( pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO )
 					{
-						INVTYPE		*pItemUnderBarrel;
-						if ( ubStatusIndex < RENDER_ITEM_ATTACHMENT1 )
-						{
-							pItemUnderBarrel = &Item[ pObjectUnderBarrel->usItem ];
-						}
-						else
-						{
-							pItemUnderBarrel = &Item[ (*pObjectUnderBarrel)[iter]->GetAttachmentAtIndex( ubStatusIndex - RENDER_ITEM_ATTACHMENT1 )->usItem ];
-						}
+						OBJECTTYPE  *pObjectUnderBarrel = FindAttachedWeapon( pObject, IC_GUN );
 
-						pObjShown = pObjectUnderBarrel;
-						pItemShown = pItemUnderBarrel;
+						if ( pObjectUnderBarrel )
+						{
+							INVTYPE		*pItemUnderBarrel;
+							if ( ubStatusIndex < RENDER_ITEM_ATTACHMENT1 )
+							{
+								pItemUnderBarrel = &Item[ pObjectUnderBarrel->usItem ];
+							}
+							else
+							{
+								pItemUnderBarrel = &Item[ (*pObjectUnderBarrel)[iter]->GetAttachmentAtIndex( ubStatusIndex - RENDER_ITEM_ATTACHMENT1 )->usItem ];
+							}
+
+							pObjShown = pObjectUnderBarrel;
+							pItemShown = pItemUnderBarrel;
+						}
+					}
+					else if ( pSoldier->bWeaponMode == WM_ATTACHED_BAYONET )
+					{
+						OBJECTTYPE  *pObjectUnderBarrel = FindAttachedWeapon( pObject, IC_BLADE );
+
+						if ( pObjectUnderBarrel )
+						{
+							INVTYPE		*pItemUnderBarrel;
+							if ( ubStatusIndex < RENDER_ITEM_ATTACHMENT1 )
+							{
+								pItemUnderBarrel = &Item[ pObjectUnderBarrel->usItem ];
+							}
+							else
+							{
+								pItemUnderBarrel = &Item[ (*pObjectUnderBarrel)[iter]->GetAttachmentAtIndex( ubStatusIndex - RENDER_ITEM_ATTACHMENT1 )->usItem ];
+							}
+
+							pObjShown = pObjectUnderBarrel;
+							pItemShown = pItemUnderBarrel;
+						}
 					}
 				}
 
@@ -4083,7 +4106,12 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					swprintf( pStr, New113Message[MSG113_UB_AUTO] );
 					SetFontForeground( FONT_ORANGE );
 				}
-
+				else if(pSoldier->bWeaponMode == WM_ATTACHED_BAYONET)
+				{
+					swprintf( pStr, New113Message[MSG113_BAYONET] );
+					SetFontForeground( FONT_ORANGE );
+				}
+								
 				// Get length of string
 				uiStringLength=StringPixLength(pStr, ITEM_FONT );
 

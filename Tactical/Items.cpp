@@ -8035,8 +8035,9 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNew
 	if (pSoldier != NULL)
 	{
 		// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
-		if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) ) ||
-			 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO )&& !IsUnderBarrelAttached( &(pSoldier->inv[ HANDPOS ]    ) ) ) )
+		if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO ) && !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ] ) ) ) ||
+			 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO ) && !IsWeaponAttached( &(pSoldier->inv[ HANDPOS ]), IC_GUN   ) ) ||
+			 ( (pSoldier->bWeaponMode == WM_ATTACHED_BAYONET )																							   && !IsWeaponAttached( &(pSoldier->inv[ HANDPOS ]), IC_BLADE ) ) ) 
 		{
 			if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
 			{
@@ -11740,27 +11741,28 @@ UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj )
 	return( NONE );
 }
 
-UINT16 GetAttachedUnderBarrel( OBJECTTYPE * pObj )
+INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj, UINT32 usFlag )
 {
 	if (pObj->exists() == true) {
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && (Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) ))
+			if (iter->exists() && Item[iter->usItem].usItemClass & usFlag )
 			{
-				return( (UINT16) Item[iter->usItem].uiIndex );
+				return( (*iter)[0]->data.objectStatus );
 			}
 		}
 	}
-	return( NONE );
+	return( ITEM_NOT_FOUND );
 }
-BOOLEAN IsUnderBarrelAttached( OBJECTTYPE * pObj, UINT8 subObject )
+
+BOOLEAN IsWeaponAttached( OBJECTTYPE * pObj, UINT32 usFlag, UINT8 subObject )
 {
 	if (pObj->exists() == true) {
 
 		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) )
+			if (iter->exists() && Item[iter->usItem].usItemClass & usFlag )
 			{
 				return TRUE;
 			}
@@ -11769,13 +11771,13 @@ BOOLEAN IsUnderBarrelAttached( OBJECTTYPE * pObj, UINT8 subObject )
 	return FALSE;
 }
 
-OBJECTTYPE* FindAttachment_UnderBarrel( OBJECTTYPE * pObj )
+OBJECTTYPE* FindAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag )
 {
 	if (pObj->exists() == true) {
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) )
+			if (iter->exists() && Item[iter->usItem].usItemClass & usFlag )
 			{
 				return( &(*iter) );
 			}
@@ -11784,19 +11786,19 @@ OBJECTTYPE* FindAttachment_UnderBarrel( OBJECTTYPE * pObj )
 	return( NULL );
 }
 
-INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj )
+UINT16 GetAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag )
 {
 	if (pObj->exists() == true) {
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].usItemClass & (IC_GUN | IC_BLADE) )
+			if (iter->exists() && (Item[iter->usItem].usItemClass & usFlag ) )
 			{
-				return( (*iter)[0]->data.objectStatus );
+				return( (UINT16) Item[iter->usItem].uiIndex );
 			}
 		}
 	}
-	return( ITEM_NOT_FOUND );
+	return( NONE );
 }
 
 INT16 GetAttachedArmourBonus( OBJECTTYPE * pObj )

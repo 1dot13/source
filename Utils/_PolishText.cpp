@@ -6175,6 +6175,7 @@ STR16 New113Message[] =
 	L"UB",			// TODO.Translate
 	L"UBRST",
 	L"UAUTO",
+	L"BAYONET",
 	L"Snajper!",
 	L"Nie można podzielić pieniędzy z powodu przedmiotu na kursorze.",
 	L"Przybycie nowych rekrutów zostało przekierowane do sektora %s , z uwagi na to, że poprzedni punkt zrzutu w sektorze %s jest zajęty przez wroga.",

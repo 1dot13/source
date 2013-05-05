@@ -6169,6 +6169,7 @@ STR16 New113Message[] =
 	L"UB",			// INFO: UB = Under Barrel
 	L"UBRST",
 	L"UAUTO",
+	L"BAYONET",
 	L"狙击手！",
 	L"已经点选物品，此时无法分钱。",
 	L"新兵的会合地被挪至 %s, 因降落地点 %s 目前由敌人占据。",

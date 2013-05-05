@@ -4025,9 +4025,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 											}
 										}
 									}
-									if (IsUnderBarrelAttached(pGun))
+									if (IsWeaponAttached(pGun, IC_GUN))
 									{
-										OBJECTTYPE *pGun2 = FindAttachment_UnderBarrel(pGun);
+										OBJECTTYPE *pGun2 = FindAttachedWeapon(pGun, IC_GUN);
 										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun2 )	)
 										{
 

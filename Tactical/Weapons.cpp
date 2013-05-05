@@ -1388,6 +1388,8 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	UINT32 usItemClass = Item[ pSoldier->usAttackingWeapon ].usItemClass;
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 		usItemClass = IC_LAUNCHER;
+	if ( pSoldier->bWeaponMode == WM_ATTACHED_BAYONET )
+		usItemClass = IC_BLADE;
 
 	switch( usItemClass )
 	{
@@ -9556,6 +9558,10 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 
 	usInHand = pAttacker->usAttackingWeapon;
 
+	// Flugente: we might be using a bayonet, we should check that
+	if ( pAttacker->bWeaponMode == WM_ATTACHED_BAYONET )
+		usInHand =  pAttacker->GetUsedWeaponNumber( &(pAttacker->inv[HANDPOS]) );
+
 	if ( (usInHand != CREATURE_QUEEN_TENTACLES ) && (pDefender->stats.bLife < OKLIFE || pDefender->bBreath < OKBREATH) )
 	{
 		// there is NO way to miss
@@ -10167,9 +10173,9 @@ void ReloadWeapon( SOLDIERTYPE *pSoldier, UINT8 ubHandPos )
 	{
 		pSoldier->inv[ ubHandPos ][0]->data.gun.ubGunShotsLeft = GetMagSize(&pSoldier->inv[ ubHandPos ]);
 		// Dirty Bars
-		if ( IsUnderBarrelAttached(&pSoldier->inv[ ubHandPos ]))
+		if ( IsWeaponAttached(&pSoldier->inv[ ubHandPos ], IC_GUN) )
 		{
-			(*FindAttachment_UnderBarrel(&pSoldier->inv[ ubHandPos ]))[0]->data.gun.ubGunShotsLeft = GetMagSize(FindAttachment_UnderBarrel(&pSoldier->inv[ ubHandPos ]));
+			(*FindAttachedWeapon(&pSoldier->inv[ ubHandPos ], IC_GUN))[0]->data.gun.ubGunShotsLeft = GetMagSize(FindAttachedWeapon(&pSoldier->inv[ ubHandPos ], IC_GUN));
 		}
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL1 );
 	}
@@ -10226,13 +10232,16 @@ BOOLEAN IsGunWeaponModeCapable( OBJECTTYPE* pObject, WeaponMode bWpnMode, SOLDIE
 //			return (!Item[pSoldier->inv[ubHandPos].usItem].grenadelauncher && Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[ubHandPos])].bAutofireShotsPerFiveAP > 0 && FindLaunchableAttachment( &(pSoldier->inv[ubHandPos]), GetAttachedGrenadeLauncher( &(pSoldier->inv[ubHandPos]) ) != ITEM_NOT_FOUND );
 
 		case WM_ATTACHED_UB:
-			return  (IsUnderBarrelAttached( pObject ) && !Weapon[FindAttachment_UnderBarrel(pObject)->usItem].NoSemiAuto );
+			return (IsWeaponAttached( pObject, IC_GUN ) && !Weapon[FindAttachedWeapon(pObject, IC_GUN)->usItem].NoSemiAuto );
 
 		case WM_ATTACHED_UB_BURST:
-			return (IsUnderBarrelAttached( pObject ) && IsGunBurstCapable(FindAttachment_UnderBarrel(pObject), FALSE, pSoldier));
+			return (IsWeaponAttached( pObject, IC_GUN ) && IsGunBurstCapable(FindAttachedWeapon(pObject, IC_GUN), FALSE, pSoldier));
 
 		case WM_ATTACHED_UB_AUTO:
-			return (IsUnderBarrelAttached( pObject ) && (IsGunAutofireCapable(FindAttachment_UnderBarrel(pObject)) || Weapon[FindAttachment_UnderBarrel(pObject)->usItem].NoSemiAuto));
+			return (IsWeaponAttached( pObject, IC_GUN ) && (IsGunAutofireCapable(FindAttachedWeapon(pObject, IC_GUN)) || Weapon[FindAttachedWeapon(pObject, IC_GUN)->usItem].NoSemiAuto));
+
+		case WM_ATTACHED_BAYONET:
+			return IsWeaponAttached( pObject, IC_BLADE );
 
 		default:
 		return FALSE;
@@ -10300,8 +10309,9 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 	SetBurstAndAutoFireMode(pSoldier, GetWeaponMode(&pSoldier->inv[uiInvPos]));
 #endif
 	// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
-	if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) ) ||
-		 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO )&& !IsUnderBarrelAttached( &(pSoldier->inv[ HANDPOS ]    ) ) ) )
+	if ( ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO ) && !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ] ) ) ) ||
+		 ( (pSoldier->bWeaponMode == WM_ATTACHED_UB || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO ) && !IsWeaponAttached( &(pSoldier->inv[ HANDPOS ]), IC_GUN   ) ) ||
+		 ( (pSoldier->bWeaponMode == WM_ATTACHED_BAYONET )																							   && !IsWeaponAttached( &(pSoldier->inv[ HANDPOS ]), IC_BLADE ) ) ) 
 	{
 		if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
 		{

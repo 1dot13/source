@@ -5996,6 +5996,7 @@ STR16 New113Message[] =
 	L"UB",
 	L"UBRST",
 	L"UAUTO",
+	L"BAYONET",
 	L"Scharfschütze!",
 	L"Geld kann nicht aufgeteilt werden, weil ein Gegenstand am Cursor ist.",
 	L"Ankunft der neuen Söldner wurde in den Sektor %s verlegt, weil der geplante Sektor %s von Feinden belagert ist.",

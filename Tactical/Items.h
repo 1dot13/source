@@ -346,12 +346,12 @@ BOOLEAN IsGrenadeLauncherAttached( OBJECTTYPE * pObj, UINT8 subObject = 0 );
 OBJECTTYPE* FindAttachment_GrenadeLauncher( OBJECTTYPE * pObj );
 UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj );
 
-// JMich & Flugente: functions for underbarrel weapons
-INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj );
-BOOLEAN IsUnderBarrelAttached( OBJECTTYPE * pObj, UINT8 subObject = 0 );
-OBJECTTYPE* FindAttachment_UnderBarrel( OBJECTTYPE * pObj );
-UINT16 GetAttachedUnderBarrel( OBJECTTYPE * pObj );
-OBJECTTYPE* GetUsedWeapon( OBJECTTYPE * pObj );
+// JMich & Flugente: functions for underbarrel weapons and bayonets
+// As we can have both underbarrel gun and a bayonet, use usFlag to specify (IC_GUN or IC_BLADE are used here, or both)
+INT16 GetUnderBarrelStatus( OBJECTTYPE * pObj, UINT32 usFlag );
+BOOLEAN IsWeaponAttached( OBJECTTYPE * pObj, UINT32 usFlag, UINT8 subObject = 0 );
+OBJECTTYPE* FindAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag );
+UINT16 GetAttachedWeapon( OBJECTTYPE * pObj, UINT32 usFlag );
 
 INT8 FindRocketLauncher( SOLDIERTYPE * pSoldier );
 INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier );

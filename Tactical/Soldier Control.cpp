@@ -11682,8 +11682,14 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 		{
 			GetSoldier( &pTSoldier, usSoldierIndex );
 
+			// Flugente: if we attack with a bayonet, we don't need to change stance if even if we are stadning and the target is prone...
+			// so we simulate here that the target is still standing
+			UINT8 targetheight = gAnimControl[ pTSoldier->usAnimState ].ubEndHeight;
+			if ( this->bWeaponMode == WM_ATTACHED_BAYONET )
+				targetheight = ANIM_STAND;
+
 			// Look at stance of target
-			switch( gAnimControl[ pTSoldier->usAnimState ].ubEndHeight	)
+			switch( targetheight )
 			{
 			case ANIM_STAND:
 			case ANIM_CROUCH:
@@ -13945,7 +13951,14 @@ OBJECTTYPE* SOLDIERTYPE::GetUsedWeapon( OBJECTTYPE * pObj )
 {
 	if ( bWeaponMode == WM_ATTACHED_UB || bWeaponMode == WM_ATTACHED_UB_BURST || bWeaponMode == WM_ATTACHED_UB_AUTO )
 	{
-		OBJECTTYPE* pObjUnderBarrel = FindAttachment_UnderBarrel(pObj);
+		OBJECTTYPE* pObjUnderBarrel = FindAttachedWeapon(pObj, IC_GUN);
+
+		if ( pObjUnderBarrel )
+			return( pObjUnderBarrel );
+	}
+	else  if ( bWeaponMode == WM_ATTACHED_BAYONET )
+	{
+		OBJECTTYPE* pObjUnderBarrel = FindAttachedWeapon(pObj, IC_BLADE);
 
 		if ( pObjUnderBarrel )
 			return( pObjUnderBarrel );
@@ -13958,7 +13971,14 @@ UINT16 SOLDIERTYPE::GetUsedWeaponNumber( OBJECTTYPE * pObj )
 {
 	if ( bWeaponMode == WM_ATTACHED_UB || bWeaponMode == WM_ATTACHED_UB_BURST || bWeaponMode == WM_ATTACHED_UB_AUTO )
 	{
-		UINT16 weaponnr = GetAttachedUnderBarrel(pObj);
+		UINT16 weaponnr = GetAttachedWeapon(pObj, IC_GUN);
+
+		if ( weaponnr != NONE )
+			return( weaponnr );
+	}
+	else if ( bWeaponMode == WM_ATTACHED_BAYONET )
+	{
+		UINT16 weaponnr = GetAttachedWeapon(pObj, IC_BLADE);
 
 		if ( weaponnr != NONE )
 			return( weaponnr );
