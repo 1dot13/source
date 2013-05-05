@@ -13687,43 +13687,46 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 {
 	// if we have any active flashlights (in our hands for simplicity), drain their batteries
 	// do this check for both hands
-	UINT16 firstslot = HANDPOS;
-	UINT16 lastslot  = VESTPOCKPOS;
-	for (UINT16 invpos = firstslot; invpos < lastslot; ++invpos)
+	// we do not lower a battery's status all the time - as an INT8, it would reach 0 way to fast. Instead we only have 5% chance of doing so, thereby increasing a battery's life
+	if ( Chance(5) )
 	{
-		OBJECTTYPE* pObj = &(this->inv[invpos]);
+		UINT16 firstslot = HANDPOS;
+		UINT16 lastslot  = VESTPOCKPOS;
+		for (UINT16 invpos = firstslot; invpos < lastslot; ++invpos)
+		{
+			OBJECTTYPE* pObj = &(this->inv[invpos]);
 		
-		if ( !pObj || !(pObj->exists()) )
-			// can't use this, end
-			continue;
+			if ( !pObj || !(pObj->exists()) )
+				// can't use this, end
+				continue;
 
-		OBJECTTYPE* pBattery = FindAttachedBatteries(pObj);
-		if ( !pBattery )
-			continue;
+			OBJECTTYPE* pBattery = FindAttachedBatteries(pObj);
+			if ( !pBattery )
+				continue;
 
-		BOOLEAN flashlightfound = FALSE;
-		if ( Item [ pObj->usItem ].usFlashLightRange )
-			flashlightfound = TRUE;
-
-		if ( !flashlightfound )
-		{
-			attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+			BOOLEAN flashlightfound = FALSE;
+			if ( Item [ pObj->usItem ].usFlashLightRange )
 				flashlightfound = TRUE;
-		}
 
-		if ( flashlightfound )
-		{
-			// 5% chance to lose 1 point
-			if ( pBattery && Chance(5) )
+			if ( !flashlightfound )
+			{
+				attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+					flashlightfound = TRUE;
+			}
+
+			if ( flashlightfound )
+			{
+				// lose 1 point
 				(*pBattery)[0]->data.objectStatus -= 1;
 
-			if ( (*pBattery)[0]->data.objectStatus <= 0 )
-			{
-				// destroy batteries
-				pBattery->RemoveObjectsFromStack(1);
-				if (pBattery->exists() == false)
-					this->inv[HANDPOS].RemoveAttachment(pBattery);
+				if ( (*pBattery)[0]->data.objectStatus <= 0 )
+				{
+					// destroy batteries
+					pBattery->RemoveObjectsFromStack(1);
+					if (pBattery->exists() == false)
+						this->inv[HANDPOS].RemoveAttachment(pBattery);
+				}
 			}
 		}
 	}
@@ -16278,9 +16281,9 @@ void SOLDIERTYPE::HandleFlashLights()
 		// depending on our direction, alter range
 		if ( this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST )
 		{
-			flashlightrange = std::sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
-			firstexpand		= std::sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
-			secondexpand	= std::sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
+			flashlightrange = sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
+			firstexpand		= sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
+			secondexpand	= sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
 		}
 
 		// if no flashlight is found, this will be 0
