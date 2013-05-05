@@ -1582,6 +1582,8 @@
 		<szBRName>Combat Knife</szBRName>
 		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9" blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
 		<usItemClass>4</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>37</ubClassIndex>
 		<ubCursor>4</ubCursor>
@@ -1592,20 +1594,21 @@
 		<ItemSize>24</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bReliability>2</bReliability>
-		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<Attachment>1</Attachment>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<ToHitBonus>-3</ToHitBonus>
+		<STAND_MODIFIERS>
+		<PercentHandling>-10</PercentHandling>
+			<PercentMaxCounterForce>-10</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -16591,6 +16594,8 @@
 		<szBRName>KCB Knife</szBRName>
 		<szBRDesc>This is a knife-version of Eickhorns KCB 77 M1 bayonet with wirecutting ability.</szBRDesc>
 		<usItemClass>4</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>594</ubClassIndex>
 		<ubCursor>4</ubCursor>
@@ -16601,7 +16606,6 @@
 		<ItemSize>24</ItemSize>
 		<usPrice>130</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -16614,8 +16618,12 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
 		<WireCutters>1</WireCutters>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<ToHitBonus>-3</ToHitBonus>
+		<STAND_MODIFIERS>
+		<PercentHandling>-10</PercentHandling>
+			<PercentMaxCounterForce>-10</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
