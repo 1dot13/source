@@ -182,8 +182,8 @@
 #define		NEXT_BR_X				NEXT_X + BOTTOM_BUTTON_START_WIDTH
 #define		NEXT_BR_Y				NEXT_BOX_Y + BOTTOM_BUTTON_START_HEIGHT
 
-#define		PAGE_X					iScreenWidthOffset + 582
-#define		PAGE_Y					PREVIOUS_Y + 4
+#define		AIM_PAGE_X					iScreenWidthOffset + 582
+#define		AIM_PAGE_Y					PREVIOUS_Y + 4
 
 #define		AIM_MERC_INFO_X			iScreenWidthOffset + 124
 #define		AIM_MERC_INFO_Y			iScreenHeightOffset + 223 + LAPTOP_SCREEN_WEB_DELTA_Y
@@ -2349,7 +2349,7 @@ void DisplayMercStats()
 
 	//Buggler: Display current AIM index & total AIM members at the bottom of the screen
 	swprintf( sPage, L"%d / %d", gbCurrentIndex + 1, MAX_NUMBER_MERCS );
-	DrawTextToScreen(sPage, PAGE_X, PAGE_Y, 0, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen(sPage, AIM_PAGE_X, AIM_PAGE_Y, 0, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 }
 
 UINT8	GetStatColor( INT8 bStat )
