@@ -669,7 +669,7 @@ extern OBJECTTYPE gTempObject;
 #define AC_FEEDER		0x00800000	//8388608			// allow external feeding
 #define AC_MODPOUCH		0x01000000	//16777216			// for new modular pouches
 #define AC_RIFLEGRENADE	0x02000000	//33554432			// GL, needs a bullet and blocks other firing modes
-#define AC_MISC15		0x04000000	//67108864
+#define AC_BAYONET		0x04000000	//67108864
 #define AC_MISC16		0x08000000	//134217728
 #define AC_MISC17		0x10000000	//268435456
 #define AC_MISC18		0x20000000	//536870912

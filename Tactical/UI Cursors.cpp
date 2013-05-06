@@ -1628,6 +1628,10 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_MERCS );
 
+	// Flugente: if we are using a bayonet, adjust aimtime
+	if ( pSoldier->bWeaponMode == WM_ATTACHED_BAYONET && pSoldier->aiData.bShownAimTime != REFINE_KNIFE_1 )
+		pSoldier->aiData.bShownAimTime = REFINE_KNIFE_2;
+
 	if ( fActivated )
 	{
 		DetermineCursorBodyLocation( pSoldier->ubID, TRUE, TRUE );

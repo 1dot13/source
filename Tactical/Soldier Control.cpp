@@ -13717,8 +13717,11 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 			if ( !flashlightfound )
 			{
 				attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
-					flashlightfound = TRUE;
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter)
+				{
+					if ( Item [ iter->usItem ].usFlashLightRange )
+						flashlightfound = TRUE;
+				}
 			}
 
 			if ( flashlightfound )
@@ -16294,21 +16297,21 @@ void SOLDIERTYPE::HandleFlashLights()
 	{
 		UINT8 flashlightrange = this->GetBestEquippedFlashLightRange();
 
-		// the range at which we create additional light sources to the side
-		UINT8 firstexpand  = 8;
-		UINT8 secondexpand = 12;
-
-		// depending on our direction, alter range
-		if ( this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST )
-		{
-			flashlightrange = sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
-			firstexpand		= sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
-			secondexpand	= sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
-		}
-
 		// if no flashlight is found, this will be 0
 		if ( flashlightrange )
 		{
+			// the range at which we create additional light sources to the side
+			UINT8 firstexpand  = 8;
+			UINT8 secondexpand = 12;
+
+			// depending on our direction, alter range
+			if ( this->ubDirection == NORTHEAST || this->ubDirection == NORTHWEST || this->ubDirection == SOUTHEAST || this->ubDirection == SOUTHWEST )
+			{
+				flashlightrange = sqrt( (FLOAT)flashlightrange*(FLOAT)flashlightrange / 2.0f );
+				firstexpand		= sqrt( (FLOAT)firstexpand*(FLOAT)firstexpand / 2.0f );
+				secondexpand	= sqrt( (FLOAT)secondexpand*(FLOAT)secondexpand / 2.0f );
+			}
+
 			// we determine the height of the next tile in our direction. Because of the way structures are handled, we sometimes have to take the very tile we're occupying right now
 			INT32 nextGridNoinSight = this->sGridNo;
 
