@@ -16284,12 +16284,17 @@ void SOLDIERTYPE::HandleFlashLights()
 	if ( !NightTime() && !gbWorldSectorZ )
 		return;
 
+	// take note of wether we changed light
+	BOOLEAN fLightChanged = FALSE;
+
 	// remove existing lights we 'own'
 	if ( this->bSoldierFlagMask & SOLDIER_LIGHT_OWNER )
 	{
 		RemovePersonalLights( this->ubID );
 
 		this->bSoldierFlagMask &= ~SOLDIER_LIGHT_OWNER;
+
+		fLightChanged = TRUE;
 	}
 			
 	// not possible to get this bonus on a roof, due to our lighting system
@@ -16360,13 +16365,18 @@ void SOLDIERTYPE::HandleFlashLights()
 
 			// take note: we own a light source
 			this->bSoldierFlagMask |= SOLDIER_LIGHT_OWNER;
+
+			fLightChanged = TRUE;
 		}
 	}	
 	
-	// refresh sight for everybody
-	AllTeamsLookForAll( TRUE );
+	if ( fLightChanged )
+	{
+		// refresh sight for everybody
+		AllTeamsLookForAll( TRUE );
 		
-	SetRenderFlags(RENDER_FLAG_FULL);
+		SetRenderFlags(RENDER_FLAG_FULL);
+	}
 }
 
 UINT8 SOLDIERTYPE::GetBestEquippedFlashLightRange()
