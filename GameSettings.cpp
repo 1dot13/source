@@ -848,7 +848,11 @@ void LoadGameExternalOptions()
 	// Buggler: setting to show/hide skills/traits in AIM & MERC hiring page
 	gGameExternalOptions.fShowSkillsInHirePage			= iniReader.ReadBoolean("Recruitment Settings", "SHOW_SKILLS_IN_HIRING_PAGE", FALSE);
 
-	gGameExternalOptions.fMercRandomStats				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_STATS", FALSE);
+	gGameExternalOptions.ubMercRandomStats					= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_STATS", 1, 0, 3);
+	gGameExternalOptions.ubMercRandomStatsRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_STAT_RANGE", 10, 0, 50);
+	gGameExternalOptions.ubMercRandomExpRange				= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_EXP_RANGE", 1, 0, 4);
+	gGameExternalOptions.fMercRandomStartSalary				= iniReader.ReadBoolean("Recruitment Settings", "MERCS_RANDOM_START_SALARY", TRUE);
+	gGameExternalOptions.ubMercRandomStartSalaryPercentMod	= iniReader.ReadInteger("Recruitment Settings", "MERCS_RANDOM_START_SALARY_PERCENTAGE_MAX_MODIFIER", 30, 0, 100);
 
 	//################# Financial Settings #################
 

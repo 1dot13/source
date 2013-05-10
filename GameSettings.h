@@ -1151,7 +1151,15 @@ typedef struct
 
 	BOOLEAN fShowSkillsInHirePage;
 
-	BOOLEAN fMercRandomStats;
+	UINT8 ubMercRandomStats;
+	
+	UINT8 ubMercRandomStatsRange;
+	
+	UINT8 ubMercRandomExpRange;
+
+	BOOLEAN fMercRandomStartSalary;
+
+	UINT8 ubMercRandomStartSalaryPercentMod;
 
 	BOOLEAN fBobbyRayFastShipments;
 

@@ -50,6 +50,7 @@
 	#include "strategic.h"
 	#include "strategicmap.h" // added by SANDRO
 	#include "drugs and alcohol.h" // added by Flugente
+	#include "Campaign.h"
 #endif
 
 #include "aim.h"
@@ -96,7 +97,9 @@ extern UINT8 gubItemDroppableFlag[NUM_INV_SLOTS];
 
 //Random Stats 
 RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
-void RandomStats ();
+void RandomStats();
+
+void RandomStartSalary();
 
 INT8 gbSkillTraitBonus[NUM_SKILLTRAITS_OT] =
 {
@@ -425,75 +428,182 @@ BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile )
 }
 
 //Random stats
-void RandomStats ()
+void RandomStats()
 {
 	UINT32 cnt;
 	INT8 bBaseAttribute = 0;
 	MERCPROFILESTRUCT * pProfile;
+	UINT8 Exp = gGameExternalOptions.ubMercRandomExpRange;
+	UINT8 Stats = gGameExternalOptions.ubMercRandomStatsRange;
 
-	for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
-	{
-		if (gGameExternalOptions.fMercRandomStats == TRUE && gRandomStatsValue[cnt].Enabled)
+	// not randomizing
+	if ( gGameExternalOptions.ubMercRandomStats == 0 )
+		return;
+
+	// full stats random for all soldierIDs
+	else if ( gGameExternalOptions.ubMercRandomStats == 1 )
+	{	
+		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
 		{
-			bBaseAttribute = gRandomStatsValue[cnt].BaseAttribute + ( 4 * gRandomStatsValue[cnt].ExpLevel );
 			pProfile = &(gMercProfiles[cnt]);
-		
-			pProfile->bExpLevel = gRandomStatsValue[cnt].ExpLevel;
+			// Buggler: +/- random range will be limited due to proximity to min/max allowed value, slightly different for EXP as can ignore 0
+			pProfile->bExpLevel += Random( 2 * min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) ) + 1 ) - min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) );
+			pProfile->bLifeMax += Random( 2 * min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1  ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1 ) ) );
+			pProfile->bLife = pProfile->bLifeMax;
+			pProfile->bAgility += Random( 2 * min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) );
+			pProfile->bDexterity += Random( 2 * min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) );
+			pProfile->bStrength += Random( 2 * min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) );
+			pProfile->bLeadership += Random( 2 * min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) );
+			pProfile->bWisdom += Random( min( Stats, 2 * min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) );
+			pProfile->bMarksmanship += Random( 2 * min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) );
+			pProfile->bMechanical += Random( 2 * min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) );
+			pProfile->bExplosive += Random( 2 * min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) );
+			pProfile->bMedical += Random( 2 * min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) );
+		}
+	}
 
-			if ( gRandomStatsValue[cnt].RandomLife == TRUE )
+	// partial stats random based on XML stat tag
+	else if ( gGameExternalOptions.ubMercRandomStats == 2 )
+	{
+		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
+		{
+			if ( gRandomStatsValue[cnt].Enabled )
 			{
-				pProfile->bLifeMax = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-				pProfile->bLife = pProfile->bLifeMax;
-			}	
+				pProfile = &(gMercProfiles[cnt]);
 				
-			if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
-			{
-				pProfile->bAgility = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}							
+				if ( gRandomStatsValue[cnt].RandomExpLevel == TRUE )
+					pProfile->bExpLevel += Random( 2 * min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) ) + 1 ) - min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) );
+
+				if ( gRandomStatsValue[cnt].RandomLife == TRUE )
+					pProfile->bLifeMax += Random( 2 * min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1  ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLifeMax, max( 0, pProfile->bLifeMax - 1 ) ) );
+					pProfile->bLife = pProfile->bLifeMax;
+
+				if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
+					pProfile->bAgility += Random( 2 * min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bAgility, max( 0, pProfile->bAgility - 1 ) ) );
 				
-			if ( gRandomStatsValue[cnt].RandomLeadership == TRUE )
-			{
-				pProfile->bLeadership = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}							
-											
-			if ( gRandomStatsValue[cnt].RandomDexterity == TRUE )
-			{
-				pProfile->bDexterity = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}	
-				
-			if ( gRandomStatsValue[cnt].RandomWisdom == TRUE )
-			{
-				pProfile->bWisdom = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}	
-				
-			if ( gRandomStatsValue[cnt].RandomMarksmanship == TRUE )
-			{
-				pProfile->bMarksmanship = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}	
-				
-			if ( gRandomStatsValue[cnt].RandomMedical == TRUE )
-			{
-				pProfile->bMedical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				if ( gRandomStatsValue[cnt].RandomDexterity == TRUE )
+					pProfile->bDexterity += Random( 2 * min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bDexterity, max( 0, pProfile->bDexterity - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomStrength == TRUE )
+					pProfile->bStrength += Random( 2 * min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bStrength, max( 0, pProfile->bStrength - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomLeadership == TRUE )
+					pProfile->bLeadership += Random( 2 * min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bLeadership, max( 0, pProfile->bLeadership - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomWisdom == TRUE )
+					pProfile->bWisdom += Random( min( Stats, 2 * min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bWisdom, max( 0, pProfile->bWisdom - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomMarksmanship == TRUE )
+					pProfile->bMarksmanship += Random( 2 * min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMarksmanship, max( 0, pProfile->bMarksmanship - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomMechanical == TRUE )
+					pProfile->bMechanical += Random( 2 * min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMechanical, max( 0, pProfile->bMechanical - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomExplosive == TRUE )	
+					pProfile->bExplosive += Random( 2 * min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bExplosive, max( 0, pProfile->bExplosive - 1 ) ) );
+					
+				if ( gRandomStatsValue[cnt].RandomMedical == TRUE )
+					pProfile->bMedical += Random( 2 * min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) ) + 1 ) - min( Stats, min( 100 - pProfile->bMedical, max( 0, pProfile->bMedical - 1 ) ) );
 			}
-				
-			if ( gRandomStatsValue[cnt].RandomMechanical == TRUE )
-			{
-				pProfile->bMechanical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}	
+		}
+	}
 
-			if ( gRandomStatsValue[cnt].RandomExplosive == TRUE )
+	// Buggler: tweaked Jazz's random code
+	else if ( gGameExternalOptions.ubMercRandomStats == 3 )
+	{
+		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
+		{
+			if ( gRandomStatsValue[cnt].Enabled )
 			{
-				pProfile->bExplosive = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}	
+				pProfile = &(gMercProfiles[cnt]);
 
-			if ( gRandomStatsValue[cnt].RandomStrength == TRUE )
-			{
-				pProfile->bStrength = (bBaseAttribute + Random( 9 ) + Random( 8 ));
-			}								
+				if ( gRandomStatsValue[cnt].RandomExpLevel == TRUE )
+					pProfile->bExpLevel += Random( 2 * min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) ) + 1 ) - min( Exp, min( 9 - pProfile->bExpLevel, pProfile->bExpLevel - 1 ) );
+
+				bBaseAttribute = gRandomStatsValue[cnt].BaseAttribute + ( 4 * pProfile->bExpLevel );
+
+				if ( gRandomStatsValue[cnt].RandomLife == TRUE )
+				{
+					pProfile->bLifeMax = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+					pProfile->bLife = pProfile->bLifeMax;
+				}
+
+				if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
+				{
+					pProfile->bAgility = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomDexterity == TRUE )
+				{
+					pProfile->bDexterity = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomStrength == TRUE )
+				{
+					pProfile->bStrength = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomLeadership == TRUE )
+				{
+					pProfile->bLeadership = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomWisdom == TRUE )
+				{
+					pProfile->bWisdom = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomMarksmanship == TRUE )
+				{
+					pProfile->bMarksmanship = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomMechanical == TRUE )
+				{
+					pProfile->bMechanical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomExplosive == TRUE )
+				{
+					pProfile->bExplosive = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+
+				if ( gRandomStatsValue[cnt].RandomMedical == TRUE )
+				{
+					pProfile->bMedical = (bBaseAttribute + Random( 9 ) + Random( 8 ));
+				}
+			}
 		}
 	}
 }
 
+void RandomStartSalary()
+{
+	UINT32 cnt;
+	MERCPROFILESTRUCT * pProfile;
+
+	// Buggler: random starting salary
+	if ( gGameExternalOptions.fMercRandomStartSalary == TRUE )
+	{
+		UINT8 SalaryPercentMod = gGameExternalOptions.ubMercRandomStartSalaryPercentMod;
+		FLOAT SalaryMod;
+
+		for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
+		{
+			pProfile = &(gMercProfiles[cnt]);
+			SalaryMod =  1 + ( (FLOAT) Random ( 2 * SalaryPercentMod + 1 ) - (FLOAT) SalaryPercentMod ) / 100;
+			// random non-zero salary 
+			if ( pProfile->sSalary |= 0 )
+				pProfile->sSalary = RoundOffSalary( (UINT32)( pProfile->sSalary * SalaryMod ) );
+			if ( pProfile->uiWeeklySalary |= 0 )
+				pProfile->uiWeeklySalary = RoundOffSalary( (UINT32)( pProfile->uiWeeklySalary * SalaryMod ) );
+			if ( pProfile->uiBiWeeklySalary |= 0 )
+				pProfile->uiBiWeeklySalary = RoundOffSalary( (UINT32)( pProfile->uiBiWeeklySalary * SalaryMod ) );
+			if ( pProfile->sTrueSalary |= 0 )
+				pProfile->sTrueSalary = RoundOffSalary( (UINT32)( pProfile->sTrueSalary * SalaryMod ) );
+		}
+	}
+}
 // WANNE - BMP: DONE!
 BOOLEAN LoadMercProfiles(void)
 {
@@ -931,6 +1041,9 @@ for( int i = 0; i < NUM_PROFILES; i++ )
 	// ---------------
 		
 	RandomStats (); //random stats by Jazz
+	
+	// Buggler: random starting salary
+	RandomStartSalary ();
 
 	// decide which terrorists are active
 	DecideActiveTerrorists();

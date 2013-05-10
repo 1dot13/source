@@ -10,19 +10,18 @@ typedef struct
 	UINT16 uiIndex;
 	BOOLEAN Enabled;
 	INT8 BaseAttribute;
-	INT8 ExpLevel;
+	BOOLEAN RandomExpLevel;
 	BOOLEAN RandomLife;
 	BOOLEAN RandomAgility;
-	BOOLEAN RandomLeadership;
 	BOOLEAN RandomDexterity;
+	BOOLEAN RandomStrength;
+	BOOLEAN RandomLeadership;
 	BOOLEAN RandomWisdom;
 	BOOLEAN RandomMarksmanship;
-	BOOLEAN RandomMedical;
 	BOOLEAN RandomMechanical;
 	BOOLEAN RandomExplosive;
+	BOOLEAN RandomMedical;
 	BOOLEAN RandomScientific;
-	BOOLEAN RandomStrength;
-
 } RANDOM_STATS_VALUES;
 
 extern RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
