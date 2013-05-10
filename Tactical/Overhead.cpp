@@ -10151,3 +10151,41 @@ BOOLEAN AllowedToStealFromTeamMate( UINT8 ubID, UINT8 ubTargetID )
 
 	return FALSE;
 }
+
+// Flugente: is a soldier profile already used?
+BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr)
+{
+	if ( aType < 0 || aType > 5 )
+		return FALSE;
+
+	UINT8 searchedclass = SOLDIER_CLASS_ADMINISTRATOR;
+	switch( aType )
+	{
+	case 1:
+		searchedclass = SOLDIER_CLASS_ARMY;
+		break;
+	case 2:
+		searchedclass = SOLDIER_CLASS_ELITE;
+		break;
+	case 3:
+		searchedclass = SOLDIER_CLASS_GREEN_MILITIA;
+		break;
+	case 4:
+		searchedclass = SOLDIER_CLASS_REG_MILITIA;
+		break;
+	case 5:
+		searchedclass = SOLDIER_CLASS_ELITE_MILITIA;
+		break;
+	}
+
+	SOLDIERTYPE* pSoldier = NULL;
+	for( INT32 i = gTacticalStatus.Team[ usTeam ].bFirstID; i <= gTacticalStatus.Team[ usTeam ].bLastID; ++i )
+	{
+		pSoldier = MercPtrs[ i ];
+
+		if ( pSoldier && pSoldier->ubSoldierClass == searchedclass && pSoldier->usSoldierProfile == aNr )
+			return TRUE;
+	}
+
+	return FALSE;
+}

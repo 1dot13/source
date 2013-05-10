@@ -100,8 +100,12 @@ int INV_INTERFACE_START_Y;//	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 
 HIDDEN_NAMES_VALUES zHiddenNames[500]; //legion2 Jazz
 ENEMY_NAMES_VALUES zEnemyName[500];
-ENEMY_RANK_VALUES zEnemyRank[20];				// Flugente: set this to 20, which should be way enough, as there are onyl 10 exp levels
+ENEMY_RANK_VALUES zEnemyRank[20];				// Flugente: set this to 20, which should be way enough, as there are only 10 exp levels
 CIV_NAMES_VALUES zCivGroupName[NUM_CIV_GROUPS];
+
+// Flugente: soldier profiles
+SOLDIER_PROFILE_VALUES zSoldierProfile[6][NUM_SOLDIER_PROFILES];
+UINT16 num_found_soldier_profiles[6];	// the correct number is set on reading the xml
 
 BOOLEAN	gfInMovementMenu = FALSE;
 INT32		giMenuAnchorX, giMenuAnchorY;
@@ -2058,7 +2062,20 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				{
 					if ( pSoldier->bTeam == ENEMY_TEAM )
 					{
-						if (gGameExternalOptions.fEnemyNames == TRUE && gGameExternalOptions.fEnemyRank == FALSE)
+						// Flugente: soldier profiles
+						if ( gGameExternalOptions.fSoldierProfiles_Enemy && pSoldier->usSoldierProfile )
+						{					
+							swprintf(NameStr, pSoldier->GetName());
+							
+							SetFont( TINYFONT1 );
+							SetFontBackground( FONT_MCOLOR_BLACK );
+							SetFontForeground( FONT_YELLOW );
+
+							FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+							gprintfdirty( sX, sY, NameStr );
+							mprintf( sX, sY, NameStr );	
+						}
+						else if (gGameExternalOptions.fEnemyNames == TRUE && gGameExternalOptions.fEnemyRank == FALSE)
 						{
 							for( iCounter2 = 0; iCounter2 < 500; ++iCounter2 )
 							{
@@ -2106,6 +2123,20 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 								}
 							}				
 						}
+					}
+					// Flugente: soldier profiles
+					else if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile )
+					{
+						// get a proper chaos name							
+						swprintf(NameStr, pSoldier->GetName());
+							
+						SetFont( TINYFONT1 );
+						SetFontBackground( FONT_MCOLOR_BLACK );
+						SetFontForeground( FONT_YELLOW );
+
+						FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+						gprintfdirty( sX, sY, NameStr );
+						mprintf( sX, sY, NameStr );	
 					}
 					else if (gGameExternalOptions.fCivGroupName == TRUE && pSoldier->ubCivilianGroup > 0 )
 					{
@@ -2181,7 +2212,21 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 #endif
 			if ( pSoldier->bTeam == ENEMY_TEAM )
 			{
-				if (gGameExternalOptions.fEnemyNames == TRUE  && gGameExternalOptions.fEnemyRank == FALSE)
+				// Flugente: soldier profiles
+				if ( gGameExternalOptions.fSoldierProfiles_Enemy && pSoldier->usSoldierProfile )
+				{
+					// get a proper chaos name							
+					swprintf(NameStr, pSoldier->GetName());
+							
+					SetFont( TINYFONT1 );
+					SetFontBackground( FONT_MCOLOR_BLACK );
+					SetFontForeground( FONT_YELLOW );
+
+					FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+					gprintfdirty( sX, sY, NameStr );
+					mprintf( sX, sY, NameStr );	
+				}
+				else if (gGameExternalOptions.fEnemyNames == TRUE  && gGameExternalOptions.fEnemyRank == FALSE)
 				{
 					for( iCounter2 = 0; iCounter2 < 500; ++iCounter2 )
 					{
@@ -2229,6 +2274,20 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 						}
 					}
 				}
+			}
+			// Flugente: soldier profiles
+			else if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile )
+			{
+				// get a proper chaos name							
+				swprintf(NameStr, pSoldier->GetName());
+							
+				SetFont( TINYFONT1 );
+				SetFontBackground( FONT_MCOLOR_BLACK );
+				SetFontForeground( FONT_YELLOW );
+
+				FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );	
 			}
 			else if (gGameExternalOptions.fCivGroupName == TRUE && pSoldier->ubCivilianGroup > 0 )
 			{

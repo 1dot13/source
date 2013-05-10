@@ -1246,6 +1246,10 @@ void LoadGameExternalOptions()
 	//Enemy Rank by Jazz
 	gGameExternalOptions.fEnemyRank							= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_ENEMY_RANK",FALSE);
 
+	// Flugente: soldier profiles
+	gGameExternalOptions.fSoldierProfiles_Enemy				= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIER_PROFILES_ENEMY", TRUE);
+	gGameExternalOptions.fSoldierProfiles_Militia			= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIER_PROFILES_MILITIA", TRUE);
+
 	// *** ddd - BEGIN
 	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
 

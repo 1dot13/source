@@ -233,6 +233,13 @@ typedef PARSE_STAGE;
 #define VEHICLESFILENAME						"Vehicles.xml"
 #define SQUADNAMEFILENAME						"SquadNames.xml"
 
+#define ENEMY_ADMIN_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyAdmin.xml"
+#define ENEMY_REGULAR_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyRegular.xml"
+#define ENEMY_ELITE_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyElite.xml"
+#define MILITIA_GREEN_PROFILE_FILENAME			"Profiles\\SoldierProfileMilitiaGreen.xml"
+#define MILITIA_REGULAR_PROFILE_FILENAME		"Profiles\\SoldierProfileMilitiaRegular.xml"
+#define MILITIA_VETERAN_PROFILE_FILENAME		"Profiles\\SoldierProfileMilitiaVeteran.xml"
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -306,6 +313,10 @@ extern BOOLEAN WriteSquadNamesStats();
 // Flugente: loadscreen hints
 extern BOOLEAN ReadInLoadScreenHints(STR fileName);
 extern BOOLEAN WriteLoadScreenHints();
+
+// Flugente: soldier profiles
+extern BOOLEAN ReadInSoldierProfiles(SOLDIER_PROFILE_VALUES* pProfiles, STR fileName);
+extern BOOLEAN WriteSoldierProfiles();
 
 extern BOOLEAN ReadInAmmoStats(STR fileName);
 extern BOOLEAN WriteAmmoStats();

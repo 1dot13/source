@@ -1138,6 +1138,10 @@ typedef struct
 	
 	//Enemy Rank Legion 2 by Jazz
 	BOOLEAN fEnemyRank;
+
+	// Flugente: soldier profiles
+	BOOLEAN	fSoldierProfiles_Enemy;
+	BOOLEAN	fSoldierProfiles_Militia;
 	
 	BOOLEAN fShowCamouflageFaces;
 

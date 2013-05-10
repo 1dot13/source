@@ -230,6 +230,7 @@
     <ClCompile Include="XML_RandomStats.cpp" />
     <ClCompile Include="XML_RPCFacesSmall.cpp" />
     <ClCompile Include="XML_SectorLoadscreens.cpp" />
+    <ClCompile Include="XML_SoldierProfiles.cpp" />
     <ClCompile Include="XML_SoundProfile.cpp" />
     <ClCompile Include="XML_Sounds.cpp" />
     <ClCompile Include="XML_SpreadPatterns.cpp" />

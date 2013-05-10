@@ -87,6 +87,25 @@ typedef struct
 
 extern CIV_NAMES_VALUES zCivGroupName[NUM_CIV_GROUPS];
 
+// Flugente: soldier profiles
+typedef struct
+{
+	UINT16		uiIndex;
+	CHAR16		szName[MAX_ENEMY_NAMES_CHARS];
+	UINT8		uiBodyType;
+	UINT8		uiHair;
+	UINT8		uiSkin;
+	UINT8		uiTrait[3];	
+	UINT32		uiFlags;
+} SOLDIER_PROFILE_VALUES;
+
+#define NUM_SOLDIER_PROFILES 100
+
+extern SOLDIER_PROFILE_VALUES zSoldierProfile[6][NUM_SOLDIER_PROFILES];
+
+extern UINT16 num_found_soldier_profiles[6];	// the correct number is set on reading the xml
+extern UINT16 num_found_profiles;		// a helper variable during reading xmls
+
 extern		int INTERFACE_WIDTH;		//			640
 extern		int INTERFACE_HEIGHT;		//			120
 extern		int INV_INTERFACE_HEIGHT;	//			140

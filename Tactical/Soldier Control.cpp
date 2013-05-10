@@ -1020,6 +1020,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->usStarveDamageHealth = 0;
 		this->usStarveDamageStrength = 0;
 		this->bAIIndex = 0;
+		this->usSoldierProfile = 0;
     }
     return *this;
 }
@@ -16074,6 +16075,13 @@ STR16 SOLDIERTYPE::GetName()
 	tmpname[tmpuser][0] =  '\0' ;
 	wcscat( tmpname[tmpuser], this->name );
 
+	if ( this->usSoldierProfile )
+	{
+		INT8 type = this->GetSoldierProfileType(this->bTeam);
+		if ( type > -1 )
+			wcscpy( tmpname[tmpuser], zSoldierProfile[type][this->usSoldierProfile].szName );
+	}
+
 	return tmpname[tmpuser];
 }
 
@@ -16412,6 +16420,46 @@ UINT8 SOLDIERTYPE::GetBestEquippedFlashLightRange()
 	}
 
 	return( bestrange );
+}
+
+// Flugente: soldier profiles
+// retrieves the correct sub-array
+INT8 SOLDIERTYPE::GetSoldierProfileType(UINT8 usTeam)
+{
+	INT8 type = -1;
+
+	if ( usTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+	{
+		switch( this->ubSoldierClass )
+		{
+		case SOLDIER_CLASS_ELITE :
+			type = 2;
+			break;
+		case SOLDIER_CLASS_ARMY :
+			type = 1;
+			break;
+		case SOLDIER_CLASS_ADMINISTRATOR :
+			type = 0;
+			break;
+		}
+	}
+	else if ( usTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+	{
+		switch( this->ubSoldierClass )
+		{
+		case SOLDIER_CLASS_ELITE_MILITIA :
+			type = 5;
+			break;
+		case SOLDIER_CLASS_REG_MILITIA :
+			type = 4;
+			break;
+		case SOLDIER_CLASS_GREEN_MILITIA :
+			type = 3;
+			break;
+		}
+	}
+
+	return type;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

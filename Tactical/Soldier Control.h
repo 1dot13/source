@@ -1270,10 +1270,13 @@ public:
 	INT32	sMTActionGridNo;		// gridno on which we perfrom our multi-turn action
 	UINT8	usMultiTurnAction;		// specifies which multi-turn action we are currently performing, 0: none
 
-	INT16	bAIIndex;			    // PlanFactory from the modularized tactical AI that shall be used
+	INT16	bAIIndex;			    // feynman: PlanFactory from the modularized tactical AI that shall be used
+
+	UINT16	usSoldierProfile;		// Flugente: allow linking to a xml-based profile specifiying name, visuals, traits etc.
+
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
-	UINT8	ubFiller[10];	
+	UINT8	ubFiller[8];	
 	
 #ifdef JA2UB
 	//ja25
@@ -1563,6 +1566,9 @@ public:
 
 	void		HandleFlashLights();
 	UINT8		GetBestEquippedFlashLightRange();
+
+	// Flugente: soldier profiles
+	INT8		GetSoldierProfileType(UINT8 usTeam);		// retrieves the correct sub-array
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

@@ -361,5 +361,8 @@ void TeamDropAll(UINT8 bTeam, BOOLEAN fForce = FALSE);
 // are we allowed to steal access this guy's inventory?
 BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
 
+// Flugente: is an soldier profile already used?
+BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
+
 #endif
 

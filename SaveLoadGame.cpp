@@ -2042,7 +2042,23 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				numBytesRead = ReadFieldByField(hFile, &this->usMultiTurnAction, sizeof(usMultiTurnAction), sizeof(UINT8), numBytesRead);
 				numBytesRead = ReadFieldByField(hFile, &this->bAIIndex, sizeof(bAIIndex), sizeof(UINT16), numBytesRead);
 
-				numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+				if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
+				{
+					numBytesRead = ReadFieldByField(hFile, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
+
+					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+				}
+				else
+				{
+					this->usSoldierProfile = 0;
+
+					// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
+					const UINT8 tmp = sizeof(usSoldierProfile);
+					UINT8 blarg[tmp];
+					numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
+				
+					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+				}
 			}
 			else
 			{
@@ -2050,9 +2066,11 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				this->sMTActionGridNo	= NOWHERE;
 				this->usMultiTurnAction = 0;
 				this->bAIIndex			= 0;
+				this->usSoldierProfile	= 0;
 
 				// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
-				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction);
+				// +1 for padding
+				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction) + sizeof(bAIIndex) + 1 + sizeof(usSoldierProfile);
 				UINT8 blarg[tmp];
 				numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
 				
@@ -2078,6 +2096,31 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				buffer++;
 
 			for(int i = 0; i < sizeof(usStarveDamageStrength); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(bOverTurnAPS); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(sMTActionGridNo); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usMultiTurnAction); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(bAIIndex); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+
+			for(int i = 0; i < sizeof(usSoldierProfile); ++i)
 				buffer++;
 			while((buffer%4) > 0)
 				buffer++;

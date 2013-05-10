@@ -1011,6 +1011,43 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		}
 #endif
 
+	// Flugente: soldier profiles
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMY_ADMIN_PROFILE_FILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInSoldierProfiles(zSoldierProfile[0], fileName), ENEMY_ADMIN_PROFILE_FILENAME);
+	num_found_soldier_profiles[0] = num_found_profiles;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMY_REGULAR_PROFILE_FILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInSoldierProfiles(zSoldierProfile[1], fileName), ENEMY_REGULAR_PROFILE_FILENAME);
+	num_found_soldier_profiles[1] = num_found_profiles;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMY_ELITE_PROFILE_FILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInSoldierProfiles(zSoldierProfile[2], fileName), ENEMY_ELITE_PROFILE_FILENAME);
+	num_found_soldier_profiles[2] = num_found_profiles;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, MILITIA_GREEN_PROFILE_FILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInSoldierProfiles(zSoldierProfile[3], fileName), MILITIA_GREEN_PROFILE_FILENAME);
+	num_found_soldier_profiles[3] = num_found_profiles;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, MILITIA_REGULAR_PROFILE_FILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInSoldierProfiles(zSoldierProfile[4], fileName), MILITIA_REGULAR_PROFILE_FILENAME);
+	num_found_soldier_profiles[4] = num_found_profiles;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, MILITIA_VETERAN_PROFILE_FILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInSoldierProfiles(zSoldierProfile[5], fileName), MILITIA_VETERAN_PROFILE_FILENAME);
+	num_found_soldier_profiles[5] = num_found_profiles;
+
 	LoadIMPPortraitsTEMP();
 	
 	//Sound profile by jazz 

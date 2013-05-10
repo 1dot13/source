@@ -44,6 +44,7 @@
 	#include "Strategic Mines.h"
 	#include "math.h"
 	#include "Game Clock.h" // added this one - SANDRO
+	#include "Interface.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1434,6 +1435,21 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass )
 
 	//choose random skin tone which will limit the choice of hair colors.
 	skin = (INT8)Random( NUMSKINS );
+
+	//Choose hair color which uses the skin color to limit choices
+	hair = ChooseHairColor( pSoldier, skin );
+
+	if ( pSoldier->usSoldierProfile )
+	{
+		INT8 type = pSoldier->GetSoldierProfileType(pSoldier->bTeam);
+
+		if ( type > -1 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiSkin )
+			skin = zSoldierProfile[type][pSoldier->usSoldierProfile].uiSkin - 1;
+
+		if ( type > -1 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiHair )
+			hair = zSoldierProfile[type][pSoldier->usSoldierProfile].uiHair - 1;
+	}
+
 	switch( skin )
 	{
 		case PINKSKIN:
@@ -1453,8 +1469,6 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass )
 			break;
 	}
 
-	//Choose hair color which uses the skin color to limit choices
-	hair = ChooseHairColor( pSoldier, skin );
 	switch( hair )
 	{
 		case BROWNHEAD: SET_PALETTEREP_ID( pSoldier->HeadPal, "BROWNHEAD" ); break;
@@ -1630,6 +1644,63 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	pSoldier->ubScheduleID					= pCreateStruct->ubScheduleID;
 	pSoldier->flags.bHasKeys							= pCreateStruct->fHasKeys;
 	pSoldier->ubSoldierClass				= pCreateStruct->ubSoldierClass;
+
+	// Flugente: soldier profiles
+	if ( 1 )
+	{
+		INT8 type = -1;
+		if ( pCreateStruct->bTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+		{
+			switch( pCreateStruct->ubSoldierClass )
+			{
+			case SOLDIER_CLASS_ELITE :
+				type = 2;
+				break;
+			case SOLDIER_CLASS_ARMY :
+				type = 1;
+				break;
+			case SOLDIER_CLASS_ADMINISTRATOR :
+				type = 0;
+				break;
+			}
+		}
+		else if ( pCreateStruct->bTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+		{
+			switch( pCreateStruct->ubSoldierClass )
+			{
+			case SOLDIER_CLASS_ELITE_MILITIA :
+				type = 5;
+				break;
+			case SOLDIER_CLASS_REG_MILITIA :
+				type = 4;
+				break;
+			case SOLDIER_CLASS_GREEN_MILITIA :
+				type = 3;
+				break;
+			}
+		}
+
+		if ( type > -1 )
+		{
+			INT16 availablenames[NUM_SOLDIER_PROFILES];
+			UINT16 cnt = 0;
+
+			for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
+			{
+				// make sure the name isn't already currently in use!
+				if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
+					availablenames[cnt++] = i;
+			}
+
+			if ( cnt > 0 )
+			{
+				pSoldier->usSoldierProfile = availablenames[Random(cnt)];
+								
+				if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
+					pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
+			}
+		}
+	}
 
 	if( pCreateStruct->fVisible )
 	{
@@ -3997,6 +4068,33 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 	ubProgress = HighestPlayerProgressPercentage();
 	ubSolClass = pSoldier->ubSoldierClass;
 
+	// Flugente: soldier profiles - if any traits are in the xml, use them, but fill up empty slots afterwards
+	if ( pSoldier->usSoldierProfile )
+	{
+		INT8 type = pSoldier->GetSoldierProfileType(pCreateStruct->bTeam);
+
+		if ( type > -1 )
+		{
+			if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[0] > 0 )
+			{
+				pSoldier->stats.ubSkillTraits[0] = zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[0];
+				ATraitAssigned = TRUE;
+			}
+
+			if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[1] > 0 )
+			{
+				pSoldier->stats.ubSkillTraits[1] = zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[1];
+				BTraitAssigned = TRUE;
+			}
+
+			if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2] > 0 )
+			{
+				pSoldier->stats.ubSkillTraits[2] = zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2];
+				CTraitAssigned = TRUE;
+			}
+		}
+	}
+	
 	// First determine who will be the squadleader for this group (administrators do not get a squadleader
 	if ( gGameOptions.fNewTraitSystem && bNumSquadleadersInArmy < ((ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ARMY) ? gGameOptions.ubDifficultyLevel : 2 ) && 
 		( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA || 

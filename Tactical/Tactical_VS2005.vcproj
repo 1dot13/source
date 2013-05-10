@@ -1165,6 +1165,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_SoldierProfiles.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_SoundProfile.cpp"
 				>
 			</File>

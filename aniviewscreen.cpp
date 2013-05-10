@@ -23,7 +23,7 @@
 	#include "Event Pump.h"
 	#include "Render Dirty.h"
 	#include "Sys Globals.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include <wchar.h>
 	#include <tchar.h>
 	#include "english.h"
