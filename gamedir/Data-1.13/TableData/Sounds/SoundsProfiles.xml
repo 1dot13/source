@@ -916,18 +916,18 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>183</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Pops</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>184</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Wally</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>185</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Eli</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>186</uiIndex>

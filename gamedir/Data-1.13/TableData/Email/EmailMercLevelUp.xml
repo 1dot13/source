@@ -946,19 +946,22 @@ Message:		The email message body
 		<Message>Please be advised that Bernie's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Pops -->
 		<uiIndex>183</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Pops's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Wally -->
 		<uiIndex>184</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Wally's extraordinary battlefield experience requires more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Eli -->
 		<uiIndex>185</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Eli's outstanding performance warrants an increase in salary. His wages have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>186</uiIndex>
