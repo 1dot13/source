@@ -4174,7 +4174,7 @@ STR16 MercInfo[] =
 	L"Ausrüstung kaufen?",
 	L"nicht da",
 	L"Offene Beträge",
-	L"Bio"
+	L"Bio",
 	L"Inv",								
 };
 
