@@ -4245,7 +4245,7 @@ STR16			MercInfo[] =
 	L"Total:",
 	L"Deceased",
 
-	L"Looks like you're trying to hire too many mercs. Your limit is 18.",
+	L"You have a full team of mercs already.",
 	L"Buy Equipment?",
 	L"Unavailable",
 	L"Unsettled Bills",

@@ -4247,7 +4247,7 @@ STR16			MercInfo[] =
 	L"Total :",		// TODO.Translate
 	L"Décédé(e)",
 
-	L"Vous ne pouvez engager plus de 18 mercenaires.",
+	L"Équipe de mercenaires déjà au complet.",
 	L"Acheter équipement ?",	// TODO.Translate
 	L"Indisponible",											
 	L"Unsettled Bills", //TODO.Translate

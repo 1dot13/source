@@ -4234,7 +4234,7 @@ STR16			MercInfo[] =
 	L"Totale:",
 	L"Deceduto",
 
-	L"Sembra che state arruolando troppi mercenari. Il vostro limite è di 18.",
+	L"Avete già una squadra di mercenari.",
 	L"Compra equip.?",
 	L"Non disponibile",
 	L"Unsettled Bills", //TODO.Translate

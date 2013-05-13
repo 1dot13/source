@@ -4244,7 +4244,7 @@ STR16			MercInfo[] =
 	L"合计: ",	//"Total:",
 	L"阵亡",	//"Deceased",
 
-	L"看起来你雇佣了太多的佣兵。最多只能雇18人。",	//"Looks like you're trying to hire too many mercs. Your limit is 18.",
+	L"你的队伍已经满员了。",
 	L"购买装备？",	//"Buy Equipment?",	
 	L"不可雇佣",	//"Unavailable",
 	L"Unsettled Bills", //TODO.Translate
@@ -4745,7 +4745,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"你的队伍现有18人，已经满员了。",	//"You have a full team of 18 mercs already.",
+	L"你的队伍已经满员了。",
 
 	L"预录消息",	//"Pre-recorded message",
 	L"留言已记录",	//"Message recorded",

@@ -4247,7 +4247,7 @@ STR16			MercInfo[] =
 	L"Totaal:",
 	L"Overleden",
 
-	L"Lijkt erop dat je teveel huurlingen wil recruteren. Limiet is 18.",
+	L"Je team bestaat al uit huurlingen.",
 	L"Koop Uitrusting?",
 	L"Niet beschikbaar",
 	L"Unsettled Bills", //TODO.Translate

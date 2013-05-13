@@ -4170,7 +4170,7 @@ STR16 MercInfo[] =
 	L"Gesamt:",
 	L"Verstorben",	
 
-	L"Sie versuchen, zu viele Söldner anzuheuern. Sie haben die Maximalanzahl erreicht.",
+	L"Sie haben bereits ein vollständiges Team.",
 	L"Ausrüstung kaufen?",
 	L"nicht da",
 	L"Offene Beträge",

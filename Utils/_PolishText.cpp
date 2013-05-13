@@ -4248,7 +4248,7 @@ STR16			MercInfo[] =
 	L"Razem:",
 	L"Nie żyje",
 
-	L"Wygląda na to, że chcesz wynająć zbyt wielu najemników. Limit wynosi 18.",
+	L"You have a full team of mercs already.", //TODO.Translate
 	L"Weź sprzęt?",
 	L"Niedostępny",
 	L"Unsettled Bills", //TODO.Translate
@@ -4749,7 +4749,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"You have a full team of mercs already.",
+	L"You have a full team of mercs already.", //TODO.Translate
 
 	L"Nagrana wiadomość",
 	L"Wiadomość zapisana",
