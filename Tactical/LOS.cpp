@@ -7813,13 +7813,9 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 		// Flugente: if scope modes are allowed, player team uses them
 		if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pObjUsed->exists() == true && Item[pObjUsed->usItem].usItemClass == IC_GUN )
 		{
-			// Flugente: check for scope mode
-			std::map<INT8, OBJECTTYPE*> ObjList;
-			GetScopeLists(pObjUsed, ObjList);
-		
-			// only use scope mode if gun is in hand, otherwise an error might occur!
-			if ( (&pShooter->inv[HANDPOS]) == pObjUsed && ObjList[pShooter->bScopeMode] != NULL && pShooter->bScopeMode != USE_ALT_WEAPON_HOLD )
-				iProjectionFactor = Item[ObjList[pShooter->bScopeMode]->usItem].projectionfactor;
+			// we calculate the projection factor of the item, but EXCLUDE those factors coming from scopes/sights we are not using at the moment. This means that factors from lasers
+			// count, but from reflex sights only if we are using the specific sight
+			iProjectionFactor = GetScopeModeProjectionFactor(pShooter, pObjUsed);
 		}
 		else
 			iProjectionFactor = GetProjectionFactor( pObjUsed );

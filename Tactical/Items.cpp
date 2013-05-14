@@ -12729,6 +12729,38 @@ FLOAT GetProjectionFactor( OBJECTTYPE * pObj )
 	return( BestFactor );
 }
 
+// Flugente: projection factor while using scope modes excludes those factors coming from not-used scopes and sights
+FLOAT GetScopeModeProjectionFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj )
+{
+	if ( !gGameExternalOptions.fScopeModes || !pSoldier || pSoldier->bTeam != gbPlayerNum || !pObj || !pObj->exists() || Item[pObj->usItem].usItemClass != IC_GUN )
+		return GetProjectionFactor(pObj);
+
+	if ( !UsingNewCTHSystem() || pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD )
+		return 1.0;
+
+	// Flugente: check for scope mode
+	std::map<INT8, OBJECTTYPE*> ObjList;
+	GetScopeLists(pObj, ObjList);
+
+	FLOAT BestFactor = 1.0;
+		
+	BestFactor = __max((FLOAT)Item[pObj->usItem].projectionfactor, 1.0f);
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+	{
+		if (iter->exists())
+		{
+			// if attachment is scope/sight and not used, ignore it!
+			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) && iter->usItem != ObjList[pSoldier->bScopeMode]->usItem )
+				continue;
+
+			BestFactor = __max(BestFactor, Item[iter->usItem].projectionfactor);
+		}
+	}
+
+	return( BestFactor );
+}
+
 FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2DDistance )
 {
 	FLOAT	iScopeFactor = 0;

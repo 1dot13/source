@@ -417,6 +417,9 @@ FLOAT GetHighestScopeMagnificationFactor( OBJECTTYPE *pObj );
 FLOAT GetScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT uiRange );
 FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT uiRange );
 FLOAT GetProjectionFactor( OBJECTTYPE *pObj );
+// Flugente: projection factor while using scope modes excludes those factors coming from not-used scopes and sights
+FLOAT GetScopeModeProjectionFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj );
+
 FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2DDistance );
 INT32 GetGunAccuracy( OBJECTTYPE *pObj );
 INT32 GetAccuracyModifier( OBJECTTYPE *pObj );
