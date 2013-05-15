@@ -12732,11 +12732,11 @@ FLOAT GetProjectionFactor( OBJECTTYPE * pObj )
 // Flugente: projection factor while using scope modes excludes those factors coming from not-used scopes and sights
 FLOAT GetScopeModeProjectionFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj )
 {
-	if ( !gGameExternalOptions.fScopeModes || !pSoldier || pSoldier->bTeam != gbPlayerNum || !pObj || !pObj->exists() || Item[pObj->usItem].usItemClass != IC_GUN )
-		return GetProjectionFactor(pObj);
-
-	if ( !UsingNewCTHSystem() || pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD )
+	if ( !UsingNewCTHSystem() || !pObj || !pObj->exists() || Item[pObj->usItem].usItemClass != IC_GUN )
 		return 1.0;
+
+	if ( !gGameExternalOptions.fScopeModes || !pSoldier || pSoldier->bTeam != gbPlayerNum )
+		return GetProjectionFactor(pObj);
 
 	// Flugente: check for scope mode
 	std::map<INT8, OBJECTTYPE*> ObjList;
@@ -12750,9 +12750,13 @@ FLOAT GetScopeModeProjectionFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj )
 	{
 		if (iter->exists())
 		{
-			// if attachment is scope/sight and not used, ignore it!
-			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) && iter->usItem != ObjList[pSoldier->bScopeMode]->usItem )
-				continue;
+			// if attachment is scope/sight...
+			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT) )
+			{
+				// ignore sight if not using it
+				if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || iter->usItem != ObjList[pSoldier->bScopeMode]->usItem )
+					continue;
+			}
 
 			BestFactor = __max(BestFactor, Item[iter->usItem].projectionfactor);
 		}
