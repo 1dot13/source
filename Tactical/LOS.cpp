@@ -7801,24 +7801,18 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 	FLOAT iProjectionFactor = 1.0f;
 	FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
 
-	if (ubAimTime > 0)
+	// Flugente: if this weapon is an underbarrel weapon, use the 'carrier' weapon instead
+	OBJECTTYPE* pObjUsed = pWeapon;
+	if ( pWeapon == pShooter->GetUsedWeapon( &pShooter->inv[pShooter->ubAttackingHand] ) )
 	{
-		// Flugente: if this weapon is an underbarrel weapon, use the 'carrier' weapon instead
-		OBJECTTYPE* pObjUsed = pWeapon;
-		if ( pWeapon == pShooter->GetUsedWeapon( &pShooter->inv[pShooter->ubAttackingHand] ) )
-		{
-			pObjUsed = &pShooter->inv[pShooter->ubAttackingHand];
-		}
+		pObjUsed = &pShooter->inv[pShooter->ubAttackingHand];
+	}
 
-		// Flugente: if scope modes are allowed, player team uses them
-		if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pObjUsed->exists() == true && Item[pObjUsed->usItem].usItemClass == IC_GUN )
-		{
-			// we calculate the projection factor of the item, but EXCLUDE those factors coming from scopes/sights we are not using at the moment. This means that factors from lasers
-			// count, but from reflex sights only if we are using the specific sight
-			iProjectionFactor = GetScopeModeProjectionFactor(pShooter, pObjUsed);
-		}
-		else
-			iProjectionFactor = GetProjectionFactor( pObjUsed );
+	if ( gGameExternalOptions.fScopeModes && pShooter && pObjUsed->exists() == true && Item[pObjUsed->usItem].usItemClass == IC_GUN )
+	{
+		// we calculate the projection factor of the item, but EXCLUDE those factors coming from scopes/sights we are not using at the moment. This means that factors from lasers
+		// count, but from reflex sights only if we are using the specific sight
+		iProjectionFactor = GetScopeModeProjectionFactor(pShooter, pObjUsed);
 
 		if (floor(iTargetMagFactor*10) > floor(iProjectionFactor*10.001))
 		{
@@ -7826,7 +7820,17 @@ FLOAT CalcProjectionFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2
 			iProjectionFactor = __max(iProjectionFactor, 1.0f);
 		}
 	}
+	else if ( ubAimTime > 0 )
+	{
+		iProjectionFactor = GetProjectionFactor( pObjUsed );
 
+		if (floor(iTargetMagFactor*10) > floor(iProjectionFactor*10.001))
+		{
+			iProjectionFactor -= (iTargetMagFactor - iProjectionFactor);
+			iProjectionFactor = __max(iProjectionFactor, 1.0f);
+		}
+	}
+	
 	return iProjectionFactor;
 }
 
@@ -7836,30 +7840,19 @@ FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistan
 	FLOAT iScopeFactor = 1.0;
 	FLOAT iProjectionFactor = 0;
 
-	// Flugente: if scope modes are allowed, player team uses them. We either use a scope or we don't, so the magnification factor isn't fitted to range (this is actually bad)
-	if ( gGameExternalOptions.fScopeModes && pShooter && pShooter->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
+	FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+	FLOAT rangeModifier = GetScopeRangeMultiplier(pShooter, pWeapon, d2DDistance);
+
+	// Flugente: when using scope modes, use scopes
+	if ( gGameExternalOptions.fScopeModes || ubAimTime > 0 )
 	{
 		if (!pShooter->IsValidAlternativeFireMode( ubAimTime, iTargetGridNo ) )
+		{
 			iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
-
+			iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
+		}
 		iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
 		iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
-	}
-	else
-	{
-		FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
-		FLOAT rangeModifier = GetScopeRangeMultiplier(pShooter, pWeapon, d2DDistance);
-
-		if (ubAimTime > 0)
-		{
-			if (!pShooter->IsValidAlternativeFireMode( ubAimTime, iTargetGridNo ) )
-			{
-				iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
-				iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
-			}
-			iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
-			iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
-		}
 	}
 
 	return iFinalMagFactor;

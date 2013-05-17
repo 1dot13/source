@@ -11376,9 +11376,12 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 	FLOAT iHighestMagFactor = 0;
 	FLOAT iScopeFactor = 0;
 	FLOAT iProjectionFactor = 0;
+		
+	FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+	FLOAT	 rangeModifier = GetScopeRangeMultiplier(pSoldier, pWeapon, d2DDistance);
 
-	// Flugente: if scope modes are allowed, player team uses them. We either use a scope or we don't, so the magnification factor isn't fitted to range (this is actually bad)
-	if ( gGameExternalOptions.fScopeModes && pSoldier && pSoldier->bTeam == gbPlayerNum && pWeapon->exists() == true && Item[pWeapon->usItem].usItemClass == IC_GUN )
+	// Flugente: when using scope modes, use scopes
+	if ( gGameExternalOptions.fScopeModes || bAimTime > 0 )
 	{
 		if ( !pSoldier->IsValidAlternativeFireMode( bAimTime, iGridNo ) )
 			iScopeFactor = GetBestScopeMagnificationFactor( pSoldier, pWeapon, d2DDistance );
@@ -11387,6 +11390,7 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 		// Set a display variable
 		gCTHDisplay.ScopeMagFactor = iScopeFactor;
 
+		iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
 		iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
 		// Set a display variable
 		gCTHDisplay.ProjectionFactor = iProjectionFactor;
@@ -11396,32 +11400,9 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 	}
 	else
 	{
-		FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
-		FLOAT	rangeModifier = GetScopeRangeMultiplier(pSoldier, pWeapon, d2DDistance);
-
-		if (bAimTime > 0)
-		{
-			if ( !pSoldier->IsValidAlternativeFireMode( bAimTime, iGridNo ) )
-				iScopeFactor = GetBestScopeMagnificationFactor( pSoldier, pWeapon, d2DDistance );
-			else			
-				iScopeFactor = 1.0f;
-			// Set a display variable
-			gCTHDisplay.ScopeMagFactor = iScopeFactor;
-
-			iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
-			iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
-			// Set a display variable
-			gCTHDisplay.ProjectionFactor = iProjectionFactor;
-
-			// The final factor is the largest of the two.
-			iHighestMagFactor = __max( iScopeFactor, iProjectionFactor );
-		}
-		else
-		{
-			gCTHDisplay.ScopeMagFactor = 1.0;
-			gCTHDisplay.ProjectionFactor = 1.0;
-			iHighestMagFactor = 1.0;
-		}
+		gCTHDisplay.ScopeMagFactor = 1.0;
+		gCTHDisplay.ProjectionFactor = 1.0;
+		iHighestMagFactor = 1.0;
 	}
 
 	gCTHDisplay.FinalMagFactor = iHighestMagFactor;
