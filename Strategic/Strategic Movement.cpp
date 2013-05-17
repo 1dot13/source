@@ -4715,7 +4715,7 @@ void ReportVehicleOutOfGas( INT32 iVehicleID, UINT8 ubSectorX, UINT8 ubSectorY )
 	CHAR16 str[255];
 	//Report that the vehicle that just arrived is out of gas.
 	swprintf( str, gzLateLocalizedString[ 5 ],
-		pVehicleStrings[ pVehicleList[ iVehicleID ].ubVehicleType ],
+		gNewVehicle[ pVehicleList[ iVehicleID ].ubVehicleType ].NewVehicleStrings,
 		ubSectorY + 'A' - 1, ubSectorX );
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 }
