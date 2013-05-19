@@ -2933,8 +2933,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente: selection of a function to call in tactical
 	L"你想要做的是什么？",
 	L"装满水壶",
-	L"Clean guns (Merc)",//TODO.Translate
-	L"Clean guns (Team)",
+	L"清理枪支污垢（佣兵）",
+	L"清理所有枪支污垢（小队）",
 	L"脱掉衣服",
 
 	// added by Flugente: decide what to do with the corpses
@@ -2949,8 +2949,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
-	L"Where do you want to send the prisoners?",//TODO.Translate
-	L"Let them go",
+	L"将俘虏送入监狱", //L"Let them go",
+	L"放俘虏离开这里",
 	L"你想要做什么？",
 	L"劝说敌人投降",
 	L"Offer surrender",//TODO.Translate
@@ -4244,7 +4244,7 @@ STR16			MercInfo[] =
 	L"合计: ",	//"Total:",
 	L"阵亡",	//"Deceased",
 
-	L"你的队伍已经满员了。",
+	L"你的队伍已经满员了。",	//L"You have a full team of mercs already.",
 	L"购买装备？",	//"Buy Equipment?",	
 	L"不可雇佣",	//"Unavailable",
 	L"Unsettled Bills", //TODO.Translate
@@ -4745,7 +4745,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"你的队伍已经满员了。",
+	L"你的队伍已经满员了。",	//L"You have a full team of mercs already.",
 
 	L"预录消息",	//"Pre-recorded message",
 	L"留言已记录",	//"Message recorded",
@@ -7560,12 +7560,12 @@ STR16	szPrisonerTextStr[]=
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
 	L"%d 名俘虏已加入我方阵营", //L"%d prisoners joined our cause.",
 	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
-	L"%d 俘虏被押送前往 %s 监狱", //L"Prisoners were sent to %s!",
+	L"俘虏被押送前往 %s 监狱", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"俘虏已被释放！", //L"Prisoners have been released!",
 	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
-	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
-	L"This behaviour is set OFF in your ini settings.",
+	L"敌人不肯拿你当囚犯 - 他们宁愿你死！",	//L"The enemy refuses to take you as prisoners - they prefer you dead!",
+	L"This behaviour is set OFF in your ini settings.",	// TODO.Translate
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate
