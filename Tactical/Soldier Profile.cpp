@@ -724,6 +724,7 @@ BOOLEAN LoadMercProfiles(void)
 			gMercProfiles[uiLoop].ubMiscFlags3 = 0;
 
 			gMercProfiles[uiLoop].uiTotalCostToDate = 0;
+			gMercProfiles[uiLoop].iMercMercContractLength = 0;
 		}
 
 		// WANNE - BMP: DONE!
