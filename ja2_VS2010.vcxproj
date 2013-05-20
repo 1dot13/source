@@ -133,7 +133,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\.;.\.;.\ext\VFS\include;..\ext\VFS\include;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;..\Standard Gaming Platform;.\Standard Gaming Platform;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\ModularTacticalAI;.\ModularTacticalAI;..\Console;.\Console;.\ext\libpng;..\ext\libpng;.\ext\zlib;..\ext\zlib;;$(NOINHERIT)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\.;.\.;.\ext\VFS\include;..\ext\VFS\include;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;..\Standard Gaming Platform;.\Standard Gaming Platform;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\ModularizedTacticalAI;.\ModularizedTacticalAI;..\Console;.\Console;.\ext\libpng;..\ext\libpng;.\ext\zlib;..\ext\zlib;;$(NOINHERIT)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
