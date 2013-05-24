@@ -2691,9 +2691,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// AIMING LEVELS MODIFIER
-		if (GetAimLevelsModifier( gpItemDescObject, ANIM_STAND ) != 0 
-			|| GetAimLevelsModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-			|| GetAimLevelsModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+		if (GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
+			|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
+			|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -4625,9 +4625,9 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// AIMING LEVELS MODIFIER
-	if (GetAimLevelsModifier( gpItemDescObject, ANIM_STAND ) != 0
-		|| GetAimLevelsModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
-		|| GetAimLevelsModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
+	if (GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0
+		|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
+		|| GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -5907,7 +5907,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
 
 			// Get modifier
-			INT16 iAimLevelsModifier = GetAimLevelsModifier( gpItemDescObject, ANIM_STAND );
+			INT16 iAimLevelsModifier = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
 			iAimLevelsModifier += GetAimLevelsTraitModifier( gpItemDescSoldier, gpItemDescObject );
 
 			// Get Base Value
@@ -8820,9 +8820,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// AIMING LEVELS MODIFIER
-	iModifier[0] = GetAimLevelsModifier( gpItemDescObject, ANIM_STAND );
-	iModifier[1] = GetAimLevelsModifier( gpItemDescObject, ANIM_CROUCH );
-	iModifier[2] = GetAimLevelsModifier( gpItemDescObject, ANIM_PRONE );
+	iModifier[0] = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
+	iModifier[1] = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH );
+	iModifier[2] = GetAimLevelsModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE );
 	if (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)

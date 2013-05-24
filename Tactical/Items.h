@@ -283,7 +283,7 @@ INT32 GetCounterForceMaxModifier( OBJECTTYPE *pObj, UINT8 ubStance );
 INT32 GetCounterForceAccuracyModifier( OBJECTTYPE *pObj, UINT8 ubStance );
 INT32 GetCounterForceFrequencyModifier( OBJECTTYPE *pObj, UINT8 ubStance );
 INT32 GetTargetTrackingModifier( OBJECTTYPE *pObj, UINT8 ubStance );
-INT32 GetAimLevelsModifier( OBJECTTYPE *pObj, UINT8 ubStance );
+INT32 GetAimLevelsModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance );	// Flugente: added SOLDIERTYPE* argument
 INT32 GetAimLevelsTraitModifier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 
 // Returns the character's stance as 0/1/2.

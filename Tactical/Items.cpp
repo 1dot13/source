@@ -10213,7 +10213,7 @@ INT32 GetTargetTrackingModifier( OBJECTTYPE *pObj, UINT8 ubStance )
 	return (iModifier);
 }
 
-INT32 GetAimLevelsModifier( OBJECTTYPE *pObj, UINT8 ubStance )
+INT32 GetAimLevelsModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance )
 {
 	INT32 iModifier=0;
 
@@ -10222,11 +10222,36 @@ INT32 GetAimLevelsModifier( OBJECTTYPE *pObj, UINT8 ubStance )
 	if (pObj->exists() == true && UsingNewCTHSystem() == true)
 	{
 		iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+				
+		if ( gGameExternalOptions.fScopeModes && pSoldier )
 		{
-			if (iter->exists())
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 			{
-				iModifier += Item[iter->usItem].aimlevelsmodifier[ubRef];
+				if( iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
+				{
+					iModifier += Item[iter->usItem].aimlevelsmodifier[ubRef];
+				}
+			}
+
+			// Flugente: check for scope mode
+			if ( Item[pObj->usItem].usItemClass == IC_GUN )
+			{
+				std::map<INT8, OBJECTTYPE*> ObjList;
+				GetScopeLists(pObj, ObjList);
+
+				// only use scope mode if gun is in hand, otherwise an error might occur!
+				if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
+					iModifier += Item[ObjList[pSoldier->bScopeMode]->usItem].aimlevelsmodifier[ubRef];
+			}
+		}
+		else
+		{
+			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+			{
+				if (iter->exists())
+				{
+					iModifier += Item[iter->usItem].aimlevelsmodifier[ubRef];
+				}
 			}
 		}
 	}
@@ -12871,8 +12896,8 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		if ( gGameExternalOptions.fWeaponResting && pSoldier->IsWeaponMounted() )
 			stance = ANIM_PRONE;
 
-		INT32 moda = GetAimLevelsModifier( &pSoldier->inv[pSoldier->ubAttackingHand], stance );
-		INT32 modb = GetAimLevelsModifier( &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+		INT32 moda = GetAimLevelsModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], stance );
+		INT32 modb = GetAimLevelsModifier( pSoldier, &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
 		aimLevels += (INT32) ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100); 
 	}
 
@@ -13230,7 +13255,7 @@ UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UI
 		}
 
 		// HEADROCK HAM 4: This modifier from the weapon and its attachments replaces the generic bipod bonus.
-		aimLevels += GetAimLevelsModifier( pObj, ubStance );
+		aimLevels += GetAimLevelsModifier( pSoldier, pObj, ubStance );
 
 		aimLevels += GetAimLevelsTraitModifier( pSoldier, pObj );
 
