@@ -35,7 +35,6 @@ typedef struct
 
 extern NEW_CAR gNewVehicle[NUM_PROFILES];
 
-extern BOOLEAN SaveNewVehiclesToSaveGameFile( HWFILE hFile );
 extern BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile );
 
 // type of vehicles

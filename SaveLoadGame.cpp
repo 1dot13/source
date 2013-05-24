@@ -3886,22 +3886,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	#ifdef JA2BETAVERSION
 		SaveGameFilePosition( FileGetPos( hFile ), "Lua global" );
 	#endif
-	
-	//New vehicles by Jazz
-	if( !SaveNewVehiclesToSaveGameFile( hFile ) )
-	{
-		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing new vehicles");
-		goto FAILED_TO_SAVE;
-
-	#ifdef JA2BETAVERSION
-		SaveGameFilePosition( FileGetPos( hFile ), "New Vehicles" );
-	#endif
-	
-	}
-	
-
-
-	
+		
 	if( !SaveDataSaveToSaveGameFile( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing save data");
@@ -5444,7 +5429,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		LoadGameFilePosition( FileGetPos( hFile ), "Lua Global System" );
 	#endif
 	
-	if( guiCurrentSaveGameVersion >= VEHICLES_DATATYPE_CHANGE)
+	if( guiCurrentSaveGameVersion >= VEHICLES_DATATYPE_CHANGE && guiCurrentSaveGameVersion < NO_VEHICLE_SAVE)
 	{
 		uiRelEndPerc += 1;
 		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Vehicles..." );

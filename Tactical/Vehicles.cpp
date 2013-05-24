@@ -55,7 +55,8 @@ extern INT8 SquadMovementGroups[ ];
 
 
 NEW_CAR gNewVehicle[NUM_PROFILES];
-BOOLEAN SaveNewVehiclesToSaveGameFile( HWFILE hFile );
+
+// Flugente 2013-05-12: saving and loading an array that is read from xml is utterly pointless. The loading function has to remain for compatibility reasons - please remove the next time savegame compatibility is broken
 BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile );
 
 //ATE: These arrays below should all be in a large LUT which contains
@@ -182,26 +183,15 @@ void SetDriver( INT32 iID, UINT8 ubID );
 
 void TeleportVehicleToItsClosestSector( INT32 iVehicleId, UINT8 ubGroupID );
 
-
-BOOLEAN SaveNewVehiclesToSaveGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesWritten;
-
-	FileWrite( hFile, &gNewVehicle, sizeof( gNewVehicle), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gNewVehicle ) )
-	{
-		return( FALSE );
-	}
-	
-	return( TRUE );
-}
-
+// Flugente 2013-05-12: saving and loading an array that is read from xml is utterly pointless. The loading function has to remain for compatibility reasons - please remove the next time savegame compatibility is broken
 BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
 
-	FileRead( hFile, &gNewVehicle, sizeof( gNewVehicle), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gNewVehicle ) )
+	NEW_CAR tmp[NUM_PROFILES];
+
+	FileRead( hFile, &tmp, sizeof( tmp), &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( tmp ) )
 	{
 		return( FALSE );
 	}
