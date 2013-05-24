@@ -1423,7 +1423,7 @@ INT32 ChooseHairColor( SOLDIERTYPE *pSoldier, INT32 skin )
 	return hair;
 }
 
-void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass )
+void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass, UINT8 ubTeam )
 {
 	INT32 skin, hair;
 	BOOLEAN fMercClothingScheme;
@@ -1441,7 +1441,7 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass )
 
 	if ( pSoldier->usSoldierProfile )
 	{
-		INT8 type = pSoldier->GetSoldierProfileType(pSoldier->bTeam);
+		INT8 type = pSoldier->GetSoldierProfileType(ubTeam);
 
 		if ( type > -1 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiSkin )
 			skin = zSoldierProfile[type][pSoldier->usSoldierProfile].uiSkin - 1;
@@ -1884,7 +1884,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	}
 
 	//Generate colors for soldier based on the body type.
-	GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass );
+	GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass, pCreateStruct->bTeam );
 
 	// Copy item info over
 	pSoldier->inv = pCreateStruct->Inv;
@@ -2667,7 +2667,7 @@ void UpdateSoldierWithStaticDetailedInformation( SOLDIERTYPE *s, SOLDIERCREATE_S
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_ARMY:
 		case SOLDIER_CLASS_ELITE:
-			GeneratePaletteForSoldier( s, spp->ubSoldierClass );
+			GeneratePaletteForSoldier( s, spp->ubSoldierClass, spp->bTeam );
 			break;
 	}
 
@@ -4069,7 +4069,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 	ubSolClass = pSoldier->ubSoldierClass;
 
 	// Flugente: soldier profiles - if any traits are in the xml, use them, but fill up empty slots afterwards
-	if ( pSoldier->usSoldierProfile )
+	if ( gGameOptions.fNewTraitSystem && pSoldier->usSoldierProfile )
 	{
 		INT8 type = pSoldier->GetSoldierProfileType(pCreateStruct->bTeam);
 
@@ -4089,8 +4089,14 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 
 			if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2] > 0 )
 			{
-				pSoldier->stats.ubSkillTraits[2] = zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2];
-				CTraitAssigned = TRUE;
+				// we have to make sure that not all 3 traits are major traits - if that happens, we ignore the third one
+				if ( TwoStagedTrait(pSoldier->stats.ubSkillTraits[0]) && TwoStagedTrait(pSoldier->stats.ubSkillTraits[1]) && TwoStagedTrait(zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2]) )
+					;
+				else
+				{
+					pSoldier->stats.ubSkillTraits[2] = zSoldierProfile[type][pSoldier->usSoldierProfile].uiTrait[2];
+					CTraitAssigned = TRUE;
+				}
 			}
 		}
 	}

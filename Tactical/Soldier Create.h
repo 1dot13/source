@@ -497,7 +497,7 @@ void ModifySoldierAttributesWithNewRelativeLevel( SOLDIERTYPE *s, INT8 bLevel );
 // Force the soldier to be a different ID
 void ForceSoldierProfileID( SOLDIERTYPE *pSoldier, UINT8 ubProfileID );
 
-void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass );
+void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass, UINT8 ubTeam );
 
 void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID );
 
