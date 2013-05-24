@@ -1782,22 +1782,25 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				pSoldier->flags.fShowLocator = FALSE;
 		}
 		
-		// Render the beastie
-		GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
-
-		// Adjust for bars!
-		sXPos += 25;
-		sYPos += 25;
-
-		// Add bars
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) );
-
-		if ( iBack != -1 )
+		if ( gGameExternalOptions.fShowHealthBarsOnHead )
 		{
-			SetBackgroundRectFilled( iBack );
-		}
+			// Render the beastie
+			GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
 
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiUNDERWATER, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+			// Adjust for bars!
+			sXPos += 25;
+			sYPos += 25;
+
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiUNDERWATER, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
 	}
 
 	if ( !pSoldier->flags.fShowLocator )
@@ -1998,38 +2001,40 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//new profiles by Jazz	
 		if ( gProfilesIMP[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesAIM[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesMERC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ))			
 		{
-			// Adjust for bars!
+			if ( gGameExternalOptions.fShowHealthBarsOnHead )
+			{
+				// Adjust for bars!
+				if ( pSoldier->ubID == gusSelectedSoldier )
+				{
+					sXPos += 28;
+					sYPos += 5;
+				}
+				else
+				{
+					sXPos += 30;
+					sYPos += 7;
+				}
 
-			if ( pSoldier->ubID == gusSelectedSoldier )
-			{
-				sXPos += 28;
-				sYPos += 5;
-			}
-			else
-			{
-				sXPos += 30;
-				sYPos += 7;
-			}
+				// Add bars
+				iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 34 ), (INT16)(sYPos + 11 ) );
 
-			// Add bars
-			iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 34 ), (INT16)(sYPos + 11 ) );
+				if ( iBack != -1 )
+				{
+					SetBackgroundRectFilled( iBack );
+				}
+				TileElem = gTileDatabase[ usGraphicToUse ];
+				BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 
-			if ( iBack != -1 )
-			{
-				SetBackgroundRectFilled( iBack );
-			}
-			TileElem = gTileDatabase[ usGraphicToUse ];
-			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
-
-			// Draw life, breath
-			// Only do this when we are a vehicle but on our team
-			if ( pSoldier->ubID == gusSelectedSoldier )
-			{
-				DrawBarsInUIBox( pSoldier,	(INT16)(sXPos + 1), (INT16)(sYPos + 2), 16, 1 );
-			}
-			else
-			{
-				DrawBarsInUIBox( pSoldier,	(INT16)(sXPos ), (INT16)(sYPos ), 16, 1 );
+				// Draw life, breath
+				// Only do this when we are a vehicle but on our team
+				if ( pSoldier->ubID == gusSelectedSoldier )
+				{
+					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos + 1), (INT16)(sYPos + 2), 16, 1 );
+				}
+				else
+				{
+					DrawBarsInUIBox( pSoldier,	(INT16)(sXPos ), (INT16)(sYPos ), 16, 1 );
+				}
 			}
 		}
 		else // ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON ||

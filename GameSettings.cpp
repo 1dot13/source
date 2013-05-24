@@ -999,6 +999,9 @@ void LoadGameExternalOptions()
 	// WANNE: Hide the health text when hovering over a enemy
 	gGameExternalOptions.fHideEnemyHealthText				= iniReader.ReadBoolean("Tactical Interface Settings","HIDE_ENEMY_HEALTH_TEXT", FALSE);
 
+	// Flugente: show health an fatigue bars over currently selected mercs and those we hover our mouse over
+	gGameExternalOptions.fShowHealthBarsOnHead				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_HEALTHBARSOVERHEAD", TRUE);
+		
 	// WANNE: Hide the hit count when enemy gets hit
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 2);
 
