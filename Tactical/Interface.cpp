@@ -1666,7 +1666,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	INT32			iBack;
 	TILE_ELEMENT	TileElem;
 	CHAR16			*pStr;
-	CHAR16			NameStr[ 50 ];
+	CHAR16			NameStr[ MAX_ENEMY_NAMES_CHARS ];
 	UINT16			usGraphicToUse = THIRDPOINTERS1;
 	BOOLEAN		 fRaiseName = FALSE;
 	BOOLEAN		 fDoName = TRUE;

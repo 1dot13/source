@@ -16065,7 +16065,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 }
 
 UINT8 tmpuser = 0;
-static CHAR16	tmpname[2][ 100 ];	// we need 2 arrays, in case we need 2 name pointers in one string
+static CHAR16	tmpname[2][ MAX_ENEMY_NAMES_CHARS ];	// we need 2 arrays, in case we need 2 name pointers in one string
 STR16 SOLDIERTYPE::GetName()
 {
 	++tmpuser;
@@ -16079,7 +16079,10 @@ STR16 SOLDIERTYPE::GetName()
 	{
 		INT8 type = this->GetSoldierProfileType(this->bTeam);
 		if ( type > -1 )
+		{
 			wcscpy( tmpname[tmpuser], zSoldierProfile[type][this->usSoldierProfile].szName );
+			tmpname[tmpuser][ MAX_ENEMY_NAMES_CHARS - 1 ] = '\0';
+		}
 	}
 
 	return tmpname[tmpuser];
