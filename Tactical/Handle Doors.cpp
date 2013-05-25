@@ -98,7 +98,8 @@ void HandleDoorChangeFromGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN f
 	}
 
 	// Flugente: we have to redo flashlights
-	pSoldier->HandleFlashLights();
+	if ( pSoldier )
+		pSoldier->HandleFlashLights();
 }
 
 UINT16 GetAnimStateForInteraction( SOLDIERTYPE *pSoldier, BOOLEAN fDoor, UINT16 usAnimState )
