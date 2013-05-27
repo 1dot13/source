@@ -15279,7 +15279,7 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 						}
 					}
 				}
-				if (fFoundVehicle = FALSE)
+				if (fFoundVehicle == FALSE)
 				{
 					// Create line that says "Repair Vehicle", and will be shaded.
 					swprintf( sTempString, gzFacilityAssignmentStrings[ FAC_REPAIR_VEHICLE ], L"Vehicle" );
@@ -16922,7 +16922,7 @@ void HandleShadingOfLinesForFacilityAssignmentMenu( void )
 						fFoundVehicle = TRUE;
 					}
 				}
-				if (fFoundVehicle = FALSE)
+				if (fFoundVehicle == FALSE)
 				{
 					// The line here says "Repair Vehicle", and is shaded because there's no vehicle present.
 					UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );

@@ -1543,7 +1543,7 @@ void HandleTalkingSpeck()
 				gsSpeckDialogueTextPopUp[0] = '\0';
 
 				//Start speck talking
-				if( gusMercVideoSpeckSpeech != MERC_VIDEO_SPECK_SPEECH_NOT_TALKING || 	gusMercVideoSpeckSpeech != MERC_VIDEO_SPECK_HAS_TO_TALK_BUT_QUOTE_NOT_CHOSEN_YET )
+				if( gusMercVideoSpeckSpeech != MERC_VIDEO_SPECK_SPEECH_NOT_TALKING && gusMercVideoSpeckSpeech != MERC_VIDEO_SPECK_HAS_TO_TALK_BUT_QUOTE_NOT_CHOSEN_YET )
 					StartSpeckTalking( gusMercVideoSpeckSpeech );
 
 				gusMercVideoSpeckSpeech = MERC_VIDEO_SPECK_SPEECH_NOT_TALKING;
@@ -2462,7 +2462,7 @@ INT16	GetRandomQuoteThatHasBeenSaidTheLeast( )
 		if( CanMercQuoteBeSaid( gNumberOfTimesQuoteSaid[cnt].ubQuoteID ) )
 		{
 			//if this quote has been said less times then the last one
-			if( gNumberOfTimesQuoteSaid[cnt].uiNumberOfTimesQuoteSaid < gNumberOfTimesQuoteSaid[ sSmallestNumber ].uiNumberOfTimesQuoteSaid )
+			if( sSmallestNumber==255 || gNumberOfTimesQuoteSaid[cnt].uiNumberOfTimesQuoteSaid < gNumberOfTimesQuoteSaid[ sSmallestNumber ].uiNumberOfTimesQuoteSaid )
 			{
 				sSmallestNumber = cnt;
 			}
@@ -2688,7 +2688,6 @@ void MakeBiffAwayForCoupleOfDays()
 
 BOOLEAN AreAnyOfTheNewMercsAvailable()
 {
-	UINT8	i;
 	UINT8	ubMercID;
 
 
@@ -2696,7 +2695,7 @@ BOOLEAN AreAnyOfTheNewMercsAvailable()
 		return( FALSE );
 
 	//for(i=(LARRY_NORMAL-BIFF); i<=LaptopSaveInfo.gubLastMercIndex; i++)
-	for(i=0; i<=NUM_PROFILES; i++)
+	for(UINT16 i=0; i<=NUM_PROFILES; i++)
 	{
 		if ( gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gProfilesMERC[i].ProfilId != 0 )
 		{

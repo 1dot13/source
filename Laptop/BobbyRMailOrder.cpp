@@ -1104,7 +1104,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 			if( pBobbyRayPurchase[i].fUsed )
 			{
 				LoadBRName(pBobbyRayPurchase[i].usItemIndex,sBack);
-				swprintf(sText, L"%s %s", "*", sBack);
+				swprintf(sText, L"%s %s", L"*", sBack);
 			}
 			else
 				LoadBRName(pBobbyRayPurchase[i].usItemIndex,sText);
@@ -1309,7 +1309,7 @@ void DisplayShippingCosts( BOOLEAN fCalledFromOrderPage, INT32 iSubTotal, UINT16
 		while(spi != gShipmentTable[iOrderNum]->ShipmentPackages.end())
 		{
 			uiPackageWeight += Item[((ShipmentPackageStruct&)*spi).usItemIndex].ubWeight;
-			spi++;
+			++spi;
 		}
 
 		uiPackageWeight = uiPackageWeight > 20 ? uiPackageWeight : 20;
@@ -2883,13 +2883,13 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 	{
 		//Allocate memory for the list
 		gpNewBobbyrShipments = (NewBobbyRayOrderStruct *) MemAlloc( sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment );
-		memset(gpNewBobbyrShipments, 0, (sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment) );
 
-		if( gpNewBobbyrShipments == NULL )
+        if( gpNewBobbyrShipments == NULL )
 		{
 			Assert(0);
 			return(FALSE );
 		}
+		memset(gpNewBobbyrShipments, 0, (sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment) );
 
 		//loop through and load all the mail order slots
 		for( iCnt=0; iCnt<giNumberOfNewBobbyRShipment; iCnt++ )

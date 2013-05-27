@@ -1736,6 +1736,7 @@ void start_battle ( void )
 			}
 
 			//SOLDIERTYPE *pSoldier = MercPtrs[ 0 ];
+            Assert(pSoldier);
 			UINT8 ubGroupID = pSoldier->ubGroupID;
 
 			GROUP *pGroup;
@@ -3376,7 +3377,7 @@ void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldItem, UINT8 ubID)
 
 	#ifdef JA2BETAVERSION
 				CHAR tmpMPDbgString[512];
-				sprintf(tmpMPDbgString,"MP - send_disarm_explosive ( MPTeam : %i , uiWorldIndex : %i , uiPreRandomIndex : %i , sGridNo : %i )\n",disarm.ubMPTeamIndex, disarm.uiWorldItemIndex , disarm.uiPreRandomIndex );
+				sprintf(tmpMPDbgString,"MP - send_disarm_explosive ( MPTeam : %i , uiWorldIndex : %i , uiPreRandomIndex : %i , sGridNo : %i )\n", disarm.ubMPTeamIndex, disarm.uiWorldItemIndex , disarm.uiPreRandomIndex, disarm.sGridNo);
 				MPDebugMsg(tmpMPDbgString);
 				gfMPDebugOutputRandoms = true;
 	#endif
@@ -3842,9 +3843,9 @@ void send_death( SOLDIERTYPE *pSoldier )
 	}
 
 	SOLDIERTYPE * pAttacker=MercPtrs[ nDeath.attacker_id ];
-	INT8 pA_bTeam;
+	INT8 pA_bTeam=CLIENT_NUM;
 	CHAR16	pA_name[ 10 ];
-	INT8 pS_bTeam;
+	INT8 pS_bTeam=CLIENT_NUM;
 	CHAR16	pS_name[ 10 ];
 
 	// OJW - 20081222
@@ -3915,23 +3916,25 @@ void send_death( SOLDIERTYPE *pSoldier )
 	client->RPC("sendDEATH",(const char*)&nDeath, (int)sizeof(death_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 	
 	// print kill notice to screen	
-	if (pSoldier->bTeam==1)  
+	if (pSoldier && pSoldier->bTeam==1)  
 		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, MPClientMessage[67]);	
 	else  
 		ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, MPClientMessage[28],pS_name,(pS_bTeam),client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 
 #ifdef JA2BETAVERSION
-	char s_name[10];
-	char a_name[10];
-	WideCharToMultiByte(CP_UTF8,0,pS_name,-1, s_name,10,NULL,NULL);
-	WideCharToMultiByte(CP_UTF8,0,pA_name,-1, a_name,10,NULL,NULL);
+    if (pSoldier)  {
+	    char s_name[10];
+	    char a_name[10];
+	    WideCharToMultiByte(CP_UTF8,0,pS_name,-1, s_name,10,NULL,NULL);
+	    WideCharToMultiByte(CP_UTF8,0,pA_name,-1, a_name,10,NULL,NULL);
 	
-	if (pSoldier->bTeam==1) 
-		MPDebugMsg( String ( "MPDEBUG SEND - Enemy AI #%d was killed by ('%s' - %d) (client %d - '%s')\n",nDeath.soldier_id,a_name,nDeath.attacker_id,pA_bTeam,client_names[pA_bTeam-1]) );
-	else if (pAttacker->bTeam==1) 
-		MPDebugMsg( String ( "MPDEBUG SEND - '%s' (client %d - '%S') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,"Queens Army") );
-	else 
-		MPDebugMsg( String ( "MPDEBUG SEND - '%s' (client %d - '%S') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,client_names[(pA_bTeam-1)]) );
+	    if (pSoldier->bTeam==1) 
+		    MPDebugMsg( String ( "MPDEBUG SEND - Enemy AI #%d was killed by ('%s' - %d) (client %d - '%s')\n",nDeath.soldier_id,a_name,nDeath.attacker_id,pA_bTeam,client_names[pA_bTeam-1]) );
+	    else if (pAttacker->bTeam==1) 
+		    MPDebugMsg( String ( "MPDEBUG SEND - '%s' (client %d - '%S') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,"Queens Army") );
+	    else 
+		    MPDebugMsg( String ( "MPDEBUG SEND - '%s' (client %d - '%S') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,client_names[(pA_bTeam-1)]) );
+    }
 #endif
 }
 

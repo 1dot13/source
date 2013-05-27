@@ -7930,7 +7930,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
     UINT32                              uiLoop;
     UINT8 ubLoop2;
     // Flag to determine if the target is cowering (if allowed)
-    BOOLEAN                             fCower;
+    BOOLEAN                             fCower=FALSE;
     SOLDIERTYPE *                   pSoldier;
     // External options
 

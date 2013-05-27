@@ -4408,7 +4408,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
 			// Soldier doesn't know.
-			swprintf( pStr, L"%s", "??" );
+			swprintf( pStr, L"%s", L"??" );
 		}
 		else
 		{
@@ -4490,7 +4490,7 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
 			// Soldier doesn't know.
-			swprintf( pStr, L"%s", "??" );
+			swprintf( pStr, L"%s", L"??" );
 		}
 		else
 		{
@@ -6501,7 +6501,7 @@ void RenderItemDescriptionBox( )
 			sOffsetX				= hVObject->p16BPPObject->sOffsetX;
 			sOffsetY				= hVObject->p16BPPObject->sOffsetY;
 		}
-		else if(hVObject->ubBitDepth == 32)
+		else //if(hVObject->ubBitDepth == 32)
 		{
 			usHeight				= hVObject->p16BPPObject->usHeight;
 			usWidth					= hVObject->p16BPPObject->usWidth;

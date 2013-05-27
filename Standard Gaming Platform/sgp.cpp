@@ -1871,7 +1871,7 @@ static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::
 			wchar_t *psep = wcspbrk(arg, L":=");
 			wchar_t *param = (psep ? psep+1 : NULL);
 			if (psep) *psep = 0;
-			if ( (param == NULL || param[0] == 0) && ( i+1<argc && ( argv[i+1][0] != L'-' || argv[i+1][0] != L'/' ) ) ) {
+			if ( (param == NULL || param[0] == 0) && ( i+1<argc && ( argv[i+1][0] != L'-' && argv[i+1][0] != L'/' ) ) ) {
 				param = argv[++i];
 				argv[i] = NULL;
 			}

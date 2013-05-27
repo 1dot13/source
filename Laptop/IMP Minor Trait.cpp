@@ -321,7 +321,7 @@ void HandleIMPMinorTraitAnswers( UINT32 uiSkillPressed )
 	}
 
 	//make sure its a valid skill
-	if( uiSkillPressed > IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS )
+	if( uiSkillPressed >= IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS )
 	{
 		Assert( 0 );
 		return;

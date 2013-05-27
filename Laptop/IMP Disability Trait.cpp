@@ -304,7 +304,7 @@ void HandleIMPDisabilityTraitAnswers( UINT32 uiSkillPressed )
 	}
 
 	//make sure its a valid disability trait
-	if( uiSkillPressed > IMP_DISABILITIES_NUMBER )
+	if( uiSkillPressed >= IMP_DISABILITIES_NUMBER )
 	{
 		Assert( 0 );
 		return;

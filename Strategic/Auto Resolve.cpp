@@ -3061,6 +3061,7 @@ void MercCellMouseClickCallback( MOUSE_REGION *reg, INT32 reason )
 			}
 		}
 
+        Assert(pCell);
 		if( pCell->uiFlags & ( CELL_RETREATING | CELL_RETREATED ) )
 		{ //already retreated/retreating.
 			return;

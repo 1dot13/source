@@ -128,11 +128,10 @@ mainMenuEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curMainMenu.FileName,pData->szCharData,MAX_MAIN_MENU_CHARS);
-				pData->curMainMenu.FileName[MAX_MAIN_MENU_CHARS] = '\0';
+				pData->curMainMenu.FileName[MAX_MAIN_MENU_CHARS-1] = '\0';
 			}
 
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_MAIN_MENU_CHARS);i++)
-			{
+			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_MAIN_MENU_CHARS);i++)			{
 				temp = pData->szCharData[i];
 				pData->curMainMenu.FileName[i] = temp;
 				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("itemEndElementHandle: szLocation[%d] = %s, temp = %s",i,&pData->curSectorLoadscreens.szLocation[i],&temp));

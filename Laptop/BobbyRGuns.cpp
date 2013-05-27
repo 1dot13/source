@@ -1943,6 +1943,10 @@ BOOLEAN DisplayBigItemImage(UINT16 usIndex, UINT16 PosY)
 		sOffsetX				= hPixHandle->p16BPPObject->sOffsetX;
 		sOffsetY				= hPixHandle->p16BPPObject->sOffsetY;
 	}
+    else
+    {
+        Assert(false);
+    }
 
 //	sCenX = PosX + ( abs( BOBBYR_GRID_PIC_WIDTH - usWidth ) / 2 );
 //	sCenY = PosY + 8;

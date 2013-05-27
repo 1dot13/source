@@ -746,6 +746,8 @@ void DrawRecordsColumnHeadersText( void )
 
 void DrawRecordsText( void )
 {
+    Assert(pFinanceListHead);
+
 	// draws the text of the records
 	FinanceUnitPtr pCurFinance=pCurrentFinance;
 	FinanceUnitPtr pTempFinance=pFinanceListHead;

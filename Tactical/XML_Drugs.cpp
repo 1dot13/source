@@ -230,7 +230,7 @@ BOOLEAN WriteDrugsStats()
 		UINT32 cnt;
 
 		FilePrintf(hFile,"<DRUGSLIST>\r\n");
-		for(cnt = 0;cnt < MAXITEMS;cnt++)
+		for(cnt = 0;cnt < DRUG_TYPE_MAX;cnt++)
 		{
 			FilePrintf(hFile,"\t<DRUG>\r\n");
 

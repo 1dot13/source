@@ -238,6 +238,7 @@ void sendHIT(RPCParameters *rpcParameters)
 	else if (team == 0) 
 		team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
 
+    Assert(team<5); // FIXME
 	gMPPlayerStats[team].hits++;
 
 	server->RPC("recieveHIT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
@@ -386,6 +387,7 @@ void sendhitSTRUCT(RPCParameters *rpcParameters)
 		else if (team == 0) 
 			team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
 
+        Assert(team<5); // FIXME
 		gMPPlayerStats[team].misses++;
 	}
 
@@ -410,6 +412,7 @@ void sendhitWINDOW(RPCParameters *rpcParameters)
 		else if (team == 0) 
 			team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
 
+        Assert(team<5); // FIXME
 		gMPPlayerStats[team].misses++;
 	}
 
@@ -433,6 +436,7 @@ void sendMISS(RPCParameters *rpcParameters)
 		else if (team == 0) 
 			team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
 
+        Assert(team<5); // FIXME
 		gMPPlayerStats[team].misses++;
 	}
 

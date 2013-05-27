@@ -1236,7 +1236,7 @@ char temp;
 			else
 			{
 				strncpy(pData->curCityInfo.IconSTI,pData->szCharData,MAX_ICON_CHARS);
-				pData->curCityInfo.IconSTI[MAX_ICON_CHARS] = '\0';
+				pData->curCityInfo.IconSTI[MAX_ICON_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ICON_CHARS);i++)
@@ -4209,7 +4209,7 @@ void AllMercsWalkedToExitGrid()
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - reset num enemies here if the sector was unloaded
-		if( gWorldSectorX == 0 && gWorldSectorX == 0 && gbWorldSectorZ == -1 )
+		if( gWorldSectorX == 0 && gWorldSectorY == 0 && gbWorldSectorZ == -1 )
 		{
 			memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS );
 		}
@@ -4396,7 +4396,7 @@ void AllMercsHaveWalkedOffSector( )
 		SetDefaultSquadOnSectorEntry( TRUE );
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - reset num enemies here if the sector was unloaded
-		if( !fEnemiesInLoadedSector || (gWorldSectorX == 0 && gWorldSectorX == 0 && gbWorldSectorZ == -1 ) )
+		if( !fEnemiesInLoadedSector || (gWorldSectorX == 0 && gWorldSectorY == 0 && gbWorldSectorZ == -1 ) )
 		{
 			memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS );
 		}

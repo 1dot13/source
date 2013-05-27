@@ -71,7 +71,7 @@ BOOLEAN bMERC;
 
 BOOLEAN LoadEncyclopediaMercBio( UINT8 ubIndex, STR16 pInfoString, STR16 pAddInfo,UINT32 Type )
 {
-	HWFILE		hFile;
+	HWFILE		hFile=NULL;
 	UINT32		uiBytesRead;
 	//UINT16		i;
 	UINT32		uiStartSeekAmount;
@@ -822,7 +822,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.szFile,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.szFile[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.szFile[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)
@@ -841,7 +841,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.szFile2,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.szFile2[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.szFile2[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)
@@ -860,7 +860,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.szFile3,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.szFile3[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.szFile3[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)
@@ -879,7 +879,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.szFile4,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.szFile4[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.szFile4[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)
@@ -972,7 +972,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.BeforeImage,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.BeforeImage[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.BeforeImage[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)
@@ -990,7 +990,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.AfterImage,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.AfterImage[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.AfterImage[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)
@@ -1049,7 +1049,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curEncyclopediaData.sSounds,pData->szCharData,MAX_ENCYCLOPEDIA_CHARS);
-				pData->curEncyclopediaData.sSounds[MAX_ENCYCLOPEDIA_CHARS] = '\0';
+				pData->curEncyclopediaData.sSounds[MAX_ENCYCLOPEDIA_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_ENCYCLOPEDIA_CHARS);i++)

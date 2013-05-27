@@ -1604,23 +1604,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 			{
 				if ( !UIHandleInteractiveTilesAndItemsOnTerrain( pSoldier, usMapPos, FALSE, TRUE ) )
 				{
-					// Are we in combat?
-					if ( (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) )
-					{
-						// If so, draw path, etc
-						fSetCursor =  HandleUIMovementCursor( pSoldier, uiCursorFlags, usMapPos, 0 );
-					}
-					else
-					{
-						// Donot draw path until confirm
-						fSetCursor = TRUE;
-
-						// If so, draw path, etc
-						fSetCursor =  HandleUIMovementCursor( pSoldier, uiCursorFlags, usMapPos, 0 );
-
-						//ErasePath( TRUE );
-					}
-
+					fSetCursor =  HandleUIMovementCursor( pSoldier, uiCursorFlags, usMapPos, 0 );
 				}
 				else
 				{

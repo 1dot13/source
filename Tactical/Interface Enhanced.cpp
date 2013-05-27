@@ -6235,7 +6235,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			}
 			else
 			{
-				swprintf( pStr, L"--", iToHitValue );
+				swprintf( pStr, L"--" );
 			}
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
@@ -6298,7 +6298,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			}
 			else
 			{
-				swprintf( pStr, L"--", iBestLaserRangeValue );
+				swprintf( pStr, L"--" );
 			}
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
@@ -10122,7 +10122,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				if (iModifier[cnt2])
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"Y", iModifier[cnt2] );
+					swprintf( pStr, L"Y", iModifier[cnt2] ); // FIXME: unused param
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else

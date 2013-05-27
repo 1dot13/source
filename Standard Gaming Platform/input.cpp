@@ -473,6 +473,9 @@ void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
 {
 	EnterCriticalSection(&gcsInputQueueLock);
+
+    BOOLEAN result = FALSE;
+
 	__try
 	{
 		// Is there an event to dequeue
@@ -483,16 +486,16 @@ BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags )
 			// Check if it has the masks!
 			if ( ( Event->usEvent & uiMaskFlags ) )
 			{
-				return( DequeueEvent( Event) );
+				result = DequeueEvent( Event);
 			}
 		}
-
-		return( FALSE );
 	}
 	__finally
 	{
 		LeaveCriticalSection(&gcsInputQueueLock);
 	}
+
+    return result;
 }
 
 BOOLEAN InternalDequeueEvent(InputAtom *Event)
@@ -529,15 +532,18 @@ BOOLEAN InternalDequeueEvent(InputAtom *Event)
 
 BOOLEAN DequeueEvent(InputAtom *Event)
 {
+    BOOLEAN result = FALSE;
 	__try
 	{
 		EnterCriticalSection(&gcsInputQueueLock);
-		return InternalDequeueEvent(Event);
+        result = InternalDequeueEvent(Event);
 	}
 	__finally
 	{
 		LeaveCriticalSection(&gcsInputQueueLock);
 	}
+
+	return result;
 }
 
 

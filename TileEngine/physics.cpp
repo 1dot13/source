@@ -2399,6 +2399,8 @@ BOOLEAN CheckForCatcher( REAL_OBJECT *pObject, UINT16 usStructureID )
 
 void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 {
+    Assert(usStructureID<TOTAL_SOLDIERS);
+
 	SOLDIERTYPE *pSoldier;
 	INT16		sDamage, sBreath;
 

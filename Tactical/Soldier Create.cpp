@@ -1019,7 +1019,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 					case ELDORADO:
 					case ICECREAMTRUCK:
 					case JEEP:
-						if ( Soldier.ubProfile != HELICOPTER || Soldier.ubProfile != 0 || Soldier.ubProfile != NO_PROFILE || Soldier.ubProfile != TANK_CAR ) 
+						if ( Soldier.ubProfile != HELICOPTER && Soldier.ubProfile != 0 && Soldier.ubProfile != NO_PROFILE && Soldier.ubProfile != TANK_CAR ) 
 						{
 							ubVehicleID = Soldier.ubProfile;
 							Soldier.aiData.bNeutral = gNewVehicle[Soldier.ubProfile].bNewNeutral;
@@ -3251,7 +3251,7 @@ INT32 GetSittableGridNoInRoom(UINT16 usRoom, BOOLEAN fEnoughSpace)
 	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);
 	if ( ubSectorId >= 0 && ubSectorId < 256  )
 	{
-		for ( UINT32 uiLoop = 0; uiLoop < WORLD_MAX; ++uiLoop )
+		for ( INT32 uiLoop = 0; uiLoop < WORLD_MAX; ++uiLoop )
 		{
 			if ( (gusWorldRoomInfo[ uiLoop ] == usRoom) )
 			{
@@ -3494,9 +3494,11 @@ extern void DistributeInitialGear(MERCPROFILESTRUCT *pProfile);
 
 void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct )
 {
-	UINT32								cnt, cnt2;
-	MERCPROFILESTRUCT *		pProfile;
-	BOOLEAN					success, fRet;
+	UINT32			cnt, cnt2;
+	MERCPROFILESTRUCT*		pProfile;
+	BOOLEAN success;
+    BOOLEAN fRet;
+
 
 	pProfile = &(gMercProfiles[pCreateStruct->ubProfile]);
 
@@ -3582,10 +3584,14 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 		}
 		else
 		{
+            fRet=FALSE;
+
 			for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
 			{
+
 				if ( pProfile->inv[ cnt ] != NOTHING )
 				{
+
 					if ( Item[ pProfile->inv[ cnt ] ].usItemClass == IC_KEY )
 					{
 						// since keys depend on 2 values, they pretty much have to be hardcoded.

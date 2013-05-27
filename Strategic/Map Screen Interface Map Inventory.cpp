@@ -4257,8 +4257,8 @@ void SortSectorInventoryAmmo(bool useBoxes)
 {
 	
 	// Declarations
-	INT32		crateItem;
-	bool		mergeSuccessful, ammoPresent;
+	INT32	crateItem;
+	bool	mergeSuccessful = false;
 	OBJECTTYPE	newCrate;
 	int loopCount = 0;
 
@@ -4267,7 +4267,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 	AssertMsg( pSoldier != NULL, "Sector Inventory: Attempting ammo sort without valid selected soldier?" );
 
 	//MM: added for ammo boxes
-	ammoPresent = true;
+	bool ammoPresent = true;
 	UINT8 magType = AMMO_CRATE;
 	if (useBoxes)
 		magType = AMMO_BOX;

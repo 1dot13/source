@@ -118,7 +118,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curSectorLoadscreens.szLocation,pData->szCharData,MAX_LOCATION_CHARS);
-				pData->curSectorLoadscreens.szLocation[MAX_LOCATION_CHARS] = '\0';
+				pData->curSectorLoadscreens.szLocation[MAX_LOCATION_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_LOCATION_CHARS);i++)
@@ -142,7 +142,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curSectorLoadscreens.szImageFormat,pData->szCharData,MAX_IMAGE_FORMAT_CHARS);
-				pData->curSectorLoadscreens.szImageFormat[MAX_IMAGE_FORMAT_CHARS] = '\0';
+				pData->curSectorLoadscreens.szImageFormat[MAX_IMAGE_FORMAT_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_IMAGE_FORMAT_CHARS);i++)
@@ -161,7 +161,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curSectorLoadscreens.szDay,pData->szCharData,MAX_IMAGE_PATH_CHARS);
-				pData->curSectorLoadscreens.szDay[MAX_IMAGE_PATH_CHARS] = '\0';
+				pData->curSectorLoadscreens.szDay[MAX_IMAGE_PATH_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_IMAGE_PATH_CHARS);i++)
@@ -180,7 +180,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curSectorLoadscreens.szNight,pData->szCharData,MAX_IMAGE_PATH_CHARS);
-				pData->curSectorLoadscreens.szNight[MAX_IMAGE_PATH_CHARS] = '\0';
+				pData->curSectorLoadscreens.szNight[MAX_IMAGE_PATH_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_IMAGE_PATH_CHARS);i++)
@@ -199,7 +199,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curSectorLoadscreens.szDayAlt,pData->szCharData,MAX_IMAGE_PATH_CHARS);
-				pData->curSectorLoadscreens.szDayAlt[MAX_IMAGE_PATH_CHARS] = '\0';
+				pData->curSectorLoadscreens.szDayAlt[MAX_IMAGE_PATH_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_IMAGE_PATH_CHARS);i++)
@@ -218,7 +218,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curSectorLoadscreens.szNightAlt,pData->szCharData,MAX_IMAGE_PATH_CHARS);
-				pData->curSectorLoadscreens.szNightAlt[MAX_IMAGE_PATH_CHARS] = '\0';
+				pData->curSectorLoadscreens.szNightAlt[MAX_IMAGE_PATH_CHARS-1] = '\0';
 			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_IMAGE_PATH_CHARS);i++)

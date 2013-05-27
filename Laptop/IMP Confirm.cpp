@@ -1691,6 +1691,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,1);
 
 		// give ammo for guns
+        Assert(usItem<MAXITEMS);
 		if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 		{
 			usItem = DefaultMagazine(usItem);

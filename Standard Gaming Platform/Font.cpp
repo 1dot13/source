@@ -403,7 +403,7 @@ UINT32					LoadIndex;
 void UnloadFont(UINT32 FontIndex)
 {
 	Assert(FontIndex >= 0);
-	Assert(FontIndex <= MAX_FONTS);
+	Assert(FontIndex < MAX_FONTS);
 	Assert(FontObjs[FontIndex]!=NULL);
 
 	DeleteVideoObject(FontObjs[FontIndex]);

@@ -164,7 +164,7 @@ void HandleCharProfile()
 		if( fDoneLoadPending == FALSE )
 		{
 			//make sure we are not hosing memory
-			Assert( iCurrentImpPage <= IMP_NUM_PAGES );
+			Assert( iCurrentImpPage < IMP_NUM_PAGES );
 
 
 			fFastLoadFlag = HasTheCurrentIMPPageBeenVisited( );
@@ -808,7 +808,7 @@ BOOLEAN HasTheCurrentIMPPageBeenVisited( void )
 	// returns if we have vsisted the current IMP PageAlready
 
 	//make sure we are not hosing memory
-	Assert( iCurrentImpPage <= IMP_NUM_PAGES );
+	Assert( iCurrentImpPage < IMP_NUM_PAGES );
 
 	return ( fVisitedIMPSubPages[ iCurrentImpPage ]);
 }

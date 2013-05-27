@@ -1345,7 +1345,7 @@ void CreatureAttackCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if( ( gsSelSectorX != 0 ) && ( gsSelSectorX != 0 ) )
+		if( ( gsSelSectorX != 0 ) && ( gsSelSectorY != 0 ) )
 		{
 			if( _KeyDown( ALT ) )
 			{

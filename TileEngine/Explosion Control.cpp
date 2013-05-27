@@ -650,7 +650,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"ExplosiveDamageStructureAtGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompMoveCosts : %i , fOnlyWalls : %i , SubsMulTilTransDmg :  %i , ubOwner : %i , bLevel : %i )\n",sGridNo, sWoundAmt , (int)*pfRecompileMovementCosts , (int)fOnlyWalls , (int)fSubSequentMultiTilesTransitionDamage , ubOwner , bLevel );
+		sprintf(tmpMPDbgString,"ExplosiveDamageStructureAtGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompMoveCosts : %i , fOnlyWalls : %i , SubsMulTilTransDmg :  %i , ubOwner : %i , bLevel : %i )\n", sGridNo, sWoundAmt , uiDist, (int)*pfRecompileMovementCosts , (int)fOnlyWalls , (int)fSubSequentMultiTilesTransitionDamage , ubOwner , bLevel );
 		MPDebugMsg(tmpMPDbgString);
 	}
 #endif
@@ -1324,7 +1324,7 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 #ifdef JA2BETAVERSION
 	if (is_networked) {
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"ExplosiveDamageGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompileMoveCosts : %i , fOnlyWalls : %i , MultiStructSpecialFlag : %i ,fSubsequentMultiTilesTransDmg : %i , ubOwner : %i , bLevel : %i )\n",sGridNo, sWoundAmt , (int)*pfRecompileMovementCosts , (int)fOnlyWalls , bMultiStructSpecialFlag , (int)fSubSequentMultiTilesTransitionDamage , ubOwner , bLevel );
+		sprintf(tmpMPDbgString,"ExplosiveDamageGridNo ( sGridNo : %i , sWoundAmt : %i , uiDist : %i , fRecompileMoveCosts : %i , fOnlyWalls : %i , MultiStructSpecialFlag : %i ,fSubsequentMultiTilesTransDmg : %i , ubOwner : %i , bLevel : %i )\n", sGridNo, sWoundAmt ,uiDist, (int)*pfRecompileMovementCosts , (int)fOnlyWalls , bMultiStructSpecialFlag , (int)fSubSequentMultiTilesTransitionDamage , ubOwner , bLevel );
 		MPDebugMsg(tmpMPDbgString);
 	}
 #endif

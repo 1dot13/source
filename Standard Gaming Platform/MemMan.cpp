@@ -405,7 +405,7 @@ void MemFreeLocked( PTR ptr, UINT32 uiSize )
 	if (ptr != NULL)
 	{
 	VirtualUnlock( ptr, uiSize );
-	VirtualFree( ptr, uiSize, MEM_RELEASE );
+	VirtualFree( ptr, 0, MEM_RELEASE );
 
 		guiMemTotal -= uiSize;
 		guiMemFreed += uiSize;

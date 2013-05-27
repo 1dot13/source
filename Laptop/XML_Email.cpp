@@ -125,22 +125,23 @@ EmailOtherEndElementHandle(void *userData, const XML_Char *name)
 			if (!EmailOther_TextOnly)
 				{
 					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szSubject, pData->curEmailOther.szSubject);
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[0], L"1. sdssdsfs dfg fdgd fgffdsf test" ); //pData->curEmailOther.szMessage[0]);					
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[1], L"2. sdssdsfs dfg fgfgffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[2], L"3. sdssdsfsd gdfg fdfgfdg ffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[3], L"4. sdssdsf dgdfg dgsffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[4], L"5. sdssdsfdgdfg  dgfd gsffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[5], L"6. sdssdsfsffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[6], L"7. sdssdsfsffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[7], L"8. sdssdsfsfdgdgfgfdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[8], L"9. sdssdsfsff dg dfgdg fg dfg dsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[9], L"10. sdssdsfsfgdsgdfgfdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[10], L"11. sdssdsfsff dgdf fgfdg dfgd dsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[11], L"12. sdssdsfsf dfg dfgf gdfg dsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[12], L"13. sdssdsfsf dfgdfgdf gdfg gfdsf test" );
+                                                                                    // L"12345678901234567890123456789" <- max lenght (szMessage[30])
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[0],  L"1. sdssdsfs dfg fdgd fg  test" ); //pData-curEmailOther.szMessage[0]);					
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[1],  L"2. sdssdsfs dfg fgfgffds test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[2],  L"3. sdssdsfsd gdfg fdfgsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[3],  L"4. sdssdsf dgdfg dgsfdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[4],  L"5. sdssdsfdgdfg  dgfddsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[5],  L"6. sdssdsfsffdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[6],  L"7. sdssdsfsffdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[7],  L"8. sdssdsfsfdgdgfgfdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[8],  L"9. sdssdsfsff dg gdg dsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[9],  L"10. sdssdsfsfgdsgdfgfdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[10], L"11. sdssdsfsff dgfgd dsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[11], L"12. sdssdsfsf dfgdfg dsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[12], L"13. sdssdsfsf dfgg gfdsf test" );
 					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[13], L"14. sdssdsf dgdf gsffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[14], L"15. sdssdsf dgdf dfg d gdf ffdsf test" );
-					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[15], L"16. sdssdsfs dgdfg fdg dgdfg gffdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[14], L"15. sdssdsf dgdf f ffdsf test" );
+					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[15], L"16. sdssdsfs dgdf gffdsf test" );
 
 				/*
 					wcscpy(EmailOtherText[pData->curEmailOther.uiIndex].szMessage[1], pData->curEmailOther.szMessage[1]);

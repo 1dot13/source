@@ -2328,41 +2328,46 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 				{
 					pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
 
-					// stupid hack CC
-					if (pSoldier && ubNPC == KYLE)
-					{
-						// make sure he has keys
-						pSoldier->flags.bHasKeys = TRUE;
-					}
-					if (pSoldier && pSoldier->sGridNo == pQuotePtr->usGoToGridNo )
-					{
-						// search for quotes to trigger immediately!
-						pSoldier->ubQuoteRecord = ubRecordNum + 1; // add 1 so that the value is guaranteed nonzero
-						NPCReachedDestination( pSoldier, TRUE );
-					}
-					else
-					{
-						// turn off cowering
-						if ( pNPC->flags.uiStatusFlags & SOLDIER_COWERING)
-						{
-							//pNPC->flags.uiStatusFlags &= ~SOLDIER_COWERING;
-							pNPC->EVENT_InitNewSoldierAnim( STANDING, 0 , FALSE );
-						}
+					
+                    if (pSoldier)
+                    {
+                        // stupid hack CC
+					    if (ubNPC == KYLE)
+					    {
+						    // make sure he has keys
+						    pSoldier->flags.bHasKeys = TRUE;
+					    }
 
-						pSoldier->ubQuoteRecord = ubRecordNum + 1; // add 1 so that the value is guaranteed nonzero
+					    if (pSoldier->sGridNo == pQuotePtr->usGoToGridNo )
+					    {
+						    // search for quotes to trigger immediately!
+						    pSoldier->ubQuoteRecord = ubRecordNum + 1; // add 1 so that the value is guaranteed nonzero
+						    NPCReachedDestination( pSoldier, TRUE );
+					    }
+					    else
+					    {
+						    // turn off cowering
+						    if ( pNPC->flags.uiStatusFlags & SOLDIER_COWERING) // FIXME: Dereferencing null pointer
+						    {
+							    //pNPC->flags.uiStatusFlags &= ~SOLDIER_COWERING;
+							    pNPC->EVENT_InitNewSoldierAnim( STANDING, 0 , FALSE );
+						    }
 
-						if (pQuotePtr->sActionData == NPC_ACTION_TELEPORT_NPC)
-						{
-							BumpAnyExistingMerc( pQuotePtr->usGoToGridNo );
-							TeleportSoldier( pSoldier, pQuotePtr->usGoToGridNo, FALSE );
-							// search for quotes to trigger immediately!
-							NPCReachedDestination( pSoldier, FALSE );
-						}
-						else
-						{
-							NPCGotoGridNo( ubNPC, pQuotePtr->usGoToGridNo, ubRecordNum );
-						}
-					}
+						    pSoldier->ubQuoteRecord = ubRecordNum + 1; // add 1 so that the value is guaranteed nonzero
+
+						    if (pQuotePtr->sActionData == NPC_ACTION_TELEPORT_NPC)
+						    {
+							    BumpAnyExistingMerc( pQuotePtr->usGoToGridNo );
+							    TeleportSoldier( pSoldier, pQuotePtr->usGoToGridNo, FALSE );
+							    // search for quotes to trigger immediately!
+							    NPCReachedDestination( pSoldier, FALSE );
+						    }
+						    else
+						    {
+							    NPCGotoGridNo( ubNPC, pQuotePtr->usGoToGridNo, ubRecordNum );
+						    }
+					    }
+                    }
 				}
 
 				// Trigger other NPC?

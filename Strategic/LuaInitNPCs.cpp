@@ -784,9 +784,9 @@ ACTION_ITEM_VALUES ActionItemsValues[500];
 
 void IniLuaGlobal()
 {
-UINT32 i;
+    UINT32 i;
 
-	for (i= 0; i<=1000; i++ )
+	for (i= 0; i<1000; i++ )
 	{
 		gLuaGlobal[i].fGlobalLuaBool = FALSE;
 		gLuaGlobal[i].iGlobalLuaVal = 0;

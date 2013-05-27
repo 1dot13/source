@@ -224,7 +224,7 @@ BOOLEAN WriteFoodStats()
 		UINT32 cnt;
 
 		FilePrintf(hFile,"<FOODSLIST>\r\n");
-		for(cnt = 0; cnt < MAXITEMS; ++cnt)
+		for(cnt = 0; cnt < FOOD_TYPE_MAX; ++cnt)
 		{
 			FilePrintf(hFile,"\t<FOOD>\r\n");
 

@@ -4042,6 +4042,7 @@ void Console::CopyTextToClipboard() {
 	// lock the handle and copy the text to the buffer.
 	wchar_t* pszData = (wchar_t*)::GlobalLock(hglbData);
 
+    if (pszData)
 	{
 		int i;
 		for (i = 0; i < nSelRows; ++i) {

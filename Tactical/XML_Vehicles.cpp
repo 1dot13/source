@@ -296,10 +296,10 @@ void InitNewVehicles ()
 		gNewVehicle[ iCount ].bNewVehicle = FALSE;
 		gNewVehicle[ iCount ].NewPilot = -1;	
 		gNewVehicle[ iCount ].NewCarPortraits = -1;
-		gNewVehicle[ iCount ].szIconFace[MAX_MAIN_VEHICLE_CHARS] = '\0';			
-		gNewVehicle[ iCount ].NewVehicleStrings[128] = '\0';
-		gNewVehicle[ iCount ].NewVehicleName[128] = '\0';
-		gNewVehicle[ iCount ].NewShortVehicleStrings[128] = '\0';	
+		gNewVehicle[ iCount ].szIconFace[MAX_MAIN_VEHICLE_CHARS-1] = '\0';			
+		gNewVehicle[ iCount ].NewVehicleStrings[127] = '\0';
+		gNewVehicle[ iCount ].NewVehicleName[127] = '\0';
+		gNewVehicle[ iCount ].NewShortVehicleStrings[127] = '\0';	
 		gNewVehicle[ iCount ].NewUsed = FALSE;
 	}
 }

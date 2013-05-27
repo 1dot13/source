@@ -1232,7 +1232,7 @@ INT32 iBonusPointsNeededForLevelUp()
 
 INT32 iBonusPointsRecievedForLevelDown()
 {
-	INT32 iBonusPointsRecieved; 
+	INT32 iBonusPointsRecieved=0; 
 
 	if (iStartingLevel > 1 && iStartingLevel <= 10)
 	{

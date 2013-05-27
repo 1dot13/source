@@ -1560,7 +1560,7 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
  // wcscpy(pTemp->pSubject,EmailOtherText[pA->usLength].szSubject);
  else if ( pA->EmailVersion == TYPE_EMAIL_BOBBY_R || pA->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT )				
  wcscpy(pTemp->pSubject,pA->pSubject);
- else if ( pA->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pA->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )				
+ else if ( pA->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pA->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pA->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
  wcscpy(pTemp->pSubject,pA->pSubject);
 
  // pA becomes pB
