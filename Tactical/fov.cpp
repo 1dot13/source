@@ -349,7 +349,8 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	if ( gubGridNoValue == 255 )
 	{
 		// Reset!
-		memset( gubGridNoMarkers, 0, sizeof( gubGridNoMarkers ) );
+		Assert(gubGridNoMarkers);
+        memset(gubGridNoMarkers, 0, sizeof(UINT8)*WORLD_MAX);
 		gubGridNoValue = 1;
 	}
 
@@ -373,7 +374,7 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 		range = pSoldier->bViewRange;
 
 		// Flugente: adjust sightrange
-		range = (UINT16)( (range * (100 + pSoldier->GetSightRangeBonus()) ) / 100);
+		range = (UINT8)( (range * (100 + pSoldier->GetSightRangeBonus()) ) / 100);
 
 		// balance item viewing range between normal and the limit set by opplist-type functions -- CJC
 		range = (AdjustMaxSightRangeForEnvEffects( pSoldier, LightTrueLevel( pSoldier->sGridNo, pSoldier->pathing.bLevel), range ) + range) / 2;

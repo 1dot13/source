@@ -21,7 +21,7 @@ void ZFree( voidpf opaque, voidpf address )
 	MemFree( address );
 }
 
-PTR DecompressInit( BYTE * pCompressedData, UINT32 uiDataSize )
+PTR DecompressInit( PTR pCompressedData, UINT32 uiDataSize )
 {
 	z_stream *	pZStream;
 	int					iZRetCode;
@@ -47,7 +47,7 @@ PTR DecompressInit( BYTE * pCompressedData, UINT32 uiDataSize )
 	}
 
 	// set up our parameters
-	pZStream->next_in = pCompressedData;
+	pZStream->next_in = (BYTE*)pCompressedData;
 	pZStream->avail_in = uiDataSize;
 	return( (PTR) pZStream );
 }

@@ -42,6 +42,7 @@ class Cursor {
 			, m_hdcWindow(hdcWindow)
 			, m_crCursorColor(crCursorColor)
 			, m_bActive(TRUE)
+            , m_uiTimer(0)
 		{};
 		
 		virtual ~Cursor(){};
@@ -336,10 +337,12 @@ class FadeBlockCursor : public Cursor {
 		HMODULE			m_hUser32;
 		BLENDFUNCTION	m_bfn;
 		HDC				m_hMemDC;
+#if 0
 		HBITMAP			m_hBmp;
 		HBITMAP			m_hBmpOld;
 		int				m_nBmpWidth;
 		int				m_nBmpHeight;
+#endif
 };
 
 /////////////////////////////////////////////////////////////////////////////

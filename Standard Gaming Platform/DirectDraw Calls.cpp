@@ -504,7 +504,7 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 	else if ( uiFlags & DDBLT_KEYSRC )
 	{
 		// Get 16 bpp color key.....
-		ReturnCode = IDirectDrawSurface2_GetColorKey( pSrcSurface, DDCKEY_SRCBLT, &ColorKey);
+		ReturnCode = IDirectDrawSurface2_GetColorKey( pSrcSurface, DDCKEY_SRCBLT, &ColorKey); // FIXME: pSrcSurface might be NULL
 
 	if (ReturnCode == DD_OK)
 		{

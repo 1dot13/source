@@ -14,7 +14,6 @@
 	#include "Random.h"
 	#include "Strategic Pathing.h"
 	#include "message.h"
-//	#include "Sound Control.h"
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "strategic.h"
@@ -567,11 +566,6 @@ INT32 GarrisonReinforcementsRequested( INT32 iGarrisonID, UINT8 *pubExtraReinfor
 	*pubExtraReinforcements = (UINT8)min( (INT32)*pubExtraReinforcements, min( (INT32)(*pubExtraReinforcements), iMaxEnemyGroupSize - iReinforcementsRequested ) );
 
 	iReinforcementsRequested = min( iMaxEnemyGroupSize, iReinforcementsRequested );
-
-	if( iReinforcementsRequested + *pubExtraReinforcements + iExistingForces > iMaxEnemyGroupSize )
-	{
-		iExistingForces = iExistingForces;
-	}
 
 	return iReinforcementsRequested;
 }
@@ -2301,6 +2295,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 //returns TRUE if the group was deleted.
 BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 {
+    Assert(pGroup);
+
 	SECTORINFO *pSector;
 	GROUP *pEnemyGroup, *pPlayerGroup;
 	UINT8 ubNumEnemies;
@@ -3165,10 +3161,6 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 	if( iRandom < giReinforcementPool )
 	{ //use the pool and send the requested amount from SECTOR P3 (queen's palace)
 		iReinforcementsApproved = min( iReinforcementsRequested, giReinforcementPool );
-		if( !iReinforcementsApproved )
-		{
-			iReinforcementsApproved = iReinforcementsApproved;
-		}
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, (UINT8)iReinforcementsApproved, 0 );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 
@@ -6487,14 +6479,8 @@ void MoveSAIGroupToSector( GROUP **pGroup, UINT8 ubSectorID, UINT32 uiMoveCode, 
 	(*pGroup)->pEnemyGroup->ubIntention = ubIntention;
 	(*pGroup)->ubMoveType = ONE_WAY;
 
-	if( ubIntention == PURSUIT )
-	{	//Make sure that the group isn't moving into a garrison sector.	These sectors should be using ASSAULT intentions!
-		if( SectorInfo[ ubSectorID ].ubGarrisonID != NO_GARRISON )
-		{
-			//Good place for a breakpoint.
-			pGroup = pGroup;
-		}
-	}
+	//Make sure that the group isn't moving into a garrison sector.	These sectors should be using ASSAULT intentions!
+    Assert(ubIntention != PURSUIT && SectorInfo[ ubSectorID ].ubGarrisonID != NO_GARRISON );
 
 	if( (*pGroup)->ubSectorX == ubDstSectorX && (*pGroup)->ubSectorY == ubDstSectorY )
 	{ //The destination sector is the current location.	Instead of causing code logic problems,

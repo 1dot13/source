@@ -219,7 +219,7 @@ public:
 
 	UINT16 GetChecksum();
 
-	SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const _OLD_SOLDIERCREATE_STRUCT& src);//dnl ch42 250909
+	SOLDIERCREATE_STRUCT& operator=(const _OLD_SOLDIERCREATE_STRUCT& src);//dnl ch42 250909
 
 	// Initialize the soldier.	
 	//	Use this instead of the old method of calling memset!

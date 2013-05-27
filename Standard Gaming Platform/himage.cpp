@@ -426,7 +426,7 @@ BOOLEAN CopyImageToBuffer( HIMAGE hImage, UINT32 fBufferType, BYTE *pDestBuf, UI
 	if ( hImage->ubBitDepth == 24 && fBufferType == BUFFER_16BPP )
 	{
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Copying 24 BPP Imagery to 16BPP Buffer." );
-		SGP_THROW("not yet implemented");
+        AssertMsg(false,"not yet implemented");
 		return( FALSE );
 	}
 
@@ -583,7 +583,7 @@ BOOLEAN Copy8BPPCompressedImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UIN
 	CHECKF( pDecompPtr );
 
 	// Allocate memory for one scanline
-	pScanLine = MemAlloc( hImage->usWidth );
+	pScanLine = (UINT8*) MemAlloc( hImage->usWidth );
 	CHECKF( pScanLine );
 	memset( pScanLine, 0, hImage->usWidth );
 

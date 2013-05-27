@@ -155,7 +155,7 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 	//new profiles by Jazz
 	else if ( gProfilesIMP[ubNPC].ProfilId == ubNPC || gProfilesAIM[ubNPC].ProfilId == ubNPC || gProfilesMERC[ubNPC].ProfilId == ubNPC || ( gProfilesRPC[ubNPC].ProfilId == ubNPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )	
 	{
-		sprintf( zFileName, "NPCData\\000.npc", ubNPC );
+		sprintf( zFileName, "NPCData\\000.npc", ubNPC ); // FIXME: extra/unused argument
 	}
 	else
 	{

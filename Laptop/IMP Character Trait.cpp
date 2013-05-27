@@ -483,7 +483,6 @@ void AssignCharacterTraitHelpText( UINT8 ubNumber )
 {
 	CHAR16	apStr[ 2000 ];
 
-	swprintf( apStr, L"" );
 	swprintf( apStr, gzIMPNewCharacterTraitsHelpTexts[ubNumber] );
 
 	// Set region help text

@@ -14,9 +14,6 @@
 #include "../../TileEngine/Render Fun.h"        // defines InARoom
 #include "../../Strategic/quests.h"             // IN_BROTHEL
 
- // FIXME uagh, these need to go
-extern BOOLEAN gfUIInDeadlock;
-extern UINT8 gUIDeadlockedSoldier;
 
 void HandleAITacticalTraversal(SOLDIERTYPE* pSoldier);  // defined in TacticalAI/AIMain.cpp
 

@@ -6,7 +6,6 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
-	//#include "soldier control.h"
 	#include "Encrypted File.h"
 	#include "faces.h"
 	#include "wcheck.h"
@@ -25,7 +24,6 @@
 	#include "items.h"
 	#include "text.h"
 	#include "overhead.h"
-	//#include "soldier control.h"
 	#include "assignments.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
@@ -4160,6 +4158,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					pSoldier = ChangeSoldierTeam( pSoldier, CIV_TEAM );
 				}
+                Assert(pSoldier);
 				// remove profile from map
 				gMercProfiles[ pSoldier->ubProfile ].sSectorX = 0;
 				gMercProfiles[ pSoldier->ubProfile ].sSectorY = 0;

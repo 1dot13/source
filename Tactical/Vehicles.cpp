@@ -1739,6 +1739,7 @@ void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridN
 #endif
 
 	pSoldier = GetSoldierStructureForVehicle( ubID );
+    Assert(pSoldier);
 
 	if ( sDmg > pSoldier->stats.bLife )
 	{

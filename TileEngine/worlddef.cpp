@@ -827,6 +827,7 @@ BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
 			GetTileType( pNode->usIndex, &uiTileType );
 
 		UINT16 RestrSubIndex;
+        Assert(pNode);
 		GetSubIndexFromTileIndex( pNode->usIndex, (UINT16 *)&RestrSubIndex );
 
 		//этот тип окон не содержится в 0 тайлсете, проверка нулевого тайлсета в этом случае не нужна

@@ -2188,10 +2188,7 @@ INT32 DetermineNewValue( INT32 iNewX )
 	INT32 iNewValue=0;
 	INT32	iStartLoc = SKILL_SLIDE_START_X + LAPTOP_SCREEN_UL_X;
 	INT32 iPositionX = iNewX - iStartLoc;
-	FLOAT fPercentOfBar=0.0f;
-
-
-	fPercentOfBar = iPositionX / ( FLOAT)( BAR_WIDTH - SLIDER_BAR_WIDTH );
+	FLOAT fPercentOfBar = iPositionX / ( FLOAT)( BAR_WIDTH - SLIDER_BAR_WIDTH );
 
 	iNewValue = (INT32)( fPercentOfBar * ( iMaxAttribute - (FLOAT)iMinAttribute ) );
 

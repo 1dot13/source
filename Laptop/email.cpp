@@ -5546,8 +5546,6 @@ BOOLEAN DisplayNumberOfPagesToThisEmail( INT32 iViewerY )
  // BltVideoObject( FRAME_BUFFER, hHandle, 0,VIEWER_X + INDENT_X_OFFSET, VIEWER_Y + iViewerY + INDENT_Y_OFFSET - 10, VO_BLT_SRCTRANSPARENCY,NULL );
  // DeleteVideoObjectFromIndex( uiMailIndent );
 
-	giNumberOfPagesToCurrentEmail = ( giNumberOfPagesToCurrentEmail );
-
 	// parse current page and max number of pages to email
 	swprintf( sString,L"%d / %d", ( giMessagePage + 1 ), ( giNumberOfPagesToCurrentEmail - 1 ) );
 

@@ -929,7 +929,6 @@ BOOLEAN EnterAIMMembers()
 		SetButtonCursor(giNextButton, CURSOR_WWW );
 	}
 
-	gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 	gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 	gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
 
@@ -3294,7 +3293,6 @@ void SelectShutUpMercRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 		{
 			fInCallBack = FALSE;
-
 			gfStopMercFromTalking = TRUE;
 			fInCallBack = TRUE;
 		}

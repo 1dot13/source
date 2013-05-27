@@ -2297,7 +2297,7 @@ UINT16 DisplayProtection(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 		break;
 	}
 	
-	swprintf(sTemp, L"%d", iProtection, Armour[ Item[ usIndex ].ubClassIndex ].ubProtection);
+	swprintf(sTemp, L"%d", iProtection, Armour[ Item[ usIndex ].ubClassIndex ].ubProtection); // FIXME: param4 is unused
 	wcscat( sTemp, L"%%" );
 	swprintf( sTemp2, L"(%d)", Armour[ Item[ usIndex ].ubClassIndex ].ubProtection );
 	wcscat( sTemp, sTemp2 );

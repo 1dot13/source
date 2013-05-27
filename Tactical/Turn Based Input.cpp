@@ -15,7 +15,6 @@
 #include "math.h"
 #include "jascreens.h"
 #include "pathai.h"
-//#include "Soldier Control.h"
 #include "Animation Control.h"
 #include "Animation Data.h"
 #include "Event Pump.h"
@@ -356,11 +355,9 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 										// If we're on terrain,
 										if ( gusSelectedSoldier != NOBODY )
 										{
-											INT8 bReturnVal = FALSE;
-
 											GetSoldier( &pSoldier, gusSelectedSoldier );
 
-											bReturnVal = HandleMoveModeInteractiveClick( usMapPos, puiNewEvent );
+											INT8 bReturnVal = HandleMoveModeInteractiveClick( usMapPos, puiNewEvent );
 
 											// All's OK for interactive tile?
 											if ( bReturnVal == -2 )

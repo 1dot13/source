@@ -1386,7 +1386,7 @@ void ReplaceSleepSpot( SCHEDULENODE * pSchedule, UINT16 usNewSpot )
 void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot )
 {
 	SOLDIERTYPE *			pSoldier2;
-	UINT32						usSleepSpot2, usNewSleepSpot;
+	UINT32				usSleepSpot2;
 	UINT32						uiLoop;
 	SCHEDULENODE *		pSchedule;
 	UINT8							ubDirection;
@@ -1405,7 +1405,7 @@ void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot )
 				{
 					// conflict!
 					//usNewSleepSpot = (INT16) FindGridNoFromSweetSpotWithStructData( pSoldier2, pSoldier2->usAnimState, usSleepSpot2, 3, &ubDirection, FALSE );
-					usNewSleepSpot = FindGridNoFromSweetSpotExcludingSweetSpot( pSoldier2, usSleepSpot2, 3, &ubDirection );
+					INT32 usNewSleepSpot = FindGridNoFromSweetSpotExcludingSweetSpot( pSoldier2, usSleepSpot2, 3, &ubDirection );
 					if (!TileIsOutOfBounds(usNewSleepSpot))
 					{
 						ReplaceSleepSpot( pSchedule, usNewSleepSpot );

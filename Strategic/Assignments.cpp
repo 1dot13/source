@@ -796,8 +796,6 @@ BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pSoldier )
 
 BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier )
 {
-	INT32 iCounter;
-
 	AssertNotNIL(pSoldier);
 
 	// items?
@@ -815,7 +813,7 @@ BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier )
 	// vehicles?
 	if ( pSoldier->bSectorZ == 0 )
 	{
-		for ( iCounter = 0; iCounter < ubNumberOfVehicles; iCounter++ )
+		for (INT32 iCounter = 0; iCounter < ubNumberOfVehicles; iCounter++ )
 		{
 			if ( pVehicleList[ iCounter ].fValid == TRUE )
 			{
@@ -875,7 +873,6 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 	INT8	bPocket;
 	UINT8	ubItemsInPocket, ubObjectInPocketCounter;
 	INT8 bLoop;
-	SOLDIERTYPE * pOtherSoldier;
 	OBJECTTYPE * pObj;
 	UINT8 ubPassType;
 
@@ -928,7 +925,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 		// now look for items to repair on other mercs
 		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop < gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
 		{
-			pOtherSoldier = MercPtrs[ bLoop ];
+			SOLDIERTYPE* pOtherSoldier = MercPtrs[ bLoop ];
 
 			if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
 			{
@@ -1439,14 +1436,13 @@ BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSol
 INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier, UINT8 ubMilitiaType )
 {
 	INT8	bLoop;
-	SOLDIERTYPE * pOtherSoldier;
 	INT8	bCount = 0;
 
 	AssertNotNIL(pSoldier);
 
 	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
 	{
-		pOtherSoldier = MercPtrs[ bLoop ];
+		SOLDIERTYPE* pOtherSoldier = MercPtrs[ bLoop ];
 		if ( pSoldier != pOtherSoldier && pOtherSoldier->bActive && pOtherSoldier->stats.bLife >= OKLIFE && pOtherSoldier->sSectorX == pSoldier->sSectorX && pOtherSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
 		{
 			// Count depends on Militia Type requested
@@ -2624,7 +2620,7 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 
 	// for max points we display the maximum amount of prisoners instead
 	*pusMaxPts = 0;
-	if ( !pSoldier || !pSoldier->bSectorZ )
+	if ( !pSoldier || !pSoldier->bSectorZ )   // FIXME: Dereferencing null pointer
 	{
 		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 
@@ -4147,10 +4143,9 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			INT8 bPocket =0;
  			BOOLEAN fNothingLeftToRepair = FALSE;
 			INT8	bLoop, bLoopStart, bLoopEnd;
-			BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = FALSE;
 			OBJECTTYPE * pObj;
 
-			fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
+			BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
 
 			// repair items on self
 			// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
@@ -4655,12 +4650,11 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 //	std::vector<TOWN_TRAINER_TYPE>	TownTrainer (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS);
 	UINT8 ubTownTrainers;
 	UINT16 usMaxPts;
-	BOOLEAN fSamSiteInSector = FALSE;
 	BOOLEAN fTrainingCompleted = FALSE;
 
 
 	// find out if a sam site here
-	fSamSiteInSector = IsThisSectorASAMSector( sMapX, sMapY, 0 );
+	BOOLEAN fSamSiteInSector = IsThisSectorASAMSector( sMapX, sMapY, 0 );
 
 	// Training in underground sectors is disallowed by the interface code, so there should never be any
 	if (bZ != 0)
@@ -5425,11 +5419,10 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT8 ubTownId = 0;
-	BOOLEAN fSamSiteInSector = FALSE;
 
 
 	// find out if a sam site here
-	fSamSiteInSector = IsThisSectorASAMSector( sMapX, sMapY, 0 );
+	BOOLEAN fSamSiteInSector = IsThisSectorASAMSector( sMapX, sMapY, 0 );
 
 	// get town index
 	ubTownId = StrategicMap[ pTrainer->sSectorX + pTrainer->sSectorY * MAP_WORLD_X ].bNameId;
@@ -5681,7 +5674,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 	// give experience rewards to the interrogators
 	// total experience to share
-	FLOAT totalexp = 100 * prisonersinterrogated;
+	FLOAT totalexp = (FLOAT) (100 * prisonersinterrogated);
 	FLOAT expratio = totalexp / (interrogationpoints * 33);	// TODO
 
 	// award experience
@@ -6682,11 +6675,11 @@ void HandleShadingOfLinesForVehicleMenu( void )
 void VehicleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT32 iValue = -1, iVehicleID;
+	INT32 iVehicleID;
 	SOLDIERTYPE * pSoldier;
 
 
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
@@ -6732,9 +6725,7 @@ void VehicleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void VehicleMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -7103,12 +7094,11 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT32 iValue = -1;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iRepairWhat;
 
 
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	// ignore clicks on disabled lines
 	if( GetBoxShadeFlag( ghRepairBox, iValue ) == TRUE )
@@ -7245,9 +7235,7 @@ void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void RepairMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -8611,10 +8599,9 @@ void CreateDestroyMouseRegionsForSquadMenu( BOOLEAN fPositionBox )
 void AssignmentMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
 	SOLDIERTYPE *pSoldier;
 
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 
 	pSoldier = GetSelectedAssignSoldier( FALSE );
@@ -8661,9 +8648,7 @@ void AssignmentMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void RemoveMercMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -8687,9 +8672,7 @@ void RemoveMercMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void ContractMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for Contract region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -8716,9 +8699,7 @@ void ContractMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 void SquadMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -8752,13 +8733,8 @@ void SquadMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void RemoveMercMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for contract region
-	INT32 iValue = -1;
-	SOLDIERTYPE * pSoldier = NULL;
-
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
@@ -9054,9 +9030,7 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void TrainingMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if( HandleAssignmentExpansionAndHighLightForTrainingMenu( ) == TRUE )
 	{
@@ -9086,9 +9060,7 @@ void TrainingMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void AttributeMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -9110,21 +9082,11 @@ void AttributeMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT32 iValue = -1;
-	SOLDIERTYPE * pSoldier = NULL;
 	CHAR16 sString[ 128 ];
 	INT8	bCanJoinSquad;
-/* ARM: Squad menu is now disabled for anyone between sectors
-	UINT8 ubNextX, ubNextY, ubPrevX, ubPrevY;
-	UINT32 uiTraverseTime, uiArriveTime;
-	INT32 iOldSquadValue = -1;
-	BOOLEAN fCharacterWasBetweenSectors = FALSE;
-*/
 
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
@@ -9276,14 +9238,10 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT32 iValue = -1;
-	SOLDIERTYPE * pSoldier = NULL;
 	BOOLEAN fCanTrainMilitia = TRUE;
 
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN ) || ( iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN ) )
 	{
@@ -9486,18 +9444,10 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-
 void AttributesMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	// btn callback handler for assignment region
-	INT32 iValue = -1;
-	SOLDIERTYPE * pSoldier = NULL;
-
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
-
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
@@ -9558,15 +9508,10 @@ void AttributesMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT32 iValue = -1;
 	CHAR16 sString[ 128 ];
 
-	SOLDIERTYPE * pSoldier = NULL;
-
-
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
@@ -12701,7 +12646,7 @@ BOOLEAN AnyMercInGroupCantContinueMoving( GROUP *pGroup )
 	while( pPlayer )
 	{
 		// if group has player list...	and a valid first soldier
-		if( pPlayer && pPlayer->pSoldier )
+		if( pPlayer->pSoldier )
 		{
 			pSoldier = pPlayer->pSoldier;
 
@@ -13858,48 +13803,7 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 
 void ResumeOldAssignment( SOLDIERTYPE *pSoldier )
 {
-	BOOLEAN fOldAssignmentInvalid = FALSE;
-
-
-	// ARM: I don't think the whole "old assignment" idea is a very good one, and I doubt the code that maintains that
-	// variable is very foolproof, plus what meaning does the old assignemnt have later, anyway?
-	// so I'd rather just settle for putting him into any squad:
-	fOldAssignmentInvalid = TRUE;
-
-/*
-	if ( pSoldier->bOldAssignment == pSoldier->bAssigment )
-	{
-		// no good: we rely on this to make sure guys training militia STOP training militia!
-		fOldAssignmentInvalid = TRUE;
-	}
-	else if( pSoldier->bOldAssignment == VEHICLE )
-	{
-		SetSoldierAssignment( pSoldier, ( INT8 )( pSoldier->bOldAssignment ), ( pSoldier->iVehicleId ), 0, 0 );
-
-		// it might not work - check
-		if ( pSoldier->bAssignment != VEHICLE )
-		{
-			fOldAssignmentInvalid = TRUE;
-		}
-	}
-	else if( pSoldier->bOldAssignment < ON_DUTY )
-	{
-		if( AddCharacterToSquad( pSoldier, pSoldier->bOldAssignment ) == FALSE )
-		{
-			fOldAssignmentInvalid = TRUE;
-		}
-	}
-	else
-	{
-		fOldAssignmentInvalid = TRUE;
-	}
-*/
-
-	if ( fOldAssignmentInvalid )
-	{
-		AddCharacterToAnySquad( pSoldier );
-	}
-
+	AddCharacterToAnySquad( pSoldier );
 
 	// make sure the player has time to OK this before proceeding
 	StopTimeCompression();
@@ -15475,9 +15379,7 @@ void CreateDestroyMouseRegionForFacilityMenu( void )
 void FacilityMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if( HandleAssignmentExpansionAndHighLightForFacilityMenu( ) == TRUE )
 	{
@@ -15513,13 +15415,10 @@ void FacilityMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 void FacilityMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT32 iValue = -1;
-	SOLDIERTYPE * pSoldier = NULL;
 	BOOLEAN fCanOperateFacility = TRUE;
 
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	iValue = MSYS_GetRegionUserData( pRegion, 1 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 1 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN ) || ( iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN ) )
 	{
@@ -16596,9 +16495,7 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 void FacilityAssignmentMenuMvtCallBack ( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// mvt callback handler for assignment region
-	INT32 iValue = -1;
-
-	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
@@ -16620,17 +16517,12 @@ void FacilityAssignmentMenuMvtCallBack ( MOUSE_REGION * pRegion, INT32 iReason )
 void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
-	INT16 ubFacilityType = -1;
-	INT16 ubAssignmentType = -1;
-	INT16 ubVehicleID = -1;
-	SOLDIERTYPE * pSoldier = NULL;
 	BOOLEAN fCanOperateFacility = TRUE;
 
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	ubFacilityType = gubFacilityInSubmenu;
-	ubAssignmentType = (INT16)MSYS_GetRegionUserData( pRegion, 1 );
-	ubVehicleID = (INT16)MSYS_GetRegionUserData( pRegion, 2 );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT16 ubFacilityType = gubFacilityInSubmenu;
+	INT16 ubAssignmentType = (INT16)MSYS_GetRegionUserData( pRegion, 1 );
+	INT16 ubVehicleID = (INT16)MSYS_GetRegionUserData( pRegion, 2 );
 
 	if (ubFacilityType <= 0 || ubFacilityType >= NUM_FACILITY_TYPES || ubAssignmentType <= 0)
 	{

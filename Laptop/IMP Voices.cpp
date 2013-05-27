@@ -409,7 +409,7 @@ UINT32 PlayVoice( void )
 	char caVoiceSample[] = "Speech\\%03d_001.wav";
 
 	Assert((iSlot >= 0) && (iSlot <= 999));
-	sprintf(caVoiceSample, caVoiceSample, iSlot);
+	sprintf(caVoiceSample, "Speech\\%03d_001.wav", iSlot);
 
 	return( PlayJA2SampleFromFile( caVoiceSample, RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );
 }

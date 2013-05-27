@@ -3515,13 +3515,11 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	BOOLEAN fDoSomeoneElse = FALSE;
-	BOOLEAN	fCanWeSeeLocation = FALSE;
 
 	gfLastMercTalkedAboutKillingID = pKilledSoldier->ubID;
 
 	// Can we see location?
-	fCanWeSeeLocation = ( SoldierTo3DLocationLineOfSightTest( pKillerSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) != 0 );
-
+	BOOLEAN	fCanWeSeeLocation = ( SoldierTo3DLocationLineOfSightTest( pKillerSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) != 0 );
 
 	// Are we killing mike?
 	if ( pKilledSoldier->ubProfile == MIKE && pKillerSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )

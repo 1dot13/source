@@ -1715,7 +1715,7 @@ public:
 
 	// Copy Constructor
 	OLDSOLDIERTYPE_101(const OLDSOLDIERTYPE_101& src) {
-		memcpy(this, &src, SIZEOF_OLDSOLDIERTYPE_101_POD);
+		memcpy(this, &src, SIZEOF_OLDSOLDIERTYPE_101_POD); // FIXME: memcpy std::vector
 		inv = src.inv;
 		bNewItemCount = src.bNewItemCount;
 		bNewItemCycleCount = src.bNewItemCycleCount;
@@ -1725,7 +1725,7 @@ public:
 	OLDSOLDIERTYPE_101& operator=(const OLDSOLDIERTYPE_101& src)
 	{
 		if (this != &src) {
-			memcpy(this, &src, SIZEOF_OLDSOLDIERTYPE_101_POD);
+			memcpy(this, &src, SIZEOF_OLDSOLDIERTYPE_101_POD); // FIXME: memcpy std::vector
 			inv = src.inv;
 			bNewItemCount = src.bNewItemCount;
 			bNewItemCycleCount = src.bNewItemCycleCount;
@@ -1741,7 +1741,7 @@ public:
 	//	Use this instead of the old method of calling memset!
 	//	Note that the constructor does this automatically.
 	void initialize() {
-		memset( this, 0, SIZEOF_OLDSOLDIERTYPE_101_POD);
+		memset( this, 0, SIZEOF_OLDSOLDIERTYPE_101_POD); // FIXME: memcpy std::vector
 		inv.clear();
 		for (int idx=0; idx < (int)inv.size(); ++idx) {
 			bNewItemCount[idx] = 0;
@@ -2401,6 +2401,10 @@ public:
 	// Debugging data - not saved
 	INT32 sPlotSrcGrid;
 }; // OLDSOLDIERTYPE_101;	
+
+
+void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReason );
+
 
 #endif
 

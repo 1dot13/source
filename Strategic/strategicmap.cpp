@@ -3899,6 +3899,7 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT32 
 		}
 
 		// save info for desired squad and and time for all single mercs leaving their squad.
+        Assert(pValidSoldier);
 		bPrevAssignment = pValidSoldier->bAssignment;
 		ubPrevGroupID = pValidSoldier->ubGroupID;
 

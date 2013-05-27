@@ -4304,6 +4304,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	OBJECTTYPE * pObj;
 
 	pBullet = GetBulletPtr( iBullet );
+    Assert(pBullet);
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
 	pObj = MercPtrs[ ubAttackerID ]->GetUsedWeapon( &MercPtrs [ ubAttackerID ]->inv[MercPtrs[ubAttackerID]->ubAttackingHand] );

@@ -1284,7 +1284,7 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 		 // Just try/catch (ugly, but works).	 
 		 __try
 		 {		 
-			 for(UINT32 i=0; i<WORLD_MAX ;i+=4) 
+			 for(UINT32 i=0; i<(UINT32)WORLD_MAX ;i+=4) 
 			 {			
 				gubWorldTileInLight[i] = InLightAtNight(i, gpWorldLevelData[ i ].sHeight);
 				gubIsCorpseThere[i] = IsCorpseAtGridNo( i, gpWorldLevelData[ i ].sHeight );

@@ -2,7 +2,7 @@
 // HEADROCK HAM 3.5: Facilities
 //
 // This file contains functions that test facility data (read
-// from XML) whenever necessary. See XML_Facilities.cpp and 
+// from XML) whenever necessary. See XML_Facilities.cpp and
 // XML_FacilityTypes.cpp for the reading XML functions.
 //////////////////////////////////////////////////////////////////
 
@@ -29,8 +29,13 @@
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "Campaign.h"
-	#include "Drugs And Alcohol.cpp"
-	#include "Soldier Control.cpp"
+	#include "Drugs And Alcohol.h"
+	#include "Interface.h"
+	#include "message.h"
+	#include "Morale.h"
+	#include "Points.h"
+	#include "Soldier Control.h"
+	#include "Isometric Utils.h"
 	#include "MilitiaSquads.h"
 	#include "Tactical Save.h"
 #endif
@@ -57,7 +62,7 @@ INT16 GetFacilityModifier( UINT8 ubModifierType, UINT8 ubFacilityType, UINT8 ubA
 	{
 		switch (ubModifierType)
 		{
-			case FACILITY_PERFORMANCE_MOD:	
+			case FACILITY_PERFORMANCE_MOD:
 				sAssignmentModifier = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].usPerformance;
 				sAmbientModifier = gFacilityTypes[ubFacilityType].AssignmentData[0].usPerformance;
 				sAssignmentModifier = 100 + ((sAssignmentModifier-100) + (sAmbientModifier-100));
@@ -163,7 +168,7 @@ INT16 GetFacilityModifier( UINT8 ubModifierType, UINT8 ubFacilityType, UINT8 ubA
 	{
 		switch (ubModifierType)
 		{
-			case FACILITY_PERFORMANCE_MOD:	
+			case FACILITY_PERFORMANCE_MOD:
 				sAmbientModifier = gFacilityTypes[ubFacilityType].AssignmentData[0].usPerformance;
 				return (sAmbientModifier);
 
@@ -225,7 +230,7 @@ INT16 GetFacilityModifier( UINT8 ubModifierType, UINT8 ubFacilityType, UINT8 ubA
 	}
 }
 
-// This is a handler function that runs through every facility in the soldier's sector, retrieving one type of 
+// This is a handler function that runs through every facility in the soldier's sector, retrieving one type of
 // modifier from each facility.
 INT16 GetSectorModifier( SOLDIERTYPE *pSoldier, UINT8 ubModifierType )
 {
@@ -365,7 +370,7 @@ void UpdateStrategicDetectionLevel( )
 		{
 			UINT8 ubSector = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
 			UINT8 ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
-			
+
 			if (GetSoldierFacilityAssignmentIndex( pSoldier ) == -1)
 			{
 				// Skip this soldier, he is not performing a facility assignment.
@@ -388,7 +393,7 @@ void UpdateStrategicDetectionLevel( )
 					ubCounter++;
 					continue;
 				}
-				
+
 				/////////////////////////////////////////////////////////
 				// Begin testing for facility detection bonuses.
 
@@ -483,7 +488,7 @@ void UpdateStrategicDetectionLevel( )
 		{
 			SectorInfo[X].ubDetectionLevel |= 1;
 		}
-		
+
 		// ENEMY COUNTING:
 		if (ubStrategicDetectionLevel & (1<<COUNT_ENEMIES_IN_WILD)||
 			ubStrategicDetectionLevel & (1<<COUNT_ENEMIES_IN_CITIES))
@@ -536,7 +541,7 @@ void UpdateSkyriderCostModifier()
 			if ( CanCharacterFacility( pSoldier, ubFacilityType, ubAssignmentType ) &&
 				GetWorldTotalMin() - pSoldier->uiLastAssignmentChangeMin >= (UINT32)gGameExternalOptions.ubMinutesForAssignmentToCount )
 			{
-		
+
 				// Make sure facility type is valid.
 				Assert(ubFacilityType < MAX_NUM_FACILITY_TYPES);
 
@@ -546,7 +551,7 @@ void UpdateSkyriderCostModifier()
 					ubCounter++;
 					continue;
 				}
-				
+
 				// Does facility change Skyrider Costs at all?
 				gsSkyriderCostModifier += GetFacilityModifier( FACILITY_SKYRIDER_COST_MOD, ubFacilityType, ubAssignmentType );
 			}
@@ -608,14 +613,14 @@ void UpdateFacilityUsageCosts( )
 					ubCounter++;
 					continue;
 				}
-				
+
 				sCost = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour;
 
 				if (sCost > 0)
 				{
 					/////////////////////////////////////////////////////////
 					// Increase debt for operating this facility
-	
+
 					giTotalOwedForFacilityOperationsToday += gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour;
 				}
 				else if (sCost < 0)
@@ -632,10 +637,10 @@ void UpdateFacilityUsageCosts( )
 	}
 }
 
-// HEADROCK HAM 3.6: This function runs once at the end of each day. 
-// It handles debt accrued by operation facilities. If there is enough money to pay the debt off, this 
-// is done automatically. If only part of the money is available, or none of it, your account is emptied and all 
-// "expensive" facility work ends immediately. You also suffer a loyalty hit across Arulco based on how much money 
+// HEADROCK HAM 3.6: This function runs once at the end of each day.
+// It handles debt accrued by operation facilities. If there is enough money to pay the debt off, this
+// is done automatically. If only part of the money is available, or none of it, your account is emptied and all
+// "expensive" facility work ends immediately. You also suffer a loyalty hit across Arulco based on how much money
 // you owe. Facility work cannot continue before the debt is paid off!
 void HandleDailyPaymentFacilityDebt( void )
 {
@@ -750,7 +755,7 @@ INT32 MineIncomeModifierFromFacility( UINT8 ubMine )
 
 // This function converts a soldier's current assignment into a single Facility Assignment Type Index.
 // The Assignment Type Index is used for referencing various data and effects associated with performing a
-// SPECIFIC assignment with the help of a SPECIFIC facility. It's basically a reference number for the gFacilityTypes 
+// SPECIFIC assignment with the help of a SPECIFIC facility. It's basically a reference number for the gFacilityTypes
 // array.
 INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 {
@@ -929,7 +934,7 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacilityType, UINT8 ubAssignmentType )
 {
 	INT16 Result = 0;
-	
+
 	INT32 iChance;
 	INT16 bBaseEffect;
 	UINT16 ubRange;
@@ -958,7 +963,7 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	{
 		ubLocalLoyalty = 0;
 	}
-	
+
 	///////////////
 	INT16 sAbsoluteMaxResult;
 	INT16 sAbsoluteMinResult;
@@ -1080,7 +1085,7 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	{
 		// Let's find out how bad/good the result is.
 
-		// By now, the Combined Stats variable is anywhere between -100 and +100. 
+		// By now, the Combined Stats variable is anywhere between -100 and +100.
 		// We use this to move the Base Effect point from its original location, effectively giving us a better
 		// or worse result based on our stats.
 		bBaseEffect += (bCombinedStats * (ubRange+1)) / 100;
@@ -1189,7 +1194,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 					continue;
 				}
 			}
-					
+
 			Result = FacilityRiskResult( pSoldier, iCounter, ubFacilityType, ubAssignmentType);
 			if (Result != 0)
 			{
@@ -1228,7 +1233,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1280,7 +1285,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1332,7 +1337,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1384,7 +1389,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1437,7 +1442,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							if (pSoldier->stats.bLife < OKLIFE)
@@ -1509,7 +1514,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1561,7 +1566,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1613,7 +1618,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1665,7 +1670,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1717,7 +1722,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// merc records - stat damaged
 							if( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
-							
+
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
@@ -1903,9 +1908,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							gMercProfiles[ pSoldier->ubProfile ].bDexterity = pSoldier->stats.bDexterity;
 							gMercProfiles[ pSoldier->ubProfile ].bStrength	= pSoldier->stats.bStrength;
 							gMercProfiles[ pSoldier->ubProfile ].bAgility	= pSoldier->stats.bAgility;
-							
+
 							fBadResult = TRUE; // stop the time, call a doctor, we had a heart attack!
-							
+
 							// merc records - stat damaged
 							gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
@@ -1927,7 +1932,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							else
 								swprintf( sString, gzFacilityErrorMessage[24], pTownNames[ubTownID], pSoldier->GetName(), gFacilityTypes[ubFacilityType].szFacilityName );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
-							
+
 							// SANDRO - add to merc records - facility accidents counter
 							if ( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
@@ -1949,7 +1954,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							else
 								swprintf( sString, gzFacilityErrorMessage[26], pSoldier->GetName(), szSectorGrid, gFacilityTypes[ubFacilityType].szFacilityName );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
-							
+
 							// SANDRO - add to merc records - facility accidents counter
 							if ( Result < 0 )
 								gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
@@ -1995,7 +2000,7 @@ INT32 GetTotalFacilityHourlyCosts( BOOLEAN fPositive )
 
 			//UINT8 ubSector = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
 			INT16 ubFacilityType = pSoldier->sFacilityTypeOperated;
-			
+
 			if (!fPositive && ubFacilityType != -1 && // We want facilities that cost money to operate
 				gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour > 0) // This facility costs money
 			{

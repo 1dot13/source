@@ -401,7 +401,9 @@ void ChangingFloristGallerySubPage( UINT8 ubSubPageNumber )
 
 	//there are 3 flowers per page
 	if( ubSubPageNumber == FLOR_GALLERY_NUMBER_FLORAL_IMAGES )
-		ubSubPageNumber = 4;
+    {
+		ubSubPageNumber = 4;    Assert(false); // FIXME: out-of-bounds (FloristGallerySubPagesVisitedFlag[4])
+    }
 	else
 		ubSubPageNumber = ubSubPageNumber / 3;
 

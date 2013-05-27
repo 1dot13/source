@@ -1777,7 +1777,7 @@ BOOLEAN registerPopupRegion(UINT16 rID, UINT32 cID)
 	pi->regionId = rID;
 	pi->classId = cID;
 
-	gPopupRegionIndex.push_back(*pi);
+	gPopupRegionIndex.push_back(*pi); // FIXME: memory leak
 	gPopupRegionIndexCounter++;
 
 	return TRUE;

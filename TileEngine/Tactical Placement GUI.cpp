@@ -1271,10 +1271,6 @@ void ChooseRandomEdgepoints()
 			}
 			else
 			{
-				if( gMercPlacement[ i ].pSoldier->usStrategicInsertionData < 0 || gMercPlacement[ i ].pSoldier->usStrategicInsertionData > WORLD_MAX )
-				{
-					i = i;
-				}
 				gMercPlacement[ i ].pSoldier->ubStrategicInsertionCode = gMercPlacement[ i ].ubStrategicInsertionCode;
 			}
 		}

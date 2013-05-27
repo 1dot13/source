@@ -1852,13 +1852,13 @@ BOOLEAN RemoveVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex )
 
 BOOLEAN ClearAllVSurfaceRegions( HVSURFACE hVSurface )
 {
-	UINT32 uiListSize, cnt;
+	UINT32 uiListSize;
 
 	Assert( hVSurface != NULL );
 
 	uiListSize = ListSize( hVSurface->RegionList );
 
-	for ( cnt = uiListSize - 1; cnt >= 0; cnt-- )
+	for ( INT32 cnt = uiListSize - 1; cnt >= 0; cnt-- )
 	{
 		RemoveVSurfaceRegion( hVSurface, (UINT16)cnt );
 	}
