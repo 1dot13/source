@@ -2616,16 +2616,18 @@ extern INT32 CalcThreateningEffectiveness( UINT8 ubMerc );
 // Flugente: calculate interrogation value
 UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 {
-	UINT32 usInterrogationPoints = 0;	
+	UINT32 usInterrogationPoints = 0;
 
 	// for max points we display the maximum amount of prisoners instead
 	*pusMaxPts = 0;
-	if ( !pSoldier || !pSoldier->bSectorZ )   // FIXME: Dereferencing null pointer
-	{
-		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 
-		*pusMaxPts = (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar);
-	}
+	// no soldier (how does that happen?) or underground -> no interrogation points, as there are no underground prisons
+	if ( !pSoldier || pSoldier->bSectorZ )
+		return 0;
+
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
+
+	*pusMaxPts = (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar);
 
 	// no prisoners -> no interrogation (this should not happen)
 	if ( !*pusMaxPts )

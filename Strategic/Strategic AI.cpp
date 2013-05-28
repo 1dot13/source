@@ -6479,9 +6479,6 @@ void MoveSAIGroupToSector( GROUP **pGroup, UINT8 ubSectorID, UINT32 uiMoveCode, 
 	(*pGroup)->pEnemyGroup->ubIntention = ubIntention;
 	(*pGroup)->ubMoveType = ONE_WAY;
 
-	//Make sure that the group isn't moving into a garrison sector.	These sectors should be using ASSAULT intentions!
-    Assert(ubIntention != PURSUIT && SectorInfo[ ubSectorID ].ubGarrisonID != NO_GARRISON );
-
 	if( (*pGroup)->ubSectorX == ubDstSectorX && (*pGroup)->ubSectorY == ubDstSectorY )
 	{ //The destination sector is the current location.	Instead of causing code logic problems,
 		//simply process them as if they just arrived.

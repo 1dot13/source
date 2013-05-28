@@ -2840,6 +2840,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
                         if ( GetSoldier( &lSoldier, gusSelectedSoldier ) )
 						{
+							// Flugente: robots do not climb
+							if ( AM_A_ROBOT( lSoldier ) )
+								break;
+
 				 			if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
 							{
 								if((UsingNewInventorySystem() == true) && lSoldier->inv[BPACKPOCKPOS].exists() == true)
@@ -2882,6 +2886,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					SOLDIERTYPE *pjSoldier;
 					if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
 					{
+						// Flugente: robots do not climb
+						if ( AM_A_ROBOT( pjSoldier ) )
+							break;
+
 						INT16							sAPCost;
 						INT16							sBPCost;
 						BOOLEAN	fNearHeigherLevel;
@@ -2948,12 +2956,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						// Climb on walls
 						if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
 						{ 
+							// No climbing when wearing a backpack!
+							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+								return;
+
 							if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 							{
-								// No climbing when wearing a backpack!
-								if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
-									return;
-
 								if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
 								{
 									pjSoldier->BeginSoldierClimbWall(  );
