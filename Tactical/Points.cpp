@@ -2674,7 +2674,7 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 					(*pAttachment)[0]->data.objectStatus -= (INT8) ceil((double)( 100 / GetExpMagSize(pAttachment) )) ;
 
 					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DeductAmmo: deducting for milkor: resulting status: %d, remove? = %d",(*pAttachment)[0]->data.objectStatus,((*pAttachment)[0]->data.objectStatus <= (INT8) ( 100 / GetExpMagSize(pAttachment) ))));
-					if ( (*pAttachment)[0]->data.objectStatus <= (INT8) ceil((double)( 100 / GetExpMagSize(pAttachment) ) ))
+					if ( (*pAttachment)[0]->data.objectStatus < (INT8) ceil((double)( 100 / GetExpMagSize(pAttachment) ) ))
 					{
 						pObj->RemoveAttachment( pAttachment);
 					}
@@ -2684,7 +2684,7 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 					(*pAttachment)[0]->data.objectStatus -= (INT8) ceil((double)( 100 / GetExpMagSize(pAttachment) )) ;
 
 					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DeductAmmo: deducting for OICW GL: resulting status: %d, remove? = %d",(*pAttachment)[0]->data.objectStatus,((*pAttachment)[0]->data.objectStatus <= (INT8) ( 100 / GetExpMagSize(pAttachment) ))));
-					if ( (*pAttachment)[0]->data.objectStatus <= (INT8) ceil((double)( 100 / GetExpMagSize(pAttachment) ) ))
+					if ( (*pAttachment)[0]->data.objectStatus < (INT8) ceil((double)( 100 / GetExpMagSize(pAttachment) ) ))
 					{
 						pObj->RemoveAttachment( pAttachment);
 					}
