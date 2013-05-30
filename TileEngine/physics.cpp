@@ -2399,8 +2399,6 @@ BOOLEAN CheckForCatcher( REAL_OBJECT *pObject, UINT16 usStructureID )
 
 void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 {
-    Assert(usStructureID<TOTAL_SOLDIERS);
-
 	SOLDIERTYPE *pSoldier;
 	INT16		sDamage, sBreath;
 
@@ -2412,6 +2410,9 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 		{
 			if ( pObject->ubLastTargetTakenDamage != (UINT8)usStructureID )
 			{
+				// Flugente: if this fails, something is very wrong indeed
+				Assert(usStructureID<TOTAL_SOLDIERS);
+
 				pSoldier = MercPtrs[ usStructureID ];
 
 				sDamage = 1;
