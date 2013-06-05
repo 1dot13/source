@@ -454,8 +454,15 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	{
 		sValue = 0;	
 		OBJECTTYPE* pAttachment = (*pObject)[iter]->GetAttachmentAtIndex( ubStatus - DRAW_ITEM_STATUS_ATTACHMENT1 );
-		if (pAttachment->exists()) {
+		if (pAttachment->exists())
+		{
 			sValue = (*pAttachment)[iter]->data.objectStatus;
+
+			if( Item[ pAttachment->usItem ].usItemClass & IC_AMMO )
+			{
+				sValue = sValue * 100 / Magazine[ Item[ pObject->usItem ].ubClassIndex ].ubMagSize;
+				sValue = max(0, min(100, sValue));
+			}
 		}
 	}
 	else
