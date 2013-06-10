@@ -67,33 +67,34 @@ BOOLEAN		fFirstTimeInEncyclopedia = TRUE;
 
 BOOLEAN DrawEncyclopediaLogoAim();
 
-#ifdef ENABLE_ENCYCLOPEDIA
-
-ENCYCLOPEDIA_LOCATION gEncyclopediaLocationData[ NUM_SECTOR ];
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 ENCYCLOPEDIA_LOCATION gEncyclopediaDataTemp[ NUM_MAX_TEMP ];
+#endif
+
+#ifdef ENABLE_ENCYCLOPEDIA
+ENCYCLOPEDIA_LOCATION gEncyclopediaLocationData[ NUM_SECTOR ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ NUM_PROFILES ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryData[ MAXITEMS ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaOldProfilesData[ NUM_PROFILES ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaQuestsData[ MAX_QUESTS ];
-ENCYCLOPEDIA_LOCATION gBriefingRoomData[ NUM_SECTOR ];
-ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionData[ NUM_SECTOR ];
-
-BOOLEAN saveEncyclopediaLocationData[ NUM_SECTOR ];
 ENCYCLOPEDIA_PROF_SAVE saveEncyclopediaProfilesData[ NUM_PROFILES ];
+BOOLEAN saveEncyclopediaLocationData[ NUM_SECTOR ];
 BOOLEAN saveEncyclopediaInventoryData[ MAXITEMS ];
 BOOLEAN saveEncyclopediaOldProfilesData[ NUM_PROFILES ];
 BOOLEAN saveEncyclopediaQuestsData[ MAX_QUESTS ];
+#else
+ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ 1 ];
+#endif // ENABLE_ENCYCLOPEDIA
+
+#ifdef ENABLE_BRIEFINGROOM
+ENCYCLOPEDIA_LOCATION gBriefingRoomData[ NUM_SECTOR ];
+ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionData[ NUM_SECTOR ];
 MISSION_SAVE saveBriefingRoomData[ NUM_SECTOR ];
 MISSION_SAVE saveBriefingRoomSpecialMissionData[ NUM_SECTOR ];
-
 MISSION_SAVE saveMissionData[ NUM_SECTOR ];
-
-#else // ENABLE_ENCYCLOPEDIA
-
-ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ 1 ];
+#else
 ENCYCLOPEDIA_LOCATION gBriefingRoomData[ 1 ];
-
-#endif // ENABLE_ENCYCLOPEDIA
+#endif // ENABLE_BRIEFINGROOM
 
 void GameInitEncyclopedia()
 {
@@ -341,7 +342,8 @@ void SelectEncyclopediaInentoryButton(MOUSE_REGION * pRegion, INT32 iReason )
 
 BOOLEAN InitEncyclopediaDefaults()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
   VOBJECT_DESC    VObjectDesc;
 
 	// load the Rust bacground graphic and add it
@@ -356,7 +358,8 @@ BOOLEAN InitEncyclopediaDefaults()
 
 BOOLEAN RemoveEncyclopediaDefaults()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	DeleteVideoObjectFromIndex(guiRustEncyclopediaBackGround);
 #endif // ENABLE_ENCYCLOPEDIA
 	return(TRUE);
@@ -378,7 +381,8 @@ BOOLEAN DrawEncyclopediaLogoAim()
 
 BOOLEAN DrawEncyclopediaDefaults()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
   HVOBJECT hRustBackGroundHandle;
 // UINT16	x,y, uiPosX, uiPosY;
 

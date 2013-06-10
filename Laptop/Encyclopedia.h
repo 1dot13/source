@@ -32,7 +32,7 @@ BOOLEAN DisplayEncyclopediaCopyright();
 #define		NUM_SECTOR									4*255
 #define 	MAX_ENCYCLOPEDIA_CHARS		500
 
-#define NUM_MAX_TEMP	10000
+#define NUM_MAX_TEMP	MAXITEMS+1
 
 #define TEXT_NUM_ENC TEXT_NUM_ENCYCLOPEDIA_HELP_TEXT
 
@@ -91,11 +91,12 @@ typedef struct
 	
 	CHAR16		Name[ENCYCLOPEDIA_NAME_SIZE];
 	
+	
 	CHAR16		sDesc1[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc2[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc3[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc4[ENCYCLOPEDIA_DECRIPTION_SIZE];
-	CHAR16		sDesc5[ENCYCLOPEDIA_DECRIPTION_SIZE];
+/*	CHAR16		sDesc5[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc6[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc7[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc8[ENCYCLOPEDIA_DECRIPTION_SIZE];
@@ -111,6 +112,7 @@ typedef struct
 	CHAR16		sDesc18[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	CHAR16		sDesc19[ENCYCLOPEDIA_DECRIPTION_SIZE];	
 	CHAR16		sDesc20[ENCYCLOPEDIA_DECRIPTION_SIZE];
+	*/
 	
 	BOOLEAN   	Hidden;
 	
@@ -203,7 +205,33 @@ extern void InitEncyklopediaBool();
 
 extern void ShowNPCEncyclopediaEntry(UINT8 ubNPC, BOOLEAN hidden);
 
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaDataTemp[ NUM_MAX_TEMP ];
+#endif
+
+#ifdef ENABLE_ENCYCLOPEDIA
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaLocationData[ NUM_SECTOR ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ NUM_PROFILES ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryData[ MAXITEMS ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaOldProfilesData[ NUM_PROFILES ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaQuestsData[ MAX_QUESTS ];
+extern BOOLEAN saveEncyclopediaLocationData[ NUM_SECTOR ];
+extern ENCYCLOPEDIA_PROF_SAVE saveEncyclopediaProfilesData[ NUM_PROFILES ];
+extern BOOLEAN saveEncyclopediaInventoryData[ MAXITEMS ];
+extern BOOLEAN saveEncyclopediaOldProfilesData[ NUM_PROFILES ];
+extern BOOLEAN saveEncyclopediaQuestsData[ MAX_QUESTS ];
+#else
 extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[];
+#endif // ENABLE_ENCYCLOPEDIA
+
+#ifdef ENABLE_BRIEFINGROOM
+extern ENCYCLOPEDIA_LOCATION gBriefingRoomData[ NUM_SECTOR ];
+extern ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionData[ NUM_SECTOR ];
+extern MISSION_SAVE saveBriefingRoomData[ NUM_SECTOR ];
+extern MISSION_SAVE saveBriefingRoomSpecialMissionData[ NUM_SECTOR ];
+extern MISSION_SAVE saveMissionData[ NUM_SECTOR ];
+#else
 extern ENCYCLOPEDIA_LOCATION gBriefingRoomData[];
+#endif // ENABLE_BRIEFINGROOM
 
 #endif

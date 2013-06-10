@@ -145,7 +145,7 @@ STR16 pMenuStrings[] =
 	L"Menu 15", // 15
 	
 	//Briefing Room
-	L"Wejœcie",
+	L"Enter",		// TODO.Translate
 };
 
 STR16	pOtherButtonsText[] =
@@ -176,6 +176,7 @@ STR16	pSectorPageText[] =
 	L"Typ: ",
 	L"Brak danych",
 	L"Brak zdefiniowanych misji. Dodaj misje do pliku TableData\\BriefingRoom\\BriefingRoom.xml. Pierwsza misja ma byæ widoczna. Ustaw Hidden = 0",
+	L"Briefing Room. Please click the 'Enter' button.",		// TODO.Translate
 };
 
 STR16	pEncyclopediaTypeText[] = 

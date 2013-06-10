@@ -16,6 +16,8 @@
 #include "Encyclopedia.h"
 #include "Quests.h"
 
+#include "Tactical Save.h"
+
 #define MAX_FILTR_LOCATION_BUTTONS 11
 #define FILTR_INVENTORY_BUTTONS 5
 #define FILTR_BUTTONS_CHARACTER 8
@@ -131,7 +133,8 @@ void GameInitEncyclopediaLocation()
 
 void ResetTemp()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 
 UINT32 i,NUM_TEMP;
 
@@ -158,11 +161,13 @@ UINT32 i,NUM_TEMP;
 			//strncpy(gEncyclopediaLocationTextTemp[i].szFile4, '\0',MAX_ENCYCLOPEDIA_CHARS);
 			
 			gEncyclopediaDataTemp[i].Name[ENCYCLOPEDIA_NAME_SIZE]  = '\0';
+			
+			
 			gEncyclopediaDataTemp[i].sDesc1[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc2[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc3[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc4[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
-			gEncyclopediaDataTemp[i].sDesc5[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
+		/*	gEncyclopediaDataTemp[i].sDesc5[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc6[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc7[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc8[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
@@ -178,6 +183,7 @@ UINT32 i,NUM_TEMP;
 			gEncyclopediaDataTemp[i].sDesc18[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc19[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sDesc20[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
+		*/
 			
 			gEncyclopediaDataTemp[i].sImageDesc1[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
 			gEncyclopediaDataTemp[i].sImageDesc2[ENCYCLOPEDIA_DECRIPTION_SIZE] = '\0';
@@ -244,7 +250,8 @@ UINT32 i,NUM_TEMP;
 
 void CopyToTemp ( ENCYCLOPEDIA_LOCATION *Ency, BOOLEAN bFiltr, INT32 sort, INT32 TypFiltr, BOOLEAN ShowBox )
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	UINT32 i, NUM_TEMP;
 	INT32 IDClass;
 	BOOLEAN bBoxShow;
@@ -580,11 +587,12 @@ void CopyToTemp ( ENCYCLOPEDIA_LOCATION *Ency, BOOLEAN bFiltr, INT32 sort, INT32
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].ImageDescAfter, Ency[i].ImageDescAfter);
 			
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].Name, Ency[i].Name);
+			
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc1, Ency[i].sDesc1);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc2, Ency[i].sDesc2);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc3, Ency[i].sDesc3);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc4, Ency[i].sDesc4);
-			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc5, Ency[i].sDesc5);
+		/*	wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc5, Ency[i].sDesc5);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc6, Ency[i].sDesc6);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc7, Ency[i].sDesc7);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc8, Ency[i].sDesc8);
@@ -600,6 +608,7 @@ void CopyToTemp ( ENCYCLOPEDIA_LOCATION *Ency, BOOLEAN bFiltr, INT32 sort, INT32
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc18, Ency[i].sDesc18);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc19, Ency[i].sDesc19);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sDesc20, Ency[i].sDesc20);
+			*/
 			
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sImageDesc1, Ency[i].sImageDesc1);
 			wcscpy(gEncyclopediaDataTemp[MaxLocation].sImageDesc2, Ency[i].sImageDesc2);
@@ -859,7 +868,8 @@ BOOLEAN  RenderFiltrBox()
 
 void InitData ( BOOLEAN bInit)
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 
   IDimage = 1;
   MaxImages = 1;
@@ -878,17 +888,41 @@ void InitData ( BOOLEAN bInit)
   ResetTemp();
   
   if ( bEncyclopediaLocation == TRUE )
+	{
+		#ifdef ENABLE_ENCYCLOPEDIA
 		CopyToTemp (gEncyclopediaLocationData, TRUE, NONE_FILTR , NO_FILTR, FALSE );
+		#endif
+	}
   else if ( bEncyclopediaCharacter == TRUE )
+	{
+		#ifdef ENABLE_ENCYCLOPEDIA
 		CopyToTemp (gEncyclopediaProfilesData, TRUE, NONE_FILTR , NO_FILTR, FALSE );
+		#endif
+	}
   else if ( bEncyclopediaInventory == TRUE )
+	{
+		#ifdef ENABLE_ENCYCLOPEDIA
 		CopyToTemp (gEncyclopediaInventoryData, TRUE, NONE_FILTR , NO_FILTR, FALSE );
+		#endif
+	}
   else if ( bEncyclopediaQuests == TRUE )
+	{
+		#ifdef ENABLE_ENCYCLOPEDIA
 		CopyToTemp (gEncyclopediaQuestsData, TRUE, NONE_FILTR , NO_FILTR, FALSE );
+		#endif
+	}
   else if ( bBriefingRoom == TRUE )
+	{
+		#ifdef ENABLE_BRIEFINGROOM
 		CopyToTemp (gBriefingRoomData, TRUE, NONE_FILTR , NO_FILTR, FALSE );
+		#endif
+	}
   else if ( bBriefingRoomSpecialMission  == TRUE )
+	{
+		#ifdef ENABLE_BRIEFINGROOM
 		CopyToTemp (gBriefingRoomSpecialMissionData, TRUE, NONE_FILTR , NO_FILTR, FALSE );
+		#endif
+	}
   
 	//InitEncyclopediaDefaults();
 	
@@ -912,7 +946,8 @@ void InitData ( BOOLEAN bInit)
 
 BOOLEAN EnterEncyclopediaLocation()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
   UINT16	usPosX, usPosY, i;
   /*
   IDimage = 1;
@@ -1221,7 +1256,8 @@ void HandleEncyclopediaLocation()
 
 void RenderButtonDisabled()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	if ( gEncyclopediaDataTemp[LocationID].sDesc2 == '\0' && gEncyclopediaDataTemp[LocationID].sDesc3 == '\0' ) 
 	{
 		DisableButton( guiEncyclopediaPageButton[0] );
@@ -1236,7 +1272,8 @@ void RenderButtonDisabled()
 
 void RenderButtonDisabled2()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	DisableButton( guiEncyclopediaPageButton[0] );
 	EnableButton( guiEncyclopediaPageButton[2] );
 #endif // ENABLE_ENCYCLOPEDIA
@@ -1244,7 +1281,8 @@ void RenderButtonDisabled2()
 
 void RenderButtonDisabled3()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	DisableButton( guiEncyclopediaLocationPageButton[0] );
 	
 	if ( MaxLocation == -1 || MaxLocation == 0 || MaxLocation == 1 ) 
@@ -1256,7 +1294,8 @@ void RenderButtonDisabled3()
 
 void RenderButtonDisabled4()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	DisableButton( guiEncyclopediaPageButton[0] );
 	DisableButton( guiEncyclopediaPageButton[2] );
 #endif // ENABLE_ENCYCLOPEDIA
@@ -1264,7 +1303,8 @@ void RenderButtonDisabled4()
 
 void RenderBoxDisabledButton()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	MaxImages = 1;
 	MaxLocation = 0;
 	IDimage = 1;
@@ -1281,7 +1321,8 @@ void RenderBoxDisabledButton()
 
 BOOLEAN  RenderMap()
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
   VOBJECT_DESC	VObjectDesc;
   char fileName[500];
 
@@ -1351,7 +1392,8 @@ BOOLEAN  RenderMap()
 
 void RenderEncyclopediaLocation( BOOLEAN bHidden )
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
   UINT16	i;
   UINT8		ubNumLines=11; 
   UINT16	usPosY;
@@ -1492,6 +1534,7 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 	if ( ResetVal == TRUE )
 	DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_X+ENCYCLOPEDIA_LOCATION_BOX_SHADOW_GAP + 3, ENCYCLOPEDIA_LOCATION_BOX_Y + 18 + ENCYCLOPEDIA_LOCATION_BOX_SHADOW_GAP - 50, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, L"", FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
+	
 	if ( ID == 0 )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc1, ENCYCLOPEDIA_LOCATION_BOX_FONT);
 	else if (ID == 1 && gEncyclopediaDataTemp[LocationID].sDesc2 != '\0' )
@@ -1500,7 +1543,7 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc3, ENCYCLOPEDIA_LOCATION_BOX_FONT);
 	else if (ID == 3 && gEncyclopediaDataTemp[LocationID].sDesc4 != '\0' )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc4, ENCYCLOPEDIA_LOCATION_BOX_FONT);
-	else if (ID == 4 && gEncyclopediaDataTemp[LocationID].sDesc5 != '\0' )
+/*	else if (ID == 4 && gEncyclopediaDataTemp[LocationID].sDesc5 != '\0' )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc5, ENCYCLOPEDIA_LOCATION_BOX_FONT);	
 	else if (ID == 5 && gEncyclopediaDataTemp[LocationID].sDesc6 != '\0' )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc6, ENCYCLOPEDIA_LOCATION_BOX_FONT);
@@ -1532,7 +1575,8 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc19, ENCYCLOPEDIA_LOCATION_BOX_FONT);
 	else if (ID == 19 && gEncyclopediaDataTemp[LocationID].sDesc20 != '\0' )
 		usStringPixLength = StringPixLength( gEncyclopediaDataTemp[LocationID].sDesc20, ENCYCLOPEDIA_LOCATION_BOX_FONT);
-		
+	*/	
+	
 	//reset
 	if ( ResetVal == TRUE )
 	usStringPixLength = StringPixLength( L"", ENCYCLOPEDIA_LOCATION_BOX_FONT);
@@ -1551,6 +1595,7 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 	}
 		
 	if ( ResetVal == FALSE )  {
+	
 	if (ID == 0 )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc1, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	else if ( ID == 1 && gEncyclopediaDataTemp[LocationID].sDesc2 != '\0')
@@ -1559,7 +1604,7 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc3, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	else if ( ID == 3 && gEncyclopediaDataTemp[LocationID].sDesc4 != '\0' )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc4, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	else if ( ID == 4 && gEncyclopediaDataTemp[LocationID].sDesc5 != '\0' )
+/*	else if ( ID == 4 && gEncyclopediaDataTemp[LocationID].sDesc5 != '\0' )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc5, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	else if ( ID == 5 && gEncyclopediaDataTemp[LocationID].sDesc6 != '\0' )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc6, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
@@ -1591,6 +1636,7 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc19, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	else if ( ID == 19 && gEncyclopediaDataTemp[LocationID].sDesc20 != '\0' )
 		DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, gEncyclopediaDataTemp[LocationID].sDesc20, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	*/
 	}
 	//Reset
 	if ( ResetVal == TRUE )
@@ -1628,7 +1674,8 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 
 void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 { 
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1680,7 +1727,8 @@ void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason
 
 void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -2638,7 +2686,8 @@ void SelectInventoryFiltrButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 
 void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	UINT8	ubRetValue = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 	CHAR8 str[MAX_ENCYCLOPEDIA_CHARS];
 	
@@ -2747,11 +2796,13 @@ void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 
 BOOLEAN SaveEncyclopediaToSaveGameFile( HWFILE hFile )
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	UINT32	uiNumBytesWritten;
 	UINT32 i;
+#endif
+	
 
-
+#ifdef ENABLE_BRIEFINGROOM 
 	//Briefing room
 	for(i=0; i<NUM_SECTOR; i++)
 	{
@@ -2777,7 +2828,9 @@ BOOLEAN SaveEncyclopediaToSaveGameFile( HWFILE hFile )
 	{
 		return( FALSE );
 	}
-
+#endif	
+	
+#ifdef ENABLE_ENCYCLOPEDIA
 	//Quests
 	for(i=0; i<MAX_QUESTS; i++)
 	{
@@ -2844,9 +2897,12 @@ BOOLEAN SaveEncyclopediaToSaveGameFile( HWFILE hFile )
 
 BOOLEAN LoadEncyclopediaFromLoadGameFile( HWFILE hFile )
 {
-#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
 	UINT32	uiNumBytesRead;
 	UINT32 i;
+#endif
+	
+#ifdef ENABLE_BRIEFINGROOM
 
 	//Briefing room
 	FileRead( hFile, &saveBriefingRoomData, sizeof( saveBriefingRoomData), &uiNumBytesRead );
@@ -2873,7 +2929,9 @@ BOOLEAN LoadEncyclopediaFromLoadGameFile( HWFILE hFile )
 		gBriefingRoomSpecialMissionData[ i ].Hidden = saveBriefingRoomSpecialMissionData[i].Hidden;
 		gBriefingRoomSpecialMissionData[ i ].CheckMission = saveBriefingRoomSpecialMissionData[i].CheckMission;
 	}
+#endif
 	
+#ifdef ENABLE_ENCYCLOPEDIA	
 	//Quests
 	FileRead( hFile, &saveEncyclopediaQuestsData, sizeof( saveEncyclopediaQuestsData), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( saveEncyclopediaQuestsData ) )

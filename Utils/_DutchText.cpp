@@ -145,7 +145,7 @@ STR16 pMenuStrings[] =
 	L"Menu 15", // 15
 	
 	//Briefing Room
-	L"Exit",
+	L"Enter",
 };
 
 STR16	pOtherButtonsText[] =
@@ -176,6 +176,7 @@ STR16	pSectorPageText[] =
 	L"Type: ",
 	L"Empty data",
 	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+	L"Briefing Room. Please click the 'Enter' button.",		// TODO.Translate
 };
 
 STR16	pEncyclopediaTypeText[] = 

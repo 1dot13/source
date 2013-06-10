@@ -1262,6 +1262,9 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
+#endif //ENABLE_ENCYCLOPEDIA
+
+#ifdef ENABLE_BRIEFINGROOM
 	strcpy(fileName, directoryName);
 	strcat(fileName, BRIEFINGROOMFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -1275,7 +1278,8 @@ if ( ReadXMLEmail == TRUE )
 			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gBriefingRoomData, 4), fileName);
 		}
 #endif
-#endif //ENABLE_ENCYCLOPEDIA
+
+#endif //ENABLE_BRIEFINGROOM
 
 		UINT8 p;
 		for(p=0; p<NUM_PROFILES; p++)

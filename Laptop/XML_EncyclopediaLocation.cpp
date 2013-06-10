@@ -311,7 +311,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc2, pData->curEncyclopediaData.sDesc2);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc3, pData->curEncyclopediaData.sDesc3);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc4, pData->curEncyclopediaData.sDesc4);
-						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
+					/*	wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc6, pData->curEncyclopediaData.sDesc6);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc7, pData->curEncyclopediaData.sDesc7);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc8, pData->curEncyclopediaData.sDesc8);
@@ -327,7 +327,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc18, pData->curEncyclopediaData.sDesc18);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc19, pData->curEncyclopediaData.sDesc19);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc20, pData->curEncyclopediaData.sDesc20);
-						
+					*/	
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].Name, pData->curEncyclopediaData.Name);	
 					}
 					else if ( pEncy[pData->curEncyclopediaData.uiIndex].enableDesc == TRUE && pEncy[pData->curEncyclopediaData.uiIndex].SpecialQuestImage == FALSE )
@@ -336,7 +336,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc2, pData->curEncyclopediaData.sDesc2);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc3, pData->curEncyclopediaData.sDesc3);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc4, pData->curEncyclopediaData.sDesc4);
-						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
+					/*	wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc6, pData->curEncyclopediaData.sDesc6);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc7, pData->curEncyclopediaData.sDesc7);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc8, pData->curEncyclopediaData.sDesc8);
@@ -352,7 +352,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc18, pData->curEncyclopediaData.sDesc18);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc19, pData->curEncyclopediaData.sDesc19);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc20, pData->curEncyclopediaData.sDesc20);
-						
+					*/	
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].Name, pData->curEncyclopediaData.Name);	
 					}
 					else if ( pEncy[pData->curEncyclopediaData.uiIndex].enableDesc == FALSE && FileType == 1 )
@@ -509,7 +509,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc2, pData->curEncyclopediaData.sDesc2);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc3, pData->curEncyclopediaData.sDesc3);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc4, pData->curEncyclopediaData.sDesc4);
-						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
+					/*	wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc6, pData->curEncyclopediaData.sDesc6);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc7, pData->curEncyclopediaData.sDesc7);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc8, pData->curEncyclopediaData.sDesc8);
@@ -525,7 +525,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc18, pData->curEncyclopediaData.sDesc18);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc19, pData->curEncyclopediaData.sDesc19);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc20, pData->curEncyclopediaData.sDesc20);
-						
+					*/	
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].Name, pData->curEncyclopediaData.Name);	
 					}
 					else if ( pEncy[pData->curEncyclopediaData.uiIndex].enableDesc == TRUE && pEncy[pData->curEncyclopediaData.uiIndex].SpecialQuestImage == FALSE )
@@ -534,7 +534,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc2, pData->curEncyclopediaData.sDesc2);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc3, pData->curEncyclopediaData.sDesc3);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc4, pData->curEncyclopediaData.sDesc4);
-						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
+					/*	wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc5, pData->curEncyclopediaData.sDesc5);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc6, pData->curEncyclopediaData.sDesc6);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc7, pData->curEncyclopediaData.sDesc7);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc8, pData->curEncyclopediaData.sDesc8);
@@ -550,7 +550,7 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc18, pData->curEncyclopediaData.sDesc18);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc19, pData->curEncyclopediaData.sDesc19);
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].sDesc20, pData->curEncyclopediaData.sDesc20);
-						
+					*/	
 						wcscpy(pEncy[pData->curEncyclopediaData.uiIndex].Name, pData->curEncyclopediaData.Name);
 					}	
 					else if ( pEncy[pData->curEncyclopediaData.uiIndex].enableDesc == FALSE && FileType == 1 )
@@ -700,113 +700,113 @@ encyclopediaLocationEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc5, sizeof(pData->curEncyclopediaData.sDesc5)/sizeof(pData->curEncyclopediaData.sDesc5[0]) );
-			pData->curEncyclopediaData.sDesc5[sizeof(pData->curEncyclopediaData.sDesc5)/sizeof(pData->curEncyclopediaData.sDesc5[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc5, sizeof(pData->curEncyclopediaData.sDesc5)/sizeof(pData->curEncyclopediaData.sDesc5[0]) );
+		//	pData->curEncyclopediaData.sDesc5[sizeof(pData->curEncyclopediaData.sDesc5)/sizeof(pData->curEncyclopediaData.sDesc5[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc6") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc6, sizeof(pData->curEncyclopediaData.sDesc6)/sizeof(pData->curEncyclopediaData.sDesc6[0]) );
-			pData->curEncyclopediaData.sDesc6[sizeof(pData->curEncyclopediaData.sDesc6)/sizeof(pData->curEncyclopediaData.sDesc6[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc6, sizeof(pData->curEncyclopediaData.sDesc6)/sizeof(pData->curEncyclopediaData.sDesc6[0]) );
+		//	pData->curEncyclopediaData.sDesc6[sizeof(pData->curEncyclopediaData.sDesc6)/sizeof(pData->curEncyclopediaData.sDesc6[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc7") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc7, sizeof(pData->curEncyclopediaData.sDesc7)/sizeof(pData->curEncyclopediaData.sDesc7[0]) );
-			pData->curEncyclopediaData.sDesc7[sizeof(pData->curEncyclopediaData.sDesc7)/sizeof(pData->curEncyclopediaData.sDesc7[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc7, sizeof(pData->curEncyclopediaData.sDesc7)/sizeof(pData->curEncyclopediaData.sDesc7[0]) );
+		//	pData->curEncyclopediaData.sDesc7[sizeof(pData->curEncyclopediaData.sDesc7)/sizeof(pData->curEncyclopediaData.sDesc7[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc8") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc8, sizeof(pData->curEncyclopediaData.sDesc8)/sizeof(pData->curEncyclopediaData.sDesc8[0]) );
-			pData->curEncyclopediaData.sDesc8[sizeof(pData->curEncyclopediaData.sDesc8)/sizeof(pData->curEncyclopediaData.sDesc8[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc8, sizeof(pData->curEncyclopediaData.sDesc8)/sizeof(pData->curEncyclopediaData.sDesc8[0]) );
+		//	pData->curEncyclopediaData.sDesc8[sizeof(pData->curEncyclopediaData.sDesc8)/sizeof(pData->curEncyclopediaData.sDesc8[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc9") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc9, sizeof(pData->curEncyclopediaData.sDesc9)/sizeof(pData->curEncyclopediaData.sDesc9[0]) );
-			pData->curEncyclopediaData.sDesc9[sizeof(pData->curEncyclopediaData.sDesc9)/sizeof(pData->curEncyclopediaData.sDesc9[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc9, sizeof(pData->curEncyclopediaData.sDesc9)/sizeof(pData->curEncyclopediaData.sDesc9[0]) );
+		//	pData->curEncyclopediaData.sDesc9[sizeof(pData->curEncyclopediaData.sDesc9)/sizeof(pData->curEncyclopediaData.sDesc9[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc10") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc10, sizeof(pData->curEncyclopediaData.sDesc10)/sizeof(pData->curEncyclopediaData.sDesc10[0]) );
-			pData->curEncyclopediaData.sDesc10[sizeof(pData->curEncyclopediaData.sDesc10)/sizeof(pData->curEncyclopediaData.sDesc10[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc10, sizeof(pData->curEncyclopediaData.sDesc10)/sizeof(pData->curEncyclopediaData.sDesc10[0]) );
+		//	pData->curEncyclopediaData.sDesc10[sizeof(pData->curEncyclopediaData.sDesc10)/sizeof(pData->curEncyclopediaData.sDesc10[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc11") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc11, sizeof(pData->curEncyclopediaData.sDesc11)/sizeof(pData->curEncyclopediaData.sDesc11[0]) );
-			pData->curEncyclopediaData.sDesc11[sizeof(pData->curEncyclopediaData.sDesc11)/sizeof(pData->curEncyclopediaData.sDesc11[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc11, sizeof(pData->curEncyclopediaData.sDesc11)/sizeof(pData->curEncyclopediaData.sDesc11[0]) );
+		//	pData->curEncyclopediaData.sDesc11[sizeof(pData->curEncyclopediaData.sDesc11)/sizeof(pData->curEncyclopediaData.sDesc11[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc12") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc12, sizeof(pData->curEncyclopediaData.sDesc12)/sizeof(pData->curEncyclopediaData.sDesc12[0]) );
-			pData->curEncyclopediaData.sDesc12[sizeof(pData->curEncyclopediaData.sDesc12)/sizeof(pData->curEncyclopediaData.sDesc12[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc12, sizeof(pData->curEncyclopediaData.sDesc12)/sizeof(pData->curEncyclopediaData.sDesc12[0]) );
+		//	pData->curEncyclopediaData.sDesc12[sizeof(pData->curEncyclopediaData.sDesc12)/sizeof(pData->curEncyclopediaData.sDesc12[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc13") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc13, sizeof(pData->curEncyclopediaData.sDesc13)/sizeof(pData->curEncyclopediaData.sDesc13[0]) );
-			pData->curEncyclopediaData.sDesc13[sizeof(pData->curEncyclopediaData.sDesc13)/sizeof(pData->curEncyclopediaData.sDesc13[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc13, sizeof(pData->curEncyclopediaData.sDesc13)/sizeof(pData->curEncyclopediaData.sDesc13[0]) );
+		//	pData->curEncyclopediaData.sDesc13[sizeof(pData->curEncyclopediaData.sDesc13)/sizeof(pData->curEncyclopediaData.sDesc13[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc14") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc14, sizeof(pData->curEncyclopediaData.sDesc14)/sizeof(pData->curEncyclopediaData.sDesc14[0]) );
-			pData->curEncyclopediaData.sDesc14[sizeof(pData->curEncyclopediaData.sDesc14)/sizeof(pData->curEncyclopediaData.sDesc14[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc14, sizeof(pData->curEncyclopediaData.sDesc14)/sizeof(pData->curEncyclopediaData.sDesc14[0]) );
+		//	pData->curEncyclopediaData.sDesc14[sizeof(pData->curEncyclopediaData.sDesc14)/sizeof(pData->curEncyclopediaData.sDesc14[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc15") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc15, sizeof(pData->curEncyclopediaData.sDesc15)/sizeof(pData->curEncyclopediaData.sDesc15[0]) );
-			pData->curEncyclopediaData.sDesc15[sizeof(pData->curEncyclopediaData.sDesc15)/sizeof(pData->curEncyclopediaData.sDesc15[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc15, sizeof(pData->curEncyclopediaData.sDesc15)/sizeof(pData->curEncyclopediaData.sDesc15[0]) );
+		//	pData->curEncyclopediaData.sDesc15[sizeof(pData->curEncyclopediaData.sDesc15)/sizeof(pData->curEncyclopediaData.sDesc15[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc16") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc16, sizeof(pData->curEncyclopediaData.sDesc16)/sizeof(pData->curEncyclopediaData.sDesc16[0]) );
-			pData->curEncyclopediaData.sDesc16[sizeof(pData->curEncyclopediaData.sDesc16)/sizeof(pData->curEncyclopediaData.sDesc16[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc16, sizeof(pData->curEncyclopediaData.sDesc16)/sizeof(pData->curEncyclopediaData.sDesc16[0]) );
+		//	pData->curEncyclopediaData.sDesc16[sizeof(pData->curEncyclopediaData.sDesc16)/sizeof(pData->curEncyclopediaData.sDesc16[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc17") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc17, sizeof(pData->curEncyclopediaData.sDesc17)/sizeof(pData->curEncyclopediaData.sDesc17[0]) );
-			pData->curEncyclopediaData.sDesc17[sizeof(pData->curEncyclopediaData.sDesc17)/sizeof(pData->curEncyclopediaData.sDesc17[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc17, sizeof(pData->curEncyclopediaData.sDesc17)/sizeof(pData->curEncyclopediaData.sDesc17[0]) );
+		//	pData->curEncyclopediaData.sDesc17[sizeof(pData->curEncyclopediaData.sDesc17)/sizeof(pData->curEncyclopediaData.sDesc17[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc18") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc18, sizeof(pData->curEncyclopediaData.sDesc18)/sizeof(pData->curEncyclopediaData.sDesc18[0]) );
-			pData->curEncyclopediaData.sDesc18[sizeof(pData->curEncyclopediaData.sDesc18)/sizeof(pData->curEncyclopediaData.sDesc18[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc18, sizeof(pData->curEncyclopediaData.sDesc18)/sizeof(pData->curEncyclopediaData.sDesc18[0]) );
+		//	pData->curEncyclopediaData.sDesc18[sizeof(pData->curEncyclopediaData.sDesc18)/sizeof(pData->curEncyclopediaData.sDesc18[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc19") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc19, sizeof(pData->curEncyclopediaData.sDesc19)/sizeof(pData->curEncyclopediaData.sDesc19[0]) );
-			pData->curEncyclopediaData.sDesc19[sizeof(pData->curEncyclopediaData.sDesc19)/sizeof(pData->curEncyclopediaData.sDesc19[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc19, sizeof(pData->curEncyclopediaData.sDesc19)/sizeof(pData->curEncyclopediaData.sDesc19[0]) );
+		//	pData->curEncyclopediaData.sDesc19[sizeof(pData->curEncyclopediaData.sDesc19)/sizeof(pData->curEncyclopediaData.sDesc19[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "PageDesc20") == 0 )
 		{
 			pData->curElement = ENCYCLOPEDIA_ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc20, sizeof(pData->curEncyclopediaData.sDesc20)/sizeof(pData->curEncyclopediaData.sDesc20[0]) );
-			pData->curEncyclopediaData.sDesc20[sizeof(pData->curEncyclopediaData.sDesc20)/sizeof(pData->curEncyclopediaData.sDesc20[0]) - 1] = '\0';
+		//	MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curEncyclopediaData.sDesc20, sizeof(pData->curEncyclopediaData.sDesc20)/sizeof(pData->curEncyclopediaData.sDesc20[0]) );
+		//	pData->curEncyclopediaData.sDesc20[sizeof(pData->curEncyclopediaData.sDesc20)/sizeof(pData->curEncyclopediaData.sDesc20[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "MaxImages") == 0)
 		{
