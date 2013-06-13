@@ -121,6 +121,8 @@ void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason );
 BOOLEAN LoadEncyclopediaFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveEncyclopediaToSaveGameFile( HWFILE hFile );
 
+void BackupBRandEncyclopedia ( ENCYCLOPEDIA_LOCATION *EncyBackup, ENCYCLOPEDIA_LOCATION *Ency, UINT32 NUM);
+
 BOOLEAN DisplayEncyclopediaLocationText()
 {
 	return(TRUE);
@@ -244,6 +246,81 @@ UINT32 i,NUM_TEMP;
 			gEncyclopediaDataTemp[i].CheckMission = 0;	
 	
 			
+	}
+#endif // ENABLE_ENCYCLOPEDIA
+}
+
+void BackupBRandEncyclopedia ( ENCYCLOPEDIA_LOCATION *EncyBackup, ENCYCLOPEDIA_LOCATION *Ency, UINT32 NUM)
+{
+//#ifdef ENABLE_ENCYCLOPEDIA
+#if (defined ENABLE_ENCYCLOPEDIA || defined ENABLE_BRIEFINGROOM) 
+
+UINT32 i,NUM_TEMP;
+
+  if ( NUM == 0 )
+		NUM_TEMP = NUM_SECTOR;
+  else if ( NUM == 1 )
+		NUM_TEMP = NUM_PROFILES;
+  else if ( NUM == 2 )
+		NUM_TEMP = MAXITEMS;
+  else if ( NUM == 3 )
+		NUM_TEMP = MAX_QUESTS;
+  else if ( NUM == 4 || NUM  == 5 )
+		NUM_TEMP = NUM_SECTOR;
+  else 
+		NUM_TEMP = NUM_SECTOR;
+		
+  	for(i=0; i<NUM_TEMP; i++)
+	{
+			Ency[i].uiIndex = EncyBackup[i].uiIndex;
+/*
+			Ency[i].sImagePositionX[0] = EncyBackup[i].sImagePositionX[0];
+			Ency[i].sImagePositionY[0] = EncyBackup[i].sImagePositionY[0];
+					
+			Ency[i].sImagePositionX[1] = EncyBackup[i].sImagePositionX[1];
+			Ency[i].sImagePositionY[1] = EncyBackup[i].sImagePositionY[1];		
+					
+			Ency[i].sImagePositionX[2] = EncyBackup[i].sImagePositionX[2];
+			Ency[i].sImagePositionY[2] = EncyBackup[i].sImagePositionY[2];
+					
+			Ency[i].sImagePositionX[3] = EncyBackup[i].sImagePositionX[3];
+			Ency[i].sImagePositionY[3] = EncyBackup[i].sImagePositionY[3];
+*/			
+			Ency[i].Hidden = EncyBackup[i].Hidden;
+		//	Ency[i].SectorX = EncyBackup[i].SectorX;
+		//	Ency[i].SectorY = EncyBackup[i].SectorY;
+		//	Ency[i].SectorZ = EncyBackup[i].SectorZ;
+			
+		//	Ency[i].MaxPages = EncyBackup[i].MaxPages;
+		//	Ency[i].MaxImages = EncyBackup[i].MaxImages;
+			
+			//Only locations
+		//	Ency[i].LocType = EncyBackup[i].LocType;
+	
+			//Only profiles
+		//	Ency[i].IDProfile = EncyBackup[i].IDProfile;
+		//	Ency[i].Filtr = EncyBackup[i].Filtr;
+		//	Ency[i].enableDesc = EncyBackup[i].enableDesc;
+		//	Ency[i].subGroup1 = EncyBackup[i].subGroup1;
+			Ency[i].bvisible = EncyBackup[i].bvisible;	
+			
+			//Inventory
+		//	Ency[i].InventoryClass = EncyBackup[i].InventoryClass;
+						
+			//Quest
+			Ency[i].QuestID = EncyBackup[i].QuestID;
+			Ency[i].pQuests = EncyBackup[i].pQuests;
+/*			Ency[i].SpecialQuestImage = EncyBackup[i].SpecialQuestImage;
+
+			Ency[i].ImagePositionQX[0] = EncyBackup[i].ImagePositionQX[0];
+			Ency[i].ImagePositionQY[0] = EncyBackup[i].ImagePositionQY[0];
+			Ency[i].ImagePositionQX[1] = EncyBackup[i].ImagePositionQX[1];
+			Ency[i].ImagePositionQY[1] = EncyBackup[i].ImagePositionQY[1];
+*/
+			Ency[i].MissionID = EncyBackup[i].MissionID;
+			Ency[i].NextMission = EncyBackup[i].NextMission;
+			
+			Ency[i].CheckMission = EncyBackup[i].CheckMission;		
 	}
 #endif // ENABLE_ENCYCLOPEDIA
 }

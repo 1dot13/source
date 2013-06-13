@@ -290,6 +290,7 @@ static int l_CheckCharacterSectorZ (lua_State *L);
 static int l_CheckNPCSectorNew (lua_State *L);
 static int l_GetWorldHour (lua_State *L);
 static int l_FindItemSoldier (lua_State *L);
+static int l_FindItem2Soldier (lua_State *L);
 
 static int l_CheckNPCWoundedbyPlayer (lua_State *L);
 static int l_CheckNPCWounded (lua_State *L);
@@ -943,6 +944,7 @@ void IniFunction(lua_State *L)
 	lua_register(L, "ClosestPC", l_ClosestPC );
 	lua_register(L, "TileIsOutOfBounds", l_TileIsOutOfBounds );	
 	lua_register(L, "FindItemSoldier",l_FindItemSoldier);
+	lua_register(L, "FindItemSoldierAddItemToPool",l_FindItemSoldier);
 	lua_register(L, "TileIsOutOfBoundsClosestPC", l_TileIsOutOfBoundsClosestPC);
 	lua_register(L, "CheckCharacterSectorZ", l_CheckCharacterSectorZ);
 	lua_register(L, "CheckSoldierNeutral", l_bNeutral);	
@@ -951,6 +953,8 @@ void IniFunction(lua_State *L)
 	lua_register(L, "WhatKindOfMercAmI",l_ubWhatKindOfMercAmI);	
 	lua_register(L, "IsMercDead", l_IsMercDead);
 	lua_register(L, "IsMercHireable", l_IsMercHireable);	
+	
+	lua_register(L, "FindItemProfile",l_FindItem2Soldier);
 	
 	//Set merc
 	lua_register(L, "SetThreatenDefaultResponseUsedRecently", l_bThreatenDefaultResponseUsedRecently);
@@ -7780,6 +7784,42 @@ BOOLEAN LetLuaHandleNPCSystemEvent( UINT32 uiEvent, UINT8 Init)
 */
 //---------------
 
+static int l_FindItem2Soldier (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+
+
+SOLDIERTYPE *pSoldier;
+UINT8 ubTargetNPC;
+UINT32 ItemIndex;
+UINT32 Grido;
+INT8 bItemIn;
+BOOLEAN fPlayerMercsOnly;
+BOOLEAN bol = FALSE;
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
+		if (i == 2 ) ItemIndex = lua_tointeger(L,i);
+		if (i == 3 ) fPlayerMercsOnly = lua_toboolean(L,i);
+	}
+
+			pSoldier = FindSoldierByProfileID( ubTargetNPC, fPlayerMercsOnly);
+			if (pSoldier)
+			{
+				bItemIn = FindObj( pSoldier, ItemIndex );
+				if (bItemIn != NO_SLOT)
+					{
+						bol = TRUE;
+					}
+			}
+			
+			
+	lua_pushboolean(L, bol);
+		
+	return 1;
+}
+
 static int l_FindItemSoldier (lua_State *L)
 {
 UINT8  n = lua_gettop(L);
@@ -11055,7 +11095,7 @@ static int l_SetEndMission(lua_State *L)
 		if (i == 1 ) idMission = lua_tointeger(L,i);
 	}
 	
-	if ( gBriefingRoomData[idMission].CheckMission == MISSIONSTART ) 
+	if ( idMission != -1 && gBriefingRoomData[idMission].CheckMission == MISSIONSTART ) 
 	{
 		gBriefingRoomData[idMission].CheckMission = MISSIONEND; //set end mission 
 		nextMission = gBriefingRoomData[idMission].NextMission;
@@ -11068,7 +11108,7 @@ static int l_SetEndMission(lua_State *L)
 
 static int l_SetStartMission(lua_State *L)
 {
-	UINT32 idMission;
+	UINT32 idMission = 0;
 	UINT8 n = lua_gettop(L);
 	int i = 0;
 	
@@ -11077,10 +11117,13 @@ static int l_SetStartMission(lua_State *L)
 		if (i == 1 ) idMission = lua_tointeger(L,i);
 	}
 	
+	if ( idMission != -1 ) 
+	{
 	if ( gBriefingRoomData[idMission].CheckMission != MISSIONSTART || gBriefingRoomData[idMission].CheckMission != MISSIONEND || gBriefingRoomData[idMission].CheckMission == MISSIONNOSTARTED ) 
 	{
 		gBriefingRoomData[idMission].CheckMission = MISSIONSTART; //set start mission 
 		gBriefingRoomData[idMission].Hidden = TRUE; // set next mission
+	}
 	}
 	 
 	return 0;
@@ -11098,11 +11141,11 @@ static int l_CheckMission (lua_State *L)
 		if (i == 1 ) idMission = lua_tointeger(L,i);
 	}
 
-	if ( gBriefingRoomData[idMission].CheckMission == MISSIONNOSTARTED)
+	if ( idMission != -1 && gBriefingRoomData[idMission].CheckMission == MISSIONNOSTARTED)
 		Bool = 0;
-	else if ( gBriefingRoomData[idMission].CheckMission == MISSIONSTART)
+	else if ( idMission != -1 && gBriefingRoomData[idMission].CheckMission == MISSIONSTART)
 		Bool = 1;
-	else if (gBriefingRoomData[idMission].CheckMission == MISSIONEND)	
+	else if (idMission != -1 && gBriefingRoomData[idMission].CheckMission == MISSIONEND)	
 		Bool = 2;
 		
 	lua_pushinteger(L, Bool);

@@ -17,6 +17,8 @@ extern BOOLEAN bEncyclopediaQuests;
 extern BOOLEAN bBriefingRoom;
 extern BOOLEAN bBriefingRoomSpecialMission;
 
+extern void BackupBRandEncyclopedia ( ENCYCLOPEDIA_LOCATION *EncyBackup, ENCYCLOPEDIA_LOCATION *Ency, UINT32 NUM);
+
 extern UINT32 IDPageEncyData;
 extern void InitData ( BOOLEAN bInit);
 extern void UnLoadMenuButtons ();

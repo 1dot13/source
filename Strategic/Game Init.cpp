@@ -683,6 +683,17 @@ fFirstTimeInMapScreen = TRUE;
 		gAimAvailability[i].ubAimArrayID = gAimAvailabilityTemp[i].ubAimArrayID;
 		gAimAvailability[i].AimBio = gAimAvailabilityTemp[i].AimBio;
 	}
+	
+#ifdef ENABLE_ENCYCLOPEDIA
+	BackupBRandEncyclopedia ( gEncyclopediaLocationDataBackup, gEncyclopediaLocationData, 0);
+	BackupBRandEncyclopedia ( gEncyclopediaProfilesDataBackup, gEncyclopediaProfilesData, 1);
+	BackupBRandEncyclopedia ( gEncyclopediaInventoryDataBackup, gEncyclopediaInventoryData, 2);
+	BackupBRandEncyclopedia ( gEncyclopediaQuestsDataBackup, gEncyclopediaQuestsData, 3);
+#endif //ENABLE_ENCYCLOPEDIA
+
+#ifdef ENABLE_BRIEFINGROOM
+	BackupBRandEncyclopedia ( gBriefingRoomDataBackup, gBriefingRoomData, 0);
+#endif //ENABLE_BRIEFINGROOM
 
 	// IF our first time, go into laptop!
 	if ( gubScreenCount == 0 )

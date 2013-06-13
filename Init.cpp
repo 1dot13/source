@@ -81,6 +81,7 @@
 #include "Civ Quotes.h"
 #include "LuaInitNPCs.h"
 #include "Encyclopedia.h"
+#include "Encyclopedia_Data.h"
 #include "AimArchives.h"
 
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
@@ -1262,6 +1263,12 @@ if ( ReadXMLEmail == TRUE )
 		}
 #endif
 
+BackupBRandEncyclopedia ( gEncyclopediaLocationData, gEncyclopediaLocationDataBackup , 0);
+BackupBRandEncyclopedia ( gEncyclopediaProfilesData, gEncyclopediaProfilesDataBackup, 1);
+BackupBRandEncyclopedia ( gEncyclopediaInventoryDatag, EncyclopediaInventoryDataBackup , 2);
+BackupBRandEncyclopedia ( gEncyclopediaQuestsData, gEncyclopediaQuestsDataBackup, 3);
+
+
 #endif //ENABLE_ENCYCLOPEDIA
 
 #ifdef ENABLE_BRIEFINGROOM
@@ -1278,6 +1285,8 @@ if ( ReadXMLEmail == TRUE )
 			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gBriefingRoomData, 4), fileName);
 		}
 #endif
+
+BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 
 #endif //ENABLE_BRIEFINGROOM
 

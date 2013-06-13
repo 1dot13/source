@@ -210,6 +210,12 @@ extern ENCYCLOPEDIA_LOCATION gEncyclopediaDataTemp[ NUM_MAX_TEMP ];
 #endif
 
 #ifdef ENABLE_ENCYCLOPEDIA
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaLocationDataBackup[ NUM_SECTOR ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesDataBackup[ NUM_PROFILES ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryDataBackup[ MAXITEMS ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaOldProfilesDataBackup[ NUM_PROFILES ];
+extern ENCYCLOPEDIA_LOCATION gEncyclopediaQuestsDataBackup[ MAX_QUESTS ];
+
 extern ENCYCLOPEDIA_LOCATION gEncyclopediaLocationData[ NUM_SECTOR ];
 extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ NUM_PROFILES ];
 extern ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryData[ MAXITEMS ];
@@ -227,6 +233,10 @@ extern ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[];
 #ifdef ENABLE_BRIEFINGROOM
 extern ENCYCLOPEDIA_LOCATION gBriefingRoomData[ NUM_SECTOR ];
 extern ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionData[ NUM_SECTOR ];
+
+extern ENCYCLOPEDIA_LOCATION gBriefingRoomDataBackup[ NUM_SECTOR ];
+extern ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionDataBackup[ NUM_SECTOR ];
+
 extern MISSION_SAVE saveBriefingRoomData[ NUM_SECTOR ];
 extern MISSION_SAVE saveBriefingRoomSpecialMissionData[ NUM_SECTOR ];
 extern MISSION_SAVE saveMissionData[ NUM_SECTOR ];

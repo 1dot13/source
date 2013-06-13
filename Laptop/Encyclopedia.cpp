@@ -77,6 +77,13 @@ ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ NUM_PROFILES ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryData[ MAXITEMS ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaOldProfilesData[ NUM_PROFILES ];
 ENCYCLOPEDIA_LOCATION gEncyclopediaQuestsData[ MAX_QUESTS ];
+
+ENCYCLOPEDIA_LOCATION gEncyclopediaLocationDataBackup[ NUM_SECTOR ];
+ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesDataBackup[ NUM_PROFILES ];
+ENCYCLOPEDIA_LOCATION gEncyclopediaInventoryDataBackup[ MAXITEMS ];
+ENCYCLOPEDIA_LOCATION gEncyclopediaOldProfilesDataBackup[ NUM_PROFILES ];
+ENCYCLOPEDIA_LOCATION gEncyclopediaQuestsDataBackup[ MAX_QUESTS ];
+
 ENCYCLOPEDIA_PROF_SAVE saveEncyclopediaProfilesData[ NUM_PROFILES ];
 BOOLEAN saveEncyclopediaLocationData[ NUM_SECTOR ];
 BOOLEAN saveEncyclopediaInventoryData[ MAXITEMS ];
@@ -89,6 +96,10 @@ ENCYCLOPEDIA_LOCATION gEncyclopediaProfilesData[ 1 ];
 #ifdef ENABLE_BRIEFINGROOM
 ENCYCLOPEDIA_LOCATION gBriefingRoomData[ NUM_SECTOR ];
 ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionData[ NUM_SECTOR ];
+
+ENCYCLOPEDIA_LOCATION gBriefingRoomDataBackup[ NUM_SECTOR ];
+ENCYCLOPEDIA_LOCATION gBriefingRoomSpecialMissionDataBackup[ NUM_SECTOR ];
+
 MISSION_SAVE saveBriefingRoomData[ NUM_SECTOR ];
 MISSION_SAVE saveBriefingRoomSpecialMissionData[ NUM_SECTOR ];
 MISSION_SAVE saveMissionData[ NUM_SECTOR ];

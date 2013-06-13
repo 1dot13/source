@@ -4426,6 +4426,21 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				HaveNpcOpenUpDealerScreen( ubTargetNPC );
 				break;
 #endif
+
+			case NPC_ACTION_RECRUIT_PROFILE_TO_EPC:
+					//if ( !CheckNPCIsEPC(ubTargetNPC) )
+						//{
+							RecruitEPC( ubTargetNPC );
+						//}
+				break;
+				
+			case NPC_ACTION_UNRECRUIT_EPC:
+					//if ( CheckNPCIsEPC(ubTargetNPC) )
+					//	{
+							UnRecruitEPC( ubTargetNPC );
+					//	}
+				break;
+
 			default:
 				ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"No code support for NPC action %d", usActionCode );
 				break;
