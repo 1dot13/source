@@ -150,7 +150,7 @@ extern char	cServerName[30];
 
 // WANNE: After some MP-Tests: It seems there are still problems with enemy interupt and if this define is enabled the ALT + E (give turn to client) does not work either. So I disabled this define for now ...
 // WANNE: If this define is enabled, it hopefully fixes the "enemy AI got stuck on pure client interrupt". (this "fix" was added in revision 5623)
-//#define INTERRUPT_MP_DEADLOCK_FIX
+#define INTERRUPT_MP_DEADLOCK_FIX
 
 // WANNE: This features seems to work without any errors, so it is enabled :)
 #define ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
