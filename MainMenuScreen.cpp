@@ -440,8 +440,9 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				//if something didnt work, dont even know how to make error code...//hayden
 			}
 
+			// WANNE: Removed, cause I don't think it is needed if we only want to play a multiplayer game!
 			// Reload the external gameplay data, because maybe we started a MP game before!
-			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+			//LoadExternalGameplayData(TABLEDATA_DIRECTORY);
 
 			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
 			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
