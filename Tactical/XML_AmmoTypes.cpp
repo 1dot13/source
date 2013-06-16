@@ -238,7 +238,7 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "highExplosive") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.highExplosive	= (BOOLEAN) atol(pData->szCharData);
+			pData->curAmmoType.highExplosive	= (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "explosionSize") == 0)
 		{

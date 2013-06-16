@@ -332,7 +332,7 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	// No explosive but an attacker with HE ammo.
 	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && ubOwner != NOBODY)
 	{
-		ExpParams.ubTypeID = (INT8)Explosive[AmmoTypes[ammotype].highExplosive].ubAnimationID;
+		ExpParams.ubTypeID = (INT8)Explosive[Item[AmmoTypes[ammotype].highExplosive].ubClassIndex].ubAnimationID;		
 		// return;
 	}
 	else // just normal explosives should get here

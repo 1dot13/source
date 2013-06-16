@@ -248,7 +248,7 @@ typedef struct
 	UINT8 numberOfBullets;
 	INT32 multipleBulletDamageMultiplier;
 	INT32 multipleBulletDamageDivisor;
-	BOOLEAN highExplosive;
+	UINT16 highExplosive;
 	UINT8 explosionSize; //0=none, 1=small, 2=medium, 3=large
 	BOOLEAN antiTank;
 	BOOLEAN dart;
