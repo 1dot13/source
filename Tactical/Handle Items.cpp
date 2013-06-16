@@ -1138,7 +1138,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// if we have an empty sandbag in our hands, we also need to have a shovel in our second hand, otherwise we can't fill it
 		if ( HasItemFlag(usHandItem, (EMPTY_SANDBAG)) )
 		{
-			sAPCost = GetAPsToFillSandbag( pSoldier );
+			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FILL_SANDBAG );
 
 			// check if we have a shovel in our second hand
 			OBJECTTYPE* pShovelObj = &(pSoldier->inv[SECONDHANDPOS]);
@@ -1158,7 +1158,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// if we have a shovel in our hands, the targeted gridno must be a fortification (debris will do for this check)
 		else if ( HasItemFlag(usHandItem, (SHOVEL)) )
 		{
-			sAPCost = GetAPsToRemoveFortification( pSoldier );
+			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_REMOVE_FORTIFY );
 
 			STRUCTURE* pStruct = FindStructure(sGridNo, STRUCTURE_GENERIC);
 
@@ -1169,7 +1169,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 		else
 		{
-			sAPCost = GetAPsToBuildFortification( pSoldier );
+			sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_FORTIFY );
 		}
 
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );

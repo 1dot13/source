@@ -3724,29 +3724,23 @@ INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	return sAPCost;
 }
 
-INT16 GetAPsToBuildFortification( SOLDIERTYPE *pSoldier )
+// added by Flugente
+INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
 {
 	INT16 sAPCost = 0;
-		
-	sAPCost += APBPConstants[AP_FORTIFICATION];
 
-	return sAPCost;
-}
-
-INT16 GetAPsToRemoveFortification( SOLDIERTYPE *pSoldier )
-{
-	INT16 sAPCost = 0;
-		
-	sAPCost += APBPConstants[AP_REMOVE_FORTIFICATION];
-
-	return sAPCost;
-}
-
-INT16 GetAPsToFillSandbag( SOLDIERTYPE *pSoldier )
-{
-	INT16 sAPCost = 0;
-		
-	sAPCost += APBPConstants[AP_FILL_SANDBAG];
+	switch ( usActionType )
+	{
+	case MTA_FORTIFY:
+		sAPCost += APBPConstants[AP_FORTIFICATION];
+		break;
+	case MTA_REMOVE_FORTIFY:
+		sAPCost += APBPConstants[AP_REMOVE_FORTIFICATION];
+		break;
+	case MTA_FILL_SANDBAG:
+		sAPCost += APBPConstants[AP_FILL_SANDBAG];
+		break;
+	}
 
 	return sAPCost;
 }

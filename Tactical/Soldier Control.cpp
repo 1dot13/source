@@ -15574,8 +15574,19 @@ UINT8	SOLDIERTYPE::GetMultiTurnAction()
 void	SOLDIERTYPE::StartMultiTurnAction(UINT8 usActionType)
 {
 	// check wether we can perform any action at all
-	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds(this->sGridNo) || this->pathing.bLevel != 0 || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND || this->bCollapsed )
+	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds(this->sGridNo) || this->bCollapsed )
 		return;
+
+	// wether an action is possible or not depends on action itself (there are actions without a gridno)
+	switch( usMultiTurnAction )
+	{
+	case MTA_FORTIFY:
+	case MTA_REMOVE_FORTIFY:
+	case MTA_FILL_SANDBAG:
+		if ( this->pathing.bLevel != 0 || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND )
+			return;
+		break;
+	}
 
 	// if we already perform a multi-turn action, overwrite it
 	if ( GetMultiTurnAction() > MTA_NONE )
@@ -15588,18 +15599,7 @@ void	SOLDIERTYPE::StartMultiTurnAction(UINT8 usActionType)
 	sMTActionGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 
 	// for now, adding and removing a structure has the same AP cost - that might change in the future
-	switch( usMultiTurnAction )
-	{
-	case MTA_FORTIFY:
-		bOverTurnAPS = GetAPsToBuildFortification( this );		
-		break;
-	case MTA_REMOVE_FORTIFY:
-		bOverTurnAPS = GetAPsToRemoveFortification( this );	
-		break;
-	case MTA_FILL_SANDBAG:
-		bOverTurnAPS = GetAPsToFillSandbag( this );
-		break;
-	}
+	bOverTurnAPS = GetAPsForMultiTurnAction( this, usMultiTurnAction);
 
 	// immediately starting the action would leave us without APs, thus removing the benefit of multi-turn actions (ability to do something else while performing a longer action)
 	// for this reason, we only do this when we are not in combat
@@ -15626,10 +15626,30 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 		return FALSE;
 
 	// check wether we can perform any action at all
-	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds(this->sGridNo) || TileIsOutOfBounds(this->sMTActionGridNo) || this->pathing.bLevel != 0 || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND || this->bCollapsed )
+	if ( !this->bActive || !this->bInSector || this->stats.bLife < OKLIFE || TileIsOutOfBounds(this->sGridNo) || this->bCollapsed )
 	{
 		CancelMultiTurnAction(FALSE);
 		return FALSE;
+	}
+
+	// wether an action is possible or not depends on action itself (there are actions without a gridno)
+	switch( usMultiTurnAction )
+	{
+	case MTA_FORTIFY:
+	case MTA_REMOVE_FORTIFY:
+	case MTA_FILL_SANDBAG:
+		if ( this->pathing.bLevel != 0 || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_PRONE || gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND )
+		{
+			CancelMultiTurnAction(FALSE);
+			return FALSE;
+		}
+		break;
+	default:	// default: exit
+		{
+			CancelMultiTurnAction(FALSE);
+			return FALSE;
+		}
+		break;
 	}
 
 	// check wether our selected action can still be performed
@@ -15641,8 +15661,11 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 		fActionStillValid = FALSE;
 
 	// error if the gridno we started working on is not the gridno we are currently looking at
-	if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
-		fActionStillValid = FALSE;
+	if ( usMultiTurnAction == MTA_FORTIFY || usMultiTurnAction == MTA_REMOVE_FORTIFY || usMultiTurnAction == MTA_FILL_SANDBAG )
+	{
+		if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
+			fActionStillValid = FALSE;
+	}
 
 	if ( !fActionStillValid )
 	{
@@ -15659,7 +15682,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 	{
 	case MTA_FORTIFY:
 		{
-			entireapcost = GetAPsToBuildFortification( this );
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_FORTIFY );
 			entirebpcost = APBPConstants[BP_FORTIFICATION];
 
 			if ( !IsFortificationPossibleAtGridNo( this->sMTActionGridNo ) )
@@ -15670,7 +15693,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 		break;
 	case MTA_REMOVE_FORTIFY:
 		{
-			entireapcost = GetAPsToRemoveFortification( this );
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_REMOVE_FORTIFY );
 			entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
 
 			if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, (SHOVEL)) )
@@ -15680,7 +15703,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 
 	case MTA_FILL_SANDBAG:
 		{
-			entireapcost = GetAPsToFillSandbag( this );
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_FILL_SANDBAG );
 			entirebpcost = APBPConstants[BP_FILL_SANDBAG];
 
 			if ( !HasItemFlag(this->inv[ HANDPOS ].usItem, EMPTY_SANDBAG) )
@@ -15715,13 +15738,22 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 	else
 	{
 		// refresh animations
-		if (!is_networked)
-			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
-		else
-			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+		switch( usMultiTurnAction )
+		{
+		case MTA_FORTIFY:
+		case MTA_REMOVE_FORTIFY:
+		case MTA_FILL_SANDBAG:
+			{
+			if (!is_networked)
+				this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+			else
+				this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 
-		// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
-		this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
+			// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
+			this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
+			}
+			break;
+		}
 	}
 
 	// if we can afford it, do it now
