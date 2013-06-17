@@ -7647,7 +7647,7 @@ void MakeBloodcatsHostile( void )
 
 BOOLEAN SoldierHasLimitedVision(SOLDIERTYPE * pSoldier)
 {
-	if ( GetPercentTunnelVision(pSoldier) > 0 || ( gGameExternalOptions.gfAllowLimitedVision ) )
+	if ( gGameExternalOptions.gfAllowLimitedVision || GetPercentTunnelVision(pSoldier) > 0 )
 		return TRUE;
 	else
 		return FALSE;
