@@ -46,6 +46,8 @@
 
 #include "LuaInitNPCs.h"
 
+#include "Luaglobal.h"
+
 #define TESTQUESTS
 
 extern SOLDIERTYPE * gpSrcSoldier;
@@ -59,7 +61,7 @@ INT16	gsFoodQuestSectorY;
 
 extern void	GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubHowMany );
 
-
+extern void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpReward, UINT8 bException );
 
 
 void SetFactTrue( UINT16 usFact )
@@ -1319,6 +1321,9 @@ void StartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 
 void InternalStartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory )
 {
+#ifdef LUA_QUESTS
+		LuaInternalQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory, 1);
+#else
 	if ( gubQuest[ubQuest ] == QUESTNOTSTARTED )
 	{
 		gubQuest[ubQuest] = QUESTINPROGRESS;
@@ -1333,6 +1338,7 @@ void InternalStartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN 
 	{
 		gubQuest[ubQuest] = QUESTINPROGRESS;
 	}
+#endif
 }
 
 void EndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
@@ -1342,6 +1348,11 @@ void EndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 
 void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory )
 {
+
+#ifdef LUA_QUESTS
+		LuaInternalQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory, 0);
+#else
+
 	// SANDRO merc records - quests handled counter
 	if ( gubQuest[ubQuest] != QUESTDONE && fUpdateHistory ) // only public quests
 	{
@@ -1426,6 +1437,8 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 		gMercProfiles[ MADAME ].bNPCData = 0;
 		gMercProfiles[ MADAME ].bNPCData2 = 0;
 	}
+	
+#endif
 	
 #ifdef JA2UB	
 	//if the quest is the FIX LAPTOP quest

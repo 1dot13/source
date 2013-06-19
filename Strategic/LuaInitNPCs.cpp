@@ -321,6 +321,7 @@ static int l_InTownSectorWithTrainingLoyalty (lua_State *L);
 static int l_gubQuest (lua_State *L);
 static int l_UnRecruitEPC (lua_State *L);
 static int l_MakeHostile (lua_State *L);
+static int l_SetgubQuest (lua_State *L);
 
 static int l_PythSpacesAway (lua_State *L);
 static int l_FindSoldierTeam (lua_State *L);
@@ -755,6 +756,8 @@ static int l_CreateKeyAndAddItemToPool (lua_State *L);
 static int l_CreateKeyProfInvAndAddItemToPool (lua_State *L);
 static int l_usStrategicInsertionDataProfileID (lua_State *L);
 
+BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory );
+static int l_GiveQuestRewardPoint(lua_State *L);
 
 using namespace std;
 
@@ -844,7 +847,7 @@ void IniGlobal_1(lua_State *L)
 		lua_setglobal(L, "ProfileIdsGridNo");	
 		
 }		
-void IniFunction(lua_State *L)
+void IniFunction(lua_State *L, BOOLEAN bQuests )
 {
 
 	lua_register(L, "HireMerc", l_HireMerc);
@@ -1079,16 +1082,24 @@ void IniFunction(lua_State *L)
 	lua_register(L, "ActionDoorClose", l_Action_door_close);	
 
 	//------Fact and Quest------
-	
+	if ( bQuests = TRUE )
+	{
 	lua_register(L, "SetFactTrue", l_SetFactTrue);
 	lua_register(L, "SetFactFalse", l_SetFactFalse);
+	}
+	
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckQuest", l_gubQuest);
+	if ( bQuests = TRUE )
+	{
 	lua_register(L, "StartQuest", l_StartQuest);
 	lua_register(L, "EndQuest", l_EndQuest);
+	}
 	lua_register(L, "gubFact", l_gubFact);
 	lua_register(L, "GetgubFact", l_GetgubFact);
 	lua_register(L, "gubQuest", l_gubQuest);
+	lua_register(L, "GiveQuestRewardPoint", l_GiveQuestRewardPoint);
+	lua_register(L, "SetQuest", l_SetgubQuest);
 	
 	//------Objects------
 	
@@ -1493,7 +1504,7 @@ BOOLEAN LuaIntro(UINT8 Init, UINT32 uiCurrentVideo, INT8 bIntroType, UINT32 iStr
 
 	LuaScopeState _LS(true);
 
-	IniFunction( _LS.L() );
+	IniFunction( _LS.L(), TRUE );
 	IniGlobalGameSetting( _LS.L() );
 
 	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
@@ -1624,7 +1635,7 @@ BOOLEAN LetLuaMakeBadSectorListFromMapsOnHardDrive(UINT8 Init)
 	lua_State *L = lua_open();
 	luaL_openlibs(L);
 
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -1669,7 +1680,7 @@ BOOLEAN LuaInitStrategicLayer(UINT8 Init)
 	lua_State *L = lua_open();
 	luaL_openlibs(L);
 
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2196,7 +2207,7 @@ BOOLEAN LuaCheckFact ( UINT16 usFact, UINT8 ubProfileID , UINT32 Init )
 
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2246,7 +2257,7 @@ BOOLEAN LuaCheckForKingpinsMoneyMissing( BOOLEAN fFirstCheck, UINT8 Init)
 	//init function
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	
@@ -2297,7 +2308,7 @@ BOOLEAN LuaHandleDelayedItemsArrival( UINT32 uiReason, UINT8 Init)
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2348,7 +2359,7 @@ BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2401,7 +2412,7 @@ BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSector
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2467,7 +2478,7 @@ BOOLEAN LetLuaGameInit(UINT8 Init)
 	lua_register(L, "CheckFact", l_CheckFact);
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 //	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2529,7 +2540,7 @@ BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2580,7 +2591,7 @@ BOOLEAN LuaHandlePlayerTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2595,6 +2606,79 @@ BOOLEAN LuaHandlePlayerTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 		lua_getglobal(L , "HandlePlayerTeamMemberDeath");
 		lua_pushnumber (L, ProfileId );
 		lua_call(L,1,0); 
+	}
+
+	lua_close(L);
+
+	delete[] buffer;
+	
+	
+	return true;
+
+}
+
+BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory, UINT32 Init)
+{
+	char * filename = "scripts\\Quests.lua";
+	UINT32 size, bytesRead;
+	char* buffer;
+	
+	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+
+	if (!file)
+	{
+		string msg("Cannot open file: ");
+		msg.append(filename);
+		SGP_THROW(msg);
+	}
+
+	size = FileSize(filename);
+	buffer = new char[size+1];
+	buffer[size] = 0;
+	FileRead(file, buffer, size, &bytesRead);
+	FileClose(file);
+
+
+	lua_State *L = lua_open();
+	luaL_openlibs(L);
+
+	//init function
+	IniFunction(L,FALSE);
+	IniGlobalGameSetting(L);
+	
+	if (luaL_dostring(L, buffer))
+	{
+		// oh noes, error
+		// TODO: write to log or something
+		return false;
+	}
+	
+	if ( Init == 0 )
+	{
+
+		IniGlobal_0(L);
+		lua_getglobal(L , "InternalEndQuest");
+		
+		lua_pushnumber (L, ubQuest );
+		lua_pushnumber (L, sSectorX );
+		lua_pushnumber (L, sSectorY );
+		lua_pushboolean (L, fUpdateHistory );
+		
+		lua_call(L,4,0); 
+	}
+	
+	if ( Init == 1 )
+	{
+
+		IniGlobal_0(L);
+		lua_getglobal(L , "InternalStartQuest");
+		
+		lua_pushnumber (L, ubQuest );
+		lua_pushnumber (L, sSectorX );
+		lua_pushnumber (L, sSectorY );
+		lua_pushboolean (L, fUpdateHistory );
+		
+		lua_call(L,4,0); 
 	}
 
 	lua_close(L);
@@ -2635,7 +2719,7 @@ BOOLEAN LetLuaMyCustomHandleAtNewGridNo(UINT8 bNewSide, UINT8 ProfileId, UINT8 I
 //	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 //	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2760,7 +2844,7 @@ BOOLEAN LuaHandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQu
 	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2815,7 +2899,7 @@ BOOLEAN LetLuaInterfaceDialogue( UINT8 ubNPC, UINT8 InitFunction)
 	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2874,7 +2958,7 @@ BOOLEAN LetLuaPerformItemAction(UINT32 ActionID, INT32 sGridNo , UINT8 InitFunct
 	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -2936,7 +3020,7 @@ BOOLEAN LetLuaHourlyQuestUpdate(UINT8 Init)
 //	lua_register(L, "CheckFact", l_CheckFact);	
 //	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 //	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 
 	//-----boxer------ only hourly quest update 
@@ -7681,7 +7765,7 @@ BOOLEAN LetLuaHandleEarlyMorningEvents(UINT8 Init)
 //	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 //	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -7756,7 +7840,7 @@ BOOLEAN LetLuaHandleNPCSystemEvent( UINT32 uiEvent, UINT8 Init)
 	lua_register(L, "CheckFact", l_CheckFact);	
 	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -7793,7 +7877,6 @@ int i;
 SOLDIERTYPE *pSoldier;
 UINT8 ubTargetNPC;
 UINT32 ItemIndex;
-UINT32 Grido;
 INT8 bItemIn;
 BOOLEAN fPlayerMercsOnly;
 BOOLEAN bol = FALSE;
@@ -9107,6 +9190,28 @@ static int l_GetTimeQuestWasStarted (lua_State *L)
 	return 1;
 }
 
+static int l_GiveQuestRewardPoint(lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+INT16 sQuestSectorX = 0;
+INT16 sQuestSectorY = 0;
+INT8 bExpReward = 0;
+UINT8 bException = NO_PROFILE;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sQuestSectorX = lua_tointeger(L,i);
+		if (i == 2 ) sQuestSectorY = lua_tointeger(L,i);
+		if (i == 3 ) bExpReward = lua_tointeger(L,i);
+		if (i == 4 ) bException = lua_tointeger(L,i);
+	}
+	
+		GiveQuestRewardPoint( sQuestSectorX, sQuestSectorY, bExpReward, bException );
+
+return 0;
+}
+
 static int l_gubQuest (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -9129,6 +9234,25 @@ static int l_gubQuest (lua_State *L)
 		
 		
 	return 1;
+}
+
+static int l_SetgubQuest (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+	UINT8 quest = 0;
+	UINT8 stat = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) quest = lua_tointeger(L,i);
+		if (i == 2 ) stat = lua_tointeger(L,i);
+	}
+
+	if (stat == 0 || stat == 1 || stat == 2)
+		gubQuest[ quest ] = stat;
+	
+	return 0;
 }
 
 static int l_GetTacticalStatusEnemyInSector (lua_State *L)
@@ -10165,8 +10289,14 @@ static int l_StartQuest(lua_State *L)
 		if (i == 3 ) Y = lua_tointeger(L,i);
 	}
 
+	if (X == 0 || Y == 0 ) 
+	{
+		StartQuest( Quest, gWorldSectorX, gWorldSectorY );
+	}
+	else
+	{
 	StartQuest( Quest, X, Y );
-
+	}
 	return 0;
 }
 
@@ -10185,7 +10315,14 @@ static int l_EndQuest(lua_State *L)
 		if (i == 3 ) Y = lua_tointeger(L,i);
 	}
 
+	if (X == 0 || Y == 0 ) 
+	{
+		EndQuest( Quest, gWorldSectorX, gWorldSectorY );
+	}
+	else
+	{
 	EndQuest( Quest, X, Y );
+	}
 
 	return 0;
 }
@@ -10708,7 +10845,7 @@ BOOLEAN LetHandleLoyaltyChangeForNPCAction(UINT8 ubNPCProfileId , UINT8 Init)
 //	lua_register(L, "CheckFact", l_CheckFact);
 //	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 //	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))
@@ -10761,7 +10898,7 @@ BOOLEAN LuaHandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sS
 //	lua_register(L, "CheckFact", l_CheckFact);
 //	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
 //	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L);
+	IniFunction(L,TRUE);
 	IniGlobalGameSetting(L);
 	
 	if (luaL_dostring(L, buffer))

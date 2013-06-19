@@ -5,7 +5,7 @@
 
 //----- Encyclopedia and Briefing room - by Jazz -----
 //#define ENABLE_ENCYCLOPEDIA		// WANNE: Be aware, encyclopedia uses a hugh amount of memory and the exe takes forever to start. There seems to be some memory leaks
-//#define ENABLE_BRIEFINGROOM		// WANNE: Briefing room seems to work better. Waiting for Jazz to create a mini mod to show this feature
+#define ENABLE_BRIEFINGROOM		// WANNE: Briefing room seems to work better. Waiting for Jazz to create a mini mod to show this feature
 //----- End encyclopedia and Briefing room - by Jazz -----
 
 // -----------------------------

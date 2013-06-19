@@ -12,6 +12,7 @@ extern "C" {
 // --------------------------
 // WANNE: Should we enable lua scripting for different actions, or should we use "hardcoded" stuff instead?
 
+#define LUA_QUESTS							// Quests.lua
 #define LUA_INTERFACE_DIALOGUE				// InterfaceDialogue.lua
 #define LUA_EXPLOSION_CONTROL				// ExplosionControl.lua
 #define LUA_HANDLE_QUEST_CODE_ON_SECTOR		// Strategicmap.lua
