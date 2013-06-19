@@ -13,6 +13,7 @@ Facts =
 	FACT_FIRST_ROBOT_DESTROYED = 203,
     FACT_ROBOT_READY_SECOND_TIME = 205,
     FACT_SECOND_ROBOT_DESTROYED = 206,
+	FACT_ESTONI_REFUELLING_POSSIBLE = 277,
 }
 
 Attitude = 
@@ -29,29 +30,35 @@ Attitude =
 
 Quests = 
 {
-	QUEST_DELIVER_LETTER = 0,
-	QUEST_FOOD_ROUTE = 1,
-	QUEST_KILL_TERRORISTS = 2,
-	QUEST_KINGPIN_IDOL = 3,
-	QUEST_KINGPIN_MONEY = 4,
-	QUEST_RUNAWAY_JOEY = 5,
-	QUEST_RESCUE_MARIA = 6,
-	QUEST_CHITZENA_IDOL = 7,
-	QUEST_HELD_IN_ALMA = 8,
-	QUEST_INTERROGATION = 9,
-	QUEST_ARMY_FARM = 10,
-	QUEST_FIND_SCIENTIST = 11,
-	QUEST_DELIVER_VIDEO_CAMERA = 12,
-	QUEST_BLOODCATS = 13,
-	QUEST_FIND_HERMIT = 14,
-	QUEST_CREATURES = 15,
-	QUEST_CHOPPER_PILOT = 16,
-	QUEST_ESCORT_SKYRIDER = 17,
-	QUEST_FREE_DYNAMO = 18,
-	QUEST_ESCORT_TOURISTS = 19,
-	QUEST_FREE_CHILDREN = 20,
-	QUEST_LEATHER_SHOP_DREAM = 21,
-	QUEST_KILL_DEIDRANNA = 25,
+	-- Quests ID							-- BinaryData\QUESTS.EDT Record
+	QUEST_DELIVER_LETTER = 0,				-- Start quest 0, End quest 1   - Deliver Letter
+	QUEST_FOOD_ROUTE = 1,					-- Start quest 2, End quest 3   - Food Route
+	QUEST_KILL_TERRORISTS = 2,				-- Start quest 4, End quest 5   - Terrorists
+	QUEST_KINGPIN_IDOL = 3,					-- Start quest 6, End quest 7   - Kingpin Chalice
+	QUEST_KINGPIN_MONEY = 4,				-- Start quest 8, End quest 9   - Kingpin Money
+	QUEST_RUNAWAY_JOEY = 5,					-- Start quest 10, End quest 11 - Runaway Joey
+	QUEST_RESCUE_MARIA = 6,					-- Start quest 12, End quest 13 - Rescue Maria
+	QUEST_CHITZENA_IDOL = 7,				-- Start quest 14, End quest 15 - Chitzena Chalice
+	QUEST_HELD_IN_ALMA = 8,					-- Start quest 16, End quest 17 - Held in Alma
+	QUEST_INTERROGATION = 9,				-- Start quest 18, End quest 19 - Interogation
+	QUEST_ARMY_FARM = 10,					-- Start quest 20, End quest 21 - Hillbilly Problem
+	QUEST_FIND_SCIENTIST = 11,				-- Start quest 22, End quest 23 - Find Scientist
+	QUEST_DELIVER_VIDEO_CAMERA = 12,		-- Start quest 24, End quest 25 - Deliver Video Camera
+	QUEST_BLOODCATS = 13,					-- Start quest 26, End quest 27 - Blood Cats
+	QUEST_FIND_HERMIT = 14,					-- Start quest 28, End quest 29 - Find Hermit
+	QUEST_CREATURES = 15,					-- Start quest 30, End quest 31 - Creatures
+	QUEST_CHOPPER_PILOT = 16,				-- Start quest 32, End quest 33 - Find Chopper Pilot
+	QUEST_ESCORT_SKYRIDER = 17,				-- Start quest 34, End quest 35 - Escort SkyRider
+	QUEST_FREE_DYNAMO = 18,					-- Start quest 36, End quest 37 - Free Dynamo
+	QUEST_ESCORT_TOURISTS = 19,				-- Start quest 38, End quest 39 - Escort Tourists
+	QUEST_FREE_CHILDREN = 20,				-- Start quest 40, End quest 41 - Doreen
+	QUEST_LEATHER_SHOP_DREAM = 21,			-- Start quest 42, End quest 43 - Leather Shop Dream
+	QUEST_ESCORT_SHANK = 22,				-- Start quest 44, End quest 45 - Escort Shank
+	QUEST_23 = 23,							-- Start quest 46, End quest 47 - No 23 Yet
+	QUEST_24 = 24,							-- Start quest 48, End quest 49 - No 24 Yet
+	QUEST_KILL_DEIDRANNA = 25,				-- Start quest 50, End quest 51 - Kill Deidranna
+	
+	-- max Quests 254
 }
 
 Profil = 
@@ -226,6 +233,10 @@ end
 -- end local function
 
 function HandleAtNewGridNo( ProfileId )
+
+	if ( CheckFact ( Facts.FACT_ESTONI_REFUELLING_POSSIBLE, 0) == true and CheckQuest(Quests.QUEST_ESCORT_SHANK) == pQuest.QUESTINPROGRESS ) then
+			EndQuest( Quests.QUEST_ESCORT_SHANK, gWorldSectorX, gWorldSectorY ) 	
+	end	
 
 	TeamSoldier = FindSoldierTeam (ProfileId)
 	

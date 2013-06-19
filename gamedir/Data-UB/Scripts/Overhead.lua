@@ -29,29 +29,37 @@ Attitude =
 
 Quests = 
 {
-	QUEST_DELIVER_LETTER = 0,
-	QUEST_FOOD_ROUTE = 1,
-	QUEST_KILL_TERRORISTS = 2,
-	QUEST_KINGPIN_IDOL = 3,
-	QUEST_KINGPIN_MONEY = 4,
-	QUEST_RUNAWAY_JOEY = 5,
-	QUEST_RESCUE_MARIA = 6,
-	QUEST_CHITZENA_IDOL = 7,
-	QUEST_HELD_IN_ALMA = 8,
-	QUEST_INTERROGATION = 9,
-	QUEST_ARMY_FARM = 10,
-	QUEST_FIND_SCIENTIST = 11,
-	QUEST_DELIVER_VIDEO_CAMERA = 12,
-	QUEST_BLOODCATS = 13,
-	QUEST_FIND_HERMIT = 14,
-	QUEST_CREATURES = 15,
-	QUEST_CHOPPER_PILOT = 16,
-	QUEST_ESCORT_SKYRIDER = 17,
-	QUEST_FREE_DYNAMO = 18,
-	QUEST_ESCORT_TOURISTS = 19,
-	QUEST_FREE_CHILDREN = 20,
-	QUEST_LEATHER_SHOP_DREAM = 21,
-	QUEST_KILL_DEIDRANNA = 25,
+	-- Quests ID							 -- BinaryData\QUESTS25.EDT Record
+	QUEST_DELIVER_LETTER = 0,				 -- Start quest 0, End quest 1
+	QUEST_FOOD_ROUTE = 1,					 -- Start quest 2, End quest 3
+	QUEST_KILL_TERRORISTS = 2,				 -- Start quest 4, End quest 5
+	QUEST_KINGPIN_IDOL = 3,					 -- Start quest 6, End quest 7
+	QUEST_KINGPIN_MONEY = 4,				 -- Start quest 8, End quest 9
+	QUEST_RUNAWAY_JOEY = 5,					 -- Start quest 10, End quest 11
+	QUEST_RESCUE_MARIA = 6,					 -- Start quest 12, End quest 13
+	QUEST_CHITZENA_IDOL = 7,				 -- Start quest 14, End quest 15
+	QUEST_HELD_IN_ALMA = 8,					 -- Start quest 16, End quest 17
+	QUEST_INTERROGATION = 9,				 -- Start quest 18, End quest 19
+	QUEST_ARMY_FARM = 10,					 -- Start quest 20, End quest 21
+	QUEST_FIND_SCIENTIST = 11,				 -- Start quest 22, End quest 23
+	QUEST_DELIVER_VIDEO_CAMERA = 12,		 -- Start quest 24, End quest 25
+	QUEST_BLOODCATS = 13,					 -- Start quest 26, End quest 27
+	QUEST_FIND_HERMIT = 14,					 -- Start quest 28, End quest 29
+	QUEST_CREATURES = 15,					 -- Start quest 30, End quest 31
+	QUEST_CHOPPER_PILOT = 16,				 -- Start quest 32, End quest 33
+	QUEST_ESCORT_SKYRIDER = 17,				 -- Start quest 34, End quest 35
+	QUEST_FREE_DYNAMO = 18,					 -- Start quest 36, End quest 37
+	QUEST_ESCORT_TOURISTS = 19,				 -- Start quest 38, End quest 39
+	QUEST_FREE_CHILDREN = 20,				 -- Start quest 40, End quest 41
+	QUEST_LEATHER_SHOP_DREAM = 21,			 -- Start quest 42, End quest 43
+	QUEST_ESCORT_SHANK = 22,				 -- Start quest 44, End quest 45
+	-- UB Quests
+	QUEST_DESTROY_MISSLES = 23,				 -- Start quest 46, End quest 47
+	QUEST_FIX_LAPTOP = 24,					 -- Start quest 48, End quest 49
+	QUEST_GET_RID_BLOODCATS_AT_BETTYS = 25,  -- Start quest 50, End quest 51
+	QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL = 26, -- Start quest 52, End quest 53
+	
+	-- max Quests 254
 }
 
 Profil = 
