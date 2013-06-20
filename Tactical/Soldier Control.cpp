@@ -14722,7 +14722,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->GetName(), Item[bLoop].szItemName );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
 						return FALSE;
 					}
 				}
@@ -14744,7 +14744,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						( Item[this->inv[bLoop].usItem].nightvisionrangebonus > 0 || Item[this->inv[bLoop].usItem].hearingrangebonus > 0 ) 
 						)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->GetName(), Item[bLoop].szItemName );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_MILITARYGEARFOUND], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
 						return FALSE;
 					}
 				}
@@ -15657,13 +15657,13 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 
 	// determine the gridno before us and the item we have in our main hand, this is enough for the current actions
 	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
-	if ( !pObj || !(pObj->exists()) )
-		fActionStillValid = FALSE;
-
+	
 	// error if the gridno we started working on is not the gridno we are currently looking at
 	if ( usMultiTurnAction == MTA_FORTIFY || usMultiTurnAction == MTA_REMOVE_FORTIFY || usMultiTurnAction == MTA_FILL_SANDBAG )
 	{
-		if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
+		if ( !pObj || !(pObj->exists()) )
+			fActionStillValid = FALSE;
+		else if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
 			fActionStillValid = FALSE;
 	}
 
@@ -15731,29 +15731,29 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction()
 		return FALSE;
 	}
 	
-	// if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
-	if ( !( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT ) )
-		bOverTurnAPS = 0;
-	// otherwise this might take longer, so we refresh our animation
-	else
+	// refresh animations
+	switch( usMultiTurnAction )
 	{
-		// refresh animations
-		switch( usMultiTurnAction )
+	case MTA_FORTIFY:
+	case MTA_REMOVE_FORTIFY:
+	case MTA_FILL_SANDBAG:
 		{
-		case MTA_FORTIFY:
-		case MTA_REMOVE_FORTIFY:
-		case MTA_FILL_SANDBAG:
-			{
-			if (!is_networked)
-				this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+			// if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
+			if ( !( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT ) )
+				bOverTurnAPS = 0;
+			// otherwise this might take longer, so we refresh our animation
 			else
-				this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+			{
+				if (!is_networked)
+					this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+				else
+					this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 
-			// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
-			this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
+				// as setting the new animation costs APBPConstants[AP_USEWIRECUTTERS] APs every time, account for that
+				this->bActionPoints += APBPConstants[AP_USEWIRECUTTERS];
 			}
-			break;
 		}
+		break;
 	}
 
 	// if we can afford it, do it now

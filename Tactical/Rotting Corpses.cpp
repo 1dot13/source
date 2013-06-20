@@ -925,19 +925,19 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	{
 		Corpse.usFlags |= ROTTING_CORPSE_VEHICLE;
 
-	if ( pSoldier->ubBodyType != ICECREAMTRUCK && pSoldier->ubBodyType != HUMVEE )
-	{
-		Corpse.ubDirection = 7;
-	}
-	else
-	{
-		Corpse.ubDirection = gb2DirectionsFrom8[ Corpse.ubDirection ];
-	}
+		if ( pSoldier->ubBodyType != ICECREAMTRUCK && pSoldier->ubBodyType != HUMVEE )
+		{
+			Corpse.ubDirection = 7;
+		}
+		else
+		{
+			Corpse.ubDirection = gb2DirectionsFrom8[ Corpse.ubDirection ];
+		}
 	}
 
 	if ( ubType == QUEEN_MONSTER_DEAD || ubType == BURNT_DEAD || ubType == EXPLODE_DEAD )
 	{
-	Corpse.ubDirection = 7;
+		Corpse.ubDirection = 7;
 	}
 
 
@@ -971,42 +971,42 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	}
 	else if ( ubType == QUEEN_MONSTER_DEAD )
 	{
-	gTacticalStatus.fLockItemLocators = FALSE;
+		gTacticalStatus.fLockItemLocators = FALSE;
 
-	ubNumGoo = 6 - ( gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY );
+		ubNumGoo = 6 - ( gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY );
 
-	sNewGridNo = pSoldier->sGridNo + ( WORLD_COLS * 2 );
+		sNewGridNo = pSoldier->sGridNo + ( WORLD_COLS * 2 );
 
-	for ( cnt = 0; cnt < ubNumGoo; cnt++ )
-	{
-			CreateItem( JAR_QUEEN_CREATURE_BLOOD, 100, &gTempObject );
+		for ( cnt = 0; cnt < ubNumGoo; cnt++ )
+		{
+				CreateItem( JAR_QUEEN_CREATURE_BLOOD, 100, &gTempObject );
 
-		AddItemToPool( sNewGridNo, &gTempObject, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
-	}
+			AddItemToPool( sNewGridNo, &gTempObject, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
+		}
 	}
 	else
 	{
-	// OK, Place what objects this guy was carrying on the ground!
-	for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
-	{
-		pObj = &( pSoldier->inv[ cnt ] );
-
-		if ( pObj->exists() == true )
+		// OK, Place what objects this guy was carrying on the ground!
+		for ( cnt = 0; cnt < pSoldier->inv.size(); ++cnt )
 		{
-			// Check if it's supposed to be dropped
-			if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum )
+			pObj = &( pSoldier->inv[ cnt ] );
+
+			if ( pObj->exists() == true )
 			{
-				// and make sure that it really is a droppable item type
-//				if ( !(Item[ pObj->usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE) )
-				if ( !(Item[ pObj->usItem ].defaultundroppable ) )
+				// Check if it's supposed to be dropped
+				if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum )
 				{
-					ReduceAmmoDroppedByNonPlayerSoldiers( pSoldier, cnt );
-					//if this soldier was an enemy
-					// Kaiden: Added from UB's reveal all items after combat feature!
-					// HEADROCK HAM B2.8: Now also reveals equipment dropped by militia, if requirement is met.
-					if( pSoldier->bTeam == ENEMY_TEAM ||
-						( gGameExternalOptions.ubMilitiaDropEquipment == 2 && pSoldier->bTeam == MILITIA_TEAM ) ||
-						( gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam != OUR_TEAM ))
+					// and make sure that it really is a droppable item type
+					// if ( !(Item[ pObj->usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE) )
+					if ( !(Item[ pObj->usItem ].defaultundroppable ) )
+					{
+						ReduceAmmoDroppedByNonPlayerSoldiers( pSoldier, cnt );
+						//if this soldier was an enemy
+						// Kaiden: Added from UB's reveal all items after combat feature!
+						// HEADROCK HAM B2.8: Now also reveals equipment dropped by militia, if requirement is met.
+						if( pSoldier->bTeam == ENEMY_TEAM ||
+							( gGameExternalOptions.ubMilitiaDropEquipment == 2 && pSoldier->bTeam == MILITIA_TEAM ) ||
+							( gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam != OUR_TEAM ))
 						{
 							//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 							usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
@@ -1020,21 +1020,26 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							}
 						}
 
-						if(UsingNewAttachmentSystem()==true){
+						if(UsingNewAttachmentSystem()==true)
+						{
 							ReduceAttachmentsOnGunForNonPlayerChars(pSoldier, pObj);
 						}
-					// HEADROCK HAM B2.8: Militia will drop items only if allowed.
-					if (!(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pSoldier->bTeam == MILITIA_TEAM ) &&
-						!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam == OUR_TEAM ))
-					{
-						AddItemToPool( pSoldier->sGridNo, pObj, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
+
+						// HEADROCK HAM B2.8: Militia will drop items only if allowed.
+						if (!(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pSoldier->bTeam == MILITIA_TEAM ) &&
+							!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam == OUR_TEAM ))
+						{
+							AddItemToPool( pSoldier->sGridNo, pObj, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
+						}
 					}
 				}
 			}
 		}
-	}
 
-	DropKeysInKeyRing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, bVisible, FALSE, 0, FALSE );
+		DropKeysInKeyRing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, bVisible, FALSE, 0, FALSE );
+
+		// Flugente: even if we forbid militia from dropping their equipment, they will still drop what they took via sector inventory (this functions only drops what they took)
+		pSoldier->DropSectorEquipment();
 	}
 
 	// Make team look for items
