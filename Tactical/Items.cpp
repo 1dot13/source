@@ -11062,6 +11062,16 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 
 	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
 	bool usingGunScope = WeaponReady(pSoldier);
+
+	// Flugente 2013-06-20: determine the lightlevel modifier, according to ChrisL:
+	//CHRISL: Since this is a daytime calculation, I think we want the difference between NORMAL_LIGHTLEVEL_NIGHT and
+	//	NORMAL_LIGHTLEVEL_DAY.  To just use NORMAL_LIGHTLEVEL_NIGHT is the same as basing the calculation off of the
+	//	difference between NORMAL_LIGHTLEVEL_NIGHT and 0, which represent bright light.
+	int lightlevelmultiplier = NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY);
+
+	// the divisor must not be 0, for obvious reasons!
+	int lightleveldivisor    = NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY;
+
 	// CHRISL:
 	for (int i = BODYPOSSTART; i < BODYPOSFINAL; i++)
 	{
@@ -11088,16 +11098,13 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			if (!IsWeapon(usItem) )//|| (IsWeapon(usItem) && usingGunScope == true ) )
 			{
 				bonus += BonusReduceMore( idiv( pItem->dayvisionrangebonus
-					* (NORMAL_LIGHTLEVEL_NIGHT - bLightLevel), NORMAL_LIGHTLEVEL_NIGHT ),
+					* lightlevelmultiplier, lightleveldivisor ),
 					(*pObj)[0]->data.objectStatus );
 			}
 		}
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	//CHRISL: Since this is a daytime calculation, I think we want the difference between NORMAL_LIGHTLEVEL_NIGHT and
-	//	NORMAL_LIGHTLEVEL_DAY.  To just use NORMAL_LIGHTLEVEL_NIGHT is the same as basing the calculation off of the
-	//	difference between NORMAL_LIGHTLEVEL_NIGHT and 0, which represent bright light.
 	if ( usingGunScope == true )
 	{
 		// SANDRO - added scouting check
@@ -11114,7 +11121,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
 						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
-						* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
+						* lightlevelmultiplier, lightleveldivisor ),
 						(*iter)[0]->data.objectStatus );
 					}
 				}
@@ -11129,7 +11136,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
 						// now apply the bonus from the scope we use
 						sScopebonus += BonusReduceMore( idiv( Item[ObjList[pSoldier->bScopeMode]->usItem].dayvisionrangebonus
-								* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
+								* lightlevelmultiplier, lightleveldivisor ),
 								(*ObjList[pSoldier->bScopeMode])[0]->data.objectStatus );
 				}
 			}
@@ -11140,7 +11147,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 					if(iter->exists() )
 					{
 						sScopebonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
-						* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
+						* lightlevelmultiplier, lightleveldivisor ),
 						(*iter)[0]->data.objectStatus );
 					}
 				}
