@@ -974,19 +974,22 @@ Message:		The email message body
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Lance -->
 		<uiIndex>188</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Lance's progressively better performance no the battlefield deserves an increase in salary. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Raffi -->
 		<uiIndex>189</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself informed that Dr. Leevon's exceptional service entitles him to more equitable compensation. His wages have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Wink -->
 		<uiIndex>190</uiIndex>
-		<Subject>Subject: None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Due to Wink's outstanding performance and massive gain in experience his salary has been recalculated. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>191</uiIndex>

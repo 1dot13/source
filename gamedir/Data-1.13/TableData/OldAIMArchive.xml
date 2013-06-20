@@ -170,24 +170,8 @@
 		<FaceID>38</FaceID>
 	</MERC>
 	<MERC>
-		<!-- Mitch -->
-		<uiIndex>20</uiIndex>
-		<NickName>Mitch</NickName>
-		<Name>Dr. Mitch Shudlem</Name>
-		<Bio>Never truly comfortable with the blood and gore of combat, Doctor Shudlem, after a great deal of soul searching, returned to the blood and gore of the delivery room. He is currently employed as the chief of the pre-natal care unit of Saint Mary's Hospital for Unwed Mothers. He says returning to his obstetric roots is the best thing that ever happened to him, and he wonders why he ever left in the first place.</Bio>
-		<FaceID>40</FaceID>
-	</MERC>
-	<MERC>
-		<!-- Carp -->
-		<uiIndex>21</uiIndex>
-		<NickName>Carp</NickName>
-		<Name>Howard "Carp" Melfield</Name>
-		<Bio>Unable to excel in any given specialty, yet well-liked within the organization, Carp was offered a desk assignment with A.I.M. Effective immediately, Howard Melfield will be responsible for members' Health and Safety, Retirement, and Dental Plans. He has also graciously agreed to chair the office Christmas Party Committee.</Bio>
-		<FaceID>41</FaceID>
-	</MERC>
-	<MERC>
 		<!-- It -->
-		<uiIndex>22</uiIndex>
+		<uiIndex>20</uiIndex>
 		<NickName>It</NickName>
 		<Name>Carl "It" Goodman</Name>
 		<Bio>Hired mainly for his brute force, Carl excelled with a crowbar and pleased employers for years with his simple, non-threatening attitude. After leaving A.I.M., Goodman returned to the world of professional wrestling where he claims every move is for keeps and the risk is real. Friends and fans alike can catch him as the Masked Mercenary most Saturday nights on Pay-Per-View's Wrestling Extravaganza.</Bio>
@@ -195,7 +179,7 @@
 	</MERC>
 	<MERC>
 		<!-- Hamous -->
-		<uiIndex>23</uiIndex>
+		<uiIndex>21</uiIndex>
 		<NickName>Hamous</NickName>
 		<Name>Hamous</Name>
 		<Bio>Hamous had his first taste of combat in Metavira, and based on a glowing recommendation from a major client, Jack Richards, he was granted an internship with this organization, which recently expired. Regrettably, poor Hamous never did manage to save up enough money to purchase that mini-van he desperately wanted. So he did the next best thing and stole one just outside of Paris. Actually, it was an ice cream truck and he was last seen headed towards Istanbul in it.</Bio>
@@ -203,7 +187,7 @@
 	</MERC>
 	<MERC>
 		<!-- Dyno -->
-		<uiIndex>24</uiIndex>
+		<uiIndex>22</uiIndex>
 		<NickName>Dyno</NickName>
 		<Name>Roger "Dyno" Wittman</Name>
 		<Bio>Roger tried. Boy did he try. But he just seemed to lack the necessary edge. Understandably, some of the guys liked having him along for the laughs while others enjoyed cleaning their rifles with him. But ultimately, he realized he just wasn't cut out for the profession. Last we heard, Dyno was serving as the understudy to the Green Hippo in Animals on Ice.</Bio>

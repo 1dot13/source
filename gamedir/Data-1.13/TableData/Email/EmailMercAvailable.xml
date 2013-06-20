@@ -989,14 +989,16 @@ Message:		The email message boy
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Mitch -->
 		<uiIndex>186</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>FW from AIM Server: Message from Dr. Mitch Shudlem</Subject>
+		<Message>I've just returned from my previous assignment, and I'm now available to negotiate employment with you. Word of advice - if you're looking for a bargain, you're wasting your time. ± ± Forget the rest, go with the best! ± Dr. Mitch Shudlem ±</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Carp -->
 		<uiIndex>187</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>FW from AIM Server: Message from Howard Melfield</Subject>
+		<Message>Hello, lad! I've just got your message. If you're still interested, contact me through our website. ± ± Howard Melfield ± Director of A.I.M. Health and Safety department ± Head of A.I.M Christmas Party Commitee ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>188</uiIndex>

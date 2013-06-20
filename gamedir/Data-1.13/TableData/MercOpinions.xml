@@ -1246,7 +1246,7 @@
 		<Opinion185>0</Opinion185>
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
-		<Opinion188>0</Opinion188>
+		<Opinion188>-25</Opinion188>
 		<Opinion189>0</Opinion189>
 		<Opinion190>0</Opinion190>
 		<Opinion191>0</Opinion191>
@@ -3614,7 +3614,7 @@
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
 		<Opinion188>0</Opinion188>
-		<Opinion189>0</Opinion189>
+		<Opinion189>25</Opinion189>
 		<Opinion190>0</Opinion190>
 		<Opinion191>0</Opinion191>
 		<Opinion192>0</Opinion192>
@@ -5455,7 +5455,7 @@
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
 		<Opinion188>0</Opinion188>
-		<Opinion189>0</Opinion189>
+		<Opinion189>-25</Opinion189>
 		<Opinion190>0</Opinion190>
 		<Opinion191>0</Opinion191>
 		<Opinion192>0</Opinion192>
@@ -10714,7 +10714,7 @@
 		<Opinion185>0</Opinion185>
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
-		<Opinion188>0</Opinion188>
+		<Opinion188>25</Opinion188>
 		<Opinion189>0</Opinion189>
 		<Opinion190>0</Opinion190>
 		<Opinion191>0</Opinion191>
@@ -48585,7 +48585,7 @@
 		<Opinion184>0</Opinion184>
 		<Opinion185>8</Opinion185>
 		<Opinion186>0</Opinion186>
-		<Opinion187>0</Opinion187>
+		<Opinion187>25</Opinion187>
 		<Opinion188>0</Opinion188>
 		<Opinion189>0</Opinion189>
 		<Opinion190>0</Opinion190>
@@ -48919,7 +48919,7 @@
 	</OPINION>
 	<OPINION>
 		<uiIndex>186</uiIndex>
-		<zNickname></zNickname>
+		<zNickname>Mitch</zNickname>
 		<Opinion0>0</Opinion0>
 		<Opinion1>0</Opinion1>
 		<Opinion2>0</Opinion2>
@@ -49113,7 +49113,7 @@
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
 		<Opinion188>0</Opinion188>
-		<Opinion189>0</Opinion189>
+		<Opinion189>-25</Opinion189>
 		<Opinion190>0</Opinion190>
 		<Opinion191>0</Opinion191>
 		<Opinion192>0</Opinion192>
@@ -49182,7 +49182,7 @@
 	</OPINION>
 	<OPINION>
 		<uiIndex>187</uiIndex>
-		<zNickname></zNickname>
+		<zNickname>Carp</zNickname>
 		<Opinion0>0</Opinion0>
 		<Opinion1>0</Opinion1>
 		<Opinion2>0</Opinion2>
@@ -49371,7 +49371,7 @@
 		<Opinion181>0</Opinion181>
 		<Opinion182>0</Opinion182>
 		<Opinion183>0</Opinion183>
-		<Opinion184>0</Opinion184>
+		<Opinion184>25</Opinion184>
 		<Opinion185>0</Opinion185>
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
@@ -49445,7 +49445,7 @@
 	</OPINION>
 	<OPINION>
 		<uiIndex>188</uiIndex>
-		<zNickname></zNickname>
+		<zNickname>Lance</zNickname>
 		<Opinion0>0</Opinion0>
 		<Opinion1>0</Opinion1>
 		<Opinion2>0</Opinion2>
@@ -49486,7 +49486,7 @@
 		<Opinion37>0</Opinion37>
 		<Opinion38>0</Opinion38>
 		<Opinion39>0</Opinion39>
-		<Opinion40>0</Opinion40>
+		<Opinion40>25</Opinion40>
 		<Opinion41>0</Opinion41>
 		<Opinion42>0</Opinion42>
 		<Opinion43>0</Opinion43>
@@ -49708,7 +49708,7 @@
 	</OPINION>
 	<OPINION>
 		<uiIndex>189</uiIndex>
-		<zNickname></zNickname>
+		<zNickname>Raffi</zNickname>
 		<Opinion0>0</Opinion0>
 		<Opinion1>0</Opinion1>
 		<Opinion2>0</Opinion2>
@@ -49941,7 +49941,7 @@
 		<Opinion225>0</Opinion225>
 		<Opinion226>0</Opinion226>
 		<Opinion227>0</Opinion227>
-		<Opinion228>0</Opinion228>
+		<Opinion228>-25</Opinion228>
 		<Opinion229>0</Opinion229>
 		<Opinion230>0</Opinion230>
 		<Opinion231>0</Opinion231>
@@ -49960,7 +49960,7 @@
 		<Opinion244>0</Opinion244>
 		<Opinion245>0</Opinion245>
 		<Opinion246>0</Opinion246>
-		<Opinion247>0</Opinion247>
+		<Opinion247>25</Opinion247>
 		<Opinion248>0</Opinion248>
 		<Opinion249>0</Opinion249>
 		<Opinion250>0</Opinion250>
@@ -49971,7 +49971,7 @@
 	</OPINION>
 	<OPINION>
 		<uiIndex>190</uiIndex>
-		<zNickname></zNickname>
+		<zNickname>Wink</zNickname>
 		<Opinion0>0</Opinion0>
 		<Opinion1>0</Opinion1>
 		<Opinion2>0</Opinion2>
@@ -61211,7 +61211,7 @@
 		<Opinion186>0</Opinion186>
 		<Opinion187>0</Opinion187>
 		<Opinion188>0</Opinion188>
-		<Opinion189>0</Opinion189>
+		<Opinion189>-25</Opinion189>
 		<Opinion190>0</Opinion190>
 		<Opinion191>0</Opinion191>
 		<Opinion192>0</Opinion192>
@@ -63312,7 +63312,7 @@
 		<Opinion183>0</Opinion183>
 		<Opinion184>0</Opinion184>
 		<Opinion185>0</Opinion185>
-		<Opinion186>0</Opinion186>
+		<Opinion186>-25</Opinion186>
 		<Opinion187>0</Opinion187>
 		<Opinion188>0</Opinion188>
 		<Opinion189>0</Opinion189>
