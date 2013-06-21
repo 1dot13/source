@@ -140,36 +140,22 @@
 		<Bio>Aufgrund zahlreicher Klagen unserer atheistischen Mitglieder wurde die Position des Feldgeistlichen bei der A.I.M. abgeschafft, und Preachy Potter, ohnehin eines der am wenigsten gefragten Mitglieder, wurde an die Luft gesetzt. Reverend Clyde Potter hat danach eine Stellung bei der Innercity Church of Christ in Baltimore angenommen. Seitdem bestreitet er, jemals etwas mit der A.I.M. zu tun gehabt zu haben und läßt sich am Telefon verleugnen.</Bio>
 	</MERC>	
 	<MERC>
-		<!-- Mitch -->
-		<uiIndex>20</uiIndex>
-		<NickName>Mitch</NickName>
-		<Name>Dr. Mitch Shudlem</Name>
-		<Bio>Weil er sich nie an das blutige Geschäft der Söldner gewöhnen konnte, ist Doktor Shudlem nach reiflicher Überlegung wieder zum blutigen Geschäft im Kreißsaal zurückgekehrt. Im Augenblick leitet er die Abteilung für Geburtsnachsorge im Maria-Hilf-Krankenhaus für alleinerziehende Mütter. Er behauptet, die Rückkehr zu seinen Wurzeln sei das beste gewesen, was ihm passieren konnte. Er fragt sich, warum er den Job überhaupt je an den Nagel gehängt hat.</Bio>
-	</MERC>
-	<MERC>
-		<!-- Carp -->
-		<uiIndex>21</uiIndex>
-		<NickName>Carp</NickName>
-		<Name>Howard "Carp" Melfield</Name>
-		<Bio>Carp konnte sich zwar in keinem Spezialgebiet verbessern, ist aber dennoch fest mit A.I.M. verbunden, so daß wir ihm einen Schreibtisch- Job angeboten haben. Ab sofort ist Howard Melfield für Gesundheit, Sicherheit, Pensionsansprüche und Zahnarztunterlagen unserer Mitglieder zuständig. Er hat außerdem unentgeltlich den Vorsitz des Komittees zur Planung der betrieblichen Weihnachtsfeier übernommen.</Bio>
-	</MERC>
-	<MERC>
 		<!-- It -->
-		<uiIndex>22</uiIndex>
+		<uiIndex>20</uiIndex>
 		<NickName>It</NickName>
 		<Name>Carl "It" Goodman</Name>
 		<Bio>Wegen seiner unglaublichen Körperkraft war Carl jahrelang unübertroffen im Umgang mit der Brechstange. Seine Vorgesetzten schätzten ihn wegen seines einfachen, freundlichen Wesens. Goodman ist inzwischen wieder zu den Profiwrestlern zurückgekehrt, um sich, wie er sagt, neuen und echten Herausforderungen zu stellen. Freunde und Fans kennen ihn als "Masked Mercenary" Samstag nacht im Pay-TV.</Bio>
 	</MERC>	
 	<MERC>
 		<!-- Hamous -->
-		<uiIndex>23</uiIndex>
+		<uiIndex>21</uiIndex>
 		<NickName>Hamous</NickName>
 		<Name>Hamous</Name>
 		<Bio>Hamous sammelte erste Erfahrungen auf dem Schlachtfeld in Metavira. Sein Auftraggeber Jack Richards hat ihn uns wärmstens empfohlen, so daß wir ihm ein Praktikum bei A.I.M. gegeben haben, das kürzlich zu Ende gegangen ist. Leider hat der arme Hamous nie genug Geld für den Mini-Van sparen könne, den er sich so sehnlich gewünscht hat. Also hat er kurzerhand in einem Vorort von Paris einen gestohlen. Zuletzt wurde er auf dem Weg nach Istanbul gesichtet.</Bio>
 	</MERC>	
 	<MERC>
 		<!-- Dyno -->
-		<uiIndex>24</uiIndex>
+		<uiIndex>22</uiIndex>
 		<NickName>Dyno</NickName>
 		<Name>Roger "Dyno" Wittman</Name>
 		<Bio>Roger hat's versucht. Er hat's echt versucht. Aber er hatte es halt nicht drauf. Deswegen haben sich manche seiner Kollegen gerne über ihn lustig gemacht, und andere gerne ihre Gewehre mit ihm gereinigt. Schließlich hat er eingesehen, daß er für diesen Beruf nicht geschaffen war. Unseren Informationen zufolge spielt Dyno zur Zeit ein grünes Nilpferd in einer Tiersendung für Kinder.</Bio>

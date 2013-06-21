@@ -13089,4 +13089,44 @@
     <szBRName>M99</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
+  <ITEM>
+    <uiIndex>1635</uiIndex>
+    <szItemName>LAM-Flashlight</szItemName>
+    <szLongItemName>Rifle LAM-Flashlight Combo</szLongItemName>
+    <szItemDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems. Flashlight is ON.</szItemDesc>
+    <szBRName>Rifle LAM-Flashlight</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1636</uiIndex>
+    <szItemName>Flashlight</szItemName>
+    <szLongItemName>Flashlight</szLongItemName>
+    <szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the hea.</szItemDesc>
+    <szBRName>Flashlight</szBRName>
+    <szBRDesc>We say: let there be light! Batteries included.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1637</uiIndex>
+    <szItemName>Flashlight</szItemName>
+    <szLongItemName>Flashlight</szLongItemName>
+    <szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head. Flashlight is ON.</szItemDesc>
+    <szBRName>Flashlight</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1638</uiIndex>
+    <szItemName>Letter Opener</szItemName>
+    <szLongItemName>Letter Opener</szLongItemName>
+    <szItemDesc>An official USPS letter opener. Boldly engraved on the handle is the warning property of the government - "do not remove from postal station".</szItemDesc>
+    <szBRName>Letter Opener</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1639</uiIndex>
+    <szItemName>Hedge Trimmer</szItemName>
+    <szLongItemName>Hedge Trimmer</szLongItemName>
+    <szItemDesc>An effective implement used for prunning.</szItemDesc>
+    <szBRName>Hedge Trimmer</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
 </ITEMLIST>

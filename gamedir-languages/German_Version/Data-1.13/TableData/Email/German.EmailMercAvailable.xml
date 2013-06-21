@@ -980,14 +980,16 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Mitch -->
 		<uiIndex>186</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Weitergeleitet von AIM-Server: Nachricht von Dr. Mitch Shudlem</Subject>
+		<Message>Message : TODO!</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Carp -->
 		<uiIndex>187</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Weitergeleitet von AIM-Server: Nachricht von Howard Melfield</Subject>
+		<Message>Message : TODO!</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>188</uiIndex>

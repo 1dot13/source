@@ -847,7 +847,7 @@
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
 		<Subject>Benachrichtigung über Solderhöhung</Subject>
-		<Message>Message : None</Message>
+		<Message>Bitte nehmen Sie zur Kenntnis, dass Stogies Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Tex -->
@@ -965,19 +965,22 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Lance -->
 		<uiIndex>188</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Hiermit geben wir zur Kenntnis, daß aufgrund von Lance guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Raffi -->
 		<uiIndex>189</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Bitte nehmen Sie zur Kenntnis, daß Raffi aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Wink -->
 		<uiIndex>190</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Bitte nehmen Sie zur Kenntnis, daß Wink aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>191</uiIndex>

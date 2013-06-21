@@ -13104,4 +13104,20 @@
 		<szBRName>Flashlight</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
+  <ITEM>
+    <uiIndex>1638</uiIndex>
+    <szItemName>Letter Opener</szItemName>
+    <szLongItemName>Letter Opener</szLongItemName>
+    <szItemDesc>An official USPS letter opener. Boldly engraved on the handle is the warning property of the government - "do not remove from postal station".</szItemDesc>
+    <szBRName>Letter Opener</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1639</uiIndex>
+    <szItemName>Hedge Trimmer</szItemName>
+    <szLongItemName>Hedge Trimmer</szLongItemName>
+    <szItemDesc>An effective implement used for prunning.</szItemDesc>
+    <szBRName>Hedge Trimmer</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
