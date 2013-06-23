@@ -24,7 +24,6 @@
 		<AttachmentPoint>0</AttachmentPoint>
 		<AttachToPointAPCost>0</AttachToPointAPCost>
 		<ubClassIndex>0</ubClassIndex>
-		<ItemFlag>0</ItemFlag>
 		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
@@ -167,6 +166,7 @@
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
 		<PoisonPercentage>0</PoisonPercentage>
+		<ItemFlag>0</ItemFlag>
 		<FoodType>0</FoodType>
 		<LockPickModifier>0</LockPickModifier>
 		<CrowbarModifier>0</CrowbarModifier>
@@ -174,10 +174,11 @@
 		<RepairModifier>0</RepairModifier>
 		<DamageChance>0</DamageChance>
 		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
-		<clothestype>0</clothestype>
 		<usActionItemFlag>0</usActionItemFlag>
+		<clothestype>0</clothestype>
 		<randomitem>0</randomitem>
 		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
+		<FlashLightRange>0</FlashLightRange>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -1462,7 +1463,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>34</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>34</ubGraphicNum>
 		<ubWeight>71</ubWeight>
@@ -1484,6 +1484,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>24.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1540,7 +1541,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>36</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>36</ubGraphicNum>
 		<ubWeight>93</ubWeight>
@@ -1563,6 +1563,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS>
 			<PercentHandling>20</PercentHandling>
 		</STAND_MODIFIERS>
@@ -1603,9 +1604,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
 		<ToHitBonus>-3</ToHitBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
+		<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>-10</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
@@ -2251,7 +2251,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>61</ubClassIndex>
-		<ItemFlag>16384</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>46</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -2271,6 +2270,7 @@
 		<BR_ROF>36</BR_ROF>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
@@ -3652,7 +3652,7 @@
 		<szBRName>Flamethrower Clip</szBRName>
 		<szBRDesc>This highly flamable napalm is used for a portable flamethrower.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>347</ubClassIndex>
+		<ubClassIndex>345</ubClassIndex>
 		<ubGraphicNum>49</ubGraphicNum>
 		<ubWeight>26</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
@@ -3676,7 +3676,7 @@
 		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>349</ubClassIndex>
+		<ubClassIndex>347</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>138</ubGraphicNum>
 		<ubWeight>19</ubWeight>
@@ -3701,7 +3701,7 @@
 		<szBRDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms, including the ever popular VAL Silent Sniper rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>352</ubClassIndex>
+		<ubClassIndex>350</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>139</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -3848,7 +3848,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>234</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>145</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3858,6 +3857,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3872,7 +3872,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>233</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>146</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3883,6 +3882,7 @@
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3897,7 +3897,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>276</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>164</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3907,6 +3906,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3921,7 +3921,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>275</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>165</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -3932,6 +3931,7 @@
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3945,7 +3945,7 @@
 		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>447</ubClassIndex>
+		<ubClassIndex>445</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>289</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -3997,7 +3997,7 @@
 		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>369</ubClassIndex>
+		<ubClassIndex>367</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>450</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -4022,7 +4022,7 @@
 		<szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>368</ubClassIndex>
+		<ubClassIndex>366</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>451</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -4282,7 +4282,6 @@
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>8</ubClassIndex>
-		<ItemFlag>16384</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>45</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -4296,6 +4295,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4373,7 +4373,6 @@
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>11</ubClassIndex>
-		<ItemFlag>16384</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>44</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -4387,6 +4386,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7005,7 +7005,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>65536</ItemFlag>
 		<ubGraphicType>3</ubGraphicType>
 		<ubGraphicNum>9</ubGraphicNum>
 		<ubWeight>60</ubWeight>
@@ -7014,6 +7013,7 @@
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>65536</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8693,7 +8693,6 @@
 		<usItemClass>4</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>299</ubClassIndex>
-		<ItemFlag>16384</ItemFlag>
 		<ubCursor>4</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>173</ubGraphicNum>
@@ -8718,6 +8717,7 @@
 		<Hardware>1</Hardware>
 		<LocksmithKit>1</LocksmithKit>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -10579,7 +10579,7 @@
 		<szBRDesc>AET rounds to make your old Tokarev pistol a competitor to today's handguns.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>365</ubClassIndex>
+		<ubClassIndex>363</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>740</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10791,7 +10791,7 @@
 		<szBRDesc>New for the 7.62x25mm caliber: We now have AET rounds available, so you can take advantage of this technology if you are using Russian made SMGs.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>370</ubClassIndex>
+		<ubClassIndex>368</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>741</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -11004,7 +11004,7 @@
 		<szBRDesc>Bizon mags filled with AET ammo. Not that we believe that you really need that many rounds if using this type of ammo, but you may love the lack of a need to reload during combat.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>375</ubClassIndex>
+		<ubClassIndex>373</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>742</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -11212,7 +11212,7 @@
 		<szBRDesc>A 7.62 Tk drum of AET ammo, to make your vintage Russian SMG into something not to be laughed at!</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>380</ubClassIndex>
+		<ubClassIndex>378</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>743</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -12676,7 +12676,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>235</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>243</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -12686,6 +12685,7 @@
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -12700,7 +12700,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>236</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>244</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -12714,6 +12713,7 @@
 		<BurstToHitBonus>2</BurstToHitBonus>
 		<AutoFireToHitBonus>6</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -12728,7 +12728,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>237</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubWeight>33</ubWeight>
 		<ItemSize>27</ItemSize>
@@ -12739,6 +12738,7 @@
 		<RangeBonus>120</RangeBonus>
 		<PercentAccuracyModifier>10</PercentAccuracyModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -12753,7 +12753,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>238</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>344</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -12765,6 +12764,7 @@
 		<PercentNoiseReduction>40</PercentNoiseReduction>
 		<PercentRecoilModifier>-20</PercentRecoilModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -12779,7 +12779,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>239</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>343</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -12791,6 +12790,7 @@
 		<PercentNoiseReduction>40</PercentNoiseReduction>
 		<PercentRecoilModifier>-20</PercentRecoilModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -12955,7 +12955,7 @@
 		<szBRDesc>An 5 round magazine of .50 caliber (Browning) bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>348</ubClassIndex>
+		<ubClassIndex>346</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>610</ubGraphicNum>
 		<ubWeight>9</ubWeight>
@@ -13163,7 +13163,7 @@
 		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>593</ubClassIndex>
+		<ubClassIndex>591</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>682</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -13322,7 +13322,7 @@
 		<szBRDesc>Hollowpoint rounds for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>586</ubClassIndex>
+		<ubClassIndex>584</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>683</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -13348,7 +13348,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>277</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>281</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -13358,6 +13357,7 @@
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -13372,7 +13372,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>278</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>282</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -13386,6 +13385,7 @@
 		<BurstToHitBonus>2</BurstToHitBonus>
 		<AutoFireToHitBonus>6</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -13400,7 +13400,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>279</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>283</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -13412,6 +13411,7 @@
 		<RangeBonus>120</RangeBonus>
 		<PercentAccuracyModifier>10</PercentAccuracyModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -13426,7 +13426,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>280</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>353</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -13438,6 +13437,7 @@
 		<PercentNoiseReduction>40</PercentNoiseReduction>
 		<PercentRecoilModifier>-20</PercentRecoilModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -13452,7 +13452,6 @@
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>281</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>352</ubGraphicNum>
 		<ubWeight>33</ubWeight>
@@ -13464,6 +13463,7 @@
 		<PercentNoiseReduction>40</PercentNoiseReduction>
 		<PercentRecoilModifier>-20</PercentRecoilModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -13477,7 +13477,7 @@
 		<szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>587</ubClassIndex>
+		<ubClassIndex>585</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>684</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -13502,7 +13502,7 @@
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>562</ubClassIndex>
+		<ubClassIndex>560</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>540</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13527,7 +13527,7 @@
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>563</ubClassIndex>
+		<ubClassIndex>561</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>541</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13552,7 +13552,7 @@
 		<szBRDesc>Own a vintage Mauser Gewehr 98 or Karabiner 98k? We have the ammo for your old pal!</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>568</ubClassIndex>
+		<ubClassIndex>566</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>542</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13577,7 +13577,7 @@
 		<szBRDesc>Our AP ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>569</ubClassIndex>
+		<ubClassIndex>567</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>543</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13602,7 +13602,7 @@
 		<szBRDesc>Want to fire a .50 cal round without making noise? These babies are cutdown 12.7mm rounds to fit the Russian VSSK.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>574</ubClassIndex>
+		<ubClassIndex>572</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>544</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -13628,7 +13628,7 @@
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>583</ubClassIndex>
+		<ubClassIndex>581</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>580</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -13653,7 +13653,7 @@
 		<szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>577</ubClassIndex>
+		<ubClassIndex>575</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>582</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -13678,7 +13678,7 @@
 		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>578</ubClassIndex>
+		<ubClassIndex>576</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>583</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -13834,7 +13834,7 @@
 		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>357</ubClassIndex>
+		<ubClassIndex>355</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>444</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -13859,7 +13859,7 @@
 		<szBRDesc>Retired from official military use, 7.62x25mm is still used by many Eastern European police officers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>364</ubClassIndex>
+		<ubClassIndex>362</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>446</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13884,7 +13884,7 @@
 		<szBRDesc>Though a diminutive bullet, the 7.62x25mm HP doesn't lack stopping power.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>363</ubClassIndex>
+		<ubClassIndex>361</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>447</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13909,7 +13909,7 @@
 		<szBRDesc>This mag of cold loaded ammo will flow quiet as the Don.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>367</ubClassIndex>
+		<ubClassIndex>365</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>448</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13936,7 +13936,7 @@
 		<szBRDesc>7.62x25mm HP cold load hits hard and quiet.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>366</ubClassIndex>
+		<ubClassIndex>364</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>449</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -13963,7 +13963,7 @@
 		<szBRDesc>Cold loaded ammo, when you need a small, but authoritative voice from your SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>372</ubClassIndex>
+		<ubClassIndex>370</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>452</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -13990,7 +13990,7 @@
 		<szBRDesc>Quiet and heavy hitting as a Russian blizzard.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>371</ubClassIndex>
+		<ubClassIndex>369</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>453</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -14017,7 +14017,7 @@
 		<szBRDesc>Originally converted PPSh-41/PPS-43 box magazines, these clips are made to fire 7.62 x 25 from a Bizon SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>374</ubClassIndex>
+		<ubClassIndex>372</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>458</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -14042,7 +14042,7 @@
 		<szBRDesc>Hammer unarmored targets into the ground with a hail of 7.62x25mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>373</ubClassIndex>
+		<ubClassIndex>371</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>459</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -14067,7 +14067,7 @@
 		<szBRDesc>Quietly deal with hostile incursions with these PP-27 Box mags.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>377</ubClassIndex>
+		<ubClassIndex>375</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>460</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -14093,7 +14093,7 @@
 		<szBRDesc>Blast away without noise issues, confident that HP rounds will keep them down and out.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>376</ubClassIndex>
+		<ubClassIndex>374</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>461</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -14119,7 +14119,7 @@
 		<szBRDesc>7.62 Tk drum fits your vintage Russian SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>379</ubClassIndex>
+		<ubClassIndex>377</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>454</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -14144,7 +14144,7 @@
 		<szBRDesc>Hard hitting HP in a high capacity load-out.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>378</ubClassIndex>
+		<ubClassIndex>376</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>455</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -14169,7 +14169,7 @@
 		<szBRDesc>Drum of muted 7.62x25mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>382</ubClassIndex>
+		<ubClassIndex>380</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>456</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -14195,7 +14195,7 @@
 		<szBRDesc>What cold loaded ammo loses in stopping power, it regains in HP form.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>381</ubClassIndex>
+		<ubClassIndex>379</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>457</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -14221,7 +14221,7 @@
 		<szBRDesc>Penetrate light armor vehicles from considerable range with a clip full of 12.7mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>393</ubClassIndex>
+		<ubClassIndex>391</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>443</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -14246,7 +14246,7 @@
 		<szBRDesc>9x18mm Makarov fits many more Eastern European made handguns than its namesake.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>396</ubClassIndex>
+		<ubClassIndex>394</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>421</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14271,7 +14271,7 @@
 		<szBRDesc>9x18mm in HP for added stopping power.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>397</ubClassIndex>
+		<ubClassIndex>395</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>422</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14296,7 +14296,7 @@
 		<szBRDesc>9x18mm Makarov is an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>400</ubClassIndex>
+		<ubClassIndex>398</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>423</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14321,7 +14321,7 @@
 		<szBRDesc>This HP 9x18mm ammo will knock a target down without going through.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>401</ubClassIndex>
+		<ubClassIndex>399</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>424</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14346,7 +14346,7 @@
 		<szBRDesc>20 round clip fits many Russian SMGs and machine pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>404</ubClassIndex>
+		<ubClassIndex>402</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>425</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -14371,7 +14371,7 @@
 		<szBRDesc>HP rounds are preferred by law enforcement officials for their low penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>405</ubClassIndex>
+		<ubClassIndex>403</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>426</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -14396,7 +14396,7 @@
 		<szBRDesc>30 round clip for a Kashtan or Kiparis.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>408</ubClassIndex>
+		<ubClassIndex>406</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>435</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -14421,7 +14421,7 @@
 		<szBRDesc>30 hollow-point bullets will cut a boring conversation short in no time at all.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>409</ubClassIndex>
+		<ubClassIndex>407</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>436</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -14446,7 +14446,7 @@
 		<szBRDesc>.40S&amp;W is a popular ammunition among many law enforcement officers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>420</ubClassIndex>
+		<ubClassIndex>418</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>427</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14471,7 +14471,7 @@
 		<szBRDesc>The expansion power of HP adds substance to this powerful pistol ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>421</ubClassIndex>
+		<ubClassIndex>419</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>429</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14496,7 +14496,7 @@
 		<szBRDesc>Punch holes in the competition with these handy AP rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>422</ubClassIndex>
+		<ubClassIndex>420</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>428</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14521,7 +14521,7 @@
 		<szBRDesc>Armored targets will go down and stay down when you tag them with this potent AET round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>423</ubClassIndex>
+		<ubClassIndex>421</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>431</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14547,7 +14547,7 @@
 		<szBRDesc>Fourteen rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>424</ubClassIndex>
+		<ubClassIndex>422</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>430</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14572,7 +14572,7 @@
 		<szBRDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>425</ubClassIndex>
+		<ubClassIndex>423</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>432</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14599,7 +14599,7 @@
 		<szBRDesc>7.62x54R is an old fashioned heavy hitter.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>444</ubClassIndex>
+		<ubClassIndex>442</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>433</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14624,7 +14624,7 @@
 		<szBRDesc>Light up the battlefield night or day with these tracer rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>445</ubClassIndex>
+		<ubClassIndex>443</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>434</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14651,8 +14651,7 @@
 		<szBRDesc>Crack open a box of 7.62x54R when its time to reload the squad PKM.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>453</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
+		<ubClassIndex>451</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>412</ubGraphicNum>
 		<ubWeight>62</ubWeight>
@@ -14663,6 +14662,7 @@
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -14676,8 +14676,7 @@
 		<szBRDesc>Adjusting automatic fire is an easy task with tracer ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>454</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
+		<ubClassIndex>452</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>413</ubGraphicNum>
 		<ubWeight>60</ubWeight>
@@ -14691,6 +14690,7 @@
 		<BurstToHitBonus>2</BurstToHitBonus>
 		<AutoFireToHitBonus>6</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -14704,7 +14704,7 @@
 		<szBRDesc>If this massive largebore ammo fails to terminate the target, Bobby Ray's offers a fine line of anti-tank weaponry.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>459</ubClassIndex>
+		<ubClassIndex>457</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>414</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -14729,7 +14729,7 @@
 		<szBRDesc>Why get pinned behind cover thumbing shells into your gun? Get back in the fight quickly with this speed-loader.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>462</ubClassIndex>
+		<ubClassIndex>460</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>384</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14754,7 +14754,7 @@
 		<szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>463</ubClassIndex>
+		<ubClassIndex>461</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>385</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14779,7 +14779,7 @@
 		<szBRDesc>The infamous 'Cop Killer' round is now commercially available thanks to a convenient legislation loophole. Although not quite as effective as the NBC would have you believe, these can still pack a fair punch against targets wearing body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>464</ubClassIndex>
+		<ubClassIndex>462</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>386</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14804,7 +14804,7 @@
 		<szBRDesc>Six rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>466</ubClassIndex>
+		<ubClassIndex>464</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>387</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -14829,7 +14829,7 @@
 		<szBRDesc>Unparalleled muzzle velocity and knock down power in this clip of Magnum rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>467</ubClassIndex>
+		<ubClassIndex>465</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>439</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14854,7 +14854,7 @@
 		<szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>468</ubClassIndex>
+		<ubClassIndex>466</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>440</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14879,7 +14879,7 @@
 		<szBRDesc>The infamous 'Cop Killer' round is now commercially available thanks to a convenient legislation loophole. Although not quite as effective as the NBC would have you believe, these can still pack a fair punch against targets wearing body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>469</ubClassIndex>
+		<ubClassIndex>467</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>441</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14904,7 +14904,7 @@
 		<szBRDesc>Eight rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>471</ubClassIndex>
+		<ubClassIndex>469</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>442</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14929,7 +14929,7 @@
 		<szBRDesc>Developed for its stopping power, 10mm is not an uncommon ordninance for police and counter-terrorist agents.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>488</ubClassIndex>
+		<ubClassIndex>486</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>415</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -14954,7 +14954,7 @@
 		<szBRDesc>10mm HP is perfect for detering persistent foes.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>489</ubClassIndex>
+		<ubClassIndex>487</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>416</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -14979,7 +14979,7 @@
 		<szBRDesc>Targets in armor are no match for an AP round in their 10 ring.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>490</ubClassIndex>
+		<ubClassIndex>488</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>417</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -15004,7 +15004,7 @@
 		<szBRDesc>10mm AET doesn't brake for armor or tough organic matter. Burn down the burliest opponent regardless of ballistic armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>491</ubClassIndex>
+		<ubClassIndex>489</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>419</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -15030,7 +15030,7 @@
 		<szBRDesc>Thirty rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>492</ubClassIndex>
+		<ubClassIndex>490</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>418</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -15055,7 +15055,7 @@
 		<szBRDesc>Increased range and performance are features of this hard hitting round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>493</ubClassIndex>
+		<ubClassIndex>491</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>420</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -15082,7 +15082,7 @@
 		<szBRDesc>Now available: 30rnd mags vor the Veresk!</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>513</ubClassIndex>
+		<ubClassIndex>511</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>727</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -15107,7 +15107,7 @@
 		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.5mm is a weighty round for a weighty handgun.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>506</ubClassIndex>
+		<ubClassIndex>504</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>462</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -15132,7 +15132,7 @@
 		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>512</ubClassIndex>
+		<ubClassIndex>510</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>362</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15157,7 +15157,7 @@
 		<szBRDesc>Designed so snipers punch through helmets, not the sound barrier.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>516</ubClassIndex>
+		<ubClassIndex>514</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>409</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15210,7 +15210,7 @@
 		<szBRDesc>8 round magazine of 5.45x18mm ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>520</ubClassIndex>
+		<ubClassIndex>518</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>293</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -15235,7 +15235,7 @@
 		<szBRDesc>HP bullets augment the stopping power of this small-bore cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>519</ubClassIndex>
+		<ubClassIndex>517</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>294</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -15260,7 +15260,7 @@
 		<szBRDesc>Dispensing with mechanical loading and firing, Metal Storm's stacked electronically fired ammunition promises reliable mass firepower at low weight. This bundle is configured for 72 rounds across 6 barrels, in 9mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>525</ubClassIndex>
+		<ubClassIndex>523</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>463</ubGraphicNum>
 		<ubWeight>19</ubWeight>
@@ -15339,7 +15339,7 @@
 		<szBRDesc>Magazine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>528</ubClassIndex>
+		<ubClassIndex>526</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>175</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15363,7 +15363,7 @@
 		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>358</ubClassIndex>
+		<ubClassIndex>356</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>445</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -15500,7 +15500,7 @@
 		<szBRDesc>Ranging and shot placement are easy with 10 rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>448</ubClassIndex>
+		<ubClassIndex>446</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>290</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -15552,7 +15552,7 @@
 		<szBRDesc>7 rounds of the highpowered .50 Beowulf ammo, just the thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>557</ubClassIndex>
+		<ubClassIndex>555</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>515</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -15580,7 +15580,7 @@
 		<szBRDesc>A clip of 7 Hollow Point rounds, perfect for harassing big pussycats.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>556</ubClassIndex>
+		<ubClassIndex>554</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>516</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -15608,7 +15608,7 @@
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>555</ubClassIndex>
+		<ubClassIndex>553</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>517</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15636,7 +15636,7 @@
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>554</ubClassIndex>
+		<ubClassIndex>552</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>518</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15804,7 +15804,7 @@
 		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>507</ubClassIndex>
+		<ubClassIndex>505</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>523</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -15883,7 +15883,7 @@
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>545</ubClassIndex>
+		<ubClassIndex>543</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>528</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15908,7 +15908,7 @@
 		<szBRDesc>If you're a hunter, then you'll need this for your sidearm if your prey is not as dead as you believed on first sight...</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>546</ubClassIndex>
+		<ubClassIndex>544</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>529</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15933,7 +15933,7 @@
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>547</ubClassIndex>
+		<ubClassIndex>545</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>530</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15958,7 +15958,7 @@
 		<szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>536</ubClassIndex>
+		<ubClassIndex>534</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>531</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -15983,7 +15983,7 @@
 		<szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>537</ubClassIndex>
+		<ubClassIndex>535</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>532</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16008,7 +16008,7 @@
 		<szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>538</ubClassIndex>
+		<ubClassIndex>536</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>533</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16033,7 +16033,7 @@
 		<szBRDesc>A single .454 Casull cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>533</ubClassIndex>
+		<ubClassIndex>531</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>534</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -16058,7 +16058,7 @@
 		<szBRDesc>.454 Casull Hollow Point ammunition, for hunting game large enough not to be splattered by it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>534</ubClassIndex>
+		<ubClassIndex>532</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>535</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -16083,7 +16083,7 @@
 		<szBRDesc>A .454 Casull Armor Piercer, if you want to shock the rangemaster at your next silhouette-training.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>535</ubClassIndex>
+		<ubClassIndex>533</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>536</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -16261,7 +16261,7 @@
 		<szBRDesc>Hollowpoint bullets for your .50 AE handcannon. Probably better used for target-practice, if you shoot anything living with these, there will not be much left of it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>527</ubClassIndex>
+		<ubClassIndex>525</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>557</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16366,7 +16366,7 @@
 		<szBRDesc>Preferred by the FBI, 10mm Auto ammunition in magazines of 8 rounds each.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>482</ubClassIndex>
+		<ubClassIndex>480</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>567</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16391,7 +16391,7 @@
 		<szBRDesc>Hollowpoint ammunition in 10mm Auto, for serious self-defense.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>483</ubClassIndex>
+		<ubClassIndex>481</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>568</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16416,7 +16416,7 @@
 		<szBRDesc>10mm Auto armor piercing ammo, for law enforcement and military use.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>484</ubClassIndex>
+		<ubClassIndex>482</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>569</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16441,7 +16441,7 @@
 		<szBRDesc>If armor piercing ist not good enough, AET will do.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>485</ubClassIndex>
+		<ubClassIndex>483</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>570</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16467,7 +16467,7 @@
 		<szBRDesc>Glaser ammo in the much underestimated 10mm Auto caliber.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>486</ubClassIndex>
+		<ubClassIndex>484</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>571</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16492,7 +16492,7 @@
 		<szBRDesc>This 10mm Auto match ammunition is intended for the serious gun enthusiast.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>487</ubClassIndex>
+		<ubClassIndex>485</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>572</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -16617,11 +16617,10 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
-		<ToHitBonus>-3</ToHitBonus>
 		<WireCutters>1</WireCutters>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ToHitBonus>-3</ToHitBonus>
 		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
+		<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>-10</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
@@ -17898,7 +17897,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>627</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>205</ubGraphicNum>
 		<ubWeight>147</ubWeight>
@@ -17922,6 +17920,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -18724,7 +18723,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>649</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>121</ubGraphicNum>
 		<ubWeight>110</ubWeight>
@@ -18749,6 +18747,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -18763,7 +18762,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>650</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>92</ubGraphicNum>
 		<ubWeight>57</ubWeight>
@@ -18788,6 +18786,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>25.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -19208,7 +19207,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>661</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>270</ubGraphicNum>
 		<ubWeight>87</ubWeight>
@@ -19232,6 +19230,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS>
 			<PercentHandling>20</PercentHandling>
 		</STAND_MODIFIERS>
@@ -19539,7 +19538,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>669</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>238</ubGraphicNum>
 		<ubWeight>74</ubWeight>
@@ -19564,6 +19562,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>25.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -20244,7 +20243,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>687</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>93</ubGraphicNum>
 		<ubWeight>86</ubWeight>
@@ -20269,6 +20267,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>30.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS>
 			<PercentHandling>10</PercentHandling>
 			<PercentMaxCounterForce>30</PercentMaxCounterForce>
@@ -20693,7 +20692,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>699</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>187</ubGraphicNum>
 		<ubWeight>82</ubWeight>
@@ -20715,6 +20713,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -20729,7 +20728,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>700</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>95</ubGraphicNum>
 		<ubWeight>80</ubWeight>
@@ -20752,6 +20750,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS>
@@ -20845,7 +20844,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>703</ubClassIndex>
-		<ItemFlag>16384</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>206</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -20863,6 +20861,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>44</BR_ROF>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
@@ -28882,7 +28881,7 @@
 		<szBRDesc>9x18mm in FMJ for added penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>398</ubClassIndex>
+		<ubClassIndex>396</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>750</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -28907,7 +28906,7 @@
 		<szBRDesc>This AP 9x18mm ammo penetrates much better than standard ball rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>402</ubClassIndex>
+		<ubClassIndex>400</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>751</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -28932,7 +28931,7 @@
 		<szBRDesc>AP rounds, as preferred by the military for defeating light body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>406</ubClassIndex>
+		<ubClassIndex>404</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>752</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -28957,7 +28956,7 @@
 		<szBRDesc>30 full metal jacket bullets will make a sieve out of most things.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>410</ubClassIndex>
+		<ubClassIndex>408</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>753</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -28982,7 +28981,7 @@
 		<szBRDesc>20 rounds of armor piercing 4.6mm ammo, usable for both the HK MP7 and the HK UCP.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>355</ubClassIndex>
+		<ubClassIndex>353</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>599</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -29007,7 +29006,7 @@
 		<szBRDesc>A magazine with Advanced Energy Transfer ammo for the HK UCP prototype pistol.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>356</ubClassIndex>
+		<ubClassIndex>354</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>600</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -29033,7 +29032,7 @@
 		<szBRDesc>Here's what you need for your shiny new 6x35mm PDW: 30 rounds tipped with hollowpoint bullets for anti-personnel work.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>596</ubClassIndex>
+		<ubClassIndex>594</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>713</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -29058,7 +29057,7 @@
 		<szBRDesc>30 full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>597</ubClassIndex>
+		<ubClassIndex>595</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>712</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -29083,7 +29082,7 @@
 		<szBRDesc>Dirty Harry would have loved these, if they were available back in his time. Well, now they are available to you!</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>465</ubClassIndex>
+		<ubClassIndex>463</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>739</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -29109,7 +29108,7 @@
 		<szBRDesc>Advanced high speed rounds that make body armor a joke.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>470</ubClassIndex>
+		<ubClassIndex>468</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>738</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -29135,7 +29134,7 @@
 		<szBRDesc>7.62x54R Sniper ammo, manufactured to ensure higher precision.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>446</ubClassIndex>
+		<ubClassIndex>444</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>754</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -29162,7 +29161,7 @@
 		<szBRDesc>10 rounds of the so-called "Sniper" ammo in 7.62x54R.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>449</ubClassIndex>
+		<ubClassIndex>447</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>755</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -29189,8 +29188,7 @@
 		<szBRDesc>Not available at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>455</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
+		<ubClassIndex>453</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>756</ubGraphicNum>
 		<ubWeight>60</ubWeight>
@@ -29203,6 +29201,7 @@
 		<RangeBonus>120</RangeBonus>
 		<PercentAccuracyModifier>10</PercentAccuracyModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29552,6 +29551,7 @@
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
@@ -29563,7 +29563,6 @@
 		<StealthBonus>-15</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
-		<NeedsBatteries>1</NeedsBatteries>
 		<ProjectionFactor>3.0</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
@@ -30501,7 +30500,6 @@
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>62</ubClassIndex>
-		<ItemFlag>262144</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>292</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -30520,6 +30518,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>262144</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -31654,9 +31653,9 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<Hardware>1</Hardware>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<Hardware>1</Hardware>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -31815,7 +31814,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>1024</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>204</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -31825,6 +31823,7 @@
 		<ubCoolness>1</ubCoolness>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>1024</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -32539,7 +32538,7 @@
 		<szBRDesc>.40 S&amp;W is a popular ammunition among many law enforcement officers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>426</ubClassIndex>
+		<ubClassIndex>424</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>601</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -32564,7 +32563,7 @@
 		<szBRDesc>The expansion power of HP adds substance to this powerful pistol ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>427</ubClassIndex>
+		<ubClassIndex>425</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>602</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -32589,7 +32588,7 @@
 		<szBRDesc>Punch holes in the competition with these handy AP rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>428</ubClassIndex>
+		<ubClassIndex>426</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>603</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -32614,7 +32613,7 @@
 		<szBRDesc>Armored targets will go down and stay down when you tag them with this potent AET round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>429</ubClassIndex>
+		<ubClassIndex>427</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>606</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -32640,7 +32639,7 @@
 		<szBRDesc>Thirty rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>430</ubClassIndex>
+		<ubClassIndex>428</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>604</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -32665,7 +32664,7 @@
 		<szBRDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>431</ubClassIndex>
+		<ubClassIndex>429</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>605</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -33441,7 +33440,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1075</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>324</ubGraphicNum>
 		<ubWeight>105</ubWeight>
@@ -33465,6 +33463,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>9</DamageChance>
 		<DirtIncreaseFactor>19.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -33479,7 +33478,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1076</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>319</ubGraphicNum>
 		<ubWeight>34</ubWeight>
@@ -33503,6 +33501,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -33931,7 +33930,6 @@
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>16</ubClassIndex>
-		<ItemFlag>16384</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>695</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -33945,6 +33943,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -37311,7 +37310,6 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1188</ubClassIndex>
-		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>326</ubGraphicNum>
 		<ubWeight>53</ubWeight>
@@ -37334,6 +37332,7 @@
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>22.0</DirtIncreaseFactor>
+		<ItemFlag>128</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -37822,7 +37821,6 @@
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>34</ubClassIndex>
-		<ItemFlag>512</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>746</ubGraphicNum>
 		<ubWeight>18</ubWeight>
@@ -37836,6 +37834,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>512</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -39269,7 +39268,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>456</ubClassIndex>
+		<ubClassIndex>454</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>775</ubWeight>
@@ -39294,7 +39293,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>457</ubClassIndex>
+		<ubClassIndex>455</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>732</ubGraphicNum>
 		<ubWeight>775</ubWeight>
@@ -39319,7 +39318,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>351</ubClassIndex>
+		<ubClassIndex>349</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>570</ubWeight>
@@ -39344,7 +39343,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>354</ubClassIndex>
+		<ubClassIndex>352</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>600</ubWeight>
@@ -39370,7 +39369,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>524</ubClassIndex>
+		<ubClassIndex>522</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>625</ubWeight>
@@ -39395,7 +39394,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>523</ubClassIndex>
+		<ubClassIndex>521</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>625</ubWeight>
@@ -39420,7 +39419,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>416</ubClassIndex>
+		<ubClassIndex>414</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>667</ubWeight>
@@ -39445,7 +39444,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>417</ubClassIndex>
+		<ubClassIndex>415</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>667</ubWeight>
@@ -39470,7 +39469,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>515</ubClassIndex>
+		<ubClassIndex>513</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>833</ubWeight>
@@ -39495,7 +39494,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>592</ubClassIndex>
+		<ubClassIndex>590</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>667</ubWeight>
@@ -39520,7 +39519,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>591</ubClassIndex>
+		<ubClassIndex>589</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>667</ubWeight>
@@ -39545,7 +39544,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>582</ubClassIndex>
+		<ubClassIndex>580</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39570,7 +39569,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>581</ubClassIndex>
+		<ubClassIndex>579</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39595,7 +39594,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>461</ubClassIndex>
+		<ubClassIndex>459</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39620,7 +39619,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>518</ubClassIndex>
+		<ubClassIndex>516</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>600</ubWeight>
@@ -39645,7 +39644,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>438</ubClassIndex>
+		<ubClassIndex>436</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>666</ubWeight>
@@ -39670,7 +39669,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>440</ubClassIndex>
+		<ubClassIndex>438</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>666</ubWeight>
@@ -39695,7 +39694,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>439</ubClassIndex>
+		<ubClassIndex>437</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>666</ubWeight>
@@ -39720,7 +39719,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>443</ubClassIndex>
+		<ubClassIndex>441</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>731</ubGraphicNum>
 		<ubWeight>666</ubWeight>
@@ -39746,7 +39745,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>442</ubClassIndex>
+		<ubClassIndex>440</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>733</ubGraphicNum>
 		<ubWeight>666</ubWeight>
@@ -39771,7 +39770,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>441</ubClassIndex>
+		<ubClassIndex>439</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>666</ubWeight>
@@ -39797,7 +39796,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>500</ubClassIndex>
+		<ubClassIndex>498</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39822,7 +39821,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>502</ubClassIndex>
+		<ubClassIndex>500</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39847,7 +39846,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>501</ubClassIndex>
+		<ubClassIndex>499</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39872,7 +39871,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>505</ubClassIndex>
+		<ubClassIndex>503</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>731</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39898,7 +39897,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>504</ubClassIndex>
+		<ubClassIndex>502</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>733</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39923,7 +39922,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>503</ubClassIndex>
+		<ubClassIndex>501</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -39949,7 +39948,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>389</ubClassIndex>
+		<ubClassIndex>387</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -39974,7 +39973,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>388</ubClassIndex>
+		<ubClassIndex>386</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -39999,7 +39998,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>390</ubClassIndex>
+		<ubClassIndex>388</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40025,7 +40024,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>392</ubClassIndex>
+		<ubClassIndex>390</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40051,7 +40050,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>391</ubClassIndex>
+		<ubClassIndex>389</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40077,7 +40076,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>576</ubClassIndex>
+		<ubClassIndex>574</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>480</ubWeight>
@@ -40103,7 +40102,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>585</ubClassIndex>
+		<ubClassIndex>583</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>625</ubWeight>
@@ -40128,7 +40127,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>361</ubClassIndex>
+		<ubClassIndex>359</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40153,7 +40152,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>362</ubClassIndex>
+		<ubClassIndex>360</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40179,7 +40178,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>526</ubClassIndex>
+		<ubClassIndex>524</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>660</ubWeight>
@@ -40204,7 +40203,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>595</ubClassIndex>
+		<ubClassIndex>593</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>750</ubWeight>
@@ -40229,7 +40228,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>566</ubClassIndex>
+		<ubClassIndex>564</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>400</ubWeight>
@@ -40254,7 +40253,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>567</ubClassIndex>
+		<ubClassIndex>565</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>400</ubWeight>
@@ -40279,7 +40278,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>395</ubClassIndex>
+		<ubClassIndex>393</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>88</ubGraphicNum>
 		<ubWeight>300</ubWeight>
@@ -40304,7 +40303,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>573</ubClassIndex>
+		<ubClassIndex>571</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>625</ubWeight>
@@ -40329,7 +40328,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>572</ubClassIndex>
+		<ubClassIndex>570</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>625</ubWeight>
@@ -40354,7 +40353,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>458</ubClassIndex>
+		<ubClassIndex>456</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>731</ubGraphicNum>
 		<ubWeight>775</ubWeight>
@@ -40380,7 +40379,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>418</ubClassIndex>
+		<ubClassIndex>416</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>667</ubWeight>
@@ -40405,7 +40404,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>561</ubClassIndex>
+		<ubClassIndex>559</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -40430,7 +40429,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>560</ubClassIndex>
+		<ubClassIndex>558</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -40455,7 +40454,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>601</ubClassIndex>
+		<ubClassIndex>599</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40480,7 +40479,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>600</ubClassIndex>
+		<ubClassIndex>598</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>500</ubWeight>
@@ -40505,7 +40504,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>477</ubClassIndex>
+		<ubClassIndex>475</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>750</ubWeight>
@@ -40530,7 +40529,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>479</ubClassIndex>
+		<ubClassIndex>477</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>750</ubWeight>
@@ -40555,7 +40554,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>478</ubClassIndex>
+		<ubClassIndex>476</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>750</ubWeight>
@@ -40580,7 +40579,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>481</ubClassIndex>
+		<ubClassIndex>479</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>733</ubGraphicNum>
 		<ubWeight>750</ubWeight>
@@ -40605,7 +40604,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>480</ubClassIndex>
+		<ubClassIndex>478</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>734</ubGraphicNum>
 		<ubWeight>750</ubWeight>
@@ -40631,7 +40630,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>551</ubClassIndex>
+		<ubClassIndex>549</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -40656,7 +40655,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>553</ubClassIndex>
+		<ubClassIndex>551</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -40681,7 +40680,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>552</ubClassIndex>
+		<ubClassIndex>550</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -40706,7 +40705,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>542</ubClassIndex>
+		<ubClassIndex>540</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -40731,7 +40730,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>544</ubClassIndex>
+		<ubClassIndex>542</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -40756,7 +40755,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>543</ubClassIndex>
+		<ubClassIndex>541</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -40781,7 +40780,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>532</ubClassIndex>
+		<ubClassIndex>530</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -40805,7 +40804,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>531</ubClassIndex>
+		<ubClassIndex>529</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>857</ubWeight>
@@ -41688,7 +41687,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>602</ubClassIndex>
+		<ubClassIndex>600</ubClassIndex>
 		<ubGraphicNum>368</ubGraphicNum>
 		<ubWeight>25</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
@@ -41948,7 +41947,7 @@
 		<szBRName>9x18mm Mag 12 Glaser</szBRName>
 		<szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>403</ubClassIndex>
+		<ubClassIndex>401</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>770</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -41972,7 +41971,7 @@
 		<szBRName>9x18mm Mag 8 Glaser</szBRName>
 		<szBRDesc>Glaser ammo in the 9x18mm caliber. You need the bigger punch, especially if you only have 8 rounds in your pistol...</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>399</ubClassIndex>
+		<ubClassIndex>397</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>769</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -41996,7 +41995,7 @@
 		<szBRName>9x18mm Mag 20 Glaser</szBRName>
 		<szBRDesc>Now your little 9x18mm SMG can rip your enemy to shreds, with these Glaser bullets!</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>407</ubClassIndex>
+		<ubClassIndex>405</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>771</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -42020,7 +42019,7 @@
 		<szBRName>9x18mm Mag 30 Glaser</szBRName>
 		<szBRDesc>A hailstorm of Glaser bullets will terrify any unarmored enemy, even in this small caliber.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>411</ubClassIndex>
+		<ubClassIndex>409</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>772</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -42045,7 +42044,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>419</ubClassIndex>
+		<ubClassIndex>417</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>733</ubGraphicNum>
 		<ubWeight>667</ubWeight>
@@ -42537,7 +42536,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>345</ubClassIndex>
+		<ubClassIndex>344</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>100</ubWeight>
@@ -42682,7 +42681,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>511</ubClassIndex>
+		<ubClassIndex>509</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>600</ubWeight>
@@ -42707,7 +42706,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>510</ubClassIndex>
+		<ubClassIndex>508</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>600</ubWeight>
@@ -44300,7 +44299,7 @@
 		<szBRName>Tranquilizer Darts</szBRName>
 		<szBRDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.' This practical box contains 10 Darts.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>344</ubClassIndex>
+		<ubClassIndex>343</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>825</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44323,7 +44322,7 @@
 		<szBRName>.50 BMG Box AP</szBRName>
 		<szBRDesc>This nice little box contains 15 .50 BMG bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>350</ubClassIndex>
+		<ubClassIndex>348</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>826</ubGraphicNum>
 		<ubWeight>29</ubWeight>
@@ -44348,7 +44347,7 @@
 		<szBRName>9x39mm Box AP</szBRName>
 		<szBRDesc>Heavier than regular 9mm ammo, this spam can contains 80 rounds of ammunition for a unique set of Russian firearms.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>353</ubClassIndex>
+		<ubClassIndex>351</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>96</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -44374,7 +44373,7 @@
 		<szBRName>4.6x30mm Box AP</szBRName>
 		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>359</ubClassIndex>
+		<ubClassIndex>357</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>827</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44400,7 +44399,7 @@
 		<szBRName>4.6x30mm Box AET</szBRName>
 		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>360</ubClassIndex>
+		<ubClassIndex>358</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>828</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44427,7 +44426,7 @@
 		<szBRName>7.62x25mm Box AP</szBRName>
 		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>384</ubClassIndex>
+		<ubClassIndex>382</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>829</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44452,7 +44451,7 @@
 		<szBRName>7.62x25mm Box HP</szBRName>
 		<szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>383</ubClassIndex>
+		<ubClassIndex>381</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>830</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44477,7 +44476,7 @@
 		<szBRName>7.62x25mm Box Cold</szBRName>
 		<szBRDesc>Cold loaded ammo, when you need a small, but authoritative voice.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>387</ubClassIndex>
+		<ubClassIndex>385</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>829</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44503,7 +44502,7 @@
 		<szBRName>7.62x25mm Box HP Cold</szBRName>
 		<szBRDesc>Quiet and heavy hitting as a Russian blizzard.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>386</ubClassIndex>
+		<ubClassIndex>384</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>830</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44529,7 +44528,7 @@
 		<szBRName>7.62x25mm Box AET</szBRName>
 		<szBRDesc>New for the 7.62x25mm caliber: We now have AET rounds available, so you can take advantage of this technology if you are using Russian made SMGs.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>385</ubClassIndex>
+		<ubClassIndex>383</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>831</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -44555,7 +44554,7 @@
 		<szBRName>12.7x108mm Box AP</szBRName>
 		<szBRDesc>Penetrate light armor vehicles from considerable range with these 12.7mm rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>394</ubClassIndex>
+		<ubClassIndex>392</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>832</ubGraphicNum>
 		<ubWeight>15</ubWeight>
@@ -44580,7 +44579,7 @@
 		<szBRName>9x18mm Box</szBRName>
 		<szBRDesc>9x18mm Makarov is an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>412</ubClassIndex>
+		<ubClassIndex>410</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>835</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44605,7 +44604,7 @@
 		<szBRName>9x18mm Box HP</szBRName>
 		<szBRDesc>These hollowpoint 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>413</ubClassIndex>
+		<ubClassIndex>411</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>837</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44630,7 +44629,7 @@
 		<szBRName>9x18mm Box AP</szBRName>
 		<szBRDesc>These armor piercing 9x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>414</ubClassIndex>
+		<ubClassIndex>412</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>836</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44655,7 +44654,7 @@
 		<szBRName>9x18mm Box Glaser</szBRName>
 		<szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>415</ubClassIndex>
+		<ubClassIndex>413</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>837</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44680,7 +44679,7 @@
 		<szBRName>.40 S&amp;W Box</szBRName>
 		<szBRDesc>.40S&amp;W is a popular ammunition among many law enforcement officers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>432</ubClassIndex>
+		<ubClassIndex>430</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>838</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44705,7 +44704,7 @@
 		<szBRName>.40 S&amp;W Box HP</szBRName>
 		<szBRDesc>The expansion power of HP adds substance to this powerful pistol ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>433</ubClassIndex>
+		<ubClassIndex>431</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>840</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44730,7 +44729,7 @@
 		<szBRName>.40 S&amp;W Box AP</szBRName>
 		<szBRDesc>Punch holes in the competition with these handy AP rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>434</ubClassIndex>
+		<ubClassIndex>432</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>839</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44755,7 +44754,7 @@
 		<szBRName>.40 S&amp;W Box Glaser</szBRName>
 		<szBRDesc>All of the man-stopping power, none of the over-penetration all packed into .40 S&amp;W rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>436</ubClassIndex>
+		<ubClassIndex>434</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>842</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44780,7 +44779,7 @@
 		<szBRName>.40 S&amp;W Box Match</szBRName>
 		<szBRDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>437</ubClassIndex>
+		<ubClassIndex>435</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>841</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44806,7 +44805,7 @@
 		<szBRName>.40 S&amp;W Box AET</szBRName>
 		<szBRDesc>Armored targets will go down and stay down when you tag them with this potent AET round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>435</ubClassIndex>
+		<ubClassIndex>433</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>843</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44832,8 +44831,7 @@
 		<szBRName>7.62x54R Box AP</szBRName>
 		<szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>450</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
+		<ubClassIndex>448</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>844</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -44846,6 +44844,7 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -44858,8 +44857,7 @@
 		<szBRName>7.62x54R Box Tracer</szBRName>
 		<szBRDesc>Ranging and shot placement are easy with these rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>451</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
+		<ubClassIndex>449</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>847</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -44875,6 +44873,7 @@
 		<BurstToHitBonus>2</BurstToHitBonus>
 		<AutoFireToHitBonus>6</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -44887,8 +44886,7 @@
 		<szBRName>7.62x54R Box Match</szBRName>
 		<szBRDesc>Long range penetrating power for the 7.62x54R chambered weapon in your collection. This box contains 50 rounds of Match Ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>452</ubClassIndex>
-		<ItemFlag>256</ItemFlag>
+		<ubClassIndex>450</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>846</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -44902,6 +44900,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<RangeBonus>120</RangeBonus>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>256</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -44914,7 +44913,7 @@
 		<szBRName>.338 Lapua Box AP</szBRName>
 		<szBRDesc>The absolute last word in big game hunting or long range sniping, this powerful round is guaranteed to drop targets where they stand.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>460</ubClassIndex>
+		<ubClassIndex>458</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>848</ubGraphicNum>
 		<ubWeight>16</ubWeight>
@@ -44939,7 +44938,7 @@
 		<szBRName>.44 Magnum Box</szBRName>
 		<szBRDesc>This box contains .44 standard ball ammunition. Its power leaves little question about its superiority as a combat handgun round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>472</ubClassIndex>
+		<ubClassIndex>470</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>849</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44964,7 +44963,7 @@
 		<szBRName>.44 Magnum Box HP</szBRName>
 		<szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>473</ubClassIndex>
+		<ubClassIndex>471</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>851</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -44989,7 +44988,7 @@
 		<szBRName>.44 Magnum Box AP</szBRName>
 		<szBRDesc>Made primarily of brass, these rounds are designed to defeat most kinds of body armor and feature a teflon coating to minimize barrel wear.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>474</ubClassIndex>
+		<ubClassIndex>472</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>850</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45014,7 +45013,7 @@
 		<szBRName>.44 Magnum Box Glaser</szBRName>
 		<szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>476</ubClassIndex>
+		<ubClassIndex>474</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>853</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45039,7 +45038,7 @@
 		<szBRName>.44 Magnum Box AET</szBRName>
 		<szBRDesc>Advanced high speed rounds that make body armor a joke.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>475</ubClassIndex>
+		<ubClassIndex>473</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>852</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45065,7 +45064,7 @@
 		<szBRName>10mm Box</szBRName>
 		<szBRDesc>Developed for its stopping power, 10mm is not an uncommon ordninance for police and counter-terrorist agents.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>494</ubClassIndex>
+		<ubClassIndex>492</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>854</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45090,7 +45089,7 @@
 		<szBRName>10mm Box HP</szBRName>
 		<szBRDesc>10mm HP is perfect for detering persistent foes.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>495</ubClassIndex>
+		<ubClassIndex>493</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>856</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45115,7 +45114,7 @@
 		<szBRName>10mm Box AP</szBRName>
 		<szBRDesc>Targets in armor are no match for an AP round in their 10 ring.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>496</ubClassIndex>
+		<ubClassIndex>494</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>855</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45140,7 +45139,7 @@
 		<szBRName>10mm Box Glaser</szBRName>
 		<szBRDesc>All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>498</ubClassIndex>
+		<ubClassIndex>496</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>858</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45165,7 +45164,7 @@
 		<szBRName>10mm Box AET</szBRName>
 		<szBRDesc>10mm AET doesn't brake for armor or tough organic matter. Burn down the burliest opponent regardless of ballistic armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>497</ubClassIndex>
+		<ubClassIndex>495</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>857</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45191,7 +45190,7 @@
 		<szBRName>10mm Box Match</szBRName>
 		<szBRDesc>Increased range and performance are features of this hard hitting round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>499</ubClassIndex>
+		<ubClassIndex>497</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>859</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45217,7 +45216,7 @@
 		<szBRName>12.3x50mm Box Buckshot</szBRName>
 		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>508</ubClassIndex>
+		<ubClassIndex>506</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>860</ubGraphicNum>
 		<ubWeight>15</ubWeight>
@@ -45242,7 +45241,7 @@
 		<szBRName>12.3x50mm Box Flechette</szBRName>
 		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>509</ubClassIndex>
+		<ubClassIndex>507</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>861</ubGraphicNum>
 		<ubWeight>15</ubWeight>
@@ -45267,7 +45266,7 @@
 		<szBRName>9x21mm Box AP</szBRName>
 		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away. This box contains 100 rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>514</ubClassIndex>
+		<ubClassIndex>512</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>862</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -45292,7 +45291,7 @@
 		<szBRName>7.62x37mm Box AP</szBRName>
 		<szBRDesc>This 7.62 ammo is designed especially for silenced sniper rifles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>517</ubClassIndex>
+		<ubClassIndex>515</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>864</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -45317,7 +45316,7 @@
 		<szBRName>5.45x18mm Box AP</szBRName>
 		<szBRDesc>These armor piercing 5.45x18mm Makarov rounds are an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>522</ubClassIndex>
+		<ubClassIndex>520</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>865</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45342,7 +45341,7 @@
 		<szBRName>5.45x18mm Box HP</szBRName>
 		<szBRDesc>These hollowpoint 5.45x18mm rounds are an inexpensive but effective ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>521</ubClassIndex>
+		<ubClassIndex>519</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>866</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45367,7 +45366,7 @@
 		<szBRName>.50 Action Express Box AP</szBRName>
 		<szBRDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>530</ubClassIndex>
+		<ubClassIndex>528</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>867</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45392,7 +45391,7 @@
 		<szBRName>.50 Action Express Box HP</szBRName>
 		<szBRDesc>The already strong .50 AE is even more effective against unarmored targets with these hollowpoint bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>529</ubClassIndex>
+		<ubClassIndex>527</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>868</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45417,7 +45416,7 @@
 		<szBRName>.454 Casull Box</szBRName>
 		<szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>539</ubClassIndex>
+		<ubClassIndex>537</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>869</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -45442,7 +45441,7 @@
 		<szBRName>.454 Casull Box HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>540</ubClassIndex>
+		<ubClassIndex>538</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>871</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -45467,7 +45466,7 @@
 		<szBRName>.454 Casull Box AP</szBRName>
 		<szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>541</ubClassIndex>
+		<ubClassIndex>539</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>870</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -45492,7 +45491,7 @@
 		<szBRName>.45 WM Box</szBRName>
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>548</ubClassIndex>
+		<ubClassIndex>546</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>872</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45517,7 +45516,7 @@
 		<szBRName>.45 WM Box HP</szBRName>
 		<szBRDesc>Hollowpoint ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>549</ubClassIndex>
+		<ubClassIndex>547</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>874</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45542,7 +45541,7 @@
 		<szBRName>.45 WM Box AP</szBRName>
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>550</ubClassIndex>
+		<ubClassIndex>548</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>873</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45567,7 +45566,7 @@
 		<szBRName>.50 Beowulf Box AP</szBRName>
 		<szBRDesc>These highpowered .50 Beowulf rounds are just the right thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>559</ubClassIndex>
+		<ubClassIndex>557</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>875</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45592,7 +45591,7 @@
 		<szBRName>.50 Beowulf Box HP</szBRName>
 		<szBRDesc>These highpowered .50 Beowulf hollowpoint rounds pack a big punch for a big gun.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>558</ubClassIndex>
+		<ubClassIndex>556</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>876</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -45617,7 +45616,7 @@
 		<szBRName>.300 WinMag Box AP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>565</ubClassIndex>
+		<ubClassIndex>563</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>877</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -45642,7 +45641,7 @@
 		<szBRName>.300 WinMag Box HP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>564</ubClassIndex>
+		<ubClassIndex>562</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>878</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -45667,7 +45666,7 @@
 		<szBRName>7.92x57mm Box AP</szBRName>
 		<szBRDesc>50 rounds of armorpiercing ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>571</ubClassIndex>
+		<ubClassIndex>569</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>879</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45692,7 +45691,7 @@
 		<szBRName>7.92x57mm Box HP</szBRName>
 		<szBRDesc>50 rounds of Softpoint ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>570</ubClassIndex>
+		<ubClassIndex>568</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>880</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45717,7 +45716,7 @@
 		<szBRName>12.7x97mm Box Subsonic AP</szBRName>
 		<szBRDesc>This spam can contains 12.7mm Subsonic rounds to fit the Russian VSSK and VKS sniper rifles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>575</ubClassIndex>
+		<ubClassIndex>573</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>881</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -45743,7 +45742,7 @@
 		<szBRName>5.56x45mm SCF Box AP</szBRName>
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>584</ubClassIndex>
+		<ubClassIndex>582</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>882</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45767,7 +45766,7 @@
 		<szBRName>.30-06 Box AP</szBRName>
 		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>594</ubClassIndex>
+		<ubClassIndex>592</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>886</ubGraphicNum>
 		<ubWeight>19</ubWeight>
@@ -45792,7 +45791,7 @@
 		<szBRName>.30 Car Box</szBRName>
 		<szBRDesc>Steel Core ammo for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>588</ubClassIndex>
+		<ubClassIndex>586</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>883</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45816,7 +45815,7 @@
 		<szBRName>.30 Car Box AP</szBRName>
 		<szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>590</ubClassIndex>
+		<ubClassIndex>588</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>884</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45841,7 +45840,7 @@
 		<szBRName>.30 Car Box HP</szBRName>
 		<szBRDesc>Hollowpoint ammo for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>589</ubClassIndex>
+		<ubClassIndex>587</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>885</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -45866,7 +45865,7 @@
 		<szBRName>6x35mm Box AP</szBRName>
 		<szBRDesc>Full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>599</ubClassIndex>
+		<ubClassIndex>597</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>887</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -45891,7 +45890,7 @@
 		<szBRName>6x35mm Box HP</szBRName>
 		<szBRDesc>Here's what you need for your shiny new 6x35mm PDW: hollowpoint bullets for anti-personnel work.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>598</ubClassIndex>
+		<ubClassIndex>596</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>888</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -45916,7 +45915,7 @@
 		<szBRName>6.8x43mm SPC Box AP</szBRName>
 		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>580</ubClassIndex>
+		<ubClassIndex>578</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>889</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -45941,7 +45940,7 @@
 		<szBRName>6.8x43mm SPC Box HP</szBRName>
 		<szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>579</ubClassIndex>
+		<ubClassIndex>577</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>890</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -46055,7 +46054,7 @@
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<usActionItemFlag>17</usActionItemFlag>
+		<usActionItemFlag>17</usActionItemFlag> <!-- net 1, lvl 1-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46507,7 +46506,6 @@
 		<szBRDesc>Only a fool would not fortify his position, especially at these prices!</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>1</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>891</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -46518,6 +46516,7 @@
 		<BR_NewInventory>15</BR_NewInventory>
 		<BR_UsedInventory>10</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>1</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46531,7 +46530,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>2</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>892</ubGraphicNum>
 		<ubWeight>200</ubWeight>
@@ -46541,6 +46539,7 @@
 		<ubCoolness>2</ubCoolness>
 		<WaterDamages>1</WaterDamages>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46554,7 +46553,6 @@
 		<szBRDesc>Useful for serious fortification of your base, and ruining your fatigues in the process.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>8</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>893</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -46562,10 +46560,11 @@
 		<ItemSize>18</ItemSize>
 		<usPrice>75</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<WaterDamages>1</WaterDamages>
 		<BR_NewInventory>10</BR_NewInventory>
 		<BR_UsedInventory>6</BR_UsedInventory>
+		<WaterDamages>1</WaterDamages>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>8</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46578,8 +46577,7 @@
 		<szBRName>Shovel</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>4</ItemFlag>
+		<nasLayoutClass>1</nasLayoutClass>		
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>197</ubGraphicNum>
 		<ubWeight>20</ubWeight>
@@ -46593,8 +46591,9 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<Hardware>1</Hardware>
+		<Hardware>1</Hardware>		
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>4</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -46617,7 +46616,6 @@
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>5</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46641,7 +46639,6 @@
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>25</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>6</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46651,7 +46648,7 @@
 		<uiIndex>1546</uiIndex>
 		<szItemName>EPA</szItemName>
 		<szLongItemName>EPA</szLongItemName>
-		<szItemDesc>German army food. Beware the Raviolis!</szItemDesc>
+		<szItemDesc>German army food. Beware the Raviolis! </szItemDesc>
 		<szBRName>EPA</szBRName>
 		<szBRDesc>This box of german army food will bring you through the day. Note the cookies, which also serve as burning material.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -46665,7 +46662,6 @@
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>20</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>7</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46688,7 +46684,6 @@
 		<usPrice>15</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>8</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46711,7 +46706,6 @@
 		<usPrice>12</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>9</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46734,7 +46728,6 @@
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>10</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46757,7 +46750,6 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>11</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46780,7 +46772,6 @@
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>12</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46803,7 +46794,6 @@
 		<usPrice>5</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>13</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46827,7 +46817,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>15</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>14</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46851,7 +46840,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>15</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>15</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46875,7 +46863,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>18</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>16</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46900,7 +46887,6 @@
 		<Damageable>1</Damageable>
 		<BR_NewInventory>7</BR_NewInventory>
 		<DrugType>8192</DrugType>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>17</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46923,7 +46909,6 @@
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>18</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46946,7 +46931,6 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>19</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46969,7 +46953,6 @@
 		<usPrice>24</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>20</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46992,7 +46975,6 @@
 		<usPrice>22</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>21</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47015,13 +46997,12 @@
 		<usPrice>7</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>22</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
-	<ITEM>
+  <ITEM>
 		<uiIndex>1562</uiIndex>
 		<szItemName>Crepes</szItemName>
 		<szLongItemName>Crepes</szLongItemName>
@@ -47038,7 +47019,6 @@
 		<usPrice>6</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>23</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47061,7 +47041,6 @@
 		<usPrice>23</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>24</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47084,7 +47063,6 @@
 		<usPrice>21</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>25</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47099,7 +47077,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>64</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>108</ubGraphicNum>
 		<ubWeight>30</ubWeight>
@@ -47108,7 +47085,7 @@
 		<usPrice>12</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>64</ItemFlag>
 		<FoodType>26</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47123,7 +47100,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>32</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>99</ubGraphicNum>
 		<ubWeight>30</ubWeight>
@@ -47132,12 +47108,12 @@
 		<usPrice>60</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>32</ItemFlag>
 		<FoodType>27</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
-	</ITEM>
+	</ITEM>	
 	<ITEM>
 		<uiIndex>1567</uiIndex>
 		<szItemName>Bread</szItemName>
@@ -47155,7 +47131,6 @@
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>28</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47178,7 +47153,6 @@
 		<usPrice>8</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>29</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47193,7 +47167,6 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>16</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>131</ubGraphicNum>
 		<ubWeight>10000</ubWeight>
@@ -47203,7 +47176,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<Canteen>1</Canteen>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>16</ItemFlag>
 		<FoodType>30</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47227,7 +47200,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>30</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>31</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47251,7 +47223,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<BR_NewInventory>14</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>32</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47274,7 +47245,6 @@
 		<usPrice>3</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>33</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47298,7 +47268,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<DrugType>1</DrugType>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>34</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47322,7 +47291,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<DrugType>1</DrugType>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>35</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47346,7 +47314,6 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<DrugType>1</DrugType>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>36</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47361,7 +47328,6 @@
 		<szBRDesc>Even the most deadly tools of destruction need to be looked after from time to time..</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>2048</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>134</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -47379,6 +47345,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Hardware>1</Hardware>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2048</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47402,7 +47369,6 @@
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>18</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47417,7 +47383,7 @@
 		<szBRDesc>Yo man, we just got these ultracool poison darts. This'll kill an elephant! Just be careful not to touch this by accident, like poor Jimmy from the export department.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>343</ubClassIndex>
+		<ubClassIndex>601</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>119</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -47441,7 +47407,6 @@
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1579</ubClassIndex>
-		<ItemFlag>24576</ItemFlag>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>102</ubGraphicNum>
@@ -47458,6 +47423,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>24576</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47471,7 +47437,6 @@
 		<szBRDesc>NO DESCRIPTION NEEDED!!!</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>32768</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>513</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -47482,6 +47447,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>32768</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47497,7 +47463,7 @@
 		<AttachmentClass>33554432</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1581</ubClassIndex>
+		<ubClassIndex>16</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>149</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -47538,7 +47504,6 @@
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>37</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -47561,14 +47526,14 @@
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<FoodType>38</FoodType>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<!-- Copies of the claymore item. These are purely meant for the map editor and should not be used otherwise-->
 	<ITEM>
-		<uiIndex>1584</uiIndex>
+		<uiIndex>1584</uiIndex><!-->NORTHEAST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47576,7 +47541,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>94</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47600,7 +47565,7 @@
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1585</uiIndex>
+		<uiIndex>1585</uiIndex><!-->EAST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47608,7 +47573,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>95</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47632,7 +47597,7 @@
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1586</uiIndex>
+		<uiIndex>1586</uiIndex><!-->SOUTHEAST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47640,7 +47605,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>96</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47664,7 +47629,7 @@
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1587</uiIndex>
+		<uiIndex>1587</uiIndex><!-->SOUTH DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47672,7 +47637,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>97</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47696,7 +47661,7 @@
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1588</uiIndex>
+		<uiIndex>1588</uiIndex><!-->SOUTHWEST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47704,7 +47669,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>98</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47728,7 +47693,7 @@
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1589</uiIndex>
+		<uiIndex>1589</uiIndex><!-->WEST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47736,7 +47701,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>99</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47760,7 +47725,7 @@
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1590</uiIndex>
+		<uiIndex>1590</uiIndex><!-->NORTHWEST DIRECTION (map editor only)-->
 		<szItemName>M18 Claymore</szItemName>
 		<szLongItemName>M18 Claymore</szLongItemName>
 		<szItemDesc>The M18 Claymore directional mine can be triggered by a remote detonator, by a tripwire or simply be used as a mine. 700 steel balls will be fired in a 60 degree arc, maximum height of 2 m. Tip: Front towards enemy.</szItemDesc>
@@ -47768,7 +47733,7 @@
 		<szBRDesc>Lay ambushes with networks of tripwire and these babies. Can also be activated remotely. We accept no responsibility for casulties due to setting it up in the wrong way.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>100</ubClassIndex>
+		<ubClassIndex>85</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>97</ubGraphicNum>
@@ -47791,6 +47756,7 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<!-- Copies of the tripwire item. These are purely meant for the map editor and should not be used otherwise-->
 	<ITEM>
 		<uiIndex>1591</uiIndex>
 		<szItemName>Tripwire</szItemName>
@@ -47800,7 +47766,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>101</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47815,8 +47781,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>33</usActionItemFlag>
+		<usActionItemFlag>33</usActionItemFlag> <!-- net 1, lvl 2-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47830,7 +47795,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>102</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47845,8 +47810,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>65</usActionItemFlag>
+		<usActionItemFlag>65</usActionItemFlag> <!-- net 1, lvl 3-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47860,7 +47824,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>103</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47875,8 +47839,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>129</usActionItemFlag>
+		<usActionItemFlag>129</usActionItemFlag> <!-- net 1, lvl 4-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47890,7 +47853,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>104</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47905,8 +47868,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>18</usActionItemFlag>
+		<usActionItemFlag>18</usActionItemFlag> <!-- net 2, lvl 1-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47920,7 +47882,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>105</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47935,8 +47897,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>34</usActionItemFlag>
+		<usActionItemFlag>34</usActionItemFlag> <!-- net 2, lvl 2-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47950,7 +47911,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>106</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47965,8 +47926,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>66</usActionItemFlag>
+		<usActionItemFlag>66</usActionItemFlag> <!-- net 2, lvl 3-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -47980,7 +47940,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>107</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -47995,8 +47955,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>130</usActionItemFlag>
+		<usActionItemFlag>130</usActionItemFlag> <!-- net 2, lvl 4-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48010,7 +47969,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>108</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48025,8 +47984,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>20</usActionItemFlag>
+		<usActionItemFlag>20</usActionItemFlag> <!-- net 3, lvl 1-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48040,7 +47998,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>109</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48055,8 +48013,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>36</usActionItemFlag>
+		<usActionItemFlag>36</usActionItemFlag> <!-- net 3, lvl 2-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48070,7 +48027,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>110</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48085,8 +48042,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>68</usActionItemFlag>
+		<usActionItemFlag>68</usActionItemFlag> <!-- net 3, lvl 3-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48100,7 +48056,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>111</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48115,8 +48071,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>132</usActionItemFlag>
+		<usActionItemFlag>132</usActionItemFlag> <!-- net 3, lvl 4-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48130,7 +48085,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>112</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48145,8 +48100,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>24</usActionItemFlag>
+		<usActionItemFlag>24</usActionItemFlag> <!-- net 4, lvl 1-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48160,7 +48114,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>113</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48175,8 +48129,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>40</usActionItemFlag>
+		<usActionItemFlag>40</usActionItemFlag> <!-- net 4, lvl 2-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48190,7 +48143,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>114</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48205,8 +48158,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>72</usActionItemFlag>
+		<usActionItemFlag>72</usActionItemFlag> <!-- net 4, lvl 3-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48220,7 +48172,7 @@
 		<szBRDesc>Tripwire for mines. Only 10 bucks per meter, just this week!</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>115</ubClassIndex>
+		<ubClassIndex>86</ubClassIndex>
 		<ubCursor>18</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
@@ -48235,8 +48187,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<usActionItemFlag>136</usActionItemFlag>
+		<usActionItemFlag>136</usActionItemFlag> <!-- net 4, lvl 4-->
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48259,7 +48210,6 @@
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>2</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48285,7 +48235,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>6</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48311,7 +48260,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>11</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48337,7 +48285,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>4</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48363,7 +48310,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>7</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48388,7 +48334,6 @@
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>1</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48414,7 +48359,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>9</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48440,7 +48384,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>10</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48465,7 +48408,6 @@
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>3</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48491,7 +48433,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>5</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48517,7 +48458,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>8</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48543,7 +48483,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>14</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48568,7 +48507,6 @@
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>13</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48594,7 +48532,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>5</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>17</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48619,7 +48556,6 @@
 		<Damageable>1</Damageable>
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>12</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48645,7 +48581,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>16</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48671,7 +48606,6 @@
 		<WaterDamages>1</WaterDamages>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<clothestype>15</clothestype>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48687,13 +48621,12 @@
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>1</ubGraphicNum>
+		<ubGraphicNum>1</ubGraphicNum>		
 		<ubWeight>9</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>13</ItemSize>
 		<usPrice>90</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ubCoolness>1</ubCoolness>		
 		<randomitem>15</randomitem>
 		<randomitemcoolnessmodificator>-1</randomitemcoolnessmodificator>
 		<STAND_MODIFIERS />
@@ -48710,13 +48643,12 @@
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>1</ubGraphicNum>
+		<ubGraphicNum>1</ubGraphicNum>		
 		<ubWeight>9</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>13</ItemSize>
 		<usPrice>90</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ubCoolness>1</ubCoolness>		
 		<randomitem>16</randomitem>
 		<randomitemcoolnessmodificator>1</randomitemcoolnessmodificator>
 		<STAND_MODIFIERS />
@@ -48732,7 +48664,6 @@
 		<szBRDesc>Standard police handcuffs.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>524288</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>153</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -48744,6 +48675,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>10</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>524288</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48757,8 +48689,7 @@
 		<szBRDesc>At 2 million V, this baby will leave even the sturdiest men helpless on the floor. Batteries not included!</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1626</ubClassIndex>
-		<ItemFlag>1048576</ItemFlag>
+		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>154</ubGraphicNum>
@@ -48772,16 +48703,16 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
+		<Sinks>1</Sinks>		
 		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
+		<ShowStatus>1</ShowStatus>
+		<DefaultAttachment>322</DefaultAttachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>3</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
-		<DefaultAttachment>322</DefaultAttachment>
 		<BrassKnuckles>1</BrassKnuckles>
-		<NeedsBatteries>1</NeedsBatteries>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>1048576</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48807,7 +48738,6 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>6</BR_NewInventory>
 		<BR_ROF>36</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -48822,7 +48752,7 @@
 		<szBRDesc>Though one might think so, putting this on your food is not the best idea you could have.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>603</ubClassIndex>
+		<ubClassIndex>602</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>156</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -48830,7 +48760,6 @@
 		<usPrice>2</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Sinks>1</Sinks>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48844,7 +48773,6 @@
 		<szBRDesc>Whenever you feel you could go down, be sure to protect your eyes and retain vision with one of these.</szBRDesc>
 		<usItemClass>32768</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
-		<ItemFlag>4194304</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>157</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -48855,11 +48783,11 @@
 		<bRepairEase>3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
-		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
+		<Sinks>1</Sinks>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>4</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>4194304</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48874,7 +48802,6 @@
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>40</ubClassIndex>
-		<ItemFlag>2097152</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>158</ubGraphicNum>
 		<ubWeight>65</ubWeight>
@@ -48887,7 +48814,7 @@
 		<Sinks>1</Sinks>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>2097152</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48902,8 +48829,7 @@
 		<usItemClass>2048</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>198</ubClassIndex>
-		<ItemFlag>8388608</ItemFlag>
+		<ubClassIndex>92</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>159</ubGraphicNum>
 		<ubWeight>10</ubWeight>
@@ -48918,7 +48844,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>3</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>8388608</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48932,7 +48858,6 @@
 		<szBRDesc>Useful for sorting your cables. This stack should be enough for your office.</szBRDesc>
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ItemFlag>524288</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>35</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -48942,7 +48867,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Sinks>1</Sinks>
 		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>524288</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48956,7 +48881,7 @@
 		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>346</ubClassIndex>
+		<ubClassIndex>603</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>728</ubGraphicNum>
 		<ubWeight>100</ubWeight>
@@ -48966,7 +48891,6 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<TwoHanded>1</TwoHanded>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -48990,10 +48914,6 @@
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
 		<DrugType>2097152</DrugType>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>1635</uiIndex>
@@ -49018,6 +48938,7 @@
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>300</BestLaserRange>
 		<CamoBonus>-15</CamoBonus>
@@ -49027,9 +48948,8 @@
 		<StealthBonus>-15</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
-		<NeedsBatteries>1</NeedsBatteries>
 		<ProjectionFactor>3.0</ProjectionFactor>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<FlashLightRange>15</FlashLightRange>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49043,7 +48963,7 @@
 		<szBRDesc>We say: let there be light! Batteries included.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1636</ubClassIndex>
+		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>154</ubGraphicNum>
@@ -49057,16 +48977,15 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
+		<Sinks>1</Sinks>		
 		<Electronic>1</Electronic>
+		<NeedsBatteries>1</NeedsBatteries>
+		<ShowStatus>1</ShowStatus>
+		<DefaultAttachment>322</DefaultAttachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>3</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
-		<DefaultAttachment>322</DefaultAttachment>
 		<BrassKnuckles>1</BrassKnuckles>
-		<NeedsBatteries>1</NeedsBatteries>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49080,7 +48999,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1637</ubClassIndex>
+		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>154</ubGraphicNum>
@@ -49094,79 +49013,77 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
+		<Sinks>1</Sinks>		
 		<Electronic>1</Electronic>
-		<BR_ROF>30</BR_ROF>
-		<DefaultAttachment>322</DefaultAttachment>
-		<BrassKnuckles>1</BrassKnuckles>
 		<NeedsBatteries>1</NeedsBatteries>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ShowStatus>1</ShowStatus>
+		<DefaultAttachment>322</DefaultAttachment>
+		<BR_ROF>30</BR_ROF>
+		<BrassKnuckles>1</BrassKnuckles>
+		<FlashLightRange>18</FlashLightRange>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1638</uiIndex>
-		<szItemName>Letter Opener</szItemName>
-		<szLongItemName>Letter Opener</szLongItemName>
-		<szItemDesc>An official USPS letter opener. Boldly engraved on the handle is the warning property of the government - "do not remove from postal station".</szItemDesc>
-		<szBRName>Letter Opener</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>4</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1638</ubClassIndex>
-		<ubCursor>4</ubCursor>
-		<ubGraphicNum>371</ubGraphicNum>
-		<ubWeight>2</ubWeight>
-		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>16</ItemSize>
-		<usPrice>5</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<bReliability>-3</bReliability>
-		<bRepairEase>2</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<WaterDamages>1</WaterDamages>
-		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<Attachment>1</Attachment>
-		<BR_ROF>40</BR_ROF>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1639</uiIndex>
-		<szItemName>Hedge Trimmer</szItemName>
-		<szLongItemName>Hedge Trimmer</szLongItemName>
-		<szItemDesc>An effective implement used for prunning.</szItemDesc>
-		<szBRName>Hedge Trimmer</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>4</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>1639</ubClassIndex>
-		<ubCursor>4</ubCursor>
-		<ubGraphicNum>370</ubGraphicNum>
-		<ubWeight>15</ubWeight>
-		<ItemSize>7</ItemSize>
-		<usPrice>50</usPrice>
-		<ubCoolness>3</ubCoolness>
-		<bRepairEase>-1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<WaterDamages>1</WaterDamages>
-		<Metal>1</Metal>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<Electronic>1</Electronic>
-		<BR_ROF>22</BR_ROF>
-		<WireCutters>1</WireCutters>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
+   <uiIndex>1638</uiIndex>
+   <szItemName>Letter Opener</szItemName>
+   <szLongItemName>Letter Opener</szLongItemName>
+   <szItemDesc>An official USPS letter opener. Boldly engraved on the handle is the warning property of the government - "do not remove from postal station".</szItemDesc>
+   <szBRName>Letter Opener</szBRName>
+   <szBRDesc>Not for sale through BR.</szBRDesc>
+   <usItemClass>4</usItemClass>
+   <nasLayoutClass>1</nasLayoutClass>
+   <ubClassIndex>1638</ubClassIndex>
+   <ubCursor>4</ubCursor>
+   <ubGraphicNum>371</ubGraphicNum>
+   <ubWeight>2</ubWeight>
+   <ubPerPocket>2</ubPerPocket>
+   <ItemSize>16</ItemSize>
+   <usPrice>5</usPrice>
+   <ubCoolness>1</ubCoolness>
+   <bReliability>-3</bReliability>
+   <bRepairEase>2</bRepairEase>
+   <Damageable>1</Damageable>
+   <Repairable>1</Repairable>
+   <WaterDamages>1</WaterDamages>
+   <Metal>1</Metal>
+   <Sinks>1</Sinks>
+   <ShowStatus>1</ShowStatus>
+   <Attachment>1</Attachment>
+   <BR_ROF>40</BR_ROF>
+   <STAND_MODIFIERS />
+   <CROUCH_MODIFIERS />
+   <PRONE_MODIFIERS />
+ </ITEM>
+ <ITEM>
+   <uiIndex>1639</uiIndex>
+   <szItemName>Hedge Trimmer</szItemName>
+   <szLongItemName>Hedge Trimmer</szLongItemName>
+   <szItemDesc>An effective implement used for prunning.</szItemDesc>
+   <szBRName>Hedge Trimmer</szBRName>
+   <szBRDesc>Not for sale through BR.</szBRDesc>
+   <usItemClass>4</usItemClass>
+   <nasLayoutClass>1</nasLayoutClass>
+   <ubClassIndex>1639</ubClassIndex>
+   <ubCursor>4</ubCursor>
+   <ubGraphicNum>370</ubGraphicNum>
+   <ubWeight>15</ubWeight>
+   <ItemSize>7</ItemSize>
+   <usPrice>50</usPrice>
+   <ubCoolness>3</ubCoolness>
+   <bRepairEase>-1</bRepairEase>
+   <Damageable>1</Damageable>
+   <Repairable>1</Repairable>
+   <WaterDamages>1</WaterDamages>
+   <Metal>1</Metal>
+   <Sinks>1</Sinks>
+   <ShowStatus>1</ShowStatus>
+   <Electronic>1</Electronic>
+   <BR_ROF>22</BR_ROF>
+   <WireCutters>1</WireCutters>
+   <STAND_MODIFIERS />
+   <CROUCH_MODIFIERS />
+   <PRONE_MODIFIERS />
+ </ITEM>
 </ITEMLIST>
