@@ -3572,7 +3572,8 @@ void ScrollWorld( )
 		return;
 
 	// Ignore if ALT DONW
-	if ( _KeyDown( ALT ) )
+	// silversurfer: also ignore CTRL because this is now used for merc portrait switching
+	if ( _KeyDown(ALT) || _KeyDown(CTRL) )
 		return;
 
 

@@ -261,6 +261,9 @@ void	QueryTBX2Button( UINT32 *puiNewEvent );
 
 void	ItemCreationCallBack( UINT8 ubResult );
 void	CheatCreateItem();
+// silversurfer: added for merc portrait swapping in tactical
+void	SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection );
+extern	INT8 GetTeamSlotFromPlayerID( UINT8 ubID );
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -4661,6 +4664,20 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ToggleTacticalPanels();
 				}
 				break;
+			case LEFTARROW:
+				if ( fCtrl )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+						SwapMercPortraits( MercPtrs[ gusSelectedSoldier ], -1 );
+				}
+				break;
+			case RIGHTARROW:
+				if ( fCtrl )
+				{
+					if ( gusSelectedSoldier != NOBODY )
+						SwapMercPortraits( MercPtrs[ gusSelectedSoldier ], 1 );
+				}
+				break;
 
 			}
 
@@ -7151,5 +7168,62 @@ void QueryTBX2Button( UINT32 *puiNewEvent  )
 			}
 		}
 		
+	}
+}
+
+//silversurfer: this allows swapping of merc portraits in tactical screen using CTRL+LEFTARROW / CTRL+RIGHTARROW
+void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
+{
+	// only swap mercs when the Team Panel is active
+	if ( gsCurInterfacePanel != TEAM_PANEL )
+		return;
+
+	UINT8 ubSourceMerc = gusSelectedSoldier;
+	UINT8 ubTargetMerc;
+	UINT8 ubGroupID = pSoldier->ubGroupID;
+	INT8 bOldPosition = GetTeamSlotFromPlayerID ( MercPtrs[ ubSourceMerc ]->ubID );
+	INT8 bNewPosition = bOldPosition + bDirection;
+	SOLDIERTYPE TempMercPtr = *MercPtrs[ ubSourceMerc ];
+	FACETYPE TempFace = gFacesData[ ubSourceMerc +1 ];
+
+	// check if new position is occupied by another merc? we won't replace an empty slot
+	if ( gTeamPanel[ bNewPosition ].fOccupied && gTeamPanel[ bNewPosition ].ubID != NOBODY )
+	{
+		ubTargetMerc = gTeamPanel[ bNewPosition ].ubID;
+
+		// swap the data
+		*MercPtrs[ ubSourceMerc ] = *MercPtrs[ ubTargetMerc ];
+		*MercPtrs[ ubTargetMerc ] = TempMercPtr; 
+		// also swap face data, otherwise face gear, opp count etc won't update
+		gFacesData[ ubSourceMerc +1 ] = gFacesData[ ubTargetMerc +1 ];
+		gFacesData[ ubTargetMerc +1 ] = TempFace;
+
+		// update IDs in the data so they match array index again
+		MercPtrs[ ubSourceMerc ]->ubID = ubSourceMerc;
+		MercPtrs[ ubTargetMerc ]->ubID = ubTargetMerc;
+		gFacesData[ ubSourceMerc +1 ].iID = ubSourceMerc +1;
+		gFacesData[ ubTargetMerc +1 ].iID = ubTargetMerc +1;
+
+		// update soldier ID so they match array index again
+		gFacesData[ ubSourceMerc +1 ].ubSoldierID = ubSourceMerc;
+		gFacesData[ ubTargetMerc +1 ].ubSoldierID = ubTargetMerc;
+
+		// update face index in merc data
+		MercPtrs[ ubSourceMerc ]->iFaceIndex = ubSourceMerc +1;
+		MercPtrs[ ubTargetMerc ]->iFaceIndex = ubTargetMerc +1;
+
+		// update group info
+		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
+		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubTargetMerc ] );
+		AddPlayerToGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
+		AddPlayerToGroup( ubGroupID, MercPtrs[ ubTargetMerc ] );
+
+		// don't forget to renew selection of merc
+		gusSelectedSoldier = ubTargetMerc;
+
+		// refresh interface
+		fCharacterInfoPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fInterfacePanelDirty = DIRTYLEVEL2;
 	}
 }
