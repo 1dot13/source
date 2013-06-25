@@ -1102,6 +1102,8 @@ typedef struct
 	UINT8 ubEarlyRebelsRecruitment[4];	// early recruitment of Miguel and Carlos
 	// silversurfer: don't play quote when merc spots a mine? TRUE = shut up! FALSE = tell me that you found a mine!
 	BOOLEAN fMineSpottedNoTalk;
+	// enables item drops for civilians
+	BOOLEAN fCiviliansDropAll;
 
 	// WANNE: Don't stop and talk when spotting a new item in turn based mode
 	BOOLEAN fItemSpottedNoTalk;

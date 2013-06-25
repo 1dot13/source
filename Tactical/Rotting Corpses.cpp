@@ -46,6 +46,7 @@
 	#include "Music Control.h"
 	#include "Campaign Types.h"	
 	#include "text.h"		// added by Flugente
+	#include "Vehicles.h"	// added by silversurfer
 #endif
 
 #include "Animation Control.h"
@@ -994,7 +995,9 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 			if ( pObj->exists() == true )
 			{
 				// Check if it's supposed to be dropped
-				if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum )
+			// silversurfer: new option to drop items from CIV_TEAM regardless of "OBJECT_UNDROPPABLE" flag
+			if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum 
+					|| ( gGameExternalOptions.fCiviliansDropAll && pSoldier->bTeam == CIV_TEAM && !IsVehicle(pSoldier) ))
 				{
 					// and make sure that it really is a droppable item type
 					// if ( !(Item[ pObj->usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE) )
