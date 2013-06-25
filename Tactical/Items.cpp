@@ -12653,90 +12653,111 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 		// Actual Scope Mag Factor is what we get at the distance the target's at.
 		ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
 
-		// as we only use once scope, we can return from here
-		return( __max(1.0f, ActualCurrentFactor) );
-	}
-
-	if (TargetMagFactor <= 1.0f)
-	{
-		// Target is at Iron Sights range. No scope is required.
-		return 1.0f;
-	}
-
-	if ( pObj->exists() == true && UsingNewCTHSystem() == true )
-	{
-		// Real Scope Magnification Factor from the item
-		CurrentFactor = __max(1.0f, Item[pObjUsed->usItem].scopemagfactor);
-
-		if (CurrentFactor > 1.0f)
+		// using NCTH system?
+		if ( pObj->exists() == true && UsingNewCTHSystem() == true )
 		{
-			// Actual Scope Mag Factor is what we get at the distance the target's at.
-			ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
-
 			if (ActualCurrentFactor >= CurrentFactor)
 			{
-				// This scope gives no penalty. Record this as the best factor found so far.
+				// This scope gives no penalty. Record this as the best factor found.
 				BestFactor = CurrentFactor;
 				iBestTotalPenalty = 0;
 			}
 			else
 			{
-				// This scopes gives a penalty for shooting under its range.
+				// This scope gives a penalty for shooting under its range.
 				FLOAT dScopePenaltyRatio = (CurrentFactor * rangeModifier / TargetMagFactor);
 				INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
 
-				// There's no previous scope to compare with so record this as the best factor for now.
 				BestFactor = CurrentFactor;
 				iBestTotalPenalty = iScopePenalty;
 			}
-
 		}
-		
-		// Now perform the same process for each scope installed on the item. The difference is, we also compare to 
-		// BestTotalPenalty to find the scope that gives the least penalty compared to its bonus.
-		for (attachmentList::iterator iter = (*pObjUsed)[0]->attachments.begin(); iter != (*pObjUsed)[0]->attachments.end(); ++iter) 
-		{
-			if (iter->exists() && Item[iter->usItem].scopemagfactor > 1.0f)
-			{
-				// Real Scope Magnification Factor from the item
-				CurrentFactor = __max(1.0f, Item[iter->usItem].scopemagfactor);
 
+		if(iBestTotalPenalty < 0 && iProjectionFactor > 1.0f)
+			BestFactor = 1.0f;
+
+		return( __max(1.0f, BestFactor) );
+	}
+	// if not using scope modes find the best scope
+	else
+	{
+		if (TargetMagFactor <= 1.0f)
+		{
+			// Target is at Iron Sights range. No scope is required.
+			return 1.0f;
+		}
+
+		if ( pObj->exists() == true && UsingNewCTHSystem() == true )
+		{
+			// Real Scope Magnification Factor from the item
+			CurrentFactor = __max(1.0f, Item[pObjUsed->usItem].scopemagfactor);
+
+			if (CurrentFactor > 1.0f)
+			{
 				// Actual Scope Mag Factor is what we get at the distance the target's at.
 				ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
 
 				if (ActualCurrentFactor >= CurrentFactor)
 				{
-					// This scope gives no penalty. Is it any better than the ones we've already processed?
-					if (iBestTotalPenalty >= 0 && CurrentFactor > BestFactor)
-					{
-						// This is the best scope we've found so far. Record it.
-						BestFactor = CurrentFactor;
-						iBestTotalPenalty = 0;
-					}
+					// This scope gives no penalty. Record this as the best factor found so far.
+					BestFactor = CurrentFactor;
+					iBestTotalPenalty = 0;
 				}
 				else
 				{
-					// This scope will give a penalty if used. Is it worth using compared to other scopes found?
+					// This scopes gives a penalty for shooting under its range.
 					FLOAT dScopePenaltyRatio = (CurrentFactor * rangeModifier / TargetMagFactor);
 					INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
 
-					// Is this scope any better than the ones we've already processed?
-					if (iScopePenalty < iBestTotalPenalty)
+					// There's no previous scope to compare with so record this as the best factor for now.
+					BestFactor = CurrentFactor;
+					iBestTotalPenalty = iScopePenalty;
+				}
+			}
+		
+			// Now perform the same process for each scope installed on the item. The difference is, we also compare to 
+			// BestTotalPenalty to find the scope that gives the least penalty compared to its bonus.
+			for (attachmentList::iterator iter = (*pObjUsed)[0]->attachments.begin(); iter != (*pObjUsed)[0]->attachments.end(); ++iter) 
+			{
+				if (iter->exists() && Item[iter->usItem].scopemagfactor > 1.0f)
+				{
+					// Real Scope Magnification Factor from the item
+					CurrentFactor = __max(1.0f, Item[iter->usItem].scopemagfactor);
+
+					// Actual Scope Mag Factor is what we get at the distance the target's at.
+					ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
+
+					if (ActualCurrentFactor >= CurrentFactor)
 					{
-						// This is the best scope we've found so far. Record it.
-						BestFactor = CurrentFactor;
-						iBestTotalPenalty = iScopePenalty;
+						// This scope gives no penalty. Is it any better than the ones we've already processed?
+						if (iBestTotalPenalty <= 0 && CurrentFactor > BestFactor)
+						{
+							// This is the best scope we've found so far. Record it.
+							BestFactor = CurrentFactor;
+							iBestTotalPenalty = 0;
+						}
+					}
+					else
+					{
+						// This scope will give a penalty if used. Is it worth using compared to other scopes found?
+						FLOAT dScopePenaltyRatio = (CurrentFactor * rangeModifier / TargetMagFactor);
+						INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
+
+						// Is this scope any better than the ones we've already processed?
+						if (iScopePenalty > iBestTotalPenalty)
+						{
+							// This is the best scope we've found so far. Record it.
+							BestFactor = CurrentFactor;
+							iBestTotalPenalty = iScopePenalty;
+						}
 					}
 				}
 			}
 		}
-
+		// Now that we have selected the best available scope, don't use it if we get a penalty and have a functional laser
+		if(iBestTotalPenalty < 0 && iProjectionFactor > 1.0f)
+			BestFactor = 1.0f;
 	}
-
-	// Now that we have selected the best available scope, don't use it if we get a penalty and have a functional laser
-	if(iBestTotalPenalty < 0 && iProjectionFactor > 1.0f)
-		BestFactor = 1.0f;
-
 	return( __max(1.0f, BestFactor) );
 }
 
