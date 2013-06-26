@@ -14668,11 +14668,17 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				}
 
 				BOOLEAN checkfurther = FALSE;
-				// further checks it item is not covert. This means that a gun that has that tag will not be detected if its inside a pocket!
-				if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) && (bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS) )
+				
+				// guns/launchers in our hands will always be noticed, even if covert
+				if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN|IC_LAUNCHER)) && (bLoop == HANDPOS || bLoop == SECONDHANDPOS ) )
 					checkfurther = TRUE;
+				// visible slots are always checked if not covert
+				else if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) && (bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS) )
+					checkfurther = TRUE;
+				// knife slot is checked if the knife is not covert
 				else if ( bLoop == KNIFEPOCKPOS && !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
 					checkfurther = TRUE;
+				// further checks it item is not covert. This means that a gun that has that tag will not be detected if its inside a pocket!
 				else if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
 				{
 					checkfurther = TRUE;
