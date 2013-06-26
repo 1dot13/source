@@ -6557,8 +6557,8 @@ STR16 pSkillTraitBeginIMPStrings[] =
 	L"À la page suivante, vous allez choisir vos traits de compétence selon votre spécialisation professionnel comme un mercenaire. Pas plus de deux traits différents ou un trait expert peuvent être choisis.",
 	L"Vous pouvez aussi choisir seulement un ou même aucun trait, ce qui vous donnera un bonus à vos points d'attributs, une sorte de compensation. Notez que les compétences : mécanique, ambidextre et camouflage ne peuvent pas être prises aux niveaux experts.",
 	// For new major/minor traits
-	L"L'étape suivante est le choix de vos traits de compétences. À la première page vous pouvez choisir jusqu'à deux traits principaux, qui représentent surtout votre rôle dans une équipe. Tandis qu'à la deuxième page, c'est la liste de vos traits mineurs, qui représentent des exploits personnels.",
-	L"Pas plus de trois choix au total sont possibles. Ce qui signifie que si vous ne choisissez aucun trait principal, vous pourrez alors choisir trois traits secondaires. Si vous choisissez deux traits principaux (ou un en expert), vous pourrez alors choisir qu'un seul trait secondaire...",
+	L"L'étape suivante est le choix de vos traits de compétences. À la première page vous pouvez choisir jusqu'à %d traits principaux, qui représentent surtout votre rôle dans une équipe. Tandis qu'à la deuxième page, c'est la liste de vos traits mineurs, qui représentent des exploits personnels.",
+	L"Pas plus de %d choix au total sont possibles. Ce qui signifie que si vous ne choisissez aucun trait principal, vous pourrez alors choisir %d traits secondaires. Si vous choisissez deux traits principaux (ou un en expert), vous pourrez alors choisir %d trait(s) secondaire...",
 };
 
 STR16 sgAttributeSelectionText[] = 

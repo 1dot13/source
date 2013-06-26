@@ -6575,8 +6575,8 @@ STR16 pSkillTraitBeginIMPStrings[] =
 	L"You can also choose only one or even no traits, which will give you a bonus to your attribute points as a compensation. Note that Electronics, Ambidextrous and Camouflage traits cannot be achieved at expert levels.",
 
 	// Odnośnie nowych/pomniejszych umiejętności
-	L"Następny etap dotyczy wybierania umiejętności dotyczących twojej specjalizacji jako najemnika. Na pierwszej stronie, możesz wybrać do dwóch głównych umiejętności, które reprezentują twoją rolę w zespole. Druga strona to lista pomniejszych cech, które reprezentują twoją osobowość.",
-	L"Wybranie więcej niż trzech jednocześnie jest niemożliwe. Oznacza to, że jeżeli nie wybierzesz żadnych głównych umiejętności, możesz wybrać trzy pomniejsze cechy. Jeśli wybierzesz 2 główne umiejętności (albo jedną zaawansowaną), możesz wybrać tylko jedną cechę dodatkową...",
+	L"Następny etap dotyczy wybierania umiejętności dotyczących twojej specjalizacji jako najemnika. Na pierwszej stronie, możesz wybrać do %d głównych umiejętności, które reprezentują twoją rolę w zespole. Druga strona to lista pomniejszych cech, które reprezentują twoją osobowość.",
+	L"Wybranie więcej niż %d jednocześnie jest niemożliwe. Oznacza to, że jeżeli nie wybierzesz żadnych głównych umiejętności, możesz wybrać %d pomniejsze cechy. Jeśli wybierzesz 2 główne umiejętności (albo jedną zaawansowaną), możesz wybrać tylko %d cechę dodatkową...",
 };
 
 STR16 sgAttributeSelectionText[] = 

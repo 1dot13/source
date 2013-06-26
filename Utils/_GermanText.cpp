@@ -6387,8 +6387,8 @@ STR16 pSkillTraitBeginIMPStrings[] =
 	L"Auf der nächsten Seite können Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung als Söldner festlegen. Es können nicht mehr als zwei verschiedene Fertigkeiten oder eine Expertenfertigkeit gewählt werden.",
 	L"Sie können auch nur eine oder gar keine Fertigkeit auswählen. Sie erhalten dafür einen Bonus zu Ihren Attributpunkten als Gegenleistung. Beachten Sie, dass die Fertigkeiten 'Elektronik', 'Beidhändig geschickt' und 'Getarnt' keine Experten-Spezialisierung erhalten.",
 	// For new major/minor traits
-	L"Auf der nächsten Seite können Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung festlegen. Auf der ersten Seite können Sie bis zu zwei Hauptfertigkeiten auswählen, die Ihre Rolle in einem Team repräsentieren, während Sie auf der zweiten Seite eine Liste der möglichen Nebenfertigkeiten finden.",
-	L"Es können nicht mehr als insgesamt drei Fertigkeiten gewählt werden, was bedeutet, dass, wenn Sie keine Hauptfertigkeiten angeben, dafür drei Nebenfertigkeiten verfügbar sind.",
+	L"Auf der nächsten Seite können Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung festlegen. Auf der ersten Seite können Sie bis zu %d Hauptfertigkeiten auswählen, die Ihre Rolle in einem Team repräsentieren, während Sie auf der zweiten Seite eine Liste der möglichen Nebenfertigkeiten finden.",
+	L"Es können nicht mehr als insgesamt %d Fertigkeiten gewählt werden. Wenn Sie keine Hauptfertigkeiten nutzen wollen, können Sie dafür %d Nebenfertigkeiten wählen. Selektieren Sie zwei Hauptfertigkeiten (oder eine Spezialisierung), ist/sind noch %d Nebenfertigkeit(en) wählbar.",
 };
 
 STR16 sgAttributeSelectionText[] =

@@ -6577,8 +6577,11 @@ STR16 pSkillTraitBeginIMPStrings[] =
 	L"下一页你必须依照你作为雇佣兵的专业选择特长。注意你只能选择两种一般特长或者一种专家级特长。",
 	L"你可以只选择一个专家特长或者干脆什么也不选，作为回报你会得到额外的能力点数。注意电子、左右开弓和伪装是没有专家级的。",
 	// For new major/minor traits 用于新的主/副特长
-	L"下一步你必须依照你作为雇佣兵的专业选择特长。在第一页你可以最多选择两个主特长，以反映你在小队中扮演的主要角色。在第二页将有副特长的列表供你选择，以反映你个人的倾向。",
-	L"主/副特长加起来最多不能超过三项，也就是说如果你不选择任何主特长，你就能选择三项副特长。如果你选择了两项主特长，(或者一项专家特长)，那么你就只能选择一项副特长...",
+	// silversurfer: sorry, don't know Chinese, replaced for bug #573 fix, please update
+//	L"下一步你必须依照你作为雇佣兵的专业选择特长。在第一页你可以最多选择两个主特长，以反映你在小队中扮演的主要角色。在第二页将有副特长的列表供你选择，以反映你个人的倾向。",
+	L"Next stage is about choosing your skill traits according to your professional specialization as a mercenary. On first page you can select up to %d potential major traits, which mostly represent your main role in a team. While on second page is list of possible minor traits, which represent personal feats.", // TODO.Translate
+//	L"主/副特长加起来最多不能超过三项，也就是说如果你不选择任何主特长，你就能选择三项副特长。如果你选择了两项主特长，(或者一项专家特长)，那么你就只能选择一项副特长...",
+	L"No more then %d choices altogether are possible. This means that if you choose no major traits, you can choose %d minor traits. If you choose two major traits (or one enhanced), you can then choose only %d minor trait(s)...",
 };
 
 STR16 sgAttributeSelectionText[] = 

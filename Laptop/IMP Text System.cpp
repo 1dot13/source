@@ -228,8 +228,11 @@ void PrintImpText( void )
 		//LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 130, ( 456 - 200	), IMP_PERS_2, FONT12ARIAL, FONT_WHITE, TRUE, CENTER_JUSTIFIED);
 			if ( gGameOptions.fNewTraitSystem )
 			{
-				DisplayWrappedString( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 57,  ( 456 - 200 ), 2, FONT12ARIAL, FONT_WHITE, pSkillTraitBeginIMPStrings[ 2 ],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
-				DisplayWrappedString( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 155,  ( 456 - 200 ), 2, FONT12ARIAL, FONT_WHITE, pSkillTraitBeginIMPStrings[ 3 ],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
+				CHAR16 sString[400];
+				swprintf( sString, pSkillTraitBeginIMPStrings[ 2 ], gSkillTraitValues.ubNumberOfMajorTraitsAllowed );
+				DisplayWrappedString( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 57,  ( 456 - 200 ), 2, FONT12ARIAL, FONT_WHITE, sString,FONT_BLACK,FALSE,CENTER_JUSTIFIED);
+				swprintf( sString, pSkillTraitBeginIMPStrings[ 3 ], gSkillTraitValues.ubMaxNumberOfTraits, gSkillTraitValues.ubMaxNumberOfTraits, gSkillTraitValues.ubMaxNumberOfTraits -2 );
+				DisplayWrappedString( LAPTOP_SCREEN_UL_X + 130, LAPTOP_SCREEN_WEB_UL_Y + 155,  ( 456 - 200 ), 2, FONT12ARIAL, FONT_WHITE, sString,FONT_BLACK,FALSE,CENTER_JUSTIFIED);
 			}
 			else
 			{
