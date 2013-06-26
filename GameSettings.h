@@ -493,8 +493,9 @@ typedef struct
 	BOOLEAN fAccessOtherMercInventories;
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
-	BOOLEAN tonyUsesBRSetting;
-	BOOLEAN devinUsesBRSetting;
+	// silversurfer: not used anymore, see "Tactical\XML_Merchants.cpp" for "useBRSetting"
+	// BOOLEAN tonyUsesBRSetting;
+	// BOOLEAN devinUsesBRSetting;
 
 	// WDS - Smart goggle switching
 	BOOLEAN smartGoggleSwitch;
