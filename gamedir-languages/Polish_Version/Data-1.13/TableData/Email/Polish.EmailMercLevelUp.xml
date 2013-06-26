@@ -842,24 +842,26 @@
 	<EMAIL>
 		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Informacja o podwyżkach opłat</Subject>
+		<Message>Niniejszym informuję, iż w związku z dotychczasowymi osiągnięciami Gastona, opłata za jego usługi została podniesiona. Osobiście, nie jestem tymfaktem zaskoczony.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Informacja o podwyżkach opłat</Subject>
+		<Message>Informujemy, iż od chwili obecnej cena za usługi świadczone przez pana Stoggiego wzrosła w związku ze wzrostem jego umiejętności. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Tex's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Biggens his fees for services rendered have undergone an increase. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -907,388 +909,402 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Spooky -->
 		<uiIndex>178</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Spooky his fees for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Skitz-->
 		<uiIndex>179</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Skitz his salary has been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Weasel -->
 		<uiIndex>180</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Due to the improved performance of Weasel his wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- It -->
 		<uiIndex>181</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. Improved performance of It entitles him to increased salary. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Bernie -->
 		<uiIndex>182</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Bernie's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Pops -->
 		<uiIndex>183</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Pops's experience entitles him to more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Wally -->
 		<uiIndex>184</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Wally's extraordinary battlefield experience requires more equitable compensation. His wages for services rendered have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Eli -->
 		<uiIndex>185</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Eli's outstanding performance warrants an increase in salary. His wages have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>186</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>187</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Lance -->
 		<uiIndex>188</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Lance's progressively better performance no the battlefield deserves an increase in salary. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Raffi -->
 		<uiIndex>189</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself informed that Dr. Leevon's exceptional service entitles him to more equitable compensation. His wages have been increased. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Wink -->
 		<uiIndex>190</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Due to Wink's outstanding performance and massive gain in experience his salary has been recalculated. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>191</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>192</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>193</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>194</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>195</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>196</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>197</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>198</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>199</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>200</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>201</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>202</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>203</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>204</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>205</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>206</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>207</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>208</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>209</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>210</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>211</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>212</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>213</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>214</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>215</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>216</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>217</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>218</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>219</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note. As of this moment, Postie's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note, due to the improvement in Reuban's performance his compensation for services render has undergone a revaluation.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note, due to the improvement in Leon's performance his compensation for services render has undergone a revaluation.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please do not answer. Following Gary's personal improvement, his fees for services rendered have been reestimated.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please take note of this notification. Due to Sparky's significantly improved performance her salary has been increased.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself informed that Beth's improved performance entitles her to wages' reconsideration.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>This notice is to inform you that due to Sam's exemplary performance his fees have been revised. Effective immediately there will be an increase to his salary.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+	<!-- Hurl -->
 		<uiIndex>227</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>This notice is to inform you that due to Hurl's exceptional effectiveness his salary has undergone a significant recalculation.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>228</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>230</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>231</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>232</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>233</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>234</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>235</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>236</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>237</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>238</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>239</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>240</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>241</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>242</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>243</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>244</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that Elroy's substantial experience gain entitles him to adequately substantial salary raise. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>245</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>246</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>247</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be informed that Reverend's wages have been increased due to exceptional improvement in his abilities. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>248</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>249</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself legally informed that due to improvement in Ears' perfomance his honorarium has been raised.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>250</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>251</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Dyno -->
 		<uiIndex>252</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please consider yourself informed that due to improvement in Dyno's performance his salary requires reconsideration.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Turtle -->
 		<uiIndex>253</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Notice of Fee Increase</Subject>
+		<Message>Please be advised that due to Turtle's exceptional performance his wages have been recalculated.  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>254</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 </EMAIL_MERC_LEVEL_UP>
