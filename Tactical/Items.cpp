@@ -12650,33 +12650,8 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 		else
 			CurrentFactor = 1.0f;
 
-		// Actual Scope Mag Factor is what we get at the distance the target's at.
-		ActualCurrentFactor = __min(CurrentFactor, (TargetMagFactor/rangeModifier));
-
-		// using NCTH system?
-		if ( pObj->exists() == true && UsingNewCTHSystem() == true )
-		{
-			if (ActualCurrentFactor >= CurrentFactor)
-			{
-				// This scope gives no penalty. Record this as the best factor found.
-				BestFactor = CurrentFactor;
-				iBestTotalPenalty = 0;
-			}
-			else
-			{
-				// This scope gives a penalty for shooting under its range.
-				FLOAT dScopePenaltyRatio = (CurrentFactor * rangeModifier / TargetMagFactor);
-				INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
-
-				BestFactor = CurrentFactor;
-				iBestTotalPenalty = iScopePenalty;
-			}
-		}
-
-		if(iBestTotalPenalty < 0 && iProjectionFactor > 1.0f)
-			BestFactor = 1.0f;
-
-		return( __max(1.0f, BestFactor) );
+		// with scope modes we just return the scope factor of the selected optics
+		return( __max(1.0f, CurrentFactor) );
 	}
 	// if not using scope modes find the best scope
 	else
@@ -12744,7 +12719,10 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 						INT32 iScopePenalty = (INT32)((dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE) * (CurrentFactor / 2));
 
 						// Is this scope any better than the ones we've already processed?
-						if (iScopePenalty > iBestTotalPenalty)
+						// this new formula takes gaps between different scopes into account because
+						// even with a penalty a higher power scope is not necessarily a bad choice
+						// 10x sniper scopes still suck though, at the moment they are useless because of the big penalty
+						if (dScopePenaltyRatio <= CurrentFactor / (( CurrentFactor + BestFactor ) /2 -1 )  && CurrentFactor > BestFactor)
 						{
 							// This is the best scope we've found so far. Record it.
 							BestFactor = CurrentFactor;
