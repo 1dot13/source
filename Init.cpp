@@ -1269,7 +1269,7 @@ if ( ReadXMLEmail == TRUE )
 
 BackupBRandEncyclopedia ( gEncyclopediaLocationData, gEncyclopediaLocationDataBackup , 0);
 BackupBRandEncyclopedia ( gEncyclopediaProfilesData, gEncyclopediaProfilesDataBackup, 1);
-BackupBRandEncyclopedia ( gEncyclopediaInventoryData, gEncyclopediaProfilesDataBackup , 2);
+BackupBRandEncyclopedia ( gEncyclopediaInventoryData, gEncyclopediaInventoryDataBackup , 2);
 BackupBRandEncyclopedia ( gEncyclopediaQuestsData, gEncyclopediaQuestsDataBackup, 3);
 
 
