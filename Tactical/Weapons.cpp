@@ -2167,7 +2167,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
 	}
 
-	GunIncreaseHeat( pObjAttHand );
+	GunIncreaseHeat( pObjAttHand, pSoldier );
 
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	//INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
@@ -2779,7 +2779,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 
 	INT16 iOverheatReliabilityMalus = 0;
-	// Flugente FTW 1: Increase Weapon Temperature
+	// Flugente: Increase Weapon Temperature
 	if ( gGameOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObjUsed );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
@@ -2788,7 +2788,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
 	}
 
-	GunIncreaseHeat( pObjUsed );
+	GunIncreaseHeat( pObjUsed, pSoldier );
 
 	/* //WarmSteel - Replaced with GetReliability( pObj )
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
@@ -3905,7 +3905,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
   // ATE: Check here if the launcher should fail 'cause of bad status.....
   if ( WillExplosiveWeaponFail( pSoldier, pgunobj ) )
   {
-	GunIncreaseHeat( pgunobj );
+	GunIncreaseHeat( pgunobj, pSoldier );
     // Explode dude!
 
     // So we still should have ABC > 0
@@ -3922,7 +3922,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
     return( FALSE );
   }
 
-	GunIncreaseHeat( pgunobj );
+	GunIncreaseHeat( pgunobj, pSoldier );
 
 	// Flugente: if we are using a rifle grenade, we also use up one of the gun's bullets
 	if ( IsAttachmentClass(pgunobj->usItem, AC_RIFLEGRENADE) )
@@ -3931,7 +3931,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 			(*pObj)[0]->data.gun.ubGunShotsLeft--;
 
 		// increase heat, as we 'fired' a bullet
-		GunIncreaseHeat( pObj );
+		GunIncreaseHeat( pObj, pSoldier );
 	}
 
 	if ( Weapon[ usItemNum ].sSound != NO_WEAPON_SOUND  )
@@ -11411,7 +11411,7 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 }
 
 // Flugente: Increase temperature/dirt of gun in ubAttackingHand due to firing a shot
-void GunIncreaseHeat( OBJECTTYPE *pObj )
+void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 {
 	if ( gGameOptions.fWeaponOverheating )
 	{

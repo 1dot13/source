@@ -4321,7 +4321,7 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		//////////////// POISON PERCENTAGE
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 0, gItemDescGenRegions[4][0].sLeft+sOffsetX, gItemDescGenRegions[4][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 		if ( gGameExternalOptions.fDirtSystem )	// Flugente
 		{
@@ -5233,7 +5233,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 6, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 0, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 		cnt++;
 	}

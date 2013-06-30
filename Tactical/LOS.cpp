@@ -5810,7 +5810,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 			iOverheatReliabilityMalus = (INT16)floor(overheatjampercentage*overheatjampercentage);
 	}
 
-	GunIncreaseHeat( pObj );
+	GunIncreaseHeat( pObj, pThrower );
 
 	// Flugente : Added a malus to reliability for overheated guns
 	// HEADROCK HAM 5: Variable NCTH base change
