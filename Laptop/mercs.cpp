@@ -215,6 +215,8 @@ BOOLEAN		gfMercSiteScreenIsReDrawn=FALSE;
 
 BOOLEAN		gfJustHiredAMercMerc=FALSE;
 
+BOOLEAN		fMercHireOverPlayerLimitMerc=FALSE;
+
 BOOLEAN		gfRedrawMercSite=FALSE;
 
 BOOLEAN		gfFirstTimeIntoMERCSiteSinceEnteringLaptop=FALSE;
@@ -512,6 +514,12 @@ BOOLEAN EnterMercs()
 	//Display a popup msg box telling the user when and where the merc will arrive after hire
 	if( gfJustHiredAMercMerc == TRUE )
 		DisplayPopUpBoxExplainingMercArrivalLocationAndTime();
+	//Display a popup msg box for max hire limit reached
+	else if( fMercHireOverPlayerLimitMerc == TRUE )
+	{
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, MercInfo[ MERC_FILES_HIRE_TO_MANY_PEOPLE_WARNING ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		fMercHireOverPlayerLimitMerc = FALSE;
+	}
 
 	//if NOT entering from a subsite
 	if( gubArrivedFromMercSubSite == MERC_CAME_FROM_OTHER_PAGE )
