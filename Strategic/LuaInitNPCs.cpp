@@ -69,6 +69,9 @@ extern "C" {
 #include "lua_function.h"
 
 #include "Encrypted File.h"
+
+extern UINT8	gubWaitingForAllMercsToExitCode;
+
 //-------------------------- UB ------------------------------
 extern	BOOLEAN	gfDoneWithSplashScreen;
 extern UINT32 iStringToUseLua;
@@ -193,6 +196,7 @@ BOOLEAN LetLuaHandleNPCSystemEvent( UINT32 uiEvent, UINT8 Init);
 BOOLEAN LuaCheckFact ( UINT16 usFact, UINT8 ubProfileID , UINT32 Init);
 BOOLEAN LuaHandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum , UINT8 InitFunction);
 
+static int l_SetLaptopBroken(lua_State *L);
 
 //AI ACTION
 
@@ -391,6 +395,11 @@ static int l_AddStructToHead (lua_State *L);
 static int l_RemoveStruct (lua_State *L);
 static int l_ApplyMapChangesToMapTempFile (lua_State *L);
 
+static int l_AddRemoveObjectToUnLoadedMapTempFile (lua_State *L);
+static int l_RemoveStructFromUnLoadedMapTempFile (lua_State *L);
+static int l_AddObjectToUnLoadedMapTempFile (lua_State *L);
+static int l_AddStructToUnLoadedMapTempFile (lua_State *L);
+
 static int l_NPCGotoGridNo (lua_State *L);
 
 static int l_fEnemyControlled (lua_State *L);
@@ -405,6 +414,7 @@ static int l_CheckSoldierubProfile (lua_State *L);
 static int l_ChangeSoldierTeam (lua_State *L);
 static int l_CheckSoldierInSector (lua_State *L);
 static int l_CheckSoldierActive (lua_State *L);
+static int l_CheckSoldierAssignment (lua_State *L);
 static int l_RecalculateOppCntsDueToNoLongerNeutral (lua_State *L);
 static int l_CheckForPotentialAddToBattleIncrement (lua_State *L);
 static int l_SetSoldierOrders (lua_State *L);
@@ -419,7 +429,12 @@ static int l_GetDirection (lua_State *L);
 static int l_CheckMercPtrsInCivilianGroup (lua_State *L);
 static int l_CheckMercPtsrInSector (lua_State *L);
 static int l_CheckMercPtrsActive (lua_State *L);
+static int l_CheckMercPtrsAssignment (lua_State *L);
 static int l_CheckMercPtsrubIDSeenubID2 (lua_State *L);
+static int l_GetMercPtrsGroup (lua_State *L);
+static int l_CheckMercPtsrTeleportToSector (lua_State *L);
+static int l_GetMercPtsrProfileID (lua_State *L);
+static int l_CheckMercPtrsLife (lua_State *L);
 
 static int l_MakeMercPtrsHostile (lua_State *L);
 
@@ -524,6 +539,16 @@ static int l_CheckInvestigateSector (lua_State *L);
 static int l_AddTransactionToPlayersBook (lua_State *L);
 static int l_GetWorldTotalMin (lua_State *L);
 
+static int  l_GetWorldTotalSeconds (lua_State *L);
+static int  l_GetWorldDay (lua_State *L);
+static int  l_GetWorldDayInSeconds (lua_State *L);
+static int  l_GetWorldDayInMinutes (lua_State *L);
+static int  l_GetFutureDayInMinutes (lua_State *L);
+static int  l_GetMidnightOfFutureDayInMinutes (lua_State *L);
+
+static int l_DayTime (lua_State *L);
+static int l_NightTime (lua_State *L);
+
 static int l_GetStartingCashNovice (lua_State *L);
 static int l_GetStartingCashExperienced (lua_State *L);
 static int l_GetStartingCashExpert (lua_State *L);
@@ -560,6 +585,7 @@ static int l_gWorldItemsObjectDataMoney(lua_State *L);
 
 static int l_AddHistoryToPlayersLog(lua_State *L);
 static int l_AddFutureDayStrategicEvent(lua_State *L);
+static int l_AddAdvancedStrategicEvent(lua_State *L);
 
 static int l_GetiBalance(lua_State *L);
 
@@ -613,6 +639,7 @@ static int l_ResetHistoryFact(lua_State *L);
 static int l_SetHistoryFact(lua_State *L);
 
 static int l_TacticalCharacterDialogue(lua_State *L);
+static int l_TacticalCharacterDialogueWithSpecialEvent(lua_State *L);
 
 static int l_DeleteMercInventory(lua_State *L);
 
@@ -758,6 +785,28 @@ static int l_usStrategicInsertionDataProfileID (lua_State *L);
 
 BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory );
 static int l_GiveQuestRewardPoint(lua_State *L);
+BOOLEAN LuaExecuteStrategicEvent( UINT8 EventCallbackID, UINT32 uiTimeStamp, UINT32 uiTimeOffset, UINT8	ubEventType, UINT8 ubFlags, UINT32 EventParam, UINT32 Init);
+BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum);
+
+static int l_CurrentSquad (lua_State *L);
+static int l_SetgfTacticalTraversal (lua_State *L);
+static int l_GetgfTacticalTraversal (lua_State *L);
+static int l_SoldierGiveItem (lua_State *L);
+
+static int l_DestroyedTimeCursor (lua_State *L);
+
+static int l_TalkingMenuDialogue (lua_State *L);
+
+static int l_StartDialogueMessageBox (lua_State *L);
+
+static int l_CreateItemInv (lua_State *L);
+static int l_MercSalary(lua_State *L);
+static int l_PlayerTeamFull (lua_State *L);
+
+static int l_EnvBeginRainStorm (lua_State *L);
+static int l_EnvEndRainStorm (lua_State *L);
+
+static int l_ProfilesStrategicInsertionData (lua_State *L);
 
 using namespace std;
 
@@ -852,6 +901,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register(L, "HireMerc", l_HireMerc);
 
+	lua_register(L, "SetLaptopBroken", l_SetLaptopBroken);
 	//------Briefing Room------
 	
 	lua_register(L, "SetEndMission", l_SetEndMission);
@@ -882,6 +932,16 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "GetWorldHour", l_GetWorldHour);		
 	lua_register(L, "ExecuteStrategicAIAction", l_ExecuteStrategicAIAction);
 	lua_register(L, "GetWorldTotalMin", l_GetWorldTotalMin );	
+	
+	lua_register(L, "GetWorldTotalSeconds", l_GetWorldTotalSeconds );
+	lua_register(L, "GetWorldDay", l_GetWorldDay );
+	lua_register(L, "GetWorldDayInSeconds", l_GetWorldDayInSeconds );
+	lua_register(L, "GetWorldDayInMinutes", l_GetWorldDayInMinutes );
+	lua_register(L, "GetFutureDayInMinutes", l_GetFutureDayInMinutes );
+	lua_register(L, "GetMidnightOfFutureDayInMinutes", l_GetMidnightOfFutureDayInMinutes );
+	
+	lua_register(L, "DayTime", l_DayTime );
+	lua_register(L, "NightTime", l_NightTime );
 	
 	//------Loyalty-------
 	
@@ -936,6 +996,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "CheckSoldierubProfile", l_CheckSoldierubProfile);
 	lua_register(L, "ChangeSoldierTeam", l_ChangeSoldierTeam);
 	lua_register(L, "CheckSoldierInSector", l_CheckSoldierInSector);	
+	lua_register(L, "CheckSoldierAssignment", l_CheckSoldierAssignment);
 	lua_register(L, "CheckSoldierActive", l_CheckSoldierActive);	
 	lua_register(L, "CheckForPotentialAddToBattleIncrement", l_CheckForPotentialAddToBattleIncrement);
 	lua_register(L, "CheckAction", l_CheckAction);
@@ -1016,6 +1077,12 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "SetSoldierNonNeutral", l_SetSoldierNonNeutral);
 	lua_register(L, "MercProfileSetBIGPOCK2POS", l_gMercProfileGearset);
 	lua_register(L, "MercProfileSetPOCKPOS", l_gMercProfileGearset);
+	lua_register(L, "SoldierGiveItem", l_SoldierGiveItem);
+	lua_register(L, "ProfilGiveItem", l_SoldierGiveItem);
+	lua_register(L, "AddItemToInventory", l_CreateItemInv);
+	lua_register(L, "TacticalCharacterDialogueWithSpecialEvent", l_TacticalCharacterDialogueWithSpecialEvent);
+	lua_register(L, "SetSalary", l_MercSalary);
+	lua_register(L, "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData);
 		
 	//Get  merc
 	lua_register(L, "GetDirection", l_GetDirection); //new
@@ -1048,12 +1115,17 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "AnimMercPtrs", l_AnimMercPtsrInSector);
 	lua_register(L, "CheckMercPtrsInCivilianGroup", l_CheckMercPtrsInCivilianGroup); 
 	lua_register(L, "CheckMercPtrsInActive", l_CheckMercPtrsActive); 
+	lua_register(L, "CheckMercPtrsAssignment", l_CheckMercPtrsAssignment);
 	lua_register(L, "CheckMercPtrsInSector", l_CheckMercPtsrInSector); 	
 	lua_register(L, "CheckMercPtrsID1SeenID2", l_CheckMercPtsrubIDSeenubID2); 	
 	lua_register(L, "MakeMercPtrsHostile", l_MakeMercPtrsHostile);	
 	lua_register(L, "CheckSoldierBodyType", l_CheckSoldierBodyType );
 	lua_register(L, "GetSoldierBodyType", l_GetSoldierBodyType );
 	lua_register(L, "SetSoldierBodyType", l_SetSoldierBodyType );
+	lua_register(L, "GetMercPtrsGroup", l_GetMercPtrsGroup); 	
+	lua_register(L, "MercPtsrTeleportToSector", l_CheckMercPtsrTeleportToSector); 
+	lua_register(L, "GetMercPtsrProfileID", l_GetMercPtsrProfileID); 
+	lua_register(L, "CheckMercPtrsLife", l_CheckMercPtrsLife); 
 
 	lua_register(L, "MercPtsrAIFlags", l_AnimMercPtsrfAIFlags );
 	lua_register(L, "MercPtsrNextAction", l_AnimMercPtsrbNextAction );
@@ -1137,6 +1209,10 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "GetCharacterTown", l_GetgMercProfilesbTown);
 	lua_register(L, "SetCharacterTown", l_SetgMercProfilesbTown);
 	lua_register(L, "RemoveGraphicFromTempFile", l_RemoveGraphicFromTempFile);
+	lua_register(L, "AddRemoveObjectToUnLoadedMapTempFile",l_AddRemoveObjectToUnLoadedMapTempFile);
+	lua_register(L, "RemoveStructFromUnLoadedMapTempFile",l_RemoveStructFromUnLoadedMapTempFile);
+	lua_register(L, "AddObjectToUnLoadedMapTempFile",l_AddObjectToUnLoadedMapTempFile);
+	lua_register(L, "AddStructToUnLoadedMapTempFile",l_AddStructToUnLoadedMapTempFile);
 	
 	//------Others------
 	
@@ -1155,6 +1231,8 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "AddTransactionToPlayersBook", l_AddTransactionToPlayersBook );	
 	lua_register(L, "AddHistoryToPlayersLog", l_AddHistoryToPlayersLog);
 	lua_register(L, "AddFutureDayStrategicEvent", l_AddFutureDayStrategicEvent);
+	lua_register(L, "AddAdvancedStrategicEvent", l_AddAdvancedStrategicEvent);
+	
 	lua_register(L, "ResetHistoryFact", l_ResetHistoryFact);
 	lua_register(L, "SetHistoryFact", l_SetHistoryFact);
 	lua_register(L, "SetPublicNoiseVolume", l_gubPublicNoiseVolume);
@@ -1491,8 +1569,25 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"CreateKeyAndAddKeyToPool", l_CreateKeyAndAddItemToPool);
 	lua_register(L,"CreateKeyProfInvAndAddKeyToPool", l_CreateKeyProfInvAndAddItemToPool);
 	
+	lua_register(L,"PlayerTeamFull", l_PlayerTeamFull);
 	
 	lua_register(L,"CheckProfileStrategicInsertionData", l_usStrategicInsertionDataProfileID);
+	
+
+	lua_register(L,"CurrentSquad", l_CurrentSquad);
+	lua_register(L,"SetTacticalTraversal", l_SetgfTacticalTraversal);
+	lua_register(L,"GetTacticalTraversal", l_GetgfTacticalTraversal);
+	
+	//Cursor
+	lua_register(L,"DestroyedTimeCursor", l_DestroyedTimeCursor);
+
+	//TalkingMenuDialogue
+	lua_register(L,"TalkingMenuDialogue", l_TalkingMenuDialogue);
+	
+	lua_register(L,"StartDialogueMessageBox", l_StartDialogueMessageBox);
+	
+	lua_register(L,"EnvBeginRainStorm", l_EnvBeginRainStorm);
+	lua_register(L,"EnvEndRainStorm", l_EnvEndRainStorm);
 	
 }
 
@@ -1617,94 +1712,41 @@ static int l_ReStartingGame(lua_State *L)
 #ifdef JA2UB
 BOOLEAN LetLuaMakeBadSectorListFromMapsOnHardDrive(UINT8 Init)
 {
-	char * filename = "scripts\\MakeMapsOnHardDrive.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\MakeMapsOnHardDrive.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-		return false;
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "MakeBadSectorListFromMapsOnHardDrive");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "MakeBadSectorListFromMapsOnHardDrive" ).Call(0);
 	}
 
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
 
 BOOLEAN LuaInitStrategicLayer(UINT8 Init)
 {
-	char * filename = "scripts\\InitStrategicLayer.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\InitStrategicLayer.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-		return false;
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "InitStrategicLayer");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "InitStrategicLayer" ).Call(0);
 	}
 	
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
-
 #endif
 
 static int l_SetHandleGlobalLoyaltyEvent (lua_State *L)
@@ -2388,377 +2430,196 @@ BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bS
 
 }
 */
+
 BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init)
 {
-	char * filename = "scripts\\strategicmap.lua";
-	UINT32 size, bytesRead;     
-	char* buffer;
+	const char* filename = "scripts\\strategicmap.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-		return false;
+	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	lua_register(L, "CheckFact", l_CheckFact);
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
-
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HandleQuestCodeOnSectorExit");
-		lua_pushnumber (L, sSectorX );
-		lua_pushnumber (L, sSectorY );
-		lua_pushnumber (L, bSectorZ );
-		lua_call(L,3,0); 
+		LuaFunction(_LS.L, "HandleQuestCodeOnSectorExit" ).Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(3);
 	}
 	
 	if ( Init == 1 )
 	{
-		lua_getglobal(L , "HandleQuestCodeOnSectorEntry");
-		lua_pushnumber (L, sSectorX );
-		lua_pushnumber (L, sSectorY );
-		lua_pushnumber (L, bSectorZ );
-		lua_call(L,3,0); 
+		LuaFunction(_LS.L, "HandleQuestCodeOnSectorEntry" ).Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(3);
 	}
 	
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
 
 BOOLEAN LetLuaGameInit(UINT8 Init)
 {
-	char * filename = "scripts\\GameInit.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\GameInit.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
+	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	//lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	lua_register(L, "CheckFact", l_CheckFact);
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-//	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
-	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "InitNewGame");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "InitNewGame" ).Call(0);
 	}
-	
+
 	if ( Init == 1 )
 	{
-		lua_getglobal(L , "InitNPCs");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "InitNPCs" ).Call(0);
 	}
 	
 	if ( Init == 2 )
 	{
-		lua_getglobal(L , "InitStrategicLayer");
-		lua_call(L,0,0); 
-	}	
-	
-	lua_close(L);
-
-	delete[] buffer;
-	
+		LuaFunction(_LS.L, "InitStrategicLayer" ).Call(0);
+	}
 	
 	return true;
-
 }
 
 BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 {
-	char * filename = "scripts\\Overhead.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
-	
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	const char* filename = "scripts\\Overhead.lua";
 
-	if (!file)
-		return false;
+	LuaScopeState _LS(true);
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
+	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	lua_register(L, "CheckFact", l_CheckFact);	
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
-	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HandleNPCTeamMemberDeath");
-		lua_pushnumber (L, ProfileId );
-		lua_call(L,1,0); 
+		LuaFunction(_LS.L, "HandleNPCTeamMemberDeath" ).Param<int>(ProfileId).Call(1);
 	}
 
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
 
 BOOLEAN LuaHandlePlayerTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 {
-	char * filename = "scripts\\Overhead.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
-	
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	const char* filename = "scripts\\Overhead.lua";
 
-	if (!file)
-		return false;
+	LuaScopeState _LS(true);
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
+	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	lua_register(L, "CheckFact", l_CheckFact);	
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
+	if ( Init == 0 )
 	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
+		LuaFunction(_LS.L, "HandlePlayerTeamMemberDeath" ).Param<int>(ProfileId).Call(1);
 	}
+
+	return true;
+}
+
+BOOLEAN LuaExecuteStrategicEvent( UINT8 EventCallbackID, UINT32 EventTimeStamp, UINT32 EventTimeOffset, UINT8 EventType, UINT8 EventFlags, UINT32 EventParam, UINT32 Init)
+{
+	const char* filename = "scripts\\GameEventHook.lua";
+
+	LuaScopeState _LS(true);
+
+	IniFunction( _LS.L(), FALSE );
+	IniGlobalGameSetting( _LS.L() );
+	
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HandlePlayerTeamMemberDeath");
-		lua_pushnumber (L, ProfileId );
-		lua_call(L,1,0); 
+		LuaFunction(_LS.L, "ExecuteStrategicEvent" ).Param<int>(EventCallbackID).Param<int>(EventTimeStamp).Param<int>(EventTimeOffset).Param<int>(EventType).Param<int>(EventFlags).Param<int>(EventParam).Call(6);
 	}
-
-	lua_close(L);
-
-	delete[] buffer;
-	
 	
 	return true;
-
 }
 
 BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory, UINT32 Init)
 {
-	char * filename = "scripts\\Quests.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\Quests.lua";
 	
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
+	IniFunction( _LS.L(), FALSE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	IniFunction(L,FALSE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
-	
 	if ( Init == 0 )
 	{
-
-		IniGlobal_0(L);
-		lua_getglobal(L , "InternalEndQuest");
-		
-		lua_pushnumber (L, ubQuest );
-		lua_pushnumber (L, sSectorX );
-		lua_pushnumber (L, sSectorY );
-		lua_pushboolean (L, fUpdateHistory );
-		
-		lua_call(L,4,0); 
+		LuaFunction(_LS.L, "InternalEndQuest" ).Param<int>(ubQuest).Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(fUpdateHistory).Call(4);
 	}
 	
 	if ( Init == 1 )
 	{
-
-		IniGlobal_0(L);
-		lua_getglobal(L , "InternalStartQuest");
-		
-		lua_pushnumber (L, ubQuest );
-		lua_pushnumber (L, sSectorX );
-		lua_pushnumber (L, sSectorY );
-		lua_pushboolean (L, fUpdateHistory );
-		
-		lua_call(L,4,0); 
+		LuaFunction(_LS.L, "InternalStartQuest" ).Param<int>(ubQuest).Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(fUpdateHistory).Call(4);
 	}
 
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
 
 BOOLEAN LetLuaMyCustomHandleAtNewGridNo(UINT8 bNewSide, UINT8 ProfileId, UINT8 Init)
 {
-	char * filename = "scripts\\Overhead.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\Overhead.lua";
 	
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
+//	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+//	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-//	lua_register(L, "CheckFact", l_CheckFact);	
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-//	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-
-		IniGlobal_0(L);
-		lua_getglobal(L , "HandleAtNewGridNo");
-		
-		lua_pushnumber (L, ProfileId );
-		
-		lua_call(L,1,0); 
-	}
-	
-	if ( Init == 1 )
-	{
-		IniGlobal_1(L);
-		lua_getglobal(L , "MakeCivHostile");
-		
-		lua_pushnumber (L, bNewSide );
-		
-		lua_call(L,1,0); 
+		LuaFunction(_LS.L, "HandleAtNewGridNo" ).Param<int>(ProfileId).Call(0);
 	}
 
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
 
+	
+BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum)
+{
+	CHAR8 filename[255];
+	
+	sprintf( filename, "scripts\\HandleNPCDoAction\\%03d.lua", usActionCode );	
+
+	LuaScopeState _LS(true);
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+	
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
+
+	if ( Init == 0 )
+	{
+		LuaFunction(_LS.L, "LoadScr" ).Param<int>(ubTargetNPC).Param<int>(usActionCode).Param<int>(ubQuoteNum).Call(3);
+	}
+
+	return true;
+}
 
 SOLDIERTYPE * FindSoldierByProfileID_( UINT8 ubProfileID )
 {
@@ -2876,176 +2737,77 @@ BOOLEAN LuaHandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQu
 
 BOOLEAN LetLuaInterfaceDialogue( UINT8 ubNPC, UINT8 InitFunction)
 {
-	char * filename = "scripts\\InterfaceDialogue.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\InterfaceDialogue.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-		return false;
+	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	lua_register(L, "CheckFact", l_CheckFact);	
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( InitFunction == 0 )
 	{
-		lua_getglobal(L , "CarmenLeavesSectorCallback");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "CarmenLeavesSectorCallback" ).Call(0);
 	}
 	
-	if ( InitFunction == 0 )
+	if ( InitFunction == 1 )
 	{
-		lua_getglobal(L , "HandleStuffForNPCEscorted");
-		lua_pushnumber(L, ubNPC);
-		lua_call(L,1,0); 
+		LuaFunction(_LS.L, "HandleStuffForNPCEscorted" ).Param<int>(ubNPC).Call(1);
 	}
-	
-	
-
-	lua_close(L);
-
-	delete[] buffer;
-	
 	
 	return true;
-
 }
 
 BOOLEAN LetLuaPerformItemAction(UINT32 ActionID, INT32 sGridNo , UINT8 InitFunction)
 {
-	char * filename = "scripts\\ExplosionControl.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\ExplosionControl.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-		return false;
+	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-	//init function
-	lua_register(L, "CheckFact", l_CheckFact);	
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( InitFunction == 0 )
 	{
-		lua_getglobal(L , "PerformItemAction");
-		
-		lua_pushnumber(L, ActionID);
-		
-		lua_pushnumber(L, sGridNo);
-		
-
-		lua_call(L,2,0); 
-		//lua_pop(L,1);
+		LuaFunction(_LS.L, "PerformItemAction" ).Param<int>(ActionID).Param<int>(sGridNo).Call(2);
 	}
 	
-
-	lua_close(L);
-
-	delete[] buffer;
-	
-	
 	return true;
-
 }
 
 BOOLEAN LetLuaHourlyQuestUpdate(UINT8 Init)
 {
-	char * filename = "scripts\\HourlyUpdate.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\HourlyUpdate.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
-
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-	
-	//init function
-//	lua_register(L, "CheckFact", l_CheckFact);	
-//	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-//	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
+	//lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	//lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	//lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
 	//-----boxer------ only hourly quest update 
-	lua_register(L, "gfBoxerFought", l_SetgfBoxerFought);
-	lua_register(L, "GetWorldHour", l_GetWorldHour);	
+	lua_register(_LS.L(), "gfBoxerFought", l_SetgfBoxerFought);
+	lua_register(_LS.L(), "GetWorldHour", l_GetWorldHour);
 	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HourlyQuestUpdate");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "HourlyQuestUpdate" ).Call(0);
 	}
 	
-	lua_close(L);
-
-	delete[] buffer;
-
 	return true;
-
 }
 
 //object
@@ -3999,6 +3761,65 @@ BOOLEAN Bool;
 return 1;
 }
 
+static int l_TalkingMenuDialogue (lua_State *L)
+{
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT16 usQuoteNum = lua_tointeger(L,1);
+
+		TalkingMenuDialogue( usQuoteNum );
+	
+	}
+	return 0;
+}
+
+static int l_CurrentSquad (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+INT32 squad = 0;
+
+	squad = CurrentSquad();
+
+	lua_pushinteger(L, squad);
+			
+	return 1;
+}
+
+static int l_SetgfTacticalTraversal (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+BOOLEAN bol = FALSE;
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) bol = lua_toboolean(L,i);
+	}
+	
+	gfTacticalTraversal = bol;
+			
+	return 0;
+}
+
+static int l_GetgfTacticalTraversal (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+BOOLEAN Bol = FALSE;
+
+	Bol = gfTacticalTraversal;
+
+	lua_pushboolean(L, Bol);
+			
+	return 1;
+}
+
+static int l_DestroyedTimeCursor (lua_State *L)
+{
+   gTacticalStatus.uiFlags &= ~ENGAGED_IN_CONV;		
+   
+	return 0;
+}
+
 static int l_EnterSector(lua_State *L)
 {
 UINT8  n = lua_gettop(L);
@@ -4033,6 +3854,55 @@ static int l_FadeOutGameScreen(lua_State *L)
 {
 	FadeOutGameScreen( );
 	
+ return 0;
+}
+
+static int l_ProfilesStrategicInsertionData (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+
+INT32 GridNo = 0;
+UINT8 ProfilID = NO_PROFILE;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ProfilID = lua_tointeger(L,i);
+		if (i == 2 ) GridNo = lua_tointeger(L,i);
+	}
+	
+	if ( ProfilID != NO_PROFILE )
+	{
+		gMercProfiles[ ProfilID ].sGridNo =  GridNo;
+		gMercProfiles[ ProfilID ].fUseProfileInsertionInfo = TRUE;
+		gMercProfiles[ ProfilID ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		gMercProfiles[ ProfilID ].usStrategicInsertionData = GridNo;
+		gMercProfiles[ ProfilID ].ubMiscFlags3 = PROFILE_MISC_FLAG3_PERMANENT_INSERTION_CODE;
+	}
+	
+ return 0;
+}
+
+static int l_EnvBeginRainStorm (lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+	UINT8 ubIntensity = 1;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubIntensity = lua_tointeger(L,i);
+	}
+	
+	EnvBeginRainStorm( ubIntensity );
+	
+ return 0;
+}
+
+static int l_EnvEndRainStorm (lua_State *L)
+{
+
+	EnvEndRainStorm();
  return 0;
 }
 
@@ -4761,6 +4631,24 @@ static int l_AddFutureDayStrategicEvent(lua_State *L)
 return 0;
 }
 
+static int l_AddAdvancedStrategicEvent(lua_State *L)
+{
+
+	if ( lua_gettop(L) >= 4 )
+	{
+	
+		UINT8 ubEventType = lua_tointeger(L,1);
+		UINT8 ubCallbackID = lua_tointeger(L,2);
+		UINT32 uiTimeStamp = lua_tointeger(L,3);
+		UINT32 uiParam = lua_tointeger(L,4);
+		
+		AddAdvancedStrategicEvent( ubEventType, ubCallbackID, uiTimeStamp, uiParam );
+	
+	}	
+return 0;
+}
+
+
 static int l_AddSameDayStrategicEvent(lua_State *L)
 {
 
@@ -5120,6 +5008,94 @@ static int l_GetWorldTotalMin (lua_State *L)
 	UINT32	uiDate = GetWorldTotalMin();
 	
 	lua_pushinteger(L, uiDate);
+	
+return 1;
+}
+
+static int l_GetWorldTotalSeconds (lua_State *L)
+{
+	UINT32	uiTime = GetWorldTotalSeconds();
+	
+	lua_pushinteger(L, uiTime);
+	
+return 1;
+}
+
+static int l_GetWorldDay (lua_State *L)
+{
+	UINT32	uiTime = GetWorldDay();
+	
+	lua_pushinteger(L, uiTime);
+	
+return 1;
+}
+
+static int l_GetWorldDayInSeconds(lua_State *L)
+{
+	UINT32	uiTime = GetWorldDayInSeconds();
+	
+	lua_pushinteger(L, uiTime);
+	
+return 1;
+}
+
+static int l_GetWorldDayInMinutes(lua_State *L)
+{
+	UINT32	uiTime = GetWorldDayInMinutes();
+	
+	lua_pushinteger(L, uiTime);
+	
+return 1;
+}
+
+static int l_GetFutureDayInMinutes(lua_State *L)
+{
+	UINT32	uiTime = 0;
+	
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT32 uiDay = lua_tointeger(L,1);
+		
+		uiTime =  GetFutureDayInMinutes( uiDay );
+	}
+	
+	lua_pushinteger(L, uiTime);
+	
+return 1;
+}
+
+static int l_GetMidnightOfFutureDayInMinutes(lua_State *L)
+{
+	UINT32	uiTime = 0;
+	
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT32 uiDay = lua_tointeger(L,1);
+		
+		uiTime =  GetMidnightOfFutureDayInMinutes( uiDay );
+	}
+	
+	lua_pushinteger(L, uiTime);
+	
+return 1;
+}
+
+static int l_DayTime (lua_State *L)
+{
+	
+	BOOLEAN val = DayTime();
+	
+	lua_pushboolean(L, val);
+	
+return 1;
+}
+
+static int l_NightTime (lua_State *L)
+{
+	
+	BOOLEAN val = NightTime();
+	
+	lua_pushboolean(L, val);
 	
 return 1;
 }
@@ -5725,6 +5701,29 @@ SOLDIERTYPE * pSoldier;
 return 0;
 }
 
+static int l_TacticalCharacterDialogueWithSpecialEvent(lua_State *L)
+{
+SOLDIERTYPE * pSoldier;
+
+	if ( lua_gettop(L) >= 5 )
+	{
+		UINT8 ID = lua_tointeger(L,1);
+		UINT16 usQuoteNum  = lua_tointeger(L,2);
+		UINT32 uiFlag  = lua_tointeger(L,3); 
+		UINT32 uiData1  = lua_tointeger(L,4); 
+		UINT32 uiData2  = lua_tointeger(L,5);
+
+		pSoldier = FindSoldierByProfileID( ID, FALSE );
+		if (pSoldier)
+		{
+			TacticalCharacterDialogueWithSpecialEvent( pSoldier, usQuoteNum, uiFlag, uiData1, uiData2 );
+		}
+		
+	}		
+	
+return 0;
+}
+
 static int l_SetAlertStatus(lua_State *L)
 {
 SOLDIERTYPE * pSoldier;
@@ -6020,10 +6019,11 @@ static int l_NPCGotoGridNo (lua_State *L)
 UINT32 sAdjustedGridNo;
 SOLDIERTYPE *		pSoldier;
 
-	if ( lua_gettop(L) >= 2 )
+	if ( lua_gettop(L) >= 3 )
 	{
 		UINT8 ID = lua_tointeger(L,1);
 		UINT32 Gridno = lua_tointeger(L,2);
+		UINT32 ubQuoteNum = lua_tointeger(L,3);
 
 
 	if ( ID  >= 0 && Gridno >= 1 )
@@ -6034,14 +6034,14 @@ SOLDIERTYPE *		pSoldier;
 					if (NewOKDestination( pSoldier, Gridno, TRUE, 0 ) )
 					{
 						// go for it!
-						NPCGotoGridNo( ID, Gridno, 1 );
+						NPCGotoGridNo( ID, Gridno, ubQuoteNum );
 					}
 					else
 					{
 						sAdjustedGridNo = FindAdjacentGridEx( pSoldier, Gridno, NULL, NULL, FALSE, FALSE );
 						if (sAdjustedGridNo != -1)
 						{
-							NPCGotoGridNo( ID, sAdjustedGridNo, 1 );
+							NPCGotoGridNo( ID, sAdjustedGridNo, ubQuoteNum );
 						}
 					}
 				}
@@ -6067,6 +6067,95 @@ BOOLEAN Bool = FALSE;
 	}	
 return 0;
 }
+
+static int l_AddRemoveObjectToUnLoadedMapTempFile (lua_State *L)
+{
+ INT32 uiMapIndex = 0;
+ UINT16 usIndex = 0;
+ INT16 sSectorX = 0;
+ INT16 sSectorY = 0;
+ UINT8 ubSectorZ = 0;
+
+	if ( lua_gettop(L) >= 5 )
+	{
+		uiMapIndex = lua_tointeger(L,1);
+		usIndex = lua_tointeger(L,2);
+		sSectorX = lua_tointeger(L,3);
+		sSectorY = lua_tointeger(L,4);
+		ubSectorZ = lua_tointeger(L,5);
+
+		if ( sSectorX > 0 && sSectorY > 0) 	
+			AddRemoveObjectToUnLoadedMapTempFile( uiMapIndex, usIndex, sSectorX, sSectorY, ubSectorZ );
+
+	}	
+return 0;
+}
+
+static int l_RemoveStructFromUnLoadedMapTempFile (lua_State *L)
+{
+ INT32 uiMapIndex = 0;
+ UINT16 usIndex = 0;
+ INT16 sSectorX = 0;
+ INT16 sSectorY = 0;
+ UINT8 ubSectorZ = 0;
+
+	if ( lua_gettop(L) >= 5 )
+	{
+		uiMapIndex = lua_tointeger(L,1);
+		usIndex = lua_tointeger(L,2);
+		sSectorX = lua_tointeger(L,3);
+		sSectorY = lua_tointeger(L,4);
+		ubSectorZ = lua_tointeger(L,5);
+
+		if ( sSectorX > 0 && sSectorY > 0) 	
+			RemoveStructFromUnLoadedMapTempFile( uiMapIndex, usIndex, sSectorX, sSectorY, ubSectorZ  );
+	}	
+return 0;
+}
+
+static int l_AddObjectToUnLoadedMapTempFile (lua_State *L)
+{
+ INT32 uiMapIndex = 0;
+ UINT16 usIndex = 0;
+ INT16 sSectorX = 0;
+ INT16 sSectorY = 0;
+ UINT8 ubSectorZ = 0;
+
+	if ( lua_gettop(L) >= 5 )
+	{
+		uiMapIndex = lua_tointeger(L,1);
+		usIndex = lua_tointeger(L,2);
+		sSectorX = lua_tointeger(L,3);
+		sSectorY = lua_tointeger(L,4);
+		ubSectorZ = lua_tointeger(L,5);
+
+		if ( sSectorX > 0 && sSectorY > 0) 	
+			AddObjectToUnLoadedMapTempFile( uiMapIndex, usIndex, sSectorX, sSectorY, ubSectorZ  );
+	}	
+return 0;
+}
+
+static int l_AddStructToUnLoadedMapTempFile (lua_State *L)
+{
+ INT32 uiMapIndex = 0;
+ UINT16 usIndex = 0;
+ INT16 sSectorX = 0;
+ INT16 sSectorY = 0;
+ UINT8 ubSectorZ = 0;
+
+	if ( lua_gettop(L) >= 5 )
+	{
+		uiMapIndex = lua_tointeger(L,1);
+		usIndex = lua_tointeger(L,2);
+		sSectorX = lua_tointeger(L,3);
+		sSectorY = lua_tointeger(L,4);
+		ubSectorZ = lua_tointeger(L,5);
+
+		if ( sSectorX > 0 && sSectorY > 0) 	
+			AddStructToUnLoadedMapTempFile( uiMapIndex, usIndex, sSectorX, sSectorY, ubSectorZ  );
+	}	
+return 0;
+}	
 
 /*
 static int l_gTacticalStatus_Team (lua_State *L)
@@ -7428,6 +7517,27 @@ BOOLEAN Bool;
 return 1;
 }
 
+static int l_CheckSoldierAssignment (lua_State *L)
+{
+SOLDIERTYPE *pSoldier;
+INT32 squad;
+
+	if ( lua_gettop(L) >= 1 )
+	{
+		UINT8 UID = lua_tointeger(L,1);
+
+		pSoldier = FindSoldierByProfileID( UID, FALSE );
+	if (pSoldier)
+		{
+			squad = pSoldier->bAssignment;
+				
+		}
+		
+		lua_pushinteger(L, squad);
+	}								
+return 1;
+}
+
 static int l_GetSoldierTeam (lua_State *L)
 {
 INT8 Side;
@@ -7738,80 +7848,47 @@ return 1;
 
 BOOLEAN LetLuaHandleEarlyMorningEvents(UINT8 Init)
 {
-	char * filename = "scripts\\StrategicEventHandler.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\StrategicEventHandler.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
-
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
-
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
+	LuaScopeState _LS(true);
 
 
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-	
-	//init function
-//	lua_register(L, "CheckFact", l_CheckFact);	
-	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-//	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+//	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+//	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
+
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HandleEarlyMorningEvents");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "HandleEarlyMorningEvents" ).Call(0);
 	}
+
 	/*
 	if ( Init == 1 )
 	{
-		lua_getglobal(L , "HandlePossiblyDamagedPackage");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "HandlePossiblyDamagedPackage" ).Call(0);
 	}
 	
 	if ( Init == 2 )
 	{
-		lua_getglobal(L , "AddSecondAirportAttendant");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "AddSecondAirportAttendant" ).Call(0);
 	}
 	
 	if ( Init == 3 )
 	{
-		lua_getglobal(L , "SetPabloToUnbribed");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "SetPabloToUnbribed" ).Call(0);
 	}
 	
 	if ( Init == 4 )
 	{
-		lua_getglobal(L , "CheckForMissingHospitalSupplies");
-		lua_call(L,0,0); 
+		LuaFunction(_LS.L, "CheckForMissingHospitalSupplies" ).Call(0);
 	}
 	*/
-	lua_close(L);
-
-	delete[] buffer;
 
 	return true;
-
 }
 
 /*
@@ -7960,6 +8037,34 @@ static int l_CreateItem (lua_State *L)
 	CreateItem( usItem, bStatus, &Object ); 
 	AddItemToPoolAndGetIndex( sGridNo, &Object, -1, bLevel, 0, 0, -1, &iWorldItem );
 
+	return 0;
+}
+
+static int l_CreateItemInv (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+	INT32				iWorldItem;
+	OBJECTTYPE	Object;	
+	UINT8 UBID = 0;
+	SOLDIERTYPE *	pSoldier;
+	UINT16 BItemId = 0;
+	UINT8 slot = SMALLPOCK5POS;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) UBID = lua_tointeger(L,i);
+		if (i == 2 ) BItemId = lua_tointeger(L,i);
+		if (i == 3 ) slot = lua_tointeger(L,i);
+	}
+
+	pSoldier = FindSoldierByProfileID( UBID, FALSE );
+	if (pSoldier) 
+	{
+		if (slot >= HELMETPOS || slot <= SMALLPOCK30POS )
+			CreateItem( (UINT16) (BItemId), 100, &( pSoldier->inv[ slot ] ) );
+	}
+	
 	return 0;
 }
 
@@ -8395,6 +8500,27 @@ static int l_SetCivGroupHostile (lua_State *L)
 }
 
 //Merc 
+static int l_CheckMercPtrsAssignment (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+
+	UINT32 ubID = 0;
+
+	INT32 squad = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubID = lua_tointeger(L,i);
+	}
+	
+	squad = MercPtrs[ ubID ]->bAssignment;
+	
+	lua_pushinteger(L, squad);
+	
+	return 1;
+}
+
 static int l_CheckMercPtrsActive (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -8439,6 +8565,165 @@ static int l_CheckMercPtsrInSector (lua_State *L)
 		Bool = FALSE;
 	
 	lua_pushboolean(L, Bool);
+
+	return 1;
+}
+
+static int l_GetMercPtsrProfileID (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+
+	UINT32 ubID = 0;
+
+	UINT8 profil = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubID = lua_tointeger(L,i);
+	}
+	
+	profil =  MercPtrs[ ubID ]->ubProfile;
+	
+	lua_pushinteger(L, profil);
+
+	return 1;
+}
+
+static int l_CheckMercPtrsLife (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+
+	UINT32 ubID = 0;
+
+	UINT8 life = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubID = lua_tointeger(L,i);
+	}
+	
+	life =  MercPtrs[ ubID ]->stats.bLife;
+	
+	lua_pushinteger(L, life);
+
+	return 1;
+}
+
+static int l_SoldierGiveItem (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+
+	UINT32 ubID1 = 0;
+	UINT32 ubID2 = 0;
+
+SOLDIERTYPE *pSoldier;
+SOLDIERTYPE *pSoldier2;
+BOOLEAN bol = FALSE;
+UINT32 item;
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubID1 = lua_tointeger(L,i);
+		if (i == 2 ) ubID2 = lua_tointeger(L,i);
+		if (i == 3 ) item = lua_tointeger(L,i);
+	}
+	
+			pSoldier = FindSoldierByProfileID( ubID1, FALSE );
+			
+			pSoldier2 = FindSoldierByProfileID( ubID2, FALSE );
+			
+				if ( !pSoldier || !pSoldier2 )
+					bol = FALSE;
+				else
+					bol = TRUE;
+				
+		if ( bol == TRUE )
+			{			
+				// Look for letter....
+				{
+					INT8 bInvPos;
+
+					// Look for item....
+					bInvPos = FindObj( pSoldier, item );
+
+					AssertMsg( bInvPos != NO_SLOT, "Interface Dialogue.C:	Gift item does not exist in NPC." );
+
+					SoldierGiveItem( pSoldier, pSoldier2, &(pSoldier->inv[ bInvPos ] ), bInvPos );
+				}
+			}
+					
+	return 0;
+}
+
+
+static int l_CheckMercPtsrTeleportToSector (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+
+	UINT32 ubID = 0;
+
+	INT16 SectorX = 0;
+	INT16 SectorY = 0;
+	INT8 SectorZ = 0;
+	UINT32 GridNo = 0;
+	SOLDIERTYPE * pSoldier;
+	BOOLEAN Bool = FALSE;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) SectorX = lua_tointeger(L,i);
+		if (i == 2 ) SectorY = lua_tointeger(L,i);
+		if (i == 3 ) SectorZ = lua_tointeger(L,i);
+		if (i == 4 ) GridNo = lua_tointeger(L,i);
+		if (i == 5 ) ubID = lua_tointeger(L,i);
+	}
+	
+	
+	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
+		Bool = TRUE;
+	else
+		Bool = FALSE;
+		
+	if ( Bool == TRUE )
+	{		
+		pSoldier = MercPtrs[ ubID ];
+
+		if (pSoldier)
+		{
+		pSoldier->sSectorX = SectorX;
+		pSoldier->sSectorY = SectorY;
+		pSoldier->bSectorZ = SectorZ;
+
+		// Set gridno
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		pSoldier->usStrategicInsertionData = GridNo;
+		}
+	}
+		
+	return 0;
+}
+
+static int l_GetMercPtrsGroup (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+
+	UINT32 ubID = 0;
+
+	 UINT8 GroupID = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubID = lua_tointeger(L,i);
+	}
+	
+	GroupID = MercPtrs[ ubID ]->ubGroupID;
+
+	
+	lua_pushinteger(L, GroupID);
 
 	return 1;
 }
@@ -10274,6 +10559,27 @@ static int l_SetuiMoney(lua_State *L)
 	return 0;
 }
 
+static int l_MercSalary(lua_State *L)
+{
+	UINT32 set = 0;
+	UINT8 Profile = 0;
+	UINT8 n = lua_gettop(L);
+	int i = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) Profile = lua_tointeger(L,i);
+		if (i == 2 ) set = lua_tointeger(L,i);
+	}
+	
+	gMercProfiles[ Profile ].sTrueSalary = set;
+	gMercProfiles[ Profile ].sSalary = set;
+
+	return 0;
+}
+
+
+
 //set start quest
 static int l_StartQuest(lua_State *L)
 {
@@ -10819,109 +11125,44 @@ static int l_CheckFact (lua_State *L)
 
 BOOLEAN LetHandleLoyaltyChangeForNPCAction(UINT8 ubNPCProfileId , UINT8 Init)
 {
-	char * filename = "scripts\\StrategicTownLoyalty.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\StrategicTownLoyalty.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
+	//lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	//lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	//lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-		//init function
-//	lua_register(L, "CheckFact", l_CheckFact);
-//	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-//	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HandleLoyaltyChangeForNPCAction");
-		lua_pushnumber(L, ubNPCProfileId );
-		
-		lua_call(L,1,0); 
+		LuaFunction(_LS.L, "HandleLoyaltyChangeForNPCAction" ).Param<int>(ubNPCProfileId).Call(1);
 	}
-
-	lua_close(L);
-
-	delete[] buffer;
 
 	return true;
 }
 
 BOOLEAN LuaHandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , UINT8 Init)
 {
-	char * filename = "scripts\\StrategicTownLoyalty.lua";
-	UINT32 size, bytesRead;
-	char* buffer;
+	const char* filename = "scripts\\StrategicTownLoyalty.lua";
 
-	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+	LuaScopeState _LS(true);
 
-	if (!file)
-	{
-		string msg("Cannot open file: ");
-		msg.append(filename);
-		SGP_THROW(msg);
-	}
+	//lua_register(_LS.L(), "CheckFact", l_CheckFact);	
+	//lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	//lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
 
-	size = FileSize(filename);
-	buffer = new char[size+1];
-	buffer[size] = 0;
-	FileRead(file, buffer, size, &bytesRead);
-	FileClose(file);
-
-	lua_State *L = lua_open();
-	luaL_openlibs(L);
-
-		//init function
-//	lua_register(L, "CheckFact", l_CheckFact);
-//	lua_register(L, "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-//	lua_register(L, "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(L,TRUE);
-	IniGlobalGameSetting(L);
-	
-	if (luaL_dostring(L, buffer))
-	{
-		// oh noes, error
-		// TODO: write to log or something
-		return false;
-	}
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
 	
 	if ( Init == 0 )
 	{
-		lua_getglobal(L , "HandleGlobalLoyaltyEvent");
-		lua_pushnumber(L, ubEventType );
-		lua_pushnumber(L, sSectorX );
-		lua_pushnumber(L, sSectorY );
-		lua_pushnumber(L, bSectorZ );
-		
-		lua_call(L,4,0); 
+		LuaFunction(_LS.L, "HandleGlobalLoyaltyEvent" ).Param<int>(ubEventType).Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(4);
 	}
-
-	lua_close(L);
-
-	delete[] buffer;
 
 	return true;
 }
@@ -11490,6 +11731,7 @@ UINT32 uiNewScreen;
 		if (i == 1 ) uiNewScreen = lua_tointeger(L,i);
 	}
 
+	if ( uiNewScreen < MAX_SCREENS )
 	InternalLeaveTacticalScreen( uiNewScreen );
 	
 return 0;
@@ -12063,6 +12305,34 @@ static int l_fBobbyRSiteCanBeAccessed (lua_State *L)
 return 0;
 }
 
+static int l_StartDialogueMessageBox (lua_State *L)
+{
+
+	if ( lua_gettop(L) >= 2 )
+	{
+		UINT8 ubProfileID = lua_tointeger(L,1);
+		UINT16 usMessageBoxType = lua_tointeger(L,2);
+		
+		StartDialogueMessageBox( ubProfileID, usMessageBoxType );
+	
+	}	
+return 0;
+}
+static int l_SetLaptopBroken (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+	BOOLEAN bol = TRUE;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) bol = lua_toboolean(L,i);
+	}
+
+	//bLaptopRandomBroken = bol;
+
+	return 0;
+}
 static int lh_getIntegerFromTable(lua_State *L, const char * fieldname)
 {
 	lua_getfield(L, -1, fieldname);

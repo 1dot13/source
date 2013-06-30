@@ -248,6 +248,7 @@ INT32 giHospitalTempBalance; // stores amount of money for current doctoring
 INT32 giHospitalRefund; // stores amount of money given to hospital for doctoring that wasn't used
 INT8	gbHospitalPriceModifier; // stores discount being offered
 
+void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType );
 #ifdef JA2UB
 //ja25 ub
 BOOLEAN	gfDisplayMsgBoxSayingCantAffordNPC=FALSE;

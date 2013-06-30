@@ -26,6 +26,10 @@
 #include "ub_config.h"
 #include "Ja25_Tactical.h"
 
+#include "Game Clock.h"
+
+#include "Dialogue Control.h"
+
 extern "C" {
 #include "lua.h"
 #include "lauxlib.h"
@@ -36,10 +40,18 @@ extern "C" {
 using namespace std;
 
 extern	BOOLEAN	gfDoneWithSplashScreen;
+extern UINT8	gubWaitingForAllMercsToExitCode;
 
 
 void IniGlobalGameSetting(lua_State *L)
 {
+
+	lua_pushinteger(L, giNPCReferenceCount);
+	lua_setglobal(L, "giNPCReferenceCount");
+	
+	lua_pushinteger(L, gubWaitingForAllMercsToExitCode);
+	lua_setglobal(L, "gubWaitingForAllMercsToExitCode");
+	
 	// -------------------------------
 	// Start new game settings (use "new" prefix)
 	// -------------------------------
@@ -146,6 +158,174 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_pushboolean(L, gGameUBOptions.InGameHeli);
 	lua_setglobal(L, "iniINGAMEHELI");
 #endif
+	
+	//Mod Setting.ini
+
+	lua_pushinteger(L, gModSettings.ubHideoutSectorX);
+	lua_setglobal(L, "iniHIDEOUT_SECTOR_X");
+	
+	lua_pushinteger(L, gModSettings.ubHideoutSectorY);
+	lua_setglobal(L, "iniHIDEOUT_SECTOR_Y");
+	
+	lua_pushinteger(L, gModSettings.ubHideoutSectorZ);
+	lua_setglobal(L, "iniHIDEOUT_SECTOR_Z");
+	
+	lua_pushinteger(L, gModSettings.iHideoutExitGrid);
+	lua_setglobal(L, "iniHIDEOUT_EXIT");
+	
+	lua_pushinteger(L, gModSettings.ubHideoutSurfaceX);
+	lua_setglobal(L, "iniHIDEOUT_SURFACE_X");
+	
+	lua_pushinteger(L, gModSettings.ubHideoutSurfaceY);
+	lua_setglobal(L, "iniHIDEOUT_SURFACE_Y");
+	
+	lua_pushinteger(L, gModSettings.ubHideoutSurfaceZ);
+	lua_setglobal(L, "iniHIDEOUT_SURFACE_Z");
+	
+	lua_pushinteger(L, gModSettings.iHideoutEntryGrid);
+	lua_setglobal(L, "iniHIDEOUT_ENTRY");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[0]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_1");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[1]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_2");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[2]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_3");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[3]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_4");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[4]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_5");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[5]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_6");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[6]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_7");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[7]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_8");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[8]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_9");
+	
+	lua_pushinteger(L, gModSettings.iBasementEntry[9]);
+	lua_setglobal(L, "iniBASEMENT_ENTRY_10");
+
+	lua_pushinteger(L, gModSettings.iBasementExit[0]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_1");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[1]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_2");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[2]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_3");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[3]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_4");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[4]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_5");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[5]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_6");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[6]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_7");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[7]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_8");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[8]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_9");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[9]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_10");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[10]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_11");
+	
+	lua_pushinteger(L, gModSettings.iBasementExit[11]);
+	lua_setglobal(L, "iniBASEMENT_EXIT_12");
+	
+	// Rebel Hideout
+	lua_pushinteger(L, gModSettings.iFinalCrateGrid);
+	lua_setglobal(L, "iniFINAL_CRATE_GRID");
+	
+	lua_pushinteger(L, gModSettings.usCrateTileDef);
+	lua_setglobal(L, "iniCRATE_TILE_DEF");
+	
+	lua_pushinteger(L, gModSettings.usTrapdoorTileDef);
+	lua_setglobal(L, "iniTRAPDOOR_TILE_DEF");
+
+	// San Mona
+	lua_pushinteger(L, gModSettings.usPornShopRoomHans);
+	lua_setglobal(L, "iniPORN_SHOP_ROOM_HANS");
+	
+	lua_pushinteger(L, gModSettings.iHansGridNo);
+	lua_setglobal(L, "iniHANS_POSTION");
+	
+	lua_pushinteger(L, gModSettings.usPornShopRoomBrenda);
+	lua_setglobal(L, "iniPORN_SHOP_ROOM_BRENDA");
+	
+	lua_pushinteger(L, gModSettings.usPornShopRoomTony);
+	lua_setglobal(L, "iniPORN_SHOP_ROOM_TONY");
+	
+	//San Mona
+	lua_pushinteger(L, gModSettings.usLeatherShop);
+	lua_setglobal(L, "iniANGELS_LEATHERSHOP");
+	
+	lua_pushinteger(L, gModSettings.iBambiDoorGridNo);
+	lua_setglobal(L, "iniDOOR_TO_BAMBIS_ROOM");
+	
+	lua_pushinteger(L, gModSettings.iCarlaDoorGridNo);
+	lua_setglobal(L, "iniDOOR_TO_CARLAS_ROOM");
+	
+	lua_pushinteger(L, gModSettings.iCindyDoorGridNo);
+	lua_setglobal(L, "iniDOOR_TO_CINDYS_ROOM");
+	
+	lua_pushinteger(L, gModSettings.iMariaDoorGridNo);
+	lua_setglobal(L, "iniDOOR_TO_MARIAS_ROOM");
+
+	//San Mona
+	lua_pushinteger(L, gModSettings.usBrothelRoomRangeStart);
+	lua_setglobal(L, "iniFIRST_ROOM_IN_BROTHEL");
+	
+	lua_pushinteger(L, gModSettings.usBrothelRoomRangeEnd);
+	lua_setglobal(L, "iniLAST_ROOM_IN_BROTHEL");
+	
+	lua_pushinteger(L, gModSettings.usBrothelGuardRoom);
+	lua_setglobal(L, "iniBROTHEL_GUARD_ROOM");
+	
+	//San Mona
+	lua_pushinteger(L, gModSettings.iBrothelDoor1);
+	lua_setglobal(L, "iniBROTHEL_DOOR_1");
+
+	lua_pushinteger(L, gModSettings.iBrothelDoor2);
+	lua_setglobal(L, "iniBROTHEL_DOOR_2");
+	
+	lua_pushinteger(L, gModSettings.iBrothelDoor3);
+	lua_setglobal(L, "iniBROTHEL_DOOR_3");
+
+	//Gear Dropoff
+	lua_pushinteger(L, gModSettings.ubOmertaDropOffX);
+	lua_setglobal(L, "iniOMERTA_DROPOFF_X");
+	
+	lua_pushinteger(L, gModSettings.ubOmertaDropOffY);
+	lua_setglobal(L, "iniOMERTA_DROPOFF_Y");
+	
+	lua_pushinteger(L, gModSettings.ubOmertaDropOffZ);
+	lua_setglobal(L, "iniOMERTA_DROPOFF_Z");
+	
+	lua_pushinteger(L, gModSettings.iOmertaDropOff);
+	lua_setglobal(L, "iniOMERTA_DROPOFF_GRIDNO");
+	
+	//Alma
+	lua_pushinteger(L, gModSettings.sRocketRifleGridNo);
+	lua_setglobal(L, "iniROCKETRIFLE_POSITION");
 	
 	// -------------------------------
 	// Other global variables
@@ -295,6 +475,18 @@ void IniGlobalGameSetting(lua_State *L)
 	
 	lua_pushinteger(L, gbIntroScreenMode);
 	lua_setglobal(L, "gbIntroScreenMode");	
+	
+	lua_pushinteger(L, guiDay);
+	lua_setglobal(L, "guiDay");
+	
+	lua_pushinteger(L, guiHour);
+	lua_setglobal(L, "guiHour");
+	
+	lua_pushinteger(L, guiMin);
+	lua_setglobal(L, "guiMin");
+	
+	lua_pushinteger(L, guiCurrentScreen);
+	lua_setglobal(L, "guiCurrentScreen");
 
 #ifdef JA2UB
 	lua_pushboolean(L, gGameUBOptions.fTexAndJohn);

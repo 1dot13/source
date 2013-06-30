@@ -396,6 +396,7 @@ extern INT8 gbHospitalPriceModifier;
 
 extern UINT32 CalcPatientMedicalCost( SOLDIERTYPE * pSoldier );
 extern UINT32 CalcMedicalCost( UINT8 ubId );
+extern void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType );
 
 extern BOOLEAN	gfInTalkPanel;
 #ifdef JA2UB
