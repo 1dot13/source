@@ -2515,6 +2515,10 @@ void LoadGameAPBPConstants()
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);
 
 	APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] = iniReader.ReadInteger("BPConstants","BP_RATIO_RED_PTS_TO_NORMAL",100);
+	// modifies breath regeneration during realtime mode, replaces TB_BREATH_RECOVER_MODIFIER in Tactical\rt time defines.h
+	APBPConstants[BP_RT_BREATH_RECOVER_MODIFIER] = iniReader.ReadInteger("BPConstants", "BP_RT_BREATH_RECOVER_MODIFIER",100, 100, 1000);
+	// modifies breath drain for all movement during realtime mode, replaces TB_BREATH_DEDUCT_MODIFIER in Tactical\rt time defines.h
+	APBPConstants[BP_RT_BREATH_DEDUCT_MODIFIER] = iniReader.ReadInteger("BPConstants", "BP_RT_BREATH_DEDUCT_MODIFIER",125, 100, 1000);
 	APBPConstants[BP_RUN_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_RUN_ENERGYCOSTFACTOR",3);
 	APBPConstants[BP_WALK_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_WALK_ENERGYCOSTFACTOR",1);
 	APBPConstants[BP_SWAT_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_SWAT_ENERGYCOSTFACTOR",2);

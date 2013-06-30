@@ -348,7 +348,9 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
  if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
  {
 		// ATE: ADJUST FOR RT - MAKE BREATH GO A LITTLE FASTER!
-		iPoints	= (INT32)( iPoints * TB_BREATH_DEDUCT_MODIFIER );
+	 	// silversurfer: now externalized to APBPConstants.ini
+		//iPoints	= (INT32)( iPoints * TB_BREATH_DEDUCT_MODIFIER );
+		iPoints	= (INT32)( iPoints * APBPConstants[BP_RT_BREATH_DEDUCT_MODIFIER] / 100 );
  }
 
 
@@ -1178,7 +1180,9 @@ void UnusedAPsToBreath( SOLDIERTYPE * pSoldier )
 
 		// Divide by a number to adjust that in realtimer we do not want to recover as
 		// as fast as the TB values do
-		sBreathChange *= TB_BREATH_RECOVER_MODIFIER;
+		// silversurfer: now externalized to APBPConstants.ini
+		//sBreathChange *= TB_BREATH_RECOVER_MODIFIER;
+		sBreathChange = INT16 ( sBreathChange * APBPConstants[BP_RT_BREATH_RECOVER_MODIFIER] / 100 );
 
 		// SANDRO: get BP *cost* for weapon holding (reduce breath gain, or even make it breath loss)
 		if ( gGameExternalOptions.ubEnergyCostForWeaponWeight ) 

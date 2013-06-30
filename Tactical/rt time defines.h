@@ -3,9 +3,9 @@
 
 
 
-
-#define		TB_BREATH_RECOVER_MODIFIER		1
-#define		TB_BREATH_DEDUCT_MODIFIER			1.25
+//silversurfer: now externalized to APBPConstants.ini
+//#define		TB_BREATH_RECOVER_MODIFIER		1
+//#define		TB_BREATH_DEDUCT_MODIFIER			1.25
 
 #define		RT_NEXT_BLEED_MODIFIER							0.5
 #define		RT_FIRST_AID_GAIN_MODIFIER					12
