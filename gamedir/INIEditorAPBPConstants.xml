@@ -804,6 +804,29 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_POL></Description_POL>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值。</Description_CHI>
         </Property>
+        <Property name="BP_RT_BREATH_RECOVER_MODIFIER" datatype="numeric" minvalue="100" maxvalue="1000" defaultvalue="100" interval="1">
+          <Description_ENG>Breath recovery multiplier in realtime mode
+possible values from 100 to 1000 (default = 100)
+100 means 1x reg, 1000 means 10x reg</Description_ENG>
+          <Description_GER>Multiplikator für Ausdauerregeneration im Echtzeitmodus
+mögliche Werte von 100 bis 1000 (Standardwert = 100)
+100 bedeutet Regeneration mit Faktor 1x, 1000 bedeutet Faktor 10x</Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
+        <Property name="BP_RT_BREATH_DEDUCT_MODIFIER" datatype="numeric" minvalue="100" maxvalue="1000" defaultvalue="125" interval="1">
+          <Description_ENG>Breath drain multiplier for movement in realtime mode
+possible values from 100 to 1000 (default = 125)
+100 means 1x drain, 1000 means 10x drain</Description_ENG>
+          <Description_GER>Multiplikator für Ausdauerschwund bei allen Bewegung im Echtzeitmodus
+mögliche Werte von 100 bis 1000 (Standardwert = 125)
+100 bedeutet Faktor 1x, 1000 bedeutet Faktor 10x
+Dieser Multiplikator wirkt zusätzlich zu den von der Bewegungsart abhängigen Modifikatoren.</Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
         <Property name="BP_RUN_ENERGYCOSTFACTOR" datatype="numeric" minvalue="0" maxvalue="200" defaultvalue="3" interval="1">
           <Description_ENG>Default values to calculate AP-costs shown in Infoboxes of guns.</Description_ENG>
           <Description_GER></Description_GER>
