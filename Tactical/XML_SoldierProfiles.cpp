@@ -192,7 +192,7 @@ BOOLEAN ReadInSoldierProfiles(SOLDIER_PROFILE_VALUES* pProfiles, STR fileName)
 
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = pProfiles;
-	pData.maxArraySize = NUM_PROFILES;
+	pData.maxArraySize = NUM_SOLDIER_PROFILES;
 
 	XML_SetUserData(parser, &pData);
 
