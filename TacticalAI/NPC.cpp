@@ -148,8 +148,35 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 
 	if ( ubNPC == PETER || ubNPC == ALBERTO || ubNPC == CARLO )
 	{
-		// use a copy of Herve's data file instead!
-		sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
+	
+		if ( ubNPC == PETER )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", PETER );
+			if ( !FileExists( zFileName ) )
+			{
+				// use a copy of Herve's data file instead!
+				sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
+			}
+		}		
+		else if ( ubNPC == ALBERTO )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", ALBERTO );
+			if ( !FileExists( zFileName ) )
+			{
+				// use a copy of Herve's data file instead!
+				sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
+			}
+		}	
+		else if ( ubNPC == CARLO )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", CARLO );
+			if ( !FileExists( zFileName ) )
+			{
+				// use a copy of Herve's data file instead!
+				sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
+			}
+		}	
+
 	}
 	//else if ( ubNPC < FIRST_RPC || ubNPC >= GASTON || (ubNPC < FIRST_NPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )
 	//new profiles by Jazz

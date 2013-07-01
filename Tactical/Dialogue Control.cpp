@@ -1941,6 +1941,7 @@ void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum,
 CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN fWavFile )
 {
 	static CHAR8 zFileName[164];
+	static CHAR8 zFileNameExists[164];
 	UINT8		ubFileNumID;
 
 	// Are we an NPC OR an RPC that has not been recruited?
@@ -1987,10 +1988,40 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 		ubFileNumID = ubCharacterNum;
 
 		// ATE: If we are merc profile ID #151-154, all use 151's data....
-		if ( ubCharacterNum >= HERVE && ubCharacterNum <= CARLO )
+		//if ( ubCharacterNum >= HERVE && ubCharacterNum <= CARLO )
+		//{
+			//ubFileNumID = HERVE;
+		//}
+		
+			if ( ubCharacterNum == HERVE )
+			{
+					ubFileNumID = HERVE;	
+			}
+			else if ( ubCharacterNum == PETER )
+			{
+				sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", PETER );
+				if ( !FileExists( zFileName ) )
+					ubFileNumID = HERVE;
+				else
+					ubFileNumID = PETER;
+			}
+			else if ( ubCharacterNum == ALBERTO )
+			{
+				sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", ALBERTO );
+				if ( !FileExists( zFileName ) )
+					ubFileNumID = HERVE;
+				else
+					ubFileNumID = ALBERTO;
+			}
+			else if ( ubCharacterNum == CARLO )
 		{
+				sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", CARLO );
+				if ( !FileExists( zFileName ) )
 			ubFileNumID = HERVE;
+				else
+					ubFileNumID = CARLO;
 		}
+
 
 		// If we are character #155, check fact!
 		if ( ubCharacterNum == MANNY && !gubFact[ FACT_MANNY_IS_BARTENDER ] )
