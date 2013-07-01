@@ -798,7 +798,7 @@ void PlotTemporaryPaths( void );
 void PlotPermanentPaths( void );
 void RenderHandPosItem( void );
 void ContractListRegionBoxGlow( UINT16 usCount );
-void DisplayDestinationOfCurrentDestMerc( void );
+// void DisplayDestinationOfCurrentDestMerc( void );
 void HandleCharBarRender( void );
 
 // rebuild waypoints for selected character list
@@ -1544,40 +1544,6 @@ BOOLEAN InitializeInvPanelCoordsNew()
 	DEST_ETA_WIDTH					= 33;
 	TIME_REMAINING_WIDTH			= 28;
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
-	{
-		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298);
-
-		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463);
-		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345);
-
-		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484);
-		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518);
-		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538);
-	}
-	else if (iResolution < _1024x768)
-	{
-		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 120);
-
-		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 80);
-		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 120);
-
-		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 80) + xResOffset;
-		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 80) + xResOffset;
-		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 80) + xResOffset;
-	}
-	else
-	{
-		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 285);
-
-		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 180);
-		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 285);
-
-		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 180) + xResOffset;
-		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 180) + xResOffset;
-		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 180) + xResOffset;
-	}
-
 	// contract
 	CONTRACT_Y						= 50;
 
@@ -1822,8 +1788,8 @@ BOOLEAN SetInfoChar( UINT8 ubID )
 }
 
 
-
-void DisplayDestinationOfCurrentDestMerc( void )
+//silversurfer: not used anywhere
+/*void DisplayDestinationOfCurrentDestMerc( void )
 {
 	// will display the dest of the current dest merc
 	CHAR16 sString[ 32 ];
@@ -1842,7 +1808,7 @@ void DisplayDestinationOfCurrentDestMerc( void )
 
 	RestoreExternBackgroundRect( DEST_PLOT_X, DEST_PLOT_Y ,70 ,GetFontHeight( MAP_SCREEN_FONT ) );
 	mprintf( sX, sY, sString );
-}
+}*/
 
 
 
@@ -4595,7 +4561,6 @@ UINT32 MapScreenHandle(void)
 		//Disable all faces
 		SetAllAutoFacesInactive( );
 
-
 		if(fPreLoadedMapGraphics == FALSE )
 		{
 			vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
@@ -4636,6 +4601,14 @@ UINT32 MapScreenHandle(void)
 				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
 
 				ETA_FONT = BLOCKFONT2;
+
+				// standard ETA box
+				CLOCK_Y_START					= 300;
+				DEST_PLOT_X						= 420;
+				DEST_PLOT_Y						= 345;
+				CLOCK_ETA_X						= 440;
+				CLOCK_HOUR_X_START				= 478;
+				CLOCK_MIN_X_START				= 494;
 
 				// Helicopter ETA box
 				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
@@ -4681,6 +4654,14 @@ UINT32 MapScreenHandle(void)
 
 				ETA_FONT = BLOCKFONT2;
 
+				// standard ETA box
+				CLOCK_Y_START					= (250 + iScreenHeightOffset + 108) - yResOffset;
+				DEST_PLOT_X						= (400 + iScreenWidthOffset + 10);
+				DEST_PLOT_Y						= (250 + iScreenHeightOffset + 148) - yResOffset;
+				CLOCK_ETA_X						= (400 + iScreenWidthOffset + 30);
+				CLOCK_HOUR_X_START				= (400 + iScreenWidthOffset + 68);
+				CLOCK_MIN_X_START				= (400 + iScreenWidthOffset + 84);
+
 				// Helicopter ETA box
 				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
 				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 58) - yResOffset;
@@ -4723,6 +4704,14 @@ UINT32 MapScreenHandle(void)
 				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
 
 				ETA_FONT = FONT12ARIAL;
+
+				// standard ETA box
+				CLOCK_Y_START					= (250 + iScreenHeightOffset + 190) - yResOffset;
+				DEST_PLOT_X						= (400 + iScreenWidthOffset + 10);
+				DEST_PLOT_Y						= (250 + iScreenHeightOffset + 240) - yResOffset;
+				CLOCK_ETA_X						= (400 + iScreenWidthOffset + 30);
+				CLOCK_HOUR_X_START				= (400 + iScreenWidthOffset + 68);
+				CLOCK_MIN_X_START				= (400 + iScreenWidthOffset + 84);
 
 				// Helicopter ETA box
 				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);

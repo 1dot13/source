@@ -102,6 +102,9 @@ extern BOOLEAN gfQueueRecreateMapInventoryFilterMenu;
 extern UINT32 guiMapInvenFilterButton[ 9 ];
 extern void CreateMapInventoryFilterMenu( );
 
+// used for ETA border drawing
+extern int CLOCK_ETA_X;
+extern int CLOCK_Y_START;
 
 // buttons & button images
 // HEADROCK HAM 4: Increase both arrays by one to accomodate new Mobile Restrictions button
@@ -316,40 +319,18 @@ void RenderMapBorderEtaPopUp( void )
 	// get and blt ETA box
 	GetVideoObject(&hHandle, guiMapBorderEtaPopUp );
 
-	UINT16 offsetX = 0;
-	UINT16 offsetY = 0;
-	UINT16 offsetBorderY = 0;
-
-	UINT16 xVal = 215;
-	UINT16 yVal = 291;
-
-	// TODO.RW.ARSP: Check
-	if (iResolution >= _640x480 && iResolution < _800x600)
-	{
-		offsetX = xVal + xResOffset;
-		offsetY = yVal + yResOffset;
-	}
-	else if (iResolution < _1024x768)
-	{
-		offsetX = xVal + 80; // + xResOffset;
-		offsetY = yVal + 120; // + yResOffset;
-	}
-	else
-	{
-		offsetX = xVal + 180;// + xResOffset;
-		offsetY = yVal + 285;// + yResOffset;
-	}
-
-	offsetBorderY = offsetY + 19;
+	// coordinates should depend on the actual ETA display
+	UINT16 xVal = (CLOCK_ETA_X - 10) ;
+	UINT16 yVal = (CLOCK_Y_START - 7);
 
 	if (iResolution >= _640x480 && iResolution < _800x600)
-		BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( FRAME_BUFFER , hHandle, 0, xVal, yVal, VO_BLT_SRCTRANSPARENCY,NULL );
 	else if (iResolution < _1024x768)
-		BltVideoObject( FRAME_BUFFER , hHandle, 1, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( FRAME_BUFFER , hHandle, 1, xVal, yVal, VO_BLT_SRCTRANSPARENCY,NULL );
 	else
-		BltVideoObject( FRAME_BUFFER , hHandle, 2, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( FRAME_BUFFER , hHandle, 2, xVal, yVal, VO_BLT_SRCTRANSPARENCY,NULL );
 
-	InvalidateRegion( MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX + 100 , MAP_BORDER_Y_OFFSET + offsetBorderY);
+	InvalidateRegion( xVal, yVal, xVal + 100 , yVal + 19);
 
 	return;
 }
