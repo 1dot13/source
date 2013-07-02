@@ -59,4 +59,54 @@ uiTrait1, uiTrait2, uiTrait3: according to the trait numbers:
     <uiTrait2>0</uiTrait2>
     <uiTrait3>0</uiTrait3>
   </PROFILE>
+  <PROFILE>
+    <uiIndex>1</uiIndex>
+    <szName>Thomas</szName>
+    <uiBodyType>3</uiBodyType>
+    <uiHair>1</uiHair>
+    <uiSkin>1</uiSkin>
+    <uiTrait1>7</uiTrait1>
+    <uiTrait2>7</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>2</uiIndex>
+    <szName>Lee</szName>
+    <uiBodyType>0</uiBodyType>
+    <uiHair>0</uiHair>
+    <uiSkin>0</uiSkin>
+    <uiTrait1>0</uiTrait1>
+    <uiTrait2>0</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>3</uiIndex>
+    <szName>Javier</szName>
+    <uiBodyType>1</uiBodyType>
+    <uiHair>4</uiHair>
+    <uiSkin>1</uiSkin>
+    <uiTrait1>0</uiTrait1>
+    <uiTrait2>0</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>4</uiIndex>
+    <szName>Jesper</szName>
+    <uiBodyType>1</uiBodyType>
+    <uiHair>4</uiHair>
+    <uiSkin>1</uiSkin>
+    <uiTrait1>0</uiTrait1>
+    <uiTrait2>0</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>5</uiIndex>
+    <szName>Michael</szName>
+    <uiBodyType>2</uiBodyType>
+    <uiHair>4</uiHair>
+    <uiSkin>1</uiSkin>
+    <uiTrait1>0</uiTrait1>
+    <uiTrait2>0</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
 </PROFILES>

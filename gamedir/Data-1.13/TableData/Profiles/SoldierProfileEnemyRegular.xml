@@ -59,4 +59,116 @@ uiTrait1, uiTrait2, uiTrait3: according to the trait numbers:
     <uiTrait2>0</uiTrait2>
     <uiTrait3>0</uiTrait3>
   </PROFILE>
+  <PROFILE>
+   <uiIndex>1</uiIndex>
+   <szName>DeToX</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE> 
+ <PROFILE>
+   <uiIndex>2</uiIndex>
+   <szName>Niklas Wilson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>3</uiIndex>
+   <szName>Achim Franke</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>4</uiIndex>
+   <szName>Pitzer Mike</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>5</uiIndex>
+   <szName>Big Boss</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>6</uiIndex>
+   <szName>Axido</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>7</uiIndex>
+   <szName>Nakano</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>8</uiIndex>
+   <szName>Pablo Alberto</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>9</uiIndex>
+   <szName>Henry Hertzila</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>10</uiIndex>
+   <szName>Kyuzo</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>11</uiIndex>
+   <szName>Grim</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>12</uiIndex>
+   <szName>Bastien 'tty' Durel</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>13</uiIndex>
+   <szName>Ralph Johansen</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>14</uiIndex>
+   <szName>Xhemesis</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>15</uiIndex>
+   <szName>Fernando Hoffez</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>16</uiIndex>
+   <szName>Remi Spaans</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+ </PROFILE>
 </PROFILES>
