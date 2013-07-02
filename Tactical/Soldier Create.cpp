@@ -1664,7 +1664,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 				break;
 			}
 		}
-		else if ( pCreateStruct->bTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+		else if ( pCreateStruct->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia )
 		{
 			switch( pCreateStruct->ubSoldierClass )
 			{

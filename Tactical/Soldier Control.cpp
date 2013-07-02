@@ -16488,7 +16488,7 @@ INT8 SOLDIERTYPE::GetSoldierProfileType(UINT8 usTeam)
 			break;
 		}
 	}
-	else if ( usTeam == ENEMY_TEAM && gGameExternalOptions.fSoldierProfiles_Enemy )
+	else if ( usTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia )
 	{
 		switch( this->ubSoldierClass )
 		{
