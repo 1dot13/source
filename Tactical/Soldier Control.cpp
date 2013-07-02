@@ -14851,12 +14851,16 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 					return TRUE;
 				}
 
+				// guns/launchers in our hands will always be noticed, even if covert, so we need to check them later
+				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS )
+					;
+				// other covert items are simply ignored
+				if ( HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+					continue;
 				// further checks it item is not covert. This means that an item that has that tag will not be detected if it is inside a pocket!
-				if (!HasItemFlag(this->inv[bLoop].usItem, COVERT) && (bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS) )
+				else if ( (bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS || bLoop == KNIFEPOCKPOS) )
 					;
-				else if ( bLoop == KNIFEPOCKPOS && !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
-					;
-				else if ( !HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+				else
 				{
 					// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
 					UINT8 checkslot = 0;
