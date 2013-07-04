@@ -14263,6 +14263,9 @@ void	SOLDIERTYPE::InventoryExplosion( void )
 	INT16 breathdamage = (INT16)(500 + Random(1500));
 	if ( bBreath - breathdamage < 0 )
 		breathdamage = bBreath;
+
+	// Play sound
+	PlayJA2SampleFromFile( "Sounds\\Explode1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 						
 	SoldierTakeDamage( 0, damage, 0, breathdamage, TAKE_DAMAGE_EXPLOSION, this->ubID, sGridNo, 0, TRUE );
 	

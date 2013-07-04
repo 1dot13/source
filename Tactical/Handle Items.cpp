@@ -5033,7 +5033,8 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 		case 6:
 			// test our disguise
-			gpTempSoldier->SpySelfTest();
+			if ( gpTempSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+				gpTempSoldier->SpySelfTest();
 			break;
 		default:
 			break;
