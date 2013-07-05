@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <EMAIL_MERC_LEVEL_UP>
 	<EMAIL>
 		<uiIndex>0</uiIndex>
@@ -204,68 +203,68 @@
 	<EMAIL>
 		<!-- Biff -->
 		<uiIndex>40</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Hereby be informed that due to Biff's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>//!!! char length ?
+		<Message>Soyez informé qu'au vu des dernières performances de Biff, ses honoraires ont augmenté. Personnellement, cela ne me surprend pas. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Haywire -->
 		<uiIndex>41</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>This notice is to inform you that due to Haywire's exemplary performance his fees have been revised. Effective immediately there will be an increase to his salary. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Ce message a pour but de vous informer de l'augmentation des honoraires de Dingo au vu de sa performance exemplaire. Cette augmentation prend effet sur l'instant. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Gasket -->
 		<uiIndex>42</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please be advised that, as of this moment, Gasket's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez informé qu'à compter de ce jour, les honoraires de Mécano ont augmenté afin de tenir compte de l'amélioration de ses compétences. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Razor -->
 		<uiIndex>43</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please be advised that Razor's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>L'expérience de Scapel lui donne droit à une compensation monétaire plus équitable. Ses honoraires ont donc augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Flo -->
 		<uiIndex>44</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please consider yourself advised that Flo's improvement in the field merits an improvement in her compensation.  ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>L'agence vous informe que les honoraires de Flo ont augmenté pour compenser ses qualités grandissantes.  ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Gumpy -->
 		<uiIndex>45</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please take note. Due to the improved performance of Gumpy his fees for services rendered have undergone an increase. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Dû aux meilleures performances de Grincheux sur le terrain, ses honoraires ont augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Larry -->
 		<uiIndex>46</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please be advised, in consideration of Larry's dedication and experience his daily fee has been increased. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Afin de refléter le dévouement et l'expérience de Larry au combat, ses honoraires ont augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Larry Drunk -->
 		<uiIndex>47</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please be advised, in consideration of Larry's dedication and experience his daily fee has been increased. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Afin de refléter le dévouement et l'expérience de Larry au combat, ses honoraires ont augmenté. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Cougar -->
 		<uiIndex>48</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please consider yourself notified that Cougar's exceptional service to date warrants an increase to his daily fee, effective immediately. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez avertis de l'augmentation immédiate du salaire de Couguar pour ses excellents services rendus. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Numb -->
 		<uiIndex>49</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please consider this correspondance legal notice. Numb's daily fee has been increased to account for his improved performance. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Ce message a valeur légale. Le salaire journalier de Ricochet a augmenté pour refléter ses qualités aquises récemment. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Bubba -->
 		<uiIndex>50</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>This is a legal notice that Bubba's fees for services provided has been increased to properly reflect his abilities. ± ± Speck T. Kline ± </Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Ceci est un message vous informant de l'augmentation des honoraires de Bubba. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>51</uiIndex>
@@ -303,16 +302,14 @@
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Gaston -->
 		<uiIndex>58</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Stogie -->
 		<uiIndex>59</uiIndex>
-		<Subject>Notice of Fee Increase</Subject>
-		<Message>Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± </Message>
+		<Subject>Subject : None</Subject>
+		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>60</uiIndex>
@@ -842,24 +839,26 @@
 	<EMAIL>
 		<!-- Gaston -->
 		<uiIndex>165</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez averti qu'au vu des résultats de Gaston, le prix de ses services a été augmenté. Personnellement, cela ne me surpend pas. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Stogie -->
 		<uiIndex>166</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez avisé qu'à partir d'aujourd'hui, les honoraires de Stogie ont augmenté.  ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Tex -->
 		<uiIndex>167</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Soyez informé que l'expérience de Tex lui donne droit à une indemnisation plus élevée. Sa rémunération a donc été augmentée afin de mieux refléter sa valeur. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
+			<!-- Biggens -->
 		<uiIndex>168</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Veuillez prendre note : En raison de l'amélioration des performances de Biggens, ses honoraires ont subi une augmentation. ± ± Kline Speck T. ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -1118,38 +1117,38 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>220</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Postie</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Reuban</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>222</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Leon</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>223</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Gary</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>224</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Sparky</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>225</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Beth</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>226</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Sam</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>227</uiIndex>
@@ -1163,8 +1162,8 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>229</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Augmentation des tarifs.</Subject>
+		<Message>Message : TODO: Manuel</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>230</uiIndex>

@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CIV_GROUP_NAMES>
+  <NAME>
+	<uiIndex>0</uiIndex>
+	
+    <szGroup>None</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>1</uiIndex>
+	
+    <szGroup>Rebelle</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>2</uiIndex>
+	
+    <szGroup>Sbire</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>3</uiIndex>
+	
+    <szGroup>Armée San Mona</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>4</uiIndex>
+	
+    <szGroup>Angels</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>5</uiIndex>
+	
+    <szGroup>Mendiant</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>6</uiIndex>
+	
+    <szGroup>Touriste</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>7</uiIndex>
+	
+    <szGroup>Milice d'Alma</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>8</uiIndex>
+	
+    <szGroup>Docteur</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>9</uiIndex>
+	
+    <szGroup>Couple1</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>10</uiIndex>
+	
+    <szGroup>Plouc</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>11</uiIndex>
+	
+    <szGroup>Maton</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>12</uiIndex>
+	
+    <szGroup>Ferrailleur</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>13</uiIndex>
+	
+    <szGroup>Enfant ouvrier</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>14</uiIndex>
+	
+    <szGroup>Reine</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>15</uiIndex>
+	
+    <szGroup>Joey, Martha</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>16</uiIndex>
+	
+    <szGroup>Devin</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>17</uiIndex>
+	
+    <szGroup>Hamous</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>18</uiIndex>
+	
+    <szGroup>Terry</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>19</uiIndex>
+	
+    <szGroup>Dynamo, Gringalet</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>20</uiIndex>
+	
+    <szGroup>Milice</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>21</uiIndex>
+	
+    <szGroup>Prisonnier</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>22</uiIndex>
+	
+    <szGroup>Slot Vide 22</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>23</uiIndex>
+	
+    <szGroup>Slot Vide 23</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>24</uiIndex>
+	
+    <szGroup>Slot Vide 24</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>25</uiIndex>
+	
+    <szGroup>Slot Vide 25</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>26</uiIndex>
+	
+    <szGroup>Slot Vide 26</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>27</uiIndex>
+	
+    <szGroup>Slot Vide 27</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>28</uiIndex>
+	
+    <szGroup>Slot Vide 28</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>29</uiIndex>
+	
+    <szGroup>Slot Vide 29</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>30</uiIndex>
+	
+    <szGroup>Slot Vide 30</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>31</uiIndex>
+	
+    <szGroup>Slot Vide 31</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>32</uiIndex>
+	
+    <szGroup>Slot Vide 32</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>33</uiIndex>
+	
+    <szGroup>Slot Vide 33</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>34</uiIndex>
+	
+    <szGroup>Slot Vide 34</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>35</uiIndex>
+	
+    <szGroup>Slot Vide 35</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>36</uiIndex>
+	
+    <szGroup>Slot Vide 36</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>37</uiIndex>
+	
+    <szGroup>Slot Vide 37</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>38</uiIndex>
+	
+    <szGroup>Slot Vide 38</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>39</uiIndex>
+	
+    <szGroup>Slot Vide 39</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>40</uiIndex>
+	
+    <szGroup>Slot Vide 40</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>41</uiIndex>
+	
+    <szGroup>Slot Vide 41</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>42</uiIndex>
+	
+    <szGroup>Slot Vide 42</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>43</uiIndex>
+	
+    <szGroup>Slot Vide 43</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>44</uiIndex>
+	
+    <szGroup>Slot Vide 44</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>45</uiIndex>
+	
+    <szGroup>Slot Vide 45</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>46</uiIndex>
+	
+    <szGroup>Slot Vide 46</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>47</uiIndex>
+	
+    <szGroup>Slot Vide 47</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>48</uiIndex>
+	
+    <szGroup>Slot Vide 48</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>49</uiIndex>
+	
+    <szGroup>Slot Vide 49</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>50</uiIndex>
+	
+    <szGroup>Slot Vide 50</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>51</uiIndex>
+	
+    <szGroup>Slot Vide 51</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>52</uiIndex>
+	
+    <szGroup>Slot Vide 52</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>53</uiIndex>
+	
+    <szGroup>Slot Vide 53</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>54</uiIndex>
+	
+    <szGroup>Slot Vide 54</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>55</uiIndex>
+	
+    <szGroup>Slot Vide 55</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>56</uiIndex>
+	
+    <szGroup>Slot Vide 56</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>57</uiIndex>
+	
+    <szGroup>Slot Vide 57</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>58</uiIndex>
+	
+    <szGroup>Slot Vide 58</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>59</uiIndex>
+	
+    <szGroup>Slot Vide 59</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>60</uiIndex>
+	
+    <szGroup>Slot Vide 60</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>61</uiIndex>
+	
+    <szGroup>Slot Vide 61</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>62</uiIndex>
+	
+    <szGroup>Slot Vide 62</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>63</uiIndex>
+	
+    <szGroup>Slot Vide 63</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>64</uiIndex>
+	
+    <szGroup>Slot Vide 64</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>65</uiIndex>
+	
+    <szGroup>Slot Vide 65</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>66</uiIndex>
+	
+    <szGroup>Slot Vide 66</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>67</uiIndex>
+	
+    <szGroup>Slot Vide 67</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>68</uiIndex>
+	
+    <szGroup>Slot Vide 68</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>69</uiIndex>
+	
+    <szGroup>Slot Vide 69</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>70</uiIndex>
+	
+    <szGroup>Slot Vide 70</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>71</uiIndex>
+	
+    <szGroup>Slot Vide 71</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>72</uiIndex>
+	
+    <szGroup>Slot Vide 72</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>73</uiIndex>
+	
+    <szGroup>Slot Vide 73</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>74</uiIndex>
+	
+    <szGroup>Slot Vide 74</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>75</uiIndex>
+	
+    <szGroup>Slot Vide 75</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>76</uiIndex>
+	
+    <szGroup>Slot Vide 76</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>77</uiIndex>
+	
+    <szGroup>Slot Vide 77</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>78</uiIndex>
+	
+    <szGroup>Slot Vide 78</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>79</uiIndex>
+	
+    <szGroup>Slot Vide 79</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>80</uiIndex>
+	
+    <szGroup>Slot Vide 80</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>81</uiIndex>
+	
+    <szGroup>Slot Vide 81</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>82</uiIndex>
+	
+    <szGroup>Slot Vide 82</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>83</uiIndex>
+	
+    <szGroup>Slot Vide 83</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>84</uiIndex>
+	
+    <szGroup>Slot Vide 84</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>85</uiIndex>
+	
+    <szGroup>Slot Vide 85</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>86</uiIndex>
+	
+    <szGroup>Slot Vide 86</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>87</uiIndex>
+	
+    <szGroup>Slot Vide 87</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>88</uiIndex>
+	
+    <szGroup>Slot Vide 88</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>89</uiIndex>
+	
+    <szGroup>Slot Vide 89</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>90</uiIndex>
+	
+    <szGroup>Slot Vide 90</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>91</uiIndex>
+	
+    <szGroup>Slot Vide 91</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>92</uiIndex>
+	
+    <szGroup>Slot Vide 92</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>93</uiIndex>
+	
+    <szGroup>Slot Vide 93</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>94</uiIndex>
+	
+    <szGroup>Slot Vide 94</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>95</uiIndex>
+	
+    <szGroup>Slot Vide 95</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>96</uiIndex>
+	
+    <szGroup>Slot Vide 96</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>97</uiIndex>
+	
+    <szGroup>Slot Vide 97</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>98</uiIndex>
+	
+    <szGroup>Slot Vide 98</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>99</uiIndex>
+	
+    <szGroup>Slot Vide 99</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>100</uiIndex>
+	
+    <szGroup>Slot Vide 100</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>101</uiIndex>
+	
+    <szGroup>Slot Vide 101</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>102</uiIndex>
+	
+    <szGroup>Slot Vide 102</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>103</uiIndex>
+	
+    <szGroup>Slot Vide 103</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>104</uiIndex>
+	
+    <szGroup>Slot Vide 104</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>105</uiIndex>
+	
+    <szGroup>Slot Vide 105</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>106</uiIndex>
+	
+    <szGroup>Slot Vide 106</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>107</uiIndex>
+	
+    <szGroup>Slot Vide 107</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>108</uiIndex>
+	
+    <szGroup>Slot Vide 108</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>109</uiIndex>
+	
+    <szGroup>Slot Vide 109</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>110</uiIndex>
+	
+    <szGroup>Slot Vide 110</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>111</uiIndex>
+	
+    <szGroup>Slot Vide 111</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>112</uiIndex>
+	
+    <szGroup>Slot Vide 112</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>113</uiIndex>
+	
+    <szGroup>Slot Vide 113</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>114</uiIndex>
+	
+    <szGroup>Slot Vide 114</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>115</uiIndex>
+	
+    <szGroup>Slot Vide 115</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>116</uiIndex>
+	
+    <szGroup>Slot Vide 116</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>117</uiIndex>
+	
+    <szGroup>Slot Vide 117</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>118</uiIndex>
+	
+    <szGroup>Slot Vide 118</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>119</uiIndex>
+	
+    <szGroup>Slot Vide 119</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>120</uiIndex>
+	
+    <szGroup>Slot Vide 120</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>121</uiIndex>
+	
+    <szGroup>Slot Vide 121</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>122</uiIndex>
+	
+    <szGroup>Slot Vide 122</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>123</uiIndex>
+	
+    <szGroup>Slot Vide 123</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>124</uiIndex>
+	
+    <szGroup>Slot Vide 124</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>125</uiIndex>
+	
+    <szGroup>Slot Vide 125</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>126</uiIndex>
+	
+    <szGroup>Slot Vide 126</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>127</uiIndex>
+	
+    <szGroup>Slot Vide 127</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>128</uiIndex>
+	
+    <szGroup>Slot Vide 128</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>129</uiIndex>
+	
+    <szGroup>Slot Vide 129</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>130</uiIndex>
+	
+    <szGroup>Slot Vide 130</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>131</uiIndex>
+	
+    <szGroup>Slot Vide 131</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>132</uiIndex>
+	
+    <szGroup>Slot Vide 132</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>133</uiIndex>
+	
+    <szGroup>Slot Vide 133</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>134</uiIndex>
+	
+    <szGroup>Slot Vide 134</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>135</uiIndex>
+	
+    <szGroup>Slot Vide 135</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>136</uiIndex>
+	
+    <szGroup>Slot Vide 136</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>137</uiIndex>
+	
+    <szGroup>Slot Vide 137</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>138</uiIndex>
+	
+    <szGroup>Slot Vide 138</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>139</uiIndex>
+	
+    <szGroup>Slot Vide 139</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>140</uiIndex>
+	
+    <szGroup>Slot Vide 140</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>141</uiIndex>
+	
+    <szGroup>Slot Vide 141</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>142</uiIndex>
+	
+    <szGroup>Slot Vide 142</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>143</uiIndex>
+	
+    <szGroup>Slot Vide 143</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>144</uiIndex>
+	
+    <szGroup>Slot Vide 144</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>145</uiIndex>
+	
+    <szGroup>Slot Vide 145</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>146</uiIndex>
+	
+    <szGroup>Slot Vide 146</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>147</uiIndex>
+	
+    <szGroup>Slot Vide 147</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>148</uiIndex>
+	
+    <szGroup>Slot Vide 148</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>149</uiIndex>
+	
+    <szGroup>Slot Vide 149</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>150</uiIndex>
+	
+    <szGroup>Slot Vide 150</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>151</uiIndex>
+	
+    <szGroup>Slot Vide 151</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>152</uiIndex>
+	
+    <szGroup>Slot Vide 152</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>153</uiIndex>
+	
+    <szGroup>Slot Vide 153</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>154</uiIndex>
+	
+    <szGroup>Slot Vide 154</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>155</uiIndex>
+	
+    <szGroup>Slot Vide 155</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>156</uiIndex>
+	
+    <szGroup>Slot Vide 156</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>157</uiIndex>
+	
+    <szGroup>Slot Vide 157</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>158</uiIndex>
+	
+    <szGroup>Slot Vide 158</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>159</uiIndex>
+	
+    <szGroup>Slot Vide 159</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>160</uiIndex>
+	
+    <szGroup>Slot Vide 160</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>161</uiIndex>
+	
+    <szGroup>Slot Vide 161</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>162</uiIndex>
+	
+    <szGroup>Slot Vide 162</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>163</uiIndex>
+	
+    <szGroup>Slot Vide 163</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>164</uiIndex>
+	
+    <szGroup>Slot Vide 164</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>165</uiIndex>
+	
+    <szGroup>Slot Vide 165</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>166</uiIndex>
+	
+    <szGroup>Slot Vide 166</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>167</uiIndex>
+	
+    <szGroup>Slot Vide 167</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>168</uiIndex>
+	
+    <szGroup>Slot Vide 168</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>169</uiIndex>
+	
+    <szGroup>Slot Vide 169</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>170</uiIndex>
+	
+    <szGroup>Slot Vide 170</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>171</uiIndex>
+	
+    <szGroup>Slot Vide 171</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>172</uiIndex>
+	
+    <szGroup>Slot Vide 172</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>173</uiIndex>
+	
+    <szGroup>Slot Vide 173</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>174</uiIndex>
+	
+    <szGroup>Slot Vide 174</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>175</uiIndex>
+	
+    <szGroup>Slot Vide 175</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>176</uiIndex>
+	
+    <szGroup>Slot Vide 176</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>177</uiIndex>
+	
+    <szGroup>Slot Vide 177</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>178</uiIndex>
+	
+    <szGroup>Slot Vide 178</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>179</uiIndex>
+	
+    <szGroup>Slot Vide 179</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>180</uiIndex>
+	
+    <szGroup>Slot Vide 180</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>181</uiIndex>
+	
+    <szGroup>Slot Vide 181</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>182</uiIndex>
+	
+    <szGroup>Slot Vide 182</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>183</uiIndex>
+	
+    <szGroup>Slot Vide 183</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>184</uiIndex>
+	
+    <szGroup>Slot Vide 184</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>185</uiIndex>
+	
+    <szGroup>Slot Vide 185</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>186</uiIndex>
+	
+    <szGroup>Slot Vide 186</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>187</uiIndex>
+	
+    <szGroup>Slot Vide 187</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>188</uiIndex>
+	
+    <szGroup>Slot Vide 188</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>189</uiIndex>
+	
+    <szGroup>Slot Vide 189</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>190</uiIndex>
+	
+    <szGroup>Slot Vide 190</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>191</uiIndex>
+	
+    <szGroup>Slot Vide 191</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>192</uiIndex>
+	
+    <szGroup>Slot Vide 192</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>193</uiIndex>
+	
+    <szGroup>Slot Vide 193</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>194</uiIndex>
+	
+    <szGroup>Slot Vide 194</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>195</uiIndex>
+	
+    <szGroup>Slot Vide 195</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>196</uiIndex>
+	
+    <szGroup>Slot Vide 196</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>197</uiIndex>
+	
+    <szGroup>Slot Vide 197</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>198</uiIndex>
+	
+    <szGroup>Slot Vide 198</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>199</uiIndex>
+	
+    <szGroup>Slot Vide 199</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>200</uiIndex>
+	
+    <szGroup>Slot Vide 200</szGroup>
+  </NAME>
+ <NAME>
+	<uiIndex>201</uiIndex>
+	
+    <szGroup>Slot Vide 201</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>202</uiIndex>
+	
+    <szGroup>Slot Vide 202</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>203</uiIndex>
+	
+    <szGroup>Slot Vide 203</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>204</uiIndex>
+	
+    <szGroup>Slot Vide 204</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>205</uiIndex>
+	
+    <szGroup>Slot Vide 205</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>206</uiIndex>
+	
+    <szGroup>Slot Vide 206</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>207</uiIndex>
+	
+    <szGroup>Slot Vide 207</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>208</uiIndex>
+	
+    <szGroup>Slot Vide 208</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>209</uiIndex>
+	
+    <szGroup>Slot Vide 209</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>210</uiIndex>
+	
+    <szGroup>Slot Vide 210</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>211</uiIndex>
+	
+    <szGroup>Slot Vide 211</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>212</uiIndex>
+	
+    <szGroup>Slot Vide 212</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>213</uiIndex>
+	
+    <szGroup>Slot Vide 213</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>214</uiIndex>
+	
+    <szGroup>Slot Vide 214</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>215</uiIndex>
+	
+    <szGroup>Slot Vide 215</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>216</uiIndex>
+	
+    <szGroup>Slot Vide 216</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>217</uiIndex>
+	
+    <szGroup>Slot Vide 217</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>218</uiIndex>
+	
+    <szGroup>Slot Vide 218</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>219</uiIndex>
+	
+    <szGroup>Slot Vide 219</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>220</uiIndex>
+	
+    <szGroup>Slot Vide 220</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>221</uiIndex>
+	
+    <szGroup>Slot Vide 221</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>222</uiIndex>
+	
+    <szGroup>Slot Vide 222</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>223</uiIndex>
+	
+    <szGroup>Slot Vide 223</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>224</uiIndex>
+	
+    <szGroup>Slot Vide 224</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>225</uiIndex>
+	
+    <szGroup>Slot Vide 225</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>226</uiIndex>
+	
+    <szGroup>Slot Vide 226</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>227</uiIndex>
+	
+    <szGroup>Slot Vide 227</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>228</uiIndex>
+	
+    <szGroup>Slot Vide 228</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>229</uiIndex>
+	
+    <szGroup>Slot Vide 229</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>230</uiIndex>
+	
+    <szGroup>Slot Vide 230</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>231</uiIndex>
+	
+    <szGroup>Slot Vide 231</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>232</uiIndex>
+	
+    <szGroup>Slot Vide 232</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>233</uiIndex>
+	
+    <szGroup>Slot Vide 233</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>234</uiIndex>
+	
+    <szGroup>Slot Vide 234</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>235</uiIndex>
+	
+    <szGroup>Slot Vide 235</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>236</uiIndex>
+	
+    <szGroup>Slot Vide 236</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>237</uiIndex>
+	
+    <szGroup>Slot Vide 237</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>238</uiIndex>
+	
+    <szGroup>Slot Vide 238</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>239</uiIndex>
+	
+    <szGroup>Slot Vide 239</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>240</uiIndex>
+	
+    <szGroup>Slot Vide 240</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>241</uiIndex>
+	
+    <szGroup>Slot Vide 241</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>242</uiIndex>
+	
+    <szGroup>Slot Vide 242</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>243</uiIndex>
+	
+    <szGroup>Slot Vide 243</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>244</uiIndex>
+	
+    <szGroup>Slot Vide 244</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>245</uiIndex>
+	
+    <szGroup>Slot Vide 245</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>246</uiIndex>
+	
+    <szGroup>Slot Vide 246</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>247</uiIndex>
+	
+    <szGroup>Slot Vide 247</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>248</uiIndex>
+	
+    <szGroup>Slot Vide 248</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>249</uiIndex>
+	
+    <szGroup>Slot Vide 249</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>250</uiIndex>
+	
+    <szGroup>Slot Vide 250</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>251</uiIndex>
+	
+    <szGroup>Slot Vide 251</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>252</uiIndex>
+	
+    <szGroup>Slot Vide 252</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>253</uiIndex>
+	
+    <szGroup>Slot Vide 253</szGroup>
+  </NAME>
+  <NAME>
+	<uiIndex>254</uiIndex>
+	
+    <szGroup>Slot Vide 254</szGroup>
+  </NAME>
+</CIV_GROUP_NAMES>

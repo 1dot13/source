@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -58,7 +58,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>7</uiIndex>
-		<szItemName>Desert Eagle .357</szItemName>
+		<szItemName>Desert .357</szItemName>
 		<szLongItemName>Desert Eagle .357</szLongItemName>
 		<szItemDesc>Ce revolver israélien a la cadence de tir d'un semi-automatique et la puissance de feu d'un Barracuda. Inutile de faire dans la finesse.</szItemDesc>
 		<szBRName>Desert Eagle .357</szBRName>
@@ -82,7 +82,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>10</uiIndex>
-		<szItemName>MAC-10</szItemName>
+		<szItemName>Ingram M10</szItemName>
 		<szLongItemName>Ingram M10</szLongItemName>
 		<szItemDesc>Le Uzi made in America. Cette arme n'est pas récente, mais au moins elle a fait ses preuves.</szItemDesc>
 		<szBRName>Ingram M10</szBRName>
@@ -90,7 +90,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>11</uiIndex>
-		<szItemName>Thompson M1A1</szItemName>
+		<szItemName>Thomps. M1A1</szItemName>
 		<szLongItemName>Thompson M1A1</szLongItemName>
 		<szItemDesc>Une pièce de collection ! Cette mitraillette américaine a servi fidèlement les soldats américains à la fin de la Deuxième Guerre Mondiale.</szItemDesc>
 		<szBRName>Thompson M1A1</szBRName>
@@ -98,7 +98,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>12</uiIndex>
-		<szItemName>Commando</szItemName>
+		<szItemName>M4 Commando</szItemName>
 		<szLongItemName>Colt M4 Commando</szLongItemName>
 		<szItemDesc>Une version raccourcie du fusil d'assaut M-16 américain. Une arme de choix pour éliminer voisins et dictateurs.</szItemDesc>
 		<szBRName>Colt M4 Commando</szBRName>
@@ -110,7 +110,7 @@
 		<szLongItemName>HK 53A3</szLongItemName>
 		<szItemDesc>La toute nouvelle mitraillette de Heckler &amp; Koch est réputée pour son puissant recul. Il est conseillé de ne l'utiliser qu'en extérieur.</szItemDesc>
 		<szBRName>HK 53A3</szBRName>
-		<szBRDesc>Ce fusil-mitrailleur allemand dispose d'une puissance d'arrêt incroyable en comparaison de sa taille. Il est doté d'un cache-flammes, nécessaire sur les armes de petites tailles.</szBRDesc>
+		<szBRDesc>Ce fusil-mitrailleur allemand dispose d'une puissance d'arrêt incroyable en comparaison de sa taille. Il est doté d'un cache-flamme, nécessaire sur les armes de petites tailles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>14</uiIndex>
@@ -150,7 +150,7 @@
 		<szLongItemName>Dragunov SVD</szLongItemName>
 		<szItemDesc>L'arme des tireurs d'élite russes est d'une précision redoutable. Ce fusil a insufflé plus que de la peur dans le coeur des officiers du monde entier.</szItemDesc>
 		<szBRName>Dragunov SVD</szBRName>
-		<szBRDesc>Ce fusil de précision russe a fort bonne réputation, et à juste titre. Il est livré avec une lunette PSO-1 et un système de vision nocturne  NSPU-3.</szBRDesc>
+		<szBRDesc>Ce fusil de précision russe a fort bonne réputation, et à juste titre. Il est livré avec une lunette PSO-1 et un système de vision nocturne NSPU-3.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>19</uiIndex>
@@ -162,7 +162,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>20</uiIndex>
-		<szItemName>AUG-A2</szItemName>
+		<szItemName>Steyr AUG-A2</szItemName>
 		<szLongItemName>Steyr AUG-A2</szLongItemName>
 		<szItemDesc>Son look futuriste est assez déconcertant, mais ce fusil d'assaut est une arme efficace actuellement en service dans l'armée autrichienne.</szItemDesc>
 		<szBRName>Steyr AUG-A2</szBRName>
@@ -174,11 +174,11 @@
 		<szLongItemName>HK G41A2</szLongItemName>
 		<szItemDesc>La puissance d'arrêt du G41 est impressionnante. De quoi donner de sacrés maux de crâne à l'adversaire !</szItemDesc>
 		<szBRName>HK G41A2</szBRName>
-		<szBRDesc>Conforme aux standards OTAN, ce fusil d'assaut allemand est une arme de première qualité. Il est doté d'un système permettant de laisser la culasse ouverte pendant le tir et sa chambre d'éjection dispose d'un  cache-poussière.</szBRDesc>
+		<szBRDesc>Conforme aux standards OTAN, ce fusil d'assaut allemand est une arme de première qualité. Il est doté d'un système permettant de laisser la culasse ouverte pendant le tir et sa chambre d'éjection dispose d'un cache-poussière.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>22</uiIndex>
-		<szItemName>Mini-14</szItemName>
+		<szItemName>Ruger Mini-14</szItemName>
 		<szLongItemName>Ruger Mini-14</szLongItemName>
 		<szItemDesc>Le fusil Sturm Ruger est une copie du fusil Garand américain utilisé par les GIs au cours de la seconde guerre mondiale.</szItemDesc>
 		<szBRName>Ruger Mini-14</szBRName>
@@ -186,7 +186,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>23</uiIndex>
-		<szItemName>C7A2</szItemName>
+		<szItemName>Diemaco C7A2</szItemName>
 		<szLongItemName>Diemaco C7A2</szLongItemName>
 		<szItemDesc>Le C-7 est la preuve que les copies sont parfois meilleures que les originaux. Il s'agit d'un M-16 modifié, et tout mercenaire rêve d'en avoir.</szItemDesc>
 		<szBRName>Diemaco C7A2</szBRName>
@@ -194,7 +194,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>24</uiIndex>
-		<szItemName>FAMAS</szItemName>
+		<szItemName>FAMAS G2</szItemName>
 		<szLongItemName>FAMAS G2</szLongItemName>
 		<szItemDesc>Ce fusil d'assaut français est surnommé "le clairon". Malgré sa taille ridicule, il fait tout aussi bien si ce n'est mieux qu'un M-16.</szItemDesc>
 		<szBRName>FAMAS G2</szBRName>
@@ -251,7 +251,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>31</uiIndex>
-		<szItemName>M870</szItemName>
+		<szItemName>Remington</szItemName>
 		<szLongItemName>Remington M870</szLongItemName>
 		<szItemDesc>Ce fusil à pompe est l'une des armes les plus efficaces que vous puissiez acheter. Il sert à tout : à chasser, à se défendre et à ouvrir des portes.</szItemDesc>
 		<szBRName>Remington M870</szBRName>
@@ -269,13 +269,13 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK CAWS</szLongItemName>
-		<szItemDesc>Le fusil expérimental "Close Assault Weapons System" de chez HK. Il utilise une munition de calibre 12 speciale développée par  Olin/Winchester qui lui fourni une portée supérieure à celle des fusils à pompe conventionnels. Il dispose d'un tir semi et  auto.</szItemDesc>
+		<szItemDesc>Le fusil expérimental "Close Assault Weapons System" de chez HK. Il utilise une munition de calibre 12 speciale développée par Olin/Winchester qui lui fournit une portée supérieure à celle des fusils à pompe conventionnels. Il dispose d'un tir semi et auto.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
-		<szBRDesc>Nous sommes sûrs que vous adoreraient le CAWS! Nous venons juste de recevoir une cargaison limitée de ces fusils expérimentaux, et de leurs munitions spéciales. Transformez vos ennemis en pâté pour chien à 240 coups/minute. Fournis avec une visée intégrée.</szBRDesc>
+		<szBRDesc>Nous sommes sûrs que vous adoreraient le CAWS! Nous venons juste de recevoir une cargaison limitée de ces fusils expérimentaux, et de leurs munitions spéciales. Transformez vos ennemis en pâté pour chien à 240 coups/minute. Livré avec une visée intégrée.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>34</uiIndex>
-		<szItemName>Minimi</szItemName>
+		<szItemName>FN Minimi</szItemName>
 		<szLongItemName>FN Minimi</szLongItemName>
 		<szItemDesc>Cette mitrailleuse légère porte également le nom de C-9 ou de M-249. A l'origine, il s'agit d'un fusil d'assaut modifié et au canon renforcé.</szItemDesc>
 		<szBRName>FN Minimi</szBRName>
@@ -299,7 +299,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
-		<szItemName>Couteau</szItemName>
+		<szItemName>Couteau comb.</szItemName>
 		<szLongItemName>Couteau de Combat</szLongItemName>
 		<szItemDesc>Cette longue lame d'acier vous transforme en une machine à tuer silencieuse et efficace.</szItemDesc>
 		<szBRName>Couteau de Combat</szBRName>
@@ -307,10 +307,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>38</uiIndex>
-		<szItemName>Throw. Knife</szItemName>
-		<szLongItemName>Couteau de Lancer</szLongItemName>
+		<szItemName>C. de lancer</szItemName>
+		<szLongItemName>Couteau de lancer</szLongItemName>
 		<szItemDesc>Ce couteau parfaitement équilibré est idéal lorsque vous souhaitez mettre un terme aux souffrances d'une sentinelle.</szItemDesc>
-		<szBRName>Couteau de Lancer</szBRName>
+		<szBRName>Couteau de lancer</szBRName>
 		<szBRDesc>Que vous soyez novice ou expérimenté, ce couteau de lancer vous permettra d'éliminer l'opposition à courte distance sans faire de bruit grâce à sa lame en acier à double tranchant.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -331,10 +331,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>41</uiIndex>
-		<szItemName>Mortier</szItemName>
-		<szLongItemName>M224 Mortier</szLongItemName>
+		<szItemName>Mortier M224</szItemName>
+		<szLongItemName>Mortier M224</szLongItemName>
 		<szItemDesc>Le M224 est un mortier léger de calibre 60mm monté sur une plaque M7 et un bipied. Il permet de tirer des obus explosifs.</szItemDesc>
-		<szBRName>M224 Mortier</szBRName>
+		<szBRName>Mortier M224</szBRName>
 		<szBRDesc>Le mortier M224 de 60mm est une arme de soutien indispensable à tout groupe de mercenaires. Il dispose d'une plaque M7, d'une mire et d'un bipied et est capable de tirer des obus hautement explosifs.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -379,7 +379,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>47</uiIndex>
-		<szItemName>Tentacule de Reine</szItemName>
+		<szItemName>Tentacule</szItemName>
 		<szLongItemName>Tentacule de Reine</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
 		<szBRName>Tentacule de Reine</szBRName>
@@ -387,7 +387,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>48</uiIndex>
-		<szItemName>Crachat de Reine</szItemName>
+		<szItemName>Crachat Reine</szItemName>
 		<szLongItemName>Crachat de Reine</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
 		<szBRName>Crachat de Reine</szBRName>
@@ -395,10 +395,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>49</uiIndex>
-		<szItemName>Coup de Poing</szItemName>
-		<szLongItemName>Coup de Poing Américain</szLongItemName>
+		<szItemName>Poing</szItemName>
+		<szLongItemName>Poing Américain</szLongItemName>
 		<szItemDesc>Ces coups de poing américains sont adaptables à toutes les mains. Avec ça, vos coups de poing auront plus de puissance.</szItemDesc>
-		<szBRName>Coup de Poing</szBRName>
+		<szBRName>Poing américain</szBRName>
 		<szBRDesc>Si vous voulez marquer vos ennemis, vous serez servis. Un peu lourd, mais tient facilement dans une poche arrière. Taille unique.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -411,15 +411,15 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>51</uiIndex>
-		<szItemName>LAW</szItemName>
-		<szLongItemName>M72A4 LAW</szLongItemName>
+		<szItemName>M72A4 LAW</szItemName>
+		<szLongItemName>Lance-roquette M72A4 LAW</szLongItemName>
 		<szItemDesc>Il suffit d'une roquette tirée par ce bazooka pour expédier ad patres n'importe quel adversaire.</szItemDesc>
-		<szBRName>M72A4 LAW</szBRName>
+		<szBRName>Lance-roq. M72A4 LAW</szBRName>
 		<szBRDesc>Le lance-roquettes M72A2 est une arme antichar légère capable de transpercer 30 cm de blindage ou de détruire une fortification sommaire. Une arme à coup unique extraordinairement puissante.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>52</uiIndex>
-		<szItemName>Griffes Chat Sauvage</szItemName>
+		<szItemName>Griffes Chat</szItemName>
 		<szLongItemName>Griffes de Chat Sauvage</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
 		<szBRName>Griffes Chat Sauvage</szBRName>
@@ -427,10 +427,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>53</uiIndex>
-		<szItemName>Empreinte de Chat Sauvage</szItemName>
-		<szLongItemName>Empreinte de Chat Sauvage</szLongItemName>
+		<szItemName>Crocs Chat</szItemName>
+		<szLongItemName>Crocs de Chat Sauvage</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Croc de Chat Sauvage</szBRName>
+		<szBRName>Crocs de Chat Sauvage</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -443,7 +443,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>55</uiIndex>
-		<szItemName>Fusil à Roquette</szItemName>
+		<szItemName>Fusil à roq.</szItemName>
 		<szLongItemName>Fusil à Roquette</szLongItemName>
 		<szItemDesc>Annihilez vos adversaires avec le nec plus ultra des armes modernes. Il est livré avec un viseur laser et un système de protection électronique.</szItemDesc>
 		<szBRName>Fusil à Roquette</szBRName>
@@ -459,31 +459,31 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>57</uiIndex>
-		<szItemName>Crachat de Nouveau-Né</szItemName>
-		<szLongItemName>Crachat de Jeune Créature</szLongItemName>
+		<szItemName>Crachat bébé</szItemName>
+		<szLongItemName>Crachat nouveau-né</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Crachat de Nouveau-Né</szBRName>
+		<szBRName>Crachat de nouveau-né</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>58</uiIndex>
-		<szItemName>Crachat de Jeune Mâle</szItemName>
-		<szLongItemName>Crachat de Jeune Mâle</szLongItemName>
+		<szItemName>Crachat j. m.</szItemName>
+		<szLongItemName>Crachat Jeune Mâle</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
 		<szBRName>Crachat de Jeune Mâle</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>59</uiIndex>
-		<szItemName>Crachat de Vieux Mâle</szItemName>
-		<szLongItemName>Crachat de Vieux Mâle</szLongItemName>
+		<szItemName>Crachat v. m.</szItemName>
+		<szLongItemName>Crachat Vieux Mâle</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
 		<szBRName>Crachat de Vieux Mâle</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>60</uiIndex>
-		<szItemName>Canon</szItemName>
+		<szItemName>Canon de Char</szItemName>
 		<szLongItemName>Canon de Char</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
 		<szBRName>Canon de Char</szBRName>
@@ -491,74 +491,74 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>61</uiIndex>
-		<szItemName>Pistolet à Fléchettes</szItemName>
-		<szLongItemName>Pistolet à Fléchettes</szLongItemName>
-		<szItemDesc>Le pistolet à fléchettes est capable de tuer presque sans le moindre bruit. Utilisez-le pour éliminer l'adversaire sans même devoir appeler cette bonne vieille faucheuse.</szItemDesc>
-		<szBRName>Pistolet à Fléchettes</szBRName>
-		<szBRDesc>Le pistolet à fléchettes est capable de tuer presque sans le moindre bruit. Utilisez-le pour éliminer l'adversaire sans même devoir appeler cette bonne vieille faucheuse.</szBRDesc>
+		<szItemName>Pistolet</szItemName>
+		<szLongItemName>Pistolet fléchette</szLongItemName>
+		<szItemDesc>Le pistolet à fléchette est capable de tuer presque sans le moindre bruit. Utilisez-le pour éliminer l'adversaire sans même devoir appeler cette bonne vieille faucheuse.</szItemDesc>
+		<szBRName>Pistolet à fléchette</szBRName>
+		<szBRDesc>Le pistolet à fléchette est capable de tuer presque sans le moindre bruit. Utilisez-le pour éliminer l'adversaire sans même devoir appeler cette bonne vieille faucheuse.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>62</uiIndex>
-		<szItemName>Couteau de Lancer</szItemName>
-		<szLongItemName>Couteau de Lancer Ensanglanté</szLongItemName>
+		<szItemName>Couteau</szItemName>
+		<szLongItemName>Couteau lanc/sang</szLongItemName>
 		<szItemDesc>Un couteau de lancer léger, dont la lame acier-carbone chromée est couverte de sang.</szItemDesc>
-		<szBRName>Couteau de Lancer Ensanglanté</szBRName>
+		<szBRName>Couteau lanc/sang</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>63</uiIndex>
-		<szItemName>Lance-Flammes</szItemName>
-		<szLongItemName>Lance-Flammes</szLongItemName>
+		<szItemName>Lance-flammes</szItemName>
+		<szLongItemName>Lance-flammes</szLongItemName>
 		<szItemDesc>Avec une arme pareille, vous pouvez faire de vrais barbecues !</szItemDesc>
-		<szBRName>Lance-Flammes</szBRName>
+		<szBRName>Lance-flammes</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>64</uiIndex>
-		<szItemName>Pied-de Biche</szItemName>
-		<szLongItemName>Pied-de-Biche</szLongItemName>
+		<szItemName>Pied-de-biche</szItemName>
+		<szLongItemName>Pied-de-biche</szLongItemName>
 		<szItemDesc>Ce pied-de-biche en fabriqué en titane, plus résistant que l'acier tout en étant plus léger et inoxydable.</szItemDesc>
-		<szBRName>Pied-de-Biche</szBRName>
+		<szBRName>Pied-de-biche</szBRName>
 		<szBRDesc>Ce pied-de-biche en titane peut s'avérer très utile. Le titane a l'avantage d'être plus résistant que l'acier et de ne pas rouiller. Comme cet objet est très léger, ne sortez pas sans lui !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>65</uiIndex>
-		<szItemName>Fusil A.R.</szItemName>
-		<szLongItemName>Fusil à Roquette Automatique</szLongItemName>
+		<szItemName>Fusil auto R.</szItemName>
+		<szLongItemName>Fusil Auto roq.</szLongItemName>
 		<szItemDesc>Ce prototype dérivé du fusil à roquette est capable de vider son chargeur en un rien de temps !</szItemDesc>
-		<szBRName>Fusil à Roquette Automatique</szBRName>
+		<szBRName>Fusil Automatique à Roquettes</szBRName>
 		<szBRDesc>PAS DE DESCRIPTION !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>66</uiIndex>
-		<szItemName>Hartford 6</szItemName>
-		<szLongItemName>EMF Hartford 6 Shooter modifié</szLongItemName>
+		<szItemName>EMF Hartford</szItemName>
+		<szLongItemName>EMF Hartford 6</szLongItemName>
 		<szItemDesc>Ceci est un .357 , six coup modifié pour Tex Colburn. Il est composé d'un canon dix pouces et une poignée sculptée en ivoire, il y est inscris "TEX" avec des lettres en or massif.</szItemDesc>
-		<szBRName>EMF Hartford 6 Shooter modifié</szBRName>
+		<szBRName>Hartford 6 Coups modifié</szBRName>
 		<szBRDesc>Ceci est un .357 , six coup modifié pour Tex Colburn. Il est composé d'un canon dix pouces et une poignée sculptée en ivoire, il y est inscris "TEX" avec des lettres en or massif.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>67</uiIndex>
-		<szItemName>M-950</szItemName>
-		<szLongItemName>Calico M-950</szLongItemName>
+		<szItemName>Calico M950</szItemName>
+		<szLongItemName>Calico M950</szLongItemName>
 		<szItemDesc>Version "arme de poing" du M960. Avec un chargeur 50 coups, cette arme ne pourrait probablement être classifiée comme "arme de poing" qu'aux USA.</szItemDesc>
-		<szBRName>Calico M-950</szBRName>
+		<szBRName>Calico M950</szBRName>
 		<szBRDesc>Fabriqué en Amerique, ceci est une version "arme de poing" du M960. Autorisant le tir coup par coup et rafales limitées uniquement et le même chargeur 50 coups, cette arme ne pourrait probablement être classifiée comme "arme de poing" qu'aux Etats unis .</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>68</uiIndex>
-		<szItemName>M-900</szItemName>
-		<szLongItemName>Calico M-900</szLongItemName>
+		<szItemName>Calico M900</szItemName>
+		<szLongItemName>Calico M900</szLongItemName>
 		<szItemDesc>Une autre reincarnation du M960, cette version est dotée d'un cannon dont la longueur est peu courante pour une arme de ce calibre. Semi automatique seulement, le M-900 profite du même chargeur 50 coups que son grand frère.</szItemDesc>
-		<szBRName>Calico M-900</szBRName>
+		<szBRName>Calico M900</szBRName>
 		<szBRDesc>Une autre reincarnation du M960, cette version est dotée d'un cannon dont la longueur est peu courante pour une arme de ce calibre. Semi automatique seulement, le M-900 profite du même chargeur 50 coups que son grand frère.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
-		<szItemName>M-960A</szItemName>
-		<szLongItemName>Calico M-960A</szLongItemName>
+		<szItemName>Calico M960A</szItemName>
+		<szLongItemName>Calico M960A</szLongItemName>
 		<szItemDesc>Connue comme la "Mini Sub Machine Gun" ce modèle americain utilise un chargeur helicoïdal 50 coups de 9mm, et a accompli bien des choses depuis 1990.</szItemDesc>
-		<szBRName>Calico M-960A</szBRName>
+		<szBRName>Calico M960A</szBRName>
 		<szBRDesc>Connue comme la "Mini Sub Machine Gun" ce modèle americain utilise un chargeur helicoïdal 50 coups de 9mm, et a accompli bien des choses depuis 1990.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -587,66 +587,66 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>73</uiIndex>
-		<szItemName>9x19mm, 15 AP</szItemName>
-		<szLongItemName>9x19mm perçantes, 15</szLongItemName>
+		<szItemName>9x19 PE 15</szItemName>
+		<szLongItemName>9x19mm PE, 15</szLongItemName>
 		<szItemDesc>Ce chargeur contient 15 cartouches de 9mm en Téflon conçues pour traverser les gilets pare-balles. Ces munitions disposent en contrepartie d'une puissance d'arrêt inférieure aux balles blindées ou à têtes creuses.</szItemDesc>
-		<szBRName>9x19mm perçantes, 15</szBRName>
+		<szBRName>9x19mm PE, 15</szBRName>
 		<szBRDesc>Vos ennemis se cachent derrière du Kevlar ? Aucune importance, voici un chargeur de 15 cartouches en acier renforcé.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>74</uiIndex>
-		<szItemName>9x19mm AP, 30</szItemName>
-		<szLongItemName>9x19mm perçantes, 30</szLongItemName>
+		<szItemName>9x19 PE 30</szItemName>
+		<szLongItemName>9x19mm PE, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 9mm en Téflon conçues pour traverser les gilets pare-balles. Elles disposent d'une puissance d'arrêt moindre que les munitions classiques, cependant.</szItemDesc>
-		<szBRName>9x19mm perçantes, 30</szBRName>
+		<szBRName>9x19mm PE, 30</szBRName>
 		<szBRDesc>Ce chargeur de 30 cartouches de 9mm perçantes est très populaire parmi les hors-la-loi...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>75</uiIndex>
-		<szItemName>9x19mm TC, 15</szItemName>
-		<szLongItemName>9x19mm Têtes creuses, 15</szLongItemName>
+		<szItemName>9x19 TC, 15</szItemName>
+		<szLongItemName>9x19mm TC, 15</szLongItemName>
 		<szItemDesc>Ce chargeur contient 15 cartouches de 9mm à têtes creuses. Si ces munitions ne sont pas conçues pour traverser les gilets pare-balles, elles causent d'irréparables dégâts dans le corps.</szItemDesc>
-		<szBRName>9x19mm Têtes creuses, 15</szBRName>
+		<szBRName>9x19mm TC, 15</szBRName>
 		<szBRDesc>Ce chargeur de 15 cartouches de 9mm à têtes creuses représente actuellement le top. Extraordinairement efficace contre tout adversaire sans armure.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>76</uiIndex>
-		<szItemName>9x19mm TC, 30</szItemName>
-		<szLongItemName>9x19mm Têtes creuses, 30</szLongItemName>
-		<szItemDesc>Ce chargeur contient 30 cartouches de 9mm à têtes creuses. Elles causent autant de dégâts que des balles à tête creuse et ont une puissance  de pénétration identique à celle des munitions classiques.</szItemDesc>
-		<szBRName>9x19mm SMG Mag HP</szBRName>
-		<szBRDesc>Un chargeur de 30 cartouches 115 grains chemisées à têtes creuses. Ainsi garni, votre MP5 fera pâlir d'envie toutes les unités  spéciales du monde.</szBRDesc>
+		<szItemName>9x19 TC 30</szItemName>
+		<szLongItemName>9x19mm TC, 30</szLongItemName>
+		<szItemDesc>Ce chargeur contient 30 cartouches de 9mm à têtes creuses. Elles causent autant de dégâts que des balles à tête creuse et ont une puissance de pénétration identique à celle des munitions classiques.</szItemDesc>
+		<szBRName>9x19mm TC, 30</szBRName>
+		<szBRDesc>Un chargeur de 30 cartouches 115 grains chemisées à têtes creuses. Ainsi garni, votre MP5 fera pâlir d'envie toutes les unités spéciales du monde.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>77</uiIndex>
-		<szItemName>.38</szItemName>
-		<szLongItemName>.38</szLongItemName>
+		<szItemName>.38, 6</szItemName>
+		<szLongItemName>.38, 6</szLongItemName>
 		<szItemDesc>Ce chargeur rapide permet de recharger rapidement avec 6 cartouches n'importe quel barillet de revolver calibre .38. Ces munitions ont des puissances de pénétration et d'arrêt importantes.</szItemDesc>
-		<szBRName>.38</szBRName>
+		<szBRName>.38, 6</szBRName>
 		<szBRDesc>Un chargeur rapide de 6 cartouches .38. Ces munitions Winchester 158 grains ont fait leurs preuves depuis longtemps.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>78</uiIndex>
-		<szItemName>.38 AP</szItemName>
-		<szLongItemName>.38 Perçantes</szLongItemName>
+		<szItemName>.38 PE 6</szItemName>
+		<szLongItemName>.38 PE 6</szLongItemName>
 		<szItemDesc>Ce chargeur rapide contient 6 cartouches de .38 en Téflon conçues pour traverser les gilets pare-balles. En contrepartie, elles disposent d'une puissance d'arrêt assez faible.</szItemDesc>
-		<szBRName>.38 Perçantes</szBRName>
+		<szBRName>.38 PE 6</szBRName>
 		<szBRDesc>Un chargeur rapide de 6 cartouches .38 perçantes, de quoi inspirer le respect...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>79</uiIndex>
-		<szItemName>.38 TC</szItemName>
-		<szLongItemName>.38 Têtes creuses</szLongItemName>
+		<szItemName>.38 TC 6</szItemName>
+		<szLongItemName>.38 TC 6</szLongItemName>
 		<szItemDesc>Ces 6 cartouches de .38 à têtes creuses ne sont pas très efficaces contre des gilets pare-balles, mais causent sinon des dégâts impressionnants.</szItemDesc>
-		<szBRName>.38 Têtes creuses</szBRName>
+		<szBRName>.38 TC 6</szBRName>
 		<szBRDesc>Un chargeur rapide de 6 cartouches .38 à têtes creuses. Un type de munition que l'on ne s'attend pas à retrouver sur un "petit" revolver. D'ailleurs, il est recommandé d'éviter d'en faire trop usage, l'arme supportant difficilement une telle puissance.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>80</uiIndex>
-		<szItemName>.45, 7</szItemName>
-		<szLongItemName>.45, 7</szLongItemName>
-		<szItemDesc>Ce chargeur contient 7 cartouches de Colt .45. Les munitions .45ACP  standards causent des blessures similaires aux munitions de 9mm et de .38 à têtes creuses.</szItemDesc>
-		<szBRName>.45</szBRName>
+		<szItemName>.45 ACP 7</szItemName>
+		<szLongItemName>.45 ACP 7</szLongItemName>
+		<szItemDesc>Ce chargeur contient 7 cartouches de Colt .45. Les munitions .45ACP standards causent des blessures similaires aux munitions de 9mm et de .38 à têtes creuses.</szItemDesc>
+		<szBRName>.45 ACP 7</szBRName>
 		<szBRDesc>Un chargeur contenant 7 cartouche UMC 230 grains de .45 ACP. Un grand classique.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -659,34 +659,34 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>82</uiIndex>
-		<szItemName>.45 AP, 7</szItemName>
-		<szLongItemName>.45 Perçantes, 7</szLongItemName>
-		<szItemDesc>Ce chargeur contient 7 cartouches de .45 à grande vitesse initiale, conçues pour traverser les gilets pare-balles. Elles perdent en  contrepartie beaucoup de leur puissance d'arrêt.</szItemDesc>
-		<szBRName>.45 Perçantes, 7</szBRName>
+		<szItemName>.45 PE 7</szItemName>
+		<szLongItemName>.45 PE 7</szLongItemName>
+		<szItemDesc>Ce chargeur contient 7 cartouches de .45 à grande vitesse initiale, conçues pour traverser les gilets pare-balles. Elles perdent en contrepartie beaucoup de leur puissance d'arrêt.</szItemDesc>
+		<szBRName>.45 PE 7</szBRName>
 		<szBRDesc>Les 7 cartouches de .45 perçantes contenues dans ce chargeur sont connues pour traverser le Kevlar comme du beurre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>83</uiIndex>
-		<szItemName>.45 AP, 30</szItemName>
-		<szLongItemName>.45 Perçantes, 30</szLongItemName>
+		<szItemName>.45 PE 30</szItemName>
+		<szLongItemName>.45 PE 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de .45 perçantes. Ces munitions sont dotées d'une très grande puissance de pénétration mais infligent peu de dégâts.</szItemDesc>
-		<szBRName>.45 Perçantes, 30</szBRName>
+		<szBRName>.45 PE 30</szBRName>
 		<szBRDesc>Sans doute l'un des meilleurs achats possibles : ces 30 cartouches de .45 perçantes peuvent transformer une veste Kevlar en gruyère.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>84</uiIndex>
-		<szItemName>.45 TC, 7</szItemName>
-		<szLongItemName>.45 Têtes creuses, 7</szLongItemName>
+		<szItemName>.45 TC 7</szItemName>
+		<szLongItemName>.45 TC 7</szLongItemName>
 		<szItemDesc>Ce chargeur contient 7 cartouches de .45 à têtes creuses. Utilisées contre des cibles non-protégées, ces munitions ont une puissance d'arrêt incroyable.</szItemDesc>
-		<szBRName>.45 Têtes creuse, 7</szBRName>
+		<szBRName>.45 TC 7</szBRName>
 		<szBRDesc>Un chargeur de 7 cartouches Golden Sabre Jacketed Hollow Point de .45 à têtes creuses. Si vous voulez le meilleur, le voici.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>85</uiIndex>
-		<szItemName>.45 TC, 30</szItemName>
-		<szLongItemName>.45 Têtes creuse, 30</szLongItemName>
+		<szItemName>.45 TC 30</szItemName>
+		<szLongItemName>.45 TC 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de .45 à têtes creuses. Les dégâts que ces munitions infligent sont très impressionnants.</szItemDesc>
-		<szBRName>.45 Têtes creuse, 30</szBRName>
+		<szBRName>.45 TC 30</szBRName>
 		<szBRDesc>Si votre pistolet-mitrailleur n'impressionne plus personne, gavez-le d'un chargeur Remington de 30 cartouches de .45 à têtes creuses.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -701,93 +701,93 @@
 		<uiIndex>87</uiIndex>
 		<szItemName>.357, 9</szItemName>
 		<szLongItemName>.357, 9</szLongItemName>
-		<szItemDesc>Ce chargeur contient 9 cartouches de .357 Magnum. Tant la puissance de pénétration que la puissance d'arrêt de ces munitions sont  impressionnantes.</szItemDesc>
+		<szItemDesc>Ce chargeur contient 9 cartouches de .357 Magnum. Tant la puissance de pénétration que la puissance d'arrêt de ces munitions sont impressionnantes.</szItemDesc>
 		<szBRName>.357, 9</szBRName>
 		<szBRDesc>Si vous n'aimez pas les problèmes, nous vous apportons une solution avec ce chargeur de 9 cartouches Federal 158 grains de calibre .357.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>88</uiIndex>
-		<szItemName>.357 AP, 6</szItemName>
-		<szLongItemName>.357 Perçantes, 6</szLongItemName>
+		<szItemName>.357 PE 6</szItemName>
+		<szLongItemName>.357 PE 6</szLongItemName>
 		<szItemDesc>Ce chargeur rapide contient 6 cartouches de .357 en Téflon. Ces munitions traversent les gilets pare-balles comme s'ils n'existaient pas, mais n'infligent que des dégâts assez limités.</szItemDesc>
-		<szBRName>.357 Perçantes, 6</szBRName>
+		<szBRName>.357 PE 6</szBRName>
 		<szBRDesc>Il paraît qu'il n'y a plus de rhinocéros blancs. Mais si jamais il vous arrivait d'en rencontrer un, vous seriez bien content d'avoir sous la main ce chargeur rapide de 6 cartouches perçantes. Merci Bobby Ray...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>89</uiIndex>
-		<szItemName>.357 AP, 9</szItemName>
-		<szLongItemName>.357 Perçantes, 9</szLongItemName>
+		<szItemName>.357 PE 9</szItemName>
+		<szLongItemName>.357 PE 9</szLongItemName>
 		<szItemDesc>Ce chargeur contient 9 cartouches .357 blindées capables de traverser des murs aussi facilement que des gilets pare-balles. Elles n'infligent en contrepartie que des blessures légères.</szItemDesc>
-		<szBRName>.357 Perçantes, 9</szBRName>
+		<szBRName>.357 PE 9</szBRName>
 		<szBRDesc>Votre adversaire à du mal à respirer ? Nous vous prescrivons un remède infaillible : un chargeur de 9 cartouches White Hippo dans la poitrine. Ventilation assurée...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>90</uiIndex>
-		<szItemName>.357 TC, 6</szItemName>
-		<szLongItemName>.357 Têtes creuses, 6</szLongItemName>
+		<szItemName>.357 TC 6</szItemName>
+		<szLongItemName>.357 TC 6</szLongItemName>
 		<szItemDesc>Ce chargeur rapide contient 6 cartouches de .357 à têtes creuses. Leur puissance de pénétration est faible, mais elles infligent des dégâts très impressionnants.</szItemDesc>
-		<szBRName>.357 Têtes creuses, 6</szBRName>
+		<szBRName>.357 TC 6</szBRName>
 		<szBRDesc>Un chargeur rapide contenant 6 cartouches de .357 magnum à têtes creuses de marque Federal. Du vrai, du bon, du Bobby Ray...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>91</uiIndex>
 		<szItemName>.357 TC, 9</szItemName>
-		<szLongItemName>.357 Têtes creuses, 9</szLongItemName>
+		<szLongItemName>.357 TC 9</szLongItemName>
 		<szItemDesc>Ce chargeur contient 9 cartouches de .357 à têtes creuses. Ces munitions infligent des dégâts irréparables aux cibles non-protégées.</szItemDesc>
-		<szBRName>.357 Têtes creuses, 9</szBRName>
+		<szBRName>.357 TC 9</szBRName>
 		<szBRDesc>Un chargeur de 9 cartouches Federal de .357 magnum à têtes creuses. Un coup, c'est tout.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>92</uiIndex>
-		<szItemName>5.45x39mm, 30</szItemName>
-		<szLongItemName>5.45x39mm, 30</szLongItemName>
+		<szItemName>5.45x39 PE 30</szItemName>
+		<szLongItemName>5.45x39mm PE, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 5.45mm capables de traverser plusieurs gilets pare-balles. Ces munitions sont efficaces en toutes circonstances.</szItemDesc>
-		<szBRName>5.45x39mm, 30</szBRName>
+		<szBRName>5.45x39mm PE, 30</szBRName>
 		<szBRDesc>Un chargeur contenant 30 cartouches perçantes de 5.45mm d'origine russe. N'oubliez pas de rendre ces cartouches à nos nouveaux amis de l'Est.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>93</uiIndex>
-		<szItemName>5.45x39mm TC, 30</szItemName>
-		<szLongItemName>5.45x39mm Têtes Creuses, 30</szLongItemName>
+		<szItemName>5.45x39 TC, 30</szItemName>
+		<szLongItemName>5.45x39mm TC, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 5.45mm à têtes creuses. Les dégâts infligées aux cibles non-protégées sont souvent mortels.</szItemDesc>
 		<szBRName>5.45x39mm TC, 30</szBRName>
 		<szBRDesc>Vous êtes une âme sensible, vous ne supportez pas la souffrance des autres ? Abrégez leur calvaire avec ce chargeur de 30 cartouches à têtes creuses.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>94</uiIndex>
-		<szItemName>5.56mm, 30</szItemName>
-		<szLongItemName>5.56x45mm, 30</szLongItemName>
+		<szItemName>5.56 PE 30</szItemName>
+		<szLongItemName>5.56x45mm PE, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 5.56mm OTAN. Ces munitions sont beaucoup plus dévastatrices que leur faible calibre ne pourrait le laisser supposer.</szItemDesc>
-		<szBRName>5.56x45mm, 30</szBRName>
+		<szBRName>5.56x45mm PE, 30</szBRName>
 		<szBRDesc>Un chargeur contenant 30 cartouches de 5.56mm OTAN, de quoi calmer les velléités de tous les fantassins ennemis de l'univers.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>95</uiIndex>
-		<szItemName>5.56mm TC, 30</szItemName>
-		<szLongItemName>5.56x45mm Têtes Creuses, 30 </szLongItemName>
+		<szItemName>5.56 TC 30</szItemName>
+		<szLongItemName>5.56x45mm TC, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 5.56mm OTAN à têtes creuses. Il s'agit de munitions dérivées des cartouches de chasse .223 Remington conçues pour maximiser la puissance d'arrêt.</szItemDesc>
-		<szBRName>5.56x45mm Mag 30 TC</szBRName>
+		<szBRName>5.56x45mm TC, 30</szBRName>
 		<szBRDesc>Votre fusil 5.56 vous paraît faiblard ? Dopez-le avec ces 30 cartouches à têtes creuses.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>96</uiIndex>
-		<szItemName>7.62x39mm, 10</szItemName>
-		<szLongItemName>7.62x39mm, 10</szLongItemName>
+		<szItemName>7.62x39 PE 10</szItemName>
+		<szLongItemName>7.62x39mm PE, 10</szLongItemName>
 		<szItemDesc>Ce chargeur 10 coups 7.62x39mm perçantes du Pacte Varsovie sont remarquables par leur facilité à traverser la plupart des gilets pare-balles et causer des dégâts significatifs.</szItemDesc>
-		<szBRName>7.62x39mm 10</szBRName>
+		<szBRName>7.62x39mm PE, 10</szBRName>
 		<szBRDesc>Un chargeur contenant 10 cartouches de 7.62mm PV perçantes chinoises. La devise du fabriquant : "un seul tir suffit". Tout un programme.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>97</uiIndex>
-		<szItemName>7.62x39mm, 30</szItemName>
+		<szItemName>7.62x39 PE 30</szItemName>
 		<szLongItemName>7.62x39mm, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 7.62mm PV. Ces munitions gardent leur forme lors de l'impact, ce qui leur permet de traverser presque tous les types de gilets pare-balles, au détriment de la puissance d'arrêt.</szItemDesc>
-		<szBRName>7.62x39mm 30</szBRName>
+		<szBRName>7.62x39mm, 30</szBRName>
 		<szBRDesc>Un cadeau à offrir à un terroriste ? Essayez donc ce chargeur de 30 cartouches de 7.62mm PV perçantes. Il vous en sera éternellement reconnaissant.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>98</uiIndex>
-		<szItemName>7.62x39mm, 10 HP</szItemName>
+		<szItemName>7.62x39 TC 10</szItemName>
 		<szLongItemName>7.62x39mm, 10 HP</szLongItemName>
 		<szItemDesc>Ce chargeur contient 10 cartouches de 7.62mm PV à têtes creuses. Ces munitions disposent d'une plus faible puissance de pénétration, mais leur puissance d'arrêt est nettement supérieure.</szItemDesc>
 		<szBRName>7.62x39mm, 10 HP</szBRName>
@@ -796,153 +796,153 @@
 	<ITEM>
 		<uiIndex>99</uiIndex>
 		<szItemName>7.62x39mm TC, 30</szItemName>
-		<szLongItemName>7.62x39mm Têtes creuses, 30</szLongItemName>
+		<szLongItemName>7.62x39mm TC, 30</szLongItemName>
 		<szItemDesc>Ce chargeur contient 30 cartouches de 7.62mm PV à têtes creuses. Ces munitions pénètrent les gilets pare-balles légers et infligent de graves blessures. Leur efficacité est moindre contre les gilets lourds.</szItemDesc>
-		<szBRName>7.62x39mm Têtes creuses, 30</szBRName>
+		<szBRName>7.62x39mm TC, 30</szBRName>
 		<szBRDesc>Un chargeur contenant 30 cartouches de 7.62mm PV à têtes creuses Hollow Point. Vous n'avez jamais vu un tas de bouillie sur pattes ? Cela ne saurait tarder.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>100</uiIndex>
-		<szItemName>7.62x51mm, 5</szItemName>
-		<szLongItemName>7.62x51mm, 5</szLongItemName>
+		<szItemName>7.62x51 PE 5</szItemName>
+		<szLongItemName>7.62x51mm, PE 5</szLongItemName>
 		<szItemDesc>Ce chargeur de 5 cartouches de 7.62mm OTAN. Elles sont réputées pour leur puissance de pénétration même à longue portée.</szItemDesc>
-		<szBRName>7.62x51mm, 5</szBRName>
+		<szBRName>7.62x51mm, PE 5</szBRName>
 		<szBRDesc>Un chargeur contenant 5 cartouches perçantes de 7.62mm OTAN. Elles représentent le compromis idéal entre puissance et précision. Le choix des tireurs d'élite...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>101</uiIndex>
-		<szItemName>7.62x51mm, 20</szItemName>
-		<szLongItemName>7.62x51mm, 20</szLongItemName>
+		<szItemName>7.62x51 PE 20</szItemName>
+		<szLongItemName>7.62x51mm PE, 20</szLongItemName>
 		<szItemDesc>Ce chargeur contient 20 cartouches de 7.62mm OTAN. Ces munitions sont utilisées partout dans le monde. Elles sont connues pour leur capacité à traverser un casque lourd à très longue portée.</szItemDesc>
-		<szBRName>7.62x51mm, 20</szBRName>
+		<szBRName>7.62x51mm PE, 20</szBRName>
 		<szBRDesc>Un chargeur contenant 20 cartouches perçantes de 7.62mm OTAN. Que votre ennemi porte un gilet pare-balles ou un simple T-shirt n'a plus aucune importance...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>102</uiIndex>
-		<szItemName>7.62x51mm TC, 5 </szItemName>
-		<szLongItemName>7.62x51mm Têtes creuses, 5 </szLongItemName>
+		<szItemName>7.62x51 TC 5</szItemName>
+		<szLongItemName>7.62x51mm TC, 5</szLongItemName>
 		<szItemDesc>Ce chargeur contient 5 cartouches de 7.62mm OTAN à têtes creuses. Dérivées des .308 Winchester, ces munitions manquent de puissance de pénétration mais disposent d'une grande puissance d'arrêt.</szItemDesc>
-		<szBRName>7.62x51mm TC, 5 </szBRName>
+		<szBRName>7.62x51mm TC, 5</szBRName>
 		<szBRDesc>Un chargeur contenant 5 cartouches de 7.62mm OTAN à têtes creuses. Ces balles de .308 Winchester Hollow Point sont idéales pour le chasseur de gros gibier ou le tireur d'élite pointilleux.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>103</uiIndex>
-		<szItemName>7.62x51mm TC, 20</szItemName>
-		<szLongItemName>7.62x51mm Têtes creuses, 20</szLongItemName>
+		<szItemName>7.62x51 TC 20</szItemName>
+		<szLongItemName>7.62x51mm TC, 20</szLongItemName>
 		<szItemDesc>Ce chargeur contient 20 cartouches de 7.62mm OTAN à têtes creuses. Ces munitions dérivées du .308 Winchester sont idéales pour la chasse au gros.</szItemDesc>
-		<szBRName>7.62x51mm 20 TC</szBRName>
+		<szBRName>7.62x51mm TC, 20</szBRName>
 		<szBRDesc>Un chargeur contenant 20 cartouches de 7.62mm OTAN à têtes creuses. Ces cartouches Cor-Born Tactical .308 Winchester vous permettront de disposer aisément de tout ce qui pourrait vous menacer.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>104</uiIndex>
-		<szItemName>4.7mm, 45</szItemName>
-		<szLongItemName>4.7x33mm, 45</szLongItemName>
+		<szItemName>4.7x33 PE 45</szItemName>
+		<szLongItemName>4.7x33mm PE, 45</szLongItemName>
 		<szItemDesc>Ce chargeur contient 50 cartouches de 4.7mm. Ces munitions sont aussi efficaces que les 5.56mm OTAN mais sont 40% plus légères.</szItemDesc>
-		<szBRName>4.7mm, 45</szBRName>
+		<szBRName>4.7x33mm PE, 45</szBRName>
 		<szBRDesc>Un chargeur contenant 50 cartouches de 4.7mm, que nous avons récupéré d'un entrepôt allemand. Si vous aimez l'exceptionnel, laissez-vous tenter.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>105</uiIndex>
-		<szItemName>5.7mm, 50</szItemName>
-		<szLongItemName>5.7x28mm, 50</szLongItemName>
+		<szItemName>5.7x28 PE 50</szItemName>
+		<szLongItemName>5.7x28mm PE, 50</szLongItemName>
 		<szItemDesc>Ce chargeur contient 50 cartouches de 5.7mm. Ces munitions sont remarquablement efficaces contre des tous les types de cibles.</szItemDesc>
-		<szBRName>5.7mm, 50</szBRName>
+		<szBRName>5.7x28mm PE, 50</szBRName>
 		<szBRDesc>Un chargeur contenant 50 cartouches de 5.7mm. Les gilets pare-balles vous insupportent ? Faites-les voler en éclat avec une décharge de quelques-unes de ces cartouches...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>106</uiIndex>
-		<szItemName>5.7mm TC, 50</szItemName>
-		<szLongItemName>5.7x28mm Têtes creuses, 50</szLongItemName>
+		<szItemName>5.7x28 TC 50</szItemName>
+		<szLongItemName>5.7x28mm TC, 50</szLongItemName>
 		<szItemDesc>Ce chargeur contient 50 cartouches de 5.7mm à têtes creuses. Ces munitions conservent une grande puissance de pénétration et disposent d'une puissance d'arrêt supérieure aux 5.7mm standards.</szItemDesc>
-		<szBRName>5.7mm TC, 50</szBRName>
+		<szBRName>5.7x28mm TC, 50</szBRName>
 		<szBRDesc>Un chargeur contenant 50 cartouches de 5.7mm à têtes creuses. Vous aimez les probabilités ? Réduisez les chances de survie de vos adversaires à zéro grâce à ces quelques cartouches haute performance.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>107</uiIndex>
-		<szItemName>12g, 7</szItemName>
-		<szLongItemName>12 Gauge, 7</szLongItemName>
+		<szItemName>12 FIER 28 7</szItemName>
+		<szLongItemName>Cal. 12 FIER 28, 7</szLongItemName>
 		<szItemDesc>Ce chargeur contient 7 cartouches de calibre 12. Ces munitions traversent les gilets pare-balles comme s'ils n'existaient pas.</szItemDesc>
-		<szBRName>12g, 7</szBRName>
+		<szBRName>Cal. 12 FIER 28, 7</szBRName>
 		<szBRDesc>Une boîte contenant 7 cartouches de calibre 12 PolyCore. Le choix des hommes, des vrais...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>108</uiIndex>
-		<szItemName>12g CH, 7</szItemName>
-		<szLongItemName>12 Gauge Chevrotine, 7</szLongItemName>
+		<szItemName> 12 CH 7</szItemName>
+		<szLongItemName>Cal. 12 CH, 7</szLongItemName>
 		<szItemDesc>Ce chargeur contient 7 cartouches de chasse calibre 12. Très utilisées en combat urbain, ces munitions sont extrêmement efficaces contre des cibles non-protégées.</szItemDesc>
-		<szBRName>12g CH, 7</szBRName>
+		<szBRName>Cal. 12 CH, 7</szBRName>
 		<szBRDesc>Une boîte contenant 7 cartouches de calibre 12 remplies de chevrotines. Idéal à bout portant. Utilisé par les forces de police désireuses de ne pas prendre de risque en combat urbain.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>109</uiIndex>
-		<szItemName>Chargeur CAWS, 10</szItemName>
-		<szLongItemName>Chargeur CAWS, 10</szLongItemName>
+		<szItemName>CAWS PE 10</szItemName>
+		<szLongItemName>CAWS PE, 10</szLongItemName>
 		<szItemDesc>Ce chargeur contient 10 munitions de CAWS. Elles sont tout simplement dévastatrices. Chacune de ces munitions se composent d'une balle en alliage tungstène-acier capable de traverser un moteur de voiture.</szItemDesc>
 		<szBRName>Chargeur CAWS, 10</szBRName>
 		<szBRDesc>Un chargeur contenant 10 cartouches de calibre 12 pour CAWS. Nom de code : destruction massive. Ces cartouches peuvent traverser les gilets pare-balles et même les blocs moteur en bon acier. Indispensables. Ne sortez pas sans elles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>110</uiIndex>
-		<szItemName>Chargeur CAWS CH, 10</szItemName>
-		<szLongItemName>Chargeur CAWS Chevrotine, 10</szLongItemName>
+		<szItemName> CAWS CH 10</szItemName>
+		<szLongItemName>CAWS CH, 10</szLongItemName>
 		<szItemDesc>Ce chargeur contient 10 cartouches de chevrotines pour CAWS. Ces munitions ont la puissance de pénétration des balles perçantes et la puissance d'arrêt des balles à têtes creuses.</szItemDesc>
-		<szBRName>Chargeur CAWS CH, 10</szBRName>
+		<szBRName>CAWS CH, 10</szBRName>
 		<szBRDesc>Un chargeur contenant 10 cartouches de calibre 12 pour CAWS remplies de chevrotines. Vous aimez les films où les murs explosent en même temps que ceux qui se trouvent à portée ? Nous vous donnons l'opportunité de vivre cette sensation.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>111</uiIndex>
-		<szItemName>Miniroquettes PE</szItemName>
-		<szLongItemName>Miniroquettes, PE</szLongItemName>
+		<szItemName>Miniroq. PE</szItemName>
+		<szLongItemName>Miniroquette PE, 5</szLongItemName>
 		<szItemDesc>Ces roquettes conçues pour traverser tous les types de blindages sont capables d'infliger des blessures spectaculaires.</szItemDesc>
-		<szBRName>Miniroquettes PE</szBRName>
+		<szBRName>Miniroquettes PE, 5</szBRName>
 		<szBRDesc>Technologie dernière génération signifie meurtre dernière génération. Ces roquettes perçantes infligent des dégâts a faire mourrir d'envie les artistes d'effets spéciaux Hollywoodiens..</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>112</uiIndex>
-		<szItemName>Miniroquettes EXP</szItemName>
-		<szLongItemName>Miniroquettes, EXP</szLongItemName>
+		<szItemName>Miniroq. EXP</szItemName>
+		<szLongItemName>Miniroquette EXP 5</szLongItemName>
 		<szItemDesc>Ces cinq roquettes sont destinées à éliminer l'infanterie ennemie. Elles sont littéralement capables de mettre l'adversaire en pièces.</szItemDesc>
-		<szBRName>Miniroquettes EXP</szBRName>
+		<szBRName>Miniroquettes EXP, 5</szBRName>
 		<szBRDesc>Ces 5 roquettes explosives pourraient ramener l'Armageddon plus rapidement que n'importe quelle météorite.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>113</uiIndex>
-		<szItemName>Miniroquettes PE/EXP</szItemName>
-		<szLongItemName>Miniroquettes, PE/EXP</szLongItemName>
+		<szItemName>Minir. PE/EXP</szItemName>
+		<szLongItemName>Miniroq. PE/EXP, 5</szLongItemName>
 		<szItemDesc>Ces roquettes sont conçues pour traverser tous les blindages avant d'exploser. On n'a jamais fait mieux.</szItemDesc>
-		<szBRName>Miniroquettes PE/EXP</szBRName>
+		<szBRName>Miniroq. PE/EXP, 5</szBRName>
 		<szBRDesc>Explosez l'opposition avec ces roquettes explosives/perçantes, et admirez les frire.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>114</uiIndex>
 		<szItemName>Fléchette</szItemName>
-		<szLongItemName>Fléchette de Tranquillisant</szLongItemName>
+		<szLongItemName>Fléchette</szLongItemName>
 		<szItemDesc>On utilise généralement ces fléchettes pour endormir les éléphants. Inutile de préciser qu'elles mettent immédiatement l'ennemi hors jeu.</szItemDesc>
-		<szBRName>Fléchette</szBRName>
+		<szBRName>Fléchette tranquillisante</szBRName>
 		<szBRDesc>Généralement utilisées pour endormir le gros gibier, cette flechette neutralisera quelqu'un avant qu'il n'ai le temps de dire" ouf".</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>115</uiIndex>
-		<szItemName>Flamethrower Clip</szItemName>
-		<szLongItemName>Flamethrower Clip</szLongItemName>
+		<szItemName>Réservoirs</szItemName>
+		<szLongItemName>Chargeur l-flamme</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Flamethrower Clip</szBRName>
+		<szBRName>Chargeur lance-flamme</szBRName>
 		<szBRDesc>PAS DE DESCRIPTION!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>116</uiIndex>
-		<szItemName>.50 Mag</szItemName>
-		<szLongItemName>.50 Magazine</szLongItemName>
+		<szItemName>.50 PE 11</szItemName>
+		<szLongItemName>.50 PE, 11</szLongItemName>
 		<szItemDesc>Un chargeur 11 coups de calibre .50 (Browning) pour le Barrett M82A2.</szItemDesc>
-		<szBRName>.50 Mag</szBRName>
+		<szBRName>.50 PE, 11</szBRName>
 		<szBRDesc>Un chargeur 11 coups de calibre .50 (Browning) pour le Barrett M82A2.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>117</uiIndex>
-		<szItemName>9x39mm, 20</szItemName>
-		<szLongItemName>9x39mm, 20</szLongItemName>
+		<szItemName>9x39 S/PE 20</szItemName>
+		<szLongItemName>9x39mm SB/PE, 20</szLongItemName>
 		<szItemDesc>Munitions 9mm subsoniques, ce chargeur 20 coups est destiné a être utilisé avec un nombre limité d'armes spéciales russes.</szItemDesc>
-		<szBRName>9x39mm, 20</szBRName>
+		<szBRName>9x39mm SB/PE, 20</szBRName>
 		<szBRDesc>Plus lourdes que des munition 9mm conventionnelles ces munitions infligent autant de dégâts que des munitions gros calibre, tout en se deplaçant en dessous de la vitesse du son. Ces munitions russes dites "subsoniques" sont alors utilisées très efficacement avec un silencieux pour une discretion optimale, le très célèbre Sniper silencieux Vintorez pour preuve.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -955,138 +955,138 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>119</uiIndex>
-		<szItemName>9x19mm PE, 50</szItemName>
-		<szLongItemName>9x19mm Perçantes, 50</szLongItemName>
+		<szItemName>9x19 PE, 50</szItemName>
+		<szLongItemName>9x19mm PE, 50</szLongItemName>
 		<szItemDesc>Chargeur 50 coups de balles perçantes pour armes de type Calico.</szItemDesc>
-		<szBRName>9x19mm Perçantes, 50</szBRName>
+		<szBRName>9x19mm PE, 50</szBRName>
 		<szBRDesc>Chargeur 50 coups de balles perçantes pour armes de type Calico.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>120</uiIndex>
-		<szItemName>9x19mm TC, 50</szItemName>
-		<szLongItemName>9x19mm Têtes creuses, 50</szLongItemName>
+		<szItemName>9x19 TC, 50</szItemName>
+		<szLongItemName>9x19mm TC, 50</szLongItemName>
 		<szItemDesc>Chargeur 50 coups de balles à têtes creuses pour armes de type Calico.</szItemDesc>
-		<szBRName>9x19mm Têtes creuses, 50</szBRName>
+		<szBRName>9x19mm TC, 50</szBRName>
 		<szBRDesc>Chargeur 50 coups de balles à têtes creuses pour armes de type Calico.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>121</uiIndex>
-		<szItemName>5.45x39mm, 45</szItemName>
-		<szLongItemName>5.45x39mm, 45</szLongItemName>
+		<szItemName>5.45x39 PE 45</szItemName>
+		<szLongItemName>5.45x39mm PE, 45</szLongItemName>
 		<szItemDesc>Ce chargeur contient 45 cartouches de 5.45mm capables de traverser plusieurs gilets pare-balles. Ces munitions sont efficaces en toutes circonstances.</szItemDesc>
-		<szBRName>5.45x39mm, 45</szBRName>
+		<szBRName>5.45x39mm PE, 45</szBRName>
 		<szBRDesc>Ce chargeur contient 45 cartouches de 5.45mm capables de traverser plusieurs gilets pare-balles. Ces munitions sont efficaces en toutes circonstances.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>122</uiIndex>
-		<szItemName>5.45x39mm TC, 45</szItemName>
-		<szLongItemName>5.45x39mm Têtes creuses, 45</szLongItemName>
+		<szItemName>5.45x39 TC 45</szItemName>
+		<szLongItemName>5.45x39mm, TC, 45</szLongItemName>
 		<szItemDesc>Ce chargeur contient 45 cartouches de 5.45mm à têtes creuses. Les dégâts infligées aux cibles non-protégées sont souvent mortels.</szItemDesc>
-		<szBRName>5.45x39mm Têtes creuses, 45</szBRName>
+		<szBRName>5.45x39mm TC, 45</szBRName>
 		<szBRDesc>Vous êtes une âme sensible, vous ne supportez pas la souffrance des autres ? Abrégez leur calvaire avec ce chargeur de 45 cartouches à têtes creuses.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>123</uiIndex>
-		<szItemName>5.56mm, 200</szItemName>
-		<szLongItemName>5.56x45mm, 200</szLongItemName>
+		<szItemName>5.56x45 PE</szItemName>
+		<szLongItemName>5.56x45mm PE, 200</szLongItemName>
 		<szItemDesc>Ce chargeur contient 200 cartouches de 5.56mm OTAN. Ces munitions sont beaucoup plus dévastatrices que leur faible calibre ne pourrait le laisser supposer.</szItemDesc>
-		<szBRName>5.56x45mm, 200</szBRName>
+		<szBRName>5.56x45mm PE, 200</szBRName>
 		<szBRDesc>Un chargeur contenant 200 cartouches de 5.56mm OTAN, de quoi calmer les velléités de tous les fantassins ennemis de l'univers.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>124</uiIndex>
-		<szItemName>5.56mm TC, 200</szItemName>
-		<szLongItemName>5.56x45mm Têtes creuses, 200</szLongItemName>
+		<szItemName>5.56x45 TC</szItemName>
+		<szLongItemName>5.56x45mm TC, 200</szLongItemName>
 		<szItemDesc>Ce chargeur contient 200 cartouches de 5.56mm OTAN à têtes creuses. Il s'agit de munitions dérivées des cartouches de chasse .223 Remington conçues pour maximiser la puissance d'arrêt.</szItemDesc>
 		<szBRName>5.56x45mm Têtes creuses, 200</szBRName>
 		<szBRDesc>Ce chargeur contient 200 cartouches de 5.56mm OTAN à têtes creuses. Il s'agit de munitions dérivées des cartouches de chasse .223 Remington conçues pour maximiser la puissance d'arrêt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>125</uiIndex>
-		<szItemName>7.62x51mm, 100</szItemName>
-		<szLongItemName>7.62x51mm, 100</szLongItemName>
+		<szItemName>7.62x51 PE</szItemName>
+		<szLongItemName>7.62x51mm PE, 100</szLongItemName>
 		<szItemDesc>Ce chargeur contient 100 cartouches de 7.62mm OTAN. Ces munitions sont utilisées partout dans le monde. Elles sont connues pour leur capacité à traverser un casque lourd à très longue portée.</szItemDesc>
-		<szBRName>7.62x51mm, 100</szBRName>
+		<szBRName>7.62x51mm PE, 100</szBRName>
 		<szBRDesc>Ce chargeur contient 100 cartouches de 7.62mm OTAN. Ces munitions sont utilisées partout dans le monde. Elles sont connues pour leur capacité à traverser un casque lourd à très longue portée.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>126</uiIndex>
-		<szItemName>7.62x51mm TC, 100</szItemName>
-		<szLongItemName>7.62x51mm Têtes creuses, 100</szLongItemName>
+		<szItemName>7.62x51 TC</szItemName>
+		<szLongItemName>7.62x51mm TC, 100</szLongItemName>
 		<szItemDesc>Ce chargeur contient 100 cartouches de 7.62mm OTAN à têtes creuses. Ces munitions dérivées du .308 Winchester sont idéales pour la chasse au gros.</szItemDesc>
-		<szBRName>7.62x51mm Têtes creuses, 100</szBRName>
+		<szBRName>7.62x51mm TC, 100</szBRName>
 		<szBRDesc>Ce chargeur contient 100 cartouches de 7.62mm OTAN à têtes creuses. Ces munitions dérivées du .308 Winchester sont idéales pour la chasse au gros.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>127</uiIndex>
-		<szItemName>7.62x54R, 10</szItemName>
+		<szItemName>7.62x54R 10</szItemName>
 		<szLongItemName>7.62x54R, 10</szLongItemName>
-		<szItemDesc>10 munitions 7.62x54R pour un pouvoir de pénétration à longue portée. </szItemDesc>
+		<szItemDesc>10 munitions 7.62x54R pour un pouvoir de pénétration à longue portée.</szItemDesc>
 		<szBRName>7.62x54R, 10</szBRName>
-		<szBRDesc>10 munitions 7.62x54R pour un pouvoir de pénétration à longue portée. </szBRDesc>
+		<szBRDesc>10 munitions 7.62x54R pour un pouvoir de pénétration à longue portée.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>128</uiIndex>
-		<szItemName>A.L.I.C.E.</szItemName>
-		<szLongItemName>Sac A.L.I.C.E.</szLongItemName>
+		<szItemName>A.L.I.C.E</szItemName>
+		<szLongItemName>Sac A.L.I.C.E</szLongItemName>
 		<szItemDesc>Sac à dos A.L.I.C.E. pour stocker 4 objets differents.</szItemDesc>
-		<szBRName>Sac A.L.I.C.E.</szBRName>
+		<szBRName>Sac A.L.I.C.E</szBRName>
 		<szBRDesc>Vous nécessitez plus de place? Ce sac à dos a assez de place pour plusieurs objets.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>129</uiIndex>
-		<szItemName>7.62x25mm, 30</szItemName>
-		<szLongItemName>7.62x25mm, 30</szLongItemName>
+		<szItemName>7.62x25 PE 30</szItemName>
+		<szLongItemName>7.62x25mm PE, 30</szLongItemName>
 		<szItemDesc>Le pouvoir de pénétration n'est pas essentiel quand vous pouvez cribler la cible de balles. Ce chargeur 30 coups s'assurera que c'est la cas.</szItemDesc>
-		<szBRName>7.62x25mm, 30</szBRName>
+		<szBRName>7.62x25mm PE, 30</szBRName>
 		<szBRDesc>Le pouvoir de pénétration n'est pas essentiel quand vous pouvez cribler la cible de balles. Ce chargeur 30 coups s'assurera que c'est la cas.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>130</uiIndex>
-		<szItemName>7.62x25mm, TC</szItemName>
-		<szLongItemName>7.62x25mm Têtes creuses, 30</szLongItemName>
+		<szItemName>7.62x25 TC 30</szItemName>
+		<szLongItemName>7.62x25mm TC, 30</szLongItemName>
 		<szItemDesc>Très efficaces contre les cibles non protégées ou les ménagères insupportables.</szItemDesc>
-		<szBRName>7.62x25mm Têtes creuses, 30</szBRName>
+		<szBRName>7.62x25mm TC, 30</szBRName>
 		<szBRDesc>Très efficaces contre les cibles non protégées ou les ménagères insupportables.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>131</uiIndex>
-		<szItemName>Grenade Assommante</szItemName>
-		<szLongItemName>Grenade Assommante</szLongItemName>
+		<szItemName>Assommante</szItemName>
+		<szLongItemName>Grenade assommante</szLongItemName>
 		<szItemDesc>Cette grenade utilise le principe de l'effet de souffle pour assommer vos ennemis.</szItemDesc>
-		<szBRName>Grenade Assommante</szBRName>
+		<szBRName>Grenade assommante</szBRName>
 		<szBRDesc>Cette grenade utilise le principe de l'effet de souffle pour assommer vos ennemis. Privés d'air, ceux-ci s'évanouissent sans même comprendre pourquoi.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>132</uiIndex>
-		<szItemName>Grenade Lacrymogène</szItemName>
-		<szLongItemName>Grenade Lacrymogène</szLongItemName>
+		<szItemName>Lacrymogène</szItemName>
+		<szLongItemName>Grenade lacrymo.</szLongItemName>
 		<szItemDesc>Cette grenade relâche un gaz lacrymogène qui met vos ennemis hors combat, ou au moins les empêche de viser correctement.</szItemDesc>
-		<szBRName>Grenade Lacrymogène</szBRName>
+		<szBRName>Grenade lacrymogène</szBRName>
 		<szBRDesc>Cette grenade relâche un gaz lacrymogène qui met vos ennemis hors combat, ou au moins les empêche de viser correctement ; il faut dire qu'ils seront trop occupés à pleurer toutes les larmes de leurs corps ou à chercher un endroit où se réfugier.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>133</uiIndex>
-		<szItemName>Gaz Moutarde</szItemName>
-		<szLongItemName>Grenade à Gaz Moutarde</szLongItemName>
+		<szItemName>Gaz moutarde</szItemName>
+		<szLongItemName>Grenade gaz mout.</szLongItemName>
 		<szItemDesc>Cette grenade relâche un gaz toxique inodore qui ronge les poumons de ses victimes. Sans intervention médicale, le décès survient rapidement.</szItemDesc>
-		<szBRName>Gaz Moutarde</szBRName>
+		<szBRName>Grenade gaz moutarde</szBRName>
 		<szBRDesc>Non, nous ne parlons pas d'art culinaire : cette grenade relâche un gaz toxique inodore qui ronge les poumons de ses victimes. Sans intervention médicale, le décès survient rapidement.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>134</uiIndex>
-		<szItemName>Mini Grenade</szItemName>
-		<szLongItemName>Mini Grenade</szLongItemName>
+		<szItemName>Mini grenade</szItemName>
+		<szLongItemName>Mini grenade</szLongItemName>
 		<szItemDesc>Cette grenade de petite taille peut être lancée à grande distance et cause des dégâts significatifs. Idéale pour préparer un assaut.</szItemDesc>
-		<szBRName>Mini Grenade</szBRName>
+		<szBRName>Grenade offensive</szBRName>
 		<szBRDesc>Cette grenade de petite taille peut être lancée à grande distance et cause des dégâts significatifs. Idéale pour préparer un assaut. Le choix des femmes, des vraies...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>135</uiIndex>
 		<szItemName>Grenade Mk2</szItemName>
-		<szLongItemName>Grenade Défensive Mk2</szLongItemName>
+		<szLongItemName>Grenade défensive</szLongItemName>
 		<szItemDesc>Cette grenade est conçue principalement pour éliminer tout adversaire s'approchant de vos positions.</szItemDesc>
-		<szBRName>Grenade Défensive Mk2</szBRName>
+		<szBRName>Grenade défensive Mk2</szBRName>
 		<szBRDesc>Cette grenade est conçue principalement pour éliminer tout adversaire s'approchant de vos positions. La grenade à fragmentation par excellence.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1123,10 +1123,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>140</uiIndex>
-		<szItemName>Obus de Mortier</szItemName>
-		<szLongItemName>Obus de Mortier 60mm</szLongItemName>
+		<szItemName>60mm Obus</szItemName>
+		<szLongItemName>60mm Obus mortier</szLongItemName>
 		<szItemDesc>Cet obus explosif est doté d'une amorce M734. Il est possible de le faire exploser après impact, à l'impact, juste avant l'impact ou à proximité.</szItemDesc>
-		<szBRName>Obus de Mortier 60mm</szBRName>
+		<szBRName>60mm Obus mortier, 1</szBRName>
 		<szBRDesc>Cet obus explosif est doté d'une amorce M734. Il est possible de le faire exploser après impact, à l'impact, juste avant l'impact ou à proximité.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1147,147 +1147,147 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>143</uiIndex>
-		<szItemName>Avertisseur Lumineux</szItemName>
-		<szLongItemName>Avertisseur Lumineux</szLongItemName>
+		<szItemName>Avertisseur</szItemName>
+		<szLongItemName>Avertisseur lumin.</szLongItemName>
 		<szItemDesc>Il s'agit d'une mine fusée d'avertissement. Lorsqu'une personne marche dessus, une fusée de signalisation vous permet de savoir où sont vos adversaires.</szItemDesc>
-		<szBRName>Avertisseur Lumineux</szBRName>
+		<szBRName>Avertisseur lumineux</szBRName>
 		<szBRDesc>Il s'agit d'une mine fusée d'avertissement. Lorsqu'une personne marche dessus, une fusée de signalisation vous permet de savoir où sont vos adversaires.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>144</uiIndex>
-		<szItemName>Avertisseur Sonore</szItemName>
-		<szLongItemName>Avertisseur Sonore</szLongItemName>
+		<szItemName>Avertisseur</szItemName>
+		<szLongItemName>Avertisseur sonore</szLongItemName>
 		<szItemDesc>Cette mine de signalisation se déclenche lorsqu'une personne marche dessus. Une fusée est alors allumée et une sirène est déclenchée.</szItemDesc>
-		<szBRName>Avertisseur Sonore</szBRName>
+		<szBRName>Avertisseur sonore</szBRName>
 		<szBRDesc>Cette mine de signalisation se déclenche lorsqu'une personne marche dessus. Une fusée est alors allumée et une sirène est déclenchée.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>145</uiIndex>
-		<szItemName>Charge d'Explosifs</szItemName>
-		<szLongItemName>Charge d'Explosifs</szLongItemName>
+		<szItemName>Charge expl.</szItemName>
+		<szLongItemName>Charge explosive</szLongItemName>
 		<szItemDesc>Placez cette petite charge d'explosifs sur une porte pour en faire sauter la serrure.</szItemDesc>
-		<szBRName>Charge d'Explosifs</szBRName>
+		<szBRName>Charge explosive</szBRName>
 		<szBRDesc>Placez cette petite charge d'explosifs sur une porte pour en faire sauter la serrure.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>146</uiIndex>
-		<szItemName>Torche Chimique</szItemName>
-		<szLongItemName>Torche Chimique</szLongItemName>
+		<szItemName>Torche chim.</szItemName>
+		<szLongItemName>Torche chimique</szLongItemName>
 		<szItemDesc>Ces torches chimiques à usage unique sont pratiques et légères.</szItemDesc>
-		<szBRName>Torche Chimique</szBRName>
+		<szBRName>Torche chimique</szBRName>
 		<szBRDesc>Ces torches chimiques à usage unique sont pratiques et légères.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>147</uiIndex>
-		<szItemName>40mm EXP</szItemName>
-		<szLongItemName>Grenade 40mm EXP</szLongItemName>
+		<szItemName>40mm Expl.</szItemName>
+		<szLongItemName>40mm Explosive</szLongItemName>
 		<szItemDesc>Cette grenade à fragmentation est conçue pour être tirée par un lance-grenades de 40mm.</szItemDesc>
-		<szBRName>Grenade 40mm EXP</szBRName>
+		<szBRName>40mm Explosive, 1</szBRName>
 		<szBRDesc>Cette grenade à fragmentation est conçue pour être tirée par un lance-grenades de 40mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>148</uiIndex>
-		<szItemName>Lacrymogène 40mm</szItemName>
-		<szLongItemName>Lacrymogène 40mm</szLongItemName>
+		<szItemName>40mm Lacry.</szItemName>
+		<szLongItemName>40mm Lacrymogène</szLongItemName>
 		<szItemDesc>Cette grenade lacrymogène est conçue pour être tirée par un lance-grenades de 40mm.</szItemDesc>
-		<szBRName>Lacrymogène 40mm</szBRName>
+		<szBRName>40mm Lacrymogène, 1</szBRName>
 		<szBRDesc>Cette grenade lacrymogène est conçue pour être tirée par un lance-grenades de 40mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>149</uiIndex>
-		<szItemName>Assommante 40mm</szItemName>
-		<szLongItemName>Assommante 40mm</szLongItemName>
+		<szItemName>40mm Assom.</szItemName>
+		<szLongItemName>40mm Assommante</szLongItemName>
 		<szItemDesc>Cette grenade assommante est conçue pour être tirée par un lance-grenades de 40mm.</szItemDesc>
-		<szBRName>Assommante 40mm</szBRName>
+		<szBRName>40mm Assommante, 1</szBRName>
 		<szBRDesc>Cette grenade assommante est conçue pour être tirée par un lance-grenades de 40mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>150</uiIndex>
-		<szItemName>Fumigènes 40mm</szItemName>
-		<szLongItemName>Fumigènes 40mm</szLongItemName>
+		<szItemName>40mm Fumig.</szItemName>
+		<szLongItemName>40mm Fumigène</szLongItemName>
 		<szItemDesc>Utilisez cette grenade pour camoufler vos mouvements. Elle est conçue pour être tirée par un lance-grenades de 40mm.</szItemDesc>
-		<szBRName>Fumigènes 40mm</szBRName>
+		<szBRName>40mm Fumigène, 1</szBRName>
 		<szBRDesc>Utilisez cette grenade pour camoufler vos mouvements. Elle est conçue pour être tirée par un lance-grenades de 40mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>151</uiIndex>
-		<szItemName>Grenade Fumigène</szItemName>
-		<szLongItemName>Grenade Fumigène</szLongItemName>
+		<szItemName>Grenade fumig.</szItemName>
+		<szLongItemName>Grenade fumigène</szLongItemName>
 		<szItemDesc>Quand vous avez besoin de camoufler vos déplacements, utilisez une grenade fumigènes.</szItemDesc>
-		<szBRName>Grenade Fumigène</szBRName>
+		<szBRName>Grenade fumigène</szBRName>
 		<szBRDesc>Quand vous avez besoin de camoufler vos déplacements, utilisez une grenade fumigènes.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>152</uiIndex>
-		<szItemName>Obus de Char</szItemName>
-		<szLongItemName>Obus de Char</szLongItemName>
+		<szItemName>Obus de char</szItemName>
+		<szLongItemName>Obus de char</szLongItemName>
 		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
-		<szBRName>Obus de Char</szBRName>
+		<szBRName>Obus de char</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>153</uiIndex>
-		<szItemName>Struct Ignite</szItemName>
-		<szLongItemName>Struct Ignite</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Struct Ignite</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Obus incend.</szItemName>
+		<szLongItemName>Obus incendiaire</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Obus incendiaire</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>154</uiIndex>
 		<szItemName>Cocktail</szItemName>
-		<szLongItemName>Creature cocktail</szLongItemName>
+		<szLongItemName>Cocktail créature</szLongItemName>
 		<szItemDesc>AXED</szItemDesc>
-		<szBRName>Creature cocktail</szBRName>
+		<szBRName>Cocktail de créature</szBRName>
 		<szBRDesc>AXED</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>155</uiIndex>
-		<szItemName>Structure Explosion</szItemName>
-		<szLongItemName>Structure Explosion</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Structure Explosion</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Obus perf.</szItemName>
+		<szLongItemName>Obus perforant</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Obus perforant</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>156</uiIndex>
-		<szItemName>Great big explosion</szItemName>
-		<szLongItemName>Great big explosion</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Great big explosion</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Obus expl.</szItemName>
+		<szLongItemName>Obus explosif</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Obus explosif</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>157</uiIndex>
-		<szItemName>Big Tear Gas</szItemName>
-		<szLongItemName>Big Tear Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Big Tear Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Super lacry.</szItemName>
+		<szLongItemName>Super lacrymogène</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Super lacrymogène</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>158</uiIndex>
-		<szItemName>Small Creature Gas</szItemName>
-		<szLongItemName>Small Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Small Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Gaz PC</szItemName>
+		<szLongItemName>Gaz petite créat.</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Gaz petite créature</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>159</uiIndex>
-		<szItemName>Large Creature Gas</szItemName>
-		<szLongItemName>Large Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Large Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Gaz GC</szItemName>
+		<szLongItemName>Gaz grande créat.</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Gaz de grande créature</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>160</uiIndex>
-		<szItemName>Grenade Panel</szItemName>
-		<szLongItemName>Grenade Panel</szLongItemName>
-		<szItemDesc>Four pouches, each for a single grenade, mounted onto a modular panel that can be attached to your load bearing equipment.</szItemDesc>
-		<szBRName>Grenade Panel</szBRName>
-		<szBRDesc>No more grenades dangling from D-rings and ripping off while crawling through the underbrush. Our grenade carrier panel has four individual pouches to carry your grenades safely.</szBRDesc>
+		<szItemName>Porte-gren.</szItemName>
+		<szLongItemName>Porte-grenades</szLongItemName>
+		<szItemDesc>Quatre pochettes, chacune pour une seule grenade, fixées sur une pièce qui s'attache à votre équipement.</szItemDesc>
+		<szBRName>Porte-grenades</szBRName>
+		<szBRDesc>Plus aucune goupille pendante qui peuvent s'accrocher quand vous rampez dans les broussailles. Notre porte-grenades à quatre poches individuelles, protège en toute sécurité vos grenades.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>161</uiIndex>
@@ -1299,114 +1299,114 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>162</uiIndex>
-		<szItemName>Gilet Flak-18</szItemName>
-		<szLongItemName>Gilet Flak Traité</szLongItemName>
+		<szItemName>G. Flak/C-18</szItemName>
+		<szLongItemName>Gilet Flak/C-18</szLongItemName>
 		<szItemDesc>Ce gilet de protection très léger a été traité avec du composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
-		<szBRName>Gilet Flak Traité</szBRName>
+		<szBRName>Gilet Flak/C-18</szBRName>
 		<szBRDesc>Ce gilet de protection très léger a été traité avec du composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>163</uiIndex>
-		<szItemName>Gilet Flak T</szItemName>
-		<szLongItemName>Gilet Flak Traité</szLongItemName>
+		<szItemName>G. Flak/gelée</szItemName>
+		<szLongItemName>Gilet Flak/gelée royale</szLongItemName>
 		<szItemDesc>Ce gilet de protection très léger a été plongé dans le sang d'une créature de type Reine pour le rendre plus résistant.</szItemDesc>
-		<szBRName>Gilet Flak T</szBRName>
+		<szBRName>Gilet Flak/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>164</uiIndex>
-		<szItemName>Gilet en Kevlar</szItemName>
-		<szLongItemName>Gilet en Kevlar</szLongItemName>
+		<szItemName>Gilet Kevlar</szItemName>
+		<szLongItemName>Gilet Kevlar</szLongItemName>
 		<szItemDesc>Ce gilet est fabriqué dans un tissu à 28 épaisseurs de Kevlar. Il protège la partie supérieure du corps, y compris la nuque et les épaules.</szItemDesc>
-		<szBRName>Gilet en Kevlar</szBRName>
+		<szBRName>Gilet Kevlar</szBRName>
 		<szBRDesc>Ce gilet est fabriqué dans un tissu à 28 épaisseurs de Kevlar. Il protège la partie supérieure du corps, y compris la nuque et les épaules.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>165</uiIndex>
-		<szItemName>Gilet Kevlar-18</szItemName>
-		<szLongItemName>Gilet Kevlar T</szLongItemName>
+		<szItemName>G. Kevl/C-18</szItemName>
+		<szLongItemName>Gilet Kevlar/C-18</szLongItemName>
 		<szItemDesc>Ce gilet en Kevlar a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
-		<szBRName>Gilet Kevlar T</szBRName>
+		<szBRName>Gilet Kevlar/C-18</szBRName>
 		<szBRDesc>Ce gilet en Kevlar a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>166</uiIndex>
-		<szItemName>Gilet Kevlar T</szItemName>
-		<szLongItemName>Gilet en Kevlar Traité</szLongItemName>
+		<szItemName>G. Kev/gelée</szItemName>
+		<szLongItemName>Gilet Kevla/gelée royale</szLongItemName>
 		<szItemDesc>Ce gilet en Kevlar a été plongé dans le sang d'une créature de type Reine pour le rendre plus résistant.</szItemDesc>
-		<szBRName>Gilet Kevlar T</szBRName>
+		<szBRName>Gilet Kevla/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>167</uiIndex>
-		<szItemName>Gilet en Spectra</szItemName>
-		<szLongItemName>Gilet en Spectra</szLongItemName>
+		<szItemName>Gilet Spectra</szItemName>
+		<szLongItemName>Gilet Spectra</szLongItemName>
 		<szItemDesc>Ce gilet pare-balles est fabriqué dans du Spectra, un matériau très résistant. Il réduit très nettement l'impact des balles. Il est possible d'y ajouter une plaque de blindage supplémentaire.</szItemDesc>
-		<szBRName>Gilet en Spectra</szBRName>
+		<szBRName>Gilet Spectra</szBRName>
 		<szBRDesc>Ce gilet pare-balles est fabriqué dans du Spectra, un matériau très résistant. Il réduit très nettement l'impact des balles. Il est possible d'y ajouter une plaque de blindage supplémentaire.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>168</uiIndex>
-		<szItemName>Gilet Spec-18</szItemName>
-		<szLongItemName>Gilet en Spectra Composite-18</szLongItemName>
+		<szItemName>G. Spec/C-18</szItemName>
+		<szLongItemName>Gilet Spectra/C-18</szLongItemName>
 		<szItemDesc>Ce gilet en Spectra a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
-		<szBRName>Gilet Spec-18</szBRName>
+		<szBRName>Gilet Spectra/C-18</szBRName>
 		<szBRDesc>Ce gilet en Spectra a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>169</uiIndex>
-		<szItemName>Gilet Spectra T</szItemName>
-		<szLongItemName>Gilet en Spectra Traité</szLongItemName>
+		<szItemName>G. Spec/gelée</szItemName>
+		<szLongItemName>Gilet Spectra/gelée royale</szLongItemName>
 		<szItemDesc>Ce gilet en Spectra a été plongé dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Gilet Spectra T</szBRName>
+		<szBRName>Gilet Spectra/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>170</uiIndex>
 		<szItemName>Pant. Kevlar</szItemName>
-		<szLongItemName>Jambières en Kevlar</szLongItemName>
-		<szItemDesc>Ces jambières sont fabriquées dans un tissu à 28 épaisseurs de Kevlar. Elles assurent la protection des jambes.</szItemDesc>
-		<szBRName>Pant. Kevlar</szBRName>
-		<szBRDesc>Ces jambières sont fabriquées dans un tissu à 28 épaisseurs de Kevlar. Elles assurent la protection des jambes.</szBRDesc>
+		<szLongItemName>Pantalon Kevlar</szLongItemName>
+		<szItemDesc>Ce pantalon sont fabriquées dans un tissu à 28 épaisseurs de Kevlar. Elles assurent la protection des jambes.</szItemDesc>
+		<szBRName>Pantalon Kevlar</szBRName>
+		<szBRDesc>Ce pantalon sont fabriquées dans un tissu à 28 épaisseurs de Kevlar. Elles assurent la protection des jambes.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>171</uiIndex>
-		<szItemName>Pant. Kevlar-18</szItemName>
-		<szLongItemName>Jambières en Kevlar Composite-18</szLongItemName>
-		<szItemDesc>Ces jambières en Kevlar ont été traitées au composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
-		<szBRName>Pant. Kevlar T</szBRName>
-		<szBRDesc>Ces jambières en Kevlar ont été traitées au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
+		<szItemName>P. Kevl/C-18</szItemName>
+		<szLongItemName>Pantalon Kevlar/C-18</szLongItemName>
+		<szItemDesc>Ce pantalon en Kevlar ont été traitées au composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
+		<szBRName>Pantalon Kevlar/C-18</szBRName>
+		<szBRDesc>Ce pantalon en Kevlar ont été traitées au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>172</uiIndex>
-		<szItemName>Pant. Kevlar T</szItemName>
-		<szLongItemName>Jambières en Kevlar Traitées</szLongItemName>
+		<szItemName>P. Kev/gelée</szItemName>
+		<szLongItemName>Pantalon Kevlar/gelée royale</szLongItemName>
 		<szItemDesc>Ces jambières en Kevlar ont été plongées dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Pant. Kevlar T</szBRName>
+		<szBRName>Pantalon Kevlar/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>173</uiIndex>
 		<szItemName>Pant. Spectra</szItemName>
-		<szLongItemName>Jambières en Spectra</szLongItemName>
-		<szItemDesc>Ces jambières en Spectra protègent très bien les jambes contre les balles.</szItemDesc>
-		<szBRName>Pant. Spectra</szBRName>
-		<szBRDesc>Ces jambières en Spectra protègent très bien les jambes contre les balles.</szBRDesc>
+		<szLongItemName>Pantalon Spectra</szLongItemName>
+		<szItemDesc>Ce pantalon en Spectra protègent très bien les jambes contre les balles.</szItemDesc>
+		<szBRName>Pantalon Spectra</szBRName>
+		<szBRDesc>Ce pantalon en Spectra protègent très bien les jambes contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>174</uiIndex>
-		<szItemName>Pant. Spec-18</szItemName>
-		<szLongItemName>Jambières en Spectra Composite-18</szLongItemName>
-		<szItemDesc>Ces jambières en Spectra ont été traitées au composite-18 pour assurer une meilleure protetion contre les balles.</szItemDesc>
-		<szBRName>Pant. Spec-18</szBRName>
-		<szBRDesc>Ces jambières en Spectra ont été traitées au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
+		<szItemName>P. Spec/C-18</szItemName>
+		<szLongItemName>Pantalon Spectra/C-18</szLongItemName>
+		<szItemDesc>Ce pantalon en Spectra ont été traitées au composite-18 pour assurer une meilleure protetion contre les balles.</szItemDesc>
+		<szBRName>Pantalon Spectra/C-18</szBRName>
+		<szBRDesc>Ce pantalon en Spectra ont été traitées au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>175</uiIndex>
-		<szItemName>Pants. Spec T</szItemName>
-		<szLongItemName>Jambières en Spectra Traitées</szLongItemName>
-		<szItemDesc>Ces jambières en Spectra ont été plongées dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Pants. Spec T</szBRName>
+		<szItemName>P. Spec/gelée</szItemName>
+		<szLongItemName>Pantalon Spectra/gelée royale</szLongItemName>
+		<szItemDesc>Ce pantalon en Spectra ont été plongées dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
+		<szBRName>Pantalon Spectra/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1420,103 +1420,103 @@
 	<ITEM>
 		<uiIndex>177</uiIndex>
 		<szItemName>Casque Kevlar</szItemName>
-		<szLongItemName>Casque en Kevlar</szLongItemName>
+		<szLongItemName>Casque Kevlar</szLongItemName>
 		<szItemDesc>Ce casque de nouvelle génération est fabriqué en Kevlar. Il protège également la nuque et les oreilles.</szItemDesc>
 		<szBRName>Casque Kevlar</szBRName>
 		<szBRDesc>Ce casque de nouvelle génération est fabriqué en Kevlar. Il protège également la nuque et les oreilles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>178</uiIndex>
-		<szItemName>Casque Kvlr-18</szItemName>
-		<szLongItemName>Casque en Kevlar Composite-18</szLongItemName>
+		<szItemName>C. Kvlr/C-18</szItemName>
+		<szLongItemName>Casque Kevlar/C-18</szLongItemName>
 		<szItemDesc>Ce casque en Kevlar a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
-		<szBRName>Casque Kvlr-18</szBRName>
+		<szBRName>Casque Kevlar/C-18</szBRName>
 		<szBRDesc>Ce casque en Kevlar a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>179</uiIndex>
-		<szItemName>Casque Kvlr T</szItemName>
-		<szLongItemName>Casque en Kevlar Traité</szLongItemName>
+		<szItemName>C. Kvl/gelée</szItemName>
+		<szLongItemName>Casque Kevlar/gelée royale</szLongItemName>
 		<szItemDesc>Ce casque en Kevlar a été plongé dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Casque Kvlr T</szBRName>
+		<szBRName>Casque Kevlar/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>180</uiIndex>
-		<szItemName>Casque Spectra</szItemName>
-		<szLongItemName>Casque en Spectra</szLongItemName>
+		<szItemName>Casq. Spectra</szItemName>
+		<szLongItemName>Casque Spectra</szLongItemName>
 		<szItemDesc>Ce casque en Spectra est particulièrement efficace contre les balles. Il est recouvert d'une peinture noire absorbant les émissions infrarouges.</szItemDesc>
 		<szBRName>Casque Spectra</szBRName>
 		<szBRDesc>Ce casque en Spectra est particulièrement efficace contre les balles. Il est recouvert d'une peinture noire absorbant les émissions infrarouges.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>181</uiIndex>
-		<szItemName>Casque Spec-18</szItemName>
-		<szLongItemName>Casque en Spectra Composite-18</szLongItemName>
+		<szItemName>C. Spec/C-18</szItemName>
+		<szLongItemName>Casque Spectra/C-18</szLongItemName>
 		<szItemDesc>Ce casque en Spectra a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szItemDesc>
-		<szBRName>Casque Spec-18</szBRName>
+		<szBRName>Casque Spectra/C-18</szBRName>
 		<szBRDesc>Ce casque en Spectra a été traité au composite-18 pour assurer une meilleure protection contre les balles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>182</uiIndex>
-		<szItemName>Casque Spec T</szItemName>
-		<szLongItemName>Casque en Spectra Traité</szLongItemName>
+		<szItemName>C. Spe/gelée</szItemName>
+		<szLongItemName>Casque Spectra/gelée royale</szLongItemName>
 		<szItemDesc>Ce casque en Spectra a été plongé dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Casque Spec T</szBRName>
+		<szBRName>Casque Spectra/gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>183</uiIndex>
-		<szItemName>Plaques Blindées</szItemName>
-		<szLongItemName>Plaques de Blindage</szLongItemName>
+		<szItemName>Plaque acier</szItemName>
+		<szLongItemName>Plaque acier</szLongItemName>
 		<szItemDesc>Ces plaques de blindages légères peuvent être introduites à l'avant et à l'arrière de tous les gilets pare-balles pour améliorer leurs capacités de protection contre les munitions conventionnelles.</szItemDesc>
-		<szBRName>Plaques Blindées</szBRName>
+		<szBRName>Plaques acier</szBRName>
 		<szBRDesc>Ces plaques de blindages légères peuvent être introduites à l'avant et à l'arrière de tous les gilets pare-balles pour améliorer leurs capacités de protection contre les munitions conventionnelles.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>184</uiIndex>
-		<szItemName>Infant Hide</szItemName>
-		<szLongItemName>Infant Creature Hide</szLongItemName>
+		<szItemName>Peau nouveau-né</szItemName>
+		<szLongItemName>Peau de créture de nouveau-né</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Infant Creature Hide</szBRName>
+		<szBRName>Peau de créture bébé</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>185</uiIndex>
-		<szItemName>Kiddy Hide</szItemName>
-		<szLongItemName>Young Adult Creature Hide</szLongItemName>
+		<szItemName>Peau j. aldute</szItemName>
+		<szLongItemName>Peau de jeune créature</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Young Adult Creature Hide</szBRName>
+		<szBRName>Peau jeune créature</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>186</uiIndex>
-		<szItemName>Adult Hide</szItemName>
-		<szLongItemName>Adult Creature Hide</szLongItemName>
+		<szItemName>Peau aldute</szItemName>
+		<szLongItemName>Peau de créture adulte</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Adult Creature Hide</szBRName>
+		<szBRName>Peau créture adulte</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>187</uiIndex>
-		<szItemName>Queen Hide</szItemName>
-		<szLongItemName>Queen Creature Hide</szLongItemName>
+		<szItemName>Peau reine</szItemName>
+		<szLongItemName>Peau de la reine</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Queen Creature Hide</szBRName>
+		<szBRName>Peau de la reine</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>188</uiIndex>
 		<szItemName>Blouson</szItemName>
-		<szLongItemName>Blouson en Cuir</szLongItemName>
+		<szLongItemName>Blouson en cuir</szLongItemName>
 		<szItemDesc>Un blouson d'aviateur en cuir.</szItemDesc>
-		<szBRName>Blouson</szBRName>
+		<szBRName>Blouson en cuir</szBRName>
 		<szBRDesc>Un blouson d'aviateur en cuir.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>189</uiIndex>
 		<szItemName>Cuir Kvlr</szItemName>
-		<szLongItemName>Blouson en Cuir et Kevlar</szLongItemName>
+		<szLongItemName>Blouson en cuir et Kevlar</szLongItemName>
 		<szItemDesc>Ce blouson d'aviateur en cuir a été doublé en Kevlar pour assurer un minimum de protection.</szItemDesc>
 		<szBRName>Cuir Kvlr</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
@@ -1524,33 +1524,33 @@
 	<ITEM>
 		<uiIndex>190</uiIndex>
 		<szItemName>Cuir Kvlr-18</szItemName>
-		<szLongItemName>Blouson en Cuir-Kevlar Comp-18</szLongItemName>
-		<szItemDesc>Blouson en Cuir et Kevlar Composite 18</szItemDesc>
+		<szLongItemName>Blouson en cuir-Kevlar Comp-18</szLongItemName>
+		<szItemDesc>Blouson en cuir et Kevlar Composite 18</szItemDesc>
 		<szBRName>Cuir Kvlr-18</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>191</uiIndex>
-		<szItemName>Cuir Kvlr T</szItemName>
-		<szLongItemName>Blouson en Cuir et Kevlar Traité</szLongItemName>
+		<szItemName>Cuir Kvl/gelée</szItemName>
+		<szLongItemName>Blouson cuir/Kevlar/gelée royale</szLongItemName>
 		<szItemDesc>Ce blouson d'aviateur en cuir a été doublé en Kevlar puis plongé dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Cuir Kvlr T</szBRName>
+		<szBRName>Blouson cuir/Kv/gelée</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>192</uiIndex>
-		<szItemName>YF Hide</szItemName>
-		<szLongItemName>Young Female Hide</szLongItemName>
+		<szItemName>Peau JF</szItemName>
+		<szLongItemName>Peau de jeune femelle</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Young Female Hide</szBRName>
+		<szBRName>Peau de jeune femelle</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>193</uiIndex>
-		<szItemName>OF Hide</szItemName>
-		<szLongItemName>Old Female Hide</szLongItemName>
+		<szItemName>Peau FA</szItemName>
+		<szLongItemName>Peau femelle agée</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Old Female Hide</szBRName>
+		<szBRName>Peau femelle agée</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1579,7 +1579,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>197</uiIndex>
-		<szItemName>Gilet Guardian-18</szItemName>
+		<szItemName>G. Guardian-18</szItemName>
 		<szLongItemName>Gilet Guardian Composite 18</szLongItemName>
 		<szItemDesc>Ce gilet Guardian a été traité au Composite-18 pour assurer une meilleure protection.</szItemDesc>
 		<szBRName>Gilet Guardian-18</szBRName>
@@ -1587,74 +1587,74 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>198</uiIndex>
-		<szItemName>Gilet Guardian T</szItemName>
-		<szLongItemName>Gilet Guardian Traité</szLongItemName>
+		<szItemName>G. Gua/gelée</szItemName>
+		<szLongItemName>Gil/Guardian/gelée</szLongItemName>
 		<szItemDesc>Ce gilet Guardian a été trempé dans le sang d'une créature de type Reine pour en améliorer la résistance.</szItemDesc>
-		<szBRName>Gilet Guardian T</szBRName>
+		<szBRName>Gilet Guardian/gelée</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>199</uiIndex>
-		<szItemName>Comp. Binoc.</szItemName>
-		<szLongItemName>Compact Binoculars</szLongItemName>
-		<szItemDesc>Compact 10x30 Binoculars of simple construction.</szItemDesc>
-		<szBRName>10x30 Binoculars</szBRName>
-		<szBRDesc>Compact, light-weight, and inexpensive binoculars. For outdoors use during the day.</szBRDesc>
+		<szItemName>Jum. 10x30</szItemName>
+		<szLongItemName>Jumelles 10x30</szLongItemName>
+		<szItemDesc>Jumelles compactes 10x30 de simple fabication.</szItemDesc>
+		<szBRName>Jumelles 10x30</szBRName>
+		<szBRDesc>Des jumelles compactes, légères et peu coûteuses. À utiliser le jour.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>200</uiIndex>
-		<szItemName>Binoculars</szItemName>
-		<szLongItemName>Quality Binoculars</szLongItemName>
-		<szItemDesc>7x50 High-Quality Binoculars.</szItemDesc>
-		<szBRName>7x50 Binoculars</szBRName>
+		<szItemName>Jumelles 7x50</szItemName>
+		<szLongItemName>Jumelles 7x50</szLongItemName>
+		<szItemDesc>Le top des jumelles 7x50 de haute q.ualité.</szItemDesc>
+		<szBRName>Jumelles 7x50</szBRName>
 		<szBRDesc>Rugged binoculars for the serious hunter or soldier. Multi-coated lenses, nitrogen-filled, and rubber-armored. Usable under bad light conditions.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>201</uiIndex>
 		<szItemName>1er Soins</szItemName>
-		<szLongItemName>Trousse de Premiers Soins</szLongItemName>
+		<szLongItemName>Trousse de premiers secours</szLongItemName>
 		<szItemDesc>Cette trousse contient des antiseptiques, des pansements, des bandes, un thermomètre, de la teinture iodée, des garrots, des épingles de sûreté, des ciseaux et un manuel de secouriste.</szItemDesc>
-		<szBRName>Trousse de Premiers Soins</szBRName>
+		<szBRName>Trousse de 1er secours</szBRName>
 		<szBRDesc>Cette trousse contient des antiseptiques, des pansements, des bandes, un thermomètre, de la teinture iodée, des garrots, des épingles de sûreté, des ciseaux et un manuel de secouriste.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>202</uiIndex>
 		<szItemName>Trousse Méd.</szItemName>
-		<szLongItemName>Trousse Médicale</szLongItemName>
+		<szLongItemName>Trousse médicale</szLongItemName>
 		<szItemDesc>Plus complète que la trousse de premiers soins, la trousse médicale contient également un scalpel, des anti-douleur, des anesthésiants, des antibiotiques et un manuel de chirurgie.</szItemDesc>
-		<szBRName>Trousse Médicale</szBRName>
+		<szBRName>Trousse médicale</szBRName>
 		<szBRDesc>Plus complète que la trousse de premiers soins, la trousse médicale contient également un scalpel, des anti-douleur, des anesthésiants, des antibiotiques et un manuel de chirurgie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>203</uiIndex>
-		<szItemName>Outils</szItemName>
-		<szLongItemName>Trousse à Outils</szLongItemName>
-		<szItemDesc>Cette trousse à outils comporte tous les outils dont vous pouvez avoir besoin : tournevis, pinces, clefs, marteau... Et même un nécessaire de couture !</szItemDesc>
-		<szBRName>Trousse à Outils</szBRName>
-		<szBRDesc>Cette trousse à outils comporte tous les outils dont vous pouvez avoir besoin : tournevis, pinces, clefs, marteau... Et même un nécessaire de couture !</szBRDesc>
+		<szItemName>Caisse à outils</szItemName>
+		<szLongItemName>Caisse à outils</szLongItemName>
+		<szItemDesc>Cette caisse à outils comporte tous les outils dont vous pouvez avoir besoin : tournevis, pinces, clefs, marteau... Et même un nécessaire de couture !</szItemDesc>
+		<szBRName>Caisse à outils</szBRName>
+		<szBRDesc>Cette caisse à outils comporte tous les outils dont vous pouvez avoir besoin : tournevis, pinces, clefs, marteau... Et même un nécessaire de couture !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>204</uiIndex>
-		<szItemName>Trousse de Serrurier</szItemName>
-		<szLongItemName>Trousse de Serrurier</szLongItemName>
+		<szItemName>Rossignol</szItemName>
+		<szLongItemName>Rossignol</szLongItemName>
 		<szItemDesc>Cette trousse contient tous les outils dont vous pouvez avoir besoin pour forcer une serrure ou un coffre.</szItemDesc>
-		<szBRName>Trousse de Serrurier</szBRName>
+		<szBRName>Rossignol</szBRName>
 		<szBRDesc>Cette trousse contient tous les outils dont vous pouvez avoir besoin pour forcer une serrure ou un coffre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>205</uiIndex>
-		<szItemName>Kit de Camo</szItemName>
-		<szLongItemName>Kit de Camouflage-Forêt</szLongItemName>
+		<szItemName>Kit cam./forêt</szItemName>
+		<szLongItemName>Kit de camouflage forêt</szLongItemName>
 		<szItemDesc>Ce kit contient tous ce qu'il vous faut pour réaliser un camouflage-forêt sans défaut, ainsi qu'un miroir et un manuel d'entretien.</szItemDesc>
-		<szBRName>Kit de Camouflage-Forêt</szBRName>
+		<szBRName>Kit de camouflage forêt</szBRName>
 		<szBRDesc>Ce kit contient tous ce qu'il vous faut pour réaliser un camouflage-forêt sans défaut, ainsi qu'un miroir et un manuel d'entretien.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>206</uiIndex>
-		<szItemName>Kit Pièges</szItemName>
-		<szLongItemName>Kit Pièges</szLongItemName>
+		<szItemName>Kit pièges</szItemName>
+		<szLongItemName>Kit pièges</szLongItemName>
 		<szItemDesc>Vous trouverez dans ce kit tout ce qu'il vous faut pour poser un piège : détonateurs, fils et explosifs.</szItemDesc>
-		<szBRName>Kit Pièges</szBRName>
+		<szBRName>Kit pièges</szBRName>
 		<szBRDesc>Vous trouverez dans ce kit tout ce qu'il vous faut pour poser un piège : détonateurs, fils et explosifs.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1668,9 +1668,9 @@
 	<ITEM>
 		<uiIndex>208</uiIndex>
 		<szItemName>Lunette 10x</szItemName>
-		<szLongItemName>Lunette de Visée, 10x</szLongItemName>
+		<szLongItemName>Lunette de visée 10x</szLongItemName>
 		<szItemDesc>Cette lunette peut être montée sur la plupart des fusils, améliorant très nettement la visée et les chances de toucher votre cible.</szItemDesc>
-		<szBRName>Lunette de Visée, Mag.10x</szBRName>
+		<szBRName>Lunette de visée 10x</szBRName>
 		<szBRDesc>Cette lunette peut être montée sur la plupart des fusils, améliorant très nettement la visée et les chances de toucher votre cible. Un équipement dont vous ne pourrez bientôt plus vous passer !</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1684,33 +1684,33 @@
 	<ITEM>
 		<uiIndex>210</uiIndex>
 		<szItemName>Amplificateur</szItemName>
-		<szLongItemName>Amplificateur Sonore</szLongItemName>
+		<szLongItemName>Amplificateur sonore</szLongItemName>
 		<szItemDesc>Ces écouteurs sont généralement destinés aux unités de reconnaissance. Ils sont dotés de microphones et d'un processeur qui amplifie les bruits légers et permettent de déterminer leur source. Ce modèle adaptable n'est pas du tout encombrant.</szItemDesc>
-		<szBRName>Amplificateur Sonore</szBRName>
+		<szBRName>Amplificateur sonore</szBRName>
 		<szBRDesc>Ces écouteurs sont généralement destinés aux unités de reconnaissance. Ils sont dotés de microphones et d'un processeur qui amplifie les bruits légers et permettent de déterminer leur source. Ce modèle adaptable n'est pas du tout encombrant.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>211</uiIndex>
-		<szItemName>VN I</szItemName>
-		<szLongItemName>Lunettes VN, Gen. I</szLongItemName>
+		<szItemName>Lunette VN I</szItemName>
+		<szLongItemName>Lunette vision de nuit, Gén. I</szLongItemName>
 		<szItemDesc>Ces lunettes de vision de nuit fonctionnent sur le principe de l'amplification de la lumière. Elles permettent de voir dans le noir comme en plein jour.</szItemDesc>
-		<szBRName>Lunettes VN, Gen. I</szBRName>
+		<szBRName>Lunette VN, Gén. I</szBRName>
 		<szBRDesc>Ces lunettes de vision de nuit fonctionnent sur le principe de l'amplification de la lumière. Elles permettent de voir dans le noir comme en plein jour.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>212</uiIndex>
 		<szItemName>Lunettes</szItemName>
-		<szLongItemName>Lunettes de Soleil</szLongItemName>
+		<szLongItemName>Lunettes de soleil</szLongItemName>
 		<szItemDesc>Ces lunettes de soleil protègent les yeux du soleil et des éclats.</szItemDesc>
-		<szBRName>Lunettes de Soleil</szBRName>
+		<szBRName>Lunettes de soleil</szBRName>
 		<szBRDesc>Ces lunettes de soleil protègent les yeux du soleil et des éclats. Les trois épaisseurs de verre filtrent, protègent et améliorent la vue même dans les conditions extrêmes d'ensoleillement.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>213</uiIndex>
-		<szItemName>Masque à Gaz</szItemName>
-		<szLongItemName>Masque à Gaz</szLongItemName>
+		<szItemName>Masque à gaz</szItemName>
+		<szLongItemName>Masque à gaz</szLongItemName>
 		<szItemDesc>Ce masque à gaz est une copie du masque à gaz M17A1 russe. Il protège également les yeux des éclats.</szItemDesc>
-		<szBRName>Masque à Gaz</szBRName>
+		<szBRName>Masque à gaz</szBRName>
 		<szBRDesc>Ce masque à gaz est une copie du masque à gaz M17A1 américain. Il protège également les yeux des éclats. Doté d'un cache-poussière et d'une gourde intégrée, il vous protégera efficacement contre toutes les attaques chimiques ou bactériologiques.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1723,10 +1723,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>215</uiIndex>
-		<szItemName>Détecteur de Métal</szItemName>
-		<szLongItemName>Détecteur de Métal</szLongItemName>
+		<szItemName>Détect. métal</szItemName>
+		<szLongItemName>Détecteur de métal</szLongItemName>
 		<szItemDesc>Ce détecteur de métal est particulièrement sensible. Entre les mains d'un expert, il vous permettra de repérer tous les types de mines.</szItemDesc>
-		<szBRName>Détecteur de Métal</szBRName>
+		<szBRName>Détecteur de métal</szBRName>
 		<szBRDesc>Ce détecteur de métal est particulièrement sensible. Entre les mains d'un expert, il vous permettra de repérer tous les types de mines.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1740,14 +1740,14 @@
 	<ITEM>
 		<uiIndex>217</uiIndex>
 		<szItemName>Gelée</szItemName>
-		<szLongItemName>Gelée Royale</szLongItemName>
+		<szLongItemName>Gelée royale</szLongItemName>
 		<szItemDesc>Hmmm qui veut de la bonne gelée royale de créature?</szItemDesc>
-		<szBRName>Gelée Royale</szBRName>
+		<szBRName>Gelée royale</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>218</uiIndex>
-		<szItemName>Elixir</szItemName>
+		<szItemName>Élixir</szItemName>
 		<szLongItemName>Flacon d'Elixir</szLongItemName>
 		<szItemDesc>Un flacon de verre contenant un élixir concocté à base de sang de créature et de décoction d'herbes et d'épices de Gabby.</szItemDesc>
 		<szBRName>Flacon d'Elixir</szBRName>
@@ -1771,18 +1771,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>221</uiIndex>
-		<szItemName>Flacon Rempli</szItemName>
-		<szLongItemName>Flacon Rempli de Sang de Créature</szLongItemName>
+		<szItemName>Flacon plein</szItemName>
+		<szLongItemName>Flacon rempli de sang de créature</szLongItemName>
 		<szItemDesc>Un flacon de verre rempli du sang d'une créature.</szItemDesc>
-		<szBRName>Flacon Rempli de Sang de Créature</szBRName>
+		<szBRName>Flacon rempli de sang de créature</szBRName>
 		<szBRDesc>Un flacon de verre rempli du sang d'une créature. Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>222</uiIndex>
 		<szItemName>Stimulant</szItemName>
-		<szLongItemName>Stimulant</szLongItemName>
+		<szLongItemName>Seringue de stimulant</szLongItemName>
 		<szItemDesc>Cette seringue permet d'administrer un stimulant qui augmente temporairement votre niveau d'énergie. Attention : l'utilisation de ce stimulant peut provoquer une crise cardiaque.</szItemDesc>
-		<szBRName>Stimulant</szBRName>
+		<szBRName>Seringue de stimulant</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1795,82 +1795,82 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>224</uiIndex>
-		<szItemName>Détonateur Télécom.</szItemName>
-		<szLongItemName>Détonateur Télécommandé</szLongItemName>
+		<szItemName>Déton. téléc.</szItemName>
+		<szLongItemName>Détonateur télécommandé</szLongItemName>
 		<szItemDesc>Ce détonateur télécommandé est utilisé pour faire exploser une charge à distance.</szItemDesc>
-		<szBRName>Détonateur Télécommandé</szBRName>
+		<szBRName>Détonateur télécom.</szBRName>
 		<szBRDesc>Ce détonateur télécommandé est utilisé pour faire exploser une charge à distance, au moment que vous jugez opportun !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>225</uiIndex>
-		<szItemName>Cassette Vidéo</szItemName>
-		<szLongItemName>Cassette Vidéo</szLongItemName>
-		<szItemDesc>Cette cassette vidéo, 'Loretta 6 : Où Sont Les Hommes ?', est un film X réservé aux adultes. Accord parental souhaité.</szItemDesc>
-		<szBRName>Cassette Vidéo</szBRName>
+		<szItemName>K7 vidéo</szItemName>
+		<szLongItemName>Cassette vidéo</szLongItemName>
+		<szItemDesc>Cette cassette vidéo, "Loretta 6 : Où sont les hommes ?", est un film X réservé aux adultes. Accord parental souhaité.</szItemDesc>
+		<szBRName>Cassette vidéo</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>226</uiIndex>
-		<szItemName>Acte Notarié</szItemName>
-		<szLongItemName>Acte Notarié</szLongItemName>
+		<szItemName>Acte notarié</szItemName>
+		<szLongItemName>Acte notarié</szLongItemName>
 		<szItemDesc>Il s'agit de l'acte notarié du magasin d'Angel.</szItemDesc>
-		<szBRName>Acte Notarié</szBRName>
+		<szBRName>Acte notarié</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>227</uiIndex>
-		<szItemName>Letter</szItemName>
+		<szItemName>Lettre</szItemName>
 		<szLongItemName>Lettre d'Enrico</szLongItemName>
 		<szItemDesc>La lettre que vous a remise Enrico. Donnez-la à Miguel, le chef des résistants.</szItemDesc>
-		<szBRName>Letter from Enrico</szBRName>
+		<szBRName>Lettre d'Enrico</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>228</uiIndex>
 		<szItemName>Disquette</szItemName>
-		<szLongItemName>Disquette d'Ordinateur</szLongItemName>
+		<szLongItemName>Disquette d'ordinateur</szLongItemName>
 		<szItemDesc>Cette disquette s'appelle : 'Intercept's Most Wanted'. Elle contient des informations confidentielles sur des terroristes internationaux bien connus. Elle a été copiée sur votre portable.</szItemDesc>
-		<szBRName>Disquette d'Ordinateur</szBRName>
+		<szBRName>Disquette d'ordinateur</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>229</uiIndex>
 		<szItemName>Calice</szItemName>
-		<szLongItemName>Calice de la chance</szLongItemName>
+		<szLongItemName>Calice de la Chance</szLongItemName>
 		<szItemDesc>Ce calice est un trésor national à Arulco.</szItemDesc>
-		<szBRName>Calice</szBRName>
+		<szBRName>Calice de la Chance</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>230</uiIndex>
 		<szItemName>Griffes</szItemName>
-		<szLongItemName>Griffes de Chat Sauvage</szLongItemName>
+		<szLongItemName>Griffes de chat sauvage</szLongItemName>
 		<szItemDesc>Ces griffes tranchantes comme des rasoirs peuvent vous rapporter une petite fortune au marché noir.</szItemDesc>
-		<szBRName>Griffes de Chat Sauvage</szBRName>
+		<szBRName>Griffes de chat sauvage</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>231</uiIndex>
 		<szItemName>Crocs</szItemName>
-		<szLongItemName>Crocs de Chat Sauvage</szLongItemName>
+		<szLongItemName>Crocs de chat sauvage</szLongItemName>
 		<szItemDesc>Il faut avoir un sacré cran pour obtenir ces dents de Chat sauvage. Elles sont très rares et très prisées...</szItemDesc>
-		<szBRName>Crocs de Chat Sauvage</szBRName>
+		<szBRName>Crocs de chat sauvage</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>232</uiIndex>
 		<szItemName>Fourrure</szItemName>
-		<szLongItemName>Fourrure de Chat Sauvage</szLongItemName>
+		<szLongItemName>Fourrure de chat sauvage</szLongItemName>
 		<szItemDesc>Il faut avoir un drôle de courage pour 'éplucher' une de ces bêtes. Vous allez en tirer un bon prix.</szItemDesc>
-		<szBRName>Fourrure de Chat Sauvage</szBRName>
+		<szBRName>Fourrure de chat sauvage</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>233</uiIndex>
-		<szItemName>Switch</szItemName>
-		<szLongItemName>Switch</szLongItemName>
+		<szItemName>Interrupteur</szItemName>
+		<szLongItemName>Interrupteur</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Switch</szBRName>
+		<szBRName>Interrupteur</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1884,41 +1884,41 @@
 	<ITEM>
 		<uiIndex>235</uiIndex>
 		<szItemName>Plasma</szItemName>
-		<szLongItemName>Plasma Sanguin</szLongItemName>
+		<szLongItemName>Seringue de plasma sanguin</szLongItemName>
 		<szItemDesc>Cette seringue contient du plasma sanguin qui vous permettra de regagner rapidement des points de vie. Attention, il est écrit : "Ne pas dépasser 4 doses par jour."</szItemDesc>
-		<szBRName>Plasma Sanguin</szBRName>
+		<szBRName>Seringue de plasma</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>236</uiIndex>
-		<szItemName>Syringe</szItemName>
-		<szLongItemName>Syringe</szLongItemName>
+		<szItemName>Seringue</szItemName>
+		<szLongItemName>Seringue</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Syringe</szBRName>
+		<szBRName>Seringue</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>237</uiIndex>
-		<szItemName>Syringe</szItemName>
-		<szLongItemName>Syringe</szLongItemName>
+		<szItemName>Seringue</szItemName>
+		<szLongItemName>Seringue</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Syringe</szBRName>
+		<szBRName>Seringue</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>238</uiIndex>
-		<szItemName>Syringe</szItemName>
-		<szLongItemName>Syringe</szLongItemName>
+		<szItemName>Seringue</szItemName>
+		<szLongItemName>Seringue</szLongItemName>
 		<szItemDesc>PAS DE DESCRIPTION!</szItemDesc>
-		<szBRName>Syringe</szBRName>
+		<szBRName>Seringue</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>239</uiIndex>
-		<szItemName>Flacon Rempli</szItemName>
-		<szLongItemName>Flacon Rempli de Sang Humain</szLongItemName>
+		<szItemName>Flacon plein</szItemName>
+		<szLongItemName>Flacon rempli de sang humain</szLongItemName>
 		<szItemDesc>Un flacon rempli de sang humain. Quelle drôle d'idée.</szItemDesc>
-		<szBRName>Flacon Rempli de Sang Humain</szBRName>
+		<szBRName>Flacon rempli de sang humain</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1931,18 +1931,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>241</uiIndex>
-		<szItemName>Viseur Laser</szItemName>
-		<szLongItemName>Viseur Laser</szLongItemName>
+		<szItemName>Viseur laser</szItemName>
+		<szLongItemName>Viseur laser</szLongItemName>
 		<szItemDesc>Ce viseur laser permet de viser précisément une cible même à longue portée. Il peut être monté sur la plupart des armes de poing et des fusils-mitrailleurs.</szItemDesc>
-		<szBRName>Viseur Laser</szBRName>
+		<szBRName>Viseur laser</szBRName>
 		<szBRDesc>Ce viseur laser permet de viser précisément une cible même à longue portée (30 mètres de jour, 300 mètres de nuit). Il peut être monté sur la plupart des armes.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>242</uiIndex>
-		<szItemName>Télécommande</szItemName>
-		<szLongItemName>Télécommande de Détonateur</szLongItemName>
+		<szItemName>Téléc. Déton.</szItemName>
+		<szLongItemName>Télécommande déton.</szLongItemName>
 		<szItemDesc>Lorsque vous placez un détonateur télécommandé sur une charge, elle n'explosera que lorsque vous appuyez sur cette télécommande.</szItemDesc>
-		<szBRName>Télécommande de Détonateur</szBRName>
+		<szBRName>Télécommande déton.</szBRName>
 		<szBRDesc>Lorsque vous placez un détonateur télécommandé sur une charge, elle n'explosera que lorsque vous appuyez sur cette télécommande.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1955,26 +1955,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>244</uiIndex>
-		<szItemName>Bec de Canard</szItemName>
-		<szLongItemName>Bec de Canard</szLongItemName>
+		<szItemName>Bec de canard</szItemName>
+		<szLongItemName>Bec de canard</szLongItemName>
 		<szItemDesc>Un bec de canard se monte au bout du canon d'un fusil à pompe, permettant de disperser la chevrotine sur une ligne horizontale.</szItemDesc>
-		<szBRName>Bec de Canard</szBRName>
+		<szBRName>Bec de canard</szBRName>
 		<szBRDesc>Un bec de canard se monte au bout du canon d'un fusil à pompe, permettant de disperser la chevrotine sur une ligne horizontale. Résultat garanti !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>245</uiIndex>
-		<szItemName>Alcohol</szItemName>
-		<szLongItemName>Bottle of Alcohol</szLongItemName>
+		<szItemName>Alcool</szItemName>
+		<szLongItemName>Bouteille d'alcool</szLongItemName>
 		<szItemDesc>Bouteille d'Alcool.</szItemDesc>
-		<szBRName>Bottle of Alcohol</szBRName>
+		<szBRName>Bouteille d'alcool</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>246</uiIndex>
-		<szItemName>Lunettes VN II</szItemName>
-		<szLongItemName>Lunettes VN, Gen. II</szLongItemName>
-		<szItemDesc>Ces lunettes de vision nocturne seconde generation  ont une meilleure intensification que des modèles plus vieux. L'image demeure légèrement granuleuse. Ce modèle est assez facilement accessible.</szItemDesc>
-		<szBRName>Lunettes de vision nocturne II</szBRName>
+		<szItemName>Lunette VN II</szItemName>
+		<szLongItemName>Lunette vision de nuit, Gén. II</szLongItemName>
+		<szItemDesc>Ces lunettes de vision nocturne seconde generation ont une meilleure intensification que des modèles plus vieux. L'image demeure légèrement granuleuse. Ce modèle est assez facilement accessible.</szItemDesc>
+		<szBRName>Lunette VN, Gén. II</szBRName>
 		<szBRDesc>Que vous soyez un chasseur, un rôdeur, ou LEO, avec celles-ci aucune proie ne se cachera de vous dans la pénombre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1995,15 +1995,15 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>249</uiIndex>
-		<szItemName>Tête</szItemName>
+		<szItemName>Tête Imposteur</szItemName>
 		<szLongItemName>Tête de l'Imposteur</szLongItemName>
 		<szItemDesc>L'imposteur ne pourra plus nuire. Vous êtes l'heureux propriétaire d'une tête en cours de décomposition.</szItemDesc>
-		<szBRName>Impostor's Head</szBRName>
+		<szBRName>Tête de l'Imposteur</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>250</uiIndex>
-		<szItemName>Tête</szItemName>
+		<szItemName>Tête T-Rex</szItemName>
 		<szLongItemName>Tête de T-Rex</szLongItemName>
 		<szItemDesc>Les dinosaures ont disparu, certes, mais rien ne vous empêche de garder cette tête en souvenir.</szItemDesc>
 		<szBRName>Tête de T-Rex</szBRName>
@@ -2011,7 +2011,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>251</uiIndex>
-		<szItemName>Tête</szItemName>
+		<szItemName>Tête Slay</szItemName>
 		<szLongItemName>Tête de Slay</szLongItemName>
 		<szItemDesc>Slay est mort, et tout ce qu'il reste de lui, c'est cette tête en cours de décomposition.</szItemDesc>
 		<szBRName>Tête de Slay</szBRName>
@@ -2019,7 +2019,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>252</uiIndex>
-		<szItemName>Tête</szItemName>
+		<szItemName>Tête Pharmac.</szItemName>
 		<szLongItemName>Tête du Pharmacien</szLongItemName>
 		<szItemDesc>Le pharmacien ne s'attendait sûrement pas à trouver sa tête sur votre feuille de prescription.</szItemDesc>
 		<szBRName>Tête du Pharmacien</szBRName>
@@ -2027,7 +2027,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>253</uiIndex>
-		<szItemName>Tête</szItemName>
+		<szItemName>Tête Matrone</szItemName>
 		<szLongItemName>Tête de la Matrone</szLongItemName>
 		<szItemDesc>Elle ne manquera à personne.</szItemDesc>
 		<szBRName>Tête de la Matrone</szBRName>
@@ -2035,7 +2035,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>254</uiIndex>
-		<szItemName>Tête</szItemName>
+		<szItemName>Tête Tiffany</szItemName>
 		<szLongItemName>Tête de Tiffany</szLongItemName>
 		<szItemDesc>Tiffany Eddie ne se servait pas souvent de sa tête. A tel point qu'il l'a perdu.</szItemDesc>
 		<szBRName>Tête de Tiffany</szBRName>
@@ -2067,42 +2067,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>258</uiIndex>
-		<szItemName>Caméra Vidéo</szItemName>
-		<szLongItemName>Caméra Vidéo</szLongItemName>
+		<szItemName>Caméra vidéo</szItemName>
+		<szLongItemName>Caméra vidéo</szLongItemName>
 		<szItemDesc>Cette caméra VHS vous permettra d'enregistrer et de revoir tous vos souvenirs favoris, des situations embarassantes lors d'un marriage aux célébrités en position comprométente.</szItemDesc>
-		<szBRName>Caméra Vidéo</szBRName>
+		<szBRName>Caméra vidéo</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>259</uiIndex>
-		<szItemName>Cont. Robot</szItemName>
-		<szLongItemName>Contrôle Robot</szLongItemName>
+		<szItemName>Cont. robot</szItemName>
+		<szLongItemName>Contrôle robot</szLongItemName>
 		<szItemDesc>Envoyez un robot faire le boulot pendant que vous êtes bien à l'abri.</szItemDesc>
-		<szBRName>Contrôle Robot</szBRName>
+		<szBRName>Contrôle robot</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>260</uiIndex>
-		<szItemName>Griffe</szItemName>
-		<szLongItemName>Griffe de Créature</szLongItemName>
+		<szItemName>Griffes</szItemName>
+		<szLongItemName>Griffes de créature</szLongItemName>
 		<szItemDesc>La griffe aiguisée comme une lame de razoir d'une de ces répugnantes créatures.</szItemDesc>
-		<szBRName>Griffe de Créature</szBRName>
+		<szBRName>Griffes de créature</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>261</uiIndex>
 		<szItemName>Chair</szItemName>
-		<szLongItemName>Chair de Créature</szLongItemName>
+		<szLongItemName>Chair de créature</szLongItemName>
 		<szItemDesc>Un peu de chair appartenant à une créature. Celle-ci est morte, heureusement.</szItemDesc>
-		<szBRName>Chair de Créature</szBRName>
+		<szBRName>Chair de créature</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>262</uiIndex>
 		<szItemName>Organe</szItemName>
-		<szLongItemName>Organe Non-Identifié de Créature</szLongItemName>
+		<szLongItemName>Organe non-Identifié de créature</szLongItemName>
 		<szItemDesc>Et un organe interne de créature, un!</szItemDesc>
-		<szBRName>Organe Non-Identifié de Créature</szBRName>
+		<szBRName>Organe non-Identifié de créature</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2116,17 +2116,17 @@
 	<ITEM>
 		<uiIndex>264</uiIndex>
 		<szItemName>Montre</szItemName>
-		<szLongItemName>Montre en Platine</szLongItemName>
+		<szLongItemName>Montre en platine</szLongItemName>
 		<szItemDesc>Donnez l'heure avec élégance avec cette superbe montre suisse.</szItemDesc>
-		<szBRName>Montre en Platine</szBRName>
+		<szBRName>Montre en platine</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>265</uiIndex>
-		<szItemName>Clubs de Golf</szItemName>
-		<szLongItemName>Clubs de Golf</szLongItemName>
+		<szItemName>Clubs de golf</szItemName>
+		<szLongItemName>Clubs de golf</szLongItemName>
 		<szItemDesc>Un sac de clubs de golf. Un peu vieux, mais certainement encore parfaitement utilisables.</szItemDesc>
-		<szBRName>Clubs de Golf</szBRName>
+		<szBRName>Clubs de golf</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2139,18 +2139,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>267</uiIndex>
-		<szItemName>TV Portable</szItemName>
-		<szLongItemName>Téléviseur Portable</szLongItemName>
+		<szItemName>TV portable</szItemName>
+		<szLongItemName>Téléviseur portable</szLongItemName>
 		<szItemDesc>Pour que vous ne ratiez pas vos feuilletons préférés parce que vous êtes en mission, emmenez ce téléviseur avec vous !</szItemDesc>
-		<szBRName>Téléviseur Portable</szBRName>
+		<szBRName>Téléviseur portable</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>268</uiIndex>
-		<szItemName>Solde</szItemName>
-		<szLongItemName>Solde Actuel :</szLongItemName>
+		<szItemName>Solde actuel :</szItemName>
+		<szLongItemName>Solde actuel :</szLongItemName>
 		<szItemDesc>L'argent dont vous disposez actuellement sur votre compte en banque. Vous pouvez retirer de l'argent en cliquant sur un montant puis sur 'OK'. Avoir de l'argent sur soi est souvent une bonne idée.</szItemDesc>
-		<szBRName>Solde Actuel :</szBRName>
+		<szBRName>Solde actuel :</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2163,26 +2163,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>270</uiIndex>
-		<szItemName>Very Small Creature Gas</szItemName>
-		<szLongItemName>Very Small Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Very Small Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Gaz créature</szItemName>
+		<szLongItemName>Gaz de très petite créature</szLongItemName>
+		<szItemDesc>ARTICLE INTERNE</szItemDesc>
+		<szBRName>Gaz très petite créature</szBRName>
+		<szBRDesc>ARTICLE INTERNE</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>271</uiIndex>
-		<szItemName>Clé</szItemName>
-		<szLongItemName>Petite Clé</szLongItemName>
+		<szItemName>Petite clé</szItemName>
+		<szLongItemName>Petite clé</szLongItemName>
 		<szItemDesc>Une petite clé dorée généralement utilisée pour fermer des placards.</szItemDesc>
-		<szBRName>Petite Clé</szBRName>
+		<szBRName>Petite clé</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>272</uiIndex>
-		<szItemName>Clé</szItemName>
-		<szLongItemName>Clé de Prison</szLongItemName>
+		<szItemName>Clé de prison</szItemName>
+		<szLongItemName>Clé de prison</szLongItemName>
 		<szItemDesc>Une clé de prison en acier.</szItemDesc>
-		<szBRName>Clé de Prison</szBRName>
+		<szBRName>Clé de prison</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2190,263 +2190,263 @@
 		<szItemName>Clé</szItemName>
 		<szLongItemName>Clé</szLongItemName>
 		<szItemDesc>Une clé très simple, probablement pour une serrure standard.</szItemDesc>
-		<szBRName>Cheap key</szBRName>
+		<szBRName>Clé</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>274</uiIndex>
-		<szItemName>Clé</szItemName>
-		<szLongItemName>Clé Colorée</szLongItemName>
+		<szItemName>Clé colorée</szItemName>
+		<szLongItemName>Clé colorée</szLongItemName>
 		<szItemDesc>Une clé colorée.</szItemDesc>
-		<szBRName>Dull key</szBRName>
+		<szBRName>Clé colorée</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>275</uiIndex>
-		<szItemName>Clé</szItemName>
-		<szLongItemName>Clé Brillante</szLongItemName>
+		<szItemName>Clé brillante</szItemName>
+		<szLongItemName>Clé brillante</szLongItemName>
 		<szItemDesc>Une clé brillante, probablement pour une serrure peu ordinaire.</szItemDesc>
-		<szBRName>Clé Brillante</szBRName>
+		<szBRName>Clé brillante</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>276</uiIndex>
-		<szItemName>Clé</szItemName>
-		<szLongItemName>Clé de Cadenas</szLongItemName>
+		<szItemName>Clé de cadenas</szItemName>
+		<szLongItemName>Clé de cadenas</szLongItemName>
 		<szItemDesc>Une clé de cadenas.</szItemDesc>
-		<szBRName>Clé de Cadenas</szBRName>
+		<szBRName>Clé de cadenas</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>277</uiIndex>
-		<szItemName>Clé</szItemName>
-		<szLongItemName>Clé Electronique</szLongItemName>
+		<szItemName>Clé électro.</szItemName>
+		<szLongItemName>Clé électronique</szLongItemName>
 		<szItemDesc>Une clé électronique.</szItemDesc>
-		<szBRName>Clé Electronique</szBRName>
+		<szBRName>Clé électronique</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>278</uiIndex>
-		<szItemName>Passe</szItemName>
-		<szLongItemName>Carte Magnétique</szLongItemName>
+		<szItemName>Carte magnét.</szItemName>
+		<szLongItemName>Carte magnétique</szLongItemName>
 		<szItemDesc>Une carte magnétique pour ouvrir certaines portes.</szItemDesc>
-		<szBRName>Carte Magnétique</szBRName>
+		<szBRName>Carte magnétique</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
-		<szItemName>5.7mm Mag 20</szItemName>
-		<szLongItemName>5.7x28mm Mag, 20</szLongItemName>
-		<szItemDesc>This magazine contains 20 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
-		<szBRName>5.7x28mm Mag 20</szBRName>
-		<szBRDesc>5.7mm somersaults through flesh and bone leaving major wound cavities.</szBRDesc>
+		<szItemName>5.7x28 PE 20</szItemName>
+		<szLongItemName>5.7x28mm PE, 20</szLongItemName>
+		<szItemDesc>Ce chargeur contient 20 cartouches de 5.7mm. Elles sont aussi efficaces contre des cibles sans protection qu'avec des gilets pare-balles.</szItemDesc>
+		<szBRName>5.7x28mm PE, 20</szBRName>
+		<szBRDesc>La 5.7 traverse la chair et les os en ne laissant qu'une blessure béante.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>280</uiIndex>
-		<szItemName>5.7mm Mag 20 HP</szItemName>
-		<szLongItemName>5.7x28mm Mag, 20 HP</szLongItemName>
-		<szItemDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
-		<szBRName>5.7x28mm Mag 20 HP</szBRName>
-		<szBRDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szBRDesc>
+		<szItemName>5.7x28 TC 20</szItemName>
+		<szLongItemName>5.7x28mm TC, 20</szLongItemName>
+		<szItemDesc>Ces 20 cartouches de 5.7mm à tête creuse infligent plus de blessures que la 5.7 de base et conservent ses capacités de perforation.</szItemDesc>
+		<szBRName>5.7x28mm TC, 20</szBRName>
+		<szBRDesc>Ces 20 cartouches de 5.7mm à tête creuse infligent plus de blessures que la 5.7 de base et conservent ses capacités de perforation.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>281</uiIndex>
-		<szItemName>Black Cap</szItemName>
-		<szLongItemName>Black Cap</szLongItemName>
-		<szItemDesc>A black commando-type tuque.</szItemDesc>
-		<szBRName>Black Cap</szBRName>
-		<szBRDesc>On Sale: 1/2 Price!  For a limited time only, you can purchase this fine Commando Tuque, made from the finest cotton, for 50 percent off!</szBRDesc>
+		<szItemName>Bonnet noir</szItemName>
+		<szLongItemName>Bonnet noir</szLongItemName>
+		<szItemDesc>Un bonnet noir de type commando.</szItemDesc>
+		<szBRName>Bonnet noir</szBRName>
+		<szBRDesc>Il est à moitié prix ! Pour une durée limitée seulement, achetez ce beau bonnet de commando en coton naturel et avec 50 pour cent de réduction !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>
-		<szItemName>Zylon Combat Pants</szItemName>
-		<szLongItemName>Zylon Combat Pants</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
-		<szBRName>Zylon Combat Pants</szBRName>
-		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Pant. Zylon</szItemName>
+		<szLongItemName>Pantalon Zylon</szLongItemName>
+		<szItemDesc>C'est la protection de l'armée américaine. À quoi pensent-ils ? Ce truc s'use trop vite.</szItemDesc>
+		<szBRName>Pantalon Zylon</szBRName>
+		<szBRDesc>Plus résistant que le Kevlar, c'est la protection pour les Marines US en Irak. Il fournit un camouflage limité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
-		<szItemName>Zylon Combat Vest</szItemName>
-		<szLongItemName>Zylon Combat Vest</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
-		<szBRName>Zylon Combat Vest</szBRName>
-		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Veste Zylon</szItemName>
+		<szLongItemName>Veste Zylon</szLongItemName>
+		<szItemDesc>C'est la protection de l'armée américaine. À quoi pensent-ils ? Ce truc s'use trop vite.</szItemDesc>
+		<szBRName>Veste Zylon</szBRName>
+		<szBRDesc>Plus résistant que le Kevlar, c'est la protection pour les Marines US en Irak. Il fournit un camouflage limité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
-		<szItemName>Uniform</szItemName>
-		<szLongItemName>Field Uniform</szLongItemName>
-		<szItemDesc>Officer's fatigues. This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
-		<szBRName>Field Uniform</szBRName>
-		<szBRDesc>Officer's fatigues.  Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Treillis</szItemName>
+		<szLongItemName>Treillis</szLongItemName>
+		<szItemDesc>Le treillis d'officier. C'est la protection de l'armée américaine. À quoi pensent-ils ? Ce truc s'use trop vite.</szItemDesc>
+		<szBRName>Treillis</szBRName>
+		<szBRDesc>Le treillis d'officier. Plus résistant que le Kevlar, c'est la protection pour le Corps des Marines US en Irak. Il fournit un camouflage limité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>285</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Hat</szLongItemName>
-		<szItemDesc>A nice hat to wear when your helmet gets too hot.  Provides limited camouflage.</szItemDesc>
-		<szBRName>Hat</szBRName>
-		<szBRDesc>As seen on TV!  This is the same hat that "Wild Bill" wore on the GI Joe Saturday morning cartoon.  Ok, so it's not the same hat.  But's its still a nice hat.</szBRDesc>
+		<szItemName>Bob</szItemName>
+		<szLongItemName>Bob militaire</szLongItemName>
+		<szItemDesc>Un beau chapeau à porter quand il fait trop chaud avec un casque . Il fournit un camouflage limité.</szItemDesc>
+		<szBRName>Bob militaire</szBRName>
+		<szBRDesc>Comme on le voyait à la télé ! C'est le même chapeau que "Wild Bill" portait dans le dessin animé GI Joe, le samedi matin. Ok, ce n'est pas vraiment le même. Mais ça reste un beau chapeau.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>286</uiIndex>
-		<szItemName>Uniform</szItemName>
-		<szLongItemName>Dress Uniform</szLongItemName>
-		<szItemDesc>If you ever need to go to a formal dinner party while you're here in Arulco, you could wear this.  Or not.</szItemDesc>
-		<szBRName>Dress Uniform</szBRName>
-		<szBRDesc>Formal attire of the US Marine Corps.  Warning!  This is not a viable combat vestement.</szBRDesc>
+		<szItemName>Uniforme</szItemName>
+		<szLongItemName>Uniforme de parade</szLongItemName>
+		<szItemDesc>Si vous avez besoin d'aller à un dîner officiel pendant que vous êtes à Arulco, vous pouvez le porter ou non.</szItemDesc>
+		<szBRName>Uniforme de parade</szBRName>
+		<szBRDesc>Tenue de soirée du Corps des Marines US. Attention ! Ce n'est pas une tenue de combat viable.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>287</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Officer's Hat</szLongItemName>
-		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the US.</szItemDesc>
-		<szBRName>Officer's Hat</szBRName>
-		<szBRDesc>A marine officer's hat.  Comes with free beer-hat.</szBRDesc>
+		<szItemName>Casquette</szItemName>
+		<szLongItemName>Casquette d'officier</szLongItemName>
+		<szItemDesc>C'est une casquette d'officier. À première vue, c'est sûrement de la marine US.</szItemDesc>
+		<szBRName>Casquette d'officier</szBRName>
+		<szBRDesc>Une casquette d'officier de marine. Livré avec un chapeau de bière gratuit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>288</uiIndex>
-		<szItemName>Beret</szItemName>
-		<szLongItemName>Red Beret</szLongItemName>
-		<szItemDesc>Parlay voo francais?  This beret may not be French, but it sure looks gay.</szItemDesc>
-		<szBRName>Red Beret</szBRName>
-		<szBRDesc>Start your own special forces team!</szBRDesc>
+		<szItemName>Béret rouge</szItemName>
+		<szLongItemName>Béret rouge</szLongItemName>
+		<szItemDesc>Parlay voo francais ? Ce béret ne peut pas être pour un français, mais pour un gay.</szItemDesc>
+		<szBRName>Béret rouge</szBRName>
+		<szBRDesc>Créez votre propre unité de forces spéciales !</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>289</uiIndex>
-		<szItemName>Cap</szItemName>
-		<szLongItemName>Russian Cap</szLongItemName>
-		<szItemDesc>Wow, nice hat!</szItemDesc>
-		<szBRName>Russian Cap</szBRName>
-		<szBRDesc>A Soviet guard's hat.  Available in brown and red.</szBRDesc>
+		<szItemName>Calot russe</szItemName>
+		<szLongItemName>Calot russe</szLongItemName>
+		<szItemDesc>Waouh, quel beau calot !</szItemDesc>
+		<szBRName>Calot russe</szBRName>
+		<szBRDesc>Un calot d'officier soviétique. disponible en brun et rouge.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>290</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Fur Hat</szLongItemName>
-		<szItemDesc>For those cold Russian winters, you need the best in head warming fur hats.  So why would you need it in Arulco?</szItemDesc>
-		<szBRName>Fur Hat</szBRName>
-		<szBRDesc>For those cold Russian winters, you need the best in head warming fur hats.  Comes with free ear muffs.</szBRDesc>
+		<szItemName>Chapka</szItemName>
+		<szLongItemName>Toque en fourrure</szLongItemName>
+		<szItemDesc>Pour les grands hivers froids en Russie, ayez le meilleur Chapka pour réchauffer votre tête. Alors, pourquoi pensez-vous en avoir besoin à Arulco ?</szItemDesc>
+		<szBRName>Toque en fourrure</szBRName>
+		<szBRDesc>Pour les grands hivers froids en Russie, ayez le meilleur Chapka pour réchauffer votre tête. Livré avec un cache-oreilles gratuit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>291</uiIndex>
-		<szItemName>Coat</szItemName>
-		<szLongItemName>Officer's Coat</szLongItemName>
-		<szItemDesc>While this coat looks like it'll hold up fine against the rain, it doesn't look like it'll do much against bullets.</szItemDesc>
-		<szBRName>Officer's Coat</szBRName>
-		<szBRDesc>A Soviet officer's coat.  Available with and without pocket lint.</szBRDesc>
+		<szItemName>Capote</szItemName>
+		<szLongItemName>Capote d'officier</szLongItemName>
+		<szItemDesc>Cette capote vous protègera très bien contre la pluie, mais beaucoup moins contre les balles.</szItemDesc>
+		<szBRName>Capote d'officier</szBRName>
+		<szBRDesc>Une capote d'officier soviétique. Disponible avec ou sans peluches dans les poches.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>292</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Officer's Hat</szLongItemName>
-		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the former Soviet Union.</szItemDesc>
-		<szBRName>Officer's Hat</szBRName>
-		<szBRDesc>A Soviet officer's hat.  Available with and without lice.</szBRDesc>
+		<szItemName>Casquette</szItemName>
+		<szLongItemName>Casquette d'officier</szLongItemName>
+		<szItemDesc>C'est une casquette d'officier. À première vue, elle vient sûrement de l'ancienne Union soviétique.</szItemDesc>
+		<szBRName>Casquette d'officier</szBRName>
+		<szBRDesc>Une casquette d'officier soviétique. Disponible avec ou sans poux.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>293</uiIndex>
-		<szItemName>SWAT Helmet</szItemName>
-		<szLongItemName>SWAT Helmet</szLongItemName>
-		<szItemDesc>This helmet comes with eye protection, and feels very sturdy.</szItemDesc>
-		<szBRName>SWAT Helmet</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szItemName>Casque SWAT</szItemName>
+		<szLongItemName>Casque SWAT</szLongItemName>
+		<szItemDesc>Ce casque est très robuste. Livré avec des lunettes de protection.</szItemDesc>
+		<szBRName>Casque SWAT</szBRName>
+		<szBRDesc>La protection du SWAT : solide, résistant et souple. Un excellent choix pour les situations qui nécessitent une protection légère pour une grande mobilité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>294</uiIndex>
-		<szItemName>SWAT Pants</szItemName>
-		<szLongItemName>SWAT Leggings</szLongItemName>
-		<szItemDesc>Standard issue SWAT armoured leggings.  Sturdier than standard kevlar due to extra integrated plating, but still provide excellent mobility.</szItemDesc>
-		<szBRName>SWAT Leggings</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szItemName>Pant. SWAT</szItemName>
+		<szLongItemName>Pantalon du SWAT</szLongItemName>
+		<szItemDesc>Ce pantalon blindé du SWAT. Plus solide que le Kevlar en raison de plaques supplémentaires intégrées, tout en offrant une excellente mobilité.</szItemDesc>
+		<szBRName>Pantalon du SWAT</szBRName>
+		<szBRDesc>La protection blindée du SWAT : solide, résistant et souple. Un excellent choix pour les situations qui nécessitent une protection légère pour une grande mobilité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
-		<szItemName>SWAT Vest</szItemName>
-		<szLongItemName>SWAT Vest</szLongItemName>
-		<szItemDesc>Standard issue SWAT armoured vest.  Sturdier than standard kevlar due to extra integrated plating, but still provides excellent mobility.</szItemDesc>
-		<szBRName>SWAT Vest</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szItemName>Veste SWAT</szItemName>
+		<szLongItemName>Veste SWAT</szLongItemName>
+		<szItemDesc>Une veste blindée du SWAT. Plus solide que le Kevlar en raison de plaques supplémentaires intégrées, tout en offrant une excellente mobilité.</szItemDesc>
+		<szBRName>Veste SWAT</szBRName>
+		<szBRDesc>La protection blindée du SWAT : solide, résistant et souple. Un excellent choix pour les situations qui nécessitent une protection légère pour une grande mobilité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>296</uiIndex>
 		<szItemName>T-Shirt</szItemName>
 		<szLongItemName>T-Shirt</szLongItemName>
-		<szItemDesc>Ah ouais?  Et bien toi-même d'abord!</szItemDesc>
+		<szItemDesc>Ah ouais? Et bien toi-même d'abord!</szItemDesc>
 		<szBRName>T-Shirt</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>297</uiIndex>
-		<szItemName>Retractable Baton</szItemName>
-		<szLongItemName>Retractable Baton</szLongItemName>
-		<szItemDesc>Standard issue for security guards in many countries, this retractable baton is greating for whipping out and beating.</szItemDesc>
-		<szBRName>Retractable Baton</szBRName>
-		<szBRDesc>Standard retractable baton.  Popular with security guards.</szBRDesc>
+		<szItemName>Matraque tél.</szItemName>
+		<szLongItemName>Matraque télescopique</szLongItemName>
+		<szItemDesc>Bien connu chez les agents de sécurité dans de nombreux pays, cette superbe matraque télescopique sort d'un coup sec pour frapper l'adversaire.</szItemDesc>
+		<szBRName>Matraque télescopique</szBRName>
+		<szBRDesc>Une matraque télescopique, populaire auprès des agents de sécurité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>298</uiIndex>
-		<szItemName>Nightstick</szItemName>
-		<szLongItemName>Nightstick</szLongItemName>
-		<szItemDesc>Long, hard and good for a serious beating.</szItemDesc>
-		<szBRName>Nightstick</szBRName>
-		<szBRDesc>Go Rodney-King on someone's ass with this police nightstick.</szBRDesc>
+		<szItemName>Matraque</szItemName>
+		<szLongItemName>Matraque</szLongItemName>
+		<szItemDesc>Longue, dure et douce pour le plaisir d'un passage à tabac.</szItemDesc>
+		<szBRName>Matraque</szBRName>
+		<szBRDesc>Allez Rodney-King, on casse un petit cul avec cette matraque de police.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>299</uiIndex>
-		<szItemName>Utility Knife</szItemName>
-		<szLongItemName>Utility Knife</szLongItemName>
-		<szItemDesc>Pry open locks and stab your enemies with this all purpose utility knife.</szItemDesc>
-		<szBRName>Utility Knife</szBRName>
-		<szBRDesc>Pry open locks and stab your enemies with this all purpose utility knife.</szBRDesc>
+		<szItemName>Couteau suisse</szItemName>
+		<szLongItemName>Couteau suisse</szLongItemName>
+		<szItemDesc>Ouvrez vos bouteilles de vin, forcez les serrures et poignardez vos ennemis avec ce couteau suisse.</szItemDesc>
+		<szBRName>Couteau suisse</szBRName>
+		<szBRDesc>Ce couteau suisse a été conçu dans le but d'ouvrir vos bouteilles de vin, de forcer les serrures et de poignarder vos ennemis.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>300</uiIndex>
-		<szItemName>Light Knife</szItemName>
-		<szLongItemName>Light Knife</szLongItemName>
-		<szItemDesc>A small, well-balanced knife.</szItemDesc>
-		<szBRName>Light Knife</szBRName>
-		<szBRDesc>A small, well-balanced blade that does a little less damage that our standard combat knife, but can be swung a bit faster.</szBRDesc>
+		<szItemName>Couteau léger</szItemName>
+		<szLongItemName>Couteau léger</szLongItemName>
+		<szItemDesc>Un couteau léger et bien équilibré.</szItemDesc>
+		<szBRName>Couteau léger</szBRName>
+		<szBRDesc>Une lame légère et bien équilibrée qui fait des dégâts, un peu moins que notre couteau de combat, mais se manie plus vite.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>301</uiIndex>
-		<szItemName>Exacto Knife</szItemName>
-		<szLongItemName>Exacto Knife</szLongItemName>
-		<szItemDesc>Exactly what you'd need if you were going to cut through some cardboard.  Pretty much useless in combat though.</szItemDesc>
-		<szBRName>Exacto Knife</szBRName>
+		<szItemName>Cutter</szItemName>
+		<szLongItemName>Couteau Exacto</szLongItemName>
+		<szItemDesc>Un simple cutter pour si vous avez besoin de couper du carton. À peu près inutile dans un combat... Quoique.</szItemDesc>
+		<szBRName>Couteau Exacto</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>302</uiIndex>
-		<szItemName>Camo St. Helm</szItemName>
-		<szLongItemName>Camo Steel Helmet</szLongItemName>
-		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
-		<szBRName>Camo Steel Helmet</szBRName>
-		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Casque Helm</szItemName>
+		<szLongItemName>Casque acier camo.</szLongItemName>
+		<szItemDesc>Ce casque d'acier offre une protection contre les armes à feu, des petits éclats d'obus et d'autres projectiles. Il est déjà peint.</szItemDesc>
+		<szBRName>Casque acier camo.</szBRName>
+		<szBRDesc>Confortable et très pratique. Ce casque d'acier offre une protection contre les armes à feu, des petits éclats d'obus et d'autres projectiles. Une suspension en nylon avec un rembourrage de cuir et une courroie de menton réglable. Il fournit un camouflage limité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>303</uiIndex>
-		<szItemName>Plateau</szItemName>
-		<szLongItemName>Plateau en Argent</szLongItemName>
+		<szItemName>Plateau argent</szItemName>
+		<szLongItemName>Plateau en argent</szLongItemName>
 		<szItemDesc>Ce plateau en argent terni ne porte aucune inscription. Il est tellement lourd qu'on peut se demander qui peut bien offrir des trucs pareils...</szItemDesc>
-		<szBRName>Plateau en Argent</szBRName>
+		<szBRName>Plateau en argent</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>304</uiIndex>
 		<szItemName>Adhésif</szItemName>
-		<szLongItemName>Rouleau Adhésif</szLongItemName>
+		<szLongItemName>Rouleau adhésif</szLongItemName>
 		<szItemDesc>Un rouleau d'adhésif gris. Pratique pour boucher les trous ou assembler des objets...</szItemDesc>
-		<szBRName>Rouleau Adhésif</szBRName>
+		<szBRName>Rouleau adhésif</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>305</uiIndex>
 		<szItemName>Tringle</szItemName>
-		<szLongItemName>Tringle en Aluminimum</szLongItemName>
+		<szLongItemName>Tringle aluminimum</szLongItemName>
 		<szItemDesc>Cette tringle à rideaux en aluminium est cassée aux deux extrémités. On se demande ce qui est arrivé aux rideaux.</szItemDesc>
-		<szBRName>Tringle en Aluminimum</szBRName>
+		<szBRName>Tringle en aluminimum</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2459,34 +2459,34 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>307</uiIndex>
-		<szItemName>Rod &amp; Spring</szItemName>
-		<szLongItemName>Rod &amp; Spring</szLongItemName>
-		<szItemDesc>Cet ingénieuse invention remplace efficacement le système de percussion de n'importe quelle arme à feu, augmentant de fait significativement sa cadence de tir.</szItemDesc>
-		<szBRName>Rod &amp; Spring</szBRName>
+		<szItemName>Tige/ressort</szItemName>
+		<szLongItemName>Tige/ressort</szLongItemName>
+		<szItemDesc>Cette ingénieuse invention remplace efficacement le système de percussion de n'importe quelle arme, augmentant de fait et significativement sa cadence de tir.</szItemDesc>
+		<szBRName>Tige/ressort</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>308</uiIndex>
-		<szItemName>Tube Acier</szItemName>
-		<szLongItemName>Tube en Acier</szLongItemName>
-		<szItemDesc>Un tube d'acier orphelin, qui cherche un foyer.</szItemDesc>
-		<szBRName>Tube en Acier</szBRName>
+		<szItemName>Tube acier</szItemName>
+		<szLongItemName>Tube en acier</szLongItemName>
+		<szItemDesc>Un tube d'acier orphelin qui cherche un foyer.</szItemDesc>
+		<szBRName>Tube en acier</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>309</uiIndex>
 		<szItemName>Colle</szItemName>
-		<szLongItemName>SuperGlue</szLongItemName>
+		<szLongItemName>Super glue</szLongItemName>
 		<szItemDesc>Lorsque cette colle prend, impossible de séparer deux objets.</szItemDesc>
-		<szBRName>SuperGlue</szBRName>
+		<szBRName>Super glue</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>310</uiIndex>
 		<szItemName>Prolongateur</szItemName>
-		<szLongItemName>Prolongateur de Canon</szLongItemName>
+		<szLongItemName>Prolongateur de canon</szLongItemName>
 		<szItemDesc>Fixez ce prolongateur sur un fusil et il disposera d'une meilleure portée.</szItemDesc>
-		<szBRName>Prolongateur de Canon</szBRName>
+		<szBRName>Prolongateur de canon</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2500,17 +2500,17 @@
 	<ITEM>
 		<uiIndex>312</uiIndex>
 		<szItemName>Canette</szItemName>
-		<szLongItemName>Canette de Soda</szLongItemName>
+		<szLongItemName>Canette de soda</szLongItemName>
 		<szItemDesc>Une canette de soda usagée, dont le contenu est sûrement éventé. L'étiquette s'est décollée depuis longtemps.</szItemDesc>
-		<szBRName>Canette de Soda</szBRName>
+		<szBRName>Canette de soda</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>313</uiIndex>
-		<szItemName>C &amp; F</szItemName>
-		<szLongItemName>Canette avec Ficelle</szLongItemName>
+		<szItemName>Canette/ficelle</szItemName>
+		<szLongItemName>Canette avec ficelle</szLongItemName>
 		<szItemDesc>La boîte de conserve remplace agréablement une casserole quand il ne s'agit que de l'accrocher au pare-chocs d'une voiture de mariée.</szItemDesc>
-		<szBRName>Canette avec Ficelle</szBRName>
+		<szBRName>Canette avec ficelle</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2524,57 +2524,57 @@
 	<ITEM>
 		<uiIndex>315</uiIndex>
 		<szItemName>LameBoy</szItemName>
-		<szLongItemName>Ecran de LameBoy</szLongItemName>
+		<szLongItemName>Écran de LameBoy</szLongItemName>
 		<szItemDesc>Un écran à cristaux liquides arraché à une console de jeu portative grise.</szItemDesc>
-		<szBRName>Ecran de LameBoy</szBRName>
+		<szBRName>Écran de LameBoy</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>316</uiIndex>
 		<szItemName>Fil Cuivre</szItemName>
-		<szLongItemName>Fil en Cuivre</szLongItemName>
+		<szLongItemName>Fil en cuivre</szLongItemName>
 		<szItemDesc>Du fil en cuivre, principalement utilisé pour faire des raccords en électronique.</szItemDesc>
-		<szBRName>Copper Wire</szBRName>
+		<szBRName>Fil en cuivre</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>317</uiIndex>
-		<szItemName>Ecran</szItemName>
-		<szLongItemName>Ecran</szLongItemName>
+		<szItemName>Écran/f. cuiv.</szItemName>
+		<szLongItemName>Écran/fil cuivre</szLongItemName>
 		<szItemDesc>L'écran LCD d'une LameBoy dont sortent deux fils en cuivre.</szItemDesc>
-		<szBRName>Ecran</szBRName>
+		<szBRName>Écran/fil cuivre</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>318</uiIndex>
-		<szItemName>Kit Vibrant</szItemName>
-		<szLongItemName>Kit Vibrant</szLongItemName>
+		<szItemName>Kit vibrant</szItemName>
+		<szLongItemName>Kit vibrant</szLongItemName>
 		<szItemDesc>Ce kit vibrant pour Kid-tendo fait vibrer le joystick pendant le jeu. Attention, le joueur risque de lâcher son joystick.</szItemDesc>
-		<szBRName>Kit Vibrant</szBRName>
+		<szBRName>Kit vibrant</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>319</uiIndex>
 		<szItemName>Tube R-X</szItemName>
-		<szLongItemName>Tube à Rayons X</szLongItemName>
+		<szLongItemName>Tube à rayons X</szLongItemName>
 		<szItemDesc>Un élément appartenant à un appareil à rayons X d'hôpital.</szItemDesc>
-		<szBRName>Tube à Rayons X</szBRName>
+		<szBRName>Tube à rayons X</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>320</uiIndex>
-		<szItemName>Chewing Gum</szItemName>
-		<szLongItemName>Chewing Gum</szLongItemName>
+		<szItemName>Chewing-gum</szItemName>
+		<szLongItemName>Chewing-gum</szLongItemName>
 		<szItemDesc>Un paquet de chewing-gum sans sucre au menthol. Les dentistes recommandent de mâcher du chewing-gum entre les repas lorsque vous ne pouvez pas vous brosser les dents.</szItemDesc>
-		<szBRName>Chewing Gum</szBRName>
+		<szBRName>Chewing-gum</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>321</uiIndex>
 		<szItemName>Appareil R-X</szItemName>
-		<szLongItemName>Appareil à Rayons X</szLongItemName>
+		<szLongItemName>Appareil à rayons X</szLongItemName>
 		<szItemDesc>Un appareil à rayons X fait de matériaux de récupération. Mais qui fonctionne.</szItemDesc>
-		<szBRName>Appareil à Rayons X</szBRName>
+		<szBRName>Appareil à rayons X</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2587,42 +2587,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>323</uiIndex>
-		<szItemName>Elastique</szItemName>
-		<szLongItemName>Elastique</szLongItemName>
+		<szItemName>Élastique</szItemName>
+		<szLongItemName>Élastique</szLongItemName>
 		<szItemDesc>Un élastique tout bête. Pratique pour garder des choses ensembles.</szItemDesc>
-		<szBRName>Elastique</szBRName>
+		<szBRName>Élastique</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>324</uiIndex>
 		<szItemName>Détecteur R-X</szItemName>
-		<szLongItemName>Détecteur à Rayons X</szLongItemName>
+		<szLongItemName>Détecteur à rayons X</szLongItemName>
 		<szItemDesc>Ce détecteur à rayons X artisanal est parfaitement fonctionnel. Piles requises.</szItemDesc>
-		<szBRName>Détecteur à Rayons X</szBRName>
+		<szBRName>Détecteur à rayons X</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>325</uiIndex>
 		<szItemName>Argent</szItemName>
-		<szLongItemName>Minerai d'Argent</szLongItemName>
+		<szLongItemName>Minerai d'argent</szLongItemName>
 		<szItemDesc>Une pépite d'argent, produite par les mines d'argent d'Arulco.</szItemDesc>
-		<szBRName>Minerai d'Argent</szBRName>
+		<szBRName>Minerai d'argent</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>326</uiIndex>
 		<szItemName>Or</szItemName>
-		<szLongItemName>Pépite d'Or</szLongItemName>
+		<szLongItemName>Pépite d'or</szLongItemName>
 		<szItemDesc>Une pépite d'or, produite par les mines d'Arulco.</szItemDesc>
-		<szBRName>Pépite d'Or</szBRName>
+		<szBRName>Pépite d'or</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>327</uiIndex>
 		<szItemName>Jerrican</szItemName>
-		<szLongItemName>Jerrican de Carburant</szLongItemName>
+		<szLongItemName>Jerrican de carburant</szLongItemName>
 		<szItemDesc>Ne gaspillez pas ce carburant : c'est l'une des denrées les plus rares d'Arulco en ce moment.</szItemDesc>
-		<szBRName>Jerrican de Carburant</szBRName>
+		<szBRName>Jerrican de carburant</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2635,10 +2635,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>329</uiIndex>
-		<szItemName>5.56mm TC, 10</szItemName>
-		<szLongItemName>5.56x45mm Têtes creuses, 10</szLongItemName>
+		<szItemName>5.56x45 TC 10</szItemName>
+		<szLongItemName>5.56x45mm TC, 10</szLongItemName>
 		<szItemDesc>Ce chargeur contient 10 cartouches de 5.56mm OTAN à têtes creuses. Il s'agit de munitions dérivées des cartouches de chasse .223 Remington conçues pour maximiser la puissance d'arrêt.</szItemDesc>
-		<szBRName>5.56x45mm Têtes creuses, 10</szBRName>
+		<szBRName>5.56x45mm TC, 10</szBRName>
 		<szBRDesc>Ce chargeur contient 10 cartouches de 5.56mm OTAN à têtes creuses. Il s'agit de munitions dérivées des cartouches de chasse .223 Remington conçues pour maximiser la puissance d'arrêt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2651,7 +2651,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>331</uiIndex>
-		<szItemName>L85A2</szItemName>
+		<szItemName>Enfield L85A2</szItemName>
 		<szLongItemName>Enfield L85A2</szLongItemName>
 		<szItemDesc>En fait, ce fusil d'assault a été fabriqué à Nottingham, et non à Enfield, là où les machines-outil contrôlées par ordinateur ont été capables d'éliminer ses sérieux défauts.</szItemDesc>
 		<szBRName>Enfield L85A2</szBRName>
@@ -2659,23 +2659,23 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>332</uiIndex>
-		<szItemName>TAR 21</szItemName>
+		<szItemName>Tavor TAR 21</szItemName>
 		<szLongItemName>Tavor TAR 21</szLongItemName>
-		<szItemDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette  mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szItemDesc>
+		<szItemDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szItemDesc>
 		<szBRName>Tavor TAR 21</szBRName>
-		<szBRDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette  mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szBRDesc>
+		<szBRDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>333</uiIndex>
-		<szItemName>VSS</szItemName>
+		<szItemName>VSS Vintorez</szItemName>
 		<szLongItemName>VSS Vintorez</szLongItemName>
-		<szItemDesc>Ce fusil de sniper silencieux russe utilise des munitions lourdes de 9mm subsoniques et peut percer tous types de gilets pare-balles à une distance pouvant aller jusque 400 mètres. </szItemDesc>
+		<szItemDesc>Ce fusil de sniper silencieux russe utilise des munitions lourdes de 9mm subsoniques et peut percer tous types de gilets pare-balles à une distance pouvant aller jusque 400 mètres.</szItemDesc>
 		<szBRName>VSS Vintorez</szBRName>
-		<szBRDesc>Ce fusil de sniper silencieux russe utilise des munitions lourdes de 9mm subsoniques et peut percer tous types de gilets pare-balles à une distance pouvant aller jusque 400 mètres. </szBRDesc>
+		<szBRDesc>Ce fusil de sniper silencieux russe utilise des munitions lourdes de 9mm subsoniques et peut percer tous types de gilets pare-balles à une distance pouvant aller jusque 400 mètres.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>334</uiIndex>
-		<szItemName>PSG1</szItemName>
+		<szItemName>HK PSG1</szItemName>
 		<szLongItemName>HK PSG1</szLongItemName>
 		<szItemDesc>Cette arme de manufacture allemande ne déroge pas à la réputation de précision de ce pays; c'est un fusil de précision de premier choix.</szItemDesc>
 		<szBRName>HK PSG1</szBRName>
@@ -2683,7 +2683,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>335</uiIndex>
-		<szItemName>M82A2</szItemName>
+		<szItemName>Barrett</szItemName>
 		<szLongItemName>Barrett M82A2</szLongItemName>
 		<szItemDesc>Ce M82A2 modifié à configuration bullpup place les mécanismes et le canon en arrière dans la crosse, diminuant ainsi la taille totale du fusil tout en gardant un canon de même longueur.</szItemDesc>
 		<szBRName>Barrett M82A2</szBRName>

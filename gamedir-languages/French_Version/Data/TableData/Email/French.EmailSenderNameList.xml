@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
 In this file you can specifiy the "Subject" text of emails.
@@ -11,7 +10,6 @@ In this file you can specifiy the "Subject" text of emails.
 Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 
 -->
-
 <SENDER_LIST>
 	<NAME>
 		<!-- Mails from Enrico -->
@@ -26,7 +24,7 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 	<NAME>
 		<!-- Mails from Help Desk -->
 		<uiIndex>2</uiIndex>
-		<Name>Help Desk</Name>
+		<Name>Bureau d'aide</Name>
 	</NAME>
 	<NAME>
 		<!-- Mails from Psyich Pro Inc (IMP) -->
@@ -41,7 +39,7 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 	<NAME>
 		<!-- Mails from R.I.S -->
 		<uiIndex>5</uiIndex>
-		<Name>R.I.S.</Name>
+		<Name>RIS</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>6</uiIndex>
@@ -207,7 +205,7 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 	<NAME>
 		<!-- Mails from M.I.S Insurance -->
 		<uiIndex>46</uiIndex>
-		<Name>M.I.S. Insurance</Name>
+		<Name>Assurance MIS</Name>
 	</NAME>
 	<NAME>
 		<!-- Mails from Bobby Rays -->
@@ -217,17 +215,17 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 	<NAME>
 		<!-- Mails from Kingpin -->
 		<uiIndex>48</uiIndex>
-		<Name>Kingpin</Name>
+		<Name>Caïd</Name>
 	</NAME>
 	<NAME>
 		<!-- Mails from John Kulba -->
 		<uiIndex>49</uiIndex>
-		<Name>John Kulba</Name>
+		<Name>Kulba John</Name>
 	</NAME>
 	<NAME>
 		<!-- Mails from A.I.M. -->
 		<uiIndex>50</uiIndex>
-		<Name>A.I.M.</Name>
+		<Name>AIM</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>51</uiIndex>

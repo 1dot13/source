@@ -1,257 +1,256 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <ENCYCLOPEDIA>
 	<!-- Quest 1 -->
 	<DATA>
 		<uiIndex>0</uiIndex>
-		<Name>List</Name>
+		<Name>Lettre</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Trzeba dostarczyć list Miguelowi.</ImageDescBefore>
-		<ImageDescAfter>List dostarczony, przyłączasz się do Rebeliantów.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Apportez la lettre à Miguel.</ImageDescBefore>
+		<ImageDescAfter>Lettre donnée, vous avez rejoint les rebelles.</ImageDescAfter>
 	</DATA>
 	<!-- Quest 2 -->
 	<DATA>
 		<uiIndex>1</uiIndex>
-		<Name>Żywność</Name>
+		<Name>Ravitaillement</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Rebeliantom potrzebna jest żywność z Drassen.</ImageDescBefore>
-		<ImageDescAfter>Rebelianci otrzymali żywność od Ojca Walkera.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Trouvez de la nourriture pour les rebelles à Drassen.</ImageDescBefore>
+		<ImageDescAfter>Le père Walker approvisionne Omerta.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 2 -->
 	<DATA>
 		<uiIndex>2</uiIndex>
-		<Name>Nagroda</Name>
+		<Name>Traque</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Wyznaczono nagrodę za terrorystów.</ImageDescBefore>
-		<ImageDescAfter>Wszyscy terroryści zostali schwytani.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Récompense offerte pour capturer les terroristes.</ImageDescBefore>
+		<ImageDescAfter>Tous les terroristes ont été capturés.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 4 -->
 	<DATA>
 		<uiIndex>3</uiIndex>
-		<Name>Kielich</Name>
+		<Name>Calice</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Kingpin zaoferował 20000 dolarów za Kielich.</ImageDescBefore>
-		<ImageDescAfter>Kielich oddano Kingpinowi.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Caïd offre 20,000 $ pour le calice.</ImageDescBefore>
+		<ImageDescAfter>Caïd possède le calice.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 5 -->
 	<DATA>
 		<uiIndex>4</uiIndex>
-		<Name>Pieniądze</Name>
+		<Name>Argent de Caïd</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Kingpin chce dostać swoje pieniądze z powrotem.</ImageDescBefore>
-		<ImageDescAfter>Zajęto się Kingpinem.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Caïd veut récupérer son argent.</ImageDescBefore>
+		<ImageDescAfter>Caïd n'est plus un problème.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 6 -->
 	<DATA>
 		<uiIndex>5</uiIndex>
 		<Name>Joey</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Trzeba mieć oczy szeroko otwarte na zbiegłego dzieciaka Joeya.</ImageDescBefore>
-		<ImageDescAfter>Joey bezpiecznie wrócił.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Retrouvez un jeune fugueur nommé Joey.</ImageDescBefore>
+		<ImageDescAfter>Joey est rentré chez lui.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 7 -->
 	<DATA>
 		<uiIndex>6</uiIndex>
 		<Name>Maria</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Angel chce ocalić Marię.</ImageDescBefore>
-		<ImageDescAfter>Maria uratowana.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Angel veut retrouver Maria.</ImageDescBefore>
+		<ImageDescAfter>Maria a été retrouvée.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 8 -->
 	<DATA>
 		<uiIndex>7</uiIndex>
-		<Name>Kielich</Name>
+		<Name>Calice</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Ludzie z Chitzeny chcą dostać Kielich z powrotem.</ImageDescBefore>
-		<ImageDescAfter>Zwrócono kielich.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>La population de Chitzena veut récupérer son calice.</ImageDescBefore>
+		<ImageDescAfter>Calice rendu.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 9 -->
 	<DATA>
 		<uiIndex>8</uiIndex>
-		<Name>Oddział pokonany i pojmany!</Name>
+		<Name>Escouade vaincu et capturé !</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Oddział pokonany i pojmany!</ImageDescBefore>
-		<ImageDescAfter>Więźniowie zlokalizowani!</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Escouade vaincu et capturé !</ImageDescBefore>
+		<ImageDescAfter>Prisonniers localisés !</ImageDescAfter>
 	</DATA>
 		<!-- Quest 10 -->
 	<DATA>
 		<uiIndex>9</uiIndex>
-		<Name>Oddział pokonany i pojmany!</Name>
+		<Name>Escouade vaincu et capturé !</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2>Oddział pokonany i pojmany!</PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Oddział pokonany i pojmany!</ImageDescBefore>
-		<ImageDescAfter>Przesłuchiwany przez Deidrannę.</ImageDescAfter>
+		<PageDesc2>Escouade vaincu et capturé !</PageDesc2>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Escouade vaincu et capturé !</ImageDescBefore>
+		<ImageDescAfter>Escouade interrogée par Deidranna.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 11 -->
 	<DATA>
 		<uiIndex>10</uiIndex>
-		<Name>Farmerzy</Name>
+		<Name>Ploucs</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Farmerzy mieszkający na wschód od Cambrii, sprawiają kłopoty.</ImageDescBefore>
-		<ImageDescAfter>Problem farmerów rozwiązany.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Les ploucs à l'est de Cambria deviennent gênants.</ImageDescBefore>
+		<ImageDescAfter>Plus de problèmes avec les ploucs.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 12 -->
 	<DATA>
 		<uiIndex>11</uiIndex>
-		<Name>Naukowiec</Name>
+		<Name>Scientifique</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Naukowiec pracujący dla Deidranny, zniknął bez śladu!</ImageDescBefore>
-		<ImageDescAfter>Znaleziono naukowca Deidranny.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Le scientifique de Deidranna a disparu !</ImageDescBefore>
+		<ImageDescAfter>Le scientifique de Deidranna a été retrouvé.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 13 -->
 	<DATA>
 		<uiIndex>12</uiIndex>
-		<Name>Kamera video</Name>
+		<Name>Caméra vidéo</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Potrzebna kamera video dla robota.</ImageDescBefore>
-		<ImageDescAfter>Dostarczono kamerę video Madlabowi.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Le robot a besoin d'une caméra vidéo.</ImageDescBefore>
+		<ImageDescAfter>La caméra vidéo a été donnée à Foulab.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 14 -->
 	<DATA>
 		<uiIndex>13</uiIndex>
-		<Name>Dzikie koty</Name>
+		<Name>Chats sauvages</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Alma sterroryzowana przez dzikie koty!</ImageDescBefore>
-		<ImageDescAfter>Zajęto się drapieżnikami.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Des chats sauvages attaquent Alma !</ImageDescBefore>
+		<ImageDescAfter>Chats sauvages éliminés.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 15 -->
 	<DATA>
 		<uiIndex>14</uiIndex>
-		<Name>Pustelnik</Name>
+		<Name>L'ermite</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Pewien pustelnik wie coś o tych 'potworach'.</ImageDescBefore>
-		<ImageDescAfter>Znaleziono pustelnika.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Un ermite connaît ces "créatures".</ImageDescBefore>
+		<ImageDescAfter>L'ermite a été retrouvé.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 16 -->
 	<DATA>
 		<uiIndex>15</uiIndex>
-		<Name>Gigantyczne robale</Name>
+		<Name>Crépitus</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Gigantyczne 'robale' w kopalniach!</ImageDescBefore>
-		<ImageDescAfter>Zabito królową robali!</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Des créatures ont envahi les mines !</ImageDescBefore>
+		<ImageDescAfter>La Reine des créatures éliminée !</ImageDescAfter>
 	</DATA>
 		<!-- Quest 17 -->
 	<DATA>
 		<uiIndex>16</uiIndex>
-		<Name>Pilot</Name>
+		<Name>Pilote</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Pilot helikoptera w okolicy.</ImageDescBefore>
-		<ImageDescAfter>Znaleziono pilota helikoptera.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Retrouvez le pilote d'hélicoptère.</ImageDescBefore>
+		<ImageDescAfter>On a retrouvé le pilote.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 18 -->
 	<DATA>
 		<uiIndex>17</uiIndex>
-		<Name>Eskorta</Name>
+		<Name>Escorte</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Doprowadzić Skyridera do helikoptera w Drassen.</ImageDescBefore>
-		<ImageDescAfter>Skyrider pracuje dla nas.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Amenez Skyrider à l'hélicoptère de Drassen.</ImageDescBefore>
+		<ImageDescAfter>Skyrider travaille pour nous.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 19 -->
 	<DATA>
 		<uiIndex>18</uiIndex>
-		<Name>Pomoc</Name>
+		<Name>Prisonnier</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Trzeba uwolnić Dynamo z więzienia Tixa.</ImageDescBefore>
-		<ImageDescAfter>Dynamo nie jest już więźniem.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Libérez Dynamo de la prison de Tixa.</ImageDescBefore>
+		<ImageDescAfter>Dynamo est libre.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 20 -->
 	<DATA>
 		<uiIndex>19</uiIndex>
-		<Name>Eskorta</Name>
+		<Name>Touristes</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Eskortować turystów na lotnisko w Drassen.</ImageDescBefore>
-		<ImageDescAfter>Zajęto się turystami.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Escortez les touristes égarés à l'aéroport de Drassen.</ImageDescBefore>
+		<ImageDescAfter>Touristes sur le chemin du retour.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 21 -->
 	<DATA>
 		<uiIndex>20</uiIndex>
-		<Name>Pomoc</Name>
+		<Name>Doreen</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Najwyraźniej Doreen źle traktuje dzieci.</ImageDescBefore>
-		<ImageDescAfter>Zajęto się Doreen.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Doreen n'est pas tendre avec les enfants.</ImageDescBefore>
+		<ImageDescAfter>Doreen est une affaire classée !</ImageDescAfter>
 	</DATA>
 		<!-- Quest 22 -->
 	<DATA>
 		<uiIndex>21</uiIndex>
-		<Name>Sklep</Name>
+		<Name>Boutique</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Kyle marzy o sklepie ze skórami.</ImageDescBefore>
-		<ImageDescAfter>Przekazano Kyle'owi akt własności sklepu Angela.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Kyle rêve de tenir un magasin de vêtements en cuir.</ImageDescBefore>
+		<ImageDescAfter>Kyle est propriétaire du magasin d'Angel.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 23 -->
 	<DATA>
 		<uiIndex>22</uiIndex>
-		<Name>Eskorta</Name>
+		<Name>Carburant</Name>
 		<PageDesc1>Page1</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Shank załatwi paliwo jeśli go eskortujesz do Estoni.</ImageDescBefore>
-		<ImageDescAfter>Jake będzie nam sprzedawał paliwo.</ImageDescAfter>
+		<PageDesc2/>
+		<PageDesc3/>
+		<PageDesc4/>
+		<ImageDescBefore>Gringalet s'occupera du carburant si on l'emmène à Estoni.</ImageDescBefore>
+		<ImageDescAfter>Jake va nous vendre du carburant.</ImageDescAfter>
 	</DATA>
 </ENCYCLOPEDIA>
