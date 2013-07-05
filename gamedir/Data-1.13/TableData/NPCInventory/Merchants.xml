@@ -595,15 +595,15 @@ uiFlags must be of
 	</MERCHANT>
 	<MERCHANT>
     <uiIndex>20</uiIndex>
-    <szName>additional dealer 1</szName>
+    <szName>Darrel</szName>
     <dBuyModifier>1.0</dBuyModifier>
     <dSellModifier>1.0</dSellModifier>
-    <ubShopKeeperID>255</ubShopKeeperID>
-    <ubTypeOfArmsDealer>0</ubTypeOfArmsDealer>
-    <iInitialCash>800</iInitialCash>
-    <uiFlags>268435456</uiFlags>
-    <dailyIncrement>800</dailyIncrement>
-    <dailyMaximum>800</dailyMaximum>
+    <ubShopKeeperID>73</ubShopKeeperID>
+    <ubTypeOfArmsDealer>1</ubTypeOfArmsDealer>
+    <iInitialCash>100</iInitialCash>
+    <uiFlags>536870912</uiFlags>
+    <dailyIncrement>100</dailyIncrement>
+    <dailyMaximum>100</dailyMaximum>
     <dailyRetained>0</dailyRetained>
     <minCoolness>1</minCoolness>
     <maxCoolness>10</maxCoolness>
