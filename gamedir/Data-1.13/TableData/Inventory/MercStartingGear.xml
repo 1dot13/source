@@ -6285,10 +6285,10 @@
 			<mWeaponStatus>72</mWeaponStatus>
 			<mBig0>81</mBig0>
 			<mBig0Status>100</mBig0Status>
-			<mBig0Quantity>3</mBig0Quantity>
+			<mBig0Quantity>2</mBig0Quantity>
 			<mBig1>85</mBig1>
 			<mBig1Status>100</mBig1Status>
-			<mBig1Quantity>1</mBig1Quantity>
+			<mBig1Quantity>2</mBig1Quantity>
 			<mBig2>600</mBig2>
 			<mBig2Status>92</mBig2Status>
 			<mBig2Quantity>1</mBig2Quantity>
@@ -6720,7 +6720,7 @@
 			<mVestStatus>76</mVestStatus>
 			<mWeapon>16</mWeapon>
 			<mWeaponStatus>60</mWeaponStatus>
-			<mBig0>584</mBig0>
+			<mBig0>129</mBig0>
 			<mBig0Status>100</mBig0Status>
 			<mBig0Quantity>2</mBig0Quantity>
 			<mSmall0Status>98</mSmall0Status>
@@ -6850,6 +6850,8 @@
 			<mSmall0Quantity>1</mSmall0Quantity>
 			<lVest>1176</lVest>
 			<lVestStatus>67</lVestStatus>
+			<lCPack>1098</lCPack>
+			<lCPackStatus>80</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
 			<mAbsolutePrice>-1</mAbsolutePrice>
@@ -6865,8 +6867,8 @@
 			<mBig3>1361</mBig3>
 			<mBig3Status>95</mBig3Status>
 			<mBig3Quantity>1</mBig3Quantity>
-			<lVest>1176</lVest>
-			<lVestStatus>67</lVestStatus>
+			<lVest>1090</lVest>
+			<lVestStatus>75</lVestStatus>
 	</GEARKIT>
 	</MERCGEAR>
 	<MERCGEAR>
@@ -19270,7 +19272,7 @@
 			<mBig0Status>92</mBig0Status>
 			<mBig1>223</mBig1>
 			<mBig1Status>95</mBig1Status>
-			<mSmall0>352</mSmall0>
+			<mSmall0>80</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>2</mSmall0Quantity>
 			<lCPack>1098</lCPack>
@@ -19286,7 +19288,7 @@
 			<mBig1>1524</mBig1>
 			<mBig1Status>100</mBig1Status>
 			<mBig1Quantity>8</mBig1Quantity>
-			<mSmall0>352</mSmall0>
+			<mSmall0>80</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>3</mSmall0Quantity>
 			<lCPack>1098</lCPack>
@@ -19306,10 +19308,10 @@
 			<mBig1Quantity>10</mBig1Quantity>
 			<mBig2>1524</mBig2>
 			<mBig2Quantity>6</mBig2Quantity>
-			<mSmall0>352</mSmall0>
+			<mSmall0>80</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>2</mSmall0Quantity>
-			<mSmall1>354</mSmall1>
+			<mSmall1>82</mSmall1>
 			<mSmall1Status>100</mSmall1Status>
 			<mSmall1Quantity>1</mSmall1Quantity>
 			<mSmall2>299</mSmall2>
@@ -19334,10 +19336,10 @@
 			<mBig2>1524</mBig2>
 			<mBig2Status>100</mBig2Status>
 			<mBig2Quantity>10</mBig2Quantity>
-			<mSmall0>71</mSmall0>
+			<mSmall0>401</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>2</mSmall0Quantity>
-			<mSmall1>73</mSmall1>
+			<mSmall1>403</mSmall1>
 			<mSmall1Status>100</mSmall1Status>
 			<mSmall1Quantity>1</mSmall1Quantity>
 			<mSmall2>299</mSmall2>
