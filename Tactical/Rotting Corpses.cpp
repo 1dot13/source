@@ -2449,7 +2449,7 @@ void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE *
 			int i;
 			for(i = 0; i < MAX_DEFAULT_ATTACHMENTS && Item[pObj->usItem].defaultattachments[i] != iter->usItem; i++){}
 
-			if(Item[pObj->usItem].defaultattachments[i] != iter->usItem)
+			if(Item[pObj->usItem].defaultattachments[i] == iter->usItem)
 				continue;
 
 			//Erase this attachment or not?
