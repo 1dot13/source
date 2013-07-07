@@ -5951,18 +5951,27 @@ BOOLEAN SaveMercProfiles( HWFILE hFile )
 BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 {
 	UINT16	cnt;
+	MERCPROFILESTRUCT tempMercProfile;
 	//Loop through all the profiles to Load
 	for( cnt=0; cnt< NUM_PROFILES; cnt++)
 	{
 		// At some point after STOMP12_SAVEGAME_DATATYPE_CHANGE, NUM_PROFILES was changed from NUM_PROFILES_v111
 		if(guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE && cnt >= NUM_PROFILES_v111)
 			break;
-		// Changed by ADB, rev 1513
+		// silversurfer: What if mercs are added while we are mid game?
+		// let's load the savegame data into a placeholder
+		if ( !tempMercProfile.Load(hFile, false, false, true) )
+			return(FALSE);
+		// and check if it contains valid merc data
+		// only then overwrite what we read from the MercProfiles.xml
+		if ( tempMercProfile.bLifeMax > 0 )
+			gMercProfiles[cnt] = tempMercProfile;
+/*		// Changed by ADB, rev 1513
 		//if ( !gMercProfiles[cnt].Load(hFile, false) )
 		if ( !gMercProfiles[cnt].Load(hFile, false, false, true) )
 		{
 			return(FALSE);
-		}
+		}*/
 	}
 
 	return( TRUE );
