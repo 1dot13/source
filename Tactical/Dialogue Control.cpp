@@ -1943,6 +1943,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	static CHAR8 zFileName[164];
 	static CHAR8 zFileNameExists[164];
 	UINT8		ubFileNumID;
+	BOOLEAN isBartenderSantos = FALSE;
 
 	// Are we an NPC OR an RPC that has not been recruited?
 	// ATE: Did the || clause here to allow ANY RPC that talks while the talking menu is up to use an npc quote file
@@ -1986,42 +1987,39 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 
 	{
 		ubFileNumID = ubCharacterNum;
-
-		// ATE: If we are merc profile ID #151-154, all use 151's data....
-		//if ( ubCharacterNum >= HERVE && ubCharacterNum <= CARLO )
-		//{
-			//ubFileNumID = HERVE;
-		//}
 		
-			if ( ubCharacterNum == HERVE )
-			{
-					ubFileNumID = HERVE;	
-			}
-			else if ( ubCharacterNum == PETER )
-			{
-				sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", PETER );
-				if ( !FileExists( zFileName ) )
-					ubFileNumID = HERVE;
-				else
-					ubFileNumID = PETER;
-			}
-			else if ( ubCharacterNum == ALBERTO )
-			{
-				sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", ALBERTO );
-				if ( !FileExists( zFileName ) )
-					ubFileNumID = HERVE;
-				else
-					ubFileNumID = ALBERTO;
-			}
-			else if ( ubCharacterNum == CARLO )
+		if ( ubCharacterNum == HERVE )
 		{
-				sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", CARLO );
-				if ( !FileExists( zFileName ) )
-			ubFileNumID = HERVE;
-				else
-					ubFileNumID = CARLO;
+			isBartenderSantos = TRUE;
+			ubFileNumID = HERVE;	
 		}
-
+		else if ( ubCharacterNum == PETER )
+		{
+			isBartenderSantos = TRUE;
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", PETER );
+			if ( !FileExists( zFileName ) )
+				ubFileNumID = HERVE;
+			else
+				ubFileNumID = PETER;
+		}
+		else if ( ubCharacterNum == ALBERTO )
+		{
+			isBartenderSantos = TRUE;
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", ALBERTO );
+			if ( !FileExists( zFileName ) )
+				ubFileNumID = HERVE;
+			else
+				ubFileNumID = ALBERTO;
+		}
+		else if ( ubCharacterNum == CARLO )
+		{
+			isBartenderSantos = TRUE;
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", CARLO );
+			if ( !FileExists( zFileName ) )
+				ubFileNumID = HERVE;
+			else
+				ubFileNumID = CARLO;
+		}
 
 		// If we are character #155, check fact!
 		if ( ubCharacterNum == MANNY && !gubFact[ FACT_MANNY_IS_BARTENDER ] )
@@ -2035,16 +2033,31 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			{
 				// Lesh: patch to allow playback ogg speech files
 				sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
-				if ( !FileExists( zFileName ) )
+				
+				// WANNE: We do not have any speech files for the other (!= HERVE) santos bartenders, take HERVE speech files
+				if (isBartenderSantos && HERVE != ubFileNumID && !FileExists(zFileName))
 				{
-					sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
+					ubFileNumID = HERVE;
+					sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
 				}
+
+				// We do not have *.ogg file, take *.WAV file
+				if ( !FileExists( zFileName ) )
+				{					
+					sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
+				}				
 			}
 		}
 		else
 		{
 			// assume EDT files are in EDT directory on HARD DRIVE
 			sprintf( zFileName,"NPCDATA\\%03d.EDT", ubFileNumID );
+			
+			// WANNE: We do not have any edt files for the other (!= HERVE) santos bartenders, take HERVE speech files
+			if (isBartenderSantos && HERVE != ubFileNumID && !FileExists(zFileName))
+			{
+				sprintf( zFileName,"NPCDATA\\%03d.EDT", HERVE );
+			}
 		}
 	}
 	else
