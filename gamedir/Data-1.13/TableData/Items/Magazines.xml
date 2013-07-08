@@ -2432,7 +2432,7 @@
 	<MAGAZINE>
 		<uiIndex>347</uiIndex>
 		<ubCalibre>17</ubCalibre>
-		<ubMagSize>11</ubMagSize>
+		<ubMagSize>10</ubMagSize>
 		<ubAmmoType>3</ubAmmoType>
 		<ubMagType>0</ubMagType>
 	</MAGAZINE>

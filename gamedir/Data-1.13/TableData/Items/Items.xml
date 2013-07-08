@@ -3671,9 +3671,9 @@
 		<uiIndex>116</uiIndex>
 		<szItemName>.50 BMG Mag AP</szItemName>
 		<szLongItemName>.50 BMG Magazine, AP</szLongItemName>
-		<szItemDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
+		<szItemDesc>An 10 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
 		<szBRName>.50 BMG Mag AP</szBRName>
-		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
+		<szBRDesc>An 10 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>347</ubClassIndex>
