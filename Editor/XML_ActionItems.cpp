@@ -13,6 +13,8 @@
 	#include "LuaInitNPCs.h"
 #endif
 
+#include "Action Items.h"
+
 struct
 {
 	PARSE_STAGE	curElement;
@@ -107,9 +109,19 @@ actionItemsEndElementHandle(void *userData, const XML_Char *name)
 					wcscpy(gszActionItemDesc[pData->curActionItems.uiIndex], pData->curActionItems.szName);
 					#endif
 					
-					ActionItemsValues[pData->curActionItems.uiIndex].ActionID = pData->curActionItems.ActionID;
-					ActionItemsValues[pData->curActionItems.uiIndex].BlowUp = pData->curActionItems.BlowUp;
-					ActionItemsValues[pData->curActionItems.uiIndex].BombItem = pData->curActionItems.BombItem;
+					// not ACTION_ITEM_BLOW_UP
+					if ( pData->curActionItems.ActionID != ACTION_ITEM_BLOW_UP )
+					{
+						ActionItemsValues[pData->curActionItems.uiIndex].ActionID = pData->curActionItems.ActionID;
+						ActionItemsValues[pData->curActionItems.uiIndex].BlowUp = 0;
+						ActionItemsValues[pData->curActionItems.uiIndex].BombItem = 0;
+					}
+					else
+					{
+						ActionItemsValues[pData->curActionItems.uiIndex].ActionID = pData->curActionItems.ActionID;
+						ActionItemsValues[pData->curActionItems.uiIndex].BlowUp = pData->curActionItems.BlowUp;
+						ActionItemsValues[pData->curActionItems.uiIndex].BombItem = pData->curActionItems.BombItem;	
+					}
 					
 				}
 				else
