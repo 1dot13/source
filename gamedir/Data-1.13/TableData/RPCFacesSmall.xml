@@ -260,4 +260,13 @@
 		<MouthX>13</MouthX>
 		<MouthY>22</MouthY>
 	</FACE>
+	<FACE>
+		<uiIndex>29</uiIndex>
+		<Name>Mike</Name>
+		<FaceIndex>149</FaceIndex>
+		<EyesX>6</EyesX>
+		<EyesY>8</EyesY>
+		<MouthX>6</MouthX>
+		<MouthY>23</MouthY>
+	</FACE>
 </SMALLFACE>

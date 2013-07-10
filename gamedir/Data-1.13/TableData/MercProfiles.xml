@@ -2648,7 +2648,7 @@
 		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
-		<bBuddy1>255</bBuddy1>
+		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
@@ -12517,7 +12517,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>149</uiIndex>
-		<Type>4</Type>
+		<Type>3</Type>
 		<zName>Mike</zName>
 		<zNickname>Mike</zNickname>
 		<ubFaceIndex>149</ubFaceIndex>
@@ -12540,27 +12540,27 @@
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
-		<bReputationTolerance>101</bReputationTolerance>
-		<bDeathRate>0</bDeathRate>
-		<bLifeMax>99</bLifeMax>
-		<bLife>99</bLife>
-		<bStrength>99</bStrength>
-		<bAgility>99</bAgility>
-		<bDexterity>99</bDexterity>
-		<bWisdom>99</bWisdom>
+		<bReputationTolerance>50</bReputationTolerance>
+		<bDeathRate>101</bDeathRate>
+		<bLifeMax>97</bLifeMax>
+		<bLife>97</bLife>
+		<bStrength>90</bStrength>
+		<bAgility>95</bAgility>
+		<bDexterity>94</bDexterity>
+		<bWisdom>96</bWisdom>
 		<bMarksmanship>99</bMarksmanship>
-		<bExplosive>99</bExplosive>
-		<bLeadership>99</bLeadership>
-		<bMedical>99</bMedical>
-		<bMechanical>99</bMechanical>
-		<bExpLevel>9</bExpLevel>
+		<bExplosive>97</bExplosive>
+		<bLeadership>78</bLeadership>
+		<bMedical>67</bMedical>
+		<bMechanical>98</bMechanical>
+		<bExpLevel>8</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
-		<bBuddy1>255</bBuddy1>
+		<bBuddy1>31</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
@@ -12579,7 +12579,7 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
-		<sSalary>0</sSalary>
+		<sSalary>10000</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
 		<bMedicalDeposit>0</bMedicalDeposit>
@@ -14077,8 +14077,8 @@
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
-		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLike>149</bLearnToLike>
+		<bLearnToLikeTime>1</bLearnToLikeTime>
 		<bHated1>255</bHated1>
 		<bHatedTime1>0</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15248,7 +15248,7 @@
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>		
-		<bBuddy1>255</bBuddy1>
+		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
@@ -18777,7 +18777,7 @@
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
-		<bBuddy1>255</bBuddy1>
+		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
@@ -21300,7 +21300,7 @@
 		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
-		<bBuddy1>255</bBuddy1>
+		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
