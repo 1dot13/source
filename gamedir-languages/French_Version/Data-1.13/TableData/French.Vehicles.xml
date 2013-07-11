@@ -999,15 +999,15 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>163</uiIndex>
-		<Name>Héli</Name>
+		<Name>Hélico</Name>
 		<LongName>Hélicoptère</LongName>
-		<ShortName>Héli</ShortName>
+		<ShortName>Hélico</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>164</uiIndex>
-		<Name>Tank</Name>
-		<LongName>Tank</LongName>
-		<ShortName>Tank</ShortName>
+		<Name>Char</Name>
+		<LongName>Char</LongName>
+		<ShortName>Char</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>165</uiIndex>

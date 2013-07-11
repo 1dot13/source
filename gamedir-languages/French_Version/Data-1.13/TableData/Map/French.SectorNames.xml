@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <SECTOR_NAMES>
   <SECTOR>
     <SectorGrid>A1</SectorGrid>
@@ -6,6 +6,8 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Tropical</szExploredName>
     <szDetailedExploredName>Tropical</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A2</SectorGrid>
@@ -13,13 +15,17 @@
     <szDetailedUnexploredName>Chitzena</szDetailedUnexploredName>
     <szExploredName>Chitzena</szExploredName>
     <szDetailedExploredName>Chitzena</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>250</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A3</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A4</SectorGrid>
@@ -27,6 +33,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A5</SectorGrid>
@@ -34,6 +42,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A6</SectorGrid>
@@ -41,6 +51,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>225</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A7</SectorGrid>
@@ -48,6 +60,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>225</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A8</SectorGrid>
@@ -55,6 +69,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>225</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A9</SectorGrid>
@@ -62,6 +78,9 @@
     <szDetailedUnexploredName>Omerta</szDetailedUnexploredName>
     <szExploredName>Omerta</szExploredName>
     <szDetailedExploredName>Omerta</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A10</SectorGrid>
@@ -69,6 +88,9 @@
     <szDetailedUnexploredName>Omerta</szDetailedUnexploredName>
     <szExploredName>Omerta</szExploredName>
     <szDetailedExploredName>Omerta</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A11</SectorGrid>
@@ -76,6 +98,8 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A12</SectorGrid>
@@ -83,6 +107,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>210</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A13</SectorGrid>
@@ -90,13 +116,17 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A14</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>225</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A15</SectorGrid>
@@ -104,6 +134,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>210</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A16</SectorGrid>
@@ -111,6 +143,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B1</SectorGrid>
@@ -118,13 +152,18 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Tropical</szExploredName>
     <szDetailedExploredName>Tropical</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B2</SectorGrid>
     <szUnexploredName>Mine de Chitzena</szUnexploredName>
     <szDetailedUnexploredName>Mine de Chitzena</szDetailedUnexploredName>
-    <szExploredName>Mine de Chitzena</szExploredName>
+    <szExploredName>Mine Chitzena</szExploredName>
     <szDetailedExploredName>Mine de Chitzena</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>250</usNaturalDirt>
+    <usPrisonRoomNumber00>3</usPrisonRoomNumber00>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B3</SectorGrid>
@@ -132,6 +171,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B4</SectorGrid>
@@ -139,6 +180,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B5</SectorGrid>
@@ -146,6 +189,8 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B6</SectorGrid>
@@ -153,13 +198,17 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B7</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B8</SectorGrid>
@@ -167,13 +216,17 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B9</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B10</SectorGrid>
@@ -181,6 +234,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B11</SectorGrid>
@@ -188,6 +243,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B12</SectorGrid>
@@ -195,13 +252,17 @@
     <szDetailedUnexploredName>Ferme, route</szDetailedUnexploredName>
     <szExploredName>Ferme, route</szExploredName>
     <szDetailedExploredName>Ferme, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>210</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B13</SectorGrid>
     <szUnexploredName>Aéroport de Drassen</szUnexploredName>
     <szDetailedUnexploredName>Aéroport de Drassen</szDetailedUnexploredName>
-    <szExploredName>Aéroport de Drassen</szExploredName>
+    <szExploredName>Aéroport Drassen</szExploredName>
     <szDetailedExploredName>Aéroport de Drassen</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B14</SectorGrid>
@@ -209,6 +270,8 @@
     <szDetailedUnexploredName>Plan d'eau</szDetailedUnexploredName>
     <szExploredName>Plan d'eau</szExploredName>
     <szDetailedExploredName>Plan d'eau</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>120</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B15</SectorGrid>
@@ -216,6 +279,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B16</SectorGrid>
@@ -223,6 +288,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C1</SectorGrid>
@@ -230,6 +297,8 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Tropical</szExploredName>
     <szDetailedExploredName>Tropical</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C2</SectorGrid>
@@ -237,6 +306,8 @@
     <szDetailedUnexploredName>Tropical, route</szDetailedUnexploredName>
     <szExploredName>Tropical, route</szExploredName>
     <szDetailedExploredName>Tropical, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C3</SectorGrid>
@@ -244,6 +315,8 @@
     <szDetailedUnexploredName>Tropical, route</szDetailedUnexploredName>
     <szExploredName>Tropical, route</szExploredName>
     <szDetailedExploredName>Tropical, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C4</SectorGrid>
@@ -251,6 +324,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C5</SectorGrid>
@@ -258,6 +333,8 @@
     <szDetailedUnexploredName>San Mona</szDetailedUnexploredName>
     <szExploredName>San Mona</szExploredName>
     <szDetailedExploredName>San Mona</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C6</SectorGrid>
@@ -265,13 +342,17 @@
     <szDetailedUnexploredName>San Mona</szDetailedUnexploredName>
     <szExploredName>San Mona</szExploredName>
     <szDetailedExploredName>San Mona</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C7</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C8</SectorGrid>
@@ -279,13 +360,17 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C9</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
   </SECTOR>
   <SECTOR>
     <SectorGrid>C10</SectorGrid>
@@ -293,6 +378,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>C11</SectorGrid>
@@ -300,6 +387,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>C12</SectorGrid>
@@ -307,6 +396,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>C13</SectorGrid>
@@ -314,6 +405,8 @@
     <szDetailedUnexploredName>Drassen</szDetailedUnexploredName>
     <szExploredName>Drassen</szExploredName>
     <szDetailedExploredName>Drassen</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>C14</SectorGrid>
@@ -321,6 +414,8 @@
     <szDetailedUnexploredName>Plan d'eau</szDetailedUnexploredName>
     <szExploredName>Plan d'eau</szExploredName>
     <szDetailedExploredName>Plan d'eau</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>	
    <SECTOR>
     <SectorGrid>C15</SectorGrid>
@@ -328,6 +423,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>	
    <SECTOR>
     <SectorGrid>C16</SectorGrid>
@@ -335,6 +432,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D1</SectorGrid>
@@ -342,6 +441,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D2</SectorGrid>
@@ -349,20 +450,27 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Site SAM</szExploredName>
     <szDetailedExploredName>Tropical, Site SAM</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D3</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D4</SectorGrid>
     <szUnexploredName>Mine de San Mona</szUnexploredName>
     <szDetailedUnexploredName>Mine de San Mona</szDetailedUnexploredName>
-    <szExploredName>Mine de San Mona</szExploredName>
+    <szExploredName>Mine San Mona</szExploredName>
     <szDetailedExploredName>Mine de San Mona</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>120</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D5</SectorGrid>
@@ -370,6 +478,11 @@
     <szDetailedUnexploredName>San Mona</szDetailedUnexploredName>
     <szExploredName>San Mona</szExploredName>
     <szDetailedExploredName>San Mona</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usPrisonRoomNumber00>8</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>9</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>10</usPrisonRoomNumber02>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D6</SectorGrid>
@@ -377,6 +490,8 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D7</SectorGrid>
@@ -384,6 +499,8 @@
     <szDetailedUnexploredName>Forêt, route</szDetailedUnexploredName>
     <szExploredName>Forêt, route</szExploredName>
     <szDetailedExploredName>Forêt, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D8</SectorGrid>
@@ -391,20 +508,26 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D9</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D10</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D11</SectorGrid>
@@ -412,6 +535,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D12</SectorGrid>
@@ -419,13 +544,17 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D13</SectorGrid>
     <szUnexploredName>Mine de Drassen</szUnexploredName>
     <szDetailedUnexploredName>Mine de Drassen</szDetailedUnexploredName>
-    <szExploredName>Mine de Drassen</szExploredName>
+    <szExploredName>Mine Drassen</szExploredName>
     <szDetailedExploredName>Mine de Drassen</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D14</SectorGrid>
@@ -433,6 +562,8 @@
     <szDetailedUnexploredName>Plan d'eau</szDetailedUnexploredName>
     <szExploredName>Plan d'eau</szExploredName>
     <szDetailedExploredName>Plan d'eau</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D15</SectorGrid>
@@ -440,6 +571,9 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Site SAM</szExploredName>
     <szDetailedExploredName>Bois, Site SAM</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>  
    <SECTOR>
     <SectorGrid>D16</SectorGrid>
@@ -447,6 +581,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E1</SectorGrid>
@@ -454,6 +590,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E2</SectorGrid>
@@ -461,13 +599,17 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Tropical</szExploredName>
     <szDetailedExploredName>Tropical</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E3</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E4</SectorGrid>
@@ -475,6 +617,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E5</SectorGrid>
@@ -482,13 +626,17 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E6</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR> 	  	 	
    <SECTOR>
     <SectorGrid>E7</SectorGrid>
@@ -496,6 +644,8 @@
     <szDetailedUnexploredName>Ferme, route</szDetailedUnexploredName>
     <szExploredName>Ferme, route</szExploredName>
     <szDetailedExploredName>Ferme, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E8</SectorGrid>
@@ -503,6 +653,8 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E9</SectorGrid>
@@ -510,6 +662,8 @@
     <szDetailedUnexploredName>Ferme, route</szDetailedUnexploredName>
     <szExploredName>Ferme, route</szExploredName>
     <szDetailedExploredName>Ferme, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E10</SectorGrid>
@@ -517,6 +671,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E11</SectorGrid>
@@ -524,6 +680,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E12</SectorGrid>
@@ -531,6 +689,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E13</SectorGrid>
@@ -538,6 +698,8 @@
     <szDetailedUnexploredName>Plan d'eau</szDetailedUnexploredName>
     <szExploredName>Plan d'eau</szExploredName>
     <szDetailedExploredName>Plan d'eau</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E14</SectorGrid>
@@ -545,6 +707,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR> 
    <SECTOR>
     <SectorGrid>E15</SectorGrid>
@@ -552,6 +716,8 @@
     <szDetailedUnexploredName>Forêt, route</szDetailedUnexploredName>
     <szExploredName>Forêt, route</szExploredName>
     <szDetailedExploredName>Forêt, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>175</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>E16</SectorGrid>
@@ -559,6 +725,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F1</SectorGrid>
@@ -566,6 +734,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F2</SectorGrid>
@@ -573,13 +743,17 @@
     <szDetailedUnexploredName>Route côtière</szDetailedUnexploredName>
     <szExploredName>Route côtière</szExploredName>
     <szDetailedExploredName>Route côtière</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F3</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F4</SectorGrid>
@@ -587,6 +761,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F5</SectorGrid>
@@ -594,6 +770,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F6</SectorGrid>
@@ -601,6 +779,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F7</SectorGrid>
@@ -608,13 +788,17 @@
     <szDetailedUnexploredName>Montagne, route</szDetailedUnexploredName>
     <szExploredName>Montagne, route</szExploredName>
     <szDetailedExploredName>Montagne, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F8</SectorGrid>
     <szUnexploredName>Hôpital de Cambria</szUnexploredName>
     <szDetailedUnexploredName>Hôpital de Cambria</szDetailedUnexploredName>
-    <szExploredName>Hôpital de Cambria</szExploredName>
+    <szExploredName>Hôpital Cambria</szExploredName>
     <szDetailedExploredName>Hôpital de Cambria</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F9</SectorGrid>
@@ -622,6 +806,9 @@
     <szDetailedUnexploredName>Cambria</szDetailedUnexploredName>
     <szExploredName>Cambria</szExploredName>
     <szDetailedExploredName>Cambria</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F10</SectorGrid>
@@ -629,13 +816,17 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F11</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F12</SectorGrid>
@@ -643,6 +834,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F13</SectorGrid>
@@ -650,13 +843,17 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F14</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F15</SectorGrid>
@@ -664,6 +861,8 @@
     <szDetailedUnexploredName>Forêt, route</szDetailedUnexploredName>
     <szExploredName>Forêt, route</szExploredName>
     <szDetailedExploredName>Forêt, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>F16</SectorGrid>
@@ -671,6 +870,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G1</SectorGrid>
@@ -678,6 +879,8 @@
     <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
     <szExploredName>Grumm</szExploredName>
     <szDetailedExploredName>Grumm</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G2</SectorGrid>
@@ -685,6 +888,9 @@
     <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
     <szExploredName>Grumm</szExploredName>
     <szDetailedExploredName>Grumm</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G3</SectorGrid>
@@ -692,6 +898,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>120</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G4</SectorGrid>
@@ -699,6 +907,8 @@
     <szDetailedUnexploredName>Montagne, route</szDetailedUnexploredName>
     <szExploredName>Montagne, route</szExploredName>
     <szDetailedExploredName>Montagne, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G5</SectorGrid>
@@ -706,6 +916,8 @@
     <szDetailedUnexploredName>Montagne, route</szDetailedUnexploredName>
     <szExploredName>Montagne, route</szExploredName>
     <szDetailedExploredName>Montagne, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G6</SectorGrid>
@@ -713,6 +925,8 @@
     <szDetailedUnexploredName>Montagne, route</szDetailedUnexploredName>
     <szExploredName>Montagne, route</szExploredName>
     <szDetailedExploredName>Montagne, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G7</SectorGrid>
@@ -720,6 +934,8 @@
     <szDetailedUnexploredName>Ferme, route</szDetailedUnexploredName>
     <szExploredName>Ferme, route</szExploredName>
     <szDetailedExploredName>Ferme, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>175</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G8</SectorGrid>
@@ -727,6 +943,8 @@
     <szDetailedUnexploredName>Cambria</szDetailedUnexploredName>
     <szExploredName>Cambria</szExploredName>
     <szDetailedExploredName>Cambria</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G9</SectorGrid>
@@ -734,6 +952,12 @@
     <szDetailedUnexploredName>Cambria</szDetailedUnexploredName>
     <szExploredName>Cambria</szExploredName>
     <szDetailedExploredName>Cambria</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usPrisonRoomNumber00>41</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>42</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>44</usPrisonRoomNumber02>
+    <usPrisonRoomNumber03>45</usPrisonRoomNumber03>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G10</SectorGrid>
@@ -741,6 +965,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G11</SectorGrid>
@@ -748,27 +974,35 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G12</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G13</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G14</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G15</SectorGrid>
@@ -776,6 +1010,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>G16</SectorGrid>
@@ -783,6 +1019,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H1</SectorGrid>
@@ -790,6 +1028,8 @@
     <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
     <szExploredName>Grumm</szExploredName>
     <szDetailedExploredName>Grumm</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H2</SectorGrid>
@@ -797,13 +1037,19 @@
     <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
     <szExploredName>Grumm</szExploredName>
     <szDetailedExploredName>Grumm</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H3</SectorGrid>
     <szUnexploredName>Mine de Grumm</szUnexploredName>
     <szDetailedUnexploredName>Mine de Grumm</szDetailedUnexploredName>
-    <szExploredName>Mine de Grumm</szExploredName>
+    <szExploredName>Mine Grumm</szExploredName>
     <szDetailedExploredName>Mine de Grumm</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H4</SectorGrid>
@@ -811,6 +1057,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H5</SectorGrid>
@@ -818,6 +1066,8 @@
     <szDetailedUnexploredName>Collines</szDetailedUnexploredName>
     <szExploredName>Collines</szExploredName>
     <szDetailedExploredName>Collines</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H6</SectorGrid>
@@ -825,27 +1075,36 @@
     <szDetailedUnexploredName>Montagne, route</szDetailedUnexploredName>
     <szExploredName>Montagne, route</szExploredName>
     <szDetailedExploredName>Montagne, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H7</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>  
    <SECTOR>
     <SectorGrid>H8</SectorGrid>
     <szUnexploredName>Mine de Cambria</szUnexploredName>
     <szDetailedUnexploredName>Mine de Cambria</szDetailedUnexploredName>
-    <szExploredName>Mine de Cambria</szExploredName>
+    <szExploredName>Mine Cambria</szExploredName>
     <szDetailedExploredName>Mine de Cambria</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>130</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H9</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H10</SectorGrid>
@@ -853,6 +1112,8 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H11</SectorGrid>
@@ -860,13 +1121,17 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H12</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H13</SectorGrid>
@@ -874,6 +1139,9 @@
     <szDetailedUnexploredName>Alma</szDetailedUnexploredName>
     <szExploredName>Alma</szExploredName>
     <szDetailedExploredName>Alma</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H14</SectorGrid>
@@ -881,6 +1149,9 @@
     <szDetailedUnexploredName>Alma</szDetailedUnexploredName>
     <szExploredName>Alma</szExploredName>
     <szDetailedExploredName>Alma</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H15</SectorGrid>
@@ -888,6 +1159,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H16</SectorGrid>
@@ -895,6 +1168,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I1</SectorGrid>
@@ -902,6 +1177,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I2</SectorGrid>
@@ -909,6 +1186,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I3</SectorGrid>
@@ -916,6 +1195,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I4</SectorGrid>
@@ -923,6 +1204,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I5</SectorGrid>
@@ -930,6 +1213,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I6</SectorGrid>
@@ -937,6 +1222,8 @@
     <szDetailedUnexploredName>Estoni</szDetailedUnexploredName>
     <szExploredName>Estoni</szExploredName>
     <szDetailedExploredName>Estoni</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>135</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I7</SectorGrid>
@@ -944,6 +1231,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I8</SectorGrid>
@@ -951,6 +1240,9 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Site SAM</szExploredName>
     <szDetailedExploredName>Désert, Site SAM</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>850</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I9</SectorGrid>
@@ -958,6 +1250,8 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I10</SectorGrid>
@@ -965,20 +1259,26 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I11</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I12</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I13</SectorGrid>
@@ -986,13 +1286,32 @@
     <szDetailedUnexploredName>Alma</szDetailedUnexploredName>
     <szExploredName>Alma</szExploredName>
     <szDetailedExploredName>Alma</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
+    <usPrisonRoomNumber00>38</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>39</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>40</usPrisonRoomNumber02>
+    <usPrisonRoomNumber03>41</usPrisonRoomNumber03>
+    <usPrisonRoomNumber04>42</usPrisonRoomNumber04>
+    <usPrisonRoomNumber05>43</usPrisonRoomNumber05>
+    <usPrisonRoomNumber06>44</usPrisonRoomNumber06>
+    <usPrisonRoomNumber07>45</usPrisonRoomNumber07>
+    <usPrisonRoomNumber08>46</usPrisonRoomNumber08>
+    <usPrisonRoomNumber09>47</usPrisonRoomNumber09>
+    <usPrisonRoomNumber10>48</usPrisonRoomNumber10>
+    <usPrisonRoomNumber11>49</usPrisonRoomNumber11>
+    <usPrisonRoomNumber12>50</usPrisonRoomNumber12>
+    <usPrisonRoomNumber13>51</usPrisonRoomNumber13>
    </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
-    <szUnexploredName>Mine de Alma</szUnexploredName>
-    <szDetailedUnexploredName>Mine de Alma</szDetailedUnexploredName>
-    <szExploredName>Mine de Alma</szExploredName>
-    <szDetailedExploredName>Mine de Alma</szDetailedExploredName>
+    <szUnexploredName>Mine d'Alma</szUnexploredName>
+    <szDetailedUnexploredName>Mine d'Alma</szDetailedUnexploredName>
+    <szExploredName>Mine d'Alma</szExploredName>
+    <szDetailedExploredName>Mine d'Alma</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I15</SectorGrid>
@@ -1000,6 +1319,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I16</SectorGrid>
@@ -1007,6 +1328,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J1</SectorGrid>
@@ -1014,6 +1337,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J2</SectorGrid>
@@ -1021,6 +1346,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J3</SectorGrid>
@@ -1028,6 +1355,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J4</SectorGrid>
@@ -1035,6 +1364,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J5</SectorGrid>
@@ -1042,6 +1373,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J6</SectorGrid>
@@ -1049,6 +1382,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J7</SectorGrid>
@@ -1056,6 +1391,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J8</SectorGrid>
@@ -1063,6 +1400,8 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J9</SectorGrid>
@@ -1070,6 +1409,24 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
+    <usPrisonRoomNumber00>5</usPrisonRoomNumber00>
+    <usPrisonRoomNumber01>6</usPrisonRoomNumber01>
+    <usPrisonRoomNumber02>7</usPrisonRoomNumber02>
+    <usPrisonRoomNumber03>8</usPrisonRoomNumber03>
+    <usPrisonRoomNumber04>9</usPrisonRoomNumber04>
+    <usPrisonRoomNumber05>10</usPrisonRoomNumber05>
+    <usPrisonRoomNumber06>11</usPrisonRoomNumber06>
+    <usPrisonRoomNumber07>12</usPrisonRoomNumber07>
+    <usPrisonRoomNumber08>13</usPrisonRoomNumber08>
+    <usPrisonRoomNumber09>14</usPrisonRoomNumber09>
+    <usPrisonRoomNumber10>15</usPrisonRoomNumber10>
+    <usPrisonRoomNumber11>16</usPrisonRoomNumber11>
+    <usPrisonRoomNumber12>17</usPrisonRoomNumber12>
+    <usPrisonRoomNumber13>18</usPrisonRoomNumber13>
+    <usPrisonRoomNumber14>19</usPrisonRoomNumber14>
+    <usPrisonRoomNumber15>20</usPrisonRoomNumber15>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J10</SectorGrid>
@@ -1077,6 +1434,8 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J11</SectorGrid>
@@ -1084,6 +1443,8 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J12</SectorGrid>
@@ -1091,6 +1452,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J13</SectorGrid>
@@ -1098,6 +1461,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J14</SectorGrid>
@@ -1105,6 +1470,8 @@
     <szDetailedUnexploredName>Ferme, route</szDetailedUnexploredName>
     <szExploredName>Ferme, route</szExploredName>
     <szDetailedExploredName>Ferme, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>175</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J15</SectorGrid>
@@ -1112,6 +1479,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J16</SectorGrid>
@@ -1119,6 +1488,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K1</SectorGrid>
@@ -1126,6 +1497,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K2</SectorGrid>
@@ -1133,6 +1506,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K3</SectorGrid>
@@ -1140,6 +1515,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K4</SectorGrid>
@@ -1147,6 +1524,9 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Orta</szExploredName>
     <szDetailedExploredName>Base militaire d'Orta</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K5</SectorGrid>
@@ -1154,13 +1534,17 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K6</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K7</SectorGrid>
@@ -1168,6 +1552,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K8</SectorGrid>
@@ -1175,6 +1561,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K9</SectorGrid>
@@ -1182,6 +1570,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K10</SectorGrid>
@@ -1189,6 +1579,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K11</SectorGrid>
@@ -1196,6 +1588,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K12</SectorGrid>
@@ -1203,6 +1597,8 @@
     <szDetailedUnexploredName>Désert, route</szDetailedUnexploredName>
     <szExploredName>Désert, route</szExploredName>
     <szDetailedExploredName>Désert, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>900</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K13</SectorGrid>
@@ -1210,6 +1606,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K14</SectorGrid>
@@ -1217,6 +1615,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K15</SectorGrid>
@@ -1224,6 +1624,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>190</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>K16</SectorGrid>
@@ -1231,6 +1633,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR> 
    <SECTOR>
     <SectorGrid>L1</SectorGrid>
@@ -1238,6 +1642,8 @@
     <szDetailedUnexploredName>Route côtière</szDetailedUnexploredName>
     <szExploredName>Route côtière</szExploredName>
     <szDetailedExploredName>Route côtière</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L2</SectorGrid>
@@ -1245,6 +1651,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L3</SectorGrid>
@@ -1252,6 +1660,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L4</SectorGrid>
@@ -1259,6 +1669,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>4</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L5</SectorGrid>
@@ -1266,20 +1678,26 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L6</SectorGrid>
-    <szUnexploredName>Plaines, route</szUnexploredName>
-    <szDetailedUnexploredName>Plaines, route</szDetailedUnexploredName>
-    <szExploredName>Plaines, route</szExploredName>
-    <szDetailedExploredName>Plaines, route</szDetailedExploredName>
+    <szUnexploredName>Plaine, route</szUnexploredName>
+    <szDetailedUnexploredName>Plaine, route</szDetailedUnexploredName>
+    <szExploredName>Plaine, route</szExploredName>
+    <szDetailedExploredName>Plaine, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L7</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
     <SECTOR>
     <SectorGrid>L8</SectorGrid>
@@ -1287,13 +1705,17 @@
     <szDetailedUnexploredName>Désert</szDetailedUnexploredName>
     <szExploredName>Désert</szExploredName>
     <szDetailedExploredName>Désert</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>1000</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L9</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L10</SectorGrid>
@@ -1301,6 +1723,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L11</SectorGrid>
@@ -1308,6 +1732,8 @@
     <szDetailedUnexploredName>Balime</szDetailedUnexploredName>
     <szExploredName>Balime</szExploredName>
     <szDetailedExploredName>Balime</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L12</SectorGrid>
@@ -1315,6 +1741,8 @@
     <szDetailedUnexploredName>Balime</szDetailedUnexploredName>
     <szExploredName>Balime</szExploredName>
     <szDetailedExploredName>Balime</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L13</SectorGrid>
@@ -1322,6 +1750,8 @@
     <szDetailedUnexploredName>Route côtière</szDetailedUnexploredName>
     <szExploredName>Route côtière</szExploredName>
     <szDetailedExploredName>Route côtière</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>150</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L14</SectorGrid>
@@ -1329,6 +1759,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L15</SectorGrid>
@@ -1336,6 +1768,8 @@
     <szDetailedUnexploredName>Forêt</szDetailedUnexploredName>
     <szExploredName>Forêt</szExploredName>
     <szDetailedExploredName>Forêt</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>180</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>L16</SectorGrid>
@@ -1343,6 +1777,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M1</SectorGrid>
@@ -1350,6 +1786,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M2</SectorGrid>
@@ -1357,6 +1795,9 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR> 
    <SECTOR>
     <SectorGrid>M3</SectorGrid>
@@ -1364,6 +1805,9 @@
     <szDetailedUnexploredName>Marais, route</szDetailedUnexploredName>
     <szExploredName>Marais, route</szExploredName>
     <szDetailedExploredName>Marais, route</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>450</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M4</SectorGrid>
@@ -1371,6 +1815,9 @@
     <szDetailedUnexploredName>Cultures</szDetailedUnexploredName>
     <szExploredName>Cultures</szExploredName>
     <szDetailedExploredName>Cultures</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>175</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M5</SectorGrid>
@@ -1378,6 +1825,9 @@
     <szDetailedUnexploredName>Forêt, route</szDetailedUnexploredName>
     <szExploredName>Forêt, route</szExploredName>
     <szDetailedExploredName>Forêt, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M6</SectorGrid>
@@ -1385,27 +1835,36 @@
     <szDetailedUnexploredName>Forêt, route</szDetailedUnexploredName>
     <szExploredName>Forêt, route</szExploredName>
     <szDetailedExploredName>Forêt, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>160</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M7</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M8</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M9</SectorGrid>
-    <szUnexploredName>Plaines</szUnexploredName>
-    <szDetailedUnexploredName>Plaines</szDetailedUnexploredName>
-    <szExploredName>Plaines</szExploredName>
-    <szDetailedExploredName>Plaines</szDetailedExploredName>
+    <szUnexploredName>Plaine</szUnexploredName>
+    <szDetailedUnexploredName>Plaine</szDetailedUnexploredName>
+    <szExploredName>Plaine</szExploredName>
+    <szDetailedExploredName>Plaine</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>170</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M10</SectorGrid>
@@ -1413,6 +1872,8 @@
     <szDetailedUnexploredName>Tropical, route</szDetailedUnexploredName>
     <szExploredName>Tropical, route</szExploredName>
     <szDetailedExploredName>Tropical, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>250</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M11</SectorGrid>
@@ -1420,6 +1881,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M12</SectorGrid>
@@ -1427,6 +1890,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M13</SectorGrid>
@@ -1434,6 +1899,8 @@
     <szDetailedUnexploredName>Bois</szDetailedUnexploredName>
     <szExploredName>Bois</szExploredName>
     <szDetailedExploredName>Bois</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>200</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M14</SectorGrid>
@@ -1441,6 +1908,8 @@
     <szDetailedUnexploredName>Marais</szDetailedUnexploredName>
     <szExploredName>Marais</szExploredName>
     <szDetailedExploredName>Marais</szDetailedExploredName>
+    <sWaterType>3</sWaterType>
+    <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M15</SectorGrid>
@@ -1448,6 +1917,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>M16</SectorGrid>
@@ -1455,6 +1926,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N1</SectorGrid>
@@ -1462,6 +1935,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N2</SectorGrid>
@@ -1469,13 +1944,18 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N3</SectorGrid>
     <szUnexploredName>Aéroport de Meduna</szUnexploredName>
     <szDetailedUnexploredName>Aéroport de Meduna</szDetailedUnexploredName>
-    <szExploredName>Aéroport de Meduna</szExploredName>
+    <szExploredName>Aéroport.Meduna</szExploredName>
     <szDetailedExploredName>Aéroport de Meduna</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N4</SectorGrid>
@@ -1483,6 +1963,9 @@
     <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
     <szExploredName>Site SAM</szExploredName>
     <szDetailedExploredName>Meduna, Site SAM</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N5</SectorGrid>
@@ -1490,6 +1973,9 @@
     <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
     <szExploredName>Meduna</szExploredName>
     <szDetailedExploredName>Meduna</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N6</SectorGrid>
@@ -1497,6 +1983,9 @@
     <szDetailedUnexploredName>Tropical, route</szDetailedUnexploredName>
     <szExploredName>Tropical, route</szExploredName>
     <szDetailedExploredName>Tropical, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>250</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N7</SectorGrid>
@@ -1504,6 +1993,9 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
+    <usPrisonRoomNumber00>3</usPrisonRoomNumber00>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N8</SectorGrid>
@@ -1511,6 +2003,8 @@
     <szDetailedUnexploredName>Côte, route</szDetailedUnexploredName>
     <szExploredName>Côte, route</szExploredName>
     <szDetailedExploredName>Côte, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>140</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N9</SectorGrid>
@@ -1518,6 +2012,8 @@
     <szDetailedUnexploredName>Tropical, route</szDetailedUnexploredName>
     <szExploredName>Tropical, route</szExploredName>
     <szDetailedExploredName>Tropical, route</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>250</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N10</SectorGrid>
@@ -1525,6 +2021,8 @@
     <szDetailedUnexploredName>Tropical, route</szDetailedUnexploredName>
     <szExploredName>Tropical, route</szExploredName>
     <szDetailedExploredName>Tropical, route</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>250</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N11</SectorGrid>
@@ -1532,6 +2030,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N12</SectorGrid>
@@ -1539,6 +2039,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N13</SectorGrid>
@@ -1546,6 +2048,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N14</SectorGrid>
@@ -1553,6 +2057,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR> 
    <SECTOR>
     <SectorGrid>N15</SectorGrid>
@@ -1560,6 +2066,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>N16</SectorGrid>
@@ -1567,6 +2075,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O1</SectorGrid>
@@ -1574,6 +2084,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O2</SectorGrid>
@@ -1581,6 +2093,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O3</SectorGrid>
@@ -1588,6 +2102,9 @@
     <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
     <szExploredName>Meduna</szExploredName>
     <szDetailedExploredName>Meduna</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O4</SectorGrid>
@@ -1595,6 +2112,9 @@
     <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
     <szExploredName>Meduna</szExploredName>
     <szDetailedExploredName>Meduna</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>1</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O5</SectorGrid>
@@ -1602,6 +2122,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O6</SectorGrid>
@@ -1609,6 +2131,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O7</SectorGrid>
@@ -1616,6 +2140,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O8</SectorGrid>
@@ -1623,6 +2149,8 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Tropical</szExploredName>
     <szDetailedExploredName>Tropical</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O9</SectorGrid>
@@ -1630,6 +2158,8 @@
     <szDetailedUnexploredName>Tropical</szDetailedUnexploredName>
     <szExploredName>Tropical</szExploredName>
     <szDetailedExploredName>Tropical</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>300</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O10</SectorGrid>
@@ -1637,6 +2167,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O11</SectorGrid>
@@ -1644,6 +2176,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O12</SectorGrid>
@@ -1651,6 +2185,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O13</SectorGrid>
@@ -1658,6 +2194,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O14</SectorGrid>
@@ -1665,6 +2203,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O15</SectorGrid>
@@ -1672,6 +2212,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>O16</SectorGrid>
@@ -1679,6 +2221,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P1</SectorGrid>
@@ -1686,6 +2230,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P2</SectorGrid>
@@ -1693,6 +2239,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P3</SectorGrid>
@@ -1700,6 +2248,9 @@
     <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
     <szExploredName>Meduna</szExploredName>
     <szDetailedExploredName>Meduna</szDetailedExploredName>
+    <sWaterType>1</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
+    <usCurfewValue>2</usCurfewValue>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P4</SectorGrid>
@@ -1707,6 +2258,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P5</SectorGrid>
@@ -1714,6 +2267,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P6</SectorGrid>
@@ -1721,6 +2276,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P7</SectorGrid>
@@ -1728,6 +2285,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P8</SectorGrid>
@@ -1735,6 +2294,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P9</SectorGrid>
@@ -1742,6 +2303,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P10</SectorGrid>
@@ -1749,6 +2312,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P11</SectorGrid>
@@ -1756,6 +2321,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P12</SectorGrid>
@@ -1763,6 +2330,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P13</SectorGrid>
@@ -1770,6 +2339,8 @@
     <szDetailedUnexploredName>Infranchissable</szDetailedUnexploredName>
     <szExploredName>Infranchissable</szExploredName>
     <szDetailedExploredName>Infranchissable</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P14</SectorGrid>
@@ -1777,6 +2348,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>2</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P15</SectorGrid>
@@ -1784,6 +2357,8 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
    <SECTOR>
     <SectorGrid>P16</SectorGrid>
@@ -1791,5 +2366,7 @@
     <szDetailedUnexploredName>Inconnu</szDetailedUnexploredName>
     <szExploredName>Inconnu</szExploredName>
     <szDetailedExploredName>Inconnu</szDetailedExploredName>
+    <sWaterType>0</sWaterType>
+    <usNaturalDirt>100</usNaturalDirt>
    </SECTOR>
 </SECTOR_NAMES>
