@@ -123,6 +123,9 @@
 #include "ub_config.h"
 #endif
 
+// anv: for playable Speck
+#include "mercs.h"
+
 // OJW - 20090419
 UINT8   giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
 UINT8   giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES = CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
@@ -3359,6 +3362,9 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
                     default:
                         break;
                 }
+				// anv: handle Speck witnessing his employee death
+				if( pTeamSoldier->ubProfile == SPECK_PLAYABLE && pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+					HandleSpeckWitnessingEmployeeDeath( pSoldier );
             }
         }
 

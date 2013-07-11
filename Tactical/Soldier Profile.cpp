@@ -64,6 +64,10 @@
 #include "ub_config.h"
 #include "XML.h"
 
+// anv: for playable Speck
+#include "Speck Quotes.h"
+#include "LaptopSave.h"
+
 #include "connect.h"
 #ifdef JA2EDITOR
 	extern BOOLEAN gfProfileDataLoaded;
@@ -2342,6 +2346,13 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	if ( pSoldier->ubProfile == LARRY_DRUNK )
 	{
 		SetFactTrue( FACT_LARRY_CHANGED );
+		// anv: make speck whine about it immediately if on team
+		if( !IsSpeckComAvailable() )
+		{
+			TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_LARRY_RELAPSED );
+			// don't bring this up again
+			LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__ALREADY_TOLD_PLAYER_THAT_LARRY_RELAPSED;
+		}
 	}
 	else
 	{

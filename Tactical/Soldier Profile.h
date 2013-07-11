@@ -87,6 +87,7 @@ extern BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile );
 
 enum NPCIDs
 {
+	VICKI = 4,// anv: check when hiring Speck
 	BIFF = 40,
 	HAYWIRE,
 	GASKET,
@@ -240,6 +241,7 @@ enum NPCIDs
 	NPC169,
 #endif	
 	NPC170 = NPC169 + 84,
+	SPECK_PLAYABLE = 191,// anv
 } ;
 
 BOOLEAN LoadMercProfiles(void);

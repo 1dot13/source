@@ -17,6 +17,9 @@
 	#include "Game Clock.h"
 #endif
 
+// anv: for playable Speck
+#include "mercs.h"
+
 StrategicMapElement StrategicMap[MAP_WORLD_X*MAP_WORLD_Y];
 
 extern BOOLEAN fReDrawFace;
@@ -123,6 +126,10 @@ void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier )
 					break;
 				}
 			}
+			// anv: handle Speck witnessing his employee death
+			if( pTeamSoldier->ubProfile == SPECK_PLAYABLE && pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+				HandleSpeckWitnessingEmployeeDeath( pSoldier );
+
 		}
 
 

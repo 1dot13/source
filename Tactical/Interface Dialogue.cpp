@@ -94,6 +94,10 @@
 #include "Ja25Update.h"
 #endif
 
+// anv: for playable Speck
+#include "Speck Quotes.h"
+#include "mercs.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -2724,6 +2728,14 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if( pSoldier->ubProfile == FLO )
 				{
 					SetFactTrue( FACT_PC_MARRYING_DARYL_IS_FLO );
+					// anv: make Speck whine about it immediately if on team
+					if( !IsMercDead(BIFF) && !IsSpeckComAvailable() )
+					{
+						TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_FLO_MARRIED_A_COUSIN_BIFF_IS_ALIVE );
+						// don't bring this up again
+						LaptopSaveInfo.fSpeckSaidFloMarriedCousinQuote = TRUE;
+						MakeBiffAwayForCoupleOfDays();
+					}
 				}
 
 				HandleMoraleEvent( pSoldier, MORALE_MERC_MARRIED, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );

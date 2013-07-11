@@ -258,6 +258,8 @@ NUMBER_TIMES_QUOTE_SAID			gNumberOfTimesQuoteSaid[ MERC_NUMBER_OF_RANDOM_QUOTES 
 		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_AIM_SLANDER_2, 0 },
 		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_AIM_SLANDER_3, 0 },
 		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_AIM_SLANDER_4, 0 },
+
+		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_SPECK_SELLS_HIMSELF, 0 },
 };
 
 
@@ -323,7 +325,7 @@ BOOLEAN		ShouldTheMercSiteServerGoDown();
 void			DrawMercVideoBackGround();
 BOOLEAN		CanMercQuoteBeSaid( UINT32 uiQuoteID );
 UINT8			NumberOfMercMercsDead();
-void			MakeBiffAwayForCoupleOfDays();
+//void			MakeBiffAwayForCoupleOfDays(); // anv: moved to mercs.h
 BOOLEAN		AreAnyOfTheNewMercsAvailable();
 void			ShouldAnyNewMercMercBecomeAvailable();
 BOOLEAN		CanMercBeAvailableYet( UINT8 ubMercToCheck );
@@ -621,6 +623,15 @@ void HandleMercs()
 		gfMercSiteScreenIsReDrawn = TRUE;
 	}
 
+	// anv: stop, Speck can't say anything because he's out of reach
+	if( !IsSpeckComAvailable() )
+	{
+		gusMercVideoSpeckSpeech = MERC_VIDEO_SPECK_SPEECH_NOT_TALKING;
+		gubCurrentMercVideoMode = MERC_VIDEO_NO_VIDEO_MODE;
+		RenderMercs();
+		gfRedrawMercSite = TRUE;
+	}
+
 	//if Speck has something to say, say it
 	if( gusMercVideoSpeckSpeech != MERC_VIDEO_SPECK_SPEECH_NOT_TALKING )// && !gfDoneIntroSpeech )
 	{
@@ -884,7 +895,15 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 		if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_INVALID )
 		{
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_INVALID;
-			AddEmail( MERC_INVALID, MERC_INVALID_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+			if( IsSpeckComAvailable() )
+			{
+				AddEmail( MERC_INVALID, MERC_INVALID_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+			}
+			else
+			{
+				// anv: Have speck complain personally
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ) , SPECK_PLAYABLE_QUOTE_PLAYER_OWES_SPECK_ACCOUNT_SUSPENDED );
+			}
 		}
 	}
 	else if( iNumDays > MERC_NUM_DAYS_TILL_ACCOUNT_SUSPENDED )
@@ -892,10 +911,18 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 		if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_SUSPENDED )
 		{
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_SUSPENDED;
-			AddEmail( MERC_WARNING, MERC_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+			if( IsSpeckComAvailable() )
+			{
+				AddEmail( MERC_WARNING, MERC_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
 
-			// Have speck complain next time player come to site
-			LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
+				// Have speck complain next time player come to site
+				LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
+			}
+			else
+			{
+				// anv: Have speck complain personally
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ) , SPECK_PLAYABLE_QUOTE_PLAYER_OWES_SPECK_ALMOST_BANKRUPT_2);
+			}
 		}
 	}
 	else if( iNumDays > MERC_NUM_DAYS_TILL_FIRST_WARNING)
@@ -903,10 +930,18 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 		if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_VALID_FIRST_WARNING )
 		{
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_VALID_FIRST_WARNING;
-			AddEmail( MERC_FIRST_WARNING, MERC_FIRST_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+			if( IsSpeckComAvailable() )
+			{
+				AddEmail( MERC_FIRST_WARNING, MERC_FIRST_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
 
-			// Have speck complain next time player come to site
-			LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
+				// Have speck complain next time player come to site
+				LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
+			}
+			else
+			{
+				// anv: Have speck complain personally
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ) , SPECK_PLAYABLE_QUOTE_PLAYER_OWES_SPECK_ALMOST_BANKRUPT_1 );
+			}
 		}
 	}
 #endif
@@ -2297,6 +2332,13 @@ void HandlePlayerHiringMerc( UINT8 ubHiredMercID )
 				break;
 #endif
 
+			// anv: Speck is hired
+			case SPECK_PLAYABLE:
+				if( IsMercOnTeam( VICKI ) )
+					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_SPECK_TOGETHER_WITH_VICKI );
+				else
+					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_SPECK );
+				break;
 		}
 	}
 
@@ -2331,25 +2373,29 @@ BOOLEAN ShouldSpeckStartTalkingDueToActionOnSubPage()
 	{
 
 		HandlePlayerHiringMerc( GetMercIDFromMERCArray( gubCurMercIndex ) );
-#ifdef JA2UB
-		//if it hasnt been said, say the better equipment quote
-		if( !HasImportantSpeckQuoteBeingSaid( SPECK_QUOTE_BETTER_STARTING_EQPMNT_TAG_ON ) )
+
+		if( IsSpeckComAvailable() )
 		{
-			StartSpeckTalking( SPECK_QUOTE_BETTER_STARTING_EQPMNT_TAG_ON );
-		}
-#endif
-		//get speck to say the thank you 
-		if( Random( 100 ) > 50 )
-			StartSpeckTalking( SPECK_QUOTE_GENERIC_THANKS_FOR_HIRING_MERCS_1 );
-		else
-			StartSpeckTalking( SPECK_QUOTE_GENERIC_THANKS_FOR_HIRING_MERCS_2 );
 #ifdef JA2UB
-		//if it hasnt been said, say the encouraged to shop quote
-		if( !HasImportantSpeckQuoteBeingSaid( SPECK_QUOTE_ENCOURAGE_SHOP_TAG_ON ) )
-		{
-			StartSpeckTalking( SPECK_QUOTE_ENCOURAGE_SHOP_TAG_ON );
-		}
+			//if it hasnt been said, say the better equipment quote
+			if( !HasImportantSpeckQuoteBeingSaid( SPECK_QUOTE_BETTER_STARTING_EQPMNT_TAG_ON ) )
+			{
+				StartSpeckTalking( SPECK_QUOTE_BETTER_STARTING_EQPMNT_TAG_ON );
+			}
 #endif
+			//get speck to say the thank you 
+			if( Random( 100 ) > 50 )
+				StartSpeckTalking( SPECK_QUOTE_GENERIC_THANKS_FOR_HIRING_MERCS_1 );
+			else
+			    StartSpeckTalking( SPECK_QUOTE_GENERIC_THANKS_FOR_HIRING_MERCS_2 );
+#ifdef JA2UB
+			//if it hasnt been said, say the encouraged to shop quote
+			if( !HasImportantSpeckQuoteBeingSaid( SPECK_QUOTE_ENCOURAGE_SHOP_TAG_ON ) )
+			{
+				StartSpeckTalking( SPECK_QUOTE_ENCOURAGE_SHOP_TAG_ON );
+			}
+#endif
+		}
 		gfJustHiredAMercMerc = FALSE;
 //				gfDoneIntroSpeech = TRUE;
 
@@ -2361,7 +2407,103 @@ BOOLEAN ShouldSpeckStartTalkingDueToActionOnSubPage()
 	return( FALSE );
 }
 
+BOOLEAN IsSpeckComAvailable() // anv: Prevent Speck from talking if his playable version is out of reach
+{
+	//he's hired, travelling, dead or POW, he cant' talk
+	if( ( ( IsMercOnTeam( SPECK_PLAYABLE ) 
+		|| gMercProfiles[ SPECK_PLAYABLE ].bMercStatus == MERC_IS_DEAD  
+		|| gMercProfiles[ SPECK_PLAYABLE ].bMercStatus == MERC_RETURNING_HOME
+		|| gMercProfiles[ SPECK_PLAYABLE ].bMercStatus == MERC_FIRED_AS_A_POW ) )
 
+		//he still can talk if he was just hired, so he can say his recruitment quote
+		&& ( GetMercIDFromMERCArray( gubCurMercIndex ) != SPECK_PLAYABLE 
+		||  gusMercVideoSpeckSpeech == SPECK_QUOTE_PLAYER_TRIES_TO_HIRE_ALREADY_HIRED_MERC
+		||  gusMercVideoSpeckSpeech == SPECK_QUOTE_BIFF_UNAVALIABLE
+		||  gusMercVideoSpeckSpeech == SPECK_QUOTE_SPECK_UNAVAILABLE
+		) )
+	{
+		return(FALSE);
+	}
+	return(TRUE);
+}
+
+void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier )  // anv: handle playable Speck witnessing his employee death
+{	
+	if(pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC)
+	{
+		// first blood
+		if( !LaptopSaveInfo.fHasAMercDiedAtMercSite )
+		{
+			LaptopSaveInfo.fHasAMercDiedAtMercSite = TRUE;
+			TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_FIRST_MERC_DIES );
+		}
+		// numerous casualties, Speck whines...
+		else if( CountNumberOfMercMercsWhoAreDead() >= 2 && LaptopSaveInfo.ubSpeckCanSayPlayersLostQuote )
+		{
+			TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_PLAYERS_LOST_MERCS );
+			//Set it so speck Wont say the quote again till someone else dies
+			LaptopSaveInfo.ubSpeckCanSayPlayersLostQuote = 0;
+		}
+		// merc specific requiem
+		switch( pSoldier->ubProfile )
+		{
+			case BIFF:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_BIFF_IS_DEAD );
+				break;
+			case HAYWIRE:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_HAYWIRE_IS_DEAD);
+				break;
+			case GASKET:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_GASKET_IS_DEAD );
+				break;
+			case RAZOR:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_RAZOR_IS_DEAD );
+				break;
+			case FLO:
+				//if biff is dead
+				if( IsMercDead( BIFF ) )
+					TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_FLO_IS_DEAD_BIFF_IS_DEAD );
+				else
+				{
+					TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_FLO_IS_DEAD_BIFF_ALIVE);
+					MakeBiffAwayForCoupleOfDays();
+				}
+				break;
+
+			case GUMPY:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_GUMPY_IS_DEAD);
+				break;
+			case LARRY_NORMAL:
+			case LARRY_DRUNK:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_LARRY_IS_DEAD);
+				break;
+			case COUGAR:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_COUGER_IS_DEAD);
+				break;
+			case NUMB:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_NUMB_IS_DEAD);
+				break;
+			case BUBBA:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_BUBBA_IS_DEAD);
+				break;
+#ifdef JA2UB
+			case 58://GASTON:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_GASTON_DEAD);
+				break;
+			case 59://STOGIE:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_STOGIE_DEAD);
+				break;
+#else
+			case GASTON:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_GASTON_DEAD);
+				break;
+			case STOGIE:
+				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_STOGIE_DEAD);
+				break;
+#endif
+		}
+	}
+}
 
 BOOLEAN ShouldSpeckSayAQuote()
 {
@@ -2556,11 +2698,21 @@ BOOLEAN ShouldTheMercSiteServerGoDown()
 #else
 void GetMercSiteBackOnline()
 {
-	//Add an email telling the user the site is back up
-	AddEmail( MERC_NEW_SITE_ADDRESS, MERC_NEW_SITE_ADDRESS_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT);
+	if( IsSpeckComAvailable )
+	{
+		//Add an email telling the user the site is back up
+		AddEmail( MERC_NEW_SITE_ADDRESS, MERC_NEW_SITE_ADDRESS_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT);
 
-	//Set a flag indicating that the server just went up ( so speck can make a comment when the player next visits the site )
-	LaptopSaveInfo.fFirstVisitSinceServerWentDown = TRUE;
+		//Set a flag indicating that the server just went up ( so speck can make a comment when the player next visits the site )
+		LaptopSaveInfo.fFirstVisitSinceServerWentDown = TRUE;
+	}
+	else
+	{
+		// anv: Have Speck inform player personally
+		TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_SERVER_WENT_DOWN );
+		// don't bring this up again
+		LaptopSaveInfo.fFirstVisitSinceServerWentDown = 2;
+	}
 }
 #endif
 
@@ -2644,6 +2796,13 @@ BOOLEAN CanMercQuoteBeSaid( UINT32 uiQuoteID )
 			if( !IsMercMercAvailable( BUBBA ) )
 				fRetVal = FALSE;
 			break;
+
+		//anv: playable Speck
+		case SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_SPECK_SELLS_HIMSELF:
+			if( !IsMercMercAvailable( SPECK_PLAYABLE ) )
+				fRetVal = FALSE;
+			break;
+
 #ifdef JA2UB
 		case SPECK_QUOTE_BIFF_DEAD_WHEN_IMPORTING:
 			if( !gJa25SaveStruct.fBiffWasKilledWhenImportingSave )
@@ -2789,10 +2948,18 @@ void NewMercsAvailableAtMercSiteCallBack( )
 				LaptopSaveInfo.ubLastMercAvailableId = gConditionsForMercAvailability[i].uiIndex;
 				gConditionsForMercAvailability[i].StartMercsAvailable = TRUE;
 				
-				AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+				if( IsSpeckComAvailable() )
+				{
+					AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
 
-				//new mercs are available
-				LaptopSaveInfo.fNewMercsAvailableAtMercSite = TRUE;
+					//new mercs are available
+					LaptopSaveInfo.fNewMercsAvailableAtMercSite = TRUE;
+				}
+				else
+				{
+					// anv: Have speck inform player personally
+					TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE, TRUE ), SPECK_PLAYABLE_QUOTE_NEW_MERCS_AVAILABLE );
+				}
 			}
 		}
 	}

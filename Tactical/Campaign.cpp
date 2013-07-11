@@ -50,6 +50,7 @@
 #endif
 
 #include "email.h"
+#include "mercs.h"
 
 
 //forward declarations of common classes to eliminate includes
@@ -2044,7 +2045,8 @@ void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 	else
 		pMerc = 0;
 	if ( gProfilesMERC[ubMercMercIdValue].ProfilId == ubMercMercIdValue )
-		AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_MERC_LEVEL_UP);
+		if( IsSpeckComAvailable() )// anv: only send level up email if Speck is available at website
+			AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_MERC_LEVEL_UP);
 	}
 	else
 	{

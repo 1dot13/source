@@ -149,6 +149,13 @@ extern	UINT8			gubCurMercIndex;
 
 extern	BOOLEAN		gfJustHiredAMercMerc;
 
+// anv: moved declaration for use with playable Speck in other classes (Flo marrying Hicks)
+void MakeBiffAwayForCoupleOfDays();
+
+// anv: for playable Speck
+BOOLEAN IsSpeckComAvailable();
+void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier );
+
 void InitializeNumDaysMercArrive();
 
 void NewMercsAvailableAtMercSiteCallBack( );
