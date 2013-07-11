@@ -956,8 +956,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>191</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>Speck</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>192</uiIndex>
