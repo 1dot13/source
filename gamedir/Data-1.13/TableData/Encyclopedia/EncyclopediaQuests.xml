@@ -242,7 +242,7 @@ ImageDescAfter - the description of after
 		<ImagePositionBeforeY>90</ImagePositionBeforeY>
 		<ImagePositionAfterX>207</ImagePositionAfterX>
 		<ImagePositionAfterY>90</ImagePositionAfterY>
-		<ImageDescBefore>Deidranna`s scientist a.w.o.l!</ImageDescBefore>
+		<ImageDescBefore>Deidranna`s scientist a.w.o.l!</ImageDescBefore>
 		<ImageDescAfter>Deidranna`s scientist located.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 13 -->
@@ -453,7 +453,7 @@ ImageDescAfter - the description of after
 		<ImagePositionBeforeY>0</ImagePositionBeforeY>
 		<ImagePositionAfterX>0</ImagePositionAfterX>
 		<ImagePositionAfterY>0</ImagePositionAfterY>
-		<ImageDescBefore>Shank is free. Need to talk about it to Jake.</ImageDescBefore>
+		<ImageDescBefore>Shank is free. Need to talk about it to Jake.</ImageDescBefore>
 		<ImageDescAfter>Fuel can be bought from Jake.</ImageDescAfter>
 	</DATA>
 </ENCYCLOPEDIA>
