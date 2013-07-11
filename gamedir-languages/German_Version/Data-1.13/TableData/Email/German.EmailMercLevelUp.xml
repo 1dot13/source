@@ -983,9 +983,10 @@
 		<Message>Bitte nehmen Sie zur Kenntnis, daß Wink aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
+		<!-- Speck -->
 		<uiIndex>191</uiIndex>
-		<Subject>Subject : None</Subject>
-		<Message>Message : None</Message>
+		<Subject>Benachrichtigung über Solderhöhung</Subject>
+		<Message>Durch meine herausragende Leistung auf dem Schlachtfeld, fühle ich mich verpflichtet, Ihnen mitzuteilen, dass mein Gehalt ab sofort erhöht wird. ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>192</uiIndex>
