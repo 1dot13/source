@@ -2818,7 +2818,8 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		return;
 
 	// only continue if there are prisoners in this sector that need to be placed
-	UINT32 numprisoners = pSector->uiNumberOfPrisonersOfWar;
+	UINT8 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
+	UINT16 numprisoners = GetNumberOrPrisoners(pSector, &tmp1, &tmp2, &tmp3, &tmp4);
 	if ( !numprisoners )
 		return;
 		
@@ -2842,7 +2843,7 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	// we can't spawn if all civilian slots are already taken (we leave a bit of reserve for more important civs)
 	UINT8 maxcivs = max(0, gGameExternalOptions.ubGameMaximumNumberOfCivilians - 3);
 
-	for (UINT8 i = numberofpows; i < numprisoners; ++i)
+	for (UINT16 i = numberofpows; i < numprisoners; ++i)
 	{
 		if ( numberofcivs < maxcivs )
 		{

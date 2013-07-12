@@ -2416,8 +2416,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			case FACILITY_INTERROGATE_PRISONERS:
 				sIconIndex		= 23;
 				fDoIcon			= TRUE;
-				//sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts )/100 );
-				bPtsAvailable   = (FLOAT)( CalculateInterrogationValue(pSoldier, &usMaximumPts )/100.0 );
+				sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) );
+				//bPtsAvailable   = (FLOAT)( CalculateInterrogationValue(pSoldier, &usMaximumPts )/100.0 );
 				fShowNumber		= TRUE;
 				fShowMaximum	= TRUE;
 				break;
@@ -2452,10 +2452,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				if ( fShowMaximum )
 				{
-					if ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS )
+					/*if ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS )
 						swprintf( sString, L"%2.2f/%d", bPtsAvailable, usMaximumPts );
-					else
-						swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
+					else*/
+					swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
 				}
 				else
 				{

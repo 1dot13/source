@@ -15520,7 +15520,8 @@ BOOLEAN		SOLDIERTYPE::CanProcessPrisoners()
 	{
 		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( this->sSectorX, this->sSectorY ) ] );
 		
-		if ( pSectorInfo->uiNumberOfPrisonersOfWar > 0 )
+		UINT8 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
+		if ( GetNumberOrPrisoners(pSectorInfo, &tmp1, &tmp2, &tmp3, &tmp4) > 0 )
 			return TRUE;
 	}
 

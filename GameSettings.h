@@ -1227,6 +1227,7 @@ typedef struct
 	UINT8	ubPrisonerProcessInfoNumberChance;
 	UINT8	ubPrisonerProcessInfoDirectionChance;
 	UINT8	ubPrisonerProcessRansomBaseChance;
+	UINT16	ubPrisonerInterrogationPoints[4];		// points needed to interrogate a prisoner of a specific type
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

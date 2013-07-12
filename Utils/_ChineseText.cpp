@@ -7557,12 +7557,12 @@ STR16	szFoodTextStr[]=
 	L"区域供水不可行，食物和生存系统已被关闭"//L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
-STR16	szPrisonerTextStr[]=
+STR16	szPrisonerTextStr[]=	// TODO.Translate
 {
-	L"%d 名俘虏已被审讯", //L"%d prisoners were interrogated.",
+	L"%d elites, %d regulars and %d amins were interrogated.",
 	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
-	L"%d 名俘虏已加入我方阵营", //L"%d prisoners joined our cause.",
+	L"%d elites, %d regulars and %d amins joined our cause.",
 	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
 	L"俘虏被押送前往 %s 监狱", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"俘虏已被释放！", //L"Prisoners have been released!",

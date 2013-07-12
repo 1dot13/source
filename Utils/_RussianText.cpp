@@ -7539,18 +7539,18 @@ STR16	szFoodTextStr[]=
 	L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
-STR16	szPrisonerTextStr[]=
+STR16	szPrisonerTextStr[]= // TODO.Translate
 {
-	L"%d prisoners were interrogated.", // TODO.Translate
+	L"%d elites, %d regulars and %d amins were interrogated.",
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
-	L"%d prisoners joined our cause.",
+	L"%d elites, %d regulars and %d amins joined our cause.",
 	L"Prisoners start a massive riot in %s!",
 	L"%d prisoners were sent to %s!",
 	L"Prisoners have been released!",
 	L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"The enemy refuses to surrender!",
-	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
+	L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"This behaviour is set OFF in your ini settings.",
 };
 

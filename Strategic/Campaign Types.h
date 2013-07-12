@@ -412,6 +412,16 @@ extern UINT8 gszTerrain[NUM_TRAVTERRAIN_TYPES][15];
 //Used by ubGarrisonID when a sector doesn't point to a garrison.	Used by strategic AI only.
 #define NO_GARRISON					255
 
+// Flugente: types of prisoners
+typedef enum
+{
+	PRISONER_ADMIN = 0,
+	PRISONER_REGULAR,
+	PRISONER_ELITE,
+	PRISONER_SPECIAL,
+	PRISONER_MAX,
+} PrisonerType;
+
 typedef struct SECTORINFO
 {
 	//information pertaining to this sector
@@ -479,7 +489,7 @@ typedef struct SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	UINT32	uiNumberOfPrisonersOfWar;
+	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];
 	UINT8	uiInterrogationHundredsLeft;
 	
 	INT8	bPadding[ 36 ];
@@ -519,7 +529,7 @@ typedef struct UNDERGROUND_SECTORINFO
 	BOOLEAN	fCampaignSector;
 #endif
 	
-	UINT32	uiNumberOfPrisonersOfWar;
+	UINT8	uiNumberOfPrisonersOfWar[PRISONER_MAX];
 
 	INT8	bPadding[32];
 	//no padding left!

@@ -6,6 +6,7 @@
 #include "Soldier Control.h"
 #include "overhead types.h"
 #include "soldier find.h"
+#include "Campaign Types.h"		// added by Flugente for SECTORINFO and UNDERGROUND_SECTORINFO
 #define             ADD_SOLDIER_NO_PROFILE_ID       200
 
 #define MAX_REALTIME_SPEED_VAL                      10
@@ -363,6 +364,19 @@ BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );
 
 // Flugente: is an soldier profile already used?
 BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr);
+
+// Flugente: functions altering a sector's prisoners
+UINT16 GetNumberOrPrisoners( SECTORINFO *pSectorInfo,				UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
+UINT16 GetNumberOrPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,	UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin );
+
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo,				INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin );
+void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo,  INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin );
+
+void DeleteAllPrisoners( SECTORINFO *pSectorInfo );
+void DeleteAllPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo );
+
+// used when the player kills a prisoner. We kill of high-value prisoners first, to punish this kind of behaviour
+void KillOnePrisoner( SECTORINFO *pSectorInfo );
 
 #endif
 

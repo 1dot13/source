@@ -3665,12 +3665,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
         // Flugente: if this was a prisoner of war, reduce their sector count by 1
         if ( pSoldierOld->bSoldierFlagMask & SOLDIER_POW_PRISON )
-        {
-            // get sector
-            SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-            if ( pSector )
-                pSector->uiNumberOfPrisonersOfWar = max(0, pSector->uiNumberOfPrisonersOfWar - 1);
-        }
+			KillOnePrisoner( &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
     }
     else if ( pSoldierOld->bTeam == MILITIA_TEAM )
     {
@@ -6548,15 +6543,16 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
         ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RELEASED] );
     }
 
-    UINT32 prisonerstobemoved = 0;
+    UINT16 prisonerstobemoved = 0;
+	UINT8 prisonersspecial = 0, prisonerselite = 0, prisonersregular = 0, prisonersadmin = 0;
     BOOLEAN success = FALSE;
     if ( !gbWorldSectorZ )
     {
         SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ] );
 
-        prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
+		prisonerstobemoved = GetNumberOrPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
 
-        pSectorInfo->uiNumberOfPrisonersOfWar = 0;
+		DeleteAllPrisoners( pSectorInfo );
 
         if ( usSectorID > 0)
         {
@@ -6566,7 +6562,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
             {
                 success = TRUE;
 
-                pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
+				ChangeNumberOfPrisoners( pPrisonSectorInfo, prisonersspecial, prisonerselite, prisonersregular, prisonersadmin );
 
                 CHAR16 wString[ 64 ];
                 GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), wString );
@@ -6578,9 +6574,9 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
     {
         UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
-        prisonerstobemoved = pSectorInfo->uiNumberOfPrisonersOfWar;
+        prisonerstobemoved = GetNumberOrPrisoners( pSectorInfo, &prisonersspecial, &prisonerselite, &prisonersregular, &prisonersadmin );
 
-        pSectorInfo->uiNumberOfPrisonersOfWar = 0;
+		DeleteAllPrisoners( pSectorInfo );
 
         if ( usSectorID > 0)
         {
@@ -6590,7 +6586,7 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
             {
                 success = TRUE;
 
-                pPrisonSectorInfo->uiNumberOfPrisonersOfWar += prisonerstobemoved;
+				ChangeNumberOfPrisoners( pPrisonSectorInfo, prisonersspecial, prisonerselite, prisonersregular, prisonersadmin );
 
                 CHAR16 wString[ 64 ];
                 GetShortSectorString( SECTORX(usSectorID), SECTORY(usSectorID), wString );
@@ -6633,9 +6629,9 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
                         case SOLDIER_CLASS_ARMY:            ubNumPrisonerTroop++; break;
                         case SOLDIER_CLASS_ELITE:           ubNumPrisonerElite++; break;
                         default:
-                                                            // if none of the above classes, ignore this one
-                                                            continue;
-                                                            break;
+                            // if none of the above classes, ignore this one
+                            continue;
+                            break;
                     }
 
                     ++ubNumPrisoners;
@@ -6716,13 +6712,13 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
     {
         SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
-        pSectorInfo->uiNumberOfPrisonersOfWar += ubNumPrisoners;
+        ChangeNumberOfPrisoners(pSectorInfo, 0, ubNumPrisonerElite, ubNumPrisonerTroop, ubNumPrisonerAdmin);
     }
     else
     {
         UNDERGROUND_SECTORINFO *pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
 
-        pSectorInfo->uiNumberOfPrisonersOfWar += ubNumPrisoners;
+		ChangeNumberOfPrisoners(pSectorInfo, 0, ubNumPrisonerElite, ubNumPrisonerTroop, ubNumPrisonerAdmin);
     }
 
     if ( ubNumPrisoners )
@@ -10194,4 +10190,86 @@ BOOLEAN IsProfileInUse(UINT8 usTeam, INT8 aType, UINT16 aNr)
 	}
 
 	return FALSE;
+}
+
+UINT16 GetNumberOrPrisoners( SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+{
+	if ( !pSectorInfo )
+		return 0;
+
+	*apSpecial = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL];
+	*apElite   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE];
+	*apRegular = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR];
+	*apAdmin   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN];
+
+	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
+}
+
+UINT16 GetNumberOrPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, UINT8* apSpecial, UINT8* apElite, UINT8* apRegular, UINT8* apAdmin )
+{
+	if ( !pSectorInfo )
+		return 0;
+
+	*apSpecial = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL];
+	*apElite   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE];
+	*apRegular = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR];
+	*apAdmin   = pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN];
+
+	return (UINT16)(pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]);
+}
+
+void ChangeNumberOfPrisoners( SECTORINFO *pSectorInfo, INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin )
+{
+	if ( !pSectorInfo )
+		return;
+
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + aSpecial) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
+}
+
+void ChangeNumberOfPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo, INT16 aSpecial, INT16 aElite, INT16 aRegular, INT16 aAdmin )
+{
+	if ( !pSectorInfo )
+		return;
+
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_SPECIAL] + aSpecial) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ELITE]	  + aElite) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] = max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_REGULAR] + aRegular) );
+	pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]	= max(0, min(255, pSectorInfo->uiNumberOfPrisonersOfWar[PRISONER_ADMIN]   + aAdmin) );
+}
+
+void DeleteAllPrisoners( SECTORINFO *pSectorInfo )
+{
+	if ( !pSectorInfo )
+		return;
+
+	for (int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i)
+		pSectorInfo->uiNumberOfPrisonersOfWar[i] = 0;
+}
+
+void DeleteAllPrisoners( UNDERGROUND_SECTORINFO *pSectorInfo )
+{
+	if ( !pSectorInfo )
+		return;
+
+	for (int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i)
+		pSectorInfo->uiNumberOfPrisonersOfWar[i] = 0;
+}
+
+// used when the player kills a prisoner. We kill of high-value prisoners first, to punish this kind of behaviour
+void KillOnePrisoner( SECTORINFO *pSectorInfo )
+{
+	if ( !pSectorInfo )
+		return;
+
+	for (int i = PRISONER_SPECIAL; i >= PRISONER_ADMIN; --i)
+	{
+		if ( pSectorInfo->uiNumberOfPrisonersOfWar[i] )
+		{
+			pSectorInfo->uiNumberOfPrisonersOfWar[i] -= 1;
+			break;
+		}
+	}
 }

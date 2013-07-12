@@ -7539,10 +7539,10 @@ STR16	szFoodTextStr[]=
 // TODO.Translate
 STR16	szPrisonerTextStr[]=
 {
-	L"%d prisoners were interrogated.",
+	L"%d elites, %d regulars and %d amins were interrogated.",
 	L"%d prisoners paid ransom money.",
 	L"%d prisoners revealed enemy positions.",
-	L"%d prisoners joined our cause.",
+	L"%d elites, %d regulars and %d amins joined our cause.",
 	L"Prisoners start a massive riot in %s!",
 	L"%d prisoners were sent to %s!",
 	L"Prisoners have been released!",
