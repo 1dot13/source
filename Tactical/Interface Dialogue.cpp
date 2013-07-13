@@ -1726,7 +1726,7 @@ void HandleStuffForNPCEscorted( UINT8 ubNPC )
 
 #ifdef LUA_INTERFACE_DIALOGUE
 
-	LetLuaInterfaceDialogue(ubNPC,0);
+	LetLuaInterfaceDialogue(ubNPC,1);
 
 #else
 
