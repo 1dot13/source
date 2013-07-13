@@ -1932,13 +1932,17 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		return( fRecompileMovementCosts );
 	}
 
-	if ( pExplosive->ubType == EXPLOSV_CREATUREGAS || pExplosive->ubType == EXPLOSV_BURNABLEGAS)
+	if ( pExplosive->ubType == EXPLOSV_CREATUREGAS )
 	{
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER )
 		{
 			// unaffected by own gas effects
 			return( fRecompileMovementCosts );
 		}
+	}
+
+	if ( pExplosive->ubType == EXPLOSV_CREATUREGAS || pExplosive->ubType == EXPLOSV_BURNABLEGAS)
+	{
 		if ( sSubsequent && pSoldier->flags.fHitByGasFlags & HIT_BY_CREATUREGAS )
 		{
 			// already affected by creature gas this turn
@@ -1949,7 +1953,6 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			// already affected by BURNABLEGAS this turn
 			return( fRecompileMovementCosts );
 		}
-
 	}
 	else // no gas mask help from creature attacks
 		// ATE/CJC: gas stuff
