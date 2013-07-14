@@ -5525,6 +5525,9 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	UINT32	interrogationpoints = pSectorInfo->uiInterrogationHundredsLeft;
 	pSectorInfo->uiInterrogationHundredsLeft = 0;
 
+	// remember old interrogation points for exp distribution later
+	UINT32 oldinterrogationpoints = interrogationpoints;
+
 	if ( !numprisoners )
 		return;
 
@@ -5682,8 +5685,11 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 	// give experience rewards to the interrogators
 	// total experience to share
+	if ( !oldinterrogationpoints )
+		return;
+
 	FLOAT totalexp = (FLOAT) (100 * prisonersinterrogated);
-	FLOAT expratio = totalexp / (interrogationpoints * 33);	// TODO
+	FLOAT expratio = totalexp / (oldinterrogationpoints * 33);	// TODO
 
 	// award experience
 	for ( uiCnt = 0, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++uiCnt, ++pSoldier)
