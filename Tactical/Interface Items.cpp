@@ -5030,6 +5030,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 	// HEADROCK HAM 5: Adjust Item Region
 	// Before creating the ammo button, we set a region that spans the entire Big Item image.  Clicking on the image
 	// will trigger a Transformation menu.
+	if ( gpItemDescObject->usItem != MONEY  )
 	{
 		MSYS_DefineRegion( &gInvDescTransformRegion, (UINT16)ITEMDESC_ITEM_X, (UINT16)ITEMDESC_ITEM_Y ,(UINT16)(ITEMDESC_ITEM_X + ITEMDESC_ITEM_WIDTH), (UINT16)(ITEMDESC_ITEM_Y + ITEMDESC_ITEM_HEIGHT), MSYS_PRIORITY_HIGHEST,
 			MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescTransformRegionCallback );
@@ -5209,6 +5210,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		gRemoveMoney.uiTotalAmount = (*gpItemDescObject)[0]->data.money.uiMoneyAmount;
 		gRemoveMoney.uiMoneyRemaining = (*gpItemDescObject)[0]->data.money.uiMoneyAmount;
 		gRemoveMoney.uiMoneyRemoving = 0;
+		gubDescBoxPage = 0;
 
 		// Load graphic
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -7339,9 +7341,9 @@ void RenderItemDescriptionBox( )
 					mprintf( (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[4].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[4].y ), gzMoneyAmounts[4] );
 				}
 			}
-		}
-		else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_MONEY )
-		{
+//		}
+//		else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_MONEY )
+//		{
 			SetFontForeground( FONT_FCOLOR_WHITE );
 			SetFontShadow( DEFAULT_SHADOW );
 			swprintf( pStr, L"%ld", (*gpItemDescObject)[gubItemDescStatusIndex]->data.money.uiMoneyAmount );
