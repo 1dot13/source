@@ -13,18 +13,6 @@
   </MERC>
   <MERC>
 	<uiIndex>1</uiIndex>
-	<Name>Speck</Name>
-	<Drunk>0</Drunk>
-	<uiAlternateIndex>-1</uiAlternateIndex>
-	<StartMercsAvailable>1</StartMercsAvailable>
-	<NewMercsAvailable>0</NewMercsAvailable>
-	<MercBioID>0</MercBioID>
-	<ProfilId>191</ProfilId>
-	<usMoneyPaid>0</usMoneyPaid>
-	<usDay>0</usDay>
-  </MERC>
-  <MERC>
-	<uiIndex>1</uiIndex>
 	<Name>Haywire</Name>
 	<Drunk>0</Drunk>
 	<uiAlternateIndex>-1</uiAlternateIndex>
