@@ -5950,6 +5950,8 @@ BOOLEAN SaveMercProfiles( HWFILE hFile )
 
 BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 {
+	// Flugente 2013-07-16: This code erases merc records on loading. I am thus commenting it out until someone fixes it.
+#if 0
 	UINT16	cnt;
 	MERCPROFILESTRUCT tempMercProfile;
 	//Loop through all the profiles to Load
@@ -5972,6 +5974,22 @@ BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 		{
 			return(FALSE);
 		}*/
+	}
+#endif
+
+	UINT16	cnt;
+	//Loop through all the profiles to Load
+	for( cnt=0; cnt< NUM_PROFILES; cnt++)
+	{
+		// At some point after STOMP12_SAVEGAME_DATATYPE_CHANGE, NUM_PROFILES was changed from NUM_PROFILES_v111
+		if(guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE && cnt >= NUM_PROFILES_v111)
+			break;
+		// Changed by ADB, rev 1513
+		//if ( !gMercProfiles[cnt].Load(hFile, false) )
+		if ( !gMercProfiles[cnt].Load(hFile, false, false, true) )
+		{
+			return(FALSE);
+		}
 	}
 
 	return( TRUE );
