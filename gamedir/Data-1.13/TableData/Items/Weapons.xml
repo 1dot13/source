@@ -6100,6 +6100,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
 		<Handling>1</Handling>
 		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
