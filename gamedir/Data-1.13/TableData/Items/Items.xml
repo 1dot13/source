@@ -12729,7 +12729,6 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>237</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>245</ubGraphicNum>
 		<ubWeight>33</ubWeight>
 		<ItemSize>27</ItemSize>
 		<usPrice>2000</usPrice>
@@ -47409,8 +47408,8 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1579</ubClassIndex>
 		<ubCursor>2</ubCursor>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>102</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>160</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>13</ItemSize>
@@ -47439,7 +47438,7 @@
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>513</ubGraphicNum>
+		<ubGraphicNum>894</ubGraphicNum>
 		<ubWeight>800</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>34</ItemSize>
@@ -48860,7 +48859,7 @@
 		<usItemClass>8192</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>35</ubGraphicNum>
+		<ubGraphicNum>162</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>16</ItemSize>
@@ -48967,7 +48966,7 @@
 		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>154</ubGraphicNum>
+		<ubGraphicNum>161</ubGraphicNum>
 		<ubWeight>5</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>13</ItemSize>
@@ -49003,7 +49002,7 @@
 		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>154</ubGraphicNum>
+		<ubGraphicNum>161</ubGraphicNum>
 		<ubWeight>5</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>13</ItemSize>
