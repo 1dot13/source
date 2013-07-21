@@ -1727,14 +1727,20 @@ void HourlyProgressUpdate(void)
 		// at 50% make Mike available to the strategic AI
 		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressMikeAvailable && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressMikeAvailable )
 		{
-			SetFactTrue( FACT_MIKE_AVAILABLE_TO_ARMY );
+			if( gubFact[FACT_MIKE_AVAILABLE_TO_ARMY] < 2 );
+			{
+				SetFactTrue( FACT_MIKE_AVAILABLE_TO_ARMY );
+			}
 		}
 
 		// at 70% add Iggy to the world
 		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressIggyAvaliable && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressIggyAvaliable )
 		{
-			gMercProfiles[ IGGY ].sSectorX = 5;
-			gMercProfiles[ IGGY ].sSectorY = MAP_ROW_C;
+			if ( gubFact[ FACT_IGGY_AVAILABLE_TO_ARMY ] < 2 )
+			{
+				gMercProfiles[ IGGY ].sSectorX = 5;
+				gMercProfiles[ IGGY ].sSectorY = MAP_ROW_C;
+			}
 		}
 
 		// Flugente: on certain progress levels, the queen decides to initiate major attacks
