@@ -5959,19 +5959,19 @@ BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 		if(guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE && cnt >= NUM_PROFILES_v111)
 			break;
 		// silversurfer: What if mercs are added while we are mid game?
-		// let's load the savegame data into a placeholder
-		if ( !tempMercProfile.Load(hFile, false, false, true) )
-			return(FALSE);
-		// and check if it contains valid merc data
-		// only then overwrite what we read from the MercProfiles.xml
-		if ( tempMercProfile.bLifeMax > 0 )
-			memcpy( &gMercProfiles[cnt], &tempMercProfile, sizeof(gMercProfiles[cnt]) );
-/*		// Changed by ADB, rev 1513
+		// let's store the current data in a placeholder
+		tempMercProfile = gMercProfiles[cnt];
+		// now load the merc data from savegame
+		// Changed by ADB, rev 1513
 		//if ( !gMercProfiles[cnt].Load(hFile, false) )
 		if ( !gMercProfiles[cnt].Load(hFile, false, false, true) )
 		{
 			return(FALSE);
-		}*/
+		}
+		// now check if we loaded a valid merc profile
+		// if not then overwrite with the previously stored data
+		if ( gMercProfiles[cnt].bLifeMax <= 0 )
+			gMercProfiles[cnt] = tempMercProfile;
 	}
 
 	return( TRUE );
