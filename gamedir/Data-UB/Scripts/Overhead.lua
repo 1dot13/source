@@ -251,8 +251,9 @@ function HandleAtNewGridNo( ProfileId )
 					SetFactTrue( Facts.FACT_SKYRIDER_CLOSE_TO_CHOPPER )
 					TriggerNPCRecord( Profil.SKYRIDER, 15 )
 					SetUpHelicopterForPlayer( 13, SectorY.MAP_ROW_B, Profil.SKYRIDER )
-							
-			elseif ( ProfileIdsSectorX == 13 and ProfileIdsSectorY == SectorY.MAP_ROW_B and ProfileIdbSectorZ == 0 ) then
+			
+			-- Marie & John
+			elseif ( ( CheckNPCSectorBool( Profil.MARY, 13, SectorY.MAP_ROW_B, 0 ) == true ) or ( CheckNPCSectorBool( Profil.JOHN, 13, SectorY.MAP_ROW_B, 0 ) == true
 					
 					-- Mary	
 					if ( ProfileId == Profil.MARY ) then
