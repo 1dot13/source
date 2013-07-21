@@ -512,6 +512,10 @@ typedef struct
 	UINT16 guiMaxItemSize;
 	UINT16 guiOIVSizeNumber;
 
+	// silversurfer: this is only for the cleaned up NCTH calculation. Please remove if the new functions are accepted
+	// see Tactical\Weapons.cpp funtion CalcNewChanceToHitGun()
+	BOOLEAN fUseNewCTHCalculation;
+
 	//Sight range
 	UINT32	ubStraightSightRange;
 	UINT32 ubVisDistDecreasePerRainIntensity;

@@ -12801,6 +12801,11 @@ FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2
 	FLOAT	rangeModifier = gGameCTHConstants.SCOPE_RANGE_MULTIPLIER;
 
 	iScopeFactor = GetScopeMagnificationFactor( pSoldier, pObj, d2DDistance );
+
+	// if we are not using a scope we will not apply "SCOPE_RANGE_MULTIPLIER"
+	if ( iScopeFactor <= 1.0 )
+		rangeModifier = 1.0;
+
 	if( gGameOptions.fNewTraitSystem )
 	{
 		if(iScopeFactor > 5.0f)
