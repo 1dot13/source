@@ -2231,7 +2231,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 					gprintfdirty( sX, sY, NameStr );
 					mprintf( sX, sY, NameStr );	
 				}
-				else if (gGameExternalOptions.fEnemyNames == TRUE  && gGameExternalOptions.fEnemyRank == FALSE)
+				else if (gGameExternalOptions.fEnemyNames == TRUE)
 				{
 					for( iCounter2 = 0; iCounter2 < 500; ++iCounter2 )
 					{
@@ -2255,7 +2255,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 						}
 					}
 				}
-				else if (gGameExternalOptions.fEnemyNames == FALSE && gGameExternalOptions.fEnemyRank == TRUE)
+				if (gGameExternalOptions.fEnemyRank == TRUE)
 				{
 					for( iCounter2 = 1; iCounter2 < 11; ++iCounter2 )
 					{
@@ -2269,8 +2269,15 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 								SetFontBackground( FONT_MCOLOR_BLACK );
 								SetFontForeground( FONT_YELLOW );
 								
+								// need to adjust sYPos because default position already occupied by the name
+								if ( gGameExternalOptions.fSoldierProfiles_Enemy && pSoldier->usSoldierProfile || gGameExternalOptions.fEnemyNames )
+									FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+
+								// use default position for text
+								else
+									FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+
 								//legion2
-								FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 20 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 								gprintfdirty( sX, sY, NameStr );
 								mprintf( sX, sY, NameStr );
 

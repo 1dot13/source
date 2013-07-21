@@ -927,7 +927,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	
 	
-	if (gGameExternalOptions.fEnemyNames == TRUE && gGameExternalOptions.fEnemyRank == FALSE)
+	if (gGameExternalOptions.fEnemyNames == TRUE)
     {
 		// Enemy Names Group by Jazz
 		strcpy(fileName, directoryName);
@@ -980,7 +980,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		}
 #endif
 	
-	if (gGameExternalOptions.fEnemyNames == FALSE && gGameExternalOptions.fEnemyRank == TRUE)
+	if (gGameExternalOptions.fEnemyRank == TRUE)
     {
 		// Enemy Rank by Jazz
 		strcpy(fileName, directoryName);
