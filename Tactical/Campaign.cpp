@@ -1727,7 +1727,7 @@ void HourlyProgressUpdate(void)
 		// at 50% make Mike available to the strategic AI
 		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressMikeAvailable && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressMikeAvailable )
 		{
-			if( gubFact[FACT_MIKE_AVAILABLE_TO_ARMY] < 2 );
+			if( gubFact[FACT_MIKE_AVAILABLE_TO_ARMY] < 2 )
 			{
 				SetFactTrue( FACT_MIKE_AVAILABLE_TO_ARMY );
 			}
