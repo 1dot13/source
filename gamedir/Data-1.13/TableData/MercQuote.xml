@@ -2113,36 +2113,36 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>192</uiIndex>
-		<Name></Name>
-		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
-		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
+		<Name>PGmale5</Name>
+		<QuoteExpHeadShotOnly>1</QuoteExpHeadShotOnly>
+		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
 		<QuoteExpGenderCode>0</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
+		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
 		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
-		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
+		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>193</uiIndex>
-		<Name></Name>
-		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
-		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
-		<QuoteExpGenderCode>0</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
+		<Name>PGmale6 </Name>
+		<QuoteExpHeadShotOnly>1</QuoteExpHeadShotOnly>
+		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
+		<QuoteExpGenderCode>2</QuoteExpGenderCode>
+		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
 		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
-		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
+		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>194</uiIndex>
-		<Name></Name>
-		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
-		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
-		<QuoteExpGenderCode>0</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
+		<Name>PGmale7</Name>
+		<QuoteExpHeadShotOnly>1</QuoteExpHeadShotOnly>
+		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
+		<QuoteExpGenderCode>2</QuoteExpGenderCode>
+		<QuoteExpGotGunOrUsedGun>61</QuoteExpGotGunOrUsedGun>
 		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
-		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
-		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
+		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
+		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>195</uiIndex>

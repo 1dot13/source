@@ -261,7 +261,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>52</uiIndex>
-		<Name>PGmale2 </Name>
+		<Name>PGmale2</Name>
 		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
@@ -786,7 +786,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>157</uiIndex>
-		<Name>Calvin </Name>
+		<Name>Calvin</Name>
 		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
@@ -961,18 +961,18 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>192</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>PGmale5</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>193</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>PGmale6</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>194</uiIndex>
-		<Name></Name>
-		<EnabledSound>0</EnabledSound>
+		<Name>PGmale7</Name>
+		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>195</uiIndex>
