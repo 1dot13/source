@@ -17475,6 +17475,21 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 
 			// curses!
 			this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+
+			// if we are disguised, there is a chance that he'll uncover us
+			if ( this->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			{
+				this->LooseDisguise();
+				this->Strip();
+														
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName() );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName(), this->GetName()  );
+
+				// alert the soldier
+				pSoldier->aiData.bAlertStatus = min(pSoldier->aiData.bAlertStatus,  STATUS_RED);
+
+				ProcessImplicationsOfPCAttack( this, &pSoldier, REASON_NORMAL_ATTACK );
+			}
 		}
 	}
 	else
