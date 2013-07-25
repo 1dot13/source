@@ -5781,6 +5781,10 @@ void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex)
 	if(!gfInItemDescBox)
 		return;
 
+	// Flugente: if the ammo button does not exist, no point in entering its text...
+	if ( giItemDescAmmoButton < 0 )
+		return;
+
 	if ( GetMagSize(pObject) <= 99 )
 		swprintf( pStr, L"%d/%d", (*pObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, GetMagSize(pObject));
 	else
