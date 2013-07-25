@@ -14707,7 +14707,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->GetName(), Item[bLoop].szItemName );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
 							return FALSE;
 						}
 						break;
@@ -14886,7 +14886,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CARRY_BADLBE], this->GetName(), Item[bLoop].szItemName );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
 							return FALSE;
 						}
 						break;
