@@ -5619,25 +5619,36 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 				if(usInfiniteLoopCount > 10){	//run through the loop 10 times before we drop items.
 					//Anything that's still in our tempAttachList couldn't be attached, and should be dropped.
 					for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end();) {
-						if (iter->exists()) {
-							if ( pSoldier && AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
+						if (iter->exists())
+						{
+							// Flugente: placing objects at a soldier is only advised if the soldier exists in the first place
+							if ( pSoldier )
 							{
-								iter = tempAttachList.erase(iter);
-							} else {	// put it on the ground
-								INT8 pathing = (pSoldier?pSoldier->pathing.bLevel:0);
-								INT32 sGridNo = (pSoldier?pSoldier->sGridNo:0);
-								AutoPlaceObjectToWorld(pSoldier, &(*iter), TRUE);
-								iter = tempAttachList.erase(iter);
-								/*if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool){
+								if ( !AutoPlaceObject( pSoldier, &(*iter), FALSE ) )
+								{
+									AutoPlaceObjectToWorld(pSoldier, &(*iter), TRUE);
+								}
+							}
+							else
+							{
+								// put it on the ground
+								INT32 sGridNo = 1;
+
+								if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool)
+								{
 									AutoPlaceObjectInInventoryStash(&(*iter), sGridNo);
 									//AddItemToPool( sGridNo, &(*iter), 1, pathing, WORLD_ITEM_REACHABLE, 0 );
-									iter = tempAttachList.erase(iter);
-								} else {
-									AddItemToPool( sGridNo, &(*iter), 1, pathing, WORLD_ITEM_REACHABLE, 0 );
-									iter = tempAttachList.erase(iter);
-								}*/
+								}
+								else
+								{
+									AddItemToPool( sGridNo, &(*iter), 1, 0, WORLD_ITEM_REACHABLE, 0 );
+								}																
 							}
-						} else {
+
+							iter = tempAttachList.erase(iter);
+						}
+						else
+						{
 							++iter;
 						}
 					}
