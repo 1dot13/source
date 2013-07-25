@@ -383,6 +383,13 @@ void InternallyClassifyEdgepoints( SOLDIERTYPE *pSoldier, INT32 sGridNo,
 	{
 		*psArray2 = (INT32*)MemAlloc( sizeof( INT32 ) * 400 );
 	}
+	// silversurfer: hackfix for crash on maps with isolated entry points
+	// we can't just keep adding data to psArray2 because it has only a fixed amount of memory available
+	// if we keep adding beyond that we overwrite foreign data!
+	// memory allocation for the real gps2nd<insert compass point here>EdgepointArray is done in function void GenerateMapEdgepoints(BOOLEAN fValidate)
+	// let's blow this up to some bigger amount, sizeof( INT32 ) * 400 will do for now
+	(*psArray2) = (INT32*)MemRealloc( (*psArray2), sizeof( INT32 ) * 400 );
+
 	for( i = 0; i < *pusArraySize1; i++ )
 	{
 		if( sGridNo == (*psArray1)[ i ] )
@@ -485,6 +492,7 @@ void InternallyClassifyEdgepoints( SOLDIERTYPE *pSoldier, INT32 sGridNo,
 	}
 	//Now compact the primary array, because some edgepoints have been removed.
 	CompactEdgepointArray( psArray1, pusMiddleIndex1, pusArraySize1 );
+	// silversurfer: this is the point where the editor will crash with a HeapValidate() error because we have been adding data beyond reserved memory
 	(*psArray2) = (INT32*)MemRealloc( (*psArray2), *pusArraySize2 * sizeof( INT32 ) );
 }
 
