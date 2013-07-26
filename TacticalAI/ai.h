@@ -101,7 +101,8 @@ typedef enum
 
 	AI_ACTION_RELOAD_GUN,
 
-	AI_ACTION_JUMP_WINDOW,	// added by Flugente: jump through a window
+	AI_ACTION_JUMP_WINDOW,			// added by Flugente: jump through a window
+	AI_ACTION_FREE_PRISONER,		// added by Flugente: free a prisoner
 } ActionType;
 
 

@@ -7377,6 +7377,7 @@ STR16	szPrisonerTextStr[]=
 	L"Der Gegner weigert sich aufzugeben!",
 	L"Der Feind weigert sich, Sie als Gefangenen zu nehmen - Er möchte Sie tod sehen!",
 	L"Dieses Verhalten ist ausgeschaltet in der ja2_options.ini Datei.",
+	L"%s hat %s befreit!",
 };
 
 STR16	szMTATextStr[]=

@@ -7568,6 +7568,7 @@ STR16	szPrisonerTextStr[]=
 	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
 	L"敌人不肯拿你当囚犯 - 他们宁愿你死！",	//L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"这些可以在 INI 设置关闭。",	// 	L"This behaviour is set OFF in your ini settings.",
+	L"%s has freed %s!",
 };
 
 STR16	szMTATextStr[]=

@@ -914,13 +914,20 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			}
 		}
 
+		////////////////////////////////////////////////////////////////////////////
+		// IF YOU SEE CAPTURED FRIENDS, FREE THEM!
+		////////////////////////////////////////////////////////////////////////////
+
 		// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
-		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
+		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM && !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition )
 		{
-			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 10, ENEMY_TEAM, SOLDIER_POW );
+			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW );
 
 			if ( ubPerson != NOBODY )
+			{	
+				// raise alarm!
 				return( AI_ACTION_RED_ALERT );
+			}
 		}
 	}
 //ddd}
@@ -1514,13 +1521,56 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		return(AI_ACTION_NONE);
 	}
 
-	// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
-	if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
+	if( gGameExternalOptions.bNewTacticalAIBehavior )
 	{
-		UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 10, ENEMY_TEAM, SOLDIER_POW );
+		////////////////////////////////////////////////////////////////////////////
+		// IF YOU SEE CAPTURED FRIENDS, FREE THEM!
+		////////////////////////////////////////////////////////////////////////////
 
-		if ( ubPerson != NOBODY )
-			return( AI_ACTION_RED_ALERT );
+		// Flugente: if we see one of our buddies in handcuffs, its a clear sign of enemy activity!
+		// Flugente: if we see one of our buddies captured, it is a clear sign of enemy activity!
+		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
+		{
+			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW );
+
+			if ( ubPerson != NOBODY )
+			{
+				// if we are close, we can release this guy
+				// possible only if not handcuffed (binders can be opened, handcuffs not)
+				if ( !HasItemFlag( (&(MercPtrs[ubPerson]->inv[HANDPOS]))->usItem, HANDCUFFS ) )
+				{
+					if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
+					{
+						// see if we are facing this person
+						UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+
+						// if not already facing in that direction,
+						if ( pSoldier->ubDirection != ubDesiredMercDir )
+						{
+							pSoldier->aiData.usActionData = ubDesiredMercDir;
+
+							return( AI_ACTION_CHANGE_FACING );
+						}
+
+						return(AI_ACTION_FREE_PRISONER);
+					}
+					else
+					{
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+						{
+							return(AI_ACTION_SEEK_FRIEND);
+						}
+					}
+				}
+				else if ( !gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition )
+				{
+					// raise alarm!
+					return( AI_ACTION_RED_ALERT );
+				}
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -2723,6 +2773,52 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	}
 	}
 	*/
+
+	if( gGameExternalOptions.bNewTacticalAIBehavior )
+	{
+		////////////////////////////////////////////////////////////////////////////
+		// IF YOU SEE CAPTURED FRIENDS, FREE THEM!
+		////////////////////////////////////////////////////////////////////////////
+
+		// Flugente: if we see one of our buddies captured, it is a clear sign of enemy activity!
+		if ( gGameExternalOptions.fAllowPrisonerSystem && pSoldier->bTeam == ENEMY_TEAM )
+		{
+			UINT8 ubPerson = GetClosestFlaggedSoldierID( pSoldier, 20, ENEMY_TEAM, SOLDIER_POW );
+
+			if ( ubPerson != NOBODY )
+			{
+				// if we are close, we can release this guy
+				// possible only if not handcuffed (binders can be opened, handcuffs not)
+				if ( !HasItemFlag( (&(MercPtrs[ubPerson]->inv[HANDPOS]))->usItem, HANDCUFFS ) )
+				{
+					if ( PythSpacesAway(pSoldier->sGridNo, MercPtrs[ubPerson]->sGridNo) < 2 )
+					{
+						// see if we are facing this person
+						UINT8 ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(MercPtrs[ubPerson]->sGridNo),CenterY(MercPtrs[ubPerson]->sGridNo));
+
+						// if not already facing in that direction,
+						if ( pSoldier->ubDirection != ubDesiredMercDir )
+						{
+							pSoldier->aiData.usActionData = ubDesiredMercDir;
+
+							return( AI_ACTION_CHANGE_FACING );
+						}
+
+						return(AI_ACTION_FREE_PRISONER);
+					}
+					else
+					{
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, MercPtrs[ubPerson]->sGridNo, 20, AI_ACTION_SEEK_FRIEND, 0);
+				
+						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+						{
+							return(AI_ACTION_SEEK_FRIEND);
+						}
+					}
+				}
+			}
+		}
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN IN THE LIGHT, GET OUT OF THERE!

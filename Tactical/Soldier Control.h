@@ -1539,6 +1539,7 @@ public:
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();
 	UINT32		GetSurrenderStrength();
+	BOOLEAN		FreePrisoner();					// used for an enemy liberating fellow prisoners 
 
 	// Flugente: scuba gear
 	BOOLEAN		UsesScubaGear();

@@ -9039,9 +9039,10 @@ void SOLDIERTYPE::BeginSoldierClimbWindow( void )
 			this->usPendingAnimation = JUMPWINDOWS;
 	}
 
+		// Flugente: should be fixed now, re-enable if not
 		// Flugente: if an AI guy, end turn (weird endless clock syndrome)
-		if ( this->bTeam != OUR_TEAM )
-			EndAIGuysTurn( this);
+		//if ( this->bTeam != OUR_TEAM )
+			//EndAIGuysTurn( this);
 
 		// Flugente: if we are jumping through an intact window, smash it during our animation
 		if ( gGameExternalOptions.fCanJumpThroughClosedWindows )
@@ -15548,6 +15549,38 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength()
 		value *= 0.75f;
 
 	return value;
+}
+
+// used for an enemy liberating fellow prisoners 
+BOOLEAN		SOLDIERTYPE::FreePrisoner()
+{
+	// we can only free people we are facing
+	INT32 nextGridNoinSight = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+
+	UINT8 target = WhoIsThere2( nextGridNoinSight, this->pathing.bLevel );
+
+	// is there somebody?
+	if ( target != NOBODY )
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[target];
+
+		// if he is captured, free him!
+		// note that this would also work for prisoner civs that we spawn in our prisons. All needed would be commanding the AI to get there
+		if ( pSoldier->bSoldierFlagMask & (SOLDIER_POW|SOLDIER_POW_PRISON) )
+		{
+			pSoldier->bSoldierFlagMask &= ~(SOLDIER_POW|SOLDIER_POW_PRISON);
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_X_FREES_Y], this->GetName(), pSoldier->GetName() );
+
+			// alert both soldiers
+			this->aiData.bAlertStatus	  = min(this->aiData.bAlertStatus,  STATUS_RED);
+			pSoldier->aiData.bAlertStatus = min(pSoldier->aiData.bAlertStatus,  STATUS_RED);
+
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 // Flugente: scuba gear

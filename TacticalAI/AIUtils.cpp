@@ -585,6 +585,10 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 
 			break;
 
+		case AI_ACTION_FREE_PRISONER:
+			bMinPointsNeeded = APBPConstants[AP_HANDCUFF];
+			break;
+
 		default:
 #ifdef BETAVERSION
 			//NumMessage("AffordableAction - Illegal action type = ",pSoldier->aiData.bAction);

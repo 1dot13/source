@@ -7553,6 +7553,7 @@ STR16	szPrisonerTextStr[]=
 	L"The enemy refuses to surrender!",
 	L"The enemy refuses to take you as prisoners - they prefer you dead!",	// TODO.Translate
 	L"This behaviour is set OFF in your ini settings.",
+	L"%s has freed %s!",
 };
 
 STR16	szMTATextStr[]=	// TODO.Translate

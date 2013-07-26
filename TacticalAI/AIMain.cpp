@@ -2271,8 +2271,16 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
         case AI_ACTION_JUMP_WINDOW:
             {
                 pSoldier->BeginSoldierClimbWindow();
+				ActionDone( pSoldier );
             }
             break;
+
+		case AI_ACTION_FREE_PRISONER:
+			{
+				pSoldier->FreePrisoner();
+				ActionDone( pSoldier );
+			}
+			break;
 
         default:
 #ifdef BETAVERSION
