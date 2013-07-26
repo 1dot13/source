@@ -2949,6 +2949,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Offer surrender",
 	L"Talk",
 	L"Militia inspection",//TODO.Translate
+	L"Test disguise",	// TODO.Translate
 	L"unused",
 };
 

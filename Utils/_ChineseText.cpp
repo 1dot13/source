@@ -174,8 +174,8 @@ STR16	pSectorPageText[] =
 	L">>",
 	L"类型: ",
 	L"空白数据",
-	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
-	L"Briefing Room. Please click the 'Enter' button.",		// TODO.Translate
+	L"缺少定义的任务。加入任务到该文件 TableData\\BriefingRoom\\BriefingRoom.xml。 第一个任务必须可见。放入值 Hidden = 0。", //	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+	L"B简报室。请点击 'Enter' 按钮", //L"Briefing Room. Please click the 'Enter' button.",
 };
 
 STR16	pEncyclopediaTypeText[] = 
@@ -2156,6 +2156,7 @@ STR16 gzMercSkillTextNew[] =
 	L"班长",
 	L"工兵",
 	L"军医",
+	// placeholders for minor traits
 	L"Placeholder",		// 30
 	L"Placeholder",
 	L"Placeholder",
@@ -2509,19 +2510,18 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 {
-	// TODO.Translate
-	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
-	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
-	L"|A|c|c|u|r|a|c|y\n \nThis is an innate Chance-to-Hit Bonus (or\npenalty!) given by this gun due to its\nparticular good (or bad) design.\n \nHigher is better.",
-	L"|A|i|m|i|n|g |L|e|v|e|l|s\n \nThis is the maximum number of aiming clicks allowed\nwhen using this gun.\n \nEach aiming-click will make an attack more\naccurate.\n \nHigher is better.",
-	L"|A|i|m|i|n|g |M|o|d|i|f|i|e|r\n \nA flat modifier, which alters the effectiveness\nof each aiming click you make while using this\nweapon.\n \nHigher is better.",
-	L"|M|i|n|. |R|a|n|g|e |f|o|r |A|i|m|i|n|g |B|o|n|u|s\n \nThe minimum range-to-target required before this\nweapon can make use of its Aiming Modifier.\n \nIf the target is closer than this many tiles,\naiming clicks will stay at their default\neffectiveness.\n \nLower is better.",
-	L"|T|o|-|H|i|t |M|o|d|i|f|i|e|r\n \nA flat modifier to Chance-to-Hit with any\nattack made using this weapon.\n \nHigher is better.",
-	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e\n \nThe range (in tiles) at which the laser installed\non this weapon will be at its full effectiveness.\n \nWhen attacking a target beyond this range, the\nlaser will provide a smaller bonus or none at all.\n \nHigher is better.",
-	L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
-	L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
-	L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
-	L"|R|e|p|a|i|r |E|a|s|e\n \nThis value indicates how quickly this weapon can\nbe repaired (by a mercenary set to Repair duty).\n \nHigher is better.",
+	L"|射|程\n \n武器的有效射程\n从射程外攻击会导致巨大惩罚\n \n越高越好。", //	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
+	L"|伤|害\n \n这是武器的是伤害潜力\n它一般会对无防护目标造成\n这么多伤害(或者大致这么多)。\n \n越高越好。", //	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
+	L"|精|度\n \n这是依据武器（好或坏）的设计而获得的\n自带命中率奖励（或者是惩罚）。\n \n越高越好。", // L"|A|c|c|u|r|a|c|y\n \nThis is an innate Chance-to-Hit Bonus (or\npenalty!) given by this gun due to its\nparticular good (or bad) design.\n \nHigher is better.",
+	L"|精|瞄|等|级\n \n这是使用该武器时最大允许\n的精瞄次数。\n \n每次瞄准都会使攻击\n更准确。\n \n越高越好。", // L"|A|i|m|i|n|g |L|e|v|e|l|s\n \nThis is the maximum number of aiming clicks allowed\nwhen using this gun.\n \nEach aiming-click will make an attack more\naccurate.\n \nHigher is better.",
+	L"|精|瞄|修|正\n \n一个绝对值修正,更变使用该武器\n时每次精瞄的效果。\n \n越高越好", // L"|A|i|m|i|n|g |M|o|d|i|f|i|e|r\n \nA flat modifier, which alters the effectiveness\nof each aiming click you make while using this\nweapon.\n \nHigher is better.",
+	L"|最|小|精|瞄|奖|励|距|离\n \n该武器获得精瞄修正奖励之前需要的和\n目标之间的最小距离。\n \n如果目标比这个格数更近,\n精瞄只有默认效果.\n \n越低越好。", // L"|M|i|n|. |R|a|n|g|e |f|o|r |A|i|m|i|n|g |B|o|n|u|s\n \nThe minimum range-to-target required before this\nweapon can make use of its Aiming Modifier.\n \nIf the target is closer than this many tiles,\naiming clicks will stay at their default\neffectiveness.\n \nLower is better.",
+	L"|命|中|率|修|正\n \n一个更变使用该武器时任何\n攻击命中率的绝对值修正。\n \n越高越好。", // L"|T|o|-|H|i|t |M|o|d|i|f|i|e|r\n \nA flat modifier to Chance-to-Hit with any\nattack made using this weapon.\n \nHigher is better.",
+	L"|最|佳|激|光|距|离\n \n武器安装的激光能够完全起效\n的距离（以格计）。\n \n在攻击超过这个距离的目标时，\n激光只会提供更少或者根本不提供奖励。\n \n越高越好。", // L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e\n \nThe range (in tiles) at which the laser installed\non this weapon will be at its full effectiveness.\n \nWhen attacking a target beyond this range, the\nlaser will provide a smaller bonus or none at all.\n \nHigher is better.",
+	L"|枪|口|焰|抑|制\n \n当这个图标出现时，意味着这把枪\n在开火时不产生枪口焰。\n这会帮助射手保持隐蔽。", // L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
+	L"|音|量\n \n使用该武器攻击最多可以从标注的距离\n（以格计）上被听到。\n \n越低越好。\n(除非你想故意吸引敌人)", // L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
+	L"|可|靠|度\n \n这个值表示该武器在战斗中\n使用的损坏速度。\n \n越高越好。", // L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
+	L"|维|修|难|度\n \n这个值表示武器被（进行维修工作\n的佣兵）修复的速度\n \n越高越好。",  // L"|R|e|p|a|i|r |E|a|s|e\n \nThis value indicates how quickly this weapon can\nbe repaired (by a mercenary set to Repair duty).\n \nHigher is better.",
 	L"",	//12
 	L"举枪AP",
 	L"单发AP",
@@ -2725,7 +2725,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s发现运来的货品短缺了几件。",
 
 	// The %s is a string from pDoorTrapStrings
-
+	
 	L"锁上有%s。",
 	L"没有上锁。",
 	L"成功！",
@@ -2867,7 +2867,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"民兵",
 	L"平民",
 	L"僵尸",
-	L"PRISONER",//TODO.Translate
+	L"战俘",
 	L"离开分区",
 	L"确定",
 	L"取消",
@@ -2954,9 +2954,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"放俘虏离开这里",
 	L"你想要做什么？",
 	L"劝说敌人投降",
-	L"Offer surrender",//TODO.Translate
+	L"劝降", //L"Offer surrender",
 	L"交谈",
-	L"Militia inspection",//TODO.Translate
+	L"民兵检查", //L"Militia inspection",
+	L"测试伪装", //L"Test disguise",
 	L"unused",
 };
 
@@ -4248,7 +4249,7 @@ STR16			MercInfo[] =
 	L"你的队伍已经满员了。",	//L"You have a full team of mercs already.",
 	L"购买装备？",	//"Buy Equipment?",	
 	L"不可雇佣",	//"Unavailable",
-	L"Unsettled Bills", //TODO.Translate
+	L"未结账单", //L"Unsettled Bills",
 	L"生平", //L"Bio",
 	L"物品", //L"Inv",
 };
@@ -5061,7 +5062,7 @@ STR16		zMarksMapScreenText[] =
 	L"要给%s花费保险金%s 以延长保险合同%d天。你要付费吗？",
 	L"分区存货",	//"Sector Inventory",
 	L"佣兵有医疗保证金。",	//"Merc has a medical deposit.",
-
+	
 	// other items
 	L"医生", 	//"Medics", // people acting a field medics and bandaging wounded mercs
 	L"病人", 	//"Patients", // people who are being bandaged by a medic
@@ -5084,7 +5085,7 @@ STR16		zMarksMapScreenText[] =
 STR16 pLandMarkInSectorString[] =
 {
 	L"第%d小队在%s地区发现有人",
-	L"Squad %s has noticed someone in sector %s",// TODO.Translate
+	L"%s小队在%s地区发现有人的行踪",// L"Squad %s has noticed someone in sector %s",
 };
 
 // confirm the player wants to pay X dollars to build a militia force in town
@@ -5169,7 +5170,6 @@ STR16		zOptionsToggleText[] =
 	L"佣兵修理时保持沉默",	// Madd: mercs don't say quotes while repairing
 	L"佣兵医疗时保持沉默",	// Madd: mercs don't say quotes while doctoring
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
-
 #ifdef ENABLE_ZOMBIES
 	L"僵尸模式",
 #endif
@@ -5227,7 +5227,7 @@ STR16	zOptionsScreenHelpText[] =
 
 	//show misses
 	L"打开时，会显示未击中目标的子弹落点。",
-
+	
 	//Real Time Confirmation
 	L"打开时，进入实时模式会有一个确认对话框。",
 
@@ -5632,7 +5632,7 @@ STR16 pMessageStrings[] =
 
 	//When firing heavier weapons in close quarters, you may not have enough room to do so.
 	L"没有空间施展你的武器。",	//"There is no room to fire from here.",
-
+	
 	//Can't change stance due to objects in the way...
 	L"现在无法改变姿势。",	//"Cannot change stance at this time.",
 
@@ -5699,7 +5699,7 @@ STR16 pMessageStrings[] =
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.//84
 	L"客户端", //"Client",
 	L"旧携行系统不能与新附件系统同时使用.",
-
+	
 	L"自动存盘 #", //91		// Text des Auto Saves im Load Screen mit ID
 	L"自动存盘专用，可在 ja2_options.ini 里设置 AUTO_SAVE_EVERY_N_HOURS 来开启/关闭",	//L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
 	L"... 自动存盘位置 #",	//L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
@@ -6086,9 +6086,9 @@ STR16 gzLateLocalizedString[] =
 	//58
 	//Displayed with the version information when cheats are enabled.
 	L"当前/最大进展:  %d%％/%d%％",		//"Current/Max Progress: %d%%/%d%%",//zww
- 
+
 	L"护送John和Mary？",
- 
+	
 	// 60
 	L"开关被激活",		//"Switch Activated.",
 
@@ -6243,8 +6243,7 @@ STR16 New113HAMMessage[] =
 	L"要在战斗中合并两样物品，你必须先把它们捡起来。", // L"To merge two items during combat, you must pick them both up first.",
 };
 
-// TODO.Translate
-// HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
+// HEADROCK HAM 5: Text dealing exclusively with Item Transformations. // TODO.Translate
 STR16 gzTransformationMessage[] = 
 {
 	L"No available adjustments",
@@ -6380,7 +6379,7 @@ STR16 MPServerMessage[] =
 	L"已发送文件 '%S' - 100/100",//L"Sent file '%S' - 100/100",
 	L"文件已发送到 '%S' ",//	L"Finished sending files to '%S'.",
 	L"开始发送文件到 '%S'.",//	L"Started sending files to '%S'.",
-	L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",	// TODO.Translate
+	L"使用空域视图选择你想进入的地图。你只能在点击“开始游戏”按钮前更换地图。",	// L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",
 };
 
 STR16 MPClientMessage[] =
@@ -6482,7 +6481,7 @@ STR16 MPClientMessage[] =
 	L"Client is not running.",
 	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",	
 	// 80
-	L"AI's turn - %d left",		// TODO.Translate
+	L"AI's turn - %d left",		// TODO.Translate - MU
 };
 
 STR16 gszMPEdgesText[] =
@@ -6577,11 +6576,8 @@ STR16 pSkillTraitBeginIMPStrings[] =
 	L"下一页你必须依照你作为雇佣兵的专业选择特长。注意你只能选择两种一般特长或者一种专家级特长。",
 	L"你可以只选择一个专家特长或者干脆什么也不选，作为回报你会得到额外的能力点数。注意电子、左右开弓和伪装是没有专家级的。",
 	// For new major/minor traits 用于新的主/副特长
-	// silversurfer: sorry, don't know Chinese, replaced for bug #573 fix, please update
-//	L"下一步你必须依照你作为雇佣兵的专业选择特长。在第一页你可以最多选择两个主特长，以反映你在小队中扮演的主要角色。在第二页将有副特长的列表供你选择，以反映你个人的倾向。",
-	L"Next stage is about choosing your skill traits according to your professional specialization as a mercenary. On first page you can select up to %d potential major traits, which mostly represent your main role in a team. While on second page is list of possible minor traits, which represent personal feats.", // TODO.Translate
-//	L"主/副特长加起来最多不能超过三项，也就是说如果你不选择任何主特长，你就能选择三项副特长。如果你选择了两项主特长，(或者一项专家特长)，那么你就只能选择一项副特长...",
-	L"No more then %d choices altogether are possible. This means that if you choose no major traits, you can choose %d minor traits. If you choose two major traits (or one enhanced), you can then choose only %d minor trait(s)...",
+	L"下一步你将会为你的佣兵选择专业技能。在第一页你可以选择%d项潜在主技能，代表佣兵在你的小队里的角色，第二页你可以选择副技能，代表个人特征。", // L"Next stage is about choosing your skill traits according to your professional specialization as a mercenary. On first page you can select up to %d potential major traits, which mostly represent your main role in a team. While on second page is list of possible minor traits, which represent personal feats.",
+	L"最多只能选择%d项。这意味着如果你没有选择主技能，你可以选择%d项副技能。如果你选择了两个主技能（或者一个加强技能），你只能再选择%d项副技能。", // L"No more then %d choices altogether are possible. This means that if you choose no major traits, you can choose %d minor traits. If you choose two major traits (or one enhanced), you can then choose only %d minor trait(s)...",
 };
 
 STR16 sgAttributeSelectionText[] = 
@@ -6673,14 +6669,14 @@ STR16 gzIMPDisabilityTraitText[]=
 
 STR16 gzIMPDisabilityTraitEmailTextDeaf[] =// TODO.Translate
 {
-	L"We bet you're glad this isn't voicemail.",
-	L"You've either visited to many discos in your teens, or were to close a massive artillery bombardment. Or just old. Either way, your team better learn sign language.",
+	L"我们觉得你肯定会因为这不是语音信息很高兴。", //L"We bet you're glad this isn't voicemail.",
+	L"你不是小时候去迪厅去多了，就是离大规模火炮轰击太近，或者就是太老了。总之，你的队友最好开始学习手语了。", // L"You've either visited to many discos in your teens, or were to close a massive artillery bombardment. Or just old. Either way, your team better learn sign language.",
 };
 
 STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 {
-	L"You'll be screwed if you ever lose your glasses.",
-	L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
+	L"如果丢了眼镜你就死定了。", // L"You'll be screwed if you ever lose your glasses.",
+	L"因为你在发光的长方体前面花了太久时间。你应该多吃点胡萝卜，你见过戴眼镜的兔子么？没有吧。", // L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
@@ -7104,9 +7100,11 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \n这是该爆破品释放的烟雾消散前的最大半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n（如果有的话）。更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品释放的火焰熄灭前的最大半径。\n \n在该半径之内的敌人每回合都会受到所列出的\n物理伤害与眩晕伤害\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是爆炸效果的持续时间。\n \n爆炸效果的范围每回合都会向所有的方向增加一\n格，直到其半径达到所列出的最大值。\n \n一旦持续时间过去，爆炸效果就会完全消失。\n \n注意照明类的爆炸与众不同，会随着时间\n流逝越来越小。\n \n该数值越高越好。",
+	// HEADROCK HAM 5: Fragmentation
 	L"\n \n这是爆炸中溅射出碎片的数量。\n \n碎片和子弹类似，会击中任何距离太近的人。\n \n该数值越高越好。",
 	L"\n \n这是爆炸中溅射出碎片的潜在伤害。\n \n该数值越高越好。",
 	L"\n \n这是爆炸中溅射出碎片的平均散布范围。\n \n或近或远，这里是取平均值。\n \n该数值越高越好。",
+	// HEADROCK HAM 5: End Fragmentations
 	L"\n \n这是爆破品爆炸时发出的声音能够被佣兵和敌\n军听到的距离（格数）。\n \n听到爆炸声的敌人会察觉到你。\n \n该数值越低越好。",
 	L"\n \n这个数值代表该爆破品受到伤害时（如其他爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，\n应当极力避免。\n \n数值范围：0~100，越低越好。",
 	
@@ -7493,11 +7491,11 @@ STR16	szCovertTextStr[]=
 	L"%s 有迷彩油的痕迹！", //L"%s has camo!",
 	L"%s 有不合身份的背包！", //L"%s has a backpack!",
 	L"%s 被发现携带尸体！", //L"%s is seen carrying a corpse!",
-	L"%s's %s is suspicious!",// TODO.Translate
-	L"%s's %s is considered military hardware!",// TODO.Translate
+	L"%s's %s 可疑!", // L"%s's %s is suspicious!",
+	L"%s's %s 属于军用装备!", // 	L"%s's %s is considered military hardware!",
 	L"%s 携带了太多的枪支！", //L"%s carries too many guns!",
-	L"%s's %s is too advanced for an arulcan soldier!",// TODO.Translate
-	L"%s's %s has too many attachments!",// TODO.Translate
+	L"%s's %s 对于普通士兵来说太先进了!", //	L"%s's %s is too advanced for an arulcan soldier!",
+	L"%s's %s 有太多附件!", //	L"%s's %s has too many attachments!",
 	L"%s 被发现有可疑举动！", //L"%s was seen performing suspicious activities!",
 	L"%s 被发现不像个平民！", //L"%s does not look like a civilian!",
 	L"%s 被发现流血不止了！", //L"%s bleeding was discovered!",
@@ -7506,7 +7504,7 @@ STR16	szCovertTextStr[]=
 	L"%s 不应该出现在这里！", //L"%s isn't supposed to be here!",
 	L"%s 不应该在这个时候出现在这里！", //L"%s isn't supposed to be here at this time!",
 	L"%s 被发现在新鲜尸体旁边行踪诡秘！", //L"%s was seen near a fresh corpse!",
-	L"%s is seen targetting %s!",	// TODO.Translate
+	L"%s 被认为是针对 %s 的!",	// 	L"%s is seen targetting %s!",
 	L"%s 被发现瞄准了其他士兵！", //L"%s is seen targeting a soldier!",
 	L"%s 被识破了 %s 伪装！", //L"%s has seen through %s disguise!",
 	L"无法找到对应的衣服信息在 Items.xml 中！", //L"No clothes item found in Items.xml!",
@@ -7517,13 +7515,13 @@ STR16	szCovertTextStr[]=
 	L"未发现制服！", //L"No uniform found!",
 	L"%s 已伪装成平民", //L"%s is now disguised as a civilian.",
 	L"%s 已伪装成士兵", //L"%s is now disguised as a soldier.",
-	L"%s wears a disorderly uniform!",// TODO.Translate
-	L"In retrospect, asking for surrender in disguise wasn't the best idea...",
-	L"%s was uncovered!",
-	L"%s's disguise seems to be ok...",
-	L"%s's disguise will not hold.",
-	L"%s was caught stealing!",
-	L"%s tried to manipulate %s's inventory."
+	L"%s穿着件破破烂烂的制服！", // L"%s wears a disorderly uniform!",
+	L"事后看来，穿着伪装去投降不是什么好主意…", // L"In retrospect, asking for surrender in disguise wasn't the best idea...",
+	L"%s被发现了！", // L"%s was uncovered!",
+	L"%s的伪装看起来还可以…", // L"%s's disguise seems to be ok...",
+	L"%s的伪装要被识破了。", // L"%s's disguise will not hold.",
+	L"%s在偷窃的时候被抓了！", // L"%s was caught stealing!",
+	L"%s在试图调整%s的物品栏。", // L"%s tried to manipulate %s's inventory."
 };
 
 STR16	szCorpseTextStr[]=
@@ -7557,38 +7555,38 @@ STR16	szFoodTextStr[]=
 	L"区域供水不可行，食物和生存系统已被关闭"//L"Sectorwide canteen filling not possible, Food System is off!"
 };
 
-STR16	szPrisonerTextStr[]=	// TODO.Translate
+STR16	szPrisonerTextStr[]=
 {
-	L"%d elites, %d regulars and %d amins were interrogated.",
+	L"%d 精英, %d 正规军 和 %d 长官被审问.",	//L"%d elites, %d regulars and %d amins were interrogated.",
 	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
-	L"%d elites, %d regulars and %d amins joined our cause.",
+	L"%d 精英, %d 正规军 and %d 长官加入我们.",	//L"%d elites, %d regulars and %d amins joined our cause.",
 	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
 	L"俘虏被押送前往 %s 监狱", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"俘虏已被释放！", //L"Prisoners have been released!",
 	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
 	L"敌人不肯拿你当囚犯 - 他们宁愿你死！",	//L"The enemy refuses to take you as prisoners - they prefer you dead!",
-	L"This behaviour is set OFF in your ini settings.",	// TODO.Translate
+	L"这些可以在 INI 设置关闭。",	// 	L"This behaviour is set OFF in your ini settings.",
 };
 
-STR16	szMTATextStr[]=	// TODO.Translate
+STR16	szMTATextStr[]=
 {
-	L"nothing",
-	L"building a fortification",
-	L"removing a fortification",
-	L"filling sandbags",
-	L"%s had to stop %s.",
+	L"空无一物",
+	L"建造掩体", //L"building a fortification",
+	L"拆除掩体", //L"removing a fortification",
+	L"填满沙包", //L"filling sandbags",
+	L"%s必须停止%s", //L"%s had to stop %s.",
 };
 
 STR16	szInventoryArmTextStr[]= // TODO.Translate
 {
-	L"Blow up (%d AP)",
-	L"Blow up",
-	L"Arm (%d AP)",
-	L"Arm",
-	L"Disarm (%d AP)",
-	L"Disarm",
+	L"炸毁 (%d AP)", //L"Blow up (%d AP)",
+	L"炸毁", //L"Blow up",
+	L"装备 (%d AP)", //L"Arm (%d AP)",
+	L"装备", //L"Arm",
+	L"解除 (%d AP)", //L"Disarm (%d AP)",
+	L"解除", //L"Disarm",
 };
 
 #endif //CHINESE

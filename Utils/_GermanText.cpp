@@ -2959,6 +2959,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Kapitulation anbieten",
 	L"Sprechen",
 	L"Miliz inspizieren",
+	L"Verkleidung testen",
 	L"unused",
 };
 
