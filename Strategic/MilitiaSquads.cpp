@@ -604,7 +604,10 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: mobiles take along their gear
 			// move only gear for those who come new into a sector
-			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
+			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
+			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
 			// Erase ALL militia from both locations.
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
@@ -636,7 +639,10 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: mobiles take along their gear
 			// move only gear for those who come new into a sector
-			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
+			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
+			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
 			// Add half team to target sector
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, bGreensDestTeam );
@@ -716,7 +722,10 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: mobiles take along their gear
 			// move only gear for those who come new into a sector
-			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
+			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
+			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
 			// Erase ALL militia from both locations.
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
