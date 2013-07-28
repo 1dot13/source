@@ -170,7 +170,7 @@ BOOLEAN ApplyFood( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject, BOOLEAN fForce, B
 
 		// divide by 100 (poison sum is in [0, 99]
 		// multiply with 0.25 for more reasonable values
-		INT8 poisonadd = (INT8)(0.01 * 0.25 * maxpts * (1.0 - foodcondition) );
+		INT8 poisonadd = (INT8)(maxpts * (1.0 - foodcondition) * 0.025 );
 
 		// added a max threshold to food poisoning
 		poisonadd = min(poisonadd, gGameExternalOptions.usFoodMaxPoisoning),

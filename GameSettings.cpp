@@ -1772,9 +1772,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubInsaneTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_INSANE", 90, 10, NUM_MIN_IN_DAY);
 
 	gGameExternalOptions.ubEasyTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_NOVICE", 240, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","EXPERIENCED_TIME_EVALUATE_VARIANCE", 180, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EXPERT_TIME_EVALUATE_VARIANCE", 120, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","INSANE_TIME_EVALUATE_VARIANCE", 60, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_EXPERIENCED", 180, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_EXPERT", 120, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_INSANE", 60, 10, NUM_MIN_IN_DAY);
 
 	gGameExternalOptions.ubEasyGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_NOVICE", 144, 1, 288);
 	gGameExternalOptions.ubNormalGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_EXPERIENCED", 96, 1, 288);
