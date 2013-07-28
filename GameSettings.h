@@ -1520,6 +1520,7 @@ typedef struct
 	INT16	sCODisguiseAPReduction;
 	INT16	sCOCloseDetectionRange;
 	INT16	sCOCloseDetectionRangeSoldierCorpse;
+	BOOLEAN fCOElitesDetectNextTile;
 
 } SKILL_TRAIT_VALUES;
 

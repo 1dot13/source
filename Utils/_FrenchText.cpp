@@ -7503,7 +7503,8 @@ STR16	szCovertTextStr[]=
 	L"%s's disguise seems to be ok...",
 	L"%s's disguise will not hold.",
 	L"%s was caught stealing!",
-	L"%s tried to manipulate %s's inventory."
+	L"%s tried to manipulate %s's inventory.",
+	L"%s is too close to an elite soldier!",	// TODO.Translate
 };
 
 STR16	szCorpseTextStr[]=

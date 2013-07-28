@@ -7522,6 +7522,7 @@ STR16	szCovertTextStr[]=
 	L"%s的伪装要被识破了。", // L"%s's disguise will not hold.",
 	L"%s在偷窃的时候被抓了！", // L"%s was caught stealing!",
 	L"%s在试图调整%s的物品栏。", // L"%s tried to manipulate %s's inventory."
+	L"%s is too close to an elite soldier!",	// TODO.Translate
 };
 
 STR16	szCorpseTextStr[]=

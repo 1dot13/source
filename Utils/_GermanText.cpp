@@ -7330,7 +7330,8 @@ STR16	szCovertTextStr[]=
 	L"%s's Verkleidung sollte überzeugen",
 	L"%s's Verkleidung wird auffliegen!",
 	L"%s wurde beim Stehlen erwischt!",
-	L"%s tried to manipulate %s's inventory."
+	L"%s hat versucht, %s's Azsrüstung zu verändern.",
+	L"%s ist zu nah an einem Elitesoldat!",
 };
 
 STR16	szCorpseTextStr[]=

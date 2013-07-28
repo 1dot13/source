@@ -15156,6 +15156,16 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			}
 			break;	
 		}
+
+		// if we are a soldier, elites can uncover us if we are VERY close, and more experienced
+		if ( this->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER && gSkillTraitValues.fCOElitesDetectNextTile && distance < 2 && EffectiveExpLevel(pSoldier) > EffectiveExpLevel(this) + covertlevel )
+		{
+			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TOO_CLOSE_TO_ELITE], this->GetName() );
+				return FALSE;
+			}
+		}
 	}
 
 	if ( this->bSoldierFlagMask & SOLDIER_COVERT_CIV )
