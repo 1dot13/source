@@ -3595,7 +3595,7 @@ UINT32 ItemFitness( OBJECTTYPE* pObj, UINT8 idx )
 		}
 		else
 		{
-			value = (*pObj)[idx]->data.objectStatus * (NightTime() ? Item[ pObj->usItem ].nightvisionrangebonus : Item[ pObj->usItem ].dayvisionrangebonus );
+			value = (*pObj)[idx]->data.objectStatus * max(0, max( Item[ pObj->usItem ].nightvisionrangebonus, Item[ pObj->usItem ].dayvisionrangebonus ) );
 		}
 	}
 	else if ( Item[ pObj->usItem ].usItemClass & (IC_BLADE|IC_PUNCH) )
@@ -3653,8 +3653,9 @@ enum {
 	SI_HELMET = 0,
 	SI_VEST,
 	SI_LEGS,
-	SI_FACE1,
+	SI_SIGHT,				// for sunglasses and NVGs
 	SI_FACE2,
+	SI_FACE_SPARESIGHT,		// for sunglasses at night an NVGs during the day - militia take those at well, otherwise mobiles are ill equipped when the night begins/ends
 	SI_GASMASK,
 	SI_MELEE,
 	SI_GRENADE,
@@ -3664,7 +3665,7 @@ enum {
 	SI_MAX,
 } searchItem;
 
-// this structis used to store the location of the best item of a category, we use it to later easily retrieve it from the sector inventory
+// this struct is used to store the location of the best item of a category, we use it to later easily retrieve it from the sector inventory
 struct ItemSearchStruct {
 	ItemSearchStruct::ItemSearchStruct() : found(FALSE), done(FALSE), pos(0), slot(0), soldierslot(0), val(0) {}
 	BOOLEAN found;			// has any item been found for this?
@@ -4090,29 +4091,31 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 #endif
 		
 	// initialize soldier slots
-	si[SI_HELMET].soldierslot	= HELMETPOS;
-	si[SI_VEST].soldierslot		= VESTPOS;
-	si[SI_LEGS].soldierslot		= LEGPOS;
-	si[SI_FACE1].soldierslot	= HEAD1POS;
-	si[SI_FACE2].soldierslot	= HEAD2POS;
-	si[SI_GASMASK].soldierslot	= MEDPOCK1POS;
-	si[SI_MELEE].soldierslot	= BIGPOCK1POS;
-	si[SI_GRENADE].soldierslot	= BIGPOCK2POS;
-	si[SI_GUN].soldierslot		= HANDPOS;
-	si[SI_LAUNCHER].soldierslot = BIGPOCK2POS;
+	si[SI_HELMET].soldierslot			= HELMETPOS;
+	si[SI_VEST].soldierslot				= VESTPOS;
+	si[SI_LEGS].soldierslot				= LEGPOS;
+	si[SI_SIGHT].soldierslot			= HEAD1POS;
+	si[SI_FACE2].soldierslot			= HEAD2POS;
+	si[SI_FACE_SPARESIGHT].soldierslot	= MEDPOCK1POS;
+	si[SI_GASMASK].soldierslot			= MEDPOCK2POS;
+	si[SI_MELEE].soldierslot			= BIGPOCK1POS;
+	si[SI_GRENADE].soldierslot			= BIGPOCK2POS;
+	si[SI_GUN].soldierslot				= HANDPOS;
+	si[SI_LAUNCHER].soldierslot			= BIGPOCK3POS;
 
 	// depending on gamesettings, we only have to search for some items
-	si[SI_HELMET].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
-	si[SI_VEST].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
-	si[SI_LEGS].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
-	si[SI_FACE1].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
-	si[SI_FACE2].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
-	si[SI_GASMASK].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
-	si[SI_MELEE].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Melee;
-	si[SI_GRENADE].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Grenade;
-	si[SI_GUN].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Gun;
-	si[SI_LAUNCHER].done	= !gGameExternalOptions.fMilitiaUseSectorInventory_Launcher;
-	fSearchForAmmo			= (gGameExternalOptions.fMilitiaUseSectorInventory_Gun && gGameExternalOptions.fMilitiaUseSectorInventory_Ammo);	// we only search for ammo if we also search for guns
+	si[SI_HELMET].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
+	si[SI_VEST].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
+	si[SI_LEGS].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Armour;
+	si[SI_SIGHT].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_FACE2].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_FACE_SPARESIGHT].done	= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_GASMASK].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Face;
+	si[SI_MELEE].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Melee;
+	si[SI_GRENADE].done			= !gGameExternalOptions.fMilitiaUseSectorInventory_Grenade;
+	si[SI_GUN].done				= !gGameExternalOptions.fMilitiaUseSectorInventory_Gun;
+	si[SI_LAUNCHER].done		= !gGameExternalOptions.fMilitiaUseSectorInventory_Launcher;
+	fSearchForAmmo				= (gGameExternalOptions.fMilitiaUseSectorInventory_Gun && gGameExternalOptions.fMilitiaUseSectorInventory_Ammo);	// we only search for ammo if we also search for guns
 
 	LauncherHelpMap launcherhelpmap;
 		
@@ -4133,7 +4136,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 			else if ( Item[pp->Inv[ i ].usItem].usItemClass & IC_FACE && gGameExternalOptions.fMilitiaUseSectorInventory_Face )
 			{
 				if ( pp->Inv[ i ][0]->data.sObjectFlag & TAKEN_BY_MILITIA )
-					si[SI_FACE1].done = si[SI_FACE2].done = si[SI_GASMASK].done = TRUE;
+					si[SI_SIGHT].done = si[SI_FACE2].done = si[SI_GASMASK].done = si[SI_FACE_SPARESIGHT].done = TRUE;
 				else
 					DeleteObj(&pp->Inv[ i ]);
 			}			
@@ -4219,20 +4222,28 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 						}
 					}
 					// face gear
-					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_FACE && (!si[SI_FACE1].done || !si[SI_FACE2].done) )
+					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_FACE && (!si[SI_SIGHT].done || !si[SI_FACE2].done || !si[SI_FACE_SPARESIGHT].done || !si[SI_GASMASK].done) )
 					{
-						// make sure we dont wear NVGs on the day or sunglasses at night (only posers wear sunglasses at night)
-						if ( ( !fNightTime && Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus > Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus )
-							|| ( fNightTime && Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus < Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus ) )
-							continue;
-
 						// gasmasks are reserved for a special slot and will only be worn if we do not have 2 face items. items that increase our vision (NVGs adn sungooggles) get to slot 1, everything else in 2
 						if ( Item[ pWorldItem[ uiCount ].object.usItem ].gasmask )
 							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GASMASK] );
-						else if ( Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus || Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus )
-							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_FACE1] );
+						else if ( Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus > 0 )
+						{
+							if ( fNightTime )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_SIGHT] );
+							else
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_FACE_SPARESIGHT] );
+						}
+						else if ( Item[ pWorldItem[ uiCount ].object.usItem ].dayvisionrangebonus > 0 )
+						{
+							if ( !fNightTime )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_SIGHT] );
+							else
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_FACE_SPARESIGHT] );
+						}
 						else 
 							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_FACE2] );
+						
 					}
 					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_BLADE|IC_PUNCH) && !si[SI_MELEE].done )
 					{
@@ -4324,14 +4335,15 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	SearchItemRetrieval( pWorldItem, &si[SI_HELMET], pp );
 	SearchItemRetrieval( pWorldItem, &si[SI_VEST], pp );
 	SearchItemRetrieval( pWorldItem, &si[SI_LEGS], pp );
-	SearchItemRetrieval( pWorldItem, &si[SI_FACE1], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_SIGHT], pp );
 	SearchItemRetrieval( pWorldItem, &si[SI_FACE2], pp );
+	SearchItemRetrieval( pWorldItem, &si[SI_FACE_SPARESIGHT], pp );
 
 	// special: of there is a free face slot and we have a gasmask, equip it there
 	if ( si[SI_GASMASK].found )
 	{
-		if ( !si[SI_FACE1].found )
-			si[SI_GASMASK].soldierslot = si[SI_FACE1].soldierslot;
+		if ( !si[SI_SIGHT].found )
+			si[SI_GASMASK].soldierslot = si[SI_SIGHT].soldierslot;
 		else if ( !si[SI_FACE2].found )
 			si[SI_GASMASK].soldierslot = si[SI_FACE2].soldierslot;
 	}
