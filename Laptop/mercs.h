@@ -109,7 +109,7 @@ enum
 };
 
 
-
+BOOLEAN CanMercBeAvailableDuringInit( UINT8 ubMercToCheck );// anv: for all mercs available
 void GameInitMercs();
 BOOLEAN EnterMercs();
 void ExitMercs();
@@ -122,6 +122,9 @@ BOOLEAN DrawMecBackGround();
 BOOLEAN RemoveMercBackGround();
 void DailyUpdateOfMercSite( UINT16 usDate);
 UINT8 GetMercIDFromMERCArray(UINT8 ubMercID);
+
+UINT8 GetAvailableMercIndex(UINT8 gubCurMercIndex);
+UINT8 GetAvailableMercIDFromMERCArray(UINT8 ubMercID);
 
 void DisplayTextForSpeckVideoPopUp(STR16 pString);
 
@@ -157,6 +160,9 @@ void MakeBiffAwayForCoupleOfDays();
 #else
 	BOOLEAN IsSpeckComAvailable();
 	void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier );
+	
+	// anv: for Kulba hireable after escort quest
+	void AddJohnAsMerc( );
 #endif
 
 void InitializeNumDaysMercArrive();

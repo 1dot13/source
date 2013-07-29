@@ -242,6 +242,12 @@ enum NPCIDs
 #endif	
 	NPC170 = NPC169 + 84,
 	SPECK_PLAYABLE = 191,// anv
+	
+	// Those 4 only available in JA2 113 and not in JA2 UB!
+	JOHN_MERC = 195,
+	ELIO = 196,
+	JUAN = 197,
+	WAHAN = 198,
 } ;
 
 BOOLEAN LoadMercProfiles(void);

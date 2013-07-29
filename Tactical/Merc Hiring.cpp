@@ -65,6 +65,12 @@
 #include "ub_config.h"
 #endif
 
+#ifdef JA2UB
+#else
+	// anv: for Kulba's odyssey
+	#include "email.h"
+#endif
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -451,6 +457,38 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	pSoldier = &Menptr[ ubSoldierID ];
 
 	pMerc = &gMercProfiles[ pSoldier->ubProfile ];
+
+// anv: handle Kulba's odyssey
+#ifdef JA2UB
+	// too many Kulbas
+#else
+	if(pSoldier->ubProfile == JOHN_MERC)
+	{
+		// just in case
+		if( LaptopSaveInfo.ubJohnPossibleMissedFlights > 3 )
+			LaptopSaveInfo.ubJohnPossibleMissedFlights = 3;
+		// every time Kulba delays his arrival, chances of next delay decrease
+		if( Random( 100 ) < LaptopSaveInfo.ubJohnPossibleMissedFlights * 25 ) 
+		{			
+			pSoldier->uiTimeSoldierWillArrive = pSoldier->uiTimeSoldierWillArrive + 720 + Random ( 720 );
+			AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pSoldier->uiTimeSoldierWillArrive,	pSoldier->ubID );
+			if(LaptopSaveInfo.ubJohnPossibleMissedFlights == 3 )
+				AddEmail( JOHN_KULBA_MISSED_FLIGHT_1, JOHN_KULBA_MISSED_FLIGHT_1_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			else if(LaptopSaveInfo.ubJohnPossibleMissedFlights == 2 )
+				AddEmail( JOHN_KULBA_MISSED_FLIGHT_2, JOHN_KULBA_MISSED_FLIGHT_2_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			else if(LaptopSaveInfo.ubJohnPossibleMissedFlights == 1 )
+				AddEmail( JOHN_KULBA_MISSED_FLIGHT_3, JOHN_KULBA_MISSED_FLIGHT_3_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+
+			LaptopSaveInfo.ubJohnPossibleMissedFlights--;
+			return;
+		}
+		else
+		{
+			// reset possible missed flights, for the future Kulba's adventures
+			LaptopSaveInfo.ubJohnPossibleMissedFlights = 3;
+		}
+	}
+#endif
 
 	// add the guy to a squad
 	AddCharacterToAnySquad( pSoldier );

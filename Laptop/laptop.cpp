@@ -825,6 +825,14 @@ BOOLEAN InitLaptopAndLaptopScreens()
 	#endif
 	LaptopSaveInfo.fBobbyRSiteCanBeAccessed = FALSE;
 
+#ifdef JA2UB
+#else
+	//Reset Kulbas' saving date and possible missed flights
+	LaptopSaveInfo.bJohnEscorted = FALSE;
+	LaptopSaveInfo.uiJohnEscortedDate = 0;
+	LaptopSaveInfo.ubJohnPossibleMissedFlights = 3;
+#endif
+
 	return( TRUE );
 }
 

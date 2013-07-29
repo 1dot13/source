@@ -125,6 +125,13 @@ typedef struct
 	BOOLEAN							fSpeckSaidFloMarriedCousinQuote;
 	BOOLEAN							fHasAMercDiedAtMercSite;
 
+#ifdef JA2UB
+#else
+	UINT32							uiJohnEscortedDate;// anv: Remember when Kulbas were escorted out, so John can be recruited later
+	BOOLEAN							bJohnEscorted;// and if they were at all
+	UINT8							ubJohnPossibleMissedFlights;// and how many flights he already missed
+#endif
+
 #ifdef CRIPPLED_VERSION
 	UINT8 ubCrippleFiller[20];
 #endif

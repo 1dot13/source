@@ -726,6 +726,14 @@ typedef struct
 	// CHRISL: option to allow Slay to remain as a hired PC
 	BOOLEAN fEnableSlayForever;
 
+	// anv: playable Speck
+	BOOLEAN fEnableRecruitableSpeck;
+	// anv: John Kulba becomes recruitable as a merc after finishing escort quest
+	BOOLEAN fEnableRecruitableJohnKulba;
+	UINT16  ubRecruitableJohnKulbaDelay;
+	// anv: enable JA1 natives as MERC mercs
+	BOOLEAN fEnableRecruitableJA1Natives;
+
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	BOOLEAN fSectorDesc;
 

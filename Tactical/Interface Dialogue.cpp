@@ -2731,6 +2731,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if( pSoldier->ubProfile == FLO )
 				{
 					SetFactTrue( FACT_PC_MARRYING_DARYL_IS_FLO );
+
 #ifdef JA2UB
 #else
 					// anv: make Speck whine about it immediately if on team
@@ -4013,6 +4014,13 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 
 			case NPC_ACTION_ADD_JOHNS_GUN_SHIPMENT:
 				AddJohnsGunShipment();
+
+#ifdef JA2UB
+#else
+				// anv: recruitable Kulba
+				if( gGameExternalOptions.fEnableRecruitableJohnKulba == TRUE )
+					AddJohnAsMerc();
+#endif
 				// also close panel
 				DeleteTalkingMenu();
 				break;

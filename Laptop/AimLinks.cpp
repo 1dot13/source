@@ -189,7 +189,7 @@ void ExitAimLinks()
 	DeleteVideoObjectFromIndex(guiFuneralLink);
 	DeleteVideoObjectFromIndex(guiInsuranceLink);
 	
-	for(i=0; i<AIM_LINK_NUM_LINKS; i++)
+	for(INT16 i=0; i<AIM_LINK_NUM_LINKS; i++)
 		MSYS_RemoveRegion( &gSelectedLinkRegion[i]);
 	#endif
 	

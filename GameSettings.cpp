@@ -849,6 +849,14 @@ void LoadGameExternalOptions()
 	// CHRISL: New setting to allow Slay to remain as a hired PC
 	gGameExternalOptions.fEnableSlayForever				= iniReader.ReadBoolean("Recruitment Settings", "SLAY_STAYS_FOREVER", FALSE);
 
+	// anv: playable Speck
+	gGameExternalOptions.fEnableRecruitableSpeck		= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_SPECK", TRUE);
+	// anv: John Kulba becomes recruitable as a merc after finishing escort quest
+	gGameExternalOptions.fEnableRecruitableJohnKulba	= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_JOHN_KULBA", TRUE);
+	gGameExternalOptions.ubRecruitableJohnKulbaDelay	= iniReader.ReadInteger("Recruitment Settings", "RECRUITABLE_JOHN_KULBA_DELAY", 14, 0, 255);
+	// anv: enable JA1 natives as MERC mercs
+	gGameExternalOptions.fEnableRecruitableJA1Natives	= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_JA1_NATIVES", TRUE);
+
 	// Buggler: setting to show/hide skills/traits in AIM & MERC hiring page
 	gGameExternalOptions.fShowSkillsInHirePage			= iniReader.ReadBoolean("Recruitment Settings", "SHOW_SKILLS_IN_HIRING_PAGE", FALSE);
 

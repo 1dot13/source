@@ -22,7 +22,7 @@
 
 // -----------------------------
 // *****************************
-// WANNE: With these define we can build JA2 DEMO version that runs with 1.13
+// WANNE: With this defin we can build JA2 DEMO version that runs with 1.13
 // The 2 UB defines (JA2UB  and JA2UBMAPS) should be disabled, because we only want to build the demo version from the JA2 code!
 
 //#define JA113DEMO
