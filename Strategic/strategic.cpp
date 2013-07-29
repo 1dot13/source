@@ -17,8 +17,11 @@
 	#include "Game Clock.h"
 #endif
 
-// anv: for playable Speck
-#include "mercs.h"
+#ifdef JA2UB
+#else
+	// anv: for playable Speck
+	#include "mercs.h"
+#endif
 
 StrategicMapElement StrategicMap[MAP_WORLD_X*MAP_WORLD_Y];
 
@@ -126,9 +129,13 @@ void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier )
 					break;
 				}
 			}
+
+#ifdef JA2UB
+#else
 			// anv: handle Speck witnessing his employee death
 			if( pTeamSoldier->ubProfile == SPECK_PLAYABLE && pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC )
 				HandleSpeckWitnessingEmployeeDeath( pSoldier );
+#endif
 
 		}
 

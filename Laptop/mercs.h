@@ -153,8 +153,11 @@ extern	BOOLEAN		gfJustHiredAMercMerc;
 void MakeBiffAwayForCoupleOfDays();
 
 // anv: for playable Speck
-BOOLEAN IsSpeckComAvailable();
-void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier );
+#ifdef JA2UB
+#else
+	BOOLEAN IsSpeckComAvailable();
+	void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier );
+#endif
 
 void InitializeNumDaysMercArrive();
 

@@ -64,9 +64,12 @@
 #include "ub_config.h"
 #include "XML.h"
 
-// anv: for playable Speck
-#include "Speck Quotes.h"
-#include "LaptopSave.h"
+#ifdef JA2UB
+#else
+	// anv: for playable Speck
+	#include "Speck Quotes.h"
+	#include "LaptopSave.h"
+#endif
 
 #include "connect.h"
 #ifdef JA2EDITOR
@@ -2346,6 +2349,9 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	if ( pSoldier->ubProfile == LARRY_DRUNK )
 	{
 		SetFactTrue( FACT_LARRY_CHANGED );
+
+#ifdef JA2UB
+#else
 		// anv: make speck whine about it immediately if on team
 		if( !IsSpeckComAvailable() )
 		{
@@ -2353,6 +2359,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 			// don't bring this up again
 			LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__ALREADY_TOLD_PLAYER_THAT_LARRY_RELAPSED;
 		}
+#endif
 	}
 	else
 	{

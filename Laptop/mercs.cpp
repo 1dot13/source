@@ -259,7 +259,10 @@ NUMBER_TIMES_QUOTE_SAID			gNumberOfTimesQuoteSaid[ MERC_NUMBER_OF_RANDOM_QUOTES 
 		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_AIM_SLANDER_3, 0 },
 		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_AIM_SLANDER_4, 0 },
 
+#ifdef JA2UB
+#else
 		{ SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_SPECK_SELLS_HIMSELF, 0 },
+#endif
 };
 
 
@@ -623,6 +626,8 @@ void HandleMercs()
 		gfMercSiteScreenIsReDrawn = TRUE;
 	}
 
+#ifdef JA2UB
+#else
 	// anv: stop, Speck can't say anything because he's out of reach
 	if( !IsSpeckComAvailable() )
 	{
@@ -631,6 +636,7 @@ void HandleMercs()
 		RenderMercs();
 		gfRedrawMercSite = TRUE;
 	}
+#endif
 
 	//if Speck has something to say, say it
 	if( gusMercVideoSpeckSpeech != MERC_VIDEO_SPECK_SPEECH_NOT_TALKING )// && !gfDoneIntroSpeech )
@@ -2330,7 +2336,6 @@ void HandlePlayerHiringMerc( UINT8 ubHiredMercID )
 				if( IsMercMercAvailable( BIFF ) )
 					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_STOGIE );
 				break;
-#endif
 
 			// anv: Speck is hired
 			case SPECK_PLAYABLE:
@@ -2339,6 +2344,8 @@ void HandlePlayerHiringMerc( UINT8 ubHiredMercID )
 				else
 					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_SPECK );
 				break;
+#endif
+			
 		}
 	}
 
@@ -2374,7 +2381,10 @@ BOOLEAN ShouldSpeckStartTalkingDueToActionOnSubPage()
 
 		HandlePlayerHiringMerc( GetMercIDFromMERCArray( gubCurMercIndex ) );
 
+#ifdef JA2UB
+#else
 		if( IsSpeckComAvailable() )
+#endif		
 		{
 #ifdef JA2UB
 			//if it hasnt been said, say the better equipment quote
@@ -2407,6 +2417,8 @@ BOOLEAN ShouldSpeckStartTalkingDueToActionOnSubPage()
 	return( FALSE );
 }
 
+#ifdef JA2UB
+#else
 BOOLEAN IsSpeckComAvailable() // anv: Prevent Speck from talking if his playable version is out of reach
 {
 	//he's hired, travelling, dead or POW, he cant' talk
@@ -2504,6 +2516,7 @@ void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier )  // anv: handle
 		}
 	}
 }
+#endif
 
 BOOLEAN ShouldSpeckSayAQuote()
 {
@@ -2797,11 +2810,14 @@ BOOLEAN CanMercQuoteBeSaid( UINT32 uiQuoteID )
 				fRetVal = FALSE;
 			break;
 
+#ifdef JA2UB
+#else
 		//anv: playable Speck
 		case SPECK_QUOTE_PLAYER_NOT_DOING_ANYTHING_SPECK_SELLS_HIMSELF:
 			if( !IsMercMercAvailable( SPECK_PLAYABLE ) )
 				fRetVal = FALSE;
 			break;
+#endif
 
 #ifdef JA2UB
 		case SPECK_QUOTE_BIFF_DEAD_WHEN_IMPORTING:
@@ -2948,6 +2964,13 @@ void NewMercsAvailableAtMercSiteCallBack( )
 				LaptopSaveInfo.ubLastMercAvailableId = gConditionsForMercAvailability[i].uiIndex;
 				gConditionsForMercAvailability[i].StartMercsAvailable = TRUE;
 				
+#ifdef JA2UB
+				AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+
+				//new mercs are available
+				LaptopSaveInfo.fNewMercsAvailableAtMercSite = TRUE;
+#else
+
 				if( IsSpeckComAvailable() )
 				{
 					AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
@@ -2960,6 +2983,7 @@ void NewMercsAvailableAtMercSiteCallBack( )
 					// anv: Have speck inform player personally
 					TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE, TRUE ), SPECK_PLAYABLE_QUOTE_NEW_MERCS_AVAILABLE );
 				}
+#endif
 			}
 		}
 	}
