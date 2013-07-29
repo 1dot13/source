@@ -162,8 +162,6 @@ BOOLEAN EnterAimLinks()
 
 void ExitAimLinks()
 {
-	INT16						i;
-
 	RemoveAimDefaults();
 	
 	#ifdef JA2UB

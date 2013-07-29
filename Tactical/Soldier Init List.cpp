@@ -1404,7 +1404,6 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 	UINT8 ubFreeSlots;
 	UINT8 *pCurrSlots=NULL;
 	UINT8 *pCurrTotal=NULL;
-	UINT8 ubCurrClass;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListMilitia"));
 

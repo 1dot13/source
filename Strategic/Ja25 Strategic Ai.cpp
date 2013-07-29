@@ -2442,9 +2442,10 @@ BOOLEAN AreAllPlayerMercTraversingBetweenSectors()
 
 BOOLEAN RecordJa25StrategicAiDecisions( INT16 sSectorAttacked, UINT8 ubNumEnemies )
 {
+	/*
 	CHAR8			zOutputString[512];
 	HWFILE		hFile;
-/*
+
 	//open up the debug file
 	hFile = FileOpen( JA25_SAI_DEBUG_FILE, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
 	if( !hFile )

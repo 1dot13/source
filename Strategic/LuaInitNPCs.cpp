@@ -8044,7 +8044,6 @@ static int l_CreateItemInv (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
 	int i;
-	INT32				iWorldItem;
 	OBJECTTYPE	Object;	
 	UINT8 UBID = 0;
 	SOLDIERTYPE *	pSoldier;

@@ -1319,7 +1319,8 @@ void HandleDeathInPowerGenSector( SOLDIERTYPE *pSoldier )
 		UINT8		ubNumFlagedEnemiesInSector=0;
 		UINT32		sRandomSlotGridNo;
 		UINT8		uiCnt;
-		SOLDIERINITNODE	*pInitListSoldier;
+		
+		//SOLDIERINITNODE	*pInitListSoldier;
 
 		#define NUM_ENEMIES_SLOTS			4
 
