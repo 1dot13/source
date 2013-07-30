@@ -179,6 +179,7 @@
 		<randomitem>0</randomitem>
 		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
 		<FlashLightRange>0</FlashLightRange>
+		<ItemChoiceTimeSetting>0</ItemChoiceTimeSetting>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
