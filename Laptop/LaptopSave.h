@@ -125,13 +125,6 @@ typedef struct
 	BOOLEAN							fSpeckSaidFloMarriedCousinQuote;
 	BOOLEAN							fHasAMercDiedAtMercSite;
 
-#ifdef JA2UB
-#else
-	UINT32							uiJohnEscortedDate;// anv: Remember when Kulbas were escorted out, so John can be recruited later
-	BOOLEAN							bJohnEscorted;// and if they were at all
-	UINT8							ubJohnPossibleMissedFlights;// and how many flights he already missed
-#endif
-
 #ifdef CRIPPLED_VERSION
 	UINT8 ubCrippleFiller[20];
 #endif
@@ -167,7 +160,13 @@ typedef struct
 	UINT32							uiTotalMoneyPaidToSpeck;
 
 	UINT8								ubLastMercAvailableId;
-	UINT8 bPadding[ 86 ];
+
+	// Flugente: moved here. These variables always exist, as havin #ifdefs in structs is needlessly obscure
+	UINT32							uiJohnEscortedDate;// anv: Remember when Kulbas were escorted out, so John can be recruited later
+	BOOLEAN							bJohnEscorted;// and if they were at all
+	UINT8							ubJohnPossibleMissedFlights;// and how many flights he already missed
+
+	UINT8 bPadding[ 77 ];			// Flugente: 86->77
 
 } LaptopSaveInfoStruct;
 

@@ -2616,15 +2616,12 @@ void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier )  // anv: handle
 
 #endif
 
-#ifdef JA2UB
-#else
-	void AddJohnAsMerc() // anv: add John as playable merc after escorting Kulbas out of country
-	{
-		LaptopSaveInfo.bJohnEscorted = TRUE;
-		LaptopSaveInfo.uiJohnEscortedDate = GetWorldDay();
-		return;
-	}
-#endif
+void AddJohnAsMerc() // anv: add John as playable merc after escorting Kulbas out of country
+{
+	LaptopSaveInfo.bJohnEscorted = TRUE;
+	LaptopSaveInfo.uiJohnEscortedDate = GetWorldDay();
+	return;
+}
 
 BOOLEAN ShouldSpeckSayAQuote()
 {
@@ -2817,7 +2814,7 @@ BOOLEAN ShouldTheMercSiteServerGoDown()
 #else
 void GetMercSiteBackOnline()
 {
-	if( IsSpeckComAvailable )
+	if( IsSpeckComAvailable() )
 	{
 		//Add an email telling the user the site is back up
 		AddEmail( MERC_NEW_SITE_ADDRESS, MERC_NEW_SITE_ADDRESS_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT);

@@ -160,10 +160,10 @@ void MakeBiffAwayForCoupleOfDays();
 #else
 	BOOLEAN IsSpeckComAvailable();
 	void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier );
-	
-	// anv: for Kulba hireable after escort quest
-	void AddJohnAsMerc( );
 #endif
+
+// anv: for Kulba hireable after escort quest
+void AddJohnAsMerc( );
 
 void InitializeNumDaysMercArrive();
 
