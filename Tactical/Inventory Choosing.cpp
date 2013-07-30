@@ -3326,6 +3326,8 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel, INT8 bSoldierClass )
 	// choose one the of the possible gun choices
 	usGunIndex = -1;
 
+	BOOLEAN isnight = NightTime();
+
 	while (usGunIndex == -1)
 	{
 		uiChoice = Random(pGunChoiceTable[ uiGunLevel ].ubChoices);
@@ -3356,6 +3358,10 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel, INT8 bSoldierClass )
 				for (int i=0;i<pGunChoiceTable[uiGunLevel].ubChoices;i++)
 				{
 					usGunIndex = pGunChoiceTable[ uiGunLevel ].bItemNo[ i ];
+
+					// Flugente: ignore this item if we aren't allowed to pick it at this time of day
+					if ( ( isnight && Item[usGunIndex].usItemChoiceTimeSetting == 1 ) || ( !isnight && Item[usGunIndex].usItemChoiceTimeSetting == 2 ) )
+						continue;
 
 					if (!ItemIsLegal(usGunIndex))
 						usGunIndex = -1;
@@ -3440,6 +3446,8 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 maxCoolness, B
 	if ( gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices <= 0 )
 		return 0;
 
+	BOOLEAN isnight = NightTime();
+
 	// check up to 10 times for an item with a matching coolness
 	for (int i=0; i < 10;i++)
 	{
@@ -3458,6 +3466,10 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 maxCoolness, B
 				uiChoice = Random(gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices);
 		}
 		usItem = gArmyItemChoices[bSoldierClass][ typeIndex ].bItemNo[ uiChoice ];
+
+		// Flugente: ignore this item if we aren't allowed to pick it at this time of day
+		if ( ( isnight && Item[usItem].usItemChoiceTimeSetting == 1 ) || ( !isnight && Item[usItem].usItemChoiceTimeSetting == 2 ) )
+			continue;
 
 		// Flugente: random items
 		UINT16 newitemfromrandom = 0;
@@ -3532,6 +3544,8 @@ UINT16 PickARandomAttachment(UINT8 typeIndex, INT8 bSoldierClass, UINT16 usBaseI
 	if ( gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices <= 0 )
 		return 0;
 
+	BOOLEAN isnight = NightTime();
+
 	// check up to 10 times for an item with a matching coolness
 	for (int i=0; i < 50; i++)
 	{
@@ -3541,6 +3555,10 @@ UINT16 PickARandomAttachment(UINT8 typeIndex, INT8 bSoldierClass, UINT16 usBaseI
 
 		uiChoice = Random(gArmyItemChoices[bSoldierClass][ typeIndex ].ubChoices);
 		usItem = gArmyItemChoices[bSoldierClass][ typeIndex ].bItemNo[ uiChoice ];
+
+		// Flugente: ignore this item if we aren't allowed to pick it at this time of day
+		if ( ( isnight && Item[usItem].usItemChoiceTimeSetting == 1 ) || ( !isnight && Item[usItem].usItemChoiceTimeSetting == 2 ) )
+			continue;
 
 		BOOLEAN fDefaultAttachment = FALSE;
 		for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){

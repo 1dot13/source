@@ -1104,7 +1104,7 @@ typedef struct
 	FLOAT projectionfactor;
 	BOOLEAN speeddot;
 
-	// Flugente FTW 1.2
+	// Flugente
 	BOOLEAN	barrel;									// item can be used on some guns as an exchange barrel
 	FLOAT	usOverheatingCooldownFactor;			// every turn/5 seconds, a gun's temperature is lowered by this amount
 	FLOAT	overheatTemperatureModificator;			// percentage modifier of heat a shot generates (read from attachments)
@@ -1152,6 +1152,9 @@ typedef struct
 
 	// Flugente: range of a flashlight (an item with usFlashLightRange > 0 is deemed a flashlight)
 	UINT8	usFlashLightRange;
+
+	// Flugente: determine wether the AI should pick this item for its choices only at certain times
+	UINT8	usItemChoiceTimeSetting;
 
 } INVTYPE;
 

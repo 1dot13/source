@@ -273,7 +273,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "clothestype") == 0 ||
 				strcmp(name, "randomitem") == 0 ||
 				strcmp(name, "randomitemcoolnessmodificator") == 0 ||
-				strcmp(name, "FlashLightRange") == 0 ))
+				strcmp(name, "FlashLightRange") == 0 ||
+				strcmp(name, "ItemChoiceTimeSetting") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1412,6 +1413,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.usFlashLightRange = (UINT8) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "ItemChoiceTimeSetting") == 0)
+		{
+			pData->curElement = ELEMENT;
+			// no nonsense, only values between 0 and + 2
+			pData->curItem.usItemChoiceTimeSetting = min(2, max(0, (UINT8) atol(pData->szCharData) ) );
+		}
 										
 		pData->maxReadDepth--;
 	}
@@ -2050,6 +2057,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<randomitem>%d</randomitem>\r\n",										Item[cnt].randomitem  );
 			FilePrintf(hFile,"\t\t<randomitemcoolnessmodificator>%d</randomitemcoolnessmodificator>\r\n",	Item[cnt].randomitemcoolnessmodificator  );
 			FilePrintf(hFile,"\t\t<FlashLightRange>%d</FlashLightRange>\r\n",							Item[cnt].usFlashLightRange  );
+			FilePrintf(hFile,"\t\t<ItemChoiceTimeSetting>%d</ItemChoiceTimeSetting>\r\n",				Item[cnt].usItemChoiceTimeSetting  );
 															
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
