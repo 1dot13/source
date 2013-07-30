@@ -12145,10 +12145,14 @@ FLOAT CalcNewChanceToHitBaseTargetBonus(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTar
 
 		fBaseModifier += fTempPenalty;
 	}
-
-	// Target has high Agility or Experience and is therefore harder to hit
-	FLOAT fTempPenalty = (FLOAT)__max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
-	fBaseModifier += (fTempPenalty * gGameCTHConstants.BASE_AGILE_TARGET) / 100;
+	
+	// Flugente: there needs to be a target...
+	if ( pTarget )
+	{
+		// Target has high Agility or Experience and is therefore harder to hit
+		FLOAT fTempPenalty = (FLOAT)__max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
+		fBaseModifier += (fTempPenalty * gGameCTHConstants.BASE_AGILE_TARGET) / 100;
+	}
 
 	// INVIS TARGET
 	if (fCantSeeTarget)
