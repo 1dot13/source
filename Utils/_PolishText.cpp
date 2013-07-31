@@ -2939,12 +2939,17 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Health: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 	L"Health: %d/%d\nPoison: %d/%d\nEnergy: %d/%d\nMorale: %s\nWater: %d%s\nFood: %d%s",
 
-	// added by Flugente: selection of a function to call in tactical	// TODO.Translate
+	// added by Flugente: selection of a function to call in tactical
 	L"What do you want to do?",
 	L"Fill canteens",
-	L"Clean guns (Merc)",//TODO.Translate
+	L"Clean guns (Merc)",
 	L"Clean guns (Team)",
 	L"Take off clothes",
+	L"Lose disguise",
+	L"Militia inspection",
+	L"Militia restock",
+	L"Test disguise",
+	L"unused",
 
 	// added by Flugente: decide what to do with the corpses
 	L"What do you want to do with the body?",
@@ -2958,15 +2963,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"You have no prison for these prisoners, you have to let them go",
-	L"Where do you want to send the prisoners?",//TODO.Translate
+	L"Where do you want to send the prisoners?",
 	L"Let them go",
 	L"What do you want to do?",
 	L"Demand surrender",
 	L"Offer surrender",
 	L"Talk",
-	L"Militia inspection",//TODO.Translate
-	L"Test disguise",	// TODO.Translate
-	L"unused",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

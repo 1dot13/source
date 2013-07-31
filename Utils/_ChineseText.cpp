@@ -2937,6 +2937,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"清理枪支污垢（佣兵）",
 	L"清理所有枪支污垢（小队）",
 	L"脱掉衣服",
+	L"Lose disguise",
+	L"民兵检查", //L"Militia inspection",
+	L"Militia restock",
+	L"测试伪装", //L"Test disguise",
+	L"unused",
 
 	// added by Flugente: decide what to do with the corpses
 	L"你想要对尸体做什么？",
@@ -2956,9 +2961,6 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"劝说敌人投降",
 	L"劝降", //L"Offer surrender",
 	L"交谈",
-	L"民兵检查", //L"Militia inspection",
-	L"测试伪装", //L"Test disguise",
-	L"unused",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

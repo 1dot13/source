@@ -2936,6 +2936,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Clean guns (Merc)",//TODO.Translate
 	L"Clean guns (Team)",
 	L"Снять одежду",
+	L"Lose disguise",
+	L"Militia inspection",
+	L"Militia restock",
+	L"Test disguise",
+	L"unused",
 
 	// added by Flugente: decide what to do with the corpses
 	L"Что будем делать с телом?",
@@ -2955,9 +2960,6 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Требовать сдаться",
 	L"Предлоить сдаться",
 	L"Переговоры",
-	L"Militia inspection",//TODO.Translate
-	L"Test disguise",	// TODO.Translate
-	L"unused",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

@@ -2937,6 +2937,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Clean guns (Merc)",
 	L"Clean guns (Team)",
 	L"Take off clothes",
+	L"Lose disguise",
+	L"Militia inspection",
+	L"Militia restock",
+	L"Test disguise",
+	L"unused",
 
 	// added by Flugente: decide what to do with the corpses
 	L"What do you want to do with the body?",
@@ -2956,9 +2961,6 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Demand surrender",
 	L"Offer surrender",
 	L"Talk",
-	L"Militia inspection",
-	L"Test disguise",
-	L"unused",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

@@ -355,9 +355,13 @@ extern UINT8 NumEnemyInSector();
 extern UINT8 NumZombiesInSector();
 #endif
 
-void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );         // Flugente: offer the enemy the chance to surrender
+// Flugente: offer the enemy the chance to surrender
+void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );
+
+// Flugente: order a team to drop gear, or pick it up
 // setting fForce to TRUE allows dropping of gear in combat (used in auto-resolve instances)
 void TeamDropAll(UINT8 bTeam, BOOLEAN fForce = FALSE);
+void TeamRestock(UINT8 bTeam);
 
 // are we allowed to steal access this guy's inventory?
 BOOLEAN AllowedToStealFromTeamMate( UINT8 aAccessorID, UINT8 aTargetID );

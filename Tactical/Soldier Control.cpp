@@ -15903,6 +15903,13 @@ void	SOLDIERTYPE::DropSectorEquipment()
 	OBJECTTYPE* pObj = NULL;
 	UINT8 size = this->inv.size();
 
+	INT32 sPutGridNo = this->sGridNo;
+	if ( sPutGridNo == NOWHERE )
+		sPutGridNo = RandomGridNo();
+
+	if ( Water( sPutGridNo) )
+		sPutGridNo = gMapInformation.sCenterGridNo;
+
 	if ( ( this->sSectorX == gWorldSectorX ) && ( this->sSectorY == gWorldSectorY ) && ( this->bSectorZ == gbWorldSectorZ) )
 	{
 		for ( UINT8 cnt = 0; cnt < size; ++cnt )
@@ -15919,10 +15926,6 @@ void	SOLDIERTYPE::DropSectorEquipment()
 					// if we are not replacing ammo, unload gun prior to dropping it
 					if ( !gGameExternalOptions.fMilitiaUseSectorInventory_Ammo && Item[ pObj->usItem ].usItemClass & IC_GUN )
 						(*pObj)[0]->data.gun.ubGunShotsLeft = 0;
-
-					INT32 sPutGridNo = this->sGridNo;
-					if ( sPutGridNo == NOWHERE )
-						sPutGridNo = RandomGridNo();
 
 					AddItemToPool( sPutGridNo, pObj, 1 , this->pathing.bLevel, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
 					DeleteObj( &(this->inv[cnt]) );

@@ -109,6 +109,7 @@
 #include "Militia Control.h"
 #include "Lua Interpreter.h"
 #include "bullets.h"
+#include "Inventory Choosing.h"			// added by Flugente for TakeMilitiaEquipmentfromSector()
 #endif
 #include "connect.h"
 
@@ -10131,13 +10132,12 @@ void TeamDropAll(UINT8 bTeam, BOOLEAN fForce)
     // not if this team is hostile to us
     if ( gTacticalStatus.Team[ gbPlayerNum ].bSide != gTacticalStatus.Team[ bTeam ].bSide )
         return;
-
-    SOLDIERTYPE *pSoldier;
-
+	
 #ifdef JA2BETAVERSION
     ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Team %d drops all items for inspection!", bTeam );
 #endif
 
+	SOLDIERTYPE *pSoldier;
     UINT32 uiCnt = 0;
     UINT32 firstid = gTacticalStatus.Team[ bTeam ].bFirstID;
     UINT32 lastid  = gTacticalStatus.Team[ bTeam ].bLastID;
@@ -10147,6 +10147,48 @@ void TeamDropAll(UINT8 bTeam, BOOLEAN fForce)
         if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
         {
             pSoldier->DropSectorEquipment();
+        }
+    }
+}
+
+void TeamRestock(UINT8 bTeam)
+{
+	if ( bTeam > PLAYER_PLAN )
+        return;
+
+    // not if there is a battle going on
+    if ( (gTacticalStatus.uiFlags & INCOMBAT ) )
+        return;
+
+    // not if this team is hostile to us
+    if ( gTacticalStatus.Team[ gbPlayerNum ].bSide != gTacticalStatus.Team[ bTeam ].bSide )
+        return;
+	    
+#ifdef JA2BETAVERSION
+    ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Team %d restocks gear from sector inventory!", bTeam );
+#endif
+
+	SOLDIERTYPE *pSoldier;
+	UINT32 uiCnt = 0;
+    UINT32 firstid = gTacticalStatus.Team[ bTeam ].bFirstID;
+    UINT32 lastid  = gTacticalStatus.Team[ bTeam ].bLastID;
+    for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+    {
+        if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
+        {
+			// the function fills a createstruct, so create one
+			SOLDIERCREATE_STRUCT createstruct;
+						
+			// we first have to copy over all our currently equipped items, otherwise we might overwrite them later
+			createstruct.Inv = pSoldier->inv;
+
+            TakeMilitiaEquipmentfromSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, &createstruct, pSoldier->ubSoldierClass);
+
+			// replace our inventory with the new one
+			pSoldier->inv = createstruct.Inv;
+
+			// we took new gear, so we can drop it again
+			pSoldier->bSoldierFlagMask &= ~SOLDIER_EQUIPMENT_DROPPED;
         }
     }
 }

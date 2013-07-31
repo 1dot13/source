@@ -2936,9 +2936,14 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente: selection of a function to call in tactical
 	L"Was möchten Sie tun?",
 	L"Feldflasche auffüllen",
-	L"Clean guns (Merc)",//TODO.Translate
-	L"Clean guns (Team)",
+	L"Waffen reinigen (Merc)",
+	L"Waffen reinigen (Team)",
 	L"Kleidung ausziehen",
+	L"Verkleidung loswerden",
+	L"Miliz inspizieren",
+	L"Miliz ausrüsten",
+	L"Verkleidung testen",
+	L"unused",
 
 	// added by Flugente: decide what to do with the corpses
 	L"Was möchten Sie mit der Leiche tun?",
@@ -2958,9 +2963,6 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Kapitulation fordern",
 	L"Kapitulation anbieten",
 	L"Sprechen",
-	L"Miliz inspizieren",
-	L"Verkleidung testen",
-	L"unused",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

@@ -4845,16 +4845,29 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	wcscpy( gzUserDefinedButton[0], TacticalStr[ FILL_CANTEEN_STR ] );
 	wcscpy( gzUserDefinedButton[1], TacticalStr[ CLEAN_ONE_GUN_STR ] );
 	wcscpy( gzUserDefinedButton[2], TacticalStr[ CLEAN_ALL_GUNS_STR ] );
-	wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
-	wcscpy( gzUserDefinedButton[4], TacticalStr[ MILITIA_DROP_EQ_STR ] );
+	
+	if ( gpTempSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+		wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_DISGUISE_STR ] );
+	else
+		wcscpy( gzUserDefinedButton[3], TacticalStr[ TAKE_OFF_CLOTHES_STR ] );
+
+	if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		wcscpy( gzUserDefinedButton[4], TacticalStr[ MILITIA_DROP_EQ_STR ] );
+		wcscpy( gzUserDefinedButton[5], TacticalStr[ MILITIA_PICK_UP_EQ_STR ] );
+	}
+	else
+	{
+		wcscpy( gzUserDefinedButton[4], TacticalStr[ UNUSED_STR ] );
+		wcscpy( gzUserDefinedButton[5], TacticalStr[ UNUSED_STR ] );
+	}
 
 	// if disguised, allow testing our disguise
 	if ( gpTempSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
-		wcscpy( gzUserDefinedButton[5], TacticalStr[ SPY_SELFTEST_STR ] );
+		wcscpy( gzUserDefinedButton[6], TacticalStr[ SPY_SELFTEST_STR ] );
 	else
-		wcscpy( gzUserDefinedButton[5], TacticalStr[ UNUSED_STR ] );
+		wcscpy( gzUserDefinedButton[6], TacticalStr[ UNUSED_STR ] );
 
-	wcscpy( gzUserDefinedButton[6], TacticalStr[ UNUSED_STR ] );
 	wcscpy( gzUserDefinedButton[7], TacticalStr[ UNUSED_STR ] );
 	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL );
 }
@@ -5029,9 +5042,15 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 		case 5:
 			// militia drops all gear taken from sector inventory
-			TeamDropAll( MILITIA_TEAM );
+			if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+				TeamDropAll( MILITIA_TEAM );
 			break;
 		case 6:
+			// militia takes gear from sector inventory
+			if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+				TeamRestock( MILITIA_TEAM );
+			break;
+		case 7:
 			// test our disguise
 			if ( gpTempSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 				gpTempSoldier->SpySelfTest();
