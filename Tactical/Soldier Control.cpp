@@ -14708,8 +14708,8 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
-							return FALSE;
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
+							//return FALSE;
 						}
 						break;
 					}
@@ -14859,7 +14859,7 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS )
 					;
 				// other covert items are simply ignored
-				if ( HasItemFlag(this->inv[bLoop].usItem, COVERT) )
+				else if ( HasItemFlag(this->inv[bLoop].usItem, COVERT) )
 					continue;
 				// further checks it item is not covert. This means that an item that has that tag will not be detected if it is inside a pocket!
 				else if ( (bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS || bLoop == KNIFEPOCKPOS) )
@@ -14887,8 +14887,8 @@ BOOLEAN		SOLDIERTYPE::EquipmentTooGood( BOOLEAN fCloselook )
 						break;
 					default:
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
-							return FALSE;
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
+							//return FALSE;
 						}
 						break;
 					}

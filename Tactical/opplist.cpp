@@ -3580,31 +3580,35 @@ void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumN
 		// How will this feel?
 		if ( pSoldier->bTeam == gbPlayerNum )
 		{
-			// STOP IF WE WERE MOVING....
-			/// Speek up!
-			if ( bNumReRevealed > 0 && bNumNewEnemies == 0 )
+			// Flugente: disguised mercs do not alert us if they see an enemy, as otherwise one has to continously give them new orders
+			if ( !(pSoldier->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) )
 			{
-				pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+				// STOP IF WE WERE MOVING....
+				/// Speek up!
+				if ( bNumReRevealed > 0 && bNumNewEnemies == 0 )
+				{
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+				}
+				else
+				{
+					SaySeenQuote( pSoldier, gfPlayerTeamSawCreatures, FALSE, gfPlayerTeamSawJoey );
+				}
+
+				pSoldier->HaultSoldierFromSighting( TRUE );
+
+				if ( gTacticalStatus.fEnemySightingOnTheirTurn )
+				{
+					// Locate to our guy, then slide to enemy
+					LocateSoldier( pSoldier->ubID, SETLOCATOR );
+
+					// Now slide to other guy....
+					SlideTo( NOWHERE, gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, NOBODY ,SETLOCATOR);
+
+				}
+
+				// Unset User's turn UI
+				UnSetUIBusy( pSoldier->ubID );
 			}
-			else
-			{
-				SaySeenQuote( pSoldier, gfPlayerTeamSawCreatures, FALSE, gfPlayerTeamSawJoey );
-			}
-
-			pSoldier->HaultSoldierFromSighting( TRUE );
-
-			if ( gTacticalStatus.fEnemySightingOnTheirTurn )
-			{
-				// Locate to our guy, then slide to enemy
-				LocateSoldier( pSoldier->ubID, SETLOCATOR );
-
-				// Now slide to other guy....
-				SlideTo( NOWHERE, gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, NOBODY ,SETLOCATOR);
-
-			}
-
-			// Unset User's turn UI
-			UnSetUIBusy( pSoldier->ubID );
 		}
 	}
 
