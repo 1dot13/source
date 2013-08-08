@@ -62,6 +62,7 @@
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>0</Bipod>
 		<RangeBonus>0</RangeBonus>
+		<PercentRangeBonus>0</PercentRangeBonus>
 		<ToHitBonus>0</ToHitBonus>
 		<BestLaserRange>0</BestLaserRange>
 		<AimBonus>0</AimBonus>
