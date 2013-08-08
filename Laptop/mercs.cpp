@@ -363,7 +363,79 @@ BOOLEAN LoadNewMercsFromLoadGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 
+	// make sure that gubMercArray (the list of mercs for M.E.R.C website) is populated with
+	// the same mercs as gConditionsForMercAvailability that we just read from the savegame
+	RevaluateMercArray();
+
 	return( TRUE );
+}
+
+// silversurfer: this function checks if gubMercArray contains the same list of mercs as gConditionsForMercAvailability
+// if not there will be problems with display of mercs on M.E.R.C website so we will force an update
+void RevaluateMercArray()
+{
+	UINT8 i;
+
+	NUMBER_OF_MERCS = 0;
+	LAST_MERC_ID = -1;
+	NUMBER_OF_BAD_MERCS = -1;
+	
+	// first clear gubMercArray
+	for ( i=0; i<NUM_PROFILES; i++)
+	{
+		gubMercArray[ i ] = 0;
+	}
+
+	// now fill it again with the mercs from the savegame
+	for(i=0; i<NUM_PROFILES; i++)
+	{
+		if ( gConditionsForMercAvailability[i].ProfilId != 0 )
+		{
+			NUMBER_OF_MERCS = NUMBER_OF_MERCS + 1;
+			LAST_MERC_ID = LAST_MERC_ID + 1;
+			gubMercArray[ i ] = gConditionsForMercAvailability[i].ProfilId;
+		}
+	}
+	
+	// check how many mercs are supposed to be available
+	for(i=0; i<NUM_PROFILES; i++)
+	{
+		if ( gConditionsForMercAvailability[i].StartMercsAvailable == TRUE && gConditionsForMercAvailability[i].NewMercsAvailable == FALSE )
+			NUMBER_OF_BAD_MERCS = NUMBER_OF_BAD_MERCS + 1;
+	}
+
+	// usually MERC_WEBSITE_ALL_MERCS_AVAILABLE could only be set on game start but now we can do it here too
+	if(!gGameExternalOptions.fAllMercsAvailable)
+	{
+		LaptopSaveInfo.gubLastMercIndex = NUMBER_OF_BAD_MERCS;
+	}
+	else
+	{
+		for(i=0; i<NUMBER_OF_MERCS; i++)
+		{
+			if(	CanMercBeAvailableDuringInit(i) )
+			{
+				// mercs that were not unlocked will now be unlocked
+				gConditionsForMercAvailabilityTemp[i].StartMercsAvailable = TRUE;
+				gConditionsForMercAvailabilityTemp[i].NewMercsAvailable = FALSE;
+				gConditionsForMercAvailability[i].StartMercsAvailable = TRUE;
+				gConditionsForMercAvailability[i].NewMercsAvailable = FALSE;
+			}
+			else
+			{
+				// make sure that we don't accidentally lock an already unlocked merc
+				if ( gConditionsForMercAvailability[i].StartMercsAvailable == FALSE )
+				{
+					gConditionsForMercAvailabilityTemp[i].StartMercsAvailable = FALSE;
+					gConditionsForMercAvailabilityTemp[i].NewMercsAvailable = FALSE;
+					gConditionsForMercAvailability[i].StartMercsAvailable = FALSE;
+					gConditionsForMercAvailability[i].NewMercsAvailable = FALSE;
+					LAST_MERC_ID--;
+				}
+			}
+		}
+		LaptopSaveInfo.gubLastMercIndex =	LAST_MERC_ID;
+	}
 }
 
 BOOLEAN CanMercBeAvailableDuringInit( UINT8 ubMercToCheck )// anv: for all mercs available
@@ -424,9 +496,9 @@ void GameInitMercs()
 			if(	CanMercBeAvailableDuringInit(i) )
 			{
 				gConditionsForMercAvailabilityTemp[i].StartMercsAvailable = TRUE;
-				gConditionsForMercAvailabilityTemp[i].NewMercsAvailable = TRUE;
+				gConditionsForMercAvailabilityTemp[i].NewMercsAvailable = FALSE;
 				gConditionsForMercAvailability[i].StartMercsAvailable = TRUE;
-				gConditionsForMercAvailability[i].NewMercsAvailable = TRUE;
+				gConditionsForMercAvailability[i].NewMercsAvailable = FALSE;
 			}
 			else
 			{
