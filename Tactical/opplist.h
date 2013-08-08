@@ -165,7 +165,7 @@ UINT8 DoorOpeningNoise( SOLDIERTYPE * pSoldier );
 
 void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
 
-extern INT8 gbLightSighting[1][16];
+//extern INT8 gbLightSighting[1][16];
 
 BOOLEAN SoldierHasLimitedVision(SOLDIERTYPE * pSoldier);
 

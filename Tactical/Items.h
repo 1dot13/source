@@ -513,6 +513,9 @@ BOOLEAN GetItemFromRandomItem( UINT16 usRandomItem, UINT16* pusNewItem );
 // Flugente: can item be applied to other people?
 BOOLEAN ItemCanBeAppliedToOthers( UINT16 usItem );
 
+//zwwooooo - IoV: change RangeBonus to ratable (Orange by kenkenkenken in IoV921)
+INT32 GetPercentRangeBonus( OBJECTTYPE * pObj );
+
 #endif
 
 

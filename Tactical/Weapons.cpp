@@ -950,7 +950,8 @@ UINT16 GunRange( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier ) // SANDRO - added a
 		UINT16 usRange = GetModifiedGunRange(pObj->usItem);
 
 		// Snap: attachment status is factored into the range bonus calculation
-		rng = usRange + GetRangeBonus(pObj);
+		rng = (usRange * GetPercentRangeBonus(pObj))/10000; 
+		rng += GetRangeBonus(pObj);
 
 		// SANDRO - STOMP traits - Gunslinger bonus range with pistols
 		if ( pSoldier != NULL && Item[ pObj->usItem ].usItemClass & IC_GUN )
@@ -994,6 +995,58 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 		}
 	}
 	return( max(iValue,1) );
+}
+
+//zwwooooo - IoV: Lbe can be bulletproof after adding bulletproof plate into it.(Like CRIAS, MBSS, HSGI WASATCH...)
+INT32 EffectiveArmourLBE( OBJECTTYPE * pObj )
+{
+	INT32		iValue;
+
+	if (pObj == NULL || Item[pObj->usItem].usItemClass != IC_LBEGEAR)
+	{
+		return( 0 );
+	}
+	
+	iValue = 0;
+	
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+		{
+			INT32 iValue2;
+
+			iValue2 = Armour[ Item[ iter->usItem ].ubClassIndex ].ubProtection;
+			iValue2 = iValue2 * (*iter)[0]->data.objectStatus * Armour[ Item[ iter->usItem ].ubClassIndex ].ubCoverage / 10000;
+
+			iValue += iValue2;
+		}
+	}
+	return( max(iValue,0) );
+}
+
+//zwwooooo - IoV: Lbe can be bulletproof after adding bulletproof plate into it.(Like CRIAS, MBSS, HSGI WASATCH...)
+INT32 ExplosiveEffectiveArmourLBE( OBJECTTYPE * pObj )
+{
+	INT32		iValue;
+
+	if (pObj == NULL || Item[pObj->usItem].usItemClass != IC_LBEGEAR)
+	{
+		return( 0 );
+	}
+	
+	iValue = 0;
+	
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+		{
+			INT32 iValue2;
+
+			iValue2 = Armour[ Item[ iter->usItem ].ubClassIndex ].ubProtection;
+			iValue2 *= (*iter)[0]->data.objectStatus * Armour[ Item[ iter->usItem ].ubClassIndex ].ubCoverage / 10000;
+
+			iValue += iValue2;
+		}
+	}
+	return( max(iValue,0) );
 }
 
 INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
@@ -1063,7 +1116,33 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 	{
 		iLeg = 0;
 	}
-	return( (iHelmet + iVest + iLeg) );
+
+	//zwwooooo - IoV: Add iVestPack
+	INT32 iVestPack;
+	if (pSoldier->inv[VESTPOCKPOS].exists() == true)
+	{
+		iVestPack = EffectiveArmourLBE( &(pSoldier->inv[VESTPOCKPOS]) );
+		iDivideValue = ( ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubCoverage ) + ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection * Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubCoverage ) );
+
+		// WANNE: Just to be on the save side
+		if (iDivideValue > 0)
+		{
+			// convert to % of best; ignoring bug-treated stuff
+			iVestPack = 6500 * iVestPack / iDivideValue;
+}
+		else
+		{
+			iVestPack = 65 * iVestPack / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+		}
+	}
+	else
+	{
+		iVestPack = 0;
+	}
+
+	//return( (iHelmet + iVest + iLeg) );
+	//zwwooooo - IoV: Add iVestPack
+	return( (iHelmet + iVest + iLeg + iVestPack) );
 }
 
 INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
@@ -1133,7 +1212,23 @@ INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier )
 	{
 		iLeg = 0;
 	}
-	return( (INT8) (iHelmet + iVest + iLeg) );
+
+	//zwwooooo - IoV: Add iVestPack
+	INT32 iVestPack;
+	if (pSoldier->inv[VESTPOCKPOS].exists() == true)
+	{
+		iVestPack = ExplosiveEffectiveArmourLBE( &(pSoldier->inv[VESTPOCKPOS]) );
+		// convert to % of best; ignoring bug-treated stuff
+		iVestPack = __min( 65, 6500 * iVestPack / ( ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubCoverage ) + ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection * Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubCoverage ) ) );
+}
+	else
+	{
+		iVestPack = 0;
+	}
+
+	//return( (INT8) (iHelmet + iVest + iLeg) );
+	//zwwooooo - IoV: Add iVestPack
+	return( (INT8) (iHelmet + iVest + iLeg + iVestPack) );
 }
 
 void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNewImpact, INT32 * piImpactForCrits )
@@ -8774,6 +8869,31 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 
 		}
 
+		//zwwooooo - IoV: It can plates for the LBE bulletproof. Like CRIAS, MBSS, HSGI WASATCH...
+		OBJECTTYPE *	pVestPack;
+		pVestPack = &(pTarget->inv[VESTPOCKPOS]);
+		if (iSlot == VESTPOS && pVestPack->exists() == true)
+		{
+			for (attachmentList::iterator iter = (*pVestPack)[0]->attachments.begin(); iter != (*pVestPack)[0]->attachments.end(); ++iter) {
+				if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+				{
+					iTotalProtection += ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+					if ( (*iter)[0]->data.objectStatus < USABLE )
+					{
+						pVestPack->RemoveAttachment(&(*iter));
+						DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
+						if ( pTarget->bTeam == gbPlayerNum )
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[61], pTarget->name );
+						}
+					}
+					break;
+				}
+			}
+		}
+				
+		if ( iImpact > iTotalProtection )
+		{
 		pArmour = &(pTarget->inv[ iSlot ]);
 		if (pArmour->exists() == true)
 		{
@@ -8819,6 +8939,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 				}
 			}
 		}
+	}
 	}
 	return( iTotalProtection );
 }

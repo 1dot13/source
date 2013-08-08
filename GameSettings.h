@@ -518,6 +518,9 @@ typedef struct
 
 	//Sight range
 	UINT32	ubStraightSightRange;
+
+	INT8 ubBrightnessVisionMod[16];
+
 	UINT32 ubVisDistDecreasePerRainIntensity;
 	BOOLEAN gfAllowLimitedVision;
 

@@ -156,6 +156,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "BestLaserRange") == 0 ||
 				strcmp(name, "ToHitBonus") == 0 ||
 				strcmp(name, "RangeBonus") == 0 ||
+				strcmp(name, "PercentRangeBonus") == 0 ||
 				strcmp(name, "AimBonus") == 0 ||
 				strcmp(name, "MinRangeForAimBonus") == 0 ||
 				strcmp(name, "PercentAPReduction") == 0 ||
@@ -776,6 +777,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.rangebonus  = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentRangeBonus")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.percentrangebonus  = (INT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "AimBonus")	 == 0)
 		{
@@ -1871,6 +1877,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<HideMuzzleFlash>%d</HideMuzzleFlash>\r\n",						Item[cnt].hidemuzzleflash   );
 			FilePrintf(hFile,"\t\t<Bipod>%d</Bipod>\r\n",						Item[cnt].bipod  );
 			FilePrintf(hFile,"\t\t<RangeBonus>%d</RangeBonus>\r\n",						Item[cnt].rangebonus   );
+			FilePrintf(hFile,"\t\t<PercentRangeBonus>%d</PercentRangeBonus>\r\n",						Item[cnt].rangebonus   );
 			FilePrintf(hFile,"\t\t<ToHitBonus>%d</ToHitBonus>\r\n",						Item[cnt].tohitbonus    );
 			FilePrintf(hFile,"\t\t<AimBonus>%d</AimBonus>\r\n",						Item[cnt].aimbonus   );
 			FilePrintf(hFile,"\t\t<MinRangeForAimBonus>%d</MinRangeForAimBonus>\r\n",						Item[cnt].minrangeforaimbonus  );

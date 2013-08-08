@@ -998,6 +998,7 @@ typedef struct
 	INT16 tohitbonus;
 	INT16 bestlaserrange;
 	INT16 rangebonus;
+	INT16 percentrangebonus;
 	INT16 aimbonus;
 	INT16 minrangeforaimbonus;
 	INT16 percentapreduction;

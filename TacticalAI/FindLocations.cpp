@@ -588,7 +588,8 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		else
 		{
 			fNight = TRUE;
-			ubBackgroundLightPercent = gbLightSighting[ 0 ][ ubBackgroundLightLevel ];
+			ubBackgroundLightPercent = gGameExternalOptions.ubBrightnessVisionMod[ ubBackgroundLightLevel ];
+			//ubBackgroundLightPercent = gbLightSighting[ 0 ][ ubBackgroundLightLevel ];
 		}
 	}
 
@@ -1009,7 +1010,9 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				// reduce cover at nighttime based on how bright the light is at that location
 				// using the difference in sighting distance between the background and the
 				// light for this tile
-				ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
+				//ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
+				ubLightPercentDifference = (gGameExternalOptions.ubBrightnessVisionMod[ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
+				
 				if ( iCoverValue >= 0 )
 				{
 					iCoverValue -= (iCoverValue / 100) * ubLightPercentDifference;
@@ -1610,8 +1613,8 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				// screen out anything brighter than our current best spot
 				bLightLevel = LightTrueLevel( sGridNo, pSoldier->pathing.bLevel );
 
-				bLightDiff = gbLightSighting[0][ bCurrLightLevel ] - gbLightSighting[0][ bLightLevel ];
-
+				//bLightDiff = gbLightSighting[0][ bCurrLightLevel ] - gbLightSighting[0][ bLightLevel ];
+				bLightDiff = gGameExternalOptions.ubBrightnessVisionMod[ bCurrLightLevel ] - gGameExternalOptions.ubBrightnessVisionMod[ bLightLevel ];
 				// if the spot is darker than our current location, then bLightDiff > 0
 				// plus ignore differences of just 1 light level
 				if ( bLightDiff <= 1 )

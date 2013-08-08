@@ -8299,7 +8299,8 @@ FLOAT CalcBulletDeviation( SOLDIERTYPE *pShooter, FLOAT *dShotOffsetX, FLOAT *dS
 	OBJECTTYPE* pObjAttHand = pShooter->GetUsedWeapon( &pShooter->inv[ pShooter->ubAttackingHand ] );
 
 	INT16 sAccuracy = GetGunAccuracy( pWeapon );
-	UINT16 sEffRange = Weapon[Item[pObjAttHand->usItem].ubClassIndex].usRange + GetRangeBonus( pObjAttHand );
+	UINT16 sEffRange = (Weapon[Item[pObjAttHand->usItem].ubClassIndex].usRange *GetPercentRangeBonus(pObjAttHand)) / 10000; 
+	sEffRange +=	GetRangeBonus( pObjAttHand );
 
 	// WANNE: I got a CTD in a multiplayer test game, because sEffRange was 0 (division to zero).
     // I don't know why this happend?

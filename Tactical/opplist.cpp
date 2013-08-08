@@ -250,7 +250,8 @@ INT8 gbSmellStrength[3] =
 UINT16 gsWhoThrewRock = NOBODY;
 
 // % values of sighting distance at various light levels
-
+//DBrot: use gGameExternalOptions.ubBrightnessVisionMod instead
+/*
 INT8 gbLightSighting[1][SHADE_MIN+1] =
 {
 { // human
@@ -271,7 +272,7 @@ INT8 gbLightSighting[1][SHADE_MIN+1] =
 	17,
 	9
 }
-};
+};*/
 /*
 {
 { // human
@@ -333,8 +334,8 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 {
 	INT16 sNewDist = 0;
 
-	sNewDist = sDistVisible * gbLightSighting[ 0 ][ bLightLevel ] / 100;
-
+	//sNewDist = sDistVisible * gbLightSighting[ 0 ][ bLightLevel ] / 100;
+	sNewDist = sDistVisible * gGameExternalOptions.ubBrightnessVisionMod[ bLightLevel ] / 100;
 	// Adjust it based on weather...
 	if ( guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS ) )
 	{

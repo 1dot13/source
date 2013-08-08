@@ -1112,6 +1112,23 @@ void LoadGameExternalOptions()
 	// Sight range
 	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("Tactical Vision Settings","BASE_SIGHT_RANGE",13, 5, 100);
 
+	gGameExternalOptions.ubBrightnessVisionMod[0]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_0", 80, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[1]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_1", 86, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[2]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_2", 93, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[3]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_3", 100, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[4]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_4", 94, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[5]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_5", 88, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[6]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_6", 82, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[7]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_7", 76, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[8]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_8", 70, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[9]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_9", 64, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[10]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_10", 58, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[11]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_11", 51, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[12]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_12", 43, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[13]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_13", 30, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[14]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_14", 17, 1, 100);
+	gGameExternalOptions.ubBrightnessVisionMod[15]					= iniReader.ReadInteger("Tactical Vision Settings", "BRIGHTNESS_MOD_15", 9, 1, 100);
+
 	// Tunnel Vision
 	gGameExternalOptions.gfAllowLimitedVision				= iniReader.ReadBoolean("Tactical Vision Settings","ALLOW_TUNNEL_VISION",0);
 

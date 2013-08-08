@@ -12852,7 +12852,8 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	// Read from item
 	aimLevels = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubAimLevels;
 	fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
-	weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
+	weaponRange = ( Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange * GetPercentRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) ) / 10000;
+	weaponRange += GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
 	weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
 	fUsingBipod = FALSE;
 
@@ -12984,7 +12985,8 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 
 			UINT16 usRange = GetModifiedGunRange(pSoldier->inv[pSoldier->ubAttackingHand].usItem);
 
-			weaponRange = usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
+			weaponRange = ( usRange * GetPercentRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) ) / 10000;
+			weaponRange += GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
 			fUsingBipod = FALSE;
 
 			maxAimWithoutBipod = 4;
@@ -13239,7 +13241,8 @@ UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UI
 		
 		// Read weapon data
 		fTwoHanded = Item[pObj->usItem].twohanded;
-		weaponRange = Weapon[Item[pObj->usItem].ubClassIndex].usRange + GetRangeBonus(pObj);
+		weaponRange = ( Weapon[Item[pObj->usItem].ubClassIndex].usRange * GetPercentRangeBonus(pObj) ) / 10000;
+		weaponRange += GetRangeBonus(pObj);
 		weaponType = Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType;
 		fUsingBipod = FALSE;
 		if(UsingNewCTHSystem() == true)
@@ -15088,3 +15091,22 @@ BOOLEAN ItemCanBeAppliedToOthers( UINT16 usItem )
 		
 	return FALSE;
 }
+
+//zwwooooo - IoV: change RangeBonus to ratable (Orange by kenkenkenken in IoV921)
+INT32 GetPercentRangeBonus( OBJECTTYPE * pObj )
+{
+	INT32 bonus = 10000;
+	if (pObj->exists() == true) {
+		bonus += ( BonusReduce( Item[pObj->usItem].percentrangebonus, (*pObj)[0]->data.objectStatus ) ) * 100;
+
+		if ( (*pObj)[0]->data.gun.ubGunShotsLeft > 0 )
+			bonus = ( bonus * ( 100 +  Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentrangebonus ) ) / 100;
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+			if ( !Item[iter->usItem].duckbill || ( Item[iter->usItem].duckbill && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ))
+				bonus = ( bonus * ( 100 +  BonusReduce( Item[iter->usItem].percentrangebonus, (*iter)[0]->data.objectStatus ) ) ) / 100;
+		}
+	}
+	return( bonus );
+}
+
