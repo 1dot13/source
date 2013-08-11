@@ -63,6 +63,7 @@
 	#include "AIInternals.h"
 	#include "Morale.h"
 	#include "Food.h"
+	#include "Tactical Save.h"		// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -120,6 +121,20 @@ enum{
 	VEHICLE_MENU_CANCEL,
 };
 
+enum{
+	MOVEITEM_MENU_1 = 0,
+	MOVEITEM_MENU_2,
+	MOVEITEM_MENU_3,
+	MOVEITEM_MENU_4,	// WANNE: Allow up to 6 vehicles
+	MOVEITEM_MENU_5,
+	MOVEITEM_MENU_6,
+	MOVEITEM_MENU_7,
+	MOVEITEM_MENU_8,
+	MOVEITEM_MENU_9,
+	MOVEITEM_MENU_10,
+	MOVEITEM_MENU_CANCEL,
+};
+
 
 /* CHRISL: Adjusted enumerations to allow for seperation of the three different pocket types in the new 
 inventory system. */
@@ -165,6 +180,7 @@ INT32 ghEpcBox = -1;
 INT32 ghSquadBox = -1;
 INT32 ghVehicleBox = -1;
 INT32 ghRepairBox = -1;
+INT32 ghMoveItemBox = -1;
 INT32 ghTrainingBox = -1;
 INT32 ghAttributeBox = -1;
 INT32 ghRemoveMercAssignBox = -1;
@@ -188,6 +204,10 @@ MOUSE_REGION	gContractMenuRegion[ MAX_CONTRACT_MENU_STRING_COUNT ];
 MOUSE_REGION	gRemoveMercAssignRegion[ MAX_REMOVE_MERC_COUNT ];
 MOUSE_REGION	gEpcMenuRegion[ MAX_EPC_MENU_STRING_COUNT ];
 MOUSE_REGION	gRepairMenuRegion[ 20 ];
+MOUSE_REGION	gMoveItem[ 20 ];
+
+#define			MOVEITEM_MAX_SECTORS	10
+UINT8			usMoveItemSectors[MOVEITEM_MAX_SECTORS];
 
 // mouse region for vehicle menu
 MOUSE_REGION		gVehicleMenuRegion[ 20 ];
@@ -200,6 +220,7 @@ MOUSE_REGION	gAssignmentScreenMaskRegion;
 BOOLEAN fShownAssignmentMenu = FALSE;
 BOOLEAN fShowVehicleMenu = FALSE;
 BOOLEAN fShowRepairMenu = FALSE;
+BOOLEAN fShowMoveItemMenu = FALSE;
 BOOLEAN fShownContractMenu = FALSE;
 
 BOOLEAN fFirstClickInAssignmentScreenMask = FALSE;
@@ -403,6 +424,9 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 // Flugente: prisons can riot if there aren't enough guards around
 void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
+// Flugente: assigned mercs can move equipemnt in city sectors
+void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ );
+
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -430,6 +454,7 @@ BOOLEAN fGlowContractRegion = FALSE;
 void HandleShadingOfLinesForSquadMenu( void );
 void HandleShadingOfLinesForVehicleMenu( void );
 void HandleShadingOfLinesForRepairMenu( void );
+void HandleShadingOfLinesForMoveItemMenu( void );
 void HandleShadingOfLinesForTrainingMenu( void );
 void HandleShadingOfLinesForAttributeMenus( void );
 // HEADROCK HAM 3.6: Shade Facility Box Lines
@@ -448,11 +473,15 @@ BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType );
 
+// Flugente: move items menu
+BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier );
+
 // create menus
 void CreateEPCBox( void );
 void CreateSquadBox( void );
 void CreateVehicleBox();
 void CreateRepairBox( void );
+void CreateMoveItemBox( void );
 // HEADROCK HAM 3.6: Facility Box.
 void CreateFacilityBox( void );
 void CreateFacilityAssignmentBox( void );
@@ -2243,6 +2272,9 @@ void UpdateAssignments()
 
 					// handle processing of prisoners
 					HandlePrisonerProcessingInSector( sX, sY, bZ );
+
+					// handle moving of equipment
+					HandleEquipmentMove( sX, sY, bZ );
 				}
 
 				// Flugente: prisons can riot if there aren't enough guards around
@@ -5840,6 +5872,204 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 }
 
+// Flugente: assigned mercs can move equipemnt in city sectors
+void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
+{
+	// no underground
+	if ( bZ )
+		return;
+		
+	// if sector not under our control, has enemies in it, or is currently in combat mode
+	if (!SectorOursAndPeaceful( sMapX, sMapY, bZ ))
+		return;
+
+	// we loop over all mercs with this assignment in this sector, and then do a separate loop over each target sector
+	std::map<UINT8, UINT8> sectormercmap;		// this map uses the sectors we take stuff from as keys and the number of mercs as elements
+			
+	// count any interrogators found here, and sum up their interrogation values
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
+		{
+			if( ( pSoldier->bAssignment == MOVE_EQUIPMENT ) && ( EnoughTimeOnAssignment( pSoldier ) ) )
+			{
+				// which sector do we want to move stuff to?
+				UINT8 targetsector = pSoldier->usItemMoveSectorID;
+
+				if ( sectormercmap[targetsector] )
+					sectormercmap[targetsector]++;
+				else
+					sectormercmap[targetsector] = 1;
+			}
+		}
+	}
+
+	// no mercs that move stuff here, exit
+	if ( sectormercmap.empty() )
+		return;
+
+	CHAR16 wSectorName[ 64 ];
+	GetShortSectorString( sMapX, sMapY, wSectorName );
+
+	// now loop over all sectors from which we take stuff, and move the equipment
+	std::map<UINT8, UINT8>::iterator itend = sectormercmap.end();
+	for (std::map<UINT8, UINT8>::iterator it = sectormercmap.begin(); it != itend; ++it)
+	{
+		UINT8 sector = (*it).first;
+
+		INT16 targetX = SECTORX(sector);
+		INT16 targetY = SECTORY(sector);
+
+		// if sector not under our control, has enemies in it, or is currently in combat mode
+		if (!SectorOursAndPeaceful( targetX, targetY, bZ ))
+			continue;
+
+		// the longer the distance, the less we can move
+		UINT8 distance = abs(sMapX - targetX) + abs(sMapY - targetY);
+
+		// if distance is 0, somethings awry
+		if ( distance == 0 )
+			continue;
+
+		// each soldier can carry 30 items, and needs 10 minutes (two way walk) per sector distance, thereby 6 / distance runs possible
+		UINT16 maxitems  =  30 * (*it).second * 6 / distance;
+		UINT16 maxweight = 400 * (*it).second * 6 / distance;
+		
+		// open the inventory of the sector we are taking stuff from
+		SECTORINFO *pSectorInfo_Target = &( SectorInfo[ SECTOR(targetX, targetY) ] );
+		UINT32 uiTotalNumberOfRealItems_Target = 0;
+		WORLDITEM* pWorldItem_Target			= NULL;
+
+		if( ( gWorldSectorX == targetX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
+		{
+			uiTotalNumberOfRealItems_Target = guiNumWorldItems;
+			pWorldItem_Target = gWorldItems;
+		}
+		else
+		{
+			// not loaded, load
+			// get total number, visable and invisible
+			BOOLEAN fReturn = GetNumberOfWorldItemsFromTempItemFile( targetX, targetY, bZ, &( uiTotalNumberOfRealItems_Target ), FALSE );
+			Assert( fReturn );
+
+			if( uiTotalNumberOfRealItems_Target > 0 )
+			{
+				// allocate space for the list
+				pWorldItem_Target = new WORLDITEM[ uiTotalNumberOfRealItems_Target ];
+			
+				// now load into mem
+				LoadWorldItemsFromTempItemFile(  targetX,  targetY, bZ, pWorldItem_Target );
+			}
+		}
+		
+		// move items from Target to Here
+		UINT16 moveditems = 0;
+		UINT32 movedweight = 0;
+		for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems_Target; ++uiCount )				// ... for all items in the world ...
+		{
+			if( pWorldItem_Target[ uiCount ].fExists )										// ... if item exists ...
+			{
+				// test wether item is reachable and allowed to be moved by this assignment
+				if ( (pWorldItem_Target[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem_Target[ uiCount ].usFlags & WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE) && pWorldItem_Target[ uiCount ].bVisible > 0)
+				{
+					OBJECTTYPE* pObj = &(pWorldItem_Target[ uiCount ].object);			// ... get pointer for this item ...
+
+					if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
+					{
+						moveditems  += pObj->ubNumberOfObjects;
+						movedweight += CalculateObjectWeight(pObj);
+
+						// move
+						if( ( gWorldSectorX == sMapX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == bZ ) )
+						{
+							AddItemToPool( RandomGridNo(), pObj, 1 , 0, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
+						}
+						else
+						{
+							AddItemsToUnLoadedSector( sMapX, sMapY, bZ, RandomGridNo(), 1, pObj, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+						}
+
+						pWorldItem_Target[ uiCount ].fExists = FALSE;
+
+						if ( moveditems > maxitems )
+							break;
+
+						if ( movedweight > maxweight )
+							break;
+					}
+				}
+			}
+		}
+				
+		CHAR16 wSectorName_Target[ 64 ];
+		GetShortSectorString( targetX, targetY, wSectorName_Target );
+		
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%d items moved from %s to %s", moveditems, wSectorName_Target, wSectorName );
+
+		// if we didn't move any item, no need to save a chanted inventory etc.
+		if ( !moveditems )
+			continue;
+
+		// hack
+		WORLDITEM* pWorldItem_tmp = new WORLDITEM[ uiTotalNumberOfRealItems_Target ];
+
+		// copy over old inventory
+		UINT32 newcount = 0;
+		for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems_Target; ++uiCount )
+		{
+			if ( pWorldItem_Target[ uiCount ].fExists )
+			{
+				pWorldItem_tmp[newcount] = pWorldItem_Target[uiCount];
+				++newcount;
+			}
+		}
+
+		// use the new map
+		pWorldItem_Target = pWorldItem_tmp;
+		
+		// save the changed inventory
+		if( ( targetX == gWorldSectorX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
+		{
+			guiNumWorldItems = uiTotalNumberOfRealItems_Target;
+			gWorldItems = pWorldItem_Target;
+		}
+		else
+		{
+			//Save the Items to the the file
+			SaveWorldItemsToTempItemFile( targetX, targetY, bZ, uiTotalNumberOfRealItems_Target, pWorldItem_Target );
+		}
+
+		delete[] pWorldItem_tmp;
+
+		// award a bit of experience to the movers
+		UINT16  itemsperperson = moveditems  / (*it).second;
+		UINT16 weightperperson = movedweight / (*it).second;
+		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+		{
+			if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
+			{
+				if( ( pSoldier->bAssignment == MOVE_EQUIPMENT ) && ( EnoughTimeOnAssignment( pSoldier ) ) )
+				{
+					// which sector do we want to move stuff to?
+					UINT8 targetsector = pSoldier->usItemMoveSectorID;
+
+					if ( sector == targetsector )
+					{
+						UINT16 exppoints = weightperperson / 400;
+								
+						StatChange( pSoldier, HEALTHAMT,	exppoints, TRUE );
+						StatChange( pSoldier, STRAMT,		exppoints, TRUE );
+					}
+				}
+			}
+		}
+	}
+}
+
 INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 {
 	INT16 sTotalTrainingPts = 0;
@@ -7536,6 +7766,16 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_TRAIN );
 			}
 
+			if( CanCharacterPractise( pSoldier ) )
+			{
+				// unshade train line
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_MOVE_ITEMS );
+			}
+			else
+			{
+				// shade train line
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_MOVE_ITEMS );
+			}
 
 			if( CanCharacterVehicle( pSoldier ) )
 			{
@@ -7567,6 +7807,9 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 
 	// repair submenu
 	HandleShadingOfLinesForRepairMenu( );
+
+	// move item submenu
+	HandleShadingOfLinesForMoveItemMenu();
 
 	// training submenu
 	HandleShadingOfLinesForTrainingMenu( );
@@ -7627,6 +7870,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		fShowAssignmentMenu = FALSE;
 		fShowVehicleMenu = FALSE;
 		fShowRepairMenu = FALSE;
+		fShowMoveItemMenu = FALSE;
 		// HEADROCK HAM 3.6: Reset Facility menu
 		fShowFacilityMenu = FALSE;
 
@@ -7641,6 +7885,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		CreateDestroyMouseRegionsForAttributeMenu( );
 		CreateDestroyMouseRegionsForSquadMenu( TRUE );
 		CreateDestroyMouseRegionForRepairMenu( );
+		CreateDestroyMouseRegionForMoveItemMenu();
 		// HEADROCK HAM 3.6: Facility Menu, Submenu
 		CreateDestroyMouseRegionForFacilityMenu( );
 		CreateDestroyMouseRegionsForFacilityAssignmentMenu( );
@@ -7667,6 +7912,12 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghRepairBox ) )
 		{
 			HideBox( ghRepairBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		if ( IsBoxShown( ghMoveItemBox ) )
+		{
+			HideBox( ghMoveItemBox );
 			fTeamPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
 		}
@@ -7729,7 +7980,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionsForAttributeMenu( );
 	CreateDestroyMouseRegionsForSquadMenu( TRUE );
 	CreateDestroyMouseRegionForRepairMenu(	);
-
+	CreateDestroyMouseRegionForMoveItemMenu();
 
 	if( ( ( Menptr[gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife == 0 )||( Menptr[gCharactersList[bSelectedInfoChar].usSolID].bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
 	{
@@ -7789,6 +8040,25 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		}
 	}
 
+	// Move Item menu
+	if( fShowMoveItemMenu == TRUE )
+	{
+		HandleShadingOfLinesForMoveItemMenu( );
+		ShowBox( ghMoveItemBox );
+	}
+	else
+	{
+		// hide box
+		if( IsBoxShown( ghMoveItemBox ) )
+		{
+			HideBox( ghMoveItemBox );
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		//	SetRenderFlags(RENDER_FLAG_FULL);
+		}
+	}
+		
 	// ATTRIBUTE menu
 	if( fShowAttributeMenu == TRUE )
 	{
@@ -7966,6 +8236,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionsForAttributeMenu( );
 	CreateDestroyMouseRegionsForSquadMenu( TRUE );
 	CreateDestroyMouseRegionForRepairMenu(	);
+	CreateDestroyMouseRegionForMoveItemMenu();
 	// HEADROCK HAM 3.6: Facility Menu
 	CreateDestroyMouseRegionForFacilityMenu( );
 
@@ -9542,7 +9813,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
 		// HEADROCK HAM 3.6: Added facility menu.
-		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) )
+		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || fShowMoveItemMenu || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) )
 		{
 			return;
 		}
@@ -9707,6 +9978,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							fTeamPanelDirty = TRUE;
 							fMapScreenBottomDirty = TRUE;
 							fShowRepairMenu = FALSE;
+							fShowMoveItemMenu = FALSE;
 						}
 				break;
 				case( ASSIGN_MENU_DOCTOR ):
@@ -9887,6 +10159,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						fShowMoveItemMenu = FALSE;
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 
@@ -9922,12 +10195,50 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowSquadMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowRepairMenu = FALSE;
+						fShowMoveItemMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 					}
 				break;
+
+				case( ASSIGN_MENU_MOVE_ITEMS ):
+					if( 1 )
+					{
+
+						fShowSquadMenu = FALSE;
+						fShowTrainingMenu = FALSE;
+						fShowVehicleMenu = FALSE;
+						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+						//fShownAssignmentMenu = FALSE;
+						fShowRepairMenu = FALSE;
+						fShownContractMenu = FALSE;
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if( pSoldier->bSectorZ == 0 )
+						{
+							fShowMoveItemMenu = FALSE;
+
+							if( DisplayMoveItemsMenu( pSoldier ) )
+							{
+								fShowMoveItemMenu = TRUE;
+							}
+						}
+					}
+					else if( 0 )
+					{
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+						swprintf( sString, zMarksMapScreenText[ 18 ], pSoldier->GetName() );
+
+						DoScreenIndependantMessageBox( sString , MSG_BOX_FLAG_OK, NULL );
+					}
+					break;
+
 				// HEADROCK HAM 3.6: New assignments for Facility operation.
 				case( ASSIGN_MENU_FACILITY ):
 					if ( BasicCanCharacterFacility( pSoldier ) )
@@ -9937,6 +10248,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowRepairMenu = FALSE;
+						fShowMoveItemMenu = FALSE;
 						fShowFacilityMenu = TRUE; // HEADROCK HAM 3.6: Facility Menu
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
@@ -9971,11 +10283,12 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
 		// HEADROCK HAM 3.6: Added facility menu
-		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) )
+		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || fShowMoveItemMenu || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) )
 		{
 			fShowAttributeMenu = FALSE;
 			fShowTrainingMenu = FALSE;
 			fShowRepairMenu = FALSE;
+			fShowMoveItemMenu = FALSE;
 			fShowVehicleMenu = FALSE;
 			fShowSquadMenu = FALSE;
 			fShowFacilityMenu = FALSE; // Added facilities
@@ -10278,25 +10591,56 @@ BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier )
 
 void CreateVehicleBox()
 {
- CreatePopUpBox(&ghVehicleBox, VehicleDimensions, VehiclePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
- SetBoxBuffer(ghVehicleBox, FRAME_BUFFER);
- SetBorderType(ghVehicleBox,guiPOPUPBORDERS);
- SetBackGroundSurface(ghVehicleBox, guiPOPUPTEX);
- SetMargins( ghVehicleBox, 6, 6, 4, 4 );
- SetLineSpace(ghVehicleBox, 2);
+	 CreatePopUpBox(&ghVehicleBox, VehicleDimensions, VehiclePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	 SetBoxBuffer(ghVehicleBox, FRAME_BUFFER);
+	 SetBorderType(ghVehicleBox,guiPOPUPBORDERS);
+	 SetBackGroundSurface(ghVehicleBox, guiPOPUPTEX);
+	 SetMargins( ghVehicleBox, 6, 6, 4, 4 );
+	 SetLineSpace(ghVehicleBox, 2);
 }
 
 
-void CreateRepairBox( void )
+void CreateRepairBox()
 {
- CreatePopUpBox(&ghRepairBox, RepairDimensions, RepairPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
- SetBoxBuffer(ghRepairBox, FRAME_BUFFER);
- SetBorderType(ghRepairBox,guiPOPUPBORDERS);
- SetBackGroundSurface(ghRepairBox, guiPOPUPTEX);
- SetMargins( ghRepairBox, 6, 6, 4, 4 );
- SetLineSpace(ghRepairBox, 2);
+	CreatePopUpBox(&ghRepairBox, RepairDimensions, RepairPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	SetBoxBuffer(ghRepairBox, FRAME_BUFFER);
+	SetBorderType(ghRepairBox,guiPOPUPBORDERS);
+	SetBackGroundSurface(ghRepairBox, guiPOPUPTEX);
+	SetMargins( ghRepairBox, 6, 6, 4, 4 );
+	SetLineSpace(ghRepairBox, 2);
 }
 
+void CreateMoveItemBox()
+{
+	// will create a pop up box for squad selection
+	SGPPoint pPoint;
+	SGPRect pDimensions;
+
+	CreatePopUpBox(&ghMoveItemBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	SetBoxBuffer(ghMoveItemBox, FRAME_BUFFER);
+	SetBorderType(ghMoveItemBox,guiPOPUPBORDERS);
+	SetBackGroundSurface(ghMoveItemBox, guiPOPUPTEX);
+	SetMargins( ghMoveItemBox, 6, 6, 4, 4 );
+	SetLineSpace(ghMoveItemBox, 2);
+
+	// set current box to this one
+	SetCurrentBox( ghMoveItemBox );
+
+	// resize box to text
+	ResizeBoxToText( ghMoveItemBox );
+
+	DetermineBoxPositions( );
+
+	GetBoxPosition( ghMoveItemBox, &pPoint);
+	GetBoxSize( ghMoveItemBox, &pDimensions );
+
+	if( giBoxY + pDimensions.iBottom > 479 )
+	{
+		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
+	}
+	
+	SetBoxPosition( ghMoveItemBox, pPoint );
+}
 
 void CreateContractBox( SOLDIERTYPE *pCharacter )
 {
@@ -10723,7 +11067,8 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		CreateTrainingBox( );
 		CreateAttributeBox();
 		CreateVehicleBox();
-		CreateRepairBox( );
+		CreateRepairBox();
+		CreateMoveItemBox();
 		// HEADROCK HAM 3.6: Facility Menu
 		CreateFacilityBox( );
 		CreateFacilityAssignmentBox( );
@@ -10755,6 +11100,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 
 		RemoveBox(ghRepairBox);
 		ghRepairBox = -1;
+
+		RemoveBox(ghMoveItemBox);
+		ghMoveItemBox = -1;
 
 		RemoveBox(ghTrainingBox);
 		ghTrainingBox = -1;
@@ -10833,6 +11181,14 @@ void DetermineBoxPositions( void )
 		SetBoxPosition( ghRepairBox, pNewPoint );
 	}
 
+	if( ( fShowMoveItemMenu == TRUE ) && ( ghMoveItemBox != -1 ) )
+	{
+		CreateDestroyMouseRegionForMoveItemMenu( );
+		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
+
+		SetBoxPosition( ghMoveItemBox, pNewPoint );
+	}
+		
 	if( ( fShowTrainingMenu == TRUE ) && ( ghTrainingBox != -1 ) )
 	{
 		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
@@ -11013,6 +11369,36 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
 
 		SetBoxPosition( ghRepairBox, pPoint );
+	}
+	else if( fShowMoveItemMenu == TRUE )
+	{
+		GetBoxSize( ghMoveItemBox, &pDimensions );
+
+		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if( pDimensions2.iBottom >	pDimensions.iBottom )
+		{
+			sLongest = ( INT16 )pDimensions2.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
+		}
+		else
+		{
+			sLongest	= ( INT16 )pDimensions.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
+		}
+
+		if( gsAssignmentBoxesY + sLongest >= (SCREEN_HEIGHT - 120) )
+		{
+			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( sLongest ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
+
+		SetBoxPosition( ghMoveItemBox, pPoint );
 	}
 	else if( fShowSquadMenu == TRUE )
 	{
@@ -11877,7 +12263,7 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				gfRenderPBInterface = TRUE;
 			}
 			break;
-			case( TRAIN_TEAMMATE ):
+		case( TRAIN_TEAMMATE ):
 			if( CanCharacterTrainStat( pSoldier, ( INT8 )iParam1, FALSE, TRUE ) )
 			{
 
@@ -11941,6 +12327,40 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				gfRenderPBInterface = TRUE;
 			}
 			break;
+
+		case MOVE_EQUIPMENT:
+			{
+				// train stat
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if( ( pSoldier->bAssignment != MOVE_EQUIPMENT ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, MOVE_EQUIPMENT );
+								
+				AssignMercToAMovementGroup( pSoldier );
+
+				// set sector to take stuff from
+				pSoldier->usItemMoveSectorID = iParam1;
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+				gfRenderPBInterface = TRUE;
+			}
+			break;
+
 		case( REPAIR ):
 			if( CanCharacterRepair( pSoldier ) )
 			{
@@ -12182,6 +12602,12 @@ BOOLEAN HandleAssignmentExpansionAndHighLightForAssignMenu( SOLDIERTYPE *pSoldie
 	{
 		// highlight repair line the previous menu
 		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_REPAIR );
+		return( TRUE );
+	}
+	else if( fShowMoveItemMenu )
+	{
+		// highlight repair line the previous menu
+		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_MOVE_ITEMS );
 		return( TRUE );
 	}
 	else if( fShowVehicleMenu )
@@ -13090,6 +13516,10 @@ void ReEvaluateEveryonesNothingToDo()
 												!ValidTrainingPartnerInSameSectorOnAssignmentFound( pSoldier, TRAIN_TEAMMATE, pSoldier->bTrainStat );
 					break;
 
+				case MOVE_EQUIPMENT:
+					fNothingToDo = FALSE;
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -13276,6 +13706,15 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, TRAIN_BY_OTHER, bParam, 0,0 );
+						fItWorked = TRUE;
+					}
+					break;
+
+				case MOVE_EQUIPMENT:
+					//if( CanCharacterTrainStat( pSoldier, bParam, TRUE, FALSE ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, MOVE_EQUIPMENT, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -16125,7 +16564,7 @@ void HandleShadingOfLinesForFacilityMenu( void )
 
 
 	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
-	// CreateDestroyMouseRegionForRepairMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForRepairMenu().
+	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
 
 	// run through list of staff/use facilities in sector and add them to pop up box
 	for ( iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; iCounter++ )
@@ -16810,7 +17249,7 @@ void HandleShadingOfLinesForFacilityAssignmentMenu( void )
 	pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
-	// CreateDestroyMouseRegionForRepairMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForRepairMenu().
+	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
 
 	// run through all possible assignments. Shade as necessary
 	for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; iCounter++ )
@@ -17149,3 +17588,354 @@ void HaveMercSayWhyHeWontLeave( SOLDIERTYPE *pSoldier )
 }
 #endif
 
+// Flugente: move items menu
+BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
+{
+	INT32 iVehicleIndex=0;
+	INT32 hStringHandle=0;
+	INT32 iCount = 0;
+
+	// run through list of vehicles in sector and add them to pop up box
+	// first, clear pop up box
+	RemoveBox(ghMoveItemBox);
+	ghMoveItemBox = -1;
+
+	CreateMoveItemBox();
+	SetCurrentBox(ghMoveItemBox);
+
+	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
+	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
+
+	// delete old sectors
+	for (UINT8 i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
+	{
+		usMoveItemSectors[i] = 0;
+	}
+
+	// we now have to show every sector of the town we are in
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+	if ( bTownId != BLANK_SECTOR )
+	{
+		for (UINT16 X = 0; X < 256; ++X)
+		{
+			INT16 sectorX = SECTORX(X);
+			INT16 sectorY = SECTORY(X);
+
+			// if sector not under our control, has enemies in it, or is currently in combat mode
+			if (!SectorOursAndPeaceful( sectorX, sectorY, 0 ) )
+				continue;
+
+			if ( sectorX == pSoldier->sSectorX && sectorY == pSoldier->sSectorY )
+				continue;
+
+			if ( GetTownIdForSector( sectorX, sectorY ) == bTownId )
+			{
+				usMoveItemSectors[iCount] = (UINT8)X;
+
+				CHAR16 wSectorName[ 64 ];
+				GetShortSectorString( sectorX, sectorY, wSectorName );
+
+				AddMonoString( (UINT32 *)&hStringHandle, wSectorName );
+
+				iCount++;
+				if ( iCount >= MOVEITEM_MAX_SECTORS )
+					break;
+			}
+		}
+	}
+	
+	// cancel
+	AddMonoString((UINT32 *)&hStringHandle, L"Cancel" );
+
+	SetBoxFont(ghMoveItemBox, MAP_SCREEN_FONT);
+	SetBoxHighLight(ghMoveItemBox, FONT_WHITE);
+	SetBoxShade(ghMoveItemBox, FONT_GRAY7);
+	SetBoxForeground(ghMoveItemBox, FONT_LTGREEN);
+	SetBoxBackground(ghMoveItemBox, FONT_BLACK);
+
+	// resize box to text
+	ResizeBoxToText( ghMoveItemBox );
+
+	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+	return TRUE;
+}
+
+
+void HandleShadingOfLinesForMoveItemMenu( void )
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	INT32 iVehicleIndex = 0;
+	INT32 iCount = 0;
+	
+	if( ( fShowMoveItemMenu == FALSE ) || ( ghMoveItemBox == -1 ) )
+	{
+		return;
+	}
+
+	pSoldier = GetSelectedAssignSoldier( FALSE );
+
+
+	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
+	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
+
+	// we now have to show every sector of the town we are in
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+	// only in towns
+	if ( bTownId != BLANK_SECTOR && pSoldier->bSectorZ == 0 )
+	{
+		for(UINT i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
+		{
+			UINT8 sector = usMoveItemSectors[i];
+
+			if ( sector > 0 )
+			{
+				INT16 sectorX = SECTORX(sector);
+				INT16 sectorY = SECTORY(sector);
+
+				UINT32 uiTotalNumberOfRealItems = 0;
+				GetNumberOfWorldItemsFromTempItemFile( sectorX, sectorY, 0, &( uiTotalNumberOfRealItems ), FALSE );
+
+				if ( uiTotalNumberOfRealItems > 0 )
+				{
+					// unshade vehicle line
+					UnShadeStringInBox( ghMoveItemBox, iCount );
+				}
+				else
+				{
+					// shade vehicle line
+					ShadeStringInBox( ghMoveItemBox, iCount );
+				}
+			}
+		}
+	}
+
+	//if ( DoesCharacterHaveAnyItemsToRepair( pSoldier, FINAL_REPAIR_PASS ) )
+	if ( 1 )
+	{
+		// unshade items line
+		UnShadeStringInBox( ghMoveItemBox, iCount );
+	}
+	else
+	{
+		// shade items line
+		ShadeStringInBox( ghMoveItemBox, iCount );
+	}
+
+	iCount++;
+
+
+	return;
+}
+
+
+void CreateDestroyMouseRegionForMoveItemMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+
+	UINT32 uiCounter = 0;
+	INT32 iCount = 0;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+	SOLDIERTYPE *pSoldier = NULL;
+	INT32 iVehicleIndex = 0;
+	
+	if( ( fShowMoveItemMenu == TRUE ) && ( fCreated == FALSE ) )
+	{
+		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+		if( ( fShowMoveItemMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		{
+			//SetBoxPosition( ghMoveItemBox ,RepairPosition);
+		}
+
+		// grab height of font
+		iFontHeight = GetLineSpace( ghMoveItemBox ) + GetFontHeight( GetBoxFont( ghMoveItemBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghMoveItemBox, &pPosition);
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghMoveItemBox, &pDimensions );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghMoveItemBox );
+
+		pSoldier = GetSelectedAssignSoldier( FALSE );
+
+		// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
+		// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
+
+		// we now have to show every sector of the town we are in
+		INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+		// only in towns
+		if ( bTownId != BLANK_SECTOR && pSoldier->bSectorZ == 0 )
+		{
+			for(UINT i = 0; i < MOVEITEM_MAX_SECTORS; ++i)
+			{
+				UINT8 sector = usMoveItemSectors[i];
+
+				if ( sector > 0 )
+				{
+					// add mouse region for each line of text..and set user data
+					MSYS_DefineRegion( &gMoveItem[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+								MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
+
+					MSYS_SetRegionUserData( &gMoveItem[ iCount ], 0, iCount );
+					// 2nd user data is the vehicle index, which can easily be different from the region index!
+					MSYS_SetRegionUserData( &gMoveItem[ iCount ], 1, iCount );
+					iCount++;
+
+					if ( iCount >= MOVEITEM_MAX_SECTORS )
+						break;
+				}
+			}
+		}
+		
+		// cancel
+		MSYS_DefineRegion( &gMoveItem[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+							MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gMoveItem[ iCount ], 0, iCount );
+		MSYS_SetRegionUserData( &gMoveItem[ iCount ], 1, MOVEITEM_MENU_CANCEL );
+
+
+		PauseGame( );
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghMoveItemBox );
+
+		fCreated = TRUE;
+	}
+	else if( ( ( fShowMoveItemMenu == FALSE ) || ( fShowAssignmentMenu == FALSE ) ) && ( fCreated == TRUE ) )
+	{
+		fCreated = FALSE;
+
+		// remove these regions
+		for( uiCounter = 0; uiCounter < GetNumberOfLinesOfTextInBox( ghMoveItemBox ); uiCounter++ )
+		{
+			MSYS_RemoveRegion( &gMoveItem[ uiCounter ] );
+		}
+
+		fShowMoveItemMenu = FALSE;
+
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		HideBox( ghRepairBox );
+
+		if ( fShowAssignmentMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghAssignmentBox );
+		}
+	}
+
+	return;
+}
+
+void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// btn callback handler for assignment region
+	SOLDIERTYPE *pSoldier = NULL;
+	INT32 iWhat;
+
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	// ignore clicks on disabled lines
+	if( GetBoxShadeFlag( ghMoveItemBox, iValue ) == TRUE )
+	{
+		return;
+	}
+
+	// WHAT is being repaired is stored in the second user data argument
+	iWhat = MSYS_GetRegionUserData( pRegion, 1 );
+
+	pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( pSoldier && pSoldier->bActive && ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP ) )
+	{
+		if( iWhat < MOVEITEM_MENU_CANCEL )
+		{
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+			if( pSoldier->bAssignment != MOVE_EQUIPMENT )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			if( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+
+			// remove from squad
+			RemoveCharacterFromSquads( pSoldier );
+
+			ChangeSoldiersAssignment( pSoldier, MOVE_EQUIPMENT );
+
+			if ( iWhat < MOVEITEM_MAX_SECTORS )
+				pSoldier->usItemMoveSectorID = usMoveItemSectors[iWhat];
+
+			// assign to a movement group
+			AssignMercToAMovementGroup( pSoldier );
+
+			// set assignment for group
+			SetAssignmentForList( ( INT8 ) MOVE_EQUIPMENT, pSoldier->usItemMoveSectorID );
+			fShowAssignmentMenu = FALSE;
+		}
+		else
+		{
+			// CANCEL
+			fShowMoveItemMenu = FALSE;
+		}
+
+		// update mapscreen
+		fCharacterInfoPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+
+		giAssignHighLine = -1;
+	}
+}
+
+
+void MoveItemMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if( iValue < MOVEITEM_MENU_CANCEL )
+		{
+			if( GetBoxShadeFlag( ghMoveItemBox, iValue ) == FALSE )
+			{
+				// highlight choice
+				HighLightBoxLine( ghMoveItemBox, iValue );
+			}
+		}
+		else
+		{
+			// highlight cancel line
+			HighLightBoxLine( ghMoveItemBox, GetNumberOfLinesOfTextInBox( ghMoveItemBox ) - 1 );
+		}
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghMoveItemBox );
+	}
+}

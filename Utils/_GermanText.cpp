@@ -1660,6 +1660,7 @@ STR16 pAssignmentStrings[] =
 	L"M.Miliz", //training moving militia units		
 	L"Trainer", // training a teammate
 	L"Rekrut", // being trained by someone else 
+	L"Umzug",	// move items // TODO.Translate
 	L"Betrieb", // operating a strategic facility
 	L"Essen",		// eating at a facility (cantina etc.)
 	L"Pause", // Resting at a facility
@@ -1742,6 +1743,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Trainiere Mobile Miliz",
 	L"Trainer",
 	L"Rekrut",
+	L"Umzug/ move items
 	L"Betriebspersonal",
 	L"Essen",		// eating at a facility (cantina etc.)
 	L"Betriebspause",
@@ -1787,6 +1789,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Trainiere Mobile",
 	L"Trainer",
 	L"Rekrut",
+	L"MoveItem",	// move items
 	L"Betriebspersonal",
 	L"Betriebspause",
 	L"Gefangene verhören",		// Flugente: interrogate prisoners
@@ -1907,6 +1910,7 @@ STR16 pAssignMenuStrings[] =
 	L"Fahrzeug", // the merc is in a vehicle
 	L"Repar.", // the merc is repairing items 
 	L"Training", // the merc is training
+	L"Umzug",	// move items
 	L"Betrieb", // the merc is using/staffing a facility
 	L"Abbrechen", // cancel this menu
 };
@@ -3241,6 +3245,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von Ausrüstung\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur Ausrüstung anzeigen", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von anderen Gegenständen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur andere Gegenstände anzeigen", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
 };
 
 STR16 pMapScreenBottomFastHelp[] =

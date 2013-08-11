@@ -1651,6 +1651,7 @@ STR16 pAssignmentStrings[] =
 	L"M.Militia", //training moving militia units
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
+	L"MoveItem",	// move items
 	L"Staff", // operating a strategic facility
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Rest", // Resting at a facility
@@ -1737,6 +1738,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Training Mobile Militia",	// Missing
 	L"Trainer",
 	L"Student",
+	L"MoveItem",	// move items
 	L"Facility Staff",	// Missing
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Resting at Facility",		// Missing
@@ -1784,6 +1786,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",	// Missing
 	L"Train Teammate",
 	L"Student",
+	L"MoveItem",	// move items
 	L"Staff Facility",	// Missing
 	L"Rest at Facility",	// Missing
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners
@@ -1908,6 +1911,7 @@ STR16 pAssignMenuStrings[] =
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
 	L"Train", // the merc is training
+	L"MoveItem",	// move items
 	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };
@@ -3254,6 +3258,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display
 };
 
 STR16 pMapScreenBottomFastHelp[] =

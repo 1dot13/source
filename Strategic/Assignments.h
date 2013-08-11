@@ -58,12 +58,13 @@ enum
 	REPAIR,
 	TRAIN_SELF,
 	TRAIN_TOWN,
-	TRAIN_MOBILE,			// HEADROCK HAM 3.6: Training mobile militia.
+	TRAIN_MOBILE,					// HEADROCK HAM 3.6: Training mobile militia.
 	TRAIN_TEAMMATE,
 	TRAIN_BY_OTHER,
-	FACILITY_STAFF,		// HEADROCK HAM 3.6: Operating a facility for strategic gain.
-	FACILITY_EAT,		// added by Flugente
-	FACILITY_REST,			// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
+	MOVE_EQUIPMENT,					// added by Flugente: move items from one city sector to another
+	FACILITY_STAFF,					// HEADROCK HAM 3.6: Operating a facility for strategic gain.
+	FACILITY_EAT,					// added by Flugente
+	FACILITY_REST,					// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
 	FACILITY_INTERROGATE_PRISONERS,	// added by Flugente
 	ASSIGNMENT_DEAD,
 	ASSIGNMENT_UNCONCIOUS,			// unused
@@ -194,6 +195,8 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
+// Flugente: determine max items we can move, and the sector distance
+
 // get bonus tarining pts due to an instructor for this student
 // HEADROCK HAM 3.5: Three functions below have lost an argument which is no longer required ("uiAtGunRange", which was "uiAtFacility" in HAM 3.4)
 INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE *pStudent, INT8 bTrainStat, UINT16 *pusMaxPts );
@@ -217,6 +220,7 @@ extern INT32 ghSquadBox;
 extern INT32 ghVehicleBox;
 extern INT32 ghRepairBox;
 extern INT32 ghTrainingBox;
+extern INT32 ghMoveItemBox;
 extern INT32 ghAttributeBox;
 extern INT32 ghRemoveMercAssignBox;
 extern INT32 ghContractBox;
@@ -243,6 +247,7 @@ extern MOUSE_REGION gFacilityMenuRegion[];
 extern BOOLEAN fShownContractMenu;
 extern BOOLEAN fShownAssignmentMenu;
 extern BOOLEAN fShowRepairMenu;
+extern BOOLEAN fShowMoveItemMenu;
 
 extern BOOLEAN fFirstClickInAssignmentScreenMask;
 
@@ -279,6 +284,12 @@ void VehicleMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionForRepairMenu( void );
 void RepairMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// Flugente: move item menu
+void CreateDestroyMouseRegionForMoveItemMenu( void );
+void MoveItemMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );
+void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
 // HEADROCK HAM 3.6: Facility Menu
 void CreateDestroyMouseRegionForFacilityMenu( void );
 void FacilityMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );

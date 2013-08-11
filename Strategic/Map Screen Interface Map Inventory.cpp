@@ -193,8 +193,8 @@ UINT32 guiMapInvenZoomButton;
 UINT32 guiMapInvenSortButtonImage[4];
 UINT32 guiMapInvenSortButton[4];
 
-UINT32 guiMapInvenFilterButtonImage[9];
-UINT32 guiMapInvenFilterButton[9];
+UINT32 guiMapInvenFilterButtonImage[MAP_INVENTORY_FILTER_BUTTONS];
+UINT32 guiMapInvenFilterButton[MAP_INVENTORY_FILTER_BUTTONS];
 
 
 
@@ -281,6 +281,7 @@ void MapInventoryPoolSortAttachmentsBtn( GUI_BUTTON *btn, INT32 reason );
 void MapInventoryPoolEjectAmmoBtn( GUI_BUTTON *btn, INT32 reason );
 // HEADROCK HAM 5: Preliminary Filter Button
 void MapInventoryPoolFilterBtn( GUI_BUTTON *btn, INT32 reason );
+void MapInventoryPoolFilterBtnMoveItemDisplay( GUI_BUTTON *btn, INT32 reason );	// Flugente
 void DisplayCurrentSector( void );
 void ResizeInventoryList( void );
 void ClearUpTempUnSeenList( void );
@@ -340,6 +341,18 @@ BOOLEAN MapInventoryFilterMenuPopup_OptionOff( void );
 void MapInventoryFilterToggle( UINT32 uiFlags );
 void MapInventoryFilterSet( UINT32 uiFlags );
 void HandleSetFilterButtons();
+
+// Flugente:  show wether an item is set to be ignored by the 'move item' assignment. This can be toggled in strategic inventory.
+static BOOLEAN fShowMoveItem = TRUE;
+BOOLEAN IsShowMoveItem()
+{
+	return (fShowMoveItem && guiCurrentScreen == MAP_SCREEN);
+}
+
+void ToggleShowMoveItem()
+{
+	fShowMoveItem = !fShowMoveItem;
+}
 
 // load the background panel graphics for inventory
 BOOLEAN LoadInventoryPoolGraphic( void )
@@ -495,7 +508,6 @@ void RenderItemsForCurrentPageOfInventoryPool( void )
 	return;
 }
 
-
 BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 {
 	// render item in this slot of the list
@@ -611,6 +623,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		}
 	}
 
+	// Flugente: militia equipment
 	if( gGameExternalOptions.fMilitiaUseSectorInventory && ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL ) )
 	{
 		//Shade the item, but only if it is an active item!
@@ -624,6 +637,19 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 				usMilitia_EQColor = Get16BPPColor( FROMRGB( 156, 37, 3 ) );
 
 			DrawHatchOnInventory_MilitiaAccess( guiSAVEBUFFER, sX, sY, MAP_INVEN_SLOT_WIDTH, MAP_INVEN_SLOT_IMAGE_HEIGHT , usMilitia_EQColor);
+		}
+	}
+
+	// Flugente: move item assignment ignore marker
+	if( ( IsShowMoveItem() && pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE ) )
+	{
+		//Shade the item, but only if it is an active item!
+		if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true)
+		{
+			// colour depends on flag
+			UINT16 usColor = Get16BPPColor( FROMRGB( 254, 190, 133 ) );
+
+			DrawHatchOnInventory_MilitiaAccess( guiSAVEBUFFER, sX, sY, MAP_INVEN_SLOT_WIDTH, MAP_INVEN_SLOT_IMAGE_HEIGHT , usColor);
 		}
 	}
 
@@ -1330,7 +1356,14 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				if ( gpItemPointer == NULL )
 				{
-					if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
+					if ( _KeyDown ( TAB ) && _KeyDown ( CTRL ) )
+					{
+						if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE )
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE;
+						else
+							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE;
+					}
+					else if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
 					{
 						pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object[0]->data.sObjectFlag &= ~(TAKEN_BY_MILITIA_TABOO_GREEN|TAKEN_BY_MILITIA_TABOO_BLUE);
 
@@ -1403,7 +1436,14 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				*/
 			}
 
-			if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
+			if ( _KeyDown ( TAB ) && _KeyDown ( CTRL ) )
+			{
+				if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags & WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE )
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags &= ~WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE;
+				else
+					pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE;
+			}
+			else if ( _KeyDown ( TAB ) && gGameExternalOptions.fMilitiaUseSectorInventory )
 			{
 				pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object[0]->data.sObjectFlag &= ~(TAKEN_BY_MILITIA_TABOO_GREEN|TAKEN_BY_MILITIA_TABOO_BLUE);
 
@@ -1694,6 +1734,18 @@ void CreateMapInventoryButtons( void )
 		ButtonList[ guiMapInvenFilterButton[ 8 ] ]->UserData[2] = 0;
 		ButtonList[ guiMapInvenFilterButton[ 8 ] ]->UserData[3] = IC_MAPFILTER_MISC;
 
+		// Flugente: toggle button for move item display
+		guiMapInvenFilterButtonImage[ 9 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 36, 36, -1, 37, -1 );
+		guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+345 + xResOffset, INVEN_POOL_Y+10,
+											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+											NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtnMoveItemDisplay );
+
+		SetButtonFastHelpText( guiMapInvenFilterButton[ 9 ], pMapScreenInvenButtonHelpText[ 17 ] );
+		ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[0] = 0;
+		ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[1] = IC_MAPFILTER_MISC;
+		ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[2] = 0;
+		ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[3] = IC_MAPFILTER_MISC;
+
 		/*
 		guiMapInvenFilterButtonImage[ 9 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 19, 17, -1, 18, -1 );
 		guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+349 + xResOffset, INVEN_POOL_Y+10,
@@ -1745,7 +1797,7 @@ void DestroyMapInventoryButtons( void )
 	// HEADROCK HAM 5: Filter button
 	if (iResolution >= _800x600 )
 	{
-		for (INT32 iCounter = 0; iCounter < 9; iCounter++)
+		for (INT32 iCounter = 0; iCounter < MAP_INVENTORY_FILTER_BUTTONS; iCounter++)
 		{
 			RemoveButton( guiMapInvenFilterButton[ iCounter ] );
 			UnloadButtonImage( guiMapInvenFilterButtonImage[ iCounter ] );
@@ -2553,6 +2605,51 @@ void MapInventoryPoolFilterBtn( GUI_BUTTON *btn, INT32 reason )
 			//CreateMapInventoryFilterMenu( );
 		}
 	}
+}
+
+// Flugente: display wether items that shoul be ignored for 'move item' assignment should be marked
+void MapInventoryPoolFilterBtnMoveItemDisplay( GUI_BUTTON *btn, INT32 reason )
+{
+	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN ||
+		reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+		if (!(btn->uiFlags & (BUTTON_CLICKED_ON)))
+		{
+			// Set as "clicked on", but do nothing until the mouse is released.
+			btn->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+	}
+	if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (btn->uiFlags & (BUTTON_CLICKED_ON))
+		{
+			ToggleShowMoveItem();
+
+			// The refresh function moves the necessary items from the Seen to the Unseen inventories, and vice versa.
+			RefreshSeenAndUnseenPools();
+
+			BlitInventoryPoolGraphic( );
+
+			HandleSetFilterButtons();
+		}
+	}
+	/*if (reason & MSYS_CALLBACK_REASON_RBUTTON_UP)
+	{
+		if (btn->uiFlags & (BUTTON_CLICKED_ON))
+		{
+			if (btn->UserData[2] == 0)
+			{
+				MapInventoryFilterSet( btn->UserData[3] );
+			}
+			else
+			{
+				MapInventoryFilterToggle( btn->UserData[3] );
+			}
+
+			// HEADROCK HAM 5: Disabled for now, as we've got buttons for this.
+			//CreateMapInventoryFilterMenu( );
+		}
+	}*/
 }
 
 // HEADROCK HAM 5: Zoom button.
@@ -5090,6 +5187,16 @@ void HandleSetFilterButtons()
 	else
 	{
 		ButtonList[guiMapInvenFilterButton[ 8 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+	}
+
+	// Flugente: move item display
+	if ( IsShowMoveItem() )
+	{
+		ButtonList[guiMapInvenFilterButton[ 9 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+	}
+	else
+	{
+		ButtonList[guiMapInvenFilterButton[ 9 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
 	}
 }
 

@@ -1659,6 +1659,7 @@ STR16 pAssignmentStrings[] =
 	L"R.Samoobr.", //training moving militia units
 	L"Instruk.", // training a teammate
 	L"Uczeń", // being trained by someone else 
+	L"MoveItem",	// move items // TODO.Translate
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
@@ -1745,6 +1746,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Training Mobile Militia",	// TODO.Translate
 	L"Instruktor",
 	L"Uczeń",
+	L"MoveItem",	// move items // TODO.Translate
 	L"Facility Staff",			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Resting at Facility",		// TODO.Translate
@@ -1792,6 +1794,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",		// TODO.Translate
 	L"Trenuj oddział",
 	L"Uczeń",
+	L"MoveItem",	// move items // TODO.Translate
 	L"Staff Facility",		// TODO.Translate
 	L"Rest at Facility",	// TODO.Translate
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
@@ -1916,6 +1919,7 @@ STR16 pAssignMenuStrings[] =
 	L"Pojazd", // the merc is in a vehicle
 	L"Naprawa", // the merc is repairing items 
 	L"Szkolenie", // the merc is training
+	L"MoveItem",	// move items	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
 	L"Anuluj", // cancel this menu
 };
@@ -3264,6 +3268,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: Toggle Kits\n|R|i|g|h|t |C|l|i|c|k: Show only Kits", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
 };
 
 STR16 pMapScreenBottomFastHelp[] =

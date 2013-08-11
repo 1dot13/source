@@ -1652,6 +1652,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 	BOOLEAN drawOpponentCount = FALSE;
 
+	CHAR16 wShortText[ 8 ];	// added by Flugente to display sector names
+
 	// If we are using an extern buffer...
 	if ( fUseExternBuffer )
 	{
@@ -2413,6 +2415,18 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				break;
 
+			case MOVE_EQUIPMENT:
+				{
+					sIconIndex		= 25;
+					fDoIcon			= TRUE;
+					
+					GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), wShortText );
+
+					fShowNumber		= TRUE;
+					fShowMaximum	= TRUE;
+				}
+				break;
+
 			case FACILITY_INTERROGATE_PRISONERS:
 				sIconIndex		= 23;
 				fDoIcon			= TRUE;
@@ -2452,10 +2466,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				if ( fShowMaximum )
 				{
-					/*if ( pSoldier->bAssignment == FACILITY_INTERROGATE_PRISONERS )
-						swprintf( sString, L"%2.2f/%d", bPtsAvailable, usMaximumPts );
-					else*/
-					swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
+					if ( pSoldier->bAssignment == MOVE_EQUIPMENT )
+						swprintf( sString, L"%s", wShortText );
+					else
+						swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
 				}
 				else
 				{

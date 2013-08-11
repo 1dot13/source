@@ -2274,6 +2274,14 @@ void UpdateMapScreenAssignmentPositions( void )
 		SetBoxPosition( ghRepairBox, pPoint );
 	}
 
+	if( fShowMoveItemMenu )
+	{
+		GetBoxPosition( ghMoveItemBox, &pPoint);
+		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS;
+
+		SetBoxPosition( ghMoveItemBox, pPoint );
+	}
+
 	// HEADROCK HAM 3.6: Facility Menu
 	if( fShowFacilityMenu )
 	{

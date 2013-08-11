@@ -266,6 +266,7 @@ UINT32			guiAttachmentSlot;
 
 // HEADROCK HAM 4: This replaces "Misc" icons.
 extern UINT32			guiItemInfoAdvancedIcon;	// added here by Flugente
+UINT32			guiItemInfoMoveItemDisplay;			// added here by Flugente. We need a second name, otherwise the two displays in Strategic Inventory and UDB will interfere with each other
 
 UINT32			guiItemGraphic;
 UINT32			guiMoneyGraphicsForDescBox;

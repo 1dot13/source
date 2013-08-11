@@ -6912,6 +6912,10 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						{
 							fShowRepairMenu = FALSE;
 						}
+						else if( fShowMoveItemMenu == TRUE )
+						{
+							fShowMoveItemMenu = FALSE;
+						}
 						// HEADROCK HAM 3.6: Facility Menu
 						else if( fShowFacilityMenu == TRUE )
 						{

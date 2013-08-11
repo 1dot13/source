@@ -1651,6 +1651,7 @@ STR16 pAssignmentStrings[] =
 	L"游击队", //L"M.Militia", //training moving militia units //ham3.6
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
+	L"MoveItem",	// move items // TODO.Translate
 	L"工作", // L"Staff", // operating a strategic facility //ham3.6
 	L"饮食",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
@@ -1737,6 +1738,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"训练游击队",
 	L"教练",
 	L"学员",
+	L"MoveItem",	// move items // TODO.Translate
 	L"设施职员",
 	L"饮食",		// eating at a facility (cantina etc.)
 	L"在设施里休养",
@@ -1784,6 +1786,7 @@ STR16 pLongAssignmentStrings[] =
 	L"训练游击队", //L"Train Mobiles",
 	L"训练队友",
 	L"学员",
+	L"MoveItem",	// move items // TODO.Translate
 	L"设施职员",  //L"Staff Facility",
 	L"休息",  //L"Rest at Facility",
 	L"审讯俘虏", // L"Interrogate prisoners",
@@ -1908,6 +1911,7 @@ STR16 pAssignMenuStrings[] =
 	L"交通工具",
 	L"修理",
 	L"训练",
+	L"MoveItem",	// move items	// TODO.Translate
 	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -3254,6 +3258,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|L|e|f|t |C|l|i|c|k: 切换是否显示套装包\n|R|i|g|h|t |C|l|i|c|k: 只显示套装包", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: 切换是否显示杂项物品\n|R|i|g|h|t |C|l|i|c|k: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
 };
 
 STR16 pMapScreenBottomFastHelp[] =

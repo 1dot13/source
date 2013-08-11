@@ -99,7 +99,7 @@ BOOLEAN fZoomFlag = FALSE;
 extern POPUP* gMapInventoryFilterPopup;
 extern BOOLEAN gfMapInventoryFilterPopupVisible;
 extern BOOLEAN gfQueueRecreateMapInventoryFilterMenu;
-extern UINT32 guiMapInvenFilterButton[ 9 ];
+extern UINT32 guiMapInvenFilterButton[ MAP_INVENTORY_FILTER_BUTTONS ];
 extern void CreateMapInventoryFilterMenu( );
 
 // used for ETA border drawing

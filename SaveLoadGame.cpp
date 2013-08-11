@@ -2045,15 +2045,17 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				if ( guiCurrentSaveGameVersion >=  SOLDIER_PROFILES )
 				{
 					numBytesRead = ReadFieldByField(hFile, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
-
+					numBytesRead = ReadFieldByField(hFile, &this->usItemMoveSectorID, sizeof(usItemMoveSectorID), sizeof(UINT8), numBytesRead);
+										
 					numBytesRead = ReadFieldByField(hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
 				}
 				else
 				{
 					this->usSoldierProfile = 0;
+					this->usItemMoveSectorID = 0;
 
 					// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
-					const UINT8 tmp = sizeof(usSoldierProfile);
+					const UINT8 tmp = sizeof(usSoldierProfile) + sizeof(usItemMoveSectorID);
 					UINT8 blarg[tmp];
 					numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
 				
@@ -2067,10 +2069,11 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				this->usMultiTurnAction = 0;
 				this->bAIIndex			= 0;
 				this->usSoldierProfile	= 0;
+				this->usItemMoveSectorID = 0;
 
 				// as we added new variables, fillersize was reduced, here we account for that. We have to also read the existing fillers that now do not exist anymore
 				// +1 for padding
-				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction) + sizeof(bAIIndex) + 1 + sizeof(usSoldierProfile);
+				const UINT8 tmp = sizeof(bOverTurnAPS) + sizeof(this->sMTActionGridNo)  + sizeof(usMultiTurnAction) + sizeof(bAIIndex) + 1 + sizeof(usSoldierProfile) + sizeof(usItemMoveSectorID);
 				UINT8 blarg[tmp];
 				numBytesRead = ReadFieldByField(hFile, &blarg, tmp, sizeof(UINT8), numBytesRead);
 				
@@ -2125,6 +2128,11 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			while((buffer%4) > 0)
 				buffer++;
 
+			for(int i = 0; i < sizeof(usItemMoveSectorID); ++i)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+						
 			for(int i = 0; i < sizeof(ubFiller); ++i)
 				buffer++;
 			while((buffer%4) > 0)

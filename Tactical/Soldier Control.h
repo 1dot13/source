@@ -1274,9 +1274,12 @@ public:
 
 	UINT16	usSoldierProfile;		// Flugente: allow linking to a xml-based profile specifiying name, visuals, traits etc.
 
+	// Flugente: sector ID for move items assignemnt
+	UINT8	usItemMoveSectorID;
+
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
-	UINT8	ubFiller[8];	
+	UINT8	ubFiller[7];	
 	
 #ifdef JA2UB
 	//ja25

@@ -1650,7 +1650,8 @@ STR16 pAssignmentStrings[] =
 	L"Ополчение",		// training a town to revolt 
 	L"Мобил.гр.", //training moving militia units		//M.Militia
 	L"Тренер",	// training a teammate
-	L"Ученик",	// being trained by someone else 
+	L"Ученик",	// being trained by someone else
+	L"MoveItem",	// move items // TODO.Translate
 	L"Штат", // operating a strategic facility			//Staff
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Отдых", // Resting at a facility					//Rest
@@ -1737,6 +1738,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Тренирует мобильную группу",	//Training Mobile Militia
 	L"Тренер",
 	L"Ученик",
+	L"MoveItem",	// move items // TODO.Translate
 	L"Работает с населением",			//Facility Staff
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Отдыхает",		//Resting at Facility
@@ -1784,6 +1786,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Тренирует мобильную группу",	//Train Mobiles
 	L"Тренирует",
 	L"Обучается",
+	L"MoveItem",	// move items // TODO.Translate
 	L"Работает с населением",		//Staff Facility
 	L"Отдыхает в заведении",		//Resting at Facility
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
@@ -1908,6 +1911,7 @@ STR16 pAssignMenuStrings[] =
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
 	L"Обучение", // the merc is training
+	L"MoveItem",	// move items	// TODO.Translate
 	L"Удобства", // the merc is using/staffing a facility	//Facility
 	L"Отмена", // cancel this menu
 };
@@ -3253,6 +3257,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть наборы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать наборы", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть прочие предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать прочие предметы", // HEADROCK HAM 5: Filter Button
+	L"|L|e|f|t |C|l|i|c|k: Toggle Move Item Display", // Flugente: move item display	// TODO.Translate
 };
 
 STR16 pMapScreenBottomFastHelp[] =
