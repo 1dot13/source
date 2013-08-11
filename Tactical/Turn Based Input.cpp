@@ -264,6 +264,7 @@ void	CheatCreateItem();
 // silversurfer: added for merc portrait swapping in tactical
 void	SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection );
 extern	INT8 GetTeamSlotFromPlayerID( UINT8 ubID );
+extern FACETYPE	*gpCurrentTalkingFace;
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -7176,6 +7177,10 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 {
 	// only swap mercs when the Team Panel is active
 	if ( gsCurInterfacePanel != TEAM_PANEL )
+		return;
+
+	// if someone is talking don't swap!
+	if ( gpCurrentTalkingFace != NULL )
 		return;
 
 	UINT8 ubSourceMerc = gusSelectedSoldier;
