@@ -5915,6 +5915,8 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	CHAR16 wSectorName[ 64 ];
 	GetShortSectorString( sMapX, sMapY, wSectorName );
 
+	WORLDITEM* pWorldItem_Target			= NULL;
+
 	// now loop over all sectors from which we take stuff, and move the equipment
 	std::map<UINT8, UINT8>::iterator itend = sectormercmap.end();
 	for (std::map<UINT8, UINT8>::iterator it = sectormercmap.begin(); it != itend; ++it)
@@ -5942,7 +5944,13 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// open the inventory of the sector we are taking stuff from
 		SECTORINFO *pSectorInfo_Target = &( SectorInfo[ SECTOR(targetX, targetY) ] );
 		UINT32 uiTotalNumberOfRealItems_Target = 0;
-		WORLDITEM* pWorldItem_Target			= NULL;
+
+		// use the new map
+		if ( pWorldItem_Target )
+		{
+			delete[] pWorldItem_Target;
+			pWorldItem_Target = NULL;
+		}
 
 		if( ( gWorldSectorX == targetX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
 		{
@@ -5969,6 +5977,9 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// move items from Target to Here
 		UINT16 moveditems = 0;
 		UINT32 movedweight = 0;
+		OBJECTTYPE* pObjectToMove = new OBJECTTYPE[uiTotalNumberOfRealItems_Target];
+		UINT8 moveobjectcounter = 0;
+
 		for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems_Target; ++uiCount )				// ... for all items in the world ...
 		{
 			if( pWorldItem_Target[ uiCount ].fExists )										// ... if item exists ...
@@ -5982,16 +5993,8 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					{
 						moveditems  += pObj->ubNumberOfObjects;
 						movedweight += CalculateObjectWeight(pObj);
-
-						// move
-						if( ( gWorldSectorX == sMapX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == bZ ) )
-						{
-							AddItemToPool( RandomGridNo(), pObj, 1 , 0, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
-						}
-						else
-						{
-							AddItemsToUnLoadedSector( sMapX, sMapY, bZ, RandomGridNo(), 1, pObj, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
-						}
+												
+						pObjectToMove[moveobjectcounter++] = *pObj;
 
 						pWorldItem_Target[ uiCount ].fExists = FALSE;
 
@@ -6004,13 +6007,32 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				}
 			}
 		}
+
+		// move
+		if( ( gWorldSectorX == sMapX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == bZ ) )
+		{
+			for (UINT16 i = 0; i < moveobjectcounter; ++i )
+			{
+				AddItemToPool( RandomGridNo(), &(pObjectToMove[i]), 1 , 0, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
+			}
+		}
+		else
+		{
+			AddItemsToUnLoadedSector( sMapX, sMapY, bZ, RandomGridNo(), moveobjectcounter, pObjectToMove, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+		}
+
+		if ( pObjectToMove )
+		{
+			delete[] pObjectToMove;
+			pObjectToMove = NULL;
+		}
 				
 		CHAR16 wSectorName_Target[ 64 ];
 		GetShortSectorString( targetX, targetY, wSectorName_Target );
 		
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%d items moved from %s to %s", moveditems, wSectorName_Target, wSectorName );
 
-		// if we didn't move any item, no need to save a chanted inventory etc.
+		// if we didn't move any item, no need to save a changed inventory etc.
 		if ( !moveditems )
 			continue;
 
@@ -6029,6 +6051,12 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		}
 
 		// use the new map
+		if ( pWorldItem_Target )
+		{
+			delete[] pWorldItem_Target;
+			pWorldItem_Target = NULL;
+		}
+
 		pWorldItem_Target = pWorldItem_tmp;
 		
 		// save the changed inventory
@@ -6042,8 +6070,12 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			//Save the Items to the the file
 			SaveWorldItemsToTempItemFile( targetX, targetY, bZ, uiTotalNumberOfRealItems_Target, pWorldItem_Target );
 		}
-
-		delete[] pWorldItem_tmp;
+		
+		if ( pWorldItem_tmp )
+		{
+			delete[] pWorldItem_tmp;
+			pWorldItem_tmp = NULL;
+		}
 
 		// award a bit of experience to the movers
 		UINT16  itemsperperson = moveditems  / (*it).second;
