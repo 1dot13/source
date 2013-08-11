@@ -15584,6 +15584,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bBuddy1>20</bBuddy1>		
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20631,6 +20632,8 @@
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
 		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bHated1>14</bHated1>
+		<bHatedTime1>16</bHatedTime1>
 		<bHated1>255</bHated1>
 		<bHatedTime1>0</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20876,6 +20879,7 @@
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bBuddy1>245</bBuddy1>		
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
