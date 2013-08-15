@@ -333,6 +333,7 @@ BOOLEAN		AreAnyOfTheNewMercsAvailable();
 void			ShouldAnyNewMercMercBecomeAvailable();
 BOOLEAN		CanMercBeAvailableYet( UINT8 ubMercToCheck );
 UINT32		CalcMercDaysServed();
+void		RevaluateMercArray();	// silversurfer: for better savegame compatibility
 #ifdef JA2UB
 void			MarkSpeckImportantQuoteUsed( UINT32 uiQuoteNum );
 BOOLEAN		HasImportantSpeckQuoteBeingSaid( UINT32 uiQuoteNum );
@@ -356,22 +357,43 @@ BOOLEAN SaveNewMercsToSaveGameFile( HWFILE hFile )
 BOOLEAN LoadNewMercsFromLoadGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
+	CONTITION_FOR_MERC_AVAILABLE ConditionsForMercAvailabilityLoad[ NUM_PROFILES ];
 
-	FileRead( hFile, &gConditionsForMercAvailability, sizeof( gConditionsForMercAvailability ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gConditionsForMercAvailability ) )
+	FileRead( hFile, &ConditionsForMercAvailabilityLoad, sizeof( ConditionsForMercAvailabilityLoad ), &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( ConditionsForMercAvailabilityLoad ) )
 	{
 		return( FALSE );
 	}
 
-	// make sure that gubMercArray (the list of mercs for M.E.R.C website) is populated with
-	// the same mercs as gConditionsForMercAvailability that we just read from the savegame
+	// silversurfer: Now update the true gConditionsForMercAvailability array with the data from the savegame.
+	// Take every index of gConditionsForMercAvailability array that we initialized in GameInitMercs() and see
+	// if we can find a matching profile ID in ConditionsForMercAvailabilityLoad array that we loaded from the savegame.
+	// This prevents some issues when old savegames are loaded with updated MercAvailability.xml.
+	for ( UINT8 i=0; i<NUM_PROFILES; i++)
+	{
+		if ( gConditionsForMercAvailability[i].ProfilId != 0 )
+		{
+			for ( UINT8 ilook=0; ilook<NUM_PROFILES; ilook++)
+			{
+				if ( ConditionsForMercAvailabilityLoad[ilook].ProfilId == gConditionsForMercAvailability[i].ProfilId )
+				{
+					// found a match! Now copy the data from the savegame to the gConditionsForMercAvailability array but ONLY relevant data!
+					gConditionsForMercAvailability[i].NewMercsAvailable = ConditionsForMercAvailabilityLoad[ilook].NewMercsAvailable;
+					gConditionsForMercAvailability[i].StartMercsAvailable = ConditionsForMercAvailabilityLoad[ilook].StartMercsAvailable;
+					break;
+				}
+			}
+		}
+	}
+
+	// update list of mercs for M.E.R.C website
 	RevaluateMercArray();
 
 	return( TRUE );
 }
 
-// silversurfer: this function checks if gubMercArray contains the same list of mercs as gConditionsForMercAvailability
-// if not there will be problems with display of mercs on M.E.R.C website so we will force an update
+// silversurfer: this function updates the list of available mercs (gubMercArray) and makes sure that
+// it matches the contents of gConditionsForMercAvailability array
 void RevaluateMercArray()
 {
 	UINT8 i;

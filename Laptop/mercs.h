@@ -110,7 +110,6 @@ enum
 
 
 BOOLEAN CanMercBeAvailableDuringInit( UINT8 ubMercToCheck );// anv: for all mercs available
-void RevaluateMercArray();	// silversurfer: for somewhat better savegame compatibility
 void GameInitMercs();
 BOOLEAN EnterMercs();
 void ExitMercs();
