@@ -5915,6 +5915,10 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	CHAR16 wSectorName[ 64 ];
 	GetShortSectorString( sMapX, sMapY, wSectorName );
 
+	INT32 sDropOffGridNo = gMapInformation.sCenterGridNo;
+	if ( !GridNoOnVisibleWorldTile( sDropOffGridNo ) )
+		sDropOffGridNo = RandomGridNo();
+
 	WORLDITEM* pWorldItem_Target			= NULL;
 
 	// now loop over all sectors from which we take stuff, and move the equipment
@@ -6013,12 +6017,12 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		{
 			for (UINT16 i = 0; i < moveobjectcounter; ++i )
 			{
-				AddItemToPool( RandomGridNo(), &(pObjectToMove[i]), 1 , 0, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
+				AddItemToPool( sDropOffGridNo, &(pObjectToMove[i]), 1 , 0, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
 			}
 		}
 		else
 		{
-			AddItemsToUnLoadedSector( sMapX, sMapY, bZ, RandomGridNo(), moveobjectcounter, pObjectToMove, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+			AddItemsToUnLoadedSector( sMapX, sMapY, bZ, sDropOffGridNo, moveobjectcounter, pObjectToMove, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
 		}
 
 		if ( pObjectToMove )
@@ -11518,6 +11522,28 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
 
 		SetBoxPosition( ghTrainingBox, pPoint );
+	}
+	else if ( fShowMoveItemMenu )
+	{
+		GetBoxSize( ghMoveItemBox, &pDimensions );
+
+		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight	>= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight	) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if( gsAssignmentBoxesY + pDimensions2.iBottom +	( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS ) >= (SCREEN_HEIGHT - 120) )
+		{
+			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( pDimensions2.iBottom ) - (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+		
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY;
+		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
+
+		SetBoxPosition( ghMoveItemBox, pPoint );
 	}
 	// HEADROCK HAM 3.6: Facility Sub-menu
 	else if( fShowFacilityAssignmentMenu == TRUE )
