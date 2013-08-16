@@ -3789,7 +3789,7 @@
 		<secondItemIndex>131</secondItemIndex>
 		<firstResultingItemIndex>1528</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
@@ -3797,7 +3797,7 @@
 		<secondItemIndex>132</secondItemIndex>
 		<firstResultingItemIndex>1529</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
@@ -3805,7 +3805,7 @@
 		<secondItemIndex>133</secondItemIndex>
 		<firstResultingItemIndex>1530</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
@@ -3813,7 +3813,7 @@
 		<secondItemIndex>134</secondItemIndex>
 		<firstResultingItemIndex>1531</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
@@ -3821,7 +3821,7 @@
 		<secondItemIndex>135</secondItemIndex>
 		<firstResultingItemIndex>1532</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
@@ -3829,7 +3829,7 @@
 		<secondItemIndex>1189</secondItemIndex>
 		<firstResultingItemIndex>1533</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
 	<MERGE>
@@ -3837,10 +3837,9 @@
 		<secondItemIndex>151</secondItemIndex>
 		<firstResultingItemIndex>1534</firstResultingItemIndex>
 		<secondResultingItemIndex>0</secondResultingItemIndex>
-		<mergeType>3</mergeType>
+		<mergeType>9</mergeType>
 		<APCost>32</APCost>
 	</MERGE>
-	
 	<MERGE>
 		<firstItemIndex>1546</firstItemIndex>
 		<secondItemIndex>1546</secondItemIndex>
