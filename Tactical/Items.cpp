@@ -7318,8 +7318,18 @@ UINT16 DefaultMagazine( UINT16 usItem )
 				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize &&
 				AmmoTypes[ Magazine[usLoop].ubAmmoType ].standardIssue )
 		{
-			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: found at index %d",usLoop));
-			return(MagazineClassIndexToItemType(usLoop));
+			// Flugente: forbid ammo with tracer effects to be used on singleshot-only guns (snipers wouldn't use ammo that marks their position, would they?)
+			if ( !pWeapon->ubShotsPerBurst && !pWeapon->bAutofireShotsPerFiveAP && AmmoTypes[ Magazine[usLoop].ubAmmoType ].tracerEffect )
+			{
+				// don't use this one...
+				usLoop++;
+				continue;
+			}
+			else
+			{
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: found at index %d",usLoop));
+				return(MagazineClassIndexToItemType(usLoop));
+			}
 		}
 
 		usLoop++;
@@ -7515,6 +7525,13 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard, UINT8 maxCool
 				{
 					if ( gArmyItemChoices[bSoldierClass][ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
 					{
+						// Flugente: forbid ammo with tracer effects to be used on singleshot-only guns (snipers wouldn't use ammo that marks their position, would they?)
+						if ( !pWeapon->ubShotsPerBurst && !pWeapon->bAutofireShotsPerFiveAP && AmmoTypes[ Magazine[usLoop].ubAmmoType ].tracerEffect )
+						{
+							// don't use this one...
+							continue;
+						}
+
 						usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
 						break;
 					}
