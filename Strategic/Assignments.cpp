@@ -6002,6 +6002,12 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 						pWorldItem_Target[ uiCount ].fExists = FALSE;
 
+						// if the sector is currently loaded, we need to also remove items from item pools
+						if( ( gWorldSectorX == targetX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
+						{
+							RemoveItemFromPool(pWorldItem_Target[ uiCount ].sGridNo, uiCount, pWorldItem_Target[ uiCount ].ubLevel);
+						}
+
 						if ( moveditems > maxitems )
 							break;
 
@@ -6040,28 +6046,32 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		if ( !moveditems )
 			continue;
 
-		// hack
-		WORLDITEM* pWorldItem_tmp = new WORLDITEM[ uiTotalNumberOfRealItems_Target ];
-
-		// copy over old inventory
-		UINT32 newcount = 0;
-		for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems_Target; ++uiCount )
+		// if the sector we took stuff from isn't loaded, do a resort, otherwise the item list will have holes (linked lists have to be rebuilt)
+		WORLDITEM* pWorldItem_tmp = NULL;
+		if( ( gWorldSectorX != targetX ) || ( gWorldSectorY != targetY ) || (gbWorldSectorZ != bZ ) )
 		{
-			if ( pWorldItem_Target[ uiCount ].fExists )
+			pWorldItem_tmp = new WORLDITEM[ uiTotalNumberOfRealItems_Target ];
+
+			// copy over old inventory
+			UINT32 newcount = 0;
+			for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems_Target; ++uiCount )
 			{
-				pWorldItem_tmp[newcount] = pWorldItem_Target[uiCount];
-				++newcount;
+				if ( pWorldItem_Target[ uiCount ].fExists )
+				{
+					pWorldItem_tmp[newcount] = pWorldItem_Target[uiCount];
+					++newcount;
+				}
 			}
-		}
 
-		// use the new map
-		if ( pWorldItem_Target )
-		{
-			delete[] pWorldItem_Target;
-			pWorldItem_Target = NULL;
-		}
+			// use the new map
+			if ( pWorldItem_Target )
+			{
+				delete[] pWorldItem_Target;
+				pWorldItem_Target = NULL;
+			}
 
-		pWorldItem_Target = pWorldItem_tmp;
+			pWorldItem_Target = pWorldItem_tmp;
+		}
 		
 		// save the changed inventory
 		if( ( targetX == gWorldSectorX )&&( gWorldSectorY == targetY ) && (gbWorldSectorZ == bZ ) )
