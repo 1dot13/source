@@ -528,10 +528,13 @@ FLOAT GetTargetZPos( SOLDIERTYPE *pShooter, INT32 sTargetGridNo );
 
 // Flugente: Overheating Weapons
 void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier );	// adding pSoldier allows soldier-specific modification of generated heat
+FLOAT GetTemperatureModifier( OBJECTTYPE *pObj );
 FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj );
 FLOAT GetGunOverheatDamagePercentage( OBJECTTYPE * pObj );	// Flugente: Get percentage: temperature/damagethreshold
 FLOAT GetGunOverheatJamPercentage( OBJECTTYPE * pObj );		// Flugente: Get percentage: temperature/jamthreshold
+FLOAT GetOverheatJamThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj );
+FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj );
 
 #endif

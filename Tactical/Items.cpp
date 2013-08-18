@@ -13953,12 +13953,10 @@ static UINT16 OldWayOfCalculatingScopeBonus(SOLDIERTYPE *pSoldier)
 }
 
 
-// Flugente FTW 1.2
-FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
+// Flugente
+FLOAT GetItemCooldownModificator( OBJECTTYPE * pObj )
 {
-	FLOAT cooldownfactor = Item[pObj->usItem].usOverheatingCooldownFactor;	// ... get item-specific cooldown factor ...
-
-	FLOAT modificator = 1.0;
+	FLOAT modificator = Item[pObj->usItem].overheatCooldownModificator;
 
 	if ( pObj->exists() == true ) 
 	{
@@ -13971,6 +13969,15 @@ FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
 			}
 		}
 	}
+
+	return modificator;
+}
+
+FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
+{
+	FLOAT cooldownfactor = Item[pObj->usItem].usOverheatingCooldownFactor;	// ... get item-specific cooldown factor ...
+
+	FLOAT modificator = 1.0f + GetItemCooldownModificator( pObj );
 
 	cooldownfactor *= modificator;
 

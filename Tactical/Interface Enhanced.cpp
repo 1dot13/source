@@ -3702,44 +3702,16 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 		}*/
-				
+
+		// Moa: used to check if general Indexes (Prop., 0, +-, =) should be shown
+		INT16 fDrawGenIndexes = FALSE;
+
 		// Flugente
-		if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
-		{
-			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || ( Item[gpItemDescObject->usItem].barrel == TRUE ) || ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ))
-			{
-				if (cnt >= sFirstLine && cnt < sLastLine)
-				{
-					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ] );
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
-
-					iRegionsCreated++;
-
-					for (cnt2 = 1; cnt2 < 4; cnt2++)
-					{
-						MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sLeft),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sTop),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sRight),
-							(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sBottom),
-							MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
-
-						MSYS_AddRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]);
-						SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), gzUDBGenIndexTooltipText[ cnt2 ] );
-						SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), HelpTextDoneCallback );
-						MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2] );
-
-						iRegionsCreated++;
-					}
-				}
-				++cnt;
-			}
-		}
-
 		if ( gGameOptions.fWeaponOverheating )
 		{
 			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 			{
+				if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// new index line here?
 				///////////////////// SINGLE SHOT TEMPERATURE
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -3805,7 +3777,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 			else if ( Item[gpItemDescObject->usItem].barrel == TRUE )		// for barrel items
-			{				
+			{
+				if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// new index line here?
 				///////////////////// COOLDOWN FACTOR
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{					
@@ -3818,7 +3791,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 
 			// other stuff: various overheat modificators
 			if ( ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
-			{				
+			{
+				if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// new index line here?
 				///////////////////// TEMPERATURE MODIFICATOR
 				if ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 )
 				{
@@ -3869,38 +3843,11 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 
-		if(!cnt) cnt += 2;
-
-		if (cnt >= sFirstLine && cnt < sLastLine)
-		{
-			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ] );
-			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
-
-			iRegionsCreated++;
-
-			for (cnt2 = 1; cnt2 < 4; cnt2++)
-			{
-				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
-					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sLeft),
-					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sTop),
-					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sRight),
-					(INT16)(gItemDescAdvIndexRegions[cnt-sFirstLine][cnt2].sBottom),
-				MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
-
-				MSYS_AddRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]);
-				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), gzUDBGenIndexTooltipText[ cnt2 ] );
-				SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2]), HelpTextDoneCallback );
-				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) + cnt2] );
-
-				iRegionsCreated++;
-			}
-		}
-		++cnt;
-
 		///////////////////// poison percentage
 		// only draw if item is poisoned in any way
 		if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0  || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
 		{
+			if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// new index line here?
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{				
 				swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 56 ], szUDBAdvStatsExplanationsTooltipText[ 56 ]);
@@ -3915,6 +3862,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			///////////////////// DIRT MODIFICATOR
 			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 			{
+				if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// new index line here?
 				if (cnt >= sFirstLine && cnt < sLastLine )
 				{
 					swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 57 ], szUDBAdvStatsExplanationsTooltipText[ 57 ]);
@@ -3923,6 +3871,36 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 				cnt++;
  			}
+		}
+
+		// Moa: moved additional Indexes to the end to avoid doublication. We have allready secured a free slot for this line so no cnt++ here!
+		if (fDrawGenIndexes)
+		{
+			///////////////////// INDEXES (Prop., 0, +/-, =)
+			if (fDrawGenIndexes >= sFirstLine && fDrawGenIndexes < sLastLine)
+			{
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (fDrawGenIndexes-sFirstLine) ]), gzUDBGenIndexTooltipText[ 0 ]);
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (fDrawGenIndexes-sFirstLine) ] );
+				//Moa: start bugfix (changed gItemDescAdvIndexRegions[] to gItemDescAdvRegions[] and adding correct region)
+
+				for (cnt2 = 1; cnt2 < 4; cnt2++)
+				{
+					MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
+						(INT16)(gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][cnt2].sLeft),
+						(INT16)(gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][cnt2].sTop),
+						(INT16)(gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][cnt2].sRight),
+						(INT16)(gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][cnt2].sBottom),
+						MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
+
+					MSYS_AddRegion( &gUDBFasthelpRegions[ iRegionsCreated ]);
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iRegionsCreated ]), gzUDBGenIndexTooltipText[ cnt2 ] );
+					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iRegionsCreated ]), HelpTextDoneCallback );
+
+					iRegionsCreated++;
+				}
+			}
+			//cnt++;		//allready increased the counter above!
+			//Moa: end bugfix
 		}
 
 		gubDescBoxTotalAdvLines = (UINT8)cnt;
@@ -5127,12 +5105,13 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	*/
 	
 	// Flugente
-	// new line is necessary
+	// new line is necessary (Moa: only if needed)
+	INT16 fDrawGenIndexes = FALSE;
 	if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
 	{
 		if( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[gpItemDescObject->usItem].barrel == TRUE || ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
 		{
-			++cnt;		// for the new index-line
+			if (!fDrawGenIndexes) fDrawGenIndexes = cnt++; // new index line here?
 		}
 	}
 
@@ -5222,15 +5201,12 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			}
 		}
 	}
-		
-	if(!cnt) cnt += 2;
-
-	++cnt;		// for the new index-line
 
 	///////////////////// poison percentage
 	// only draw if item is poisoned in any way
 	if ( Item[gpItemDescObject->usItem].bPoisonPercentage != 0 || ( (Item[gpItemDescObject->usItem].usItemClass & IC_GUN) && AmmoTypes[Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].poisonPercentage != 0 ) )
 	{
+		if (!fDrawGenIndexes) fDrawGenIndexes = cnt++; // new index line here?
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWH40KIcon, 0, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -10982,43 +10958,16 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 	*/
 	
-	// Flugente: draw a new description line
-	if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
-	{	
-		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || ( Item[gpItemDescObject->usItem].barrel == TRUE ) )
-		{
-			///////////////////////////////////////////////////// INDEXES
-			if (cnt >= sFirstLine && cnt < sLastLine)
-			{
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				
-				// Set Y coordinates
-				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;
-		
-				// Repeatedly draw each index: four separate column headers per index.
-				for (UINT8 i = 0; i < 4; i++)
-				{
-					// Select "PROPERTY", "0", "+" or "=" as appropriate.
-					swprintf(pStr, L"%s", gzItemDescGenIndexes[ i ]);
-
-					sLeft = gItemDescAdvRegions[cnt-sFirstLine][i].sLeft;
-					sWidth = gItemDescAdvRegions[cnt-sFirstLine][i].sRight - sLeft;			
-
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-
-					mprintf( usX, usY, pStr );
-				}
-			}
-			++cnt;
-		}
-	}
+	// Flugente: draw a new description line 
+	// Moa: only if required
+	INT16 fDrawGenIndexes = FALSE;
 
 	// Flugente	
 	if ( gGameOptions.fWeaponOverheating )
 	{	
 		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{			
+			if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// insert Indexes here?
 			///////////////////// SINGLE SHOT TEMPERATURE
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -11235,31 +11184,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		} 
 		else if ( Item[gpItemDescObject->usItem].barrel == TRUE )		// display for barrel items
 		{
-			///////////////////////////////////////////////////// INDEXES
-			if (cnt >= sFirstLine && cnt < sLastLine)
-			{
-				SetFontForeground( FONT_MCOLOR_WHITE );
-				
-				// Set Y coordinates
-				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;
-		
-				// Repeatedly draw each index: four separate column headers per index.
-				for (UINT8 i = 0; i < 4; i++)
-				{
-					// Select "PROPERTY", "0", "+" or "=" as appropriate.
-					swprintf(pStr, L"%s", gzItemDescGenIndexes[ i ]);
-
-					sLeft = gItemDescAdvRegions[cnt-sFirstLine][i].sLeft;
-					sWidth = gItemDescAdvRegions[cnt-sFirstLine][i].sRight - sLeft;			
-
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-
-					mprintf( usX, usY, pStr );
-				}
-			}
-			++cnt;
-
+			if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// insert Indexes here?
 			///////////////////// COOLDOWN FACTOR		
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -11313,36 +11238,229 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 			}
 			cnt++;
 		}
+		else if ( ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
+		{
+			if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// insert Indexes here?
+
+			///////////////////// TEMPERATURE MODIFIER
+			if ( ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) && cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				iFloatModifier[0] = -1.0f - Item[gpItemDescObject->usItem].overheatTemperatureModificator;
+				iFloatModifier[1] = GetTemperatureModifier( gpItemDescObject ) - iFloatModifier[0];
+				iFloatModifier[2] = GetTemperatureModifier( gpItemDescObject );
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iFloatModifier[cnt2] > 0)
+					{						
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTNEGATIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iFloatModifier[cnt2] < 0)
+					{
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTPOSITIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+			///////////////////// TEMPERATURE MODIFIER
+
+			///////////////////// COOLDOWN MODIFIER
+			if ( ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) && cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				iFloatModifier[0] = Item[gpItemDescObject->usItem].overheatCooldownModificator;
+				iFloatModifier[1] = GetItemCooldownModificator( gpItemDescObject ) - iFloatModifier[0];
+				iFloatModifier[2] = GetItemCooldownModificator( gpItemDescObject );
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iFloatModifier[cnt2] > 0)
+					{						
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTNEGATIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iFloatModifier[cnt2] < 0)
+					{
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTPOSITIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+			///////////////////// COOLDOWN MODIFIER
+
+			///////////////////// JAM THRESHOLD MODIFIER
+			if ( ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) && cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				iFloatModifier[0] = -1.0f - Item[gpItemDescObject->usItem].overheatJamThresholdModificator;
+				iFloatModifier[1] = GetOverheatJamThresholdModifier( gpItemDescObject ) - iFloatModifier[0];
+				iFloatModifier[2] = GetOverheatJamThresholdModifier( gpItemDescObject );
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iFloatModifier[cnt2] > 0)
+					{						
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTNEGATIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iFloatModifier[cnt2] < 0)
+					{
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTPOSITIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+			///////////////////// JAM THRESHOLD MODIFIER
+
+			///////////////////// DAMAGE THRESHOLD MODIFIER
+			if ( ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) && cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				iFloatModifier[0] = -1.0f - Item[gpItemDescObject->usItem].overheatDamageThresholdModificator;
+				iFloatModifier[1] = GetOverheatDamageThresholdModifier( gpItemDescObject ) - iFloatModifier[0];
+				iFloatModifier[2] = GetOverheatDamageThresholdModifier( gpItemDescObject );
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iFloatModifier[cnt2] > 0)
+					{						
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTNEGATIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iFloatModifier[cnt2] < 0)
+					{
+						if ( cnt2 == 1 )
+							SetFontForeground( ITEMDESC_FONTPOSITIVE );
+
+						swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+			///////////////////// DAMAGE THRESHOLD MODIFIER
+		}
 	}
 
 	// Flugente Zombies
-	///////////////////////////////////////////////////// INDEXES
-	if(!cnt) cnt += 2;
-
-	if (cnt >= sFirstLine && cnt < sLastLine)
-	{
-		SetFontForeground( FONT_MCOLOR_WHITE );
-				
-		// Set Y coordinates
-		sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-		sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;
-		
-		// Repeatedly draw each index: four separate column headers per index.
-		for (UINT8 i = 0; i < 4; i++)
-		{
-			// Select "PROPERTY", "0", "+" or "=" as appropriate.
-			swprintf(pStr, L"%s", gzItemDescGenIndexes[ i ]);
-
-			sLeft = gItemDescAdvRegions[cnt-sFirstLine][i].sLeft;
-			sWidth = gItemDescAdvRegions[cnt-sFirstLine][i].sRight - sLeft;			
-
-			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-
-			mprintf( usX, usY, pStr );
-		}
-	}
-	++cnt;
-
 	///////////////////// poison percentage
 	iModifier[0] = Item[gpItemDescObject->usItem].bPoisonPercentage;
 
@@ -11354,6 +11472,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	// only draw if item is poisoned in any way
 	if ( iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0 )
 	{
+		if (!fDrawGenIndexes) fDrawGenIndexes = cnt++;		// insert Indexes here?
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
 			// Set Y coordinates
@@ -11401,6 +11520,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	{	
 		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
+			if (!fDrawGenIndexes) fDrawGenIndexes = cnt++; //insert Indexes here?
 			///////////////////// DIRT MODIFICATOR
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -11453,6 +11573,34 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				}
 			}
 			cnt++;
+		}
+	}
+
+	//Moa: moved indexes here to avoid doublicates of the index
+	///////////////////// ADDITIONAL GENERAL INDEX (if required: cnt was allready increased)
+	if ( fDrawGenIndexes )
+	{	
+		if (fDrawGenIndexes >= sFirstLine && fDrawGenIndexes < sLastLine)
+		{
+			SetFontForeground( FONT_MCOLOR_WHITE );
+
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][1].sBottom - sTop;
+
+			// Repeatedly draw each index: four separate column headers per index.
+			for (UINT8 i = 0; i < 4; i++)
+			{
+				// Select "PROPERTY", "0", "+" or "=" as appropriate.
+				swprintf(pStr, L"%s", gzItemDescGenIndexes[ i ]);
+
+				sLeft = gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][i].sLeft;
+				sWidth = gItemDescAdvRegions[fDrawGenIndexes-sFirstLine][i].sRight - sLeft;			
+
+				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+
+				mprintf( usX, usY, pStr );
+			}
 		}
 	}
 }

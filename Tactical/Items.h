@@ -451,6 +451,7 @@ BOOLEAN HasExtendedEarOn( SOLDIERTYPE * pSoldier );
 BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsume );
 
 // Flugente
+FLOAT GetItemCooldownModificator( OBJECTTYPE * pObj );
 FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj );
 void  GetScopeLists( OBJECTTYPE * pObj, std::map<INT8, OBJECTTYPE*>& arScopeMap );
 

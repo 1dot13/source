@@ -11838,6 +11838,23 @@ void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 }
 
 // Flugente: Overheating Weapons
+FLOAT GetTemperatureModifier( OBJECTTYPE *pObj )
+{
+	// determine modificator according to attachments
+	FLOAT modificator = Item[pObj->usItem].overheatTemperatureModificator;
+
+	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if (iter->exists())
+		{
+			modificator += Item[iter->usItem].overheatTemperatureModificator;
+		}
+	}
+
+	return modificator;
+}
+
 FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 {
 	FLOAT singleshottemperature = 0.0;
@@ -11847,16 +11864,7 @@ FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 		singleshottemperature = Weapon[ pObj->usItem ].usOverheatingSingleShotTemperature;
 
 		// determine modificator according to attachments
-		FLOAT modificator = 1.0f;
-
-		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
-		{
-			if (iter->exists())
-			{
-				modificator += Item[iter->usItem].overheatTemperatureModificator;
-			}
-		}
+		FLOAT modificator = 1.0f + GetTemperatureModifier(pObj);
 
 		// determine modificator according to ammo
 		modificator += AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].temperatureModificator;
@@ -11896,6 +11904,23 @@ FLOAT   GetGunOverheatJamPercentage( OBJECTTYPE * pObj )
 	return temperature/ jamthreshold ;
 }
 
+FLOAT GetOverheatJamThresholdModifier( OBJECTTYPE *pObj )
+{
+	// determine modificator according to attachments
+	FLOAT modificator = Item[pObj->usItem].overheatJamThresholdModificator;
+
+	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if (iter->exists())
+		{
+			modificator += Item[iter->usItem].overheatJamThresholdModificator;
+		}
+	}
+
+	return modificator;
+}
+
 FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj )
 {
 	FLOAT jamthreshold = OVERHEATING_MAX_TEMPERATURE / 4.0f;
@@ -11905,21 +11930,29 @@ FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj )
 		jamthreshold = Weapon[ pObj->usItem ].usOverheatingJamThreshold;
 
 		// determine modificator according to attachments
-		FLOAT modificator = 1.0;
-
-		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
-		{
-			if (iter->exists())
-			{
-				modificator += Item[iter->usItem].overheatJamThresholdModificator;
-			}
-		}
+		FLOAT modificator = 1.0f + GetOverheatJamThresholdModifier(pObj);
 
 		jamthreshold *= modificator;
 	}
 
 	return jamthreshold;
+}
+
+FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj )
+{
+	// determine modificator according to attachments
+	FLOAT modificator = Item[pObj->usItem].overheatDamageThresholdModificator;
+
+	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+	{
+		if (iter->exists())
+		{
+			modificator += Item[iter->usItem].overheatDamageThresholdModificator;
+		}
+	}
+
+	return modificator;
 }
 
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj )
@@ -11931,16 +11964,7 @@ FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj )
 		damagethreshold = Weapon[ pObj->usItem ].usOverheatingDamageThreshold;
 
 		// determine modificator according to attachments
-		FLOAT modificator = 1.0;
-
-		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
-		{
-			if (iter->exists())
-			{
-				modificator += Item[iter->usItem].overheatDamageThresholdModificator;
-			}
-		}
+		FLOAT modificator = 1.0f + GetOverheatDamageThresholdModifier(pObj);
 
 		damagethreshold *= modificator;
 	}
