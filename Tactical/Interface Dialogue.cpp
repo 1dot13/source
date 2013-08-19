@@ -4580,7 +4580,7 @@ UINT32 CalcMedicalCost( UINT8 ubId )
 
 BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 {
-	return ( CountNonVehiclesOnPlayerTeam() <= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs - 2 );
+	return ( CountNonVehiclesOnPlayerTeam() <= OUR_TEAM_SIZE_NO_VEHICLE - 2 );
 }
 
 

@@ -146,7 +146,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 
     //hayden, 7 member team limit setable in ini
-	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs || (is_client && NumberOfMercsOnPlayerTeam() >= cMaxMercs) )
+	if( NumberOfMercsOnPlayerTeam() >= OUR_TEAM_SIZE_NO_VEHICLE || (is_client && NumberOfMercsOnPlayerTeam() >= cMaxMercs) )
 		return( MERC_HIRE_OVER_PLAYER_LIMIT );
 
 	// ATE: if we are to use landing zone, update to latest value

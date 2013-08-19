@@ -3653,7 +3653,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case '?':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						gpAR->ubMercs = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs;
+						gpAR->ubMercs = OUR_TEAM_SIZE_NO_VEHICLE;
 						gpAR->ubCivs = MAX_AR_TEAM_SIZE;
 						gpAR->ubEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
 						fResetAutoResolve = TRUE;

@@ -7361,7 +7361,7 @@ UINT32 CountNonVehiclesOnPlayerTeam( )
 BOOLEAN PlayerTeamFull( )
 {
     // last ID for the player team is 19, so long as we have at most 17 non-vehicles...
-    if ( CountNonVehiclesOnPlayerTeam() < gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs /*gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2*/ )
+    if ( CountNonVehiclesOnPlayerTeam() < OUR_TEAM_SIZE_NO_VEHICLE /*gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2*/ )
     {
         return( FALSE );
     }

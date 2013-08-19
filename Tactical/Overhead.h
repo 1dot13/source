@@ -195,6 +195,7 @@ extern BOOLEAN      gfMovingAnimation;
 
 extern TacticalStatusType   gTacticalStatus;
 
+#define OUR_TEAM_SIZE_NO_VEHICLE (gTacticalStatus.Team[ OUR_TEAM ].bLastID - gTacticalStatus.Team[ OUR_TEAM ].bFirstID + 1 - gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles)
 
 
 BOOLEAN InitTacticalEngine( );

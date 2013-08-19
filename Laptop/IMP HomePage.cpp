@@ -26,6 +26,7 @@
 	#include "Game Clock.h"
 	// WDS - make number of mercenaries, etc. be configurable
 	#include "Squads.h"
+	#include "Overhead.h"		// added by Flugente for OUR_TEAM_SIZE_NO_VEHICLE
 #endif
 
 #ifdef JA2UB
@@ -383,7 +384,7 @@ void ProcessPlayerInputActivationString( void )
 	BOOLEAN freeMercSlot = TRUE;
 
 	// WANNE: Check total number of hired mercs
-	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs )
+	if( NumberOfMercsOnPlayerTeam() >= OUR_TEAM_SIZE_NO_VEHICLE )
 	{
 		freeMercSlot = FALSE;
 	}

@@ -2765,7 +2765,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									//no crates in sector inventory.  search merc inventories
 									if(!mergeSuccessful)
 									{
-										for(int loop=0; loop<(int)gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs; loop++)
+										for(int loop=0; loop<(int)OUR_TEAM_SIZE_NO_VEHICLE; ++loop)
 										{
 											if(MercPtrs[loop]->bActive && MercPtrs[loop]->bInSector)
 											{

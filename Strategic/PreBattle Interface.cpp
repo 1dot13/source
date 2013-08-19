@@ -97,7 +97,7 @@ enum //GraphicIDs for the panel
 //The start of the black space
 #define TOP_Y							113
 //The end of the black space
-#define BOTTOM_Y					(349+(gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs-18)*ROW_HEIGHT)
+#define BOTTOM_Y					(349+(OUR_TEAM_SIZE_NO_VEHICLE-18)*ROW_HEIGHT)
 //#define BOTTOM_Y					349
 //The internal height of the uninvolved panel
 #define INTERNAL_HEIGHT		27
@@ -1235,7 +1235,7 @@ void RenderPreBattleInterface()
 		}
 
         // WDS - make number of mercenaries, etc. be configurable
-		for( i = 0; i < (INT32)(/*21*/3+gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs - max( guiNumUninvolved, 1 )); i++ )
+		for( i = 0; i < (INT32)(/*21*/3+ OUR_TEAM_SIZE_NO_VEHICLE - max( guiNumUninvolved, 1 )); i++ )
 		{
 			y = TOP_Y + ROW_HEIGHT * i;
 			BltVideoObject( guiSAVEBUFFER, hVObject, TOP_COLUMN, 186 + xResOffset, y, VO_BLT_SRCTRANSPARENCY, NULL );

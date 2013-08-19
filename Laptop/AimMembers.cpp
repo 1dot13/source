@@ -2457,7 +2457,7 @@ void BtnAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 // WDS DEBUG
 if (LaptopSaveInfo.iCurrentBalance == 4500001) {
 	unsigned hired = 0;
-	while (hired < gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs) {
+	while (hired < OUR_TEAM_SIZE_NO_VEHICLE) {
 		if (AimMemberHireMerc()) {
 //    	  giIdOfLastHiredMerc = AimMercArray[gbCurrentIndex];
 		  giIdOfLastHiredMerc = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
