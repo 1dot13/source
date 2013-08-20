@@ -2305,9 +2305,10 @@ void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				else
 				{
 					// no rocket launcher or attached GL, consider grenades
-					pSoldier->bWeaponMode = bOldWeaponMode;
 					pBestThrow->bWeaponIn = FindThrowableGrenade( pSoldier );
 				}
+
+				pSoldier->bWeaponMode = bOldWeaponMode;
 			}
 			else
 			{
