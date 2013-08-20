@@ -117,6 +117,7 @@
 #include "LuaInitNPCs.h"
 #include "Interface.h"
 #include "Vehicles.h"
+#include "Music Control.h"
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
@@ -5885,6 +5886,10 @@ void CommonEnterCombatModeCode( )
     // Say quote.....
 
     // Change music modes
+	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ];
+	if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] != -1 )
+		SetMusicModeID( MUSIC_TACTICAL_BATTLE, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ]);
+	else
     SetMusicMode( MUSIC_TACTICAL_BATTLE );
 
     DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CommonEnterCombatMode done");
@@ -6047,6 +6052,10 @@ void ExitCombatMode( )
     UseCreatureMusic(HostileZombiesPresent());
 #endif
 
+	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+	if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+		SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+	else
     SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
     BetweenTurnsVisibilityAdjustments();
@@ -6109,8 +6118,12 @@ void SetEnemyPresence( )
 #ifdef ENABLE_ZOMBIES
                 UseCreatureMusic(HostileZombiesPresent());
 #endif
+				GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+					SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+				else
+					SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
-                SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
                 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
                 sniperwarning = FALSE;
                 biggunwarning = FALSE;
@@ -6450,7 +6463,10 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 #ifdef ENABLE_ZOMBIES
         UseCreatureMusic(HostileZombiesPresent());
 #endif
-
+		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+		if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+			SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+		else
         SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
         return( TRUE );
@@ -6905,6 +6921,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         }
 
         // Play death music
+		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalDeath[gbWorldSectorZ];
+		if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalDeath[gbWorldSectorZ] != -1 )
+			SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalDeath[gbWorldSectorZ] );
+		else
         SetMusicMode( MUSIC_TACTICAL_DEATH );
 
         SetCustomizableTimerCallbackAndDelay( 10000, DeathNoMessageTimerCallback, FALSE );
@@ -7058,6 +7078,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                 // Change music modes
                 if ( gfLastMercTalkedAboutKillingID == NOBODY || ( gfLastMercTalkedAboutKillingID != NOBODY && !( MercPtrs[ gfLastMercTalkedAboutKillingID ]->flags.uiStatusFlags & SOLDIER_MONSTER ) ) )
                 {
+					GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ];
+					if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ] != -1 )
+						SetMusicModeID( MUSIC_TACTICAL_VICTORY, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ] );
+					else
                     SetMusicMode( MUSIC_TACTICAL_VICTORY );
 
                     // OJW - 20081222 - dont auto-bandage if networked
@@ -7107,6 +7131,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
             else
             {
                 // Change to nothing music...
+				GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
+				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
+					SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
+				else
                 SetMusicMode( MUSIC_TACTICAL_NOTHING );
                 // OJW - 20081222 - dont auto bandage if networked
                 if (!is_networked)

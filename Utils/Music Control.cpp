@@ -29,9 +29,14 @@ static UINT8 gubOldMusicMode = 0;
 static INT8 gbVictorySongCount = 0;
 static INT8 gbDeathSongCount = 0;
 
-static INT8 bNothingModeSong;
-static INT8 bEnemyModeSong;
-static INT8 bBattleModeSong;
+static INT32 bNothingModeSong;
+static INT32 bEnemyModeSong;
+static INT32 bBattleModeSong;
+
+static INT32 NewSoundID;
+static BOOLEAN SetSoundID = FALSE;
+
+static INT32 gubOldMusicMode2 = 0;
 
 static BOOLEAN gfUseCreatureMusic = FALSE;
 
@@ -59,6 +64,7 @@ CHAR8 *szMusicList[NUM_MUSIC]=
 	"MUSIC\\tensor B",
 	"MUSIC\\creepy",
 	"MUSIC\\creature battle",
+	"MUSIC",
 };
 
 BOOLEAN StartMusicBasedOnMode(void);
@@ -67,6 +73,9 @@ void MusicStopCallback(void *pData);
 BOOLEAN MusicStop(void);
 BOOLEAN MusicFadeOut(void);
 BOOLEAN MusicFadeIn(void);
+
+MUSIC_SOUND_VALUES MusicSoundValues[256];
+INT32 GlobalSoundID;
 
 //extern void HandleEndDemoInCreatureLevel( );
 
@@ -104,7 +113,7 @@ BOOLEAN MusicFadeIn(void);
 //	Returns:	TRUE if the music was started, FALSE if an error occurred
 //
 //********************************************************************************
-BOOLEAN MusicPlay(UINT32 uiNum)
+BOOLEAN MusicPlay(UINT32 uiNum, UINT32 MusicMode, BOOLEAN NewSound )
 {
 	// WANNE: We want music in windowed mode
 	//if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
@@ -126,9 +135,40 @@ BOOLEAN MusicPlay(UINT32 uiNum)
 	//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "About to call SoundPlayStreamedFile" );
 
 	// Lesh: patch to allow playback ogg files
+	if ( NewSound == FALSE && MusicMode == MUSIC_OLD_TYPE )
+	{
 	sprintf( zFileName, "%s.ogg", szMusicList[uiNum] );
 	if ( !FileExists( zFileName ) )
 		sprintf( zFileName, "%s.wav", szMusicList[uiNum] );
+	}
+	else if ( NewSound == TRUE )
+	{
+		//sprintf( zFileName, szMusicList[15] );
+		if ( MusicMode == MUSIC_TACTICAL_NOTHING ) 
+		{
+			sprintf( zFileName, "%s\\NOTHING_%d.ogg", szMusicList[15], uiNum);
+			if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\NOTHING_%d.wav", szMusicList[15], uiNum );
+		}
+		else if ( MusicMode == MUSIC_TACTICAL_ENEMYPRESENT ) 
+		{
+			sprintf( zFileName, "%s\\TENSOR_%d.ogg", szMusicList[15], uiNum);
+			if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\TENSOR_%d.wav", szMusicList[15], uiNum );
+		}
+		else if ( MusicMode == MUSIC_TACTICAL_BATTLE ) 
+		{
+			sprintf( zFileName, "%s\\BATTLE_%d.ogg", szMusicList[15], uiNum);
+			if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\BATTLE_%d.wav", szMusicList[15], uiNum );
+		}
+		else if ( MusicMode == MUSIC_TACTICAL_VICTORY ) 
+		{
+			sprintf( zFileName, "%s\\TRIUMPH_%d.ogg", szMusicList[15], uiNum);
+		if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\TRIUMPH_%d.wav", szMusicList[15], uiNum );
+		}
+	}
 
 	uiMusicHandle = SoundPlayStreamedFile(zFileName, &spParms);
 
@@ -370,11 +410,74 @@ BOOLEAN MusicPoll(BOOLEAN /*fForce*/)
 	return TRUE;
 }
 
+static BOOLEAN SetMusicModeID(UINT8 ubMusicMode, INT32 SoundID, BOOLEAN fForce)
+{
+	static INT8 bPreviousMode = 0;
+	
+	static INT32 bPreviousMusic = 0;
+	
+	// OK, check if we want to restore
+	if (ubMusicMode == MUSIC_RESTORE)
+	{
+		if (bPreviousMode == MUSIC_TACTICAL_VICTORY || bPreviousMode == MUSIC_TACTICAL_DEATH)
+		{
+			bPreviousMode = MUSIC_TACTICAL_NOTHING;
+		}	
+		
+		ubMusicMode = bPreviousMode;
+		SoundID = bPreviousMusic;
+		GlobalSoundID  = SoundID;
+	}
+	else
+	{
+		// Save previous mode...
+		bPreviousMode = gubOldMusicMode;
+		bPreviousMusic = SoundID;
+		GlobalSoundID  = SoundID;
+	}
+
+	// if different, start a new music song
+	//if ( ( fForce || gubOldMusicMode != ubMusicMode ) && SoundID != -1)
+	if ( fForce || SoundID != -1 )
+	{
+		// Set mode....
+		gubMusicMode = ubMusicMode;
+		NewSoundID = SoundID;
+		GlobalSoundID  = SoundID;
+
+		//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Music New Mode %d %d", uiMusicHandle, gubMusicMode	) );
+
+		gbVictorySongCount = 0;
+		gbDeathSongCount = 0;
+
+		if(uiMusicHandle != NO_SAMPLE)
+		{
+			// Fade out old music
+			MusicFadeOut();
+		}
+		else
+		{		
+			// Change music!
+			StartMusicBasedOnMode();
+		}
+	}
+
+	gubOldMusicMode = gubMusicMode;
+	gubOldMusicMode2 = SoundID;
+
+	return TRUE;
+}
 
 static BOOLEAN SetMusicMode(UINT8 ubMusicMode, BOOLEAN fForce)
 {
 	static INT8 bPreviousMode = 0;
 
+	SetSoundID = FALSE;
+	//GlobalSoundID  = -1;
+	
+	if ( SetSoundID == FALSE )
+		NewSoundID = -1;	
+	
 	// OK, check if we want to restore
 	if (ubMusicMode == MUSIC_RESTORE)
 	{
@@ -383,7 +486,22 @@ static BOOLEAN SetMusicMode(UINT8 ubMusicMode, BOOLEAN fForce)
 			bPreviousMode = MUSIC_TACTICAL_NOTHING;
 		}
 
+		if ( GlobalSoundID == -1 )
+		{
+			SetSoundID = FALSE;
+			GlobalSoundID  = -1;
+			NewSoundID = -1;	
+		}
+		else if ( GlobalSoundID != -1)
+		{
+			SetSoundID = TRUE;
+			NewSoundID = gubOldMusicMode2;	
+			GlobalSoundID  = NewSoundID;
+		}
+
 		ubMusicMode = bPreviousMode;
+			
+		
 	}
 	else
 	{
@@ -392,7 +510,7 @@ static BOOLEAN SetMusicMode(UINT8 ubMusicMode, BOOLEAN fForce)
 	}
 
 	// if different, start a new music song
-	if (fForce || gubOldMusicMode != ubMusicMode)
+	if (fForce || gubOldMusicMode != ubMusicMode || GlobalSoundID == -1 || SetSoundID == TRUE )
 	{
 		// Set mode....
 		gubMusicMode = ubMusicMode;
@@ -442,12 +560,12 @@ static BOOLEAN StartMusicBasedOnMode(void)
 		case MUSIC_MAIN_MENU:
 			// ATE: Don't fade in
 			gbFadeSpeed = (INT8)uiMusicVolume;
-			MusicPlay(MENUMIX_MUSIC);
+				MusicPlay(MENUMIX_MUSIC,MUSIC_OLD_TYPE,FALSE);
 			break;
 
 		case MUSIC_LAPTOP:
 			gbFadeSpeed = (INT8)uiMusicVolume;
-			MusicPlay(MARIMBAD2_MUSIC);
+			MusicPlay(MARIMBAD2_MUSIC,MUSIC_OLD_TYPE,FALSE);
 			break;
 
 		case MUSIC_TACTICAL_NOTHING:
@@ -455,11 +573,30 @@ static BOOLEAN StartMusicBasedOnMode(void)
 			gbFadeSpeed = (INT8)uiMusicVolume;
 			if(gfUseCreatureMusic)
 			{
-				MusicPlay(CREEPY_MUSIC);
+				if ( NewSoundID == -1)
+				{
+					SetSoundID = FALSE;
+					MusicPlay(CREEPY_MUSIC,MUSIC_OLD_TYPE,FALSE);
+				}
+				else
+				{
+					SetSoundID = TRUE;
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_NOTHING,TRUE);
+				}
 			}
 			else
 			{
-				MusicPlay(bNothingModeSong);
+				if ( NewSoundID == -1)
+				{
+					SetSoundID = FALSE;
+					MusicPlay(bNothingModeSong,MUSIC_OLD_TYPE,FALSE);
+				}
+				else
+				{
+					SetSoundID = TRUE;
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_NOTHING,TRUE);
+				}				
+				
 				bNothingModeSong = (INT8) (NOTHING_A_MUSIC + Random(4));
 			}
 			break;
@@ -469,11 +606,29 @@ static BOOLEAN StartMusicBasedOnMode(void)
 			gbFadeSpeed = (INT8)uiMusicVolume;
 			if(gfUseCreatureMusic)
 			{
-				MusicPlay(CREEPY_MUSIC);
+				if ( NewSoundID == -1)
+				{
+					SetSoundID = FALSE;
+					MusicPlay(CREEPY_MUSIC,MUSIC_OLD_TYPE,FALSE);
 			}
 			else
 			{
-				MusicPlay(bEnemyModeSong);
+					SetSoundID = TRUE;
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_ENEMYPRESENT,TRUE);
+				}
+			}
+			else
+			{
+				if ( NewSoundID == -1)
+				{
+					SetSoundID = FALSE;
+					MusicPlay(bEnemyModeSong,MUSIC_OLD_TYPE,FALSE);
+				}
+				else
+				{
+					SetSoundID = TRUE;
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_ENEMYPRESENT,TRUE);
+				}
 				bEnemyModeSong = (INT8) (TENSOR_A_MUSIC + Random(3));
 			}
 			break;
@@ -483,11 +638,29 @@ static BOOLEAN StartMusicBasedOnMode(void)
 			gbFadeSpeed = (INT8)uiMusicVolume;
 			if(gfUseCreatureMusic)
 			{
-				MusicPlay(CREATURE_BATTLE_MUSIC);
+				if ( NewSoundID == -1)
+				{
+					SetSoundID = FALSE;
+					MusicPlay(CREATURE_BATTLE_MUSIC,MUSIC_OLD_TYPE,FALSE);
+				}
+				else
+				{
+					SetSoundID = TRUE;
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_BATTLE,TRUE);
+				}
 			}
 			else
 			{
-				MusicPlay(bBattleModeSong);
+				if ( NewSoundID == -1)
+				{
+					SetSoundID = FALSE;
+					MusicPlay(bBattleModeSong,MUSIC_OLD_TYPE,FALSE);
+			}
+			else
+			{
+					SetSoundID = TRUE;
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_BATTLE,TRUE);
+				}
 			}
 			bBattleModeSong = (INT8) (BATTLE_A_MUSIC + Random(2));
 			break;
@@ -496,7 +669,16 @@ static BOOLEAN StartMusicBasedOnMode(void)
 
 			// ATE: Don't fade in EnemyPresent...
 			gbFadeSpeed = (INT8)uiMusicVolume;
-			MusicPlay(TRIUMPH_MUSIC);
+			if ( NewSoundID == -1)
+			{
+				SetSoundID = FALSE;
+				MusicPlay(TRIUMPH_MUSIC,MUSIC_OLD_TYPE,FALSE);
+			}
+			else
+			{
+				SetSoundID = TRUE;
+				MusicPlay(NewSoundID,MUSIC_TACTICAL_VICTORY,TRUE);
+			}
 			gbVictorySongCount++;
 
 			if(gfUseCreatureMusic && !gbWorldSectorZ)
@@ -510,7 +692,16 @@ static BOOLEAN StartMusicBasedOnMode(void)
 
 			// ATE: Don't fade in EnemyPresent...
 			gbFadeSpeed = (INT8)uiMusicVolume;
-			MusicPlay(DEATH_MUSIC);
+			if ( NewSoundID == -1)
+			{
+				SetSoundID = FALSE;
+				MusicPlay(DEATH_MUSIC,MUSIC_OLD_TYPE,FALSE);
+			}
+			else
+			{
+				SetSoundID = TRUE;
+				MusicPlay(NewSoundID,MUSIC_TACTICAL_DEATH,TRUE);
+			}
 			gbDeathSongCount++;
 			break;
 
@@ -525,6 +716,11 @@ static BOOLEAN StartMusicBasedOnMode(void)
 BOOLEAN SetMusicMode(UINT8 ubMusicMode)
 {
 	return SetMusicMode(ubMusicMode, FALSE);
+}
+
+BOOLEAN SetMusicModeID(UINT8 ubMusicMode, INT32 SoundID)
+{
+	return SetMusicModeID(ubMusicMode, SoundID, FALSE);
 }
 
 static void MusicStopCallback(void *pData)

@@ -3983,6 +3983,15 @@ if( !SaveNewEmailDataToSaveGameFile( hFile ) )
 	}
 
 	//restore the music mode
+	if ( GetMusicMode() == MUSIC_TACTICAL_NOTHING && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
+		SetMusicModeID( GetMusicMode(), MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
+	else if ( GetMusicMode() == MUSIC_TACTICAL_ENEMYPRESENT && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+		SetMusicModeID( GetMusicMode(), MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+	else if ( GetMusicMode() == MUSIC_TACTICAL_BATTLE && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] != -1 )
+		SetMusicModeID( GetMusicMode(), MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] );
+	else if ( GetMusicMode() == MUSIC_TACTICAL_VICTORY && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ] != -1 )
+		SetMusicModeID( GetMusicMode(), MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ] );
+	else
 	SetMusicMode( GetMusicMode() );
 
 	//Unset the fact that we are saving a game
@@ -5870,7 +5879,23 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	RemoveLoadingScreenProgressBar();
 
+	//if( SaveGameHeader.fWorldLoaded )
+	//{
+		if ( gMusicModeToPlay == MUSIC_TACTICAL_NOTHING && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
+			SetMusicModeID( gMusicModeToPlay, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
+		else if ( gMusicModeToPlay == MUSIC_TACTICAL_ENEMYPRESENT && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+			SetMusicModeID( gMusicModeToPlay, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+		else if ( gMusicModeToPlay == MUSIC_TACTICAL_BATTLE && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] != -1 )
+			SetMusicModeID( gMusicModeToPlay, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] );
+		else if ( gMusicModeToPlay == MUSIC_TACTICAL_VICTORY && MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ] != -1 )
+			SetMusicModeID( gMusicModeToPlay, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalVictory[gbWorldSectorZ] );
+		else
 	SetMusicMode( gMusicModeToPlay );
+	//}
+	//else
+	//{
+	//	SetMusicMode( gMusicModeToPlay );
+	//}
 
 #ifndef JA2TESTVERSION
 	RESET_CHEAT_LEVEL( );

@@ -54,6 +54,8 @@
 #include "Ja25_Tactical.h"
 #endif
 
+#include "Music Control.h"
+
 #include "connect.h"
 #include "../ModularizedTacticalAI/include/Plan.h"
 #include "../ModularizedTacticalAI/include/PlanFactoryLibrary.h"
@@ -3620,6 +3622,10 @@ void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumN
 		// If we are NOT in any music mode...
 		if ( GetMusicMode() == MUSIC_NONE )
 		{
+			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ];
+			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] != -1 )
+				SetMusicModeID( MUSIC_TACTICAL_BATTLE, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] );
+			else
 			SetMusicMode( MUSIC_TACTICAL_BATTLE );
 		}
 	}

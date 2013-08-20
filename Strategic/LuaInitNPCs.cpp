@@ -519,8 +519,12 @@ static int l_AnimMercPtsrusStrategicInsertionData (lua_State *L);
 
 static int l_SetMusicMode (lua_State *L);
 static int l_MusicPlay (lua_State *L);
+static int l_MusicPlayId (lua_State *L);
 static int l_MusicSetVolume (lua_State *L);
 static int l_MusicGetVolume (lua_State *L);
+static int l_gAddMusic(lua_State *L);
+static int l_SetMusicID (lua_State *L);
+static int l_GetMusicID (lua_State *L);
 //static int l_MusicStop (lua_State *L);
 //static int l_MusicFadeOut (lua_State *L);
 //static int l_MusicFadeIn (lua_State *L);
@@ -787,6 +791,7 @@ BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN
 static int l_GiveQuestRewardPoint(lua_State *L);
 BOOLEAN LuaExecuteStrategicEvent( UINT8 EventCallbackID, UINT32 uiTimeStamp, UINT32 uiTimeOffset, UINT8	ubEventType, UINT8 ubFlags, UINT32 EventParam, UINT32 Init);
 BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum);
+BOOLEAN LetLuaMusicControl(UINT8 Init);
 
 static int l_CurrentSquad (lua_State *L);
 static int l_SetgfTacticalTraversal (lua_State *L);
@@ -1281,6 +1286,12 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "PlayJA2Sample", l_PlayJA2Sample);	
 	lua_register(L, "SetMusicMode", l_SetMusicMode );
 	lua_register(L, "MusicPlay", l_MusicPlay );
+	lua_register(L, "MusicIdPlay", l_MusicPlayId );
+	lua_register(L, "AddMusic", l_gAddMusic );
+	
+	lua_register(L, "SetMusicID", l_SetMusicID );
+	lua_register(L, "GetMusicID", l_GetMusicID );
+
 	lua_register(L, "MusicSetVolume", l_MusicSetVolume );
 	lua_register(L, "MusicGetVolume", l_MusicGetVolume );
 	//lua_register(L, "MusicStop", l_MusicStop );
@@ -1589,6 +1600,25 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"EnvBeginRainStorm", l_EnvBeginRainStorm);
 	lua_register(L,"EnvEndRainStorm", l_EnvEndRainStorm);
 	
+}
+
+BOOLEAN LetLuaMusicControl(UINT8 Init)
+{
+	const char* filename = "scripts\\Music.lua";
+
+	LuaScopeState _LS(true);
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
+	
+	if ( Init == 0 )
+	{
+		LuaFunction(_LS.L, "Music" ).Call(0);
+	}
+
+	return true;
 }
 
 //------------------- intro -----------
@@ -5219,13 +5249,146 @@ static int l_MusicSetVolume (lua_State *L)
 return 0;
 }
 
+static int l_SetMusicID (lua_State *L)
+{
+	if ( lua_gettop(L) >= 4 )
+	{
+		INT16 x = lua_tointeger(L,1);
+		INT16 y = lua_tointeger(L,2);
+		INT16 z = lua_tointeger(L,3);
+		UINT8 MusicType = lua_tointeger(L,4);
+		
+		if ( MusicType == 1 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalNothing[z] );
+			}	
+		else if ( MusicType == 2 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalTensor[z] );
+			}	
+		else if ( MusicType == 3 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_BATTLE, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattle[z] );
+			}	
+		else if ( MusicType == 4 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_VICTORY, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalVictory[z] );
+			}	
+		else if ( MusicType == 5 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalDeath[z] );
+			}	
+	}
+	
+return 0;
+}
+
+static int l_GetMusicID (lua_State *L)
+{
+
+INT32 SoundID = -1;
+
+	if ( lua_gettop(L) >= 4 )
+	{
+		INT16 x = lua_tointeger(L,1);
+		INT16 y = lua_tointeger(L,2);
+		INT16 z = lua_tointeger(L,3);
+		UINT8 MusicType = lua_tointeger(L,4);
+		
+		if ( MusicType == 1 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[SECTOR( x, y )].SoundTacticalNothing[z];
+			}	
+		else if ( MusicType == 2 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[SECTOR( x, y )].SoundTacticalTensor[z];
+			}	
+		else if ( MusicType == 3 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[SECTOR( x, y )].SoundTacticalBattle[z];
+			}	
+		else if ( MusicType == 4 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[SECTOR( x, y )].SoundTacticalVictory[z];
+			}	
+	}
+	
+	lua_pushinteger(L, SoundID);
+	
+return 1;
+}
+
+static int l_gAddMusic(lua_State *L)
+{
+	if ( lua_gettop(L) >= 5 )
+	{
+		INT16 x = lua_tointeger(L,1);
+		INT16 y = lua_tointeger(L,2);
+		INT16 z = lua_tointeger(L,3);
+		UINT8 MusicType = lua_tointeger(L,4);
+		INT32 SoundId = lua_tointeger(L,5);
+		
+	/*
+	MUSIC_NONE 0
+	MUSIC_TACTICAL_NOTHING, 1
+	MUSIC_TACTICAL_ENEMYPRESENT,2
+	MUSIC_TACTICAL_BATTLE,3
+	MUSIC_TACTICAL_VICTORY,4
+	*/
+		if ( MusicType == 1 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[SECTOR( x, y )].SoundTacticalNothing[z] = SoundId;
+			}	
+		else if ( MusicType == 2 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[SECTOR( x, y )].SoundTacticalTensor[z] = SoundId;
+			}	
+		else if ( MusicType == 3 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[SECTOR( x, y )].SoundTacticalBattle[z] = SoundId;
+			}	
+		else if ( MusicType == 4 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[SECTOR( x, y )].SoundTacticalVictory[z] = SoundId;
+			}	
+	}
+
+	return 0;
+}
+
 static int l_MusicPlay (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT32 uiNum = lua_tointeger(L,1);
 
-		MusicPlay( uiNum );
+		MusicPlay( uiNum, MUSIC_OLD_TYPE, FALSE);
+	}	
+return 0;
+}
+
+static int l_MusicPlayId (lua_State *L)
+{
+	if ( lua_gettop(L) >= 2 )
+	{
+		UINT32 uiNum = lua_tointeger(L,1);
+		UINT32 uiType = lua_tointeger(L,2);
+
+		if (uiType>=1 || uiType<=5 )
+			MusicPlay( uiNum, uiType, TRUE);
 	}	
 return 0;
 }

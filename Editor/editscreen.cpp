@@ -1611,7 +1611,7 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case F4:
-					MusicPlay( giMusicID );
+					MusicPlay( giMusicID, MUSIC_OLD_TYPE, FALSE );
 					ScreenMsg( FONT_YELLOW, MSG_DEBUG, L"%S", szMusicList[giMusicID] );
 					giMusicID++;
 					if( giMusicID >= NUM_MUSIC )

@@ -46,6 +46,7 @@
 #include "ub_config.h"
 #endif
 
+#include "Music Control.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -909,14 +910,23 @@ void HandleFirstHeliDropOfGame( )
 #ifdef ENABLE_ZOMBIES
 			UseCreatureMusic(HostileZombiesPresent());
 #endif
+			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+				SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+			else
+				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
-			SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 		}
 		else
 		{
 			// Say quote.....
 			SayQuoteFromAnyBodyInSector( QUOTE_MERC_REACHED_DESTINATION );
 			// Start music
+			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
+			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
+				//SetMusicMode( MUSIC_TACTICAL_VICTORY );
+				SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
+			else
 			SetMusicMode( MUSIC_TACTICAL_NOTHING );
 		}
 

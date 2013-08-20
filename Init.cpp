@@ -1330,6 +1330,29 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 		{
 			gAimOldArchives[p-1].FaceID=-1;
 		}
+		
+		
+		UINT32 iloop;
+		UINT32 zloop;
+		for(iloop=0; iloop<256; iloop++)
+		{
+			for(zloop=0; zloop<4; zloop++)
+			{
+				MusicSoundValues[iloop].uiIndex = iloop;
+				MusicSoundValues[iloop].SoundTacticalVictory[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalBattle[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalNothing[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalTensor[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalDeath[zloop] = -1;
+			}
+		}
+		
+		CHAR8 zFileName[255];
+		sprintf( zFileName, "scripts\\Music.lua" );
+		if (FileExists( zFileName ) )
+		{
+			LetLuaMusicControl(0);
+		}
 
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
