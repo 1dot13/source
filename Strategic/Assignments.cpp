@@ -5885,8 +5885,12 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 	// we loop over all mercs with this assignment in this sector, and then do a separate loop over each target sector
 	std::map<UINT8, UINT8> sectormercmap;		// this map uses the sectors we take stuff from as keys and the number of mercs as elements
-			
-	// count any interrogators found here, and sum up their interrogation values
+
+	// we need a gridno to which we drop stuff
+	INT32 sDropOffGridNo = gMapInformation.sCenterGridNo;
+	if ( !GridNoOnVisibleWorldTile( sDropOffGridNo ) )
+		sDropOffGridNo = RandomGridNo();
+
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiCnt = 0;
 	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
@@ -5904,6 +5908,9 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					sectormercmap[targetsector]++;
 				else
 					sectormercmap[targetsector] = 1;
+
+				if ( pSoldier->sGridNo != NOWHERE )
+					sDropOffGridNo = pSoldier->sGridNo;
 			}
 		}
 	}
@@ -5914,10 +5921,6 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 	CHAR16 wSectorName[ 64 ];
 	GetShortSectorString( sMapX, sMapY, wSectorName );
-
-	INT32 sDropOffGridNo = gMapInformation.sCenterGridNo;
-	if ( !GridNoOnVisibleWorldTile( sDropOffGridNo ) )
-		sDropOffGridNo = RandomGridNo();
 
 	WORLDITEM* pWorldItem_Target			= NULL;
 
