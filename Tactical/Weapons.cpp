@@ -5009,7 +5009,9 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	gbForceWeaponNotReady = true;
 	sDistVisNoScope = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 	gbForceWeaponNotReady = false;
-	scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
+
+	// Flugente: blind soldiers have sDistVisNoScope = 0...
+	scopeRangeMod = (float)sDistVis / (float)min(1.0f, sDistVisNoScope);	// percentage DistVis has been enhanced due to an attached scope
 	iSightRange = (INT32)(iSightRange / scopeRangeMod);
 	if(iSightRange > 0){
 		//CHRISL: The LOS system, which determines whether to display an enemy unit, does not factor in the AimBonus tag during it's calculations.  So having
