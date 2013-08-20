@@ -930,6 +930,22 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 			}
 			break;
 
+	// Flugente: civilians might also kill somebody, no matter how unlikely that sounds
+	// punish the player - he didnt stop the bloodshed
+	case CIV_TEAM:
+		{
+			// on our side, penalty
+			iLoyaltyChange *= REDUCTION_FOR_MURDER_NOT_OUR_FAULT;
+			iLoyaltyChange /= 100;
+
+			// lose loyalty
+			fIncrement = FALSE;
+
+			// debug message
+			ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Town holds you responsible for not stopping the murder.");
+		}
+		break;
+
 		default:
 			Assert(FALSE);
 			return;
