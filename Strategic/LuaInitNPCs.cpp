@@ -5283,6 +5283,16 @@ static int l_SetMusicID (lua_State *L)
 				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
 					SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalDeath[z] );
 			}	
+		else if ( MusicType == 6 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_BATTLE, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattleCreature[z] );
+			}	
+		else if ( MusicType == 7 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SetMusicModeID( MUSIC_TACTICAL_BATTLE, MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattleCreepy[z] );
+			}	
 	}
 	
 return 0;
@@ -5319,6 +5329,21 @@ INT32 SoundID = -1;
 			{
 				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
 					SoundID = MusicSoundValues[SECTOR( x, y )].SoundTacticalVictory[z];
+			}	
+		else if ( MusicType == 5 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalDeath[z];
+			}	
+		else if ( MusicType == 6 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattleCreature[z];
+			}	
+		else if ( MusicType == 7 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					SoundID = MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattleCreepy[z];
 			}	
 	}
 	
@@ -5364,6 +5389,21 @@ static int l_gAddMusic(lua_State *L)
 				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
 					MusicSoundValues[SECTOR( x, y )].SoundTacticalVictory[z] = SoundId;
 			}	
+		else if ( MusicType == 5 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalDeath[z] = SoundId;
+			}	
+		else if ( MusicType == 6 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattleCreature[z] = SoundId;
+			}	
+		else if ( MusicType == 7 ) 
+			{
+				if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
+					MusicSoundValues[ SECTOR( x, y ) ].SoundTacticalBattleCreepy[z] = SoundId;
+			}		
 	}
 
 	return 0;

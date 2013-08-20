@@ -1344,6 +1344,9 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 				MusicSoundValues[iloop].SoundTacticalNothing[zloop] = -1;
 				MusicSoundValues[iloop].SoundTacticalTensor[zloop] = -1;
 				MusicSoundValues[iloop].SoundTacticalDeath[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalBattleCreature[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalBattleCreepy[zloop] = -1;
+				MusicSoundValues[iloop].SoundTacticalBattleGroup[iloop] = -1;
 			}
 		}
 		

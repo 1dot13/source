@@ -11,6 +11,7 @@
 	#include "strategicmap.h"
 #endif
 
+#include "Overhead Types.h"
 //extern int iScreenMode;
 
 static UINT32 uiMusicHandle = NO_SAMPLE;
@@ -168,6 +169,25 @@ BOOLEAN MusicPlay(UINT32 uiNum, UINT32 MusicMode, BOOLEAN NewSound )
 		if ( !FileExists( zFileName ) )
 				sprintf( zFileName, "%s\\TRIUMPH_%d.wav", szMusicList[15], uiNum );
 		}
+		else if ( MusicMode == MUSIC_TACTICAL_BATTLE_MUSIC ) 
+		{
+			sprintf( zFileName, "%s\\CREATURE_BATTLE_%d.ogg", szMusicList[15], uiNum);
+			if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\CREATURE_BATTLE_%d.wav", szMusicList[15], uiNum );
+		}
+		else if ( MusicMode == MUSIC_TACTICAL_CREEPY_MUSIC ) 
+		{
+			sprintf( zFileName, "%s\\CREEPY_%d.ogg", szMusicList[15], uiNum);
+			if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\CREEPY_%d.wav", szMusicList[15], uiNum );
+		}
+		else if ( MusicMode == OTHER_MUSIC_TACTICAL ) 
+		{
+			sprintf( zFileName, "%s\\%d.ogg", szMusicList[15], uiNum);
+			if ( !FileExists( zFileName ) )
+				sprintf( zFileName, "%s\\%d.wav", szMusicList[15], uiNum );
+		}
+		
 	}
 
 	uiMusicHandle = SoundPlayStreamedFile(zFileName, &spParms);
@@ -542,6 +562,8 @@ static BOOLEAN StartMusicBasedOnMode(void)
 {
 	static BOOLEAN fFirstTime = TRUE;
 
+	static BOOLEAN fCivGroup = FALSE;
+
 	if (fFirstTime)
 	{
 		fFirstTime = FALSE;
@@ -581,7 +603,7 @@ static BOOLEAN StartMusicBasedOnMode(void)
 				else
 				{
 					SetSoundID = TRUE;
-					MusicPlay(NewSoundID,MUSIC_TACTICAL_NOTHING,TRUE);
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_CREEPY_MUSIC,TRUE);
 				}
 			}
 			else
@@ -646,7 +668,7 @@ static BOOLEAN StartMusicBasedOnMode(void)
 				else
 				{
 					SetSoundID = TRUE;
-					MusicPlay(NewSoundID,MUSIC_TACTICAL_BATTLE,TRUE);
+					MusicPlay(NewSoundID,MUSIC_TACTICAL_BATTLE_MUSIC,TRUE);
 				}
 			}
 			else

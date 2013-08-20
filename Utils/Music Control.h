@@ -1,6 +1,8 @@
 #ifndef _MUSIC_CONTROL_H_
 #define _MUSIC_CONTROL_H_
 
+#include "Overhead Types.h"
+
 enum MusicList
 {
 	MARIMBAD2_MUSIC,
@@ -34,6 +36,10 @@ enum MusicMode
 	MUSIC_TACTICAL_DEATH,
 	MUSIC_LAPTOP,
 	MUSIC_OLD_TYPE,
+	MUSIC_TACTICAL_BATTLE_MUSIC,
+	MUSIC_TACTICAL_CREEPY_MUSIC,
+	OTHER_MUSIC_TACTICAL,
+	MUSIC_TACTICAL_CIV_GROUP_BATTLE,
 };
 
 typedef struct
@@ -44,6 +50,9 @@ typedef struct
 	INT32 SoundTacticalNothing[4];
 	INT32 SoundTacticalTensor[4];
 	INT32 SoundTacticalDeath[4];
+	INT32 SoundTacticalBattleCreature[4];
+	INT32 SoundTacticalBattleCreepy[4];
+	INT32 SoundTacticalBattleGroup[NUM_CIV_GROUPS];
 
 } MUSIC_SOUND_VALUES;
 

@@ -29,6 +29,7 @@
 	#include "English.h"
 #endif
 
+#include "Music Control.h"
 
 // max number of merc faces per row in autobandage box
 #define NUMBER_MERC_FACES_AUTOBANDAGE_BOX 4
@@ -154,6 +155,12 @@ void BeginAutoBandage( )
 			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ BEGIN_AUTOBANDAGE_PROMPT_STR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginAutoBandageCallBack, NULL );
 		}
 	}
+	
+	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
+	if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
+		SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
+	else
+		SetMusicMode( MUSIC_TACTICAL_NOTHING );
 }
 
 

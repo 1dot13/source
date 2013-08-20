@@ -117,6 +117,11 @@ void ExitBoxing( void )
 	if ( CheckForEndOfCombatMode( FALSE ) )
 	{
 		EndTopMessage();
+		
+		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
+		if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
+			SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
+		else
 		SetMusicMode( MUSIC_TACTICAL_NOTHING );
 
 		// Lock UI until we get out of the ring

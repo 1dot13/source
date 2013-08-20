@@ -2652,7 +2652,14 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 					PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
 					UseCreatureMusic(TRUE); // Madd: music when zombies rise
+					
+					GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+					if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+						SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+					else
 					SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
+					
+					
 				}
 			}
 		}

@@ -963,6 +963,10 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	UseCreatureMusic(HostileZombiesPresent());
 #endif
 
+	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+	if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+		SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+	else
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 	if( gfTacticalTraversal && pInitiatingBattleGroup == gpTacticalTraversalGroup ||
