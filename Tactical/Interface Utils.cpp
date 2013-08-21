@@ -93,7 +93,9 @@ BOOLEAN LoadCarPortraitValues( void )
 	
 	for( iCounter = 0; iCounter < NUM_PROFILES; iCounter++ )
 	{
-		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter )
+		// silversurfer: fixed to make sure that we only create objects for vehicles that have a face defined
+		// otherwise CHECKF will fail and return FALSE breaking the for loop and ignoring any further vehicles
+		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter && gNewVehicle[ iCounter ].szIconFace[0] != 0 )
 		{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		strcpy( VObjectDesc.ImageFile, gNewVehicle[ iCounter ].szIconFace );
