@@ -816,12 +816,12 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<Name></Name>
+		<Name>Heli</Name>
 		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<Name></Name>
+		<Name>Tank</Name>
 		<EnabledSound>1</EnabledSound>
 	</PROFILE>
 	<PROFILE>
@@ -996,7 +996,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>199</uiIndex>
-		<Name></Name>
+		<Name>Jeep</Name>
 		<EnabledSound>0</EnabledSound>
 	</PROFILE>
 	<PROFILE>

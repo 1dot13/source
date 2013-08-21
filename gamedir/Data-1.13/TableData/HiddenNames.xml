@@ -816,12 +816,12 @@
 	</NAME>
 	<NAME>
 		<uiIndex>163</uiIndex>
-		<description></description>
+		<description>Heli</description>
 		<Hidden>1</Hidden>
 	</NAME>
 	<NAME>
 		<uiIndex>164</uiIndex>
-		<description></description>
+		<description>Tank</description>
 		<Hidden>1</Hidden>
 	</NAME>
 	<NAME>
@@ -956,7 +956,7 @@
 	</NAME>
 	<NAME>
 		<uiIndex>191</uiIndex>
-		<description></description>
+		<description>Speck</description>
 		<Hidden>0</Hidden>
 	</NAME>
 	<NAME>
@@ -996,7 +996,7 @@
 	</NAME>
 	<NAME>
 		<uiIndex>199</uiIndex>
-		<description></description>
+		<description>Jeep</description>
 		<Hidden>0</Hidden>
 	</NAME>
 	<NAME>
