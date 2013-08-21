@@ -3013,17 +3013,17 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>199</uiIndex>
-		<Name>None</Name>
-		<LongName></LongName>
-		<ShortName></ShortName>
-		<MvtTypes>0</MvtTypes>
-		<StiFaceIcon></StiFaceIcon>
+		<Name>Jeep</Name>
+		<LongName>Jeep</LongName>
+		<ShortName>Jeep</ShortName>
+		<MvtTypes>1</MvtTypes>
+		<StiFaceIcon>INTERFACE\Jeep.sti</StiFaceIcon>
 		<SeatingCapacities>6</SeatingCapacities>
 		<EnterVehicleSndID>85</EnterVehicleSndID>
 		<MoveVehicleSndID>82</MoveVehicleSndID>
 		<VehicleArmourType>164</VehicleArmourType>
 		<Neutral>1</Neutral>
-		<VehicleEnabled>0</VehicleEnabled>
+		<VehicleEnabled>1</VehicleEnabled>
 		<Pilot>-1</Pilot>
 	</VEHICLE>
 	<VEHICLE>
