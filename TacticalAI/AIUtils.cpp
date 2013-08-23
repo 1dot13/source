@@ -1035,6 +1035,15 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		// if we are there (at the noise gridno)
 		if (sGridNo == pSoldier->sGridNo)
 		{
+			for(uiLoop=0; uiLoop<guiNumMercSlots; uiLoop++)//dnl ch58 160813
+			{
+				pOpp = MercSlots[uiLoop];
+				if(pSoldier->bSide == pOpp->bSide && pSoldier->ubID != pOpp->ubID&& pSoldier->aiData.sNoiseGridno == pOpp->aiData.sNoiseGridno)
+				{
+					pOpp->aiData.sNoiseGridno = NOWHERE;// Erase for all from the same team as it not useful anymore, this will avoid others to check already tested location
+					pOpp->aiData.ubNoiseVolume = 0;
+				}
+			}
 			pSoldier->aiData.sNoiseGridno = NOWHERE;		// wipe it out, not useful anymore
 			pSoldier->aiData.ubNoiseVolume = 0;
 		}
@@ -1092,7 +1101,10 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		else
 		{
 			// degrade our public noise a bit
-			*pusNoiseGridNo -= 2;
+			//dnl ch58 160813
+			//*pusNoiseGridNo -= 2;
+			if(*pubNoiseVolume > 1)
+				(*pubNoiseVolume)--;
 		}
 	}
 

@@ -1311,6 +1311,11 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
 	gpWorldLevelData[pSoldier->sGridNo].uiFlags &= ~(MAPELEMENT_REACHABLE);
+	//dnl ch58 170813 also don't use last two locations to avoid looping same decisions per turn
+	if(!TileIsOutOfBounds(pSoldier->sLastTwoLocations[0]))
+		gpWorldLevelData[pSoldier->sLastTwoLocations[0]].uiFlags &= ~(MAPELEMENT_REACHABLE);
+	else if(!TileIsOutOfBounds(pSoldier->sLastTwoLocations[1]))
+		gpWorldLevelData[pSoldier->sLastTwoLocations[1]].uiFlags &= ~(MAPELEMENT_REACHABLE);
 
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{

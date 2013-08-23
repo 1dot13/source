@@ -7351,7 +7351,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			iChance = gGameExternalOptions.ubMinimumCTH;
 			if ( gGameExternalOptions.ubMinimumCTH == 0 )
 			{
-				if ( PreRandom( gGameExternalOptions.usMinimumCTHDivisor ) == (gGameExternalOptions.usMinimumCTHDivisor - 1) )
+				if ( PreRandom( gGameExternalOptions.usMinimumCTHDivisor ) == (gGameExternalOptions.usMinimumCTHDivisor - 1) && fCalculateCTHDuringGunfire == TRUE )//dnl ch58 271009 Any Random function must not be used during calculation, only allow when you actually FireGun because AI became confused and sometimes do nothing
 				{
 					iChance = 1;
 				}

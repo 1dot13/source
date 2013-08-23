@@ -54,7 +54,7 @@ UINT32 guiRedSeekTimeTotal = 0, guiRedHelpTimeTotal = 0, guiRedHideTimeTotal = 0
 UINT32 guiRedSeekCounter = 0, guiRedHelpCounter = 0; guiRedHideCounter = 0;
 #endif
 
-#define CENTER_OF_RING 11237
+#define CENTER_OF_RING 11237//dnl!!!
 
 #define MAX_FLANKS_RED 15
 #define MAX_FLANKS_YELLOW 25
@@ -3993,7 +3993,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 {
 	INT32	iCoverPercentBetter, iOffense, iDefense, iChance;
- INT32	sClosestOpponent,sBestCover = NOWHERE;
+	INT32	sClosestOpponent = NOWHERE,sBestCover = NOWHERE;//dnl ch58 160813
  INT32	sClosestDisturbance;
 INT16 ubMinAPCost;
 	UINT8	ubCanMove;
@@ -5118,13 +5118,16 @@ INT16 ubMinAPCost;
 
 					if ( (INT32) PreRandom( 100 ) < iChance)
 					{
-						BestAttack.ubAimTime = BURSTING;
 						BestAttack.ubAPCost = BestAttack.ubAPCost + ubBurstAPs;
 						// check for spread burst possibilities
 						if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
 						{
 							CalcSpreadBurst( pSoldier, BestAttack.sTarget, BestAttack.bTargetLevel );
 						}
+						//dnl ch58 180813 After HAM 4 BURSTING is not in use any more, for burst bAimTime and bDoAutofire must be set to 0
+						pSoldier->aiData.bAimTime = 0;
+						pSoldier->bDoBurst = 1;
+						pSoldier->bDoAutofire = 0;
 					}
 				}
 			}
@@ -5218,9 +5221,22 @@ INT16 ubMinAPCost;
 
 						if ((INT32) PreRandom( 100 ) < iChance || Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto)
 						{
-							pSoldier->aiData.bAimTime = BestAttack.ubAimTime ;
+							//dnl ch58 180813 After HAM 4 AUTOFIRING and sActualAimTime is not used in burst or autofire mode calculations and pSoldier->aiData.bAimTime must be 0
+							pSoldier->aiData.bAimTime = 0;
 							pSoldier->bDoBurst = 1;
-							BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire, pSoldier ) + sActualAimTime;
+							INT16 ubHalfBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &pSoldier->inv[BestAttack.bWeaponIn], 4, pSoldier);
+							if(Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto)
+								iChance += 25;
+							if(pSoldier->bActionPoints > (2 * BestAttack.ubAPCost + ubHalfBurstAPs) && PreRandom(100) < iChance)
+							{
+								// Try short autofire to enhance chance of hitting
+								pSoldier->bDoAutofire = 4;
+								BestAttack.ubAPCost += ubHalfBurstAPs;
+							}
+							else
+							{
+								BestAttack.ubAPCost += ubBurstAPs;
+							}
 						}
 						else
 						{
@@ -5430,15 +5446,16 @@ INT16 ubMinAPCost;
 					if ( (INT32) PreRandom( 100 ) < iChance)
 					{
 						DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing GL burst");
-						BestAttack.ubAimTime = BURSTING;
 						BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[HANDPOS]), pSoldier );
 						// check for spread burst possibilities
 						if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
 						{
 							CalcSpreadBurst( pSoldier, BestAttack.sTarget, BestAttack.bTargetLevel );
 						}
+						//dnl ch58 200813 After HAM 4 BURSTING is not in use any more, for burst bAimTime and bDoAutofire must be set to 0
+						pSoldier->aiData.bAimTime = 0;
 						pSoldier->bDoBurst = 1;
-
+						pSoldier->bDoAutofire = 0;
 					}
 				}
 			}
@@ -5590,7 +5607,11 @@ INT16 ubMinAPCost;
 #endif
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"AI %d taking cover, morale %d, from %d to %d", pSoldier->ubID, pSoldier->aiData.bAIMorale, pSoldier->sGridNo, sBestCover );
 		pSoldier->aiData.usActionData = sBestCover;
-
+		if(!TileIsOutOfBounds(sClosestOpponent))//dnl ch58 160813 After taking cover change facing toward closest enemy, currently such turn not charge APs and seems because AI is still in moving animation from take cover action
+		{
+			pSoldier->aiData.bNextAction = AI_ACTION_CHANGE_FACING;
+			pSoldier->aiData.usNextActionData = atan8(CenterX(sBestCover),CenterY(sBestCover),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+		}
 		return(AI_ACTION_TAKE_COVER);
 	}
 
@@ -7905,15 +7926,16 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 						if ( (INT32) PreRandom( 100 ) < iChance)
 						{
 							DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing GL burst");
-							BestAttack.ubAimTime = BURSTING;
 							BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[HANDPOS]), pSoldier );
 							// check for spread burst possibilities
 							if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
 							{
 								CalcSpreadBurst( pSoldier, BestAttack.sTarget, BestAttack.bTargetLevel );
 							}
+							//dnl ch58 200813 After HAM 4 BURSTING is not in use any more, for burst bAimTime and bDoAutofire must be set to 0
+							pSoldier->aiData.bAimTime = 0;
 							pSoldier->bDoBurst = 1;
-
+							pSoldier->bDoAutofire = 0;
 						}
 					}
 				}
