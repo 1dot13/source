@@ -292,7 +292,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
 		{
 			pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
-			ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,0, AIM_SHOT_TORSO); // get CtH from alternative hold, without aiming
+			ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, 0, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813 get CtH from alternative hold, without aiming
 			pSoldier->bScopeMode = USE_BEST_SCOPE; 
 			// CASE #1 - Enemy very close, or we have very good chance to hit from hip with no aiming
 			if (( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) < 5 || ubChanceToHit > 80 ) && !WeaponReady(pSoldier) )
@@ -308,9 +308,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			else if ( !WeaponReady(pSoldier) ) // ... and we are not in ready weapon stance yet
 			{
 				pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
-				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);
+				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
 				pSoldier->bScopeMode = USE_BEST_SCOPE; 
-				ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);
+				ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
 				if ( ubChanceToHit > ubChanceToHit2 && ubChanceToHit > 30 && (ubChanceToHit-ubChanceToHit2) >= 15 )
 					bScopeMode = USE_ALT_WEAPON_HOLD; 
 			}
@@ -322,7 +322,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			// in case the best scope is not actually the "best" (at this distance), we will use the other one
 			if ( bScopeMode == USE_BEST_SCOPE )
 			{
-				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);
+				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
 				std::map<INT8, OBJECTTYPE*> ObjList;
 				GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
 				do
@@ -330,7 +330,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 					pSoldier->bScopeMode++;
 					if ( ObjList[pSoldier->bScopeMode] != NULL )
 					{
-						ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO);	
+						ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
 						if ( ubChanceToHit2 > ubChanceToHit )
 						{
 							bScopeMode = pSoldier->bScopeMode;
@@ -379,8 +379,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				//HandleMyMouseCursor(KEYBOARDALSO);
 
 				//NumMessage("ubAimTime = ",ubAimTime);
+				//dnl ch59 180813 Find true best chance to hit depending of stance so AI would be more eager to attack
+				ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
+				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
+					ubChanceToHit = ubChanceToHit2;
+				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
+					ubChanceToHit = ubChanceToHit2;
 
-				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
 				// ExtMen[pOpponent->ubID].haveStats = TRUE;
 				//NumMessage("chance to Hit = ",ubChanceToHit);
 
@@ -402,10 +407,14 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		else
 		{
 			ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK];
-			ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
+			//dnl ch59 180813 Find true best chance to hit depending of stance for autofire
+			ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
+			if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
+				ubChanceToHit = ubChanceToHit2;
+			if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
+				ubChanceToHit = ubChanceToHit2;
 			Assert( ubRawAPCost > 0);
 			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
-
 			iBestHitRate = iHitRate;
 			ubBestAimTime = ubAimTime;
 			ubBestChanceToHit = ubChanceToHit;
@@ -1175,7 +1184,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				if ( EXPLOSIVE_GUN( usInHand ) )
 				{
 					ubRawAPCost = MinAPsToShootOrStab( pSoldier, sGridNo,ubMaxPossibleAimTime,FALSE);
-					ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier, sGridNo, ubMaxPossibleAimTime, AIM_SHOT_TORSO );
+					ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier, sGridNo, ubMaxPossibleAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
 				}
 				else
 				{
