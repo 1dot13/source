@@ -25,6 +25,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\zlib\crc32.h" />
     <ClInclude Include="..\..\..\zlib\deflate.h" />
+	<ClInclude Include="..\..\..\zlib\gzguts.h" />
     <ClInclude Include="..\..\..\zlib\inffast.h" />
     <ClInclude Include="..\..\..\zlib\inffixed.h" />
     <ClInclude Include="..\..\..\zlib\inflate.h" />
@@ -40,7 +41,9 @@
     <ClCompile Include="..\..\..\zlib\compress.c" />
     <ClCompile Include="..\..\..\zlib\crc32.c" />
     <ClCompile Include="..\..\..\zlib\deflate.c" />
-    <ClCompile Include="..\..\..\zlib\gzio.c" />
+    <ClCompile Include="..\..\..\zlib\gzclose.c" />
+    <ClCompile Include="..\..\..\zlib\gzread.c" />
+    <ClCompile Include="..\..\..\zlib\gzwrite.c" />
     <ClCompile Include="..\..\..\zlib\infback.c" />
     <ClCompile Include="..\..\..\zlib\inffast.c" />
     <ClCompile Include="..\..\..\zlib\inflate.c" />

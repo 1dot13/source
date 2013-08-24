@@ -352,7 +352,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\zlib\gzio.c"
+				RelativePath="..\..\..\zlib\gzclose.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\zlib\gzread.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\zlib\gzwrite.c"
 				>
 			</File>
 			<File
@@ -441,6 +449,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\zlib\gzguts.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\zlib\inffast.h"
 				>
 			</File>
@@ -522,10 +534,6 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
-		<File
-			RelativePath="README.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

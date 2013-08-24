@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="zlib"
 	ProjectGUID="{A67922A0-0A3F-497F-A724-19B513EFC078}"
 	RootNamespace="zlib"
@@ -347,7 +347,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\zlib\gzio.c"
+				RelativePath="..\..\..\zlib\gzclose.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\zlib\gzread.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\zlib\gzwrite.c"
 				>
 			</File>
 			<File
@@ -436,6 +444,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\zlib\gzguts.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\zlib\inffast.h"
 				>
 			</File>
@@ -517,10 +529,6 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
-		<File
-			RelativePath="README.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

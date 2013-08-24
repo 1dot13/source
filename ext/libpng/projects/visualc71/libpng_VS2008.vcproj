@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="libpng"
 	ProjectGUID="{4B544F1A-6188-4255-8877-69FC312D0D2C}"
 	RootNamespace="libpng"
@@ -588,14 +588,6 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\PRJ0041.mak"
-			>
-		</File>
-		<File
-			RelativePath="README.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

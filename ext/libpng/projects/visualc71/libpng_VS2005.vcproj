@@ -586,14 +586,6 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\PRJ0041.mak"
-			>
-		</File>
-		<File
-			RelativePath="README.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
