@@ -1573,7 +1573,7 @@ void GetXYForIconPlacement( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16
 
 
 	// Get height, width of icon...
-	GetVideoObject( &hVObject, guiPORTRAITICONS );
+	GetVideoObject( &hVObject, guiASSIGNMENTICONS );
 	pTrav = &(hVObject->pETRLEObject[ ubIndex ] );
 	usHeight				= pTrav->usHeight;
 	usWidth					= pTrav->usWidth;
@@ -1594,7 +1594,7 @@ void GetXYForRightIconPlacement( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, 
 
 
 	// Get height, width of icon...
-	GetVideoObject( &hVObject, guiPORTRAITICONS );
+	GetVideoObject( &hVObject, guiASSIGNMENTICONS );
 	pTrav = &(hVObject->pETRLEObject[ ubIndex ] );
 	usHeight				= pTrav->usHeight;
 	usWidth					= pTrav->usWidth;
@@ -1614,7 +1614,7 @@ void DoRightIcon( UINT32 uiRenderBuffer, FACETYPE *pFace, INT16 sFaceX, INT16 sF
 
 	// Find X, y for placement
 	GetXYForRightIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, bNumIcons );
-	BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 }
 
 
@@ -1795,30 +1795,27 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				}
 			}
-
 		}
 
-	// Check if a robot and is not controlled....
-	if ( MercPtrs[ pFace->ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
-	{
-		if ( !MercPtrs[ pFace->ubSoldierID ]->CanRobotBeControlled(	) )
+		// Check if a robot and is not controlled....
+		if ( MercPtrs[ pFace->ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
 		{
-		// Not controlled robot
-			sIconIndex = 5;
-			fDoIcon		= TRUE;
+			if ( !MercPtrs[ pFace->ubSoldierID ]->CanRobotBeControlled(	) )
+			{
+			// Not controlled robot
+				sIconIndex = 5;
+				fDoIcon		= TRUE;
+			}
 		}
-	}
 
-	if ( MercPtrs[ pFace->ubSoldierID ]->ControllingRobot(	) )
-	{
-		// controlling robot
-			sIconIndex = 4;
-			fDoIcon		= TRUE;
-	}
-
-
-
-//------------------------------------Legion 2 by jazz--------------------------------
+		if ( MercPtrs[ pFace->ubSoldierID ]->ControllingRobot(	) )
+		{
+			// controlling robot
+				sIconIndex = 4;
+				fDoIcon		= TRUE;
+		}
+	
+		//------------------------------------Legion 2 by jazz--------------------------------
 
 		UINT8 faceProfileId = MercPtrs[ pFace->ubSoldierID ]->ubProfile;
 		BOOLEAN isIMP = FALSE;
@@ -1830,237 +1827,47 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			isIMP = TRUE;
 		}
 
-	// rewritten by silversurfer
-	// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
-	// and the merc actually wears something to be shown
-	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
-		( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 ) 
-	{
-		uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
-		uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
-	
-		//MM: fixing the hardcoded craziness here...
-		// check first face slot
-		if ( uiFaceItemOne != NONE )
+		// rewritten by silversurfer
+		// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
+		// and the merc actually wears something to be shown
+		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
+			( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 ) 
 		{
-			if ( Item[uiFaceItemOne].gasmask )
-				uiFaceItemOne = 1;
-			else if ( Item[uiFaceItemOne].nightvisionrangebonus > 0 )
-				uiFaceItemOne = 2;
-			else if ( Item[uiFaceItemOne].dayvisionrangebonus > 0 || Item[uiFaceItemOne].brightlightvisionrangebonus > 0 )
-				uiFaceItemOne = 3;
-			else if ( Item[uiFaceItemOne].hearingrangebonus > 0 )
-				uiFaceItemOne = 4;
-			else
-				uiFaceItemOne = 0;
-		}
-		
-		// check second face slot
-		if ( uiFaceItemTwo != NONE )
-		{
-			if ( Item[uiFaceItemTwo].gasmask )
-				uiFaceItemTwo = 21;
-			else if ( Item[uiFaceItemTwo].nightvisionrangebonus > 0 )
-				uiFaceItemTwo = 42;
-			else if ( Item[uiFaceItemTwo].dayvisionrangebonus > 0 || Item[uiFaceItemTwo].brightlightvisionrangebonus > 0 )
-				uiFaceItemTwo = 63;
-			else if ( Item[uiFaceItemTwo].hearingrangebonus > 0 )
-				uiFaceItemTwo = 84;
-			else
-				uiFaceItemTwo = 0;
-		}
-
-		// Now select the correct icon. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
-		// the numbers on the outer border are used if that is the only item worn in that slot
-		//
-		//								21			42			63				84	
-		//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
-		// 1	gas mask				--			43			64				85
-		// 2	NV goggles				23			--			--				86
-		// 3	sun goggles				24			--			--				87
-		// 4	extended ear			25			46			67				--
-		//
-		// this matrix leaves room for expansion
-		ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
-		
-		switch( ubFaceItemsCombined )
-		{
-			// gas mask only
-			case 1:
-			case 21:
-				sIconIndex = 9;
-				fDoIcon		 = TRUE;
-				break;
-			// NV goggles only
-			case 2:
-			case 42:
-				sIconIndex = 10;
-				fDoIcon		 = TRUE;
-				break;
-			// sun goggles only
-			case 3:
-			case 63:
-				sIconIndex = 15;
-				fDoIcon		 = TRUE;
-				break;
-			// extended ear only
-			case 4:
-			case 84:
-				sIconIndex = 12;
-				fDoIcon		 = TRUE;
-				break;
-			// gas mask + NV goggles
-			case 23:
-			case 43:
-				sIconIndex = 11;
-				fDoIcon		 = TRUE;
-				break;
-			// gas mask + sun goggles
-			case 24:
-			case 64:
-				sIconIndex = 16;
-				fDoIcon		 = TRUE;
-				break;
-			// gas mask + extended ear
-			case 25:
-			case 85:
-				sIconIndex = 13;
-				fDoIcon		 = TRUE;
-				break;
-			// NV goggles + extended ear
-			case 46:
-			case 86:
-				sIconIndex = 14;
-				fDoIcon		 = TRUE;
-				break;
-			// sun goggles + extended ear
-			case 67:
-			case 87:
-				sIconIndex = 18;
-				fDoIcon		 = TRUE;
-				break;
-			default:
-				break;
-		}
-    }
-    
-	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
-		( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) )
-	{
-	
-		uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
-			
-		if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1 ) //back
-		{
-			DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceItemOne, isIMP);
-		}		
-	}
-    
-	// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
-	// and the merc actually wears something to be shown
-	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
-		( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 )
-	{
-		
-		/*
-		BOOLEAN isIMP = FALSE;
-		UINT8 faceProfileId = MercPtrs[ pFace->ubSoldierID ]->ubProfile;
-		
-		// WANNE: IMP: Special handling for face gear
-		if (MercPtrs[ pFace->ubSoldierID ]->ubProfile >= 51 && MercPtrs[ pFace->ubSoldierID ]->ubProfile <= 56)
-		{
-			// IMP: Imps anhand des FaceIndex rausfinden!!
-			faceProfileId = gMercProfiles[MercPtrs[ pFace->ubSoldierID ]->ubProfile].ubFaceIndex;
-			isIMP = TRUE;
-		}
-		*/
-
-		// WANNE: Removed the limitation
-		// silversurfer: don't overwrite icons if they shall be shown!
-		//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
-		{
-
 			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
 			uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
-			
-			uiFaceOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
-			uiFaceTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;		
-			
+	
+			//MM: fixing the hardcoded craziness here...
 			// check first face slot
 			if ( uiFaceItemOne != NONE )
 			{
-				if ( zNewFaceGear[uiFaceOne].Type == 3 ) 
-					{
-						uiFaceItemOne = 1;
-					}
-				else if ( zNewFaceGear[uiFaceOne].Type == 4 ) 
-					{
-						uiFaceItemOne = 2;
-					}
-				else uiFaceItemOne = 0;	
+				if ( Item[uiFaceItemOne].gasmask )
+					uiFaceItemOne = 1;
+				else if ( Item[uiFaceItemOne].nightvisionrangebonus > 0 )
+					uiFaceItemOne = 2;
+				else if ( Item[uiFaceItemOne].dayvisionrangebonus > 0 || Item[uiFaceItemOne].brightlightvisionrangebonus > 0 )
+					uiFaceItemOne = 3;
+				else if ( Item[uiFaceItemOne].hearingrangebonus > 0 )
+					uiFaceItemOne = 4;
+				else
+					uiFaceItemOne = 0;
 			}
-			
+		
 			// check second face slot
 			if ( uiFaceItemTwo != NONE )
 			{
-				if ( zNewFaceGear[uiFaceTwo].Type == 3 ) 
-					{
-						uiFaceItemTwo = 21;
-					}
-				else if ( zNewFaceGear[uiFaceTwo].Type == 4 ) 
-					{
-						uiFaceItemTwo = 42;
-					}
-				else uiFaceItemTwo = 0;	
+				if ( Item[uiFaceItemTwo].gasmask )
+					uiFaceItemTwo = 21;
+				else if ( Item[uiFaceItemTwo].nightvisionrangebonus > 0 )
+					uiFaceItemTwo = 42;
+				else if ( Item[uiFaceItemTwo].dayvisionrangebonus > 0 || Item[uiFaceItemTwo].brightlightvisionrangebonus > 0 )
+					uiFaceItemTwo = 63;
+				else if ( Item[uiFaceItemTwo].hearingrangebonus > 0 )
+					uiFaceItemTwo = 84;
+				else
+					uiFaceItemTwo = 0;
 			}
-			
-		/*
-			// check first face slot
-			if ( uiFaceItemOne != NONE )
-			{
-				switch( uiFaceItemOne )
-				{
-					// gas mask
-					case GASMASK:
-						uiFaceItemOne = 1;
-						break;
-					// NV goggles
-					case 211:
-					case 246:
-					case 1024:
-					case 1025:
-						uiFaceItemOne = 2;
-						break;
-					default:
-						uiFaceItemOne = 0;
-						break;
-				}
-			}
-			
-			// check second face slot
-			if ( uiFaceItemTwo != NONE )
-			{
-				switch( uiFaceItemTwo )
-				{
-					// gas mask
-					case GASMASK:
-						uiFaceItemTwo = 21;
-						break;
-					// NV goggles
-					case 211:
-					case 246:
-					case 1024:
-					case 1025:
-						uiFaceItemTwo = 42;
-						break;
-					default:
-						uiFaceItemTwo = 0;
-						break;
-				}
-			}
-			*/
-			
-			// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+
+			// Now select the correct icon. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
 			// the numbers on the outer border are used if that is the only item worn in that slot
 			//
 			//								21			42			63				84	
@@ -2071,19 +1878,149 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// 4	extended ear			25			46			67				--
 			//
 			// this matrix leaves room for expansion
-			// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
 			ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
+		
+			switch( ubFaceItemsCombined )
+			{
+				// gas mask only
+				case 1:
+				case 21:
+					sIconIndex = 9;
+					fDoIcon		 = TRUE;
+					break;
+				// NV goggles only
+				case 2:
+				case 42:
+					sIconIndex = 10;
+					fDoIcon		 = TRUE;
+					break;
+				// sun goggles only
+				case 3:
+				case 63:
+					sIconIndex = 15;
+					fDoIcon		 = TRUE;
+					break;
+				// extended ear only
+				case 4:
+				case 84:
+					sIconIndex = 12;
+					fDoIcon		 = TRUE;
+					break;
+				// gas mask + NV goggles
+				case 23:
+				case 43:
+					sIconIndex = 11;
+					fDoIcon		 = TRUE;
+					break;
+				// gas mask + sun goggles
+				case 24:
+				case 64:
+					sIconIndex = 16;
+					fDoIcon		 = TRUE;
+					break;
+				// gas mask + extended ear
+				case 25:
+				case 85:
+					sIconIndex = 13;
+					fDoIcon		 = TRUE;
+					break;
+				// NV goggles + extended ear
+				case 46:
+				case 86:
+					sIconIndex = 14;
+					fDoIcon		 = TRUE;
+					break;
+				// sun goggles + extended ear
+				case 67:
+				case 87:
+					sIconIndex = 18;
+					fDoIcon		 = TRUE;
+					break;
+				default:
+					break;
+			}
 		}
+    
+		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
+			( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) )
+		{
+	
+			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
+			
+			if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1 ) //back
+			{
+				DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceItemOne, isIMP);
+			}		
+		}
+    
+		// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
+		// and the merc actually wears something to be shown
+		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
+			( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 )
+		{
+			// WANNE: Removed the limitation
+			// silversurfer: don't overwrite icons if they shall be shown!
+			//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
+			{
 
-		// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-		// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
-		// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
-		// in face slot 2 (if icons are allowed)
+				uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
+				uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
+			
+				uiFaceOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
+				uiFaceTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;		
+			
+				// check first face slot
+				if ( uiFaceItemOne != NONE )
+				{
+					if ( zNewFaceGear[uiFaceOne].Type == 3 ) 
+						{
+							uiFaceItemOne = 1;
+						}
+					else if ( zNewFaceGear[uiFaceOne].Type == 4 ) 
+						{
+							uiFaceItemOne = 2;
+						}
+					else uiFaceItemOne = 0;	
+				}
+			
+				// check second face slot
+				if ( uiFaceItemTwo != NONE )
+				{
+					if ( zNewFaceGear[uiFaceTwo].Type == 3 ) 
+						{
+							uiFaceItemTwo = 21;
+						}
+					else if ( zNewFaceGear[uiFaceTwo].Type == 4 ) 
+						{
+							uiFaceItemTwo = 42;
+						}
+					else uiFaceItemTwo = 0;	
+				}
+			
+			
+				// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+				// the numbers on the outer border are used if that is the only item worn in that slot
+				//
+				//								21			42			63				84	
+				//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
+				// 1	gas mask				--			43			64				85
+				// 2	NV goggles				23			--			--				86
+				// 3	sun goggles				24			--			--				87
+				// 4	extended ear			25			46			67				--
+				//
+				// this matrix leaves room for expansion
+				// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
+				ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
+			}
+
+			// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+			// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
+			// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
+			// in face slot 2 (if icons are allowed)
 		
 			//Type : 3 - gas mask ; 4 - NV googles
 			// gas mask only
-			
-		
+
 			if ( ubFaceItemsCombined == 1 || ubFaceItemsCombined == 21 )
 			{
 				if ( zNewFaceGear[uiFaceOne].Type == 3 ) 
@@ -2107,7 +2044,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				{
 					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
 				}	
-			}		
+			}
 			
 			// NV goggles + gas mask
 			if ( ubFaceItemsCombined == 23 )
@@ -2142,7 +2079,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}	
 			}	
 			
-		// gas mask + extended ear
+			// gas mask + extended ear
 			if ( ubFaceItemsCombined == 25 || ubFaceItemsCombined == 85 )
 			{
 				if ( zNewFaceGear[uiFaceOne].Type == 3 )   
@@ -2152,7 +2089,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				else if ( zNewFaceGear[uiFaceTwo].Type == 3 )    
 				{
 					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-				}	
+				}
 			}
 			
 			// NV goggles + extended ear
@@ -2167,144 +2104,57 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
 				}	
 			}
-		
-		/*
-		switch( ubFaceItemsCombined )
-		{
-			// gas mask only
-			case 1:
-			case 21:
-				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//fDoIcon		 = FALSE;				
-
-				break;
-			// NV goggles only
-			case 2:
-			case 42:
-				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//fDoIcon		 = FALSE;				
-
-				break;
-			// NV goggles + gas mask
-			case 23:
-				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//if ( gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
-				//{
-				//	sIconIndex = 9;
-				//	fDoIcon		 = TRUE;
-				//}
-
-				break;
-			// gas mask + NV goggles
-			case 43:
-				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//if ( gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
-				//{
-				//	sIconIndex = 10;
-				//	fDoIcon		 = TRUE;
-				//}
-
-				break;
-			// gas mask + sun goggles
-			case 24:
-			case 64:
-				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//sIconIndex = 15;
-				//fDoIcon		 = TRUE;
-
-				break;
-			// gas mask + extended ear
-			case 25:
-			case 85:
-				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//sIconIndex = 12;
-				//fDoIcon		 = TRUE;
-
-				break;
-			// NV goggles + extended ear
-			case 46:
-			case 86:
-				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, isIMP );
-				
-				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-				//sIconIndex = 12;
-				//fDoIcon		 = TRUE;
-
-				break;
-			default:
-				break;
 		}
-		*/
-	}
-	
-	
-	
-	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0  &&
-		( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) 
-		// dirty hack for IMPs because they don't have pictures for face gear
-		/* && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 ) */ ) 
-	{
-		uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
 		
-		if ( uiFaceItemOne != NONE )
+		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0  &&
+			( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) 
+			// dirty hack for IMPs because they don't have pictures for face gear
+			/* && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 ) */ ) 
 		{
-			if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 2 ) //front
+			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
+		
+			if ( uiFaceItemOne != NONE )
 			{
-				DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceItemOne, isIMP);
-			}	
+				if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 2 ) //front
+				{
+					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceItemOne, isIMP);
+				}	
+			}
 		}
-	}
+		//------------------------------------end of tactical face gear-----------------------------
+				
+		// If blind...
+		if ( MercPtrs[ pFace->ubSoldierID ]->bBlindedCounter > 0 )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6 );
+			bNumRightIcons++;
+		}
 
-	//------------------------------------end of tactical face gear-----------------------------
+		// Flugente: add drug symbol if drugged (without alcohol 'drug')
+		if ( MercDruggedButNotDrunk( MercPtrs[ pFace->ubSoldierID ] ) )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
+			bNumRightIcons++;
+		}
 
-	// If blind...
-	if ( MercPtrs[ pFace->ubSoldierID ]->bBlindedCounter > 0 )
-	{
-		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6 );
-		bNumRightIcons++;
-	}
+		if ( GetDrunkLevel( MercPtrs[ pFace->ubSoldierID ] ) != SOBER )
+		{
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8 );
+			bNumRightIcons++;
+		}
 
-	// Flugente: add drug symbol if drugged (without alcohol 'drug')
-	if ( MercDruggedButNotDrunk( MercPtrs[ pFace->ubSoldierID ] ) )
-	{
-		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
-		bNumRightIcons++;
-	}
-
-	if ( GetDrunkLevel( MercPtrs[ pFace->ubSoldierID ] ) != SOBER )
-	{
-		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8 );
-		bNumRightIcons++;
-	}
-
-	// Flugente: only display these symbols if using the new portrait icons
-	if ( gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE )
-	{
 		// Flugente: food system - symbols used if hungry or thirsty
 		if ( gGameOptions.fFoodSystem )
 		{
 			if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 9 );
 				bNumRightIcons++;	
 			}
 		
 			if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 10 );
 				bNumRightIcons++;
 			}
 		}
@@ -2319,7 +2169,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			UINT16 ubFaceSlot2 = 0;
 			if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 21 );
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 11 );
 				bNumRightIcons++;
 			}
 		}
@@ -2327,22 +2177,20 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		// Flugente: add an icon if we are currently in disguise
 		if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 22 );
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12 );
 			bNumRightIcons++;
 		}
 
 		// Flugente: add an icon if we are performing a multi-turn action
 		if ( MercPtrs[ pFace->ubSoldierID ]->GetMultiTurnAction() > MTA_NONE )
 		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 24 );
+			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 14 );
 			bNumRightIcons++;
 		}
-	}
 
 		switch( pSoldier->bAssignment )
 		{
 			case DOCTOR:
-
 				sIconIndex = 1;
 				fDoIcon		= TRUE;
 				sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
@@ -2355,7 +2203,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				break;
 
 			case PATIENT:
-
 				sIconIndex = 2;
 				fDoIcon		= TRUE;
 				// show current health / maximum health
@@ -2417,7 +2264,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 			case MOVE_EQUIPMENT:
 				{
-					sIconIndex		= 25;
+					sIconIndex		= 15;
 					fDoIcon			= TRUE;
 					
 					GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), wShortText );
@@ -2428,10 +2275,9 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				break;
 
 			case FACILITY_INTERROGATE_PRISONERS:
-				sIconIndex		= 23;
+				sIconIndex		= 13;
 				fDoIcon			= TRUE;
 				sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) );
-				//bPtsAvailable   = (FLOAT)( CalculateInterrogationValue(pSoldier, &usMaximumPts )/100.0 );
 				fShowNumber		= TRUE;
 				fShowMaximum	= TRUE;
 				break;
@@ -2457,9 +2303,9 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		{
 			// Find X, y for placement
 			GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY );
-			BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-		// ATE: Show numbers only in mapscreen
+			// ATE: Show numbers only in mapscreen
 			if( fShowNumber )
 			{
 				SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );

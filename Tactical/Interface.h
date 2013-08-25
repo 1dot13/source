@@ -184,6 +184,7 @@ extern UINT32		guiCOMPANEL;
 extern UINT32		guiCOMPANELB;
 extern UINT32		guiRADIO;
 extern UINT32		guiPORTRAITICONS;		// Default JA2 portrait icons (+ additional headgear icons from legion)
+extern UINT32		guiASSIGNMENTICONS;		// Flugente: icons for assignments
 extern UINT32		guiBURSTACCUM;
 extern UINT32		guiITEMPOINTERHATCHES;
 

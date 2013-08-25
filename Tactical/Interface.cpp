@@ -126,6 +126,7 @@ UINT8		gubProgCurEnemy			= 0;
 
 
 UINT32		guiPORTRAITICONS;
+UINT32		guiASSIGNMENTICONS;		// Flugente: icons for assignments
 
 //UINT32		guiPORTRAITICONS_NV; //legion
 //UINT32		guiPORTRAITICONS_GAS_MASK; //legion
@@ -376,6 +377,12 @@ BOOLEAN InitializeTacticalPortraits(	)
 		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
 			AssertMsg(0, "Missing INTERFACE\\portraiticons.sti" );
 	}
+
+	// Flugente: icons for assignments
+	FilenameForBPP("INTERFACE\\AssignmentIcons.sti", VObjectDesc.ImageFile);
+
+	if( !AddVideoObject( &VObjectDesc, &guiASSIGNMENTICONS ) )
+		AssertMsg(0, "Missing INTERFACE\\AssignmentIcons.sti" );
 
 	return ( TRUE );
 }
