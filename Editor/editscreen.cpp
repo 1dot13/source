@@ -503,7 +503,8 @@ BOOLEAN EditModeShutdown( void )
 	DeleteEditorTaskbar();
 
 	// create clock mouse region for clock pause
-	CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
+//	CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
+	CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 
 	iOldTaskMode = iCurrentTaskbar;
 	gTacticalStatus.uiFlags = guiSaveTacticalStatusFlags;
