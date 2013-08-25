@@ -1940,9 +1940,10 @@ BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			{
 				return(TRUE);
 			}
-			if ( gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+			// fire/creature gas
+			if(gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_BURNABLEGAS|MAPELEMENT_EXT_CREATUREGAS))//dnl ch62 240813
 			{
-				return( TRUE );
+				return(TRUE);
 			}
 		}
 	}

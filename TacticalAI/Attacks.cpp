@@ -470,6 +470,10 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				// OK, how does our chance to hit him compare to the previous best one?
 				iPercentBetter = ((ubChanceToReallyHit * 100) / pBestShot->ubChanceToReallyHit) - 100;
 
+				//dnl ch62 180813 ignore firing into breathless targets if there are targets in better condition
+				if((Menptr[pBestShot->ubOpponent].bCollapsed || Menptr[pBestShot->ubOpponent].bBreathCollapsed) && Menptr[pBestShot->ubOpponent].bBreath < OKBREATH && Menptr[pBestShot->ubOpponent].bBreath < pOpponent->bBreath)
+					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
+
 				// if this chance to really hit is more than 50% worse, and the other
 				// guy is conscious at all
 				if ((iPercentBetter < -PERCENT_TO_IGNORE_THREAT) && (Menptr[pBestShot->ubOpponent].stats.bLife >= OKLIFE))
@@ -485,6 +489,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 						continue;			// next opponent
 				}
 			}
+			//dnl ch62 180813 ignore firing into dying targets
+			if((pOpponent->bCollapsed || pOpponent->bBreathCollapsed) && pOpponent->stats.bLife < OKLIFE/* && !(pSoldier->aiData.bAttitude == AGGRESSIVE && Random(100) < 20)*/)
+				continue;
 
 			// OOOF!	That was a lot of work!	But we've got a new best target!
 			pBestShot->ubPossible			= TRUE;
