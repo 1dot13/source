@@ -1564,7 +1564,7 @@ void DoRightIcon_FaceGear( UINT32 uiRenderBuffer, FACETYPE *pFace, INT16 sFaceX,
 //----------------------------------------------------------------
 
 
-void GetXYForIconPlacement( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16 sFaceY, INT16 *psX, INT16 *psY )
+void GetXYForIconPlacement( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16 sFaceY, INT16 *psX, INT16 *psY, UINT32 usLib )
 {
 	INT16 sX, sY;
 	UINT16 usWidth, usHeight;
@@ -1573,7 +1573,7 @@ void GetXYForIconPlacement( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16
 
 
 	// Get height, width of icon...
-	GetVideoObject( &hVObject, guiASSIGNMENTICONS );
+	GetVideoObject( &hVObject, usLib );
 	pTrav = &(hVObject->pETRLEObject[ ubIndex ] );
 	usHeight				= pTrav->usHeight;
 	usWidth					= pTrav->usWidth;
@@ -2121,216 +2121,228 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}	
 			}
 		}
-		//------------------------------------end of tactical face gear-----------------------------
-				
-		// If blind...
-		if ( MercPtrs[ pFace->ubSoldierID ]->bBlindedCounter > 0 )
-		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6 );
-			bNumRightIcons++;
-		}
-
-		// Flugente: add drug symbol if drugged (without alcohol 'drug')
-		if ( MercDruggedButNotDrunk( MercPtrs[ pFace->ubSoldierID ] ) )
-		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
-			bNumRightIcons++;
-		}
-
-		if ( GetDrunkLevel( MercPtrs[ pFace->ubSoldierID ] ) != SOBER )
-		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8 );
-			bNumRightIcons++;
-		}
-
-		// Flugente: food system - symbols used if hungry or thirsty
-		if ( gGameOptions.fFoodSystem )
-		{
-			if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
-			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 9 );
-				bNumRightIcons++;	
-			}
-		
-			if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
-			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 10 );
-				bNumRightIcons++;
-			}
-		}
-		// Flugente: are we supplying ammo to someone else?
-		if ( gGameExternalOptions.ubExternalFeeding > 0 )
-		{
-			UINT8 ubID1 = 0;
-			UINT16 ubGunSlot1 = 0;
-			UINT16 ubFaceSlot1 = 0;
-			UINT8 ubID2 = 0;
-			UINT16 ubGunSlot2 = 0;
-			UINT16 ubFaceSlot2 = 0;
-			if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
-			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 11 );
-				bNumRightIcons++;
-			}
-		}
-
-		// Flugente: add an icon if we are currently in disguise
-		if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
-		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12 );
-			bNumRightIcons++;
-		}
-
-		// Flugente: add an icon if we are performing a multi-turn action
-		if ( MercPtrs[ pFace->ubSoldierID ]->GetMultiTurnAction() > MTA_NONE )
-		{
-			DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 14 );
-			bNumRightIcons++;
-		}
-
-		switch( pSoldier->bAssignment )
-		{
-			case DOCTOR:
-				sIconIndex = 1;
-				fDoIcon		= TRUE;
-				sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
-				fShowNumber = TRUE;
-				fShowMaximum = TRUE;
-
-				// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
-				sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
-				usMaximumPts	= ( usMaximumPts + 5 ) / 10;
-				break;
-
-			case PATIENT:
-				sIconIndex = 2;
-				fDoIcon		= TRUE;
-				// show current health / maximum health
-				sPtsAvailable = MercPtrs[ pFace->ubSoldierID ]->stats.bLife;
-				usMaximumPts	= MercPtrs[ pFace->ubSoldierID ]->stats.bLifeMax;
-				fShowNumber = TRUE;
-				fShowMaximum = TRUE;
-				break;
-
-			case TRAIN_SELF:
-			case TRAIN_TOWN:
-			// HEADROCK HAM 3.6: New assignment.
-			case TRAIN_MOBILE:
-			case TRAIN_TEAMMATE:
-			case TRAIN_BY_OTHER:
-				sIconIndex = 3;
-				fDoIcon		= TRUE;
-				fShowNumber = TRUE;
-				fShowMaximum = TRUE;
-
-				switch( MercPtrs[ pFace->ubSoldierID ]->bAssignment )
-				{
-					case( TRAIN_SELF ):
-						sPtsAvailable = GetSoldierTrainingPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
-						break;
-					case( TRAIN_BY_OTHER ):
-						sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
-						break;
-					case( TRAIN_TOWN ):
-					case( TRAIN_MOBILE ):
-						sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
-						// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
-						sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
-						usMaximumPts	= ( usMaximumPts + 5 ) / 10;
-						break;
-					case( TRAIN_TEAMMATE ):
-						sPtsAvailable = GetBonusTrainingPtsDueToInstructor( MercPtrs[ pFace->ubSoldierID ], NULL , MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
-						break;
-				}
-				break;
-
-			case REPAIR:
-
-				sIconIndex = 0;
-				fDoIcon		= TRUE;
-				sPtsAvailable = CalculateRepairPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
-				fShowNumber = TRUE;
-				fShowMaximum = TRUE;
-
-				// check if we are repairing a vehicle
-				if ( Menptr[ pFace->ubSoldierID ].bVehicleUnderRepairID != -1 )
-				{
-					// reduce to a multiple of VEHICLE_REPAIR_POINTS_DIVISOR.	This way skill too low will show up as 0 repair pts.
-					sPtsAvailable -= ( sPtsAvailable % VEHICLE_REPAIR_POINTS_DIVISOR );
-					usMaximumPts	-= ( usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR );
-				}
-
-				break;
-
-			case MOVE_EQUIPMENT:
-				{
-					sIconIndex		= 15;
-					fDoIcon			= TRUE;
-					
-					GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), wShortText );
-
-					fShowNumber		= TRUE;
-					fShowMaximum	= TRUE;
-				}
-				break;
-
-			case FACILITY_INTERROGATE_PRISONERS:
-				sIconIndex		= 13;
-				fDoIcon			= TRUE;
-				sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) );
-				fShowNumber		= TRUE;
-				fShowMaximum	= TRUE;
-				break;
-		}
-
-		// Check for being serviced...
-		if ( MercPtrs[ pFace->ubSoldierID ]->ubServicePartner != NOBODY )
-		{
-			// Doctor...
-			sIconIndex = 1;
-			fDoIcon		= TRUE;
-		}
-
-		if ( MercPtrs[ pFace->ubSoldierID ]->ubServiceCount != 0 )
-		{
-			// Patient
-			sIconIndex = 2;
-			fDoIcon		= TRUE;
-		}
-
 
 		if ( fDoIcon )
 		{
 			// Find X, y for placement
-			GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY );
-			BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+			GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS );
+			BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-			// ATE: Show numbers only in mapscreen
-			if( fShowNumber )
+			fDoIcon = FALSE;
+			bNumRightIcons++;
+		}
+		//------------------------------------end of tactical face gear-----------------------------
+
+		{	
+			// If blind...
+			if ( MercPtrs[ pFace->ubSoldierID ]->bBlindedCounter > 0 )
 			{
-				SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6 );
+				bNumRightIcons++;
+			}
 
-				if ( fShowMaximum )
+			// Flugente: add drug symbol if drugged (without alcohol 'drug')
+			if ( MercDruggedButNotDrunk( MercPtrs[ pFace->ubSoldierID ] ) )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
+				bNumRightIcons++;
+			}
+
+			if ( GetDrunkLevel( MercPtrs[ pFace->ubSoldierID ] ) != SOBER )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8 );
+				bNumRightIcons++;
+			}
+
+			// Flugente: food system - symbols used if hungry or thirsty
+			if ( gGameOptions.fFoodSystem )
+			{
+				if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
 				{
-					if ( pSoldier->bAssignment == MOVE_EQUIPMENT )
-						swprintf( sString, L"%s", wShortText );
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 9 );
+					bNumRightIcons++;	
+				}
+		
+				if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
+				{
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 10 );
+					bNumRightIcons++;
+				}
+			}
+			// Flugente: are we supplying ammo to someone else?
+			if ( gGameExternalOptions.ubExternalFeeding > 0 )
+			{
+				UINT8 ubID1 = 0;
+				UINT16 ubGunSlot1 = 0;
+				UINT16 ubFaceSlot1 = 0;
+				UINT8 ubID2 = 0;
+				UINT16 ubGunSlot2 = 0;
+				UINT16 ubFaceSlot2 = 0;
+				if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
+				{
+					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 11 );
+					bNumRightIcons++;
+				}
+			}
+
+			// Flugente: add an icon if we are currently in disguise
+			if ( MercPtrs[ pFace->ubSoldierID ]->bSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12 );
+				bNumRightIcons++;
+			}
+
+			// Flugente: add an icon if we are performing a multi-turn action
+			if ( MercPtrs[ pFace->ubSoldierID ]->GetMultiTurnAction() > MTA_NONE )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 14 );
+				bNumRightIcons++;
+			}
+
+			switch( pSoldier->bAssignment )
+			{
+				case DOCTOR:
+					sIconIndex = 1;
+					fDoIcon		= TRUE;
+					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
+					fShowNumber = TRUE;
+					fShowMaximum = TRUE;
+
+					// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
+					sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
+					usMaximumPts	= ( usMaximumPts + 5 ) / 10;
+					break;
+
+				case PATIENT:
+					sIconIndex = 2;
+					fDoIcon		= TRUE;
+					// show current health / maximum health
+					sPtsAvailable = MercPtrs[ pFace->ubSoldierID ]->stats.bLife;
+					usMaximumPts	= MercPtrs[ pFace->ubSoldierID ]->stats.bLifeMax;
+					fShowNumber = TRUE;
+					fShowMaximum = TRUE;
+					break;
+
+				case TRAIN_SELF:
+				case TRAIN_TOWN:
+				// HEADROCK HAM 3.6: New assignment.
+				case TRAIN_MOBILE:
+				case TRAIN_TEAMMATE:
+				case TRAIN_BY_OTHER:
+					sIconIndex = 3;
+					fDoIcon		= TRUE;
+					fShowNumber = TRUE;
+					fShowMaximum = TRUE;
+
+					switch( MercPtrs[ pFace->ubSoldierID ]->bAssignment )
+					{
+						case( TRAIN_SELF ):
+							sPtsAvailable = GetSoldierTrainingPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
+							break;
+						case( TRAIN_BY_OTHER ):
+							sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
+							break;
+						case( TRAIN_TOWN ):
+						case( TRAIN_MOBILE ):
+							sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
+							// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
+							sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
+							usMaximumPts	= ( usMaximumPts + 5 ) / 10;
+							break;
+						case( TRAIN_TEAMMATE ):
+							sPtsAvailable = GetBonusTrainingPtsDueToInstructor( MercPtrs[ pFace->ubSoldierID ], NULL , MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
+							break;
+					}
+					break;
+
+				case REPAIR:
+
+					sIconIndex = 0;
+					fDoIcon		= TRUE;
+					sPtsAvailable = CalculateRepairPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
+					fShowNumber = TRUE;
+					fShowMaximum = TRUE;
+
+					// check if we are repairing a vehicle
+					if ( Menptr[ pFace->ubSoldierID ].bVehicleUnderRepairID != -1 )
+					{
+						// reduce to a multiple of VEHICLE_REPAIR_POINTS_DIVISOR.	This way skill too low will show up as 0 repair pts.
+						sPtsAvailable -= ( sPtsAvailable % VEHICLE_REPAIR_POINTS_DIVISOR );
+						usMaximumPts	-= ( usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR );
+					}
+
+					break;
+
+				case MOVE_EQUIPMENT:
+					{
+						sIconIndex		= 15;
+						fDoIcon			= TRUE;
+					
+						GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), wShortText );
+
+						fShowNumber		= TRUE;
+						fShowMaximum	= TRUE;
+					}
+					break;
+
+				case FACILITY_INTERROGATE_PRISONERS:
+					sIconIndex		= 13;
+					fDoIcon			= TRUE;
+					sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) );
+					fShowNumber		= TRUE;
+					fShowMaximum	= TRUE;
+					break;
+			}
+
+			// Check for being serviced...
+			if ( MercPtrs[ pFace->ubSoldierID ]->ubServicePartner != NOBODY )
+			{
+				// Doctor...
+				sIconIndex = 1;
+				fDoIcon		= TRUE;
+			}
+
+			if ( MercPtrs[ pFace->ubSoldierID ]->ubServiceCount != 0 )
+			{
+				// Patient
+				sIconIndex = 2;
+				fDoIcon		= TRUE;
+			}
+
+
+			if ( fDoIcon )
+			{
+				// Find X, y for placement
+				GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS );
+				BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+				// ATE: Show numbers only in mapscreen
+				if( fShowNumber )
+				{
+					SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+					if ( fShowMaximum )
+					{
+						if ( pSoldier->bAssignment == MOVE_EQUIPMENT )
+							swprintf( sString, L"%s", wShortText );
+						else
+							swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
+					}
 					else
-						swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
+					{
+						swprintf( sString, L"%d", sPtsAvailable );
+					}
+
+					usTextWidth = StringPixLength( sString, FONT10ARIAL );
+					usTextWidth += 1;
+
+					SetFont( FONT10ARIAL );
+					SetFontForeground( FONT_YELLOW );
+					SetFontBackground( FONT_BLACK );
+
+					mprintf(	sFaceX + pFace->usFaceWidth - usTextWidth, ( INT16 )( sFaceY + 3 ), sString );
+					SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 				}
-				else
-				{
-					swprintf( sString, L"%d", sPtsAvailable );
-				}
-
-				usTextWidth = StringPixLength( sString, FONT10ARIAL );
-				usTextWidth += 1;
-
-				SetFont( FONT10ARIAL );
-				SetFontForeground( FONT_YELLOW );
-				SetFontBackground( FONT_BLACK );
-
-				mprintf(	sFaceX + pFace->usFaceWidth - usTextWidth, ( INT16 )( sFaceY + 3 ), sString );
-				SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 			}
 		}
 	}
