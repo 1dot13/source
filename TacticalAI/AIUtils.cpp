@@ -1038,7 +1038,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			for(uiLoop=0; uiLoop<guiNumMercSlots; uiLoop++)//dnl ch58 160813
 			{
 				pOpp = MercSlots[uiLoop];
-				if(pSoldier->bSide == pOpp->bSide && pSoldier->ubID != pOpp->ubID&& pSoldier->aiData.sNoiseGridno == pOpp->aiData.sNoiseGridno)
+				if(pOpp && pSoldier->bSide == pOpp->bSide && pSoldier->ubID != pOpp->ubID&& pSoldier->aiData.sNoiseGridno == pOpp->aiData.sNoiseGridno)
 				{
 					pOpp->aiData.sNoiseGridno = NOWHERE;// Erase for all from the same team as it not useful anymore, this will avoid others to check already tested location
 					pOpp->aiData.ubNoiseVolume = 0;
