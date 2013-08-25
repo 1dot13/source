@@ -1542,7 +1542,7 @@ void CreateDestroyMouseRegionMasksForTimeCompressionButtons( void )
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		// mask over pause game button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], xResOffset + (xResSize - 153), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 153) - 118, (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGHEST - 1,
+		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], xResOffset + (xResSize - 153), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 153) + 118, (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		fCreated = TRUE;

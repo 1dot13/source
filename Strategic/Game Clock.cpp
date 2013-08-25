@@ -3,7 +3,7 @@
 #else
 	#include "sgp.h"
 	#include "Game Clock.h"
-	#include "Font Control.h"
+	#include "Font.h"
 	#include "render dirty.h"
 	#include "Timer Control.h"
 	#include "overhead.h"
@@ -60,6 +60,14 @@ BOOLEAN gfJustFinishedAPause = FALSE;
 // clock mouse region
 MOUSE_REGION gClockMouseRegion;
 MOUSE_REGION gClockScreenMaskMouseRegion;
+
+// Moa: Clock koords moved from Interface Panels.cpp
+INT16 INTERFACE_CLOCK_X;
+INT16 INTERFACE_CLOCK_Y;
+// CHRISL: Added new "TM" variables to allow team and inventory screens to place the clock independantly of each other
+INT16 INTERFACE_CLOCK_TM_X;
+INT16 INTERFACE_CLOCK_TM_Y;
+
 void AdvanceClock( UINT8 ubWarpCode );
 
 extern BOOLEAN fMapScreenBottomDirty;
@@ -68,9 +76,6 @@ extern BOOLEAN fMapScreenBottomDirty;
 #define			SECONDS_PER_COMPRESSION						1 // 1/2 minute passes every 1 second of real time
 #define			SECONDS_PER_COMPRESSION_IN_RTCOMBAT			10
 #define			SECONDS_PER_COMPRESSION_IN_TBCOMBAT			10
-#define			CLOCK_STRING_HEIGHT				13
-#define			CLOCK_STRING_WIDTH				66
-#define			CLOCK_FONT							COMPFONT
 
 
 //These contain all of the information about the game time, rate of time, etc.
@@ -303,11 +308,12 @@ BOOLEAN HasTimeCompressOccured( void )
 	return( fTimeCompressHasOccured	);
 }
 
-
-
+//
+// \brief renders WORLDTIMESTR or pPausedGameText[0] centered into a box located at sX, sY (top left coords)
+//
 void RenderClock( INT16 sX, INT16 sY )
 {
-	SetFont( CLOCK_FONT );
+	SetFont( CLOCKFONT );
 	SetFontBackground( FONT_MCOLOR_BLACK );
 
 #ifdef CRIPPLED_VERSION
@@ -333,15 +339,18 @@ void RenderClock( INT16 sX, INT16 sY )
 	}
 
 	// Erase first!
-	RestoreExternBackgroundRect(sX, sY, CLOCK_STRING_WIDTH, CLOCK_STRING_HEIGHT );
+	RestoreExternBackgroundRect(sX, sY, CLOCK_AREA_WIDTH, CLOCK_AREA_HEIGHT );
 
+	INT16 centeredX,centeredY;
 	if( ( gfPauseDueToPlayerGamePause == FALSE ) )
 	{
-		mprintf( sX + (CLOCK_STRING_WIDTH - StringPixLength( WORLDTIMESTR, CLOCK_FONT ))/2, sY, WORLDTIMESTR );
+		FindFontCenterCoordinates(sX, sY, CLOCK_AREA_WIDTH, CLOCK_AREA_HEIGHT, WORLDTIMESTR, CLOCKFONT, &centeredX, &centeredY);
+		mprintf( centeredX, centeredY, WORLDTIMESTR );
 	}
 	else
 	{
-		mprintf( sX + (CLOCK_STRING_WIDTH - StringPixLength( pPausedGameText[ 0 ], CLOCK_FONT ))/2, sY, pPausedGameText[ 0 ] );
+		FindFontCenterCoordinates(sX, sY, CLOCK_AREA_WIDTH, CLOCK_AREA_HEIGHT, pPausedGameText[ 0 ], CLOCKFONT, &centeredX, &centeredY);
+		mprintf( centeredX, centeredY, pPausedGameText[ 0 ] );
 	}
 
 }
@@ -1038,17 +1047,20 @@ BOOLEAN LoadGameClock( HWFILE hFile )
 	return( TRUE );
 }
 
-
+//
+// \brief Creates MOUSE_REGION for FastHelpText and PauseOfClockBtnCallback() centered around a box located at sX, sY (top left coords).
+//
 void CreateMouseRegionForPauseOfClock( INT16 sX, INT16 sY )
 {
 	if( fClockMouseRegionCreated == FALSE )
 	{
-		INT16 sXVal = sX;
-		INT16 sYVal = sY;
-
 		// create a mouse region for pausing of game clock
-		MSYS_DefineRegion( &gClockMouseRegion, (UINT16)( sXVal ), (UINT16)( sYVal ),(UINT16)( sX + CLOCK_REGION_WIDTH ), (UINT16)( sY + CLOCK_REGION_HEIGHT), MSYS_PRIORITY_HIGHEST,
-							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, PauseOfClockBtnCallback );
+		MSYS_DefineRegion( &gClockMouseRegion,
+							(UINT16)( sX - CLOCK_REGION_OFFSET_X ),
+							(UINT16)( sY - CLOCK_REGION_OFFSET_Y ),
+							(UINT16)( sX + CLOCK_AREA_WIDTH + CLOCK_REGION_OFFSET_X),
+							(UINT16)( sY + CLOCK_AREA_HEIGHT + CLOCK_REGION_OFFSET_Y),
+							MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, PauseOfClockBtnCallback );
 
 		fClockMouseRegionCreated = TRUE;
 
@@ -1184,8 +1196,11 @@ void RenderPausedGameBox( void )
 {
 	if( ( gfPauseDueToPlayerGamePause == TRUE ) && ( gfGamePaused == TRUE ) && ( iPausedPopUpBox != -1 ) )
 	{
-		RenderMercPopUpBoxFromIndex( iPausedPopUpBox, ( INT16 )( 320 - usPausedActualWidth / 2 ), ( INT16 )( 200 - usPausedActualHeight / 2 ), FRAME_BUFFER );
-		InvalidateRegion( ( INT16 )( 320 - usPausedActualWidth / 2 ), ( INT16 )( 200 - usPausedActualHeight / 2	), ( INT16 )( 320 - usPausedActualWidth / 2 + usPausedActualWidth ), ( INT16 )( 200 - usPausedActualHeight / 2 + usPausedActualHeight ) );
+		//Moa: centered PausedGameBox to Screen
+		//RenderMercPopUpBoxFromIndex( iPausedPopUpBox, ( INT16 )( 320 - usPausedActualWidth / 2 ), ( INT16 )( 200 - usPausedActualHeight / 2 ), FRAME_BUFFER );
+		//InvalidateRegion( ( INT16 )( 320 - usPausedActualWidth / 2 ), ( INT16 )( 200 - usPausedActualHeight / 2	), ( INT16 )( 320 - usPausedActualWidth / 2 + usPausedActualWidth ), ( INT16 )( 200 - usPausedActualHeight / 2 + usPausedActualHeight ) );
+		RenderMercPopUpBoxFromIndex( iPausedPopUpBox, ( INT16 )( (SCREEN_WIDTH - usPausedActualWidth) / 2 ), ( INT16 )( (SCREEN_HEIGHT - usPausedActualHeight) / 2 ), FRAME_BUFFER );
+		InvalidateRegion( ( INT16 )( (SCREEN_WIDTH - usPausedActualWidth) / 2 ), ( INT16 )( (SCREEN_HEIGHT - usPausedActualHeight) / 2	), ( INT16 )( (SCREEN_WIDTH - usPausedActualWidth) / 2 + usPausedActualWidth ), ( INT16 )( (SCREEN_HEIGHT - usPausedActualHeight) / 2 + usPausedActualHeight ) );
  	}
 
 	// reset we've just finished a pause by the player

@@ -5129,7 +5129,7 @@ UINT32 MapScreenHandle(void)
 		SpecifyButtonDownTextColors( giMapContractButton, CHAR_TEXT_FONT_COLOR, FONT_BLACK );
 
 		// create mouse region for pause clock
-		CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
+		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 
 		// WANNE: The number of merc we can display in the list, depends on the resolution
 		if (iResolution >= _640x480 && iResolution < _800x600)
@@ -5641,7 +5641,7 @@ UINT32 MapScreenHandle(void)
 
 	// render clock
 	// WANNE: Renders the clock in the strategy screen
-	RenderClock(CLOCK_X, CLOCK_Y);
+	RenderClock(INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y);
 
 	#ifdef JA2TESTVERSION
 	if( !gfWorldLoaded )

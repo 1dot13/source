@@ -1,19 +1,21 @@
 #ifndef __WORLD_CLOCK
 #define __WORLD_CLOCK
 
-#include "FileMan.h"
 
 
-// where the time string itself is rendered
-#define			CLOCK_X							(SCREEN_WIDTH - xResSize)/2 + (xResSize - 86)
-#define			CLOCK_REGION_START_X			(CLOCK_X + 2)
-#define			CLOCK_REGION_WIDTH				((xResSize - 20) - CLOCK_REGION_START_X)
-#define			CLOCK_Y							(SCREEN_HEIGHT - 21)
+//Moa: renderable area should match the background area where ClockString gets rendered, !use even numbers!
+#define			CLOCK_AREA_HEIGHT					14	//hight of renderable area should match the background area where ClockString gets rendered
+#define			CLOCK_AREA_WIDTH					66	//x boundary
+//Clock coords moved from Interface Panels.cpp, gets initialized in InitializeSMPanelCoordsNew()/InitializeSMPanelCoordsOld()
+extern			INT16								INTERFACE_CLOCK_X; // xPos of Left Top edge of boundary
+extern			INT16								INTERFACE_CLOCK_Y;
+//the mouse region around the clock (bigger), actual region position depends on parameters given to CreateMouseRegionForPauseOfClock(INT16,INT16)
+#define			CLOCK_REGION_OFFSET_X				1
+#define			CLOCK_REGION_OFFSET_Y				1
+// CHRISL: Added new "TM" variables to allow team and inventory screens to place the clock independantly of each other @see Interface Panels.cpp->InitializeTEAMPanelCoords()
+extern			INT16								INTERFACE_CLOCK_TM_X;
+extern			INT16								INTERFACE_CLOCK_TM_Y;
 
-// the mouse region around the clock (bigger)
-
-#define			CLOCK_REGION_START_Y			(SCREEN_HEIGHT - 24)
-#define			CLOCK_REGION_HEIGHT				((SCREEN_HEIGHT - 12) - CLOCK_REGION_START_Y)
 
 #define			NUM_SEC_IN_DAY						86400
 #define			NUM_SEC_IN_HOUR						3600

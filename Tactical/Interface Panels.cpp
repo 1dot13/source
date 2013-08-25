@@ -37,7 +37,7 @@
 	#include "Interface Items.h"
 	#include "interface control.h"
 	#include "interface utils.h"
-	#include "game clock.h"
+	#include "Game Clock.h"
 	#include "mapscreen.h"
 	#include "Soldier Macros.h"
 	#include "strategicmap.h"
@@ -330,15 +330,11 @@ TEAM_PANEL_SLOTS_TYPE	gTeamPanel[ NUM_TEAM_SLOTS ];
  *	i will work with radar screen to allow moving it. or maby someone else will do it
  *	any questions? joker
  */
-int	INTERFACE_CLOCK_X;
-int	INTERFACE_CLOCK_Y;
 int	LOCATION_NAME_X;
 int	LOCATION_NAME_Y;
 
-/* CHRISL: Added new "TM" variables to allow team and inventory screens to place the clock and location name
+/* CHRISL: Added new "TM" variables to allow team and inventory screens to place the location name
 independantly of each other */
-int	INTERFACE_CLOCK_TM_X;
-int	INTERFACE_CLOCK_TM_Y;
 int	LOCATION_NAME_TM_X;
 int	LOCATION_NAME_TM_Y;
 
@@ -1559,8 +1555,13 @@ BOOLEAN InitializeSMPanelCoordsOld()
 
 	SM_DONE_X				=	xResOffset + (xResSize - 97);
 	SM_MAPSCREEN_X			=	xResOffset + (xResSize - 51);
-	INTERFACE_CLOCK_X		=	xResOffset + (xResSize - 86);
-	LOCATION_NAME_X			=	xResOffset + (xResSize - 92);	
+
+//dnl	INTERFACE_CLOCK_X		=	xResOffset + (xResSize - 86);
+//dnl	INTERFACE_CLOCK_Y		= ( 119	+ INV_INTERFACE_START_Y );
+	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
+	INTERFACE_CLOCK_Y		= SCREEN_HEIGHT - 24;
+	LOCATION_NAME_X			=	xResOffset + (xResSize - 92);
+	LOCATION_NAME_Y			= ( 65	+ INTERFACE_START_Y	);
 	
 	SM_DONE_Y				= ( 4 + INV_INTERFACE_START_Y );
 	SM_MAPSCREEN_Y			= ( 4 + INV_INTERFACE_START_Y );
@@ -1624,10 +1625,6 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	// ow ye font color they can also be customizable :P
 	STATS_TITLE_FONT_COLOR	= 6;
 	STATS_TEXT_FONT_COLOR	= 5;
-
-	// ow and te clock and location i will put it here
-	INTERFACE_CLOCK_Y	= ( 119	+ INV_INTERFACE_START_Y );
-	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
 
 	// Keyring	496/106 on Inventory_Bottom_Panel.sti
 	KEYRING_X			= xResOffset + 496;
@@ -1918,8 +1915,13 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	SM_ZIPPER_Y				= ( 39 + INV_INTERFACE_START_Y );
 	SM_MAPSCREEN_X			= xResOffset + (xResSize - 146);	// 152
 	SM_DONE_X				= xResOffset + (xResSize - 146);	// 152
+
+//dnl	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
+//dnl	INTERFACE_CLOCK_Y		= ( 119	+ INV_INTERFACE_START_Y );
 	INTERFACE_CLOCK_X		= xResOffset + (xResSize - 86);
+	INTERFACE_CLOCK_Y		= SCREEN_HEIGHT - 24;
 	LOCATION_NAME_X			= xResOffset + (xResSize - 92);
+	LOCATION_NAME_Y			= ( 89	+ INTERFACE_START_Y	);
 
 	SM_DONE_Y				= ( 118 + INV_INTERFACE_START_Y );
 	SM_MAPSCREEN_Y			= ( 140 + INV_INTERFACE_START_Y );
@@ -1996,10 +1998,6 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	// ow ye font color they can also be customizable :P
 	STATS_TITLE_FONT_COLOR	= 6;
 	STATS_TEXT_FONT_COLOR	= 5;
-
-	// ow and te clock and location i will put it here 
-	INTERFACE_CLOCK_Y	= ( 117	+ INV_INTERFACE_START_Y );
-	LOCATION_NAME_Y		= ( 89	+ INTERFACE_START_Y		);
 
 	//Keyring 218/5 on Inventory_Bottom_Panel.sti
 	KEYRING_X			= xResOffset + 219; //209;
@@ -5102,8 +5100,11 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	TM_ENDTURN_X				=	xResOffset + (xResSize - 131);
 	TM_ROSTERMODE_X				=	xResOffset + (xResSize - 131);
 	TM_DISK_X					=	xResOffset + (xResSize - 131);
+	// CHRISL: New definitions for the team panel clock and location coordinates
 	INTERFACE_CLOCK_TM_X	= xResOffset + (xResSize - 86 );
-	LOCATION_NAME_TM_X		= xResOffset + (xResSize - 92 );	
+	INTERFACE_CLOCK_TM_Y	= ( 96	+ INTERFACE_START_Y );
+	LOCATION_NAME_TM_X		= xResOffset + (xResSize - 92 );
+	LOCATION_NAME_TM_Y		= ( 65	+ INTERFACE_START_Y	);
 		
 	TM_ENDTURN_Y		= ( 9 + INTERFACE_START_Y );
 	TM_ROSTERMODE_Y	= ( 45 + INTERFACE_START_Y );
@@ -5222,10 +5223,6 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	sTEAMHandInvXY[10] = ( TM_INV_HAND1STARTX + ( 5 * TM_INV_HAND_SEP ));	sTEAMHandInvXY[11] = TM_INV_HAND1STARTY;
 	// ufff to much copy&paste :D
 */
-	// CHRISL: New definitions for the team panel clock and location coordinates
-
-	INTERFACE_CLOCK_TM_Y	= ( 99	+ INTERFACE_START_Y );
-	LOCATION_NAME_TM_Y		= ( 65	+ INTERFACE_START_Y	);
 
 	return ( TRUE );
 }

@@ -104,7 +104,8 @@ extern BOOLEAN					gfFontsInit;
 #define					SMALLFONT1				gpSmallFontType1
 #define					TINYFONT1				gpTinyFontType1
 #define					FONT12POINT1			gp12PointFont1
-#define					CLOCKFONT			 gpClockFont
+//#define					CLOCKFONT			 gpClockFont //remove comment if change ok! "FONTS\\CLOCKFONT.sti" does not exist in Data Folder!
+#define					CLOCKFONT			 gpCompFont
 #define		 COMPFONT			gpCompFont
 #define		 SMALLCOMPFONT	 gpSmallCompFont
 #define					FONT10ROMAN				gp10PointRoman

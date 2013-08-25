@@ -1489,7 +1489,6 @@ void HandleShopKeeperInterface()
 	}
 
 	// CHRISL: If in NIV mode, don't display the clock
-	//RenderClock( CLOCK_X, CLOCK_Y );
 	if( UsingNewInventorySystem() == false )
 		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 	// CHRISL: Added X,Y parameters to allow control of TownID string placement.
@@ -1665,7 +1664,6 @@ BOOLEAN RenderShopKeeperInterface()
 
 	//Render the clock and the town name
 	// CHRISL: If in NIV mode, don't display the clock
-	//RenderClock( CLOCK_X, CLOCK_Y );
 	if( UsingNewInventorySystem() == false )
 		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 	// CHRISL: Added X,Y parameters to allow control of TownID string placement.

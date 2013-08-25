@@ -1168,7 +1168,7 @@ void		ExitQuestDebugSystem()
 
 
 	//Create the clock mouse region
-	CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
+	CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 
 	giHaveSelectedNPC = gNpcListBox.sCurSelectedItem;
 	giHaveSelectedItem = gItemListBox.sCurSelectedItem;
