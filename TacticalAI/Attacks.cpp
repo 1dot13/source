@@ -233,9 +233,11 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		//KeepInterfaceGoing();
 
 		// calculate chance to get through the opponent's cover (if any)
-
+		//dnl ch61 180813
+		gUnderFire.Clear();
+		gUnderFire.Enable();
 		ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough( pSoldier, pOpponent );
-
+		gUnderFire.Disable();
 		//	ubChanceToGetThrough = ChanceToGetThrough(pSoldier,pOpponent->sGridNo,NOTFAKE,ACTUAL,TESTWALLS,9999,M9PISTOL,NOT_FOR_LOS);
 
 		//NumMessage("Chance to get through = ",ubChanceToGetThrough);
@@ -494,6 +496,10 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			pBestShot->iAttackValue		= iAttackValue;
 			pBestShot->ubAPCost			= ubMinAPcost;
 			pBestShot->bScopeMode		= bScopeMode;
+			if(gUnderFire.Count(pSoldier->bTeam))//dnl ch61 180813
+				pBestShot->ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam);
+			else
+				pBestShot->ubFriendlyFireChance = 0;
 		}
 	}
 	pSoldier->bScopeMode = USE_BEST_SCOPE; // better reset this back
@@ -2893,4 +2899,53 @@ FLOAT AICalcRecoilForShot( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon, UINT8 ubS
 	// HEADROCK HAM 4: TODO: Incorporate items that alter max counter-force.
 	FLOAT AverageRecoil = __max(0, ((FLOAT)sqrt( (FLOAT)(bRecoilX * bRecoilX) + (FLOAT)(bRecoilY * bRecoilY) ) - (gGameCTHConstants.RECOIL_MAX_COUNTER_FORCE * 0.7f) ) );
 	return AverageRecoil;
+}
+
+//dnl ch61 180813
+UnderFire gUnderFire;
+
+void UnderFire::Clear(void)
+{
+	usUnderFireCnt = 0;
+	memset(usUnderFireID, 0, sizeof(usUnderFireID));
+	memset(ubUnderFireCTH, 0, sizeof(ubUnderFireCTH));
+}
+
+void UnderFire::Add(UINT16 usID, UINT8 ubCTH)
+{
+	if(!fEnable)
+		return;
+	if(usUnderFireCnt < MAXUNDERFIRE)
+	{
+		for(int i=0; i<usUnderFireCnt; i++)
+			if(usUnderFireID[i] == usID)
+			{
+				if(ubUnderFireCTH[i] != ubCTH)
+					ubUnderFireCTH[i] = ubCTH;
+				return;
+			}
+		usUnderFireID[usUnderFireCnt++] = usID;
+	}
+}
+
+UINT16 UnderFire::Count(INT8 bTeam)
+{
+	UINT16 cnt = 0;
+	for(int i=0; i<usUnderFireCnt; i++)
+	{
+		if(MercPtrs[usUnderFireID[i]]->bTeam == bTeam)
+			++cnt;
+	}
+	return(cnt);
+}
+
+UINT8 UnderFire::Chance(INT8 bTeam)
+{
+	UINT8 cth = 0;
+	for(int i=0; i<usUnderFireCnt; i++)
+	{
+		if(MercPtrs[usUnderFireID[i]]->bTeam == bTeam && ubUnderFireCTH[i] > cth)
+			cth = ubUnderFireCTH[i];
+	}
+	return(cth);
 }

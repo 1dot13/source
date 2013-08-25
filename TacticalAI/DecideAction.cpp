@@ -4420,6 +4420,31 @@ INT16 ubMinAPCost;
 						}
 					}
 
+					if(BestShot.ubFriendlyFireChance)//dnl ch61 180813
+					{
+						if(BestShot.ubFriendlyFireChance == 100)
+						{
+							if(pSoldier->aiData.bAttitude == AGGRESSIVE)
+								iChance = 5;
+						}
+						else
+						{
+							switch(pSoldier->aiData.bAttitude)
+							{
+							case DEFENSIVE:iChance = 15;break;
+							case BRAVESOLO:iChance = 25;break;
+							case BRAVEAID:iChance = 20;break;
+							case CUNNINGSOLO:iChance = 35;break;
+							case CUNNINGAID:iChance = 30;break;
+							case AGGRESSIVE:iChance = 45;break;
+							case ATTACKSLAYONLY:iChance = 40;break;
+							default:iChance = 10;break;
+							}
+						}
+						if(!((INT32)Random(100) < iChance))
+							BestShot.ubPossible = FALSE;
+					}
+
 					if (BestShot.ubPossible)
 					{
 						// if the selected opponent is not a threat (unconscious & !serviced)

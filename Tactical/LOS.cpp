@@ -51,6 +51,7 @@
 #include "soldier tile.h"		// added by Flugente
 #include "Sound Control.h"		// added by Flugente
 #include "Soldier Functions.h"	// added by Flugente for DoesSoldierWearGasMask(...)
+#include "AIInternals.h"//dnl ch61 180813
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -3418,6 +3419,7 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 							guiLocalStructureCTH[iNumLocalStructures] = 100;
 							gubLocalStructureNumTimesHit[iNumLocalStructures] = 0;
 							iNumLocalStructures++;
+							gUnderFire.Add(pStructure->usStructureID, 100);//dnl ch61 241009
 						}
 						else
 						{
@@ -3426,6 +3428,7 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 							guiLocalStructureCTH[iNumLocalStructures] = MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE;
 							gubLocalStructureNumTimesHit[iNumLocalStructures] = 0;
 							iNumLocalStructures++;
+							gUnderFire.Add(pStructure->usStructureID, MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE);//dnl ch61 241009
 						}
 					}
 				}

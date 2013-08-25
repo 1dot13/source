@@ -140,10 +140,32 @@ typedef struct
  INT32 iAttackValue;			// relative worthiness of this type of attack
  INT32 sTarget;								// target gridno of this attack
  INT8	bTargetLevel;					// target level of this attack
+ UINT8 ubFriendlyFireChance;		// highest chance to hit someone of our guys //dnl ch61 180813
  INT16 ubAPCost;							// how many APs the attack will use up
  INT8	bWeaponIn;							// the inv slot of the weapon in question
  INT8	bScopeMode;							// SANDRO: added for scope mode and alternative weapon holding
 } ATTACKTYPE;
+
+//dnl ch61 180813
+#define MAXUNDERFIRE 100
+class UnderFire
+{
+private:
+	BOOLEAN fEnable;
+	UINT16 usUnderFireCnt;
+	UINT16 usUnderFireID[MAXUNDERFIRE];
+	UINT8 ubUnderFireCTH[MAXUNDERFIRE];
+public:
+	UnderFire(void){ Clear(); }
+	void Clear(void);
+	void Add(UINT16 usID, UINT8 ubCTH);
+	void Enable(void){ fEnable=TRUE; }
+	void Disable(void){ fEnable=FALSE; }
+	UINT16 GetUnderFireCnt(void){ return(usUnderFireCnt); }
+	UINT16 Count(INT8 bTeam);
+	UINT8 Chance(INT8 bTeam);
+};
+extern UnderFire gUnderFire;
 
 extern THREATTYPE Threat[MAXMERCS];
 extern int ThreatPercent[10];
