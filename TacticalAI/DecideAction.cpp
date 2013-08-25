@@ -5484,8 +5484,8 @@ INT16 ubMinAPCost;
 					}
 				}
 			}
-
-
+			if(ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE && IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]))//dnl ch63 240813
+				pSoldier->bWeaponMode = WM_ATTACHED_GL;
 			return(ubBestAttackAction);
 		}
 

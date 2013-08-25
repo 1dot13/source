@@ -112,7 +112,13 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 		pSoldier->inv[HANDPOS].AttachObject(pSoldier,&gTempObject,FALSE);
 	}
 	else if (pSoldier->inv[bPayloadPocket].MoveThisObjectTo(gTempObject, 1) == 0) {
-		pSoldier->inv[HANDPOS].AttachObject( pSoldier,&gTempObject,FALSE);
+		if(pSoldier->inv[HANDPOS].AttachObject(pSoldier, &gTempObject, FALSE))//dnl ch63 250813 return back rest of object or drop it if not proper attachment
+		{
+			if(gTempObject.ubNumberOfObjects == 1 && gTempObject[0]->data.objectStatus > 0)
+				gTempObject.MoveThisObjectTo(pSoldier->inv[bPayloadPocket], 1);
+		}
+		else
+			AddItemToPool(pSoldier->sGridNo, &gTempObject, 0, pSoldier->pathing.bLevel, WORLD_ITEM_DROPPED_FROM_ENEMY, -1);
 	}
 }
 
@@ -607,6 +613,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	UINT8	ubSafetyMargin = 0;
 	UINT8	ubDiff;
 	INT8	bEndLevel;
+	OBJECTTYPE *pObjGL = NULL;//dnl ch63 240813
 
 	usInHand = pSoldier->inv[HANDPOS].usItem;
 	usGrenade = NOTHING;
@@ -642,18 +649,28 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	{
 		// use up pocket 2 first, they get left as drop items
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a GL");
-		bPayloadPocket = FindGLGrenade( pSoldier );
-		if (bPayloadPocket == NO_SLOT)
+		//dnl ch63 240813 Check if grenade is already attach or find one in pockets
+		bPayloadPocket = HANDPOS;
+		pObjGL = FindAttachment_GrenadeLauncher(&pSoldier->inv[bPayloadPocket]);
+		OBJECTTYPE *pAttachment = FindLaunchableAttachment(&pSoldier->inv[bPayloadPocket], usInHand);
+		if(pAttachment->exists())
 		{
-			return;	// no grenades, can't fire the GLAUNCHER
+			ubSafetyMargin = (UINT8)Explosive[Item[pAttachment->usItem].ubClassIndex].ubRadius;
+			usGrenade = pAttachment->usItem;
 		}
-		ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[ bPayloadPocket ].usItem ].ubClassIndex ].ubRadius;
-		usGrenade = pSoldier->inv[ bPayloadPocket ].usItem;
+		else if((bPayloadPocket=FindAmmoToReload(pSoldier, bPayloadPocket, NO_SLOT)) != NO_SLOT)
+		{
+			ubSafetyMargin = (UINT8)Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubRadius;
+			usGrenade = pSoldier->inv[bPayloadPocket].usItem;
+		}
+		else
+			return;
 	}
 	else if ( Item[usInHand].rocketlauncher )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a rocket launcher");
 		// put in hand
+		bPayloadPocket = HANDPOS;//dnl ch63 240813
 		if ( Item[usInHand].singleshotrocketlauncher )
 			// as C1
 			ubSafetyMargin = (UINT8)Explosive[ Item[ C1 ].ubClassIndex ].ubRadius;
@@ -1146,7 +1163,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				else
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: checking chance for launcher to beat cover");
-					ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough( pSoldier, &(pSoldier->inv[ bPayloadPocket ] ), sGridNo, bOpponentLevel[ubLoop], 0, &sEndGridNo, TRUE, &bEndLevel, FALSE );				//NumMessage("Chance to get through = ",ubChanceToGetThrough);
+					ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough( pSoldier, (pObjGL ? pObjGL : &pSoldier->inv[bPayloadPocket]), sGridNo, bOpponentLevel[ubLoop], 0, &sEndGridNo, TRUE, &bEndLevel, FALSE );//dnl ch63 240813
+					//NumMessage("Chance to get through = ",ubChanceToGetThrough);
 					// if we can't possibly get through all the cover
 					if (ubChanceToGetThrough == 0 )
 					{
@@ -1185,7 +1203,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 				// calculate the maximum possible aiming time
 				// HEADROCK HAM 4: Required for new Aiming Level Limits function
-				ubMaxPossibleAimTime = min( AllowedAimingLevels(pSoldier, sGridNo), pSoldier->bActionPoints - ubMinAPcost);
+				ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, sGridNo, pSoldier->bActionPoints-ubMinAPcost);//dnl ch63 250813
 				DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("Max Possible Aim Time = %d",ubMaxPossibleAimTime ));
 
 				// calc next attack's minimum AP cost (excludes readying & turning)
@@ -1201,6 +1219,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				}
 				else
 				{
+					ubMaxPossibleAimTime = APBPConstants[AP_MIN_AIM_ATTACK];//dnl ch63 240813
 					// NB grenade launcher is NOT a direct fire weapon!
 					ubRawAPCost = (UINT8) MinAPsToThrow( pSoldier, sGridNo, FALSE );
 					DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("Raw AP Cost = %d",ubRawAPCost ));
@@ -1259,7 +1278,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					pBestThrow->ubChanceToReallyHit = ubChanceToReallyHit;
 					pBestThrow->sTarget			 = sGridNo;
 					pBestThrow->iAttackValue		= iAttackValue;
-					pBestThrow->ubAPCost			= ubMinAPcost + ubMaxPossibleAimTime;
+					pBestThrow->ubAPCost			= CalcTotalAPsToAttack(pSoldier, pBestThrow->sTarget, TRUE, pBestThrow->ubAimTime);//dnl ch63 240813
 					pBestThrow->bTargetLevel				= bOpponentLevel[ubLoop];
 
 					//sprintf(tempstr,"new best THROW AttackValue = %d at grid #%d",iAttackValue/100000,gridno);
@@ -1875,6 +1894,14 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 		else
 			return 0;
 	}
+	else if(IsGrenadeLauncherAttached(&pSoldier->inv[ubItemPos]))//dnl ch63 240813 situation when grenade is already in launcher
+	{
+		OBJECTTYPE *pAttachment = FindLaunchableAttachment(&pSoldier->inv[ubItemPos], GetAttachedGrenadeLauncher(&pSoldier->inv[ubItemPos]));
+		if(pAttachment->exists())
+			ubExplosiveIndex = Item[pAttachment->usItem].ubClassIndex;
+		else
+			return(0);
+	}
 	else if ( Explosive[Item[pSoldier->inv[ ubItemPos ].usItem].ubClassIndex].ubType == EXPLOSV_SMOKE )
 		return 5;
 	else
@@ -2311,33 +2338,30 @@ void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		{
 			// Consider rocket launcher/cannon
 			pBestThrow->bWeaponIn = FindRocketLauncherOrCannon( pSoldier );
-			if ( pBestThrow->bWeaponIn == NO_SLOT	|| ( !EnoughAmmo( pSoldier, FALSE, pBestThrow->bWeaponIn) && FindAmmoToReload( pSoldier, pBestThrow->bWeaponIn, NO_SLOT) == NO_SLOT) )
+			if ( pBestThrow->bWeaponIn == NO_SLOT || ( !EnoughAmmo( pSoldier, FALSE, pBestThrow->bWeaponIn) && FindAmmoToReload( pSoldier, pBestThrow->bWeaponIn, NO_SLOT) == NO_SLOT) )
 			{
-				//no rocket launcher (or empty) -- let's look for an underslung/attached GL
-				// AND a launchable grenade!
-				INT8 bOldWeaponMode = pSoldier->bWeaponMode;
-				pSoldier->bWeaponMode = WM_ATTACHED_GL; // So that EnoughAmmo will check for a grenade not a bullet
-				INT8 bGunSlot = FindAIUsableObjClass( pSoldier, IC_GUN );
-				if ( bGunSlot != NO_SLOT &&
-					IsGrenadeLauncherAttached(&pSoldier->inv[bGunSlot]) &&
-					( EnoughAmmo( pSoldier, FALSE, bGunSlot) || FindGLGrenade( pSoldier) == NO_SLOT) )
-				{
+				//dnl ch63 240813
+				// no rocket launcher (or empty) -- let's look for an underslung/attached GL and a launchable grenade!
+				INT8 bGunSlot = FindAIUsableObjClass(pSoldier, IC_GUN);
+				pSoldier->bWeaponMode = WM_ATTACHED_GL;// So that EnoughAmmo will check for a grenade not a bullet, also need in calculation during CalcBestThrow
+				if(bGunSlot != NO_SLOT && IsGrenadeLauncherAttached(&pSoldier->inv[bGunSlot]) && (EnoughAmmo(pSoldier, FALSE, bGunSlot) || FindAmmoToReload(pSoldier, bGunSlot, NO_SLOT) != NO_SLOT))
 					pBestThrow->bWeaponIn = bGunSlot;
-				}
 				else
 				{
 					// no rocket launcher or attached GL, consider grenades
-					pBestThrow->bWeaponIn = FindThrowableGrenade( pSoldier );
+					pBestThrow->bWeaponIn = FindThrowableGrenade(pSoldier);
+					pSoldier->bWeaponMode = WM_NORMAL;
 				}
-
-				pSoldier->bWeaponMode = bOldWeaponMode;
 			}
 			else
 			{
 				// Have rocket launcher... maybe have grenades as well.	which one to use?
 				if ( pSoldier->aiData.bAIMorale > MORALE_WORRIED && PreRandom( 2 ) )
 				{
-					pBestThrow->bWeaponIn = FindThrowableGrenade( pSoldier );
+					//dnl ch63 240813 use grenade if have one
+					INT8 bGrenadeIn = FindThrowableGrenade(pSoldier);
+					if(bGrenadeIn != NO_SLOT)
+						pBestThrow->bWeaponIn = bGrenadeIn;
 				}
 			}
 		}
@@ -2372,6 +2396,7 @@ void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			RearrangePocket( pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY );
 		}
 	}
+	pSoldier->bWeaponMode = WM_NORMAL;//dnl ch63 240813
 }
 
 INT8 CountAdjacentSpreadTargets( SOLDIERTYPE * pSoldier, INT16 sFirstTarget, INT8 bTargetLevel )

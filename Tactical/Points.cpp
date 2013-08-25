@@ -2330,11 +2330,11 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		else
 			bAPCost += APBPConstants[AP_CHANGE_TARGET];
 	}
-
+#if 0//dnl ch63 240813 this seems very wrong, in most case (pSoldier->bActionPoints > bFullAps) and this will return less points then is actually required and could cancel some AI actions, like throwing grenades
 	// the minimum AP cost of ANY shot can NEVER be more than merc's maximum APs!
 	if ( bAPCost > bFullAPs )
 		bAPCost = bFullAPs;
-
+#endif
 	// this SHOULD be impossible, but nevertheless...
 	if ( bAPCost < 1 )
 		bAPCost = 1;
@@ -3478,8 +3478,11 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	UINT32 uiMercFlags;
 	UINT8 ubDirection;
 
-	// make sure the guy's actually got a throwable item in his hand!
-	usInHand = pSoldier->inv[ HANDPOS ].usItem;
+	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)//dnl ch63 240813
+		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
+	else
+		// make sure the guy's actually got a throwable item in his hand!
+		usInHand = pSoldier->inv[HANDPOS].usItem;
 
 	if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) &&
 		   !(Item[ usInHand ].usItemClass & IC_LAUNCHER)) )
