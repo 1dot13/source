@@ -6104,6 +6104,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s多打了1发子弹！",	//"%s fires %d more round than intended!",
 
 	L"你得先关闭物品信息界面！",
+
+	L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.", // 65	// TODO.Translate
 };
 
 // HEADROCK HAM 3.5: Added sector name

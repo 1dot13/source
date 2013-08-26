@@ -6103,6 +6103,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s выпустил на одну пулю больше!",
 
 	L"Сперва закрой описание предмета!",
+
+	L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.", // 65	// TODO.Translate
 };
 
 // HEADROCK HAM 3.5: Added sector name

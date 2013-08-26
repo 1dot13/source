@@ -6112,6 +6112,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s wystrzelił(a) 1 pocisk(ów) więcej niż to było zamierzone!",
 
 	L"You need to close the item description box first!",	// TODO.Translate
+
+	L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.", // 65	// TODO.Translate
 };
 
 STR16 gzCWStrings[] = 

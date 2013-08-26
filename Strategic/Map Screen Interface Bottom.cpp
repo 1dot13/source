@@ -1416,6 +1416,14 @@ BOOLEAN AllowedToTimeCompress( void )
 	{
 		return FALSE;
 	}
+
+	// Flugente: no time compression if hostile civilians bloodcats are in the current sector. 
+	// Otherwise time progresses, but squad arrivals will be delayed as long as they still exist
+	if ( HostileCiviliansPresent() || HostileBloodcatsPresent() )
+	{
+		return FALSE;
+	}
+
 #ifdef JA2UB  
 		//if the player hasnt been to the initial sector yet
 	if( !GetSectorFlagStatus( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, 0, SF_HAS_ENTERED_TACTICAL ) ) //7, 8

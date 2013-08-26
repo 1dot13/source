@@ -13550,6 +13550,10 @@ void TellPlayerWhyHeCantCompressTime( void )
 	{
 		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 28 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
+	else if ( HostileCiviliansPresent() || HostileBloodcatsPresent() )
+	{
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 65 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+	}
 }
 
 

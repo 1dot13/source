@@ -6104,6 +6104,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s fires one more round than intended!",
 
 	L"You need to close the item description box first!",
+		
+	L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.", // 65
 };
 
 // HEADROCK HAM 3.5: Added sector name

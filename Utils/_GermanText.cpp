@@ -5933,6 +5933,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s feuert einen Schuss mehr als beabsichtigt!",
 
 	L"Sie müssen zuerst das Gegenstandsbeschreibungsfenster schließen!",
+
+	L"Zeitraffer kann nicht betätigt werden - Feindliche Zivilisten/Bloodcats sind im Sektor.", // 65
 };
 
 STR16 gzCWStrings[] = 
