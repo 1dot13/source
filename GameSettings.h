@@ -692,6 +692,8 @@ typedef struct
 	BOOLEAN fEnableSoldierTooltipAttitude;
 	BOOLEAN fEnableSoldierTooltipActionPoints;
 	BOOLEAN fEnableSoldierTooltipHealth;
+	BOOLEAN fEnableSoldierTooltipEnergy;
+	BOOLEAN fEnableSoldierTooltipMorale;
 	BOOLEAN fEnableSoldierTooltipTraits; // added by SANDRO
 	BOOLEAN fEnableSoldierTooltipHelmet;
 	BOOLEAN fEnableSoldierTooltipVest;

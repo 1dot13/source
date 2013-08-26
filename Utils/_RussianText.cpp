@@ -6123,6 +6123,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Настрой: %d\n",
 	L"%s|Текущие |A|Ps: %d\n",
 	L"%s|Текущее |Здоровье: %d\n",
+	L"%s|Current |Breath: %d\n",	// TODO.Translate
+	L"%s|Current |Morale: %d\n",
 	// Full info
 	L"%s|Каска: %s\n",
 	L"%s|Жилет: %s\n",

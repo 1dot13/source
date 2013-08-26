@@ -52,7 +52,7 @@
 
 #define				GAME_SETTINGS_FILE				"Ja2_Settings.INI"
 
-#define				GAME_EXTERNAL_OPTIONS_FILE		"Ja2_Options.ini"
+#define				GAME_EXTERNAL_OPTIONS_FILE					"Ja2_Options.ini"
 
 #define				AP_BP_CONSTANTS_FILE			"APBPConstants.ini"
 
@@ -1147,6 +1147,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnableSoldierTooltipAttitude		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ATTITUDE", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipActionPoints	= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ACTIONPOINTS", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipHealth		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HEALTH", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipEnergy		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ENERGY", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipMorale		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_MORALE", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipTraits		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_TRAITS", TRUE); // added by SANDRO
 	gGameExternalOptions.fEnableSoldierTooltipHelmet		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HELMET", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipVest			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_VEST", TRUE);

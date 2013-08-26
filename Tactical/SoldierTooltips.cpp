@@ -226,7 +226,11 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_APS], pStrInfo, pSoldier->bActionPoints );
 			if ( gGameExternalOptions.fEnableSoldierTooltipHealth )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_HEALTH], pStrInfo, pSoldier->stats.bLife );
-			
+			if ( gGameExternalOptions.fEnableSoldierTooltipEnergy )
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_ENERGY], pStrInfo, pSoldier->bBreath );
+			if ( gGameExternalOptions.fEnableSoldierTooltipMorale )
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_MORALE], pStrInfo, pSoldier->aiData.bMorale );
+						
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// Added by SANDRO - show enemy skills
 			if ( gGameExternalOptions.fEnableSoldierTooltipTraits )

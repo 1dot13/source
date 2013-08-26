@@ -5952,6 +5952,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Gesinnung: %d\n",
 	L"%s|Aktuelle |A|Ps: %d\n",
 	L"%s|Aktuelle |Gesundheit: %d\n",
+	L"%s|Aktueller |Atem: %d\n",
+	L"%s|Aktuelle |Moral: %d\n",
 	// Full info
 	L"%s|Helm: %s\n",
 	L"%s|Weste: %s\n",

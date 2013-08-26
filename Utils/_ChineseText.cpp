@@ -6124,6 +6124,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|属|性: %d\n",
 	L"%s|当|前 |A|Ps: %d\n",
 	L"%s|当|前 |生|命: %d\n",
+	L"%s|Current |Breath: %d\n",	// TODO.Translate
+	L"%s|Current |Morale: %d\n",
 	// Full info
 	L"%s|头|盔: %s\n",
 	L"%s|防|弹|衣: %s\n",
