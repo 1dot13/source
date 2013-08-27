@@ -15460,14 +15460,22 @@ void	SOLDIERTYPE::Strip()
 
 		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
 		{
-			UINT8				ubProfileIndex;
-			MERCPROFILESTRUCT * pProfile;
+			if ( this->bTeam == OUR_TEAM )
+			{
+				UINT8				ubProfileIndex;
+				MERCPROFILESTRUCT * pProfile;
 
-			ubProfileIndex = this->ubProfile;
-			pProfile = &(gMercProfiles[ubProfileIndex]);
+				ubProfileIndex = this->ubProfile;
+				pProfile = &(gMercProfiles[ubProfileIndex]);
 
-			SET_PALETTEREP_ID ( this->VestPal,		pProfile->VEST );
-			SET_PALETTEREP_ID ( this->PantsPal,		pProfile->PANTS );
+				SET_PALETTEREP_ID ( this->VestPal,		pProfile->VEST );
+				SET_PALETTEREP_ID ( this->PantsPal,		pProfile->PANTS );
+			}
+			else if ( this->bSoldierFlagMask & SOLDIER_ASSASSIN )
+			{
+				SET_PALETTEREP_ID( this->VestPal, gUniformColors[ UNIFORM_ENEMY_ELITE ].vest );
+				SET_PALETTEREP_ID( this->PantsPal, gUniformColors[ UNIFORM_ENEMY_ELITE ].pants );
+			}
 
 			// Use palette from HVOBJECT, then use substitution for pants, etc
 			memcpy( this->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( this->p8BPPPalette ) * 256 );

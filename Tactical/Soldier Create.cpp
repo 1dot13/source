@@ -3150,7 +3150,7 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 		// set correct stats
 		pSoldier->stats.bLife = pSoldier->stats.bLifeMax = (INT8)( 70 + Random( 26 ) );
 		pSoldier->stats.bAgility = (INT8)( 70 + Random( 16 ) );
-
+				
 		// add assassin flag
 		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
 
@@ -3164,38 +3164,6 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 		// set militia name to further irritate the player
 		swprintf( pSoldier->name, TacticalStr[ MILITIA_TEAM_MERC_NAME ] );
 
-		// wear a militia uniform
-		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
-
-		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
-		{
-			switch( disguisetype )
-			{
-			case ELITE_MILITIA:
-				SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_ELITE ].vest );
-				SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_ELITE ].pants );
-				break;
-			case REGULAR_MILITIA:
-				SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_REGULAR ].vest );
-				SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_REGULAR ].pants );
-				break;
-			default:
-				SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].vest );
-				SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].pants );
-				break;
-			}
-
-			// Use palette from HVOBJECT, then use substitution for pants, etc
-			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[ usPaletteAnimSurface ].hVideoObject->pPaletteEntry, sizeof( pSoldier->p8BPPPalette ) * 256 );
-
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
-
-			pSoldier->CreateSoldierPalettes();
-		}
-	
 		// send soldier to centre of map, roughly
 		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
@@ -3229,6 +3197,48 @@ void CreateAssassin(UINT8 disguisetype)
 		}
 
 		AddSoldierToSector( pSoldier->ubID );
+
+		// assassins are elite soldiers disguised as militia. Create militia clothes and apply them
+		BOOLEAN vestfound  = FALSE;
+		BOOLEAN pantsfound = FALSE;
+		UINT16 vestitem = 0;
+		UINT16 pantsitem = 0;
+		switch( disguisetype )
+		{
+		case ELITE_MILITIA:
+			vestfound  =  GetFirstClothesItemWithSpecificData(&vestitem, gUniformColors[ UNIFORM_MILITIA_ELITE ].vest, "blank");
+			pantsfound =  GetFirstClothesItemWithSpecificData(&pantsitem, "blank", gUniformColors[ UNIFORM_MILITIA_ELITE ].pants);
+			break;
+		case REGULAR_MILITIA:
+			vestfound  =  GetFirstClothesItemWithSpecificData(&vestitem, gUniformColors[ UNIFORM_MILITIA_REGULAR ].vest, "blank");
+			pantsfound =  GetFirstClothesItemWithSpecificData(&pantsitem, "blank", gUniformColors[ UNIFORM_MILITIA_REGULAR ].pants);
+			break;
+		default:
+			vestfound  =  GetFirstClothesItemWithSpecificData(&vestitem, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].vest, "blank");
+			pantsfound =  GetFirstClothesItemWithSpecificData(&pantsitem, "blank", gUniformColors[ UNIFORM_MILITIA_ROOKIE ].pants);
+			break;
+		}
+
+		if ( vestfound )
+		{
+			CreateItem( vestitem, 100, &gTempObject );
+
+			ApplyClothes(pSoldier, &gTempObject, FALSE);
+		}
+
+		if ( pantsfound )
+		{
+			CreateItem( pantsitem, 100, &gTempObject );
+
+			ApplyClothes(pSoldier, &gTempObject, FALSE);
+		}
+
+		// Dirty
+		fInterfacePanelDirty = DIRTYLEVEL2;
+
+		// add correct flags. Undo SOLDIER_COVERT_CIV flag, we disguise as militia, not as a civilian (player cannot disguise as militia, thus he becomes a civilian)
+		pSoldier->bSoldierFlagMask &= ~SOLDIER_COVERT_CIV;
+		pSoldier->bSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_ASSASSIN);
 
 		// So we can see them!
 		AllTeamsLookForAll(NO_INTERRUPTS);

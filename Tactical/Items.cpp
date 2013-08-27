@@ -9399,7 +9399,9 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
 				{
 					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
+
+					if ( pSoldier->bTeam == OUR_TEAM )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
 
 					break;
 				}
@@ -9409,7 +9411,9 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 			if ( !(pSoldier->bSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
 			{
 				pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
+
+				if ( pSoldier->bTeam == OUR_TEAM )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
 			}
 
 			// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
