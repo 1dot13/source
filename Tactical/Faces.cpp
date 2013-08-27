@@ -1621,8 +1621,10 @@ void DoRightIcon( UINT32 uiRenderBuffer, FACETYPE *pFace, INT16 sFaceX, INT16 sF
 void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLEAN fUseExternBuffer, UINT32 uiBuffer, INT16 sFaceX, INT16 sFaceY, UINT16 usEyesX, UINT16 usEyesY )
 {
 	INT16						sIconX, sIconY;
-	INT16						sIconIndex=-1;
+	INT16						sIconIndex = -1;
+	INT16						sIconIndex_Assignment = -1;
 	BOOLEAN					fDoIcon = FALSE;
+	BOOLEAN					fDoIcon_Assignment = FALSE;
 	UINT32					uiRenderBuffer;
 	INT16						sPtsAvailable = 0;
 	FLOAT						bPtsAvailable = 0.0;	// Flugente: sometimes, we want to display float values...
@@ -2121,16 +2123,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}	
 			}
 		}
-
-		if ( fDoIcon )
-		{
-			// Find X, y for placement
-			GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS );
-			BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
-
-			fDoIcon = FALSE;
-			bNumRightIcons++;
-		}
+				
 		//------------------------------------end of tactical face gear-----------------------------
 
 		{	
@@ -2202,8 +2195,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			switch( pSoldier->bAssignment )
 			{
 				case DOCTOR:
-					sIconIndex = 1;
-					fDoIcon		= TRUE;
+					sIconIndex_Assignment = 1;
+					fDoIcon_Assignment		= TRUE;
 					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
 					fShowNumber = TRUE;
 					fShowMaximum = TRUE;
@@ -2214,8 +2207,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					break;
 
 				case PATIENT:
-					sIconIndex = 2;
-					fDoIcon		= TRUE;
+					sIconIndex_Assignment = 2;
+					fDoIcon_Assignment		= TRUE;
 					// show current health / maximum health
 					sPtsAvailable = MercPtrs[ pFace->ubSoldierID ]->stats.bLife;
 					usMaximumPts	= MercPtrs[ pFace->ubSoldierID ]->stats.bLifeMax;
@@ -2229,8 +2222,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				case TRAIN_MOBILE:
 				case TRAIN_TEAMMATE:
 				case TRAIN_BY_OTHER:
-					sIconIndex = 3;
-					fDoIcon		= TRUE;
+					sIconIndex_Assignment = 3;
+					fDoIcon_Assignment		= TRUE;
 					fShowNumber = TRUE;
 					fShowMaximum = TRUE;
 
@@ -2257,8 +2250,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				case REPAIR:
 
-					sIconIndex = 0;
-					fDoIcon		= TRUE;
+					sIconIndex_Assignment = 0;
+					fDoIcon_Assignment		= TRUE;
 					sPtsAvailable = CalculateRepairPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
 					fShowNumber = TRUE;
 					fShowMaximum = TRUE;
@@ -2275,8 +2268,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				case MOVE_EQUIPMENT:
 					{
-						sIconIndex		= 15;
-						fDoIcon			= TRUE;
+						sIconIndex_Assignment		= 15;
+						fDoIcon_Assignment			= TRUE;
 					
 						GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), wShortText );
 
@@ -2286,8 +2279,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					break;
 
 				case FACILITY_INTERROGATE_PRISONERS:
-					sIconIndex		= 13;
-					fDoIcon			= TRUE;
+					sIconIndex_Assignment		= 13;
+					fDoIcon_Assignment			= TRUE;
 					sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) );
 					fShowNumber		= TRUE;
 					fShowMaximum	= TRUE;
@@ -2298,23 +2291,23 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			if ( MercPtrs[ pFace->ubSoldierID ]->ubServicePartner != NOBODY )
 			{
 				// Doctor...
-				sIconIndex = 1;
-				fDoIcon		= TRUE;
+				sIconIndex_Assignment = 1;
+				fDoIcon_Assignment		= TRUE;
 			}
 
 			if ( MercPtrs[ pFace->ubSoldierID ]->ubServiceCount != 0 )
 			{
 				// Patient
-				sIconIndex = 2;
-				fDoIcon		= TRUE;
+				sIconIndex_Assignment = 2;
+				fDoIcon_Assignment		= TRUE;
 			}
 
 
-			if ( fDoIcon )
+			if ( fDoIcon_Assignment )
 			{
 				// Find X, y for placement
-				GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS );
-				BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+				GetXYForIconPlacement( pFace, sIconIndex_Assignment, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS );
+				BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex_Assignment, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 				// ATE: Show numbers only in mapscreen
 				if( fShowNumber )
@@ -2343,6 +2336,15 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					mprintf(	sFaceX + pFace->usFaceWidth - usTextWidth, ( INT16 )( sFaceY + 3 ), sString );
 					SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 				}
+			}
+			else if ( fDoIcon )
+			{
+				// Find X, y for placement
+				GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS );
+				BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+				fDoIcon = FALSE;
+				bNumRightIcons++;
 			}
 		}
 	}
