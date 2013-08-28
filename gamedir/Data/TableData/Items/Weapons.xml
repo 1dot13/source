@@ -2256,4 +2256,16 @@
 		<nAccuracy>89</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>336</uiIndex>
+		<szWeaponName>MERC Umbrella</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>10.46</ubShotsPer4Turns>
+		<ubImpact>12</ubImpact>
+		<ubDeadliness>5</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>5</ubAttackVolume>
+		<sSound>87</sSound>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
 </WEAPONLIST>

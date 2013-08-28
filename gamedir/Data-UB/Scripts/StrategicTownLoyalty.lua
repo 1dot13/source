@@ -1,17 +1,21 @@
 --[[
 
-	http://www.legion.zone.zg.pl/doku.php/modowanie/ja/art_ja_m_22_lua
+	http://legion.itzg.pl/mzgb/pmwiki/pmwiki.php?n=JaggedAlliance2UBV1.Jav113lua
 
-	Global :
+**********************
+** Global variables **
+**********************
 	
 	- giLairID
+		1 = Drassen
+		2 = Cambria
+		3 = Alma
+		4 = Grumm
 	
-		1 - Drassen
-		2 - Cambria
-		3 - Alma
-		4 - Grumm
 
-	Function :
+***************
+** Functions **
+***************
 	
 	- SectorEnemyControlled ( IDSector )
 	  check if enemy controls sector
@@ -38,7 +42,10 @@
 	- SetTownLoyalty ( idTown, idLoyalty )
 	  set town loyalty
  
-	Example :
+
+**************
+** Examples **
+**************
 	
 		if SectorEnemyControlled ( SECTOR(4,13) ) == false then
 			-- instructions
@@ -74,22 +81,22 @@
 		-- 30  = 30%
 		SetTownLoyalty ( 1, 30 ) 
 		
-		
-	EventGlobal = {
+	EventGlobal = 
+	{
 		GLOBAL_LOYALTY_BATTLE_WON = 0,
 		.
 		.
 		MY_GLOBAL_LOYALTY_13 = 13,
 		MY_GLOBAL_LOYALTY_14 = 14,
 		.
-		.
-		.
+		.	.
 		MY_GLOBAL_LOYALTY_100 = 100,
 	}
 	
 ]]
 
-Profil = {                   
+Profil = 
+{                   
     MIGUEL    = 57,
     DOREEN    = 139,
     MARTHA    = 109,
@@ -100,8 +107,8 @@ Profil = {
     JOEY      = 90,
 }
 
-Town = {
-
+Town = 
+{
 	OMERTA   = 1,
 	DRASSEN  = 2,
 	ALMA     = 3,
@@ -137,10 +144,11 @@ local LOYALTY_BONUS_FOR_SERGEANT_KROTT = (20 * GAIN_PTS_PER_LOYALTY_PT)	-- Alma'
 local LOYALTY_BONUS_TERRORISTS_DEALT_WITH = ( 5 * GAIN_PTS_PER_LOYALTY_PT)
 local LOYALTY_BONUS_KILL_QUEEN_MONSTER = (10 * GAIN_PTS_PER_LOYALTY_PT)
 -- Anywhere
--- loyalty bonus for completing town training
+-- Loyalty bonus for completing town training
 local LOYALTY_BONUS_FOR_TOWN_TRAINING = ( 2 * GAIN_PTS_PER_LOYALTY_PT )	-- 2% (Town Militia.cpp i Map Screen Interface Map.cpp)
 
-EventGlobal = {
+EventGlobal = 
+{
     -- There are only for distance-adjusted global loyalty effects.	Others go into list above instead!
 	GLOBAL_LOYALTY_BATTLE_WON = 0,
 	GLOBAL_LOYALTY_BATTLE_LOST = 1,
@@ -148,14 +156,14 @@ EventGlobal = {
 	GLOBAL_LOYALTY_NATIVE_KILLED = 3,
 	GLOBAL_LOYALTY_GAIN_TOWN_SECTOR = 4,
 	GLOBAL_LOYALTY_LOSE_TOWN_SECTOR = 5,
-	GLOBAL_LOYALTY_LIBERATE_WHOLE_TOWN = 6,		-- awarded only the first time it happens
+	GLOBAL_LOYALTY_LIBERATE_WHOLE_TOWN = 6,
 	GLOBAL_LOYALTY_ABANDON_MILITIA = 7,
 	GLOBAL_LOYALTY_GAIN_MINE = 8,
 	GLOBAL_LOYALTY_LOSE_MINE = 9,
 	GLOBAL_LOYALTY_GAIN_SAM = 10,
 	GLOBAL_LOYALTY_LOSE_SAM = 11,
 	GLOBAL_LOYALTY_QUEEN_BATTLE_WON = 12,
-	GLOBAL_LOYALTY_GRIZZLY_DEAD = 13,
+	GLOBAL_LOYALTY_UNUSED = 13,
 	GLOBAL_LOYALTY_PRISONERS_TORTURED = 14,
 }
 
@@ -164,7 +172,7 @@ function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ
 
 	local ubValidMines = 0
 	
-	if ( gameStyle == 0 or enableCrepitus == 0 ) then 
+	if ( newGAME_STYLE == 0 or iniENABLE_CREPITUS == 0 ) then 
 		return -- No scifi, no creatures...
 	end	
 	
@@ -201,7 +209,7 @@ end
 
 function HandleGlobalLoyaltyEvent( ubEventType, sSectorX, sSectorY, bSectorZ )
 
-local iLoyaltyChange = 0
+	local iLoyaltyChange = 0
 
 	if ubEventType == EventGlobal.GLOBAL_LOYALTY_BATTLE_WON then
 		
@@ -229,14 +237,14 @@ local iLoyaltyChange = 0
 		
 	elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_NATIVE_KILLED then
 		
-		-- note that there is special code (much more severe) for murdering civilians in the currently loaded sector.
-		-- this event is intended more for processing militia casualties, and the like
+		-- Note that there is special code (much more severe) for murdering civilians in the currently loaded sector.
+		-- This event is intended more for processing militia casualties, and the like
 		iLoyaltyChange = -50
 		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
 		
 	elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_ABANDON_MILITIA then
 		
-		-- it doesn't matter how many of them are being abandoned
+		-- It doesn't matter how many of them are being abandoned
 		iLoyaltyChange = -750
 		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
 		
@@ -274,13 +282,6 @@ local iLoyaltyChange = 0
 		iLoyaltyChange = -250	
 		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
 
-  elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_GRIZZLY_DEAD then
-		
-		if ( CheckMercIsDead(3) == false ) then 
-		iLoyaltyChange = 1000	
-		AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ )
-		end
-
   elseif ubEventType == EventGlobal.GLOBAL_LOYALTY_PRISONERS_TORTURED then
 		
 		iLoyaltyChange = -60
@@ -297,12 +298,12 @@ function HandleLoyaltyChangeForNPCAction( ubNPCProfileId )
 		IncrementTownLoyalty ( Town.OMERTA, LOYALTY_BONUS_MIGUEL_READS_LETTER )
 	end
 
-	-- having freed the child labourers... she is releasing them herself!
+	-- Having freed the child labourers... she is releasing them herself!
 	if ubNPCProfileId == Profil.DOREEN  then
 		IncrementTownLoyalty( Town.DRASSEN, LOYALTY_BONUS_CHILDREN_FREED_DOREEN_SPARED )
 	end
 
-    -- if Joey is still alive
+    -- If Joey is still alive
 	if ubNPCProfileId == Profil.MARTHA then
 		if ( CheckMercIsDead(Profil.JOEY) == false ) then 
 			IncrementTownLoyalty( Town.CAMBRIA, LOYALTY_BONUS_MARTHA_WHEN_JOEY_RESCUED )

@@ -1,7 +1,8 @@
 --[[
-Global:
 
-guiNumWorldItems
+This script has two functions "HandleQuestCodeOnSectorEntry" and "HandleQuestCodeOnSectorExit".
+First function is executed when merc enter to the sector and second function is executed 
+when merc leave from the sector.
 
 ]]
 
@@ -33,37 +34,37 @@ EventTypes = {
 }
 
 qStatus = {
-QUESTNOTSTARTED =0,
-QUESTINPROGRESS = 1,
-QUESTDONE = 2,
+	QUESTNOTSTARTED =0,
+	QUESTINPROGRESS = 1,
+	QUESTDONE = 2,
 }
 
 Quests = 
 {
-	-- Quests ID							 -- BinaryData\QUESTS25.EDT Record
-	QUEST_DELIVER_LETTER = 0,				 -- Start quest 0, End quest 1
-	QUEST_FOOD_ROUTE = 1,					 -- Start quest 2, End quest 3
-	QUEST_KILL_TERRORISTS = 2,				 -- Start quest 4, End quest 5
-	QUEST_KINGPIN_IDOL = 3,					 -- Start quest 6, End quest 7
-	QUEST_KINGPIN_MONEY = 4,				 -- Start quest 8, End quest 9
-	QUEST_RUNAWAY_JOEY = 5,					 -- Start quest 10, End quest 11
-	QUEST_RESCUE_MARIA = 6,					 -- Start quest 12, End quest 13
-	QUEST_CHITZENA_IDOL = 7,				 -- Start quest 14, End quest 15
-	QUEST_HELD_IN_ALMA = 8,					 -- Start quest 16, End quest 17
-	QUEST_INTERROGATION = 9,				 -- Start quest 18, End quest 19
-	QUEST_ARMY_FARM = 10,					 -- Start quest 20, End quest 21
-	QUEST_FIND_SCIENTIST = 11,				 -- Start quest 22, End quest 23
-	QUEST_DELIVER_VIDEO_CAMERA = 12,		 -- Start quest 24, End quest 25
-	QUEST_BLOODCATS = 13,					 -- Start quest 26, End quest 27
-	QUEST_FIND_HERMIT = 14,					 -- Start quest 28, End quest 29
-	QUEST_CREATURES = 15,					 -- Start quest 30, End quest 31
-	QUEST_CHOPPER_PILOT = 16,				 -- Start quest 32, End quest 33
-	QUEST_ESCORT_SKYRIDER = 17,				 -- Start quest 34, End quest 35
-	QUEST_FREE_DYNAMO = 18,					 -- Start quest 36, End quest 37
-	QUEST_ESCORT_TOURISTS = 19,				 -- Start quest 38, End quest 39
-	QUEST_FREE_CHILDREN = 20,				 -- Start quest 40, End quest 41
-	QUEST_LEATHER_SHOP_DREAM = 21,			 -- Start quest 42, End quest 43
-	QUEST_ESCORT_SHANK = 22,				 -- Start quest 44, End quest 45
+	-- Quests ID							-- BinaryData\QUESTS.EDT Record
+	QUEST_DELIVER_LETTER = 0,				-- Start quest 0, End quest 1   - Deliver Letter
+	QUEST_FOOD_ROUTE = 1,					-- Start quest 2, End quest 3   - Food Route
+	QUEST_KILL_TERRORISTS = 2,				-- Start quest 4, End quest 5   - Terrorists
+	QUEST_KINGPIN_IDOL = 3,					-- Start quest 6, End quest 7   - Kingpin Chalice
+	QUEST_KINGPIN_MONEY = 4,				-- Start quest 8, End quest 9   - Kingpin Money
+	QUEST_RUNAWAY_JOEY = 5,					-- Start quest 10, End quest 11 - Runaway Joey
+	QUEST_RESCUE_MARIA = 6,					-- Start quest 12, End quest 13 - Rescue Maria
+	QUEST_CHITZENA_IDOL = 7,				-- Start quest 14, End quest 15 - Chitzena Chalice
+	QUEST_HELD_IN_ALMA = 8,					-- Start quest 16, End quest 17 - Held in Alma
+	QUEST_INTERROGATION = 9,				-- Start quest 18, End quest 19 - Interogation
+	QUEST_ARMY_FARM = 10,					-- Start quest 20, End quest 21 - Hillbilly Problem
+	QUEST_FIND_SCIENTIST = 11,				-- Start quest 22, End quest 23 - Find Scientist
+	QUEST_DELIVER_VIDEO_CAMERA = 12,		-- Start quest 24, End quest 25 - Deliver Video Camera
+	QUEST_BLOODCATS = 13,					-- Start quest 26, End quest 27 - Blood Cats
+	QUEST_FIND_HERMIT = 14,					-- Start quest 28, End quest 29 - Find Hermit
+	QUEST_CREATURES = 15,					-- Start quest 30, End quest 31 - Creatures
+	QUEST_CHOPPER_PILOT = 16,				-- Start quest 32, End quest 33 - Find Chopper Pilot
+	QUEST_ESCORT_SKYRIDER = 17,				-- Start quest 34, End quest 35 - Escort SkyRider
+	QUEST_FREE_DYNAMO = 18,					-- Start quest 36, End quest 37 - Free Dynamo
+	QUEST_ESCORT_TOURISTS = 19,				-- Start quest 38, End quest 39 - Escort Tourists
+	QUEST_FREE_CHILDREN = 20,				-- Start quest 40, End quest 41 - Doreen
+	QUEST_LEATHER_SHOP_DREAM = 21,			-- Start quest 42, End quest 43 - Leather Shop Dream
+	QUEST_ESCORT_SHANK = 22,				-- Start quest 44, End quest 45 - Escort Shank
 	-- UB Quests
 	QUEST_DESTROY_MISSLES = 23,				 -- Start quest 46, End quest 47
 	QUEST_FIX_LAPTOP = 24,					 -- Start quest 48, End quest 49
@@ -87,6 +88,8 @@ local KINGPIN_MONEY_SECTOR_Z	= 1
 local HOSPITAL_SECTOR_X	= 8
 local HOSPITAL_SECTOR_Y	= 6 -- MAP_ROW_F
 local HOSPITAL_SECTOR_Z	= 0	
+
+local NOBODY = 254
 
 History = {
 	HISTORY_ENTERED_HISTORY_MODE = 0,
@@ -168,6 +171,18 @@ History = {
 	HISTORY_SLAY_MYSTERIOUSLY_LEFT = 76,
 	HISTORY_MERC_KILLED_CHARACTER = 77,
 }
+
+Profil = 
+{                   
+    MARIA = 88,
+	ANGEL = 89,
+	ELLIOT = 135,
+	CONRAD = 70,
+	CARMEN = 78,
+	MADLAB = 146,
+	ROBOT = 62,
+}
+local gsRobotGridNo
 
 function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 

@@ -9269,4 +9269,36 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>336</uiIndex>
+		<szItemName>Umbrella</szItemName>
+		<szLongItemName>MERC Umbrella</szLongItemName>
+		<szItemDesc>From formal wear to fatigues, this highly versatile umbrella will accompany you anywhere in style. It is also extremely durable; boasting a teflon-treated cloth guaranteed to withstand hail and sleet.</szItemDesc>
+		<szBRName>MERC Umbrella</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>4</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>336</ubClassIndex>
+		<ubCursor>4</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>84</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>5</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>-1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Unaerodynamic>1</Unaerodynamic>
+		<BR_ROF>22</BR_ROF>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

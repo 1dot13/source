@@ -1,4 +1,5 @@
-Facts = {
+Facts = 
+{
 	FACT_BROTHEL_OPEN = 251,
 	FACT_MUSEUM_OPEN = 250,
 	FACT_CLUB_OPEN = 252,
@@ -17,45 +18,43 @@ function HourlyQuestUpdate()
 		SetFactTrue( Facts.FACT_BROTHEL_OPEN )
 	end
 
-
--- bar/nightclub
+	-- Bar/night club
 	if ( cHour > 15 or cHour < 2) then
 	
 		SetFactTrue( Facts.FACT_CLUB_OPEN )
 		SetFactFalse( Facts.FACT_PAST_CLUB_CLOSING_AND_PLAYER_WARNED )
 
-		-- reset boxes fought
+		-- Reset boxes fought
 		for i = 0,3 do
-			-- set false
+			-- Set false
 			gfBoxerFought(i,false)
 		end
 
-		-- if # of boxing matches the player has won is a multiple of
+		-- If # of boxing matches the player has won is a multiple of
 		-- 3, and the boxers haven't rested, then make them rest
 		
 		if ( gfBoxersResting == true ) then
 			
-			-- done resting now!
+			-- Done resting now!
 			gfBoxersResting = false
 			gubBoxersRests = gubBoxersRests + 1
 			
 			p = gubBoxingMatchesWon / 3
 			
 		elseif ( p > gubBoxersRests ) then
-			-- time for the boxers to rest!
+			-- Time for the boxers to rest!
 			 gfBoxersResting = true
 		end
 
-		
 	else
 		SetFactFalse( Facts.FACT_CLUB_OPEN )
 	end
 
--- museum
-if ( cHour >= 9 or cHour < 18 ) then
+	-- Museum
+	if ( cHour >= 9 or cHour < 18 ) then
 	SetFactTrue( Facts.FACT_MUSEUM_OPEN )
-else
+	else
 	SetFactFalse( Facts.FACT_MUSEUM_OPEN )
-end
+	end
 ]]
 end

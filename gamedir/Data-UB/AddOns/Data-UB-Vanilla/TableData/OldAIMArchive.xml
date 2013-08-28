@@ -1,0 +1,420 @@
+﻿<!--
+	In this file you can specify which old AIM veterans should be available on the AIM alumni laptop site.
+	Just remove the <MERC></MERC> block for the merc which should not show up on the AIM veterans site.
+	
+	uiIndex:	This is an index starting from 0 up to 254
+	NickName: 	The Nickname of the merc (this is externalized from the file: Data\BinaryData\ALUMNAME.EDT)
+	Name:     	The Name of the merc (this is externalized from the file: Data\BinaryData\ALUMNI.EDT)
+	Bio:      	The Bio of the merc (this is externalized from the file: Data\BinaryData\ALUMNI.EDT)
+	FaceID:		The face index from the "Data\Laptop\OLD_AIM.STI" file
+-->
+<OLD_MERC>
+	<MERC>
+		<!-- Needle -->
+		<uiIndex>0</uiIndex>
+		<NickName>Needle</NickName>
+		<Name>Doctor Mark Kranhuim</Name>
+		<Bio>After over a decade of valiant service, Needle failed his annual physical and was forced into early retirement. Regrettably, further deterioration of Doctor Mark Kranhuim's wandering right eye had rendered him a danger to his squad. Presently, he holds a part-time position with the New York City Coroner's Office working the graveyard shift as a Coroner.</Bio>
+		<FaceID>0</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Gary -->
+		<uiIndex>1</uiIndex>
+		<NickName>Gary</NickName>
+		<Name>Gary Roachburn</Name>
+		<Bio>Gary Roachburn, well-known for his family tree and loose tongue, was the second of the Roachburns to sever their ties with the organization. After the sudden, accidental death of his father, Col. Leon Roachburn, Gary left the life of a soldier of fortune and has taken a seasonal position with the Boy Scouts of America. At the moment, he is stationed at Camp Takaddata.</Bio>
+		<FaceID>1</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Sam -->
+		<uiIndex>2</uiIndex>
+		<NickName>Sam</NickName>
+		<Name>Samuel "Sam" Garver</Name>
+		<Bio>After an illustrious career as a mercenary, Sam Garver put in for his pension and retired to the Florida Keys. He is enjoying his golden years as the owner/operator of Sam's Alligator Ranch and Gift shop. Located just off Highway 71, the conveniently situated shop has acquired a reputation for its exclusive line of gator-skinned combat knives and matching boots.</Bio>
+		<FaceID>2</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Boss -->
+		<uiIndex>3</uiIndex>
+		<NickName>Boss</NickName>
+		<Name>Glen "Boss" Hatchet</Name>
+		<Bio>Boss Hatchet always said he would walk away from this business alive, and that is precisely what he did. Offered the opportunity to run Victoria Waters' Vintage car restoration and repair shop, Glen turned in his gun and left with his tool box. He will probably best be remembered for the pummeling he gave Dr. Bernie Gloveless at last year's A.I.M. Christmas party.</Bio>
+		<FaceID>3</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Smoke -->
+		<uiIndex>4</uiIndex>
+		<NickName>Smoke</NickName>
+		<Name>Smoke Peterson</Name>
+		<Bio>Throughout his many years of shaky service with A.I.M., Smoke Peterson was repeatedly cited for short-fusing explosives - a juvenile attempt at cheap laughs. To the delight of a number of members, the final laugh was on him. Distracted by an elusive pebble in his combat boot, Peterson bid this world goodbye with a loud bang, a puff of smoke, and one far-reaching unidentifiable mess.</Bio>
+		<FaceID>4</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Jimmy -->
+		<uiIndex>5</uiIndex>
+		<NickName>Jimmy</NickName>
+		<Name>Jimmy Upton</Name>
+		<Bio>Unfortunately, some old habits never die. Jimmy Upton was discovered in a bank in south-west Detroit after business hours. Despite his vehement denials and supposed lack of knowledge regarding the burglary tools found in his possession, Upton was sentenced to five years in the state penitentiary. After completing that sentence, Jimmy is scheduled to be returned to Ohio to serve the seven remaining years on a previous burglary conviction.</Bio>
+		<FaceID>5</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Doc -->
+		<uiIndex>6</uiIndex>
+		<NickName>Doc</NickName>
+		<Name>Doc Koolhan</Name>
+		<Bio>Doc Koolhan resigned from A.I.M. to focus his energies on his medical practice. He had been running a free clinic as a sideline in Tripoli for years. However, six months after working there full-time, he closed up his office and joined Doctors Without Frontiers. At present, he is believed to be serving with the organization in Tunisia.</Bio>
+		<FaceID>6</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Wink -->
+		<uiIndex>7</uiIndex>
+		<NickName>Wink</NickName>
+		<Name>Wink Dickerson</Name>
+		<Bio>Known primarily for his strong throwing arm, yet poor accuracy, Wink Dinkerson finally received the call he had been waiting for all of his life. Severe budget cuts left the Montreal Expos searching for pitching talent, or the lack of it, just about anywhere. After accepting a contract for 140 Canadian dollars a week, Wink has earned a position as the fifth pitcher in the starting rotation of their farm club.</Bio>
+		<FaceID>7</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Beth -->
+		<uiIndex>8</uiIndex>
+		<NickName>Beth</NickName>
+		<Name>Mary Beth Wilkens</Name>
+		<Bio>It is one of the most tragic turn of events we have ever had to report. Mary Beth died last August on the steps of her apartment building at the hands of a lone gunman. After enduring months of harassment, which developed into stalking, she was surprised by a crazed mercenary groupie, as she walked up to her doorway with her arms full of groceries. Mary Beth's determination and positive attitude will remain an inspiration to us all.</Bio>
+		<FaceID>8</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Bud -->
+		<uiIndex>9</uiIndex>
+		<NickName>Bud</NickName>
+		<Name>Lt. Bud Hellar</Name>
+		<Bio>Lieutenant Bud Hellar has held a series of jobs since leaving A.I.M., from working as Rush Limbaugh's personal bodyguard to parking cars at the pentagon. His departure from the organization was amicable, and he shall be remembered for his steadfast dedication and loyalty. Recent reports have him working as a security consultant for the tobacco lobby. While entirely within character, this information has not been verified.</Bio>
+		<FaceID>9</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Larry -->
+		<uiIndex>10</uiIndex>
+		<NickName>Larry</NickName>
+		<Name>Larry Roachburn</Name>
+		<Bio>After eight attempts at rehab without any sustained success, A.I.M. was left with little choice but to terminate Larry Roachburn's membership within the organization. From what we understand, the death of Larry's father persuaded him to make yet another attempt at ridding himself of his demons and cleansing his body from decades of toxicity. The organization wishes him the best of luck in all his future endeavors.</Bio>
+		<FaceID>10</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Ears -->
+		<uiIndex>11</uiIndex>
+		<NickName>Ears</NickName>
+		<Name>Edward "Ears" Stockwell</Name>
+		<Bio>Ears Stockwell handed in his resignation almost eighteen months ago. Since that time, we have heard nothing from him and therefore have no news to report. Though, to be honest, we haven't exactly gone out of our way to make contact with him either.</Bio>
+		<FaceID>11</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Moses -->
+		<uiIndex>12</uiIndex>
+		<NickName>Moses</NickName>
+		<Name>Murray "Moses" Ebstern</Name>
+		<Bio>Opting to take part in A.I.M.'s early retirement package offered to all mercenaries over fifty, Moses decided it was time to move on and into a new line of work. Investing his severance, Ebstern opened a restaurant on the main. After just two short years in business, Murray's has established a reputation for serving the best smoked meat in New Delhi.</Bio>
+		<FaceID>12</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Screw -->
+		<uiIndex>13</uiIndex>
+		<NickName>Screw</NickName>
+		<Name>Patrick "Screw" Phillips</Name>
+		<Bio>It is with regret that A.I.M. acknowledges the departure of Patrick Phillips from its ranks. Due to many unresolved issues, mostly relating to Screw's deviation from acceptable social norms, Patrick felt it best to continue his career as an independent. As of last word, he was working freelance for some of the newer countries in Eastern Europe.</Bio>
+		<FaceID>13</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Rusty -->
+		<uiIndex>14</uiIndex>
+		<NickName>Rusty</NickName>
+		<Name>Russell "Rusty" Hunter</Name>
+		<Bio>Known for years as one A.I.M.'s top explosive experts, Rusty acquired a stellar reputation for his range of knowledge and, well... being the sanest of the lot. Russell Hunter recently took an extended leave of absence to work as a special effects consultant for a major motion picture studio. Fortunately for A.I.M., the past year has seen a wealth of new talent emerge in the explosives field.</Bio>
+		<FaceID>14</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Bernie -->
+		<uiIndex>15</uiIndex>
+		<NickName>Bernie</NickName>
+		<Name>Doctor Bernie Gloveless</Name>
+		<Bio>Bernie's history with A.I.M. can probably be, at best, described as checkered. After refusing to give up his position as the organization's physician and considering the abundance of complaints from fellow members, A.I.M. felt obliged to give Dr. Bernie Gloveless a dishonorable discharge. He's currently employed with an international insurance company, so you might want to remember his name the next time your company sends you for your annual physical.</Bio>
+		<FaceID>15</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Reuban -->
+		<uiIndex>16</uiIndex>
+		<NickName>Reuban</NickName>
+		<Name>"Unusually Ruthless" Reuban</Name>
+		<Bio>After years of eluding capture, Reuban was finally arrested and deported to Romania. He is currently serving six concurrent life sentences for the massacre of his wife and family. Although Reuban will never be able to enjoy life as a free man, he seems to be adjusting well to his new found surroundings. His prison duties include landscaping the grounds and some of his shrub sculptures have won the penitentiary numerous "Good Prisonkeeping" awards.</Bio>
+		<FaceID>16</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Pops -->
+		<uiIndex>17</uiIndex>
+		<NickName>Pops</NickName>
+		<Name>Pops McGillicutty</Name>
+		<Bio>After years of trying to convince Pops McGillicutty to retire, A.I.M. was finally forced to institute a mandatory retirement policy for those reaching the age of 85. Wanting to do his part to eliminate river burials, Pops opened a web-based Funeral Salon specializing in the respectful interment of mercenaries.</Bio>
+		<FaceID>17</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Kelly -->
+		<uiIndex>18</uiIndex>
+		<NickName>Kelly</NickName>
+		<Name>Col. Leo Kelly</Name>
+		<Bio>Often referred to as the mercenary's mercenary, Col. Leo Kelly dropped out of sight shortly after the war in Croatia hit the fan. Some of our members do claim to have seen him leading a commando unit through the jungles of Napir though, and he did receive on-screen credit for technical combat consultation in Steven Segal's latest flick. However, no official news of his whereabouts have reached our offices.</Bio>
+		<FaceID>18</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Tex -->
+		<uiIndex>19</uiIndex>
+		<NickName>Tex</NickName>
+		<Name>Tex R. Colburn</Name>
+		<Bio>One of our more colorful warriors, Tex Colburn, handed in his six-shooters to fulfill his dream of starring on the big screen. As a rising star in Japanese westerns, he played the lead in "Much Dust, Many Bullets," and has received glowing reviews for his roles in the classic films "Attack of the Clydesdales" and "Have Honda, will Travel."</Bio>
+		<FaceID>19</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Hurl -->
+		<uiIndex>20</uiIndex>
+		<NickName>Hurl</NickName>
+		<Name>Hurl E. Cutter</Name>
+		<Bio>Hurl, a profitable patient for doctors everywhere, has been missing for the past nine months. A careful search of hospital records and unidentified bodies in the Havana area, his last known whereabouts, has failed to provide any insight. Fidel Dahan has been repeatedly questioned concerning his disappearance, yet police are no further ahead in their investigation.</Bio>
+		<FaceID>20</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Biff -->
+		<uiIndex>21</uiIndex>
+		<NickName>Biff</NickName>
+		<Name>Biff Apscott</Name>
+		<Bio>Biff Apscott was a truly unique man among mercenary men. He will be greatly missed for his youthful enthusiasm and the way he reminded everyone of just how brave they were. Although somewhat hard to believe, we have been made aware that he has opened up his own mercenary organization in a somewhat pitiful attempt to compete with A.I.M. It's probably not necessary to elaborate on just how worried we are.</Bio>
+		<FaceID>21</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Spike -->
+		<uiIndex>22</uiIndex>
+		<NickName>Spike</NickName>
+		<Name>Major Spike Scallion</Name>
+		<Bio>The departure of Spike Scallion from A.I.M. was a major loss to the organization. His demeanor and unwavering command of any situation always served as a comfort to those who found themselves neck deep in it alongside him. Major Scallion was offered a lucrative long-term contract serving as a military consultant for the North Koreans and no amount of negotiation could convince him to stay.</Bio>
+		<FaceID>22</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Raffi -->
+		<uiIndex>23</uiIndex>
+		<NickName>Raffi</NickName>
+		<Name>Dr. Raffitto "Raffi" Leevon</Name>
+		<Bio>Doctor Leevon, whose medical degree was always the subject of much debate, left this organization at the beginning of the year without notification. Apparently, he has changed his name and embarked on a new career. Doctor Raffiman, and his Cajun-funk band, Rotis &amp; Haggis, have captured the imagination of the music world with the distinctive sound of their synthesized spoons and their current hit, Bajun Bayous.</Bio>
+		<FaceID>23</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Mike -->
+		<uiIndex>24</uiIndex>
+		<NickName>Mike</NickName>
+		<Name>Mike</Name>
+		<Bio>While undergoing negotiations for yet another pay increase, Mike suddenly withdrew from the discussions when he was informed that many employers had already complained about his exaggerated rates. His current whereabouts are unknown, just like pretty much everything else about him. The last correspondence received by this office, postmarked in a small country whose name escapes us, contained threats we'd rather not recall.</Bio>
+		<FaceID>24</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Hector -->
+		<uiIndex>25</uiIndex>
+		<NickName>Hector</NickName>
+		<Name>Hector Alvarez</Name>
+		<Bio>Seriously wounded in Zaire, Hector Alvarez was placed on permanent medical disability. Using his insurance money, he opened an oceanside bed and breakfast in his hometown of Margarita, Venezuela. With prices starting at $49.99 U.S. per day, his 'Cool Hand Luke - All the Eggs you can Consume' breakfasts have become a huge hit with the German tourists.</Bio>
+		<FaceID>25</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Snake -->
+		<uiIndex>26</uiIndex>
+		<NickName>Snake</NickName>
+		<Name>Johnny "Snake" Edwards</Name>
+		<Bio>Old Mister Reliable is what they called him. Getting in and out without anyone knowing he was there was what he did best. Regrettably, all that is written on his tombstone in Maupaa is "Casualty of War." Snake died a victim of unnecessary diplomacy in an event which lead to the court martial of Alan "Spam" Webster. While Webster negotiated the peaceful surrender of their weapons with a group of natives, Snake took a bullet from one of them, right between the eyes.</Bio>
+		<FaceID>26</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Speck -->
+		<uiIndex>27</uiIndex>
+		<NickName>Speck</NickName>
+		<Name>Speck T. Kline</Name>
+		<Bio>While Speck never quite fit in with the mercenary lifestyle, his knack for repairing what was widely believed to be unrepairable made him one of our most sought-after members. That is, perhaps, why his decision to open a competing mercenary agency came as such a surprise to this organization. A.I.M. wishes him the best of luck, as we are all well aware, he will need it.</Bio>
+		<FaceID>27</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Weasel -->
+		<uiIndex>28</uiIndex>
+		<NickName>Weasel</NickName>
+		<Name>Willy "Weasel" Augustin</Name>
+		<Bio>Wee Willy, otherwise known as Weasel and Mouthpiece, was primarily engaged by his employers as an inexpensive set of ears to keep tabs on his teammates. And, in a sick sense of justice, Augustin finally received what many felt he had coming. After blowing the whistle on his wife for welfare fraud, she returned to the family home after making bail and blew him away.</Bio>
+		<FaceID>28</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Leech -->
+		<uiIndex>29</uiIndex>
+		<NickName>Leech</NickName>
+		<Name>Timothy "Leech" Jenkins</Name>
+		<Bio>It wasn't easy getting rid of Leech. His stubborn streak and outright disobedience left us no alternative but to place him on probation. After five such probationary periods, he was asked to tender his resignation, and naturally, he refused. Once terminated, Leech filed a wrongful dismissal suit, which we recently settled out of for an undisclosed amount of money. To this day, he continues to flood this office with employment applications.</Bio>
+    <FaceID>29</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Lance -->
+		<uiIndex>30</uiIndex>
+		<NickName>Lance</NickName>
+		<Name>Lance Fisher</Name>
+		<Bio>Due to persistent personality clashes with Victoria Waters, Lance was asked to resign from A.I.M. in exchange for a posting at Westpoint Military Academy. He accepted, and is currently an instructor of ethics and tactical withdrawal, a subject which he recently published a book on. "Beating a Path to Safety without Screaming," is available at most military college bookstores.</Bio>
+		<FaceID>30</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Stella -->
+		<uiIndex>31</uiIndex>
+		<NickName>Stella</NickName>
+		<Name>Dr. Margaret "Stella" Trammel</Name>
+		<Bio>Margaret was the first female to join the ranks of A.I.M., and will be fondly missed. Besides her hard-fought battles on the combat field, Dr. Trammel will also be remembered for her uphill struggle with the A.I.M. Fraternal Benefits Association to gain spousal benefits for same sex partners. She recently opened a small family practice in the Virgin Islands.</Bio>
+		<FaceID>31</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Eli -->
+		<uiIndex>32</uiIndex>
+		<NickName>Eli</NickName>
+		<Name>Doctor Eli Summers</Name>
+		<Bio>Doctor Summers was by all accounts a gamer who made himself popular with employers by accepting assignments with newcomers and going about his business in a non-intrusive manner. Although A.I.M. regrets his decision to leave the organization, we are rather pleased to report that the good doctor has turned his favorite hobby into a profession. Currently playing on the Seniors Pro Golf Tour, Eli finished a respectable fourth in the Depends Open at Pebble Beach.</Bio>
+		<FaceID>32</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Elroy -->
+		<uiIndex>33</uiIndex>
+		<NickName>Elroy</NickName>
+		<Name>Elroy B. Tolken</Name>
+		<Bio>He's gone. We didn't ask. We don't care. Does anybody?</Bio>
+		<FaceID>33</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Skitz -->
+		<uiIndex>34</uiIndex>
+		<NickName>Skitz</NickName>
+		<Name>Bruce "Skitz" Bonner</Name>
+		<Bio>Bruce Bonner is gone - way gone! The addition of qualified explosive experts to our roster made a long-overdue decision much easier to make. After a record setting eight probationary periods, Skitz was finally expelled from the organization. Despite intensive therapy and twenty-one electroshock treatments, Skitz remains confined in Saint Michael's Hospital for the Criminally Insane.</Bio>
+		<FaceID>34</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Wally -->
+		<uiIndex>35</uiIndex>
+		<NickName>Wally</NickName>
+		<Name>Walter "Wally" Yuntz</Name>
+		<Bio>Someone once said that if Wally didn't have bad luck, he wouldn't have any luck at all. After learning that he did indeed have problems with his vision, Wally was scheduled for corrective surgery. The operation should have put his poor marksmanship behind him forever but the laser Yuntz was placed under experienced a programming error. Now totally blind, he and his lead Chippy, serve as Dr. Eli Summers' caddies on the Seniors Pro Golf Tour.</Bio>
+		<FaceID>35</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Turtle -->
+		<uiIndex>36</uiIndex>
+		<NickName>Turtle</NickName>
+		<Name>Herman "Turtle" Regents</Name>
+		<Bio>Perhaps, Turtle's departure is best explained by an excerpt from his letter of resignation: "The pace of combat has become too much for me. I have been forced to run the beat rather than walk it. I have exhausted all avenues and find myself short of alternatives, other than to cough up my resignation effective immediately." Last we heard, Herman was working in Chicago as a probation officer.</Bio>
+		<FaceID>36</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Kaboom -->
+		<uiIndex>37</uiIndex>
+		<NickName>Kaboom</NickName>
+		<Name>Marty "Kaboom" Moffat</Name>
+		<Bio>In one of the most peculiar cases of litigation to ever be launched against this organization, the estate of Marty Moffat has filed a wrongful death action. Kaboom, allegedly brain dead due to injuries sustained while defusing an explosive device, had his organs harvested as per his legally signed donor card. His family contends, however, that Marty was not dead at the time and was simply experiencing a slow morning. Our legal department has advised us not to elaborate any further.</Bio>
+		<FaceID>37</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Rev -->
+		<uiIndex>38</uiIndex>
+		<NickName>Rev</NickName>
+		<Name>Reverend Clyde Potter</Name>
+		<Bio>Due to numerous complaints from the organization's atheist members, the combat chaplain position was eliminated from A.I.M., and the preachy Potter, as one of our least utilized members, was eliminated as well. After leaving A.I.M., Reverend Clyde Potter took a position with the Innercity Church of Christ in Baltimore. He currently denies ever having been associated with A.I.M. He returns his pension checks and refuses to take our calls.</Bio>
+		<FaceID>38</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Sparky -->
+		<uiIndex>39</uiIndex>
+		<NickName>Sparky</NickName>
+		<Name>Megan "Sparky" Roachburn</Name>
+		<Bio>Once the great family of warfare, the Roachburn legacy came to an end with the resignation of Megan. The only female family member and the last to leave A.I.M., Sparky moved on to the job she always wanted, an honesty shopper for K-Mart. Although she says the job of leaving exact change on the counter to see if the cashier rings in the sale can get a little boring, she'll take working at the mall over the battlefield any day.</Bio>
+		<FaceID>39</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Mitch -->
+		<uiIndex>40</uiIndex>
+		<NickName>Mitch</NickName>
+		<Name>Dr. Mitch Shudlem</Name>
+		<Bio>Never truly comfortable with the blood and gore of combat, Doctor Shudlem, after a great deal of soul searching, returned to the blood and gore of the delivery room. He is currently employed as the chief of the pre-natal care unit of Saint Mary's Hospital for Unwed Mothers. He says returning to his obstetric roots is the best thing that ever happened to him, and he wonders why he ever left in the first place.</Bio>
+		<FaceID>40</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Carp -->
+		<uiIndex>41</uiIndex>
+		<NickName>Carp</NickName>
+		<Name>Howard "Carp" Melfield</Name>
+		<Bio>Unable to excel in any given specialty, yet well-liked within the organization, Carp was offered a desk assignment with A.I.M. Effective immediately, Howard Melfield will be responsible for members' Health and Safety, Retirement, and Dental Plans. He has also graciously agreed to chair the office Christmas Party Committee.</Bio>
+		<FaceID>41</FaceID>
+	</MERC>
+	<MERC>
+		<!-- It -->
+		<uiIndex>42</uiIndex>
+		<NickName>It</NickName>
+		<Name>Carl "It" Goodman</Name>
+		<Bio>Hired mainly for his brute force, Carl excelled with a crowbar and pleased employers for years with his simple, non-threatening attitude. After leaving A.I.M., Goodman returned to the world of professional wrestling where he claims every move is for keeps and the risk is real. Friends and fans alike can catch him as the Masked Mercenary most Saturday nights on Pay-Per-View's Wrestling Extravaganza.</Bio>
+		<FaceID>42</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Vinny -->
+		<uiIndex>43</uiIndex>
+		<NickName>Vinny</NickName>
+		<Name>Vincenzo "Vinny" Massimo</Name>
+		<Bio>While Vinny's years of service with A.I.M. have been impeccable and without so much as the slightest blemish in his personnel file, his personal life has been an entirely different matter. This wise-cracking wiseguy has been suspended from A.I.M. since his federal indictment for racketeering and tax evasion. With numerous counts against him, including rigging slot machines, injecting race horses with Demerol and supplying prostitutes to an Olympic water polo team, we don't expect him to return.</Bio>
+		<FaceID>43</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Bob -->
+		<uiIndex>44</uiIndex>
+		<NickName>Bob</NickName>
+		<Name>Captain Bob Adams</Name>
+		<Bio>Despite making ground as a combat soldier, decorated Air Force Pilot Bob Adams never quite shook his passion for flying. Therefore, it came as no surprise when Captain Adams retired from the organization, almost a year ago, to take a position with a major American airline. Tragically, while flying on a regional, short-hopper route, wind shear caused him to lose control of his aircraft. He crashed and died just outside of Phoenix this past July.</Bio>
+		<FaceID>44</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Hamous -->
+		<uiIndex>45</uiIndex>
+		<NickName>Hamous</NickName>
+		<Name>Hamous</Name>
+		<Bio>Hamous had his first taste of combat in Metavira, and based on a glowing recommendation from a major client, Jack Richards, he was granted an internship with this organization, which recently expired. Regrettably, poor Hamous never did manage to save up enough money to purchase that mini-van he desperately wanted. So he did the next best thing and stole one just outside of Paris. Actually, it was an ice cream truck and he was last seen headed towards Istanbul in it.</Bio>
+		<FaceID>45</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Mouse -->
+		<uiIndex>46</uiIndex>
+		<NickName>Mouse</NickName>
+		<Name>Anita "Mouse" Backman</Name>
+		<Bio>Anita's stint with the organization was short and rather quiet. Known for her uncanny ability to move about unnoticed, and not much else, Mouse handed in her resignation at the same time as Dr. Margaret "Stella" Trammel. It is our understanding that they moved to the Virgin Islands together where Backman serves as nurse/receptionist at Trammel's newly opened medical clinic.</Bio>
+		<FaceID>46</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Postie -->
+		<uiIndex>47</uiIndex>
+		<NickName>Postie</NickName>
+		<Name>Jack "Postie" Durham</Name>
+		<Bio>Postie has the distinction of being one of the few mercenaries A.I.M. regrets ever accepting into its membership. With that said, the union's grievance against the postal service finally made it to arbitration, and Postie has been returned to active duty with full back pay. He has been assigned to the customer service department, which has reported a dramatic drop in the number of complaints filed since he came onboard.</Bio>
+		<FaceID>47</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Leon -->
+		<uiIndex>48</uiIndex>
+		<NickName>Leon</NickName>
+		<Name>Col. Leon Roachburn</Name>
+		<Bio>Col. Leon Roachburn, a man who would have never made father of the year, was a responsible soldier and mentor to many. He passed away this past Christmas eve when his house trailer was engulfed by flames in a sudden grease fire. Remarkably, he left an estate valued at over a million dollars. Not so remarkably, his children were bequeathed nothing. Instead, Pamela Sue Anderson was named the sole beneficiary.</Bio>
+		<FaceID>48</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Dyno -->
+		<uiIndex>49</uiIndex>
+		<NickName>Dyno</NickName>
+		<Name>Roger "Dyno" Wittman</Name>
+		<Bio>Roger tried. Boy did he try. But he just seemed to lack the necessary edge. Understandably, some of the guys liked having him along for the laughs while others enjoyed cleaning their rifles with him. But ultimately, he realized he just wasn't cut out for the profession. Last we heard, Dyno was serving as the understudy to the Green Hippo in Animals on Ice.</Bio>
+		<FaceID>49</FaceID>
+	</MERC>
+	<MERC>
+		<!-- Spam -->
+		<uiIndex>50</uiIndex>
+		<NickName>Spam</NickName>
+		<Name>Alan "Spam" Webster</Name>
+		<Bio>Alan Webster's time within the organization was short and hardly memorable. His years of peacekeeping duty seemed to have hampered his aggression and in turn, jeopardized the safety of his squad. Following the incident in Maupaa which lead to the death of Johnny "Snake" Edwards, A.I.M. could no longer ignore his inability to take armed men seriously. Spam was court-martialed and received a dishonorable discharge in March 1998.</Bio>
+		<FaceID>50</FaceID>
+	</MERC>
+</OLD_MERC>

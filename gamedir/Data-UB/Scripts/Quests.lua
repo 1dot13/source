@@ -6,7 +6,7 @@ Remember! Not to use function EndQuest(QuestID, x, y) and StartQuest(QuestID, x,
 
 nQuests = 
 {
-	-- Quests ID							 -- BinaryData\QUESTS25.EDT Record
+	-- Quests ID							-- BinaryData\QUESTS.EDT Record
 	QUEST_DELIVER_LETTER = 0,				 -- Start quest 0, End quest 1
 	QUEST_FOOD_ROUTE = 1,					 -- Start quest 2, End quest 3
 	QUEST_KILL_TERRORISTS = 2,				 -- Start quest 4, End quest 5
@@ -141,6 +141,8 @@ function InternalEndQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 					GiveQuestRewardPoint( sSectorX, sSectorY, 9, NO_PROFILE )
 				end	
 				
+		elseif ( ubQuest == nQuests.QUEST_KILL_DEIDRANNA ) then
+				GiveQuestRewardPoint( sSectorX, sSectorY, 25, NO_PROFILE )
 		elseif ( ubQuest == nQuests.QUEST_ESCORT_SHANK ) then
 				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE )	
 		else
