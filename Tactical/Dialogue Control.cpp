@@ -727,9 +727,9 @@ void HandleDialogue( )
 			UINT8	ubNumQualifiedMercs=0;
 			UINT8	ubCnt=0;
 
-			if( !( gMercProfiles[ 75 ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
+			if( !( gMercProfiles[ MORRIS_UB ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
 			{
-				pMorris = FindSoldierByProfileID( 75, FALSE );
+				pMorris = FindSoldierByProfileID( MORRIS_UB, FALSE );
 				if ( pMorris && pMorris->stats.bLife >= OKLIFE )
 				{
 					sPlayerGridNo = ClosestPC( pMorris, NULL );
@@ -765,7 +765,7 @@ void HandleDialogue( )
 				//Morris should say a new quote
 //				CharacterDialogue( MORRIS, QUOTE_ATTACKED_BY_MULTIPLE_CREATURES, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI, FALSE, FALSE );
 
-				TriggerNPCRecord( 75, 2 );
+				TriggerNPCRecord( MORRIS_UB, 2 );
 
 				gfMorrisShouldSayHi = FALSE;
 			}
@@ -920,7 +920,7 @@ void HandleDialogue( )
 		gubCurrentTalkingID	= QItem->ubCharacterNum;
 #ifdef JA2UB		
 		//Ja25: test
-		if( QItem->ubCharacterNum == 75 ) //MORRIS
+		if( QItem->ubCharacterNum == MORRIS_UB ) //MORRIS
 		{
 			if( QItem->usQuoteNum == 0 )
 			{
@@ -1333,7 +1333,7 @@ void HandleDialogue( )
 				pSoldier->ChangeSoldierStance( ANIM_STAND );
 
 				//if the soldier is Jerry
-				if( FindSoldierByProfileID( 76, FALSE ) == pSoldier ) //JERRY
+				if( FindSoldierByProfileID( JERRY_MILO_UB, FALSE ) == pSoldier ) //JERRY
 				{
 					//Play the sound of the Antena breaking
 					PlayJA2SampleFromFile( "SOUNDS\\Metal Antenna Crunch.wav", RATE_11025, HIGHVOLUME, 1, MIDDLE );
@@ -1349,7 +1349,7 @@ void HandleDialogue( )
 					//AA 
 					//if ( gGameUBOptions.InGameHeliCrash == TRUE )
 					if ( gGameUBOptions.JerryQuotes == TRUE )
-					DelayedMercQuote( 76 , 0xffff, 4 ); //JERRY
+					DelayedMercQuote( JERRY_MILO_UB , 0xffff, 4 ); //JERRY
 
 					//End the ui Lock
 					guiPendingOverrideEvent = LU_ENDUILOCK;
@@ -3294,7 +3294,7 @@ BOOLEAN AreAllTheMercsFinishedSayingThereInitialHeliCrashQuotes()
 	}
 
 	//See if Jerry is still waiting to get up
-	pSoldier = FindSoldierByProfileID( 76, FALSE );
+	pSoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE );
 	if( pSoldier )
 	{
 		//if the merc is still not done the initial speech, and still prone
@@ -3312,7 +3312,7 @@ BOOLEAN AreAllTheMercsFinishedSayingThereInitialHeliCrashQuotes()
 void InitJerriesSpeechCallBack()
 {
 	//Trigger Jerry Milo's script record 10 ( call action 301 )
-	TriggerNPCRecord( 76, 10 );
+	TriggerNPCRecord( JERRY_MILO_UB, 10 );
 
 	//Clear the overlay
 	RemoveJerryMiloBrokenLaptopOverlay();

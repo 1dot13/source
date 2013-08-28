@@ -3560,7 +3560,7 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 				HavePersonAtGridnoStop( sGridNo );
 
 				//Make Biggens run for cover and then detonate the explosives
-				TriggerNPCRecord( 61 , 17 );  //BIGGENS
+				TriggerNPCRecord( BIGGENS_UB , 17 );  //BIGGENS
 			}
 
 			break;
@@ -3571,7 +3571,7 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 				HavePersonAtGridnoStop( sGridNo );
 
 				//Have Biggens spit out a warning about the bombs
-				TriggerNPCRecord( 61, 16 ); //BIGGENS
+				TriggerNPCRecord( BIGGENS_UB, 16 ); //BIGGENS
 			}
 			
 			break;
@@ -5094,10 +5094,10 @@ BOOLEAN ShouldThePlayerStopWhenWalkingOnBiggensActionItem( UINT8 ubRecordNum )
 {
 	SOLDIERTYPE *pSoldier=NULL;
 
-	pSoldier = FindSoldierByProfileID( 61, TRUE ); //BIGGENS
+	pSoldier = FindSoldierByProfileID( BIGGENS_UB, TRUE ); //BIGGENS
 
 	//if biggens hasnt said the quote before, or is on the players team
-	if( HasNpcSaidQuoteBefore( 61, ubRecordNum ) || ( pSoldier != NULL || gMercProfiles[ 61 ].bLife <= 0 ) ) //BIGGENS
+	if( HasNpcSaidQuoteBefore( BIGGENS_UB, ubRecordNum ) || ( pSoldier != NULL || gMercProfiles[ BIGGENS_UB ].bLife <= 0 ) ) //BIGGENS
 	{
 		return( FALSE );
 	}

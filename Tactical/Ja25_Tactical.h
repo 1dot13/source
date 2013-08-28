@@ -131,6 +131,19 @@ extern UINT32	MICRO_UZI_UB;
 extern UINT32	CALICO_950_UB;
 extern UINT32	CALICO_900_UB;
 
+extern UINT8 MANUEL_UB;
+extern UINT8 BIGGENS_UB;
+extern UINT8 JOHN_K_UB;
+extern UINT8 TEX_UB;
+extern UINT8 GASTON_UB;
+extern UINT8 STOGIE_UB;
+extern UINT8 JERRY_MILO_UB;
+extern UINT8 PGMALE4_UB;
+extern UINT8 BETTY_UB;
+extern UINT8 RAUL_UB;
+extern UINT8 MORRIS_UB;
+extern UINT8 RUDY_UB;
+
 extern void Old_UB_Inventory ();
 extern void New_UB_Inventory ();
 

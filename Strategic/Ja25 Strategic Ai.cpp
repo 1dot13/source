@@ -2628,8 +2628,8 @@ void HandleSayingDontStayToLongWarningInSectorH8()
 				!pSoldier->flags.fBetweenSectors )
 		{
 			//if the merc is either PGC, gaston, or stogie
-			if( pSoldier->ubProfile == 58 ||
-					pSoldier->ubProfile == 59 ||
+			if( pSoldier->ubProfile == GASTON_UB ||
+					pSoldier->ubProfile == STOGIE_UB ||
 					pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER )
 
 			{

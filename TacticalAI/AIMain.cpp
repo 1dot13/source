@@ -803,12 +803,12 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 #ifdef JA2UB	
 			//JA25 UB
 				//if this is Morris
-			if( pSoldier->ubProfile == 75  ) //MORRIS
+			if( pSoldier->ubProfile == MORRIS_UB  ) //MORRIS
 			{
 				//if we are to say the line if we are hurt the player
 				if( gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn )
 				{
-					TriggerNPCRecord( 75, 6 ); //MORRIS
+					TriggerNPCRecord( MORRIS_UB, 6 ); //MORRIS
 				}
 			}
 #endif						

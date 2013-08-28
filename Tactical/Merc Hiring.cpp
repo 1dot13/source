@@ -183,7 +183,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	if ( gProfilesMERC[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
 //	if( ( ubCurrentSoldier >= 40 && ubCurrentSoldier <= 50 ) || ubCurrentSoldier == 58 /*GASTON*/ || ubCurrentSoldier == 59 /*STOGIE*/ )
 	{
-		AddItemToMerc( iNewIndex, MERC_UMBRELLA ); //1361
+		AddItemToMerc( iNewIndex, MERC_UMBRELLA ); //Data-1.13\TableData\Items\items.xml, uiIndex = 1361 or Data\TableData\Items\items.xml, uiIndex = 336
 	}
 
 	//if this is an AIM or MERC merc
@@ -969,16 +969,16 @@ void InitJerryMiloInfo()
 {
   //  return; //AA
 	//Set Jerry Milo's Gridno h7
-	gMercProfiles[ 76 ].sSectorX = JA2_5_START_SECTOR_X;
-	gMercProfiles[ 76 ].sSectorY = JA2_5_START_SECTOR_Y;
-	gMercProfiles[ 76 ].bSectorZ = 0;
+	gMercProfiles[ JERRY_MILO_UB ].sSectorX = JA2_5_START_SECTOR_X;
+	gMercProfiles[ JERRY_MILO_UB ].sSectorY = JA2_5_START_SECTOR_Y;
+	gMercProfiles[ JERRY_MILO_UB ].bSectorZ = 0;
 
-	gMercProfiles[ 76 ].sGridNo = gGameUBOptions.JerryGridNo; //15109;
+	gMercProfiles[ JERRY_MILO_UB ].sGridNo = gGameUBOptions.JerryGridNo; //15109;
 
-	gMercProfiles[ 76 ].fUseProfileInsertionInfo = TRUE;
+	gMercProfiles[ JERRY_MILO_UB ].fUseProfileInsertionInfo = TRUE;
 
-	gMercProfiles[ 76 ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-	gMercProfiles[ 76 ].usStrategicInsertionData = gGameUBOptions.JerryGridNo; //15109;
+	gMercProfiles[ JERRY_MILO_UB ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	gMercProfiles[ JERRY_MILO_UB ].usStrategicInsertionData = gGameUBOptions.JerryGridNo; //15109;
 	
 }
 	
@@ -1012,7 +1012,7 @@ if ( gGameUBOptions.InGameHeliCrash == TRUE )
 
 	if ( gGameUBOptions.InJerry == TRUE ) 
 	{
-	pSoldier = FindSoldierByProfileID( 76, FALSE ); //JERRY
+	pSoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE ); //JERRY
 	if( pSoldier == NULL )
 	{
 		Assert( 0 );
@@ -1052,7 +1052,7 @@ if ( gGameUBOptions.InGameHeliCrash == TRUE )
 	
 	if ( gGameUBOptions.InJerry == TRUE ) 
 	{
-	pJerrySoldier = FindSoldierByProfileID(76, FALSE );//JERRY
+	pJerrySoldier = FindSoldierByProfileID(JERRY_MILO_UB, FALSE );//JERRY
 	if( pJerrySoldier != NULL )
 	{
 		//Make sure we can see the pilot

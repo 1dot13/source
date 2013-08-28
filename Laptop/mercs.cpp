@@ -2224,6 +2224,13 @@ BOOLEAN	GetSpeckConditionalOpening( BOOLEAN fJustEnteredScreen )
 					//set the flag
 					gMercProfiles[ ubMercID ].ubMiscFlags3 |= PROFILE_MISC_FLAG3_MERC_MERC_IS_DEAD_AND_QUOTE_SAID;
 
+					#ifdef JA2UB
+						if ( ubMercID == GASTON_UB )
+							StartSpeckTalking( SPECK_QUOTE_GASTON_DEAD );
+						else if ( ubMercID == STOGIE_UB )
+							StartSpeckTalking( SPECK_QUOTE_STOGIE_DEAD );
+					#endif
+
 					switch( ubMercID )
 					{
 						case BIFF:
@@ -2266,12 +2273,7 @@ BOOLEAN	GetSpeckConditionalOpening( BOOLEAN fJustEnteredScreen )
 							StartSpeckTalking( SPECK_QUOTE_ALTERNATE_OPENING_TAG_BUBBA_IS_DEAD );
 							break;
 #ifdef JA2UB
-						case 58://GASTON:
-							StartSpeckTalking( SPECK_QUOTE_GASTON_DEAD );
-							break;
-						case 59://STOGIE:
-							StartSpeckTalking( SPECK_QUOTE_STOGIE_DEAD );
-							break;
+
 #else
 						case GASTON:
 							StartSpeckTalking( SPECK_QUOTE_GASTON_DEAD );
@@ -2455,6 +2457,22 @@ void HandlePlayerHiringMerc( UINT8 ubHiredMercID )
 //DEF: 3/19/99: Dont know why this was done
 //	if( LaptopSaveInfo.iCurrentBalance >= 2000 )
 	{
+	#ifdef JA2UB
+		//Gaston is hired
+		if ( ubHiredMercID == GASTON_UB ) 	
+			{
+				//if biff is available, advertise for biff
+				if( IsMercMercAvailable( FLO ) )
+					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_GASTON );
+			}
+		//Stogie is hired	
+		else if ( ubHiredMercID == STOGIE_UB )	
+			{
+				//if biff is available, advertise for biff
+				if( IsMercMercAvailable( BIFF ) )
+					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_STOGIE );	
+			}
+	#endif
 		//determine which quote to say based on the merc that was hired
 		switch( ubHiredMercID )
 		{
@@ -2500,19 +2518,7 @@ void HandlePlayerHiringMerc( UINT8 ubHiredMercID )
 					StartSpeckTalking( SPECK_QUOTE_PLAYERS_HIRES_LARRY_SPECK_PLUGS_BIFF );
 				break;
 #ifdef JA2UB
-			//Gaston is hired
-			case 58: //GASTON:
-				//if biff is available, advertise for biff
-				if( IsMercMercAvailable( FLO ) )
-					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_GASTON );
-				break;
 
-			//Stogie is hired
-			case 59: //STOGIE:
-				//if biff is available, advertise for biff
-				if( IsMercMercAvailable( BIFF ) )
-					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_STOGIE );
-				break;
 #else
 			//Gaston is hired
 			case GASTON:
@@ -2689,21 +2695,13 @@ void HandleSpeckWitnessingEmployeeDeath( SOLDIERTYPE* pSoldier )  // anv: handle
 			case BUBBA:
 				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_BUBBA_IS_DEAD);
 				break;
-#ifdef JA2UB
-			case 58://GASTON:
-				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_GASTON_DEAD);
-				break;
-			case 59://STOGIE:
-				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_STOGIE_DEAD);
-				break;
-#else
+
 			case GASTON:
 				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_GASTON_DEAD);
 				break;
 			case STOGIE:
 				TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE , TRUE ), SPECK_PLAYABLE_QUOTE_STOGIE_DEAD);
 				break;
-#endif
 		}
 	}
 }
@@ -3023,12 +3021,12 @@ BOOLEAN CanMercQuoteBeSaid( UINT32 uiQuoteID )
 			break;
 
 		case SPECK_QUOTE_ADVERTISE_GASTON:
-			if( !IsMercMercAvailable( 58 ) )//GASTON
+			if( !IsMercMercAvailable( GASTON_UB ) )//GASTON
 				fRetVal = FALSE;
 			break;
 
 		case SPECK_QUOTE_ADVERTISE_STOGIE:
-			if( !IsMercMercAvailable( 59 ) )//STOGIE
+			if( !IsMercMercAvailable( STOGIE_UB ) )//STOGIE
 				fRetVal = FALSE;
 			break;
 #else

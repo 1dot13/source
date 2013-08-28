@@ -42,6 +42,7 @@
 #include "laptop.h"
 #include "Ja25 Strategic Ai.h"
 #include "ub_config.h"
+#include "Ja25_Tactical.h"
 #endif
 
 #include "LuaInitNPCs.h"
@@ -1462,7 +1463,7 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 		{
 			SOLDIERTYPE *pSoldier=NULL;
 
-			pSoldier = FindSoldierByProfileID( 60 , TRUE ); //MANUEL
+			pSoldier = FindSoldierByProfileID( MANUEL_UB , TRUE ); //MANUEL
 
 			if( pSoldier != NULL )
 			{

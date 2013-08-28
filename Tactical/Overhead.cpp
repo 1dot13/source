@@ -1000,8 +1000,8 @@ BOOLEAN ExecuteOverhead( )
                         //
 
                         //if the merc is one of the mercs who has Quote 80, say that
-                        if( pSoldier->ubProfile == 58 ||//GASTON
-                                pSoldier->ubProfile == 59 ||//STOGIE
+                        if( pSoldier->ubProfile == GASTON_UB ||//GASTON
+                                pSoldier->ubProfile == STOGIE_UB ||//STOGIE
                                 pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER )
                         {
                             TacticalCharacterDialogue( pSoldier, QUOTE_REPUTATION_REFUSAL );
@@ -3475,10 +3475,9 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
             ScreenMsg( FONT_RED, MSG_INTERFACE, pMercDeadString[ 0 ], pSoldierOld->GetName() );
         }
 
-        switch( pSoldierOld->ubProfile )
+		#ifdef JA2UB
+		if ( pSoldierOld->ubProfile == MORRIS_UB )
         {
-#ifdef JA2UB
-            case 75: //MORRIS
                 {
                     INT8 bSoldierID;
 
@@ -3492,7 +3491,12 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
                         TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW );
                     }                   
                 }
-                break;
+		}
+		#endif
+
+        switch( pSoldierOld->ubProfile )
+        {
+#ifdef JA2UB
 
 #else //Ja25: none of these characters are in the exp.
             case BRENDA:
@@ -3845,7 +3849,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 #ifdef JA2UB
     //------------------- ja25 ub -------------------------
     //if the person was Raul, and we are to say the blown up quotes
-    if( pSoldierOld->ubProfile == PERKO /*RAUL */ && IsJa25GeneralFlagSet( JA_GF__RAUL_BLOW_HIMSELF_UP ) )
+    if( pSoldierOld->ubProfile == RAUL_UB /*RAUL */ && IsJa25GeneralFlagSet( JA_GF__RAUL_BLOW_HIMSELF_UP ) )
     {
         UINT8 SoldierId1;
         UINT8 SoldierId2;
@@ -9928,10 +9932,10 @@ BOOLEAN CanMsgBoxForPlayerToBeNotifiedOfSomeoneElseInSector()
         }
         }
      */
-    if( ( gWorldSectorX == gMercProfiles[ 60 ].sSectorX && gWorldSectorY == gMercProfiles[ 60 ].sSectorY && gbWorldSectorZ == gMercProfiles[ 60 ].bSectorZ ) )
+    if( ( gWorldSectorX == gMercProfiles[ MANUEL_UB ].sSectorX && gWorldSectorY == gMercProfiles[ MANUEL_UB ].sSectorY && gbWorldSectorZ == gMercProfiles[ MANUEL_UB ].bSectorZ ) )
     {
         //IF MANUEL is already hired
-        if( gMercProfiles[ 60 ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+        if( gMercProfiles[ MANUEL_UB ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
         {
             //then we shouldnt display the message
             return( FALSE );

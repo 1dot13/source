@@ -2433,11 +2433,11 @@ void HandleBloodCatDeaths( SECTORINFO *pSector )
 			if( bNum != 0 )
 			{
 				//must make sure TEX doesnt say the quote
-				if( bId1 != NOBODY && Menptr[ bId1 ].ubProfile != 64 )
+				if( bId1 != NOBODY && Menptr[ bId1 ].ubProfile != TEX_UB )
 				{
 					TacticalCharacterDialogue( &Menptr[ bId1 ], QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS );
 				}
-				else if( bId2 != NOBODY && Menptr[ bId2 ].ubProfile != 64 )
+				else if( bId2 != NOBODY && Menptr[ bId2 ].ubProfile != TEX_UB )
 				{
 					TacticalCharacterDialogue( &Menptr[ bId2 ], QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS );
 				}

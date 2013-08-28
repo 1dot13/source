@@ -4738,7 +4738,7 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 					TriggerNPCRecord( ubProfile, 1 );
 
 					//if the person is BIGGENS
-					if( ubProfile ==  61 ) //BIGGENS
+					if( ubProfile ==  BIGGENS_UB ) //BIGGENS
 					{
 						SetFactTrue( FACT_BIGGENS_IS_ON_TEAM );
 					}
@@ -5229,7 +5229,7 @@ void PerformJerryMiloAction301()
 	}
 
 	//Trigger Jerry Milo's script record 11 ( call action 302 )
-	TriggerNPCRecord( 76, 11 );
+	TriggerNPCRecord( JERRY_MILO_UB, 11 );
 
 	//Close the dialogue panel
 	DeleteTalkingMenu();
@@ -5458,28 +5458,19 @@ void CheckForValidQuotesWhenLeavingDealer( UINT8 ubProfile )
 
 	if( CheckFact( FACT_MERC_SAY_QUOTE_WHEN_TALK_MENU_CLOSES, 0 ) )
 	{
-		switch( ubProfile )
+		if ( ubProfile == BETTY_UB ) 
+			HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( ubProfile, QUOTE_JOINING_CAUSE_BUDDY_1_ON_TEAM );
+		else if ( ubProfile == RAUL_UB )
 		{
-			case 73 : //BETTY:
-				HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( ubProfile, QUOTE_JOINING_CAUSE_BUDDY_1_ON_TEAM );
-				break;
-
-			case 74 : //RAUL:
 				//if the Raul is about to blow himself up
 				if( !IsJa25GeneralFlagSet( JA_GF__RAUL_BLOW_HIMSELF_UP ) )
 				{
 					//we can say the quote
 					HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( ubProfile, QUOTE_JOINING_CAUSE_BUDDY_2_ON_TEAM );
 				}
-				break;
-
-			case 77: //RUDY:
+			}
+		else if ( ubProfile == RUDY_UB )
 				HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( ubProfile, QUOTE_REFUSAL_RENEW_DUE_TO_MORALE );
-				break;
-
-			default:
-				AssertMsg( 0, "Code has not been implemented to handle saying a quote when leaving this NPC" );
-		}
 	}
 }
 
@@ -5505,7 +5496,7 @@ void HaveBiggensDetonatingExplosivesByTheMine()
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT8	ubID=NOBODY;
 
-	pSoldier = FindSoldierByProfileID( 61 , FALSE ); //BIGGENS
+	pSoldier = FindSoldierByProfileID( BIGGENS_UB , FALSE ); //BIGGENS
 	if( pSoldier != NULL )
 	{
 		ubID = pSoldier->ubID;
@@ -5619,7 +5610,7 @@ void HandleCannotAffordNpcMsgBox()
 void CantAffordMercCallback( UINT8 ubExitValue )
 {
 	//Make the RPC say a quote
-	TriggerNPCRecord( 61, 0 ); //BIGGENS
+	TriggerNPCRecord( BIGGENS_UB, 0 ); //BIGGENS
 }
 
 void HandleMercArrivesQuotesFromHeliCrashSequence()
@@ -5655,7 +5646,7 @@ void HandleRaulBlowingHimselfUp()
 
 		//blow himself up with, hmmm, lets say TNT.  :)
 		usItem = HAND_GRENADE;
-		IgniteExplosion( 74, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
+		IgniteExplosion( RAUL_UB, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
 
 		SetJa25GeneralFlag( JA_GF__RAUL_BLOW_HIMSELF_UP );
 	}
@@ -5668,7 +5659,7 @@ void HandleTexFlushingToilet()
 
 void HandleTexMakingHimselfAlreadyBeIntroduced()
 {
-	gMercProfiles[ 64 ].ubLastDateSpokenTo = GetWorldDay( );
+	gMercProfiles[ TEX_UB ].ubLastDateSpokenTo = GetWorldDay( );
 }
 
 void HandleTexBecomingCamoed()
@@ -5676,7 +5667,7 @@ void HandleTexBecomingCamoed()
 	SOLDIERTYPE *pSoldier=NULL;
 
 	//Find TEX
-	pSoldier = FindSoldierByProfileID( 64, FALSE );
+	pSoldier = FindSoldierByProfileID( TEX_UB, FALSE );
 
 	//if we found him
 	if( pSoldier != NULL )
@@ -5690,11 +5681,11 @@ void HandleTexBecomingCamoed()
 			// SANDRO - old/new traits check (I am not sure if this is used at all)
 		if ( gGameOptions.fNewTraitSystem )
 		{
-			gMercProfiles[ 64 ].bSkillTraits[0] = RANGER_NT;
+			gMercProfiles[ TEX_UB ].bSkillTraits[0] = RANGER_NT;
 		}
 		else
 		{
-			gMercProfiles[ 64 ].bSkillTraits[0] = CAMOUFLAGED_OT;
+			gMercProfiles[ TEX_UB ].bSkillTraits[0] = CAMOUFLAGED_OT;
 		}
 
 	//Close down the talking menu...
@@ -5704,7 +5695,7 @@ void HandleTexBecomingCamoed()
 
 	// Trigger Tex to say the quote, this will cause the radio locater to come up giving a pause to make it appear that he
 	// put on camoflauge
-	TriggerNPCRecord( 64, 15 );
+	TriggerNPCRecord( TEX_UB, 15 );
 }
 
 void DisplayJerryBreakingLaptopTransmitterPopup()

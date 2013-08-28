@@ -215,6 +215,19 @@ UINT32	CALICO_900_UB;
 
 UINT32	CLIP_CANNON_BALL;
 
+UINT8 MANUEL_UB;
+UINT8 BIGGENS_UB;
+UINT8 JOHN_K_UB;
+UINT8 TEX_UB;
+UINT8 GASTON_UB;
+UINT8 STOGIE_UB;
+UINT8 JERRY_MILO_UB;
+UINT8 PGMALE4_UB;
+UINT8 BETTY_UB;
+UINT8 RAUL_UB;
+UINT8 MORRIS_UB;
+UINT8 RUDY_UB;
+
 void Old_UB_Inventory ();
 void New_UB_Inventory ();
 
@@ -311,12 +324,12 @@ void InitGridNoUB()
 	
 BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier )
 {
-	if( pSoldier->ubProfile == 	58	||  ///  GASTON
-			pSoldier->ubProfile == 59 ||  // STOGIE
-			pSoldier->ubProfile == 64 ||// TEX 			||
-			pSoldier->ubProfile == 62 || //JOHN_K		||
-			pSoldier->ubProfile == 61 || //BIGGENS	||
-			pSoldier->ubProfile == 60 || //MANUEL		||
+	if( pSoldier->ubProfile == 	GASTON_UB	||  ///  GASTON
+			pSoldier->ubProfile == STOGIE_UB ||  // STOGIE
+			pSoldier->ubProfile == TEX_UB ||// TEX 			||
+			pSoldier->ubProfile == JOHN_K_UB || //JOHN_K		||
+			pSoldier->ubProfile == BIGGENS_UB || //BIGGENS	||
+			pSoldier->ubProfile == MANUEL_UB || //MANUEL		||
 			pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER 
 		)
 	{
@@ -331,10 +344,10 @@ BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier )
 
 BOOLEAN	IsSoldierQualifiedMercForSeeingPowerGenFan( SOLDIERTYPE *pSoldier )
 {
-	if( pSoldier->ubProfile == 60 ||//MANUEL		||
+	if( pSoldier->ubProfile == MANUEL_UB ||//MANUEL		||
 			pSoldier->ubProfile ==  53 || //PGCMale3
 			pSoldier->ubProfile ==  55 || //PGCFem2
-			pSoldier->ubProfile ==  57		//PGCMale4
+			pSoldier->ubProfile ==  PGMALE4_UB		//PGCMale4
 		)
 	{
 		return( TRUE );
@@ -348,9 +361,9 @@ BOOLEAN	IsSoldierQualifiedMercForSeeingPowerGenFan( SOLDIERTYPE *pSoldier )
 
 BOOLEAN	IsSoldierQualifiedGunCommenterMerc( SOLDIERTYPE *pSoldier )
 {
-	if( pSoldier->ubProfile == 	58	||  //  GASTON
-			pSoldier->ubProfile == 	59	|| //   STOGIE
-			pSoldier->ubProfile == 	64		||   // TEX
+	if( pSoldier->ubProfile == 	GASTON_UB	||  //  GASTON
+			pSoldier->ubProfile == 	STOGIE_UB	|| //   STOGIE
+			pSoldier->ubProfile == 	TEX_UB		||   // TEX
 			pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER 
 		)
 	{
@@ -365,8 +378,8 @@ BOOLEAN	IsSoldierQualifiedGunCommenterMerc( SOLDIERTYPE *pSoldier )
 
 BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier )
 {
-	if( pSoldier->ubProfile == 	58	|| //  GASTON
-			pSoldier->ubProfile == 	59	||  // STOGIE
+	if( pSoldier->ubProfile == 	GASTON_UB	|| //  GASTON
+			pSoldier->ubProfile == 	STOGIE_UB	||  // STOGIE
 			pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER 
 		)
 	{
@@ -648,7 +661,7 @@ void StopPowerGenFan()
 	SetFactTrue( FACT_FAN_STOPPPED );
 
 	//Is biggens on the team
-	pSoldier = FindSoldierByProfileID( 61, TRUE );       //    BIGGENS
+	pSoldier = FindSoldierByProfileID( BIGGENS_UB, TRUE );       //    BIGGENS
 	if( pSoldier != NULL )
 	{
 		SetFactTrue( FACT_BIGGENS_ON_TEAM_AND_FAN_STOPPED );
@@ -814,15 +827,15 @@ void HandlePowerGenAlarm()
 				UINT8 bSoldierId1, bSoldierId2, bSoldierId3;
 				Get3RandomQualifiedMercs( &bSoldierId1, &bSoldierId2, &bSoldierId3 );
 
-				if( bSoldierId1 != -1 && Menptr[ bSoldierId1 ].ubProfile != 61 ) //BIGGENS
+				if( bSoldierId1 != -1 && Menptr[ bSoldierId1 ].ubProfile != BIGGENS_UB ) //BIGGENS
 				{
 					TacticalCharacterDialogue( &Menptr[ bSoldierId1 ], QUOTE_PERSONALITY_BIAS_WITH_MERC_1 );
 				}
-				else if( bSoldierId2 != -1 && Menptr[ bSoldierId2 ].ubProfile != 61 ) //BIGGENS
+				else if( bSoldierId2 != -1 && Menptr[ bSoldierId2 ].ubProfile != BIGGENS_UB ) //BIGGENS
 				{
 					TacticalCharacterDialogue( &Menptr[ bSoldierId2 ], QUOTE_PERSONALITY_BIAS_WITH_MERC_1 );
 				}
-				else if( bSoldierId3 != -1 && Menptr[ bSoldierId3 ].ubProfile != 61 ) // BIGGENS
+				else if( bSoldierId3 != -1 && Menptr[ bSoldierId3 ].ubProfile != BIGGENS_UB ) // BIGGENS
 				{
 					TacticalCharacterDialogue( &Menptr[ bSoldierId3 ], QUOTE_PERSONALITY_BIAS_WITH_MERC_1 );
 				}
@@ -981,24 +994,21 @@ void RevealAllDroppedEnemyItems()
 */
 void HandlePlayingQuoteWhenHiringNpc( UINT8 ubProfile )
 {
-	switch( ubProfile )
-	{
-	case 60://MANUEL:
-			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_PRECEDENT_TO_REPEATING_ONESELF );
-			break;
-	case 61 : //BIGGENS:
-			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_REFUSAL_TO_JOIN_LACK_OF_FUNDS );
-			break;
-	case 62 : //JOHN_K:
-			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48 );
 
+	if ( ubProfile == MANUEL_UB ) //MANUEL:
+			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_PRECEDENT_TO_REPEATING_ONESELF );
+	else if  ( ubProfile == BIGGENS_UB ) //BIGGENS:
+			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_REFUSAL_TO_JOIN_LACK_OF_FUNDS );
+	else if  ( ubProfile == JOHN_K_UB ) //JOHN_K:
+		{
+			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48 );
 			//Delay John saying quote about town
-			DelayedMercQuote( 62, QUOTE_HATE_MERC_2_ON_TEAM, GetWorldTotalSeconds() + 5 + Random( 10 ) );
-			break;
-	case 64 : //TEX:
+			DelayedMercQuote( JOHN_K_UB, QUOTE_HATE_MERC_2_ON_TEAM, GetWorldTotalSeconds() + 5 + Random( 10 ) );
+		}
+	else if ( ubProfile == TEX_UB ) //TEX:
 			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_DEATH_RATE_RENEWAL );
-			break;
-	}
+ 
+
 }
 
 BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQuoteNum )
@@ -1019,7 +1029,7 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 	for( iCnt=0; iCnt<bNumMercsPresent; iCnt++ )
 	{
 		//Do Gaston and the newly hired RPC last
-		if( Menptr[ SoldierIdArray[ iCnt ] ].ubProfile == 58 || Menptr[ SoldierIdArray[ iCnt ] ].ubProfile == ubProfile) //  GASTON
+		if( Menptr[ SoldierIdArray[ iCnt ] ].ubProfile == GASTON_UB || Menptr[ SoldierIdArray[ iCnt ] ].ubProfile == ubProfile) //  GASTON
 		{
 			continue;
 		}
@@ -1028,7 +1038,7 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 	}
 
 	//if Gaston is on the team, say his quote
-	pSoldier = FindSoldierByProfileID( 58, TRUE ); // GASTON
+	pSoldier = FindSoldierByProfileID( GASTON_UB, TRUE ); // GASTON
 	if( pSoldier &&
 			pSoldier->sSectorX == gWorldSectorX &&
 			pSoldier->sSectorY == gWorldSectorY &&

@@ -43,6 +43,10 @@
 	#include "Food.h"	// added by Flugente
 #endif
 
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#endif
+
 // Defines
 #define		NUM_FACE_SLOTS					50
 
@@ -236,21 +240,21 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 	}
 
 #ifdef JA2UB
-	else if ( usMercProfileID == 64 )
+	else if ( usMercProfileID == TEX_UB )
 	{
 		// SANDRO - old/new traits check (I am not sure if this is used at all)
 		if ( gGameOptions.fNewTraitSystem )
 		{
-			if ( ProfileHasSkillTrait( 64, RANGER_NT ) > 0 )
+			if ( ProfileHasSkillTrait( TEX_UB, RANGER_NT ) > 0 )
 			{
-				sprintf( VObjectDesc.ImageFile, "FACES\\B64c.sti" );
+				sprintf( VObjectDesc.ImageFile, "FACES\\B%dc.sti", TEX_UB );
 			}
 		}
 		else
 		{
-			if ( ProfileHasSkillTrait( 64, CAMOUFLAGED_OT ) > 0 )
+			if ( ProfileHasSkillTrait( TEX_UB, CAMOUFLAGED_OT ) > 0 )
 			{
-				sprintf( VObjectDesc.ImageFile, "FACES\\B64c.sti" );
+				sprintf( VObjectDesc.ImageFile, "FACES\\B%dc.sti", TEX_UB );
 			}
 		}
 	}
@@ -664,7 +668,7 @@ void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusE
 
   		if ( gGameOptions.fNewTraitSystem )
 		{
-			if( usMercProfileID == 64 && ( gMercProfiles[ 64 ].bSkillTraits[0] == RANGER_NT || gMercProfiles[ 64 ].bSkillTraits[1] == RANGER_NT ) )
+			if( usMercProfileID == TEX_UB && ( gMercProfiles[ TEX_UB ].bSkillTraits[0] == RANGER_NT || gMercProfiles[ TEX_UB ].bSkillTraits[1] == RANGER_NT ) )
 			{
 			usEyesX				= 13;
 			usEyesY				= 34;
@@ -674,7 +678,7 @@ void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusE
 		}
 		else
 		{
-			if( usMercProfileID == 64 && ( gMercProfiles[ 64 ].bSkillTraits[0] == CAMOUFLAGED_OT || gMercProfiles[ 64 ].bSkillTraits[1] == CAMOUFLAGED_OT ) )
+			if( usMercProfileID == TEX_UB && ( gMercProfiles[ TEX_UB ].bSkillTraits[0] == CAMOUFLAGED_OT || gMercProfiles[ TEX_UB ].bSkillTraits[1] == CAMOUFLAGED_OT ) )
 			{
 			usEyesX				= 13;
 			usEyesY				= 34;

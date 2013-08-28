@@ -3607,10 +3607,10 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 						// since keys depend on 2 values, they pretty much have to be hardcoded.
 						// and if a case isn't handled here it's better to not give any key than
 						// to provide one which doesn't work and would confuse everything.
-						switch( pCreateStruct->ubProfile )
+						
+						#ifdef JA2UB						
+							if ( pCreateStruct->ubProfile == MORRIS_UB )
 						{
-#ifdef JA2UB						
-							case 75: //MORRIS:
 								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_32)
 								{
 									fRet = CreateKeyObject( &gTempObject , pProfile->bInvNumber[ cnt ], 32 );
@@ -3620,7 +3620,13 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 								//{
 								//	memset( &(pSoldier->inv[cnt]), 0, sizeof( OBJECTTYPE ) );
 								//}
-								break;
+							}
+						#endif
+						
+						switch( pCreateStruct->ubProfile )
+						{
+#ifdef JA2UB						
+
 #endif
 
 							// WANNE: Changed KEY_32 to KEY_8 because we only have 8 keys defined in Items.xml

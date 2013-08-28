@@ -2431,10 +2431,10 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		else if ( pSoldier->bTeam == gbPlayerNum )
 		{
 #ifdef JA2UB		
-		  if( (pOpponent->ubProfile == 75 ) && 
+		  if( (pOpponent->ubProfile == MORRIS_UB ) &&
 					( GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( NULL, NULL ) != 0 ) && 
 					!( pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_MORRIS ) && 
-					!( gMercProfiles[ 75 ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
+					!( gMercProfiles[ MORRIS_UB ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
 		  {
 				gfMorrisShouldSayHi = TRUE;
 		  }

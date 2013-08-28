@@ -169,7 +169,7 @@ BOOLEAN Internal_JerryMeloCharacterDialogue( UINT16 usQuoteNum )
 	BOOLEAN fRetVal = FALSE;
 	fTeamPanelDirty = TRUE;
 
-	fRetVal = CharacterDialogue( 76, usQuoteNum, uiExternalStaticNPCFacesUB[ JERRY_MELO_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
+	fRetVal = CharacterDialogue( JERRY_MILO_UB, usQuoteNum, uiExternalStaticNPCFacesUB[ JERRY_MELO_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
 
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_JERRY_MILO, usQuoteNum, 0, 0, uiExternalStaticNPCFacesUB[ JERRY_MELO_FACE ], DIALOGUE_EXTERNAL_NPC_UI );
 

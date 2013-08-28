@@ -2823,49 +2823,49 @@ SOLDIERTYPE *pSoldier=NULL;
 	if( sOldSectorX == 7 && sOldSectorY == MAP_ROW_H && bOldSectorZ == 0 )
 	{
 		// remove Jerry from the map
-		gMercProfiles[ 76 ].sSectorX = 0;
-		gMercProfiles[ 76 ].sSectorY = 0;
+		gMercProfiles[ JERRY_MILO_UB ].sSectorX = 0;
+		gMercProfiles[ JERRY_MILO_UB ].sSectorY = 0;
 	}
 
 	//if the player is leaving a sector with  Tex in it
-	if( sOldSectorX == gMercProfiles[ 64 ].sSectorX && sOldSectorY == gMercProfiles[ 64 ].sSectorY && bOldSectorZ == 0 && gMercProfiles[ 64 ].ubLastDateSpokenTo != 0 )
+	if( sOldSectorX == gMercProfiles[ TEX_UB ].sSectorX && sOldSectorY == gMercProfiles[ TEX_UB ].sSectorY && bOldSectorZ == 0 && gMercProfiles[ TEX_UB ].ubLastDateSpokenTo != 0 )
 	{
-		pSoldier = FindSoldierByProfileID( 64, TRUE );
+		pSoldier = FindSoldierByProfileID( TEX_UB, TRUE );
 
 		//if the npc isnt on the players team AND the player has never spoken to them
-		if( pSoldier == NULL && gMercProfiles[ 64 ].ubLastDateSpokenTo != 0 )
+		if( pSoldier == NULL && gMercProfiles[ TEX_UB ].ubLastDateSpokenTo != 0 )
 		{
 			// remove Tex from the map
-			gMercProfiles[ 64 ].sSectorX = 0;
-			gMercProfiles[ 64 ].sSectorY = 0;
+			gMercProfiles[ TEX_UB ].sSectorX = 0;
+			gMercProfiles[ TEX_UB ].sSectorY = 0;
 		}
 	}
 
 	//if the player is leaving a sector with  John kulba in it
-	if( sOldSectorX == gMercProfiles[ 62 ].sSectorX && sOldSectorY == gMercProfiles[ 62 ].sSectorY && bOldSectorZ == 0 && gMercProfiles[ 62 ].ubLastDateSpokenTo != 0 )
+	if( sOldSectorX == gMercProfiles[ JOHN_K_UB ].sSectorX && sOldSectorY == gMercProfiles[ JOHN_K_UB ].sSectorY && bOldSectorZ == 0 && gMercProfiles[ JOHN_K_UB ].ubLastDateSpokenTo != 0 )
 	{
-		pSoldier = FindSoldierByProfileID( 62, TRUE );
+		pSoldier = FindSoldierByProfileID( JOHN_K_UB, TRUE );
 
 		//if the npc isnt on the players team AND the player has never spoken to them
-		if( pSoldier == NULL && gMercProfiles[ 62 ].ubLastDateSpokenTo != 0 )
+		if( pSoldier == NULL && gMercProfiles[ JOHN_K_UB ].ubLastDateSpokenTo != 0 )
 		{
 			// remove Tex from the map
-			gMercProfiles[ 62 ].sSectorX = 0;
-			gMercProfiles[ 62 ].sSectorY = 0;
+			gMercProfiles[ JOHN_K_UB ].sSectorX = 0;
+			gMercProfiles[ JOHN_K_UB ].sSectorY = 0;
 		}
 	}
 
 	//if the player is leaving a sector with  Manuel in it
-	if( sOldSectorX == gMercProfiles[ 60 ].sSectorX && sOldSectorY == gMercProfiles[ 60 ].sSectorY && bOldSectorZ == 0 )
+	if( sOldSectorX == gMercProfiles[ MANUEL_UB ].sSectorX && sOldSectorY == gMercProfiles[ MANUEL_UB ].sSectorY && bOldSectorZ == 0 )
 	{
-		pSoldier = FindSoldierByProfileID( 60, TRUE );
+		pSoldier = FindSoldierByProfileID( MANUEL_UB, TRUE );
 
 		//if the npc isnt on the players team AND the player has never spoken to them
-		if( pSoldier == NULL && gMercProfiles[ 60 ].ubLastDateSpokenTo != 0 )
+		if( pSoldier == NULL && gMercProfiles[ MANUEL_UB ].ubLastDateSpokenTo != 0 )
 		{
 			// remove Manuel from the map
-			gMercProfiles[ 60 ].sSectorX = 0;
-			gMercProfiles[ 60 ].sSectorY = 0;
+			gMercProfiles[ MANUEL_UB ].sSectorX = 0;
+			gMercProfiles[ MANUEL_UB ].sSectorY = 0;
 		}
 	}
 #endif
@@ -6594,27 +6594,27 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 							if( PlayerSectorDescQuote[ uiCnt ].bSectorZ == 0 )
 							{
 								//See if Manuel is on the team
-								pSoldier = FindSoldierByProfileID( 60, TRUE );
+								pSoldier = FindSoldierByProfileID( MANUEL_UB, TRUE );
 
 								//if he is ON the team
 								if( pSoldier != NULL )
 								{
 									//get manuel to say the quote
-									DelayedMercQuote( 60, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+									DelayedMercQuote( MANUEL_UB, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
 
 									//get manuel to say his additional quote
-									DelayedMercQuote( 60, QUOTE_ENTER_SECTOR_WITH_FAN_2, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+									DelayedMercQuote( MANUEL_UB, QUOTE_ENTER_SECTOR_WITH_FAN_2, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
 								}
 								else
 								{
 									//else if Biggens is not on the team, check for biggens
-									pSoldier = FindSoldierByProfileID( 61, TRUE );
+									pSoldier = FindSoldierByProfileID( BIGGENS_UB, TRUE );
 
 									//if he is ON the team
 									if( pSoldier != NULL )
 									{
 										//get manuel to say the quote
-										DelayedMercQuote( 61, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+										DelayedMercQuote( BIGGENS_UB, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
 
 										//Remember he said
 										SetJa25GeneralFlag( JA_GF__BIGGENS_SAID_QUOTE_117 );
@@ -6740,10 +6740,10 @@ void HandleEmailBeingSentWhenEnteringSector( INT16 sMapX, INT16 sMapY, INT8 bMap
 			//and we havent sent it before
 			if( !( gJa25SaveStruct.ubEmailFromSectorFlag & SECTOR_EMAIL__J11_J12 ) )
 			{
-				pSoldier = FindSoldierByProfileID( 60, TRUE ); //MANUEL
+				pSoldier = FindSoldierByProfileID( MANUEL_UB, TRUE ); //MANUEL
 
 				//if Manuel isnt on the team
-				if( pSoldier == NULL || gMercProfiles[ 60 ].bMercStatus == MERC_IS_DEAD ) //MANUEL
+				if( pSoldier == NULL || gMercProfiles[ MANUEL_UB ].bMercStatus == MERC_IS_DEAD ) //MANUEL
 				{
 					//email 8a
 					AddEmail( EMAIL_MIGUELSORRY, EMAIL_MIGUELSORRY_LENGTH, MAIL_MIGUEL,  GetWorldTotalMin() , -1,-1 ,TYPE_EMAIL_EMAIL_EDT);
@@ -6783,7 +6783,7 @@ void HandleEmailBeingSentWhenEnteringSector( INT16 sMapX, INT16 sMapY, INT8 bMap
 		if( !( gJa25SaveStruct.ubEmailFromSectorFlag & SECTOR_EMAIL__TUNNEL ) )
 		{
 			//If Jerry isnt dead
-			if( gMercProfiles[ 76 ].bMercStatus != MERC_IS_DEAD ) //JERRY
+			if( gMercProfiles[ JERRY_MILO_UB ].bMercStatus != MERC_IS_DEAD ) //JERRY
 			{
 				AddEmail( EMAIL_PILOTFOUND, EMAIL_PILOTFOUND_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() , -1, -1, TYPE_EMAIL_EMAIL_EDT);
 			}
@@ -6806,9 +6806,9 @@ void ShouldNpcBeAddedToSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				( sMapY == MAP_ROW_I && sMapX == 9 && bMapZ == 0 ) )
 		{
 			//Change his sector values to 
-			gMercProfiles[ 60 ].sSectorX = sMapX;
-			gMercProfiles[ 60 ].sSectorY = sMapY;
-			gMercProfiles[ 60 ].bSectorZ = bMapZ;
+			gMercProfiles[ MANUEL_UB ].sSectorX = sMapX;
+			gMercProfiles[ MANUEL_UB ].sSectorY = sMapY;
+			gMercProfiles[ MANUEL_UB ].bSectorZ = bMapZ;
 
 			//remember that we have added him
 			gJa25SaveStruct.fNpcHasBeenAdded |= SECTOR_ADDED_NPC__MANUEL;
@@ -6825,9 +6825,9 @@ void ShouldNpcBeAddedToSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			if( sMapY == MAP_ROW_I && sMapX == 10 && bMapZ == 0 )
 			{
 				//Change his sector values to 
-				gMercProfiles[ 64 ].sSectorX = sMapX;
-				gMercProfiles[ 64 ].sSectorY = sMapY;
-				gMercProfiles[ 64 ].bSectorZ = bMapZ;
+				gMercProfiles[ TEX_UB ].sSectorX = sMapX;
+				gMercProfiles[ TEX_UB ].sSectorY = sMapY;
+				gMercProfiles[ TEX_UB ].bSectorZ = bMapZ;
 
 				//remember that we have added him
 				gJa25SaveStruct.fNpcHasBeenAdded |= SECTOR_ADDED_NPC__TEX;
@@ -6847,9 +6847,9 @@ void ShouldNpcBeAddedToSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 					bMapZ == 0 )
 			{
 				//Change his sector values to 
-				gMercProfiles[ 62 ].sSectorX = sMapX;
-				gMercProfiles[ 62 ].sSectorY = sMapY;
-				gMercProfiles[ 62 ].bSectorZ = bMapZ;
+				gMercProfiles[ JOHN_K_UB ].sSectorX = sMapX;
+				gMercProfiles[ JOHN_K_UB ].sSectorY = sMapY;
+				gMercProfiles[ JOHN_K_UB ].bSectorZ = bMapZ;
 
 				//remember that we have added him
 				gJa25SaveStruct.fNpcHasBeenAdded |= SECTOR_ADDED_NPC__JOHN_K;

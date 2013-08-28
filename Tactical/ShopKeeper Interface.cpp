@@ -4398,7 +4398,7 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 								StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_51 );
 
 								//Trigger Rauls action #52
-								TriggerNPCRecord( PERKO, 52 );
+								TriggerNPCRecord( RAUL_UB, 52 );
 
 								//Remeber to discount the barrett
 								SetJa25GeneralFlag( JA_GF__BARRETT_IS_HALF_PRICE );

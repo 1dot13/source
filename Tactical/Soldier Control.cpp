@@ -9934,7 +9934,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sPo
 	
 #ifdef JA2UB	
 	//if the attacker is MORRIS, AND he didnt kill the person
-	if( Menptr[ ubAttacker ].ubProfile == 75 )	//MORRIS			
+	if( Menptr[ ubAttacker ].ubProfile == MORRIS_UB )	//MORRIS
 	{
 		//if the soldier is hurt, but not dead
 		if( this->stats.bLife < bOldLife && this->stats.bLife > 0 )

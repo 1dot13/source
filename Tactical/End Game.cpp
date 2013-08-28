@@ -482,13 +482,13 @@ void HandleAddingTheEndGameEmails()
 		fMiguelAlive = TRUE;
 
 	//manuel alive
-	if( gMercProfiles[ 60 ].bMercStatus == MERC_IS_DEAD )
+	if( gMercProfiles[ MANUEL_UB ].bMercStatus == MERC_IS_DEAD )
 		fManuelAlive = FALSE;
 	else
 		fManuelAlive = TRUE;
 
 	//manuel hired
-	if( gMercProfiles[ 60 ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+	if( gMercProfiles[ MANUEL_UB ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
 		fManuelHired = TRUE;
 	else
 		fManuelHired = FALSE;
