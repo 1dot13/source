@@ -2689,4 +2689,12 @@
 		<szBRName>Barrett M82A2</szBRName>
 		<szBRDesc>Ce M82A2 modifié à configuration bullpup place les mécanismes et le canon en arrière dans la crosse, diminuant ainsi la taille totale du fusil tout en gardant un canon de même longueur.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>336</uiIndex>
+		<szItemName>Parapluie</szItemName>
+		<szLongItemName>Parapluie mercenaire</szLongItemName>
+		<szItemDesc>Pour une tenue de soirée en treillis, ce parapluie très polyvalent vous accompagnera partout avec style. Il est également extrêmement résistant, bénéficiant d'un tissu traité au Téflon et garanti pour résister à la grêle ou à une simple pluie...</szItemDesc>
+		<szBRName>Parapluie pour mercenaire</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
 </ITEMLIST>

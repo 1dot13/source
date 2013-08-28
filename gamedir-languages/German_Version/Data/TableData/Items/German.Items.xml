@@ -2670,4 +2670,12 @@
 		<szBRName>Barrett M82A2</szBRName>
 		<szBRDesc>Das BARRETT 'Light Fifty' wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt. Nach erfolgreichen Einsätzen (Irak, Bosnien, Afghanistan) hat es die US-Army im August 2003 als neues Scharfschützengewehr M107 offiziell in Dienst gestellt.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>336</uiIndex>
+		<szItemName>Regenschirm</szItemName>
+		<szLongItemName>MERC Regenschirm</szLongItemName>
+		<szItemDesc>Vom schicken- zum Arbeitsutensil. Dieser extrem vielseitige Regenschirm wird Sie stets gut kleiden. Außerdem ist er äußerst widerstandsfähig; der Teflonstoff garantiert sogar Schutz vor Hagel und Schneeregen.</szItemDesc>
+		<szBRName>MERC Regenschirm</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
 </ITEMLIST>

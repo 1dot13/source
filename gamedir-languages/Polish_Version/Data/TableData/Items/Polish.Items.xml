@@ -2688,4 +2688,12 @@
 		<szBRName>Barrett M82A2</szBRName>
 		<szBRDesc>W tym zmodyfikowanym M82A2 zastosowano układ bullpup, co pozwoliło wydłużyć lufę przy jednoczesnym skróceniu całej broni.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>336</uiIndex>
+		<szItemName>Parasol</szItemName>
+		<szLongItemName>Parasol MERC</szLongItemName>
+		<szItemDesc>Ten parasol będzie Ci towarzyszyć w każdej podróży, będąc z pewnością stylowym dodatkiem. Dzięki materiałowi z dodatkiem teflonu oprze się nawet gradowi.</szItemDesc>
+		<szBRName>Parasol MERC</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
 </ITEMLIST>

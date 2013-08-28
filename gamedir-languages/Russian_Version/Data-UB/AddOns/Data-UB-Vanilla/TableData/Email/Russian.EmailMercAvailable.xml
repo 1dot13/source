@@ -892,58 +892,49 @@
 		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Monk -->
 		<uiIndex>170</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Виктора Колесникова</Subject>
-		<Message>Привет. Это Монк. Получил твое сообщение. Я вернулся, так что можешь со мной связаться. ± ± Жду звонка. ±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Brain -->
 		<uiIndex>171</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Янно Аллика</Subject>
-		<Message>Я готов обсудить задания. Для всего есть свое время и место. ± ± Янно Аллик ±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Scream -->
 		<uiIndex>172</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Леннарта Вильде</Subject>
-		<Message>Леннарт Вильде вернулся!</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Henning -->
 		<uiIndex>173</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Хеннинга фон Браница</Subject>
-		<Message>Получил твое сообщение, спасибо. Если хочешь обсудить работу, свяжись со мной на сайте A.I.M. До встречи! ± ± Хеннинг фон Браниц ±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Luc -->
 		<uiIndex>174</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Люка Фабра</Subject>
-		<Message>Послание получил, мерси! С удовольствием рассмотрю ваши предложения. Вы знаете, где меня найти. ± ± Жду с нетерпением ±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Laura -->
 		<uiIndex>175</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Лоры Колин</Subject>
-		<Message>Привет! Спасибо, что оставили сообщение. Звучит интересно. ± ± Зайдите снова в A.I.M. Хотелось бы услышать больше. ± ± С уважением! ± ± Др. Лора Колин ± ± P.S. Надеюсь, Монк уже в вашей команде? ±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Grace -->
 		<uiIndex>176</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Грациеллы Джирелли</Subject>
-		<Message>Вы хотели связаться со мной, но неудачно.± ± Семейное собрание. Думаю, вы понимаете. Я уже устала от семьи и буду рада. Если вы снова свяжетесь со мной через сайт A.I.M. ± ± Чао! ±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Rudolf -->
 		<uiIndex>177</uiIndex>
-		<Subject>FW с сервера A.I.M.: Письмо от Рудольфа Штайгера</Subject>
-		<Message>Ты знаешь, сколько звонков я получаю каждый день? Любой придурок считает, что может позвонить мне. ± ± Но я вернулся, если тебе есть чем меня заинтересовать.±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Generic mail, for additional merc made by modders, index >= 178 -->
 		<uiIndex>178</uiIndex>
-		<Subject>FW с сервера A.I.M.: Наёмник доступен</Subject>
-		<Message>Я на месте. Жду звонка чтобы обсудить условия контракта.±</Message>
+		<Subject>None</Subject>
+		<Message>None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>179</uiIndex>
