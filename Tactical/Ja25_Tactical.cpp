@@ -319,6 +319,42 @@ void InitGridNoUB()
 	POWERGENFANSOUND_GRIDNO2 = gGameUBOptions.PowergenFanSoundGridNo2; //= 19749;
 	STARTFANBACKUPAGAIN_GRIDNO = gGameUBOptions.StartFanbackupAgainGridNo; //= 10980;
 	STOPPOWERGENFAN_GRIDNO = gGameUBOptions.StopPowergenFanGridNo; //= 10980;
+	
+	MANUEL_UB = gGameUBOptions.ubMANUEL_UB;
+	BIGGENS_UB = gGameUBOptions.ubBIGGENS_UB;
+	JOHN_K_UB = gGameUBOptions.ubJOHN_K_UB;
+	TEX_UB = gGameUBOptions.ubTEX_UB;
+	GASTON_UB = gGameUBOptions.ubGASTON_UB;
+	STOGIE_UB = gGameUBOptions.ubSTOGIE_UB;
+	JERRY_MILO_UB = gGameUBOptions.ubJERRY_MILO_UB;
+	PGMALE4_UB = gGameUBOptions.ubPGMALE4_UB;
+	BETTY_UB = gGameUBOptions.ubBETTY_UB;
+	RAUL_UB = gGameUBOptions.ubRAUL_UB;
+	MORRIS_UB = gGameUBOptions.ubMORRIS_UB;
+	RUDY_UB = gGameUBOptions.ubRUDY_UB;
+	
+	TEX_MOVIE_ATTACK_CLYDESDALES  = gGameUBOptions.ubTEX_MOVIE_ATTACK_CLYDESDALES;
+	TEX_MOVIE_WILD_EAST  = gGameUBOptions.ubTEX_MOVIE_WILD_EAST;
+	TEX_MOVIE_HAVE_HONDA  = gGameUBOptions.ubTEX_MOVIE_HAVE_HONDA;
+	LAPTOP_TRANSMITTER  = gGameUBOptions.ubLAPTOP_TRANSMITTER;
+	CHE_GUEVARA_CANTEEN  = gGameUBOptions.ubCHE_GUEVARA_CANTEEN;
+	MERC_WRISTWATCH  = gGameUBOptions.ubMERC_WRISTWATCH;
+	SAM_GARVER_COMBAT_KNIFE  = gGameUBOptions.ubSAM_GARVER_COMBAT_KNIFE;
+	MERC_UMBRELLA_OLD  = gGameUBOptions.ubMERC_UMBRELLA_OLD;
+	MORRIS_INSTRUCTION_NOTE  = gGameUBOptions.ubMORRIS_INSTRUCTION_NOTE;
+	HAND_CANNON  = gGameUBOptions.ubHAND_CANNON;
+	HARTFORD_6_SHOOTER  = gGameUBOptions.ubHARTFORD_6_SHOOTER;
+	MERC_UMBRELLA  = gGameUBOptions.ubMERC_UMBRELLA;
+	CLIP_CANNON_BALL  = gGameUBOptions.ubCLIP_CANNON_BALL;
+	BARRETT_UB  = gGameUBOptions.ubBARRETT_UB;
+	CALICO_960_UB  = gGameUBOptions.ubCALICO_960_UB;
+	PSG1_UB  = gGameUBOptions.ubPSG1_UB;
+	L85_UB  = gGameUBOptions.ubL85_UB;
+	TAR21_UB  = gGameUBOptions.ubTAR21_UB;
+	VAL_SILENT_UB  = gGameUBOptions.ubVAL_SILENT_UB;
+	MICRO_UZI_UB  = gGameUBOptions.ubMICRO_UZI_UB;
+	CALICO_950_UB  = gGameUBOptions.ubCALICO_950_UB;
+	CALICO_900_UB  = gGameUBOptions.ubCALICO_900_UB;
 }
 
 	
@@ -1253,12 +1289,14 @@ void HandlePickingUpMorrisInstructionNote( SOLDIERTYPE *pSoldier, INT32 iIndex )
 		return;
 	}
 
+/*
 	//if the note has already been picked up by a new merc, or the not ehas been displayed
 	if( gJa25SaveStruct.ubMorrisNoteState == MN__PICKED_UP_BY_NEW_MERC ||
 			gJa25SaveStruct.ubMorrisNoteState == MN__FINISHED )
 	{
 		return;
 	}
+*/
 
 	bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 

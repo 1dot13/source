@@ -63,8 +63,13 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_setglobal(L, "newDIFFICULTY_LEVEL");
 	
 #ifdef JA2UB
+	//Old
 	lua_pushinteger(L, gGameOptions.ubDifficultyLevel);
 	lua_setglobal(L, "difficultyLevel");
+	
+	//new
+	lua_pushinteger(L, gGameOptions.ubDifficultyLevel);
+	lua_setglobal(L, "UB_difficultyLevel");
 #endif
 
 	// -------------------------------
@@ -115,6 +120,7 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_setglobal(L, "iniDEFAULT_ARRIVAL_SECTOR_X");	
 	
 #ifdef JA2UB
+	//old
 	lua_pushinteger(L, gGameUBOptions.ubEndDefaultSectorX);
 	lua_setglobal(L, "iniDEFAULT_END_SECTOR_X");
 	
@@ -157,6 +163,50 @@ void IniGlobalGameSetting(lua_State *L)
 	
 	lua_pushboolean(L, gGameUBOptions.InGameHeli);
 	lua_setglobal(L, "iniINGAMEHELI");
+	
+	//new
+	lua_pushinteger(L, gGameUBOptions.ubEndDefaultSectorX);
+	lua_setglobal(L, "UB_iniDEFAULT_END_SECTOR_X");
+	
+	lua_pushinteger(L, gGameUBOptions.ubEndDefaultSectorY);
+	lua_setglobal(L, "UB_iniDEFAULT_END_SECTOR_Y");
+	
+	lua_pushinteger(L, gGameUBOptions.ubEndDefaultSectorZ);
+	lua_setglobal(L, "UB_iniDEFAULT_END_SECTOR_Z");
+	
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 0 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO1");
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 1 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO2");
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 2 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO3");
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 3 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO4");
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 4 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO5");
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 5 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO6");
+	lua_pushinteger(L, gGameUBOptions.InitialHeliGridNo[ 6 ]);
+	lua_setglobal(L, "UB_iniINITIALHELIGRIDNO7");
+	
+	lua_pushinteger(L, gGameUBOptions.JerryGridNo);
+	lua_setglobal(L, "UB_iniJERRYGRIDNO");
+	
+	lua_pushboolean(L, gGameUBOptions.LaptopQuestEnabled);
+	lua_setglobal(L, "UB_iniLAPTOP_QUEST");
+	
+	lua_pushboolean(L, gGameUBOptions.InJerry);
+	lua_setglobal(L, "UB_iniJERRY");
+	
+	lua_pushboolean(L, gGameUBOptions.JerryQuotes);
+	lua_setglobal(L, "UB_iniJERRYQUOTES");
+	
+	lua_pushboolean(L, gGameUBOptions.InGameHeliCrash);
+	lua_setglobal(L, "UB_iniINGAMEHELICRASH");
+	
+	
+	lua_pushboolean(L, gGameUBOptions.InGameHeli);
+	lua_setglobal(L, "UB_iniINGAMEHELI");
 #endif
 	
 	//Mod Setting.ini
@@ -489,15 +539,23 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_setglobal(L, "guiCurrentScreen");
 
 #ifdef JA2UB
+	//old
 	lua_pushboolean(L, gGameUBOptions.fTexAndJohn);
 	lua_setglobal(L, "enabledJohnAndTex");		
 	
 	lua_pushboolean(L, gGameUBOptions.fRandomManuelText);
 	lua_setglobal(L, "RandomManuelText");	
+	
+	//new
+	lua_pushboolean(L, gGameUBOptions.fTexAndJohn);
+	lua_setglobal(L, "UB_enabledJohnAndTex");		
+	
+	lua_pushboolean(L, gGameUBOptions.fRandomManuelText);
+	lua_setglobal(L, "UB_RandomManuelText");	
 #endif
 	
 #ifdef JA2UB
-	//Items
+	//Old
 	lua_pushinteger(L, BARRETT_UB);
 	lua_setglobal(L, "itemBARRETT_UB");	
 
@@ -543,25 +601,92 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_pushinteger(L, TEX_MOVIE_WILD_EAST);
 	lua_setglobal(L, "itemTEX_MOVIE_WILD_EAST");
 	
-	lua_pushboolean(L, TEX_MOVIE_HAVE_HONDA);
+	lua_pushinteger(L, TEX_MOVIE_HAVE_HONDA);
 	lua_setglobal(L, "itemTEX_MOVIE_HAVE_HONDA");
 	
-	lua_pushboolean(L, LAPTOP_TRANSMITTER);
+	lua_pushinteger(L, LAPTOP_TRANSMITTER);
 	lua_setglobal(L, "itemLAPTOP_TRANSMITTER");
 	
-	lua_pushboolean(L, CHE_GUEVARA_CANTEEN);
+	lua_pushinteger(L, CHE_GUEVARA_CANTEEN);
 	lua_setglobal(L, "itemCHE_GUEVARA_CANTEEN");
 	
-	lua_pushboolean(L, MERC_WRISTWATCH);
+	lua_pushinteger(L, MERC_WRISTWATCH);
 	lua_setglobal(L, "itemMERC_WRISTWATCH");
 	
-	lua_pushboolean(L, SAM_GARVER_COMBAT_KNIFE);
+	lua_pushinteger(L, SAM_GARVER_COMBAT_KNIFE);
 	lua_setglobal(L, "itemSAM_GARVER_COMBAT_KNIFE");
 	
-	lua_pushboolean(L, MERC_UMBRELLA_OLD);
+	lua_pushinteger(L, MERC_UMBRELLA_OLD);
 	lua_setglobal(L, "itemMERC_UMBRELLA_OLD");
 	
-	lua_pushboolean(L, MORRIS_INSTRUCTION_NOTE);
+	lua_pushinteger(L, MORRIS_INSTRUCTION_NOTE);
 	lua_setglobal(L, "itemMORRIS_INSTRUCTION_NOTE");
+	
+	//New
+	lua_pushinteger(L, BARRETT_UB);
+	lua_setglobal(L, "UB_itemBARRETT");	
+
+	lua_pushinteger(L, CALICO_960_UB);
+	lua_setglobal(L, "UB_itemCALICO_960");	
+	
+	lua_pushinteger(L, PSG1_UB);
+	lua_setglobal(L, "UB_itemPSG1");	
+	
+	lua_pushinteger(L, L85_UB);
+	lua_setglobal(L, "UB_itemL85");
+	
+	lua_pushinteger(L, TAR21_UB);
+	lua_setglobal(L, "UB_itemTAR21");
+
+	lua_pushinteger(L, VAL_SILENT_UB);
+	lua_setglobal(L, "UB_itemVAL_SILENT");
+
+	lua_pushinteger(L, MICRO_UZI_UB);
+	lua_setglobal(L, "UB_itemMICRO_UZI");
+	
+	lua_pushinteger(L, CALICO_950_UB);
+	lua_setglobal(L, "UB_itemCALICO_950");
+	
+	lua_pushinteger(L, CALICO_900_UB);
+	lua_setglobal(L, "UB_itemCALICO_900");
+	
+	lua_pushinteger(L, CLIP_CANNON_BALL);
+	lua_setglobal(L, "UB_itemCLIP_CANNON_BALL");
+	
+	lua_pushinteger(L, MERC_UMBRELLA);
+	lua_setglobal(L, "UB_itemMERC_UMBRELLA");
+	
+	lua_pushinteger(L, HAND_CANNON);
+	lua_setglobal(L, "UB_itemHAND_CANNON");
+	
+	lua_pushinteger(L, HARTFORD_6_SHOOTER);
+	lua_setglobal(L, "UB_itemHARTFORD_6_SHOOTER");
+	
+	lua_pushinteger(L, TEX_MOVIE_ATTACK_CLYDESDALES);
+	lua_setglobal(L, "UB_itemTEX_MOVIE_ATTACK_CLYDESDALES");
+	
+	lua_pushinteger(L, TEX_MOVIE_WILD_EAST);
+	lua_setglobal(L, "UB_itemTEX_MOVIE_WILD_EAST");
+	
+	lua_pushinteger(L, TEX_MOVIE_HAVE_HONDA);
+	lua_setglobal(L, "UB_itemTEX_MOVIE_HAVE_HONDA");
+	
+	lua_pushinteger(L, LAPTOP_TRANSMITTER);
+	lua_setglobal(L, "UB_itemLAPTOP_TRANSMITTER");
+	
+	lua_pushinteger(L, CHE_GUEVARA_CANTEEN);
+	lua_setglobal(L, "UB_itemCHE_GUEVARA_CANTEEN");
+	
+	lua_pushinteger(L, MERC_WRISTWATCH);
+	lua_setglobal(L, "UB_itemMERC_WRISTWATCH");
+	
+	lua_pushinteger(L, SAM_GARVER_COMBAT_KNIFE);
+	lua_setglobal(L, "UB_itemSAM_GARVER_COMBAT_KNIFE");
+	
+	lua_pushinteger(L, MERC_UMBRELLA_OLD);
+	lua_setglobal(L, "UB_itemMERC_UMBRELLA_OLD");
+	
+	lua_pushinteger(L, MORRIS_INSTRUCTION_NOTE);
+	lua_setglobal(L, "UB_itemMORRIS_INSTRUCTION_NOTE");
 #endif
 }

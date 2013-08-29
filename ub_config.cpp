@@ -296,44 +296,46 @@ void LoadGameUBOptions()
 	// Weapon
 	// -----------------------
 	#ifdef JA2UB
-	TEX_MOVIE_ATTACK_CLYDESDALES = iniReader.ReadInteger("Unfinished Business Items","TEX_MOVIE_ATTACK_CLYDESDALES", 1356);
-	TEX_MOVIE_WILD_EAST = iniReader.ReadInteger("Unfinished Business Items","TEX_MOVIE_WILD_EAST", 1357);
-	TEX_MOVIE_HAVE_HONDA = iniReader.ReadInteger("Unfinished Business Items","TEX_MOVIE_HAVE_HONDA", 1358);
-	LAPTOP_TRANSMITTER = iniReader.ReadInteger("Unfinished Business Items","LAPTOP_TRANSMITTER", 1355);
-	CHE_GUEVARA_CANTEEN = iniReader.ReadInteger("Unfinished Business Items","CHE_GUEVARA_CANTEEN", 1359);
-	MERC_WRISTWATCH = iniReader.ReadInteger("Unfinished Business Items","MERC_WRISTWATCH", 1360);
-	SAM_GARVER_COMBAT_KNIFE = iniReader.ReadInteger("Unfinished Business Items","SAM_GARVER_COMBAT_KNIFE", 1353);
-	MERC_UMBRELLA_OLD = iniReader.ReadInteger("Unfinished Business Items","MERC_UMBRELLA_OLD", 1361);
-	MORRIS_INSTRUCTION_NOTE = iniReader.ReadInteger("Unfinished Business Items","MORRIS_INSTRUCTION_NOTE", 1362);
-	HAND_CANNON = iniReader.ReadInteger("Unfinished Business Items","HAND_CANNON", 1352);
-	HARTFORD_6_SHOOTER = iniReader.ReadInteger("Unfinished Business Items","HARTFORD_6_SHOOTER", 66);
-	MERC_UMBRELLA = iniReader.ReadInteger("Unfinished Business Items","MERC_UMBRELLA", 1361);
-	CLIP_CANNON_BALL = iniReader.ReadInteger("Unfinished Business Items","CLIP_CANNON_BALL", 1354);
-	BARRETT_UB = iniReader.ReadInteger("Unfinished Business Items","BARRETT_UB", 335);
-	CALICO_960_UB = iniReader.ReadInteger("Unfinished Business Items","CALICO_960_UB", 69);
-	PSG1_UB = iniReader.ReadInteger("Unfinished Business Items","PSG1_UB", 334);
-	L85_UB = iniReader.ReadInteger("Unfinished Business Items","L85_UB", 331);
-	TAR21_UB = iniReader.ReadInteger("Unfinished Business Items","TAR21_UB", 332);
-	VAL_SILENT_UB  = iniReader.ReadInteger("Unfinished Business Items","VAL_SILENT_UB", 333);
-	MICRO_UZI_UB  = iniReader.ReadInteger("Unfinished Business Items","MICRO_UZI_UB", 330);
-	CALICO_950_UB  = iniReader.ReadInteger("Unfinished Business Items","CALICO_950_UB", 67);
-	CALICO_900_UB  = iniReader.ReadInteger("Unfinished Business Items","CALICO_900_UB", 68);
+	gGameUBOptions.ubTEX_MOVIE_ATTACK_CLYDESDALES = iniReader.ReadInteger("Unfinished Business Items","TEX_MOVIE_ATTACK_CLYDESDALES", 1356);
+	gGameUBOptions.ubTEX_MOVIE_WILD_EAST = iniReader.ReadInteger("Unfinished Business Items","TEX_MOVIE_WILD_EAST", 1357);
+	gGameUBOptions.ubTEX_MOVIE_HAVE_HONDA = iniReader.ReadInteger("Unfinished Business Items","TEX_MOVIE_HAVE_HONDA", 1358);
+	gGameUBOptions.ubLAPTOP_TRANSMITTER = iniReader.ReadInteger("Unfinished Business Items","LAPTOP_TRANSMITTER", 1355);
+	gGameUBOptions.ubCHE_GUEVARA_CANTEEN = iniReader.ReadInteger("Unfinished Business Items","CHE_GUEVARA_CANTEEN", 1359);
+	gGameUBOptions.ubMERC_WRISTWATCH = iniReader.ReadInteger("Unfinished Business Items","MERC_WRISTWATCH", 1360);
+	gGameUBOptions.ubSAM_GARVER_COMBAT_KNIFE = iniReader.ReadInteger("Unfinished Business Items","SAM_GARVER_COMBAT_KNIFE", 1353);
+	gGameUBOptions.ubMERC_UMBRELLA_OLD = iniReader.ReadInteger("Unfinished Business Items","MERC_UMBRELLA_OLD", 1361);
+	gGameUBOptions.ubMORRIS_INSTRUCTION_NOTE = iniReader.ReadInteger("Unfinished Business Items","MORRIS_INSTRUCTION_NOTE", 1362);
+	gGameUBOptions.ubHAND_CANNON = iniReader.ReadInteger("Unfinished Business Items","HAND_CANNON", 1352);
+	gGameUBOptions.ubHARTFORD_6_SHOOTER = iniReader.ReadInteger("Unfinished Business Items","HARTFORD_6_SHOOTER", 66);
+	gGameUBOptions.ubMERC_UMBRELLA = iniReader.ReadInteger("Unfinished Business Items","MERC_UMBRELLA", 1361);
+	gGameUBOptions.ubCLIP_CANNON_BALL = iniReader.ReadInteger("Unfinished Business Items","CLIP_CANNON_BALL", 1354);
+	gGameUBOptions.ubBARRETT_UB = iniReader.ReadInteger("Unfinished Business Items","BARRETT_UB", 335);
+	gGameUBOptions.ubCALICO_960_UB = iniReader.ReadInteger("Unfinished Business Items","CALICO_960_UB", 69);
+	gGameUBOptions.ubPSG1_UB = iniReader.ReadInteger("Unfinished Business Items","PSG1_UB", 334);
+	gGameUBOptions.ubL85_UB = iniReader.ReadInteger("Unfinished Business Items","L85_UB", 331);
+	gGameUBOptions.ubTAR21_UB = iniReader.ReadInteger("Unfinished Business Items","TAR21_UB", 332);
+	gGameUBOptions.ubVAL_SILENT_UB  = iniReader.ReadInteger("Unfinished Business Items","VAL_SILENT_UB", 333);
+	gGameUBOptions.ubMICRO_UZI_UB  = iniReader.ReadInteger("Unfinished Business Items","MICRO_UZI_UB", 330);
+	gGameUBOptions.ubCALICO_950_UB  = iniReader.ReadInteger("Unfinished Business Items","CALICO_950_UB", 67);
+	gGameUBOptions.ubCALICO_900_UB  = iniReader.ReadInteger("Unfinished Business Items","CALICO_900_UB", 68);
 
 	// -----------------------
 	// Profiles
 	// -----------------------
 	
-	MANUEL_UB = iniReader.ReadInteger("Unfinished Business Profiles","MANUEL", 60);
-	BIGGENS_UB = iniReader.ReadInteger("Unfinished Business Profiles","BIGENS", 61);
-	JOHN_K_UB = iniReader.ReadInteger("Unfinished Business Profiles","JOHN_K", 62);
-	TEX_UB = iniReader.ReadInteger("Unfinished Business Profiles","TEX", 64);
-	GASTON_UB = iniReader.ReadInteger("Unfinished Business Profiles","GASTON", 58);
-	STOGIE_UB = iniReader.ReadInteger("Unfinished Business Profiles","STOGIE", 59);
-	JERRY_MILO_UB = iniReader.ReadInteger("Unfinished Business Profiles","JERRY", 76);
-	PGMALE4_UB = iniReader.ReadInteger("Unfinished Business Profiles","PGMALE4", 57);
-	BETTY_UB = iniReader.ReadInteger("Unfinished Business Profiles","BETTY", 73);
-	RAUL_UB = iniReader.ReadInteger("Unfinished Business Profiles","RAUL", 74);
-	MORRIS_UB = iniReader.ReadInteger("Unfinished Business Profiles","MORRIS", 75);
-	RUDY_UB = iniReader.ReadInteger("Unfinished Business Profiles","RUDY", 77);
+	gGameUBOptions.ubMANUEL_UB = iniReader.ReadInteger("Unfinished Business Profiles","MANUEL", 60);
+	gGameUBOptions.ubBIGGENS_UB = iniReader.ReadInteger("Unfinished Business Profiles","BIGENS", 61);
+	gGameUBOptions.ubJOHN_K_UB = iniReader.ReadInteger("Unfinished Business Profiles","JOHN_K", 62);
+	gGameUBOptions.ubTEX_UB = iniReader.ReadInteger("Unfinished Business Profiles","TEX", 64);
+	gGameUBOptions.ubGASTON_UB = iniReader.ReadInteger("Unfinished Business Profiles","GASTON", 58);
+	gGameUBOptions.ubSTOGIE_UB = iniReader.ReadInteger("Unfinished Business Profiles","STOGIE", 59);
+	gGameUBOptions.ubJERRY_MILO_UB = iniReader.ReadInteger("Unfinished Business Profiles","JERRY", 76);
+	gGameUBOptions.ubPGMALE4_UB = iniReader.ReadInteger("Unfinished Business Profiles","PGMALE4", 57);
+	gGameUBOptions.ubBETTY_UB = iniReader.ReadInteger("Unfinished Business Profiles","BETTY", 73);
+	gGameUBOptions.ubRAUL_UB = iniReader.ReadInteger("Unfinished Business Profiles","RAUL", 74);
+	gGameUBOptions.ubMORRIS_UB = iniReader.ReadInteger("Unfinished Business Profiles","MORRIS", 75);
+	gGameUBOptions.ubRUDY_UB = iniReader.ReadInteger("Unfinished Business Profiles","RUDY", 77);
+	
+
 	#endif
 }

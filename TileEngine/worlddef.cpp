@@ -507,11 +507,51 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 						}
 						else
 						{
+						  
+						  if (  uiLoop == 123  )
+							{					
+								strcpy( TileSurfaceFilenames[123], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[123] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+								if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[123], 123, TLS_GENERIC_1, FALSE ) == FALSE)
+								{
+									DestroyTileSurfaces(  );
+									return( FALSE );
+								}
+							}	
+							else if (  uiLoop == 124  )
+							{					
+								strcpy( TileSurfaceFilenames[124], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[124] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+								if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[124], 124, TLS_GENERIC_1, FALSE ) == FALSE)
+								{
+									DestroyTileSurfaces(  );
+									return( FALSE );
+								}
+							}
+							else if (  uiLoop == 125 )
+							{					
+								strcpy( TileSurfaceFilenames[125], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[125] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+								if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[125], 125, TLS_GENERIC_1, FALSE ) == FALSE)
+								{
+									DestroyTileSurfaces(  );
+									return( FALSE );
+								}
+							}
+							else if (  uiLoop == 127 )
+							{					
+								strcpy( TileSurfaceFilenames[127], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[127] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+								if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[127], 127, TLS_GENERIC_1, FALSE ) == FALSE)
+								{
+									DestroyTileSurfaces(  );
+									return( FALSE );
+								}
+							}
+							else
+							{
 							strcpy( TileSurfaceFilenames[uiLoop], gTilesets[ DEFAULT_JA25_TILESET ].TileSurfaceFilenames[uiLoop] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
 							if (AddTileSurface( gTilesets[ DEFAULT_JA25_TILESET ].TileSurfaceFilenames[uiLoop], uiLoop, DEFAULT_JA25_TILESET, FALSE ) == FALSE)
 							{
 								DestroyTileSurfaces(  );
 								return( FALSE );
+								}
 							}
 						}						
 						#else

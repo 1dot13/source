@@ -1377,10 +1377,6 @@ UINT32 InitializeJA2(void)
 
 	gfWorldLoaded = FALSE;
 	
-#ifdef JA2UB
-	useOldJA2Inventory = FALSE;
-#endif
-
 	//Load external game mechanic data
 	//if ( !LoadExternalGameplayData(TABLEDATA_DIRECTORY))
 	//{
@@ -1511,41 +1507,8 @@ UINT32 InitializeJA2(void)
 	}
 #endif
 
-#ifdef JA2UB
-	// run old UB inventory Data-UB\Addons\Data-Old-UB-Inventory
-	if( _stricmp( gzCommandLine, "-OLDUBINVENTORY" ) )
-	{
-		useOldJA2Inventory = TRUE; 
-	}
-
-	// Ignore the old UB Inventory, because it is not working
-	useOldJA2Inventory = FALSE;
-
-#endif
-
 #ifdef JA2BETAVERSION
 	#ifdef JA2EDITOR
-		#ifdef JA2UB
-			// CHECK COMMANDLINE FOR SPECIAL UTILITY
-		if( !strcmp( gzCommandLine, "-OLDUBINVENTORYEDITORAUTO" ) )
-		{
-			OutputDebugString( "Beginning JA2 using -EDITORAUTO commandline argument...\n" );
-			//For editor purposes, need to know the default map file.
-			sprintf( gubFilename, "none");
-			//also set the sector
-			gWorldSectorX = 0;
-			gWorldSectorY = 0;
-			gfAutoLoadA9 = FALSE;
-			gfIntendOnEnteringEditor = TRUE;
-			gGameOptions.fGunNut = TRUE;
-			gGameOptions.fAirStrikes = FALSE;
-			//gGameOptions.fBobbyRayFastShipments = FALSE;
-			gGameOptions.fInventoryCostsAP = FALSE;
-			
-			useOldJA2Inventory = TRUE; 
-			return( GAME_SCREEN );
-		}
-		#endif
 	
 		// CHECK COMMANDLINE FOR SPECIAL UTILITY
 		if( !strcmp( gzCommandLine, "-EDITORAUTO" ) )
@@ -1604,13 +1567,6 @@ UINT32 InitializeJA2(void)
 
 #ifdef JA2UB
 	InitGridNoUB();
-#endif
-
-#ifdef JA2UB	
-	if ( useOldJA2Inventory == TRUE )
-		Old_UB_Inventory ();
-	else
-		New_UB_Inventory ();
 #endif
 
 //Lua

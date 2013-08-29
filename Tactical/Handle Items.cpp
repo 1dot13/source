@@ -2397,10 +2397,10 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 #ifdef JA2UB	
 	//JA25 ub
 	//if the item is valid
-	if( usItem != 0 )
+	if( iItemIndex != 0 )
 	{
 		//handle the picking up of a new ja25 gun
-		HandleNewGunComment( pSoldier, usItem, TRUE );
+		HandleNewGunComment( pSoldier, iItemIndex, TRUE );
 	}
 #endif
 	// Aknowledge....

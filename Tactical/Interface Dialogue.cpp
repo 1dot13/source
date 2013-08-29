@@ -5636,7 +5636,7 @@ void HandleRaulBlowingHimselfUp()
 	UINT16			usItem=0;
 
 	//Find Raul
-	pSoldier = FindSoldierByProfileID( 74, FALSE );
+	pSoldier = FindSoldierByProfileID( RAUL_UB, FALSE );
 
 	//if he exists
 	if( pSoldier )

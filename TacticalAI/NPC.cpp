@@ -53,6 +53,13 @@
 	
 	#include "Encyclopedia.h"
 	
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "Ja25_Tactical.h"
+#include "ub_config.h"
+#endif
+
+	
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -178,6 +185,71 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 		}	
 
 	}
+	
+		#ifdef JA2UB
+		if ( ubNPC == MANUEL_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", MANUEL_UB );
+		}
+		
+		if ( ubNPC == BIGGENS_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", BIGGENS_UB );
+		}
+		
+		if ( ubNPC == JOHN_K_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", JOHN_K_UB );
+		}
+		
+		if ( ubNPC == TEX_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", TEX_UB );
+		}
+		
+		if ( ubNPC == GASTON_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", GASTON_UB );
+		}
+		
+		if ( ubNPC == STOGIE_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", STOGIE_UB );
+		}
+		
+		if ( ubNPC == JERRY_MILO_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", JERRY_MILO_UB );
+		}
+		
+		if ( ubNPC == PGMALE4_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", PGMALE4_UB );
+		}
+		
+		if ( ubNPC == BETTY_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", BETTY_UB );
+		}
+		
+		if ( ubNPC == RAUL_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", RAUL_UB );
+		}
+		
+		if ( ubNPC == MORRIS_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", MORRIS_UB );
+		}
+		
+		if ( ubNPC == RUDY_UB )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", RUDY_UB );
+		}
+		
+		#endif
+	
+	
 	//else if ( ubNPC < FIRST_RPC || ubNPC >= GASTON || (ubNPC < FIRST_NPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )
 	//new profiles by Jazz
 	else if ( gProfilesIMP[ubNPC].ProfilId == ubNPC || gProfilesAIM[ubNPC].ProfilId == ubNPC || gProfilesMERC[ubNPC].ProfilId == ubNPC || ( gProfilesRPC[ubNPC].ProfilId == ubNPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )	

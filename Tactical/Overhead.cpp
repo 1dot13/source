@@ -3466,6 +3466,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
     if (pSoldierOld->bTeam == CIV_TEAM )
     {
 #ifdef JA2UB
+		
 #else
         SOLDIERTYPE * pOther;
 #endif
@@ -3475,30 +3476,12 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
             ScreenMsg( FONT_RED, MSG_INTERFACE, pMercDeadString[ 0 ], pSoldierOld->GetName() );
         }
 
-		#ifdef JA2UB
-		if ( pSoldierOld->ubProfile == MORRIS_UB )
-        {
-                {
-                    INT8 bSoldierID;
-
-                    //Geta a random soldier ID
-                    bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
-
-                    //if there is any
-                    if( bSoldierID != -1 )
-                    {
-                        //say the MORRIS dead quote
-                        TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW );
-                    }                   
-                }
-		}
-		#endif
-
-        switch( pSoldierOld->ubProfile )
-        {
 #ifdef JA2UB
 
-#else //Ja25: none of these characters are in the exp.
+#else //Ja25: none of these characters are in the exp.		
+        switch( pSoldierOld->ubProfile )
+        {
+
             case BRENDA:
                 SetFactTrue( FACT_BRENDA_DEAD );
                 {
@@ -3637,20 +3620,43 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
                     HandleNPCDoAction( DOREEN, NPC_ACTION_FREE_KIDS, 0 );
                 }
                 break;
-#endif
 
-#ifdef JA2UB
-
-#else
                 // SANDRO - Check if queen bitch is dead 
             case QUEEN:
                 // Muhahahahaaa, QUEST COMPLETED! Give us everything!! Exp, glory, fame!
                 EndQuest( QUEST_KILL_DEIDRANNA, pSoldierOld->sSectorX, pSoldierOld->sSectorY );
                 break;
-#endif
+
 
         }
+#endif
+
 #ifdef JA2UB
+		if ( pSoldierOld->ubProfile == MORRIS_UB )
+		{
+                {
+                    INT8 bSoldierID;
+					SOLDIERTYPE * pOther;
+					
+					pOther = FindSoldierByProfileID( MORRIS_UB, FALSE );
+					if ( pOther )
+					{
+						OBJECTTYPE	Object;
+						CreateItem( MORRIS_INSTRUCTION_NOTE, 100, &Object ); 
+						AutoPlaceObject( pOther, &Object, TRUE );		
+					}
+					
+                    //Geta a random soldier ID
+                    bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+
+                    //if there is any
+                    if( bSoldierID != -1 )
+                    {
+                        //say the MORRIS dead quote
+                        TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW );
+                    }                   
+                }
+        }
         // Ja25no queen
 #else
         // Are we looking at the queen?

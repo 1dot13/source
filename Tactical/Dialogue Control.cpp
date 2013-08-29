@@ -2021,6 +2021,81 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 				ubFileNumID = CARLO;
 		}
 
+		#ifdef JA2UB
+		if ( ubCharacterNum == MANUEL_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", MANUEL_UB );
+			ubFileNumID = MANUEL_UB;
+		}
+		
+		if ( ubCharacterNum == BIGGENS_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", BIGGENS_UB );
+			ubFileNumID = BIGGENS_UB;
+		}
+		
+		if ( ubCharacterNum == JOHN_K_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", JOHN_K_UB );
+			ubFileNumID = JOHN_K_UB;
+		}
+		
+		if ( ubCharacterNum == TEX_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", TEX_UB );
+			ubFileNumID = TEX_UB;
+		}
+		
+		if ( ubCharacterNum == GASTON_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", GASTON_UB );
+			ubFileNumID = GASTON_UB;
+		}
+		
+		if ( ubCharacterNum == STOGIE_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", STOGIE_UB );
+			ubFileNumID = STOGIE_UB;
+		}
+		
+		if ( ubCharacterNum == JERRY_MILO_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", JERRY_MILO_UB );
+			ubFileNumID = JERRY_MILO_UB;
+		}
+		
+		if ( ubCharacterNum == PGMALE4_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", PGMALE4_UB );
+			ubFileNumID = PGMALE4_UB;
+		}
+		
+		if ( ubCharacterNum == BETTY_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", BETTY_UB );
+			ubFileNumID = BETTY_UB;
+		}
+		
+		if ( ubCharacterNum == RAUL_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", RAUL_UB );
+			ubFileNumID = RAUL_UB;
+		}
+		
+		if ( ubCharacterNum == MORRIS_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", MORRIS_UB );
+			ubFileNumID = MORRIS_UB;
+		}
+		
+		if ( ubCharacterNum == RUDY_UB )
+		{
+			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", RUDY_UB );
+			ubFileNumID = RUDY_UB;
+		}
+		
+		#endif
+
 		// If we are character #155, check fact!
 		if ( ubCharacterNum == MANNY && !gubFact[ FACT_MANNY_IS_BARTENDER ] )
 		{
@@ -2069,32 +2144,33 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 				//new profiles by Jazz
 				if ( ( gProfilesRPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesNPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesVehicle[ubCharacterNum].ProfilId == ubCharacterNum ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
-//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 				if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
 				{
-#ifdef JA2UB
+			
+					#ifdef JA2UB
 					sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					if ( !FileExists( zFileName ) )
 					{
 						sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					}					
-#else
+					#else
 					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-#endif
+					#endif
 					if ( !FileExists( zFileName ) )
 					{
-//inshy: fix for UB-1.13 version only
-#ifdef JA2UB
+					//inshy: fix for UB-1.13 version only
+					#ifdef JA2UB
 					sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 						
 					if ( !FileExists( zFileName ) )
 					{
 						sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 					}	
-#else
+					#else
 						sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-#endif
-//<SB> Also check for Russian Gold sound files (identical to international ones)
+					#endif
+					//<SB> Also check for Russian Gold sound files (identical to international ones)
 						if(! FileExists( zFileName ) )
 						{
 							sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );

@@ -119,9 +119,7 @@ BOOLEAN AdjustCertainDealersInventory();
 void		LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uDealerItemType, UINT8 ubMaxNumberOfItemType );
 void		GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType );
 void		GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubHowMany );
-#ifdef JA2UB
 void		GuaranteeAtMostNumOfItemsForItem( UINT8 ubArmsDealer, INT16 sItemIndex, UINT8 ubAtMostNumItems );
-#endif
 
 void		ArmsDealerGetsFreshStock( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubNumItems );
 BOOLEAN ItemContainsLiquid( UINT16 usItemIndex );
@@ -643,17 +641,25 @@ BOOLEAN AdjustCertainDealersInventory( )
 		GuaranteeAtLeastXItemsOfIndex( ARMS_DEALER_RAUL, BARRETT_UB, 1 );
 	}
 
+	/*
+		moved to Quest.lua
 
 	//if the player hasnt done the "killed the annoying bloodcats" quest for betty, 
 	if( gubQuest[ QUEST_FIX_LAPTOP ] != QUESTDONE && gGameUBOptions.LaptopQuestEnabled == TRUE )
 	{
-		//Guarntee 1 laptop transmitter to be at betty's
 		GuaranteeAtLeastXItemsOfIndex( ARMS_DEALER_BETTY, LAPTOP_TRANSMITTER , 1 ); //4500
 	}
 	else
 	{
 		GuaranteeAtMostNumOfItemsForItem( ARMS_DEALER_BETTY, LAPTOP_TRANSMITTER, 0 ); //4500
 	}
+	*/
+	
+	if( gGameUBOptions.LaptopQuestEnabled == FALSE )
+	{
+		GuaranteeAtMostNumOfItemsForItem( ARMS_DEALER_BETTY, LAPTOP_TRANSMITTER, 0 ); //4500
+	}
+	
 
 	if( gubQuest[ QUEST_GET_RID_BLOODCATS_AT_BETTYS ] != QUESTDONE )
 	{
@@ -891,6 +897,27 @@ void GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType 
 	// internal logic failure!
 }
 
+void GuaranteeAtMostNumOfItemsForItem( UINT8 ubArmsDealer, INT16 sItemIndex, UINT8 ubAtMostNumItems )
+{
+
+	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
+		return;
+
+	//ADB, ya, a whole 1 line of extra code!
+	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
+	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
+	int itemsIHave = 0;
+	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();
+		iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
+		if (iter->ItemIsInInventory() == true
+			&& iter->object.usItem == sItemIndex
+			&& iter->IsUnderRepair() == false) {
+			itemsIHave -= iter->object.ubNumberOfObjects;
+			//if there are any of these in stock
+
+		}
+	}
+}
 
 void GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubHowMany )
 {
@@ -2441,69 +2468,5 @@ BOOLEAN CanThisItemBeSoldToSimulatedCustomer( UINT8 ubArmsDealerID, UINT16 usIte
 	}
 
 	return( TRUE );
-}
-
-void GuaranteeAtMostNumOfItemsForItem( UINT8 ubArmsDealer, INT16 sItemIndex, UINT8 ubAtMostNumItems )
-{
-
-	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
-		return;
-
-	//ADB, ya, a whole 1 line of extra code!
-	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
-	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
-	int itemsIHave = 0;
-	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();
-		iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
-		if (iter->ItemIsInInventory() == true
-			&& iter->object.usItem == sItemIndex
-			&& iter->IsUnderRepair() == false) {
-			itemsIHave -= iter->object.ubNumberOfObjects;
-			//if there are any of these in stock
-
-		}
-	}
-
-
-/*	UINT16	usCnt=0;
-	UINT8		ubNumToRemove=0;
-	SPECIAL_ITEM_INFO SpclItemInfo;
-	UINT8			ubNumLeftToRemove=0;
-	INT8			bItemCondition=0;
-	UINT8			bElementToRemove=0;
-
-
-	//if the num items in stock is greater then the num past in
-	if( gArmsDealersInventory[ ubArmsDealer ][ sItemIndex ].ubTotalItems > ubAtMostNumItems )
-	{
-		ubNumToRemove = gArmsDealersInventory[ ubArmsDealer ][ sItemIndex ].ubTotalItems - ubAtMostNumItems;
-
-		ubNumLeftToRemove = ubNumToRemove;
-
-		//loop through the specified #of times
-		while( ubNumLeftToRemove > 0 )
-		{
-			SetSpecialItemInfoToDefaults( &SpclItemInfo );
-
-			//remove special ones first
-			if( gArmsDealersInventory[ ubArmsDealer ][ sItemIndex ].ubTotalItems > gArmsDealersInventory[ ubArmsDealer ][ sItemIndex ].ubPerfectItems )
-			{
-				bElementToRemove = GetFirstValidSpecialItemFromDealer( ubArmsDealer, sItemIndex );
-
-				RemoveSpecialItemFromArmsDealerInventoryAtElement( ubArmsDealer, sItemIndex, bElementToRemove );
-
-				ubNumLeftToRemove -= 1;
-			}
-			else
-			{
-				//lower the number to the required number
-				RemoveItemFromArmsDealerInventory( ubArmsDealer, sItemIndex, &SpclItemInfo, ubNumLeftToRemove );
-
-				ubNumLeftToRemove = 0;
-			}
-		}
-	}
-	
-	*/
 }
 #endif
