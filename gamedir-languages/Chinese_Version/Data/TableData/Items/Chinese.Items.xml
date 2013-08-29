@@ -2688,4 +2688,92 @@
 		<szBRName>Barrett M82A2</szBRName>
 		<szBRDesc>这支改进后的M82A2采用了无托结构，在不削减枪管长度的基础上，缩短了整枪长度。</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>336</uiIndex>
+		<szItemName>Hand Mortar</szItemName>
+		<szLongItemName>手炮</szLongItemName>
+		<szItemDesc>其标志是粗短的黄铜制枪膛和刻有Jourson姓氏的保险机，18世纪典型的手炮在收藏品市场上是很有价值的。</szItemDesc>
+		<szBRName>Hand Mortar</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>337</uiIndex>
+		<szItemName>Garver Knife</szItemName>
+		<szLongItemName>Sam Garver战斗刀</szLongItemName>
+		<szItemDesc>这个限量发售的Sam Garver战斗刀以一个序列号和Sam的签名作为认证。镀锌的钢刀刃和优雅的鳄鱼皮使它成为超级抢手的收藏品。</szItemDesc>
+		<szBRName>Sam Garver Combat Knife</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>338</uiIndex>
+		<szItemName>Cannon Ball</szItemName>
+		<szLongItemName>手炮弹</szLongItemName>
+		<szItemDesc>手工制作的铸铁炮弹，供手炮使用。</szItemDesc>
+		<szBRName>Cannon Ball</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>339</uiIndex>
+		<szItemName>Transmitter</szItemName>
+		<szLongItemName>笔记本电脑接收器</szLongItemName>
+		<szItemDesc>这个卫星信号接收器能让笔记本电脑在世界任何地方接入Internet。注意：不支持Windows系统。</szItemDesc>
+		<szBRName>Laptop Transmitter</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>340</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>克莱兹代尔马的进攻</szLongItemName>
+		<szItemDesc>（吐槽：恶搞克隆人的进攻）一部经典的日式西部片。一个中西部小镇被八匹踢翻啤酒车，浑身是泡沫的克莱兹代尔马搅得一团糟。</szItemDesc>
+		<szBRName>Attack of the Clydesdales</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>341</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>追风战警</szLongItemName>
+		<szItemDesc>（吐槽：恶搞飙风战警）不要把它和票房一败涂地的美国片《飙风战警》搞混了，由威尔.史密斯罗（吐槽：恶搞威尔.史密斯）和Tex Colburn主演的《追风战警》是一部从头到尾都很欢乐的电影。</szItemDesc>
+		<szBRName>Wild, Wild East</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>342</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>车到山前必有路，有路必有本田车(Have Honda, Will Travel)</szLongItemName>
+		<szItemDesc>（吐槽：恶搞Have Gun，Will Travel）或许是由弗朗西斯.本田.科佩拉（吐槽：恶搞弗朗西斯.福特.科波拉 Francis Ford Coppola）导演的最成功作品之一，这部日式西部片用原始的本田微型车替代了马作为旅行工具（吐槽：就是骂日本车马力太小了）。</szItemDesc>
+		<szBRName>Have Honda, Will Travel</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>343</uiIndex>
+		<szItemName>Canteen</szItemName>
+		<szLongItemName>切.格瓦拉水壶</szLongItemName>
+		<szItemDesc>这个手工制作的锡制水壶是叛军的必备品，它被包裹在绝缘的玛雅羊毛中，灌满了来自法属阿尔卑斯山顶的山泉水，每次游击战都会有它的身影。</szItemDesc>
+		<szBRName>Che Guevara Canteen</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>344</uiIndex>
+		<szItemName>Wrist Watch</szItemName>
+		<szLongItemName>MERC腕表</szLongItemName>
+		<szItemDesc>一个不同寻常的计时器，它是M.E.R.C.官方出品的腕表。表面是Flo身着最轻薄的比基尼，用她的双手指向准确的时间。它还是防水的，绝不起雾（影响您看见她）。</szItemDesc>
+		<szBRName>MERC Wrist Watch</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>345</uiIndex>
+		<szItemName>Umbrella</szItemName>
+		<szLongItemName>MERC雨伞</szLongItemName>
+		<szItemDesc>无论你穿的是普通衣服还是迷彩服，这个多用途雨伞适用于任何情况。它也非常耐用，特氟龙处理过的伞面可以经得住冻雨和冰雹。</szItemDesc>
+		<szBRName>MERC Umbrella</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>346</uiIndex>
+		<szItemName>Instructions</szItemName>
+		<szLongItemName>Morris的导弹发射手册</szLongItemName>
+		<szItemDesc>这本笔记包括了所有发射点和目标的坐标，并有详细的导弹发射说明。它包含了Arulco的城镇和Tracona的发射设施。</szItemDesc>
+		<szBRName>Morris' Launch Instructions</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
 </ITEMLIST>

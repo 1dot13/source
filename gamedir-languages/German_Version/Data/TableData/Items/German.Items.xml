@@ -2670,12 +2670,92 @@
 		<szBRName>Barrett M82A2</szBRName>
 		<szBRDesc>Das BARRETT 'Light Fifty' wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt. Nach erfolgreichen Einsätzen (Irak, Bosnien, Afghanistan) hat es die US-Army im August 2003 als neues Scharfschützengewehr M107 offiziell in Dienst gestellt.</szBRDesc>
 	</ITEM>
-	<ITEM>
+	 <ITEM>
 		<uiIndex>336</uiIndex>
+		<szItemName>Hand-Mörser</szItemName>
+		<szLongItemName>Hand-Mörser</szLongItemName>
+		<szItemDesc>Dieser Hand-Mörser ist wie der Standard Mörser aus dem 18. Jahrhundert gebaut, ist aber zusätzlich mit einem rauen Messinglauf ausgestattet.</szItemDesc>
+		<szBRName>Hand-Mörser</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>337</uiIndex>
+		<szItemName>Kampfmesser</szItemName>
+		<szLongItemName>Sam Garver Kampfmesser</szLongItemName>
+		<szItemDesc>Diese limitierte Edition des Sam Garver Kampfmessers ist mit einer Seriennummer authentifiziert und von Sam signiert. Seine galvanisierte Stahlklinge und sein Design machen es zu einem wertvollen Sammlerstück.</szItemDesc>
+		<szBRName>Sam Garver Kampfmesser</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>338</uiIndex>
+		<szItemName>Kanonen-Kugel</szItemName>
+		<szLongItemName>Kanonen-Kugel</szLongItemName>
+		<szItemDesc>Ein handgefertigtes Gusseisen-Projektil für einen Handmörser.</szItemDesc>
+		<szBRName>Kanonen-Kugel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>339</uiIndex>
+		<szItemName>Sender</szItemName>
+		<szLongItemName>Sender für den Laptop</szLongItemName>
+		<szItemDesc>Dieser Satelliten Transmitter ermöglicht einem Laptop, von überall auf dieser Welt, ins Internet zu gelangen. N.B. arbeitet mit einem anderen Betriebssystem als Windows.</szItemDesc>
+		<szBRName>Laptop Transmitter</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>340</uiIndex>
+		<szItemName>Videokassette</szItemName>
+		<szLongItemName>Angriff der Clydesdales</szLongItemName>
+		<szItemDesc>Ein Sushi-Western Klassiker. Die Hölle bricht in einer kleinen Westernstadt aus, als ein Team aus acht Clydesdales den Bierwagen umkippt und sich in den Schaum stürzt.</szItemDesc>
+		<szBRName>Angriff der Clydesdales</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>341</uiIndex>
+		<szItemName>Videokassette</szItemName>
+		<szLongItemName>Wild, Wild East</szLongItemName>
+		<szItemDesc>Nicht zu verwechseln mit dem amerikanischen Film Wild, Wild West, der war ein Flopp. Dieser Sushi-Western, in den Hauptrollen Will Smithero und Tex Colburn, ist ein fröhlicher Streifzug durch die Zeit.</szItemDesc>
+		<szBRName>Wild, Wild East</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>342</uiIndex>
+		<szItemName>Videokassette</szItemName>
+		<szLongItemName>Hab ne Honda, will Reisen</szLongItemName>
+		<szItemDesc>Vielleicht einer der größten Filme von Francis Honda Copella, dieser Sushi- Western ersetzt die Pferde durch rohe Pferdestärken.</szItemDesc>
+		<szBRName>Hab ne Honda, will Reisen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>343</uiIndex>
+		<szItemName>Feldflasche</szItemName>
+		<szLongItemName>Che Guevara Feldflasche</szLongItemName>
+		<szItemDesc>Diese für Rebellen überlebenswichtige Feldflasche ist aus handgeschlagenem Weißblech. Sie ist mit mayanischer Wolle umwickelt und mit frischem Quellwasser aus den französischen Alpen gefüllt. Einfach unentbehrlich!</szItemDesc>
+		<szBRName>Che Guevara Feldflasche</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>344</uiIndex>
+		<szItemName>Armbanduhr</szItemName>
+		<szLongItemName>MERC Armbanduhr</szLongItemName>
+		<szItemDesc>Das ist eine Uhr wie keine andere. Eine offiziele M.E.R.C. Armbanduhr, mit Flo im knappsten aller Bikinis, zeigt Ihnen die exakte Uhrzeit. Sie ist sogar noch wasserdicht und beschlägt so gut wie nie.</szItemDesc>
+		<szBRName>MERC Armbanduhr</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>345</uiIndex>
 		<szItemName>Regenschirm</szItemName>
 		<szLongItemName>MERC Regenschirm</szLongItemName>
 		<szItemDesc>Vom schicken- zum Arbeitsutensil. Dieser extrem vielseitige Regenschirm wird Sie stets gut kleiden. Außerdem ist er äußerst widerstandsfähig; der Teflonstoff garantiert sogar Schutz vor Hagel und Schneeregen.</szItemDesc>
 		<szBRName>MERC Regenschirm</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
-	</ITEM>
+	  </ITEM>
+	  <ITEM>
+		<uiIndex>346</uiIndex>
+		<szItemName>Anweisungen</szItemName>
+		<szLongItemName>Morris' Startanweisungen</szLongItemName>
+		<szItemDesc>Diese Aufzeichnungen beinhalten genau Zielkoordinaten sowie eine präzise Anleitung zum Starten von Raketen. Darüber hinaus eine Anzahl von Städten, in Arulco und ein eine Abschussanlage in Tracona.</szItemDesc>
+		<szBRName>Morris' Startanweisungen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	  </ITEM>
 </ITEMLIST>

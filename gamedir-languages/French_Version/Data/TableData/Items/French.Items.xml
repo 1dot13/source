@@ -2691,10 +2691,90 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>336</uiIndex>
+		<szItemName>Lan-gr 18 ème</szItemName>
+		<szLongItemName>Lance-gren 18 ème</szLongItemName>
+		<szItemDesc>Un lance-grenades du 18 ème siècle avec une crosse et un canon en laiton, "JOURSON" est gravé sur le chien. Ça vaut une fortune sur le marché du collectionneur.</szItemDesc>
+		<szBRName>Lance-grenades 18 ème</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>337</uiIndex>
+		<szItemName>Cout. Garver</szItemName>
+		<szLongItemName>Couteau Sam Garver</szLongItemName>
+		<szItemDesc>Cette édition limitée, du couteau de combat Sam Garver, est authentifiée par un numéro de série et signé par Sam lui-même. Sa lame en acier et son manche en peau de crocodile font que ce couteau est très convoité par les collectionneurs.</szItemDesc>
+		<szBRName>Couteau Combat Garver</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>338</uiIndex>
+		<szItemName>Gr. Artisan.</szItemName>
+		<szLongItemName>Grenade Artisanale</szLongItemName>
+		<szItemDesc>Une fabrication artisanale d'un grenade en fonte pour un lance-grenades du 18 ème siècle.</szItemDesc>
+		<szBRName>Grenade Artisanale</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>339</uiIndex>
+		<szItemName>Ordi. Sat.</szItemName>
+		<szLongItemName>Ordi Portable Sat.</szLongItemName>
+		<szItemDesc>Cet ordinateur portable a un émetteur satellite intégré pour se connecter à internet, n'importe où dans le monde. NB : Fonctionne avec un système d'exploitation autre que Windows.</szItemDesc>
+		<szBRName>Ordinateur Portable Satellite</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>340</uiIndex>
+		<szItemName>Vidéo</szItemName>
+		<szLongItemName>Vidéo</szLongItemName>
+		<szItemDesc>Un classique du western nippon. La violence éclate dans une petite ville du Far West quand un attelage de huit clydesdales renverse son chariot de bière et que tous les tonneaux ont été brisés.</szItemDesc>
+		<szBRName>Vidéo La bavure des clydesdales</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>341</uiIndex>
+		<szItemName>Vidéo</szItemName>
+		<szLongItemName>Vidéo</szLongItemName>
+		<szItemDesc>À ne pas confondre avec le film américain Wild Wild West (Les Mystères de l'Ouest) qui est un navet. Ce western nippon met en vedette Will Smithero et Tex Colburn, est une comédie hilarante de tous les temps.</szItemDesc>
+		<szBRName>Vidéo Les mystères de l'Est</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>342</uiIndex>
+		<szItemName>Vidéo</szItemName>
+		<szLongItemName>Vidéo</szLongItemName>
+		<szItemDesc>L'un des plus grands films jamais réalisés par Francis Honda Copella, ce western nippon remplace le cheval comme moyen de déplacement par une monture avec des chevaux-vapeurs.</szItemDesc>
+		<szBRName>Vidéo J'ai une Honda et je voyage</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>343</uiIndex>
+		<szItemName>Gourde</szItemName>
+		<szLongItemName>Gourde Che Guevara</szLongItemName>
+		<szItemDesc>Cet élément essentiel pour ce révolutionnaire, est fait artisanalement en étain et enrobé dans de la laine isolante maya. Elle est remplie avec de l'eau de source venant des Alpes françaises. L'équipement d'un guérillero ne serait pas complet sans cette excellente gourde.</szItemDesc>
+		<szBRName>Gourde Che Guevara</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>344</uiIndex>
+		<szItemName>Montre</szItemName>
+		<szLongItemName>Montre M.E.R.C</szLongItemName>
+		<szItemDesc>Ce n'est pas une montre comme les autres. C'est LA montre officielle de M.E.R.C. Imaginez Flo dans le plus étriqué des bikinis, vous montrant l'heure exact à son poignet. Elle est même étanche, fini la buée qui se forme à l'intérieur du verre.</szItemDesc>
+		<szBRName>Montre-bracelet M.E.R.C</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>345</uiIndex>
 		<szItemName>Parapluie</szItemName>
 		<szLongItemName>Parapluie mercenaire</szLongItemName>
 		<szItemDesc>Pour une tenue de soirée en treillis, ce parapluie très polyvalent vous accompagnera partout avec style. Il est également extrêmement résistant, bénéficiant d'un tissu traité au Téflon et garanti pour résister à la grêle ou à une simple pluie...</szItemDesc>
 		<szBRName>Parapluie pour mercenaire</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
-	</ITEM>
+	 </ITEM>
+	 <ITEM>
+		<uiIndex>346</uiIndex>
+		<szItemName>Instructions</szItemName>
+		<szLongItemName>Instructions</szLongItemName>
+		<szItemDesc>La note contient les instructions précises du lancement des missiles et les coordonnées des villes à Arulco et de la base de lancement sur Tracona.</szItemDesc>
+		<szBRName>Instructions Lancement Missile</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	 </ITEM>
 </ITEMLIST>
