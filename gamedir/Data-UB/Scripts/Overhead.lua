@@ -161,165 +161,23 @@ SectorY =
 	MAP_ROW_P = 16,
 }
 
--- JA2 Remove
-
---[[ 
--- local function
-local function HandleJohnArrival( ID )
-
-	local ID2 = nil
-	local sDist
-
-	if ( not ID ) then
-		ID = FindSoldierByProfileID (Profil.JOHN)
-		if ( not ID ) then
-			return
-		end
-	end
-	
-	if ( PythSpacesAway( ID,8228) < 40 ) then
-	
-		if ( CheckFact( Facts.FACT_MARY_ALIVE, 0 ) == true ) then
-			ID2 = FindSoldierByProfileID( Profil.MARY )
-			if ( ID2 ) then
-				if ( PythSpacesAway( ID, GetNPCGridNo(ID2) ) > 8 ) then
-					-- Too far away!
-					return
-				end
-			end
-		end
-
-		SetFactTrue( Facts.FACT_MARY_OR_JOHN_ARRIVED )
-		ActionStopMerc(ID)
-
-		-- If Mary is alive/dead
-		if ( ID2 ) then
-			ActionStopMerc(ID2)
-			TriggerNPCRecord( ID, 13 )
-		else
-			TriggerNPCRecord( ID, 12 )
-		end
-		
-	end
-	
-end
--- end local function
-
--- local function
-local function HandleMaryArrival( ID )
-
-	local sDist
-	
-	if ( not ID ) then
-		ID = FindSoldierByProfileID (Profil.MARY)
-		if ( not ID ) then
-			return
-		end
-	end
-	
-	if ( CheckFact( Facts.FACT_JOHN_ALIVE,0) == true ) then
-		return
-	--new requirements: player close by
-	elseif ( PythSpacesAway( ID,8228) < 40 ) then
-	
-		if ( not TileIsOutOfBounds ( ClosestPC( ID, sDist )) and sDist > NPC_TALK_RADIUS * 2 ) then
-			--too far away
-			return
-		end
-		
-		SetFactTrue( Facts.FACT_MARY_OR_JOHN_ARRIVED )
-		ActionStopMerc(ID)
-		TriggerNPCRecord( ID, 13 )
-	end
-
-end
-]]
--- end local function
-
 function HandleAtNewGridNo( ProfileId )
 
--- Ja2 Remove
---[[
+	if ( FindSoldierByProfileID (UB_GetTexID()) == UB_GetTexID() ) then
+		SetKeyProfile (UB_GetTexID(),true)
+	end
+	
+	if ( FindSoldierByProfileID (UB_GetBettyID()) == UB_GetBettyID() ) then
+		SetKeyProfile (UB_GetBettyID(),true)
+	end
+
+
+	
+	
 	TeamSoldier = FindSoldierTeam (ProfileId)
 	if ( TeamSoldier == Team.OUR_TEAM ) then -- Team
 	
-		-- Kingping expecting visit from player (Sector D5)
-		-- The fact has to be TRUE. If FALSE then Kingpin attack the player.
-		if ( CheckFact( 98 ) == false ) then 
-		   if ( NPCInRoomRange( ProfileId, 30, 39 ) == true and gWorldSectorX == 5 and gWorldSectorY == SectorY.MAP_ROW_D and gWorldSectorZ == 0 )then 
-		
-				for iLoop = GetTacticalStatusFirstID(Team.CIV_TEAM),GetTacticalStatusLastID(Team.CIV_TEAM) do
-					if ( CheckMercPtrsInSector (iLoop) == true and CheckMercPtrsInActive(iLoop) == true and CheckMercPtrsInCivilianGroup (iLoop) == 2 ) then
-						for aimLoop=GetTacticalStatusFirstID(Team.OUR_TEAM),GetTacticalStatusLastID(Team.OUR_TEAM) do
-							if ( CheckMercPtrsID1SeenID2(iLoop,aimLoop) == SEEN_CURRENTLY ) then
-								MakeMercPtrsHostile( iLoop )
-							end
-						end	
-					end	
-				end
- 
-				if ( CheckCombatMode == false ) then
-					EnterTeamCombatMode(Team.CIV_TEAM)
-				end	
-	
-			end	
-		end
-	
-		if ( WhatKindOfMercAmI (ProfileId) == What.MERC_TYPE__EPC ) then -- what EPC
-		
-			-- Skyrider
-			if ( ProfileId == Profil.SKYRIDER and CheckNPCSectorBool( Profil.SKYRIDER, 13, SectorY.MAP_ROW_B, 0 ) == true and PythSpacesAway( Profil.SKYRIDER,8842 ) < 11 ) then
-					ActionStopMerc(Profil.SKYRIDER)
-					SetFactTrue( Facts.FACT_SKYRIDER_CLOSE_TO_CHOPPER )
-					TriggerNPCRecord( Profil.SKYRIDER, 15 )
-					SetUpHelicopterForPlayer( 13, SectorY.MAP_ROW_B, Profil.SKYRIDER, 163 ) -- 163 helicopter
-			
-			-- Mary & John				
-			elseif ( ( CheckNPCSectorBool( Profil.MARY, 13, SectorY.MAP_ROW_B, 0 ) == true ) or ( CheckNPCSectorBool( Profil.JOHN, 13, SectorY.MAP_ROW_B, 0 ) == true ) ) then
-					
-					-- Mary	
-					if ( ProfileId == Profil.MARY ) then
-						HandleMaryArrival( Profil.MARY )
-					-- John
-					elseif ( ProfileId == Profil.JOHN ) then
-						HandleJohnArrival( Profil.JOHN )
-					end
-					
-			-- Maria		
-			elseif ( ProfileId == Profil.MARIA and CheckNPCSectorBool( Profil.MARIA, 6, SectorY.MAP_ROW_C, 0) == true and CheckFact(Facts.FACT_MARIA_ESCORTED_AT_LEATHER_SHOP,Profil.MARIA) == true ) then
-			
-				if ( NPCInRoom( Profil.ANGEL, 2 ) == true ) then
-					TriggerNPCRecord( Profil.ANGEL, 12 )
-				end
 
-			-- Joey
-			elseif ( ProfileId == Profil.JOEY and CheckNPCSectorBool( Profil.JOEY, 8, SectorY.MAP_ROW_G, 0) == true and CheckFact(Facts.FACT_JOEY_NEAR_MARTHA,0) == true ) then
-					ActionStopMerc(Profil.JOEY)
-					TriggerNPCRecord( Profil.JOEY, 9 )
-			end
-		
-		-- Drassen stuff for John & Mary
-		elseif ( CheckQuest(Quests.QUEST_ESCORT_TOURISTS) == pQuest.QUESTINPROGRESS and ProfileIdsSectorX == 13 and ProfileIdsSectorY == SectorY.MAP_ROW_B and ProfileIdbSectorZ == 0 ) then
-			
-		if ( CheckFact( Facts.FACT_JOHN_ALIVE ) == true ) then
-				HandleJohnArrival( nil )
-		else
-				HandleMaryArrival( nil )
-		end
-		
-	elseif ( TeamSoldier == Team.CIV_TEAM and ProfileId ~= NO_PROFILE and CheckSoldierNeutral( ProfileId ) == true ) then
-	
-		if ( ProfileId == Profil.JIM or ProfileId == Profil.JACK or ProfileId == Profil.OLAF or ProfileId == Profil.RAY or ProfileId == Profil.OLGA or ProfileId == Profil.TYRONE ) then
-	
-			if ( not TileIsOutOfBounds( ClosestPC( ProfileId, sDesiredMercDist )) ) then 
-				if ( sDesiredMercDist <= NPC_TALK_RADIUS * 2 ) then
-					CancelAIAction ( ProfileId ) 
-					AddToShouldBecomeHostileOrSayQuoteList( GetPlayerMercID(ProfileId) )
-				end
-			end
-		end
-		
-		end -- End what EPC
 	end -- End team
-]]
+
 end

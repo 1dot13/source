@@ -186,6 +186,11 @@ local gsRobotGridNo
 
 function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 
+	if ( sNewSectorX == 10 and sNewSectorY == 9 and bNewSectorZ == 0 ) then
+		SetKeyProfile (UB_GetTexID(),true)
+		SetKeyProfile (UB_GetBettyID(),true)
+	end
+
 end
 
 function HandleQuestCodeOnSectorExit( sOldSectorX, sOldSectorY, bOldSectorZ )
@@ -216,49 +221,49 @@ local pSoldier
 	
 	if ( sOldSectorX == 7 and sOldSectorY == SectorY.MAP_ROW_H and bOldSectorZ == 0 ) then
 		-- remove Jerry from the map
-		SetCharacterSectorX( 76, 0)
-		SetCharacterSectorY( 76, 0)
+		SetCharacterSectorX( UB_GetJerryID(), 0)
+		SetCharacterSectorY( UB_GetJerryID(), 0)
 	end
 	
 	-- if the player is leaving a sector with  Tex in it
-	if ( sOldSectorX == CheckCharacterSectorX(64) and sOldSectorY == CheckCharacterSectorY(64) and bOldSectorZ == 0 and CheckLastDateSpokenTot( 64 ) > 0 ) then
+	if ( sOldSectorX == CheckCharacterSectorX(UB_GetTexID()) and sOldSectorY == CheckCharacterSectorY(UB_GetTexID()) and bOldSectorZ == 0 and CheckLastDateSpokenTot( UB_GetTexID() ) > 0 ) then
 	
-		pSoldier = FindSoldierByProfileID( 64 ) -- TEX
+		pSoldier = FindSoldierByProfileID( UB_GetTexID() ) -- TEX
 
 		-- if the npc isnt on the players team AND the player has never spoken to them
-		if ( pSoldier == nil and CheckLastDateSpokenTot( 64 ) > 0 ) then
+		if ( pSoldier == nil and CheckLastDateSpokenTot( UB_GetTexID() ) > 0 ) then
 			
 			--remove Tex from the map
-			SetCharacterSectorX( 64, 0)
-			SetCharacterSectorY( 64, 0)
+			SetCharacterSectorX( UB_GetTexID(), 0)
+			SetCharacterSectorY( UB_GetTexID(), 0)
 		end
 	end
 	
 	-- if the player is leaving a sector with  John kulba in it
-	if ( sOldSectorX == CheckCharacterSectorX(62) and sOldSectorY == CheckCharacterSectorY(62) and bOldSectorZ == 0 and CheckLastDateSpokenTot( 62 ) > 0 ) then
+	if ( sOldSectorX == CheckCharacterSectorX(UB_GetJohnID()) and sOldSectorY == CheckCharacterSectorY(UB_GetJohnID()) and bOldSectorZ == 0 and CheckLastDateSpokenTot( UB_GetJohnID() ) > 0 ) then
 	
-		pSoldier = FindSoldierByProfileID( 62 ) -- John
+		pSoldier = FindSoldierByProfileID( UB_GetJohnID() ) -- John
 
 		-- if the npc isnt on the players team AND the player has never spoken to them
-		if ( pSoldier == nil and CheckLastDateSpokenTot( 62 ) > 0 ) then
+		if ( pSoldier == nil and CheckLastDateSpokenTot( UB_GetJohnID() ) > 0 ) then
 			
 			--remove Tex from the map
-			SetCharacterSectorX( 62, 0)
-			SetCharacterSectorY( 62, 0)
+			SetCharacterSectorX( UB_GetJohnID(), 0)
+			SetCharacterSectorY( UB_GetJohnID(), 0)
 		end
 	end
 	
 	-- if the player is leaving a sector with  Manuel in it
-	if ( sOldSectorX == CheckCharacterSectorX(60) and sOldSectorY == CheckCharacterSectorY(60) and bOldSectorZ == 0 and CheckLastDateSpokenTot( 60 ) > 0 ) then
+	if ( sOldSectorX == CheckCharacterSectorX(UB_GetManuelID()) and sOldSectorY == CheckCharacterSectorY(UB_GetManuelID()) and bOldSectorZ == 0 and CheckLastDateSpokenTot( UB_GetManuelID() ) > 0 ) then
 	
-		pSoldier = FindSoldierByProfileID( 60 ) -- John
+		pSoldier = FindSoldierByProfileID( UB_GetManuelID() ) -- Manuel
 
 		-- if the npc isnt on the players team AND the player has never spoken to them
-		if ( pSoldier == nil and CheckLastDateSpokenTot( 60 ) > 0 ) then
+		if ( pSoldier == nil and CheckLastDateSpokenTot( UB_GetManuelID() ) > 0 ) then
 			
 			--remove Tex from the map
-			SetCharacterSectorX( 60, 0)
-			SetCharacterSectorY( 60, 0)
+			SetCharacterSectorX( UB_GetManuelID(), 0)
+			SetCharacterSectorY( UB_GetManuelID(), 0)
 		end
 	end
 

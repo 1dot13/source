@@ -424,6 +424,13 @@
 		<ubCalibre>0</ubCalibre>
 		<ubMagSize>0</ubMagSize>
 		<ubAmmoType>0</ubAmmoType>
-		<ubMagType>0</ubMagType>
+		<ubMagType>0</ubMagType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>61</uiIndex>
+		<ubCalibre>47</ubCalibre>
+		<ubMagSize>1</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+		<ubMagType>1</ubMagType>
 	</MAGAZINE>
 </MAGAZINELIST>

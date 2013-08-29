@@ -39,6 +39,28 @@ nQuests =
 	-- max Quests 254
 }
 
+ShopID = {
+	ARMS_DEALER_TONY = 0,
+	ARMS_DEALER_FRANZ = 1,
+	ARMS_DEALER_KEITH = 2,
+	ARMS_DEALER_JAKE = 3,
+	ARMS_DEALER_GABBY = 4,
+	ARMS_DEALER_HOWARD = 5,
+	ARMS_DEALER_SAM = 6,
+	ARMS_DEALER_FRANK = 7,
+	ARMS_DEALER_BAR_BRO_1 = 8,
+	ARMS_DEALER_BAR_BRO_2 = 9,
+	ARMS_DEALER_BAR_BRO_3 = 10,
+	ARMS_DEALER_BAR_BRO_4 = 11,
+	ARMS_DEALER_MICKY = 12,
+	ARMS_DEALER_ARNIE = 13,
+	ARMS_DEALER_FREDO = 14,
+	ARMS_DEALER_RAUL = 15, -- Raul UB
+	ARMS_DEALER_ELGIN = 16,
+	ARMS_DEALER_MANNY = 17,
+	ARMS_DEALER_BETTY = 18, -- Betty UB
+}
+
 qStatus = {
             QUESTNOTSTARTED = 0,
             QUESTINPROGRESS = 1,
@@ -64,6 +86,15 @@ nFacts = {
 }
 	
 local NO_PROFILE = 200
+
+-- UB function
+local function AddLaptopTransmitterToBettysInventory()
+	GuaranteeAtLeastXItemsOfIndex( ShopID.ARMS_DEALER_BETTY, UB_itemLAPTOP_TRANSMITTER, 1 ) -- Laptop transmitter
+	GuaranteeAtLeastXItemsOfIndex( ShopID.ARMS_DEALER_BETTY, 216, 1 )
+	GuaranteeAtLeastXItemsOfIndex( ShopID.ARMS_DEALER_BETTY, 202, 2 )
+	GuaranteeAtLeastXItemsOfIndex( ShopID.ARMS_DEALER_BETTY, 201, 2 ) 
+end
+-- End UB
 
 function InternalStartQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 
@@ -145,6 +176,10 @@ function InternalEndQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 				GiveQuestRewardPoint( sSectorX, sSectorY, 25, NO_PROFILE )
 		elseif ( ubQuest == nQuests.QUEST_ESCORT_SHANK ) then
 				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE )	
+		-- UB
+		elseif ( ubQuest == nQuests.QUEST_GET_RID_BLOODCATS_AT_BETTYS ) then
+				AddLaptopTransmitterToBettysInventory()
+		-- end UB
 		else
 			GiveQuestRewardPoint( sSectorX, sSectorY, 4, NO_PROFILE )	
 		end

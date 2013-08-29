@@ -80,7 +80,7 @@ function PrepareToExitIntroScreen()
 		SetIntroExitScreen ( ScreenTypes.GAME_SCREEN )
 		SetCurrentWorldSector( iniDEFAULT_END_SECTOR_X, iniDEFAULT_END_SECTOR_Y, iniDEFAULT_END_SECTOR_Z )
 
-		EnterTacticalInFinalSector()
+		UB_EnterTacticalInFinalSector()
 
 		-- Dont leave tactical
 		SetEnteringMapScreen (false)

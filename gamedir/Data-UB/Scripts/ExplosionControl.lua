@@ -323,12 +323,12 @@ end
 -- BIGGENS BOMBS
 if ActionID == 25 then
 
-	if ( ShouldThePlayerStopWhenWalkingOnBiggensActionItem( 17 ) == true ) then
+	if ( UB_ShouldThePlayerStopWhenWalkingOnBiggensActionItem( 17 ) == true ) then
 			
-		HavePersonAtGridnoStop( sGridNo )
+		UB_HavePersonAtGridnoStop( sGridNo )
 				
 		-- Make Biggens run for cover and then detonate the explosives
-		TriggerNPCRecord( Profil.BIGGENS , 17 )
+		TriggerNPCRecord( UB_GetBiggensID() , 17 ) -- get id from UB_Options.ini
 			
 	end
 	
@@ -337,12 +337,12 @@ end
 -- BIGGENS WARNING
 if ActionID == 26 then
 
-	if ( ShouldThePlayerStopWhenWalkingOnBiggensActionItem( 16 ) == true ) then
+	if ( UB_ShouldThePlayerStopWhenWalkingOnBiggensActionItem( 16 ) == true ) then
 			
-		HavePersonAtGridnoStop( sGridNo )
+		UB_HavePersonAtGridnoStop( sGridNo )
 				
 		-- Make Biggens run for cover and then detonate the explosives
-		TriggerNPCRecord( Profil.BIGGENS , 16 )
+		TriggerNPCRecord( UB_GetBiggensID() , 16 ) -- get id from UB_Options.ini
 			
 	end
 
@@ -351,14 +351,14 @@ end
 -- SEE FORTIFIED DOOR
 if ActionID == 27 then
 
-	HandleSeeingFortifiedDoor( sGridNo )
+	UB_HandleSeeingFortifiedDoor( sGridNo )
 
 end
 
 -- OPEN FORTIFED DOOR
 if ActionID == 28 then
 
-	HandleSwitchToOpenFortifiedDoor( sGridNo )
+	UB_HandleSwitchToOpenFortifiedDoor( sGridNo )
 
 end
 
@@ -368,12 +368,12 @@ if ActionID == 29 then
 	-- if the player is in the power plant
 		if( gWorldSectorX == 13 and gWorldSectorY == 10 and gbWorldSectorZ == 0 ) then
 		
-				HandleSeeingPowerGenFan( sGridNo )	
+				UB_HandleSeeingPowerGenFan( sGridNo )	
 				
 		elseif( gWorldSectorX == 15 and gWorldSectorY == 12 and gbWorldSectorZ == 3 ) then
 				
 				-- The player is hitting the switch to launch the missles
-				HandlePlayerHittingSwitchToLaunchMissles()
+				UB_HandlePlayerHittingSwitchToLaunchMissles()
 		end
 
 end
