@@ -1477,12 +1477,11 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "SetTurnTimeLimit", l_fTurnTimeLimit);		
 
 	lua_register(L, "InitMercFace", l_InitFace);
-	
+
+#ifdef JA2UB	
 	lua_register(L, "AddProfileToMap", l_InitMapProfil);
 	
 	lua_register(L, "SetKeyProfile", l_SetKeySoldier); // tactical mode
-	
-#ifdef JA2UB	
 	
 	lua_register(L, "UB_GetManuelID", l_Ja25MANUEL_UB);
 	lua_register(L, "UB_GetBiggensID", l_Ja25BIGGENS_UB);
