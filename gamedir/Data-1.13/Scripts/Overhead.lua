@@ -261,7 +261,7 @@ function HandleAtNewGridNo( ProfileId )
 	
 		-- Kingping expecting visit from player (Sector D5)
 		-- The fact has to be TRUE. If FALSE then Kingpin attack the player.
-		if ( CheckFact( 98 ) == false ) then 
+		if ( CheckFact( 98, ProfileId ) == false ) then 
 		   if ( NPCInRoomRange( ProfileId, 30, 39 ) == true and gWorldSectorX == 5 and gWorldSectorY == SectorY.MAP_ROW_D and gWorldSectorZ == 0 )then 
 		
 				for iLoop = GetTacticalStatusFirstID(Team.CIV_TEAM),GetTacticalStatusLastID(Team.CIV_TEAM) do
@@ -317,7 +317,7 @@ function HandleAtNewGridNo( ProfileId )
 		-- Drassen stuff for John & Mary
 		elseif ( CheckQuest(Quests.QUEST_ESCORT_TOURISTS) == pQuest.QUESTINPROGRESS and ProfileIdsSectorX == 13 and ProfileIdsSectorY == SectorY.MAP_ROW_B and ProfileIdbSectorZ == 0 ) then
 			
-		if ( CheckFact( Facts.FACT_JOHN_ALIVE ) == true ) then
+		if ( CheckFact( Facts.FACT_JOHN_ALIVE, 0 ) == true ) then
 				HandleJohnArrival( nil )
 		else
 				HandleMaryArrival( nil )

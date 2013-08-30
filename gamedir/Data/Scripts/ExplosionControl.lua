@@ -283,7 +283,7 @@ if ActionID == 23 then
 					SetNoiseGridno(ubProfil,sGridNo)
 					SetNoiseVolume(ubProfil,6)
 					SetAlertStatus(ubProfil,StatusAlert.STATUS_GREEN)
-					if  ( not CheckAction(ubProfil) == ActionType.AI_ACTION_GET_CLOSER  ) or CheckFact (Facts.FACT_MUSEUM_ALARM_WENT_OFF) == false then
+					if  ( not CheckAction(ubProfil) == ActionType.AI_ACTION_GET_CLOSER  ) or CheckFact (Facts.FACT_MUSEUM_ALARM_WENT_OFF, 0) == false then
 						CancelAIAction( ubProfil)
 						SetNextAction(ubProfil , ActionType.AI_ACTION_GET_CLOSER )
 						SetNextActionData(ubProfil , sGridNo)
