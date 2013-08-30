@@ -30,11 +30,11 @@ static UINT8 gubOldMusicMode = 0;
 static INT8 gbVictorySongCount = 0;
 static INT8 gbDeathSongCount = 0;
 
-static INT32 bNothingModeSong;
-static INT32 bEnemyModeSong;
-static INT32 bBattleModeSong;
+static INT32 bNothingModeSong = NOTHING_A_MUSIC;
+static INT32 bEnemyModeSong = TENSOR_A_MUSIC;
+static INT32 bBattleModeSong = BATTLE_A_MUSIC;
 
-static INT32 NewSoundID;
+static INT32 NewSoundID = -1;
 static BOOLEAN SetSoundID = FALSE;
 
 static INT32 gubOldMusicMode2 = 0;
@@ -76,7 +76,7 @@ BOOLEAN MusicFadeOut(void);
 BOOLEAN MusicFadeIn(void);
 
 MUSIC_SOUND_VALUES MusicSoundValues[256];
-INT32 GlobalSoundID;
+INT32 GlobalSoundID = -1;
 
 //extern void HandleEndDemoInCreatureLevel( );
 
