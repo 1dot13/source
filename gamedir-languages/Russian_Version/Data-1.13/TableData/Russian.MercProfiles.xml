@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
@@ -178,7 +178,7 @@
 	<PROFILE>
 		<uiIndex>35</uiIndex>
 		<zName>Тор Кауфман</zName>
-		<zNickname>Top</zNickname>
+		<zNickname>Тор</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>36</uiIndex>
@@ -797,8 +797,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
-		<zName>Спек Т. Кляйн</zName>
-		<zNickname>Спек...</zNickname>
+		<zName>Шпик Т. Кляйн</zName>
+		<zNickname>Шпик...</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>160</uiIndex>
@@ -817,13 +817,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Вертолёт</zName>
+		<zNickname>Вертолёт</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Танк</zName>
+		<zNickname>Танк</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
@@ -847,8 +847,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>169</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName></zName>
+		<zNickname>PGmale4</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>170</uiIndex>
@@ -892,113 +892,113 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>178</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Грегори Блок</zName>
+		<zNickname>Жуткий</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Bruce "Skitz" Bonner</zName>
+		<zNickname>Skitz</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>180</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Willy "Weasel" Augustin</zName>
+		<zNickname>Weasel</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>181</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Carl "It" Goodman</zName>
+		<zNickname>It</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>182</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Dr. Bernie Gloveless</zName>
+		<zNickname>Bernie</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>183</uiIndex>
-		<zName/>
-		<zNickname/>
+		<zName>Murray "Pops" McGillicutty</zName>
+		<zNickname>Pops</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>184</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Walter Yuntz</zName>
+		<zNickname>Wally</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>185</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dr. Eli Summers</zName>
+		<zNickname>Eli</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>186</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dr. Mitch Shudlem</zName>
+		<zNickname>Mitch</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>187</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Howard "Carp" Melfield</zName>
+		<zNickname>Carp</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>188</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Lance Fisher</zName>
+		<zNickname>Lance</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>189</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dr. Raffitto "Raffi" Leevon</zName>
+		<zNickname>Raffi</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>190</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Wink E. Dickerson</zName>
+		<zNickname>Wink</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>191</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Шпик Т. Кляйн</zName>
+		<zNickname>Шпик</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>192</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale5</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>193</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale6</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>194</uiIndex>
 		<zName></zName>
-		<zNickname></zNickname>
+		<zNickname>PGmale7</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>195</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Джон Кульба</zName>
+		<zNickname>Джон</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>196</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Elio</zName>
+		<zNickname>Elio</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>197</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Juan</zName>
+		<zNickname>Juan</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>198</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Wahan</zName>
+		<zNickname>Wahan</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>199</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Джип</zName>
+		<zNickname>Джип</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>200</uiIndex>
@@ -1102,8 +1102,8 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>220</uiIndex>
-		<zName>Джек Дурхем "Почта"</zName>
-		<zNickname>Почта</zNickname>
+		<zName>Джек Дорэм "Почтарь"</zName>
+		<zNickname>Почтарь</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>221</uiIndex>
@@ -1112,18 +1112,18 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>222</uiIndex>
-		<zName>Полковник Леон Роачберн</zName>
+		<zName>Плк. Леон Роачбёрн</zName>
 		<zNickname>Леон</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>223</uiIndex>
-		<zName>Гарри Роучберн</zName>
+		<zName>Гарри Роачбёрн</zName>
 		<zNickname>Гарри</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>224</uiIndex>
-		<zName>Меган Роачберн "Искра"</zName>
-		<zNickname>Искра</zNickname>
+		<zName>Меган Роачбёрн "Сварка"</zName>
+		<zNickname>Сварка</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>225</uiIndex>
@@ -1132,18 +1132,18 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>226</uiIndex>
-		<zName>Сэмьюэль Гарвер "Сэм"</zName>
+		<zName>Сэмюэл Гарвер</zName>
 		<zNickname>Сэм</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>227</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Hurl E. Cutter</zName>
+		<zNickname>Hurl</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>228</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Dr. Ahmad "Doc" Koolhan</zName>
+		<zNickname>Doc</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>229</uiIndex>
@@ -1187,7 +1187,7 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>237</uiIndex>
-		<zName>Полковник Лео Келли</zName>
+		<zName>Плк. Лео Келли</zName>
 		<zNickname>Келли</zNickname>
 	</PROFILE>
 	<PROFILE>
@@ -1242,13 +1242,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>248</uiIndex>
-		<zName>Доктор Маргарет Траммел "Звёздочка"</zName>
+		<zName>Док. Маргарет Траммел "Звёздочка"</zName>
 		<zNickname>Звёздочка</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>249</uiIndex>
-		<zName>Эдвард "Ухо" Стоквел</zName>
-		<zNickname>Ухо</zNickname>
+		<zName>Эдвард Стоквелл "Слухач"</zName>
+		<zNickname>Слухач</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>250</uiIndex>
@@ -1262,13 +1262,13 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Роджер Уитмэн "Дино"</zName>
+		<zNickname>Дино</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>253</uiIndex>
-		<zName></zName>
-		<zNickname></zNickname>
+		<zName>Герман Регентс "Черепаха"</zName>
+		<zNickname>Черепаха</zNickname>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>254</uiIndex>
