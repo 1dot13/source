@@ -389,6 +389,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 							pSoldier->usAniCode = 3;
 						else if(pSoldier->usAnimState == FIRE_BURST_LOW_STAND || pSoldier->usAnimState == LOW_BURST_ALTERNATIVE_STAND && pSoldier->usAniCode == 37) //we are firing down to something very close, last shot
 							pSoldier->usAniCode = 14;
+						else if(pSoldier->usAnimState == TANK_BURST)//dnl ch64 280813 fix 6 round burst limitation
+						{
+							if(pSoldier->bDoBurst < pSoldier->bDoAutofire)//!!! this will be fine as long you not decide to equip tank with other weapons add limitted ammo, weapon jam, etc.
+								pSoldier->usAniCode = 4;
+							else
+								pSoldier->usAniCode = 34;
+						}
 					}
 
 					OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );

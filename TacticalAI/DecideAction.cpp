@@ -4766,7 +4766,7 @@ INT16 ubMinAPCost;
 			}
 			////////////////////////////////////////////////////////////////////////////////////
 		}
-		if (BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)))
+		if (BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !(TANK(pSoldier) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random(2)))//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
 		{
 			ubBestAttackAction = AI_ACTION_TOSS_PROJECTILE;
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"best action = throw something");
@@ -5175,17 +5175,14 @@ INT16 ubMinAPCost;
 						dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
 						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 					}
-					while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs + sActualAimTime && pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire 
-						&& dTotalRecoil <= 10.0f );
+					while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs + sActualAimTime && pSoldier->inv[ BestAttack.bWeaponIn ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire && dTotalRecoil <= 10.0f );//dnl ch64 260813 pSoldier->ubAttackingHand is wrong because decision is to use BestAttack.bWeaponIn
 				} else {
 					do
 					{
 						pSoldier->bDoAutofire++;
 						ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
 					}
-					while(	pSoldier->bActionPoints >= BestAttack.ubAPCost + ubBurstAPs &&
-						pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
-						GetAutoPenalty(&pSoldier->inv[ BestAttack.bWeaponIn ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80);
+					while(	pSoldier->bActionPoints >= BestAttack.ubAPCost + ubBurstAPs && pSoldier->inv[ BestAttack.bWeaponIn ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire && GetAutoPenalty(&pSoldier->inv[ BestAttack.bWeaponIn ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80);//dnl ch64 260813 pSoldier->ubAttackingHand is wrong because decision is to use BestAttack.bWeaponIn
 				}
 
 				pSoldier->bDoAutofire--;
@@ -5251,7 +5248,7 @@ INT16 ubMinAPCost;
 							pSoldier->bDoBurst = 1;
 							INT16 ubHalfBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &pSoldier->inv[BestAttack.bWeaponIn], 4, pSoldier);
 							if(Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto)
-								iChance += 25;
+								iChance = 35;
 							if(pSoldier->bActionPoints > (2 * BestAttack.ubAPCost + ubHalfBurstAPs) && PreRandom(100) < iChance)
 							{
 								// Try short autofire to enhance chance of hitting
@@ -5400,12 +5397,23 @@ INT16 ubMinAPCost;
 		//////////////////////////////////////////////////////////////////////////
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"OTHERWISE, JUST GO AHEAD & ATTACK!");
 
-
+		//dnl ch64 270813 must be as below RearrangePocket with FOREVER will screw already decided BURST or AUTOFIRE
+		INT8 bDoBurst = pSoldier->bDoBurst;
+		UINT8 bDoAutofire = pSoldier->bDoAutofire;
 		// swap weapon to hand if necessary
 		if (BestAttack.bWeaponIn != HANDPOS)
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap weapon into hand");
 			RearrangePocket(pSoldier,HANDPOS,BestAttack.bWeaponIn,FOREVER);
+		}
+		if(ubBestAttackAction == AI_ACTION_FIRE_GUN && bDoBurst == 1)//dnl ch64 270813
+		{
+			pSoldier->bDoAutofire = bDoAutofire;
+			pSoldier->bDoBurst = bDoBurst;
+			if(bDoAutofire > 1)
+				pSoldier->bWeaponMode = WM_AUTOFIRE;
+			else
+				pSoldier->bWeaponMode = WM_BURST;
 		}
 
 		if (fChangeStanceFirst)

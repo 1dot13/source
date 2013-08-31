@@ -164,7 +164,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	UINT8 ubChanceToReallyHit = 0;
 	INT16 ubChanceToHit,ubChanceToHit2,ubBestAimTime,ubChanceToGetThrough,ubBestChanceToHit;
 	SOLDIERTYPE *pOpponent;
-	INT16 ubBurstAPs;
+	//INT16 ubBurstAPs;//dnl ch64 270813
 	INT8 bScopeMode;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcBestShot");
@@ -174,7 +174,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
 	pSoldier->bWeaponMode = WM_NORMAL;
 
-	ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), pSoldier );
+	//ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), pSoldier );//dnl ch64 270813
 
 	InitAttackType(pBestShot);		// set all structure fields to defaults
 
@@ -357,7 +357,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo,0,FALSE);
 
 		// calculate the maximum possible aiming time
-
+#if 0//dnl ch64 270813 maybe I'm wrong but don't see purpose of this
 		if ( TANK( pSoldier ) )
 		{
 			ubMaxPossibleAimTime = pSoldier->bActionPoints - ubMinAPcost;
@@ -373,6 +373,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 
 		}
 		else
+#endif
 		{
 			// HEADROCK HAM 3.6: Calculation must take into account APBP constants and other aiming modifications!
 			INT8 bAPsLeft = pSoldier->bActionPoints - ubMinAPcost;
@@ -389,11 +390,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				//NumMessage("ubAimTime = ",ubAimTime);
 				//dnl ch59 180813 Find true best chance to hit depending of stance so AI would be more eager to attack
 				ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
-					ubChanceToHit = ubChanceToHit2;
-				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
-					ubChanceToHit = ubChanceToHit2;
-
+				if(!TANK(pSoldier))//dnl ch64 270813
+				{
+					if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
+						ubChanceToHit = ubChanceToHit2;
+					if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
+						ubChanceToHit = ubChanceToHit2;
+				}
 				// ExtMen[pOpponent->ubID].haveStats = TRUE;
 				//NumMessage("chance to Hit = ",ubChanceToHit);
 
@@ -417,10 +420,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK];
 			//dnl ch59 180813 Find true best chance to hit depending of stance for autofire
 			ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-			if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
-				ubChanceToHit = ubChanceToHit2;
-			if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
-				ubChanceToHit = ubChanceToHit2;
+			if(!TANK(pSoldier))//dnl ch64 270813
+			{
+				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
+					ubChanceToHit = ubChanceToHit2;
+				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
+					ubChanceToHit = ubChanceToHit2;
+			}
 			Assert( ubRawAPCost > 0);
 			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 			iBestHitRate = iHitRate;
@@ -1276,10 +1282,10 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					pBestThrow->ubOpponent			= ubOpponentID[ubLoop];
 					pBestThrow->ubAimTime			= ubMaxPossibleAimTime;
 					pBestThrow->ubChanceToReallyHit = ubChanceToReallyHit;
-					pBestThrow->sTarget			 = sGridNo;
+					pBestThrow->sTarget				= sGridNo;
 					pBestThrow->iAttackValue		= iAttackValue;
-					pBestThrow->ubAPCost			= CalcTotalAPsToAttack(pSoldier, pBestThrow->sTarget, TRUE, pBestThrow->ubAimTime);//dnl ch63 240813
-					pBestThrow->bTargetLevel				= bOpponentLevel[ubLoop];
+					pBestThrow->ubAPCost			= ubMinAPcost + CalcAPCostForAiming(pSoldier, sGridNo, ubMaxPossibleAimTime, FALSE);//dnl ch64 310813
+					pBestThrow->bTargetLevel		= bOpponentLevel[ubLoop];
 
 					//sprintf(tempstr,"new best THROW AttackValue = %d at grid #%d",iAttackValue/100000,gridno);
 					//PopMessage(tempstr);

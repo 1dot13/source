@@ -3656,7 +3656,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	{
 		// ATE: Also check for the transition anims to not reset this
 		// this should have used a flag but we're out of them....
-		if ( usNewState != READY_ALTERNATIVE_STAND && usNewState != READY_RIFLE_STAND && usNewState != READY_RIFLE_PRONE && usNewState != READY_RIFLE_CROUCH && usNewState != ROBOT_SHOOT )
+		if ( usNewState != READY_ALTERNATIVE_STAND && usNewState != READY_RIFLE_STAND && usNewState != READY_RIFLE_PRONE && usNewState != READY_RIFLE_CROUCH && usNewState != ROBOT_SHOOT && usNewState != TANK_SHOOT && usNewState != TANK_BURST )//dnl ch64 300813
 		{
 			this->sLastTarget = NOWHERE;
 		}
@@ -18154,8 +18154,8 @@ BOOLEAN SOLDIERTYPE::IsValidShotFromHip( INT16 bAimTime, INT32 iTrgGridNo )
 	{
 		return( FALSE );
 	}
-	// robots cannot do this
-	if ( AM_A_ROBOT( this ) )
+	// robots and tanks cannot do this
+	if ( AM_A_ROBOT( this ) || TANK( this ) )//dnl ch64 300813
 	{
 		return( FALSE );
 	}
@@ -18206,8 +18206,8 @@ BOOLEAN SOLDIERTYPE::IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo )
 	{
 		return( FALSE );
 	}
-	// robots cannot do this
-	if ( AM_A_ROBOT( this ) )
+	// robots and tanks cannot do this
+	if ( AM_A_ROBOT( this ) || TANK( this ) )//dnl ch64 300813
 	{
 		return( FALSE );
 	}

@@ -1233,7 +1233,8 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 #endif
 
 	// re-enable cover checking, something is new or something strange happened
-	SkipCoverCheck = FALSE;
+	if(!TANK(pSoldier))//dnl ch64 290813
+		SkipCoverCheck = FALSE;
 
 	// turn off new situation flag to stop this from repeating all the time!
 	if ( pSoldier->aiData.bNewSituation == IS_NEW_SITUATION )
@@ -1502,6 +1503,8 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 
 	if (pSoldier->aiData.bAlertStatus == STATUS_YELLOW)
 		SkipCoverCheck = FALSE;
+	if(TANK(pSoldier))//dnl ch64 290813 tanks don't have move animations
+		SkipCoverCheck = TRUE;
 
 	// if he's in battle or knows opponents are here
 	if (gfTurnBasedAI)
@@ -1591,7 +1594,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	// in most cases, merc will change location, or may cause damage to opponents,
 	// so a new cover check will be necessary.  Exceptions handled individually.
-	SkipCoverCheck = FALSE;
+	if(!TANK(pSoldier))//dnl ch64 290813
+		SkipCoverCheck = FALSE;
 
 	// reset this field, too
 	pSoldier->aiData.bLastAttackHit = FALSE;
@@ -1600,7 +1604,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
 
 	INT8 bSlot;
-
+#if 0//dnl ch64 260813 decision to use machinegun or cannon is done in DecideAction, this here will just lead into burst with cannon if decision was use machinegun
 	if (TANK(pSoldier))
 	{
 		// No cannon selected to fire
@@ -1618,7 +1622,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			}
 		}
 	}
-
+#endif
 	UINT16 usSoldierIndex; // added by SANDRO
 
 #ifdef TESTAICONTROL

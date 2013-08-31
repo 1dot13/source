@@ -1960,7 +1960,7 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo
 			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
 
 			// Is it the same as he's facing?
-			if ( ubDirection != pSoldier->ubDirection )
+			if ( ubDirection != pSoldier->ubDirection && !(ubDirection == pSoldier->pathing.bDesiredDirection && pSoldier->aiData.bLastAction == AI_ACTION_CHANGE_FACING) )//dnl ch64 310813 sometimes turning is in progress and APs already deducted
 			{
 					fAddingTurningCost = TRUE;
 			}
@@ -2285,7 +2285,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		}
 	}
 
-	if ( AM_A_ROBOT( pSoldier ) )
+	if ( AM_A_ROBOT( pSoldier ) || TANK( pSoldier ) )//dnl ch64 300813 robots and tanks cannot do this
 	{
 		fAddingRaiseGunCost = FALSE;
 	}
@@ -2416,13 +2416,13 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 {
 	// look around all 8 directions and return lowest terrain cost
 	UINT8	cnt;
-	INT16	sLowest=127;
+	INT16	sLowest=32767;//dnl ch64 290813 100AP made return of INT8 or 127 obsolete as other variables are INT16
 	INT16	sCost;
 	INT32	sGridNo;
 
 	if ( TANK( pSoldier ) )
 	{
-		return( (INT8)sLowest);
+		return(sLowest);//dnl ch64 290813 100AP made INT8 return obsolete
 	}
 
 	// WANNE - BMP: FIX: Valid directions are only from 0-7!!
@@ -2438,7 +2438,7 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 			}
 		}
 	}
-	return( (INT8)sLowest);
+	return(sLowest);//dnl ch64 290813 100AP made INT8 return obsolete
 }
 
 INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection )
@@ -3763,7 +3763,7 @@ INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 
 // HEADROCK HAM 3.6: Calculate the actual AP cost to add this many Extra Aiming levels, taking into account
 // APBP Constants and extra game features.
-INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime )
+INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime, UINT8 ubAddRaiseGunCost )//dnl ch64 310813
 {
 	INT16 sAPCost = 0;
 	UINT16 usItemNum = pSoldier->inv[HANDPOS].usItem;
@@ -3771,7 +3771,7 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 	Assert(pSoldier != NULL);
 	Assert(&pSoldier->inv[HANDPOS] != NULL);
 
-	if (!( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))
+	if (ubAddRaiseGunCost && !TANK(pSoldier) && !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))//dnl ch64 310813
 	{
 		// Weapon not ready, check aiming from hip, else add raise gun cost
 		//if (!pSoldier->IsValidShotFromHip(bAimTime,sTargetGridNo))

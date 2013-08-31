@@ -3157,7 +3157,7 @@ void SwapObjs(SOLDIERTYPE* pSoldier, int leftSlot, int rightSlot, BOOLEAN fPerma
 {
 	SwapObjs(&pSoldier->inv[ leftSlot ], &pSoldier->inv[ rightSlot ]);
 
-	if (fPermanent)
+	if(fPermanent && !TANK(pSoldier))//dnl ch64 290813 for current tank don't go further as it lead to invalid animation
 	{
 		//old usItem for the left slot is now stored in the right slot, and vice versa
 		HandleTacticalEffectsOfEquipmentChange(pSoldier, leftSlot, pSoldier->inv[ rightSlot ].usItem, pSoldier->inv[ leftSlot ].usItem);
