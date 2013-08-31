@@ -1676,6 +1676,9 @@ typedef struct
 	UINT16 usPornShopRoomBrenda;
 	UINT16 usPornShopRoomTony;
 
+	// Kyle Lemmons Leather Shop Deed Quest
+	INT32  iKyleMoneyGridNo;
+
 	//Brothel Quests
 	UINT16 usLeatherShop;
 	INT32  iCarlaDoorGridNo;

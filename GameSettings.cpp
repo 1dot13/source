@@ -2346,6 +2346,8 @@ void LoadModSettings(){
 	gModSettings.usPornShopRoomBrenda = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_BRENDA", 47);
 	gModSettings.usPornShopRoomTony = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_TONY", 50);
 
+	gModSettings.iKyleMoneyGridNo = iniReader.ReadInteger("San Mona", "KYLE_MONEY_POSITION", 14952);
+
 	gModSettings.usLeatherShop = iniReader.ReadInteger("San Mona", "ANGELS_LEATHERSHOP", 2);
 	gModSettings.iBambiDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_BAMBIS_ROOM", 12290);
 	gModSettings.iCarlaDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_CARLAS_ROOM", 13413);

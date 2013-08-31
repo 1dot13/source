@@ -2437,7 +2437,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// add a money item with $10000 to the tile in front of Kyle
 				// and then have him pick it up
 				{
-					INT32 sGridNo = 14952; //dnl!!!
+					// this isn't mod friendly. Let's make a new Mod_Settings.ini value
+					// INT32 sGridNo = 14952; //dnl!!!
+					INT32 sGridNo = gModSettings.iKyleMoneyGridNo;
 					INT32				iWorldItem;
 
 					pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
