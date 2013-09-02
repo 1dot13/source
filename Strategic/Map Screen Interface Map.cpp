@@ -5392,8 +5392,12 @@ BOOLEAN PickUpATownPersonFromSector( UINT8 ubType, INT16 sX, INT16 sY )
 
 	// the number of units transferred
 	INT16 countMovedCivs = 1;
+	// all units in sector
 	if (_KeyDown(SHIFT))
 		countMovedCivs = SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ];
+	// 5 units in sector
+	else if (_KeyDown(CTRL))
+		countMovedCivs = min(5, SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ]);
 
 	// otherwise pick this guy up
 	switch( ubType )
@@ -5458,7 +5462,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 			{
 				return( FALSE );
 			}
-
+			
+			// drop max allowable units
 			if (_KeyDown(SHIFT)) 
 			{
 				if (countFreeCivPlace <= sGreensOnCursor)
@@ -5466,7 +5471,14 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 				else 
 					countMovedCivs = sGreensOnCursor;
 			}
-
+			// drop 5 units
+			else if (_KeyDown(CTRL))
+			{
+				if (countFreeCivPlace <= 5)
+					countMovedCivs = min(countFreeCivPlace, sGreensOnCursor);
+				else 
+					countMovedCivs = min(5, sGreensOnCursor);
+			}
 			sGreensOnCursor -= countMovedCivs;
 		break;
 		case( REGULAR_MILITIA ):
@@ -5475,10 +5487,21 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 				return( FALSE );
 			}
 
+			// drop max allowable units
 			if (_KeyDown(SHIFT)) 
 			{
-				if (countFreeCivPlace <= sRegularsOnCursor) countMovedCivs = countFreeCivPlace;
-				else countMovedCivs = sRegularsOnCursor;
+				if (countFreeCivPlace <= sRegularsOnCursor)
+					countMovedCivs = countFreeCivPlace;
+				else
+					countMovedCivs = sRegularsOnCursor;
+			}
+			// drop 5 units
+			else if (_KeyDown(CTRL))
+			{
+				if (countFreeCivPlace <= 5)
+					countMovedCivs = min(countFreeCivPlace, sRegularsOnCursor);
+				else 
+					countMovedCivs = min(5, sRegularsOnCursor);
 			}
 
 			sRegularsOnCursor -= countMovedCivs;
@@ -5489,10 +5512,21 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 				return( FALSE );
 			}
 
+			// drop max allowable units
 			if (_KeyDown(SHIFT)) 
 			{
-				if (countFreeCivPlace <= sElitesOnCursor) countMovedCivs = countFreeCivPlace;
-				else countMovedCivs = sElitesOnCursor;
+				if (countFreeCivPlace <= sElitesOnCursor)
+					countMovedCivs = countFreeCivPlace;
+				else
+					countMovedCivs = sElitesOnCursor;
+			}
+			// drop 5 units
+			else if (_KeyDown(CTRL))
+			{
+				if (countFreeCivPlace <= 5)
+					countMovedCivs = min(countFreeCivPlace, sElitesOnCursor);
+				else 
+					countMovedCivs = min(5, sElitesOnCursor);
 			}
 
 			sElitesOnCursor -= countMovedCivs;
