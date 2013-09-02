@@ -370,6 +370,7 @@ extern void InitializeTacticalStatusAtBattleStart();
 extern HVSURFACE ghFrameBuffer;
 extern BOOLEAN gfOverrideSector;
 
+extern BOOLEAN sBadSectorsList[ WORLD_MAP_X ][ WORLD_MAP_X ];
 extern STR16 pBullseyeStrings[];
 
 extern void HandleRPCDescription( );
@@ -5136,7 +5137,7 @@ void UpdateAirspaceControl( void )
 			{
 				for (UINT8 ubSectorY = 1; ubSectorY <=16; ubSectorY++)
 				{
-					if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY ) ].fEnemyAirControlled == FALSE )
+					if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY ) ].fEnemyAirControlled == FALSE && !sBadSectorsList[ ubSectorX ][ ubSectorY ] )
 					{
 						gsMercArriveSectorX = ubSectorX;
 						gsMercArriveSectorY = ubSectorY;
