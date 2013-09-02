@@ -22,6 +22,7 @@
 #include "lighting.h"
 #include "Sound Control.h"
 #include "message.h"
+#include "Vehicles.h"
 #endif
 
 extern INT16 DirIncrementer[8];
@@ -206,6 +207,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			continue;	// next opponent
 		}
 
+		// silversurfer: ignore empty vehicles
+		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+			continue;
 
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
@@ -791,6 +795,10 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			continue;			// next soldier
 		}
 
+		// silversurfer: ignore empty vehicles
+		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+			continue;
+
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 		{
@@ -1363,6 +1371,10 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 		// if this opponent is not on the same level
 		if (pSoldier->pathing.bLevel != pOpponent->pathing.bLevel)
 			continue;			// next merc
+
+		// silversurfer: ignore empty vehicles
+		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+			continue;
 
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
