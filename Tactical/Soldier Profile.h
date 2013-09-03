@@ -406,6 +406,9 @@ typedef struct
 	INT8 bTown;
 	INT8 bTownAttachment;
 
+	// Flugente: backgrounds
+	UINT8 usBackground;
+
 } TEMPPROFILETYPE;
 
 extern TEMPPROFILETYPE tempProfiles[NUM_PROFILES+1];

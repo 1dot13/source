@@ -501,6 +501,13 @@ void BtnIMPMinorTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 			//go back tot he done screen
 			iCurrentImpPage = IMP_FINISH;
 		}
+		// Flugente: setting determines wether we see the background page
+		else if ( gGameOptions.fBackGround )
+		{
+			iCurrentImpPage = IMP_BACKGROUND;
+
+			fButtonPendingFlag = TRUE;
+		}
 		else
 		{
 			iCurrentImpPage = IMP_MAIN_PAGE;

@@ -763,7 +763,7 @@ void GenerateProsString( STR16 zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimi
 
 	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 	FLOAT accuracyheatmultiplicator = 1.0;
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
 		FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
@@ -908,7 +908,7 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 
 	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 	FLOAT accuracyheatmultiplicator = 1.0;
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
 		FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
@@ -3735,7 +3735,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				sNewX = sX + 1;
 
 				// Flugente: If we display the thermometer for overheating, move the ammo counter a bit to the right
-				if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE )
+				if ( gGameExternalOptions.fWeaponOverheating && gGameExternalOptions.fDisplayOverheatThermometer )
 					sNewX = sX + 2; //6;  // SANDRO - 6 ps too much, 2 are fine
 
 				// Flugente: check for underbarrel weapons and use that object if necessary
@@ -3890,7 +3890,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			}
 
 			// Flugente
-			if ( gGameOptions.fWeaponOverheating == TRUE &&  gGameExternalOptions.fDisplayOverheatThermometer == TRUE && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel == TRUE ) )
+			if ( gGameExternalOptions.fWeaponOverheating && gGameExternalOptions.fDisplayOverheatThermometer && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel == TRUE ) )
 			{	
 				OBJECTTYPE*	pObjShown = pObject;
 
@@ -6702,7 +6702,8 @@ void RenderItemDescriptionBox( )
 				sCenY = sCenY + gItemDescAttachmentsXY[cnt].sBarDy;
 				DrawItemUIBarEx( gpItemDescObject, (UINT8)(DRAW_ITEM_STATUS_ATTACHMENT1 + cnt), sCenX, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER, gubItemDescStatusIndex );
 
-				if ( gGameOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[ (iter)->usItem ].barrel == TRUE) )	// Flugente FTW 1.1
+				// Flugente: overheating
+				if ( gGameExternalOptions.fWeaponOverheating && ( Item[ (iter)->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[ (iter)->usItem ].barrel == TRUE) )	// Flugente FTW 1.1
 				{
 					FLOAT overheatjampercentage = GetGunOverheatJamPercentage( &(*iter));
 								
@@ -6868,8 +6869,8 @@ void RenderItemDescriptionBox( )
 				////////// label
 				if (UsingEDBSystem())
 				{
-					// Flugente FTW 1: display temperature string
-					if ( gGameOptions.fWeaponOverheating && ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN || Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].barrel == TRUE ) )
+					// Flugente: display temperature string
+					if ( gGameExternalOptions.fWeaponOverheating && ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN || Item[gpItemDescObject->usItem].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].barrel == TRUE ) )
 					{						
 						// UDB system displays a string with colored condition text.
 						int regionindex = 7;
@@ -11598,7 +11599,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 				FLOAT accuracyheatmultiplicator = 1.0;
-				if ( gGameOptions.fWeaponOverheating )
+				if ( gGameExternalOptions.fWeaponOverheating )
 				{
 					FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
 					FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
@@ -11753,7 +11754,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 				FLOAT accuracyheatmultiplicator = 1.0;
-				if ( gGameOptions.fWeaponOverheating )
+				if ( gGameExternalOptions.fWeaponOverheating )
 				{
 					FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObject );
 					FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
@@ -13237,6 +13238,10 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				(*gpItemDescObject)[0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpItemDescSoldier ) / 20) + (EffectiveExpLevel( gpItemDescSoldier ) / 3) );
 			}
+
+			// Flugente: backgrounds
+			if ( gpItemDescSoldier->HasBackgroundFlag( BACKGROUND_TRAPLEVEL ) )
+				(*gpItemDescObject)[0]->data.bTrap++;
 				
 			// Flugente: We armed a bomb in our inventory. We will NOT add it to the item pool and the world bombs.
 			// Instead, we will count down the delay time every turn and eventually ignite the bomb from our inventory.

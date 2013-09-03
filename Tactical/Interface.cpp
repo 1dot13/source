@@ -107,6 +107,8 @@ CIV_NAMES_VALUES zCivGroupName[NUM_CIV_GROUPS];
 SOLDIER_PROFILE_VALUES zSoldierProfile[6][NUM_SOLDIER_PROFILES];
 UINT16 num_found_soldier_profiles[6];	// the correct number is set on reading the xml
 
+BACKGROUND_VALUES zBackground[NUM_BACKGROUND];				// Flugente: backgrounds
+
 BOOLEAN	gfInMovementMenu = FALSE;
 INT32		giMenuAnchorX, giMenuAnchorY;
 

@@ -225,6 +225,9 @@
     <ClInclude Include="Encyclopedia_Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMP Background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -459,6 +462,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_OldAIMArchive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMP Background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

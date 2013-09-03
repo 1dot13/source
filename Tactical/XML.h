@@ -232,6 +232,7 @@ typedef PARSE_STAGE;
 #define SPREADPATTERNSFILENAME					"SpreadPatterns.xml"
 #define VEHICLESFILENAME						"Vehicles.xml"
 #define SQUADNAMEFILENAME						"SquadNames.xml"
+#define BACKGROUNDSFILENAME						"Backgrounds.xml"
 
 #define ENEMY_ADMIN_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyAdmin.xml"
 #define ENEMY_REGULAR_PROFILE_FILENAME			"Profiles\\SoldierProfileEnemyRegular.xml"
@@ -459,6 +460,10 @@ extern BOOLEAN ReadInEnemyRank(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteEnemyRank( STR fileName);
 extern BOOLEAN ReadInIMPPortraits(STR fileName, BOOLEAN localizedVersion);
 extern void LoadIMPPortraitsTEMP();
+
+// Flugente: backgrounds
+extern BOOLEAN ReadInBackgrounds(STR fileName );
+extern BOOLEAN WriteBackgrounds( STR fileName);
 
 //Enabled\Disabled profile sound by Jazz
 extern BOOLEAN ReadInSoundProfile( STR fileName );

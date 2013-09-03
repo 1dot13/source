@@ -1492,6 +1492,15 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			{
 				return(FALSE);
 			}
+
+			// Flugente: backgrounds
+			if(guiCurrentSaveGameVersion >= BACKGROUNDS)
+			{
+				if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
+				{
+					return(FALSE);
+				}
+			}
 		}
 		if ( this->uiProfileChecksum != this->GetChecksum() )
 		{
@@ -1570,6 +1579,13 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	{
 		return(FALSE);
 	}
+
+	// Flugente: background
+	if ( !FileWrite( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesWritten ) )
+	{
+		return(FALSE);
+	}
+
 	return TRUE;
 }
 
@@ -3127,7 +3143,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 
 	SaveGameHeader.sInitialGameOptions.fUseNCTH = gGameOptions.fUseNCTH;
 	SaveGameHeader.sInitialGameOptions.fImprovedInterruptSystem = gGameOptions.fImprovedInterruptSystem;
-	SaveGameHeader.sInitialGameOptions.fWeaponOverheating = gGameOptions.fWeaponOverheating;
+	SaveGameHeader.sInitialGameOptions.fBackGround = gGameOptions.fBackGround;
 
 	//
 	// Save the Save Game header file

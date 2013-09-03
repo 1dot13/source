@@ -1282,7 +1282,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
 
 				// Flugente: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
-				if ( gGameOptions.fWeaponOverheating )
+				if ( gGameExternalOptions.fWeaponOverheating )
 				{
 					FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObj );	// how much above the gun's usOverheatingJamThreshold are we? ...
 
@@ -2267,7 +2267,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	INT16 iOverheatReliabilityMalus = 0;
 	// Flugente: Increase Weapon Temperature
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObjAttHand );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
 
@@ -2888,7 +2888,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	INT16 iOverheatReliabilityMalus = 0;
 	// Flugente: Increase Weapon Temperature
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObjUsed );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
 
@@ -6085,9 +6085,10 @@ else
 		iChance = __max(iChance + (INT32)iAimPoints, iChance);
 		iChance = __min(iChance, (INT32)uiCap);
 	}
-		
-	// Impose global limits.	
-	iChance = __min(iChance, gGameExternalOptions.ubMaximumCTH);
+
+	// Impose global limits.
+	// Flugente: backgrounds
+	iChance =  min(iChance, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX)) );
 	iChance = __max(iChance, gGameExternalOptions.ubMinimumCTH);
 	
 	return (iChance);
@@ -6552,7 +6553,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 	FLOAT accuracyheatmultiplicator = 1.0;
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pInHand );
 		FLOAT accuracymalus = (FLOAT)((max(1.0, overheatjampercentage) - 1.0) * 0.1);
@@ -7082,7 +7083,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 		// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 		FLOAT accuracyheatmultiplicator = 1.0;
-		if ( gGameOptions.fWeaponOverheating )
+		if ( gGameExternalOptions.fWeaponOverheating )
 		{
 			FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pInHand );
 			FLOAT accuracymalus = (FLOAT)((max(1.0, overheatdamagepercentage) - 1.0) * 0.1);
@@ -7363,8 +7364,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
 		// if (iChance > MAXCHANCETOHIT)
 		// iChance = MAXCHANCETOHIT;
-		if (iChance > gGameExternalOptions.ubMaximumCTH)
-			iChance = gGameExternalOptions.ubMaximumCTH;
+
+		// Flugente: backgrounds
+		iChance =  min(iChance, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX)) );
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	
@@ -10184,7 +10186,13 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 			else if ( bNumMercs > 0 )
 				iAttRating += 2;
 		}
-	}		
+	}
+
+	// Flugente: backgrounds
+	if (ubMode == HTH_MODE_STAB)
+	{
+		iAttRating = (iAttRating * (100 + pAttacker->GetBackgroundValue(BG_PERC_CTH_BLADE))) / 100;
+	}
 	////////////////////////////////////////////////////////////////////////////////////
 
 	if (iAttRating < 1)
@@ -11383,7 +11391,7 @@ BOOLEAN WillExplosiveWeaponFail( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
   {
 	// malus for overheating
 	INT16 iOverheatMalus = 0;	
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObj);
 
@@ -11800,7 +11808,7 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 // Flugente: Increase temperature/dirt of gun in ubAttackingHand due to firing a shot
 void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 {
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		if ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )							// if item is a gun pr launcher...
 		{

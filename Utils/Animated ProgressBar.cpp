@@ -261,7 +261,7 @@ void SetNewLoadScreenHint()
 			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_ZOMBIE && gGameSettings.fOptions[TOPTION_ZOMBIES] )
 				fShow = TRUE;
 #endif
-			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_OVERHEAT_DIRT && (gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem) )
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_OVERHEAT_DIRT && (gGameExternalOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem) )
 				fShow = TRUE;
 			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_NCTH && UsingNewCTHSystem() )
 				fShow = TRUE;

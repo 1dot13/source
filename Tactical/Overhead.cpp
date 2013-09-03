@@ -7959,6 +7959,9 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     bTolerance = __max(bTolerance, gGameExternalOptions.ubSuppressionToleranceMin);
     bTolerance = __min(bTolerance, gGameExternalOptions.ubSuppressionToleranceMax);
 
+	// Flugente: add personal bonus to suppresion tolerance
+	bTolerance += pSoldier->GetSuppressionResistanceBonus();
+
     return( bTolerance );
 }
 
@@ -8189,6 +8192,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     {
                         bShockForCower = (INT8)((bShockForCower * 17 / 20 ) + 0.5); // -15% as shock                
                     }
+
+					// Flugente: personal fear resistance
+					bShockForCower = (INT8)((bShockForCower * (100 - pSoldier->GetFearResistanceBonus()) / 100 ) + 0.5);
                 }
                 if (bShockForCower >= bTolerance)
                 { 
@@ -10037,6 +10043,12 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             }
         }
 
+		GetSoldier( &pSoldier, gusSelectedSoldier );
+
+		// if the merc asking for surrender is experienced in capitulation negotiations, we get a bonus to our strength
+		if ( pSoldier )
+			playersidestrength = (playersidestrength * (100 + pSoldier->GetBackgroundValue(BG_PERC_CAPITULATION))) / 100;
+		
         // enemy team
         firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
         lastid  = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;

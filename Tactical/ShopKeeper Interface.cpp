@@ -3341,7 +3341,8 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 				uiItemPrice[ubCnt] += CalcShopKeeperItemPrice( fDealerSelling, fUnitPriceOnly, iter->usItem, dModifier, &(*iter)) ;
 		}
 
-		// if Flo is doing the dealin' and wheelin'
+		// Flugente: used in backgrounds now, old code in comments for historical reasons
+		/*// if Flo is doing the dealin' and wheelin'
 		if ( gpSMCurrentMerc->ubProfile == FLO )
 		{
 			// if it's a GUN or AMMO (but not Launchers, and all attachments and payload is included)
@@ -3364,6 +3365,46 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 					}
 					break;
 			}
+		}*/
+
+		// if it's a GUN or AMMO (but not Launchers, and all attachments and payload is included)
+		if ( Item [ usItemID ].usItemClass & (IC_GUN|IC_AMMO) )
+		{
+			if ( gpSMCurrentMerc->GetBackgroundValue(BG_PERC_PRICES_GUNS) )
+				uiDiscountValue = ( uiItemPrice[ubCnt] * gpSMCurrentMerc->GetBackgroundValue(BG_PERC_PRICES_GUNS) ) / 100;
+			// if we play without backgrounds, Flo gets the hardcoded bonus
+			else if ( gpSMCurrentMerc->ubProfile == FLO )
+				uiDiscountValue = ( uiItemPrice[ubCnt] * FLO_DISCOUNT_PERCENTAGE ) / 100;
+
+			// she gets a discount!  Read her M.E.R.C. profile to understand why
+			if ( fDealerSelling )
+			{
+				// she buys for less...
+				uiItemPrice[ubCnt] -= uiDiscountValue;
+			}
+			else
+			{
+				// and sells for more!
+				uiItemPrice[ubCnt] += uiDiscountValue;
+			}
+			break;
+		}
+		// Flugente: backgrounds
+		else if ( Item [ usItemID ].usItemClass & (IC_MAPFILTER_MELEE|IC_MAPFILTER_KIT|IC_MAPFILTER_LBE|IC_MAPFILTER_ARMOR|IC_MAPFILTER_MISC) )
+		{
+			uiDiscountValue = ( uiItemPrice[ubCnt] * gpSMCurrentMerc->GetBackgroundValue(BG_PERC_PRICES) ) / 100;
+
+			if ( fDealerSelling )
+			{
+				// buy for less...
+				uiItemPrice[ubCnt] -= uiDiscountValue;
+			}
+			else
+			{
+				// and sell for more!
+				uiItemPrice[ubCnt] += uiDiscountValue;
+			}
+			break;
 		}
 
 		// if it's the dealer selling this, make sure the item is worth at least $1

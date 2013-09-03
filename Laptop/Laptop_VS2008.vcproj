@@ -483,6 +483,10 @@
 				>
 			</File>
 			<File
+				RelativePath="IMP Background.h"
+				>
+			</File>
+			<File
 				RelativePath="IMP Begin Screen.h"
 				>
 			</File>
@@ -772,6 +776,10 @@
 			</File>
 			<File
 				RelativePath="IMP Attribute Selection.cpp"
+				>
+			</File>
+			<File
+				RelativePath="IMP Background.cpp"
 				>
 			</File>
 			<File

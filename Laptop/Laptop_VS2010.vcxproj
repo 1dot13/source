@@ -59,6 +59,7 @@
     <ClInclude Include="IMP Attribute Entrance.h" />
     <ClInclude Include="IMP Attribute Finish.h" />
     <ClInclude Include="IMP Attribute Selection.h" />
+    <ClInclude Include="IMP Background.h" />
     <ClInclude Include="IMP Begin Screen.h" />
     <ClInclude Include="IMP Character and Disability Entrance.h" />
     <ClInclude Include="IMP Character Trait.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="IMP Attribute Entrance.cpp" />
     <ClCompile Include="IMP Attribute Finish.cpp" />
     <ClCompile Include="IMP Attribute Selection.cpp" />
+    <ClCompile Include="IMP Background.cpp" />
     <ClCompile Include="IMP Begin Screen.cpp" />
     <ClCompile Include="IMP Character and Disability Entrance.cpp" />
     <ClCompile Include="IMP Character Trait.cpp" />

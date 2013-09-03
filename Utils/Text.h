@@ -1976,7 +1976,7 @@ enum
 	
 	GIO_NCTH_TITLE_TEXT,
 	GIO_IIS_TITLE_TEXT,
-	GIO_OVERHEATING_TITLE_TEXT,
+	GIO_BACKGROUND_TITLE_TEXT,
 	GIO_FOODSYSTEM_TITLE_TEXT,
 	GIO_BR_QUANTITY_TEXT,
 
@@ -2378,6 +2378,9 @@ enum
 };
 extern STR16	gszPocketPopupText[];
 
+// Flugente: backgrounds
+extern STR16		szBackgroundText_Flags[];
+extern STR16		szBackgroundText_Value[];
 
 // Enumeration support
 typedef struct Str8EnumLookupType {

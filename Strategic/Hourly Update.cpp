@@ -18,6 +18,7 @@
 	#include "history.h"
 	#include "Dialogue Control.h"
 	#include "Strategic AI.h"
+	#include "Tactical Save.h"	// added by Flugente
 #endif
 
 #include "Luaglobal.h"
@@ -32,8 +33,9 @@
 #include "Facilities.h"
 #include "Food.h"	// added by Flugente
 
-void HourlyQuestUpdate( void );
-void HourlyLarryUpdate( void );
+void HourlyQuestUpdate();
+void HourlyLarryUpdate();
+void HourlyStealUpdate();	// Flugente: certain characters might steal equipment (backgrounds)
 
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
@@ -99,6 +101,9 @@ CHAR16	zString[128];
 	HourlyQuestUpdate();
 
 	HourlyLarryUpdate();
+
+	HourlyStealUpdate();
+
 #if (defined JA2UB) 
 // no UB
 #else
@@ -230,7 +235,7 @@ void HandleQuarterHourUpdate()
 }
 
 
-void HourlyQuestUpdate( void )
+void HourlyQuestUpdate()
 {
 	UINT32 uiHour = GetWorldHour();
 		
@@ -311,9 +316,9 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 
 #define LARRY_FALLS_OFF_WAGON 8
 
-void HourlyLarryUpdate( void )
+void HourlyLarryUpdate()
 {
-	SOLDIERTYPE *				pSoldier;
+	SOLDIERTYPE *				pSoldier = NULL;
 	INT8						bSlot = NO_SLOT, bBoozeSlot;
 	INT8						bLarryItemLoop;
 	UINT16						usTemptation = 0;
@@ -321,79 +326,68 @@ void HourlyLarryUpdate( void )
 	BOOLEAN						fBar = FALSE;
 	OBJECTTYPE*					pObj = NULL;
 
-	pSoldier = FindSoldierByProfileID( LARRY_NORMAL, TRUE );
-	if ( !pSoldier )
+	for( INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
-		pSoldier = FindSoldierByProfileID( LARRY_DRUNK, TRUE );
-	}
-	if ( pSoldier )
-	{
-		if ( pSoldier->bAssignment >= ON_DUTY )
-		{
-			return;
-		}
-		if ( pSoldier->flags.fBetweenSectors )
-		{
-			return;
-		}
-		if ( pSoldier->bActive && pSoldier->bInSector && (gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
-		{
-			return;
-		}
+		pSoldier = MercPtrs[ cnt ];
 
-		// Flugente: reworked this for the new drug system. We now loop over our entire inventory
-		INT8 invsize = (INT8)pSoldier->inv.size();										// remember inventorysize, so we don't call size() repeatedly
-		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
+		if ( pSoldier && pSoldier->bAssignment < ON_DUTY && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && pSoldier->bInSector && !(gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
 		{
-			if ( pSoldier->inv[bLoop].exists() && Item[ pSoldier->inv[bLoop].usItem ].drugtype > 0 )
+			if ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) )
 			{
-				pObj = &(pSoldier->inv[bLoop]);
-
-				usTemptation = 5;
-
-				// any drug will do... I'm not going to create a new tag for sth minor like this
-				break;
-			}
-		}
-
-		// look for items in Larry's inventory to maybe use
-		/*for ( bLarryItemLoop = 0; bLarryItemLoop < NUM_LARRY_ITEMS; bLarryItemLoop++ )
-		{
-			bSlot = FindObj( pSoldier, LarryItems[ bLarryItemLoop ][ 0 ] );
-			if ( bSlot != NO_SLOT )
-			{
-				usTemptation = LarryItems[ bLarryItemLoop ][ 1 ];
-				break;
-			}
-		}*/
-
-		// check to see if we're in a bar sector, if we are, we have access to alcohol
-		// which may be better than anything we've got...
-		if ( usTemptation < BAR_TEMPTATION && GetCurrentBalance() >= Item[ ALCOHOL ].usPrice )
-		{
-			if ( pSoldier->bSectorZ == 0 &&
-						( ( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_D) ||
-							( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_C) ||
-							( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_C) ||
-							( pSoldier->sSectorX == 6 && pSoldier->sSectorY == MAP_ROW_C) ||
-							( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_D) ||
-							( pSoldier->sSectorX == 2 && pSoldier->sSectorY == MAP_ROW_H)
-						)
-				)
-			{
-				// in a bar!
-				fBar = TRUE;
-				usTemptation = BAR_TEMPTATION;
-			}
-		}
-
-		if ( usTemptation > 0 )
-		{
-			if ( pSoldier->ubProfile == LARRY_NORMAL )
-			{
-				gMercProfiles[ LARRY_NORMAL ].bNPCData += (INT8) Random( usTemptation );
-				if ( gMercProfiles[ LARRY_NORMAL ].bNPCData >= LARRY_FALLS_OFF_WAGON )
+				// Flugente: reworked this for the new drug system. We now loop over our entire inventory
+				INT8 invsize = (INT8)pSoldier->inv.size();										// remember inventorysize, so we don't call size() repeatedly
+				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)									// ... for all items in our inventory ...
 				{
+					if ( pSoldier->inv[bLoop].exists() && Item[ pSoldier->inv[bLoop].usItem ].drugtype > 0 )
+					{
+						pObj = &(pSoldier->inv[bLoop]);
+
+						usTemptation = 5;
+
+						// any drug will do... I'm not going to create a new tag for sth minor like this
+						break;
+					}
+				}
+
+				// check to see if we're in a bar sector, if we are, we have access to alcohol
+				// which may be better than anything we've got...
+				if ( usTemptation < BAR_TEMPTATION && GetCurrentBalance() >= Item[ ALCOHOL ].usPrice )
+				{
+					if ( pSoldier->bSectorZ == 0 &&
+								( ( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_D) ||
+									( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_C) ||
+									( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_C) ||
+									( pSoldier->sSectorX == 6 && pSoldier->sSectorY == MAP_ROW_C) ||
+									( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_D) ||
+									( pSoldier->sSectorX == 2 && pSoldier->sSectorY == MAP_ROW_H)
+								)
+						)
+					{
+						// in a bar!
+						fBar = TRUE;
+						usTemptation = BAR_TEMPTATION;
+					}
+				}
+
+				if ( usTemptation > 0 )
+				{
+					if ( pSoldier->ubProfile == LARRY_DRUNK )
+					{
+						// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
+						// so long as he keeps consuming, keep number above level at which he cracked
+						gMercProfiles[ LARRY_NORMAL ].bNPCData = __max( gMercProfiles[ LARRY_NORMAL ].bNPCData, LARRY_FALLS_OFF_WAGON );
+						gMercProfiles[ LARRY_NORMAL ].bNPCData += (INT8) Random( usTemptation );
+						// allow value to keep going up to 24 (about 2 days since we subtract Random( 2 ) when he has no access )
+						gMercProfiles[ LARRY_NORMAL ].bNPCData = __min( gMercProfiles[ LARRY_NORMAL ].bNPCData, 24 );
+					}
+					else
+					{
+						gMercProfiles[ pSoldier->ubProfile ].bNPCData += (INT8) Random( usTemptation );
+
+						if ( gMercProfiles[ pSoldier->ubProfile ].bNPCData < LARRY_FALLS_OFF_WAGON )
+							continue;
+					}
+
 					if ( fBar )
 					{
 						// take $ from player's account
@@ -409,61 +403,140 @@ void HourlyLarryUpdate( void )
 						}
 						bSlot = bBoozeSlot;
 						bLarryItemLoop = 1;
-					}
-					// ahhhh!!!
-					SwapLarrysProfiles( pSoldier );
-					if ( bSlot != NO_SLOT )
-					{
-						UseKitPoints( &(pSoldier->inv[ bSlot ]), 25/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
-					}
-				}
-			}
-			else
-			{
-				// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
-				// so long as he keeps consuming, keep number above level at which he cracked
-				gMercProfiles[ LARRY_NORMAL ].bNPCData = __max( gMercProfiles[ LARRY_NORMAL ].bNPCData, LARRY_FALLS_OFF_WAGON );
-				gMercProfiles[ LARRY_NORMAL ].bNPCData += (INT8) Random( usTemptation );
-				// allow value to keep going up to 24 (about 2 days since we subtract Random( 2 ) when he has no access )
-				gMercProfiles[ LARRY_NORMAL ].bNPCData = __min( gMercProfiles[ LARRY_NORMAL ].bNPCData, 24 );
-				if ( fBar )
-				{
-					// take $ from player's account
-					usCashAmount = Item[ ALCOHOL ].usPrice;
-					AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin() , -( usCashAmount ) );
-					// give Larry some booze and set slot etc values appropriately
-					// CHRISL: Change final parameter to allow dynamic control of inventory slots
-					bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
-					if ( bBoozeSlot != NO_SLOT )
-					{
-						// give Larry booze here
-						CreateItem( ALCOHOL, 100, &(pSoldier->inv[bBoozeSlot]) );
-					}
-					bSlot = bBoozeSlot;
-					bLarryItemLoop = 1;
-				}
-				if ( bSlot != NO_SLOT )
-				{
-					// Flugente: abandoned LarryItems
-					// ahhhh!!!
-					if ( pObj )
-						UseKitPoints( pObj, 100/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
-				}
-			}
-		}
-		else if ( pSoldier->ubProfile == LARRY_DRUNK )
-		{
-			gMercProfiles[ LARRY_NORMAL ].bNPCData -= (INT8) Random( 2 );
-			if ( gMercProfiles[ LARRY_NORMAL ].bNPCData <= 0 )
-			{
-				// goes sober!
-				SwapLarrysProfiles( pSoldier );
-			}
-		}
 
+						if ( pSoldier->ubProfile == LARRY_DRUNK )
+						{
+							SwapLarrysProfiles( pSoldier );
+						}
+
+						if ( bSlot != NO_SLOT )
+						{
+							UseKitPoints( &(pSoldier->inv[ bSlot ]), 25/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+						}
+					}
+					else
+					{
+						if ( pObj )
+							UseKitPoints( pObj, 100/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+					}
+				}
+				else if ( pSoldier->ubProfile == LARRY_DRUNK )
+				{
+					gMercProfiles[ LARRY_NORMAL ].bNPCData -= (INT8) Random( 2 );
+					if ( gMercProfiles[ LARRY_NORMAL ].bNPCData <= 0 )
+					{
+						// goes sober!
+						SwapLarrysProfiles( pSoldier );
+					}
+				}
+			}
+		}
 	}
-
 }
+
+// Flugente: certain characters might steal equipment (backgrounds)
+void HourlyStealUpdate()
+{
+	SOLDIERTYPE *				pSoldier = NULL;
+	INT8						bSlot = NO_SLOT;
+	UINT16						usTemptation = 0;
+	BOOLEAN						fBar = FALSE;
+	OBJECTTYPE*					pObj = NULL;
+
+	for( INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
+	{
+		pSoldier = MercPtrs[ cnt ];
+
+		if ( pSoldier && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && pSoldier->bInSector && !pSoldier->flags.fMercAsleep && !(gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
+		{
+			if ( pSoldier->HasBackgroundFlag( BACKGROUND_SCROUNGING ) )
+			{
+				// 20% chance that we'll steal something
+				if ( Chance(20) )
+				{
+					// we loop over this sector's inventory and look for something shiny. We will pick it up if we hae enough space in our inventory
+					// open sector inv
+					UINT32 uiTotalNumberOfRealItems = 0;
+					WORLDITEM* pWorldItem			= NULL;
+					BOOLEAN fReturn					= FALSE;
+
+					if( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
+					{
+						uiTotalNumberOfRealItems = guiNumWorldItems;
+
+						if ( !uiTotalNumberOfRealItems )
+							continue;
+
+						pWorldItem = gWorldItems;
+					}
+					else
+					{
+						// not loaded, load
+						// get total number, visable and invisible
+						fReturn = GetNumberOfWorldItemsFromTempItemFile( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, &( uiTotalNumberOfRealItems ), FALSE );
+						Assert( fReturn );
+
+						if( uiTotalNumberOfRealItems > 0 )
+						{
+							// allocate space for the list
+							pWorldItem = new WORLDITEM[ uiTotalNumberOfRealItems ];
+
+							if ( !uiTotalNumberOfRealItems )
+								continue;
+
+							// now load into mem
+							LoadWorldItemsFromTempItemFile(  pSoldier->sSectorX,  pSoldier->sSectorY, pSoldier->bSectorZ, pWorldItem );
+						}
+					}
+
+					FLOAT bestpriceweightratio = 50.0f;		// msut have a value of at least 50$/100 gram
+					OBJECTTYPE* pTargetObj = NULL;
+					for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
+					{
+						if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
+						{
+							OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
+
+							if ( pObj != NULL && pObj->exists() )						// ... if pointer is not obviously useless ...
+							{
+								// test wether item is reachable and useable by militia
+								if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) )
+								{
+									// ignore objects without weight (how does that happen anyway? careless modders...)
+									if ( Item[pWorldItem[ uiCount ].object.usItem].ubWeight )
+									{
+										if ( (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].usPrice) / (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].ubWeight) > bestpriceweightratio )
+										{
+											bestpriceweightratio = (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].usPrice) / (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].ubWeight);
+											pTargetObj = &(pWorldItem[ uiCount ].object);
+										}
+									}
+								}
+							}
+						}
+					}
+
+					if ( pTargetObj )
+						AutoPlaceObject( pSoldier, pTargetObj, TRUE );
+
+					// save the changed inventory
+					// open sector inv
+					if( ( gWorldSectorX == pSoldier->sSectorX )&&( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
+					{
+						guiNumWorldItems = uiTotalNumberOfRealItems;
+						gWorldItems = pWorldItem;
+					}
+					else
+					{
+						//Save the Items to the the file
+						SaveWorldItemsToTempItemFile( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, uiTotalNumberOfRealItems, pWorldItem );
+					}
+				}				
+			}
+		}
+	}
+}
+
 #if (defined JA2UB) 
 // no JA25 UB
 #else 

@@ -21,6 +21,7 @@
 	#include "Render Fun.h"
 	#include "meanwhile.h"
 	#include "Exit Grids.h"
+	#include "Interface.h"			// added by Flugente for zBackground
 #endif
 
 #ifdef JA2UB
@@ -1194,6 +1195,18 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 				}
 			}
 
+			// Flugente backgrounds
+			if ( pSoldier->ubStrategicInsertionCode == INSERTION_CODE_CENTER && pSoldier->GetBackgroundValue(BG_AIRDROP) )
+			{
+				fCalculateDirection = FALSE;
+				pSoldier->ubInsertionDirection = Random( DIRECTION_IRRELEVANT );
+
+				pSoldier->bSoldierFlagMask |= SOLDIER_AIRDROP_BONUS;
+			}
+
+			// add this flag whenever we enter strategically enter a sector (= we attack a sector)
+			pSoldier->bSoldierFlagMask |= SOLDIER_ASSAULT_BONUS;
+			
 			// Override calculated direction if we were told to....
 			if ( pSoldier->ubInsertionDirection > 100 )
 			{

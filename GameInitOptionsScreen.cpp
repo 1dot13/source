@@ -154,12 +154,12 @@
 #define		GIO_DROPALL_SETTING_Y					GIO_GUN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_DROPALL_SETTING_WIDTH				CHECK_WIDTH
 
-#define		GIO_OVERHEATING_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_OVERHEATING_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
-#define		GIO_OVERHEATING_SETTING_WIDTH			CHECK_WIDTH
+#define		GIO_BACKGROUND_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_BACKGROUND_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_BACKGROUND_SETTING_WIDTH			CHECK_WIDTH
 
 #define		GIO_FOODSYSTEM_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_FOODSYSTEM_SETTING_Y				GIO_OVERHEATING_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_FOODSYSTEM_SETTING_Y				GIO_BACKGROUND_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_FOODSYSTEM_SETTING_WIDTH			CHECK_WIDTH
 
 /*********************************
@@ -545,11 +545,11 @@ UINT32	guiImprovedInterruptOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
 void BtnGIOImprovedInterruptOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason);
 
-// Overheating
-UINT32	guiOverheatingOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
-UINT32	guiOverheatingOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
-void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason);
+// Background
+UINT32	guiBackGroundOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiBackGroundOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOBackGroundOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOBackGroundOnCallback(GUI_BUTTON *btn,INT32 reason);
 
 // Food System
 UINT32	guiFoodSystemOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
@@ -590,7 +590,7 @@ UINT8	GetCurrentTexAndJohnButtonSetting();
 UINT8	GetCurrentInventoryAPButtonSetting();
 UINT8	GetCurrentNCTHButtonSetting();
 UINT8	GetCurrentIISButtonSetting();
-UINT8	GetCurrentOverheatingButtonSetting();
+UINT8	GetCurrentBackGroundButtonSetting();
 UINT8	GetCurrentFoodSystemButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
@@ -704,7 +704,7 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	gGameOptions.fUseNCTH = FALSE;
 	gGameOptions.fImprovedInterruptSystem = FALSE;
-	gGameOptions.fWeaponOverheating = FALSE;
+	gGameOptions.fBackGround = FALSE;
 	gGameOptions.fFoodSystem = FALSE;
 
 	gGameOptions.fAirStrikes =  FALSE;
@@ -1271,33 +1271,33 @@ BOOLEAN		EnterGIOScreen()
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// OVERHEATING WEAPONS ON/OFF SETTING
+	// BACKGROUND ON/OFF SETTING
 
-	guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiBackGroundOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiBackGroundOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiBackGroundOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
-													(GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOffCallback);
+													(GIO_BACKGROUND_SETTING_X), (GIO_BACKGROUND_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOBackGroundOffCallback);
 
-	guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiOverheatingOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiBackGroundOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiBackGroundOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiBackGroundOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
-													(GIO_OVERHEATING_SETTING_X + 74), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOnCallback );
+													(GIO_BACKGROUND_SETTING_X + 74), (GIO_BACKGROUND_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOBackGroundOnCallback );
 
-	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
-	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+	SpecifyButtonSoundScheme( guiBackGroundOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiBackGroundOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiBackGroundOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiBackGroundOptionToggles[ GIO_BUTTON_ON ],0, 1 );
 
-	if( gGameOptions.fWeaponOverheating )
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	if( gGameOptions.fBackGround )
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// FOOD SYSTEM ON/OFF SETTING
@@ -2267,34 +2267,34 @@ void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnGIOBackGroundOffCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+		RestoreExternBackgroundRect( (GIO_BACKGROUND_SETTING_X), (GIO_BACKGROUND_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiBackGroundOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
-void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnGIOBackGroundOnCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+		RestoreExternBackgroundRect( (GIO_BACKGROUND_SETTING_X), (GIO_BACKGROUND_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiBackGroundOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -2461,8 +2461,8 @@ BOOLEAN		ExitGIOScreen()
 	// Destroy Overheating Cost setting buttons
 	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
 	{
-		RemoveButton( guiOverheatingOptionToggles[ cnt ] );
-		UnloadButtonImage( guiOverheatingOptionTogglesImage[ cnt ] );
+		RemoveButton( guiBackGroundOptionToggles[ cnt ] );
+		UnloadButtonImage( guiBackGroundOptionTogglesImage[ cnt ] );
 	}
 
 	// Destroy Food System Cost setting buttons
@@ -2646,7 +2646,7 @@ BOOLEAN		RenderGIOScreen()
 	//Display the Improved Interrupt System Settings Title Text
 	DisplayWrappedString( (GIO_IIS_SETTING_X - 6), (UINT16)(GIO_IIS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IIS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IIS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	//Display the Weapon Overheating Settings Title Text
-	DisplayWrappedString( (GIO_OVERHEATING_SETTING_X - 6), (UINT16)(GIO_OVERHEATING_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_OVERHEATING_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_OVERHEATING_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (GIO_BACKGROUND_SETTING_X - 6), (UINT16)(GIO_BACKGROUND_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_BACKGROUND_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BACKGROUND_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	//Display the Food System Settings Title Text
 	DisplayWrappedString( (GIO_FOODSYSTEM_SETTING_X - 6), (UINT16)(GIO_FOODSYSTEM_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_FOODSYSTEM_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_FOODSYSTEM_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
@@ -2885,13 +2885,13 @@ UINT8	GetCurrentIISButtonSetting()
 	return( 0 );
 }
 
-UINT8	GetCurrentOverheatingButtonSetting()
+UINT8	GetCurrentBackGroundButtonSetting()
 {
 	UINT8	cnt;
 
 	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
 	{
-		if( ButtonList[ guiOverheatingOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		if( ButtonList[ guiBackGroundOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
 		{
 			return( cnt );
 		}
@@ -2981,7 +2981,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.fInventoryCostsAP = GetCurrentInventoryAPButtonSetting();
 	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
 	gGameOptions.fImprovedInterruptSystem = GetCurrentIISButtonSetting();
-	gGameOptions.fWeaponOverheating = GetCurrentOverheatingButtonSetting();
+	gGameOptions.fBackGround = GetCurrentBackGroundButtonSetting();
 	gGameOptions.fFoodSystem = GetCurrentFoodSystemButtonSetting();
 
 	gubGIOExitScreen = INIT_SCREEN;
@@ -3211,12 +3211,12 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_DROPALL_SETTING_Y					GIO_GUN_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_DROPALL_SETTING_WIDTH				CHECK_WIDTH
 
-#define		GIO_OVERHEATING_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_OVERHEATING_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
-#define		GIO_OVERHEATING_SETTING_WIDTH			CHECK_WIDTH
+#define		GIO_BACKGROUND_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		GIO_BACKGROUND_SETTING_Y				GIO_DROPALL_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_BACKGROUND_SETTING_WIDTH			CHECK_WIDTH
 
 #define		GIO_FOODSYSTEM_SETTING_X				SECOND_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_FOODSYSTEM_SETTING_Y				GIO_OVERHEATING_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		GIO_FOODSYSTEM_SETTING_Y				GIO_BACKGROUND_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_FOODSYSTEM_SETTING_WIDTH			CHECK_WIDTH
 
 /*********************************
@@ -3271,7 +3271,7 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_INVENTORY_AP						"INVENTORY_USE_AP"
 #define		JA2SP_USE_NCTH							"USE_NCTH"
 #define		JA2SP_USE_IIS							"IMPROVED_INTERRUPT_SYSTEM"
-#define		JA2SP_OVERHEATING						"WEAPON_OVERHEATING"
+#define		JA2SP_BACKGROUNDS						"BACKGROUNDS"
 #define		JA2SP_FOODSYSTEM						"FOOD_SYSTEM"
 
 
@@ -3505,11 +3505,11 @@ UINT32	guiImprovedInterruptOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
 void BtnGIOImprovedInterruptOffCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason);
 
-// Overheating
-UINT32	guiOverheatingOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
-UINT32	guiOverheatingOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
-void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason);
+// Background
+UINT32	guiBackGroundOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
+UINT32	guiBackGroundOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
+void BtnGIOBackGroundOffCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnGIOBackGroundOnCallback(GUI_BUTTON *btn,INT32 reason);
 
 // Food System
 UINT32	guiFoodSystemOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
@@ -3547,7 +3547,7 @@ UINT8	GetCurrentDropAllButtonSetting();
 UINT8	GetCurrentInventoryAPButtonSetting();
 UINT8	GetCurrentNCTHButtonSetting();
 UINT8	GetCurrentIISButtonSetting();
-UINT8	GetCurrentOverheatingButtonSetting();
+UINT8	GetCurrentBackGroundButtonSetting();
 UINT8	GetCurrentFoodSystemButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
@@ -3654,7 +3654,7 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	gGameOptions.fUseNCTH = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_NCTH, 0);
 	gGameOptions.fImprovedInterruptSystem = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_IIS, 0);
-	gGameOptions.fWeaponOverheating = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_OVERHEATING, 0);
+	gGameOptions.fBackGround = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BACKGROUNDS, 0);
 	gGameOptions.fFoodSystem = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_FOODSYSTEM, 0);
 
 	// Air strikes
@@ -4220,33 +4220,33 @@ BOOLEAN		EnterGIOScreen()
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// OVERHEATING WEAPONS ON/OFF SETTING
+	// BACKGROUND ON/OFF SETTING
 
-	guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiBackGroundOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiBackGroundOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiBackGroundOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
-													(GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOffCallback);
+													(GIO_BACKGROUND_SETTING_X), (GIO_BACKGROUND_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOBackGroundOffCallback);
 
-	guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiOverheatingOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiOverheatingOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
+	guiBackGroundOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiBackGroundOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiBackGroundOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
 													TEXT_CJUSTIFIED,
-													(GIO_OVERHEATING_SETTING_X + 74), (GIO_OVERHEATING_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIOOverheatingOnCallback );
+													(GIO_BACKGROUND_SETTING_X + 74), (GIO_BACKGROUND_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnGIOBackGroundOnCallback );
 
-	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
-	MSYS_SetBtnUserData(guiOverheatingOptionToggles[ GIO_BUTTON_ON ],0, 1 );
+	SpecifyButtonSoundScheme( guiBackGroundOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiBackGroundOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiBackGroundOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
+	MSYS_SetBtnUserData(guiBackGroundOptionToggles[ GIO_BUTTON_ON ],0, 1 );
 
-	if( gGameOptions.fWeaponOverheating )
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	if( gGameOptions.fBackGround )
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// FOOD SYSTEM ON/OFF SETTING
@@ -5183,34 +5183,34 @@ void BtnGIOImprovedInterruptOnCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void BtnGIOOverheatingOffCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnGIOBackGroundOffCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+		RestoreExternBackgroundRect( (GIO_BACKGROUND_SETTING_X), (GIO_BACKGROUND_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiBackGroundOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
-void BtnGIOOverheatingOnCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnGIOBackGroundOnCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		RestoreExternBackgroundRect( (GIO_OVERHEATING_SETTING_X), (GIO_OVERHEATING_SETTING_Y + 10), 230, 40 );
+		RestoreExternBackgroundRect( (GIO_BACKGROUND_SETTING_X), (GIO_BACKGROUND_SETTING_Y + 10), 230, 40 );
 
-		ButtonList[ guiOverheatingOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		ButtonList[ guiBackGroundOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 			
-		PlayButtonSound( guiOverheatingOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
+		PlayButtonSound( guiBackGroundOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
 	}
 }
 
@@ -5374,11 +5374,11 @@ BOOLEAN		ExitGIOScreen()
 		UnloadButtonImage( guiImprovedInterruptOptionTogglesImage[ cnt ] );
 	}
 	
-	// Destroy Overheating Cost setting buttons
-	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
+	// Destroy Background Cost setting buttons
+	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; ++cnt)
 	{
-		RemoveButton( guiOverheatingOptionToggles[ cnt ] );
-		UnloadButtonImage( guiOverheatingOptionTogglesImage[ cnt ] );
+		RemoveButton( guiBackGroundOptionToggles[ cnt ] );
+		UnloadButtonImage( guiBackGroundOptionTogglesImage[ cnt ] );
 	}
 
 	// Destroy Food System Cost setting buttons
@@ -5562,7 +5562,7 @@ BOOLEAN		RenderGIOScreen()
 	//Display the Improved Interrupt System Settings Title Text
 	DisplayWrappedString( (GIO_IIS_SETTING_X - 6), (UINT16)(GIO_IIS_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_IIS_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IIS_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	//Display the Weapon Overheating Settings Title Text
-	DisplayWrappedString( (GIO_OVERHEATING_SETTING_X - 6), (UINT16)(GIO_OVERHEATING_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_OVERHEATING_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_OVERHEATING_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (GIO_BACKGROUND_SETTING_X - 6), (UINT16)(GIO_BACKGROUND_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_BACKGROUND_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BACKGROUND_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	//Display the Food System Settings Title Text
 	DisplayWrappedString( (GIO_FOODSYSTEM_SETTING_X - 6), (UINT16)(GIO_FOODSYSTEM_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_FOODSYSTEM_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_FOODSYSTEM_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
@@ -5788,13 +5788,13 @@ UINT8	GetCurrentIISButtonSetting()
 	return( 0 );
 }
 
-UINT8	GetCurrentOverheatingButtonSetting()
+UINT8	GetCurrentBackGroundButtonSetting()
 {
 	UINT8	cnt;
 
 	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
 	{
-		if( ButtonList[ guiOverheatingOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		if( ButtonList[ guiBackGroundOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
 		{
 			return( cnt );
 		}
@@ -5874,7 +5874,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 
 	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
 	gGameOptions.fImprovedInterruptSystem = GetCurrentIISButtonSetting();
-	gGameOptions.fWeaponOverheating = GetCurrentOverheatingButtonSetting();
+	gGameOptions.fBackGround = GetCurrentBackGroundButtonSetting();
 	gGameOptions.fFoodSystem = GetCurrentFoodSystemButtonSetting();
 
 

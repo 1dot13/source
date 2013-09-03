@@ -2670,9 +2670,13 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 
 	// adjust for threatening value
 	INT32 threatenvalue = CalcThreateningEffectiveness( pSoldier->ubProfile ) * gMercProfiles[pSoldier->ubProfile].usApproachFactor[2] ;
-
+	
+	threatenvalue = (threatenvalue * (100 + pSoldier->GetBackgroundValue(BG_PERC_APPROACH_THREATEN))) / 100;
+		
 	usInterrogationPoints *= threatenvalue;
-
+	
+	usInterrogationPoints = (usInterrogationPoints * (100 + pSoldier->GetBackgroundValue(BG_PERC_INTERROGATION))) / 100;
+	
 	UINT16 performancemodifier = 100;
 	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 	{
@@ -2721,7 +2725,9 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 	{
 		usValue += 25 * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT ) + 25 * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND_OT ) + 10 * HAS_SKILL_TRAIT( pSoldier, KNIFING_OT );
 	}
-			
+	
+	usValue = (usValue * (100 + max(0, pSoldier->GetBackgroundValue(BG_PERC_GUARD)))) / 100;
+	
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usValue );
 
@@ -14206,6 +14212,8 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
+	
+	ubNeedForSleep += pSoldier->GetBackgroundValue(BG_PERC_SLEEP);
 
 	// Re-Enforce a maximum of 18 hours after injury penalties.
 	if ( ubNeedForSleep > 18 )

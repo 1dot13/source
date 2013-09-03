@@ -520,7 +520,11 @@ INT8 GetSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& 
 
 	INT8 scaler = -(ANIM_STAND+1 - ubStance); // stand = 7-6 => 10%, crouch = 7-3 => 66%, prone = 7-1 => 100%;
 
-	scaler = gGameExternalOptions.ubCamouflageEffectiveness * scaler / 6;
+	UINT8 effectiveness = gGameExternalOptions.ubCamouflageEffectiveness;
+	
+	effectiveness += (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CAMO));
+
+	scaler = effectiveness * scaler / 6;
 
 	switch(ubTerrainType) {
 		case LOW_GRASS:
@@ -5805,7 +5809,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
 	INT16 iOverheatReliabilityMalus = 0;
 	// Flugente: Increase Weapon Temperature
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatDamagePercentage( pObj );		// ... how much above the gun's usOverheatingDamageThreshold are we? ...
 
@@ -5847,8 +5851,8 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	int condition = (*pObj)[0]->data.gun.bGunStatus; 
 	int invertedBaseJamChance = condition + (reliability * 2) - gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * 1; 
 
-	// Flugente FTW 1: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
-	if ( gGameOptions.fWeaponOverheating )
+	// Flugente: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatjampercentage = GetGunOverheatJamPercentage( pObj );	// how much above the gun's usOverheatingJamThreshold are we? ...
 

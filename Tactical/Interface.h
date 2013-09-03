@@ -4,6 +4,7 @@
 #include "handle UI.h"
 #include "mousesystem.h"
 #include "structure.h"
+#include "Assignments.h"		// added by Flugente for the stat-enums
 
 #define		MAX_UICOMPOSITES				4
 
@@ -105,6 +106,101 @@ extern SOLDIER_PROFILE_VALUES zSoldierProfile[6][NUM_SOLDIER_PROFILES];
 
 extern UINT16 num_found_soldier_profiles[6];	// the correct number is set on reading the xml
 extern UINT16 num_found_profiles;		// a helper variable during reading xmls
+
+// Flugente: backgrounds
+// enums for backgrounds
+enum {
+	// sector dependent AP modifiers
+	BG_POLAR,		// not used ingame (yet?)
+	BG_DESERT,
+	BG_SWAMP,
+	BG_URBAN,
+	BG_RIVER,
+	BG_TROPICAL,
+	BG_COASTAL,
+	BG_MOUNTAIN,
+
+	// stat effectiveness modifiers
+	BG_AGILITY,
+	BG_DEXTERITY,
+	BG_STRENGTH,
+	BG_LEADERSHIP,
+	BG_MARKSMANSHIP,
+	BG_MECHANICAL,
+	BG_EXPLOSIVE_ASSIGN,
+	BG_MEDICAL,
+
+	// ap modifiers for non-sector related tasks
+	BG_HEIGHT,
+	BG_SWIMMING,
+	BG_FORTIFY,
+	BG_ARTILLERY,
+	BG_INVENTORY,
+	BG_AIRDROP,
+	BG_ASSAULT,
+
+	// travel speed modifiers
+	BG_TRAVEL_FOOT,
+	BG_TRAVEL_CAR,
+	BG_TRAVEL_AIR,
+	BG_TRAVEL_BOAT,
+
+	// resistances
+	BG_RESI_POISON,
+	BG_RESI_FEAR,
+	BG_RESI_SUPPRESSION,
+	BG_RESI_PHYSICAL,
+	BG_RESI_ALCOHOL,
+
+	// various
+	BG_PERC_INTERROGATION,
+	BG_PERC_GUARD,
+	BG_PERC_PRICES_GUNS,
+	BG_PERC_PRICES,
+	BG_PERC_CAPITULATION,
+	BG_PERC_SPEED_RUNNING,
+	BG_PERC_BANDAGING,
+	BG_PERC_REGEN_ENERGY,
+	BG_PERC_CARRYSTRENGTH,
+	BG_PERC_FOOD,
+	BG_PERC_WATER,
+	BG_PERC_SLEEP,
+	BG_PERC_DAMAGE_MELEE,
+	BG_PERC_CTH_BLADE,
+	BG_PERC_CAMO,
+	BG_PERC_STEALTH,
+	BG_PERC_CTH_MAX,
+	BG_PERC_HEARING_NIGHT,
+	BG_PERC_HEARING_DAY,
+
+	// approaches
+	BG_PERC_APPROACH_FRIENDLY,
+	BG_PERC_APPROACH_DIRECT,
+	BG_PERC_APPROACH_THREATEN,
+	BG_PERC_APPROACH_RECRUIT,
+
+	// various
+	BG_BONUS_BREACHINGCHARGE,
+
+	BG_MAX,
+};
+
+typedef struct
+{
+	UINT16		uiIndex;
+	CHAR16		szName[MAX_ENEMY_NAMES_CHARS];	// name of a background etc.
+	CHAR16		szShortName[20];				// abbreviated name for laptop display
+	CHAR16		szDescription[256];				// description of background, should explain the abilities
+
+	UINT64		uiFlags;						// this flagmask defines what speial properties this background has (on/off behaviour)	
+	INT16		value[BG_MAX];					// property values
+} BACKGROUND_VALUES;
+
+#define NUM_BACKGROUND 100
+
+extern BACKGROUND_VALUES zBackground[NUM_BACKGROUND];
+
+extern UINT16 num_found_background;		// the correct number is set on reading the xml
 
 extern		int INTERFACE_WIDTH;		//			640
 extern		int INTERFACE_HEIGHT;		//			120

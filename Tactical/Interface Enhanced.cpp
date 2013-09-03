@@ -1906,7 +1906,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
 			}
 
-			if ( gGameOptions.fWeaponOverheating )	// Flugente
+			// Flugente
+			if ( gGameExternalOptions.fWeaponOverheating )
 			{	
 				//////////////////// TEMPERATURE MODIFICATOR
 				{
@@ -3707,7 +3708,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		INT16 fDrawGenIndexes = FALSE;
 
 		// Flugente
-		if ( gGameOptions.fWeaponOverheating )
+		if ( gGameExternalOptions.fWeaponOverheating )
 		{
 			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 			{
@@ -4290,7 +4291,8 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 2, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
-		if ( gGameOptions.fWeaponOverheating )	// Flugente
+		// Flugente
+		if ( gGameExternalOptions.fWeaponOverheating )
 		{
 			//////////////// TEMPERATURE MODIFICATOR
 			{
@@ -5107,7 +5109,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	// Flugente
 	// new line is necessary (Moa: only if needed)
 	INT16 fDrawGenIndexes = FALSE;
-	if ( gGameOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
+	if ( gGameExternalOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
 	{
 		if( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[gpItemDescObject->usItem].barrel == TRUE || ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) )
 		{
@@ -5115,7 +5117,8 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 
-	if ( gGameOptions.fWeaponOverheating )
+	// Flugente
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{		
 		if( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{
@@ -7591,8 +7594,8 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			mprintf( usX, usY, pStr );
 		}
 
-		
-		if ( gGameOptions.fWeaponOverheating )	// Flugente
+		// Flugente
+		if ( gGameExternalOptions.fWeaponOverheating )
 		{
 			///////////////////// TEMPERATURE MODIFICATOR
 			// Set line to draw into
@@ -10963,7 +10966,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	INT16 fDrawGenIndexes = FALSE;
 
 	// Flugente	
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{	
 		if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 		{			

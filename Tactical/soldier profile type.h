@@ -839,6 +839,9 @@ public:
 	// SANDRO - merc records
 	STRUCT_Records		records;
 
+	// Flugente: background
+	UINT8 usBackground;
+
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!

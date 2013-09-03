@@ -5255,7 +5255,7 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes )
 {
 	// if not using overheating or food system, no point in all this
-	if ( !gGameOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
+	if ( !gGameExternalOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
 		return;
 
 	UINT32 tickspassed = 1;
@@ -5302,7 +5302,7 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 			if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
 			{
 				// ... if we use overheating and item is a gun, a launcher or a barrel ...
-				if ( gGameOptions.fWeaponOverheating && ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE ) )
+				if ( gGameExternalOptions.fWeaponOverheating && ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE ) )
 				{
 					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
 					{

@@ -2345,7 +2345,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	pSoldier->stats.bMechanical =		pNewProfile->bMechanical + pNewProfile->bMechanicDelta;
 	pSoldier->stats.bMedical =			pNewProfile->bMedical + pNewProfile->bMedicalDelta;
 	pSoldier->stats.bExplosive =		pNewProfile->bExplosive + pNewProfile->bExplosivesDelta;
-
+	
 	if ( pSoldier->ubProfile == LARRY_DRUNK )
 	{
 		SetFactTrue( FACT_LARRY_CHANGED );
@@ -2594,6 +2594,7 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].ubCivilianGroup = tempProfiles[uiLoop].ubCivilianGroup;
 		gMercProfiles[ uiLoop ].bTown = tempProfiles[uiLoop].bTown;
 		gMercProfiles[ uiLoop ].bTownAttachment = tempProfiles[uiLoop].bTownAttachment;
+		gMercProfiles[ uiLoop ].usBackground = tempProfiles[uiLoop].usBackground;
 		
 					//None
 					if ( tempProfiles[uiLoop].Type == 0 )

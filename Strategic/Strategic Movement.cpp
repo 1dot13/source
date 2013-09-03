@@ -47,6 +47,7 @@
 	#include "Auto Resolve.h"
 	#include "GameSettings.h"
 	#include "Quests.h"
+	#include "Interface.h"		// added by Flugente for zBackground
 #endif
 
 #include "MilitiaSquads.h"
@@ -3208,31 +3209,53 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 	{
 		// see if we have any ranger here
 		UINT8 ubRangerHere = 0;
+		UINT8 ustravelbackground_foot = 0;
+		UINT8 ustravelbackground_car = 0;
+		UINT8 ustravelbackground_air = 0;
+
 		curr = pGroup->pPlayerList;
 		while( curr )
 		{
 			pSoldier = curr->pSoldier;
 			if( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
 				ubRangerHere += NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+			
+			// Flugente: backgrounds
+			ustravelbackground_foot = max(ustravelbackground_foot, pSoldier->GetBackgroundValue(BG_TRAVEL_FOOT));
+			ustravelbackground_car  = max(ustravelbackground_car,  pSoldier->GetBackgroundValue(BG_TRAVEL_CAR));
+			ustravelbackground_air  = max(ustravelbackground_air,  pSoldier->GetBackgroundValue(BG_TRAVEL_AIR));
 
 			curr = curr->next;
 		}
 		// yes, we have...
-		if( ubRangerHere > 0 )
+		if( ubRangerHere || ustravelbackground_foot || ustravelbackground_car || ustravelbackground_air )
 		{
 			// no more than certain number of simultaneous bonuses
 			ubRangerHere = min( gSkillTraitValues.ubRAMaxBonusesToTravelSpeed, ubRangerHere );
+
 			// on foot, the bonus should be higher
 			if( fFoot )
 			{
 				// however, we cannot be quicker than the helicopter
 				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot )) / 100));
+
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ustravelbackground_foot) / 100));
 			}
 			// all other types (except air)
+			else if ( fAir )
+			{
+				// however, we cannot be quicker than the helicopter
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle )) / 100));
+
+				// yes, this background allows us to fly faster :-)
+				iBestTraverseTime = max( 9,  (iBestTraverseTime * (100 - ustravelbackground_air) / 100));
+			}
 			else
 			{
 				// however, we cannot be quicker than the helicopter
 				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle )) / 100));
+
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ustravelbackground_car) / 100));
 			}
 		}
 	}

@@ -1512,6 +1512,7 @@ void MERCPROFILESTRUCT::initialize()
 	clearInventory();
 	// SANDRO - added this
 	memset( &records, 0, sizeof(STRUCT_Records) );
+	memset( &usBackground, 0, sizeof(UINT8) );
 }
 
 // Initialize the soldier.
@@ -2073,6 +2074,9 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 		//ubPoints += 0;
 	}
 	
+	// Flugente: personal AP adjustments
+	ubPoints = (INT16)( (ubPoints * (100 + this->GetAPBonus()) ) / 100);
+
 	// option to make special NPCs stronger - AP bonus
 	if ( this->ubProfile != NO_PROFILE && gGameExternalOptions.usSpecialNPCStronger > 0 )
 	{ 
@@ -2191,6 +2195,9 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 			// Nothing here
 			//MaxActionPnts += 0;
 		}
+
+		// Flugente: personal AP adjustments
+		usMaxActionPnts = (INT16)( (usMaxActionPnts * (100 + this->GetAPBonus()) ) / 100);
 
 		// option to make special NPCs stronger - AP bonus
 		if ( this->ubProfile != NO_PROFILE && gGameExternalOptions.usSpecialNPCStronger > 0 )
@@ -7426,6 +7433,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		// If an AI guy, and we have 0 life, and are still at higher hieght,
 		// Kill them.....
 
+		// Flugente: update for various personal properties
+		// this has to happen before CalculateCarriedWeight(), otherwise strength modfiers will not be detected correctly
+		this->SoldierPropertyUpkeep();
 
 		this->sWeightCarriedAtTurnStart = (INT16) CalculateCarriedWeight( this );
 
@@ -8492,6 +8502,8 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	bLifeDef = 50 - ( pStatsSoldier->stats.bLife / 2 );
 
 	uiTerrainDelay += ( bLifeDef + bBreathDef + bAgilDef + bAdditional );
+	
+	uiTerrainDelay = (uiTerrainDelay * (100 + pSoldier->GetBackgroundValue(BG_PERC_SPEED_RUNNING) )) / 100;
 
 	pSoldier->sAniDelay = (INT16)uiTerrainDelay;
 
@@ -12443,7 +12455,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	if (!(fOnSurgery) && gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( this, DOCTOR_NT ))
 	{
 		uiPossible = uiPossible * (100 - gSkillTraitValues.bSpeedModifierBandaging) / 100;
-		uiPossible += ( uiPossible * gSkillTraitValues.ubDOBandagingSpeedPercent * NUM_SKILL_TRAITS( this, DOCTOR_NT ) / 100);
+		uiPossible += ( uiPossible * gSkillTraitValues.ubDOBandagingSpeedPercent * NUM_SKILL_TRAITS( this, DOCTOR_NT ) + this->GetBackgroundValue(BG_PERC_BANDAGING) ) / 100;
 	}
 
 	uiActual = uiPossible;		// start by assuming maximum possible
@@ -13745,7 +13757,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 	// handle flashlight. This is necessary in this location, as we need to do this at least once per turn
 	this->HandleFlashLights();
 
-	if ( !gGameOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
+	if ( !gGameExternalOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
 		return;
 
 	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
@@ -13776,7 +13788,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 			if ( pObj != NULL )														// ... if pointer is not obviously useless ...
 			{
 				// ... if Item exists and is a gun, a launcher or a barrel ...
-				if ( gGameOptions.fWeaponOverheating && ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pObj->usItem].barrel == TRUE ) )
+				if ( gGameExternalOptions.fWeaponOverheating && ( Item[pObj->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pObj->usItem].barrel == TRUE ) )
 				{
 					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
 					{
@@ -14070,6 +14082,8 @@ INT32 SOLDIERTYPE::GetDamageResistance(BOOLEAN fAutoResolve, BOOLEAN fCalcBreath
 
 	// Flugente: drugs can now have an effect on damage resistance
 	HandleDamageResistanceEffectDueToDrugs(this, &resistance);
+	
+	resistance += this->GetBackgroundValue(BG_RESI_PHYSICAL);
 
 	// resistance is between -100% and 100%
 	resistance = max(  0, resistance);
@@ -14091,6 +14105,11 @@ INT8	SOLDIERTYPE::GetHearingBonus()
 
 	if ( gMercProfiles[ this->ubProfile ].bDisability == DEAF )
 		bonus -= 5;
+
+	if ( NightTime() )
+		bonus += this->GetBackgroundValue(BG_PERC_HEARING_NIGHT);
+	else
+		bonus += this->GetBackgroundValue(BG_PERC_HEARING_DAY);
 	
 	return bonus;
 }
@@ -14125,7 +14144,7 @@ INT16	SOLDIERTYPE::GetPoisonResistance( void )
 	// Flugente: resistance can per definition only be between -100 and 100 (at least that's my definition)
 	INT16 val = bPoisonResistance;
 	
-	// without WH40K, there are no modifiers
+	val += this->GetBackgroundValue(BG_RESI_POISON);
 
 	val = max(-100, val);
 	val = min(100, val);
@@ -16360,6 +16379,13 @@ void SOLDIERTYPE::AddDrugValues(UINT8 uDrugType, UINT8 usEffect, UINT8 usTravelR
 	if ( uDrugType >= DRUG_TYPE_MAX )
 		return;
 
+	// Flugente: backgrounds
+	if ( this->ubProfile != NOBODY && uDrugType == DRUG_TYPE_ALCOHOL )
+	{
+		usEffect		= usEffect		* ((100 - this->GetBackgroundValue(BG_RESI_ALCOHOL)) / 100);
+		usSideEffect	= usSideEffect	* ((100 - this->GetBackgroundValue(BG_RESI_ALCOHOL)) / 100);
+	}
+
 	// Add effects
 	if ( ( this->drugs.bFutureDrugEffect[ uDrugType ] + usEffect ) < 127 )
 	{
@@ -16563,6 +16589,134 @@ INT8 SOLDIERTYPE::GetSoldierProfileType(UINT8 usTeam)
 	}
 
 	return type;
+}
+
+// Flugente: do we have a specific background flag?
+BOOLEAN SOLDIERTYPE::HasBackgroundFlag( UINT64 aFlag)
+{
+	if ( gGameOptions.fBackGround && this->ubProfile != NO_PROFILE )
+	{
+		if ( zBackground[ gMercProfiles[this->ubProfile].usBackground ].uiFlags & aFlag )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+INT16 SOLDIERTYPE::GetBackgroundValue( UINT16 aNr )
+{
+	if ( gGameOptions.fBackGround && this->ubProfile != NO_PROFILE )
+	{
+		return zBackground[ gMercProfiles[this->ubProfile].usBackground ].value[aNr];
+	}
+
+	return 0;
+}
+
+INT8 SOLDIERTYPE::GetSuppressionResistanceBonus()
+{
+	INT8 bonus = 0;
+	
+	bonus += this->GetBackgroundValue(BG_RESI_SUPPRESSION);
+
+	return min( 100, max( -100, bonus) );
+}
+
+INT16 SOLDIERTYPE::GetMeleeDamageBonus()
+{
+	INT8 bonus = 0;
+
+	bonus += this->GetBackgroundValue(BG_PERC_DAMAGE_MELEE);
+
+	return bonus;
+}
+
+INT16	SOLDIERTYPE::GetAPBonus()
+{
+	INT16 bonus = 0;
+	
+	if ( this->bSoldierFlagMask & SOLDIER_AIRDROP_BONUS )
+		bonus += this->GetBackgroundValue(BG_AIRDROP);
+
+	if ( this->bSoldierFlagMask & SOLDIER_ASSAULT_BONUS )
+		bonus += this->GetBackgroundValue(BG_ASSAULT);
+	
+	UINT8 ubSector = (UINT8)SECTOR( this->sSectorX, this->sSectorY );
+	UINT8 ubTraverseType = SectorInfo[ ubSector ].ubTraversability[ ubDirection ];
+			
+	switch ( ubTraverseType )
+	{
+	case NS_RIVER:
+	case EW_RIVER:
+		bonus += this->GetBackgroundValue(BG_RIVER);
+		break;
+	case COASTAL:
+	case COASTAL_ROAD:
+		bonus += this->GetBackgroundValue(BG_COASTAL);
+		break;
+	case TROPICS_SAM_SITE:
+		bonus += this->GetBackgroundValue(BG_COASTAL);
+		bonus += this->GetBackgroundValue(BG_TROPICAL);
+		break;
+	case TROPICS:
+	case TROPICS_ROAD:
+		bonus += this->GetBackgroundValue(BG_TROPICAL);
+		break;
+	case HILLS:
+	case HILLS_ROAD:
+		bonus += this->GetBackgroundValue(BG_MOUNTAIN);
+		break;
+	case SWAMP:
+	case SWAMP_ROAD:
+		bonus += this->GetBackgroundValue(BG_SWAMP);
+		break;
+	case SAND:
+	case SAND_ROAD:
+	case SAND_SAM_SITE:
+		bonus += this->GetBackgroundValue(BG_DESERT);
+		break;
+	case TOWN:
+	case CAMBRIA_HOSPITAL_SITE:
+	case DRASSEN_AIRPORT_SITE:
+	case MEDUNA_AIRPORT_SITE:
+		bonus += this->GetBackgroundValue(BG_URBAN);
+		break;
+	default:
+		break;
+	}
+	
+	if ( this->pathing.bLevel )
+		bonus += this->GetBackgroundValue(BG_HEIGHT);
+		
+	return bonus;
+}
+
+INT8	SOLDIERTYPE::GetFearResistanceBonus()
+{
+	INT8 bonus = 0;
+	
+	bonus += this->GetBackgroundValue(BG_RESI_FEAR);
+	
+	return min(100, max(-100, bonus));
+}
+
+UINT8	SOLDIERTYPE::GetMoraleThreshold()
+{
+	UINT8 threshold		= 100;
+	UINT8 moraledamage	= 0;
+		
+	moraledamage = (moraledamage * (100 - GetFearResistanceBonus())) / 100;
+		
+	return min(threshold, max(0, threshold - moraledamage));
+}
+
+void SOLDIERTYPE::SoldierPropertyUpkeep()
+{
+	// these flags are only used for the first turn, and thus always removed
+	this->bSoldierFlagMask &= ~(SOLDIER_AIRDROP_BONUS|SOLDIER_ASSAULT_BONUS);
+
+	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
+		++bExtraExpLevel;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

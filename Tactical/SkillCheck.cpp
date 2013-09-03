@@ -16,6 +16,7 @@
 	#include "GameSettings.h"
 	#include "Animation Data.h"
 	#include "Soldier Control.h"
+#include "Interface.h"				// added by Flugente for zBackground
 #endif
 
 extern void ReducePointsForHunger( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
@@ -47,6 +48,8 @@ INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 	{
 		iEffStrength = 0;
 	}
+	
+	iEffStrength = (iEffStrength * (100 + pSoldier->GetBackgroundValue(BG_STRENGTH))) / 100;
 
 	// ATE: Make sure at least 2...
 	iEffStrength = __max( iEffStrength, 2 );
@@ -84,6 +87,8 @@ INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 		iEffAgility = (iEffAgility * 100) / pSoldier->sWeightCarriedAtTurnStart;
 	}
 
+	iEffAgility = (iEffAgility * (100 + pSoldier->GetBackgroundValue(BG_AGILITY))) / 100;
+
 	return( (INT16) iEffAgility );
 }
 
@@ -95,6 +100,8 @@ INT8 EffectiveMechanical( SOLDIERTYPE * pSoldier )
 	iEffMechanical = pSoldier->stats.bMechanical;
 
 	iEffMechanical = EffectStatForBeingDrunk( pSoldier, iEffMechanical );
+
+	iEffMechanical = (iEffMechanical * (100 + pSoldier->GetBackgroundValue(BG_MECHANICAL))) / 100;
 
 	return( (INT8) iEffMechanical );
 }
@@ -108,6 +115,8 @@ INT8 EffectiveExplosive( SOLDIERTYPE * pSoldier )
 
 	iEffExplosive = EffectStatForBeingDrunk( pSoldier, iEffExplosive );
 
+	iEffExplosive = (iEffExplosive * (100 + pSoldier->GetBackgroundValue(BG_EXPLOSIVE_ASSIGN))) / 100;
+
 	return( (INT8) iEffExplosive );
 }
 
@@ -119,6 +128,8 @@ INT8 EffectiveMedical( SOLDIERTYPE * pSoldier )
 	iEffMedical = pSoldier->stats.bMedical;
 
 	iEffMedical = EffectStatForBeingDrunk( pSoldier, iEffMedical );
+
+	iEffMedical = (iEffMedical * (100 + pSoldier->GetBackgroundValue(BG_MEDICAL))) / 100;
 
 	return( (INT8) iEffMedical );
 }
@@ -137,6 +148,8 @@ INT8 EffectiveLeadership( SOLDIERTYPE * pSoldier )
 	{
 		iEffLeadership = ( iEffLeadership * 120 / 100 );
 	}
+
+	iEffLeadership = (iEffLeadership * (100 + pSoldier->GetBackgroundValue(BG_LEADERSHIP))) / 100;
 
 	return( (INT8) iEffLeadership );
 }
@@ -206,6 +219,8 @@ INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier )
 
 	iEffMarksmanship = EffectStatForBeingDrunk( pSoldier, iEffMarksmanship );
 
+	iEffMarksmanship = (iEffMarksmanship * (100 + pSoldier->GetBackgroundValue(BG_MARKSMANSHIP))) / 100;
+
 	return( (INT8) iEffMarksmanship );
 }
 
@@ -219,6 +234,8 @@ INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer )
 		iEffDexterity += pSoldier->bExtraDexterity;
 
 	iEffDexterity = EffectStatForBeingDrunk( pSoldier, iEffDexterity );
+
+	iEffDexterity = (iEffDexterity * (100 + pSoldier->GetBackgroundValue(BG_DEXTERITY))) / 100;
 
 	return( (INT16) iEffDexterity );
 }

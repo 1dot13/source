@@ -179,8 +179,9 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "sSectorZ")  == 0 ||
 				strcmp(name, "ubCivilianGroup")  == 0 ||
 				strcmp(name, "bTown")  == 0 ||
-				strcmp(name, "bTownAttachment")  == 0
-				
+				strcmp(name, "bTownAttachment")  == 0 ||
+				strcmp(name, "usBackground")  == 0
+												
 				))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -335,6 +336,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].ubCivilianGroup = pData->curProfile.ubCivilianGroup;
 					tempProfiles[pData->curIndex].bTown = pData->curProfile.bTown;
 					tempProfiles[pData->curIndex].bTownAttachment = pData->curProfile.bTownAttachment;
+					tempProfiles[pData->curIndex].usBackground = pData->curProfile.usBackground;
 
 					tempProfiles[pData->curIndex].fGoodGuy = pData->curProfile.fGoodGuy;
 					memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));
@@ -975,6 +977,11 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curProfile.bTownAttachment = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "usBackground") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usBackground = (UINT8) atol(pData->szCharData);
 		}	
 		
 
@@ -1540,7 +1547,8 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<ubCivilianGroup>%d</ubCivilianGroup>\r\n", gMercProfiles[ cnt ].ubCivilianGroup);
 			FilePrintf(hFile,"\t\t<bTown>%d</bTown>\r\n", gMercProfiles[ cnt ].bTown);
 			FilePrintf(hFile,"\t\t<bTownAttachment>%d</bTownAttachment>\r\n", gMercProfiles[ cnt ].bTownAttachment);
-
+			FilePrintf(hFile,"\t\t<usBackground>%d</usBackground>\r\n", gMercProfiles[ cnt ].usBackground);
+			
 
 			FilePrintf(hFile,"\t</PROFILE>\r\n");
 		}

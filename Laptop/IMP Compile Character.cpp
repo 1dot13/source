@@ -173,6 +173,9 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	else
 		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAttitude = ( INT8 )iAttitude;
 
+	// Flugente: background
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usBackground = ( INT8 )usBackground;
+
 	// WDS: Advanced start 
 	//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = StartingLevelChosen(); // We now choose the starting level on IMP creation - SANDRO

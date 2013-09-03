@@ -1783,6 +1783,11 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				{
 					pSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( pSoldier ) / 20) + (EffectiveExpLevel( pSoldier ) / 3) );
 				}
+
+				// Flugente: backgrounds
+				if ( pSoldier->HasBackgroundFlag( BACKGROUND_TRAPLEVEL ) )
+					pSoldier->inv[ HANDPOS ][0]->data.bTrap++;
+
 				pSoldier->inv[ HANDPOS ][0]->data.misc.ubBombOwner = pSoldier->ubID + 2;
 
 				// Flugente: determine the direction we are looking at and apply that direction to our explosive
@@ -4993,6 +4998,10 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				{
 					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) );
 				}
+
+				// Flugente: backgrounds
+				if ( gpTempSoldier->HasBackgroundFlag( BACKGROUND_TRAPLEVEL ) )
+					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap++;
 				
 				// HACK IMMINENT!
 				// value of 1 is stored in maps for SIDE of bomb owner... when we want to use IDs!

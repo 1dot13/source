@@ -31,6 +31,7 @@
 	#include "IMP Disability Trait.h"
 	#include "IMP Color Choosing.h"
 	#include "IMP Minor Trait.h"
+	#include "IMP Background.h"		// added by Flugente
 #endif
 
 
@@ -76,6 +77,8 @@ INT32 iPersonality = 0;
 // attitude
 INT32 iAttitude = 0;
 
+// Flugente: background
+UINT8 usBackground = 0;
 
 // additives, but no preservatives
 INT32 iAddStrength = 0;
@@ -274,6 +277,9 @@ void HandleCharProfile()
 		case( IMP_MINOR_TRAITS_PAGE ):
 			HandleIMPMinorTrait( );
 		break;
+		case( IMP_BACKGROUND ):
+			HandleIMPBackground( );
+		break;
 	}
 
 	return;
@@ -349,6 +355,9 @@ void RenderCharProfile()
 		break;
 		case( IMP_MINOR_TRAITS_PAGE ):
 			RenderIMPMinorTrait( );
+		break;
+		case( IMP_BACKGROUND ):
+			RenderIMPBackground( );
 		break;
 	}
 
@@ -455,6 +464,10 @@ void ExitOldIMPMode( void )
 			DestroyIMPButtons( );
 			ExitIMPMinorTrait( );
 		break;
+		case( IMP_BACKGROUND ):
+			DestroyIMPButtons( );
+			ExitIMPBackground( );
+		break;
 	}
 
 	return;
@@ -542,6 +555,10 @@ void EnterNewIMPMode( void )
 			CreateIMPButtons( );
 			EnterIMPMinorTrait( );
 		break;
+		case( IMP_BACKGROUND ):
+			CreateIMPButtons( );
+			EnterIMPBackground( );
+		break;
 	}
 
 
@@ -577,11 +594,12 @@ void ResetCharacterStats( void )
 	// attitude
 	iAttitude = 0;
 
+	// background
+	usBackground = 0;
+
 	// names
 	memset( &pFullName, 0 , sizeof( pFullName) );
 	memset( &pNickName, 0 , sizeof( pNickName) );
-
-
 }
 
 

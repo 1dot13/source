@@ -998,11 +998,17 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #endif
 	}
 
-		// IMP Portraits List by Jazz
-		strcpy(fileName, directoryName);
-		strcat(fileName, IMPPORTRAITS);
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInIMPPortraits(fileName,FALSE), IMPPORTRAITS);
+	// Flugente: backgrounds
+	strcpy(fileName, directoryName);
+	strcat(fileName, BACKGROUNDSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInBackgrounds(fileName), BACKGROUNDSFILENAME);
+
+	// IMP Portraits List by Jazz
+	strcpy(fileName, directoryName);
+	strcat(fileName, IMPPORTRAITS);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInIMPPortraits(fileName,FALSE), IMPPORTRAITS);
 
 #ifndef ENGLISH
 		AddLanguagePrefix(fileName);

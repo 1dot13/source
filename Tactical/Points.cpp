@@ -349,15 +349,18 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 		}
 	}
 
+	// Flugente: backgrounds
+	if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+		iPoints = (iPoints * (100 + pSoldier->GetBackgroundValue(BG_SWIMMING))) / 100;
+	
 	// ATE: Adjust these by realtime movement
- if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
- {
+	 if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
+	 {
 		// ATE: ADJUST FOR RT - MAKE BREATH GO A LITTLE FASTER!
 	 	// silversurfer: now externalized to APBPConstants.ini
 		//iPoints	= (INT32)( iPoints * TB_BREATH_DEDUCT_MODIFIER );
 		iPoints	= (INT32)( iPoints * APBPConstants[BP_RT_BREATH_DEDUCT_MODIFIER] / 100 );
- }
-
+	 }
 
 	return( (INT16) iPoints);
 }
@@ -476,6 +479,10 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 				sPoints *= 2;
 			}
 		}
+
+		// Flugente: swimming background
+		if ( TERRAIN_IS_HIGH_WATER( ubTerrainID) )
+			sPoints = (sPoints * (100 + pSoldier->GetBackgroundValue(BG_SWIMMING))) / 100;
 
 		// Check if doors if not player's merc (they have to open them manually)
 		if ( sSwitchValue == TRAVELCOST_DOOR && pSoldier->bTeam != gbPlayerNum )
@@ -831,6 +838,9 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 		// Flugente: ubMaxMorale can now be influenced by our food situation
 		if ( iBPCost < 0 && gGameOptions.fFoodSystem )
 			ReduceBPRegenForHunger(pSoldier, &iBPCost);
+
+		// Flugente: backgrounds
+		iBPCost = (INT32) (iBPCost * (100 + pSoldier->GetBackgroundValue(BG_PERC_REGEN_ENERGY)) / 100);
 
 		if (is_networked)
 		{
@@ -2250,9 +2260,9 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWRocketLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for mortar - Heavy Weapons
-			else if ( Item[usUBItem].mortar && HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ) )
+			else if ( Item[usUBItem].mortar )
 			{
-				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWMortarAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100)+ 0.5);
+				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubHWMortarAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) + pSoldier->GetBackgroundValue(BG_ARTILLERY) ) / 100)+ 0.5);
 			}
 			// Decreased APs needed for pistols and machine pistols - Gunslinger
 			else if (Weapon[ usUBItem ].ubWeaponType == GUN_PISTOL && HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) )
@@ -3752,6 +3762,11 @@ INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
 	case MTA_FILL_SANDBAG:
 		sAPCost += APBPConstants[AP_FILL_SANDBAG];
 		break;
+	}
+
+	if ( usActionType == MTA_FORTIFY || usActionType == MTA_REMOVE_FORTIFY || usActionType == MTA_FILL_SANDBAG )
+	{
+		sAPCost = (sAPCost * (100 + pSoldier->GetBackgroundValue(BG_FORTIFY))) / 100;
 	}
 
 	return sAPCost;

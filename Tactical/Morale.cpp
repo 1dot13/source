@@ -357,6 +357,9 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 	if ( gGameOptions.fFoodSystem )
 		FoodMaxMoraleModifiy(pSoldier, &ubMaxMorale);
 
+	// Flugente: max morale can be lowered
+	iActualMorale = min(iActualMorale, pSoldier->GetMoraleThreshold() );
+
 	if (ubMaxMorale > 0 && iActualMorale > ubMaxMorale)
 	{
 		// Normalize to Max Morale
@@ -1091,6 +1094,9 @@ void HourlyMoraleUpdate( void )
 					{
 						bOpinion = 0;
 					}
+
+					if ( pSoldier->HasBackgroundFlag( BACKGROUND_XENOPHOBIC ) && pOtherSoldier->ubProfile != NO_PROFILE && gMercProfiles[pSoldier->ubProfile].usBackground != gMercProfiles[pOtherSoldier->ubProfile].usBackground )
+						bOpinion -= 2;
 
 					if (bOpinion == HATED_OPINION)
 					{

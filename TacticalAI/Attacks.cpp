@@ -2137,6 +2137,9 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 		}
 	}
 
+	// Flugente: Add personal damage bonus
+	iImpact = (iImpact * (100 + pSoldier->GetMeleeDamageBonus() ) / 100);
+
 	if (iImpact < 1)
 	{
 		iImpact = 1;

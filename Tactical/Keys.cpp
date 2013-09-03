@@ -741,7 +741,8 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 		return( FALSE );
 	}
 
-	iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, 0 );
+	// Flugente: flat bonus to using door breaching charges
+	iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, pSoldier->GetBackgroundValue(BG_BONUS_BREACHINGCHARGE) );
 	if (iResult >= -20)
 	{
 		// Do explosive graphic....

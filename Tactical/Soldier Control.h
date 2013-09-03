@@ -370,9 +370,9 @@ enum
 #define SOLDIER_REDOFLASHLIGHT		0x00008000	//32768		// this flag signifies that we somehow interacted with the items in our hands. Thus we have to possible redo lighting from flashlights
 
 #define SOLDIER_LIGHT_OWNER			0x00010000	//65536		// we 'own' at least one light source (via flashlights)
-/*#define PLAYER_NET_2_LVL_1      0x00020000	//131072
-#define PLAYER_NET_3_LVL_1		0x00040000	//262144
-#define PLAYER_NET_4_LVL_1		0x00080000	//524288
+#define SOLDIER_AIRDROP_BONUS       0x00020000	//131072	// backgrounds: special AP bonus during the first turn of an airdrop
+#define SOLDIER_ASSAULT_BONUS		0x00040000	//262144	// backgrounds: our first turn in an assault
+/*#define PLAYER_NET_4_LVL_1		0x00080000	//524288
 
 #define PLAYER_NET_1_LVL_2		0x00100000	//1048576
 #define PLAYER_NET_2_LVL_2		0x00200000	//2097152
@@ -389,6 +389,22 @@ enum
 #define WH40K_SOLDIER_ILLUSION				0x40000000	//1073741824	// Soldier is an Illusion
 #define WH40K_SOLDIER_KILLTHISTURN			0x80000000	//2147483648	// Soldier is on a kill streak*/
 // ----------------------------------------------------------------
+
+// -------- added by Flugente: background property flags --------
+// easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+// a merc's background info reveals data about his previous life, like former regiments. These backgrounds add small abilities/disabilities. Nothing substantial, just small bits do
+// diversify your mercs and add more personality
+#define BACKGROUND_DRUGUSE						0x0000000000000001	//1				// might use drugs on his own (the 'Larry'-effect)
+#define BACKGROUND_XENOPHOBIC					0x0000000000000002	//2				// arrogant towards others without this background
+#define BACKGROUND_EXP_UNDERGROUND				0x0000000000000004	//4				// extra level in underground sectors
+#define BACKGROUND_SCROUNGING					0x0000000000000008	//8				// might pick up valuable items on his own
+
+#define BACKGROUND_TRAPLEVEL					0x0000000000000010	//16			// trap level +1
+#define BACKGROUND_CORRUPTIONSPREAD				0x0000000000000020	//32			// spreads corruption to others	- not used in trunk!
+//#define BACKGROUND_XENOPHOBIC   				0x0000000000000040	//64			// arrogant towards others without this background
+//#define BACKGROUND_CAPITULATION				0x0000000000000080	//128			// if present, the team's surrender strength is higher
+
+#define BACKGROUND_FLAG_MAX	6					// number of flagged backgrounds - keep this updated, or properties will get lost!
 
 // Flugente: types of multi-turn actions
 enum
@@ -1573,6 +1589,19 @@ public:
 
 	// Flugente: soldier profiles
 	INT8		GetSoldierProfileType(UINT8 usTeam);		// retrieves the correct sub-array
+
+	// Flugente: do we have a specific background flag?
+	BOOLEAN		HasBackgroundFlag( UINT64 aFlag );
+	INT16		GetBackgroundValue( UINT16 aNr );
+
+	INT8		GetSuppressionResistanceBonus();			// bonus to resistance against suppression
+	INT16		GetMeleeDamageBonus();
+	INT16		GetAPBonus();
+	INT8		GetFearResistanceBonus();					// fear resistance lowers shock and morale damage from horror
+	UINT8		GetMoraleThreshold();
+
+	void		SoldierPropertyUpkeep();					// update functions for various properties (updating counters, resetting flags etc.)
+
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

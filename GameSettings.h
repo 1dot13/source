@@ -230,7 +230,7 @@ typedef struct
 
 	BOOLEAN fUseNCTH;					// ubFiller:	From 499 to 498
 	BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
-	BOOLEAN fWeaponOverheating;			// ubFiller:	From 497 to 496
+	BOOLEAN fBackGround;				// ubFiller:	From 497 to 496
 	BOOLEAN fFoodSystem;				// ubFiler:		From 496 to 495
 	
 	// WANNE: Decrease this filler by 1, for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
@@ -1206,6 +1206,7 @@ typedef struct
 	FLOAT fClockSpeedPercent;
 
 	// Flugente: Weapon Overheating
+	BOOLEAN	fWeaponOverheating;						// Should weapons overheat, thus increasing the chance of malfunction?
 	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?
 	UINT8	ubOverheatThermometerRedOffset;			// amount of red colour while temperature is below threshold
 	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels left alone in the landscape ;-)

@@ -46,6 +46,9 @@ extern INT32 iPersonality;
 // attitude
 extern INT32 iAttitude;
 
+// Flugente: background
+extern UINT8 usBackground;
+
 //addtivies
 extern INT32 iAddStrength;
 extern INT32 iAddDexterity;
@@ -85,6 +88,7 @@ enum{
 	IMP_DISABILITY_PAGE,
 	IMP_COLOR_CHOICE_PAGE,
 	IMP_MINOR_TRAITS_PAGE,
+	IMP_BACKGROUND,
 
 	IMP_NUM_PAGES,
 };

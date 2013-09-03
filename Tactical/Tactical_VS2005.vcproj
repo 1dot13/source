@@ -1013,6 +1013,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Background.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_BurstSounds.cpp"
 				>
 			</File>

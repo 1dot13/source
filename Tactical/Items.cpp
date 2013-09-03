@@ -3125,6 +3125,8 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	{
 		ubStrengthForCarrying = (ubStrengthForCarrying * (100 + gSkillTraitValues.ubBBCarryWeightBonus) / 100); // plus one third
 	}
+	
+	ubStrengthForCarrying = (ubStrengthForCarrying * (100 + pSoldier->GetBackgroundValue(BG_PERC_CARRYSTRENGTH)) / 100);
 
 	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
 	// instead of multiplying by 100 for percent, and then dividing by 10 to account
@@ -13348,7 +13350,9 @@ INT16 GetWornStealth( SOLDIERTYPE * pSoldier )
 
 	// Add some default stealth ability to mercs with STEALTHY trait - SANDRO 
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
-		ttl += gSkillTraitValues.ubSTStealthBonus; 
+		ttl += gSkillTraitValues.ubSTStealthBonus;
+
+	ttl += pSoldier->GetBackgroundValue(BG_PERC_STEALTH);
 
 	return __min( ttl, 100 );
 }
@@ -13643,7 +13647,7 @@ INT32 GetGunAccuracy( OBJECTTYPE *pObj )
 {
 	// Flugente: If overheating is allowed, an overheated gun receives a slight malus to accuracy
 	FLOAT accuracyheatmultiplicator = 1.0;
-	if ( gGameOptions.fWeaponOverheating )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		FLOAT overheatdamagepercentage = GetGunOverheatDamagePercentage( pObj );
 		FLOAT accuracymalus = (max(1.0f, overheatdamagepercentage) - 1.0f) * 0.1f;

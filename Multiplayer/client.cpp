@@ -2585,7 +2585,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 
 		gGameOptions.fUseNCTH = FALSE;
 		gGameOptions.fImprovedInterruptSystem = FALSE;
-		gGameOptions.fWeaponOverheating = FALSE;
+		gGameOptions.fBackGround = FALSE;
 		gGameOptions.fFoodSystem = FALSE;
 
 
@@ -2808,7 +2808,7 @@ void reapplySETTINGS()
 
 	gGameOptions.fUseNCTH = FALSE;
 	gGameOptions.fImprovedInterruptSystem = FALSE;
-	gGameOptions.fWeaponOverheating = FALSE;
+	gGameOptions.fBackGround = FALSE;
 	gGameOptions.fFoodSystem = FALSE;
 
 	// WANNE - MP: We have to re-initialize the correct interface

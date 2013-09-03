@@ -35,7 +35,10 @@
 #include "Soldier Macros.h"
 #include "InterfaceItemImages.h"
 
+#include "IMP Skill Trait.h"		// added by Flugente
 #include "Map Screen Interface.h"	// added by Flugente
+#include "Interface.h"				// added by Flugente
+#include "IMP Background.h"			// added by Flugente for AssignBackgroundHelpText()
 
 
 // WDS - make number of mercenaries, etc. be configurable
@@ -1671,6 +1674,44 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+		break;
+
+		// Added by Flugente
+		case 16:
+		// Background
+
+			// display background
+			if ( gGameOptions.fBackGround )
+			{
+				UINT8 loc = 21;
+				UINT8 regionnr = 12;
+
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), L"Background:");
+							
+				if ( !gMercProfiles[pSoldier->ubProfile].usBackground )
+					swprintf(sString, L"unknown");
+				else
+					swprintf(sString, zBackground[ gMercProfiles[pSoldier->ubProfile].usBackground ].szShortName);
+
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+				mprintf(sX,(pPersonnelScreenPoints[loc].y + 15),sString);
+
+				// Add specific region for fast help window
+				if( fAddedTraitRegion[regionnr] )
+				{
+					MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				}
+				MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 15),
+								( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 23 ), MSYS_PRIORITY_HIGH,
+									MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+
+				MSYS_AddRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				fAddedTraitRegion[regionnr] = TRUE;
+
+				// Info about our background
+				AssignBackgroundHelpText( gMercProfiles[pSoldier->ubProfile].usBackground, &(gSkillTraitHelpTextRegion[12]) );
+			}
+			
 		break;
 
 		/////////////////////////////////////////////////////////////////////////
@@ -8664,5 +8705,3 @@ INT8 CalculateMercsAchievemntPercentage( INT32 IMercId )
 	else
 		return( 0 );
 }
-
-

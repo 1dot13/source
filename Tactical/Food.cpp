@@ -369,10 +369,13 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 		++sectortemperaturemod;
 
 	FLOAT  temperaturemodifier  = (FLOAT)(3 + sectortemperaturemod)/3;
-
+	
+	FLOAT specialfoodmodifier  = (100 + pSoldier->GetBackgroundValue(BG_PERC_FOOD) ) / 100;
+	FLOAT specialdrinkmodifier = (100 + pSoldier->GetBackgroundValue(BG_PERC_WATER)) / 100;
+	
 	// due to digestion, reduce our food and drink levels
-	pSoldier->bFoodLevel  = max(pSoldier->bFoodLevel  - (INT32) (activitymodifier * gGameExternalOptions.usFoodDigestionHourlyBaseFood), FOOD_MIN);
-	pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel - (INT32) (activitymodifier * temperaturemodifier * gGameExternalOptions.usFoodDigestionHourlyBaseDrink), FOOD_MIN);
+	pSoldier->bFoodLevel  = max(pSoldier->bFoodLevel  - (INT32) (specialfoodmodifier  * activitymodifier * gGameExternalOptions.usFoodDigestionHourlyBaseFood), FOOD_MIN);
+	pSoldier->bDrinkLevel = max(pSoldier->bDrinkLevel - (INT32) (specialdrinkmodifier * activitymodifier * temperaturemodifier * gGameExternalOptions.usFoodDigestionHourlyBaseDrink), FOOD_MIN);
 
 	// there is a chance that we take damage to our health and strength stats if we are starving (or insanely obese :-) )
 	UINT8 foodsituation;

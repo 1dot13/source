@@ -192,6 +192,7 @@
     <ClCompile Include="XML_AttachmentInfo.cpp" />
     <ClCompile Include="XML_Attachments.cpp" />
     <ClCompile Include="XML_AttachmentSlots.cpp" />
+    <ClCompile Include="XML_Background.cpp" />
     <ClCompile Include="XML_BurstSounds.cpp" />
     <ClCompile Include="XML_CivGroupNames.cpp" />
     <ClCompile Include="XML_Clothes.cpp" />

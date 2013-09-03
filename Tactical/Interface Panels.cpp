@@ -3880,7 +3880,10 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if (INV_AP_COST)
 					//Jenilee: determine the cost of moving this item around in our inventory
 					usCostToMoveItem = GetInvMovementCost(gpItemPointer, uiLastHandPos, uiHandPos);
-
+				
+				// Flugente: backgrounds
+				usCostToMoveItem = (usCostToMoveItem * (100 + gpSMCurrentMerc->GetBackgroundValue(BG_INVENTORY))) / 100;
+				
 				if ( ( usCostToMoveItem == 0 ) || ( gpSMCurrentMerc->bActionPoints >= usCostToMoveItem ) )
 				{
 					fOKToGo = TRUE;

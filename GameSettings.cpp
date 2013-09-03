@@ -622,7 +622,7 @@ void InitGameOptions()
 
 	gGameOptions.fUseNCTH = FALSE;
 	gGameOptions.fImprovedInterruptSystem = TRUE;
-	gGameOptions.fWeaponOverheating = TRUE;
+	gGameOptions.fBackGround = FALSE;
 	gGameOptions.fFoodSystem = FALSE;
 
 	//CHRISL: override default inventory mode when in low res
@@ -1476,7 +1476,7 @@ void LoadGameExternalOptions()
 
 	//################# Tactical Weapon Overheating Settings ##################
 	// Flugente: These settings control the behavior of Weapon Overheating, its severity, and its display.
-
+	gGameExternalOptions.fWeaponOverheating								= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING",FALSE);
 	gGameExternalOptions.fDisplayOverheatThermometer					= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER",TRUE);
 	gGameExternalOptions.ubOverheatThermometerRedOffset					= iniReader.ReadInteger("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET", 100, 0, 255);
 	gGameExternalOptions.iCooldownModificatorLonelyBarrel			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL", 1.15f, 1.0f, 10.0f);
