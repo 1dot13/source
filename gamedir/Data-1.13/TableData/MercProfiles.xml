@@ -82,6 +82,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>1</uiIndex>
@@ -166,6 +167,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>12</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>2</uiIndex>
@@ -418,6 +420,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>40</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>5</uiIndex>
@@ -670,6 +673,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>32</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>8</uiIndex>
@@ -754,6 +758,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>36</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>9</uiIndex>
@@ -838,6 +843,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>32</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>10</uiIndex>
@@ -922,6 +928,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>12</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>11</uiIndex>
@@ -1006,6 +1013,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>18</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>12</uiIndex>
@@ -1090,6 +1098,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>13</uiIndex>
@@ -1258,6 +1267,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>11</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>15</uiIndex>
@@ -1342,6 +1352,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>7</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>16</uiIndex>
@@ -1510,6 +1521,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>38</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>18</uiIndex>
@@ -1846,6 +1858,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>3</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>22</uiIndex>
@@ -2098,6 +2111,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>20</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>25</uiIndex>
@@ -2182,6 +2196,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>20</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>26</uiIndex>
@@ -2350,6 +2365,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>15</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>28</uiIndex>
@@ -2434,6 +2450,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>14</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>29</uiIndex>
@@ -2602,6 +2619,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>30</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>31</uiIndex>
@@ -2770,6 +2788,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>16</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>33</uiIndex>
@@ -2938,6 +2957,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>4</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>35</uiIndex>
@@ -3106,6 +3126,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>25</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>37</uiIndex>
@@ -3190,6 +3211,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>31</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>38</uiIndex>
@@ -3778,6 +3800,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>1</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>45</uiIndex>
@@ -3946,6 +3969,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>6</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>47</uiIndex>
@@ -4030,6 +4054,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>6</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>48</uiIndex>
@@ -4198,6 +4223,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>4</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>50</uiIndex>
@@ -4282,6 +4308,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>3</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>51</uiIndex>
@@ -4870,6 +4897,7 @@
 		<ubCivilianGroup>1</ubCivilianGroup>
 		<bTown>1</bTown>
 		<bTownAttachment>90</bTownAttachment>
+		<usBackground>26</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>58</uiIndex>
@@ -4954,6 +4982,7 @@
 		<ubCivilianGroup>1</ubCivilianGroup>
 		<bTown>1</bTown>
 		<bTownAttachment>85</bTownAttachment>
+		<usBackground>26</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>59</uiIndex>
@@ -5038,6 +5067,7 @@
 		<ubCivilianGroup>1</ubCivilianGroup>
 		<bTown>1</bTown>
 		<bTownAttachment>70</bTownAttachment>
+		<usBackground>26</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>60</uiIndex>
@@ -5122,6 +5152,7 @@
 		<ubCivilianGroup>1</ubCivilianGroup>
 		<bTown>1</bTown>
 		<bTownAttachment>79</bTownAttachment>
+		<usBackground>26</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>61</uiIndex>
@@ -5206,6 +5237,7 @@
 		<ubCivilianGroup>16</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>1</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>62</uiIndex>
@@ -5374,6 +5406,7 @@
 		<ubCivilianGroup>17</ubCivilianGroup>
 		<bTown>1</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>27</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>64</uiIndex>
@@ -5458,6 +5491,7 @@
 		<ubCivilianGroup>18</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>65</uiIndex>
@@ -5794,6 +5828,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>12</bTownAttachment>
+		<usBackground>32</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>69</uiIndex>
@@ -5962,6 +5997,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>25</bTownAttachment>
+		<usBackground>15</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
@@ -6298,6 +6334,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>41</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>75</uiIndex>
@@ -6718,6 +6755,7 @@
 		<ubCivilianGroup>14</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>35</bTownAttachment>
+		<usBackground>19</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>80</uiIndex>
@@ -7138,6 +7176,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>9</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>85</uiIndex>
@@ -7306,6 +7345,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>23</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>87</uiIndex>
@@ -7390,6 +7430,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>23</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>88</uiIndex>
@@ -7558,6 +7599,7 @@
 		<ubCivilianGroup>4</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>42</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>90</uiIndex>
@@ -7726,6 +7768,7 @@
 		<ubCivilianGroup>3</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>1</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>92</uiIndex>
@@ -7810,6 +7853,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>21</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>93</uiIndex>
@@ -7894,6 +7938,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>16</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>94</uiIndex>
@@ -7978,6 +8023,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>19</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>95</uiIndex>
@@ -8062,6 +8108,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>96</uiIndex>
@@ -8146,6 +8193,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>1</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>97</uiIndex>
@@ -8230,6 +8278,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>2</bTown>
 		<bTownAttachment>27</bTownAttachment>
+		<usBackground>9</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>98</uiIndex>
@@ -8482,6 +8531,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>2</bTown>
 		<bTownAttachment>67</bTownAttachment>
+		<usBackground>10</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>101</uiIndex>
@@ -8650,6 +8700,7 @@
 		<ubCivilianGroup>11</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>40</bTownAttachment>
+		<usBackground>3</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>103</uiIndex>
@@ -8818,6 +8869,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>105</uiIndex>
@@ -8986,6 +9038,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>8</bTown>
 		<bTownAttachment>37</bTownAttachment>
+		<usBackground>22</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>107</uiIndex>
@@ -9070,6 +9123,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>108</uiIndex>
@@ -9322,6 +9376,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>23</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>111</uiIndex>
@@ -9406,6 +9461,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>31</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>112</uiIndex>
@@ -9574,6 +9630,7 @@
 		<ubCivilianGroup>12</ubCivilianGroup>
 		<bTown>8</bTown>
 		<bTownAttachment>38</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>114</uiIndex>
@@ -9742,6 +9799,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>28</bTownAttachment>
+		<usBackground>40</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>116</uiIndex>
@@ -9910,6 +9968,7 @@
 		<ubCivilianGroup>3</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>118</uiIndex>
@@ -10498,6 +10557,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>18</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>125</uiIndex>
@@ -10582,6 +10642,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>40</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>126</uiIndex>
@@ -10666,6 +10727,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>15</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>127</uiIndex>
@@ -10834,6 +10896,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>45</bTownAttachment>
+		<usBackground>41</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>129</uiIndex>
@@ -10918,6 +10981,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>41</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>130</uiIndex>
@@ -11002,6 +11066,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>20</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>131</uiIndex>
@@ -11170,6 +11235,7 @@
 		<ubCivilianGroup>8</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>34</bTownAttachment>
+		<usBackground>11</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>133</uiIndex>
@@ -11254,6 +11320,7 @@
 		<ubCivilianGroup>2</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>16</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>134</uiIndex>
@@ -11842,6 +11909,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>9</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>141</uiIndex>
@@ -11926,6 +11994,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>8</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>142</uiIndex>
@@ -12010,6 +12079,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>143</uiIndex>
@@ -12094,6 +12164,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>144</uiIndex>
@@ -12178,6 +12249,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>145</uiIndex>
@@ -12262,6 +12334,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>146</uiIndex>
@@ -12430,6 +12503,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>39</bTownAttachment>
+		<usBackground>39</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>148</uiIndex>
@@ -12514,6 +12588,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>20</bTownAttachment>
+		<usBackground>22</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>149</uiIndex>
@@ -12766,6 +12841,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>21</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>152</uiIndex>
@@ -12850,6 +12926,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>21</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>153</uiIndex>
@@ -12934,6 +13011,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>21</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>154</uiIndex>
@@ -13018,6 +13096,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>21</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>155</uiIndex>
@@ -13102,6 +13181,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>4</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>21</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>156</uiIndex>
@@ -13186,6 +13266,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>22</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>157</uiIndex>
@@ -13270,6 +13351,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>30</bTownAttachment>
+		<usBackground>22</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>158</uiIndex>
@@ -13354,6 +13436,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>20</bTownAttachment>
+		<usBackground>22</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>159</uiIndex>
@@ -13942,6 +14025,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>24</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>166</uiIndex>
@@ -14362,6 +14446,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>32</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>171</uiIndex>
@@ -14446,6 +14531,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>32</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>172</uiIndex>
@@ -14530,6 +14616,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>32</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>173</uiIndex>
@@ -14614,6 +14701,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>7</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>174</uiIndex>
@@ -14950,6 +15038,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>42</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>178</uiIndex>
@@ -15034,6 +15123,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>29</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>179</uiIndex>
@@ -15163,14 +15253,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>	
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>249</bHated1>
 		<bHatedTime1>6</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15182,7 +15272,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>
+		<bLearnToHateTime>0</bLearnToHateTime>		
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15247,16 +15337,16 @@
 		<bOldSkillTrait2>12</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait3>16</bNewSkillTrait3>		
 		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>250</bHated1>
-		<bHatedTime1>24</bHatedTime1>
+		<bHatedTime1>24</bHatedTime1>		
 		<bHated2>255</bHated2>
 		<bHatedTime2>0</bHatedTime2>
 		<bHated3>255</bHated3>
@@ -15266,7 +15356,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>
+		<bLearnToHateTime>0</bLearnToHateTime>		
 		<sSalary>300</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15331,14 +15421,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>		
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>221</bHated1>
 		<bHatedTime1>12</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15454,6 +15544,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>33</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>184</uiIndex>
@@ -15499,14 +15590,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>		
 		<bBuddy1>187</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>14</bHated1>
 		<bHatedTime1>36</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15538,6 +15629,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>13</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>185</uiIndex>
@@ -15590,7 +15682,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>179</bHated1>
 		<bHatedTime1>18</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15667,14 +15759,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>		
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>189</bHated1>
 		<bHatedTime1>18</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15920,13 +16012,13 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
-		<bBuddy1>247</bBuddy1>
+		<bBuddy1>247</bBuddy1>		
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>228</bHated1>
 		<bHatedTime1>32</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -16546,6 +16638,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>27</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>197</uiIndex>
@@ -16630,6 +16723,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>27</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>198</uiIndex>
@@ -16714,6 +16808,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>28</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>199</uiIndex>
@@ -18646,6 +18741,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>5</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>222</uiIndex>
@@ -18982,6 +19078,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>11</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>226</uiIndex>
@@ -19402,6 +19499,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>40</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>231</uiIndex>
@@ -19486,6 +19584,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>17</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>232</uiIndex>
@@ -19570,6 +19669,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>24</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>233</uiIndex>
@@ -19738,6 +19838,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>5</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>235</uiIndex>
@@ -19822,6 +19923,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>37</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>236</uiIndex>
@@ -19906,6 +20008,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>9</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>237</uiIndex>
@@ -19990,6 +20093,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>19</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>238</uiIndex>
@@ -20074,6 +20178,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>23</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>239</uiIndex>
@@ -20242,6 +20347,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>8</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>241</uiIndex>
@@ -20546,7 +20652,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>181</bHated1>
 		<bHatedTime1>16</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20558,7 +20664,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>
+		<bLearnToHateTime>0</bLearnToHateTime>	
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -20578,6 +20684,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>5</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>245</uiIndex>
@@ -20630,7 +20737,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>14</bHated1>
 		<bHatedTime1>16</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20642,7 +20749,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>
+		<bLearnToHateTime>0</bLearnToHateTime>		
 		<sSalary>550</sSalary>
 		<uiWeeklySalary>3300</uiWeeklySalary>
 		<uiBiWeeklySalary>6200</uiBiWeeklySalary>
@@ -20714,7 +20821,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>251</bHated1>
 		<bHatedTime1>8</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20726,7 +20833,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>
+		<bLearnToHateTime>0</bLearnToHateTime>		
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>2300</uiWeeklySalary>
 		<uiBiWeeklySalary>4500</uiBiWeeklySalary>
@@ -20798,7 +20905,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>221</bHated1>
 		<bHatedTime1>16</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20830,6 +20937,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>10</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>248</uiIndex>
@@ -20882,7 +20990,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>
+		<bLearnToLikeTime>0</bLearnToLikeTime>		
 		<bHated1>227</bHated1>
 		<bHatedTime1>24</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -21166,6 +21274,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>18</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>252</uiIndex>
@@ -21334,6 +21443,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>2</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>254</uiIndex>

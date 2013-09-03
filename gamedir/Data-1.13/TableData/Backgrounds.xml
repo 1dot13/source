@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>                                                                              
+<BACKGROUNDS>
+  <BACKGROUND>
+    <uiIndex>0</uiIndex>
+    <szName>Background name (128 letters)</szName>
+    <szShortName>short name (20)</szShortName>
+    <szDescription>Enter a description here. This will show up in the laptop and can be up to 256 letters long.</szDescription>
+    
+    <!-- sector dependent AP modifiers, values from -8 to 8-->
+    <ap_polar>0</ap_polar>
+    <ap_desert>0</ap_desert>
+    <ap_swamp>0</ap_swamp>
+    <ap_urban>0</ap_urban>
+    <ap_river>0</ap_river>
+    <ap_coastal>0</ap_coastal>
+    <ap_tropical>0</ap_tropical>
+    <ap_mountain>0</ap_mountain>
+    
+    <!-- stat effectiveness modifiers, values from -10 to 10 -->
+    <agility>0</agility>
+    <strength>0</strength>
+    <dexterity>0</dexterity>
+    <mechanical>0</mechanical>
+    <medical>0</medical>
+    <explosives>0</explosives>
+    <leadership>0</leadership>
+    <marksmanship>0</marksmanship>
+    
+    <!-- +- AP for other tasks-->
+    <ap_height>0</ap_height>                          <!-- +- AP if on a roof, -8 to 8 -->
+    <ap_swimming>0</ap_swimming>                      <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_fortify>0</ap_fortify>                        <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_artillery>0</ap_artillery>                    <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_inventory>0</ap_inventory>                    <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_airdrop>0</ap_airdrop>                        <!-- look into other direction after airdrop + +-AP in first turn after airdrop, -10 to 10 -->
+    <ap_assault>0</ap_assault>                        <!-- +- AP in first turn if attacking, -10 to 10 -->
+    
+    <!-- +-% travel speed modifiers, -20 to 20-->
+    <travel_foot>0</travel_foot>
+    <travel_car>0</travel_car>
+    <travel_air>0</travel_air>
+    <travel_boat>0</travel_boat>                      <!-- no boats exist in the trunk -->
+    
+    <!-- +-% resistances, -20 to 20-->
+    <resistance_poison>0</resistance_poison>
+    <resistance_fear>0</resistance_fear>
+    <resistance_suppression>0</resistance_suppression>
+    <resistance_physical>0</resistance_physical>
+    <resistance_alcohol>0</resistance_alcohol>
+    
+    <!--various boni-->
+    <interrogation>0</interrogation>                  <!-- +- prisoner interrogation strength, -50 to 300 -->
+    <prisonguard>0</prisonguard>                      <!-- +- prison guard strength, -50 to 300 -->
+    <betterprices_guns>0</betterprices_guns>          <!-- +- % prices when trading guns and ammo, -20 to 20 -->
+    <betterprices>0</betterprices>                    <!-- +- % prices when trading armour, lbe, blades, kits etc., -20 to 20 -->
+    <capitulation>0</capitulation>                    <!-- +- % total team strength when asking enemy for surrender, -50 to 100 -->
+    <speed_run>0</speed_run>                          <!-- +- running speed, -50 to 50 -->
+    <speed_bandaging>0</speed_bandaging>              <!-- +- bandaging speed, -50 to 50 -->
+    <drink_energyregen>0</drink_energyregen>          <!-- +- % breath restored by drinking, -80 to 300 -->
+    <carrystrength>0</carrystrength>                  <!-- +- % strength for weight calculations, -50 to 50 -->
+    <food>0</food>                                    <!-- +- % need for food, -50 to 100 -->
+    <water>0</water>                                  <!-- +- % need for water, -50 to 100 -->
+    <sleep>0</sleep>                                  <!-- +- need for sleep, -2 to 2 -->
+    <meleedamage>0</meleedamage>                      <!-- +- damage with melee attacks, -10 to 10 -->
+    <cth_blades>0</cth_blades>                        <!-- +- cth with blade weapons, -10 to 10 -->
+    <camo>0</camo>                                    <!-- +- effectiveness, -20 to 20 -->
+    <stealth>0</stealth>                              <!-- +- effectiveness, -20 to 20 -->
+    <increased_maxcth>0</increased_maxcth>            <!-- +- max possible cth, -5 to 5 -->
+    <hearing_night>0</hearing_night>                  <!-- +- hearing range, -10 to 10 -->
+    <hearing_day>0</hearing_day>                      <!-- +- hearing range, -10 to 10 -->
+        
+    <!-- +- % approach effectiveness, -50 to 50 -->
+    <approach_friendly>0</approach_friendly>
+    <approach_direct>0</approach_direct>
+    <approach_threaten>0</approach_threaten>
+    <approach_recruit>0</approach_recruit>
+    
+    <breachingcharge>0</breachingcharge>              <!-- +- success chance with door braching charges, -100 to 100 -->
+    
+    <!-- on/off properties: 1 for on, 0 for off -->      
+    <druguse>0</druguse>                              <!-- might use drugs from inventory (the 'Larry'-behaviour) -->
+    <xenophobic>0</xenophobic>                        <!-- lower opinion of everybody without this background -->
+    <level_underground>0</level_underground>          <!-- +1 effective level if underground -->
+    <scrounging>0</scrounging>                        <!-- might steal items (and put them in personal inventory) -->
+    <traplevel>0</traplevel>                          <!-- +1 level on bombs planted -->
+    <corruptionspread>0</corruptionspread>            <!-- unused in the trunk -->
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>1</uiIndex>
+    <szName>Arms dealer</szName>
+    <szShortName>Arms dealer</szShortName>
+    <szDescription>Experience earned in years of arms trade leads to better deals when buying and selling guns.</szDescription>
+    <betterprices_guns>10</betterprices_guns>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>2</uiIndex>
+    <szName>Law enforcement</szName>
+    <szShortName>Law enforcement</szShortName>
+    <szDescription>Former law enforcement personnel often seek work in the mercenary world, and are the logical choice for handling captives.</szDescription>
+    <interrogation>150</interrogation>
+    <prisonguard>50</prisonguard>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>3</uiIndex>
+    <szName>Prison guard</szName>
+    <szShortName>Prison guard</szShortName>
+    <szDescription>In longer and larger conflicts, former prison guards are natural choices for running prison camps.</szDescription>
+    <prisonguard>300</prisonguard>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>4</uiIndex>
+    <szName>Gang member</szName>
+    <szShortName>Gang member</szShortName>
+    <szDescription>Becoming a mercenary is a natural step for many gang members - job's the same, tools and pay much better.</szDescription>
+    <approach_threaten>10</approach_threaten>
+    <meleedamage>3</meleedamage>
+    <cth_blades>2</cth_blades>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>5</uiIndex>
+    <szName>Convict</szName>
+    <szShortName>Convict</szShortName>
+    <szDescription>Anyone surviving in a merciless prison is bound to be more dangerous on release - if he survives that long.</szDescription>
+    <resistance_poison>5</resistance_poison>
+    <resistance_physical>2</resistance_physical>
+    <meleedamage>2</meleedamage>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>6</uiIndex>
+    <szName>Drug Addict</szName>
+    <szShortName>Drug Addict</szShortName>
+    <szDescription>Given the nature of today's drugs, addicts can make fearsome, yet unreliable, opponents.</szDescription>
+    <druguse>1</druguse>
+    <scrounging>1</scrounging>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>7</uiIndex>
+    <szName>Nobility</szName>
+    <szShortName>Nobility</szShortName>
+    <szDescription>Some people join this business not out of necessity. While easy to label them as sissy aristocrats, some are actually quite capable, as they have received the best training money can buy.</szDescription>
+    <xenophobic>1</xenophobic>
+    <marksmanship>1</marksmanship>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>8</uiIndex>
+    <szName>Lawyer</szName>
+    <szShortName>Lawyer</szShortName>
+    <szDescription>A somewhat unorthodox background for a mercenary, former lawyers might be useful when there's a deal to be made on a knife's edge.</szDescription>
+    <capitulation>20</capitulation>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>9</uiIndex>
+    <szName>Pilot</szName>
+    <szShortName>Pilot</szShortName>
+    <szDescription>Used to physical stress over long periods, some pilots find the transition to ground combat surprisingly easy.</szDescription>
+    <mechanical>3</mechanical>
+    <travel_air>10</travel_air>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>10</uiIndex>
+    <szName>Priest</szName>
+    <szShortName>Priest</szShortName>
+    <szDescription>Many devout followers of any religion or cult area surprisingly violent and zealous if pushed in the right (or wrong) direction.</szDescription>
+    <approach_recruit>10</approach_recruit>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>11</uiIndex>
+    <szName>Nurse</szName>
+    <szShortName>Nurse</szShortName>
+    <szDescription>While not full-blown doctors, nurses are still in high demand in warzones, due to the grim business.</szDescription>
+    <speed_bandaging>20</speed_bandaging>
+    <medical>7</medical>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>12</uiIndex>
+    <szName>ANC veteran</szName>
+    <szShortName>ANC veteran</szShortName>
+    <szDescription>Militant veterans of the ANC's struggle were not only versed in jungle warfare, but also in political theory.</szDescription>
+    <ap_swamp>3</ap_swamp>
+    <leadership>6</leadership>
+    <approach_recruit>5</approach_recruit>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>13</uiIndex>
+    <szName>Construction work</szName>
+    <szShortName>Construction</szShortName>
+    <szDescription>Construction workers are used to hard labour, and can construct fortifications better than deskjob heroes.</szDescription>
+    <strength>6</strength>
+    <ap_fortify>-10</ap_fortify>
+    <carrystrength>8</carrystrength>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>14</uiIndex>
+    <szName>Skydiver</szName>
+    <szShortName>Skydiver</szShortName>
+    <szDescription>If you want to put your life to risk, might as well earn cash by it...</szDescription>
+    <ap_airdrop>25</ap_airdrop>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>15</uiIndex>
+    <szName>Drill sergeant</szName>
+    <szShortName>Drill sergeant</szShortName>
+    <szDescription>A drill sergeant's job is to create armies and traumatise young men and women.</szDescription>
+    <leadership>6</leadership>
+    <marksmanship>4</marksmanship>
+    <approach_threaten>10</approach_threaten>
+    <approach_recruit>-6</approach_recruit>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>16</uiIndex>
+    <szName>Bouncer</szName>
+    <szShortName>Bouncer</szShortName>
+    <szDescription>Doormen make good soldiers in close combat, though the killing part is a change (hopefully).</szDescription>
+    <meleedamage>4</meleedamage>
+    <dexterity>2</dexterity>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>17</uiIndex>
+    <szName>Hitman</szName>
+    <szShortName>Hitman</szShortName>
+    <szDescription>Professional assassins are obviously used to killing, though might come in conflict with more idealistic team members.</szDescription>
+    <stealth>4</stealth>
+    <marksmanship>2</marksmanship>
+    <approach_friendly>-10</approach_friendly>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>18</uiIndex>
+    <szName>Bomber</szName>
+    <szShortName>Bomber</szShortName>
+    <szDescription>Wether you call them terrorists or freedom fighters often depends on your relation to those killed.</szDescription>
+    <explosives>6</explosives>
+    <breachingcharge>30</breachingcharge>
+    <traplevel>1</traplevel>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>19</uiIndex>
+    <szName>Bodyguard</szName>
+    <szShortName>Bodyguard</szShortName>
+    <szDescription>Superbly trained, utterly loyal, and willing to pay the ultimate price. What more could a potential employer want?.</szDescription>
+    <ap_inventory>-10</ap_inventory>
+    <strength>1</strength>
+    <resistance_physical>3</resistance_physical>
+    <meleedamage>2</meleedamage>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>20</uiIndex>
+    <szName>SWAT Member</szName>
+    <szShortName>SWAT</szShortName>
+    <szDescription>Blurring the line between police and military, SWAT teams are used in urban operations too dangerous for normal law enforcement.</szDescription>
+    <ap_urban>2</ap_urban>
+    <ap_assault>2</ap_assault>
+    <interrogation>75</interrogation>
+    <prisonguard>50</prisonguard>
+    <breachingcharge>70</breachingcharge>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>21</uiIndex>
+    <szName>Barkeeper</szName>
+    <szShortName>Barkeeper</szShortName>
+    <szDescription>A friendly face can make violence unnecessary...</szDescription>
+    <betterprices>4</betterprices>
+    <approach_friendly>15</approach_friendly>
+    <approach_recruit>5</approach_recruit>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>22</uiIndex>
+    <szName>Miner</szName>
+    <szShortName>Miner</szShortName>
+    <szDescription>Working in a mine is hard, punishing work. No wonder some start to look for easier cash.</szDescription>
+    <ap_fortify>-20</ap_fortify>
+    <strength>5</strength>
+    <level_underground>1</level_underground>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>23</uiIndex>
+    <szName>The Mob</szName>
+    <szShortName>Mobster</szShortName>
+    <szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
+    <betterprices_guns>3</betterprices_guns>
+    <capitulation>4</capitulation>
+    <approach_threaten>5</approach_threaten>
+    <approach_recruit>8</approach_recruit>
+    <scrounging>1</scrounging> 
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>24</uiIndex>
+    <szName>UN Peacekeeper</szName>
+    <szShortName>UN</szShortName>
+    <szDescription>Nations of the entire world provide these troops to solve all conflicts without any violence. Sadly, this statment is false.</szDescription>
+    <capitulation>14</capitulation>
+    <speed_bandaging>10</speed_bandaging>
+    <approach_friendly>4</approach_friendly>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>25</uiIndex>
+    <szName>SAS Member</szName>
+    <szShortName>SAS</szShortName>
+    <szDescription>The british Special Air Service is one of the world's most famous special forces units, and is exceptionally well versed in airborne missions.</szDescription>
+    <ap_airdrop>20</ap_airdrop>
+    <resistance_fear>3</resistance_fear>
+    <speed_run>10</speed_run>
+    <sleep>-1</sleep>
+    <marksmanship>3</marksmanship>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>26</uiIndex>
+    <szName>Rebel</szName>
+    <szShortName>Rebel</szShortName>
+    <szDescription>Outgunned and outnumbered, Miguel's rebels faced extinction before help came from the outside.</szDescription>
+    <ap_urban>2</ap_urban>
+    <leadership>4</leadership>
+    <travel_foot>5</travel_foot>
+    <speed_bandaging>7</speed_bandaging>
+    <food>-10</food>
+    <approach_recruit>10</approach_recruit>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>27</uiIndex>
+    <szName>Metaviran Native</szName>
+    <szShortName>Metavira</szShortName>
+    <szDescription>The indigenous people of Metavira have adjusted to the hostile jungle there. After the liberation, some joined the foreigners, and sought their luck elsewhere.</szDescription>
+    <ap_swamp>3</ap_swamp>
+    <ap_tropical>3</ap_tropical>
+    <ap_swimming>-10</ap_swimming>
+    <travel_boat>5</travel_boat>
+    <resistance_poison>17</resistance_poison>
+    <drink_energyregen>15</drink_energyregen>
+    <camo>5</camo>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>28</uiIndex>
+    <szName>Metaviran Shaman</szName>
+    <szShortName>Shaman</szShortName>
+    <szDescription>Leaders of their communities since ages long forgotten, shamans posess medical knowledge unknown to western eyes.</szDescription>
+    <ap_swamp>3</ap_swamp>
+    <ap_tropical>3</ap_tropical>
+    <medical>10</medical>
+    <resistance_poison>17</resistance_poison>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>29</uiIndex>
+    <szName>SOG Member</szName>
+    <szShortName>SOG</szShortName>
+    <szDescription>The Studies and Observations Group was a classified special forces unit conductong unconventional warfare in Vietnam.</szDescription>
+    <ap_swamp>2</ap_swamp>
+    <ap_tropical>4</ap_tropical>
+    <cth_blades>3</cth_blades>   
+    <camo>5</camo>
+    <traplevel>1</traplevel>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>30</uiIndex>
+    <szName>Military Advisor</szName>
+    <szShortName>Military Advisor</szShortName>
+    <szDescription>Pointing the gun in the right direction is a start, but someone needs to teach these people how to teach other people where to point.</szDescription>
+    <leadership>5</leadership>
+    <approach_direct>10</approach_direct>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>31</uiIndex>
+    <szName>Paramilitary Instructor</szName>
+    <szShortName>Instructor</szShortName>
+    <szDescription>Just like boyscouts. But with with violence. So not like boyscouts at all.</szDescription>
+    <leadership>8</leadership>
+    <approach_recruit>10</approach_recruit>
+    <xenophobic>1</xenophobic> 
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>32</uiIndex>
+    <szName>Red army</szName>
+    <szShortName>Red army</szShortName>
+    <szDescription>With russian stoicism, the red army prevailed against Hitler, father frost, and chronic shortages.</szDescription>
+    <ap_polar>8</ap_polar>
+    <mechanical>4</mechanical>
+    <resistance_fear>10</resistance_fear>
+    <resistance_alcohol>20</resistance_alcohol>
+    <drink_energyregen>15</drink_energyregen>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>33</uiIndex>
+    <szName>Undertaker</szName>
+    <szShortName>Undertaker</szShortName>
+    <szDescription>When you've seen it all, nothing can frighten you anymore.</szDescription>
+    <ap_fortify>-5</ap_fortify>
+    <resistance_fear>15</resistance_fear>
+    <approach_friendly>7</approach_friendly>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>34</uiIndex>
+    <szName>Ranger</szName>
+    <szShortName>Ranger</szShortName>
+    <szDescription>The Rangers form the elite of Us army infantry.</szDescription>
+    <ap_assault>3</ap_assault>
+    <marksmanship>2</marksmanship>
+    <travel_foot>5</travel_foot>
+    <speed_run>5</speed_run>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>35</uiIndex>
+    <szName>Tuareg</szName>
+    <szShortName>Tuareg</szShortName>
+    <szDescription>The tuareg are a berber people that lead a nomadic life in the Sahara.</szDescription>
+    <ap_desert>8</ap_desert>
+    <ap_swimming>+20</ap_swimming>
+    <travel_foot>5</travel_foot>
+    <food>-5</food>
+    <water>-20</water>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>36</uiIndex>
+    <szName>Firefighter</szName>
+    <szShortName>Firefighter</szShortName>
+    <szDescription>Just because it involves no shooting, it doesn't have to be less dangerous.</szDescription>
+    <ap_height>2</ap_height>
+    <mechanical>3</mechanical>
+    <explosives>2</explosives>
+    <travel_car>5</travel_car>
+    <resistance_fear>6</resistance_fear>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>37</uiIndex>
+    <szName>Competitive Shooter</szName>
+    <szShortName>Competitive Shooter</szShortName>
+    <szDescription>Some people display a knack for shooting, and a disturbing aggression against innocent paper bull's eyes.</szDescription>
+    <marksmanship>3</marksmanship>
+    <increased_maxcth>1</increased_maxcth>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>38</uiIndex>
+    <szName>Nurse/Shooter</szName>
+    <szShortName>Nurse/Shooter</szShortName>
+    <szDescription>That combination will at least spice up your resume.</szDescription>
+    <marksmanship>2</marksmanship>
+    <medical>4</medical>
+    <speed_bandaging>10</speed_bandaging>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>39</uiIndex>
+    <szName>Shopkeeper</szName>
+    <szShortName>Shopkeeper</szShortName>
+    <szDescription>For many people, their trade IS trade.</szDescription>
+    <betterprices_guns>5</betterprices_guns>
+    <betterprices>10</betterprices>
+    <approach_recruit>5</approach_recruit>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>40</uiIndex>
+    <szName>Car mechanic</szName>
+    <szShortName>Car mechanic</szShortName>
+    <szDescription>Very useful, as long as you HAVE a car.</szDescription>
+    <mechanical>6</mechanical>
+    <travel_car>10</travel_car>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>41</uiIndex>
+    <szName>Smith</szName>
+    <szShortName>Smith</szShortName>
+    <szDescription>In a warzone without the usual comforts, it is very useful to have people who can maintain your gear.</szDescription>
+    <mechanical>8</mechanical>
+    <betterprices>2</betterprices>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>42</uiIndex>
+    <szName>GSG9</szName>
+    <szShortName>GSG9</szShortName>
+    <szDescription>Formed after the disastrous Munich massacre in 1972, GSG9 is a german counter-terrorism unit.</szDescription>
+    <ap_urban>2</ap_urban>
+    <interrogation>50</interrogation>
+    <prisonguard>37</prisonguard>
+    <capitulation>8</capitulation>
+    <breachingcharge>80</breachingcharge>
+  </BACKGROUND>
+</BACKGROUNDS>

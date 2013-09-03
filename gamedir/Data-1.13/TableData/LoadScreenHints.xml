@@ -295,5 +295,10 @@ The other tags determine in what category this hint falls, and will be displayed
     <uiIndex>54</uiIndex>
     <szName>If you'll ever get airborne, those SAM sites might come in handy.</szName>
     <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>55</uiIndex>
+    <szName>In the militia redistribution menu, holding [CTRL] will move 5 militia. [SHIFT] will move all in a sector.</szName>
+    <keybind>1</keybind>
   </LOADSCREENHINT>  
 </LOADSCREENHINTS>
