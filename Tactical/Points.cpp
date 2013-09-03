@@ -242,37 +242,49 @@ INT16 BreathPointAdjustmentForCarriedWeight( SOLDIERTYPE * pSoldier )
 
 INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode)
 {
- INT32 iPoints=0;
- UINT8 ubMovementCost;
+	INT32 iPoints=0;
+	UINT8 ubMovementCost;
 
 	ubMovementCost = gubWorldMovementCosts[sGridNo][bDir][0];
 
- switch( ubMovementCost )
- {
-	case TRAVELCOST_DIRTROAD	:
-	case TRAVELCOST_FLAT			: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
-	//case TRAVELCOST_BUMPY			:
-	case TRAVELCOST_GRASS			: iPoints = APBPConstants[BP_MOVEMENT_GRASS];	break;
-	case TRAVELCOST_THICK			: iPoints = APBPConstants[BP_MOVEMENT_BUSH];		break;
-	case TRAVELCOST_DEBRIS		: iPoints = APBPConstants[BP_MOVEMENT_RUBBLE];	break;
-	case TRAVELCOST_SHORE			: iPoints = APBPConstants[BP_MOVEMENT_SHORE];	break;	// wading shallow water
-	case TRAVELCOST_KNEEDEEP	: iPoints = APBPConstants[BP_MOVEMENT_LAKE];		break;	// wading waist/chest deep - very slow
-	case TRAVELCOST_DEEPWATER	: iPoints = APBPConstants[BP_MOVEMENT_OCEAN];	break;	// can swim, so it's faster than wading
-//	case TRAVELCOST_VEINEND		:
-//	case TRAVELCOST_VEINMID		: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
-	default:
-		if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
-		{
-			iPoints = APBPConstants[BP_MOVEMENT_FLAT];
-			break;
-		}
-/*
-#ifdef TESTVERSION
-	 NumMessage("ERROR: TerrainBreathPoints: Unrecognized grid cost = ",
-								GridCost[gridno]);
-#endif
-*/
-			return(0);
+	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
+	// This should fix "problems" for special modified maps
+	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
+
+	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
+	{
+		ubTerrainID = FLAT_GROUND;
+
+		// WANNE.WATER.BUGFIX: If we "walk on water", take the travecost_flat BPs instead of the high swimming BPs ...
+		ubMovementCost = TRAVELCOST_FLAT;	
+	}
+	
+	switch( ubMovementCost )
+	{
+		case TRAVELCOST_DIRTROAD	:
+		case TRAVELCOST_FLAT			: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
+		//case TRAVELCOST_BUMPY			:
+		case TRAVELCOST_GRASS			: iPoints = APBPConstants[BP_MOVEMENT_GRASS];	break;
+		case TRAVELCOST_THICK			: iPoints = APBPConstants[BP_MOVEMENT_BUSH];		break;
+		case TRAVELCOST_DEBRIS		: iPoints = APBPConstants[BP_MOVEMENT_RUBBLE];	break;
+		case TRAVELCOST_SHORE			: iPoints = APBPConstants[BP_MOVEMENT_SHORE];	break;	// wading shallow water
+		case TRAVELCOST_KNEEDEEP	: iPoints = APBPConstants[BP_MOVEMENT_LAKE];		break;	// wading waist/chest deep - very slow
+		case TRAVELCOST_DEEPWATER	: iPoints = APBPConstants[BP_MOVEMENT_OCEAN];	break;	// can swim, so it's faster than wading
+	//	case TRAVELCOST_VEINEND		:
+	//	case TRAVELCOST_VEINMID		: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
+		default:
+			if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+			{
+				iPoints = APBPConstants[BP_MOVEMENT_FLAT];
+				break;
+			}
+	/*
+	#ifdef TESTVERSION
+		 NumMessage("ERROR: TerrainBreathPoints: Unrecognized grid cost = ",
+									GridCost[gridno]);
+	#endif
+	*/
+		return(0);
 	}
 
 	if ( ubMovementCost == WALKING_WEAPON_RDY || ubMovementCost == WALKING_DUAL_RDY )
@@ -282,17 +294,10 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 
 	iPoints = iPoints * BreathPointAdjustmentForCarriedWeight( pSoldier ) / 100;
 
-	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
-	// This should fix "problems" for special modified maps
-	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
-
-	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
-		ubTerrainID = FLAT_GROUND;
-
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
 	if ( TERRAIN_IS_WATER( ubTerrainID) )
 	{
-		usMovementMode = WALKING;
+		usMovementMode = WALKING;		
 	}
 
 	// so, then we must modify it for other movement styles and accumulate
