@@ -80,6 +80,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "dexterity") == 0 ||
 				strcmp(name, "mechanical") == 0 ||
 				strcmp(name, "medical") == 0 ||
+				strcmp(name, "wisdom") == 0 ||
 				strcmp(name, "explosives") == 0 ||
 				strcmp(name, "leadership") == 0 ||
 				strcmp(name, "marksmanship") == 0 ||
@@ -116,12 +117,15 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "approach_threaten") == 0 ||
 				strcmp(name, "approach_recruit") == 0 ||
 				strcmp(name, "breachingcharge") == 0 ||
+				strcmp(name, "cth_vs_creatures") == 0 ||
 				strcmp(name, "druguse") == 0 ||
 				strcmp(name, "xenophobic") == 0 ||				
 				strcmp(name, "corruptionspread") == 0 ||
 				strcmp(name, "level_underground") == 0 ||
 				strcmp(name, "scrounging") == 0 ||
-				strcmp(name, "traplevel") == 0 ))
+				strcmp(name, "traplevel") == 0 ||
+				strcmp(name, "no_male") == 0 ||
+				strcmp(name, "no_female") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -293,6 +297,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_MEDICAL] = min(XML_BACKGROUND_STAT_MAX, max(-XML_BACKGROUND_STAT_MAX, (INT8) atol(pData->szCharData) ));
+		}
+		else if(strcmp(name, "wisdom") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_WISDOM] = min(XML_BACKGROUND_STAT_MAX, max(-XML_BACKGROUND_STAT_MAX, (INT8) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "explosives") == 0)
 		{
@@ -474,6 +483,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_BONUS_BREACHINGCHARGE] = min(100, max(-100, (INT16) atol(pData->szCharData) ));
 		}
+		else if(strcmp(name, "cth_vs_creatures") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_PERC_CTH_CREATURE] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+		}
 		else if(strcmp(name, "druguse") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -503,6 +517,16 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.uiFlags	|= (UINT16) atol(pData->szCharData) ? BACKGROUND_TRAPLEVEL : 0;
+		}
+		else if(strcmp(name, "no_male") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.uiFlags	|= (UINT16) atol(pData->szCharData) ? BACKGROUND_NO_MALE : 0;
+		}
+		else if(strcmp(name, "no_female") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.uiFlags	|= (UINT16) atol(pData->szCharData) ? BACKGROUND_NO_FEMALE : 0;
 		}
 																				
 		pData->maxReadDepth--;

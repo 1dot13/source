@@ -491,6 +491,10 @@ void AssignBackgroundHelpText( UINT8 ubNumber, MOUSE_REGION* pMouseregion )
 		// ability description
 		for ( UINT8 i = 0; i < BACKGROUND_FLAG_MAX; ++i)
 		{
+			// some properties are hidden
+			if ( ((UINT64)1 << i) & BACKGROUND_HIDDEN_FLAGS )
+				continue;
+
 			if ( zBackground[ ubNumber ].uiFlags & ((UINT64)1 << i) )
 			{
 				swprintf(atStr, szBackgroundText_Flags[ i ] );
@@ -587,6 +591,12 @@ extern INT32 SkillsList[ ATTITUDE_LIST_SIZE ];
 BOOLEAN IsBackGroundAllowed( UINT8 ubNumber )
 {
 	if ( !ubNumber  )
+		return FALSE;
+
+	// some backgrounds are only allowed to specific genders. Set both to forbid a background from ever showing up in IMP creation (for merc-specific backgrounds)
+	if ( fCharacterIsMale && zBackground[ ubNumber ].uiFlags & BACKGROUND_NO_MALE )
+		return FALSE;
+	else if ( !fCharacterIsMale && zBackground[ ubNumber ].uiFlags & BACKGROUND_NO_FEMALE )
 		return FALSE;
 
 	if ( SkillsList[0] == HEAVY_WEAPONS_NT || SkillsList[1] == HEAVY_WEAPONS_NT || SkillsList[2] == HEAVY_WEAPONS_NT )

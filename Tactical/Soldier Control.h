@@ -401,10 +401,13 @@ enum
 
 #define BACKGROUND_TRAPLEVEL					0x0000000000000010	//16			// trap level +1
 #define BACKGROUND_CORRUPTIONSPREAD				0x0000000000000020	//32			// spreads corruption to others	- not used in trunk!
-//#define BACKGROUND_XENOPHOBIC   				0x0000000000000040	//64			// arrogant towards others without this background
-//#define BACKGROUND_CAPITULATION				0x0000000000000080	//128			// if present, the team's surrender strength is higher
+#define BACKGROUND_NO_MALE   					0x0000000000000040	//64			// background cannot be selected by males (IMP creation)
+#define BACKGROUND_NO_FEMALE					0x0000000000000080	//128			// background cannot be selected by females (IMP creation)
 
-#define BACKGROUND_FLAG_MAX	6					// number of flagged backgrounds - keep this updated, or properties will get lost!
+#define BACKGROUND_FLAG_MAX	8					// number of flagged backgrounds - keep this updated, or properties will get lost!
+
+// some properties are hidden (forbid background in MP creation)
+#define BACKGROUND_HIDDEN_FLAGS					(BACKGROUND_NO_MALE|BACKGROUND_NO_FEMALE)
 
 // Flugente: types of multi-turn actions
 enum

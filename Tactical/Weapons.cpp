@@ -5181,14 +5181,15 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 
 		// apply bonus from traits
 		// Flugente: moved trait modifiers into a member function
-		if(gGameOptions.fNewTraitSystem)
-		{
-			UINT8 targetprofile = NOBODY;
-			if ( pTarget && pTarget->ubProfile != NOBODY )
-				targetprofile = pTarget->ubProfile;
+		UINT8 targetprofile = NOBODY;
+		if ( pTarget && pTarget->ubProfile != NOBODY )
+			targetprofile = pTarget->ubProfile;
 
-			fAimModifier += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
-		}
+		fAimModifier += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
+
+		// Flugente: backgrounds
+		if ( pTarget && pTarget->bTeam == CREATURE_TEAM )
+			fAimModifier += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
 
 		// get aimbonus from target
 		fAimModifier += CalcNewChanceToHitAimTargetBonus(pSoldier, pTarget, sGridNo, iRange, ubAimPos, fCantSeeTarget);
@@ -5356,6 +5357,10 @@ else
 		targetprofile = pTarget->ubProfile;
 
 	iTraitModifier = pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
+
+	// Flugente: backgrounds
+	if ( pTarget && pTarget->bTeam == CREATURE_TEAM )
+		iTraitModifier += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
 
 	// SHOOTING AT SAME TARGET AGAIN
 	if (sGridNo == pSoldier->sLastTarget )
@@ -6088,7 +6093,7 @@ else
 
 	// Impose global limits.
 	// Flugente: backgrounds
-	iChance =  min(iChance, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX)) );
+	iChance =  min(iChance, min(100, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX))) );
 	iChance = __max(iChance, gGameExternalOptions.ubMinimumCTH);
 	
 	return (iChance);
@@ -6920,6 +6925,10 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		targetprofile = pTarget->ubProfile;
 
 	iChance += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
+
+	// Flugente: backgrounds
+	if ( pTarget && pTarget->bTeam == CREATURE_TEAM )
+		iChance += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
 		
 	/////////////////////////////////////////////////////////////////////////////////////
 	
@@ -7452,7 +7461,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// iChance = MAXCHANCETOHIT;
 
 		// Flugente: backgrounds
-		iChance =  min(iChance, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX)) );
+		iChance =  min(iChance, min(100, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX))) );
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	

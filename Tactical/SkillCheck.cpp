@@ -68,6 +68,8 @@ INT16 EffectiveWisdom( SOLDIERTYPE * pSoldier)
 
 	iEffWisdom = EffectStatForBeingDrunk( pSoldier, iEffWisdom );
 
+	iEffWisdom = (iEffWisdom * (100 + pSoldier->GetBackgroundValue(BG_WISDOM))) / 100;
+
 	return( (INT16) iEffWisdom );
 }
 

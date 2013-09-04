@@ -7613,6 +7613,8 @@ STR16		szBackgroundText_Flags[]=
 
 	L" +1 traplevel to planted bombs\n",
 	L" spreads corruption to nearby mercs\n",
+	L" female only",							// won't show up, text exists for compatibility reasons
+	L" male only",								// won't show up, text exists for compatibility reasons
 };
 
 // TODO.Translate
@@ -7635,6 +7637,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% mechanical stat\n",	
 	L" %s%d%% explosives stat\n",
 	L" %s%d%% medical stat\n",
+	L" %s%d%% wisdom stat\n",
 
 	L" %s%d%% APs on rooftops\n",
 	L" %s%d%% APs needed to swim\n",
@@ -7681,6 +7684,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% effectiveness to recruit approach\n",
 
 	L" %s%d%% chance of success with door breaching charges\n",
+	L" %s%d%% cth with firearms against creatures\n",
 };
 
 #endif //DUTCH
