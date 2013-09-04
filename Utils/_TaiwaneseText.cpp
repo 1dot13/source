@@ -1677,7 +1677,8 @@ STR16 pMilitiaButtonString[] =
 {
 	L"Auto", // auto place the militia troops for the player
 	L"Done", // done placing militia troops
-	L"Disband", // HEADROCK HAM 3.6: Disband militia	// TODO.Translate
+	L"Disband", // HEADROCK HAM 3.6: Disband militia
+	L"Unassign All", // move all milita troops to unassigned pool
 };
 
 STR16 pConditionStrings[] = 
@@ -5755,11 +5756,12 @@ STR16 pDoctorWarningString[] =
 	L"Your medics were unable to completely bandage everyone.",
 };
 
+// TODO.Translate
 STR16 pMilitiaButtonsHelpText[] =
 {
-	L"Pick up(Right Click)/drop(Left Click) Green Troops", // button help text informing player they can pick up or drop militia with this button
-	L"Pick up(Right Click)/drop(Left Click) Regular Troops",
-	L"Pick up(Right Click)/drop(Left Click) Veteran Troops",
+	L"Unassign (|R|i|g|h|t |C|l|i|c|k)\nAssign (|L|e|f|t |C|l|i|c|k)\nGreen Troops", // button help text informing player they can pick up or drop militia with this button
+	L"Unassign (|R|i|g|h|t |C|l|i|c|k)\nAssign (|L|e|f|t |C|l|i|c|k)\nRegular Troops",
+	L"Unassign (|R|i|g|h|t |C|l|i|c|k)\nAssign (|L|e|f|t |C|l|i|c|k)\nVeteran Troops",
 	L"Distribute available militia equally among all sectors",
 };
 

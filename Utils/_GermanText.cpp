@@ -1685,6 +1685,7 @@ STR16 pMilitiaButtonString[] =
 	L"Autom.", // auto place the militia troops for the player
 	L"Fertig", // done placing militia troops
 	L"Auflösen", // HEADROCK HAM 3.6: Disband militia
+	L"Zuordnungen aufh.", // move all milita troops to unassigned pool	// TODO.Translate
 };
 
 STR16 pConditionStrings[] = 
@@ -5586,10 +5587,10 @@ STR16 pDoctorWarningString[] =
 
 STR16 pMilitiaButtonsHelpText[] =
 {
-	L"Grüne Miliz aufnehmen(Rechtsklick)/absetzen(Linksklick)", // button help text informing player they can pick up or drop militia with this button
-	L"Reguläre Milizen aufnehmen(Rechtsklick)/absetzen(Linksklick)",
-	L"Elitemilizen aufnehmen(Rechtsklick)/absetzen(Linksklick)",
-	L"Milizen gleichmäßig über alle Sektoren verteilen",
+	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\Zuordnen (|L|i|n|k|s |K|l|i|c|k)\nGrüne Miliz", // button help text informing player they can pick up or drop militia with this button
+	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\Zuordnen (|L|i|n|k|s |K|l|i|c|k)\nReguläre Miliz",
+	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\Zuordnen (|L|i|n|k|s |K|l|i|c|k)\nElite Miliz",
+	L"Verteile Miliz gleichwertig über alle Sektoren",
 };
 
 STR16 pMapScreenJustStartedHelpText[] = 
