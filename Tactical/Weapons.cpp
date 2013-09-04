@@ -114,7 +114,7 @@ FLOAT CalcNewChanceToHitAimEffectBonus(SOLDIERTYPE *pSoldier);
 FLOAT CalcNewChanceToHitAimWeaponBonus(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, FLOAT fGunAimDifficulty, UINT8 stance);
 FLOAT CalcNewChanceToHitAimSpecialBonus(SOLDIERTYPE *pSoldier);
 FLOAT CalcNewChanceToHitAimTargetBonus(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTarget, INT32 sGridNo, INT32 iRange, UINT8 ubAimPos, BOOLEAN fCantSeeTarget);
-FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fDifference, INT32 sGridNo, INT16 ubAimTime, FLOAT fScopeMagFactor, UINT32 uiBestScopeRange);
+FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fAimCap, FLOAT fDifference, INT32 sGridNo, INT16 ubAimTime, FLOAT fScopeMagFactor, UINT32 uiBestScopeRange);
 
 INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BOOLEAN fBladeAttack );
 
@@ -5163,7 +5163,7 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 
 		// get direct AimChance bonus for traits (throwing, sniper etc.)
 		FLOAT fDifference = 99 - fAimChance;
-		fAimChance += CalcNewChanceToHitAimTraitBonus(pSoldier, fDifference, sGridNo, ubAimTime, fScopeMagFactor, uiBestScopeRange);
+		fAimChance += CalcNewChanceToHitAimTraitBonus(pSoldier, fAimChance, fDifference, sGridNo, ubAimTime, fScopeMagFactor, uiBestScopeRange);
 
 		// Add percent-based modifier from the gun and its attachments
 		FLOAT moda = (FLOAT)(fAimChance * GetPercentCapModifier( pInHand, stance ) / 100);
@@ -6723,7 +6723,10 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 					}
 				}
 				break;
-			case ANIM_STAND:
+				// silversurfer: this doesn't make any sense at all. iPenalty is defined nowhere and for 3 to 5 tiles range
+				// we actually get a bonus to iChance most of the time because the formula produces a negative value. 
+				// Headshots are not considered at all because of the above if statement. So we will consider shooting upwards separately below.
+/*			case ANIM_STAND:
 				// if we are prone and at close range, then penalize shots to the torso or head!
 				if ( iRange <= MIN_PRONE_RANGE && stance == ANIM_PRONE )
 				{
@@ -6741,11 +6744,94 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 					// NB torso aim position is 2, so (5-aimpos) is 3, for legs it's 2, for head 4
 					iChance -= (INT32)((5 - ubAdjAimPos - iRange / CELL_X_SIZE) * 10 * iPenalty);
 				}
-				break;
+				break;*/
 			default:
 				break;
 		}
 	}
+	// start of new functionality for shooting upwards (thanks to NCTH)
+	INT32 iHeightDifference = 0;
+
+	// SHOOTING AT A TARGET AT DIFFERENT HEIGHT?
+	if ( pTarget == NULL )
+	{
+		// Shooting to roof.
+		if ( pSoldier->bTargetLevel > pSoldier->pathing.bLevel )
+		{
+			iHeightDifference = 3 * pSoldier->bTargetLevel;
+		}
+	}
+	else
+	{
+		// HEIGHT DIFFERENCE
+		UINT32 uiShooterHeight = 0;
+		UINT32 uiTargetHeight = 0;
+
+		if ( pSoldier->pathing.bLevel > 0 )
+		{
+			uiShooterHeight += 3 * pSoldier->pathing.bLevel;
+		}
+		
+		switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+		{
+			case ANIM_STAND:
+				uiShooterHeight += 2;
+				break;
+			case ANIM_CROUCH:
+				uiShooterHeight += 1;
+				break;
+		}
+
+		if (pTarget->pathing.bLevel > 0)
+		{
+			uiTargetHeight += 3 * pTarget->pathing.bLevel;
+		}
+
+		switch ( gAnimControl[ pTarget->usAnimState ].ubEndHeight )
+		{
+			case ANIM_STAND:
+				switch (ubAimPos)
+				{
+					case AIM_SHOT_HEAD:
+						uiTargetHeight += 2;
+						break;
+					case AIM_SHOT_TORSO:
+					case AIM_SHOT_RANDOM:
+					case AIM_SHOT_GLAND:
+						uiTargetHeight += 1;
+						break;
+				}
+				break;
+			case ANIM_CROUCH:
+				switch (ubAimPos)
+				{
+					case AIM_SHOT_HEAD:
+						uiTargetHeight += 1;
+						break;
+				}
+				break;
+		}
+
+		iHeightDifference = uiShooterHeight - uiTargetHeight;
+		if (iHeightDifference < 0)
+		{
+			iHeightDifference *= -1;
+		}
+		else
+		{
+			iHeightDifference = 0;
+		}
+	}
+
+	// Height difference is mitigated by range. A LONGER range reduces this penalty!
+	if (iRange > 0 && iHeightDifference > 0)
+	{
+		FLOAT fTempPenalty = -100 * iHeightDifference;
+		fTempPenalty /= iRange;
+		iChance += fTempPenalty;
+	}
+	// end of new functionality for shooting upwards
+
 	if (pTarget != NULL)
 	{
 		// penalty for amount that enemy has moved
@@ -12606,7 +12692,7 @@ FLOAT CalcNewChanceToHitAimTargetBonus(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTarg
 	return fAimModifier;
 }
 
-FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fDifference, INT32 sGridNo, INT16 ubAimTime, FLOAT fScopeMagFactor, UINT32 uiBestScopeRange)
+FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fAimCap, FLOAT fDifference, INT32 sGridNo, INT16 ubAimTime, FLOAT fScopeMagFactor, UINT32 uiBestScopeRange)
 {
 	FLOAT fAimChance = 0;
 	FLOAT fSniperSkillBonus = 0;
@@ -12614,7 +12700,7 @@ FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fDifference, 
 	INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 
 	// SANDRO - added support to Throwing trait
-	if ( fAimChance < gGameExternalOptions.ubMaximumCTH && Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
+	if ( fAimCap < gGameExternalOptions.ubMaximumCTH && Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
 	{
 		if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
 		{
@@ -12624,7 +12710,7 @@ FLOAT CalcNewChanceToHitAimTraitBonus(SOLDIERTYPE *pSoldier, FLOAT fDifference, 
 	// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
 	else if ( !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
 	{
-		if (fAimChance < gGameExternalOptions.ubMaximumCTH && fScopeMagFactor > 1.0 && iRange >= (INT32)uiBestScopeRange )
+		if (fAimCap < gGameExternalOptions.ubMaximumCTH && fScopeMagFactor > 1.0 && iRange >= (INT32)uiBestScopeRange )
 		{
 			INT8	loop;
 			if(gGameOptions.fNewTraitSystem)
