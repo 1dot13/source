@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>                                                                              
+<BACKGROUNDS>
+  <BACKGROUND>
+    <uiIndex>0</uiIndex>
+    <szName>Background name (128 letters)</szName>
+    <szShortName>short name (20)</szShortName>
+    <szDescription>Enter a description here. This will show up in the laptop and can be up to 256 letters long.</szDescription>
+    
+    <!-- sector dependent AP modifiers, values from -8 to 8-->
+    <ap_polar>0</ap_polar>
+    <ap_desert>0</ap_desert>
+    <ap_swamp>0</ap_swamp>
+    <ap_urban>0</ap_urban>
+    <ap_river>0</ap_river>
+    <ap_coastal>0</ap_coastal>
+    <ap_tropical>0</ap_tropical>
+    <ap_mountain>0</ap_mountain>
+    
+    <!-- stat effectiveness modifiers, values from -10 to 10 -->
+    <agility>0</agility>
+    <strength>0</strength>
+    <dexterity>0</dexterity>
+    <mechanical>0</mechanical>
+    <medical>0</medical>
+    <explosives>0</explosives>
+    <leadership>0</leadership>
+    <marksmanship>0</marksmanship>
+    
+    <!-- +- AP for other tasks-->
+    <ap_height>0</ap_height>                          <!-- +- AP if on a roof, -8 to 8 -->
+    <ap_swimming>0</ap_swimming>                      <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_fortify>0</ap_fortify>                        <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_artillery>0</ap_artillery>                    <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_inventory>0</ap_inventory>                    <!-- +- % APs needed for task, -40 to 40 -->
+    <ap_airdrop>0</ap_airdrop>                        <!-- look into other direction after airdrop + +-AP in first turn after airdrop, -10 to 10 -->
+    <ap_assault>0</ap_assault>                        <!-- +- AP in first turn if attacking, -10 to 10 -->
+    
+    <!-- +-% travel speed modifiers, -20 to 20-->
+    <travel_foot>0</travel_foot>
+    <travel_car>0</travel_car>
+    <travel_air>0</travel_air>
+    <travel_boat>0</travel_boat>                      <!-- no boats exist in the trunk -->
+    
+    <!-- +-% resistances, -20 to 20-->
+    <resistance_poison>0</resistance_poison>
+    <resistance_fear>0</resistance_fear>
+    <resistance_suppression>0</resistance_suppression>
+    <resistance_physical>0</resistance_physical>
+    <resistance_alcohol>0</resistance_alcohol>
+    
+    <!--various boni-->
+    <interrogation>0</interrogation>                  <!-- +- prisoner interrogation strength, -50 to 300 -->
+    <prisonguard>0</prisonguard>                      <!-- +- prison guard strength, -50 to 300 -->
+    <betterprices_guns>0</betterprices_guns>          <!-- +- % prices when trading guns and ammo, -20 to 20 -->
+    <betterprices>0</betterprices>                    <!-- +- % prices when trading armour, lbe, blades, kits etc., -20 to 20 -->
+    <capitulation>0</capitulation>                    <!-- +- % total team strength when asking enemy for surrender, -50 to 100 -->
+    <speed_run>0</speed_run>                          <!-- +- running speed, -50 to 50 -->
+    <speed_bandaging>0</speed_bandaging>              <!-- +- bandaging speed, -50 to 50 -->
+    <drink_energyregen>0</drink_energyregen>          <!-- +- % breath restored by drinking, -80 to 300 -->
+    <carrystrength>0</carrystrength>                  <!-- +- % strength for weight calculations, -50 to 50 -->
+    <food>0</food>                                    <!-- +- % need for food, -50 to 100 -->
+    <water>0</water>                                  <!-- +- % need for water, -50 to 100 -->
+    <sleep>0</sleep>                                  <!-- +- need for sleep, -2 to 2 -->
+    <meleedamage>0</meleedamage>                      <!-- +- damage with melee attacks, -10 to 10 -->
+    <cth_blades>0</cth_blades>                        <!-- +- cth with blade weapons, -10 to 10 -->
+    <camo>0</camo>                                    <!-- +- effectiveness, -20 to 20 -->
+    <stealth>0</stealth>                              <!-- +- effectiveness, -20 to 20 -->
+    <increased_maxcth>0</increased_maxcth>            <!-- +- max possible cth, -5 to 5 -->
+    <hearing_night>0</hearing_night>                  <!-- +- hearing range, -10 to 10 -->
+    <hearing_day>0</hearing_day>                      <!-- +- hearing range, -10 to 10 -->
+        
+    <!-- +- % approach effectiveness, -50 to 50 -->
+    <approach_friendly>0</approach_friendly>
+    <approach_direct>0</approach_direct>
+    <approach_threaten>0</approach_threaten>
+    <approach_recruit>0</approach_recruit>
+    
+    <breachingcharge>0</breachingcharge>              <!-- +- success chance with door braching charges, -100 to 100 -->
+    
+    <!-- on/off properties: 1 for on, 0 for off -->      
+    <druguse>0</druguse>                              <!-- might use drugs from inventory (the 'Larry'-behaviour) -->
+    <xenophobic>0</xenophobic>                        <!-- lower opinion of everybody without this background -->
+    <level_underground>0</level_underground>          <!-- +1 effective level if underground -->
+    <scrounging>0</scrounging>                        <!-- might steal items (and put them in personal inventory) -->
+    <traplevel>0</traplevel>                          <!-- +1 level on bombs planted -->
+    <corruptionspread>0</corruptionspread>            <!-- unused in the trunk -->
+  </BACKGROUND>
+</BACKGROUNDS>
