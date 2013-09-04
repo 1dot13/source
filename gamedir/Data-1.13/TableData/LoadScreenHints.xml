@@ -328,7 +328,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>61</uiIndex>
-    <szName>Bipods only give bonuses if you are lying prone.</szName>
+    <szName>Bipods only give bonuses if you are lying prone or when gun is mounted.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -389,7 +389,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
-    <szName>Mercs with teaching skill train militia faster.</szName>
+    <szName>mercs with teaching skill train militia faster.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -461,5 +461,110 @@ The other tags determine in what category this hint falls, and will be displayed
     <uiIndex>87</uiIndex>
     <szName>Always check if enemy has gas mask before using tear gas on him. Hold [ALT] key while targeting enemy to see his details. Amount of details depend on the distance from selected merc.</szName>
     <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>88</uiIndex>
+    <szName>Make sure you have your gun fully loaded at all times [ALT]+[R].</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>89</uiIndex>
+    <szName>Don't forget to use cover.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>90</uiIndex>
+    <szName>If trees get in your LOS (line of sight), hit [T] to clear things up. you can press the [DELETE] key to get a better feel for your surroundings.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>91</uiIndex>
+    <szName>L.B.E. stands for Load Bearing Equipment.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>92</uiIndex>
+    <szName>Switch between ground and rooftop targets with the [TAB] key.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>93</uiIndex>
+    <szName>Shoot from behind cover and know how many AP's it takes to get your butt back down again.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>94</uiIndex>
+    <szName>Pay attention to what your mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>95</uiIndex>
+    <szName>You'll see a white "Ping" blink on the location of any overheard sounds.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>96</uiIndex>
+    <szName>Firing your weapon can draw some heat away from an injured merc or someone who's in it knee deep!</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>97</uiIndex>
+    <szName>Stay away from light sources at night and try to use them to your advantage.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>98</uiIndex>
+    <szName>Hit [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>99</uiIndex>
+    <szName>Relying on sound is even more important at night, you'll hear more than you can see without the proper equipment.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>100</uiIndex>
+    <szName>Night Ops are probably your best bet early on, if you are relying on pistols and S.M.G.'s.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>101</uiIndex>
+    <szName>Hit [G] to toggle on/off the light around your merc.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>102</uiIndex>
+    <szName>If you get caught in a thunder storm, be on your toes, a flash of lightning can give away your position and the rain makes it harder to see.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>103</uiIndex>
+    <szName>Don't stay bunched together either, a stray bullet or grenade can do serious damage to your whole squad.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>104</uiIndex>
+    <szName>Every move you make, determines how the battle unfolds.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>105</uiIndex>
+    <szName>Always deal with the present threat before carrying out a plan.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>106</uiIndex>
+    <szName>When moving on a roof top, try to move in straight lines, moving diagonally can slow you down.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>107</uiIndex>
+    <szName>Marbles can be surprisingly useful in a fist fight.</szName>
+    <items>1</items>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>108</uiIndex>
+    <szName>If you need to get somewhere fast, make sure you don't exceed 100% weight on your mercs. It will slow the squad down.</szName>
+    <lore>1</lore>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
