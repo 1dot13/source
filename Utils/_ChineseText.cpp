@@ -5401,7 +5401,7 @@ STR16	gzGIOScreenText[] =
 	
 	L"新命中率系统（NCTH）", //L"New Chance to Hit System",
 	L"改进的中断系统（IIS）", //L"Improved Interrupt System",
-	L"武器过热", //L"Weapon Overheating",
+	L"Merc Story Backgrounds", //L"Merc Story Backgrounds",	// TODO.Translate
 	L"生存模式与食物系统",
 	L"Bobby Ray 供货量",
 };
@@ -7602,6 +7602,7 @@ STR16	szInventoryArmTextStr[]= // TODO.Translate
 	L"解除", //L"Disarm",
 };
 
+// TODO.Translate
 STR16		szBackgroundText_Flags[]=
 {
 	L" might consume drugs in inventory\n",
@@ -7613,6 +7614,7 @@ STR16		szBackgroundText_Flags[]=
 	L" spreads corruption to nearby mercs\n",
 };
 
+// TODO.Translate
 STR16	szBackgroundText_Value[]=
 {
 	L" %s%d%% APs in polar sectors\n",

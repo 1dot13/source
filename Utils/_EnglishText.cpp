@@ -5401,7 +5401,7 @@ STR16	gzGIOScreenText[] =
 	
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
-	L"Story Backgrounds",
+	L"Merc Story Backgrounds",
 	L"Food System",
 	L"Bobby Ray Quantity",
 };

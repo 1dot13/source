@@ -5390,7 +5390,7 @@ STR16	gzGIOScreenText[] =
 
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
-	L"Weapon Overheating",
+	L"Merc Story Backgrounds", // TODO.Translate
 	L"Food System",//TODO.Translate
 	L"Bobby Ray Quantity", //TODO.Translate
 };
@@ -7577,6 +7577,7 @@ STR16	szMTATextStr[]=	// TODO.Translate
 	L"%s had to stop %s.",
 };
 
+// TODO.Translate
 STR16	szInventoryArmTextStr[]= // TODO.Translate
 {
 	L"Blow up (%d AP)",
@@ -7587,6 +7588,7 @@ STR16	szInventoryArmTextStr[]= // TODO.Translate
 	L"Disarm",
 };
 
+// TODO.Translate
 STR16		szBackgroundText_Flags[]=
 {
 	L" might consume drugs in inventory\n",

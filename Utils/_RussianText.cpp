@@ -5400,7 +5400,7 @@ STR16	gzGIOScreenText[] =
 
 	L"Новая система прицеливания",	//New Chance to Hit System
 	L"Новая система перехвата хода",
-	L"Перегрев оружия",
+	L"Merc Story Backgrounds", // TODO.Translate
 	L"Игра с едой",
 	L"Количество товара у Бобби Рэя",
 };
@@ -7587,6 +7587,7 @@ STR16	szInventoryArmTextStr[]= // TODO.Translate
 	L"Disarm",
 };
 
+// TODO.Translate
 STR16		szBackgroundText_Flags[]=
 {
 	L" might consume drugs in inventory\n",
@@ -7598,6 +7599,7 @@ STR16		szBackgroundText_Flags[]=
 	L" spreads corruption to nearby mercs\n",
 };
 
+// TODO.Translate
 STR16	szBackgroundText_Value[]=
 {
 	L" %s%d%% APs in polar sectors\n",

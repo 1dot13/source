@@ -5407,7 +5407,7 @@ STR16	gzGIOScreenText[] =
 
 	L"New Chance to Hit System",
 	L"Improved Interrupt System",
-	L"Weapon Overheating",
+	L"Merc Story Backgrounds", // TODO.Translate
 	L"Food System",//TODO.Translate
 	L"Bobby Ray Quantity", //TODO.Translate
 };
@@ -7607,6 +7607,7 @@ STR16	szInventoryArmTextStr[]= // TODO.Translate
 	L"Disarm",
 };
 
+// TODO.Translate
 STR16		szBackgroundText_Flags[]=
 {
 	L" might consume drugs in inventory\n",
@@ -7618,6 +7619,7 @@ STR16		szBackgroundText_Flags[]=
 	L" spreads corruption to nearby mercs\n",
 };
 
+// TODO.Translate
 STR16	szBackgroundText_Value[]=
 {
 	L" %s%d%% APs in polar sectors\n",
