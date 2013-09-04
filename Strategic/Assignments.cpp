@@ -4385,7 +4385,7 @@ void RestCharacter( SOLDIERTYPE *pSoldier )
 	INT8 bDivisor = 0;
 
 	// Determine how many hours a day this merc must sleep. Normally this would range between 6 and 12 hours.
-	// Injuries and/or martial arts trait can change the limits to between 4 and 18 hours a day.
+	// Injuries and/or martial arts trait can change the limits to between 3 and 18 hours a day.
 	bDivisor = CalcSoldierNeedForSleep( pSoldier );
 	
 	// HEADROCK HAM 3.6:
@@ -4413,14 +4413,14 @@ void RestCharacter( SOLDIERTYPE *pSoldier )
 
 
 	// Re-enforce limits
-	bDivisor = __min(18, __max(4, bDivisor));
+	bDivisor = __min(18, __max(3, bDivisor));
 
 	bMaxBreathRegain = 50 / bDivisor;
 	
-	// Limit so that characters can't regain faster than 4 hours, ever
-	if (bMaxBreathRegain > 12)
+	// Limit so that characters can't regain faster than 3 hours, ever
+	if (bMaxBreathRegain > 17)
 	{
-		bMaxBreathRegain = 12;
+		bMaxBreathRegain = 17;
 	}
 
 	// if breath max is below the "really tired" threshold
@@ -14188,10 +14188,10 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 		ubNeedForSleep = 12;
 	}
 
-	// Enforce a minimum of 6 hours, before night/day considerations.
-	if ( ubNeedForSleep < 6 )
+	// Enforce a minimum of 3 hours, before night/day considerations.
+	if ( ubNeedForSleep < 3 )
 	{
-		ubNeedForSleep = 6;
+		ubNeedForSleep = 3;
 	}
 	// HEADROCK HAM 3.5: WTF! This calculation is NOT correct!
 	//ubPercentHealth = pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
@@ -14228,14 +14228,17 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 		if (HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ))
 			ubNeedForSleep -= gSkillTraitValues.ubNONeedForSleepReduction;
 
-		if ( ubNeedForSleep < 4 )
-			ubNeedForSleep = 4;
+		if ( ubNeedForSleep < 3 )
+			ubNeedForSleep = 3;
 	}
 	else
 	{
 		// HEADROCK HAM 3.6: This is now split and applied depending on whether the merc is resting or working.
 		//ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, NIGHTOPS );
 		ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT );
+
+		if ( ubNeedForSleep < 3 )
+			ubNeedForSleep = 3;
 	}
 
 	// Flugente: ubNeedForSleep can now be influenced by our food situation
