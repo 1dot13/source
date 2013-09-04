@@ -25,6 +25,7 @@
 	#include "Strategic Status.h"
 	#include "Assignments.h"
 	#include "Map Screen Interface.h"
+	#include "Interface.h"				// added by Flugente
 #endif
 #include <vector>
 
@@ -1187,6 +1188,9 @@ INT32	CalculateInsuranceContractCost( INT32 iLength, UINT8 ubMercID )
 
 	// calculate the overall insurability risk factor for this merc by combining all the subfactors
 	flRiskFactor = flSkillFactor * flFitnessFactor * flExpFactor * flSurvivalFactor;
+
+	// Flugente: backgrounds
+	flRiskFactor = flRiskFactor * (100 + pSoldier->GetBackgroundValue(BG_PERC_INSURANCE)) / 100;
 
 	// restrict the overall factor to within reasonable limits
 	if (flRiskFactor < MIN_INSURANCE_RATIO)

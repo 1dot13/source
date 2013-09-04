@@ -7671,6 +7671,7 @@ STR16	szBackgroundText_Value[]=
 
 	L" %s%d%% chance of success with door breaching charges\n",
 	L" %s%d%% cth with firearms against creatures\n",
+	L" %s%d%% insurance cost\n",
 };
 
 #endif //RUSSIAN

@@ -118,6 +118,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "approach_recruit") == 0 ||
 				strcmp(name, "breachingcharge") == 0 ||
 				strcmp(name, "cth_vs_creatures") == 0 ||
+				strcmp(name, "insurance") == 0 ||
 				strcmp(name, "druguse") == 0 ||
 				strcmp(name, "xenophobic") == 0 ||				
 				strcmp(name, "corruptionspread") == 0 ||
@@ -487,6 +488,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_PERC_CTH_CREATURE] = min(20, max(-20, (INT16) atol(pData->szCharData) ));
+		}
+		else if(strcmp(name, "insurance") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_PERC_INSURANCE] = min(200, max(-50, (INT16) atol(pData->szCharData) ));
 		}
 		else if(strcmp(name, "druguse") == 0)
 		{
