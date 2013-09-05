@@ -48,7 +48,7 @@ INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 	{
 		iEffStrength = 0;
 	}
-	
+
 	iEffStrength = (iEffStrength * (100 + pSoldier->GetBackgroundValue(BG_STRENGTH))) / 100;
 
 	// ATE: Make sure at least 2...
@@ -436,8 +436,13 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 				}
 				else
 				{
-					iSkill = EffectiveExplosive( pSoldier ) * 5;
-					iSkill += EffectiveMechanical( pSoldier ) * 2;
+					// The part that Mechanical plays is a bit too high. A merc with 90+ explosives will still fail
+					// a lot when his Mechanical is not in the 90+ as well. Even when disarming own mines which provides a bonus
+					// he will fail a lot which doesn't make sense. Let's change this from 5/2 to 6/1.
+					//iSkill = EffectiveExplosive( pSoldier ) * 5;
+					//iSkill += EffectiveMechanical( pSoldier ) * 2;
+					iSkill = EffectiveExplosive( pSoldier ) * 6;
+					iSkill += EffectiveMechanical( pSoldier );
 				}
 			}
 			else
@@ -755,7 +760,12 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		iChance = 0;
 	}
 
-	iRoll = PreRandom( 100 );
+	// silversurfer: changed this a little. I think this is supposed to represent "luck".
+	// A soldier that has low skills, attributes and experience should have to rely more on luck
+	// than someone that knows exactly what he is doing. This will produce more stable results
+	// for those that are good at their job.
+	// iRoll = PreRandom( 100 );
+	iRoll = PreRandom( UINT32( 115 - iChance / 3 ) );
 	iMadeItBy = iChance - iRoll;
 	if (iMadeItBy < 0)
 	{

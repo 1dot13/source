@@ -5261,7 +5261,8 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 	}
 		
 	// Impose global limits.	
-	fFinalChance = __min(fFinalChance, gGameExternalOptions.ubMaximumCTH);
+	// Flugente: backgrounds
+	fFinalChance = __min(fFinalChance, min(100, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX))) );
 	fFinalChance = __max(fFinalChance, gGameExternalOptions.ubMinimumCTH);
 	
 
