@@ -6632,7 +6632,7 @@ void RenderShadingForUnControlledSectors( void )
 {
 	// now render shading over any uncontrolled sectors
 	// get the sector value for the upper left corner
-	INT16 sBaseSectorValue = 0, sCurrentSectorValue = 0, sX = 0, sY = 0;
+	INT16 sBaseSectorValue = 0, sCurrentSectorValue = 0, sSectorX = 0, sSectorY = 0, sX = 0, sY = 0;
 	INT32 iCounter = 0;
 
 	// get the base sector value
@@ -6644,9 +6644,18 @@ void RenderShadingForUnControlledSectors( void )
 		// grab current sector value
 		sCurrentSectorValue = sBaseSectorValue + ( ( iCounter % MILITIA_BOX_ROWS ) + ( iCounter / MILITIA_BOX_ROWS ) * ( 16 ) );
 
+		sSectorX = SECTORX( sCurrentSectorValue );
+		sSectorY = SECTORY( sCurrentSectorValue );
+
+		// skip sectors not in the selected town (nearby other towns or wilderness SAM Sites), already shaded in sti image
+		if( GetTownIdForSector( sSectorX, sSectorY ) != sSelectedMilitiaTown )
+		{
+			continue;
+		}
+
 		if( ( StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( sCurrentSectorValue ) ].bNameId != BLANK_SECTOR ) &&
 			( ( StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( sCurrentSectorValue ) ].fEnemyControlled ) ||
-				( NumHostilesInSector( ( INT16 ) SECTORX( sCurrentSectorValue ), ( INT16 ) SECTORY( sCurrentSectorValue ), 0 ) ) ) )
+				( NumHostilesInSector( sSectorX, sSectorY, 0 ) ) ) )
 		{
 			// shade this sector, not under our control
 			sX = MAP_MILITIA_BOX_POS_X + MAP_MILITIA_MAP_X + ( ( iCounter % MILITIA_BOX_ROWS ) * MILITIA_BOX_BOX_WIDTH );
