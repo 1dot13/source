@@ -7064,6 +7064,12 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|H|i|t|z|e|s|c|h|a|d|e|n|s|s|c|h|r|a|n|k|e",
 	L"|G|i|f|t|-|I|n|d|i|k|a|t|o|r",
 	L"|S|c|h|m|u|t|z |M|o|d|i|f|i|k|a|t|o|r",
+	L"|G|i|f|t|i|g|k|e|i|t",
+	L"|N|a|h|r|u|n|g|s |P|u|n|k|t|e",
+	L"|T|r|i|n|k |P|u|n|k|t|e",
+	L"|P|o|r|t|i|o|n|s |G|r|ö|s|s|e",
+	L"|M|o|r|a|l |M|o|d|i|f|i|k|a|t|o|r",
+	L"|S|c|h|i|m|m|e|l |R|a|t|e",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -7127,6 +7133,12 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nHitzeschadensschranke wird um diesen Prozentsatz erhöht.\n \nHöher is besser.",
 	L"\n \nDies ist der prozentuelle Schaden der durch\nden vergifteten Gegenstand verursacht wird.\n\nDieser Schaden hängt natürlich davon ab,\noder der Feind eine Gift-Resistenz hat oder nicht.",
 	L"\n \nEin einziger Schuss verursacht diesen Schmutz.\nUnterschiedliche Munition und Waffen-Anbauten\nkönnen diesen Wert verändern.\n \nNiedriger ist besser.",
+	L"\n \nDies zu Essen verursacht soviel Vergiftung.\n \nNiedriger ist besser.",
+	L"\n \nMenge an Energy in kcal.\n \nHöher ist besser.",
+	L"\n \nWasseranteil in Litern.\n \nHöher ist besser.",
+	L"\n \nProzentsatz des Gegenstandes der mit einem\n Bissen aufgebraucht wird.\n \nWeniger ist besser.",
+	L"\n \nDie Moral wird um diese Zahl modifiziert.\n \nHöher ist besser.",
+	L"\n \nDer Gegenstand wird mit der Zeit schlecht.\nIst mehr als 50% verschimmelt wird er giftig.\nDies ist die Rate in der Schimmel entsteht.\n \nNiedriger ist besser.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

@@ -3311,8 +3311,8 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 					return;
 					break;
 				default:
-					// TODO.WANNE: Hardcoded grid number
-					pSoldier->sInsertionGridNo = 12880;//dnl!!!
+					//Moa: Hardcoded grid number set to CenterGrid
+					pSoldier->sInsertionGridNo = ( WORLD_ROWS * WORLD_COLS + WORLD_COLS ) / 2;//12880
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Improper insertion code %d given to UpdateMercsInSector", pSoldier->ubStrategicInsertionCode ) );
 					break;
 			}
@@ -3352,7 +3352,7 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 				else
 				{
 					ScreenMsg( FONT_RED, MSG_BETAVERSION, L"Sector %s has NO entrypoints -- using precise center of map for %s.", szSector, pSoldier->name );
-					pSoldier->sInsertionGridNo = 12880;//dnl!!!
+					pSoldier->sInsertionGridNo = ( WORLD_ROWS * WORLD_COLS + WORLD_COLS ) / 2;//12880
 					AddSoldierToSector( pSoldier->ubID );
 					return;
 				}
@@ -3380,7 +3380,7 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 			if ( pSoldier->sInsertionGridNo == -1 )
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Insertion gridno for direction %d not added to map sector %d %d", pSoldier->ubStrategicInsertionCode, sSectorX, sSectorY ) );
-				pSoldier->sInsertionGridNo = 12880;//dnl!!!
+				pSoldier->sInsertionGridNo = ( WORLD_ROWS * WORLD_COLS + WORLD_COLS ) / 2;//12880
 			}
 
 			AddSoldierToSector( pSoldier->ubID );

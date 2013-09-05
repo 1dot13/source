@@ -3090,6 +3090,9 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 				weight += Item[ (*this)[index]->data.gun.usGunAmmoItem ].ubWeight;
 			}
 		}
+		// account for partially eaten food
+		if ( gGameOptions.fFoodSystem && Item[usItem].foodtype > 0 )
+			weight *= (FLOAT)((*this)[index])->data.objectStatus/100.0f;
 	}
 	else if ( pItem->usItemClass == IC_AMMO && gGameExternalOptions.fAmmoDynamicWeight == TRUE )//Pulmu: added weight allowance for ammo not being full
 	{

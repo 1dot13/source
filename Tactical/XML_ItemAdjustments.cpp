@@ -40,7 +40,7 @@ transformStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 			// Reset all transformation indexes to -1, indicating they are "Not Taken"
 			for (UINT16 x = 0; x < MAXITEMS; x++)
 			{
-				Transform[x].usItem = -1;
+				Transform[x].usItem = (UINT16)-1;
 			}
 
 			pData->maxReadDepth++; //we are not skipping this element

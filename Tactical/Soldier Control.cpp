@@ -18623,7 +18623,7 @@ void HandleSystemNewAISituation( SOLDIERTYPE *pSoldier, BOOLEAN fResetABC )
 			// silversurfer: bugfix for endless dying mercs on roof edges
 			// if we delete their pending animation here they will just turn into the proper direction for the fall (in TurnSoldier( void ) )
 			// and stand there forever afterwards in "dying" state, so let this guy fall off the roof first!
-			if ( !pSoldier->usPendingAnimation == FALLOFF && !pSoldier->usPendingAnimation == FALLFORWARD_ROOF )
+			if ( pSoldier->usPendingAnimation != FALLOFF && pSoldier->usPendingAnimation != FALLFORWARD_ROOF )
 				pSoldier->usPendingAnimation	= NO_PENDING_ANIMATION;
 			pSoldier->usPendingAnimation2 = NO_PENDING_ANIMATION;
 			pSoldier->flags.bTurningFromPronePosition = FALSE;

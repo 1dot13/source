@@ -7255,6 +7255,12 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|损|坏|阈|值",
 	L"|毒|性|百|分|比",
 	L"|污|垢|修|正",
+	L"|P|o|i|s|o|n |M|o|d|i|f|i|e|r",//TODO.translate
+	L"|F|o|o|d| |P|o|i|n|t|s",//TODO.translate
+	L"|D|r|i|n|k |P|o|i|n|t|s",//TODO.translate
+	L"|P|o|r|t|i|o|n |S|i|z|e",//TODO.translate
+	L"|M|o|r|a|l|e |M|o|d|i|f|i|e|r",//TODO.translate
+	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",//TODO.translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7318,6 +7324,12 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n武器的损坏阈值增加了(百分比)。\n \n该数值越高越好。",
 	L"\n \n总伤害中毒性伤害所占的百分比。\n\n部分取决于敌人的装备是否有毒性抵抗或毒性吸收属性。",
 	L"\n \n单发射击所造成的污垢。\n所使用的子弹类型和附件种类对本值有影响。\n \n该数值越低越好。",
+	L"\n \nWhen this item is eaten\nit causes that much poison.\n \nLower is better.",	// TODO.TRANSLATE
+	L"\n \nAmount of energy in kcal.\n \nHigher is better.",	// TODO.TRANSLATE
+	L"\n \nAmount of water in liter.\n \nHigher is better.",	// TODO.TRANSLATE
+	L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",	// TODO.TRANSLATE
+	L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",	// TODO.TRANSLATE
+	L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",	// TODO.TRANSLATE
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

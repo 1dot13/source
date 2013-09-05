@@ -8667,7 +8667,7 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 	gbForceWeaponNotReady = true;
 	INT16 sDistVisNoScope = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 	gbForceWeaponNotReady = false;
-	FLOAT scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;
+	FLOAT scopeRangeMod = ( sDistVisNoScope ? (float)sDistVis / (float)sDistVisNoScope : 1.0f );
 
 	INT32 iSightRange = 0;
 	if (ubTargetID != NOBODY)

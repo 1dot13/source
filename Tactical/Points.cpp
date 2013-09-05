@@ -503,8 +503,36 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			}
 		}
 		// Check for backpack
-		if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
-			sPoints += APBPConstants[AP_MODIFIER_PACK];
+		// Moa: apply penalty for heavily packed backpack (wobble penalty)
+		if ( UsingNewInventorySystem() == true )
+		{
+			INT8 bSlot= FindBackpackOnSoldier( pSoldier );
+			if ( bSlot != ITEM_NOT_FOUND )
+			{
+				UINT16 usBPPenalty = APBPConstants[ AP_MODIFIER_PACK ];
+				if ( bSlot == BPACKPOCKPOS ) //Backpack caried on back
+				{
+					OBJECTTYPE * pObj = &( pSoldier->inv[ BPACKPOCKPOS ] );
+					UINT16 usBackPackWeight = CalculateObjectWeight( pObj );
+					// CalculateObjectWeight checks for active LBE gear. Unfortunatly our backpack is not active since we are carying it.
+					// Sounds not intuitive at all, active means the LBE caries items (marked with blue *), but when put on the LBE adittional slots of our soldier
+					// are activated where something can be carried. So we have to add the weights of those slots as well.
+					std::vector<INT8> vbLBESlots;
+					GetLBESlots( BPACKPOCKPOS, vbLBESlots );
+					for ( UINT8 i = 0; i < vbLBESlots.size() ; i++ )
+					{
+						pObj = &( pSoldier->inv[ vbLBESlots[ i ] ] );
+						usBackPackWeight += CalculateObjectWeight( pObj );
+					}
+					usBPPenalty = min( ( usBackPackWeight / 50 ), usBPPenalty ); //1 AP penalty for each 5kg of weight up to the penalty defined by AP_MODIFIER_PACK (default = 4)
+				}
+				else //Backpack caried not on back (maybe somewhere inside another LBE or in Hand?)
+				{
+					//apply full penalty
+				}
+				sPoints += usBPPenalty;
+			}
+		}
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
@@ -1883,6 +1911,8 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj, SOLD
 	//	rof = 15.46, we return an AP cost of exactly 23.  So this will allow for fine control over "default" AP costs.
 
 	// Calculate default top & bottom of the magic "aiming" formula!
+	// Formula: AP to Shoot% = (maxAP_soldier) / ((MAXAIM*0.5 + aimSkill_soldier*0.5) * ROF_PER4TURNS / 4)
+	//          AP to Shoot = (AP to Shoot%) * MAXAP
 
 	// get this man's maximum possible action points (ignoring carryovers)
 	// the 2 times is here only to allow rounding off using integer math later

@@ -3914,13 +3914,13 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				{
 					FLOAT condition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
 
-					UINT32 red   = (UINT32) ( 127 );
-					UINT32 green = (UINT32) ( 54 + 201 * ( min(1.0f, condition ) ) );
+					UINT32 red   = (UINT32) ( 126 + 127 * ( 1.0f - min(1.0f, condition) ) );	//127
+					UINT32 green = (UINT32) ( 54 + 200 * min(1.0f, condition ) );	//54 + 201 * ( min(1.0f, condition ) )
 					UINT32 blue  = 0;
 										
 					UINT16 colour = Get16BPPColor( FROMRGB( red, green, blue ) );
 
-					DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, sHeight-1, colour, colour, TRUE, guiSAVEBUFFER);
+					DrawItemUIBarEx( pObject, DRAW_ITEM_TEMPERATURE, sX, sY + sHeight-1, ITEMDESC_ITEM_STATUS_WIDTH, (INT16)((sHeight-1)*(1-condition)), colour, colour, TRUE, guiSAVEBUFFER);
 				}
 			}
 
@@ -6594,30 +6594,36 @@ void RenderItemDescriptionBox( )
 		}
 		else*/
 		{
-			for (UINT16 x = 0; x < MAXITEMS; x++)
-			{
-				if (Transform[x].usItem == -1)
-				{
-					break;
-				}
+			//Moa: had to solve the performance issue which was caused partially here by creating multiple videoObjects.
+			// Mousregions for the Transformation looks fine (line5036 in internalInitItemDescriptionBox), however still took awhile to show the DB for Items.
+			// So I set up a breakpoint in the loop and figured that -1 is not a good test: Transform[] was initialized with -1 which translates to 65535 for UINT16.
+			// Testing again for -1 is interpreted as (UINT16)65535 == (int)-1 which is false. instead either use MAXITEMS or 0 or test for (UINT16)-1. I decided for the latter.
+			// Because 0 is also the first uiIndex in Item[]. After the change the DB loads in Debugversion in just under a second on my PC, which is still not acceptible, but in
+			// Release the delay is not noticed anymore.
 
-				// Flugente: ok, this looks complicated. We allow a transformation option to pop up if:
-				// - there is a transformation
-				// - we are in the game or map screen, it is a single item, and
-				//		- the item is a grenade
-				//		- the item is a bomb and has a detonator or remote detonator attached				
-				if ( Transform[x].usItem == gpItemDescObject->usItem )
+			// Flugente: ok, this looks complicated. We allow a transformation option to pop up if:
+			// - there is a transformation
+			// - we are in the game or map screen, it is a single item, and
+			//		- the item is a grenade
+			//		- the item is a bomb and has a detonator or remote detonator attached
+			BOOLEAN renderTransformIcon = FALSE;
+			if ( ( (guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1 ) &&
+						( (Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) || 
+						( (Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET)) ) ) )
+				renderTransformIcon = TRUE;
+			if (!renderTransformIcon)
+				for (UINT16 x = 0; x < MAXITEMS; x++)
 				{
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
-				}
-				else if ( (guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1 )
-				{
-					if ( (Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) || ( (Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET)) ) )
+					if (Transform[x].usItem == (UINT16)-1)
+						break;
+					else if ( Transform[x].usItem == gpItemDescObject->usItem )
 					{
-						BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
+						renderTransformIcon = TRUE;
+						break;
 					}
 				}
-			}
+			if (renderTransformIcon)
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiTransformIconGraphic, 0, (ITEMDESC_ITEM_X+ITEMDESC_ITEM_WIDTH)-13, (ITEMDESC_ITEM_Y+ITEMDESC_ITEM_HEIGHT)-17, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		// Display status
@@ -6813,7 +6819,7 @@ void RenderItemDescriptionBox( )
 			mprintf( ITEMDESC_NAME_X, ITEMDESC_NAME_Y, L"%s", gzItemName );
 		#endif
 
-		// Render extra data on name bar for weapons and launchers (Caliber, Fingerprints)
+		// Render extra data on name bar for weapons and launchers (Caliber, Fingerprints, Coolness)
 		if ( ITEM_PROS_AND_CONS( gpItemDescObject->usItem ) )
 		{
 			SetFontForeground( FONT_BLACK );
@@ -12877,7 +12883,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 			{
 				for (INT32 x = 0; x < MAXITEMS; x++)
 				{
-					if (Transform[x].usItem == -1)
+					if (Transform[x].usItem == (UINT16)-1)
 					{
 						break;
 					}
@@ -12943,7 +12949,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 		INT32 iNumOptions = 0;
 		for (INT32 x = 0; x < MAXITEMS; x++)
 		{
-			if (Transform[x].usItem == -1)
+			if (Transform[x].usItem == (UINT16)-1)
 			{
 				break;
 			}

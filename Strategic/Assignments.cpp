@@ -8535,15 +8535,15 @@ void CreateDestroyMouseRegionsForTrainingMenu( void )
 
 	if( ( fShowTrainingMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
-
-		if( ( fShowTrainingMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
-		{
-		SetBoxPosition( ghTrainingBox, TrainPosition );
-		}
-
-		HandleShadingOfLinesForTrainingMenu( );
-
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		// Moa: removed, this missplaces popups when screensize>3.
+		//if( ( fShowTrainingMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		//{
+		//SetBoxPosition( ghTrainingBox, TrainPosition );
+		//}
+		//
+		//HandleShadingOfLinesForTrainingMenu( );
+		//
+		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
 		// grab height of font
 		iFontHeight = GetLineSpace( ghTrainingBox ) + GetFontHeight( GetBoxFont( ghTrainingBox ) );
@@ -8637,14 +8637,14 @@ void CreateDestroyMouseRegionsForAttributeMenu( void )
 
 	if( ( fShowAttributeMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
-
-		if( ( fShowAssignmentMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
-		{
-		SetBoxPosition( ghAssignmentBox, AssignmentPosition );
-		}
-
-		HandleShadingOfLinesForAttributeMenus( );
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		// Moa: removed, this missplaces popups when screensize>3.
+		//if( ( fShowAssignmentMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		//{
+		//SetBoxPosition( ghAssignmentBox, AssignmentPosition );
+		//}
+		
+		//HandleShadingOfLinesForAttributeMenus( );
+		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
 		// grab height of font
 		iFontHeight = GetLineSpace( ghAttributeBox ) + GetFontHeight( GetBoxFont( ghAttributeBox ) );
@@ -11166,6 +11166,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		RemoveBox(ghFacilityBox);
 		ghFacilityBox = -1;
 
+		RemoveBox(ghFacilityAssignmentBox);
+		ghFacilityAssignmentBox = -1;
+		
 		fCreated = FALSE;
 		gfIgnoreScrolling = FALSE;
 		RebuildCurrentSquad( );
@@ -16874,13 +16877,14 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 
 	if( ( fShowFacilityAssignmentMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
-		if( ( fShowAssignmentMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
-		{
-			SetBoxPosition( ghAssignmentBox, AssignmentPosition );
-		}
+		// Moa: removed, this missplaces popups when screensize>3.
+		//if( ( fShowAssignmentMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		//{
+		//	SetBoxPosition( ghAssignmentBox, AssignmentPosition );
+		//}
 
 		//HandleShadingOfLinesForFacilityAssignmentMenus( );
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
 		// grab height of font
 		iFontHeight = GetLineSpace( ghFacilityAssignmentBox ) + GetFontHeight( GetBoxFont( ghFacilityAssignmentBox ) );

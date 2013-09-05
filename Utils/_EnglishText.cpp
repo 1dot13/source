@@ -7240,6 +7240,12 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|D|a|m|a|g|e |T|h|r|e|s|h|o|l|d |M|o|d|i|f|i|e|r",
 	L"|P|o|i|s|o|n |P|e|r|c|e|n|t|a|g|e",
 	L"|D|i|r|t |M|o|d|i|f|i|e|r",
+	L"|P|o|i|s|o|n |M|o|d|i|f|i|e|r",
+	L"|F|o|o|d| |P|o|i|n|t|s",
+	L"|D|r|i|n|k |P|o|i|n|t|s",
+	L"|P|o|r|t|i|o|n |S|i|z|e",
+	L"|M|o|r|a|l|e |M|o|d|i|f|i|e|r",
+	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -7303,6 +7309,12 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nA gun's damage threshold is\nincreased by this percentage.\n \nHigher is better.",
 	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on wether enemy\nhas poison resistance or absorption.",
 	L"\n \nA single shot causes this much dirt.\nAmmunition types and attachments can\naffect this value.\n \nLower is better.",
+	L"\n \nWhen this item is eaten\nit causes that much poison.\n \nLower is better.",
+	L"\n \nAmount of energy in kcal.\n \nHigher is better.",
+	L"\n \nAmount of water in liter.\n \nHigher is better.",
+	L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",
+	L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",
+	L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

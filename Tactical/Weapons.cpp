@@ -4951,7 +4951,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 //	bool	highPowerScope = false;
 //	INT16 sTotalAutofirePenalty = 0;
 	bool	fCantSeeTarget = false;
-	FLOAT	scopeRangeMod;
+	FLOAT	scopeRangeMod = 0.0f;
 	
 	// make sure the guy's actually got a weapon in his hand!
 	pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
@@ -5011,8 +5011,13 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	gbForceWeaponNotReady = false;
 
 	// Flugente: blind soldiers have sDistVisNoScope = 0...
-	scopeRangeMod = (float)sDistVis / (float)max(1.0f, sDistVisNoScope);	// percentage DistVis has been enhanced due to an attached scope
-	iSightRange = (INT32)(iSightRange / scopeRangeMod);
+	if ( sDistVisNoScope )
+		scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
+
+	iSightRange = 0;
+	if ( scopeRangeMod )
+		iSightRange = (INT32)(iSightRange / scopeRangeMod);
+
 	if(iSightRange > 0){
 		//CHRISL: The LOS system, which determines whether to display an enemy unit, does not factor in the AimBonus tag during it's calculations.  So having
 		//	the CTH system use that tag to adjust iSightRange for AimBonus applied from armor might not be the best option.  Especially as it can sometimes
@@ -5103,7 +5108,7 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 	fBaseChance = __max( fBaseChance, 0 );
 	fBaseChance = __min( fBaseChance, 100 );
 
-
+	fFinalChance = fBaseChance;
 	//////////////////////////////////////////////////////////////////////////////////
 	// Second step: Calculate bonuses from aiming
 	//
@@ -6492,7 +6497,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	UINT16	iBulletsLeft, iTracersFired = 0, iBulletsPerTracer, iBulletsSinceLastTracer=0, iRoundsFiredPreviously;
 	INT8	bBandaged, maxClickBonus = 10, AIM_PENALTY_PER_TARGET_SHOCK;
 	UINT8	ubAdjAimPos, ubTargetID, bLightLevel, ubCoweringDivisor, ubAutoPenaltySinceLastTracer=0;
-	FLOAT	maxBonus, aimTimeBonus, scopeRangeMod, iAimBonus;
+	FLOAT	maxBonus, aimTimeBonus, scopeRangeMod = 0.0f, iAimBonus;
 	bool	fCantSeeTarget = false, fCoverObscured = false;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun"));
@@ -6548,7 +6553,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		gbForceWeaponNotReady = true;
 	sDistVisNoScope = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 		gbForceWeaponNotReady = false;
-	scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
+
+	// Flugente: blind soldiers have sDistVisNoScope = 0...
+	if ( sDistVisNoScope )
+		scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
+
 	iMaxNormRange = MaxNormalDistanceVisible() * CELL_X_SIZE;
 	if ( Item[ usItemUsed ].usItemClass == IC_GUN || Item[ usItemUsed ].usItemClass == IC_LAUNCHER)
 		iMaxRange = GunRange( pInHand, pSoldier ); // SANDRO - added argument
@@ -6571,7 +6580,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Modify Sight and Physical Range
-	iSightRange = (INT32)(iSightRange / scopeRangeMod);
+
+	iSightRange = 0;
+	if ( scopeRangeMod )
+		iSightRange = (INT32)(iSightRange / scopeRangeMod);
+
 	if(iSightRange > 0 && !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) ){
 		//CHRISL: The LOS system, which determines whether to display an enemy unit, does not factor in the AimBonus tag during it's calculations.  So having
 		//	the CTH system use that tag to adjust iSightRange for AimBonus applied from armor might not be the best option.  Especially as it can sometimes

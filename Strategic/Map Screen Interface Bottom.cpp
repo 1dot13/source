@@ -1542,17 +1542,17 @@ void CreateDestroyMouseRegionMasksForTimeCompressionButtons( void )
 	if( ( fDisabled ) && ( fCreated == FALSE ) )
 	{
 		// mask over compress more button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], xResOffset + (xResSize - 112), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 112) + 13, (SCREEN_HEIGHT - 24) + 14, MSYS_PRIORITY_HIGHEST - 1,
+		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], xResOffset + (xResSize - 112), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 112) + 13, (SCREEN_HEIGHT - 24) + 16, MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		// mask over compress less button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 1 ], xResOffset + (xResSize - 174), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 174) + 13, (SCREEN_HEIGHT - 24) + 14, MSYS_PRIORITY_HIGHEST - 1,
+		MSYS_DefineRegion( &gTimeCompressionMask[ 1 ], xResOffset + (xResSize - 174), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 174) + 13, (SCREEN_HEIGHT - 24) + 16, MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		// mask over pause game button
 		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], xResOffset + (xResSize - 153), (SCREEN_HEIGHT - 24), xResOffset + (xResSize - 153) + 118, (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
-
+		RemoveMouseRegionForPauseOfClock();
 		fCreated = TRUE;
 	}
 	else if( ( fDisabled == FALSE ) && ( fCreated ) )
@@ -1561,6 +1561,7 @@ void CreateDestroyMouseRegionMasksForTimeCompressionButtons( void )
 		MSYS_RemoveRegion( &gTimeCompressionMask[ 0 ] );
 		MSYS_RemoveRegion( &gTimeCompressionMask[ 1 ] );
 		MSYS_RemoveRegion( &gTimeCompressionMask[ 2 ] );
+		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 		fCreated = FALSE;
 	}
 }
