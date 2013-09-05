@@ -429,7 +429,7 @@ BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius )
 
 void DisplayCover( const BOOLEAN& forceUpdate )
 {
-	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == -1 )
+	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == (UINT16)-1 )
 	{
 		return;
 	}
@@ -948,7 +948,7 @@ void RemoveMinesObjectsFromViewArea()
 
 void DisplayMines( const BOOLEAN& forceUpdate )
 {
-	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == -1 )
+	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == (UINT16)-1 )
 	{
 		return;
 	}
