@@ -504,7 +504,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 		}
 		// Check for backpack
 		// Moa: apply penalty for heavily packed backpack (wobble penalty)
-		if ( UsingNewInventorySystem() == true )
+		if ( UsingNewInventorySystem() == true && gGameExternalOptions.fBackPackWeightLowersAP )
 		{
 			INT8 bSlot= FindBackpackOnSoldier( pSoldier );
 			if ( bSlot != ITEM_NOT_FOUND )

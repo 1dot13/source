@@ -492,6 +492,9 @@ typedef struct
 	// Flugente - allow accessing other mercs inventory via 'stealing'
 	BOOLEAN fAccessOtherMercInventories;
 
+	// Moa - weight of filled backpack lowers our AP
+	BOOLEAN	fBackPackWeightLowersAP;
+
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	// silversurfer: not used anymore, see "Tactical\XML_Merchants.cpp" for "useBRSetting"
 	// BOOLEAN tonyUsesBRSetting;
