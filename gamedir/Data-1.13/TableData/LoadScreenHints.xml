@@ -64,7 +64,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Don't be lame! Drop backpacks with [SHIFT]+[B] in tactical to enhance movement and enable climbing.</szName>
+    <szName>_TODO_</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -75,7 +75,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Turn the wheel to your fortune. Increase Chance To Hit in all fire modes with the mouse [WHEEL]. [ALT]+[WHEEL] sets size of auto-fire volley.</szName>
+    <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the mouse [WHEEL]. [ALT]+[WHEEL] sets size of auto-fire volley.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -86,7 +86,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of Thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
+    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
@@ -127,7 +127,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
-    <szName>When choosing items via popup menus (accessible through clicking empty inventory/attachment slots), least damaged items are used.</szName>
+    <szName>When choosing items via popup menus (accessible through clicking empty inventory / attachment slots), least damaged items are used.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -474,7 +474,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
-    <szName>If trees get in your LOS (line of sight), hit [T] to clear things up. you can press the [DELETE] key to get a better feel for your surroundings.</szName>
+    <szName>If trees get in your LOS (line of sight), press [T] to clear things up. You can press the [DELETE] key to get a better feel for your surroundings.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -514,7 +514,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
-    <szName>Hit [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
+    <szName>Press [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -529,7 +529,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Hit [G] to toggle on/off the light around your merc.</szName>
+    <szName>Press [G] to toggle on/off the light around your merc.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
