@@ -4023,10 +4023,14 @@ void CalculateFiringIncrements( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle, DOUBL
 		if (PreRandom( 100 ) < uiChanceOfMissAbove)
 		{
 			ddVerticAngle += ddAmountOfMiss * ddVerticPercentOfMiss / 100.0;
+			while(ddVerticAngle > 0.1)//dnl ch60 010913 fix angles above floor
+				ddVerticAngle -= 0.05;
 		}
 		else
 		{
 			ddVerticAngle -= ddAmountOfMiss * ddVerticPercentOfMiss / 100.0;
+			while(ddVerticAngle < -0.03)//dnl ch60 020913 fix angles below floor
+				ddVerticAngle += 0.003;
 		}
 	}
 
@@ -4039,7 +4043,7 @@ void CalculateFiringIncrements( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle, DOUBL
 	// this is the same as multiplying the X and Y increments by the projection of the line in
 	// 3-space onto the horizontal plane, without reducing the X/Y increments and thus slowing
 	// the LOS code
-	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * 2.56 ) );
+	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
 }
 
 //zilpin: pellet spread patterns externalized in XML
@@ -4048,7 +4052,7 @@ void CalculateFiringIncrementsSimple( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle,
 {
 	pBullet->qIncrX = FloatToFixed( (FLOAT) cos( ddHorizAngle ) );
 	pBullet->qIncrY = FloatToFixed( (FLOAT) sin( ddHorizAngle ) );
-	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * 2.56 ) );
+	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
 }
 INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 {
@@ -4209,15 +4213,15 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-
+#if 0//dnl ch60 020913 isn't true see reason in FireBulletGivenTarget
 	//lal bugfix
 	if( dDeltaZ > 0 )
 		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
 	else
 		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-
-	//d2DDistance = Distance2D( dDeltaX, dDeltaY );
-
+#else
+	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -4227,7 +4231,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	}
 
 	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );
-	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
+	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * HEIGHTUNITS_PER_CELL) );//dnl ch60 010913
 	ddAdjustedHorizAngle = ddOrigHorizAngle;
 	ddAdjustedVerticAngle = ddOrigVerticAngle;
 
@@ -4689,15 +4693,15 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-
+#if 0//dnl ch60 311009 this isn't correct, e.g. if you try head shot from prone to standing target at 1 tile, Distance3D will calculate 7,8 tile distance, this means that you will always hit target regard of CTH calculation, correct usage will be Distance3D(dDeltaX, dDeltaY, CONVERT_HEIGHTUNITS_TO_DISTANCE(dDeltaZ)) but we need here 2D distance as was in original v1.12
 	//lal bugfix
 	if( dDeltaZ > 0 )
 		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
 	else
 		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-
-	//d2DDistance = Distance2D( dDeltaX, dDeltaY );
-
+#else
+	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -4707,7 +4711,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	}
 
 	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );
-	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
+	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * HEIGHTUNITS_PER_CELL) );//dnl ch60 010913
 	ddAdjustedHorizAngle = ddOrigHorizAngle;
 	ddAdjustedVerticAngle = ddOrigVerticAngle;
 
@@ -5186,13 +5190,15 @@ INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStar
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-
+#if 0//dnl ch60 030913
 	//lal bugfix
 	if( dDeltaZ > 0 )
 		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
 	else
 		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-
+#else
+	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -5202,7 +5208,7 @@ INT8 FireFragmentGivenTarget( SOLDIERTYPE * pThrower, FLOAT dStartX, FLOAT dStar
 	}
 
 	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );
-	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
+	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * HEIGHTUNITS_PER_CELL) );//dnl ch60 010913
 	ddAdjustedHorizAngle = ddOrigHorizAngle;
 	ddAdjustedVerticAngle = ddOrigVerticAngle;
 
@@ -5361,13 +5367,15 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	dDeltaX = dEndX - dStartX;
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
-
+#if 0//dnl ch60 030913
 	//lal bugfix
 	if( dDeltaZ > 0 )
 		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
 	else
 		d2DDistance = Distance2D( dDeltaX, dDeltaY );
-	
+#else
+	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+#endif
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
@@ -5377,7 +5385,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	}
 
 	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );
-	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
+	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * HEIGHTUNITS_PER_CELL) );//dnl ch60 010913
 	ddAdjustedHorizAngle = ddOrigHorizAngle;
 	ddAdjustedVerticAngle = ddOrigVerticAngle;
 
@@ -6537,6 +6545,13 @@ void MoveBullet( INT32 iBullet )
 							{
 								if (pStructure->fFlags & STRUCTURE_PERSON)
 								{
+								if(!(UsingNewCTHSystem() || pBullet->fFragment || (pBullet->usFlags & BULLET_FLAG_BUCKSHOT)) && fIntended && pBullet->sHitBy < 0 && pBullet->pFirer->ubTargetID == pStructure->usStructureID)//dnl ch60 010913 don't hit target if CTH roll decide to miss
+								{
+									gpLocalStructure[iStructureLoop] = NULL;
+//SendFmtMsg("shoot me, miss me, lucky me :-)");
+								}
+								else
+								{
 									// hit someone!
 									fStopped = BulletHitMerc( pBullet, pStructure, fIntended );
 									if (fStopped)
@@ -6549,6 +6564,7 @@ void MoveBullet( INT32 iBullet )
 										// set pointer to null so that we don't consider hitting this person again
 										gpLocalStructure[iStructureLoop] = NULL;
 									}
+								}
 								}
 								else if (pStructure->fFlags & STRUCTURE_WALLNWINDOW && pBullet->qCurrZ >= qWindowBottomHeight && pBullet->qCurrZ <= qWindowTopHeight)
 								{
@@ -7461,9 +7477,11 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	///////////////////////////////////////////////////////////////////////
 	// Find distance between shooter and target, in points.
 	FLOAT		d2DDistance=0;
-
+#if 0//dnl ch60 030913
 	d2DDistance = Distance3D( dDeltaX, dDeltaY, CONVERT_HEIGHTUNITS_TO_DISTANCE( dDeltaZ ) );
-
+#else
+	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+#endif
 	// Round it upwards.
 	INT32 iDistance = (INT32) d2DDistance;
 	if ( d2DDistance != iDistance )
@@ -7479,7 +7497,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	DOUBLE	ddOrigVerticAngle=0;
 
 	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );
-	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
+	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * HEIGHTUNITS_PER_CELL) );//dnl ch60 010913
 
 	//////////////////////////////////////////////////////////////////////////////
 	//

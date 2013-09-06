@@ -2620,6 +2620,8 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	// WDS 07/06/2008 fix randoms
 	//fGonnaHit = uiDiceRoll <= uiHitChance;
 	fGonnaHit = uiDiceRoll < uiHitChance;
+	if(uiDiceRoll == uiHitChance)//dnl ch60 011109 Fix uiDiceRoll==uiHitChance which always result in hit regard fGonnaHit is FALSE
+		++uiDiceRoll;
 
 	// GET TARGET XY VALUES
     ConvertGridNoToCenterCellXY( sTargetGridNo, &sXMapPos, &sYMapPos );
