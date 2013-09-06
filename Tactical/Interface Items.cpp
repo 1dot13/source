@@ -5822,7 +5822,7 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		gfItemAmmoDown = FALSE;
 
 		//CHRISL: We dont' want to be able to reload guns using the ammo crate from this function
-		if(gpItemPointer != NULL && Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubMagType >= AMMO_BOX)
+		if((gpItemPointer != NULL && Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubMagType >= AMMO_BOX) || !EnoughPoints(gpItemDescSoldier, APBPConstants[AP_RELOAD_GUN], 0, TRUE))//dnl ch65 040913
 		{
 			fInterfacePanelDirty = DIRTYLEVEL2;
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
@@ -6100,7 +6100,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		else
 		{
 			// ATE: Make sure we have enough AP's to drop it if we pick it up!
-			if ( pAttachment->exists() && EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier ) + APBPConstants[AP_PICKUP_ITEM] ), 0, TRUE ) )
+			if ( pAttachment->exists() && (guiCurrentScreen==MAP_SCREEN ? EnoughPoints(gpItemDescSoldier, 2*AttachmentAPCost(pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier), 0, TRUE) : EnoughPoints(gpItemDescSoldier, AttachmentAPCost(pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier)+APBPConstants[AP_PICKUP_ITEM], 0, TRUE)) )//dnl ch65 040913 on map screen we cannot drop so check if we have double APs for remove and attach
 			{
 				// Flugente: if we are trying to remove the detonators of an armed bomb, auto-fail: it explodes
 				if ( gpItemPointerSoldier && ( (Item[gpItemDescObject->usItem].usItemClass & (IC_BOMB)) && ( ( (*gpItemDescObject)[ubStatusIndex]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*gpItemDescObject)[ubStatusIndex]->data.misc.bDetonatorType == BOMB_REMOTE ) ) )  )
