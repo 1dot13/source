@@ -3891,8 +3891,16 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				else //we dont have enough APs to move it to this slot, show a warning message
 				{
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[NOT_ENOUGH_APS_STR]);
-					fOKToGo = FALSE;
+					// silversurfer: What if our old slot is occupied now (could happen when we swap items)?
+					// We will be stuck with an item at the hand cursor and nowhere to put it -> bad. :-(
+					// So let's check if our old slot is empty and if it is not allow item placement anyway.
+					if ( gpSMCurrentMerc->inv[ uiLastHandPos ].usItem == NULL )
+					{
+						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[NOT_ENOUGH_APS_STR]);
+						fOKToGo = FALSE;
+					}
+					else
+						fOKToGo = TRUE;
 				}
 
 				// We are doing this ourselve, continue

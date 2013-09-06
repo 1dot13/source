@@ -459,6 +459,7 @@ extern void	StartSKIDescriptionBox( void );
 void UpdateItemHatches();
 
 void ShadowNIVPanel();
+BOOLEAN CheckPocketEmpty( SOLDIERTYPE *pSoldier, INT16 sPocket );
 
 extern void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot );
 
@@ -6052,8 +6053,31 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// require as many APs as to reload
 		if ( gpItemPointer != NULL )
 		{
+			// silversurfer: Wait a minute. What if we have an item in hand, not enough AP to attach it and no space in inventory?
+			// This could happen if we just removed it from a weapon and are now low on AP. We will be stuck with an item at the hand cursor.
+			BOOLEAN bFreeSlot = FALSE;
+			// do we have enough AP to attach it again?
+			BOOLEAN bEnoughAP = EnoughPoints( gpItemPointerSoldier, AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject, gpItemPointerSoldier ), 0, FALSE );
+
+			// not enough AP to attach so check if we could place the item somewhere in inventory
+			if ( !bEnoughAP && gpItemPointerSoldier )
+			{
+				for ( UINT8 loop = BODYPOSSTART; loop < SMALLPOCKFINAL; loop++ )
+				{
+					bFreeSlot =	CanItemFitInPosition( gpItemPointerSoldier, gpItemPointer, loop, FALSE );
+					if ( bFreeSlot && CheckPocketEmpty( gpItemPointerSoldier, loop ) )
+					{
+						bFreeSlot = TRUE;
+						break;
+					}
+					else
+						bFreeSlot = FALSE;
+				}
+			}
 			// nb pointer could be NULL because of inventory manipulation in mapscreen from sector inv
-			if ( !gpItemPointerSoldier || EnoughPoints( gpItemPointerSoldier, AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject, gpItemPointerSoldier ), 0, TRUE ) )
+//			if ( !gpItemPointerSoldier || EnoughPoints( gpItemPointerSoldier, AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject, gpItemPointerSoldier ), 0, TRUE ) )
+			// we will attach if we have enough AP or when we don't have enough AP but also no inventory slot to place the attachment
+			if ( !gpItemPointerSoldier || bEnoughAP || ( !bEnoughAP && !bFreeSlot ) )
 			{
 //				if ( (Item[ gpItemPointer->usItem ].fFlags & ITEM_INSEPARABLE) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject->usItem ) )
 				if ( (Item[ gpItemPointer->usItem ].inseparable == 1) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject ) )
@@ -6096,11 +6120,17 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					InternalInitEDBTooltipRegion(gpItemDescObject, guiCurrentItemDescriptionScreen);
 				}
 			}
+			else
+			{
+				// Display message if it's our own guy
+				if ( gpItemPointerSoldier->bTeam == gbPlayerNum )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NOT_ENOUGH_APS_STR ] );
+			}
 		}
 		else
 		{
 			// ATE: Make sure we have enough AP's to drop it if we pick it up!
-			if ( pAttachment->exists() && (guiCurrentScreen==MAP_SCREEN ? EnoughPoints(gpItemDescSoldier, 2*AttachmentAPCost(pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier), 0, TRUE) : EnoughPoints(gpItemDescSoldier, AttachmentAPCost(pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier)+APBPConstants[AP_PICKUP_ITEM], 0, TRUE)) )//dnl ch65 040913 on map screen we cannot drop so check if we have double APs for remove and attach
+			if ( pAttachment->exists() && EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( pAttachment->usItem, gpItemDescObject, gpItemPointerSoldier ) + APBPConstants[AP_PICKUP_ITEM] ), 0, TRUE ) )
 			{
 				// Flugente: if we are trying to remove the detonators of an armed bomb, auto-fail: it explodes
 				if ( gpItemPointerSoldier && ( (Item[gpItemDescObject->usItem].usItemClass & (IC_BOMB)) && ( ( (*gpItemDescObject)[ubStatusIndex]->data.misc.bDetonatorType == BOMB_TIMED ) || ( (*gpItemDescObject)[ubStatusIndex]->data.misc.bDetonatorType == BOMB_REMOTE ) ) )  )
@@ -6605,7 +6635,7 @@ void RenderItemDescriptionBox( )
 			// - there is a transformation
 			// - we are in the game or map screen, it is a single item, and
 			//		- the item is a grenade
-			//		- the item is a bomb and has a detonator or remote detonator attached
+			//		- the item is a bomb and has a detonator or remote detonator attached				
 			BOOLEAN renderTransformIcon = FALSE;
 			if ( ( (guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1 ) &&
 						( (Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) || 
@@ -13770,4 +13800,77 @@ void ConfirmTransformationMessageBoxCallBack( UINT8 bExitValue )
 		guiCurrentScreen = iTempScreen;
 		guiTransformInProgressPrevScreen = 0;
 	}
+}
+
+BOOLEAN CheckPocketEmpty( SOLDIERTYPE *pSoldier, INT16 sPocket )
+{
+	if ( pSoldier == NULL )
+		return FALSE;
+	// CHRISL: Only run if we're looking at a legitimate pocket
+	if((UsingNewInventorySystem() == false) && !oldInv[sPocket])
+		return FALSE;
+	if((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && UsingNewInventorySystem() == true && !vehicleInv[sPocket])
+		return FALSE;
+
+	BOOLEAN		bResult = FALSE;
+	INT16		lbePocket = ITEM_NOT_FOUND;
+	OBJECTTYPE  *pObject;
+
+	pObject = &(pSoldier->inv[ sPocket ]);
+
+	// If sPocket is not an equiped pocket, gather pocket information
+	if(icClass[sPocket] != ITEM_NOT_FOUND)
+	{
+		switch (icClass[sPocket])
+		{
+			case THIGH_PACK:
+			case VEST_PACK:
+			case COMBAT_PACK:
+			case BACKPACK:
+					 
+				if(pSoldier->inv[icLBE[sPocket]].exists() == false)
+				{
+					lbePocket =	LoadBearingEquipment[Item[icDefault[sPocket]].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+				}
+				else
+				{
+					lbePocket = LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketIndex[icPocket[sPocket]];
+					if( lbePocket == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[sPocket]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[sPocket]))
+					{
+						lbePocket = GetPocketFromAttachment(&pSoldier->inv[icLBE[sPocket]], icPocket[sPocket]);
+					}
+				}
+				if( icLBE[sPocket] == BPACKPOCKPOS && !(pSoldier->flags.ZipperFlag) && (gTacticalStatus.uiFlags & INCOMBAT) )
+					lbePocket = 0;
+				// pocket exists and not occupied
+				if ( lbePocket != 0 && pObject->exists() == false )
+					bResult = TRUE;
+				break;
+
+			case LBE_POCKET:
+				if ( pObject->exists() == false )
+				{
+					if ( sPocket == VESTPOCKPOS )
+						lbePocket = 0;
+					else if ( sPocket == LTHIGHPOCKPOS )
+						lbePocket = 1;
+					else if ( sPocket == RTHIGHPOCKPOS )
+						lbePocket = 2;
+					else if ( sPocket == CPACKPOCKPOS )
+						lbePocket = 3;
+					else if ( sPocket == BPACKPOCKPOS )
+						lbePocket = 4;
+					if ( lbePocket != ITEM_NOT_FOUND )
+						bResult = TRUE;
+				}
+				break;
+
+			case OTHER_POCKET:
+			default:
+				if ( pObject->exists() == false )
+					bResult = TRUE;
+				break;
+		}
+	}
+	return bResult;
 }
