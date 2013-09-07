@@ -7530,7 +7530,55 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 
 	// First, let's calculate the basic Aperture. This is the size of an unmodified aperture at 1x Normal Distance.
 	iBasicAperture = CalcBasicAperture( );
-	
+
+	// when using the reworked NCTH code we do additional calculations for iron sights and lasers
+	if (gGameExternalOptions.fUseNewCTHCalculation)
+	{
+		// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
+		if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+
+			iBasicAperture = iBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
+
+		// laser pointers can provide a percentage bonus to base aperture
+		if ( gCTHDisplay.iBestLaserRange > 0 
+			&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+		{
+			INT8 bLightLevel = LightTrueLevel(gCTHDisplay.iTargetGridNo, gsInterfaceLevel );
+			INT32 iMaxLaserRange = ( gCTHDisplay.iBestLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
+
+			// laser only has effect when in range
+			if ( iMaxLaserRange > d2DDistance )
+			{
+				FLOAT fLaserBonus = 0;
+				// which bonus do we want to apply?
+				if ( pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+					// shooting from hip
+					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP;
+				else if ( gCTHDisplay.ScopeMagFactor <= 1.0 )
+					// using iron sights or other 1x sights
+					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON;
+				else
+					// must be using a scope
+					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
+
+				// light level influences how easy it is to spot the laser dot on the target
+				FLOAT fBrightnessModifier = 1.0 - ( (FLOAT)(bLightLevel - SHADE_MAX) / (FLOAT)(SHADE_MIN - SHADE_MAX) );
+
+				// laser fully efficient
+				if ( gCTHDisplay.iBestLaserRange > d2DDistance )
+					// apply full bonus
+					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier)) / 100);
+				else
+				{
+					// beyond BestLaserRange laser bonus drops linearly to 0
+					FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - gCTHDisplay.iBestLaserRange);
+					// apply partial bonus
+					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
+				}
+			}
+		}
+	}
+
 	// Next, find out how large the aperture can be around the target, given range. The further the target is, the
 	// larger the aperture can be.
 	iDistanceAperture = iBasicAperture * (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);

@@ -1545,6 +1545,10 @@ typedef struct
 typedef struct
 {
 	UINT32 NORMAL_SHOOTING_DISTANCE;		// Distance at which 1x magnification is 100% effective. This is a major component of the entire shooting mechanism.
+	FLOAT IRON_SIGHT_PERFORMANCE_BONUS;		// percentage bonus to base aperture size for iron sights
+	FLOAT LASER_PERFORMANCE_BONUS_HIP;		// percentage bonus to base aperture size for laser pointers when shooting from hip
+	FLOAT LASER_PERFORMANCE_BONUS_IRON;		// percentage bonus to base aperture size for laser pointers when using iron sights
+	FLOAT LASER_PERFORMANCE_BONUS_SCOPE;	// percentage bonus to base aperture size for laser pointers when using scopes
 	FLOAT DEGREES_MAXIMUM_APERTURE;			// Maximum possible aperture for a 100% muzzle sway shot. Decrease to make all shots more accurate.
 	FLOAT RANGE_COEFFICIENT;				// Determines maximum range which decides when gravity forces bullets to drop
 	FLOAT GRAVITY_COEFFICIENT;				// Changes the way gravity works in the game. Higher values mean bullets don't drop as quickly after reaching max range.

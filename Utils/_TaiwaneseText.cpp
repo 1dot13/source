@@ -7261,6 +7261,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|P|o|r|t|i|o|n |S|i|z|e",//TODO.translate
 	L"|M|o|r|a|l|e |M|o|d|i|f|i|e|r",//TODO.translate
 	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",//TODO.translate
+	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",//TODO.translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.

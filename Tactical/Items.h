@@ -253,6 +253,8 @@ INT16 GetToHitBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 bLightLevel, BOOLEAN
 INT16 GetFlatToHitBonus( OBJECTTYPE * pObj );
 // HEADROCK: Function to get average of best laser ranges from weapon and attachments
 INT16 GetAverageBestLaserRange( OBJECTTYPE * pObj );
+// get the best laser range from the weapon and attachments
+INT16 GetBestLaserRange( OBJECTTYPE * pObj );
 // HEADROCK: Function to get bipod bonus from weapon and its attachments
 INT16 GetBipodBonus( OBJECTTYPE * pObj );
 INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE );

@@ -3128,7 +3128,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	{
 		ubStrengthForCarrying = (ubStrengthForCarrying * (100 + gSkillTraitValues.ubBBCarryWeightBonus) / 100); // plus one third
 	}
-	
+
 	ubStrengthForCarrying = (ubStrengthForCarrying * (100 + pSoldier->GetBackgroundValue(BG_PERC_CARRYSTRENGTH)) / 100);
 
 	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
@@ -9406,7 +9406,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 					pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
 
 					if ( pSoldier->bTeam == OUR_TEAM )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
 
 					break;
 				}
@@ -9418,7 +9418,7 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fUseAPs
 				pSoldier->bSoldierFlagMask |= SOLDIER_COVERT_CIV;
 
 				if ( pSoldier->bTeam == OUR_TEAM )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
 			}
 
 			// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
@@ -13353,7 +13353,7 @@ INT16 GetWornStealth( SOLDIERTYPE * pSoldier )
 
 	// Add some default stealth ability to mercs with STEALTHY trait - SANDRO 
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
-		ttl += gSkillTraitValues.ubSTStealthBonus;
+		ttl += gSkillTraitValues.ubSTStealthBonus; 
 
 	ttl += pSoldier->GetBackgroundValue(BG_PERC_STEALTH);
 
@@ -13497,6 +13497,26 @@ INT16 GetAverageBestLaserRange( OBJECTTYPE * pObj )
 	}
 
 	return( bonus );
+}
+
+// get the best laser range from the weapon and attachments
+INT16 GetBestLaserRange( OBJECTTYPE * pObj )
+{
+	INT16 range=0;
+
+	if (Item[pObj->usItem].bestlaserrange > 0)
+	{
+		range = Item[pObj->usItem].bestlaserrange;
+	}
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if (Item[iter->usItem].bestlaserrange > range && iter->exists())
+		{
+			range = Item[iter->usItem].bestlaserrange;
+		}
+	}
+
+	return( range );
 }
 
 // HEADROCK: This function determines the bipod bonii of the gun or its attachments

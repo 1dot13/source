@@ -7222,6 +7222,8 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 		RemovePlayerFromGroup( ubGroupID, MercPtrs[ ubTargetMerc ] );
 		AddPlayerToGroup( ubGroupID, MercPtrs[ ubSourceMerc ] );
 		AddPlayerToGroup( ubGroupID, MercPtrs[ ubTargetMerc ] );
+		SortSquadByID( MercPtrs[ ubSourceMerc ]->bAssignment );
+		RebuildCurrentSquad( );
 
 		// don't forget to renew selection of merc
 		gusSelectedSoldier = ubTargetMerc;

@@ -52,7 +52,7 @@
 
 #define				GAME_SETTINGS_FILE				"Ja2_Settings.INI"
 
-#define				GAME_EXTERNAL_OPTIONS_FILE					"Ja2_Options.ini"
+#define				GAME_EXTERNAL_OPTIONS_FILE		"Ja2_Options.ini"
 
 #define				AP_BP_CONSTANTS_FILE			"APBPConstants.ini"
 
@@ -1377,7 +1377,7 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fAccessOtherMercInventories		= iniReader.ReadBoolean("Tactical Gameplay Settings","ACCESS_OTHER_MERC_INVENTORIES", TRUE);
 	gGameExternalOptions.fBackPackWeightLowersAP			= iniReader.ReadBoolean("Tactical Gameplay Settings","BACKPACKWEIGHT_LOWERS_AP", TRUE);
-		
+
 	//################# Tactical Cover System Settings ##################
 
 	// CPT: Cover System Settings
@@ -2626,6 +2626,10 @@ void LoadCTHConstants()
 	CIniReader iniReader(CTH_COEFFICIENTS_FILE);
 
 	gGameCTHConstants.NORMAL_SHOOTING_DISTANCE			= iniReader.ReadInteger("General","NORMAL_SHOOTING_DISTANCE", 70, 10, 10000);
+	gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS		= iniReader.ReadFloat("General","IRON_SIGHT_PERFORMANCE_BONUS", 0.0f, -50.0f, 50.0f);
+	gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP		= iniReader.ReadFloat("General","LASER_PERFORMANCE_BONUS_HIP", 0.0f, 0.0f, 50.0f);
+	gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON		= iniReader.ReadFloat("General","LASER_PERFORMANCE_BONUS_IRON", 0.0f, 0.0f, 50.0f);
+	gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE		= iniReader.ReadFloat("General","LASER_PERFORMANCE_BONUS_SCOPE", 0.0f, 0.0f, 50.0f);
 	gGameCTHConstants.DEGREES_MAXIMUM_APERTURE			= iniReader.ReadFloat("General", "DEGREES_MAXIMUM_APERTURE", 15.0, 0.0, 22.5);
 	gGameCTHConstants.RANGE_COEFFICIENT					= iniReader.ReadFloat("General", "RANGE_COEFFICIENT", 2.0, 0.001f, 100.0);
 	gGameCTHConstants.GRAVITY_COEFFICIENT				= iniReader.ReadFloat("General", "GRAVITY_COEFFICIENT", 1.0, 0.001f, 100.0);

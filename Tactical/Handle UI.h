@@ -229,6 +229,7 @@ typedef struct
 	UINT8 MuzzleSwayPercentage;
 	FLOAT ScopeMagFactor;
 	FLOAT ProjectionFactor;
+	INT16 iBestLaserRange;
 	FLOAT FinalMagFactor;
 	INT32 iShooterGridNo;
 	INT32 iTargetGridNo;

@@ -61,6 +61,7 @@
 	// HEADROCK HAM 4: Included for new CTH indicator
 	#include "weapons.h"
 	#include "Map Screen Interface.h"	// added by Flugente for SquadNames
+	#include "environment.h"
 
 #endif
 
@@ -2273,11 +2274,11 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 							if ( zEnemyRank[iCounter2].Stats == 0 && pSoldier->stats.bExpLevel == zEnemyRank[iCounter2].ExpLevel )  
 							{
 								swprintf(NameStr, zEnemyRank[iCounter2].szCurRank);
-							
+
 								SetFont( TINYFONT1 );
 								SetFontBackground( FONT_MCOLOR_BLACK );
 								SetFontForeground( FONT_YELLOW );
-								
+
 								// need to adjust sYPos because default position already occupied by the name
 								if ( gGameExternalOptions.fSoldierProfiles_Enemy && pSoldier->usSoldierProfile || gGameExternalOptions.fEnemyNames )
 									FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
@@ -2450,6 +2451,54 @@ BOOLEAN DrawCTHIndicator()
 
 	// Calculate the size of a "normal" aperture. This is how wide a shot can go at 1x Normal Distance.
 	FLOAT iBasicAperture = (FLOAT)((sin(ddMaxAngleRadians) * gGameCTHConstants.NORMAL_SHOOTING_DISTANCE) * 2); // The *2 compensates for the difference between CellXY and ScreenXY 
+
+	// when using the reworked NCTH code we do additional calculations for iron sights and lasers
+	if (gGameExternalOptions.fUseNewCTHCalculation)
+	{
+		// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
+		if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+
+			iBasicAperture = iBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
+
+		// laser pointers can provide a percentage bonus to base aperture
+		if ( gCTHDisplay.iBestLaserRange > 0 
+			&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+		{
+			INT8 bLightLevel = LightTrueLevel(gCTHDisplay.iTargetGridNo, gsInterfaceLevel );
+			INT32 iMaxLaserRange = ( gCTHDisplay.iBestLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
+
+			// laser only has effect when in range
+			if ( iMaxLaserRange > d2DDistance )
+			{
+				FLOAT fLaserBonus = 0;
+				// which bonus do we want to apply?
+				if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+					// shooting from hip
+					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP;
+				else if ( gCTHDisplay.ScopeMagFactor <= 1.0 )
+					// using iron sights or other 1x sights
+					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON;
+				else
+					// must be using a scope
+					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
+
+				// light level influences how easy it is to spot the laser dot on the target
+				FLOAT fBrightnessModifier = 1.0 - ( (FLOAT)(bLightLevel - SHADE_MAX) / (FLOAT)(SHADE_MIN - SHADE_MAX) );
+
+				// laser fully efficient
+				if ( gCTHDisplay.iBestLaserRange > d2DDistance )
+					// apply full bonus
+					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier)) / 100);
+				else
+				{
+					// beyond BestLaserRange laser bonus drops linearly to 0
+					FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - gCTHDisplay.iBestLaserRange);
+					// apply partial bonus
+					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
+				}
+			}
+		}
+	}
 
 	// Calculate the Maximum Aperture. This is the margin of error for the "worst" shot we can have given the
 	// target's actual distance. This will later be used to draw the Outer Circle around the target.
@@ -3152,18 +3201,18 @@ BOOLEAN DrawCTHIndicator()
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
 
 			// Draw a border circle which is 1 point wider
-			curX = (INT16)((iMaxAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-			curY = (INT16)(((iMaxAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curX = (INT16)((iMaxAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curY = (INT16)(((iMaxAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-			if (curX != firstX || curY != firstY)
-				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+//			if (curX != firstX || curY != firstY)
+//				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 
 			// Draw a border circle which is 1 point narrower
-			curX = (INT16)((iMaxAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-			curY = (INT16)(((iMaxAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curX = (INT16)((iMaxAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curY = (INT16)(((iMaxAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-			if (curX != firstX || curY != firstY)
-				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+//			if (curX != firstX || curY != firstY)
+//				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 		}
 
 		Circ = (INT32)((iAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
@@ -3178,18 +3227,18 @@ BOOLEAN DrawCTHIndicator()
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
 
 			// Draw a border circle which is 1 point wider
-			curX = (INT16)((iAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-			curY = (INT16)(((iAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curX = (INT16)((iAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curY = (INT16)(((iAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-			if (curX != firstX || curY != firstY)
-				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+//			if (curX != firstX || curY != firstY)
+//				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 
 			// Draw a border circle which is 1 point narrower
-			curX = (INT16)((iAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-			curY = (INT16)(((iAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curX = (INT16)((iAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+//			curY = (INT16)(((iAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-			if (curX != firstX || curY != firstY)
-				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+//			if (curX != firstX || curY != firstY)
+//				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 		}
 
 		// Aperture Crosshairs
@@ -3199,18 +3248,25 @@ BOOLEAN DrawCTHIndicator()
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, sStartScreenY+(INT16)zOffset, usCApertureBar );
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, sStartScreenY+(INT16)zOffset, usCApertureBar );
 
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
 
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
 
 			// Darker borders
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
 
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
+
+			// Darker borders
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBorder );
+
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBorder );
 
 		}
 		for (INT16 cnt = (INT16)(iAperture * dVerticalBias); cnt <= (INT16)((iAperture * dVerticalBias) + uiApertureBarLength); cnt++)
@@ -3219,18 +3275,25 @@ BOOLEAN DrawCTHIndicator()
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
 			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
 
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
 
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
 
 			// Darker borders
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
 
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
+//			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+
 		}
 	}
 

@@ -1605,8 +1605,11 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// PROJECTION FACTOR
-			if (UsingNewCTHSystem() == true && 
-				(Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) )
+			// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor but we still need the mouse region
+			if (UsingNewCTHSystem() == true &&
+				( (Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) ||
+				( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
 			{
 				ubRegionOffset = 6;
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + ubRegionOffset ] );
@@ -2957,7 +2960,29 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		}
 
 		///////////////////// PROJECTION FACTOR
-		if (GetProjectionFactor( gpItemDescObject ) > 1.0 )
+		// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor
+		if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+		{
+			if( UsingNewCTHSystem() == true )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 64 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 14 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 64 ], szUDBAdvStatsExplanationsTooltipText[ 14 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 				}
+				cnt++;
+			}
+		}
+		else if (GetProjectionFactor( gpItemDescObject ) > 1.0 )
 		{
 			if( UsingNewCTHSystem() == true )
 			{
@@ -4100,8 +4125,11 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		//////////////////// PROJECTION FACTOR
+		// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor but we use the same icon
 		if (UsingNewCTHSystem() == true && 
-			(Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) )
+			( (Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) ||
+			( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
 		{
 			ubNumLine = 6;
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 14, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -4819,8 +4847,11 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	}
 
 	///////////////////// PROJECTION FACTOR
+	// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor but we use the same icon
 	if (cnt-sFirstLine < sLastLine &&
-		GetProjectionFactor( gpItemDescObject ) > 1.0 )
+		( GetProjectionFactor( gpItemDescObject ) > 1.0 ||
+		( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+		&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
 	{
 		if( UsingNewCTHSystem() == true )
 		{
@@ -6267,21 +6298,40 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		}
 
 		///////////////// (LASER) PROJECTION FACTOR
+		// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor
 		if (UsingNewCTHSystem() == true && 
-			(Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) )
+			( (Item[gpItemDescObject->usItem].projectionfactor > 1.0 || GetProjectionFactor( gpItemDescObject ) > 1.0) ||
+			( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+			&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) ) ) )
 		{
 			// Set line to draw into
 			ubNumLine = 6;
 			// Set Y coordinates
 			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+			FLOAT iProjectionValue = 0;
+			FLOAT iProjectionModifier = 0;
+			FLOAT iFinalProjectionValue = 0;
 
-			// Get base Projection value
-			FLOAT iProjectionValue = __max(1.0f, Item[ gpItemDescObject->usItem ].projectionfactor);
-			// Get best Projection value
-			FLOAT iProjectionModifier = GetProjectionFactor( gpItemDescObject );
-			// Get final Projection value
-			FLOAT iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+			if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+			{
+				// Get base laser range
+				iProjectionValue = __max(1.0f, Item[ gpItemDescObject->usItem ].bestlaserrange / CELL_X_SIZE);
+				// Get best laser range
+				iProjectionModifier = ((FLOAT)GetBestLaserRange( gpItemDescObject ) / CELL_X_SIZE);
+				// Get final laser range
+				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+			}
+			else
+			{
+				// Get base Projection value
+				iProjectionValue = __max(1.0f, Item[ gpItemDescObject->usItem ].projectionfactor);
+				// Get best Projection value
+				iProjectionModifier = GetProjectionFactor( gpItemDescObject );
+				// Get final Projection value
+				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+			}
 			
 			// Print base value
 			SetFontForeground( 5 );
@@ -9490,11 +9540,21 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		cnt++;
 	}
 
+	BOOLEAN bNewCode = FALSE;
 	///////////////////// PROJECTION FACTOR
-	iFloatModifier[0] = GetProjectionFactor( gpItemDescObject );
+	// with the reworked NCTH code and the laser performance factor we will display BestLaserRange instead of ProjectionFactor
+	if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
+		&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+	{
+		iFloatModifier[0] = ((FLOAT)GetBestLaserRange( gpItemDescObject ) / CELL_X_SIZE);
+		bNewCode = TRUE;
+	}
+	else
+		iFloatModifier[0] = GetProjectionFactor( gpItemDescObject );
+
 	iFloatModifier[1] = iFloatModifier[0];
 	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] > 1.0 && UsingNewCTHSystem() == true )
+	if ( UsingNewCTHSystem() == true && (iFloatModifier[0] > 1.0 || bNewCode) )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9508,10 +9568,13 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 1.0)
+				if (iFloatModifier[cnt2] > 1.0 || bNewCode)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%3.1fx", iFloatModifier[cnt2] );
+					if ( bNewCode )
+						swprintf( pStr, L"%3.0f", iFloatModifier[cnt2] );
+					else
+						swprintf( pStr, L"%3.1fx", iFloatModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else

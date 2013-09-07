@@ -5188,11 +5188,11 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 
 		// apply bonus from traits
 		// Flugente: moved trait modifiers into a member function
-		UINT8 targetprofile = NOBODY;
-		if ( pTarget && pTarget->ubProfile != NOBODY )
-			targetprofile = pTarget->ubProfile;
+			UINT8 targetprofile = NOBODY;
+			if ( pTarget && pTarget->ubProfile != NOBODY )
+				targetprofile = pTarget->ubProfile;
 
-		fAimModifier += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
+			fAimModifier += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
 
 		// Flugente: backgrounds
 		if ( pTarget && pTarget->bTeam == CREATURE_TEAM )
@@ -6098,8 +6098,8 @@ else
 		iChance = __max(iChance + (INT32)iAimPoints, iChance);
 		iChance = __min(iChance, (INT32)uiCap);
 	}
-
-	// Impose global limits.
+		
+	// Impose global limits.	
 	// Flugente: backgrounds
 	iChance =  min(iChance, min(100, gGameExternalOptions.ubMaximumCTH + (UINT8)(pSoldier->GetBackgroundValue(BG_PERC_CTH_MAX))) );
 	iChance = __max(iChance, gGameExternalOptions.ubMinimumCTH);
@@ -6941,7 +6941,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		targetprofile = pTarget->ubProfile;
 
 	iChance += pSoldier->GetTraitCTHModifier( usInHand, ubAimTime, targetprofile );
-
+		
 	// Flugente: backgrounds
 	if ( pTarget && pTarget->bTeam == CREATURE_TEAM )
 		iChance += pSoldier->GetBackgroundValue(BG_PERC_CTH_CREATURE);
@@ -10297,7 +10297,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 			else if ( bNumMercs > 0 )
 				iAttRating += 2;
 		}
-	}
+	}		
 
 	// Flugente: backgrounds
 	if (ubMode == HTH_MODE_STAB)
@@ -11898,9 +11898,20 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 		gCTHDisplay.ScopeMagFactor = iScopeFactor;
 
 		iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
-		iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
+
+		// With the reworked NCTH code we don't want to use iProjectionFactor anymore. 
+		// Instead we use the performance bonus if at least one bonus is != 0. Otherwise -> continue using Projection Factor.
+		if (gGameExternalOptions.fUseNewCTHCalculation 
+			&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0 ))
+			iProjectionFactor = 1.0;
+		else
+			iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
+
 		// Set a display variable
 		gCTHDisplay.ProjectionFactor = iProjectionFactor;
+
+		// Set a display variable
+		gCTHDisplay.iBestLaserRange = GetBestLaserRange( pWeapon );
 
 		// The final factor is the largest of the two.
 		iHighestMagFactor = __max( iScopeFactor, iProjectionFactor );
@@ -11909,6 +11920,7 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 	{
 		gCTHDisplay.ScopeMagFactor = 1.0;
 		gCTHDisplay.ProjectionFactor = 1.0;
+		gCTHDisplay.iBestLaserRange = GetBestLaserRange( pWeapon );
 		iHighestMagFactor = 1.0;
 	}
 
