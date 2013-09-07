@@ -5016,7 +5016,6 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	if ( sDistVisNoScope )
 		scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
 
-	iSightRange = 0;
 	if ( scopeRangeMod )
 		iSightRange = (INT32)(iSightRange / scopeRangeMod);
 
