@@ -6582,7 +6582,6 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Modify Sight and Physical Range
 
-	iSightRange = 0;
 	if ( scopeRangeMod )
 		iSightRange = (INT32)(iSightRange / scopeRangeMod);
 
