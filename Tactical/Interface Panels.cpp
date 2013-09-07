@@ -3516,32 +3516,6 @@ BOOLEAN HandleNailsVestFetish( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 u
 
 BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 usNewItemIndex, BOOLEAN fDeductPoints )
 {
-	if ( _KeyDown(CTRL) )
-	{
-		if ( gpItemPointer->exists() && gpSMCurrentMerc->inv[ ubHandPos ].exists() )
-		{
-			if ( gpItemPointer->usItem == gpSMCurrentMerc->inv[ ubHandPos ].usItem )
-				CleanUpStack( &( gpSMCurrentMerc->inv[ ubHandPos ] ), gpItemPointer );
-			else // Madd: attach / merge object, merge only works on single objects for now
-			{
-				UINT8 cnt = gpSMCurrentMerc->inv[ ubHandPos ].ubNumberOfObjects;
-				if ( gpItemPointer->ubNumberOfObjects < cnt ) 
-					cnt = gpItemPointer->ubNumberOfObjects;
-
-				for (UINT8 i = 0; i<cnt;i++)
-				{
-					gpSMCurrentMerc->inv[ ubHandPos ].AttachObject(gpSMCurrentMerc,gpItemPointer,TRUE,i);
-				}
-			}
-		}
-
-		if ( gpItemPointer->exists() == false )
-		{
-			EndItemPointer( );
-		}
-		return( TRUE );
-	}
-
 	// Try to place here
 	if ( PlaceObject( gpSMCurrentMerc, ubHandPos, gpItemPointer ) )
 	{
@@ -3943,15 +3917,41 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			if ( fOKToGo )
 			{
+				usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
+				usNewItemIndex = gpItemPointer->usItem;
+
 				// OK, check if this is Nails, and we're in the vest position , don't allow it to come off....
-				if ( HandleNailsVestFetish( gpSMCurrentMerc, uiHandPos, gpItemPointer->usItem ) )
+				if ( HandleNailsVestFetish( gpSMCurrentMerc, uiHandPos, usNewItemIndex ) )
 				{
 					return;
 				}
 
-				usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
-				usNewItemIndex = gpItemPointer->usItem;
+				if ( _KeyDown(CTRL) )
+				{
+					if ( gpItemPointer->exists() && gpSMCurrentMerc->inv[ uiHandPos ].exists() )
+					{
+						if ( gpItemPointer->usItem == gpSMCurrentMerc->inv[ uiHandPos ].usItem )
+							CleanUpStack( &( gpSMCurrentMerc->inv[ uiHandPos ] ), gpItemPointer );
+						else // Madd: attach / merge object, merge only works on single objects for now
+						{
+							UINT8 cnt = gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects;
+							if ( gpItemPointer->ubNumberOfObjects < cnt ) 
+								cnt = gpItemPointer->ubNumberOfObjects;
 
+							for (UINT8 i = 0; i<cnt;i++)
+							{
+								gpSMCurrentMerc->inv[ uiHandPos ].AttachObject(gpSMCurrentMerc,gpItemPointer,TRUE,i);
+							}
+						}
+					}
+
+					if ( gpItemPointer->exists() == false )
+					{
+						EndItemPointer( );
+					}
+					return;
+				}
+				
 				if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )
 				{
 					//if ( ValidAttachmentClass( usNewItemIndex, usOldItemIndex ) )

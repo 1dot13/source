@@ -3275,7 +3275,7 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 	UINT8		ubCnt;
 	UINT32	uiUnitPrice = 0;
 	UINT32	uiTotalPrice = 0;
-	UINT32	uiDiscountValue;
+	UINT32	uiDiscountValue = 0;
 //	UINT32	uiDifFrom10 = 0;
 #ifdef JA2UB
 UINT8		ubItemsNotCounted = 0; //ja25 UB
@@ -3387,7 +3387,6 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 				// and sells for more!
 				uiItemPrice[ubCnt] += uiDiscountValue;
 			}
-			break;
 		}
 		// Flugente: backgrounds
 		else if ( Item [ usItemID ].usItemClass & (IC_MAPFILTER_MELEE|IC_MAPFILTER_KIT|IC_MAPFILTER_LBE|IC_MAPFILTER_ARMOR|IC_MAPFILTER_MISC) )
@@ -3404,7 +3403,6 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 				// and sell for more!
 				uiItemPrice[ubCnt] += uiDiscountValue;
 			}
-			break;
 		}
 
 		// if it's the dealer selling this, make sure the item is worth at least $1
