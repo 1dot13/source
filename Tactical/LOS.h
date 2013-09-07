@@ -102,7 +102,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 #define CONVERT_WITHINTILE_TO_INDEX( n ) ((n) >> 1)
 #define CONVERT_INDEX_TO_WITHINTILE( n ) ((n) << 1)
 #define CONVERT_INDEX_TO_PIXELS( n ) ((n) * MAX_STRUCTURE_HEIGHT * HEIGHT_UNITS_PER_INDEX / HEIGHT_UNITS)
-#define HEIGHTUNITS_PER_CELL (HEIGHT_UNITS / CELL_X_SIZE)//dnl ch60 010913 was 2.56f which isn't correct
+#define HEIGHTUNITS_PER_CELL (1.0f * HEIGHT_UNITS / CELL_X_SIZE)//dnl ch60 010913 was 2.56f which isn't correct
 
 #define TREE_SIGHT_REDUCTION 6
 #define NORMAL_TREES 10

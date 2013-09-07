@@ -1720,6 +1720,8 @@ BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier )
 
 	for ( ubTeamLoop = 0; ubTeamLoop < MAXTEAMS; ubTeamLoop++ )
 	{
+		if(!gTacticalStatus.Team[ubTeamLoop].bTeamActive)//dnl ch58 070913 skip any inactive teams
+			continue;
 		if ( gTacticalStatus.Team[ ubTeamLoop ].bSide != pSoldier->bSide )
 		{
 			// consider guys in this team, which isn't on our side
