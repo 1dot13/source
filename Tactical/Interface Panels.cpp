@@ -420,6 +420,7 @@ extern	void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *p
 extern	void SetNewItem( SOLDIERTYPE *pSoldier, UINT8 ubInvPos, BOOLEAN fNewItem );
 extern	BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier, UINT8 ubPosition );
 extern	BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTestObject, BOOLEAN fOn	);
+extern	BOOLEAN CompatibleAmmoForGun( OBJECTTYPE *pTryObject, OBJECTTYPE *pTestObject );//dnl ch66 070913
 
 BOOLEAN IsMouseInRegion( MOUSE_REGION *pRegion );
 void HandleMouseOverSoldierFaceForContMove( SOLDIERTYPE *pSoldier, BOOLEAN fOn );
@@ -3851,6 +3852,8 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			if ( ubSrcID == ubDestID )
 			{
+				if(!CanItemFitInPosition(gpSMCurrentMerc, gpItemPointer, (INT8)uiHandPos, FALSE))//dnl ch66 070913
+					return;
 				if (INV_AP_COST)
 					//Jenilee: determine the cost of moving this item around in our inventory
 					usCostToMoveItem = GetInvMovementCost(gpItemPointer, uiLastHandPos, uiHandPos);
@@ -3861,7 +3864,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if ( ( usCostToMoveItem == 0 ) || ( gpSMCurrentMerc->bActionPoints >= usCostToMoveItem ) )
 				{
 					fOKToGo = TRUE;
-					uiLastHandPos = uiHandPos;
+					//uiLastHandPos = uiHandPos;//dnl ch66 070913 this should be set after we move item
 				}
 				else //we dont have enough APs to move it to this slot, show a warning message
 				{
@@ -3952,11 +3955,13 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					return;
 				}
 				
-				if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )
+				//if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )//dnl ch66 070913 without this condition we have option to attach and merge with left click too, and solve problem with CanItemFitInPosition which return TRUE if slot has weapon and we try to put clip or attachment or grenade which fits
 				{
 					//if ( ValidAttachmentClass( usNewItemIndex, usOldItemIndex ) )
 					if ( ValidAttachment( usNewItemIndex, &(gpSMCurrentMerc->inv[uiHandPos]) ) )
 					{
+						if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS))//dnl ch66 070913 if INV_AP_COST is active then attach or merge is allowed only in those slots
+							return;
 						// it's an attempt to attach; bring up the inventory panel
 						if ( !InItemDescriptionBox( ) )
 						{
@@ -3966,6 +3971,8 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					else if ( ValidMerge( usNewItemIndex, usOldItemIndex ) )
 					{
+						if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS))//dnl ch66 070913 if INV_AP_COST is active then attach or merge is allowed only in those slots
+							return;
 						// bring up merge requestor
 						gubHandPos = (UINT8) uiHandPos;
 						gusOldItemIndex = usOldItemIndex;
@@ -3984,6 +3991,8 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_MERGE_ITEMS ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, MergeMessageBoxCallBack, NULL );
 						return;
 					}
+					else if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS) && CompatibleAmmoForGun(gpItemPointer, &gpSMCurrentMerc->inv[uiHandPos]))//dnl ch66 070913 if INV_AP_COST is active then reload is not allowed if weapon not in HANDPOS
+						return;
 					// else handle normally
 				}
 
@@ -4022,6 +4031,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// try to place the item in the cursor into this inventory slot
 				if ( UIHandleItemPlacement( (UINT8) uiHandPos, usOldItemIndex, usNewItemIndex, fDeductPoints ) )
 				{
+					uiLastHandPos = uiHandPos;//dnl ch66 070913
 					//Jenilee: pay the price
 					//just make sure to handle that if we are putting it back in the SAME slot, the cost should be 0!!!
 					gpSMCurrentMerc->bActionPoints -= usCostToMoveItem;
@@ -4135,7 +4145,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// access description box directly if CTRL is pressed for stack items
 		if( !( ( gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects > 1 && isLimit > 0 ) && ( guiCurrentScreen != MAP_SCREEN ) ) || _KeyDown( CTRL ) )
 		{
-			if ( !InItemDescriptionBox( ) )
+			if ( !InItemDescriptionBox( ) && !(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS)) )//dnl ch66 070913 if INV_AP_COST is active then attach is not allowed if not in one of these slots
 			{
 				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 				{

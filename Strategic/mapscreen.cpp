@@ -9441,6 +9441,9 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		return;
 	}
 
+	if(gGameOptions.fInventoryCostsAP && (gTacticalStatus.uiFlags & INCOMBAT))//dnl ch66 070913 if fInventoryCostsAP is set and we are in combat then moving equipment in strategic screen is not allowed
+		return;
+
 	// make sure we're here legally
 	Assert( MapCharacterHasAccessibleInventory( bSelectedInfoChar ) );
 
