@@ -1466,7 +1466,14 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 	
 					MSYS_AddRegion( &gUDBFasthelpRegions[ iRegionsCreated ]);
 					if(UsingNewCTHSystem() == true)
-						swprintf( pStr, L"%s%s", szUDBGenWeaponsStatsTooltipText[ cnt ], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
+					{
+						// with the new Laser Performance Bonus we need to display a different text for laser on a weapons general tab
+						if ( gGameExternalOptions.fUseNewCTHCalculation && cnt == 6
+							&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+							swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[64], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
+						else
+							swprintf( pStr, L"%s%s", szUDBGenWeaponsStatsTooltipText[ cnt ], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
+					}
 					else
 						swprintf( pStr, L"%s", gzWeaponStatsFasthelpTactical[ cnt ]);
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iRegionsCreated ]), pStr );
@@ -6312,16 +6319,18 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			FLOAT iProjectionValue = 0;
 			FLOAT iProjectionModifier = 0;
 			FLOAT iFinalProjectionValue = 0;
+			BOOLEAN bNewCode = FALSE;
 
 			if ( gGameExternalOptions.fUseNewCTHCalculation && GetBestLaserRange( gpItemDescObject ) > 0
 				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 			{
 				// Get base laser range
-				iProjectionValue = __max(1.0f, Item[ gpItemDescObject->usItem ].bestlaserrange / CELL_X_SIZE);
+				iProjectionValue = __max(0, Item[ gpItemDescObject->usItem ].bestlaserrange / CELL_X_SIZE);
 				// Get best laser range
 				iProjectionModifier = ((FLOAT)GetBestLaserRange( gpItemDescObject ) / CELL_X_SIZE);
 				// Get final laser range
 				iFinalProjectionValue = __max( iProjectionValue, iProjectionModifier );
+				bNewCode = TRUE;
 			}
 			else
 			{
@@ -6337,27 +6346,57 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			SetFontForeground( 5 );
 			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
-			if (iProjectionValue > 1.0f)
+			if ( bNewCode )
 			{
-				swprintf( pStr, L"%3.1f", iProjectionValue );
+				if (iProjectionValue > 0)
+				{
+					swprintf( pStr, L"%3.0f", iProjectionValue );
+				}
+				else
+				{
+					swprintf( pStr, L"--");
+				}
+
 			}
 			else
 			{
-				swprintf( pStr, L"--");
+				if (iProjectionValue > 1.0f)
+				{
+					swprintf( pStr, L"%3.1f", iProjectionValue );
+				}
+				else
+				{
+					swprintf( pStr, L"--");
+				}
 			}
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 
 			// Print Projection factor from attachments
 			SetFontForeground( 5 );
-			if (iProjectionModifier > 1.0f && iProjectionModifier > iProjectionValue)
+			if ( bNewCode )
 			{
-				SetFontForeground( ITEMDESC_FONTPOSITIVE );
-				swprintf( pStr, L"%3.1f", iProjectionModifier );
+				if (iProjectionModifier > 0 && iProjectionModifier > iProjectionValue)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"%3.0f", iProjectionModifier );
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+				}
 			}
 			else
 			{
-				swprintf( pStr, L"--" );
+				if (iProjectionModifier > 1.0f && iProjectionModifier > iProjectionValue)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"%3.1f", iProjectionModifier );
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+				}
 			}
 			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
@@ -6368,7 +6407,10 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			SetFontForeground( FONT_MCOLOR_WHITE );
 			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
 			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
-			swprintf( pStr, L"%3.1f", iFinalProjectionValue );
+			if ( bNewCode )
+				swprintf( pStr, L"%3.0f", iFinalProjectionValue );
+			else
+				swprintf( pStr, L"%3.1f", iFinalProjectionValue );
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 		}
