@@ -1067,8 +1067,8 @@
     <SectorGrid>J9</SectorGrid>
     <szUnexploredName>Wüste</szUnexploredName>
     <szDetailedUnexploredName>Wüste</szDetailedUnexploredName>
-    <szExploredName>Wüste</szExploredName>
-    <szDetailedExploredName>Wüste</szDetailedExploredName>
+    <szExploredName>Tixa</szExploredName>
+    <szDetailedExploredName>Tixa</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>J10</SectorGrid>
