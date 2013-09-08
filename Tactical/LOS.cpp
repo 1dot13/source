@@ -2364,30 +2364,23 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 
 	if (pBullet->usFlags & BULLET_FLAG_KNIFE)
 	{
+		//dnl ch67 080913
 		// Place knife on guy....
-
+		UINT16 usItem = (Item[pBullet->fromItem].bloodieditem>0 ? Item[pBullet->fromItem].bloodieditem : pBullet->fromItem);
+		UINT16 usItemStatus = (pBullet->ubItemStatus>1 ? pBullet->ubItemStatus-Random(2) : pBullet->ubItemStatus);
 		// See if they have room ( and make sure it's not in hand pos?
 		// CHRISL:
 		bSlot = FindEmptySlotWithin( pTarget, BIGPOCKSTART, NUM_INV_SLOTS );
-		if (bSlot == NO_SLOT)
+		if(bSlot == NO_SLOT)
 		{
 			// Add item
-
-			CreateItem( pBullet->fromItem, (INT8) pBullet->ubItemStatus, &gTempObject );
-
-			AddItemToPool( pTarget->sGridNo, &gTempObject, -1 , pTarget->pathing.bLevel, 0, 0 );
-
+			CreateItem(usItem, usItemStatus, &gTempObject);
+			AddItemToPool(pTarget->sGridNo, &gTempObject, -1, pTarget->pathing.bLevel, 0, 0);
 			// Make team look for items
-			NotifySoldiersToLookforItems( );
+			NotifySoldiersToLookforItems();
 		}
 		else
-		{
-			if ( Item[pBullet->fromItem].bloodieditem > 0 )
-				CreateItem( Item[pBullet->fromItem].bloodieditem, (INT8) pBullet->ubItemStatus, &(pTarget->inv[bSlot]) );
-			else
-				CreateItem( pBullet->fromItem, (INT8) pBullet->ubItemStatus, &(pTarget->inv[bSlot]) );
-		}
-
+			CreateItem(usItem, usItemStatus, &pTarget->inv[bSlot]);
 		ubAmmoType = AMMO_KNIFE;
 	}
 	else if (pBullet->fFragment)

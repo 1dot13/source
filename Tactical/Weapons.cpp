@@ -4601,6 +4601,39 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				// When it hits the ground, leave on map...
 				if ( Item[ usWeaponIndex ].usItemClass == IC_THROWING_KNIFE )
 				{
+					//dnl ch67 080913
+					INT8 bMaxLeft, bMaxRight, bMaxUp, bMaxDown, bXOffset, bYOffset, ubSearchRange;
+					INT32 iGridNo = NOWHERE;
+					for(ubSearchRange = 0; ubSearchRange < 4 && iGridNo == NOWHERE; ubSearchRange++)
+					{
+						bMaxLeft = bMaxRight = ubSearchRange;// determine maximum horizontal limits
+						bMaxUp = bMaxDown = ubSearchRange;// determine maximum vertical limits
+						for(bYOffset = -bMaxUp; bYOffset <= bMaxDown && iGridNo == NOWHERE; bYOffset++)// evaluate every tile until find first reachable one
+							for(bXOffset = -bMaxLeft; bXOffset <= bMaxRight; bXOffset++)
+							{
+								iGridNo = pBullet->sGridNo + bXOffset + (MAXCOL * bYOffset);// calculate the next potential gridno near this opponent
+								if(!TileIsOutOfBounds(iGridNo) && !FindStructure(iGridNo, STRUCTURE_BLOCKSMOVES))
+									break;
+								iGridNo = NOWHERE;
+							}
+					}
+					if(iGridNo != NOWHERE)
+					{
+						UINT16 usItem = pBullet->fromItem;
+						if(usStructureID == INVALID_STRUCTURE_ID)
+						{
+							for(int i=0; i<MAXITEMS; i++)
+								if(Item[i].bloodieditem == pBullet->fromItem)
+								{
+									usItem = Item[i].uiIndex;// clean the blood from knife, actually this should be done during repair
+									break;
+								}
+						}
+						CreateItem(usItem, (pBullet->ubItemStatus>1 ? pBullet->ubItemStatus-Random(2) : pBullet->ubItemStatus), &gTempObject);
+						AddItemToPool(iGridNo, &gTempObject, -1, 0, 0, -1);
+						NotifySoldiersToLookforItems();
+					}
+/*
 					// OK, have we hit ground?
 					if ( usStructureID == INVALID_STRUCTURE_ID )
 					{
@@ -4612,7 +4645,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 						// Make team look for items
 						NotifySoldiersToLookforItems( );
 					}
-
+*/
 					if ( !fHitSameStructureAsBefore )
 					{
 						PlayJA2Sample( MISS_KNIFE, RATE_11025, uiMissVolume, 1, SoundDir( sGridNo ) );
@@ -10018,6 +10051,33 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 
 		case MONSTERCLASS:
 			PlayJA2Sample( SPIT_RICOCHET, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+			break;
+
+		case KNIFECLASS://dnl ch67 080913
+			if((pBullet=GetBulletPtr(iBullet)) != NULL)
+			{
+				INT8 bMaxLeft, bMaxRight, bMaxUp, bMaxDown, bXOffset, bYOffset, ubSearchRange;
+				INT32 iGridNo = NOWHERE;
+				for(ubSearchRange = 0; ubSearchRange < 4 && iGridNo == NOWHERE; ubSearchRange++)
+				{
+					bMaxLeft = bMaxRight = ubSearchRange;// determine maximum horizontal limits
+					bMaxUp = bMaxDown = ubSearchRange;// determine maximum vertical limits
+					for(bYOffset = -bMaxUp; bYOffset <= bMaxDown && iGridNo == NOWHERE; bYOffset++)// evaluate every tile until find first reachable one
+						for(bXOffset = -bMaxLeft; bXOffset <= bMaxRight; bXOffset++)
+						{
+							iGridNo = pBullet->sGridNo + bXOffset + (MAXCOL * bYOffset);// calculate the next potential gridno near this opponent
+							if(!TileIsOutOfBounds(iGridNo) && !FindStructure(iGridNo, STRUCTURE_BLOCKSMOVES))
+								break;
+							iGridNo = NOWHERE;
+						}
+				}
+				if(iGridNo != NOWHERE)
+				{
+					CreateItem(pBullet->fromItem, (pBullet->ubItemStatus>1 ? pBullet->ubItemStatus-Random(2) : pBullet->ubItemStatus), &gTempObject);
+					AddItemToPool(iGridNo, &gTempObject, -1, 0, 0, -1);
+					NotifySoldiersToLookforItems();
+				}
+			}
 			break;
 	}
 
