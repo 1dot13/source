@@ -4175,6 +4175,16 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 		// Force adjustment, if true
 		if ( fForceAdjust )
 		{
+			if ( fOutRight )
+			{
+				CorrectRenderCenter( (INT16)( gsTRX - sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
+				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+				sTempRenderCenterX = sTempPosX_W;
+				sTempRenderCenterY = sTempPosY_W;
+				fScrollGood = TRUE;
+			}
+			
 			if ( fOutTop )
 			{
 				// Adjust screen coordinates on the Y!
@@ -4208,17 +4218,6 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 
 				fScrollGood = TRUE;
 			}
-
-			if ( fOutRight )
-			{
-				CorrectRenderCenter( (INT16)( gsTRX - sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
-				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-				sTempRenderCenterX = sTempPosX_W;
-				sTempRenderCenterY = sTempPosY_W;
-				fScrollGood = TRUE;
-			}
-
 		}
 		else
 		{
