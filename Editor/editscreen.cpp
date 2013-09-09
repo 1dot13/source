@@ -1612,7 +1612,12 @@ void HandleKeyboardShortcuts( )
 					break;
 
 				case F4:
+#ifdef NEWMUSIC
 					MusicPlay( giMusicID, MUSIC_OLD_TYPE, FALSE );
+#else
+					MusicPlay( giMusicID );
+#endif
+
 					ScreenMsg( FONT_YELLOW, MSG_DEBUG, L"%S", szMusicList[giMusicID] );
 					giMusicID++;
 					if( giMusicID >= NUM_MUSIC )
