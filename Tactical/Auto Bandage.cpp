@@ -156,11 +156,13 @@ void BeginAutoBandage( )
 		}
 	}
 	
+#ifdef NEWMUSIC
 	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
 	if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
 		SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
 	else
 		SetMusicMode( MUSIC_TACTICAL_NOTHING );
+#endif
 }
 
 

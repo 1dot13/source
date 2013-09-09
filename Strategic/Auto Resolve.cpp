@@ -2060,11 +2060,12 @@ void RenderAutoResolve()
 
 					SectorInfo[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].bLastKnownEnemies = 0;
 					SetThisSectorAsPlayerControlled( gpAR->ubSectorX, gpAR->ubSectorY, 0, TRUE );
-
+					#ifdef NEWMUSIC
 					GlobalSoundID  = MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalVictory[0];
 					if ( MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalVictory[0] != -1 )
 						SetMusicModeID( MUSIC_TACTICAL_VICTORY, MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalVictory[0] );
 					else
+					#endif
 					SetMusicMode( MUSIC_TACTICAL_VICTORY );
 					
 					LogBattleResults( LOG_VICTORY );
@@ -2085,11 +2086,12 @@ void RenderAutoResolve()
 					}
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-
+					#ifdef NEWMUSIC
 					GlobalSoundID  = MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0];
 					if ( MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] != -1 )
 						SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] );
 					else
+					#endif
 					SetMusicMode( MUSIC_TACTICAL_DEATH );
 
 					gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
@@ -2106,11 +2108,12 @@ void RenderAutoResolve()
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 						gsCiviliansEatenByMonsters = gpAR->ubAliveEnemies;
 					}
-					
+					#ifdef NEWMUSIC
 					GlobalSoundID  = MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0];
 					if ( MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] != -1 )
 						SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].SoundTacticalDeath[0] );
 					else
+					#endif
 					SetMusicMode( MUSIC_TACTICAL_DEATH );
 						
 					LogBattleResults( LOG_DEFEAT );

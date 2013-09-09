@@ -910,10 +910,12 @@ void HandleFirstHeliDropOfGame( )
 #ifdef ENABLE_ZOMBIES
 			UseCreatureMusic(HostileZombiesPresent());
 #endif
+			#ifdef NEWMUSIC
 			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
 			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
 				SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
 			else
+			#endif
 				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 		}
@@ -922,11 +924,13 @@ void HandleFirstHeliDropOfGame( )
 			// Say quote.....
 			SayQuoteFromAnyBodyInSector( QUOTE_MERC_REACHED_DESTINATION );
 			// Start music
+			#ifdef NEWMUSIC
 			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
 			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
 				//SetMusicMode( MUSIC_TACTICAL_VICTORY );
 				SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
 			else
+			#endif
 			SetMusicMode( MUSIC_TACTICAL_NOTHING );
 		}
 

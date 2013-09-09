@@ -537,12 +537,16 @@ static int l_AnimMercPtsrusStrategicInsertionData (lua_State *L);
 
 static int l_SetMusicMode (lua_State *L);
 static int l_MusicPlay (lua_State *L);
+#ifdef NEWMUSIC
 static int l_MusicPlayId (lua_State *L);
+#endif
 static int l_MusicSetVolume (lua_State *L);
 static int l_MusicGetVolume (lua_State *L);
+#ifdef NEWMUSIC
 static int l_gAddMusic(lua_State *L);
 static int l_SetMusicID (lua_State *L);
 static int l_GetMusicID (lua_State *L);
+#endif
 //static int l_MusicStop (lua_State *L);
 //static int l_MusicFadeOut (lua_State *L);
 //static int l_MusicFadeIn (lua_State *L);
@@ -809,8 +813,9 @@ BOOLEAN LuaInternalQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN
 static int l_GiveQuestRewardPoint(lua_State *L);
 BOOLEAN LuaExecuteStrategicEvent( UINT8 EventCallbackID, UINT32 uiTimeStamp, UINT32 uiTimeOffset, UINT8	ubEventType, UINT8 ubFlags, UINT32 EventParam, UINT32 Init);
 BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum);
+#ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init);
-
+#endif
 static int l_CurrentSquad (lua_State *L);
 static int l_SetgfTacticalTraversal (lua_State *L);
 static int l_GetgfTacticalTraversal (lua_State *L);
@@ -1304,12 +1309,13 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "PlayJA2Sample", l_PlayJA2Sample);	
 	lua_register(L, "SetMusicMode", l_SetMusicMode );
 	lua_register(L, "MusicPlay", l_MusicPlay );
+	#ifdef NEWMUSIC
 	lua_register(L, "MusicIdPlay", l_MusicPlayId );
 	lua_register(L, "AddMusic", l_gAddMusic );
 	
 	lua_register(L, "SetMusicID", l_SetMusicID );
 	lua_register(L, "GetMusicID", l_GetMusicID );
-
+	#endif
 	lua_register(L, "MusicSetVolume", l_MusicSetVolume );
 	lua_register(L, "MusicGetVolume", l_MusicGetVolume );
 	//lua_register(L, "MusicStop", l_MusicStop );
@@ -1680,7 +1686,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"EnvEndRainStorm", l_EnvEndRainStorm);
 	
 }
-
+#ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
 {
 	const char* filename = "scripts\\Music.lua";
@@ -1699,7 +1705,7 @@ BOOLEAN LetLuaMusicControl(UINT8 Init)
 
 	return true;
 }
-
+#endif
 //------------------- intro -----------
 
 BOOLEAN LuaIntro(UINT8 Init, UINT32 uiCurrentVideo, INT8 bIntroType, UINT32 iStringToUse )
@@ -5448,7 +5454,7 @@ static int l_MusicSetVolume (lua_State *L)
 	}	
 return 0;
 }
-
+#ifdef NEWMUSIC
 static int l_SetMusicID (lua_State *L)
 {
 	if ( lua_gettop(L) >= 4 )
@@ -5608,18 +5614,22 @@ static int l_gAddMusic(lua_State *L)
 
 	return 0;
 }
-
+#endif
 static int l_MusicPlay (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT32 uiNum = lua_tointeger(L,1);
-
+		#ifdef NEWMUSIC
 		MusicPlay( uiNum, MUSIC_OLD_TYPE, FALSE);
+		#else
+		MusicPlay( uiNum );
+		#endif
 	}	
 return 0;
 }
 
+#ifdef NEWMUSIC
 static int l_MusicPlayId (lua_State *L)
 {
 	if ( lua_gettop(L) >= 2 )
@@ -5632,7 +5642,7 @@ static int l_MusicPlayId (lua_State *L)
 	}	
 return 0;
 }
-
+#endif
 static int l_SetMusicMode (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )

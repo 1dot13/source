@@ -3622,10 +3622,12 @@ void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumN
 		// If we are NOT in any music mode...
 		if ( GetMusicMode() == MUSIC_NONE )
 		{
+			#ifdef NEWMUSIC
 			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ];
 			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] != -1 )
 				SetMusicModeID( MUSIC_TACTICAL_BATTLE, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalBattle[gbWorldSectorZ] );
 			else
+			#endif
 			SetMusicMode( MUSIC_TACTICAL_BATTLE );
 		}
 	}

@@ -872,11 +872,13 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 #ifdef ENABLE_ZOMBIES
 	UseCreatureMusic(HostileZombiesPresent());
 #endif
-
+	
+	#ifdef NEWMUSIC
 	GlobalSoundID  = MusicSoundValues[ SECTOR( gubPBSectorX, gubPBSectorY ) ].SoundTacticalTensor[gubPBSectorZ];
 	if ( MusicSoundValues[ SECTOR( gubPBSectorX, gubPBSectorY ) ].SoundTacticalTensor[gubPBSectorZ] != -1 )
 		SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gubPBSectorX, gubPBSectorY ) ].SoundTacticalTensor[gubPBSectorZ] );
 	else
+	#endif
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 #ifdef JA2UB	

@@ -42,6 +42,7 @@ enum MusicMode
 	MUSIC_TACTICAL_CIV_GROUP_BATTLE,
 };
 
+#ifdef NEWMUSIC
 typedef struct
 {
 	UINT16 uiIndex;
@@ -58,6 +59,7 @@ typedef struct
 
 extern MUSIC_SOUND_VALUES MusicSoundValues[256];
 extern INT32 GlobalSoundID;
+#endif
 
 //extern UINT32 uiMusicHandle;
 //extern BOOLEAN fMusicPlaying;
@@ -68,10 +70,15 @@ UINT8 GetMusicMode(void);
 BOOLEAN SetMusicMode(UINT8 ubMusicMode);
 
 // only for editor (editscreen.cpp)
+#ifdef NEWMUSIC
 BOOLEAN MusicPlay(UINT32 uiNum, UINT32 MusicMode, BOOLEAN NewSound);
+#else
+BOOLEAN MusicPlay(UINT32 uiNum);
+#endif
 
+#ifdef NEWMUSIC
 BOOLEAN SetMusicModeID(UINT8 ubMusicMode, INT32 SoundID);
-
+#endif
 UINT32 MusicGetVolume(void);
 BOOLEAN MusicSetVolume(UINT32 uiVolume);
 

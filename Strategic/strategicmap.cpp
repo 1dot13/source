@@ -2282,11 +2282,13 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				// ATE; Fade FA.T....
 				SetMusicFadeSpeed( 5 );
-
+				
+				#ifdef NEWMUSIC
 				GlobalSoundID = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
 				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
 					SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
 				else
+				#endif
 				SetMusicMode( MUSIC_TACTICAL_NOTHING );
 			}
 			
@@ -4470,10 +4472,12 @@ void AllMercsHaveWalkedOffSector( )
 			// ATE; Fade FAST....
 			SetMusicFadeSpeed( 5 );
 			
+			#ifdef NEWMUSIC
 			GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
 			if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
 				SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
 			else
+			#endif
 			SetMusicMode( MUSIC_TACTICAL_NOTHING );
 		}
 	}

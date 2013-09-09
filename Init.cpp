@@ -1355,7 +1355,7 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 			gAimOldArchives[p-1].FaceID=-1;
 		}
 		
-		
+		#ifdef NEWMUSIC
 		UINT32 iloop;
 		UINT32 zloop;
 		for(iloop=0; iloop<256; iloop++)
@@ -1380,7 +1380,7 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 		{
 			LetLuaMusicControl(0);
 		}
-
+		#endif
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
 	// load Lua for Strategic Mines initialization

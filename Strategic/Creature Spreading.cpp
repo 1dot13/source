@@ -1284,11 +1284,12 @@ BOOLEAN PrepareCreaturesForBattle()
 	{ //creatures are attacking a town sector
 		//gfUseCreatureMusic = TRUE;
 		UseCreatureMusic(TRUE);
-		
+		#ifdef NEWMUSIC
 		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
 		if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
 			SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
 		else
+		#endif
 		SetMusicMode( MUSIC_TACTICAL_NOTHING );
 					
 		ubCreatureHabitat = MINE_EXIT;
