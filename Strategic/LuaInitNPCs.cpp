@@ -5808,22 +5808,21 @@ return 1;
 
 static int l_TacticalStatusTeamActive(lua_State *L)
 {
-BOOLEAN Bool;
+	BOOLEAN Bool;
 
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT8 team = lua_tointeger(L,1);
 
-	if (gTacticalStatus.Team[team].bTeamActive )
-		Bool = TRUE;
-	else
-		Bool = FALSE;
+		if (gTacticalStatus.Team[team].bTeamActive )
+			Bool = TRUE;
+		else
+			Bool = FALSE;
 	
-		lua_pushboolean(L, Bool);
-		
+		lua_pushboolean(L, Bool);		
 	}		
 	
-return 1;
+	return 1;
 }
 
 static int l_usStrategicInsertionDataProfileID(lua_State *L)
@@ -7498,8 +7497,10 @@ static int l_fEnemyControlled (lua_State *L)
 	{
 		UINT16 id = lua_tointeger(L,1);
 
-		BOOLEAN Bool = StrategicMap[ id ].fEnemyControlled;
-		
+		// WANNE: Bugfix: We have to get the sector from StrategicMap array by using the SECTOR_INFO_TO_STRATEGIC_INDEX(sectorID) function!!!
+		//BOOLEAN Bool = StrategicMap[ id ].fEnemyControlled;
+		BOOLEAN Bool = StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX(id)].fEnemyControlled;
+				
 		lua_pushboolean(L, Bool);
 	}
 	
