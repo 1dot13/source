@@ -47,11 +47,11 @@
 ** Examples **
 **************
 	
-	if SectorEnemyControlled ( SECTOR(4,13) ) == false then
+	if SectorEnemyControlled ( SECTOR(13,4) ) == false then
 		-- instructions
 	end
 	
-	if SectorEnemyControlled ( SECTOR(4,13) ) == false then
+	if SectorEnemyControlled ( SECTOR(13,4) ) == false then
 		-- instructions
 	else
 		-- instructions
@@ -182,7 +182,7 @@ function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ
 	-- Count the number of "infectible mines" the player occupies
 	
 	-- SEC_D13
-	if SectorEnemyControlled ( SECTOR(4,13) ) == false then
+	if SectorEnemyControlled ( SECTOR(13,4) ) == false then
 		ubValidMines = ubValidMines + 1
 	end
 	
@@ -192,12 +192,12 @@ function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ
 	end	
 	
 	-- SEC_I14
-	if SectorEnemyControlled ( SECTOR(9,14) ) == false then 
+	if SectorEnemyControlled ( SECTOR(14,9) ) == false then 
 		ubValidMines = ubValidMines + 1
 	end	
 	
 	-- SEC_H3
-	if SectorEnemyControlled ( SECTOR(8,3) ) == false then
+	if SectorEnemyControlled ( SECTOR(3,8) ) == false then
 		ubValidMines = ubValidMines + 1
 	end	
 
