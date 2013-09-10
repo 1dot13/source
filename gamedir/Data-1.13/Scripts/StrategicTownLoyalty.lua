@@ -176,7 +176,8 @@ function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ
 		return -- No scifi, no creatures...
 	end	
 	
-	if ( giLairID ) then
+	-- if ( giLairID ) -> that does not work in LUA, because that is always TRUE!!
+	if ( giLairID ~= 0 ) then
 		return	-- Creature quest already begun
 	end
 	
