@@ -2545,8 +2545,6 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 		}
 	}
 
-	// Set aim time to one in UI
-	pSoldier->aiData.bAimTime			= (pSoldier->aiData.bShownAimTime );
 	// ATE: Check if we are targeting an interactive tile, and adjust gridno accordingly...
 	pIntNode = GetCurInteractiveTileGridNoAndStructure( &sGridNo, &pStructure );
 
@@ -2566,6 +2564,13 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 			sTargetGridNo = sGridNo;
 		}
 	}
+
+	// In realtime mode we cannot aim. Assume that max allowed aiming levels will be used.
+	if ( gTacticalStatus.uiFlags & REALTIME || !( gTacticalStatus.uiFlags & INCOMBAT ) )
+		pSoldier->aiData.bAimTime = AllowedAimingLevels(pSoldier, sGridNo);
+	else
+		// Set aim time to one in UI
+		pSoldier->aiData.bAimTime = (pSoldier->aiData.bShownAimTime );
 
 	// here, change gridno if we're targeting ourselves....
 	if ( pIntNode != NULL	)
