@@ -73,6 +73,7 @@ std::vector<SECTORINFO> SectorInfo (256);
 UNDERGROUND_SECTORINFO *gpUndergroundSectorInfoHead = NULL;
 extern UNDERGROUND_SECTORINFO* gpUndergroundSectorInfoTail;
 BOOLEAN gfPendingEnemies = FALSE;
+UINT32 guiTurnCnt = 0, guiReinforceTurn = 0, guiArrived = 0;//dnl ch68 080913
 extern void BuildUndergroundSectorInfoList();
 
 extern void EndCreatureQuest();
@@ -1390,6 +1391,40 @@ void AddPossiblePendingEnemiesToBattle()
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
 
 	ubSlots = NumFreeEnemySlots();
+	if(gGameExternalOptions.sMinDelayEnemyReinforcements)//dnl ch68 080913
+	{
+		if(gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition == TRUE)
+		{
+			if(guiReinforceTurn == 0)
+			{
+				guiReinforceTurn = guiTurnCnt + gGameExternalOptions.sMinDelayEnemyReinforcements + Random(gGameExternalOptions.sRndDelayEnemyReinforcements+1);// first possible reinforcement
+				ubSlots = 0;
+			}
+			else if(guiTurnCnt >= guiReinforceTurn)
+			{
+				guiReinforceTurn = guiTurnCnt + gGameExternalOptions.sMinDelayEnemyReinforcements/3 + Random(gGameExternalOptions.sRndDelayEnemyReinforcements+1);// any other reinforcement should appear more frequently
+				ubNumAvailable = gGameExternalOptions.sMinEnterEnemyReinforcements + Random(gGameExternalOptions.sRndEnterEnemyReinforcements+1);// total allowed units to enter per reinforce turn
+//SendFmtMsg("Enemy reinforcements: ubSlots=%d ubNumAvailable=%d", ubSlots, ubNumAvailable);
+				if(ubSlots > ubNumAvailable)
+					ubSlots = ubNumAvailable;
+				guiArrived += (ubNumAvailable - ubSlots);
+			}
+			else
+			{
+				if(guiArrived > 0)
+				{
+					if(ubSlots > guiArrived)
+						ubSlots = guiArrived;
+					guiArrived -= ubSlots;
+				}
+				else
+					ubSlots = 0;
+			}
+		}
+		else
+			guiReinforceTurn = guiArrived = 0;
+//SendFmtMsg("Enemy reinforcements: guiTurnCnt=%d guiReinforceTurn=%d guiArrived=%d", guiTurnCnt, guiReinforceTurn, guiArrived);
+	}
 	if( !ubSlots )
 	{ //no available slots to add enemies to.  Try again later...
 		return;

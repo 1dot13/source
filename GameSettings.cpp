@@ -2015,13 +2015,25 @@ void LoadGameExternalOptions()
 	
 	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
 
+	//dnl ch68 090913 Reinforcements minimum+random turn delay and minimum+random units enter for enemy and militia after they have been called
+	gGameExternalOptions.sMinDelayEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_DELAY_ENEMY_REINFORCEMENTS", 7, 0, 100);
+	gGameExternalOptions.sRndDelayEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_DELAY_ENEMY_REINFORCEMENTS", 8, 0, 100);
+	gGameExternalOptions.sMinEnterEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_ENEMY_REINFORCEMENTS", 6, 1, 64);
+	gGameExternalOptions.sRndEnterEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_ENEMY_REINFORCEMENTS", 6, 1, 64);
+	gGameExternalOptions.sMinDelayMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_DELAY_MILITIA_REINFORCEMENTS", 10, 0, 100);
+	gGameExternalOptions.sRndDelayMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_DELAY_MILITIA_REINFORCEMENTS", 10, 0, 100);
+	gGameExternalOptions.sMinEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_MILITIA_REINFORCEMENTS", 6, 1, 64);
+	gGameExternalOptions.sRndEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_MILITIA_REINFORCEMENTS", 4, 1, 64);
+	//dnl ch68 090913 Don't allow permanent items removal from sector
+	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", true, false);
+
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE
 	// dnl ch51 081009 JA2 Debug Settings
 #ifdef _DEBUG
 	gGameExternalOptions.fEnableInventoryPoolQ				= TRUE;
 #else
-	gGameExternalOptions.fEnableInventoryPoolQ = FALSE;
+	gGameExternalOptions.fEnableInventoryPoolQ				= FALSE;
 #endif	
 	
 	////////// CLOCK SETTINGS //////////

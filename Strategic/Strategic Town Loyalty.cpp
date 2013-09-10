@@ -1115,6 +1115,8 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 	UINT32 uiNewTotal = 0;
 	CHAR16 wSectorName[ 128 ];
 
+	if(gGameExternalOptions.fNoRemoveRandomSectorItems)//dnl ch68 090913
+		return;
 
 	// stealing should fail anyway 'cause there shouldn't be a temp file for unvisited sectors, but let's check anyway
 	Assert( GetSectorFlagStatus( sSectorX, sSectorY, ( UINT8 ) sSectorZ, SF_ALREADY_VISITED ) == TRUE );

@@ -5963,6 +5963,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
 		if(!LoadInventoryPoolQ(ubSavedGameID))
 			return(FALSE);
+	//dnl ch68 100913 // basic guess when reinforcement should arrive after load game as reinforcement globals are not saved
+	if(guiReinforceTurn)
+		guiReinforceTurn = guiTurnCnt + gGameExternalOptions.sMinDelayEnemyReinforcements/2 + Random(gGameExternalOptions.sRndDelayEnemyReinforcements+1);
+	if(guiMilitiaReinforceTurn)
+		guiMilitiaReinforceTurn = guiTurnCnt + gGameExternalOptions.sMinDelayMilitiaReinforcements/2 + Random(gGameExternalOptions.sRndDelayMilitiaReinforcements+1);
 
 	//now change the savegame format so that temp files are saved and loaded correctly
 	guiCurrentSaveGameVersion = SAVE_GAME_VERSION;

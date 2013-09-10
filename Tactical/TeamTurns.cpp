@@ -325,6 +325,7 @@ void EndTurn( UINT8 ubNextTeam )
 	}
 	else
 	{
+		guiTurnCnt++;//dnl ch68 080913
 		// Flugente: I'm not really sure why we check here for gGameExternalOptions.ubReinforcementsFirstTurnFreeze, shouldn't that be a check for ALLOW_REINFORCEMENTS?
 		// as this inhibits reinforcements during turnbased-mode, I'll check for that instead
 		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.

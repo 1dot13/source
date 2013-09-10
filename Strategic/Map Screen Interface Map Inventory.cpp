@@ -3450,6 +3450,9 @@ BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier )
 {
 	INT16	sSectorX, sSectorY, sSectorZ;
 
+	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 200813
+		return(TRUE);
+
 	//Get the sector that has a battle
 	BOOLEAN fInCombat = GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( &sSectorX, &sSectorY, &sSectorZ );
 
@@ -3721,6 +3724,26 @@ BOOLEAN CopySectorInventoryToInventoryPoolQs(UINT8 idx)
 		}
 	}
 	fMapPanelDirty = TRUE;
+	return(TRUE);
+}
+
+BOOLEAN	DisplaySectorItemsInfo(void)//dnl ch51 090913
+{
+	INT32 iCounter, iItemCount, iItemTraps;
+	WORLDITEM *pWorldItem;
+
+	iItemCount = 0;
+	iItemTraps = 0;
+	for(iCounter=0; (UINT32)iCounter<guiNumWorldItems; iCounter++)
+	{
+		pWorldItem = &gWorldItems[iCounter];
+		if(pWorldItem->bVisible<=0 && pWorldItem->fExists && !(pWorldItem->object.usItem==NOTHING || pWorldItem->object.usItem==SWITCH || pWorldItem->object.usItem==ACTION_ITEM || pWorldItem->object.usItem==OWNERSHIP || pWorldItem->object.usItem==SYRINGE_3 || pWorldItem->object.usItem==SYRINGE_4 || pWorldItem->object.usItem==SYRINGE_5))
+			iItemCount++;
+		if(/*pWorldItem->object[0]->data.bTrap > 0 && (pWorldItem->usFlags & WORLD_ITEM_ARMED_BOMB) && */pWorldItem->object[0]->data.misc.usBombItem)
+			iItemTraps++;
+//		SendFmtMsg("Item%.4d:%4d %d %.4X %.4X %.2X %.2X %.2X %d", iCounter, pWorldItem->bVisible, pWorldItem->fExists, pWorldItem->sGridNo, pWorldItem->usFlags, pWorldItem->object[0]->data.bTrap, pWorldItem->object[0]->data.fUsed, pWorldItem->object[0]->data.misc.usBombItem, pWorldItem->object.usItem);
+	}
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%d unseen items and %d boobytraps left.", iItemCount, iItemTraps);
 	return(TRUE);
 }
 //dnl ch51 081009 finish

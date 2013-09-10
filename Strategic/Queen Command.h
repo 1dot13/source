@@ -62,4 +62,6 @@ extern	INT32		gsGridNoForMapEdgePointInfo;
 
 BOOLEAN CheckPendingEnemies();
 
+extern UINT32 guiTurnCnt, guiReinforceTurn, guiMilitiaReinforceTurn;//dnl ch68 080913
+
 #endif

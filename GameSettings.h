@@ -1146,7 +1146,7 @@ typedef struct
 	BOOLEAN fSaveGameSlot;
 
 	//dnl ch51 081009 JA2 Debug Settings
-	BOOLEAN fEnableInventoryPoolQ;		
+	BOOLEAN fEnableInventoryPoolQ;
 	
 	//legion by Jazz
 	//BOOLEAN fShowTacticalFaceGear; //legion 2
@@ -1279,6 +1279,18 @@ typedef struct
 
 	// Flugente: externalised squad names
 	BOOLEAN fUseXMLSquadNames;
+
+	//dnl ch68 090913 Reinforcements Setttings
+	UINT16 sMinDelayEnemyReinforcements;
+	UINT16 sRndDelayEnemyReinforcements;
+	UINT16 sMinEnterEnemyReinforcements;
+	UINT16 sRndEnterEnemyReinforcements;
+	UINT16 sMinDelayMilitiaReinforcements;
+	UINT16 sRndDelayMilitiaReinforcements;
+	UINT16 sMinEnterMilitiaReinforcements;
+	UINT16 sRndEnterMilitiaReinforcements;
+
+	BOOLEAN fNoRemoveRandomSectorItems;//dnl ch68 090913
 
 } GAME_EXTERNAL_OPTIONS;
 

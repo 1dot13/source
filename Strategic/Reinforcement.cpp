@@ -29,6 +29,7 @@
 #include "MilitiaSquads.h"
 
 UINT8 gubReinforcementMinEnemyStaticGroupSize = 12;
+UINT32 guiMilitiaReinforceTurn = 0, guiMilitiaArrived = 0;//dnl ch68 090913
 
 void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
 {
@@ -399,6 +400,40 @@ void AddPossiblePendingMilitiaToBattle()
 		return;
 	//gGameExternalOptions.guiMaxMilitiaSquadSize - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );
 	ubSlots = NumFreeMilitiaSlots();
+	if(gGameExternalOptions.sMinDelayMilitiaReinforcements)//dnl ch68 090913
+	{
+		if(gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition == TRUE)
+		{
+			if(guiMilitiaReinforceTurn == 0)
+			{
+				guiMilitiaReinforceTurn = guiTurnCnt + gGameExternalOptions.sMinDelayMilitiaReinforcements + Random(gGameExternalOptions.sRndDelayMilitiaReinforcements+1);// first possible reinforcement
+				ubSlots = 0;
+			}
+			else if(guiTurnCnt >= guiMilitiaReinforceTurn)
+			{
+				guiMilitiaReinforceTurn = guiTurnCnt + gGameExternalOptions.sMinDelayMilitiaReinforcements/3 + Random(gGameExternalOptions.sRndDelayMilitiaReinforcements+1);// any other reinforcement should appear more frequently
+				UINT8 ubNumAvailable = gGameExternalOptions.sMinEnterMilitiaReinforcements + Random(gGameExternalOptions.sRndEnterMilitiaReinforcements+1);// total allowed units to enter per reinforce turn
+//SendFmtMsg("Militia reinforcements: ubSlots=%d ubNumAvailable=%d", ubSlots, ubNumAvailable);
+				if(ubSlots > ubNumAvailable)
+					ubSlots = ubNumAvailable;
+				guiMilitiaArrived += (ubNumAvailable - ubSlots);
+			}
+			else
+			{
+				if(guiMilitiaArrived > 0)
+				{
+					if(ubSlots > guiMilitiaArrived)
+						ubSlots = guiMilitiaArrived;
+					guiMilitiaArrived -= ubSlots;
+				}
+				else
+					ubSlots = 0;
+			}
+		}
+		else
+			guiMilitiaReinforceTurn = guiMilitiaArrived = 0;
+//SendFmtMsg("Militia reinforcements: guiTurnCnt=%d guiReinforceTurn=%d guiArrived=%d", guiTurnCnt, guiMilitiaReinforceTurn, guiMilitiaArrived);
+	}
 	if( !ubSlots )
 	{ //no available slots to add militia  to.  Try again later...
 		return;
