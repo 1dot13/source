@@ -213,6 +213,8 @@ void HandleTownTheft( void );
 
 extern void MapScreenDefaultOkBoxCallback( UINT8 bExitValue );
 
+extern void CheckConditionsForTriggeringCreatureQuest( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
+
 void InitTownLoyalty( void )
 {
 	UINT8 ubTown = 0;
