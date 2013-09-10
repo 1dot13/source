@@ -175,12 +175,14 @@ void HandleTacticalEndTurn( )
 	// decay AI warning values from corpses
 	DecayRottingCorpseAIWarnings();
 
-	((gTacticalStatus.Team[ENEMY_TEAM].bTeamActive || gTacticalStatus.Team[MILITIA_TEAM].bTeamActive) ? (guiTurnCnt++) : (guiTurnCnt = 0));//dnl ch68 090913
-	//Check for enemy pooling (add enemies if there happens to be more than the max in the
-	//current battle.	If one or more slots have freed up, we can add them now.
-	AddPossiblePendingEnemiesToBattle();
-
-	AddPossiblePendingMilitiaToBattle();
+	if(gGameExternalOptions.gfAllowReinforcements)//dnl ch68 100913
+	{
+		((gTacticalStatus.Team[ENEMY_TEAM].bTeamActive || gTacticalStatus.Team[MILITIA_TEAM].bTeamActive) ? (guiTurnCnt++) : (guiTurnCnt = 0));
+		//Check for enemy pooling (add enemies if there happens to be more than the max in the
+		//current battle.	If one or more slots have freed up, we can add them now.
+		AddPossiblePendingEnemiesToBattle();
+		AddPossiblePendingMilitiaToBattle();
+	}
 
 	// Loop through each active team and decay public opplist...
 	// May want this done every few times too

@@ -325,18 +325,15 @@ void EndTurn( UINT8 ubNextTeam )
 	}
 	else
 	{
-		guiTurnCnt++;//dnl ch68 080913
-		// Flugente: I'm not really sure why we check here for gGameExternalOptions.ubReinforcementsFirstTurnFreeze, shouldn't that be a check for ALLOW_REINFORCEMENTS?
-		// as this inhibits reinforcements during turnbased-mode, I'll check for that instead
-		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
-		//if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 2)
-		if ( gGameExternalOptions.gfAllowReinforcements )
+		if(gGameExternalOptions.gfAllowReinforcements)//dnl ch68 100913 agree with Flugente, put all under one condition
 		{
+			guiTurnCnt++;
+			// Flugente: I'm not really sure why we check here for gGameExternalOptions.ubReinforcementsFirstTurnFreeze, shouldn't that be a check for ALLOW_REINFORCEMENTS?
+			// as this inhibits reinforcements during turnbased-mode, I'll check for that instead
+			// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
+			//if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 2)
 			AddPossiblePendingEnemiesToBattle();
-		}
-		//if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 3)
-		if ( gGameExternalOptions.gfAllowReinforcements )
-		{
+			//if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 3)
 			AddPossiblePendingMilitiaToBattle();
 		}
 
