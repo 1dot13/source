@@ -7497,10 +7497,8 @@ static int l_fEnemyControlled (lua_State *L)
 	{
 		UINT16 id = lua_tointeger(L,1);
 
-		// WANNE: Bugfix: We have to get the sector from StrategicMap array by using the SECTOR_INFO_TO_STRATEGIC_INDEX(sectorID) function!!!
-		//BOOLEAN Bool = StrategicMap[ id ].fEnemyControlled;
-		BOOLEAN Bool = StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX(id)].fEnemyControlled;
-				
+		BOOLEAN Bool = StrategicMap[ id ].fEnemyControlled;
+
 		lua_pushboolean(L, Bool);
 	}
 	
