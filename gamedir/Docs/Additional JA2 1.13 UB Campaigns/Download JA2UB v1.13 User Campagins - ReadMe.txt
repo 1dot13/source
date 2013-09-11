@@ -1,0 +1,7 @@
+Do you want to play the Unfinished Business User Campaigns (eg: SOG Vietnam 69, Shady Jobs, ...)
+with the latest 1.13 features?
+
+Just download the campaign you like to play from SVN and put them in your JA2 1.13 Installation directory.
+https://ja2svn.dyndns.org/source/ja2/branches/Wanne/UB_113_Addons
+
+Then start the game from the "INI Editor" by selecting the proper VFS-Config-File and the UB-Executable. Then click the "START" button.

@@ -1,4 +1,5 @@
-﻿; default action is 'ACCEPT', so everything that is not explicitely denied will be transferred
+﻿; This file is only used if you want to play JA2 1.13 Multiplayer
+; default action is 'ACCEPT', so everything that is not explicitely denied will be transferred
 deny 	shadetables/*
 deny 	temp/*
 deny	ja2_settings.ini
