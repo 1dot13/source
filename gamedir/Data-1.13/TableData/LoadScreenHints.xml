@@ -64,7 +64,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>_TODO_</szName>
+    <szName>Doorway blocked? Press [X] when beside someone to swap places.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
