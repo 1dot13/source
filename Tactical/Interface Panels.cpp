@@ -3955,13 +3955,14 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					return;
 				}
 				
-				//if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )//dnl ch66 070913 without this condition we have option to attach and merge with left click too, and solve problem with CanItemFitInPosition which return TRUE if slot has weapon and we try to put clip or attachment or grenade which fits
+				if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )//dnl ch66 070913 without this condition we have option to attach and merge with left click too, and solve problem with CanItemFitInPosition which return TRUE if slot has weapon and we try to put clip or attachment or grenade which fits
 				{
 					//if ( ValidAttachmentClass( usNewItemIndex, usOldItemIndex ) )
 					if ( ValidAttachment( usNewItemIndex, &(gpSMCurrentMerc->inv[uiHandPos]) ) )
 					{
-						if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS))//dnl ch66 070913 if INV_AP_COST is active then attach or merge is allowed only in those slots
-							return;
+						// removed because of problems with attaching when INV_AP_COST is on
+//						if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS))//dnl ch66 070913 if INV_AP_COST is active then attach or merge is allowed only in those slots
+//							return;
 						// it's an attempt to attach; bring up the inventory panel
 						if ( !InItemDescriptionBox( ) )
 						{
@@ -3971,8 +3972,9 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					else if ( ValidMerge( usNewItemIndex, usOldItemIndex ) )
 					{
-						if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS))//dnl ch66 070913 if INV_AP_COST is active then attach or merge is allowed only in those slots
-							return;
+						// removed because of problems with putting items on top of stack when INV_AP_COST is on
+//						if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS))//dnl ch66 070913 if INV_AP_COST is active then attach or merge is allowed only in those slots
+//							return;
 						// bring up merge requestor
 						gubHandPos = (UINT8) uiHandPos;
 						gusOldItemIndex = usOldItemIndex;
@@ -3991,8 +3993,9 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_MERGE_ITEMS ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, MergeMessageBoxCallBack, NULL );
 						return;
 					}
-					else if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS) && CompatibleAmmoForGun(gpItemPointer, &gpSMCurrentMerc->inv[uiHandPos]))//dnl ch66 070913 if INV_AP_COST is active then reload is not allowed if weapon not in HANDPOS
-						return;
+					// removed because of problems when INV_AP_COST is on
+//					else if(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS) && CompatibleAmmoForGun(gpItemPointer, &gpSMCurrentMerc->inv[uiHandPos]))//dnl ch66 070913 if INV_AP_COST is active then reload is not allowed if weapon not in HANDPOS
+//						return;
 					// else handle normally
 				}
 
@@ -4145,7 +4148,8 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// access description box directly if CTRL is pressed for stack items
 		if( !( ( gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects > 1 && isLimit > 0 ) && ( guiCurrentScreen != MAP_SCREEN ) ) || _KeyDown( CTRL ) )
 		{
-			if ( !InItemDescriptionBox( ) && !(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS)) )//dnl ch66 070913 if INV_AP_COST is active then attach is not allowed if not in one of these slots
+			// removed fix because it causes UDB to become inaccessible for all other slots than those listed
+			if ( !InItemDescriptionBox( ) ) //&& !(INV_AP_COST && (gTacticalStatus.uiFlags & INCOMBAT) && !(uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS)) )//dnl ch66 070913 if INV_AP_COST is active then attach is not allowed if not in one of these slots
 			{
 				if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].usItemClass == IC_GUN && (gpSMCurrentMerc->inv[ uiHandPos ])[uiHandPos]->data.gun.ubGunShotsLeft > 0 && !(Item[gpSMCurrentMerc->inv[ uiHandPos ].usItem].singleshotrocketlauncher) && !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 				{
