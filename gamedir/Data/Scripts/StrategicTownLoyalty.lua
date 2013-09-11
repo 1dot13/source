@@ -20,7 +20,9 @@
 	- SectorEnemyControlled ( IDSector )
 	  	check if enemy controls sector
 	  
-	- SECTOR( SectorX, SectorY )
+	- CALCULATE_STRATEGIC_INDEX( SectorX, SectorY )
+	
+	- SECTOR ( SectorX, SectorY )
 	  
 	- CheckMercIsDead (ProfilID)
 	  	check merc is dead 
@@ -47,11 +49,7 @@
 ** Examples **
 **************
 	
-	if SectorEnemyControlled ( SECTOR(13,4) ) == false then
-		-- instructions
-	end
-	
-	if SectorEnemyControlled ( SECTOR(13,4) ) == false then
+	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX (13,4) ) == false ) then
 		-- instructions
 	else
 		-- instructions
@@ -121,6 +119,26 @@ Town =
 	CHITZENA = 12,
 }
 
+SectorY = 
+{
+	MAP_ROW_A = 1,
+	MAP_ROW_B = 2,
+	MAP_ROW_C = 3,
+	MAP_ROW_D = 4,
+	MAP_ROW_E = 5,
+	MAP_ROW_F = 6,
+	MAP_ROW_G = 7,
+	MAP_ROW_H = 8,
+	MAP_ROW_I = 9,
+	MAP_ROW_J = 10,
+	MAP_ROW_K = 11,
+	MAP_ROW_L = 12,
+	MAP_ROW_M = 13,
+	MAP_ROW_N = 14,
+	MAP_ROW_O = 15,
+	MAP_ROW_P = 16,
+}
+
 -- gain pts per real loyalty pt
 local GAIN_PTS_PER_LOYALTY_PT = 500
 
@@ -167,7 +185,7 @@ EventGlobal =
 }
 
 
-function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ )
+local function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ )
 
 	local ubValidMines = 0
 	
@@ -175,6 +193,7 @@ function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ
 		return -- No scifi, no creatures...
 	end	
 	
+	-- giLairID from Luaglobal.cpp
 	-- if ( giLairID ) -> that does not work in LUA, because that is always TRUE!!
 	if ( giLairID ~= 0 ) then
 		return	-- Creature quest already begun
@@ -183,22 +202,22 @@ function CheckConditionsForTriggeringCreatureQuest( sSectorX, sSectorY, bSectorZ
 	-- Count the number of "infectible mines" the player occupies
 	
 	-- SEC_D13
-	if SectorEnemyControlled ( SECTOR(13,4) ) == false then
+	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX(13, SectorY.MAP_ROW_D) ) == false ) then
 		ubValidMines = ubValidMines + 1
 	end
 	
 	-- SEC_H8
-	if SectorEnemyControlled ( SECTOR(8,8) ) == false then
+	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX(8, SectorY.MAP_ROW_H) ) == false ) then
 		ubValidMines = ubValidMines + 1
 	end	
 	
 	-- SEC_I14
-	if SectorEnemyControlled ( SECTOR(14,9) ) == false then 
+	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX(14, SectorY.MAP_ROW_I) ) == false ) then 
 		ubValidMines = ubValidMines + 1
 	end	
 	
 	-- SEC_H3
-	if SectorEnemyControlled ( SECTOR(3,8) ) == false then
+	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX(3, SectorY.MAP_ROW_H) ) == false ) then
 		ubValidMines = ubValidMines + 1
 	end	
 
