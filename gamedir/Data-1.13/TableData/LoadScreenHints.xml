@@ -80,7 +80,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Facilities granted. Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
+    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategical. Tool tips hinting at facility's function appear when assigning a merc just like you'd assign a merc to repairing, doctoring or training militia.</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
@@ -234,7 +234,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
-    <szName>If you want to manually move items,you can use the MOVEITEM-assignment inside cities.</szName>
+    <szName>If you want to manually move items, you can use the MOVEITEM-assignment inside cities.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -391,7 +391,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>73</uiIndex>
-    <szName>mercs with teaching skill train militia faster.</szName>
+    <szName>Mercs with teaching skill train militia faster.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
