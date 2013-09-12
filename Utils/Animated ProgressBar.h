@@ -40,7 +40,7 @@ typedef struct
 	BOOLEAN			fAlreadyShown;			// to remember if this hint has already been shown in this game (reset on starting exe)
 } LOADSCREENHINT_STRUCT;
 
-#define LOADSCREENHINT_MAX	200
+#define LOADSCREENHINT_MAX	1000
 
 extern LOADSCREENHINT_STRUCT zLoadScreenHint[LOADSCREENHINT_MAX];
 
