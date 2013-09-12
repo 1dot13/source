@@ -571,5 +571,30 @@ The other tags determine in what category this hint falls, and will be displayed
     <uiIndex>109</uiIndex>
     <szName>Counting bullets during a fight is tough. Don't be surprised when your mercs forget how many they have left.</szName>
     <lore>1</lore>
-  </LOADSCREENHINT>  
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>110</uiIndex>
+    <szName>Each mercenary have different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>111</uiIndex>
+    <szName>Each mercenary have different needs for sleep ranging from 3 to 12 hours to fully regenerate energy. "Night Ops" trait allows to reduce this time even further.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>112</uiIndex>
+    <szName>Each mercenary have different tolerance for number of deaths in your squad and your overall reputation in Arulco.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>113</uiIndex>
+    <szName>If you have two people in team that don't like each other, avoid keeping them in the same sector for more than an hour.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>114</uiIndex>
+    <szName>Certain merceries can not gain stats at all. You can’t teach an old dog new tricks.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
