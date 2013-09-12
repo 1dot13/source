@@ -567,4 +567,9 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>If you need to get somewhere fast, make sure you don't exceed 100% weight on your mercs. It will slow the squad down.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>109</uiIndex>
+    <szName>Counting bullets during a fight is tough. Don't be surprised when your mercs forget how many they have left.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>  
 </LOADSCREENHINTS>
