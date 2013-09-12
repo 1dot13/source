@@ -15,6 +15,8 @@
 	#include "random.h"
 	#include "math.h"
 	#include "WordWrap.h"
+	#include "Message.h"
+	#include "Text.h"
 #endif
 
 double rStart, rEnd;
@@ -33,10 +35,12 @@ extern BOOLEAN bShowSmallImage;
 // Flugente: stuff needed for loadscreen hints
 extern UINT16 num_found_loadscreenhints;
 static UINT16 usCurrentLoadScreenHint = 0;
+static BOOLEAN bShowLoadScreenHintInLog = FALSE;	// FALSE: No Display in Strategic/Tactical Log, TRUE: Display in Strategic/Tactical Log
 
-void CreateLoadingScreenProgressBar()
+void CreateLoadingScreenProgressBar(BOOLEAN resetLoadScreenHint)
 {
-	ResetLoadScreenHint();
+	if (resetLoadScreenHint)
+		ResetLoadScreenHint();
 
 	gusLeftmostShaded = 162;
 
@@ -235,6 +239,34 @@ void RemoveProgressBar( UINT8 ubID )
 void ResetLoadScreenHint()
 {
 	usCurrentLoadScreenHint = 0;
+	bShowLoadScreenHintInLog = FALSE;
+}
+
+void ShowLoadScreenHintInLoadScreen(UINT16 bottomPosition)
+{
+	DisplayWrappedString( 0, bottomPosition, SCREEN_WIDTH, 2, FONT12ARIAL, FONT_GRAY2, zLoadScreenHint[usCurrentLoadScreenHint].szName, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
+
+	// Next show the hint in the log (strategic / tactical)
+	bShowLoadScreenHintInLog = TRUE;
+}
+
+void ShowLoadScreenHintInStrategicLog()
+{
+	// We should display the hint in strategic log
+	if (bShowLoadScreenHintInLog == TRUE && gGameExternalOptions.gfUseLoadScreenHints && usCurrentLoadScreenHint )
+	{
+		ScreenMsg( FONT_GRAY2, MSG_INTERFACE, New113Message[MSG113_HINT_TEXT], zLoadScreenHint[usCurrentLoadScreenHint].szName);
+		bShowLoadScreenHintInLog = FALSE;	
+	}		
+}
+
+void ShowLoadScreenHintInTacticalLog()
+{	
+	if (bShowLoadScreenHintInLog == TRUE && gGameExternalOptions.gfUseLoadScreenHints && usCurrentLoadScreenHint)
+	{
+		ScreenMsg( FONT_GRAY2, MSG_INTERFACE, New113Message[MSG113_HINT_TEXT], zLoadScreenHint[usCurrentLoadScreenHint].szName);
+		bShowLoadScreenHintInLog = FALSE;
+	}	
 }
 
 // Flugente: this function selects the next hint to display, and makes sure it is not played again during this run of the exe
@@ -274,6 +306,15 @@ void SetNewLoadScreenHint()
 	}
 
 	UINT16 sel = possiblehints[ Random(lastfnd) ];
+	
+	// WANNE: All the loadscreen hints we have, have already been displayed. No matter, re-display a random loadscreen
+	if (sel <= 0 || sel > num_found_loadscreenhints)
+	{
+		sel = Random(num_found_loadscreenhints);
+		if (sel == 0)
+			sel++;
+	}
+
 	zLoadScreenHint[sel].fAlreadyShown = TRUE;
 
 	usCurrentLoadScreenHint = sel;
@@ -349,7 +390,7 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16
 	// Flugente: loadscreen hints
 	if (gGameExternalOptions.gfUseLoadScreenHints && usCurrentLoadScreenHint )
 	{		
-		DisplayWrappedString( 10, pCurr->usBarBottom + 3 - 100, SCREEN_WIDTH - 10, 2, FONT12ARIAL, FONT_MCOLOR_WHITE, zLoadScreenHint[usCurrentLoadScreenHint].szName, FONT_MCOLOR_BLACK, FALSE, INVALIDATE_TEXT | CENTER_JUSTIFIED );
+		ShowLoadScreenHintInLoadScreen(pCurr->usBarBottom + 3 - 100);		
 	}
 }
 

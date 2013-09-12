@@ -6219,6 +6219,7 @@ STR16 New113Message[] =
 	L"Внимание: враг обнаружил труп!!!",
 	L"%s [%d патр.]\n%s %1.1f %s",
 	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
+	L"Hint: %s",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 

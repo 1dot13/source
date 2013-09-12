@@ -2948,7 +2948,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 			AssertMsg( 0, "Failed to find Placeholder1.dat (placeholder map)." );
 	}
 
-	CreateLoadingScreenProgressBar();
+	CreateLoadingScreenProgressBar(TRUE);
 	#ifdef JA2BETAVERSION
 	//set the font
 	SetProgressBarMsgAttributes( 0, FONT12ARIAL, FONT_MCOLOR_WHITE, 0 );

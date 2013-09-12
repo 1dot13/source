@@ -6219,6 +6219,7 @@ STR16 New113Message[] =
 	L"Warning: enemy corpse found!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",	
 	L"Insufficient AP Points! Cost %d, you have %d.",
+	L"Hint: %s",
 };
 
 STR16 New113HAMMessage[] = 

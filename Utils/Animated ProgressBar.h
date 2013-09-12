@@ -47,6 +47,9 @@ extern LOADSCREENHINT_STRUCT zLoadScreenHint[LOADSCREENHINT_MAX];
 // Flugente: this function selects the next hint to display, and makes sure it is not played again during this run of the exe
 void SetNewLoadScreenHint();
 void ResetLoadScreenHint();
+void ShowLoadScreenHintInLoadScreen(UINT16 bottomPosition);
+void ShowLoadScreenHintInStrategicLog();
+void ShowLoadScreenHintInTacticalLog();
 
 // -------- added by Flugente: various flags for loadscreen hints--------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
@@ -90,7 +93,7 @@ void ResetLoadScreenHint();
 #define WH40K_SOLDIER_ILLUSION							0x40000000	//1073741824	// Soldier is an Illusion
 #define WH40K_SOLDIER_KILLSTREAK						0x80000000	//2147483648	// Soldier is on a kill streak*/
 
-void CreateLoadingScreenProgressBar();
+void CreateLoadingScreenProgressBar(BOOLEAN resetLoadScreenHint);
 void RemoveLoadingScreenProgressBar();
 
 

@@ -238,7 +238,7 @@ BOOLEAN		EnterMPCScreen()
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMPCMainBackGroundImage ));
 
 
-	CreateLoadingScreenProgressBar();
+	CreateLoadingScreenProgressBar(TRUE);
 	// default to red connecting color
 	SetProgressBarColor(0,150,0,0);
 	SetRelativeStartAndEndPercentage(0,0,100,L"");

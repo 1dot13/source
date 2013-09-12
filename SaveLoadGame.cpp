@@ -4360,7 +4360,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		BeginLoadScreen();
 	}
 
-	CreateLoadingScreenProgressBar();
+	CreateLoadingScreenProgressBar(FALSE);
 	SetProgressBarColor( 0, 0, 0, 150 );
 
 #ifdef JA2BETAVERSION

@@ -83,6 +83,7 @@
 	#include "Random.h"
 	#include "editscreen.h"
 	#include "Scheduling.h"
+	#include "Animated ProgressBar.h"
 #endif
 
 #include "connect.h"
@@ -241,7 +242,7 @@ void FadeOutGameScreen( )
 }
 
 void EnterTacticalScreen( )
-{
+{	
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen"));
 	guiTacticalLeaveScreen = FALSE;
 
@@ -359,8 +360,7 @@ void EnterTacticalScreen( )
 	// ATE: Enable messages again...
 	EnableScrollMessages( );
 
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: done"));
-
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: done"));	
 }
 
 void LeaveTacticalScreen( UINT32 uiNewScreen )
@@ -678,6 +678,7 @@ UINT32	MainGameScreenHandle(void)
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("maingamescreenhandle: entertacticalscreen"));
 		EnterTacticalScreen( );
+		ShowLoadScreenHintInTacticalLog();
 
 		// Select a guy if he hasn;'
 		if( !gfTacticalPlacementGUIActive )

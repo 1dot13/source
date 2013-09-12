@@ -4462,6 +4462,7 @@ UINT32 MapScreenHandle(void)
 	INT32 iCounter = 0;
 	INT32 iCounter2 = 0;
 
+	ShowLoadScreenHintInStrategicLog();
 
 	//DO NOT MOVE THIS FUNCTION CALL!!!
 	//This determines if the help screen should be active
