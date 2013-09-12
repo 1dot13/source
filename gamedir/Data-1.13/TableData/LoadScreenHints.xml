@@ -75,7 +75,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the mouse [WHEEL]. [ALT]+[WHEEL] sets size of auto-fire volley.</szName>
+    <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the [MOUSE-WHEEL]. [ALT]+[MOUSE-WHEEL] sets size of auto-fire volley.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -86,7 +86,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFTCLICK]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
+    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off really everything carried including additional ammo and armour.</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
@@ -177,8 +177,9 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>31</uiIndex>
-    <szName>Increase the number of bullets on automatic fire with right mouse button.</szName>
+    <szName>Increase the number of bullets on automatic fire with [RIGHT-MOUSE-BUTTON].</szName>
     <weapons>1</weapons>
+    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
@@ -227,8 +228,9 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>41</uiIndex>
-    <szName>Remote bombs can be detonated with a remote detonator - put it in your hands and rightclick.</szName>
+    <szName>Remote bombs can be detonated with a remote detonator - put it in your hands and press [RIGHT-MOUSE-BUTTON].</szName>
     <items>1</items>
+    <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>42</uiIndex>
@@ -262,7 +264,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>48</uiIndex>
-    <szName>You can open a useful description box by rightclicking on an item.</szName>
+    <szName>You can open a useful description box by clicking [RIGHT-MOUSE-BUTTON] on an item.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -317,7 +319,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>You can spray an area with auto fire. Just select auto fire, chose how many bullets you want to fire, press and hold left mouse button on first target and drag it around the desired area.</szName>
+    <szName>You can spray an area with auto fire. Just select auto fire, chose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on first target and drag it around the desired area.</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
@@ -348,7 +350,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
-    <szName>Mobile militia can folow mercs while travelling on map. It will follow merc group as long as you keep 1 sector close to them. Make sure you wait for them to arrive to your position before moving again.</szName>
+    <szName>Mobile militia can follow mercs while travelling on map. It will follow merc group as long as you keep 1 sector close to them. Make sure you wait for them to arrive to your position before moving again.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -564,7 +566,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>108</uiIndex>
-    <szName>If you need to get somewhere fast, make sure you don't exceed 100% weight on your mercs. It will slow the squad down.</szName>
+    <szName>If you need to get somewhere fast, make sure you don't exceed 100 percent weight on your mercs. It will slow the squad down.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -597,4 +599,19 @@ The other tags determine in what category this hint falls, and will be displayed
     <szName>Certain merceries can not gain stats at all. You can’t teach an old dog new tricks.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>115</uiIndex>
+    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>116</uiIndex>
+    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>117</uiIndex>
+    <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try out the 1.13 multiplayer mode.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>  
 </LOADSCREENHINTS>
