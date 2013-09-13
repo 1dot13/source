@@ -6,14 +6,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 
 <DYNAMICROAMING>
 	<RESTRICTION>
-		<SectorGrid>A9</SectorGrid>
-		<ReqTown>2</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>A10</SectorGrid>
-		<ReqTown>2</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
 		<SectorGrid>A12</SectorGrid>
 		<ReqTown>2</ReqTown>
 	</RESTRICTION>
@@ -454,16 +446,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 		<ReqTown>4</ReqTown>
 	</RESTRICTION>
 	<RESTRICTION>
-		<SectorGrid>C5</SectorGrid>
-		<ReqTown>2</ReqTown>
-		<ReqTown>12</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>C6</SectorGrid>
-		<ReqTown>2</ReqTown>
-		<ReqTown>12</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
 		<SectorGrid>C7</SectorGrid>
 		<ReqTown>2</ReqTown>
 		<ReqTown>12</ReqTown>
@@ -475,16 +457,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 	</RESTRICTION>
 	<RESTRICTION>
 		<SectorGrid>C9</SectorGrid>
-		<ReqTown>2</ReqTown>
-		<ReqTown>12</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>D4</SectorGrid>
-		<ReqTown>2</ReqTown>
-		<ReqTown>12</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>D5</SectorGrid>
 		<ReqTown>2</ReqTown>
 		<ReqTown>12</ReqTown>
 	</RESTRICTION>
@@ -594,11 +566,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 		<ReqTown>10</ReqTown>
 	</RESTRICTION>
 	<RESTRICTION>
-		<SectorGrid>I6</SectorGrid>
-		<ReqTown>6</ReqTown>
-		<ReqTown>10</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
 		<SectorGrid>J6</SectorGrid>
 		<ReqTown>6</ReqTown>
 		<ReqTown>10</ReqTown>
@@ -610,11 +577,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 	</RESTRICTION>
 	<RESTRICTION>
 		<SectorGrid>J8</SectorGrid>
-		<ReqTown>6</ReqTown>
-		<ReqTown>10</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>J9</SectorGrid>
 		<ReqTown>6</ReqTown>
 		<ReqTown>10</ReqTown>
 	</RESTRICTION>
@@ -684,11 +646,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 		<ReqTown>6</ReqTown>
 	</RESTRICTION>
 	<RESTRICTION>
-		<SectorGrid>J9</SectorGrid>
-		<ReqTown>4</ReqTown>
-		<ReqTown>6</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
 		<SectorGrid>K6</SectorGrid>
 		<ReqTown>4</ReqTown>
 		<ReqTown>6</ReqTown>
@@ -700,16 +657,6 @@ With this system in place, a militia unit trained in one city can end up patroll
 	</RESTRICTION>
 	<RESTRICTION>
 		<SectorGrid>C6</SectorGrid>
-		<ReqTown>4</ReqTown>
-		<ReqTown>12</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>D4</SectorGrid>
-		<ReqTown>4</ReqTown>
-		<ReqTown>12</ReqTown>
-	</RESTRICTION>
-	<RESTRICTION>
-		<SectorGrid>D5</SectorGrid>
 		<ReqTown>4</ReqTown>
 		<ReqTown>12</ReqTown>
 	</RESTRICTION>
