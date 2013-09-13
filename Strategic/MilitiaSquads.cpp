@@ -35,7 +35,11 @@
 // Debug defines
 
 //#define DEBUG_SHOW_RATINGS
-#define DEBUG_RATINGS_CONDITION !fForBattle
+#ifdef DEBUG_SHOW_RATINGS
+	#define DEBUG_RATINGS_CONDITION TRUE
+	//#define DEBUG_RATINGS_CONDITION !fForBattle
+#include "message.h"
+#endif
 
 
 // will create a squad each n hours (12 for example). Should divide 24 without remainder
@@ -1869,333 +1873,12 @@ void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY )
 
 	MoveMilitiaSquad( sMapX, sMapY, sDMapX, sDMapY, FALSE );
 }
-// HEADROCK (HAM): New function to alter Restricted Roaming based on the recent capture of new towns. The area
-// around the town will be unrestricted, as well as some road sectors leading away from the town.
-// This function runs during sector conquest checks, and only if an entire town has been conquered. It also
-// runs at day end, as well as on load/save.
 
-// HEADROCK HAM 3.4: This hardcoded function has been made obsolete by XML externalization.
-/*void AdjustRoamingRestrictions()
-{
-	if (!gGameExternalOptions.bDynamicRestrictRoaming)
-		return;
-
-	// to do: Add something to clean up the entire array before setting the flags...
-
-	if ( IsTownUnderCompleteControlByPlayer(DRASSEN) )
-	{
-		// DRASSEN OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(12,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,5)] = true;
-
-		// SAM SITE DEFENSE
-		gDynamicRestrictMilitia[SECTOR(15,5)] = true;
-
-		// ROAD WEST TO OMERTA
-		gDynamicRestrictMilitia[SECTOR(9,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(11,2)] = true;
-
-		// ROAD SOUTH TO ALMA
-		gDynamicRestrictMilitia[SECTOR(12,6)] = true;
-
-		// HEADROCK HAM 3.3: Drassen SAM-Site (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(15,4)] = true;
-
-		// HEADROCK HAM 3.3: Drassen ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(13,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,4)] = true;
-
-		// HEADROCK HAM 3.3: Forgot Omerta!
-		gDynamicRestrictMilitia[SECTOR(9,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,1)] = true;
-	
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(ALMA) )
-	{
-		// ALMA OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(12,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(15,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(15,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,9)] = true;
-		gDynamicRestrictMilitia[SECTOR(15,9)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(15,10)] = true;
-
-		// ROAD SOUTH
-		gDynamicRestrictMilitia[SECTOR(14,11)] = true;
-
-		// HEADROCK HAM 3.3: Alma ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(13,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,9)] = true;
-		gDynamicRestrictMilitia[SECTOR(14,9)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CHITZENA) )
-	{
-		// CHITZENA OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(1,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(1,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(1,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,3)] = true;
-
-		// SAM SITE DEFENSE / ROAD SOUTH
-		gDynamicRestrictMilitia[SECTOR(3,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,5)] = true;
-
-		// HEADROCK HAM 3.3: Chitzena SAM-Site (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(2,4)] = true;
-
-		// HEADROCK HAM 3.3: Chitzena ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(2,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,2)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CAMBRIA) )
-	{
-		// CAMBRIA OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(7,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(7,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(7,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(7,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,8)] = true;
-		
-		// SAM SITE DEFENSE
-		gDynamicRestrictMilitia[SECTOR(7,9)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,9)] = true;
-
-		// ROAD TO OMERTA
-		gDynamicRestrictMilitia[SECTOR(9,2)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,4)] = true;	
-
-		// CROSSROADS WEST
-		gDynamicRestrictMilitia[SECTOR(6,7)] = true;
-
-		// ROAD TO ALMA
-		gDynamicRestrictMilitia[SECTOR(11,7)] = true;
-
-		// HEADROCK HAM 3.3: Cambria SAM-Site (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(8,9)] = true;
-
-		// HEADROCK HAM 3.3: Cambria ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(8,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,8)] = true;
-
-		// HEADROCK HAM 3.3: Forgot Omerta!
-		gDynamicRestrictMilitia[SECTOR(9,1)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,1)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(BALIME) )
-	{
-		// BALIME OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(10,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(11,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,12)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,12)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,13)] = true;
-		gDynamicRestrictMilitia[SECTOR(13,13)] = true;
-
-		// WEST ROAD
-		gDynamicRestrictMilitia[SECTOR(6,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(7,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,11)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,11)] = true;
-
-		// SOUTH ROAD
-		gDynamicRestrictMilitia[SECTOR(8,14)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,14)] = true;
-		gDynamicRestrictMilitia[SECTOR(10,14)] = true;
-
-		// HEADROCK HAM 3.3: Balime ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(11,12)] = true;
-		gDynamicRestrictMilitia[SECTOR(12,12)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(GRUMM) )
-	{
-		// GRUMM OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(1,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,6)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,9)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,9)] = true;
-
-		// ROAD NORTH
-		gDynamicRestrictMilitia[SECTOR(3,5)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,4)] = true;
-
-		// ROAD EAST
-		gDynamicRestrictMilitia[SECTOR(5,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(6,7)] = true;
-
-		// ROAD SOUTH
-		gDynamicRestrictMilitia[SECTOR(2,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,11)] = true;
-
-		// HEADROCK HAM 3.3: Grumm ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(1,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,7)] = true;
-		gDynamicRestrictMilitia[SECTOR(1,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,8)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,8)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(MEDUNA) )
-	{
-		// HEADROCK HAM 3.3: Meduna ITSELF (for reinforcement purposes)
-		gDynamicRestrictMilitia[SECTOR(3,14)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,14)] = true;
-		gDynamicRestrictMilitia[SECTOR(5,14)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,15)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,15)] = true;
-		gDynamicRestrictMilitia[SECTOR(3,16)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(DRASSEN) && IsTownUnderCompleteControlByPlayer(CHITZENA) )
-	{
-		// ROAD EAST OF SAN-MONA
-		gDynamicRestrictMilitia[SECTOR(7,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,3)] = true;
-	
-		// SAN MONA
-		gDynamicRestrictMilitia[SECTOR(5,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(6,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(5,4)] = true;
-	}	
-
-	if ( IsTownUnderCompleteControlByPlayer(CAMBRIA) && ( IsTownUnderCompleteControlByPlayer(CHITZENA) || IsTownUnderCompleteControlByPlayer(DRASSEN) ) )
-	{
-		// ROAD TO SAN MONA
-		gDynamicRestrictMilitia[SECTOR(7,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,3)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CAMBRIA) && ( IsTownUnderCompleteControlByPlayer(DRASSEN) || IsTownUnderCompleteControlByPlayer(CHITZENA) || IsTownUnderCompleteControlByPlayer(GRUMM) ) )
-	{
-		// ROAD SOUTH-EAST OF SAN MONA
-		gDynamicRestrictMilitia[SECTOR(6,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(7,4)] = true;
-
-		// SAN MONA
-		gDynamicRestrictMilitia[SECTOR(5,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(6,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(5,4)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(ALMA) && ( IsTownUnderCompleteControlByPlayer(DRASSEN) || IsTownUnderCompleteControlByPlayer(CAMBRIA) ) )		
-	{
-		// ROAD WEST OF ALMA
-		gDynamicRestrictMilitia[SECTOR(11,7)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CHITZENA) && ( IsTownUnderCompleteControlByPlayer(DRASSEN) || IsTownUnderCompleteControlByPlayer(CAMBRIA) || IsTownUnderCompleteControlByPlayer(GRUMM) ) )		
-	{
-		// SAN MONA
-		gDynamicRestrictMilitia[SECTOR(5,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(6,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(4,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(5,4)] = true;
-
-		// ROAD TO SAN MONA
-		gDynamicRestrictMilitia[SECTOR(7,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,3)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,3)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CAMBRIA) && IsTownUnderCompleteControlByPlayer(ALMA) )
-	{
-		// ROAD EAST OF CAMBRIA
-		gDynamicRestrictMilitia[SECTOR(11,7)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CAMBRIA) && ( IsTownUnderCompleteControlByPlayer(BALIME) || IsTownUnderCompleteControlByPlayer(GRUMM) || IsTownUnderCompleteControlByPlayer(ALMA) ) )
-	{
-		// UPGRADED SAM-SITE DEFENSE FOR CAMBRIA
-		gDynamicRestrictMilitia[SECTOR(7,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(8,10)] = true;
-		gDynamicRestrictMilitia[SECTOR(9,10)] = true; // Tixa. Won't be accessible unless Minor Cities are allowed.
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(CAMBRIA) && IsTownUnderCompleteControlByPlayer(GRUMM) )
-	{
-		// ESTONI
-		gDynamicRestrictMilitia[SECTOR(6,8)] = true;
-
-		// ESTONI MOUNTAIN GATE
-		gDynamicRestrictMilitia[SECTOR(6,9)] = true;
-
-		// SOUTHEAST ROAD TO SAN MONA
-		gDynamicRestrictMilitia[SECTOR(6,4)] = true;
-		gDynamicRestrictMilitia[SECTOR(7,4)] = true;
-	}
-
-	if ( IsTownUnderCompleteControlByPlayer(BALIME) && IsTownUnderCompleteControlByPlayer(GRUMM) && IsTownUnderCompleteControlByPlayer(CAMBRIA) )
-	{
-		// GRUMM-CAMBRIA-BALIME ROAD
-		gDynamicRestrictMilitia[SECTOR(6,10)] = true;
-	}
-
-	// CONTROL ALL TOWNS?
-	if ( IsTownUnderCompleteControlByPlayer(BALIME) && IsTownUnderCompleteControlByPlayer(CAMBRIA) && IsTownUnderCompleteControlByPlayer(CHITZENA) && IsTownUnderCompleteControlByPlayer(DRASSEN) && IsTownUnderCompleteControlByPlayer(ALMA) && IsTownUnderCompleteControlByPlayer(GRUMM) )
-	{
-		// ROADS TO MEDUNA
-		gDynamicRestrictMilitia[SECTOR(6,12)] = true;	
-		gDynamicRestrictMilitia[SECTOR(7,14)] = true;
-		gDynamicRestrictMilitia[SECTOR(2,12)] = true;	
-
-		// MEDUNA OUTSKIRTS
-		gDynamicRestrictMilitia[SECTOR(2,13)] = true;	
-		gDynamicRestrictMilitia[SECTOR(3,13)] = true;	
-		gDynamicRestrictMilitia[SECTOR(4,13)] = true;	
-		gDynamicRestrictMilitia[SECTOR(5,13)] = true;	
-		gDynamicRestrictMilitia[SECTOR(6,13)] = true;
-		gDynamicRestrictMilitia[SECTOR(6,14)] = true;
-	}
-}*/
 
 // HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
+//Moa: changed the flag behavier - makes no sense to overwrite user settings, instead I reusing it to correct wrong values in old savegames.
+// This function runs during sector conquest checks, and only if an entire town has been conquered. It also
+// runs at day end, as well as on load/save.
 void AdjustRoamingRestrictions( BOOLEAN fRecheck )
 {
 	UINT32 uiCapturedTownsFlag = 0;
@@ -2234,13 +1917,16 @@ void AdjustRoamingRestrictions( BOOLEAN fRecheck )
 	}
 
 	// HEADROCK HAM 5: All restricted sectors are checked to see they aren't manually-permitted.
+	//Moa: Dont ever touch user settings, player set the restrictions for a reason. Initialization allready in InitManualMobileRestrictions.
+	//dnl!!! However if we are loading an older save we might need to check the array for MANUAL_MOBILE_RESTRICTED and replace it with MANUAL_MOBILE_NO_ENTER
+	//actually this can be removed once there are no older savegames around :)
 	if (fRecheck)
 	{
 		for (cnt = 0; cnt < 256; cnt++)
 		{
-			if (gDynamicRestrictMilitia[cnt] == FALSE)
+			if (gubManualRestrictMilitia[cnt] == MANUAL_MOBILE_RESTRICTED)
 			{
-				gubManualRestrictMilitia[cnt] = MANUAL_MOBILE_RESTRICTED;
+				gubManualRestrictMilitia[cnt] = MANUAL_MOBILE_NO_ENTER;
 			}
 		}
 	}
@@ -2416,7 +2102,7 @@ BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector )
 			}
 		}
 	}
-	// Please note that with exploration restrictions, an UNVISITED sector is not neccesarily RESTRICTED.
+	// Please note that with dynamic restrictions, an UNVISITED sector is not neccesarily RESTRICTED.
 
 	// XML-BASED RESTRICTION
 	// Is destination allowed by the Dynamic Restrictions Array?
@@ -2486,58 +2172,57 @@ UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo )
 	return (usNumUpgradeSlots);
 }
 
+extern BOOLEAN SectorIsImpassable( INT16 sSector );
 // HEADROCK HAM 4: Returns whether sector is allowed for militia roaming, taking into account player-set restrictions.
 UINT8 ManualMobileMovementAllowed( UINT8 ubSector )
 {
-	BOOLEAN fRestricted = TRUE;
-
-	if (gGameExternalOptions.gflimitedRoaming)
-	{
-		if (gGameExternalOptions.fUnrestrictVisited)
-		{
-			// Has the sector ever been visited?
-			if ( SectorInfo[ ubSector ].fSurfaceWasEverPlayerControlled )
-			{
-				// Always return TRUE.
-				fRestricted = FALSE;
-			}
-		}
+	BOOLEAN fcheckManualSettings = FALSE;
 	
-		if(gGameExternalOptions.fDynamicRestrictRoaming)
+	//if no one can pass get out of here quick!
+	if ( SectorIsImpassable( ubSector ) )
+		return MANUAL_MOBILE_RESTRICTED;
+
+	if (gGameExternalOptions.gflimitedRoaming)//RESTRICT_ROAMING = TRUE
+	{
+		if ( SectorInfo[ ubSector ].fSurfaceWasEverPlayerControlled )// Has the sector ever been liberated?
 		{
-			if (gDynamicRestrictMilitia[ ubSector ] )
+			if (gGameExternalOptions.fUnrestrictVisited)//ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS = TRUE
 			{
-				fRestricted = FALSE;
+				// Always check for manual restrictions.
+				fcheckManualSettings = TRUE;
+			} 
+			else if (gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities)//ALLOW_MILITIA_MOVEMENT_THROUGH_MINOR_CITIES = TRUE
+			{
+				UINT8 townID = GetTownIdForSector( SECTORX(ubSector), SECTORY(ubSector) );
+				//this is a city and its a minor one where training is not allowed like San Mona, Tixa, Orta, Estoni, or Omerta?
+				if (townID != BLANK_SECTOR && !gfMilitiaAllowedInTown[townID])
+					fcheckManualSettings = TRUE;
 			}
 		}
+		if(gGameExternalOptions.fDynamicRestrictRoaming)//ALLOW_DYNAMIC_RESTRICTED_ROAMING = TRUE
+		{
+			fcheckManualSettings |= gDynamicRestrictMilitia[ ubSector ];
+		}
 	}
-	else
+	else//RESTRICT_ROAMING = FALSE
 	{
-		fRestricted = FALSE;
+		// No restrictions, militia is free to go (green)
+		return MANUAL_MOBILE_NO_RESTRICTION;
 	}
 
-	if (fRestricted)
+	if (fcheckManualSettings)
 	{
-		// Restricted roaming! Militia can't go here ever.
-		return (0);
+		// player has restricted manually (green,yellow,red)
+#ifdef JA2BETAVERSION
+		AssertGE(gubManualRestrictMilitia[ ubSector ],0);
+		AssertLE(gubManualRestrictMilitia[ ubSector ],3);
+#endif
+		return gubManualRestrictMilitia[ ubSector ];
 	}
 	else
 	{
-		if (gubManualRestrictMilitia[ ubSector ] == MANUAL_MOBILE_NO_ENTER )
-		{
-			// Player-restricted. Militia can potentially go here, if the player removed the restriction.
-			return (1);
-		}
-		else if (gubManualRestrictMilitia[ ubSector ] == MANUAL_MOBILE_NO_LEAVE )
-		{
-			// Militia allowed to enter, but not leave.
-			return (2);
-		}
-		else
-		{
-			// Roaming allowed.
-			return (3);
-		}
+		// Restricted roaming! Militia can't go here ever. (gray)
+		return MANUAL_MOBILE_RESTRICTED;
 	}
 }
 

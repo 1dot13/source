@@ -8981,7 +8981,20 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 						// loops back to start.
 						// HEADROCK HAM 5: Whoops, disallow changing restrictions for sectors that are
 						// not accessible to militia to begin with.
-						if ( fShowMobileRestrictionsFlag == TRUE && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE)
+						//Moa: we should be able to change restrictions where ever the militia is potentially allowed to move.
+						// Able to change restriction if:
+						// Potentially allowed:
+						//  - we are in mobile Restrictions view && we have RESTRICT_ROAMING = TRUE in ini &&
+						//		- ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS = TRUE && we have liberated that sector at least once
+						//				note that ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS = TRUE does not overwrites any restrictions anymore it extends the region where restrictions are allowed, just like DynamicRestriction does
+						//		- ALLOW_MILITIA_MOVEMENT_THROUGH_MINOR_CITIES = TRUE && it is a Minor Cities && we have liberated that citysector
+						//		- DynamicRestrictions if set in ini (does not matter if visited or not)
+						//if ( fShowMobileRestrictionsFlag == TRUE && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE)
+						if ( fShowMobileRestrictionsFlag && gGameExternalOptions.gflimitedRoaming &&
+							( ( gGameExternalOptions.fUnrestrictVisited == TRUE && SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
+							|| ( gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities && GetTownIdForSector( sMapX, sMapY ) > BLANK_SECTOR && !gfMilitiaAllowedInTown[GetTownIdForSector( sMapX, sMapY )] && SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
+							|| ( gGameExternalOptions.fDynamicRestrictRoaming && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE )
+							) )
  						{
 							// Restrict more.
 							if ( gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] > MANUAL_MOBILE_NO_ENTER )
