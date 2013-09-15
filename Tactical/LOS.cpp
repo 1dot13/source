@@ -8088,11 +8088,14 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// Add a percentage-based modifier from the weapon and its attachments. Movement tracking devices will
 	// provide faster compensation for target movement, allowing the shooter to begin adjusting the muzzle
 	// after the target moves a smaller number of tiles.
-	INT32 moda = (INT32)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, stance )) / 100;
-	INT32 modb = (INT32)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
-	uiTilesForMaxPenalty += (INT16)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+	// silversurfer: uiTilesForMaxPenalty is supposed to be small to allow for fast compensation, right? Why do we ADD the tracking modifier then?
+	// According to the description of the tracking modifier: "Higher is better". So we better subtract and also make the modifiers a FLOAT for better precision.
+	FLOAT moda = (FLOAT)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, stance )) / 100;
+	FLOAT modb = (FLOAT)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+//	uiTilesForMaxPenalty += (INT16)((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+	uiTilesForMaxPenalty -= (INT16)(((FLOAT)gGameExternalOptions.ubProneModifierPercentage * moda + (100 - (FLOAT)gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
 
-	if (uiTilesForMaxPenalty == 0)
+	if (uiTilesForMaxPenalty <= 0)
 	{
 		// Shooter is skilled enough to avoid ANY movement penalty. Return without adjusting.
 		return;
