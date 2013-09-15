@@ -23,6 +23,7 @@
 #include "Sound Control.h"
 #include "message.h"
 #include "Vehicles.h"
+#include "Soldier Functions.h"//dnl ch69 140913
 #endif
 
 extern INT16 DirIncrementer[8];
@@ -156,28 +157,32 @@ void ResetWeaponMode( SOLDIERTYPE * pSoldier )
 void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUnseen)
 {
 	UINT32 uiLoop;
-	INT32 iAttackValue;
-	INT32 iThreatValue;
-	INT32 iHitRate,iBestHitRate,iPercentBetter;
-	INT32 iEstDamage;
-	UINT8 ubMaxPossibleAimTime;
-	INT16 ubAimTime,ubMinAPcost,ubRawAPCost;
-	UINT8 ubChanceToReallyHit = 0;
-	INT16 ubChanceToHit,ubChanceToHit2,ubBestAimTime,ubChanceToGetThrough,ubBestChanceToHit;
-	SOLDIERTYPE *pOpponent;
-	//INT16 ubBurstAPs;//dnl ch64 270813
+	INT32 iAttackValue, iThreatValue, iHitRate, iBestHitRate, iPercentBetter, iEstDamage, iTrueLastTarget;
+	UINT16 usTrueState, usTurningCost, usRaiseGunCost;
+	INT16 ubAimTime, ubMinAPcost, ubRawAPCost, sBestAPcost, ubChanceToHit, ubBestAimTime, ubChanceToGetThrough, ubBestChanceToHit, sStanceAPcost;
+	BOOLEAN fAddingTurningCost, fAddingRaiseGunCost;
+	UINT8 ubMaxPossibleAimTime, ubStance, ubBestStance, ubChanceToReallyHit;
 	INT8 bScopeMode;
+	SOLDIERTYPE *pOpponent;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcBestShot");
 
-	ubBestChanceToHit = ubBestAimTime = ubChanceToHit = 0;
+	ubBestChanceToHit = ubBestAimTime = ubChanceToHit = ubChanceToReallyHit = 0;
 
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
 	pSoldier->bWeaponMode = WM_NORMAL;
-
+#ifdef dnlCALCBESTSHOT//dnl ch69 130913 rather setup available scopes here then in later inside loop
+	std::map<INT8, OBJECTTYPE*> ObjList;
+	GetScopeLists(&pSoldier->inv[HANDPOS], ObjList);
+	pSoldier->bScopeMode = USE_BEST_SCOPE;
+	pSoldier->bDoBurst = 0;
+	pSoldier->bDoAutofire = 0;
+#else
+	INT16 ubBurstAPs, ubChanceToHit2;
+#endif
 	//ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), pSoldier );//dnl ch64 270813
 
-	InitAttackType(pBestShot);		// set all structure fields to defaults
+	//InitAttackType(pBestShot);		// set all structure fields to defaults//dnl ch69 150913 already initialize from class constructor
 
 	// hang a pointer into active soldier's personal opponent list
 	//pbPersOL = &(pSoldier->aiData.bOppList[0]);
@@ -218,7 +223,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 #ifdef DEBUGATTACKS
 		DebugAI( String( "%s sees %s at gridno %d\n",pSoldier->GetName(),ExtMen[pOpponent->ubID].GetName(),pOpponent->sGridNo ) );
 #endif
-
+#ifndef dnlCALCBESTSHOT//dnl ch69 140913
 		// calculate minimum action points required to shoot at this opponent
 		//	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
 		// SANDRO - calculate this with the alternative mode, as it is faster, decide the actual bScopeMode later
@@ -235,7 +240,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		//		ubMinAPcost = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), 3 );
 
 		//NumMessage("MinAPcost to shoot this opponent = ",ubMinAPcost);
-
+#else
+		ubMinAPcost = MinAPsToAttack(pSoldier, pOpponent->sGridNo, DONTADDTURNCOST, 0);// later will be decide if shoot is possible this here is just best guess so ignore turnover
+#endif
 		// if we don't have enough APs left to shoot even a snap-shot at this guy
 		if (ubMinAPcost > pSoldier->bActionPoints)
 			continue;			// next opponent
@@ -298,7 +305,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		//}
 
 		iBestHitRate = 0;					 // reset best hit rate to minimum
-
+#ifndef dnlCALCBESTSHOT//dnl ch69 130913 although there is nothing wrong with code unfortunately below and later in DecideAction is not use properly with missing conditions so AI get invalid action handling due to improper APs calculation, also try to optimize a bit to get less AICalcChanceToHitGun calls and to use with different stance decisions
 		// SANDRO: decide here, whether to use the alternative holding or normal holding
 		bScopeMode = USE_BEST_SCOPE; 
 		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
@@ -437,7 +444,144 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			ubBestAimTime = ubAimTime;
 			ubBestChanceToHit = ubChanceToHit;
 		}
-
+#else
+		//dnl ch69 130913 Hoping to optimize
+		// consider alternate holding mode and different scopes
+		for(pSoldier->bScopeMode=(gGameExternalOptions.ubAllowAlternativeWeaponHolding?USE_ALT_WEAPON_HOLD:USE_BEST_SCOPE); pSoldier->bScopeMode<=(gGameExternalOptions.fScopeModes?NUM_SCOPE_MODES-1:USE_BEST_SCOPE); pSoldier->bScopeMode++)
+		{
+			if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || (pSoldier->bScopeMode >= USE_BEST_SCOPE && ObjList[pSoldier->bScopeMode] != NULL))
+			{
+				usTrueState = pSoldier->usAnimState;// because is used in CalculateRaiseGunCost, CalcAimingLevelsAvailableWithAP, CalculateTurningCost
+				iTrueLastTarget = pSoldier->sLastTarget;// because is used in MinAPsToShootOrStab
+				ubStance = ANIM_STAND;
+				if(IsValidStance(pSoldier, ubStance))
+				{
+					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
+					if(sStanceAPcost)// Going up so first is stance change then turnover, do animation change before APs calculation
+					{
+						pSoldier->usAnimState = STANDING;
+						pSoldier->sLastTarget = NOWHERE;
+					}
+					GetAPChargeForShootOrStabWRTGunRaises(pSoldier, pOpponent->sGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+					usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, pOpponent->sGridNo, 0);
+					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
+					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
+					//ubMinAPcost = MinAPsToAttack(pSoldier, pOpponent->sGridNo, ADDTURNCOST, 0) + sStanceAPcost;
+					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
+					{
+						// calc next attack's minimum shooting cost (excludes readying & turning & raise gun)
+						//ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
+						ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, pOpponent->sGridNo, pSoldier->bActionPoints-ubMinAPcost);
+						for(ubAimTime=APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime<=ubMaxPossibleAimTime; ubAimTime++)
+						{
+							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
+							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+//SendFmtMsg("CalcBestShot_S=%d hr=%d at=%d sm=%d op=%d/%d aps=%d,%d,%d,%d,%d", ubChanceToHit, iHitRate, ubAimTime, pSoldier->bScopeMode, pOpponent->ubID, pOpponent->sGridNo, ubMinAPcost, ubRawAPCost, sStanceAPcost, usTurningCost, usRaiseGunCost);
+							if(iHitRate > iBestHitRate)
+							{
+								iBestHitRate = iHitRate;
+								ubBestAimTime = ubAimTime;
+								ubBestChanceToHit = ubChanceToHit;
+								bScopeMode = pSoldier->bScopeMode;
+								sBestAPcost = ubMinAPcost;
+								ubBestStance = ubStance;
+							}
+						}
+					}
+					pSoldier->usAnimState = usTrueState;
+					pSoldier->sLastTarget = iTrueLastTarget;
+				}
+				ubStance = ANIM_CROUCH;
+				if(IsValidStance(pSoldier, ubStance) && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD)
+				{
+					usTurningCost = 32767;
+					if(gAnimControl[pSoldier->usAnimState].ubEndHeight > ubStance)// Going down
+					{
+						GetAPChargeForShootOrStabWRTGunRaises(pSoldier, pOpponent->sGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+						usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					}
+					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
+					if(sStanceAPcost)
+					{
+						pSoldier->usAnimState = CROUCHING;
+						pSoldier->sLastTarget = NOWHERE;
+						fAddingRaiseGunCost = TRUE;
+					}
+					if(usTurningCost == 32767)// Going up or same
+					{
+						GetAPChargeForShootOrStabWRTGunRaises(pSoldier, pOpponent->sGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+						usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					}
+					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, pOpponent->sGridNo, 0);
+					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
+					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
+					//ubMinAPcost = MinAPsToAttack(pSoldier, pOpponent->sGridNo, ADDTURNCOST, 0) + sStanceAPcost;
+					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
+					{
+						//ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
+						ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, pOpponent->sGridNo, pSoldier->bActionPoints-ubMinAPcost);
+						for(ubAimTime=APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime<=ubMaxPossibleAimTime; ubAimTime++)
+						{
+							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING);
+							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+//SendFmtMsg("CalcBestShot_C=%d hr=%d at=%d sm=%d op=%d/%d aps=%d,%d,%d,%d,%d", ubChanceToHit, iHitRate, ubAimTime, pSoldier->bScopeMode, pOpponent->ubID, pOpponent->sGridNo, ubMinAPcost, ubRawAPCost, sStanceAPcost, usTurningCost, usRaiseGunCost);
+							if(iHitRate > iBestHitRate)
+							{
+								iBestHitRate = iHitRate;
+								ubBestAimTime = ubAimTime;
+								ubBestChanceToHit = ubChanceToHit;
+								bScopeMode = pSoldier->bScopeMode;
+								sBestAPcost = ubMinAPcost;
+								ubBestStance = ubStance;
+							}
+						}
+					}
+					pSoldier->usAnimState = usTrueState;
+					pSoldier->sLastTarget = iTrueLastTarget;
+				}
+				ubStance = ANIM_PRONE;
+				if(IsValidStance(pSoldier, ubStance) && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD)
+				{
+					GetAPChargeForShootOrStabWRTGunRaises(pSoldier, pOpponent->sGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+					usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
+					if(sStanceAPcost)// Going down so first is turnover then change stance, do APs calculation before animation change
+					{
+						pSoldier->usAnimState = PRONE;
+						pSoldier->sLastTarget = NOWHERE;
+						fAddingRaiseGunCost = TRUE;
+					}
+					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, pOpponent->sGridNo, 0);
+					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
+					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
+					//ubMinAPcost = MinAPsToAttack(pSoldier, pOpponent->sGridNo, ADDTURNCOST, 0) + sStanceAPcost;
+					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
+					{
+						//ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
+						ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, pOpponent->sGridNo, pSoldier->bActionPoints-ubMinAPcost);
+						for(ubAimTime=APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime<=ubMaxPossibleAimTime; ubAimTime++)
+						{
+							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE);
+							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+//SendFmtMsg("CalcBestShot_P=%d hr=%d at=%d sm=%d op=%d/%d aps=%d,%d,%d,%d,%d", ubChanceToHit, iHitRate, ubAimTime, pSoldier->bScopeMode, pOpponent->ubID, pOpponent->sGridNo, ubMinAPcost, ubRawAPCost, sStanceAPcost, usTurningCost, usRaiseGunCost);
+							if(iHitRate > iBestHitRate)
+							{
+								iBestHitRate = iHitRate;
+								ubBestAimTime = ubAimTime;
+								ubBestChanceToHit = ubChanceToHit;
+								bScopeMode = pSoldier->bScopeMode;
+								sBestAPcost = ubMinAPcost;
+								ubBestStance = ubStance;
+							}
+						}
+					}
+					pSoldier->usAnimState = usTrueState;
+					pSoldier->sLastTarget = iTrueLastTarget;
+				}
+			}
+		}
+#endif
 		// if we can't get any kind of hit rate at all
 		if (iBestHitRate == 0)
 			continue;			// next opponent
@@ -513,18 +657,24 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			pBestShot->ubPossible			= TRUE;
 			pBestShot->ubOpponent			= pOpponent->ubID;
 			pBestShot->ubAimTime			= ubBestAimTime;
-			pBestShot->ubChanceToReallyHit = ubChanceToReallyHit;
-			pBestShot->sTarget			 = pOpponent->sGridNo;
-			pBestShot->bTargetLevel				= pOpponent->pathing.bLevel;
-			pBestShot->iAttackValue		= iAttackValue;
-			pBestShot->ubAPCost			= ubMinAPcost;
-			pBestShot->bScopeMode		= bScopeMode;
+			pBestShot->ubChanceToReallyHit	= ubChanceToReallyHit;
+			pBestShot->sTarget				= pOpponent->sGridNo;
+			pBestShot->bTargetLevel			= pOpponent->pathing.bLevel;
+			pBestShot->iAttackValue			= iAttackValue;
+#ifndef dnlCALCBESTSHOT//dnl ch69 140913
+			pBestShot->ubAPCost				= ubMinAPcost;
+#else
+			pBestShot->ubAPCost				= sBestAPcost;
+			pBestShot->ubStance				= ubBestStance;
+#endif
+			pBestShot->bScopeMode			= bScopeMode;
 			if(gUnderFire.Count(pSoldier->bTeam))//dnl ch61 180813
 				pBestShot->ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam);
 			else
 				pBestShot->ubFriendlyFireChance = 0;
 		}
 	}
+//if(pBestShot->ubPossible)SendFmtMsg("CalcBestShot;\r\n  ID=%d Loc=%d APs=%d Ac=%d AcData=%d Al=%d, SM=%d, LAc=%d, NAc=%d AT=%d\r\n  AP?=%d,%d,%d/%d BS=%d", pSoldier->ubID, pSoldier->sGridNo, pSoldier->bActionPoints, pSoldier->aiData.bAction, pSoldier->aiData.usActionData, pSoldier->aiData.bAlertStatus, pBestShot->bScopeMode, pSoldier->aiData.bLastAction, pSoldier->aiData.bNextAction, pBestShot->ubAimTime, pBestShot->ubAPCost, CalcAPCostForAiming(pSoldier, pBestShot->sTarget, (INT8)pBestShot->ubAimTime), CalcTotalAPsToAttack(pSoldier, pBestShot->sTarget, TRUE, pBestShot->ubAimTime), CalcTotalAPsToAttack(pSoldier, pBestShot->sTarget, FALSE, pBestShot->ubAimTime), pBestShot->ubStance);
 	pSoldier->bScopeMode = USE_BEST_SCOPE; // better reset this back
 }
 
@@ -942,7 +1092,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: about to initattacktype");
-	InitAttackType(pBestThrow);	 // set all structure fields to defaults
+	//InitAttackType(pBestThrow);	 // set all structure fields to defaults//dnl ch69 150913
 
 	// look at the squares near each known opponent and try to find the one
 	// place where a tossed projectile would do the most harm to the opponents
@@ -1230,6 +1380,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				{
 					ubRawAPCost = MinAPsToShootOrStab( pSoldier, sGridNo,ubMaxPossibleAimTime,FALSE);
 					ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier, sGridNo, ubMaxPossibleAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
+//SendFmtMsg("CalcBestThrow=%d APs=%d mat=%d gno=%d  EXPGUN!!!", ubChanceToHit, ubRawAPCost, ubMaxPossibleAimTime, sGridNo);
 				}
 				else
 				{
@@ -1239,6 +1390,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("Raw AP Cost = %d",ubRawAPCost ));
 					ubChanceToHit = (UINT8) CalcThrownChanceToHit( pSoldier, sGridNo, ubMaxPossibleAimTime, AIM_SHOT_TORSO );
 					DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("Chance to hit = %d",ubChanceToHit ));
+//SendFmtMsg("CalcBestThrow=%d APs=%d mat=%d gno=%d", ubChanceToHit, ubRawAPCost, ubMaxPossibleAimTime, sGridNo);
 				}
 
 				// mortars are inherently quite inaccurate, don't get proximity bonus
@@ -1292,7 +1444,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					pBestThrow->ubChanceToReallyHit = ubChanceToReallyHit;
 					pBestThrow->sTarget				= sGridNo;
 					pBestThrow->iAttackValue		= iAttackValue;
-					pBestThrow->ubAPCost			= ubMinAPcost + CalcAPCostForAiming(pSoldier, sGridNo, ubMaxPossibleAimTime, FALSE);//dnl ch64 310813
+					pBestThrow->ubAPCost			= ubMinAPcost + CalcAPCostForAiming(pSoldier, sGridNo, ubMaxPossibleAimTime);//dnl ch64 310813
 					pBestThrow->bTargetLevel		= bOpponentLevel[ubLoop];
 
 					//sprintf(tempstr,"new best THROW AttackValue = %d at grid #%d",iAttackValue/100000,gridno);
@@ -1341,7 +1493,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 	SOLDIERTYPE *pOpponent;
 	UINT16 usTrueMovementMode;
 	INT16 ubBestChanceToHit;
-	InitAttackType(pBestStab);		// set all structure fields to defaults
+	//InitAttackType(pBestStab);		// set all structure fields to defaults//dnl ch69 150913
 
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
 
@@ -1562,7 +1714,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 	SOLDIERTYPE *pOpponent;
 
 
-	InitAttackType(pBestStab);		// set all structure fields to defaults
+	//InitAttackType(pBestStab);		// set all structure fields to defaults//dnl ch69 150913
 
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
 

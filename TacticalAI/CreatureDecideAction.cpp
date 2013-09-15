@@ -916,7 +916,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
  INT8			bCanAttack;
  INT8			bSpitIn, bWeaponIn;
  UINT32		uiChance;
- ATTACKTYPE BestShot = {}, BestStab = {}, BestAttack = {}, CurrStab = {};
+ ATTACKTYPE BestShot, BestStab, BestAttack, CurrStab;//dnl ch69 150913
  BOOLEAN	fRunAway = FALSE;
  BOOLEAN	fChangeLevel;
 

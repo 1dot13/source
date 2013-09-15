@@ -2116,7 +2116,7 @@ UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost,
 		BOOLEAN fAltFireMode = FALSE;
 		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
 		{
-			if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 && pSoldier->bTeam == gbPlayerNum )
+			if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )//dnl ch69 130913 condition (&& pSoldier->bTeam == gbPlayerNum) must be out because prevent AI from doing alternate weapon holding
 			{
 				if ( pSoldier->bScopeMode == -1 )
 					fAltFireMode = TRUE;
@@ -2244,7 +2244,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		}
 	}
 	else
-	{		
+	{
 		//CHRISL: When prone and using a bipod, bipod should help compensate for recoil.  To reflect this, our shot AP cost should be minimially reduced
 		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier > 0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && GetBipodBonus(&(pSoldier->inv[HANDPOS])) > 0)
 		{
@@ -2303,7 +2303,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		/////////////////////////////////////////////////////////////////////////////////////
 	}
 
-	if (ubForceRaiseGunCost)
+	if (ubForceRaiseGunCost == TRUE )//dnl ch69 140913
 	{
 		fAddingRaiseGunCost = TRUE;
 	}
@@ -2330,7 +2330,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		}
 	}
 
-	if ( AM_A_ROBOT( pSoldier ) || TANK( pSoldier ) )//dnl ch64 300813 robots and tanks cannot do this
+	if ( AM_A_ROBOT( pSoldier ) || TANK( pSoldier ) || ubForceRaiseGunCost == 2 )//dnl ch64 300813 robots and tanks cannot do this //dnl ch69 150913 need option to override raise gun cost
 	{
 		fAddingRaiseGunCost = FALSE;
 	}
@@ -2367,8 +2367,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	
 	// if attacking a new target (or if the specific target is uncertain)
 	// Added check if the weapon is throwing knife/melee weapons - otherwise it would add APs for change target on cursor but not actually deduct them afterwards - SANDRO
-	if ( ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )&&
-				( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE ) ) ) 
+	if ( ubForceRaiseGunCost == TRUE || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE ) && ( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE ) ) )//dnl ch69 140913
 	{
 		if ( pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ) )
 			bAPCost += (APBPConstants[AP_CHANGE_TARGET] / 2);
@@ -3813,15 +3812,15 @@ INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 
 // HEADROCK HAM 3.6: Calculate the actual AP cost to add this many Extra Aiming levels, taking into account
 // APBP Constants and extra game features.
-INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime, UINT8 ubAddRaiseGunCost )//dnl ch64 310813
+INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime )
 {
 	INT16 sAPCost = 0;
 	UINT16 usItemNum = pSoldier->inv[HANDPOS].usItem;
 
 	Assert(pSoldier != NULL);
 	Assert(&pSoldier->inv[HANDPOS] != NULL);
-
-	if (ubAddRaiseGunCost && !TANK(pSoldier) && !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))//dnl ch64 310813
+#ifndef dnlCALCBESTSHOT//dnl ch69 150913 if this is turn on we get incorrect APs as MinAPsToShootOrStab always include raise gun cost
+	if (!TANK(pSoldier) && !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))//dnl ch64 310813
 	{
 		// Weapon not ready, check aiming from hip, else add raise gun cost
 		//if (!pSoldier->IsValidShotFromHip(bAimTime,sTargetGridNo))
@@ -3829,8 +3828,7 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 			sAPCost += CalculateRaiseGunCost( pSoldier, TRUE, sTargetGridNo, bAimTime );
 		}
 	}
-
-
+#endif
 	if (gGameExternalOptions.fIncreasedAimingCost )
 	{
 		// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.

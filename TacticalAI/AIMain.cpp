@@ -2353,16 +2353,14 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier)
 	}
 }
 
-void InitAttackType(ATTACKTYPE *pAttack)
+void ATTACKTYPE::InitAttackType(ATTACKTYPE *pAttack)//dnl ch69 140913
 {
 	// initialize the given bestAttack structure fields to their default values
-	pAttack->ubPossible          = FALSE;
-	pAttack->ubOpponent          = NOBODY;
-	pAttack->ubAimTime           = 0;
-	pAttack->ubChanceToReallyHit = 0;
-	pAttack->sTarget							= NOWHERE;
-	pAttack->iAttackValue				= 0;
-	pAttack->ubAPCost            = 0;
+	memset(pAttack, 0, sizeof(ATTACKTYPE));
+	pAttack->ubOpponent = NOBODY;
+	pAttack->sTarget = NOWHERE;
+	pAttack->bWeaponIn = NO_SLOT;
+	pAttack->ubStance = STANDING;
 }
 
 void HandleInitialRedAlert( INT8 bTeam, UINT8 ubCommunicate)

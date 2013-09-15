@@ -126,25 +126,32 @@ typedef struct
 } THREATTYPE;
 
 // define for bAimTime for bursting
-#define BURSTING 20
-#define AUTOFIRING 21
+//#define BURSTING 20
+//#define AUTOFIRING 21
 
-typedef struct
+//dnl ch69 140913
+#define dnlCALCBESTSHOT// old CalcBestShot simply became inadequate and buggier for so many add ons to game, so this one is alternative option which calculate all turning, stance and raising gun cost for different stances and all available scopes
+class ATTACKTYPE
 {
- UINT8 ubPossible;			// is this attack form possible?	T/F
- UINT8 ubOpponent;			// which soldier is the victim?
- //CHANGED STRUCTURE VALUE BY GOTTHARD 7/14/07
- INT16 ubAimTime;							// how many extra APs to spend on aiming
- INT16 ubChanceToReallyHit;	// chance to hit * chance to get through cover
- //END STRUCTURE CHANGE BY GOTTHARD 7/14/07
- INT32 iAttackValue;			// relative worthiness of this type of attack
- INT32 sTarget;								// target gridno of this attack
- INT8	bTargetLevel;					// target level of this attack
- UINT8 ubFriendlyFireChance;		// highest chance to hit someone of our guys //dnl ch61 180813
- INT16 ubAPCost;							// how many APs the attack will use up
- INT8	bWeaponIn;							// the inv slot of the weapon in question
- INT8	bScopeMode;							// SANDRO: added for scope mode and alternative weapon holding
-} ATTACKTYPE;
+public:
+	UINT8 ubPossible;				// is this attack form possible
+	UINT8 ubOpponent;				// which soldier is the victim
+	//CHANGED STRUCTURE VALUE BY GOTTHARD 7/14/07
+	INT16 ubAimTime;				// how many extra APs to spend on aiming
+	INT16 ubChanceToReallyHit;		// chance to hit * chance to get through cover
+	//END STRUCTURE CHANGE BY GOTTHARD 7/14/07
+	INT16 ubAPCost;					// how many APs the attack will use up
+	INT32 iAttackValue;				// relative worthiness of this type of attack
+	INT32 sTarget;					// target gridno of this attack
+	INT8 bTargetLevel;				// target level of this attack
+	INT8 bWeaponIn;					// the inv slot of the weapon in question
+	INT8 bScopeMode;				// SANDRO: added for scope mode and alternative weapon holding
+	UINT8 ubStance;					// recommended stance for attack
+	UINT8 ubFriendlyFireChance;		// highest chance to hit someone of our guys //dnl ch61 180813
+
+	ATTACKTYPE(void){ InitAttackType(this); }
+	void InitAttackType(ATTACKTYPE *pAttack);
+};
 
 //dnl ch61 180813
 #define MAXUNDERFIRE 100
@@ -238,8 +245,6 @@ INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier );
 BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo );
-
-void InitAttackType(ATTACKTYPE *pAttack);
 
 INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, INT16 bReserveAPs, INT8 bAction, INT8 fFlags );
 
