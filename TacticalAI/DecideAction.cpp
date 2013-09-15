@@ -5182,7 +5182,7 @@ INT16 ubMinAPCost;
 
 					if ( (INT32) PreRandom( 100 ) < iChance)
 					{
-						BestAttack.ubAPCost += ubBurstAPs + sActualAimTime;//dnl??? ch58 130913
+						BestAttack.ubAPCost += ubBurstAPs + sActualAimTime;//dnl ch58 130913
 						// check for spread burst possibilities
 						if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
 						{
@@ -5690,8 +5690,10 @@ L_NEWAIM:
 #endif
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"AI %d taking cover, morale %d, from %d to %d", pSoldier->ubID, pSoldier->aiData.bAIMorale, pSoldier->sGridNo, sBestCover );
 		pSoldier->aiData.usActionData = sBestCover;
-		if(!TileIsOutOfBounds(sClosestOpponent))//dnl ch58 160813 After taking cover change facing toward closest enemy, currently such turn not charge APs and seems because AI is still in moving animation from take cover action
+		if(!TileIsOutOfBounds(sClosestOpponent))//dnl ch58 150913 After taking cover change facing toward recent target or closest enemy, currently such turn not charge APs and seems because AI is still in moving animation from take cover action
 		{
+			if(!TileIsOutOfBounds(pSoldier->sLastTarget))
+				sClosestOpponent = pSoldier->sLastTarget;
 			pSoldier->aiData.bNextAction = AI_ACTION_CHANGE_FACING;
 			pSoldier->aiData.usNextActionData = atan8(CenterX(sBestCover),CenterY(sBestCover),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 		}
@@ -5845,6 +5847,8 @@ L_NEWAIM:
 			// if we have a closest reachable opponent			
 			if (!TileIsOutOfBounds(sClosestOpponent))
 			{
+				if(!TileIsOutOfBounds(pSoldier->sLastTarget))//dnl ch58 150913
+					sClosestOpponent = pSoldier->sLastTarget;
 				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
 				// if we're not facing towards him
