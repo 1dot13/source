@@ -378,16 +378,16 @@ UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient );
 UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealAmount );
 
 // can item be repaired?
-BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold );
+BOOLEAN IsItemRepairable( SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold );
 
 // does another merc have a repairable item on them?
-OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPassType );
+OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOtherSoldier, UINT8 ubPassType );
 
 //CHRISL: This function will handle the actual searching for repairable items
-OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObject);
+OBJECTTYPE* FindRepairableItemInSpecificPocket( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, UINT8 subObject);
 
 //CHRISL: This function will search through LBENODE items for repairable items
-OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject);
+OBJECTTYPE* FindRepairableItemInLBENODE(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, UINT8 subObject);
 
 // repair stuff
 void HandleRepairBySoldier( SOLDIERTYPE *pSoldier );
@@ -931,7 +931,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 		// run through pocket
 		for( ubObjectInPocketCounter = 0; ubObjectInPocketCounter < pSoldier->inv[ bPocket ].ubNumberOfObjects; ubObjectInPocketCounter++ )
 		{
-			pObj = FindRepairableItemInSpecificPocket(&(pSoldier->inv[ bPocket ]), ubObjectInPocketCounter);
+			pObj = FindRepairableItemInSpecificPocket(pSoldier, &(pSoldier->inv[ bPocket ]), ubObjectInPocketCounter);
 			// if it's repairable and NEEDS repairing
 			if(pObj != 0)
 			{
@@ -939,7 +939,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 			}
 			if(UsingNewInventorySystem() == true && Item[pSoldier->inv[ bPocket ].usItem].usItemClass == IC_LBEGEAR)
 			{
-				pObj = FindRepairableItemInLBENODE( &pSoldier->inv[ bPocket ], ubObjectInPocketCounter);
+				pObj = FindRepairableItemInLBENODE(pSoldier, &pSoldier->inv[ bPocket ], ubObjectInPocketCounter);
 				if(pObj != 0)
 				{
 					return( TRUE );
@@ -971,7 +971,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 				// repair everyone's hands and armor slots first, then headgear, and pockets last
 				for ( ubPassType = REPAIR_HANDS_AND_ARMOR; ubPassType <= ( UINT8 ) bHighestPass; ubPassType++ )
 				{
-					if (FindRepairableItemOnOtherSoldier( pOtherSoldier, ubPassType )) {
+					if (FindRepairableItemOnOtherSoldier( pSoldier, pOtherSoldier, ubPassType )) {
 						return( TRUE );
 					}
 				}
@@ -3718,7 +3718,7 @@ static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj) {
 //CHRISL: During the repair process, we already attempt to repair the attachments on an item.  So rather then adding the attachment to the stack, we want to
 //	add the main item, even if it's just the attachment that actually needs to be repaired.  Also, if multiple items in a stack are damaged, we only want to
 //	include the stack once since the repair system already looks through the entire stack.
-static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix) {
+static void CollectRepairableItems(SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix) {
 	bool foundItem = false;
 	// Iterate over all pocket slots and add items in need of repair
 	for (UINT8 pocketIndex = HELMETPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex) {
@@ -3730,7 +3730,7 @@ static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& ite
 		foundItem = false;
 		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex) {
 			// Check the stack item itself
-			if (IsItemRepairable(pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold)) {
+			if (IsItemRepairable(pSoldier, pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold)) {
 				RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 				itemsToFix.push(item);
 				break;
@@ -3739,7 +3739,7 @@ static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& ite
 			// Check for attachments (are there stackable items that can take attachments though?)
 			UINT8 attachmentIndex = 0;
 			for (attachmentList::const_iterator iter = (*pObj)[stackIndex]->attachments.begin(); iter != (*pObj)[stackIndex]->attachments.end(); ++iter, ++attachmentIndex) {
-				if (IsItemRepairable(iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
+				if (IsItemRepairable(pSoldier, iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
 					// Send the main item, not the attachment
 					RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 					itemsToFix.push(item);
@@ -3757,7 +3757,7 @@ static BOOLEAN IsGunJammed(const OBJECTTYPE* pObj) {
 	return (Item[pObj->usItem].usItemClass == IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0);
 }
 
-OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPassType )
+OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOtherSoldier, UINT8 ubPassType )
 {
 	INT8 bLoop, bLoop2;
 	REPAIR_PASS_SLOTS_TYPE *pPassList;
@@ -3765,7 +3765,7 @@ OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPa
 	OBJECTTYPE * pObj;
 
 	AssertLT( ubPassType, NUM_REPAIR_PASS_TYPES );
-	AssertNotNIL(pSoldier);
+	AssertNotNIL(pOtherSoldier);
 
 	pPassList = &( gRepairPassSlotList[ ubPassType ] );
 
@@ -3775,17 +3775,17 @@ OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPa
 		bSlotToCheck = pPassList->bSlot[ bLoop ];
 		AssertNE( bSlotToCheck, -1 );
 
-		for ( bLoop2 = 0; bLoop2 < pSoldier->inv[ bSlotToCheck ].ubNumberOfObjects; bLoop2++ )
+		for ( bLoop2 = 0; bLoop2 < pOtherSoldier->inv[ bSlotToCheck ].ubNumberOfObjects; bLoop2++ )
 		{
-			pObj = FindRepairableItemInSpecificPocket(&( pSoldier->inv[ bSlotToCheck ] ), bLoop2);
+			pObj = FindRepairableItemInSpecificPocket(pSoldier, &( pOtherSoldier->inv[ bSlotToCheck ] ), bLoop2);
 			if(pObj != 0)
 			{
 				return( pObj );
 			}
 			//CHRISL: In NewInv, we should also repair items stored in LBENODE items
-			if(UsingNewInventorySystem() == true && Item[pSoldier->inv[ bSlotToCheck ].usItem].usItemClass == IC_LBEGEAR)
+			if(UsingNewInventorySystem() == true && Item[pOtherSoldier->inv[ bSlotToCheck ].usItem].usItemClass == IC_LBEGEAR)
 			{
-				pObj = FindRepairableItemInLBENODE( &pSoldier->inv[ bSlotToCheck ], bLoop2);
+				pObj = FindRepairableItemInLBENODE(pSoldier, &pOtherSoldier->inv[ bSlotToCheck ], bLoop2);
 				if(pObj != 0)
 				{
 					return( pObj );
@@ -3797,7 +3797,7 @@ OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPa
 	return( 0 );
 }
 
-OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject)
+OBJECTTYPE* FindRepairableItemInLBENODE(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, UINT8 subObject)
 {
 	OBJECTTYPE * pObject;
 
@@ -3813,14 +3813,14 @@ OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject)
 		{
 			for(UINT8 ubItemsInPocket = 0; ubItemsInPocket < pLBE->inv[lbePocket].ubNumberOfObjects; ubItemsInPocket++)
 			{
-				pObject = FindRepairableItemInSpecificPocket(&pLBE->inv[lbePocket], ubItemsInPocket);
+				pObject = FindRepairableItemInSpecificPocket(pSoldier, &pLBE->inv[lbePocket], ubItemsInPocket);
 				if(pObject != 0)
 				{
 					return( pObject );
 				}
 				if(Item[pLBE->inv[lbePocket].usItem].usItemClass == IC_LBEGEAR)
 				{
-					pObject = FindRepairableItemInLBENODE(&pLBE->inv[lbePocket], ubItemsInPocket);
+					pObject = FindRepairableItemInLBENODE(pSoldier, &pLBE->inv[lbePocket], ubItemsInPocket);
 					if(pObject != 0)
 					{
 						return( pObject );
@@ -3832,10 +3832,10 @@ OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject)
 	return( 0 );
 }
 
-OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObject)
+OBJECTTYPE* FindRepairableItemInSpecificPocket(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, UINT8 subObject)
 {
 	AssertNotNIL(pObj);
-	if ( IsItemRepairable( pObj->usItem, (*pObj)[subObject]->data.objectStatus, (*pObj)[subObject]->data.sRepairThreshold ) )
+	if ( IsItemRepairable( pSoldier, pObj->usItem, (*pObj)[subObject]->data.objectStatus, (*pObj)[subObject]->data.sRepairThreshold ) )
 	{
 		return( pObj );
 	}
@@ -3843,7 +3843,7 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObje
 	// have to check for attachments after...
 	for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( iter->usItem, (*iter)[subObject]->data.objectStatus, (*iter)[subObject]->data.sRepairThreshold ) && iter->exists() ) {
+		if ( IsItemRepairable( pSoldier, iter->usItem, (*iter)[subObject]->data.objectStatus, (*iter)[subObject]->data.sRepairThreshold ) && iter->exists() ) {
 			return( &(*iter) );
 		}
 	}
@@ -3943,7 +3943,7 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		}
 
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( pObj->usItem, (*pObj)[ubLoop]->data.objectStatus, threshold ) )
+		if ( IsItemRepairable( pSoldier, pObj->usItem, (*pObj)[ubLoop]->data.objectStatus, threshold ) )
 		{
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
 			// SANDRO - merc records, num items repaired
@@ -4303,7 +4303,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 
 
 
-BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold )
+BOOLEAN IsItemRepairable(SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 {
 	// check to see if item can/needs to be repaired
 //	if ( ( bStatus < 100) && ( Item[ usItem ].fFlags & ITEM_REPAIRABLE ) )
@@ -4313,13 +4313,15 @@ BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 		{
 			if ( gGameExternalOptions.fOnlyRepairGunsArmour )
 			{
-				if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus < bThreshold )
+				if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && ( bStatus < bThreshold
+					|| ( gGameExternalOptions.fMercsCanDoAdvancedRepairs && HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )) )
 					return ( TRUE );
 				else
 					return ( FALSE );
 			}
 
-			if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus >= bThreshold )
+			if ( ((Item[usItem].usItemClass & IC_WEAPON|IC_ARMOUR) != 0) && bStatus >= bThreshold 
+				&& ( !gGameExternalOptions.fMercsCanDoAdvancedRepairs || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) ) )
 				// nay
 				return ( FALSE );
 		}
@@ -14411,7 +14413,7 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 				if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
 				{
 					// okay, seems like a candidate!
-					if ( FindRepairableItemOnOtherSoldier( pOtherSoldier, ubPassType ) != 0 )
+					if ( FindRepairableItemOnOtherSoldier( pSoldier, pOtherSoldier, ubPassType ) != 0 )
 					{
 						bPriority = pOtherSoldier->stats.bExpLevel;
 						if ( bPriority > bBestPriority )
@@ -14430,7 +14432,7 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 				OBJECTTYPE * pObjectToRepair;
 				do
 				{
-					pObjectToRepair = FindRepairableItemOnOtherSoldier( pBestOtherSoldier, ubPassType );
+					pObjectToRepair = FindRepairableItemOnOtherSoldier( pSoldier, pBestOtherSoldier, ubPassType );
 					if ( pObjectToRepair )
 					{
 						if ( RepairObject( pSoldier, pBestOtherSoldier, pObjectToRepair, pubRepairPtsLeft ) )
