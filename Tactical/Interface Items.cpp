@@ -1361,12 +1361,12 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	{
 		if(UsingNewAttachmentSystem() == true)
 		{
-			gMoneyButtonLoc.x = 186;
+			gMoneyButtonLoc.x = 186 + INTERFACE_START_X;
 			gMoneyButtonLoc.y = 170;
 		}
 		else
 		{
-			gMoneyButtonLoc.x = 174;
+			gMoneyButtonLoc.x = 174 + INTERFACE_START_X;
 			gMoneyButtonLoc.y = 115;
 		}
 	}
