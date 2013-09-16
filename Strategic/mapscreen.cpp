@@ -14469,7 +14469,7 @@ void ChangeMapScreenMaskCursor( UINT16 usCursor )
 	if ( !InItemStackPopup( ) )
 	{
 		// cancel mouse restriction
-		FreeMouseCursor();
+		FreeMouseCursor( FALSE );
 	}
 	}
 	else

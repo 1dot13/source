@@ -113,7 +113,7 @@ BOOLEAN MessageBoxHandled()
 
 void RemoveMessageBox( )
 {
-	FreeMouseCursor( );
+	FreeMouseCursor( FALSE );
 	RemoveButton( iMsgBoxCancel );
 	RemoveButton( iMsgBoxOk );
 	RemoveButton( iMsgBoxBgrnd );

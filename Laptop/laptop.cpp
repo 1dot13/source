@@ -1106,7 +1106,7 @@ void ExitLaptop()
 	//}
 
 	// release cursor
-	FreeMouseCursor( );
+	FreeMouseCursor( FALSE );
 
 	// set the fact we are currently not in laptop, for rendering purposes
 	fCurrentlyInLaptop = FALSE;
@@ -6029,13 +6029,13 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 			MarkButtonsDirty( );
 		}
 	}
-	else if( ( ( usEvent == KEY_DOWN ) || ( usEvent == KEY_REPEAT ) ) && ( ( usParam == 'z' ) || ( usParam == 'y' ) ) )
+	else if( ( ( usEvent == KEY_DOWN ) || ( usEvent == KEY_REPEAT ) ) && ( usParam == 'z' ) )
 	{
 		if ( usKeyState & CTRL_DOWN )
 		{
 			if( IsCursorRestricted( ) )
 			{
-				FreeMouseCursor( );
+				FreeMouseCursor( FALSE );
 			}
 			else
 			{

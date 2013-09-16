@@ -3980,7 +3980,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							//the only way to merge items is to pick them up.	In SKI when you pick up an item, the cursor is
 							//locked in a region, free it up.
-							FreeMouseCursor();
+							FreeMouseCursor( TRUE );
 
 							DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_MERGE_ITEMS ], SHOPKEEPER_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, MergeMessageBoxCallBack, NULL );
 						}
@@ -7773,7 +7773,7 @@ void SMInvMoneyButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					//if we are in the shop keeper interface, free the cursor
 					if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 					{
-						FreeMouseCursor();
+						FreeMouseCursor( TRUE );
 					}
 
 					DoMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, ConfirmationToDepositMoneyToPlayersAccount, NULL );

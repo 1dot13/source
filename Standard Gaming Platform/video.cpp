@@ -715,7 +715,7 @@ void ShutdownVideoManager(void)
 	}
 
 	// ATE: Release mouse cursor!
-	FreeMouseCursor( );
+	FreeMouseCursor( FALSE );
 
 	UnRegisterDebugTopic(TOPIC_VIDEO, "Video");
 }

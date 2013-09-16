@@ -4163,7 +4163,7 @@ void CancelInventoryZoomInput( BOOLEAN fButtonOff )
 	// behave normally.
 	fWaitingForZoomInput = 0;
 	// Free up the mouse!
-	FreeMouseCursor();
+	FreeMouseCursor( FALSE );
 }
 
 // HEADROCK HAM 5: This function handles animation from Unzoomed inventory mode to Zoomed inventory mode.

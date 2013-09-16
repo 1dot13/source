@@ -9440,7 +9440,7 @@ void DeleteItemStackPopup( )
 		EnableSMPanelButtons( TRUE, FALSE );
 	}
 
-	FreeMouseCursor( );
+	FreeMouseCursor( TRUE );
 
 }
 
@@ -9686,7 +9686,7 @@ void DeleteKeyRingPopup( )
 		EnableSMPanelButtons( TRUE, FALSE );
 	}
 
-	FreeMouseCursor( );
+	FreeMouseCursor( TRUE );
 }
 
 UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem )

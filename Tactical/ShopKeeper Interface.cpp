@@ -1333,7 +1333,7 @@ BOOLEAN ExitShopKeeperInterface()
 		DeleteItemDescriptionBox( );
 	}
 
-	FreeMouseCursor();
+	FreeMouseCursor( TRUE );
 
 	//Delete the main shopkeep background
 	DeleteVideoObjectFromIndex( guiMainTradeScreenImage );
@@ -4824,7 +4824,7 @@ void SetSkiCursor( UINT16	usCursor )
 
 		SetCurrentCursorFromDatabase( usCursor );
 
-		FreeMouseCursor();
+		FreeMouseCursor( TRUE );
 
 		EnableAllDealersInventorySlots();
 		EnableAllDealersOfferSlots();

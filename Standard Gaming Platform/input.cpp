@@ -50,7 +50,8 @@ extern BOOLEAN gfApplicationActive;
 BOOLEAN	gfKeyState[256];			// TRUE = Pressed, FALSE = Not Pressed
 BOOLEAN	fCursorWasClipped = FALSE;
 RECT		gCursorClipRect;
-
+extern BOOLEAN gfMouseLockedOnBorder;
+extern int iWindowedMode;
 
 
 // The gsKeyTranslationTables basically translates scan codes to our own key value table. Please note that the table is 2 bytes
@@ -1590,10 +1591,23 @@ void RestrictMouseCursor(SGPRect *pRectangle)
 	fCursorWasClipped = TRUE;
 }
 
-void FreeMouseCursor(void)
+void FreeMouseCursor( BOOLEAN fLockForTacticalWindowedMode )
 {
 	ClipCursor(NULL);
 	fCursorWasClipped = FALSE;
+
+	// Buggler: Need to relock for fullscreen mode as ClipCursor release mouse boundary to full desktop resolution on multi-monitor setup &&
+	// for windowed mode, lockscreen only when player activates feature in tactical screen due to mouse restriction applies to desktop too!
+	if ( !iWindowedMode || ( iWindowedMode && gfMouseLockedOnBorder && fLockForTacticalWindowedMode ) )
+	{
+		SGPRect			LJDRect;
+
+		LJDRect.iLeft 	= 0;
+		LJDRect.iTop 	= 0;
+		LJDRect.iRight 	= SCREEN_WIDTH;
+		LJDRect.iBottom = SCREEN_HEIGHT;
+		RestrictMouseCursor( &LJDRect );
+	}
 }
 
 void RestoreCursorClipRect( void )

@@ -567,7 +567,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				SuspendVideoManager();
 			}
 			gfApplicationActive=FALSE;
-			FreeMouseCursor();
+			FreeMouseCursor( FALSE );
 #endif
 			// Set a flag to restore surfaces once a WM_ACTIVEATEAPP is received
 			fRestore = TRUE;

@@ -318,7 +318,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	{
 		fCursorLockedToArea = TRUE;
 		GetRestrictedClipCursor( &MessageBoxRestrictedCursorRegion );
-		FreeMouseCursor( );
+		FreeMouseCursor( FALSE );
 	}
 
 	// Create four numbered buttons
@@ -798,7 +798,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 	// Save mouse restriction region...
 	GetRestrictedClipCursor( &gOldCursorLimitRectangle );
-	FreeMouseCursor( );
+	FreeMouseCursor( FALSE );
 
 	gfNewMessageBox = TRUE;
 

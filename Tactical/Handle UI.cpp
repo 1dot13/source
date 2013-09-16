@@ -5528,7 +5528,7 @@ void EndRubberBanding( )
 {
 	if ( gRubberBandActive	)
 	{
-		FreeMouseCursor( );
+		FreeMouseCursor( TRUE );
 		gfIgnoreScrolling = FALSE;
 
 		EndMultiSoldierSelection( TRUE );

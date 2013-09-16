@@ -193,6 +193,9 @@ extern INT16 ITEMDESC_START_Y;
 BOOLEAN gfMouseLockedOnBorder = FALSE;
 extern int iWindowedMode;
 
+extern BOOLEAN gfInItemStackPopup;
+extern BOOLEAN gfInKeyRingPopup;
+
 
 //Little functions called by keyboard input
 void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
@@ -1605,25 +1608,26 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 		// BEGIN: by Lejardo for mouse-locking in game screen
 		// WANNE: If the game runs in windowed mode, the user can "lock" / "unlock" the mouse cursor
-		if (iWindowedMode)
+		if ( iWindowedMode && !gfInKeyRingPopup && !gfInItemStackPopup)
 		{
-			SGPRect			LJDRect;
-			if ((InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == 'z' || InputEvent.usParam == 'y'))
+			if ((InputEvent.usEvent == KEY_DOWN ) && InputEvent.usParam == 'z' )
 			{			
 				if( (InputEvent.usKeyState & CTRL_DOWN) && !(InputEvent.usKeyState & ALT_DOWN))
 				{
 					// Unlock the mouse cursor
 					if (gfMouseLockedOnBorder)
 					{
-						FreeMouseCursor();
+						FreeMouseCursor( FALSE );
 
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_WINDOWED_MODE_RELEASE_MOUSE] );
 					}
 					// Lock the mouse cursor
 					else
-					{			
+					{
+						SGPRect			LJDRect;
+
 						LJDRect.iLeft 	= 0;
-						LJDRect.iTop 		= 0;
+						LJDRect.iTop 	= 0;
 						LJDRect.iRight 	= SCREEN_WIDTH;
 						LJDRect.iBottom = SCREEN_HEIGHT;
 						RestrictMouseCursor( &LJDRect );
@@ -1631,8 +1635,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_WINDOWED_MODE_LOCK_MOUSE] );
 					}
 
-					gfMouseLockedOnBorder = !gfMouseLockedOnBorder;					
-				}			
+					gfMouseLockedOnBorder = !gfMouseLockedOnBorder;
+				}
 			}
 		}
 		// END: by Lejardo for mouse-locking in game screen

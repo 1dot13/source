@@ -322,7 +322,7 @@ INT32 DoChatBox( bool bIncludeChatLog, const STR16 zString, UINT32 uiExitScreen,
 	{
 		fCursorLockedToArea = TRUE;
 		GetRestrictedClipCursor( &ChatBoxRestrictedCursorRegion );
-		FreeMouseCursor( );
+		FreeMouseCursor( FALSE );
 	}
 
 	// vars for positioning controls on the chatbox
@@ -501,7 +501,7 @@ INT32 DoChatBox( bool bIncludeChatLog, const STR16 zString, UINT32 uiExitScreen,
 
 	// Save mouse restriction region...
 	GetRestrictedClipCursor( &gOldCursorLimitRectangle );
-	FreeMouseCursor( );
+	FreeMouseCursor( FALSE );
 
 	gfNewChatBox = TRUE;
 
