@@ -114,6 +114,7 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+UINT16 usForceAnimState = INVALID_ANIMATION;//dnl ch70 170913
 
 //turnspeed
 //UINT8 gubPlayerTurnSpeedUpFactor = 1;
@@ -3663,7 +3664,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	{
 		// ATE: Also check for the transition anims to not reset this
 		// this should have used a flag but we're out of them....
-		if ( usNewState != READY_ALTERNATIVE_STAND && usNewState != READY_RIFLE_STAND && usNewState != READY_RIFLE_PRONE && usNewState != READY_RIFLE_CROUCH && usNewState != ROBOT_SHOOT && usNewState != TANK_SHOOT && usNewState != TANK_BURST )//dnl ch64 300813
+		if ( usNewState != READY_ALTERNATIVE_STAND && usNewState != READY_RIFLE_STAND && usNewState != READY_RIFLE_PRONE && usNewState != READY_RIFLE_CROUCH && usNewState != ROBOT_SHOOT && usNewState != TANK_SHOOT && usNewState != TANK_BURST && usNewState != THROW_KNIFE && usNewState != THROW_KNIFE_SP_BM && this->usAnimState != THROW_KNIFE && this->usAnimState != THROW_KNIFE_SP_BM )//dnl ch64 300813 //dnl ch70 170913
 		{
 			this->sLastTarget = NOWHERE;
 		}
@@ -3800,6 +3801,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			{
 				// CHRISL
 				// SANDRO - APBPConstants[AP_CROUCH] changed to GetAPsCrouch()
+#if 0//dnl ch70 160913 this is wrong we cannot just add constants to sAPCost this must be done in GetAPsCrouch and GetAPsProne because all preactions calculation will show incorrect values under cursor
 				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag)
 				{
 					if(usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF)
@@ -3823,6 +3825,26 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					sAPCost=GetAPsCrouch(this, FALSE);
 					sBPCost=APBPConstants[BP_CROUCH];
 				}
+#else
+				if(UsingNewInventorySystem())
+				{
+					if(usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF)
+					{
+						sAPCost=GetAPsCrouch(this, TRUE*2);
+						sBPCost=APBPConstants[BP_CROUCH]+2;
+					}
+					else
+					{
+						sAPCost=GetAPsCrouch(this, TRUE);
+						sBPCost=APBPConstants[BP_CROUCH]+1;
+					}
+				}
+				else
+				{
+					sAPCost=GetAPsCrouch(this, FALSE);
+					sBPCost=APBPConstants[BP_CROUCH];
+				}
+#endif
 				DeductPoints( this, sAPCost, sBPCost );
 			}
 			this->flags.fDontChargeAPsForStanceChange = FALSE;
@@ -3839,6 +3861,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				if ( this->sGridNo == this->pathing.sFinalDestination || this->pathing.usPathIndex == 0 )
 				{
 					// CHRISL
+#if 0//dnl ch70 160913 this is wrong we cannot just add constants to sAPCost this must be done in GetAPsCrouch and GetAPsProne because all preactions calculation will show incorrect values under cursor
 					if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag)
 					{
 						if(usNewState == PRONE_UP)
@@ -3857,6 +3880,26 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 						sAPCost=GetAPsProne(this, FALSE);
 						sBPCost=APBPConstants[BP_PRONE];
 					}
+#else
+					if(UsingNewInventorySystem())
+					{
+						if(usNewState == PRONE_UP)
+						{
+							sAPCost=GetAPsProne(this, TRUE*2);
+							sBPCost=APBPConstants[BP_PRONE]+2;
+						}
+						else
+						{
+							sAPCost=GetAPsProne(this, TRUE);
+							sBPCost=APBPConstants[BP_PRONE]+1;
+						}
+					}
+					else
+					{
+						sAPCost=GetAPsProne(this, FALSE);
+						sBPCost=APBPConstants[BP_PRONE];
+					}
+#endif
 					DeductPoints( this, sAPCost, sBPCost );
 				}
 			}
@@ -7180,7 +7223,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 
 	if ( pSoldier->pathing.bDesiredDirection != pSoldier->ubDirection )
 	{
-		if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )
+		if ( (gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) || usForceAnimState != INVALID_ANIMATION) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )//dnl ch70 160913
 		{
 			// SANDRO: hey, we have a function for this around, why not to use it, hm?
 			// silversurfer: we better don't do that. GetAPsToLook( ... ) will charge APs for getting to crouched/prone position
@@ -7188,7 +7231,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 			// SANDRO: I see. Thanks.
 			// DeductPoints( pSoldier, GetAPsToLook( pSoldier ), 0 );
 			// Deduct points for initial turn!
-			switch( gAnimControl[ usAnimState ].ubEndHeight )
+			switch( gAnimControl[ (usForceAnimState != INVALID_ANIMATION ? usForceAnimState : usAnimState) ].ubEndHeight )//dnl ch70 160913
 			{
 				// Now change to appropriate animation
 			case ANIM_STAND:
@@ -7214,6 +7257,8 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 				iBPCost = 0;
 
 			DeductPoints( pSoldier, sAPCost, iBPCost );
+			if(usForceAnimState != INVALID_ANIMATION)//dnl ch70 170913
+				pSoldier->flags.fDontUnsetLastTargetFromTurn = FALSE;
 		}
 
 		pSoldier->flags.fDontChargeTurningAPs = FALSE;
@@ -12149,10 +12194,18 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDir
 		this->EVENT_InitNewSoldierAnim( THROW_KNIFE, 0 , FALSE );
 	}
 
+	//dnl ch70 160913 ugly but fast fix for not charging turning APs as there is no fire ready animation for throwing knives and I don't want to break SOLDIERTYPE just for that
+	if(this->usAnimState == THROW_KNIFE || this->usAnimState == THROW_KNIFE_SP_BM)
+		usForceAnimState = this->usAnimState;
+	else if(this->usPendingAnimation == THROW_KNIFE || this->usPendingAnimation == THROW_KNIFE_SP_BM)
+		usForceAnimState = this->usPendingAnimation;
+	else
+		usForceAnimState = INVALID_ANIMATION;
+	this->flags.fDontUnsetLastTargetFromTurn = TRUE;
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
 	this->EVENT_SetSoldierDesiredDirection( ubDirection );
 	this->EVENT_SetSoldierDirection( ubDirection );
-
+	usForceAnimState = INVALID_ANIMATION;
 
 	// SET TARGET GRIDNO
 	this->sTargetGridNo = sGridNo;

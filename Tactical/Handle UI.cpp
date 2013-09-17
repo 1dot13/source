@@ -5118,7 +5118,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 		// Setting "Last Target"
 
-		pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);
+		//pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);//dnl ch70 160913 when you turn you will lost target, it was always been like that!
 
 		// SANDRO - get BP cost for weapon manipulating
 		if ( gGameExternalOptions.ubEnergyCostForWeaponWeight)

@@ -37,6 +37,7 @@
 	#include "opplist.h"	// added by SANDRO 
 	#include "lighting.h"	// added by SANDRO 
 	#include "Food.h"		// added by Flugente
+	#include "AIInternals.h"//dnl ch69 150913
 #endif
 #include "connect.h"
 //rain
@@ -3027,15 +3028,15 @@ INT16 GetAPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
 	}
 	if ( bCurrentHeight == ANIM_CROUCH && bDesiredHeight == ANIM_STAND )
 	{
-		sAPCost = GetAPsCrouch(pSoldier, TRUE);
+		sAPCost = GetAPsCrouch(pSoldier, TRUE*2);//dnl ch70 160913
 	}
 	if ( bCurrentHeight == ANIM_PRONE && bDesiredHeight == ANIM_STAND )
 	{
-		sAPCost = GetAPsProne(pSoldier, TRUE) + GetAPsCrouch(pSoldier, TRUE);
+		sAPCost = GetAPsProne(pSoldier, TRUE*2) + GetAPsCrouch(pSoldier, TRUE*2);//dnl ch70 160913
 	}
 	if ( bCurrentHeight == ANIM_PRONE && bDesiredHeight == ANIM_CROUCH )
 	{
-		sAPCost = GetAPsProne(pSoldier, TRUE);
+		sAPCost = GetAPsProne(pSoldier, TRUE*2);//dnl ch70 160913
 	}
 
 	return( sAPCost );
@@ -3106,10 +3107,11 @@ INT16 GetAPsToLook( SOLDIERTYPE *pSoldier )
 		case ANIM_PRONE:
 			// APBPConstants[AP_PRONE] is the AP cost to go to or from the prone stance.	To turn while prone, your merc has to get up to
 			// crouched, turn, and then go back down.	Hence you go up (APBPConstants[AP_PRONE]), turn (APBPConstants[AP_LOOK_PRONE]) and down (APBPConstants[AP_PRONE]).
+			//dnl ch70 160913 because of backpack cost for going up is 2
 			if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-				return( max( 1, (INT16)((APBPConstants[AP_LOOK_PRONE] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5)) + GetAPsProne(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE) );
+				return( max( 1, (INT16)((APBPConstants[AP_LOOK_PRONE] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5)) + GetAPsProne(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE*2) );
 			else 
-				return( APBPConstants[AP_LOOK_PRONE] + GetAPsProne(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE) );
+				return( APBPConstants[AP_LOOK_PRONE] + GetAPsProne(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE*2) );
 			break;
 
 		// no other values should be possible
@@ -3922,7 +3924,7 @@ INT16 GetAPsCrouch( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck )
 
 	// if backpack and new inventory
 	if ( fBackpackCheck && (UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
-		iFinalAPsToCrouch += 1;
+		iFinalAPsToCrouch += fBackpackCheck;//dnl ch70 160913 was 1
 
 	// -x% APs needed to change stance for MA trait
 	if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))
@@ -3942,7 +3944,7 @@ INT16 GetAPsProne( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck )
 
 	// if backpack and new inventory
 	if ( fBackpackCheck && (UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
-		iFinalAPsToLieDown += 1;
+		iFinalAPsToLieDown += fBackpackCheck;//dnl ch70 160913 was 1
 
 	// -x% APs needed to change stance for MA trait
 	if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))

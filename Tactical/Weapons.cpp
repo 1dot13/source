@@ -8791,18 +8791,21 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos, INT8 bTargetLevel, UINT16 usAnimState)//dnl ch59 180813
 {
 	INT8 bTrueLevel;//dnl ch59 180813 if target is above ground CalcChanceToHitGun will return 0 because pSoldier->bTargetLevel contains some old values from previous target which was on ground level
-	UINT16	usTrueState;
-	UINT32	uiChance;
+	UINT16 usTrueState;
+	UINT32 uiChance;
 
 	// same as CCTHG but fakes the attacker always standing
 	usTrueState = pSoldier->usAnimState;
 	bTrueLevel = pSoldier->bTargetLevel;
 	pSoldier->bTargetLevel = bTargetLevel;
 	pSoldier->usAnimState = usAnimState;
-	uiChance = CalcChanceToHitGun( pSoldier, sGridNo, ubAimTime, ubAimPos );
+	if(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE)//dnl ch70 160913
+		uiChance = CalcThrownChanceToHit(pSoldier, sGridNo, ubAimTime, ubAimPos);
+	else
+		uiChance = CalcChanceToHitGun(pSoldier, sGridNo, ubAimTime, ubAimPos);
 	pSoldier->usAnimState = usTrueState;
 	pSoldier->bTargetLevel = bTrueLevel;
-	if(UsingNewCTHSystem() == true)
+	if(UsingNewCTHSystem() == true && !(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE))//dnl ch70 160913
 	{
 		////////////////////////////////////////////////////////////////////////////////////
 		// HEADROCK HAM 4: NCTH calculation
