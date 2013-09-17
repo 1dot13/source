@@ -1133,7 +1133,7 @@ void HandleSkyRiderMonologueAboutDrassenSAMSite( UINT32 uiSpecialCode )
 			CharacterDialogue( SKYRIDER, MENTION_DRASSEN_SAM_SITE, uiExternalStaticNPCFaces[ SKYRIDER_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
 			CharacterDialogueWithSpecialEvent( SKYRIDER, MENTION_DRASSEN_SAM_SITE, uiExternalStaticNPCFaces[ SKYRIDER_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI , FALSE , TRUE , DIALOGUE_SPECIAL_EVENT_SKYRIDERMAPSCREENEVENT ,SKYRIDER_MONOLOGUE_EVENT_DRASSEN_SAM_SITE, 1 );
 
-			if( SAMSitesUnderPlayerControl( SAM_2_X, SAM_2_Y ) == FALSE )
+			if( SAMSitesUnderPlayerControl( gpSamSectorX[1], gpSamSectorY[1] ) == FALSE )
 			{
 				CharacterDialogue( SKYRIDER, SECOND_HALF_OF_MENTION_DRASSEN_SAM_SITE, uiExternalStaticNPCFaces[ SKYRIDER_EXTERNAL_FACE ], DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE );
 			}
@@ -1282,8 +1282,8 @@ void HandleAnimationOfSectors( void )
 	if( fShowDrassenSAMHighLight )
 	{
 		fOldShowDrassenSAMHighLight = TRUE;
-		// Drassen's SAM site is #3
-		HandleBlitOfSectorLocatorIcon( SAM_2_X, SAM_2_Y, 0, LOCATOR_COLOR_RED );
+		// Drassen's SAM site is #2
+		HandleBlitOfSectorLocatorIcon( gpSamSectorX[1], gpSamSectorY[1], 0, LOCATOR_COLOR_RED );
 		fSkipSpeakersLocator = TRUE;
 	}
 	else if( fOldShowDrassenSAMHighLight )
@@ -1309,9 +1309,9 @@ void HandleAnimationOfSectors( void )
 	if( fShowOtherSAMHighLight )
 	{
 		fOldShowOtherSAMHighLight = TRUE;
-		HandleBlitOfSectorLocatorIcon( SAM_1_X, SAM_1_Y, 0, LOCATOR_COLOR_RED );
-		HandleBlitOfSectorLocatorIcon( SAM_3_X, SAM_3_Y, 0, LOCATOR_COLOR_RED );
-		HandleBlitOfSectorLocatorIcon( SAM_4_X, SAM_4_Y, 0, LOCATOR_COLOR_RED );
+		HandleBlitOfSectorLocatorIcon( gpSamSectorX[0], gpSamSectorY[0], 0, LOCATOR_COLOR_RED );
+		HandleBlitOfSectorLocatorIcon( gpSamSectorX[2], gpSamSectorY[2], 0, LOCATOR_COLOR_RED );
+		HandleBlitOfSectorLocatorIcon( gpSamSectorX[3], gpSamSectorY[3], 0, LOCATOR_COLOR_RED );
 		fSkipSpeakersLocator = TRUE;
 	}
 	else if( fOldShowOtherSAMHighLight )

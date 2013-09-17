@@ -217,6 +217,10 @@ INT16 pSamList[ MAX_NUMBER_OF_SAMS ];
 INT32 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];
 INT32 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];
 
+// coordinates X,Y of sam sites on strategic map
+INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];
+INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
+
 // ATE: Update this w/ graphic used
 // Use 3 if / orientation, 4 if \ orientation
 INT8 gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
@@ -415,8 +419,6 @@ void CrippledVersionFailureToLoadMapCheck();
 #define MAX_CHAR_DATA_LENGTH			500
 #define INVALID_SAMSITE_INDEX			-1
 
-extern INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];
-extern INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 
 typedef enum
 {

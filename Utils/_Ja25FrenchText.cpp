@@ -433,14 +433,15 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"La vue de gros insectes peut lui poser de gros problèmes\net être dans une zone tropicale lui réduit aussi\nlégèrement ses performances globales.",
 	L"Peut parfois perdre les ordres donnés et ainsi perdre des PA lors d'un combat.",
 	L"Il peut devenir psychopathe et tirer comme un fou de temps en temps\net peut perdre du moral s'il n'est pas capable d'utiliser son arme.",
-
+	L"Drastically reduced hearing.",		// TODO.Translate
+	L"Reduced sight range.",				// TODO.Translate
 };
 
 
 
 STR16 gzIMPProfileCostText[]=
 {
-	L"Ce profil coûte %d$. Voulez-vous autoriser ce paiement ? ",
+	L"Ce profil coûte $%d. Voulez-vous autoriser ce paiement ?",
 };
 
 STR16 zGioNewTraitsImpossibleText[]=

@@ -136,7 +136,6 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"栓动步枪拉栓所需行动点 -%d%s \n",// L"-%d%s APs needed to chamber a round with bolt-action rifles \n",
 	L"步枪精确瞄准次数增加 1次\n",// L"Adds one more aim click for rifle-type guns\n",
 	L"步枪精确瞄准次数增加 %d次\n",// L"Adds %d more aim clicks for rifle-type guns\n",
-	// TO DO - translate
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）1次\n",//L"Makes aiming faster with rifle-type guns by one aim click\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）%d次\n",//L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 
@@ -433,14 +432,15 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"可能会在看到大虫子后六神无主，也会在热带地区降低综合表现。",// L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
 	L"可能会偶尔忘记手头的任务，也会在战斗中损失行动点。",// L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
 	L"可能会偶尔发疯并把手里武器设在自动后乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
-
+	L"Drastically reduced hearing.",		// TODO.Translate
+	L"Reduced sight range.",				// TODO.Translate
 };
 
 
 
 STR16 gzIMPProfileCostText[]=
 {
-	L"客户您消费 %d$. 确认并付款?",//L"The profile cost is %d$. Do you authorize the payment? ",
+	L"客户您消费 $%d. 确认并付款?",//L"The profile cost is $%d. Do you authorize the payment?",
 };
 
 STR16 zGioNewTraitsImpossibleText[]=

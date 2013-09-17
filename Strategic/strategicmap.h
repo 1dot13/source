@@ -44,13 +44,15 @@ extern UINT8	NUMBER_OF_SAMS;
 extern INT16 pSamList[ MAX_NUMBER_OF_SAMS ];
 extern INT32 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];
 extern INT32 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];
+extern INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];
+extern INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 
 extern BOOLEAN fFoundOrta;
 extern BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];
 
 extern	BOOLEAN		gfUseAlternateMap;
 
-
+/* Buggler: used externalized gpSamSectorX[ MAX_NUMBER_OF_SAMS ] values instead of hardcoded ones
 // SAM sites
 #define SAM_1_X 2
 #define SAM_2_X 15
@@ -61,6 +63,7 @@ extern	BOOLEAN		gfUseAlternateMap;
 #define SAM_2_Y 4
 #define SAM_3_Y 9
 #define SAM_4_Y 14
+*/
 
 // min condition for sam site to be functional
 #define MIN_CONDITION_FOR_SAM_SITE_TO_WORK 80

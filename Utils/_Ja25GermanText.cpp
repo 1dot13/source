@@ -54,7 +54,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Gruppenführer",		//GrpFhr und ZgFhr sind scheiße, aber mir fällt ohne Dienstgrade nüscht ein
 	L"Mechaniker",			//Option: Techniker
 	L"Sanitäter",			//Option: Rettungsassistent
-	L"Covert Ops",	// TODO.Translate
+	L"Verdeckter Ermittler",
 
 	L"Nichts",
 	L"B.S.E. Hauptfertigkeiten",
@@ -69,7 +69,7 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Zugführer",
 	L"Ingenieur",
 	L"Arzt",
-	L"Spy",	// TODO.Translate
+	L"Spion",
 };
 
 //added another set of skill texts for new minor traits
@@ -134,9 +134,8 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"-%d%s APs benötigt um ein Repetiergewehr erneut fertigzuladen.\n",
 	L"Gibt einen weiteren Ziel-Klick für gewehrartige Waffen\n",
 	L"Gibt weitere %d Ziel-Klicks für gewehrartige Waffen\n",
-	// TO DO - translate
-	L"Makes aiming faster with rifle-type guns by one aim click\n",
-	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
+	L"Schnelleres Zielen mit Gewehren bei genau einem Zielgenauigkeit-Klick\n",
+	L"Schnelleres Zielen mit Gewehren bei %d Zielgenauigkeit-Klicks\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -241,15 +240,15 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L" (maximal %d Instanzen dieses Bonus pro Sektor)",
 
 };
-STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=		// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
-	L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
-	L"Will be detected if performing suspicious actions, having\nsuspicious gear or being near fresh corpses.\n",
-	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to the enemy.\n",
-	L"Will automatically be detected if disguised as a soldier and\ncloser than %d tiles to a fresh corpse.\n",
-	L"+%d%s CTH with covert melee weapons\n",
-	L"+%d%s chance of instakill with covert melee weapons\n",
-	L"Disguise AP cost lowered by %d%s.\n",
+	L"Kann sich als Zivilist oder Soldat ausgeben, um hinter den feindlichen Linien zu agieren.\n",
+	L"Kann erkannt werden bei verdächtigen Aktionen,\nunpassender Ausrüstung, oder in der Nähe von frischen Leichen.\n",
+	L"Wird automatisch erkannt, wenn als Soldat getarnt und\n der Feind näher als %d Felder entfernt ist.\n",
+	L"Wird automatisch erkannt, wenn als Soldat getarnt und\n und eine frische Leiche näher als %d Felder entfernt ist.\n",
+	L"+%d%s Trefferwahrscheinlichkeit mit Covert-Ops Nahkampfwaffen\n",
+	L"+%d%s Trefferwahrscheinlichkeit für sofortigen Totschlag mit Covert-Ops Nahkampfwaffen\n",
+	L"Verringerte AP Kosten für verdeckte Operationen durch %d%s.\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
@@ -431,13 +430,15 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Erträgt den Anblick großer Insekten nicht und\nzeigt verringerte Leistung in tropischen Sektoren.",
 	L"Vergisst manchmal seine Befehle und verliert dadurch im Kampf einen Teil seiner APs.",
 	L"Dreht im Umgang mit Waffen manchmal durch und gibt Dauerfeuer.\nIst ihm das mit seiner Waffe nicht möglich, kann das zu Moralabzügen führen.",
+	L"Reduziert die Geräuschlautstärke enorm.",
+	L"Reduziert die Sichtweite.",
 };
 
 
 
 STR16 gzIMPProfileCostText[]=
 {
-	L"Ein Profil kostet %d$. Genehmigen Sie die Zahlung? ",
+	L"Ein Profil kostet $%d. Genehmigen Sie die Zahlung?",
 };
 
 STR16 zGioNewTraitsImpossibleText[]=

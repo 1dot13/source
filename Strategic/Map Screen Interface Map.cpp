@@ -452,9 +452,6 @@ POINT pTownPoints[ MAX_TOWNS ];/*={
 };
 */
 
-// coordinates X,Y of sam sites on strategic map
-INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];
-INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 
 extern BOOLEAN fSamSiteFoundOrig[ MAX_NUMBER_OF_SAMS ];
 

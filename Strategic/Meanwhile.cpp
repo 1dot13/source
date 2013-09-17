@@ -147,7 +147,6 @@ UINT32 uiMeanWhileFlags = 0;
 
 extern void InternalLocateGridNo( INT32 sGridNo, BOOLEAN fForce );
 
-
 void ProcessImplicationsOfMeanwhile( void );
 
 // set flag for this event
@@ -786,13 +785,13 @@ void ProcessImplicationsOfMeanwhile( void )
 			}
 			break;
 		case NW_SAM:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, SAM_1_X, SAM_1_Y );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, gpSamSectorX[0], gpSamSectorY[0] );
 			break;
 		case NE_SAM:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, SAM_2_X, SAM_2_Y );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, gpSamSectorX[1], gpSamSectorY[1] );
 			break;
 		case CENTRAL_SAM:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, SAM_3_X, SAM_3_X );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_TROOPS_TO_SAM, gpSamSectorX[2], gpSamSectorY[2] );
 			break;
 
 		default:
