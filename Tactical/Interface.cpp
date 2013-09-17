@@ -2483,7 +2483,7 @@ BOOLEAN DrawCTHIndicator()
 					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
 
 				// light level influences how easy it is to spot the laser dot on the target
-				FLOAT fBrightnessModifier = 1.0 - ( (FLOAT)(bLightLevel - SHADE_MAX) / (FLOAT)(SHADE_MIN - SHADE_MAX) );
+				FLOAT fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
 
 				// laser fully efficient
 				if ( gCTHDisplay.iBestLaserRange > d2DDistance )
