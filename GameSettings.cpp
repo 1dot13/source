@@ -208,6 +208,7 @@ BOOLEAN LoadGameSettings()
 			gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]			= FALSE;
 
 		gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS]              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_STAT_PROGRESS_BARS"               ,  TRUE ); // HEADROCK HAM 3.6: Progress Bars
+		gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERCENARY_FORMATIONS"             ,  TRUE ); // Flugente: mercenary formations
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
 		gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALT_MAP_COLOR"					   ,  FALSE ); // HEADROCK HAM 4: Strategic Map Colors
 		gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALTERNATE_BULLET_GRAPHICS"        ,  TRUE );
@@ -430,6 +431,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_DEBUG_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_MERCENARY_FORMATIONS			  = " << (gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_REPORT_MISS_MARGIN				  = " << (gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Shot offset report
 		settings << "TOPTION_SHOW_RESET_ALL_OPTIONS           = " << (gGameSettings.fOptions[TOPTION_SHOW_RESET_ALL_OPTIONS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_RESET_ALL_OPTIONS                = " << (gGameSettings.fOptions[TOPTION_RESET_ALL_OPTIONS]					?    "TRUE" : "FALSE" ) << endl;
@@ -571,6 +573,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_END ]			= FALSE;	
 	gGameSettings.fOptions[ TOPTION_DEBUG_MODE_OPTIONS_HEADER ]			= FALSE;	// an example options screen options header (pure text)
 	gGameSettings.fOptions[ TOPTION_SHOW_RESET_ALL_OPTIONS ]			= FALSE;	// failsafe show/hide option to reset all options
+	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercs walk in formations
 	gGameSettings.fOptions[ TOPTION_REPORT_MISS_MARGIN ]			    = FALSE;
 	gGameSettings.fOptions[ TOPTION_RESET_ALL_OPTIONS ]					= FALSE;	// a do once and reset self option (button like effect)
 	gGameSettings.fOptions[ TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE ]	= FALSE;	// allow debug options that were set in debug.exe to continue in a rel.exe (debugging release can be beneficial)

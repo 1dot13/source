@@ -5189,6 +5189,7 @@ STR16		zOptionsToggleText[] =
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG 选项--",					// an example options screen options header (pure text)
+	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Report Miss Offsets",				// Screen messages showing amount and direction of shot deviation.
 	L"重置所有选项",					// failsafe show/hide option to reset all options
 	L"确定要重置？",					// a do once and reset self option (button like effect)
@@ -5305,6 +5306,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER", // an example options screen options header (pure text)
+	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: 当打开时, 将报告每个子弹偏离目标中心点的距离，考虑各种NCTH因素。",
 	L"修复损坏的游戏设置", // failsafe show/hide option to reset all options
 	L"修复损坏的游戏设置", // a do once and reset self option (button like effect)
@@ -5725,6 +5727,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"鼠标已锁定，鼠标移动范围强制限制在游戏窗口内部区域。",			// 104
 	L"鼠标已释放，鼠标移动范围不再受限于游戏窗口内部区域。",			// 105
+	L"Mercenaries walk in formations",
+	L"Mercenaries stop walking in formations",
 };
 
 

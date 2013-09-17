@@ -5194,6 +5194,7 @@ STR16		zOptionsToggleText[] =
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
+	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Reset ALL game options",				// failsafe show/hide option to reset all options
 	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
@@ -5310,6 +5311,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wymuś wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
+	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Kliknij by naprawić błędy w ustawieniach gry.",							// failsafe show/hide option to reset all options
 	L"Kliknij by naprawić błędy w ustawieniach gry.",							// a do once and reset self option (button like effect)
@@ -5735,6 +5737,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
 	L"Locking mouse cursor to stay within window boundary.",			// 104
 	L"Releasing mouse cursor to move outside window boundary.",			// 105
+	L"Mercenaries walk in formations",	// TODO.Translate
+	L"Mercenaries stop walking in formations",
 };
 
 

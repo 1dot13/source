@@ -5567,6 +5567,13 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 		}
 	}
 
+	// Flugente: we want to ove mercs in formation. In order to achieve this, we need to find their centre gridno.
+	// We can then determine their range to this centre, an set as their new gridno the sDestGridNo + this difference
+	INT32 lowestX  = 999999;
+	INT32 highestX = 0;
+	INT32 lowestY  = 999999;
+	INT32 highestY = 0;
+
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
 	{
@@ -5574,14 +5581,34 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 		{
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
 			{
-		// If we can't be controlled, returninvalid...
-		if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
-		{
-			if ( !pSoldier->CanRobotBeControlled( ) )
-			{
-			continue;
+				// update lowest and highest x and y values
+				lowestX  = min(lowestX,  pSoldier->sGridNo % MAXCOL );
+				highestX = max(highestX, pSoldier->sGridNo % MAXCOL );
+				lowestY  = min(lowestY,  pSoldier->sGridNo / MAXCOL );
+				highestY = max(highestY, pSoldier->sGridNo / MAXCOL );
 			}
 		}
+	}
+
+	// determine center gridno
+	INT32 centerX = (highestX + lowestX)/2;
+	INT32 centerY = (highestY + lowestY)/2;
+
+	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	{
+		if ( pSoldier->bActive && pSoldier->bInSector )
+		{
+			if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
+			{
+				// If we can't be controlled, returninvalid...
+				if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
+				{
+					if ( !pSoldier->CanRobotBeControlled( ) )
+					{
+						continue;
+					}
+				}
 
 				pSoldier->flags.fUIMovementFast	= fMoveFast;
 				pSoldier->usUIMovementMode =	pSoldier->GetMoveStateBasedOnStance( gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
@@ -5600,8 +5627,41 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 				// Remove any previous actions
 				pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
 
+				INT32 sIndividualDestGridNo = sDestGridNo;
+				// Flugente: determine offset to current center gridno
+				if ( gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS] )
+				{
+					INT32 currentX = pSoldier->sGridNo % MAXCOL;
+					INT32 currentY = pSoldier->sGridNo / MAXCOL;
 
-				if ( pSoldier->EVENT_InternalGetNewSoldierPath( sDestGridNo, pSoldier->usUIMovementMode , TRUE, pSoldier->flags.fNoAPToFinishMove ) )
+					INT32 diffX = currentX - centerX;
+					INT32 diffY = currentY - centerY;
+
+					sIndividualDestGridNo = sDestGridNo + diffX + MAXCOL * diffY;
+
+					// if we cannot walk to this gridno, move to one nearby
+					if ( !IsLocationSittableExcludingPeople( sIndividualDestGridNo, pSoldier->pathing.bLevel ) )
+					{
+						// try to find a fitting gridno nearby, otherwise go to target location
+						BOOLEAN found = FALSE;
+						for (UINT8 i = 0; i < 10; ++i)
+						{
+							INT32 rdX = Random(5) - 2;	// -2 : 2
+							INT32 rdY = Random(5) - 2;	// -2 : 2
+
+							if ( IsLocationSittableExcludingPeople( sIndividualDestGridNo + rdX + MAXCOL * rdY, pSoldier->pathing.bLevel ) )
+							{
+								found = TRUE;
+								sIndividualDestGridNo = sIndividualDestGridNo + rdX + MAXCOL * rdY;
+								break;
+							}
+						}
+						if ( !found )
+							sIndividualDestGridNo = sDestGridNo;
+					}
+				}
+
+				if ( pSoldier->EVENT_InternalGetNewSoldierPath( sIndividualDestGridNo, pSoldier->usUIMovementMode , TRUE, pSoldier->flags.fNoAPToFinishMove ) )
 				{
 					pSoldier->InternalDoMercBattleSound( BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
 				}

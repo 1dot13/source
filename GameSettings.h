@@ -100,7 +100,10 @@ enum
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments
 	TOPTION_CHEAT_MODE_OPTIONS_END,
-	TOPTION_DEBUG_MODE_OPTIONS_HEADER,			// an example options screen options header (pure text)                                                         
+	TOPTION_DEBUG_MODE_OPTIONS_HEADER,			// an example options screen options header (pure text)        
+
+	// Flugente: mercenary formations
+	TOPTION_MERCENARY_FORMATIONS,
 	
 	// HEADROCK HAM 4:
 	TOPTION_REPORT_MISS_MARGIN,

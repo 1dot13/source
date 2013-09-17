@@ -5036,6 +5036,7 @@ STR16 zOptionsToggleText[] =
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
+	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.
 	L"Reset ALL game options",				// failsafe show/hide option to reset all options
 	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
@@ -5152,6 +5153,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
+	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: Wenn diese Funktion aktiviert ist, wird der Abstand den jede die Kugel vom Zielmittelpunkt abweicht, unter Berücksichtigung aller CTH-Faktoren, ausgegeben.",
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// failsafe show/hide option to reset all options
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// a do once and reset self option (button like effect)
@@ -5568,6 +5570,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"Mausberech begrenzen, damit Mauscursor innerhalb des Spielfensters bleibt.",	// 104
 	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105
+	L"Mercenaries walk in formations",	// TODO.Translate
+	L"Mercenaries stop walking in formations",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =

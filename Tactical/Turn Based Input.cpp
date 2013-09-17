@@ -3296,7 +3296,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 
 			case 'G':
-				if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] )
+				if( fCtrl )
+				{
+					// Flugente: toggle formation
+					if ( gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS] )
+					{
+						gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS] = FALSE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FORMATIONS_OFF ] );
+					}
+					else
+					{
+						gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS] = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FORMATIONS_ON ] );
+					}
+				}
+				else if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] )
 				{
 					gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] = FALSE;
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_BURST_CURSOR_OFF ] );
