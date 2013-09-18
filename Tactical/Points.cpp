@@ -3242,7 +3242,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 				if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
 				{
 					// If we are told to go to the alt weapon holding mode
-					if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) )
+					if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_ALT_WEAPON_HOLDING ) || (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && usAnimState == INVALID_ANIMATION) )//dnl ch71 180913
 					{
 						if ( Item[ usItem ].twohanded )
 						{

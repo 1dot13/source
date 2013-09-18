@@ -449,8 +449,17 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		// consider alternate holding mode and different scopes
 		for(pSoldier->bScopeMode=(gGameExternalOptions.ubAllowAlternativeWeaponHolding?USE_ALT_WEAPON_HOLD:USE_BEST_SCOPE); pSoldier->bScopeMode<=(gGameExternalOptions.fScopeModes?NUM_SCOPE_MODES-1:USE_BEST_SCOPE); pSoldier->bScopeMode++)
 		{
-			if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE))
-				continue;
+			//dnl ch71 180913 throwing knives cannot be use in fire from hip, also SANDRO said: if the gun is flagged as HeavyGun, then we can only fire it from hip, thus no scopes to use at all, not even iron sights
+			if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD)
+			{
+				if(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE)
+					continue;
+			}
+			else
+			{
+				if(Weapon[pSoldier->usAttackingWeapon].HeavyGun)
+					continue;
+			}
 			if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || (pSoldier->bScopeMode >= USE_BEST_SCOPE && ObjList[pSoldier->bScopeMode] != NULL))
 			{
 				usTrueState = pSoldier->usAnimState;// because is used in CalculateRaiseGunCost, CalcAimingLevelsAvailableWithAP, CalculateTurningCost
@@ -467,6 +476,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 					GetAPChargeForShootOrStabWRTGunRaises(pSoldier, pOpponent->sGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
 					usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
 					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, pOpponent->sGridNo, 0);
+					if(fAddingTurningCost && fAddingRaiseGunCost)//dnl ch71 180913
+					{
+						if(usRaiseGunCost > usTurningCost)
+							usTurningCost = 0;
+						else
+							usRaiseGunCost = 0;
+					}
 					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
 					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
 					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
@@ -516,6 +532,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 						usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
 					}
 					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, pOpponent->sGridNo, 0);
+					if(fAddingTurningCost && fAddingRaiseGunCost)//dnl ch71 180913
+					{
+						if(usRaiseGunCost > usTurningCost)
+							usTurningCost = 0;
+						else
+							usRaiseGunCost = 0;
+					}
 					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
 					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
 					if(pSoldier->bActionPoints-ubMinAPcost >= 0)

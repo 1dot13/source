@@ -5349,7 +5349,27 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalSoldierReadyWeapon: PickingAnimation"));
 	usAnimState = PickSoldierReadyAnimation( this, fEndReady, fRaiseToHipOnly );
-
+	if(!fEndReady && this->ubDirection != sFacingDir)//dnl ch71 170913
+	{
+		UINT16 usTrueAnimState = this->usAnimState;
+		switch(gAnimControl[this->usAnimState].ubEndHeight)
+		{
+		case ANIM_STAND:
+			this->usAnimState = STANDING;
+			if(this->flags.fDontChargeTurningAPs && !this->flags.fDontChargeReadyAPs && usAnimState == INVALID_ANIMATION)
+				usAnimState = PickSoldierReadyAnimation(this, FALSE, fRaiseToHipOnly);// someone introduced new cost system for turning and this means we must force gun raise
+			break;
+		case ANIM_CROUCH:
+			this->usAnimState = CROUCHING;
+			if(this->flags.fDontChargeTurningAPs && !this->flags.fDontChargeReadyAPs && usAnimState == INVALID_ANIMATION)
+				usAnimState = PickSoldierReadyAnimation(this, FALSE, FALSE);// force gun raise for proper APs deduction
+			break;
+		case ANIM_PRONE:
+			usAnimState = INVALID_ANIMATION;// we are turning in prone so raise gun will be done after turning
+			break;
+		}
+		this->usAnimState = usTrueAnimState;
+	}
 	if ( usAnimState != INVALID_ANIMATION )
 	{
 		if(is_networked)
@@ -7827,6 +7847,20 @@ void SOLDIERTYPE::TurnSoldier( void )
 			// Else check if we are trying to shoot and once was prone, but am now crouched because we needed to turn...
 			else if ( this->flags.bTurningFromPronePosition )
 			{
+				//dnl ch71 170913
+				if(IsValidStance(this, ANIM_PRONE))
+				{
+					UINT16 usTrueAnimState = this->usAnimState;
+					this->usAnimState = PRONE;
+					this->usPendingAnimation = PickSoldierReadyAnimation(this, FALSE, FALSE);
+					this->usAnimState = usTrueAnimState;
+					SendChangeSoldierStanceEvent(this, ANIM_PRONE);
+				}
+				else
+					this->EVENT_InitNewSoldierAnim(PickSoldierReadyAnimation(this, FALSE, FALSE), 0, FALSE);
+				this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
+				return;
+/*
 				if ( IsValidStance( this, ANIM_PRONE ) )
 				{
 					SendChangeSoldierStanceEvent( this, ANIM_PRONE );
@@ -7838,6 +7872,8 @@ void SOLDIERTYPE::TurnSoldier( void )
 				}
 				this->flags.fTurningToShoot = FALSE;
 				this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
+				//}
+*/
 			}
 		}
 	}

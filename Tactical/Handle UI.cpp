@@ -3591,6 +3591,12 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 			pSoldier->pathing.sFinalDestination = pSoldier->sGridNo;
 			pSoldier->bGoodContPath			= FALSE;
 
+			//dnl ch71 180913 when we go to crouch or prone for now there is no alternative fire mode option
+			if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && bNewStance != ANIM_STAND)
+			{
+				ChangeScopeMode(pSoldier, 0);
+				ManLooksForOtherTeams(pSoldier);
+			}
 		}
 		else
 			return;
