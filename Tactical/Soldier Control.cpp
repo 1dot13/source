@@ -8584,8 +8584,24 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 
 	uiTerrainDelay += ( bLifeDef + bBreathDef + bAgilDef + bAdditional );
 	
-	uiTerrainDelay = (uiTerrainDelay * (100 + pSoldier->GetBackgroundValue(BG_PERC_SPEED_RUNNING) )) / 100;
+	// Flugente: backgrounds
+	switch ( pSoldier->usAnimState )
+	{
+		case WALKING:
+		case WALKING_WEAPON_RDY:
+		case WALKING_DUAL_RDY:
+		case WALKING_ALTERNATIVE_RDY:
+		case RUNNING:
+		case SWATTING:
+		case SWATTING_WK:
+		case SWAT_BACKWARDS_WK:
+			uiTerrainDelay = (uiTerrainDelay * (100 + pSoldier->GetBackgroundValue(BG_PERC_SPEED_RUNNING) )) / 100;
+			break;
 
+		default:
+			break;
+	}
+	
 	pSoldier->sAniDelay = (INT16)uiTerrainDelay;
 
 	// If a moving animation and w/re on drugs, increase speed....
