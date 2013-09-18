@@ -2514,7 +2514,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {
 	// TODO.Translate
 	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
@@ -2528,7 +2528,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
 	L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
 	L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
-	L"|R|e|p|a|i|r |E|a|s|e\n \nThis value indicates how quickly this weapon can\nbe repaired (by a mercenary set to Repair duty).\n \nHigher is better.",
+	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"",	//12
 	L"APs to ready",
 	L"APs to fire Single",
@@ -2549,6 +2549,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"No Auto Mode!",
 	L"APs to Bash",
     L"",
+	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
@@ -7024,7 +7025,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nWhen this property is in effect, the weapon\nproduces no visible flash when firing.\n \nEnemies will not be able to spot you\njust by your muzzle flash (but they\nmight still HEAR you).",
 	L"\n \nWhen firing this weapon, Loudness is the\ndistance (in tiles) that the sound of\ngunfire will travel.\n \nEnemies within this distance will probably\nhear the shot.\n \nLower is better.",
 	L"\n \nDetermines how quickly this weapon will degrade\nwith use.\n \nHigher is better.",
-	L"\n \nDetermines how difficult it is to repair this weapon\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \nThe minimum range at which a scope can provide it's aimBonus.",
 	L"\n \nTo hit modifier granted by laser sights.",	
 	L"\n \nThe number of APs required to bring this\nweapon up to firing stance.\n \nOnce the weapon is raised, you may fire repeatedly\nwithout paying this cost again.\n \nA weapon is automatically 'Unreadied' if its\nwielder performs any action other than\nfiring or turning.\n \nLower is better.",
@@ -7036,6 +7037,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"",	// No longer used!
 	L"\n \nThe total distance this weapon's muzzle will shift\nbetween each and every bullet in a burst or\nautofire volley, if no Counter Force is applied.\n \nLower is better.", // HEADROCK HAM 5: Altered to reflect unified number.	// TODO.Translate
 	L"\n \nIndicates the number of bullets that will be added\nto an autofire volley for every extra 5 APs\nyou spend.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenArmorStatsTooltipText[]=
@@ -7051,7 +7053,8 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nThis primary armor property defines how much\ndamage the armor will absorb from any attack.\n \nRemember that armor-piercing attacks and\nvarious randomal factors may alter the\nfinal damage reduction.\n \nHigher is better.",
 	L"\n \nDetermines how much of the protected\nbodypart is covered by the armor.\n \nIf coverage is below 100%, attacks have\na certain chance of bypassing the armor\ncompletely, causing maximum damage\nto the protected bodypart.\n \nHigher is better.",
 	L"\n \nIndicates how quickly this armor's condition\ndrops when it is struck, proportional to\nthe damage caused by the attack.\n \nLower is better.",
-	L"\n \nDetermines how difficult it is to repair this armor\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=

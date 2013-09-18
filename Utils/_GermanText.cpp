@@ -2518,7 +2518,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 
-STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {	
 	L"|R|e|i|c|h|w|e|i|t|e\n \nDie effektive Reichweite dieser Waffe\nAngriffe jenseits dieser Reichweite führt zu drastischen Genauigkeitseinbußen.\n \nHöher ist besser.",
 	L"|S|c|h|a|d|e|n\n \nDas Schadenspotential der Waffe.\nDie Waffe wird in der Regel diesen \n(oder ähnlichen) Schaden an ungeschützten Zielen verursachen.\n \nHöher ist besser.",
@@ -2531,7 +2531,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"|M|ü|n|d|u|n|g|s|f|e|u|e|r |U|n|t|e|r|d|r|ü|c|k|u|n|g\n \nWenn dieses Symbol erscheint, bedeutet dies, dass die Waffe\nkein Mündungsfeuer verursacht, wenn geschossen wird.",
 	L"|L|a|u|t|s|t|ä|r|k|e\n \nAngriffe mit dieser Waffe können bis zu der\nangezeigten Distanz (in Felder) gehört werden.\n \nNiedriger ist besser.",
 	L"|Z|u|v|e|r|l|ä|s|s|i|g|k|e|i|t\n \nDieser Wert zeigt an, wie schnell die Waffe\nim Kampf bei Benützung schadhaft werden kann.\n \nHöher ist besser.",
-	L"|R|e|p|a|r|a|t|u|r|l|e|i|c|h|t|i|g|k|e|i|t\n \nDieser Wert gibt an, wie schnell die Waffe repariert werden kann.\n \nHöher ist besser.",
+	L"|R|e|p|a|r|a|t|u|r|l|e|i|c|h|t|i|g|k|e|i|t\n \nBestimmt, wie schwierig es ist, die Waffe\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 	L"",	//12
 	L"APs zum Anlegen",
 	L"APs für Einzelschuss",
@@ -2552,6 +2552,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"Kein Autofeuer!",
 	L"APs zum Schlagen",
 	L"",
+	L"|R|e|p|a|r|a|t|u|r|l|e|i|c|h|t|i|g|k|e|i|t\n \nBestimmt, wie schwierig es ist, die Waffe\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
@@ -6833,7 +6834,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nWenn diese Eigenschaft in Kraft ist, dann produziert die Waffe kein sichtbares Mündungsfeuer\nwenn abgefeuert.\n \nFeinde werden Sie nicht bloß beim Mündungsfeuer ausfindig machen können\n(aber Sie können Sie dennoch hören).",
 	L"\n \nBestimmt die Entfernung (in Felder) der erzeugten Lautstärke,\nwenn die Waffe geschossen wird.\n \nFeinde innerhalb dieser Entfernung hören den Schuss, Feinde außerhalb nicht.\n \nNiedriger ist besser.",
 	L"\n \nBestimmt, wie schnell sich diese Waffe bei Gebrauch abnutzt.\n \nHöher ist besser.",
-	L"\n \nBestimmt, wie schwierig es ist, die Waffe zu reparieren\nund wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, die Waffe\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 	L"\n \nDie minimale Entfernung um einen Zielvorteil zu erhalten.",
 	L"\n \nTreffermodifikator den eine Laservorrichtung gewährleistet.",	
 	L"\n \nDie Anzahl von APs nötig um die Waffe anzulegen.\n \nSobald die Waffe angelegt ist, können Sie wiederholt feuern ohne diese Kosten erneut zu bezahlen.\n \nEine Waffe ist automatisch abgelegt wenn der Anwender irgendeine andere Aktivität ausübt,\nmit der Ausnahme von schießen oder ausrichten.\n \nNiedriger ist besser.",
@@ -6845,6 +6846,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"",	// No longer used!
 	L"\n \nDie absolute Reichweite mit der sich das Mündungsfeuer\nausbreitet für jede Kugel die geschossen wird,\nwenn keine Gegenmaßnahme angewendet wird.\n \nNiedriger ist besser.", // HEADROCK HAM 5: Altered to reflect unified number.
 	L"\n \nZeigt die Anzahl der Kugeln an, welche zu einer Autofeuer Salve für jeweils 5 investierte AP addiert werden.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, die Waffe\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
 STR16 szUDBGenArmorStatsTooltipText[]=
@@ -6860,7 +6862,8 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nDiese grundlegende Rüstungseigenschaft bestimmt wie viel\nSchaden abgefangen wird.\nZur Erinnerung: Schutzdurchschlagende Angriffe und einige\nzufällige Faktoren können die Schadensreduzierung verändern.\n \nHöher ist besser.",
 	L"\n \nBestimmt wie viel des geschützten\nKörperteils durch die Rüstung abgedeckt wird.\n \nWenn weniger als 100% verdeckt wird, haben Angriffe\neine gewisse Chance die Rüstung schlichtweg\nzu umgehen, und höchsten Schaden\nauf das verdeckte Körperteil auszuüben.\n \nHöher ist besser.",
 	L"\n \nBestimmt wie schnell der Zustand der Rüstung abfällt,\nwenn sie getroffen wird, im Verhältnis zum\nSchaden durch einen Angriff.\n \nNiedriger ist besser.",
-	L"\n \nBestimmt, wie schwierig es ist, die Rüstung zu reparieren\nund wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, die Rüstung\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, die Rüstung\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=

@@ -1471,11 +1471,18 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 						if ( gGameExternalOptions.fUseNewCTHCalculation && cnt == 6
 							&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 							swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[64], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
+						else if ( cnt == 10 && gGameExternalOptions.fAdvRepairSystem && !gGameExternalOptions.fMercsCanDoAdvancedRepairs )
+							swprintf( pStr, L"%s%s", szUDBGenWeaponsStatsTooltipText[ cnt ], szUDBGenWeaponsStatsExplanationsTooltipText[ 22 ]);
 						else
 							swprintf( pStr, L"%s%s", szUDBGenWeaponsStatsTooltipText[ cnt ], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
 					}
 					else
-						swprintf( pStr, L"%s", gzWeaponStatsFasthelpTactical[ cnt ]);
+					{
+						if ( cnt == 11 && gGameExternalOptions.fAdvRepairSystem && !gGameExternalOptions.fMercsCanDoAdvancedRepairs )
+							swprintf( pStr, L"%s", gzWeaponStatsFasthelpTactical[ 32 ]);
+						else
+							swprintf( pStr, L"%s", gzWeaponStatsFasthelpTactical[ cnt ]);
+					}
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iRegionsCreated ]), pStr );
 					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iRegionsCreated ]), HelpTextDoneCallback );
 					MSYS_DisableRegion( &gUDBFasthelpRegions[ iRegionsCreated ] );
@@ -1805,7 +1812,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			CHAR16 pStr[1000];
 
 			///////////////// PRIMARY DATA - ICONS
-			for (cnt = 0; cnt < 5; cnt++)
+			for (cnt = 0; cnt < 4; cnt++)
 			{
 				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
@@ -1815,7 +1822,10 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 					MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
 	
 					MSYS_AddRegion( &gUDBFasthelpRegions[ iRegionsCreated ]);
-					swprintf( pStr, L"%s%s", szUDBGenArmorStatsTooltipText[ cnt ], szUDBGenArmorStatsExplanationsTooltipText[ cnt ]);
+					if ( cnt == 3 && gGameExternalOptions.fAdvRepairSystem && !gGameExternalOptions.fMercsCanDoAdvancedRepairs )
+						swprintf( pStr, L"%s%s", szUDBGenArmorStatsTooltipText[ cnt ], szUDBGenArmorStatsExplanationsTooltipText[ 4 ]);
+					else
+						swprintf( pStr, L"%s%s", szUDBGenArmorStatsTooltipText[ cnt ], szUDBGenArmorStatsExplanationsTooltipText[ cnt ]);
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iRegionsCreated ]), pStr );
 					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iRegionsCreated ]), HelpTextDoneCallback );
 					MSYS_DisableRegion( &gUDBFasthelpRegions[ iRegionsCreated ] );

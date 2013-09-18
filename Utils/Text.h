@@ -632,7 +632,7 @@ extern CHAR16		gMoneyStatsDesc[][ 14 ];
 extern CHAR16		gWeaponStatsDesc[][ 19 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
-extern STR16		gzWeaponStatsFasthelpTactical[ 32 ];
+extern STR16		gzWeaponStatsFasthelpTactical[ 33 ];
 extern STR16		gzMiscItemStatsFasthelp[ 34 ];
 // HEADROCK HAM 4: New tooltip texts
 extern STR16		gzUDBButtonTooltipText[ 3 ];
@@ -640,9 +640,9 @@ extern STR16		gzUDBHeaderTooltipText[ 4 ];
 extern STR16		gzUDBGenIndexTooltipText[ 4 ];
 extern STR16		gzUDBAdvIndexTooltipText[ 5 ];
 extern STR16		szUDBGenWeaponsStatsTooltipText[ 23 ];
-extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 23 ];
-extern STR16		szUDBGenArmorStatsTooltipText[ 4 ];						// silversurfer Repair Ease: 3->4
-extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 4 ];			// silversurfer Repair Ease: 3->4
+extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 24 ];
+extern STR16		szUDBGenArmorStatsTooltipText[ 4 ];						// silversurfer Repair Ease: 3->5
+extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 5 ];			// silversurfer Repair Ease: 3->5
 extern STR16		szUDBGenAmmoStatsTooltipText[ 6 ];						// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
 extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 6 ];			// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
 extern STR16		szUDBGenExplosiveStatsTooltipText[ 23 ];				// silversurfer Repair Ease: 22->23

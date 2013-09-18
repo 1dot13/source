@@ -2513,7 +2513,7 @@ CHAR16		gWeaponStatsDesc[][ 19 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {
 	L"|射|程\n \n武器的有效射程\n从射程外攻击会导致巨大惩罚\n \n越高越好。", //	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
 	L"|伤|害\n \n这是武器的是伤害潜力\n它一般会对无防护目标造成\n这么多伤害(或者大致这么多)。\n \n越高越好。", //	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
@@ -2526,7 +2526,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"|枪|口|焰|抑|制\n \n当这个图标出现时，意味着这把枪\n在开火时不产生枪口焰。\n这会帮助射手保持隐蔽。", // L"|F|l|a|s|h |S|u|p|p|r|e|s|s|i|o|n\n \nWhen this icon appears, it means that the gun\ndoes not make a flash when it fires. This helps the\nshooter remain concealed.",
 	L"|音|量\n \n使用该武器攻击最多可以从标注的距离\n（以格计）上被听到。\n \n越低越好。\n(除非你想故意吸引敌人)", // L"|L|o|u|d|n|e|s|s\n \nAttacks made with this weapon can be heard up to\nthe listed distance (in tiles).\n \nLower is better.\n(unless deliberately trying to draw in enemies...)",
 	L"|可|靠|度\n \n这个值表示该武器在战斗中\n使用的损坏速度。\n \n越高越好。", // L"|R|e|l|i|a|b|i|l|i|t|y\n \nThis value indicates (in general) how quickly\nthis weapon will degrade when used in combat.\n \nHigher is better.",
-	L"|维|修|难|度\n \n这个值表示武器被（进行维修工作\n的佣兵）修复的速度\n \n越高越好。",  // L"|R|e|p|a|i|r |E|a|s|e\n \nThis value indicates how quickly this weapon can\nbe repaired (by a mercenary set to Repair duty).\n \nHigher is better.",
+	L"|维|修|难|度\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"",	//12
 	L"举枪AP",
 	L"单发AP",
@@ -2547,6 +2547,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"无连发模式！",
 	L"格斗AP",
     L"",
+	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
@@ -7023,7 +7024,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n该属性起作用时，武器发射不会产生枪焰。\n \n \n敌人不能通过枪焰判断你的位置，但是他们仍然可\n能听到你。",
 	L"\n \n该参数显示了武器开火时枪声传播的\n范围（格数）。\n \n此范围内的敌人均有可能听到枪声。\n \n该数值越低越好。",
 	L"\n \n决定了该武器使用时损耗的快慢。\n \n该数值越高越好。",
-	L"\n \nDetermines how difficult it is to repair this weapon\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",	// TODO.Translate
+	L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \n瞄准镜提供瞄准命中率加成的最短距离。\n（再近就无效了）",
 	L"\n \n激光瞄准器提供的命中率修正。",	
 	L"\n \n端枪准备开火所需的AP。\n \n举起该武器后，连续发射不会再消耗\n举枪AP。\n \n但是，除转向和开火之外的其他动作均会放\n下武器。\n \n该数值越低越好。",
@@ -7035,6 +7036,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"",	// No longer used!
 	L"\n \n该参数是武器枪口在单发或自动模式下每发子弹所造成的最大偏移量。\n \n该数值越低越好。",
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
+	L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenArmorStatsTooltipText[]=
@@ -7050,7 +7052,8 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \n这是护具最重要的属性，决定了其可以吸收多\n少伤害。然而，穿甲攻击以及其他的随机因素\n都可能对最终的伤害值产生影响。\n \n该数值越高越好。",
 	L"\n \n决定该护具对身体的防护面积。\n \n如果该值低于100%，则攻击有可能\n对未被护具保护的部分身体造成最大伤害。\n该值越高越好。",
 	L"\n \n显示护具被击中时的磨损速率，\n与其吸收的伤害成比例。\n该值越低越好。",
-	L"\n \nDetermines how difficult it is to repair this armor\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
