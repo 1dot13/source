@@ -7004,7 +7004,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nQuand cette propriété est en vigueur, l'arme\nne produit pas de flash lors du tir.\n \nLes ennemis ne seront plus en mesure de vous repérer\nà cause du flash du tir (mais ils\npourront toujours vous entendre !).",
 	L"\n \nDistance (en cases) de l'intensité sonore que fait votre arme\nlorsque vous tirez avec.\n \nLes ennemis placés en deçà de cette distance entendront\nvotre tir.\n \nValeur faible recommandée.",
 	L"\n \nDétermine la vitesse de déterioration de cett arme\nà l'usage.\n \nValeur élevée recommandée.",
-	L"\n \nDétermine la difficulté de réparation de cette arme.\n \nValeur élevée recommandée.",
+	L"\n \nDetermines how difficult it is to repair this weapon\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \nPortée minimum où la lunette de visée fournit un bonus de visée.",
 	L"\n \nFacteur de chance de toucher accordé par un laser.",	
 	L"\n \nLe nombre de PA requis pour mettre en joue.\n \nQuand cette arme est prête, vous pouvez tirez plusieurs fois\nsans avoir de coût supplémentaire.\n \nAnnule automatiquement cette opération si vous faîtes des\nactions autre que pivoter ou tirer.\n \nValeur faible recommandée.",
@@ -7023,6 +7023,7 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 	L"|V|a|l|e|u|r |d|e |p|r|o|t|e|c|t|i|o|n",
 	L"|R|e|c|o|u|v|r|e|m|e|n|t",
 	L"|T|a|u|x |d|e |d|é|g|r|a|d|a|t|i|o|n",
+	L"|F|a|c|i|l|i|t|é |d|e |r|é|p|a|r|a|t|i|o|n",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
@@ -7030,6 +7031,7 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nCette propriété d'armure définit de combien elle\nabsorbe les dégâts de chaque attaque.\n \nN'oubliez pas que les attaques perforantes et\ndivers facteurs aléatoires peuvent altérés\nla réduction final des dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nDétermine le recouvrement de l'armure\nsur votre corps.\n \nSi le recouvrement est inférieur à 100%, les attaques\nont une certaine chance de passé à travers l'armure\nen causant de un maximum de dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nIndique à quelle vitesse les conditions de l'armure\nvont chutés, et qui est proportionnel aux\ndégâts subis.\n \nValeur faible recommandée.",
+	L"\n \nDetermines how difficult it is to repair this armor\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
@@ -7078,6 +7080,7 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"|I|n|t|e|n|s|i|t|é |s|o|n|o|r|e",
 	L"|V|o|l|a|t|i|l|i|t|é",
+	L"|F|a|c|i|l|i|t|é |d|e |r|é|p|a|r|a|t|i|o|n",
 };
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
@@ -7106,6 +7109,17 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nDistance (en cases) en deçà de laquelle chaque\nsoldats et mercs peuvent entendre l'explosion.\n \nLes ennemis qui entendent cette explosion peuvent alerter de\nvotre présence.\n \nValeur faible recommandée.",
 	L"\n \nCette valeur représente la chance (sur 100) que cette\nexplosif explose spontanément chaque fois qu'il est endommagé\n(Par exemple, quand il y a d'autres explosions à proximité).\n \nTransporter des explosifs hautement volatiles en combat\nest donc extrêmement risqué et devrait être évitée.\n \nÉchelle : 0-100.\nValeur faible recommandée.",
+	L"\n \nDetermines how difficult it is to repair these explosives.\n \ngreen = Anybody can repair them.\n \nred = This item can't be repaired.\n \nHigher is better.",
+};
+
+STR16 szUDBGenCommonStatsTooltipText[]=
+{
+	L"|F|a|c|i|l|i|t|é |d|e |r|é|p|a|r|a|t|i|o|n",
+};
+
+STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
+{
+	L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

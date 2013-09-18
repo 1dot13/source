@@ -641,15 +641,17 @@ extern STR16		gzUDBGenIndexTooltipText[ 4 ];
 extern STR16		gzUDBAdvIndexTooltipText[ 5 ];
 extern STR16		szUDBGenWeaponsStatsTooltipText[ 23 ];
 extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 23 ];
-extern STR16		szUDBGenArmorStatsTooltipText[ 3 ];
-extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 3 ];
+extern STR16		szUDBGenArmorStatsTooltipText[ 4 ];						// silversurfer Repair Ease: 3->4
+extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 4 ];			// silversurfer Repair Ease: 3->4
 extern STR16		szUDBGenAmmoStatsTooltipText[ 6 ];						// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
 extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 6 ];			// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
-extern STR16		szUDBGenExplosiveStatsTooltipText[ 22 ];
-extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ];
+extern STR16		szUDBGenExplosiveStatsTooltipText[ 23 ];				// silversurfer Repair Ease: 22->23
+extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 23 ];	// silversurfer Repair Ease: 22->23
+extern STR16		szUDBGenCommonStatsTooltipText[ 1 ];					// silversurfer new for items that don't fit the other categories
+extern STR16		szUDBGenCommonStatsExplanationsTooltipText[ 1 ];		// silversurfer new for items that don't fit the other categories
 extern STR16		szUDBGenSecondaryStatsTooltipText[ 32 ];				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 32 ];	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32
-extern STR16		szUDBAdvStatsTooltipText[ 65 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64 silversurfer Best Laser Range:65
+extern STR16		szUDBAdvStatsTooltipText[ 65 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64 silversurfer Best Laser Range:64->65
 extern STR16		szUDBAdvStatsExplanationsTooltipText[ 64 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64
 extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52
 

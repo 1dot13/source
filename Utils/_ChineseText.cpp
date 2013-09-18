@@ -7023,7 +7023,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n该属性起作用时，武器发射不会产生枪焰。\n \n \n敌人不能通过枪焰判断你的位置，但是他们仍然可\n能听到你。",
 	L"\n \n该参数显示了武器开火时枪声传播的\n范围（格数）。\n \n此范围内的敌人均有可能听到枪声。\n \n该数值越低越好。",
 	L"\n \n决定了该武器使用时损耗的快慢。\n \n该数值越高越好。",
-	L"\n \n决定了修理该武器的难易。\n \n该数值越高越好。",
+	L"\n \nDetermines how difficult it is to repair this weapon\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",	// TODO.Translate
 	L"\n \n瞄准镜提供瞄准命中率加成的最短距离。\n（再近就无效了）",
 	L"\n \n激光瞄准器提供的命中率修正。",	
 	L"\n \n端枪准备开火所需的AP。\n \n举起该武器后，连续发射不会再消耗\n举枪AP。\n \n但是，除转向和开火之外的其他动作均会放\n下武器。\n \n该数值越低越好。",
@@ -7042,6 +7042,7 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 	L"|防|护|值",
 	L"|覆|盖|率",
 	L"|损|坏|率",
+	L"|修|理|难|度",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
@@ -7049,6 +7050,7 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \n这是护具最重要的属性，决定了其可以吸收多\n少伤害。然而，穿甲攻击以及其他的随机因素\n都可能对最终的伤害值产生影响。\n \n该数值越高越好。",
 	L"\n \n决定该护具对身体的防护面积。\n \n如果该值低于100%，则攻击有可能\n对未被护具保护的部分身体造成最大伤害。\n该值越高越好。",
 	L"\n \n显示护具被击中时的磨损速率，\n与其吸收的伤害成比例。\n该值越低越好。",
+	L"\n \nDetermines how difficult it is to repair this armor\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
@@ -7097,6 +7099,7 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"|噪|音",
 	L"|挥|发|性",
+	L"|修|理|难|度",
 };
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
@@ -7125,7 +7128,17 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \n这是爆破品爆炸时发出的声音能够被佣兵和敌\n军听到的距离（格数）。\n \n听到爆炸声的敌人会察觉到你。\n \n该数值越低越好。",
 	L"\n \n这个数值代表该爆破品受到伤害时（如其他爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，\n应当极力避免。\n \n数值范围：0~100，越低越好。",
-	
+	L"\n \nDetermines how difficult it is to repair these explosives.\n \ngreen = Anybody can repair them.\n \nred = This item can't be repaired.\n \nHigher is better.",
+};
+
+STR16 szUDBGenCommonStatsTooltipText[]=
+{
+	L"|修|理|难|度",
+};
+
+STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
+{
+	L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

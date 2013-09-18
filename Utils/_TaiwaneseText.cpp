@@ -7024,7 +7024,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nWhen this property is in effect, the weapon\nproduces no visible flash when firing.\n \nEnemies will not be able to spot you\njust by your muzzle flash (but they\nmight still HEAR you).",
 	L"\n \nWhen firing this weapon, Loudness is the\ndistance (in tiles) that the sound of\ngunfire will travel.\n \nEnemies within this distance will probably\nhear the shot.\n \nLower is better.",
 	L"\n \nDetermines how quickly this weapon will degrade\nwith use.\n \nHigher is better.",
-	L"\n \nDetermines how difficult it is to repair this weapon.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair this weapon\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \nThe minimum range at which a scope can provide it's aimBonus.",
 	L"\n \nTo hit modifier granted by laser sights.",	
 	L"\n \nThe number of APs required to bring this\nweapon up to firing stance.\n \nOnce the weapon is raised, you may fire repeatedly\nwithout paying this cost again.\n \nA weapon is automatically 'Unreadied' if its\nwielder performs any action other than\nfiring or turning.\n \nLower is better.",
@@ -7043,6 +7043,7 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 	L"|P|r|o|t|e|c|t|i|o|n |V|a|l|u|e",
 	L"|C|o|v|e|r|a|g|e",
 	L"|D|e|g|r|a|d|e |R|a|t|e",
+	L"|R|e|p|a|i|r |E|a|s|e",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
@@ -7050,6 +7051,7 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nThis primary armor property defines how much\ndamage the armor will absorb from any attack.\n \nRemember that armor-piercing attacks and\nvarious randomal factors may alter the\nfinal damage reduction.\n \nHigher is better.",
 	L"\n \nDetermines how much of the protected\nbodypart is covered by the armor.\n \nIf coverage is below 100%, attacks have\na certain chance of bypassing the armor\ncompletely, causing maximum damage\nto the protected bodypart.\n \nHigher is better.",
 	L"\n \nIndicates how quickly this armor's condition\ndrops when it is struck, proportional to\nthe damage caused by the attack.\n \nLower is better.",
+	L"\n \nDetermines how difficult it is to repair this armor\nand who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
@@ -7098,6 +7100,7 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"|L|o|u|d|n|e|s|s",
 	L"|V|o|l|a|t|i|l|i|t|y",
+	L"|R|e|p|a|i|r |E|a|s|e",
 };
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
@@ -7126,6 +7129,17 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nThis is the distance (in Tiles) within which\nsoldiers and mercs will hear the explosion when\nit goes off.\n \nEnemies hearing the explosion will be alerted to your\npresence.\n \nLower is better.",
 	L"\n \nThis value represents a chance (out of 100) for this\nexplosive to spontaneously explode whenever it is damaged\n(for instance, when other explosions go off nearby).\n \nCarrying highly-volatile explosives into combat\nis therefore extremely risky and should be avoided.\n \nScale: 0-100.\nLower is better.",
+	L"\n \nDetermines how difficult it is to repair these explosives.\n \ngreen = Anybody can repair them.\n \nred = This item can't be repaired.\n \nHigher is better.",
+};
+
+STR16 szUDBGenCommonStatsTooltipText[]=
+{
+	L"|R|e|p|a|i|r |E|a|s|e",
+};
+
+STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
+{
+	L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

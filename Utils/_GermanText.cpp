@@ -6833,7 +6833,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nWenn diese Eigenschaft in Kraft ist, dann produziert die Waffe kein sichtbares Mündungsfeuer\nwenn abgefeuert.\n \nFeinde werden Sie nicht bloß beim Mündungsfeuer ausfindig machen können\n(aber Sie können Sie dennoch hören).",
 	L"\n \nBestimmt die Entfernung (in Felder) der erzeugten Lautstärke,\nwenn die Waffe geschossen wird.\n \nFeinde innerhalb dieser Entfernung hören den Schuss, Feinde außerhalb nicht.\n \nNiedriger ist besser.",
 	L"\n \nBestimmt, wie schnell sich diese Waffe bei Gebrauch abnutzt.\n \nHöher ist besser.",
-	L"\n \nBestimmt, wie schwierig es ist die Waffe zu reparieren.\n \nHöher ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, die Waffe zu reparieren\nund wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 	L"\n \nDie minimale Entfernung um einen Zielvorteil zu erhalten.",
 	L"\n \nTreffermodifikator den eine Laservorrichtung gewährleistet.",	
 	L"\n \nDie Anzahl von APs nötig um die Waffe anzulegen.\n \nSobald die Waffe angelegt ist, können Sie wiederholt feuern ohne diese Kosten erneut zu bezahlen.\n \nEine Waffe ist automatisch abgelegt wenn der Anwender irgendeine andere Aktivität ausübt,\nmit der Ausnahme von schießen oder ausrichten.\n \nNiedriger ist besser.",
@@ -6852,6 +6852,7 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 	L"|S|c|h|u|t|z |W|e|r|t",
 	L"|F|l|ä|c|h|e|n|d|e|c|k|u|n|g",
 	L"|Z|e|r|f|a|l|l |R|a|t|e",
+	L"|R|e|p|a|r|i|e|r|f|ä|h|i|g|k|e|i|t",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
@@ -6859,6 +6860,7 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nDiese grundlegende Rüstungseigenschaft bestimmt wie viel\nSchaden abgefangen wird.\nZur Erinnerung: Schutzdurchschlagende Angriffe und einige\nzufällige Faktoren können die Schadensreduzierung verändern.\n \nHöher ist besser.",
 	L"\n \nBestimmt wie viel des geschützten\nKörperteils durch die Rüstung abgedeckt wird.\n \nWenn weniger als 100% verdeckt wird, haben Angriffe\neine gewisse Chance die Rüstung schlichtweg\nzu umgehen, und höchsten Schaden\nauf das verdeckte Körperteil auszuüben.\n \nHöher ist besser.",
 	L"\n \nBestimmt wie schnell der Zustand der Rüstung abfällt,\nwenn sie getroffen wird, im Verhältnis zum\nSchaden durch einen Angriff.\n \nNiedriger ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, die Rüstung zu reparieren\nund wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur Techniker und spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
@@ -6907,6 +6909,7 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"|L|a|u|t|s|t|ä|r|k|e",
 	L"|U|n|b|e|s|t|ä|n|d|i|g|k|e|i|t",
+	L"|R|e|p|a|r|i|e|r|f|ä|h|i|g|k|e|i|t",
 };
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
@@ -6935,6 +6938,17 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \nDie Reichweite in Feldern\nin der Feinde und Söldner die Explosion wahrnehmen.\n \nFeinde die die Explosion hören werden alarmiert.\n \nNiedriger ist besser.",
 	L"\n \nDieser Wert (außerhalb von 100) stellt eine Möglichkeit für den\nSprengstoff dar, spontan zu explodieren wenn er Schaden nimmt\n(z.B. durch Explosionen in der Nähe).\n \nDas Mitführen empfindlicher Sprengstoffe innerhalb des Kampfs\nist deshalb extrem riskant und sollte vermieden werden.\n \nSkala: 0-100.\nNiedriger ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist, diesen Sprengsatz zu reparieren.\n \ngrün = Jeder kann ihn reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
+};
+
+STR16 szUDBGenCommonStatsTooltipText[]=
+{
+	L"|R|e|p|a|r|i|e|r|f|ä|h|i|g|k|e|i|t",
+};
+
+STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
+{
+	L"\n \nBestimmt, wie schwierig es ist, diesen Gegenstand zu reparieren.\n \ngrün = Jeder kann ihn reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=

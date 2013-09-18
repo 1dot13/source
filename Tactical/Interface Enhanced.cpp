@@ -1805,7 +1805,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			CHAR16 pStr[1000];
 
 			///////////////// PRIMARY DATA - ICONS
-			for (cnt = 0; cnt < 4; cnt++)
+			for (cnt = 0; cnt < 5; cnt++)
 			{
 				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
@@ -1836,6 +1836,10 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			//////////////////// DEGRADE RATE
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 2 ] );
+			}
+			//////////////////// REPAIR EASE
+			{
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 3 ] );
 			}
 		}
 	}
@@ -1986,7 +1990,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			CHAR16 pStr[1000];
 
 			///////////////// PRIMARY DATA - ICONS
-			for (cnt = 0; cnt < 7; cnt++)
+			for (cnt = 0; cnt < 12; cnt++)
 			{
 				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
@@ -2191,6 +2195,86 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 21 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 21 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 10 ]), pStr );
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 10 ] );
+			}
+
+			//////////////////// REPAIR EASE
+			{
+				swprintf( pStr, L"%s%s", szUDBGenExplosiveStatsTooltipText[ 22 ], szUDBGenExplosiveStatsExplanationsTooltipText[ 22 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 11 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 11 ] );
+			}
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////
+	// OTHER ITEMS
+	/////////////////////////////////////////////////////////////////////////////////
+
+	else
+	{
+		if (gubDescBoxPage == 1)
+		{
+			/////////////////// HEADERS
+
+			for (cnt = 0; cnt < 2; cnt++)
+			{
+				/////////////////// HEADER #1: Primary Properties
+				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
+					(INT16)(gItemDescGenHeaderRegions[cnt].sLeft),
+					(INT16)(gItemDescGenHeaderRegions[cnt].sTop),
+					(INT16)(gItemDescGenHeaderRegions[cnt].sRight),
+					(INT16)(gItemDescGenHeaderRegions[cnt].sBottom),
+					MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
+
+					MSYS_AddRegion( &gUDBFasthelpRegions[ iRegionsCreated ]);
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iRegionsCreated ]), gzUDBHeaderTooltipText[ cnt ] );
+					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iRegionsCreated ]), HelpTextDoneCallback );
+
+					iRegionsCreated++;
+			}
+			
+			////////////////// INDEX
+			for (cnt = 0; cnt < 4; cnt++)
+			{
+				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
+					(INT16)(gItemDescGenIndexRegions[0][cnt].sLeft),
+					(INT16)(gItemDescGenIndexRegions[0][cnt].sTop),
+					(INT16)(gItemDescGenIndexRegions[0][cnt].sRight),
+					(INT16)(gItemDescGenIndexRegions[0][cnt].sBottom),
+					MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
+		
+				MSYS_AddRegion( &gUDBFasthelpRegions[ iRegionsCreated ]);
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iRegionsCreated ]), gzUDBGenIndexTooltipText[ cnt ] );
+					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iRegionsCreated ]), HelpTextDoneCallback );
+	
+					iRegionsCreated++;
+			}
+
+			iFirstDataRegion = iRegionsCreated;
+			CHAR16 pStr[1000];
+
+			///////////////// PRIMARY DATA - ICONS
+			for (cnt = 0; cnt < 1; cnt++)
+			{
+				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
+					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
+					(INT16)(gItemDescGenRegions[cnt][0].sTop),
+					(INT16)(gItemDescGenRegions[cnt][0].sRight),
+					(INT16)(gItemDescGenRegions[cnt][0].sBottom),
+					MSYS_PRIORITY_HIGHEST, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescCallback );
+	
+					MSYS_AddRegion( &gUDBFasthelpRegions[ iRegionsCreated ]);
+					SetRegionHelpEndCallback( &(gUDBFasthelpRegions[ iRegionsCreated ]), HelpTextDoneCallback );
+					MSYS_DisableRegion( &gUDBFasthelpRegions[ iRegionsCreated ] );
+
+					iRegionsCreated++;
+			}
+
+			//////////////////// REPAIR EASE
+			{
+				swprintf( pStr, L"%s%s", szUDBGenCommonStatsTooltipText[ 0 ], szUDBGenCommonStatsExplanationsTooltipText[ 0 ]);
+				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 0 ]), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 0 ] );
 			}
 		}
 	}
@@ -4210,7 +4294,20 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 			{
 				ubNumLine = 11;
 			}
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+			if ( !Item[gpItemDescObject->usItem].repairable )
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[ubNumLine][0].sLeft + sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			else if ( !gGameExternalOptions.fAdvRepairSystem )
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[ubNumLine][0].sLeft + sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			else
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 34, gItemDescGenRegions[ubNumLine][0].sLeft + sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+//			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[ubNumLine][0].sLeft+sOffsetX, gItemDescGenRegions[ubNumLine][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		//////////////////// DRAW COST
@@ -4556,6 +4653,16 @@ void DrawExplosiveStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoExplosiveIcon, 3, gItemDescGenRegions[10][0].sLeft+sOffsetX, gItemDescGenRegions[10][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
+		////////////////// REPAIR EASE
+		if ( !Item[gpItemDescObject->usItem].repairable )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[11][0].sLeft + sOffsetX, gItemDescGenRegions[11][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		else
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[11][0].sLeft + sOffsetX, gItemDescGenRegions[11][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
 		DrawSecondaryStats( gpItemDescObject );
 	}
 	else if (gubDescBoxPage == 2)
@@ -4615,6 +4722,20 @@ void DrawArmorStats( OBJECTTYPE * gpItemDescObject )
 		////////////////// ARMOR DEGRADE
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoArmorIcon, 6, gItemDescGenRegions[2][0].sLeft + sOffsetX, gItemDescGenRegions[2][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		////////////////// REPAIR EASE
+		if ( !Item[gpItemDescObject->usItem].repairable )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[3][0].sLeft + sOffsetX, gItemDescGenRegions[3][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		else if ( !gGameExternalOptions.fAdvRepairSystem )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[3][0].sLeft + sOffsetX, gItemDescGenRegions[3][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		else
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 34, gItemDescGenRegions[3][0].sLeft + sOffsetX, gItemDescGenRegions[3][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		////////////////// SECONDARY ARMOR PROPERTIES
@@ -5407,8 +5528,24 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 
 void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 {
+	INT16 sOffsetX = 2;
+	INT16 sOffsetY = 1;
+
+	if( UsingEDBSystem() == 0 )
+		return;
+
 	if (gubDescBoxPage == 1)
 	{
+		////////////////// REPAIR EASE
+		if ( !Item[gpItemDescObject->usItem].repairable )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		else
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
 		DrawSecondaryStats( gpItemDescObject );
 	}
 	else if (gubDescBoxPage == 2)
@@ -8513,6 +8650,58 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 		}
+
+		//////////////////// REPAIR EASE
+		{
+			// Set line to draw into
+			ubNumLine = 11;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Reliability value
+			INT8 iRepairEaseValue = Item[gpItemDescObject->usItem].bRepairEase;
+
+			// Get final Reliability value
+			INT8 iFinalRepairEaseValue = iRepairEaseValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iRepairEaseValue < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%d", iRepairEaseValue );
+			}
+			else if ( iRepairEaseValue > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", iRepairEaseValue );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print modifier
+			SetFontForeground( 5 );
+			swprintf( pStr, L"--" );
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalRepairEaseValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
 	}
 	else if (gubDescBoxPage == 2)
 	{
@@ -8745,6 +8934,58 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 
 			// Reset font color
 			SetFontForeground( 6 );
+		}
+
+		//////////////////// REPAIR EASE
+		{
+			// Set line to draw into
+			ubNumLine = 3;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Reliability value
+			INT8 iRepairEaseValue = Item[gpItemDescObject->usItem].bRepairEase;
+
+			// Get final Reliability value
+			INT8 iFinalRepairEaseValue = iRepairEaseValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iRepairEaseValue < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%d", iRepairEaseValue );
+			}
+			else if ( iRepairEaseValue > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", iRepairEaseValue );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print modifier
+			SetFontForeground( 5 );
+			swprintf( pStr, L"--" );
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalRepairEaseValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
 		}
 	}
 	else if (gubDescBoxPage == 2)
@@ -12049,8 +12290,103 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 
 void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 {
+	static CHAR16		pStr[ 100 ];
+	INT16				usY;
+	INT16				usX;
+	UINT8				ubNumLine;
+	INT16				sLeft, sTop, sWidth, sHeight;
+
 	if( UsingEDBSystem() == 0 )
 		return;
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// The following attributes are only drawn when the UDB is set to show the General Page.
+
+	if (gubDescBoxPage == 1)
+	{
+		////////////////////////////////////////////////// HEADERS
+
+		SetFontForeground( FONT_MCOLOR_WHITE );
+
+		// "PRIMARY" header
+		swprintf( pStr, L"%s", gzItemDescGenHeaders[ 0 ] );
+		FindFontCenterCoordinates( gItemDescGenHeaderRegions[0].sLeft, gItemDescGenHeaderRegions[0].sTop, gItemDescGenHeaderRegions[0].sRight - gItemDescGenHeaderRegions[0].sLeft, gItemDescGenHeaderRegions[0].sBottom - gItemDescGenHeaderRegions[0].sTop, pStr, BLOCKFONT2, &usX, &usY );
+		mprintf( usX, usY, pStr );
+
+		// "SECONDARY" header
+		swprintf( pStr, L"%s", gzItemDescGenHeaders[ 1 ] );
+		FindFontCenterCoordinates( gItemDescGenHeaderRegions[1].sLeft, gItemDescGenHeaderRegions[1].sTop, gItemDescGenHeaderRegions[1].sRight - gItemDescGenHeaderRegions[1].sLeft, gItemDescGenHeaderRegions[1].sBottom - gItemDescGenHeaderRegions[1].sTop, pStr, BLOCKFONT2, &usX, &usY );
+		mprintf( usX, usY, pStr );
+
+		SetFontForeground( 6 );
+
+		///////////////////////////////////////////////////// INDEXES
+
+		SetFontForeground( FONT_MCOLOR_WHITE );
+
+		for (UINT8 cnt = 0; cnt < 4; cnt++)
+		{
+			// Select "PROPERTY", "0", "+" or "=" as appropriate.
+			swprintf(pStr, L"%s", gzItemDescGenIndexes[ cnt ]);
+
+			FindFontCenterCoordinates( gItemDescGenIndexRegions[0][cnt].sLeft, gItemDescGenIndexRegions[0][cnt].sTop, gItemDescGenIndexRegions[0][cnt].sRight - gItemDescGenIndexRegions[0][cnt].sLeft, gItemDescGenIndexRegions[0][cnt].sBottom - gItemDescGenIndexRegions[0][cnt].sTop, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
+		SetFontForeground( 6 );
+
+		//////////////////// REPAIR EASE
+		{
+			// Set line to draw into
+			ubNumLine = 0;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Repair Ease value
+			INT8 iRepairEaseValue = Item[gpItemDescObject->usItem].bRepairEase;
+
+			// Get final Repair Ease value
+			INT8 iFinalRepairEaseValue = iRepairEaseValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iRepairEaseValue < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"%d", iRepairEaseValue );
+			}
+			else if ( iRepairEaseValue > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", iRepairEaseValue );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print modifier
+			SetFontForeground( 5 );
+			swprintf( pStr, L"--" );
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalRepairEaseValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+	}
 
 	if (gubDescBoxPage == 2)
 	{
