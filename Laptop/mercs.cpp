@@ -422,7 +422,10 @@ void RevaluateMercArray()
 	// check how many mercs are supposed to be available
 	for(i=0; i<NUM_PROFILES; i++)
 	{
-		if ( gConditionsForMercAvailability[i].StartMercsAvailable == TRUE && gConditionsForMercAvailability[i].NewMercsAvailable == FALSE )
+		// silversurfer: When a merc becomes available after money and time "NewMercsAvailable" is set to TRUE for him and saved to the savegame
+		// Therefore we should not check here if this tag is FALSE because it can't be false for him. "StartMercsAvailable" is also set to TRUE
+		// when he becomes available so we check only for this tag.
+		if ( gConditionsForMercAvailability[i].StartMercsAvailable == TRUE ) // && gConditionsForMercAvailability[i].NewMercsAvailable == FALSE )
 			NUMBER_OF_BAD_MERCS = NUMBER_OF_BAD_MERCS + 1;
 	}
 
