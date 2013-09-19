@@ -15281,14 +15281,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>	
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>249</bHated1>
 		<bHatedTime1>6</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15300,7 +15300,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>		
+		<bLearnToHateTime>0</bLearnToHateTime>
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15365,16 +15365,16 @@
 		<bOldSkillTrait2>12</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>		
+		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>149</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>250</bHated1>
-		<bHatedTime1>24</bHatedTime1>		
+		<bHatedTime1>24</bHatedTime1>
 		<bHated2>255</bHated2>
 		<bHatedTime2>0</bHatedTime2>
 		<bHated3>255</bHated3>
@@ -15384,7 +15384,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>		
+		<bLearnToHateTime>0</bLearnToHateTime>
 		<sSalary>300</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15450,14 +15450,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>		
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>221</bHated1>
 		<bHatedTime1>12</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15620,14 +15620,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>		
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>187</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>14</bHated1>
 		<bHatedTime1>36</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15712,7 +15712,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>179</bHated1>
 		<bHatedTime1>18</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15790,14 +15790,14 @@
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>		
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>189</bHated1>
 		<bHatedTime1>18</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -15871,9 +15871,9 @@
 		<bMechanical>15</bMechanical>
 		<bExpLevel>2</bExpLevel>
 		<bEvolution>5</bEvolution>
-		<bOldSkillTrait>0</bOldSkillTrait>
+		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>7</bNewSkillTrait1>
+		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>184</bBuddy1>
@@ -16045,13 +16045,13 @@
 		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
-		<bBuddy1>247</bBuddy1>		
+		<bBuddy1>247</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>228</bHated1>
 		<bHatedTime1>32</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -19329,8 +19329,8 @@
 		<bOldSkillTrait>0</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait2>9</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>242</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20515,7 +20515,7 @@
 		<bExpLevel>3</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>13</bOldSkillTrait>
-		<bOldSkillTrait2>0</bOldSkillTrait2>
+		<bOldSkillTrait2>13</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>11</bNewSkillTrait3>
@@ -20598,11 +20598,11 @@
 		<bMechanical>86</bMechanical>
 		<bExpLevel>4</bExpLevel>
 		<bEvolution>0</bEvolution>
-		<bOldSkillTrait>7</bOldSkillTrait>
-		<bOldSkillTrait2>1</bOldSkillTrait2>
-		<bNewSkillTrait1>2</bNewSkillTrait1>
+		<bOldSkillTrait>2</bOldSkillTrait>
+		<bOldSkillTrait2>0</bOldSkillTrait2>
+		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>230</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
@@ -20684,16 +20684,16 @@
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
-		<bNewSkillTrait1>20</bNewSkillTrait1>
-		<bNewSkillTrait2>20</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait1>8</bNewSkillTrait1>
+		<bNewSkillTrait2>14</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>255</bBuddy1>
 		<bBuddy2>255</bBuddy2>
 		<bBuddy3>255</bBuddy3>
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>181</bHated1>
 		<bHatedTime1>16</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20705,7 +20705,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>	
+		<bLearnToHateTime>0</bLearnToHateTime>
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -20768,8 +20768,8 @@
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
-		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>20</bNewSkillTrait1>
+		<bOldSkillTrait2>9</bOldSkillTrait2>
+		<bNewSkillTrait1>15</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>248</bBuddy1>
@@ -20778,7 +20778,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>14</bHated1>
 		<bHatedTime1>16</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20790,7 +20790,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>		
+		<bLearnToHateTime>0</bLearnToHateTime>
 		<sSalary>550</sSalary>
 		<uiWeeklySalary>3300</uiWeeklySalary>
 		<uiBiWeeklySalary>6200</uiBiWeeklySalary>
@@ -20853,7 +20853,7 @@
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>13</bOldSkillTrait>
-		<bOldSkillTrait2>0</bOldSkillTrait2>
+		<bOldSkillTrait2>13</bOldSkillTrait2>
 		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>15</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
@@ -20863,7 +20863,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>251</bHated1>
 		<bHatedTime1>8</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -20875,7 +20875,7 @@
 		<bHated5>255</bHated5>
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
-		<bLearnToHateTime>0</bLearnToHateTime>		
+		<bLearnToHateTime>0</bLearnToHateTime>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>2300</uiWeeklySalary>
 		<uiBiWeeklySalary>4500</uiBiWeeklySalary>
@@ -20947,7 +20947,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>221</bHated1>
 		<bHatedTime1>16</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -21032,7 +21032,7 @@
 		<bBuddy4>255</bBuddy4>
 		<bBuddy5>255</bBuddy5>
 		<bLearnToLike>255</bLearnToLike>
-		<bLearnToLikeTime>0</bLearnToLikeTime>		
+		<bLearnToLikeTime>0</bLearnToLikeTime>
 		<bHated1>227</bHated1>
 		<bHatedTime1>24</bHatedTime1>
 		<bHated2>255</bHated2>
@@ -21189,7 +21189,7 @@
 		<bMedical>29</bMedical>
 		<bMechanical>88</bMechanical>
 		<bExpLevel>5</bExpLevel>
-		<bEvolution>1</bEvolution>
+		<bEvolution>2</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
@@ -21275,7 +21275,7 @@
 		<bMechanical>20</bMechanical>
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
-		<bOldSkillTrait>0</bOldSkillTrait>
+		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
@@ -21360,7 +21360,7 @@
 		<bMechanical>0</bMechanical>
 		<bExpLevel>1</bExpLevel>
 		<bEvolution>0</bEvolution>
-		<bOldSkillTrait>0</bOldSkillTrait>
+		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
