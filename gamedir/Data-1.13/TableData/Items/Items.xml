@@ -31374,7 +31374,7 @@
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>20</ItemSize>
 		<usPrice>600</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>6</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -31930,8 +31930,8 @@
 		<szBRName>Trigger Group</szBRName>
 		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<AttachmentClass>256</AttachmentClass>
-		<nasAttachmentClass>256</nasAttachmentClass>
+		<AttachmentClass>128</AttachmentClass>
+		<nasAttachmentClass>128</nasAttachmentClass>
 		<ubGraphicNum>160</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>21</ItemSize>
@@ -32068,7 +32068,7 @@
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>18</ItemSize>
 		<usPrice>500</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
