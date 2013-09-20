@@ -97,12 +97,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Colour your vision! Holding [END] in tactical shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
+    <szName>Colour your vision! Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (don't spot nobody) to green (spot even somebody lying in the grass).</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Red Alert! Holding [DEL] in tactical shows where enemies you know of may see currently selected merc, ranging from red (will be seen even prone) to green (perfect concealment).</szName>
+    <szName>Red Alert! Holding [DEL] in tactical screen shows where enemies you know of may see currently selected merc, ranging from red (will be seen even prone) to green (perfect concealment).</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -244,7 +244,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
-    <szName>Pressing [SHIFT]+[R] in tactical orders your entire team to reload.</szName>
+    <szName>Pressing [SHIFT]+[R] in tactical screen orders your entire team to reload.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -613,5 +613,35 @@ The other tags determine in what category this hint falls, and will be displayed
     <uiIndex>117</uiIndex>
     <szName>Do you want to fight against real players or do co-operate teamwork together with your friends? Try out the 1.13 multiplayer mode.</szName>
     <lore>1</lore>
-  </LOADSCREENHINT>  
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>118</uiIndex>
+    <szName>Press [CTRL]+[SHIFT]+[G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>119</uiIndex>
+    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in your current sector inventory at once.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>120</uiIndex>
+    <szName>[CTRL]+[SHIFT]+[E] will load your vehicle with as much items as possible from your current sector. [SHIFT]+[E] will unload all items from vehicle to your current sector.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>121</uiIndex>
+    <szName>If you can't hit a target from your current location, you can try to suppress it with auto fire and then change to a better position.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>122</uiIndex>
+    <szName>Exploring the farms and city sectors can help you find lots of useful items, like gas for your vehicle.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>123</uiIndex>
+    <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over your merc will open up merc's menu similar to the one you have on strategic screen map.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
 </LOADSCREENHINTS>
