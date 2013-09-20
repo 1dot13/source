@@ -6988,6 +6988,11 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|M|u|n|i|t|i|o|n|s|w|e|s|t|e",
 	L"|E|n|t|s|c|h|ä|r|f|u|n|g|s|a|u|s|r|ü|s|t|u|n|g",
 	L"|V|e|r|d|e|c|k|t|e |G|e|g|e|n|s|t|a|n|d",
+	L"|K|a|n|n |n|i|c|h|t |b|e|s|c|h|ä|d|i|g|t |w|e|r|d|e|n",
+	L"|M|a|d|e |o|f |M|e|t|a|l",
+	L"|S|i|n|k|s",
+	L"|T|w|o|-|H|a|n|d|e|d",
+	L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7024,6 +7029,11 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nIn diese Weste passen auch Munitionsgurte.",
 	L"\n \nDieser Gegenstand verbessert die Chance Fallen zu entschärfen um ",
 	L"\n \nDieser Gegenstand und alles was daran angebracht/enthalten ist\nwird von neugierigen Augen verborgen bleiben.",
+	L"\n \nDieser Gegenstand kann nicht beschädigt werden.",
+	L"\n \nDieser Gegenstand ist aus Metall.\nEr nimmt weniger Schaden als andere Gegenstände.",
+	L"\n \nDieser Gegenstand versinkt in Wasser.",
+	L"\n \nDieser Gegenstand muß mit beiden Händen benutzt werden.",
+	L"\n \nDieser Gegenstand verhindert die Verwendung von Kimme und Korn.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

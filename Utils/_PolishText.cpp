@@ -7179,6 +7179,11 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|m|m|o |V|e|s|t",
 	L"|D|e|f|u|s|a|l |K|i|t",	// TODO.Translate
 	L"|C|o|v|e|r|t |I|t|e|m",	// TODO.Translate
+	L"|C|a|n|n|o|t |b|e |d|a|m|a|g|e|d",
+	L"|M|a|d|e |o|f |M|e|t|a|l",
+	L"|S|i|n|k|s",
+	L"|T|w|o|-|H|a|n|d|e|d",
+	L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -7215,6 +7220,11 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nYou can feed an MG with ammo\nbelts stored in this vest.",
 	L"\n \nThis item improves your trap disarm chance by ",		// TODO.Translate
 	L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",	// TODO.Translate
+	L"\n \nThis item cannot be damaged.",
+	L"\n \nThis item is made of metal.\nIt takes less damage than other items.",
+	L"\n \nThis item sinks when put in water.",
+	L"\n \nThis item requires both hands to be used.",
+	L"\n \nThis item will block your iron sights\nso you cannot use them.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

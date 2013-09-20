@@ -649,8 +649,8 @@ extern STR16		szUDBGenExplosiveStatsTooltipText[ 23 ];				// silversurfer Repair
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 23 ];	// silversurfer Repair Ease: 22->23
 extern STR16		szUDBGenCommonStatsTooltipText[ 1 ];					// silversurfer new for items that don't fit the other categories
 extern STR16		szUDBGenCommonStatsExplanationsTooltipText[ 1 ];		// silversurfer new for items that don't fit the other categories
-extern STR16		szUDBGenSecondaryStatsTooltipText[ 32 ];				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32
-extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 32 ];	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32
+extern STR16		szUDBGenSecondaryStatsTooltipText[ 37 ];				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
+extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 37 ];	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
 extern STR16		szUDBAdvStatsTooltipText[ 65 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64 silversurfer Best Laser Range:64->65
 extern STR16		szUDBAdvStatsExplanationsTooltipText[ 64 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64
 extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 52 ];	// Flugente Overheating Weapons: 48->52

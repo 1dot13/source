@@ -2300,7 +2300,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		iFirstDataRegion = iRegionsCreated;
 		CHAR16 pStr[1000];
 
-		for (cnt = 0; cnt < 26; cnt++)
+		for (cnt = 0; cnt < 36; cnt++)
 		{
 			MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 				(INT16)(gItemDescGenSecondaryRegions[cnt].sLeft),
@@ -2617,6 +2617,51 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		if ( HasItemFlag(gpItemDescObject->usItem, COVERT) )
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 31 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 31 ]);
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+			cnt++;
+		}
+
+		//////////////////// NOT DAMAGEABLE
+		if ( Item[gpItemDescObject->usItem].damageable == 0 )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 32 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 32 ]);
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+			cnt++;
+		}
+
+		//////////////////// METAL
+		if ( Item[gpItemDescObject->usItem].metal > 0 )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 33 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 33 ]);
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+			cnt++;
+		}
+
+		//////////////////// SINKS
+		if ( Item[gpItemDescObject->usItem].sinks > 0 )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 34 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 34 ]);
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+			cnt++;
+		}
+
+		//////////////////// TWO HANDED
+		if ( Item[gpItemDescObject->usItem].twohanded > 0 )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 35 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 35 ]);
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
+			cnt++;
+		}
+
+		//////////////////// BLOCKS IRON SIGHTS
+		if ( Item[gpItemDescObject->usItem].blockironsight > 0 )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 36 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 36 ]);
 			SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
 			MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
 			cnt++;
@@ -5830,6 +5875,41 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	if ( HasItemFlag(gpItemDescObject->usItem, COVERT) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 30, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		cnt++;
+	}
+
+	//////////////////// NOT DAMAGEABLE
+	if ( Item[gpItemDescObject->usItem].damageable == 0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 31, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		cnt++;
+	}
+
+	//////////////////// METAL
+	if ( Item[gpItemDescObject->usItem].metal > 0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 32, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		cnt++;
+	}
+
+	//////////////////// SINKS
+	if ( Item[gpItemDescObject->usItem].sinks > 0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 33, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		cnt++;
+	}
+
+	//////////////////// TWO HANDED
+	if ( Item[gpItemDescObject->usItem].twohanded > 0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 34, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		cnt++;
+	}
+
+	//////////////////// BLOCKS IRON SIGHTS
+	if ( Item[gpItemDescObject->usItem].blockironsight > 0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 35, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
 }
