@@ -360,6 +360,15 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_pushinteger(L, gModSettings.iBrothelDoor3);
 	lua_setglobal(L, "iniBROTHEL_DOOR_3");
 
+	lua_pushinteger(L, gModSettings.ubKingpinMoneySectorX);
+	lua_setglobal(L, "iniKINGPIN_MONEY_SECTOR_X");
+	
+	lua_pushinteger(L, gModSettings.ubKingpinMoneySectorY);
+	lua_setglobal(L, "iniKINGPIN_MONEY_SECTOR_Y");
+	
+	lua_pushinteger(L, gModSettings.ubKingpinMoneySectorZ);
+	lua_setglobal(L, "iniKINGPIN_MONEY_SECTOR_Z");
+
 	//Gear Dropoff
 	lua_pushinteger(L, gModSettings.ubOmertaDropOffX);
 	lua_setglobal(L, "iniOMERTA_DROPOFF_X");
@@ -376,6 +385,16 @@ void IniGlobalGameSetting(lua_State *L)
 	//Alma
 	lua_pushinteger(L, gModSettings.sRocketRifleGridNo);
 	lua_setglobal(L, "iniROCKETRIFLE_POSITION");
+
+	//Hospital Sector
+	lua_pushinteger(L, gModSettings.ubHospitalSectorX);
+	lua_setglobal(L, "iniHOSPITAL_SECTOR_X");
+	
+	lua_pushinteger(L, gModSettings.ubHospitalSectorY);
+	lua_setglobal(L, "iniHOSPITAL_SECTOR_Y");
+	
+	lua_pushinteger(L, gModSettings.ubHospitalSectorZ);
+	lua_setglobal(L, "iniHOSPITAL_SECTOR_Z");
 	
 	// -------------------------------
 	// Other global variables

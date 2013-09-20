@@ -2378,12 +2378,20 @@ void LoadModSettings(){
 	gModSettings.iBrothelDoor2 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_2", 11176);
 	gModSettings.iBrothelDoor3 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_3", 11177);
 
+	gModSettings.ubKingpinMoneySectorX = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_X", 5);
+	gModSettings.ubKingpinMoneySectorY = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_Y", 4);
+	gModSettings.ubKingpinMoneySectorZ = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_Z", 1);
+
 	gModSettings.ubOmertaDropOffX = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_X", 9);
 	gModSettings.ubOmertaDropOffY = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Y", 1);
 	gModSettings.ubOmertaDropOffZ = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Z", 0);
 	gModSettings.iOmertaDropOff = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_GRIDNO", 4868);
 
 	gModSettings.sRocketRifleGridNo = iniReader.ReadInteger("Alma", "ROCKETRIFLE_POSITION", 10472);
+
+	gModSettings.ubHospitalSectorX = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_X", 8);
+	gModSettings.ubHospitalSectorY = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Y", 6);
+	gModSettings.ubHospitalSectorZ = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Z", 0);
 }
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
 {

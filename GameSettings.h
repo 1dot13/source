@@ -1716,6 +1716,11 @@ typedef struct
 	INT32 iBrothelDoor1;
 	INT32 iBrothelDoor2;
 	INT32 iBrothelDoor3;
+	
+	// Kingpin Private Stash
+	UINT8 ubKingpinMoneySectorX;
+	UINT8 ubKingpinMoneySectorY;
+	UINT8 ubKingpinMoneySectorZ;
 
 	//Leave Stuff
 	UINT8 ubOmertaDropOffX;
@@ -1724,6 +1729,11 @@ typedef struct
 	INT32 iOmertaDropOff;
 
 	INT32 sRocketRifleGridNo;
+
+	//Hospital Sector
+	UINT8 ubHospitalSectorX;
+	UINT8 ubHospitalSectorY;
+	UINT8 ubHospitalSectorZ;
 
 }MOD_SETTINGS;
 
