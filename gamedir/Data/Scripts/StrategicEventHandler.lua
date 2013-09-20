@@ -339,13 +339,6 @@ NpcAction =
 	NPC_ACTION_FREE_KIDS = 117,
 }
 
-Sectors = 
-{
-	HOSPITAL_SECTOR_X	= 8,
-	HOSPITAL_SECTOR_Y	= 6,
-	HOSPITAL_SECTOR_Z	= 0,
-}
-
 EventTypes = 
 {
 	EVENT_SET_BY_NPC_SYSTEM = 27,
@@ -630,7 +623,7 @@ function HandleEarlyMorningEvents()
 		SetFactFalse( Facts.FACT_DAVE_HAS_GAS )
 	end	
 	
-	if ( gWorldSectorX == Sectors.HOSPITAL_SECTOR_X and gWorldSectorY == Sectors.HOSPITAL_SECTOR_Y and gWorldSectorZ == Sectors.HOSPITAL_SECTOR_Z ) then
+	if ( gWorldSectorX == iniHOSPITAL_SECTOR_X and gWorldSectorY == iniHOSPITAL_SECTOR_Y and gWorldSectorZ == iniHOSPITAL_SECTOR_Z ) then
 		CheckForMissingHospitalSupplies()
 	end
 
