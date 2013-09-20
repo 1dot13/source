@@ -604,7 +604,7 @@ static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj);
 /// Check if a gun is jammed
 static BOOLEAN IsGunJammed(const OBJECTTYPE* pObj);
 /// Collect items that need repairing and add them to the repair queue
-static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix);
+static void CollectRepairableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix);
 
 extern BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse );
 
@@ -3718,7 +3718,7 @@ static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj) {
 //CHRISL: During the repair process, we already attempt to repair the attachments on an item.  So rather then adding the attachment to the stack, we want to
 //	add the main item, even if it's just the attachment that actually needs to be repaired.  Also, if multiple items in a stack are damaged, we only want to
 //	include the stack once since the repair system already looks through the entire stack.
-static void CollectRepairableItems(SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix) {
+static void CollectRepairableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix) {
 	bool foundItem = false;
 	// Iterate over all pocket slots and add items in need of repair
 	for (UINT8 pocketIndex = HELMETPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex) {
@@ -3730,7 +3730,7 @@ static void CollectRepairableItems(SOLDIERTYPE* pSoldier, RepairQueue& itemsToFi
 		foundItem = false;
 		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex) {
 			// Check the stack item itself
-			if (IsItemRepairable(pSoldier, pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold)) {
+			if (IsItemRepairable(pRepairSoldier, pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold)) {
 				RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 				itemsToFix.push(item);
 				break;
@@ -3739,7 +3739,7 @@ static void CollectRepairableItems(SOLDIERTYPE* pSoldier, RepairQueue& itemsToFi
 			// Check for attachments (are there stackable items that can take attachments though?)
 			UINT8 attachmentIndex = 0;
 			for (attachmentList::const_iterator iter = (*pObj)[stackIndex]->attachments.begin(); iter != (*pObj)[stackIndex]->attachments.end(); ++iter, ++attachmentIndex) {
-				if (IsItemRepairable(pSoldier, iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
+				if (IsItemRepairable(pRepairSoldier, iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
 					// Send the main item, not the attachment
 					RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 					itemsToFix.push(item);
@@ -4112,12 +4112,14 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			// Collect all items in need of repair and assign them priorities
 			RepairQueue itemsToFix;
 
-			CollectRepairableItems(pSoldier, itemsToFix);
+			// silversurfer: Looks strange? It's not. This function now needs the guy that does the repairs and the one that owns the stuff. 
+			CollectRepairableItems(pSoldier, pSoldier, itemsToFix);
 			for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex < gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
 			{
 				// Ignore self, mercs in other sectors, etc.
 				if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
-					CollectRepairableItems(MercPtrs[teamIndex], itemsToFix);
+					// silversurfer: This function now needs the guy that does the repairs and the one that owns the stuff.
+					CollectRepairableItems(pSoldier, MercPtrs[teamIndex], itemsToFix);
 			}
 
 			// Step through items, starting with the highest priority item
