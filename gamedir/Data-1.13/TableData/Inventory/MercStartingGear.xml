@@ -18792,6 +18792,7 @@
 			<lVestStatus>99</lVestStatus>
 		</GEARKIT>
 		<GEARKIT>
+			<mGearKitName>Premium</mGearKitName>
 			<mPriceMod>50</mPriceMod>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
