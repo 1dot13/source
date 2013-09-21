@@ -6932,7 +6932,7 @@ STR16 gzItemDescGenIndexes[] =
 STR16 gzUDBButtonTooltipText[]=
 {
 	L"|P|a|g|e |d|e |d|e|s|c|r|i|p|t|i|o|n :\n \nMontre des informations textuelles de base sur cet objet.",
-	L"|P|r|o|p|r|i|é|t|é|s |g|é|n|é|r|a|l|e|s :\n \nMontre des données spécifiques de cet objet.",
+	L"|P|r|o|p|r|i|é|t|é|s |g|é|n|é|r|a|l|e|s :\n \nMontre des données spécifiques de cet objet.\n \nWeapons: Click again to see second page.",	// TODO.Translate
 	L"|P|r|o|p|r|i|é|t|é|s |a|v|a|n|c|é|e|s :\n \nMontre des bonus donnés par cet objet.",
 };
 

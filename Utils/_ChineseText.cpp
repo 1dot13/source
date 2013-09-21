@@ -6957,7 +6957,7 @@ STR16 gzItemDescGenIndexes[] =
 STR16 gzUDBButtonTooltipText[]=
 {
 	L"|说|明|页|面:\n \n显示该物品基本的文字描述。",
-	L"|常|规|性|能|页|面:\n \n显示该物品的详细性能数据。",
+	L"|常|规|性|能|页|面:\n \n显示该物品的详细性能数据。\n \nWeapons: Click again to see second page.",	// TODO.Translate
 	L"|进|阶|性|能|页|面:\n \n显示使用该物品的额外效果。",
 };
 

@@ -438,6 +438,8 @@ BOOLEAN gfDeductPoints;
 // By saving this in memory, we tell the DescBox which background and values to draw, and make sure that we end up
 // on the same page every time we open the description box. UDB buttons allow switching between pages.
 UINT8 gubDescBoxPage;
+// silversurfer: Now we also have a secondary page on the general tab for weapons so we can look at their secondary attributes.
+UINT8 gubDescGenPage;
 // Record which line we're looking at. This only applied to the Advanced tab in description boxes.
 UINT8 gubDescBoxLine;
 // Record how many lines this item has to display. This only applies to the Advanced tab.

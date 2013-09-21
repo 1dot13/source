@@ -6288,7 +6288,7 @@ INT8 DetermineShowBox( )
 		{
 			if (UsingEDBSystem() > 0)
 			{
-				if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_PUNCH))
+				if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_PUNCH) && gubDescGenPage == 0)
 				{
 					switch (gubDescBoxPage)
 					{
@@ -6332,7 +6332,7 @@ INT8 DetermineShowBox( )
 	}
 	else if(UsingNewInventorySystem() == true)	//NIV
 	{
-		if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_PUNCH) && UsingEDBSystem() > 0 )
+		if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_PUNCH) && UsingEDBSystem() > 0 && gubDescGenPage == 0 )
 		{
 			if (guiCurrentItemDescriptionScreen == MAP_SCREEN)
 			{
@@ -6769,9 +6769,13 @@ void RenderItemDescriptionBox( )
 		//HEADROCK/CHRISL: This condition needs to run differently depending on whether EDB is active of not
 		if(UsingEDBSystem() > 0)
 		{
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH )
+			if ( (Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) && gubDescGenPage == 0)
 			{
 				DrawWeaponStats(gpItemDescObject);
+			}
+			else if ( (Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) && gubDescGenPage == 1)
+			{
+				DrawMiscStats(gpItemDescObject);
 			}
 			else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_AMMO )
 			{
@@ -7169,8 +7173,19 @@ void RenderItemDescriptionBox( )
 		{
 			if(UsingEDBSystem() > 0)
 			{
-				SetFontShadow( ITEMDESC_FONTSHADOW3 );
-				DrawWeaponValues(gpItemDescObject);
+				if ( gubDescGenPage == 0)
+				{
+					SetFontShadow( ITEMDESC_FONTSHADOW3 );
+					DrawWeaponValues(gpItemDescObject);
+				}
+				else
+				{
+					//Labels
+					SetFont( BLOCKFONT2 );
+					SetFontForeground( 6 );
+					SetFontShadow( DEFAULT_SHADOW );
+					DrawMiscValues(gpItemDescObject);
+				}
 			}
 			else
 			{
@@ -12538,6 +12553,14 @@ void DeletePool(ITEM_POOL *pItemPool)
 
 void ItemDescTabButtonCallback( GUI_BUTTON *btn, INT32 reason )
 {
+	// silversurfer: We clicked on the general tab a second time. Make it toggle between first and second page.
+	// This is only used for weapons at the moment because there was no space for the secondary attributes.
+	if ( gubDescBoxPage == 1 && btn->UserData[0] == 1 && gfLeftButtonState )
+		if ( gubDescGenPage == 0 )
+			gubDescGenPage = 1;
+		else
+			gubDescGenPage = 0;
+
 	gubDescBoxPage = btn->UserData[0];
 	HandleItemDescTabButton( );
 }

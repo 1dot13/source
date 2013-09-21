@@ -1401,7 +1401,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 	/////////////////////////////////////////////////////////////////////////////////
 	// WEAPONS
 	/////////////////////////////////////////////////////////////////////////////////
-	if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH )
+	if ( (Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) && gubDescGenPage == 0 )
 	{
 		if (gubDescBoxPage == 1)
 		{
@@ -2281,6 +2281,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			//////////////////// REPAIR EASE
+			// not for weapons. They have this one their primary page
+			if ( !(Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenCommonStatsTooltipText[ 0 ], szUDBGenCommonStatsExplanationsTooltipText[ 0 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + 0 ]), pStr );
@@ -2295,7 +2297,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 	// UDB page. They appear only for non-weapon items (no room in the weapon page).
 
 	if (gubDescBoxPage == 1 && 
-		!(Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH ) )
+		( !(Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH ) || gubDescGenPage == 1 ) )
 	{
 		iFirstDataRegion = iRegionsCreated;
 		CHAR16 pStr[1000];
@@ -5592,13 +5594,17 @@ void DrawMiscStats( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage == 1)
 	{
 		////////////////// REPAIR EASE
-		if ( !Item[gpItemDescObject->usItem].repairable )
+		// not for weapons. They have this one their primary page
+		if ( !(Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
-		else
-		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if ( !Item[gpItemDescObject->usItem].repairable )
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 35, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			else
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 10, gItemDescGenRegions[0][0].sLeft + sOffsetX, gItemDescGenRegions[0][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
 		}
 
 		DrawSecondaryStats( gpItemDescObject );
@@ -12426,6 +12432,8 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 		SetFontForeground( 6 );
 
 		//////////////////// REPAIR EASE
+		// not for weapons. They have this one their primary page
+		if ( !(Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH) )
 		{
 			// Set line to draw into
 			ubNumLine = 0;

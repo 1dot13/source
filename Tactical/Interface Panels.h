@@ -161,6 +161,8 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus);
 // By saving this in memory, we tell the DescBox which background and values to draw, and make sure that we end up
 // on the same page every time we open the description box. UDB buttons allow switching between pages.
 extern UINT8 gubDescBoxPage;
+// silversurfer: Now we also have a secondary page on the general tab for weapons so we can look at their secondary attributes.
+extern UINT8 gubDescGenPage;
 // Record which line we're looking at. This only applied to the Advanced tab in description boxes.
 extern UINT8 gubDescBoxLine;
 // Record how many lines there are for the current item in the Advanced tab.
