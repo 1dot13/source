@@ -146,6 +146,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s de chance de toucher avec un fusil\n",
 	L"+%d%s de chance de toucher avec un fusil à pompe\n",
 	L"-%d%s du nombre de PA nécessaire pour recharger le fusil à pompe\n",
+	L"-%d%s APs to fire Shotguns\n",	//TODO.Translate
 	L"+%d%s de vitesse de déplacement du groupe entre les secteurs si ils sont à pieds\n",
 	L"+%d%s de vitesse de déplacement du groupe entre les secteurs si ils sont dans un véhicule (excepté l'hélicopter)\n",
 	L"-%d%s d'énergies nécessaire pour traverser les secteurs\n",

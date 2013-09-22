@@ -143,6 +143,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s CtH with Rifles\n",
 	L"+%d%s CtH with Shotguns\n",
 	L"-%d%s APs needed to pump Shotguns\n",
+	L"-%d%s APs to fire Shotguns\n",
 	L"+%d%s group traveling speed between sectors if traveling by foot\n",
 	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"-%d%s less energy spent for travelling between sectors\n",

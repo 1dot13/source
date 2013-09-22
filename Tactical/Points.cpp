@@ -2300,6 +2300,11 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubGSFiringSpeedBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) ) / 100)+ 0.5);
 			}
+			// Decrease APs needed for Shotguns - Ranger
+			else if (Weapon[ usUBItem ].ubWeaponType == GUN_SHOTGUN && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			{
+				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubRAFiringSpeedBonusShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100)+ 0.5);
+			}
 		}
 		/////////////////////////////////////////////////////////////////////////////////////
 	}

@@ -142,7 +142,8 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
 	L"+%d%s Trefferchance mit Gewehren\n",
 	L"+%d%s Trefferchance mit Schrotflinten\n",
-	L"-%d%s APs gebraucht um Schrotflinten zu repetieren\n",
+	L"-%d%s APs benötigt um Schrotflinten zu repetieren\n",
+	L"-%d%s APs benötigt um Schrotflinten abzufeuern\n",
 	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren zu Fuß\n",
 	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
 	L"-%d%s weniger Energieverlust beim Reisen zwischen Sektoren\n",
