@@ -1386,6 +1386,7 @@ typedef struct
 	UINT8 ubRAWeatherPenaltiesReduction;
 	//UINT8 ubRACamoEffectivenessBonus;
 	UINT8 ubRACamoWornountSpeedReduction;
+	UINT8 ubRAFiringSpeedBonusShotguns;
 
 	// GUNSLINGER
 	UINT8 ubGSFiringSpeedBonusPistols;
