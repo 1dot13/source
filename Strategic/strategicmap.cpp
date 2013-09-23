@@ -2885,6 +2885,10 @@ SOLDIERTYPE *pSoldier=NULL;
 	#endif
 }
 
+extern void SetLastTimePlayerWasInSector();
+//Moa: 09/14/2013 this function modifies uiTimeCurrentSectorWasLastLoaded and the various decay of items in that sector as well
+// @calls HandleSectorCooldownFunctions
+// @calls SetLastTimePlayerWasInSector
 BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 {
 	INT32 i;
@@ -3017,7 +3021,17 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 	// Flugente: certain features need to alter an item's temperature value depending on the time passed
 	// if we do these functions here and adjust for the time passed since this sector was loaded last, it will seem to the player
 	// as if these checks are always performed in any sector
-	SectorInventoryCooldownFunctions(sSectorX, sSectorY, bSectorZ);
+	//Moa: removed this function and replaced by the handling function.
+	//SectorInventoryCooldownFunctions(sSectorX, sSectorY, bSectorZ);
+	//moved from SectorInventoryCooldownFunctions. Invisible items are handled as well.
+	//Since we have allready loaded the items previously we can use the globals here.
+	HandleSectorCooldownFunctions( sSectorX, sSectorY, (INT8)bSectorZ, gWorldItems, guiNumWorldItems, TRUE );
+	//Update LastTimePlayerWasInSector
+	SetLastTimePlayerWasInSector();
+	
+	//Save to tempfile
+	SaveWorldItemsToTempItemFile( sSectorX, sSectorY, (INT8)bSectorZ, guiNumWorldItems, gWorldItems );
+
 
 	return TRUE; //because the map was loaded.
 }

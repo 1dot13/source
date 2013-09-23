@@ -39,8 +39,6 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen );
 // bail out of sector inventory mode if it is on
 void CancelSectorInventoryDisplayIfOn( BOOLEAN fExitFromMapScreen );
 
-INT32 GetSizeOfStashInSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ, BOOLEAN fCountStacksAsOne );
-
 // get total number of items in sector
 INT32 GetTotalNumberOfItems( void );
 
@@ -81,9 +79,10 @@ BOOLEAN	SwitchToInventoryPoolQ(UINT8 newidx);
 #endif
 
 // Flugente: handle various cooldown functions in a sector
-void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
+//void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ );
 
 // Flugente: handle various cooldown functions over an array of items in a specific sector. 
 // if fWithMinutes = true, adjust cooldown for time since sector was last entered
 // otherwise its used for a turn-precise cooldown
-void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes );
+void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes, BOOLEAN fUndo = FALSE);
+void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UINT16 naturalDirt = 100, BOOLEAN isUnderground = FALSE);

@@ -21,7 +21,7 @@
 	#include "assignments.h"
 #endif
 
-#define	NUM_SEC_PER_STRATEGIC_TURN					( NUM_SEC_IN_MIN * 15 )	// Every fifteen minutes
+
 
 
 UINT32		guiLastStrategicTime = 0;

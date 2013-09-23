@@ -820,7 +820,12 @@ BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sG
 	WORLDITEM *pWorldItems;
 	UINT32	cnt;
 	UINT32	uiLoop1=0;
-
+	
+	if ( uiNumberOfItemsToAdd == 0 && fReplaceEntireFile == FALSE )
+	{
+		//Moa: nothing to do, so get out of here!
+		return( TRUE );
+	}
 
 	if( !GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &uiNumberOfItems, TRUE ) )
 	{
@@ -3364,26 +3369,28 @@ void	SetNumberOfVisibleWorldItemsInSectorStructureForSector( INT16 sMapX, INT16 
 	}
 }
 
-
+//Moa 09/19/13: changed loop upperbound from uiTotalNumberOfRealItems to uiTotalNumberOfItems, 
+// this effectivly removes one entire loop in GetNumberOfActiveWorldItemsFromTempFile and 2 file reads.
+// also changed type of iCounter from INT32 to UINT32 and for in if-clauses from true to TRUE to get rid of unneccessary casts.
 void SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BOOLEAN fLoadingGame )
 {
-	UINT32 uiTotalNumberOfItems = 0, uiTotalNumberOfRealItems = 0;
+	UINT32 uiTotalNumberOfItems = 0;//, uiTotalNumberOfRealItems = 0;
 	WORLDITEM * pTotalSectorList = NULL;
 	UINT32 uiItemCount = 0;
-	INT32 iCounter = 0;
+	UINT32 iCounter = 0;
 	BOOLEAN	fReturn;
 
-
+	/*
 	// get total number, visable and invisible
 	fReturn = GetNumberOfActiveWorldItemsFromTempFile( sMapX, sMapY, bMapZ, &( uiTotalNumberOfRealItems ) );
-	if (fReturn == false)
+	if (fReturn == TRUE)
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("GetNumberOfActiveWorldItemsFromTempFile failed" ) );
 		Assert( fReturn );
-	}
+	}*/
 
 	fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &( uiTotalNumberOfItems ), FALSE );
-	if (fReturn == false)
+	if (fReturn == TRUE)
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("GetNumberOfWorldItemsFromTempItemFile failed" ) );
 		Assert( fReturn );
@@ -3399,7 +3406,8 @@ void SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( INT16 sMapX, INT
 	}
 
 	// now run through list and
-	for( iCounter = 0; ( UINT32 )( iCounter )< uiTotalNumberOfRealItems; iCounter++ )
+	//for( iCounter = 0; ( UINT32 )( iCounter )< uiTotalNumberOfRealItems; iCounter++ )
+	for( iCounter = 0; iCounter < uiTotalNumberOfItems; iCounter++ )
 	{
 		// if visible to player, then state fact
 		if( IsMapScreenWorldItemVisibleInMapInventory( &pTotalSectorList[ iCounter ] ) )

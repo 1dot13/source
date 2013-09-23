@@ -11,8 +11,14 @@
 #define		RT_FIRST_AID_GAIN_MODIFIER					12
 
 
-#define		NUM_REAL_SEC_PER_TACTICAL_TURN						5000										
+#ifndef NUM_SEC_IN_MIN
+#define NUM_SEC_IN_MIN 60
+#endif
 
+#define		NUM_REAL_SEC_PER_TACTICAL_TURN						5000
+
+#define		NUM_SEC_PER_STRATEGIC_TURN					( NUM_SEC_IN_MIN * 15 )	// Every fifteen minutes
+#define		NUM_SEC_PER_TACTICAL_TURN					5
 #define		RT_COMPRESSION_TACTICAL_TURN_MODIFIER			10										
 
 

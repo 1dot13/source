@@ -307,7 +307,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	// HEADROCK Changed this line to accept outside influence through the new boolean:
 	//if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE)
 	// HEADROCK HAM 3.6: OK, let's always render this panel, as long as the team inventory screen isn't open.
-	if ( fMapScreenBottomDirty || !fShowInventoryFlag )
+	if ( fMapScreenBottomDirty || (!fShowInventoryFlag && fForceMapscreenFullRender))
 	{
 		// get and blt panel
 		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );

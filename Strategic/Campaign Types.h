@@ -470,7 +470,7 @@ typedef struct SECTORINFO
 	// Replacing these variables with the ones above. They really are unused.
 	//UINT16	usUNUSEDMilitiaLevels;					// unused (ARM)
 	//UINT8	ubUNUSEDNumberOfJoeBlowCivilians;		// unused (ARM)
-	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
+	UINT32	uiTimeCurrentSectorWasLastLoaded;		//in game minutes, Specifies the last time the player was in the sector.
 	UINT8	ubUNUSEDNumberOfEnemiesThoughtToBeHere;	// using bLastKnownEnemies instead
 	UINT32	uiTimeLastPlayerLiberated;				//in game seconds (used to prevent the queen from attacking for awhile)
 

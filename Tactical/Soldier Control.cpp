@@ -13807,6 +13807,7 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 	return( FALSE );
 }
 
+extern void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UINT16 naturalDirt = 100, BOOLEAN isUnderground = TRUE );
 // Flugente: Cool down/decay all items in inventory
 void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 {
@@ -13865,6 +13866,16 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 	if ( !gGameExternalOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
 		return;
 
+#if TRUE //start reusing existing code from HandleItemCooldownFunctions, set to FALSE if original code should be used
+	INT8 numStacks = (INT8)this->inv.size();											// remember inventorysize, so we don't call size() repeatedly
+	extern UINT32 guiLastTacticalRealTime, guiLastStrategicTime;
+	UINT32 secondsPassed = 5;//GetJA2Clock() > guiLastTacticalRealTime? (GetJA2Clock() - guiLastTacticalRealTime)/1000 : 0;
+	for ( INT8 bLoop = 0; bLoop < numStacks; ++bLoop)									// ... for all items in our inventory ...
+	{
+		HandleItemCooldownFunctions( &(this->inv[bLoop]), secondsPassed );
+	}
+
+#else //start using original redundant code
 	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
 	FLOAT fooddecaymod = gGameExternalOptions.sFoodDecayModificator;
 
@@ -13966,6 +13977,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown(void)
 			}
 		}
 	}
+#endif //end using original code
 }
 
 // Flugente: determine if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)

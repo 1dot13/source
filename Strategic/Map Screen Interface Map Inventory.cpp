@@ -31,6 +31,7 @@
 	#include "interface panels.h"
 	#include "wordwrap.h"
 	#include "Soldier macros.h"
+	#include "rt time defines.h"
 #endif
 
 #include "ShopKeeper Interface.h"
@@ -798,10 +799,16 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		// Flugente: certain features need to alter an item's temperature value depending on the time passed
 		// if we do these functions here and adjust for the time passed since this sector was loaded last, it will seem to the player
 		// as if these checks are always performed in any sector
-		SectorInventoryCooldownFunctions(sSelMapX, sSelMapY, ( INT16 )( iCurrentMapSectorZ ));
+		//Moa: removed this function and replaced by HandleSectorCooldownFunctions() below
+		//SectorInventoryCooldownFunctions(sSelMapX, sSelMapY, ( INT16 )( iCurrentMapSectorZ ));
 
 		// build stash
 		BuildStashForSelectedSector( sSelMapX, sSelMapY, ( INT16 )( iCurrentMapSectorZ ) );
+
+		//Moa: added the handling function instead of SectorInventoryCooldown, which has loaded the items from the tempfile (loading also done in BuildStashForSelectedSector)
+		HandleSectorCooldownFunctions( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ, (WORLDITEM*) &(*pInventoryPoolList.begin()) , pInventoryPoolList.size(), TRUE );
+		//SetLastTimePlayerWasInSector( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ );
+		//SaveWorldItemsToTempItemFile( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ, pInventoryPoolList.size(), (WORLDITEM*) &(*pInventoryPoolList.begin()) );
 
 		// HEADROCK HAM 5: Reset all BigItem image numbers, just in case.
 		ResetAllMapInventoryBigItemGraphics();
@@ -851,6 +858,9 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 
 		// clear up unseen list
 		ClearUpTempUnSeenList( );
+
+		// undo item decay (will be saved once and only when entering sector)
+		HandleSectorCooldownFunctions( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ, (WORLDITEM*) &(*pInventoryPoolList.begin()) , pInventoryPoolList.size(), TRUE , TRUE);
 
 		// now save results
 		SaveSeenAndUnseenItems( );
@@ -912,7 +922,98 @@ void ClearUpTempUnSeenList( void )
 	return;
 }
 
+//////////////////////////////////////
+//@brief Saves pSaveList and pInventoryPoolList either into file or into memmory.
+// Takes any existing items from pInventoryPoolList and all items from pSaveList to save same into
+// file if map is not loaded or memmory if the map is loaded. Make sure to remove all filters before
+// calling this function!
+//
+// Globals which get modified:
+//	WORLDITEM* pSaveList						...If successfull pSaveList gets cleared
+//	UINT32 uiNumberOfUnSeenItems				...and uiNumberOfUnSeenItems set to 0.
+//
+// Globals used to save the list:
+//	INT16 gWorldSectorX,gWorldSectorY
+//	INT8 gWorldSectorZ							...Current loaded sector.
+//	INT32 sSelMapX, sSelMapY
+//	INT32 iCurrentMapSectorZ					...Current selected sector.
+//	std::vector<WORLDITEM> pInventoryPoolList	...The stash of unfiltered Items.
+// Notes:
+// The original function had set the visible and exist flag for every worlditem which had existing objects, 
+// also it has set the WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT using TileIsOutOfBounds() but this is not
+// possible since we dont know the boundaries of a unloaded sector, occationally some data got lost. For
+// loaded maps this check was not performed...
+// In case this function should mimic the old behavier activate the preprocessor instruction(s), in this case
+// those checks ARE performed for loaded maps.
+//@auth SirTech
+//@auth (merged into single loop by Moa)
+//////////////////////////////////////
 void SaveSeenAndUnseenItems( void )
+{
+	std::vector<WORLDITEM> worldItemsSaveList;	//exists() on front and exists() && visible != 0 on back.
+	UINT32 iExistingItems = 0;	//fExists
+
+	//build save list and add flag WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT if required.
+	worldItemsSaveList.reserve( pInventoryPoolList.size() + uiNumberOfUnSeenItems );
+
+	if ( worldItemsSaveList.capacity() == 0 ) //nothing to do anyways so get out of here
+		return;
+
+	//make list of seen items
+	for ( UINT32 i = 0; i < pInventoryPoolList.size(); i++ )
+	{
+#if 0
+		if ( pInventoryPoolList[ i ].object.exists() )
+		{
+			pInventoryPoolList[ i ].fExists = TRUE;
+			pInventoryPoolList[ i ].bVisible = TRUE;
+			//Check		
+			if(TileIsOutOfBounds( pInventoryPoolList[ i ].sGridNo) && !( pInventoryPoolList[ i ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
+			{
+				pInventoryPoolList[ i ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+
+			// Display warning.....
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Error: Trying to add item ( %d: %s ) to invalid gridno in unloaded sector. Please Report.", pInventoryPoolList[ i ].object.usItem, ItemNames[ pInventoryPoolList[ i ].object.usItem] );
+			}
+		
+#else
+		if ( pInventoryPoolList[i].fExists )
+		{
+#endif
+			worldItemsSaveList.push_back(pInventoryPoolList[i]);
+			iExistingItems++;
+		}
+	}
+
+	//check whether memmory (loaded map) or file is used to save the items
+	if( ( gWorldSectorX == sSelMapX ) && ( gWorldSectorY == sSelMapY ) && ( gbWorldSectorZ == ( INT8 ) ( iCurrentMapSectorZ ) ) )
+	{
+		//handle in existing function
+		ReBuildWorldItemStashForLoadedSector( iExistingItems, uiNumberOfUnSeenItems, &(*worldItemsSaveList.begin()), pSaveList );
+	}
+	else
+	{
+		//copy remaining unseen items into savelist
+		if ( uiNumberOfUnSeenItems > 0 && pSaveList != NULL)
+			worldItemsSaveList.insert( worldItemsSaveList.end(), pSaveList, pSaveList + uiNumberOfUnSeenItems );
+
+		//save the items to file (skipping all checks of AddWorldItemsToUnLoadedSector(), allready done here!, also we do not delete the file before we overwrite)
+		if ( !SaveWorldItemsToTempItemFile( sSelMapX, sSelMapY, ( INT8 ) iCurrentMapSectorZ, uiNumberOfUnSeenItems + iExistingItems, &(*worldItemsSaveList.begin()) ) )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Error: Could not save %d seen and %d unseen items to disc! Please Report.", iExistingItems, uiNumberOfUnSeenItems );
+			return;
+		}
+	}
+	uiNumberOfUnSeenItems = 0;
+	if( pSaveList != NULL )
+	{
+		delete[] ( pSaveList );
+		pSaveList = NULL;
+	}
+}
+
+//original Sirtech function, modified once in rev1325
+void SaveSeenAndUnseenItems_OLD( void )
 {
 	WORLDITEM *pSeenItemsList = NULL;
 	UINT32 iCounter = 0;
@@ -1466,7 +1567,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				BeginInventoryPoolPtr( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ) );
 		}
 		else
-		{
+		{//we have an item on cursor
 
 			// if in battle inform player they will have to do this in tactical
 //			if( ( gTacticalStatus.fEnemyInSector ) ||( ( sSelMapX == gWorldSectorX ) && ( sSelMapY == gWorldSectorY ) && ( iCurrentMapSectorZ == gbWorldSectorZ ) && ( gTacticalStatus.uiFlags & INCOMBAT ) ) )
@@ -1814,8 +1915,8 @@ void DestroyMapInventoryButtons( void )
 	return;
 }
 
-
-void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+INT32 GetSizeOfStashInSector_OLD( INT16 sMapX, INT16 sMapY, INT16 sMapZ, BOOLEAN fCountStacksAsOne );
+void BuildStashForSelectedSector_OLD( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 {
 	INT32 iSize = 0;
 	UINT32 uiItemCount = 0;
@@ -1829,7 +1930,7 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 //	#endif
 
 	// get size of the current stash in sector (count stacks as one item)
-	iSize = GetSizeOfStashInSector( sMapX, sMapY, sMapZ, TRUE );
+	iSize = GetSizeOfStashInSector_OLD( sMapX, sMapY, sMapZ, TRUE );
 
 	// round off .. we want at least 1 free page of space...
 	iSize = ((iSize / MAP_INVENTORY_POOL_SLOT_COUNT) + 1) * MAP_INVENTORY_POOL_SLOT_COUNT;
@@ -1982,6 +2083,219 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	SortSectorInventory( pInventoryPoolList, uiTotalNumberOfSeenItems );
 }
 
+
+////////////////////////////
+// @brief: Creates filtered and unfiltered lists for stash and stores them in global variables.
+//
+// If loaded sector matches the parameter sector globals are used to build the stash, otherwise the items are read from temp file (if any)
+// Globals used to build the stash
+//	INT32 MAP_INVENTORY_POOL_SLOT_COUNT			...Number of Slots per page.
+//	INT16 gWorldSectorX,gWorldSectorY
+//	INT8 gWorldSectorZ							...Current loaded sector.
+//	UINT32 guiNumWorldItems						...Number of itemsstacks in the loaded sector.
+//	WORLDITEM * gWorldItems						...Global dynamic array of itemstacks in the loaded sector.
+//
+// Globals used to save the lists:
+//	INT32 iLastInventoryPoolPage				...page index where still one item is displayed (0..)
+//	std::vector<WORLDITEM> pInventoryPoolList	...Stores unfiltered items and itemstacks of the sector (only items that return TRUE for @see IsMapScreenWorldItemVisibleInMapInventory() ) vector.size() is 1 + a multiple of MAP_INVENTORY_POOL_SLOT_COUNT.
+//	UINT32 uiNumberOfUnSeenItems				...Number of filtered items in that sector (only items that exist and return TRUE for @see IsMapScreenWorldItemInvisibleInMapInventory() ).
+//	WORLDITEM *pUnSeenItems						...Stores filtered items in that sector
+//
+// @calls CheckGridNoOfItemsInMapScreenMapInventory(), SortSectorInventory()
+// @Todo: remove CheckGridNoOfItemsInMapScreenMapInventory() by identifying the root cause of the missing flag
+//@auth SirTech, ChrisL
+//@auth (merged into single loop by Moa)
+////////////////////////////
+void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+{
+	
+	UINT32 fNumTotal = 0, fNumShown = 0, fNumFiltered = 0, fNumFlagsSet = 0; //itemstack count
+	std::vector<WORLDITEM> fFilteredItems;	//store filtered items to be converted later to an array.
+	std::vector<WORLDITEM> fWorldItems;		//store everything here what we can get (WORLDITEM.fExists == TRUE)
+	// pInventoryPoolList //store unfiltered items directly into the global
+
+
+	// if map is allready loaded use gWorldItems[] and guiNumWorldItems to build lists
+	if( ( sMapX == gWorldSectorX )&&( gWorldSectorY == sMapY ) &&(gbWorldSectorZ == sMapZ ) )
+	{
+		// approximate capacitiy
+		fFilteredItems.reserve( 50 ); //since we are building the stash from blank, there is probably no filter set and only few items get into fFilteredItems
+		fWorldItems.reserve(guiNumWorldItems);
+		// start with empty list (global)
+		pInventoryPoolList.clear( );
+		pInventoryPoolList.reserve( MAP_INVENTORY_POOL_SLOT_COUNT * ( 1 + (guiNumWorldItems/MAP_INVENTORY_POOL_SLOT_COUNT) ) );
+
+
+		// sector loaded, just copy from list
+		for( UINT32 i = 0;  i < guiNumWorldItems; i++ )
+		{
+			
+			if( IsMapScreenWorldItemVisibleInMapInventory( &gWorldItems[ i ] ) )
+			{
+				if( ( gWorldItems[i].object.exists() == true ) && ( TileIsOutOfBounds(gWorldItems[ i ].sGridNo) ) && !( gWorldItems[ i ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )		
+				{
+					//set the flag
+#ifndef _DEBUG
+					pInventoryPoolList[ i ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+#endif
+					fNumFlagsSet++;
+				}
+				// unfiltered? add to visible and total list
+				pInventoryPoolList.push_back( gWorldItems[ i ] );
+				fWorldItems.push_back( gWorldItems[ i ] );
+
+				fNumShown++;
+			}
+			else if ( IsMapScreenWorldItemInvisibleInMapInventory( &gWorldItems[ i ] ) )
+			{ 
+				if( ( gWorldItems[i].object.exists() == true ) && ( TileIsOutOfBounds(gWorldItems[ i ].sGridNo) ) && !( gWorldItems[ i ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )		
+				{
+					//set the flag
+#ifndef _DEBUG
+					gWorldItems[ i ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+#endif
+					fNumFlagsSet++;
+				}				
+				// filtered? add to invisible and total list
+				fFilteredItems.push_back( gWorldItems[ i ] );
+				fWorldItems.push_back( gWorldItems[ i ] );
+			}
+			else if ( gWorldItems[ i ].fExists )
+			{
+				// dont skip it, we reuse this loop to create a complete list of all items
+				fWorldItems.push_back( gWorldItems[ i ] );
+#ifdef _DEBUG
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"The %d item in the list is hidden or does not exist.", i );
+#endif
+			}
+		}
+
+		// update countings
+		fNumTotal = fWorldItems.size();
+		fNumFiltered = fFilteredItems.size();
+		fNumShown = pInventoryPoolList.size();
+
+		// double check if counting was correct
+#ifdef JA2BETAVERSION
+		AssertGE( guiNumWorldItems, fNumTotal );
+		AssertGE( fNumTotal, fNumFiltered + fNumShown );
+#endif
+	}
+	else
+	{ // if map not loaded, use tempfile to build lists
+		
+		
+		BOOLEAN error;
+		// get total number of itemstacks from temp file...
+		error = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, ( INT8 )( sMapZ ), &( fNumTotal ), FALSE );
+		Assert( error );
+
+		// ...and use this number to allocate space
+		fFilteredItems.reserve( 50 ); //since we are building the stash from blank, there is probably no filter set and only few items get into fFilteredItems, was 8 changed to 50 because of bobby ray
+		
+		//initialize at least one element to avoid null dereference of iterator
+		fWorldItems.resize(fNumTotal+1);
+
+		// start with empty list (global)
+		pInventoryPoolList.reserve( MAP_INVENTORY_POOL_SLOT_COUNT * ( 1 + (fNumTotal/MAP_INVENTORY_POOL_SLOT_COUNT) ) );
+		pInventoryPoolList.clear( );
+
+		// load items into fWorldItems vector
+		if ( !LoadWorldItemsFromTempItemFile( sMapX, sMapY, (INT8) sMapZ, &(*fWorldItems.begin()) ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadWorldItemsFromTempItemFile:  failed in BuildStashForSelectedSector()" ) );
+			return;
+		}
+
+		// was temporay used to get #items in file, now count what actually is added
+		fNumTotal = 0;
+		// now run through list and copy reference
+		for(UINT32 i = 0; i < fWorldItems.size(); i++ )
+		{
+			// TEST!!  If the item exists, and is NOT VALID, report it
+			if( fWorldItems[i].fExists &&  fWorldItems[ i ].object.usItem > MAXITEMS )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"The %d item in the list is NOT valid (ID%d). Please send save.  DF 1.", i, fWorldItems[i].object.usItem );
+			}
+
+			if( IsMapScreenWorldItemVisibleInMapInventory( &fWorldItems[ i ] ) )
+			{
+				if( ( fWorldItems[i].object.exists() == true ) && ( TileIsOutOfBounds(fWorldItems[ i ].sGridNo) ) && !( fWorldItems[ i ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )		
+				{
+					//set the flag
+#ifndef _DEBUG
+					fWorldItems[ i ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+#endif
+					fNumFlagsSet++;
+				}
+				// unfiltered? add to visible
+				pInventoryPoolList.push_back( fWorldItems[i] );
+				fNumTotal++;
+			}
+			else if ( IsMapScreenWorldItemInvisibleInMapInventory( &fWorldItems[ i ] ) )
+			{
+				if( ( fWorldItems[i].object.exists() == true ) && ( TileIsOutOfBounds(fWorldItems[ i ].sGridNo) ) && !( fWorldItems[ i ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )		
+				{
+					//set the flag
+#ifndef _DEBUG
+					fWorldItems[ i ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+#endif
+					fNumFlagsSet++;
+				}
+				// filtered? add to invisible and total list
+				fFilteredItems.push_back( fWorldItems[ i ] );
+				fNumTotal++;
+			}
+			else if ( fWorldItems[ i ].fExists )
+			{
+				// dont skip it, we reuse this loop to create a complete list of existing items
+				fNumTotal++;
+#ifdef _DEBUG
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"The %d item in the list does not exist.", i );
+#endif
+			}
+		}
+		// update countings
+		//fNumTotal = fWorldItems.size();
+		fNumFiltered = fFilteredItems.size();
+		fNumShown = pInventoryPoolList.size();
+
+		// double check if counting was correct
+#ifdef JA2BETAVERSION
+		AssertGE( fNumTotal, fNumFiltered + fNumShown );
+		AssertGE( fWorldItems.size(), fNumTotal );
+#endif
+	}// done with lists...
+
+
+	// ... set globals: set index for last page ...
+	iLastInventoryPoolPage = (INT32)(fNumShown / MAP_INVENTORY_POOL_SLOT_COUNT);
+
+	uiNumberOfUnSeenItems = fNumFiltered;
+
+	// to copy fFilteredItems (vector) to global (array)
+	if (uiNumberOfUnSeenItems > 0)
+	{
+		pUnSeenItems = new WORLDITEM[uiNumberOfUnSeenItems];//gets passed to pSaveList in ClearUpTempUnSeenList() and deleted by SaveSeenAndUnseenItems()
+		std::copy(fFilteredItems.begin(), fFilteredItems.end(), pUnSeenItems );
+	}
+	//resize globallist to a multiple of MAP_INVENTORY_POOL_SLOT_COUNT + one element (some other code does expect that)
+	pInventoryPoolList.resize(MAP_INVENTORY_POOL_SLOT_COUNT * (iLastInventoryPoolPage+1) );
+
+	// Report corrected flags / missing flags
+	if( fNumFlagsSet > 0 )
+	{
+#ifndef _DEBUG
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Item with invalid gridno doesnt have flag set:# %d, this was corrected.", fNumFlagsSet );
+#else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Item with invalid gridno doesnt have flag set:# %d, this was not corrected! Figure out why.", fNumFlagsSet );
+#endif
+	}
+
+	//Sort the sector inventory
+	SortSectorInventory( pInventoryPoolList, fNumShown );
+}
+
 void ReBuildWorldItemStashForLoadedSector( INT32 iNumberSeenItems, INT32 iNumberUnSeenItems, WORLDITEM *pSeenItemsList, WORLDITEM *pUnSeenItemsList )
 {
 	INT32 iTotalNumberOfItems = 0;
@@ -2048,8 +2362,8 @@ void DestroyStash( void )
 	pInventoryPoolList.clear();
 
 }
-
-INT32 GetSizeOfStashInSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ, BOOLEAN fCountStacksAsOne )
+//Moa: merged into BuildStashForSelectedSector
+INT32 GetSizeOfStashInSector_OLD( INT16 sMapX, INT16 sMapY, INT16 sMapZ, BOOLEAN fCountStacksAsOne )
 {
 	// get # of items in sector that are visible to the player
 	UINT32 uiTotalNumberOfItems = 0, uiTotalNumberOfRealItems = 0;
@@ -5223,8 +5537,9 @@ void HandleSetFilterButtons()
 	}
 }
 
+//Moa:moved code to CreateDestroyMapInventoryPoolButtons() and EnterSector() to decrease loading time
 // Flugente: handle various cooldown functions in a sector
-void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+/*void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 {
 	UINT32 uiTotalNumberOfRealItems = 0;
 	WORLDITEM * pTotalSectorList = NULL;
@@ -5270,12 +5585,114 @@ void SectorInventoryCooldownFunctions( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 
 	//Save the Items to the the file
 	SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
+}*/
+
+// @brief modifies data of items including, but not limited to: bDirtLevel, bTemperature (food/weapon overheat)
+// Uses various external parameters set in ini file(s) labeled under [Tactical Weapon Overheating Settings], [Tactical Food Settings], [Strategic Gameplay Settings](advanced repair/dirt system)
+// to calculate a delta decay and adds it to the itemStack.data
+// It is assumed that the itemStack consists of the same usItem.
+// Items can not have negative dirt and temperature (0 is used instead).
+// @param itemstack: A single item or a itemsstack which will be decayed (dirt, temperature) depending on ini settings.
+// @param seconds: Time passed in seconds for which the delta decay is calculated and added to the items in itemstack. Can handle up to +-2147483647/(60*60*24*365) ~ 68 years. This means you can pass in positive seconds to decay the items and negative seconds to undecay them.
+// @param naturalDirt: Dirt of the sector, if omitted default = 100 is used.
+// @param isUnderground: flag to reduce food decay in underground sectors to 80%, if omitted default = FALSE is used.
+// @auth origninal code by flugente
+// @auth Moa
+void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UINT16 naturalDirt, BOOLEAN isUnderground )
+{
+	INT32 tickspassed = deltaSeconds / NUM_SEC_PER_TACTICAL_TURN;//1 tick is 5 seconds
+
+	if ( tickspassed == 0 || !itemStack->exists() || 
+		!( gGameExternalOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem || gGameOptions.fFoodSystem ) )
+		return;
+	
+
+//original code by flugente, renamed variables to fit here, removed "min (OVERHEATING_MAX_TEMPERATURE, newValue)" for dirt to allow to go beyond maximum and deduct later the same amount if neccessary.
+	// ... if we use overheating and item is a gun, a launcher or a barrel ...
+	if ( gGameExternalOptions.fWeaponOverheating && ( Item[itemStack->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[itemStack->usItem].barrel == TRUE ) )
+	{
+		for(INT16 i = 0; i < itemStack->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
+		{
+			FLOAT guntemperature = (*itemStack)[i]->data.bTemperature;	// ... get temperature ...
+
+			FLOAT cooldownfactor = GetItemCooldownFactor(itemStack);		// ... get item cooldown factor provided of attachments ...
+
+			if ( Item[itemStack->usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
+				cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
+
+			FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor );	// ... calculate new temperature ...
+
+#if 0//def JA2TESTVERSION
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature );
+#endif
+
+			(*itemStack)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
+
+			// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel weapons), and cool them down too
+			attachmentList::iterator iterend = (*itemStack)[i]->attachments.end();
+			for (attachmentList::iterator iter = (*itemStack)[i]->attachments.begin(); iter != iterend; ++iter) 
+			{
+				if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
+				{
+					FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
+
+					FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
+
+					FLOAT newtemperature = max(0.0f, temperature - tickspassed * cooldownfactor );	// ... calculate new temperature ...
+
+					(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
+
+#if 0//def JA2TESTVERSION
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
+#endif
+
+					// we assume that there can exist only 1 underbarrel weapon per gun
+					break;
+				}
+			}
+		}
+	}//end overheating
+
+	// ... if it is a weapon or armor and dirt system is active ...
+	if ( gGameExternalOptions.fDirtSystem && ( (Item[ itemStack->usItem ].usItemClass & IC_WEAPON) || (Item[ itemStack->usItem ].usItemClass & IC_ARMOUR) ) )
+	{
+		FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor( itemStack, FALSE );			// ... get dirt increase factor ...
+
+		// the current sector determines how much dirt increases
+		dirtincreasefactor *= (naturalDirt)/100;
+
+		dirtincreasefactor /= gGameExternalOptions.usSectorDirtDivider;
+
+		if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
+		{
+			for( INT16 i = 0; i < itemStack->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
+			{
+				(*itemStack)[i]->data.bDirtLevel = max(0.0f, (*itemStack)[i]->data.bDirtLevel + tickspassed * dirtincreasefactor );	// set new dirt value
+			}
+		}
+	}//end dirt stuff
+
+	// ... if it is food and the food system is active ...
+	if ( gGameOptions.fFoodSystem && Item[ itemStack->usItem ].foodtype > 0 )
+	{
+		if ( Food[ Item[ itemStack->usItem ].foodtype ].usDecayRate > 0.0f )		// ... if the food can decay...
+		{
+			// if in undergound sector the food will decay less
+			FLOAT sectorModifier = gGameExternalOptions.sFoodDecayModificator * ( isUnderground? 0.8f : 1.0f );
+
+			for( INT16 i = 0; i < itemStack->ubNumberOfObjects; ++i )			// ... there might be multiple items here (item stack), so for each one ...
+			{						
+				(*itemStack)[i]->data.bTemperature = max( 0.0f, (*itemStack)[i]->data.bTemperature - tickspassed * sectorModifier * Food[ Item[ itemStack->usItem ].foodtype ].usDecayRate );	// set new temperature
+			}
+		}
+	}//end food
 }
 
-// Flugente: handle various cooldwon functions over an array of items in a specific sector. 
+// Flugente: handle various cooldown functions over an array of items in a specific sector. 
 // if fWithMinutes = true, adjust cooldown for time since sector was last entered
 // otherwise its used for a turn-precise cooldown
-void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes )
+//Moa: code inside pWorldItem loop moved to HandleItemCooldownFunctions, added optional fUndo flag to undecay items (default = FALSE)
+void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDITEM* pWorldItem, UINT32 size, BOOLEAN fWithMinutes, BOOLEAN fUndo )
 {
 	// if not using overheating or food system, no point in all this
 	if ( !gGameExternalOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
@@ -5318,6 +5735,10 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 	
 	for( UINT32 uiCount = 0; uiCount < size; ++uiCount )				// ... for all items in the world ...
 	{
+		HandleItemCooldownFunctions( &(pWorldItem[ uiCount ].object), tickspassed * ( fUndo ? -NUM_SEC_PER_TACTICAL_TURN : NUM_SEC_PER_TACTICAL_TURN ), sectormod, (sMapZ > 0) );
+		
+//moved to HandleItemCooldownFunctions to reuse those calculations (see SOLDIERTYPE::SoldierInventoryCoolDown())
+/*
 		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
 		{
 			OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
@@ -5399,5 +5820,6 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, WORLDI
 				}
 			}
 		}
+*/
 	}
 }

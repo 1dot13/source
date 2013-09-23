@@ -1875,6 +1875,11 @@ void DebugStructurePage1( void )
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"DDoorRt with orientation %s", WallOrientationString[pStructure->ubWallOrientation] );
 		}
+		else if (pStructure->fFlags & STRUCTURE_PERSON)
+		{
+			if (pStructure->pDBStructureRef != NULL && pStructure->pDBStructureRef->pDBStructure != NULL)
+				gprintf( 0, LINE_HEIGHT * 1, L"PersonStructure with StructureNumber %d", pStructure->pDBStructureRef->pDBStructure->usStructureNumber );
+		}
 		else
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"UNKNOWN STRUCTURE! (%x)", pStructure->fFlags );
