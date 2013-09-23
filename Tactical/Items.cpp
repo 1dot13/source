@@ -3137,7 +3137,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 
 	// HEADROCK HAM 3: STR required per 1/2 kilo has been externalized. Can someone tidy this up though? The
 	// formula works great, but it's damn ugly now.
-	uiPercent = (UINT32)(((FLOAT)10 * (FLOAT)gGameExternalOptions.iStrengthToLiftHalfKilo) * uiTotalWeight) / ( ubStrengthForCarrying / 2 );
+	uiPercent = (UINT32)(((FLOAT)20 * (FLOAT)gGameExternalOptions.iStrengthToLiftHalfKilo) * uiTotalWeight) / ( ubStrengthForCarrying );
 
 	return( uiPercent );
 
