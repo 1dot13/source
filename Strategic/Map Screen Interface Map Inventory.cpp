@@ -985,7 +985,11 @@ void SaveSeenAndUnseenItems( void )
 		}
 	}
 
-	//check whether memmory (loaded map) or file is used to save the items
+	// no items to save but we need an iterator
+	if ( worldItemsSaveList.size() == 0 )
+		worldItemsSaveList.resize(1);
+
+	//check whether memory (loaded map) or file is used to save the items
 	if( ( gWorldSectorX == sSelMapX ) && ( gWorldSectorY == sSelMapY ) && ( gbWorldSectorZ == ( INT8 ) ( iCurrentMapSectorZ ) ) )
 	{
 		//handle in existing function
