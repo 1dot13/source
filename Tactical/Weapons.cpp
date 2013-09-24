@@ -1938,7 +1938,10 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	if ( Item[ usUBItem ].usItemClass == IC_GUN )
 	{
 		// lalien: search for barrel extender not for any item with range bonus. (else barrel extender will fall off even when none is attached)
-		OBJECTTYPE* pAttachment = FindAttachment( pObjHand, GUN_BARREL_EXTENDER );
+		// silversurfer: Instead of searching for one single item we can also search for attachment class "AC_EXTENDER". 
+		// With this a barrel extender doesn't need to have item ID 310 anymore.
+		//OBJECTTYPE* pAttachment = FindAttachment( pObjHand, GUN_BARREL_EXTENDER );
+		OBJECTTYPE* pAttachment = FindAttachmentByAttachmentClass( pObjHand, AC_EXTENDER );
 
 		if ( pAttachment )
 		{
@@ -2531,7 +2534,10 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	if ( Item[ usUBItem ].usItemClass == IC_GUN )
 	{
 		// lalien: search for barrel extender not for any item with range bonus. (else barrel extender will fall off even when none is attached)
-		OBJECTTYPE* pAttachment = FindAttachment( pObjUsed, GUN_BARREL_EXTENDER );
+		// silversurfer: Instead of searching for one single item we can also search for attachment class "AC_EXTENDER". 
+		// With this a barrel extender doesn't need to have item ID 310 anymore.
+		//OBJECTTYPE* pAttachment = FindAttachment( pObjUsed, GUN_BARREL_EXTENDER );
+		OBJECTTYPE* pAttachment = FindAttachmentByAttachmentClass( pObjUsed, AC_EXTENDER );
 
 		if ( pAttachment->exists() )
 		{

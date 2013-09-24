@@ -191,6 +191,7 @@ void SwapOutHandItem( SOLDIERTYPE * pSoldier );
 void SwapHandItems( SOLDIERTYPE * pSoldier );
 
 OBJECTTYPE* FindAttachmentByClass( OBJECTTYPE * pObj, UINT32 uiItemClass, UINT8 subObject = 0 );
+OBJECTTYPE* FindAttachmentByAttachmentClass( OBJECTTYPE * pObj, UINT32 uiAttachmentClass, UINT8 subObject = 0 );
 void WaterDamage( SOLDIERTYPE *pSoldier );
 
 INT8 FindObj( SOLDIERTYPE * pSoldier, UINT16 usItem, INT8 bLower = 0, INT8 bUpper = NUM_INV_SLOTS );

@@ -1914,6 +1914,19 @@ OBJECTTYPE* FindAttachmentByClass( OBJECTTYPE * pObj, UINT32 uiItemClass, UINT8 
 	return( 0 );
 }
 
+OBJECTTYPE* FindAttachmentByAttachmentClass( OBJECTTYPE * pObj, UINT32 uiAttachmentClass, UINT8 subObject )
+{
+	if (pObj->exists() == true) {
+		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
+			if (Item[iter->usItem].attachmentclass == uiAttachmentClass && iter->exists())
+			{
+				return &(*iter);
+			}
+		}
+	}
+	return( 0 );
+}
+
 INT8 FindLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 {
 	INT8	bLoop;
