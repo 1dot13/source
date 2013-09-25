@@ -1169,7 +1169,7 @@ void CreateDestroyScreenMaskForPauseGame( void )
 
 		//re create region on top of this
 		RemoveMouseRegionForPauseOfClock( );
-		CreateMouseRegionForPauseOfClock( sX, sY );
+		CreateMouseRegionForPauseOfClock( sX + CLOCK_REGION_OFFSET_X, sY + CLOCK_REGION_OFFSET_Y );
 
 		SetRegionFastHelpText( &gClockMouseRegion, pPausedGameText[ 1 ] );
 
