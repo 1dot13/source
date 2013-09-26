@@ -46071,7 +46071,7 @@
 		<szBRDesc>Don't waste time putting your rifle back into your inventory. With this you can just drop your rifle and grab your trusted sidearm.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>524288</AttachmentClass>
-		<nasAttachmentClass>128</nasAttachmentClass>
+		<nasAttachmentClass>256</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>35</ubGraphicNum>
