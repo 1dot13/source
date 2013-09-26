@@ -7089,23 +7089,23 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 					// stop the merc...
 					MercPtrs[ ubID ]->EVENT_StopMerc( MercPtrs[ ubID ]->sGridNo, MercPtrs[ ubID ]->ubDirection );
 
-					switch( sGridNo )
+					if ( sGridNo == gModSettings.iCarlaDoorGridNo +1 )
 					{
-					case 13414:
-						sDoorSpot = 13413;
-						sTeleportSpot = 13413;
-						break;
-					case 11174:
-						sDoorSpot = 11173;
-						sTeleportSpot = 11173;
-						break;
-					case 12290:
-						sDoorSpot = 12290;
-						sTeleportSpot = 12291;
-						break;
-
-					default:
-
+						sDoorSpot = gModSettings.iCarlaDoorGridNo;
+						sTeleportSpot = gModSettings.iCarlaDoorGridNo;
+					}
+					else if ( sGridNo == gModSettings.iCindyDoorGridNo +1 )
+					{
+						sDoorSpot = gModSettings.iCindyDoorGridNo;
+						sTeleportSpot = gModSettings.iCindyDoorGridNo;
+					}
+					else if ( sGridNo == gModSettings.iBambiDoorGridNo )
+					{
+						sDoorSpot = gModSettings.iBambiDoorGridNo;
+						sTeleportSpot = gModSettings.iBambiDoorGridNo +1;
+					}
+					else
+					{
 						sDoorSpot = NOWHERE;
 						sTeleportSpot = NOWHERE;
 					}
