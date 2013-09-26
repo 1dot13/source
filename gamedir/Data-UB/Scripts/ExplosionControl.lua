@@ -201,7 +201,7 @@ end
 
 -- Sex with Prostitute
 if ActionID == 14 then
-	ACTION_ITEM_SEX ()
+	ACTION_ITEM_SEX (sGridNo)
 end
 
 -- Reveal Room
