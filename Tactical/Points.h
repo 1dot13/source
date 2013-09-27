@@ -295,7 +295,7 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 INT16  MinPtsToMove(SOLDIERTYPE *pSoldier);
 INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode );
 INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection );
-UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddingTurningCost);
+UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddingTurningCost, INT8 bDesiredHeight=0);//dnl ch72 190913
 UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost, INT32 iTargetGridNum, INT16 bAimTime );
 INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost = 0 );
 BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos );

@@ -4342,7 +4342,12 @@ BOOLEAN CheckForImproperFireGunEnd( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon( &pSoldier->inv[ HANDPOS ] );
+	//dnl ch72 260913
+	OBJECTTYPE *pObjHand;
+	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)
+		pObjHand = FindAttachment_GrenadeLauncher(&pSoldier->inv[HANDPOS]);
+	else
+		pObjHand = pSoldier->GetUsedWeapon(&pSoldier->inv[HANDPOS]);
 
 	// Check single hand for jammed status, ( or ammo is out.. )
 	if ( (*pObjHand)[0]->data.gun.bGunAmmoStatus < 0 || (*pObjHand)[0]->data.gun.ubGunShotsLeft == 0 )

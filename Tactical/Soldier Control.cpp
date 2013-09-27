@@ -4908,6 +4908,18 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 	// Convert our grid-not into an XY
 	ConvertGridNoToXY( sTargetGridNo, &sTargetXPos, &sTargetYPos );
 
+	//dnl ch72 2509134
+	UINT16 usItem;
+	if(this->bWeaponMode == WM_ATTACHED_GL || this->bWeaponMode == WM_ATTACHED_GL_BURST || this->bWeaponMode == WM_ATTACHED_GL_AUTO)
+		usItem = GetAttachedGrenadeLauncher(&this->inv[HANDPOS]);
+	else
+		usItem = this->inv[HANDPOS].usItem;
+	if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)
+	{
+		if(gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND)
+			SendChangeSoldierStanceEvent(this, ANIM_CROUCH);
+		fDoFireRightAway = TRUE;
+	}
 
 	// Change to fire animation
 	// Ready weapon
@@ -4960,6 +4972,7 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 			}
 			else
 			{
+#if 0//dnl ch72 250913 move this above as need to be done before calling SoldierReadyWeapon
 				// IF WE ARE IN REAl-TIME, FIRE IMMEDIATELY!
 				if ( ( ( gTacticalStatus.uiFlags & REALTIME ) || !( gTacticalStatus.uiFlags & INCOMBAT ) ) )
 				{
@@ -4978,7 +4991,7 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 					fDoFireRightAway = TRUE;
 				//		break;
 				//}
-
+#endif
 				if ( fDoFireRightAway )
 				{
 					// Set to true so we don't get toasted twice for APs..
@@ -5391,15 +5404,17 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 		{
 			usAnimState = this->usAnimState;
 		}
-
+		//dnl ch72 270913 ugly but fast fix for not charging turning APs as there is no fire ready animation for mortars and rocket launchers
+		UINT16 usItem = this->inv[HANDPOS].usItem;
+		if(Item[usItem].rocketlauncher || Item[usItem].mortar)
+			usForceAnimState = this->usAnimState;
 		EVENT_InternalSetSoldierDesiredDirection( this, sFacingDir, FALSE, usAnimState );
-
+		usForceAnimState = INVALID_ANIMATION;
 		// Check if facing dir is different from ours and change direction if so!
 		//if ( sFacingDir != this->ubDirection )
 		//{
 		//	DeductPoints( this, APBPConstants[AP_CHANGE_FACING], 0 );
 		//}//
-
 	}
 
 	return( fReturnVal );

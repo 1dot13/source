@@ -3824,7 +3824,7 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	INT8			bLoop;
 	UINT8			ubTargetID;
 	SOLDIERTYPE	*	pTargetSoldier;
-	INT16			sAPCost = 0;
+	//INT16			sAPCost = 0;//dnl ch72 180913
 
 	uiHitChance = CalcThrownChanceToHit( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, AIM_SHOT_TORSO );
 
@@ -3923,6 +3923,7 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, (INT16)(pSoldier->bTargetLevel * 256 ), &(pSoldier->inv[ HANDPOS ] ), (INT8)(uiDiceRoll - uiHitChance), THROW_ARM_ITEM, 0 );
 
+#if 0//dnl ch72 180913 bad idea to charge APs before stance and turn really occurs, this was not here in v1.12
 	//AXP 25.03.2007: Cleaned up throwing AP costs. Now only turning + stance change AP
 	//	costs are deducted. Final throw cost is deducted on creating the grenade object
 	if ( (UINT8)GetDirectionFromGridNo( sTargetGridNo, pSoldier ) != pSoldier->ubDirection )
@@ -3932,7 +3933,10 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	HandleSoldierThrowItem( pSoldier, pSoldier->sTargetGridNo );
 	DeductPoints( pSoldier, sAPCost, 0, AFTERSHOT_INTERRUPT );
 	pSoldier->inv[ HANDPOS ].RemoveObjectsFromStack(1);
-
+#else
+	HandleSoldierThrowItem(pSoldier, pSoldier->sTargetGridNo);
+	pSoldier->inv[HANDPOS].RemoveObjectsFromStack(1);
+#endif
 	/*
 	// Madd: Next 2 lines added: Deduct points!
 

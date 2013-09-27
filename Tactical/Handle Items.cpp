@@ -1651,7 +1651,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				return( ITEM_HANDLE_NOROOM );
 			}
 
-			pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;
+			//pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;//dnl ch72 270913 no reason why not charge for stance change
 		}
 		else if ( Item[usHandItem].grenadelauncher )//usHandItem == GLAUNCHER || usHandItem == UNDER_GLAUNCHER )
 		{
@@ -1699,10 +1699,10 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 //				gTacticalStatus.ubAttackBusyCount++;
 				DebugAttackBusy( "Weapon fire\n");
 
-
+				//dnl ch72 180913 decision is to charge for turning which was disabled in v1.12 also will turn off both options because is bad to charge APs before stance or turning really occurs
 				// ATE: Don't charge turning...
-				pSoldier->flags.fDontChargeTurningAPs = TRUE;
-				pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;
+				//pSoldier->flags.fDontChargeTurningAPs = TRUE;
+				//pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;
 
 				FireWeapon( pSoldier, sTargetGridNo );
 			}

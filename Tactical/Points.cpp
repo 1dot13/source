@@ -2087,25 +2087,33 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo
 	(*pfChargeRaise )	= fAddingRaiseGunCost;
 }
 
-UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddingTurningCost)
+UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddingTurningCost, INT8 bDesiredHeight)//dnl ch72 190913
 {
-	UINT16	usTurningCost = 0;
+	UINT16 usTrueAnimState, usTurningCost = 0;
 
-	if ( fAddingTurningCost )
+	if(fAddingTurningCost)
 	{
-		if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE )
+		usTrueAnimState = pSoldier->usAnimState;
+		switch(bDesiredHeight)
 		{
-			// SANDRO - Athletics trait check added
-			if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-				usTurningCost = max( 1, (INT16)((APBPConstants[AP_LOOK_STANDING] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/100) + 0.5));
-			else
-				usTurningCost = APBPConstants[AP_LOOK_STANDING];
+		case ANIM_STAND:
+			pSoldier->usAnimState = STANDING;
+			break;
+		case ANIM_CROUCH:
+			pSoldier->usAnimState = CROUCHING;
+			break;
+		case ANIM_PRONE:
+			pSoldier->usAnimState = PRONE;
+			break;
+		default:
+			break;
 		}
-		else
-			usTurningCost = GetAPsToLook( pSoldier );
+		if(Item[usItem].usItemClass == IC_THROWING_KNIFE)
+			pSoldier->usAnimState = STANDING;
+		usTurningCost = GetAPsToLook(pSoldier);
+		pSoldier->usAnimState = usTrueAnimState;
 	}
-
-	return usTurningCost;
+	return(usTurningCost);
 }
 
 UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost, INT32 iTargetGridNum, INT16 bAimTime )
@@ -2334,6 +2342,13 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 			}
 		}
+		else if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913 move this here from bottom, need to change as rocketlaucher could be fired from crouch too
+		{
+			if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
+				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_CROUCH);
+			else
+				bAPCost += GetAPsToChangeStance(pSoldier, gAnimControl[pSoldier->usAnimState].ubEndHeight);
+		}
 	}
 
 	if ( AM_A_ROBOT( pSoldier ) || TANK( pSoldier ) || ubForceRaiseGunCost == 2 )//dnl ch64 300813 robots and tanks cannot do this //dnl ch69 150913 need option to override raise gun cost
@@ -2346,7 +2361,17 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	{
 		// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
 		if ( !( ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE ) && usRange > 1 ) )
-			usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
+		{
+			if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913
+			{
+				if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
+					usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost, ANIM_CROUCH);
+				else
+					usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
+			}
+			else
+				usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
+		}
 	}
 
 	//Calculate usRaiseGunCost
@@ -2388,12 +2413,6 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	// this SHOULD be impossible, but nevertheless...
 	if ( bAPCost < 1 )
 		bAPCost = 1;
-
-	if ( Item[(*pObjUsed).usItem].rocketlauncher )
-	{
-		bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
-	}
-
 
 	return bAPCost;
 }
@@ -3188,7 +3207,10 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	UINT16 usItem;
 	UINT8 ubReadyAPs = 0;
 
-	usItem = pSoldier->inv[ HANDPOS ].usItem;
+	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)//dnl ch72 250913
+		usItem = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
+	else
+		usItem = pSoldier->inv[HANDPOS].usItem;
 
 	// If this is a dwel pistol anim
 	// ATE: What was I thinking, hooking into animations like this....
@@ -3525,6 +3547,7 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	INT32	iFullAPs;
 	INT32 iAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
 	UINT16 usInHand;
+#if 0//dnl ch72 180913
 	UINT16 usTargID;
 	UINT32 uiMercFlags;
 	UINT8 ubDirection;
@@ -3532,9 +3555,10 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)//dnl ch63 240813
 		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
 	else
+#endif
 		// make sure the guy's actually got a throwable item in his hand!
 		usInHand = pSoldier->inv[HANDPOS].usItem;
-
+#if 0//dnl ch72 180913 this goes down because of new trait system	
 	if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) &&
 		   !(Item[ usInHand ].usItemClass & IC_LAUNCHER)) )
 	{
@@ -3552,7 +3576,7 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 			return(0);
 		}
 	}
-	
+
 	if (!TileIsOutOfBounds(sGridNo))
 	{
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
@@ -3589,7 +3613,7 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	//}
 
 	//iAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND ); // moved lower - SANDRO
-
+#endif
 
 	// Calculate default top & bottom of the magic "aiming" formula)
 
@@ -3605,7 +3629,6 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	// bottom = (TOSSES_PER_10TURNS * (50 + (ptr->dexterity / 2)) / 10);
 	//else
 	iBottom = ( TOSSES_PER_10TURNS * (50 + ( pSoldier->stats.bDexterity / 2 ) ) / 10 );
-
 
 	// add minimum aiming time to the overall minimum AP_cost
 	//	 This here ROUNDS UP fractions of 0.5 or higher using integer math
@@ -3627,7 +3650,22 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 		}
 	}
 
-	iAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND ); // moved from above - SANDRO
+	// moved from above - SANDRO
+	//dnl ch72 180913 someone create throwing grenades from crouch so ANIM_STAND is not only stance for throwing, and as throwing object disappears from our hand when is thrown we need to determine desired height for turning cost
+	if(ubAddTurningCost && !TileIsOutOfBounds(sGridNo) && GetDirectionFromGridNo(sGridNo, pSoldier) != pSoldier->ubDirection)
+		ubAddTurningCost = TRUE;
+	else
+		ubAddTurningCost = FALSE;
+	if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+	{
+		iAPCost += GetAPsToChangeStance(pSoldier, ANIM_CROUCH);
+		iAPCost += CalculateTurningCost(pSoldier, usInHand, ubAddTurningCost, ANIM_CROUCH);
+	}
+	else
+	{
+		iAPCost += GetAPsToChangeStance(pSoldier, gAnimControl[pSoldier->usAnimState].ubEndHeight);
+		iAPCost += CalculateTurningCost(pSoldier, usInHand, ubAddTurningCost);
+	}
 
 	// the minimum AP cost of ANY throw can NEVER be more than merc has APs!
 	if ( iAPCost > iFullAPs )
@@ -3636,7 +3674,6 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	// this SHOULD be impossible, but nevertheless...
 	if ( iAPCost < 1 )
 		iAPCost = 1;
-
 
 	return ( (INT16)iAPCost );
 }
