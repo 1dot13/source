@@ -7269,12 +7269,12 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 
 	if( ( fShowRepairMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
-
-		if( ( fShowRepairMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
-		{
-	 //SetBoxPosition( ghRepairBox ,RepairPosition);
-		}
+		// Moa: removed below: repositioning now the same way as for training in AssignmentMenuBtnCB as it caused missplaced box for higher resolutions then 3.
+		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		//if( ( fShowRepairMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		//{
+		// //SetBoxPosition( ghRepairBox ,RepairPosition);
+		//}
 
 		// grab height of font
 		iFontHeight = GetLineSpace( ghRepairBox ) + GetFontHeight( GetBoxFont( ghRepairBox ) );
@@ -10232,8 +10232,8 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							if( DisplayRepairMenu( pSoldier ) )
 							{
 								fShowRepairMenu = TRUE;
+								DetermineBoxPositions( );
 							}
-
 						}
 
 					}
@@ -10285,6 +10285,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							if( DisplayMoveItemsMenu( pSoldier ) )
 							{
 								fShowMoveItemMenu = TRUE;
+								DetermineBoxPositions( );
 							}
 						}
 					}
@@ -11237,18 +11238,20 @@ void DetermineBoxPositions( void )
 
 	if( ( fShowRepairMenu == TRUE ) && ( ghRepairBox != -1 ) )
 	{
-		CreateDestroyMouseRegionForRepairMenu( );
+		//CreateDestroyMouseRegionForRepairMenu( );
 		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
 
 		SetBoxPosition( ghRepairBox, pNewPoint );
+		CreateDestroyMouseRegionForRepairMenu( );
 	}
 
 	if( ( fShowMoveItemMenu == TRUE ) && ( ghMoveItemBox != -1 ) )
 	{
-		CreateDestroyMouseRegionForMoveItemMenu( );
+		//CreateDestroyMouseRegionForMoveItemMenu( );
 		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
 
 		SetBoxPosition( ghMoveItemBox, pNewPoint );
+		CreateDestroyMouseRegionForMoveItemMenu( );
 	}
 		
 	if( ( fShowTrainingMenu == TRUE ) && ( ghTrainingBox != -1 ) )
@@ -17838,12 +17841,12 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 	
 	if( ( fShowMoveItemMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
-
-		if( ( fShowMoveItemMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
-		{
-			//SetBoxPosition( ghMoveItemBox ,RepairPosition);
-		}
+		// Moa: removed below: repositioning now the same way as for training in AssignmentMenuBtnCB as it caused missplaced box for higher resolutions then 3.
+		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		//if( ( fShowMoveItemMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		//{
+		// //SetBoxPosition( ghMoveItemBox ,RepairPosition);
+		//}
 
 		// grab height of font
 		iFontHeight = GetLineSpace( ghMoveItemBox ) + GetFontHeight( GetBoxFont( ghMoveItemBox ) );
