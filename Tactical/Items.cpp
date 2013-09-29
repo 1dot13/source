@@ -5151,6 +5151,32 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 				}
 				break;
 
+			case TRIPWIRE_ROLL:
+				{
+					// check if this can work
+					if ( Item[ this->usItem ].tripwire && Item[pAttachment->usItem].tripwire && Item[ this->usItem ].usItemFlag == TRIPWIREROLL )
+					{
+						if ( (*this)[subObject]->data.objectStatus < 100 )
+							(*this)[subObject]->data.objectStatus++;
+						else
+						{
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}
+
+						pAttachment->RemoveObjectsFromStack(1);
+					}
+					
+					//UINT16 usOldItem = this->usItem;
+					//this->usItem = usResult;
+
+					//WarmSteel - Replaced this with one that also checks default attachments, otherwise you could not replace built-in bonuses with default inseperable attachments.
+					//RemoveProhibitedAttachments(pSoldier, this, usResult);
+					//ReInitMergedItem(pSoldier, this, usOldItem, 0);
+				}
+				break;
+				// fall through
+
 			case ELECTRONIC_MERGE:
 				if ( pSoldier )
 				{
@@ -5312,6 +5338,12 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 				if ( ubType != TREAT_ARMOUR )
 				{
 					(*this)[subObject]->data.objectStatus = ((*this)[subObject]->data.objectStatus + (*pAttachment)[0]->data.objectStatus) / 2;
+
+					// Flugente: if the new item has the TRIPWIREROLL property, it only gets status 2 upon creation via merges
+					if ( Item[ this->usItem ].usItemFlag == TRIPWIREROLL )
+					{
+						(*this)[subObject]->data.objectStatus = 2;
+					}
 				}
 
 				//ADB ubWeight has been removed, see comments in OBJECTTYPE

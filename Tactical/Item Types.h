@@ -758,8 +758,8 @@ extern OBJECTTYPE gTempObject;
 #define SCUBA_MASK				0x00400000	//4194304	// item is a scuba gear breathing mask
 #define SCUBA_FINS				0x00800000	//8388608	// this item speed up swimming, but slows walking and running
 
-/*#define PLAYER_NET_1_LVL_3		0x01000000	//16777216
-#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
+#define TRIPWIREROLL			0x01000000	//16777216	// this item is a tripwire roll
+/*#define PLAYER_NET_2_LVL_3		0x02000000	//33554432
 #define PLAYER_NET_3_LVL_3		0x04000000	//67108864
 #define PLAYER_NET_4_LVL_3		0x08000000	//134217728
 
@@ -1156,6 +1156,9 @@ typedef struct
 
 	// Flugente: determine wether the AI should pick this item for its choices only at certain times
 	UINT8	usItemChoiceTimeSetting;
+
+	// Flugente: item is connected to another item. Type of connection depends on item specifics
+	UINT16	usBuddyItem;
 
 } INVTYPE;
 
@@ -1762,7 +1765,8 @@ typedef enum
 	TEMPERATURE,
 	EXPLOSIVE_MERGE_EASY, //Madd: new merge types
 	MECHANICAL_MERGE_EASY,
-	MECHANICAL_MERGE_HARD
+	MECHANICAL_MERGE_HARD,
+	TRIPWIRE_ROLL,
 } MergeType;
 
 extern UINT16 Merge[MAXITEMS+1][6];

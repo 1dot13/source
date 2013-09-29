@@ -4986,27 +4986,47 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				}
 			}
 
-			if ( ArmBomb( &(gpTempSoldier->inv[HANDPOS]), ubExitValue ) )
+			// Flugente: tripwire rolls are not planted - instead we spawn tripwire and plant that
+			OBJECTTYPE* pObj = &(gpTempSoldier->inv[HANDPOS]);
+			if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].usItemFlag & TRIPWIREROLL && Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].usBuddyItem != NOTHING )
+			{
+				(*pObj)[0]->data.objectStatus--;
+
+				if ( !(*pObj)[0]->data.objectStatus )
+				{
+					// Delete object
+					DeleteObj( pObj );
+
+					// dirty interface panel
+					DirtyMercPanelInterface( gpTempSoldier, DIRTYLEVEL2 );
+				}
+
+				CreateItem( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].usBuddyItem, 100, &gTempObject );
+
+				pObj = &gTempObject;
+			}
+
+			if ( ArmBomb( pObj, ubExitValue ) )
 			{
 				// SANDRO - STOMP traits - Demolitions bonus to trap level
 				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( gpTempSoldier, DEMOLITIONS_NT ))
 				{
 					// increase trap level for Demolitions trait
-					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
+					(*pObj)[0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
 				}
 				else
 				{
-					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) );
+					(*pObj)[0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) );
 				}
 
 				// Flugente: backgrounds
 				if ( gpTempSoldier->HasBackgroundFlag( BACKGROUND_TRAPLEVEL ) )
-					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap++;
+					(*pObj)[0]->data.bTrap++;
 				
 				// HACK IMMINENT!
 				// value of 1 is stored in maps for SIDE of bomb owner... when we want to use IDs!
 				// so we add 2 to all owner IDs passed through here and subtract 2 later
-				if (gpTempSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) 
+				if ( pObj != &(gpTempSoldier->inv[HANDPOS]) || gpTempSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) 
 				{
 					gTempObject[0]->data.misc.ubBombOwner = gpTempSoldier->ubID + 2;
 					gTempObject[0]->data.ubDirection = gpTempSoldier->ubDirection;		// Flugente: direction of bomb is direction of soldier
