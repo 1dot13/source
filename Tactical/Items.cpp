@@ -10321,9 +10321,11 @@ INT32 GetAimLevelsTraitModifier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	if( gGameOptions.fNewTraitSystem )
 	{
 		if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_PISTOL || Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_M_PISTOL )
-			ubSkillModifier -= NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
+			ubSkillModifier -= gSkillTraitValues.ubGSAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
+		else if ( Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN )
+			ubSkillModifier -= gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
 		else
-			ubSkillModifier -= NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
+			ubSkillModifier -= gSkillTraitValues.ubSNAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
 	}
 	else
 	{
@@ -13056,7 +13058,21 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 				aimLevels = 1;
 				maxAimWithoutBipod = 2;
 			}
-			else if (weaponType == GUN_SHOTGUN || weaponType == GUN_LMG || (weaponType == GUN_SMG && fTwoHanded == 1))
+			else if (weaponType == GUN_SHOTGUN)
+			{
+				maxAimForType = 3;
+				aimLevels = 2;
+				maxAimWithoutBipod = 3;
+
+				// silversurfer added this - STOMP traits - Ranger bonus aim clicks
+				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+				{
+					maxAimForType += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ));
+					aimLevels += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ));
+					maxAimWithoutBipod += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ));
+				}
+			}
+			else if (weaponType == GUN_LMG || (weaponType == GUN_SMG && fTwoHanded == 1))
 			{
 				maxAimForType = 3;
 				aimLevels = 2;
@@ -13244,6 +13260,13 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 				gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) )
 			{
 				aimLevels += (gSkillTraitValues.ubGSAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ));
+			}
+
+			// silversurfer added this - STOMP traits - Ranger bonus aim clicks
+			if ( weaponType == GUN_SHOTGUN &&
+				gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+			{
+				aimLevels += (gSkillTraitValues.ubRAAimClicksAdded * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ));
 			}
 
 			// SANDRO - if using alternative weapon holding, we reduce the aim levels available

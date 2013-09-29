@@ -146,6 +146,8 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"霰弹枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Shotguns\n",
 	L"泵动式霰弹上膛所需行动点 -%d%s \n",// L"-%d%s APs needed to pump Shotguns\n",
 	L"-%d%s APs to fire Shotguns\n",	//TODO.Translate
+	L"Adds %d more aim click for Shotguns\n",	//TODO.Translate
+	L"Adds %d more aim clicks for Shotguns\n",	//TODO.Translate
 	L"队伍在区域间步行移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling by foot\n",
 	L"队伍在区域间乘车移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",

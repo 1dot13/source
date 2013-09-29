@@ -353,6 +353,7 @@ enum Facts
 	FACT_PLAYER_STOLE_MEDICAL_SUPPLIES_AGAIN,//								151
 	FACT_VINCE_RECRUITABLE,//																	152
 
+	FACT_SLAY_OFFERED_DEAL =														155,
 	FACT_ALL_TERRORISTS_KILLED =															156,
 	FACT_ELGIN_ALIVE,//																				157
 

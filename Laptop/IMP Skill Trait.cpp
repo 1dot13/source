@@ -1989,34 +1989,43 @@ void AssignSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel )
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[3], ( gSkillTraitValues.ubRAFiringSpeedBonusShotguns * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
+				if( gSkillTraitValues.ubRAAimClicksAdded != 0 )
+				{
+					if( gSkillTraitValues.ubRAAimClicksAdded == 1 && !fExpertLevel )
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], ( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1)));
+					else
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], ( gSkillTraitValues.ubRAAimClicksAdded * (fExpertLevel ? 2 : 1)));
+
+					wcscat( apStr, atStr );
+				}
 				if( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot * (fExpertLevel ? 2 : 1)), L"%");
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[6], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle * (fExpertLevel ? 2 : 1)), L"%");
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[7], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubRABreathForTravellingReduction != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[6], ( gSkillTraitValues.ubRABreathForTravellingReduction * (fExpertLevel ? 2 : 1)), L"%");
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[8], ( gSkillTraitValues.ubRABreathForTravellingReduction * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubRAWeatherPenaltiesReduction != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[7], ( gSkillTraitValues.ubRAWeatherPenaltiesReduction * (fExpertLevel ? 2 : 1)), L"%");
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[9], ( gSkillTraitValues.ubRAWeatherPenaltiesReduction * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 			//	if( gSkillTraitValues.ubRACamoEffectivenessBonus != 0 )
 			//	{
-			//		swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[8], ( gSkillTraitValues.ubRACamoEffectivenessBonus * (fExpertLevel ? 2 : 1)), L"%");
+			//		swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[10], ( gSkillTraitValues.ubRACamoEffectivenessBonus * (fExpertLevel ? 2 : 1)), L"%");
 			//		wcscat( apStr, atStr );
 			//	}
 				if( gSkillTraitValues.ubRACamoWornountSpeedReduction != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[9], ( gSkillTraitValues.ubRACamoWornountSpeedReduction * (fExpertLevel ? 2 : 1)), L"%");
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[11], ( gSkillTraitValues.ubRACamoWornountSpeedReduction * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 				break;

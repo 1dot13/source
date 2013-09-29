@@ -2140,6 +2140,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubRABonusCtHShotguns = iniReader.ReadInteger("Ranger","BONUS_CTH_SHOTGUNS", 10, 0, 100);
 	gSkillTraitValues.ubRAPumpShotgunsAPsReduction = iniReader.ReadInteger("Ranger","PUMP_SHOTGUNS_APS_REDUCTION", 25, 0, 45);
 	gSkillTraitValues.ubRAFiringSpeedBonusShotguns = iniReader.ReadInteger("Ranger","FIRING_SPEED_BONUS_SHOTGUNS", 10, 0, 45);
+	gSkillTraitValues.ubRAAimClicksAdded = iniReader.ReadInteger("Ranger","POSSIBLE_AIM_CLICK_ADDED_SHOTGUNS", 1, 0, 3);
 	gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot = iniReader.ReadInteger("Ranger","GROUP_TIME_SPENT_FOR_TRAVELLING_BY_FOOT_REDUCTION", 20, 0, 100);
 	gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle = iniReader.ReadInteger("Ranger","GROUP_TIME_SPENT_FOR_TRAVELLING_IN_VEHICLE_REDUCTION", 10, 0, 100);
 	gSkillTraitValues.ubRAMaxBonusesToTravelSpeed = iniReader.ReadInteger("Ranger","MAX_STACKABLE_LESS_TRAVEL_TIME_BONUSES", 2, 0, 20);
