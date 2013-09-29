@@ -3123,6 +3123,26 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 	OBJECTTYPE  *pObject;
 	BOOLEAN			fFoundAttachment = FALSE;
 
+	//Moa 09/26/2013: this is a hack to avoid frequent recalc and rerender of screen when mouse is over an item, its less work and less error prone then rewriting several functions (various mousecallbacks, >4 renderfunctions and probalby some others too)
+	static OBJECTTYPE* previousObject = NULL;
+	//dont recalc when same item then before
+	if (pTestObject == previousObject && fOn)
+	{
+		return FALSE;//nothing to rerender
+	}
+	else if ( fOn )
+	{
+		previousObject = pTestObject;
+		//make something dirty?
+		fInterfacePanelDirty = DIRTYLEVEL2;
+		fTeamPanelDirty = TRUE;
+	}
+	else
+	{
+		previousObject = NULL;
+	}
+	//end hack
+
 	// ATE: If pTest object is NULL, test only for existence of syringes, etc...
 	if ( pTestObject == NULL )
 	{

@@ -178,7 +178,7 @@ WORLDITEM *pUnSeenItems = NULL;
 WORLDITEM *pSaveList = NULL;
 
 INT32 giFlashHighlightedItemBaseTime = 0;
-INT32 giCompatibleItemBaseTime = 0;
+//INT32 giCompatibleItemBaseTime = 0;//Moa: removed (see HandleMouseInCompatableItemForMapSectorInventory)
 
 // the buttons and images
 // HEADROCK HAM 5: Increased for new inventory buttons
@@ -1133,10 +1133,12 @@ void CreateMapInventoryPoolSlots( )
 	INT16 sXA = 0, sYA = 0;
 	INT16 sULX = 0, sULY = 0;
 	INT16 sBRX = 0, sBRY = 0;
-
-	MSYS_DefineRegion( &MapInventoryPoolMask,
-			MAP_INVENTORY_POOL_SLOT_START_X, 0, SCREEN_WIDTH - MAP_INVENTORY_POOL_SLOT_START_X, SCREEN_HEIGHT - 120,
-			MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapInvenPoolScreenMaskCallback);
+	extern MOUSE_REGION gMapViewRegion;
+	//Moa: removed MapInventoryPoolMask, instead we disable map mouseregion and enable again when deleting stash regions
+	MSYS_DisableRegion( &gMapViewRegion );
+	//MSYS_DefineRegion( &MapInventoryPoolMask,
+	//		MAP_INVENTORY_POOL_SLOT_START_X, 0, SCREEN_WIDTH - MAP_INVENTORY_POOL_SLOT_START_X, SCREEN_HEIGHT - 120,
+	//		MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapInvenPoolScreenMaskCallback);
 
 	for( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; iCounter++ )
 	{
@@ -1168,6 +1170,7 @@ void CreateMapInventoryPoolSlots( )
 void DestroyMapInventoryPoolSlots( void )
 {
 	INT32 iCounter = 0;
+	extern MOUSE_REGION gMapViewRegion;
 
 	for( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; iCounter++ )
 	{
@@ -1175,8 +1178,8 @@ void DestroyMapInventoryPoolSlots( void )
 	}
 
 	// remove map inventory mask
-	MSYS_RemoveRegion( &MapInventoryPoolMask );
-
+	//MSYS_RemoveRegion( &MapInventoryPoolMask );
+	MSYS_EnableRegion( &gMapViewRegion );
 }
 
 void MapInvenPoolSlotsMove( MOUSE_REGION * pRegion, INT32 iReason  )
@@ -3459,11 +3462,14 @@ void HandleFlashForHighLightedItem( void )
 	}
 }
 
+
+//Moa 09/26/2013: now only processed if mouse over different slot then before (using fChangedInventorySlots)
+// change preprocessor directive to 1 and uncomment any giCompatibleItemBaseTime in TimerControl.cpp and in this file if original Sirtech code should be used.
 void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 	static BOOLEAN fItemWasHighLighted = FALSE;
-
+#if 0
 	if( iCurrentSlot == -1 )
 	{
 		giCompatibleItemBaseTime = 0;
@@ -3501,10 +3507,38 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 	{
 		return;
 	}
+#else
+
+	//if same slot then before dont recalculate
+	if ( !fChangedInventorySlots ) return;
+
+	//reset highlightings for soldier inventory and stash if it was highlighted before
+	if ( fItemWasHighLighted )
+	{
+		ResetCompatibleItemArray( );
+		ResetMapSectorInventoryPoolHighLights( );
+	}
+
+	//Nothing selected or out of bounds or empty slot selected; highlightings reseted already, return
+	if ( iCurrentSlot == NO_SLOT || 
+		(pInventoryPoolList.size() < (UINT32)(iCurrentSlot + ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) )) ||
+		pInventoryPoolList[ iCurrentSlot + iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ].fExists == FALSE )
+	{
+		fChangedInventorySlots = FALSE;
+		if (fItemWasHighLighted)
+		{
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			fItemWasHighLighted = FALSE;
+		}
+		return;
+	}
+#endif
 
 	// given this slot value, check if anything in the displayed sector inventory or on the mercs inventory is compatable
 	if( fShowInventoryFlag )
 	{
+#if 0
 		// check if any compatable items in the soldier inventory matches with this item
 		if( gfCheckForCursorOverMapSectorInventoryItem )
 		{
@@ -3528,12 +3562,25 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 		{
 			giCompatibleItemBaseTime = 0;
 		}
+#else
+		//Soldier inventory is shown, highlight those items
+		pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+		if( pSoldier )
+		{
+			if( HandleCompatibleAmmoUIForMapScreen( pSoldier, iCurrentSlot + ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ), TRUE, FALSE ) )
+			{
+				fItemWasHighLighted = TRUE;//remember that something is highlighted
+			}
+			fTeamPanelDirty = TRUE;
+		}
+#endif
 	}
 
 
 	// now handle for the sector inventory
 	if( fShowMapInventoryPool )
 	{
+#if 0
 		// check if any compatable items in the soldier inventory matches with this item
 		if( gfCheckForCursorOverMapSectorInventoryItem )
 		{
@@ -3553,8 +3600,15 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 		{
 			giCompatibleItemBaseTime = 0;
 		}
+#else
+		if( HandleCompatibleAmmoUIForMapInventory( pSoldier, iCurrentSlot, ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) , TRUE, FALSE ) )
+		{
+			fItemWasHighLighted = TRUE;//remember that something is highlighted
+		}
+		fMapPanelDirty = TRUE;
+#endif
 	}
-
+	fChangedInventorySlots = FALSE;
 
 	return;
 }
