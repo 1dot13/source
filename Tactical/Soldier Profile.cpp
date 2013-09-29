@@ -1146,47 +1146,57 @@ void DecideActiveTerrorists( void )
 
 			ubTerrorist = gubTerrorists[ ubLoop ];
 
-			// random 40% chance of adding this terrorist if not yet placed
-			if ( ( gMercProfiles[ ubTerrorist ].sSectorX == 0 ) && (( Random( 100 ) < 40 ) || gGameExternalOptions.fEnableAllTerrorists ) ) // also added the check because it makes no sense to choose randomly which terrorist will be in game, all of them should
+			// place randomly if not yet placed
+			if ( gMercProfiles[ ubTerrorist ].sSectorX == 0 )
 			{
-				//fFoundSpot = FALSE;
-				// Since there are 5 spots per terrorist and a maximum of 5 terrorists, we
-				// are guaranteed to be able to find a spot for each terrorist since there
-				// aren't enough other terrorists to use up all the spots for any one
-				// terrorist
-				do
+				// random 40% chance of adding this terrorist if not yet placed or place all
+				if ( ( Random( 100 ) < 40 ) || gGameExternalOptions.fEnableAllTerrorists )
 				{
-					fFoundSpot = TRUE;
-
-					// pick a random spot, see if it's already been used by another terrorist
-					uiLocationChoice = Random( NUM_TERRORIST_POSSIBLE_LOCATIONS );
-					for (ubLoop2 = 0; ubLoop2 < ubNumTerroristsAdded; ubLoop2++)
+					//fFoundSpot = FALSE;
+					// Since there are 5 spots per terrorist and a maximum of 5 terrorists, we
+					// are guaranteed to be able to find a spot for each terrorist since there
+					// aren't enough other terrorists to use up all the spots for any one
+					// terrorist
+					do
 					{
-						if (sTerroristPlacement[ubLoop2][0] == gsTerroristSector[ubLoop][uiLocationChoice][0] )
+						fFoundSpot = TRUE;
+
+						// pick a random spot, see if it's already been used by another terrorist
+						uiLocationChoice = Random( NUM_TERRORIST_POSSIBLE_LOCATIONS );
+						for (ubLoop2 = 0; ubLoop2 < ubNumTerroristsAdded; ubLoop2++)
 						{
-							if (sTerroristPlacement[ubLoop2][1] == gsTerroristSector[ubLoop][uiLocationChoice][1] )
+							if (sTerroristPlacement[ubLoop2][0] == gsTerroristSector[ubLoop][uiLocationChoice][0] )
 							{
-								// WANNE: Fix a vanilla bug: Due to a logic bug multiple terrorists could end up in the same sector.
-								// Fixed by Tron (Straciatella): Revision: 6932
-								fFoundSpot = FALSE;
-								break;
-								//continue;
+								if (sTerroristPlacement[ubLoop2][1] == gsTerroristSector[ubLoop][uiLocationChoice][1] )
+								{
+									// WANNE: Fix a vanilla bug: Due to a logic bug multiple terrorists could end up in the same sector.
+									// Fixed by Tron (Straciatella): Revision: 6932
+									fFoundSpot = FALSE;
+									break;
+									//continue;
+								}
 							}
 						}
-					}
-					//fFoundSpot = TRUE;
-				} while( !fFoundSpot );
+						//fFoundSpot = TRUE;
+					} while( !fFoundSpot );
 
-				// place terrorist!
-				gMercProfiles[ ubTerrorist ].sSectorX = gsTerroristSector[ ubLoop ][ uiLocationChoice ][ 0 ];
-				gMercProfiles[ ubTerrorist ].sSectorY = gsTerroristSector[ ubLoop ][ uiLocationChoice ][ 1 ];
-				gMercProfiles[ ubTerrorist ].bSectorZ = 0;
+					// place terrorist!
+					gMercProfiles[ ubTerrorist ].sSectorX = gsTerroristSector[ ubLoop ][ uiLocationChoice ][ 0 ];
+					gMercProfiles[ ubTerrorist ].sSectorY = gsTerroristSector[ ubLoop ][ uiLocationChoice ][ 1 ];
+					gMercProfiles[ ubTerrorist ].bSectorZ = 0;
+					sTerroristPlacement[ ubNumTerroristsAdded ][ 0 ] = gMercProfiles[ ubTerrorist ].sSectorX;
+					sTerroristPlacement[ ubNumTerroristsAdded ][ 1 ] = gMercProfiles[ ubTerrorist ].sSectorY;
+					ubNumTerroristsAdded++;
+				}
+			}
+			else
+			{
+				// this terrorist has a fixed location in MercProfiles.xml
 				sTerroristPlacement[ ubNumTerroristsAdded ][ 0 ] = gMercProfiles[ ubTerrorist ].sSectorX;
 				sTerroristPlacement[ ubNumTerroristsAdded ][ 1 ] = gMercProfiles[ ubTerrorist ].sSectorY;
 				ubNumTerroristsAdded++;
 			}
 			ubLoop++;
-
 		}
 
 		// start over if necessary
@@ -1195,8 +1205,7 @@ void DecideActiveTerrorists( void )
 	// set total terrorists outstanding in Carmen's info byte
 	gMercProfiles[ 78 ].bNPCData = 1 + ubNumTerroristsAdded;  //ubNumAdditionalTerrorists; 
 	// silversurfer: only use the number of terrorist assigned through this function
-	// ubNumTerroristsAdded and ubNumAdditionalTerrorists will be the same if all terrorist were randomly placed but if
-	// someone places terrorists with ProEdit we don't know if those are valid placements
+	// If someone manually placed a terrorist in an invalid sector it is his problem that he will not be able to solve the quest.
 
 	// store total terrorists
 	gubNumTerrorists = 1 + ubNumTerroristsAdded;  //ubNumAdditionalTerrorists;
