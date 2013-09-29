@@ -181,6 +181,7 @@
 		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
 		<FlashLightRange>0</FlashLightRange>
 		<ItemChoiceTimeSetting>0</ItemChoiceTimeSetting>
+		<buddyitem>0</buddyitem>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -48961,7 +48962,7 @@
 		<uiIndex>1636</uiIndex>
 		<szItemName>Flashlight</szItemName>
 		<szLongItemName>Flashlight</szLongItemName>
-		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the hea.</szItemDesc>
+		<szItemDesc>I am... the light! No wait, that ain't right. I'm just a flashlight. But I'm still useful. If everything else fails, use me to knock people over the head with.</szItemDesc>
 		<szBRName>Flashlight</szBRName>
 		<szBRDesc>We say: let there be light! Batteries included.</szBRDesc>
 		<usItemClass>128</usItemClass>
@@ -49089,4 +49090,37 @@
    <CROUCH_MODIFIERS />
    <PRONE_MODIFIERS />
  </ITEM>
+ <ITEM>
+		<uiIndex>1640</uiIndex>
+		<szItemName>Tripwire Roll</szItemName>
+		<szLongItemName>Tripwire Roll</szLongItemName>
+		<szItemDesc>TRipwire can be deployed directly frm this roll.</szItemDesc>
+		<szBRName>Tripwire Roll</szBRName>
+		<szBRDesc>A roll of tripwire. In case you need to boobytrap your house, your car, and your cat.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>86</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>66</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ItemSize>26</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Damageable>1</Damageable>
+		<Metal>1</Metal>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>40</BR_NewInventory>
+		<BR_UsedInventory>25</BR_UsedInventory>
+		<Mine>1</Mine>
+		<TripWireActivation>1</TripWireActivation>
+		<TripWire>1</TripWire>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usActionItemFlag>17</usActionItemFlag> <!-- net 1, lvl 1-->
+		<ItemFlag>16777216</ItemFlag>
+		<buddyitem>1524</buddyitem>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
