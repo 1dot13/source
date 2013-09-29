@@ -938,7 +938,7 @@
 	<ENEMYITEMCHOICES>
 		<uiIndex>17</uiIndex>
 		<name>Weapon Attachments</name>
-		<ubChoices>32</ubChoices>
+		<ubChoices>33</ubChoices>
 		<bItemNo1>207</bItemNo1>
 		<bItemNo2>208</bItemNo2>
 		<bItemNo3>209</bItemNo3>
@@ -971,7 +971,7 @@
 		<bItemNo30>950</bItemNo30>
 		<bItemNo31>948</bItemNo31>
 		<bItemNo32>921</bItemNo32>
-		<bItemNo33>0</bItemNo33>
+		<bItemNo33>1525</bItemNo33>
 		<bItemNo34>0</bItemNo34>
 		<bItemNo35>0</bItemNo35>
 		<bItemNo36>0</bItemNo36>
