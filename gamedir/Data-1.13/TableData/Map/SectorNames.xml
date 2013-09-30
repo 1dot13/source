@@ -1407,8 +1407,8 @@
     <SectorGrid>J9</SectorGrid>
     <szUnexploredName>Desert</szUnexploredName>
     <szDetailedUnexploredName>Desert</szDetailedUnexploredName>
-    <szExploredName>Desert</szExploredName>
-    <szDetailedExploredName>Desert</szDetailedExploredName>
+    <szExploredName>Tixa</szExploredName>
+    <szDetailedExploredName>Tixa</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>1000</usNaturalDirt>
     <usPrisonRoomNumber00>5</usPrisonRoomNumber00>
