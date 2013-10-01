@@ -13,7 +13,7 @@ sectornames = {
 
     ["A10-1"] = "Kryjówka rebeliantów",
     
-    ["J9-1"] = "Tixa Dungeon",
+    ["J9-1"] = "Tixa - Lochy",
     ["J9-2"] = "Tixa - Lochy",
     
     ["K4-1"] = "Orta - Piwnica",

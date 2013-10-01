@@ -11,56 +11,56 @@
 
 sectornames = {
 
-    ["A10-1"] = "Rebel Hideout",
+    ["A10-1"] = "Kryjówka rebeliantów",
     
-    ["J9-1"] = "Tixa Dungeon",
-    ["J9-2"] = "Tixa Dungeon",
+    ["J9-1"] = "Tixa - Lochy",
+    ["J9-2"] = "Tixa - Lochy",
     
-    ["K4-1"] = "Orta Basement",
+    ["K4-1"] = "Orta - Piwnica",
     
-    ["O3-1"] = "Tunnel",
+    ["O3-1"] = "Tunel",
     
-    ["P3-1"] = "Shelter",
+    ["P3-1"] = "Schron",
     
     
-    ["B2-1"] = "Chitzena Mine",
+    ["B2-1"] = "Chitzena Kopalnia",
     
-    ["D4-1"] = "San Mona Mine",
-    ["D5-1"] = "San Mona Mine",
+    ["D4-1"] = "San Mona Kopalnia",
+    ["D5-1"] = "San Mona Kopalnia",
     
-    ["D13-1"] = "Drassen Mine",
-    ["E13-1"] = "Drassen Mine",
-    ["E13-2"] = "Drassen Mine",
-    ["F13-2"] = "Drassen Mine",
-    ["G13-2"] = "Drassen Mine",
-    ["G13-3"] = "Drassen Mine",
-    ["F13-3"] = "Drassen Mine",
+    ["D13-1"] = "Drassen Kopalnia",
+    ["E13-1"] = "Drassen Kopalnia",
+    ["E13-2"] = "Drassen Kopalnia",
+    ["F13-2"] = "Drassen Kopalnia",
+    ["G13-2"] = "Drassen Kopalnia",
+    ["G13-3"] = "Drassen Kopalnia",
+    ["F13-3"] = "Drassen Kopalnia",
     
-    ["H8-1"] = "Cambria Mine",
-    ["H9-1"] = "Cambria Mine",
-    ["H9-2"] = "Cambria Mine",
-    ["H8-2"] = "Cambria Mine",
-    ["H8-3"] = "Cambria Mine",
-    ["I8-3"] = "Cambria Mine",
-    ["J8-3"] = "Cambria Mine",
+    ["H8-1"] = "Cambria Kopalnia",
+    ["H9-1"] = "Cambria Kopalnia",
+    ["H9-2"] = "Cambria Kopalnia",
+    ["H8-2"] = "Cambria Kopalnia",
+    ["H8-3"] = "Cambria Kopalnia",
+    ["I8-3"] = "Cambria Kopalnia",
+    ["J8-3"] = "Cambria Kopalnia",
 
-    ["I14-1"] = "Alma Mine",
-    ["J14-1"] = "Alma Mine",
-    ["J14-2"] = "Alma Mine",
-    ["J13-2"] = "Alma Mine",
-    ["J13-3"] = "Alma Mine",
-    ["K13-3"] = "Alma Mine",
+    ["I14-1"] = "Alma Kopalnia",
+    ["J14-1"] = "Alma Kopalnia",
+    ["J14-2"] = "Alma Kopalnia",
+    ["J13-2"] = "Alma Kopalnia",
+    ["J13-3"] = "Alma Kopalnia",
+    ["K13-3"] = "Alma Kopalnia",
     
-    ["H3-1"] = "Grumm Mine",
-    ["I3-1"] = "Grumm Mine",
-    ["I3-2"] = "Grumm Mine",
-    ["H3-2"] = "Grumm Mine",
-    ["H4-2"] = "Grumm Mine",
-    ["H4-3"] = "Grumm Mine",
-    ["G4-3"] = "Grumm Mine",
+    ["H3-1"] = "Grumm Kopalnia",
+    ["I3-1"] = "Grumm Kopalnia",
+    ["I3-2"] = "Grumm Kopalnia",
+    ["H3-2"] = "Grumm Kopalnia",
+    ["H4-2"] = "Grumm Kopalnia",
+    ["H4-3"] = "Grumm Kopalnia",
+    ["G4-3"] = "Grumm Kopalnia",
     
     ["P1-1"] = "Demoville",
     ["P1-2"] = "Demoville",
  
-    creatureLair = "Creature Lair",
+    creatureLair = "Gniazdo stworzeń",
 }
