@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>                                                              
-                                                                                                    
 <!--                                                                                                
 uiIndex           number of hint, 0 is a template that will not be selected
 szName            text to appear, 256 chars max
@@ -123,7 +122,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>While in sector inventory, [ctrl]-click empty inventory slots for a categorized list of items in that sector.</szName>
+    <szName>While in sector inventory, [CTRL] click empty inventory slots for a categorized list of items in that sector.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -133,12 +132,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>22</uiIndex>
-    <szName>Press [ctrl]-[shift]-[x] to enable real-time sneaking. When active, you won't enter turn-based mode when you spot enemy soldiers - as long as they are not alerted of your presence.</szName>
+    <szName>Press [CTRL]+[SHIFT]+[X] to enable real-time sneaking. When active, you won't enter turn-based mode when you spot enemy soldiers - as long as they are not alerted of your presence.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
-    <szName>Press [ctrl]-[x] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
+    <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
