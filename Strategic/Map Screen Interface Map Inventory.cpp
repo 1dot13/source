@@ -860,7 +860,11 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		ClearUpTempUnSeenList( );
 
 		// undo item decay (will be saved once and only when entering sector)
-		HandleSectorCooldownFunctions( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ, (WORLDITEM*) &(*pInventoryPoolList.begin()) , pInventoryPoolList.size(), TRUE , TRUE);
+//		HandleSectorCooldownFunctions( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ, (WORLDITEM*) &(*pInventoryPoolList.begin()) , pInventoryPoolList.size(), TRUE , TRUE);
+
+		// silversurfer: temporary bugfix for superheated weapons in loaded sector inventory after saving the game
+		// save time we have viewed those items to make the changes by HandleSectorCooldownFunctions() permanent
+		SetLastTimePlayerWasInSector( sSelMapX, sSelMapY, (INT8)iCurrentMapSectorZ );
 
 		// now save results
 		SaveSeenAndUnseenItems( );
