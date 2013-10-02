@@ -14097,6 +14097,8 @@ FLOAT GetItemCooldownModificator( OBJECTTYPE * pObj )
 FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
 {
 	FLOAT cooldownfactor = Item[pObj->usItem].usOverheatingCooldownFactor;	// ... get item-specific cooldown factor ...
+	if ( Item[pObj->usItem].usItemClass & IC_GUN )
+		cooldownfactor *= gItemSettings.fOverheatCooldownModifier[ Weapon[ pObj->usItem ].ubWeaponType ];
 
 	FLOAT modificator = 1.0f + GetItemCooldownModificator( pObj );
 

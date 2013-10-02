@@ -11557,6 +11557,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
 
 				iFloatModifier[0] = Weapon[ gpItemDescObject->usItem ].usOverheatingSingleShotTemperature * gGameExternalOptions.iOverheatTemperatureGlobalModfier;
+				if ( Item[gpItemDescObject->usItem].usItemClass & IC_GUN )
+					iFloatModifier[0] *= gItemSettings.fOverheatTemperatureModifier[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
 
 				iFloatModifier[1] = GetSingleShotTemperature( gpItemDescObject ) - iFloatModifier[0];
 				iFloatModifier[2] = GetSingleShotTemperature( gpItemDescObject );
@@ -11611,6 +11613,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
 
 				iFloatModifier[0] = Item[gpItemDescObject->usItem].usOverheatingCooldownFactor;
+				if ( Item[gpItemDescObject->usItem].usItemClass & IC_GUN )
+					iFloatModifier[0] *= gItemSettings.fOverheatCooldownModifier[ Weapon[gpItemDescObject->usItem].ubWeaponType ];
 				iFloatModifier[1] = GetItemCooldownFactor(gpItemDescObject) - iFloatModifier[0];
 				iFloatModifier[2] = GetItemCooldownFactor(gpItemDescObject);
 
@@ -11664,6 +11668,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
 
 				iFloatModifier[0] = Weapon[ gpItemDescObject->usItem ].usOverheatingJamThreshold;
+				if ( Item[gpItemDescObject->usItem].usItemClass & IC_GUN )
+					iFloatModifier[0] *= gItemSettings.fOverheatJamThresholdModifier[ Weapon[gpItemDescObject->usItem].ubWeaponType ];
 				iFloatModifier[1] = GetOverheatJamThreshold(gpItemDescObject) - iFloatModifier[0];
 				iFloatModifier[2] = GetOverheatJamThreshold(gpItemDescObject);
 
@@ -11717,6 +11723,8 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
 
 				iFloatModifier[0] = Weapon[ gpItemDescObject->usItem ].usOverheatingDamageThreshold;
+				if ( Item[gpItemDescObject->usItem].usItemClass & IC_GUN )
+					iFloatModifier[0] *= gItemSettings.fOverheatDamageThresholdModifier[ Weapon[gpItemDescObject->usItem].ubWeaponType ];
 				iFloatModifier[1] = GetOverheatDamageThreshold(gpItemDescObject) - iFloatModifier[0];
 				iFloatModifier[2] = GetOverheatDamageThreshold(gpItemDescObject);
 

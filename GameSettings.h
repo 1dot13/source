@@ -1739,7 +1739,20 @@ typedef struct
 
 }MOD_SETTINGS;
 
+// silversurfer: item property modifiers
+typedef struct
+{
+	// weapon overheating modifiers for the different gun classes
+	FLOAT fOverheatJamThresholdModifier[9];
+	FLOAT fOverheatDamageThresholdModifier[9];
+	FLOAT fOverheatTemperatureModifier[9];
+	FLOAT fOverheatCooldownModifier[9];
+
+}ITEM_SETTINGS;
+
 extern MOD_SETTINGS gModSettings;
+
+extern ITEM_SETTINGS gItemSettings;
 
 //This structure will contain general Ja2 settings	NOT individual game settings.
 extern GAME_SETTINGS		gGameSettings;
@@ -1764,6 +1777,7 @@ BOOLEAN LoadGameSettings();
 void LoadGameExternalOptions();
 void LoadSkillTraitsExternalSettings(); // SANDRO - added this one
 void LoadModSettings();
+void LoadItemSettings(); // silversurfer: reads item property modifiers
 void LoadGameAPBPConstants();
 // HEADROCK HAM 4: Read CTH/Shooting coefficients from file
 void LoadCTHConstants();

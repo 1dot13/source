@@ -134,6 +134,8 @@ BOOLEAN InitializeGame(void)
 	LoadCTHConstants();
 	//DBrot: load mod settings
 	LoadModSettings();
+	// silversurfer: load item settings modifiers
+	LoadItemSettings();
 
 #ifdef JA2UB
 	LoadGameUBOptions(); // JA25 UB
