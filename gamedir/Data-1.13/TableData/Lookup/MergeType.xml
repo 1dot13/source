@@ -48,4 +48,8 @@
 		<id>11</id>
 		<name>Mechanical (Hard)</name>
 	</MergeType>
+	<MergeType>
+		<id>12</id>
+		<name>Tripwire Roll</name>
+	</MergeType>
 </JA2Data>
