@@ -702,9 +702,9 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( Item[ usHandItem ].usItemClass == IC_PUNCH )
 	{
 		//INT16	sCnt;
-		 INT32	sSpot;	
-		UINT8		ubGuyThere;
-		 INT32		sGotLocation = NOWHERE;
+		INT32	sSpot;
+		UINT8	ubGuyThere;
+		INT32	sGotLocation = NOWHERE;
 		BOOLEAN	fGotAdjacent = FALSE;
 
 		for ( INT8 sCnt = 0; sCnt < NUM_WORLD_DIRECTIONS; sCnt++ )
@@ -725,12 +725,12 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				// We've got a guy here....
 				// Who is the one we want......
 				sGotLocation = sSpot;
-				sAdjustedGridNo	= pTargetSoldier->sGridNo;
-				ubDirection		= ( UINT8 )sCnt;
+				sAdjustedGridNo = pTargetSoldier->sGridNo;
+				ubDirection = ( UINT8 )sCnt;
 				break;
 			}
 		}
-		
+
 		if (TileIsOutOfBounds(sGotLocation))
 		{
 			// See if we can get there to punch
@@ -1537,6 +1537,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	//USING THE BLADE
 	if ( Item[ usHandItem ].usItemClass == IC_BLADE )
 	{
+		BOOLEAN fGotAdjacent = TRUE;//dnl ch73 290913
 		// See if we can get there to stab
 		if ( pSoldier->ubBodyType == BLOODCAT )
 		{
@@ -1552,15 +1553,37 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 		else
 		{
-			sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+			//dnl ch73 290913
+			fGotAdjacent = FALSE;
+			sActionGridNo = NOWHERE;
+			if(pTargetSoldier)
+				for(INT8 sCnt=0; sCnt<NUM_WORLD_DIRECTIONS; sCnt++)
+				{
+					INT32 sSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(sCnt));
+					if(gubWorldMovementCosts[sSpot][sCnt][bLevel] >= TRAVELCOST_BLOCKED)
+						continue;
+					if(WhoIsThere2(sSpot, pSoldier->pathing.bLevel) == pTargetSoldier->ubID)
+					{
+						sActionGridNo = sSpot;
+						sAdjustedGridNo = pTargetSoldier->sGridNo;
+						ubDirection = (UINT8)sCnt;
+						break;
+					}
+				}
+			if(TileIsOutOfBounds(sActionGridNo))
+			{
+				sActionGridNo =	FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+				if(sActionGridNo != NOWHERE)
+					fGotAdjacent = TRUE;
+			}
 		}
 
-		if ( sActionGridNo != -1 )
+		if ( sActionGridNo != NOWHERE )
 		{
 			pSoldier->aiData.usActionData = sActionGridNo;
 
 			// CHECK IF WE ARE AT THIS GRIDNO NOW
-			if ( pSoldier->sGridNo != sActionGridNo )
+			if ( pSoldier->sGridNo != sActionGridNo && fGotAdjacent )//dnl ch73 290913
 			{
 				// SEND PENDING ACTION
 				pSoldier->aiData.ubPendingAction = MERC_KNIFEATTACK;
@@ -1594,7 +1617,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 		}
 	}
-
 
 	if ( Item[ usHandItem ].usItemClass == IC_TENTACLES )
 	{

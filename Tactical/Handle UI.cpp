@@ -4232,16 +4232,20 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			sGotLocation = sActionGridNo;
 			fGotAdjacent = TRUE;
 		}
-		
+
 		if (!TileIsOutOfBounds(sGotLocation))
 		{
+#if 0//dnl ch73 021013 don't add turnover cost if we are moving, in the future this should be calculated by UIPlotPath
 			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, TRUE, pSoldier->aiData.bShownAimTime, 0 );
 
 			// WANNE: Turn around APs were missing, I think ....
 			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
 
 			sAPCost += UIPlotPath( pSoldier, sGotLocation, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
-
+#else
+			sAPCost = UIPlotPath(pSoldier, sGotLocation, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+			sAPCost += MinAPsToAttack(pSoldier, sAdjustedGridNo, sAPCost>0?FALSE:TRUE, pSoldier->aiData.bShownAimTime, 0);
+#endif
 			if ( sGotLocation != pSoldier->sGridNo && fGotAdjacent )
 			{
 				gfUIHandleShowMoveGrid = TRUE;

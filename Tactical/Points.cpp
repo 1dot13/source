@@ -1724,7 +1724,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 		//sAPCost = 5;
 	}
 
-	if ( uiItemClass == IC_PUNCH || ( uiItemClass == IC_BLADE && uiItemClass != IC_THROWING_KNIFE ) )
+	if ( uiItemClass == IC_PUNCH || uiItemClass == IC_BLADE )//dnl ch73 031013
 	{
 		// IF we are at this gridno, calc min APs but if not, calc cost to goto this lication
 		if ( pSoldier->sGridNo != sGridNo )
@@ -1810,7 +1810,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 			pSoldier->sWalkToAttackGridNo = sGridNo;
 
 			// Add points to attack
-			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, ubAddTurningCost, bAimTime, 0 );
+			sAPCost += MinAPsToAttack(pSoldier, sAdjustedGridNo, sAPCost>0?FALSE:ubAddTurningCost, bAimTime, 0);//dnl ch73 031013
 			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
 		}
 		else
@@ -1857,7 +1857,7 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 		// LOOK IN BUDDY'S HAND TO DETERMINE WHAT TO DO HERE
 		uiItemClass = Item[ undbarItem ].usItemClass;
 	}
-
+#if 0//dnl ch73 290913
 	// bare fist or with brass knuckles
 	if ( !(pSoldier->inv[HANDPOS].exists()) || Item[pSoldier->inv[HANDPOS].usItem].brassknuckles ) 
 	{
@@ -1875,7 +1875,14 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 	// for exceptions
 	else 
 		sAPCost = MinAPsToPunch( pSoldier, sGridno, ubAddTurningCost );
-
+#else
+	if(uiItemClass & (IC_GUN | IC_LAUNCHER | IC_THROWING_KNIFE))
+		sAPCost = MinAPsToShootOrStab(pSoldier, sGridno, bAimTime, ubAddTurningCost, ubForceRaiseGunCost);
+	else if(uiItemClass & (IC_GRENADE | IC_THROWN))
+		sAPCost = MinAPsToThrow(pSoldier, sGridno, ubAddTurningCost);
+	else 
+		sAPCost = MinAPsToPunch(pSoldier, sGridno, ubAddTurningCost);
+#endif
 	return sAPCost;
 }
 
@@ -2161,7 +2168,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	UINT16 usItem;
 	UINT16 usRaiseGunCost = 0;
 	UINT16 usTurningCost = 0;
-	UINT16 usRange;
+	//UINT16 usRange;
 
 	UINT16 usUBItem = 0;
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
@@ -2176,6 +2183,8 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		// Flugente: we need a secon temnr in case we are using an underbarrel weapon. Not all checks should apply for that one, as aiming is still done with the main weapon
 		usUBItem = pSoldier->GetUsedWeaponNumber(&pSoldier->inv[HANDPOS]);
 	}
+	if(Item[usUBItem].usItemClass == IC_PUNCH || Item[usUBItem].usItemClass == IC_BLADE || Item[usUBItem].usItemClass == IC_TENTACLES)//dnl ch73 021013 punch and stub generally use identical logic so put all necessary stuff to MinAPsToPunch
+		return(MinAPsToPunch(pSoldier, sGridNo, ubAddTurningCost));
 
 	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
@@ -2195,7 +2204,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		{
 				sGridNo = MercPtrs[ usTargID ]->sGridNo;
 		}
-		usRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sGridNo );
+		//usRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 	}
 
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
@@ -2278,11 +2287,13 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubAWFiringSpeedBonusLMGs ) / 100)+ 0.5);
 			}
+#if 0//dnl ch73 021013 relocate this to MinAPsToPunch
 			// Decreased APs needed for melee attacks - Melee (Blade only)
 			else if ( Item[ usUBItem ].usItemClass == IC_BLADE && ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) ) )
 			{
 				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubMEBladesAPsReduction ) / 100)+ 0.5);
 			}
+#endif
 			// Decreased APs needed for throwing knives - Throwing
 			else if ( Item[ usUBItem ].usItemClass == IC_THROWING_KNIFE && ( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) ) )
 			{
@@ -2330,6 +2341,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 			// Do we need to stand up?
 			bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 		}
+#if 0//dnl ch73 021013 relocate this to MinAPsToPunch
 		// blunt weapons & blades
 		else if ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE )
 		{
@@ -2342,6 +2354,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 					bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 			}
 		}
+#endif
 		else if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913 move this here from bottom, need to change as rocketlaucher could be fired from crouch too
 		{
 			if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE || Item[usItem].mortar && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
@@ -2359,8 +2372,10 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	//Calculate usTurningCost
 	if (!TileIsOutOfBounds(sGridNo))
 	{
+#if 0//dnl ch73 021013 relocate this to MinAPsToPunch
 		// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
 		if ( !( ( Item[ usUBItem ].usItemClass == IC_PUNCH || Item[ usUBItem ].usItemClass == IC_BLADE ) && usRange > 1 ) )
+#endif
 		{
 			if(Item[usItem].rocketlauncher || Item[usItem].grenadelauncher || Item[usItem].mortar)//dnl ch72 260913
 			{
@@ -2395,10 +2410,10 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	}
 	else
 		bAPCost += (usTurningCost + usRaiseGunCost);	
-	
+
 	// if attacking a new target (or if the specific target is uncertain)
 	// Added check if the weapon is throwing knife/melee weapons - otherwise it would add APs for change target on cursor but not actually deduct them afterwards - SANDRO
-	if ( ubForceRaiseGunCost == TRUE || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE ) && ( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE ) ) )//dnl ch69 140913
+	if ( ubForceRaiseGunCost == TRUE || (( sGridNo != pSoldier->sLastTarget ) && !Item[usUBItem].rocketlauncher && ( Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )/* && ( Item[ usUBItem ].usItemClass != IC_PUNCH ) && ( Item[ usUBItem ].usItemClass != IC_BLADE )*/ ) )//dnl ch69 140913 //dnl ch73 290913
 	{
 		if ( pSoldier->IsValidAlternativeFireMode( bAimTime, sGridNo ) )
 			bAPCost += (APBPConstants[AP_CHANGE_TARGET] / 2);
@@ -2417,54 +2432,64 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	return bAPCost;
 }
 
-
-INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost)
+INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost)//dnl ch73 290913
 {
-	UINT8	bAPCost = 0;
-	UINT16	usTargID;
-	UINT8	ubDirection;
-	UINT16	usRange;
-
-	//	bAimSkill = ( pSoldier->stats.bDexterity + pSoldier->stats.bAgility) / 2;	
-	if (!TileIsOutOfBounds(sGridNo))
+	INT16 bAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
+	if(!TileIsOutOfBounds(sGridNo))
 	{
-		usTargID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
-		usRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sGridNo );
-
+		OBJECTTYPE *pObjUsed = pSoldier->GetUsedWeapon(&pSoldier->inv[HANDPOS]);
+		UINT16 usItem = pObjUsed->usItem;
+		INT16 bFullAPs = pSoldier->CalcActionPoints();
+		INT16 bAimSkill = CalcAimSkill(pSoldier, pSoldier->inv[HANDPOS].usItem);
+		if(usItem == NONE/* || Item[usItem].brassknuckles*/)
+			bAPCost += ApsToPunch(pSoldier);// SANDRO - changed this to direct us to specific calc function
+		else
+		{
+			bAPCost += BaseAPsToShootOrStab(bFullAPs, bAimSkill, pObjUsed, pSoldier);
+			// Decreased APs needed for melee attacks - Melee (Blade only)
+			if(Item[usItem].usItemClass == IC_BLADE && (HAS_SKILL_TRAIT(pSoldier, MELEE_NT)))
+				bAPCost = (INT16)((bAPCost * (100 - gSkillTraitValues.ubMEBladesAPsReduction) / 100) + 0.5);
+		}
+		UINT16 usTargID = WhoIsThere2(sGridNo, pSoldier->bTargetLevel);
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
-		if ( usTargID != NOBODY  )
+		if(usTargID != NOBODY)
 		{
 			// Check if target is prone, if so, calc cost...
-			if ( gAnimControl[ MercPtrs[ usTargID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
-				bAPCost += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
+			if(gAnimControl[MercPtrs[usTargID]->usAnimState].ubEndHeight == ANIM_PRONE)
+				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_CROUCH);
 			else
-				bAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_STAND);
 		}
-
-		if (ubAddTurningCost)
+		if(ubAddTurningCost)
 		{
-			// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
-			if ( usRange == 1 )
-			{
-				// ATE: Use standing turn cost....
-				ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
-
-				// Is it the same as he's facing?
-				if ( ubDirection != pSoldier->ubDirection )
+			// ATE: Use standing turn cost....
+			UINT8 ubDirection = GetDirectionFromGridNo(sGridNo, pSoldier);
+			INT32 sSpot = sGridNo;
+			if(usTargID != NOBODY && gAnimControl[MercPtrs[usTargID]->usAnimState].ubEndHeight == ANIM_PRONE)
+				for(INT8 sCnt=0; sCnt<NUM_WORLD_DIRECTIONS; sCnt++)
 				{
-					// SANDRO - Athletics trait check added
-					if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-						bAPCost += max( 1, (INT16)((GetAPsToLook( pSoldier ) * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/100) + 0.5 ));
-					else
-						bAPCost += GetAPsToLook( pSoldier );
+					sSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(sCnt));
+					if(gubWorldMovementCosts[sSpot][sCnt][pSoldier->bTargetLevel] >= TRAVELCOST_BLOCKED)
+						continue;
+					if(WhoIsThere2(sSpot, pSoldier->bTargetLevel) == usTargID)
+					{
+						ubDirection = (UINT8)sCnt;
+						break;
+					}
 				}
+			// Is it the same as he's facing?
+			// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
+			//UINT16 usRange = GetRangeFromGridNoDiff(pSoldier->sGridNo, sSpot);
+			if(/*usRange == 1 && */ubDirection != pSoldier->ubDirection)
+			{
+				if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+					bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE, ANIM_CROUCH);
+				else
+					bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE);
 			}
 		}
 	}
-
-	bAPCost += ApsToPunch( pSoldier ); // SANDRO - changed this to direct us to specific calc function
-
-	return ( bAPCost );
+	return(bAPCost);
 }
 
 // SANDRO - added function

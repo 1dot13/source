@@ -7258,7 +7258,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 
 	if ( pSoldier->pathing.bDesiredDirection != pSoldier->ubDirection )
 	{
-		if ( (gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) || usForceAnimState != INVALID_ANIMATION) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )//dnl ch70 160913
+		if ( (gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY/* | ANIM_TURNING*/ ) || usForceAnimState != INVALID_ANIMATION) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )//dnl ch70 160913 //dnl ch73 290913 in some bright future when UIPlotPath will calculate turning cost then ANIM_TURNING should be turn on as this solve many problems when APs was not deducted during turnoff
 		{
 			// SANDRO: hey, we have a function for this around, why not to use it, hm?
 			// silversurfer: we better don't do that. GetAPsToLook( ... ) will charge APs for getting to crouched/prone position
@@ -8024,6 +8024,11 @@ void SOLDIERTYPE::TurnSoldier( void )
 				//FREEUP GETTING HIT FLAG
 				this->flags.fGettingHit = FALSE;
 			}
+		}
+
+		if(this->flags.bTurningFromPronePosition == TURNING_FROM_PRONE_FOR_PUNCH_OR_STUB)//dnl ch73 290913
+		{
+			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
 		}
 
 		return;
@@ -11752,12 +11757,17 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 //	gTacticalStatus.ubAttackBusyCount++;
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Begin blade attack: ATB  %d", gTacticalStatus.ubAttackBusyCount) );
 	DebugAttackBusy( String( "Begin blade attack: ATB  %d\n", gTacticalStatus.ubAttackBusyCount) );
-
 	//}
 
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
-	this->EVENT_SetSoldierDesiredDirection( ubDirection );
-	this->EVENT_SetSoldierDirection( ubDirection );
+	//dnl ch73 290913
+	if(this->usAnimState != CRAWLING && gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE)
+		usForceAnimState = CROUCHING;
+	this->EVENT_SetSoldierDesiredDirection(ubDirection);
+	this->EVENT_SetSoldierDirection(ubDirection);
+	if(this->flags.bTurningFromPronePosition)
+		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STUB;
+	usForceAnimState = INVALID_ANIMATION;
 	// CHANGE TO ANIMATION
 
 	// DETERMINE ANIMATION TO PLAY
@@ -11811,9 +11821,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 			// Flugente: if we attack with a bayonet, we don't need to change stance if even if we are stadning and the target is prone...
 			// so we simulate here that the target is still standing
 			UINT8 targetheight = gAnimControl[ pTSoldier->usAnimState ].ubEndHeight;
+#if 0//dnl ch73 031013 several reasons why disabling this; 1. no animation for bayonet, 2. if target is prone it look ridicules to swing through air instead stub target, 3. incorrect APs calculation
 			if ( this->bWeaponMode == WM_ATTACHED_BAYONET )
 				targetheight = ANIM_STAND;
-
+#endif
 			// Look at stance of target
 			switch( targetheight )
 			{
@@ -11970,8 +11981,14 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	if ( fChangeDirection )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		//dnl ch73 290913
+		if(this->usAnimState != CRAWLING && gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE)
+			usForceAnimState = CROUCHING;
+		this->EVENT_SetSoldierDesiredDirection(ubDirection);
+		this->EVENT_SetSoldierDirection(ubDirection);
+		if(this->flags.bTurningFromPronePosition)
+			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STUB;
+		usForceAnimState = INVALID_ANIMATION;
 	}
 
 	// Are we a martial artist? - SANDRO - added new/old traits check
@@ -12235,7 +12252,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	// SET TARGET GRIDNO
 	this->sTargetGridNo = sGridNo;
 	this->bTargetLevel = this->pathing.bLevel;
-	this->sLastTarget		= sGridNo;
+	//this->sLastTarget		= sGridNo;//dnl ch73 021013
 	this->ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
 }
 
