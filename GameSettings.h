@@ -1743,10 +1743,17 @@ typedef struct
 typedef struct
 {
 	// weapon overheating modifiers for the different gun classes
-	FLOAT fOverheatJamThresholdModifier[9];
-	FLOAT fOverheatDamageThresholdModifier[9];
-	FLOAT fOverheatTemperatureModifier[9];
-	FLOAT fOverheatCooldownModifier[9];
+	FLOAT fOverheatJamThresholdModifierGun[9];
+	FLOAT fOverheatDamageThresholdModifierGun[9];
+	FLOAT fOverheatTemperatureModifierGun[9];
+	FLOAT fOverheatCooldownModifierGun[9];
+	FLOAT fOverheatJamThresholdModifierLauncher;
+	FLOAT fOverheatDamageThresholdModifierLauncher;
+	FLOAT fOverheatTemperatureModifierLauncher;
+	FLOAT fOverheatCooldownModifierLauncher;
+	// range modifiers for different weapon types
+	FLOAT fRangeModifierGun[9];
+	FLOAT fRangeModifierLauncher;
 
 }ITEM_SETTINGS;
 

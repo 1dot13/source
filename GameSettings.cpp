@@ -2407,45 +2407,62 @@ void LoadItemSettings()
 
 	// silversurfer: New values to fine-tune weapon overheating for different gun classes
 	// --------- PISTOLS ----------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_PISTOL]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_PISTOL]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// ----- MACHINE PISTOLS ------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_M_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_M_PISTOL]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_M_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_M_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_M_PISTOL]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_M_PISTOL]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_M_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_M_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// ---------- SMGS ------------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_SMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_SMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_SMG]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_SMG]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_SMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_SMG]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_SMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_SMG]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// --------- RIFLES -----------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_RIFLE]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// ------ SNIPER RIFLES -------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_SN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_SN_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_SN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_SN_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_SN_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_SN_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_SN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_SN_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// ------ ASSAULT RIFLES ------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_AS_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_AS_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_AS_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_AS_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_AS_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_AS_RIFLE]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_AS_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_AS_RIFLE]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// ---------- LMGS ------------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_LMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_LMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_LMG]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_LMG]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_LMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_LMG]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_LMG]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_LMG]				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
 	// -------- SHOTGUNS ----------
-	gItemSettings.fOverheatJamThresholdModifier[GUN_SHOTGUN]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatDamageThresholdModifier[GUN_SHOTGUN]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatTemperatureModifier[GUN_SHOTGUN]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fOverheatCooldownModifier[GUN_SHOTGUN]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatJamThresholdModifierGun[GUN_SHOTGUN]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_SHOTGUN]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierGun[GUN_SHOTGUN]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierGun[GUN_SHOTGUN]			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	// -------- LAUNCHERs ---------
+	gItemSettings.fOverheatJamThresholdModifierLauncher				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatDamageThresholdModifierLauncher			= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatTemperatureModifierLauncher				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fOverheatCooldownModifierLauncher					= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
+
+	// silversurfer: new values to adjust weapon range for different gun classes
+	gItemSettings.fRangeModifierGun[GUN_PISTOL]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_M_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_SMG]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_RIFLE]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_SN_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_AS_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_LMG]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	// -------- LAUNCHERs ---------
+	gItemSettings.fRangeModifierLauncher							= iniReader.ReadFloat  ("Weapon Settings","RANGE_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

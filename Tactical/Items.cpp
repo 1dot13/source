@@ -13876,11 +13876,10 @@ UINT16 GetModifiedGunRange(UINT16 usWeaponIndex)
 	}
 
 	// Only apply range modifier on "real" guns!
-	if (Item[Weapon[usWeaponIndex].uiIndex].usItemClass == IC_GUN ||
-		Item[Weapon[usWeaponIndex].uiIndex].usItemClass == IC_LAUNCHER)
-	{
-		ubRange = (INT16)(( ubRange * gGameExternalOptions.iGunRangeModifier ) / 100);
-	}
+	if (Item[Weapon[usWeaponIndex].uiIndex].usItemClass == IC_GUN )
+		ubRange = (INT16)((FLOAT)( ubRange * gGameExternalOptions.iGunRangeModifier ) / 100 * gItemSettings.fRangeModifierGun[ Weapon[usWeaponIndex].ubWeaponType ] );
+	else if (Item[Weapon[usWeaponIndex].uiIndex].usItemClass == IC_LAUNCHER )
+		ubRange = (INT16)((FLOAT)( ubRange * gGameExternalOptions.iGunRangeModifier ) / 100 * gItemSettings.fRangeModifierLauncher );
 
 	return (UINT16)ubRange;
 }
@@ -14098,7 +14097,9 @@ FLOAT GetItemCooldownFactor( OBJECTTYPE * pObj )
 {
 	FLOAT cooldownfactor = Item[pObj->usItem].usOverheatingCooldownFactor;	// ... get item-specific cooldown factor ...
 	if ( Item[pObj->usItem].usItemClass & IC_GUN )
-		cooldownfactor *= gItemSettings.fOverheatCooldownModifier[ Weapon[ pObj->usItem ].ubWeaponType ];
+		cooldownfactor *= gItemSettings.fOverheatCooldownModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+	else if ( Item[pObj->usItem].usItemClass & IC_LAUNCHER )
+		cooldownfactor *= gItemSettings.fOverheatCooldownModifierLauncher;
 
 	FLOAT modificator = 1.0f + GetItemCooldownModificator( pObj );
 

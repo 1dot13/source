@@ -1458,7 +1458,9 @@ FLOAT   GetGunOverheatDamagePercentage( FLOAT usTemperature, UINT16 usIndx )
 	FLOAT damagethreshold = Weapon[Item[ usIndx ].ubClassIndex].usOverheatingDamageThreshold;
 
 	if ( Item[usIndx].usItemClass & IC_GUN )
-		damagethreshold *= gItemSettings.fOverheatDamageThresholdModifier[Weapon[Item[ usIndx ].uiIndex].ubWeaponType];
+		damagethreshold *= gItemSettings.fOverheatDamageThresholdModifierGun[Weapon[Item[ usIndx ].uiIndex].ubWeaponType];
+	else if ( Item[usIndx].usItemClass & IC_LAUNCHER )
+		damagethreshold *= gItemSettings.fOverheatDamageThresholdModifierLauncher;
 
 	return usTemperature/ damagethreshold ;
 }
@@ -1469,7 +1471,9 @@ FLOAT   GetGunOverheatJamPercentage( FLOAT usTemperature, UINT16 usIndx )
 	FLOAT jamthreshold = Weapon[Item[ usIndx ].ubClassIndex].usOverheatingJamThreshold;
 
 	if ( Item[usIndx].usItemClass & IC_GUN )
-		jamthreshold *= gItemSettings.fOverheatJamThresholdModifier[Weapon[Item[ usIndx ].uiIndex].ubWeaponType];
+		jamthreshold *= gItemSettings.fOverheatJamThresholdModifierGun[Weapon[Item[ usIndx ].uiIndex].ubWeaponType];
+	else if ( Item[usIndx].usItemClass & IC_LAUNCHER )
+		jamthreshold *= gItemSettings.fOverheatJamThresholdModifierLauncher;
 
 	return usTemperature/ jamthreshold ;
 }
@@ -12078,7 +12082,9 @@ FLOAT GetSingleShotTemperature( OBJECTTYPE *pObj )
 		singleshottemperature = Weapon[ pObj->usItem ].usOverheatingSingleShotTemperature;
 
 		if ( Item[pObj->usItem].usItemClass & IC_GUN )
-			singleshottemperature *= gItemSettings.fOverheatTemperatureModifier[ Weapon[ pObj->usItem ].ubWeaponType ];
+			singleshottemperature *= gItemSettings.fOverheatTemperatureModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		else if ( Item[pObj->usItem].usItemClass & IC_LAUNCHER )
+			singleshottemperature *= gItemSettings.fOverheatTemperatureModifierLauncher;
 
 		// determine modificator according to attachments
 		FLOAT modificator = 1.0f + GetTemperatureModifier(pObj);
@@ -12147,7 +12153,9 @@ FLOAT GetOverheatJamThreshold( OBJECTTYPE *pObj )
 		jamthreshold = Weapon[ pObj->usItem ].usOverheatingJamThreshold;
 
 		if ( Item[pObj->usItem].usItemClass & IC_GUN )
-			jamthreshold *= gItemSettings.fOverheatJamThresholdModifier[ Weapon[ pObj->usItem ].ubWeaponType ];
+			jamthreshold *= gItemSettings.fOverheatJamThresholdModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		else if ( Item[pObj->usItem].usItemClass & IC_LAUNCHER )
+			jamthreshold *= gItemSettings.fOverheatJamThresholdModifierLauncher;
 
 		// determine modificator according to attachments
 		FLOAT modificator = 1.0f + GetOverheatJamThresholdModifier(pObj);
@@ -12184,7 +12192,9 @@ FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj )
 		damagethreshold = Weapon[ pObj->usItem ].usOverheatingDamageThreshold;
 
 		if ( Item[pObj->usItem].usItemClass & IC_GUN )
-			damagethreshold *= gItemSettings.fOverheatDamageThresholdModifier[ Weapon[ pObj->usItem ].ubWeaponType ];
+			damagethreshold *= gItemSettings.fOverheatDamageThresholdModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		else if ( Item[pObj->usItem].usItemClass & IC_LAUNCHER )
+			damagethreshold *= gItemSettings.fOverheatDamageThresholdModifierLauncher;
 
 		// determine modificator according to attachments
 		FLOAT modificator = 1.0f + GetOverheatDamageThresholdModifier(pObj);

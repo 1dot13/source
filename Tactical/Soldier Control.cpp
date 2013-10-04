@@ -8026,7 +8026,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 			}
 		}
 
-		if(this->flags.bTurningFromPronePosition == TURNING_FROM_PRONE_FOR_PUNCH_OR_STUB)//dnl ch73 290913
+		if(this->flags.bTurningFromPronePosition == TURNING_FROM_PRONE_FOR_PUNCH_OR_STAB)//dnl ch73 290913
 		{
 			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
 		}
@@ -11766,7 +11766,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 	this->EVENT_SetSoldierDesiredDirection(ubDirection);
 	this->EVENT_SetSoldierDirection(ubDirection);
 	if(this->flags.bTurningFromPronePosition)
-		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STUB;
+		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STAB;
 	usForceAnimState = INVALID_ANIMATION;
 	// CHANGE TO ANIMATION
 
@@ -11987,7 +11987,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 		this->EVENT_SetSoldierDesiredDirection(ubDirection);
 		this->EVENT_SetSoldierDirection(ubDirection);
 		if(this->flags.bTurningFromPronePosition)
-			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STUB;
+			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STAB;
 		usForceAnimState = INVALID_ANIMATION;
 	}
 
