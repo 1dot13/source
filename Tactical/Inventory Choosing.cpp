@@ -3618,7 +3618,9 @@ UINT32 ItemFitness( OBJECTTYPE* pObj, UINT8 idx )
 	}
 	else if ( Item[ pObj->usItem ].usItemClass & (IC_BLADE|IC_PUNCH) )
 	{
-		value = (*pObj)[idx]->data.objectStatus * Weapon[ Item[ pObj->usItem ].ubClassIndex ].ubImpact;
+		value = GetDamage(pObj);
+
+		value *= (*pObj)[idx]->data.objectStatus;
 	}
 	else if ( Item[ pObj->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
 	{

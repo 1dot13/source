@@ -1492,11 +1492,15 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 //UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, UINT16 usItem )
 INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj, SOLDIERTYPE* pSoldier )
 {
-	INT32 aps;
+	INT32 aps, iModifiedAPs;
 
+	iModifiedAPs = Weapon[ pObj->usItem ].bBurstAP;
+	// modify by ini values
+	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+		iModifiedAPs *= gItemSettings.fBurstAPModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
 	// base APs is what you'd get from CalcActionPoints();
 	// NB round UP, so 21-25 APs pay full
-	aps =	( Weapon[ pObj->usItem ].bBurstAP * bBaseActionPoints + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
+	aps =	( iModifiedAPs * bBaseActionPoints + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
 
 	/*if ( GetPercentBurstFireAPReduction(pObj)>0 )
 	{
@@ -1514,7 +1518,7 @@ INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj, SOLDIERTYPE* p
 	aps = ( aps	* ( 100 - GetPercentAPReduction(pSoldier, pObj) ) ) / 100;
 
 	// Snap: moved this up to allow burst AP reduction up to 100%
-	aps = __max( aps, ( Weapon[ pObj->usItem ].bBurstAP + 1 ) / 2 );
+	aps = __max( aps, ( iModifiedAPs + 1 ) / 2 );
 
 	aps = ( aps * ( 100 - GetPercentBurstFireAPReduction(pObj) ) ) / 100;
 
@@ -1528,11 +1532,17 @@ INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj, SOLDIERTYPE* p
 // HEADROCK HAM 4: Same as above, without percent modifiers.
 INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
 {
-	INT32 aps;
+	INT32 aps, iModifiedAPs;
 
-	aps =	( Weapon[ pObj->usItem ].bBurstAP * bBaseActionPoints + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
+	iModifiedAPs = Weapon[ pObj->usItem ].bBurstAP;
+	// modify by ini values
+	// although the function says "no modifier" the ini values represent our new base value
+	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+		iModifiedAPs *= gItemSettings.fBurstAPModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
 
-	aps = __max( aps, ( Weapon[ pObj->usItem ].bBurstAP + 1 ) / 2 );
+	aps =	( iModifiedAPs * bBaseActionPoints + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
+
+	aps = __max( aps, ( iModifiedAPs + 1 ) / 2 );
 
 	if ( aps < 0 ) aps = 0;
 	else if ( aps > APBPConstants[AP_MAXIMUM] ) aps = APBPConstants[AP_MAXIMUM];
@@ -1637,7 +1647,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 	usItemNum = pSoldier->inv[HANDPOS].usItem;
 	uiItemClass = Item[ usUBItemNum ].usItemClass;
 
-	if ( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
+	if ( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_THROWING_KNIFE )
 	{
 		sAPCost = MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost, bAimTime );
 
@@ -1724,7 +1734,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 		//sAPCost = 5;
 	}
 
-	if ( uiItemClass == IC_PUNCH || uiItemClass == IC_BLADE )//dnl ch73 031013
+	if ( uiItemClass == IC_PUNCH || uiItemClass == IC_BLADE || uiItemClass == IC_TENTACLES )//dnl ch73 031013, silversurfer: tentacles are melee too
 	{
 		// IF we are at this gridno, calc min APs but if not, calc cost to goto this lication
 		if ( pSoldier->sGridNo != sGridNo )
@@ -1933,6 +1943,21 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj, SOLD
 	// Their info is an array of item status, not weapon info, and they don't repeat
 	// fire anyway.
 	rof = Weapon[ pObj->usItem ].ubShotsPer4Turns;
+
+	// modify by ini values
+	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+		rof *= gItemSettings.fShotsPer4TurnsModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+	else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
+		rof *= gItemSettings.fShotsPer4TurnsModifierLauncher;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_BLADE )
+		rof *= gItemSettings.fShotsPer4TurnsModifierBlade;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_PUNCH )
+		rof *= gItemSettings.fShotsPer4TurnsModifierPunch;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_TENTACLES )
+		rof *= gItemSettings.fShotsPer4TurnsModifierTentacle;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_THROWING_KNIFE )
+		rof *= gItemSettings.fShotsPer4TurnsModifierThrowKnife;
+
 	//CHRISL: Resolves a problem with stackable weapons not using attachments like Reflex sight.  Found by Mugsy
 	//if (ItemSlotLimit(pObj, STACK_SIZE_LIMIT) == 1)//NOT STACKABLE!
 	{
@@ -1978,6 +2003,21 @@ INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * 
 	FLOAT	rof;
 
 	rof = Weapon[ pObj->usItem ].ubShotsPer4Turns;
+
+	// modify by ini values
+	// although this function says "no modifiers" our ini values are supposed to provide new base values
+	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+		rof *= gItemSettings.fShotsPer4TurnsModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+	else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
+		rof *= gItemSettings.fShotsPer4TurnsModifierLauncher;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_BLADE )
+		rof *= gItemSettings.fShotsPer4TurnsModifierBlade;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_PUNCH )
+		rof *= gItemSettings.fShotsPer4TurnsModifierPunch;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_TENTACLES )
+		rof *= gItemSettings.fShotsPer4TurnsModifierTentacle;
+	else if ( Item[ pObj->usItem ].usItemClass == IC_THROWING_KNIFE )
+		rof *= gItemSettings.fShotsPer4TurnsModifierThrowKnife;
 
 	Top = 8 * bAPs * 100;
 
@@ -4244,7 +4284,9 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 
 	// Impact indirectly speaks of the size of the bullet, and thus strength of the backforce, theoretically.. so take it to the account.
 	// (Other than that, we have nothing to base our calculation on by now, the solution would be to make a new tag in weapons.xml, but that's modder-unfriendly.)
-	INT32 iKickPower = (INT32)(Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact);
+	// silversurfer: Let's use the function that is designed for that.
+	//INT32 iKickPower = (INT32)(Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact);
+	INT32 iKickPower = (INT32)GetBasicDamage(&pSoldier->inv[pSoldier->ubAttackingHand]);
 
 	// get weapon total weight
 	// Weapon weight here actually helps us, since it absorbs the power of the backforce.

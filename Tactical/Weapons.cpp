@@ -11626,12 +11626,28 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 		if(UsingNewCTHSystem() == true)
 		{
 			ubDamage = Weapon[ pObj->usItem ].ubImpact;
+			// modify by ini values
+			if ( Item[pObj->usItem].usItemClass == IC_BLADE )
+				ubDamage *= gItemSettings.fDamageModifierBlade;
+			else if ( Item[pObj->usItem].usItemClass == IC_PUNCH )
+				ubDamage *= gItemSettings.fDamageModifierPunch;
+			else
+				ubDamage *= gItemSettings.fDamageModifierTentacle;
+
 			ubDamage += GetMeleeDamageBonus(pObj);
 			ubDamage = (UINT8)GetModifiedMeleeDamage( ubDamage );
 		}
 		else
 		{
 			ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
+			// modify by ini values
+			if ( Item[pObj->usItem].usItemClass == IC_BLADE )
+				ubDamage *= gItemSettings.fDamageModifierBlade;
+			else if ( Item[pObj->usItem].usItemClass == IC_PUNCH )
+				ubDamage *= gItemSettings.fDamageModifierPunch;
+			else
+				ubDamage *= gItemSettings.fDamageModifierTentacle;
+
 			ubDamage += GetMeleeDamageBonus(pObj);
 		}
 		//return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.iMeleeDamageModifier ) );
@@ -11644,6 +11660,9 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 		if(UsingNewCTHSystem() == true)
 		{
 			ubDamage = Weapon[ pObj->usItem ].ubImpact;
+			// modify by ini values
+			if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				ubDamage *= gItemSettings.fDamageModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
 			// HEADROCK HAM 4: I've decided to remove this condition. It makes no friggin sense.
 			//if (FitsInSmallPocket(pObj) == true)
 			//{
@@ -11654,6 +11673,9 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 		else
 		{
 			ubDamage = (UINT8)GetModifiedGunDamage( Weapon[ pObj->usItem ].ubImpact );
+			// modify by ini values
+			if ( Item[pObj->usItem].usItemClass == IC_GUN )
+				ubDamage *= gItemSettings.fDamageModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
 
 			// WTF? Why do only small weapons get their damage bonus?!
 			if (FitsInSmallPocket(pObj) == true)
@@ -11672,12 +11694,24 @@ UINT8 GetBasicDamage ( OBJECTTYPE *pObj )
 	{
 		// HEADROCK HAM 3.6: Can now take a negative modifier 
 		UINT8 ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
+		// modify by ini values
+		if ( Item[pObj->usItem].usItemClass == IC_BLADE )
+			ubDamage *= gItemSettings.fDamageModifierBlade;
+		else if ( Item[pObj->usItem].usItemClass == IC_PUNCH )
+			ubDamage *= gItemSettings.fDamageModifierPunch;
+		else
+			ubDamage *= gItemSettings.fDamageModifierTentacle;
+
 		return ubDamage;
 	}
 	else
 	{
 		// HEADROCK HAM 3.6: Can now take a negative modifier 
 		UINT8 ubDamage = (UINT8)GetModifiedGunDamage( Weapon[ pObj->usItem ].ubImpact );
+		// modify by ini values
+		if ( Item[pObj->usItem].usItemClass == IC_GUN )
+			ubDamage *= gItemSettings.fDamageModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+
 		return ubDamage;
 	}
 }
@@ -11754,9 +11788,15 @@ UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 //	HEADROCK HAM B2.6: Added overall modifier
 	if (Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP > 0)
 	{
+		UINT8 usAutoFireShots = Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP;
+
+		// modify by ini values
+		if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+			usAutoFireShots *= gItemSettings.fAFShotsPer5APModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+
 		// WANNE: Fix by Headrock
 		// Weapons shouldn't ever lose their Bp5AP due to this modifier.
-		return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 1);
+		return __max((usAutoFireShots + gGameExternalOptions.bAutofireBulletsPer5APModifier), 1);
 		
 		//return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 0);
 	}

@@ -1742,7 +1742,7 @@ typedef struct
 // silversurfer: item property modifiers
 typedef struct
 {
-	// weapon overheating modifiers for the different gun classes
+	// weapon overheating modifiers for the different weapon types
 	FLOAT fOverheatJamThresholdModifierGun[9];
 	FLOAT fOverheatDamageThresholdModifierGun[9];
 	FLOAT fOverheatTemperatureModifierGun[9];
@@ -1754,6 +1754,22 @@ typedef struct
 	// range modifiers for different weapon types
 	FLOAT fRangeModifierGun[9];
 	FLOAT fRangeModifierLauncher;
+	// damage modifiers for different weapon types
+	FLOAT fDamageModifierGun[9];
+	FLOAT fDamageModifierBlade;
+	FLOAT fDamageModifierPunch;
+	FLOAT fDamageModifierTentacle;
+	// AP modifiers for single attacks (ubShotsPer4Turns)
+	FLOAT fShotsPer4TurnsModifierGun[9];
+	FLOAT fShotsPer4TurnsModifierLauncher;
+	FLOAT fShotsPer4TurnsModifierBlade;
+	FLOAT fShotsPer4TurnsModifierPunch;
+	FLOAT fShotsPer4TurnsModifierTentacle;
+	FLOAT fShotsPer4TurnsModifierThrowKnife;
+	// Burst AP modifiers for different weapon types
+	FLOAT fBurstAPModifierGun[9];
+	// AP modifiers for Auto Fire Shots per 5 AP (bAutofireShotsPerFiveAP)
+	FLOAT fAFShotsPer5APModifierGun[9];
 
 }ITEM_SETTINGS;
 

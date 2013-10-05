@@ -8021,25 +8021,27 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
     pSoldier = MercPtrs[ubCausedAttacker];
     if ( Item[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].usItemClass == IC_GUN )
     {
+		UINT8 ubDamage = GetBasicDamage(&pSoldier->inv[pSoldier->ubAttackingHand]);
+
         // +1% per point above 20 impact
-        if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 20 )
+        if ( ubDamage > 20 )
         {
-            sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 20);
+            sFinalSuppressionEffectiveness += (ubDamage - 20);
 
             // +2% per point above 30 impact
-            if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 30 )
+            if ( ubDamage > 30 )
             {
-                sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 30);
+                sFinalSuppressionEffectiveness += (ubDamage - 30);
 
                 // +3% per point above 40 impact
-                if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 40 )
+                if ( ubDamage > 40 )
                 {
-                    sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 40);
+                    sFinalSuppressionEffectiveness += (ubDamage - 40);
 
                     // +4% per point above 50 impact, some crazy gun here
-                    if ( Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubImpact > 50 )
+                    if ( ubDamage > 50 )
                     {
-                        sFinalSuppressionEffectiveness += (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubImpact - 50);
+                        sFinalSuppressionEffectiveness += (ubDamage - 50);
                     }
                 }
             }

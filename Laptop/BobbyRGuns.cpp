@@ -2165,12 +2165,22 @@ UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 		// HEADROCK HAM 3.6: Can now take a negative modifier
 		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usIndex ].ubImpact );
 		//gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+
+		// modify by ini values
+		if ( Item[ usIndex ].usItemClass == IC_GUN )
+			gunDamage *= gItemSettings.fDamageModifierGun[ Weapon[ usIndex ].ubWeaponType ];
 	}
 	else
 	{
 		// HEADROCK HAM 3.6: Can now take a negative modifier
 		gunDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ usIndex ].ubImpact );
 		//gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+
+		// modify by ini values
+		if ( Item[ usIndex ].usItemClass == IC_BLADE )
+			gunDamage *= gItemSettings.fDamageModifierBlade;
+		else if ( Item[ usIndex ].usItemClass == IC_PUNCH )
+			gunDamage *= gItemSettings.fDamageModifierPunch;
 	}
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_DAMAGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
@@ -3939,6 +3949,8 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 			// HEADROCK HAM 3.6: Can now take a negative modifier.
 			//UINT16	gunDamage = (UINT16)( Weapon[ usItemNumber ].ubImpact + ( (double) Weapon[ usItemNumber ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 			UINT16		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usItemNumber ].ubImpact );
+			// modify by ini values
+						gunDamage *= gItemSettings.fDamageModifierGun[ Weapon[ usItemNumber ].ubWeaponType ];
 			UINT16		readyAPs = (UINT16)(( Weapon[ usItemNumber ].ubReadyTime * (100 - Item[ usItemNumber ].percentreadytimeapreduction)) / 100);
 			UINT16		gunRange = (UINT16)GetModifiedGunRange(usItemNumber);
 
@@ -4113,10 +4125,10 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 	case IC_LAUNCHER:
 		{
 			// HEADROCK HAM 3.6: Can now take a negative modifier.
-			UINT16 gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usItemNumber ].ubImpact );
-			UINT16 readyAPs = (UINT16)(( Weapon[ usItemNumber ].ubReadyTime * (100 - Item[ usItemNumber ].percentreadytimeapreduction)) / 100);
-			UINT16 usRange = (UINT16)GetModifiedGunRange(usItemNumber);
-			INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ usItemNumber ].nAccuracy:Weapon[ usItemNumber ].bAccuracy);
+			UINT16	gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usItemNumber ].ubImpact );
+			UINT16	readyAPs = (UINT16)(( Weapon[ usItemNumber ].ubReadyTime * (100 - Item[ usItemNumber ].percentreadytimeapreduction)) / 100);
+			UINT16	usRange = (UINT16)GetModifiedGunRange(usItemNumber);
+			INT8	accuracy = (UsingNewCTHSystem()==true?Weapon[ usItemNumber ].nAccuracy:Weapon[ usItemNumber ].bAccuracy);
 			//UINT16 gunDamage = (UINT16)( Weapon[ usItemNumber ].ubImpact + ( (double) Weapon[ usItemNumber ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
 			//Calculate AP's

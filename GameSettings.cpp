@@ -2405,7 +2405,7 @@ void LoadItemSettings()
 {
 	CIniReader iniReader(ITEM_SETTINGS_FILE);
 
-	// silversurfer: New values to fine-tune weapon overheating for different gun classes
+	// values to fine-tune weapon overheating for different weapon types
 	// --------- PISTOLS ----------
 	gItemSettings.fOverheatJamThresholdModifierGun[GUN_PISTOL]		= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_JAM_THRESHOLD_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
 	gItemSettings.fOverheatDamageThresholdModifierGun[GUN_PISTOL]	= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_DAMAGE_THRESHOLD_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
@@ -2452,17 +2452,67 @@ void LoadItemSettings()
 	gItemSettings.fOverheatTemperatureModifierLauncher				= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_TEMPERATURE_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
 	gItemSettings.fOverheatCooldownModifierLauncher					= iniReader.ReadFloat  ("Weapon Settings","OVERHEATING_COOLDOWN_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
 
-	// silversurfer: new values to adjust weapon range for different gun classes
-	gItemSettings.fRangeModifierGun[GUN_PISTOL]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_PISTOL_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_M_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_MP_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_SMG]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_SMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_RIFLE]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_RIFLE_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_SN_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SNIPER_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_AS_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_AR_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_LMG]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_LMG_MODIFIER", 1.0f, 0.1f, 10.0f);
-	gItemSettings.fRangeModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 10.0f);
+	// values to adjust weapon range for different weapon types
+	gItemSettings.fRangeModifierGun[GUN_PISTOL]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_PISTOL_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_M_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_MP_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_SMG]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_SMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_RIFLE]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_RIFLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_SN_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SNIPER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_AS_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_AR_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_LMG]						= iniReader.ReadFloat  ("Weapon Settings","RANGE_LMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fRangeModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","RANGE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
 	// -------- LAUNCHERs ---------
-	gItemSettings.fRangeModifierLauncher							= iniReader.ReadFloat  ("Weapon Settings","RANGE_LAUNCHER_MODIFIER", 1.0f, 0.1f, 10.0f);
+	gItemSettings.fRangeModifierLauncher							= iniReader.ReadFloat  ("Weapon Settings","RANGE_LAUNCHER_MODIFIER", 1.0f, 0.1f, 5.0f);
+
+	// values to adjust damage for different weapon types
+	// ----------- GUNS -----------
+	gItemSettings.fDamageModifierGun[GUN_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_PISTOL_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_M_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_MP_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_SMG]						= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_SMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_RIFLE]						= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_RIFLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_SN_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_SNIPER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_AS_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_AR_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_LMG]						= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_LMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
+	// ----------- MELEE ----------
+	gItemSettings.fDamageModifierBlade								= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_BLADE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierPunch								= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_PUNCH_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fDamageModifierTentacle							= iniReader.ReadFloat  ("Weapon Settings","DAMAGE_TENTACLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+
+	// values to adjust APs needed for a single attack
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","SP4T_PISTOL_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_M_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","SP4T_MP_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_SMG]				= iniReader.ReadFloat  ("Weapon Settings","SP4T_SMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_RIFLE]				= iniReader.ReadFloat  ("Weapon Settings","SP4T_RIFLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_SN_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","SP4T_SNIPER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_AS_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","SP4T_AR_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_LMG]				= iniReader.ReadFloat  ("Weapon Settings","SP4T_LMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierGun[GUN_SHOTGUN]			= iniReader.ReadFloat  ("Weapon Settings","SP4T_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierLauncher					= iniReader.ReadFloat  ("Weapon Settings","SP4T_LAUNCHER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierBlade						= iniReader.ReadFloat  ("Weapon Settings","SP4T_BLADE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierPunch						= iniReader.ReadFloat  ("Weapon Settings","SP4T_PUNCH_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierTentacle					= iniReader.ReadFloat  ("Weapon Settings","SP4T_TENTACLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer4TurnsModifierThrowKnife					= iniReader.ReadFloat  ("Weapon Settings","SP4T_THROWKNIFE_MODIFIER", 1.0f, 0.1f, 5.0f);
+
+	// values to adjust Burst APs for different weapon types
+	gItemSettings.fBurstAPModifierGun[GUN_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_PISTOL_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_M_PISTOL]					= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_MP_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_SMG]						= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_SMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_RIFLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_SN_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_SNIPER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_AS_RIFLE]					= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_AR_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_LMG]						= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_LMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fBurstAPModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
+
+	// values to adjust Auto Fire APs for different weapon types
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_PISTOL]				= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_PISTOL_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_M_PISTOL]			= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_MP_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_SMG]				= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_SMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_RIFLE]				= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_RIFLE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_SN_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_SNIPER_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_AS_RIFLE]			= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_AR_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_LMG]				= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_LMG_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fAFShotsPer5APModifierGun[GUN_SHOTGUN]			= iniReader.ReadFloat  ("Weapon Settings","AF_SP5AP_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

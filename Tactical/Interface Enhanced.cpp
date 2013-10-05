@@ -6080,7 +6080,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			// Get base damage value
 			UINT8 iDamageValue = GetBasicDamage ( gpItemDescObject );
 
-			// Get Modified Accuracy value
+			// Get Modified damage value
 			UINT8 iFinalDamageValue = GetDamage ( gpItemDescObject );
 
 			// Get difference
