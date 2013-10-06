@@ -2347,22 +2347,30 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 	{
 		(*pObj)[0]->data.gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
 
+		INT16 sModifiedReloadAP = Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually;
+
+		// modify by ini values
+		if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+			sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
+			sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// STOMP traits - SANDRO
 		if ( gGameOptions.fNewTraitSystem )
 		{
 			// Sniper trait makes chambering a round faster
 			if (( Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
-				DeductPoints(pSoldier, (INT16)(((Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5), 0);
+				DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5), 0);
 			// Ranger trait makes pumping shotguns faster
 			else if (( Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-				DeductPoints(pSoldier, (INT16)(((Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5), 0);
+				DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5), 0);
 			else
-				DeductPoints(pSoldier, Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually, 0);
+				DeductPoints(pSoldier, sModifiedReloadAP, 0);
 		}
 		else
 		{
-			DeductPoints(pSoldier, Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually, 0);
+			DeductPoints(pSoldier, sModifiedReloadAP, 0);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2392,22 +2400,30 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 			{
 				(*pObj2)[0]->data.gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
 
+				INT16 sModifiedReloadAP = Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually;
+
+				// modify by ini values
+				if ( Item[ pObj2->usItem ].usItemClass == IC_GUN )
+					sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ pObj2->usItem ].ubWeaponType ];
+				else if ( Item[ pObj2->usItem ].usItemClass == IC_LAUNCHER )
+					sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+
 				////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// STOMP traits - SANDRO (well, I don't know any one-handed sniper rifle, but what the hell...)
 				if ( gGameOptions.fNewTraitSystem )
 				{
 					// Sniper trait makes chambering a round faster
 					if (( Weapon[Item[(pObj2)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[(pObj2)->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
-						DeductPoints(pSoldier, (INT16)(((Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5), 0);
+						DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5), 0);
 					// Ranger trait makes pumping shotguns faster
 					else if (( Weapon[Item[(pObj2)->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-						DeductPoints(pSoldier, (INT16)(((Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5), 0);
+						DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5), 0);
 					else
-						DeductPoints(pSoldier, Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually, 0);
+						DeductPoints(pSoldier, sModifiedReloadAP, 0);
 				}
 				else
 				{
-					DeductPoints(pSoldier, Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually, 0);
+					DeductPoints(pSoldier, sModifiedReloadAP, 0);
 				}
 				////////////////////////////////////////////////////////////////////////////////////////////////////////
 

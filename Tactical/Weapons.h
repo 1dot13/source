@@ -514,7 +514,7 @@ UINT16 GetMagSize( OBJECTTYPE *pObj, UINT8 subObject = 0 );
 UINT16 GetExpMagSize( OBJECTTYPE *pObj );
 UINT8 GetAmmoType( OBJECTTYPE *pObj );
 bool WeaponReady(SOLDIERTYPE * pSoldier);
-INT8 GetAPsToReload( OBJECTTYPE *pObj );
+INT16 GetAPsToReload( OBJECTTYPE *pObj );
 
 // HEADROCK HAM 3.4: Estimate bullets left in gun. Returns an "errorcode" telling the calling function if the check
 // was successful and to what degree.

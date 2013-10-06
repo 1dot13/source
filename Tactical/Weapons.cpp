@@ -5137,8 +5137,15 @@ if (gGameExternalOptions.fUseNewCTHCalculation)
 	// get bonus from effects lasting on the shooter (morale, injury, shock etc.)
 	fBaseModifier += CalcNewChanceToHitBaseEffectBonus(pSoldier);
 
+	// Handling value modified by ini
+	UINT8 ubModifiedHandling = Weapon[ usInHand ].ubHandling;
+	if ( Item[ usInHand ].usItemClass == IC_GUN )
+		ubModifiedHandling *= gItemSettings.fHandlingModifierGun[ Weapon[ usInHand ].ubWeaponType ];
+	else if ( Item[ usInHand ].usItemClass == IC_LAUNCHER )
+		ubModifiedHandling *= gItemSettings.fHandlingModifierLauncher;
+
 	// Calculate how easy it is to handle the weapon
-	FLOAT fGunDifficulty = (FLOAT)(( Weapon[ usInHand ].ubHandling * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
+	FLOAT fGunDifficulty = (FLOAT)(( ubModifiedHandling * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
 	fGunDifficulty *= (FLOAT)(100 / APBPConstants[AP_MAXIMUM]); // Adjust for 100AP/25AP
 	FLOAT fGunBaseDifficulty = fGunDifficulty;
 	FLOAT fGunAimDifficulty = fGunDifficulty;
@@ -5336,8 +5343,16 @@ else
 // START OLD VERSION OF NCTH CALCULATION
 //////////////////////////////////////////////////////////////////////////////////
 
+
+	// Handling value modified by ini
+	UINT8 ubModifiedHandling = Weapon[ usInHand ].ubHandling;
+	if ( Item[ usInHand ].usItemClass == IC_GUN )
+		ubModifiedHandling *= gItemSettings.fHandlingModifierGun[ Weapon[ usInHand ].ubWeaponType ];
+	else if ( Item[ usInHand ].usItemClass == IC_LAUNCHER )
+		ubModifiedHandling *= gItemSettings.fHandlingModifierLauncher;
+
 	// Calculate how easy it is to handle this gun.
-	FLOAT iGunDifficulty = (FLOAT)(( Weapon[ usInHand ].ubHandling * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
+	FLOAT iGunDifficulty = (FLOAT)(( ubModifiedHandling * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
 	iGunDifficulty *= (FLOAT)(100 / APBPConstants[AP_MAXIMUM]); // Adjust for 100AP/25AP
 	FLOAT iGunBaseDifficulty = iGunDifficulty;
 	FLOAT iGunAimDifficulty = iGunDifficulty;
@@ -9310,7 +9325,12 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 
 
 		AdjustImpactByHitLocation( iImpact, ubHitLocation, &iImpact, &iImpactForCrits );
-		
+
+		UINT8 ubDistMessy = Weapon[ usAttackingWeapon ].maxdistformessydeath;
+		// modify by ini values
+		if ( Item[ usAttackingWeapon ].usItemClass == IC_GUN )
+			ubDistMessy *= gItemSettings.fDistMessyModifierGun[ Weapon[ usAttackingWeapon ].ubWeaponType ];
+
 		switch( ubHitLocation )
 		{
 			case AIM_SHOT_HEAD:
@@ -9318,7 +9338,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 				// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
 				//if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && pFirer->usAttackingWeapon  == BARRETT ))
 				// HEADROCK HAM 5.1: Using usAttackingWeapon
-				if ( PythSpacesAway( sOrigGridNo, pTarget->sGridNo ) <= Weapon[ usAttackingWeapon ].maxdistformessydeath )
+				if ( PythSpacesAway( sOrigGridNo, pTarget->sGridNo ) <= ubDistMessy )
 				{
 					if (iImpactForCrits > MIN_DAMAGE_FOR_INSTANT_KILL && iImpactForCrits < pTarget->stats.bLife)
 					{
@@ -9372,7 +9392,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 				// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
 				//if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && pFirer->usAttackingWeapon  == BARRETT ))
 				// HEADROCK HAM 5.1: Using usAttackingWeapon
-				if ( PythSpacesAway( sOrigGridNo, pTarget->sGridNo ) <= Weapon[ usAttackingWeapon ].maxdistformessydeath )
+				if ( PythSpacesAway( sOrigGridNo, pTarget->sGridNo ) <= ubDistMessy )
 				{
 					if (iImpact > MIN_DAMAGE_FOR_INSTANT_KILL && iImpact < pTarget->stats.bLife)
 					{
@@ -11848,11 +11868,17 @@ bool WeaponReady(SOLDIERTYPE * pSoldier)
 		return false;
 }
 
-INT8 GetAPsToReload( OBJECTTYPE *pObj )
+INT16 GetAPsToReload( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetAPsToReload"));
+	// modify by ini values
+	FLOAT fModifier = 1.0;
+	if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+		fModifier = gItemSettings.fAPtoReloadModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+	else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
+		fModifier = gItemSettings.fAPtoReloadModifierLauncher;
 
-	return ( Weapon[ pObj->usItem ].APsToReload *
+	return ( Weapon[ pObj->usItem ].APsToReload * fModifier *
 		( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
 
 }

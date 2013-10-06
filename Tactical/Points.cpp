@@ -2923,9 +2923,9 @@ INT16 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJEC
 	{
 		// wrong size ammo item
 		if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) ) // SANDRO - added Ambidextrous check
-			return (INT8)((((GetAPsToReload(pGun) * APBPConstants[AP_WRONG_MAG])/10)*(100 - gSkillTraitValues.ubAMReloadSpeedLoose)/100) + 0.5);
+			return (INT16)((((GetAPsToReload(pGun) * APBPConstants[AP_WRONG_MAG])/10)*(100 - gSkillTraitValues.ubAMReloadSpeedLoose)/100) + 0.5);
 		else
-			return (INT8)((GetAPsToReload(pGun) * APBPConstants[AP_WRONG_MAG])/10);
+			return (INT16)((GetAPsToReload(pGun) * APBPConstants[AP_WRONG_MAG])/10);
 	}
 	else
 	{
@@ -2991,22 +2991,30 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 //<SB> manual recharge
 	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 	{
+		INT16 sModifiedReloadAP = Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually;
+
+		// modify by ini values
+		if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
+			sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
+			sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// STOMP traits - SANDRO
 		if ( gGameOptions.fNewTraitSystem )
 		{
 			// Sniper trait makes chambering a round faster
 			if (( Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
-				return ( (INT16)(((Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5));
+				return ( (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5));
 			// Ranger trait makes pumping shotguns faster
 			else if (( Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-				return ( (INT16)(((Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5));
+				return ( (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5));
 			else
-				return (Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually);
+				return (sModifiedReloadAP);
 		}
 		else
 		{
-			return (Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually);
+			return (sModifiedReloadAP);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}

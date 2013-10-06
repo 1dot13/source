@@ -7729,7 +7729,7 @@ void DeleteItemDescriptionBox( )
 	{
 		if (gpAttachSoldier)
 		{
-			UINT8 ubAPCost = 0;
+			INT16 ubAPCost = 0;
 
 			// check for change in attachments
 			//unsigned int originalSize = gOriginalAttachments.size();

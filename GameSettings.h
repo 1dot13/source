@@ -1742,7 +1742,11 @@ typedef struct
 // silversurfer: item property modifiers
 typedef struct
 {
-	// weapon overheating modifiers for the different weapon types
+	// -------------- COMMON MODIFIERS ----------------
+	FLOAT fBestLaserRangeModifier;
+
+	// -------------- WEAPON MODIFIERS ----------------
+	// weapon overheating modifiers
 	FLOAT fOverheatJamThresholdModifierGun[9];
 	FLOAT fOverheatDamageThresholdModifierGun[9];
 	FLOAT fOverheatTemperatureModifierGun[9];
@@ -1751,10 +1755,10 @@ typedef struct
 	FLOAT fOverheatDamageThresholdModifierLauncher;
 	FLOAT fOverheatTemperatureModifierLauncher;
 	FLOAT fOverheatCooldownModifierLauncher;
-	// range modifiers for different weapon types
+	// range modifiers
 	FLOAT fRangeModifierGun[9];
 	FLOAT fRangeModifierLauncher;
-	// damage modifiers for different weapon types
+	// damage modifiers
 	FLOAT fDamageModifierGun[9];
 	FLOAT fDamageModifierBlade;
 	FLOAT fDamageModifierPunch;
@@ -1766,10 +1770,25 @@ typedef struct
 	FLOAT fShotsPer4TurnsModifierPunch;
 	FLOAT fShotsPer4TurnsModifierTentacle;
 	FLOAT fShotsPer4TurnsModifierThrowKnife;
-	// Burst AP modifiers for different weapon types
+	// Burst AP modifiers
 	FLOAT fBurstAPModifierGun[9];
 	// AP modifiers for Auto Fire Shots per 5 AP (bAutofireShotsPerFiveAP)
 	FLOAT fAFShotsPer5APModifierGun[9];
+	// AP to Reload modifiers
+	FLOAT fAPtoReloadModifierGun[9];
+	FLOAT fAPtoReloadModifierLauncher;
+	// AP to Reload manually modifiers
+	FLOAT fAPtoReloadManuallyModifierGun[9];
+	FLOAT fAPtoReloadManuallyModifierLauncher;
+	// Max Distance for messy shot modifiers
+	FLOAT fDistMessyModifierGun[9];
+	// Handling modifiers
+	FLOAT fHandlingModifierGun[9];
+	FLOAT fHandlingModifierLauncher;
+
+	// -------------- ARMOR MODIFIERS ----------------
+
+	// ------------ EXPLOSIVE MODIFIERS --------------
 
 }ITEM_SETTINGS;
 

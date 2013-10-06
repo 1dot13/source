@@ -6224,6 +6224,11 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// Get base Gun Handling value
 			UINT16 iHandlingValue = Weapon[ gpItemDescObject->usItem ].ubHandling;
+			// modify by ini values
+			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN )
+				iHandlingValue *= gItemSettings.fHandlingModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
+			else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
+				iHandlingValue *= gItemSettings.fHandlingModifierLauncher;
 
 			// Get modifier
 			INT16 iHandlingModifier = (iHandlingValue * GetPercentHandlingModifier( gpItemDescObject , ANIM_STAND )) / 100;
@@ -6564,7 +6569,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 			{
 				// Get base laser range
-				iProjectionValue = __max(0, Item[ gpItemDescObject->usItem ].bestlaserrange / CELL_X_SIZE);
+				iProjectionValue = __max(0, Item[ gpItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE);
 				// Get best laser range
 				iProjectionModifier = ((FLOAT)GetBestLaserRange( gpItemDescObject ) / CELL_X_SIZE);
 				// Get final laser range
@@ -6728,9 +6733,9 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get base Best Laser Range value
-			INT16 iBestLaserRangeValue = Item[ gpItemDescObject->usItem ].bestlaserrange / 10;
+			INT16 iBestLaserRangeValue = Item[ gpItemDescObject->usItem ].bestlaserrange * gItemSettings.fBestLaserRangeModifier / CELL_X_SIZE;
 			// Get final Best Laser Range value
-			INT16 iFinalBestLaserRangeValue = GetAverageBestLaserRange( gpItemDescObject ) / 10;
+			INT16 iFinalBestLaserRangeValue = GetAverageBestLaserRange( gpItemDescObject ) / CELL_X_SIZE;
 			// Get Best Laser Range Modifier value
 			INT16 iBestLaserRangeModifier = iFinalBestLaserRangeValue - iBestLaserRangeValue;
 
@@ -7330,6 +7335,11 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// Get base Reload Cost
 			INT16 iReloadAPCost = Weapon[ gpItemDescObject->usItem ].APsToReload;
+			// modify by ini values
+			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN )
+				iReloadAPCost *= gItemSettings.fAPtoReloadModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
+			else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
+				iReloadAPCost *= gItemSettings.fAPtoReloadModifierLauncher;
 
 			// Get Reload Cost Modifier
 			INT16 iReloadAPCostModifier = iFinalReloadAPCost - iReloadAPCost;
@@ -7394,6 +7404,11 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			// Get final Manual Reload Cost
 			INT16 iFinalManualReloadAPCost = Weapon[ gpItemDescObject->usItem ].APsToReloadManually;
+			// modify by ini values
+			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN )
+				iFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ];
+			else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_LAUNCHER )
+				iFinalManualReloadAPCost *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
 
 			// Get base Manual Reload Cost
 			INT16 iManualReloadAPCost = iFinalManualReloadAPCost;

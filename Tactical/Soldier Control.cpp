@@ -6370,7 +6370,13 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 				{
 					// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
 					//if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
-					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath)
+
+					UINT8 ubDistMessy = Weapon[ usWeaponIndex ].maxdistformessydeath;
+					// modify by ini values
+					if ( Item[ usWeaponIndex ].usItemClass == IC_GUN )
+						ubDistMessy *= gItemSettings.fDistMessyModifierGun[ Weapon[ usWeaponIndex ].ubWeaponType ];
+
+					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= ubDistMessy)
 					{
 						usNewGridNo = NewGridNo( pSoldier->sGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
 
@@ -6393,7 +6399,13 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 				{
 					// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
 					//if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
-					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath)
+
+					UINT8 ubDistMessy = Weapon[ usWeaponIndex ].maxdistformessydeath;
+					// modify by ini values
+					if ( Item[ usWeaponIndex ].usItemClass == IC_GUN )
+						ubDistMessy *= gItemSettings.fDistMessyModifierGun[ Weapon[ usWeaponIndex ].ubWeaponType ];
+
+					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= ubDistMessy)
 					{
 
 						// possibly play torso explosion anim!
