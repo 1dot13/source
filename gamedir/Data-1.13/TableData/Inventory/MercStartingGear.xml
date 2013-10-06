@@ -247,9 +247,9 @@
 			<mSmall7Quantity>0</mSmall7Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
-			<lLeftThigh>1091</lLeftThigh>
+			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>0</lRightThigh>
+			<lRightThigh>1644</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
 			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
@@ -274,7 +274,7 @@
 			<mBig3>214</mBig3>
 			<mBig3Quantity>1</mBig3Quantity>
 			<lVest>1090</lVest>
-			<lLeftThigh>1091</lLeftThigh>
+			<lRightThigh>1644</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Martial Arts</mGearKitName>
@@ -309,7 +309,7 @@
 			<mBig3>214</mBig3>
 			<mBig3Quantity>1</mBig3Quantity>
 			<lVest>1090</lVest>
-			<lRightThigh>1091</lRightThigh>
+			<lRightThigh>1644</lRightThigh>
 			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
@@ -331,7 +331,7 @@
 			<mSmall1>214</mSmall1>
 			<mSmall2>201</mSmall2>
 			<lVest>1090</lVest>
-			<lRightThigh>1091</lRightThigh>
+			<lRightThigh>1644</lRightThigh>
 			<lCPack>1098</lCPack>
 	</GEARKIT>
 	</MERCGEAR>
@@ -555,7 +555,7 @@
 			<lVestStatus>100</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>1093</lRightThigh>
+			<lRightThigh>1641</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
 			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
@@ -579,7 +579,7 @@
 			<mBig2Quantity>1</mBig2Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
-			<lRightThigh>1093</lRightThigh>
+			<lRightThigh>1641</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
 		</GEARKIT>
 		<GEARKIT>
@@ -599,7 +599,7 @@
 			<mBig1Quantity>1</mBig1Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
-			<lRightThigh>1093</lRightThigh>
+			<lRightThigh>1641</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
 			<lBPackStatus>100</lBPackStatus>
 		</GEARKIT>
@@ -622,7 +622,7 @@
 			<mBig3Quantity>1</mBig3Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
-			<lRightThigh>1093</lRightThigh>
+			<lRightThigh>1641</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
 			<lCPack>1098</lCPack>
 			<lCPackStatus>99</lCPackStatus>
@@ -657,7 +657,7 @@
 			<mSmall2>214</mSmall2>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
-			<lRightThigh>1093</lRightThigh>
+			<lRightThigh>1641</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
 			<lCPack>1098</lCPack>
 			<lCPackStatus>100</lCPackStatus>
@@ -1801,11 +1801,11 @@
 			<mSmall7Quantity>0</mSmall7Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>91</lVestStatus>
-			<lLeftThigh>0</lLeftThigh>
-			<lLeftThighStatus>0</lLeftThighStatus>
+			<lLeftThigh>1647</lLeftThigh>
+			<lLeftThighStatus>91</lLeftThighStatus>
 			<lRightThigh>1091</lRightThigh>
 			<lRightThighStatus>91</lRightThighStatus>
-			<lCPack>1098</lCPack>
+			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
 			<lBPack>0</lBPack>
 			<lBPackStatus>0</lBPackStatus>
@@ -1830,9 +1830,9 @@
 			<mBig3Quantity>2</mBig3Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>91</lVestStatus>
+			<lLeftThigh>1647</lLeftThigh>
 			<lRightThigh>1091</lRightThigh>
 			<lRightThighStatus>91</lRightThighStatus>
-			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Breach</mGearKitName>
@@ -2736,7 +2736,7 @@
 			<lVestStatus>97</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>1091</lRightThigh>
+			<lRightThigh>1645</lRightThigh>
 			<lRightThighStatus>97</lRightThighStatus>
 			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
@@ -2761,7 +2761,7 @@
 			<mBig2Quantity>1</mBig2Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>97</lVestStatus>
-			<lRightThigh>1091</lRightThigh>
+			<lRightThigh>1645</lRightThigh>
 			<lRightThighStatus>97</lRightThighStatus>
 		</GEARKIT>
 		<GEARKIT>
@@ -2779,6 +2779,7 @@
 			<mBig3Status>98</mBig3Status>
 			<mBig3Quantity>1</mBig3Quantity>
 			<lVest>1090</lVest>
+			<lLeftThigh>1645</lLeftThigh>
 			<lRightThigh>1092</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
@@ -2887,7 +2888,7 @@
 			<lVestStatus>100</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>0</lRightThigh>
+			<lRightThigh>1643</lRightThigh>
 			<lRightThighStatus>0</lRightThighStatus>
 			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
@@ -2904,6 +2905,7 @@
 			<mBig0>72</mBig0>
 			<mBig0Quantity>2</mBig0Quantity>
 			<lVest>1090</lVest>
+			<lRightThigh>1643</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Gun Choice 2</mGearKitName>
@@ -2915,6 +2917,7 @@
 			<mBig0>81</mBig0>
 			<mBig0Quantity>2</mBig0Quantity>
 			<lVest>1090</lVest>
+			<lRightThigh>1643</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Gun Choice 3</mGearKitName>
@@ -2926,6 +2929,7 @@
 			<mBig0>510</mBig0>
 			<mBig0Quantity>2</mBig0Quantity>
 			<lVest>1090</lVest>
+			<lRightThigh>1643</lRightThigh>
 			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
@@ -2946,6 +2950,7 @@
 			<mSmall0>212</mSmall0>
 			<mSmall0Status>96</mSmall0Status>
 			<lVest>1090</lVest>
+			<lRightThigh>1643</lRightThigh>
 			<lCPack>1098</lCPack>
 	</GEARKIT>
 	</MERCGEAR>
@@ -3308,7 +3313,7 @@
 			<lVestStatus>98</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>0</lRightThigh>
+			<lRightThigh>1646</lRightThigh>
 			<lRightThighStatus>0</lRightThighStatus>
 			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
@@ -3332,6 +3337,7 @@
 			<mBig2Status>92</mBig2Status>
 			<lVest>1090</lVest>
 			<lVestStatus>98</lVestStatus>
+			<lRightThigh>1648</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Ammo</mGearKitName>
@@ -3451,7 +3457,7 @@
 			<mSmall7Quantity>0</mSmall7Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
-			<lLeftThigh>0</lLeftThigh>
+			<lLeftThigh>1644</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
 			<lRightThigh>1091</lRightThigh>
 			<lRightThighStatus>100</lRightThighStatus>
@@ -3481,6 +3487,7 @@
 			<mSmall0>210</mSmall0>
 			<mSmall0Status>87</mSmall0Status>
 			<lVest>1090</lVest>
+			<lLeftThigh>1644</lLeftThigh>
 			<lRightThigh>1091</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
@@ -3498,6 +3505,7 @@
 			<mBig2>38</mBig2>
 			<mBig2Status>95</mBig2Status>
 			<lVest>1090</lVest>
+			<lLeftThigh>1645</lLeftThigh>
 			<lRightThigh>1091</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
@@ -3520,6 +3528,7 @@
 			<mSmall0>131</mSmall0>
 			<mSmall0Status>99</mSmall0Status>
 			<lVest>1090</lVest>
+			<lLeftThigh>1644</lLeftThigh>
 			<lRightThigh>1092</lRightThigh>
 			<lCPack>1098</lCPack>
 		</GEARKIT>
@@ -3547,6 +3556,8 @@
 			<mSmall1>212</mSmall1>
 			<mSmall1Status>99</mSmall1Status>
 			<lVest>1090</lVest>
+			<lLeftThigh>1644</lLeftThigh>
+			<lRightThigh>1092</lRightThigh>
 			<lCPack>1098</lCPack>
 	</GEARKIT>
 	</MERCGEAR>
@@ -5347,7 +5358,7 @@
 			<lVestStatus>94</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>0</lRightThigh>
+			<lRightThigh>1648</lRightThigh>
 			<lRightThighStatus>0</lRightThighStatus>
 			<lCPack>0</lCPack>
 			<lCPackStatus>0</lCPackStatus>
@@ -5370,6 +5381,7 @@
 			<mBig2Quantity>1</mBig2Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>94</lVestStatus>
+			<lRightThigh>1642</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Breach</mGearKitName>
@@ -5805,7 +5817,7 @@
 			<lVestStatus>98</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>0</lRightThigh>
+			<lRightThigh>1648</lRightThigh>
 			<lRightThighStatus>0</lRightThighStatus>
 			<lCPack>1098</lCPack>
 			<lCPackStatus>98</lCPackStatus>
@@ -5830,6 +5842,7 @@
 			<mBig3Quantity>1</mBig3Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>98</lVestStatus>
+			<lRightThigh>1648</lRightThigh>
 			<lCPack>1098</lCPack>
 			<lCPackStatus>98</lCPackStatus>
 		</GEARKIT>
@@ -5852,7 +5865,7 @@
 			<mSmall4Status>100</mSmall4Status>
 			<mSmall4Quantity>1</mSmall4Quantity>
 			<lVest>1090</lVest>
-			<lCPack>1098</lCPack>
+			<lRightThigh>1642</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Night Ops</mGearKitName>
@@ -18792,8 +18805,8 @@
 			<lVestStatus>99</lVestStatus>
 		</GEARKIT>
 		<GEARKIT>
-			<mGearKitName>Premium</mGearKitName>
 			<mPriceMod>50</mPriceMod>
+			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
 			<mHelmetStatus>99</mHelmetStatus>

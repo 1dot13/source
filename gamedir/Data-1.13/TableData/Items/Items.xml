@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -49119,6 +49119,209 @@
 		<usActionItemFlag>17</usActionItemFlag> <!-- net 1, lvl 1-->
 		<ItemFlag>16777216</ItemFlag>
 		<buddyitem>1524</buddyitem>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1641</uiIndex>
+		<szItemName>Large Holster</szItemName>
+		<szLongItemName>Large Holster</szLongItemName>
+		<szItemDesc>This pistol holster can store a larger pistol and up to two spare magazines. It also has a pocket for additional equipment.</szItemDesc>
+		<szBRName>Large Holster</szBRName>
+		<szBRDesc>This pistol holster can store a larger pistol and up to two spare magazines.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>41</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>163</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1642</uiIndex>
+		<szItemName>SG Holster</szItemName>
+		<szLongItemName>Shotgun holster</szLongItemName>
+		<szItemDesc>This is the perfect holster to store a small handheld shotgun in.</szItemDesc>
+		<szBRName>Shotgun holster</szBRName>
+		<szBRDesc>This is the perfect holster to store a small handheld shotgun in.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>42</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>164</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>150</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1643</uiIndex>
+		<szItemName>SMG Leg Rig</szItemName>
+		<szLongItemName>SMG Leg Rig</szLongItemName>
+		<szItemDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szItemDesc>
+		<szBRDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>43</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>165</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>120</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<UrbanCamoBonus>3</UrbanCamoBonus>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1644</uiIndex>
+		<szItemName>TK Rig</szItemName>
+		<szLongItemName>Leg Rig Throwing Knives</szLongItemName>
+		<szItemDesc>Stealthy assasins like their knives.This rig can hold several knives.</szItemDesc>
+		<szBRName>TK Rig</szBRName>
+		<szBRDesc>Stealthy assasins like their knives.This rig can hold several knives..</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>44</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>166</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>85</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<UrbanCamoBonus>3</UrbanCamoBonus>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1645</uiIndex>
+		<szItemName>Pistol Magazines</szItemName>
+		<szLongItemName>Pistol Magazines</szLongItemName>
+		<szItemDesc>A leg rig with three pouches for pistol magazines.</szItemDesc>
+		<szBRName>Pistol Magazines</szBRName>
+		<szBRDesc>A leg rig with three pouches for pistol magazines.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>45</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>167</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>3</CamoBonus>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1646</uiIndex>
+		<szItemName>Equipment Pouch</szItemName>
+		<szLongItemName>Equipment Pouch</szLongItemName>
+		<szItemDesc>A versatile leg pouch with pockets to carry various items.</szItemDesc>
+		<szBRName>Equipment Pouch</szBRName>
+		<szBRDesc>A versatile leg pouch with pockets to carry various items.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>46</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>168</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>3</CamoBonus>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1647</uiIndex>
+		<szItemName>Bomb Pouch</szItemName>
+		<szLongItemName>Bomb Pouch</szLongItemName>
+		<szItemDesc>A leg rig suitable for the safe transport of explosives.</szItemDesc>
+		<szBRName>Bomb Pouch</szBRName>
+		<szBRDesc>Not for sale.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>47</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>169</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>95</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1648</uiIndex>
+		<szItemName>12g S Rig</szItemName>
+		<szLongItemName>12g Shotgun Rig</szLongItemName>
+		<szItemDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szItemDesc>
+		<szBRName>12g Shotgun Rig</szBRName>
+		<szBRDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<ubClassIndex>48</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>170</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ItemSize>30</ItemSize>
+		<usPrice>75</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
