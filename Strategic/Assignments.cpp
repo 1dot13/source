@@ -14161,6 +14161,11 @@ BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 			{
 				return( TRUE );
 			}
+			// silversurfer: Fix for JaggZilla bug #591. This guy is set as student and there is a trainer available that is awake.
+			// Even if the trainer is not good enough this guy will still practice and therefore letting him fall through to 
+			// pSoldier->flags.fDoneAssignmentAndNothingToDoFlag will allow him to practice without breath loss. Lame exploit...
+			else
+				return( FALSE );
 		}
 		
 		// HEADROCK HAM 3.6: Added new resting assignment for facilities only.
