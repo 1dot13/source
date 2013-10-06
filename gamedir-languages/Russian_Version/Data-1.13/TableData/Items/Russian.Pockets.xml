@@ -92,4 +92,52 @@
 		<pIndex>22</pIndex>
 		<pName>Двойная лента</pName>
 	</POCKET>
+  <POCKET>
+    <pIndex>23</pIndex>
+    <pName>Large Pistol Holster</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>24</pIndex>
+    <pName>Shotgun Shells</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>25</pIndex>
+    <pName>Shotgun Holster</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>26</pIndex>
+    <pName>Throwing Knife</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>27</pIndex>
+    <pName>General Misc</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>28</pIndex>
+    <pName>Small Explosive</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>29</pIndex>
+    <pName>Short Rifle Mag x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>30</pIndex>
+    <pName>Revolver Holster</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>31</pIndex>
+    <pName>Combat Pack Gun Sling</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>32</pIndex>
+    <pName>Combat Pack Small</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>33</pIndex>
+    <pName>Explosives</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>34</pIndex>
+    <pName>Sniper Mag</pName>
+  </POCKET>
 </POCKETLIST>

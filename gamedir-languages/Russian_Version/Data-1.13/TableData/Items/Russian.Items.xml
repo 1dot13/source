@@ -13135,4 +13135,75 @@
     <szBRName>Hedge Trimmer</szBRName>
     <szBRDesc>Not for sale through BR.</szBRDesc>
   </ITEM>
+<ITEM>
+    <uiIndex>1640</uiIndex>
+    <szItemName>Tripwire Roll</szItemName>
+    <szLongItemName>Tripwire Roll</szLongItemName>
+    <szItemDesc>TRipwire can be deployed directly frm this roll.</szItemDesc>
+    <szBRName>Tripwire Roll</szBRName>
+    <szBRDesc>A roll of tripwire. In case you need to boobytrap your house, your car, and your cat.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1641</uiIndex>
+    <szItemName>Large Holster</szItemName>
+    <szLongItemName>Large Holster</szLongItemName>
+    <szItemDesc>This pistol holster can store a larger pistol and up to two spare magazines. It also has a pocket for additional equipment.</szItemDesc>
+    <szBRName>Large Holster</szBRName>
+    <szBRDesc>This pistol holster can store a larger pistol and up to two spare magazines.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1642</uiIndex>
+    <szItemName>SG Holster</szItemName>
+    <szLongItemName>Shotgun holster</szLongItemName>
+    <szItemDesc>This is the perfect holster to store a small handheld shotgun in.</szItemDesc>
+    <szBRName>Shotgun holster</szBRName>
+    <szBRDesc>This is the perfect holster to store a small handheld shotgun in.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1643</uiIndex>
+    <szItemName>SMG Leg Rig</szItemName>
+    <szLongItemName>SMG Leg Rig</szLongItemName>
+    <szItemDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szItemDesc>
+    <szBRDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1644</uiIndex>
+    <szItemName>TK Rig</szItemName>
+    <szLongItemName>Leg Rig Throwing Knives</szLongItemName>
+    <szItemDesc>Stealthy assasins like their knives. This rig can hold several knives.</szItemDesc>
+    <szBRName>TK Rig</szBRName>
+    <szBRDesc>Stealthy assasins like their knives. This rig can hold several knives.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1645</uiIndex>
+    <szItemName>Pistol Magazines</szItemName>
+    <szLongItemName>Pistol Magazines</szLongItemName>
+    <szItemDesc>A leg rig with three pouches for pistol magazines.</szItemDesc>
+    <szBRName>Pistol Magazines</szBRName>
+    <szBRDesc>A leg rig with three pouches for pistol magazines.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1646</uiIndex>
+    <szItemName>Equipment Pouch</szItemName>
+    <szLongItemName>Equipment Pouch</szLongItemName>
+    <szItemDesc>A versatile leg pouch with pockets to carry various items.</szItemDesc>
+    <szBRName>Equipment Pouch</szBRName>
+    <szBRDesc>A versatile leg pouch with pockets to carry various items.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1647</uiIndex>
+    <szItemName>Bomb Pouch</szItemName>
+    <szLongItemName>Bomb Pouch</szLongItemName>
+    <szItemDesc>A leg rig suitable for the safe transport of explosives.</szItemDesc>
+    <szBRName>Bomb Pouch</szBRName>
+    <szBRDesc>Not for sale.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1648</uiIndex>
+    <szItemName>12g S Rig</szItemName>
+    <szLongItemName>12g Shotgun Rig</szLongItemName>
+    <szItemDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szItemDesc>
+    <szBRName>12g Shotgun Rig</szBRName>
+    <szBRDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
