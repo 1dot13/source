@@ -5186,11 +5186,11 @@ STR16		zOptionsToggleText[] =
 	L"标记剩余敌人",
 	L"显示LBE(携行具)物品",
 	L"反转鼠标滚轮", 					//L"Invert mouse wheel",
+	L"Formation Movement",				// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG 选项--",					// an example options screen options header (pure text)
-	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Report Miss Offsets",				// Screen messages showing amount and direction of shot deviation.
 	L"重置所有选项",					// failsafe show/hide option to reset all options
 	L"确定要重置？",					// a do once and reset self option (button like effect)
@@ -5233,7 +5233,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，使用铁血联盟1代的佣兵选择方式。",
 
 	//Show movement path
-	L"打开时，会实时显示移动路径(可用 |S|H|I|F|T 键来打开或者关闭)。",
+	L"打开时，会实时显示移动路径(可用 |S|h|i|f|t 键来打开或者关闭)。",
 
 	//show misses
 	L"打开时，会显示未击中目标的子弹落点。",
@@ -5265,14 +5265,14 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"打开时，显示未探明的墙的轮廓。(|W)",
 
-	L"打开时，移动时的光标为3D式样。(|H)",
+	L"打开时，移动时的光标为3D式样。(|H|o|m|e)",
 
 	// Options for 1.13
 	L"打开时，在光标上显示命中机率。",
 	L"打开时，榴弹发射器点射使用点射的准星。",
 	L"打开时，敌人行动中有时会带有对白。", // Changed from Enemies Drop All Items - SANDRO
 	L"打开时，榴弹发射器允许采用较高仰角发射榴弹(|Q)。",
-	L"打开时, 潜行状态未被敌人发现时不会进入回合制模式，除非按下 |C|t|r+|X 。", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"打开时, 潜行状态未被敌人发现时不会进入回合制模式，除非按下 |C|t|r|l+|X 。 (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"打开时，按空格键自动切换到下一小队(|S|p|a|c|e)。",
 	L"打开时，显示物品阴影。",
 	L"打开时，用格数显示武器射程。",
@@ -5283,7 +5283,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，游戏将在玩家回合后自动存盘",
 	L"打开时，Skyrider保持沉默。",
 	L"打开时，使用物品及武器的“增强描述框”（EDB）。",
-	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键 |C|T|R|L+|S|H|I|F|T+|A|L|T+|T 来控制打开或关闭强制回合制模式）",
+	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键 (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T) 来控制打开或关闭强制回合制模式）",
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时, 战略地图将会根据探索状态显示不同的着色。",
 	L"打开时, 当你射击时会显示间隔子弹图像。",
@@ -5303,11 +5303,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"打开时，反转鼠标滚轮方向。",
+	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER", // an example options screen options header (pure text)
-	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: 当打开时, 将报告每个子弹偏离目标中心点的距离，考虑各种NCTH因素。",
 	L"修复损坏的游戏设置", // failsafe show/hide option to reset all options
 	L"修复损坏的游戏设置", // a do once and reset self option (button like effect)
@@ -5728,8 +5728,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"鼠标已锁定，鼠标移动范围强制限制在游戏窗口内部区域。",			// 104
 	L"鼠标已释放，鼠标移动范围不再受限于游戏窗口内部区域。",			// 105
-	L"Mercenaries walk in formations",
-	L"Mercenaries stop walking in formations",
+	L"Mercs will move in formation",	// TODO.Translate
+	L"Mercs will gather at destination",
 };
 
 

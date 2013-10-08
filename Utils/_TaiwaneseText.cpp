@@ -5140,13 +5140,13 @@ STR16		zOptionsToggleText[] =
 	L"Subtitles",
 	L"Pause Text Dialogue",
 	L"Animate Smoke",
-	L"Blood n Gore",
-	L"Never Move My Mouse!",
+	L"Blood & Gore",
+	L"Never Move my Mouse",
 	L"Old Selection Method",
 	L"Show Movement Path",
 	L"Show Misses",
 	L"Real Time Confirmation",
-	L"Display sleep/wake notifications",
+	L"Display Sleep/Wake Notifications",
 	L"Use Metric System",
 	L"Merc Lights during Movement",
 	L"Snap Cursor to Mercs",
@@ -5155,53 +5155,52 @@ STR16		zOptionsToggleText[] =
 	L"Show Tree Tops",
 	L"Show Wireframes",
 	L"Show 3D Cursor",
-	L"Show Chance to Hit on cursor",
-	L"GL Burst uses Burst cursor",
+	L"Show Chance to Hit on Cursor",
+	L"GL Burst uses Burst Cursor",
 	L"Allow Enemy Taunts", // Changed from "Enemies Drop all Items" - SANDRO
-	L"High angle Grenade launching",
+	L"High-Angle Grenade Launching",
 	L"Allow Real Time Sneaking", // Changed from "Restrict extra Aim Levels" - SANDRO
-	L"Space selects next Squad",
+	L"Space Selects next Squad",
 	L"Show Item Shadow",
 	L"Show Weapon Ranges in Tiles",
-	L"Tracer effect for single shot",
-	L"Rain noises",
-	L"Allow crows",
+	L"Tracer Effect for Single Shot",
+	L"Rain Noises",
+	L"Allow Crows",
 	L"Show Soldier Tooltips",
-	L"Auto save",
+	L"Tactical End-Turn Save",
 	L"Silent Skyrider",
 	L"Enhanced Description Box",
 	L"Forced Turn Mode",					// add forced turn mode
-	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
-	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
-	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
-	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
-	L"Show Face gear graphics",				// TODO.Translate
-	L"Show Face gear icons",
+	L"Stat Progress Bars",					// Show progress towards stat increase
+	L"Alternate Strategy Map Colors",		// Change color scheme of Strategic Map
+	L"Alternate Bullet Graphics",			// Show alternate bullet graphics (tracers)
+	L"Show Merc Ranks",						// shows mercs ranks
+	L"Show Face Gear Graphics",				
+	L"Show Face Gear Icons",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap
-	L"Quiet Training",						// Madd: mercs don't say quotes while training // TODO.Translate
-	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing //TODO.Translate
-	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring //TODO.Translate
-	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
-
+	L"Quiet Training",						// Madd: mercs don't say quotes while training
+	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing
+	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring
+	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns
 #ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",						// Flugente Zombies 1.0
 #endif
-	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
-	L"Mark Remaining Hostiles",				//TODO.Translate
-	L"Show LBE Content",					//TODO.Translate
-	L"Invert mouse wheel",			// TODO.Translate
+	L"Enable Inventory Popups",				// the_bob : enable popups for picking items from sector inv
+	L"Mark Remaining Hostiles",
+	L"Show LBE Content",
+	L"Invert Mouse Wheel",
+	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
+	L"Force Bobby Ray Shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
-	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
-	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
+	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.
 	L"Reset ALL game options",				// failsafe show/hide option to reset all options
 	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
 	L"Debug Options in other builds",		// allow debugging in release or mapeditor
 	L"DEBUG Render Option group",			// an example option that will show/hide other options
 	L"Render Mouse Regions",				// an example of a DEBUG build option
-	L"-----------------",					// an example options screen options divider (pure text)
+	L"-----------------",					// an example options screen options divider (pure text)	
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"THE_LAST_OPTION",
@@ -5237,7 +5236,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Turn this ON for character selection to work as in previous JAGGED ALLIANCE games (which is the opposite of how it works otherwise).",
 
 	//Show movement path
-	L"Turn this ON to display movement paths in Real-time (or leave it off and use the |S|H|I|F|T key when you do want them displayed).",
+	L"Turn this ON to display movement paths in Real-time (or leave it off and use the |S|h|i|f|t key when you do want them displayed).",
 
 	//show misses
 	L"Turn ON to have the game show you where your bullets ended up when you \"miss\".",
@@ -5269,57 +5268,56 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"When ON, displays |Wireframes for obscured walls.",
 
-	L"When ON, the movement cursor is shown in 3D. ( |Home )",
+	L"When ON, the movement cursor is shown in 3D. (|H|o|m|e)",
 
 	// Options for 1.13
 	L"When ON, the chance to hit is shown on the cursor.",
 	L"When ON, GL burst uses burst cursor.",
 	L"When ON, enemies will occasionally comment certain actions.", // Changed from Enemies Drop All Items - SANDRO
-	L"When ON, grenade launchers fire grenades at higher angles (|Q).",
-	L"When ON, the turn based mode will not be entered when sneaking unnoticed and seeing an enemy unless pressing |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"When ON, grenade launchers fire grenades at higher angles. (|Q)",
+	L"When ON, will not enter turn-based mode when sneaking unnoticed and seeing an enemy unless |C|t|r|l+|X is pressed. (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"When ON, |S|p|a|c|e selects next squad automatically.",
 	L"When ON, item shadows will be shown.",
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
 	L"When ON, you will hear rain noises when it is raining.",
-	L"When ON, the crows are present in game.",
+	L"When ON, the crows will be present in game.",
 	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.",
-	L"When ON, game will be saved in 2 alternate save slots after each players turn.",
+	L"When ON, game will be saved in 2 alternate save slots after each player's turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
-	L"When ON, shows character progress towards gaining levels.",	// TODO.Translate
-	L"When ON, the Strategic Map will be colored differently based on exploration.",
-	L"When ON, alternate bullet graphics will be shown when you shoot.", // TODO.Translate
-	L"When ON, ranks will be displayed before merc names in the strategic view.",			// TODO.Translate
-	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
-	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
-	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
+	L"When ON and enemy present, turn base mode persists untill sector is free. (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T)",	// add forced turn mode
+	L"When ON, shows character progress towards gaining levels.",
+	L"When ON, the strategic map will be colored differently based on exploration.",
+	L"When ON, alternate bullet graphics will be shown when you shoot.",
+	L"When ON, ranks will be displayed before merc names in the strategic view.",
+	L"When ON, equipped face gear will be shown on the merc portraits.",
+	L"When ON, icons for the equipped face gear will be shown on the merc portraits in the lower right corner.",
+	L"When ON, the cursor will not toggle between exchange position and other actions. Press |X to initiate quick exchange.",
 	L"When ON, mercs will not report progress during training.",
-	L"When ON, mercs will not report progress during repairing.",	// TODO.Translate
-	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
-	L"When ON, AI turns will be much faster.",		// TODO.Translate
+	L"When ON, mercs will not report progress during repairing.",
+	L"When ON, mercs will not report progress during doctoring.",
+	L"When ON, AI turns will be much faster.",
 
 #ifdef ENABLE_ZOMBIES
-	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+	L"When ON, zombies will spawn. Beware!",							// allow zombies
 #endif
-	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
-	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
-	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
-	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
+	L"When ON, enables popup boxes that appear when left-click on empty merc inventory slots in mapscreen sector inventory.",
+	L"When ON, approximate locations of the last enemies in the sector will be highlighted.",
+	L"When ON, will show the contents of an LBE item; otherwise, regular NAS interface will be shown.",
+	L"When ON, inverts mouse wheel directions.",
+	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
-	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Click me to fix corrupt game settings",							// failsafe show/hide option to reset all options
 	L"Click me to fix corrupt game settings",							// a do once and reset self option (button like effect)
 	L"Allows debug options in release or mapeditor builds",				// allow debugging in release or mapeditor
 	L"Toggle to display debugging render options",						// an example option that will show/hide other options
 	L"Attempts to display slash-rects around mouse regions",			// an example of a DEBUG build option
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",				// an example options screen options divider (pure text)
-
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",				// an example options screen options divider (pure text)	
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"TOPTION_LAST_OPTION",
@@ -5741,8 +5739,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
 	L"Locking mouse cursor to stay within window boundary.",			// 104
 	L"Releasing mouse cursor to move outside window boundary.",			// 105
-	L"Mercenaries walk in formations",	// TODO.Translate
-	L"Mercenaries stop walking in formations",
+	L"Mercs will move in formation",
+	L"Mercs will gather at destination",
 };
 
 

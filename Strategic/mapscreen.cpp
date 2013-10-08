@@ -7827,7 +7827,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								
 							for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
 								{
-									gfHiddenTown [ iCounter2 ] = TRUE; 
+									gfHiddenTown [ iCounter2 ] = TRUE;
+									gfDrawHiddenTown[ iCounter2 ] = TRUE; 
 								}
 	
 							fMapPanelDirty = TRUE;

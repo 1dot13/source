@@ -430,12 +430,12 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_ZOMBIES						  = " << (gGameSettings.fOptions[TOPTION_ZOMBIES]							?    "TRUE" : "FALSE" ) << endl;
 #endif
 		settings << "TOPTION_ENABLE_INVENTORY_POPUPS          = " << (gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS]			?    "TRUE" : "FALSE" ) << endl; // the_bob : enable popups for picking items from sector inv
+		settings << "TOPTION_MERCENARY_FORMATIONS			  = " << (gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]				?    "TRUE" : "FALSE" ) << endl;
 
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_DEBUG_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
-		settings << "TOPTION_MERCENARY_FORMATIONS			  = " << (gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_REPORT_MISS_MARGIN				  = " << (gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Shot offset report
 		settings << "TOPTION_SHOW_RESET_ALL_OPTIONS           = " << (gGameSettings.fOptions[TOPTION_SHOW_RESET_ALL_OPTIONS]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_RESET_ALL_OPTIONS                = " << (gGameSettings.fOptions[TOPTION_RESET_ALL_OPTIONS]					?    "TRUE" : "FALSE" ) << endl;
@@ -561,15 +561,17 @@ void InitGameSettings()
 
 	gGameSettings.fOptions[ TOPTION_AUTO_FAST_FORWARD_MODE ]			= FALSE;
 
-	gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]						= FALSE;
-	gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					= TRUE;
-	gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						= FALSE;
-
 #ifdef ENABLE_ZOMBIES
 	gGameSettings.fOptions[ TOPTION_ZOMBIES ]							= FALSE;	// Flugente Zombies 1.0	
 #endif
 
 	gGameSettings.fOptions[ TOPTION_ENABLE_INVENTORY_POPUPS ]			= TRUE;	// the_bob : enable popups for picking items from sector inv
+	
+	gGameSettings.fOptions[TOPTION_SHOW_LAST_ENEMY]						= FALSE;
+	gGameSettings.fOptions[TOPTION_SHOW_LBE_CONTENT]					= TRUE;
+	gGameSettings.fOptions[TOPTION_INVERT_WHEEL]						= FALSE;
+	
+	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercenary formations
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	
@@ -577,7 +579,6 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_END ]			= FALSE;	
 	gGameSettings.fOptions[ TOPTION_DEBUG_MODE_OPTIONS_HEADER ]			= FALSE;	// an example options screen options header (pure text)
 	gGameSettings.fOptions[ TOPTION_SHOW_RESET_ALL_OPTIONS ]			= FALSE;	// failsafe show/hide option to reset all options
-	gGameSettings.fOptions[ TOPTION_MERCENARY_FORMATIONS ]				= FALSE;	// Flugente: mercs walk in formations
 	gGameSettings.fOptions[ TOPTION_REPORT_MISS_MARGIN ]			    = FALSE;
 	gGameSettings.fOptions[ TOPTION_RESET_ALL_OPTIONS ]					= FALSE;	// a do once and reset self option (button like effect)
 	gGameSettings.fOptions[ TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE ]	= FALSE;	// allow debug options that were set in debug.exe to continue in a rel.exe (debugging release can be beneficial)

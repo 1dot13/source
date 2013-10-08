@@ -5191,11 +5191,11 @@ STR16		zOptionsToggleText[] =
 	L"Mark Remaining Hostiles",				//TODO.Translate
 	L"Show LBE Content",					//TODO.Translate
 	L"Invert mouse wheel",			// TODO.Translate
+	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
-	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Reset ALL game options",				// failsafe show/hide option to reset all options
 	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
@@ -5270,14 +5270,14 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"Jeśli WŁĄCZONE, wyświetlane będą zarysy niewidocznych ścian. ( |W )",
 
-	L"Jeśli WŁĄCZONE, kursor ruchu wyświetlany będzie w 3D. ( |Home )",
+	L"Jeśli WŁĄCZONE, kursor ruchu wyświetlany będzie w 3D. (|H|o|m|e)",
 
 	// Options for 1.13
 	L"Jeśli WŁĄCZONE, kursor będzie pokazywał szansę na trafienie.",
 	L"Jeśli WŁĄCZONE, seria z granatnika będzie używała kursora serii z broni palnej.",
 	L"Jeśli WŁĄCZONE, to wrogowie będą czasami komentować pewne akcje.", // Changed from Enemies Drop All Items - SANDRO
 	L"Jeśli WŁĄCZONE, granatniki będą strzelały pod wysokim kątem. ( |Q )",
-	L"Jeśli WŁĄCZONE, zapobiega przejściu do trybu turowego po zauważeniu wroga podczas skradania. Aby wymusić tryb turowy z tą opcją aktywną naciśnij |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"Jeśli WŁĄCZONE, zapobiega przejściu do trybu turowego po zauważeniu wroga podczas skradania. Aby wymusić tryb turowy z tą opcją aktywną naciśnij |C|t|r|l+|X. (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"Jeśli WŁĄCZONE, |S|p|a|c|j|a wybiera kolejny oddział.",
 	L"Jeśli WŁĄCZONE, pokazywane będą cienie przedmiotów.",
 	L"Jeśli WŁĄCZONE, zasięg broni będzie wyświetlany w polach.",
@@ -5288,7 +5288,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, gra będzie zapisywana każdorazowo po zakończeniu tury gracza.",
 	L"Jeśli WŁĄCZONE, Skyrider nie będzie nic mówił.",
 	L"Jeśli WŁĄCZONE, gra będzie obciążała procesor w mniejszym stopniu.",
-	L"Jeśli WŁĄCZONE i wróg jest obecny, \ntryb turowy jest włączony, \ndopóki sektor nie zostanie oczyszczony (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
+	L"Jeśli WŁĄCZONE i wróg jest obecny, \ntryb turowy jest włączony, \ndopóki sektor nie zostanie oczyszczony (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",	// add forced turn mode
 	L"Jeśli WŁĄCZONE, pokazuje postęp w doświadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Jeśli WŁĄCZONE, zastępuje starą animację pocisku nową.",
@@ -5302,17 +5302,17 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 
 #ifdef ENABLE_ZOMBIES
-	L"When ON, zombies will span. Be aware!",							// allow zombies	// TODO.Translate
+	L"When ON, zombies will spawn. Beware!",							// allow zombies	// TODO.Translate
 #endif
 	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  //TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", //TODO.Translate
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
+	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuś wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
-	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Kliknij by naprawić błędy w ustawieniach gry.",							// failsafe show/hide option to reset all options
 	L"Kliknij by naprawić błędy w ustawieniach gry.",							// a do once and reset self option (button like effect)
@@ -5738,8 +5738,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
 	L"Locking mouse cursor to stay within window boundary.",			// 104
 	L"Releasing mouse cursor to move outside window boundary.",			// 105
-	L"Mercenaries walk in formations",	// TODO.Translate
-	L"Mercenaries stop walking in formations",
+	L"Mercs will move in formation",	// TODO.Translate
+	L"Mercs will gather at destination",
 };
 
 

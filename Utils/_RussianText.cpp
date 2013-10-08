@@ -5185,11 +5185,11 @@ STR16		zOptionsToggleText[] =
 	L"Отметить оставшихся врагов",
 	L"Показывать содержимое разгрузок",
 	L"Инвертировать колесо мыши",
+	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--Настройки отладочной версии--",		// an example options screen options header (pure text)
-	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Сообщать координаты промахов",		//Report Miss Offsets			// Screen messages showing amount and direction of shot deviation.
 	L"Сброс всех игровых настроек",			// failsafe show/hide option to reset all options
 	L"В самом деле хотите этого?",			// a do once and reset self option (button like effect)
@@ -5232,7 +5232,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, то будет использоваться старый метод выбора наемников\n(для тех, кто привык к управлению предыдущих частей Jagged Alliance).",
 
 	//Show movement path
-	L"Если включено, то в режиме реального времени будет отображаться путь передвижения\n(если выключено,  нажмите |S|H|I|F|T, чтобы увидеть путь).",
+	L"Если включено, то в режиме реального времени будет отображаться путь передвижения\n(если выключено,  нажмите |S|h|i|f|t, чтобы увидеть путь).",
 
 	//show misses
 	L"Если включено, то камера будет отслеживать\nтраекторию пуль, прошедших мимо цели.",
@@ -5264,14 +5264,14 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"Если включено, то у препятствий\nдополнительно показывается каркас. (|W)",
 
-	L"Если включено, то курсор передвижения\nотображается в 3D. (|Home )",
+	L"Если включено, то курсор передвижения\nотображается в 3D. (|H|o|m|e)",
 
 	// Options for 1.13
 	L"Если включено, шанс попадания\nпоказывается над курсором.",
 	L"Если включено, очередь из гранатомета\nиспользует курсор стрельбы очередями.",
 	L"Если включено, враг иногда будет комментировать свои действия.",
-	L"Если включено, гранатомёты выстреливают \nзаряд под большим углом к горизонту (|Q).",
-	L"Если включено, игра не переходит в пошаговый режим \nпри обнаружении противника (если враг вас не видит). \nРучной вход в пошаговый режим - |C|t|r+|X.",
+	L"Если включено, гранатомёты выстреливают \nзаряд под большим углом к горизонту. (|Q)",
+	L"Если включено, игра не переходит в пошаговый режим \nпри обнаружении противника (если враг вас не видит). \nРучной вход в пошаговый режим - |C|t|r|l+|X. (|C|t|r|l+|S|h|i|f|t+|X)",
 	L"Если включено, |П|р|о|б|е|л выделяет следующий отряд.",
 	L"Если включено, показываются тени предметов в инвентаре.",
 	L"Если включено, дальность оружия \nпоказывается в игровых квадратах.",
@@ -5282,7 +5282,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, игра будет автоматически \nсохраняться после каждого хода игрока.",
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, будет задействовано\nподробное описание предметов.",
-	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
+	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",
 	L"Если включено, навык, \nкоторый вскоре повысится будет подсвечен.",
 	L"Если включено, необследованные сектрора \nна стратегической карте будут чёрно-белыми.",
 	L"Если включено, летящая пуля будет более заметной.",
@@ -5302,11 +5302,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, высвечивается примерное положение последних врагов в секторе.",
 	L"Если включено, показывает содержимое разгрузки, иначе - обычный интерфейс новой системы навески.",
 	L"Если включено, инвертирует направление прокрутки колеса мыши.",
+	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",	// an example options screen options header (pure text)
-	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Если включить, \nповреждённые игровые настройки будут восстановлены.",	// failsafe show/hide option to reset all options
 	L"Отметьте строку для подтверждения сброса игровых настроек.",	// a do once and reset self option (button like effect)
@@ -5727,8 +5727,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
 	L"Locking mouse cursor to stay within window boundary.",			// 104
 	L"Releasing mouse cursor to move outside window boundary.",			// 105
-	L"Mercenaries walk in formations",	// TODO.Translate
-	L"Mercenaries stop walking in formations",
+	L"Mercs will move in formation",	// TODO.Translate
+	L"Mercs will gather at destination",
 };
 
 

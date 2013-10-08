@@ -5622,6 +5622,8 @@ void SetTixaAsFound( void )
 {
 	// set the town of Tixa as found by the player
 	fFoundTixa = TRUE;
+	gfHiddenTown[ TIXA ] = TRUE;
+	gfDrawHiddenTown[ TIXA ] = TRUE; 
 	fMapPanelDirty = TRUE;
 }
 
@@ -5629,6 +5631,8 @@ void SetOrtaAsFound( void )
 {
 	// set the town of Orta as found by the player
 	fFoundOrta = TRUE;
+	gfHiddenTown[ ORTA ] = TRUE;
+	gfDrawHiddenTown[ ORTA ] = TRUE; 
 	fMapPanelDirty = TRUE;
 }
 

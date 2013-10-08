@@ -5188,6 +5188,7 @@ STR16		zOptionsToggleText[] =
 	L"Situer ennemi restant",				//TODO.Translate
 	L"Afficher contenu LBE/DESC.",					//TODO.Translate
 	L"Inverser molette/souris",
+	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"--Options mode triche--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5234,7 +5235,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour retrouver vos automatismes de la version précédente.",
 
 	//Show movement path
-	L"Activez cette option pour afficher le chemin suivi par les mercenaires.\nVous pouvez la désactiver et utiliser la touche |M|A|J en cours de jeu.",
+	L"Activez cette option pour afficher le chemin suivi par les mercenaires.\nVous pouvez la désactiver et utiliser la touche |M|a|j en cours de jeu.",
 
 	//show misses
 	L"Activez cette option pour voir où atterrissent tous vos tirs.",
@@ -5266,14 +5267,14 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"Activez cette option pour afficher les murs en fil de fer. (|W)",
 
-	L"Activez cette option pour afficher le curseur toît. (|Home)",
+	L"Activez cette option pour afficher le curseur toît. (|H|o|m|e)",
 
 	// Options for 1.13
 	L"Si activé, affiche une barre de probabilités de succès sur le curseur.",
 	L"Si activé, les rafales de lance grenades ont un curseur de rafale.",
 	L"Si activé, les ennemis feront de temps en temps des remarques sur certaines actions.", // Changed from Enemies Drop All Items - SANDRO
-	L"Si activé, les grenades lance-grenades ont un grand angle (|Q).",
-	L"Si activé, le mode tour par tour ne sera pas actif, si vous n'êtes pas vu ou entendu par l'ennemi à moins d'appuyer sur |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"Si activé, les grenades lance-grenades ont un grand angle. (|Q)",
+	L"Si activé, le mode tour par tour ne sera pas actif, si vous n'êtes pas vu ou entendu par l'ennemi à moins d'appuyer sur |C|t|r|l+|X. (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"Si activé, |E|s|p|a|c|e sélectionne l'escouade suivante.",
 	L"Si activé, les ombres d'objets sont affichées.",
 	L"Si activé, la portée des armes est affichée en nombres de cases.",
@@ -5284,7 +5285,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, le jeu est sauvegardé à chaque nouveau tour du joueur.",
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
-	L"Si cette option est activée et que des ennemis sont présents,\nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
+	L"Si cette option est activée et que des ennemis sont présents,\nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",	// add forced turn mode
 	L"Si activé, affiche une barre de progression sur chaque compétence",
 	L"Si activé, la carte stratégique sera colorée différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
@@ -5303,6 +5304,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, la zone où se trouve le reste des ennemis dans le secteur, est mis en évidence.",  //TODO.Translate
 	L"Si activé, montre le contenu d'un élément LBE quand la fenêtre de description est ouverte.", //TODO.Translate
 	L"Si activé, inverse le sens de la molette de la souris.",
+	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -5731,6 +5733,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
 	L"Verrouiller le curseur pour qu'il reste dans la fenêtre.",			// 104
 	L"Libérer le curseur pour qu'il se déplace hors de la fenêtre.",			// 105
+	L"Mercs will move in formation",	// TODO.Translate
+	L"Mercs will gather at destination",
 };
 
 

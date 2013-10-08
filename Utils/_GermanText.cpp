@@ -5032,12 +5032,12 @@ STR16 zOptionsToggleText[] =
 	L"Inventar Popup-Menüs",				// the_bob : enable popups for picking items from sector inv
 	L"Übrige Feinde markieren",				
 	L"Tascheninhalt anzeigen",			
-	L"Mausradrichtung umkehren",			
+	L"Mausradrichtung umkehren",
+	L"Formation Movement",					// when multiple mercs are selected, they will try to keep their relative distances	// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
-	L"Walk in formations",					// when multiple mercs are selected, they will try to keep their relative distances
 	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.
 	L"Reset ALL game options",				// failsafe show/hide option to reset all options
 	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
@@ -5080,7 +5080,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Mit dieser Option funktioniert die Auswahl der Söldner so wie in früheren JAGGED ALLIANCE-Spielen (also genau andersherum als jetzt).",
 
 	//Show movement path
-	L"Diese Funktion anschalten, um die geplanten Wege der Söldner zum Cursor anzuzeigen\n(oder abgeschaltet lassen und bei gewünschter Anzeige die |S|H|I|F|T-Taste drücken).",
+	L"Diese Funktion anschalten, um die geplanten Wege der Söldner zum Cursor anzuzeigen\n(oder abgeschaltet lassen und bei gewünschter Anzeige die |S|h|i|f|t-Taste drücken).",
 
 	//show misses
 	L"Wenn diese Funktion aktiviert ist, folgt die Spielkamera im Rundenmodus der Geschossflugbahn bis zu ihrem Ende. Ausschalten um das Spiel zu beschleunigen.",
@@ -5112,14 +5112,14 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"Wenn diese Funktion aktiviert ist, werden Drahtgitter verborgener Wände gezeigt um z.B. perspektivisch verdeckte Fenster zu erkennen (|W).",
 
-	L"Wenn diese Funktion aktiviert ist, wird der Bewegungs-Cursor in 3D angezeigt (|Home).",
+	L"Wenn diese Funktion aktiviert ist, wird der Bewegungs-Cursor in 3D angezeigt (|H|o|m|e).",
 	
 	// Options for 1.13
 	L"Wenn diese Funktion aktiviert ist, wird die Trefferwahrscheinlichkeit am Cursor angezeigt.",
 	L"Mit dieser Funktion lässt sich der Zielcursor für Granatwerfer-Feuerstöße umschalten. Der Burst-Cursor (wenn AN) ermöglicht den Beschuss einer größeren Fläche.",
 	L"Wenn diese Funktion aktiviert ist, beschimpfen Gegner den Spieler oder kommentieren ihre Situation mittels kleiner Pop-Ups.", // Changed from Enemies Drop All Items - SANDRO
 	L"Wenn diese Funktion aktiviert ist, können Granatwerfer Granaten in höherem Winkel abfeuern und so ihre volle Reichweite ausnutzen (|Q).",
-	L"Wenn diese Funktion aktiviert ist, schaltet das Spiel für unbemerkt schleichende Söldner nicht automatisch in den Rundenmodus sobald Gegner in Sicht geraten, außer Sie drücken |S|t|r|g+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"Wenn diese Funktion aktiviert ist, schaltet das Spiel für unbemerkt schleichende Söldner nicht automatisch in den Rundenmodus sobald Gegner in Sicht geraten, außer Sie drücken |C|t|r|l+|X. (|C|t|r|l+|S|h|i|f|t+|X)", // Changed from Restrict Extra Aim Levels - SANDRO
 	L"Wenn diese Funktion aktiviert ist, selektiert |S|p|a|c|e automatisch die nächste Gruppe statt den nächsten Söldner der Gruppe.",
 	L"Wenn diese Funktion aktiviert ist, werfen Gegenstände einen Schatten.",
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt statt in z.B. Metern.",
@@ -5150,11 +5150,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
 	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
+	L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
-	L"When multiple mercs are selected, they will try to keep their relative distances",
 	L"|H|A|M |4 |D|e|b|u|g: Wenn diese Funktion aktiviert ist, wird der Abstand den jede die Kugel vom Zielmittelpunkt abweicht, unter Berücksichtigung aller CTH-Faktoren, ausgegeben.",
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// failsafe show/hide option to reset all options
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// a do once and reset self option (button like effect)
@@ -5571,8 +5571,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"Mausberech begrenzen, damit Mauscursor innerhalb des Spielfensters bleibt.",	// 104
 	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105
-	L"Mercenaries walk in formations",	// TODO.Translate
-	L"Mercenaries stop walking in formations",
+	L"Mercs will move in formation",	// TODO.Translate
+	L"Mercs will gather at destination",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
