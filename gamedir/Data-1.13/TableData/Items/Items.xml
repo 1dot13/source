@@ -49202,9 +49202,9 @@
 		<uiIndex>1644</uiIndex>
 		<szItemName>TK Rig</szItemName>
 		<szLongItemName>Leg Rig Throwing Knives</szLongItemName>
-		<szItemDesc>Stealthy assasins like their knives.This rig can hold several knives.</szItemDesc>
+		<szItemDesc>Stealthy assasins like their knives. This rig can hold several knives.</szItemDesc>
 		<szBRName>TK Rig</szBRName>
-		<szBRDesc>Stealthy assasins like their knives.This rig can hold several knives..</szBRDesc>
+		<szBRDesc>Stealthy assasins like their knives. This rig can hold several knives.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<ubClassIndex>44</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
