@@ -846,6 +846,21 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							pSoldier->ubGroupID = pGroup->ubGroupID;
 						}
 						break;
+					// silversurfer: bugfix for Jaggzilla bug #623
+					// Mike or Iggy can be part of the enemy team and they are created from an Elite but they don't have SOLDIER_CLASS_ELITE.
+					// Therefore once this for loop was done ubNumElites was still 1 which caused an assertion error.
+					case SOLDIER_CLASS_NONE:
+						if( ubNumElites )
+						{
+							if ( pSoldier->ubProfile == MIKE || pSoldier->ubProfile == IGGY )
+							{
+								num--;
+								sNumSlots--;
+								ubNumElites--;
+								pSoldier->ubGroupID = pGroup->ubGroupID;
+							}
+						}
+						break;
 				}
 			}
 
