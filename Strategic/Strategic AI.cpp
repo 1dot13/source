@@ -1526,7 +1526,7 @@ void InitStrategicAI()
 				case 1:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
-						pSector = &SectorInfo[ SEC_E11 ]; 
+						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
@@ -1544,7 +1544,7 @@ void InitStrategicAI()
 				case 2:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
-						pSector = &SectorInfo[ SEC_H5 ];
+						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
@@ -1562,7 +1562,7 @@ void InitStrategicAI()
 				case 3:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
-						pSector = &SectorInfo[ SEC_H10 ];
+						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
@@ -1580,7 +1580,7 @@ void InitStrategicAI()
 				case 4:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
-						pSector = &SectorInfo[ SEC_J12 ];
+						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
@@ -1598,7 +1598,7 @@ void InitStrategicAI()
 				case 5:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
-						pSector = &SectorInfo[ SEC_M9 ];
+						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 						if (ubPicked[0] == 0)
@@ -1622,23 +1622,23 @@ void InitStrategicAI()
 	}
 	else
 	{
-		pSector = &SectorInfo[ SEC_E11 ];
+		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 
-		pSector = &SectorInfo[ SEC_H5 ];
+		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 
-		pSector = &SectorInfo[ SEC_H10 ];
+		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 
-		pSector = &SectorInfo[ SEC_J12 ];
+		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 
-		pSector = &SectorInfo[ SEC_M9 ];
+		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 	}

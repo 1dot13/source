@@ -1693,8 +1693,39 @@ typedef struct
 	INT32 iFinalCrateGrid;
 	UINT16 usCrateTileDef;
 	UINT16 usTrapdoorTileDef;
+	
+	//Leave Stuff
+	UINT8 ubOmertaDropOffX;
+	UINT8 ubOmertaDropOffY;
+	UINT8 ubOmertaDropOffZ;
+	INT32 iOmertaDropOff;
 
-	//San Mona C5
+	//[Omerta]
+
+	//[Drassen]
+	//John & Mary disappear if unescort in sector
+	UINT8 ubJohnUnescortSectorX;
+	UINT8 ubJohnUnescortSectorY;
+	UINT8 ubJohnUnescortSectorZ;
+
+	//[Alma]
+	INT32 sRocketRifleGridNo;
+
+	//[Grumm]
+
+	//[Tixa]
+	//Dynamo Prison Sector
+	UINT8 ubDyanmoPrisonSectorX;
+	UINT8 ubDyanmoPrisonSectorY;
+	UINT8 ubDyanmoPrisonSectorZ;
+
+	//[Cambria]
+	//Hospital Sector
+	UINT8 ubHospitalSectorX;
+	UINT8 ubHospitalSectorY;
+	UINT8 ubHospitalSectorZ;
+
+	//[San Mona]
 	//Porn Quest
 	UINT16 usPornShopRoomHans;
 	INT32  iHansGridNo;
@@ -1719,23 +1750,47 @@ typedef struct
 	INT32 iBrothelDoor2;
 	INT32 iBrothelDoor3;
 	
-	// Kingpin Private Stash
+	//Kingpin Private Stash
 	UINT8 ubKingpinMoneySectorX;
 	UINT8 ubKingpinMoneySectorY;
 	UINT8 ubKingpinMoneySectorZ;
 
-	//Leave Stuff
-	UINT8 ubOmertaDropOffX;
-	UINT8 ubOmertaDropOffY;
-	UINT8 ubOmertaDropOffZ;
-	INT32 iOmertaDropOff;
+	//Joey Primary Location to be found
+	UINT8 ubJoeyPrimarySectorX;
+	UINT8 ubJoeyPrimarySectorY;
+	UINT8 ubJoeyPrimarySectorZ;
 
-	INT32 sRocketRifleGridNo;
+	//Joey Alternate Location
+	UINT8 ubJoeyAlternateSectorX;
+	UINT8 ubJoeyAlternateSectorY;
+	UINT8 ubJoeyAlternateSectorZ;
 
-	//Hospital Sector
-	UINT8 ubHospitalSectorX;
-	UINT8 ubHospitalSectorY;
-	UINT8 ubHospitalSectorZ;
+	//Spike new location when assassins are sent
+	UINT8 ubSpikeNewSectorX;
+	UINT8 ubSpikeNewSectorY;
+
+	//[Estoni]
+
+	//[Orta]
+
+	//[Balime]
+
+	//[Meduna]
+
+	//[Chitzena]
+
+
+	//Weapon Cache Locations
+	UINT8 ubWeaponCache1X;
+	UINT8 ubWeaponCache1Y;
+	UINT8 ubWeaponCache2X;
+	UINT8 ubWeaponCache2Y;
+	UINT8 ubWeaponCache3X;
+	UINT8 ubWeaponCache3Y;
+	UINT8 ubWeaponCache4X;
+	UINT8 ubWeaponCache4Y;
+	UINT8 ubWeaponCache5X;
+	UINT8 ubWeaponCache5Y;
 
 }MOD_SETTINGS;
 

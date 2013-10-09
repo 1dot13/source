@@ -5736,10 +5736,10 @@ STR16 pMessageStrings[] =
 	L"Auto%02d.sav",	// 102
 	L"SaveGame%02d.sav", //103
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
-	L"Locking mouse cursor to stay within window boundary.",			// 104
-	L"Releasing mouse cursor to move outside window boundary.",			// 105
-	L"Mercs will move in formation",	// TODO.Translate
-	L"Mercs will gather at destination",
+	L"Lock mouse cursor within game window boundary.",			// 104
+	L"Release mouse cursor from game window boundary.",			// 105
+	L"Move in Formation ON",	// TODO.Translate
+	L"Move in Formation OFF",
 };
 
 

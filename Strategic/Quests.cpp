@@ -925,7 +925,8 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = IsHisMineAtMaxProduction( ubProfileID );
 			break;
 		case FACT_DYNAMO_IN_J9:
-			gubFact[usFact] = CheckNPCSector( DYNAMO, 9, MAP_ROW_J, 0 ) && NumEnemiesInAnySector( 9, 10, 0 );
+			gubFact[usFact] = CheckNPCSector( DYNAMO, gModSettings.ubDyanmoPrisonSectorX, gModSettings.ubDyanmoPrisonSectorY, gModSettings.ubDyanmoPrisonSectorZ ) &&
+				NumEnemiesInAnySector( gModSettings.ubDyanmoPrisonSectorX, gModSettings.ubDyanmoPrisonSectorY, gModSettings.ubDyanmoPrisonSectorZ ); //( 9, 10, 0 )
 			break;
 		case FACT_DYNAMO_ALIVE:
 			gubFact[usFact] = ( gMercProfiles[ DYNAMO ].bMercStatus != MERC_IS_DEAD );

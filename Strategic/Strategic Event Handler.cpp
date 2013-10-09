@@ -714,7 +714,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 #else						
 						AddEmail( KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT );
 #endif
-						StartQuest( QUEST_KINGPIN_MONEY, 5, MAP_ROW_D );
+						StartQuest( QUEST_KINGPIN_MONEY, gMercProfiles[ KINGPIN ].sSectorX, gMercProfiles[ KINGPIN ].sSectorY );
 						// add event to send terrorists two days from now
 						AddFutureDayStrategicEvent( EVENT_SET_BY_NPC_SYSTEM, Random( 120 ), FACT_KINGPIN_KNOWS_MONEY_GONE, 2 );
 					}
@@ -723,8 +723,8 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 						// knows money gone, quest is still in progress
 						// event indicates Kingpin can start to send terrorists
 						SetFactTrue( FACT_KINGPIN_CAN_SEND_ASSASSINS );
-						gMercProfiles[ SPIKE ].sSectorX = 5;
-						gMercProfiles[ SPIKE ].sSectorY = MAP_ROW_C;
+						gMercProfiles[ SPIKE ].sSectorX = gModSettings.ubSpikeNewSectorX; //5
+						gMercProfiles[ SPIKE ].sSectorY = gModSettings.ubSpikeNewSectorY; //MAP_ROW_C
 						gTacticalStatus.fCivGroupHostile[ KINGPIN_CIV_GROUP ] = CIV_GROUP_WILL_BECOME_HOSTILE;
 					}
 				}
@@ -789,9 +789,9 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 			case NPC_ACTION_ADD_JOEY_TO_WORLD:
 				// If Joey is not dead, escorted, or already delivered
 				if ( gMercProfiles[ JOEY ].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_JOEY_ESCORTED, 0 ) &&
-					gMercProfiles[ JOEY ].sSectorX == 4 &&
-					gMercProfiles[ JOEY ].sSectorY == MAP_ROW_D &&
-					gMercProfiles[ JOEY ].bSectorZ == 1 )
+					gMercProfiles[ JOEY ].sSectorX == gModSettings.ubJoeyPrimarySectorX && //4
+					gMercProfiles[ JOEY ].sSectorY == gModSettings.ubJoeyPrimarySectorY && //MAP_ROW_D
+					gMercProfiles[ JOEY ].bSectorZ == gModSettings.ubJoeyPrimarySectorZ ) //1
 				{
 					SOLDIERTYPE * pJoey;
 
@@ -804,9 +804,9 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 					else
 					{
 						// move Joey from caves to San Mona
-						gMercProfiles[ JOEY ].sSectorX = 5;
-						gMercProfiles[ JOEY ].sSectorY = MAP_ROW_C;
-						gMercProfiles[ JOEY ].bSectorZ = 0;
+						gMercProfiles[ JOEY ].sSectorX = gModSettings.ubJoeyAlternateSectorX; //5
+						gMercProfiles[ JOEY ].sSectorY = gModSettings.ubJoeyAlternateSectorY; //MAP_ROW_C
+						gMercProfiles[ JOEY ].bSectorZ = gModSettings.ubJoeyAlternateSectorZ; //0
 					}
 				}
 				break;

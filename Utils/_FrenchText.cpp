@@ -5733,8 +5733,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)			// TODO.Translate
 	L"Verrouiller le curseur pour qu'il reste dans la fenêtre.",			// 104
 	L"Libérer le curseur pour qu'il se déplace hors de la fenêtre.",			// 105
-	L"Mercs will move in formation",	// TODO.Translate
-	L"Mercs will gather at destination",
+	L"Move in Formation ON",	// TODO.Translate
+	L"Move in Formation OFF",
 };
 
 

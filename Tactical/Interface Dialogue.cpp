@@ -2489,9 +2489,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				break;
 
 			case NPC_ACTION_ADD_JOEY_TO_WORLD:
-				gMercProfiles[ JOEY ].sSectorX = 4;
-				gMercProfiles[ JOEY ].sSectorY = MAP_ROW_D;
-				gMercProfiles[ JOEY ].bSectorZ = 1;
+				gMercProfiles[ JOEY ].sSectorX = gModSettings.ubJoeyPrimarySectorX; //4
+				gMercProfiles[ JOEY ].sSectorY = gModSettings.ubJoeyPrimarySectorY; //MAP_ROW_D
+				gMercProfiles[ JOEY ].bSectorZ = gModSettings.ubJoeyPrimarySectorZ; //1
 				AddFutureDayStrategicEvent( EVENT_SET_BY_NPC_SYSTEM, GetWorldMinutesInDay(), NPC_SYSTEM_EVENT_ACTION_PARAM_BONUS + NPC_ACTION_ADD_JOEY_TO_WORLD, 3 );
 				break;
 

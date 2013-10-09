@@ -2364,6 +2364,34 @@ void LoadModSettings(){
 	gModSettings.usCrateTileDef = iniReader.ReadInteger("Rebel Hideout", "CRATE_TILE_DEF", 411);
 	gModSettings.usTrapdoorTileDef = iniReader.ReadInteger("Rebel Hideout", "TRAPDOOR_TILE_DEF", 2041);
 	
+	gModSettings.ubOmertaDropOffX = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_X", 9);
+	gModSettings.ubOmertaDropOffY = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Y", 1);
+	gModSettings.ubOmertaDropOffZ = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Z", 0);
+	gModSettings.iOmertaDropOff = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_GRIDNO", 4868);
+
+	//[Omerta]
+
+	//[Drassen]
+	gModSettings.ubJohnUnescortSectorX = iniReader.ReadInteger("Drassen", "JOHN_UNESCORT_SECTOR_X", 13);
+	gModSettings.ubJohnUnescortSectorY = iniReader.ReadInteger("Drassen", "JOHN_UNESCORT_SECTOR_Y", 2);
+	gModSettings.ubJohnUnescortSectorZ = iniReader.ReadInteger("Drassen", "JOHN_UNESCORT_SECTOR_Z", 0);
+
+	//[Alma]
+	gModSettings.sRocketRifleGridNo = iniReader.ReadInteger("Alma", "ROCKETRIFLE_POSITION", 10472);
+
+	//[Grumm]
+
+	//[Tixa]
+	gModSettings.ubDyanmoPrisonSectorX = iniReader.ReadInteger("Tixa", "DYNAMO_PRISON_SECTOR_X", 9);
+	gModSettings.ubDyanmoPrisonSectorY = iniReader.ReadInteger("Tixa", "DYNAMO_PRISON_SECTOR_Y", 10);
+	gModSettings.ubDyanmoPrisonSectorZ = iniReader.ReadInteger("Tixa", "DYNAMO_PRISON_SECTOR_Z", 0);
+
+	//[Cambria]
+	gModSettings.ubHospitalSectorX = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_X", 8);
+	gModSettings.ubHospitalSectorY = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Y", 6);
+	gModSettings.ubHospitalSectorZ = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Z", 0);
+
+	//[San Mona]
 	gModSettings.usPornShopRoomHans = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_HANS", 49);
 	gModSettings.iHansGridNo = iniReader.ReadInteger("San Mona", "HANS_POSTION", 13523);
 	gModSettings.usPornShopRoomBrenda = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_BRENDA", 47);
@@ -2389,16 +2417,39 @@ void LoadModSettings(){
 	gModSettings.ubKingpinMoneySectorY = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_Y", 4);
 	gModSettings.ubKingpinMoneySectorZ = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_Z", 1);
 
-	gModSettings.ubOmertaDropOffX = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_X", 9);
-	gModSettings.ubOmertaDropOffY = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Y", 1);
-	gModSettings.ubOmertaDropOffZ = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Z", 0);
-	gModSettings.iOmertaDropOff = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_GRIDNO", 4868);
+	gModSettings.ubJoeyPrimarySectorX = iniReader.ReadInteger("San Mona", "JOEY_PRIMARY_SECTOR_X", 4);
+	gModSettings.ubJoeyPrimarySectorY = iniReader.ReadInteger("San Mona", "JOEY_PRIMARY_SECTOR_Y", 4);
+	gModSettings.ubJoeyPrimarySectorZ = iniReader.ReadInteger("San Mona", "JOEY_PRIMARY_SECTOR_Z", 1);
 
-	gModSettings.sRocketRifleGridNo = iniReader.ReadInteger("Alma", "ROCKETRIFLE_POSITION", 10472);
+	gModSettings.ubJoeyAlternateSectorX = iniReader.ReadInteger("San Mona", "JOEY_ALTERNATE_SECTOR_X", 5);
+	gModSettings.ubJoeyAlternateSectorY = iniReader.ReadInteger("San Mona", "JOEY_ALTERNATE_SECTOR_Y", 3);
+	gModSettings.ubJoeyAlternateSectorZ = iniReader.ReadInteger("San Mona", "JOEY_ALTERNATE_SECTOR_Z", 0);
 
-	gModSettings.ubHospitalSectorX = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_X", 8);
-	gModSettings.ubHospitalSectorY = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Y", 6);
-	gModSettings.ubHospitalSectorZ = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Z", 0);
+	gModSettings.ubSpikeNewSectorX = iniReader.ReadInteger("San Mona", "SPIKE_NEW_SECTOR_X", 5);
+	gModSettings.ubSpikeNewSectorY = iniReader.ReadInteger("San Mona", "SPIKE_NEW_SECTOR_Y", 3);
+
+	//[Estoni]
+
+	//[Orta]
+
+	//[Balime]
+
+	//[Meduna]
+
+	//[Chitzena]
+
+
+	gModSettings.ubWeaponCache1X = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_1_X", 11);
+	gModSettings.ubWeaponCache1Y = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_1_Y", 5);
+	gModSettings.ubWeaponCache2X = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_2_X", 5);
+	gModSettings.ubWeaponCache2Y = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_2_Y", 8);
+	gModSettings.ubWeaponCache3X = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_3_X", 10);
+	gModSettings.ubWeaponCache3Y = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_3_Y", 8);
+	gModSettings.ubWeaponCache4X = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_4_X", 12);
+	gModSettings.ubWeaponCache4Y = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_4_Y", 10);
+	gModSettings.ubWeaponCache5X = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_5_X", 9);
+	gModSettings.ubWeaponCache5Y = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_5_Y", 13);
+	
 }
 
 // silversurfer: load item property modifiers

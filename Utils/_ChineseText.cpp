@@ -5728,8 +5728,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"鼠标已锁定，鼠标移动范围强制限制在游戏窗口内部区域。",			// 104
 	L"鼠标已释放，鼠标移动范围不再受限于游戏窗口内部区域。",			// 105
-	L"Mercs will move in formation",	// TODO.Translate
-	L"Mercs will gather at destination",
+	L"Move in Formation ON",	// TODO.Translate
+	L"Move in Formation OFF",
 };
 
 

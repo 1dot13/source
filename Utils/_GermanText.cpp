@@ -5571,8 +5571,8 @@ STR16 pMessageStrings[] =
 	// Lock / release mouse in windowed mode (window boundary)
 	L"Mausberech begrenzen, damit Mauscursor innerhalb des Spielfensters bleibt.",	// 104
 	L"Mausbereich wieder freigeben, um uneingeschränkte Mausbewebung zu erhalten.",	// 105
-	L"Mercs will move in formation",	// TODO.Translate
-	L"Mercs will gather at destination",
+	L"Move in Formation ON",	// TODO.Translate
+	L"Move in Formation OFF",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
