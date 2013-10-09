@@ -6995,7 +6995,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
             // OK, KILL any enemies that are incompacitated
             if ( KillIncompacitatedEnemyInSector( ) )
             {
-                return( FALSE );
+				// silversurfer: Why this? The rest of our enemies just bled to death so go on with the code!
+                //return( FALSE );
             }
         }
 

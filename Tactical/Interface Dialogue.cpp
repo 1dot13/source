@@ -186,6 +186,7 @@ BOOLEAN InternalInitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pS
 extern void EndGameMessageBoxCallBack( UINT8 ubExitValue );
 extern INT32 FindNearestOpenableNonDoor( INT32 sStartGridNo );
 extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
+extern UINT8 NumCapableEnemyInSector( );
 
 #ifdef JA2UB
 //JA25 UB
@@ -3016,7 +3017,10 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				break;
 
 			case NPC_ACTION_END_COMBAT:
-				ExitCombatMode();
+				// silversurfer: Bugfix for JaggZilla Bug #635
+				// We can't end combat just because this one guy is now not hostile anymore. What about the rest of the sector?
+				if ( NumCapableEnemyInSector() == 0 )
+					ExitCombatMode();
 				break;
 
 			case NPC_ACTION_BECOME_FRIENDLY_END_COMBAT:
@@ -3029,7 +3033,10 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					RecalculateOppCntsDueToBecomingNeutral( pSoldier );
 					if ( gTacticalStatus.bNumFoughtInBattle[ CIV_TEAM ] == 0 )
 					{
-						gTacticalStatus.fEnemyInSector = FALSE;
+						// silversurfer: Bugfix for JaggZilla Bug #635
+						// Function CheckForEndOfBattle() will set this IF the sector is really free of enemies.
+						//gTacticalStatus.fEnemyInSector = FALSE;
+						CheckForEndOfBattle( FALSE );
 					}
 					if ( !gTacticalStatus.fEnemyInSector )
 					{
