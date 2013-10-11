@@ -725,6 +725,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 						SetFactTrue( FACT_KINGPIN_CAN_SEND_ASSASSINS );
 						gMercProfiles[ SPIKE ].sSectorX = gModSettings.ubSpikeNewSectorX; //5
 						gMercProfiles[ SPIKE ].sSectorY = gModSettings.ubSpikeNewSectorY; //MAP_ROW_C
+						gMercProfiles[ SPIKE ].bSectorZ = gModSettings.ubSpikeNewSectorZ; //0
 						gTacticalStatus.fCivGroupHostile[ KINGPIN_CIV_GROUP ] = CIV_GROUP_WILL_BECOME_HOSTILE;
 					}
 				}

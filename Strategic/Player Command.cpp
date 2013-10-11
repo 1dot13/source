@@ -340,7 +340,10 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 			}
 
 //			SetSectorFlag( sMapX, sMapY, bMapZ, SF_SECTOR_HAS_BEEN_LIBERATED_ONCE );
-			if ( bMapZ == 0 && ( ( sMapY == MAP_ROW_M && (sMapX >= 2 && sMapX <= 6) ) || sMapY == MAP_ROW_N && sMapX == 6) )
+			if ( bMapZ == 0 && ( ( ( sMapX >= gModSettings.ubMeanwhileMedunaOutskirtsRowMinX && sMapX <= gModSettings.ubMeanwhileMedunaOutskirtsRowMaxX ) && //row x range
+				sMapY == gModSettings.ubMeanwhileMedunaOutskirtsRowY ) || //row y
+				( sMapX == gModSettings.ubMeanwhileMedunaOutskirtsColX && // col x
+				( sMapY >= gModSettings.ubMeanwhileMedunaOutskirtsColMinY && sMapY <= gModSettings.ubMeanwhileMedunaOutskirtsColMaxY ) ) ) ) //col y range
 			{
 
 #if (defined JA2UB) 

@@ -3352,18 +3352,18 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					// Target a different merc....
 					if ( usActionCode == NPC_ACTION_PUNCH_PC_SLOT_0 )
 					{
-						sGridNo = gsInterrogationGridNo[ 0 ];
 						//pTarget = MercPtrs[ 0 ];
+						sGridNo = gModSettings.iMeanwhileInterrogatePOWGridNo[ 0 ];
 					}
 					else if ( usActionCode == NPC_ACTION_PUNCH_PC_SLOT_1 )
 					{
 						//pTarget = MercPtrs[ 1 ];
-						sGridNo = gsInterrogationGridNo[ 1 ];
+						sGridNo = gModSettings.iMeanwhileInterrogatePOWGridNo[ 1 ];
 					}
 					else //if ( usActionCode == NPC_ACTION_PUNCH_PC_SLOT_2 )
 					{
 						//pTarget = MercPtrs[ 2 ];
-						sGridNo = gsInterrogationGridNo[ 2 ];
+						sGridNo = gModSettings.iMeanwhileInterrogatePOWGridNo[ 2 ];
 					}
 
 					ubTargetID = WhoIsThere2( sGridNo, 0 );
@@ -3473,7 +3473,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 
 					for ( cnt = 0; cnt < 3; cnt++ )
 					{
-						ubTargetID = WhoIsThere2( gsInterrogationGridNo[ cnt ], 0 );
+						ubTargetID = WhoIsThere2( gModSettings.iMeanwhileInterrogatePOWGridNo[ cnt ], 0 );
 						if ( ubTargetID == NOBODY )
 						{
 							continue;
@@ -4132,9 +4132,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 
 			case NPC_ACTION_ADD_RAT:
 				// add Rat
-				gMercProfiles[ RAT ].sSectorX = 9;
-				gMercProfiles[ RAT ].sSectorY = MAP_ROW_G;
-				gMercProfiles[ RAT ].bSectorZ = 0;
+				gMercProfiles[ RAT ].sSectorX = gModSettings.ubAddRatSectorX; //9
+				gMercProfiles[ RAT ].sSectorY = gModSettings.ubAddRatSectorY; //7
+				gMercProfiles[ RAT ].bSectorZ = gModSettings.ubAddRatSectorZ; //0
 				break;
 
 			case NPC_ACTION_ENDGAME_STATE_1:

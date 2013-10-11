@@ -2340,8 +2340,8 @@ void LoadModSettings(){
 	gModSettings.iBasementEntry[1] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_2", 13363);
 	gModSettings.iBasementEntry[2] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_3", 13364);
 	gModSettings.iBasementEntry[3] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_4", 13365);
-	gModSettings.iBasementEntry[4] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_5", 13325);
-	gModSettings.iBasementEntry[5] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_6", 13324);
+	gModSettings.iBasementEntry[4] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_5", 13525);
+	gModSettings.iBasementEntry[5] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_6", 13524);
 	gModSettings.iBasementEntry[6] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_7", 0);
 	gModSettings.iBasementEntry[7] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_8", 0);
 	gModSettings.iBasementEntry[8] = iniReader.ReadInteger("Rebel Hideout", "BASEMENT_ENTRY_9", 0);
@@ -2379,6 +2379,15 @@ void LoadModSettings(){
 	//[Alma]
 	gModSettings.sRocketRifleGridNo = iniReader.ReadInteger("Alma", "ROCKETRIFLE_POSITION", 10472);
 
+	gModSettings.ubInitialPOWSectorX = iniReader.ReadInteger("Alma", "INITIAL_POW_SECTOR_X", 13);
+	gModSettings.ubInitialPOWSectorY = iniReader.ReadInteger("Alma", "INITIAL_POW_SECTOR_Y", 9);
+	gModSettings.iInitialPOWGridNo[0] = iniReader.ReadInteger("Alma", "INITIAL_POW_POSITION_1", 9208);
+	gModSettings.iInitialPOWGridNo[1] = iniReader.ReadInteger("Alma", "INITIAL_POW_POSITION_2", 9688);
+	gModSettings.iInitialPOWGridNo[2] = iniReader.ReadInteger("Alma", "INITIAL_POW_POSITION_3", 9215);
+	gModSettings.iInitialPOWItemGridNo[0] = iniReader.ReadInteger("Alma", "INITIAL_POW_ITEM_POSITION_1", 12246);
+	gModSettings.iInitialPOWItemGridNo[1] = iniReader.ReadInteger("Alma", "INITIAL_POW_ITEM_POSITION_2", 12406);
+	gModSettings.iInitialPOWItemGridNo[2] = iniReader.ReadInteger("Alma", "INITIAL_POW_ITEM_POSITION_3", 12086);
+
 	//[Grumm]
 
 	//[Tixa]
@@ -2390,6 +2399,10 @@ void LoadModSettings(){
 	gModSettings.ubHospitalSectorX = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_X", 8);
 	gModSettings.ubHospitalSectorY = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Y", 6);
 	gModSettings.ubHospitalSectorZ = iniReader.ReadInteger("Cambria", "HOSPITAL_SECTOR_Z", 0);
+
+	gModSettings.ubAddRatSectorX = iniReader.ReadInteger("Cambria", "ADD_RAT_SECTOR_X", 9);
+	gModSettings.ubAddRatSectorY = iniReader.ReadInteger("Cambria", "ADD_RAT_SECTOR_Y", 7);
+	gModSettings.ubAddRatSectorZ = iniReader.ReadInteger("Cambria", "ADD_RAT_SECTOR_Z", 0);
 
 	//[San Mona]
 	gModSettings.usPornShopRoomHans = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_HANS", 49);
@@ -2427,6 +2440,11 @@ void LoadModSettings(){
 
 	gModSettings.ubSpikeNewSectorX = iniReader.ReadInteger("San Mona", "SPIKE_NEW_SECTOR_X", 5);
 	gModSettings.ubSpikeNewSectorY = iniReader.ReadInteger("San Mona", "SPIKE_NEW_SECTOR_Y", 3);
+	gModSettings.ubSpikeNewSectorZ = iniReader.ReadInteger("San Mona", "SPIKE_NEW_SECTOR_Z", 0);
+
+	gModSettings.ubAddIggySectorX = iniReader.ReadInteger("San Mona", "ADD_IGGY_SECTOR_X", 5);
+	gModSettings.ubAddIggySectorY = iniReader.ReadInteger("San Mona", "ADD_IGGY_SECTOR_Y", 3);
+	gModSettings.ubAddIggySectorZ = iniReader.ReadInteger("San Mona", "ADD_IGGY_SECTOR_Z", 0);
 
 	//[Estoni]
 
@@ -2450,6 +2468,25 @@ void LoadModSettings(){
 	gModSettings.ubWeaponCache5X = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_5_X", 9);
 	gModSettings.ubWeaponCache5Y = iniReader.ReadInteger("Weapon Cache", "WEAPON_CACHE_5_Y", 13);
 	
+	gModSettings.ubMeanwhilePalaceSectorX = iniReader.ReadInteger("Meanwhile", "PALACE_SECTOR_X", 3);
+	gModSettings.ubMeanwhilePalaceSectorY = iniReader.ReadInteger("Meanwhile", "PALACE_SECTOR_Y", 16);
+	
+	gModSettings.ubMeanwhileInterrogatePOWSectorX = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_SECTOR_X", 7);
+	gModSettings.ubMeanwhileInterrogatePOWSectorY = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_SECTOR_Y", 14);
+	gModSettings.iMeanwhileInterrogatePOWGridNo[0] = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_POSITION_1", 7756);
+	gModSettings.iMeanwhileInterrogatePOWGridNo[1] = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_POSITION_2", 7757);
+	gModSettings.iMeanwhileInterrogatePOWGridNo[2] = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_POSITION_3", 7758);
+	gModSettings.iMeanwhileInterrogatePOWItemGridNo[0] = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_ITEM_POSITION_1", 12089);
+	gModSettings.iMeanwhileInterrogatePOWItemGridNo[1] = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_ITEM_POSITION_2", 12089);
+	gModSettings.iMeanwhileInterrogatePOWItemGridNo[2] = iniReader.ReadInteger("Meanwhile", "INTERROGATE_POW_ITEM_POSITION_3", 12089);
+
+	gModSettings.ubMeanwhileMedunaOutskirtsRowMinX = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_ROW_MIN_X", 2);
+	gModSettings.ubMeanwhileMedunaOutskirtsRowMaxX = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_ROW_MAX_X", 6);
+	gModSettings.ubMeanwhileMedunaOutskirtsRowY = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_ROW_Y", 13);
+	gModSettings.ubMeanwhileMedunaOutskirtsColX = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_COL_X", 6);
+	gModSettings.ubMeanwhileMedunaOutskirtsColMinY = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_COL_MIN_Y", 14);
+	gModSettings.ubMeanwhileMedunaOutskirtsColMaxY = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_COL_MAX_Y", 14);
+
 }
 
 // silversurfer: load item property modifiers

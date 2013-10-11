@@ -1725,7 +1725,7 @@ void HourlyProgressUpdate(void)
 		}
 #endif
 		// at 50% make Mike available to the strategic AI
-		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressMikeAvailable && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressMikeAvailable )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressMikeAvailable && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressMikeAvailable )
 		{
 			if( gubFact[FACT_MIKE_AVAILABLE_TO_ARMY] < 2 )
 			{
@@ -1734,22 +1734,23 @@ void HourlyProgressUpdate(void)
 		}
 
 		// at 70% add Iggy to the world
-		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressIggyAvaliable && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressIggyAvaliable )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressIggyAvaliable && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressIggyAvaliable )
 		{
 			if ( gubFact[ FACT_IGGY_AVAILABLE_TO_ARMY ] < 2 )
 			{
-				gMercProfiles[ IGGY ].sSectorX = 5;
-				gMercProfiles[ IGGY ].sSectorY = MAP_ROW_C;
+				gMercProfiles[ IGGY ].sSectorX = gModSettings.ubAddIggySectorX; //5
+				gMercProfiles[ IGGY ].sSectorY = gModSettings.ubAddIggySectorY; //MAP_ROW_C
+				gMercProfiles[ IGGY ].bSectorZ = gModSettings.ubAddIggySectorZ; //0
 			}
 		}
 
 		// Flugente: on certain progress levels, the queen decides to initiate major attacks
-		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage1 && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressOffensiveStage1 )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage1 && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressOffensiveStage1 )
 		{
 			ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_1, 0, 0 );
 		}
 
-		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage2 && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressOffensiveStage2 )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage2 && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressOffensiveStage2 )
 		{
 			ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_2, 0, 0 );
 		}

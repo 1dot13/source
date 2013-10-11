@@ -1911,7 +1911,7 @@ void GetMapFileName(INT16 sMapX,INT16 sMapY, INT8 bSectorZ, STR8 bString, BOOLEA
 /* Ja25: No meanwhiles */
 #else
 	// If we are in a meanwhile...
-	if ( AreInMeanwhile( ) && sMapX == 3 && sMapY == 16 && !bSectorZ )//GetMeanwhileID() != INTERROGATION )
+	if ( AreInMeanwhile( ) && sMapX == gModSettings.ubMeanwhilePalaceSectorX && sMapY == gModSettings.ubMeanwhilePalaceSectorY && !bSectorZ ) //GetMeanwhileID() != INTERROGATION ), (3, 16)
 	{
 		if( fAddAlternateMapLetter )
 		{
@@ -3114,7 +3114,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 								fPOWSquadSet = TRUE;
 
 								// ATE: If we are in i13 - pop up message!
-								if ( sSectorY == MAP_ROW_I && sSectorX == 13 )
+								if ( sSectorX == gModSettings.ubInitialPOWSectorX && sSectorY == gModSettings.ubInitialPOWSectorY ) //(13, 9)
 								{
 									DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ POW_MERCS_ARE_HERE ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
 								}
@@ -3127,7 +3127,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 							}
 							else
 							{
-								if ( sSectorY != MAP_ROW_I && sSectorX != 13 )
+								if ( sSectorX != gModSettings.ubInitialPOWSectorX && sSectorY != gModSettings.ubInitialPOWSectorY ) //(13, 9)
 								{
 									AddCharacterToSquad( pSoldier, ubPOWSquad );
 								}

@@ -486,7 +486,7 @@ void StartMeanwhile( )
 					// Force reload of NPC files...
 					ReloadQuoteFile( QUEEN );
 
-					ChangeNpcToDifferentSector( QUEEN, 3, 16, 0 );
+					ChangeNpcToDifferentSector( QUEEN, gModSettings.ubMeanwhilePalaceSectorX, gModSettings.ubMeanwhilePalaceSectorY, 0 ); //3, 16
 				}
 
 				// SAVE MESSANGER!
@@ -502,7 +502,7 @@ void StartMeanwhile( )
 					// Force reload of NPC files...
 					ReloadQuoteFile( ELLIOT );
 
-					ChangeNpcToDifferentSector( ELLIOT, 3, 16, 0 );
+					ChangeNpcToDifferentSector( ELLIOT, gModSettings.ubMeanwhilePalaceSectorX, gModSettings.ubMeanwhilePalaceSectorY, 0 );
 				}
 
 				if ( gCurrentMeanwhileDef.ubMeanwhileID == OUTSKIRTS_MEDUNA )
@@ -520,7 +520,7 @@ void StartMeanwhile( )
 						// Force reload of NPC files...
 						ReloadQuoteFile( JOE );
 
-						ChangeNpcToDifferentSector( JOE, 3, 16, 0 );
+						ChangeNpcToDifferentSector( JOE, gModSettings.ubMeanwhilePalaceSectorX, gModSettings.ubMeanwhilePalaceSectorY, 0 );
 					}
 				}
 
@@ -542,7 +542,7 @@ void StartMeanwhile( )
 					// Force reload of NPC files...
 					ReloadQuoteFile( QUEEN );
 
-					ChangeNpcToDifferentSector( QUEEN, 7, 14, 0 );
+					ChangeNpcToDifferentSector( QUEEN, gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0 ); // 7, 14
 				}
 
 				// SAVE MESSANGER!
@@ -558,7 +558,7 @@ void StartMeanwhile( )
 					// Force reload of NPC files...
 					ReloadQuoteFile( ELLIOT );
 
-					ChangeNpcToDifferentSector( ELLIOT, 7, 14, 0 );
+					ChangeNpcToDifferentSector( ELLIOT, gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0 );
 				}
 
 				// SAVE JOE!
@@ -574,7 +574,7 @@ void StartMeanwhile( )
 					// Force reload of NPC files...
 					ReloadQuoteFile( JOE );
 
-					ChangeNpcToDifferentSector( JOE, 7, 14, 0 );
+					ChangeNpcToDifferentSector( JOE, gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0 );
 				}
 
 			break;
@@ -850,7 +850,7 @@ void EndMeanwhile( )
 			gMercProfiles[ ubProfile ].sSectorX = gNPCSaveData[ cnt ].sX;
 			gMercProfiles[ ubProfile ].sSectorY = gNPCSaveData[ cnt ].sY;
 			gMercProfiles[ ubProfile ].bSectorZ = (INT8)gNPCSaveData[ cnt ].sZ;
-			gMercProfiles[ ubProfile ].sGridNo	= (INT8)gNPCSaveData[ cnt ].sGridNo;
+			gMercProfiles[ ubProfile ].sGridNo	= (INT32)gNPCSaveData[ cnt ].sGridNo;
 
 			// Ensure NPC files loaded...
 			ReloadQuoteFile( ubProfile );
@@ -899,7 +899,7 @@ void DoneFadeOutMeanwhileOnceDone( )
 			gMercProfiles[ ubProfile ].sSectorX = gNPCSaveData[ cnt ].sX;
 			gMercProfiles[ ubProfile ].sSectorY = gNPCSaveData[ cnt ].sY;
 			gMercProfiles[ ubProfile ].bSectorZ = (INT8)gNPCSaveData[ cnt ].sZ;
-			gMercProfiles[ ubProfile ].sGridNo	= (INT8)gNPCSaveData[ cnt ].sGridNo;
+			gMercProfiles[ ubProfile ].sGridNo	= (INT32)gNPCSaveData[ cnt ].sGridNo;
 
 			// Ensure NPC files loaded...
 			ReloadQuoteFile( ubProfile );
@@ -975,8 +975,8 @@ void HandleCreatureRelease( void )
 	UINT32 uiTime = 0;
 	MEANWHILE_DEFINITION MeanwhileDef;
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -997,8 +997,8 @@ void HandleMeanWhileEventPostingForTownLiberation( UINT8 bTownId )
 	UINT8 ubId = 0;
 	BOOLEAN fHandled = FALSE;
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1053,8 +1053,8 @@ void HandleMeanWhileEventPostingForTownLoss( UINT8 bTownId )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1084,8 +1084,8 @@ void HandleMeanWhileEventPostingForSAMLiberation( INT8 bSamId )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1132,8 +1132,8 @@ void HandleFlowersMeanwhileScene( INT8 bTimeCode )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1165,8 +1165,8 @@ void HandleOutskirtsOfMedunaMeanwhileScene( void )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1188,8 +1188,8 @@ void HandleKillChopperMeanwhileScene( void )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1211,8 +1211,8 @@ void HandleScientistAWOLMeanwhileScene( void )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1234,8 +1234,8 @@ void HandleInterrogationMeanwhileScene( void )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 7; // what sector?
-	MeanwhileDef.sSectorY = MAP_ROW_N;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; // interrogate sector
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1258,8 +1258,8 @@ void HandleFirstBattleVictory( void )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 
@@ -1286,8 +1286,8 @@ void HandleDelayedFirstBattleVictory( void )
 		return;
 	}
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX;
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY;
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 

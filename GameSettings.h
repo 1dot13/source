@@ -1710,6 +1710,12 @@ typedef struct
 
 	//[Alma]
 	INT32 sRocketRifleGridNo;
+	
+	//POW stuff for QUEST_HELD_IN_ALMA
+	UINT8 ubInitialPOWSectorX;
+	UINT8 ubInitialPOWSectorY;
+	INT32 iInitialPOWGridNo[3];
+	INT32 iInitialPOWItemGridNo[3];
 
 	//[Grumm]
 
@@ -1724,6 +1730,11 @@ typedef struct
 	UINT8 ubHospitalSectorX;
 	UINT8 ubHospitalSectorY;
 	UINT8 ubHospitalSectorZ;
+
+	//add Rat to location after creature meanwhile scene
+	UINT8 ubAddRatSectorX;
+	UINT8 ubAddRatSectorY;
+	UINT8 ubAddRatSectorZ;
 
 	//[San Mona]
 	//Porn Quest
@@ -1755,12 +1766,10 @@ typedef struct
 	UINT8 ubKingpinMoneySectorY;
 	UINT8 ubKingpinMoneySectorZ;
 
-	//Joey Primary Location to be found
+	//Joey primary and alternate Location to be found
 	UINT8 ubJoeyPrimarySectorX;
 	UINT8 ubJoeyPrimarySectorY;
 	UINT8 ubJoeyPrimarySectorZ;
-
-	//Joey Alternate Location
 	UINT8 ubJoeyAlternateSectorX;
 	UINT8 ubJoeyAlternateSectorY;
 	UINT8 ubJoeyAlternateSectorZ;
@@ -1768,6 +1777,12 @@ typedef struct
 	//Spike new location when assassins are sent
 	UINT8 ubSpikeNewSectorX;
 	UINT8 ubSpikeNewSectorY;
+	UINT8 ubSpikeNewSectorZ;
+
+	//add Iggy to location when game progress condition met
+	UINT8 ubAddIggySectorX;
+	UINT8 ubAddIggySectorY;
+	UINT8 ubAddIggySectorZ;
 
 	//[Estoni]
 
@@ -1791,6 +1806,26 @@ typedef struct
 	UINT8 ubWeaponCache4Y;
 	UINT8 ubWeaponCache5X;
 	UINT8 ubWeaponCache5Y;
+
+	//Meanwhile scenes
+	//palace sector
+	UINT8 ubMeanwhilePalaceSectorX;
+	UINT8 ubMeanwhilePalaceSectorY;
+
+	//interrogate and second POW stuff
+	UINT8 ubMeanwhileInterrogatePOWSectorX;
+	UINT8 ubMeanwhileInterrogatePOWSectorY;
+	INT32 iMeanwhileInterrogatePOWGridNo[3];
+	INT32 iMeanwhileInterrogatePOWItemGridNo[3];
+
+	//row sectors to trigger meduna outskirts meanwhile
+	UINT8 ubMeanwhileMedunaOutskirtsRowMinX;
+	UINT8 ubMeanwhileMedunaOutskirtsRowMaxX;
+	UINT8 ubMeanwhileMedunaOutskirtsRowY;
+	//column sectors to trigger meduna outskirts meanwhile
+	UINT8 ubMeanwhileMedunaOutskirtsColX;
+	UINT8 ubMeanwhileMedunaOutskirtsColMinY;
+	UINT8 ubMeanwhileMedunaOutskirtsColMaxY;
 
 }MOD_SETTINGS;
 

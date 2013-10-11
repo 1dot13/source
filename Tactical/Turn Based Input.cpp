@@ -6080,16 +6080,16 @@ void TestMeanWhile( INT32 iID )
 	INT32	cnt;
 	SOLDIERTYPE *pSoldier;
 
-	MeanwhileDef.sSectorX = 3;
-	MeanwhileDef.sSectorY = 16;
+	MeanwhileDef.sSectorX = gModSettings.ubMeanwhilePalaceSectorX; //3
+	MeanwhileDef.sSectorY = gModSettings.ubMeanwhilePalaceSectorY; //16
 	MeanwhileDef.ubNPCNumber = QUEEN;
 	MeanwhileDef.usTriggerEvent = 0;
 	MeanwhileDef.ubMeanwhileID = (UINT8)iID;
 
 	if ( iID == INTERROGATION )
 	{
-		MeanwhileDef.sSectorX = 7;
-		MeanwhileDef.sSectorY = 14;
+		MeanwhileDef.sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
+		MeanwhileDef.sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 
 		// Loop through our mercs and set gridnos once some found.....
 		// look for all mercs on the same team,
@@ -6103,8 +6103,8 @@ void TestMeanWhile( INT32 iID )
 
 				ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_POW );
 
-				pSoldier->sSectorX = 7;
-				pSoldier->sSectorY = 14;
+				pSoldier->sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
+				pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 			}
 		}
 

@@ -85,7 +85,8 @@ extern INT32 giGarrisonArraySize;
 extern BOOLEAN gfOverrideSector;
 #endif
 
-INT32 gsInterrogationGridNo[3] = { 7756, 7757, 7758 };
+//Buggler: Externalized to gModSettings.iMeanwhileInterrogatePOWGridNo
+//INT32 gsInterrogationGridNo[3] = { 7756, 7757, 7758 };
 
 #ifdef JA2UB
 INT32		gsGridNoForMapEdgePointInfo=-1;
@@ -2076,8 +2077,8 @@ void EndCaptureSequence( )
 			{
 				MEANWHILE_DEFINITION MeanwhileDef;
 
-				MeanwhileDef.sSectorX = 7;
-				MeanwhileDef.sSectorY = 14;
+				MeanwhileDef.sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
+				MeanwhileDef.sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 				MeanwhileDef.ubNPCNumber = QUEEN;
 				MeanwhileDef.usTriggerEvent = 0;
 				MeanwhileDef.ubMeanwhileID = INTERROGATION;
@@ -2102,11 +2103,11 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	BOOLEAN       fMadeCorpse;
 	INT32         iNumEnemiesInSector;
 
-	// TODO.WANNE: Hardcoded grid number
-	static INT32 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 }; //dnl!!!
-	static INT32 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 13046 }; //dnl!!!
+	// Buggler: Externalized Hardcoded grid number
+	//static INT32 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 }; //dnl!!!
+	//static INT32 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 12086 }; //dnl!!!
 
-	static INT32 sInterrogationItemGridNo[] = { 12089, 12089, 12089 }; //dnl!!!
+	//static INT32 sInterrogationItemGridNo[] = { 12089, 12089, 12089 }; //dnl!!!
 
 	AssertNotNIL(pSoldier);
 
@@ -2142,8 +2143,8 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
   TakeSoldierOutOfVehicle( pSoldier );
 
 
-  // Are there anemies in ALMA? ( I13 )
-  iNumEnemiesInSector = NumEnemiesInSector( 13, 9 );
+  // Are there enemies in ALMA? ( I13 )
+  iNumEnemiesInSector = NumEnemiesInSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY ); //(13, 9)
 
   // IF there are no enemies, and we need to do alma, skip!
   if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED && iNumEnemiesInSector == 0 )
@@ -2176,8 +2177,8 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED )
 	{
 		//-teleport him to NE Alma sector (not Tixa as originally planned)
-		pSoldier->sSectorX = 13;
-		pSoldier->sSectorY = 9;
+		pSoldier->sSectorX = gModSettings.ubInitialPOWSectorX; //13
+		pSoldier->sSectorY = gModSettings.ubInitialPOWSectorY; //9
 		pSoldier->bSectorZ = 0;
 
 		// put him on the floor!!
@@ -2189,27 +2190,28 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			if( pSoldier->inv[ i ].exists() == true )
 			{
 				WorldItem.fExists = TRUE;
-				WorldItem.sGridNo = sAlmaCaptureItemsGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
+				WorldItem.sGridNo = gModSettings.iInitialPOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
 				WorldItem.ubLevel = 0;
 				WorldItem.usFlags = 0;
 				WorldItem.bVisible = FALSE;
 				WorldItem.bRenderZHeightAboveLevel = 0;
 				pSoldier->inv[ i ].MoveThisObjectTo(WorldItem.object);
 
-				AddWorldItemsToUnLoadedSector( 13, 9, 0, sAlmaCaptureItemsGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, &WorldItem, FALSE );
+				AddWorldItemsToUnLoadedSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY, 0, 
+					gModSettings.iInitialPOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, &WorldItem, FALSE );
 			}
 		}
 
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = sAlmaCaptureGridNos[ gStrategicStatus.ubNumCapturedForRescue ];
+		pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
 
 		gStrategicStatus.ubNumCapturedForRescue++;
 	}
 	else if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE )
 	{
 		//-teleport him to N7
-		pSoldier->sSectorX = 7;
-		pSoldier->sSectorY = 14;
+		pSoldier->sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
+		pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 		pSoldier->bSectorZ = 0;
 
 		// put him on the floor!!
@@ -2221,19 +2223,20 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			if( pSoldier->inv[ i ].exists() == true )
 			{
 				WorldItem.fExists = TRUE;
-				WorldItem.sGridNo = sInterrogationItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
+				WorldItem.sGridNo = gModSettings.iMeanwhileInterrogatePOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
 				WorldItem.ubLevel = 0;
 				WorldItem.usFlags = 0;
 				WorldItem.bVisible = FALSE;
 				WorldItem.bRenderZHeightAboveLevel = 0;
 				pSoldier->inv[ i ].MoveThisObjectTo(WorldItem.object);
 
-				AddWorldItemsToUnLoadedSector( 7, 14, 0, sInterrogationItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, &WorldItem, FALSE );
+				AddWorldItemsToUnLoadedSector( gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0, 
+					gModSettings.iMeanwhileInterrogatePOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, &WorldItem, FALSE );
 			}
 		}
 
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = gsInterrogationGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
+		pSoldier->usStrategicInsertionData = gModSettings.iMeanwhileInterrogatePOWGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
 
 		gStrategicStatus.ubNumCapturedForRescue++;
 	}

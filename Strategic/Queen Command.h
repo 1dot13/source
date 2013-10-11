@@ -54,7 +54,8 @@ BOOLEAN PlayerSectorDefended( UINT8 ubSectorID );
 
 BOOLEAN OnlyHostileCivsInSector();
 
-extern INT32 gsInterrogationGridNo[3];
+//Buggler: Externalized to gModSettings.iMeanwhileInterrogatePOWGridNo
+//extern INT32 gsInterrogationGridNo[3];
 
 #ifdef JA2UB
 extern	INT32		gsGridNoForMapEdgePointInfo;
