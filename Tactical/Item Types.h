@@ -1160,6 +1160,9 @@ typedef struct
 	// Flugente: item is connected to another item. Type of connection depends on item specifics
 	UINT16	usBuddyItem;
 
+	// silversurfer: item provides breath regeneration bonus while resting
+	UINT8	ubSleepModifier;
+
 } INVTYPE;
 
 

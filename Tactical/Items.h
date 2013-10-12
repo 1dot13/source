@@ -520,6 +520,9 @@ BOOLEAN ItemCanBeAppliedToOthers( UINT16 usItem );
 //zwwooooo - IoV: change RangeBonus to ratable (Orange by kenkenkenken in IoV921)
 INT32 GetPercentRangeBonus( OBJECTTYPE * pObj );
 
+// silversurfer: returns the SleepModifier from the characters inventory
+UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier );
+
 #endif
 
 

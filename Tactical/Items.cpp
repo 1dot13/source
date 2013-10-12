@@ -15257,3 +15257,18 @@ INT32 GetPercentRangeBonus( OBJECTTYPE * pObj )
 	return( bonus );
 }
 
+// silversurfer: Finds items with SleepModifier bonus in inventory and returns the highest value
+UINT8 GetInventorySleepModifier( SOLDIERTYPE *pSoldier )
+{
+	UINT8 modifier = 0;
+
+	for ( UINT8 i = 0; i < pSoldier->inv.size(); i++ )
+	{
+		if( pSoldier->inv[ i ].exists() == true && Item[ pSoldier->inv[i].usItem ].ubSleepModifier > 0 )
+		{
+			modifier = __max(modifier, BonusReduce( Item[ pSoldier->inv[i].usItem ].ubSleepModifier, pSoldier->inv[i][0]->data.objectStatus ));
+		}
+	}
+
+	return( modifier );
+}
