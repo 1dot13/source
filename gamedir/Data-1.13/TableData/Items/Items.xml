@@ -182,6 +182,7 @@
 		<FlashLightRange>0</FlashLightRange>
 		<ItemChoiceTimeSetting>0</ItemChoiceTimeSetting>
 		<buddyitem>0</buddyitem>
+		<SleepModifier>0</SleepModifier>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
