@@ -105,7 +105,7 @@
 			<szTooltipText>There are plenty of beds here. It's a bit basic, but certainly better than resting outside!</szTooltipText>
 			<ubStaffLimit>10</ubStaffLimit>
 			<usPerformance>110</usPerformance>
-			<usSleep>105</usSleep>
+			<usSleep>120</usSleep>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -280,8 +280,8 @@
 			<szTooltipText>Sun, sand, surf. This sure as hell beats sleeping in a trench.</szTooltipText>
 			<ubStaffLimit>32</ubStaffLimit>
 			<sCostPerHour>15</sCostPerHour>
-			<usPerformance>200</usPerformance>
-			<usSleep>160</usSleep>
+			<usPerformance>160</usPerformance>
+			<usSleep>200</usSleep>
 			<MORALE>
 				<ubChance>500</ubChance>
 				<bBaseEffect>10</bBaseEffect>
