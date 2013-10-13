@@ -1028,7 +1028,9 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 		ubMinCoolness += armsDealerInfo[bArmsDealer].addToCoolness;
 		ubMaxCoolness += armsDealerInfo[bArmsDealer].addToCoolness;
 		ubMinCoolness = max( armsDealerInfo[bArmsDealer].minCoolness, min( 9, ubMinCoolness ) );
-		ubMaxCoolness = max( 2, min( armsDealerInfo[bArmsDealer].maxCoolness, ubMaxCoolness ) );
+		// silversurfer: max coolness should never be lower than min coolness!
+		//ubMaxCoolness = max( 2, min( armsDealerInfo[bArmsDealer].maxCoolness, ubMaxCoolness ) );
+		ubMaxCoolness = max( (ubMinCoolness + 1), min( armsDealerInfo[bArmsDealer].maxCoolness, ubMaxCoolness ) );
 	}
 	/*
 	if (bArmsDealer == ARMS_DEALER_TONY)
