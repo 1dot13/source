@@ -2642,8 +2642,10 @@ BOOLEAN SOLDIERTYPE::CreateSoldierLight( void )
 	// DO ONLY IF WE'RE AT A GOOD LEVEL
 	if ( this->iLight == -1 )
 	{
+		INT16 visionrangebonus = GetTotalVisionRangeBonus( this, NORMAL_LIGHTLEVEL_NIGHT );
+
 		// ATE: Check for goggles in headpos....
-		if ( GetTotalVisionRangeBonus( this, NORMAL_LIGHTLEVEL_NIGHT ) >= UVGOGGLES_BONUS )
+		if ( visionrangebonus >= UVGOGGLES_BONUS )
 		{
 			if( ( this->iLight=LightSpriteCreate("Light4", 0 ) )==(-1))
 			{
@@ -2655,7 +2657,7 @@ BOOLEAN SOLDIERTYPE::CreateSoldierLight( void )
 				LightSprites[ this->iLight ].uiFlags |= MERC_LIGHT;
 			}
 		}
-		else if ( GetTotalVisionRangeBonus( this, NORMAL_LIGHTLEVEL_NIGHT ) >= NIGHTSIGHTGOGGLES_BONUS )
+		else if ( visionrangebonus >= NIGHTSIGHTGOGGLES_BONUS )
 		{
 			if( ( this->iLight=LightSpriteCreate("Light3", 0 ) )==(-1))
 			{
