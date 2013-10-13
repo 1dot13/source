@@ -117,9 +117,8 @@ static LPDIRECTDRAWSURFACE	_gpBackBuffer = NULL;
 extern RECT									rcWindow;
 extern POINT									ptWindowSize;
 
-#ifdef WINFONTS
-	UINT32 CurrentSurface = BACKBUFFER;
-#endif
+UINT32 CurrentSurface = BACKBUFFER;
+
 //
 // Globals for mouse cursor
 //
@@ -2640,12 +2639,12 @@ LPDIRECTDRAWSURFACE2 GetFrameBufferObject(void)
 LPDIRECTDRAWSURFACE2 GetMouseBufferObject(void)
 {
 	Assert( gpPrimarySurface != NULL );
-#ifdef WINFONTS
-	//It's a damn bug.
-	return gpMouseCursorOriginal;
-#else
-	return gpMouseCursor;
-#endif
+    if ( iUseWinFonts ) {
+	    //It's a damn bug.
+	    return gpMouseCursorOriginal;
+    } else {
+        return gpMouseCursor;
+    }
 }
 
 

@@ -4,9 +4,9 @@
 #include "Types.h"
 #include "himage.h"
 #include "vobject.h"
-#ifdef WINFONTS
+//#ifdef WINFONTS
 #include "WinFont.h"
-#endif
+//#endif
 #include "Font Control.h"
 
 #define		DEFAULT_SHADOW			2

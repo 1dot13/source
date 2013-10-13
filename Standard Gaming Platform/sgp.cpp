@@ -1646,7 +1646,7 @@ void GetRuntimeSettings( )
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
-
+    iUseWinFonts  = (int) GetPrivateProfileInt( "Ja2 Settings","USE_WINFONTS", iUseWinFonts, INIFile,);
 
 	// haydent: mouse scrolling
 	iDisableMouseScrolling = (int) GetPrivateProfileInt( "Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling, INIFile );
@@ -1687,6 +1687,8 @@ void GetRuntimeSettings( )
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int)oProps.getIntProperty("Ja2 Settings","PLAY_INTRO", iPlayIntro);
+
+    iUseWinFonts= (int)oProps.getIntProperty("Ja2 Settings","USE_WINFONTS", iUseWinFonts);
 
 	// haydent: mouse scrolling
 	iDisableMouseScrolling = (int)oProps.getIntProperty("Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling);

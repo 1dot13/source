@@ -142,13 +142,13 @@ UINT32 uiRed, uiGreen, uiBlue;
 	uiBlue=(UINT32)FontObjs[FontDefault]->pPaletteEntry[ubForeground].peBlue;
 
 	FontForeground16=Get16BPPColor(FROMRGB(uiRed, uiGreen, uiBlue));
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 uiRed=FROMRGB(uiRed, uiGreen, uiBlue);
-		 SetWinFontForeColor(GET_WINFONT(), &uiRed);
-		}
-#endif
+    if ( iUseWinFonts) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     uiRed=FROMRGB(uiRed, uiGreen, uiBlue);
+		     SetWinFontForeColor(GET_WINFONT(), &uiRed);
+		    }
+    }
 }
 
 void SetFontShadow(UINT8 ubShadow )
@@ -207,13 +207,13 @@ UINT32 uiRed, uiGreen, uiBlue;
 	uiBlue=(UINT32)FontObjs[FontDefault]->pPaletteEntry[ubBackground].peBlue;
 
 	FontBackground16=Get16BPPColor(FROMRGB(uiRed, uiGreen, uiBlue));
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 uiRed=FROMRGB(uiRed, uiGreen, uiBlue);
-		 SetWinFontBackColor(GET_WINFONT(), &uiRed);
-		}
-#endif	
+    if ( iUseWinFonts) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     uiRed=FROMRGB(uiRed, uiGreen, uiBlue);
+		     SetWinFontBackColor(GET_WINFONT(), &uiRed);
+		    }
+    }
 }
 
 
@@ -570,14 +570,14 @@ INT16 StringPixLength(const STR16 string, INT32 UseFont)
 {
 	UINT32 Cur;
 	UINT16 *curletter,transletter;
-#ifdef WINFONTS
-	INT32 MapFont;
-	MapFont = WinFontMap[UseFont];
-	if (MapFont !=-1 )
-		{
-		 return(WinFontStringPixLength(string, MapFont));
-		}
-#endif
+    if ( iUseWinFonts ) {
+	    INT32 MapFont;
+	    MapFont = WinFontMap[UseFont];
+	    if (MapFont !=-1 )
+		    {
+		     return(WinFontStringPixLength(string, MapFont));
+		    }
+    }
 	if (string == NULL)
 	{
 		return(0);
@@ -699,14 +699,14 @@ UINT16 GetFontHeight(INT32 FontNum)
 	Assert(FontNum >= 0);
 	Assert(FontNum <= MAX_FONTS);
 	Assert(FontObjs[FontNum]!=NULL);
-#ifdef WINFONTS
-	INT32 MapFont;
-	MapFont = WinFontMap[FontNum];
-	if (FontNum != -1)
-  	{
-  		return (GetWinFontHeight(L"A", MapFont));
-  	} 
-#endif
+    if ( iUseWinFonts ) {
+	    INT32 MapFont;
+	    MapFont = WinFontMap[FontNum];
+	    if (FontNum != -1)
+  	    {
+  		    return (GetWinFontHeight(L"A", MapFont));
+  	    } 
+    }
 	return((UINT16)GetHeight(FontObjs[FontNum], 0));
 }
 
@@ -753,19 +753,19 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 		#ifdef GERMAN
 		   //switch( siChar )
 		   //{
-		   //     // ь
+		   //     // ?
 		   //     case 252:          siChar = 252;          break;
-		   //     // Ь
+		   //     // ?
 		   //     case 220:          siChar = 220;          break;
-		   //     // д
+		   //     // ?
 		   //     case 228:          siChar = 228;          break;
-		   //     // Д
+		   //     // ?
 		   //     case 196:          siChar = 196;          break;
-		   //     // ц
+		   //     // ?
 		   //     case 246:          siChar = 246;          break;
-		   //     // Ц
+		   //     // ?
 		   //     case 214:          siChar = 214;          break;
-		   //     // Я
+		   //     // ?
 		   //     case 223:          siChar = 223;          break;
 		   //}
 	#endif
@@ -809,17 +809,17 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			case 223:          siChar = 1071;  break; //U+042F           d0 af     CYRILLIC CAPITAL LETTER YA
 
 			//small letters
-            case 185:          siChar = 8470;  break;		// №
-            case 178:          siChar = 1030;  break;		// І
-            case 161:          siChar = 1038;  break;		// Ў
-            case 179:          siChar = 1110;  break;		// і
-            case 162:          siChar = 1118;  break;		// ў
-            case 165:          siChar = 1168;  break;		// Ґ
-            case 170:          siChar = 1028;  break;		// Є
-            case 175:          siChar = 1031;  break;		// Ї
-            case 180:          siChar = 1169;  break;		// ґ
-            case 186:          siChar = 1108;  break;		// є
-            case 191:          siChar = 1111;  break;		// ї
+            case 185:          siChar = 8470;  break;		// ?
+            case 178:          siChar = 1030;  break;		// ?
+            case 161:          siChar = 1038;  break;		// ?
+            case 179:          siChar = 1110;  break;		// ?
+            case 162:          siChar = 1118;  break;		// ?
+            case 165:          siChar = 1168;  break;		// ?
+            case 170:          siChar = 1028;  break;		// ?
+            case 175:          siChar = 1031;  break;		// ?
+            case 180:          siChar = 1169;  break;		// ?
+            case 186:          siChar = 1108;  break;		// ?
+            case 191:          siChar = 1111;  break;		// ?
 
 			case 184:          siChar = 1105;  break; //U+0451           d1 91     CYRILLIC SMALL LETTER IO
 			case 224:          siChar = 1072;  break; //U+0430     a     d0 b0     CYRILLIC SMALL LETTER A
@@ -887,33 +887,33 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 	   switch( siChar )
 	   {
 			//capital letters
-			//case 192:          siChar = 192;          break;	//А
-			//case 194:          siChar = 194;          break;	//В
-			//case 199:          siChar = 199;          break;	//З
-			//case 200:          siChar = 200;          break;	//И
-			//case 201:          siChar = 201;          break;	//Й
-			//case 202:          siChar = 202;          break;	//К
-			//case 203:          siChar = 203;          break;	//Л
-			//case 206:          siChar = 206;          break;	//О
-			//case 207:          siChar = 207;          break;	//П
-			//case 212:          siChar = 212;          break;	//Ф
-			//case 217:          siChar = 217;          break;	//Щ
-			//case 219:          siChar = 219;          break;	//Ы
-			case 143:          siChar = 376;          break;	//џ
+			//case 192:          siChar = 192;          break;	//?
+			//case 194:          siChar = 194;          break;	//?
+			//case 199:          siChar = 199;          break;	//?
+			//case 200:          siChar = 200;          break;	//?
+			//case 201:          siChar = 201;          break;	//?
+			//case 202:          siChar = 202;          break;	//?
+			//case 203:          siChar = 203;          break;	//?
+			//case 206:          siChar = 206;          break;	//?
+			//case 207:          siChar = 207;          break;	//?
+			//case 212:          siChar = 212;          break;	//?
+			//case 217:          siChar = 217;          break;	//?
+			//case 219:          siChar = 219;          break;	//?
+			case 143:          siChar = 376;          break;	//?
 
 			//small letters
-			//case 224:          siChar = 224;          break;	//а
-			//case 226:          siChar = 226;          break;	//в
-			//case 231:          siChar = 231;          break;	//з
-			//case 232:          siChar = 232;          break;	//и
-			//case 233:          siChar = 233;          break;	//й
-			//case 234:          siChar = 234;          break;	//к
-			//case 235:          siChar = 235;          break;	//л
-			//case 238:          siChar = 238;          break;	//о
-			//case 239:          siChar = 239;          break;	//п
-			//case 244:          siChar = 244;          break;	//ф
-			//case 249:          siChar = 249;          break;	//щ
-			//case 251:          siChar = 251;          break;	//ы
+			//case 224:          siChar = 224;          break;	//?
+			//case 226:          siChar = 226;          break;	//?
+			//case 231:          siChar = 231;          break;	//?
+			//case 232:          siChar = 232;          break;	//?
+			//case 233:          siChar = 233;          break;	//?
+			//case 234:          siChar = 234;          break;	//?
+			//case 235:          siChar = 235;          break;	//?
+			//case 238:          siChar = 238;          break;	//?
+			//case 239:          siChar = 239;          break;	//?
+			//case 244:          siChar = 244;          break;	//?
+			//case 249:          siChar = 249;          break;	//?
+			//case 251:          siChar = 251;          break;	//?
 			//case 255:          siChar = 255;          break;	//я
 //inshy: italian letters
 			//case 204:          siChar = 204;          break;	//I'
@@ -922,10 +922,10 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			//case 242:          siChar = 242;          break;	//o'
 //inshy: French ligatures
 			//Ligature
-			//case 198:          siChar = 198;          break;	//Ж
-			//case 140:          siChar = 338;          break;	//Њ
-			//case 230:          siChar = 230;          break;	//ж
-			//case 156:          siChar = 339;          break;	//њ
+			//case 198:          siChar = 198;          break;	//?
+			//case 140:          siChar = 338;          break;	//?
+			//case 230:          siChar = 230;          break;	//?
+			//case 156:          siChar = 339;          break;	//?
 
 	   }
 	#endif
@@ -948,9 +948,9 @@ BOOLEAN SetFont(INT32 iFontIndex)
 	SGP_THROW_IFFALSE( iFontIndex >= 0 ,"negative font index");
 	SGP_THROW_IFFALSE( iFontIndex <= MAX_FONTS, "font index > MAX_FONTS" );
 	SGP_THROW_IFFALSE( FontObjs[iFontIndex]!=NULL, "font is not initialized" );
-#ifdef WINFONTS
-	SET_WINFONT(WinFontMap[iFontIndex]);
-#endif
+    if ( iUseWinFonts ) {
+	    SET_WINFONT(WinFontMap[iFontIndex]);
+    }
 	FontDefault=iFontIndex;
 	return(TRUE);
 }
@@ -1002,13 +1002,13 @@ UINT8				*pDestBuf;
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, string);
-		 return(0);
-		}
-#endif
+    if ( iUseWinFonts ) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, string);
+		     return(0);
+		    }
+    }
 
 	curletter=string;
 
@@ -1116,13 +1116,14 @@ UINT8				*pDestBuf;
 	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, string);
-		 return(0);
-		}
-#endif
+
+    if ( iUseWinFonts ) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, string);
+		     return(0);
+		    }
+    }
 	curletter=string;
 
 	destx=x;
@@ -1173,14 +1174,14 @@ UINT8				*pDestBuf;
 	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, string);
-  	 	 InvalidateRegion(x, y, x + StringPixLength(string, FontDefault), y + GetFontHeight(FontDefault));
-		 return(0);
-		}
-#endif
+    if ( iUseWinFonts ) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, string);
+  	 	     InvalidateRegion(x, y, x + StringPixLength(string, FontDefault), y + GetFontHeight(FontDefault));
+		     return(0);
+		    }
+    }
 	curletter=string;
 
 	destx=x;
@@ -1291,15 +1292,15 @@ CHAR16	string[512];
 	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 UnLockVideoSurface( CurrentSurface );
-		 PrintWinFont(CurrentSurface, GET_WINFONT(), x, y, string);
-		 pDestBuf = LockVideoSurface( CurrentSurface, &uiDestPitchBYTES );
-		 return(0);
-		}
-#endif
+    if ( iUseWinFonts ) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     UnLockVideoSurface( CurrentSurface );
+		     PrintWinFont(CurrentSurface, GET_WINFONT(), x, y, string);
+		     pDestBuf = LockVideoSurface( CurrentSurface, &uiDestPitchBYTES );
+		     return(0);
+		    }
+    }
 	curletter=string;
 
 	destx=x;
@@ -1343,15 +1344,15 @@ UINT16	usOldForeColor;
 	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
-		{
-		 UnLockVideoSurface( CurrentSurface );
-		 PrintWinFont(CurrentSurface, GET_WINFONT(), x, y, pFontString);
-		 pDestBuf = LockVideoSurface( CurrentSurface, &uiDestPitchBYTES );
-		 return(0);
-		}
-#endif
+    if ( iUseWinFonts ) {
+	    if (GET_WINFONT() != -1)
+		    {
+		     UnLockVideoSurface( CurrentSurface );
+		     PrintWinFont(CurrentSurface, GET_WINFONT(), x, y, pFontString);
+		     pDestBuf = LockVideoSurface( CurrentSurface, &uiDestPitchBYTES );
+		     return(0);
+		    }
+    }
 	curletter=string;
 
 	destx=x;
@@ -1413,13 +1414,13 @@ UINT8				*pDestBuf;
 	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
-#ifdef WINFONTS
-	if (GET_WINFONT() != -1)
+    if ( iUseWinFonts ) {
+    	if (GET_WINFONT() != -1)
 		{
 		 PrintWinFont(FontDestBuffer, GET_WINFONT(), x, y, pFontString);
 		 return(0);
 		}
-#endif
+    }
 	curletter=string;
 
 	destx=x;
@@ -1814,252 +1815,252 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 
 	// RUSSIAN letters in UNICODE
-	*temp = 1040; //А
+	*temp = 1040; //?
 	temp++;
-	*temp = 1041; //Б
+	*temp = 1041; //?
 	temp++;
-	*temp = 1042; //В
+	*temp = 1042; //?
 	temp++;
-	*temp = 1043; //Г
+	*temp = 1043; //?
 	temp++;
-	*temp = 1044; //Д
+	*temp = 1044; //?
 	temp++;
-	*temp = 1045; //Е
+	*temp = 1045; //?
 	temp++;
-	*temp = 1046; //Ж
+	*temp = 1046; //?
 	temp++;
-	*temp = 1047; //З
+	*temp = 1047; //?
 	temp++;
-	*temp = 1048; //И
+	*temp = 1048; //?
 	temp++;
-	*temp = 1049; //Й
+	*temp = 1049; //?
 	temp++;
-	*temp = 1050; //К
+	*temp = 1050; //?
 	temp++;
-	*temp = 1051; //Л
+	*temp = 1051; //?
 	temp++;
-	*temp = 1052; //М
+	*temp = 1052; //?
 	temp++;
-	*temp = 1053; //Н
+	*temp = 1053; //?
 	temp++;
-	*temp = 1054; //О
+	*temp = 1054; //?
 	temp++;
-	*temp = 1055; //П
+	*temp = 1055; //?
 	temp++;
-	*temp = 1056; //Р
+	*temp = 1056; //?
 	temp++;
-	*temp = 1057; //С
+	*temp = 1057; //?
 	temp++;
-	*temp = 1058; //Т
+	*temp = 1058; //?
 	temp++;
-	*temp = 1059; //У
+	*temp = 1059; //?
 	temp++;
-	*temp = 1060; //Ф
+	*temp = 1060; //?
 	temp++;
-	*temp = 1061; //Х
+	*temp = 1061; //?
 	temp++;
-	*temp = 1062; //Ц
+	*temp = 1062; //?
 	temp++;
-	*temp = 1063; //Ч
+	*temp = 1063; //?
 	temp++;
-	*temp = 1064; //Ш
+	*temp = 1064; //?
 	temp++;
-	*temp = 1065; //Щ
+	*temp = 1065; //?
 	temp++;
-	*temp = 1066; //Ъ
+	*temp = 1066; //?
 	temp++;
-	*temp = 1067; //Ы
+	*temp = 1067; //?
 	temp++;
-	*temp = 1068; //Ь
+	*temp = 1068; //?
 	temp++;
-	*temp = 1069; //Э
+	*temp = 1069; //?
 	temp++;
-	*temp = 1070; //Ю
+	*temp = 1070; //?
 	temp++;
-	*temp = 1071; //Я
+	*temp = 1071; //?
 	temp++;	
-	*temp = 1072; // а
+	*temp = 1072; // ?
 	temp++;
-	*temp = 1073; // б 
+	*temp = 1073; // ?
 	temp++;
-	*temp = 1074; // в 
+	*temp = 1074; // ?
 	temp++;
-	*temp = 1075; // г
+	*temp = 1075; // ?
 	temp++;
-	*temp = 1076; // д
+	*temp = 1076; // ?
 	temp++;
-	*temp = 1077; // е
+	*temp = 1077; // ?
 	temp++;
-	*temp = 1078; // ж
+	*temp = 1078; // ?
 	temp++;
-	*temp = 1079; // з
+	*temp = 1079; // ?
 	temp++;
-	*temp = 1080; // и
+	*temp = 1080; // ?
 	temp++;
-	*temp = 1081; // й
+	*temp = 1081; // ?
 	temp++;
-	*temp = 1082; // к
+	*temp = 1082; // ?
 	temp++;
-	*temp = 1083; // л
+	*temp = 1083; // ?
 	temp++;
-	*temp = 1084; // м
+	*temp = 1084; // ?
 	temp++;
-	*temp = 1085; // н
+	*temp = 1085; // ?
 	temp++;
-	*temp = 1086; // о
+	*temp = 1086; // ?
 	temp++;
-	*temp = 1087; // п
+	*temp = 1087; // ?
 	temp++;
-	*temp = 1088; // р
+	*temp = 1088; // ?
 	temp++;
-	*temp = 1089; // с
+	*temp = 1089; // ?
 	temp++;
-	*temp = 1090; // т
+	*temp = 1090; // ?
 	temp++;
-	*temp = 1091; // у
+	*temp = 1091; // ?
 	temp++;
-	*temp = 1092; // ф
+	*temp = 1092; // ?
 	temp++;
-	*temp = 1093; // х
+	*temp = 1093; // ?
 	temp++;
-	*temp = 1094; // ц
+	*temp = 1094; // ?
 	temp++;
-	*temp = 1095; // ч
+	*temp = 1095; // ?
 	temp++;
-	*temp = 1096; // ш
+	*temp = 1096; // ?
 	temp++;
-	*temp = 1097; // щ
+	*temp = 1097; // ?
 	temp++;
-	*temp = 1098; // ъ
+	*temp = 1098; // ?
 	temp++;
-	*temp = 1099; // ы
+	*temp = 1099; // ?
 	temp++;
-	*temp = 1100; // ь
+	*temp = 1100; // ?
 	temp++;
-	*temp = 1101; // э
+	*temp = 1101; // ?
 	temp++;
-	*temp = 1102; // ю
+	*temp = 1102; // ?
 	temp++;
 	*temp = 1103; // я
 	temp++;
 
 	// BELORUSSIAN and UKRAINIAN letters in UNICODE
-	*temp = 8470; // №
+	*temp = 8470; // ?
 	temp++;
-	*temp = 1025; // Ё
+	*temp = 1025; // ?
 	temp++;
-	*temp = 1030; // І
+	*temp = 1030; // ?
 	temp++;
-	*temp = 1038; // Ў
+	*temp = 1038; // ?
 	temp++;
-	*temp = 1105; // ё
+	*temp = 1105; // ?
 	temp++;
-	*temp = 1110; // і
+	*temp = 1110; // ?
 	temp++;
-	*temp = 1118; // ў
+	*temp = 1118; // ?
 	temp++;
-	*temp = 1168; // Ґ
+	*temp = 1168; // ?
 	temp++;
-	*temp = 1028; // Є
+	*temp = 1028; // ?
 	temp++;
-	*temp = 1031; // Ї
+	*temp = 1031; // ?
 	temp++;
-	*temp = 1169; // ґ
+	*temp = 1169; // ?
 	temp++;
-	*temp = 1108; // є
+	*temp = 1108; // ?
 	temp++;
-	*temp = 1111; // ї
+	*temp = 1111; // ?
 	temp++;
 
 	// POLISH letters in UNICODE
-	*temp = 260; // Ґ (on)
+	*temp = 260; // ?(on)
 	temp++;
-	*temp = 262; // Ж (tse)
+	*temp = 262; // ?(tse)
 	temp++;
-	*temp = 280; // К (en')
+	*temp = 280; // ?(en')
 	temp++;
-	*temp = 321; // Ј (el')
+	*temp = 321; // ?(el')
 	temp++;
-	*temp = 323; // С (en)
+	*temp = 323; // ?(en)
 	temp++;
-	*temp = 211; // У (o kratkoe)
+	*temp = 211; // ?(o kratkoe)
 	temp++;
-	*temp = 346; // Њ (es')
+	*temp = 346; // ?(es')
 	temp++;
-	*temp = 379; // Ї (zhet)
+	*temp = 379; // ?(zhet)
 	temp++;
-	*temp = 377; // Џ (zet)
+	*temp = 377; // ?(zet)
 	temp++;
-	*temp = 261; // № (он)
+	*temp = 261; // ?(он)
 	temp++;
-	*temp = 263; // ж (це)
+	*temp = 263; // ?(це)
 	temp++;
-	*temp = 281; // к (эн)
+	*temp = 281; // ?(эн)
 	temp++;
-	*temp = 322; // і (эль)
+	*temp = 322; // ?(эл?
 	temp++;
-	*temp = 324; // с (энь)
+	*temp = 324; // ?(эн?
 	temp++;
-	*temp = 243; // у (о краткое)
+	*temp = 243; // ?(?кратко?
 	temp++;
-	*temp = 347; // њ (эсь)
+	*temp = 347; // ?(эс?
 	temp++;
-	*temp = 380; // ї (жет)
+	*temp = 380; // ?(же?
 	temp++;
-	*temp = 378; // џ (зет)
+	*temp = 378; // ?(зе?
 	temp++;
 
 	// FRENCH and ITALIAN letters in UNICODE
-	*temp = 192; //А
+	*temp = 192; //?
 	temp++;
-	*temp = 194; //В
+	*temp = 194; //?
 	temp++;
-	*temp = 199; //З
+	*temp = 199; //?
 	temp++;
-	*temp = 200; //И
+	*temp = 200; //?
 	temp++;
-	*temp = 201; //Й
+	*temp = 201; //?
 	temp++;
-	*temp = 202; //К
+	*temp = 202; //?
 	temp++;
-	*temp = 203; //Л
+	*temp = 203; //?
 	temp++;
-	*temp = 206; //О
+	*temp = 206; //?
 	temp++;
-	*temp = 207; //П
+	*temp = 207; //?
 	temp++;
-	*temp = 212; //Ф
+	*temp = 212; //?
 	temp++;
-	*temp = 217; //Щ
+	*temp = 217; //?
 	temp++;
-	*temp = 219; //Ы
+	*temp = 219; //?
 	temp++;
-	*temp = 376; //џ
+	*temp = 376; //?
 	temp++;
 //small letters
-	*temp = 224; //а
+	*temp = 224; //?
 	temp++;
-	*temp = 226; //в
+	*temp = 226; //?
 	temp++;
-	*temp = 231; //з
+	*temp = 231; //?
 	temp++;
-	*temp = 232; //и
+	*temp = 232; //?
 	temp++;
-	*temp = 233; //й
+	*temp = 233; //?
 	temp++;
-	*temp = 234; //к
+	*temp = 234; //?
 	temp++;
-	*temp = 235; //л
+	*temp = 235; //?
 	temp++;
-	*temp = 238; //о
+	*temp = 238; //?
 	temp++;
-	*temp = 239; //п
+	*temp = 239; //?
 	temp++;
-	*temp = 244; //ф
+	*temp = 244; //?
 	temp++;
-	*temp = 249; //щ
+	*temp = 249; //?
 	temp++;
-	*temp = 251; //ы
+	*temp = 251; //?
 	temp++;
 	*temp = 255; //я
 	temp++;
@@ -2074,13 +2075,13 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 
 //French ligatures
-	*temp = 198; //Ж
+	*temp = 198; //?
 	temp++;
-	*temp = 338; //Њ
+	*temp = 338; //?
 	temp++;
-	*temp = 230; //ж
+	*temp = 230; //?
 	temp++;
-	*temp = 339; //њ
+	*temp = 339; //?
 	temp++;
 
 

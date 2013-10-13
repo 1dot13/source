@@ -225,9 +225,9 @@ BOOLEAN	InitializeFonts( )
 	gfFontsInit = TRUE;
 
   // ATE: Init WinFont System and any winfonts we wish...
-#ifdef WINFONTS
-	InitWinFonts( );
-#endif
+    if ( iUseWinFonts ) {
+	    InitWinFonts( );
+    }
 
 	return( TRUE );
 }
@@ -255,9 +255,9 @@ void ShutdownFonts( )
 	#endif
 
   // ATE: Shutdown any win fonts
-#ifdef WINFONTS
+  if ( iUseWinFonts ) {
 	ShutdownWinFonts();
-#endif
+  }
 }
 
 // Set shades for fonts
