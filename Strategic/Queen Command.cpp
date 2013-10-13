@@ -2267,7 +2267,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	// adjust poison points
 	INT8 lifechanged = oldlife - pSoldier->stats.bLife;
 	if ( lifechanged < 0 )
-		pSoldier->bPoisonLife -= lifechanged;
+		pSoldier->bPoisonLife = max(0, pSoldier->bPoisonLife - lifechanged);
 	else if ( lifechanged > 0)
 		pSoldier->bPoisonLife = max(pSoldier->bPoisonSum, pSoldier->bPoisonLife + lifechanged);
 
