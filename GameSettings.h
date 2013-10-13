@@ -435,6 +435,7 @@ typedef struct
 
 	//Sound settings
 	UINT32 guiWeaponSoundEffectsVolume;
+	UINT8  gubMaxPercentNoiseSilencedSound;
 
 	// WDS - Option to turn off stealing
 	BOOLEAN fStealingDisabled;

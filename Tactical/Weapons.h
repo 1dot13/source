@@ -47,7 +47,8 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 #define SOLID_SLUG_RANGE_BONUS	65
 #define DUCKBILL_RANGE_BONUS	40
 
-#define MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND 50	//35 silversurfer changed that to make sound suppressors always play the silenced sound
+// silversurfer: externalized this to gGameExternalOptions.gubMaxPercentNoiseSilencedSound
+//#define MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND 35
 
 // JA2 GOLD: for weapons and attachments, give penalties only for status values below 85
 #define WEAPON_STATUS_MOD( x ) ( (x) >= 85 ? 100 : (((x) * 100) / 85) )

@@ -1812,7 +1812,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				// IF we are silenced?
 				noisefactor = GetPercentNoiseVolume( pObjAttHand );
 
-				if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usUBItem ].ubAttackVolume <= 10 )
+				if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
 				{
 					// Pick sound file baed on how many bullets we are going to fire...
 					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usUBItem ].sSilencedBurstSound ], bShotsToFire );
@@ -1869,7 +1869,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		{
 			// Switch on silencer...
 			UINT16 noisefactor = GetPercentNoiseVolume( pObjAttHand );
-			if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usUBItem ].ubAttackVolume <= 10 )
+			if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
 			{
 				INT32 uiSound;
 
@@ -2390,7 +2390,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				// IF we are silenced?
 				UINT16 noisefactor = GetPercentNoiseVolume( pObjUsed );
 
-				if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usUBItem ].ubAttackVolume <= 10 )
+				if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
 				{
 					// Pick sound file baed on how many bullets we are going to fire...
 					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usUBItem ].sSilencedBurstSound ], bShotsToFire );
@@ -2447,7 +2447,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		{
 			// Switch on silencer...
 			UINT16 noisefactor = GetPercentNoiseVolume( pObjUsed );
-			if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usUBItem ].ubAttackVolume <= 10 )
+			if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
 			{
 				INT32 uiSound;
 

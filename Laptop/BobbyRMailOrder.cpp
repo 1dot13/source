@@ -394,6 +394,8 @@ void PurchaseBobbyOrder();
 UINT32	CalcPackageTotalWeight();
 void DisplayPackageWeight( );
 void ShutDownBobbyRNewMailOrders();
+// sorts the list of selected items for the mail order screen
+void SortBobbyRayPurchases();
 //ppp
 
 void DrawOrderGoldRectangle(UINT16 usGridX, UINT16 usGridY);
@@ -584,6 +586,10 @@ BOOLEAN EnterBobbyRMailOrder()
 	guiShippingCost = 0;
 
 	gfRemoveItemsFromStock = FALSE;
+
+	// silversurfer: This sorts the list of items that we marked for purchase. 
+	// This helps us get rid of the empty line display errors in the mail order screen.
+	SortBobbyRayPurchases();
 
 	RenderBobbyRMailOrder();
 	return(TRUE);
@@ -1022,7 +1028,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 	UINT8	*pDestBuf;
 	HVOBJECT	hArrowHandle;
 	//JMich TODO add a way to check for empty index in the middle of pBobbyRayPurchase
-
+	// silversurfer: Not necessary anymore. Function SortBobbyRayPurchases() will remove any empty indexes for us before we call the mail order screen.
 
 	//Output the qty
 	DrawTextToScreen(BobbyROrderFormText[BOBBYR_QTY], (UINT16)(usGridX+BOBBYR_GRID_FIRST_COLUMN_X), (UINT16)(usGridY+BOBBYR_GRID_FIRST_COLUMN_Y-BOBBYR_GRID_TITLE_OFFSET), BOBBYR_GRID_FIRST_COLUMN_WIDTH, BOBBYR_ORDER_STATIC_TEXT_FONT, BOBBYR_ORDER_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
@@ -2153,15 +2159,20 @@ void SelectGridScrollColumnMovementCallBack(MOUSE_REGION * pRegion, INT32 reason
 
 			pRegion->uiFlags |= BUTTON_CLICKED_ON ;
 
+			// scroll up
 			if( ubPurchaseNumber < gubPurchaseAtTopOfList )
 			{
-					gubPurchaseAtTopOfList = ubPurchaseNumber;
+				gubPurchaseAtTopOfList = ubPurchaseNumber;
 			}
 
+			// scroll down
 			if( ubPurchaseNumber > gubPurchaseAtTopOfList )
 			{
-				if( ( ubPurchaseNumber - gubPurchaseAtTopOfList ) >= BOBBYR_NUM_DISPLAYED_ITEMS )   
-					gubPurchaseAtTopOfList = ubPurchaseNumber - BOBBYR_NUM_DISPLAYED_ITEMS + 1;     
+				// silversurfer: No idea what this was supposed to do. We always have only BOBBYR_NUM_DISPLAYED_ITEMS in the list.
+				// Why should we handle scrolling up and down differently?
+/*				if( ( ubPurchaseNumber - gubPurchaseAtTopOfList ) >= BOBBYR_NUM_DISPLAYED_ITEMS )   
+					gubPurchaseAtTopOfList = ubPurchaseNumber - BOBBYR_NUM_DISPLAYED_ITEMS + 1;     */
+				gubPurchaseAtTopOfList = ubPurchaseNumber;
 			}
 			gfReDrawBobbyOrder = TRUE;
 			gfBobbyRShipmentsDirty = TRUE;
@@ -2826,7 +2837,37 @@ UINT16	CountNumberOfBobbyPurchasesThatAreInTransit()
 	return( usItemCount );
 }
 
+void SortBobbyRayPurchases()
+{
+	INT16 ubLastEmptyIndex = -1;
 
+	for ( UINT8 i = 0; i < gGameExternalOptions.ubBobbyRayMaxPurchaseAmount; i++ )
+	{
+		// we have no item here
+		if ( BobbyRayPurchases[i].ubNumberPurchased == 0 )
+		{
+			// store this index as the first last empty index
+			if ( ubLastEmptyIndex < 0 )
+				ubLastEmptyIndex = i;
+		}
+		else
+		{
+			if ( ubLastEmptyIndex >= 0 )
+			{
+				// move data to last empty index
+				BobbyRayPurchases[ubLastEmptyIndex] = BobbyRayPurchases[i];
+				// clean up data
+				BobbyRayPurchases[i].bItemQuality = 0;
+				BobbyRayPurchases[i].fUsed = 0;
+				BobbyRayPurchases[i].ubNumberPurchased = 0;
+				BobbyRayPurchases[i].usBobbyItemIndex = 0;
+				BobbyRayPurchases[i].usItemIndex = 0;
+				// set new last empty index
+				ubLastEmptyIndex++;
+			}
+		}
+	}
+}
 
 BOOLEAN NewWayOfSavingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 {

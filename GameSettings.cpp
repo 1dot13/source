@@ -955,8 +955,8 @@ void LoadGameExternalOptions()
 	
 	//################# Sound Settings #################
 	
-	gGameExternalOptions.guiWeaponSoundEffectsVolume	= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME",0, 0, 1000 /*1000 = 10x?*/);
-
+	gGameExternalOptions.guiWeaponSoundEffectsVolume		= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME", 0, 0, 1000 /*1000 = 10x?*/);
+	gGameExternalOptions.gubMaxPercentNoiseSilencedSound	= iniReader.ReadInteger("Sound Settings","MAX_PERCENT_NOISE_SILENCED_SOUND", 35, 0, 100 );
 
 
 	//################# Tactical Interface Settings #################

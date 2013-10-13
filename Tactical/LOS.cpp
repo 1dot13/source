@@ -5768,7 +5768,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	{
 		// Switch on silencer...
 		UINT16 noisefactor = GetPercentNoiseVolume( pObj );
-		if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ pObj->usItem ].ubAttackVolume <= 10 )
+		if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ pObj->usItem ].ubAttackVolume <= 10 )
 		{
 			INT32 uiSound;
 

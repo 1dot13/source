@@ -406,7 +406,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						// Switch on silencer...
 						INT16 noisefactor = GetPercentNoiseVolume( pObjUsed );
-						if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usedGun ].ubAttackVolume <= 10 )
+						if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usedGun ].ubAttackVolume <= 10 )
 						{
 							INT32 uiSound;
 
