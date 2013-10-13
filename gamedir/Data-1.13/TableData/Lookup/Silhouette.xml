@@ -144,4 +144,44 @@
 		<id>35</id>
 		<name>Sniper Mag</name>
 	</Silhouette>
+	<Silhouette>
+		<id>36</id>
+		<name>Flashbang</name>
+	</Silhouette>
+	<Silhouette>
+		<id>37</id>
+		<name>Carbiner Ring</name>
+	</Silhouette>
+	<Silhouette>
+		<id>38</id>
+		<name>Kits</name>
+	</Silhouette>
+	<Silhouette>
+		<id>39</id>
+		<name>Double AR Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>40</id>
+		<name>Double Pistol Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>41</id>
+		<name>Double SMG MAg</name>
+	</Silhouette>
+	<Silhouette>
+		<id>42</id>
+		<name>AR Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>43</id>
+		<name>Pistol MAgx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>44</id>
+		<name>Mini Frag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>45</id>
+		<name>SMG Magx3</name>
+	</Silhouette>
 </JA2Data>

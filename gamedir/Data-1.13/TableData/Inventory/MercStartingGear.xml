@@ -20671,9 +20671,10 @@
 			<mSmall0>80</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>3</mSmall0Quantity>
+			<mSmall1>1658</mSmall1>
 			<lVest>1090</lVest>
 			<lVestStatus>97</lVestStatus>
-			<lLeftThigh>1091</lLeftThigh>
+			<lLeftThigh>1649</lLeftThigh>
 			<lLeftThighStatus>95</lLeftThighStatus>
 		</GEARKIT>
 		<GEARKIT>
@@ -25392,10 +25393,12 @@
 			<mSmall0>87</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>2</mSmall0Quantity>
+			<mSmall1>1658</mSmall1>
 			<mSmall7>212</mSmall7>
 			<mSmall7Status>94</mSmall7Status>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
+			<lLeftThigh>1649</lLeftThigh>
 			<lRightThigh>1093</lRightThigh>
 			<lRightThighStatus>96</lRightThighStatus>
 		</GEARKIT>
@@ -25852,9 +25855,11 @@
 			<mBig2>214</mBig2>
 			<mBig2Status>100</mBig2Status>
 			<mBig2Quantity>1</mBig2Quantity>
-			<lVest>1090</lVest>
+			<mSmall0>1663</mSmall0>
+			<mSmall1>1681</mSmall1>
+			<mSmall2>1656</mSmall2>
+			<lVest>1651</lVest>
 			<lVestStatus>97</lVestStatus>
-			<lLeftThigh>1091</lLeftThigh>
 			<lLeftThighStatus>97</lLeftThighStatus>
 			<lCPack>1098</lCPack>
 		</GEARKIT>
@@ -26659,8 +26664,10 @@
 			<mBig0Status>100</mBig0Status>
 			<mBig0Quantity>2</mBig0Quantity>
 			<mBig1>214</mBig1>
+			<mSmall0>1655</mSmall0>
 			<lVest>1090</lVest>
 			<lVestStatus>100</lVestStatus>
+			<lRightThigh>1649</lRightThigh>
 			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
@@ -27309,7 +27316,9 @@
 			<mBig2>37</mBig2>
 			<mBig2Status>98</mBig2Status>
 			<mBig2Quantity>1</mBig2Quantity>
-			<lVest>1090</lVest>
+			<mSmall0>1659</mSmall0>
+			<mSmall1>1657</mSmall1>
+			<lVest>1651</lVest>
 			<lVestStatus>97</lVestStatus>
 			<lRightThigh>1091</lRightThigh>
 			<lRightThighStatus>95</lRightThighStatus>
@@ -28870,11 +28879,11 @@
 			<mSmall7>0</mSmall7>
 			<mSmall7Status>0</mSmall7Status>
 			<mSmall7Quantity>0</mSmall7Quantity>
-			<lVest>1090</lVest>
+			<lVest>1692</lVest>
 			<lVestStatus>97</lVestStatus>
 			<lLeftThigh>0</lLeftThigh>
 			<lLeftThighStatus>0</lLeftThighStatus>
-			<lRightThigh>0</lRightThigh>
+			<lRightThigh>1663</lRightThigh>
 			<lRightThighStatus>0</lRightThighStatus>
 			<lCPack>1098</lCPack>
 			<lCPackStatus>0</lCPackStatus>

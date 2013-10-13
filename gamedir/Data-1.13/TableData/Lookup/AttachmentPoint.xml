@@ -1,7 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <JA2Data>
 	<AttachmentPoint>
 		<id>0</id>
 		<name>None</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>1</id>
+		<name>Small Molle</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>2</id>
+		<name>Medium Molle</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>3</id>
+		<name>All Molle</name>
 	</AttachmentPoint>
 </JA2Data>

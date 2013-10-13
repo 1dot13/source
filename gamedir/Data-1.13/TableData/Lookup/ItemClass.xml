@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <JA2Data>
 	<ItemClass>
 		<id>1</id>
@@ -71,6 +71,10 @@
 	<ItemClass>
 		<id>131072</id>
 		<name>Load Bearing Equipment</name>
+	</ItemClass>
+	<ItemClass>
+		<id>16777216</id>
+		<name>MOLLE</name>
 	</ItemClass>
 	<ItemClass>
 		<id>268435456</id>

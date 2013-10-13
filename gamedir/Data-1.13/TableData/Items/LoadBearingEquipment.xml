@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LOADBEARINGEQUIPMENTLIST>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>0</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>16</lbePocketIndex2>
 		<lbePocketIndex3>18</lbePocketIndex3>
@@ -23,6 +25,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>16</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -41,6 +45,8 @@
 		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -59,6 +65,8 @@
 		<lbeClass>4</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -77,6 +85,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -94,7 +104,9 @@
 		<lbeIndex>5</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>25</lbeFilledSize>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>13</lbePocketIndex1>
 		<lbePocketIndex2>13</lbePocketIndex2>
 		<lbePocketIndex3>13</lbePocketIndex3>
@@ -112,7 +124,9 @@
 		<lbeIndex>6</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>9</lbePocketIndex1>
 		<lbePocketIndex2>9</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -131,6 +145,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -149,6 +165,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -167,6 +185,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>13</lbePocketIndex3>
@@ -185,6 +205,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -203,6 +225,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -221,6 +245,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -239,6 +265,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -257,6 +285,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -275,6 +305,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -292,7 +324,9 @@
 		<lbeIndex>16</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>25</lbeFilledSize>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>15</lbePocketIndex1>
 		<lbePocketIndex2>11</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -310,7 +344,9 @@
 		<lbeIndex>17</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>15</lbePocketIndex1>
 		<lbePocketIndex2>15</lbePocketIndex2>
 		<lbePocketIndex3>15</lbePocketIndex3>
@@ -328,7 +364,9 @@
 		<lbeIndex>18</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>12</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -347,6 +385,8 @@
 		<lbeClass>4</lbeClass>
 		<lbeCombo>1</lbeCombo>
 		<lbeFilledSize>34</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -365,6 +405,8 @@
 		<lbeClass>4</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>34</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>17</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -383,6 +425,8 @@
 		<lbeClass>4</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>34</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>17</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>17</lbePocketIndex3>
@@ -401,6 +445,8 @@
 		<lbeClass>3</lbeClass>
 		<lbeCombo>1</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>18</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -418,7 +464,9 @@
 		<lbeIndex>23</lbeIndex>
 		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>30</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>17</lbePocketIndex1>
 		<lbePocketIndex2>18</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -437,6 +485,8 @@
 		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>17</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>17</lbePocketIndex3>
@@ -455,6 +505,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>14</lbePocketIndex2>
 		<lbePocketIndex3>14</lbePocketIndex3>
@@ -472,7 +524,9 @@
 		<lbeIndex>26</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -490,7 +544,9 @@
 		<lbeIndex>27</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -509,6 +565,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>14</lbePocketIndex2>
 		<lbePocketIndex3>14</lbePocketIndex3>
@@ -526,7 +584,9 @@
 		<lbeIndex>29</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>9</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -545,6 +605,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>9</lbePocketIndex1>
 		<lbePocketIndex2>14</lbePocketIndex2>
 		<lbePocketIndex3>9</lbePocketIndex3>
@@ -563,6 +625,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>17</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>16</lbePocketIndex3>
@@ -581,6 +645,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>10</lbePocketIndex2>
 		<lbePocketIndex3>10</lbePocketIndex3>
@@ -599,6 +665,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>22</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>19</lbePocketIndex1>
 		<lbePocketIndex2>11</lbePocketIndex2>
 		<lbePocketIndex3>19</lbePocketIndex3>
@@ -617,6 +685,8 @@
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>17</lbePocketIndex3>
@@ -635,6 +705,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>21</lbePocketIndex1>
 		<lbePocketIndex2>21</lbePocketIndex2>
 		<lbePocketIndex3>20</lbePocketIndex3>
@@ -652,7 +724,9 @@
 		<lbeIndex>36</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>21</lbePocketIndex1>
 		<lbePocketIndex2>21</lbePocketIndex2>
 		<lbePocketIndex3>20</lbePocketIndex3>
@@ -671,6 +745,8 @@
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>18</lbePocketIndex1>
 		<lbePocketIndex2>14</lbePocketIndex2>
 		<lbePocketIndex3>14</lbePocketIndex3>
@@ -688,7 +764,9 @@
 		<lbeIndex>38</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>10</lbePocketIndex1>
 		<lbePocketIndex2>14</lbePocketIndex2>
 		<lbePocketIndex3>18</lbePocketIndex3>
@@ -706,7 +784,9 @@
 		<lbeIndex>39</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>9</lbePocketIndex1>
 		<lbePocketIndex2>18</lbePocketIndex2>
 		<lbePocketIndex3>9</lbePocketIndex3>
@@ -725,6 +805,8 @@
 		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
@@ -738,11 +820,13 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>41</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>15</lbePocketIndex3>
@@ -760,13 +844,15 @@
 		<lbeIndex>42</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>24</lbePocketIndex3>
 		<lbePocketIndex4>24</lbePocketIndex4>
-		<lbePocketIndex5>24</lbePocketIndex5>
-		<lbePocketIndex6>25</lbePocketIndex6>
+		<lbePocketIndex5>25</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
 		<lbePocketIndex7>0</lbePocketIndex7>
 		<lbePocketIndex8>0</lbePocketIndex8>
 		<lbePocketIndex9>0</lbePocketIndex9>
@@ -778,7 +864,9 @@
 		<lbeIndex>43</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>12</lbePocketIndex2>
 		<lbePocketIndex3>12</lbePocketIndex3>
@@ -791,13 +879,16 @@
 		<lbePocketIndex10>0</lbePocketIndex10>
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>44</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
-		<lbePocketIndex1>17</lbePocketIndex1>
-		<lbePocketIndex2>17</lbePocketIndex2>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>27</lbePocketIndex1>
+		<lbePocketIndex2>26</lbePocketIndex2>
 		<lbePocketIndex3>26</lbePocketIndex3>
 		<lbePocketIndex4>26</lbePocketIndex4>
 		<lbePocketIndex5>0</lbePocketIndex5>
@@ -813,7 +904,9 @@
 		<lbeIndex>45</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>15</lbePocketIndex2>
 		<lbePocketIndex3>15</lbePocketIndex3>
@@ -827,11 +920,13 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>46</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>27</lbePocketIndex3>
@@ -845,11 +940,13 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>47</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>28</lbePocketIndex3>
@@ -863,11 +960,13 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-<LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>48</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>24</lbePocketIndex3>
@@ -881,6 +980,924 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>49</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>17</lbeAvailableVolume>
+		<lbePocketsAvailable>15</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
-
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>50</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>8</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>51</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>37</lbeAvailableVolume>
+		<lbePocketsAvailable>115</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>16</lbePocketIndex3>
+		<lbePocketIndex4>16</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>17</lbePocketIndex8>
+		<lbePocketIndex9>17</lbePocketIndex9>
+		<lbePocketIndex10>38</lbePocketIndex10>
+		<lbePocketIndex11>35</lbePocketIndex11>
+		<lbePocketIndex12>8</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>52</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>6</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>53</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>11</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>54</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>50</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>55</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>43</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>56</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>35</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>57</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>46</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>58</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>20</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>59</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>40</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>60</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>2</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>61</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>28</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>62</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>21</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>63</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>42</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>64</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>16</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>65</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>12</lbeAvailableVolume>
+		<lbePocketsAvailable>30</lbePocketsAvailable>
+		<lbePocketIndex1>11</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>66</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>22</lbeAvailableVolume>
+		<lbePocketsAvailable>30</lbePocketsAvailable>
+		<lbePocketIndex1>21</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>20</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>67</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>80</lbeAvailableVolume>
+		<lbePocketsAvailable>4071</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>17</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>38</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>68</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>30</lbeAvailableVolume>
+		<lbePocketsAvailable>115</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>45</lbePocketIndex3>
+		<lbePocketIndex4>45</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>29</lbePocketIndex8>
+		<lbePocketIndex9>29</lbePocketIndex9>
+		<lbePocketIndex10>40</lbePocketIndex10>
+		<lbePocketIndex11>11</lbePocketIndex11>
+		<lbePocketIndex12>23</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>69</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>26</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>70</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>24</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>71</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>72</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>34</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>73</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>29</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>74</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>2</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>75</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>32</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>76</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>27</lbeAvailableVolume>
+		<lbePocketsAvailable>30</lbePocketsAvailable>
+		<lbePocketIndex1>37</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>77</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>23</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>78</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>41</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>79</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>15</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>80</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>45</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>81</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>22</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>44</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>82</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>60</lbeAvailableVolume>
+		<lbePocketsAvailable>3968</lbePocketsAvailable>
+		<lbePocketIndex1>39</lbePocketIndex1>
+		<lbePocketIndex2>47</lbePocketIndex2>
+		<lbePocketIndex3>46</lbePocketIndex3>
+		<lbePocketIndex4>46</lbePocketIndex4>
+		<lbePocketIndex5>38</lbePocketIndex5>
+		<lbePocketIndex6>17</lbePocketIndex6>
+		<lbePocketIndex7>17</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>83</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>70</lbeAvailableVolume>
+		<lbePocketsAvailable>4064</lbePocketsAvailable>
+		<lbePocketIndex1>45</lbePocketIndex1>
+		<lbePocketIndex2>45</lbePocketIndex2>
+		<lbePocketIndex3>45</lbePocketIndex3>
+		<lbePocketIndex4>38</lbePocketIndex4>
+		<lbePocketIndex5>38</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>84</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>27</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>85</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>9</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>86</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>39</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>87</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>47</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>88</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>48</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>89</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>51</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>90</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>37</lbeAvailableVolume>
+		<lbePocketsAvailable>31</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>91</lbeIndex>
+		<lbeClass>4</lbeClass>
+		<lbeCombo>2</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>34</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>27</lbePocketIndex5>
+		<lbePocketIndex6>34</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>31</lbePocketIndex9>
+		<lbePocketIndex10>5</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>92</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbeAvailableVolume>12</lbeAvailableVolume>
+		<lbePocketsAvailable>96</lbePocketsAvailable>
+		<lbePocketIndex1>24</lbePocketIndex1>
+		<lbePocketIndex2>24</lbePocketIndex2>
+		<lbePocketIndex3>16</lbePocketIndex3>
+		<lbePocketIndex4>16</lbePocketIndex4>
+		<lbePocketIndex5>16</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>93</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>32</lbeFilledSize>
+		<lbeAvailableVolume>40</lbeAvailableVolume>
+		<lbePocketsAvailable>483</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>16</lbePocketIndex3>
+		<lbePocketIndex4>41</lbePocketIndex4>
+		<lbePocketIndex5>40</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>45</lbePocketIndex10>
+		<lbePocketIndex11>49</lbePocketIndex11>
+		<lbePocketIndex12>49</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>94</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbeAvailableVolume>37</lbeAvailableVolume>
+		<lbePocketsAvailable>3040</lbePocketsAvailable>
+		<lbePocketIndex1>16</lbePocketIndex1>
+		<lbePocketIndex2>20</lbePocketIndex2>
+		<lbePocketIndex3>44</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>17</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>49</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
 </LOADBEARINGEQUIPMENTLIST>

@@ -9,6 +9,7 @@
 		<usDescPanelPosY>0</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>1</uiSlotIndex>
@@ -19,6 +20,7 @@
 		<usDescPanelPosY>64</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>2</uiSlotIndex>
@@ -29,6 +31,7 @@
 		<usDescPanelPosY>92</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>3</uiSlotIndex>
@@ -39,6 +42,7 @@
 		<usDescPanelPosY>64</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>4</uiSlotIndex>
@@ -49,6 +53,7 @@
 		<usDescPanelPosY>92</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>5</uiSlotIndex>
@@ -59,6 +64,7 @@
 		<usDescPanelPosY>78</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>6</uiSlotIndex>
@@ -69,6 +75,7 @@
 		<usDescPanelPosY>36</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>7</uiSlotIndex>
@@ -79,6 +86,7 @@
 		<usDescPanelPosY>36</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>8</uiSlotIndex>
@@ -89,6 +97,7 @@
 		<usDescPanelPosY>36</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>9</uiSlotIndex>
@@ -99,6 +108,7 @@
 		<usDescPanelPosY>78</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>10</uiSlotIndex>
@@ -109,6 +119,7 @@
 		<usDescPanelPosY>120</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>11</uiSlotIndex>
@@ -119,6 +130,7 @@
 		<usDescPanelPosY>120</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>12</uiSlotIndex>
@@ -129,6 +141,7 @@
 		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>13</uiSlotIndex>
@@ -139,6 +152,7 @@
 		<usDescPanelPosY>120</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>14</uiSlotIndex>
@@ -149,6 +163,7 @@
 		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>15</uiSlotIndex>
@@ -159,6 +174,7 @@
 		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>16</uiSlotIndex>
@@ -169,6 +185,7 @@
 		<usDescPanelPosY>8</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>17</uiSlotIndex>
@@ -179,6 +196,7 @@
 		<usDescPanelPosY>36</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>18</uiSlotIndex>
@@ -189,6 +207,7 @@
 		<usDescPanelPosY>64</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>19</uiSlotIndex>
@@ -199,6 +218,7 @@
 		<usDescPanelPosY>92</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>20</uiSlotIndex>
@@ -209,6 +229,7 @@
 		<usDescPanelPosY>120</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>21</uiSlotIndex>
@@ -219,6 +240,7 @@
 		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>22</uiSlotIndex>
@@ -229,6 +251,7 @@
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>23</uiSlotIndex>
@@ -239,6 +262,7 @@
 		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>24</uiSlotIndex>
@@ -249,6 +273,7 @@
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>25</uiSlotIndex>
@@ -259,5 +284,138 @@
 		<usDescPanelPosY>148</usDescPanelPosY>
 		<fMultiShot>1</fMultiShot>
 		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>0</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>26</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 1</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>6</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>27</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 2</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>46</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>7</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>28</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 3</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>82</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>8</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>29</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 4</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>9</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>30</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 5</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>10</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>31</uiSlotIndex>
+		<szSlotName>MOLLE Leg Upper Left</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>1</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>32</uiSlotIndex>
+		<szSlotName>MOLLE Leg Upper Right</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>223</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>2</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>33</uiSlotIndex>
+		<szSlotName>MOLLE Leg Lower Left</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>3</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>34</uiSlotIndex>
+		<szSlotName>MOLLE Leg Lower Right</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>223</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>4</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>35</uiSlotIndex>
+		<szSlotName>MOLLE Leg Bottom Medium</szSlotName>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>190</usDescPanelPosX>
+		<usDescPanelPosY>58</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>5</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>36</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 6 Medium</szSlotName>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>190</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>12</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>37</uiSlotIndex>
+		<szSlotName>MOLLE Vest upper Row 5 small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>11</ubPocketMapping>
 	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>
