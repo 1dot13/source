@@ -63,6 +63,7 @@
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>0</Bipod>
 		<RangeBonus>0</RangeBonus>
+		<PercentRangeBonus>0</PercentRangeBonus>
 		<ToHitBonus>0</ToHitBonus>
 		<BestLaserRange>0</BestLaserRange>
 		<AimBonus>0</AimBonus>
@@ -178,6 +179,10 @@
 		<usActionItemFlag>0</usActionItemFlag>
 		<randomitem>0</randomitem>
 		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
+		<FlashLightRange>0</FlashLightRange>
+		<ItemChoiceTimeSetting>0</ItemChoiceTimeSetting>
+		<buddyitem>0</buddyitem>
+		<SleepModifier>0</SleepModifier>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -46082,7 +46087,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
-		<HiddenAttachment>1</HiddenAttachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>2</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
@@ -49031,6 +49036,7 @@
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
 		<NeedsBatteries>1</NeedsBatteries>
 		<ProjectionFactor>3.0</ProjectionFactor>
+		<FlashLightRange>15</FlashLightRange>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49103,6 +49109,7 @@
 		<DefaultAttachment>322</DefaultAttachment>
 		<BrassKnuckles>1</BrassKnuckles>
 		<NeedsBatteries>1</NeedsBatteries>
+		<FlashLightRange>18</FlashLightRange>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49197,6 +49204,7 @@
 		<Mine>1</Mine>
 		<TripWireActivation>1</TripWireActivation>
 		<TripWire>1</TripWire>
+		<buddyitem>1524</buddyitem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<usActionItemFlag>17</usActionItemFlag>
 		<STAND_MODIFIERS />
