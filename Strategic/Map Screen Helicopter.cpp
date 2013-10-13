@@ -985,22 +985,23 @@ void SetUpHelicopterForPlayer( INT16 sX, INT16 sY , UINT8 SkyDrive, UINT8 Vehicl
 }
 
 
-UINT8 MoveAllInHelicopterToFootMovementGroup( void )
+UINT8 MoveAllInHelicopterToFootMovementGroup( INT8 bNewSquad )
 {
 	// take everyone out of heli and add to movement group
 	INT32 iCounter = 0;
 	UINT8 ubGroupId = 0;
 	SOLDIERTYPE *pSoldier;
-	INT8 bNewSquad;
+	//INT8 bNewSquad;
 	BOOLEAN fAnyoneAboard = FALSE;
 	BOOLEAN fSuccess;
 	UINT8	ubInsertionCode = 0;
 	BOOLEAN fInsertionCodeSet = FALSE;
 	UINT16	usInsertionData = 0;
 
-
 	// put these guys on their own squad (we need to return their group ID, and can only return one, so they need a unique one
-	bNewSquad = GetFirstEmptySquad();
+	// silversurfer: This function now accepts a preferred squad ID as parameter. If this squad is empty we will use it instead of the first empty squad.
+	if ( !SquadIsEmpty( bNewSquad ) )
+		bNewSquad = GetFirstEmptySquad();
 	if ( bNewSquad == -1 )
 	{
 		return( 0 );

@@ -261,7 +261,8 @@ INT16 GetNumUnSafeSectorsInPath( void );
 
 BOOLEAN SoldierAboardAirborneHeli( SOLDIERTYPE *pSoldier );
 
-UINT8 MoveAllInHelicopterToFootMovementGroup( void );
+// silversurfer: now accepts a preferred squad ID
+UINT8 MoveAllInHelicopterToFootMovementGroup( INT8 bNewSquad = 0 );
 
 
 #endif

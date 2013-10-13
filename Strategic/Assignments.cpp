@@ -608,6 +608,8 @@ static void CollectRepairableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSo
 
 extern BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse );
 
+extern BOOLEAN CheckConditionsForBattle( GROUP *pGroup );
+
 void InitSectorsWithSoldiersList( void )
 {
 	// init list of sectors
@@ -9506,21 +9508,31 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 */
 				pSoldier->bOldAssignment = pSoldier->bAssignment;
 
-				if( pSoldier->bOldAssignment == VEHICLE )
+				// silversurfer: This guy was in the heli and gets out in a hostile sector. Everyone else get out of the heli and start combat!
+				if ( pSoldier->bOldAssignment == VEHICLE && pSoldier->iVehicleId == iHelicopterVehicleId && NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
 				{
-					TakeSoldierOutOfVehicle( pSoldier );
+					UINT8 ubGroupID = MoveAllInHelicopterToFootMovementGroup( iValue );
+					CheckConditionsForBattle( GetGroup( ubGroupID ) );
 				}
-
-				AddCharacterToSquad( pSoldier, ( INT8 )iValue );
-
-		if( pSoldier->bOldAssignment == VEHICLE )
+				// old normal handling
+				else
 				{
-					SetSoldierExitVehicleInsertionData( pSoldier, pSoldier->iVehicleId, pSoldier->ubGroupID );
-				}
 
-				//Clear any desired squad assignments -- seeing the player has physically changed it!
-				pSoldier->ubNumTraversalsAllowedToMerge = 0;
-				pSoldier->ubDesiredSquadAssignment = NO_ASSIGNMENT;
+					if( pSoldier->bOldAssignment == VEHICLE )
+					{
+						TakeSoldierOutOfVehicle( pSoldier );
+					}
+
+					AddCharacterToSquad( pSoldier, ( INT8 )iValue );
+
+					if( pSoldier->bOldAssignment == VEHICLE )
+					{
+						SetSoldierExitVehicleInsertionData( pSoldier, pSoldier->iVehicleId, pSoldier->ubGroupID );
+					}
+
+					//Clear any desired squad assignments -- seeing the player has physically changed it!
+					pSoldier->ubNumTraversalsAllowedToMerge = 0;
+					pSoldier->ubDesiredSquadAssignment = NO_ASSIGNMENT;
 
 
 /* ARM: Squad menu is now disabled for anyone between sectors
@@ -9536,7 +9548,8 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 */
 
-				MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+					MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+				}
 			}
 
 			// stop displaying, leave
