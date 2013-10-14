@@ -776,7 +776,7 @@ void RenderBobbyRMailOrder()
 	//Output the shipping location
 	DrawTextToScreen(BobbyROrderFormText[BOBBYR_SHIPPING_LOCATION], BOBBYR_SHIPPING_LOCATION_TEXT_X, BOBBYR_SHIPPING_LOCATION_TEXT_Y, 0, BOBBYR_ORDER_STATIC_TEXT_FONT, BOBBYR_ORDER_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
-	//Output the shiupping speed
+	//Output the shipping speed
 	DrawTextToScreen(BobbyROrderFormText[BOBBYR_SHIPPING_SPEED], BOBBYR_SHIPPING_SPEED_X, BOBBYR_SHIPPING_SPEED_Y, 0, BOBBYR_ORDER_STATIC_TEXT_FONT, BOBBYR_ORDER_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	//Create a string for the weight ( %s ) ( where %s is the weight string, either kg or lbs )
@@ -1121,7 +1121,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 				usStringLength = wcslen(sText);
 				usPixLength=0;
 				OneChar[1] = L'\0';
-				for(j=0; (i<usStringLength)&&(usPixLength < BOBBYR_GRID_THIRD_COLUMN_WIDTH-16); j++)
+				for(j=0; (j<usStringLength)&&(usPixLength < BOBBYR_GRID_THIRD_COLUMN_WIDTH-16); j++)
 				{
 					sBack[j] = sText[j];
 					OneChar[0] = sBack[j];
