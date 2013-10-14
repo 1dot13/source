@@ -260,6 +260,8 @@ Profil =
 	CONRAD = 70,
 	KINGPIN = 86,
 	MADAME = 107,
+	JOHN = 118,
+	MARY = 119,
 }
 
 Facts = 
@@ -553,6 +555,22 @@ function HandleEarlyMorningEvents()
 		SetCharacterSectorX (Profil.RAT,0)
 		SetCharacterSectorY (Profil.RAT,0)
 		SetCharacterSectorZ (Profil.RAT,0)
+	end
+	
+	-- Does John leave country after quest completion?
+	JOHNid,JOHNx,JOHNy,JOHNz = CheckNPCinSector(Profil.JOHN)
+	if ( CheckQuest(Quests.QUEST_ESCORT_TOURISTS) == qStatus.QUESTDONE and JOHNx == 13 and JOHNy == 2 and JOHNz == 0 ) then
+		SetCharacterSectorX (Profil.JOHN,0)
+		SetCharacterSectorY (Profil.JOHN,0)
+		SetCharacterSectorZ (Profil.JOHN,0)
+	end
+	
+	-- Does Mary leave country after quest completion?
+	MARYid,MARYx,MARYy,MARYz = CheckNPCinSector(Profil.MARY)
+	if ( CheckQuest(Quests.QUEST_ESCORT_TOURISTS) == qStatus.QUESTDONE and MARYx == 13 and MARYy == 2 and MARYz == 0  ) then	
+		SetCharacterSectorX (Profil.MARY,0)
+		SetCharacterSectorY (Profil.MARY,0)
+		SetCharacterSectorZ (Profil.MARY,0)
 	end
 	
 	-- Empty money from pockets of Vince 69, Willis 80, and Jenny 132
