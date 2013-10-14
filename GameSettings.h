@@ -1704,10 +1704,10 @@ typedef struct
 	//[Omerta]
 
 	//[Drassen]
-	//John & Mary disappear if unescort in sector
-	UINT8 ubJohnUnescortSectorX;
-	UINT8 ubJohnUnescortSectorY;
-	UINT8 ubJohnUnescortSectorZ;
+	//meet Carmen in sector for reward collection
+	UINT8 ubCarmenGiveRewardSectorX;
+	UINT8 ubCarmenGiveRewardSectorY;
+	UINT8 ubCarmenGiveRewardSectorZ;
 
 	//[Alma]
 	INT32 sRocketRifleGridNo;
@@ -1743,12 +1743,18 @@ typedef struct
 	INT32  iHansGridNo;
 	UINT16 usPornShopRoomBrenda;
 	UINT16 usPornShopRoomTony;
+	UINT8 ubPornShopTonySectorX;
+	UINT8 ubPornShopTonySectorY;
+	UINT8 ubPornShopTonySectorZ;
 
 	// Kyle Lemmons Leather Shop Deed Quest
 	INT32  iKyleMoneyGridNo;
 
 	//Brothel Quests
 	UINT16 usLeatherShop;
+	
+	UINT8 ubBrothelSectorX;
+	UINT8 ubBrothelSectorY;
 	INT32  iCarlaDoorGridNo;
 	INT32  iCindyDoorGridNo;
 	INT32  iBambiDoorGridNo;
@@ -1761,6 +1767,12 @@ typedef struct
 	INT32 iBrothelDoor1;
 	INT32 iBrothelDoor2;
 	INT32 iBrothelDoor3;
+
+	UINT8 ubKingpinHouseSectorX;
+	UINT8 ubKingpinHouseSectorY;
+	UINT8 ubKingpinHouseSectorZ;
+	UINT16 usKingpinRoomRangeStart;
+	UINT16 usKingpinRoomRangeEnd;
 	
 	//Kingpin Private Stash
 	UINT8 ubKingpinMoneySectorX;
@@ -1827,6 +1839,16 @@ typedef struct
 	UINT8 ubMeanwhileMedunaOutskirtsColX;
 	UINT8 ubMeanwhileMedunaOutskirtsColMinY;
 	UINT8 ubMeanwhileMedunaOutskirtsColMaxY;
+
+	//add Madlab to location after scientist AWOL meanwhile scene
+	UINT8 ubMeanwhileAddMadlabSector1X;
+	UINT8 ubMeanwhileAddMadlabSector1Y;
+	UINT8 ubMeanwhileAddMadlabSector2X;
+	UINT8 ubMeanwhileAddMadlabSector2Y;
+	UINT8 ubMeanwhileAddMadlabSector3X;
+	UINT8 ubMeanwhileAddMadlabSector3Y;
+	UINT8 ubMeanwhileAddMadlabSector4X;
+	UINT8 ubMeanwhileAddMadlabSector4Y;
 
 }MOD_SETTINGS;
 

@@ -988,6 +988,23 @@ void HandleEarlyMorningEvents( void )
 		gMercProfiles[ RAT ].bSectorZ = 0;
 	}
 
+	// Does John leave country after quest completion?
+	if ( gubQuest[ QUEST_ESCORT_TOURISTS ] == QUESTDONE && (gMercProfiles[ JOHN ].sSectorX == 13) &&
+		(gMercProfiles[ JOHN ].sSectorY == MAP_ROW_B) && (gMercProfiles[ JOHN ].bSectorZ == 0) )
+	{
+		gMercProfiles[ JOHN ].sSectorX = 0;
+		gMercProfiles[ JOHN ].sSectorY = 0;
+		gMercProfiles[ JOHN ].bSectorZ = 0;
+	}
+
+	// Does Mary leave country after quest completion?
+	if ( gubQuest[ QUEST_ESCORT_TOURISTS ] == QUESTDONE && (gMercProfiles[ MARY ].sSectorX == 13) &&
+		(gMercProfiles[ MARY ].sSectorY == MAP_ROW_B) && (gMercProfiles[ MARY ].bSectorZ == 0) )
+	{
+		gMercProfiles[ MARY ].sSectorX = 0;
+		gMercProfiles[ MARY ].sSectorY = 0;
+		gMercProfiles[ MARY ].bSectorZ = 0;
+	}
 
 	// Empty money from pockets of Vince 69, Willis 80, and Jenny 132
 	SetMoneyInSoldierProfile( VINCE, 0 );

@@ -575,10 +575,10 @@ enum Facts
 #define OMERTA_LEAVE_EQUIP_GRIDNO		gModSettings.iOmertaDropOff	//4868
 
 // NB brothel rooms 88-90 removed because they are the antechamber
-#define IN_BROTHEL( room ) (gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C && (room) >= gModSettings.usBrothelRoomRangeStart && (room) <= gModSettings.usBrothelRoomRangeEnd) //91,119
+#define IN_BROTHEL( room ) (gWorldSectorX == gModSettings.ubBrothelSectorX && gWorldSectorY == gModSettings.ubBrothelSectorY && (room) >= gModSettings.usBrothelRoomRangeStart && (room) <= gModSettings.usBrothelRoomRangeEnd) //5, 3, 91,119
 #define IN_BROTHEL_GUARD_ROOM( room ) ( room == gModSettings.usBrothelGuardRoom ) //110
 
-#define IN_KINGPIN_HOUSE( room ) ( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_D && (room) >= 30 && (room) <= 39 )
+#define IN_KINGPIN_HOUSE( room ) ( gWorldSectorX == gModSettings.ubKingpinHouseSectorX && gWorldSectorY == gModSettings.ubKingpinHouseSectorY && gbWorldSectorZ == gModSettings.ubKingpinHouseSectorZ && (room) >= gModSettings.usKingpinRoomRangeStart && (room) <= gModSettings.usKingpinRoomRangeEnd ) //5, 4, 0, 30, 39
 
 #define LOYALTY_LOW_THRESHOLD		30
 #define LOYALTY_OK_THRESHOLD		50

@@ -750,25 +750,25 @@ void ProcessImplicationsOfMeanwhile( void )
 
 				StartQuest( QUEST_FIND_SCIENTIST, -1, -1 );
 				// place Madlab and robot!
-				if ( SectorInfo[ SECTOR( 7, MAP_ROW_H ) ].uiFlags & SF_USE_ALTERNATE_MAP )
+				if ( SectorInfo[ SECTOR( gModSettings.ubMeanwhileAddMadlabSector1X, gModSettings.ubMeanwhileAddMadlabSector1Y ) ].uiFlags & SF_USE_ALTERNATE_MAP ) //(7, 8)
 				{
-					sSectorX = 7;
-					sSectorY = MAP_ROW_H;
+					sSectorX = gModSettings.ubMeanwhileAddMadlabSector1X;
+					sSectorY = gModSettings.ubMeanwhileAddMadlabSector1Y;
 				}
-				else if ( SectorInfo[ SECTOR( 16, MAP_ROW_H ) ].uiFlags & SF_USE_ALTERNATE_MAP )
+				else if ( SectorInfo[ SECTOR( gModSettings.ubMeanwhileAddMadlabSector2X, gModSettings.ubMeanwhileAddMadlabSector2Y ) ].uiFlags & SF_USE_ALTERNATE_MAP ) //(16, 8)
 				{
-					sSectorX = 16;
-					sSectorY = MAP_ROW_H;
+					sSectorX = gModSettings.ubMeanwhileAddMadlabSector2X;
+					sSectorY = gModSettings.ubMeanwhileAddMadlabSector2Y;
 				}
-				else if ( SectorInfo[ SECTOR( 11, MAP_ROW_I ) ].uiFlags & SF_USE_ALTERNATE_MAP )
+				else if ( SectorInfo[ SECTOR( gModSettings.ubMeanwhileAddMadlabSector3X, gModSettings.ubMeanwhileAddMadlabSector3Y ) ].uiFlags & SF_USE_ALTERNATE_MAP ) //(11, 9)
 				{
-					sSectorX = 11;
-					sSectorY = MAP_ROW_I;
+					sSectorX = gModSettings.ubMeanwhileAddMadlabSector3X;
+					sSectorY = gModSettings.ubMeanwhileAddMadlabSector3Y;
 				}
-				else if ( SectorInfo[ SECTOR( 4, MAP_ROW_E ) ].uiFlags & SF_USE_ALTERNATE_MAP )
+				else if ( SectorInfo[ SECTOR( gModSettings.ubMeanwhileAddMadlabSector4X, gModSettings.ubMeanwhileAddMadlabSector4Y ) ].uiFlags & SF_USE_ALTERNATE_MAP ) //(4, 5)
 				{
-					sSectorX = 4;
-					sSectorY = MAP_ROW_E;
+					sSectorX = gModSettings.ubMeanwhileAddMadlabSector4X;
+					sSectorY = gModSettings.ubMeanwhileAddMadlabSector4Y;
 				}
 				else
 				{

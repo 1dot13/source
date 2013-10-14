@@ -1991,9 +1991,10 @@ BOOLEAN UnRecruitEPC( UINT8 ubCharNum )
 
 	// update sector values to current
 
+	//Buggler: code only works on map reload so consolidate to HandleEarlyMorningEvents
 	// check to see if this person should disappear from the map after this
-	if ( (ubCharNum == JOHN || ubCharNum == MARY) && pSoldier->sSectorX == gModSettings.ubJohnUnescortSectorX && 
-		pSoldier->sSectorY == gModSettings.ubJohnUnescortSectorY && pSoldier->bSectorZ == gModSettings.ubJohnUnescortSectorZ ) // ( 13, MAP_ROW_B, 0 )
+	/*if ( (ubCharNum == JOHN || ubCharNum == MARY) && pSoldier->sSectorX == 13 && 
+		pSoldier->sSectorY == MAP_ROW_B && pSoldier->bSectorZ == 0 )
 	{
 		gMercProfiles[ ubCharNum ].sSectorX = 0;
 		gMercProfiles[ ubCharNum ].sSectorY = 0;
@@ -2004,7 +2005,11 @@ BOOLEAN UnRecruitEPC( UINT8 ubCharNum )
 		gMercProfiles[ ubCharNum ].sSectorX = pSoldier->sSectorX;
 		gMercProfiles[ ubCharNum ].sSectorY = pSoldier->sSectorY;
 		gMercProfiles[ ubCharNum ].bSectorZ = pSoldier->bSectorZ;
-	}
+	}*/
+
+	gMercProfiles[ ubCharNum ].sSectorX = pSoldier->sSectorX;
+	gMercProfiles[ ubCharNum ].sSectorY = pSoldier->sSectorY;
+	gMercProfiles[ ubCharNum ].bSectorZ = pSoldier->bSectorZ;
 
 	// how do we decide whether or not to set this?
 	gMercProfiles[ ubCharNum ].ubMiscFlags3 |= PROFILE_MISC_FLAG3_PERMANENT_INSERTION_CODE;

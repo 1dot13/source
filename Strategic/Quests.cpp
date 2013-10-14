@@ -1156,7 +1156,8 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_TONY_IN_BUILDING:
-			gubFact[usFact] = CheckNPCSector( TONY, 5, MAP_ROW_C, 0 ) && NPCInRoom( TONY, gModSettings.usPornShopRoomTony );
+			gubFact[usFact] = CheckNPCSector( TONY, gModSettings.ubPornShopTonySectorX, gModSettings.ubPornShopTonySectorY, gModSettings.ubPornShopTonySectorZ ) && 
+				NPCInRoom( TONY, gModSettings.usPornShopRoomTony );
 			break;
 
 		case FACT_SHANK_SPEAKING:

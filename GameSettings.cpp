@@ -2372,9 +2372,9 @@ void LoadModSettings(){
 	//[Omerta]
 
 	//[Drassen]
-	gModSettings.ubJohnUnescortSectorX = iniReader.ReadInteger("Drassen", "JOHN_UNESCORT_SECTOR_X", 13);
-	gModSettings.ubJohnUnescortSectorY = iniReader.ReadInteger("Drassen", "JOHN_UNESCORT_SECTOR_Y", 2);
-	gModSettings.ubJohnUnescortSectorZ = iniReader.ReadInteger("Drassen", "JOHN_UNESCORT_SECTOR_Z", 0);
+	gModSettings.ubCarmenGiveRewardSectorX = iniReader.ReadInteger("Drassen", "CARMEN_GIVE_REWARD_SECTOR_X", 13);
+	gModSettings.ubCarmenGiveRewardSectorY = iniReader.ReadInteger("Drassen", "CARMEN_GIVE_REWARD_SECTOR_Y", 3);
+	gModSettings.ubCarmenGiveRewardSectorZ = iniReader.ReadInteger("Drassen", "CARMEN_GIVE_REWARD_SECTOR_Z", 0);
 
 	//[Alma]
 	gModSettings.sRocketRifleGridNo = iniReader.ReadInteger("Alma", "ROCKETRIFLE_POSITION", 10472);
@@ -2409,10 +2409,16 @@ void LoadModSettings(){
 	gModSettings.iHansGridNo = iniReader.ReadInteger("San Mona", "HANS_POSTION", 13523);
 	gModSettings.usPornShopRoomBrenda = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_BRENDA", 47);
 	gModSettings.usPornShopRoomTony = iniReader.ReadInteger("San Mona", "PORN_SHOP_ROOM_TONY", 50);
+	gModSettings.ubPornShopTonySectorX = iniReader.ReadInteger("San Mona", "PORN_SHOP_TONY_SECTOR_X", 5);
+	gModSettings.ubPornShopTonySectorY = iniReader.ReadInteger("San Mona", "PORN_SHOP_TONY_SECTOR_Y", 3);
+	gModSettings.ubPornShopTonySectorZ = iniReader.ReadInteger("San Mona", "PORN_SHOP_TONY_SECTOR_Z", 0);
 
 	gModSettings.iKyleMoneyGridNo = iniReader.ReadInteger("San Mona", "KYLE_MONEY_POSITION", 14952);
 
 	gModSettings.usLeatherShop = iniReader.ReadInteger("San Mona", "ANGELS_LEATHERSHOP", 2);
+
+	gModSettings.ubBrothelSectorX = iniReader.ReadInteger("San Mona", "BROTHEL_SECTOR_X", 5);
+	gModSettings.ubBrothelSectorY = iniReader.ReadInteger("San Mona", "BROTHEL_SECTOR_Y", 3);
 	gModSettings.iBambiDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_BAMBIS_ROOM", 12290);
 	gModSettings.iCarlaDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_CARLAS_ROOM", 13413);
 	gModSettings.iCindyDoorGridNo = iniReader.ReadInteger("San Mona", "DOOR_TO_CINDYS_ROOM", 11173);
@@ -2425,6 +2431,12 @@ void LoadModSettings(){
 	gModSettings.iBrothelDoor1 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_1", 11010);
 	gModSettings.iBrothelDoor2 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_2", 11176);
 	gModSettings.iBrothelDoor3 = iniReader.ReadInteger("San Mona", "BROTHEL_DOOR_3", 11177);
+
+	gModSettings.ubKingpinHouseSectorX = iniReader.ReadInteger("San Mona", "KINGPIN_HOUSE_SECTOR_X", 5);
+	gModSettings.ubKingpinHouseSectorY = iniReader.ReadInteger("San Mona", "KINGPIN_HOUSE_SECTOR_Y", 4);
+	gModSettings.ubKingpinHouseSectorZ = iniReader.ReadInteger("San Mona", "KINGPIN_HOUSE_SECTOR_Z", 0);
+	gModSettings.usKingpinRoomRangeStart = iniReader.ReadInteger("San Mona", "FIRST_ROOM_IN_KINGPIN_HOUSE", 30);
+	gModSettings.usKingpinRoomRangeEnd = iniReader.ReadInteger("San Mona", "LAST_ROOM_IN_KINGPIN_HOUSE", 39);
 
 	gModSettings.ubKingpinMoneySectorX = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_X", 5);
 	gModSettings.ubKingpinMoneySectorY = iniReader.ReadInteger("San Mona", "KINGPIN_MONEY_SECTOR_Y", 4);
@@ -2487,6 +2499,14 @@ void LoadModSettings(){
 	gModSettings.ubMeanwhileMedunaOutskirtsColMinY = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_COL_MIN_Y", 14);
 	gModSettings.ubMeanwhileMedunaOutskirtsColMaxY = iniReader.ReadInteger("Meanwhile", "MEDUNA_OUTSKIRTS_COL_MAX_Y", 14);
 
+	gModSettings.ubMeanwhileAddMadlabSector1X = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_1_X", 7);
+	gModSettings.ubMeanwhileAddMadlabSector1Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_1_Y", 8);
+	gModSettings.ubMeanwhileAddMadlabSector2X = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_2_X", 16);
+	gModSettings.ubMeanwhileAddMadlabSector2Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_2_Y", 8);
+	gModSettings.ubMeanwhileAddMadlabSector3X = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_3_X", 11);
+	gModSettings.ubMeanwhileAddMadlabSector3Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_3_Y", 9);
+	gModSettings.ubMeanwhileAddMadlabSector4X = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_4_X", 4);
+	gModSettings.ubMeanwhileAddMadlabSector4Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_4_Y", 5);
 }
 
 // silversurfer: load item property modifiers

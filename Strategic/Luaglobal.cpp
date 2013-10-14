@@ -395,6 +395,30 @@ void IniGlobalGameSetting(lua_State *L)
 	
 	lua_pushinteger(L, gModSettings.ubHospitalSectorZ);
 	lua_setglobal(L, "iniHOSPITAL_SECTOR_Z");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector1X);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_1_X");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector1Y);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_1_Y");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector2X);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_2_X");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector2Y);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_2_Y");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector3X);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_3_X");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector3Y);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_3_Y");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector4X);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_4_X");
+
+	lua_pushinteger(L, gModSettings.ubMeanwhileAddMadlabSector4Y);
+	lua_setglobal(L, "iniADD_MADLAB_SECTOR_4_Y");
 	
 	// -------------------------------
 	// Other global variables

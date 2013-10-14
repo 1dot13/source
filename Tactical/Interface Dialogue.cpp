@@ -2972,7 +2972,8 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// increment number of heads on hand
 				gMercProfiles[ 78 ].bNPCData2++;
 
-				if (gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_C && gbWorldSectorZ == 0)
+				if (gWorldSectorX == gModSettings.ubCarmenGiveRewardSectorX && gWorldSectorY == gModSettings.ubCarmenGiveRewardSectorY && 
+					gbWorldSectorZ == gModSettings.ubCarmenGiveRewardSectorZ) //13, 3, 0
 				{
 					TriggerNPCRecord( 78, 20 );
 				}
