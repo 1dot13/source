@@ -9441,7 +9441,7 @@
 		<uiIndex>764</uiIndex>
 		<szWeaponName>CMMG 7.3</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
-		<ubWeaponType>2</ubWeaponType>
+		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15.86</ubShotsPer4Turns>
@@ -9479,7 +9479,7 @@
 		<uiIndex>765</uiIndex>
 		<szWeaponName>OA-93</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
-		<ubWeaponType>2</ubWeaponType>
+		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>16.46</ubShotsPer4Turns>

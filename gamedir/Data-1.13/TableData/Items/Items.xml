@@ -1940,6 +1940,7 @@
 		<szBRDesc>Developed by the US military, this launcher can be attached to a wide range of assault rifles and machine guns. It comes equipped with a light folding stock and a special pistol grip stock, allowing it to be fired like a pistol. It is considered to be a good entry weapon.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubClassIndex>50</ubClassIndex>
 		<ubCursor>20</ubCursor>
 		<ubGraphicNum>39</ubGraphicNum>
