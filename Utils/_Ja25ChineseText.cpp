@@ -145,9 +145,9 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"步枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Rifles\n",
 	L"霰弹枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Shotguns\n",
 	L"泵动式霰弹上膛所需行动点 -%d%s \n",// L"-%d%s APs needed to pump Shotguns\n",
-	L"-%d%s APs to fire Shotguns\n",	//TODO.Translate
-	L"Adds %d more aim click for Shotguns\n",	//TODO.Translate
-	L"Adds %d more aim clicks for Shotguns\n",	//TODO.Translate
+	L"使用散弹枪时-%d%s APs\n",	//L"-%d%s APs to fire Shotguns\n",
+	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim click for Shotguns\n",
+	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim clicks for Shotguns\n",
 	L"队伍在区域间步行移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling by foot\n",
 	L"队伍在区域间乘车移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",
@@ -435,8 +435,8 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"可能会在看到大虫子后六神无主，也会在热带地区降低综合表现。",// L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
 	L"可能会偶尔忘记手头的任务，也会在战斗中损失行动点。",// L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
 	L"可能会偶尔发疯并把手里武器设在自动后乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
-	L"Drastically reduced hearing.",		// TODO.Translate
-	L"Reduced sight range.",				// TODO.Translate
+	L"大大减少听力范围",		// L"Drastically reduced hearing.",
+	L"减少视力范围",				// L"Reduced sight range.",
 };
 
 
