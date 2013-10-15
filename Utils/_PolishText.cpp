@@ -2913,16 +2913,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
 	L"Zgadzasz się zapłacić %s?",
 	L"Zgadzasz się na darmowe leczenie?",
-	L"Zgadasz się na małżeństwo z Darylem?",
+	L"Zgadasz się na małżeństwo z %s?", //Darylem
 	L"Kółko na klucze",
 	L"Nie możesz tego zrobić z eskortowaną osobą.",
-	L"Oszczędzić Krotta?",
+	L"Oszczędzić %s?", //Krotta
 	L"Poza zasięgiem broni",
 	L"Górnik",
 	L"Pojazdem można podróżować tylko pomiędzy sektorami",
 	L"Teraz nie można automatycznie udzielić pierwszej pomocy",
 	L"Przejście zablokowane dla - %s",
-	L"Twoi najemnicy, schwytani przez żołnierzy Deidranny, są tutaj uwięzieni!",
+	L"Twoi najemnicy, schwytani przez żołnierzy %s, są tutaj uwięzieni!", //Deidranny
 	L"Zamek został trafiony",
 	L"Zamek został zniszczony",
 	L"Ktoś inny majstruje przy tych drzwiach.",

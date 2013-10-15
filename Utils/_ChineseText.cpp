@@ -2905,16 +2905,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
 	L"你同意支付%s吗？",
 	L"你要接受免费治疗吗?",
-	L"你同意让佣兵和Daryl结婚吗?",
+	L"你同意让佣兵和%s结婚吗?", //Daryl
 	L"钥匙面板",
 	L"你不能这样用EPC。",
-	L"不杀Krott?",
+	L"不杀%s?", //Krott
 	L"超出武器的有效射程。",
 	L"矿工",
 	L"车辆只能在分区间旅行",
 	L"现在不能自动包扎",
 	L"%s被堵住了",
-	L"被Deidranna的军队俘虏的佣兵，被关押在这里！",
+	L"被%s的军队俘虏的佣兵，被关押在这里！", //Deidranna
 	L"锁被击中了",
 	L"锁被破坏了",
 	L"其他人在使用这扇门。",

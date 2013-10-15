@@ -2908,16 +2908,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
 	L"Êtes-vous d'accord pour payer %s ?",
 	L"Acceptez-vous le traitement médical gratuit ?",
-	L"Voulez-vous épouser Daryl ?",
+	L"Voulez-vous épouser %s ?", //Daryl
 	L"Trousseau de Clés",
 	L"Vous ne pouvez pas faire ça avec ce personnage.",
-	L"Épargner Krott ?",
+	L"Épargner %s ?", //Krott
 	L"Hors de portée",
 	L"Mineur",
 	L"Un véhicule ne peut rouler qu'entre des secteurs",
 	L"Impossible d'apposer des bandages maintenant",
 	L"Chemin bloqué pour %s",
-	L"Vos mercenaires capturés par l'armée de Deidranna sont emprisonnés ici !",
+	L"Vos mercenaires capturés par l'armée de %s sont emprisonnés ici !", //Deidranna
 	L"Verrou touché",
 	L"Verrou détruit",
 	L"Quelqu'un d'autre veut essayer sur cette porte.",

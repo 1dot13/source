@@ -6112,7 +6112,10 @@ BOOLEAN HandleTalkInit(	)
 					{
 						if ( pTSoldier->ubProfile != NO_PROFILE )
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_LOS_TO_TALK_TARGET ], pSoldier->GetName(), pTSoldier->GetName() );
+							if (zHiddenNames[pTSoldier->ubProfile].Hidden == TRUE)
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 45 ], pSoldier->GetName() );
+							else
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_LOS_TO_TALK_TARGET ], pSoldier->GetName(), pTSoldier->GetName() );
 						}
 						else
 						{

@@ -561,12 +561,12 @@ enum Facts
 } ;
 //**	END FACTS *************************
 
-#define		BOBBYR_SHIPPING_DEST_SECTOR_X				13
-#define		BOBBYR_SHIPPING_DEST_SECTOR_Y				2
-#define		BOBBYR_SHIPPING_DEST_SECTOR_Z				0
-#define		BOBBYR_SHIPPING_DEST_GRIDNO					10112
-#define		PABLOS_STOLEN_DEST_GRIDNO						1
-#define		LOST_SHIPMENT_GRIDNO								2
+#define		BOBBYR_SHIPPING_DEST_SECTOR_X		gModSettings.ubBobbyRShipDestSectorX	//13
+#define		BOBBYR_SHIPPING_DEST_SECTOR_Y		gModSettings.ubBobbyRShipDestSectorY	//2
+#define		BOBBYR_SHIPPING_DEST_SECTOR_Z		gModSettings.ubBobbyRShipDestSectorZ	//0
+#define		BOBBYR_SHIPPING_DEST_GRIDNO			gModSettings.iBobbyRShipDestGridNo	//10112
+#define		PABLOS_STOLEN_DEST_GRIDNO			gModSettings.iPablosStolenDestGridNo	//1
+#define		LOST_SHIPMENT_GRIDNO				gModSettings.iLostShipmentGridNo	//2
 
 // omerta positions
 #define OMERTA_LEAVE_EQUIP_SECTOR_X		gModSettings.ubOmertaDropOffX	//9

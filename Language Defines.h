@@ -74,8 +74,8 @@
 	1. Enable the "#undef ENGLISH" define below, so English will not be used anymore
 	2. Set the desired language below
 	3. If you want to build "Unfinished Business" version, enable "#define JA2UB" and "#define JA2UBMAPS" in builddefines.h"
-	4. Build the executable in VS 2010
-	5. The output will be placed in the "Build\bin\VS2010" folder
+	4. Build the executable in VS 2005 / 2008 / 2010
+	5. The output will be placed in the "Build\bin\" folder
 */
 
 // Only enable this "undef", if you use the 3. way of building the executable!
@@ -93,9 +93,8 @@
 //#define TAIWANESE
 //#define POLISH
 
-// WANNE: For CHINESE language we also have to define WINFONTS! So when building Chinese version, enable both defines.
+// INFO: For Chinese 1.13 version, you also have to set USE_WINFONTS = 1 in ja2.ini inside your JA2 installation directory!
 //#define CHINESE
-//#define WINFONTS
 
 #endif
 

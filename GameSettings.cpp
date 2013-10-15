@@ -2368,6 +2368,14 @@ void LoadModSettings(){
 	gModSettings.ubOmertaDropOffY = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Y", 1);
 	gModSettings.ubOmertaDropOffZ = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_Z", 0);
 	gModSettings.iOmertaDropOff = iniReader.ReadInteger("Gear Dropoff", "OMERTA_DROPOFF_GRIDNO", 4868);
+	gModSettings.iBobbyRDropOff = iniReader.ReadInteger("Gear Dropoff", "BOBBYR_DROPOFF_GRIDNO", 10433);
+
+	gModSettings.ubBobbyRShipDestSectorX = iniReader.ReadInteger("Bobby Ray", "BOBBYR_SHIPPING_DEST_SECTOR_X", 13);
+	gModSettings.ubBobbyRShipDestSectorY = iniReader.ReadInteger("Bobby Ray", "BOBBYR_SHIPPING_DEST_SECTOR_Y", 2);
+	gModSettings.ubBobbyRShipDestSectorZ = iniReader.ReadInteger("Bobby Ray", "BOBBYR_SHIPPING_DEST_SECTOR_Z", 0);
+	gModSettings.iBobbyRShipDestGridNo = iniReader.ReadInteger("Bobby Ray", "BOBBYR_SHIPPING_DEST_GRIDNO", 10122);
+	gModSettings.iPablosStolenDestGridNo = iniReader.ReadInteger("Bobby Ray", "PABLOS_STOLEN_DEST_GRIDNO", 1);
+	gModSettings.iLostShipmentGridNo = iniReader.ReadInteger("Bobby Ray", "LOST_SHIPMENT_GRIDNO", 2);
 
 	//[Omerta]
 

@@ -169,7 +169,7 @@ INT16 iTopWinCutOff,iBotWinCutOff;
 DisplayList Selection;
 
 UINT16 SelWinFillColor = 0x0000;					// Black
-UINT16 SelWinHilightFillColor = 0x000d;		// a kind of medium dark blue
+UINT16 SelWinHilightFillColor = 0x23BA;		//blue, formerly 0x000d a kind of medium dark blue (not contrasty)
 
 //----------------------------------------------------------------------------------------------
 //	CreateJA2SelectionWindow
@@ -1653,6 +1653,7 @@ BOOLEAN DisplayWindowFunc( DisplayList *pNode, INT16 iTopCutOff, INT16 iBottomCu
 
 		if ( sCount != 0)
 		{
+			SetFontShade(LARGEFONT1, FONT_SHADE_WHITE);
 			gprintf( pNode->iX, iCurrY, L"%d", sCount );
 		}
 

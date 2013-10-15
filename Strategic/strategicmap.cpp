@@ -3043,6 +3043,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	SOLDIERTYPE		*pSoldier;
 	BOOLEAN				fPOWSquadSet = FALSE;
 	UINT8					ubPOWSquad=0;
+	CHAR16		zTemp[256];
 
 	// Remove from interface slot
 	RemoveAllPlayersFromSlot( );
@@ -3116,7 +3117,8 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 								// ATE: If we are in i13 - pop up message!
 								if ( sSectorX == gModSettings.ubInitialPOWSectorX && sSectorY == gModSettings.ubInitialPOWSectorY ) //(13, 9)
 								{
-									DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ POW_MERCS_ARE_HERE ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+									swprintf( zTemp, TacticalStr[ POW_MERCS_ARE_HERE ], gMercProfiles[ QUEEN ].zNickname );
+									DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
 								}
 								else
 								{

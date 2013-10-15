@@ -2905,16 +2905,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
 	L"Do you agree to pay %s?",
 	L"Accept free medical treatment?",
-	L"Agree to marry Daryl?",
+	L"Agree to marry %s?",	//Daryl
 	L"Key Ring Panel",
 	L"You cannot do that with an EPC.",
-	L"Spare Krott?",
+	L"Spare %s?",	//Krott
 	L"Out of effective weapon range.",
 	L"Miner",
 	L"Vehicle can only travel between sectors",
 	L"Can't autobandage right now",
 	L"Path Blocked for %s",
-	L"Your mercs, who were captured by Deidranna's army are imprisoned here!",
+	L"Your mercs, who were captured by %s's army are imprisoned here!", //Deidranna
 	L"Lock hit",
 	L"Lock destroyed",
 	L"Somebody else is trying to use this door.",

@@ -2903,16 +2903,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the following message, '%s' would be replaced with a quantity of money (e.g. $200)
 	L"Ben je het eens met %s?",					// L"Do you agree to pay %s?",
 	L"Wil je kostenloze medische hulp?",			// L"Accept free medical treatment?",
-	L"Wil je trouwen met Daryl?",					// L"Agree to marry Daryl?",
+	L"Wil je trouwen met %s?",					// L"Agree to marry %s?", Daryl
 	L"Slot Ring Paneel",						// L"Key Ring Panel",
 	L"Dat kan niet met een EPC.",					// L"You cannot do that with an EPC.",
-	L"Krott sparen?",							// L"Spare Krott?",
+	L"%s sparen?",							// L"Spare Krott?", Krott
 	L"Buiten wapenbereik",						// L"Out of weapon range",
 	L"Mijnwerker",							// L"Miner",
 	L"Voertuig kan alleen tussen sectors reizen",		// L"Vehicle can only travel between sectors",
 	L"Nu geen Auto-EHBO mogelijk",				// L"Can't autobandage right now",
 	L"Pad Geblokkeerd voor %s",					// L"Path Blocked for %s",
-	L"Je huurlingen, gevangen door Deidranna's leger, zitten hier opgesloten!",
+	L"Je huurlingen, gevangen door %s's leger, zitten hier opgesloten!", //Deidranna
 	L"Slot geraakt",							// L"Lock hit",
 	L"Slot vernielt",							// L"Lock destroyed",
 	L"Iemand anders probeert deze deur te gebruiken.",		// L"Somebody else is trying to use this door.",

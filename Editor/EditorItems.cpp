@@ -689,7 +689,11 @@ void RenderEditorItemsInfo()
 		
 		// item index no
 		mprintf( x + 12, y + 18, L"%d", eInfo.pusItemIndex[ i ] );
-		
+
+		// index no within usItemClass
+		SetFontForeground( FONT_LTBLUE );
+		mprintf( x + 40, y + 18, L"%d", i );
+
 		// numbers of each visible item
 		usNumItems = CountNumberOfEditorPlacementsInWorld( i, &usQuantity );
 

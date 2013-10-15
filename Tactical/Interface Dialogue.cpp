@@ -4663,11 +4663,11 @@ void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
 		case NPC_ACTION_TRIGGER_MARRY_DARYL_PROMPT:
-			swprintf( zTemp, TacticalStr[ MARRY_DARYL_PROMPT ] );
+			swprintf( zTemp, TacticalStr[ MARRY_DARYL_PROMPT ], gMercProfiles[ubProfileID].zNickname );
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
 		case NPC_ACTION_KROTT_REQUESTOR:
-			swprintf( zTemp, TacticalStr[ SPARE_KROTT_PROMPT ] );
+			swprintf( zTemp, TacticalStr[ SPARE_KROTT_PROMPT ], gMercProfiles[ubProfileID].zNickname );
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
 		default:
