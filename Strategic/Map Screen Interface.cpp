@@ -1752,11 +1752,12 @@ void HandleEquipmentLeftInDrassen( UINT32 uiSlotIndex )
 		if( gWorldSectorX	!= BOBBYR_SHIPPING_DEST_SECTOR_X || gWorldSectorY != BOBBYR_SHIPPING_DEST_SECTOR_Y || gbWorldSectorZ != BOBBYR_SHIPPING_DEST_SECTOR_Z )
 		{
 			// given this slot value, add to sector item list
-			AddItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 10433, 1, &( pItem->object ) , 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+			AddItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 
+				gModSettings.iBobbyRDropOff, 1, &( pItem->object ) , 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE ); //10433
 		}
 		else
 		{
-			AddItemToPool( 10433, &( pItem->object ), 1, 0, WORLD_ITEM_REACHABLE, 0 );
+			AddItemToPool( gModSettings.iBobbyRDropOff, &( pItem->object ), 1, 0, WORLD_ITEM_REACHABLE, 0 ); //10433
 		}
 		pItem = pItem->pNext;
 	}

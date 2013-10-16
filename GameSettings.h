@@ -1700,6 +1700,15 @@ typedef struct
 	UINT8 ubOmertaDropOffY;
 	UINT8 ubOmertaDropOffZ;
 	INT32 iOmertaDropOff;
+	INT32 iBobbyRDropOff;
+
+	//BobbyR stuff
+	UINT8 ubBobbyRShipDestSectorX;
+	UINT8 ubBobbyRShipDestSectorY;
+	UINT8 ubBobbyRShipDestSectorZ;
+	INT32 iBobbyRShipDestGridNo;
+	INT32 iPablosStolenDestGridNo;
+	INT32 iLostShipmentGridNo;
 
 	//[Omerta]
 
