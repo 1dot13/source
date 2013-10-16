@@ -184,4 +184,8 @@
 		<id>45</id>
 		<name>SMG Magx3</name>
 	</Silhouette>
+	<Silhouette>
+		<id>46</id>
+		<name>Small Shotgun</name>
+	</Silhouette>
 </JA2Data>
