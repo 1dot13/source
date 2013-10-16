@@ -288,65 +288,65 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>26</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 1</szSlotName>
+		<szSlotName>MOLLE Leg Upper Row 1</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>10</usDescPanelPosX>
-		<usDescPanelPosY>34</usDescPanelPosY>
+		<nasLayoutClass>3</nasLayoutClass>
+		<usDescPanelPosX>190</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
-		<ubPocketMapping>6</ubPocketMapping>
+		<ubPocketMapping>1</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>27</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 2</szSlotName>
+		<szSlotName>MOLLE Leg Upper Row 2</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>46</usDescPanelPosX>
-		<usDescPanelPosY>34</usDescPanelPosY>
+		<nasLayoutClass>3</nasLayoutClass>
+		<usDescPanelPosX>226</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
-		<ubPocketMapping>7</ubPocketMapping>
+		<ubPocketMapping>2</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>28</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 3</szSlotName>
-		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>82</usDescPanelPosX>
+		<szSlotName>MOLLE Leg Lower Row 1</szSlotName>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>3</nasLayoutClass>
+		<usDescPanelPosX>190</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
-		<ubPocketMapping>8</ubPocketMapping>
+		<ubPocketMapping>3</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>29</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 4</szSlotName>
-		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>118</usDescPanelPosX>
+		<szSlotName>MOLLE Leg Lower Row 2</szSlotName>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>3</nasLayoutClass>
+		<usDescPanelPosX>226</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
-		<ubPocketMapping>9</ubPocketMapping>
+		<ubPocketMapping>4</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>30</uiSlotIndex>
-		<szSlotName>MOLLE Vest Lower Row 5</szSlotName>
-		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>154</usDescPanelPosX>
-		<usDescPanelPosY>34</usDescPanelPosY>
+		<szSlotName>MOLLE Leg Middle Medium</szSlotName>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>3</nasLayoutClass>
+		<usDescPanelPosX>193</usDescPanelPosX>
+		<usDescPanelPosY>58</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
-		<fBigSlot>0</fBigSlot>
-		<ubPocketMapping>10</ubPocketMapping>
+		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>5</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>31</uiSlotIndex>
-		<szSlotName>MOLLE Leg Upper Left</szSlotName>
+		<szSlotName>MOLLE Vest Upper Row 1 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>187</usDescPanelPosX>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -354,10 +354,10 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>32</uiSlotIndex>
-		<szSlotName>MOLLE Leg Upper Right</szSlotName>
+		<szSlotName>MOLLE Vest Upper Row 2 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>223</usDescPanelPosX>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>46</usDescPanelPosX>
 		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
@@ -365,57 +365,112 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>33</uiSlotIndex>
-		<szSlotName>MOLLE Leg Lower Left</szSlotName>
+		<szSlotName>MOLLE Vest Upper Row 3 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>187</usDescPanelPosX>
-		<usDescPanelPosY>34</usDescPanelPosY>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>82</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
 		<ubPocketMapping>3</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>34</uiSlotIndex>
-		<szSlotName>MOLLE Leg Lower Right</szSlotName>
+		<szSlotName>MOLLE Vest Upper Row 4 Small</szSlotName>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>223</usDescPanelPosX>
-		<usDescPanelPosY>34</usDescPanelPosY>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>0</fBigSlot>
 		<ubPocketMapping>4</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>35</uiSlotIndex>
-		<szSlotName>MOLLE Leg Bottom Medium</szSlotName>
-		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>190</usDescPanelPosX>
-		<usDescPanelPosY>58</usDescPanelPosY>
+		<szSlotName>MOLLE Vest Upper Row 5 Small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
-		<fBigSlot>1</fBigSlot>
+		<fBigSlot>0</fBigSlot>
 		<ubPocketMapping>5</ubPocketMapping>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>36</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 1 Small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>6</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>37</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 2 Small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>46</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>7</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>38</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 3 Small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>82</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>8</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>39</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 4 Small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>118</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>9</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>40</uiSlotIndex>
+		<szSlotName>MOLLE Vest Lower Row 5 Small</szSlotName>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>154</usDescPanelPosX>
+		<usDescPanelPosY>34</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+		<ubPocketMapping>10</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>41</uiSlotIndex>
+		<szSlotName>MOLLE Vest Upper Row 6 Medium</szSlotName>
+		<nasAttachmentClass>8192</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<usDescPanelPosX>190</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+		<ubPocketMapping>11</ubPocketMapping>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>42</uiSlotIndex>
 		<szSlotName>MOLLE Vest Lower Row 6 Medium</szSlotName>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<usDescPanelPosX>190</usDescPanelPosX>
 		<usDescPanelPosY>34</usDescPanelPosY>
 		<fMultiShot>0</fMultiShot>
 		<fBigSlot>1</fBigSlot>
 		<ubPocketMapping>12</ubPocketMapping>
-	</ATTACHMENTSLOT>
-	<ATTACHMENTSLOT>
-		<uiSlotIndex>37</uiSlotIndex>
-		<szSlotName>MOLLE Vest upper Row 5 small</szSlotName>
-		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>154</usDescPanelPosX>
-		<usDescPanelPosY>10</usDescPanelPosY>
-		<fMultiShot>0</fMultiShot>
-		<fBigSlot>0</fBigSlot>
-		<ubPocketMapping>11</ubPocketMapping>
 	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>

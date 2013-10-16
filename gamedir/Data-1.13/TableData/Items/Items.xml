@@ -49434,7 +49434,7 @@
 		<szBRName>3.11 Thigh Rig</szBRName>
 		<szBRDesc>A highly useful accessory used by sportsmen, patrol officers, and tactical operators across the country, the 3.11 Thigh Rig is a lightweight, reliable, and completely customizable.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>49</ubClassIndex>
@@ -49465,7 +49465,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>50</ubClassIndex>
@@ -49496,7 +49496,7 @@
 		<szBRName>VTAC LBE Tactical Vest</szBRName>
 		<szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our VTAC NAS™ pouches or standard MOLLE gear.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>51</ubClassIndex>
@@ -49527,7 +49527,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>52</ubClassIndex>
@@ -49560,7 +49560,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>53</ubClassIndex>
@@ -49593,7 +49593,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>54</ubClassIndex>
@@ -49626,7 +49626,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>55</ubClassIndex>
@@ -49659,7 +49659,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>56</ubClassIndex>
@@ -49691,7 +49691,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>57</ubClassIndex>
@@ -49724,7 +49724,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>58</ubClassIndex>
@@ -49756,7 +49756,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>59</ubClassIndex>
@@ -49788,7 +49788,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>60</ubClassIndex>
@@ -49821,7 +49821,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>61</ubClassIndex>
@@ -49854,7 +49854,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>62</ubClassIndex>
@@ -49887,7 +49887,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>63</ubClassIndex>
@@ -49919,7 +49919,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>64</ubClassIndex>
@@ -49950,7 +49950,7 @@
 		<szBRName>MOLLE Drop Leg Ambi Holster</szBRName>
 		<szBRDesc>Versatility comes from the number of carry modes and weapon configurations allowed by this holster.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -49978,7 +49978,7 @@
 		<szBRName>Casualty Response Kit - Medic/Leg Rig Bag</szBRName>
 		<szBRDesc>Here we have a Trauma shear storage for quick access and MOLLE style attachment system compatible.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>66</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50007,7 +50007,7 @@
 		<szBRName>Black M.O.L.L.E. Modular Tactical Vest</szBRName>
 		<szBRDesc>This military vest has hanging loops for added storage and features two inner mesh pockets with zippers, perfect to carry smaller items that cannot be attached to the molle webbing.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>67</ubClassIndex>
@@ -50037,7 +50037,7 @@
 		<szBRName>Multicam Military Tactical Molle Vest</szBRName>
 		<szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durabilty for a tactical vest.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>68</ubClassIndex>
@@ -50069,7 +50069,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>69</ubClassIndex>
@@ -50102,7 +50102,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>70</ubClassIndex>
@@ -50135,7 +50135,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>71</ubClassIndex>
@@ -50168,7 +50168,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>72</ubClassIndex>
@@ -50201,7 +50201,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>73</ubClassIndex>
@@ -50234,7 +50234,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>74</ubClassIndex>
@@ -50266,7 +50266,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>75</ubClassIndex>
@@ -50297,7 +50297,7 @@
 		<szBRName>Specter Modular Thigh Rig</szBRName>
 		<szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a thigh rig with the pouches they want and need for the mission at hand.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>76</ubClassIndex>
@@ -50329,7 +50329,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>77</ubClassIndex>
@@ -50362,7 +50362,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>78</ubClassIndex>
@@ -50389,13 +50389,13 @@
 		<uiIndex>1679</uiIndex>
 		<szItemName>Pistol Mag</szItemName>
 		<szLongItemName>3.11 Single Pistol Magazine Pouch</szLongItemName>
-		<szItemDesc>3.11Tactical bring you the NAS™ Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
+		<szItemDesc>3.11Tactical bring you the NAS™ Magazine Pouches.  These Magazine Pouches will securely carry your pistol magazine and provide quick access when it's time to reload.</szItemDesc>
 		<szBRName>Single Pistol Magazine Pouch</szBRName>
 		<szBRDesc>The NAS™ Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>79</ubClassIndex>
@@ -50428,7 +50428,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>80</ubClassIndex>
@@ -50461,7 +50461,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>81</ubClassIndex>
@@ -50492,7 +50492,7 @@
 		<szBRName>TT Modular Tactical Assault Vest</szBRName>
 		<szBRDesc>The Modular Adjustable Tactical Vest is a modern update to the traditional modular vest. The MAT-V has been designed to combine function and comfort without sacrificing either</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>82</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50521,7 +50521,7 @@
 		<szBRName>S.T.R.I.K.E. - ELITE VEST</szBRName>
 		<szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11.® section for all pouch options.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>83</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50553,7 +50553,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>84</ubClassIndex>
@@ -50586,7 +50586,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>85</ubClassIndex>
@@ -50619,7 +50619,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>86</ubClassIndex>
@@ -50652,7 +50652,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>87</ubClassIndex>
@@ -50685,7 +50685,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>88</ubClassIndex>
@@ -50718,7 +50718,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>89</ubClassIndex>
@@ -50749,7 +50749,7 @@
 		<szBRName>Large Modular Tactical Thigh Rig</szBRName>
 		<szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>3</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>90</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50802,11 +50802,11 @@
 		<uiIndex>1692</uiIndex>
 		<szItemName>Sporting Clay Vest</szItemName>
 		<szLongItemName>Sporting Clay Vest</szLongItemName>
-		<szItemDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shelll pockets (four total), and secure empties in the mesh back pouch.</szItemDesc>
+		<szItemDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch.</szItemDesc>
 		<szBRName>Sporting Clay Vest</szBRName>
-		<szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shelll pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
+		<szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<ubClassIndex>92</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -50834,7 +50834,7 @@
 		<szBRName>Condor Heavy Assault Vest</szBRName>
 		<szBRDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<ubClassIndex>93</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50863,7 +50863,7 @@
 		<szBRName>FSBE LBV Load Bearing Molle Assault Vest</szBRName>
 		<szBRDesc>Chinese made Special force load bearing vest with1-inch molle webbing cross straps for attaching molle pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>94</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
