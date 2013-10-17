@@ -3651,32 +3651,16 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
-#ifdef JA2UB
-	L"Have %s leave his equipment where he is now (%s) or later on in Drassen (B13) upon catching flight out of Tracona?",
-	L"Have %s leave his equipment where he is now (%s) or later on in Omerta (A9) upon catching flight out of Tracona?",
-#else
-	L"Have %s leave his equipment where he is now (%s) or later on in Drassen (B13) upon catching flight out of Arulco?",
-	L"Have %s leave his equipment where he is now (%s) or later on in Omerta (A9) upon catching flight out of Arulco?",
-#endif
-	L"is about to leave and will drop off his equipment in Omerta (A9).",
-	L"is about to leave and will drop off his equipment in Drassen (B13).",
-	L"%s is about to leave and will drop off his equipment in %s.",
+	L"Have %s leave his equipment where he is now (%s) or later on in (%s) upon catching flight?",
+	L"%s is about to leave and will drop off his equipment in (%s).",
 };
 
 
 // female version
 STR16 pMercSheLeaveString[] =
 {
-#ifdef JA2UB
-	L"Have %s leave her equipment where she is now (%s) or later on in Drassen (B13) upon catching flight out of Tracona?",
-	L"Have %s leave her equipment where she is now (%s) or later on in Omerta (A9) upon catching flight out of Tracona?",
-#else
-	L"Have %s leave her equipment where she is now (%s) or later on in Drassen (B13) upon catching flight out of Arulco?",
-	L"Have %s leave her equipment where she is now (%s) or later on in Omerta (A9) upon catching flight out of Arulco?",
-#endif
-	L"is about to leave and will drop off her equipment in Omerta (A9).",
-	L"is about to leave and will drop off her equipment in Drassen (B13).",
-	L"%s is about to leave and will drop off her equipment in %s.",
+	L"Have %s leave her equipment where she is now (%s) or later on in (%s) upon catching flight?",
+	L"%s is about to leave and will drop off her equipment in (%s).",
 };
 
 

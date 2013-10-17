@@ -43,6 +43,13 @@
 #define HELI_PATH_THROUGH_ENEMEY_AIRSPACE 55
 #define HELI_HOT_DROP 56
 
+// drassen airport sector
+#define AIRPORT_X	gModSettings.ubAirportX //13
+#define AIRPORT_Y	gModSettings.ubAirportY //2
+
+// meduna airport sector
+#define AIRPORT2_X	gModSettings.ubAirport2X //3
+#define AIRPORT2_Y	gModSettings.ubAirport2Y //14
 
 // enums for skyrider monologue
 enum{

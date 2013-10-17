@@ -3655,15 +3655,7 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
-#ifdef JA2UB
-	L"%s doit-il abandonner son paquetage sur place (%s) ou à Drassen (B13) avant de quitter Tracona ?",
-	L"%s doit-il abandonner son paquetage sur place (%s) ou à Omerta (A9) avant de quitter Tracona ?",
-#else
-	L"%s doit-il abandonner son paquetage sur place (%s) ou à Drassen (B13) avant de quitter Arulco ?",
-	L"%s doit-il abandonner son paquetage sur place (%s) ou à Omerta (A9) avant de quitter Arulco ?",
-#endif
-	L"est sur le point de partir et laissera son paquetage à Omerta (A9).",
-	L"est sur le point de partir et laissera son paquetage à Drassen (B13).",
+	L"%s doit-il abandonner son paquetage sur place (%s) ou à (%s) avant de quitter ?",
 	L"%s est sur le point de partir et laissera son paquetage en %s.",
 };
 
@@ -3671,10 +3663,7 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
-	L"%s doit-elle abandonner son paquetage sur place (%s) ou à Drassen (B13) avant de quitter Arulco ?",
-	L"%s doit-elle abandonner son paquetage sur place (%s) ou à Omerta (A9) avant de quitter Arulco ?",
-	L"est sur le point de partir et laissera son paquetage à Omerta (A9).",
-	L"est sur le point de partir et laissera son paquetage à Drassen (B13).",
+	L"%s doit-elle abandonner son paquetage sur place (%s) ou à (%s) avant de quitter ?",
 	L"%s est sur le point de partir et laissera son paquetage en %s.",
 };
 

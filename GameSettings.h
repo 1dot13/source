@@ -1700,7 +1700,16 @@ typedef struct
 	UINT8 ubOmertaDropOffY;
 	UINT8 ubOmertaDropOffZ;
 	INT32 iOmertaDropOff;
-	INT32 iBobbyRDropOff;
+	INT32 iAirportDropOff;
+
+	//Airport Stuff
+	UINT8 ubAirportX;
+	UINT8 ubAirportY;
+	INT32 iHeliSquadDropOff;
+	
+	UINT8 ubAirport2X;
+	UINT8 ubAirport2Y;
+
 
 	//BobbyR stuff
 	UINT8 ubBobbyRShipDestSectorX;

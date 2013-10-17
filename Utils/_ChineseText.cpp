@@ -3651,15 +3651,7 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
-#ifdef JA2UB
-	L"让%s把装备留在他现在所在的地方(%s)，或者在Drassen (B13)登机飞离Tracona，把装备留在那里?",
-	L"让%s把装备留在他现在所在的地方(%s)，或者在Omerta (A9)登机飞离Tracona，把装备留在那里?",
-#else
-	L"让%s把装备留在他现在所在的地方(%s)，或者在Drassen (B13)登机飞离Arulco，把装备留在那里?",
-	L"让%s把装备留在他现在所在的地方(%s)，或者在Omerta (A9)登机飞离Arulco，把装备留在那里?",
-#endif
-	L"要离开了，他的装备将被留在Omerta (A9)。",
-	L"要离开了，他的装备将被留在Drassen (B13)。",
+	L"让%s把装备留在他现在所在的地方(%s)，或者在(%s)登机飞离，把装备留在那里?",
 	L"%s要离开了，他的装备将被留在%s。",
 };
 
@@ -3667,15 +3659,7 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
-#ifdef JA2UB
-	L"让%s把装备留在她现在所在的地方(%s)，或者在Drassen (B13)登机飞离Tracona，把装备留在那里?",
-	L"让%s把装备留在她现在所在的地方(%s)，或者在Omerta (A9)登机飞离Tracona，把装备留在那里?",
-#else
-	L"让%s把装备留在她现在所在的地方(%s)，或者在Drassen (B13)登机飞离Arulco，把装备留在那里?",
-	L"让%s把装备留在她现在所在的地方(%s)，或者在Omerta (A9)登机飞离Arulco，把装备留在那里?",
-#endif
-	L"要离开了，她的装备将被留在Omerta (A9)。",
-	L"要离开了，她的装备将被留在Drassen (B13)。",
+	L"让%s把装备留在她现在所在的地方(%s)，或者在(%s)登机飞离，把装备留在那里?",
 	L"%s要离开了，她的装备将被留在%s。",
 };
 

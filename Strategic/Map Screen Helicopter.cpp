@@ -1718,13 +1718,6 @@ BOOLEAN IsHelicopterOnGroundAtRefuelingSite( UINT8 ubRefuelingSite )
 	return(FALSE);
 }
 
-// drassen airport sector
-#define AIRPORT_X 13
-#define AIRPORT_Y 2
-
-// meduna airport sector
-#define AIRPORT2_X 3
-#define AIRPORT2_Y 14
 
 BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 {

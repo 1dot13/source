@@ -37,6 +37,7 @@
 	#include "insurance contract.h"
 	#include "Vehicles.h"
 	#include "email.h"
+	#include "Map Screen Helicopter.h"
 #endif
 
 #include "GameSettings.h"
@@ -89,11 +90,6 @@ UINT8											ubCurrentContractRenewal = 0;
 UINT8											ubCurrentContractRenewalInProgress = FALSE;
 BOOLEAN										gfContractRenewalSquenceOn = FALSE;
 BOOLEAN										gfInContractMenuFromRenewSequence = FALSE;
-
-
-// the airport sector
-#define AIRPORT_X 13
-#define AIRPORT_Y 2
 
 
 BOOLEAN SaveContractRenewalDataToSaveGameFile( HWFILE hFile )
@@ -1107,7 +1103,7 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 	CHAR16 sString[ 1024 ];
 	BOOLEAN fInSector = FALSE;
 //	INT16					zTownIDString[50];
-	CHAR16				zShortTownIDString[ 50 ];
+	CHAR16				zShortTownIDString[ 50 ], zShortDropOffString[ 50 ], zDropOffString[ 50 ];
 
 	// use YES/NO Pop up box, settup for particular screen
 	SGPRect pCenteringRect= {0 + xResOffset, 0, SCREEN_WIDTH - xResOffset, SCREEN_HEIGHT};
@@ -1144,11 +1140,11 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 	{
 		if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 		{
-			swprintf( sString, pMercHeLeaveString[ 4 ], pSoldier->GetName(), zShortTownIDString );
+			swprintf( sString, pMercHeLeaveString[ 1 ], pSoldier->GetName(), zShortTownIDString );
 		}
 		else
 		{
-			swprintf( sString, pMercSheLeaveString[ 4 ], pSoldier->GetName(), zShortTownIDString );
+			swprintf( sString, pMercSheLeaveString[ 1 ], pSoldier->GetName(), zShortTownIDString );
 		}
 		fInSector = TRUE;
 	}
@@ -1156,61 +1152,66 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 	// check if drassen controlled
 	else if( StrategicMap[	( AIRPORT_X + ( MAP_WORLD_X * AIRPORT_Y ) ) ].fEnemyControlled == FALSE )
 	{
+		GetSectorIDString( AIRPORT_X, AIRPORT_Y, 0, zDropOffString, FALSE );
 
 		if( ( pSoldier->sSectorX == AIRPORT_X ) && ( pSoldier->sSectorY == AIRPORT_Y ) && ( pSoldier->bSectorZ == 0 ) )
 		{
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercHeLeaveString[ 3 ] );
+				swprintf( sString, pMercHeLeaveString[ 1 ], pSoldier->GetName(), zDropOffString );
 			}
 			else
 			{
-				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercSheLeaveString[ 3 ] );
+				swprintf( sString, pMercSheLeaveString[ 1 ], pSoldier->GetName(), zDropOffString );
 			}
 			fInSector = TRUE;
 		}
 		else
 		{
 			// Set string for generic button
-			swprintf( gzUserDefinedButton2, L"B13" );
+			GetShortSectorString( AIRPORT_X, AIRPORT_Y, zShortDropOffString );
+			swprintf( gzUserDefinedButton2, L"%s", zShortDropOffString ); //B13
 
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, pMercHeLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString );
+				swprintf( sString, pMercHeLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString, zDropOffString );
 			}
 			else
 			{
-				swprintf( sString, pMercSheLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString );
+				swprintf( sString, pMercSheLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString, zDropOffString );
 			}
 
 		}
 	}
 	else
 	{
+		GetSectorIDString( OMERTA_LEAVE_EQUIP_SECTOR_X, OMERTA_LEAVE_EQUIP_SECTOR_Y, 0, zDropOffString, FALSE );
+
 		if( ( pSoldier->sSectorX == OMERTA_LEAVE_EQUIP_SECTOR_X ) && ( pSoldier->sSectorY == OMERTA_LEAVE_EQUIP_SECTOR_Y ) && ( pSoldier->bSectorZ == 0 ) )
 		{
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercHeLeaveString[ 2 ] );
+				swprintf( sString, pMercHeLeaveString[ 1 ], pSoldier->GetName(), zDropOffString );
 			}
 			else
 			{
-				swprintf( sString, L"%s %s", pSoldier->GetName(), pMercSheLeaveString[ 2 ] );
+				swprintf( sString, pMercSheLeaveString[ 1 ], pSoldier->GetName() , zDropOffString );
 			}
 			fInSector = TRUE;
 		}
 		else
 		{
 			// Set string for generic button
-			swprintf( gzUserDefinedButton2, L"A9" );
+			GetShortSectorString( OMERTA_LEAVE_EQUIP_SECTOR_X, OMERTA_LEAVE_EQUIP_SECTOR_Y, zShortDropOffString );
+			swprintf( gzUserDefinedButton2, L"%s", zShortDropOffString ); //A9
 
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 			{
-				swprintf( sString, pMercHeLeaveString[ 1 ], pSoldier->GetName(), zShortTownIDString );
+				swprintf( sString, pMercHeLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString, zDropOffString );
 			}
 			else
 			{
-				swprintf( sString, pMercSheLeaveString[ 1 ], pSoldier->GetName(), zShortTownIDString );
+				swprintf( sString, pMercSheLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString, zDropOffString );
 			}
 		}
 	}
@@ -1289,7 +1290,7 @@ void MercDepartEquipmentBoxCallBack( UINT8 bExitValue )
 	else
 	{
 		// no
-		if( StrategicMap[ BOBBYR_SHIPPING_DEST_SECTOR_X + ( BOBBYR_SHIPPING_DEST_SECTOR_Y * MAP_WORLD_X ) ].fEnemyControlled == FALSE )
+		if( StrategicMap[ AIRPORT_X + ( AIRPORT_Y * MAP_WORLD_X ) ].fEnemyControlled == FALSE )
 		{
 			HandleMercLeavingEquipmentInDrassen( pLeaveSoldier->ubID );
 		}

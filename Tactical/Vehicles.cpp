@@ -665,7 +665,7 @@ void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId, UINT8
 
 	if ( iId == iHelicopterVehicleId && !pSoldier->bInSector )
 	{
-	if( pSoldier->sSectorX	!= BOBBYR_SHIPPING_DEST_SECTOR_X || pSoldier->sSectorY != BOBBYR_SHIPPING_DEST_SECTOR_Y || pSoldier->bSectorZ != BOBBYR_SHIPPING_DEST_SECTOR_Z )
+	if( pSoldier->sSectorX	!= AIRPORT_X || pSoldier->sSectorY != AIRPORT_Y || pSoldier->bSectorZ != 0 )
 	{
 		if( NumHostilesInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) > 0 && iOldGroupID != 0 && gGameExternalOptions.ubSkyriderHotLZ == 2 )
 		{
@@ -702,7 +702,7 @@ void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId, UINT8
 	{
 		// This is drassen, make insertion gridno specific...
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = 10125;
+		pSoldier->usStrategicInsertionData = gModSettings.iHeliSquadDropOff; //10125
 	}
 	}
 }

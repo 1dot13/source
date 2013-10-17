@@ -3644,15 +3644,7 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
-#ifdef JA2UB
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Tracona?",
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Tracona?",
-#else
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Arulco?",
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Arulco?",
-#endif
-	L"sta per partire e spedirà il suo equipaggiamento a Omerta (A9).",
-	L"sta per partire e spedirà il suo equipaggiamento a Drassen (B13).",
+	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a (%s) dopo aver preso il volo?",
 	L"%s sta per partire e spedirà il suo equipaggiamento a %s.",
 };
 
@@ -3660,15 +3652,7 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
-#ifdef JA2UB
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Tracona?",
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Tracona?",
-#else
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Arulco?",
-	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Arulco?",
-#endif
-	L"sta per partire e spedirà il suo equipaggiamento a Omerta (A9).",
-	L"sta per partire e spedirà il suo equipaggiamento a Drassen (B13).",
+	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a (%s) dopo aver preso il volo?",
 	L"%s sta per partire e spedirà il suo equipaggiamento a %s.",
 };
 

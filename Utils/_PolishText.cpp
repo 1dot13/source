@@ -3661,27 +3661,16 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
-#ifdef JA2UB
-	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w Dressen (B13), skąd odlatuje? ",
-	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w Omercie (A9), skąd odlatuje?",
-#else
-	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w Dressen (B13), skąd odlatuje? ",
-	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w Omercie (A9), skąd odlatuje?",
-#endif	
-	L"wkrótce odchodzi i zostawi swój sprzęt w Omercie (A9).",
-	L"wkrótce odchodzi i zostawi swój sprzęt w Drassen (B13).",
-	L"%s wkrótce odchodzi i zostawi swój sprzęt w %s.",
+	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w (%s), skąd odlatuje?",
+	L"%s wkrótce odchodzi i zostawi swój sprzęt w (%s).",
 };
 
 
 // female version
 STR16 pMercSheLeaveString[] =
 {
-	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w Dressen (B13), skąd odlatuje? ",
-	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w Omercie (A9), skąd odlatuje?",
-	L"wkrótce odchodzi i zostawi swój sprzęt w Omercie (A9).",
-	L"wkrótce odchodzi i zostawi swój sprzęt w Drassen (B13).",
-	L"%s wkrótce odchodzi i zostawi swój sprzęt w %s.",
+	L"Czy %s ma zostawić swój sprzęt w sektorze, w którym się obecnie znajduje (%s), czy w (%s), skąd odlatuje? ",
+	L"%s wkrótce odchodzi i zostawi swój sprzęt w (%s.",
 };
 
 

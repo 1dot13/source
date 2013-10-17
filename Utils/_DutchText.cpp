@@ -3651,15 +3651,7 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
-#ifdef JA2UB
-	L"Laat %s zijn uitrusting achterlaten waar hij nu is (%s) of in Drassen (B13) bij het nemen van de vlucht uit Tracona?",
-	L"Laat %s zijn uitrusting achterlaten waar hij nu is (%s) of later in Omerta (A9) bij het nemen van de vlucht uit Tracona?",
-#else
-	L"Laat %s zijn uitrusting achterlaten waar hij nu is (%s) of in Drassen (B13) bij het nemen van de vlucht uit Arulco?",
-	L"Laat %s zijn uitrusting achterlaten waar hij nu is (%s) of later in Omerta (A9) bij het nemen van de vlucht uit Arulco?",
-#endif
-	L"gaat binnenkort weg en laat zijn uitrusting achter in Omerta (A9).",
-	L"gaat binnenkort weg en laat zijn uitrusting achter in Drassen (B13).",
+	L"Laat %s zijn uitrusting achterlaten waar hij nu is (%s) of in (%s) bij het nemen van de vlucht?",
 	L"%s gaat binnenkort weg en laat zijn uitrusting achter in %s.",
 };
 
@@ -3667,15 +3659,7 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
-#ifdef JA2UB
-	L"Laat %s haar uitrusting achterlaten waar ze nu is (%s) of in Drassen (B13) bij het nemen van de vlucht uit Tracona?",
-	L"Laat %s haar uitrusting achterlaten waar ze nu is (%s) of later in Omerta (A9) bij het nemen van de vlucht uit Tracona?",
-#else
-	L"Laat %s haar uitrusting achterlaten waar ze nu is (%s) of in Drassen (B13) bij het nemen van de vlucht uit Arulco?",
-	L"Laat %s haar uitrusting achterlaten waar ze nu is (%s) of later in Omerta (A9) bij het nemen van de vlucht uit Arulco?",
-#endif
-	L"gaat binnenkort weg en laat haar uitrusting achter in Omerta (A9).",
-	L"gaat binnenkort weg en laat haar uitrusting achter in Drassen (B13).",
+	L"Laat %s haar uitrusting achterlaten waar ze nu is (%s) of in (%s) bij het nemen van de vlucht?",
 	L"%s gaat binnenkort weg en laat haar uitrusting achter in %s.",
 };
 

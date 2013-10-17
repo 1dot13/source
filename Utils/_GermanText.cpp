@@ -3611,30 +3611,14 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] = 
 {
-#ifdef JA2UB
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Tracona verlässt?",
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Tracona verlässt?",
-#else
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Arulco verlässt?",
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Arulco verlässt?",
-#endif
-	L"geht bald und lässt seine Ausrüstung in Omerta (A9).",
-	L"geht bald und lässt seine Ausrüstung in Drassen (B13).",
+	L"Soll %s seine Ausrüstung hier lassen (%s) oder in (%s), wenn er verlässt?",
 	L"%s geht bald und lässt seine Ausrüstung in %s.",
 };
 
 // female version
 STR16 pMercSheLeaveString[] =
 {
-#ifdef JA2UB
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Tracona verlässt?",
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Tracona verlässt?",
-#else
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verlässt?",
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verlässt?",
-#endif
-	L"geht bald und lässt ihre Ausrüstung in Omerta (A9).",
-	L"geht bald und lässt ihre Ausrüstung in Drassen (B13).",
+	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in (%s), bevor sie verlässt?",
 	L"%s geht bald und lässt ihre Ausrüstung in %s.",
 };
 
