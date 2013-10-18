@@ -12313,7 +12313,7 @@
 		<szBRName>Not for sale</szBRName>
 		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>573</ubGraphicNum>
 		<NotBuyable>1</NotBuyable>
@@ -12464,7 +12464,7 @@
 		<szBRName>Not for sale</szBRName>
 		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>1</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>573</ubGraphicNum>
@@ -12662,7 +12662,7 @@
 		<szBRName>Not for sale</szBRName>
 		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>16</nasLayoutClass>
 		<ubClassIndex>2</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>573</ubGraphicNum>
@@ -12810,7 +12810,7 @@
 		<szBRName>Not for sale</szBRName>
 		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>32</nasLayoutClass>
 		<ubClassIndex>3</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>573</ubGraphicNum>
@@ -33602,7 +33602,7 @@
 		<szBRName>TT Assault Vest</szBRName>
 		<szBRDesc>The Tactical Tailor Assault Vest is for primary combat soldiers, and can carry 12 AR magazines, or whatever you need.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>4</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>708</ubGraphicNum>
@@ -33630,7 +33630,7 @@
 		<szBRName>40mm Grenade Panel</szBRName>
 		<szBRDesc>A quadruple pouch mounted on a leg rig. The long adjustable straps let you store 40mm grenades on any length.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>5</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>685</ubGraphicNum>
@@ -33658,7 +33658,7 @@
 		<szBRName>Double Mag Pouch</szBRName>
 		<szBRDesc>A pouch for carrying two longer magazines (like P90-mags) strapped to the upper thigh.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>6</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>707</ubGraphicNum>
@@ -33685,7 +33685,7 @@
 		<szBRName>SAW Pouch</szBRName>
 		<szBRDesc>This pouch is designed to hold the ammo box for your machinegun. Mounted onto a leg rig.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>7</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>706</ubGraphicNum>
@@ -33712,7 +33712,7 @@
 		<szBRName>Blackhawk Vest</szBRName>
 		<szBRDesc>A tactical vest that can carry an assortment of AR and pistol magazines.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>8</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>705</ubGraphicNum>
@@ -33740,7 +33740,7 @@
 		<szBRName>Hongkong Police Vest</szBRName>
 		<szBRDesc>Your dedicated grenadier will love this vest, with its four 40mm grenade pockets. Although it's a police vest, you need not necessarily load only tear gas...</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>9</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>704</ubGraphicNum>
@@ -33768,7 +33768,7 @@
 		<szBRName>German Flecktarn Vest</szBRName>
 		<szBRDesc>A German assault vest. What you can't see on the picture is the large pocket at the left side, near the back of the vest.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>10</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>703</ubGraphicNum>
@@ -33796,7 +33796,7 @@
 		<szBRName>Russian 106 Vest</szBRName>
 		<szBRDesc>The high number of pockets of various sizes lets you carry a lot of different things. Russian ingenuity at its best.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>11</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>702</ubGraphicNum>
@@ -33824,7 +33824,7 @@
 		<szBRName>Russian 107 Vest</szBRName>
 		<szBRDesc>This is a vest for the primary combat soldier, who needs lots of rifle magazines.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>12</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>701</ubGraphicNum>
@@ -33852,7 +33852,7 @@
 		<szBRName>Russian RM22SF Vest</szBRName>
 		<szBRDesc>Designed for carrying magazines, grenades, and a few other things, this is the Russian special forces vest.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>13</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>700</ubGraphicNum>
@@ -33880,7 +33880,7 @@
 		<szBRName>TT Utility Vest</szBRName>
 		<szBRDesc>The Tactical Tailor Utility Vest is for those who are not primary combat soldiers, but have other duties as well.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>14</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>699</ubGraphicNum>
@@ -33908,7 +33908,7 @@
 		<szBRName>LBE Gear</szBRName>
 		<szBRDesc>Load Bearing Equipment lets you carry your equipment into battle.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>15</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>698</ubGraphicNum>
@@ -33936,7 +33936,7 @@
 		<szBRName>Holster</szBRName>
 		<szBRDesc>The Eagle SAS Tactical Holster carries a medium pistol and a spare magazine.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>16</ubClassIndex>
 		<ItemFlag>16384</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
@@ -33964,7 +33964,7 @@
 		<szBRName>Holster Rig</szBRName>
 		<szBRDesc>This Tactical Tailor Leg Rig can carry a pistol and three magazines.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>17</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>696</ubGraphicNum>
@@ -33991,7 +33991,7 @@
 		<szBRName>MP Holster</szBRName>
 		<szBRDesc>With this Holster you can strap a small machinepistol or large pistol to your upper thigh. Has a pocket for an additional mag.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>18</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>697</ubGraphicNum>
@@ -34018,7 +34018,7 @@
 		<szBRName>TIMS Backpack</szBRName>
 		<szBRDesc>If you want to carry all sorts of big things cross-country, you'll need a backpack like this one. Can be worn in conjunction with a TIMS combat pack.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>32</nasLayoutClass>
 		<ubClassIndex>19</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>686</ubGraphicNum>
@@ -34045,7 +34045,7 @@
 		<szBRName>ARUC Backpack</szBRName>
 		<szBRDesc>For a little bit of more organization, the ARUC backpack has two outer pockets for those items you need fast at hand.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>32</nasLayoutClass>
 		<ubClassIndex>20</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>687</ubGraphicNum>
@@ -34072,7 +34072,7 @@
 		<szBRName>MALICE3 Backpack</szBRName>
 		<szBRDesc>You do not want to rummage through the main compartment of your backpack for that elusive piece of gear that always sits at the bottom? This one has lots of outer pockets, to store your items for easy access.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>32</nasLayoutClass>
 		<ubClassIndex>21</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>688</ubGraphicNum>
@@ -34099,7 +34099,7 @@
 		<szBRName>TIMS Combat Pack</szBRName>
 		<szBRDesc>This combat pack can be worn in conjunction with the TIMS backpack, so you may want to have a look at the backpack as well.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>16</nasLayoutClass>
 		<ubClassIndex>22</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>689</ubGraphicNum>
@@ -34126,7 +34126,7 @@
 		<szBRName>Tactical Tailor 3-Day Pack</szBRName>
 		<szBRDesc>You want storage capacity to lug some things around during combat, but a backpack slows you down to much. This smaller combat pack may be the solution to your needs.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>16</nasLayoutClass>
 		<ubClassIndex>23</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>690</ubGraphicNum>
@@ -34153,7 +34153,7 @@
 		<szBRName>Blackhawk Patrol Pack</szBRName>
 		<szBRDesc>If you need to carry a very diverse assortment of goodies into combat, this is the combat pack for you!</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>16</nasLayoutClass>
 		<ubClassIndex>24</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>691</ubGraphicNum>
@@ -36716,7 +36716,7 @@
 		<szBRName>AR-Mag / Grenade Pouch</szBRName>
 		<szBRDesc>This leg rig mounts a double AR-magazine pouch and three individual grenade pouches. Great for your primary combat soldiers.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>25</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>714</ubGraphicNum>
@@ -36743,7 +36743,7 @@
 		<szBRName>AR-Mag / Utility Pouch</szBRName>
 		<szBRDesc>A double AR-magazine pouch and a larger utility pouch mounted together on a leg rig, this is useful for carrying larger things like explosives.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>26</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>715</ubGraphicNum>
@@ -36770,7 +36770,7 @@
 		<szBRName>Canteen / Utility Pouch</szBRName>
 		<szBRDesc>This leg rig has a utility pouch mounted besides a canteen pouch.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>27</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>716</ubGraphicNum>
@@ -36797,7 +36797,7 @@
 		<szBRName>Utility / Grenade Pouch</szBRName>
 		<szBRDesc>Here we have a utility pouch combined with three individual grenade pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>28</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>717</ubGraphicNum>
@@ -36824,7 +36824,7 @@
 		<szBRName>Large Mag / Utility Pouch</szBRName>
 		<szBRDesc>This leg rig offers a utility pouch together with two large mag pouches for those extremely long P90 or G11 magazines (or similar odd magazines).</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>29</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>718</ubGraphicNum>
@@ -36851,7 +36851,7 @@
 		<szBRName>Large Mag / Grenade Pouch</szBRName>
 		<szBRDesc>This leg rig mounts two large magazine pouches combined with two individual grenade pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>30</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>719</ubGraphicNum>
@@ -36878,7 +36878,7 @@
 		<szBRName>Hunter Vest</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>31</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>711</ubGraphicNum>
@@ -37600,7 +37600,7 @@
 		<szBRName>TT Pistol Vest</szBRName>
 		<szBRDesc>The Tactical Tailor 1E Vest is useful if your legs already carry some rigs, but you still want to pack a pistol. The holster on this vest will fit most standard pistols.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>32</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>725</ubGraphicNum>
@@ -37738,7 +37738,7 @@
 		<szBRName>Revolver Holster</szBRName>
 		<szBRDesc>This holster can be clipped onto your equipment and fits small and medium shortbarreled revolvers. Comes with two separate speedloader pockets that are also of the clip-on type.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>33</ubClassIndex>
 		<ItemFlag>16384</ItemFlag>
 		<ubGraphicNum>344</ubGraphicNum>
@@ -37828,7 +37828,7 @@
 		<szBRName>LRAK SAW-Vest</szBRName>
 		<szBRDesc>Your machinegunner will love this vest, provided he's strong enough to wear it when it is filled to capacity.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<ubClassIndex>34</ubClassIndex>
 		<ItemFlag>512</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
@@ -37856,7 +37856,7 @@
 		<szBRName>First Aid Rig</szBRName>
 		<szBRDesc>Great for storing a first aid kit with additional syringes of whatever stimulants your troops need.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>35</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>744</ubGraphicNum>
@@ -37882,7 +37882,7 @@
 		<szBRName>Medical Pouch</szBRName>
 		<szBRDesc>Great for storing a first aid kit with additional syringes of whatever stimulants your troops need. Also keeps a canteen handy.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>36</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>745</ubGraphicNum>
@@ -37908,7 +37908,7 @@
 		<szBRName>Canteen / Grenade Pouch</szBRName>
 		<szBRDesc>This panel is equipped with a canteen pouch and three grenade pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>735</ubGraphicNum>
@@ -37935,7 +37935,7 @@
 		<szBRName>AR-Mag. / Canteen / Grenade Panel</szBRName>
 		<szBRDesc>A sub-version of one of our other leg rigs, this panel replaces one grenade pouch with a canteen pouch.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>736</ubGraphicNum>
@@ -37962,7 +37962,7 @@
 		<szBRName>Large Mag. / Canteen / Grenade Panel</szBRName>
 		<szBRDesc>This panel has a canteen pouch instead of the second grenade pouch of our other large magazine pouch setup.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>737</ubGraphicNum>
@@ -48882,7 +48882,7 @@
 		<szBRName>Diving Bottle</szBRName>
 		<szBRDesc>Standard equipment for divers.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<nasLayoutClass>16</nasLayoutClass>
 		<ubClassIndex>40</ubClassIndex>
 		<ItemFlag>2097152</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
@@ -49222,6 +49222,7 @@
 		<szBRName>Large Holster</szBRName>
 		<szBRDesc>This pistol holster can store a larger pistol and up to two spare magazines.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>191</ubGraphicNum>
@@ -49248,6 +49249,7 @@
 		<szBRName>Shotgun holster</szBRName>
 		<szBRDesc>This is the perfect holster to store a small handheld shotgun in.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>42</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>164</ubGraphicNum>
@@ -49274,6 +49276,7 @@
 		<szBRName>SMG Leg Rig</szBRName>
 		<szBRDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>43</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>165</ubGraphicNum>
@@ -49301,6 +49304,7 @@
 		<szBRName>TK Rig</szBRName>
 		<szBRDesc>Stealthy assassins like their knives. This rig can hold several knives.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>44</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>166</ubGraphicNum>
@@ -49328,6 +49332,7 @@
 		<szBRName>Pistol Magazines</szBRName>
 		<szBRDesc>A leg rig with three pouches for pistol magazines.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>45</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>167</ubGraphicNum>
@@ -49355,6 +49360,7 @@
 		<szBRName>Equipment Pouch</szBRName>
 		<szBRDesc>A versatile leg pouch with pockets to carry various items.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>46</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>168</ubGraphicNum>
@@ -49382,6 +49388,7 @@
 		<szBRName>Bomb Pouch</szBRName>
 		<szBRDesc>Not for sale.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>47</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>169</ubGraphicNum>
@@ -49408,6 +49415,7 @@
 		<szBRName>12g Shotgun Rig</szBRName>
 		<szBRDesc>This leg rig can hold several 12 gauge shotgun shells and allows access to the regular pants pockets.</szBRDesc>
 		<usItemClass>131072</usItemClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>48</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>170</ubGraphicNum>
@@ -49434,7 +49442,7 @@
 		<szBRName>3.11 Thigh Rig</szBRName>
 		<szBRDesc>A highly useful accessory used by sportsmen, patrol officers, and tactical operators across the country, the 3.11 Thigh Rig is a lightweight, reliable, and completely customizable.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>49</ubClassIndex>
@@ -49465,7 +49473,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>50</ubClassIndex>
@@ -49496,7 +49504,7 @@
 		<szBRName>VTAC LBE Tactical Vest</szBRName>
 		<szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our VTAC NAS pouches or standard MOLLE gear.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>51</ubClassIndex>
@@ -49527,7 +49535,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>52</ubClassIndex>
@@ -49560,7 +49568,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>53</ubClassIndex>
@@ -49593,7 +49601,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>54</ubClassIndex>
@@ -49626,7 +49634,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>55</ubClassIndex>
@@ -49659,7 +49667,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>56</ubClassIndex>
@@ -49691,7 +49699,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>57</ubClassIndex>
@@ -49724,7 +49732,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>58</ubClassIndex>
@@ -49756,7 +49764,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>59</ubClassIndex>
@@ -49788,7 +49796,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>60</ubClassIndex>
@@ -49821,7 +49829,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>61</ubClassIndex>
@@ -49854,7 +49862,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>62</ubClassIndex>
@@ -49887,7 +49895,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>63</ubClassIndex>
@@ -49919,7 +49927,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>64</ubClassIndex>
@@ -49950,7 +49958,7 @@
 		<szBRName>MOLLE Drop Leg Ambi Holster</szBRName>
 		<szBRDesc>Versatility comes from the number of carry modes and weapon configurations allowed by this holster.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -49978,7 +49986,7 @@
 		<szBRName>Casualty Response Kit - Medic/Leg Rig Bag</szBRName>
 		<szBRDesc>Here we have a Trauma shear storage for quick access and MOLLE style attachment system compatible.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>66</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50007,7 +50015,7 @@
 		<szBRName>Black M.O.L.L.E. Modular Tactical Vest</szBRName>
 		<szBRDesc>This military vest has hanging loops for added storage and features two inner mesh pockets with zippers, perfect to carry smaller items that cannot be attached to the molle webbing.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>67</ubClassIndex>
@@ -50037,7 +50045,7 @@
 		<szBRName>Multicam Military Tactical Molle Vest</szBRName>
 		<szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durabilty for a tactical vest.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>68</ubClassIndex>
@@ -50069,7 +50077,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>69</ubClassIndex>
@@ -50102,7 +50110,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>70</ubClassIndex>
@@ -50135,7 +50143,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>71</ubClassIndex>
@@ -50168,7 +50176,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>72</ubClassIndex>
@@ -50201,7 +50209,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>73</ubClassIndex>
@@ -50234,7 +50242,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>74</ubClassIndex>
@@ -50266,7 +50274,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>75</ubClassIndex>
@@ -50297,7 +50305,7 @@
 		<szBRName>Specter Modular Thigh Rig</szBRName>
 		<szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a thigh rig with the pouches they want and need for the mission at hand.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<AttachmentPoint>3</AttachmentPoint>
 		<ubClassIndex>76</ubClassIndex>
@@ -50329,7 +50337,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>77</ubClassIndex>
@@ -50362,7 +50370,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>78</ubClassIndex>
@@ -50395,7 +50403,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>79</ubClassIndex>
@@ -50428,7 +50436,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>80</ubClassIndex>
@@ -50461,7 +50469,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>81</ubClassIndex>
@@ -50492,7 +50500,7 @@
 		<szBRName>TT Modular Tactical Assault Vest</szBRName>
 		<szBRDesc>The Modular Adjustable Tactical Vest is a modern update to the traditional modular vest. The MAT-V has been designed to combine function and comfort without sacrificing either</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>82</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50521,7 +50529,7 @@
 		<szBRName>S.T.R.I.K.E. - ELITE VEST</szBRName>
 		<szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11. section for all pouch options.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>83</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50553,7 +50561,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>4096</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>1</AttachmentPoint>
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>84</ubClassIndex>
@@ -50586,7 +50594,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>85</ubClassIndex>
@@ -50619,7 +50627,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>86</ubClassIndex>
@@ -50652,7 +50660,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>87</ubClassIndex>
@@ -50685,7 +50693,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>88</ubClassIndex>
@@ -50718,7 +50726,7 @@
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AttachmentPoint>2</AttachmentPoint>
 		<AttachToPointAPCost>15</AttachToPointAPCost>
 		<ubClassIndex>89</ubClassIndex>
@@ -50749,7 +50757,7 @@
 		<szBRName>Large Modular Tactical Thigh Rig</szBRName>
 		<szBRDesc>This rig features 4 rows of MOLLE compatible modular webbing strips that allow the user to configure a tactical thigh rig with exactly the right pouches they want.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>3</nasLayoutClass>
+		<nasLayoutClass>4</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>90</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50806,7 +50814,7 @@
 		<szBRName>Sporting Clay Vest</szBRName>
 		<szBRDesc>This versatile, value-priced vest has plenty of range-perfect features. Organize loads between two double shell pockets (four total), and secure empties in the mesh back pouch</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<ubClassIndex>92</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -50834,7 +50842,7 @@
 		<szBRName>Condor Heavy Assault Vest</szBRName>
 		<szBRDesc>When the job is going to get messy, you need the Heavy Assault Vest. The vest itself is a MOLLE system which means that shooters can configure the vest to their own specifications.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
 		<ubClassIndex>93</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -50863,7 +50871,7 @@
 		<szBRName>FSBE LBV Load Bearing Molle Assault Vest</szBRName>
 		<szBRDesc>Chinese made Special force load bearing vest with1-inch molle webbing cross straps for attaching molle pouches.</szBRDesc>
 		<usItemClass>131072</usItemClass>
-		<nasLayoutClass>4</nasLayoutClass>
+		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>3</AvailableAttachmentPoint>
 		<ubClassIndex>94</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
