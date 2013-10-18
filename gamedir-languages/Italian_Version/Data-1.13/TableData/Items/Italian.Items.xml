@@ -13158,6 +13158,7 @@
     <szItemName>SMG Leg Rig</szItemName>
     <szLongItemName>SMG Leg Rig</szLongItemName>
     <szItemDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szItemDesc>
+    <szBRName>SMG Leg Rig</szBRName>
     <szBRDesc>A leg pouch to carry SMG ammunition, as used by SAS teams during hostage rescue operations.</szBRDesc>
   </ITEM>
   <ITEM>
@@ -13204,7 +13205,7 @@
     <uiIndex>1649</uiIndex>
     <szItemName>Thigh Rig</szItemName>
     <szLongItemName>3.11 Thigh Rig</szLongItemName>
-    <szItemDesc>The face of the rig features MOLLE attachment straps which can accommodate all of our NAS™ accessories and pouches providing rapid access to critical gear.</szItemDesc>
+    <szItemDesc>The face of the rig features MOLLE attachment straps which can accommodate all of our NAS accessories and pouches providing rapid access to critical gear.</szItemDesc>
     <szBRName>3.11 Thigh Rig</szBRName>
     <szBRDesc>A highly useful accessory used by sportsmen, patrol officers, and tactical operators across the country, the 3.11 Thigh Rig is a lightweight, reliable, and completely customizable.</szBRDesc>
   </ITEM>
@@ -13222,7 +13223,7 @@
     <szLongItemName>3.11 VTAC LBE Tactical Vest</szLongItemName>
     <szItemDesc>Customisable tactical utility with a hydration pocket, high impact fastening grips, and hidden document pockets.</szItemDesc>
     <szBRName>VTAC LBE Tactical Vest</szBRName>
-    <szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our VTAC NAS™ pouches or standard MOLLE gear.</szBRDesc>
+    <szBRDesc>Our MOLLE Vest is made from a stiffened mesh providing the necessary structure for gear and is fully compatible with our VTAC NAS pouches or standard MOLLE gear.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1652</uiIndex>
@@ -13254,7 +13255,7 @@
     <szLongItemName>MP5 Bungee/Cover Double</szLongItemName>
     <szItemDesc>Engineered for tactical and law enforcement use, the MP5 Double Bungee Cover Pouch provides quick and secure access to any standard 9mm magazine.</szItemDesc>
     <szBRName>MP5 Bungee/Cover Double</szBRName>
-    <szBRDesc>Featuring complete compatibility with 3.11 NAS™ and MOLLE web gear platforms.</szBRDesc>
+    <szBRDesc>Featuring complete compatibility with 3.11 NAS and MOLLE web gear platforms.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1656</uiIndex>
@@ -13262,7 +13263,7 @@
     <szLongItemName>3.11 H2O Carrier</szLongItemName>
     <szItemDesc>The high impact locking clip keeps a water bottle secure and is easily accessible by attaching to any standard MOLLE web platform.</szItemDesc>
     <szBRName>H2O Carrier</szBRName>
-    <szBRDesc>The 3.11 H20 Carrier is sized for a standard water bottle and integrates with MOLLE and NAS™ web platforms, providing an ideal hydration.</szBRDesc>
+    <szBRDesc>The 3.11 H20 Carrier is sized for a standard water bottle and integrates with MOLLE and NAS web platforms, providing an ideal hydration.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1657</uiIndex>
@@ -13270,7 +13271,7 @@
     <szLongItemName>3.11 Single Mag Pouch</szLongItemName>
     <szItemDesc>3.11 Single Mag Pouch attaches quickly to any MOLLE compatible system to hold one AR magazine.</szItemDesc>
     <szBRName>3.11 Single Mag Pouch</szBRName>
-    <szBRDesc>A Velcro® cover keeps your magazine secure in any environment, and the Single Magazine Pouch is compatible with NAS System™ web platforms for quick integration into your loadout.</szBRDesc>
+    <szBRDesc>A Velcro cover keeps your magazine secure in any environment, and the Single Magazine Pouch is compatible with NAS System web platforms for quick integration into your loadout.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1658</uiIndex>
@@ -13284,9 +13285,9 @@
     <uiIndex>1659</uiIndex>
     <szItemName>Double Pistol Mag</szItemName>
     <szLongItemName>3.11 Double Pistol Magazine Pouch</szLongItemName>
-    <szItemDesc>3.11Tactical bring you the NAS™ Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
+    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
     <szBRName>Double Magazine Holster Pouch</szBRName>
-    <szBRDesc>The NAS™ Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
+    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1660</uiIndex>
@@ -13436,17 +13437,17 @@
     <uiIndex>1678</uiIndex>
     <szItemName>Rifle Grenade</szItemName>
     <szLongItemName>3.11 Double Rifle Grenade</szLongItemName>
-    <szItemDesc>3.11Tactical bring you the NAS™ Magazine Pouches.  These Pouches will securely carry your Rifle Grenades.</szItemDesc>
+    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Pouches will securely carry your Rifle Grenades.</szItemDesc>
     <szBRName>3.11 Double Rifle Grenade</szBRName>
-    <szBRDesc>3.11Tactical bring you the NAS™ Magazine Pouches.  These Pouches will securely carry your Rifle Grenades.</szBRDesc>
+    <szBRDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Pouches will securely carry your Rifle Grenades.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1679</uiIndex>
     <szItemName>Pistol Mag</szItemName>
     <szLongItemName>3.11 Single Pistol Magazine Pouch</szLongItemName>
-    <szItemDesc>3.11Tactical bring you the NAS™ Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
+    <szItemDesc>3.11 Tactical bring you the NAS Magazine Pouches.  These Magazine Pouches will securely carry your pistol’s magazine and provide quick access when it’s time to reload.</szItemDesc>
     <szBRName>Single Pistol Magazine Pouch</szBRName>
-    <szBRDesc>The NAS™ Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
+    <szBRDesc>The NAS Magazine Pouches accommodate a variety of magazines.  Be sure to select the correct magazine pouches for your pistol magazines.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1680</uiIndex>
@@ -13476,9 +13477,9 @@
     <uiIndex>1683</uiIndex>
     <szItemName>S.T.R.I.K.E.</szItemName>
     <szLongItemName>S.T.R.I.K.E. - ELITE VEST</szLongItemName>
-    <szItemDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11.® section for all pouch options.</szItemDesc>
+    <szItemDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11. section for all pouch options.</szItemDesc>
     <szBRName>S.T.R.I.K.E. - ELITE VEST</szBRName>
-    <szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11.® section for all pouch options.</szBRDesc>
+    <szBRDesc>Two large, zippered map pouches inside, Shoulder D-rings for accessory attachment,  See 3.11. section for all pouch options.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1684</uiIndex>
