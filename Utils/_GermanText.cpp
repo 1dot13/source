@@ -1744,7 +1744,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Trainiere Mobile Miliz",
 	L"Trainer",
 	L"Rekrut",
-	L"Umzug/ move items
+	L"Gegenstand verschieben",
 	L"Betriebspersonal",
 	L"Essen",		// eating at a facility (cantina etc.)
 	L"Betriebspause",

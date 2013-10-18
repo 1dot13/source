@@ -1731,7 +1731,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Training Mobile Militia",	// TODO.Translate
 	L"Allenatore",
 	L"Studente",
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move item",	// move items // TODO.Translate
 	L"Facility Staff",			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Resting at Facility",		// TODO.Translate

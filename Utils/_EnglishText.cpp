@@ -1739,7 +1739,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Training Mobile Militia",	// Missing
 	L"Trainer",
 	L"Student",
-	L"MoveItem",	// move items
+	L"Move item",	// move items
 	L"Facility Staff",	// Missing
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Resting at Facility",		// Missing

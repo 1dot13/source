@@ -1739,7 +1739,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Тренирует мобильную группу",	//Training Mobile Militia
 	L"Тренер",
 	L"Ученик",
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move item",	// move items // TODO.Translate
 	L"Работает с населением",			//Facility Staff
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Отдыхает",		//Resting at Facility

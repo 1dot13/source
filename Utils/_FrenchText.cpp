@@ -1742,7 +1742,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Forme la milice mobile",//!!! Too long ? -> It is OK
 	L"Entraîneur",
 	L"Élève",
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move item",	// move items // TODO.Translate
 	L"Exploitation infras.",	//!!! Idem ? -> The current translation is OK
 	L"Manger",		// eating at a facility (cantina etc.)
 	L"Repos infras.",
