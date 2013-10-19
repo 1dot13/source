@@ -158,6 +158,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>16</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>700</sSalary>
 		<uiWeeklySalary>3400</uiWeeklySalary>
 		<uiBiWeeklySalary>5500</uiBiWeeklySalary>
@@ -243,6 +253,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>50</bLearnToHate>
 		<bLearnToHateTime>8</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>15</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist><bSexist>0</bSexist><bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>850</sSalary>
 		<uiWeeklySalary>5500</uiWeeklySalary>
 		<uiBiWeeklySalary>9000</uiBiWeeklySalary>
@@ -328,6 +348,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>4</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>2850</sSalary>
 		<uiWeeklySalary>18500</uiWeeklySalary>
 		<uiBiWeeklySalary>35000</uiBiWeeklySalary>
@@ -413,6 +443,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>13</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>525</sSalary>
 		<uiWeeklySalary>3500</uiWeeklySalary>
 		<uiBiWeeklySalary>6000</uiBiWeeklySalary>
@@ -432,6 +472,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>4</uiIndex>
@@ -497,6 +538,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>42</bLearnToHate>
 		<bLearnToHateTime>40</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>11</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>2200</sSalary>
 		<uiWeeklySalary>14500</uiWeeklySalary>
 		<uiBiWeeklySalary>26000</uiBiWeeklySalary>
@@ -582,6 +633,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>2</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>2800</sSalary>
 		<uiWeeklySalary>18000</uiWeeklySalary>
 		<uiBiWeeklySalary>32200</uiBiWeeklySalary>
@@ -667,6 +728,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>19</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>550</sSalary>
 		<uiWeeklySalary>3600</uiWeeklySalary>
 		<uiBiWeeklySalary>6400</uiBiWeeklySalary>
@@ -686,6 +757,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>7</uiIndex>
@@ -751,6 +823,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>50</bLearnToHate>
 		<bLearnToHateTime>48</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>8</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2950</sSalary>
 		<uiWeeklySalary>20000</uiWeeklySalary>
 		<uiBiWeeklySalary>38000</uiBiWeeklySalary>
@@ -836,6 +918,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>12</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>8</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>950</sSalary>
 		<uiWeeklySalary>5000</uiWeeklySalary>
 		<uiBiWeeklySalary>8000</uiBiWeeklySalary>
@@ -921,6 +1013,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>8</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>3200</uiWeeklySalary>
 		<uiBiWeeklySalary>5500</uiBiWeeklySalary>
@@ -1006,6 +1108,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>8</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>3100</sSalary>
 		<uiWeeklySalary>20500</uiWeeklySalary>
 		<uiBiWeeklySalary>39000</uiBiWeeklySalary>
@@ -1091,6 +1203,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>17</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>6</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>900</sSalary>
 		<uiWeeklySalary>5900</uiWeeklySalary>
 		<uiBiWeeklySalary>10000</uiBiWeeklySalary>
@@ -1176,6 +1298,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>92</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>4000</sSalary>
 		<uiWeeklySalary>25000</uiWeeklySalary>
 		<uiBiWeeklySalary>48000</uiBiWeeklySalary>
@@ -1261,6 +1393,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>16</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>5</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>14</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>2000</sSalary>
 		<uiWeeklySalary>9500</uiWeeklySalary>
 		<uiBiWeeklySalary>16000</uiBiWeeklySalary>
@@ -1280,6 +1422,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>14</uiIndex>
@@ -1345,6 +1488,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>41</bLearnToHate>
 		<bLearnToHateTime>26</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>4</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>625</sSalary>
 		<uiWeeklySalary>4000</uiWeeklySalary>
 		<uiBiWeeklySalary>7000</uiBiWeeklySalary>
@@ -1430,6 +1583,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>41</bLearnToHate>
 		<bLearnToHateTime>22</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>2</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>2000</sSalary>
 		<uiWeeklySalary>12500</uiWeeklySalary>
 		<uiBiWeeklySalary>22000</uiBiWeeklySalary>
@@ -1515,6 +1678,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>3</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>7</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>6000</sSalary>
 		<uiWeeklySalary>37000</uiWeeklySalary>
 		<uiBiWeeklySalary>70000</uiBiWeeklySalary>
@@ -1600,6 +1773,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>45</bLearnToHate>
 		<bLearnToHateTime>44</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>6</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>725</sSalary>
 		<uiWeeklySalary>4700</uiWeeklySalary>
 		<uiBiWeeklySalary>8500</uiBiWeeklySalary>
@@ -1685,6 +1868,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>50</bLearnToHate>
 		<bLearnToHateTime>6</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>15</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1500</sSalary>
 		<uiWeeklySalary>9000</uiWeeklySalary>
 		<uiBiWeeklySalary>15000</uiBiWeeklySalary>
@@ -1704,6 +1897,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>19</uiIndex>
@@ -1769,6 +1963,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>17</bLearnToHate>
 		<bLearnToHateTime>50</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>800</sSalary>
 		<uiWeeklySalary>5100</uiWeeklySalary>
 		<uiBiWeeklySalary>8500</uiBiWeeklySalary>
@@ -1854,6 +2058,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>15</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>1600</sSalary>
 		<uiWeeklySalary>10000</uiWeeklySalary>
 		<uiBiWeeklySalary>16000</uiBiWeeklySalary>
@@ -1939,6 +2153,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>40</bLearnToHate>
 		<bLearnToHateTime>4</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>14</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>400</sSalary>
 		<uiWeeklySalary>2700</uiWeeklySalary>
 		<uiBiWeeklySalary>4500</uiBiWeeklySalary>
@@ -2024,6 +2248,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>24</bLearnToHate>
 		<bLearnToHateTime>60</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1000</sSalary>
 		<uiWeeklySalary>6000</uiWeeklySalary>
 		<uiBiWeeklySalary>11000</uiBiWeeklySalary>
@@ -2043,6 +2277,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>23</uiIndex>
@@ -2108,6 +2343,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>2</bLearnToHate>
 		<bLearnToHateTime>28</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>18</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>2200</sSalary>
 		<uiWeeklySalary>12000</uiWeeklySalary>
 		<uiBiWeeklySalary>18000</uiBiWeeklySalary>
@@ -2127,6 +2372,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>24</uiIndex>
@@ -2192,6 +2438,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>22</bLearnToHate>
 		<bLearnToHateTime>120</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2000</sSalary>
 		<uiWeeklySalary>12000</uiWeeklySalary>
 		<uiBiWeeklySalary>20000</uiBiWeeklySalary>
@@ -2277,6 +2533,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1800</sSalary>
 		<uiWeeklySalary>11000</uiWeeklySalary>
 		<uiBiWeeklySalary>19000</uiBiWeeklySalary>
@@ -2362,6 +2628,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>43</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>10</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>2500</sSalary>
 		<uiWeeklySalary>15000</uiWeeklySalary>
 		<uiBiWeeklySalary>25000</uiBiWeeklySalary>
@@ -2447,6 +2723,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>30</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>2400</sSalary>
 		<uiWeeklySalary>15000</uiWeeklySalary>
 		<uiBiWeeklySalary>28000</uiBiWeeklySalary>
@@ -2532,6 +2818,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>40</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>4</bNationality>
+		<bAppearance>4</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>1300</sSalary>
 		<uiWeeklySalary>8000</uiWeeklySalary>
 		<uiBiWeeklySalary>14000</uiBiWeeklySalary>
@@ -2617,6 +2913,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>50</bLearnToHate>
 		<bLearnToHateTime>2</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>6</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>5500</sSalary>
 		<uiWeeklySalary>35000</uiWeeklySalary>
 		<uiBiWeeklySalary>65000</uiBiWeeklySalary>
@@ -2702,6 +3008,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>34</bLearnToHate>
 		<bLearnToHateTime>70</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>10</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>1500</sSalary>
 		<uiWeeklySalary>10000</uiWeeklySalary>
 		<uiBiWeeklySalary>17000</uiBiWeeklySalary>
@@ -2787,6 +3103,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>4800</sSalary>
 		<uiWeeklySalary>30000</uiWeeklySalary>
 		<uiBiWeeklySalary>53000</uiBiWeeklySalary>
@@ -2806,6 +3132,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>32</uiIndex>
@@ -2871,6 +3198,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>4</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>1200</sSalary>
 		<uiWeeklySalary>6000</uiWeeklySalary>
 		<uiBiWeeklySalary>10000</uiBiWeeklySalary>
@@ -2957,6 +3294,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>2</bRace>
+		<bNationality>13</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1500</sSalary>
 		<uiWeeklySalary>7500</uiWeeklySalary>
 		<uiBiWeeklySalary>13000</uiBiWeeklySalary>
@@ -2976,6 +3323,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>34</uiIndex>
@@ -3041,6 +3389,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>1800</sSalary>
 		<uiWeeklySalary>10000</uiWeeklySalary>
 		<uiBiWeeklySalary>16000</uiBiWeeklySalary>
@@ -3126,6 +3484,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>19</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>1750</sSalary>
 		<uiWeeklySalary>10000</uiWeeklySalary>
 		<uiBiWeeklySalary>15000</uiBiWeeklySalary>
@@ -3145,6 +3513,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>36</uiIndex>
@@ -3210,6 +3579,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>7</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2900</sSalary>
 		<uiWeeklySalary>19000</uiWeeklySalary>
 		<uiBiWeeklySalary>35000</uiBiWeeklySalary>
@@ -3295,6 +3674,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>52</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1400</sSalary>
 		<uiWeeklySalary>8000</uiWeeklySalary>
 		<uiBiWeeklySalary>14000</uiBiWeeklySalary>
@@ -3380,6 +3769,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>4</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>3000</uiWeeklySalary>
 		<uiBiWeeklySalary>5000</uiBiWeeklySalary>
@@ -3465,6 +3864,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>2</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>800</sSalary>
 		<uiWeeklySalary>4900</uiWeeklySalary>
 		<uiBiWeeklySalary>9000</uiBiWeeklySalary>
@@ -3550,6 +3959,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>200</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -3635,6 +4054,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -3654,6 +4083,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>42</uiIndex>
@@ -3719,6 +4149,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>9</bLearnToHate>
 		<bLearnToHateTime>14</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>8</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>200</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -3804,6 +4244,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>40</bLearnToHate>
 		<bLearnToHateTime>2</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>18</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -3823,6 +4273,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>44</uiIndex>
@@ -3888,6 +4339,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>39</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>7</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>100</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -3973,6 +4434,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4058,6 +4529,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>8</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>700</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4143,6 +4624,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>8</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>700</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4228,6 +4719,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2000</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4247,6 +4748,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>49</uiIndex>
@@ -4312,6 +4814,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>36</bLearnToHate>
 		<bLearnToHateTime>26</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>900</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4397,6 +4909,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>18</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>600</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4482,6 +5004,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4501,6 +5033,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>52</uiIndex>
@@ -4566,6 +5099,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4585,6 +5128,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>53</uiIndex>
@@ -4650,6 +5194,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4669,6 +5223,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>54</uiIndex>
@@ -4734,6 +5289,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4753,6 +5318,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>55</uiIndex>
@@ -4818,6 +5384,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4837,6 +5413,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>56</uiIndex>
@@ -4902,6 +5479,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -4921,6 +5508,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>57</uiIndex>
@@ -4986,6 +5574,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>19</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5071,6 +5669,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5156,6 +5764,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>32</bLearnToHate>
 		<bLearnToHateTime>30</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5241,6 +5859,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>30</bLearnToHate>
 		<bLearnToHateTime>12</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5326,6 +5954,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>17</bLearnToHate>
 		<bLearnToHateTime>2</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>14</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>800</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5411,6 +6049,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5430,6 +6078,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>63</uiIndex>
@@ -5495,6 +6144,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>24</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5580,6 +6239,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>1</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>4</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5665,6 +6334,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>3</bRace>
+		<bNationality>4</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>1</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>100</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5684,6 +6363,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>66</uiIndex>
@@ -5749,6 +6429,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>50</bLearnToHate>
 		<bLearnToHateTime>1</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>16</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>50</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5834,6 +6524,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>20</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -5919,6 +6619,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>13</bLearnToHate>
 		<bLearnToHateTime>9</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>8</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>1950</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6004,6 +6714,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6023,6 +6743,7 @@
 		<ubCivilianGroup>8</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>30</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>70</uiIndex>
@@ -6088,6 +6809,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>47</bLearnToHate>
 		<bLearnToHateTime>3</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>16</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>5500</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6173,6 +6904,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6192,6 +6933,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>72</uiIndex>
@@ -6257,6 +6999,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6276,6 +7028,7 @@
 		<ubCivilianGroup>12</ubCivilianGroup>
 		<bTown>8</bTown>
 		<bTownAttachment>60</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>73</uiIndex>
@@ -6341,6 +7094,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6426,6 +7189,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>25</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6511,6 +7284,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>23</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>18</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6530,6 +7313,7 @@
 		<ubCivilianGroup>14</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>76</uiIndex>
@@ -6595,6 +7379,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>20</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6614,6 +7408,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>60</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>77</uiIndex>
@@ -6679,6 +7474,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6698,6 +7503,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>70</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>78</uiIndex>
@@ -6763,6 +7569,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>21</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>19</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6782,6 +7598,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>79</uiIndex>
@@ -6847,6 +7664,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6932,6 +7759,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>19</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -6951,6 +7788,7 @@
 		<ubCivilianGroup>8</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>53</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>81</uiIndex>
@@ -7016,6 +7854,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>300</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7035,6 +7883,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>82</uiIndex>
@@ -7100,6 +7949,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>17</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7119,6 +7978,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>83</uiIndex>
@@ -7184,6 +8044,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7203,6 +8073,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>84</uiIndex>
@@ -7268,6 +8139,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7287,6 +8168,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>85</uiIndex>
@@ -7352,6 +8234,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7371,6 +8263,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>7</bTown>
 		<bTownAttachment>36</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>86</uiIndex>
@@ -7436,6 +8329,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>16</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7521,6 +8424,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>22</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7606,6 +8519,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>4</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7625,6 +8548,7 @@
 		<ubCivilianGroup>4</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>20</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>89</uiIndex>
@@ -7690,6 +8614,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7775,6 +8709,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7860,6 +8804,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>12</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>21</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -7945,6 +8899,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>19</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>18</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8030,6 +8994,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>16</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>18</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8115,6 +9089,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8200,6 +9184,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8285,6 +9279,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>14</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8370,6 +9374,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8455,6 +9469,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8474,6 +9498,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>2</bTown>
 		<bTownAttachment>40</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>99</uiIndex>
@@ -8539,6 +9564,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8558,6 +9593,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>2</bTown>
 		<bTownAttachment>34</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>100</uiIndex>
@@ -8623,6 +9659,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8708,6 +9754,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8727,6 +9783,7 @@
 		<ubCivilianGroup>1</ubCivilianGroup>
 		<bTown>1</bTown>
 		<bTownAttachment>43</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>102</uiIndex>
@@ -8792,6 +9849,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>16</bNationality>
+		<bAppearance>4</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>10</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8877,6 +9944,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>16</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -8962,6 +10039,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9047,6 +10134,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9132,6 +10229,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9217,6 +10324,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9302,6 +10419,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>2</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9321,6 +10448,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>12</bTown>
 		<bTownAttachment>50</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>109</uiIndex>
@@ -9386,6 +10514,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9405,6 +10543,7 @@
 		<ubCivilianGroup>15</ubCivilianGroup>
 		<bTown>6</bTown>
 		<bTownAttachment>51</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>110</uiIndex>
@@ -9470,6 +10609,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>21</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9555,6 +10704,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9640,6 +10799,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9659,6 +10828,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>113</uiIndex>
@@ -9724,6 +10894,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>21</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9809,6 +10989,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9894,6 +11084,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9979,6 +11179,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -9998,6 +11208,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>8</bTown>
 		<bTownAttachment>6</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>117</uiIndex>
@@ -10063,6 +11274,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>22</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>1</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10148,6 +11369,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10233,6 +11464,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>1</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10318,6 +11559,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>5</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10337,6 +11588,7 @@
 		<ubCivilianGroup>7</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>9</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>121</uiIndex>
@@ -10402,6 +11654,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10421,6 +11683,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>3</bTown>
 		<bTownAttachment>22</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>122</uiIndex>
@@ -10486,6 +11749,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10505,6 +11778,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>123</uiIndex>
@@ -10570,6 +11844,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>4</bAppearance>
+		<bAppearanceCareLevel>1</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10589,6 +11873,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>124</uiIndex>
@@ -10654,6 +11939,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>19</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>2</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10739,6 +12034,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10824,6 +12129,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10909,6 +12224,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>8</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -10928,6 +12253,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>11</bTown>
 		<bTownAttachment>18</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>128</uiIndex>
@@ -10993,6 +12319,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11078,6 +12414,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11163,6 +12509,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11248,6 +12604,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>3</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11333,6 +12699,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>4</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11418,6 +12794,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11503,6 +12889,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>11</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>1</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11522,6 +12918,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>5</bTown>
 		<bTownAttachment>1</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>135</uiIndex>
@@ -11587,6 +12984,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11672,6 +13079,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11691,6 +13108,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>137</uiIndex>
@@ -11756,6 +13174,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11775,6 +13203,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>10</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>138</uiIndex>
@@ -11840,6 +13269,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>2</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11859,6 +13298,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>2</bTown>
 		<bTownAttachment>29</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>139</uiIndex>
@@ -11924,6 +13364,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>21</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -11943,6 +13393,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>2</bTown>
 		<bTownAttachment>30</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>140</uiIndex>
@@ -12008,6 +13459,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12093,6 +13554,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12178,6 +13649,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12263,6 +13744,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12348,6 +13839,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12433,6 +13934,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12518,6 +14029,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>34</bLearnToHate>
 		<bLearnToHateTime>2</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>17</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>350</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12603,6 +14124,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12688,6 +14219,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12773,6 +14314,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>10000</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12858,6 +14409,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>2</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -12943,6 +14504,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13028,6 +14599,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13113,6 +14694,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13198,6 +14789,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13283,6 +14884,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13368,6 +14979,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13453,6 +15074,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>1</bAppearance>
+		<bAppearanceCareLevel>2</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>4</bHatedNationality>
+		<bHatedNationalityCareLevel>2</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13538,6 +15169,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>50</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13623,6 +15264,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13708,6 +15359,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13727,6 +15388,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>161</uiIndex>
@@ -13792,6 +15454,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13811,6 +15483,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>162</uiIndex>
@@ -13876,6 +15549,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13895,6 +15578,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>163</uiIndex>
@@ -13960,6 +15644,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -13979,6 +15673,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>164</uiIndex>
@@ -14044,6 +15739,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -14063,6 +15768,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>165</uiIndex>
@@ -14128,6 +15834,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>40</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>7</bNationality>
+		<bAppearance>3</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>1</bRefinementCareLevel>
+		<bHatedNationality>0</bHatedNationality>
+		<bHatedNationalityCareLevel>1</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>2500</sSalary>
 		<uiWeeklySalary>11500</uiWeeklySalary>
 		<uiBiWeeklySalary>22000</uiBiWeeklySalary>
@@ -14213,6 +15929,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>1</bRefinement>
+		<bRefinementCareLevel>2</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>1</bSexist>
 		<sSalary>3000</sSalary>
 		<uiWeeklySalary>14000</uiWeeklySalary>
 		<uiBiWeeklySalary>25000</uiBiWeeklySalary>
@@ -14232,6 +15958,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>167</uiIndex>
@@ -14297,6 +16024,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>2</bRace>
+		<bNationality>13</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>2</bSexist>
 		<sSalary>1000</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -14382,6 +16119,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>3</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>2</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>3</bSexist>
 		<sSalary>1600</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -14401,6 +16148,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>169</uiIndex>
@@ -14466,6 +16214,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -14485,6 +16243,7 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>0</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>170</uiIndex>
@@ -14550,6 +16309,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>70</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>8</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2650</sSalary>
 		<uiWeeklySalary>16600</uiWeeklySalary>
 		<uiBiWeeklySalary>30000</uiBiWeeklySalary>
@@ -14635,6 +16404,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>12</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>26</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2000</sSalary>
 		<uiWeeklySalary>12000</uiWeeklySalary>
 		<uiBiWeeklySalary>22000</uiBiWeeklySalary>
@@ -14720,6 +16499,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>2</bLearnToHate>
 		<bLearnToHateTime>6</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>26</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1800</sSalary>
 		<uiWeeklySalary>10100</uiWeeklySalary>
 		<uiBiWeeklySalary>15500</uiBiWeeklySalary>
@@ -14805,6 +16594,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>30</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>19</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2790</sSalary>
 		<uiWeeklySalary>18700</uiWeeklySalary>
 		<uiBiWeeklySalary>35000</uiBiWeeklySalary>
@@ -14890,6 +16689,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>70</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>7</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1500</sSalary>
 		<uiWeeklySalary>8900</uiWeeklySalary>
 		<uiBiWeeklySalary>14900</uiBiWeeklySalary>
@@ -14974,6 +16783,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>14</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>23</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2300</sSalary>
 		<uiWeeklySalary>14900</uiWeeklySalary>
 		<uiBiWeeklySalary>26000</uiBiWeeklySalary>
@@ -15058,6 +16877,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>39</bLearnToHate>
 		<bLearnToHateTime>22</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>21</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>850</sSalary>
 		<uiWeeklySalary>5300</uiWeeklySalary>
 		<uiBiWeeklySalary>8700</uiBiWeeklySalary>
@@ -15142,6 +16971,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>21</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>19</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2900</sSalary>
 		<uiWeeklySalary>18000</uiWeeklySalary>
 		<uiBiWeeklySalary>33000</uiBiWeeklySalary>
@@ -15227,6 +17066,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2800</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15312,6 +17161,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>100</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15397,6 +17256,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15481,6 +17350,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>300</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15566,6 +17445,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15651,6 +17540,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>400</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15736,6 +17635,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>400</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15821,6 +17730,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>400</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -15906,6 +17825,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1500</sSalary>
 		<uiWeeklySalary>8000</uiWeeklySalary>
 		<uiBiWeeklySalary>13000</uiBiWeeklySalary>
@@ -15991,6 +17920,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>400</sSalary>
 		<uiWeeklySalary>2400</uiWeeklySalary>
 		<uiBiWeeklySalary>4600</uiBiWeeklySalary>
@@ -16076,6 +18015,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>150</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16160,6 +18109,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>11</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>50</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16244,6 +18203,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16328,6 +18297,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16413,6 +18392,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16497,6 +18486,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16581,6 +18580,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16665,6 +18674,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16749,6 +18768,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>-1</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>24</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>100</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16834,6 +18863,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>-1</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>24</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>100</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -16919,6 +18958,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>-1</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>24</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>100</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17004,6 +19053,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17088,6 +19147,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17172,6 +19241,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17256,6 +19335,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17340,6 +19429,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17424,6 +19523,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17508,6 +19617,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17592,6 +19711,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17676,6 +19805,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17760,6 +19899,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17844,6 +19993,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -17928,6 +20087,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18012,6 +20181,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18096,6 +20275,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist
+		><bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18180,6 +20369,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18264,6 +20463,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18348,6 +20557,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18432,6 +20651,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18516,6 +20745,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18600,6 +20839,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18684,6 +20933,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18768,6 +21027,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>240</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18853,6 +21122,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>7</bLearnToHate>
 		<bLearnToHateTime>6</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>50</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -18938,6 +21217,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>224</bLearnToHate>
 		<bLearnToHateTime>2</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>800</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -19023,6 +21312,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>3000</uiWeeklySalary>
 		<uiBiWeeklySalary>5500</uiBiWeeklySalary>
@@ -19107,6 +21406,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>300</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -19191,6 +21500,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>400</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -19276,6 +21595,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>7</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>850</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -19361,6 +21690,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>200</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -19446,6 +21785,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>1</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>750</sSalary>
 		<uiWeeklySalary>4600</uiWeeklySalary>
 		<uiBiWeeklySalary>8400</uiBiWeeklySalary>
@@ -19530,6 +21879,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>18</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -19615,6 +21974,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>2650</sSalary>
 		<uiWeeklySalary>16400</uiWeeklySalary>
 		<uiBiWeeklySalary>31000</uiBiWeeklySalary>
@@ -19700,6 +22069,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1600</sSalary>
 		<uiWeeklySalary>9000</uiWeeklySalary>
 		<uiBiWeeklySalary>17000</uiBiWeeklySalary>
@@ -19785,6 +22164,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>3000</sSalary>
 		<uiWeeklySalary>18000</uiWeeklySalary>
 		<uiBiWeeklySalary>34000</uiBiWeeklySalary>
@@ -19870,6 +22259,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>3900</sSalary>
 		<uiWeeklySalary>23000</uiWeeklySalary>
 		<uiBiWeeklySalary>41000</uiBiWeeklySalary>
@@ -19954,6 +22353,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>900</sSalary>
 		<uiWeeklySalary>5100</uiWeeklySalary>
 		<uiBiWeeklySalary>9800</uiBiWeeklySalary>
@@ -20039,6 +22448,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>550</sSalary>
 		<uiWeeklySalary>3400</uiWeeklySalary>
 		<uiBiWeeklySalary>6200</uiBiWeeklySalary>
@@ -20124,6 +22543,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1000</sSalary>
 		<uiWeeklySalary>5750</uiWeeklySalary>
 		<uiBiWeeklySalary>10000</uiBiWeeklySalary>
@@ -20209,6 +22638,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>3900</sSalary>
 		<uiWeeklySalary>24000</uiWeeklySalary>
 		<uiBiWeeklySalary>42000</uiBiWeeklySalary>
@@ -20294,6 +22733,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>21</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>3100</uiWeeklySalary>
 		<uiBiWeeklySalary>5900</uiBiWeeklySalary>
@@ -20379,6 +22828,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>330</sSalary>
 		<uiWeeklySalary>1900</uiWeeklySalary>
 		<uiBiWeeklySalary>3600</uiBiWeeklySalary>
@@ -20464,6 +22923,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1000</sSalary>
 		<uiWeeklySalary>5750</uiWeeklySalary>
 		<uiBiWeeklySalary>10000</uiBiWeeklySalary>
@@ -20549,6 +23018,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1250</sSalary>
 		<uiWeeklySalary>7500</uiWeeklySalary>
 		<uiBiWeeklySalary>13000</uiBiWeeklySalary>
@@ -20634,6 +23113,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1450</sSalary>
 		<uiWeeklySalary>9500</uiWeeklySalary>
 		<uiBiWeeklySalary>16800</uiBiWeeklySalary>
@@ -20718,6 +23207,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>850</sSalary>
 		<uiWeeklySalary>5100</uiWeeklySalary>
 		<uiBiWeeklySalary>9800</uiBiWeeklySalary>
@@ -20802,6 +23301,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -20887,6 +23396,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>550</sSalary>
 		<uiWeeklySalary>3300</uiWeeklySalary>
 		<uiBiWeeklySalary>6200</uiBiWeeklySalary>
@@ -20972,6 +23491,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>4</bRace>
+		<bNationality>27</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>500</sSalary>
 		<uiWeeklySalary>2300</uiWeeklySalary>
 		<uiBiWeeklySalary>4500</uiBiWeeklySalary>
@@ -21056,6 +23585,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>1</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>250</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -21141,6 +23680,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1200</sSalary>
 		<uiWeeklySalary>7600</uiWeeklySalary>
 		<uiBiWeeklySalary>13000</uiBiWeeklySalary>
@@ -21226,6 +23775,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>350</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -21310,6 +23869,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>1000</sSalary>
 		<uiWeeklySalary>5000</uiWeeklySalary>
 		<uiBiWeeklySalary>8500</uiBiWeeklySalary>
@@ -21395,6 +23964,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>650</sSalary>
 		<uiWeeklySalary>3200</uiWeeklySalary>
 		<uiBiWeeklySalary>6200</uiBiWeeklySalary>
@@ -21480,6 +24059,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>350</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -21565,6 +24154,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>255</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>200</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
@@ -21650,6 +24249,16 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>0</bLearnToHate>
 		<bLearnToHateTime>0</bLearnToHateTime>
+		<bRace>0</bRace>
+		<bNationality>0</bNationality>
+		<bAppearance>0</bAppearance>
+		<bAppearanceCareLevel>0</bAppearanceCareLevel>
+		<bRefinement>0</bRefinement>
+		<bRefinementCareLevel>0</bRefinementCareLevel>
+		<bHatedNationality>-1</bHatedNationality>
+		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
