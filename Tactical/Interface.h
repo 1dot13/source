@@ -199,7 +199,7 @@ typedef struct
 	INT16		value[BG_MAX];					// property values
 } BACKGROUND_VALUES;
 
-#define NUM_BACKGROUND 200
+#define NUM_BACKGROUND 500
 
 extern BACKGROUND_VALUES zBackground[NUM_BACKGROUND];
 
