@@ -358,6 +358,7 @@ void
 DropDown::DrawSelectedCity()
 {
 	UINT16 usPosY = musStartY_Drop;
+	UINT16 usMaxY = 0;
 
 	// make sure we dont go out of our array
 	if( mFirstShownEntry+mNumDisplayedEntries > (UINT8)(mEntryVector.size() ) )
@@ -365,16 +366,18 @@ DropDown::DrawSelectedCity()
 	
 	for( UINT8 i = mFirstShownEntry; i < mFirstShownEntry+mNumDisplayedEntries; ++i)
 	{
+		usMaxY = min(usPosY+musFontHeight+2, musStartY_Drop + musAreaHeight - 4);
+
 		if ( i == mSelectedEntry )
 		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop+4, usPosY-2, musStartX_Drop+musWidth-4,	usPosY+musFontHeight+2, mColorMarked );
+			ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop+4, usPosY-2, musStartX_Drop+musWidth-4,	usMaxY, mColorMarked );
 			SetFontShadow(NO_SHADOW);
 			DrawTextToScreen( mEntryVector[i].second, musStartX_Drop+CITY_NAME_OFFSET, usPosY, 0, DEF_DROPDOWN_FONT, FONT_BLACK, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 			SetFontShadow(DEFAULT_SHADOW);
 		}
 		else
 		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop+4, usPosY-2, musStartX_Drop+musWidth-4,	usPosY+musFontHeight+2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+			ColorFillVideoSurfaceArea( FRAME_BUFFER, musStartX_Drop+4, usPosY-2, musStartX_Drop+musWidth-4,	usMaxY, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 			DrawTextToScreen( mEntryVector[i].second, musStartX_Drop+CITY_NAME_OFFSET, usPosY, 0, DEF_DROPDOWN_FONT, STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 		}
 
