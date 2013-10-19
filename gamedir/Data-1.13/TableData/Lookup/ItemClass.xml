@@ -85,6 +85,10 @@
 		<name>Grenade / Misc</name>
 	</ItemClass>
 	<ItemClass>
+		<id>268601344</id>
+		<name>Armour/Face Item/LBE/Misc</name>
+	</ItemClass>
+	<ItemClass>
 		<id>536870912</id>
 		<name>Money</name>
 	</ItemClass>

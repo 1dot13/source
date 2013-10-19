@@ -188,4 +188,8 @@
 		<id>46</id>
 		<name>Small Shotgun</name>
 	</Silhouette>
+	<Silhouette>
+		<id>47</id>
+		<name>Sniper Rifle</name>
+	</Silhouette>
 </JA2Data>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LOADBEARINGEQUIPMENTLIST>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>0</lbeIndex>
@@ -1207,7 +1207,7 @@
 		<lbeFilledSize>26</lbeFilledSize>
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
-		<lbePocketIndex1>2</lbePocketIndex1>
+		<lbePocketIndex1>52</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
 		<lbePocketIndex4>0</lbePocketIndex4>
@@ -1824,19 +1824,19 @@
 		<lbeIndex>91</lbeIndex>
 		<lbeClass>4</lbeClass>
 		<lbeCombo>2</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
+		<lbeFilledSize>32</lbeFilledSize>
 		<lbeAvailableVolume>0</lbeAvailableVolume>
 		<lbePocketsAvailable>0</lbePocketsAvailable>
-		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex1>44</lbePocketIndex1>
 		<lbePocketIndex2>34</lbePocketIndex2>
-		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex3>11</lbePocketIndex3>
 		<lbePocketIndex4>0</lbePocketIndex4>
 		<lbePocketIndex5>27</lbePocketIndex5>
 		<lbePocketIndex6>34</lbePocketIndex6>
-		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex7>11</lbePocketIndex7>
 		<lbePocketIndex8>0</lbePocketIndex8>
-		<lbePocketIndex9>31</lbePocketIndex9>
-		<lbePocketIndex10>5</lbePocketIndex10>
+		<lbePocketIndex9>53</lbePocketIndex9>
+		<lbePocketIndex10>31</lbePocketIndex10>
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
@@ -1898,6 +1898,26 @@
 		<lbePocketIndex9>0</lbePocketIndex9>
 		<lbePocketIndex10>0</lbePocketIndex10>
 		<lbePocketIndex11>49</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>95</lbeIndex>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>10</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>38</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 </LOADBEARINGEQUIPMENTLIST>

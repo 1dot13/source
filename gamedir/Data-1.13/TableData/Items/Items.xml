@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -4151,7 +4151,7 @@
 		<ubGraphicNum>50</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>6</ubPerPocket>
-		<ItemSize>14</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bRepairEase>-4</bRepairEase>
@@ -16610,7 +16610,7 @@
 		<ubGraphicNum>520</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>24</ItemSize>
+		<ItemSize>28</ItemSize>
 		<usPrice>130</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
@@ -16820,7 +16820,7 @@
 		<ubGraphicNum>187</ubGraphicNum>
 		<ubWeight>11</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
-		<ItemSize>24</ItemSize>
+		<ItemSize>28</ItemSize>
 		<usPrice>150</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<bReliability>2</bReliability>
@@ -50331,9 +50331,9 @@
 		<uiIndex>1677</uiIndex>
 		<szItemName>Russian Pistol Holster</szItemName>
 		<szLongItemName>Russian MOLLE pistol holster</szLongItemName>
-		<szItemDesc>This holster may be using for Glock, PMM, APS, GSh-18, PB pistols with a silencer.</szItemDesc>
+		<szItemDesc>This holster may be used for Glock, PMM, APS, GSh-18, PB pistols with a silencer.</szItemDesc>
 		<szBRName>Russian MOLLE pistol holster</szBRName>
-		<szBRDesc>This holster may be using for Glock, PMM, APS, GSh-18, PB pistols with a silencer.</szBRDesc>
+		<szBRDesc>This holster may be used for Glock, PMM, APS, GSh-18, PB pistols with a silencer.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
@@ -50644,7 +50644,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>5</CamoBonus>
+		<DesertCamoBonus>6</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50677,7 +50677,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>5</CamoBonus>
+		<DesertCamoBonus>6</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50710,7 +50710,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>4</CamoBonus>
+		<DesertCamoBonus>6</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50743,7 +50743,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>6</CamoBonus>
+		<DesertCamoBonus>6</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50784,7 +50784,7 @@
 		<szLongItemName>Sniper Drag Bag</szLongItemName>
 		<szItemDesc>Carry your sniper rifle with style and protected from bad weather.</szItemDesc>
 		<szBRName>Sniper Drag Bag</szBRName>
-		<szBRDesc>Those heavy sniper rifles can be a real pain to carry over long distances. This sniper bag will ease long  range transportation and it has some additional pockets for your valuable equipment.</szBRDesc>
+		<szBRDesc>This bag can hold a two long guns and two pistols plus quite a bit of gear. This sniper bag will ease long  range transportation and it has some additional pockets for your valuable equipment.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>91</ubClassIndex>
@@ -50887,6 +50887,42 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+<ITEM>
+		<uiIndex>1695</uiIndex>
+		<szItemName>Carabiner</szItemName>
+		<szLongItemName>Carabiner</szLongItemName>
+		<szItemDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners.</szItemDesc>
+		<szBRName>Carabiner</szBRName>
+		<szBRDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<AttachmentClass>16777216</AttachmentClass>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<AttachmentPoint>1</AttachmentPoint>
+		<AttachToPointAPCost>5</AttachToPointAPCost>
+		<ubClassIndex>95</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>215</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ItemSize>10</ItemSize>
+		<usPrice>20</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+              <Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>0</CamoBonus>
+             <StealthBonus>-5</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />

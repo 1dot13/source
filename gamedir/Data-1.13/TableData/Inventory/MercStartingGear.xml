@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <MERCGEARLIST>
 	<MERCGEAR>
 		<mIndex>0</mIndex>
@@ -2932,7 +2932,7 @@
 			<mBig0Quantity>2</mBig0Quantity>
 			<lVest>1090</lVest>
 			<lRightThigh>1643</lRightThigh>
-			<lCPack>1098</lCPack>
+			<lCPack>0</lCPack>
 		</GEARKIT>
 		<GEARKIT>
 			<mPriceMod>50</mPriceMod>
@@ -5844,7 +5844,7 @@
 			<mBig3Quantity>1</mBig3Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>98</lVestStatus>
-			<lRightThigh>1648</lRightThigh>
+			<lRightThigh>0</lRightThigh>
 			<lCPack>1098</lCPack>
 			<lCPackStatus>98</lCPackStatus>
 		</GEARKIT>
