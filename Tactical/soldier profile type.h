@@ -936,7 +936,7 @@ public:
 	STRUCT_Records		records;
 
 	// Flugente: background
-	UINT8 usBackground;
+	UINT16 usBackground;
 
 }; // MERCPROFILESTRUCT;
 

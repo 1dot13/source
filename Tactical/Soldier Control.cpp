@@ -1513,7 +1513,7 @@ void MERCPROFILESTRUCT::initialize()
 	clearInventory();
 	// SANDRO - added this
 	memset( &records, 0, sizeof(STRUCT_Records) );
-	memset( &usBackground, 0, sizeof(UINT8) );
+	memset( &usBackground, 0, sizeof(UINT16) );
 }
 
 // Initialize the soldier.

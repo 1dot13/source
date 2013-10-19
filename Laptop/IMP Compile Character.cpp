@@ -174,7 +174,7 @@ void CreateACharacterFromPlayerEnteredStats( void )
 		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAttitude = ( INT8 )iAttitude;
 
 	// Flugente: background
-	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usBackground = ( INT8 )usBackground;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usBackground = usBackground;
 
 	// Flugente: sexism, racsim etc.
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRace							= ( INT8 )bRace;

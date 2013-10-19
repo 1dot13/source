@@ -79,7 +79,7 @@ INT32 iPersonality = 0;
 INT32 iAttitude = 0;
 
 // Flugente: background
-UINT8 usBackground = 0;
+UINT16 usBackground = 0;
 
 // Flugente: sexism, racism etc.
 INT8  bRace = 0;

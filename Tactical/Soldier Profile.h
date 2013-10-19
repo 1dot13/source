@@ -418,7 +418,7 @@ typedef struct
 	INT8 bTownAttachment;
 
 	// Flugente: backgrounds
-	UINT8 usBackground;
+	UINT16 usBackground;
 
 } TEMPPROFILETYPE;
 

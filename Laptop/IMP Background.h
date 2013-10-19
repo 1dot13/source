@@ -9,8 +9,8 @@ void	RenderIMPBackground( void );
 void	ExitIMPBackground( void );
 void	HandleIMPBackground( void );
 
-BOOLEAN IsBackGroundAllowed( UINT8 ubNumber );
+BOOLEAN IsBackGroundAllowed( UINT16 ubNumber );
 
-void	AssignBackgroundHelpText( UINT8 ubNumber, MOUSE_REGION* pMouseregion );
+void	AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion );
 
 #endif

@@ -1085,7 +1085,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "usBackground") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curProfile.usBackground = (UINT8) atol(pData->szCharData);
+			pData->curProfile.usBackground = (UINT16) atol(pData->szCharData);
 		}
 		
 

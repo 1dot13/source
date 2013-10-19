@@ -47,7 +47,7 @@ extern INT32 iPersonality;
 extern INT32 iAttitude;
 
 // Flugente: background
-extern UINT8 usBackground;
+extern UINT16 usBackground;
 
 // Flugente: sexism, racism etc.
 extern INT8	 bRace;

@@ -98,7 +98,7 @@ void		BtnIMPBackgroundAnswerCallback(GUI_BUTTON *btn,INT32 reason);
 void		BtnIMPBackgroundFinishCallback(GUI_BUTTON *btn,INT32 reason);
 void		AddIMPBackgroundButtons();
 void		HandleBackgroundButtonStates( );
-void		HandleIMPBackgroundAnswers( UINT32 uiSkillPressed );
+void		HandleIMPBackgroundAnswers( UINT16 uiSkillPressed );
 void		IMPBackgroundDisplaySkills();
 BOOLEAN		CameBackToBackgroundPageButNotFinished();
 
@@ -109,7 +109,7 @@ void		BtnIMPBackgroundNextCallback(GUI_BUTTON *btn,INT32 reason);
 void		BtnIMPBackgroundPreviousCallback(GUI_BUTTON *btn,INT32 reason);
 
 void		UpdateDisplaySkills( BOOLEAN fIncrease );
-UINT8		GetDisplaySkill( UINT8 aNr );
+UINT16		GetDisplaySkill( UINT16 aNr );
 void		ResetDisplaySkills();
 //ppp
 
@@ -123,8 +123,6 @@ void		ResetDisplaySkills();
 
 void EnterIMPBackground( void )
 {
-	UINT8 ubCnt;
-
 	VOBJECT_DESC	VObjectDesc;
 		
 	//add the skill trait buttons
@@ -152,7 +150,7 @@ void EnterIMPBackground( void )
 	//if we are not DONE and are just reviewing
 	if( iCurrentProfileMode != IMP__FINISH )
 	{
-		for (ubCnt = 0; ubCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ubCnt++ )
+		for (UINT16 ubCnt = 0; ubCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++ubCnt )
 		{
 			gfBackgroundQuestions[ ubCnt ] = FALSE;
 		}
@@ -164,7 +162,7 @@ void EnterIMPBackground( void )
 
 	// add regions for help texts
 	UINT16 usPosY = IMP_BACKGROUND_COLUMN_START_Y + 8;
-	for( ubCnt=0; ubCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++ubCnt )
+	for( UINT16 ubCnt=0; ubCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++ubCnt )
 	{
 		MSYS_DefineRegion( &gMR_BackgroundHelpTextRegions[ubCnt], ( IMP_BACKGROUND_COLUMN_START_X + 62 ), ( usPosY ),
 						(IMP_BACKGROUND_COLUMN_START_X + 218), ( usPosY + 17), MSYS_PRIORITY_HIGH,
@@ -197,7 +195,7 @@ void ExitIMPBackground( void )
 	DestroyIMPBackgroundButtons( );
 
 	//remove the skill buttons
-	for(INT32 iCnt = 0; iCnt < IMP_BACKGROUND_DISPLAYED_CHOICES; iCnt++)
+	for(UINT16 iCnt = 0; iCnt < IMP_BACKGROUND_DISPLAYED_CHOICES; iCnt++)
 	{
 		//if there is a button allocated
 		if( giIMPBackgroundAnswerButton[iCnt] != -1 )
@@ -227,7 +225,6 @@ void HandleIMPBackground( void )
 
 void AddIMPBackgroundButtons()
 {
-	INT32 iCnt = 0;
 	UINT16 usPosX, usPosY;
 		
 	// next button
@@ -254,7 +251,7 @@ void AddIMPBackgroundButtons()
 	usPosX = IMP_BACKGROUND_COLUMN_START_X;
 	usPosY = IMP_BACKGROUND_COLUMN_START_Y;
 	
-	for(iCnt = 0; iCnt < IMP_BACKGROUND_DISPLAYED_CHOICES; ++iCnt)
+	for(UINT16 iCnt = 0; iCnt < IMP_BACKGROUND_DISPLAYED_CHOICES; ++iCnt)
 	{
 		//reset
 		giIMPBackgroundAnswerButton[iCnt] = -1;
@@ -299,16 +296,14 @@ void BtnIMPBackgroundAnswerCallback(GUI_BUTTON *btn,INT32 reason)
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-		INT32 iBackground =	MSYS_GetBtnUserData( btn, 0 );
+		UINT16 usBackground = (UINT16)(MSYS_GetBtnUserData( btn, 0 ));
 
-		HandleIMPBackgroundAnswers( iBackground );
+		HandleIMPBackgroundAnswers( usBackground );
 	}
 }
 
-void HandleIMPBackgroundAnswers( UINT32 uiSkillPressed )
+void HandleIMPBackgroundAnswers( UINT16 uiSkillPressed )
 {
-	UINT32 uiCnt;
-
 	//if we are DONE and are just reviewing
 	if( iCurrentProfileMode == IMP__FINISH )
 	{
@@ -323,7 +318,7 @@ void HandleIMPBackgroundAnswers( UINT32 uiSkillPressed )
 	}
 
 	//reset all other buttons
-	for( uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
+	for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 	{
 		gfBackgroundQuestions[ uiCnt ] = FALSE;
 	}
@@ -352,9 +347,7 @@ void HandleIMPBackgroundAnswers( UINT32 uiSkillPressed )
 
 void HandleBackgroundButtonStates( )
 {
-	UINT32 uiCnt;
-
-	for( uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
+	for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 	{
 		//if the skill is selected ( ie depressed )
 		if( gfBackgroundQuestions[ uiCnt ] )
@@ -370,7 +363,6 @@ void HandleBackgroundButtonStates( )
 
 void IMPBackgroundDisplaySkills()
 {
-	UINT32 uiCnt;
 	UINT16 usPosX, usPosY;
 	UINT16 usBoxPosX, usBoxPosY;
 	HVOBJECT	hImageHandle;
@@ -384,9 +376,9 @@ void IMPBackgroundDisplaySkills()
 	usPosX = IMP_BACKGROUND_COLUMN_START_X + IMP_BACKGROUND__TEXT_OFFSET_X;
 	usPosY = IMP_BACKGROUND_COLUMN_START_Y + IMP_BACKGROUND__TEXT_OFFSET_Y;
 
-	for( uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
+	for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 	{
-		UINT8 background = GetDisplaySkill( uiCnt );
+		UINT16 background = GetDisplaySkill( uiCnt );
 
 		usBoxPosX = usPosX - IMP_BACKGROUND__GREY_BOX_OFFSET_X;
 		usBoxPosY = usPosY - IMP_BACKGROUND__GREY_BOX_OFFSET_Y;
@@ -471,7 +463,7 @@ BOOLEAN CameBackToBackgroundPageButNotFinished()
 	}
 }
 
-void AssignBackgroundHelpText( UINT8 ubNumber, MOUSE_REGION* pMouseregion )
+void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 {
 	CHAR16	apStr[ 4500 ];
 	CHAR16	atStr[  260 ];
@@ -522,17 +514,17 @@ void AssignBackgroundHelpText( UINT8 ubNumber, MOUSE_REGION* pMouseregion )
 }
 
 
-UINT8 displayedskills[IMP_BACKGROUND_DISPLAYED_CHOICES];
-UINT8 gBackgroundFirstItem = 0;
-UINT8 gBackgroundLastItem  = 0;
+UINT16 displayedskills[IMP_BACKGROUND_DISPLAYED_CHOICES];
+UINT16 gBackgroundFirstItem = 0;
+UINT16 gBackgroundLastItem  = 0;
 
 void UpdateDisplaySkills( BOOLEAN fIncrease )
 {
 	// fill a helper array with all viable choices
-	UINT8 tmparray[NUM_BACKGROUND];
-	UINT8 arraycounter = 0;
-	UINT8 found = 0;
-	for (UINT8 ubCnt = 0; ubCnt<num_found_background + 1; ++ubCnt )
+	UINT16 tmparray[NUM_BACKGROUND];
+	UINT16 arraycounter = 0;
+	UINT16 found = 0;
+	for (UINT16 ubCnt = 0; ubCnt<num_found_background + 1; ++ubCnt )
 	{
 		if ( IsBackGroundAllowed(ubCnt) )
 		{
@@ -541,7 +533,7 @@ void UpdateDisplaySkills( BOOLEAN fIncrease )
 		}
 	}
 
-	UINT8 firstitem, lastitem;
+	UINT16 firstitem, lastitem;
 	// select the range from which we rebuild our array
 	if ( fIncrease )
 	{
@@ -557,8 +549,8 @@ void UpdateDisplaySkills( BOOLEAN fIncrease )
 		lastitem  = min(found , firstitem + IMP_BACKGROUND_DISPLAYED_CHOICES - 1);
 	}
 
-	UINT8 i = 0;
-	for (UINT8 ubCnt = firstitem; ubCnt<lastitem; ++ubCnt )
+	UINT16 i = 0;
+	for (UINT16 ubCnt = firstitem; ubCnt<lastitem; ++ubCnt )
 	{
 		displayedskills[ i++ ] = tmparray[ ubCnt ];
 	}
@@ -567,7 +559,7 @@ void UpdateDisplaySkills( BOOLEAN fIncrease )
 	gBackgroundLastItem = lastitem;
 }
 
-UINT8 GetDisplaySkill( UINT8 aNr )
+UINT16 GetDisplaySkill( UINT16 aNr )
 {
 	if ( aNr >= IMP_BACKGROUND_DISPLAYED_CHOICES )
 		return 0;
@@ -577,7 +569,7 @@ UINT8 GetDisplaySkill( UINT8 aNr )
 
 void ResetDisplaySkills()
 {
-	for (UINT8 ubCnt = 0; ubCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++ubCnt )
+	for (UINT16 ubCnt = 0; ubCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++ubCnt )
 		displayedskills[ ubCnt ] = 0;
 
 	gBackgroundFirstItem = 0;
@@ -588,7 +580,7 @@ void ResetDisplaySkills()
 
 extern INT32 SkillsList[ ATTITUDE_LIST_SIZE ];
 
-BOOLEAN IsBackGroundAllowed( UINT8 ubNumber )
+BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 {
 	if ( !ubNumber  )
 		return FALSE;
@@ -733,7 +725,6 @@ void DestroyIMPBackgroundButtons( void )
 
 void BtnIMPBackgroundNextCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for IMP attrbite begin button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -746,7 +737,7 @@ void BtnIMPBackgroundNextCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// next picture!!
 			UpdateDisplaySkills( TRUE );
@@ -754,7 +745,7 @@ void BtnIMPBackgroundNextCallback(GUI_BUTTON *btn,INT32 reason)
 			gfIMPBackground_Redraw = TRUE;
 
 			//reset all other buttons
-			for( UINT8 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
+			for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 			{
 				gfBackgroundQuestions[ uiCnt ] = FALSE;
 			}
@@ -769,7 +760,6 @@ void BtnIMPBackgroundNextCallback(GUI_BUTTON *btn,INT32 reason)
 
 void BtnIMPBackgroundPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for IMP attrbite begin button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -782,7 +772,7 @@ void BtnIMPBackgroundPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// previous picture, please!!!
 			UpdateDisplaySkills( FALSE );
@@ -790,7 +780,7 @@ void BtnIMPBackgroundPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 			gfIMPBackground_Redraw = TRUE;
 
 			//reset all other buttons
-			for( UINT8 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
+			for( UINT16 uiCnt=0; uiCnt<IMP_BACKGROUND_DISPLAYED_CHOICES; ++uiCnt )
 			{
 				gfBackgroundQuestions[ uiCnt ] = FALSE;
 			}

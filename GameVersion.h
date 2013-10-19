@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			BACKGROUNDS_FIX_UINT8							146 // Flugente: had to change usBackground-vars from UINT8 to UINT16
 #define			BACKGROUNDS										145 // Flugente: background feature
 #define			NO_VEHICLE_SAVE									144 // Flugente: vehicle data isn't saved anymore, as it has long been externalised
 #define			SOLDIER_PROFILES								143	// Flugente: profiles for enemy and militia (possibly any non-NPC/RPC character)
@@ -64,7 +65,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								BACKGROUNDS
+#define			SAVE_GAME_VERSION								BACKGROUNDS_FIX_UINT8
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

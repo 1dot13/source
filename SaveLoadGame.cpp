@@ -1496,9 +1496,19 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			// Flugente: backgrounds
 			if(guiCurrentSaveGameVersion >= BACKGROUNDS)
 			{
-				if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
+				if(guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8)
 				{
-					return(FALSE);
+					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT16), &uiNumBytesRead ) )
+					{
+						return(FALSE);
+					}
+				}
+				else
+				{
+					if ( !FileRead( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesRead ) )
+					{
+						return(FALSE);
+					}
 				}
 			}
 		}
@@ -1581,7 +1591,7 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	}
 
 	// Flugente: background
-	if ( !FileWrite( hFile, &this->usBackground, sizeof(UINT8), &uiNumBytesWritten ) )
+	if ( !FileWrite( hFile, &this->usBackground, sizeof(UINT16), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
 	}
