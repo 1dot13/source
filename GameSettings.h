@@ -1253,6 +1253,14 @@ typedef struct
 	UINT8	ubPrisonerProcessInfoDirectionChance;
 	UINT8	ubPrisonerProcessRansomBaseChance;
 	UINT16	ubPrisonerInterrogationPoints[4];		// points needed to interrogate a prisoner of a specific type
+
+	// Flugente: sexism/racism/etc.
+	INT8	sMoraleModAppearance;
+	INT8	sMoraleModRefinement;
+	INT8	sMoraleModHatedNationality;
+	INT8	sMoraleModRacism;
+	INT8	sMoraleModSexism;
+	INT8	sMoraleModXenophobicBackGround;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

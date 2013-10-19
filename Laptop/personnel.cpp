@@ -465,6 +465,9 @@ void AssignPersonnelAchievementsHelpText( INT32 IMercId );
 void AssignPersonnelWoundsHelpText( INT32 IMercId );
 INT8 CalculateMercsAchievemntPercentage( INT32 IMercId );
 
+// Flugente: personality info
+void AssignPersonalityHelpText( SOLDIERTYPE* pSoldier, MOUSE_REGION* pMouseregion );
+
 BOOLEAN fShowRecordsIfZero = TRUE;
 
 void GameInitPersonnel( void )
@@ -1710,6 +1713,38 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 
 				// Info about our background
 				AssignBackgroundHelpText( gMercProfiles[pSoldier->ubProfile].usBackground, &(gSkillTraitHelpTextRegion[12]) );
+			}
+			
+		break;
+
+		// Added by Flugente
+		case 17:
+			// sexism, racism, nationalities etc.
+			{
+				UINT8 loc = 22;
+				UINT8 regionnr = 8;
+
+				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), L"Personality:");
+
+				swprintf(sString, L"->");
+				
+				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+				mprintf(sX,(pPersonnelScreenPoints[loc].y + 15),sString);
+
+				// Add specific region for fast help window
+				if( fAddedTraitRegion[regionnr] )
+				{
+					MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				}
+				MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 15),
+								( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 23 ), MSYS_PRIORITY_HIGH,
+									MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+
+				MSYS_AddRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				fAddedTraitRegion[regionnr] = TRUE;
+
+				// assign bubblehelp text
+				AssignPersonalityHelpText( pSoldier, &(gSkillTraitHelpTextRegion[regionnr]) );
 			}
 			
 		break;
@@ -8718,4 +8753,42 @@ INT8 CalculateMercsAchievemntPercentage( INT32 IMercId )
 	}
 	else
 		return( 0 );
+}
+
+// Flugente: personality info
+void AssignPersonalityHelpText( SOLDIERTYPE* pSoldier, MOUSE_REGION* pMouseregion )
+{
+	CHAR16	apStr[ 4500 ];
+	CHAR16	atStr[  260 ];
+
+	swprintf( apStr, L"" );
+	
+	if ( pSoldier )
+	{
+		swprintf(atStr, L"- You look %s and appearance is %s important to you.\n", szAppearanceText[gMercProfiles[ pSoldier->ubProfile ].bAppearance], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bAppearanceCareLevel] );
+		wcscat( apStr, atStr );
+
+		swprintf(atStr, L"- You have %s and care %s about that.\n", szRefinementText[gMercProfiles[ pSoldier->ubProfile ].bRefinement], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bRefinementCareLevel] );
+		wcscat( apStr, atStr );
+
+		if ( gMercProfiles[ pSoldier->ubProfile ].bHatedNationality < 0 )
+			swprintf(atStr, L"- You are %s and %s\n", szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bNationality], szNationalityText_Special[0] );
+		else
+			swprintf(atStr, L"- You are %s and hate everyone %s %s.\n", szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bNationality], szNationalityText[gMercProfiles[ pSoldier->ubProfile ].bHatedNationality], szCareLevelText[gMercProfiles[ pSoldier->ubProfile ].bHatedNationalityCareLevel] );
+		wcscat( apStr, atStr );
+
+		swprintf(atStr, L"- You are %s racist against non-%s people.\n", szRacistText[gMercProfiles[ pSoldier->ubProfile ].bRacist], szRaceText[gMercProfiles[ pSoldier->ubProfile ].bRace] );
+		wcscat( apStr, atStr );
+
+		swprintf(atStr, L"- You are %s.\n", szSexistText[gMercProfiles[ pSoldier->ubProfile ].bSexist] );
+		wcscat( apStr, atStr );
+	}
+	else
+		return;
+
+	// Set region help text
+	SetRegionFastHelpText( pMouseregion, apStr );
+	SetRegionHelpEndCallback( pMouseregion, MSYS_NO_CALLBACK );
+
+	return;
 }

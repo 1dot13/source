@@ -1095,12 +1095,143 @@ void HourlyMoraleUpdate( void )
 						bOpinion = 0;
 					}
 
+					// Flugente: evaluate appearance/refinement/hated nationalities
+					
+					// some people loathe ugly people and like beautiful people. It's a mean world.
+					// we also handle sexism here
+					switch ( gMercProfiles[ pOtherSoldier->ubProfile ].bAppearance )
+					{
+					case APPEARANCE_UGLY:
+						{
+							if ( pProfile->bAppearanceCareLevel == CARELEVEL_SOME )
+								bOpinion -= gGameExternalOptions.sMoraleModAppearance * 2;
+							else if ( pProfile->bAppearanceCareLevel == CARELEVEL_EXTREME )
+								bOpinion -= gGameExternalOptions.sMoraleModAppearance * 4;
+
+							// some people are sexists
+							if ( pProfile->bSexist && gMercProfiles[ pOtherSoldier->ubProfile ].bSex != pProfile->bSex )
+							{
+								if ( pProfile->bSexist == SOMEWHAT_SEXIST )
+									bOpinion -= gGameExternalOptions.sMoraleModSexism * 2;
+								else if ( pProfile->bSexist == VERY_SEXIST )
+									bOpinion -= gGameExternalOptions.sMoraleModSexism * 4;
+							}
+						}
+						break;
+					case APPEARANCE_HOMELY:
+						{
+							if ( pProfile->bAppearanceCareLevel == CARELEVEL_SOME )
+								bOpinion -= gGameExternalOptions.sMoraleModAppearance;
+							else if ( pProfile->bAppearanceCareLevel == CARELEVEL_EXTREME )
+								bOpinion -= gGameExternalOptions.sMoraleModAppearance * 2;
+
+							// some people are sexists
+							if ( pProfile->bSexist && gMercProfiles[ pOtherSoldier->ubProfile ].bSex != pProfile->bSex )
+							{
+								if ( pProfile->bSexist == SOMEWHAT_SEXIST )
+									bOpinion -= gGameExternalOptions.sMoraleModSexism;
+								else if ( pProfile->bSexist == VERY_SEXIST )
+									bOpinion -= gGameExternalOptions.sMoraleModSexism * 2;
+							}
+						}
+						break;
+					case APPEARANCE_ATTRACTIVE:
+						{
+							if ( pProfile->bAppearanceCareLevel == CARELEVEL_SOME )
+								bOpinion += gGameExternalOptions.sMoraleModAppearance;
+							else if ( pProfile->bAppearanceCareLevel == CARELEVEL_EXTREME )
+								bOpinion += gGameExternalOptions.sMoraleModAppearance * 2;
+
+							// some people are sexists
+							if ( pProfile->bSexist && gMercProfiles[ pOtherSoldier->ubProfile ].bSex != pProfile->bSex )
+							{
+								if ( pProfile->bSexist == SOMEWHAT_SEXIST )
+									bOpinion += gGameExternalOptions.sMoraleModSexism;
+								else if ( pProfile->bSexist == VERY_SEXIST )
+									bOpinion += gGameExternalOptions.sMoraleModSexism * 2;
+							}
+						}
+						break;
+					case APPEARANCE_BABE:
+						{
+							if ( pProfile->bAppearanceCareLevel == CARELEVEL_SOME )
+								bOpinion += gGameExternalOptions.sMoraleModAppearance * 2;
+							else if ( pProfile->bAppearanceCareLevel == CARELEVEL_EXTREME )
+								bOpinion += gGameExternalOptions.sMoraleModAppearance * 4;
+
+							// some people are sexists
+							if ( pProfile->bSexist && gMercProfiles[ pOtherSoldier->ubProfile ].bSex != pProfile->bSex )
+							{
+								if ( pProfile->bSexist == SOMEWHAT_SEXIST )
+									bOpinion += gGameExternalOptions.sMoraleModSexism * 2;
+								else if ( pProfile->bSexist == VERY_SEXIST )
+									bOpinion += gGameExternalOptions.sMoraleModSexism * 4;
+							}
+						}
+						break;
+					}
+
+					// some people care about how distuingished other people are. Malus if on different ends of the spectrum, a small bonus if on the same and its really important to the person
+					switch ( gMercProfiles[ pOtherSoldier->ubProfile ].bRefinement )
+					{
+					case REFINEMENT_SLOB:
+						{
+							if ( pProfile->bRefinement == REFINEMENT_SLOB )
+							{
+								if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+									bOpinion += gGameExternalOptions.sMoraleModRefinement;
+							}
+							else if ( pProfile->bRefinement == REFINEMENT_SNOB )
+							{
+								if ( pProfile->bRefinementCareLevel == CARELEVEL_SOME )
+									bOpinion -= gGameExternalOptions.sMoraleModRefinement;
+								else if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+									bOpinion -= gGameExternalOptions.sMoraleModRefinement * 2;
+							}
+						}
+						break;
+					case REFINEMENT_SNOB:
+						{
+							if ( pProfile->bRefinement == REFINEMENT_SNOB )
+							{
+								if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+									bOpinion += gGameExternalOptions.sMoraleModRefinement;
+							}
+							else if ( pProfile->bRefinement == REFINEMENT_SLOB )
+							{
+								if ( pProfile->bRefinementCareLevel == CARELEVEL_SOME )
+									bOpinion -= gGameExternalOptions.sMoraleModRefinement;
+								else if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+									bOpinion -= gGameExternalOptions.sMoraleModRefinement * 2;
+							}
+						}
+						break;
+					}
+
+					// some people hate other nationalities (do not mix up with racism, which uses bRace)
+					if ( pProfile->bHatedNationality > -1 && gMercProfiles[ pOtherSoldier->ubProfile ].bNationality == pProfile->bHatedNationality )
+					{
+						if ( pProfile->bHatedNationalityCareLevel == CARELEVEL_SOME )
+							bOpinion -= gGameExternalOptions.sMoraleModHatedNationality;
+						else if ( pProfile->bHatedNationalityCareLevel == CARELEVEL_EXTREME )
+							bOpinion -= gGameExternalOptions.sMoraleModHatedNationality * 2;
+					}
+
+					// some people are racists
+					if ( pProfile->bRacist && gMercProfiles[ pOtherSoldier->ubProfile ].bRace != pProfile->bRace )
+					{
+						if ( pProfile->bRacist == RACIST_SOME )
+							bOpinion -= gGameExternalOptions.sMoraleModRacism;
+						else if ( pProfile->bRacist == RACIST_VERY )
+							bOpinion -= gGameExternalOptions.sMoraleModRacism * 2;
+					}
+										
+					// Flugente: backgrounds
 					if ( pSoldier->HasBackgroundFlag( BACKGROUND_XENOPHOBIC ) && pOtherSoldier->ubProfile != NO_PROFILE && gMercProfiles[pSoldier->ubProfile].usBackground != gMercProfiles[pOtherSoldier->ubProfile].usBackground )
-						bOpinion -= 2;
+						bOpinion -= gGameExternalOptions.sMoraleModXenophobicBackGround;
 
 					if (bOpinion == HATED_OPINION)
 					{
-
 						bHated = WhichHated( pSoldier->ubProfile, pOtherSoldier->ubProfile );
 						if ( bHated >= 2 )
 						{

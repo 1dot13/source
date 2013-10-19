@@ -379,6 +379,17 @@ typedef struct
 	UINT8		bLearnToHate;
 	INT8		bLearnToHateTime;
 
+	INT8		bRace;
+	INT8		bNationality;
+	INT8		bAppearance;
+	INT8		bAppearanceCareLevel;
+	INT8		bRefinement;
+	INT8		bRefinementCareLevel;
+	INT8		bHatedNationality;
+	INT8		bHatedNationalityCareLevel;
+	INT8		bRacist;
+	UINT8		bSexist;
+
 	INT16		sSalary;
 	UINT32		uiWeeklySalary;
 	UINT32		uiBiWeeklySalary;

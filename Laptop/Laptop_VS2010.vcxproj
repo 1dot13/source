@@ -43,6 +43,7 @@
     <ClInclude Include="BriefingRoomM.h" />
     <ClInclude Include="BrokenLink.h" />
     <ClInclude Include="CharProfile.h" />
+    <ClInclude Include="DropDown.h" />
     <ClInclude Include="email.h" />
     <ClInclude Include="Encyclopedia.h" />
     <ClInclude Include="Encyclopedia_Data.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="IMP Personality Finish.h" />
     <ClInclude Include="IMP Personality Quiz.h" />
     <ClInclude Include="IMP Portraits.h" />
+    <ClInclude Include="IMP Prejudice.h" />
     <ClInclude Include="IMP Skill Trait.h" />
     <ClInclude Include="IMP Text System.h" />
     <ClInclude Include="IMP Voices.h" />
@@ -118,6 +120,7 @@
     <ClCompile Include="BriefingRoomM.cpp" />
     <ClCompile Include="BrokenLink.cpp" />
     <ClCompile Include="CharProfile.cpp" />
+    <ClCompile Include="DropDown.cpp" />
     <ClCompile Include="email.cpp" />
     <ClCompile Include="Encyclopedia.cpp" />
     <ClCompile Include="Encyclopedia_Data.cpp" />
@@ -150,6 +153,7 @@
     <ClCompile Include="IMP Personality Finish.cpp" />
     <ClCompile Include="IMP Personality Quiz.cpp" />
     <ClCompile Include="IMP Portraits.cpp" />
+    <ClCompile Include="IMP Prejudice.cpp" />
     <ClCompile Include="IMP Skill Trait.cpp" />
     <ClCompile Include="IMP Text System.cpp" />
     <ClCompile Include="IMP Voices.cpp" />

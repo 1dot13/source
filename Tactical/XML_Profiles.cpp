@@ -158,6 +158,16 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "bHatedTime5") == 0 ||
 				strcmp(name, "bLearnToHate") == 0 ||
 				strcmp(name, "bLearnToHateTime") == 0 ||
+				strcmp(name, "bRace") == 0 ||
+				strcmp(name, "bNationality") == 0 ||
+				strcmp(name, "bAppearance") == 0 ||
+				strcmp(name, "bAppearanceCareLevel") == 0 ||
+				strcmp(name, "bRefinement") == 0 ||
+				strcmp(name, "bRefinementCareLevel") == 0 ||
+				strcmp(name, "bHatedNationality") == 0 ||
+				strcmp(name, "bHatedNationalityCareLevel") == 0 ||
+				strcmp(name, "bRacist") == 0 ||
+				strcmp(name, "bSexist") == 0 ||
 				strcmp(name, "sSalary") == 0 ||
 				strcmp(name, "uiWeeklySalary") == 0 ||
 				strcmp(name, "uiBiWeeklySalary") == 0 ||
@@ -317,6 +327,17 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					memcpy( &(tempProfiles[pData->curIndex].bHatedTime), &(pData->curProfile.bHatedTime), 5 * sizeof (INT8));
 					tempProfiles[pData->curIndex].bLearnToHate = pData->curProfile.bLearnToHate;
 					tempProfiles[pData->curIndex].bLearnToHateTime = pData->curProfile.bLearnToHateTime;
+
+					tempProfiles[pData->curIndex].bRace = pData->curProfile.bRace;
+					tempProfiles[pData->curIndex].bNationality = pData->curProfile.bNationality;
+					tempProfiles[pData->curIndex].bAppearance = pData->curProfile.bAppearance;
+					tempProfiles[pData->curIndex].bAppearanceCareLevel = pData->curProfile.bAppearanceCareLevel;
+					tempProfiles[pData->curIndex].bRefinement = pData->curProfile.bRefinement;
+					tempProfiles[pData->curIndex].bRefinementCareLevel = pData->curProfile.bRefinementCareLevel;
+					tempProfiles[pData->curIndex].bHatedNationality = pData->curProfile.bHatedNationality;
+					tempProfiles[pData->curIndex].bHatedNationalityCareLevel = pData->curProfile.bHatedNationalityCareLevel;
+					tempProfiles[pData->curIndex].bRacist = pData->curProfile.bRacist;
+					tempProfiles[pData->curIndex].bSexist = pData->curProfile.bSexist;
 
 					tempProfiles[pData->curIndex].sSalary = pData->curProfile.sSalary;
 					tempProfiles[pData->curIndex].uiWeeklySalary = pData->curProfile.uiWeeklySalary;
@@ -854,6 +875,87 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curProfile.bLearnToHateTime = (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
+				
+		else if(strcmp(name, "bRace") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bRace = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bRace = max(0, min(NUM_RACES-1, pData->curProfile.bRace));
+		}
+		else if(strcmp(name, "bNationality") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNationality = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bNationality = max(0, min(NUM_NATIONALITIES-1, pData->curProfile.bNationality));
+		}
+		else if(strcmp(name, "bAppearance") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bAppearance = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bAppearance = max(0, min(NUM_APPEARANCES-1, pData->curProfile.bAppearance));
+		}
+		else if(strcmp(name, "bAppearanceCareLevel") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bAppearanceCareLevel = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bAppearanceCareLevel = max(0, min(NUM_CARELEVELS-1, pData->curProfile.bAppearanceCareLevel));
+		}
+		else if(strcmp(name, "bRefinement") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bRefinement = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bRefinement = max(0, min(NUM_REFINEMENT-1, pData->curProfile.bRefinement));
+		}
+		else if(strcmp(name, "bRefinementCareLevel") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bRefinementCareLevel = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bRefinementCareLevel = max(0, min(NUM_CARELEVELS-1, pData->curProfile.bRefinementCareLevel));
+		}
+		else if(strcmp(name, "bHatedNationality") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedNationality = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bHatedNationality = max(-1, min(NUM_NATIONALITIES-1, pData->curProfile.bHatedNationality));
+		}
+		else if(strcmp(name, "bHatedNationalityCareLevel") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedNationalityCareLevel = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bHatedNationalityCareLevel = max(0, min(NUM_CARELEVELS-1, pData->curProfile.bHatedNationalityCareLevel));
+		}
+		else if(strcmp(name, "bRacist") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bRacist = (INT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bRacist = max(0, min(NUM_RACIST-1, pData->curProfile.bRacist));
+		}
+		else if(strcmp(name, "bSexist") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bSexist = (UINT8) strtoul(pData->szCharData, NULL, 0);
+
+			// no nonsense values
+			pData->curProfile.bSexist = max(0, min(NUM_SEXIST-1, pData->curProfile.bSexist));
+		}
 
 		else if(strcmp(name, "sSalary") == 0)
 		{
@@ -962,7 +1064,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curProfile.bSectorZ = (INT8) atol(pData->szCharData);
-		}			
+		}
 		else if(strcmp(name, "ubCivilianGroup") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -972,8 +1074,10 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curProfile.bTown = (INT8) atol(pData->szCharData);
-		}	
-		else if(strcmp(name, "bTownAttachment") == 0)
+		}
+
+		// Flugente: need to break the 'else if' structure here. Otherwise the compiler will complain about fatal error C1061: compiler limit : blocks nested too deeply
+		if(strcmp(name, "bTownAttachment") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curProfile.bTownAttachment = (INT8) atol(pData->szCharData);
@@ -982,7 +1086,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curProfile.usBackground = (UINT8) atol(pData->szCharData);
-		}	
+		}
 		
 
 		pData->maxReadDepth--;
@@ -1523,6 +1627,17 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<bLearnToHate>%d</bLearnToHate>\r\n", gMercProfiles[ cnt ].bLearnToHate);
 			FilePrintf(hFile,"\t\t<bLearnToHateTime>%d</bLearnToHateTime>\r\n", gMercProfiles[ cnt ].bLearnToHateTime);
 
+			FilePrintf(hFile,"\t\t<bRace>%d</bRace>\r\n",											gMercProfiles[ cnt ].bRace);
+			FilePrintf(hFile,"\t\t<bNationality>%d</bNationality>\r\n",								gMercProfiles[ cnt ].bNationality);
+			FilePrintf(hFile,"\t\t<bAppearance>%d</bAppearance>\r\n",								gMercProfiles[ cnt ].bAppearance);
+			FilePrintf(hFile,"\t\t<bAppearanceCareLevel>%d</bAppearanceCareLevel>\r\n",				gMercProfiles[ cnt ].bAppearanceCareLevel);
+			FilePrintf(hFile,"\t\t<bRefinement>%d</bRefinement>\r\n",								gMercProfiles[ cnt ].bRefinement);
+			FilePrintf(hFile,"\t\t<bRefinementCareLevel>%d</bRefinementCareLevel>\r\n",				gMercProfiles[ cnt ].bRefinementCareLevel);
+			FilePrintf(hFile,"\t\t<bHatedNationality>%d</bHatedNationality>\r\n",					gMercProfiles[ cnt ].bHatedNationality);
+			FilePrintf(hFile,"\t\t<bHatedNationalityCareLevel>%d</bHatedNationalityCareLevel>\r\n",	gMercProfiles[ cnt ].bHatedNationalityCareLevel);
+			FilePrintf(hFile,"\t\t<bRacist>%d</bRacist>\r\n",										gMercProfiles[ cnt ].bRacist);
+			FilePrintf(hFile,"\t\t<bSexist>%d</bSexist>\r\n",										gMercProfiles[ cnt ].bSexist);
+			
 			FilePrintf(hFile,"\t\t<sSalary>%d</sSalary>\r\n", gMercProfiles[ cnt ].sSalary);
 			FilePrintf(hFile,"\t\t<uiWeeklySalary>%d</uiWeeklySalary>\r\n", gMercProfiles[ cnt ].uiWeeklySalary);
 			FilePrintf(hFile,"\t\t<uiBiWeeklySalary>%d</uiBiWeeklySalary>\r\n", gMercProfiles[ cnt ].uiBiWeeklySalary);

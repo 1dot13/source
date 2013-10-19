@@ -7526,4 +7526,123 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% insurance cost\n",
 };
 
+// Flugente: personality
+STR16		szPersonalityDisplayText[]=	// TODO.Translate
+{
+	L"You look",
+	L"and appearance is",
+	L"important to you.",
+	L"You have",
+	L"and care",
+	L"about that.",
+	L"You are",
+	L"and hate everyone",
+	L".",
+	L"racist against non-",
+	L"people.",
+};
+
+
+STR16		szRaceText[]=
+{
+	L"white",
+	L"black",
+	L"asian",
+	L"eskimo",
+	L"hispanic",
+};
+
+STR16		szAppearanceText[]=
+{
+	L"average",
+	L"ugly",
+	L"homely",
+	L"attractive",
+	L"like a babe",
+};
+
+STR16		szRefinementText[]=
+{
+	L"average manners",
+	L"manners of a slob",
+	L"manners of a snob",
+};
+
+STR16		szNationalityText[]=
+{
+	L"american",		// 0
+	L"arab",
+	L"australian",
+	L"british",
+	L"canadian",
+	L"cuban",			// 5
+	L"danish",
+	L"french",
+	L"russian",
+	L"nigerian",
+	L"swiss",			// 10
+	L"jamaican",
+	L"polish",
+	L"chinese",
+	L"irish",
+	L"south african",	// 15
+	L"hungarian",
+	L"scottish",
+	L"arulcan",
+	L"german",
+	L"african",			// 20
+	L"italian",
+	L"dutch",
+	L"romanian",
+	L"metaviran",
+
+	// newly added from here on
+	L"greek",			// 25
+	L"estonian",
+	L"venezuelan",
+	L"japanese",
+	L"turkish",
+	L"indian",			// 30
+	L"mexican",
+	L"norwegian",
+	L"spanish",
+	L"brasilian",
+	L"finnish",			// 35
+	L"iranian",
+	L"israeli",
+	L"bulgarian",
+	L"swedish",
+	L"iraqi",			// 40
+	L"syrian",
+};
+
+// special text used if we do not hate any nation (value of -1)
+STR16		szNationalityText_Special[]=
+{
+	L"do not hate any other nationality.",		// used in personnel.cpp
+	L"of no origin",		// used in IMP generation
+};
+
+STR16		szCareLevelText[]=
+{
+	L"not",
+	L"somewhat",
+	L"extremely",
+};
+
+STR16		szRacistText[]=
+{
+	L"not",
+	L"somewhat",
+	L"very",
+};
+
+STR16		szSexistText[]=
+{
+	L"no sexist",
+	L"somewhat sexist",
+	L"very sexist",
+	L"a Gentleman",
+};
+
 #endif //GERMAN

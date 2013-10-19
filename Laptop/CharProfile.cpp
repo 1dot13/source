@@ -32,6 +32,7 @@
 	#include "IMP Color Choosing.h"
 	#include "IMP Minor Trait.h"
 	#include "IMP Background.h"		// added by Flugente
+	#include "IMP Prejudice.h"		// added by Flugente
 #endif
 
 
@@ -79,6 +80,18 @@ INT32 iAttitude = 0;
 
 // Flugente: background
 UINT8 usBackground = 0;
+
+// Flugente: sexism, racism etc.
+INT8  bRace = 0;
+INT8  bNationality = 0;
+INT8  bAppearance = 0;
+INT8  bAppearanceCareLevel = 0;
+INT8  bRefinement = 0;
+INT8  bRefinementCareLevel = 0;
+INT8  bHatedNationality = -1;
+INT8  bHatedNationalityCareLevel = 0;
+INT8  bRacist = 0;
+UINT8 bSexist = 0;
 
 // additives, but no preservatives
 INT32 iAddStrength = 0;
@@ -280,6 +293,9 @@ void HandleCharProfile()
 		case( IMP_BACKGROUND ):
 			HandleIMPBackground( );
 		break;
+		case( IMP_PREJUDICE ):
+			HandleIMPPrejudice( );
+		break;
 	}
 
 	return;
@@ -358,6 +374,9 @@ void RenderCharProfile()
 		break;
 		case( IMP_BACKGROUND ):
 			RenderIMPBackground( );
+		break;
+		case( IMP_PREJUDICE ):
+			RenderIMPPrejudice( );
 		break;
 	}
 
@@ -468,6 +487,10 @@ void ExitOldIMPMode( void )
 			DestroyIMPButtons( );
 			ExitIMPBackground( );
 		break;
+		case( IMP_PREJUDICE ):
+			DestroyIMPButtons( );
+			ExitIMPPrejudice( );
+		break;
 	}
 
 	return;
@@ -559,6 +582,10 @@ void EnterNewIMPMode( void )
 			CreateIMPButtons( );
 			EnterIMPBackground( );
 		break;
+		case( IMP_PREJUDICE ):
+			CreateIMPButtons( );
+			EnterIMPPrejudice( );
+		break;
 	}
 
 
@@ -593,9 +620,21 @@ void ResetCharacterStats( void )
 
 	// attitude
 	iAttitude = 0;
-
-	// background
+	
+	// Flugente: background
 	usBackground = 0;
+
+	// Flugente: sexism, racsim etc.
+	bRace = 0;
+	bNationality = 0;
+	bAppearance = 0;
+	bAppearanceCareLevel = 0;
+	bRefinement = 0;
+	bRefinementCareLevel = 0;
+	bHatedNationality = -1;
+	bHatedNationalityCareLevel = 0;
+	bRacist = 0;
+	bSexist = 0;
 
 	// names
 	memset( &pFullName, 0 , sizeof( pFullName) );

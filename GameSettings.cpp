@@ -1686,6 +1686,14 @@ void LoadGameExternalOptions()
 	//Madd: override map item appearance chance
 	gGameExternalOptions.ubMapItemChanceOverride			= iniReader.ReadInteger("Strategic Gameplay Settings","MAP_ITEM_CHANCE_OVERRIDE", 0, 0, 100);
 
+	//################# Morale Settings ##################
+	gGameExternalOptions.sMoraleModAppearance				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_APPEARANCE",				1, 0, 5);
+	gGameExternalOptions.sMoraleModRefinement				= iniReader.ReadInteger("Morale Settings","MORALE_MOD_REFINEMENT",				2, 0, 5);
+	gGameExternalOptions.sMoraleModHatedNationality			= iniReader.ReadInteger("Morale Settings","MORALE_MOD_HATEDNATIONALITY",		3, 0, 5);
+	gGameExternalOptions.sMoraleModRacism					= iniReader.ReadInteger("Morale Settings","MORALE_MOD_RACISM",					3, 0, 5);
+	gGameExternalOptions.sMoraleModSexism					= iniReader.ReadInteger("Morale Settings","MORALE_MOD_SEXISM",					1, 0, 5);
+	gGameExternalOptions.sMoraleModXenophobicBackGround		= iniReader.ReadInteger("Morale Settings","MORALE_MOD_BACKGROUND_XENOPHOBIC",	5, 0, 15);
+	
 	//################# Laptop Settings ##################
 
 #ifdef ENABLE_BRIEFINGROOM

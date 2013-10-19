@@ -2388,6 +2388,33 @@ extern STR16	gszPocketPopupText[];
 extern STR16		szBackgroundText_Flags[];
 extern STR16		szBackgroundText_Value[];
 
+// Flugente: personality
+enum
+{
+	PERSONALITYTEXT_YOULOOK,
+	PERSONALITYTEXT_ANDAPPEARANCEIS,
+	PERSONALITYTEXT_IMPORTANTTOYOU,
+	PERSONALITYTEXT_YOUHAVE,
+	PERSONALITYTEXT_ANDCARE,
+	PERSONALITYTEXT_ABOUTTHAT,
+	PERSONALITYTEXT_YOUARE,
+	PERSONALITYTEXT_ADHATEEVERYONE,
+	PERSONALITYTEXT_DOT,
+	PERSONALITYTEXT_RACISTAGAINSTNON,
+	PERSONALITYTEXT_PEOPLE,
+	PERSONALITYTEXT_MAX,
+};
+extern STR16		szPersonalityDisplayText[];
+extern STR16		szRaceText[];
+extern STR16		szAppearanceText[];
+extern STR16		szRefinementText[];
+extern STR16		szNationalityText[];
+extern STR16		szNationalityText_Special[];
+extern STR16		szCareLevelText[];
+extern STR16		szRacistText[];
+extern STR16		szSexistText[];
+
+
 // Enumeration support
 typedef struct Str8EnumLookupType {
 	int value;

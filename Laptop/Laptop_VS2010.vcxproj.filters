@@ -228,6 +228,12 @@
     <ClInclude Include="IMP Background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMP Prejudice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDown.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -465,6 +471,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IMP Background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMP Prejudice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -419,6 +419,10 @@
 				>
 			</File>
 			<File
+				RelativePath="DropDown.h"
+				>
+			</File>
+			<File
 				RelativePath="email.h"
 				>
 			</File>
@@ -544,6 +548,10 @@
 			</File>
 			<File
 				RelativePath="IMP Portraits.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Prejudice.h"
 				>
 			</File>
 			<File
@@ -715,6 +723,10 @@
 				>
 			</File>
 			<File
+				RelativePath="DropDown.cpp"
+				>
+			</File>
+			<File
 				RelativePath="email.cpp"
 				>
 			</File>
@@ -840,6 +852,10 @@
 			</File>
 			<File
 				RelativePath="IMP Portraits.cpp"
+				>
+			</File>
+			<File
+				RelativePath="IMP Prejudice.cpp"
 				>
 			</File>
 			<File

@@ -176,6 +176,18 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	// Flugente: background
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usBackground = ( INT8 )usBackground;
 
+	// Flugente: sexism, racsim etc.
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRace							= ( INT8 )bRace;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bNationality					= ( INT8 )bNationality;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAppearance					= ( INT8 )bAppearance;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAppearanceCareLevel			= ( INT8 )bAppearanceCareLevel;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRefinement					= ( INT8 )bRefinement;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRefinementCareLevel			= ( INT8 )bRefinementCareLevel;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bHatedNationality				= ( INT8 )bHatedNationality;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bHatedNationalityCareLevel	= ( INT8 )bHatedNationalityCareLevel;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRacist						= ( INT8 )bRacist;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSexist						= ( UINT8 )bSexist;
+		
 	// WDS: Advanced start 
 	//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = StartingLevelChosen(); // We now choose the starting level on IMP creation - SANDRO

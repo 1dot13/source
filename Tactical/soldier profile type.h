@@ -197,13 +197,108 @@ typedef enum
 // SANDRO - appearances
 typedef enum
 {
-	APPEARANCE_AVARAGE = 0,
+	APPEARANCE_AVERAGE = 0,
 	APPEARANCE_UGLY,
 	APPEARANCE_HOMELY,
 	APPEARANCE_ATTRACTIVE,
 	APPEARANCE_BABE,
 	NUM_APPEARANCES
 } Appearances;
+
+// Flugente - care levels
+typedef enum
+{
+	CARELEVEL_NONE = 0,
+	CARELEVEL_SOME = 1,
+	CARELEVEL_EXTREME = 2,
+
+	NUM_CARELEVELS
+} CareLevels;
+
+// Flugente - refinements
+typedef enum
+{
+	REFINEMENT_AVERAGE = 0,
+	REFINEMENT_SLOB = 1,
+	REFINEMENT_SNOB = 2,
+
+	NUM_REFINEMENT
+} Refinements;
+
+// Flugente - nationalities
+typedef enum
+{
+	// old Sirtech values
+	AMERICAN = 0,		// take that, Murica! Sirtech knew you have no value :-)
+	ARAB = 1,
+	AUSTRALIAN = 2,
+	BRITISH = 3,
+	CANADIAN = 4,
+	CUBAN = 5,
+	DANISH = 6,
+	FRENCH = 7,
+	RUSSIAN = 8,
+	NIGERIAN = 9,		// this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
+	SWISS = 10,
+	JAMAICAN = 11,
+	POLISH = 12,
+	CHINESE = 13,
+	IRISH = 14,
+	SOUTH_AFRICAN = 15,
+	HUNGARIAN = 16,
+	SCOTTISH = 17,
+	ARULCAN = 18,
+	GERMAN = 19,
+	AFRICAN = 20,
+	ITALIAN = 21,
+	DUTCH = 22,
+	ROMANIAN = 23,
+	METAVIRAN = 24,
+
+	// new values, because why not
+	GREEK,		// 25
+	ESTONIAN,
+	VENEZUELAN ,
+	JAPANESE,
+	TURKISH,
+	INDIAN,		// 30
+	MEXICAN,
+	NORWEGIAN,
+	SPANISH,
+	BRASILIAN,
+	FINNISH,	// 35
+	IRANIAN,
+	ISRAELI,
+	BULGARIAN,
+	SWEDISH,
+	IRAQI,		// 40
+	SYRIAN,
+
+	NUM_NATIONALITIES
+} Nationalities;
+
+// Flugente - races
+typedef enum
+{
+	WHITE = 0,
+	BLACK = 1,
+	ASIAN = 2,
+	ESKIMO = 3,
+	HISPANIC = 4,
+
+	NUM_RACES
+} Races;
+
+// Flugente - racist levels
+typedef enum
+{
+	RACIST_NONE = 0,
+	RACIST_SOME = 1,
+	RACIST_VERY = 2,
+
+	NUM_RACIST
+} RacistLevels;
+
 //////////////////////////////////////////////////////////////////////
 
 typedef enum
@@ -250,7 +345,8 @@ typedef enum
 	NOT_SEXIST = 0,
 	SOMEWHAT_SEXIST,
 	VERY_SEXIST,
-	GENTLEMAN
+	GENTLEMAN,
+	NUM_SEXIST
 } SexistLevels;
 
 
