@@ -97,8 +97,9 @@ void RenderBobbyRMisc()
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
-		fReDrawScreenFlag = TRUE;
-	fPausedReDrawScreenFlag = TRUE;
+	//Moa removed below. See comment above LAPTOP_SCREEN_UL_X in laptop.h
+	//	fReDrawScreenFlag = TRUE;
+	//fPausedReDrawScreenFlag = TRUE;
 }
 
 

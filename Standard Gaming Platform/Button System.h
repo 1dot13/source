@@ -360,6 +360,7 @@ void DrawCheckBoxButtonOn( INT32 iButtonID );
 void DrawCheckBoxButtonOff( INT32 iButtonID );
 
 extern UINT16 GetWidthOfButtonPic( UINT16 usButtonPicID, INT32 iSlot );
+extern UINT16 GetHeightOfButtonPic( UINT16 usButtonPicID, INT32 iSlot );
 
 #endif
 

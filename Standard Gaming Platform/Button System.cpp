@@ -152,6 +152,11 @@ UINT16 GetWidthOfButtonPic( UINT16 usButtonPicID, INT32 iSlot )
 	return ButtonPictures[ usButtonPicID ].vobj->pETRLEObject[ iSlot ].usWidth;
 }
 
+UINT16 GetHeightOfButtonPic( UINT16 usButtonPicID, INT32 iSlot )
+{
+	return ButtonPictures[ usButtonPicID ].vobj->pETRLEObject[ iSlot ].usHeight;
+}
+
 HVOBJECT GenericButtonGrayed[MAX_GENERIC_PICS];
 HVOBJECT GenericButtonOffNormal[MAX_GENERIC_PICS];
 HVOBJECT GenericButtonOffHilite[MAX_GENERIC_PICS];

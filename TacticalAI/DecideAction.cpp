@@ -466,7 +466,7 @@ INT8 DecideActionSchedule( SOLDIERTYPE * pSoldier )
 		break;
 
 	case SCHEDULE_ACTION_ENTERSECTOR:
-		if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags & PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR )
+		if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags2 & PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR )//Moa: changed 'ubMiscFlags' to 'ubMiscFlags2'
 		{
 			// ignore.
 			DoneScheduleAction( pSoldier );
@@ -7007,7 +7007,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 					case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts +=  0; bWatchPts +=  0; break;
 				}
 							
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: hide = %d, seek = %d, watch = %d, help = %d",bHidePts,bSeekPts,bWatchPts,bHelpPts));
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: hide = %d, seek = %d, watch = %d, help = %d",0,bSeekPts,bWatchPts,bHelpPts));
 				// while one of the three main RED REACTIONS remains viable
 				while ((bSeekPts > -90) || (bHelpPts > -90) )
 				{

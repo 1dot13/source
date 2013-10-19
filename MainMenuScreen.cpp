@@ -28,6 +28,7 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "Encrypted File.h"
 	#include "ja2 splash.h"
+	#include "GameVersion.h"
 #endif
 
 #include "gamesettings.h"

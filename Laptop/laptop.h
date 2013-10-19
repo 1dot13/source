@@ -173,22 +173,22 @@ enum{
 #define LAPTOP_X						iScreenWidthOffset
 #define LAPTOP_Y						iScreenHeightOffset
 
+//Moa: added brackets around definitions below to make them work. Especialy LAPTOP_SCREEN_HEIGHT and all its references resulted in wrong regions for invalidating screen which in return forced to redraw the screen emidiatly after render as invalidate did not work. Removed those redraw flags from all render functions I found (f.i.RenderBobbyRUsed()), but most likely missed some of them.
+#define LAPTOP_SCREEN_UL_X				(iScreenWidthOffset + 111)
+#define LAPTOP_SCREEN_UL_Y				(iScreenHeightOffset + 27)
 
-#define LAPTOP_SCREEN_UL_X				iScreenWidthOffset + 111
-#define LAPTOP_SCREEN_UL_Y				iScreenHeightOffset + 27
 
+#define LAPTOP_SCREEN_LR_X									(iScreenWidthOffset + 613)
+#define LAPTOP_SCREEN_LR_Y									(iScreenHeightOffset + 427)
+#define LAPTOP_UL_X											(iScreenWidthOffset + 24)
+#define LAPTOP_UL_Y											(iScreenHeightOffset + 27)
 
-#define LAPTOP_SCREEN_LR_X									iScreenWidthOffset + 613
-#define LAPTOP_SCREEN_LR_Y									iScreenHeightOffset + 427
-#define LAPTOP_UL_X											iScreenWidthOffset + 24			
-#define LAPTOP_UL_Y											iScreenHeightOffset + 27
-
-#define LAPTOP_SCREEN_WIDTH									LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X
-#define LAPTOP_SCREEN_HEIGHT								LAPTOP_SCREEN_LR_Y - LAPTOP_SCREEN_UL_Y
+#define LAPTOP_SCREEN_WIDTH									(LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X)
+#define LAPTOP_SCREEN_HEIGHT								(LAPTOP_SCREEN_LR_Y - LAPTOP_SCREEN_UL_Y)
 
 // new positions for web browser
-#define LAPTOP_SCREEN_WEB_UL_Y								LAPTOP_SCREEN_UL_Y + 19
-#define LAPTOP_SCREEN_WEB_LR_Y								LAPTOP_SCREEN_WEB_UL_Y + LAPTOP_SCREEN_HEIGHT
+#define LAPTOP_SCREEN_WEB_UL_Y								(LAPTOP_SCREEN_UL_Y + 19)
+#define LAPTOP_SCREEN_WEB_LR_Y								(LAPTOP_SCREEN_WEB_UL_Y + LAPTOP_SCREEN_HEIGHT)
 #define LAPTOP_SCREEN_WEB_DELTA_Y							19 //LAPTOP_SCREEN_WEB_UL_Y - LAPTOP_SCREEN_UL_Y
 
 // the laptop on/off button 

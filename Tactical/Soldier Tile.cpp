@@ -82,7 +82,7 @@ void OutputDebugInfoForTurnBasedNextTileWaiting( SOLDIERTYPE * pSoldier )
 			if ( uiLoop > pSoldier->pathing.usPathIndex )
 			{
 				usTemp = NewGridNo( usTemp, DirectionInc( (UINT8)pSoldier->pathing.usPathingData[ uiLoop ] ) );
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("	Soldier path[%d]: %d == gridno %d", uiLoop, pSoldier->pathing.usPathingData[uiLoop], sTemp ) );
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("	Soldier path[%d]: %d == gridno %d", uiLoop, pSoldier->pathing.usPathingData[uiLoop], usTemp ) );
 			}
 			else if ( uiLoop == pSoldier->pathing.usPathIndex )
 			{

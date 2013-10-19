@@ -510,8 +510,8 @@ PTR MemAllocXDebug( UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *
 {
 	PTR	ptr;
 	UINT16 usLength;
-	UINT8 str[70];
-	UINT8 *pStr;
+	CHAR8 str[70];
+	STR8 pStr;
 
 	if( !size )
 	{
@@ -553,7 +553,7 @@ PTR MemAllocXDebug( UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *
 		usLength = strlen( str ) + 1;
 		gpMemoryTail->pCode = (UINT8*)malloc( usLength );
 		memset( gpMemoryTail->pCode, 0, usLength );
-		strcpy( gpMemoryTail->pCode, str );
+		strcpy( (STR8)gpMemoryTail->pCode, str );
 
 		//record the size
 		gpMemoryTail->uiSize = size;
@@ -617,8 +617,8 @@ PTR	MemReallocXDebug( PTR ptr, UINT32 size, const STR8 szCodeString, INT32 iLine
 	MEMORY_NODE *curr;
 	PTR	ptrNew;
 	UINT16 usLength;
-	UINT8 str[70];
-	UINT8 *pStr;
+	CHAR8 str[70];
+	STR8 pStr;
 
 	if( !ptr && size )
 	{
@@ -654,7 +654,7 @@ PTR	MemReallocXDebug( PTR ptr, UINT32 size, const STR8 szCodeString, INT32 iLine
 				usLength = strlen( str ) + 1;
 				curr->pCode = (UINT8*)malloc( usLength );
 				memset( curr->pCode, 0, usLength );
-				strcpy( curr->pCode, str );
+				strcpy( (STR8)curr->pCode, str );
 			}
 			else
 			{
@@ -672,13 +672,13 @@ typedef struct DUMPFILENAME
 	UINT8 str[70];
 }DUMPFILENAME;
 
-void DumpMemoryInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
+void DumpMemoryInfoIntoFile( CHAR8 *filename, BOOLEAN fAppend )
 {
 	MEMORY_NODE *curr;
 	FILE *fp;
 	DUMPFILENAME *pCode;
 	UINT32 *puiCounter, *puiSize;
-	UINT8 tempCode[ 70 ];
+	CHAR8 tempCode[ 70 ];
 	UINT32 i, uiUniqueID, uiTotalKbWasted = 0, uiBytesRemainder = 0;
 	BOOLEAN fFound;
 
@@ -712,11 +712,11 @@ void DumpMemoryInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
 	curr = gpMemoryHead;
 	while( curr )
 	{
-		strcpy( tempCode, curr->pCode );
+		strcpy( tempCode, (CHAR8*)curr->pCode );
 		fFound = FALSE;
 		for( i = 0; i < uiUniqueID; i++ )
 		{
-			if( !_stricmp( tempCode, pCode[i].str ) )
+			if( !_stricmp( tempCode, (CHAR8*)pCode[i].str ) )
 			{ //same string
 				fFound = TRUE;
 				(puiCounter[ i ])++;
@@ -726,7 +726,7 @@ void DumpMemoryInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
 		}
 		if( !fFound )
 		{
-			strcpy( pCode[i].str, tempCode );
+			strcpy( (CHAR8*)pCode[i].str, tempCode );
 			(puiSize[ i ]) += curr->uiSize;
 			(puiCounter[ i ])++;
 			uiUniqueID++;

@@ -188,7 +188,7 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 
 	default:
 
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Calc AP: Unrecongnized MP type %d in %d, direction %d", sSwitchValue, sGridno, bDir ) );
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Calc AP: Unrecongnized MP type %d in %d, direction %d", sSwitchValue, sGridNo, bDir ) );
 			break;
 
 

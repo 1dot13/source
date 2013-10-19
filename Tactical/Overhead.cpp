@@ -2138,7 +2138,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
     // CHECK IF THIS TILE IS A GOOD ONE!
     if ( !HandleNextTile( pSoldier, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], usNewGridNo, pSoldier->pathing.sFinalDestination ) )
     {
-        DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "HandleGotoNewGridNo() Failed: Tile %d Was blocked", sNewGridNo ) );
+        DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "HandleGotoNewGridNo() Failed: Tile %d Was blocked", usNewGridNo ) );
 
         // ATE: If our own guy and an initial move.. display message
         //if ( fInitialMove && pSoldier->bTeam == gbPlayerNum   )

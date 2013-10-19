@@ -209,7 +209,7 @@ BOOLEAN ReadInMainMenu(MAIN_MENU_VALUES *pMainMenu, STR fileName)
 
 	mainMenuParseData pData;
 
-	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Layout\LayoutMainMenu.xml" );
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Layout:LayoutMainMenu.xml" );
 
 	// Open file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
