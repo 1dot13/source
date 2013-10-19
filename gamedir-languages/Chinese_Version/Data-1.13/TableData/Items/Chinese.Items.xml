@@ -13560,4 +13560,12 @@
     <szBRName>FSBE LBV Load Bearing Molle Assault Vest</szBRName>
     <szBRDesc>Chinese made Special force load bearing vest with1-inch molle webbing cross straps for attaching molle pouches.</szBRDesc>
   </ITEM>
+  <ITEM>
+    <uiIndex>1695</uiIndex>
+    <szItemName>Carabiner</szItemName>
+    <szLongItemName>Carabiner</szLongItemName>
+    <szItemDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners.</szItemDesc>
+    <szBRName>Carabiner</szBRName>
+    <szBRDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners</szBRDesc>
+  </ITEM>
 </ITEMLIST>

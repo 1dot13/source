@@ -140,4 +140,80 @@
     <pIndex>34</pIndex>
     <pName>Sniper Mag</pName>
   </POCKET>
+  <POCKET>
+    <pIndex>35</pIndex>
+    <pName>Canteen</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>36</pIndex>
+    <pName>First Aid Pocket</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>37</pIndex>
+    <pName>Carabiner Face</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>38</pIndex>
+    <pName>Carabiner Ring</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>39</pIndex>
+    <pName>Grenadex3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>40</pIndex>
+    <pName>Pistol Magx2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>41</pIndex>
+    <pName>Rifle Grenadex2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>42</pIndex>
+    <pName>7 RD Shotgun Shells</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>43</pIndex>
+    <pName>SMG Magx2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>44</pIndex>
+    <pName>Kits</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>45</pIndex>
+    <pName>AR Magx2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>46</pIndex>
+    <pName>AR Magx1</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>47</pIndex>
+    <pName>Flash Bang</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>48</pIndex>
+    <pName>Pistol Magx3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>49</pIndex>
+    <pName>AR Magx3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>50</pIndex>
+    <pName>Mini Grenade</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>51</pIndex>
+    <pName>SMG Magx3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>52</pIndex>
+    <pName>Small Knife</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>53</pIndex>
+    <pName>Sniper Rifle Gun Sling</pName>
+  </POCKET>
 </POCKETLIST>
