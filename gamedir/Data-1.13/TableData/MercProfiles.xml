@@ -93,6 +93,97 @@
 <!-- (6) Forgetful 									-->
 <!-- (7) Psycho 									-->
 
+<!-- Appearance -->
+
+<!-- (0) Average -->
+<!-- (1) Ugly -->
+<!-- (2) Homely -->
+<!-- (3) Attractive -->
+<!-- (4) Babe -->
+
+<!-- Refinement -->
+
+<!-- (0) Average -->
+<!-- (1) Slob -->
+<!-- (2) Snob -->
+
+<!-- Race -->
+
+<!-- (0) White -->
+<!-- (1) Black -->
+<!-- (2) Asian -->
+<!-- (3) Eskimo -->
+<!-- (4) Hispanic -->
+
+<!-- Racism -->
+
+<!-- (0) None -->
+<!-- (1) Some -->
+<!-- (2) Very -->
+
+<!-- Sexism -->
+
+<!-- (0) Not -->
+<!-- (1) Somewhat -->
+<!-- (2) Very -->
+<!-- (3) Genleman -->
+
+<!-- Carelevels (Appearance, Refinement, HatedNationality -->
+
+<!-- (0) None -->
+<!-- (1) Some -->
+<!-- (2) Extreme -->
+
+<!-- Nationality & HatedNationality -->
+
+<!-- (-1) No Nation (only used for HatedNationality) -->
+<!--  AMERICAN = 0,		// take that, Murica! Sirtech knew you have no value :-)
+      ARAB = 1,
+      AUSTRALIAN = 2,
+      BRITISH = 3,
+      CANADIAN = 4,
+      CUBAN = 5,
+      DANISH = 6,
+      FRENCH = 7,
+      RUSSIAN = 8,
+      NIGERIAN = 9,		// this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
+      SWISS = 10,
+      JAMAICAN = 11,
+      POLISH = 12,
+      CHINESE = 13,
+      IRISH = 14,
+      SOUTH_AFRICAN = 15,
+      HUNGARIAN = 16,
+      SCOTTISH = 17,
+      ARULCAN = 18,
+      GERMAN = 19,
+      AFRICAN = 20,
+      ITALIAN = 21,
+      DUTCH = 22,
+      ROMANIAN = 23,
+      METAVIRAN = 24,
+
+      // new values, because why not
+      GREEK,		// 25
+      ESTONIAN,
+      VENEZUELAN ,
+      JAPANESE,
+      TURKISH,
+      INDIAN,		// 30
+      MEXICAN,
+      NORWEGIAN,
+      SPANISH,
+      BRASILIAN,
+      FINNISH,	// 35
+      IRANIAN,
+      ISRAELI,
+      BULGARIAN,
+      SWEDISH,
+      IRAQI,		// 40
+      SYRIAN,
+      BELGIAN,
+      PORTOGUESE, -->
+
 <MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
@@ -16690,7 +16781,7 @@
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>70</bLearnToHateTime>
 		<bRace>0</bRace>
-		<bNationality>7</bNationality>
+		<bNationality>42</bNationality>
 		<bAppearance>0</bAppearance>
 		<bAppearanceCareLevel>0</bAppearanceCareLevel>
 		<bRefinement>0</bRefinement>
