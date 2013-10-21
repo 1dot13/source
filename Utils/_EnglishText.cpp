@@ -1651,7 +1651,7 @@ STR16 pAssignmentStrings[] =
 	L"M.Militia", //training moving militia units
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
-	L"MoveItem",	// move items
+	L"Move Item",	// move items
 	L"Staff", // operating a strategic facility
 	L"Eat",		// eating at a facility (cantina etc.)
 	L"Rest", // Resting at a facility
@@ -1787,7 +1787,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",	// Missing
 	L"Train Teammate",
 	L"Student",
-	L"MoveItem",	// move items
+	L"Move Item",	// move items
 	L"Staff Facility",	// Missing
 	L"Rest at Facility",	// Missing
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners
@@ -1912,7 +1912,7 @@ STR16 pAssignMenuStrings[] =
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
 	L"Train", // the merc is training
-	L"MoveItem",	// move items
+	L"Move Item",	// move items
 	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };

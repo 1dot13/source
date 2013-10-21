@@ -1875,6 +1875,11 @@ typedef struct
 	UINT8 ubMeanwhileAddMadlabSector3Y;
 	UINT8 ubMeanwhileAddMadlabSector4X;
 	UINT8 ubMeanwhileAddMadlabSector4Y;
+	
+	//victory celebration stuff
+	UINT8 ubEndGameVictorySectorX;
+	UINT8 ubEndGameVictorySectorY;
+	INT32 iEndGameVictoryGridNo;
 
 }MOD_SETTINGS;
 

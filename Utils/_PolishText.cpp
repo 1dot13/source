@@ -1659,7 +1659,7 @@ STR16 pAssignmentStrings[] =
 	L"R.Samoobr.", //training moving militia units
 	L"Instruk.", // training a teammate
 	L"Uczeń", // being trained by someone else 
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move Item",	// move items // TODO.Translate
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.) // TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
@@ -1795,7 +1795,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",		// TODO.Translate
 	L"Trenuj oddział",
 	L"Uczeń",
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move Item",	// move items // TODO.Translate
 	L"Staff Facility",		// TODO.Translate
 	L"Rest at Facility",	// TODO.Translate
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
@@ -1920,7 +1920,7 @@ STR16 pAssignMenuStrings[] =
 	L"Pojazd", // the merc is in a vehicle
 	L"Naprawa", // the merc is repairing items 
 	L"Szkolenie", // the merc is training
-	L"MoveItem",	// move items	// TODO.Translate
+	L"Move Item",	// move items	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
 	L"Anuluj", // cancel this menu
 };

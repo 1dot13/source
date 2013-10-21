@@ -121,21 +121,16 @@ UINT8 GetLoadScreenID(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ)
 	/* User made system - BEGIN */
 	if (gGameExternalOptions.gfUseExternalLoadscreens)
 	{
-		if (bSectorZ != 0)
-		{
-			szSector = szSectorMap [sSectorY][sSectorX]; // not really necessary, I guess
-			return UNDERGROUND;
-		}
+		szSector = szSectorMap [sSectorY][sSectorX];
+		if (DidGameJustStart())
+			return DidGameJustStart() ? HELI : (fNight ? NIGHT : DAY);
 
-		switch( ubSectorID )
-		{
-			case SEC_A9:
-				szSector = "A9";
-				return DidGameJustStart() ? HELI : (fNight ? NIGHT : DAY);
-			default:
-				szSector = szSectorMap [sSectorY][sSectorX];
-				return fNight ? NIGHT : DAY;
-		}
+		else if (bSectorZ != 0)
+			return UNDERGROUND;
+
+		else
+			return fNight ? NIGHT : DAY;
+		
 	} /* WANNE: User made System - END */
 
 	/* WANNE: Sir-Tech System - BEGIN */

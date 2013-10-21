@@ -1655,7 +1655,7 @@ STR16 pAssignmentStrings[] =
 	L"Milice M.", //training moving militia units	
 	L"Entraîneur", // training a teammate //!!! Too long ? (11 char) -> 11 chars is OK
 	L"Élève", // being trained by someone else 
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move Item",	// move items // TODO.Translate
 	L"Exploitation", // operating a strategic facility
 	L"Mange",		// eating at a facility (cantina etc.)		// TODO.Translate
 	L"Repos", // Resting at a facility
@@ -1790,7 +1790,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Milice mobile",
 	L"Entraîneur",
 	L"Elève",
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move Item",	// move items // TODO.Translate
 	L"Exploitation infras.",	//!!! Idem ? -> Current translation is OK
 	L"Repos infras.",
 	L"Interroger captif(s)",		// Flugente: interrogate prisoners // TODO.Translate
@@ -1915,7 +1915,7 @@ STR16 pAssignMenuStrings[] =
 	L"Transport", // the merc is in a vehicle
 	L"Réparation", // the merc is repairing items 
 	L"Formation", // the merc is training
-	L"MoveItem",	// move items	// TODO.Translate
+	L"Move Item",	// move items	// TODO.Translate
 	L"Construction", // the merc is using/staffing a facility
 	L"Annuler", // cancel this menu
 };

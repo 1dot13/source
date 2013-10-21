@@ -1643,7 +1643,7 @@ STR16 pAssignmentStrings[] =
 	L"M.Militia", //training moving militia units		// TODO.Translate
 	L"Istrutt.", // training a teammate
 	L"Studente", // being trained by someone else
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move Item",	// move items // TODO.Translate
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Eat",		// eating at a facility (cantina etc.)	// TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
@@ -1779,7 +1779,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Train Mobiles",		// TODO.Translate
 	L"Allena squadra",
 	L"Studente",
-	L"MoveItem",	// move items // TODO.Translate
+	L"Move Item",	// move items // TODO.Translate
 	L"Staff Facility",		// TODO.Translate
 	L"Rest at Facility",	// TODO.Translate
 	L"Interrogate prisoners",		// Flugente: interrogate prisoners TODO.Translate
@@ -1904,7 +1904,7 @@ STR16 pAssignMenuStrings[] =
 	L"Veicolo", // the merc is in a vehicle
 	L"Ripara", // the merc is repairing items 
 	L"Si esercita", // the merc is training
-	L"MoveItem",	// move items	// TODO.Translate
+	L"Move Item",	// move items	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
 	L"Annulla", // cancel this menu
 };

@@ -2530,6 +2530,10 @@ void LoadModSettings(){
 	gModSettings.ubMeanwhileAddMadlabSector3Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_3_Y", 9);
 	gModSettings.ubMeanwhileAddMadlabSector4X = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_4_X", 4);
 	gModSettings.ubMeanwhileAddMadlabSector4Y = iniReader.ReadInteger("Meanwhile", "ADD_MADLAB_SECTOR_4_Y", 5);
+
+	gModSettings.ubEndGameVictorySectorX = iniReader.ReadInteger("End Game", "VICTORY_SECTOR_X", 3);
+	gModSettings.ubEndGameVictorySectorY = iniReader.ReadInteger("End Game", "VICTORY_SECTOR_Y", 16);
+	gModSettings.iEndGameVictoryGridNo = iniReader.ReadInteger("End Game", "VICTORY_POSITION", 5687);
 }
 
 // silversurfer: load item property modifiers

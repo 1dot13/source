@@ -61,6 +61,9 @@ BOOLEAN			gfPlayersLaptopWasntWorkingAtEndOfGame;
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+//victory ending scene sector
+#define VICTORY_X	gModSettings.ubEndGameVictorySectorX
+#define VICTORY_Y	gModSettings.ubEndGameVictorySectorY
 
 INT32 sStatueGridNos[] = { 13829, 13830, 13669, 13670 };
 
@@ -257,16 +260,16 @@ void DoneFadeOutKilledQueen( void )
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 		{
 			gfTacticalTraversal = TRUE;
-			SetGroupSectorValue( 3, MAP_ROW_P, 0, pSoldier->ubGroupID );
+			SetGroupSectorValue( VICTORY_X, VICTORY_Y, 0, pSoldier->ubGroupID );
 
 			// Set next sectore
-			pSoldier->sSectorX = 3;
-			pSoldier->sSectorY = MAP_ROW_P;
+			pSoldier->sSectorX = VICTORY_X;
+			pSoldier->sSectorY = VICTORY_Y;
 			pSoldier->bSectorZ = 0;
 
 			// Set gridno
 			pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-			pSoldier->usStrategicInsertionData = 5687;//dnl!!!
+			pSoldier->usStrategicInsertionData = gModSettings.iEndGameVictoryGridNo; //5687 dnl!!!
 			// Set direction to face....
 			pSoldier->ubInsertionDirection		= 100 + NORTHWEST;
 		}
@@ -299,33 +302,35 @@ void DoneFadeOutKilledQueen( void )
 
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
 
-	HandleMoraleEvent( NULL, MORALE_QUEEN_BATTLE_WON, 3, MAP_ROW_P, 0 );
-	HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_QUEEN_BATTLE_WON, 3, MAP_ROW_P, 0 );
+	HandleMoraleEvent( NULL, MORALE_QUEEN_BATTLE_WON, VICTORY_X, VICTORY_Y, 0 );
+	HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_QUEEN_BATTLE_WON, VICTORY_X, VICTORY_Y, 0 );
 
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
 
 	SetThisSectorAsPlayerControlled( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, TRUE );
 
-	// ATE: Force change of level set z to 1
+	// ATE: Force change of level set z to 1 to allow reloading of same sector
 	gbWorldSectorZ = 1;
 
 	// Clear out dudes.......
-	SectorInfo[ SEC_P3 ].ubNumAdmins = 0;
-	SectorInfo[ SEC_P3 ].ubNumTroops = 0;
-	SectorInfo[ SEC_P3 ].ubNumElites = 0;
-	SectorInfo[ SEC_P3 ].ubAdminsInBattle = 0;
-	SectorInfo[ SEC_P3 ].ubTroopsInBattle = 0;
-	SectorInfo[ SEC_P3 ].ubElitesInBattle = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumAdmins = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumTroops = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubNumElites = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubAdminsInBattle = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubTroopsInBattle = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubElitesInBattle = 0;
 
-	// ATE: GEt rid of elliot in P3...
-	gMercProfiles[ ELLIOT ].sSectorX = 1;
+	// ATE: banish elliot... dead or alive
+	gMercProfiles[ ELLIOT ].sSectorX = 0;
+	gMercProfiles[ ELLIOT ].sSectorY = 0;
+	gMercProfiles[ ELLIOT ].bSectorZ = 0;
 
-	ChangeNpcToDifferentSector( DEREK, 3, MAP_ROW_P, 0 );
-	ChangeNpcToDifferentSector( OLIVER, 3, MAP_ROW_P, 0 );
+	ChangeNpcToDifferentSector( DEREK, VICTORY_X, VICTORY_Y, 0 );
+	ChangeNpcToDifferentSector( OLIVER, VICTORY_X, VICTORY_Y, 0 );
 
 
 	// OK, insertion data found, enter sector!
-	SetCurrentWorldSector( 3, MAP_ROW_P, 0 );
+	SetCurrentWorldSector( VICTORY_X, VICTORY_Y, 0 );
 
 	// OK, once down here, adjust the above map with crate info....
 	gfTacticalTraversal = FALSE;

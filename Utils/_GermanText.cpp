@@ -1660,7 +1660,7 @@ STR16 pAssignmentStrings[] =
 	L"M.Miliz", //training moving militia units		
 	L"Trainer", // training a teammate
 	L"Rekrut", // being trained by someone else 
-	L"Umzug",	// move items // TODO.Translate
+	L"Umzug",	// move items
 	L"Betrieb", // operating a strategic facility
 	L"Essen",		// eating at a facility (cantina etc.)
 	L"Pause", // Resting at a facility
@@ -1790,7 +1790,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Trainiere Mobile",
 	L"Trainer",
 	L"Rekrut",
-	L"MoveItem",	// move items
+	L"Umzug",	// move items
 	L"Betriebspersonal",
 	L"Betriebspause",
 	L"Gefangene verhören",		// Flugente: interrogate prisoners

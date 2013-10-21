@@ -2074,17 +2074,7 @@ void EndCaptureSequence( )
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
 
 			// OK! - Schedule Meanwhile now!
-			{
-				MEANWHILE_DEFINITION MeanwhileDef;
-
-				MeanwhileDef.sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
-				MeanwhileDef.sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
-				MeanwhileDef.ubNPCNumber = QUEEN;
-				MeanwhileDef.usTriggerEvent = 0;
-				MeanwhileDef.ubMeanwhileID = INTERROGATION;
-
-				ScheduleMeanwhileEvent( &MeanwhileDef, 10 );
-			}
+			HandleInterrogationMeanwhileScene();
 		}
 		// CJC Dec 1 2002: fixing multiple captures
 		else
