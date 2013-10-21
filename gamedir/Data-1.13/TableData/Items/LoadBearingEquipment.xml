@@ -1326,12 +1326,12 @@
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
 		<lbeAvailableVolume>22</lbeAvailableVolume>
-		<lbePocketsAvailable>14</lbePocketsAvailable>
-		<lbePocketIndex1>21</lbePocketIndex1>
+		<lbePocketsAvailable>15</lbePocketsAvailable>
+		<lbePocketIndex1>0</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
 		<lbePocketIndex4>0</lbePocketIndex4>
-		<lbePocketIndex5>20</lbePocketIndex5>
+		<lbePocketIndex5>37</lbePocketIndex5>
 		<lbePocketIndex6>0</lbePocketIndex6>
 		<lbePocketIndex7>0</lbePocketIndex7>
 		<lbePocketIndex8>0</lbePocketIndex8>
@@ -1527,7 +1527,7 @@
 		<lbeFilledSize>29</lbeFilledSize>
 		<lbeAvailableVolume>27</lbeAvailableVolume>
 		<lbePocketsAvailable>30</lbePocketsAvailable>
-		<lbePocketIndex1>37</lbePocketIndex1>
+		<lbePocketIndex1>38</lbePocketIndex1>
 		<lbePocketIndex2>0</lbePocketIndex2>
 		<lbePocketIndex3>0</lbePocketIndex3>
 		<lbePocketIndex4>0</lbePocketIndex4>

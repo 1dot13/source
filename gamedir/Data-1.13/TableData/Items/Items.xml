@@ -6213,7 +6213,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>86</ubGraphicNum>
 		<ubWeight>18</ubWeight>
-		<ItemSize>27</ItemSize>
+		<ItemSize>26</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -50922,7 +50922,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>0</CamoBonus>
-             <StealthBonus>-5</StealthBonus>
+             <StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />

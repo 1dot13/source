@@ -47,7 +47,7 @@
 		<pIndex>1</pIndex>
 		<pName>Gun Sling</pName>
 		<pSilhouette>5</pSilhouette>
-		<pVolume>30</pVolume>
+		<pVolume>25</pVolume>
 		<ItemCapacityPerSize4>1</ItemCapacityPerSize4>
 		<ItemCapacityPerSize5>1</ItemCapacityPerSize5>
 		<ItemCapacityPerSize6>1</ItemCapacityPerSize6>
@@ -111,6 +111,7 @@
 		<pName>General Large</pName>
 		<pSilhouette>7</pSilhouette>
 		<pType>3</pType>
+              <pVolume>30</pVolume>
 		<ItemCapacityPerSize0>3</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>3</ItemCapacityPerSize1>
 		<ItemCapacityPerSize2>3</ItemCapacityPerSize2>
@@ -149,7 +150,7 @@
 		<pName>Combat Pack</pName>
 		<pSilhouette>6</pSilhouette>
 		<pType>3</pType>
-		<pVolume>30</pVolume>
+		<pVolume>22</pVolume>
 		<ItemCapacityPerSize0>2</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>2</ItemCapacityPerSize1>
 		<ItemCapacityPerSize2>2</ItemCapacityPerSize2>
@@ -226,7 +227,7 @@
 		<pName>Medium General</pName>
 		<pSilhouette>8</pSilhouette>
 		<pType>2</pType>
-		<pVolume>15</pVolume>
+		<pVolume>20</pVolume>
 		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>1</ItemCapacityPerSize1>
 		<ItemCapacityPerSize2>1</ItemCapacityPerSize2>
@@ -310,7 +311,7 @@
 		<pName>Grenade</pName>
 		<pSilhouette>15</pSilhouette>
 		<pType>1</pType>
-		<pVolume>5</pVolume>
+		<pVolume>10</pVolume>
 		<ItemCapacityPerSize10>4</ItemCapacityPerSize10>
 		<ItemCapacityPerSize11>2</ItemCapacityPerSize11>
 		<ItemCapacityPerSize12>2</ItemCapacityPerSize12>
@@ -332,7 +333,7 @@
 		<pName>Tiny General</pName>
 		<pSilhouette>20</pSilhouette>
 		<pType>1</pType>
-		<pVolume>1</pVolume>
+		<pVolume>6</pVolume>
 		<ItemCapacityPerSize10>3</ItemCapacityPerSize10>
 		<ItemCapacityPerSize11>2</ItemCapacityPerSize11>
 		<ItemCapacityPerSize12>2</ItemCapacityPerSize12>
@@ -343,7 +344,7 @@
 		<pName>Small General</pName>
 		<pSilhouette>12</pSilhouette>
 		<pType>1</pType>
-		<pVolume>4</pVolume>
+		<pVolume>12</pVolume>
 		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize10>5</ItemCapacityPerSize10>
 		<ItemCapacityPerSize11>3</ItemCapacityPerSize11>
@@ -470,17 +471,18 @@
 		<ItemCapacityPerSize14>2</ItemCapacityPerSize14>
 		<ItemCapacityPerSize15>2</ItemCapacityPerSize15>
 		<ItemCapacityPerSize16>2</ItemCapacityPerSize16>
+              <ItemCapacityPerSize20>1</ItemCapacityPerSize20>
 	</POCKET>
 	<POCKET>
 		<pIndex>27</pIndex>
 		<pName>General Misc</pName>
 		<pSilhouette>29</pSilhouette>
 		<pType>1</pType>
-		<pVolume>10</pVolume>
-		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
+		<pVolume>16</pVolume>
+	       <ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize10>5</ItemCapacityPerSize10>
-		<ItemCapacityPerSize11>4</ItemCapacityPerSize11>
-		<ItemCapacityPerSize12>4</ItemCapacityPerSize12>
+		<ItemCapacityPerSize11>3</ItemCapacityPerSize11>
+		<ItemCapacityPerSize12>3</ItemCapacityPerSize12>
 		<ItemCapacityPerSize13>2</ItemCapacityPerSize13>
 		<ItemCapacityPerSize14>2</ItemCapacityPerSize14>
 		<ItemCapacityPerSize15>2</ItemCapacityPerSize15>
@@ -553,6 +555,7 @@
 		<pVolume>20</pVolume>
 		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>1</ItemCapacityPerSize1>
+              <ItemCapacityPerSize2>1</ItemCapacityPerSize2>
 	</POCKET>
 	<POCKET>
 		<pIndex>33</pIndex>
@@ -603,11 +606,13 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>37</pIndex>
-		<pName>Carabiner Face</pName>
-		<pSilhouette>37</pSilhouette>
-		<pType>1</pType>
-		<pRestriction>32768</pRestriction>
-		<ItemCapacityPerSize22>1</ItemCapacityPerSize22>
+		<pName>Med Kit</pName>
+		<pSilhouette>34</pSilhouette>
+		<pType>2</pType>
+              <pVolume>20</pVolume>
+		<pRestriction>4096</pRestriction>
+             <ItemCapacityPerSize18>2</ItemCapacityPerSize18>
+		<ItemCapacityPerSize26>1</ItemCapacityPerSize26>
 	</POCKET>
 	<POCKET>
 		<pIndex>38</pIndex>
@@ -615,7 +620,7 @@
 		<pSilhouette>37</pSilhouette>
 		<pType>1</pType>
               <pRestriction>268601344</pRestriction>
-              <pVolume>13</pVolume>
+              <pVolume>1</pVolume>
               <ItemCapacityPerSize16>1</ItemCapacityPerSize16>
 		<ItemCapacityPerSize18>1</ItemCapacityPerSize18>
 		<ItemCapacityPerSize22>1</ItemCapacityPerSize22>
@@ -675,7 +680,8 @@
 		<pSilhouette>38</pSilhouette>
 		<pType>1</pType>
 		<pRestriction>8192</pRestriction>
-		<pVolume>4</pVolume>
+		<pVolume>3</pVolume>
+              <ItemCapacityPerSize13>1</ItemCapacityPerSize13>
 	</POCKET>
 	<POCKET>
 		<pIndex>45</pIndex>
@@ -706,7 +712,7 @@
 		<pType>2</pType>
 		<pRestriction>256</pRestriction>
 		<pVolume>18</pVolume>
-             <ItemCapacityPerSize14>3</ItemCapacityPerSize14>
+             <ItemCapacityPerSize13>3</ItemCapacityPerSize13>
 		<ItemCapacityPerSize14>3</ItemCapacityPerSize14>
 		<ItemCapacityPerSize18>3</ItemCapacityPerSize18>
 	</POCKET>
