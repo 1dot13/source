@@ -1,3 +1,8 @@
+/** 
+ * @file
+ * @author Flugente (bears-pit.com)
+ */
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 	#include "IMP Skill Trait.h"
@@ -75,666 +80,32 @@ BOOLEAN		CameBackToPrejudicePageButNotFinished();
 //*******************************************************************
 #define DROPDOWN_MARKUP_Y	50
 
-//*******************************************************************
-//
-// DropDown declarations
-//
-//*******************************************************************
-class DropDown_Appearance : public DropDown
+enum definedDropDowns
 {
-public:
-	static DropDown_Appearance& getInstance()
-    {
-        static DropDown_Appearance    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_Appearance() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_Appearance(DropDown_Appearance const&); 
-    void operator=(DropDown_Appearance const&);
+	DROPDOWNNR_APPEARANCE = 0,
+	DROPDOWNNR_APPEARANCECARE,
+	DROPDOWNNR_REFINEMENT,
+	DROPDOWNNR_REFINEMENTCARE,
+	DROPDOWNNR_NATIONALITY,
+	DROPDOWNNR_HATEDNATIONALITY,
+	DROPDOWNNR_HATEDNATIONALITYCARE,
+	DROPDOWNNR_RACIST,
+	DROPDOWNNR_RACE,
+	DROPDOWNNR_SEXIST,
+	DROPDOWNNR_RACISTFEATURE,
 };
 
-class DropDown_AppearanceCare : public DropDown
-{
-public:
-	static DropDown_AppearanceCare& getInstance()
-    {
-        static DropDown_AppearanceCare    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_AppearanceCare() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_AppearanceCare(DropDown_AppearanceCare const&); 
-    void operator=(DropDown_AppearanceCare const&);
-};
-
-class DropDown_Refinement : public DropDown
-{
-public:
-	static DropDown_Refinement& getInstance()
-    {
-        static DropDown_Refinement    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_Refinement() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_Refinement(DropDown_Refinement const&); 
-    void operator=(DropDown_Refinement const&);
-};
-
-class DropDown_RefinementCare : public DropDown
-{
-public:
-	static DropDown_RefinementCare& getInstance()
-    {
-        static DropDown_RefinementCare    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_RefinementCare() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_RefinementCare(DropDown_RefinementCare const&); 
-    void operator=(DropDown_RefinementCare const&);
-};
-
-class DropDown_Nationality : public DropDown
-{
-public:
-	static DropDown_Nationality& getInstance()
-    {
-        static DropDown_Nationality    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_Nationality() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_Nationality(DropDown_Nationality const&); 
-    void operator=(DropDown_Nationality const&);
-};
-
-class DropDown_HatedNationality : public DropDown
-{
-public:
-	static DropDown_HatedNationality& getInstance()
-    {
-        static DropDown_HatedNationality    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_HatedNationality() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_HatedNationality(DropDown_HatedNationality const&); 
-    void operator=(DropDown_HatedNationality const&);
-};
-
-class DropDown_HatedNationalityCare : public DropDown
-{
-public:
-	static DropDown_HatedNationalityCare& getInstance()
-    {
-        static DropDown_HatedNationalityCare    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_HatedNationalityCare() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_HatedNationalityCare(DropDown_HatedNationalityCare const&); 
-    void operator=(DropDown_HatedNationalityCare const&);
-};
-
-class DropDown_Racist : public DropDown
-{
-public:
-	static DropDown_Racist& getInstance()
-    {
-        static DropDown_Racist    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_Racist() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_Racist(DropDown_Racist const&); 
-    void operator=(DropDown_Racist const&);
-};
-
-class DropDown_RacistTarget : public DropDown
-{
-public:
-	static DropDown_RacistTarget& getInstance()
-    {
-        static DropDown_RacistTarget    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_RacistTarget() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_RacistTarget(DropDown_RacistTarget const&); 
-    void operator=(DropDown_RacistTarget const&);
-};
-
-class DropDown_Sexist : public DropDown
-{
-public:
-	static DropDown_Sexist& getInstance()
-    {
-        static DropDown_Sexist    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
-        return instance;
-    }
-	
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-	// this function has to be implemented!
-	virtual void SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
-
-private:
-	DropDown_Sexist() {};                   // private cosntructor, so we cannot create more instances
-    
-	// declare but don't define
-    DropDown_Sexist(DropDown_Sexist const&); 
-    void operator=(DropDown_Sexist const&);
-};
-
-//*******************************************************************
-//
-// DropDown definitions
-//
-//*******************************************************************
-void* gPtrDropDown_Appearance;
-void OpenDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Appearance)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_Appearance::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_Appearance = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_Appearance;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_Appearance;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_Appearance;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_Appearance;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_Appearance;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_Appearance;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_Appearance;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_AppearanceCare;
-void OpenDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_AppearanceCare(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_AppearanceCare)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_AppearanceCare::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_AppearanceCare = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_AppearanceCare;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_AppearanceCare;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_AppearanceCare;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_AppearanceCare;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_AppearanceCare;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_AppearanceCare;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_AppearanceCare;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_Refinement;
-void OpenDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_Refinement(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Refinement)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_Refinement::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_Refinement = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_Refinement;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_Refinement;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_Refinement;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_Refinement;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_Refinement;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_Refinement;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_Refinement;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_RefinementCare;
-void OpenDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_RefinementCare(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_RefinementCare)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_RefinementCare::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_RefinementCare = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_RefinementCare;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_RefinementCare;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_RefinementCare;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_RefinementCare;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_RefinementCare;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_RefinementCare;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_RefinementCare;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_Nationality;
-void OpenDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_Nationality(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Nationality)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_Nationality::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_Nationality = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_Nationality;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_Nationality;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_Nationality;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_Nationality;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_Nationality;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_Nationality;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_Nationality;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_HatedNationality;
-void OpenDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )				{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_HatedNationality(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_HatedNationality)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_HatedNationality::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_HatedNationality = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_HatedNationality;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_HatedNationality;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_HatedNationality;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_HatedNationality;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_HatedNationality;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_HatedNationality;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_HatedNationality;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_HatedNationalityCare;
-void OpenDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )				{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_HatedNationalityCare(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_HatedNationalityCare)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_HatedNationalityCare::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_HatedNationalityCare = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_HatedNationalityCare;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_HatedNationalityCare;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_HatedNationalityCare;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_HatedNationalityCare;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_HatedNationalityCare;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_HatedNationalityCare;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_HatedNationalityCare;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_Racist;
-void OpenDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Racist)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Racist)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Racist)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Racist)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Racist)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_Racist)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_Racist(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Racist)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_Racist::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_Racist = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_Racist;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_Racist;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_Racist;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_Racist;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_Racist;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_Racist;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_Racist;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_RacistTarget;
-void OpenDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )				{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_RacistTarget(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_RacistTarget)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_RacistTarget::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_RacistTarget = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_RacistTarget;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_RacistTarget;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_RacistTarget;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_RacistTarget;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_RacistTarget;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_RacistTarget;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_RacistTarget;
-		break;
-	}
-
-	return *pt2Function;
-}
-
-void* gPtrDropDown_Sexist;
-void OpenDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->OpenDropDownRegionCallBack(pRegion, iReason); }
-void CloseDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->CloseDropDownRegionCallBack(pRegion, iReason); }
-void SelectRegionDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->SelectDropDownRegionCallBack(pRegion, iReason); }
-void SelectMovementDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->SelectDropDownMovementCallBack(pRegion, iReason); }
-void SelectArrowDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-void SelectScrollRegionDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-void SelectScrollMovementDropDown_DropDown_Sexist(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Sexist)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-MOUSE_CALLBACK
-DropDown_Sexist::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-{
-	gPtrDropDown_Sexist = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_DropDown_Sexist;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_DropDown_Sexist;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_DropDown_Sexist;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_DropDown_Sexist;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_DropDown_Sexist;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_DropDown_Sexist;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_DropDown_Sexist;
-		break;
-	}
-
-	return *pt2Function;
-}
-
+template<>	void	DropDownTemplate<DROPDOWNNR_APPEARANCE>::SetRefresh()			{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::SetRefresh()		{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_REFINEMENT>::SetRefresh()			{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::SetRefresh()		{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_NATIONALITY>::SetRefresh()			{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::SetRefresh()		{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::SetRefresh()	{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_RACIST>::SetRefresh()				{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_RACE>::SetRefresh()					{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_SEXIST>::SetRefresh()				{ gfIMPPrejudice_Redraw = TRUE; }
+template<>	void	DropDownTemplate<DROPDOWNNR_RACISTFEATURE>::SetRefresh()		{ gfIMPPrejudice_Redraw = TRUE; }
 
 void EnterIMPPrejudice( void )
 {
@@ -756,20 +127,22 @@ void EnterIMPPrejudice( void )
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Appearance;
 	for(UINT8 i = 0; i < NUM_APPEARANCES; ++i)
 		entryvecDropDown_Appearance.push_back( std::make_pair<INT16, STR16>(i, szAppearanceText[i]) );
-
-	DropDown_Appearance::getInstance().SetEntries(entryvecDropDown_Appearance);
-	DropDown_Appearance::getInstance().Create(usX, usY);
+	
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().SetEntries(entryvecDropDown_Appearance);
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_APPEARANCE] );
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().Create(usX, usY);
 	////////////////// DropDown_Appearance //////////////////////////
 
-	usX = DropDown_Appearance::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_ANDAPPEARANCEIS], FONT12ARIAL ) + 20;
+	usX = DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_ANDAPPEARANCEIS], FONT12ARIAL ) + 20;
 	////////////////// DropDown_AppearanceCare //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_AppearanceCare;
 	for(UINT8 i = 0; i < NUM_CARELEVELS; ++i)
 		entryvecDropDown_AppearanceCare.push_back( std::make_pair<INT16, STR16>(i, szCareLevelText[i]) );
-
-	DropDown_AppearanceCare::getInstance().SetEntries(entryvecDropDown_AppearanceCare);
-	DropDown_AppearanceCare::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
-	DropDown_AppearanceCare::getInstance().Create(usX, usY);
+	
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().SetEntries(entryvecDropDown_AppearanceCare);
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_APPEARANCECARE] );
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().Create(usX, usY);
 	////////////////// DropDown_AppearanceCare //////////////////////////
 
 	usX = LAPTOP_SCREEN_UL_X + 5 + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_YOUHAVE], FONT12ARIAL ) + 10;
@@ -779,34 +152,37 @@ void EnterIMPPrejudice( void )
 	for(UINT8 i = 0; i < NUM_REFINEMENT; ++i)
 		entryvecDropDown_Refinement.push_back( std::make_pair<INT16, STR16>(i, szRefinementText[i]) );
 
-	DropDown_Refinement::getInstance().SetEntries(entryvecDropDown_Refinement);
-	DropDown_Refinement::getInstance().Create(usX, usY);
+	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().SetEntries(entryvecDropDown_Refinement);
+	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_REFINEMENT] );
+	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().Create(usX, usY);
 	////////////////// DropDown_Refinement //////////////////////////
 
-	usX = DropDown_Refinement::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_ANDCARE], FONT12ARIAL ) + 20;
-	////////////////// DropDown_RefinementCare //////////////////////////
+	usX = DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_ANDCARE], FONT12ARIAL ) + 20;
+	////////////////// DropDownTemplate<DROPDOWNNR_REFINEMENTCARE> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_RefinementCare;
 	for(UINT8 i = 0; i < NUM_CARELEVELS; ++i)
 		entryvecDropDown_RefinementCare.push_back( std::make_pair<INT16, STR16>(i, szCareLevelText[i]) );
 
-	DropDown_RefinementCare::getInstance().SetEntries(entryvecDropDown_RefinementCare);
-	DropDown_RefinementCare::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
-	DropDown_RefinementCare::getInstance().Create(usX, usY);
-	////////////////// DropDown_RefinementCare //////////////////////////
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().SetEntries(entryvecDropDown_RefinementCare);
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_REFINEMENTCARE] );
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_REFINEMENTCARE> //////////////////////////
 
 	usX = LAPTOP_SCREEN_UL_X + 5 + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], FONT12ARIAL ) + 10;
 	usY += DROPDOWN_MARKUP_Y;
-	////////////////// DropDown_Nationality //////////////////////////
+	////////////////// DropDownTemplate<DROPDOWNNR_NATIONALITY> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Nationality;
 	for(UINT8 i = 0; i < NUM_NATIONALITIES; ++i)
 		entryvecDropDown_Nationality.push_back( std::make_pair<INT16, STR16>(i, szNationalityText[i]) );
 
-	DropDown_Nationality::getInstance().SetEntries(entryvecDropDown_Nationality);
-	DropDown_Nationality::getInstance().Create(usX, usY);
-	////////////////// DropDown_Nationality //////////////////////////
+	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().SetEntries(entryvecDropDown_Nationality);
+	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_NATIONALITY] );
+	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_NATIONALITY> //////////////////////////
 
-	usX = DropDown_Nationality::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_ADHATEEVERYONE], FONT12ARIAL ) + 20;
-	////////////////// DropDown_HatedNationality //////////////////////////
+	usX = DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_ADHATEEVERYONE], FONT12ARIAL ) + 20;
+	////////////////// DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_HatedNationality;
 	// we can also hate no nation at all...
 	entryvecDropDown_HatedNationality.push_back( std::make_pair<INT16, STR16>(-1, szNationalityText_Special[1]) );
@@ -814,54 +190,59 @@ void EnterIMPPrejudice( void )
 	for(UINT8 i = 0; i < NUM_NATIONALITIES; ++i)
 		entryvecDropDown_HatedNationality.push_back( std::make_pair<INT16, STR16>(i, szNationalityText[i]) );
 
-	DropDown_HatedNationality::getInstance().SetEntries(entryvecDropDown_HatedNationality);
-	DropDown_HatedNationality::getInstance().Create(usX, usY);
-	////////////////// DropDown_HatedNationality //////////////////////////
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().SetEntries(entryvecDropDown_HatedNationality);
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_HATEDNATIONALITY] );
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY> //////////////////////////
 
-	usX = DropDown_HatedNationality::getInstance().GetLastX() + 5;
-	////////////////// DropDown_HatedNationalityCare //////////////////////////
+	usX = DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().GetLastX() + 5;
+	////////////////// DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_HatedNationalityCare;
 	for(UINT8 i = 0; i < NUM_CARELEVELS; ++i)
 		entryvecDropDown_HatedNationalityCare.push_back( std::make_pair<INT16, STR16>(i, szCareLevelText[i]) );
 
-	DropDown_HatedNationalityCare::getInstance().SetEntries(entryvecDropDown_HatedNationalityCare);
-	DropDown_HatedNationalityCare::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
-	DropDown_HatedNationalityCare::getInstance().Create(usX, usY);
-	////////////////// DropDown_HatedNationalityCare //////////////////////////
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().SetEntries(entryvecDropDown_HatedNationalityCare);
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_HATEDNATIONALITYCARE] );
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE> //////////////////////////
 
 	usX = LAPTOP_SCREEN_UL_X + 5 + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], FONT12ARIAL ) + 10;
 	usY += DROPDOWN_MARKUP_Y;
-	////////////////// DropDown_Racist //////////////////////////
+	////////////////// DropDownTemplate<DROPDOWNNR_RACIST> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Racist;
 	for(UINT8 i = 0; i < NUM_RACIST; ++i)
 		entryvecDropDown_Racist.push_back( std::make_pair<INT16, STR16>(i, szRacistText[i]) );
 
-	DropDown_Racist::getInstance().SetEntries(entryvecDropDown_Racist);
-	DropDown_Racist::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
-	DropDown_Racist::getInstance().Create(usX, usY);
-	////////////////// DropDown_Racist //////////////////////////
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().SetEntries(entryvecDropDown_Racist);
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_RACIST] );
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_RACIST> //////////////////////////
 
-	usX = DropDown_Racist::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_RACISTAGAINSTNON], FONT12ARIAL ) + 10;
-	////////////////// DropDown_RacistTarget //////////////////////////
-	std::vector<std::pair<INT16, STR16> > entryvecDropDown_RacistTarget;
+	usX = DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().GetLastX() + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_RACISTAGAINSTNON], FONT12ARIAL ) + 10;
+	////////////////// DropDownTemplate<DROPDOWNNR_RACE> //////////////////////////
+	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Race;
 	for(UINT8 i = 0; i < NUM_RACES; ++i)
-		entryvecDropDown_RacistTarget.push_back( std::make_pair<INT16, STR16>(i, szRaceText[i]) );
+		entryvecDropDown_Race.push_back( std::make_pair<INT16, STR16>(i, szRaceText[i]) );
 
-	DropDown_RacistTarget::getInstance().SetEntries(entryvecDropDown_RacistTarget);
-	DropDown_RacistTarget::getInstance().Create(usX, usY);
-	////////////////// DropDown_RacistTarget //////////////////////////
+	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().SetEntries(entryvecDropDown_Race);
+	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_RACE] );
+	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_RACE> //////////////////////////
 
 	usX = LAPTOP_SCREEN_UL_X + 5 + StringPixLength ( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], FONT12ARIAL ) + 10;
 	usY += DROPDOWN_MARKUP_Y;
-	////////////////// DropDown_Sexist //////////////////////////
+	////////////////// DropDownTemplate<DROPDOWNNR_SEXIST> //////////////////////////
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Sexist;
 	for(UINT8 i = 0; i < NUM_SEXIST; ++i)
 		entryvecDropDown_Sexist.push_back( std::make_pair<INT16, STR16>(i, szSexistText[i]) );
 
-	DropDown_Sexist::getInstance().SetEntries(entryvecDropDown_Sexist);
-	DropDown_Sexist::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
-	DropDown_Sexist::getInstance().Create(usX, usY);
-	////////////////// DropDown_Sexist //////////////////////////
+	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().SetEntries(entryvecDropDown_Sexist);
+	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().SetHelpText( szPersonalityHelpText[DROPDOWNNR_SEXIST] );
+	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().SetColorLine( Get16BPPColor( FROMRGB( 38, 191, 60 ) ) );
+	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().Create(usX, usY);
+	////////////////// DropDownTemplate<DROPDOWNNR_SEXIST> //////////////////////////
 }
 
 
@@ -872,31 +253,31 @@ void RenderIMPPrejudice( void )
 
 	IMPPrejudiceDisplay();
 
-	DropDown_Appearance::getInstance().Display();
-	DropDown_AppearanceCare::getInstance().Display();
-	DropDown_Refinement::getInstance().Display();
-	DropDown_RefinementCare::getInstance().Display();
-	DropDown_Nationality::getInstance().Display();
-	DropDown_HatedNationality::getInstance().Display();
-	DropDown_HatedNationalityCare::getInstance().Display();
-	DropDown_Racist::getInstance().Display();
-	DropDown_RacistTarget::getInstance().Display();
-	DropDown_Sexist::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().Display();
+	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().Display();
 }
 
 
 void ExitIMPPrejudice( void )
 {
-	DropDown_Appearance::getInstance().Destroy();
-	DropDown_AppearanceCare::getInstance().Destroy();
-	DropDown_Refinement::getInstance().Destroy();
-	DropDown_RefinementCare::getInstance().Destroy();
-	DropDown_Nationality::getInstance().Destroy();
-	DropDown_HatedNationality::getInstance().Destroy();
-	DropDown_HatedNationalityCare::getInstance().Destroy();
-	DropDown_Racist::getInstance().Destroy();
-	DropDown_RacistTarget::getInstance().Destroy();
-	DropDown_Sexist::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_RACE>::getInstance().Destroy();
+	DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().Destroy();
 
 	RemoveButton( giIMPPrejudiceFinishButton );
 	UnloadButtonImage( giIMPPrejudiceFinishButtonImage );
@@ -916,7 +297,6 @@ void HandleIMPPrejudice( void )
 
 void IMPPrejudiceDisplay()
 {
-	UINT32 uiCnt;
 	UINT16 usPosX, usPosY;
 
 	//Display the title
@@ -930,10 +310,10 @@ void IMPPrejudiceDisplay()
 	// Appearance
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOULOOK], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_Appearance::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ANDAPPEARANCEIS], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_AppearanceCare::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_IMPORTANTTOYOU], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 				
 	// Refinement
@@ -941,10 +321,10 @@ void IMPPrejudiceDisplay()
 	usPosY += DROPDOWN_MARKUP_Y;
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUHAVE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_Refinement::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ANDCARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_RefinementCare::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ABOUTTHAT], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	// Hated Nations
@@ -952,7 +332,7 @@ void IMPPrejudiceDisplay()
 	usPosY += DROPDOWN_MARKUP_Y;
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_Nationality::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_ADHATEEVERYONE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	// Racism
@@ -960,10 +340,10 @@ void IMPPrejudiceDisplay()
 	usPosY += DROPDOWN_MARKUP_Y;
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_Racist::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_RACISTAGAINSTNON], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_RacistTarget::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_RACE>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_PEOPLE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	// Sexism
@@ -971,7 +351,7 @@ void IMPPrejudiceDisplay()
 	usPosY += DROPDOWN_MARKUP_Y;
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_YOUARE], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = 10 + DropDown_Sexist::getInstance().GetLastX();
+	usPosX = 10 + DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().GetLastX();
 	DrawTextToScreen( szPersonalityDisplayText[PERSONALITYTEXT_DOT], usPosX, usPosY, 0, IMP_PREJUDICE__FONT, IMP_PREJUDICE__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 }
 
@@ -996,16 +376,16 @@ void BtnIMPPrejudiceFinishCallback(GUI_BUTTON *btn,INT32 reason)
 		else
 		{
 			// we finished this -> write down our choices
-			bRace						= ( INT8)DropDown_RacistTarget::getInstance().GetSelectedEntryKey();
-			bNationality				= ( INT8)DropDown_Nationality::getInstance().GetSelectedEntryKey();
-			bAppearance					= ( INT8)DropDown_Appearance::getInstance().GetSelectedEntryKey();
-			bAppearanceCareLevel		= ( INT8)DropDown_AppearanceCare::getInstance().GetSelectedEntryKey();
-			bRefinement					= ( INT8)DropDown_Refinement::getInstance().GetSelectedEntryKey();
-			bRefinementCareLevel		= ( INT8)DropDown_RefinementCare::getInstance().GetSelectedEntryKey();
-			bHatedNationality			= ( INT8)DropDown_HatedNationality::getInstance().GetSelectedEntryKey();
-			bHatedNationalityCareLevel	= ( INT8)DropDown_HatedNationalityCare::getInstance().GetSelectedEntryKey();
-			bRacist						= ( INT8)DropDown_Racist::getInstance().GetSelectedEntryKey();
-			bSexist						= (UINT8)DropDown_Sexist::getInstance().GetSelectedEntryKey();
+			bRace						= ( INT8)DropDownTemplate<DROPDOWNNR_RACE>::getInstance().GetSelectedEntryKey();
+			bNationality				= ( INT8)DropDownTemplate<DROPDOWNNR_NATIONALITY>::getInstance().GetSelectedEntryKey();
+			bAppearance					= ( INT8)DropDownTemplate<DROPDOWNNR_APPEARANCE>::getInstance().GetSelectedEntryKey();
+			bAppearanceCareLevel		= ( INT8)DropDownTemplate<DROPDOWNNR_APPEARANCECARE>::getInstance().GetSelectedEntryKey();
+			bRefinement					= ( INT8)DropDownTemplate<DROPDOWNNR_REFINEMENT>::getInstance().GetSelectedEntryKey();
+			bRefinementCareLevel		= ( INT8)DropDownTemplate<DROPDOWNNR_REFINEMENTCARE>::getInstance().GetSelectedEntryKey();
+			bHatedNationality			= ( INT8)DropDownTemplate<DROPDOWNNR_HATEDNATIONALITY>::getInstance().GetSelectedEntryKey();
+			bHatedNationalityCareLevel	= ( INT8)DropDownTemplate<DROPDOWNNR_HATEDNATIONALITYCARE>::getInstance().GetSelectedEntryKey();
+			bRacist						= ( INT8)DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().GetSelectedEntryKey();
+			bSexist						= (UINT8)DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().GetSelectedEntryKey();
 
 			if ( gGameOptions.fBackGround )
 			{

@@ -19,98 +19,32 @@ void Display2Line2ShadowHorizontal( UINT16 usStartX, UINT16 usStartY, UINT16 End
 #define DROPDOWN_REGIONS		8
 
 /*
- * As we cannot directly add our callbacks (we need a static callback due to the way MSYS_DefineRegion(...) works, which utterly fails if we have multiple instance of a class) we
- * use a very odd looking workaround.
- * For every DropDown you need, you have to inherit from this class and fill CallBackWrapper(...). You then need a static pointer to an instance of your class, and a wrapper for each callback
- * that will then call the correct callback. The derived class will also have to be a singleton, otherwise callbacks for multiple instances will always refer to the last created one.
- * This seems a lot of work and pretty absurd, but I've found no better workaround without changing MSYS_DefineRegion(), as it expects a MOUSE_CALLBACK and not voi* pointers to objects.
- * On the plus side, you can simply copy this code:
-
- Definition:
-	class DropDown_Example : public DropDown
-	{
-		public:
-		static DropDown_Example& getInstance()
-		{
-			static DropDown_Example    instance; // Guaranteed to be destroyed.
-									// Instantiated on first use.
-			return instance;
-		}
-	
-		virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) );
-
-		//somehow refresh display, otherwise DropDownA will write over itself and other stuff
-		// this function has to be implemented!
-		virtual void SetRefresh()
-		{
-			// do stuff here...
-		}
-
-		private:
-		DropDown_Example() {};                   // private constructor, so we cannot create more instances
-    
-		// declare but don't define
-		DropDown_Example(DropDown_Example const&); 
-		void operator=(DropDown_Example const&);
-	};
-
- Declaration:
-	void * gPtrDropDown_Example;
-	void OpenDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Example)->OpenDropDownRegionCallBack(pRegion, iReason); }
-	void CloseDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDown*>(gPtrDropDown_Example)->CloseDropDownRegionCallBack(pRegion, iReason); }
-	void SelectRegionDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Example)->SelectDropDownRegionCallBack(pRegion, iReason); }
-	void SelectMovementDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Example)->SelectDropDownMovementCallBack(pRegion, iReason); }
-	void SelectArrowDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDown*>(gPtrDropDown_Example)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
-	void SelectScrollRegionDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDown*>(gPtrDropDown_Example)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
-	void SelectScrollMovementDropDown_Example(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDown*>(gPtrDropDown_Example)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
-
-	MOUSE_CALLBACK
-	DropDown_Example::CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
-	{
-	gPtrDropDown_Example = pt2Object;
-
-	switch ( arg )
-	{
-	case DROPDOWN_OPEN:
-		return &OpenDropDown_Example;
-		break;
-	case DROPDOWN_CLOSE:
-		return &CloseDropDown_Example;
-		break;
-	case DROPDOWN_REGION:
-		return &SelectRegionDropDown_Example;
-		break;
-	case DROPDOWN_MOVEMENT:
-		return &SelectMovementDropDown_Example;
-		break;
-	case DROPDOWN_ARROW:
-		return &SelectArrowDropDown_Example;
-		break;
-	case DROPDOWN_SCROLL_REGION:
-		return &SelectScrollRegionDropDown_Example;
-		break;
-	case DROPDOWN_SCROLL_MOVEMENT:
-		return &SelectScrollMovementDropDown_Example;
-		break;
-	}
-
-	return *pt2Function;
-	}
-
+ * As we cannot directly add our callbacks (we need a static callback due to the way MSYS_DefineRegion(...) works, which utterly fails if we have multiple instance of a class),
+ * we use a very odd looking workaround.
+ * We do not directly use DropDownBase. Instead we use DropDownTemplate, which is a template taking an int N. This template is a singleton. This means that for each N, there can only be one
+ * instance of the class. This is necessary as we internally need a unique static self-pointer.
+ * If you try to have two instances on the same screen, only one will show, which will be confusing. So simply use a separate N fore each instance. See IMP Prejudice.cpp to get an idea of how that is done.
+ *
+ * Apart from that, you will only have to implement void SetRefresh(). This function is necessary to refresh the screen after the popup-section is closed, otherwise it will still be shown.
+ * 
+ * As this class refreshes itself once you have properly implemented SetRefresh(), you can even move the box aroun onscreen, it will properly refresh, so moving it with a mouse will be possible
+ *
+ * You can get an instance by calling DropDownTemplate<int X>.Create(UINT16 usX, UINT16 usY);, the constructor itself is private (singleton).
+  
  Usage:
 	std::vector<std::pair<INT16, STR16> > entryvecDropDown_Appearance;
 	for(UINT8 i = 0; i < NUM_APPEARANCES; ++i)
 	entryvecDropDown_Appearance.push_back( std::make_pair<INT16, STR16>(i, szAppearanceText[i]) );
 		
-	DropDown_Appearance::getInstance().SetEntries(entryvecDropDown_Appearance);
-	DropDown_Appearance::getInstance().Create(usX, usY);
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>.SetEntries(entryvecDropDown_Appearance);
+	DropDownTemplate<DROPDOWNNR_APPEARANCE>.Create(usX, usY);
 	...
 
  */
-class DropDown
+class DropDownBase
 {
 public:
-	DropDown();
+	DropDownBase();
 
 	/*
 	 * Create a Dropdown with upper left coordinates
@@ -123,7 +57,7 @@ public:
 	void Destroy();
 
 	/*
-	 * Display DropDown. Use this when refreshing
+	 * Display DropDownBase. Use this when refreshing
 	 */
 	void Display();
 
@@ -147,23 +81,7 @@ public:
 		DROPDOWN_SCROLL_REGION,
 		DROPDOWN_SCROLL_MOVEMENT,
 	};
-	
-	// call to open/close the drop down
-	void OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-	void CloseDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-
-	void SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-	void SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-	void SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-
-	void SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-	void SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-
-	/*
-	 * This function has to be implemented, see documetnation as to why and how!
-	 */
-	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) ) = 0;
-	
+			
 	/*
 	 * Set the content of a dropdown. Each entry consists of an INT16 key, by which you can later identify which entry was selected, and a STR16 that will be displayed.
 	 * There can be multiple instances of the same key or name.
@@ -191,12 +109,17 @@ public:
 	void SetColorHighLight( UINT16 aCol )	{ mColorHighLight = aCol; }
 
 	/*
+	 * Set help text decribing what can be selected
+	 */
+	void SetHelpText( STR16 aText )			{ wcscat( mHelpText, aText ); }
+
+	/*
 	 * Get key of selected entry
 	 */
 	INT16	GetSelectedEntryKey()		{ return mEntryVector[mSelectedEntry].first; }
 
 	/*
-	 * Get width of entire DropDown
+	 * Get width of entire DropDownBase
 	 */
 	UINT16	GetTotalWidth()				{ return musWidth + musArrowWidth; }
 
@@ -205,10 +128,26 @@ public:
 	 */
 	UINT16	GetLastX()					{ return musStartX + GetTotalWidth(); }
 
+	// call to open/close the drop down
+	void OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+	void CloseDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+
+	void SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+	void SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+	void SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+
+	void SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+	void SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+
+	/*
+	 * This function is implemented again in DropDownTemplate
+	 */
+	virtual MOUSE_CALLBACK CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )	{ return Dummyfunc; }
+
 private:
 	// declare but don't define
-    DropDown(DropDown const&); 
-    void operator=(DropDown const&);
+    DropDownBase(DropDownBase const&); 
+    void operator=(DropDownBase const&);
 
 	/*
 	 * Initialise variables. Called after each creationm which allows moving a dropdown 
@@ -261,6 +200,7 @@ private:
 
 	MOUSE_REGION	mSelectedOpenDropDownRegion;
 	MOUSE_REGION	mSelectedCloseDropDownRegion;
+	MOUSE_REGION	mBubbleHelpRegion;	// for a help text describing what a selection is good for, can be seen when hovering the mouse over the box when it is closed
 
 	MOUSE_REGION	mDropDownRegion[DROPDOWN_REGIONS];
 	MOUSE_REGION	mgSelectedUpDownArrowOnScrollAreaRegion[2];
@@ -270,9 +210,83 @@ private:
 
 	std::vector<std::pair<INT16, STR16> > mEntryVector;
 
+	CHAR16	mHelpText[200];
+
 	UINT8	mSelectedEntry;				// keeps track of the currently selected city
 	UINT8	mFirstShownEntry;			// top entry of the dropped region
 	UINT8	mNumDisplayedEntries;		// number of entries displayed. Calculated internally, no need to change by user
 };
+
+template<int N>
+class DropDownTemplate : public DropDownBase
+{
+public:
+	static DropDownTemplate<N>& getInstance()
+    {
+        static DropDownTemplate<N>    instance; // Guaranteed to be destroyed.
+                                // Instantiated on first use.
+        return instance;
+    }
+	
+	// this function has to be implemented!
+	virtual void SetRefresh();
+	
+	static void OpenDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDownBase*>(mpSelf)->OpenDropDownRegionCallBack(pRegion, iReason); }
+	static void CloseDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )					{ return static_cast<DropDownBase*>(mpSelf)->CloseDropDownRegionCallBack(pRegion, iReason); }
+	static void SelectRegionDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectDropDownRegionCallBack(pRegion, iReason); }
+	static void SelectMovementDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )			{ return static_cast<DropDownBase*>(mpSelf)->SelectDropDownMovementCallBack(pRegion, iReason); }
+	static void SelectArrowDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )				{ return static_cast<DropDownBase*>(mpSelf)->SelectUpDownArrowOnScrollAreaRegionCallBack(pRegion, iReason); }
+	static void SelectScrollRegionDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )		{ return static_cast<DropDownBase*>(mpSelf)->SelectScrollAreaDropDownRegionCallBack(pRegion, iReason); }
+	static void SelectScrollMovementDropDown_DropDown_Appearance(MOUSE_REGION * pRegion, INT32 iReason )	{ return static_cast<DropDownBase*>(mpSelf)->SelectScrollAreaDropDownMovementCallBack(pRegion, iReason); }
+
+	MOUSE_CALLBACK
+	CallBackWrapper(void* pt2Object, UINT8 arg, void  (*pt2Function)(MOUSE_REGION * pRegion, INT32 iReason) )
+	{
+		mpSelf = pt2Object;
+
+		switch ( arg )
+		{
+		case DROPDOWN_OPEN:
+			return &OpenDropDown_DropDown_Appearance;
+			break;
+		case DROPDOWN_CLOSE:
+			return &CloseDropDown_DropDown_Appearance;
+			break;
+		case DROPDOWN_REGION:
+			return &SelectRegionDropDown_DropDown_Appearance;
+			break;
+		case DROPDOWN_MOVEMENT:
+			return &SelectMovementDropDown_DropDown_Appearance;
+			break;
+		case DROPDOWN_ARROW:
+			return &SelectArrowDropDown_DropDown_Appearance;
+			break;
+		case DROPDOWN_SCROLL_REGION:
+			return &SelectScrollRegionDropDown_DropDown_Appearance;
+			break;
+		case DROPDOWN_SCROLL_MOVEMENT:
+			return &SelectScrollMovementDropDown_DropDown_Appearance;
+			break;
+		}
+
+		return *pt2Function;
+	}
+
+private:
+	static void* mpSelf;
+	
+private:
+	DropDownTemplate<N>() {};                   // private constructor, so we cannot create more instances
+    
+	// declare but don't define
+    DropDownTemplate(DropDownTemplate const&); 
+    void operator=(DropDownTemplate const&);
+};
+
+template <int N>
+void DropDownTemplate<N>::SetRefresh();
+
+template <int N>
+void* DropDownTemplate<N>::mpSelf = NULL;
 
 #endif

@@ -53,13 +53,15 @@ void Display2Line2ShadowVertical( UINT16 usStartX, UINT16 usStartY, UINT16 EndY,
 	DisplaySmallLine(usStartX+3, usStartY, usStartX+3, EndY, usColor2);
 }
 
-DropDown::DropDown()
+DropDownBase::DropDownBase()
 {
 	// default settings
 	musWidth = 100;						// width of text field
 	musArrowWidth = 22;					// width of arrow (and thus scrollbar)
 
 	mEntryVector.clear();
+
+	swprintf( mHelpText, L"" );
 
 	mSelectedEntry = 0;
 	mFirstShownEntry = 0;
@@ -71,7 +73,7 @@ DropDown::DropDown()
 }
 
 void
-DropDown::Init(UINT16 sX, UINT16 sY)
+DropDownBase::Init(UINT16 sX, UINT16 sY)
 {
 	mfMouseRegionsCreated = FALSE;
 
@@ -99,7 +101,7 @@ DropDown::Init(UINT16 sX, UINT16 sY)
 }
 
 void
-DropDown::Init_Drop()
+DropDownBase::Init_Drop()
 {
 	mfMouseRegionsCreated_Drop = FALSE;
 
@@ -115,7 +117,7 @@ DropDown::Init_Drop()
 void * gDropObj;
 
 void
-DropDown::Create(UINT16 sX, UINT16 sY)
+DropDownBase::Create(UINT16 sX, UINT16 sY)
 {
 	if( mfMouseRegionsCreated )
 	{
@@ -135,21 +137,24 @@ DropDown::Create(UINT16 sX, UINT16 sY)
 	gDropObj = (void*) this;
 	
 	MSYS_DefineRegion( &mSelectedOpenDropDownRegion, musStartX + musWidth, musStartY, musStartX + musWidth + musArrowWidth, musStartY + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
-							CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_OPEN, &DropDown::Dummyfunc) );
-	
+							CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_OPEN, &DropDownBase::Dummyfunc) );	
 	MSYS_AddRegion(&mSelectedOpenDropDownRegion);
 
 	//click anywhere on the screen to close the window( only when the drop down window is active)
 	MSYS_DefineRegion( &mSelectedCloseDropDownRegion, LAPTOP_SCREEN_UL_X, LAPTOP_SCREEN_WEB_UL_Y , LAPTOP_SCREEN_LR_X, LAPTOP_SCREEN_WEB_LR_Y, MSYS_PRIORITY_HIGH-1,
-							CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_CLOSE, &DropDown::Dummyfunc) );
+							CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_CLOSE, &DropDownBase::Dummyfunc) );
 	MSYS_AddRegion(&mSelectedCloseDropDownRegion);
 	MSYS_DisableRegion(&mSelectedCloseDropDownRegion);
 
+	MSYS_DefineRegion( &mBubbleHelpRegion, musStartX, musStartY, musStartX + musWidth, musStartY + DEF_SCROLL_ARROW_HEIGHT, MSYS_PRIORITY_HIGH,
+							CURSOR_WWW, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );	
+	MSYS_AddRegion(&mBubbleHelpRegion);
+			
 	mfMouseRegionsCreated = TRUE;
 }
 
 void
-DropDown::Create_Drop()
+DropDownBase::Create_Drop()
 {
 	if( mfMouseRegionsCreated_Drop )
 	{
@@ -166,7 +171,7 @@ DropDown::Create_Drop()
 	for( i=0; i< DROPDOWN_REGIONS; ++i)
 	{
 		MSYS_DefineRegion( &mDropDownRegion[i], usPosX, (UINT16)(usPosY+4), (UINT16)(usPosX+musWidth-6), (UINT16)(usPosY+musFontHeight+7), MSYS_PRIORITY_HIGH,
-								CURSOR_WWW, CallBackWrapper((void*) this, DROPDOWN_MOVEMENT, &DropDown::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_REGION, &DropDown::Dummyfunc));
+								CURSOR_WWW, CallBackWrapper((void*) this, DROPDOWN_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_REGION, &DropDownBase::Dummyfunc));
 		MSYS_AddRegion(&mDropDownRegion[i]);
 		MSYS_SetRegionUserData( &mDropDownRegion[ i ], 0, i);
 
@@ -181,7 +186,7 @@ DropDown::Create_Drop()
 	for(i=0; i<2; ++i)
 	{
 		MSYS_DefineRegion( &mgSelectedUpDownArrowOnScrollAreaRegion[i], usPosX, usPosY, (UINT16)(usPosX+musWidth), (UINT16)(usPosY+DEF_SCROLL_ARROW_HEIGHT), MSYS_PRIORITY_HIGH,
-								CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_ARROW, &DropDown::Dummyfunc));
+								CURSOR_WWW, MSYS_NO_CALLBACK, CallBackWrapper((void*) this, DROPDOWN_ARROW, &DropDownBase::Dummyfunc));
 		MSYS_AddRegion(&mgSelectedUpDownArrowOnScrollAreaRegion[i]);
 		MSYS_SetRegionUserData( &mgSelectedUpDownArrowOnScrollAreaRegion[ i ], 0, i);
 		usPosX = musDownArrowX;
@@ -196,14 +201,14 @@ DropDown::Create_Drop()
 	for(i=0; i<DROPDOWN_REGIONS - 1; ++i)
 	{
 		MSYS_DefineRegion( &mSelectedScrollAreaDropDownRegion[i], usPosX, usPosY, (UINT16)(usPosX+musWidth), (UINT16)(usPosY+usHeight), MSYS_PRIORITY_HIGH+1,
-								CURSOR_LAPTOP_SCREEN, CallBackWrapper((void*) this, DROPDOWN_SCROLL_MOVEMENT, &DropDown::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_SCROLL_REGION, &DropDown::Dummyfunc));
+								CURSOR_LAPTOP_SCREEN, CallBackWrapper((void*) this, DROPDOWN_SCROLL_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_SCROLL_REGION, &DropDownBase::Dummyfunc));
 		MSYS_AddRegion(&mSelectedScrollAreaDropDownRegion[i]);
 		MSYS_SetRegionUserData( &mSelectedScrollAreaDropDownRegion[ i ], 0, i);
 		usPosY += usHeight;
 	}
 	//put the last one down to cover the remaining area
 	MSYS_DefineRegion( &mSelectedScrollAreaDropDownRegion[i], usPosX, usPosY, (UINT16)(usPosX+musWidth), musDownArrowY, MSYS_PRIORITY_HIGH+1,
-							CURSOR_LAPTOP_SCREEN, CallBackWrapper((void*) this, DROPDOWN_SCROLL_MOVEMENT, &DropDown::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_SCROLL_REGION, &DropDown::Dummyfunc));
+							CURSOR_LAPTOP_SCREEN, CallBackWrapper((void*) this, DROPDOWN_SCROLL_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_SCROLL_REGION, &DropDownBase::Dummyfunc));
 	MSYS_AddRegion(&mSelectedScrollAreaDropDownRegion[i]);
 	MSYS_SetRegionUserData( &mSelectedScrollAreaDropDownRegion[ i ], 0, i);
 	
@@ -213,7 +218,7 @@ DropDown::Create_Drop()
 }
 
 void
-DropDown::Destroy()
+DropDownBase::Destroy()
 {
 	Destroy_Drop();
 
@@ -224,6 +229,7 @@ DropDown::Destroy()
 
 	MSYS_RemoveRegion( &mSelectedOpenDropDownRegion);
 	MSYS_RemoveRegion( &mSelectedCloseDropDownRegion);
+	MSYS_RemoveRegion( &mBubbleHelpRegion);
 
 	DeleteVideoObjectFromIndex(muiGoldArrowImages);
 
@@ -231,7 +237,7 @@ DropDown::Destroy()
 }
 
 void
-DropDown::Destroy_Drop()
+DropDownBase::Destroy_Drop()
 {
 	if( !mfMouseRegionsCreated_Drop )
 		return;
@@ -257,7 +263,7 @@ DropDown::Destroy_Drop()
 }
 
 void
-DropDown::Display()
+DropDownBase::Display()
 {
 	if( !mfMouseRegionsCreated )
 		return;
@@ -288,6 +294,13 @@ DropDown::Display()
 	GetVideoObject(&hArrowHandle, muiGoldArrowImages);
 	//top arrow
 	BltVideoObject(FRAME_BUFFER, hArrowHandle, 0, musUpArrowX, musUpArrowY, VO_BLT_SRCTRANSPARENCY,NULL);
+		
+	// Set region help text
+	if ( StringPixLength ( mHelpText, DEF_DROPDOWN_FONT ) > 0 )
+	{
+		SetRegionFastHelpText( &mBubbleHelpRegion, mHelpText );
+		SetRegionHelpEndCallback( &mBubbleHelpRegion, MSYS_NO_CALLBACK );
+	}
 	
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 
@@ -297,7 +310,7 @@ DropDown::Display()
 
 
 void
-DropDown::Display_Drop()
+DropDownBase::Display_Drop()
 {
 	if( !mfMouseRegionsCreated_Drop )
 		return;
@@ -339,7 +352,7 @@ DropDown::Display_Drop()
 }
 
 void
-DropDown::DrawTopEntry()
+DropDownBase::DrawTopEntry()
 {
 	if ( mSelectedEntry >= mEntryVector.size() )
 		return;
@@ -355,7 +368,7 @@ DropDown::DrawTopEntry()
 }
 
 void
-DropDown::DrawSelectedCity()
+DropDownBase::DrawSelectedCity()
 {
 	UINT16 usPosY = musStartY_Drop;
 	UINT16 usMaxY = 0;
@@ -386,7 +399,7 @@ DropDown::DrawSelectedCity()
 }
 
 void
-DropDown::DrawGoldRectangle()
+DropDownBase::DrawGoldRectangle()
 {
 	UINT32 uiDestPitchBYTES;
 	UINT8	*pDestBuf;
@@ -431,7 +444,7 @@ DropDown::DrawGoldRectangle()
 }
 
 void
-DropDown::SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
+DropDownBase::SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
@@ -453,7 +466,7 @@ DropDown::SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 }
 
 void
-DropDown::SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+DropDownBase::SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -468,7 +481,7 @@ DropDown::SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 }
 
 void
-DropDown::SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+DropDownBase::SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -505,7 +518,7 @@ DropDown::SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, IN
 }
 
 void
-DropDown::SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
+DropDownBase::SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
@@ -545,7 +558,7 @@ DropDown::SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32
 }
 
 void
-DropDown::SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+DropDownBase::SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -599,7 +612,7 @@ DropDown::SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 i
 }
 
 void
-DropDown::OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+DropDownBase::OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -612,7 +625,7 @@ DropDown::OpenDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 }
 
 void
-DropDown::CloseDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
+DropDownBase::CloseDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -622,3 +635,4 @@ DropDown::CloseDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		Destroy_Drop();
 	}
 }
+

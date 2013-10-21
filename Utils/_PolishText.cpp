@@ -7744,6 +7744,20 @@ STR16		szPersonalityDisplayText[]=	// TODO.Translate
 	L"people.",
 };
 
+// texts showing up when hovering over the box, used to explain what a selection does. Do not use more than 200 characters!
+STR16		szPersonalityHelpText[]=
+{
+	L"How do you look?",
+	L"How important are the looks of others to you?",
+	L"What are your manners?",
+	L"How important are the manners of other people to you?",
+	L"What is your nationality?",
+	L"What nation o you dislike?",
+	L"How much do you dislike that nation?",
+	L"How racist are you?",
+	L"What is your race? You will be\nracist against all other races.",
+	L"How sexist are you against the other gender?",
+};
 
 STR16		szRaceText[]=
 {
