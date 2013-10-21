@@ -2258,7 +2258,7 @@ UINT16 DisplayExplosiveDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_DAMAGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	
-	UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usIndex ].ubClassIndex].ubDamage );
+	UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usIndex ].ubClassIndex].ubDamage, 0 );
 	
 	swprintf(sTemp, L"%4d", explDamage);
 	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
@@ -2272,7 +2272,7 @@ UINT16 DisplayExplosiveStunDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHe
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_STUN], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	
-	UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usIndex ].ubClassIndex].ubStunDamage );
+	UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usIndex ].ubClassIndex].ubStunDamage, 1 );
 	
 	swprintf(sTemp, L"%4d", explStunDamage);
 	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR_ALT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
@@ -4242,8 +4242,8 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 			// HEADROCK HAM 3.6: Can now use negative modifier.
 			//UINT16 explDamage = (UINT16)( Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.bExplosivesDamageModifier );
 			//UINT16 explStunDamage = (UINT16)( Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
-			UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage );
-			UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage );
+			UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItemNumber ].ubClassIndex].ubDamage, 0 );
+			UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItemNumber ].ubClassIndex].ubStunDamage, 1 );
 
 
 			swprintf( pzStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",

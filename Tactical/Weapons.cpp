@@ -6111,7 +6111,7 @@ else
 			}
 		}
 		// Make sure cap is within limits
-		uiCap = __max(uiCap, __max(0,(UINT32)iChance));
+		uiCap = __max(uiCap, __max(0, iChance));
 		uiCap = __min(uiCap, gGameExternalOptions.ubMaximumCTH);
 
 		// Now figure out the distance between the Base CTH and the CTH Cap. This is the distance we'll potentially

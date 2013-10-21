@@ -131,7 +131,7 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 	UINT32					dbSize = 0;
 
 
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 	{
 
 		// Create video object
@@ -189,7 +189,7 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 	}
 
 	// NOW LOOP THROUGH AND CREATE DATABASE
-	for( cnt1 = 0; cnt1 < giNumberOfTileTypes; cnt1++ )
+	for( cnt1 = 0; cnt1 < (UINT32)giNumberOfTileTypes; cnt1++ )
 	{
 		// Get number of regions
 		s = gSmTileSurf[ cnt1 ];
@@ -2051,7 +2051,7 @@ void CopyOverheadDBShadetablesFromTileset( )
 
 
 	// Loop through tileset
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 	{
 		pTileSurf = ( gTileSurfaceArray[ uiLoop ] );
 

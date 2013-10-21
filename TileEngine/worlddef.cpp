@@ -398,7 +398,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	}
 	else
 	{
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 			strcpy( TileSurfaceFilenames[uiLoop], ppTileSurfaceFilenames[uiLoop] );//(ppTileSurfaceFilenames + (65 * uiLoop)) );
 	}
 
@@ -412,7 +412,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	//uiFillColor = Get16BPPColor(FROMRGB( 100, 0, 0 ));
 	// load the tile surfaces
 	SetRelativeStartAndEndPercentage( 0, 1, 35, L"Tile Surfaces" );
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 	{
 	
 	
@@ -711,7 +711,7 @@ void BuildTileShadeTables(  )
 		memset( gbNewTileSurfaceLoaded, 1, sizeof( gbNewTileSurfaceLoaded ) );
 	}
 
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 	{
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
@@ -757,7 +757,7 @@ void DestroyTileShadeTables( )
 {
 	UINT32					uiLoop;
 
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 	{
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
@@ -781,7 +781,7 @@ void DestroyTileSurfaces( )
 {
 	UINT32					uiLoop;
 
-	for (uiLoop = 0; uiLoop < giNumberOfTileTypes; uiLoop++)
+	for (uiLoop = 0; uiLoop < (UINT32)giNumberOfTileTypes; uiLoop++)
 	{
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{

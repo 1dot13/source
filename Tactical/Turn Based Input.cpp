@@ -7201,7 +7201,7 @@ void SwapMercPortraits ( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	if ( gpCurrentTalkingFace != NULL )
 		return;
 
-	UINT8 ubSourceMerc = gusSelectedSoldier;
+	UINT8 ubSourceMerc = (UINT8)gusSelectedSoldier;
 	UINT8 ubTargetMerc;
 	UINT8 ubGroupID = pSoldier->ubGroupID;
 	INT8 bOldPosition = GetTeamSlotFromPlayerID ( MercPtrs[ ubSourceMerc ]->ubID );

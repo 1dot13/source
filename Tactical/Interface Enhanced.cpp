@@ -8309,7 +8309,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
-			INT16 iFinalDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage );
+			INT16 iFinalDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage, 0 );
 
 			// Get base damage
 			INT16 iDamage = iFinalDamage;
@@ -8350,7 +8350,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 
 			// Get final damage
-			INT16 iFinalStunDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage);
+			INT16 iFinalStunDamage = GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage, 1 );
 
 			// Get base damage
 			INT16 iStunDamage = iFinalStunDamage;

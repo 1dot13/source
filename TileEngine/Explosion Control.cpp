@@ -1904,7 +1904,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 
 BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT8 ubOwner , BOOL fFromRemoteClient )
 {
-	// OJW - 20091028
+					// OJW - 20091028
 	if (is_networked && is_client)
 	{
 		// only the owner of a merc may send damage (as this takes into account equipped gas mask)
@@ -1925,6 +1925,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 #endif
 	}
 
+	FLOAT fGasDamageModifier = 1.0;
+	FLOAT fGasBreathDamageModifier = 1.0;
 	INT8	bPosOfMask = NO_SLOT;
 
 	if (!pSoldier->bActive || !pSoldier->bInSector || !pSoldier->stats.bLife || AM_A_ROBOT( pSoldier ) )
@@ -1941,6 +1943,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 	}
 
+	// no gas mask helps from creature attacks and fire
 	if ( pExplosive->ubType == EXPLOSV_CREATUREGAS || pExplosive->ubType == EXPLOSV_BURNABLEGAS)
 	{
 		if ( sSubsequent && pSoldier->flags.fHitByGasFlags & HIT_BY_CREATUREGAS )
@@ -1948,13 +1951,16 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			// already affected by creature gas this turn
 			return( fRecompileMovementCosts );
 		}
-		if ( sSubsequent && pSoldier->flags.fHitByGasFlags & HIT_BY_BURNABLEGAS )
+		// Who cares if he was affected already? Running through a gas cloud is not good for health so let him suffer!
+		if ( /*sSubsequent &&*/ pSoldier->flags.fHitByGasFlags & HIT_BY_BURNABLEGAS )
 		{
-			// already affected by BURNABLEGAS this turn
-			return( fRecompileMovementCosts );
+			// Already affected by burnable gas this turn. Lower damage value by ini setting.
+			fGasDamageModifier = gItemSettings.fDamageHealthMoveModifierExplosive;
+			fGasBreathDamageModifier = gItemSettings.fDamageBreathMoveModifierExplosive;
+			//return( fRecompileMovementCosts );
 		}
 	}
-	else // no gas mask help from creature attacks
+	else // 
 		// ATE/CJC: gas stuff
 	{
 		if ( pExplosive->ubType == EXPLOSV_TEARGAS )
@@ -1970,10 +1976,13 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			}
 
 			// ignore whether subsequent or not if hit this turn
+			// Who cares if he was affected already? Running through a gas cloud is not good for health so let him suffer!
 			if ( pSoldier->flags.fHitByGasFlags & HIT_BY_TEARGAS )
 			{
-				// already affected by creature gas this turn
-				return( fRecompileMovementCosts );
+				// Already affected by tear gas this turn. Lower damage value by ini setting.
+				fGasDamageModifier = gItemSettings.fDamageHealthMoveModifierExplosive;
+				fGasBreathDamageModifier = gItemSettings.fDamageBreathMoveModifierExplosive;
+				//return( fRecompileMovementCosts );
 			}
 		}
 		else if ( pExplosive->ubType == EXPLOSV_MUSTGAS )
@@ -1988,19 +1997,35 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 				return( fRecompileMovementCosts );
 			}
 
-			if ( sSubsequent && pSoldier->flags.fHitByGasFlags & HIT_BY_MUSTARDGAS )
+			// Who cares if he was affected already? Running through a gas cloud is not good for health so let him suffer!
+			if ( /*sSubsequent &&*/ pSoldier->flags.fHitByGasFlags & HIT_BY_MUSTARDGAS )
 			{
-				// already affected by creature gas this turn
-				return( fRecompileMovementCosts );
+				// Already affected by mustard gas this turn. Lower damage value by ini setting.
+				fGasDamageModifier = gItemSettings.fDamageHealthMoveModifierExplosive;
+				fGasBreathDamageModifier = gItemSettings.fDamageBreathMoveModifierExplosive;
+				//return( fRecompileMovementCosts );
 			}
 
 		}
 		else if(pExplosive->ubType == EXPLOSV_SMOKE)//dnl ch40 200909
 		{
-			// ignore whether subsequent or not if hit this turn
-			if(AM_A_ROBOT(pSoldier) || (pSoldier->flags.fHitByGasFlags & HIT_BY_SMOKEGAS))
+			// robots are unaffected by smoke
+			if( AM_A_ROBOT(pSoldier) )
 				return(fRecompileMovementCosts);
+
+			// Who cares if he was affected already? Running through a gas cloud is not good for health so let him suffer!
+			if ( pSoldier->flags.fHitByGasFlags & HIT_BY_SMOKEGAS )
+			{
+				// Already affected by smoke this turn. Lower damage value by ini setting.
+				fGasDamageModifier = gItemSettings.fDamageHealthMoveModifierExplosive;
+				fGasBreathDamageModifier = gItemSettings.fDamageBreathMoveModifierExplosive;
+				//return( fRecompileMovementCosts );
+			}
 		}
+
+		// modify damage values
+		sWoundAmt *= fGasDamageModifier;
+		sBreathAmt *= fGasBreathDamageModifier;
 
 		bPosOfMask = FindGasMask(pSoldier);
 		if(!DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
@@ -2212,7 +2237,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 
 	// Calculate wound amount
 	// HEADROCK HAM 3.6: Can now use negative modifier.
-	INT16 newDamage = (INT16)GetModifiedExplosiveDamage( pExplosive->ubDamage );
+	INT16 newDamage = (INT16)GetModifiedExplosiveDamage( pExplosive->ubDamage, 0 );
 	//INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
 	
 	//DBrot: apply a modifier to confined explosions
@@ -2222,7 +2247,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 	sWoundAmt = newDamage + (INT16) ( (newDamage * uiRoll) / 100 );
 
 	// Calculate breath amount ( if stun damage applicable )
-	INT16 newBreath = (INT16)GetModifiedExplosiveDamage( pExplosive->ubStunDamage );
+	INT16 newBreath = (INT16)GetModifiedExplosiveDamage( pExplosive->ubStunDamage, 1 );
 	//INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
 
 	if(InARoom(sBombGridNo, NULL)){
@@ -2416,7 +2441,10 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 
 			pSoldier = MercPtrs[ ubPerson ];	// someone is here, and they're gonna get hurt
 
-			fRecompileMovementCosts = DishOutGasDamage( pSoldier, pExplosive, sSubsequent, fRecompileMovementCosts, sWoundAmt, sBreathAmt, ubOwner );
+			// silversurfer: Gas now only has an effect when the container had time to emit some. Initially it will do nothing.
+			// This prevents the problem that we have to suffer two times without a chance to react (1st when the grenade hits our position, 2nd when our turn starts)
+			if ( sSubsequent > 0 )
+				fRecompileMovementCosts = DishOutGasDamage( pSoldier, pExplosive, sSubsequent, fRecompileMovementCosts, sWoundAmt, sBreathAmt, ubOwner );
 			/*
 			if (!pSoldier->bActive || !pSoldier->bInSector || !pSoldier->stats.bLife || AM_A_ROBOT( pSoldier ) )
 			{

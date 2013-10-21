@@ -2264,13 +2264,17 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
     {
         BOOLEAN fDontContinue = FALSE;
 
-        if ( pSoldier->pathing.usPathIndex > 0 )
-        {
+		// silversurfer: Moved this further down. We will now check for gas at the starting point. 
+		// Otherwise the soldier might just run out of the gas and take no damage when next tile has no gas.
+		// This change was necessary because we don't apply gas damage directly anymore when a gas grenade is tossed.
+//        if ( pSoldier->pathing.usPathIndex > 0 )
+//        {
             // check for running into gas
 
             // note: this will have to use the minimum types of structures for tear/creature gas
             // since there isn't a way to retrieve the smoke effect structure
-            if ( (gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & ANY_SMOKE_EFFECT && PreRandom( 4 ) == 0 ) || gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+			// silversurfer: removed the randomness. Character is running through a gas cloud so make him suffer without a gas mask!
+            if ( (gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & ANY_SMOKE_EFFECT /* && PreRandom( 4 ) == 0*/ ) || gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
             {
                 EXPLOSIVETYPE *     pExplosive = NULL;
                 INT8                bPosOfMask;
@@ -2287,12 +2291,15 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                 // since they only had one of each gas item?!?)
                 // anyway, it means that we can only have one set of health/breath damage values for each gas type, until someone has time
                 // to dig into this further and actually make it find the original item that caused the gas
+				//
+				// silversurfer: Changed the way the HitByGasFlags are handled. The old way allowed to run through a gas cloud and be immune to gas
+				// as long as you have been affected once. This is now handled by function DishOutGasDamage() that is used below.
                 if ( !AM_A_ROBOT( pSoldier ) )
                 {
 
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_SMOKE )
                     {
-                        if ( bPosOfMask == NO_SLOT && !(pSoldier->flags.fHitByGasFlags & HIT_BY_SMOKEGAS) )//dnl ch40 200909
+                        if ( bPosOfMask == NO_SLOT ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_SMOKEGAS) )//dnl ch40 200909
                         {
                             pExplosive = &( Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_SMOKE) ].ubClassIndex ]);
                         }
@@ -2301,7 +2308,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_TEARGAS )
                     {
-                        if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_TEARGAS) && bPosOfMask == NO_SLOT )
+                        if (  bPosOfMask == NO_SLOT ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_TEARGAS) )
                         {
                             pExplosive = &( Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_TEARGAS) ].ubClassIndex ]);
                         }
@@ -2310,7 +2317,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_MUSTARDGAS )
                     {
-                        if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_MUSTARDGAS) && bPosOfMask == NO_SLOT )
+                        if ( bPosOfMask == NO_SLOT ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_MUSTARDGAS) )
                         {
                             pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_MUSTGAS) ].ubClassIndex ]);
                         }
@@ -2319,39 +2326,43 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_CREATUREGAS )
                     {
-                        if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_CREATUREGAS) ) // gas mask doesn't help vs creaturegas
+                        //if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_CREATUREGAS) ) // gas mask doesn't help vs creaturegas
                         {
-                            pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_CREATUREGAS) ].ubClassIndex ]);
+							pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_CREATUREGAS) ].ubClassIndex ]);
                         }
                     }
 
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
                     {
-                        if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_BURNABLEGAS) )
+                        //if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_BURNABLEGAS) )	// gas mask doesn't help vs fire damage
                         {
-                            pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_BURNABLEGAS) ].ubClassIndex ]);
+							pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_BURNABLEGAS) ].ubClassIndex ]);
                         }
                     }
 
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pSoldier->flags.fHitByGasFlags: %d", pSoldier->flags.fHitByGasFlags );
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
 
-                    if ( !(gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_SMOKE ))
+					// silversurfer: Why this? Smoke on a tile makes us immune to other damage types? I don't think so...
+                    //if ( !(gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_SMOKE ))
                     {
                         if ( pExplosive )
                         {
-                            pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
-                            fDontContinue = TRUE;
+							// silversurfer: Don't stop the merc anymore. Let him run and suffer!
+                            //pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+                            //fDontContinue = TRUE;
+							INT16 iGasHealthDamage = GetModifiedExplosiveDamage( pExplosive->ubDamage, 0 ) + (INT16)PreRandom( GetModifiedExplosiveDamage( pExplosive->ubDamage, 0 ));
+							INT16 iGasBreathDamage = ( 100 * ( GetModifiedExplosiveDamage( pExplosive->ubStunDamage, 1 ) + (INT16)PreRandom( ( GetModifiedExplosiveDamage( pExplosive->ubStunDamage, 1 ) / 2 ) ) ) );
 
-                            DishOutGasDamage( pSoldier, pExplosive, TRUE, FALSE,
-                                    (INT16) (pExplosive->ubDamage + (UINT8)PreRandom( pExplosive->ubDamage ) ),
-                                    (INT16) (100 * ( pExplosive->ubStunDamage + (INT16)PreRandom( ( pExplosive->ubStunDamage / 2 ) ) ) ), NOBODY );
+                            DishOutGasDamage( pSoldier, pExplosive, TRUE, FALSE, iGasHealthDamage, iGasBreathDamage, NOBODY );
                         }
                     }
                 }
             }
 
+        if ( pSoldier->pathing.usPathIndex > 0 )
+        {
             if ( !fDontContinue )
             {
 

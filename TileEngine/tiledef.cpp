@@ -648,7 +648,7 @@ void CreateTileDatabase( )
 	TILE_ELEMENT		TileElement;
 
 	// Loop through all surfaces and tiles and build database
-	for( cnt1 = 0; cnt1 < giNumberOfTileTypes; cnt1++ )
+	for( cnt1 = 0; cnt1 < (UINT32)giNumberOfTileTypes; cnt1++ )
 	{
 		// Get number of regions
 		TileSurf = gTileSurfaceArray[ cnt1 ];
@@ -1013,7 +1013,7 @@ BOOLEAN GetTypeSubIndexFromTileIndex( UINT32 uiCheckType, UINT16 usIndex, UINT16
 
 	*pusSubIndex = 0xffff;
 
-	CHECKF ( uiCheckType < giNumberOfTileTypes );
+	CHECKF ( uiCheckType < (UINT32)giNumberOfTileTypes );
 
 	*pusSubIndex = usIndex - gTileTypeStartIndex[ uiCheckType ] + 1;
 
@@ -1026,7 +1026,7 @@ BOOLEAN GetTypeSubIndexFromTileIndexChar( UINT32 uiCheckType, UINT16 usIndex, UI
 
 	// Tile database is zero-based, Type indecies are 1-based!
 
-	CHECKF ( uiCheckType < giNumberOfTileTypes );
+	CHECKF ( uiCheckType < (UINT32)giNumberOfTileTypes );
 
 	*pubSubIndex = (UINT8)(usIndex - gTileTypeStartIndex[ uiCheckType ] + 1);
 
@@ -1039,7 +1039,7 @@ BOOLEAN	GetTileIndexFromTypeSubIndex( UINT32 uiCheckType, UINT16 usSubIndex, UIN
 
 	*pusTileIndex = 0xffff;
 
-	CHECKF ( uiCheckType < giNumberOfTileTypes );
+	CHECKF ( uiCheckType < (UINT32)giNumberOfTileTypes );
 
 	*pusTileIndex = usSubIndex + gTileTypeStartIndex[ uiCheckType ] - 1;
 

@@ -1253,7 +1253,7 @@ typedef struct
 	UINT8	ubPrisonerProcessInfoDirectionChance;
 	UINT8	ubPrisonerProcessRansomBaseChance;
 	UINT16	ubPrisonerInterrogationPoints[4];		// points needed to interrogate a prisoner of a specific type
-
+	
 	// Flugente: sexism/racism/etc.
 	INT8	sMoraleModAppearance;
 	INT8	sMoraleModRefinement;
@@ -1928,6 +1928,11 @@ typedef struct
 	// -------------- ARMOR MODIFIERS ----------------
 
 	// ------------ EXPLOSIVE MODIFIERS --------------
+	// Grenade Damage Modifiers
+	FLOAT fDamageHealthModifierExplosive;
+	FLOAT fDamageBreathModifierExplosive;
+	FLOAT fDamageHealthMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
+	FLOAT fDamageBreathMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 
 }ITEM_SETTINGS;
 

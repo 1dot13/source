@@ -315,8 +315,11 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8
 
 
 	// If smoke effect exists already.... stop
+	// silversurfer: Why? What if we throw another grenade of different type? Set at least the flag for the gas type...
 	if ( gpWorldLevelData[ sGridNo ].ubExtFlags[ bLevel ] & ANY_SMOKE_EFFECT )
 	{
+		// Set world flags
+		gpWorldLevelData[ sGridNo ].ubExtFlags[ bLevel ] |= FromSmokeTypeToWorldFlags( bType );
 		return;
 	}
 

@@ -841,7 +841,7 @@ BOOLEAN	LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pMerc, *pRoof, *pOnRoof;
 UINT8 ubShadeAdd;
-UINT32 uiTile;
+INT32 uiTile;
 BOOLEAN fLitWall=FALSE;
 BOOLEAN fFake;
 
@@ -983,7 +983,7 @@ BOOLEAN	LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pMerc, *pRoof, *pOnRoof;
 UINT8 ubShadeSubtract;
-UINT32 uiTile;
+INT32 uiTile;
 BOOLEAN fLitWall=FALSE;
 BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 

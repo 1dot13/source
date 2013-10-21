@@ -3076,7 +3076,7 @@ BOOLEAN AreAnyOfTheNewMercsAvailable()
 		return( FALSE );
 
 	//for(i=(LARRY_NORMAL-BIFF); i<=LaptopSaveInfo.gubLastMercIndex; i++)
-	for(UINT16 i=0; i<=NUM_PROFILES; i++)
+	for(UINT8 i=0; i<=NUM_PROFILES; i++)
 	{
 		if ( gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gProfilesMERC[i].ProfilId != 0 )
 		{

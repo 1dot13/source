@@ -5479,23 +5479,28 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 			UINT64 uiClass = (UINT64)pow((double)2, (int)sClass);
 			UINT32 slotSize = tempItemSlots.size();
 			if(fItemSlots & uiClass){	//don't bother with this slot if it's not a valid class
-				for(UINT32 sCount = 1; sCount < MAXITEMS+1; sCount++){
+				for(UINT32 sCount = 1; sCount < MAXITEMS+1; sCount++)
+				{
 					if(AttachmentSlots[sCount].uiSlotIndex == 0)
 						break;
-					if(AttachmentSlots[sCount].nasAttachmentClass & uiClass && AttachmentSlots[sCount].nasLayoutClass & fItemLayout){	//found a slot
+					if(AttachmentSlots[sCount].nasAttachmentClass & uiClass && AttachmentSlots[sCount].nasLayoutClass & fItemLayout)	//found a slot
+					{
 						if(magSize > 0 && AttachmentSlots[sCount].fMultiShot)
 							magSize--;
 						else if(AttachmentSlots[sCount].fMultiShot)
 							continue;
 
-						if(Item[pObj->usItem].usItemClass == IC_LBEGEAR && AttachmentSlots[sCount].ubPocketMapping > 0){
-							if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, AttachmentSlots[sCount].ubPocketMapping - 1)){
-						tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
-					}
-						}else{
+						if(Item[pObj->usItem].usItemClass == IC_LBEGEAR && AttachmentSlots[sCount].ubPocketMapping > 0)
+						{
+							if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, AttachmentSlots[sCount].ubPocketMapping - 1))
+							{
+								tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
+							}
+						}
+						else
+						{
 							tempItemSlots.push_back(AttachmentSlots[sCount].uiSlotIndex);
-				}
-
+						}
 					}
 				}
 				if(slotSize == tempItemSlots.size()){	//we didn't find a layout specific slot so try to find a default layout slot
@@ -13840,14 +13845,21 @@ INT8 FindBackpackOnSoldier( SOLDIERTYPE * pSoldier )
 }
 
 // HEADROCK HAM 3.6: This applies the INI modifier to explosives
-UINT8 GetModifiedExplosiveDamage( UINT16 sDamage )
+UINT8 GetModifiedExplosiveDamage( UINT16 sDamage, UINT8 ubType )
 {
 	if (sDamage == 0)
 	{
 	   return(0);
 	}
 
-	sDamage = (INT16)(( sDamage * gGameExternalOptions.iExplosivesDamageModifier ) / 100);
+	// apply ini modifiers by type
+	if ( ubType == 0 )	// type 0 is health damage
+		sDamage = (FLOAT)(( sDamage * gGameExternalOptions.iExplosivesDamageModifier * gItemSettings.fDamageHealthModifierExplosive ) / 100);
+	else if ( ubType == 1 )	// type 1 is breath damage
+		sDamage = (FLOAT)(( sDamage * gGameExternalOptions.iExplosivesDamageModifier * gItemSettings.fDamageBreathModifierExplosive ) / 100);
+	else
+		return(0);	// undefined type
+
 	sDamage = __max(1, sDamage);
 	sDamage = __min(255, sDamage);
 

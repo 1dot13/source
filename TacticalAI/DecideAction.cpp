@@ -5424,7 +5424,7 @@ L_NEWAIM:
 				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT) )
 					iChance += 30 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT);
 
-				if( PreRandom( 100 ) <= iChance )
+				if( (INT32)PreRandom( 100 ) <= iChance )
 				{
 					pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6);
 				}
@@ -5436,7 +5436,7 @@ L_NEWAIM:
 				if (HAS_SKILL_TRAIT( pSoldier, MELEE_NT))
 					iChance += 30;
 
-				if( PreRandom( 100 ) <= iChance )
+				if( (INT32)PreRandom( 100 ) <= iChance )
 				{
 					pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6);
 				}
@@ -5584,7 +5584,7 @@ L_NEWAIM:
 				// if yes, and we are facing it, jump
 				// if no, go on, nothing to see here
 				// determine direction of our target
-				UINT8 targetdirection = GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
+				INT8 targetdirection = (INT8)GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 				// determine if there is a jumpable window here, in the direction of our target
 				// store old direction for this check
@@ -5592,7 +5592,7 @@ L_NEWAIM:
 				pSoldier->ubDirection = targetdirection;
 
 				INT8 windowdirection = DIRECTION_IRRELEVANT;
-				if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == (UINT8)windowdirection )
+				if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == windowdirection )
 				{
 					pSoldier->ubDirection = tmpdirection;
 
@@ -8074,7 +8074,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 							// if yes, and we are facing it, jump
 							// if no, go on, nothing to see here
 							// determine direction of our target
-							INT8 targetdirection = GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
+							INT8 targetdirection = (INT8)GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
 
 							// determine if there is a jumpable window here, in the direction of our target
 							// store old direction for this check

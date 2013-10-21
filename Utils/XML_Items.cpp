@@ -1436,7 +1436,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "SleepModifier") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.ubSleepModifier = (UINT16) atol(pData->szCharData);
+			pData->curItem.ubSleepModifier = (UINT8) atol(pData->szCharData);
 		}
 										
 		pData->maxReadDepth--;

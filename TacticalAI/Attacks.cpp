@@ -1405,7 +1405,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				}
 				else
 				{
-					ubMaxPossibleAimTime = APBPConstants[AP_MIN_AIM_ATTACK];//dnl ch63 240813
+					ubMaxPossibleAimTime = (UINT8)APBPConstants[AP_MIN_AIM_ATTACK];//dnl ch63 240813
 					// NB grenade launcher is NOT a direct fire weapon!
 					ubRawAPCost = (UINT8) MinAPsToThrow( pSoldier, sGridNo, FALSE );
 					DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("Raw AP Cost = %d",ubRawAPCost ));
@@ -2107,8 +2107,8 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	}
 
 
-	iExplosDamage = ( ( (INT32) Explosive[ ubExplosiveIndex ].ubDamage ) * 3) / 2;
-	iBreathDamage = ( ( (INT32) Explosive[ ubExplosiveIndex ].ubStunDamage ) * 5) / 4;
+	iExplosDamage = ( ( (INT32) GetModifiedExplosiveDamage( Explosive[ ubExplosiveIndex ].ubDamage, 0 ) ) * 3) / 2;
+	iBreathDamage = ( ( (INT32) GetModifiedExplosiveDamage( Explosive[ ubExplosiveIndex ].ubStunDamage, 1 ) ) * 5) / 4;
 
 	if ( Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_TEARGAS || Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_MUSTGAS )
 	{

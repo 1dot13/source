@@ -441,7 +441,7 @@ INT16 GetSnowCamoBonus( OBJECTTYPE * pObj );
 INT8 FindBackpackOnSoldier( SOLDIERTYPE * pSoldier );
 
 // HEADROCK HAM 3.6: Handler functions to get modified damage with INI parameter.
-UINT8 GetModifiedExplosiveDamage( UINT16 ubDamage );
+UINT8 GetModifiedExplosiveDamage( UINT16 ubDamage, UINT8 ubType );
 UINT8 GetModifiedMeleeDamage( UINT16 ubDamage );
 UINT8 GetModifiedGunDamage( UINT16 ubDamage );
 
