@@ -1172,10 +1172,16 @@ void HourlyMoraleUpdate( void )
 					}
 
 					// some people care about how distuingished other people are. Malus if on different ends of the spectrum, a small bonus if on the same and its really important to the person
+					// also give a malus if the other person is a slob or snob and we are average but care extremely (we don't like people who behave differently)
 					switch ( gMercProfiles[ pOtherSoldier->ubProfile ].bRefinement )
 					{
 					case REFINEMENT_SLOB:
 						{
+							if ( pProfile->bRefinement == REFINEMENT_AVERAGE )
+							{
+								if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+									bOpinion -= gGameExternalOptions.sMoraleModRefinement;
+							}
 							if ( pProfile->bRefinement == REFINEMENT_SLOB )
 							{
 								if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
@@ -1192,6 +1198,11 @@ void HourlyMoraleUpdate( void )
 						break;
 					case REFINEMENT_SNOB:
 						{
+							if ( pProfile->bRefinement == REFINEMENT_AVERAGE )
+							{
+								if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )
+									bOpinion -= gGameExternalOptions.sMoraleModRefinement;
+							}
 							if ( pProfile->bRefinement == REFINEMENT_SNOB )
 							{
 								if ( pProfile->bRefinementCareLevel == CARELEVEL_EXTREME )

@@ -1603,6 +1603,7 @@ public:
 	INT16		GetAPBonus();
 	INT8		GetFearResistanceBonus();					// fear resistance lowers shock and morale damage from horror
 	UINT8		GetMoraleThreshold();
+	INT16		GetInterruptModifier( UINT8 usDistance );
 
 	void		SoldierPropertyUpkeep();					// update functions for various properties (updating counters, resetting flags etc.)
 

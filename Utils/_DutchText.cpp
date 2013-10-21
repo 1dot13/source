@@ -7805,6 +7805,8 @@ STR16		szNationalityText[]=
 	L"swedish",
 	L"iraqi",			// 40
 	L"syrian",
+	L"belgian",
+	L"portoguese",
 };
 
 // special text used if we do not hate any nation (value of -1)

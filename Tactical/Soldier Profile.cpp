@@ -2587,6 +2587,17 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].bLearnToHate = tempProfiles[ uiLoop ].bLearnToHate ;
 		gMercProfiles[ uiLoop ].bLearnToHateTime = tempProfiles[ uiLoop ].bLearnToHateTime ;
 
+		gMercProfiles[ uiLoop ].bRace						= tempProfiles[ uiLoop ].bRace;
+		gMercProfiles[ uiLoop ].bNationality				= tempProfiles[ uiLoop ].bNationality;
+		gMercProfiles[ uiLoop ].bAppearance					= tempProfiles[ uiLoop ].bAppearance;
+		gMercProfiles[ uiLoop ].bAppearanceCareLevel		= tempProfiles[ uiLoop ].bAppearanceCareLevel;
+		gMercProfiles[ uiLoop ].bRefinement					= tempProfiles[ uiLoop ].bRefinement;
+		gMercProfiles[ uiLoop ].bRefinementCareLevel		= tempProfiles[ uiLoop ].bRefinementCareLevel;
+		gMercProfiles[ uiLoop ].bHatedNationality			= tempProfiles[ uiLoop ].bHatedNationality;
+		gMercProfiles[ uiLoop ].bHatedNationalityCareLevel	= tempProfiles[ uiLoop ].bHatedNationalityCareLevel;
+		gMercProfiles[ uiLoop ].bRacist						= tempProfiles[ uiLoop ].bRacist;
+		gMercProfiles[ uiLoop ].bSexist						= tempProfiles[ uiLoop ].bSexist;
+		
 		gMercProfiles[ uiLoop ].sSalary = tempProfiles[ uiLoop ].sSalary ;
 		gMercProfiles[ uiLoop ].uiWeeklySalary = tempProfiles[ uiLoop ].uiWeeklySalary ;
 		gMercProfiles[ uiLoop ].uiBiWeeklySalary = tempProfiles[ uiLoop ].uiBiWeeklySalary ;

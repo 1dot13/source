@@ -273,6 +273,8 @@ typedef enum
 	SWEDISH,
 	IRAQI,		// 40
 	SYRIAN,
+	BELGIAN,
+	PORTOGUESE,
 
 	NUM_NATIONALITIES
 } Nationalities;

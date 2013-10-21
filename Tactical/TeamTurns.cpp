@@ -1943,7 +1943,10 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_PERCEPTION ] )
 	{
 		iPoints -= 1;
-	} 
+	}
+
+	// Flugente: interrupt modifier from special stats
+	iPoints += pSoldier->GetInterruptModifier( ubDistance );
 
 	// if he's a computer soldier
 

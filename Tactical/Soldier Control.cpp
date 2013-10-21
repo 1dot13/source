@@ -16873,6 +16873,13 @@ UINT8	SOLDIERTYPE::GetMoraleThreshold()
 	return min(threshold, max(0, threshold - moraledamage));
 }
 
+INT16	SOLDIERTYPE::GetInterruptModifier( UINT8 usDistance )
+{
+	INT16 bonus = 0;
+					
+	return bonus;
+}
+
 void SOLDIERTYPE::SoldierPropertyUpkeep()
 {
 	// these flags are only used for the first turn, and thus always removed

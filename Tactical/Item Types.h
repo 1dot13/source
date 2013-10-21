@@ -644,7 +644,7 @@ extern OBJECTTYPE gTempObject;
 // redesigned by Flugente on 12-04-10
 // Chrisl: Define attachment classes
 #define AC_BIPOD		0x00000001	//1
-#define AC_SUPPRESSOR   0x00000002	//2
+#define AC_MUZZLE		0x00000002	//2
 #define AC_LASER		0x00000004	//4
 #define AC_SIGHT		0x00000008	//8
 #define AC_SCOPE		0x00000010	//16
