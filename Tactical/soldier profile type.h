@@ -229,52 +229,52 @@ typedef enum
 typedef enum
 {
 	// old Sirtech values
-	AMERICAN = 0,		// take that, Murica! Sirtech knew you have no value :-)
-	ARAB = 1,
-	AUSTRALIAN = 2,
-	BRITISH = 3,
-	CANADIAN = 4,
-	CUBAN = 5,
-	DANISH = 6,
-	FRENCH = 7,
-	RUSSIAN = 8,
-	NIGERIAN = 9,		// this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
-	SWISS = 10,
-	JAMAICAN = 11,
-	POLISH = 12,
-	CHINESE = 13,
-	IRISH = 14,
-	SOUTH_AFRICAN = 15,
-	HUNGARIAN = 16,
-	SCOTTISH = 17,
-	ARULCAN = 18,
-	GERMAN = 19,
-	AFRICAN = 20,
-	ITALIAN = 21,
-	DUTCH = 22,
-	ROMANIAN = 23,
-	METAVIRAN = 24,
+	AMERICAN_NAT = 0,		// take that, Murica! Sirtech knew you have no value :-)
+	ARAB_NAT = 1,
+	AUSTRALIAN_NAT = 2,
+	BRITISH_NAT = 3,
+	CANADIAN_NAT = 4,
+	CUBAN_NAT = 5,
+	DANISH_NAT = 6,
+	FRENCH_NAT = 7,
+	RUSSIAN_NAT = 8,
+	NIGERIAN_NAT = 9,		// this was simply not defined in original data (I did not find any country), but we can't have any holes in here, so just invented soemthing
+	SWISS_NAT = 10,
+	JAMAICAN_NAT = 11,
+	POLISH_NAT = 12,
+	CHINESE_NAT = 13,
+	IRISH_NAT = 14,
+	SOUTH_AFRICAN_NAT = 15,
+	HUNGARIAN_NAT = 16,
+	SCOTTISH_NAT = 17,
+	ARULCAN_NAT = 18,
+	GERMAN_NAT = 19,
+	AFRICAN_NAT = 20,
+	ITALIAN_NAT = 21,
+	DUTCH_NAT = 22,
+	ROMANIAN_NAT = 23,
+	METAVIRAN_NAT = 24,
 
 	// new values, because why not
-	GREEK,		// 25
-	ESTONIAN,
-	VENEZUELAN ,
-	JAPANESE,
-	TURKISH,
-	INDIAN,		// 30
-	MEXICAN,
-	NORWEGIAN,
-	SPANISH,
-	BRASILIAN,
-	FINNISH,	// 35
-	IRANIAN,
-	ISRAELI,
-	BULGARIAN,
-	SWEDISH,
-	IRAQI,		// 40
-	SYRIAN,
-	BELGIAN,
-	PORTOGUESE,
+	GREEK_NAT,		// 25
+	ESTONIAN_NAT,
+	VENEZUELAN_NAT ,
+	JAPANESE_NAT,
+	TURKISH_NAT,
+	INDIAN_NAT,		// 30
+	MEXICAN_NAT,
+	NORWEGIAN_NAT,
+	SPANISH_NAT,
+	BRASILIAN_NAT,
+	FINNISH_NAT,	// 35
+	IRANIAN_NAT,
+	ISRAELI_NAT,
+	BULGARIAN_NAT,
+	SWEDISH_NAT,
+	IRAQI_NAT,		// 40
+	SYRIAN_NAT,
+	BELGIAN_NAT,
+	PORTOGUESE_NAT,
 
 	NUM_NATIONALITIES
 } Nationalities;
