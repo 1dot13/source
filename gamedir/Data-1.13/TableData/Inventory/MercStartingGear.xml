@@ -1239,7 +1239,7 @@
 			<lVestStatus>99</lVestStatus>
 		</GEARKIT>
 		<GEARKIT>
-			<mPriceMod>100</mPriceMod>
+			<mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -3535,7 +3535,7 @@
 			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
-			<mPriceMod>100</mPriceMod>
+			<mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -18962,7 +18962,7 @@
 			<lCPackStatus>93</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
-			<mPriceMod>100</mPriceMod>
+			<mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>177</mHelmet>
@@ -20716,6 +20716,7 @@
 			<lCPackStatus>94</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -20861,6 +20862,7 @@
 			<lCPackStatus>100</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -24646,6 +24648,7 @@
 			<lCPackStatus>95</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -25447,6 +25450,7 @@
 			<lCPackStatus>94</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -28193,6 +28197,7 @@
 			<lCPack>1098</lCPack>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -28343,6 +28348,7 @@
 			<lCPackStatus>87</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -28664,6 +28670,7 @@
 			<lCPackStatus>98</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -28947,6 +28954,7 @@
 			<lCPackStatus>92</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
@@ -29112,6 +29120,7 @@
 			<lCPackStatus>95</lCPackStatus>
 		</GEARKIT>
 		<GEARKIT>
+		    <mPriceMod>50</mPriceMod>
 			<mGearKitName>Premium</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>

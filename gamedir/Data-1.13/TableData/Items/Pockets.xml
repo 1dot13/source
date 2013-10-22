@@ -311,11 +311,11 @@
 		<pName>Grenade</pName>
 		<pSilhouette>15</pSilhouette>
 		<pType>1</pType>
-		<pVolume>10</pVolume>
+		<pVolume>5</pVolume>
 		<ItemCapacityPerSize10>4</ItemCapacityPerSize10>
 		<ItemCapacityPerSize11>2</ItemCapacityPerSize11>
 		<ItemCapacityPerSize12>2</ItemCapacityPerSize12>
-		<ItemCapacityPerSize13>2</ItemCapacityPerSize13>
+		<ItemCapacityPerSize13>1</ItemCapacityPerSize13>
 		<ItemCapacityPerSize14>1</ItemCapacityPerSize14>
 	</POCKET>
 	<POCKET>
@@ -471,7 +471,7 @@
 		<ItemCapacityPerSize14>2</ItemCapacityPerSize14>
 		<ItemCapacityPerSize15>2</ItemCapacityPerSize15>
 		<ItemCapacityPerSize16>2</ItemCapacityPerSize16>
-              <ItemCapacityPerSize20>1</ItemCapacityPerSize20>
+        <ItemCapacityPerSize20>1</ItemCapacityPerSize20>
 	</POCKET>
 	<POCKET>
 		<pIndex>27</pIndex>
@@ -479,7 +479,7 @@
 		<pSilhouette>29</pSilhouette>
 		<pType>1</pType>
 		<pVolume>16</pVolume>
-	       <ItemCapacityPerSize0>1</ItemCapacityPerSize0>
+	    <ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize10>5</ItemCapacityPerSize10>
 		<ItemCapacityPerSize11>3</ItemCapacityPerSize11>
 		<ItemCapacityPerSize12>3</ItemCapacityPerSize12>
@@ -555,7 +555,7 @@
 		<pVolume>20</pVolume>
 		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>1</ItemCapacityPerSize1>
-              <ItemCapacityPerSize2>1</ItemCapacityPerSize2>
+        <ItemCapacityPerSize2>1</ItemCapacityPerSize2>
 	</POCKET>
 	<POCKET>
 		<pIndex>33</pIndex>
@@ -609,9 +609,9 @@
 		<pName>Med Kit</pName>
 		<pSilhouette>34</pSilhouette>
 		<pType>2</pType>
-              <pVolume>20</pVolume>
+        <pVolume>20</pVolume>
 		<pRestriction>4096</pRestriction>
-             <ItemCapacityPerSize18>2</ItemCapacityPerSize18>
+        <ItemCapacityPerSize18>2</ItemCapacityPerSize18>
 		<ItemCapacityPerSize26>1</ItemCapacityPerSize26>
 	</POCKET>
 	<POCKET>
@@ -619,9 +619,9 @@
 		<pName>Carabiner Ring</pName>
 		<pSilhouette>37</pSilhouette>
 		<pType>1</pType>
-              <pRestriction>268601344</pRestriction>
-              <pVolume>1</pVolume>
-              <ItemCapacityPerSize16>1</ItemCapacityPerSize16>
+        <pRestriction>268601344</pRestriction>
+        <pVolume>1</pVolume>
+        <ItemCapacityPerSize16>1</ItemCapacityPerSize16>
 		<ItemCapacityPerSize18>1</ItemCapacityPerSize18>
 		<ItemCapacityPerSize22>1</ItemCapacityPerSize22>
 		<ItemCapacityPerSize26>1</ItemCapacityPerSize26>
@@ -634,7 +634,7 @@
 		<pType>2</pType>
 		<pRestriction>256</pRestriction>
 		<pVolume>12</pVolume>
-              <ItemCapacityPerSize13>3</ItemCapacityPerSize13>
+        <ItemCapacityPerSize13>3</ItemCapacityPerSize13>
 		<ItemCapacityPerSize14>3</ItemCapacityPerSize14>
 	</POCKET>
 	<POCKET>
@@ -671,7 +671,7 @@
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>12</pVolume>
-             <ItemCapacityPerSize12>2</ItemCapacityPerSize12>
+        <ItemCapacityPerSize12>2</ItemCapacityPerSize12>
 		<ItemCapacityPerSize16>2</ItemCapacityPerSize16>
 	</POCKET>
 	<POCKET>
@@ -681,7 +681,7 @@
 		<pType>1</pType>
 		<pRestriction>8192</pRestriction>
 		<pVolume>3</pVolume>
-              <ItemCapacityPerSize13>1</ItemCapacityPerSize13>
+        <ItemCapacityPerSize13>1</ItemCapacityPerSize13>
 	</POCKET>
 	<POCKET>
 		<pIndex>45</pIndex>
@@ -690,8 +690,8 @@
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>16</pVolume>
-             <ItemCapacityPerSize12>4</ItemCapacityPerSize12>
-             <ItemCapacityPerSize16>2</ItemCapacityPerSize16>
+        <ItemCapacityPerSize12>4</ItemCapacityPerSize12>
+        <ItemCapacityPerSize16>2</ItemCapacityPerSize16>
 		<ItemCapacityPerSize20>2</ItemCapacityPerSize20>
 	</POCKET>
 	<POCKET>
@@ -701,18 +701,18 @@
 		<pType>1</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>8</pVolume>
-             <ItemCapacityPerSize12>2</ItemCapacityPerSize12>
-             <ItemCapacityPerSize16>1</ItemCapacityPerSize16>
+        <ItemCapacityPerSize12>2</ItemCapacityPerSize12>
+        <ItemCapacityPerSize16>1</ItemCapacityPerSize16>
 		<ItemCapacityPerSize20>1</ItemCapacityPerSize20>
 	</POCKET>
 	<POCKET>
 		<pIndex>47</pIndex>
-		<pName>Flash Bang</pName>
+		<pName>Flash Bangx3</pName>
 		<pSilhouette>36</pSilhouette>
 		<pType>2</pType>
 		<pRestriction>256</pRestriction>
 		<pVolume>18</pVolume>
-             <ItemCapacityPerSize13>3</ItemCapacityPerSize13>
+        <ItemCapacityPerSize13>3</ItemCapacityPerSize13>
 		<ItemCapacityPerSize14>3</ItemCapacityPerSize14>
 		<ItemCapacityPerSize18>3</ItemCapacityPerSize18>
 	</POCKET>
@@ -732,8 +732,8 @@
 		<pType>2</pType>
 		<pRestriction>1024</pRestriction>
 		<pVolume>24</pVolume>
-             <ItemCapacityPerSize12>6</ItemCapacityPerSize12>
-             <ItemCapacityPerSize16>3</ItemCapacityPerSize16>
+        <ItemCapacityPerSize12>6</ItemCapacityPerSize12>
+        <ItemCapacityPerSize16>3</ItemCapacityPerSize16>
 		<ItemCapacityPerSize20>3</ItemCapacityPerSize20>
 	</POCKET>
 	<POCKET>
@@ -759,6 +759,8 @@
 		<pIndex>52</pIndex>
 		<pName>Small Knife</pName>
 		<pSilhouette>11</pSilhouette>
+		<pType>1</pType>
+		<pRestriction>4</pRestriction>
 		<pVolume>13</pVolume>
 		<ItemCapacityPerSize12>2</ItemCapacityPerSize12>
 		<ItemCapacityPerSize16>1</ItemCapacityPerSize16>
@@ -774,5 +776,26 @@
 		<pVolume>25</pVolume>
 		<ItemCapacityPerSize9>1</ItemCapacityPerSize9>
 		<ItemCapacityPerSize8>1</ItemCapacityPerSize8>
+	</POCKET>
+		<POCKET>
+		<pIndex>54</pIndex>
+		<pName>Flash Bang</pName>
+		<pSilhouette>36</pSilhouette>
+		<pType>1</pType>
+		<pRestriction>256</pRestriction>
+		<pVolume>6</pVolume>
+        <ItemCapacityPerSize13>1</ItemCapacityPerSize13>
+		<ItemCapacityPerSize14>1</ItemCapacityPerSize14>
+		<ItemCapacityPerSize18>1</ItemCapacityPerSize18>
+	</POCKET>
+		<POCKET>
+		<pIndex>55</pIndex>
+		<pName>Grenadex2</pName>
+		<pSilhouette>48</pSilhouette>
+		<pType>1</pType>
+		<pRestriction>256</pRestriction>
+		<pVolume>10</pVolume>
+		<ItemCapacityPerSize13>2</ItemCapacityPerSize13>
+		<ItemCapacityPerSize14>2</ItemCapacityPerSize14>
 	</POCKET>
 </POCKETLIST>

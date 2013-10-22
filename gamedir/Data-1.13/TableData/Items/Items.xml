@@ -49386,7 +49386,7 @@
 		<szLongItemName>Bomb Pouch</szLongItemName>
 		<szItemDesc>A leg rig suitable for the safe transport of explosives.</szItemDesc>
 		<szBRName>Bomb Pouch</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>A leg rig suitable for the safe transport of explosives.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>4</nasLayoutClass>
 		<ubClassIndex>47</ubClassIndex>
@@ -49465,11 +49465,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1650</uiIndex>
-		<szItemName>10.6 Pouch</szItemName>
-		<szLongItemName>10.6 Horizontal Pouch</szLongItemName>
-		<szItemDesc>Measuring 6" H, 10" W and 3 ½ D this MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szItemDesc>
-		<szBRName>10.6 Horizontal Pouch</szBRName>
-		<szBRDesc>Measuring 6" H, 10" W and 3 ½ D this MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szBRDesc>
+		<szItemName>3.11 Pouch</szItemName>
+		<szLongItemName>3.11 Horizontal Pouch</szLongItemName>
+		<szItemDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szItemDesc>
+		<szBRName>3.11 Horizontal Pouch</szBRName>
+		<szBRDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
@@ -49481,16 +49481,16 @@
 		<ubGraphicNum>172</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
+		<usPrice>150</usPrice>
 		<ubCoolness>5</ubCoolness>
-		<bRepairEase>4</bRepairEase>
+		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>5</UrbanCamoBonus>
+		<UrbanCamoBonus>3</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49512,7 +49512,7 @@
 		<ubGraphicNum>206</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ItemSize>23</ItemSize>
-		<usPrice>80</usPrice>
+		<usPrice>160</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -49543,8 +49543,8 @@
 		<ubGraphicNum>706</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<usPrice>75</usPrice>
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49552,7 +49552,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>5</UrbanCamoBonus>
+		<UrbanCamoBonus>3</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49576,8 +49576,8 @@
 		<ubGraphicNum>174</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>80</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<usPrice>120</usPrice>
+		<ubCoolness>2</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49585,7 +49585,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>5</UrbanCamoBonus>
+		<UrbanCamoBonus>2</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49609,8 +49609,8 @@
 		<ubGraphicNum>175</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<usPrice>65</usPrice>
+		<ubCoolness>2</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49618,7 +49618,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>3</UrbanCamoBonus>
+		<UrbanCamoBonus>2</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49643,7 +49643,7 @@
 		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>100</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49673,10 +49673,10 @@
 		<ubClassIndex>56</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>192</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>1</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>45</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>1</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49708,7 +49708,7 @@
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>60</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49716,7 +49716,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>2</UrbanCamoBonus>
+		<UrbanCamoBonus>1</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49738,10 +49738,10 @@
 		<ubClassIndex>58</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>207</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>40</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>4</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49749,6 +49749,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<DesertCamoBonus>1</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49772,7 +49773,7 @@
 		<ubGraphicNum>201</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>35</usPrice>
+		<usPrice>50</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -49781,6 +49782,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<UrbanCamoBonus>1</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49813,7 +49815,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>2</UrbanCamoBonus>
+		<UrbanCamoBonus>1</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49821,11 +49823,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1661</uiIndex>
-		<szItemName>6.10 Explosives Pouch</szItemName>
-		<szLongItemName>6.10 Vertical Explosives Pouch</szLongItemName>
-		<szItemDesc>The 6.10 is the vertical orientation of the 10.6 MOLLE Pouch. The 6.10  features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
-		<szBRName>6.10 Explosives Pouch</szBRName>
-		<szBRDesc>Designed to mesh seamlessly with 3.11 bags, packs, and duffels, the 6.10 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
+		<szItemName>3.11 Explosives Pouch</szItemName>
+		<szLongItemName>3.11 Vertical Explosives Pouch</szLongItemName>
+		<szItemDesc>The 3.11 Vertical Explosives Pouch features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
+		<szBRName>3.11 Explosives Pouch</szBRName>
+		<szBRDesc>The 3.11 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<AttachmentClass>16777216</AttachmentClass>
 		<nasAttachmentClass>8192</nasAttachmentClass>
@@ -49846,7 +49848,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>5</UrbanCamoBonus>
+		<UrbanCamoBonus>3</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49868,10 +49870,10 @@
 		<ubClassIndex>62</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>183</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>1</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>20</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>1</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49900,11 +49902,11 @@
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>63</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>170</ubGraphicNum>
-		<ubWeight>3</ubWeight>
+		<ubGraphicNum>217</ubGraphicNum>
+		<ubWeight>1</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>50</usPrice>
-		<ubCoolness>2</ubCoolness>
+		<ubCoolness>1</ubCoolness>
 		<bRepairEase>3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49933,9 +49935,9 @@
 		<ubClassIndex>64</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>177</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>1</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>10</usPrice>
+		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -49944,7 +49946,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>2</UrbanCamoBonus>
+		<UrbanCamoBonus>1</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -49963,10 +49965,10 @@
 		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>163</ubGraphicNum>
-		<ubWeight>7</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>220</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<usPrice>180</usPrice>
+		<ubCoolness>3</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -49993,7 +49995,7 @@
 		<ubGraphicNum>189</ubGraphicNum>
 		<ubWeight>9</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>85</usPrice>
+		<usPrice>195</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -50001,7 +50003,7 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>5</UrbanCamoBonus>
+		<CamoBonus>3</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50023,15 +50025,15 @@
 		<ubGraphicNum>185</ubGraphicNum>
 		<ubWeight>10</ubWeight>
 		<ItemSize>23</ItemSize>
-		<usPrice>340</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<usPrice>400</usPrice>
+		<ubCoolness>8</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<StealthBonus>5</StealthBonus>
+		<StealthBonus>10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50051,9 +50053,9 @@
 		<ubClassIndex>68</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>186</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>14</ubWeight>
 		<ItemSize>23</ItemSize>
-		<usPrice>340</usPrice>
+		<usPrice>240</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -50061,7 +50063,7 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>10</CamoBonus>
+		<CamoBonus>20</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50119,7 +50121,7 @@
 		<ubWeight>4</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>120</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>3</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50127,7 +50129,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>5</CamoBonus>
+		<CamoBonus>2</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50148,11 +50150,11 @@
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>71</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>184</ubGraphicNum>
+		<ubGraphicNum>200</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>25</usPrice>
-		<ubCoolness>1</ubCoolness>
+		<usPrice>60</usPrice>
+		<ubCoolness>2</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50160,7 +50162,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>1</CamoBonus>
+		<CamoBonus>2</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50184,7 +50186,7 @@
 		<ubGraphicNum>196</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>50</usPrice>
+		<usPrice>110</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -50217,7 +50219,7 @@
 		<ubGraphicNum>196</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>25</usPrice>
+		<usPrice>90</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -50248,10 +50250,10 @@
 		<ubClassIndex>74</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>194</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<usPrice>80</usPrice>
+		<ubCoolness>4</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50282,8 +50284,8 @@
 		<ubGraphicNum>190</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>150</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<usPrice>210</usPrice>
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50314,14 +50316,14 @@
 		<ubWeight>2</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>140</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>4</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DesertCamoBonus>5</DesertCamoBonus>
+		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50346,7 +50348,7 @@
 		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>125</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50354,7 +50356,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>5</CamoBonus>
+		<CamoBonus>2</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50378,7 +50380,7 @@
 		<ubGraphicNum>180</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
+		<usPrice>75</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -50453,7 +50455,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>5</CamoBonus>
+		<CamoBonus>2</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50477,8 +50479,8 @@
 		<ubGraphicNum>195</ubGraphicNum>
 		<ubWeight>2</ubWeight>
 		<ItemSize>19</ItemSize>
-		<usPrice>25</usPrice>
-		<ubCoolness>2</ubCoolness>
+		<usPrice>90</usPrice>
+		<ubCoolness>3</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50507,15 +50509,15 @@
 		<ubGraphicNum>210</ubGraphicNum>
 		<ubWeight>12</ubWeight>
 		<ItemSize>23</ItemSize>
-		<usPrice>233</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<usPrice>300</usPrice>
+		<ubCoolness>6</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>20</CamoBonus>
+		<CamoBonus>15</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50536,8 +50538,8 @@
 		<ubGraphicNum>209</ubGraphicNum>
 		<ubWeight>15</ubWeight>
 		<ItemSize>23</ItemSize>
-		<usPrice>200</usPrice>
-		<ubCoolness>6</ubCoolness>
+		<usPrice>340</usPrice>
+		<ubCoolness>7</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50566,10 +50568,10 @@
 		<AttachToPointAPCost>10</AttachToPointAPCost>
 		<ubClassIndex>84</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>200</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubGraphicNum>184</ubGraphicNum>
+		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>25</usPrice>
+		<usPrice>120</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -50578,7 +50580,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>1</CamoBonus>
+		<CamoBonus>3</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50603,7 +50605,7 @@
 		<ubWeight>4</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>65</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>4</ubCoolness>
 		<bRepairEase>4</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50611,7 +50613,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<UrbanCamoBonus>5</UrbanCamoBonus>
+		<UrbanCamoBonus>3</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50619,8 +50621,8 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1686</uiIndex>
-		<szItemName>Grenade Pouch</szItemName>
-		<szLongItemName>MK 2 Grenade Pouch</szLongItemName>
+		<szItemName>Triple Grenade Pouch</szItemName>
+		<szLongItemName>Triple MK 2 Grenade Pouch</szLongItemName>
 		<szItemDesc>Heavy duty pockets for the safe storage of three MK 2 Defensive Grenades.</szItemDesc>
 		<szBRName>Grenade Pouch</szBRName>
 		<szBRDesc>Heavy duty pockets for the safe storage of three  MK 2 Defensive Grenades.</szBRDesc>
@@ -50636,7 +50638,7 @@
 		<ubWeight>4</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>90</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>6</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50644,7 +50646,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DesertCamoBonus>6</DesertCamoBonus>
+		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50668,8 +50670,8 @@
 		<ubGraphicNum>204</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>60</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<usPrice>120</usPrice>
+		<ubCoolness>6</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50677,7 +50679,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DesertCamoBonus>6</DesertCamoBonus>
+		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50710,7 +50712,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DesertCamoBonus>6</DesertCamoBonus>
+		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50732,10 +50734,10 @@
 		<ubClassIndex>89</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>214</ubGraphicNum>
-		<ubWeight>5</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>150</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>4</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50743,7 +50745,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<DesertCamoBonus>6</DesertCamoBonus>
+		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50764,15 +50766,15 @@
 		<ubGraphicNum>205</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ItemSize>26</ItemSize>
-		<usPrice>170</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<usPrice>190</usPrice>
+		<ubCoolness>6</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>10</CamoBonus>
+		<CamoBonus>3</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50847,17 +50849,17 @@
 		<ubClassIndex>93</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>212</ubGraphicNum>
-		<ubWeight>16</ubWeight>
+		<ubWeight>18</ubWeight>
 		<ItemSize>29</ItemSize>
-		<usPrice>350</usPrice>
-		<ubCoolness>8</ubCoolness>
+		<usPrice>260</usPrice>
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<CamoBonus>20</CamoBonus>
+		<CamoBonus>25</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -50878,8 +50880,8 @@
 		<ubGraphicNum>203</ubGraphicNum>
 		<ubWeight>6</ubWeight>
 		<ItemSize>23</ItemSize>
-		<usPrice>240</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<usPrice>200</usPrice>
+		<ubCoolness>3</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -50911,18 +50913,51 @@
 		<ubWeight>1</ubWeight>
 		<ItemSize>10</ItemSize>
 		<usPrice>20</usPrice>
-		<ubCoolness>3</ubCoolness>
+		<ubCoolness>5</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
-              <Metal>1</Metal>
+        <Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>0</CamoBonus>
-             <StealthBonus>-10</StealthBonus>
+        <StealthBonus>-10</StealthBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+		<ITEM>
+		<uiIndex>1696</uiIndex>
+		<szItemName>Double Grenade Pouch</szItemName>
+		<szLongItemName>MK 2 Grenade Pouch</szLongItemName>
+		<szItemDesc>Heavy duty pockets for the safe storage of two MK 2 Defensive Grenades.</szItemDesc>
+		<szBRName>Grenade Pouch</szBRName>
+		<szBRDesc>Heavy duty pockets for the safe storage of two  MK 2 Defensive Grenades.</szBRDesc>
+		<usItemClass>131072</usItemClass>
+		<AttachmentClass>16777216</AttachmentClass>
+		<nasAttachmentClass>4096</nasAttachmentClass>
+		<nasLayoutClass>4</nasLayoutClass>
+		<AttachmentPoint>1</AttachmentPoint>
+		<AttachToPointAPCost>10</AttachToPointAPCost>
+		<ubClassIndex>96</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>216</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ItemSize>22</ItemSize>
+		<usPrice>60</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>2</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />

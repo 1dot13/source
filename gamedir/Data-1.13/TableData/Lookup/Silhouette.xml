@@ -192,4 +192,8 @@
 		<id>47</id>
 		<name>Sniper Rifle</name>
 	</Silhouette>
+		<Silhouette>
+		<id>48</id>
+		<name>Grenade x2</name>
+	</Silhouette>
 </JA2Data>
