@@ -119,10 +119,7 @@ void * gDropObj;
 void
 DropDownBase::Create(UINT16 sX, UINT16 sY)
 {
-	if( mfMouseRegionsCreated )
-	{
-		return Destroy();
-	}
+	Destroy();
 
 	Init(sX, sY);
 
@@ -156,10 +153,7 @@ DropDownBase::Create(UINT16 sX, UINT16 sY)
 void
 DropDownBase::Create_Drop()
 {
-	if( mfMouseRegionsCreated_Drop )
-	{
-		return Destroy_Drop();
-	}
+	Destroy_Drop();
 
 	Init_Drop();
 

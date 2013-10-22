@@ -361,7 +361,7 @@ void BtnIMPPrejudiceFinishCallback(GUI_BUTTON *btn,INT32 reason)
 	// btn callback for IMP personality quiz answer button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
-
+		
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
@@ -387,24 +387,17 @@ void BtnIMPPrejudiceFinishCallback(GUI_BUTTON *btn,INT32 reason)
 			bRacist						= ( INT8)DropDownTemplate<DROPDOWNNR_RACIST>::getInstance().GetSelectedEntryKey();
 			bSexist						= (UINT8)DropDownTemplate<DROPDOWNNR_SEXIST>::getInstance().GetSelectedEntryKey();
 
-			if ( gGameOptions.fBackGround )
-			{
-				iCurrentImpPage = IMP_BACKGROUND;
+			iCurrentImpPage = IMP_MAIN_PAGE;
 
-				fButtonPendingFlag = TRUE;
+			if( CameBackToPrejudicePageButNotFinished() )
+			{
 			}
 			else
 			{
-				iCurrentImpPage = IMP_MAIN_PAGE;
-
-				if( CameBackToPrejudicePageButNotFinished() )
-				{
-				}
+				if ( iCurrentProfileMode != IMP__FINISH )
+					iCurrentProfileMode = IMP__PERSONALITY;
 				else
-				{
-					//We are finished on this page
-					iCurrentProfileMode = IMP__ATTRIBUTES;
-				}
+					iCurrentProfileMode = IMP__FINISH;
 			}
 		}
 	}

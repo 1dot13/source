@@ -414,7 +414,7 @@ void BtnIMPDisabilityTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
-
+		
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
@@ -427,7 +427,7 @@ void BtnIMPDisabilityTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 		}
 		else
 		{
-			iCurrentImpPage = IMP_MAIN_PAGE;
+			iCurrentImpPage = IMP_PREJUDICE;
 
 			if( CameBackToDisabilityTraitPageButNotFinished() )
 			{
