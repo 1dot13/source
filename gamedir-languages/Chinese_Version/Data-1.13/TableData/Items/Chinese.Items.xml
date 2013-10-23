@@ -13182,7 +13182,7 @@
     <szLongItemName>Bomb Pouch</szLongItemName>
     <szItemDesc>A leg rig suitable for the safe transport of explosives.</szItemDesc>
     <szBRName>Bomb Pouch</szBRName>
-    <szBRDesc>Not for sale.</szBRDesc>
+    <szBRDesc>A leg rig suitable for the safe transport of explosives.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1648</uiIndex>
@@ -13202,11 +13202,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>1650</uiIndex>
-    <szItemName>10.6 Pouch</szItemName>
-    <szLongItemName>10.6 Horizontal Pouch</szLongItemName>
-    <szItemDesc>Measuring 6" H, 10" W and 3 ½ D this MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szItemDesc>
-    <szBRName>10.6 Horizontal Pouch</szBRName>
-    <szBRDesc>Measuring 6" H, 10" W and 3 ½ D this MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szBRDesc>
+    <szItemName>3.11 Pouch</szItemName>
+    <szLongItemName>3.11 Horizontal Pouch</szLongItemName>
+    <szItemDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szItemDesc>
+    <szBRName>3.11 Horizontal Pouch</szBRName>
+    <szBRDesc>This MOLLE pouch is one large compartment with two drain holes on the bottom and a zipper the full width of the top.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1651</uiIndex>
@@ -13290,11 +13290,11 @@
   </ITEM>
   <ITEM>
     <uiIndex>1661</uiIndex>
-    <szItemName>6.10 Explosives Pouch</szItemName>
-    <szLongItemName>6.10 Vertical Explosives Pouch</szLongItemName>
-    <szItemDesc>The 6.10 is the vertical orientation of the 10.6 MOLLE Pouch. The 6.10  features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
-    <szBRName>6.10 Explosives Pouch</szBRName>
-    <szBRDesc>Designed to mesh seamlessly with 3.11 bags, packs, and duffels, the 6.10 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
+    <szItemName>3.11 Explosives Pouch</szItemName>
+    <szLongItemName>3.11 Vertical Explosives Pouch</szLongItemName>
+    <szItemDesc>The 3.11 Vertical Explosives Pouch features one compartment with a zipper for the safe storage of explosives. The full width of the top can attach to any MOLLE system.</szItemDesc>
+    <szBRName>3.11 Explosives Pouch</szBRName>
+    <szBRDesc>The 3.11 Vertical Explosives Pouch provides lightweight all-weather storage for any application.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1662</uiIndex>
@@ -13567,5 +13567,13 @@
     <szItemDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners.</szItemDesc>
     <szBRName>Carabiner</szBRName>
     <szBRDesc>Functional shape is easy to hold; deep basket accepts loads of slings and runners</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1696</uiIndex>
+    <szItemName>Double Grenade Pouch</szItemName>
+    <szLongItemName>MK 2 Grenade Pouch</szLongItemName>
+    <szItemDesc>Heavy duty pockets for the safe storage of two MK 2 Defensive Grenades.</szItemDesc>
+    <szBRName>Grenade Pouch</szBRName>
+    <szBRDesc>Heavy duty pockets for the safe storage of two  MK 2 Defensive Grenades.</szBRDesc>    
   </ITEM>
 </ITEMLIST>

@@ -216,4 +216,12 @@
     <pIndex>53</pIndex>
     <pName>Sniper Rifle Gun Sling</pName>
   </POCKET>
+  <POCKET>
+    <pIndex>54</pIndex>
+    <pName>Flash Bang</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>55</pIndex>
+    <pName>Grenadex2</pName>
+  </POCKET>
 </POCKETLIST>
