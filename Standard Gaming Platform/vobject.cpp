@@ -64,7 +64,10 @@
 HLIST		ghVideoObjects = NULL;
 BOOLEAN	gfVideoObjectsInit=FALSE;
 
-#define USE_HASHMAP_FOR_VOBJECTS 
+#ifndef SGP_VIDEO_DEBUGGING
+	#define USE_HASHMAP_FOR_VOBJECTS 
+#endif
+
 #ifdef USE_HASHMAP_FOR_VOBJECTS 
 typedef struct VOBJECT_NODE
 {

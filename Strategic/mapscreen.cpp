@@ -4868,9 +4868,9 @@ UINT32 MapScreenHandle(void)
 
 		if(!AddVideoObject(&VObjectDesc, &guiMAPINV))
 		{
-			FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);
+			FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);		
+			CHECKF(AddVideoObject(&VObjectDesc, &guiMAPINV));
 		}
-		CHECKF(AddVideoObject(&VObjectDesc, &guiMAPINV));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\map_inv_2nd_gun_cover.sti", VObjectDesc.ImageFile);
