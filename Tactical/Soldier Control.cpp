@@ -8629,7 +8629,8 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		case SWATTING:
 		case SWATTING_WK:
 		case SWAT_BACKWARDS_WK:
-			uiTerrainDelay = (uiTerrainDelay * (100 + pSoldier->GetBackgroundValue(BG_PERC_SPEED_RUNNING) )) / 100;
+			// Flugente: background running speed reduces time needed: + is good, - is bad
+			uiTerrainDelay = (uiTerrainDelay * (100 - pSoldier->GetBackgroundValue(BG_PERC_SPEED_RUNNING) )) / 100;
 			break;
 
 		default:
