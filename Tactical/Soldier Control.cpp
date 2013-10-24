@@ -16888,6 +16888,11 @@ void SOLDIERTYPE::SoldierPropertyUpkeep()
 
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
+
+	// Flugente: as pows received faulty poison values, we apply a very simple fix:
+	// remove in a few revisions - the code has already been fixed, so this won't be necessary anymore soon^^
+	this->bPoisonLife = min(this->bPoisonLife, this->bPoisonSum );
+	this->bPoisonBleeding = min(this->bPoisonBleeding, this->bBleeding);
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

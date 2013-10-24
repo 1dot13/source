@@ -2255,11 +2255,18 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	}
 
 	// adjust poison points
-	INT8 lifechanged = oldlife - pSoldier->stats.bLife;
+	INT8 lifechanged = pSoldier->stats.bLife - oldlife;
 	if ( lifechanged < 0 )
-		pSoldier->bPoisonLife = max(0, pSoldier->bPoisonLife - lifechanged);
+	{
+		// add a bit of poisoning...
+		pSoldier->bPoisonSum = min(pSoldier->bPoisonSum + 10, pSoldier->stats.bLifeMax);
+
+		pSoldier->bPoisonLife = min(pSoldier->bPoisonSum, pSoldier->stats.bLife);
+	}
 	else if ( lifechanged > 0)
-		pSoldier->bPoisonLife = max(pSoldier->bPoisonSum, pSoldier->bPoisonLife + lifechanged);
+	{
+		pSoldier->bPoisonLife = min(pSoldier->bPoisonSum, pSoldier->stats.bLife);
+	}
 
 	// SANDRO - make the lost life insta-healable
 	pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
